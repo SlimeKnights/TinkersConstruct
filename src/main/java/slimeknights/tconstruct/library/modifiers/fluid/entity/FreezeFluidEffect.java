@@ -41,7 +41,7 @@ public record FreezeFluidEffect(TimeAction action, int time) implements FluidEff
       if (action.execute()) {
         // ensure we have enough time to freeze after applying this
         target.setTicksFrozen(Math.max(target.getTicksRequiredToFreeze(), target.getTicksFrozen()) + Math.round(time * value));
-        target.setRemainingFireTicks(0);
+        target.clearFire();
       }
       return value;
     } else {

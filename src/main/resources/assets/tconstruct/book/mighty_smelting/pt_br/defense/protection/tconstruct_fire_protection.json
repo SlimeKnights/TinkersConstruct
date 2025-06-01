@@ -5,10 +5,9 @@
       "text": "Através do fogo e das chamas."
     }
   ],
-  "more_text_space": true,
   "effects": [
-    "Diminui o danos causado pelo fogo e o tempo de queimadura",
-    "Múltiplos níveis, cada nível reduz ainda mais o dano e o tempo de queima.",
-    "Requer 1 slot de defesa"
+    "Diminui o dano de fogo e o tempo em chamas",
+    "Múltiplos níveis, cada nível reduz ainda mais o dano e o tempo em chamas.",
+    "Requer 1 slot de defesa por nível"
   ]
 }

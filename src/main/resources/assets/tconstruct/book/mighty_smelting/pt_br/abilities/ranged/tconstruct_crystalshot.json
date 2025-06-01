@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:crystalshot",
+  "text": [
+    {
+      "text": "O manuseio pode fazer com que cristais cresçam em você."
+    }
+  ],
+  "effects": [
+    "Pode atirar como flechas",
+    "Não requer munição, consome durabilidade extra",
+    "Altera as cores com base nos cristais usados para criar",
+    "Nível único",
+    "Requer 1 slot de habilidade"
+  ]
+}

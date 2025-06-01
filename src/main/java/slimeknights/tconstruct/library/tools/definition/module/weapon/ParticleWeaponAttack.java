@@ -16,6 +16,7 @@ import java.util.List;
 
 /** Weapon attack that just spawns an extra particle */
 public record ParticleWeaponAttack(SimpleParticleType particle) implements MeleeHitToolHook, ToolModule {
+  @SuppressWarnings("deprecation")
   public static final RecordLoadable<ParticleWeaponAttack> LOADER = RecordLoadable.create(
     Loadables.PARTICLE_TYPE.comapFlatMap((type, error) -> {
       if (type instanceof SimpleParticleType simple) {

@@ -15,7 +15,7 @@
     }
   ],
   "entry": {
-    "type": "tconstruct:tag_preference",
+    "type": "mantle:tag_preference",
     "tag": "forge:nuggets/osmium"
   },
   "functions": [

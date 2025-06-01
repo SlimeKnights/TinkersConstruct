@@ -1,12 +1,15 @@
 intro=Introdução
 
-materials=Materiais Nivel 1
-materials.subtext=Os materiais são a primeira parte da fabricação de qualquer ferramenta. Estes materiais podem ser colocados no montador da peças para criar peças de ferramentas.
+melee_harvest_materials=Materiais de Coleta e Combate de Tier 1
+melee_harvest_materials.subtext=Esses materiais podem ser colocados no montador de peças para fabricar peças de ferramentas para armas de combate ou ferramentas de coleta.  
 
-tools=Ferramentas
+ranged_materials=Materiais de Longo Alcance de Tier 1
+ranged_materials.subtext=Esses materiais podem ser colocados no montador de peças para fabricar peças de ferramentas para armas de longo alcance, como arcos.  
 
-armor=Equipamento do viajante
-armor.subtext=O Equipamento do Viajante é fabricado usando uma estação de fabricação! Este equipamento não oferece a melhor defesa, mas ainda há muitas oportunidades para melhorar sua armadura! Oh, que coisas divertidas você vai criar?
+tools=Ferramentas  
+
+armor=Armadura Básica
+armor.subtext=A armadura básica oferece proteção simples sem a necessidade de caçar recursos ou construir máquinas. Isso proporcionará uma defesa limitada, mas ainda há muitas oportunidades para melhorar sua armadura! Que coisas divertidas você vai criar?  
 
 modifiers=Modificadores
-further_reading=Leitura adicional
+further_reading=Leitura Adicional

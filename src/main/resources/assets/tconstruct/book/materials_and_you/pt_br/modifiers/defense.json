@@ -1,16 +1,25 @@
 {
+  "type": "tconstruct:showcase",
   "title": "Modificadores de Defesa",
+  "item": {
+    "type": "forge:nbt",
+    "item": "tconstruct:creative_slot",
+    "nbt": {
+      "slot": "defense"
+    }
+  },
+  "tooltip": [ "Ícone de Slot de Defesa" ],
   "text": [
     {
-      "text": "Defesa é um tipo de modificador exclusivo da armadura, eles reforçam a proteção contra ameaças particulares, como por exemplo, fogo ou explosão. Eles oferecem outra forma de personalizar a armadura, já que a maioria dos tipos de armaduras carecem de traços materiais."
+      "text": "Defesa é um tipo de modificador exclusivo para armaduras, aumentando a proteção contra ameaças específicas, como fogo ou repulsão. Eles oferecem outra forma de personalizar armaduras, já que a maioria dos tipos de armadura não possui atributos de material."
     },
-    {	
-      "text": "Assim como muitos outros tipos de modificadores, os modificadores de defesa exigem a aplicação de slots de defesa. Normalmente, as armaduras com um grande número de slots de defesa começam com menos slots de melhoria, o que significa que a funcionalidade é sacrificada pela proteção.",
-      "paragraph": true
+    {
+      "text": "Normalmente, as armaduras com um grande número de slots de defesa começam com menos slots de melhoria, o que significa que a funcionalidade é sacrificada em prol da proteção."
     },
-	 {
-      "text": "O Fundições Poderosas também tem uma lista completa de modificadores de defesa disponíveis em ferramentas, assim como a Enciclopédia.",
+    {
+      "text": "No livro 'Fundições Poderosas' também contém uma lista completa de modificadores de defesa disponíveis para ferramentas, assim com a 'Enciclopédia do Tinkerando'.",
       "paragraph": true
     }
   ]
 }
+

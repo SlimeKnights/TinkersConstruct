@@ -79,8 +79,7 @@ public class BonkingModifier extends SlingModifier implements MeleeHitModifierHo
   }
 
   @Override
-  public void onStoppedUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int timeLeft) {
-    super.onStoppedUsing(tool, modifier, entity, timeLeft);
+  public void beforeReleaseUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int useDuration, int timeLeft, ModifierEntry activeModifier) {
     Level level = entity.level();
     if (!level.isClientSide && (entity instanceof Player player)) {
       float f = getForce(tool, modifier, player, timeLeft, true);
@@ -126,7 +125,9 @@ public class BonkingModifier extends SlingModifier implements MeleeHitModifierHo
           }
         }
       }
-      level.playSound(null, player.getX(), player.getY(), player.getZ(), Sounds.BONK.getSound(), player.getSoundSource(), 1, 1f);
+      if (isActive(tool, modifier, activeModifier)) {
+        level.playSound(null, player.getX(), player.getY(), player.getZ(), Sounds.BONK.getSound(), player.getSoundSource(), 1, 1f);
+      }
     }
   }
 }

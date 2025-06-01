@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:ambidextrous",
+  "text": [
+    {
+      "text": "Permite socar com a mão secundária. A mão secundária receberá todos os aumentos desarmados aplicados à mão principal."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nível",
+    "Requer 1 slot de habilidade"
+  ]
+}
+

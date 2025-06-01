@@ -11,22 +11,23 @@ import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.build.ConditionalStatModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.UsingToolModifierHook;
 import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
 import slimeknights.tconstruct.library.module.ModuleHookMap.Builder;
+import slimeknights.tconstruct.library.tools.item.ranged.ModifiableLauncherItem;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.shared.TinkerAttributes;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.modifiers.ability.interaction.BlockingModifier;
-import slimeknights.tconstruct.tools.modifiers.upgrades.ranged.ScopeModifier;
 
 /**
  * Shared logic for all slinging modifiers
  */
-public abstract class SlingModifier extends NoLevelsModifier implements GeneralInteractionModifierHook {
+public abstract class SlingModifier extends NoLevelsModifier implements GeneralInteractionModifierHook, UsingToolModifierHook {
   @Override
   protected void registerHooks(Builder builder) {
-    builder.addHook(this, ModifierHooks.GENERAL_INTERACT);
+    builder.addHook(this, ModifierHooks.GENERAL_INTERACT, ModifierHooks.TOOL_USING);
   }
 
   @Override
@@ -36,17 +37,6 @@ public abstract class SlingModifier extends NoLevelsModifier implements GeneralI
       return InteractionResult.SUCCESS;
     }
     return InteractionResult.PASS;
-  }
-
-
-  @Override
-  public void onUsingTick(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int timeLeft) {
-    ScopeModifier.scopingUsingTick(tool, entity, getUseDuration(tool, modifier) - timeLeft);
-  }
-
-  @Override
-  public void onStoppedUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int timeLeft) {
-    ScopeModifier.stopScoping(entity);
   }
 
   @Override
@@ -84,5 +74,11 @@ public abstract class SlingModifier extends NoLevelsModifier implements GeneralI
   /** Scales the given knockback value using the two attributes */
   public static float scaleKnockback(LivingEntity target, float knockback) {
     return (float) (knockback * target.getAttributeValue(TinkerAttributes.KNOCKBACK_MULTIPLIER.get()) * (1 - target.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE)));
+  }
+
+  /** Checks if this modifier is the one actively being used. Used for failure sound effects. */
+  public static boolean isActive(IToolStackView tool, ModifierEntry modifier, ModifierEntry activeModifier) {
+    // active modifier being us, or a bow is firing and no drawback ammo
+    return modifier == activeModifier || (activeModifier.getLevel() == 0 && !tool.getPersistentData().contains(ModifiableLauncherItem.KEY_DRAWBACK_AMMO));
   }
 }

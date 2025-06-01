@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "tconstruct:block/smeltery/tank/casting_tank" },
+    "facing=south": { "model": "tconstruct:block/smeltery/tank/casting_tank", "y": 180 },
+    "facing=west":  { "model": "tconstruct:block/smeltery/tank/casting_tank", "y": 270 },
+    "facing=east":  { "model": "tconstruct:block/smeltery/tank/casting_tank", "y":  90 }
+  }
+}

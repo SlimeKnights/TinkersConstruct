@@ -1,13 +1,13 @@
 {
   "tool": "tconstruct:slime_helmet",
   "text": [
-    { "text": "Descobri que o enderslime pode ser usado para imitar os efeitos dos monstros com o foco adequado, como um crânio." },
-    { "text": "Os crânios que eu testei estão descritos na próxima seção do livro.", "paragraph": true }
+    { "text": "Descobri que o slime-do-ender pode ser usado para imitar os efeitos de monstros com o foco adequado, como um crânio." },
+    { "text": "Os crânios que testei são descritos na próxima seção do livro.", "paragraph": true }
   ],
   "properties": [
     "Alta Durabilidade",
-    "5 Slots de melhoria",
-    "0 Slot de defesa",
-    "1 Slot de habilidade"
+    "5 Slots de Melhoria",
+    "0 Slots de Defesa",
+    "1 Slot de Habilidade"
   ]
 }

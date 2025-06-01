@@ -6,7 +6,7 @@
   "cooling_time": 2400,
   "fluid": {
     "amount": 250,
-    "fluid": "minecraft:milk"
+    "tag": "forge:milk"
   },
   "result": "tconstruct:cheese_ingot"
 }

@@ -2,12 +2,16 @@
   "modifier_id": "tconstruct:spilling",
   "text": [
     {
-      "text": "É um pouco nojento que sua ferramenta esteja vazando. Mas também é muito eficaz!"
+      "text": "É meio nojento que sua ferramenta esteja vazando. Mas também muito eficaz!"
+    },
+    {
+      "text": "Clicar com o botão direito em um tanque com a ferramenta o enche", "paragraph": true
     }
   ],
+  "tool_filter": "tconstruct:modifiable/held",
   "effects": [
     "Drena o tanque ao atacar",
-    "Vários efeitos baseados em fluidos, incluindo fogo e veneno",
-    "Requer 1 Slot de Habilidade, nível único"
+    "Vários efeitos baseados no fluido, incluindo fogo e veneno",
+    "Requer 1 slot de habilidade por nível"
   ]
 }

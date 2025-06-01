@@ -1,0 +1,14 @@
+{
+  "title": "Tanque Proxy",
+  "item": "tconstruct:scorched_proxy_tank",
+  "text": [
+    {
+      "text": "O tanque proxy é ótimo para encher ou esvaziar itens de fluido de tamanho variável, como ferramentas com tanques. Basta colocar a ferramenta no tanque e enchê-la usando itens de fluido, torneiras ou canais.",
+      "paragraph": true
+    },
+    {
+      "text": "Infelizmente, esse design não funciona bem com recipientes como baldes ou latas de cobre, pois seu tamanho fixo impede que as torneiras os encham lentamente. Para esses, é melhor usar um bloco de fundição.",
+      "paragraph": true
+    }
+  ]
+}

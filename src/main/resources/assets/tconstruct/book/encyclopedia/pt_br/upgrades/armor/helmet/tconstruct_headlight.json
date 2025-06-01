@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:headlight",
+  "text": [
+    {
+      "text": "Ilumina visualmente os blocos ao seu redor."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Nível único",
+    "Requer 1 slot de melhoria"
+  ]
+}

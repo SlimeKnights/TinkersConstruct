@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.tools.capability.inventory;
 
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -354,6 +355,7 @@ public class ToolInventoryCapability extends InventoryModifierHookIterator<Modif
     }
 
     /** Parses all stacks in NBT into the passed list */
+    @CanIgnoreReturnValue
     default List<ItemStack> getAllStacks(IToolStackView tool, ModifierEntry modifier, List<ItemStack> stackList) {
       for (int i = 0; i < getSlots(tool, modifier); i++) {
         ItemStack stack = getStack(tool, modifier, i);

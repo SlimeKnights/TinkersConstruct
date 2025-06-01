@@ -5,6 +5,7 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import slimeknights.mantle.data.loadable.field.ContextKey;
@@ -77,7 +78,8 @@ public class SwappableModifierRecipe extends ModifierRecipe {
     ModifierId modifier = result.getId();
 
     boolean needsModifier;
-    if (tool.getUpgrades().getLevel(modifier) == 0) {
+    int level = tool.getUpgrades().getLevel(modifier);
+    if (level == 0) {
       needsModifier = true;
       Component commonError = validatePrerequisites(tool);
       if (commonError != null) {
@@ -88,7 +90,7 @@ public class SwappableModifierRecipe extends ModifierRecipe {
     }
 
     // do not allow adding the modifier if this variant is already present
-    if (tool.getPersistentData().getString(modifier).equals(value)) {
+    if (level > 0 && tool.getPersistentData().getString(modifier).equals(value)) {
       return RecipeResult.failure(ALREADY_PRESENT, result.get().getDisplayName(), variant);
     }
 
@@ -136,6 +138,15 @@ public class SwappableModifierRecipe extends ModifierRecipe {
       toolWithModifier = getToolInputs().stream().map(stack -> withModifiers(stack, modifiersForResult(result, result), data -> data.putString(id, value))).collect(Collectors.toList());
     }
     return toolWithModifier;
+  }
+
+  @Override
+  public List<SlotCount> getResultSlots() {
+    if (resultSlots == null) {
+      ItemStack[] tools = toolRequirement.getItems();
+      resultSlots = getResultSlots(getDisplayResult(), tools.length > 0 ? tools[0].getItem() : Items.AIR, value);
+    }
+    return resultSlots;
   }
 
 

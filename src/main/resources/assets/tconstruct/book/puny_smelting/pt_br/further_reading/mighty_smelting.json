@@ -1,0 +1,13 @@
+{
+  "title": "Fundição Poderosa",
+  "image": {
+    "file": "tconstruct:book/images/book_mighty_smelting.png",
+    "width": 128,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "Havia simplesmente genialidade demais para caber em um único livro, então eu tive que escrever um segundo. Depois que você dominar o fundidor, derreta um pouco de argamassa e despeje sobre um livro para criar a continuação."
+    }
+  ]
+}

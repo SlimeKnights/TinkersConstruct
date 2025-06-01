@@ -2,13 +2,16 @@
   "modifier_id": "tconstruct:springy",
   "text": [
     {
-      "text": "Tem 25% chance por nivel de aplicar até 2 blocos de repulsão por nivel do atacante. Aplica o efeito da peça com o maior bônus."
+      "text": "Tem 25% de chance, por nível, de aplicar até 2 blocos de repulsão por nível a quem te atacar. Aplica efeito da peça com o maior bônus."
+   },
+    {
+      "text": "Os escudos são duas vezes mais eficazes, mas só funcionam ao bloquear.", "paragraph": true
     }
   ],
   "more_text_space": true,
   "effects": [
-    "Pode aplicar niveis progressivamente",
-    "Máximo de 3 niveis",
-    "Requer 1 slot de melhoraria por nivel"
+    "Pode aplicar níveis progressivamente",
+    "Máximo de 3 níveis",
+    "Requer 1 slot de melhoraria por nível"
   ]
 }

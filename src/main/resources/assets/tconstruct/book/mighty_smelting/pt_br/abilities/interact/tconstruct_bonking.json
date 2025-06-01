@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:bonking",
+  "text": [
+    {
+      "text": "Melhor usado em penhascos durante um pôr do sol épico."
+    }
+  ],
+  "effects": [
+    "Carregue para lançar o mob alvo para longe",
+    "Pode aumentar a velocidade de lançamento com poder ou repulsão",
+    "Nível único",
+    "Requer 1 slot de habilidade"
+  ]
+}

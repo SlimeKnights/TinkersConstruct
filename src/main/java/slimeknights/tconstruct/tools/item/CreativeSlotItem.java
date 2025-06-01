@@ -9,7 +9,6 @@ import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -29,6 +28,7 @@ import slimeknights.tconstruct.tools.modifiers.slotless.CreativeSlotModifier;
 import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class CreativeSlotItem extends Item {
   private static final String NBT_KEY = "slot";
@@ -80,7 +80,7 @@ public class CreativeSlotItem extends Item {
   }
 
   /** Adds all variants of this slot item to the creative tab */
-  public void addVariants(CreativeModeTab.Output items) {
+  public void addVariants(Consumer<ItemStack> items) {
     Collection<SlotType> allTypes = SlotType.getAllSlotTypes();
     if (allTypes.isEmpty()) {
       items.accept(new ItemStack(this));

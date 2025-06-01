@@ -1,6 +1,6 @@
 {
   "title": "Fundição",
-  "subText": "A Fundição Poderosa é sua para controlar.",
+  "subText": "Esta Poderosa Fundição está sob seu controle.",
   "hidden": ["structurereq", "sgui2"],
   "operations": [
     { "before": "features",     "action": "add_group", "data": "Detalhes" },

@@ -1,16 +1,17 @@
 {
   "tool": "tconstruct:excavator",
   "text": [
-    { "text": "A Escavadora é uma ferramenta grande útil para escavação, muito efetiva na terra, cascalho, e areia em uma area de 3x3." },
-    { "text": "Os expansores se alternam entre aumentar a largura e altura.", "paragraph": true }
+    { "text": "A Escavadeira é uma ferramenta grande e útil para escavação, eficaz na terra, cascalho e areia em uma área de 3x3." },
+    { "text": "Os expansores alternam entre aumentar a largura e a altura.", "paragraph": true }
   ],
   "properties": [
     "+1.5 Dano de Ataque",
-    "120% Modificador de Ataque",
-    "1.0 Vel de Ataque",
-    "30% De Mineração",
-    "375% De Durabilidade",
+    "120% de Ataque Multiplicado",
+    "1.0 Velocidade de Ataque",
+    "30% de Mineração Multiplicada",
+    "375% de Durabilidade Multiplicada",
     "Repulsão II",
-    "Faz Estradas"
+    "Cria Estradas"
   ]
 }
+

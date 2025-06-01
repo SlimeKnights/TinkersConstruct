@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:the_one_probe",
+  "text": [
+    {
+      "text": "Jogue isso no fogo! Destrua-o!"
+    },
+    {
+      "text": "Não.",
+      "paragraph": true
+    }
+  ],
+  "effects": [
+    "Fornece informações detalhadas sobre blocos e entidades ao segurar ou usar a ferramenta",
+    "Nível único",
+    "Requer 1 slot de melhoria"
+  ]
+}

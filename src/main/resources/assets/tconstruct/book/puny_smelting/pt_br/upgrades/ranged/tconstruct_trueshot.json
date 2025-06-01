@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:trueshot",
+  "text": [
+    {
+      "text": "Foco total no alvo."
+    }
+  ],
+  "effects": [
+    "Aumenta a precisão dos projéteis disparados",
+    "Múltiplos níveis, cada nível aumenta ainda mais a precisão",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}

@@ -1,22 +1,36 @@
 intro=Introdução
-entity_melting=Fundição de Entidade
-materials=Materiais Nivel 3
+entity_melting=Fundição de Entidades  
+melee_harvest_materials=Materiais de Coleta e Combate de Nível 3
+melee_harvest_materials.subtext=Esses materiais podem ser criados com ligas e então fundidos em peças de ferramentas para armas de combate ou ferramentas de coleta.  
+ranged_materials=Materiais de Longo Alcance de Nível 3
+ranged_materials.subtext=Esses materiais podem ser criados com ligas e então fundidos em peças de ferramentas para armas de longo alcance, como arcos.  
+armor_materials=Materiais de Armadura de Nível 3
+armor_materials.subtext=Esses materiais podem ser fundidos em armaduras e escudos.  
+
 tools=Ferramentas Grandes
-tools.subtext=Todas as ferramentas grandes requerem o uso de uma bigorna tinker para sua fabricação
+tools.subtext=Todas as ferramentas grandes requerem o uso da bigorna do Tinker para serem fabricados.  
+
+armor=Armadura Poderosa
+armor.subtext=Ligas desbloqueiam uma gama maior de materiais para a criação de armaduras. Elas podem conceder habilidades adicionais além de conjuntos básicos como o equipamento do viajante.  
 
 smeltery=Fundição
 
 abilities=Habilidades
-abilities.subtext=As habilidades são mais poderosas do que as melhorias, mas também têm um número mais limitado de slots.
+abilities.subtext=As habilidades são mais poderosas que melhorias, mas também têm um número mais limitado de slots.
 abilities.group_general=Geral
-abilities.group_harvest=Colheita
+abilities.group_harvest=Coleta
 abilities.group_melee=Arma
+abilities.group_ranged=Longo Alcance
 abilities.group_interact=Interação
 abilities.group_armor=Armadura
-abilities.unarmed=Desarmado
-upgrades.subtext=As ferramentas podem ser aperfeiçoadas com melhorias, embora apenas um número limitado possa ser aplicado a cada ferramenta.
+abilities.group_armor.helmet=Capacete
+abilities.group_armor.chestplate=Peitoral
+abilities.group_armor.leggings=Calças
+abilities.group_armor.boots=Botas
+abilities.group_armor.shield=Escudo
+upgrades.subtext=As ferramentas podem ser aprimoradas com melhorias, embora apenas um número limitado possa ser aplicado a cada ferramenta.  
 
 defense=Defesa
-defense.subtext=Os modificadores de defesa só podem ser aplicados à armadura, através de slots de defesa.
+defense.subtext=Os modificadores de defesa só podem ser aplicados a armaduras, usando slots de defesa.
 defense.group_protection=Proteção
 defense.group_special=Especial

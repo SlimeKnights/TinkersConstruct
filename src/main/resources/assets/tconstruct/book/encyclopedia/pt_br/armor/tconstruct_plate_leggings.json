@@ -1,13 +1,12 @@
 {
   "tool": "tconstruct:plate_leggings",
   "text": [
-    { "text": "As perneiras de placas são perneiras de proteção, com alta proteção, poucos slots de melhoria e com muitos slots de defesa." }
+    { "text": "As Calças de Placa são calças defensivas, com alta proteção, poucos slots de habilidade e muitos slots de defesa." }
   ],
   "properties": [
-    "450 Durabilidade",
-    "+5 Armadura",
-    "1 Slot de Melhoria",
-    "4 Slots de Defesa",
-    "1 Slot de Habilidade"
+    "Status controlados pelo material",
+    "2 Slots de Melhoria",
+    "3 Slots de Defesa",
+    "2 Atributos de Material"
   ]
 }

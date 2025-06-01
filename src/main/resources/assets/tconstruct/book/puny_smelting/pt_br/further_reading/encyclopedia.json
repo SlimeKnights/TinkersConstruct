@@ -1,0 +1,13 @@
+{
+  "title": "Enciclopédia da Tinkerando",
+  "image": {
+    "file": "tconstruct:book/images/book_encyclopedia.png",
+    "width": 128,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "Aparentemente, alguns tinkereiros aspirantes não têm braços suficientes para fazer ferramentas e segurar meus dois livros ao mesmo tempo. Se vocês tivessem quatro braços como eu, isso não seria um problema! Felizmente para vocês, nerds, por apenas um pouco de ouro derretido, é possível criar o novo livro da Selena, que contém todas as informações que vocês precisam sobre a construção de ferramentas. Mas não esperem encontrar nada sobre minha incrível fundição lá."
+    }
+  ]
+}

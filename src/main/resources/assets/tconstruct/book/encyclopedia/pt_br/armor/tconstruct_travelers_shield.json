@@ -1,0 +1,17 @@
+{
+  "tool": "tconstruct:travelers_shield",
+  "text": [
+    { "text": "O Escudo do Viajante é um escudo leve com potencial de bloqueio limitado, mas com movimento rápido enquanto bloqueia." }
+  ],
+  "properties": [
+    "200 de Durabilidade",
+    "Bloqueia 10 de dano",
+    "Ângulo de bloqueio de 90°",
+    "80% de velocidade de bloqueio",
+    "3 Slots de Melhoria",
+    "2 Slots de Defesa",
+    "1 Slot de Habilidade",
+    "Curada"
+  ]
+}
+

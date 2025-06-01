@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:rebalanced",
+  "text": [
+    {
+      "text": "O equilíbrio de poder é a balança da paz. — Thomas Paine."
+    },
+    {
+      "text": "\nNa verdade, o equilíbrio de poder é a balança de um dragão. Douramento antigo chega bem perto, no entanto. — Thruul M'Gon."
+    }
+  ],
+  "effects": [
+    "Adiciona um slot de modificador",
+    "O tipo de slot é determinado pela receita",
+    "Gananciosos são penalizados",
+    "Slime-do-ender adiciona um efeito especial",
+    "Nível único"
+  ]
+}

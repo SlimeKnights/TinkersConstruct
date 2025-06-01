@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:crystalshot",
+  "text": [
+    {
+      "text": "Se não houver munição no inventário, o arco produz suas próprias flechas de cristal."
+    },
+    {
+      "text": "A ferramenta recebe 4 de dano extra por cada flecha produzida."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nível",
+    "Requer 1 slot de habilidade"
+  ]
+}

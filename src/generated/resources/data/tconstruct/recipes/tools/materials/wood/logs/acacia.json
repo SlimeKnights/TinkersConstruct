@@ -4,7 +4,7 @@
     "tag": "minecraft:acacia_logs"
   },
   "leftover": "minecraft:acacia_planks",
-  "material": "tconstruct:wood#acacia",
+  "material": "tconstruct:wood",
   "needed": 1,
   "value": 4
 }

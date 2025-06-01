@@ -11,11 +11,11 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.TooltipFlag;
 import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.client.TooltipKey;
+import slimeknights.mantle.data.loadable.LegacyLoadable;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.primitive.BooleanLoadable;
 import slimeknights.mantle.data.loadable.primitive.EnumLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
-import slimeknights.tconstruct.library.json.DeprecatedLoader;
 import slimeknights.tconstruct.library.json.LevelingValue;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.data.ModifierMaxLevel;
@@ -38,14 +38,14 @@ import java.util.List;
 @SuppressWarnings("removal")
 @Deprecated
 public record MaxArmorStatModule(TinkerDataKey<Float> statKey, LevelingValue amount, ComputableDataKey<ModifierMaxLevel> maxLevel, boolean allowBroken, @Nullable TagKey<Item> heldTag, ArmorStatModule.TooltipStyle tooltipStyle, ModifierCondition<IToolStackView> condition) implements ModifierModule, TooltipModifierHook, MaxArmorLevelModule {
-  public static final RecordLoadable<MaxArmorStatModule> LOADER = DeprecatedLoader.modifier(RecordLoadable.create(
+  public static final RecordLoadable<MaxArmorStatModule> LOADER = LegacyLoadable.message(RecordLoadable.create(
     TinkerDataKeys.FLOAT_REGISTRY.requiredField("key", MaxArmorStatModule::statKey),
     LevelingValue.LOADABLE.directField(MaxArmorStatModule::amount),
     BooleanLoadable.INSTANCE.defaultField("allow_broken", false, MaxArmorStatModule::allowBroken),
     Loadables.ITEM_TAG.nullableField("held_tag", MaxArmorStatModule::heldTag),
     new EnumLoadable<>(ArmorStatModule.TooltipStyle.class).defaultField("tooltip_style", ArmorStatModule.TooltipStyle.NONE, MaxArmorStatModule::tooltipStyle),
     ModifierCondition.TOOL_FIELD,
-    MaxArmorStatModule::new), "use 'tconstruct:max_armor_attribute' with attributes instead of float stats.");
+    MaxArmorStatModule::new), "Found deprecated modifier module loader 'tconstruct:max_armor_stat', use 'tconstruct:max_armor_attribute' with attributes instead of float stats.");
 
   /** @apiNote Internal constructor, use {@link #builder(TinkerDataKey)} */
   @Internal

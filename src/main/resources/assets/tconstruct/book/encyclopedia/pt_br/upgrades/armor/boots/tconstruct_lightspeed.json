@@ -1,14 +1,19 @@
 {
-  "modifier_id": "tconstruct:lightspeed_armor",
+  "modifier_id": "tconstruct:lightspeed",
   "text": [
     {
-      "text": "Concede +5% de velocidade de movimento por nivel em areas bem iluminadas. Se a área não for tão bem iluminada, ainda será dado alguma melhora, mas não tanto."
+      "text": "Concede +9% de velocidade de movimento, por nível, em áreas bem iluminadas. Se a área não for tão bem iluminada, algum impulso ainda será concedido, mas não tanto."
+    },
+    {
+      "text": "As botas sofrerão dano ao longo do tempo quando este modificador estiver ativo.",
+      "paragraph": true
     }
   ],
   "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/armor/boots",
   "effects": [
-    "Pode aplicar níveis de forma progressiva",
-    "Máximo de 3 niveis",
-    "Requer 1 slot de melhoria por nivel"
+    "Pode aplicar níveis progressivamente",
+    "Máximo de 5 níveis",
+    "Requer 1 slot de melhoria por nível"
   ]
 }

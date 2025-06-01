@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:glowing",
+  "text": [
+    {
+      "text": "Essa é uma ideia brilhante."
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/armor/boots",
+  "effects": [
+    "Coloca brilho em lugares escuros conforme você anda",
+    "Colocar brilhos consome durabilidade",
+    "Nível único",
+    "Requer 1 slot de habilidade"
+  ]
+}
+

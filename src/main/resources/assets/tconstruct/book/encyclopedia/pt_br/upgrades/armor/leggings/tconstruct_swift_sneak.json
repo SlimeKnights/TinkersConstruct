@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:swift_sneak",
+  "text": [
+    {
+      "text": "Reduz a lentidão de movimento furtivo em 15% por nível. No nível 5, você pode correr enquanto se esgueira."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 5 níveis",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}

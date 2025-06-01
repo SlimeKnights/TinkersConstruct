@@ -145,6 +145,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(MaterialIds.scorchedStone);
       with.accept(MaterialIds.copper);
       with.accept(MaterialIds.slimewood);
+      with.accept(MaterialIds.slimeskin);
       with.accept(MaterialIds.skyslimeVine);
       with.accept(MaterialIds.whitestone);
       // tier 3
@@ -272,7 +273,6 @@ public class AdvancementsProvider extends GenericDataProvider {
       // helmet
       with.accept(ModifierIds.aquaAffinity);
       withL.accept(TinkerModifiers.slurping);
-      withL.accept(TinkerModifiers.zoom);
       // chestplate
       withL.accept(TinkerModifiers.ambidextrous);
       with.accept(ModifierIds.reach);
@@ -305,6 +305,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(ModifierIds.pathing);
       with.accept(ModifierIds.stripping);
       with.accept(ModifierIds.tilling);
+      with.accept(ModifierIds.brushing);
       // staff
       withL.accept(TinkerModifiers.bonking);
       withL.accept(TinkerModifiers.flinging);
@@ -316,7 +317,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       withL.accept(TinkerModifiers.blocking);
       withL.accept(TinkerModifiers.parrying);
       // ranged
-      withL.accept(TinkerModifiers.crystalshot);
+      with.accept(ModifierIds.crystalshot);
       withL.accept(TinkerModifiers.multishot);
       with.accept(ModifierIds.bulkQuiver);
       with.accept(ModifierIds.trickQuiver);

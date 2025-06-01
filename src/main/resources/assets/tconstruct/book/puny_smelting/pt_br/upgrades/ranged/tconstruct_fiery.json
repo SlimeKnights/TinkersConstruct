@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:fiery",
+  "text": [
+    {
+      "text": "As chamas do Nether trabalham para punir seus inimigos."
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/ranged",
+  "effects": [
+    "Queima alvos atingidos pela flecha",
+    "Múltiplos níveis, níveis mais altos aumentam a duração das chamas",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}

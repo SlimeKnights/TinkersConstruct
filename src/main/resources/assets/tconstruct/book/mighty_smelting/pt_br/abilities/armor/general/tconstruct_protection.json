@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:protection",
+  "text": [
+    {
+      "text": "Depois de todos esses anos, finalmente consegui todos eles."
+    }
+  ],
+  "effects": [
+    "Aumenta a proteção contra todos os danos", 
+    "Nível único", 
+    "Requer 1 slot de habilidade por nível"
+  ]
+}
+

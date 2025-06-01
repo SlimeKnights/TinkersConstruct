@@ -3,12 +3,14 @@
   "text": [
     {
       "text": "Its okay if you wet yourself a bit when you get hurt. Wait, you did not add this modifier to your pants?"
+    },
+    {
+      "text": "Right clicking a tank with tool fills it", "paragraph": true
     }
   ],
   "effects": [
-    "Applies fluid effects when damaged",
-    "Single level",
-    "Requires 1 ability slot",
-    "Use tool on a tank to fill with fluid."
+    "Chance per level to applies fluid effects when damaged",
+    "Various effects based on fluid, including healing or strength",
+    "Requires 1 ability slot per level"
   ]
 }

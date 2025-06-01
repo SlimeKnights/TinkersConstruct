@@ -8,7 +8,7 @@
   "tool_filter": "tconstruct:modifiable/armor",
   "effects": [
     "Has a chance to burn attackers on hit",
-    "Multiple levels, higher levels increase burn duration",
+    "Multiple levels, higher levels increase chance of burn",
     "Requires 1 upgrade slot per level"
   ]
 }

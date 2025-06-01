@@ -1,0 +1,14 @@
+{
+  "title": "Vidro Tingido Chamuscado",
+  "item": "tconstruct:scorched_tinted_glass",
+  "text": [
+    {
+      "text": "Quer manter sua fundição escura para maximizar os spawns de Blaze? Considere usar vidro tingido chamuscado como janela em vez do vidro tingido normal. Ele é totalmente transparente, mas não deixa a luz passar.",
+      "paragraph": true
+    },
+    {
+      "text": "O vidro não pode ser usado como piso da fundição.",
+      "paragraph": true
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "tool": "tconstruct:war_pick",
+  "text": [
+    { "text": "A picareta de guerra é uma besta eficaz para minerar pedra, metal e minérios. É encontrada em poços de mina, postos de saqueadores, com aldeões zumbis e como um presente de ferreiros de armas." },
+    { "text": "Expansores aumentam o raio circular da picareta.", "paragraph": true }
+  ],
+  "properties": [
+    "+0 Dano de Ataque",
+    "1.2 Velocidade de Ataque",
+    "1.0 Velocidade de Puxada",
+    "1.00 Velocidade da Flecha",
+    "0.75 Precisão",
+    "3 Slots de Melhoria",
+    "1 Slot de Habilidade"
+  ]
+}
+

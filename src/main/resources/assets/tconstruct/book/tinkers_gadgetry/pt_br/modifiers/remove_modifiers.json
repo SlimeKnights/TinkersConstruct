@@ -1,13 +1,13 @@
 {
-  "title": "Remoção de Modificadores",
+  "title": "Remover Modificadores",
   "image": {
-    "file": "tconstruct:book/images/remove_modifiers.png",
-    "width": 135,
-    "height": 72
+    "file": "tconstruct:book/images/worktable/remove_modifier.png",
+    "width": 147,
+    "height": 64
   },
   "text": [
     {
-      "text": "Eu descobri que é possível remover modificadores de ferramentas usando uma esponja molhada. A remoção do modificador me devolve slots para novos modificadores, e parte do item também pode ser recuperada. Com base onde eu esfrego a ferramenta e quantas esponjas são usadas, diferentes modificadores são removidos."
+      "text": "Eu descobri que é possível remover modificadores das ferramentas usando uma esponja molhada. Se você não tiver uma à mão, veneno de aranha também é eficaz. Remover o modificador me devolve espaço para novos, mas infelizmente os itens usados para aplicá-lo são perdidos. Pelo menos dá pra reutilizar a esponja."
     }
   ]
 }

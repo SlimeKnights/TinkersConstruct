@@ -5,6 +5,8 @@
     "tconstruct:bonking",
     "tconstruct:warping",
     "tconstruct:spitting",
-    "tconstruct:zoom"
+    "tconstruct:scope",
+    "tconstruct:zoom",
+    "tconstruct:brushing"
   ]
 }

@@ -1,21 +1,32 @@
 intro=Introdução
-melter=Fusão
-moving_fluids=Fluidos em movimento
+melter=Fundidor
+moving_fluids=Fluidos em Movimento
 casting=Fundição
-materials=Materiais Nivel 2
+melee_harvest_materials=Materiais de Colheita e Combate de Nível 2
+melee_harvest_materials.subtext=Esses materiais podem ser fundidos em partes de ferramentas para armas ou ferramentas de colheita.
+ranged_materials=Materiais de Longo Alcance de Nível 2
+ranged_materials.subtext=Esses materiais podem ser fundidos em partes de ferramentas para armas de longo alcance, como arcos.
+armor_materials=Materiais de Armadura de Nível 2
+armor_materials.subtext=Esses materiais podem ser fundidos em armaduras e escudos.
 
-armor=Equipamento do viajante
-armor.subtext=O Equipamento do Viajante é fabricado usando uma estação de fabricação! Este equipamento não oferece a melhor defesa, mas ainda há muitas oportunidades para melhorar sua armadura! Oh, que coisas divertidas você vai criar?
+further_reading=Leitura Adicional
+
+armor=Armadura Frágil
+armor.subtext=Escolha seu caminho com a armadura; viajantes oferecem armaduras altamente modificáveis com mais espaço para habilidades, enquanto placas oferecem mais oportunidades de defesa. Se você não tem senso de moda, pode misturar ambos.
 
 upgrades=Melhorias
-upgrades.subtext=Ferramentas podem ser aprimoradas com melhorias, embora apenas um número limitado possa ser aplicado a cada ferramenta.
-upgrades.group_general=Gerais
-upgrades.group_harvest=Colheita
-upgrades.group_melee=Arma
+upgrades.subtext=Ferramentas podem ser aprimoradas com melhorias, embora apenas um número limitado possa ser aplicado por ferramenta.
+upgrades.group_general=Geral
+upgrades.group_harvest=Coleta
+upgrades.group_melee=Armas
 upgrades.group_damage=Dano Bônus
 upgrades.group_armor=Armadura
+upgrades.group_armor.helmet=Capacete
+upgrades.group_armor.chestplate=Peitoral
+upgrades.group_armor.leggings=Calças
+upgrades.group_armor.boots=Botas
 
-slotless=Modificador Sem Slots
-slotless.subtext=Estes modificadores não querem slots para serem aplicados, você pode tê-los todos se desejar.
-slotless.group_slotless=Sem Slots
-slotless.group_bonus_upgrades=Melhorias++
+slotless=Modificador sem Slot
+slotless.subtext=Esses modificadores não requerem slots para serem aplicados, você pode ter todos eles se desejar.
+slotless.group_slotless=Sem Slot
+slotless.group_bonus_upgrades=Slots++

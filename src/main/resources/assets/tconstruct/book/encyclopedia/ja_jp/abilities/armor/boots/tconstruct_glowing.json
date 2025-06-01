@@ -1,0 +1,11 @@
+{
+  "modifier_id": "tconstruct:glowing",
+  "text": [
+    {
+      "text": "歩いている間、近くの暗い場所にグロウを置きます。グロウを置くには耐久力を5消費します。「広範」で効果範囲が広がります。"
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/armor/boots",
+  "effects": ["最大1レベル", "アビリティスロットが1つ必要"]
+}

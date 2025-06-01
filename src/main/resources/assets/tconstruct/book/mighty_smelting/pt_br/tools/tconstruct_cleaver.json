@@ -2,7 +2,7 @@
   "tool": "tconstruct:cleaver",
   "text": [
     {
-      "text": "O Espadão é uma arma de alto dano, e de balanço lento."
+      "text": "O Espadão é uma arma de alto dano, mas de balanço lento."
     },
     {
       "text": "\n"
@@ -13,8 +13,8 @@
     }
   ],
   "properties": [
-    "Arma forte",
-    "Balanço lento",
-    "Começa com Corte II"
+    "Arma Forte",
+    "Balanço Lento",
+    "Começa com Decaptação II"
   ]
 }

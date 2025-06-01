@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:quick_charge",
+  "text": [
+    {
+      "text": "Deixe a tensão subir."
+    }
+  ],
+  "effects": [
+    "Aumenta a velocidade de puxada de bestas ou cajados",
+    "Múltiplos níveis, cada nível aumenta ainda mais a velocidade de puxada",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}

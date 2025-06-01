@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:impaling",
+  "text": [
+    {
+      "text": "Permite que as flechas continuem se movendo após atingir o primeiro alvo, potencialmente atingindo vários alvos. Pode passar por uma entidade por nível."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 4 níveis",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}

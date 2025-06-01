@@ -14,20 +14,33 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
 
   @Override
   protected void addTags() {
+    tag(TinkerTags.Materials.EXCLUDE_FROM_LOOT);
     tag(TinkerTags.Materials.NETHER).add(
       // tier 1
       MaterialIds.wood, MaterialIds.flint, MaterialIds.rock, MaterialIds.bone,
       MaterialIds.leather, MaterialIds.vine, MaterialIds.string,
       // tier 2
-      MaterialIds.iron, MaterialIds.scorchedStone, MaterialIds.slimewood, MaterialIds.necroticBone,
+      MaterialIds.gold,
+      MaterialIds.scorchedStone, MaterialIds.slimewood, MaterialIds.necroticBone,
       // tier 3
-      MaterialIds.nahuatl, MaterialIds.cobalt,
-      MaterialIds.darkthread,
+      MaterialIds.nahuatl, MaterialIds.obsidian, MaterialIds.darkthread,
+      MaterialIds.cobalt, MaterialIds.steel,
       // tier 4
       MaterialIds.manyullyn, MaterialIds.cinderslime,
       MaterialIds.queensSlime, MaterialIds.blazingBone, MaterialIds.blazewood,
-      MaterialIds.ancientHide
+      MaterialIds.ancientHide, MaterialIds.ancient
     );
+    // materials bartered by piglins
+    tag(TinkerTags.Materials.BARTERED).add(
+      // tier 3
+      MaterialIds.nahuatl, MaterialIds.obsidian, MaterialIds.darkthread,
+      MaterialIds.cobalt, MaterialIds.steel,
+      // tier 4
+      MaterialIds.manyullyn, MaterialIds.hepatizon,
+      MaterialIds.cinderslime, MaterialIds.queensSlime,
+      MaterialIds.blazingBone, MaterialIds.blazewood,
+      MaterialIds.ancientHide, MaterialIds.ancient
+    ).addOptional(MaterialIds.necronium);
   }
 
   @Override

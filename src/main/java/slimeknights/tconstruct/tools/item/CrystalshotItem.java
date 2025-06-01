@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.item;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -34,7 +35,7 @@ public class CrystalshotItem extends ArrowItem {
     RANDOM_VARIANTS.add("quartz");
   }
   /** NBT key for variants on the stack and entity */
-  private static final String TAG_VARIANT = "variant";
+  public static final String TAG_VARIANT = "variant";
   public CrystalshotItem(Properties props) {
     super(props);
   }
@@ -44,7 +45,7 @@ public class CrystalshotItem extends ArrowItem {
     CrystalshotEntity arrow = new CrystalshotEntity(pLevel, pShooter);
     String variant = "random";
     CompoundTag tag = pStack.getTag();
-    if (tag != null) {
+    if (tag != null && tag.contains(TAG_VARIANT, Tag.TAG_STRING)) {
       variant = tag.getString(TAG_VARIANT);
     }
     if ("random".equals(variant)) {
@@ -61,8 +62,7 @@ public class CrystalshotItem extends ArrowItem {
 
   /** Creates a crystal shot with the given variant */
   public static ItemStack withVariant(String variant, int size) {
-    ItemStack stack = new ItemStack(TinkerTools.crystalshotItem);
-    stack.setCount(size);
+    ItemStack stack = new ItemStack(TinkerTools.crystalshotItem, size);
     stack.getOrCreateTag().putString(TAG_VARIANT, variant);
     return stack;
   }
@@ -72,13 +72,11 @@ public class CrystalshotItem extends ArrowItem {
 
     public CrystalshotEntity(EntityType<? extends CrystalshotEntity> type, Level level) {
       super(type, level);
-      pickup = Pickup.CREATIVE_ONLY;
       soundEvent = Sounds.CRYSTALSHOT.getSound();
     }
 
     public CrystalshotEntity(Level level, LivingEntity shooter) {
       super(TinkerTools.crystalshotEntity.get(), shooter, level);
-      pickup = Pickup.CREATIVE_ONLY;
       soundEvent = Sounds.CRYSTALSHOT.getSound();
     }
 

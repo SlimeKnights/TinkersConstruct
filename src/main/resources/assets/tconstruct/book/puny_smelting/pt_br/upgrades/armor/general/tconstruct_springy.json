@@ -2,12 +2,13 @@
   "modifier_id": "tconstruct:springy",
   "text": [
     {
-      "text": "Longe de seus inimigos, dando-lhe tempo suficiente para virar os calcanhares e correr, ou curar."
+      "text": "Seus inimigos são lançados para longe, dando-lhe tempo suficiente para se virar e correr, ou se curar."
     }
   ],
   "effects": [
-    "Proporciona uma chance de jogar pra longe atacantes",
+    "Fornece uma chance de repulsar atacantes para longe",
     "Múltiplos níveis, cada nível aumenta ainda mais a chance de repulsão",
     "Requer 1 slot de melhoria por nível"
   ]
 }
+

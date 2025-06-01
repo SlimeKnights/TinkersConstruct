@@ -1,9 +1,11 @@
 package slimeknights.tconstruct.library.modifiers.hook.armor;
 
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
@@ -72,11 +74,12 @@ public interface OnAttackedModifierHook {
     for (EquipmentSlot slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
       handleAttack(hook, context, source, amount, isDirectDamage, slotType);
     }
-    // shields only run this hook when blocking
-    // TODO: what if the slot in charge is not the blocking slot, can that happen?
-    LivingEntity entity = context.getEntity();
-    if (entity.isBlocking()) {
-      handleAttack(hook, context, source, amount, isDirectDamage, Util.getSlotType(entity.getUsedItemHand()));
+    // run on both hands for shields, provided its a held tool (i.e. not armor)
+    LivingEntity holder = context.getEntity();
+    for (InteractionHand hand : InteractionHand.values()) {
+      if (holder.getItemInHand(hand).is(TinkerTags.Items.HELD)) {
+        handleAttack(hook, context, source, amount, isDirectDamage, Util.getSlotType(hand));
+      }
     }
   }
 }

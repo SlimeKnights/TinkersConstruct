@@ -7,6 +7,10 @@
     {
       "id": "#forge:tools/hoes/steel",
       "required": false
+    },
+    {
+      "id": "immersiveengineering:sword_steel",
+      "required": false
     }
   ]
 }

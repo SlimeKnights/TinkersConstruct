@@ -38,13 +38,14 @@
       }
     },
     {
-      "type": "tconstruct:bulk_quiver"
+      "type": "tconstruct:bulk_quiver",
+      "check_standard_arrows": true
     },
     {
       "type": "tconstruct:inventory_menu",
       "on_key": "any"
     }
   ],
-  "priority": 50,
+  "priority": 60,
   "tooltip_display": "always"
 }

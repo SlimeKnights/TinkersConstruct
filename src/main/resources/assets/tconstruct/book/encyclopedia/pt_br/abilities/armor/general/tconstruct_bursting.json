@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:bursting",
+  "text": [
+    {
+      "text": "Drena uma pequena quantidade de fluido (geralmente entre 10 mb e 50 mb) para impulsionar contra-ataques com efeitos especiais. Escudos devem estar bloqueando para usar."
+    },
+    {
+      "text": "A ferramenta pode ser preenchida com fluido ao interagir com um tanque ou dreno enquanto segura a ferramenta."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Sem nível máximo",
+    "Requer 1 slot de habilidade por nível",
+    "Preencher usando a ferramenta em um tanque de fluido"
+  ]
+}
+

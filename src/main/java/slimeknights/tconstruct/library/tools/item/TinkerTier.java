@@ -22,6 +22,7 @@ public enum TinkerTier implements Tier {
     return 0;
   }
 
+  @Deprecated
   @Override
   public int getLevel() {
     return 0;

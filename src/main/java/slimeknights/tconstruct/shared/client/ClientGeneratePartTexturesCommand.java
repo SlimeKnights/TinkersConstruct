@@ -7,6 +7,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.mojang.blaze3d.platform.NativeImage;
 import lombok.extern.log4j.Log4j2;
+import net.minecraft.SharedConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.ClickEvent.Action;
@@ -165,7 +166,7 @@ public class ClientGeneratePartTexturesCommand {
     JsonObject meta = new JsonObject();
     JsonObject pack = new JsonObject();
     pack.addProperty("description", "Generated Resources from the Tinkers' Construct Part Texture Generator");
-    pack.addProperty("pack_format", 8);
+    pack.addProperty("pack_format", SharedConstants.getCurrentVersion().getPackVersion(PackType.CLIENT_RESOURCES));
     meta.add("pack", pack);
 
     try {

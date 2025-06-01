@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:ore_melting",
+  "byproducts": [
+    {
+      "amount": 200,
+      "fluid": "tconstruct:ichor"
+    }
+  ],
+  "ingredient": {
+    "item": "tconstruct:small_ichor_slime_crystal_bud"
+  },
+  "rate": "gem",
+  "result": {
+    "amount": 10,
+    "fluid": "tconstruct:blazing_blood"
+  },
+  "temperature": 1500,
+  "time": 80
+}

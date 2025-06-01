@@ -25,6 +25,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.mantle.data.loadable.primitive.FloatLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
@@ -235,7 +236,9 @@ public record SmeltingModule(RecipeType<? extends AbstractCookingRecipe> recipeT
   @Override
   public void onAttacked(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
     // damage taken cooks for armor/shields
-    cookItems(tool, modifier, context.getEntity(), amount);
+    if (tool.hasTag(TinkerTags.Items.ARMOR)) {
+      cookItems(tool, modifier, context.getEntity(), amount);
+    }
   }
 
   @Override

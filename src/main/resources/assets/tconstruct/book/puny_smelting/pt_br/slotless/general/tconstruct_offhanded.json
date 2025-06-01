@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:offhanded",
+  "text": [
+    {
+      "text": "O modificador mais despreocupado de todos."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Desativa a interação da ferramenta quando a mão secundária está ocupada",
+    "O segundo nível desativa completamente as interações",
+    "Máximo de 2 níveis"
+  ]
+}

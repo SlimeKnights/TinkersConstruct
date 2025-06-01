@@ -1,0 +1,7 @@
+{
+  "type": "tconstruct:tinker_station_damaging",
+  "damage_amount": 500,
+  "ingredient": {
+    "item": "minecraft:lava_bucket"
+  }
+}

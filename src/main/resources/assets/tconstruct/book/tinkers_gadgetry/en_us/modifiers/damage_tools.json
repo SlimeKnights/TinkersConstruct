@@ -7,7 +7,7 @@
   },
   "text": [
     {
-      "text": "Apparently tools do not react well to certain potions. Thick and mundane potions appear to do minor damage to the tool, while potions of harming, especially splash potions, do quite a bit more damage to the tool. Now if I could just find some dragon's breath to test with a lingering potion of harming..."
+      "text": "Apparently tools do not react well to certain fluids. Magma depletes a small amount of durability, and venom a larger amount. Lava and blazing blood also appear to damage tools."
     }
   ]
 }

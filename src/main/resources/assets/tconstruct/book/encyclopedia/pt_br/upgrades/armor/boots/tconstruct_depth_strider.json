@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:depth_strider",
+  "text": [
+    {
+      "text": "Reduz a lentidão de movimento de baixo d'água em 33% por nível. No nível 3, não há mais lentidão de movimento."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 3 níveis",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}

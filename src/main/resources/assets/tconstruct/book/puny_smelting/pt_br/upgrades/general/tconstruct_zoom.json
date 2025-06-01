@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:zoom",
+  "text": [
+    {
+      "text": "Eu espio com meus olhinhos, algo distante no vasto horizonte."
+    }
+  ],
+  "effects": [
+    "Amplia rapidamente o zoom ao usar a ferramenta",
+    "Nível único",
+    "Requer 1 slot de melhoria"
+  ]
+}

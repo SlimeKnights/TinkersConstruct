@@ -2,15 +2,15 @@
   "modifier_id": "tconstruct:blast_protection",
   "text": [
     {
-      "text": "Concede +8% de resistência contra danos de explosões, tais como de creepers ou TNT. O máximo é de 80% para todo o conjunto, ou seja, 10 níveis."
+      "text": "Concede +10% de resistência contra danos por explosões, como de creepers ou TNT. O limite é de 80% em todo o conjunto, ou seja, 8 níveis."
     },
     {
-      "text": "Reduz a repulsão das explosões em 15% por nivel da peça de mais alto nível.", "paragraph": true
+      "text": "Reduz o recuo por explosões em 15% por nível da peça de mais alto nível.", "paragraph": true
     }
   ],
   "more_text_space": true,
   "effects": [
     "Pode aplicar níveis progressivamente",
-    "Requer 1 slot de defesa"
+    "Requer 1 slot de defesa por nível"
   ]
 }

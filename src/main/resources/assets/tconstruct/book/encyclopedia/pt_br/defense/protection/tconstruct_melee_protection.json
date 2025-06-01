@@ -2,12 +2,15 @@
   "modifier_id": "tconstruct:melee_protection",
   "text": [
     {
-      "text": "Concede +8% de resistência contra ataques Corpo-A-Corpo, como por exemplo dano de zumbis, espadas, e de queda. O máximo é de 80% em toda a armadura, ou seja 10 niveis. O dano Corpo-A-Corpo é qualquer dano que não seja explosivo, fogo, mágico, projéteis e que não seja inteiramente bloqueável."
+      "text": "Concede +8% de resistência contra ataques Corpo-a-Corpo, como por zumbis e espadas. O limite é de 80% em todo o conjunto, ou seja, 10 níveis."
+    },
+    {
+      "text": "Aumenta a velocidade de movimento ao usar itens em 5% por nível da peça de nível mais alto.", "paragraph": true
     }
   ],
   "more_text_space": true,
   "effects": [
-    "Pode aplicar niveis progressivamente",
-    "Requer 1 slot de defesa"
+    "Pode aplicar níveis progressivamente",
+    "Requer 1 slot de defesa por nível"
   ]
 }

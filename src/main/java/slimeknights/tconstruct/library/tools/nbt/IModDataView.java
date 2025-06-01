@@ -14,13 +14,13 @@ public interface IModDataView {
   /** Empty variant of tool data */
   IModDataView EMPTY = new IModDataView() {
     @Override
-    public int getSlots(SlotType type) {
-      return 0;
+    public <T> T get(ResourceLocation name, BiFunction<CompoundTag,String,T> function) {
+      return function.apply(new CompoundTag(), name.toString());
     }
 
     @Override
-    public <T> T get(ResourceLocation name, BiFunction<CompoundTag,String,T> function) {
-      return function.apply(new CompoundTag(), name.toString());
+    public boolean contains(ResourceLocation name) {
+      return false;
     }
 
     @Override
@@ -37,6 +37,14 @@ public interface IModDataView {
    * @return  Data based on the function
    */
   <T> T get(ResourceLocation name, BiFunction<CompoundTag,String,T> function);
+
+  /**
+   * Checks if the data contains the given tag with any type.
+   * Generally, its better to use {@link #contains(ResourceLocation, int)}, but there are rare benefits to this method.
+   * @param name  Namespaced key
+   * @return  True if the tag is contained
+   */
+  boolean contains(ResourceLocation name);
 
   /**
    * Checks if the data contains the given tag

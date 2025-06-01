@@ -472,7 +472,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       // traits
       .module(ToolTraitsModule.builder()
         .trait(TinkerModifiers.firestarter)
-        .trait(TinkerModifiers.fiery)
+        .trait(ModifierIds.fiery)
         .trait(ModifierIds.scorching).build())
       .module(ToolTraitsModule.builder().trait(ModifierIds.scorching).build(), ToolHooks.REBALANCED_TRAIT)
       // repair

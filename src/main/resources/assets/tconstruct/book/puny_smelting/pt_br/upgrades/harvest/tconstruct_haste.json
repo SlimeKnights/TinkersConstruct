@@ -2,12 +2,17 @@
   "modifier_id": "tconstruct:haste",
   "text": [
     {
-      "text": "A adição de redstone a uma ferramenta parece aumentar sua velocidade. O aumento da velocidade de mineração é mais potente em ferramentas mais lentas."
+      "text": "Adicionar redstone a uma ferramenta parece aumentar sua velocidade. O aumento da velocidade de mineração é mais potente em ferramentas mais lentas."
+    },
+    {
+      "text": "Redstone. Coisa maluca, né?",
+      "paragraph": true
     }
   ],
+  "tool_filter": "tconstruct:modifiable/harvest",
   "effects": [
     "Aumenta a velocidade de mineração",
-    "Múltiplos níveis, cada nível aumenta um pouco mais a velocidade",
+    "Múltiplos níveis, cada nível aumenta a velocidade um pouco mais",
     "Requer 1 slot de melhoria por nível"
   ]
 }

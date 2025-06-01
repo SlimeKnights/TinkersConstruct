@@ -156,6 +156,6 @@ public class PartSwapCastingRecipe extends AbstractMaterialCastingRecipe {
     // validate and run removal hooks, but don't give up if either failed (hopefully matches dealt with that)
     tool.tryValidate();
     ModifierRemovalHook.onRemoved(original, tool);
-    return tool.createStack();
+    return tool.copyStack(cast, 1);
   }
 }

@@ -2,17 +2,17 @@
   "modifier_id": "tconstruct:luck",
   "text": [
     {
-      "text": "Aumenta a quantidade de drops dos blocos e dos monstros. A sorte requer uma receita diferente para cada nível."
+      "text": "Aumenta as taxas de drop tanto de blocos (somente para ferramentas de coleta) quanto de monstros. A 'Sorte' requer uma receita diferente para cada nível, aplicada em ordem."
     },
     {
-      "text": "As perneiras podem receber um único nível de sorte, aumentando os drops das criaturas e os drops dos blocos ao usar ferramentas do tinkers.",
+      "text": "As calças podem receber um único nível de sorte, que aumenta os drops de mobs e de blocos ao usar ferramentas do Tinkers.",
       "paragraph": true
     }
   ],
   "more_text_space": true,
   "effects": [
-    "Máximo de 3 niveis",
+    "Máximo de 3 níveis",
     "O primeiro nível requer 1 slot de habilidade",
-    "O segundo e terceiro níveis não precisam de slots"
+    "O segundo e terceiro níveis não ocupam slots"
   ]
 }

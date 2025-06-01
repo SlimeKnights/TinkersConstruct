@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:trick_quiver",
+  "text": [
+    {
+      "text": "Concede ao arco três slots internos para armazenar flechas especiais, cada slot comportando 32 flechas (ou 64 no nível 2)."
+    },
+    {
+      "text": "Pode alternar a flecha selecionada ao atacar, alternando entre as três opções ou ignorando a aljava especial. Agachar e atacar abre a aljava para adicionar flechas.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 2 níveis",
+    "Requer 1 slot de habilidade por nível"
+  ]
+}

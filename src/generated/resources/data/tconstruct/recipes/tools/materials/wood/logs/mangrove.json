@@ -4,7 +4,7 @@
     "tag": "minecraft:mangrove_logs"
   },
   "leftover": "minecraft:mangrove_planks",
-  "material": "tconstruct:wood#mangrove",
+  "material": "tconstruct:wood",
   "needed": 1,
   "value": 4
 }

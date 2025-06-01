@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:part_builder_tool_recycling",
+  "parts": [
+    "tconstruct:large_plate",
+    "tconstruct:leggings_plating"
+  ],
+  "pattern": {
+    "tag": "tconstruct:patterns/default"
+  },
+  "tools": {
+    "item": "tconstruct:battlesign"
+  }
+}

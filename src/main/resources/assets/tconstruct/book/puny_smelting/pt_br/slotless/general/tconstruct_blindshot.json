@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:blindshot",
+  "text": [
+    {
+      "text": "Vou jogar um pouco de terra nos seus olhos."
+    }
+  ],
+  "effects": [
+    "Diminui a precisão de projéteis disparados",
+    "Múltiplos níveis, cada nível reduz ainda mais a precisão",
+    "Sem slot"
+  ]
+}

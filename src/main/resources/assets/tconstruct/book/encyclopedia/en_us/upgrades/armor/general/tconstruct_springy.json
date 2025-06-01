@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:springy",
   "text": [
     {
-      "text": "Has a 25% chance per level to apply up to 2 blocks of knockback per level to the attacker. Applies effect from the piece with the largest bonus."
+      "text": "Has a 15% chance per level to apply up 2 to 4 blocks of knockback per level to the attacker. Applies effect from the piece with the largest bonus."
     },
     {
       "text": "Shields are twice as effective but only work when blocking.", "paragraph": true

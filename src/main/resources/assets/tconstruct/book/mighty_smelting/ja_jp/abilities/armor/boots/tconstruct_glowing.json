@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:glowing",
+  "text": [
+    {
+      "text": "それはまさに一閃。"
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/armor/boots",
+  "effects": [
+    "歩いている間、近くの暗い場所にグロウを置く",
+    "グロウを置くたびに耐久力を消耗",
+    "単一レベル",
+    "アビリティスロットが1つ必要"
+  ]
+}

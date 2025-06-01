@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:modifier",
+  "allow_crystal": true,
+  "inputs": [
+    {
+      "tag": "forge:string"
+    },
+    {
+      "tag": "forge:rods/wooden"
+    },
+    {
+      "tag": "forge:string"
+    }
+  ],
+  "level": 1,
+  "result": "tconstruct:barebow",
+  "tools": {
+    "tag": "tconstruct:modifiable/ranged/bows"
+  }
+}

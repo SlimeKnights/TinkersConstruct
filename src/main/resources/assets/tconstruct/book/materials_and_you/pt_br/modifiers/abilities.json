@@ -1,15 +1,23 @@
 {
+  "type": "tconstruct:showcase",
   "title": "Habilidades",
+  "item": {
+    "type": "forge:nbt",
+    "item": "tconstruct:creative_slot",
+    "nbt": {
+      "slot": "abilities"
+    }
+  },
+  "tooltip": [ "Ícone do Slot de Habilidade" ],
   "text": [
     {
-      "text": "As habilidades são modificadores poderosos que mudam drasticamente uma ferramenta. Modificadores como sedoso e Fundição-Automatica são notáveis, pois ambos mudam os efeitos dos blocos de mineração, enquanto o duplo empunhamento torna as ferramentas muito mais fáceis de manusear."
+      "text": "As habilidades são modificadores poderosos que mudam drasticamente uma ferramenta. Modificadores como 'Sedoso' e 'Auto-Fundição' são notáveis, pois ambos alteram os efeitos da mineração de blocos, enquanto a 'Dupla Empunhadura' torna as ferramentas muito mais fáceis de manusear."
     },
     {
-      "text": "As habilidades exigem slots de habilidade para serem aplicados. Quase todas as ferramentas começam com um único slot de habilidade, e só podem receber até mais 1, portanto escolha as habilidades sabiamente.",
-      "paragraph": true
+      "text": "Quase todas as ferramentas começam com um único slot de habilidade e podem receber até 2 adicionais, então escolha as habilidades com sabedoria."
     },
     {
-      "text": "O livro Fundições Poderosas de Thruul M'Gon's tem uma lista completa de habilidades disponíveis para ferramentas, assim como a Enciclopédia.",
+      "text": "No livro 'Fundições Poderosas' de Thruul M'Gon tem uma lista completa de habilidades disponíveis para as ferramentas, juntamente com a 'Enciclopédia do Tinkerando'.",
       "paragraph": true
     }
   ]

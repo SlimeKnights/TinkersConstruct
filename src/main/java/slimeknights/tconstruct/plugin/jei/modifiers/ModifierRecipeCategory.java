@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.plugin.jei.modifiers;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import lombok.Getter;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -14,18 +15,12 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.texture.MissingTextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.client.resources.model.Material;
-import net.minecraft.client.resources.model.ModelManager;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import slimeknights.mantle.client.model.NBTKeyModel;
+import net.minecraft.world.item.TooltipFlag;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.library.json.IntRange;
@@ -45,22 +40,16 @@ import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.item.CreativeSlotItem;
 import slimeknights.tconstruct.tools.stats.SkullStats;
 
-import javax.annotation.Nullable;
 import java.awt.Color;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierRecipe> {
   protected static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/tinker_station.png");
   private static final Component TITLE = TConstruct.makeTranslation("jei", "modifiers.title");
 
   // translation
-  private static final List<Component> TEXT_FREE = Collections.singletonList(TConstruct.makeTranslation("jei", "modifiers.free"));
   private static final List<Component> TEXT_INCREMENTAL = Collections.singletonList(TConstruct.makeTranslation("jei", "modifiers.incremental"));
-  private static final String KEY_SLOT = TConstruct.makeTranslationKey("jei", "modifiers.slot");
-  private static final String KEY_SLOTS = TConstruct.makeTranslationKey("jei", "modifiers.slots");
   private static final String KEY_MIN = TConstruct.makeTranslationKey("jei", "modifiers.level.min");
   private static final String KEY_MAX = TConstruct.makeTranslationKey("jei", "modifiers.level.max");
   private static final String KEY_RANGE = TConstruct.makeTranslationKey("jei", "modifiers.level.range");
@@ -74,7 +63,6 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
   private final IDrawable icon;
   private final IDrawable requirements, incremental;
   private final IDrawable[] slotIcons;
-  private final Map<SlotType,TextureAtlasSprite> slotTypeSprites = new HashMap<>();
   public ModifierRecipeCategory(IGuiHelper helper) {
     this.background = helper.createDrawable(BACKGROUND_LOC, 0, 0, 128, 77);
     this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, CreativeSlotItem.withSlot(new ItemStack(TinkerModifiers.creativeSlotItem), SlotType.UPGRADE));
@@ -105,28 +93,6 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
     }
   }
 
-  /** Draws the icon for the given slot type */
-  private void drawSlotType(GuiGraphics graphics, @Nullable SlotType slotType, int x, int y) {
-    Minecraft minecraft = Minecraft.getInstance();
-    TextureAtlasSprite sprite;
-    if (slotTypeSprites.containsKey(slotType)) {
-      sprite = slotTypeSprites.get(slotType);
-    } else {
-      ModelManager modelManager = minecraft.getModelManager();
-      // gets the model for the item, its a sepcial one that gives us texture info
-      BakedModel model = minecraft.getItemRenderer().getItemModelShaper().getItemModel(TinkerModifiers.creativeSlotItem.get());
-      if (model != null && model.getOverrides() instanceof NBTKeyModel.Overrides) {
-        Material material = ((NBTKeyModel.Overrides)model.getOverrides()).getTexture(slotType == null ? "slotless" : slotType.getName());
-        sprite = modelManager.getAtlas(material.atlasLocation()).getSprite(material.texture());
-      } else {
-        // failed to use the model, use missing texture
-        sprite = modelManager.getAtlas(InventoryMenu.BLOCK_ATLAS).getSprite(MissingTextureAtlasSprite.getLocation());
-      }
-      slotTypeSprites.put(slotType, sprite);
-    }
-    graphics.blit(x, y, 0, 16, 16, sprite);
-  }
-
   @Override
   public void draw(IDisplayModifierRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics graphics, double mouseX, double mouseY) {
     drawSlot(graphics, recipe, 0,  2, 32);
@@ -145,7 +111,6 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
     }
 
     // draw level requirements
-    Font fontRenderer = Minecraft.getInstance().font;
     Component levelText = null;
     Component variant = recipe.getVariant();
     if (variant != null) {
@@ -169,17 +134,18 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
     }
     if (levelText != null) {
       // center string
+      Font fontRenderer = Minecraft.getInstance().font;
       graphics.drawString(fontRenderer, levelText, 86 - fontRenderer.width(levelText) / 2, 16, Color.GRAY.getRGB(), false);
     }
 
-    // draw slot cost
+    // draw slotless icon if needed. Slots are handled by ingredient renderer.
     SlotCount slots = recipe.getSlots();
     if (slots == null) {
-      drawSlotType(graphics, null, 110, 58);
-    } else {
-      drawSlotType(graphics, slots.type(), 110, 58);
-      String text = Integer.toString(slots.count());
-      graphics.drawString(fontRenderer, text, 111 - fontRenderer.width(text), 63, Color.GRAY.getRGB(), false);
+      PoseStack pose = graphics.pose();
+      pose.pushPose();
+      pose.translate(102, 58, 0);
+      SlotIngredientRenderer.INPUT.render(graphics, null);
+      pose.popPose();
     }
   }
 
@@ -197,19 +163,9 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
     if (recipe.isIncremental() && GuiUtil.isHovered(checkX, checkY, 83, 59, 16, 16)) {
       return TEXT_INCREMENTAL;
     }
-    if (GuiUtil.isHovered(checkX, checkY, 98, 58, 24, 16)) {
-      // slot tooltip over icon
-      SlotCount slots = recipe.getSlots();
-      if (slots != null) {
-        int count = slots.count();
-        if (count == 1) {
-          return Collections.singletonList(Component.translatable(KEY_SLOT, slots.type().getDisplayName()));
-        } else if (count > 1) {
-          return Collections.singletonList(Component.translatable(KEY_SLOTS, slots.count(), slots.type().getDisplayName()));
-        }
-      } else {
-        return TEXT_FREE;
-      }
+    SlotCount slots = recipe.getSlots();
+    if (slots == null && GuiUtil.isHovered(checkX, checkY, 102, 58, 24, 16)) {
+      return SlotIngredientRenderer.INPUT.getTooltip(null, TooltipFlag.NORMAL);
     }
     
     return Collections.emptyList();
@@ -223,10 +179,12 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
     builder.addSlot(RecipeIngredientRole.INPUT, 47, 33).addItemStacks(recipe.getDisplayItems(2));
     builder.addSlot(RecipeIngredientRole.INPUT, 43, 58).addItemStacks(recipe.getDisplayItems(3));
     builder.addSlot(RecipeIngredientRole.INPUT,  7, 58).addItemStacks(recipe.getDisplayItems(4));
+
     // modifiers
     builder.addSlot(RecipeIngredientRole.OUTPUT, 3, 3)
            .setCustomRenderer(TConstructJEIConstants.MODIFIER_TYPE, modifierRenderer)
            .addIngredient(TConstructJEIConstants.MODIFIER_TYPE, recipe.getDisplayResult());
+
     // tool
     List<ItemStack> toolWithoutModifier = recipe.getToolWithoutModifier();
     List<ItemStack> toolWithModifier = recipe.getToolWithModifier();
@@ -261,6 +219,16 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
     }
     builder.addSlot(RecipeIngredientRole.CATALYST,  25, 38).addItemStacks(toolWithoutModifier);
     builder.addSlot(RecipeIngredientRole.CATALYST, 105, 34).addItemStacks(toolWithModifier);
+
+    // modifier slots
+    SlotCount slots = recipe.getSlots();
+    if (slots != null) {
+      builder.addSlot(RecipeIngredientRole.INPUT, 102, 58)
+        .setCustomRenderer(TConstructJEIConstants.SLOT_TYPE, SlotIngredientRenderer.INPUT)
+        .addIngredient(TConstructJEIConstants.SLOT_TYPE, recipe.getSlots());
+    }
+    // result slots is determined based on the volatile data hook. Its a bit of a heuristic, but is good enough for our usecases
+    builder.addInvisibleIngredients(RecipeIngredientRole.OUTPUT).addIngredients(TConstructJEIConstants.SLOT_TYPE, recipe.getResultSlots());
   }
 
 

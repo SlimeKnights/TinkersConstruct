@@ -6,7 +6,7 @@
     }
   ],
   "effects": [
-    "Shoots crystals instead of arrows",
+    "Can shoots as arrows",
     "Doesn't require ammo, consumes extra durability",
     "Changes colors based on crystals used to craft",
     "Single level",

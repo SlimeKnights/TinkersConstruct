@@ -2,6 +2,7 @@ package slimeknights.tconstruct.tools.data;
 
 import com.google.gson.JsonObject;
 import net.minecraft.data.PackOutput;
+import net.minecraft.world.phys.Vec2;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.data.AbstractToolItemModelProvider;
@@ -50,8 +51,12 @@ public class ToolItemModelProvider extends AbstractToolItemModelProvider {
     // misc
     tool(TinkerTools.flintAndBrick, shieldBlocking, "tool");
     // bow
-    bow(TinkerTools.longbow, toolBlocking, false, "limb_bottom", "limb_top", "bowstring", "arrow");
-    bow(TinkerTools.crossbow, toolBlocking, true, "bowstring");
+    bow(TinkerTools.longbow, toolBlocking, new LongbowAmmo(new Vec2[] {
+      new Vec2(-3, -4), new Vec2(-2, -3), new Vec2(-1, -2)
+    }, new Vec2[] {
+      new Vec2(-2, -2), new Vec2(0, 0), new Vec2(1, 1)
+    }, true, true), "limb_bottom", "limb_top", "bowstring");
+    bow(TinkerTools.crossbow, toolBlocking, new CrossbowAmmo(new Vec2(-1, -1), true, false), "bowstring");
     // staff
     staff(TinkerTools.skyStaff, toolBlocking);
     staff(TinkerTools.earthStaff, toolBlocking);
@@ -59,7 +64,7 @@ public class ToolItemModelProvider extends AbstractToolItemModelProvider {
     staff(TinkerTools.enderStaff, toolBlocking);
     // ancient
     charged(TinkerTools.meltingPan, shieldBlocking, "head");
-    bow(TinkerTools.warPick, toolBlocking, true, "bowstring");
+    bow(TinkerTools.warPick, toolBlocking, new CrossbowAmmo(new Vec2(1, -1), false, true), "bowstring");
     // battlesign has custom properties for blocking, so that is just written directly
     transformTool("tool/battlesign/broken", readJson(TinkerTools.battlesign.getId()), "", false, "broken", "head");
     pulling(TinkerTools.swasher, readJson(getResource("base/swasher_blocking")), AmmoType.NONE, "blade", 2, "barrel");

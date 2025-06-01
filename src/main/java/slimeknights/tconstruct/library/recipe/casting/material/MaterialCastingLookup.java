@@ -12,6 +12,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator.DuelSidedListener;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
+import slimeknights.tconstruct.library.recipe.material.MaterialRecipeCache;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.library.utils.SimpleCache;
 
@@ -21,7 +22,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Class serving as a lookup to get part costs for any material item
+ * Class serving as a lookup to get part costs for any material item.
+ * TODO 1.21: consider merging with {@link MaterialRecipeCache}.
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class MaterialCastingLookup {
@@ -103,6 +105,7 @@ public class MaterialCastingLookup {
     } else {
       COMPOSITE_FLUIDS.add(recipe);
     }
+    MaterialRecipeCache.addKnownVariant(recipe.getOutput().getVariant());
   }
 
   /**

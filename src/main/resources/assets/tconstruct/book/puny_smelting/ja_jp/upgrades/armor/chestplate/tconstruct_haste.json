@@ -9,6 +9,7 @@
       "paragraph": true
     }
   ],
+  "tool_filter": "tconstruct:modifiable/armor",
   "effects": [
     "採掘速度が上がる",
     "複数回適用でき、レベルが上がると速度が更に上がる",

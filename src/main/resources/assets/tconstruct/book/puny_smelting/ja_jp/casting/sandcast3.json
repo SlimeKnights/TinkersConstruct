@@ -1,0 +1,13 @@
+{
+  "title": "砂型",
+  "image": {
+    "file": "tconstruct:book/images/sandcast_partbuilder.png",
+    "width": 172,
+    "height": 74
+  },
+  "text": [
+    {
+      "text": "砂型鋳物は、砂または空の砂型をスロットに配置することで、部品作成台で作成することもできます。これはアーマーのプレートの砂型を作成するために必要です。"
+    }
+  ]
+}

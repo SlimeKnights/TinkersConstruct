@@ -7,7 +7,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.EquipmentSlot.Type;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -30,6 +29,7 @@ import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.shared.TinkerCommons;
+import slimeknights.tconstruct.tools.modules.armor.CounterModule;
 
 import java.util.List;
 
@@ -87,13 +87,12 @@ public class TastyModifier extends Modifier implements GeneralInteractionModifie
 
   @Override
   public void onAttacked(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
-    // 15% chance of working per level, doubled bonus on shields
-    float level = modifier.getEffectiveLevel();
-    if (slotType.getType() == Type.HAND) {
-      level *= 2;
-    }
-    if (RANDOM.nextFloat() < (level * 0.15f)) {
-      eat(tool, modifier, context.getEntity());
+    if (tool.hasTag(TinkerTags.Items.ARMOR)) {
+      // 15% chance of working per level, doubled bonus on shields
+      float level = CounterModule.getLevel(tool, modifier, slotType, context.getEntity());
+      if (RANDOM.nextFloat() < (level * 0.15f)) {
+        eat(tool, modifier, context.getEntity());
+      }
     }
   }
 

@@ -10,8 +10,6 @@
     }
   ],
   "more_text_space": true,
-  "effects": [
-    "最大1レベル",
-    "アビリティスロットが1つ必要"
-  ]
+  "tool_filter": "tconstruct:modifiable/interactable",
+  "effects": ["最大1レベル", "アビリティスロットが1つ必要"]
 }

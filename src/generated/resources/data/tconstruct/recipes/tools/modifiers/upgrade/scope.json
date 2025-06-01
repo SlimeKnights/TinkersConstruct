@@ -4,19 +4,13 @@
   "check_trait_level": true,
   "inputs": [
     {
-      "tag": "forge:string"
+      "item": "minecraft:sugar"
     },
     {
       "item": "minecraft:spyglass"
     },
     {
-      "tag": "forge:string"
-    },
-    {
-      "tag": "forge:dusts/redstone"
-    },
-    {
-      "tag": "forge:dusts/redstone"
+      "item": "minecraft:sugar"
     }
   ],
   "level": 1,
@@ -24,12 +18,7 @@
   "slots": {
     "upgrades": 1
   },
-  "tools": [
-    {
-      "tag": "tconstruct:modifiable/ranged/bows"
-    },
-    {
-      "tag": "tconstruct:modifiable/staffs"
-    }
-  ]
+  "tools": {
+    "tag": "tconstruct:modifiable/interactable/charge"
+  }
 }

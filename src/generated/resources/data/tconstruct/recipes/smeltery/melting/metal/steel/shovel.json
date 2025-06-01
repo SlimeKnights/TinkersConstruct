@@ -3,11 +3,11 @@
   "conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:tools/shovels/steel"
+      "tag": "tconstruct:melting/steel/tools_costing_1"
     }
   ],
   "ingredient": {
-    "tag": "forge:tools/shovels/steel"
+    "tag": "tconstruct:melting/steel/tools_costing_1"
   },
   "result": {
     "amount": 90,

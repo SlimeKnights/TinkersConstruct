@@ -9,7 +9,7 @@
       "paragraph": true
     }
   ],
-  "tool_filter": "tconstruct:modifiable/melee",
+  "tool_filter": "tconstruct:modifiable/ranged",
   "effects": [
     "防御を少し無視できる",
     "道具の攻撃力も少し上がる",

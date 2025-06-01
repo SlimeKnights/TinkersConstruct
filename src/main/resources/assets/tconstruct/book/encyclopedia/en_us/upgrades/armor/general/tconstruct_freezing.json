@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:freezing",
   "text": [
     {
-      "text": "Has a 15% chance per level to freezes the attacker for 4 seconds (plus 4 seconds per level), causing damage over time and slowness.. Multiple pieces will stack the effect."
+      "text": "Has a 15% chance per level to freezes the attacker for 2 to 8 seconds, causing damage over time and slowness. Multiple pieces will take the largest effect."
     },
     {
       "text": "Shields are twice as effective but only work when blocking.", "paragraph": true

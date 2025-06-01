@@ -1,0 +1,11 @@
+{
+  "tool": "tconstruct:sky_staff",
+  "text": [
+    { "text": "Cajados de slime-do-céu oferecem grande margem para modificações. Concedem maior velocidade de carregamento à custa da velocidade do projétil." }
+  ],
+  "properties": [
+    "Baixa Durabilidade",
+    "5 Slots de Melhoria",
+    "2 Slots de Habilidade"
+  ]
+}

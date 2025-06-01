@@ -3,6 +3,7 @@ intro=はじめに
 tools=道具
 tools.small_tools=小型道具
 tools.large_tools=大型道具
+tools.group_ancient=古代の道具
 tools.group_staff=杖
 tools.tconstruct.earth_staff=アーススライム
 tools.tconstruct.sky_staff=スカイスライム
@@ -10,22 +11,12 @@ tools.tconstruct.ichor_staff=イコル
 tools.tconstruct.ender_staff=エンダースライム
 armor=防具
 
-materials_harvest_1=Tier1 近接/収穫用素材
-materials_harvest_1.subtext=近接武器、収穫用道具を作成するために使用するTier1の素材です。
-materials_harvest_2=Tier2 近接/収穫用素材
-materials_harvest_2.subtext=近接武器、収穫用道具を作成するために使用するTier2の素材です。
-materials_harvest_3=Tier3 近接/収穫用素材
-materials_harvest_3.subtext=近接武器、収穫用道具を作成するために使用するTier3の素材です。
-materials_harvest_4=Tier4 近接/収穫用素材
-materials_harvest_4.subtext=近接武器、収穫用道具を作成するために使用するTier4の素材です。
-materials_ranged_1=Tier1 遠距離用素材
-materials_ranged_1.subtext=遠距離武器を作成するために使用するTier1の素材です。
-materials_ranged_2=Tier2 遠距離用素材
-materials_ranged_2.subtext=遠距離武器を作成するために使用するTier2の素材です。
-materials_ranged_3=Tier3 遠距離用素材
-materials_ranged_3.subtext=遠距離武器を作成するために使用するTier3の素材です。
-materials_ranged_4=Tier4 遠距離用素材
-materials_ranged_4.subtext=遠距離武器を作成するために使用するTier4の素材です。
+materials_harvest=近接/収穫用素材
+materials_harvest.subtext=近接武器、収穫用道具を作成するために使用する素材です。
+materials_ranged=遠距離用素材
+materials_ranged.subtext=遠距離武器を作成するために使用する素材です。
+materials_armor=防具用素材
+materials_armor.subtext=防具を作成するために使用する素材です。
 materials_skull=スライムスカル
 materials_skull.subtext=このセクションではスライムスカルを作る際の頭全種類の効果を解説します。
 
@@ -41,7 +32,10 @@ upgrades.group_armor.helmet=ヘルメット
 upgrades.group_armor.chestplate=チェストプレート
 upgrades.group_armor.leggings=レギンス
 upgrades.group_armor.boots=ブーツ
-
+# upgrades.boots.tconstruct.feather_falling=低速落下
+# can add other modifiers using [section].[prefix].[mod_id].[modifier_id], we just use this for long names
+# you should also be able to leave off feather falling in your language and it will fallback to the language .json
+# see the section json to find the prefix, any modifier type that defines that can use it
 
 defense=防御
 defense.subtext=素材の能力の代わりに、防具は耐性を高めるための防御スロットを持っています。
@@ -67,3 +61,5 @@ abilities.group_armor.leggings=レギンス
 abilities.group_armor.boots=ブーツ
 abilities.group_armor.shield=盾
 
+fluid_effects=液体の効果
+fluid_effects.subtext=液体の効果は「唾吐き」、「氾濫」、「飛沫」などのさまざまな改造によって、流体がブロックやMobに当たったときの挙動を定義します。

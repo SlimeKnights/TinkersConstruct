@@ -1,6 +1,8 @@
 {
-  "title": "Informação sobre Armaduras",
+  "title": "Informações sobre Armaduras",
   "text": [
-    { "text": "A armadura é fabricada na Estação de Fabricação ao invés da Estação Tinker ou da Bigorna. Todas as peças começam com 1 slot de habilidade, mas têm um número variável de slots de melhoria e de habilidade. Ao contrário das ferramentas, a maioria dos modificadores requer o uso da armadura para ser aplicável." }
+    { "text": "As armaduras podem ser fabricadas de diversas formas. Algumas são feitas na estação de fabricação, outras na estação de tinker, e algumas são moldadas pela fundição." },
+    { "text": "As armaduras possuem diferentes quantidades de slots de melhoria, defesa e habilidade, dependendo do tipo; alguns tipos até possuem atributos de material.", "paragraph": true },
+    { "text": "Diferente das ferramentas, segurar a armadura geralmente não fornece efeito; a maioria dos modificadores exige que a armadura seja vestida para ser aplicado.", "paragraph": true }
   ]
 }

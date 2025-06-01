@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:parrying",
+  "text": [
+    {
+      "text": "Permite usar a ferramenta como um escudo brevemente após atacar."
+    },
+    {
+      "text": "A maioria das adagas bloqueia até 10 de dano e não reduz a velocidade do jogador ao ser usada."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Nível único",
+    "Requer 1 slot de habilidade"
+  ]
+}

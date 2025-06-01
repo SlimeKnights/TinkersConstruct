@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:workbench",
+  "text": [
+    {
+      "text": "Adds a 2x2 crafting table to the tool's inventory. "
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Single level",
+    "Slotless"
+  ]
+}

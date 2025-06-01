@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:reflecting",
+  "text": [
+    {
+      "text": "Projéteis são redirecionados na direção em que você olhar ao serem bloqueados dentro de 2 segundos após usar seu escudo. Cada nível adicional concede 2 segundos extras para refletir."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Requer 1 slot de habilidade"
+  ]
+}

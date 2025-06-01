@@ -32,12 +32,19 @@ public class ModifierIds {
   public static final ModifierId offhanded  = id("offhanded");
   public static final ModifierId soulbound = id("soulbound");
   public static final ModifierId smelting = id("smelting");
+  // combat
+  public static final ModifierId fiery = id("fiery");
+  public static final ModifierId freezing = id("freezing");
+  public static final ModifierId springy = id("springy");
   // general abilities
   public static final ModifierId reach = id("reach");
   public static final ModifierId glowing = id("glowing");
   // compat
   public static final ModifierId theOneProbe = id("the_one_probe");
   public static final ModifierId headlight = id("headlight");
+  // zoom
+  public static final ModifierId scope = id("scope");
+  public static final ModifierId zoom = id("zoom");
 
   // harvest
   public static final ModifierId haste = id("haste");
@@ -68,6 +75,8 @@ public class ModifierIds {
   public static final ModifierId blindshot = id("blindshot");
   public static final ModifierId bulkQuiver = id("bulk_quiver");
   public static final ModifierId trickQuiver = id("trick_quiver");
+  public static final ModifierId crystalshot = id("crystalshot");
+  public static final ModifierId barebow = id("barebow");
 
   // armor
   public static final ModifierId protection = id("protection");
@@ -82,6 +91,7 @@ public class ModifierIds {
   public static final ModifierId wings = id("wings");
   public static final ModifierId knockbackResistance = id("knockback_resistance");
   // counter
+  public static final ModifierId thorns = id("thorns");
   public static final ModifierId ricochet = id("ricochet");
   // defense
   public static final ModifierId revitalizing = id("revitalizing");
@@ -116,6 +126,7 @@ public class ModifierIds {
   public static final ModifierId pathing = id("pathing");
   public static final ModifierId stripping = id("stripping");
   public static final ModifierId tilling = id("tilling");
+  public static final ModifierId brushing = id("brushing");
 
   // internal
   public static final ModifierId overslimeFriend = id("overslime_friend");

@@ -1,0 +1,10 @@
+{
+  "modifier_id": "tconstruct:headlight",
+  "text": [
+    {
+      "text": "周囲のブロックを視覚上照らす。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": ["単一レベル", "アップグレードスロットが1つ必要"]
+}

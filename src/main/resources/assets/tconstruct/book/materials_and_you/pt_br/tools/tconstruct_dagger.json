@@ -2,7 +2,7 @@
   "tool": "tconstruct:dagger",
   "text": [
     {
-      "text": "A adaga é uma arma versátil, ideal para um guerreiro rápido e agil. Tem baixo dano e alta velocidade, realiza ataques rápidos. A adaga também é capaz de ser usada em sua mão secundária para dobrar as adagas."
+      "text": "A adaga é uma arma versátil, ideal para um guerreiro rápido e ágil. Tem baixo dano e alta velocidade, realiza ataques rápidos. A adaga também é capaz de ser usada em sua mão secundária para dobrar as adagas."
     },
     {
       "text": "\n"
@@ -11,6 +11,7 @@
   "properties": [
     "Pouco Dano",
 	"Velocidade Alta",
-    "Pode usar na mão secundária"
+    "Pode usar na mão secundária",
+    "Empilha até 2 ao fabricar e modificar"
   ]
 }

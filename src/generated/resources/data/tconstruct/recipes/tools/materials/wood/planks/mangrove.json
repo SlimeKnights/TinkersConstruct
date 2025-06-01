@@ -1,9 +1,0 @@
-{
-  "type": "tconstruct:material",
-  "ingredient": {
-    "item": "minecraft:mangrove_planks"
-  },
-  "material": "tconstruct:wood#mangrove",
-  "needed": 1,
-  "value": 1
-}

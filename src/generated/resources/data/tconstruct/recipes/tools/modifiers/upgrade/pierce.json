@@ -3,7 +3,7 @@
   "allow_crystal": true,
   "amount_per_item": 1,
   "input": {
-    "item": "minecraft:pointed_dripstone"
+    "item": "tconstruct:punji"
   },
   "level": {
     "max": 3

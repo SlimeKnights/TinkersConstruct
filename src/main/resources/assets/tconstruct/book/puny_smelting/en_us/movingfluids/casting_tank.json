@@ -1,0 +1,14 @@
+{
+  "title": "Casting Tank",
+  "item": "tconstruct:seared_casting_tank",
+  "text": [
+    {
+      "text": "The casting tank is ideal for automatically filling or emptying simple fluid containers such as buckets, bowls, or bottles. Works with hoppers, faucets, and channels.",
+      "paragraph": true
+    },
+    {
+      "text": "Interacting with the top allows placing items inside, and interacting wit the bottom lets you place fluids. Does not work well with tools, the tinker tank may serve you better.",
+      "paragraph": true
+    }
+	]
+}

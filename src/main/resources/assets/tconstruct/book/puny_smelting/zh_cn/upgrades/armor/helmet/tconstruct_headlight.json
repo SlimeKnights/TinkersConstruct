@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:headlight",
+  "text": [
+    {
+      "text": "是你照亮了我的世界！"
+    }
+  ],
+  "effects": [
+    "视觉上照亮你周围的方块",
+    "单个等级",
+    "需要1个升级槽"
+  ]
+}

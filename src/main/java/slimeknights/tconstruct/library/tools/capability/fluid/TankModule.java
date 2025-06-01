@@ -12,6 +12,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import slimeknights.mantle.fluid.FluidTransferHelper;
 import slimeknights.mantle.fluid.transfer.IFluidContainerTransfer.TransferDirection;
+import slimeknights.mantle.fluid.transfer.IFluidContainerTransfer.TransferResult;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
@@ -200,11 +201,14 @@ public class TankModule implements HookProvider, FluidModifierHook, VolatileData
       // target must be stack size 1, if not then its not safe to modify it
       if (slotStack.getCount() == 1) {
         FluidTank tank = getTank(heldTool);
-        ItemStack result = FluidTransferHelper.interactWithTankSlot(TankItem.clientPlayer(player), tank, slotStack, TransferDirection.REVERSE);
+        TransferResult result = FluidTransferHelper.interactWithStack(tank, slotStack, TransferDirection.REVERSE);
         // update held tank and slot item if something changed (either we have a result or the stack in the slot was shrunk)
-        if (!result.isEmpty() || slotStack.isEmpty()) {
+        if (result != null) {
+          if (player.level().isClientSide) {
+            player.playSound(result.getSound());
+          }
           helper.setFluid(heldTool, tank.getFluid());
-          slot.set(FluidTransferHelper.getOrTransferFilled(player, slotStack, result));
+          slot.set(FluidTransferHelper.getOrTransferFilled(player, slotStack, result.stack()));
         }
       }
       return true;
@@ -217,13 +221,15 @@ public class TankModule implements HookProvider, FluidModifierHook, VolatileData
     // must have something with possible fluid held
     if (!held.isEmpty() && TankItem.mayHaveFluid(held)) {
       FluidTank tank = getTank(slotTool);
-      int oldCount = held.getCount();
-      ItemStack result = FluidTransferHelper.interactWithTankSlot(TankItem.clientPlayer(player), tank, held, TransferDirection.AUTO);
-      // update tank
-      if (!result.isEmpty() || held.getCount() != oldCount) {
+      TransferResult result = FluidTransferHelper.interactWithStack(tank, held, TransferDirection.AUTO);
+      // update tank if something happened
+      if (result != null) {
+        if (player.level().isClientSide) {
+          player.playSound(result.getSound());
+        }
         helper.setFluid(slotTool, tank.getFluid());
         // update held item, assuming its actually held
-        TankItem.updateHeldItem(player, held, result);
+        TankItem.updateHeldItem(player, held, result.stack());
       }
 
       return true;

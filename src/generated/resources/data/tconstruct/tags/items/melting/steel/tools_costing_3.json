@@ -11,6 +11,18 @@
     {
       "id": "railcraft:steel_crowbar",
       "required": false
+    },
+    {
+      "id": "immersiveengineering:hoe_steel",
+      "required": false
+    },
+    {
+      "id": "immersiveengineering:axe_steel",
+      "required": false
+    },
+    {
+      "id": "immersiveengineering:pickaxe_steel",
+      "required": false
     }
   ]
 }

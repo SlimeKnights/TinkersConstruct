@@ -1,0 +1,10 @@
+{
+  "modifier_id": "tconstruct:soul_belt",
+  "text": [
+    {
+      "text": "ホットバーにあるアイテムは死亡しても失われなくなります。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": ["最大1レベル", "アビリティスロットが1つ必要", "ソウルバウンドが必要"]
+}

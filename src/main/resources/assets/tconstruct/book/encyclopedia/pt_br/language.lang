@@ -1,27 +1,37 @@
 intro=Introdução
 
-small_tools=Ferramentas Pequenas
-large_tools=Ferramentas Grandes
+tools=Ferramentas
+tools.group_small=Ferramentas Pequenas
+tools.group_large=Ferramentas Grandes
+tools.group_ancient=Ferramentas Antigas
+tools.group_staff=Staffs
+tools.tconstruct.earth_staff=Slime-da-Terra
+tools.tconstruct.sky_staff=Slime-do-Céu
+tools.tconstruct.ichor_staff=Icor
+tools.tconstruct.ender_staff=Slime-do-Ender
 armor=Armadura
 
-materials_1=Materiais Nivel 1
-materials_1.subtext=Estes materiais são fáceis de encontrar, e podem ser colocados no montador de peças para criar peças de ferramentas
-materials_2=Materiais Nivel 2
-materials_2.subtext=Estes materiais requerem fundição e moldagem para sua fabricação, e podem ser um pouco mais raros
-materials_3=Materiais Nivel 3
-materials_3.subtext=Estes materiais requerem ligas, seja através de um fundidor de ligas ou de uma fundição
-materials_4=Materiais Nivel 4
-materials_4.subtext=Estes materiais não podem ser encontrados sem viajar para o Nether
-skull_materials=Slimeskulls
-skull_materials.subtext=Este capitulo descreve os efeitos de todos os tipos de caveiras na criação de um slimeskull
+materials_harvest=Materiais de Coleta para Arma
+materials_harvest.subtext=Materiais usados para criar armas corpo a corpo ou ferramentas de coleta.
+materials_ranged=Materiais de Longo Alcance
+materials_ranged.subtext=Materiais usados para criar armas de longo alcance.
+materials_armor=Materiais de Armadura
+materials_armor.subtext=Materiais usados para criar armaduras e escudos.
+materials_skull=Cranioslime
+materials_skull.subtext=Esta seção descreve os efeitos de todos os tipos de crânios na criação de um cranioslime
 
 upgrades=Melhorias
-upgrades.subtext=Cada ferramenta tem uma quantidade máxima de slots para melhorias.
+upgrades.subtext=Cada ferramenta recebe um número total limitado de slots de melhoria.
 upgrades.group_general=Geral
 upgrades.group_harvest=Coleta
-upgrades.group_melee=Arma
+upgrades.group_weapon=Arma
+upgrades.group_ranged=Longo Alcance
 upgrades.group_damage=Dano
-upgrades.group_armor=Armardura
+upgrades.group_armor=Armadura
+upgrades.group_armor.helmet=Capacete
+upgrades.group_armor.chestplate=Peitoral
+upgrades.group_armor.leggings=Calças
+upgrades.group_armor.boots=Botas
 upgrades.boots.tconstruct.feather_falling=Peso Pena
 
 defense=Defesa
@@ -30,16 +40,23 @@ defense.group_protection=Proteção
 defense.group_special=Especial
 
 slotless=Sem Slots
-slotless.subtext=Modificadores Sem Slots não requerem nenhum slot	.
+slotless.subtext=Modificadores sem slots não requerem nenhum slot.
 slotless.group_general=Geral
-slotless.group_bonus=Bonús
+slotless.group_bonus=Bônus
 
-abilities=Habilidade
-abilities.subtext=Os modificadores de habilidades têm menos slots do que as melhorias, mas são mais fortes para cada slot.
+abilities=Habilidades
+abilities.subtext=Modificadores de habilidade têm menos slots do que melhorias, mas são mais fortes por slot.
 abilities.group_general=Geral
-abilities.group_harvest=Colheita
+abilities.group_harvest=Coleta
 abilities.group_melee=Arma
+abilities.group_ranged=Longo Alcance
 abilities.group_interact=Interação
 abilities.group_armor=Armadura
-abilities.unarmed=Desarmado
+abilities.group_armor.helmet=Capacete
+abilities.group_armor.chestplate=Peitoral
+abilities.group_armor.leggings=Calças
+abilities.group_armor.boots=Botas
+abilities.group_armor.shield=Escudo
 
+fluid_effects=Efeitos de Fluidos
+fluid_effects.subtext=Efeitos de fluidos definem o comportamento quando um fluido atinge um bloco ou entidade através de vários modificadores, como cuspir, derramar e espirrar.

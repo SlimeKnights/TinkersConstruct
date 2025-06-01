@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:sinistral",
+  "text": [
+    {
+      "text": "Faz com que a besta dispare no ataque em vez de interagir, e carregue somente quando não estiver se esgueirando. Permite usar um item na mão secundária enquanto usa uma besta."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Nível único",
+    "Rrequer 1 slot de melhoria"
+  ]
+}

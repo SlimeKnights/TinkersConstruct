@@ -2,12 +2,17 @@
   "modifier_id": "tconstruct:pathing",
   "text": [
     {
-      "text": "Permite que a ferramenta crie caminhos, de forma semelhante a Chibanca ou Escavadora. As ferramentas usarão sua área normal de mineração para a colocação de caminhos."
+      "text": "Permite que a ferramenta crie caminhos, de forma semelhante a picarenxós ou escavadeiras. As ferramentas usarão sua área de mineração normal para criar caminhos."
+    },
+    {
+      "text": "É ativado antes da remoção de casca ou aragem nativa da ferramenta, se presente.",
+      "paragraph": true
     }
   ],
   "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/interactable",
   "effects": [
-    "Máximo de 1 nivel",
+    "Máximo de 1 nível",
     "Requer 1 slot de habilidade"
   ]
 }

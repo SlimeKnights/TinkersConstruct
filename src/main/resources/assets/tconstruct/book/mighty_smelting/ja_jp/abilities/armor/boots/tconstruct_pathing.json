@@ -1,0 +1,10 @@
+{
+  "modifier_id": "tconstruct:pathing",
+  "text": [
+    {
+      "text": "帰り道を忘れてうんざりしたことはありませんか？常に地面に痕跡を残しておきませんか？大地を踏みしめながら歩けば、自分がどこにいたか決して忘れません。"
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/armor/boots",
+  "effects": ["あなたが歩くと道ができる", "「広範」で範囲が広がる", "単一レベル", "アビリティスロットが1つ必要"]
+}

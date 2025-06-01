@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:flinging",
+  "text": [
+    {
+      "text": "Ao infinito e além! (não é um brinquedo voador)"
+    }
+  ],
+  "effects": [
+    "Carregue para se lançar para longe do bloco alvo",
+    "Pode aumentar a velocidade de lançamento com poder ou repulsão",
+    "Nível único",
+    "Requer 1 slot de habilidade"
+  ]
+}

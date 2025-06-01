@@ -1,0 +1,13 @@
+{
+  "title": "Extrair Defesa",
+  "image": {
+    "file": "tconstruct:book/images/worktable/extract_defense.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "Extrair modificadores de defesa de livros encantados ou ferramentas exige cristais de slime-da-terra e ouro. O processo é igualmente instável, resultando na perda da ferramenta."
+    }
+  ]
+}

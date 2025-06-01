@@ -1,0 +1,23 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:knockback",
+      "each_level": 0.25
+    },
+    {
+      "type": "tconstruct:knockback_counter",
+      "chance": {
+        "each_level": 0.15
+      },
+      "durability_usage": 1,
+      "flat_knockback": {
+        "flat": 0.5
+      },
+      "random_knockback": {
+        "flat": 0.5
+      }
+    }
+  ],
+  "tooltip_display": "always"
+}

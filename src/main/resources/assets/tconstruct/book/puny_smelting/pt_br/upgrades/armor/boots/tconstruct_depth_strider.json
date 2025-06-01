@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:depth_strider",
+  "text": [
+    {
+      "text": "Isso é loucura ou genialidade. É notável como essas duas coisas costumam andar juntas."
+    }
+  ],
+  "effects": [
+    "Aumenta a velocidade de movimento debaixo d'água",
+    "Múltiplos níveis, cada nível aumenta ainda mais a velocidade",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}

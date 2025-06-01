@@ -9,12 +9,8 @@
     },
     {
       "text": "頭を刈り取ります！",
-	  "paragraph": true
+      "paragraph": true
     }
   ],
-  "properties": [
-    "強力な武器",
-    "スイングは遅い",
-    "切断II"
-  ]
+  "properties": ["強力な武器", "スイングは遅い", "切断II"]
 }

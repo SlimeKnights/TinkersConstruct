@@ -184,7 +184,7 @@ public class TooltipBuilder {
   public TooltipBuilder addFreeSlots(SlotType slotType) {
     int slots = tool.getFreeSlots(slotType);
     if (slots != 0) {
-      this.tooltips.add(IToolStat.formatNumber(slotType.getPrefix(), slotType.getColor(), slots));
+      this.tooltips.add(slotType.format(slots));
     }
     return this;
   }

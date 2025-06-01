@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:power",
   "text": [
     {
-      "text": "每级弹射物力量+0.5。"
+      "text": "每级弹射物力量+0.5，第1级时额外+0.5。"
     },
     {
       "text": "每级使“腾跃”、“飞跃”、“重击”、“折跃”效果增强25%", "paragraph": true

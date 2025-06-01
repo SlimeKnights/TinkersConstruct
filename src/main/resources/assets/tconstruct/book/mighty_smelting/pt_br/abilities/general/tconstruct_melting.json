@@ -3,12 +3,15 @@
   "text": [
     {
       "text": "A fundição não é portátil o suficiente? Tente transformar sua ferramenta em uma fundição portátil!"
+    },
+    {
+      "text": "Clique com o botão direito do mouse em um tanque enquanto segura a ferramenta para esvaziar o fluido.", "paragraph": true
     }
   ],
   "effects": [
-    "Derrete criaturas atacadas no tanque da ferramenta",
+    "Derrete os mobs atacados no tanque da ferramenta",
     "Itens dropados também são derretidos, se possível",
     "A ferramenta pode ser esvaziada em um tanque ou em um dreno de fundição",
-    "Requer 1 Slot de Habilidade, nível único"
+    "Requer 1 slot de habilidade, nível único"
   ]
 }

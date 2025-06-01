@@ -1,0 +1,30 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:freezing_attack",
+      "seconds": {
+        "each_level": 4.0,
+        "flat": 4.0
+      }
+    },
+    {
+      "type": "tconstruct:freezing_counter",
+      "chance": {
+        "each_level": 0.15
+      },
+      "constant_seconds": {
+        "flat": 2.0
+      },
+      "durability_usage": 1,
+      "random_seconds": {
+        "flat": 6.0
+      },
+      "tool": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:modifiable/armor"
+      }
+    }
+  ],
+  "tooltip_display": "always"
+}

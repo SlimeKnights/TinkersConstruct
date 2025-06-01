@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:workbench",
+  "text": [
+    {
+      "text": "Sometimes, you don't want to stop ruffling through your pockets long enough to craft."
+    }
+  ],
+  "effects": [
+    "Adds an 2x2 crafting table to the tool's inventory",
+    "Single level",
+    "Slotless"
+  ]
+}

@@ -18,6 +18,7 @@ import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.primitive.StringLoadable;
 import slimeknights.mantle.util.typed.TypedMap;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.tools.stat.IToolStat;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -129,6 +130,11 @@ public final class SlotType {
   /** Gets the display name for display in a title */
   public String getPrefix() {
     return KEY_PREFIX + name;
+  }
+
+  /** Gets slot count formatted for showing in a tooltip. */
+  public Component format(int count) {
+    return IToolStat.formatNumber(getPrefix(), getColor(), count);
   }
 
   /** Gets the display name for display in a sentence */
@@ -243,7 +249,7 @@ public final class SlotType {
      */
     @Nullable
     public static SlotType type(@Nullable SlotCount count) {
-      if (count == null) {
+      if (count == null || count.count <= 0) {
         return null;
       }
       return count.type();

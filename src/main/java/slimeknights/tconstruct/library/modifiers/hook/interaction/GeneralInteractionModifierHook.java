@@ -20,7 +20,10 @@ import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import java.util.Collection;
 
 /**
- * Hooks for standard interaction logic post block/entity interaction. See {@link BlockInteractionModifierHook} for block interaction and {@link EntityInteractionModifierHook} for entities.
+ * Hooks for standard interaction logic post block/entity interaction, notably including using a modifier by holding right click.
+ * See {@link BlockInteractionModifierHook} for block interaction and {@link EntityInteractionModifierHook} for entities.
+ * See {@link UsingToolModifierHook} for a hook that triggers when another modifier stops using.
+ * TODO 1.21: split using hooks out to a {@code UsingActiveModifierHook}.
  */
 public interface GeneralInteractionModifierHook {
   /**
@@ -49,7 +52,7 @@ public interface GeneralInteractionModifierHook {
   default void onUsingTick(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int timeLeft) {}
 
   /**
-   * Called when the player stops using the tool without finishing. See {@link #onFinishUsing(IToolStackView, ModifierEntry, LivingEntity)} for finishing interaction.
+   * Called on the active modifier when the player stops using the modifier without finishing. See {@link #onFinishUsing(IToolStackView, ModifierEntry, LivingEntity)} for finishing interaction.
    * Only supported for {@link InteractionSource#RIGHT_CLICK}.
    * To setup, use {@link #startUsing(IToolStackView, ModifierId, LivingEntity, InteractionHand)} in {@link #onToolUse(IToolStackView, ModifierEntry, Player, InteractionHand, InteractionSource)}.
    * @param tool       Tool performing interaction
@@ -60,7 +63,7 @@ public interface GeneralInteractionModifierHook {
   default void onStoppedUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int timeLeft) {}
 
   /**
-   * Called when the use duration on this tool reaches the end. See {@link #onStoppedUsing(IToolStackView, ModifierEntry, LivingEntity, int)} for unfinished interaction.
+   * Called on the active modifier when the use duration on this modifier reaches the end. See {@link #onStoppedUsing(IToolStackView, ModifierEntry, LivingEntity, int)} for unfinished interaction.
    * To setup, use {@link LivingEntity#startUsingItem(InteractionHand)} in {@link #onToolUse(IToolStackView, ModifierEntry, Player, InteractionHand, InteractionSource)} and set the duration in {@link #getUseDuration(IToolStackView, ModifierEntry)}
    * @param tool       Tool performing interaction
    * @param modifier   Modifier instance
@@ -69,11 +72,7 @@ public interface GeneralInteractionModifierHook {
   default void onFinishUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity) {}
 
   /**
-   * Determines how long usage lasts on a tool.
-   * <p>
-   * Since these hooks are called from several locations, it is recommended to set a boolean in persistent data
-   * {@link #onToolUse(IToolStackView, ModifierEntry, Player, InteractionHand, InteractionSource)} and only respond to these hooks if that boolean is set.
-   * The boolean should be cleared in both {@link #onFinishUsing(IToolStackView, ModifierEntry, LivingEntity)} and {@link #onStoppedUsing(IToolStackView, ModifierEntry, LivingEntity, int)}.
+   * Called on the active modifier to determines how long usage lasts on a tool.
    * @param tool       Tool performing interaction
    * @param modifier   Modifier instance
    * @return  For how many ticks the modifier should run its use action
@@ -83,11 +82,7 @@ public interface GeneralInteractionModifierHook {
   }
 
   /**
-   * Determines how long usage lasts on a tool.
-   * <p>
-   * Since these hooks are called from several locations, it is recommended to set a boolean in persistent data
-   * {@link #onToolUse(IToolStackView, ModifierEntry, Player, InteractionHand, InteractionSource)} and only respond to these hooks if that boolean is set.
-   * The boolean should be cleared in both {@link #onFinishUsing(IToolStackView, ModifierEntry, LivingEntity)} and {@link #onStoppedUsing(IToolStackView, ModifierEntry, LivingEntity, int)}.
+   * Called on the active modifier to determines the animation for using this modifier.
    * @param tool       Tool performing interaction
    * @param modifier   Modifier instance
    * @return  Use action to be performed
@@ -185,6 +180,13 @@ public interface GeneralInteractionModifierHook {
         }
       }
       return result;
+    }
+
+    @Override
+    public void onUsingTick(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int timeLeft) {
+      for (GeneralInteractionModifierHook module : modules) {
+        module.onUsingTick(tool, modifier, entity, timeLeft);
+      }
     }
 
     @Override

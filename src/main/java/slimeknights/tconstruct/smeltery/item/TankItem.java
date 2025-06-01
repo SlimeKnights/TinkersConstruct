@@ -25,6 +25,7 @@ import slimeknights.mantle.fluid.FluidTransferHelper;
 import slimeknights.mantle.fluid.tooltip.FluidTooltipHandler;
 import slimeknights.mantle.fluid.transfer.FluidContainerTransferManager;
 import slimeknights.mantle.fluid.transfer.IFluidContainerTransfer.TransferDirection;
+import slimeknights.mantle.fluid.transfer.IFluidContainerTransfer.TransferResult;
 import slimeknights.mantle.item.BlockTooltipItem;
 import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -98,12 +99,6 @@ public class TankItem extends BlockTooltipItem {
     return FluidContainerTransferManager.INSTANCE.mayHaveTransfer(stack) || stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).isPresent();
   }
 
-  /** Returns the player client side or null serverside */
-  @Nullable
-  public static Player clientPlayer(Player player) {
-    return player.level().isClientSide ? player : null;
-  }
-
   @Override
   public boolean overrideStackedOnOther(ItemStack held, Slot slot, ClickAction action, Player player) {
     // take over right click, assuming the target has an item. If not, then we want to place 1 item in the slot
@@ -115,10 +110,16 @@ public class TankItem extends BlockTooltipItem {
         if (slotStack.getCount() == 1) {
           // transfer fluid - but we work with just 1 tank at a time instead of trying to transfer the whole stack
           FluidTank tank = getTank(held, 1);
-          ItemStack result = FluidTransferHelper.interactWithTankSlot(clientPlayer(player), tank, slotStack, TransferDirection.REVERSE);
-          // update held tank and slot item if something changed (either we have a result or the stack in the slot was shrunk)
-          if (!result.isEmpty() || slotStack.isEmpty()) {
-            slot.set(FluidTransferHelper.getOrTransferFilled(player, slotStack, result));
+          TransferResult result = FluidTransferHelper.interactWithStack(tank, slotStack, TransferDirection.REVERSE);
+          // update held tank and slot item if something changed
+          if (result != null) {
+            // play sound
+            if (player.level().isClientSide) {
+              player.playSound(result.getSound());
+            }
+            // update stack
+            slot.set(FluidTransferHelper.getOrTransferFilled(player, slotStack, result.stack()));
+            // deal with remainder
             if (held.getCount() == 1) {
               setTank(held, tank);
             } else {
@@ -129,6 +130,25 @@ public class TankItem extends BlockTooltipItem {
                 player.drop(split, false);
               }
             }
+          }
+        } else {
+          // we don't try filling items with a larger stack size as our transfer logic does not support that
+          // however, supposing that item accepts it in their stack on me logic, let them respond
+          // this won't run twice as we will be returning true regardless
+          if (slotStack.isItemEnabled(player.level().enabledFeatures())) {
+            AbstractContainerMenu menu = player.containerMenu;
+            slotStack.overrideOtherStackedOnMe(held, slot, action, player, new SlotAccess() {
+              @Override
+              public ItemStack get() {
+                return menu.getCarried();
+              }
+
+              @Override
+              public boolean set(ItemStack stack) {
+                menu.setCarried(stack);
+                return true;
+              }
+            });
           }
         }
         return true;
@@ -150,21 +170,25 @@ public class TankItem extends BlockTooltipItem {
   public boolean overrideOtherStackedOnMe(ItemStack stack, ItemStack held, Slot slot, ClickAction action, Player player, SlotAccess pAccess) {
     // take over right click, unless there is no held item (we still want split stack support)
     if (action == ClickAction.SECONDARY && slot.allowModification(player) && !held.isEmpty() && mayHaveFluid(held)) {
-      // tank must be stack size 1 to modify. If not, then we just do nothing
-      if (stack.getCount() == 1) {
+      // we can safely modify tanks of size larger than 1,
+      // though our fluid transfer logic does not handle well transferring between two tanks with no 1mb increments
+      if (stack.getCount() == 1 || held.getItem() instanceof TankItem) {
         // transfer the fluid
         FluidTank tank = getTank(stack);
         // if both tanks are empty, just do standard stack operations; makes it nice and easy to move just 1 item at a time
         if (tank.isEmpty() && ItemStack.isSameItemSameTags(stack, held)) {
           return false;
         }
-        int oldCount = held.getCount();
-        ItemStack result = FluidTransferHelper.interactWithTankSlot(clientPlayer(player), tank, held, TransferDirection.AUTO);
-        if (!result.isEmpty() || held.getCount() != oldCount) {
+        TransferResult result = FluidTransferHelper.interactWithStack(tank, held, TransferDirection.AUTO);
+        if (result != null) {
+          // play sound
+          if (player.level().isClientSide) {
+            player.playSound(result.getSound());
+          }
           // update tank
           setTank(stack, tank);
           // update held item, assuming its actually held
-          updateHeldItem(player, held, result);
+          updateHeldItem(player, held, result.stack());
         }
       }
       return true;

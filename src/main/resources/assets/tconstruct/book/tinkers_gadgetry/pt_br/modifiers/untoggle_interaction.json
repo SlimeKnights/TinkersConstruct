@@ -1,0 +1,13 @@
+{
+  "title": "Desativar interação",
+  "image": {
+    "file": "tconstruct:book/images/worktable/untoggle_interaction.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "É sempre possível voltar o modificador ao estado anterior depois de alterná-lo, claro. Curiosamente, é necessário mais uma alavanca para isso."
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "title": "Extrair Modificadores",
+  "image": {
+    "file": "tconstruct:book/images/worktable/extract_modifier.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "Embora não seja possível preservar os itens do modificador, consegui armazenar a essência do modificador em um cristal ao removê-lo, permitindo reutilizá-lo. O processo requer um cristal de slime do tipo apropriado e uma esponja molhada. Isso também funciona em ferramentas encantadas e livros, se você usar bafo de dragão e cristais de slime-do-ender."
+    }
+  ]
+}

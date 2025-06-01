@@ -7,7 +7,7 @@
         "type": "mantle:inverted",
         "inverted_type": "mantle:requires_tool"
       },
-      "each_level": 0.5,
+      "each_level": 1.0,
       "percent": false,
       "require_effective": false
     }

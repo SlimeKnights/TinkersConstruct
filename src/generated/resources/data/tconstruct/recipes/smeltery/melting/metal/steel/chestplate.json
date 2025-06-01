@@ -3,11 +3,11 @@
   "conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:armors/chestplates/steel"
+      "tag": "tconstruct:melting/steel/tools_costing_8"
     }
   ],
   "ingredient": {
-    "tag": "forge:armors/chestplates/steel"
+    "tag": "tconstruct:melting/steel/tools_costing_8"
   },
   "result": {
     "amount": 720,

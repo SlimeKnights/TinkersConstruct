@@ -1,15 +1,15 @@
 {
   "tool": "tconstruct:dagger",
   "text": [
-    { "text": "A Adaga é uma arma rápida e precisa, utilizável em ambas as mãos.." },
+    { "text": "A Adaga é uma arma rápida e precisa, utilizável em ambas as mãos. Adagas idênticas podem ser empilhadas até 2 quando modificadas sem dano, oferecendo um desconto em modificadores." },
     { "text": "A seda garante tosquiamento.", "paragraph": true }
   ],
   "properties": [
-    "+2 Dano de ataque",
-    "50% Modificador de Ataque",
+    "+3 Dano de Ataque",
+    "65% de Modificador de Ataque",
     "2.0 Velocidade de Ataque",
-    "75% Durabilidade",
-	"Flutuante I",
-    "Pode atacar com a Mão Secundária"
+    "75% de Durabilidade Multiplicada",
+    "Acolchoado I",
+    "Ataque com mão secundária"
   ]
 }

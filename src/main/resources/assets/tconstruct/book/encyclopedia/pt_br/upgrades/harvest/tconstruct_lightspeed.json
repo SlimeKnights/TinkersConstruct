@@ -6,9 +6,10 @@
     }
   ],
   "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/harvest",
   "effects": [
-    "Pode aplicar niveis progressivamente",
-    "Máximo de 5 niveis",
-    "Requer 1 slot de melhoria por nivel"
+    "Pode aplicar níveis progressivamente",
+    "Máximo de 5 níveis",
+    "Requer 1 slot de melhoria por nível"
   ]
 }

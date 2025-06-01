@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:punch",
+  "text": [
+    {
+      "text": "Aumenta o recuo causado pelas flechas a cada nível."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 5 níveis",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}

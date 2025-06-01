@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:battlesign",
+  "text": [
+    { "text": "A placa de batalha é uma mistura entre um escudo e uma espada, encontrada em bastiões, por meio de trocas ou nas mãos de piglins de todos os tipos." }
+  ],
+  "properties": [
+    "+2 Dano de Ataque",
+    "1.4 Velocidade de Ataque",
+    "Bloqueia 50 de dano",
+    "120° de Ângulo de bloqueio",
+    "20% de velocidade de bloqueio",
+    "3 Slots de Defesa",
+    "1 Slot de Habilidade"
+  ]
+}

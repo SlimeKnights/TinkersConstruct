@@ -2,16 +2,14 @@
   "modifier_id": "tconstruct:haste",
   "text": [
     {
-      "text": "Em ferramentas de coleta concede +5 de velocidade de mineração por nivel."
-    },
-    {
-      "text": "Em peitorais, concede +10% de velocidade de mineração por nivel.", "paragraph": true
+      "text": "Em ferramentas de coleta, concede +4 de velocidade de mineração por nível."
     }
   ],
   "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/harvest",
   "effects": [
-    "Pode aplicar niveis progressivamente",
-    "Máximo de 5 niveis",
-    "Requer 1 slot de melhoria por nivel"
+    "Pode aplicar níveis progressivamente",
+    "Máximo de 5 níveis",
+    "Requer 1 slot de melhoria por nível"
   ]
 }

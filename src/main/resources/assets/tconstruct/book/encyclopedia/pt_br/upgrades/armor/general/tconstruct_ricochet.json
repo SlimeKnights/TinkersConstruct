@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:ricochet",
   "text": [
     {
-      "text": "Aumenta a repulsão recebida em 20% por nivel."
+      "text": "Aumenta a repulsão recebida em 20% por nível."
     }
   ],
   "more_text_space": true,
   "effects": [
-    "Máximo de 2 niveis por peça",
+    "Máximo de 2 níveis por peça",
     "Combina o efeito de todas as peças",
-    "Requer 1 slot de melhoria por nivel"
+    "Requer 1 slot de melhoria por nível"
   ]
 }

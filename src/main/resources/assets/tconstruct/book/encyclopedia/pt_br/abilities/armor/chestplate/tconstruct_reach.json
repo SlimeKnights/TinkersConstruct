@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:reach",
+  "text": [
+    {
+      "text": "Aumenta a distância máxima do jogador em que esta ferramenta pode minerar, colocar blocos e atacar mobs em 1 bloco por nível."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Sem nível máximo",
+    "Requer 1 slot de habilidade por nível"
+  ]
+}
+
