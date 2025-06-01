@@ -1,7 +1,0 @@
-{
-  "title": "Fabrication du Coffre à Pièces",
-  "recipe": "tconstruct:tables/part_chest",
-  "description": [
-    { "text": "On ne sait jamais quand une pièce d’outil inutilisée pourra resservir." }
-  ]
-}
