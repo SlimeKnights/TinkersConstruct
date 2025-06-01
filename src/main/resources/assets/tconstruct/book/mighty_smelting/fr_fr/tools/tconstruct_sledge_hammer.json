@@ -1,0 +1,20 @@
+{
+  "tool": "tconstruct:sledge_hammer",
+  "text": [
+    {
+      "text": "Le Marteau de Forge est un outil minier à large portée. Il extrait les blocs sur une zone étendue et est particulièrement efficace contre les morts-vivants."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Idéal pour creuser de vastes zones ou entreprendre de longues expéditions minières."
+    }
+  ],
+  "properties": [
+    "Outil minier avancé",
+    "Minage en zone 3x3",
+    "Efficace sur la pierre et les minerais",
+    "Débute avec Châtiment II"
+  ]
+}

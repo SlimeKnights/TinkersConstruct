@@ -2,6 +2,12 @@
   "type": "tconstruct:modifier",
   "allow_crystal": true,
   "check_trait_level": true,
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "tconstruct:modifiable/armor/golden"
+    }
+  ],
   "inputs": [
     {
       "tag": "forge:ingots/gold"

@@ -10,6 +10,7 @@ import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.data.loadable.primitive.FloatLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.fluid.EffectLevel;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffectContext;
@@ -27,7 +28,14 @@ public record ScalingFluidEffect<C extends FluidEffectContext>(List<EffectForLev
 
   /** @apiNote This constructor is internal, use the builder via {@link #blocks()} or {@link #entities()} */
   @Internal
-  public ScalingFluidEffect {}
+  public ScalingFluidEffect {
+    // ensure scales are sorted
+    for (int i = 1; i < effects.size(); i++) {
+      if (effects.get(i-1).level >= effects.get(i).level) {
+        TConstruct.LOG.warn("Effect scales should be in ascending order, otherwise results will be inconsistent, found level " + effects.get(i-1).level + " >= " + effects.get(i).level);
+      }
+    }
+  }
 
   @Override
   public float apply(FluidStack fluid, EffectLevel level, C context, FluidAction action) {
@@ -56,16 +64,7 @@ public record ScalingFluidEffect<C extends FluidEffectContext>(List<EffectForLev
 
   /** Creates a loader for the given */
   public static <C extends FluidEffectContext> RecordLoadable<ScalingFluidEffect<C>> createLoader(RecordLoadable<EffectForLevel<C>> effectForScale) {
-    return RecordLoadable.withLoader(effectForScale.list(1).<ScalingFluidEffect<C>>requiredField("effects", ScalingFluidEffect::effects), ScalingFluidEffect::new)
-                         .validate((effect, error) -> {
-                           // ensure scales are sorted
-                           for (int i = 1; i < effect.effects.size(); i++) {
-                             if (effect.effects.get(i-1).level >= effect.effects.get(i).level) {
-                               throw error.create("Effect scales must be in ascending order, found level " + effect.effects.get(i-1).level + " >= " + effect.effects.get(i).level);
-                             }
-                           }
-                           return effect;
-                         });
+    return RecordLoadable.withLoader(effectForScale.list(1).requiredField("effects", ScalingFluidEffect::effects), ScalingFluidEffect::new);
   }
 
   /** Record for a single value in the list of effects */

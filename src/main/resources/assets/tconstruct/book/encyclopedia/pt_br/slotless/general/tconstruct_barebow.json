@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:barebow",
+  "text": [
+    {
+      "text": "Impede o arco de usar munição do inventário. Útil para garantir que tiro de cristal ou aljava em massa sejam usados, ou para usar o arco para disparar coisas além de flechas."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Uso único",
+    "Sem slot"
+  ]
+}

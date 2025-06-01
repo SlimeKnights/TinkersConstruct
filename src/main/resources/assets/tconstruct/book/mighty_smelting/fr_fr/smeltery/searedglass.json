@@ -1,0 +1,14 @@
+{
+  "title": "Verre Scellé",
+  "item": "tconstruct:seared_glass",
+  "text": [
+    {
+      "text": "Observez vos merveilles de métal en fusion sans compromettre l'intégrité de votre fonderie grâce à ce verre. Notez qu'il ne stocke pas les fluides contrairement aux réservoirs.",
+      "paragraph": true
+    },
+    {
+      "text": "Le verre ne peut pas être utilisé pour le sol de la fonderie.",
+      "paragraph": true
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:impaling",
+  "text": [
+    {
+      "text": "Eu ficaria bastante horrorizado se você me empalasse com empalamento."
+    },
+    {
+      "text": "Não deve ser confundido com antiaquático",
+      "paragraph": true
+    }
+  ],
+  "effects": [
+    "Aumenta o dano de projéteis disparados por bestas",
+    "Múltiplos níveis, cada nível aumenta ainda mais o dano",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}

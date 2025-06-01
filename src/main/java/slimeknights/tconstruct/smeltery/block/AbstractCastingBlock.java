@@ -17,6 +17,8 @@ import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.shared.block.TableBlock;
 import slimeknights.tconstruct.smeltery.block.entity.CastingBlockEntity;
 
+import javax.annotation.Nullable;
+
 public abstract class AbstractCastingBlock extends TableBlock {
   @Getter
   private final boolean requireCast;
@@ -27,6 +29,7 @@ public abstract class AbstractCastingBlock extends TableBlock {
 
   @Override
   @Deprecated
+  @Nullable
   public MenuProvider getMenuProvider(BlockState pState, Level pLevel, BlockPos pPos) {
     return null;
   }

@@ -12,6 +12,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
@@ -242,16 +243,41 @@ public class ToolStack implements IToolStackView {
    * @return  New NBT
    */
   public ItemStack updateStack(ItemStack stack) {
+    return updateStack(stack, true);
+  }
+
+  /**
+   * Sets the NBT on the given stack
+   * @param stack  Stack instance
+   * @param copyNBT  If true, copies the NBT
+   * @return  New NBT
+   */
+  public ItemStack updateStack(ItemStack stack, boolean copyNBT) {
     if (stack.getItem() != item) {
       throw new IllegalArgumentException("Wrong item in stack");
     }
     // set the raw tag to avoid going through verifyTagAfterLoad and rebuilding stats again
-    stack.tag = nbt.copy();
+    // TODO: is there any reason we copy NBT here? might be worth never copying
+    if (copyNBT) {
+      stack.tag = nbt.copy();
+    } else {
+      stack.tag = nbt;
+    }
     // ensure the damage value is set on the stack for the sake of stacking, since bypassing the vanilla setter skips that
     if (!stack.tag.contains(TAG_DAMAGE, Tag.TAG_ANY_NUMERIC) && stack.getItem().isDamageable(stack)) {
       stack.tag.putInt(TAG_DAMAGE, 0);
     }
     return stack;
+  }
+
+  /** Creates a stack a copy of the given stack */
+  public ItemStack copyStack(ItemStack stack) {
+    return updateStack(stack.copy(), false);
+  }
+
+  /** Creates a stack a copy of the given stack with size no greater than the passed amount */
+  public ItemStack copyStack(ItemStack stack, int size) {
+    return updateStack(ItemHandlerHelper.copyStackWithSize(stack, size), false);
   }
 
   /**

@@ -1,0 +1,19 @@
+{
+  "tool": "tconstruct:plate_shield",
+  "text": [
+    { 
+      "text": "Un bouclier rectangulaire brillant pour des aventures rectangulaires brillantes." 
+    },
+    {
+      "text": "Un bouclier puissant capable de bloquer les attaques les plus violentes. Fabriqué en coulant du métal ou de la céramique sur un noyau de bouclier.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "Potentiel de blocage accru",
+    "Vitesse réduite en position défensive",
+    "2 emplacements d'amélioration",
+    "3 emplacements de défense",
+    "2 caractéristiques de matériau"
+  ]
+}

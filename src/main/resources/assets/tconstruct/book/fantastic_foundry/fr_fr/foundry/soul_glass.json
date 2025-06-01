@@ -1,0 +1,14 @@
+{
+  "title": "Verre d’Âme Calciné",
+  "item": "tconstruct:scorched_soul_glass",
+  "text": [
+    {
+      "text": "Vous trouvez que regarder ne suffit pas, vous voulez toucher les métaux en fusion ? Vous y baigner ? Le verre d’âme crée une barrière que vous pouvez traverser, mais pas les fluides.",
+      "paragraph": true
+    },
+    {
+      "text": "Le verre ne peut pas être utilisé pour le sol de la fonderie.",
+      "paragraph": true
+    }
+  ]
+}

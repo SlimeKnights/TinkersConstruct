@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:tilling",
+  "text": [
+    {
+      "text": "Ne gaspille pas de diamants pour une houe."
+    }
+  ],
+  "effects": [
+    "Permet de labourer la terre avec ton outil",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
+  ]
+}

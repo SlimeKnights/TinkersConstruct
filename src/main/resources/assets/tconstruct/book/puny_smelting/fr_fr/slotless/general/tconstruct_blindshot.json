@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:blindshot",
+  "text": [
+    {
+      "text": "Je vais te mettre de la terre dans les yeux."
+    }
+  ],
+  "effects": [
+    "Diminue la précision des projectiles tirés",
+    "Niveaux multiples, chaque niveau réduit davantage la précision",
+    "Sans emplacement"
+  ]
+}

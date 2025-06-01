@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:ambidextrous",
+  "text": [
+    {
+      "text": "Tout le monde se bat en mode Kung-fu."
+    }
+  ],
+  "effects": [
+    "Permet de frapper avec les deux mains",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:necrotic",
+  "text": [
+    {
+      "text": "Récoltez la vie de vos ennemis pour survivre plus longtemps."
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/melee",
+  "effects": [
+    "Les coups critiques volent de la vie à vos ennemis pour vous soigner",
+    "Niveaux multiples, chaque niveau augmente la quantité de vie volée",
+    "Nécessite 1 emplacement d’amélioration par niveau"
+  ]
+}

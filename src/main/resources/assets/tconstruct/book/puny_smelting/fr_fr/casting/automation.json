@@ -1,0 +1,17 @@
+{
+  "title": "Automatisation",
+  "image": {
+    "file": "tconstruct:book/images/cast_automation.png",
+    "width": 88,
+    "height": 75
+  },
+  "text": [
+    {
+      "text": "Les bassins et tables de coulée interagissent avec les entonnoirs, permettant d'insérer facilement des objets et de récupérer les pièces refroidies."
+    },
+    {
+      "text": "Les comparateurs produisent également des signaux redstone colorés lorsqu'ils sont connectés à un bassin ou une table, et une impulsion redstone peut permuter les entrées et sorties.",
+      "paragraph": true
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "tool": "tconstruct:scythe",
+  "text": [
+    {
+      "text": "La Faux est l'alliée la plus polyvalente d'un aventurier. Que vous exploriez des jungles denses, des grottes infestées d'araignées ou simplement récoltiez vos cultures, la faux vous sera toujours utile pour trancher la végétation."
+    }
+  ],
+  "properties": [
+    "Outil de récolte avancé",
+    "Récolte et labourage en zone 3x3",
+    "Efficace sur tous types de végétation",
+    "Capacités d'attaque en zone"
+  ]
+}

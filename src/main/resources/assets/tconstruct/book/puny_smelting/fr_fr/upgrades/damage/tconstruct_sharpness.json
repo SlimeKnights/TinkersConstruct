@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:sharpness",
+  "text": [
+    {
+      "text": "Plus la lame est aiguisée, plus son porteur l’est aussi."
+    }
+  ],
+  "effects": [
+    "Augmente les dégâts de l’outil",
+    "Niveaux multiples, chaque niveau augmente encore les dégâts",
+    "Nécessite 1 emplacement d’amélioration par niveau"
+  ]
+}

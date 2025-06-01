@@ -21,6 +21,7 @@ import slimeknights.tconstruct.smeltery.client.screen.module.GuiSmelteryTank;
 import slimeknights.tconstruct.smeltery.client.screen.module.HeatingStructureSideInventoryScreen;
 import slimeknights.tconstruct.smeltery.menu.HeatingStructureContainerMenu;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -205,6 +206,7 @@ public class HeatingStructureScreen extends MultiModuleScreen<HeatingStructureCo
     return super.mouseClicked(mouseX, mouseY, button);
   }
 
+  @Nullable
   @Override
   public FluidLocation getFluidUnderMouse(int mouseX, int mouseY) {
     int checkX = mouseX - cornerX;

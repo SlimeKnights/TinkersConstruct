@@ -1,0 +1,17 @@
+{
+  "title": "Coulée Composite",
+  "image": {
+    "file": "tconstruct:book/images/compositecast.png",
+    "width": 177,
+    "height": 50
+  },
+  "text": [
+    {
+      "text": "La coulée composite permet de créer de nouveaux matériaux en versant un fluide sur un objet/bloc dans une table/bassin de coulée."
+    },
+    {
+      "text": "Parmi les matériaux notables, on trouve le Troncslime et le Nahuatl, fabriqués en versant respectivement du slime ou de l'obsidienne en fusion sur des pièces d'outils en bois.",
+      "paragraph": true
+    }
+  ]
+}

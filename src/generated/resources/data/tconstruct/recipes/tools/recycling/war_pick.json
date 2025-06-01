@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:part_builder_tool_recycling",
+  "parts": [
+    "tconstruct:pick_head",
+    "tconstruct:bow_limb",
+    "tconstruct:bowstring"
+  ],
+  "pattern": {
+    "tag": "tconstruct:patterns/default"
+  },
+  "tools": {
+    "item": "tconstruct:war_pick"
+  }
+}

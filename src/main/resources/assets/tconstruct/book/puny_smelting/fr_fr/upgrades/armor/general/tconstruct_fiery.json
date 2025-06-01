@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:fiery",
+  "text": [
+    {
+      "text": "Les flammes du Nether œuvrent pour punir vos ennemis."
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/armor",
+  "effects": [
+    "A une chance d’enflammer les attaquants lors d’un coup",
+    "Niveaux multiples, les niveaux supérieurs augmentent la durée de brûlure",
+    "Nécessite 1 emplacement d’amélioration par niveau"
+  ]
+}

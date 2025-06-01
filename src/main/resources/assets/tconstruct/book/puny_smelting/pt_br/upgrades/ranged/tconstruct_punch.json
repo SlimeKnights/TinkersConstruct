@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:punch",
+  "text": [
+    {
+      "text": "Aí vem a piada de impacto."
+    }
+  ],
+  "effects": [
+    "Aumenta o recuo em projéteis disparados",
+    "Múltiplos níveis, cada nível aumenta ainda mais o recuo",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}

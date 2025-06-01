@@ -82,6 +82,7 @@ import java.util.Objects;
 @SuppressWarnings("unused")
 @EventBusSubscriber(modid = TConstruct.MOD_ID, bus = Bus.FORGE)
 public class ToolEvents {
+  @SuppressWarnings("removal")
   @SubscribeEvent
   static void onBreakSpeed(PlayerEvent.BreakSpeed event) {
     Player player = event.getEntity();

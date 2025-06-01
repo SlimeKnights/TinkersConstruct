@@ -1,0 +1,17 @@
+{
+  "tool": "tconstruct:earth_staff",
+  "text": [
+    { "text": "O Cajado de Slime-da-Terra é uma variante de cajado com alta defesa e precisão." }
+  ],
+  "properties": [
+    "800 de Durabilidade",
+    "1 de Poder de Projétil",
+    "0.9 de Precisão",
+    "35 de Bloqueio Máximo",
+    "140 de Ângulo de Bloqueio",
+    "2 Slots de Melhoria",
+    "3 Slots de Defesa",
+    "2 Slots de Habilidade"
+  ]
+}
+

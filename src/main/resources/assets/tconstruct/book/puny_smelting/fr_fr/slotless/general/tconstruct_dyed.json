@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:dyed",
+  "text": [
+    {
+      "text": "Ça existe en noir ?"
+    }
+  ],
+  "effects": [
+    "Permet d’utiliser des teintures pour changer la couleur de l’outil",
+    "Utilisation multiple",
+    "Sans emplacement"
+  ]
+}

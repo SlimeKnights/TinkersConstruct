@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:worldbound",
+  "text": [
+    {
+      "text": "Le feu n’est plus votre ennemi, votre outil semble en harmonie avec le monde qui l’entoure."
+    }
+  ],
+  "effects": [
+    "Version brute de la netherite",
+    "Confère une immunité aux dégâts externes sans augmentation de puissance",
+    "Utilisation unique",
+    "Ne nécessite aucun emplacement"
+  ]
+}

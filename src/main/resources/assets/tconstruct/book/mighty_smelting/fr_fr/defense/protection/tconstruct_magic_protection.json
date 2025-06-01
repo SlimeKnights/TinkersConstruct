@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:magic_protection",
+  "text": [
+    {
+      "text": "Tu n’es pas un très bon sorcier, Harry, si tu dois utiliser ça. Utilise plutôt plus de sorts de protection."
+    }
+  ],
+  "effects": [
+    "Réduit les dégâts magiques",
+    "Niveaux multiples, chaque niveau réduit davantage les dégâts magiques",
+    "Nécessite 1 emplacement de défense par niveau"
+  ]
+}

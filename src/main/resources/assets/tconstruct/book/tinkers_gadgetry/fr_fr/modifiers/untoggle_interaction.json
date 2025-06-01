@@ -1,0 +1,13 @@
+{
+  "title": "Réinitialiser l’Interaction",
+  "image": {
+    "file": "tconstruct:book/images/worktable/untoggle_interaction.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "Il est toujours possible de réactiver le modificateur après l’avoir désactivé, bien que de façon curieuse, cela nécessite un levier supplémentaire."
+    }
+  ]
+}

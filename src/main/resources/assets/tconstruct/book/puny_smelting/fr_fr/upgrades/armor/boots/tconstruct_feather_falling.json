@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:feather_falling",
+  "text": [
+    {
+      "text": "Plus léger qu’une plume, mais deux fois plus mortel."
+    }
+  ],
+  "effects": [
+    "Réduit les dégâts de chute",
+    "Niveaux multiples, chaque niveau réduit davantage les dégâts de chute",
+    "Nécessite 1 emplacement d’amélioration par niveau"
+  ]
+}
+

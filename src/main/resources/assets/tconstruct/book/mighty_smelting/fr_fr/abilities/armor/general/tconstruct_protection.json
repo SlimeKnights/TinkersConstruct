@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:protection",
+  "text": [
+    {
+      "text": "Après toutes ces années. Enfin, je les ai tous."
+    }
+  ],
+  "effects": [
+    "Augmente la protection contre tous les types de dégâts",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude par niveau"
+  ]
+}

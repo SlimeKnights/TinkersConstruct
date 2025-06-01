@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:boundless",
+  "text": [
+    {
+      "text": "Aumenta o limite de modificadores como proteção, draconato ou shulkerando de 80% para 90%. Se aplicado em duas peças, o limite é aumentado de 90% para 95%."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nível",
+    "Requer 1 slot de habilidade"
+  ]
+}

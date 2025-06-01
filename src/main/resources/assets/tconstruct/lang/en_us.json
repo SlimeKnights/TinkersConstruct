@@ -172,6 +172,7 @@
   "item.tconstruct.knightslime_ingot.tooltip": "Slimy yet metallic but also stone? Fascinating!",
   "item.tconstruct.knightslime_nugget": "Knightslime Nugget",
 
+  "item.tconstruct.book.click_to_open": "Right click to open",
   "item.tconstruct.materials_and_you": "Materials and You",
   "item.tconstruct.materials_and_you.tooltip": "The introduction book into tools and materials\nby Selena",
   "item.tconstruct.encyclopedia": "Encyclopedia of Tinkering",
@@ -1316,6 +1317,8 @@
   "block.tconstruct.seared_chute": "Seared Chute",
   "block.tconstruct.seared_chute.tooltip": "Smeltery item input and output",
 
+  "block.tconstruct.seared_casting_tank": "Casting Tank",
+  "block.tconstruct.seared_casting_tank.tooltip": "Automatically empties or fills inserted items.\nRetains liquid when broken.",
 
   "_comment": "Tinkers Foundry",
 
@@ -1373,7 +1376,7 @@
   "block.tconstruct.scorched_basin.tooltip": "Cast items using molten metals from a Foundry, requires a cast or gold platform to cast",
   "block.tconstruct.scorched_table": "Scorched Casting Table",
   "block.tconstruct.scorched_table.tooltip": "Cast items using molten metals from a Foundry, requires a cast or gold bars to cast",
-  "block.tconstruct.scorched_proxy_tank": "Scorched Proxy Tank",
+  "block.tconstruct.scorched_proxy_tank": "Scorched Tinker Tank",
   "block.tconstruct.scorched_proxy_tank.tooltip": "Tank block that fills or empties the item tank inside instead of an internal tank",
 
   "block.tconstruct.scorched_channel": "Scorched Channel",
@@ -1636,16 +1639,8 @@
 
   "__comment": "Tier 1 Materials",
   "material.tconstruct.wood": "Wood",
-  "material.tconstruct.wood.oak":      "Oak Wood",
-  "material.tconstruct.wood.spruce":   "Spruce Wood",
-  "material.tconstruct.wood.birch":    "Birch Wood",
-  "material.tconstruct.wood.jungle":   "Jungle Wood",
-  "material.tconstruct.wood.acacia":   "Acacia Wood",
-  "material.tconstruct.wood.dark_oak": "Dark Oak Wood",
-  "material.tconstruct.wood.mangrove": "Mangrove Wood",
-  "material.tconstruct.wood.cherry":   "Cherry Wood",
-  "material.tconstruct.wood.crimson":  "Crimson Hyphae",
-  "material.tconstruct.wood.warped":   "Warped Hyphae",
+  "material.tconstruct.wood.crimson": "Crimson Hyphae",
+  "material.tconstruct.wood.warped":  "Warped Hyphae",
   "material.tconstruct.wood.format": "Wooden %s",
   "material.tconstruct.wood.flavor": "How much wood could a woodchuck chuck if a woodchuck could chuck wood?",
   "material.tconstruct.wood.encyclopedia": "Makes repairs 50% more effective per part",
@@ -1742,6 +1737,9 @@
   "material.tconstruct.slimewood.enderbark":  "Enderbark",
   "material.tconstruct.slimewood.flavor": "Is this the wood of a slime or slime that's been infused with wood?",
   "material.tconstruct.slimewood.encyclopedia": "Gives a 5% chance per level of regenerating overslime each second",
+  "material.tconstruct.slimeskin": "Slimeskin",
+  "material.tconstruct.slimeskin.flavor": "Do slimes even have skin?",
+  "material.tconstruct.slimeskin.encyclopedia": "Gives a 5% chance per level of regenerating overslime each second",
 
   "material.tconstruct.venombone": "Venombone",
   "material.tconstruct.venombone.flavor": "Become the bane of your enemies",
@@ -1774,7 +1772,7 @@
 
   "material.tconstruct.amethyst_bronze": "Amethyst Bronze",
   "material.tconstruct.amethyst_bronze.flavor": "Not to be confused with bronze.",
-  "material.tconstruct.amethyst_bronze.encyclopedia": "Grants +0.5 mining speed per level to blocks that don't require tools, even ones where the tool is not effective",
+  "material.tconstruct.amethyst_bronze.encyclopedia": "Grants +1 mining speed per level to blocks that don't require tools, notably ones where the tool is not effective",
   "material.tconstruct.amethyst_bronze.ranged": "Adds +0.1 velocity per level at the cost of limiting arrow angles to 32, 16, or 8 directions at the first 3 levels respectively",
   "material.tconstruct.amethyst_bronze.armor": "Grants +2.5% attack speed per level at the cost of limiting taken knockback angles to 32, 16, 8, or 4 directions",
 
@@ -1964,8 +1962,9 @@
 
   "material.tconstruct.electrum": "Electrum",
   "material.tconstruct.electrum.flavor": "Good for electronic components.",
-  "material.tconstruct.electrum.encyclopedia": "Grants +25% XP per level from blocks and monsters",
-  "material.tconstruct.electrum.ranged": "Grants +25% XP per level from monsters killed by arrows",
+  "material.tconstruct.electrum.encyclopedia": "Grants +50% XP per level from blocks and monsters",
+  "material.tconstruct.electrum.ranged": "Grants +50% XP per level from monsters killed by arrows",
+  "material.tconstruct.electrum.armor": "Grants +25% XP per level from blocks and monsters",
 
   "material.tconstruct.necronium": "Necronium",
   "material.tconstruct.necronium.flavor": "This much decay probably only leaves it with a quarter life",
@@ -1999,6 +1998,9 @@
   "modifier.tconstruct.offhanded.2": "Nohanded",
   "modifier.tconstruct.offhanded.flavor": "Don't think about it too hard",
   "modifier.tconstruct.offhanded.description": "Disables the tools interaction abilities when the offhand is filled. Second level disables interaction abilities entirely.",
+  "modifier.tconstruct.barebow": "Barebow",
+  "modifier.tconstruct.barebow.flavor": "A historical archery discipline",
+  "modifier.tconstruct.barebow.description": "Bow will not use arrows from the inventory, though will still use arrows from quiver or crystalshot.",
 
 
   "_comment": "Durability",
@@ -2081,7 +2083,7 @@
   "modifier.tconstruct.piercing.description": "Tool deals bonus damage which attacks through armor!",
   "modifier.tconstruct.piercing.attack_damage": "Pierce Damage",
   "modifier.tconstruct.pierce": "Pierce",
-  "modifier.tconstruct.pierce.flavor": "Become the cactus!",
+  "modifier.tconstruct.pierce.flavor": "Become the punji!",
   "modifier.tconstruct.pierce.description": "Attacks cancels out some of the target's armor!",
   "modifier.tconstruct.smite": "Smite",
   "modifier.tconstruct.smite.flavor": "Die, Foul Creature!",
@@ -2301,7 +2303,7 @@
   "modifier.tconstruct.step_up.description": "Allows climbing taller blocks as if they were stairs",
   "modifier.tconstruct.leaping": "Leaping",
   "modifier.tconstruct.leaping.flavor": "Leap tall buildings in a single bound!",
-  "modifier.tconstruct.leaping.description": "Rabbits can leap high, so this should also let you leap high",
+  "modifier.tconstruct.leaping.description": "Skyslimes can leap high, so this should also let you leap high",
   "modifier.tconstruct.pockets": "Pockets",
   "modifier.tconstruct.pockets.flavor": "Wondrous invention!",
   "modifier.tconstruct.pockets.description": "The pants have pockets, allowing you to store additional items which can be accessed by shift plus interacting",
@@ -2414,6 +2416,9 @@
   "modifier.tconstruct.tilling": "Tilling",
   "modifier.tconstruct.tilling.flavor": "Till we meet again!",
   "modifier.tconstruct.tilling.description": "Tool can till dirt",
+  "modifier.tconstruct.brushing": "Brushing",
+  "modifier.tconstruct.brushing.flavor": "Scrub those suspicious blocks!",
+  "modifier.tconstruct.brushing.description": "Tool can brush suspicious blocks for pottery",
   "modifier.tconstruct.glowing": "Glowing",
   "modifier.tconstruct.glowing.flavor": "Shine bright!",
   "modifier.tconstruct.glowing.description": "Tool can place glow balls, consuming durability",
@@ -2627,7 +2632,7 @@
   "modifier.tconstruct.lacerating.description": "Causes the target to bleed, dealing additional damage",
   "modifier.tconstruct.crumbling": "Crumbling",
   "modifier.tconstruct.crumbling.flavor": "Hold yourself together!",
-  "modifier.tconstruct.crumbling.description": "Tool mines blocks that don't require a tool faster",
+  "modifier.tconstruct.crumbling.description": "Tool mines blocks that don't require a tool faster. Great for mining the wrong block!",
   "modifier.tconstruct.crumbling.mining_speed": "Crumbling Speed",
   "modifier.tconstruct.crystalbound": "Crystalbound",
   "modifier.tconstruct.crystalbound.flavor": "The way of the crystal is straight",
@@ -2871,6 +2876,11 @@
   "item.minecraft.lingering_potion.effect.tconstruct.levitation":   "Lingering Potion of Levitation",
   "item.minecraft.lingering_potion.effect.tconstruct.enderference": "Lingering Potion of Enderference",
 
+  "item.minecraft.tipped_arrow.effect.tconstruct.experienced":  "Arrow of Experience",
+  "item.minecraft.tipped_arrow.effect.tconstruct.ricochet":     "Arrow of Ricochet",
+  "item.minecraft.tipped_arrow.effect.tconstruct.levitation":   "Arrow of Levitation",
+  "item.minecraft.tipped_arrow.effect.tconstruct.enderference": "Arrow of Enderference",
+
   "_comment": "Cake effects",
   "effect.tconstruct.bouncy": "Bouncy",
   "effect.tconstruct.double_jump": "Double Jump",
@@ -3008,6 +3018,7 @@
   "stat.tconstruct.slot.prefix.abilities": "Abilities: ",
   "stat.tconstruct.slot.prefix.souls": "Soul Slots: ",
   "stat.tconstruct.slot.prefix.defense": "Defense Slots: ",
+  "stat.tconstruct.slot.prefix.slotless": "Slotless",
 
   "stat.tconstruct.slot.display.upgrades": "upgrade",
   "stat.tconstruct.slot.display.abilities": "ability",
@@ -3283,6 +3294,8 @@
   "jei.tconstruct.time": "%s s",
   "jei.tconstruct.temperature": "%s°C",
   "jei.tconstruct.modifier_ingredient": "%s Modifier",
+  "jei.tconstruct.modifier_slot.ingredient": "Modifier Slot: %s",
+  "jei.tconstruct.modifier_slot.id": "Slot ID: %s",
 
   "jei.tconstruct.casting.basin": "Casting Basin",
   "jei.tconstruct.casting.table": "Casting Table",
@@ -3308,8 +3321,8 @@
   "jei.tconstruct.alloy.catalyst": "Not consumed",
 
   "jei.tconstruct.modifiers.title": "Modifiers",
-  "jei.tconstruct.modifiers.slot": "Modifier requires 1 %s slot to apply",
-  "jei.tconstruct.modifiers.slots": "Modifier requires %s %s slots to apply",
+  "jei.tconstruct.modifiers.slot": "Requires 1 %s slot to apply",
+  "jei.tconstruct.modifiers.slots": "Requires %s %s slots to apply",
   "jei.tconstruct.modifiers.free": "No modifier slots are required to apply",
   "jei.tconstruct.modifiers.incremental": "Recipe is incremental, you can apply part of the input for a partial effect",
   "jei.tconstruct.modifiers.level.min": "Min level: %s",

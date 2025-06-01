@@ -1,0 +1,18 @@
+
+{
+  "modifier_id": "tconstruct:spitting",
+  "text": [
+    {
+      "text": "Carregue e solte para lançar fluido que aplica efeitos no alvo, consumindo 1 de durabilidade. Níveis mais altos disparam múltiplos projéteis e consomem mais durabilidade."
+    },
+    {
+      "text": "O poder aumenta o efeito e o consumo de fluido em 25% por nível. O tempo de carga é reduzido por carregamento rápido.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Sem nível máximo",
+    "Requer 1 slot de habilidade por nível"
+  ]
+}

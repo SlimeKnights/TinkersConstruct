@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:step_up",
+  "text": [
+    {
+      "text": "Coloque um pé na frente do outro... só que mais alto."
+    }
+  ],
+  "effects": [
+    "Permite subir blocos mais altos como se fossem escadas",
+    "Múltiplos níveis, cada nível aumenta a altura do passo",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}

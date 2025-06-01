@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:scope",
+  "text": [
+    {
+      "text": "Amplia objetos distantes conforme a ferramenta é carregada. Acaba ficando um pouco menor que uma luneta quando totalmente puxado."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nível",
+    "Requer 1 slot de melhoria"
+  ]
+}

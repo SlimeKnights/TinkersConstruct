@@ -43,7 +43,7 @@ import javax.annotation.Nullable;
 public class MelterBlockEntity extends NameableBlockEntity implements ITankInventoryBlockEntity {
 
   /** Max capacity for the tank */
-  private static final int TANK_CAPACITY = FluidValues.INGOT * 12;
+  private static final int TANK_CAPACITY = FluidValues.INGOT * 24;
   /* tags */
   private static final String TAG_INVENTORY = "inventory";
   /** Name of the GUI */

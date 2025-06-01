@@ -1,0 +1,13 @@
+{
+  "title": "Suppression de Modificateurs",
+  "image": {
+    "file": "tconstruct:book/images/worktable/remove_modifier.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "J’ai découvert qu’il est possible de retirer des modificateurs des outils en utilisant une éponge mouillée. Si vous n’en avez pas sous la main, le venin d’araignée fonctionne aussi. Supprimer un modificateur me redonne de l’espace pour en ajouter de nouveaux, mais malheureusement les objets utilisés pour l’appliquer sont perdus. Au moins, je peux réutiliser l’éponge."
+    }
+  ]
+}

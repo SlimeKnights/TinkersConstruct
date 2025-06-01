@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:melting",
+  "text": [
+    {
+      "text": "La fonderie pas assez portable pour toi ? Essaie de transformer ton outil en fonderie de poche !"
+    },
+    {
+      "text": "Fais un clic droit sur un réservoir en tenant l’outil pour le vider de son fluide.",
+      "paragraph": true
+    }
+  ],
+  "effects": [
+    "Fait fondre les créatures attaquées dans le réservoir de l’outil",
+    "Les objets lâchés sont aussi fondus si possible",
+    "L’outil peut être vidé dans un réservoir ou un drain de fonderie",
+    "Nécessite 1 emplacement d’aptitude, niveau unique"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:warping",
+  "text": [
+    {
+      "text": "On ne peut pas passer par-dessus. On ne peut pas passer par-dessous. Oh non ! Il faut passer à travers !"
+    }
+  ],
+  "effects": [
+    "Charge pour se téléporter dans la direction regardée",
+    "La portée de téléportation peut être augmentée avec Puissance",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
+  ]
+}

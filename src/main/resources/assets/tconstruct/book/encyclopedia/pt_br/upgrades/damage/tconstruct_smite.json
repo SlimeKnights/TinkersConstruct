@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:smite",
   "text": [
     {
-      "text": "Concede +2 de dano por nivel contra criaturas não-mortas."
+      "text": "Concede +2 de dano, por nível, contra mortos-vivos."
     }
   ],
   "more_text_space": true,
   "effects": [
-    "Pode aplicar niveis progressivamente",
-    "Máximo de 5 niveis",
-    "Requer 1 slot de melhoria por nivel"
+    "Pode aplicar níveis progressivamente",
+    "Máximo de 5 níveis",
+    "Requer 1 slot de melhoria por nível"
   ]
 }

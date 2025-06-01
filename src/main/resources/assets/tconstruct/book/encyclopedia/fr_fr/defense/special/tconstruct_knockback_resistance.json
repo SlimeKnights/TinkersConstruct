@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:knockback_resistance",
+  "text": [
+    {
+      "text": "Reduces the amount of knockback received by 10%."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum of 1 level per piece",
+    "Requires 1 defense slot"
+  ]
+}

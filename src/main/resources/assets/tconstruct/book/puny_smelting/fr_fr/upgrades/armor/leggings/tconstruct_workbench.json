@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:workbench",
+  "text": [
+    {
+      "text": "Parfois, on n’a même pas envie d’arrêter de fouiller dans ses poches pour crafter."
+    }
+  ],
+  "effects": [
+    "Ajoute une table de craft dans l’inventaire de l’outil",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’amélioration"
+  ]
+}

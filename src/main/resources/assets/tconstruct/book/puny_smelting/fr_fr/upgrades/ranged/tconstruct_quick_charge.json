@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:quick_charge",
+  "text": [
+    {
+      "text": "Devenez tendu comme un arc."
+    }
+  ],
+  "effects": [
+    "Accélère la préparation des arbalètes et bâtons",
+    "Niveaux multiples (bonus cumulatif)",
+    "Coût : 1 emplacement/niveau"
+  ]
+}

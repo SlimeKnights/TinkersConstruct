@@ -1,0 +1,20 @@
+{
+  "tool": "tconstruct:crossbow",
+  "text": [
+    {
+      "text": "L’arbalète est idéale pour ceux qui veulent rester rapides et prêts au combat."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "On ne devrait jamais croiser un arc.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "Type d’arc rapide et agile",
+    "Peut garder une flèche prête à tirer",
+    "Aime faire la fête avec des feux d’artifice"
+  ]
+}

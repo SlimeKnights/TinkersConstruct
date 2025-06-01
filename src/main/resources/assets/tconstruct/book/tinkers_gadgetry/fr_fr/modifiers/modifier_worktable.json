@@ -1,0 +1,9 @@
+{
+  "title": "Établi à Modificateurs",
+  "recipe": "tconstruct:tables/modifier_worktable",
+  "description": [
+    {
+      "text": "Disposer la pierre brûlée de cette manière permet de mieux cibler un modificateur spécifique dans les recettes."
+    }
+  ]
+}

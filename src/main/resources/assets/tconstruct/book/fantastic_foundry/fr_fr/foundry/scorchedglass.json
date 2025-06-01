@@ -1,0 +1,14 @@
+{
+  "title": "Verre Calciné",
+  "item": "tconstruct:scorched_glass",
+  "text": [
+    {
+      "text": "Observer vos merveilles de matériaux en fusion sans invalider votre fantastique fonderie est possible grâce à ce verre. Notez cependant qu’il ne stocke pas de fluide, contrairement aux réservoirs.",
+      "paragraph": true
+    },
+    {
+      "text": "Le verre ne peut pas être utilisé pour le sol de la fonderie.",
+      "paragraph": true
+    }
+  ]
+}

@@ -6,8 +6,9 @@
     }
   ],
   "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/melee",
   "effects": [
-    "Máximo de 5 niveis",
-    "Requer 1 slot de melhoria por nivel"
+    "Máximo de 5 níveis",
+    "Requer 1 slot de melhoria por nível"
   ]
 }

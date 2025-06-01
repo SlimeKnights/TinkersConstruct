@@ -20,7 +20,10 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import javax.annotation.Nullable;
 import java.util.List;
 
-/** Module for formatting the modifier variant name using a variant formatter */
+/**
+ * Module for formatting the modifier variant name using a variant formatter
+ * @see ModifierVariantColorModule
+ */
 public record ModifierVariantNameModule(VariantFormatter formatter) implements ModifierModule, DisplayNameModifierHook {
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<ModifierVariantNameModule>defaultHooks(ModifierHooks.DISPLAY_NAME);
   public static final RecordLoadable<ModifierVariantNameModule> LOADER = RecordLoadable.create(

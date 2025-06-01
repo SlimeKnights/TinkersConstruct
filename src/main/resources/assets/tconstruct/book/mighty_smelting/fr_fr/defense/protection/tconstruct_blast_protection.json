@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:blast_protection",
+  "text": [
+    {
+      "text": "Creeper, oh non."
+    }
+  ],
+  "effects": [
+    "Réduit les dégâts d’explosion et le recul",
+    "Niveaux multiples, chaque niveau augmente la résistance",
+    "Nécessite 1 emplacement de défense par niveau"
+  ]
+}

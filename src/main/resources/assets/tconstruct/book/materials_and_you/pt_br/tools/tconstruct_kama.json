@@ -2,12 +2,14 @@
   "tool": "tconstruct:kama",
   "text": [
     {
-      "text": "O Kama é uma ferramenta de colheita, fantástica para cortar plantas e tosquiar animais."
+      "text": "A Kama é uma ferramenta de colheita de precisão, excelente para cortar plantas e tosquiar animais."
     }
   ],
   "properties": [
-    "Interaja com as plantações para colhê-las",
-    "Tosqueia blocos e animais",
-    "Efetiva em plantas"
+    "Ara terra",
+    "Interage com as plantações para colhê-las",
+    "Tosquia blocos e animais",
+    "Eficaz contra plantas",
+    "Capacidades de ataque em área"
   ]
 }

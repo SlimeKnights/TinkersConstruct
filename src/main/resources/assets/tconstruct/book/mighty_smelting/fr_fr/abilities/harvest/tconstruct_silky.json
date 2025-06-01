@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:silky",
+  "text": [
+    {
+      "text": "Un modificateur doux et confortable."
+    }
+  ],
+  "effects": [
+    "Les blocs minés se lâchent eux-mêmes",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
+  ]
+}

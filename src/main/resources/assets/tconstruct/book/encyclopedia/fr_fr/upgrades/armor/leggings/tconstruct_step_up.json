@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:step_up",
+  "text": [
+    {
+      "text": "Augmente la hauteur de franchissement de 0,5 bloc par niveau."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum de 2 niveaux",
+    "Nécessite 1 emplacement d'amélioration par niveau"
+  ]
+}
+

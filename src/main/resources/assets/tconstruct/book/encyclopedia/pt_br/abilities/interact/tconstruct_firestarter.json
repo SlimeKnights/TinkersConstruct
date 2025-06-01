@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:firestarter",
   "text": [
     {
-      "text": "Permite que a ferramenta despeje fogo ao ser utilizada, consumindo 1 de durabilidade."
+      "text": "Permite que a ferramenta crie fogo ao ser usada, consumindo 1 de durabilidade."
     }
   ],
   "more_text_space": true,
   "effects": [
-    "Máximo de 1 nivel",
+    "Máximo de 1 nível",
     "Requer 1 slot de habilidade"
   ]
 }

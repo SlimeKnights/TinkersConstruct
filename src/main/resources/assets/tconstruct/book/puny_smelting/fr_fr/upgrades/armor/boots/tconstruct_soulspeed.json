@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:soulspeed",
+  "text": [
+    {
+      "text": "Apparemment, les âmes sont idéales pour courir vite. Est-ce vraiment éthique ?"
+    }
+  ],
+  "effects": [
+    "Augmente la vitesse de déplacement sur le sable des âmes",
+    "Niveaux multiples, chaque niveau augmente encore la vitesse",
+    "Nécessite 1 emplacement d’amélioration par niveau"
+  ]
+}

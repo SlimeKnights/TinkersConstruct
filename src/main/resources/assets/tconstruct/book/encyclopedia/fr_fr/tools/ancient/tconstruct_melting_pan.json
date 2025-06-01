@@ -1,0 +1,21 @@
+{
+  "tool": "tconstruct:melting_pan",
+  "text": [
+    {
+      "text": "La poêle à fondre permet de miner les blocs fondables et fonctionne aussi comme un bâton magique. Elle se trouve dans les donjons, les igloos, chez les zombies momifiés, ou peut être offerte par un forgeron après avoir remporté un raid."
+    },
+    {
+      "text": "Les modules d’expansion permettent de miner plusieurs blocs du même type, avec une portée qui dépend du niveau.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "6 Vitesse de minage",
+    "Niveau de récolte : Pierre",
+    "10% de résistance au recul",
+    "Fusion+",
+    "1 emplacement de défense",
+    "1 emplacement d’amélioration",
+    "2 emplacements de capacité"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:pathing",
+  "text": [
+    {
+      "text": "Si tu ne trouves pas la route de briques dorées, fais-toi un chemin de terre."
+    }
+  ],
+  "effects": [
+    "Permet de créer des chemins avec tes outils",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
+  ]
+}

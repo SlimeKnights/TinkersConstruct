@@ -1,0 +1,17 @@
+{
+  "tool": "tconstruct:pickaxe",
+  "text": [
+    {
+      "text": "La pioche est un outil de minage précis, efficace sur la pierre, le métal et les minerais."
+    },
+    {
+      "text": "Les expanders alternent entre augmenter la profondeur et augmenter la hauteur.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "+0,5 Dégâts d’attaque",
+    "1,2 Vitesse d’attaque",
+    "Perforation I"
+  ]
+}

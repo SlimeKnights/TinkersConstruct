@@ -1,0 +1,13 @@
+{
+  "title": "Moules en Sable",
+  "image": {
+    "file": "tconstruct:book/images/sandcast_partbuilder.png",
+    "width": 172,
+    "height": 74
+  },
+  "text": [
+    {
+      "text": "Les moules en sable peuvent également être créés dans le constructeur de pièces en plaçant du sable ou un moule vierge dans l'emplacement du motif. Ceci est nécessaire pour créer des moules de plaquage d'armure."
+    }
+  ]
+}

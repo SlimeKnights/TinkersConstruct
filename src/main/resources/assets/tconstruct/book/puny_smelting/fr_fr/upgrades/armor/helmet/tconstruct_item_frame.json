@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:item_frame",
+  "text": [
+    {
+      "text": "Marre de tenir votre montre et votre boussole ? Pourquoi ne pas les porter à la place ?"
+    }
+  ],
+  "effects": [
+    "Ajoute des emplacements au casque, interaction pour y accéder",
+    "Le casque affiche les objets lorsqu’il est porté",
+    "Nécessite 1 emplacement d’amélioration par niveau"
+  ]
+}

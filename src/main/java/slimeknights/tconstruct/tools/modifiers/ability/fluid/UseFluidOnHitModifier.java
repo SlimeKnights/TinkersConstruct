@@ -4,7 +4,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.EquipmentSlot.Type;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.fluids.FluidStack;
@@ -22,6 +21,7 @@ import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.particle.FluidParticleData;
+import slimeknights.tconstruct.tools.modules.armor.CounterModule;
 
 import javax.annotation.Nullable;
 
@@ -48,21 +48,24 @@ public abstract class UseFluidOnHitModifier extends Modifier {
 
   /** Logic for using the fluid */
   protected void useFluid(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source) {
-    // 25% chance of working per level, 50% per level on shields
-    float level = modifier.getEffectiveLevel();
-    if (RANDOM.nextInt(slotType.getType() == Type.HAND ? 2 : 4) < level) {
+    LivingEntity self = context.getEntity();
+    float level = CounterModule.getLevel(tool, modifier, slotType, self);
+    // 25% chance per level, though a blocking shield doubles it
+    if (RANDOM.nextFloat() < 0.25f * level) {
       FluidStack fluid = TANK_HELPER.getFluid(tool);
       if (!fluid.isEmpty()) {
-        LivingEntity self = context.getEntity();
         Player player = self instanceof Player p ? p : null;
         FluidEffects recipe = FluidEffectManager.INSTANCE.find(fluid.getFluid());
         if (recipe.hasEffects()) {
           FluidEffectContext.Entity fluidContext = createContext(self, player, source.getEntity());
-          int consumed = recipe.applyToEntity(fluid, level, fluidContext, FluidAction.EXECUTE);
-          if (consumed > 0 && (player == null || !player.isCreative())) {
+          // always applies at level 1, for consistency with other counterattack modules. It's the chance that changes
+          int consumed = recipe.applyToEntity(fluid, 1, fluidContext, FluidAction.EXECUTE);
+          if (consumed > 0) {
             spawnParticles(fluidContext.getTarget(), fluid);
-            fluid.shrink(consumed);
-            TANK_HELPER.setFluid(tool, fluid);
+            if (player == null || !player.isCreative()) {
+              fluid.shrink(consumed);
+              TANK_HELPER.setFluid(tool, fluid);
+            }
           }
         }
       }

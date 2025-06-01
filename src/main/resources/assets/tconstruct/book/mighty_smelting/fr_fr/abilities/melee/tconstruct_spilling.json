@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:spilling",
+  "text": [
+    {
+      "text": "C’est un peu dégoûtant que ton outil fuie. Mais c’est aussi très efficace !"
+    },
+    {
+      "text": "Faire un clic droit sur un réservoir avec l’outil le remplit.",
+      "paragraph": true
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/held",
+  "effects": [
+    "Vide le réservoir lors d’une attaque",
+    "Effets variés selon le fluide, comme le feu ou le poison",
+    "Nécessite 1 emplacement d’aptitude par niveau"
+  ]
+}

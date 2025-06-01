@@ -1,0 +1,13 @@
+{
+  "tool": "tconstruct:sky_staff",
+  "text": [
+    { "text": "Le Bâton Cielslime est une variante très améliorables et rapide." }
+  ],
+  "properties": [
+    "500 Durabilité",
+    "0.8 Vélocité",
+    "1.25 Vitesse de tirage",
+    "5 Emplacements d'amélioration",
+    "2 Emplacements d'aptitude"
+  ]
+}

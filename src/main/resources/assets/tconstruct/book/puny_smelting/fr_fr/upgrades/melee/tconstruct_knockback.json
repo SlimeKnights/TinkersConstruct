@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:knockback",
+  "text": [
+    {
+      "text": "Arrêtez de gaspiller votre énergie à courir et forcez vos ennemis à en dépenser pour revenir vers vous."
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/melee",
+  "effects": [
+    "Repousse les ennemis lors des coups",
+    "Niveaux multiples, chaque niveau augmente la force du recul",
+    "Nécessite 1 emplacement d’amélioration par niveau"
+  ]
+}

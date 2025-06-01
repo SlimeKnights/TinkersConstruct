@@ -1,0 +1,17 @@
+{
+  "tool": "tconstruct:dagger",
+  "text": [
+    {
+      "text": "La dague est une arme polyvalente pour le guerrier rapide. Elle inflige peu de dégâts mais compense par une vitesse élevée, permettant des attaques très rapides. Elle peut aussi être utilisée dans la main secondaire pour une double dague."
+    },
+    {
+      "text": "\n"
+    }
+  ],
+  "properties": [
+    "Faibles Dégâts",
+    "Grande Vitesse",
+    "Utilisable en main secondaire",
+    "Se stacke par 2 à la fabrication et à la modification"
+  ]
+}

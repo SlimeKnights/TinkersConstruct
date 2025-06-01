@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:severing",
+  "text": [
+    {
+      "text": "Qui aurait cru qu’on pouvait faire sauter des têtes nettes avec quelques explosifs bien placés ? Juste un petit coup de ciseaux."
+    }
+  ],
+  "effects": [
+    "Les ennemis lâchent leur tête",
+    "Niveaux multiples, chaque niveau augmente encore la probabilité de décapitation",
+    "Nécessite 1 emplacement d’amélioration par niveau"
+  ]
+}

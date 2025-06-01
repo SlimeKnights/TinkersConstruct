@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:long_fall",
+  "text": [
+    {
+      "text": "Vas-y, essaie de tomber sur la tête. Ha ! Tu n’y arrives pas, hein ?"
+    }
+  ],
+  "effects": [
+    "Empêche tous les dégâts de chute",
+    "Nécessite Chute Amortie IV",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
+  ]
+}

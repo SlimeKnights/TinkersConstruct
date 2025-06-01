@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:reach",
+  "text": [
+    {
+      "text": "Vise les étoiles ! Ou l’étagère du haut… Ou celle du milieu si tu es petit…"
+    }
+  ],
+  "effects": [
+    "Augmente la portée pour les blocs, le minage et les attaques",
+    "Niveaux multiples, chaque niveau augmente la portée",
+    "Nécessite 1 emplacement d’aptitude par niveau"
+  ]
+}

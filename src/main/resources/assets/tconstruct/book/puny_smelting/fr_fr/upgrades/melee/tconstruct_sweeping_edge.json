@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:sweeping_edge",
+  "text": [
+    {
+      "text": "Chim chiminey chim chiminey chim chim chéri, un balayage porte toujours chance, c’est bien connu."
+    }
+  ],
+  "effects": [
+    "Les cibles de l’attaque en balayage subissent un pourcentage plus élevé des dégâts de l’outil",
+    "Niveaux multiples, chaque niveau augmente encore ce pourcentage de dégâts",
+    "Nécessite 1 emplacement d’amélioration par niveau"
+  ]
+}

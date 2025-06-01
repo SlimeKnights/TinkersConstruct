@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:trueshot",
+  "text": [
+    {
+      "text": "Concede +0,1 de precisão por nível."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Pode aplicar níveis progressivamente",
+    "Máximo de 3 níveis",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}

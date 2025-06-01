@@ -1,0 +1,20 @@
+{
+  "tool": "tconstruct:dagger",
+  "text": [
+    {
+      "text": "Le Dague est une arme rapide et précise, utilisable dans les deux mains. Les dagues identiques peuvent être empilées jusqu’à 2 lorsqu’elles sont en bon état, offrant une réduction sur les modificateurs."
+    },
+    {
+      "text": "Silky confère l'effet de tonte.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "+3 Dégâts d’attaque",
+    "65% Modificateur d’attaque",
+    "2,0 Vitesse d’attaque",
+    "Multiplicateur de durabilité 75%",
+    "Padded I",
+    "Attaque en main secondaire"
+  ]
+}

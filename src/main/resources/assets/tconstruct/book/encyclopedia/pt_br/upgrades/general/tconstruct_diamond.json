@@ -2,12 +2,16 @@
   "modifier_id": "tconstruct:diamond",
   "text": [
     {
-      "text": "Concede +500 de durabilidade (+250 na armadura), +0.5 dano de ataque, +2 velocidade de mineração, e +1 de armadura. Além disso, aumenta o nível de coleta de ferramentas para o nivel do diamante."
+      "text": "Concede +500 de durabilidade (+250 na armadura), +0.5 dano de ataque, +2 velocidade de mineração, +0.5 de poder de projéteis e +1 de armadura. Além disso, aumenta o nível de coleta de ferramentas para o nível do diamante."
+    },
+    {
+      "text": "Ferramentas e armaduras receberão apenas aumentos de status aplicáveis, por exemplo, ferramentas seguradas não receberão +1 de armadura.",
+      "paragraph": true
     }
   ],
   "more_text_space": true,
   "effects": [
-    "Máximo de 1 nivel",
+    "Máximo de 1 nível",
     "Requer 1 slot de melhoria"
   ]
 }

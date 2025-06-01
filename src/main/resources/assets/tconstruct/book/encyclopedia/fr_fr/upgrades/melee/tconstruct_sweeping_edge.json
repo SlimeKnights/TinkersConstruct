@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:sweeping_edge",
+  "text": [
+    {
+      "text": "Augmente les dégâts infligés par l’attaque circulaire de l’épée. L’arme inflige 25% des dégâts de l’attaque principale au niveau 1, 50% au niveau 2 et 75% au niveau 3."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Peut être appliqué par niveaux incrémentaux",
+    "Maximum de 3 niveaux",
+    "Nécessite 1 emplacement d'amélioration par niveau"
+  ]
+}
+

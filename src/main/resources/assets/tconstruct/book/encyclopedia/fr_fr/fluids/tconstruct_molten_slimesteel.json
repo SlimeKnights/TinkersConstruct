@@ -1,0 +1,11 @@
+{
+  "text": "Le Slimesteel est idéal pour tous ceux qui souhaitent voler ; à condition d’avoir trouvé une solution pour l’atterrissage.",
+  "entity": [
+    "Explosion de puissance 1,5",
+    "Dégâts d’explosion : 0",
+    "Recul d’explosion supplémentaire"
+  ],
+  "block": [
+    "L’explosion détruit les blocs."
+  ]
+}

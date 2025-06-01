@@ -1,0 +1,14 @@
+{
+  "title": "Sang Ardent",
+  "image": {
+    "file": "tconstruct:book/images/manyullyn_alloy.png",
+    "width": 179,
+    "height": 69
+  },
+  "text": [
+    {
+      "text": "Alors, Bricoleur, tu essaies de créer de meilleurs alliages et tu trouves que la lave est trop faible ? Pourquoi ne pas liquéfier l’essence des blazes vivants pour alimenter tes ambitions ?",
+      "paragraph": true
+    }
+  ]
+}

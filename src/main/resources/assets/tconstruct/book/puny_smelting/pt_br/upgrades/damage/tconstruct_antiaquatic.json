@@ -2,14 +2,14 @@
   "modifier_id": "tconstruct:antiaquatic",
   "text": [
     {
-      "text": "Inimigos do mar tremem de medo dos que empunham armas com esta característica. "
+      "text": "Inimigos do mar tremem de medo dos que empunham armas com esse atributo. "
     },
     {
-      "text": "Aviso: Você é uma pessoa horrível por usar isto em peixes, tartarugas, golfinhos ou em qualquer outra vida marinha pacífica."
+      "text": "Aviso: Você será uma pessoa horrível se usar isto em peixes, tartarugas, golfinhos ou em qualquer outra vida marinha pacífica."
     }
   ],
   "effects": [
-    "Aumenta o dano em criaturas marinhas",
+    "Aumenta o dano em mobs marinhos",
 	"Múltiplos níveis, cada nível aumenta ainda mais o dano",
     "Requer 1 slot de melhoria por nível"
   ]

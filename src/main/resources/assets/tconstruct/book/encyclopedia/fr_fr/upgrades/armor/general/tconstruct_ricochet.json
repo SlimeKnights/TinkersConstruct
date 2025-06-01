@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:ricochet",
+  "text": [
+    {
+      "text": "Augmente le recul reçu de 20% par niveau."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum de 2 niveaux par pièce",
+    "Cumul l'effet de toutes les pièces",
+    "Nécessite 1 emplacement d'amélioration par niveau"
+  ]
+}

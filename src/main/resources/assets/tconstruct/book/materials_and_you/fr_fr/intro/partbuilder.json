@@ -1,0 +1,14 @@
+{
+  "title": "Constructeur de Pièces",
+  "image": {
+    "file": "tconstruct:book/images/partbuilder.png",
+    "width": 170,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "Pour fabriquer une pièce : prends un patron vierge, place-le dans l’emplacement prévu, sélectionne la pièce d’outil que tu veux créer, insère un matériau malléable que tu peux façonner à la main, puis récupère ta pièce. Tu peux aussi remodeler une pièce souple déjà fabriquée.",
+      "paragraph": true
+    }
+  ]
+}

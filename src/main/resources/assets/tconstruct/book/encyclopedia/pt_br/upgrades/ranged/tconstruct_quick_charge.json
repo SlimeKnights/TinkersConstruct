@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:quick_charge",
+  "text": [
+    {
+      "text": "Aumenta a velocidade de saque da ferramenta em 25% por nível."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Pode aplicar níveis progressivamente",
+    "Máximo de 4 níveis",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}

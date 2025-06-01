@@ -1,0 +1,21 @@
+{
+  "tool": "tconstruct:travelers_boots",
+  "text": [
+    { 
+      "text": "Ces bottes sont faites pour marcher, et c'est exactement ce qu'elles feront." 
+    },
+    {
+      "text": "Tout aventurier a besoin d'une bonne paire de bottes stylées et personnalisables pour commencer son périple.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "Protection réduite",
+    "Durabilité réduite",
+    "2 emplacements d'amélioration",
+    "2 emplacements de défense",
+    "1 emplacement d'aptitude",
+    "1 caractéristique de matériau",
+    "Isolées & Traitées"
+  ]
+}

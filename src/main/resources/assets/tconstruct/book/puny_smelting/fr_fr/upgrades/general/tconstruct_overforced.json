@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:overforced",
+  "text": [
+    {
+      "text": "Sursaturé… quel nom, trop de force peut-être ?"
+    }
+  ],
+  "effects": [
+    "Augmente la capacité de surslime",
+    "Niveaux multiples, chaque niveau augmente encore davantage la capacité de surslime",
+    "Nécessite 1 emplacement d’amélioration par niveau"
+  ]
+}

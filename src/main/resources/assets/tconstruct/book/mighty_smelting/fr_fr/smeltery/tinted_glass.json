@@ -1,0 +1,14 @@
+{
+  "title": "Verre Scellé Teinté",
+  "item": "tconstruct:seared_tinted_glass",
+  "text": [
+    {
+      "text": "Votre fonderie est trop lumineuse ? Essayez le verre scellé teinté pour assombrir l'intérieur tout en conservant une transparence totale. Une vraie magie !",
+      "paragraph": true
+    },
+    {
+      "text": "Le verre ne peut pas être utilisé pour le sol de la fonderie.",
+      "paragraph": true
+    }
+  ]
+}

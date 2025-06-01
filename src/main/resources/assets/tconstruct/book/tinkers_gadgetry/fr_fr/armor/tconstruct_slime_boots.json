@@ -1,0 +1,19 @@
+{
+  "tool": "tconstruct:slime_boots",
+  "text": [
+    {
+      "text": "Ces bottes combinent la puissance du lapin et du slime pour vous permettre de sauter partout en toute légèreté."
+    },
+    {
+      "text": "Pour créer ces bottes fantastiques, versez de l’enderslime sur un pied de lapin. Les bottes peuvent ensuite être réparées avec de la peau de lapin.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "Durabilité Élevée",
+    "Aucune Armure ni Emplacement de Défense",
+    "5 Emplacements d’Amélioration",
+    "1 Emplacement d’Aptitude",
+    "Bondissantes et Sautillantes"
+  ]
+}

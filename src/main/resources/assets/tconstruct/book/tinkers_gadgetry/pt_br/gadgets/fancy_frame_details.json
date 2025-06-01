@@ -1,14 +1,14 @@
 {
-  "title": "Molduras de itens extravagantes",
+  "title": "Molduras de Item Extravagantes",
   "text": [
-    { "text": "• Transparente: se torna invisível quando um item é colocado dentro, e permite interagir com o bloco atrás quando cheio e não se esgueirando." },
+    { "text": "• Transparente: Se torna invisível quando um item é colocado dentro e permite interagir com o bloco atrás quando preenchida e sem agachar." },
     { "text": "\n" },
-    { "text": "• Ouro: Gira gradualmente o item automaticamente. A fabricação com uma lanterna de redstone inverte a direção." },
+    { "text": "• Dourada: Gira gradualmente o item automaticamente. Ao ser combinada com uma tocha de redstone, a direção da rotação é invertida." },
     { "text": "\n" },
-    { "text": "• Diamante: Gradualmente reduz a rotação até que o item esteja em pé. Suporta mais rotações do que uma estrutura padrão." },
+    { "text": "• Diamante: Reduz gradualmente a rotação até que o item esteja em pé. Suporta mais rotações do que uma moldura padrão." },
     { "text": "\n" },
-    { "text": "• Manyullyn: Aparece sempre totalmente iluminado, mesmo na escuridão." },
+    { "text": "• Manyullyn: Sempre aparece totalmente iluminada, mesmo na escuridão." },
     { "text": "\n" },
-    { "text": "• Netherita: Resistente a incêndios e explosões." }
+    { "text": "• Netherite: Resistente a chamas e a explosões." }
   ]
 }

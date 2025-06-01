@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:punch",
+  "text": [
+    {
+      "text": "Voici venir la chute."
+    }
+  ],
+  "effects": [
+    "Augmente le recul des projectiles tirés",
+    "Niveaux multiples - chaque niveau augmente davantage le recul",
+    "Nécessite 1 emplacement d'amélioration par niveau"
+  ]
+}

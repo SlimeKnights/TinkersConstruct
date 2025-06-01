@@ -56,13 +56,12 @@ public class FaucetBlockEntityRenderer implements BlockEntityRenderer<FaucetBloc
       TextureAtlasSprite still = spriteGetter.apply(attributes.getStillTexture(renderFluid));
       TextureAtlasSprite flowing = spriteGetter.apply(attributes.getFlowingTexture(renderFluid));
       FluidType fluidType = renderFluid.getFluid().getFluidType();
-      boolean isGas = fluidType.isLighterThanAir();
       combinedLightIn = FluidRenderer.withBlockLight(combinedLightIn, fluidType.getLightLevel(renderFluid));
 
       // render all cubes in the model
       VertexConsumer buffer = bufferIn.getBuffer(MantleRenderTypes.FLUID);
       for (FluidCuboid cube : fluids) {
-        FluidRenderer.renderCuboid(matrices, buffer, cube, 0, still, flowing, color, combinedLightIn, isGas);
+        FluidRenderer.renderCuboid(matrices, buffer, cube, 0, still, flowing, color, combinedLightIn, false);
       }
 
       // render into the block(s) below

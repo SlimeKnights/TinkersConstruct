@@ -1,8 +1,9 @@
 {
-  "title": "Fabricação da Fantástica Fundição",
+  "title": "Fundição Fantástica de Nemea",
   "recipe": "tconstruct:common/fantastic_foundry",
   "grid_size": "small",
   "description": [
-    { "text": "A mais nova tecnologia em metais fundidos. Pule a fundição, comece com uma fantástica fundição!" }
+    { "text": "A mais nova tecnologia em metais fundidos. Pule a normal, comece com uma fantástica! Saiba mais em §oFundição Fantástica§r de Nemea." }
   ]
 }
+

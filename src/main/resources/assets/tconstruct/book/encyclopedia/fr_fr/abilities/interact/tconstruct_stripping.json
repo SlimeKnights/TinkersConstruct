@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:stripping",
+  "text": [
+    {
+      "text": "Allows the tool to strip wood, similarly to hand or broad axes. Tools will use their normal mining area for stripping wood."
+    },
+    {
+      "text": "Triggers before the tool's native tilling or pathing if present.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum of 1 level",
+    "Requires 1 ability slot"
+  ]
+}

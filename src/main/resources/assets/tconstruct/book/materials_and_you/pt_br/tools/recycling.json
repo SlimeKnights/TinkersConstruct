@@ -1,0 +1,15 @@
+{
+  "title": "Reciclagem de Ferramentas",
+  "image": {
+    "file": "tconstruct:book/images/recycling.png",
+    "width": 170,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "Se você mudar de ideia sobre uma ferramenta, sempre pode desmontá-la no montador de peças para recuperar uma das peças da ferramenta. Você pode potencialmente recuperar uma segunda peça, com uma chance maior em ferramentas reparadas. Adagas requerem até 2 empilhamento para serem recicladas.",
+      "paragraph": true
+    }
+  ]
+}
+

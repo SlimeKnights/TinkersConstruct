@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:offhanded",
+  "text": [
+    {
+      "text": "Empêche l'utilisation de l'interaction de la main principale si la main secondaire est occupée. Par exemple, une hache ne pourra pas écorcer le bois si un bouclier est tenu en main secondaire."
+    },
+    {
+      "text": "Le second niveau désactive entièrement la capacité d'interaction de l'outil.", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum de 2 niveaux"
+  ]
+}

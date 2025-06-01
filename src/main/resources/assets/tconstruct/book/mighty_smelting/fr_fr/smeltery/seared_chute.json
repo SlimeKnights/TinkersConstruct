@@ -1,0 +1,10 @@
+{
+  "title": "Goulotte Scellée",
+  "item": "tconstruct:seared_chute",
+  "text": [
+    {
+      "text": "La goulotte scellée permet l'entrée et la sortie des objets dans la fonderie. Placez-la de préférence à un endroit accessible par un entonnoir.",
+      "paragraph": true
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "title": "Atelier du Bricoleur",
+  "image": {
+    "file": "tconstruct:book/images/tinkerstation.png",
+    "width": 135,
+    "height": 72
+  },
+  "text": [
+    {
+      "text": "Mets ça ici, ça là, oh mince c’est à l’envers. Il vaut mieux continuer à bricoler.",
+      "paragraph": true
+    }
+  ]
+}

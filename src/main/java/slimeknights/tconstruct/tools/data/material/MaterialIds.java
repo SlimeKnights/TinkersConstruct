@@ -28,6 +28,7 @@ public final class MaterialIds {
   public static final MaterialId searedStone = id("seared_stone");
   public static final MaterialId slimewood = id("slimewood");
   public static final MaterialId venombone = id("venombone");
+  public static final MaterialId slimeskin = id("slimeskin");
   // tier 2 - nether
   public static final MaterialId scorchedStone = id("scorched_stone");
   public static final MaterialId necroticBone = id("necrotic_bone");

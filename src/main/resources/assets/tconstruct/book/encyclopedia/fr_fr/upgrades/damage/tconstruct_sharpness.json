@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:sharpness",
+  "text": [
+    {
+      "text": "Confère +0,75 de dégâts par niveau."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Peut être appliqué de façon incrémentale",
+    "Maximum de 5 niveaux",
+    "Nécessite 1 emplacement d'amélioration par niveau"
+  ]
+}
+

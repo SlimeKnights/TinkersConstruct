@@ -1,0 +1,10 @@
+{
+  "title": "Fonderie",
+  "subText": "Rien n’est aussi fantastique que la Fonderie.",
+  "hidden": ["structurereq", "fgui2"],
+  "operations": [
+    { "before": "features",       "action": "add_group", "data": "Détails" },
+    { "before": "scorched_tanks", "action": "column_break" },
+    { "before": "scorched_tanks", "action": "add_group", "data": "Blocs" }
+  ]
+}

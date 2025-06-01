@@ -1,0 +1,17 @@
+{
+  "tool": "tconstruct:plate_boots",
+  "text": [
+    { "text": "Mais c'est quoi ces trucs ?" },
+    {
+      "text": "Affronter le Nether nécessite des bottes solides pour protéger vos pieds ! Personne ne réalise à quel point le sol y est brûlant.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "Durabilité accrue",
+    "Protection renforcée",
+    "2 emplacements d'amélioration",
+    "3 emplacements de défense",
+    "2 caractéristiques de matériau"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:swift_sneak",
+  "text": [
+    {
+      "text": "Faut se faufiler vite."
+    }
+  ],
+  "effects": [
+    "Augmente la vitesse de déplacement en étant accroupi",
+    "Niveaux multiples, chaque niveau augmente encore la vitesse",
+    "Nécessite 1 emplacement d’amélioration par niveau"
+  ]
+}

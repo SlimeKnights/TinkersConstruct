@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:bursting",
   "text": [
     {
-      "text": "Drains a small amount of fluid (typically between 10 mb to 50 mb) to boost counterattacks with special effects. Shields must be blocking to use. "
+      "text": "25% chance per level to drain a small amount of fluid (typically between 10 mb to 50 mb) to boost counterattacks with special effects. Blocking doubles the chance for the shield. "
     },
     {
       "text": "Tool can be filled with fluid by interacting with a tank or drain while holding the tool."

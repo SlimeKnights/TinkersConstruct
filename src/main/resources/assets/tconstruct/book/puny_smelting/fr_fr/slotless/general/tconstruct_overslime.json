@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:overslime",
+  "text": [
+    {
+      "text": "Cette amélioration est un peu excessive, non ?"
+    }
+  ],
+  "effects": [
+    "Ajoute une barre de surslime consommée avant la durabilité",
+    "Se recharge avec des boules de slime, quantité variable selon le type",
+    "La capacité est augmentée par de nombreux matériaux d’outil",
+    "Applique un malus aux outils sans matériaux slimes"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:multishot",
+  "text": [
+    {
+      "text": "Thruul décline toute responsabilité en cas d’accident lors de tirs multiples."
+    }
+  ],
+  "effects": [
+    "Tire plusieurs flèches à la fois",
+    "Niveaux multiples, chaque niveau augmente le nombre de flèches tirées",
+    "Nécessite 1 emplacement d’aptitude par niveau"
+  ]
+}

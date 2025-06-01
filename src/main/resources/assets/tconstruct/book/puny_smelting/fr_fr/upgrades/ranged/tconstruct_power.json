@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:power",
+  "text": [
+    {
+      "text": "une §1§lPUISSSSSSSSAAAAAANCE§r infinie."
+    }
+  ],
+  "effects": [
+    "Augmente les dégâts des projectiles tirés avec les arcs longs",
+    "Niveaux multiples - chaque niveau augmente encore les dégâts",
+    "Nécessite 1 emplacement d'amélioration par niveau"
+  ]
+}

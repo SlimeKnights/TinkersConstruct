@@ -91,11 +91,18 @@ public interface IDisplayModifierRecipe extends IModifierRecipe {
     return false;
   }
 
+  /** Gets a list of modifier slots obtained from this recipe. Generally just redirects to modifier behavior. */
+  default List<SlotCount> getResultSlots() {
+    return List.of();
+  }
+
 
   /* Helpers */
 
   /** Maps the stream from tool items to applicable tool stacks */
   Function<Item,ItemStack> MAP_TOOL_FOR_RENDERING = IModifiableDisplay::getDisplayStack;
+  /** Maps the stream from tool items to applicable tool stacks */
+  Function<ItemStack,ItemStack> MAP_TOOL_STACK_FOR_RENDERING = stack -> stack.getItem() instanceof IModifiableDisplay display ? display.getRenderTool() : stack;
 
   /**
    * Gets the list of modifiers to display for the given result

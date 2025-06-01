@@ -1,0 +1,15 @@
+intro=Introduction
+
+melee_harvest_materials=Matériaux de Récolte et de Mêlée de Niveau 1
+melee_harvest_materials.subtext=Ces matériaux peuvent être placés dans le constructeur de pièces pour fabriquer des pièces d’outils de combat ou de récolte.
+
+ranged_materials=Matériaux de Combat à Distance de Niveau 1
+ranged_materials.subtext=Ces matériaux peuvent être placés dans le constructeur de pièces pour fabriquer des pièces d’outils à distance comme les arcs.
+
+tools=Outils
+
+armor=Armure de Base
+armor.subtext=L’armure de base offre une protection simple sans avoir besoin de chercher des ressources rares ni de construire de machines. Elle accorde une défense limitée, mais il existe de nombreuses possibilités d’améliorer votre équipement ! Quelles merveilles allez-vous créer ?
+
+modifiers=Modificateurs
+further_reading=Pour Aller Plus Loin

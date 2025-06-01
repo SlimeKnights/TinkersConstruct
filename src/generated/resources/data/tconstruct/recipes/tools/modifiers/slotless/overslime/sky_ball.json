@@ -3,5 +3,8 @@
   "ingredient": {
     "item": "tconstruct:sky_slime_ball"
   },
-  "restore_amount": 40
+  "restore_amount": 50,
+  "tools": {
+    "tag": "tconstruct:modifiable/durability"
+  }
 }

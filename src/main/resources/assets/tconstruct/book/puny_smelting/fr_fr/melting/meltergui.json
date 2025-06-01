@@ -1,0 +1,13 @@
+{
+  "title": "Interface du Fourneau de Fusion",
+  "image": {
+    "file": "tconstruct:book/images/meltergui.png",
+    "width": 172,
+    "height": 81
+  },
+  "text": [
+    {
+      "text": "L'interface basique de votre fourneau de fusion. Ni plus, ni moins."
+    }
+  ]
+}

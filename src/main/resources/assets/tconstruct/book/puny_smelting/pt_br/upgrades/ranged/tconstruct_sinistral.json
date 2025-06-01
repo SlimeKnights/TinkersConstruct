@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:sinistral",
+  "text": [
+    {
+      "text": "Duas bestas, o dobro de problemas."
+    }
+  ],
+  "effects": [
+    "Bestas na mão principal disparam com o botão de ataque e não recarregam ao agachar",
+    "Permite empunhar duas bestas ou usar com um escudo",
+    "Nível único",
+    "Requer 1 slot de melhoria"
+  ]
+}

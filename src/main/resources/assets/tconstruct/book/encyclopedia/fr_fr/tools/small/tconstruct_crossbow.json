@@ -1,0 +1,19 @@
+{
+  "tool": "tconstruct:crossbow",
+  "text": [
+    {
+      "text": "L’arbalète est une arme à distance rapide, capable de tirer à la fois des flèches et des feux d’artifice. Les flèches peuvent être chargées dans l’arbalète puis tirées plus tard."
+    },
+    {
+      "text": "Lors de l’utilisation de modificateurs d’interaction, l’arbalète agit avec un clic gauche.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "1,0 Vitesse d’attaque",
+    "1,0 Vitesse de tirage",
+    "1,00 Vélocité des flèches",
+    "0,75 Précision",
+    "Multiplicateur de durabilité 200%"
+  ]
+}

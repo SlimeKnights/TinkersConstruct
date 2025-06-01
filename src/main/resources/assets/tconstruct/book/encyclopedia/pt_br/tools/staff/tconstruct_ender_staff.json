@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:ender_staff",
+  "text": [
+    { "text": "O Cajado de Slime-do-Ender é uma variante de cajado com alto alcance e poder." }
+  ],
+  "properties": [
+    "1520 de Durabilidade",
+    "3 de Poder de Projétil",
+    "0.5 de Precisão",
+    "3 Slots de Melhoria",
+    "1 Slot de Defesa",
+    "2 Slots de Habilidade",
+    "Alcance II"
+  ]
+}
+

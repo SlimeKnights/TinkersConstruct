@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:swasher",
+  "text": [
+    {
+      "text": "Le swasher est à la fois une arme de mêlée et un pistolet à fluides portatif. On le trouve souvent dans les trésors enfouis, les épaves, dans les mains des noyés, et parfois à la pêche."
+    }
+  ],
+  "properties": [
+    "+0 Dégâts d’attaque",
+    "1,5 Vitesse d’attaque",
+    "Crachat I",
+    "Déversement I",
+    "3 emplacements d’amélioration",
+    "1 emplacement de capacité"
+  ]
+}

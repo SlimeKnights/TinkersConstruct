@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:knockback_resistance",
+  "text": [
+    {
+      "text": "Je tiens bon, même un tank ne me fera pas bouger."
+    }
+  ],
+  "effects": [
+    "Réduit le recul subi",
+    "Niveau unique",
+    "Nécessite 1 emplacement de défense"
+  ]
+}

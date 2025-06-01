@@ -5,13 +5,14 @@
       "text": "Ele era o número um!"
     },
     {
-      "text": "Clique com o botão direito do mouse em um tanque com o capacete equipado para enchê-lo", "paragraph": true
+      "text": "Clicar com o botão direito em um tanque enquanto segura o capacete o enche de fluido.", "paragraph": true
     }
   ],
   "effects": [
-    "Bebe liquidos armazenados no capacete",
-	"Tecla de Atalho é usada para beber",
-    "Nivel Único",
+    "Bebe fluidos armazenados no capacete",
+	  "Tecla de Atalho é usada para beber",
+    "Nível único",
     "Requer 1 slot de habilidade"
   ]
 }
+

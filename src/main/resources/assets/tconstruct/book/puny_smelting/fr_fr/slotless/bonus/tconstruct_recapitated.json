@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:recapitated",
+  "text": [
+    {
+      "text": "Donc d’abord tu veux leur couper la tête, et maintenant tu veux la remettre ? T’es qui, Frankenstein ?"
+    }
+  ],
+  "effects": [
+    "Ajoute un emplacement d’amélioration",
+    "Niveau unique"
+  ]
+}

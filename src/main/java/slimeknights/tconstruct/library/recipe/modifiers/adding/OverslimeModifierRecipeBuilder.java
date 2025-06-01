@@ -1,6 +1,8 @@
 package slimeknights.tconstruct.library.recipe.modifiers.adding;
 
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
@@ -8,6 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
+import slimeknights.tconstruct.common.TinkerTags;
 
 import java.util.function.Consumer;
 
@@ -16,6 +19,8 @@ import java.util.function.Consumer;
  */
 @RequiredArgsConstructor(staticName = "modifier")
 public class OverslimeModifierRecipeBuilder extends AbstractRecipeBuilder<OverslimeModifierRecipeBuilder> {
+  @Setter @Accessors(chain = true)
+  private Ingredient tools = Ingredient.of(TinkerTags.Items.DURABILITY);
   private final Ingredient ingredient;
   private final int restoreAmount;
 
@@ -39,6 +44,16 @@ public class OverslimeModifierRecipeBuilder extends AbstractRecipeBuilder<Oversl
       throw new IllegalStateException("Empty ingredient not allowed");
     }
     ResourceLocation advancementId = buildOptionalAdvancement(id, "modifiers");
-    consumer.accept(new LoadableFinishedRecipe<>(new OverslimeModifierRecipe(id, ingredient, restoreAmount), OverslimeModifierRecipe.LOADER, advancementId));
+    consumer.accept(new LoadableFinishedRecipe<>(new OverslimeModifierRecipe(id, tools, ingredient, restoreAmount), OverslimeModifierRecipe.LOADER, advancementId));
+  }
+
+  /** Creates a crafting table overslime repair recipe */
+  public OverslimeModifierRecipeBuilder saveCrafting(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
+    if (ingredient == Ingredient.EMPTY) {
+      throw new IllegalStateException("Empty ingredient not allowed");
+    }
+    ResourceLocation advancementId = buildOptionalAdvancement(id, "modifiers");
+    consumer.accept(new LoadableFinishedRecipe<>(new OverslimeCraftingTableRecipe(id, tools, ingredient, restoreAmount), OverslimeCraftingTableRecipe.LOADER, advancementId));
+    return this;
   }
 }

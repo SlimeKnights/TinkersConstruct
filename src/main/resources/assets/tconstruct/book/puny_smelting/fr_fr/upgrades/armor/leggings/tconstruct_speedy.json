@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:speedy",
+  "text": [
+    {
+      "text": "Faut aller vite."
+    }
+  ],
+  "effects": [
+    "Augmente la vitesse de déplacement",
+    "Niveaux multiples, chaque niveau augmente encore la vitesse",
+    "Nécessite 1 emplacement d’amélioration par niveau"
+  ]
+}

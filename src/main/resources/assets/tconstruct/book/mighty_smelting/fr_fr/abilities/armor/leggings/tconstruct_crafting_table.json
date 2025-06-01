@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:crafting_table",
+  "text": [
+    {
+      "text": "Comme quand toute la ficelle dans ta poche s’emmêle… sauf que là, c’est utile."
+    }
+  ],
+  "effects": [
+    "Ajoute une table de craft complète à l’inventaire de l’outil",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
+  ]
+}

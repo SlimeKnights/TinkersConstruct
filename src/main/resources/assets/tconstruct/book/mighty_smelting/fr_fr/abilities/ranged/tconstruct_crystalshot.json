@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:crystalshot",
+  "text": [
+    {
+      "text": "Attention, une manipulation prolongée pourrait faire pousser des cristaux sur toi."
+    }
+  ],
+  "effects": [
+    "Tire des cristaux au lieu de flèches",
+    "Ne nécessite pas de munitions, consomme plus de durabilité",
+    "Change de couleur selon les cristaux utilisés à la fabrication",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
+  ]
+}

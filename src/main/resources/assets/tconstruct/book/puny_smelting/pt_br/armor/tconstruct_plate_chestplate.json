@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:plate_chestplate",
+  "text": [
+    { "text": "Se você encostar a cabeça no peitoral, consegue ouvir seu próprio coração batendo enquanto um Creeper explode atrás de você. Por que você tirou isso?" },
+    {
+      "text": "Alta proteção com malha de corrente para oferecer flexibilidade — não tem como ficar mais estiloso!", "paragraph": true
+    }
+  ],
+  "properties": [
+    "Mais Durabilidade",
+    "Mais Armadura",
+    "2 Slots de Melhoria",
+    "3 Slots de Defesa",
+    "2 Atributos de Material"
+  ]
+}

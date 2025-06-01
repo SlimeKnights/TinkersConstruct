@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:flamewake",
+  "text": [
+    {
+      "text": "Qui a eu l’idée de combiner silex et briques avec des bottes ? Je ne peux plus marcher nulle part en sécurité maintenant !"
+    }
+  ],
+  "effects": [
+    "Laisse du feu là où vous marchez",
+    "Zone augmentée avec l’extension",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
+  ]
+}

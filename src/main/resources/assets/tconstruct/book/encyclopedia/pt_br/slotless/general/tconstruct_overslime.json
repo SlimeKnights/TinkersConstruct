@@ -2,12 +2,19 @@
   "modifier_id": "tconstruct:overslime",
   "text": [
     {
-      "text": "Slimebilidade concede a ferramenta uma segunda barra de durabilidade, que é consumido antes da barra principal de durabilidade. Por padrão, as ferramentas começam com 50 de slimebilidade, multiplicado pelo seu modificador de durabilidade."
+      "text": "Slimebilidade concede às ferramentas uma segunda barra de durabilidade, consumida antes da barra de durabilidade principal. Por padrão, as ferramentas começam com 50 de slimebilidade máxima, multiplicada pelo seu modificador de durabilidade."
+    },
+    {
+      "text": "Ferramentas com materiais sem reforçabilidade ou slime têm status reduzidos. Frascos de slime podem ser usados na bancada de trabalho para restaurar a slimebilidade.",
+      "paragraph": true
     }
   ],
   "more_text_space": true,
   "effects": [
-    "Multi-usos",
-    "Sem Slots"
+    "Multiúso",
+    "Sem slot",
+    "Ferramentas sem slime: -10% de velocidade de mineração e dano de ataque, -0.5 de armadura"
   ]
 }
+
+

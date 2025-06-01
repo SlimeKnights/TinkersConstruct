@@ -1,0 +1,13 @@
+{
+  "title": "Extraction de Modificateurs",
+  "image": {
+    "file": "tconstruct:book/images/worktable/extract_modifier.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "Bien qu’il ne soit pas possible de préserver les objets modificateurs, j’ai réussi à stocker l’essence du modificateur dans un cristal lors de son extraction, permettant ainsi sa réutilisation. Le processus nécessite un cristal de slime du type approprié et une éponge mouillée. Cela fonctionne aussi sur des outils enchantés ou des livres si vous utilisez du souffle de dragon et des cristaux d’enderslime."
+    }
+  ]
+}

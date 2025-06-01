@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:fiery",
+  "text": [
+    {
+      "text": "A 15% de chance par niveau de faire brûler l’attaquant pendant 5 secondes par niveau. Plusieurs pièces cumulent l’effet."
+    },
+    {
+      "text": "Les boucliers sont deux fois plus efficaces mais ne fonctionnent que lorsque vous bloquez.", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/armor",
+  "effects": [
+    "Peut être appliqué par niveau",
+    "Maximum de 5 niveaux",
+    "Nécessite 1 emplacement d'amélioration par niveau"
+  ]
+}

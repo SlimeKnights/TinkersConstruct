@@ -1,0 +1,21 @@
+{
+  "tool": "tconstruct:travelers_helmet",
+  "text": [
+    { 
+      "text": "Des lunettes dignes d'un Roi, ou de Lemmings, ou du King Lemmings." 
+    },
+    {
+      "text": "Une bonne paire de lunettes assure des aventures plus sûres, une meilleure vision, et les attributs d'un Roi.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "Protection réduite",
+    "Durabilité réduite",
+    "2 emplacements d'amélioration",
+    "2 emplacements de défense",
+    "1 emplacement d'aptitude",
+    "1 caractéristique de matériau",
+    "Isolé & Traité"
+  ]
+}

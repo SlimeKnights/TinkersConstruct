@@ -1,0 +1,13 @@
+{
+  "title": "Géodes d’Ichor",
+  "image": {
+    "file": "tconstruct:book/images/geodes/ichor.png",
+    "width": 180,
+    "height": 106
+  },
+  "text": [
+    {
+      "text": "Les géodes d’ichor sont l’une des meilleures sources du rare slime orange. Elles apparaissent en haute altitude dans le Nether, et leurs cristaux semblent également briller."
+    }
+  ]
+}

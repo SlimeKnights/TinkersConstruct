@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:worldbound",
+  "text": [
+    {
+      "text": "Alternative au netherite qui rend les outils invulnérables lorsqu'ils sont lâchés sans nécessiter d'emplacement d'amélioration. Ne confère aucun bonus de statistiques."
+    }
+
+  ],
+  "more_text_space": true,
+  "effects": [
+	  "Usage unique",
+    "Sans emplacement"
+  ]
+}

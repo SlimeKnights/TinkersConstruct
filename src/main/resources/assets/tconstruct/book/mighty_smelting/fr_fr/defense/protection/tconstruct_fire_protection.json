@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:fire_protection",
+  "text": [
+    {
+      "text": "À travers le feu et les flammes."
+    }
+  ],
+  "effects": [
+    "Réduit les dégâts de feu et la durée de brûlure",
+    "Niveaux multiples, chaque niveau réduit encore les dégâts et le temps de brûlure",
+    "Nécessite 1 emplacement de défense par niveau"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:respiration",
+  "text": [
+    {
+      "text": "Qui a besoin d’air pour respirer, de toute façon."
+    }
+  ],
+  "effects": [
+    "Réduit la consommation d’air sous l’eau",
+    "Niveaux multiples, chaque niveau réduit encore davantage la consommation",
+    "Nécessite 1 emplacement d’amélioration par niveau"
+  ]
+}

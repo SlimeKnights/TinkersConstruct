@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:crafting_table",
+  "text": [
+    {
+      "text": "Tipo quando todos o fios em seu bolso fica emaranhado, só que é útil."
+    }
+  ],
+  "effects": [
+    "Adiciona uma bancada de trabalho completa ao inventário da ferramenta",
+    "Nível único",
+    "Requer 1 slot de habilidade"
+  ]
+}

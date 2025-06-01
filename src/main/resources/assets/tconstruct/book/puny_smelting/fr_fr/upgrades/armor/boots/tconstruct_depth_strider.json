@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:depth_strider",
+  "text": [
+    {
+      "text": "C’est soit de la folie, soit du génie. C’est fou comme ces deux traits coïncident souvent."
+    }
+  ],
+  "effects": [
+    "Augmente la vitesse de déplacement sous l’eau",
+    "Niveaux multiples, chaque niveau augmente encore la vitesse",
+    "Nécessite 1 emplacement d’amélioration par niveau"
+  ]
+}

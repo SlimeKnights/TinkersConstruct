@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:freezing",
+  "text": [
+    {
+      "text": "Elsa en serait peut-être jalouse."
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/armor",
+  "effects": [
+    "A une chance de geler les attaquants lorsqu’ils vous frappent",
+    "Niveaux multiples, chaque niveau ralentit les ennemis plus longtemps",
+    "Nécessite 1 emplacement d’amélioration par niveau"
+  ]
+}

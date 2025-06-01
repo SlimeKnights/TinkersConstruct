@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:blindshot",
+  "text": [
+    {
+      "text": "Diminue la précision de 0,1 par niveau."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Usage multiple",
+    "Sans emplacement",
+    "Pas de niveau max, mais la précision minimale est 0,1"
+  ]
+}

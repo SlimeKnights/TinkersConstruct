@@ -9,7 +9,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.EquipmentSlot.Type;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -111,12 +110,12 @@ public final class ModifierUtil {
 
   /** Checks if the given slot may contain armor */
   public static boolean validArmorSlot(LivingEntity living, EquipmentSlot slot) {
-    return slot.getType() == Type.ARMOR || living.getItemBySlot(slot).is(TinkerTags.Items.HELD);
+    return slot.isArmor() || living.getItemBySlot(slot).is(TinkerTags.Items.HELD);
   }
 
   /** Checks if the given slot may contain armor */
   public static boolean validArmorSlot(IToolStackView tool, EquipmentSlot slot) {
-    return slot.getType() == Type.ARMOR || tool.hasTag(TinkerTags.Items.HELD);
+    return slot.isArmor() || tool.hasTag(TinkerTags.Items.HELD);
   }
 
   /** Shortcut to get a volatile flag when the tool stack is not needed otherwise */
@@ -124,6 +123,15 @@ public final class ModifierUtil {
     CompoundTag nbt = stack.getTag();
     if (nbt != null && nbt.contains(ToolStack.TAG_VOLATILE_MOD_DATA, Tag.TAG_COMPOUND)) {
       return nbt.getCompound(ToolStack.TAG_VOLATILE_MOD_DATA).getBoolean(flag.toString());
+    }
+    return false;
+  }
+
+  /** Shortcut to get a persistent flag when the tool stack is not needed otherwise */
+  public static boolean checkPersistentPresent(ItemStack stack, ResourceLocation key) {
+    CompoundTag nbt = stack.getTag();
+    if (nbt != null && nbt.contains(ToolStack.TAG_VOLATILE_MOD_DATA, Tag.TAG_COMPOUND)) {
+      return nbt.getCompound(ToolStack.TAG_VOLATILE_MOD_DATA).contains(key.toString());
     }
     return false;
   }

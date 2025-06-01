@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:hydraulic",
+  "text": [
+    {
+      "text": "Grâce à la magie des pompes et des fluides, vous pouvez déplacer des choses avec aisance. Enfin… pas ici, mais bon."
+    }
+  ],
+  "effects": [
+    "Mine plus rapidement sous l’eau ou sous la pluie",
+    "Niveaux multiples, chaque niveau augmente encore la vitesse",
+    "Nécessite 1 emplacement d’amélioration par niveau"
+  ]
+}

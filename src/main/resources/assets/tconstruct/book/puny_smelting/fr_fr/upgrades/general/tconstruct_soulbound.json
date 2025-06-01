@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:soulbound",
+  "text": [
+    {
+      "text": "Infuser un objet avec votre âme ne semble pas très sain. Mais c’est plutôt utile !"
+    }
+  ],
+  "effects": [
+    "L’outil reste avec vous en cas de décès prématuré",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’amélioration"
+  ]
+}

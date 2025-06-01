@@ -8,7 +8,7 @@
   "level": {
     "max": 4
   },
-  "needed_per_level": 40,
+  "needed_per_level": 15,
   "result": "tconstruct:feather_falling",
   "slots": {
     "upgrades": 1

@@ -3,7 +3,6 @@ package slimeknights.tconstruct.library.modifiers.modules.armor;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot.Type;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.TConstruct;
@@ -33,14 +32,14 @@ public record MobDisguiseModule(EntityType<?> entity) implements EquipmentChange
 
   @Override
   public void onEquip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
-    if (context.getChangedSlot().getType() == Type.ARMOR) {
+    if (context.getChangedSlot().isArmor()) {
       context.getTinkerData().ifPresent(data -> data.computeIfAbsent(DISGUISES).add(entity, modifier.getLevel()));
     }
   }
 
   @Override
   public void onUnequip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
-    if (context.getChangedSlot().getType() == Type.ARMOR) {
+    if (context.getChangedSlot().isArmor()) {
       context.getTinkerData().ifPresent(data -> {
         Multiset<EntityType<?>> disguises = data.get(DISGUISES);
         if (disguises != null) {

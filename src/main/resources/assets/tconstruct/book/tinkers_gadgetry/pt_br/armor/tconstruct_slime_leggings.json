@@ -1,14 +1,14 @@
 {
   "tool": "tconstruct:slime_leggings",
   "text": [
-    { "text": "A calca de slime é uma peça de armazenamento, garantindo o melhor das habilidades de um shulker." },
-    { "text": "Para criar estas calças maravilhosas, despeje a calda enderslime em um casco de shulker dentro de uma bacia. O casco pode ser consertado mais tarde usando a fruta do coro.", "paragraph": true }
+    { "text": "A calça de slime são uma peça defesa, uma peça armazenamento, proporcionando o melhor de ambas as habilidades do shulker." },
+    { "text": "Para criar essas calças maravilhosas, despeje fluido de slime-do-ender em uma casca de shulker em um bacia. A casca pode ser reparada usando fruta do coro.", "paragraph": true }
   ],
   "properties": [
     "Alta Durabilidade",
-    "Não possui armadura nem slot de defesa",
-    "5 Slots de melhoria",
-    "1 Slot de habilidade",
-    "Proteção"
+    "Sem Slots de Armadura ou Defesa",
+    "5 Slots de Melhoria",
+    "1 Slot de Habilidade",
+    "Shulkerando"
   ]
 }

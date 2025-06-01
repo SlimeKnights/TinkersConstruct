@@ -1,0 +1,22 @@
+{
+  "tool": "tconstruct:excavator",
+  "text": [
+    {
+      "text": "L'Excavatrice est un outil de terrassement à large portée. Elle extrait la terre et la neige sur une zone étendue."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Utile lorsque vous avez besoin de creuser beaucoup de tombes.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "Outil de creusement avancé",
+    "Creuse en zone 3x3",
+    "Efficace sur terre, sable et gravier",
+    "Peut créer des chemins",
+    "Débute avec Recul II"
+  ]
+}

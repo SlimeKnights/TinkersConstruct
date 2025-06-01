@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.recipe.modifiers.adding;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.mantle.recipe.ingredient.SizedIngredient;
 import slimeknights.tconstruct.library.json.IntRange;
@@ -13,7 +13,7 @@ import java.util.Collections;
 import java.util.List;
 
 /** Recipe instance to return in JEI from recipes that contain multiple display recipes */
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class DisplayModifierRecipe implements IDisplayModifierRecipe {
   private final List<SizedIngredient> inputs;
   @Getter
@@ -28,6 +28,14 @@ public class DisplayModifierRecipe implements IDisplayModifierRecipe {
   @Nullable
   @Getter
   private final SlotCount slots;
+  @Getter
+  private final List<SlotCount> resultSlots;
+
+  /** @deprecated use {@link #DisplayModifierRecipe(List, List, List, ModifierEntry, IntRange, SlotCount, List)} */
+  @Deprecated(forRemoval = true)
+  public DisplayModifierRecipe(List<SizedIngredient> inputs, List<ItemStack> toolWithoutModifier, List<ItemStack> toolWithModifier, ModifierEntry displayResult, IntRange level, @Nullable SlotCount slots) {
+    this(inputs, toolWithoutModifier, toolWithModifier, displayResult, level, slots, List.of());
+  }
 
   @Override
   public int getInputCount() {

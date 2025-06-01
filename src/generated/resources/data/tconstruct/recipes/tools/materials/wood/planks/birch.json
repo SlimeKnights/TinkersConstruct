@@ -1,9 +1,0 @@
-{
-  "type": "tconstruct:material",
-  "ingredient": {
-    "item": "minecraft:birch_planks"
-  },
-  "material": "tconstruct:wood#birch",
-  "needed": 1,
-  "value": 1
-}

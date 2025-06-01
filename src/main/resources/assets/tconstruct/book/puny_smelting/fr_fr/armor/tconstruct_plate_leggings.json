@@ -1,0 +1,19 @@
+{
+  "tool": "tconstruct:plate_leggings",
+  "text": [
+    { 
+      "text": "Ma jambe, ma jambe !" 
+    },
+    {
+      "text": "Ces jambières offrent une excellente protection pour tous vos combats !",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "Durabilité accrue",
+    "Protection renforcée",
+    "2 emplacements d'amélioration",
+    "3 emplacements de défense",
+    "2 caractéristiques de matériau"
+  ]
+}

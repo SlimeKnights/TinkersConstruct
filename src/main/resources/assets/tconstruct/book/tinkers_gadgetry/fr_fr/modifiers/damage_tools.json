@@ -1,0 +1,13 @@
+{
+  "title": "Outils Endommagés",
+  "image": {
+    "file": "tconstruct:book/images/damage_tools.png",
+    "width": 135,
+    "height": 72
+  },
+  "text": [
+    {
+      "text": "Apparemment, les outils ne réagissent pas bien à certaines potions. Les potions épaisses et banales semblent infliger des dégâts légers à l’outil, tandis que les potions de dégâts, en particulier les potions jetables, en infligent bien davantage. Si seulement je pouvais trouver du souffle de dragon pour tester une potion persistante de dégâts..."
+    }
+  ]
+}

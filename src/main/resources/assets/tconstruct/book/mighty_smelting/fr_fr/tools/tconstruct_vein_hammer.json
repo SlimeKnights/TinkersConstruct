@@ -1,0 +1,27 @@
+{
+  "tool": "tconstruct:vein_hammer",
+  "text": [
+    {
+      "text": "Le Marteau de Filon est un outil minier à large portée. Il extrait les blocs de même type en suivant les filons."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Idéal pour récolter tous les minerais d'un filon en un seul coup."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Avertissement : Thruul Industries décline toute responsabilité concernant l'extraction intensive de filons sur des propriétés privées.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "Outil minier avancé",
+    "Minage par filons",
+    "Efficace sur la pierre et les minerais", 
+    "Dégâts perforants bonus"
+  ]
+}

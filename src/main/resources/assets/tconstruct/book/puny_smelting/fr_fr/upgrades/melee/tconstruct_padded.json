@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:padded",
+  "text": [
+    {
+      "text": "Un peu de rembourrage n’a jamais fait de mal à personne."
+    }
+  ],
+  "effects": [
+    "Réduit le recul de l’outil",
+    "Niveaux multiples, chaque niveau réduit encore davantage le recul",
+    "Nécessite 1 emplacement d’amélioration par niveau"
+  ]
+}

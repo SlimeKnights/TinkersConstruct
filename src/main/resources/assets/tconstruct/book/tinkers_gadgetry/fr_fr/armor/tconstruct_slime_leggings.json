@@ -1,0 +1,19 @@
+{
+  "tool": "tconstruct:slime_leggings",
+  "text": [
+    {
+      "text": "Les carapaces de slime offrent à la fois défense et stockage, combinant le meilleur des capacités des shulkers."
+    },
+    {
+      "text": "Pour créer ce pantalon merveilleux, versez de l’enderslime sur une carapace de shulker dans un bassin. La carapace peut ensuite être réparée avec du chorus.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "Durabilité Élevée",
+    "Aucune Armure ni Emplacement de Défense",
+    "5 Emplacements d’Amélioration",
+    "1 Emplacement d’Aptitude",
+    "Shulking"
+  ]
+}

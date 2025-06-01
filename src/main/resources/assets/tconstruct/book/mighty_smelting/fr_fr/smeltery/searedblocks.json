@@ -1,0 +1,12 @@
+{
+  "title": "Blocs Scellés",
+  "item": {
+    "tag": "tconstruct:seared_blocks"
+  },
+  "text": [
+    {
+      "text": "Ces blocs peuvent être utilisés pour toutes les parties de la fonderie, que ce soit pour les sols ou les murs. Ils sont également utiles pour décorer votre base.",
+      "paragraph": true
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "title": "Fonderie Fantastique par Nemea",
+  "recipe": "tconstruct:common/fantastic_foundry",
+  "grid_size": "small",
+  "description": [
+    { "text": "La toute dernière technologie en matière de métaux en fusion. Oublie la fonderie classique, commence directement avec un haut fourneau ! Découvre tout cela dans §oFonderie Fantastique§r par Nemea." }
+  ]
+}

@@ -634,7 +634,11 @@ public class SmelteryRecipeBuilder {
   public static final ArmorTagMelting HELMET = new ArmorTagMelting(5, "helmet", "helmets");
   public static final ArmorTagMelting CHESTPLATE = new ArmorTagMelting(8, "chestplate", "chestplates");
   public static final ArmorTagMelting LEGGINGS = new ArmorTagMelting(7, "leggings", "leggings");
-  public static final ToolCostMelting LEGGINGS_PLUS = new ToolCostMelting(7, "leggings");
   public static final ArmorTagMelting BOOTS = new ArmorTagMelting(4, "boots", "boots");
   public static final CommonRecipe[] ARMOR = { HELMET, CHESTPLATE, LEGGINGS, BOOTS };
+  public static final ToolCostMelting HELMET_PLUS = new ToolCostMelting(5, "helmet");
+  public static final ToolCostMelting CHESTPLATE_PLUS = new ToolCostMelting(8, "chestplate");
+  public static final ToolCostMelting LEGGINGS_PLUS = new ToolCostMelting(7, "leggings");
+  public static final ToolCostMelting BOOTS_PLUS = new ToolCostMelting(4, "boots");
+  public static final CommonRecipe[] ARMOR_PLUS = { HELMET_PLUS, CHESTPLATE_PLUS, LEGGINGS_PLUS, BOOTS_PLUS };
 }

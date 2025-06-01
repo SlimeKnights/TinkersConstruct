@@ -1,0 +1,12 @@
+{
+  "title": "Blocs Calcinés",
+  "item": {
+    "tag": "tconstruct:scorched_blocks"
+  },
+  "text": [
+    {
+      "text": "Ces blocs peuvent être utilisés pour n’importe quelle partie de la fonderie, que ce soit pour le sol ou les murs. Ils sont aussi utiles pour décorer votre base.",
+      "paragraph": true
+    }
+  ]
+}

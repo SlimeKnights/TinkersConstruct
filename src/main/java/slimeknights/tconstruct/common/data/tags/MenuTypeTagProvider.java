@@ -5,12 +5,12 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 import javax.annotation.Nullable;
@@ -27,7 +27,22 @@ public class MenuTypeTagProvider extends IntrinsicHolderTagsProvider<MenuType<?>
 
   @Override
   protected void addTags(Provider provider) {
-    tag(TinkerTags.MenuTypes.TOOL_INVENTORY_REPLACEMENTS).add(TinkerTools.toolContainer.get());
+    tag(TinkerTags.MenuTypes.TOOL_INVENTORY_REPLACEMENTS).add(
+      // generic inventories are safe
+      // anything with a notable UI component where you might lose progress (e.g. crafting table) is left out
+      MenuType.GENERIC_9x1, MenuType.GENERIC_9x2, MenuType.GENERIC_9x3,
+      MenuType.GENERIC_9x4, MenuType.GENERIC_9x5, MenuType.GENERIC_9x6,
+      MenuType.SHULKER_BOX,
+      MenuType.GENERIC_3x3, MenuType.HOPPER,
+      MenuType.FURNACE, MenuType.BLAST_FURNACE, MenuType.SMOKER,
+      MenuType.BREWING_STAND,
+      // tool inventory allows really nice switching behavior
+      TinkerTools.toolContainer.get(),
+      TinkerTables.tinkerChestContainer.get(), TinkerSmeltery.singleItemContainer.get(),
+      // unlike crafting table, our containers have persistent inventory; no progress loss\
+      TinkerTables.craftingStationContainer.get(), TinkerTables.partBuilderContainer.get(), TinkerTables.tinkerStationContainer.get(), TinkerTables.modifierWorktableContainer.get(),
+      TinkerSmeltery.melterContainer.get(), TinkerSmeltery.alloyerContainer.get(), TinkerSmeltery.smelteryContainer.get()
+    );
   }
 
   @Override

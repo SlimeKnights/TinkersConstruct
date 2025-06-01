@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:cooling",
+  "text": [
+    {
+      "text": "La meilleure façon de vaincre les flammes du Nether est de les geler, éteignant ainsi leur flamme éternelle."
+    }
+  ],
+  "effects": [
+    "Augmente les dégâts contre les créatures liées au feu",
+    "Niveaux multiples, chaque niveau augmente encore les dégâts",
+    "Nécessite 1 emplacement d’amélioration par niveau"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "tool": "tconstruct:pickadze",
+  "text": [
+    {
+      "text": "La pickadze est un outil polyvalent de minage de pierre et de terre, efficace sur divers blocs mais incapable d’utiliser les niveaux de récolte."
+    },
+    {
+      "text": "Les expanders augmentent la hauteur minée, permettant de créer des escaliers efficaces.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "+0,5 Dégâts d’attaque",
+    "115 % Modificateur d’attaque",
+    "1,3 Vitesse d’attaque",
+    "75 % Multiplicateur de minage",
+    "130 % Multiplicateur de durabilité",
+    "Crée des chemins",
+    "Niveau de récolte limité à l’or"
+  ]
+}

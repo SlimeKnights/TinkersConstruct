@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:leaping",
+  "text": [
+    {
+      "text": "Sautez vers les étoiles, et si vous ne pouvez pas les atteindre, grimpez une montagne puis essayez encore."
+    }
+  ],
+  "effects": [
+    "Augmente la hauteur de saut et la hauteur de chute sans dégâts",
+    "Niveaux multiples, chaque niveau augmente encore la hauteur de saut et de chute sans dégâts",
+    "Nécessite 1 emplacement d’amélioration par niveau"
+  ]
+}

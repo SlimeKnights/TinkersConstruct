@@ -1,0 +1,17 @@
+{
+  "tool": "tconstruct:hand_axe",
+  "text": [
+    {
+      "text": "La Hachette est un outil de coupe précis, efficace sur le bois, les plantes et les feuilles."
+    },
+    {
+      "text": "Les expanders augmentent le rayon circulaire de la hache.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "+6 Dégâts d’attaque",
+    "0,9 Vitesse d’attaque",
+    "Écorce le bois"
+  ]
+}

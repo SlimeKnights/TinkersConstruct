@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:harmonious",
+  "text": [
+    {
+      "text": "Accorde +1 emplacement d'amélioration."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+	  "Usage unique",
+    "Sans emplacement"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "tool": "tconstruct:battlesign",
+  "text": [
+    {
+      "text": "L’écriteau de guerre est à la fois une arme de mêlée et un bouclier. On le trouve généralement dans les bastions, et il peut être obtenu auprès des piglins."
+    }
+  ],
+  "properties": [
+    "Dégâts Moyens",
+    "Potentiel de Blocage Moyen",
+    "3 Emplacements de Défense",
+    "1 Emplacement d’Aptitude"
+  ]
+}

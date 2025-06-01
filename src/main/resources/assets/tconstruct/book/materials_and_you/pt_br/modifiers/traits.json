@@ -2,10 +2,14 @@
   "title": "Atributos",
   "text": [
     {
-      "text": "Atributos são habilidades inerentes à criação da ferramenta. Elas são destacadas ao trazer uma qualidade superior, magia agradavel, ou por correr energia suficiente na ferramenta para que ela comece a exibir propriedades incomuns. Há dois tipos básicos de características: características de material que vêm dos materiais escolhidos para cada peça da ferramenta, e características de ferramenta que são nativas do tipo de ferramenta trabalhada."
+      "text": "Atributos são habilidades inerentes à criação da ferramenta. Eles são revelados ao trazer uma qualidade superior, magia simpática ou ao canalizar energia o suficiente na ferramenta para que ela comece a exibir propriedades incomuns."
     },
     {
-      "text": "Este livro, junto com Fundições Frágeis e Fundições Poderosas de Thruul M'Gony's e Fundições Fantásticas de Nemea, cobrirá todos os níveis de materiais junto com uma lista dos atributos dos materiais. Os atributos das ferramentas são cobertos tanto por este livro quanto pelo Fundições Poderosas.",
+      "text": "Existem dois tipos básicos de atributos: atributos de material, que vêm dos materiais escolhidos para cada parte da ferramenta, e atributos de ferramenta, que são nativos do tipo de ferramenta fabricada.",
+      "paragraph": true
+    },
+    {
+      "text": "Este livro, mais 'Fundições Frágeis' e 'Fundições Poderosas' de Thruul M'Gon, assim como 'Fundições Fantástica' de Nemea, cobrem um nível de materiais com uma lista de atributos de materiais. Os atributos de ferramenta são abordados tanto por este livro quanto em 'Fundições Poderosas'.",
       "paragraph": true
     }
   ]

@@ -1,0 +1,19 @@
+{
+  "tool": "tconstruct:longbow",
+  "text": [
+    {
+      "text": "L'arc long est idéal pour ceux prêts à tenir leur position et combattre avec puissance"
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Plus long qu'un arc classique, mais plus court qu'un arc très long",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "Un arc plus lent mais plus puissant",
+    "Conçu pour infliger plus de dégâts"
+  ]
+}

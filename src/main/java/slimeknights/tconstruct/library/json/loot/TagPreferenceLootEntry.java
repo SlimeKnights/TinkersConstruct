@@ -14,11 +14,13 @@ import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import slimeknights.mantle.recipe.helper.TagPreference;
 import slimeknights.mantle.util.JsonHelper;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.shared.TinkerCommons;
 
 import java.util.function.Consumer;
 
-/** Loot entry that returns an item from a tag */
+/** @deprecated use {@link slimeknights.mantle.loot.entry.TagPreferenceLootEntry} */
+@Deprecated(forRemoval = true)
 public class TagPreferenceLootEntry extends LootPoolSingletonContainer {
   private final TagKey<Item> tag;
   protected TagPreferenceLootEntry(TagKey<Item> tag, int weight, int quality, LootItemCondition[] conditions, LootItemFunction[] functions) {
@@ -26,6 +28,7 @@ public class TagPreferenceLootEntry extends LootPoolSingletonContainer {
     this.tag = tag;
   }
 
+  @SuppressWarnings("removal")
   @Override
   public LootPoolEntryType getType() {
     return TinkerCommons.lootTagPreference.get();
@@ -36,9 +39,10 @@ public class TagPreferenceLootEntry extends LootPoolSingletonContainer {
     TagPreference.getPreference(tag).ifPresent(item -> consumer.accept(new ItemStack(item)));
   }
 
-  /** Creates a new builder */
+  /** @deprecated use {@link slimeknights.mantle.loot.entry.TagPreferenceLootEntry#tagPreference(TagKey)} */
+  @Deprecated(forRemoval = true)
   public static LootPoolSingletonContainer.Builder<?> tagPreference(TagKey<Item> tag) {
-    return simpleBuilder((weight, quality, conditions, functions) -> new TagPreferenceLootEntry(tag, weight, quality, conditions, functions));
+    return slimeknights.mantle.loot.entry.TagPreferenceLootEntry.tagPreference(tag);
   }
 
   public static class Serializer extends LootPoolSingletonContainer.Serializer<TagPreferenceLootEntry> {
@@ -50,6 +54,7 @@ public class TagPreferenceLootEntry extends LootPoolSingletonContainer {
 
     @Override
     protected TagPreferenceLootEntry deserialize(JsonObject json, JsonDeserializationContext context, int weight, int quality, LootItemCondition[] conditions, LootItemFunction[] functions) {
+      TConstruct.LOG.warn("Using deprecated tag preference loot entry 'tconstruct:tag_preference', use 'mantle:tag_preference' instead");
       TagKey<Item> tag = TagKey.create(Registries.ITEM, JsonHelper.getResourceLocation(json, "tag"));
       return new TagPreferenceLootEntry(tag, weight, quality, conditions, functions);
     }

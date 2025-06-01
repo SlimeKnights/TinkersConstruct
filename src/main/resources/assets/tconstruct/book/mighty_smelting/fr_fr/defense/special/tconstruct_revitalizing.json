@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:revitalizing",
+  "text": [
+    {
+      "text": "Pommes serties, quel retour en arrière."
+    }
+  ],
+  "effects": [
+    "Les niveaux peuvent être appliqués progressivement",
+    "Maximum de 5 niveaux",
+    "Nécessite 1 emplacement de défense par niveau"
+  ]
+}

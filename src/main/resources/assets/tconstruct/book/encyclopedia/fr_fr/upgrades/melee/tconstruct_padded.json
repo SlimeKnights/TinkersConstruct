@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:padded",
+  "text": [
+    {
+      "text": "Réduit le recul subi par l’outil de toutes sources de 50% par niveau."
+    },
+    {
+      "text": "Rend les effets de projection, de rebond et de coup assommant deux fois moins efficaces par niveau.", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum de 3 niveaux",
+    "Nécessite 1 emplacement d'amélioration par niveau"
+  ]
+}
+

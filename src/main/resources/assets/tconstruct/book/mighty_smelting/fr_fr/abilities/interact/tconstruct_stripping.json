@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:stripping",
+  "text": [
+    {
+      "text": "Quoi, ce n’est pas *ce* genre de déshabillage ? C’est DÉCEVANT."
+    }
+  ],
+  "effects": [
+    "Permet d’écorcer le bois avec vos outils",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
+  ]
+}

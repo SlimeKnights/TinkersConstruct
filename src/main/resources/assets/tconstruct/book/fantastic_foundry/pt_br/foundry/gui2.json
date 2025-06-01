@@ -2,15 +2,16 @@
   "title": "Guia para Fundição",
   "text": [
     {
-      "text": "1: Aqui é para onde vão seus itens que você quer fundir. O número de espaço muda de acordo com o tamanho de sua fundição."
+      "text": "3: Aqui você pode ver seu combustível. Passar o cursor sobre ele mostrará a quantidade exata e o tipo."
     },
     {
-      "text": "2: É aqui que seus materiais fundidos podem ser vistos. Você pode clicar em um para selecionar o derramamento.",
+      "text": "Em ambos 2 e 3, clicar com o botão esquerdo em um item de fluido tentará encher o item do tanque, enquanto clicar com o botão direito tentará despejar o item no tanque.",
       "paragraph": true
     },
     {
-      "text": "3: Aqui é onde você pode ver seu combustível. Ao pairar sobre ele, você verá a quantidade e o tipo exato de combustível.",
+      "text": "4: Este slot permite encher ou despejar rapidamente um item no tanque principal, seguindo o mesmo comportamento de clicar em um dreno com o item. No 5: te permite restringir isso apenas para encher ou apenas para drenar. Após a interação, o resultado será movido para 6.",
       "paragraph": true
     }
   ]
 }
+

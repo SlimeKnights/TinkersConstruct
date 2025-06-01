@@ -365,6 +365,20 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "slimeskin": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_material",
+              "material": "tconstruct:slimeskin"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "slimesteel": {
       "conditions": {
         "items": [
@@ -510,6 +524,9 @@
     ],
     [
       "slimewood"
+    ],
+    [
+      "slimeskin"
     ],
     [
       "skyslime_vine"

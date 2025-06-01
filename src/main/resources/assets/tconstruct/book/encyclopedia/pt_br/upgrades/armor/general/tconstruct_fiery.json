@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:fiery",
+  "text": [
+    {
+      "text": "Tem 15% de chance, por nível, de fazer quem o atacar queimar por 5 segundos por nível. Várias peças acumularão o efeito."
+    },
+    {
+      "text": "Os escudos são duas vezes mais eficazes, mas só funcionam ao bloquear.", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/armor",
+  "effects": [
+    "Pode aplicar níveis progressivamente",
+    "Máximo de 5 níveis",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}

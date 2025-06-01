@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:harmonious",
+  "text": [
+    {
+      "text": "La musique fait du bien à l’âme, et à votre outil. Peut-être que votre outil a une âme ?"
+    }
+  ],
+  "effects": [
+    "Ajoute un emplacement d’amélioration",
+    "Niveau unique"
+  ]
+}

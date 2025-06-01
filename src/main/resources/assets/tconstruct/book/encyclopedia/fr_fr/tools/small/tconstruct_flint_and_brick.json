@@ -1,0 +1,19 @@
+{
+  "tool": "tconstruct:flint_and_brick",
+  "text": [
+    {
+      "text": "Silex et Brique est un outil à main commençant avec l’allumette."
+    },
+    {
+      "text": "Expanded augmente le rayon du feu, ce qui est encore augmenté par fireprimer.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "+0 Dégâts d’attaque",
+    "1,0 Vitesse d’attaque",
+    "100 Durabilité",
+    "Fiery 1",
+    "Allumage"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:headlight",
+  "text": [
+    {
+      "text": "Tu éclaires ma vie !"
+    }
+  ],
+  "effects": [
+    "Éclaire visuellement les blocs autour de vous",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’amélioration"
+  ]
+}

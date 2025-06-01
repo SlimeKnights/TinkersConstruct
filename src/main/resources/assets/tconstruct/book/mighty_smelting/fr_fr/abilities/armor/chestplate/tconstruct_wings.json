@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:wings",
+  "text": [
+    {
+      "text": "Ce n’est pas voler, c’est tomber… avec style !"
+    }
+  ],
+  "effects": [
+    "Permet de planer en sautant dans les airs",
+    "Niveau unique",
+    "Nécessite 2 emplacements d’aptitude"
+  ]
+}

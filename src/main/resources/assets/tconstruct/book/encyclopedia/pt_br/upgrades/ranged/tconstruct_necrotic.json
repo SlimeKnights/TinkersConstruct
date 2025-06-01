@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:necrotic",
+  "text": [
+    {
+      "text": "Flechas totalmente carregadas curam uma porcentagem do dano causado. Cura 25% no nível 1, 45% de chance no nível 2, 60% no nível 3, 70% no nível 4 e 75% no nível 5. A ferramenta perde 1 durabilidade extra por nível."
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/ranged",
+  "effects": [
+    "Máximo de 5 níveis",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}

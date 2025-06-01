@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:springy",
+  "text": [
+    {
+      "text": "A 25% de chance par niveau d'appliquer jusqu'à 2 blocs de recul par niveau à l'attaquant. L'effet appliqué dépend de la pièce offrant le plus grand bonus."
+    },
+    {
+      "text": "Les boucliers sont deux fois plus efficaces mais uniquement lors du blocage.", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Peut être appliqué progressivement",
+    "Maximum de 3 niveaux",
+    "Nécessite 1 emplacement d'amélioration par niveau"
+  ]
+}

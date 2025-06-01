@@ -1,0 +1,11 @@
+{
+  "title": "Exploration",
+  "subText": "Beaucoup de Bricoleurs mentionnent des ressources utiles pour les modificateurs ou les matériaux d’outils, mais oublient de dire comment les obtenir. Heureusement, au cours de mes voyages, j’en ai localisé un grand nombre, que je peux désormais vous transmettre.",
+  "operations": [
+    { "before": "grass_seeds", "action": "add_group", "data": "Ressources" },
+    { "before": "skyslime_island", "action": "column_break" },
+    { "before": "skyslime_island", "action": "add_group", "data": "Îles" },
+    { "before": "skyslime_geode", "action": "column_break" },
+    { "before": "skyslime_geode", "action": "add_group", "data": "Géodes" }
+  ]
+}

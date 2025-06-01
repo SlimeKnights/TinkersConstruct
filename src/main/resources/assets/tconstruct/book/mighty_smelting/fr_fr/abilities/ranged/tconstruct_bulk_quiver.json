@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:bulk_quiver",
+  "text": [
+    {
+      "text": "Porter un carquois dans le dos, c’est surfait."
+    }
+  ],
+  "effects": [
+    "Permet à ton arc de stocker des flèches",
+    "Accès en s’accroupissant et en attaquant",
+    "Niveaux multiples, chaque niveau augmente la capacité de stockage",
+    "Nécessite 1 emplacement d’aptitude par niveau"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "tool": "tconstruct:excavator",
+  "text": [
+    {
+      "text": "L’excavatrice est un outil de terrassement large, efficace sur la terre, le gravier et le sable dans une zone de 3x3."
+    },
+    {
+      "text": "Les expanseurs alternent entre l’augmentation de la largeur et de la hauteur.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "+1,5 Dégâts d’attaque",
+    "Multiplicateur d’attaque 120%",
+    "1,0 Vitesse d’attaque",
+    "Multiplicateur de minage 30%",
+    "Multiplicateur de durabilité 375%",
+    "Recul II",
+    "Crée un chemin"
+  ]
+}

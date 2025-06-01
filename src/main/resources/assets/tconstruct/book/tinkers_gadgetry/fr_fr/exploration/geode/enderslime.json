@@ -1,0 +1,13 @@
+{
+  "title": "Géodes d’Enderslime",
+  "image": {
+    "file": "tconstruct:book/images/geodes/enderslime.png",
+    "width": 180,
+    "height": 99
+  },
+  "text": [
+    {
+      "text": "Les géodes d’enderslime se trouvent autour des îles extérieures de l’End, aussi bien sous terre qu’en flottement autonome. Parfois, il est difficile de les distinguer des autres roches suspendues dans ce ciel."
+    }
+  ]
+}

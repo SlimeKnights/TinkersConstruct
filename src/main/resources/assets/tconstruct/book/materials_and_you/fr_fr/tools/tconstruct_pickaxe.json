@@ -1,0 +1,20 @@
+{
+  "tool": "tconstruct:pickaxe",
+  "text": [
+    {
+      "text": "La pioche est un outil de minage précis. Elle est efficace sur la pierre et les minerais."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Elle casse des blocs, d’accord ?"
+    }
+  ],
+  "properties": [
+    "Outil de minage basique",
+    "C’est une pioche",
+    "Mine les blocs de pierre et similaires",
+    "Dégâts perforants bonus"
+  ]
+}

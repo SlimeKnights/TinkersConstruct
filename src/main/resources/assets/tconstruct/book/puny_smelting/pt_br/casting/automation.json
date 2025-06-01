@@ -7,10 +7,10 @@
   },
   "text": [
     {
-      "text": "Mesas e bacias de fundição interagem com funis, permitindo que itens sejam facilmente inseridos e que itens resfriados possam ser removidos, alem disso, um pulso de redstone pode ser usado para trocar a entrada e saida."
+      "text": "As mesas e bacias de fundição interagem com funis, permitindo que itens sejam facilmente inseridos e que itens resfriados sejam removidos."
     },
     {
-      "text": "Os comparadores também fazem com que a redstone torne as cores engraçadas quando conectado a uma bacia ou mesa.",
+      "text": "Os comparadores também fazem com que a redstone mude de cor de forma estranha quando conectados a uma bacia ou mesa, e um pulso de redstone pode ser usado para alternar entre entrada e saída.",
       "paragraph": true
     }
   ]

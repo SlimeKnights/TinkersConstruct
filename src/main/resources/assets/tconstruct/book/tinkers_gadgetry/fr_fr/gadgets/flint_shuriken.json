@@ -1,0 +1,10 @@
+{
+  "title": "Shuriken en Silex",
+  "item": "tconstruct:flint_shuriken",
+  "text": [
+    {
+      "text": "Tailler du silex en forme d’étoile permet de créer une arme de jet assez efficace. Ce n’est pas aussi puissant qu’un arc, mais elle provoque tout de même un bon recul et inflige des dégâts corrects, ce qui peut vous aider à échapper aux monstres.",
+      "paragraph": true
+    }
+  ]
+}

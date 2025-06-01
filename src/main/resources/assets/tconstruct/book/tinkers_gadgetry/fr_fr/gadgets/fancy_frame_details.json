@@ -1,0 +1,10 @@
+{
+  "title": "Cadres à Objets Raffinés",
+  "text": [
+    { "text": "• Transparent : Devient invisible lorsqu’un objet est placé à l’intérieur, et permet d’interagir avec le bloc derrière lorsqu’il est rempli et que vous ne vous accroupissez pas." },
+    { "text": "\n• Doré : Fait pivoter progressivement l’objet automatiquement. Un craft avec une torche de redstone inverse la direction." },
+    { "text": "\n• Diamant : Réduit progressivement la rotation jusqu’à ce que l’objet soit droit. Permet plus de rotations qu’un cadre standard." },
+    { "text": "\n• Manyulline : Apparaît toujours entièrement éclairé, même dans l’obscurité." },
+    { "text": "\n• Netherite : Résistant au feu et aux explosions." }
+  ]
+}

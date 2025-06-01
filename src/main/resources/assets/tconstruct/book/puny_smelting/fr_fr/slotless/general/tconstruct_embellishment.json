@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:embellishment",
+  "text": [
+    {
+      "text": "La première touche cosmétique pour changer l’apparence des outils et armures !"
+    }
+  ],
+  "effects": [
+    "Change l’apparence des armures, boucliers et bâtons",
+    "Utilisez du bois pour orner les bâtons et boucliers",
+    "Utilisez du slime compacté pour orner le slime",
+    "Utilisation multiple",
+    "Sans emplacement"
+  ]
+}

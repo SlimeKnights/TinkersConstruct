@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:tank",
+  "text": [
+    {
+      "text": "Celui-là a un canon de 120 mm, une mitrail... ah, ce n’est pas ce genre de tank ? Quelle déception, j’aurais préféré le véhicule."
+    }
+  ],
+  "effects": [
+    "Augmente la taille du réservoir de l’outil",
+    "L’outil devient un conteneur de fluide portable",
+    "Niveaux multiples, chaque niveau augmente encore la taille du réservoir",
+    "Nécessite 1 emplacement d’amélioration par niveau"
+  ]
+}

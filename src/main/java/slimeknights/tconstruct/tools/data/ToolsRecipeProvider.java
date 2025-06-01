@@ -12,9 +12,12 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.crafting.DifferenceIngredient;
 import slimeknights.mantle.recipe.data.ConsumerWrapperBuilder;
 import slimeknights.mantle.recipe.helper.ItemOutput;
+import slimeknights.mantle.recipe.ingredient.SizedIngredient;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.data.recipe.IMaterialRecipeHelper;
@@ -29,6 +32,7 @@ import slimeknights.tconstruct.library.recipe.casting.material.MaterialCastingRe
 import slimeknights.tconstruct.library.recipe.casting.material.PartSwapCastingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.ingredient.MaterialIngredient;
 import slimeknights.tconstruct.library.recipe.ingredient.MaterialValueIngredient;
+import slimeknights.tconstruct.library.recipe.partbuilder.recycle.PartBuilderToolRecycleBuilder;
 import slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipeBuilder;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.shared.TinkerMaterials;
@@ -59,6 +63,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
   protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
     this.addToolBuildingRecipes(consumer);
     this.addPartRecipes(consumer);
+    this.addRecycleRecipes(consumer);
   }
 
   private void addToolBuildingRecipes(Consumer<FinishedRecipe> consumer) {
@@ -229,6 +234,44 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
                             .setCast(Items.RABBIT_FOOT, true)
                             .setFluidAndTime(TinkerFluids.enderSlime, FluidValues.SLIME_CONGEALED * 4)
                             .save(consumer, location(armorFolder + "slime_boots"));
+  }
+
+  private void addRecycleRecipes(Consumer<FinishedRecipe> consumer) {
+    String folder = "tools/recycling/";
+
+    // main recycling recipe - uses tool definition for parts list
+    PartBuilderToolRecycleBuilder.tools(SizedIngredient.of(DifferenceIngredient.of(Ingredient.of(TinkerTags.Items.MULTIPART_TOOL), Ingredient.of(TinkerTags.Items.UNSALVAGABLE))))
+        .save(consumer, location(folder + "general"));
+    // daggers want to enforce stack size 2 when recycling to prevent dupes
+    PartBuilderToolRecycleBuilder.tools(SizedIngredient.fromItems(2, TinkerTools.dagger))
+      .save(consumer, location(folder + "dagger"));
+    // plate shields don't have a real tool part for the plating, but helmet plating is nearly the same
+    PartBuilderToolRecycleBuilder.tool(TinkerTools.plateShield)
+      .part(TinkerToolParts.shieldCore)
+      // helmet plating is same cost as shield core and approximately same material set
+      .part(TinkerToolParts.plating.get(ArmorItem.Type.HELMET))
+      .save(consumer, location(folder + "plate_shield"));
+
+    // ancient tools are not craftable so no default recycling. Give them the canonical parts for recycling
+    PartBuilderToolRecycleBuilder.tool(TinkerTools.meltingPan)
+      // again, no shield plating part. Melting pan will use an expensive part
+      .part(TinkerToolParts.plating.get(ArmorItem.Type.CHESTPLATE))
+      .part(TinkerToolParts.bowLimb)
+      .save(consumer, location(folder + "melting_pan"));
+    PartBuilderToolRecycleBuilder.tool(TinkerTools.warPick)
+      .part(TinkerToolParts.pickHead)
+      .part(TinkerToolParts.bowLimb)
+      .part(TinkerToolParts.bowstring)
+      .save(consumer, location(folder + "war_pick"));
+    PartBuilderToolRecycleBuilder.tool(TinkerTools.battlesign)
+      .part(TinkerToolParts.largePlate)
+      .part(TinkerToolParts.plating.get(ArmorItem.Type.LEGGINGS))
+      .save(consumer, location(folder + "battlesign"));
+    PartBuilderToolRecycleBuilder.tool(TinkerTools.swasher)
+      .part(TinkerToolParts.smallBlade)
+      .part(TinkerToolParts.toolHandle)
+      .part(TinkerToolParts.bowGrip)
+      .save(consumer, location(folder + "swasher"));
   }
 
   private void addPartRecipes(Consumer<FinishedRecipe> consumer) {

@@ -1,0 +1,18 @@
+{
+  "tool": "tconstruct:slime_chestplate",
+  "text": [
+    {
+      "text": "Marre de marcher ? Essayez de voler avec ces ailes futuristes !"
+    },
+    {
+      "text": "Pour créer ces ailes futuristes, il vous suffit de verser de l’enderslime sur une élytra. La slimélytra peut ensuite être réparée avec des membranes de fantôme.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "Durabilité Élevée",
+    "Aucune Armure ni Emplacement de Défense",
+    "5 Emplacements d’Amélioration",
+    "1 Emplacement d’Aptitude"
+  ]
+}

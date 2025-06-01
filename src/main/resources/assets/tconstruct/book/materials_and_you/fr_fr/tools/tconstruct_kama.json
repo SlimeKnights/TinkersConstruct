@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:kama",
+  "text": [
+    {
+      "text": "Le kama est un outil de récolte de précision, fantastique pour faucher les plantes et tondre les animaux."
+    }
+  ],
+  "properties": [
+    "Retourne la terre",
+    "Interagit avec les cultures pour les récolter",
+    "Tond les blocs et les animaux",
+    "Efficace sur les plantes",
+    "Capacités d’attaque en zone"
+  ]
+}

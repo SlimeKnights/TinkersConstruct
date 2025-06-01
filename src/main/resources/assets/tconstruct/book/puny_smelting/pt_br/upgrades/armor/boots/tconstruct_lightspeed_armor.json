@@ -1,13 +1,14 @@
 {
-  "modifier_id": "tconstruct:lightspeed_armor",
+  "modifier_id": "tconstruct:lightspeed",
   "text": [
     {
-      "text": "A luz flui através de suas botas e o ajuda a correr mais rápido."
+      "text": "A luz flui pelas suas botas e te ajuda a correr mais rápido mais rápido."
     }
   ],
+  "tool_filter": "tconstruct:modifiable/armor/boots",
   "effects": [
     "Corra mais rápido em áreas bem iluminadas",
-    "Múltiplos níveis, aumenta ainda mais a velocidade com cada nível",
+    "Múltiplos níveis, cada nível aumenta ainda mais a velocidade",
     "Requer 1 slot de melhoria por nível"
   ]
 }

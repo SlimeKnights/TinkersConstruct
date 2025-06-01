@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:tilling",
+  "text": [
+    {
+      "text": "Tu as déjà eu besoin de créer une grande ferme ? Une *vraiment* grande ferme ? Maintenant tu peux."
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/armor/boots",
+  "effects": [
+    "Crée de la terre labourée sous tes pas",
+    "Zone augmentée avec Étendu",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
+  ]
+}

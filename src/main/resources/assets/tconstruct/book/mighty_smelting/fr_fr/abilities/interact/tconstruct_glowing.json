@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:glowing",
+  "text": [
+    {
+      "text": "Quelle idée lumineuse."
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/interactable",
+  "effects": [
+    "Interaction pour placer des lueurs",
+    "Placer des lueurs consomme de la durabilité",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
+  ]
+}

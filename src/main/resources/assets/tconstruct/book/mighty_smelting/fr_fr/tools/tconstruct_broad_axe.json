@@ -1,0 +1,19 @@
+{
+  "tool": "tconstruct:broad_axe",
+  "text": [
+    {
+      "text": "La Hache Large est un outil d'abattage haute efficacité. Capable de détruire des arbres d'un seul coup puissant."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Optimale pour couper des forêts entières rapidement."
+    }
+  ],
+  "properties": [
+    "Outil d'abattage avancé",
+    "Peut abattre un arbre entier en un seul coup",
+    "Peut écorcer un arbre entier en une seule interaction"
+  ]
+}

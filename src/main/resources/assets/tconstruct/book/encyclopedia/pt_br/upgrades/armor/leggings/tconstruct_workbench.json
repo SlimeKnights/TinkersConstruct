@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:workbench",
+  "text": [
+    {
+      "text": "Adiciona uma bancada de trabalho 2x2 ao inventário da ferramenta."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Nível único",
+    "Requer 1 slot de melhoria"
+  ]
+}

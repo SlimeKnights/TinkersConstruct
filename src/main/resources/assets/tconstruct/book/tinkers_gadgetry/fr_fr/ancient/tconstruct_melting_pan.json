@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:melting_pan",
+  "text": [
+    {
+      "text": "La poêle de fusion fait fondre vos blocs et stocke du fluide pour vos objectifs de bricoleur. Elle peut être trouvée dans les donjons, les igloos, chez les zombies momifiés, ou offerte par les villageois."
+    }
+  ],
+  "properties": [
+    "Mine les blocs fondables",
+    "Fusion+",
+    "1 Emplacement de Défense",
+    "1 Emplacement d’Amélioration",
+    "2 Emplacements d’Aptitude"
+  ]
+}

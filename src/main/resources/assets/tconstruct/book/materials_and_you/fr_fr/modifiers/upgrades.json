@@ -1,0 +1,24 @@
+{
+  "type": "tconstruct:showcase",
+  "title": "Améliorations",
+  "item": {
+    "type": "forge:nbt",
+    "item": "tconstruct:creative_slot",
+    "nbt": {
+      "slot": "upgrades"
+    }
+  },
+  "tooltip": [ "Icône d’emplacement d’amélioration" ],
+  "text": [
+    {
+      "text": "Les améliorations sont des perfectionnements standards pour un outil. Elles sont généralement effectuées en appliquant un objet et en ‘absorbant’ une partie de ses propriétés magiques, comme la redstone qui rend les outils plus rapides."
+    },
+    {
+      "text": "La plupart des outils commencent avec environ 3 emplacements d’amélioration, bien qu’il soit possible d’en obtenir davantage grâce à d’autres types de modificateurs."
+    },
+    {
+      "text": "Le livret *Fonderie Minuscule* de Thruul M’Gon contient une liste complète des améliorations disponibles pour les outils, tout comme l’Encyclopédie du Bricolage.",
+      "paragraph": true
+    }
+  ]
+}

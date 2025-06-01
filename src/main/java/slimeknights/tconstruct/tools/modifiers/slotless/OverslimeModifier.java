@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers.slotless;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.TinkerTags.Items;
@@ -92,13 +91,13 @@ public class OverslimeModifier extends DurabilityShieldModifier implements ToolS
   /* Shield implementation */
 
   @Override
-  protected ResourceLocation getShieldKey() {
-    return getId();
-  }
-
-  @Override
   public int getShieldCapacity(IToolStackView tool, ModifierEntry modifier) {
     return tool.getStats().getInt(OVERSLIME_STAT);
+  }
+
+  /** Gets the boost to apply from overworked */
+  public static int getOverworkedBonus(IToolStackView tool) {
+    return (1 + tool.getModifierLevel(TinkerModifiers.overworked.getId()));
   }
 
   /**
@@ -110,6 +109,6 @@ public class OverslimeModifier extends DurabilityShieldModifier implements ToolS
   public void addOverslime(IToolStackView tool, ModifierEntry entry, int amount) {
     // yeah, I am hardcoding overworked. If you need something similar, put in an issue request on github
     // grants +100% restoring per level
-    addShield(tool, entry, amount * (1 + tool.getModifierLevel(TinkerModifiers.overworked.getId())));
+    addShield(tool, entry, amount * getOverworkedBonus(tool));
   }
 }

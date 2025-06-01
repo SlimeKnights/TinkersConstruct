@@ -1,0 +1,12 @@
+{
+  "title": "Outils Lourds",
+  "text": [
+    {
+      "text": "Tous les outils lourds nécessitent l'Enclume du Tinker pour être créés et pour échanger des pièces. La plupart requièrent 4 pièces d'outil, et commencent avec seulement 2 emplacements d'amélioration et 1 emplacement de capacité."
+    },
+    {
+      "text": "Les outils lourds ont à la fois des bonus d'attaque et des modificateurs comme les petits outils, et beaucoup possèdent davantage de traits. De plus, de nombreux outils ont un modificateur de durabilité ou de vitesse de minage qui agit de façon similaire au modificateur d'attaque, affectant à la fois les statistiques de base et les bonus de statistiques issus des modificateurs.",
+      "paragraph": true
+    }
+  ]
+}

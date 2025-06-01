@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:emerald",
+  "text": [
+    {
+      "text": "Le meilleur ami des villageois… Évitez de vous faire voir en train d’en appliquer ! Ce ne sont pas des porte-bonheur pour vous."
+    }
+  ],
+  "effects": [
+    "Augmente la durabilité de l’outil selon sa durabilité de base",
+    "Augmente les dégâts conditionnels, la vitesse de minage et la résistance au recul",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’amélioration"
+  ]
+}

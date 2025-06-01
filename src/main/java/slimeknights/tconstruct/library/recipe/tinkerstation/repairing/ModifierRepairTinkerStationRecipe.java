@@ -76,7 +76,7 @@ public class ModifierRepairTinkerStationRecipe implements ITinkerStationRecipe, 
     // we will just repair the max possible here, no reason to try less
     tool = tool.copy();
     ToolDamageUtil.repair(tool, available);
-    return LazyToolStack.success(tool, 1);
+    return LazyToolStack.successCopy(tool, 1, inv.getTinkerableStack());
   }
 
   @Override

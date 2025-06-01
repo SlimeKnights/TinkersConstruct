@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:pockets",
+  "text": [
+    {
+      "text": "La seule chose qu’il te manque maintenant, c’est une calculatrice de poche pour compter correctement le nombre de poches."
+    }
+  ],
+  "effects": [
+    "Ajoute de l’espace d’inventaire supplémentaire",
+    "Accès avec shift + interaction sur le pantalon",
+    "Niveaux multiples, chaque niveau ajoute +18 emplacements",
+    "Nécessite 1 emplacement d’aptitude par niveau"
+  ]
+}

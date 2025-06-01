@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:expanded",
+  "text": [
+    {
+      "text": "Plus grand, c’est toujours mieux, non ?"
+    }
+  ],
+  "effects": [
+    "Augmente la largeur et la hauteur de minage",
+    "La portée varie selon l’outil",
+    "Niveaux multiples, chaque niveau augmente la largeur et la hauteur de 1",
+    "Nécessite 1 emplacement d’aptitude par niveau"
+  ]
+}

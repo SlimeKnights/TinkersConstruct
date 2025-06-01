@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:workbench",
+  "text": [
+    {
+      "text": "Ajoute une table de craft 2x2 à l'inventaire de l'outil."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Niveau unique",
+    "Nécessite 1 emplacement d'amélioration"
+  ]
+}

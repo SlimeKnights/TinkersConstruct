@@ -1,0 +1,16 @@
+{
+  "title": "Caractéristiques",
+  "text": [
+    {
+      "text": "Les caractéristiques sont des aptitudes innées liées à la création de l’outil. Elles se révèlent par une qualité supérieure, une magie sympathique, ou lorsqu’on injecte suffisamment d’énergie dans l’outil pour qu’il commence à manifester des propriétés inhabituelles."
+    },
+    {
+      "text": "Il existe deux types de caractéristiques de base : les caractéristiques de matériau, qui proviennent des matériaux choisis pour chaque partie de l’outil, et les caractéristiques d’outil, propres au type d’outil fabriqué.",
+      "paragraph": true
+    },
+    {
+      "text": "Ce livre, ainsi que *Fonderie Minuscule* et *Fonderie Fantastique* de Nemea, couvrent chacun un palier de matériaux avec la liste des caractéristiques de matériau. Les caractéristiques d’outil sont abordées à la fois dans ce livre et dans *Fonderie Suprême*.",
+      "paragraph": true
+    }
+  ]
+}

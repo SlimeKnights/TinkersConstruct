@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:bursting",
+  "text": [
+    {
+      "text": "C’est un peu dégoûtant que ton armure fuie. Mais c’est aussi très efficace !"
+    },
+    {
+      "text": "Faire un clic droit sur un réservoir avec l’outil le remplit.",
+      "paragraph": true
+    }
+  ],
+  "effects": [
+    "Vide un réservoir quand tu es attaqué, nécessite de bloquer avec un bouclier",
+    "Effets variés selon le fluide, comme le feu ou le poison",
+    "Nécessite 1 emplacement d’aptitude par niveau"
+  ]
+}

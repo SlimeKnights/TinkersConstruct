@@ -2,11 +2,11 @@
   "modifier_id": "tconstruct:severing",
   "text": [
     {
-      "text": "Quem diria que você poderia cortar cabeças com alguns cortes tão precisos? Apenas um pouco fora do topo."
+      "text": "Quem diria que você poderia cortar cabeças com alguns cortes tão precisos? Só um cortezinho no topo."
     }
   ],
   "effects": [
-    "Os inimigos dropam a cabeça",
+    "Inimigos dropam suas cabeças",
     "Múltiplos níveis, cada nível aumenta ainda mais a chance de decapitação",
     "Requer 1 slot de melhoria por nível"
   ]

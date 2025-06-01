@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:freezing",
+  "text": [
+    {
+      "text": "Congela os mobs atacados por 4 segundos (mais 4 segundos por nível), causando dano ao longo do tempo e lentidão."
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/melee",
+  "effects": [
+    "Máximo de 3 níveis",
+    "Não funciona bem com fogo",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}

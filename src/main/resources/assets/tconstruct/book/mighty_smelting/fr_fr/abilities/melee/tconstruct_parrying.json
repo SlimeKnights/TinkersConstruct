@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:parrying",
+  "text": [
+    {
+      "text": "Utilise tes compétences de ninja déchaîné pour détourner les attaques en plein vol."
+    }
+  ],
+  "effects": [
+    "Permet aux dagues de bloquer brièvement après une attaque",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
+  ]
+}

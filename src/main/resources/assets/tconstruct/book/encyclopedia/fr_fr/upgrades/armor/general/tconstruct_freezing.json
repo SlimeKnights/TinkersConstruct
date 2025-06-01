@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:freezing",
+  "text": [
+    {
+      "text": "A 15% de chance par niveau de geler l’attaquant pendant 4 secondes (plus 4 secondes par niveau), infligeant des dégâts sur la durée et de la lenteur. Plusieurs pièces cumulent l’effet."
+    },
+    {
+      "text": "Les boucliers sont deux fois plus efficaces mais ne fonctionnent que lorsque vous bloquez.", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/armor",
+  "effects": [
+    "Maximum de 3 niveaux",
+    "Fonctionne mal avec l'effet enflammé",
+    "Nécessite 1 emplacement d'amélioration par niveau"
+  ]
+}

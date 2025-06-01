@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:pierce",
+  "text": [
+    {
+      "text": "Flechas cancelam 1 ponto de armadura por nível."
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/ranged",
+  "effects": [
+    "Pode aplicar níveis progressivamente",
+    "Máximo de 3 níveis",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}

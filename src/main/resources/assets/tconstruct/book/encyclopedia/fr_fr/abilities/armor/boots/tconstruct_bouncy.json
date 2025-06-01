@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:bouncy",
+  "text": [
+    {
+      "text": "Vous fait rebondir à l'atterrissage, empêchant les dégâts de chute tout en appliquant 90% de votre vitesse vers le haut."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum de 1 niveau",
+    "Nécessite 1 emplacement de capacité"
+  ]
+}

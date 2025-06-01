@@ -249,7 +249,7 @@ public class TinkerTags {
 
     /** Planks in this tag are skipped in the default wood crafting recipe as they have their own variant. Tagging your planks here will allow you to add another wood variant */
     public static final TagKey<Item> VARIANT_PLANKS = local("wood_variants/planks");
-    /** Logs in this tag are skipped in the default wood crafting recipe as they have their own variant. Tagging your planks here will allow you to add another wood variant */
+    /** Logs in this tag are skipped in the default wood crafting recipe as they have their own variant. Tagging your logs here will allow you to add another wood variant */
     public static final TagKey<Item> VARIANT_LOGS = local("wood_variants/logs");
 
     public static final TagKey<Item> SLIME_BLOCK = local("slime_block");
@@ -345,6 +345,8 @@ public class TinkerTags {
     public static final TagKey<Item> CHEST_PARTS = local("chest_parts");
     /** All material items, used to populate several lists such as books or subtypes in JEI */
     public static final TagKey<Item> TOOL_PARTS = local("parts");
+    /** Tool parts that piglins may barter to the player. Will contain random nether materials from {@link Materials#BARTERED} */
+    public static final TagKey<Item> BARTERED_PARTS = local("parts/bartered");
 
     /** Anything that can be modified in the tool station */
     public static final TagKey<Item> MODIFIABLE = local("modifiable");
@@ -379,6 +381,8 @@ public class TinkerTags {
     public static final TagKey<Item> INTERACTABLE = local("modifiable/interactable");
     /** Tools that can interact on right click */
     public static final TagKey<Item> INTERACTABLE_RIGHT = local("modifiable/interactable/right");
+    /** Tools that can charge up interaction. Includes anything in {@link #INTERACTABLE_RIGHT}, {@link #BOWS}, or {@link #SHIELDS} */
+    public static final TagKey<Item> INTERACTABLE_CHARGE = local("modifiable/interactable/charge");
     /** Tools that can interact on left click */
     public static final TagKey<Item> INTERACTABLE_LEFT = local("modifiable/interactable/left");
     /** Tools that can interact when worn as armor */
@@ -621,6 +625,10 @@ public class TinkerTags {
     public static final TagKey<Modifier> OVERSLIME_FRIEND = local("overslime_friend");
     /** Modifiers in this tag will show the wireframe hitbox on all blocks */
     public static final TagKey<Modifier> AOE_INTERACTION = local("aoe_interaction");
+    /** Modifiers in this tag will allow charging a bow that has no ammo, making the bow charge up */
+    public static final TagKey<Modifier> CHARGE_EMPTY_BOW_WITH_DRAWTIME = local("charge_empty_bow/with_drawtime");
+    /** Modifiers in this tag will allow charging a bow that has no ammo, but won't charge the bow */
+    public static final TagKey<Modifier> CHARGE_EMPTY_BOW_WITHOUT_DRAWTIME = local("charge_empty_bow/without_drawtime");
 
     // book tags - these are used to determine pages to load in resource packs
     // upgrades
@@ -674,6 +682,10 @@ public class TinkerTags {
     private static void init() {}
     /** Materials available in nether */
     public static final TagKey<IMaterial> NETHER = local("nether");
+    /** Materials bartered from piglins */
+    public static final TagKey<IMaterial> BARTERED = local("bartered");
+    /** Materials not found on ancient tools or other loot sources */
+    public static final TagKey<IMaterial> EXCLUDE_FROM_LOOT = local("exclude_from_loot");
 
     @SuppressWarnings("SameParameterValue")  // may want more tags later
     private static TagKey<IMaterial> local(String name) {

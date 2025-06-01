@@ -1,0 +1,16 @@
+{
+  "title": "Sous-produits",
+  "text": [
+    {
+      "text": "Mon Haut Fourneau Fantastique te fournira des sous-produits à partir de tes minerais. Tu te demandes peut-être « Mais Nemea, quels sont ces sous-produits ? ». Eh bien, lis un peu plus loin pour le découvrir."
+    },
+    {
+      "text": "Les sous-produits sont les extras cachés dans tes minerais, que tu ne pourrais normalement pas obtenir avec un simple fourneau. Un peu de matière supplémentaire d’un autre type, dissimulée dans la roche.",
+      "paragraph": true
+    },
+    {
+      "text": "Quelques exemples : le minerai de cuivre donne de l’or comme sous-produit, et le minerai de cobalt donne du fer comme sous-produit.",
+      "paragraph": true
+    }
+  ]
+}

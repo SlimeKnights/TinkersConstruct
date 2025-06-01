@@ -1,4 +1,7 @@
 {
   "title": "Fabricação do Baú Tinker",
   "recipe": "tconstruct:tables/tinkers_chest"
+  "description": [
+    { "text": "Após fabrica-lo, você pode tingir o baú da cor que desejar." }
+  ]
 }

@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.recipe.casting.material;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.material.Fluid;
@@ -12,11 +13,13 @@ import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.helper.LoadableRecipeSerializer;
 import slimeknights.mantle.recipe.helper.TypeAwareRecipeSerializer;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.recipe.casting.DisplayCastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.ICastingContainer;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.IDisplayableCastingRecipe;
+import slimeknights.tconstruct.library.recipe.material.MaterialRecipeCache;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 
 import javax.annotation.Nullable;
@@ -79,7 +82,14 @@ public class CompositeCastingRecipe extends MaterialCastingRecipe {
           }
           if (!fluids.isEmpty()) {
             fluids = resizeFluids(recipe.getFluids());
-            recipes.add(new DisplayCastingRecipe(type, List.of(result.withMaterial(input.getVariant())), fluids, result.withMaterial(output.getVariant()),
+            MaterialVariantId inputId = input.getVariant();
+            List<ItemStack> inputs;
+            if (inputId.getVariant().isEmpty()) {
+              inputs = MaterialRecipeCache.getVariants(input.getId()).stream().map(result::withMaterial).toList();
+            } else {
+              inputs = List.of(result.withMaterial(inputId));
+            }
+            recipes.add(new DisplayCastingRecipe(type, inputs, fluids, result.withMaterial(output.getVariant()),
                                                  ICastingRecipe.calcCoolingTime(recipe.getTemperature(), itemCost * fluids.stream().mapToInt(FluidStack::getAmount).max().orElse(0)),
                                                  isConsumed()));
           }

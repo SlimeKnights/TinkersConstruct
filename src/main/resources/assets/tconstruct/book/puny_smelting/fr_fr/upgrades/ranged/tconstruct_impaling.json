@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:impaling",
+  "text": [
+    {
+      "text": "Je serais plutôt choqué si tu m’empalais avec Empalement."
+    },
+    {
+      "text": "À ne pas confondre avec Antiaquatique.",
+      "paragraph": true
+    }
+  ],
+  "effects": [
+    "Augmente les dégâts des projectiles tirés par les arbalètes",
+    "Niveaux multiples, chaque niveau augmente encore les dégâts",
+    "Nécessite 1 emplacement d’amélioration par niveau"
+  ]
+}

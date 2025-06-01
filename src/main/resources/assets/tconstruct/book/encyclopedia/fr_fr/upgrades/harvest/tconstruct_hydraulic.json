@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:hydraulic",
+  "text": [
+    {
+      "text": "Accorde +4 de vitesse de minage par niveau sous la pluie. Sous l'eau, accorde plutôt +8 de vitesse de minage par niveau, en ignorant le malus habituel du minage sous l'eau."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Peut être appliqué par niveaux incrémentaux",
+    "Maximum de 5 niveaux",
+    "Nécessite 1 emplacement d'amélioration par niveau"
+  ]
+}
+

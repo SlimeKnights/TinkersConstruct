@@ -21,6 +21,7 @@ import slimeknights.tconstruct.library.json.predicate.material.MaterialPredicate
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
+import slimeknights.tconstruct.library.recipe.material.MaterialRecipeCache;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 
 import javax.annotation.Nullable;
@@ -149,11 +150,10 @@ public class MaterialIngredient extends NestedIngredient {
       }
       // no material? apply all materials for variants
       Stream<ItemStack> items = Arrays.stream(nested.getItems());
-      // find all materials matching the filter
-      items = items.flatMap(stack -> MaterialRegistry.getMaterials().stream()
-        // TODO: this won't do variants
-        .filter(mat -> material.matches(mat.getIdentifier()))
-        .map(mat -> IMaterialItem.withMaterial(stack, mat.getIdentifier()))
+      // find all materials matching the filter; note this only shows craftable material variants
+      items = items.flatMap(stack -> MaterialRecipeCache.getAllVariants().stream()
+        .filter(material::matches)
+        .map(mat -> IMaterialItem.withMaterial(stack, mat))
         .filter(ItemStack::hasTag));
       materialStacks = items.distinct().toArray(ItemStack[]::new);
     }

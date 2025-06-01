@@ -1,0 +1,13 @@
+{
+  "title": "Enclume du Bricoleur",
+  "item": "tconstruct:tinkers_anvil",
+  "text": [
+    {
+      "text": "Très bien Bricoleur, il est temps de ranger ce modeste Atelier et de créer la puissante Enclume du Bricoleur. La capacité de fabriquer les outils les plus grands et les plus performants n'est qu'à un coup de marteau."
+    },
+    {
+      "text": "Cette enclume ne peut être fabriquée qu'avec les alliages les plus nobles, mais elle vous permettra de créer les outils les plus polyvalents. Elle vous donne accès aux meilleurs modificateurs et vous permet de renommer vos outils lors de toute modification.",
+      "paragraph": true
+    }
+  ]
+}

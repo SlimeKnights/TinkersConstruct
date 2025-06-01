@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import net.minecraft.network.FriendlyByteBuf;
 import slimeknights.mantle.data.loadable.primitive.FloatLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
+import slimeknights.tconstruct.TConstruct;
 
 /**
  * Represents a float value that has a part that scales with level and a part that does not scale.
@@ -12,6 +13,8 @@ import slimeknights.mantle.data.loadable.record.RecordLoadable;
  * @see RandomLevelingValue
  */
 public record LevelingValue(float flat, float eachLevel) {
+  /** Leveling value with all zeros set */
+  public static final LevelingValue ZERO = new LevelingValue(0f, 0f);
   /** Loadable instance for parsing */
   public static final RecordLoadable<LevelingValue> LOADABLE = RecordLoadable.create(
     FloatLoadable.ANY.defaultField("flat", 0f, LevelingValue::flat),
@@ -41,6 +44,16 @@ public record LevelingValue(float flat, float eachLevel) {
   /** Checks if this doesn't level */
   public boolean isFlat() {
     return eachLevel == 0;
+  }
+
+
+  /** Applies a pair of flat and random leveling values. The random amount is scaled uniformly between 0 and the value */
+  public static float applyRandom(float level, LevelingValue flat, LevelingValue random) {
+    float rand = random.compute(level);
+    if (rand > 0) {
+      rand *= TConstruct.RANDOM.nextFloat();
+    }
+    return flat.compute(level) + rand;
   }
 
 

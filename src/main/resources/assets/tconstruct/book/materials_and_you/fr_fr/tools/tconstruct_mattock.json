@@ -1,0 +1,18 @@
+{
+  "tool": "tconstruct:mattock",
+  "text": [
+    {
+      "text": "Le ratissoire est un outil polyvalent. Il est efficace sur les bûches et la terre."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Il peut créer la ferme de vos rêves."
+    }
+  ],
+  "properties": [
+    "Retourne la terre",
+    "Efficace sur la terre et les bûches"
+  ]
+}

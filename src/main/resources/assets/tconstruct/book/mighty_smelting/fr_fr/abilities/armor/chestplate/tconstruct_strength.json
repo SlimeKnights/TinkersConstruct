@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:strength",
+  "text": [
+    {
+      "text": "Avec une grande puissance vient un plus grand potentiel de dégâts."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Augmente les dégâts d’attaque des armes",
+    "Niveaux multiples, chaque niveau augmente les dégâts",
+    "Nécessite 1 emplacement d’aptitude par niveau"
+  ]
+}

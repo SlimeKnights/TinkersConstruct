@@ -43,11 +43,11 @@
     },
     {
       "predicate": { "tconstruct:ammo": 1 },
-      "model": "tconstruct:item/tool/war_pick/arrow"
+      "model": "tconstruct:item/tool/war_pick/pulling_3"
     },
     {
       "predicate": { "tconstruct:ammo": 1, "tconstruct:charging": 2 },
-      "model": "tconstruct:item/tool/war_pick/arrow_blocking"
+      "model": "tconstruct:item/tool/war_pick/blocking_3"
     },
     {
       "predicate": { "tconstruct:ammo": 2 },

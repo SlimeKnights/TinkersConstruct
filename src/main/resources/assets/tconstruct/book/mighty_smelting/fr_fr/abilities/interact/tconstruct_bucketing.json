@@ -1,0 +1,32 @@
+{
+  "modifier_id": "tconstruct:bucketing",
+  "text": [
+    {
+      "text": "§oCeci est un seau.§r"
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "§lMon Dieu.§r"
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "§oIl y en a d’autres.§r"
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "§lNooooon.§r"
+    }
+  ],
+  "effects": [
+    "Votre outil est maintenant un seau",
+    "La taille du réservoir peut être augmentée avec une Amélioration de Réservoir",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
+  ]
+}

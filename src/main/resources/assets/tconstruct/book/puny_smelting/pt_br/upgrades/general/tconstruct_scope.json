@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:scope",
+  "text": [
+    {
+      "text": "360 sem mira."
+    }
+  ],
+  "effects": [
+    "Permite que ferramentas deêm zoom gradualmente ao serem carregadas",
+    "Nível único",
+    "Requer 1 slot de melhoria"
+  ]
+}

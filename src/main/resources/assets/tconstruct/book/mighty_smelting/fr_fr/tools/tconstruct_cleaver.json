@@ -1,0 +1,20 @@
+{
+  "tool": "tconstruct:cleaver",
+  "text": [
+    {
+      "text": "L'Écorcheur est une arme puissante mais lente."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Qu'on leur coupe la tête !",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "Arme puissante",
+    "Attaques lentes",
+    "Débute avec Découpe II"
+  ]
+}

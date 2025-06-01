@@ -1,0 +1,19 @@
+{
+  "tool": "tconstruct:cleaver",
+  "text": [
+    {
+      "text": "Le couperet est une arme à haut dégât mais à faible vitesse."
+    },
+    {
+      "text": "Les expanseurs augmentent la zone de l’attaque balayée, et la soie confère une tonte en zone (AOE).",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "+3 Dégâts d’attaque",
+    "Multiplicateur d’attaque 150%",
+    "1,0 Vitesse d’attaque",
+    "Multiplicateur de durabilité 350%",
+    "Séparation II"
+  ]
+}

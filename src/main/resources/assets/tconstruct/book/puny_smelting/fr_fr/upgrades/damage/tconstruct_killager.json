@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:killager",
+  "text": [
+    {
+      "text": "Le tout nouveau groupe de death metal Minecraft. Bientôt dans un village près de chez vous."
+    }
+  ],
+  "effects": [
+    "Augmente les dégâts contre les villageois et les illageois",
+    "Niveaux multiples, chaque niveau augmente encore les dégâts",
+    "Nécessite 1 emplacement d’amélioration par niveau"
+  ]
+}

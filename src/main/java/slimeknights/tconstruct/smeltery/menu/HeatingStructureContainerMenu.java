@@ -15,6 +15,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import slimeknights.mantle.fluid.FluidTransferHelper;
 import slimeknights.mantle.fluid.transfer.FluidContainerTransferManager;
 import slimeknights.mantle.fluid.transfer.IFluidContainerTransfer.TransferDirection;
+import slimeknights.mantle.fluid.transfer.IFluidContainerTransfer.TransferResult;
 import slimeknights.mantle.util.sync.ValidZeroDataSlot;
 import slimeknights.tconstruct.shared.inventory.TriggeringMultiModuleContainerMenu;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -44,8 +45,8 @@ public class HeatingStructureContainerMenu extends TriggeringMultiModuleContaine
       // slots for emptying/filling buckets - do first but filtered
       if (!inv.player.level().isClientSide) {
         IFluidHandler tank = structure.getTank();
-        addSlot(new BucketInputSlot(bucketContainer, 125, 46, tank, this));
-        bucketResultSlot = addSlot(new BucketResultSlot(bucketContainer, 125, 104, tank, this));
+        addSlot(new BucketInputSlot(bucketContainer, 125, 46, tank, this, inv.player));
+        bucketResultSlot = addSlot(new BucketResultSlot(bucketContainer, 125, 104, tank, this, inv.player));
       } else {
         addSlot(new BucketSlot(bucketContainer, 0, 125, 46));
         bucketResultSlot = addSlot(new ResultSlot(bucketContainer, 1, 125, 104));
@@ -82,10 +83,13 @@ public class HeatingStructureContainerMenu extends TriggeringMultiModuleContaine
     if (!player.level().isClientSide && tile != null) {
       ItemStack bucket = bucketContainer.getItem(0);
       if (!bucket.isEmpty() && bucketContainer.getItem(1).isEmpty()) {
-        ItemStack result = FluidTransferHelper.interactWithTankSlot(tile.getTank(), bucket, transferDirection);
-        bucketContainer.setItem(0, bucket);
-        bucketContainer.setItem(1, result);
-        bucketContainer.setChanged();
+        TransferResult result = FluidTransferHelper.interactWithStack(tile.getTank(), bucket, transferDirection);
+        if (result != null) {
+          FluidTransferHelper.playUISound(player, result.getSound());
+          bucketContainer.setItem(0, bucket);
+          bucketContainer.setItem(1, result.stack());
+          bucketContainer.setChanged();
+        }
       }
     }
   }
@@ -111,16 +115,16 @@ public class HeatingStructureContainerMenu extends TriggeringMultiModuleContaine
       }
       // transfer the fluid
       if (!player.level().isClientSide && tile != null) {
-        ItemStack result;
+        TransferResult result;
         if (id == 1) {
           // drain fuel into item
           MultitankFuelModule fuelModule = tile.getFuelModule();
-          result = FluidTransferHelper.fillFromTankSlot(fuelModule, held, fuelModule.getLastFluid());
+          result = FluidTransferHelper.fillStack(fuelModule, held, fuelModule.getLastFluid());
         } else {
           // drain item into fuel/tank
-          result = FluidTransferHelper.interactWithTankSlot(id == 2 ? tile.getFuelModule() : tile.getTank(), held, TransferDirection.EMPTY_ITEM);
+          result = FluidTransferHelper.interactWithStack(id == 2 ? tile.getFuelModule() : tile.getTank(), held, TransferDirection.EMPTY_ITEM);
         }
-        setCarried(FluidTransferHelper.getOrTransferFilled(player, held, result));
+        setCarried(FluidTransferHelper.handleUIResult(player, held, result));
       }
       return true;
     }
@@ -135,8 +139,8 @@ public class HeatingStructureContainerMenu extends TriggeringMultiModuleContaine
           ItemStack held = getCarried();
           if (!held.isEmpty()) {
             // if holding an item, fill it from the fluid
-            ItemStack result = FluidTransferHelper.fillFromTankSlot(tank, held, fluid);
-            setCarried(FluidTransferHelper.getOrTransferFilled(player, held, result));
+            TransferResult result = FluidTransferHelper.fillStack(tank, held, fluid);
+            setCarried(FluidTransferHelper.handleUIResult(player, held, result));
           } else {
             // switch fluid order if not holding anything
             tank.moveFluidToBottom(index);
@@ -190,17 +194,22 @@ public class HeatingStructureContainerMenu extends TriggeringMultiModuleContaine
   public static class BucketInputSlot extends BucketSlot {
     private final IFluidHandler tank;
     private final TransferDirectionSupplier directionSupplier;
-    public BucketInputSlot(Container pContainer, int pX, int pY, IFluidHandler tank, TransferDirectionSupplier directionSupplier) {
+    private final Player player;
+    public BucketInputSlot(Container pContainer, int pX, int pY, IFluidHandler tank, TransferDirectionSupplier directionSupplier, Player player) {
       super(pContainer, 0, pX, pY);
       this.tank = tank;
       this.directionSupplier = directionSupplier;
+      this.player = player;
     }
 
     @Override
     public void set(ItemStack stack) {
       if (!stack.isEmpty() && container.getItem(1).isEmpty()) {
-        ItemStack result = FluidTransferHelper.interactWithTankSlot(tank, stack, directionSupplier.getTransferDirection());
-        container.setItem(1, result);
+        TransferResult result = FluidTransferHelper.interactWithStack(tank, stack, directionSupplier.getTransferDirection());
+        if (result != null) {
+          FluidTransferHelper.playUISound(player, result.getSound());
+          container.setItem(1, result.stack());
+        }
       }
       super.set(stack);
     }
@@ -222,10 +231,12 @@ public class HeatingStructureContainerMenu extends TriggeringMultiModuleContaine
   public static class BucketResultSlot extends ResultSlot {
     private final IFluidHandler tank;
     private final TransferDirectionSupplier directionSupplier;
-    public BucketResultSlot(Container pContainer, int pX, int pY, IFluidHandler tank, TransferDirectionSupplier directionSupplier) {
+    private final Player player;
+    public BucketResultSlot(Container pContainer, int pX, int pY, IFluidHandler tank, TransferDirectionSupplier directionSupplier, Player player) {
       super(pContainer, 1, pX, pY);
       this.tank = tank;
       this.directionSupplier = directionSupplier;
+      this.player = player;
     }
 
     @Override
@@ -233,8 +244,12 @@ public class HeatingStructureContainerMenu extends TriggeringMultiModuleContaine
       if (stack.isEmpty()) {
         ItemStack bucket = container.getItem(0);
         if (!bucket.isEmpty()) {
-          stack = FluidTransferHelper.interactWithTankSlot(tank, bucket, directionSupplier.getTransferDirection());
-          container.setItem(0, bucket);
+          TransferResult result = FluidTransferHelper.interactWithStack(tank, bucket, directionSupplier.getTransferDirection());
+          if (result != null) {
+            FluidTransferHelper.playUISound(player, result.getSound());
+            container.setItem(0, bucket);
+            stack = result.stack();
+          }
         }
       }
       super.set(stack);

@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:cooling",
+  "text": [
+    {
+      "text": "Confère +1,6 dégâts par niveau contre les créatures immunisées au feu."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Peut être appliqué de manière incrémentale",
+    "Maximum de 5 niveaux",
+    "Nécessite 1 emplacement d'amélioration par niveau"
+  ]
+}
+

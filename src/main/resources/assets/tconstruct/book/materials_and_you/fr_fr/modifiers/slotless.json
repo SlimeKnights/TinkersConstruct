@@ -1,0 +1,24 @@
+{
+  "type": "tconstruct:showcase",
+  "title": "Modificateurs Sans Emplacement",
+  "item": {
+    "type": "forge:nbt",
+    "item": "tconstruct:creative_slot",
+    "nbt": {
+      "slot": "slotless"
+    }
+  },
+  "tooltip": [ "Icône Sans Emplacement" ],
+  "text": [
+    {
+      "text": "Les modificateurs sans emplacement ne nécessitent aucun emplacement, contrairement aux autres types de modificateurs. Cela signifie généralement que le modificateur comporte un inconvénient ou que son effet est mineur."
+    },
+    {
+      "text": "Un type notable de modificateurs sans emplacement est celui des modificateurs bonus, qui octroient des emplacements de modificateurs supplémentaires. Beaucoup permettent d’obtenir plus d’emplacements d’amélioration, et on dit que certains permettent même d’obtenir des emplacements d’aptitude supplémentaires."
+    },
+    {
+      "text": "Le livret *Fonderie Minuscule* de Thruul M’Gon contient une liste complète des modificateurs sans emplacement disponibles pour les outils, tout comme l’Encyclopédie du Bricolage.",
+      "paragraph": true
+    }
+  ]
+}

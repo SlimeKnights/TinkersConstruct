@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:springing",
+  "text": [
+    {
+      "text": "La première étape du passage à l’heure d’été."
+    }
+  ],
+  "effects": [
+    "Charge pour se projeter dans la direction regardée",
+    "La vitesse de projection peut être augmentée avec Puissance ou Recul",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
+  ]
+}

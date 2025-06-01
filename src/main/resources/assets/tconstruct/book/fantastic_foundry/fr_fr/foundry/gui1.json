@@ -1,0 +1,17 @@
+{
+  "title": "Interface de la Fonderie",
+  "image": {
+    "file": "tconstruct:book/images/foundrygui.png",
+    "width": 161,
+    "height": 82
+  },
+  "text": [
+    {
+      "text": "1 : Placez les objets à fondre dans ces emplacements. La taille de la fonderie détermine le nombre d’emplacements disponibles."
+    },
+    {
+      "text": "2 : Les métaux fondus sont affichés ici. Vous pouvez cliquer sur un fluide pour le sélectionner pour la coulée. Survoler la zone vide affiche la capacité de la fonderie.",
+      "paragraph": true
+    }
+  ]
+}

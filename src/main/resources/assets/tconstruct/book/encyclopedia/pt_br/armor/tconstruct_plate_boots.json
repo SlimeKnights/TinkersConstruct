@@ -1,13 +1,13 @@
 {
   "tool": "tconstruct:plate_boots",
   "text": [
-    { "text": "As botas de placas são botas defensivas, com alta proteção, poucos slots de melhorias e com muitos slots defesa." }
+    { "text": "As Botas de Placa são botas defensivas, com alta proteção, poucos slots de habilidade e muitos slots de defesa." }
   ],
   "properties": [
-    "390 Durabilidade",
-    "+2 Armadura",
-    "1 Slot de Melhoria",
-    "4 Slots de Defesa",
-    "1 Slot de Habilidade"
+    "Status controlados pelo material",
+    "2 Slots de Melhoria",
+    "3 Slots de Defesa",
+    "2 Atributos de Material"
   ]
 }
+

@@ -1,0 +1,14 @@
+{
+  "tool": "tconstruct:battlesign",
+  "text": [
+    {
+      "text": "A placa de batalha é uma combinação de arma de combate e escudo. Normalmente é encontrado em bastiões e pode ser obtido com piglins."
+    }
+  ],
+  "properties": [
+    "Dano Médio",
+    "Bloqueio Médio",
+    "3 Slots de Defesa",
+    "1 Slot de Habilidade"
+  ]
+}

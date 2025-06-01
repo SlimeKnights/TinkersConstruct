@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:shulking",
+  "text": [
+    {
+      "text": "Le foyer, c’est là où se trouve la carapace."
+    }
+  ],
+  "effects": [
+    "Réduit les dégâts infligés et subis en étant accroupi",
+    "Niveaux multiples, chaque niveau augmente l’effet",
+    "Les niveaux peuvent être appliqués progressivement",
+    "Nécessite 1 emplacement de défense par niveau"
+  ]
+}

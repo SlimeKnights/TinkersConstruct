@@ -1,0 +1,20 @@
+{
+  "title": "Exigences de Structure",
+  "text": [
+    {
+      "text": "Ta fonderie a quelques exigences, plus grand ne veut pas toujours dire mieux."
+    },
+    {
+      "text": "Le sol de ta fonderie doit être composé de blocs de fonderie acceptés, à l’exception du verre. Les blocs acceptés seront présentés dans les pages suivantes ! De plus, ta fonderie doit être de forme rectangulaire : pas de forme en L, en cercle ou en dodécaèdre.",
+      "paragraph": true
+    },
+    {
+      "text": "La taille maximale de ta fonderie est de 16x16x65 à l’extérieur, ou 14x14x64 à l’intérieur.",
+      "paragraph": true
+    },
+    {
+      "text": "La fonderie doit avoir des coins et des arêtes pour fonctionner correctement.",
+      "paragraph": true
+    }
+  ]
+}

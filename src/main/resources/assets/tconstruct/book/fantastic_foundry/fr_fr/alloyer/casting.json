@@ -1,0 +1,13 @@
+{
+  "title": "Fonderie",
+  "image": {
+    "file": "tconstruct:book/images/scorched_casting.png",
+    "width": 109,
+    "height": 75
+  },
+  "text": [
+    {
+      "text": "Les vrais bricoles utilisent toujours une fonderie pour empêcher de lancer accidentellement la mauvaise chose, donc la table brûlée en nécessite toujours une. Les plates-formes et les barres en or peuvent être utilisées comme substitut à un bloc de coulée vide."
+    }
+	]
+}

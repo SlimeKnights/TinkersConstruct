@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:parrying",
+  "text": [
+    {
+      "text": "Use suas habilidades ninja loucas para desviar ataques do ar."
+    }
+  ],
+  "effects": [
+    "Permite que adagas bloqueiem brevemente após atacar",
+    "Nível único",
+    "Requer 1 slot de habilidade"
+  ]
+}

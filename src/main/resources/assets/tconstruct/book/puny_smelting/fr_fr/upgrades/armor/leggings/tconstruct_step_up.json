@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:step_up",
+  "text": [
+    {
+      "text": "Un pied devant l’autre… mais plus haut."
+    }
+  ],
+  "effects": [
+    "Permet de grimper des blocs plus hauts comme des escaliers",
+    "Niveaux multiples, chaque niveau augmente la hauteur de montée",
+    "Nécessite 1 emplacement d’amélioration par niveau"
+  ]
+}
+

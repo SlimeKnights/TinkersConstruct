@@ -1,0 +1,13 @@
+{
+  "title": "Géodes de Mondeslime",
+  "image": {
+    "file": "tconstruct:book/images/geodes/earthslime.png",
+    "width": 180,
+    "height": 90
+  },
+  "text": [
+    {
+      "text": "Les géodes de mondeslime se trouvent en profondeur sous terre et comptent parmi les plus grandes que j’aie pu observer. On peut souvent les repérer grâce à la présence d’argile."
+    }
+  ]
+}

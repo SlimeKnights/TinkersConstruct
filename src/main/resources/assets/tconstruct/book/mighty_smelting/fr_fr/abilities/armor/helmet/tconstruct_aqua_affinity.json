@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:aqua_affinity",
+  "text": [
+    {
+      "text": "Une affinité aquatique attirante qui annule activement toutes les afflictions liées à l’air."
+    }
+  ],
+  "effects": [
+    "Augmente la vitesse de minage sous l’eau",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
+  ]
+}

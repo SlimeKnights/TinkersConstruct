@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:haste",
+  "text": [
+    {
+      "text": "Ajouter de la redstone à un plastron semble rendre tous les outils plus rapides, comme si vos bras devenaient plus efficaces."
+    },
+    {
+      "text": "Franchement, c’est dingue, non ?",
+      "paragraph": true
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/armor",
+  "effects": [
+    "Augmente la vitesse de minage",
+    "Niveaux multiples, chaque niveau augmente un peu plus la vitesse",
+    "Nécessite 1 emplacement d’amélioration par niveau"
+  ]
+}

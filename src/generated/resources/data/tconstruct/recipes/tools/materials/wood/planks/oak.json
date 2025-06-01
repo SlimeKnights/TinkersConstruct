@@ -1,9 +1,0 @@
-{
-  "type": "tconstruct:material",
-  "ingredient": {
-    "item": "minecraft:oak_planks"
-  },
-  "material": "tconstruct:wood#oak",
-  "needed": 1,
-  "value": 1
-}

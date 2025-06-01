@@ -12,14 +12,19 @@ import net.minecraft.world.level.storage.loot.functions.SetItemDamageFunction;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidType;
+import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.loot.AbstractLootTableInjectionProvider;
 import slimeknights.mantle.loot.LootTableInjection;
 import slimeknights.mantle.loot.function.SetFluidLootFunction;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.json.loot.AddToolDataFunction;
+import slimeknights.tconstruct.library.json.loot.ToolPartLootEntry;
+import slimeknights.tconstruct.library.json.predicate.material.MaterialPredicate;
 import slimeknights.tconstruct.library.materials.RandomMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerTools;
@@ -49,7 +54,8 @@ public class LootTableInjectionProvider extends AbstractLootTableInjectionProvid
       .addToPool("main", makeSeed(FoliageType.ENDER, 5), makeSapling(FoliageType.ENDER, 3));
 
     // bartering
-    RandomMaterial random = RandomMaterial.random().allowHidden().build();
+    IJsonPredicate<MaterialVariantId> includeInLoot = MaterialPredicate.tag(TinkerTags.Materials.EXCLUDE_FROM_LOOT).inverted();
+    RandomMaterial random = RandomMaterial.random().allowHidden().material(includeInLoot).build();
     AddToolDataFunction.Builder ancientToolData2 = AddToolDataFunction.builder().addMaterial(random).addMaterial(random);
     injectGameplay("piglin_bartering")
       .addToPool("main", LootItem.lootTableItem(TinkerSmeltery.scorchedLantern).setWeight(20)
@@ -59,10 +65,13 @@ public class LootTableInjectionProvider extends AbstractLootTableInjectionProvid
       .addToPool("main", LootItem.lootTableItem(TinkerTools.battlesign.get())
                                  .setWeight(5)
                                  .apply(ancientToolData2)
+                                 .build())
+      .addToPool("main", ToolPartLootEntry.entry(TinkerTags.Items.BARTERED_PARTS, RandomMaterial.random().tag(TinkerTags.Materials.BARTERED).allowHidden().build())
+                                 .setWeight(8) // same weight as soulspeed boots
                                  .build());
 
     // spawn chest
-    RandomMaterial randomTier1 = RandomMaterial.random().tier(1).build();
+    RandomMaterial randomTier1 = RandomMaterial.random().tier(1).material(includeInLoot).build();
     RandomMaterial firstWithStat = RandomMaterial.firstWithStat(); // should be wood
     injectChest("spawn_bonus_chest")
       .addToPool("main", LootItem.lootTableItem(TinkerTools.handAxe.get())
@@ -142,7 +151,7 @@ public class LootTableInjectionProvider extends AbstractLootTableInjectionProvid
                                  .apply(SetItemDamageFunction.setDamage(UniformGenerator.between(0.1f, 0.9f)))
                                  .build());
     // diamond armor shows in bastions, add in some plate with similar weight to enchanted version
-    RandomMaterial randomHighTier = RandomMaterial.random().allowHidden().tier(3, 4).build();
+    RandomMaterial randomHighTier = RandomMaterial.random().allowHidden().tier(3, 4).material(includeInLoot).build();
     for (ArmorItem.Type slot : ArmorItem.Type.values()) {
       bastion.addToPool("main", LootItem.lootTableItem(TinkerTools.plateArmor.get(slot))
                                         .setWeight(6)

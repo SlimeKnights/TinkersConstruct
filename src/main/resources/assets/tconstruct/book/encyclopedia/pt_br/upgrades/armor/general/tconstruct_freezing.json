@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:freezing",
+  "text": [
+    {
+      "text": "Tem 15% de chance, por nível, de congelar quem o atacar por 4 segundos (mais 4 segundos por nível), causando dano ao longo do tempo e lentidão... Várias peças acumularão o efeito."
+    },
+    {
+      "text": "Os escudos são duas vezes mais eficazes, mas só funcionam ao bloquear.", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/armor",
+  "effects": [
+    "Máximo de 3 níveis",
+    "Não funciona bem com fogo",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}

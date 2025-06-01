@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:hydraulic",
   "text": [
     {
-      "text": "Usando a magia das bombas e fluidos, você pode mover as coisas com facilidade. Neste caso, você simplesmente não pode."
+      "text": "Usando a magia das bombas e dos fluidos, você pode mover coisas com facilidade. Neste caso, você simplesmente não consegue."
     }
   ],
   "effects": [
@@ -11,3 +11,5 @@
     "Requer 1 slot de melhoria por nível"
   ]
 }
+
+

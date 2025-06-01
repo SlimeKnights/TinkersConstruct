@@ -17,6 +17,7 @@ import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.json.RandomLevelingValue;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
@@ -81,7 +82,7 @@ public record MobEffectModule(IJsonPredicate<LivingEntity> target, MobEffect eff
   @Override
   public void onAttacked(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
     Entity attacker = source.getEntity();
-    if (isDirectDamage && attacker instanceof LivingEntity living) {
+    if (isDirectDamage && tool.hasTag(TinkerTags.Items.ARMOR) && attacker instanceof LivingEntity living) {
       // 15% chance of working per level
       float scaledLevel = modifier.getEffectiveLevel();
       if (RANDOM.nextFloat() < (scaledLevel * 0.25f)) {

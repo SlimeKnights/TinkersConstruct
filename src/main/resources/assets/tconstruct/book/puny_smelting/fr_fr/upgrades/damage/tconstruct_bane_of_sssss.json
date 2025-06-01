@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:bane_of_sssss",
+  "text": [
+    {
+      "text": "La meilleure amélioration pour les arachnophobes… ou ceux qui craignent les creepers. Araignées et rampants, prenez garde."
+    }
+  ],
+  "effects": [
+    "Augmente les dégâts et applique de la lenteur aux araignées et autres créatures rampantes",
+    "Niveaux multiples, chaque niveau augmente encore les dégâts",
+    "Nécessite 1 emplacement d’amélioration par niveau"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "title": "Échelle Calcinée",
+  "item": "tconstruct:scorched_ladder",
+  "text": [
+    {
+      "text": "L’échelle calcinée permet de grimper facilement dans ou hors de votre fonderie sans invalider la structure, pratique si vous prévoyez de l’agrandir plus tard !",
+      "paragraph": true
+    }
+  ]
+}

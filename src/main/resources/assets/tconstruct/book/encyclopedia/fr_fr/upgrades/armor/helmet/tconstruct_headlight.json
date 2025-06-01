@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:headlight",
+  "text": [
+    {
+      "text": "Éclaire visuellement les blocs autour de vous."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Niveau unique",
+    "Nécessite 1 emplacement d'amélioration"
+  ]
+}
+

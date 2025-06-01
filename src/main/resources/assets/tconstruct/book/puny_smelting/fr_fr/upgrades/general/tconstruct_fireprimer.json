@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:fireprimer",
+  "text": [
+    {
+      "text": "Tout va bien."
+    }
+  ],
+  "effects": [
+    "Augmente la zone d’effet du silex et de la brique",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’amélioration"
+  ]
+}

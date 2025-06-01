@@ -2,13 +2,16 @@
   "modifier_id": "tconstruct:netherite",
   "text": [
     {
-      "text": "A força do nether flui intensamente através de sua ferramenta."
+      "text": "A força do Nether flui intensamente através de sua ferramenta."
+    },
+    {
+      "text": "Tanto que a ferramenta não pode ser danificada por fatores externos como lava.",
+      "paragraph": true
     }
   ],
   "effects": [
-    "Aumenta a durabilidade, o dano de ataque, a velocidade de mineração e a torna imune a danos externos, como fogo e lava.",
-    "Requer Diamante ou Esmeralda",
-    "Nível Único",
-    "Requer 1 Slot de melhoria"
+    "Aumenta a durabilidade, dano de ataque, velocidade de mineração, robustez e resistência a repulsão",
+    "Nível único",
+    "Requer 1 slot de melhoria"
   ]
 }

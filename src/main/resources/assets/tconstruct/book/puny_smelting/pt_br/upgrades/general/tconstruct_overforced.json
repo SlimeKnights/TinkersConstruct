@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:overforced",
   "text": [
     {
-      "text": "Ultrareforçado... que nome, usando tamanha força?"
+      "text": "Reforçabilidade... que nome, hein! Forçado demais talvez?"
     }
   ],
   "effects": [
-     "Aumenta a capacidade da slimebilidade",
-     "Vários níveis, cada nível aumenta ainda mais a capacidade da slimebilidade",
-     "Requer 1 slot de melhoria por nível"
+    "Aumenta a capacidade da slimebilidade",
+    "Múltiplos níveis, cada nível aumenta ainda mais a capacidade de slimebilidade",
+    "Requer 1 slot de melhoria por nível"
   ]
 }

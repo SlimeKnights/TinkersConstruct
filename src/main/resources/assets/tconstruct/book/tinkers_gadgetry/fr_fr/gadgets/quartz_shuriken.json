@@ -1,0 +1,10 @@
+{
+  "title": "Shuriken en Quartz",
+  "item": "tconstruct:quartz_shuriken",
+  "text": [
+    {
+      "text": "Le quartz est bien plus léger que le silex, et nettement plus tranchant. Les shurikens taillés dans le quartz que je trouvais infligeaient beaucoup plus de dégâts aux monstres, bien qu’ils provoquent moins de recul.",
+      "paragraph": true
+    }
+  ]
+}

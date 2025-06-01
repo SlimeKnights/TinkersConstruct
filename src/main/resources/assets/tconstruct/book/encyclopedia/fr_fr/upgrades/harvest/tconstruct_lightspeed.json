@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:lightspeed",
+  "text": [
+    {
+      "text": "Accorde +1 de vitesse de minage par niveau à une luminosité de 5, +3 à une luminosité de 10, et +9 à une luminosité de 15."
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/harvest",
+  "effects": [
+    "Peut être appliqué par niveaux incrémentaux",
+    "Maximum de 5 niveaux",
+    "Nécessite 1 emplacement d'amélioration par niveau"
+  ]
+}
+

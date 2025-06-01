@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:workbench",
+  "text": [
+    {
+      "text": "Às vezes, você não quer parar de remexer nos bolsos só para poder craftar."
+    }
+  ],
+  "effects": [
+    "Adiciona uma bancada de trabalho ao inventário da ferramenta",
+    "Nível único",
+    "Requer 1 slot de melhoria"
+  ]
+}

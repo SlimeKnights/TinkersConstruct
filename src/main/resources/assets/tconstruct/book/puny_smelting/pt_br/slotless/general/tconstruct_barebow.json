@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:barebow",
+  "text": [
+    {
+      "text": "Quem disse que um arco peladão era uma boa ideia?"
+    }
+  ],
+  "effects": [
+    "O arco não usará munição do inventário",
+    "Útil para priorizar tiro de cristal ou aljavas",
+    "Uso único",
+    "Sem slot"
+  ]
+}

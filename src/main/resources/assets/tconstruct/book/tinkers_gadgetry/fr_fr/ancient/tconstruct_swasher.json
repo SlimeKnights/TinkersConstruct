@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:swasher",
+  "text": [
+    {
+      "text": "Le doublegicleur est une combinaison d’une arme de mêlée et d’un pistolet à fluide portatif, trouvée dans diverses zones océaniques."
+    }
+  ],
+  "properties": [
+    "Dégâts Moyens",
+    "Vitesse d’Attaque Élevée",
+    "Pistolet à Fluide",
+    "3 Emplacements d’Amélioration",
+    "1 Emplacement d’Aptitude"
+  ]
+}

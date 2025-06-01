@@ -2,7 +2,6 @@ package slimeknights.tconstruct.library.modifiers.modules.technical;
 
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.EquipmentSlot.Type;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.common.util.LazyOptional;
@@ -80,7 +79,7 @@ public record ArmorLevelModule(TinkerDataKey<Integer> key, boolean allowBroken, 
 
   /** Checks if the given slot is valid */
   public static boolean validSlot(IToolStackView tool, EquipmentSlot slot, @Nullable TagKey<Item> heldTag) {
-    return slot.getType() == Type.ARMOR || heldTag != null && tool.hasTag(heldTag);
+    return slot.isArmor() || heldTag != null && tool.hasTag(heldTag);
   }
 
   /**

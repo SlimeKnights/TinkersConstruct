@@ -1,0 +1,21 @@
+{
+  "tool": "tconstruct:travelers_chestplate",
+  "text": [
+    { 
+      "text": "N'oubliez pas de rentrer l'étiquette, ce serait dommage de la laisser dépasser." 
+    },
+    {
+      "text": "Un plastron est essentiel pour protéger vos précieux organes thoraciques. Tout en ayant fière allure.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "Protection réduite",
+    "Durabilité réduite",
+    "2 emplacements d'amélioration",
+    "2 emplacements de défense",
+    "1 emplacement d'aptitude",
+    "1 caractéristique de matériau",
+    "Isolé & Traité"
+  ]
+}

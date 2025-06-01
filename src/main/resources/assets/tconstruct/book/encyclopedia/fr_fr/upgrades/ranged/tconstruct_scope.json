@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:scope",
+  "text": [
+    {
+      "text": "Agrandit les objets lointains lors de la montée en puissance de l’arc. À pleine charge, l’effet est un peu inférieur à une longue-vue."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Un seul niveau",
+    "Nécessite 1 emplacement d'amélioration"
+  ]
+}
+

@@ -1,0 +1,11 @@
+{
+  "title": "Le Fourneau de Fusion",
+  "image": {
+    "file": "tconstruct:book/images/melter.png"
+  },
+  "text": [
+    {
+      "text": "Voici votre fourneau de fusion le plus basique, capable d'effectuer diverses tâches simples."
+    }
+  ]
+}

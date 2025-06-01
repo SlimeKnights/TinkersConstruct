@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:knockback",
+  "text": [
+    {
+      "text": "Arrêtez de gaspiller votre énergie à courir et faites plutôt dépenser la leur à vos ennemis pour revenir vers vous."
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/armor",
+  "effects": [
+    "Repousse les ennemis lorsqu’ils sont touchés avec une arme",
+    "Niveaux multiples, augmente la force du recul à chaque niveau",
+    "Nécessite 1 emplacement d’amélioration par niveau"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:bulk_quiver",
+  "text": [
+    {
+      "text": "Gives the bow internal slots for holding arrows. Arrows in the slots will be used if there are no arrows in the main inventory."
+    },
+    {
+      "text": "Quiver inventory can be accessed by sneaking and attacking. Inventory holds two stacks of 64 arrows per level.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "No max level",
+    "Requires 1 ability slot per level"
+  ]
+}

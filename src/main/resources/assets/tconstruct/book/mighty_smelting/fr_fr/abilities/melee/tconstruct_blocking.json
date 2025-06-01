@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:blocking",
+  "text": [
+    {
+      "text": "Ton épée est maintenant un bouclier, il ne te reste plus qu’à trouver comment transformer ton bouclier en épée."
+    }
+  ],
+  "effects": [
+    "Permet de bloquer avec ton outil",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
+  ]
+}

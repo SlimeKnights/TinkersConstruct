@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:bonking",
+  "text": [
+    {
+      "text": "À utiliser de préférence au bord d’une falaise au coucher du soleil."
+    }
+  ],
+  "effects": [
+    "Charge pour projeter la créature ciblée au loin",
+    "La vitesse de projection peut être augmentée avec Puissance ou Recul",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
+  ]
+}

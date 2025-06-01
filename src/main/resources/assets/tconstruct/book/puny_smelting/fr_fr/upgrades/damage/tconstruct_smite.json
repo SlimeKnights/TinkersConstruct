@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:smite",
+  "text": [
+    {
+      "text": "Craignez-moi, morts-vivants..."
+    },
+    {
+      "text": "Car je manie le pouvoir des melons infusés d’or ! Peut-être qu’une armure en melon doré les tiendrait à distance.",
+      "paragraph": true
+    }
+  ],
+  "effects": [
+    "Augmente les dégâts contre les morts-vivants",
+    "Niveaux multiples, chaque niveau augmente encore les dégâts",
+    "Nécessite 1 emplacement d’amélioration par niveau"
+  ]
+}

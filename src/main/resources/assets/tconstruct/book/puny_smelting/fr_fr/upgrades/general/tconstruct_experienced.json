@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:experienced",
+  "text": [
+    {
+      "text": "Vous vous sentez un peu plus malin avec un peu d’expérience en poche."
+    }
+  ],
+  "effects": [
+    "Augmente les gains d’XP provenant des blocs et des créatures",
+    "Niveaux multiples, chaque niveau augmente l’expérience gagnée",
+    "Nécessite 1 emplacement d’amélioration par niveau"
+  ]
+}

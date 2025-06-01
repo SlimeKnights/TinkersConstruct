@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:bouncy",
+  "text": [
+    {
+      "text": "Le monde est votre trampoline."
+    }
+  ],
+  "effects": [
+    "Rebond à l’atterrissage",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
+  ]
+}

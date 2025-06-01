@@ -3,5 +3,8 @@
   "ingredient": {
     "item": "minecraft:slime_block"
   },
-  "restore_amount": 108
+  "restore_amount": 180,
+  "tools": {
+    "tag": "tconstruct:modifiable/durability"
+  }
 }

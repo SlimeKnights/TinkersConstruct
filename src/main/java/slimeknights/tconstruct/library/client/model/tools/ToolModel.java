@@ -6,9 +6,16 @@ import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import com.mojang.math.Transformation;
+import it.unimi.dsi.fastutil.ints.Int2IntArrayMap;
+import it.unimi.dsi.fastutil.ints.Int2IntFunction;
+import it.unimi.dsi.fastutil.ints.Int2IntMap;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.client.color.item.ItemColors;
@@ -22,8 +29,11 @@ import net.minecraft.client.resources.model.Material;
 import net.minecraft.client.resources.model.ModelBaker;
 import net.minecraft.client.resources.model.ModelState;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -31,10 +41,15 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec2;
 import net.minecraftforge.client.model.BakedModelWrapper;
 import net.minecraftforge.client.model.IModelBuilder;
+import net.minecraftforge.client.model.IQuadTransformer;
+import net.minecraftforge.client.model.QuadTransformers;
+import net.minecraftforge.client.model.data.ModelData;
 import net.minecraftforge.client.model.geometry.IGeometryBakingContext;
 import net.minecraftforge.client.model.geometry.IGeometryLoader;
 import net.minecraftforge.client.model.geometry.IUnbakedGeometry;
+import org.joml.Quaternionf;
 import org.joml.Vector3f;
+import slimeknights.mantle.client.model.util.ColoredBlockModel;
 import slimeknights.mantle.client.model.util.MantleItemLayerModel;
 import slimeknights.mantle.data.loadable.Loadable;
 import slimeknights.mantle.data.loadable.mapping.CompactLoadable;
@@ -47,7 +62,6 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfo.TintedSprite;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
-import slimeknights.tconstruct.library.client.model.UniqueGuiModel;
 import slimeknights.tconstruct.library.client.modifiers.IBakedModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.ModifierModelManager;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
@@ -58,9 +72,12 @@ import slimeknights.tconstruct.library.recipe.worktable.ModifierSetWorktableReci
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
+import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.BitSet;
 import java.util.Collection;
 import java.util.Collections;
@@ -77,7 +94,7 @@ import java.util.function.Supplier;
 /**
  * Model handling all tools, both multipart and non.
  */
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class ToolModel implements IUnbakedGeometry<ToolModel> {
   /** Shared loader instance */
   public static final IGeometryLoader<ToolModel> LOADER = ToolModel::deserialize;
@@ -152,6 +169,14 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
     colors.register(ToolModel.COLOR_HANDLER, item.get());
   }
 
+  /** Gets an offset from JSON, or the default value if absent */
+  private static Vec2 getOffset(JsonObject parent, String key) {
+    if (parent.has(key)) {
+      return MaterialModel.getVec2(parent, key);
+    }
+    return Vec2.ZERO;
+  }
+
   /** Deserializes the model from JSON */
   public static ToolModel deserialize(JsonObject json, JsonDeserializationContext context) {
     List<ToolPart> parts = Collections.emptyList();
@@ -159,10 +184,7 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
       parts = JsonHelper.parseList(json, "parts", ToolPart::read);
     }
     boolean isLarge = GsonHelper.getAsBoolean(json, "large", false);
-    Vec2 offset = Vec2.ZERO;
-    if (json.has("large_offset")) {
-      offset = MaterialModel.getVec2(json, "large_offset");
-    }
+    Vec2 offset = getOffset(json, "large_offset");
     // modifier root fetching
     List<ResourceLocation> smallModifierRoots = Collections.emptyList();
     List<ResourceLocation> largeModifierRoots = Collections.emptyList();
@@ -178,9 +200,33 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
         smallModifierRoots = JsonHelper.parseList(json, "modifier_roots", (element, string) -> new ResourceLocation(GsonHelper.convertToString(element, string)));
       }
     }
+    // fetch data related to ammo display
+    ResourceLocation ammoKey = null;
+    Vec2 smallAmmoOffset = Vec2.ZERO;
+    Vec2 largeAmmoOffset = Vec2.ZERO;
+    boolean flipAmmo = false;
+    boolean leftAmmo = false;
+    if (json.has("ammo")) {
+      JsonObject ammo = GsonHelper.getAsJsonObject(json, "ammo");
+      ammoKey = JsonHelper.getResourceLocation(ammo, "key");
+      flipAmmo = GsonHelper.getAsBoolean(ammo, "flip");
+      leftAmmo = GsonHelper.getAsBoolean(ammo, "left");
+      // large has an offset for both models
+      if (isLarge) {
+        if (!ammo.has("small_offset") && !ammo.has("large_offset")) {
+          throw new JsonSyntaxException("Ammo must either have a small or large offset provided");
+        }
+        smallAmmoOffset = getOffset(ammo, "small_offset");
+        largeAmmoOffset = getOffset(ammo, "large_offset");
+      } else {
+        // no large is just a single offset, and is required
+        smallAmmoOffset = MaterialModel.getVec2(ammo, "offset");
+      }
+    }
+
     // modifiers first
     List<FirstModifier> firstModifiers = FirstModifier.LOADABLE.getOrDefault(json, "first_modifiers", List.of());
-    return new ToolModel(parts, isLarge, offset, smallModifierRoots, largeModifierRoots, firstModifiers);
+    return new ToolModel(parts, isLarge, offset, smallModifierRoots, largeModifierRoots, firstModifiers, ammoKey, flipAmmo, leftAmmo, smallAmmoOffset, largeAmmoOffset);
   }
 
   /** List of tool parts in this model */
@@ -195,6 +241,17 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
   private final List<ResourceLocation> largeModifierRoots;
   /** Modifiers that show first on tools, bypassing normal sort order */
   private final List<FirstModifier> firstModifiers;
+  /** Location in tool NBT to find the ammo */
+  @Nullable
+  private final ResourceLocation ammoKey;
+  /** If true, flips the ammo horizontally, as most bows have opposite orientation from ammo */
+  private final boolean flipAmmo;
+  /** If true, left handed models should have the ammo shifted to the left */
+  private final boolean leftAmmo;
+  /** Offset to apply to ammo quads for the small model */
+  private final Vec2 smallAmmoOffset;
+  /** Offset to apply to ammo quads for the large model */
+  private final Vec2 largeAmmoOffset;
 
   /**
    * adds quads for relevant modifiers
@@ -281,11 +338,15 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
    * @param materials       Materials to use for the parts
    * @param tool            Tool instance for modifier parsing
    * @param overrides       Override instance to use, will either be empty or {@link MaterialOverrideHandler}
+   * @param smallExtraQuads Additional quads to add to the small model. Should already be transformed as desired.
+   * @param largeExtraQuads Additional quads to add to the large model. Should already be transformed as desired.
+   * @param leftExtraQuads  Additional quads to add to the left-handed model. Will be a large model if {@code largeTransforms} is non-null, otherwise small.
    * @return  Baked model
    */
   private static BakedModel bakeInternal(IGeometryBakingContext owner, Function<Material, TextureAtlasSprite> spriteGetter, @Nullable Transformation largeTransforms,
                                          List<ToolPart> parts, Map<ModifierId,IBakedModifierModel> modifierModels, List<FirstModifier> firstModifiers,
-                                         List<MaterialVariantId> materials, @Nullable IToolStackView tool, ItemOverrides overrides) {
+                                         List<MaterialVariantId> materials, @Nullable IToolStackView tool, ItemOverrides overrides,
+                                         Collection<BakedQuad> smallExtraQuads, Collection<BakedQuad> largeExtraQuads, Collection<BakedQuad> leftExtraQuads) {
     Transformation smallTransforms = Transformation.identity();
 
     // TODO: would be nice to support render types per material/per modifier
@@ -339,21 +400,74 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
       TConstruct.LOG.error("Created tool model without a particle sprite, this means it somehow has no parts. This should not be possible");
     }
 
-    // start by building the small models, one for GUI and one outside
-    IModelBuilder<?> smallModelBuilder = makeModelBuilder(owner, overrides, particle);
-    IModelBuilder<?> guiModelBuilder = makeModelBuilder(owner, overrides, particle);
-    smallQuads.build(quads -> quads.forEach(quad -> {
-      smallModelBuilder.addUnculledFace(quad);
-      if (quad.getDirection() == Direction.SOUTH) {
-        guiModelBuilder.addUnculledFace(quad);
-      }
-    }));
-    if (largeTransforms == null) {
-      return new UniqueGuiModel.Baked(smallModelBuilder.build(), guiModelBuilder.build());
+    // time to bake the model. Opted for a small amount of redundant code to minimize operations as this is run dynamically
+    IModelBuilder<?> smallBuilder = makeModelBuilder(owner, overrides, particle);
+    IModelBuilder<?> guiBuilder = makeModelBuilder(owner, overrides, particle);
+    IModelBuilder<?> leftBuilder = !leftExtraQuads.isEmpty() ? makeModelBuilder(owner, overrides, particle) : null;
+
+    // if we lack a large model, feed left builder with small quads
+    if (largeTransforms == null && leftBuilder != null) {
+      smallQuads.build(quads -> quads.forEach(quad -> {
+        smallBuilder.addUnculledFace(quad);
+        leftBuilder.addUnculledFace(quad);
+        if (quad.getDirection() == Direction.SOUTH) {
+          guiBuilder.addUnculledFace(quad);
+        }
+      }));
+    } else {
+      smallQuads.build(quads -> quads.forEach(quad -> {
+        smallBuilder.addUnculledFace(quad);
+        if (quad.getDirection() == Direction.SOUTH) {
+          guiBuilder.addUnculledFace(quad);
+        }
+      }));
     }
-    IModelBuilder<?> largeModelBuilder = makeModelBuilder(owner, overrides, particle);
-    largeQuads.build(quads -> quads.forEach(largeModelBuilder::addUnculledFace));
-    return new BakedLargeToolModel(largeModelBuilder.build(), smallModelBuilder.build(), guiModelBuilder.build());
+
+    // smallExtraQuads are never added to the leftBuilder
+    for (BakedQuad quad : smallExtraQuads) {
+      smallBuilder.addUnculledFace(quad);
+      if (quad.getDirection() == Direction.SOUTH) {
+        guiBuilder.addUnculledFace(quad);
+      }
+    }
+    BakedModel small = smallBuilder.build();
+    BakedModel gui = guiBuilder.build();
+
+    // if no large, use small for right
+    BakedModel right;
+    if (largeTransforms != null) {
+      IModelBuilder<?> largeBuilder = makeModelBuilder(owner, overrides, particle);
+      // if left, fill with large quads
+      if (leftBuilder != null) {
+        largeQuads.build(quads -> quads.forEach(quad -> {
+          largeBuilder.addUnculledFace(quad);
+          leftBuilder.addUnculledFace(quad);
+        }));
+      } else {
+        largeQuads.build(quads -> quads.forEach(largeBuilder::addUnculledFace));
+      }
+      // left has not received any extra quads
+      for (BakedQuad quad : largeExtraQuads) {
+        largeBuilder.addUnculledFace(quad);
+      }
+      right = largeBuilder.build();
+    } else {
+      right = small;
+    }
+
+    // if no left, use right for left
+    BakedModel left;
+    if (leftBuilder != null) {
+      for (BakedQuad quad : leftExtraQuads) {
+        leftBuilder.addUnculledFace(quad);
+      }
+      left = leftBuilder.build();
+    } else {
+      left = right;
+    }
+
+    // finish baking model
+    return new BakedToolModel(right, left, small, gui);
   }
 
   @Override
@@ -377,19 +491,57 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
     // load modifier models
     Map<ModifierId,IBakedModifierModel> modifierModels = ModifierModelManager.getModelsForTool(spriteGetter, smallModifierRoots, isLarge ? largeModifierRoots : Collections.emptyList());
 
-    // actual model baking
+    // build transforms for various states
+    // large tools are stretched in X and Y by 200%, and get a special offset
     Transformation largeTransforms = isLarge ? new Transformation(new Vector3f((offset.x - 8) / 32, (-offset.y - 8) / 32, 0), null, new Vector3f(2, 2, 1), null) : null;
-    overrides = new MaterialOverrideHandler(owner, toolParts, firstModifiers, largeTransforms, modifierModels, overrides);
+    // arrow quads are flipped, and also shifted
+    Transformation smallAmmoTransforms = null;
+    Transformation largeAmmoTransforms = null;
+    Transformation leftAmmoTransforms = null;
+    if (ammoKey != null) {
+      // flipping rotates it 180 degrees, but because the origin is 0,0 instead of 0.5,0,5 it gets shifted
+      // I could do some composition to shift the orgin, but its faster to just correct for it below
+      Quaternionf ammoRotation = flipAmmo ? Axis.YP.rotationDegrees(-180) : null;
+      float flipOffset = flipAmmo ? 1 : 0;
+
+      // left if requested is based on either small or right, reusing a variable allows us to keep the one that ended up used.
+      Vector3f translation = new Vector3f(
+        smallAmmoOffset.x / 16 + flipOffset,
+        -smallAmmoOffset.y / 16,
+        1f / 16 + flipOffset
+      );
+      smallAmmoTransforms = new Transformation(translation, ammoRotation, null, null);
+      if (isLarge) {
+        translation = new Vector3f(
+          (offset.x/2 + largeAmmoOffset.x + 4f) / 16 + flipOffset,
+          (-offset.y/2 - largeAmmoOffset.y + 4f) / 16,
+          1f / 16 + flipOffset
+        );
+        largeAmmoTransforms = new Transformation(translation, ammoRotation, null, null);
+      }
+      // if we want left ammo, it copies whichever is the most recent from the two offsets
+      if (leftAmmo) {
+        translation = new Vector3f(translation);
+        translation.z = -1f / 16 + flipOffset;
+        leftAmmoTransforms = new Transformation(translation, ammoRotation, null, null);
+      }
+    }
+    overrides = new MaterialOverrideHandler(owner, toolParts, firstModifiers, largeTransforms, modifierModels, overrides, ammoKey, flipAmmo, smallAmmoTransforms, largeAmmoTransforms, leftAmmoTransforms);
     // bake the original with no tool, meaning it will skip modifiers and materials
-    return bakeInternal(owner, spriteGetter, largeTransforms, toolParts, modifierModels, firstModifiers, Collections.emptyList(), null, overrides);
+    return bakeInternal(owner, spriteGetter, largeTransforms, toolParts, modifierModels, firstModifiers, List.of(), null, overrides, List.of(), List.of(), List.of());
   }
 
   /** Swaps out the large model for the small or gui model as needed */
-  private static class BakedLargeToolModel extends BakedModelWrapper<BakedModel> {
+  private static class BakedToolModel extends BakedModelWrapper<BakedModel> {
+    /** Model to use for left-handed display. May be same as right-handed; ammo makes different */
+    private final BakedModel left;
+    /** Model to use for contexts requesting small models, such as smeltery blocks. Same as right if the tool has no large. */
     private final BakedModel small;
+    /** Model to use in the GUI */
     private final BakedModel gui;
-    public BakedLargeToolModel(BakedModel large, BakedModel small, BakedModel gui) {
-      super(large);
+    public BakedToolModel(BakedModel right, BakedModel left, BakedModel small, BakedModel gui) {
+      super(right);
+      this.left = left;
       this.small = small;
       this.gui = gui;
     }
@@ -399,7 +551,10 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
       BakedModel model = originalModel;
       if (cameraTransformType == ItemDisplayContext.GUI) {
         model = gui;
-      } else if (SMALL_TOOL_TYPES.get(cameraTransformType.ordinal())) {
+      } else if (cameraTransformType == ItemDisplayContext.FIRST_PERSON_LEFT_HAND || cameraTransformType == ItemDisplayContext.THIRD_PERSON_LEFT_HAND) {
+        model = left;
+        model = left;
+      } else if (originalModel != small && SMALL_TOOL_TYPES.get(cameraTransformType.ordinal())) {
         model = small;
       }
       return model.applyTransform(cameraTransformType, mat, applyLeftHandTransform);
@@ -447,6 +602,7 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
   /**
    * Dynamic override handler to swap in the material texture
    */
+  @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
   public static final class MaterialOverrideHandler extends ItemOverrides {
     /** If true, we are currently resolving a nested model and should ignore further nesting */
     private static boolean ignoreNested = false;
@@ -466,27 +622,83 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
     private final Transformation largeTransforms;
     private final Map<ModifierId,IBakedModifierModel> modifierModels;
     private final ItemOverrides nested;
-
-    private MaterialOverrideHandler(IGeometryBakingContext owner, List<ToolPart> toolParts, List<FirstModifier> firstModifiers, @Nullable Transformation largeTransforms, Map<ModifierId,IBakedModifierModel> modifierModels, ItemOverrides nested) {
-      this.owner = owner;
-      this.toolParts = toolParts;
-      this.firstModifiers = firstModifiers;
-      this.largeTransforms = largeTransforms;
-      this.modifierModels = modifierModels;
-      this.nested = nested;
-    }
+    @Nullable
+    private final ResourceLocation ammoKey;
+    private final boolean flipAmmo;
+    @Nullable
+    private final Transformation smallAmmoTransforms;
+    @Nullable
+    private final Transformation largeAmmoTransforms;
+    @Nullable
+    private final Transformation leftAmmoTransforms;
 
     /**
      * Bakes a copy of this model using the given material
      * @param materials  New materials for the model
      * @return  Baked model
      */
-    private BakedModel bakeDynamic(List<MaterialVariantId> materials, IToolStackView tool) {
+    private BakedModel bakeDynamic(List<MaterialVariantId> materials, IToolStackView tool, ItemStack ammo, int seed) {
+      // start by finding ammo quads
+      List<BakedQuad> smallAmmoQuads = List.of();
+      List<BakedQuad> largeAmmoQuads = List.of();
+      List<BakedQuad> leftAmmoQuads = List.of();
+      if (!ammo.isEmpty()) {
+        // find ammo model
+        BakedModel ammoModel = Minecraft.getInstance().getItemRenderer().getModel(ammo, null, null, seed);
+        if (ammoModel != Minecraft.getInstance().getModelManager().getMissingModel()) {
+          // resolve ammo model (for materials and such)
+          ammoModel = ammoModel.getOverrides().resolve(ammoModel, ammo, null, null, seed);
+          if (ammoModel != null) {
+            // get all the quads for the ammo model
+            List<BakedQuad> ammoQuads = new ArrayList<>();
+            RandomSource rand = RandomSource.create();
+            for (Direction direction : Direction.values()) {
+              ammoQuads.addAll(ammoModel.getQuads(null, direction, rand, ModelData.EMPTY, null));
+            }
+            ammoQuads.addAll(ammoModel.getQuads(null, null, rand, ModelData.EMPTY, null));
+
+            // bake tints into static colors; saves us having to redirect item colors which is slow
+            Int2IntMap tints = new Int2IntArrayMap();
+            ItemColors colors = Minecraft.getInstance().getItemColors();
+            Int2IntFunction colorGetter = tint -> ColoredBlockModel.swapColorRedBlue(colors.getColor(ammo, tint));
+            ammoQuads = ammoQuads.stream().map(quad -> {
+              if (quad.isTinted() || (flipAmmo && quad.getDirection().getAxis() != Direction.Axis.Y)) {
+                int[] vertices = quad.getVertices();
+                if (quad.isTinted()) {
+                  int abgr = 0xFF000000 | tints.computeIfAbsent(quad.getTintIndex(), colorGetter);
+                  vertices = Arrays.copyOf(vertices, vertices.length);
+                  for (int i = 0; i < 4; i++) {
+                    vertices[i * IQuadTransformer.STRIDE + IQuadTransformer.COLOR] = abgr;
+                  }
+                }
+                Direction direction = quad.getDirection();
+                if (flipAmmo && direction.getAxis() != Direction.Axis.Y) {
+                  direction = direction.getOpposite();
+                }
+                return new BakedQuad(vertices, -1, direction, quad.getSprite(), quad.isShade(), quad.hasAmbientOcclusion());
+              }
+              return quad;
+            }).toList();
+            // got our quads, now we need to offset them for the model
+            if (smallAmmoTransforms != null) {
+              smallAmmoQuads = QuadTransformers.applying(smallAmmoTransforms).process(ammoQuads);
+            }
+            if (largeAmmoTransforms != null) {
+              largeAmmoQuads = QuadTransformers.applying(largeAmmoTransforms).process(ammoQuads);
+            }
+            if (leftAmmoTransforms != null) {
+              leftAmmoQuads = QuadTransformers.applying(leftAmmoTransforms).process(ammoQuads);
+            }
+          }
+        }
+      }
+
       // bake internal does not require an instance to bake, we can pass in whatever material we want
       // use empty override list as the sub model never calls overrides, and already has a material
-      return bakeInternal(owner, Material::sprite, largeTransforms, toolParts, modifierModels, firstModifiers, materials, tool, ItemOverrides.EMPTY);
+      return bakeInternal(owner, Material::sprite, largeTransforms, toolParts, modifierModels, firstModifiers, materials, tool, ItemOverrides.EMPTY, smallAmmoQuads, largeAmmoQuads, leftAmmoQuads);
     }
 
+    @Nullable
     @Override
     public BakedModel resolve(BakedModel originalModel, ItemStack stack, @Nullable ClientLevel world, @Nullable LivingEntity entity, int seed) {
       // first, resolve the overrides
@@ -550,10 +762,23 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
           }
         }
       }
+      // fetch ammo info from the stack
+      ItemStack ammo;
+      ModDataNBT persistentData = tool.getPersistentData();
+      if (ammoKey != null && persistentData.contains(ammoKey, Tag.TAG_COMPOUND)) {
+        ammo = ItemStack.of(persistentData.getCompound(ammoKey));
+        builder.add(ammo.getItem());
+        CompoundTag tag = ammo.getTag();
+        if (tag != null) {
+          builder.add(tag);
+        }
+      } else {
+        ammo = ItemStack.EMPTY;
+      }
 
       // render special model
       try {
-        return cache.get(new ToolCacheKey(materialIds, builder.build()), () -> bakeDynamic(materialIds, tool));
+        return cache.get(new ToolCacheKey(materialIds, builder.build()), () -> bakeDynamic(materialIds, tool, ammo, seed));
       } catch (ExecutionException e) {
         TConstruct.LOG.error("Failed to get tool model from cache", e);
         return originalModel;

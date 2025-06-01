@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:the_one_probe",
+  "text": [
+    {
+      "text": "Jette-le dans le feu ! Détruis-le !"
+    },
+    {
+      "text": "Non.",
+      "paragraph": true
+    }
+  ],
+  "effects": [
+    "Affiche des informations détaillées sur les blocs et entités lorsque l’outil est tenu ou porté",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’amélioration"
+  ]
+}

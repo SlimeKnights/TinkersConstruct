@@ -2,6 +2,10 @@
   "values": [
     "minecraft:iron_sword",
     "minecraft:iron_hoe",
-    "minecraft:shears"
+    "minecraft:shears",
+    {
+      "id": "immersiveengineering:hammer",
+      "required": false
+    }
   ]
 }

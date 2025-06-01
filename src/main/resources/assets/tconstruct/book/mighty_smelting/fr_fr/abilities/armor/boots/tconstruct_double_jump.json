@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:double_jump",
+  "text": [
+    {
+      "text": "Le saut de lapin améliore vos compétences et vous rend bien meilleur dans le jeu. N'oubliez pas d'ajouter un peu de rampement pour un effet maximal."
+    }
+  ],
+  "effects": [
+    "Permet un saut supplémentaire",
+    "Niveaux multiples, chaque niveau ajoute un saut",
+    "Nécessite 1 emplacement d’aptitude"
+  ]
+}

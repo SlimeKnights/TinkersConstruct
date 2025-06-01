@@ -1,0 +1,17 @@
+{
+  "title": "Interface de la Fonderie",
+  "image": {
+    "file": "tconstruct:book/images/smeltergui.png",
+    "width": 179,
+    "height": 82
+  },
+  "text": [
+    {
+      "text": "1 : Placez les objets à fondre dans ces emplacements. La taille de la fonderie détermine le nombre d'emplacements disponibles."
+    },
+    {
+      "text": "2 : Les métaux en fusion sont affichés ici. Cliquez sur un fluide pour le sélectionner et le verser. En survolant la zone vide, vous verrez la capacité totale de la fonderie.",
+      "paragraph": true
+    }
+  ]
+}

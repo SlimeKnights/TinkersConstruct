@@ -35,6 +35,11 @@ public class ModDataNBT implements IModDataView {
   }
 
   @Override
+  public boolean contains(ResourceLocation name) {
+    return data.contains(name.toString());
+  }
+
+  @Override
   public boolean contains(ResourceLocation name, int type) {
     return data.contains(name.toString(), type);
   }

@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:resurrected",
+  "text": [
+    {
+      "text": "La vie du dragon circule dans votre outil. Enfin… ce serait le cas si vous l’utilisiez pour l’invoquer. À la place, vous l’avez utilisé sur votre outil."
+    }
+  ],
+  "effects": [
+    "Ajoute un emplacement d’amélioration",
+    "Niveau unique"
+  ]
+}

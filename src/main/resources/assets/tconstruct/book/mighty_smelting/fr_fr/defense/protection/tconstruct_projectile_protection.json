@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:projectile_protection",
+  "text": [
+    {
+      "text": "Ça ne protégera pas tes genoux des flèches, alors tu devras renoncer à l’aventure pour devenir garde."
+    }
+  ],
+  "effects": [
+    "Réduit les dégâts des projectiles",
+    "Augmente la résistance au recul",
+    "Niveaux multiples, chaque niveau renforce les effets",
+    "Nécessite 1 emplacement de défense par niveau"
+  ]
+}

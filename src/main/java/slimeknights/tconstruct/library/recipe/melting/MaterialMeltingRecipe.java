@@ -12,7 +12,6 @@ import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.IMultiRecipe;
 import slimeknights.mantle.recipe.helper.FluidOutput;
-import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.recipe.casting.material.MaterialCastingLookup;
@@ -92,10 +91,10 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<Melti
         multiRecipes = Collections.emptyList();
       } else {
         // 1 recipe for each part
-        MaterialId inputId = input.getId();
+        MaterialVariantId inputId = input.getVariant();
         multiRecipes = MaterialCastingLookup
           .getAllItemCosts().stream()
-          .filter(entry -> entry.getKey().canUseMaterial(inputId))
+          .filter(entry -> entry.getKey().canUseMaterial(inputId.getId()))
           .map(entry -> {
             FluidOutput output = this.result;
             if (entry.getIntValue() != 1) {

@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:wetting",
+  "text": [
+    {
+      "text": "C’est normal de se mouiller un peu quand on se fait mal. Attends, tu n’as pas ajouté ce modificateur à ton pantalon ?"
+    }
+  ],
+  "effects": [
+    "Applique les effets des fluides en cas de dégâts",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude",
+    "Utilise l’outil sur un réservoir pour le remplir de fluide."
+  ]
+}

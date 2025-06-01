@@ -1,0 +1,10 @@
+{
+  "title": "Fonderie",
+  "subText": "La Puissante Fonderie est à votre disposition.",
+  "hidden": ["structurereq", "sgui2"],
+  "operations": [
+    { "before": "features",     "action": "add_group", "data": "Détails" },
+    { "before": "seared_tanks", "action": "column_break" },
+    { "before": "seared_tanks", "action": "add_group", "data": "Blocs" }
+  ]
+}

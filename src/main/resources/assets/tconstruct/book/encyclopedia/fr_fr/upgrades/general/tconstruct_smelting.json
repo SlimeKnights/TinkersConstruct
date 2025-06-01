@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:smelting",
+  "text": [
+    {
+      "text": "Cuit les objets à l'intérieur de l'outil lorsqu'il est utilisé pour infliger des dégâts en mêlée, miner des blocs, tirer des flèches ou bloquer des dégâts. Cuit 1 objet à la fois."
+    },
+    {
+      "text": "L’inventaire peut être ouvert en s’accroupissant tout en interagissant.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Nécessite 1 emplacement d’amélioration par niveau"
+  ]
+}
+

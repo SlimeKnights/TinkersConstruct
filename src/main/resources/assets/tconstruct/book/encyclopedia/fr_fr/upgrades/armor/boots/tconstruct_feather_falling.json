@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:feather_falling",
+  "text": [
+    {
+      "text": "Octroie +15% de résistance aux dégâts de chute par niveau, jusqu'à un maximum de +60% à 4 niveaux."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Peut être appliqué par niveaux progressifs",
+    "Maximum de 4 niveaux",
+    "Nécessite 1 emplacement d'amélioration par niveau"
+  ]
+}

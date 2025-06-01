@@ -1,0 +1,13 @@
+{
+  "title": "Extraction de Défense",
+  "image": {
+    "file": "tconstruct:book/images/worktable/extract_defense.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "L’extraction de modificateurs de défense depuis des livres enchantés ou des outils nécessite des cristaux de mondeslime et de l’or. Le processus est tout aussi instable, entraînant la perte de l’outil."
+    }
+  ]
+}

@@ -1,9 +1,0 @@
-{
-  "type": "tconstruct:material",
-  "ingredient": {
-    "item": "minecraft:jungle_planks"
-  },
-  "material": "tconstruct:wood#jungle",
-  "needed": 1,
-  "value": 1
-}

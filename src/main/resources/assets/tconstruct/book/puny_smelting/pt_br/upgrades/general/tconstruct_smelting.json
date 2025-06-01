@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:smelting",
+  "text": [
+    {
+      "text": "Com quanta força você precisa bater em uma galinha para cozinhá-la?"
+    }
+  ],
+  "effects": [
+    "Agache enquanto interage para carregar a ferramenta com itens",
+    "Usar a ferramenta cozinha os itens",
+    "Múltiplos níveis, cada nível adiciona um slot adicional",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}

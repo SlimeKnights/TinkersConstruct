@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:smelting",
+  "text": [
+    {
+      "text": "À quel point faut-il frapper un poulet pour le cuire ?"
+    }
+  ],
+  "effects": [
+    "Accroupissez-vous en interagissant pour remplir l’outil avec des objets",
+    "Utiliser l’outil fait cuire les objets",
+    "Niveaux multiples, chaque niveau ajoute un emplacement supplémentaire",
+    "Nécessite 1 emplacement d’amélioration par niveau"
+  ]
+}

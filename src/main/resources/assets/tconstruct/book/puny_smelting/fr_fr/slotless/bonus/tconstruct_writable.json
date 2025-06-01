@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:writable",
+  "text": [
+    {
+      "text": "Alors que les mots défilent dans votre esprit, votre outil semble lui aussi prêt à en apprendre davantage. Peut-être pourriez-vous même écrire avec."
+    }
+  ],
+  "effects": [
+    "Ajoute un emplacement d’amélioration",
+    "Niveau unique"
+  ]
+}

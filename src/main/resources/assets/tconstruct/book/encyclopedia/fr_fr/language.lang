@@ -1,0 +1,65 @@
+intro=Introduction
+
+tools=Outils
+tools.group_small=Petits Outils
+tools.group_large=Grands Outils
+tools.group_ancient=Outils Anciens
+tools.group_staff=Bâtons
+tools.tconstruct.earth_staff=Mondeslime
+tools.tconstruct.sky_staff=Cielslime
+tools.tconstruct.ichor_staff=Ichor
+tools.tconstruct.ender_staff=Enderslime
+armor=Armure
+
+materials_harvest=Matériaux de Récolte (Mêlée)
+materials_harvest.subtext=Matériaux utilisés pour fabriquer des armes de mêlée ou des outils de récolte.
+materials_ranged=Matériaux à Distance
+materials_ranged.subtext=Matériaux utilisés pour fabriquer des armes à distance.
+materials_armor=Matériaux d’Armure
+materials_armor.subtext=Matériaux utilisés pour fabriquer des armures et des boucliers.
+materials_skull=Crânes de Slime
+materials_skull.subtext=Cette section décrit les effets de chaque type de crâne pour la création d’un crâne de slime
+
+upgrades=Améliorations
+upgrades.subtext=Chaque outil dispose d’un nombre limité de slots d’amélioration.
+upgrades.group_general=Général
+upgrades.group_harvest=Récolte
+upgrades.group_weapon=Mêlée
+upgrades.group_ranged=Distance
+upgrades.group_damage=Renfort de Dégâts
+upgrades.group_armor=Armure
+upgrades.group_armor.helmet=Casque
+upgrades.group_armor.chestplate=Plastron
+upgrades.group_armor.leggings=Jambières
+upgrades.group_armor.boots=Bottes
+upgrades.boots.tconstruct.feather_falling=Feather Fall
+# can add other modifiers using [section].[prefix].[mod_id].[modifier_id], we just use this for long names
+# you should also be able to leave off feather falling in your language and it will fallback to the language .json
+# see the section json to find the prefix, any modifier type that defines that can use it
+
+defense=Défense
+defense.subtext=Au lieu des propriétés de matériaux, les armures incluent des emplacements de défense pour améliorer la protection.
+defense.group_protection=Protection
+defense.group_special=Spécial
+
+slotless=Sans Emplacement
+slotless.subtext=Les modificateurs sans emplacement ne nécessitent aucun slot.
+slotless.group_general=Général
+slotless.group_bonus=Bonus
+
+abilities=Capacités
+abilities.subtext=Les modificateurs de capacité utilisent moins de slots que les améliorations, mais sont plus puissants par slot.
+abilities.group_general=Général
+abilities.group_harvest=Récolte
+abilities.group_melee=Mêlée
+abilities.group_ranged=Distance
+abilities.group_interact=Interaction
+abilities.group_armor=Armure
+abilities.group_armor.helmet=Casque
+abilities.group_armor.chestplate=Plastron
+abilities.group_armor.leggings=Jambières
+abilities.group_armor.boots=Bottes
+abilities.group_armor.shield=Bouclier
+
+fluid_effects=Effets de Fluide
+fluid_effects.subtext=Les effets de fluide définissent le comportement lorsqu’un fluide touche un bloc ou une entité via différents modificateurs comme cracher, renverser ou éclabousser.

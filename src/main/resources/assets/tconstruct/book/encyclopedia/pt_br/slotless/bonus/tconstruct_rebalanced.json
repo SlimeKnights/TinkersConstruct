@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:rebalanced",
+  "text": [
+    {
+      "text": "Concede +1 slot de modificador; o tipo é determinado pela receita. Aplicar +1 slot de habilidade faz a ferramenta perder 1 slot de melhoria."
+    },
+    {
+      "text": "O Slime-do-Ender aumenta o nível de um dos atributos da ferramenta, geralmente o atributo da cabeça.", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Uso único",
+    "Sem slot"
+  ]
+}
+

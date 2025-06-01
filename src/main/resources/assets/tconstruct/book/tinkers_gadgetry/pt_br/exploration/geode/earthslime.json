@@ -1,13 +1,13 @@
 {
-  "title": "Geodos de Slime-Terra",
+  "title": "Geodos de Slime-da-Terra",
   "image": {
-	"file": "tconstruct:book/images/geodes/earthslime.png",
+    "file": "tconstruct:book/images/geodes/earthslime.png",
     "width": 180,
     "height": 90
   },
   "text": [
     {
-      "text": "Os geodos de Slime-Terra estão localizados no subsolo profundo e são alguns dos maiores geodos que eu já vi. Muitas vezes é possível identificá-los pela presença de granito, e eles também contêm uma grande quantidade de argila."
+      "text": "Os geodos de Slime-da-Terra estão localizados nas profundezas subterrâneas e podem ser alguns dos maiores que já vi. Muitas vezes, é possível identificá-los pela presença de argila."
     }
   ]
 }

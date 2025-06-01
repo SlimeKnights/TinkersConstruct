@@ -1,0 +1,18 @@
+{
+  "tool": "tconstruct:sword",
+  "text": [
+    {
+      "text": "L’épée est une arme polyvalente, offrant une vitesse et des dégâts moyens."
+    },
+    {
+      "text": "Les expanders sur une épée augmentent la zone de l’attaque en balayage, tandis que Silky accorde la tonte.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "+3 Dégâts d’attaque",
+    "1,6 Vitesse d’attaque",
+    "110% Multiplicateur de durabilité",
+    "Attaque en balayage"
+  ]
+}

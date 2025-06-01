@@ -1,0 +1,11 @@
+{
+  "title": "Capacités d’armure",
+  "text": [
+    { "text": "Les capacités d’armure sont généralement propres à un type d’armure. Chaque type possède un attribut spécial distinct :" },
+    { "text": "• Les casques peuvent être contrôlés via une touche dédiée pour déclencher des effets spéciaux.", "paragraph": true },
+    { "text": "\n• Les plastrons peuvent recevoir des capacités d’interaction activées lorsque les mains sont vides. La plupart sont décrites dans la section interaction." },
+    { "text": "\n• Les jambières offrent des capacités liées à l’inventaire et des bonus passifs pour le joueur." },
+    { "text": "\n• Les bottes procurent des capacités de déplacement et de saut." },
+    { "text": "\n• Les boucliers disposent de capacités spéciales en bloquant, y compris des modificateurs de contre-attaque renforcés." }
+  ]
+}

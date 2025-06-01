@@ -1,0 +1,13 @@
+{
+  "tool": "tconstruct:ichor_staff",
+  "text": [
+    { "text": "Le Bâton Ichor est une variante avec beaucoup d'emplacements d'aptitude et une grande vélocité." }
+  ],
+  "properties": [
+    "1225 Durabilité",
+    "1.2 Vélocité",
+    "0.75 Vitesse de tirage",
+    "2 Emplacements d'amélioration",
+    "3 Emplacements d'aptitude"
+  ]
+}

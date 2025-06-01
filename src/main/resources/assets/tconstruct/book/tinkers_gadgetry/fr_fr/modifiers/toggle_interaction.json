@@ -1,0 +1,13 @@
+{
+  "title": "Basculer l’Interaction",
+  "image": {
+    "file": "tconstruct:book/images/worktable/toggle_interaction.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "Les leviers ne servent pas uniquement à activer la redstone, ils permettent aussi de basculer les modificateurs d’interaction des bâtons visqueux entre une activation à l’utilisation et une activation à l’attaque."
+    }
+  ]
+}

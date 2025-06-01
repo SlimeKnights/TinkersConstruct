@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:snowdrift",
+  "text": [
+    {
+      "text": "Regarde ce golem de neige. Il est trop cool, non, à laisser des traces de neige partout ? Tu ne voudrais pas, toi aussi, laisser une traînée de neige derrière toi ?"
+    }
+  ],
+  "effects": [
+    "Crée de la neige sous tes pas",
+    "Ne fonctionne pas dans les biomes chauds",
+    "Zone augmentée avec Étendu",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:pierce",
+  "text": [
+    {
+      "text": "L’outil gagne le pouvoir du cactus, attaquant à travers l’armure."
+    },
+    {
+      "text": "À ne pas confondre avec l’empalement.",
+      "paragraph": true
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/ranged",
+  "effects": [
+    "Les flèches annulent une petite partie de l’armure",
+    "Niveaux multiples, chaque niveau renforce l’effet",
+    "Nécessite 1 emplacement d’amélioration par niveau"
+  ]
+}

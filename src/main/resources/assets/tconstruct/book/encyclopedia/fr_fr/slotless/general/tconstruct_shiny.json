@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:shiny",
+  "text": [
+    {
+      "text": "Fait briller l'outil comme s'il était enchanté. C'est tout, c'est juste décoratif."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+	  "Usage unique",
+    "Sans emplacement"
+  ]
+}

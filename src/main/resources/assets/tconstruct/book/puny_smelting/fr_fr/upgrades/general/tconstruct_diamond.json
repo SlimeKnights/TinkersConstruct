@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:diamond",
+  "text": [
+    {
+      "text": "Les diamants sont éternels !"
+    }
+  ],
+  "effects": [
+    "Augmente la durabilité, la vitesse de minage, les dégâts d’attaque et l’armure",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’amélioration"
+  ]
+}

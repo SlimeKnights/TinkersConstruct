@@ -26,7 +26,7 @@ public class EnchantmentToModifierProvider extends AbstractEnchantmentToModifier
     // misc armor
     add(Enchantments.RESPIRATION, ModifierIds.respiration);
     add(Enchantments.AQUA_AFFINITY, ModifierIds.aquaAffinity);
-    add(Enchantments.THORNS, TinkerModifiers.thorns.getId());
+    add(Enchantments.THORNS, ModifierIds.thorns);
     add(Enchantments.DEPTH_STRIDER, ModifierIds.depthStrider);
     add(Enchantments.FROST_WALKER, ModifierIds.frostWalker);
     add(Enchantments.SOUL_SPEED, TinkerModifiers.soulspeed.getId());
@@ -37,7 +37,7 @@ public class EnchantmentToModifierProvider extends AbstractEnchantmentToModifier
     add(Enchantments.SMITE, ModifierIds.smite);
     add(Enchantments.BANE_OF_ARTHROPODS, ModifierIds.baneOfSssss);
     add(Enchantments.KNOCKBACK, TinkerModifiers.knockback.getId());
-    add(Enchantments.FIRE_ASPECT, TinkerModifiers.fiery.getId());
+    add(Enchantments.FIRE_ASPECT, ModifierIds.fiery);
     add(Enchantments.MOB_LOOTING, ModifierIds.luck);
     add(Enchantments.SWEEPING_EDGE, TinkerModifiers.sweeping.getId());
     add(Enchantments.IMPALING, ModifierIds.antiaquatic);
@@ -50,8 +50,8 @@ public class EnchantmentToModifierProvider extends AbstractEnchantmentToModifier
     // ranged
     add(Enchantments.POWER_ARROWS, ModifierIds.power);
     add(Enchantments.PUNCH_ARROWS, TinkerModifiers.punch.getId());
-    add(Enchantments.FLAMING_ARROWS, TinkerModifiers.fiery.getId());
-    add(Enchantments.INFINITY_ARROWS, TinkerModifiers.crystalshot.getId());
+    add(Enchantments.FLAMING_ARROWS, ModifierIds.fiery);
+    add(Enchantments.INFINITY_ARROWS, ModifierIds.crystalshot);
     add(Enchantments.MULTISHOT, TinkerModifiers.multishot.getId());
     add(Enchantments.QUICK_CHARGE, ModifierIds.quickCharge);
     add(Enchantments.PIERCING, TinkerModifiers.impaling.getId());

@@ -1,0 +1,17 @@
+{
+  "tool": "tconstruct:hand_axe",
+  "text": [
+    {
+      "text": "La hachette est un outil de coupe basique. Elle est efficace sur le bois et les feuilles. Elle peut servir d’arme ou d’outil, ou les deux. C’est toi qui choisis."
+    },
+    {
+      "text": "\n"
+    }
+  ],
+  "properties": [
+    "Outil de minage basique",
+    "Efficace sur le bois",
+    "Casse les feuilles très rapidement",
+    "Écorce les bûches facilement"
+  ]
+}

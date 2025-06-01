@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:sinistral",
+  "text": [
+    {
+      "text": "Doublez les arbalètes, doublez les ennuis."
+    }
+  ],
+  "effects": [
+    "Les arbalètes en main principale tirent avec le bouton d'attaque et ne rechargent pas en se cachant",
+    "Permet de manier deux arbalètes simultanément ou d'utiliser un bouclier",
+    "Niveau unique",
+    "Nécessite 1 emplacement d'amélioration"
+  ]
+}

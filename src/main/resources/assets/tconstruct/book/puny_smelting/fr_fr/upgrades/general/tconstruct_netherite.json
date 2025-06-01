@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:netherite",
+  "text": [
+    {
+      "text": "La force du Nether traverse intensément votre outil."
+    },
+    {
+      "text": "À tel point que l’outil ne peut être endommagé par des agressions extérieures comme la lave.",
+      "paragraph": true
+    }
+  ],
+  "effects": [
+    "Augmente la durabilité, les dégâts d’attaque, la vitesse de minage, la robustesse et la résistance au recul",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’amélioration"
+  ]
+}

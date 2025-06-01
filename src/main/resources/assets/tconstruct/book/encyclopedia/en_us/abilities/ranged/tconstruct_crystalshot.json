@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:crystalshot",
   "text": [
     {
-      "text": "Instead of using ammo from the inventory, bow produces its own crystal arrows."
+      "text": "If there is no ammo in the inventory, bow produces its own crystal arrows."
     },
     {
       "text": "Tool takes an extra 4 damage per arrow produced."

@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:trim",
+  "text": [
+    {
+      "text": "Combinez les bordures d'armure avec le matériau approprié pour ajouter une variante colorée d'une texture unique à l'armure.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Usage multiple",
+    "Sans emplacement"
+  ]
+}

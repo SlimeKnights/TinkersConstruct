@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:knockback",
+  "text": [
+    {
+      "text": "Octroie 1 de recul par niveau, projetant une créature d'environ 2 blocs. La plupart des outils commencent avec 0,4 de recul."
+    },
+    {
+      "text": "Rend les effets projection, propulsion et assommement 25% plus efficaces par niveau.", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/melee",
+  "effects": [
+    "Maximum de 5 niveaux",
+    "Nécessite 1 emplacement d'amélioration par niveau"
+  ]
+}
+

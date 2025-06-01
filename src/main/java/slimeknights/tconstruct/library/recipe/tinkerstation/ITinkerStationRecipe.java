@@ -6,6 +6,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import slimeknights.mantle.recipe.ICommonRecipe;
+import slimeknights.tconstruct.library.recipe.ITinkerableContainer;
 import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
@@ -84,7 +85,8 @@ public interface ITinkerStationRecipe extends ICommonRecipe<ITinkerStationContai
    * Creates a success result for the given container with {@link #DEFAULT_TOOL_STACK_SIZE} as the max.
    * In most cases, it's better to use {@link slimeknights.tconstruct.library.recipe.modifiers.adding.AbstractModifierRecipe}{@code #success()} as it responds to your specific {@link #shrinkToolSlotBy()}.
    */
-  static RecipeResult<LazyToolStack> success(ToolStack tool, ITinkerStationContainer inv) {
-    return LazyToolStack.success(tool, Math.min(inv.getTinkerableSize(), DEFAULT_TOOL_STACK_SIZE));
+  static RecipeResult<LazyToolStack> success(ToolStack tool, ITinkerableContainer inv) {
+    ItemStack original = inv.getTinkerableStack();
+    return LazyToolStack.successCopy(tool, Math.min(original.getCount(), DEFAULT_TOOL_STACK_SIZE), original);
   }
 }

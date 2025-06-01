@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:freezing",
+  "text": [
+    {
+      "text": "Elsa en serait peut-être jalouse."
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/melee",
+  "effects": [
+    "Les ennemis attaqués sont ralentis et subissent des dégâts supplémentaires",
+    "Niveaux multiples, chaque niveau prolonge la durée du ralentissement",
+    "Nécessite 1 emplacement d’amélioration par niveau"
+  ]
+}

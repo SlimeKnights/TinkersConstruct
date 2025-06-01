@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#forge:tools/shovel/steel",
+      "required": false
+    },
+    {
+      "id": "immersiveengineering:shovel_steel",
+      "required": false
+    }
+  ]
+}

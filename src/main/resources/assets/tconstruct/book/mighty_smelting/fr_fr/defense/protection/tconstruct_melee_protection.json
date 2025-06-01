@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:melee_protection",
+  "text": [
+    {
+      "text": "Sac de frappe ambulant."
+    }
+  ],
+  "effects": [
+    "Réduit les dégâts des attaques de mêlée",
+    "Augmente la vitesse de déplacement lors de l’utilisation de boucliers et d’arcs",
+    "Niveaux multiples, chaque niveau renforce les effets",
+    "Nécessite 1 emplacement de défense par niveau"
+  ]
+}

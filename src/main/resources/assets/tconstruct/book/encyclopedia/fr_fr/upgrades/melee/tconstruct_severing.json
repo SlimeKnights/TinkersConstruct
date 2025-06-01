@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:severing",
+  "text": [
+    {
+      "text": "Confère 5% de chance par niveau qu’un mob laisse tomber sa tête ou d’autres parties de son corps. La Chance ajoute 1% supplémentaire par niveau de chance multiplié par le niveau de sectionnement. Contre les créatures rares comme les boss, la probabilité est doublée."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum de 3 niveaux",
+    "Nécessite 1 emplacement d'amélioration par niveau"
+  ]
+}
+

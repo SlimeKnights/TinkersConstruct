@@ -1,0 +1,20 @@
+{
+  "tool": "tconstruct:pickadze",
+  "text": [
+    {
+      "text": "Le vrai nom de cet outil serait pioche-ratissoire, mais les gens préfèrent ce qui leur est familier."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Il peut tracer des chemins vers la gloire."
+    }
+  ],
+  "properties": [
+    "Crée des chemins",
+    "Mine les blocs de pierre et similaires",
+    "Casse les terres meubles et le gravier",
+    "Niveau de récolte limité au bois"
+  ]
+}

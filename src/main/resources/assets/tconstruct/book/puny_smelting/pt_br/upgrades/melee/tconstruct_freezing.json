@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:freezing",
+  "text": [
+    {
+      "text": "A Elsa pode ficar com inveja."
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/melee",
+  "effects": [
+    "Inimigos atingidos ficam lentos e recebem dano extra",
+    "Múltiplos níveis, cada nível aumenta a duração da lentidão",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}

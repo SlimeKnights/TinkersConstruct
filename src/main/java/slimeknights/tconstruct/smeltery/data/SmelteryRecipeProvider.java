@@ -94,7 +94,13 @@ import java.util.function.Function;
 import static slimeknights.mantle.Mantle.COMMON;
 import static slimeknights.mantle.Mantle.commonResource;
 import static slimeknights.tconstruct.library.data.recipe.SmelteryRecipeBuilder.ARMOR;
+import static slimeknights.tconstruct.library.data.recipe.SmelteryRecipeBuilder.ARMOR_PLUS;
 import static slimeknights.tconstruct.library.data.recipe.SmelteryRecipeBuilder.AXES;
+import static slimeknights.tconstruct.library.data.recipe.SmelteryRecipeBuilder.BOOTS;
+import static slimeknights.tconstruct.library.data.recipe.SmelteryRecipeBuilder.CHESTPLATE;
+import static slimeknights.tconstruct.library.data.recipe.SmelteryRecipeBuilder.HELMET;
+import static slimeknights.tconstruct.library.data.recipe.SmelteryRecipeBuilder.LEGGINGS_PLUS;
+import static slimeknights.tconstruct.library.data.recipe.SmelteryRecipeBuilder.SHOVEL_PLUS;
 import static slimeknights.tconstruct.library.data.recipe.SmelteryRecipeBuilder.SWORD;
 import static slimeknights.tconstruct.library.data.recipe.SmelteryRecipeBuilder.TOOLS;
 
@@ -315,6 +321,15 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                        .pattern("BBB")
                        .unlockedBy("has_item", has(TinkerSmeltery.searedBrick))
                        .save(consumer, location(folder + "lantern"));
+    ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, TinkerSmeltery.searedCastingTank.get())
+                       .define('B', TinkerSmeltery.searedBrick)
+                       .define('G', Tags.Items.GLASS)
+                       .define('C', Tags.Items.INGOTS_COPPER)
+                       .pattern("BGB")
+                       .pattern("CGC")
+                       .pattern("BGB")
+                       .unlockedBy("has_item", has(TinkerSmeltery.searedBrick))
+                       .save(consumer, location(folder + "seared_casting_tank"));
 
     // fluid transfer
     ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, TinkerSmeltery.searedFaucet.get(), 3)
@@ -521,6 +536,10 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                         .addByproduct(TinkerFluids.moltenGlass.result(FluidValues.GLASS_PANE))
                         .addByproduct(TinkerFluids.moltenIron.result(FluidValues.INGOT / 3))
                         .save(consumer, location(meltingFolder + "lantern"));
+    MeltingRecipeBuilder.melting(NoContainerIngredient.of(TinkerSmeltery.searedCastingTank), TinkerFluids.moltenCopper, FluidValues.INGOT * 2, 2.5f)
+                        .addByproduct(TinkerFluids.searedStone.result(FluidValues.BRICK * 4))
+                        .addByproduct(TinkerFluids.moltenGlass.result(FluidValues.GLASS_BLOCK * 3))
+                        .save(consumer, location(meltingFolder + "seared_casting_tank"));
     // glass
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.searedGlass), TinkerFluids.searedStone, FluidValues.BRICK * 4, 2f)
                         .addByproduct(TinkerFluids.moltenGlass.result( FluidValues.GLASS_BLOCK))
@@ -1213,19 +1232,24 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
 
     // cheese
     ItemCastingRecipeBuilder.tableRecipe(TinkerCommons.cheeseIngot)
-                            .setFluid(ForgeMod.MILK.get(), FluidValues.BOTTLE)
+                            .setFluid(Tags.Fluids.MILK, FluidValues.BOTTLE)
                             .setCast(TinkerSmeltery.ingotCast.getMultiUseTag(), false)
                             .setCoolingTime(20*60*2)
                             .save(consumer, location(folder + "cheese_ingot_gold_cast"));
     ItemCastingRecipeBuilder.tableRecipe(TinkerCommons.cheeseIngot)
-                            .setFluid(ForgeMod.MILK.get(), FluidValues.BOTTLE)
+                            .setFluid(Tags.Fluids.MILK, FluidValues.BOTTLE)
                             .setCast(TinkerSmeltery.ingotCast.getSingleUseTag(), true)
                             .setCoolingTime(20*60*2)
                             .save(consumer, location(folder + "cheese_ingot_sand_cast"));
     ItemCastingRecipeBuilder.basinRecipe(TinkerCommons.cheeseBlock)
-                            .setFluid(ForgeMod.MILK.get(), FluidType.BUCKET_VOLUME)
+                            .setFluid(Tags.Fluids.MILK, FluidType.BUCKET_VOLUME)
                             .setCoolingTime(20*60*5)
                             .save(consumer, location(folder + "cheese_block"));
+    ItemCastingRecipeBuilder.tableRecipe(Items.BONE)
+      .setFluid(Tags.Fluids.MILK, FluidType.BUCKET_VOLUME / 5)
+      .setCoolingTime(50)
+      .setCast(TinkerTags.Items.WITHER_BONES, true)
+      .save(consumer, location(folder + "bone_purifying"));
 
 
     String castFolder = "smeltery/casts/";
@@ -1341,9 +1365,9 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                         .save(consumer, location(metalFolder + "molten_debris/debris_nugget"));
     
     // venom
-    MeltingRecipeBuilder.melting(Ingredient.of(Items.SPIDER_EYE), TinkerFluids.venom, FluidValues.BOTTLE / 5, 1.0f)
+    MeltingRecipeBuilder.melting(Ingredient.of(Items.SPIDER_EYE), TinkerFluids.venom, FluidValues.BOTTLE, 1.0f)
                         .save(consumer, location(folder + "venom/eye"));
-    MeltingRecipeBuilder.melting(Ingredient.of(Items.FERMENTED_SPIDER_EYE), TinkerFluids.venom, FluidValues.BOTTLE * 2 / 5, 1.0f)
+    MeltingRecipeBuilder.melting(Ingredient.of(Items.FERMENTED_SPIDER_EYE), TinkerFluids.venom, FluidValues.BOTTLE * 2, 1.0f)
                         .save(consumer, location(folder + "venom/fermented_eye"));
 
     // glass
@@ -1693,16 +1717,16 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     // ichor is again special, melting via byproduct
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerWorld.ichorGeode), TinkerFluids.blazingBlood, FluidValues.ICHOR_BLAZING_BLOOD, 1.0f)
                         .addByproduct(TinkerFluids.ichor.result(FluidValues.ICHOR_BYPRODUCT))
-                        .save(consumer, location(folder + "crystal"));
+                        .save(consumer, location(slimeFolder + "ichor/crystal"));
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerWorld.ichorGeode.getBlock()), TinkerFluids.blazingBlood, FluidValues.ICHOR_BLAZING_BLOOD * 4, 2.0f)
                         .addByproduct(TinkerFluids.ichor.result(FluidValues.ICHOR_BYPRODUCT * 4))
-                        .save(consumer, location(folder + "crystal_block"));
+                        .save(consumer, location(slimeFolder + "ichor/crystal_block"));
     for (BudSize bud : BudSize.values()) {
       int size = bud.getSize();
       MeltingRecipeBuilder.melting(Ingredient.of(TinkerWorld.ichorGeode.getBud(bud)), TinkerFluids.blazingBlood, FluidValues.ICHOR_BLAZING_BLOOD * size, (size + 1) / 2f)
                           .addByproduct(TinkerFluids.ichor.result(FluidValues.ICHOR_BYPRODUCT * size))
                           .setOre(OreRateType.GEM)
-                          .save(consumer, location(folder + "bud_" + bud.getName()));
+                          .save(consumer, location(slimeFolder + "ichor/bud_" + bud.getName()));
     }
 
     // recycle saplings
@@ -2052,12 +2076,10 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     // tools complement support - they want us to use the cost 1 tag for shovels, and an excavator and hammer
     ToolItemMelting EXCAVATOR = new ToolItemMelting(11, "tools_complement", "excavator");
     ToolItemMelting HAMMER = new ToolItemMelting(13, "tools_complement", "hammer");
-    CommonRecipe[] TOOLS_COMPLEMENT = { SmelteryRecipeBuilder.SHOVEL_PLUS, SWORD, AXES, EXCAVATOR, HAMMER };
+    CommonRecipe[] TOOLS_COMPLEMENT = { SHOVEL_PLUS, SWORD, AXES, EXCAVATOR, HAMMER };
     // mekanism support - they want us to use the cost 7 tag for leggings, and a shield
-    CommonRecipe[] MEKANISM_ARMOR = {
-      SmelteryRecipeBuilder.HELMET, SmelteryRecipeBuilder.CHESTPLATE, SmelteryRecipeBuilder.LEGGINGS_PLUS, SmelteryRecipeBuilder.BOOTS,
-      new ToolItemMelting(6, "mekanism", "shield")
-    };
+    ToolItemMelting MEKANISM_SHIELD = new ToolItemMelting(6, "mekanism", "shield");
+    CommonRecipe[] MEKANISM_ARMOR = {HELMET, CHESTPLATE, LEGGINGS_PLUS, BOOTS, MEKANISM_SHIELD};
 
     // metal ores
     // copper has the brush for cost 1, so always keep that one around
@@ -2065,7 +2087,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     // iron has both railcraft spikemaul and tools complement excavator at cost 11
     metal(consumer, TinkerFluids.moltenIron  ).ore(Byproduct.STEEL        ).metal().dust().plate().gear().coin().sheetmetal().geore().oreberry().minecraftTools().toolCostMelting(11, "tools_costing_11").common(HAMMER).rod();
     metal(consumer, TinkerFluids.moltenCobalt).ore(Byproduct.SMALL_DIAMOND).metal().dust();
-    metal(consumer, TinkerFluids.moltenSteel ).metal().dust().plate().gear().coin().sheetmetal().common(TOOLS).common(MEKANISM_ARMOR).wire().rod().toolItemMelting(11, "railcraft", "spike_maul");
+    metal(consumer, TinkerFluids.moltenSteel ).metal().dust().plate().gear().coin().sheetmetal().common(SHOVEL_PLUS, SWORD, AXES, MEKANISM_SHIELD).common(ARMOR_PLUS).wire().rod().toolItemMelting(11, "railcraft", "spike_maul");
     // gold ore does non-standard byproduct handling, as it wants sparse gold ore to have a different byproduct, hence moving byproducts so we don't have ores for the metal call
     metal(consumer, TinkerFluids.moltenGold).metal().ore(Byproduct.COBALT).dust().plate().gear().coin().sheetmetal().geore().oreberry().minecraftTools("golden").common(EXCAVATOR, HAMMER).rawOre().singularOre(2).denseOre(6);
     // gem ores
@@ -2139,6 +2161,14 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                             .setFluid(creosote, 125)
                             .setCoolingTime(100)
                             .save(withCondition(consumer, tagCondition(treatedWood), new TagFilledCondition<>(creosote)), location(folder + "treated_wood"));
+
+    // farmers delight - cast dough with a small discount to make numbers work out nicer
+    ResourceLocation dough = new ResourceLocation("farmersdelight", "wheat_dough");
+    ItemCastingRecipeBuilder.tableRecipe(ItemNameOutput.fromName(dough))
+      .setCast(Items.WHEAT, true)
+      .setFluid(MantleTags.Fluids.WATER, 250)
+      .setCoolingTime(50)
+      .save(withCondition(consumer, new ItemExistsCondition(dough)), location(folder + "wheat_dough"));
 
     // ceramics compat: a lot of melting and some casting
     String ceramics = "ceramics";

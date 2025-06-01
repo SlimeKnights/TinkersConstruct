@@ -1,0 +1,13 @@
+{
+  "title": "Fonctionnalités",
+  "text": [
+    { "text": "• Donne des sous-produits à partir des minerais" },
+    { "text": "\n• La fonderie ne permet pas les alliages, ce qui est une avancée majeure — plus de risques de mélanger accidentellement des matériaux" },
+    { "text": "\n• Peut contenir plusieurs métaux" },
+    { "text": "\n• Capacité extensible" },
+    { "text": "\n• Capacité de stockage bien plus grande que la petite fonderie" },
+    { "text": "\n• Peut fondre des blocs générant plusieurs sorties" },
+    { "text": "\n• Rendement du carburant dépendant de la taille" },
+    { "text": "\n• Utile pour les parties exclusivement dans le Nether et le stockage massif de liquides" }
+  ]
+}

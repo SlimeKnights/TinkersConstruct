@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:soul_belt",
+  "text": [
+    {
+      "text": "Garde tes amis près de toi, et tes outils encore plus près."
+    }
+  ],
+  "effects": [
+    "Les objets de la barre rapide restent avec toi en cas de mort soudaine",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
+  ]
+}

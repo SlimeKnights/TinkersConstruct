@@ -1,0 +1,10 @@
+{
+  "text": "Téléporter tes problèmes vers un endroit aléatoire est une méthode pour les gérer.",
+  "block": [
+    "Remplace le bloc touché par le bloc tenu"
+  ],
+  "entity": [
+    "+7 secondes de retour",
+    "Téléporte la cible si elle n’a pas déjà de retour actif."
+  ]
+}

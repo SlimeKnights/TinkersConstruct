@@ -14,6 +14,7 @@ import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInterac
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.item.ranged.ModifiableCrossbowItem;
+import slimeknights.tconstruct.library.tools.item.ranged.ModifiableLauncherItem;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 /** Properties for tinker tools */
@@ -48,11 +49,14 @@ public class TinkerItemProperties {
   /** Boolean indicating the bow is pulling */
   private static final ItemPropertyFunction CHARGING = (stack, level, holder, seed) -> {
     if (holder != null && holder.isUsingItem() && holder.getUseItem() == stack) {
+      // if boolean is set, change the numbers to remove the arrow
+      boolean arrow = ModifierUtil.checkPersistentPresent(stack, ModifiableLauncherItem.KEY_DRAWBACK_AMMO);
       UseAnim anim = stack.getUseAnimation();
       if (anim == UseAnim.BLOCK) {
-        return 2;
-      } else if (anim != UseAnim.EAT && anim != UseAnim.DRINK) {
-        return 1;
+        return arrow ? 2.5f : 2;
+      }
+      if (anim != UseAnim.EAT && anim != UseAnim.DRINK) {
+        return arrow ? 1.5f : 1;
       }
     }
     return 0;

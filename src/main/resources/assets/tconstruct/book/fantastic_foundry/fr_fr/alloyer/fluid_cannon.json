@@ -1,0 +1,15 @@
+{
+  "title": "Canon à Fluide",
+  "item": "tconstruct:scorched_fluid_cannon",
+  "text": [
+    {
+      "text": "Thruul croit être si malin avec son canon à fluide pour asperger ses ennemis. Mon canon à fluide exploite la puissance du cobalt pour tirer de plus gros projectiles avec des effets renforcés. Le seul défaut, c’est que tu consommes ton fluide bien plus vite.",
+      "paragraph": true
+    },
+    {
+      "text": "L’idée de placer des objets devant la buse du fluide reste néanmoins excellente, je ne peux pas vraiment améliorer ce concept.",
+      "paragraph": true
+    }
+  ]
+}
+

@@ -4,7 +4,7 @@
     "tag": "minecraft:cherry_logs"
   },
   "leftover": "minecraft:cherry_planks",
-  "material": "tconstruct:wood#cherry",
+  "material": "tconstruct:wood",
   "needed": 1,
   "value": 4
 }

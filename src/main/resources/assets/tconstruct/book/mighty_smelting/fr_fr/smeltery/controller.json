@@ -1,0 +1,13 @@
+{
+  "title": "Contrôleur de Fonderie",
+  "image": {
+    "file": "tconstruct:book/images/scontroller.png",
+    "width": 128,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "Utilisez votre fourneau de fusion pour verser l'équivalent de quatre lingots de cuivre sur des briques brûlées afin d'obtenir votre contrôleur de fonderie."
+    }
+  ]
+}

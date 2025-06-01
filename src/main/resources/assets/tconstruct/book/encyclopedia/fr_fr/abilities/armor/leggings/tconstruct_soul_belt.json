@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:soul_belt",
+  "text": [
+    {
+      "text": "Items in the hotbar remain in the inventory upon death and respawn."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum of 1 level",
+    "Requires 1 ability slot",
+    "Requires Soulbound"
+  ]
+}

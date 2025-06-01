@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:gilded",
+  "text": [
+    {
+      "text": "C’est une offre deux pour un !"
+    }
+  ],
+  "effects": [
+    "Échange 1 emplacement d’aptitude contre 2 emplacements d’amélioration",
+    "Niveaux multiples",
+    "Nécessite 1 emplacement d’aptitude"
+  ]
+}

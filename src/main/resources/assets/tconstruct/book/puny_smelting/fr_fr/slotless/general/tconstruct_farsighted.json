@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:farsighted",
+  "text": [
+    {
+      "text": "Le manyulline est un excellent matériau, mais il en existe beaucoup d'autres, plus faciles d’accès. Prenez le temps de les essayer avant de foncer vers la fin."
+    }
+  ],
+  "effects": [
+    "Réduit le champ de vision avec l’outil tenu ou l’armure portée",
+    "Niveaux multiples",
+    "Sans emplacement"
+  ]
+}

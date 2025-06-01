@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:pathing",
+  "text": [
+    {
+      "text": "Marre d’oublier le chemin du retour ? Pourquoi ne pas laisser une trace permanente ? Piétine la terre en marchant et n’oublie jamais où tu es passé !"
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/armor/boots",
+  "effects": [
+    "Crée des chemins sous tes pas",
+    "Zone augmentée avec Étendu",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
+  ]
+}

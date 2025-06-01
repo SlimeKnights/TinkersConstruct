@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:plate_helmet",
+  "text": [
+    { "text": "Capacetes duros para cabeças duras." },
+    {
+      "text": "Um bom e sólido capacete para proteger seu cérebro. Nada pode ferir essa sua cabeçona!", "paragraph": true
+    }
+  ],
+  "properties": [
+    "Mais Durabilidade",
+    "Mais Armadura",
+    "2 Slots de Melhoria",
+    "3 Slots de Defesa",
+    "2 Atributos de Material"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:brushing",
+  "text": [
+    {
+      "text": "Descubra uma civilização antiga. Ou pelo menos um monte de cerâmicas bobas."
+    }
+  ],
+  "effects": [
+    "Continue usando em blocos suspeitos para encontrar loot",
+    "Nível único",
+    "Requer 1 slot de habilidade"
+  ]
+}

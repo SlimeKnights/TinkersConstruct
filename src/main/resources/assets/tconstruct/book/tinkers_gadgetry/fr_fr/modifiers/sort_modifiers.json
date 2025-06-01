@@ -1,0 +1,13 @@
+{
+  "title": "Réorganiser les Modificateurs",
+  "image": {
+    "file": "tconstruct:book/images/worktable/sort_modifiers.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "Ajouter une boussole à un outil le rend magnétique, mais il suffit de tenir une boussole à proximité pour provoquer un effet intéressant sur les modificateurs. On peut en fait utiliser la boussole pour réorganiser les modificateurs sans les retirer de l’outil ! Contrairement à l’encre invisible, cette méthode a plus d’applications que le simple aspect artistique, car il semble que les conflits entre modificateurs soient résolus en fonction de leur position sur l’outil."
+    }
+  ]
+}

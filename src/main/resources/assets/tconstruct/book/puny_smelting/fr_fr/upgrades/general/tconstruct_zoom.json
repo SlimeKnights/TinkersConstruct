@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:zoom",
+  "text": [
+    {
+      "text": "Je vois avec mes petits yeux quelque chose, là-bas, au loin."
+    }
+  ],
+  "effects": [
+    "Permet de zoomer",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’amélioration"
+  ]
+}

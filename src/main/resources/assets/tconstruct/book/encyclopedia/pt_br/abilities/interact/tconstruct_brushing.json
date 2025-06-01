@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:brushing",
+  "text": [
+    {
+      "text": "Segure a interação em um bloco suspeito para escová-lo lentamente. Consome durabilidade ao completar e suporta escovação em área."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nível",
+    "Requer 1 slot de habilidade"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:rebalanced",
+  "text": [
+    {
+      "text": "L’équilibre des pouvoirs est l’échelle de la paix. --Thomas Paine."
+    },
+    {
+      "text": "\nL’équilibre des pouvoirs est en réalité l’échelle d’un dragon. L’ornement ancien s’en rapproche étonnamment. --Thruul M'Gon."
+    }
+  ],
+  "effects": [
+    "Ajoute un emplacement de modificateur",
+    "Le type d’emplacement est déterminé par la recette",
+    "Les gourmands sont pénalisés",
+    "L’Enderslime ajoute une caractéristique",
+    "Niveau unique"
+  ]
+}

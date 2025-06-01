@@ -1,0 +1,18 @@
+{
+  "tool": "tconstruct:slime_helmet",
+  "text": [
+    {
+      "text": "J’ai découvert que l’enderslime peut imiter les effets de monstres avec une focalisation appropriée, comme un crâne."
+    },
+    {
+      "text": "Les crânes que j’ai testés sont décrits dans la section suivante du livre.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "Durabilité Élevée",
+    "5 Emplacements d’Amélioration",
+    "0 Emplacement de Défense",
+    "1 Emplacement d’Aptitude"
+  ]
+}

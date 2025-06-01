@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:autosmelt",
+  "text": [
+    {
+      "text": "Les flammes de l’enfer sont bien utiles pour faire monter la température."
+    }
+  ],
+  "effects": [
+    "Les objets lâchés par les blocs sont fondus s’il y a une recette disponible",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
+  ]
+}

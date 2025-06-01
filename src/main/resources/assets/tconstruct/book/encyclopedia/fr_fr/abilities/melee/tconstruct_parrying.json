@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:parrying",
+  "text": [
+    {
+      "text": "Allows using the tool as a shield briefly after attacking. "
+    },
+    {
+      "text": "Most dagger block up to 10 damage, and do not slow the player while using."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Single level",
+    "Requires 1 ability slot"
+  ]
+}

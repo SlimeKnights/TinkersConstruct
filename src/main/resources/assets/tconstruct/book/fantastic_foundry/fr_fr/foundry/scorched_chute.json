@@ -1,0 +1,10 @@
+{
+  "title": "Trémie Calcinée",
+  "item": "tconstruct:scorched_chute",
+  "text": [
+    {
+      "text": "La trémie calcinée permet d’entrer ou de sortir des objets de la fonderie. Idéalement placée à un endroit facilement accessible par une trémie.",
+      "paragraph": true
+    }
+  ]
+}

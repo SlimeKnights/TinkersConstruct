@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:zoom",
+  "text": [
+    {
+      "text": "Permet de zoomer la vue en sneaky en appuyant sur la touche du casque ou en interagissant avec l’outil tenu."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum de 1 niveau",
+    "Nécessite 1 emplacement d’amélioration"
+  ]
+}
+

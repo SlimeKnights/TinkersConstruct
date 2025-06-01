@@ -1,0 +1,16 @@
+{
+  "title": "Robinets",
+  "text": [
+    {
+      "text": "Les robinets sont le principal moyen d'extraire des fluides des fourneaux, fonderies, réservoirs ou tout autre conteneur valide. Placez-les simplement sur un bloc et faites un clic droit pour verser dans un récipient situé en dessous."
+    },
+    {
+      "text": "Les robinets puisent le fluide sur les côtés ou le bas du bloc connecté, et le versent dans le bloc situé directement sous le robinet.",
+      "paragraph": true
+    },
+    {
+      "text": "Les robinets réagissent aux signaux redstone : un levier activé à côté versera en continu. Une impulsion redstone ne versera que jusqu'à ce que le récepteur soit plein ou la source vide.",
+      "paragraph": true
+    }
+  ]
+}

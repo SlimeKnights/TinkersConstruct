@@ -1,0 +1,14 @@
+{
+  "tool": "tconstruct:war_pick",
+  "text": [
+    {
+      "text": "La pioche de guerre est une combinaison entre une pioche et une arbalète. Elle peut être trouvée dans les mines et obtenue auprès des villageois ou des illageois."
+    }
+  ],
+  "properties": [
+    "Mine les blocs de pierre et similaires",
+    "Peut maintenir une flèche prête à être tirée",
+    "3 Emplacements d’Amélioration",
+    "1 Emplacement d’Aptitude"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "title": "Fusion d'Entités",
+  "image": {
+    "file": "tconstruct:book/images/entitymelting.png"
+  },
+  "text": [
+    {
+      "text": "Le puissant haut fourneau peut être utilisé pour consumer les parties inutiles des entités afin d'en extraire l'essence véritable."
+    }
+  ]
+}

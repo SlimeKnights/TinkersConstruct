@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:tool_belt",
+  "text": [
+    {
+      "text": "Allows swapping the first 4 hotbar slots using the leggings interact. Each consecutive level adds an additional slot until reaching the max 9 slots at level 6."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "First level requires 1 ability slot",
+    "Max 6 levels",
+    "Different recipe each level"
+  ]
+}

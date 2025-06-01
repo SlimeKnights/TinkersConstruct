@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:blasting",
+  "text": [
+    {
+      "text": "Alors bref, j’ai commencé à faire tout sauter."
+    }
+  ],
+  "effects": [
+    "Mine plus rapidement les blocs sensibles aux explosifs, comme les minerais",
+    "Niveaux multiples, chaque niveau augmente encore la vitesse",
+    "Nécessite 1 emplacement d’amélioration par niveau"
+  ]
+}

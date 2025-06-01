@@ -1,0 +1,14 @@
+{
+  "title": "Conduit Scellé",
+  "item": "tconstruct:seared_duct",
+  "text": [
+    {
+      "text": "Le conduit scellé permet d'extraire un fluide spécifique de la fonderie. Le fluide est sélectionné en plaçant un bidon en cuivre ou un seau rempli du liquide souhaité dans l'emplacement filtre du conduit.",
+      "paragraph": true
+    },
+    {
+      "text": "Le fluide sélectionné pour le filtrage sera visible au centre du conduit.",
+      "paragraph": true
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "tool": "tconstruct:travelers_leggings",
+  "text": [
+    { 
+      "text": "Chérie, où sont mon paaaaaaaaaaaaaantalon ?" 
+    },
+    {
+      "text": "Affronter le monde sans pantalon n'est pas une bonne idée. Pourquoi ne pas prendre une paire pour rester au chaud et voyager confortablement !",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "Protection réduite",
+    "Durabilité réduite",
+    "2 emplacements d'amélioration",
+    "2 emplacements de défense",
+    "1 emplacement d'aptitude",
+    "1 caractéristique de matériau",
+    "Isolé & Traité"
+  ]
+}

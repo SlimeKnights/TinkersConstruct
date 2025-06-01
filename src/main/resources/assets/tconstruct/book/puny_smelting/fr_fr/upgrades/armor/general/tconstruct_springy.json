@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:springy",
+  "text": [
+    {
+      "text": "Vos ennemis s’envolent, vous laissant juste assez de temps pour prendre la fuite… ou vous soigner."
+    }
+  ],
+  "effects": [
+    "Offre une chance de repousser les attaquants",
+    "Niveaux multiples, chaque niveau augmente davantage cette chance",
+    "Nécessite 1 emplacement d’amélioration par niveau"
+  ]
+}

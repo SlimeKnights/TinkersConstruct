@@ -1,5 +1,7 @@
 {
   "values": [
-    "tconstruct:dagger"
+    "tconstruct:dagger",
+    "tconstruct:plate_shield",
+    "#tconstruct:modifiable/ancient"
   ]
 }

@@ -1,0 +1,33 @@
+intro=Introduction
+melter=Fondoir
+moving_fluids=Déplacement des Fluides
+casting=Coulée
+melee_harvest_materials=Matériaux de Récolte de Mêlée Niveau 2
+melee_harvest_materials.subtext=Ces matériaux peuvent être coulés en pièces d’outils pour armes de mêlée ou outils de récolte.
+ranged_materials=Matériaux à Distance Niveau 2
+ranged_materials.subtext=Ces matériaux peuvent être coulés en pièces d’outils pour armes à distance comme les arcs.
+armor_materials=Matériaux d’Armure Niveau 2
+armor_materials.subtext=Ces matériaux peuvent être coulés en armures et boucliers.
+
+further_reading=À Lire Ensuite
+
+armor=Armure Minuscule
+armor.subtext=Choisissez votre voie avec votre armure : le style voyageur offre une armure hautement modifiable avec plus d’espace pour les aptitudes, tandis que le style plaques permet plus de défense. Et si vous n’avez aucun sens du style, vous pouvez mélanger les deux.
+
+upgrades=Améliorations
+upgrades.subtext=Les outils peuvent être améliorés avec des améliorations, bien qu’un nombre limité puisse être appliqué par outil.
+upgrades.group_general=Général
+upgrades.group_harvest=Récolte
+upgrades.group_melee=Mêlée
+upgrades.group_damage=Dégâts Supplémentaires
+upgrades.group_armor=Armure
+upgrades.group_armor.helmet=Casque
+upgrades.group_armor.chestplate=Plastron
+upgrades.group_armor.leggings=Jambières
+upgrades.group_armor.boots=Bottes
+
+slotless=Modificateur Sans Emplacement
+slotless.subtext=Ces modificateurs ne nécessitent aucun emplacement pour être appliqués, vous pouvez donc tous les avoir si vous le souhaitez.
+slotless.group_slotless=Sans Emplacement
+slotless.group_bonus_upgrades=Emplacements++
+

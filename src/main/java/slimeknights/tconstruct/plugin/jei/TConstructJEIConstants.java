@@ -18,6 +18,8 @@ import slimeknights.tconstruct.library.recipe.partbuilder.IDisplayPartBuilderRec
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipe;
 import slimeknights.tconstruct.library.recipe.worktable.IModifierWorktableRecipe;
+import slimeknights.tconstruct.library.tools.SlotType;
+import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
 
 public class TConstructJEIConstants {
   public static final ResourceLocation PLUGIN = TConstruct.getResource("jei_plugin");
@@ -40,6 +42,22 @@ public class TConstructJEIConstants {
     }
   };
   public static final IIngredientType<Pattern> PATTERN_TYPE = () -> Pattern.class;
+  public static final IIngredientTypeWithSubtypes<SlotType, SlotCount> SLOT_TYPE = new IIngredientTypeWithSubtypes<>() {
+    @Override
+    public Class<? extends SlotCount> getIngredientClass() {
+      return SlotCount.class;
+    }
+
+    @Override
+    public Class<? extends SlotType> getIngredientBaseClass() {
+      return SlotType.class;
+    }
+
+    @Override
+    public SlotType getBase(SlotCount slots) {
+      return slots.type();
+    }
+  };
 
   // casting
   public static final RecipeType<IDisplayableCastingRecipe> CASTING_BASIN = type("casting_basin", IDisplayableCastingRecipe.class);

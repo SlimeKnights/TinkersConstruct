@@ -56,7 +56,6 @@ import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipe;
 import slimeknights.tconstruct.library.recipe.casting.IDisplayableCastingRecipe;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
-import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.material.ShapedMaterialRecipe;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
@@ -67,6 +66,7 @@ import slimeknights.tconstruct.library.recipe.partbuilder.IDisplayPartBuilderRec
 import slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipe;
 import slimeknights.tconstruct.library.recipe.worktable.IModifierWorktableRecipe;
 import slimeknights.tconstruct.library.tools.SlotType;
+import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
 import slimeknights.tconstruct.library.tools.definition.module.build.ToolTraitHook;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
@@ -87,6 +87,8 @@ import slimeknights.tconstruct.plugin.jei.modifiers.ModifierBookmarkIngredientRe
 import slimeknights.tconstruct.plugin.jei.modifiers.ModifierIngredientHelper;
 import slimeknights.tconstruct.plugin.jei.modifiers.ModifierRecipeCategory;
 import slimeknights.tconstruct.plugin.jei.modifiers.ModifierWorktableCategory;
+import slimeknights.tconstruct.plugin.jei.modifiers.SlotIngredientHelper;
+import slimeknights.tconstruct.plugin.jei.modifiers.SlotIngredientRenderer;
 import slimeknights.tconstruct.plugin.jei.partbuilder.MaterialItemList;
 import slimeknights.tconstruct.plugin.jei.partbuilder.PartBuilderCategory;
 import slimeknights.tconstruct.plugin.jei.partbuilder.PatternIngredientHelper;
@@ -122,7 +124,6 @@ import java.util.stream.Collectors;
 
 import static slimeknights.mantle.Mantle.commonResource;
 
-@SuppressWarnings("unused")
 @JeiPlugin
 public class JEIPlugin implements IModPlugin {
   public static IModIdHelper modIdHelper;
@@ -156,14 +157,15 @@ public class JEIPlugin implements IModPlugin {
 
   @Override
   public void registerIngredients(IModIngredientRegistration registration) {
-    assert Minecraft.getInstance().level != null;
-    RecipeManager manager = Minecraft.getInstance().level.getRecipeManager();
     List<ModifierEntry> modifiers = Collections.emptyList();
     if (Config.CLIENT.showModifiersInJEI.get()) {
       modifiers = ModifierRecipeLookup.getRecipeModifierList();
     }
     registration.register(TConstructJEIConstants.MODIFIER_TYPE, modifiers, new ModifierIngredientHelper(), ModifierBookmarkIngredientRenderer.INSTANCE);
     registration.register(TConstructJEIConstants.PATTERN_TYPE, Collections.emptyList(), new PatternIngredientHelper(), PatternIngredientRenderer.INSTANCE);
+    List<SlotCount> slots = SlotType.getAllSlotTypes().stream().map(type -> new SlotCount(type, 1)).toList();
+    SlotIngredientRenderer.clearCache();
+    registration.register(TConstructJEIConstants.SLOT_TYPE, slots, new SlotIngredientHelper(), SlotIngredientRenderer.INGREDIENT);
   }
 
   @Override
@@ -230,7 +232,7 @@ public class JEIPlugin implements IModPlugin {
     register.addRecipes(TConstructJEIConstants.TOOL_BUILDING, toolBuilding);
 
     // part builder
-    MaterialItemList.setRecipes(RecipeHelper.getRecipes(manager, TinkerRecipeTypes.MATERIAL.get(), MaterialRecipe.class));
+    MaterialItemList.setRecipes(List.of()); // list of recipes is ignored as this whole class is getting ditched in 1.21; it just clears cache right now
     register.addRecipes(TConstructJEIConstants.PART_BUILDER, RecipeHelper.getJEIRecipes(access, manager, TinkerRecipeTypes.PART_BUILDER.get(), IDisplayPartBuilderRecipe.class));
 
     // modifier worktable
@@ -407,6 +409,9 @@ public class JEIPlugin implements IModPlugin {
     Consumer<ItemStack> addItem = addItems::add;
     // shown via the modifiers
     ModifierCrystalItem.addVariants(removeItem);
+    // shown via modifier slots
+    TinkerModifiers.creativeSlotItem.get().addVariants(removeItem);
+
     // fluids can be clutter so remove them by default
     if (!Config.CLIENT.showFilledFluidTanks.get()) {
       CopperCanItem.addFilledVariants(removeItem);

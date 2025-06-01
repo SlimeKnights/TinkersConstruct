@@ -1,0 +1,13 @@
+{
+  "title": "Fonctionnalités",
+  "text": [
+    { "text": "• Produit +3 pépites ou +1 joyau par minerai (par défaut)" },
+    { "text": "\n• Capacité de fusion en masse" },
+    { "text": "\n• Peut contenir plusieurs métaux simultanément" },
+    { "text": "\n• Capacité extensible" },
+    { "text": "\n• Permet la création d'alliages" },
+    { "text": "\n• Efficacité du combustible dépendante de la taille" },
+    { "text": "\n• Peut fondre les créatures pour récupérer leurs matériaux précieux" },
+    { "text": "\n• Idéal pour fondre de grandes quantités de matériaux à la fois" }
+  ]
+}

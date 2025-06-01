@@ -1,0 +1,10 @@
+{
+  "title": "Boulelumière",
+  "item": "tconstruct:glow_ball",
+  "text": [
+    {
+      "text": "En combinant de la pierre lumineuse avec des boules de neige, je peux créer une source de lumière à lancer. C’est efficace pour éclairer des zones difficiles d’accès, ou révéler un danger tapi dans l’ombre sans vous exposer au risque.",
+      "paragraph": true
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:scope",
+  "text": [
+    {
+      "text": "360° sans visée."
+    }
+  ],
+  "effects": [
+    "Permet aux arcs longs de zoomer pendant l'armement",
+    "Niveau unique",
+    "Nécessite 1 emplacement d'amélioration"
+  ]
+}

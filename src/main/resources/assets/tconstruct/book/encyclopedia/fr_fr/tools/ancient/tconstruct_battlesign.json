@@ -1,0 +1,17 @@
+{
+  "tool": "tconstruct:battlesign",
+  "text": [
+    {
+      "text": "Le panneau de combat est un croisement entre un bouclier et une épée, que l’on trouve dans les bastions, via le troc, ou dans les mains de piglins de toutes variétés."
+    }
+  ],
+  "properties": [
+    "+2 Dégâts d’attaque",
+    "1,4 Vitesse d’attaque",
+    "Bloque 50 points de dégâts",
+    "Angle de blocage de 120°",
+    "20% de vitesse de blocage",
+    "3 emplacements de défense",
+    "1 emplacement de capacité"
+  ]
+}

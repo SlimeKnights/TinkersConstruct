@@ -1,0 +1,14 @@
+{
+  "title": "Canon à Fluide",
+  "item": "tconstruct:seared_fluid_cannon",
+  "text": [
+    {
+      "text": "Trop de métal en fusion à écouler ? Essayez le canon à fluide ! Lors d'une impulsion de redstone, il projette le fluide contenu, pouvant brûler vos ennemis, détruire des blocs ou même vous nourrir automatiquement !",
+      "paragraph": true
+    },
+    {
+      "text": "Interagir avec le bas permet de lui donner une pile d’objets à utiliser avec son fluide ; avec le bon type de fluide, cela peut placer des blocs ou utiliser des outils.",
+      "paragraph": true
+    }
+  ]
+}

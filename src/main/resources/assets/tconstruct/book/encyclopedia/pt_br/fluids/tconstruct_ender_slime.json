@@ -1,0 +1,10 @@
+{
+  "text": "Teletransportar seus problemas para um local aleatório é um ótimo jeito de lidar com eles.",
+  "block": [
+    "Substitui o bloco atingido pelo bloco em mãos."
+  ],
+  "entity": [
+    "+7 segundos de Retorno",
+    "Teleporta o alvo se não houver Retorno ativo"
+  ]
+}

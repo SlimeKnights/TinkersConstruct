@@ -3,5 +3,8 @@
   "ingredient": {
     "item": "tconstruct:sky_congealed_slime"
   },
-  "restore_amount": 180
+  "restore_amount": 200,
+  "tools": {
+    "tag": "tconstruct:modifiable/durability"
+  }
 }

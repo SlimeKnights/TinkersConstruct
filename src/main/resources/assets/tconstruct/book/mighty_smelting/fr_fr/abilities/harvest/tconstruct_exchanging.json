@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:exchanging",
+  "text": [
+    {
+      "text": "Utiliser ça pourrait — ou non — faire rouler un énorme rocher à ta poursuite, vu que tu ne sais pas échanger correctement."
+    }
+  ],
+  "effects": [
+    "Les blocs brisés sont remplacés par ceux tenus en main secondaire",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
+  ]
+}

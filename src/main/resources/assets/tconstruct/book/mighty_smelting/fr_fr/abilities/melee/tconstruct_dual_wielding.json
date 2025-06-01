@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:dual_wielding",
+  "text": [
+    {
+      "text": "Les duels sont plus honorables quand on manie deux armes."
+    }
+  ],
+  "effects": [
+    "Permet de manier deux outils en même temps",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
+  ]
+}

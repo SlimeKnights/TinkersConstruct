@@ -1,0 +1,14 @@
+{
+  "title": "Canhão de Fluido",
+  "item": "tconstruct:scorched_fluid_cannon",
+  "text": [
+    {
+      "text": "Thruul acha que é muito esperto com seu canhão de fluido para disparar fluidos contra inimigos. Meu canhão de fluido aproveita o poder do cobalto para disparar projéteis maiores com efeitos mais fortes. O único defeito é que você consome seu fluido muito mais rápido.",
+      "paragraph": true
+    },
+    {
+      "text": "A ideia de colocar itens na frente do bico de fluido ainda é boa, no entanto, não há muito que eu possa fazer para melhorar esse design.",
+      "paragraph": true
+    }
+  ]
+}

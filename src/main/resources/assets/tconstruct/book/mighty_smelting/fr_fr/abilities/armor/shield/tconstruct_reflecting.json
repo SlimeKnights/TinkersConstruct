@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:reflecting",
+  "text": [
+    {
+      "text": "Ton bouclier, c’est aussi ton trampoline."
+    }
+  ],
+  "effects": [
+    "Rebondit les projectiles dans un court laps de temps après un blocage",
+    "Niveaux multiples, chaque niveau augmente la fenêtre de renvoi",
+    "Nécessite 1 emplacement d’aptitude"
+  ]
+}

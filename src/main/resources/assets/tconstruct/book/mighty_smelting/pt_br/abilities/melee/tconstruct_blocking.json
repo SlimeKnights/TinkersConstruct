@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:blocking",
+  "text": [
+    {
+      "text": "Sua espada agora é um escudo, agora só falta uma maneira de fazer seu escudo virar uma espada."
+    }
+  ],
+  "effects": [
+    "Permite que você bloqueie com sua ferramenta",
+    "Nível único",
+    "Requer 1 slot de habilidade"
+  ]
+}

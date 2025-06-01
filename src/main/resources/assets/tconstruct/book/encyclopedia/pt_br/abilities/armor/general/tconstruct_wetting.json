@@ -1,0 +1,18 @@
+{
+ "modifier_id": "tconstruct:wetting",
+ "text": [
+ {
+ "text": "25% de chance, por nível, de drenar uma pequena quantidade de fluido (geralmente entre 10 mb e 50 mb) ao receber dano para aplicar efeitos como fogo, cura ou remoção de efeitos de status. Só funciona enquanto bloqueia com o escudos."
+ },
+ {
+ "text": "A ferramenta pode ser preenchida com fluido ao interagir com um tanque ou dreno enquanto a segura.", "paragraph": true
+ }
+ ],
+ "more_text_space": true,
+ "effects": [
+ "Sem nível máximo",
+ "Requer 1 slot de habilidade por nível",
+ "Preencher usando a ferramenta em um tanque de fluido"
+ ]
+}
+

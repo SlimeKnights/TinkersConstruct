@@ -1,0 +1,16 @@
+{
+  "title": "Alliage",
+  "text": [
+    {
+      "text": "L'alliage est un procédé qui vous permet de combiner des matériaux basiques pour en créer de plus résistants et puissants."
+    },
+    {
+      "text": "Pour réaliser un alliage, il vous suffit de trouver deux matériaux compatibles, de les placer dans une fonderie alimentée, et d'observer leur fusion pour former un nouveau matériau renforcé.",
+      "paragraph": true
+    },
+    {
+      "text": "Certains matériaux peuvent nécessiter des combustibles plus chauds pour s'alliager correctement.",
+      "paragraph": true
+    }
+  ]
+}

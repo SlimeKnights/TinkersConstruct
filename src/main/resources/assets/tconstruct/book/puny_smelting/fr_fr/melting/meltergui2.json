@@ -1,0 +1,16 @@
+{
+  "title": "Fonctionnement",
+  "text": [
+    {
+      "text": "1 : Ces 3 emplacements servent à insérer ce que vous souhaitez faire fondre. Cela peut être des minerais, des lingots ou toute autre chose que vous voulez tenter de fondre !"
+    },
+    {
+      "text": "2 : C'est ici qu'apparaîtra votre matériau en fusion. Notez que vous ne pouvez avoir qu'un seul matériau fondu à la fois dans le fourneau.",
+      "paragraph": true
+    },
+    {
+      "text": "3 : Cette zone affiche votre combustible. Avec un chauffage, vous pourrez y insérer tout objet combustible. Avec un réservoir scellé, une jauge de combustible liquide s'affichera. Un clic gauche avec un récipient vide tentera de le remplir depuis le réservoir, tandis qu'un clic droit tentera de vider le récipient dans le réservoir.",
+      "paragraph": true
+    }
+  ]
+}

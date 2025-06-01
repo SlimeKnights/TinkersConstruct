@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:swiftstrike",
+  "text": [
+    {
+      "text": "Quel joli \"clink\" quand on casse de l’améthyste."
+    }
+  ],
+  "effects": [
+    "Augmente la vitesse d’attaque",
+    "Niveaux multiples, chaque niveau augmente un peu plus la vitesse",
+    "Nécessite 1 emplacement d’amélioration par niveau"
+  ]
+}

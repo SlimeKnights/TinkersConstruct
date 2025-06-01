@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:luck",
+  "text": [
+    {
+      "text": "D’après mon expérience, la chance, ça n’existe pas."
+    }
+  ],
+  "effects": [
+    "Augmente les butins des créatures et des blocs",
+    "Sur les outils : maximum 3 niveaux, recette différente pour chaque niveau",
+    "Sur les jambières : maximum 1 niveau, améliore les butins de l’outil tenu",
+    "Seul le premier niveau nécessite 1 emplacement d’aptitude"
+  ]
+}

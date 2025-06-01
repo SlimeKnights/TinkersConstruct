@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:unbreakable",
+  "text": [
+    {
+      "text": "Les choses cassées, c’est pas drôle. Heureusement, on peut rendre les choses incassables."
+    }
+  ],
+  "effects": [
+    "Votre outil est désormais incassable",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude, Renforcé 5, Netherite",
+    "Ne fonctionne pas si vous essayez de manger votre outil"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:shield_strap",
+  "text": [
+    {
+      "text": "Il protège, il attaque, mais surtout, il ramène les torches."
+    }
+  ],
+  "effects": [
+    "Accorde un emplacement de main secondaire supplémentaire",
+    "Interaction avec les jambières permet de changer la main secondaire",
+    "Niveaux multiples, chaque niveau donne +1 emplacement",
+    "Nécessite 1 emplacement d’amélioration par niveau"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "title": "Gâteau de Slime",
+  "image": {
+    "file": "tconstruct:book/images/cake.png",
+    "width": 180,
+    "height": 67
+  },
+  "text": [
+    {
+      "text": "J’ai découvert que l’herbe visqueuse fonctionne très bien comme alternative au blé dans un gâteau, et que le slime liquide peut être transformé en glaçage au goût unique. Bien que ces gâteaux ne soient pas très savoureux, il semble que je saute plus haut après avoir mangé du gâteau de céletslime, et que le gâteau de magma me rende plus résistant au feu. Je me demande ce que font l’enderslime ou le mondeslime une fois consommés…"
+    }
+  ]
+}

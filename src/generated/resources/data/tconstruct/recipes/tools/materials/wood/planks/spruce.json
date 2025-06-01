@@ -1,9 +1,0 @@
-{
-  "type": "tconstruct:material",
-  "ingredient": {
-    "item": "minecraft:spruce_planks"
-  },
-  "material": "tconstruct:wood#spruce",
-  "needed": 1,
-  "value": 1
-}

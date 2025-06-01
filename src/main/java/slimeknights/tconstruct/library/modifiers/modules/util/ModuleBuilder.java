@@ -1,7 +1,9 @@
 package slimeknights.tconstruct.library.modifiers.modules.util;
 
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
+import slimeknights.mantle.data.predicate.item.ItemPredicate;
 import slimeknights.tconstruct.library.json.IntRange;
 import slimeknights.tconstruct.library.json.predicate.tool.ToolContextPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.ToolStackPredicate;
@@ -29,6 +31,11 @@ public abstract class ModuleBuilder<B extends ModuleBuilder<B,T>,T extends ITool
   /** Sets the tool condition for this module */
   public B toolItem(IJsonPredicate<Item> tool) {
     return toolContext(ToolContextPredicate.fallback(tool));
+  }
+
+  /** Sets the tool tag for this module */
+  public B toolTag(TagKey<Item> tag) {
+    return toolItem(ItemPredicate.tag(tag));
   }
 
 

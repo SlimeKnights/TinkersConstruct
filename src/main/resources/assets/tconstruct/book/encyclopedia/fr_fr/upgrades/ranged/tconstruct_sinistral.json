@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:sinistral",
+  "text": [
+    {
+      "text": "Fait tirer l’arbalète lors d’une attaque au lieu d’une interaction, et ne permet de la charger que si vous ne vous accroupissez pas. Permet d’utiliser un objet dans la main secondaire pendant l’utilisation de l’arbalète."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Un seul niveau",
+    "Nécessite 1 emplacement d'amélioration"
+  ]
+}
+

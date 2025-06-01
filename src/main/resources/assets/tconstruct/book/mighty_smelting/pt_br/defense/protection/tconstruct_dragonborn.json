@@ -2,16 +2,15 @@
   "modifier_id": "tconstruct:dragonborn",
   "text": [
     {
-      "text": "Dovah ko krif dilos ahrk qah."
+      "text": "Det här är inte svenskt det är drakar"
     },
     {
-      "text": "Tinker, Você não sabe ler a língua dos dragões? Bobagem o que ensinam hoje em dia. Isto diz que os dragões que voam são mortais e protegidos.", "paragraph": true
+      "text": "Tinkereiro, você não sabe ler a língua dos dragões? O que eles ensinam nas escolas hoje em dia? Aqui diz: \"Dragões que voam são mortais e protegidos.\"", "paragraph": true
     }
   ],
-  "more_text_space": true,
   "effects": [
     "Aumenta a proteção e o dano de ataque quando estiver no ar",
     "Múltiplos níveis, cada nível aumenta ainda mais a proteção e o dano",
-    "Requer 1 slot de defesa"
+    "Requer 1 slot de defesa por nível"
   ]
 }

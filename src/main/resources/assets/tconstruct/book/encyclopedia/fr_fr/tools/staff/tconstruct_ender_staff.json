@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:ender_staff",
+  "text": [
+    { "text": "Le Bâton Enderslime est une variante de bâton avec une grande portée et puissance." }
+  ],
+  "properties": [
+    "1520 Durabilité",
+    "3 Puissance de projectile",
+    "0.5 Précision",
+    "3 Emplacements d'amélioration",
+    "1 Emplacement de défense",
+    "2 Emplacements d'aptitude",
+    "Portée II"
+  ]
+}

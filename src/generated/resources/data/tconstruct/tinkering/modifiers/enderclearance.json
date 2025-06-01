@@ -2,7 +2,10 @@
   "level_display": "tconstruct:single_level",
   "modules": [
     {
-      "type": "tconstruct:enderclearance"
+      "type": "tconstruct:enderclearance",
+      "chance": {
+        "each_level": 0.25
+      }
     }
   ],
   "tooltip_display": "always"

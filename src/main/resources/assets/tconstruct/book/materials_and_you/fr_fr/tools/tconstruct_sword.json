@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:sword",
+  "text": [
+    {
+      "text": "L’épée est une arme polyvalente. Elle inflige des dégâts moyens et permet de repousser plusieurs ennemis à la fois avec une attaque balayante, tout en gardant votre autre main libre."
+    },
+    {
+      "text": "\n"
+    }
+  ],
+  "properties": [
+    "Dégâts Moyens",
+    "Attaque Balayante"
+  ]
+}

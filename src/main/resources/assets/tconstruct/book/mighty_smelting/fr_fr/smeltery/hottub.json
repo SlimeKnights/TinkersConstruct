@@ -1,0 +1,13 @@
+{
+  "title": "Bain Chaud",
+  "image": {
+    "file": "tconstruct:book/images/hottub.png",
+    "width": 120,
+    "height": 120
+  },
+  "text": [
+    {
+      "text": "Envie de me rejoindre ?"
+    }
+  ]
+}

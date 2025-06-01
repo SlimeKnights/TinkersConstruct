@@ -1,0 +1,20 @@
+{
+  "tool": "tconstruct:mattock",
+  "text": [
+    {
+      "text": "La houe est un outil agricole, efficace sur les bûches, la terre, le gravier et le sable. Elle est aussi plus rapide sur le bois."
+    },
+    {
+      "text": "Les expanders font miner également les blocs adjacents du même type, avec une portée basée sur le nombre d’expanders.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "+1,5 Dégâts d’attaque",
+    "110 % Modificateur d’attaque",
+    "0,9 Vitesse d’attaque",
+    "110 % Multiplicateur de minage",
+    "125 % Multiplicateur de durabilité",
+    "Laboure la terre"
+  ]
+}

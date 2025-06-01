@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:spitting",
+  "text": [
+    {
+      "text": "Ne commence jamais un concours de crachat avec un lama."
+    }
+  ],
+  "effects": [
+    "Charge pour projeter du fluide dans la direction regardée",
+    "Les niveaux supérieurs lancent plus de projectiles",
+    "Nécessite 1 emplacement d’aptitude par niveau"
+  ]
+}

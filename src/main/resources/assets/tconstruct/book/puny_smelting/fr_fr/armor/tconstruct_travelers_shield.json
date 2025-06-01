@@ -1,0 +1,21 @@
+{
+  "tool": "tconstruct:travelers_shield",
+  "text": [
+    { 
+      "text": "Malheureusement, fait un très mauvais frisbee." 
+    },
+    {
+      "text": "Un bouclier est essentiel pour se défendre contre les attaques lors de vos voyages. Mieux vaut ne pas partir sans !",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "Faible durabilité",
+    "Faible potentiel de blocage",
+    "Vitesse élevée en position défensive",
+    "3 emplacements d'amélioration",
+    "2 emplacements de défense",
+    "1 emplacement d'aptitude",
+    "Traité"
+  ]
+}

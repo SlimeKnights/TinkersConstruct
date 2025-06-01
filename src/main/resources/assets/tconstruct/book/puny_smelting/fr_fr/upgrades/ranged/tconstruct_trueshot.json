@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:trueshot",
+  "text": [
+    {
+      "text": "Visez juste dans le mille."
+    }
+  ],
+  "effects": [
+    "Augmente la précision des projectiles tirés",
+    "Niveaux multiples - chaque niveau améliore davantage la précision",
+    "Nécessite 1 emplacement d'amélioration par niveau"
+  ]
+}

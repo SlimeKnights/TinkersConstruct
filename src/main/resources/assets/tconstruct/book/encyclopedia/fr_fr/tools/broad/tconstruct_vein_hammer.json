@@ -1,0 +1,20 @@
+{
+  "tool": "tconstruct:vein_hammer",
+  "text": [
+    {
+      "text": "Le marteau veine creuse les blocs de pierre et les blocs adjacents du même type, jusqu'à 2 blocs de distance."
+    },
+    {
+      "text": "Chaque extension augmente la distance maximale d'un bloc de 1.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "+3 Dégâts d’attaque",
+    "Multiplicateur d’attaque 125%",
+    "0,85 Vitesse d’attaque",
+    "Multiplicateur de minage 30%",
+    "Multiplicateur de durabilité 500%",
+    "Perforation II"
+  ]
+}

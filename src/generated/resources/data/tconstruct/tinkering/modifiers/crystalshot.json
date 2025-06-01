@@ -1,0 +1,17 @@
+{
+  "level_display": "tconstruct:no_levels",
+  "modules": [
+    {
+      "type": "tconstruct:variant_color"
+    },
+    {
+      "type": "tconstruct:infinity",
+      "ammo": "tconstruct:crystalshot",
+      "check_standard_arrows": true,
+      "durability_usage": 4,
+      "variant_tag": "variant"
+    }
+  ],
+  "priority": 50,
+  "tooltip_display": "always"
+}

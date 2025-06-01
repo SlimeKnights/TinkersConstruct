@@ -1,0 +1,19 @@
+intro=Introduction
+
+alloyer=Alliageur
+
+foundry=Fonderie
+
+blazing_blood=Sang Ardent
+
+armor=Armure Fantastique
+armor.subtext=Utiliser les ressources du Nether permet d’accéder à des armures de niveau supérieur. Par exemple, l’imposante armure à plaques offre une grande défense, mais peu de possibilités de modification. Qui a besoin de gadgets quand on est bien protégé ?
+
+melee_harvest_materials=Matériaux de Récolte et de Mêlée de Niveau 4
+melee_harvest_materials.subtext=Ces matériaux nécessitent du sang ardent pour être créés, et peuvent être utilisés pour fabriquer des pièces d’outils de combat ou de récolte.
+
+ranged_materials=Matériaux de Combat à Distance de Niveau 4
+ranged_materials.subtext=Ces matériaux nécessitent du sang ardent pour être créés, et peuvent être utilisés pour fabriquer des pièces d’outils à distance comme les arcs.
+
+armor_materials=Matériaux d’Armure de Niveau 4
+armor_materials.subtext=Ces matériaux peuvent être fondus en armures et boucliers.

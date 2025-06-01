@@ -1,0 +1,14 @@
+{
+  "title": "Drain Scellé",
+  "item": "tconstruct:seared_drain",
+  "text": [
+    {
+      "text": "Le drain constitue l'entrée/sortie des fluides pour la fonderie. Vous pouvez utiliser des robinets ou des tuyaux de votre mod préféré sur le drain pour extraire les fluides. Seaux, bidons en cuivre et canaux peuvent être utilisés sur le drain pour ajouter ou récupérer des fluides.",
+      "paragraph": true
+    },
+    {
+      "text": "Le fluide affiché au centre du drain sera le prochain à être versé.",
+      "paragraph": true
+    }
+  ]
+}

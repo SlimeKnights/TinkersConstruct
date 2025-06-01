@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:tool_belt",
+  "text": [
+    {
+      "text": "C’est une ceinture pour porter tes outils. Une ceinture à outils."
+    }
+  ],
+  "effects": [
+    "Les emplacements peuvent être échangés avec ceux de la barre rapide en maintenant contrôle + interaction sur le pantalon",
+    "Accorde 4 emplacements, plus 1 par niveau supplémentaire consécutif",
+    "Recette différente selon le niveau",
+    "Le premier niveau nécessite 1 emplacement d’aptitude"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:nearsighted",
+  "text": [
+    {
+      "text": "Il va falloir passer à autre chose que des outils en pierre à un moment."
+    }
+  ],
+  "effects": [
+    "Augmente le champ de vision avec l’outil tenu ou l’armure portée",
+    "Niveaux multiples",
+    "Sans emplacement"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:magnetic",
+  "text": [
+    {
+      "text": "La force est puissante avec cet outil."
+    }
+  ],
+  "effects": [
+    "Attaquer des créatures ou miner attire les objets vers vous",
+    "Sur une armure, active l’aimant de façon passive",
+    "Niveaux multiples, chaque niveau augmente la puissance magnétique",
+    "Nécessite 1 emplacement d’amélioration par niveau"
+  ]
+}

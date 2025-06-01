@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:boundless",
+  "text": [
+    {
+      "text": "Tu n’as plus de limites ! Enfin… tu en as encore, mais elles sont plus hautes maintenant."
+    }
+  ],
+  "effects": [
+    "Augmente la quantité maximale de protection de 10 %",
+    "Une deuxième pièce accorde 5 % supplémentaires",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
+  ]
+}

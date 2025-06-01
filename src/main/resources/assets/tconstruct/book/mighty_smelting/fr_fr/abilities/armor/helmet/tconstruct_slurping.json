@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:slurping",
+  "text": [
+    {
+      "text": "C’était le numéro un !"
+    },
+    {
+      "text": "Faire un clic droit sur un réservoir avec l’outil en main le remplit de fluide.",
+      "paragraph": true
+    }
+  ],
+  "effects": [
+    "Permet de boire les fluides stockés dans le casque",
+    "Une touche dédiée permet de boire",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
+  ]
+}

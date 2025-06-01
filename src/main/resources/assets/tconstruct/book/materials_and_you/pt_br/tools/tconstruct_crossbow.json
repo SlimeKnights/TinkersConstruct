@@ -1,0 +1,20 @@
+{
+  "tool": "tconstruct:crossbow",
+  "text": [
+    {
+      "text": "A besta é útil para quem deseja estar pronto e ágil para uma luta"
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Você nunca deve cruzar um arco",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "Tipo de arco rápido e ágil",
+  "Capaz de manter uma flecha preparada para disparo",
+  "Adora fazer festa com fogos de artifício"
+  ]
+}

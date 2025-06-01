@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:fireprimer",
+  "text": [
+    {
+      "text": "Augmente la zone d’effet du silex et de la brique de 1. Équivaut à 1 niveau d’expandeur, mais ne nécessite qu’un seul emplacement d’amélioration."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum de 1 niveau",
+    "Nécessite 1 emplacement d’amélioration"
+  ]
+}
+

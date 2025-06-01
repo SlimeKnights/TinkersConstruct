@@ -2,21 +2,26 @@
   "tool": "tconstruct:vein_hammer",
   "text": [
     {
-      "text": "O martelo de mineração é uma ferramenta grande de mineração. Ele é util para coletar veias inteiras."
-    },
+      "text": "O martelo de mineração é uma ferramenta grande de mineração. Ele é util para coletar veias inteiras do mesmo tipo."
+  },
     {
-    },
-	{
       "text": "\n"
     },
     {
-      "text": "Isenção de responsabilidade: A Thruul Industries não se responsabiliza pela mineração em massa de veias."
+      "text": "É ideal para extrair todos os minérios de uma veia com um único golpe."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Aviso: A Thruul Industries não se responsabiliza pela mineração em massa de propriedades."
     }
   ],
   "properties": [
     "Ferramenta avançada de mineração",
     "Mineração de veias",
-    "Efetivo em pedra e minérios",
-    "Bônus de dano perfurante"
+    "Eficaz em pedra e minérios",
+    "Dano bônus de perfuração"
   ]
 }
+

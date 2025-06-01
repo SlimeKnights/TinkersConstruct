@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:blasting",
+  "text": [
+    {
+      "text": "Augmente la vitesse de minage sur les blocs avec une faible résistance aux explosions, jusqu’à +10 par niveau sur les blocs les plus fragiles. Par exemple, accorde +1 de vitesse par niveau sur des blocs comme la pierre, +3 sur la terre cuite et +9 sur les blocs tendres comme les minerais."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Peut être appliqué par niveaux incrémentaux",
+    "Maximum de 5 niveaux",
+    "Nécessite 1 emplacement d'amélioration par niveau"
+  ]
+}
+

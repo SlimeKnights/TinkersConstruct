@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.tags.TagKey;
 import slimeknights.mantle.registration.object.IdAwareObject;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.ModifierManager;
@@ -34,6 +35,9 @@ public class LazyModifier implements Supplier<Modifier>, IdAwareObject {
   protected Modifier getUnchecked() {
     if (result == null) {
       result = ModifierManager.getValue(id);
+      if (result == ModifierManager.INSTANCE.getDefaultValue() && !ModifierManager.EMPTY.equals(id)) {
+        TConstruct.LOG.error("Attempted to fetch modifier with ID {}, but it was not registered. Returning the empty modifier and hoping things don't break.", id);
+      }
     }
     return result;
   }

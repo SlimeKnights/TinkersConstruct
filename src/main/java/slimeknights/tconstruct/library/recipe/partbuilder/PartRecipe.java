@@ -13,28 +13,29 @@ import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.IMultiRecipe;
-import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.mantle.recipe.helper.LoadableRecipeSerializer;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
 import slimeknights.tconstruct.library.json.field.MergingField;
 import slimeknights.tconstruct.library.json.field.MergingField.MissingMode;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
-import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.recipe.material.IMaterialValue;
+import slimeknights.tconstruct.library.recipe.material.MaterialRecipeCache;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.tables.TinkerTables;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Recipe to make a tool part from a material item in the part builder
  */
 @RequiredArgsConstructor
-public class PartRecipe implements IPartBuilderRecipe, IMultiRecipe<ItemPartRecipe> {
+public class PartRecipe implements IPartBuilderRecipe, IMultiRecipe<IDisplayPartBuilderRecipe> {
   public static final RecordLoadable<PartRecipe> LOADER = RecordLoadable.create(
     ContextKey.ID.requiredField(),
     LoadableRecipeSerializer.RECIPE_GROUP,
@@ -139,20 +140,54 @@ public class PartRecipe implements IPartBuilderRecipe, IMultiRecipe<ItemPartReci
 
   /** Cache of recipes for display in JEI */
   @Nullable
-  private List<ItemPartRecipe> multiRecipes;
+  private List<IDisplayPartBuilderRecipe> multiRecipes;
 
   @Override
-  public List<ItemPartRecipe> getRecipes(RegistryAccess access) {
+  public List<IDisplayPartBuilderRecipe> getRecipes(RegistryAccess access) {
     if (multiRecipes == null) {
-      // TODO: recipe per variant instead of per material?
       multiRecipes = MaterialRegistry
         .getMaterials().stream()
         .filter(mat -> mat.isCraftable() && output.canUseMaterial(mat))
-        .map(mat -> {
-          MaterialId materialId = mat.getIdentifier();
-          return new ItemPartRecipe(materialId, mat.getIdentifier(), pattern, patternItem, getCost(), ItemOutput.fromStack(output.withMaterial(materialId)));
+        .flatMap(mat -> {
+          // start by finding all variants to display
+          // if no variant has a part builder recipe, skip this recipe
+          List<MaterialVariantId> variants = MaterialRecipeCache.getVariants(mat.getIdentifier()).stream()
+            .filter(variant -> !MaterialRecipeCache.getRecipes(variant).isEmpty()).toList();
+          if (variants.isEmpty()) {
+            return Stream.of();
+          }
+
+          // now we need to determine what material contents to show
+          MaterialVariant materialTitle;
+          List<ItemStack> materialItems;
+          List<ItemStack> resultItems;
+          // if we only have 1 variant, display that as our title and simplify the result listing
+          if (variants.size() == 1) {
+            MaterialVariantId variant = variants.get(0);
+            materialTitle = MaterialVariant.of(variant);
+            materialItems = MaterialRecipeCache.getItems(variant);
+            resultItems = List.of(output.withMaterial(variant));
+          } else {
+            // if we have multiple variants, title will be the variantless material
+            materialTitle = MaterialVariant.of(mat);
+
+            // we have our material, now to build our item list; requires 1 copy of the result per input so the slots are same size
+            materialItems = new ArrayList<>();
+            resultItems = new ArrayList<>();
+            for (MaterialVariantId variant : variants) {
+              ItemStack result = output.withMaterial(variant);
+              List<ItemStack> variantItems = MaterialRecipeCache.getItems(variant);
+              materialItems.addAll(variantItems);
+              for (int i = 0; i < variantItems.size(); i++) {
+                resultItems.add(result);
+              }
+            }
+            materialItems = List.copyOf(materialItems);
+            resultItems = List.copyOf(resultItems);
+          }
+          return Stream.of(new DisplayPartRecipe(id, materialTitle, pattern, List.of(patternItem.getItems()), getCost(), materialItems, resultItems));
         })
-        .collect(Collectors.toList());
+        .collect(Collectors.toUnmodifiableList());
     }
     return multiRecipes;
   }

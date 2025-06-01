@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:embellishment",
+  "text": [
+    {
+      "text": "Permet de changer l’apparence des combinaisons de slime, des bâtons et des boucliers."
+    },
+    {
+      "text": "Le slime utilise des blocs de slime coagulé, tandis que les bâtons et boucliers utilisent des ornements en bois.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Usage multiple",
+    "Sans emplacement"
+  ]
+}

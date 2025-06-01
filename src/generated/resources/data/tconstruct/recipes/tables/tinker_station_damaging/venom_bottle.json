@@ -1,0 +1,7 @@
+{
+  "type": "tconstruct:tinker_station_damaging",
+  "damage_amount": 200,
+  "ingredient": {
+    "item": "tconstruct:venom_bottle"
+  }
+}

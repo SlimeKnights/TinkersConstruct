@@ -1,11 +1,11 @@
 {
-  "title": "Modificadores sem slots",
+  "title": "Modificadores Sem Slot",
   "text": [
     {
-      "text": "Ficou sem slots? Bem, boas notícias, todos os modificadores desta seção não precisam de slots para serem aplicados, talvez alguns possam até lhe dar mais slots!"
+      "text": "Ficou sem slots? Bem, boas notícias: todos os modificadores desta seção não precisam de slots para serem aplicados — talvez alguns até podem conceder mais slots!"
     },
     {
-      "text": "É sem slots. Você não precisa de uma habilidade e nem de um slot de melhoria para colocá-lo? O que mais você quer? Biscoitos?",
+      "text": "É sem slot. Você não precisa de um slot de habilidade ou melhoria para aplicá-lo. Quer mais o quê? Biscoitos?",
       "paragraph": true
     }
   ]

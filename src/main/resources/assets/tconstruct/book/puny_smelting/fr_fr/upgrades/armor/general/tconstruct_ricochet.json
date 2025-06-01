@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:ricochet",
+  "text": [
+    {
+      "text": "Il est temps de faire une fuite audacieuse."
+    }
+  ],
+  "effects": [
+    "Augmente le recul que vous subissez",
+    "Niveaux multiples, chaque niveau augmente davantage le recul",
+    "Nécessite 1 emplacement d’amélioration par niveau"
+  ]
+}

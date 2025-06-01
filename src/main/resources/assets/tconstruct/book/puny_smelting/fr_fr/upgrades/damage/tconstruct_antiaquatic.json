@@ -1,0 +1,20 @@
+{
+  "modifier_id": "tconstruct:antiaquatic",
+  "text": [
+    {
+      "text": "Les ennemis des mers tremblent de peur face à ceux qui manient une arme dotée de ce trait."
+    },
+    {
+      "text": "Avertissement : vous êtes une horrible personne si vous utilisez ceci sur la faune marine pacifique."
+    },
+    {
+      "text": "À ne pas confondre avec empalement.",
+      "paragraph": true
+    }
+  ],
+  "effects": [
+    "Augmente les dégâts contre les créatures marines",
+    "Niveaux multiples, chaque niveau augmente encore les dégâts",
+    "Nécessite 1 emplacement d’amélioration par niveau"
+  ]
+}

@@ -36,9 +36,11 @@ import net.minecraftforge.fml.ModLoader;
 import net.minecraftforge.fml.event.IModBusEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLLoader;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.mantle.util.RegistryHelper;
+import slimeknights.mantle.util.typed.TypedMap;
 import slimeknights.mantle.util.typed.TypedMapBuilder;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.json.JsonRedirect;
@@ -168,7 +170,16 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
     // validate required modifiers
     for (ModifierId id : expectedDynamicModifiers) {
       if (!dynamicModifiers.containsKey(id)) {
-        log.error("Missing expected modifier '" + id + "'");
+        log.error("Missing expected modifier '{}'", id);
+      }
+    }
+    for (ModifierId id : staticModifiers.keySet()) {
+      if (dynamicModifiers.containsKey(id)) {
+        if (FMLLoader.isProduction()) {
+          log.warn("Dynamic modifier {} is replacing static modifier with the same ID. The ability to do this may be removed in a future version, so if this is intentional please open an issue report with reasoning..", id);
+        } else {
+          log.error("Dynamic modifier {} is replacing static modifier with the same ID. This is likely a bug with your mod, but on the chance its intentional this error does become just a warning at runtime.", id);
+        }
       }
     }
 
@@ -252,6 +263,11 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
     MinecraftForge.EVENT_BUS.post(new ModifiersLoadedEvent());
   }
 
+  /** Creates context for modifier parsing */
+  public static TypedMap createContext(ResourceLocation modifier) {
+    return TypedMapBuilder.builder().put(ContextKey.ID, modifier).put(ContextKey.DEBUG, "Modifier " + modifier).build();
+  }
+
   /** Loads a modifier from JSON */
   @Nullable
   private Modifier loadModifier(ResourceLocation key, JsonElement element, Map<ModifierId, ModifierId> redirects) {
@@ -277,7 +293,7 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
       }
 
       // fallback to actual modifier
-      Modifier modifier = ComposableModifier.LOADER.deserialize(json, TypedMapBuilder.builder().put(ContextKey.ID, key).put(ContextKey.DEBUG, "Modifier " + key).build());
+      Modifier modifier = ComposableModifier.LOADER.deserialize(json, createContext(key));
       modifier.setId(new ModifierId(key));
       return modifier;
     } catch (JsonSyntaxException e) {

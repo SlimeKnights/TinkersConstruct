@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:turtle_shell",
+  "text": [
+    {
+      "text": "Ne protège pas des carapaces vertes, rouges ou bleues."
+    }
+  ],
+  "effects": [
+    "Réduit les dégâts subis sous l’eau et augmente la vitesse de nage",
+    "Niveaux multiples, chaque niveau renforce l’effet",
+    "Nécessite 1 emplacement de défense par niveau"
+  ]
+}

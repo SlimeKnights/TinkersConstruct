@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:boundless",
+  "text": [
+    {
+      "text": "Você não tem limites! Ok, você ainda tem limites, só que agora eles são maiores."
+    }
+  ],
+  "effects": [
+    "Aumenta a quantidade máxima de proteção em 10%",
+    "A segunda peça concede 5% adicionais",
+    "Nível único",
+    "Requer 1 slot de habilidade"
+  ]
+}

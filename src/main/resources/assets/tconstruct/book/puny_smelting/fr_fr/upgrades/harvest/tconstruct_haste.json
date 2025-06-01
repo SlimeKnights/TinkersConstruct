@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:haste",
+  "text": [
+    {
+      "text": "Ajouter de la redstone à un outil semble augmenter sa vitesse. Le bonus de vitesse de minage est plus efficace sur les outils lents."
+    },
+    {
+      "text": "La redstone. Complètement dingue, non ?",
+      "paragraph": true
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/harvest",
+  "effects": [
+    "Augmente la vitesse de minage",
+    "Niveaux multiples, chaque niveau augmente un peu plus la vitesse",
+    "Nécessite 1 emplacement d’amélioration par niveau"
+  ]
+}

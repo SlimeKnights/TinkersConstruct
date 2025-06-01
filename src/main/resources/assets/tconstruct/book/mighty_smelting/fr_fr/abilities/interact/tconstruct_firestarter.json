@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:firestarter",
+  "text": [
+    {
+      "text": "Tout a changé quand le modificateur allume-feu a attaqué."
+    }
+  ],
+  "effects": [
+    "Interaction pour allumer des feux",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude",
+    "Utiliser avec silex et bronze augmente le rayon, ce qui nécessite 1 emplacement d’amélioration"
+  ]
+}

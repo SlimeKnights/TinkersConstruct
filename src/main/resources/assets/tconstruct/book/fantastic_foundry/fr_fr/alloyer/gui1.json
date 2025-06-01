@@ -1,0 +1,14 @@
+{
+  "title": "Interface de l’Alliageur",
+  "image": {
+    "file": "tconstruct:book/images/alloyergui.png",
+    "width": 166,
+    "height": 78
+  },
+  "text": [
+    {
+      "text": "Ton interface basique d’alliage, sauf qu’il pourrait y avoir plus ou moins d’éléments.",
+      "paragraph": true
+    }
+  ]
+}

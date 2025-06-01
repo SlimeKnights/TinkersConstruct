@@ -2,12 +2,16 @@
   "modifier_id": "tconstruct:emerald",
   "text": [
     {
-      "text": "Concede +50% de durabilidade e +5% de resistência contra repulsão. Aumenta o nivel de coleta da ferramenta para o nivel do ferro, e aumenta em 25% os danos de ataque condicional e a velocidade de mineração, alem disso, Ferramentas e armaduras irão receber somente status aplicáveis."
+      "text": "Concede +50% de durabilidade, +0,1 de precisão e +1 de robustez. Aumenta o nível de coleta da ferramenta para o nível do ferro e aumenta o dano de ataque condicional e a velocidade de mineração em 25%."
+    },
+    {
+      "text": "Ferramentas e armaduras receberão apenas aumentos de status aplicáveis, por exemplo, ferramentas seguradas não receberão resistência contra repulsão.",
+      "paragraph": true
     }
   ],
   "more_text_space": true,
   "effects": [
-    "Máximo de 1 nivel",
+    "Máximo de 1 nível",
     "Requer 1 slot de melhoria"
   ]
 }

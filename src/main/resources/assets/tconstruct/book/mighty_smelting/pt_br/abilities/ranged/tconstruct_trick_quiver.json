@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:trick_quiver",
+  "text": [
+    {
+      "text": "Hawkeye's quiver on your bow."
+    }
+  ],
+  "effects": [
+    "Dá ao arco três slot de flecha alternáveis",
+    "Troca os slots atacando",
+    "Acessa os slots se esgueirando e atacando",
+    "Nível único",
+    "Requer 1 slot de habilidade"
+  ]
+}
+
+

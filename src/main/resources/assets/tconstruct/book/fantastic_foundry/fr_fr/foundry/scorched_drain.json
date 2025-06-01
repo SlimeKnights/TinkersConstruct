@@ -1,0 +1,14 @@
+{
+  "title": "Bonde Calcinée",
+  "item": "tconstruct:scorched_drain",
+  "text": [
+    {
+      "text": "La bonde est l’entrée/sortie de fluide de la fonderie. Vous pouvez utiliser des robinets ou des tuyaux de votre mod préféré sur la bonde pour en extraire les fluides. Les seaux, bidons en cuivre et canaux peuvent être utilisés sur la bonde pour ajouter ou retirer des fluides.",
+      "paragraph": true
+    },
+    {
+      "text": "Le fluide affiché au centre de la bonde sera le prochain à être versé.",
+      "paragraph": true
+    }
+  ]
+}

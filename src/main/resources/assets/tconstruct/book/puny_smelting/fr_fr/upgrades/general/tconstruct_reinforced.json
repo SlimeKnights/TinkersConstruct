@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:reinforced",
+  "text": [
+    {
+      "text": "Renforcer votre outil, c’est peut-être moins de travail pour vous deux !"
+    }
+  ],
+  "effects": [
+    "Chance que la durabilité ne soit pas consommée",
+    "Niveaux multiples, chaque niveau réduit les chances que l’outil subisse des dégâts",
+    "Nécessite 1 emplacement d’amélioration par niveau"
+  ]
+}

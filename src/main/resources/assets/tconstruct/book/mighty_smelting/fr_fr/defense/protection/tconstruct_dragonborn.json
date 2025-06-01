@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:dragonborn",
+  "text": [
+    {
+      "text": "Dovah ko krif dilos ahrk qah."
+    },
+    {
+      "text": "Bricoleur, tu ne sais pas lire la langue des dragons ? Qu’est-ce qu’on vous apprend de nos jours ? Ça veut dire : « Les dragons qui volent sont mortels et protégés. »",
+      "paragraph": true
+    }
+  ],
+  "effects": [
+    "Augmente la protection et les dégâts infligés en étant en l’air",
+    "Niveaux multiples, chaque niveau améliore encore la protection et les dégâts",
+    "Nécessite 1 emplacement de défense par niveau"
+  ]
+}
