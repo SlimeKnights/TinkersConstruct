@@ -5,9 +5,10 @@
       "text": "Permite beber o fluido contido no capacete para ativar efeitos usando a tecla de atalho do capacete, como incendiar-se, remover efeitos negativos ou restaurar a fome."
     },
     {
-      "text": "A ferramenta pode ser preenchida com fluido ao interagir com um tanque ou dreno enquanto a segura.", "paragraph": true
+      "text": "Níveis mais altos consomem mais fluido para realizar efeitos mais fortes.", "paragraph": true
     }
   ],
+  "tool_filter": "tconstruct:modifiable/armor",
   "more_text_space": true,
   "effects": [
     "Sem nível máximo",
