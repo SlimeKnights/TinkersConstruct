@@ -1156,7 +1156,9 @@
 "block.tconstruct.tank.filled": "Preenchidos %s mb %s",
 
 "block.tconstruct.copper_gauge": "Medidor de Cobre",
+"block.tconstruct.copper_gauge.tooltip": "A interação com o medidor mostra a quantidade de fluido no tanque atrás do medidor.",
 "block.tconstruct.obsidian_gauge": "Medidor de Obsidiana",
+"block.tconstruct.obsidian_gauge.tooltip": "Mostra o tipo de fluido no tanque atrás do medidor e mostra a quantidade ao interagir.",
 
 "block.tconstruct.channel.side.in": "Ajustar o fluxo para dentro",
 "block.tconstruct.channel.side.out": "Ajustar o fluxo para fora",
@@ -1686,7 +1688,7 @@
 "material.tconstruct.chorus.flavor": "Não apenas os endermen, mas as endermulheres e os enderfilhos",
 "material.tconstruct.chorus.encyclopedia": "Impede o alvo de se teleportar por 5 segundos por nível de efeito",
 "material.tconstruct.chorus.ranged": "Impede o alvo de se teleportar por 5 segundos por nível de efeito e permite danificar endermen com flechas",
-"material.tconstruct.chorus.armor": "Tem 25% de chance, por nível, de teleportar aleatoriamente quem está te atacando para longe",
+"material.tconstruct.chorus.armor": "Tem 25% de chance de teleportar aleatoriamente quem está te atacando para longe, ou 50% de chance ao bloquear",
 
 "material.tconstruct.string": "Corda",
 "material.tconstruct.string.flavor": "Teoricamente o melhor material, mas nada de usar isso em uma mulher!",
@@ -1761,6 +1763,7 @@
 "material.tconstruct.skyslime_vine.flavor": "Uma trepada grudenta, mas que te leva ao céu",
 "material.tconstruct.skyslime_vine.encyclopedia": "Cancela a redução de velocidade de mineração quando não está no chão",
 "material.tconstruct.skyslime_vine.ranged": "Concede +0,5 de precisão quando não está no chão ou em uma escada de mão",
+"material.tconstruct.skyslime_vine.armor": "Reduz a gravidade em 20% por peça",
 
 
 "__comment": "Tier 3 Materials",
@@ -1837,6 +1840,7 @@
 "material.tconstruct.ancient_hide": "Couro Antigo",
 "material.tconstruct.ancient_hide.flavor": "Primeiro couro usado pelo próprio Ei Nerd!",
 "material.tconstruct.ancient_hide.encyclopedia": "Aumenta as chances de drop de blocos, acumulando com sorte",
+"material.tconstruct.ancient_hide.ranged": "Concede um slot de defesa extra",
 "material.tconstruct.ancient_hide.armor": "Concede um slot de defesa extra",
 
 "__comment": "Tier End Materials",
@@ -1846,6 +1850,7 @@
 "material.tconstruct.enderslime_vine.flavor": "No final é só trepar o que importa?",
 "material.tconstruct.enderslime_vine.encyclopedia": "Teleporta o portador para o local de blocos minerados ou troca o portador com monstros atacados",
 "material.tconstruct.enderslime_vine.ranged": "Teleporta o portador para o local das flechas que acertam blocos ou troca o portador com monstros atingidos por flechas",
+"material.tconstruct.enderslime_vine.armor": "Tem 25% de chance, por peça, de teletransportar aleatoriamente quem o atacar para longe",
 
 "__comment": "Materiais do Slimesuit",
 "material.tconstruct.glass": "Vidro",
@@ -2625,6 +2630,9 @@
 "modifier.tconstruct.airborne.flavor": "Levante voo!",
 "modifier.tconstruct.airborne.description": "A ferramenta não é mais penalizada ao minerar no ar e ganha um bônus de precisão de projétil",
 "modifier.tconstruct.airborne.accuracy": "Precisão Aérea",
+"modifier.tconstruct.skyfall": "Queda Celeste",
+"modifier.tconstruct.skyfall.flavor": "Caindo com estilo!",
+"modifier.tconstruct.skyfall.description": "Reduz o efeito da gravidade",
 
 "__comment": "Traços de Nível 3",
 "modifier.tconstruct.overcast": "Nublado",
@@ -3046,6 +3054,7 @@
 
 "attribute.name.tconstruct.generic.protection_cap": "Proteção Máxima",
 "attribute.name.tconstruct.generic.jump_boost": "Altura do Pulo",
+"attribute.name.tconstruct.generic.safe_fall_distance": "Distância de Queda Segura",
 "attribute.name.tconstruct.generic.crouch_damage_multiplier": "Dano Agachado",
 "attribute.name.tconstruct.generic.knockback_multiplier": "Repulsão",
 "attribute.name.tconstruct.generic.good_effect_duration_multiplier": "Duração de Poções Benéficas",
