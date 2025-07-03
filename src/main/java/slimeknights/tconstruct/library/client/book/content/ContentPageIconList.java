@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.client.book.content;
 import com.google.common.collect.Lists;
 import lombok.Getter;
 import net.minecraft.network.chat.Component;
+import slimeknights.mantle.client.book.HTMLUtils;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.PageData;
 import slimeknights.mantle.client.book.data.SectionData;
@@ -178,5 +179,10 @@ public class ContentPageIconList extends PageContent {
     data.pages.addAll(newPages);
 
     return listPages;
+  }
+
+  @Override
+  public String toHTML() {
+    return HTMLUtils.line(title, true) + "\n" + HTMLUtils.line(subText, "padding-left: 10px");
   }
 }

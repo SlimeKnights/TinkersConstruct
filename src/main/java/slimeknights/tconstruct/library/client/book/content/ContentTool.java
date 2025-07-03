@@ -21,6 +21,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.ForgeI18n;
 import net.minecraftforge.common.crafting.IShapedRecipe;
 import net.minecraftforge.registries.ForgeRegistries;
+import slimeknights.mantle.client.book.HTMLUtils;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.content.PageContent;
 import slimeknights.mantle.client.book.data.element.ImageData;
@@ -43,6 +44,7 @@ import slimeknights.tconstruct.library.tools.part.IToolPart;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -269,6 +271,31 @@ public class ContentTool extends PageContent {
       //partItem.noTooltip = true;
       list.add(partItem);
     }
+  }
+
+  @Override
+  public String toHTML() {
+    return String.format(
+      """
+      %s
+      <div style="padding-left: 10px">
+        <div class="column" style="height: 110px">
+          %s
+        </div>
+        <div style="width: 210px">
+          <p class="underline">Properties:</p>
+          <ul class="prop-list">
+          %s
+          </ul>
+        </div>
+      </div>
+      """,
+      HTMLUtils.line(getTitle(), true),
+      HTMLUtils.paragraphs(text),
+      Arrays.stream(properties)
+        .map(s ->String.format("<li>%s</li>", s))
+        .collect(Collectors.joining("\n"))
+      );
   }
 
   /** Simple record to hold a XY pair */

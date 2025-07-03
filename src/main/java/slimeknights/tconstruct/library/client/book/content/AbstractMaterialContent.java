@@ -14,6 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeI18n;
 import net.minecraftforge.fluids.FluidStack;
+import slimeknights.mantle.client.book.HTMLUtils;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.content.PageContent;
 import slimeknights.mantle.client.book.data.element.TextComponentData;
@@ -51,6 +52,7 @@ import slimeknights.tconstruct.library.tools.part.IToolPart;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.TinkerToolParts;
+import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -435,5 +437,46 @@ public abstract class AbstractMaterialContent extends PageContent {
                          .filter(part -> part.getStatType().equals(statType))
                          .map(part -> part.withMaterialForDisplay(material))
                          .toList();
+  }
+
+  @Override
+  public String toHTML() {
+    int rgb = MaterialTooltipCache.getColor(materialVariant).getValue();
+    return String.format(
+      """
+      <p class="title shadow" style="color: %s">%s</p>
+      %s
+      <p class="trait">"<span style="font-style: italic">%s</span>"</p>
+      """,
+      HTMLUtils.hexRGB(rgb), getTitle(),
+      "%s",
+      ForgeI18n.getPattern(getTextKey(getMaterialVariant().getId())));
+  }
+
+  protected String getStatLines(MaterialStatsId statsId) {
+    Optional<IMaterialStats> statsOptional = MaterialRegistry.getInstance().getMaterialStats(getMaterialVariant().getId(), statsId);
+    if (statsOptional.isEmpty()) return "";
+
+    IMaterialStats stats = statsOptional.get();
+    return String.format(
+      """
+      <div>
+          %s
+          %s
+          %s
+      </div>
+      """,
+      HTMLUtils.line(stats.getLocalizedName().getString(), true, "padding-left: 20px; font-weight: bold"),
+      stats.getLocalizedInfo().stream()
+        .map(i -> HTMLUtils.line(i.getString()))
+        .collect(Collectors.joining("\n")),
+      getTraitLines(statsId)
+    );
+  }
+
+  protected String getTraitLines(MaterialStatsId statsId) {
+    return MaterialRegistry.getInstance().getTraits(getMaterialVariant().getId(), statsId).stream()
+      .map(m -> HTMLUtils.line(m.getDisplayName().getString(), true, "color: #545454"))
+      .collect(Collectors.joining("\n"));
   }
 }

@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.client.book.content;
 
 import net.minecraft.resources.ResourceLocation;
+import slimeknights.mantle.client.book.IHTML;
 import slimeknights.mantle.client.screen.book.element.ItemElement;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -11,6 +12,8 @@ import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.stats.GripMaterialStats;
+import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
+import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 import slimeknights.tconstruct.tools.stats.LimbMaterialStats;
 import slimeknights.tconstruct.tools.stats.StatlessMaterialStats;
 
@@ -72,5 +75,22 @@ public class RangedMaterialContent extends AbstractMaterialContent {
     } else if (MaterialRegistry.getInstance().isInTag(material, TinkerTags.Materials.HEAVY)) {
       displayTools.add(makeCategoryIcon(TinkerTools.longbow.get().getRenderTool(), getResource("heavy")));
     }
+  }
+
+  @Override
+  public String toHTML() {
+    String div = String.format("""
+      <div class="grid-melee-harvest">
+          %s
+          %s
+          %s
+      </div>
+      """,
+      getStatLines(LimbMaterialStats.ID),
+      getStatLines(GripMaterialStats.ID),
+      getStatLines(StatlessMaterialStats.BOWSTRING.getIdentifier())
+    );
+
+    return String.format(super.toHTML(), div);
   }
 }

@@ -1,12 +1,18 @@
 package slimeknights.tconstruct.library.client.book.content;
 
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.common.ForgeI18n;
+import slimeknights.mantle.client.book.HTMLUtils;
 import slimeknights.mantle.client.screen.book.element.ItemElement;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.materials.IMaterialRegistry;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
+import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
@@ -14,6 +20,8 @@ import slimeknights.tconstruct.tools.stats.StatlessMaterialStats;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static slimeknights.tconstruct.TConstruct.getResource;
 
@@ -66,5 +74,22 @@ public class MeleeHarvestMaterialContent extends AbstractMaterialContent {
     } else if (MaterialRegistry.getInstance().isInTag(material, TinkerTags.Materials.HARVEST)) {
       displayTools.add(makeCategoryIcon(TinkerTools.pickaxe.get().getRenderTool(), getResource("harvest")));
     }
+  }
+
+  @Override
+  public String toHTML() {
+    String div = String.format("""
+      <div class="grid-melee-harvest">
+          %s
+          %s
+          %s
+      </div>
+      """,
+      getStatLines(HeadMaterialStats.ID),
+      getStatLines(HandleMaterialStats.ID),
+      getStatLines(StatlessMaterialStats.BINDING.getIdentifier())
+    );
+
+    return String.format(super.toHTML(), div);
   }
 }
