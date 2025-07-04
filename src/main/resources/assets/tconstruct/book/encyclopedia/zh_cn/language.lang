@@ -11,7 +11,7 @@ tools.tconstruct.ichor_staff=灵浆手杖
 tools.tconstruct.ender_staff=末影黏液手杖
 armor=盔甲
 
-materials_harvest=近程材料
+materials_harvest=通用材料
 materials_harvest.subtext=这些材料可以锻造出近战武器或采掘工具。
 materials_ranged=远程材料
 materials_ranged.subtext=这些材料可以锻造出远程武器。

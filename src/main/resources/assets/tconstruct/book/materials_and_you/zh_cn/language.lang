@@ -1,6 +1,6 @@
 intro=介绍
 
-melee_harvest_materials=一级近程材料
+melee_harvest_materials=一级通用材料
 melee_harvest_materials.subtext=这些材料可以放在部件制造台中，用于制造近战武器或采掘工具的工具部件。
 ranged_materials=一级远程材料
 ranged_materials.subtext=这些材料可以放在部件制造台中，用于制造像弓那样的远程武器的工具部件。

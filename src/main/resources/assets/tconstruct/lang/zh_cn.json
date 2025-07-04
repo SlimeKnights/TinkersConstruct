@@ -3276,17 +3276,17 @@
   "book.tconstruct.fluid_effects.entity": "对实体效果：",
   "book.tconstruct.fluid_effects.block": "对方块效果：",
 
-  "book.tconstruct.material.category.general": "常规工具材料",
+  "book.tconstruct.material.category.general": "通用工具材料",
   "book.tconstruct.material.category.general.description": "这类材料在各种工具上都能发挥良好效果，但在特定任务上的发挥不一定特别突出",
-  "book.tconstruct.material.category.melee": "近战工具材料",
+  "book.tconstruct.material.category.melee": "近战武器材料",
   "book.tconstruct.material.category.melee.description": "这类材料尤其适用于近战武器，能更好地收割敌人",
-  "book.tconstruct.material.category.harvest": "采集工具材料",
+  "book.tconstruct.material.category.harvest": "采掘工具材料",
   "book.tconstruct.material.category.harvest.description": "这类材料尤其适用于采集工具，能更好地采掘方块",
 
   "book.tconstruct.material.category.balanced": "平衡型工具材料",
   "book.tconstruct.material.category.balanced.description": "这类材料在拉弓速度与箭矢速度上较为平衡",
   "book.tconstruct.material.category.light": "轻型工具材料",
-  "book.tconstruct.material.category.light.description": "这类材料适合于更高拉弓速度的武器，有更高的DPS",
+  "book.tconstruct.material.category.light.description": "这类材料适合于更高拉弓速度的武器，有更高的每秒伤害",
   "book.tconstruct.material.category.heavy": "重型工具材料",
   "book.tconstruct.material.category.heavy.description": "这类材料适用于更高箭矢速度的武器，有更高的弹射物伤害",
 

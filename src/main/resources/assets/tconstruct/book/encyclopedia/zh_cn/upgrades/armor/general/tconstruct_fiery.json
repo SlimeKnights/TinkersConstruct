@@ -2,10 +2,10 @@
     "modifier_id": "tconstruct:fiery",
     "text": [
       {
-        "text": "每级有15%的概率对攻击者造成5秒的燃烧效果。多件盔甲的效果将会堆叠。"
+        "text": "每级有15%的概率对攻击者造成1-7秒的燃烧效果。效果由强化等级最高的盔甲决定。"
       },
       {
-        "text": "盾牌在格挡时造成的效果将翻倍。", "paragraph": true
+        "text": "盾牌格挡时造成的效果翻倍，但只在格挡时起效。", "paragraph": true
       }
     ],
     "more_text_space": true,
