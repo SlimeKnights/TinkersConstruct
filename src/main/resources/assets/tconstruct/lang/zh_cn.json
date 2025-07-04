@@ -720,7 +720,7 @@
   "fluid.tconstruct.flowing_molten_hepatizon": "流动的熔融黑色科林斯青铜",
   "item.tconstruct.molten_hepatizon_bucket": "熔融黑色科林斯青铜桶",
   "fluid.tconstruct.molten_hepatizon.fluid_effect": "熔融黑色柯林斯青铜适合防御还是攻击？事实上两者都算是机遇与风险并存。",
-  
+
   "block.tconstruct.molten_cinderslime_fluid": "熔融余烬黏液",
   "fluid.tconstruct.molten_cinderslime": "熔融余烬黏液",
   "fluid.tconstruct.flowing_molten_cinderslime": "流动的熔融余烬黏液",
@@ -1155,6 +1155,11 @@
   "block.tconstruct.tank.drained": "输出%smB%s",
   "block.tconstruct.tank.filled": "输入%smB%s",
 
+  "block.tconstruct.copper_gauge": "铜量计",
+  "block.tconstruct.copper_gauge.tooltip": "交互时显示后面储罐中流体的体积",
+  "block.tconstruct.obsidian_gauge": "黑曜石量计",
+  "block.tconstruct.obsidian_gauge.tooltip": "显示后面储罐中流体的类型，交互时显示流体的体积。",
+
   "block.tconstruct.channel.side.in": "将该侧面设为输入",
   "block.tconstruct.channel.side.out": "将该侧面设为输出",
   "block.tconstruct.channel.side.none": "禁止流体在该侧面输送",
@@ -1169,6 +1174,8 @@
   "death.attack.tconstruct.self_destruct.player": "%1$s在与%2$s战斗时自我毁灭了",
   "death.attack.tconstruct.piercing": "%1$s被%2$s刺穿了",
   "death.attack.tconstruct.piercing.item": "%1$s被%2$s使用%3$s刺穿了",
+  "death.attack.tconstruct.entangled": "%1$s没能放开自己的工具",
+  "death.attack.tconstruct.entangled.player": "%1$s在与%2$s战斗时没能放开自己的工具",
 
   "death.attack.tconstruct.fluid.impact": "%1$s被%2$s击中了",
   "death.attack.tconstruct.fluid.impact.item": "%1$s被%2$s用%3$s击中了",
@@ -1650,6 +1657,14 @@
   "material.tconstruct.bamboo.ranged": "拉弓时的移动速度惩罚-10%",
   "material.tconstruct.bamboo.armor": "举盾时的移动速度惩罚-10%",
 
+  "material.tconstruct.ice": "冰",
+  "material.tconstruct.ice.flavor": "冷静一下！",
+  "material.tconstruct.ice.armor": "使受到的冰冻伤害变为耐久护盾",
+
+  "material.tconstruct.cactus": "仙人掌",
+  "material.tconstruct.cactus.flavor": "刺背刺客被背刺",
+  "material.tconstruct.cactus.armor": "被动攻击时额外增加15%概率造成1-4点伤害，格挡时概率改为增加30%",
+
   "material.tconstruct.rock": "岩石",
   "material.tconstruct.rock.stone": "石头",
   "material.tconstruct.rock.andesite": "安山岩",
@@ -1758,9 +1773,22 @@
   "material.tconstruct.skyslime_vine.flavor": "掠翅若蝶，蛰刺似蜂。",
   "material.tconstruct.skyslime_vine.encyclopedia": "取消不站在地面时的挖掘速度削减",
   "material.tconstruct.skyslime_vine.ranged": "不站在地面或拉着梯子时精确度+0.5",
+  "material.tconstruct.skyslime_vine.armor": "每个黏液藤蔓部件使重力减少20%",
+
+  "material.tconstruct.weeping_vine": "垂泪藤",
+  "material.tconstruct.weeping_vine.flavor": "传导热量",
+  "material.tconstruct.weeping_vine.encyclopedia": "在炎热生物群系增加1.25点近战伤害，在寒冷生物群系减少1.25近战伤害。",
+  "material.tconstruct.weeping_vine.ranged": "在炎热生物群系+0.75点弹射物力量，在寒冷生物群系减少-0.75点弹射物力量",
+  "material.tconstruct.weeping_vine.armor": "在炎热生物群系保护+5%，在寒冷生物群系保护-5%",
+
+  "material.tconstruct.twisting_vine": "缠怨藤",
+  "material.tconstruct.twisting_vine.flavor": "吞食孢子！",
+  "material.tconstruct.twisting_vine.encyclopedia": "获得+6挖掘速度，代价是每次放下工具时受到1点伤害",
+  "material.tconstruct.twisting_vine.ranged": "获得+15%拉弓速度，代价是每次放下工具时受到1点伤害",
+  "material.tconstruct.twisting_vine.armor": "获得+10%击退抗性，代价是每次脱下盔甲时受到2点伤害",
 
 
-  "__comment": "Tier 3 Materials",
+  "__comment": "Tier 3 Mod Compat Traits",
   "material.tconstruct.slimesteel": "黏钢",
   "material.tconstruct.slimesteel.flavor": "你要把钢黏到一起才能获得黏钢。",
   "material.tconstruct.slimesteel.encyclopedia": "黏液覆层+25点，每级增加最大值的50%",
@@ -1834,6 +1862,7 @@
   "material.tconstruct.ancient_hide": "远古兽皮",
   "material.tconstruct.ancient_hide.flavor": "用最古老的石头鞣制的皮革",
   "material.tconstruct.ancient_hide.encyclopedia": "增加挖掘方块时掉落物的掉落概率，可与“幸运”同时存在",
+  "material.tconstruct.ancient_hide.ranged": "获得一个额外的防御槽",
   "material.tconstruct.ancient_hide.armor": "获得一个额外的防御槽",
 
   "__comment": "Tier End Materials",
@@ -1843,6 +1872,7 @@
   "material.tconstruct.enderslime_vine.flavor": "结束了？",
   "material.tconstruct.enderslime_vine.encyclopedia": "将持有者传送到挖掉的方块处，或交换持有者与被击中生物的位置",
   "material.tconstruct.enderslime_vine.ranged": "将持有者传送到击中方块的箭矢处，或交换持有者与被命中生物的位置",
+  "material.tconstruct.enderslime_vine.armor": "每件装备增加25%概率，将攻击者随机传送走",
 
   "__comment": "Slimesuit materials",
   "material.tconstruct.glass": "玻璃",
@@ -2369,7 +2399,7 @@
   "modifier.tconstruct.reflecting.flavor": "弹性盾牌",
   "modifier.tconstruct.reflecting.description": "举盾后短时间内能够反弹弹射物",
 
-  
+
   "_comment": "Abilities",
   "modifier.tconstruct.unbreakable": "不毁",
   "modifier.tconstruct.unbreakable.flavor": "冷冻封存！",
@@ -2622,6 +2652,18 @@
   "modifier.tconstruct.airborne.flavor": "搏击天空！",
   "modifier.tconstruct.airborne.description": "在空中采掘时不再受到挖掘速度影响，且会使弹射物精确度上升",
   "modifier.tconstruct.airborne.accuracy": "悬空精确度",
+  "modifier.tconstruct.skyfall": "伞降",
+  "modifier.tconstruct.skyfall.flavor": "“落落”大方！",
+  "modifier.tconstruct.skyfall.description": "减少重力效果",
+  "modifier.tconstruct.flamestance": "源火",
+  "modifier.tconstruct.flamestance.flavor": "火焰之力！",
+  "modifier.tconstruct.flamestance.description": "在炎热生物群系里提升力量与保护属性，在寒冷生物群系里反之",
+  "modifier.tconstruct.flamestance.attack_damage": "源火伤害",
+  "modifier.tconstruct.flamestance.projectile_damage": "源火弹射物力量",
+  "modifier.tconstruct.flamestance.resistance": "源火抗性",
+  "modifier.tconstruct.entangled": "纠缠",
+  "modifier.tconstruct.entangled.flavor": "共生！",
+  "modifier.tconstruct.entangled.description": "提升速度与击退抗性，作为代价每次放下工具或移除盔甲时受到伤害",
 
   "__comment": "Tier 3 Traits",
   "modifier.tconstruct.overcast": "厚积",
@@ -2707,6 +2749,9 @@
   "modifier.tconstruct.stoneshield": "石盾",
   "modifier.tconstruct.stoneshield.flavor": "大师级的制石工艺",
   "modifier.tconstruct.stoneshield.description": "挖掘的石头有概率保护工具免受之后的耐久度损失",
+  "modifier.tconstruct.frostshield": "冰霜护盾",
+  "modifier.tconstruct.frostshield.flavor": "严寒亦可再利用",
+  "modifier.tconstruct.frostshield.description": "使冰冻伤害变为耐久护盾",
   "modifier.tconstruct.featherweight": "轻盈",
   "modifier.tconstruct.featherweight.flavor": "轻如鸿毛",
   "modifier.tconstruct.featherweight.description": "工具更为轻便，拉弓速度和精确度更高；盔甲在影响防护的情况下更易拉弓、用盾牌格挡",
@@ -2735,18 +2780,19 @@
   "modifier.tconstruct.maintained_2": "持久",
   "modifier.tconstruct.maintained_2.flavor": "更简易的磨砺方式！",
   "modifier.tconstruct.maintained_2.description": "耐久度越高，工具的挖掘速度越快",
-  "modifier.tconstruct.temperate": "恒温",
+  "modifier.tconstruct.temperate": "温变",
   "modifier.tconstruct.temperate.flavor": "极端环境开采作业！",
-  "modifier.tconstruct.temperate.description": "工具在极端温度下加快挖掘速度",
-  "modifier.tconstruct.temperate.speed": "恒温速度",
-  "modifier.tconstruct.temperate.reinforced": "恒温加强",
-  "modifier.tconstruct.temperate.resistance": "恒温抗性",
-  "modifier.tconstruct.invariant": "恒久",
-  "modifier.tconstruct.invariant.flavor": "满不在乎",
-  "modifier.tconstruct.invariant.description": "在中等温度下会造成更多伤害",
-  "modifier.tconstruct.invariant.attack_damage": "中等温度伤害",
-  "modifier.tconstruct.invariant.accuracy": "中等温度精确度",
-  "modifier.tconstruct.invariant.resistance": "中等温度抗性",
+  "modifier.tconstruct.temperate.description": "工具在极冷环境下增加各项属性，在极热环境下减少耐久损耗",
+  "modifier.tconstruct.temperate.draw_speed": "温变拉弓速度",
+  "modifier.tconstruct.temperate.mining_speed": "温变挖掘速度",
+  "modifier.tconstruct.temperate.reinforced": "温变加强",
+  "modifier.tconstruct.temperate.resistance": "温变抗性",
+  "modifier.tconstruct.invariant": "恒常",
+  "modifier.tconstruct.invariant.flavor": "才没有在意温度呢",
+  "modifier.tconstruct.invariant.description": "在适中温度下会造成更多伤害",
+  "modifier.tconstruct.invariant.attack_damage": "适中温度伤害",
+  "modifier.tconstruct.invariant.accuracy": "适中温度精确度",
+  "modifier.tconstruct.invariant.resistance": "恒常抗性",
   "modifier.tconstruct.decay": "衰变",
   "modifier.tconstruct.decay.flavor": "放射性凋零效果",
   "modifier.tconstruct.decay.description": "能对目标生物造成凋零效果，也有概率给持有者也造成同样效果",
@@ -2854,7 +2900,7 @@
   "_comment": "Internal modifiers",
   "modifier.tconstruct.overslime_friend": "黏液之友",
   "modifier.tconstruct.snow_boots": "雪地靴",
-  
+
 
   "_comment": "Potion effects",
   "effect.tconstruct.experienced": "阅历",
@@ -3043,6 +3089,7 @@
 
   "attribute.name.tconstruct.generic.protection_cap": "最大护甲值",
   "attribute.name.tconstruct.generic.jump_boost": "跳跃高度",
+  "attribute.name.tconstruct.generic.safe_fall_distance": "安全摔落高度",
   "attribute.name.tconstruct.generic.crouch_damage_multiplier": "潜行伤害",
   "attribute.name.tconstruct.generic.knockback_multiplier": "击退",
   "attribute.name.tconstruct.generic.good_effect_duration_multiplier": "正面药水效果时间",
@@ -3110,7 +3157,7 @@
   "recipe.tconstruct.tool_repair.fully_repaired": "工具完好无损",
   "recipe.tconstruct.damaging.broken": "工具已损坏",
   "recipe.tconstruct.overslime.at_capacity": "工具已无更多空间来容纳黏液覆层",
-  
+
   "recipe.tconstruct.swappable.already_present": "工具已经拥有了%2$s变种的%1$s",
 
   "gui.tconstruct.modifier_worktable": "强化调配台",
@@ -3149,7 +3196,7 @@
   "recipe.tconstruct.enchantment_converting.description.keep": "从附魔书中选取给定类型的强化并提取为强化水晶。该物品的魔咒将会移除并返还。",
   "recipe.tconstruct.enchantment_converting.no_enchantments": "物品没有任何可提取的魔咒",
   "recipe.tconstruct.enchantment_converting.too_few": "需要更多的配方物品以转换更高等级的魔咒",
-  
+
   "recipe.tconstruct.part_swapping.too_many_parts": "该工具无法在此替换部件",
 
   "recipe.tconstruct.modifier.not_enough_slot": "至少需要1个%s槽来加持该强化",
@@ -3167,7 +3214,7 @@
   "recipe.tconstruct.tool_recycling.info": "从组装此工具的工具部件中选择你想回收的一个。根据工具剩余的耐久度多少，甚至有可能回收第2个工具部件。",
   "recipe.tconstruct.tool_recycling.no_modifiers": "无法回收加持升级或能力的工具，你需要先移除它们。",
 
-  
+
   "_comment": "GUIs Messages",
 
   "gui.tconstruct.caption": "说明",
@@ -3215,15 +3262,34 @@
 
   "_comment": "Book Strings",
 
+  "book.tconstruct.material.craftable": "可制造",
   "book.tconstruct.material.part_builder": "可在部件制造台中制作",
+  "book.tconstruct.material.castable": "可浇注",
   "book.tconstruct.material.cast_from": "可由%s浇注而成",
+  "book.tconstruct.material.composite": "可在部件上浇注",
   "book.tconstruct.material.composite_from": "可由%s在%s部件上浇注而成",
+  "book.tconstruct.material.skull": "可在头颅上浇筑",
   "book.tconstruct.material.skull_from": "可在铸造盆中由%s浇注上末影黏液制作",
+
   "book.tconstruct.modifiers.effect": "效果：",
   "book.tconstruct.tool.properties": "属性：",
   "book.tconstruct.fluid_effects.entity": "对实体效果：",
   "book.tconstruct.fluid_effects.block": "对方块效果：",
-  
+
+  "book.tconstruct.material.category.general": "常规工具材料",
+  "book.tconstruct.material.category.general.description": "这类材料在各种工具上都能发挥良好效果，但在特定任务上的发挥不一定特别突出",
+  "book.tconstruct.material.category.melee": "近战工具材料",
+  "book.tconstruct.material.category.melee.description": "这类材料尤其适用于近战武器，能更好地收割敌人",
+  "book.tconstruct.material.category.harvest": "采集工具材料",
+  "book.tconstruct.material.category.harvest.description": "这类材料尤其适用于采集工具，能更好地采掘方块",
+
+  "book.tconstruct.material.category.balanced": "平衡型工具材料",
+  "book.tconstruct.material.category.balanced.description": "这类材料在拉弓速度与箭矢速度上较为平衡",
+  "book.tconstruct.material.category.light": "轻型工具材料",
+  "book.tconstruct.material.category.light.description": "这类材料适合于更高拉弓速度的武器，有更高的DPS",
+  "book.tconstruct.material.category.heavy": "重型工具材料",
+  "book.tconstruct.material.category.heavy.description": "这类材料适用于更高箭矢速度的武器，有更高的弹射物伤害",
+
 
   "_comment": "Commands",
 
