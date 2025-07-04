@@ -3268,7 +3268,7 @@
   "book.tconstruct.material.cast_from": "可由%s浇注而成",
   "book.tconstruct.material.composite": "可在部件上浇注",
   "book.tconstruct.material.composite_from": "可由%s在%s部件上浇注而成",
-  "book.tconstruct.material.skull": "可在头颅上浇筑",
+  "book.tconstruct.material.skull": "可在头颅上浇注",
   "book.tconstruct.material.skull_from": "可在铸造盆中由%s浇注上末影黏液制作",
 
   "book.tconstruct.modifiers.effect": "效果：",
