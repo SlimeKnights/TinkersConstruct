@@ -1777,9 +1777,9 @@
 
   "material.tconstruct.weeping_vine": "垂泪藤",
   "material.tconstruct.weeping_vine.flavor": "传导热量",
-  "material.tconstruct.weeping_vine.encyclopedia": "在炎热生物群系增加1.25点近战伤害，在寒冷生物群系减少1.25近战伤害。",
-  "material.tconstruct.weeping_vine.ranged": "在炎热生物群系+0.75点弹射物力量，在寒冷生物群系减少-0.75点弹射物力量",
-  "material.tconstruct.weeping_vine.armor": "在炎热生物群系保护+5%，在寒冷生物群系保护-5%",
+  "material.tconstruct.weeping_vine.encyclopedia": "在炎热生物群系最多+1.25点近战伤害，在寒冷生物群系最多-1.25点近战伤害。",
+  "material.tconstruct.weeping_vine.ranged": "在炎热生物群系最多+0.75点弹射物力量，在寒冷生物群系最多-0.75点弹射物力量",
+  "material.tconstruct.weeping_vine.armor": "在炎热生物群系提供的保护最多+5%，在寒冷生物群系提供的保护最多-5%",
 
   "material.tconstruct.twisting_vine": "缠怨藤",
   "material.tconstruct.twisting_vine.flavor": "吞食孢子！",
