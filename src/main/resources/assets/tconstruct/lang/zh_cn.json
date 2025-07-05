@@ -1659,7 +1659,7 @@
 
   "material.tconstruct.ice": "冰",
   "material.tconstruct.ice.flavor": "冷静一下！",
-  "material.tconstruct.ice.armor": "使受到的冰冻伤害变为耐久护盾",
+  "material.tconstruct.ice.armor": "使受到的冰冻伤害转变为霜盾",
 
   "material.tconstruct.cactus": "仙人掌",
   "material.tconstruct.cactus.flavor": "刺背刺客被背刺",
@@ -2749,9 +2749,9 @@
   "modifier.tconstruct.stoneshield": "石盾",
   "modifier.tconstruct.stoneshield.flavor": "大师级的制石工艺",
   "modifier.tconstruct.stoneshield.description": "挖掘的石头有概率保护工具免受之后的耐久度损失",
-  "modifier.tconstruct.frostshield": "冰霜护盾",
+  "modifier.tconstruct.frostshield": "霜盾",
   "modifier.tconstruct.frostshield.flavor": "严寒亦可再利用",
-  "modifier.tconstruct.frostshield.description": "使冰冻伤害变为耐久护盾",
+  "modifier.tconstruct.frostshield.description": "使受到的冰冻伤害转变为霜盾，保护工具免受之后的耐久度损失",
   "modifier.tconstruct.featherweight": "轻盈",
   "modifier.tconstruct.featherweight.flavor": "轻如鸿毛",
   "modifier.tconstruct.featherweight.description": "工具更为轻便，拉弓速度和精确度更高；盔甲在影响防护的情况下更易拉弓、用盾牌格挡",
