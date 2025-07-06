@@ -2,11 +2,10 @@ package slimeknights.tconstruct.library.client.book.content;
 
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.common.ForgeI18n;
 import slimeknights.mantle.client.book.HTMLUtils;
 import slimeknights.mantle.client.screen.book.element.ItemElement;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.materials.IMaterialRegistry;
+import slimeknights.tconstruct.library.client.materials.MaterialTooltipCache;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
@@ -78,18 +77,24 @@ public class MeleeHarvestMaterialContent extends AbstractMaterialContent {
 
   @Override
   public String toHTML() {
-    String div = String.format("""
-      <div class="grid-melee-harvest">
+    int rgb = MaterialTooltipCache.getColor(getMaterialVariant()).getValue();
+    return String.format(
+      """
+      <p id="melee_harvest_material_%s" class="title" style="color: %s; filter: drop-shadow(1px 1px #000000)">%s</p>
+      <div class="grid-melee-harvest-ranged">
           %s
           %s
           %s
       </div>
+      %s
       """,
+      HTMLUtils.slugify(getTitle()),
+      HTMLUtils.hexRGB(rgb), // TODO: figure out drop shadow color
+      getTitle(),
       getStatLines(HeadMaterialStats.ID),
       getStatLines(HandleMaterialStats.ID),
-      getStatLines(StatlessMaterialStats.BINDING.getIdentifier())
+      getStatLines(StatlessMaterialStats.BINDING.getIdentifier()),
+      super.toHTML()
     );
-
-    return String.format(super.toHTML(), div);
   }
 }

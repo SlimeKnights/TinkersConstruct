@@ -291,9 +291,9 @@ public class ContentTool extends PageContent {
       </div>
       """,
       HTMLUtils.line(getTitle(), true),
-      HTMLUtils.paragraphs(text),
+      TextData.toHTML(text),
       Arrays.stream(properties)
-        .map(s ->String.format("<li>%s</li>", s))
+        .map(s -> String.format("<li>%s</li>", s))
         .collect(Collectors.joining("\n"))
       );
   }

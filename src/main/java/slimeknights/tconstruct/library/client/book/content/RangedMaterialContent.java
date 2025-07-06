@@ -1,10 +1,11 @@
 package slimeknights.tconstruct.library.client.book.content;
 
 import net.minecraft.resources.ResourceLocation;
-import slimeknights.mantle.client.book.IHTML;
+import slimeknights.mantle.client.book.HTMLUtils;
 import slimeknights.mantle.client.screen.book.element.ItemElement;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.client.materials.MaterialTooltipCache;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
@@ -79,18 +80,24 @@ public class RangedMaterialContent extends AbstractMaterialContent {
 
   @Override
   public String toHTML() {
-    String div = String.format("""
-      <div class="grid-melee-harvest">
+    int rgb = MaterialTooltipCache.getColor(getMaterialVariant()).getValue();
+    return String.format(
+      """
+      <p id="ranged_material_%s" class="title" style="color: %s; filter: drop-shadow(1px 1px #000000)">%s</p>
+      <div class="grid-melee-harvest-ranged">
           %s
           %s
           %s
       </div>
+      %s
       """,
+      HTMLUtils.slugify(getTitle()),
+      HTMLUtils.hexRGB(rgb), // TODO: figure out drop shadow color
+      getTitle(),
       getStatLines(LimbMaterialStats.ID),
       getStatLines(GripMaterialStats.ID),
-      getStatLines(StatlessMaterialStats.BOWSTRING.getIdentifier())
+      getStatLines(StatlessMaterialStats.BOWSTRING.getIdentifier()),
+      super.toHTML()
     );
-
-    return String.format(super.toHTML(), div);
   }
 }

@@ -441,15 +441,10 @@ public abstract class AbstractMaterialContent extends PageContent {
 
   @Override
   public String toHTML() {
-    int rgb = MaterialTooltipCache.getColor(materialVariant).getValue();
     return String.format(
       """
-      <p class="title shadow" style="color: %s">%s</p>
-      %s
       <p class="trait">"<span style="font-style: italic">%s</span>"</p>
       """,
-      HTMLUtils.hexRGB(rgb), getTitle(),
-      "%s",
       ForgeI18n.getPattern(getTextKey(getMaterialVariant().getId())));
   }
 
@@ -468,7 +463,7 @@ public abstract class AbstractMaterialContent extends PageContent {
       """,
       HTMLUtils.line(stats.getLocalizedName().getString(), true, "padding-left: 20px; font-weight: bold"),
       stats.getLocalizedInfo().stream()
-        .map(i -> HTMLUtils.line(i.getString()))
+        .map(i -> HTMLUtils.line(i.getString())) // TODO: missing colors
         .collect(Collectors.joining("\n")),
       getTraitLines(statsId)
     );
@@ -476,6 +471,8 @@ public abstract class AbstractMaterialContent extends PageContent {
 
   protected String getTraitLines(MaterialStatsId statsId) {
     return MaterialRegistry.getInstance().getTraits(getMaterialVariant().getId(), statsId).stream()
+      // TODO: these shouldn't have an id (because of title) but it also doesn't really matter
+      // TODO: trait shouldn't have roman numeral
       .map(m -> HTMLUtils.line(m.getDisplayName().getString(), true, "color: #545454"))
       .collect(Collectors.joining("\n"));
   }

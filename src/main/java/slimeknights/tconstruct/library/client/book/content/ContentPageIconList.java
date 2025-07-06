@@ -17,6 +17,7 @@ import slimeknights.tconstruct.library.client.book.elements.PageIconLinkElement;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ContentPageIconList extends PageContent {
 
@@ -183,6 +184,30 @@ public class ContentPageIconList extends PageContent {
 
   @Override
   public String toHTML() {
-    return HTMLUtils.line(title, true) + "\n" + HTMLUtils.line(subText, "padding-left: 10px");
+    return String.format(
+      """
+      %s
+      %s
+      <div class="grid-materials mc-font-gray">
+          %s
+      </div>
+      """,
+      HTMLUtils.line(title, true),
+      HTMLUtils.line(subText, "padding-left: 10px"),
+      elements.stream()
+        .map(element ->
+          String.format(
+            """
+            <div>
+                <a href="#%s_%s"><img src="/assets/images/book/icons/blank.png" alt="%s"></a>
+            </div>
+            """,
+            element.pageData.type.getPath(),
+            HTMLUtils.slugify(element.name.getString()),
+            element.name.getString()
+          )
+        )
+        .collect(Collectors.joining("\n"))
+    );
   }
 }
