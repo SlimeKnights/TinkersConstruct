@@ -463,7 +463,7 @@ public abstract class AbstractMaterialContent extends PageContent {
       """,
       HTMLUtils.line(stats.getLocalizedName().getString(), true, "padding-left: 20px; font-weight: bold"),
       stats.getLocalizedInfo().stream()
-        .map(i -> HTMLUtils.line(i.getString())) // TODO: missing colors
+        .map(HTMLUtils::line)
         .collect(Collectors.joining("\n")),
       getTraitLines(statsId)
     );
