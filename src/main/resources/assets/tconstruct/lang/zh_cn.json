@@ -951,7 +951,7 @@
   "item.tconstruct.diamond_item_frame": "钻石物品展示框",
   "item.tconstruct.manyullyn_item_frame": "玛玉灵物品展示框",
   "item.tconstruct.netherite_item_frame": "下界合金物品展示框",
-  "entity.tconstruct.fancy_item_frame": "精致物品展示框",
+  "entity.tconstruct.item_frame": "精致物品展示框",
 
   "item.tconstruct.glow_ball": "荧光球",
   "item.tconstruct.glow_ball.tooltip": "不宜食用",
@@ -1643,6 +1643,7 @@
 
   "material.tconstruct.unknown": "未知材料",
   "trim_material.tconstruct.format": "%s质",
+  "material.tconstruct.ui_render": "任意",
 
   "__comment": "Tier 1 Materials",
   "material.tconstruct.wood": "木",
@@ -1770,6 +1771,7 @@
   "material.tconstruct.rose_gold.skull_encyclopedia": "最大生命值增加1颗心。每穿戴有一件金盔甲，额外增加1颗心。",
 
   "material.tconstruct.skyslime_vine": "黏液藤蔓",
+  "material.tconstruct.skyslime_vine.slimeskin": "黏液皮",
   "material.tconstruct.skyslime_vine.flavor": "掠翅若蝶，蛰刺似蜂。",
   "material.tconstruct.skyslime_vine.encyclopedia": "取消不站在地面时的挖掘速度削减",
   "material.tconstruct.skyslime_vine.ranged": "不站在地面或拉着梯子时精确度+0.5",
@@ -1838,6 +1840,10 @@
   "material.tconstruct.hepatizon.ranged": "连续发射16次后拉弓速度呈线性增加，每级拉弓速度至多+25%",
   "material.tconstruct.hepatizon.armor": "受到伤害后，将伤害的50%暂时转换为伤害减免值，每级伤害减免持续时间+5秒。",
 
+  "material.tconstruct.ichorskin": "灵浆皮",
+  "material.tconstruct.ichorskin.flavor": "灵浆显然没有外皮",
+  "material.tconstruct.ichorskin.encyclopedia": "消耗最多5点黏液覆层，每消耗1点减少1%受到的伤害（上限5%）。",
+
   "material.tconstruct.cinderslime": "余烬黏液",
   "material.tconstruct.cinderslime.flavor": "将其铸进烈火！",
   "material.tconstruct.cinderslime.encyclopedia": "消耗燃料恢复黏液覆层，第4级时每秒恢复1点。",
@@ -1869,6 +1875,7 @@
   "material.tconstruct.knightslime": "骑士史莱姆",
 
   "material.tconstruct.enderslime_vine": "黏液藤蔓",
+  "material.tconstruct.enderslime_vine.slimeskin": "黏液皮",
   "material.tconstruct.enderslime_vine.flavor": "结束了？",
   "material.tconstruct.enderslime_vine.encyclopedia": "将持有者传送到挖掉的方块处，或交换持有者与被击中生物的位置",
   "material.tconstruct.enderslime_vine.ranged": "将持有者传送到击中方块的箭矢处，或交换持有者与被命中生物的位置",
@@ -2663,14 +2670,18 @@
   "modifier.tconstruct.flamestance.resistance": "源火抗性",
   "modifier.tconstruct.entangled": "纠缠",
   "modifier.tconstruct.entangled.flavor": "共生！",
-  "modifier.tconstruct.entangled.description": "提升速度与击退抗性，作为代价每次放下工具或移除盔甲时受到伤害",
+  "modifier.tconstruct.entangled.description": "提升速度或击退抗性，作为代价每次放下工具或移除盔甲时受到伤害",
 
   "__comment": "Tier 3 Traits",
   "modifier.tconstruct.overcast": "厚积",
   "modifier.tconstruct.overcast.flavor": "超厚覆层！",
   "modifier.tconstruct.overcast.description": "这个工具上的黏液覆层可以变得很厚",
+  "modifier.tconstruct.overshield": "厚盾",
+  "modifier.tconstruct.overshield.flavor": "史莱姆盾牌！",
+  "modifier.tconstruct.overshield.description": "消耗黏液覆层减少任意来源的伤害",
+  "modifier.tconstruct.overshield.resistance": "厚盾",
   "modifier.tconstruct.lacerating": "割裂",
-  "modifier.tconstruct.lacerating.flavor": "锐利边缘！",
+  "modifier.tconstruct.lacerating.flavor": "小心割手！",
   "modifier.tconstruct.lacerating.description": "使攻击目标流血，造成更多伤害",
   "modifier.tconstruct.crumbling": "粉碎",
   "modifier.tconstruct.crumbling.flavor": "不要粉身碎骨！",
@@ -3000,6 +3011,7 @@
   "stat.tconstruct.plating_shield": "盾牌镶板",
   "stat.tconstruct.shield_core": "盾牌基底",
   "stat.tconstruct.maille": "锁链基底",
+  "stat.tconstruct.cuirass": "Cuirass",
   "tool_stat.tconstruct.armor": "护甲值：",
   "tool_stat.tconstruct.armor.description": "当穿戴时能提供多少保护",
   "tool_stat.tconstruct.armor_toughness": "盔甲韧性：",
@@ -3166,7 +3178,7 @@
   "recipe.tconstruct.modifier_set_worktable.empty": "工具没有可调配的强化",
 
   "recipe.tconstruct.remove_modifier.modifiers": "强化移除",
-  "recipe.tconstruct.remove_modifier.description": "选择一个强化以移除，所占用的槽位将会返还，但是加持强化所消耗的物品将不会返还，其中的流体将会被销毁，而容器则会直接返还",
+  "recipe.tconstruct.remove_modifier.description": "选择一个强化以移除，所占用的槽位将会返还。其中的流体将会被销毁，而容器则会直接返还",
   "recipe.tconstruct.remove_modifier.no_modifiers": "工具在此配方下不具有任何可移除强化",
 
   "recipe.tconstruct.modifier_sorting.title": "强化排序",
@@ -3189,7 +3201,7 @@
   "recipe.tconstruct.extract_modifier.abilities": "能力强化提取",
   "recipe.tconstruct.extract_modifier.defense": "防御强化提取",
   "recipe.tconstruct.extract_modifier.modifiers": "强化提取",
-  "recipe.tconstruct.extract_modifier.description": "选择要提取到强化水晶上的强化，将返还消耗的强化槽，但加持强化所消耗的物品会消失。",
+  "recipe.tconstruct.extract_modifier.description": "选择要提取到强化水晶上的强化。返还已消耗的强化槽。",
   "recipe.tconstruct.extract_modifier.no_modifiers": "工具在此配方下没有任何可提取的强化",
 
   "recipe.tconstruct.enchantment_converting.description.lost": "从附魔书中选取给定类型的强化并提取为强化水晶。附魔物品将会消失。",
