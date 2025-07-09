@@ -29,6 +29,8 @@ public class ContentPageIconList extends PageContent {
   public String subText;
   public float maxScale = 2.5f;
 
+  static final int xOff = 15;
+
   protected List<PageIconLinkElement> elements = Lists.newArrayList();
 
   public ContentPageIconList() {
@@ -87,24 +89,12 @@ public class ContentPageIconList extends PageContent {
       yOff = height + 16;
     }
 
-    int offset = 15;
-    int x = offset;
+    int x = xOff;
     int y = yOff;
-    int pageW = BookScreen.PAGE_WIDTH - 2 * offset;
-    int pageH = BookScreen.PAGE_HEIGHT - yOff;
 
-    float scale = this.maxScale;
-    int scaledWidth = this.width;
-    int scaledHeight = this.height;
-    boolean fits = false;
-    while (!fits && scale > 1f) {
-      scale -= 0.25f;
-      scaledWidth = (int) (this.width * scale);
-      scaledHeight = (int) (this.height * scale);
-      int rows = pageW / scaledWidth;
-      int cols = pageH / scaledHeight;
-      fits = rows * cols >= this.elements.size();
-    }
+    float scale = getScale();
+    int scaledWidth = (int) (this.width * scale);
+    int scaledHeight = (int) (this.height * scale);
 
     for (PageIconLinkElement element : this.elements) {
       element.x = x;
@@ -122,8 +112,8 @@ public class ContentPageIconList extends PageContent {
 
       x += scaledWidth;
 
-      if (x > BookScreen.PAGE_WIDTH - offset - scaledWidth) {
-        x = offset;
+      if (x > BookScreen.PAGE_WIDTH - xOff - scaledWidth) {
+        x = xOff;
         y += scaledHeight;
         // do not draw over the page
         if (y > BookScreen.PAGE_HEIGHT - scaledHeight) {
@@ -131,6 +121,26 @@ public class ContentPageIconList extends PageContent {
         }
       }
     }
+  }
+
+  /** Calculates the largest possible icon scale that will fit all the contents on the page */
+  protected float getScale() {
+    int yOff = 0;
+    if (this.title != null) yOff = getTitleHeight();
+    if(this.subText != null) yOff = this.parent.parent.parent.fontRenderer.wordWrapHeight(this.subText, 182) * 12 / 9 + 16;
+
+    int pageW = BookScreen.PAGE_WIDTH - 2 * xOff;
+    int pageH = BookScreen.PAGE_HEIGHT - yOff;
+
+    float scale = this.maxScale;
+    boolean fits = false;
+    while (!fits && scale > 1f) {
+      scale -= 0.25f;
+      int rows = pageW / (int) (this.width * scale);
+      int cols = pageH / (int) (this.height * scale);
+      fits = rows * cols >= this.elements.size();
+    }
+    return scale;
   }
 
   public static List<ContentPageIconList> getPagesNeededForItemCount(int count, SectionData data, String title, String subText) {
@@ -188,12 +198,13 @@ public class ContentPageIconList extends PageContent {
       """
       %s
       %s
-      <div class="grid-materials mc-font-gray">
+      <div class="grid-materials-%d">
           %s
       </div>
       """,
       super.toHTML(),
       HTMLUtils.line(subText, "padding-left: 10px"),
+      (BookScreen.PAGE_WIDTH - 2 * xOff) / (int) (this.width * getScale()),
       elements.stream()
         .map(element ->
           String.format(
