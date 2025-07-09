@@ -50,9 +50,9 @@
   "block.tconstruct.oxidized_copper_platform": "氧化的铜平台",
 
   "block.tconstruct.waxed_copper_platform": "涂蜡铜平台",
-  "block.tconstruct.waxed_exposed_copper_platform": "斑驳的涂蜡铜平台",
-  "block.tconstruct.waxed_weathered_copper_platform": "锈蚀的涂蜡铜平台",
-  "block.tconstruct.waxed_oxidized_copper_platform": "氧化的涂蜡铜平台",
+  "block.tconstruct.waxed_exposed_copper_platform": "涂蜡的斑驳铜平台",
+  "block.tconstruct.waxed_weathered_copper_platform": "涂蜡的锈蚀铜平台",
+  "block.tconstruct.waxed_oxidized_copper_platform": "涂蜡的氧化铜平台",
 
   "block.tconstruct.white_clear_stained_glass": "白色染色通透玻璃",
   "block.tconstruct.orange_clear_stained_glass": "橙色染色通透玻璃",
@@ -1245,9 +1245,9 @@
   "item.tconstruct.seared_brick": "焦黑砖",
   "block.tconstruct.seared_bricks": "焦黑砖块",
   "block.tconstruct.seared_bricks.tooltip": "搭建冶炼炉的建材",
-  "block.tconstruct.seared_bricks_slab": "焦黑砖块台阶",
-  "block.tconstruct.seared_bricks_stairs": "焦黑砖块楼梯",
-  "block.tconstruct.seared_bricks_wall": "焦黑砖块墙",
+  "block.tconstruct.seared_bricks_slab": "焦黑砖台阶",
+  "block.tconstruct.seared_bricks_stairs": "焦黑砖楼梯",
+  "block.tconstruct.seared_bricks_wall": "焦黑砖墙",
 
   "block.tconstruct.seared_paver": "焦黑地砖",
   "block.tconstruct.seared_paver.tooltip": "搭建冶炼炉的建材",
@@ -1340,16 +1340,16 @@
   "item.tconstruct.scorched_brick": "焦褐砖",
   "block.tconstruct.scorched_bricks": "焦褐砖块",
   "block.tconstruct.scorched_bricks.tooltip": "搭建熔铸炉的建材",
-  "block.tconstruct.scorched_bricks_slab": "焦褐砖块台阶",
-  "block.tconstruct.scorched_bricks_stairs": "焦褐砖块楼梯",
-  "block.tconstruct.scorched_bricks_fence": "焦褐砖块栅栏",
+  "block.tconstruct.scorched_bricks_slab": "焦褐砖台阶",
+  "block.tconstruct.scorched_bricks_stairs": "焦褐砖楼梯",
+  "block.tconstruct.scorched_bricks_fence": "焦褐砖栅栏",
 
   "block.tconstruct.scorched_road": "焦褐石径",
   "block.tconstruct.scorched_road.tooltip": "搭建熔铸炉的建材",
   "block.tconstruct.scorched_road_slab": "焦褐石径台阶",
   "block.tconstruct.scorched_road_stairs": "焦褐石径楼梯",
 
-  "block.tconstruct.chiseled_scorched_bricks": "錾制焦褐砖块",
+  "block.tconstruct.chiseled_scorched_bricks": "雕纹焦褐砖块",
   "block.tconstruct.chiseled_scorched_bricks.tooltip": "搭建熔铸炉的建材",
 
   "block.tconstruct.scorched_glass": "焦褐玻璃",
