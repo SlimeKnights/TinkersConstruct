@@ -80,24 +80,18 @@ public class RangedMaterialContent extends AbstractMaterialContent {
 
   @Override
   public String toHTML() {
-    int rgb = MaterialTooltipCache.getColor(getMaterialVariant()).getValue();
-    return String.format(
+    String div = String.format(
       """
-      <p id="ranged_material_%s" class="title" style="color: %s; filter: drop-shadow(1px 1px #000000)">%s</p>
       <div class="grid-melee-harvest-ranged">
           %s
           %s
           %s
       </div>
-      %s
       """,
-      HTMLUtils.slugify(getTitle()),
-      HTMLUtils.hexRGB(rgb), // TODO: figure out drop shadow color
-      getTitle(),
       getStatLines(LimbMaterialStats.ID),
       getStatLines(GripMaterialStats.ID),
-      getStatLines(StatlessMaterialStats.BOWSTRING.getIdentifier()),
-      super.toHTML()
+      getStatLines(StatlessMaterialStats.BOWSTRING.getIdentifier())
     );
+    return String.format(super.toHTML(), div);
   }
 }

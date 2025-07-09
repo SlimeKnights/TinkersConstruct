@@ -52,7 +52,6 @@ import slimeknights.tconstruct.library.tools.part.IToolPart;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.TinkerToolParts;
-import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -441,11 +440,23 @@ public abstract class AbstractMaterialContent extends PageContent {
 
   @Override
   public String toHTML() {
+    int rgb = MaterialTooltipCache.getColor(getMaterialVariant()).getValue();
     return String.format(
       """
+      %s
+      %s
       <p class="trait">"<span style="font-style: italic">%s</span>"</p>
       """,
-      ForgeI18n.getPattern(getTextKey(getMaterialVariant().getId())));
+      HTMLUtils.line(
+        getTitle(),
+        HTMLUtils.slugify(getId().getPath() + "_" + getTitle()),
+        true,
+        isLarge(),
+        "color: " + HTMLUtils.hexRGB(rgb), "filter: drop-shadow(1px 1px #000000)" + (isCentered() ? "; align-self: center" : "" )
+      ),
+      "%s",
+      ForgeI18n.getPattern(getTextKey(getMaterialVariant().getId()))
+    );
   }
 
   protected String getStatLines(MaterialStatsId statsId) {
@@ -472,8 +483,10 @@ public abstract class AbstractMaterialContent extends PageContent {
   protected String getTraitLines(MaterialStatsId statsId) {
     return MaterialRegistry.getInstance().getTraits(getMaterialVariant().getId(), statsId).stream()
       // TODO: these shouldn't have an id (because of title) but it also doesn't really matter
-      // TODO: trait shouldn't have roman numeral
-      .map(m -> HTMLUtils.line(m.getDisplayName().getString(), true, "color: #545454"))
+      .map(ModifierEntry::getModifier)
+      .map(Modifier::getDisplayName)
+      .map(Component::getString)
+      .map(s -> HTMLUtils.line(s, true, "color: #545454"))
       .collect(Collectors.joining("\n"));
   }
 }

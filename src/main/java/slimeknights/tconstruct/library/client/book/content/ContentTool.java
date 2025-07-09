@@ -290,7 +290,7 @@ public class ContentTool extends PageContent {
         </div>
       </div>
       """,
-      HTMLUtils.line(getTitle(), true),
+      super.toHTML(),
       TextData.toHTML(text),
       Arrays.stream(properties)
         .map(s -> String.format("<li>%s</li>", s))

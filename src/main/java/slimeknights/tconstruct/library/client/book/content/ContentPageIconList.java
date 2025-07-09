@@ -192,7 +192,7 @@ public class ContentPageIconList extends PageContent {
           %s
       </div>
       """,
-      HTMLUtils.line(title, true),
+      super.toHTML(),
       HTMLUtils.line(subText, "padding-left: 10px"),
       elements.stream()
         .map(element ->

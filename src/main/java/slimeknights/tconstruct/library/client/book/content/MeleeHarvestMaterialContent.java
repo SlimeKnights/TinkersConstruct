@@ -77,24 +77,18 @@ public class MeleeHarvestMaterialContent extends AbstractMaterialContent {
 
   @Override
   public String toHTML() {
-    int rgb = MaterialTooltipCache.getColor(getMaterialVariant()).getValue();
-    return String.format(
+    String div = String.format(
       """
-      <p id="melee_harvest_material_%s" class="title" style="color: %s; filter: drop-shadow(1px 1px #000000)">%s</p>
       <div class="grid-melee-harvest-ranged">
           %s
           %s
           %s
       </div>
-      %s
       """,
-      HTMLUtils.slugify(getTitle()),
-      HTMLUtils.hexRGB(rgb), // TODO: figure out drop shadow color
-      getTitle(),
       getStatLines(HeadMaterialStats.ID),
       getStatLines(HandleMaterialStats.ID),
-      getStatLines(StatlessMaterialStats.BINDING.getIdentifier()),
-      super.toHTML()
+      getStatLines(StatlessMaterialStats.BINDING.getIdentifier())
     );
+    return String.format(super.toHTML(), div);
   }
 }
