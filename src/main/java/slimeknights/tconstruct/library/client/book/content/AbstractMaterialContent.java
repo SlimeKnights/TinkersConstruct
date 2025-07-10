@@ -60,8 +60,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static slimeknights.tconstruct.tools.stats.PlatingMaterialStats.HELMET;
+import static slimeknights.tconstruct.tools.stats.PlatingMaterialStats.SHIELD;
 
 /** Base class for material content pages */
 public abstract class AbstractMaterialContent extends PageContent {
@@ -444,8 +448,10 @@ public abstract class AbstractMaterialContent extends PageContent {
     return String.format(
       """
       %s
-      %s
-      <p class="trait">"<span style="font-style: italic">%s</span>"</p>
+      <div class="page-material">
+        %s
+        <p class="trait">"<span style="font-style: italic">%s</span>"</p>
+      </div>
       """,
       HTMLUtils.line(
         getTitle(),
@@ -460,9 +466,18 @@ public abstract class AbstractMaterialContent extends PageContent {
   }
 
   protected String getStatLines(MaterialStatsId statsId) {
+    return getStatLines(statsId, null, false);
+  }
+
+  protected String getStatLines(MaterialStatsId statsId, boolean traitsOnly) {
+    return getStatLines(statsId, null, traitsOnly);
+  }
+
+  protected String getStatLines(MaterialStatsId statsId, @Nullable String name, boolean traitsOnly) {
     Optional<IMaterialStats> statsOptional = MaterialRegistry.getInstance().getMaterialStats(getMaterialVariant().getId(), statsId);
     if (statsOptional.isEmpty()) return "";
 
+    boolean paddingLeft = !statsId.equals(HELMET.getId()) && !statsId.equals(SHIELD.getId());
     IMaterialStats stats = statsOptional.get();
     return String.format(
       """
@@ -472,8 +487,8 @@ public abstract class AbstractMaterialContent extends PageContent {
           %s
       </div>
       """,
-      HTMLUtils.line(stats.getLocalizedName().getString(), true, "padding-left: 20px; font-weight: bold"),
-      stats.getLocalizedInfo().stream()
+      HTMLUtils.line(Objects.requireNonNullElse(name, stats.getLocalizedName().getString()), true, "font-weight: bold", "padding-bottom: 2px", paddingLeft ? "padding-left: 20px" : ""),
+      traitsOnly ? "" : stats.getLocalizedInfo().stream()
         .map(HTMLUtils::line)
         .collect(Collectors.joining("\n")),
       getTraitLines(statsId)
@@ -482,7 +497,6 @@ public abstract class AbstractMaterialContent extends PageContent {
 
   protected String getTraitLines(MaterialStatsId statsId) {
     return MaterialRegistry.getInstance().getTraits(getMaterialVariant().getId(), statsId).stream()
-      // TODO: these shouldn't have an id (because of title) but it also doesn't really matter
       .map(ModifierEntry::getModifier)
       .map(Modifier::getDisplayName)
       .map(Component::getString)

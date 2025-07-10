@@ -82,7 +82,7 @@ public class RangedMaterialContent extends AbstractMaterialContent {
   public String toHTML() {
     String div = String.format(
       """
-      <div class="grid-melee-harvest-ranged">
+      <div class="grid-material-stats">
           %s
           %s
           %s

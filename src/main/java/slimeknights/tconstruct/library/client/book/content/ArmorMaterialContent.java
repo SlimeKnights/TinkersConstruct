@@ -7,6 +7,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
+import slimeknights.mantle.client.book.HTMLUtils;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.element.TextComponentData;
 import slimeknights.mantle.client.screen.book.BookScreen;
@@ -204,5 +205,49 @@ public class ArmorMaterialContent extends AbstractMaterialContent {
     list.add(new TextComponentElement(x, y, STAT_WIDTH, BookScreen.PAGE_HEIGHT, lineData));
 
     return y + (lineData.size() * 5) + 3;
+  }
+
+  @Override
+  public String toHTML() {
+    List<PlatingMaterialStats> stats = TOP_DOWN_STATS.stream().flatMap(id -> MaterialRegistry.getInstance().<PlatingMaterialStats>getMaterialStats(getMaterial().getIdentifier(), id).stream()).toList();
+    StringBuilder builder = new StringBuilder();
+
+    if (!stats.isEmpty()) {
+      builder.append(String.format(
+        """
+        <div>
+          <div class="row">
+            %s
+            %s
+          </div>
+        """,
+        HTMLUtils.line(PLATING_LABEL.getString(), true, "font-weight: bold", "padding-right: 16px"),
+        HTMLUtils.line("/").repeat(stats.size() - 1)
+      ));
+      List<TextComponentData> lineData = new ArrayList<>();
+      addStatLine(lineData, stats, ToolStats.DURABILITY, PlatingMaterialStats::durability);
+      addStatLine(lineData, stats, ToolStats.ARMOR, PlatingMaterialStats::armor);
+      addStatLine(lineData, stats, ToolStats.ARMOR_TOUGHNESS, PlatingMaterialStats::toughness);
+      addStatLine(lineData, stats, ToolStats.KNOCKBACK_RESISTANCE, stat -> stat.knockbackResistance() * 10);
+      builder.append(lineData.stream()
+          .map(data -> HTMLUtils.line(data.text)).collect(Collectors.joining("\n"))
+        ).append("</div>");
+    }
+
+    builder.append(String.format(
+      """
+      <div class="grid-armor-traits">
+          %s
+          %s
+          %s
+          %s
+      </div>
+      """,
+      getStatLines(HELMET.getId(), ARMOR_PLATING_LABEL.getString(),  true),
+      getStatLines(SHIELD.getId(), SHIELD_LABEL.getString(), true),
+      getStatLines(StatlessMaterialStats.MAILLE.getIdentifier(), true),
+      getStatLines(StatlessMaterialStats.SHIELD_CORE.getIdentifier(), true)
+    ));
+    return String.format(super.toHTML(), builder);
   }
 }
