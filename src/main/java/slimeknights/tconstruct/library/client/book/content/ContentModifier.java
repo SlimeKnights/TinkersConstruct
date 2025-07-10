@@ -11,6 +11,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeI18n;
+import slimeknights.mantle.client.book.HTMLUtils;
+import slimeknights.mantle.client.book.IHTML;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.content.PageContent;
 import slimeknights.mantle.client.book.data.element.ImageData;
@@ -34,11 +36,13 @@ import slimeknights.tconstruct.library.recipe.modifiers.adding.IDisplayModifierR
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class ContentModifier extends PageContent {
+public class ContentModifier extends PageContent implements IHTML {
   public static final transient ResourceLocation ID = TConstruct.getResource("modifier");
   public static final transient int TEX_SIZE = 256;
   public static final ResourceLocation BOOK_MODIFY = TConstruct.getResource("textures/gui/book/modify.png");
@@ -293,5 +297,39 @@ public class ContentModifier extends PageContent {
 
       this.buildAndAddRecipeDisplay(book, list, this.recipes.get(this.currentRecipe), parent);
     }
+  }
+
+  @Override
+  public String toHTML() {
+    int rgb = Objects.requireNonNullElse(modifier.getColor(), 0);
+    int h = more_text_space ? BookScreen.PAGE_HEIGHT * 2 / 5 : BookScreen.PAGE_HEIGHT * 2 / 7;
+    return String.format(
+      """
+      %s
+      <div style="padding-left: 10px">
+        <div class="column" style="height: %dpx">
+          %s
+        </div>
+        <div style="width: 210px">
+          <p class="underline">Effects:</p>
+          <ul class="prop-list">
+          %s
+          </ul>
+        </div>
+      </div>
+      """,
+      HTMLUtils.line(
+        getTitle(),
+        HTMLUtils.slugify(getTitle()),
+        true,
+        isLarge(),
+        "color: " + HTMLUtils.hexRGB(rgb), "filter: drop-shadow(1px 1px #000000)" + (isCentered() ? "; align-self: center" : "" )
+      ),
+      h * 2,
+      TextData.toHTML(text),
+      Arrays.stream(effects)
+        .map(s -> String.format("<li>%s</li>", s))
+        .collect(Collectors.joining("\n"))
+    );
   }
 }
