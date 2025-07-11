@@ -445,24 +445,23 @@ public abstract class AbstractMaterialContent extends PageContent {
   @Override
   public String toHTML() {
     int rgb = MaterialTooltipCache.getColor(getMaterialVariant()).getValue();
-    return String.format(
-      """
-      %s
-      <div class="page-material">
-        %s
-        <p class="trait">"<span style="font-style: italic">%s</span>"</p>
-      </div>
-      """,
-      HTMLUtils.line(
-        getTitle(),
-        HTMLUtils.slugify(getId().getPath() + "_" + getTitle()),
-        true,
-        isLarge(),
-        "color: " + HTMLUtils.hexRGB(rgb), "filter: drop-shadow(1px 1px #000000)" + (isCentered() ? "; align-self: center" : "" )
-      ),
-      "%s",
-      ForgeI18n.getPattern(getTextKey(getMaterialVariant().getId()))
-    );
+
+    StringBuilder builder = new StringBuilder("\n<div class=\"page-material\">")
+      .append(
+        HTMLUtils.line(
+          getTitle(),
+          HTMLUtils.slugify(getId().getPath() + "_" + getTitle()),
+          true,
+          isLarge(),
+          "color: " + HTMLUtils.hexRGB(rgb), "filter: drop-shadow(1px 1px #000000)" + (isCentered() ? "; align-self: center" : "")
+        )
+      ).append("%s<p class=\"trait\">");
+
+    if (!detailed) builder.append("\"<span style=\"font-style: italic\">");
+    builder.append(ForgeI18n.getPattern(getTextKey(getMaterialVariant().getId())).replace("%", "%%")); // have to escape %
+    if (!detailed) builder.append("</span>\"");
+
+    return builder.append("</p></div>").toString();
   }
 
   protected String getStatLines(MaterialStatsId statsId) {
