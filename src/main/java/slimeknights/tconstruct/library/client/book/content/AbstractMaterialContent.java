@@ -451,7 +451,7 @@ public abstract class AbstractMaterialContent extends PageContent {
       .append(
         HTMLUtils.line(
           getTitle(),
-          HTMLUtils.slugify(getId().getPath() + "_" + getTitle()),
+          HTMLUtils.slugify(getId().getPath() + "_" + getMaterialVariant().getId().getPath()),
           true,
           isLarge(),
           "color: " + HTMLUtils.hexRGB(rgb), "filter: drop-shadow(1px 1px #000000)" + (isCentered() ? "; align-self: center" : "")

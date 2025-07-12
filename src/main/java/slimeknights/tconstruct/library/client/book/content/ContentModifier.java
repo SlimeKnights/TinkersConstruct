@@ -311,7 +311,7 @@ public class ContentModifier extends PageContent implements IHTML {
           %s
         </div>
         <div style="width: 210px">
-          <p class="underline">Effects:</p>
+          <p class="underline">%s</p>
           <ul class="prop-list">
           %s
           </ul>
@@ -327,6 +327,7 @@ public class ContentModifier extends PageContent implements IHTML {
       ),
       h * 2,
       TextData.toHTML(text),
+      I18n.get(KEY_EFFECTS),
       Arrays.stream(effects)
         .map(s -> String.format("<li>%s</li>", s))
         .collect(Collectors.joining("\n"))

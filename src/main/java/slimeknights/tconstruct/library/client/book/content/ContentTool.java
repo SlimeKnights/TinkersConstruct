@@ -279,11 +279,11 @@ public class ContentTool extends PageContent {
       """
       %s
       <div style="padding-left: 10px">
-        <div class="column" style="height: 110px">
+        <div class="column" style="height: 120px">
           %s
         </div>
         <div style="width: 210px">
-          <p class="underline">Properties:</p>
+          <p class="underline">%s</p>
           <ul class="prop-list">
           %s
           </ul>
@@ -292,6 +292,7 @@ public class ContentTool extends PageContent {
       """,
       super.toHTML(),
       TextData.toHTML(text),
+      I18n.get(KEY_PROPERTIES),
       Arrays.stream(properties)
         .map(s -> String.format("<li>%s</li>", s))
         .collect(Collectors.joining("\n"))
