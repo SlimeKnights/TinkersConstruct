@@ -11,6 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeI18n;
 import net.minecraftforge.fluids.FluidStack;
+import slimeknights.mantle.client.book.HTMLUtils;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.content.PageContent;
 import slimeknights.mantle.client.book.data.element.TextComponentData;
@@ -125,5 +126,26 @@ public class FluidEffectContent extends PageContent {
     int group = (BookScreen.PAGE_HEIGHT - y) / 2;
     addList(list, 0, y,         group, KEY_ENTITY_EFFECTS, entity, entityComponents);
     addList(list, 0, y + group, group, KEY_BLOCK_EFFECTS,  block,  blockComponents);
+  }
+
+  @Override
+  public String toHTML() {
+    StringBuilder builder = new StringBuilder(super.toHTML())
+      .append("<div>")
+      .append(HTMLUtils.line(text, "height: 64px", "padding-left: 64px"));
+
+    if (!entityComponents.isEmpty()) {
+      builder.append("<div style=\"height: 120px\">").append(HTMLUtils.line(I18n.get(KEY_ENTITY_EFFECTS), true)).append("<ul class=\"prop-list\">");
+      for (Component component : entityComponents) builder.append("<li>").append(HTMLUtils.line(component)).append("</li>");
+      builder.append("</ul></div>");
+    }
+
+    if (!blockComponents.isEmpty()) {
+      builder.append("<div style=\"height: 120px\">").append(HTMLUtils.line(I18n.get(KEY_BLOCK_EFFECTS), true)).append("<ul class=\"prop-list\">");
+      for (Component component : blockComponents) builder.append("<li>").append(HTMLUtils.line(component)).append("</li>");
+      builder.append("</ul></div>");
+    }
+
+    return builder.append("</div>").toString();
   }
 }
