@@ -21,8 +21,11 @@ public class ArmorModelProvider extends AbstractArmorModelProvider {
   protected void addModels() {
     addModel(ArmorDefinitions.TRAVELERS, name -> new ArmorTextureSupplier[] {
       FixedArmorTextureSupplier.builder(name, "/base_").build(),
+      new FirstArmorTextureSupplier(
+        new DyedArmorTextureSupplier(name, "/cuirass_", TinkerModifiers.dyed.getId(), null),
+        new MaterialArmorTextureSupplier.Material(name, "/cuirass_", 1)
+      ),
       new MaterialArmorTextureSupplier.Material(name, "/metal_", 0),
-      new DyedArmorTextureSupplier(name, "/overlay_", TinkerModifiers.dyed.getId(), null),
       TrimArmorTextureSupplier.INSTANCE
     });
     addModel(ArmorDefinitions.PLATE, name -> new ArmorTextureSupplier[] {

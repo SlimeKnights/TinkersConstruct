@@ -1023,7 +1023,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     PotionCastingRecipeBuilder.tableRecipe(Items.SPLASH_POTION)
                               .setBottle(TinkerTags.Items.SPLASH_BOTTLE)
                               .setFluid(potionBottle)
-                              .save(consumer, location(folder + "filling/lingerng_bottle"));
+                              .save(consumer, location(folder + "filling/lingering_bottle"));
     PotionCastingRecipeBuilder.tableRecipe(Items.LINGERING_POTION)
                               .setBottle(TinkerTags.Items.LINGERING_BOTTLE)
                               .setFluid(potionBottle)
@@ -1154,6 +1154,12 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                             .setCoolingTime(1)
                             .setCast(TinkerTags.Items.LINGERING_BOTTLE, true)
                             .save(consumer, location(waterFolder + "lingering"));
+    ItemCastingRecipeBuilder.basinRecipe(Blocks.WET_SPONGE)
+      .setFluid(Fluids.WATER, FluidValues.BOTTLE)
+      .setCoolingTime(1)
+      .setCast(Blocks.SPONGE, true)
+      .save(consumer, location(waterFolder + "wet_sponge"));
+
     // casting concrete
     BiConsumer<Block,Block> concreteCasting = (powder, block) ->
       ItemCastingRecipeBuilder.basinRecipe(block)
@@ -1901,7 +1907,6 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     // pewter
     ICondition lead = tagCondition("ingots/lead");
     ICondition tin = tagCondition("ingots/tin");
-    wrapped = withCondition(consumer, tagCondition("ingots/pewter"));
     ConditionalRecipe.builder()
       // if we have both tin and lead, do the combined recipe. Ratio is from Metalborn/Allomancy
       .addCondition(new AndCondition(lead, tin))
@@ -1925,7 +1930,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
         .addInput(TinkerFluids.moltenIron.ingredient(FluidValues.INGOT))
         .addInput(TinkerFluids.moltenLead.ingredient(FluidValues.INGOT))::save)
 
-      .build(wrapped, prefix(TinkerFluids.moltenPewter, folder));
+      .build(consumer, prefix(TinkerFluids.moltenPewter, folder));
 
     // thermal alloys
     Function<String,ICondition> fluidTagLoaded = name -> new TagFilledCondition<>(Registries.FLUID, commonResource(name));
@@ -1959,6 +1964,26 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                       .addInput(TinkerFluids.moltenDiamond.ingredient(FluidValues.GEM))
                       .addInput(TinkerFluids.moltenOsmium.ingredient(FluidValues.INGOT))
                       .save(wrapped, prefix(TinkerFluids.moltenRefinedObsidian, folder));
+
+    // nicrosil
+    wrapped = withCondition(consumer, tagCondition("ingots/nicrosil"), tagCondition("ingots/tin"));
+    ConditionalRecipe.builder()
+      // if we have both tin and lead, do the combined recipe. Ratio is from Metalborn/Allomancy
+      .addCondition(tagCondition("ingots/nickel"))
+      // ratio from Metalborn - if nickel is present use that in high amounts
+      .addRecipe(AlloyRecipeBuilder.alloy(TinkerFluids.moltenNicrosil, FluidValues.INGOT * 4)
+        .addInput(TinkerFluids.moltenNickel.ingredient(FluidValues.INGOT * 2))
+        .addInput(TinkerFluids.moltenTin.ingredient(FluidValues.INGOT))
+        .addInput(TinkerFluids.moltenQuartz.ingredient(FluidValues.GEM))::save)
+
+      // otherwise, just use tin and quartz
+      .addCondition(TrueCondition.INSTANCE)
+      // ratio from Metalborn - if nickel is absent
+      .addRecipe(AlloyRecipeBuilder.alloy(TinkerFluids.moltenNicrosil, FluidValues.INGOT * 2)
+        .addInput(TinkerFluids.moltenTin.ingredient(FluidValues.INGOT))
+        .addInput(TinkerFluids.moltenQuartz.ingredient(FluidValues.GEM))::save)
+
+      .build(wrapped, prefix(TinkerFluids.moltenNicrosil, folder));
   }
 
   private void addEntityMeltingRecipes(Consumer<FinishedRecipe> consumer) {
@@ -2165,6 +2190,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     metal(consumer, TinkerFluids.moltenSignalum).optional().metal().dust().plate().gear().coin();
     metal(consumer, TinkerFluids.moltenRefinedObsidian ).optional().metal().common(TOOLS).common(MEKANISM_ARMOR);
     metal(consumer, TinkerFluids.moltenRefinedGlowstone).optional().metal().common(TOOLS).common(MEKANISM_ARMOR);
+    metal(consumer, TinkerFluids.moltenNicrosil).optional().metal();
     // embers provides their own fluid. so we just have to add the recipes
     TagKey<Fluid> dawnstone = getFluidTag(COMMON, "molten_dawnstone");
     metal(withCondition(consumer, new TagFilledCondition<>(dawnstone)), "dawnstone", dawnstone).temperature(900).optional().metal().plate();
@@ -2223,7 +2249,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     // fill clay and cracked clay buckets
     ContainerFillingRecipeBuilder.tableRecipe(ceramicsId.apply("empty_clay_bucket"), FluidType.BUCKET_VOLUME)
                                  .save(ceramicsConsumer, location(ceramicsFolder + "filling_clay_bucket"));
-    ContainerFillingRecipeBuilder.tableRecipe(ceramicsId.apply("empty_cracked_clay_bucket"), FluidType.BUCKET_VOLUME)
+    ContainerFillingRecipeBuilder.tableRecipe(ceramicsId.apply("cracked_empty_clay_bucket"), FluidType.BUCKET_VOLUME)
                                  .save(ceramicsConsumer, location(ceramicsFolder + "filling_cracked_clay_bucket"));
 
     // porcelain for ceramics
@@ -2254,7 +2280,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
       ceramicsTag.apply("terracotta_cisterns"),
       ceramicsItem.apply("empty_clay_bucket"),
       // can't ue no container for cracked bucket as the bucket breaks on emptying
-      ceramicsItem.apply("empty_cracked_clay_bucket")
+      ceramicsItem.apply("cracked_empty_clay_bucket")
     ), TinkerFluids.moltenClay, FluidValues.BRICK * 3, 1.67f)
       .save(ceramicsConsumer, location(clayFolder + "bricks_3"));
     // 4 bricks
@@ -2555,7 +2581,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                             .setCast(Items.GLASS_BOTTLE, true)
                             .save(consumer, location(colorFolder + "bottle"));
     ItemCastingRecipeBuilder.basinRecipe(TinkerWorld.slimeDirt.get(slimeType.asDirt()))
-                            .setFluidAndTime(fluid, FluidValues.SLIME_CONGEALED)
+                            .setFluidAndTime(fluid, FluidValues.SLIMEBALL * 2)
                             .setCast(Blocks.DIRT, true)
                             .save(consumer, location(colorFolder + "dirt"));
   }

@@ -74,6 +74,7 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.cobalt).color(0x2376dd).fallbacks("metal");
     buildRenderInfo(MaterialIds.steel).color(0x959595).fallbacks("metal");
     buildRenderInfo(MaterialIds.darkthread);
+    buildRenderInfo(MaterialIds.ichorskin);
 
     // tier 4
     buildRenderInfo(MaterialIds.cinderslime).luminosity(SlimeType.ICHOR.getLightLevel());
@@ -104,6 +105,7 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.bronze).color(0xD49765).fallbacks("metal");
     buildRenderInfo(MaterialIds.constantan).color(0xFF8B70).fallbacks("metal");
     buildRenderInfo(MaterialIds.invar).color(0xCADBD0).fallbacks("metal");
+    buildRenderInfo(MaterialIds.pewter).color(0x999483).fallbacks("metal");
     buildRenderInfo(MaterialIds.necronium).color(0x9CBD89).fallbacks("bone", "metal");
     buildRenderInfo(MaterialIds.electrum).color(0xFFEA65).fallbacks("metal");
     buildRenderInfo(MaterialIds.platedSlimewood).color(0xFFE170).fallbacks("slime_metal", "metal");

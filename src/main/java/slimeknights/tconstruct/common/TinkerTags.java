@@ -463,6 +463,8 @@ public class TinkerTags {
     public static final TagKey<Item> DYEABLE = local("modifiable/dyeable");
     /** Armor items that support trim */
     public static final TagKey<Item> TRIM = local("modifiable/armor/trim");
+    /** Tools to blacklist from default part recycling recipes. May still be recyclable in other recipes */
+    public static final TagKey<Item> UNRECYCLABLE = local("modifiable/unrecyclable");
     /** Tools to blacklist from default salvage recipes. May still be salvagable in other recipes */
     public static final TagKey<Item> UNSALVAGABLE = local("modifiable/unsalvageable");
 
@@ -476,6 +478,9 @@ public class TinkerTags {
     // compat tags
     /** Tag meaning necronium is available */
     public static final TagKey<Item> URANIUM_INGOTS = common("ingots/uranium");
+
+    /** Fluids in this tag won't show in JEI */
+    public static final TagKey<Item> HIDDEN_IN_RECIPE_VIEWERS = hiddenFromRecipeViewers(Registries.ITEM);
 
     /** Makes a tag in the tinkers domain */
     private static TagKey<Item> local(String name) {

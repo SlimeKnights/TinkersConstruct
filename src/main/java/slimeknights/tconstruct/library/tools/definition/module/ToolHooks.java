@@ -1,12 +1,14 @@
 package slimeknights.tconstruct.library.tools.definition.module;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
 import slimeknights.mantle.data.registry.IdAwareComponentRegistry;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.module.ModuleHook;
+import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.definition.module.aoe.AreaOfEffectIterator;
 import slimeknights.tconstruct.library.tools.definition.module.build.ToolActionToolHook;
 import slimeknights.tconstruct.library.tools.definition.module.build.ToolStatsHook;
@@ -47,13 +49,29 @@ public class ToolHooks {
   /** Hook for getting a list of tool parts on a tool. */
   public static final ModuleHook<ToolPartsHook> TOOL_PARTS = register("tool_parts", ToolPartsHook.class, definition -> List.of());
   /** Hook for filling materials on a tool with no materials set */
-  public static final ModuleHook<MissingMaterialsToolHook> MISSING_MATERIALS = register("missing_materials", MissingMaterialsToolHook.class, ((definition, random) -> {
-    MaterialNBT.Builder builder = MaterialNBT.builder();
-    for (MaterialStatsId statType : ToolMaterialHook.stats(definition)) {
-      builder.add(MaterialRegistry.firstWithStatType(statType));
+  public static final ModuleHook<MissingMaterialsToolHook> MISSING_MATERIALS = register("missing_materials", MissingMaterialsToolHook.class, new MissingMaterialsToolHook() {
+    @Override
+    public MaterialNBT fillMaterials(ToolDefinition definition, RandomSource random) {
+      MaterialNBT.Builder builder = MaterialNBT.builder();
+      for (MaterialStatsId statType : ToolMaterialHook.stats(definition)) {
+        builder.add(MaterialRegistry.firstWithStatType(statType));
+      }
+      return builder.build();
     }
-    return builder.build();
-  }));
+
+    @Override
+    public MaterialNBT fillMaterials(ToolDefinition definition, MaterialNBT existing, RandomSource random) {
+      List<MaterialStatsId> stats = ToolMaterialHook.stats(definition);
+      // add original materials
+      MaterialNBT.Builder builder = MaterialNBT.builder();
+      builder.addAll(existing);
+      // fill in missing materials from first with stat type
+      for (int i = existing.size(); i < stats.size(); i++) {
+        builder.add(MaterialRegistry.firstWithStatType(stats.get(i)));
+      }
+      return builder.build();
+    }
+  });
 
   /** Hook for repairing a tool using a material. */
   public static final ModuleHook<MaterialRepairToolHook> MATERIAL_REPAIR = register("material_repair", MaterialRepairToolHook.class, MaxMerger::new, new MaterialRepairToolHook() {

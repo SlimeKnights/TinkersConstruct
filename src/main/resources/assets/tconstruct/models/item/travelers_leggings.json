@@ -2,13 +2,13 @@
   "loader": "tconstruct:tool",
   "parent": "forge:item/default",
   "textures": {
-    "base":  "tconstruct:item/tool/armor/travelers/pants/base",
-    "metal": "tconstruct:item/tool/armor/travelers/pants/metal"
+    "cuirass": "tconstruct:item/tool/armor/travelers/pants/cuirass",
+    "metal":   "tconstruct:item/tool/armor/travelers/pants/metal"
   },
   "modifier_roots": [ "tconstruct:item/tool/armor/travelers/pants/modifiers/" ],
   "first_modifiers": [ "tconstruct:dyed", "tconstruct:trim" ],
   "parts": [
-    { "name": "base" },
+    { "name": "cuirass", "index": 1 },
     { "name": "metal", "index": 0 }
   ],
   "overrides": [

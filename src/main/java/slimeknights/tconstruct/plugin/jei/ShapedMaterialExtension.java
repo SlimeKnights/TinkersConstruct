@@ -35,7 +35,7 @@ public class ShapedMaterialExtension implements ICraftingCategoryExtension {
     if (materials != null) {
       this.result = MaterialRecipeCache.getAllRecipes().stream().filter(materials::test).flatMap(mat -> {
         ItemStack stack = plainResult.copy();
-        ShapedMaterialRecipe.setMaterial(stack, mat.getMaterial().getVariant());
+        recipe.setMaterial(stack, mat.getMaterial().getVariant());
         // add one copy of the stack per item in the nested ingredient, so the lengths match up
         return IntStream.range(0, mat.getIngredient().getItems().length).mapToObj(i -> stack);
       }).toList();

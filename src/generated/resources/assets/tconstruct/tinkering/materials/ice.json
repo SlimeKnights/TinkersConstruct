@@ -2,7 +2,8 @@
   "color": "FF74ABFE",
   "generator": {
     "supported_stats": [
-      "tconstruct:shield_core"
+      "tconstruct:shield_core",
+      "tconstruct:repair_kit"
     ],
     "transformer": {
       "type": "tconstruct:grey_to_sprite",

@@ -2,6 +2,8 @@
   "stats": {
     "tconstruct:binding": {},
     "tconstruct:bowstring": {},
-    "tconstruct:maille": {}
+    "tconstruct:cuirass": {},
+    "tconstruct:maille": {},
+    "tconstruct:repair_kit": {}
   }
 }

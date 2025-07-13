@@ -2,7 +2,7 @@
   "loader": "tconstruct:tool",
   "parent": "tconstruct:item/base/shield",
   "textures": {
-    "base": "tconstruct:item/tool/armor/travelers/shield/base_broken",
+    "cuirass": "tconstruct:item/tool/armor/travelers/shield/cuirass_broken",
     "wood": "tconstruct:item/tool/armor/travelers/shield/wood_broken"
   },
   "modifier_roots": [
@@ -18,7 +18,8 @@
       "index": 0
     },
     {
-      "name": "base"
+      "name": "cuirass",
+      "index": 1
     }
   ]
 }

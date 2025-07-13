@@ -3,6 +3,7 @@
   "parent": "forge:item/default",
   "textures": {
     "base": "tconstruct:item/tool/armor/travelers/goggles/base_broken",
+    "cuirass": "tconstruct:item/tool/armor/travelers/goggles/cuirass_broken",
     "metal": "tconstruct:item/tool/armor/travelers/goggles/metal_broken"
   },
   "modifier_roots": [
@@ -15,6 +16,10 @@
   "parts": [
     {
       "name": "base"
+    },
+    {
+      "name": "cuirass",
+      "index": 1
     },
     {
       "name": "metal",

@@ -2,6 +2,7 @@ package slimeknights.tconstruct.tools.data;
 
 import com.google.gson.JsonObject;
 import net.minecraft.data.PackOutput;
+import net.minecraft.world.item.ArmorItem.Type;
 import net.minecraft.world.phys.Vec2;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import slimeknights.tconstruct.TConstruct;
@@ -42,11 +43,14 @@ public class ToolItemModelProvider extends AbstractToolItemModelProvider {
     // scythe
     tool(TinkerTools.kama, toolBlocking, "head");
     tool(TinkerTools.scythe, toolBlocking, "head");
-    // shield
-    armor("travelers", TinkerTools.travelersGear, "base", "metal");
+    // armor
+    // travelers goggles use a base texture for the glass
+    armor("travelers", TinkerTools.travelersGear, new Type[] {Type.HELMET},"base", "cuirass", "metal");
+    armor("travelers", TinkerTools.travelersGear, new Type[] {Type.CHESTPLATE, Type.LEGGINGS, Type.BOOTS}, "cuirass", "metal");
     armor("plate", TinkerTools.plateArmor, "plating", "maille");
     armor("slime", TinkerTools.slimesuit, "tool");
-    shield("travelers", TinkerTools.travelersShield, shieldBlocking, "base", "wood");
+    // shield
+    shield("travelers", TinkerTools.travelersShield, shieldBlocking, "cuirass", "wood");
     shield("plate", TinkerTools.plateShield, readJson(getResource("base/shield_large_blocking")), "plating", "core");
     // misc
     tool(TinkerTools.flintAndBrick, shieldBlocking, "tool");

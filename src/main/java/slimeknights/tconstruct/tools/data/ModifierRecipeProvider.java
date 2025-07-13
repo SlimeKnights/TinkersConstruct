@@ -1290,7 +1290,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .saveSalvage(consumer, prefix(ModifierIds.pathing, abilitySalvage))
                          .save(consumer, prefix(ModifierIds.pathing, abilityFolder));
     ModifierRecipeBuilder.modifier(ModifierIds.stripping)
-                         .setTools(interactableBootsWithDurability)
+                         .setTools(interactableWithDurability)
                          .addInput(SizedIngredient.of(MaterialIngredient.of(TinkerToolParts.smallAxeHead.get())))
                          .addInput(TinkerMaterials.steel.getIngotTag())
                          .addInput(toolBinding)
@@ -1299,7 +1299,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .saveSalvage(consumer, prefix(ModifierIds.stripping, abilitySalvage))
                          .save(consumer, prefix(ModifierIds.stripping, abilityFolder));
     ModifierRecipeBuilder.modifier(ModifierIds.tilling)
-                         .setTools(interactableWithDurability)
+                         .setTools(interactableBootsWithDurability)
                          .addInput(smallBlade)
                          .addInput(TinkerMaterials.steel.getIngotTag())
                          .addInput(toolBinding)

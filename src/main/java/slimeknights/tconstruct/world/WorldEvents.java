@@ -45,8 +45,7 @@ public class WorldEvents {
     if (lookingEntity == null) {
       return;
     }
-    LivingEntity entity = event.getEntity();
-    ItemStack helmet = entity.getItemBySlot(EquipmentSlot.HEAD);
+    ItemStack helmet = event.getEntity().getItemBySlot(EquipmentSlot.HEAD);
     Item item = helmet.getItem();
     if (item != Items.AIR && TinkerWorld.headItems.contains(item)) {
       if (lookingEntity.getType() == ((TinkerHeadType)((SkullBlock)((BlockItem)item).getBlock()).getType()).getType()) {

@@ -312,17 +312,21 @@ public abstract class AbstractMaterialContent extends PageContent {
       MaterialVariant input = composite.getInput();
       if (input != null && !materialVariant.matchesVariant(input.getVariant())) {
         MaterialVariantId inputId = input.getVariant();
-        ItemElement elementItem = new TinkerItemElement(0, 0, 1, MaterialCastingLookup.getAllItemCosts().stream()
-                                                                                      .map(Entry::getKey)
-                                                                                      .filter(part -> part.canUseMaterial(inputId.getId()) && part.canUseMaterial(material))
-                                                                                      .map(part -> part.withMaterial(inputId))
-                                                                                      .collect(Collectors.toList()));
-        FluidStack firstFluid = composite.getFluids().stream().findFirst().orElse(FluidStack.EMPTY);
-        elementItem.tooltip = List.of(
-          COMPOSITE,
-          Component.translatable(COMPOSITE_FROM, firstFluid.getDisplayName(), MaterialTooltipCache.getDisplayName(inputId)).withStyle(ChatFormatting.GRAY)
-        );
-        displayTools.add(elementItem);
+        // TODO: filter out tool parts that cannot be casted due to a composite cast conflict
+        List<ItemStack> compositeParts = MaterialCastingLookup.getAllItemCosts().stream()
+          .map(Entry::getKey)
+          .filter(part -> part.canUseMaterial(inputId.getId()) && part.canUseMaterial(material) && (!(part instanceof IToolPart toolPart) || supportsStatType(toolPart.getStatType())))
+          .map(part -> part.withMaterial(inputId))
+          .toList();
+        if (!compositeParts.isEmpty()) {
+          ItemElement elementItem = new TinkerItemElement(0, 0, 1, compositeParts);
+          FluidStack firstFluid = composite.getFluids().stream().findFirst().orElse(FluidStack.EMPTY);
+          elementItem.tooltip = List.of(
+            COMPOSITE,
+            Component.translatable(COMPOSITE_FROM, firstFluid.getDisplayName(), MaterialTooltipCache.getDisplayName(inputId)).withStyle(ChatFormatting.GRAY)
+          );
+          displayTools.add(elementItem);
+        }
       }
     }
   }

@@ -22,6 +22,7 @@ import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
+import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatType;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
@@ -55,7 +56,7 @@ public class ArmorMaterialContent extends AbstractMaterialContent {
   /** Supported stat type set */
   private static final Set<MaterialStatsId> SUPPORTED = Stream.concat(
     PlatingMaterialStats.TYPES.stream().map(MaterialStatType::getId),
-    Stream.of(StatlessMaterialStats.MAILLE.getIdentifier(), StatlessMaterialStats.SHIELD_CORE.getIdentifier())
+    Stream.of(StatlessMaterialStats.MAILLE, StatlessMaterialStats.SHIELD_CORE, StatlessMaterialStats.CUIRASS).map(IMaterialStats::getIdentifier)
   ).collect(Collectors.toSet());
   /** Plating stat types in top down order */
   private static final List<MaterialStatsId> TOP_DOWN_STATS = List.of(HELMET.getId(), CHESTPLATE.getId(), LEGGINGS.getId(), BOOTS.getId(), SHIELD.getId());
@@ -79,7 +80,8 @@ public class ArmorMaterialContent extends AbstractMaterialContent {
   protected MaterialStatsId getStatType(int index) {
     return switch (index) {
       case 0 -> StatlessMaterialStats.MAILLE.getIdentifier();
-      case 1 -> StatlessMaterialStats.SHIELD_CORE.getIdentifier();
+      case 1 -> StatlessMaterialStats.CUIRASS.getIdentifier();
+      case 2 -> StatlessMaterialStats.SHIELD_CORE.getIdentifier();
       default -> null;
     };
   }
@@ -162,7 +164,7 @@ public class ArmorMaterialContent extends AbstractMaterialContent {
     y = Math.max(
       this.addTraits(x - 3,          y, list, ARMOR_PLATING_LABEL, HELMET.getId()),
       this.addTraits(x + STAT_WIDTH, y, list, SHIELD_LABEL,        SHIELD.getId()));
-    y = addAllMaterialStats(x, y, list, 1, false);
+    y = addAllMaterialStats(x, y, list, 2, false);
 
     // material description
     addDescription(x, y, list);

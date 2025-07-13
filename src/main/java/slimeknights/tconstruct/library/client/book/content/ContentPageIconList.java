@@ -6,6 +6,7 @@ import net.minecraft.network.chat.Component;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.PageData;
 import slimeknights.mantle.client.book.data.SectionData;
+import slimeknights.mantle.client.book.data.content.ContentPadding.ContentRightPadding;
 import slimeknights.mantle.client.book.data.content.PageContent;
 import slimeknights.mantle.client.screen.book.BookScreen;
 import slimeknights.mantle.client.screen.book.element.BookElement;
@@ -131,8 +132,8 @@ public class ContentPageIconList extends PageContent {
   }
 
   public static List<ContentPageIconList> getPagesNeededForItemCount(int count, SectionData data, String title, String subText) {
-    List<ContentPageIconList> listPages = Lists.newArrayList();
-
+    List<ContentPageIconList> listPages = new ArrayList<>();
+    List<PageData> newPages = new ArrayList<>();
     while (count > 0) {
       ContentPageIconList overview = new ContentPageIconList();
       PageData page = new PageData(true);
@@ -141,7 +142,8 @@ public class ContentPageIconList extends PageContent {
       page.content = overview;
       page.load();
 
-      data.pages.add(page);
+      // wait to add to the page list until after we added the padding page
+      newPages.add(page);
 
       overview.title = title;
       overview.subText = subText;
@@ -155,6 +157,25 @@ public class ContentPageIconList extends PageContent {
     if (listPages.size() > 1) {
       listPages.forEach(page -> page.maxScale = 1f);
     }
+
+    // add a padding page if we have an even number of index pages, so you see both together
+    if (listPages.size() % 2 == 0) {
+      PageData padding = new PageData(true);
+      padding.source = data.source;
+      padding.parent = data;
+      padding.content = new ContentRightPadding();
+      padding.load();
+      // hack: add padding to the previous section so section links start at the index
+      int sectionIndex = data.parent.sections.indexOf(data);
+      if (data.pages.isEmpty() && sectionIndex > 0) {
+        data.parent.sections.get(sectionIndex - 1).pages.add(padding);
+      } else {
+        data.pages.add(padding);
+      }
+    }
+
+    // padding done, can add new pages
+    data.pages.addAll(newPages);
 
     return listPages;
   }

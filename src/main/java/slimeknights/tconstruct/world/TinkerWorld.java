@@ -404,6 +404,7 @@ public final class TinkerWorld extends TinkerModule {
     output.accept(rawCobaltBlock);
 
     // monsters
+    output.accept(terracubeEntity);
     output.accept(skySlimeEntity);
     output.accept(enderSlimeEntity);
 

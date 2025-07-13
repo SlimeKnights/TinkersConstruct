@@ -5,14 +5,24 @@
       "prefix": "tconstruct:travelers/base_"
     },
     {
+      "type": "tconstruct:first_present",
+      "options": [
+        {
+          "type": "tconstruct:dyed",
+          "modifier": "tconstruct:dyed",
+          "prefix": "tconstruct:travelers/cuirass_"
+        },
+        {
+          "type": "tconstruct:material",
+          "index": 1,
+          "prefix": "tconstruct:travelers/cuirass_"
+        }
+      ]
+    },
+    {
       "type": "tconstruct:material",
       "index": 0,
       "prefix": "tconstruct:travelers/metal_"
-    },
-    {
-      "type": "tconstruct:dyed",
-      "modifier": "tconstruct:dyed",
-      "prefix": "tconstruct:travelers/overlay_"
     },
     "tconstruct:trim"
   ]

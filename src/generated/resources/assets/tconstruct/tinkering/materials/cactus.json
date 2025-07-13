@@ -7,6 +7,7 @@
   "generator": {
     "supported_stats": [
       "tconstruct:shield_core",
+      "tconstruct:repair_kit",
       "tconstruct:wood"
     ],
     "transformer": {

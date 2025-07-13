@@ -87,7 +87,7 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
       // tier 2
       MaterialIds.silver, MaterialIds.lead,
       // tier 3
-      MaterialIds.invar, MaterialIds.necronium
+      MaterialIds.invar, MaterialIds.pewter, MaterialIds.necronium
     );
 
     // ranged
@@ -105,7 +105,7 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
       // tier 2
       MaterialIds.treatedWood, MaterialIds.platinum,
       // tier 3
-      MaterialIds.invar
+      MaterialIds.invar, MaterialIds.pewter
     );
     tag(TinkerTags.Materials.LIGHT).add(
       // tier 1

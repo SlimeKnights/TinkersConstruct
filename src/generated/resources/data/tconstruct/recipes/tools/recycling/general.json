@@ -9,7 +9,7 @@
       "tag": "tconstruct:modifiable/multipart"
     },
     "subtracted": {
-      "tag": "tconstruct:modifiable/unsalvageable"
+      "tag": "tconstruct:modifiable/unrecyclable"
     }
   }
 }

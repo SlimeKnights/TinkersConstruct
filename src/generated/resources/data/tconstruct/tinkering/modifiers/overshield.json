@@ -1,0 +1,11 @@
+{
+  "level_display": "tconstruct:no_levels",
+  "modules": [
+    {
+      "type": "tconstruct:overshield",
+      "consumed": 5,
+      "protection": 1.25
+    }
+  ],
+  "tooltip_display": "always"
+}

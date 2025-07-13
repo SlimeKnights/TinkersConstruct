@@ -38,6 +38,8 @@ import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.world.TinkerHeadType;
 import slimeknights.tconstruct.world.TinkerWorld;
+import slimeknights.tconstruct.world.block.DirtType;
+import slimeknights.tconstruct.world.block.FoliageType;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
@@ -67,6 +69,7 @@ import static slimeknights.tconstruct.common.TinkerTags.Items.HARVEST_PRIMARY;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HELD;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HELD_ARMOR;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HELMETS;
+import static slimeknights.tconstruct.common.TinkerTags.Items.HIDDEN_IN_RECIPE_VIEWERS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.INTERACTABLE;
 import static slimeknights.tconstruct.common.TinkerTags.Items.INTERACTABLE_ARMOR;
 import static slimeknights.tconstruct.common.TinkerTags.Items.INTERACTABLE_CHARGE;
@@ -95,6 +98,7 @@ import static slimeknights.tconstruct.common.TinkerTags.Items.SWORD;
 import static slimeknights.tconstruct.common.TinkerTags.Items.TRADER_TOOLS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.TRIM;
 import static slimeknights.tconstruct.common.TinkerTags.Items.UNARMED;
+import static slimeknights.tconstruct.common.TinkerTags.Items.UNRECYCLABLE;
 import static slimeknights.tconstruct.common.TinkerTags.Items.UNSALVAGABLE;
 import static slimeknights.tconstruct.common.TinkerTags.Items.WORN_ARMOR;
 
@@ -200,6 +204,31 @@ public class ItemTagProvider extends ItemTagsProvider {
       TinkerMaterials.steel.getIngot(), TinkerMaterials.cobalt.getIngot(), TinkerMaterials.manyullyn.getIngot(), TinkerMaterials.hepatizon.getIngot(), TinkerMaterials.cinderslime.getIngot(), TinkerMaterials.queensSlime.getIngot(),
       TinkerWorld.earthGeode.asItem(), TinkerWorld.skyGeode.asItem(), TinkerWorld.ichorGeode.asItem(), TinkerWorld.enderGeode.asItem()
     );
+
+    // items to fully hide from JEI
+    IntrinsicTagAppender<Item> hidden = tag(HIDDEN_IN_RECIPE_VIEWERS);
+    hidden.add(
+      // internal item for modifiers
+      TinkerTools.crystalshotItem.asItem(),
+      // unused future fluids
+      TinkerFluids.moltenSoulsteel.asItem(), TinkerFluids.moltenKnightslime.asItem(),
+      // why do we still have silky jewels around?
+      TinkerModifiers.silkyJewel.get(), TinkerModifiers.silkyJewelBlock.asItem()
+    );
+    // unused future material items
+    TinkerMaterials.soulsteel.forEach(item -> hidden.add(item.asItem()));
+    TinkerMaterials.knightslime.forEach(item -> hidden.add(item.asItem()));
+    // ichor foliage
+    hidden.add(
+      TinkerWorld.slimeLeaves.get(FoliageType.ICHOR).asItem(),
+      TinkerWorld.slimeTallGrass.get(FoliageType.ICHOR).asItem(),
+      TinkerWorld.slimeFern.get(FoliageType.ICHOR).asItem(),
+      TinkerWorld.slimeSapling.get(FoliageType.ICHOR).asItem(),
+      TinkerWorld.slimeGrassSeeds.get(FoliageType.ICHOR).asItem()
+    );
+    for (DirtType dirtType : DirtType.values()) {
+      hidden.add(TinkerWorld.slimeGrass.get(dirtType).get(FoliageType.ICHOR).asItem());
+    }
   }
 
   private void addWorld() {
@@ -300,7 +329,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 
     // shields
     addToolTags(TinkerTools.travelersShield, DURABILITY, BONUS_SLOTS, SHIELDS, INTERACTABLE_LEFT, Tags.Items.TOOLS_SHIELDS, SINGLEPART_TOOL, DYEABLE);
-    addToolTags(TinkerTools.plateShield,     DURABILITY, BONUS_SLOTS, SHIELDS, INTERACTABLE_LEFT, Tags.Items.TOOLS_SHIELDS, MULTIPART_TOOL, UNSALVAGABLE);
+    addToolTags(TinkerTools.plateShield,     DURABILITY, BONUS_SLOTS, SHIELDS, INTERACTABLE_LEFT, Tags.Items.TOOLS_SHIELDS, SINGLEPART_TOOL, UNRECYCLABLE);
 
     // care about order for armor in the book
     tag(BASIC_ARMOR);
@@ -346,7 +375,8 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.tag(RANGED).addTags(BOWS, STAFFS);
     this.tag(BOWS).addTags(LONGBOWS, CROSSBOWS);
     this.tag(TRADER_TOOLS).addTag(ANCIENT_TOOLS);
-    this.tag(UNSALVAGABLE).addTag(ANCIENT_TOOLS); // ancient tools lack tool parts, but may have special override recipes to salvage
+    // TODO 1.21: consider dropping unsalvagable from this tag
+    this.tag(UNRECYCLABLE).addTags(UNSALVAGABLE, ANCIENT_TOOLS); // ancient tools lack tool parts, but may have special override recipes to salvage
     // headlight support
     this.tag(ItemTags.create(new ResourceLocation("headlight", "headlight_helmets"))).addTag(HELMETS);
 

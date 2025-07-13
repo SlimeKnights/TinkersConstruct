@@ -43,6 +43,21 @@
       "stat_type": "tconstruct:armor_plating"
     },
     {
+      "allow_animated": false,
+      "path": "tconstruct:tinker_armor/travelers/cuirass_armor",
+      "stat_type": "tconstruct:armor_cuirass"
+    },
+    {
+      "allow_animated": false,
+      "path": "tconstruct:tinker_armor/travelers/cuirass_leggings",
+      "stat_type": "tconstruct:armor_cuirass"
+    },
+    {
+      "allow_animated": false,
+      "path": "tconstruct:tinker_armor/travelers/cuirass_wings",
+      "stat_type": "tconstruct:armor_cuirass"
+    },
+    {
       "path": "tconstruct:item/tool/parts/maille",
       "stat_type": "tconstruct:maille"
     },
@@ -136,6 +151,16 @@
     },
     {
       "allow_animated": false,
+      "path": "tconstruct:item/tool/armor/travelers/goggles/cuirass",
+      "stat_type": "tconstruct:cuirass"
+    },
+    {
+      "allow_animated": false,
+      "path": "tconstruct:item/tool/armor/travelers/goggles/cuirass_broken",
+      "stat_type": "tconstruct:cuirass"
+    },
+    {
+      "allow_animated": false,
       "path": "tconstruct:item/tool/armor/travelers/goggles/metal",
       "stat_type": "tconstruct:plating_helmet"
     },
@@ -143,6 +168,16 @@
       "allow_animated": false,
       "path": "tconstruct:item/tool/armor/travelers/goggles/metal_broken",
       "stat_type": "tconstruct:plating_helmet"
+    },
+    {
+      "allow_animated": false,
+      "path": "tconstruct:item/tool/armor/travelers/vest/cuirass",
+      "stat_type": "tconstruct:cuirass"
+    },
+    {
+      "allow_animated": false,
+      "path": "tconstruct:item/tool/armor/travelers/vest/cuirass_broken",
+      "stat_type": "tconstruct:cuirass"
     },
     {
       "allow_animated": false,
@@ -156,6 +191,16 @@
     },
     {
       "allow_animated": false,
+      "path": "tconstruct:item/tool/armor/travelers/pants/cuirass",
+      "stat_type": "tconstruct:cuirass"
+    },
+    {
+      "allow_animated": false,
+      "path": "tconstruct:item/tool/armor/travelers/pants/cuirass_broken",
+      "stat_type": "tconstruct:cuirass"
+    },
+    {
+      "allow_animated": false,
       "path": "tconstruct:item/tool/armor/travelers/pants/metal",
       "stat_type": "tconstruct:plating_leggings"
     },
@@ -166,6 +211,16 @@
     },
     {
       "allow_animated": false,
+      "path": "tconstruct:item/tool/armor/travelers/boots/cuirass",
+      "stat_type": "tconstruct:cuirass"
+    },
+    {
+      "allow_animated": false,
+      "path": "tconstruct:item/tool/armor/travelers/boots/cuirass_broken",
+      "stat_type": "tconstruct:cuirass"
+    },
+    {
+      "allow_animated": false,
       "path": "tconstruct:item/tool/armor/travelers/boots/metal",
       "stat_type": "tconstruct:plating_boots"
     },
@@ -173,6 +228,14 @@
       "allow_animated": false,
       "path": "tconstruct:item/tool/armor/travelers/boots/metal_broken",
       "stat_type": "tconstruct:plating_boots"
+    },
+    {
+      "path": "tconstruct:item/tool/armor/travelers/shield/cuirass",
+      "stat_type": "tconstruct:cuirass"
+    },
+    {
+      "path": "tconstruct:item/tool/armor/travelers/shield/cuirass_broken",
+      "stat_type": "tconstruct:cuirass"
     },
     {
       "path": "tconstruct:item/tool/armor/travelers/shield/wood",

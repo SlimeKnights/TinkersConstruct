@@ -16,6 +16,7 @@ import slimeknights.tconstruct.library.client.materials.MaterialGeneratorInfo;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
+import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatType;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.tools.data.sprite.TinkerPartSpriteProvider;
@@ -28,6 +29,7 @@ import slimeknights.tconstruct.tools.stats.StatlessMaterialStats;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
@@ -161,6 +163,30 @@ public abstract class AbstractMaterialSpriteProvider {
       return this;
     }
 
+    /** Adds a stat type as supported */
+    public MaterialSpriteInfoBuilder statType(IMaterialStats... stats) {
+      for (IMaterialStats stat : stats) {
+        statTypes.add(stat.getIdentifier());
+      }
+      return this;
+    }
+
+    /** Adds a stat type as supported */
+    public MaterialSpriteInfoBuilder statType(MaterialStatType<?>... stats) {
+      for (MaterialStatType<?> stat : stats) {
+        statTypes.add(stat.getId());
+      }
+      return this;
+    }
+
+    /** Adds a stat type as supported */
+    public MaterialSpriteInfoBuilder statType(List<? extends MaterialStatType<?>> stats) {
+      for (MaterialStatType<?> stat : stats) {
+        statTypes.add(stat.getId());
+      }
+      return this;
+    }
+
     /** Adds repair kits */
     public MaterialSpriteInfoBuilder repairKit() {
       return statType(StatlessMaterialStats.REPAIR_KIT.getIdentifier());
@@ -190,6 +216,14 @@ public abstract class AbstractMaterialSpriteProvider {
       return this;
     }
 
+    /** Adds stat types for maille */
+    public MaterialSpriteInfoBuilder cuirass() {
+      statType(StatlessMaterialStats.CUIRASS.getIdentifier());
+      statType(TinkerPartSpriteProvider.ARMOR_CUIRASS);
+      repairKit(); // used by traveler's gear
+      return this;
+    }
+
     /** Adds all plating stat types */
     public MaterialSpriteInfoBuilder plating() {
       statType(TinkerPartSpriteProvider.ARMOR_PLATING);
@@ -209,7 +243,9 @@ public abstract class AbstractMaterialSpriteProvider {
 
     /** Makes this work as the wood part for a shield */
     public MaterialSpriteInfoBuilder shieldCore() {
-      return statType(StatlessMaterialStats.SHIELD_CORE.getIdentifier());
+      statType(StatlessMaterialStats.SHIELD_CORE.getIdentifier());
+      repairKit(); // used by traveler's shields
+      return this;
     }
 
     /** Builds a material sprite info */

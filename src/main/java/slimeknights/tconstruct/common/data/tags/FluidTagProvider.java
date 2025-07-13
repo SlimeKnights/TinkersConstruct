@@ -93,6 +93,8 @@ public class FluidTagProvider extends FluidTagsProvider {
     // mekanism compat alloys
     fluidTag(TinkerFluids.moltenRefinedGlowstone);
     fluidTag(TinkerFluids.moltenRefinedObsidian);
+    // metalborn compat alloys
+    fluidTag(TinkerFluids.moltenNicrosil);
     // unplacable fluids
     fluidTag(TinkerFluids.honey);
     fluidTag(TinkerFluids.beetrootSoup);
@@ -190,7 +192,9 @@ public class FluidTagProvider extends FluidTagsProvider {
         // thermal alloys
         TinkerFluids.moltenEnderium.getTag(), TinkerFluids.moltenLumium.getTag(), TinkerFluids.moltenSignalum.getTag(),
         // mekanism alloys
-        TinkerFluids.moltenRefinedGlowstone.getTag(), TinkerFluids.moltenRefinedObsidian.getTag()
+        TinkerFluids.moltenRefinedGlowstone.getTag(), TinkerFluids.moltenRefinedObsidian.getTag(),
+        // Metalborn alloys
+        TinkerFluids.moltenNicrosil.getTag()
     ).add(TinkerFluids.moltenCinderslime.get());
 
     this.tag(TinkerTags.Fluids.LARGE_GEM_TOOLTIPS).addTags(TinkerFluids.moltenEmerald.getTag(), TinkerFluids.moltenDiamond.getTag());

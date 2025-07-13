@@ -13,9 +13,9 @@
       "tconstruct:plating_leggings",
       "tconstruct:plating_boots",
       "tconstruct:plating_shield",
-      "tconstruct:bowstring",
       "tconstruct:shield_core",
-      "tconstruct:maille"
+      "tconstruct:maille",
+      "tconstruct:cuirass"
     ],
     "transformer": {
       "type": "tconstruct:recolor_sprite",

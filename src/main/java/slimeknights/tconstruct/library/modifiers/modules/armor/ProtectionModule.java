@@ -67,7 +67,7 @@ public record ProtectionModule(IJsonPredicate<DamageSource> source, IJsonPredica
   public float getProtectionModifier(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float modifierValue) {
     // apply the main protection bonus
     if (condition.matches(tool, modifier) && this.source.matches(source) && this.entity.matches(context.getEntity()) && TinkerPredicate.matches(attacker, source.getEntity())) {
-      modifierValue += formula.apply(tool, modifier, context, context.getEntity(), slotType, source, modifierValue);
+      modifierValue = formula.apply(tool, modifier, context, context.getEntity(), slotType, source, modifierValue);
     }
     return modifierValue;
   }

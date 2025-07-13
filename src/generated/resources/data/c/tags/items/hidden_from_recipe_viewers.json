@@ -1,0 +1,25 @@
+{
+  "values": [
+    "tconstruct:crystalshot",
+    "tconstruct:molten_soulsteel_bucket",
+    "tconstruct:molten_knightslime_bucket",
+    "tconstruct:silky_jewel",
+    "tconstruct:silky_jewel_block",
+    "tconstruct:soulsteel_block",
+    "tconstruct:soulsteel_ingot",
+    "tconstruct:soulsteel_nugget",
+    "tconstruct:knightslime_block",
+    "tconstruct:knightslime_ingot",
+    "tconstruct:knightslime_nugget",
+    "tconstruct:ichor_slime_leaves",
+    "tconstruct:ichor_slime_tall_grass",
+    "tconstruct:ichor_slime_fern",
+    "tconstruct:ichor_slime_sapling",
+    "tconstruct:ichor_slime_grass_seeds",
+    "tconstruct:ichor_earth_slime_grass",
+    "tconstruct:ichor_sky_slime_grass",
+    "tconstruct:ichor_ichor_slime_grass",
+    "tconstruct:ichor_ender_slime_grass",
+    "tconstruct:ichor_vanilla_slime_grass"
+  ]
+}

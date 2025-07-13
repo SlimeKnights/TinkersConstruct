@@ -1,6 +1,9 @@
 {
   "type": "tconstruct:crafting_shaped_material",
   "category": "equipment",
+  "extra_materials": [
+    "tconstruct:leather"
+  ],
   "key": {
     "c": {
       "type": "tconstruct:material_value",

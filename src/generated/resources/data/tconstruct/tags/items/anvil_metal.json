@@ -52,6 +52,10 @@
     {
       "id": "#forge:storage_blocks/refined_obsidian",
       "required": false
+    },
+    {
+      "id": "#forge:storage_blocks/nicrosil",
+      "required": false
     }
   ]
 }

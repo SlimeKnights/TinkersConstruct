@@ -5,6 +5,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import slimeknights.mantle.util.OffhandCooldownTracker;
 import slimeknights.tconstruct.TConstruct;
@@ -50,14 +51,27 @@ public class OffhandAttackModifier extends NoLevelsModifier implements EntityInt
     return !tool.isBroken() && hand == InteractionHand.OFF_HAND && OffhandCooldownTracker.isAttackReady(player);
   }
 
+  /** Applies offhand cooldown based on the tool attack speed */
+  private static void applyCooldown(IToolStackView tool, Player player, InteractionSource source) {
+    float attackSpeed;
+    if (source == InteractionSource.ARMOR) {
+      // for armor, always assume attack speed is 4.0, we cannot change the attack speed of the main hand and we want them to match
+      attackSpeed = 4;
+    } else {
+      // if we get here, its always offhand
+      // need to cancel out the base 4 attack speed in the tool attack speed, since we removed the main hand one doing it
+      attackSpeed = ToolAttackUtil.getSlotAttribute(tool, player, EquipmentSlot.OFFHAND, Attributes.ATTACK_SPEED, tool.getStats().get(ToolStats.ATTACK_SPEED) - 4);
+    }
+    OffhandCooldownTracker.applyCooldown(player, attackSpeed, 20);
+  }
+
   @Override
   public InteractionResult beforeEntityUse(IToolStackView tool, ModifierEntry modifier, Player player, Entity target, InteractionHand hand, InteractionSource source) {
     if (canAttack(tool, player, hand)) {
       if (!player.level().isClientSide()) {
         ToolAttackUtil.attackEntity(tool, player, InteractionHand.OFF_HAND, target, ToolAttackUtil.getCooldownFunction(player, InteractionHand.OFF_HAND), false, source.getSlot(hand));
       }
-      // for armor, always assume attack speed is 4.0, we cannot change the attack speed of the main hand and we want them to match
-      OffhandCooldownTracker.applyCooldown(player, source == InteractionSource.ARMOR ? 4 : tool.getStats().get(ToolStats.ATTACK_SPEED), 20);
+      applyCooldown(tool, player, source);
       // we handle swinging the arm, return consume to prevent resetting cooldown
       OffhandCooldownTracker.swingHand(player, InteractionHand.OFF_HAND, false);
       return InteractionResult.CONSUME;
@@ -69,7 +83,7 @@ public class OffhandAttackModifier extends NoLevelsModifier implements EntityInt
   public InteractionResult onToolUse(IToolStackView tool, ModifierEntry modifier, Player player, InteractionHand hand, InteractionSource source) {
     if (canAttack(tool, player, hand)) {
       // target done in onEntityInteract, this is just for cooldown cause you missed
-      OffhandCooldownTracker.applyCooldown(player, source == InteractionSource.ARMOR ? 4 : tool.getStats().get(ToolStats.ATTACK_SPEED), 20);
+      applyCooldown(tool, player, source);
       // we handle swinging the arm, return consume to prevent resetting cooldown
       OffhandCooldownTracker.swingHand(player, InteractionHand.OFF_HAND, false);
       return InteractionResult.CONSUME;

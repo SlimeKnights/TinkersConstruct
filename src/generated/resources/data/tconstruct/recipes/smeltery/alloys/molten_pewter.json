@@ -1,11 +1,5 @@
 {
   "type": "forge:conditional",
-  "conditions": [
-    {
-      "type": "mantle:tag_filled",
-      "tag": "forge:ingots/pewter"
-    }
-  ],
   "recipes": [
     {
       "conditions": [

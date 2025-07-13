@@ -4,9 +4,9 @@
     "item": "minecraft:dirt"
   },
   "cast_consumed": true,
-  "cooling_time": 103,
+  "cooling_time": 73,
   "fluid": {
-    "amount": 1000,
+    "amount": 500,
     "tag": "forge:slime"
   },
   "result": "tconstruct:earth_slime_dirt"

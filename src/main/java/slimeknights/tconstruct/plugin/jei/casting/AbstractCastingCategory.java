@@ -7,6 +7,7 @@ import lombok.Getter;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
@@ -90,12 +91,17 @@ public abstract class AbstractCastingCategory implements IRecipeCategory<IDispla
 
   @Override
   public void setRecipe(IRecipeLayoutBuilder builder, IDisplayableCastingRecipe recipe, IFocusGroup focuses) {
+    List<ItemStack> outputs = recipe.getOutputs();
+    IRecipeSlotBuilder output = builder.addSlot(RecipeIngredientRole.OUTPUT, 93, 18).addItemStacks(recipe.getOutputs());
     // items
     List<ItemStack> casts = recipe.getCastItems();
     if (!casts.isEmpty()) {
-      builder.addSlot(recipe.isConsumed() ? RecipeIngredientRole.INPUT : RecipeIngredientRole.CATALYST, 38, 19).addItemStacks(casts);
+      IRecipeSlotBuilder cast = builder.addSlot(recipe.isConsumed() ? RecipeIngredientRole.INPUT : RecipeIngredientRole.CATALYST, 38, 19).addItemStacks(casts);
+      // if the same size, tie a focus link to the output and cast; means we have material variants on both
+      if (outputs.size() > 1 && casts.size() == outputs.size()) {
+        builder.createFocusLink(output, cast);
+      }
     }
-    builder.addSlot(RecipeIngredientRole.OUTPUT, 93, 18).addItemStack(recipe.getOutput());
 
     // fluids
     // tank fluids

@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:material",
   "ingredient": {
-    "item": "minecraft:blue_ice"
+    "item": "minecraft:cactus"
   },
   "material": "tconstruct:cactus",
   "needed": 1,

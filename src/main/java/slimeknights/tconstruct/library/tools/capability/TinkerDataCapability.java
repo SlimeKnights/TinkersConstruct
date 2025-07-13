@@ -58,6 +58,13 @@ public class TinkerDataCapability {
     }
   }
 
+  /** Gets the data capability from an entity, or null if missing */
+  @SuppressWarnings("DataFlowIssue")
+  @Nullable
+  public static TinkerDataCapability.Holder getData(LivingEntity entity) {
+    return entity.getCapability(CAPABILITY).orElse(null);
+  }
+
 
   /* Required methods */
 

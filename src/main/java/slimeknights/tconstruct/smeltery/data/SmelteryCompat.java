@@ -32,34 +32,43 @@ public enum SmelteryCompat {
   ELECTRUM  (TinkerFluids.moltenElectrum, "silver"),
   INVAR     (TinkerFluids.moltenInvar, "nickel"),
   CONSTANTAN(TinkerFluids.moltenConstantan, "nickel"),
-  PEWTER    (TinkerFluids.moltenPewter, false),
+  PEWTER    (TinkerFluids.moltenPewter, "tin", "lead"),
   // thermal alloys
   ENDERIUM(TinkerFluids.moltenEnderium, false),
   LUMIUM  (TinkerFluids.moltenLumium, false),
   SIGNALUM(TinkerFluids.moltenSignalum, false),
   // mekanism alloys
   REFINED_GLOWSTONE(TinkerFluids.moltenRefinedGlowstone, false),
-  REFINED_OBSIDIAN (TinkerFluids.moltenRefinedObsidian, false);
+  REFINED_OBSIDIAN (TinkerFluids.moltenRefinedObsidian, false),
+  // metalborn
+  NICROSIL(TinkerFluids.moltenNicrosil, false);
 
   @Getter
   private final String name = this.name().toLowerCase(Locale.US);
   private final FluidObject<? extends ForgeFlowingFluid> fluid;
   @Getter
   private final boolean isOre;
+  /** If any of these tags contains no values, skips */
   @Getter
-  private final String altTag;
+  private final String[] altTags;
 
   SmelteryCompat(FluidObject<? extends ForgeFlowingFluid> fluid, boolean isOre) {
     this.fluid = fluid;
     this.isOre = isOre;
-    this.altTag = "";
+    this.altTags = new String[0];
   }
 
   /** Byproducts means its an ore, no byproucts are alloys */
-  SmelteryCompat(FluidObject<? extends ForgeFlowingFluid> fluid, String altTag) {
+  SmelteryCompat(FluidObject<? extends ForgeFlowingFluid> fluid, String... altTags) {
     this.fluid = fluid;
     this.isOre = false;
-    this.altTag = altTag;
+    this.altTags = altTags;
+  }
+
+  /** @deprecated use {@link #getAltTags()} */
+  @Deprecated(forRemoval = true)
+  public String getAltTag() {
+    return altTags.length == 0 ? "" : altTags[0];
   }
 
   /** Gets teh fluid for this compat */

@@ -8,11 +8,17 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
 import slimeknights.mantle.client.book.data.BookData;
+import slimeknights.mantle.client.book.data.PageData;
 import slimeknights.mantle.client.book.data.SectionData;
+import slimeknights.mantle.client.book.data.content.PageContent;
+import slimeknights.mantle.client.book.repository.BookRepository;
 import slimeknights.mantle.client.book.transformer.BookTransformer;
+import slimeknights.mantle.client.screen.book.element.ItemElement;
+import slimeknights.mantle.client.screen.book.element.SizedBookElement;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.book.content.AbstractMaterialContent;
+import slimeknights.tconstruct.library.client.book.content.ContentPageIconList;
 import slimeknights.tconstruct.library.json.IntRange;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
 import slimeknights.tconstruct.library.materials.IMaterialRegistry;
@@ -25,6 +31,8 @@ import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.BiFunction;
@@ -67,7 +75,7 @@ public class TierRangeMaterialSectionTransformer extends BookTransformer {
           }
           visibleStats = typeData.visibleStats();
           pageBuilder = typeData.getMapping(GsonHelper.getAsBoolean(json, "detailed", false));
-          AbstractMaterialSectionTransformer.createPages(book, section, new ValidMaterial(visibleStats, tier, tag), pageBuilder);
+          createPages(book, section, new ValidMaterial(visibleStats, tier, tag), pageBuilder);
         } catch (JsonSyntaxException e) {
           TConstruct.LOG.error("Failed to parse material tier section data", e);
         }
@@ -102,6 +110,55 @@ public class TierRangeMaterialSectionTransformer extends BookTransformer {
   private record MaterialType(BiFunction<MaterialVariantId,Boolean,AbstractMaterialContent> pageConstructor, Set<MaterialStatsId> visibleStats) {
     public Function<MaterialVariantId,AbstractMaterialContent> getMapping(boolean detailed) {
       return id -> pageConstructor.apply(id, detailed);
+    }
+  }
+
+  /** Helper to add a page to the section */
+  private static PageData addPageStatic(SectionData data, String name, ResourceLocation type, PageContent content) {
+    PageData page = new PageData(true);
+    page.source = data.source;
+    page.parent = data;
+    page.name = name;
+    page.type = type;
+    page.content = content;
+    page.load();
+
+    data.pages.add(page);
+
+    return page;
+  }
+
+  /**
+   * Creates all the pages for the materials
+   * @param book            Book data
+   * @param sectionData     Section data
+   * @param validMaterial   Predicate to validate materials
+   * @param pageCreator     Logic to create a page
+   */
+  public static void createPages(BookData book, SectionData sectionData, Predicate<IMaterial> validMaterial, Function<MaterialVariantId,AbstractMaterialContent> pageCreator) {
+    sectionData.source = BookRepository.DUMMY;
+    sectionData.parent = book;
+
+    List<IMaterial> materialList = MaterialRegistry.getMaterials().stream().filter(validMaterial).toList();
+    if (materialList.isEmpty()) {
+      return;
+    }
+
+    // calculate pages needed
+    List<ContentPageIconList> listPages = ContentPageIconList.getPagesNeededForItemCount(materialList.size(), sectionData, book.translate(sectionData.name), book.strings.get(String.format("%s.subtext", sectionData.name)));
+
+    ListIterator<ContentPageIconList> iter = listPages.listIterator();
+    ContentPageIconList overview = iter.next();
+
+    for (IMaterial material : materialList) {
+      MaterialId materialId = material.getIdentifier();
+      AbstractMaterialContent contentMaterial = pageCreator.apply(materialId);
+      PageData page = addPageStatic(sectionData, materialId.toString(), contentMaterial.getId(), contentMaterial);
+
+      SizedBookElement icon = new ItemElement(0, 0, 1f, contentMaterial.getDisplayStacks());
+      while (!overview.addLink(icon, contentMaterial.getTitleComponent(), page)) {
+        overview = iter.next();
+      }
     }
   }
 }

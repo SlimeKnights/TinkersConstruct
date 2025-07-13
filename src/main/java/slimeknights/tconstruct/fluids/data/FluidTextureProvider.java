@@ -100,6 +100,8 @@ public class FluidTextureProvider extends AbstractFluidTextureProvider {
     // mekanism
     compatAlloy(TinkerFluids.moltenRefinedObsidian);
     compatAlloy(TinkerFluids.moltenRefinedGlowstone);
+    // metalborn
+    compatAlloy(TinkerFluids.moltenNicrosil);
   }
 
 

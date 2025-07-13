@@ -4,6 +4,13 @@
       "type": "tconstruct:material_stats",
       "primary_part": 0,
       "stat_types": [
+        "tconstruct:shield_core",
+        "tconstruct:cuirass"
+      ]
+    },
+    {
+      "type": "tconstruct:tool_parts",
+      "parts": [
         "tconstruct:shield_core"
       ]
     },
@@ -34,14 +41,14 @@
       }
     },
     {
-      "type": "tconstruct:material_repair",
-      "durability": 200,
-      "material": "tconstruct:leather"
-    },
-    {
       "type": "tconstruct:statless_part_repair",
       "part_index": 0,
       "repair_amount": 100
+    },
+    {
+      "type": "tconstruct:statless_part_repair",
+      "part_index": 1,
+      "repair_amount": 200
     },
     {
       "type": "tconstruct:traits",
@@ -49,10 +56,6 @@
         {
           "level": 1,
           "name": "tconstruct:blocking"
-        },
-        {
-          "level": 1,
-          "name": "tconstruct:tanned"
         }
       ]
     },

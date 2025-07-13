@@ -2,7 +2,7 @@
   "loader": "tconstruct:tool",
   "parent": "forge:item/default",
   "textures": {
-    "base": "tconstruct:item/tool/armor/travelers/boots/base_broken",
+    "cuirass": "tconstruct:item/tool/armor/travelers/boots/cuirass_broken",
     "metal": "tconstruct:item/tool/armor/travelers/boots/metal_broken"
   },
   "modifier_roots": [
@@ -15,7 +15,8 @@
   ],
   "parts": [
     {
-      "name": "base"
+      "name": "cuirass",
+      "index": 1
     },
     {
       "name": "metal",

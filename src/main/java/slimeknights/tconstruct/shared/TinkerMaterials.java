@@ -87,7 +87,7 @@ public final class TinkerMaterials extends TinkerModule {
     // non-metals
     // necrotic bone is in world
     output.accept(venombone);
-    output.accept(blazewood);
+    output.accept(blazingBone);
     acceptIfTag(output, necroniumBone, TinkerTags.Items.URANIUM_INGOTS);
     accept(output, nahuatl);
     accept(output, blazewood);

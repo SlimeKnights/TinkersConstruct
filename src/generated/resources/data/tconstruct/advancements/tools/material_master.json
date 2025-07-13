@@ -197,6 +197,20 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "ichorskin": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_material",
+              "material": "tconstruct:ichorskin"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "iron": {
       "conditions": {
         "items": [
@@ -588,6 +602,9 @@
     ],
     [
       "darkthread"
+    ],
+    [
+      "ichorskin"
     ],
     [
       "manyullyn"

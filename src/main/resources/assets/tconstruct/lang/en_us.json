@@ -886,6 +886,14 @@
   "item.tconstruct.molten_refined_obsidian_bucket": "Molten Refined Obsidian Bucket",
   "fluid.tconstruct.molten_refined_obsidian.fluid_effect": "Molten refined obsidian maximizes damage against armored targets.",
 
+  "_comment": "Metalborn Alloys",
+
+  "block.tconstruct.molten_nicrosil_fluid": "Molten Nicrosil",
+  "fluid.tconstruct.molten_nicrosil": "Molten Nicrosil",
+  "fluid.tconstruct.flowing_molten_nicrosil": "Flowing Molten Nicrosil",
+  "item.tconstruct.molten_nicrosil_bucket": "Molten Nicrosil Bucket",
+  "fluid.tconstruct.molten_nicrosil.fluid_effect": "Nicrosil has an innate pull on magic, seems like a waste to use it like this.",
+
 
   "_comment": "Fluid effect contents",
   "fluid_effect.tconstruct.separator": "%s and %s",
@@ -951,7 +959,7 @@
   "item.tconstruct.diamond_item_frame": "Diamond Item Frame",
   "item.tconstruct.manyullyn_item_frame": "Manyullyn Item Frame",
   "item.tconstruct.netherite_item_frame": "Netherite Item Frame",
-  "entity.tconstruct.fancy_item_frame": "Fancy Item Frame",
+  "entity.tconstruct.item_frame": "Fancy Item Frame",
 
   "item.tconstruct.glow_ball": "Glowball",
   "item.tconstruct.glow_ball.tooltip": "Not suited for consumption.",
@@ -1643,6 +1651,7 @@
 
   "material.tconstruct.unknown": "Unknown",
   "trim_material.tconstruct.format": "%s Material",
+  "material.tconstruct.ui_render": "Any",
 
   "__comment": "Tier 1 Materials",
   "material.tconstruct.wood": "Wood",
@@ -1770,6 +1779,7 @@
   "material.tconstruct.rose_gold.skull_encyclopedia": "Boosts health by 1 heart, plus an additional heart per piece of golden armor.",
 
   "material.tconstruct.skyslime_vine": "Slimy Vine",
+  "material.tconstruct.skyslime_vine.slimeskin": "Slimeskin",
   "material.tconstruct.skyslime_vine.flavor": "Float like a butterfly, sting like a bee.",
   "material.tconstruct.skyslime_vine.encyclopedia": "Cancels out the mining speed reduction when not on the ground",
   "material.tconstruct.skyslime_vine.ranged": "Grants +0.5 accuracy when not on the ground or a ladder",
@@ -1784,7 +1794,7 @@
   "material.tconstruct.twisting_vine": "Twisting Vine",
   "material.tconstruct.twisting_vine.flavor": "Eat the spores!",
   "material.tconstruct.twisting_vine.encyclopedia": "Grants +6 mining speed at the cost of taking 1 damage when you put down the tool",
-  "material.tconstruct.twisting_vine.ranged": "Grants +15% draw speed speed at the cost of taking 1 damage when you put down the tool",
+  "material.tconstruct.twisting_vine.ranged": "Grants +15% draw speed at the cost of taking 1 damage when you put down the tool",
   "material.tconstruct.twisting_vine.armor": "Grants +10% knockback resistance at the cost of taking 2 damage when you remove the armor",
 
 
@@ -1838,6 +1848,10 @@
   "material.tconstruct.hepatizon.ranged": "Boosts drawspeed by up to 25% per level, linearly increasing while firing 16 consecutive arrows",
   "material.tconstruct.hepatizon.armor": "Converts 50% of damage taken into a temporary flat damage reduction. Reduction lasts 5 seconds per level.",
 
+  "material.tconstruct.ichorskin": "Ichorskin",
+  "material.tconstruct.ichorskin.flavor": "Ichor definately does not have skin",
+  "material.tconstruct.ichorskin.encyclopedia": "Consumes up to 5 overslime to reduce damage by 1% per overslime consumed (up to 5%).",
+
   "material.tconstruct.cinderslime": "Cinderslime",
   "material.tconstruct.cinderslime.flavor": "Cast it into the fire!",
   "material.tconstruct.cinderslime.encyclopedia": "Uses fuel to restore overslime, restoring 1 per second by level 4.",
@@ -1869,6 +1883,7 @@
   "material.tconstruct.knightslime": "Knightslime",
 
   "material.tconstruct.enderslime_vine": "Slimy Vine",
+  "material.tconstruct.enderslime_vine.slimeskin": "Slimeskin",
   "material.tconstruct.enderslime_vine.flavor": "The End?",
   "material.tconstruct.enderslime_vine.encyclopedia": "Teleports the holder to the location of mined blocks or swaps the holder with attacked monsters",
   "material.tconstruct.enderslime_vine.ranged": "Teleports the holder to the location of arrows that land in blocks or swaps the holder with monsters hit by arrows",
@@ -1989,6 +2004,12 @@
   "material.tconstruct.invar.encyclopedia": "Grants +1.6 damage in biomes with neutral temperatures",
   "material.tconstruct.invar.ranged": "Grants +0.15 accuracy in biomes with neutral temperatures",
   "material.tconstruct.invar.armor": "Reduces damage by 5% per level in biomes with neutral temperatures",
+
+  "material.tconstruct.pewter": "Pewter",
+  "material.tconstruct.pewter.flavor": "The strongest of metals.",
+  "material.tconstruct.pewter.encyclopedia": "Grants +0.25 damage per level per health lost below 11",
+  "material.tconstruct.pewter.ranged": "Grants +0.1 power per level per health lost below 11",
+  "material.tconstruct.pewter.armor": "Grants 1% protection per level per health lost below 11",
 
   "material.tconstruct.electrum": "Electrum",
   "material.tconstruct.electrum.flavor": "Good for electronic components.",
@@ -2207,7 +2228,7 @@
   "modifier.tconstruct.sinistral.description": "When in main hand, crossbow fires when attacking instead of interacting and will not load while sneaking.",
   "modifier.tconstruct.scope": "Scope",
   "modifier.tconstruct.scope.flavor": "360 with scope does not sound as cool",
-  "modifier.tconstruct.scope.description": "Zoom in on the target when charging the bow.",
+  "modifier.tconstruct.scope.description": "Zoom in on the target when charging the tool.",
 
   "_comment": "Armor",
   "modifier.tconstruct.knockback_resistance": "Knockback Resistance",
@@ -2481,7 +2502,7 @@
   "modifier.tconstruct.parrying.description": "Briefly block after attacking, allowing for deflection of many attacks",
   "modifier.tconstruct.flinging": "Flinging",
   "modifier.tconstruct.flinging.flavor": "Earth leaving",
-  "modifier.tconstruct.flinging.description": "Charge up, aim low, and fling away from the targeted block!\nUse bouncy if you value your life.",
+  "modifier.tconstruct.flinging.description": "Charge up, aim low, and fling away from the targeted block! Use bouncy if you value your life.",
   "modifier.tconstruct.springing": "Springing",
   "modifier.tconstruct.springing.flavor": "Sky leaping",
   "modifier.tconstruct.springing.description": "Charge up, aim high, and launch back into the air!",
@@ -2631,9 +2652,13 @@
   "modifier.tconstruct.overgrowth.description": "Tool slowly grows overslime",
   "modifier.tconstruct.raging": "Raging",
   "modifier.tconstruct.raging.flavor": "A desperate solution!",
-  "modifier.tconstruct.raging.description": "Tool does more damage and draws faster when the holder's health is low",
+  "modifier.tconstruct.raging.description": "Tool does more damage when the holder's health is low",
   "modifier.tconstruct.raging.attack_damage": "Raging Damage",
-  "modifier.tconstruct.raging.draw_speed": "Raging Draw Speed",
+  "modifier.tconstruct.raging.projectile_damage": "Raging Power",
+  "modifier.tconstruct.vital_protection": "Vital Protection",
+  "modifier.tconstruct.vital_protection.flavor": "A desperate defense!",
+  "modifier.tconstruct.vital_protection.description": "Armor protects more when the wearer's health is low",
+  "modifier.tconstruct.vital_protection.resistance": "Resistance",
   "modifier.tconstruct.antitoxin": "Antitoxin",
   "modifier.tconstruct.antitoxin.flavor": "High risk strength!",
   "modifier.tconstruct.antitoxin.description": "Tool does more damage and draws faster when poisoned",
@@ -2663,12 +2688,16 @@
   "modifier.tconstruct.flamestance.resistance": "Flamestance Resistance",
   "modifier.tconstruct.entangled": "Entangled",
   "modifier.tconstruct.entangled.flavor": "Symbiotic!",
-  "modifier.tconstruct.entangled.description": "Increases speed and knockback resistance at the cost of taking damage when unequipping",
+  "modifier.tconstruct.entangled.description": "Increases speed or knockback resistance at the cost of taking damage when unequipping",
 
   "__comment": "Tier 3 Traits",
   "modifier.tconstruct.overcast": "Overcast",
   "modifier.tconstruct.overcast.flavor": "Thick Coverage!",
   "modifier.tconstruct.overcast.description": "Overslime can be made extra thick on this tool",
+  "modifier.tconstruct.overshield": "Overshield",
+  "modifier.tconstruct.overshield.flavor": "Slimeshield!",
+  "modifier.tconstruct.overshield.description": "Consumes overslime to reduce all sources of damage",
+  "modifier.tconstruct.overshield.resistance": "Overshield",
   "modifier.tconstruct.lacerating": "Lacerating",
   "modifier.tconstruct.lacerating.flavor": "Sharp Edges!",
   "modifier.tconstruct.lacerating.description": "Causes the target to bleed, dealing additional damage",
@@ -3000,6 +3029,7 @@
   "stat.tconstruct.plating_shield": "Shield Plating",
   "stat.tconstruct.shield_core": "Shield Core",
   "stat.tconstruct.maille": "Maille",
+  "stat.tconstruct.cuirass": "Cuirass",
   "tool_stat.tconstruct.armor": "Armor: ",
   "tool_stat.tconstruct.armor.description": "How much this protects you when worn.",
   "tool_stat.tconstruct.armor_toughness": "Armor Toughness: ",
@@ -3166,7 +3196,7 @@
   "recipe.tconstruct.modifier_set_worktable.empty": "Tool has no applicable modifiers",
 
   "recipe.tconstruct.remove_modifier.modifiers": "Remove Modifiers",
-  "recipe.tconstruct.remove_modifier.description": "Select a modifier to remove, slots will be returned but any item cost is lost. Fluid will be consumed from the input, and the container returned.",
+  "recipe.tconstruct.remove_modifier.description": "Select a modifier to remove. Modifier slots will be returned. Fluid will be consumed from the input, and the container returned.",
   "recipe.tconstruct.remove_modifier.no_modifiers": "Tool does not have any modifiers removable by this recipe",
 
   "recipe.tconstruct.modifier_sorting.title": "Sort Modifiers",
@@ -3189,7 +3219,7 @@
   "recipe.tconstruct.extract_modifier.abilities": "Extract Ability",
   "recipe.tconstruct.extract_modifier.defense": "Extract Defense",
   "recipe.tconstruct.extract_modifier.modifiers": "Extract Modifier",
-  "recipe.tconstruct.extract_modifier.description": "Select a modifier to extract onto a modifier crystal, slots will be returned but any item cost is lost.",
+  "recipe.tconstruct.extract_modifier.description": "Select a modifier to extract onto a modifier crystal. Modifier slots will be returned.",
   "recipe.tconstruct.extract_modifier.no_modifiers": "Tool does not have any modifiers extractable with this recipe",
 
   "recipe.tconstruct.enchantment_converting.description.lost": "Select a modifier of the given type from the enchanted book to extract as a modifier crystal. The enchanted item will be lost.",

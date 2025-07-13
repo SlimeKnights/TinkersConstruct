@@ -28,6 +28,7 @@ import slimeknights.tconstruct.library.events.ToolEquipmentChangeEvent;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
+import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nonnull;
@@ -95,7 +96,7 @@ public class EquipmentChangeWatcher {
 
     // first, fire event to notify an item was removed
     IToolStackView tool = context.getOriginalTool();
-    if (tool != null) {
+    if (tool != null && ModifierUtil.validArmorSlot(tool, changedSlot)) {
       for (ModifierEntry entry : tool.getModifierList()) {
         entry.getHook(ModifierHooks.EQUIPMENT_CHANGE).onUnequip(tool, entry, context);
       }
@@ -103,7 +104,7 @@ public class EquipmentChangeWatcher {
 
     // next, fire event to notify an item was added
     tool = context.getReplacementTool();
-    if (tool != null) {
+    if (tool != null && ModifierUtil.validArmorSlot(tool, changedSlot)) {
       for (ModifierEntry entry : tool.getModifierList()) {
         entry.getHook(ModifierHooks.EQUIPMENT_CHANGE).onEquip(tool, entry, context);
       }
@@ -112,7 +113,7 @@ public class EquipmentChangeWatcher {
     // finally, fire events on all other slots to say something changed
     for (EquipmentSlot otherSlot : EquipmentSlot.values()) {
       if (otherSlot != changedSlot) {
-        tool = context.getToolInSlot(otherSlot);
+        tool = context.getValidTool(otherSlot);
         if (tool != null) {
           for (ModifierEntry entry : tool.getModifierList()) {
             entry.getHook(ModifierHooks.EQUIPMENT_CHANGE).onEquipmentChange(tool, entry, context, otherSlot);

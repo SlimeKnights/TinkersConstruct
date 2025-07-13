@@ -21,7 +21,7 @@ import java.util.function.Supplier;
 
 /**
  * Builder for custom part builder tool recycling recipes.
- * Note we automatically add recycling for all tools in {@link TinkerTags.Items#MULTIPART_TOOL} unless they are also in {@link TinkerTags.Items#UNSALVAGABLE}; latter notably includes {@link TinkerTags.Items#ANCIENT_TOOLS}
+ * Note we automatically add recycling for all tools in {@link TinkerTags.Items#MULTIPART_TOOL} unless they are also in {@link TinkerTags.Items#UNRECYCLABLE}; latter notably includes {@link TinkerTags.Items#ANCIENT_TOOLS}
  */
 @RequiredArgsConstructor(staticName = "tools")
 @Accessors(fluent = true)

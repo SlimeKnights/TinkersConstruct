@@ -4,7 +4,6 @@ import com.google.common.collect.Streams;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.PackOutput.Target;
@@ -17,6 +16,7 @@ import net.minecraft.world.phys.Vec2;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.ApiStatus.NonExtendable;
 import slimeknights.mantle.data.GenericDataProvider;
+import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.mantle.registration.object.IdAwareObject;
 import slimeknights.tconstruct.library.tools.item.ranged.ModifiableCrossbowItem;
@@ -239,11 +239,15 @@ public abstract class AbstractToolItemModelProvider extends GenericDataProvider 
   }
 
   /** Adds broken and blocking models for the armor set */
-  @SuppressWarnings("deprecation")  // no its not
-  protected void armor(String name, EnumObject<ArmorItem.Type,? extends Item> armor, String... textures) throws IOException {
-    for (ArmorItem.Type slot : ArmorItem.Type.values()) {
-      transformTool("armor/" + name + '/' + slot.getName() + "_broken", readJson(BuiltInRegistries.ITEM.getKey(armor.get(slot))), "", false, "broken", textures);
+  protected void armor(String name, EnumObject<ArmorItem.Type,? extends Item> armor, ArmorItem.Type[] types, String... textures) throws IOException {
+    for (ArmorItem.Type slot : types) {
+      transformTool("armor/" + name + '/' + slot.getName() + "_broken", readJson(Loadables.ITEM.getKey(armor.get(slot))), "", false, "broken", textures);
     }
+  }
+
+  /** Adds broken and blocking models for the armor set */
+  protected void armor(String name, EnumObject<ArmorItem.Type,? extends Item> armor, String... textures) throws IOException {
+    armor(name, armor, ArmorItem.Type.values(), textures);
   }
 
   /* Helpers */

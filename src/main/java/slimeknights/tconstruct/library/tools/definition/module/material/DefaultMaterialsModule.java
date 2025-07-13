@@ -3,10 +3,12 @@ package slimeknights.tconstruct.library.tools.definition.module.material;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.util.RandomSource;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
+import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.RandomMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
-import slimeknights.tconstruct.library.module.ModuleHook;
+import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.module.HookProvider;
+import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.definition.module.ToolHooks;
 import slimeknights.tconstruct.library.tools.definition.module.ToolModule;
@@ -35,6 +37,23 @@ public record DefaultMaterialsModule(List<RandomMaterial> materials) implements 
     return RandomMaterial.build(ToolMaterialHook.stats(definition), materials, random);
   }
 
+  @Override
+  public MaterialNBT fillMaterials(ToolDefinition definition, MaterialNBT existing, RandomSource random) {
+    List<MaterialStatsId> stats = ToolMaterialHook.stats(definition);
+    // start with all existing materials
+    MaterialNBT.Builder builder = MaterialNBT.builder();
+    builder.addAll(existing);
+    // next, add missing materials
+    int defaultSize = materials.size();
+    for (int i = existing.size(); i < defaultSize; i++) {
+      builder.add(materials.get(i).getMaterial(stats.get(i), random));
+    }
+    // finally, add first with type to fill in the remaining space
+    for (int i = defaultSize; i < stats.size(); i++) {
+      builder.add(MaterialRegistry.firstWithStatType(stats.get(i)));
+    }
+    return builder.build();
+  }
 
   public static Builder builder() {
     return new Builder();

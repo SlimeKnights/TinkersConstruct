@@ -1,0 +1,70 @@
+{
+  "type": "forge:conditional",
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "forge:ingots/nicrosil"
+    },
+    {
+      "type": "mantle:tag_filled",
+      "tag": "forge:ingots/tin"
+    }
+  ],
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "mantle:tag_filled",
+          "tag": "forge:ingots/nickel"
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:alloy",
+        "inputs": [
+          {
+            "amount": 180,
+            "tag": "forge:molten_nickel"
+          },
+          {
+            "amount": 90,
+            "tag": "forge:molten_tin"
+          },
+          {
+            "amount": 100,
+            "tag": "tconstruct:molten_quartz"
+          }
+        ],
+        "result": {
+          "amount": 360,
+          "tag": "forge:molten_nicrosil"
+        },
+        "temperature": 1100
+      }
+    },
+    {
+      "conditions": [
+        {
+          "type": "forge:true"
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:alloy",
+        "inputs": [
+          {
+            "amount": 90,
+            "tag": "forge:molten_tin"
+          },
+          {
+            "amount": 100,
+            "tag": "tconstruct:molten_quartz"
+          }
+        ],
+        "result": {
+          "amount": 180,
+          "tag": "forge:molten_nicrosil"
+        },
+        "temperature": 1100
+      }
+    }
+  ]
+}

@@ -17,17 +17,17 @@ public enum ToolSubtypeInterpreter implements IIngredientSubtypeInterpreter<Item
   @Override
   public String apply(ItemStack itemStack, UidContext context) {
     if (this == ALWAYS || context == UidContext.Ingredient) {
-      StringBuilder builder = new StringBuilder();
       List<MaterialVariantId> materialList = MaterialIdNBT.from(itemStack).getMaterials();
       if (!materialList.isEmpty()) {
         // append first entry without a comma
-        builder.append(materialList.get(0));
+        StringBuilder builder = new StringBuilder();
+        builder.append(materialList.get(0).getId());
         for (int i = 1; i < materialList.size(); i++) {
           builder.append(',');
           builder.append(materialList.get(i).getId());
         }
+        return builder.toString();
       }
-      return builder.toString();
     }
     return NONE;
   }

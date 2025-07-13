@@ -16,6 +16,7 @@ public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
   public static final MaterialStatsId SLIMESUIT = new MaterialStatsId(TConstruct.MOD_ID, "slimesuit");
   public static final MaterialStatsId ARMOR_PLATING = new MaterialStatsId(TConstruct.MOD_ID, "armor_plating");
   public static final MaterialStatsId ARMOR_MAILLE = new MaterialStatsId(TConstruct.MOD_ID, "armor_maille");
+  public static final MaterialStatsId ARMOR_CUIRASS = new MaterialStatsId(TConstruct.MOD_ID, "armor_cuirass");
 
   public TinkerPartSpriteProvider() {
     super(TConstruct.MOD_ID);
@@ -44,11 +45,25 @@ public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
     // travelers textures
     addTexture("tinker_armor/travelers/metal_armor", ARMOR_PLATING).disallowAnimated();
     addTexture("tinker_armor/travelers/metal_leggings", ARMOR_PLATING).disallowAnimated();
-    buildTool("armor/travelers/goggles").disallowAnimated().addBreakablePart("metal", PlatingMaterialStats.HELMET.getId());
-    buildTool("armor/travelers/vest"   ).disallowAnimated().addBreakablePart("metal", PlatingMaterialStats.CHESTPLATE.getId());
-    buildTool("armor/travelers/pants"  ).disallowAnimated().addBreakablePart("metal", PlatingMaterialStats.LEGGINGS.getId());
-    buildTool("armor/travelers/boots"  ).disallowAnimated().addBreakablePart("metal", PlatingMaterialStats.BOOTS.getId());
-    buildTool("armor/travelers/shield" ).addBreakablePart("wood", StatlessMaterialStats.SHIELD_CORE.getIdentifier());
+    addTexture("tinker_armor/travelers/cuirass_armor", ARMOR_CUIRASS).disallowAnimated();
+    addTexture("tinker_armor/travelers/cuirass_leggings", ARMOR_CUIRASS).disallowAnimated();
+    addTexture("tinker_armor/travelers/cuirass_wings", ARMOR_CUIRASS).disallowAnimated();
+    // items - no loop as each has a unique name
+    buildTool("armor/travelers/goggles").disallowAnimated()
+      .addBreakablePart("cuirass", StatlessMaterialStats.CUIRASS.getIdentifier())
+      .addBreakablePart("metal", PlatingMaterialStats.HELMET.getId());
+    buildTool("armor/travelers/vest").disallowAnimated()
+      .addBreakablePart("cuirass", StatlessMaterialStats.CUIRASS.getIdentifier())
+      .addBreakablePart("metal", PlatingMaterialStats.CHESTPLATE.getId());
+    buildTool("armor/travelers/pants").disallowAnimated()
+      .addBreakablePart("cuirass", StatlessMaterialStats.CUIRASS.getIdentifier())
+      .addBreakablePart("metal", PlatingMaterialStats.LEGGINGS.getId());
+    buildTool("armor/travelers/boots").disallowAnimated()
+      .addBreakablePart("cuirass", StatlessMaterialStats.CUIRASS.getIdentifier())
+      .addBreakablePart("metal", PlatingMaterialStats.BOOTS.getId());
+    buildTool("armor/travelers/shield")
+      .addBreakablePart("cuirass", StatlessMaterialStats.CUIRASS.getIdentifier())
+      .addBreakablePart("wood", StatlessMaterialStats.SHIELD_CORE.getIdentifier());
 
     // plate textures
     addPart("maille", StatlessMaterialStats.MAILLE.getIdentifier());

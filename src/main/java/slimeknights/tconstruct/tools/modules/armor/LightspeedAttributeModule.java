@@ -18,6 +18,7 @@ import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.primitive.FloatLoadable;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -122,6 +123,9 @@ public record LightspeedAttributeModule(String unique, UUID uuid, Attribute attr
 
   @Override
   public void addTooltip(IToolStackView tool, ModifierEntry entry, @Nullable Player player, List<Component> tooltip, TooltipKey key, TooltipFlag tooltipFlag) {
+    if (!tool.hasTag(TinkerTags.Items.BOOTS)) {
+      return;
+    }
     int light = 15;
     if (player != null && key == TooltipKey.SHIFT) {
       light = getLight(player.level(), player.blockPosition());

@@ -52,6 +52,7 @@ public final class MaterialIds {
   public static final MaterialId steel = id("steel");
   // tier 3 - bindings
   public static final MaterialId darkthread = id("darkthread");
+  public static final MaterialId ichorskin = id("ichorskin");
   // tier 4
   public static final MaterialId manyullyn = id("manyullyn");
   public static final MaterialId hepatizon = id("hepatizon");
@@ -80,6 +81,7 @@ public final class MaterialIds {
   public static final MaterialId invar = id("invar");
   public static final MaterialId necronium = id("necronium");
   public static final MaterialId electrum = id("electrum");
+  public static final MaterialId pewter = id("pewter");
   public static final MaterialId platedSlimewood = id("plated_slimewood");
 
   // plate
@@ -158,6 +160,9 @@ public final class MaterialIds {
   public static final MaterialVariantId skyroot            = create(slimewood, "skyroot");
   public static final MaterialVariantId bloodshroom        = create(slimewood, "bloodshroom");
   public static final MaterialVariantId enderbark          = create(slimewood, "enderbark");
+  // slime vines
+  public static final MaterialVariantId skySlimeskin = create(skyslimeVine, "slimeskin");
+  public static final MaterialVariantId enderSlimeskin = create(enderslimeVine, "slimeskin");
   // oxidized
   public static final MaterialVariantId oxidizedIron = create(iron, "oxidized");
   public static final MaterialVariantId oxidizedCopper = create(copper, "oxidized");

@@ -100,6 +100,7 @@ public class TConstruct {
 
     Config.init();
     TinkerItemDisplays.init();
+    MaterialRegistry.init();
 
     // initialize modules, done this way rather than with annotations to give us control over the order
     MinecraftForge.EVENT_BUS.addListener(TConstruct::missingMappings);
@@ -147,7 +148,6 @@ public class TConstruct {
 
   @SubscribeEvent
   static void commonSetup(final FMLCommonSetupEvent event) {
-    MaterialRegistry.init();
     ToolDefinitionLoader.init();
     StationSlotLayoutLoader.init();
   }

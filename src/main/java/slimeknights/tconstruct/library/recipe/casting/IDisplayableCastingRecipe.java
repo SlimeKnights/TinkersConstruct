@@ -27,8 +27,14 @@ public interface IDisplayableCastingRecipe {
   /** Gets a list of fluid */
   List<FluidStack> getFluids();
 
-  /** Gets the recipe output */
+  /** @deprecated use {@link #getOutputs()}. Okay to override. */
+  @Deprecated
   ItemStack getOutput();
+
+  /** Gets a list of recipe outputs. Size should either be 1 or match the size of {@link #getCastItems()}. */
+  default List<ItemStack> getOutputs() {
+    return List.of(getOutput());
+  }
 
   /** Recipe cooling time */
   int getCoolingTime();

@@ -49,7 +49,7 @@ import java.util.function.BiConsumer;
 import java.util.function.DoubleSupplier;
 
 public class ToolAttackUtil {
-  private static final UUID OFFHAND_DAMAGE_MODIFIER_UUID = UUID.fromString("fd666e50-d2cc-11eb-b8bc-0242ac130003");
+  private static final UUID SLOT_MAINHAND_ATTRIBUTE = UUID.fromString("fd666e50-d2cc-11eb-b8bc-0242ac130003");
   private static final float DEGREE_TO_RADIANS = (float)Math.PI / 180F;
   private static final AttributeModifier ANTI_KNOCKBACK_MODIFIER = new AttributeModifier(TConstruct.MOD_ID + ".anti_knockback", 1f, Operation.ADDITION);
   /** Function to ignore attack cooldown */
@@ -68,62 +68,85 @@ public class ToolAttackUtil {
     return () -> player.getAttackStrengthScale(0.5f);
   }
 
+
+
   /**
-   * Gets the attack damage for the given hand, acting as though it was used in the main hand
-   *
-   * If your goal is damage for display, you are better off checking the tool attack damage stat directly, then displaying relevant attribute modifiers in the tooltip
+   * Gets the attack damage for the given slot, acting as though it was used in the main hand. Used for offhand attack and chestplate attack notably.
+   * <p>
+   * If your goal is damage for display, you are better off checking the tool attack damage stat directly, then displaying relevant attribute modifiers in the tooltip.
    * @param tool     Held tool
    * @param holder   Entity holding the tool
    * @param slotType Slot with tool
-   * @return  Attack damage
+   * @param attribute  Attribute to fetch
+   * @return  Base value of the attribute
    */
-  public static float getAttributeAttackDamage(IToolStackView tool, LivingEntity holder, EquipmentSlot slotType) {
-    if (slotType == EquipmentSlot.MAINHAND || holder.level().isClientSide) {
-      return (float) holder.getAttributeValue(Attributes.ATTACK_DAMAGE);
+  public static float getSlotAttribute(IToolStackView tool, LivingEntity holder, EquipmentSlot slotType, Attribute attribute, float toolValue) {
+    if (slotType == EquipmentSlot.MAINHAND) {
+      return (float) holder.getAttributeValue(attribute);
     }
+
     // fetch attribute instance
-    AttributeInstance instance = holder.getAttribute(Attributes.ATTACK_DAMAGE);
+    AttributeInstance instance = holder.getAttribute(attribute);
     if (instance == null) {
-      return (float) holder.getAttributeBaseValue(Attributes.ATTACK_DAMAGE);
+      return (float) holder.getAttributeBaseValue(attribute);
     }
 
     // first, remove all main hand modifiers, but store them to add back
     ItemStack mainStack = holder.getMainHandItem();
     Collection<AttributeModifier> mainModifiers = List.of();
     if (!mainStack.isEmpty()) {
-      mainModifiers = mainStack.getAttributeModifiers(EquipmentSlot.MAINHAND).get(Attributes.ATTACK_DAMAGE);
+      mainModifiers = mainStack.getAttributeModifiers(EquipmentSlot.MAINHAND).get(attribute);
       for (AttributeModifier modifier : mainModifiers) {
         instance.removeModifier(modifier);
       }
     }
 
     // next, build a list of damage modifiers from the offhand stack, handled directly as it saves parsing the tool twice and lets us simplify by filtering
-    List<AttributeModifier> offhandAttributes = new ArrayList<>();
-    offhandAttributes.add(new AttributeModifier(OFFHAND_DAMAGE_MODIFIER_UUID, "tconstruct.tool.offhand_attack_damage", tool.getStats().get(ToolStats.ATTACK_DAMAGE), AttributeModifier.Operation.ADDITION));
-    BiConsumer<Attribute, AttributeModifier> attributeConsumer = (attribute, modifier) -> {
-      if (attribute == Attributes.ATTACK_DAMAGE) {
-        offhandAttributes.add(modifier);
+    List<AttributeModifier> slotAttributes = new ArrayList<>();
+    if (toolValue != 0) {
+      slotAttributes.add(new AttributeModifier(SLOT_MAINHAND_ATTRIBUTE, "tconstruct.tool.slot_mainhand_attribute", toolValue, AttributeModifier.Operation.ADDITION));
+    }
+    BiConsumer<Attribute, AttributeModifier> attributeConsumer = (check, modifier) -> {
+      if (check == attribute) {
+        slotAttributes.add(modifier);
       }
     };
     for (ModifierEntry entry : tool.getModifierList()) {
       entry.getHook(ModifierHooks.ATTRIBUTES).addAttributes(tool, entry, EquipmentSlot.MAINHAND, attributeConsumer);
     }
-    for (AttributeModifier modifier : offhandAttributes) {
+    for (AttributeModifier modifier : slotAttributes) {
       instance.addTransientModifier(modifier);
     }
 
     // fetch damage using these temporary modifiers
-    float damage = (float) instance.getValue();
+    float value = (float) instance.getValue();
 
     // revert modifiers to the original state
-    for (AttributeModifier modifier : offhandAttributes) {
+    for (AttributeModifier modifier : slotAttributes) {
       instance.removeModifier(modifier);
     }
     for (AttributeModifier modifier : mainModifiers) {
       instance.addTransientModifier(modifier);
     }
 
-    return damage;
+    return value;
+  }
+
+  /**
+   * Gets the attack damage for the given hand, acting as though it was used in the main hand.
+   * <p>
+   * If your goal is damage for display, you are better off checking the tool attack damage stat directly, then displaying relevant attribute modifiers in the tooltip.
+   * @param tool     Held tool
+   * @param holder   Entity holding the tool
+   * @param slotType Slot with tool
+   * @return  Attack damage
+   */
+  public static float getAttributeAttackDamage(IToolStackView tool, LivingEntity holder, EquipmentSlot slotType) {
+    if (holder.level().isClientSide) {
+      return (float) holder.getAttributeValue(Attributes.ATTACK_DAMAGE);
+    }
+    // TODO 1.21: consider inlining this method as its only used once
+    return getSlotAttribute(tool, holder, slotType, Attributes.ATTACK_DAMAGE, tool.getStats().get(ToolStats.ATTACK_DAMAGE));
   }
 
   /** Performs a standard attack */
@@ -222,10 +245,12 @@ public class ToolAttackUtil {
     if (damage <= 0) {
       return !isExtraAttack;
     }
+    // checked immediately in case anything else changes damage
+    boolean isMagic = damage > baseDamage;
 
     // forge patches in the knockback attribute for use on players
     // vanilla halves the knockback attribute later, we half it in all our hooks, so halving the attribute makes it equivelent
-    float knockback = (float)attackerLiving.getAttributeValue(Attributes.ATTACK_KNOCKBACK) / 2f;
+    float knockback = getSlotAttribute(tool, attackerLiving, sourceSlot, Attributes.ATTACK_KNOCKBACK, 0) / 2f;
     // vanilla applies 0.4 knockback to living via the attack hook
     if (targetLiving != null) {
       knockback += 0.4f;
@@ -253,8 +278,8 @@ public class ToolAttackUtil {
           criticalModifier = hitResult.getDamageModifier();
         }
       }
-      if (isCritical) {
-        damage *= criticalModifier;
+      if (isCritical && criticalModifier != 1) {
+        damage += baseDamage * (criticalModifier - 1);
       }
     }
 
@@ -262,7 +287,6 @@ public class ToolAttackUtil {
     // removed: fire aspect check, replaced by before damage lower
 
     // apply cutoff and cooldown, store if damage was above base for magic particles
-    boolean isMagic = damage > baseDamage;
     if (cooldown < 1) {
       damage *= (0.2f + cooldown * cooldown * 0.8f);
     }

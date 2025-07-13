@@ -13,7 +13,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.DifferenceIngredient;
-import slimeknights.mantle.recipe.data.ConsumerWrapperBuilder;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.mantle.recipe.ingredient.SizedIngredient;
 import slimeknights.tconstruct.TConstruct;
@@ -32,6 +31,7 @@ import slimeknights.tconstruct.library.recipe.casting.material.MaterialCastingRe
 import slimeknights.tconstruct.library.recipe.casting.material.PartSwapCastingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.ingredient.MaterialIngredient;
 import slimeknights.tconstruct.library.recipe.ingredient.MaterialValueIngredient;
+import slimeknights.tconstruct.library.recipe.material.ShapedMaterialConsumerBuilder;
 import slimeknights.tconstruct.library.recipe.partbuilder.recycle.PartBuilderToolRecycleBuilder;
 import slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipeBuilder;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
@@ -141,7 +141,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
                        .save(consumer, prefix(TinkerTools.enderStaff, folder));
 
     // travelers gear
-    Consumer<FinishedRecipe> shapedMaterial = ConsumerWrapperBuilder.wrap(TinkerTables.shapedMaterialRecipeSerializer.get()).build(consumer);
+    Consumer<FinishedRecipe> shapedMaterial = ShapedMaterialConsumerBuilder.wrap().material(MaterialIds.leather).build(consumer);
     Function<MaterialStatsId,Ingredient> materialsCosting = type -> MaterialValueIngredient.of(MaterialPredicate.and(MaterialPredicate.CASTABLE, new MaterialStatTypePredicate(type)), 1);
     ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, TinkerTools.travelersGear.get(ArmorItem.Type.HELMET))
       .pattern("l l")
@@ -152,6 +152,9 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
       .define('g', Tags.Items.GLASS_PANES_COLORLESS)
       .unlockedBy("has_item", has(Tags.Items.LEATHER))
       .save(shapedMaterial, location(armorFolder + "travelers_goggles"));
+    PartSwapCastingRecipeBuilder.tableRecipe(Ingredient.of(TinkerTools.travelersGear.get(ArmorItem.Type.HELMET)), 3)
+      .index(1)
+      .save(consumer, location(armorFolder + "travelers_goggles_leather"));
     ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, TinkerTools.travelersGear.get(ArmorItem.Type.CHESTPLATE))
       .pattern("l l")
       .pattern("lcl")
@@ -160,6 +163,9 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
       .define('l', Tags.Items.LEATHER)
       .unlockedBy("has_item", has(Tags.Items.LEATHER))
       .save(shapedMaterial, location(armorFolder + "travelers_chestplate"));
+    PartSwapCastingRecipeBuilder.tableRecipe(Ingredient.of(TinkerTools.travelersGear.get(ArmorItem.Type.CHESTPLATE)), 6)
+      .index(1)
+      .save(consumer, location(armorFolder + "travelers_chestplate_leather"));
     ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, TinkerTools.travelersGear.get(ArmorItem.Type.LEGGINGS))
       .pattern("lll")
       .pattern("c c")
@@ -168,6 +174,9 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
       .define('l', Tags.Items.LEATHER)
       .unlockedBy("has_item", has(Tags.Items.LEATHER))
       .save(shapedMaterial, location(armorFolder + "travelers_pants"));
+    PartSwapCastingRecipeBuilder.tableRecipe(Ingredient.of(TinkerTools.travelersGear.get(ArmorItem.Type.LEGGINGS)), 5)
+      .index(1)
+      .save(consumer, location(armorFolder + "travelers_pants_leather"));
     ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, TinkerTools.travelersGear.get(ArmorItem.Type.BOOTS))
       .pattern("c c")
       .pattern("l l")
@@ -175,6 +184,9 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
       .define('l', Tags.Items.LEATHER)
       .unlockedBy("has_item", has(Tags.Items.LEATHER))
       .save(shapedMaterial, location(armorFolder + "travelers_boots"));
+    PartSwapCastingRecipeBuilder.tableRecipe(Ingredient.of(TinkerTools.travelersGear.get(ArmorItem.Type.BOOTS)), 2)
+      .index(1)
+      .save(consumer, location(armorFolder + "travelers_boots_leather"));
     ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, TinkerTools.travelersShield)
                        .pattern(" p ")
                        .pattern("lwl")
@@ -184,8 +196,11 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
                        .define('w', MaterialValueIngredient.of(new MaterialStatTypePredicate(StatlessMaterialStats.SHIELD_CORE.getIdentifier()), 1))
                        .unlockedBy("has_item", has(Tags.Items.LEATHER))
                        .save(shapedMaterial, location(armorFolder + "travelers_shield"));
+    PartSwapCastingRecipeBuilder.tableRecipe(Ingredient.of(TinkerTools.travelersShield), 2)
+      .index(1)
+      .save(consumer, location(armorFolder + "travelers_shield_leather"));
     PartSwapCastingRecipeBuilder.tableRecipe(Ingredient.of(TinkerTools.travelersGear.values().toArray(new Item[0])), 2)
-      .save(consumer, location(armorFolder + "travelers_swapping"));
+      .save(consumer, location(armorFolder + "travelers_swapping_metal"));
 
     // plate armor
     TinkerTools.plateArmor.forEach(item -> toolBuilding(consumer, item, armorFolder, TConstruct.getResource("plate_armor")));
@@ -242,7 +257,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     String folder = "tools/recycling/";
 
     // main recycling recipe - uses tool definition for parts list
-    PartBuilderToolRecycleBuilder.tools(SizedIngredient.of(DifferenceIngredient.of(Ingredient.of(TinkerTags.Items.MULTIPART_TOOL), Ingredient.of(TinkerTags.Items.UNSALVAGABLE))))
+    PartBuilderToolRecycleBuilder.tools(SizedIngredient.of(DifferenceIngredient.of(Ingredient.of(TinkerTags.Items.MULTIPART_TOOL), Ingredient.of(TinkerTags.Items.UNRECYCLABLE))))
         .save(consumer, location(folder + "general"));
     // daggers want to enforce stack size 2 when recycling to prevent dupes
     PartBuilderToolRecycleBuilder.tools(SizedIngredient.fromItems(2, TinkerTools.dagger))

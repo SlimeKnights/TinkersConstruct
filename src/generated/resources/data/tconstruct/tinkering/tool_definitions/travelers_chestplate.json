@@ -7,7 +7,8 @@
         {
           "scale": 0.75,
           "stat": "tconstruct:plating_chestplate"
-        }
+        },
+        "tconstruct:cuirass"
       ]
     },
     {
@@ -16,6 +17,10 @@
         {
           "type": "tconstruct:fixed",
           "material": "tconstruct:rose_gold"
+        },
+        {
+          "type": "tconstruct:fixed",
+          "material": "tconstruct:leather"
         }
       ]
     },
@@ -35,18 +40,9 @@
       }
     },
     {
-      "type": "tconstruct:material_repair",
-      "durability": 120,
-      "material": "tconstruct:leather"
-    },
-    {
-      "type": "tconstruct:traits",
-      "traits": [
-        {
-          "level": 1,
-          "name": "tconstruct:tanned"
-        }
-      ]
+      "type": "tconstruct:statless_part_repair",
+      "part_index": 1,
+      "repair_amount": 120
     }
   ]
 }

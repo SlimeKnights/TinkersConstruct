@@ -194,6 +194,8 @@ public final class TinkerFluids extends TinkerModule {
   // mekanism
   public static final FlowingFluidObject<ForgeFlowingFluid> moltenRefinedGlowstone = FLUIDS.register("molten_refined_glowstone").type(hot("molten_refined_glowstone").temperature(1125).lightLevel(15)).block(createBurning(MapColor.COLOR_YELLOW, 15, 10, 7f)).bucket().commonTag().flowing();
   public static final FlowingFluidObject<ForgeFlowingFluid> moltenRefinedObsidian  = FLUIDS.register("molten_refined_obsidian").type(hot("molten_refined_obsidian").temperature(1775).lightLevel(7)).block(createBurning(MapColor.TERRACOTTA_BLUE, 7, 10, 7f)).bucket().commonTag().flowing();
+  // metalborn
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenNicrosil = FLUIDS.register("molten_nicrosil").type(hot("molten_nicrosil").temperature(1400).lightLevel(14)).block(createBurning(MapColor.SNOW, 12, 10, 6f)).bucket().commonTag().flowing();
 
   // fluid data serializer
   public static final FluidDataSerializer FLUID_DATA_SERIALIZER = new FluidDataSerializer();
@@ -353,6 +355,7 @@ public final class TinkerFluids extends TinkerModule {
       DispenserBlock.registerBehavior(moltenSignalum, dispenseBucket);
       DispenserBlock.registerBehavior(moltenRefinedGlowstone, dispenseBucket);
       DispenserBlock.registerBehavior(moltenRefinedObsidian, dispenseBucket);
+      DispenserBlock.registerBehavior(moltenNicrosil, dispenseBucket);
 
       // brew congealed slime into bottles to get slime bottles, easy melting
       for (SlimeType slime : SlimeType.values()) {
@@ -450,6 +453,7 @@ public final class TinkerFluids extends TinkerModule {
     acceptMolten(output, moltenSignalum);
     acceptMolten(output, moltenRefinedGlowstone);
     acceptMolten(output, moltenRefinedObsidian);
+    acceptMolten(output, moltenNicrosil);
     BuiltInRegistries.POTION.holders().filter(holder -> {
       Potion potion = holder.get();
       return potion != Potions.EMPTY && potion != Potions.WATER;
