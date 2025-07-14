@@ -52,6 +52,7 @@ import slimeknights.tconstruct.library.tools.part.IToolPart;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.TinkerToolParts;
+import slimeknights.tconstruct.tools.stats.SkullStats;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -476,7 +477,7 @@ public abstract class AbstractMaterialContent extends PageContent {
     Optional<IMaterialStats> statsOptional = MaterialRegistry.getInstance().getMaterialStats(getMaterialVariant().getId(), statsId);
     if (statsOptional.isEmpty()) return "";
 
-    boolean paddingLeft = !statsId.equals(HELMET.getId()) && !statsId.equals(SHIELD.getId());
+    boolean paddingLeft = !statsId.equals(HELMET.getId()) && !statsId.equals(SHIELD.getId()) && !statsId.equals(SkullStats.ID);
     IMaterialStats stats = statsOptional.get();
     return String.format(
       """

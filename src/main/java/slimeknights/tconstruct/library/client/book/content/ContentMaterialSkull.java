@@ -19,9 +19,13 @@ import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.stats.SkullStats;
+import slimeknights.tconstruct.tools.stats.StatlessMaterialStats;
 
 import javax.annotation.Nullable;
 import java.util.List;
+
+import static slimeknights.tconstruct.tools.stats.PlatingMaterialStats.HELMET;
+import static slimeknights.tconstruct.tools.stats.PlatingMaterialStats.SHIELD;
 
 /** Extension of the material page to display skull stats for the slimeskull */
 public class ContentMaterialSkull extends AbstractMaterialContent {
@@ -126,5 +130,10 @@ public class ContentMaterialSkull extends AbstractMaterialContent {
         displayTools.add(elementItem);
       }
     }
+  }
+
+  @Override
+  public String toHTML() {
+    return String.format(super.toHTML(), getStatLines(SkullStats.ID));
   }
 }
