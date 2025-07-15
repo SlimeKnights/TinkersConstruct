@@ -203,20 +203,23 @@ public class ContentPageIconList extends PageContent {
       </div>
       """,
       super.toHTML(),
-      HTMLUtils.line(subText, "padding-left: 10px"),
+      HTMLUtils.line(subText, "padding-left: 10px", "margin: 0"),
       (BookScreen.PAGE_WIDTH - 2 * xOff) / (int) (this.width * getScale()),
       elements.stream()
-        .map(element ->
-          String.format(
-            """
-            <div>
-                <a href="#%s_%s"><img src="/assets/images/book/icons/blank.png" alt="%s"></a>
-            </div>
-            """,
-            element.pageData.type.getPath(),
-            HTMLUtils.slugify(element.name.getString()),
-            element.name.getString()
-          )
+        .map(element -> {
+            PageContent content = element.pageData.content;
+            String link = HTMLUtils.slugify( content instanceof AbstractMaterialContent ? ((AbstractMaterialContent) element.pageData.content).getMaterialVariant().getId().getPath() : element.name.getString());
+            return String.format(
+              """
+              <div>
+                  <a href="#%s_%s"><img src="/assets/images/book/icons/blank.png" alt="%s"></a>
+              </div>
+              """,
+              element.pageData.type.getPath(),
+              link,
+              element.name.getString()
+            );
+          }
         )
         .collect(Collectors.joining("\n"))
     );

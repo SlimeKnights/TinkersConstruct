@@ -130,18 +130,27 @@ public class FluidEffectContent extends PageContent {
 
   @Override
   public String toHTML() {
-    StringBuilder builder = new StringBuilder(super.toHTML())
+    StringBuilder builder = new StringBuilder()
+      .append(
+        HTMLUtils.line(
+          getTitle(),
+          HTMLUtils.slugify(ID.getPath() + "_" + getTitle()),
+          true,
+          isLarge(),
+          isCentered() ? "align-self: center" : ""
+        )
+      )
       .append("<div>")
       .append(HTMLUtils.line(text, "height: 64px", "padding-left: 64px"));
 
     if (!entityComponents.isEmpty()) {
-      builder.append("<div style=\"height: 120px\">").append(HTMLUtils.line(I18n.get(KEY_ENTITY_EFFECTS), true)).append("<ul class=\"prop-list\">");
+      builder.append("<div style=\"height: 128px\">").append(HTMLUtils.line(I18n.get(KEY_ENTITY_EFFECTS), true)).append("<ul class=\"prop-list\">");
       for (Component component : entityComponents) builder.append("<li>").append(HTMLUtils.line(component)).append("</li>");
       builder.append("</ul></div>");
     }
 
     if (!blockComponents.isEmpty()) {
-      builder.append("<div style=\"height: 120px\">").append(HTMLUtils.line(I18n.get(KEY_BLOCK_EFFECTS), true)).append("<ul class=\"prop-list\">");
+      builder.append("<div style=\"height: 128px\">").append(HTMLUtils.line(I18n.get(KEY_BLOCK_EFFECTS), true)).append("<ul class=\"prop-list\">");
       for (Component component : blockComponents) builder.append("<li>").append(HTMLUtils.line(component)).append("</li>");
       builder.append("</ul></div>");
     }

@@ -279,7 +279,7 @@ public class ContentTool extends PageContent {
       """
       %s
       <div style="padding-left: 10px">
-        <div class="column" style="height: 120px">
+        <div class="column" style="height: 128px">
           %s
         </div>
         <div style="width: 210px">
