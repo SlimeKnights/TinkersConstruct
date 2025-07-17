@@ -473,6 +473,7 @@ public abstract class AbstractMaterialContent extends PageContent {
     return getStatLines(statsId, null, traitsOnly);
   }
 
+  /** Formats materials stats as HTML */
   protected String getStatLines(MaterialStatsId statsId, @Nullable String name, boolean traitsOnly) {
     Optional<IMaterialStats> statsOptional = MaterialRegistry.getInstance().getMaterialStats(getMaterialVariant().getId(), statsId);
     if (statsOptional.isEmpty()) return "";
@@ -495,6 +496,7 @@ public abstract class AbstractMaterialContent extends PageContent {
     );
   }
 
+  /** Formats materials traits as HTML */
   protected String getTraitLines(MaterialStatsId statsId) {
     return MaterialRegistry.getInstance().getTraits(getMaterialVariant().getId(), statsId).stream()
       .map(ModifierEntry::getModifier)

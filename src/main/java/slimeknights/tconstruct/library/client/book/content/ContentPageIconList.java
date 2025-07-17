@@ -202,7 +202,7 @@ public class ContentPageIconList extends PageContent {
           %s
       </div>
       """,
-      super.toHTML(),
+      getTitleHTML(),
       HTMLUtils.line(subText, "padding-left: 10px", "margin: 0"),
       (BookScreen.PAGE_WIDTH - 2 * xOff) / (int) (this.width * getScale()),
       elements.stream()

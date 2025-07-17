@@ -290,7 +290,7 @@ public class ContentTool extends PageContent {
         </div>
       </div>
       """,
-      super.toHTML(),
+      getTitleHTML(),
       TextData.toHTML(text),
       I18n.get(KEY_PROPERTIES),
       Arrays.stream(properties)
