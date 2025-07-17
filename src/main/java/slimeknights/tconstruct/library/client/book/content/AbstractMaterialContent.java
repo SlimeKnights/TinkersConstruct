@@ -449,12 +449,9 @@ public abstract class AbstractMaterialContent extends PageContent {
 
     StringBuilder builder = new StringBuilder("\n<div class=\"page-material\">")
       .append(
-        HTMLUtils.line(
-          getTitle(),
+        getTitleHTML(
           HTMLUtils.slugify(getId().getPath() + "_" + getMaterialVariant().getId().getPath()),
-          true,
-          isLarge(),
-          "color: " + HTMLUtils.hexRGB(rgb), "filter: drop-shadow(1px 1px #000000)" + (isCentered() ? "; align-self: center" : "")
+          "color: " + HTMLUtils.hexRGB(rgb), "filter: drop-shadow(1px 1px #000000)"
         )
       ).append("%s<p class=\"trait\">");
 
