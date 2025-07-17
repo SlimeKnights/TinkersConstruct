@@ -172,7 +172,6 @@
   "item.tconstruct.knightslime_ingot.tooltip": "黏糊糊的，还有金属光泽，但却和石头似的？还真是魅力无限！",
   "item.tconstruct.knightslime_nugget": "骑士史莱姆粒",
 
-  "item.tconstruct.book.click_to_open": "右击以阅读",
   "item.tconstruct.materials_and_you": "匠魂宝典：材料与你",
   "item.tconstruct.materials_and_you.tooltip": "深析工具与材料的指南手册\nSelena著",
   "item.tconstruct.encyclopedia": "工匠大百科",
@@ -2654,7 +2653,6 @@
   "modifier.tconstruct.raging.flavor": "破釜沉舟，背水一战！",
   "modifier.tconstruct.raging.description": "当生命值低时工具伤害更高，拉弓速度更快",
   "modifier.tconstruct.raging.attack_damage": "低生命值伤害",
-
   "modifier.tconstruct.raging.projectile_damage": "低生命值弹射物力量",
   "modifier.tconstruct.vital_protection": "关键保护",
   "modifier.tconstruct.vital_protection.flavor": "披发缨冠，授手援溺！",
@@ -3198,7 +3196,7 @@
 
   "recipe.tconstruct.remove_modifier.modifiers": "强化移除",
   "recipe.tconstruct.remove_modifier.description": "选择一个强化以移除，所占用的槽位将会返还。其中的流体将会被销毁，而容器则会直接返还",
-  "recipe.tconstruct.remove_modifier.no_modifiers": "工具在此配方下不具有任何可移除强化",
+  "recipe.tconstruct.remove_modifier.no_modifiers": "此配方下工具没有可移除的强化。",
 
   "recipe.tconstruct.modifier_sorting.title": "强化排序",
   "recipe.tconstruct.modifier_sorting.description": "选择一个强化以将其纹理位置与在列表中的下一个强化的纹理位置互换。互换时不消耗配方物品",
@@ -3220,8 +3218,8 @@
   "recipe.tconstruct.extract_modifier.abilities": "能力强化提取",
   "recipe.tconstruct.extract_modifier.defense": "防御强化提取",
   "recipe.tconstruct.extract_modifier.modifiers": "强化提取",
-  "recipe.tconstruct.extract_modifier.description": "选择要提取到强化水晶上的强化。返还已消耗的强化槽。",
-  "recipe.tconstruct.extract_modifier.no_modifiers": "工具在此配方下没有任何可提取的强化",
+  "recipe.tconstruct.extract_modifier.description": "选择要提取到水晶上的强化。\n返还已消耗的强化槽。",
+  "recipe.tconstruct.extract_modifier.no_modifiers": "此配方下工具没有可提取的强化。",
 
   "recipe.tconstruct.enchantment_converting.description.lost": "从附魔书中选取给定类型的强化并提取为强化水晶。附魔物品将会消失。",
   "recipe.tconstruct.enchantment_converting.description.keep": "从附魔书中选取给定类型的强化并提取为强化水晶。该物品的魔咒将会移除并返还。",
@@ -3274,6 +3272,7 @@
   "subtitles.tconstruct.longbow.charge": "长弓：拉弓",
   "subtitles.tconstruct.crystalshot": "箭：击中",
   "subtitles.tconstruct.bonk": "工具：重击",
+  "subtitles.tconstruct.spit": "流体：泼洒",
 
   "subtitles.tconstruct.necrotic_heal": "生命汲取",
   "subtitles.tconstruct.extra_jump": "实体：嗖",
@@ -3436,6 +3435,7 @@
   "jei.tconstruct.part_builder.cost": "消耗：%s",
 
   "jei.tconstruct.modifier_worktable.title": "强化调配台",
+  "jei.tconstruct.tinker_station.too_large": "配方过大，此工作站无法完成",
 
 
   "_comment": "Tool Advancements",

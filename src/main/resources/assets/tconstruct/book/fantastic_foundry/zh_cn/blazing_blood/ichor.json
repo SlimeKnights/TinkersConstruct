@@ -1,0 +1,16 @@
+{
+  "title": "灵浆",
+  "item": [
+    "tconstruct:ichor_slime_ball",
+    "tconstruct:ichor_congealed_slime",
+    "tconstruct:ichor_slime",
+    "tconstruct:ichor_slime_crystal",
+    "tconstruct:ichor_slime_crystal_block"
+  ],
+  "text": [
+    {
+      "text": "熔炼灵浆也能得到烈焰血。一开始不太建议这么做，因为你需要更热一些的燃料才能将之熔炼。当然在你有其他能获得烈焰血的途径后，多一条能稳定产出烈焰血的方式总归是好的。",
+      "paragraph": true
+    }
+  ]
+}
