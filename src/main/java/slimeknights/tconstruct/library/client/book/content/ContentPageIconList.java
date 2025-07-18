@@ -199,7 +199,7 @@ public class ContentPageIconList extends PageContent {
       %s
       %s
       <div class="grid-materials-%d">
-          %s
+      %s
       </div>
       """,
       getTitleHTML(),
@@ -208,16 +208,15 @@ public class ContentPageIconList extends PageContent {
       elements.stream()
         .map(element -> {
             PageContent content = element.pageData.content;
-            String link = HTMLUtils.slugify( content instanceof AbstractMaterialContent ? ((AbstractMaterialContent) element.pageData.content).getMaterialVariant().getId().getPath() : element.name.getString());
+            String link = HTMLUtils.slugify(element.pageData.type.getPath() + "-" +
+              (content instanceof AbstractMaterialContent ? ((AbstractMaterialContent) element.pageData.content).getMaterialVariant().getId().getPath() : element.name.getString()));
             return String.format(
               """
               <div>
-                  <a href="#%s_%s"><img src="/assets/images/book/icons/blank.png" alt="%s"></a>
+              <a href="#%s"><img src="/assets/images/book/icons/blank.png" alt=""></a>
               </div>
               """,
-              element.pageData.type.getPath(),
-              link,
-              element.name.getString()
+              link
             );
           }
         )

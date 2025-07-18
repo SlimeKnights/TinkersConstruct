@@ -279,15 +279,15 @@ public class ContentTool extends PageContent {
       """
       %s
       <div style="padding-left: 10px">
-        <div class="column" style="height: 128px">
-          %s
-        </div>
-        <div style="width: 210px">
-          <p class="underline">%s</p>
-          <ul class="prop-list">
-          %s
-          </ul>
-        </div>
+      <div class="column" style="height: 128px">
+      %s
+      </div>
+      <div style="width: 210px">
+      <p class="underline">%s</p>
+      <ul class="prop-list">
+      %s
+      </ul>
+      </div>
       </div>
       """,
       getTitleHTML(),

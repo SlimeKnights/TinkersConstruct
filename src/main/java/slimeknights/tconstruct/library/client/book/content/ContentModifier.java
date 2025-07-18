@@ -317,18 +317,12 @@ public class ContentModifier extends PageContent {
         </div>
       </div>
       """,
-      HTMLUtils.line(
-        getTitle(),
-        HTMLUtils.slugify(getTitle()),
-        true,
-        isLarge(),
-        "color: " + HTMLUtils.hexRGB(rgb), "filter: drop-shadow(1px 1px #000000)" + (isCentered() ? "; align-self: center" : "" )
-      ),
+      getTitleHTML(HTMLUtils.slugify(getTitle()), "color: " + HTMLUtils.hexRGB(rgb), "filter: drop-shadow(1px 1px #000000)"),
       h * 2,
       TextData.toHTML(text),
       I18n.get(KEY_EFFECTS),
       Arrays.stream(effects)
-        .map(s -> String.format("<li>%s</li>", s))
+        .map(s -> String.format("<li>%s</li>", HTMLUtils.parse(s)))
         .collect(Collectors.joining("\n"))
     );
   }
