@@ -194,17 +194,19 @@ public class ContentPageIconList extends PageContent {
 
   @Override
   public String toHTML() {
+    int yOff = (this.parent.parent.parent.fontRenderer.wordWrapHeight(subText, 182) * 12 / 9) + 16;
     return String.format(
       """
       %s
       %s
-      <div class="grid-materials-%d">
+      <div class="grid-materials-%d" style="top: %dpx">
       %s
       </div>
       """,
       getTitleHTML(),
       HTMLUtils.line(subText, "padding-left: 10px", "margin: 0"),
       (BookScreen.PAGE_WIDTH - 2 * xOff) / (int) (this.width * getScale()),
+      yOff * 2,
       elements.stream()
         .map(element -> {
             PageContent content = element.pageData.content;
