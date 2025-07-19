@@ -209,7 +209,10 @@ public class ArmorMaterialContent extends AbstractMaterialContent {
 
   @Override
   public String toHTML() {
-    List<PlatingMaterialStats> stats = TOP_DOWN_STATS.stream().flatMap(id -> MaterialRegistry.getInstance().<PlatingMaterialStats>getMaterialStats(getMaterial().getIdentifier(), id).stream()).toList();
+    List<PlatingMaterialStats> stats = TOP_DOWN_STATS.stream()
+      .flatMap(id -> MaterialRegistry.getInstance().<PlatingMaterialStats>getMaterialStats(getMaterial().getIdentifier(), id).stream())
+      .toList();
+
     StringBuilder builder = new StringBuilder();
 
     if (!stats.isEmpty()) {
@@ -229,9 +232,11 @@ public class ArmorMaterialContent extends AbstractMaterialContent {
       addStatLine(lineData, stats, ToolStats.ARMOR, PlatingMaterialStats::armor);
       addStatLine(lineData, stats, ToolStats.ARMOR_TOUGHNESS, PlatingMaterialStats::toughness);
       addStatLine(lineData, stats, ToolStats.KNOCKBACK_RESISTANCE, stat -> stat.knockbackResistance() * 10);
-      builder.append(lineData.stream()
+      builder.append(
+        lineData.stream()
+          .filter(data -> !data.text.equals(Component.literal("\n")))
           .map(data -> HTMLUtils.line(data.text)).collect(Collectors.joining("\n"))
-        ).append("</div>");
+      ).append("</div>");
     }
 
     builder.append(String.format(
