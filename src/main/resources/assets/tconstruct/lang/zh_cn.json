@@ -3323,6 +3323,7 @@
 
   "_comment": "Commands",
 
+  "command.tconstruct.item.not_found": "未知物品%s",
   "command.tconstruct.slot_type.not_found": "未知槽位类型%s",
   "command.tconstruct.fluid.not_found": "未知流体%s",
   "command.tconstruct.stat_type.not_found": "未知工具数据%s",
@@ -3331,6 +3332,7 @@
   "command.tconstruct.material.not_found": "未知材料%s",
   "command.tconstruct.modifier.not_found": "未知强化%s",
   "command.tconstruct.modifier_hook.not_found": "未知强化钩子%s",
+
   "command.tconstruct.modifier_usage": "已成功将强化说明打印至游戏日志中",
   "command.tconstruct.modifier_priority": "已成功将强化排序优先级打印至游戏日志中",
 
@@ -3384,6 +3386,10 @@
   "command.tconstruct.generate_part_textures.finish": "成功生成%s个部件纹理，耗时%s秒，生成位置：%s",
   "command.tconstruct.generate_part_textures.no_materials": "材料没有生成信息，什么也没有生成",
   "command.tconstruct.generate_part_textures.no_parts": "资源包中没有部件信息",
+
+  "command.tconstruct.generate.remove_recipes": "成功移除%s个配方，耗时%s秒。运行/reload以激活位于%s的数据包",
+  "command.tconstruct.generate.remove_recipes.preset_not_found": "移除配方预设“%s”缺失或无效。详细信息请检查日志。",
+  "command.tconstruct.generate.melting_recipes": "成功生成%s个熔炼配方，耗时%s秒。运行/reload以激活位于%s的数据包",
 
 
   "_comment": "JEI Strings",
