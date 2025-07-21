@@ -260,12 +260,16 @@ public class ToolContainerMenu extends AbstractContainerMenu {
   }
 
   private static class ToolContainerSlot extends SmartItemHandlerSlot {
-
     private final int index;
 
     public ToolContainerSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
       super(itemHandler, index, xPosition, yPosition);
       this.index = index;
+    }
+
+    @Override
+    public boolean mayPickup(Player playerIn) {
+      return true;
     }
 
     @Override

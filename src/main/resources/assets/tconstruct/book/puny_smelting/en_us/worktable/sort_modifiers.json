@@ -1,0 +1,13 @@
+{
+  "title": "Sort Modifiers",
+  "image": {
+    "file": "tconstruct:book/images/worktable/sort_modifiers.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "While normally adding a compass to tools magnetizes the tool, you can also the magnet to persuade modifiers to reorder modifiers without removing them. Unlike invisible ink, this isn't just art; the order of modifiers on the tool allows you to change the order overlapping modifiers run."
+    }
+  ]
+}

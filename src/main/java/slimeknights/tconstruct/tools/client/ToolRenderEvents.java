@@ -38,6 +38,7 @@ import slimeknights.tconstruct.library.tools.definition.module.aoe.AreaOfEffectI
 import slimeknights.tconstruct.library.tools.definition.module.aoe.AreaOfEffectIterator.AOEMatchType;
 import slimeknights.tconstruct.library.tools.definition.module.mining.IsEffectiveToolHook;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.utils.BlockSideHitListener;
 
 import java.util.Iterator;
 
@@ -167,7 +168,7 @@ public class ToolRenderEvents {
     if (!IsEffectiveToolHook.isEffective(tool, state)) {
       return;
     }
-    UseOnContext context = new UseOnContext(world, player, InteractionHand.MAIN_HAND, stack, blockTrace);
+    UseOnContext context = new UseOnContext(world, player, InteractionHand.MAIN_HAND, stack, blockTrace.withDirection(BlockSideHitListener.getClientSideHit()));
     Iterator<BlockPos> extraBlocks = tool.getHook(ToolHooks.AOE_ITERATOR).getBlocks(tool, context, state, AreaOfEffectIterator.AOEMatchType.BREAKING).iterator();
     if (!extraBlocks.hasNext()) {
       return;

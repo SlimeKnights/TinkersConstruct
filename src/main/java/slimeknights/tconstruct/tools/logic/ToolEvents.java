@@ -410,7 +410,7 @@ public class ToolEvents {
         int count = disguises.count(lookingEntity.getType());
         if (count > 0) {
           // halves the range per level
-          event.modifyVisibility(1 / Math.pow(2, count) * event.getVisibilityModifier());
+          event.modifyVisibility(1 / Math.pow(2, count));
         }
       }
     }

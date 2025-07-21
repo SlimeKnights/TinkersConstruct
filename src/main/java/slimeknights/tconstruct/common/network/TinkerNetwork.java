@@ -48,8 +48,13 @@ import javax.annotation.Nullable;
 public class TinkerNetwork extends NetworkWrapper {
   private static TinkerNetwork instance = null;
 
+  /*
+   * Network versions:
+   * 1: 3.10.1 and before
+   * 2: 3.10.2 - new material stat type; item removal
+   */
   private TinkerNetwork() {
-    super(TConstruct.getResource("network"));
+    super(TConstruct.getResource("network"), "2");
   }
 
   /** Gets the instance of the network */

@@ -9,7 +9,7 @@
     },
     {
       "type": "tconstruct:stat_boost",
-      "each_level": 0.1,
+      "each_level": 0.08,
       "operation": "multiply_base",
       "stat": "tconstruct:attack_damage"
     },

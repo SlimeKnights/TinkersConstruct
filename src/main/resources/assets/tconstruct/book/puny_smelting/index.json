@@ -104,6 +104,13 @@
     }
   },
   {
+    "name": "worktable",
+    "data": "sections/worktable.json",
+    "icon": {
+      "item": "tconstruct:modifier_worktable"
+    }
+  },
+  {
     "name": "further_reading",
     "data": "sections/further_reading.json",
     "icon": {

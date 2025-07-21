@@ -8,6 +8,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import slimeknights.mantle.util.TranslationHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
@@ -59,7 +60,7 @@ public class RepairKitItem extends MaterialItem implements IRepairKitItem {
         tooltip.add((Component.translatable(ToolPartItem.MATERIAL_KEY, materialVariant.toString())).withStyle(ChatFormatting.DARK_GRAY));
       }
     }
-    tooltip.add(Component.translatable(TOOLTIP_KEY, getRepairAmount()).withStyle(ChatFormatting.GRAY));
+    tooltip.add(Component.translatable(TOOLTIP_KEY, TranslationHelper.COMMA_FORMAT.format(getRepairAmount())).withStyle(ChatFormatting.GRAY));
   }
 
   @Override

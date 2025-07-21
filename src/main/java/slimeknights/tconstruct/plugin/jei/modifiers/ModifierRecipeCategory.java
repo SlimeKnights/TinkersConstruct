@@ -17,15 +17,14 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.library.json.IntRange;
-import slimeknights.tconstruct.library.materials.IMaterialRegistry;
-import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IDisplayModifierRecipe;
@@ -33,17 +32,18 @@ import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
-import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.plugin.jei.TConstructJEIConstants;
 import slimeknights.tconstruct.tools.TinkerModifiers;
-import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.item.CreativeSlotItem;
-import slimeknights.tconstruct.tools.stats.SkullStats;
 
 import javax.annotation.Nullable;
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
 
 public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierRecipe> {
   protected static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/tinker_station.png");
@@ -73,6 +73,7 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
     }
     this.requirements = helper.createDrawable(BACKGROUND_LOC, 128, 17, 16, 16);
     this.incremental = helper.createDrawable(BACKGROUND_LOC, 128, 33, 16, 16);
+    clearSlimeskullCache();
   }
 
   @Override
@@ -190,12 +191,10 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
     List<ItemStack> toolWithoutModifier = recipe.getToolWithoutModifier();
     List<ItemStack> toolWithModifier = recipe.getToolWithModifier();
 
-    // hack: if any slimeskull is selected, add all known variants to the recipe lookup
-    Item slimeskull = TinkerTools.slimesuit.get(ArmorItem.Type.HELMET);
+    // hack: if a single part tool is in the recipe, add variants of it as invisible ingredients
     for (ItemStack stack : toolWithoutModifier) {
-      if (stack.is(slimeskull)) {
-        builder.addInvisibleIngredients(RecipeIngredientRole.CATALYST).addItemStacks(getSlimeskullHelmets());
-        break;
+      if (stack.is(TinkerTags.Items.SINGLEPART_TOOL) && stack.getItem() instanceof IModifiable modifiable) {
+        builder.addInvisibleIngredients(RecipeIngredientRole.CATALYST).addItemStacks(getLookupTools(modifiable));
       }
     }
 
@@ -238,25 +237,26 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
     return recipe.getRecipeId();
   }
 
-  /* Slimeskull workaround */
-  /** internal list of slimeskulls for the sake of ingredient lookup, needed since they are technically distinct but modifiers treat them as the same */
-  private static List<ItemStack> SLIMESKULL_HELMETS = null;
 
-  /** called to clear the cache on ingredient reload as materials may have changed. TODO: why is this never called? */
-  public static void clearSlimeskullCache() {
-    SLIMESKULL_HELMETS = null;
+  /* Single part tools hack */
+  /** Cache of each list of lookup items for each tool */
+  private static final Map<IModifiable,List<ItemStack>> LOOKUP_CACHE = new ConcurrentHashMap<>();
+  /** Function to compute lookup items for each tool */
+  private static final Function<IModifiable,List<ItemStack>> LOOKUP_GETTER = modifiable -> {
+    List<ItemStack> variants = new ArrayList<>();
+    // TODO: for double part tools (e.g. travelers), this does leave out a lot of materials. But the size of options will quicky explode. Worth fixing?
+    ToolBuildHandler.addVariants(variants::add, modifiable, "");
+    return variants;
+  };
+
+  /** Gets the tools for lookup for single part tools */
+  private static List<ItemStack> getLookupTools(IModifiable modifiable) {
+    return LOOKUP_CACHE.computeIfAbsent(modifiable, LOOKUP_GETTER);
   }
 
-  /** gets the list of slimeskull helmets, loading it if needed */
-  private static List<ItemStack> getSlimeskullHelmets() {
-    if (SLIMESKULL_HELMETS == null) {
-      IMaterialRegistry registry = MaterialRegistry.getInstance();
-      IModifiable slimeskull = TinkerTools.slimesuit.get(ArmorItem.Type.HELMET);
-      SLIMESKULL_HELMETS = registry.getAllMaterials().stream()
-                                   .filter(material -> registry.getMaterialStats(material.getIdentifier(), SkullStats.ID).isPresent())
-                                   .map(material -> ToolBuildHandler.buildItemFromMaterials(slimeskull, MaterialNBT.of(material)))
-                                   .toList();
-    }
-    return SLIMESKULL_HELMETS;
+  /** TODO 1.21: rename to be more appropiate */
+  @Internal
+  public static void clearSlimeskullCache() {
+    LOOKUP_CACHE.clear();
   }
 }

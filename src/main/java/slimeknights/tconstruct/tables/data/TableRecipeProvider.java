@@ -194,7 +194,7 @@ public class TableRecipeProvider extends BaseRecipeProvider {
                          .unlockedBy("has_item", has(TinkerTags.Items.ANVIL_METAL)))
       .setSource(TinkerTags.Items.ANVIL_METAL)
       .setMatchAll()
-      .build(toolForge, prefix(TinkerTables.scorchedAnvil, folder));
+      .build(consumer, prefix(TinkerTables.scorchedAnvil, folder));
     ShapedRetexturedRecipeBuilder.fromShaped(
       ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TinkerTables.scorchedAnvil)
                          .define('m', TinkerTags.Items.ANVIL_METAL)
@@ -206,7 +206,7 @@ public class TableRecipeProvider extends BaseRecipeProvider {
                          .unlockedBy("has_item", has(TinkerTags.Items.ANVIL_METAL)))
                                  .setSource(TinkerTags.Items.ANVIL_METAL)
                                  .setMatchAll()
-                                 .build(consumer, location(folder + "scorched_forge"));
+                                 .build(toolForge, location(folder + "scorched_forge"));
 
     // tool repair recipe
     consumer.accept(new SimpleFinishedRecipe(location(folder + "tinker_station_repair"), TinkerTables.tinkerStationRepairSerializer.get()));

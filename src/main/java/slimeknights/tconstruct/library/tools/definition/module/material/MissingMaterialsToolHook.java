@@ -15,7 +15,7 @@ public interface MissingMaterialsToolHook {
 
   /**
    * Fills the given existing materials with any missing materials.
-   * Will only be called if {@link #needsMaterials(ToolDefinition, MaterialNBT)} returns true.
+   * Will only be called if {@link #needsMaterials(ToolDefinition, int)} returns true.
    */
   default MaterialNBT fillMaterials(ToolDefinition definition, MaterialNBT existing, RandomSource random) {
     MaterialNBT newMaterials = fillMaterials(definition, random);
@@ -37,7 +37,7 @@ public interface MissingMaterialsToolHook {
   }
 
   /** Checks if we are missing materials */
-  default boolean needsMaterials(ToolDefinition definition, MaterialNBT existing) {
-    return existing.size() < ToolMaterialHook.stats(definition).size();
+  default boolean needsMaterials(ToolDefinition definition, int existingSize) {
+    return existingSize < ToolMaterialHook.stats(definition).size();
   }
 }

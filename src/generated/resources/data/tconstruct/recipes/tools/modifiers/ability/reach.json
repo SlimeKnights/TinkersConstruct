@@ -18,6 +18,9 @@
       "tag": "forge:slimeball/ender"
     }
   ],
+  "level": {
+    "max": 2
+  },
   "result": "tconstruct:reach",
   "slots": {
     "abilities": 1

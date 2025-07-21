@@ -14,13 +14,6 @@
     }
   },
   {
-    "name": "modifiers",
-    "data": "sections/modifiers.json",
-    "icon": {
-      "item": "minecraft:wet_sponge"
-    }
-  },
-  {
     "name": "exploration",
     "data": "sections/exploration.json",
     "icon": {

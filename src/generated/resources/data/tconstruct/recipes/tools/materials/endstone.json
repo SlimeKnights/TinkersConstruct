@@ -4,6 +4,6 @@
     "tag": "forge:end_stones"
   },
   "material": "tconstruct:whitestone#end",
-  "needed": 2,
+  "needed": 1,
   "value": 1
 }

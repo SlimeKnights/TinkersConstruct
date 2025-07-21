@@ -11,6 +11,7 @@ import java.util.List;
 
 /**
  * Basic interface for all material stats.
+ * TODO 1.21: Make {@link slimeknights.mantle.registration.object.IdAwareObject}
  */
 public interface IMaterialStats {
   /**

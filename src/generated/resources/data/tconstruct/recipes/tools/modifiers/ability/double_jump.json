@@ -18,6 +18,9 @@
       "item": "minecraft:phantom_membrane"
     }
   ],
+  "level": {
+    "max": 2
+  },
   "result": "tconstruct:double_jump",
   "slots": {
     "abilities": 1

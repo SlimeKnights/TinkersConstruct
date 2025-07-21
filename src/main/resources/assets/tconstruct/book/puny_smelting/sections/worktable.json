@@ -1,0 +1,71 @@
+[
+  {
+    "name": "index",
+    "type": "mantle:index",
+    "data": "worktable/index.json"
+  },
+  {
+    "name": "modifier_worktable",
+    "type": "mantle:crafting",
+    "data": "worktable/modifier_worktable.json"
+  },
+  {
+    "name": "invisible_ink",
+    "type": "mantle:image_text",
+    "data": "worktable/invisible_ink.json"
+  },
+  {
+    "name": "visible_ink",
+    "type": "mantle:image_text",
+    "data": "worktable/visible_ink.json"
+  },
+  {
+    "name": "sort_modifiers",
+    "type": "mantle:image_text",
+    "data": "worktable/sort_modifiers.json"
+  },
+  {
+    "name": "remove_modifiers",
+    "type": "mantle:image_text",
+    "data": "worktable/remove_modifiers.json"
+  },
+  {
+    "name": "extract_modifier",
+    "type": "mantle:image_text",
+    "data": "worktable/extract_modifier.json"
+  },
+  {
+    "name": "extract_enchantment",
+    "type": "mantle:image_text",
+    "data": "worktable/extract_enchantment.json"
+  },
+  {
+    "name": "extract_upgrade",
+    "type": "mantle:image_text",
+    "data": "worktable/extract_upgrade.json"
+  },
+  {
+    "name": "extract_defense",
+    "type": "mantle:image_text",
+    "data": "worktable/extract_defense.json"
+  },
+  {
+    "name": "extract_ability",
+    "type": "mantle:image_text",
+    "data": "worktable/extract_ability.json"
+  },
+  {
+    "name": "toggle_interaction",
+    "type": "mantle:image_text",
+    "data": "worktable/toggle_interaction.json"
+  },
+  {
+    "name": "untoggle_interaction",
+    "type": "mantle:image_text",
+    "data": "worktable/untoggle_interaction.json"
+  },
+  {
+    "type": "mantle:right_padding",
+    "data": "no-load"
+  }
+]

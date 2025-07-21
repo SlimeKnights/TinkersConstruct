@@ -1,0 +1,29 @@
+{
+  "input": "mantle:any",
+  "recipe_type": [
+    "minecraft:smelting",
+    "minecraft:blasting"
+  ],
+  "result": {
+    "type": "mantle:and",
+    "predicates": [
+      {
+        "type": "mantle:tag",
+        "tag": "forge:ingots"
+      },
+      {
+        "type": "mantle:inverted",
+        "inverted_type": "mantle:set",
+        "items": [
+          "minecraft:brick",
+          "tconstruct:seared_brick",
+          "tconstruct:scorched_brick"
+        ]
+      },
+      {
+        "type": "tconstruct:context",
+        "key": "castable_item"
+      }
+    ]
+  }
+}

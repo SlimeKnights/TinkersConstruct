@@ -31,6 +31,7 @@ import slimeknights.tconstruct.library.tools.definition.module.material.Material
 import slimeknights.tconstruct.library.tools.definition.module.material.ToolMaterialHook;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
+import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
@@ -225,7 +226,10 @@ public class PartSwapCastingRecipe extends AbstractMaterialCastingRecipe impleme
                 List<MaterialStatsId> requirements = ToolMaterialHook.stats(tool.getDefinition());
                 if (index < requirements.size() && requirements.get(index).canUseMaterial(output.getId())) {
                   results.add(withMaterial(tool, output).copy());
-                  inputs.add(withMaterial(tool, MaterialVariant.of(ToolBuildHandler.getRenderMaterial(0))));
+                  // mark input as display so tooltip does not show useless stats
+                  ItemStack input = withMaterial(tool, MaterialVariant.of(ToolBuildHandler.getRenderMaterial(0)));
+                  input.getOrCreateTag().putBoolean(TooltipUtil.KEY_DISPLAY, true);
+                  inputs.add(input);
                 }
               }
               // if nothing is supported, skip this fluid

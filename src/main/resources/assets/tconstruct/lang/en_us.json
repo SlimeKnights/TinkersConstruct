@@ -172,7 +172,6 @@
   "item.tconstruct.knightslime_ingot.tooltip": "Slimy yet metallic but also stone? Fascinating!",
   "item.tconstruct.knightslime_nugget": "Knightslime Nugget",
 
-  "item.tconstruct.book.click_to_open": "Right click to open",
   "item.tconstruct.materials_and_you": "Materials and You",
   "item.tconstruct.materials_and_you.tooltip": "The introduction book into tools and materials\nby Selena",
   "item.tconstruct.encyclopedia": "Encyclopedia of Tinkering",
@@ -2005,6 +2004,12 @@
   "material.tconstruct.invar.ranged": "Grants +0.15 accuracy in biomes with neutral temperatures",
   "material.tconstruct.invar.armor": "Reduces damage by 5% per level in biomes with neutral temperatures",
 
+  "material.tconstruct.pewter": "Pewter",
+  "material.tconstruct.pewter.flavor": "The strongest of metals.",
+  "material.tconstruct.pewter.encyclopedia": "Grants +0.25 damage per level per health lost below 11",
+  "material.tconstruct.pewter.ranged": "Grants +0.1 power per level per health lost below 11",
+  "material.tconstruct.pewter.armor": "Grants 1% protection per level per health lost below 11",
+
   "material.tconstruct.electrum": "Electrum",
   "material.tconstruct.electrum.flavor": "Good for electronic components.",
   "material.tconstruct.electrum.encyclopedia": "Grants +50% XP per level from blocks and monsters",
@@ -2646,9 +2651,13 @@
   "modifier.tconstruct.overgrowth.description": "Tool slowly grows overslime",
   "modifier.tconstruct.raging": "Raging",
   "modifier.tconstruct.raging.flavor": "A desperate solution!",
-  "modifier.tconstruct.raging.description": "Tool does more damage and draws faster when the holder's health is low",
+  "modifier.tconstruct.raging.description": "Tool does more damage when the holder's health is low",
   "modifier.tconstruct.raging.attack_damage": "Raging Damage",
-  "modifier.tconstruct.raging.draw_speed": "Raging Draw Speed",
+  "modifier.tconstruct.raging.projectile_damage": "Raging Power",
+  "modifier.tconstruct.vital_protection": "Vital Protection",
+  "modifier.tconstruct.vital_protection.flavor": "A desperate defense!",
+  "modifier.tconstruct.vital_protection.description": "Armor protects more when the wearer's health is low",
+  "modifier.tconstruct.vital_protection.resistance": "Resistance",
   "modifier.tconstruct.antitoxin": "Antitoxin",
   "modifier.tconstruct.antitoxin.flavor": "High risk strength!",
   "modifier.tconstruct.antitoxin.description": "Tool does more damage and draws faster when poisoned",
@@ -3263,6 +3272,7 @@
   "subtitles.tconstruct.longbow.charge": "Longbow pulls back",
   "subtitles.tconstruct.crystalshot": "Arrow hits",
   "subtitles.tconstruct.bonk": "Tool bonks",
+  "subtitles.tconstruct.spit": "Fluid spits",
 
   "subtitles.tconstruct.necrotic_heal": "Life drained",
   "subtitles.tconstruct.extra_jump": "Entity swooshed",
@@ -3313,6 +3323,7 @@
 
   "_comment": "Commands",
 
+  "command.tconstruct.item.not_found": "Unknown item %s",
   "command.tconstruct.slot_type.not_found": "Unknown slot type %s",
   "command.tconstruct.fluid.not_found": "Unknown fluid %s",
   "command.tconstruct.stat_type.not_found": "Unknown tool stat %s",
@@ -3321,6 +3332,7 @@
   "command.tconstruct.material.not_found": "Unknown material %s",
   "command.tconstruct.modifier.not_found": "Unknown modifier %s",
   "command.tconstruct.modifier_hook.not_found": "Unknown modifier hook %s",
+
   "command.tconstruct.modifier_usage": "Successfully printed modifier usage to the game log",
   "command.tconstruct.modifier_priority": "Successfully printed modifier priorities to the game log",
 
@@ -3375,6 +3387,10 @@
   "command.tconstruct.generate_part_textures.no_materials": "No material's have generator info, nothing to generate",
   "command.tconstruct.generate_part_textures.no_parts": "No part sprites present in resource packs",
 
+  "command.tconstruct.generate.remove_recipes": "Successfully removed %s recipes in %s seconds. Run /reload to activate pack at %s",
+  "command.tconstruct.generate.remove_recipes.preset_not_found": "Recipe removal preset '%s' was missing or invalid. Check the log for more information.",
+  "command.tconstruct.generate.melting_recipes": "Successfully generated %s melting recipes in %s seconds. Run /reload to activate pack at %s",
+
 
   "_comment": "JEI Strings",
   "jei.tconstruct.time": "%s s",
@@ -3425,6 +3441,7 @@
   "jei.tconstruct.part_builder.cost": "Cost: %s",
 
   "jei.tconstruct.modifier_worktable.title": "Modifier Worktable",
+  "jei.tconstruct.tinker_station.too_large": "Recipe is too large to craft in this station.",
 
 
   "_comment": "Tool Advancements",

@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/** @deprecated use {@link slimeknights.mantle.client.book.data.content.ContentPageIconList} */
+@SuppressWarnings("removal")
+@Deprecated(forRemoval = true)
 public class ContentPageIconList extends PageContent {
 
   protected final int width;
@@ -123,26 +126,8 @@ public class ContentPageIconList extends PageContent {
     }
   }
 
-  /** Calculates the largest possible icon scale that will fit all the contents on the page */
-  protected float getScale() {
-    int yOff = 0;
-    if (this.title != null) yOff = getTitleHeight();
-    if(this.subText != null) yOff = this.parent.parent.parent.fontRenderer.wordWrapHeight(this.subText, 182) * 12 / 9 + 16;
-
-    int pageW = BookScreen.PAGE_WIDTH - 2 * xOff;
-    int pageH = BookScreen.PAGE_HEIGHT - yOff;
-
-    float scale = this.maxScale;
-    boolean fits = false;
-    while (!fits && scale > 1f) {
-      scale -= 0.25f;
-      int rows = pageW / (int) (this.width * scale);
-      int cols = pageH / (int) (this.height * scale);
-      fits = rows * cols >= this.elements.size();
-    }
-    return scale;
-  }
-
+  /** @deprecated use {@link slimeknights.mantle.client.book.data.content.ContentPageIconList#getPagesNeededForItemCount(int, SectionData, String, String)} */
+  @Deprecated(forRemoval = true)
   public static List<ContentPageIconList> getPagesNeededForItemCount(int count, SectionData data, String title, String subText) {
     List<ContentPageIconList> listPages = new ArrayList<>();
     List<PageData> newPages = new ArrayList<>();
@@ -190,6 +175,26 @@ public class ContentPageIconList extends PageContent {
     data.pages.addAll(newPages);
 
     return listPages;
+  }
+
+  /** Calculates the largest possible icon scale that will fit all the contents on the page */
+  protected float getScale() {
+    int yOff = 0;
+    if (this.title != null) yOff = getTitleHeight();
+    if(this.subText != null) yOff = this.parent.parent.parent.fontRenderer.wordWrapHeight(this.subText, 182) * 12 / 9 + 16;
+
+    int pageW = BookScreen.PAGE_WIDTH - 2 * xOff;
+    int pageH = BookScreen.PAGE_HEIGHT - yOff;
+
+    float scale = this.maxScale;
+    boolean fits = false;
+    while (!fits && scale > 1f) {
+      scale -= 0.25f;
+      int rows = pageW / (int) (this.width * scale);
+      int cols = pageH / (int) (this.height * scale);
+      fits = rows * cols >= this.elements.size();
+    }
+    return scale;
   }
 
   @Override

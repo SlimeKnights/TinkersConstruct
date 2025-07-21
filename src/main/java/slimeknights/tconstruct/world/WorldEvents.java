@@ -49,7 +49,7 @@ public class WorldEvents {
     Item item = helmet.getItem();
     if (item != Items.AIR && TinkerWorld.headItems.contains(item)) {
       if (lookingEntity.getType() == ((TinkerHeadType)((SkullBlock)((BlockItem)item).getBlock()).getType()).getType()) {
-        event.modifyVisibility(0.5f * event.getVisibilityModifier());
+        event.modifyVisibility(0.5f);
       }
     }
   }

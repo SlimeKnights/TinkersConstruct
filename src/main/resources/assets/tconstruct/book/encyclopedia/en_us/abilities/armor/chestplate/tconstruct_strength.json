@@ -8,6 +8,7 @@
   "more_text_space": true,
   "effects": [
     "Can apply levels incrementally",
+    "Maximum of 2 levels",
     "Requires 1 ability slot per level"
   ]
 }

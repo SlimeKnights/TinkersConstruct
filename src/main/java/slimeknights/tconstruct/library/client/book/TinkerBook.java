@@ -102,7 +102,6 @@ public class TinkerBook extends BookData {
     ENCYCLOPEDIA.addTransformer(defense);
     ENCYCLOPEDIA.addTransformer(slotless);
     ENCYCLOPEDIA.addTransformer(abilities);
-    ENCYCLOPEDIA.addTransformer(FluidEffectInjectingTransformer.INSTANCE);
 
     // TODO: do we want to fire an event to add transformers to our books? Since we need the next two to be last
     addStandardData(MATERIALS_AND_YOU, MATERIALS_BOOK_ID);
@@ -110,7 +109,7 @@ public class TinkerBook extends BookData {
     addStandardData(MIGHTY_SMELTING, MIGHTY_SMELTING_ID);
     addStandardData(FANTASTIC_FOUNDRY, FANTASTIC_FOUNDRY_ID);
     addStandardData(TINKERS_GADGETRY, TINKERS_GADGETRY_ID);
-    addStandardData(ENCYCLOPEDIA, ENCYCLOPEDIA_ID);
+    addStandardData(ENCYCLOPEDIA, ENCYCLOPEDIA_ID, FluidEffectInjectingTransformer.INSTANCE);
   }
 
   /**
@@ -119,10 +118,16 @@ public class TinkerBook extends BookData {
    * @param book Book instance
    * @param id   Book ID
    */
-  private static void addStandardData(BookData book, ResourceLocation id) {
+  private static void addStandardData(BookData book, ResourceLocation id, BookTransformer... extraTransformers) {
     book.addRepository(new FileRepository(new ResourceLocation(id.getNamespace(), "book/" + id.getPath())));
     book.addTransformer(BookTransformer.indexTranformer());
     book.addTransformer(TierRangeMaterialSectionTransformer.INSTANCE);
+
+    // any transformers that go after tier range
+    for (BookTransformer transformer : extraTransformers) {
+      book.addTransformer(transformer);
+    }
+
     // padding needs to be last to ensure page counts are right
     book.addTransformer(BookTransformer.paddingTransformer());
   }

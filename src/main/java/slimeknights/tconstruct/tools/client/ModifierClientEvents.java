@@ -15,6 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.GameType;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.ClientPlayerNetworkEvent.LoggingOut;
 import net.minecraftforge.client.event.ComputeFovModifierEvent;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.client.event.RenderHandEvent;
@@ -126,6 +127,12 @@ public class ModifierClientEvents {
 
   /** Items to render for the item frame modifier */
   private static final List<ItemStack> itemFrames = new ArrayList<>();
+
+  @SubscribeEvent
+  static void playerLoggedOut(LoggingOut event) {
+    nextOffhand = ItemStack.EMPTY;
+    itemFrames.clear();
+  }
 
   /** Update the slot in the first shield slot */
   @SubscribeEvent

@@ -649,9 +649,9 @@ public class ToolStack implements IToolStackView {
   public void ensureHasData() {
     // if we try initializing before datapacks load we will get garbage data
     if (definition.isDataLoaded()) {
-      // check if missing materials; either means we have none or too few. Note this automatically handles the missing NBT
+      // check if missing materials; either means we have none or too few
       MissingMaterialsToolHook missingMaterials = definition.getHook(ToolHooks.MISSING_MATERIALS);
-      boolean needsMaterials = definition.hasMaterials() && missingMaterials.needsMaterials(definition, getMaterials());
+      boolean needsMaterials = definition.hasMaterials() && (!nbt.contains(TAG_MATERIALS, Tag.TAG_LIST) || missingMaterials.needsMaterials(definition, nbt.getList(TAG_MATERIALS, Tag.TAG_STRING).size()));
       // build data if we either lack data (signified by no stats) or we lack materials but expect them
       if (needsMaterials || !isInitialized(nbt)) {
         // randomize materials if missing

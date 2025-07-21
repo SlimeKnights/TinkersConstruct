@@ -9,8 +9,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.alchemy.PotionUtils;
-import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
@@ -19,7 +17,6 @@ import net.minecraftforge.common.Tags.Fluids;
 import net.minecraftforge.common.crafting.CompoundIngredient;
 import net.minecraftforge.common.crafting.DifferenceIngredient;
 import net.minecraftforge.common.crafting.IntersectionIngredient;
-import net.minecraftforge.common.crafting.PartialNBTIngredient;
 import net.minecraftforge.fluids.FluidType;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.recipe.condition.TagFilledCondition;
@@ -527,7 +524,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .save(consumer, prefix(ModifierIds.power, upgradeFolder));
     IncrementalModifierRecipeBuilder.modifier(ModifierIds.quickCharge)
                                     .setTools(ingredientFromTags(TinkerTags.Items.CROSSBOWS, TinkerTags.Items.STAFFS))
-                                    .setInput(Items.SUNFLOWER, 1, 5)
+                                    .setInput(Items.MAGMA_CREAM, 1, 5)
                                     .setMaxLevel(4)
                                     .setSlots(SlotType.UPGRADE, 1)
                                     .saveSalvage(consumer, prefix(ModifierIds.quickCharge, upgradeSalvage))
@@ -923,6 +920,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .setTools(TinkerTags.Items.CHESTPLATES)
                                     .setInput(TinkerWorld.ichorGeode.asItem(), 1, 72)
                                     .setSlots(SlotType.ABILITY, 1)
+                                    .setMaxLevel(2)
                                     .saveSalvage(consumer, prefix(ModifierIds.strength, abilitySalvage))
                                     .save(consumer, prefix(ModifierIds.strength, abilityFolder));
     ModifierRecipeBuilder.modifier(ModifierIds.wings)
@@ -942,6 +940,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Items.LEATHER)
                          .addInput(Items.LEATHER)
                          .setSlots(SlotType.ABILITY, 1)
+                         .setMaxLevel(2)
                          .saveSalvage(consumer, prefix(ModifierIds.pockets, abilitySalvage))
                          .save(consumer, prefix(ModifierIds.pockets, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.shieldStrap)
@@ -1019,6 +1018,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Items.PHANTOM_MEMBRANE)
                          .addInput(Items.PHANTOM_MEMBRANE)
                          .setSlots(SlotType.ABILITY, 1)
+                         .setMaxLevel(2)
                          .saveSalvage(consumer, prefix(ModifierIds.doubleJump, abilitySalvage))
                          .save(consumer, prefix(ModifierIds.doubleJump, abilityFolder));
     ModifierRecipeBuilder.modifier(ModifierIds.bouncy)
@@ -1272,6 +1272,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(SlimeType.ENDER.getSlimeballTag())
                          .addInput(SlimeType.ENDER.getSlimeballTag())
                          .setSlots(SlotType.ABILITY, 1)
+                         .setMaxLevel(2)
                          .saveSalvage(consumer, prefix(ModifierIds.reach, abilitySalvage))
                          .save(consumer, prefix(ModifierIds.reach, abilityFolder));
     // block transformers
@@ -1586,7 +1587,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     IJsonPredicate<ModifierId> blacklist = ModifierPredicate.tag(TinkerTags.Modifiers.INVISIBLE_INK_BLACKLIST).inverted();
     ModifierSetWorktableRecipeBuilder.setAdding(hiddenModifiers)
                                      .modifierPredicate(blacklist)
-                                     .addInput(PartialNBTIngredient.of(Items.POTION, PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.INVISIBILITY).getOrCreateTag()))
+                                     .addInput(FluidContainerIngredient.fromIngredient(TinkerFluids.skySlime.ingredient(FluidValues.BOTTLE), Ingredient.of(TinkerFluids.slimeBottle.get(SlimeType.SKY))))
                                      .save(consumer, location(worktableFolder + "invisible_ink_adding"));
     ModifierSetWorktableRecipeBuilder.setRemoving(hiddenModifiers)
                                      .modifierPredicate(blacklist)

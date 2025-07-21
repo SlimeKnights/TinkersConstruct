@@ -114,6 +114,8 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.bronze, ModifierIds.maintained);
     addDefaultTraits(MaterialIds.constantan, ModifierIds.temperate);
     addDefaultTraits(MaterialIds.invar, ModifierIds.invariant);
+    addDefaultTraits(MaterialIds.pewter, ModifierIds.raging);
+    addTraits(MaterialIds.pewter, ARMOR, ModifierIds.vitalProtection);
     addDefaultTraits(MaterialIds.necronium, TinkerModifiers.decay);
     addDefaultTraits(MaterialIds.electrum, ModifierIds.experienced);
     addDefaultTraits(MaterialIds.platedSlimewood, TinkerModifiers.overworked, TinkerModifiers.overslime);

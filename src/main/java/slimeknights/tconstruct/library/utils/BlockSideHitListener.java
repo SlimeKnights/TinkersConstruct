@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.utils;
 
+import lombok.Getter;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.MinecraftForge;
@@ -16,6 +17,8 @@ import java.util.UUID;
  */
 public class BlockSideHitListener {
   private static final Map<UUID,Direction> HIT_FACE = new HashMap<>();
+  @Getter
+  private static Direction clientSideHit = Direction.UP;
   private static boolean init = false;
 
   /** Initializes this listener */
@@ -28,10 +31,15 @@ public class BlockSideHitListener {
     MinecraftForge.EVENT_BUS.addListener(BlockSideHitListener::onLeaveServer);
   }
 
-  /** Called when the player left clicks a block to store the face */
+  /** Called when the player left-clicks a block to store the face */
   private static void onLeftClickBlock(LeftClickBlock event) {
     if (event.getAction() == Action.START) {
-      HIT_FACE.put(event.getEntity().getUUID(), event.getFace());
+      Player player = event.getEntity();
+      if (player.level().isClientSide()) {
+        clientSideHit = event.getFace();
+      } else {
+        HIT_FACE.put(player.getUUID(), event.getFace());
+      }
     }
   }
 
@@ -46,6 +54,9 @@ public class BlockSideHitListener {
    * @return  Side last hit
    */
   public static Direction getSideHit(Player player) {
+    if (player.level().isClientSide()) {
+      return clientSideHit;
+    }
     return HIT_FACE.getOrDefault(player.getUUID(), Direction.UP);
   }
 }

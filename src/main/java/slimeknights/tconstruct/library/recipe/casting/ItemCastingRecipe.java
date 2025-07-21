@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /** Casting recipe that takes a fluid and optional cast and outputs an item. */
+@Getter
 public class ItemCastingRecipe extends AbstractCastingRecipe implements IDisplayableCastingRecipe {
   /* Shared fields */
   protected static final LoadableField<FluidIngredient,ItemCastingRecipe> FLUID_FIELD = FluidIngredient.LOADABLE.requiredField("fluid", ItemCastingRecipe::getFluid);
@@ -31,12 +32,9 @@ public class ItemCastingRecipe extends AbstractCastingRecipe implements IDisplay
     LoadableRecipeSerializer.RECIPE_GROUP, CAST_FIELD, FLUID_FIELD, RESULT_FIELD, COOLING_TIME_FIELD, CAST_CONSUMED_FIELD, SWITCH_SLOTS_FIELD,
     ItemCastingRecipe::new);
 
-  @Getter
   private final TypeAwareRecipeSerializer<?> serializer;
-  @Getter
   protected final FluidIngredient fluid;
   protected final ItemOutput result;
-  @Getter
   protected final int coolingTime;
   public ItemCastingRecipe(TypeAwareRecipeSerializer<?> serializer, ResourceLocation id, String group, Ingredient cast, FluidIngredient fluid, ItemOutput result, int coolingTime, boolean consumed, boolean switchSlots) {
     super(serializer.getType(), id, group, cast, consumed, switchSlots);

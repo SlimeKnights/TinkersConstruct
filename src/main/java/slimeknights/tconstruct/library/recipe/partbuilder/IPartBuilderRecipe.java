@@ -77,13 +77,16 @@ public interface IPartBuilderRecipe extends ICommonRecipe<IPartBuilderContainer>
     if (recipe != null) {
       int value = recipe.getValue();
       if (value > 1) {
-        int remainder = (value - getCost()) % value;
+        int needed = recipe.getNeeded();
+        int remainder = (value - getCost() * needed) % value;
         if (remainder < 0) {
           remainder += value;
         }
-        if (remainder != 0) {
+        if (remainder > 0) {
           ItemStack leftover = recipe.getLeftover();
-          leftover.setCount(leftover.getCount() * remainder);
+          if (!leftover.isEmpty()) {
+            leftover.setCount(leftover.getCount() * remainder / needed);
+          }
           return leftover;
         }
       }

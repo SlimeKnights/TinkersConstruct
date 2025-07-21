@@ -225,7 +225,7 @@ public class FluidEffectProvider extends AbstractFluidEffectProvider {
     compatMetal(TinkerFluids.moltenBrass, "zinc").fireDamage(3).addEffect(FluidMobEffect.builder().effect(MobEffects.FIRE_RESISTANCE, 20 * 8), TimeAction.SET);
     // tin/pewter - sight/strength
     compatMetal(TinkerFluids.moltenTin).fireDamage(2).addEffect(FluidMobEffect.builder().effect(MobEffects.NIGHT_VISION, 20 * 8), TimeAction.SET);
-    compatMetal(TinkerFluids.moltenPewter).fireDamage(3).addEffect(FluidMobEffect.builder().effect(MobEffects.DAMAGE_BOOST, 20 * 7), TimeAction.SET);
+    compatMetal(TinkerFluids.moltenPewter, "tin", "lead").fireDamage(3).addEffect(FluidMobEffect.builder().effect(MobEffects.DAMAGE_BOOST, 20 * 7), TimeAction.SET);
     // gold/electrum/rose gold - health/haste/absorption
     addMetal(TinkerFluids.moltenGold).magicDamage(2).addEffect(FluidMobEffect.builder().effect(MobEffects.REGENERATION, 20 * 6, 2), TimeAction.SET);
     compatMetal(TinkerFluids.moltenElectrum, "silver").magicDamage(3).addEffect(FluidMobEffect.builder().effect(MobEffects.DIG_SPEED, 20 * 8, 1), TimeAction.SET);

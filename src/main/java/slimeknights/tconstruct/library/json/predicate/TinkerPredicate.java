@@ -4,6 +4,8 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ArrowItem;
+import net.minecraft.world.item.BucketItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour.BlockStateBase;
 import slimeknights.mantle.client.TooltipKey;
@@ -27,8 +29,13 @@ public class TinkerPredicate {
   /** Entities that are in the air, notably does not count you as airborne if swimming, riding, or climbing */
   public static LivingEntityPredicate AIRBORNE = LivingEntityPredicate.simple(entity -> !entity.onGround() && !entity.onClimbable() && !entity.isInWater() && !entity.isPassenger());
 
+  /** Predicate matching any buckets */
+  public static ItemPredicate BUCKET = ItemPredicate.simple(item -> item instanceof BucketItem);
   /** Predicate matching any arrows */
   public static ItemPredicate ARROW = ItemPredicate.simple(item -> item instanceof ArrowItem);
+  /** Predicate matching any items with a remainder after crafting. */
+  @SuppressWarnings("deprecation")
+  public static ItemPredicate HAS_CONTAINER = ItemPredicate.simple(Item::hasCraftingRemainingItem);
 
   /** Predicate matching blocks that block motion */
   public static BlockPredicate BLOCKS_MOTION = BlockPredicate.simple(BlockStateBase::blocksMotion);

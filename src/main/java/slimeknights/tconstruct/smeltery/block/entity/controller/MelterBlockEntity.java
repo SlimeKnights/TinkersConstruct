@@ -143,12 +143,13 @@ public class MelterBlockEntity extends NameableBlockEntity implements ITankInven
     if (isFormed()) {
       switch (tick) {
         // tick 0: find fuel
-        case 0:
+        case 0 -> {
           if (!fuelModule.hasFuel() && meltingInventory.canHeat(fuelModule.findFuel(false))) {
             fuelModule.findFuel(true);
           }
+        }
         // tick 2: heat items and consume fuel
-        case 2: {
+        case 2 -> {
           boolean hasFuel = fuelModule.hasFuel();
           // update the active state
           if (state.getValue(ControllerBlock.ACTIVE) != hasFuel) {
@@ -169,8 +170,16 @@ public class MelterBlockEntity extends NameableBlockEntity implements ITankInven
           }
         }
       }
-      tick = (tick + 1) % 4;
+    } else if (tick == 2) {
+      // if we have fuel, lose fuel
+      if (fuelModule.hasFuel()) {
+        fuelModule.decreaseFuel(1);
+      } else {
+        // if we lack fuel, cool items
+        meltingInventory.coolItems();
+      }
     }
+    tick = (tick + 1) % 4;
   }
 
 

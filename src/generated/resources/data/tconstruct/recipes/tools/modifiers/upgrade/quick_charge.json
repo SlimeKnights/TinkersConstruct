@@ -3,7 +3,7 @@
   "allow_crystal": true,
   "amount_per_item": 1,
   "input": {
-    "item": "minecraft:sunflower"
+    "item": "minecraft:magma_cream"
   },
   "level": {
     "max": 4

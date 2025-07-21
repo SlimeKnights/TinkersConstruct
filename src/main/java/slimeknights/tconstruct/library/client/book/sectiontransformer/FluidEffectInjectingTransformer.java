@@ -3,7 +3,6 @@ package slimeknights.tconstruct.library.client.book.sectiontransformer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
@@ -11,14 +10,13 @@ import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.PageData;
 import slimeknights.mantle.client.book.data.SectionData;
+import slimeknights.mantle.client.book.data.content.ContentPageIconList;
+import slimeknights.mantle.client.book.data.content.ContentPageIconList.PageWithIcon;
 import slimeknights.mantle.client.book.transformer.BookTransformer;
 import slimeknights.mantle.client.screen.book.element.ItemElement;
 import slimeknights.mantle.client.screen.book.element.SizedBookElement;
-import slimeknights.mantle.data.loadable.Loadable;
-import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.primitive.StringLoadable;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.client.book.content.ContentPageIconList;
 import slimeknights.tconstruct.library.client.book.content.FluidEffectContent;
 import slimeknights.tconstruct.library.client.book.elements.FluidItemElement;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffectManager;
@@ -27,7 +25,6 @@ import slimeknights.tconstruct.library.modifiers.fluid.FluidEffects;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -35,12 +32,8 @@ import java.util.Map;
 public class FluidEffectInjectingTransformer extends BookTransformer {
   public static final FluidEffectInjectingTransformer INSTANCE = new FluidEffectInjectingTransformer();
   private static final ResourceLocation KEY = TConstruct.getResource("fluid_effects");
-  /** Map for parsing the group data */
-  private static final Loadable<Map<String,Integer>> GROUP_MAP = StringLoadable.DEFAULT.mapWithValues(IntLoadable.FROM_ONE);
 
   private FluidEffectInjectingTransformer() {}
-
-  private record FluidEffectPage(SizedBookElement icon, PageData page) {}
 
   /** Populates the given section with the data */
   private void addPages(SectionData section, JsonElement element) {
@@ -59,7 +52,7 @@ public class FluidEffectInjectingTransformer extends BookTransformer {
       }
 
       // sort the fluid effects
-      Map<ResourceLocation,FluidEffectPage> newPages = new HashMap<>();
+      Map<ResourceLocation, PageWithIcon> newPages = new HashMap<>();
       for (FluidEffects.Entry entry : effects) {
         FluidEffects effect = entry.effects();
         // skip hidden effects
@@ -97,7 +90,7 @@ public class FluidEffectInjectingTransformer extends BookTransformer {
 
         // build the icon
         SizedBookElement icon = new ItemElement(0, 0, 1f, displayStacks);
-        newPages.put(name, new FluidEffectPage(icon, newPage));
+        newPages.put(name, new PageWithIcon(icon, newPage));
       }
 
       // add the pages and the indexes
@@ -106,11 +99,9 @@ public class FluidEffectInjectingTransformer extends BookTransformer {
         section.parent.translate(section.name),
         section.parent.strings.get(String.format("%s.subtext", section.name)));
 
-      Iterator<ContentPageIconList> indexes = listPages.iterator();
-      ContentPageIconList overview = indexes.next();
 
       // add each page from the requested sorted order
-      List<FluidEffectPage> sortedPages = new ArrayList<>();
+      List<PageWithIcon> sortedPages = new ArrayList<>();
       for (String name : presorted) {
         // since this feature is just for us, automatically prefix IDs
         // though for the sake of pack makers we allow other domains if they contain :
@@ -123,22 +114,17 @@ public class FluidEffectInjectingTransformer extends BookTransformer {
         if (id == null) {
           continue;
         }
-        FluidEffectPage page = newPages.get(id);
+        PageWithIcon page = newPages.get(id);
         if (page != null) {
           sortedPages.add(page);
           newPages.remove(id);
         }
       }
       // sort remaining pages by title
-      sortedPages.addAll(newPages.values().stream().sorted(Comparator.comparing(pair -> pair.page.getTitle())).toList());
+      sortedPages.addAll(newPages.values().stream().sorted(Comparator.comparing(pair -> pair.page().getTitle())).toList());
 
       // add all sorted pages
-      for (FluidEffectPage page : sortedPages) {
-        section.pages.add(page.page);
-        while (!overview.addLink(page.icon, Component.literal(page.page.getTitle()), page.page)) {
-          overview = indexes.next();
-        }
-      }
+      ContentPageIconList.addPages(section, listPages, sortedPages);
     } catch (JsonParseException e) {
       TConstruct.LOG.error("Failed to parse tag for book page injecting", e);
     }

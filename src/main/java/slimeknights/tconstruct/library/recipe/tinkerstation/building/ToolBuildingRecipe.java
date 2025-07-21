@@ -17,9 +17,9 @@ import slimeknights.mantle.recipe.helper.LoadableRecipeSerializer;
 import slimeknights.mantle.util.LogicHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
-import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.recipe.RecipeResult;
+import slimeknights.tconstruct.library.recipe.material.MaterialRecipeCache;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.tools.definition.module.material.ToolPartsHook;
@@ -110,9 +110,9 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
   public List<List<ItemStack>> getAllToolParts() {
     if (allToolParts == null) {
       allToolParts = getToolParts().stream()
-        .map(part -> MaterialRegistry.getInstance().getVisibleMaterials().stream()
-          .filter(part::canUseMaterial)
-          .map(mat -> part.withMaterial(mat.getIdentifier()))
+        .map(part -> MaterialRecipeCache.getAllVariants().stream()
+          .filter(mat -> part.canUseMaterial(mat.getId()))
+          .map(part::withMaterial)
           .toList())
         .toList();
     }

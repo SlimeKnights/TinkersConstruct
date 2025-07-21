@@ -105,6 +105,7 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.bronze).color(0xD49765).fallbacks("metal");
     buildRenderInfo(MaterialIds.constantan).color(0xFF8B70).fallbacks("metal");
     buildRenderInfo(MaterialIds.invar).color(0xCADBD0).fallbacks("metal");
+    buildRenderInfo(MaterialIds.pewter).color(0x999483).fallbacks("metal");
     buildRenderInfo(MaterialIds.necronium).color(0x9CBD89).fallbacks("bone", "metal");
     buildRenderInfo(MaterialIds.electrum).color(0xFFEA65).fallbacks("metal");
     buildRenderInfo(MaterialIds.platedSlimewood).color(0xFFE170).fallbacks("slime_metal", "metal");

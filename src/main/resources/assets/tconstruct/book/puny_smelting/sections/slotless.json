@@ -6,6 +6,11 @@
     "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:slotless/general", "path": "slotless/general", "prefix": "general" }}
   },
   {
+    "name": "damage_tools",
+    "type": "mantle:text_image",
+    "data": "slotless/damage_tools.json"
+  },
+  {
     "name": "group_bonus_upgrades",
     "type": "mantle:text",
     "data": "slotless/bonus_upgrades.json",

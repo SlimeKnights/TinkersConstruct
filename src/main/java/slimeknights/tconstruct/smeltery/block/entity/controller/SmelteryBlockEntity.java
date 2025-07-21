@@ -111,6 +111,8 @@ public class SmelteryBlockEntity extends HeatingStructureBlockEntity {
           break;
         }
       }
+    } else {
+      cool();
     }
   }
 

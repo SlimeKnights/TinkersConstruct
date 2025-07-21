@@ -154,7 +154,7 @@ public class PartRecipe implements IPartBuilderRecipe, IMultiRecipe<IDisplayPart
           List<MaterialVariantId> variants = MaterialRecipeCache.getVariants(mat.getIdentifier()).stream()
             .filter(variant -> !MaterialRecipeCache.getRecipes(variant).isEmpty()).toList();
           if (variants.isEmpty()) {
-            return Stream.of();
+            return Stream.empty();
           }
 
           // now we need to determine what material contents to show

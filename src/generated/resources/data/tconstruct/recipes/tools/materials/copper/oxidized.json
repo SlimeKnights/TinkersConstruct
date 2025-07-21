@@ -1,0 +1,30 @@
+{
+  "type": "tconstruct:material",
+  "ingredient": [
+    {
+      "item": "minecraft:exposed_copper"
+    },
+    {
+      "item": "minecraft:weathered_copper"
+    },
+    {
+      "item": "minecraft:oxidized_copper"
+    },
+    {
+      "item": "minecraft:waxed_exposed_copper"
+    },
+    {
+      "item": "minecraft:waxed_weathered_copper"
+    },
+    {
+      "item": "minecraft:waxed_oxidized_copper"
+    }
+  ],
+  "leftover": {
+    "count": 1,
+    "tag": "forge:ingots/copper"
+  },
+  "material": "tconstruct:copper#oxidized",
+  "needed": 1,
+  "value": 9
+}

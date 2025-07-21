@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:slurping",
+  "text": [
+    {
+      "text": "好好喝！"
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/interactable/charge",
+  "effects": [
+    "使用时饮用工具里储存的药水",
+    "每级需要1个能力槽",
+    "更高等级可饮用更多流体获得更强效果"
+  ]
+}

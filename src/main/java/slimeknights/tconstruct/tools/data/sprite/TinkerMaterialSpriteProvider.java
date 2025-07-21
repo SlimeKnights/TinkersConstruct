@@ -250,6 +250,10 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .meleeHarvest().ranged().armor()
       .fallbacks("metal")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF4A666A).addARGB(102, 0xFF5C7C7B).addARGB(140, 0xFF859792).addARGB(178, 0xFFA3B1A8).addARGB(216, 0xFFC5CCC3).addARGB(255, 0xFFE1E7E5).build());
+    buildMaterial(MaterialIds.pewter)
+      .meleeHarvest().ranged().armor()
+      .fallbacks("metal")
+      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF2C281A).addARGB(102, 0xFF4E4A3C).addARGB(140, 0xFF686456).addARGB(178, 0xFF797567).addARGB(216, 0xFF999483).addARGB(255, 0xFFCCC5AF).build());
     IColorMapping uraniumPalette = GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF363D2F).addARGB(102, 0xFF48543F).addARGB(140, 0xFF5F7050).addARGB(178, 0xFF728762).addARGB(216, 0xFF88A075).addARGB(255, 0xFF9EBF8B).build();
     buildMaterial(MaterialIds.necronium)
       .meleeHarvest().ranged()

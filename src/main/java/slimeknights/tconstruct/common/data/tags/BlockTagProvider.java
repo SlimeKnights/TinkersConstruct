@@ -31,7 +31,6 @@ import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.data.SmelteryCompat;
 import slimeknights.tconstruct.tables.TinkerTables;
-import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.world.TinkerHeadType;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.DirtType;
@@ -428,7 +427,7 @@ public class BlockTagProvider extends BlockTagsProvider {
     tagBlocks(MINEABLE_WITH_AXE, NEEDS_IRON_TOOL, TinkerMaterials.blazewood);
     tagBlocks(MINEABLE_WITH_AXE, NEEDS_DIAMOND_TOOL, TinkerMaterials.nahuatl);
     tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_IRON_TOOL, TinkerWorld.cobaltOre, TinkerWorld.rawCobaltBlock, TinkerMaterials.steel, TinkerMaterials.cobalt, TinkerMaterials.slimesteel, TinkerMaterials.cinderslime, TinkerMaterials.amethystBronze, TinkerMaterials.roseGold, TinkerMaterials.pigIron);
-    tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_DIAMOND_TOOL, TinkerMaterials.queensSlime, TinkerMaterials.manyullyn, TinkerMaterials.hepatizon, TinkerMaterials.soulsteel, TinkerModifiers.silkyJewelBlock);
+    tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_DIAMOND_TOOL, TinkerMaterials.queensSlime, TinkerMaterials.manyullyn, TinkerMaterials.hepatizon, TinkerMaterials.soulsteel);
     tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_NETHERITE_TOOL, TinkerMaterials.knightslime);
 
     // slime

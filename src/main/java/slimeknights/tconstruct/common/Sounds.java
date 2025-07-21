@@ -39,6 +39,7 @@ public enum Sounds {
   LONGBOW_CHARGE("longbow.charge"),
   CRYSTALSHOT,
   BONK,
+  SPIT,
 
   // modifiers
   NECROTIC_HEAL,

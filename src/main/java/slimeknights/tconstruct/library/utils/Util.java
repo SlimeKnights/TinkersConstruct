@@ -28,6 +28,7 @@ import slimeknights.tconstruct.TConstruct;
 import javax.annotation.Nullable;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Locale;
 import java.util.Optional;
@@ -128,6 +129,14 @@ public class Util {
       return 0;
     }
     return value > 0 ? 1 : -1;
+  }
+
+  /** Creates a new array by copying the first and appending all elements in the second. */
+  @SafeVarargs
+  public static <T> T[] append(T[] first, T... second) {
+    T[] result = Arrays.copyOf(first, first.length + second.length);
+    System.arraycopy(second, 0, result, first.length, second.length);
+    return result;
   }
 
   /**

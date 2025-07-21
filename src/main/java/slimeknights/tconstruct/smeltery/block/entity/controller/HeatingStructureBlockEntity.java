@@ -153,6 +153,28 @@ public abstract class HeatingStructureBlockEntity extends NameableBlockEntity im
   /** Called while active to heat the contained items */
   protected abstract void heat();
 
+  /** Called while inactive or we lack a fuel tank to cool contained items */
+  protected void cool() {
+    // every 4 ticks, consume fuel and cool items, so an invalid structure doesn't keep smelting
+    switch (tick % 4) {
+      // skipping first tick: no finding fuel if invalid
+      // second tick: cool items if we lack fuel
+      case 1 -> {
+        // will be nice though: no cooling if we have fuel; leave them hot until that drains
+        // we won't seek out new fuel though so eventually they will start cooling
+        if (!fuelModule.hasFuel()) {
+          meltingInventory.coolItems();
+        }
+      }
+      // skipping third tick: no alloys to alloy
+      // fourth tick: consume fuel
+      case 3 -> {
+        if (fuelModule.hasFuel() && fuelRate > 0) {
+          fuelModule.decreaseFuel(fuelRate);
+        }
+      }
+    }
+  }
 
   /* Logic */
 
@@ -253,8 +275,12 @@ public abstract class HeatingStructureBlockEntity extends NameableBlockEntity im
           tank.syncFluids();
         }
       }
-    } else if (tick == 0) {
-      updateStructure();
+    } else {
+      // every second, try to reform structure
+      if (tick == 0) {
+        updateStructure();
+      }
+      cool();
     }
 
     // update tick timer
@@ -329,7 +355,12 @@ public abstract class HeatingStructureBlockEntity extends NameableBlockEntity im
     // update block state
     boolean formed = newStructure != null;
     if (formed != wasFormed) {
-      level.setBlockAndUpdate(worldPosition, getBlockState().setValue(ControllerBlock.IN_STRUCTURE, formed));
+      BlockState newState = getBlockState().setValue(ControllerBlock.IN_STRUCTURE, formed);
+      // ensure unformed smelteries are marked as inactive
+      if (!formed) {
+        newState = newState.setValue(ControllerBlock.ACTIVE, false);
+      }
+      level.setBlockAndUpdate(worldPosition, newState);
     }
 
     // structure info updates

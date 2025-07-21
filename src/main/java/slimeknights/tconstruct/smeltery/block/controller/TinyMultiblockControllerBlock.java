@@ -39,18 +39,19 @@ public abstract class TinyMultiblockControllerBlock extends ControllerBlock {
 
   @Override
   public BlockState getStateForPlacement(BlockPlaceContext context) {
-    BlockState state = super.getStateForPlacement(context);
-    if (state != null) {
-      return state.setValue(IN_STRUCTURE, isValidFuelSource(context.getLevel().getBlockState(context.getClickedPos().below())));
-    }
-    return null;
+    return super.getStateForPlacement(context)
+      .setValue(IN_STRUCTURE, isValidFuelSource(context.getLevel().getBlockState(context.getClickedPos().below())));
   }
 
   @Deprecated
   @Override
   public BlockState updateShape(BlockState state, Direction direction, BlockState neighbor, LevelAccessor world, BlockPos pos, BlockPos neighborPos) {
     if (direction == Direction.DOWN) {
-      return state.setValue(IN_STRUCTURE, isValidFuelSource(neighbor));
+      boolean hasFuel = isValidFuelSource(neighbor);
+      state = state.setValue(IN_STRUCTURE, hasFuel);
+      if (!hasFuel) {
+        state = state.setValue(ACTIVE, false);
+      }
     }
     return state;
   }

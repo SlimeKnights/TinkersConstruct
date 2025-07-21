@@ -1,0 +1,16 @@
+{
+  "title": "Toggle Interaction",
+  "image": {
+    "file": "tconstruct:book/images/worktable/toggle_interaction.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "Levers don't just switch redstone, they also let you switch interaction modifiers on slimestaffs from activating on using the staff to activating on attacking with the staff."
+    },
+    {
+      "text": "Never heard of a slimestaff? You will have to read the book by that nerd Melvin.", "paragraph": true
+    }
+  ]
+}

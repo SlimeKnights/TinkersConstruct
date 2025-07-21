@@ -303,7 +303,12 @@ public class TinkerTags {
     public static final TagKey<Item> SCORCHED_TANKS = local("scorched_tanks");
     public static final TagKey<Item> TANKS = local("tanks");
 
+    /** Bones that drop from normal skeletons or some equivalent. Intentionally does not use {@link net.minecraftforge.common.Tags.Items#BONES} as that includes many weird bones. */
+    public static final TagKey<Item> BONES = local("bones");
+    /** Bones that drop from wither skeletons */
     public static final TagKey<Item> WITHER_BONES = common("wither_bones");
+    /** Weird inconsistent alternative tag for bones that drop from wither skeletons */
+    public static final TagKey<Item> WEIRD_WITHER_BONES_TAG = common("bones/wither");
     public static final TagKey<Item> BOOKS = common("books");
     public static final TagKey<Item> GUIDEBOOKS = common("books/guide");
     public static final TagKey<Item> TINKERS_GUIDES = local("guides");

@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.tools.modifiers.ability.fluid;
 
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -14,6 +13,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidType;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
+import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
@@ -126,7 +126,7 @@ public class SpittingModifier extends Modifier implements GeneralInteractionModi
 
                 // finally, fire the projectile
                 world.addFreshEntity(spit);
-                world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.LLAMA_SPIT, SoundSource.PLAYERS, 1.0F, 1.0F / (world.getRandom().nextFloat() * 0.4F + 1.2F) + charge * 0.5F + (angle / 10f));
+                world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), Sounds.SPIT.getSound(), SoundSource.PLAYERS, 1.0F, 1.0F / (world.getRandom().nextFloat() * 0.4F + 1.2F) + charge * 0.5F + (angle / 10f));
 
               }
 

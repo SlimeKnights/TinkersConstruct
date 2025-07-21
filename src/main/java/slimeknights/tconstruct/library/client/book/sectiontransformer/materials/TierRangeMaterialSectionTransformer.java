@@ -10,6 +10,7 @@ import net.minecraft.util.GsonHelper;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.PageData;
 import slimeknights.mantle.client.book.data.SectionData;
+import slimeknights.mantle.client.book.data.content.ContentPageIconList;
 import slimeknights.mantle.client.book.data.content.PageContent;
 import slimeknights.mantle.client.book.repository.BookRepository;
 import slimeknights.mantle.client.book.transformer.BookTransformer;
@@ -18,7 +19,6 @@ import slimeknights.mantle.client.screen.book.element.SizedBookElement;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.book.content.AbstractMaterialContent;
-import slimeknights.tconstruct.library.client.book.content.ContentPageIconList;
 import slimeknights.tconstruct.library.json.IntRange;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
 import slimeknights.tconstruct.library.materials.IMaterialRegistry;
@@ -147,6 +147,7 @@ public class TierRangeMaterialSectionTransformer extends BookTransformer {
     // calculate pages needed
     List<ContentPageIconList> listPages = ContentPageIconList.getPagesNeededForItemCount(materialList.size(), sectionData, book.translate(sectionData.name), book.strings.get(String.format("%s.subtext", sectionData.name)));
 
+    // create pages and add to index
     ListIterator<ContentPageIconList> iter = listPages.listIterator();
     ContentPageIconList overview = iter.next();
 

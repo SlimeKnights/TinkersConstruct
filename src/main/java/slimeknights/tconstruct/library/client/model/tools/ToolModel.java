@@ -553,7 +553,6 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
         model = gui;
       } else if (cameraTransformType == ItemDisplayContext.FIRST_PERSON_LEFT_HAND || cameraTransformType == ItemDisplayContext.THIRD_PERSON_LEFT_HAND) {
         model = left;
-        model = left;
       } else if (originalModel != small && SMALL_TOOL_TYPES.get(cameraTransformType.ordinal())) {
         model = small;
       }

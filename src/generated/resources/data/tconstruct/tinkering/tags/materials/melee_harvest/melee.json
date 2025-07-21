@@ -26,6 +26,10 @@
       "required": false
     },
     {
+      "id": "tconstruct:pewter",
+      "required": false
+    },
+    {
       "id": "tconstruct:necronium",
       "required": false
     }

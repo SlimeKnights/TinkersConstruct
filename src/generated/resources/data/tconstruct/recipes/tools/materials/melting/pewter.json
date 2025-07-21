@@ -1,0 +1,28 @@
+{
+  "type": "tconstruct:material_melting",
+  "conditions": [
+    {
+      "type": "forge:or",
+      "values": [
+        {
+          "type": "mantle:tag_filled",
+          "tag": "forge:ingots/pewter"
+        },
+        {
+          "type": "mantle:tag_filled",
+          "tag": "forge:ingots/tin"
+        },
+        {
+          "type": "mantle:tag_filled",
+          "tag": "forge:ingots/lead"
+        }
+      ]
+    }
+  ],
+  "input": "tconstruct:pewter",
+  "result": {
+    "amount": 90,
+    "tag": "forge:molten_pewter"
+  },
+  "temperature": 400
+}

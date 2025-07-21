@@ -7,6 +7,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraftforge.common.crafting.IShapedRecipe;
 import slimeknights.mantle.client.SafeClientAccess;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.menu.CraftingStationContainerMenu;
@@ -73,6 +74,9 @@ public class CraftingStationTransferInfo implements IRecipeTransferInfo<Crafting
 
   @Override
   public boolean canHandle(CraftingStationContainerMenu container, CraftingRecipe recipe) {
-    return true;
+    if (recipe instanceof IShapedRecipe<?> shaped) {
+      return shaped.getRecipeWidth() <= 3 && shaped.getRecipeHeight() <= 3;
+    }
+    return recipe.getIngredients().size() <= 9;
   }
 }

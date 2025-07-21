@@ -169,6 +169,8 @@ public class ModifierIds {
   public static final ModifierId ductile = id("ductile");
   public static final ModifierId temperate = id("temperate");
   public static final ModifierId invariant = id("invariant");
+  public static final ModifierId raging = id("raging");
+  public static final ModifierId vitalProtection = id("vital_protection");
   // traits - tier 4
   public static final ModifierId overburn = id("overburn");
   public static final ModifierId overlord = id("overlord");
@@ -182,7 +184,6 @@ public class ModifierIds {
   public static final ModifierId mithridatism = id("mithridatism");
 
   // unused for now, will be reassigned later
-  public static final ModifierId raging = id("raging");
 
   // mob disguises
   public static final ModifierId creeperDisguise         = id("creeper_disguise");

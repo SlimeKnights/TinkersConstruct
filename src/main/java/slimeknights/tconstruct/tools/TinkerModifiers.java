@@ -16,8 +16,6 @@ import net.minecraft.world.item.CreativeModeTab.TabVisibility;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 import net.minecraftforge.data.event.GatherDataEvent;
@@ -311,17 +309,9 @@ public final class TinkerModifiers extends TinkerModule {
   }
 
   /*
-   * Blocks
-   */
-  // TODO: decide what to do with this block
-  public static final ItemObject<Block> silkyJewelBlock = BLOCKS.register("silky_jewel_block", metalBuilder(MapColor.GOLD), BLOCK_ITEM);
-
-  /*
    * Items
    */
   public static final ItemObject<Item> silkyCloth = ITEMS.register("silky_cloth", ITEM_PROPS);
-  // TODO: decide what to do with this item
-  public static final ItemObject<Item> silkyJewel = ITEMS.register("silky_jewel", ITEM_PROPS);
   public static final ItemObject<Item> dragonScale = ITEMS.register("dragon_scale", () -> new DragonScaleItem(new Item.Properties().rarity(Rarity.RARE)));
   // durability reinforcements
   public static final ItemObject<Item> emeraldReinforcement = ITEMS.register("emerald_reinforcement", ITEM_PROPS);

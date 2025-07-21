@@ -44,6 +44,13 @@
     ],
     "subtitle": "subtitles.tconstruct.bonk"
   },
+  "spit": {
+    "sounds": [
+      "mob/llama/spit1",
+      "mob/llama/spit2"
+    ],
+    "subtitle": "subtitles.tconstruct.spit"
+  },
   "throw.throwball": {
     "sounds": [
       "random/bow"

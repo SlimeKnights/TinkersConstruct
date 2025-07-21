@@ -10,6 +10,7 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.helpers.IModIdHelper;
 import mezz.jei.api.ingredients.subtypes.IIngredientSubtypeInterpreter;
 import mezz.jei.api.ingredients.subtypes.UidContext;
+import mezz.jei.api.recipe.transfer.IRecipeTransferHandlerHelper;
 import mezz.jei.api.registration.IGuiHandlerRegistration;
 import mezz.jei.api.registration.IModIngredientRegistration;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
@@ -95,6 +96,7 @@ import slimeknights.tconstruct.plugin.jei.partbuilder.PatternIngredientHelper;
 import slimeknights.tconstruct.plugin.jei.partbuilder.PatternIngredientRenderer;
 import slimeknights.tconstruct.plugin.jei.transfer.CraftingStationTransferInfo;
 import slimeknights.tconstruct.plugin.jei.transfer.TinkerStationTransferInfo;
+import slimeknights.tconstruct.plugin.jei.transfer.ToolInventoryTransferInfo;
 import slimeknights.tconstruct.plugin.jei.util.GuiContainerTankHandler;
 import slimeknights.tconstruct.plugin.jei.util.PotionSubtypeInterpreter;
 import slimeknights.tconstruct.plugin.jei.util.ToolPartSubtypeInterpreter;
@@ -370,8 +372,10 @@ public class JEIPlugin implements IModPlugin {
   @Override
   public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
     registration.addRecipeTransferHandler(new CraftingStationTransferInfo());
-    registration.addRecipeTransferHandler(new TinkerStationTransferInfo<>(TConstructJEIConstants.MODIFIERS));
-    registration.addRecipeTransferHandler(new TinkerStationTransferInfo<>(TConstructJEIConstants.TOOL_BUILDING));
+    IRecipeTransferHandlerHelper helper = registration.getTransferHelper();
+    registration.addRecipeTransferHandler(new TinkerStationTransferInfo<>(TConstructJEIConstants.MODIFIERS, helper), TConstructJEIConstants.MODIFIERS);
+    registration.addRecipeTransferHandler(new TinkerStationTransferInfo<>(TConstructJEIConstants.TOOL_BUILDING, helper), TConstructJEIConstants.TOOL_BUILDING);
+    registration.addRecipeTransferHandler(new ToolInventoryTransferInfo(helper), RecipeTypes.CRAFTING);
   }
 
   /**
@@ -480,16 +484,15 @@ public class JEIPlugin implements IModPlugin {
 
     // fluid hiding, buckets are hidden via the creative tab logic
     // hide compat that is not present
+    compatLoop:
     for (SmelteryCompat compat : SmelteryCompat.values()) {
-      if (!tagExists("ingots/" + compat.getName())) {
-        // if the alt tag exists then still show the fluid
-        if (!compat.getAltTag().isEmpty()) {
-          if (tagExists("ingots/" + compat.getAltTag())) {
-            continue;
-          }
+      // if none of the tags exist, remove the fluid
+      for (String name : compat.getTags()) {
+        if (tagExists("ingots/" + name)) {
+          continue compatLoop;
         }
-        removeFluid(manager, compat.getFluid().get());
       }
+      removeFluid(manager, compat.getFluid().get());
     }
     if (!ModList.get().isLoaded("ceramics")) {
       removeFluid(manager, TinkerFluids.moltenPorcelain.get());

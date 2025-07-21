@@ -16,8 +16,10 @@ import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.recipe.material.IMaterialValue;
+import slimeknights.tconstruct.library.recipe.material.MaterialRecipeCache;
 import slimeknights.tconstruct.tables.TinkerTables;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -109,9 +111,35 @@ public class ItemPartRecipe implements IDisplayPartBuilderRecipe {
 
   /* JEI */
 
+  private List<ItemStack> materialItems;
+
   @Override
   public List<ItemStack> getPatternItems() {
     return Arrays.asList(patternItem.getItems());
+  }
+
+  @Override
+  public List<ItemStack> getMaterialItems() {
+    if (materialItems == null) {
+      // if unknown, nothing to display. Used for no material input
+      if (material.isUnknown()) {
+        materialItems = List.of();
+      } else {
+        MaterialVariantId material = this.material.getVariant();
+        // if we have a variant, only need to fetch the one list
+        if (!material.getVariant().isEmpty()) {
+          materialItems = MaterialRecipeCache.getItems(material);
+        } else {
+          // fetch the root and all variants
+          List<ItemStack> items = new ArrayList<>(MaterialRecipeCache.getItems(material));
+          for (MaterialVariantId variant : MaterialRecipeCache.getVariants(material.getId())) {
+            items.addAll(MaterialRecipeCache.getItems(variant));
+          }
+          this.materialItems = List.copyOf(items);
+        }
+      }
+    }
+    return materialItems;
   }
 
   @Override

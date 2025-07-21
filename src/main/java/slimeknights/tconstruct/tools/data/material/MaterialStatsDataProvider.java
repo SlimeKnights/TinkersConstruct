@@ -182,6 +182,10 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      new HeadMaterialStats(630, 5.5f, DIAMOND, 2.5f),
                      HandleMaterialStats.multipliers().miningSpeed(0.9f).attackSpeed(1.05f).attackDamage(1.15f).build(),
                      StatlessMaterialStats.BINDING);
+    addMaterialStats(MaterialIds.pewter,
+      new HeadMaterialStats(316, 3.5f, DIAMOND, 3.0f),
+      HandleMaterialStats.multipliers().durability(0.75f).miningSpeed(0.8f).attackDamage(1.2f).build(),
+      StatlessMaterialStats.BINDING);
     addMaterialStats(MaterialIds.necronium,
                      new HeadMaterialStats(357, 4.0f, DIAMOND, 2.75f),
                      HandleMaterialStats.multipliers().durability(0.8f).attackSpeed(1.15f).attackDamage(1.1f).build(),
@@ -315,6 +319,9 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.invar,
                      new LimbMaterialStats(630, -0.15f, -0.1f, 0.2f),
                      new GripMaterialStats(0, 0.05f, 2.5f));
+    addMaterialStats(MaterialIds.pewter,
+      new LimbMaterialStats(316, 0.1f, -0.05f, -0.2f),
+      new GripMaterialStats(-0.2f, 0.15f, 3.0f));
     addMaterialStats(MaterialIds.necronium,
                      new LimbMaterialStats(357, 0.15f, -0.1f, -0.05f),
                      new GripMaterialStats(-0.2f, 0.15f, 2.75f));
@@ -395,6 +402,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addArmorShieldStats(MaterialIds.bronze,     PlatingMaterialStats.builder().durabilityFactor(28).armor(2, 5, 6, 2).knockbackResistance(0.1f), StatlessMaterialStats.MAILLE);
     addArmorShieldStats(MaterialIds.constantan, PlatingMaterialStats.builder().durabilityFactor(25).armor(1, 4, 5, 2).toughness(2).knockbackResistance(0.05f), StatlessMaterialStats.MAILLE);
     addArmorShieldStats(MaterialIds.invar,      PlatingMaterialStats.builder().durabilityFactor(24).armor(1, 3, 5, 2).knockbackResistance(0.1f), StatlessMaterialStats.MAILLE);
+    addArmorShieldStats(MaterialIds.pewter,     PlatingMaterialStats.builder().durabilityFactor(16).armor(2, 5, 7, 2), StatlessMaterialStats.MAILLE);
     addArmorShieldStats(MaterialIds.electrum,   PlatingMaterialStats.builder().durabilityFactor(14).armor(1, 3, 4, 2), StatlessMaterialStats.MAILLE);
     // tier 4
     addMaterialStats(MaterialIds.blazewood, StatlessMaterialStats.SHIELD_CORE);

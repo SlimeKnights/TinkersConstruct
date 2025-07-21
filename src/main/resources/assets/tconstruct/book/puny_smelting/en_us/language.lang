@@ -2,6 +2,7 @@ intro=Introduction
 melter=Melter
 moving_fluids=Moving Fluids
 casting=Casting
+worktable=Modifier Worktable
 melee_harvest_materials=Tier 2 General Materials
 melee_harvest_materials.subtext=These materials can be casted into tool parts for melee weapons or harvest tools.
 ranged_materials=Tier 2 Ranged Materials

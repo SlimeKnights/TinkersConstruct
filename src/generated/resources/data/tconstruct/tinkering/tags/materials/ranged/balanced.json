@@ -26,6 +26,10 @@
     {
       "id": "tconstruct:invar",
       "required": false
+    },
+    {
+      "id": "tconstruct:pewter",
+      "required": false
     }
   ]
 }

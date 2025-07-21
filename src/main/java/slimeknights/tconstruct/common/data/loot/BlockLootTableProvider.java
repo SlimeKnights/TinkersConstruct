@@ -48,7 +48,6 @@ import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.block.entity.chest.TinkersChestBlockEntity;
-import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.DirtType;
 import slimeknights.tconstruct.world.block.FoliageType;
@@ -86,7 +85,6 @@ public class BlockLootTableProvider extends BlockLootSubProvider {
     this.registerFenceBuildingLootTables(TinkerMaterials.nahuatl);
     this.dropSelf(TinkerCommons.cheeseBlock.get());
 
-    this.dropSelf(TinkerModifiers.silkyJewelBlock.get());
     this.dropSelf(TinkerCommons.goldBars.get());
     this.dropSelf(TinkerCommons.goldPlatform.get());
     this.dropSelf(TinkerCommons.ironPlatform.get());

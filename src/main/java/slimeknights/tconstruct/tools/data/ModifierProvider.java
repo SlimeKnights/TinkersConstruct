@@ -48,7 +48,6 @@ import slimeknights.tconstruct.library.json.predicate.tool.HasModifierPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.ToolContextPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.ToolStackPredicate;
 import slimeknights.tconstruct.library.json.variable.block.BlockVariable;
-import slimeknights.tconstruct.library.json.variable.entity.AttributeEntityVariable;
 import slimeknights.tconstruct.library.json.variable.entity.ConditionalEntityVariable;
 import slimeknights.tconstruct.library.json.variable.entity.EntityEffectLevelVariable;
 import slimeknights.tconstruct.library.json.variable.entity.EntityVariable;
@@ -650,32 +649,40 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.raging)
       .addModule(ConditionalMeleeDamageModule.builder()
         .customVariable("health", new EntityMeleeVariable(EntityVariable.HEALTH, WhichEntity.ATTACKER, 0))
-        .customVariable("max_health", new EntityMeleeVariable(new AttributeEntityVariable(Attributes.MAX_HEALTH), WhichEntity.ATTACKER, 20))
         .formula()
-        .customVariable("health")
-        // add (10 - max_health) to health, at minimum 0, to account for low max health
-        .constant(10).customVariable("max_health").subtract().nonNegative().add()
-        // linear bonus from 2 to 8, max bonus below 2, no bonus above 8
-        .constant(10).subtractFlipped().constant(8).divide().percentClamp()
-        // get 3 bonus per level, bring in standard multiplier
-        .variable(LEVEL).multiply().constant(3).multiply().variable(MULTIPLIER).multiply()
+        // start with (11 - health), gets stronger as you go lower
+        .constant(11).customVariable("health").subtract()
+        // 1/10 effect for each health lost below 11
+        .constant(10).divide().percentClamp()
+        // get 2.5 bonus per level, so +0.25 damage per lost health
+        .variable(LEVEL).multiply().constant(2.5f).multiply().variable(MULTIPLIER).multiply()
         // finally, add in base damage
         .variable(VALUE).add().build())
-      .addModule(ConditionalStatModule.stat(ToolStats.DRAW_SPEED)
+      .addModule(ConditionalStatModule.stat(ToolStats.PROJECTILE_DAMAGE)
         .customVariable("health", new EntityConditionalStatVariable(EntityVariable.HEALTH, 0))
-        .customVariable("max", new EntityConditionalStatVariable(new AttributeEntityVariable(Attributes.MAX_HEALTH), 20))
         .formula()
-        .customVariable("health")
-        // add (10 - max_health) to health, at minimum 0, to account for low max health
-        .constant(10).customVariable("max").subtract().nonNegative().add()
-        // linear bonus from 2 to 8, max bonus below 2, no bonus above 8
-        .constant(10).subtractFlipped().constant(8).divide().percentClamp()
-        // get 0.25 bonus per level, bring in standard multiplier
-        .variable(LEVEL).multiply().constant(0.25f).multiply().variable(MULTIPLIER).multiply()
+        // start with (11 - health), gets stronger as you go lower
+        .constant(11).customVariable("health").subtract()
+        // 1/10 effect for each health lost below 10
+        .constant(10).divide().percentClamp()
+        // get 1 power bonus per level, so 0.1 power per lost health
+        .variable(LEVEL).multiply().constant(1).multiply().variable(MULTIPLIER).multiply()
+        // finally, add in base damage
+        .variable(VALUE).add().build());
+    buildModifier(ModifierIds.vitalProtection)
+      .addModule(ProtectionModule.builder()
+        .customVariable("health", new EntityProtectionVariable(EntityVariable.HEALTH, EntityProtectionVariable.WhichEntity.TARGET, 0))
+        .formula()
+        // start with (11 - health), gets stronger as you go lower
+        .constant(11).customVariable("health").subtract()
+        // each health lost gives 1/9 of the benefit
+        .constant(10).divide().percentClamp()
+        // get 10% per level, so 1% per lost health
+        .variable(LEVEL).multiply().constant(2.5f).multiply()
         // finally, add in base damage
         .variable(VALUE).add().build());
 
-    // triats - tier 2
+    // traits - tier 2
     buildModifier(ModifierIds.scorchProtection)
       .addModule(EnchantmentModule.builder(Enchantments.FIRE_PROTECTION).protection())
       .addModule(ProtectionModule.builder().sources(DamageSourcePredicate.CAN_PROTECT, SourceAttackerPredicate.causing(LivingEntityPredicate.FIRE_IMMUNE)).eachLevel(1.25f));
@@ -739,7 +746,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(StatBoostModule.multiplyBase(ToolStats.VELOCITY).eachLevel(0.03f));
     buildModifier(ModifierIds.ductile)
       .addModule(StatBoostModule.multiplyBase(ToolStats.DURABILITY).eachLevel(0.1f))
-      .addModule(StatBoostModule.multiplyBase(ToolStats.ATTACK_DAMAGE).eachLevel(0.1f))
+      .addModule(StatBoostModule.multiplyBase(ToolStats.ATTACK_DAMAGE).eachLevel(0.08f))
       .addModule(StatBoostModule.multiplyBase(ToolStats.PROJECTILE_DAMAGE).eachLevel(0.05f))
       .addModule(StatBoostModule.add(ToolStats.ARMOR_TOUGHNESS).eachLevel(1));
     buildModifier(ModifierIds.overshield).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(new OvershieldModule(1.25f, 5));
