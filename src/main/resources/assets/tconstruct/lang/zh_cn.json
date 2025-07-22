@@ -49,7 +49,7 @@
   "block.tconstruct.weathered_copper_platform": "锈蚀的铜平台",
   "block.tconstruct.oxidized_copper_platform": "氧化的铜平台",
 
-  "block.tconstruct.waxed_copper_platform": "涂蜡铜平台",
+  "block.tconstruct.waxed_copper_platform": "涂蜡的铜平台",
   "block.tconstruct.waxed_exposed_copper_platform": "涂蜡的斑驳铜平台",
   "block.tconstruct.waxed_weathered_copper_platform": "涂蜡的锈蚀铜平台",
   "block.tconstruct.waxed_oxidized_copper_platform": "涂蜡的氧化铜平台",
@@ -1842,7 +1842,7 @@
   "material.tconstruct.manyullyn.armor": "受到伤害后，近战伤害暂时+1，至多为盔甲强化等级之和。",
 
   "material.tconstruct.hepatizon": "黑色科林斯青铜",
-  "material.tconstruct.hepatizon.flavor": "-科什么斯啊？\n-科林斯啊。\n-什么林斯啊？\n-科林斯啊！\n-科林什么啊？\n-行了你先歇着吧。",
+  "material.tconstruct.hepatizon.flavor": "-科什么斯啊？  -科林斯啊。\n-什么林斯啊？  -科林斯啊！\n-科林什么啊？  -行了你先歇着吧。",
   "material.tconstruct.hepatizon.encyclopedia": "在连续挖掘32个方块后挖掘速度呈线性增加，每级挖掘速度至多+25%",
   "material.tconstruct.hepatizon.ranged": "连续发射16次后拉弓速度呈线性增加，每级拉弓速度至多+25%",
   "material.tconstruct.hepatizon.armor": "受到伤害后，将伤害的50%暂时转换为伤害减免值，每级伤害减免持续时间+5秒。",
@@ -1936,11 +1936,12 @@
 
   "__comment": "Tier 2 Integration Materials",
   "material.tconstruct.osmium": "锇",
-  "material.tconstruct.osmium.flavor": "因为密度太大，所以很难Get到笑点",
+  "material.tconstruct.osmium.flavor": "太“稳重”了，以至于不好笑",
+
   "material.tconstruct.osmium.encyclopedia": "第1级时，维修消耗+25%，耐久损失-33%",
 
   "material.tconstruct.tungsten": "钨",
-  "material.tconstruct.tungsten.flavor": "你考虑过组建一支重金属乐队吗？",
+  "material.tconstruct.tungsten.flavor": "你考虑过组建一支“重”金属乐队吗？",
   "material.tconstruct.tungsten.encyclopedia": "每级挖掘速度+15%，移动速度-10%",
   "material.tconstruct.tungsten.ranged": "每级拉弓速度+15%，移动速度-10%",
   "material.tconstruct.tungsten.armor": "每级盔甲韧性+2，移动速度-10%",
@@ -2000,9 +2001,9 @@
 
   "material.tconstruct.invar": "殷钢",
   "material.tconstruct.invar.flavor": "它不仅能抵御温度的变化，还能避免追捕。",
-  "material.tconstruct.invar.encyclopedia": "在中等温度的生物群系伤害+1.6",
-  "material.tconstruct.invar.ranged": "在中等温度的生物群系精确度+0.15",
-  "material.tconstruct.invar.armor": "在中等温度的生物群系每级伤害-5%",
+  "material.tconstruct.invar.encyclopedia": "在适中温度的生物群系伤害+1.6",
+  "material.tconstruct.invar.ranged": "在适中温度的生物群系精确度+0.15",
+  "material.tconstruct.invar.armor": "在适中温度的生物群系每级伤害-5%",
 
   "material.tconstruct.pewter": "白镴",
   "material.tconstruct.pewter.flavor": "最强金属。",
