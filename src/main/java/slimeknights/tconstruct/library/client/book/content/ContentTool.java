@@ -291,7 +291,7 @@ public class ContentTool extends PageContent {
       </div>
       """,
       getTitleHTML(),
-      TextData.toHTML(text),
+      TextData.toHTML(text, parent.parent.parent),
       I18n.get(KEY_PROPERTIES),
       Arrays.stream(properties)
         .map(s -> String.format("<li>%s</li>", s))

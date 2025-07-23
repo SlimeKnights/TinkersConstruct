@@ -319,7 +319,7 @@ public class ContentModifier extends PageContent {
       """,
       getTitleHTML(HTMLUtils.slugify(getTitle()), "color: " + HTMLUtils.hexRGB(rgb), "filter: drop-shadow(1px 1px #000000)"),
       h * 2,
-      TextData.toHTML(text),
+      TextData.toHTML(text, parent.parent.parent),
       I18n.get(KEY_EFFECTS),
       Arrays.stream(effects)
         .map(s -> String.format("<li>%s</li>", HTMLUtils.parse(s)))
