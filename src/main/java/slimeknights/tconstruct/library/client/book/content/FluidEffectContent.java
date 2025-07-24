@@ -143,16 +143,29 @@ public class FluidEffectContent extends PageContent {
       .append("<div>")
       .append(HTMLUtils.line(text, "height: 64px", "padding-left: 64px"));
 
-    if (!entityComponents.isEmpty()) {
-      builder.append("<div style=\"height: 128px\">").append(HTMLUtils.line(I18n.get(KEY_ENTITY_EFFECTS), true)).append("<ul class=\"prop-list\">");
-      for (Component component : entityComponents) builder.append("<li>").append(HTMLUtils.line(component)).append("</li>");
-      builder.append("</ul></div>");
+    assert (entityComponents.isEmpty() || entity == null);
+    assert (blockComponents.isEmpty() || block == null);
+
+    if (!entityComponents.isEmpty() || entity != null ) {
+      builder.append("<div style=\"height: 128px\">\n")
+        .append(HTMLUtils.line(I18n.get(KEY_ENTITY_EFFECTS), true))
+        .append("<ul class=\"prop-list\">\n");
+      for (Component component : entityComponents) builder.append("<li>").append(HTMLUtils.line(component)).append("</li>\n");
+      if (entity != null) {
+        for (String string : entity) builder.append("<li>").append(HTMLUtils.line(string)).append("</li>\n");
+      }
+      builder.append("</ul>\n</div>");
     }
 
-    if (!blockComponents.isEmpty()) {
-      builder.append("<div style=\"height: 128px\">").append(HTMLUtils.line(I18n.get(KEY_BLOCK_EFFECTS), true)).append("<ul class=\"prop-list\">");
-      for (Component component : blockComponents) builder.append("<li>").append(HTMLUtils.line(component)).append("</li>");
-      builder.append("</ul></div>");
+    if (!blockComponents.isEmpty() || block != null ) {
+      builder.append("<div style=\"height: 128px\">\n")
+        .append(HTMLUtils.line(I18n.get(KEY_BLOCK_EFFECTS), true))
+        .append("<ul class=\"prop-list\">\n");
+      for (Component component : blockComponents) builder.append("<li>").append(HTMLUtils.line(component)).append("</li>\n");
+      if (block != null) {
+        for (String string : block) builder.append("<li>").append(HTMLUtils.line(string)).append("</li>\n");
+      }
+      builder.append("</ul>\n</div>");
     }
 
     return builder.append("</div>").toString();
