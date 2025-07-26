@@ -317,7 +317,7 @@ public class ContentModifier extends PageContent {
         </div>
       </div>
       """,
-      getTitleHTML(HTMLUtils.slugify(getTitle()), "color: " + HTMLUtils.hexRGB(rgb), "filter: drop-shadow(1px 1px #000000)"),
+      getTitleHTML("color: " + HTMLUtils.hexRGB(rgb), "filter: drop-shadow(1px 1px #000000)"),
       h * 2,
       TextData.toHTML(text, parent.parent.parent),
       I18n.get(KEY_EFFECTS),
