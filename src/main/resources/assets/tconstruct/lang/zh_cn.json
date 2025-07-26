@@ -893,6 +893,12 @@
   "item.tconstruct.molten_nicrosil_bucket": "熔融镍铬合金桶",
   "fluid.tconstruct.molten_nicrosil.fluid_effect": "镍铬合金对魔法有天然的亲和力，这么做实属有些浪费。",
 
+  "block.tconstruct.molten_duralumin_fluid": "熔融硬铝",
+  "fluid.tconstruct.molten_duralumin": "熔融硬铝",
+  "fluid.tconstruct.flowing_molten_duralumin": "流动的熔融硬铝",
+  "item.tconstruct.molten_duralumin_bucket": "熔融硬铝桶",
+  "fluid.tconstruct.molten_duralumin.fluid_effect": "让你断开连接。",
+
 
   "_comment": "Fluid effect contents",
   "fluid_effect.tconstruct.separator": "%s；%s",
@@ -1937,7 +1943,6 @@
   "__comment": "Tier 2 Integration Materials",
   "material.tconstruct.osmium": "锇",
   "material.tconstruct.osmium.flavor": "脑袋太“沉”，追不上笑点",
-
   "material.tconstruct.osmium.encyclopedia": "第1级时，维修消耗+25%，耐久损失-33%",
 
   "material.tconstruct.tungsten": "钨",
