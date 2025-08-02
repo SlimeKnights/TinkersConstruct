@@ -38,17 +38,17 @@
   "block.tconstruct.obsidian_pane": "黑曜石板",
   "block.tconstruct.gold_bars": "金栏杆",
   "block.tconstruct.gold_bars.tooltip": "在铸件台上充当空白金质铸模",
-  
+
   "block.tconstruct.gold_platform": "金平台",
   "block.tconstruct.gold_platform.tooltip": "在铸造盆中充当空白金质铸模",
   "block.tconstruct.iron_platform": "铁平台",
   "block.tconstruct.cobalt_platform": "钴平台",
-  
+
   "block.tconstruct.copper_platform": "铜平台",
   "block.tconstruct.exposed_copper_platform": "斑驳的铜平台",
   "block.tconstruct.weathered_copper_platform": "锈蚀的铜平台",
   "block.tconstruct.oxidized_copper_platform": "氧化的铜平台",
-  
+
   "block.tconstruct.waxed_copper_platform": "涂蜡的铜平台",
   "block.tconstruct.waxed_exposed_copper_platform": "涂蜡的斑驳铜平台",
   "block.tconstruct.waxed_weathered_copper_platform": "涂蜡的锈蚀铜平台",
@@ -1008,7 +1008,7 @@
   "item.tconstruct.piggy_backpack": "肩驮架",
   "item.tconstruct.piggy_backpack.tooltip": "对生物使用来驮起它们",
   "effect.tconstruct.carry": "背负",
-  
+
   "block.tconstruct.blaze_head": "烈焰人的头",
   "block.tconstruct.enderman_head": "末影人的头",
   "block.tconstruct.stray_head": "流浪者头颅",
@@ -1076,18 +1076,18 @@
   "item.tconstruct.earth_staff": "大地黏液手杖",
   "item.tconstruct.ichor_staff": "灵浆手杖",
   "item.tconstruct.ender_staff": "末影黏液手杖",
-  
+
   "item.tconstruct.melting_pan": "熔炼锅",
   "item.tconstruct.battlesign": "战斗牌子",
   "item.tconstruct.war_pick": "战镐",
   "item.tconstruct.swasher": "喷流刃",
-  
+
   "item.tconstruct.travelers_helmet": "旅行者护目镜",
   "item.tconstruct.travelers_chestplate": "旅行者背心",
   "item.tconstruct.travelers_leggings": "旅行者裤子",
   "item.tconstruct.travelers_boots": "旅行者靴子",
   "item.tconstruct.travelers_shield": "旅行者盾牌",
-  
+
   "item.tconstruct.plate_helmet": "镶板头盔",
   "item.tconstruct.plate_chestplate": "镶板胸甲",
   "item.tconstruct.plate_leggings": "镶板护腿",
@@ -1138,7 +1138,7 @@
   "item.tconstruct.tough_binding": "坚韧套环",
   "item.tconstruct.adze_head": "锛头",
   "item.tconstruct.large_plate": "大板",
-  
+
   "item.tconstruct.bow_limb": "弓臂",
   "item.tconstruct.bow_grip": "弓把",
   "item.tconstruct.bowstring": "弓弦",
@@ -3095,7 +3095,7 @@
   "tool_stat.tconstruct.handle.attack_damage.description": "工具的最终攻击伤害会被这一数值修正",
   "tool_stat.tconstruct.handle.attack_speed.description": "工具的最终攻击速度会被这一数值修正",
   "tool_stat.tconstruct.handle.mining_speed.description": "工具的最终挖掘速度会被这一数值修正",
-  
+
   "stat.tconstruct.limb": "弓臂",
   "stat.tconstruct.grip": "弓把",
   "tool_stat.tconstruct.draw_speed": "拉弓速度：",
