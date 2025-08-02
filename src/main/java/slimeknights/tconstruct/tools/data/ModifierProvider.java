@@ -51,6 +51,7 @@ import slimeknights.tconstruct.library.json.variable.block.BlockVariable;
 import slimeknights.tconstruct.library.json.variable.entity.ConditionalEntityVariable;
 import slimeknights.tconstruct.library.json.variable.entity.EntityEffectLevelVariable;
 import slimeknights.tconstruct.library.json.variable.entity.EntityVariable;
+import slimeknights.tconstruct.library.json.variable.entity.EquipmentCountEntityVariable;
 import slimeknights.tconstruct.library.json.variable.melee.EntityMeleeVariable;
 import slimeknights.tconstruct.library.json.variable.melee.EntityMeleeVariable.WhichEntity;
 import slimeknights.tconstruct.library.json.variable.mining.BlockLightVariable;
@@ -156,8 +157,10 @@ import slimeknights.tconstruct.tools.modules.interaction.BrushModule;
 import slimeknights.tconstruct.tools.modules.interaction.ExtinguishCampfireModule;
 import slimeknights.tconstruct.tools.modules.interaction.PlaceGlowModule;
 import slimeknights.tconstruct.tools.modules.ranged.BulkQuiverModule;
+import slimeknights.tconstruct.tools.modules.ranged.HolyArrowModule;
 import slimeknights.tconstruct.tools.modules.ranged.RestrictAngleModule;
 import slimeknights.tconstruct.tools.modules.ranged.TrickQuiverModule;
+import slimeknights.tconstruct.tools.modules.ranged.ValiantArrowModule;
 
 import static slimeknights.tconstruct.common.TinkerTags.Items.ARMOR;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HARVEST;
@@ -727,6 +730,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
         .subtract().build());
     buildModifier(ModifierIds.consecrated).addModule(ProtectionModule.builder().attacker(new MobTypePredicate(MobType.UNDEAD)).eachLevel(1.25f));
     buildModifier(ModifierIds.preserved).addModules(StatBoostModule.multiplyBase(ToolStats.DURABILITY).eachLevel(0.15f), RepairModule.builder().eachLevel(0.15f));
+    buildModifier(ModifierIds.holy).addModule(new HolyArrowModule(LevelingValue.flat(0.75f)));
 
     // traits - tier 3
     buildModifier(ModifierIds.overcast)
@@ -887,6 +891,23 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(AttributeModule.builder(Attributes.ATTACK_SPEED, Operation.MULTIPLY_TOTAL).slots(EquipmentSlot.OFFHAND).toolItem(ItemPredicate.tag(TinkerTags.Items.HELD_ARMOR)).eachLevel(-0.1f))
       .addModule(AttributeModule.builder(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL).slots(ARMOR_SLOTS).eachLevel(-0.1f))
       .addModule(AttributeModule.builder(ForgeMod.ENTITY_GRAVITY, Operation.MULTIPLY_TOTAL).tooltipStyle(TooltipStyle.PERCENT).eachLevel(0.1f));
+    buildModifier(ModifierIds.valiant)
+      .addModule(ConditionalMeleeDamageModule.builder()
+        .formula()
+        .customVariable("equipment", new EntityMeleeVariable(new EquipmentCountEntityVariable(ARMOR_SLOTS), WhichEntity.TARGET, 4))
+        .constant(0.5f).multiply()
+        .variable(MULTIPLIER).multiply()
+        .variable(VALUE).add()
+        .build())
+      .addModule(new ValiantArrowModule(LevelingValue.eachLevel(0.25f)));
+    buildModifier(ModifierIds.stalwart)
+      .addModule(ProtectionModule.builder()
+        .formula()
+        .customVariable("equipment", new EntityProtectionVariable(new EquipmentCountEntityVariable(handSlots), EntityProtectionVariable.WhichEntity.ATTACKER, 2))
+        .constant(1.25f).multiply()
+        .variable(VALUE).add()
+        .build());
+    buildModifier(ModifierIds.temperedProtection).addModule(ProtectionModule.builder().attacker(LivingEntityPredicate.ON_FIRE).eachLevel(1.25f));
 
     // traits - slimeskull
     buildModifier(ModifierIds.mithridatism).addModule(new EffectImmunityModule(MobEffects.POISON)).levelDisplay(ModifierLevelDisplay.NO_LEVELS);

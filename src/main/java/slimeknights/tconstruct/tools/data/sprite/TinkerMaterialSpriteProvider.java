@@ -2,6 +2,7 @@ package slimeknights.tconstruct.tools.data.sprite;
 
 import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.library.client.data.material.AbstractMaterialSpriteProvider;
+import slimeknights.tconstruct.library.client.data.spritetransformer.FramesSpriteTransformer;
 import slimeknights.tconstruct.library.client.data.spritetransformer.GreyToColorMapping;
 import slimeknights.tconstruct.library.client.data.spritetransformer.GreyToSpriteTransformer;
 import slimeknights.tconstruct.library.client.data.spritetransformer.IColorMapping;
@@ -302,6 +303,17 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .meleeHarvest().ranged().armor()
       .fallbacks("metal")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF350C57).addARGB(102, 0xFF481D6D).addARGB(140, 0xFF5C268A).addARGB(178, 0xFF7141AC).addARGB(216, 0xFF9261CC).addARGB(255, 0xFFC299F3).build());
+    buildMaterial(MaterialIds.knightmetal)
+      .meleeHarvest().ranged().armor()
+      .fallbacks("slime_metal", "metal")
+      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF333232).addARGB(102, 0xFF4D4C4B).addARGB(140, 0xFF808C72).addARGB(178, 0xFFA3B391).addARGB(216, 0xFFC4D6AE).addARGB(255, 0xFFE7FCCD).build());
+    ResourceLocation fiery = getResource("generator/fiery");
+    buildMaterial(MaterialIds.fiery)
+      .meleeHarvest().ranged().armor()
+      .fallbacks("metal_contrast", "contrast", "metal")
+      .transformer(new FramesSpriteTransformer(fiery,
+        GreyToSpriteTransformer.builderFromBlack().addARGB(25, 0xFF191919).addTexture(26, fiery).addTexture(102, fiery).addARGB(140, 0xFF3C2323).addARGB(178, 0xFF2D1B1B).addARGB(216, 0xFF191313).addARGB(255, 0xFF080606).build(),
+        GreyToSpriteTransformer.builderFromBlack().addARGB(25, 0xFF191919).addTexture(26, fiery).addTexture(102, fiery).addARGB(140, 0xFF893D14).addARGB(178, 0xFF773511).addARGB(216, 0xFF662D09).addARGB(255, 0xFF5d2603).build()));
     buildMaterial(MaterialIds.blazingBone)
       .meleeHarvest().ranged()
       .fallbacks("bone", "rock")

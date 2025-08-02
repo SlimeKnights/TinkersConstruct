@@ -225,7 +225,17 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.ancient, new HeadMaterialStats(745, 7f, NETHERITE, 2.5f));
 
     // tier 4 (end)
+    addMaterialStats(MaterialIds.knightmetal,
+      new HeadMaterialStats(512, 8f, NETHERITE, 3.0f),
+      HandleMaterialStats.multipliers().miningSpeed(0.85f).attackSpeed(1.05f).attackDamage(1.15f).build(),
+      StatlessMaterialStats.BINDING);
     addMaterialStats(MaterialIds.enderslimeVine, StatlessMaterialStats.BINDING);
+
+    // tier 4 (mod integration)
+    addMaterialStats(MaterialIds.fiery,
+      new HeadMaterialStats(1024, 8, NETHERITE, 3.5f),
+      HandleMaterialStats.multipliers().miningSpeed(1.15f).attackSpeed(0.9f).attackDamage(1.15f).build(),
+      StatlessMaterialStats.BINDING);
   }
 
   private void addRanged() {
@@ -356,9 +366,18 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      new LimbMaterialStats(1250, -0.35f, 0.25f, 0f),
                      new GripMaterialStats(0.1f, -0.20f, 3.5f));
     addMaterialStats(MaterialIds.ancient, new LimbMaterialStats(745, -0.15f, 0.1f, 0.1f));
-    // tier 4 (end)
     addMaterialStats(MaterialIds.ancientHide, StatlessMaterialStats.BOWSTRING);
+
+    // tier 4 (end)
+    addMaterialStats(MaterialIds.knightmetal,
+      new LimbMaterialStats(512, 0.2f, 0.05f, -0.1f),
+      new GripMaterialStats(1.0f, 0.1f, 3.0f));
     addMaterialStats(MaterialIds.enderslimeVine, StatlessMaterialStats.BOWSTRING);
+
+    // tier 4 (compat)
+    addMaterialStats(MaterialIds.fiery,
+      new LimbMaterialStats(1024, -0.25f, 0.2f, -0.05f),
+      new GripMaterialStats(1.0f, 0.05f, 3.5f));
   }
 
   private void addArmor() {
@@ -412,7 +431,11 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addArmorShieldStats(MaterialIds.manyullyn,   PlatingMaterialStats.builder().durabilityFactor(35).armor(2, 5, 7, 2).toughness(3).knockbackResistance(0.05f), StatlessMaterialStats.MAILLE);
     addArmorShieldStats(MaterialIds.ancient,     PlatingMaterialStats.builder().durabilityFactor(25).armor(2, 4, 6, 2).knockbackResistance(0.15f));
     addMaterialStats(MaterialIds.ancientHide, StatlessMaterialStats.MAILLE, StatlessMaterialStats.CUIRASS);
+    // tier 4 (end)
+    addArmorShieldStats(MaterialIds.knightmetal, PlatingMaterialStats.builder().durabilityFactor(20).armor(2, 5, 7, 2).toughness(2).knockbackResistance(0.05f), StatlessMaterialStats.MAILLE);
     addMaterialStats(MaterialIds.enderslimeVine, StatlessMaterialStats.MAILLE, StatlessMaterialStats.CUIRASS);
+    // tier 4 (compat)
+    addArmorShieldStats(MaterialIds.fiery, PlatingMaterialStats.builder().durabilityFactor(25).armor(3, 6, 8, 3).toughness(1.5f), StatlessMaterialStats.MAILLE);
   }
 
   private void addMisc() {

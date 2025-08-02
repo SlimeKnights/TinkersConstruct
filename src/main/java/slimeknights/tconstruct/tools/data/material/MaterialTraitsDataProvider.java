@@ -95,7 +95,9 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addTraits(MaterialIds.ancientHide, MELEE_HARVEST, ModifierIds.fortune);
     addDefaultTraits(MaterialIds.ancientHide, ModifierIds.fortified);
 
-    // tier 5
+    // tier 4 (end)
+    addDefaultTraits(MaterialIds.knightmetal, ModifierIds.valiant);
+    addTraits(MaterialIds.knightmetal, ARMOR, ModifierIds.stalwart);
     addDefaultTraits(MaterialIds.enderslimeVine, TinkerModifiers.enderporting);
     addTraits(MaterialIds.enderslimeVine, ARMOR, ModifierIds.enderclearance);
 
@@ -106,7 +108,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addTraits(MaterialIds.platinum, RANGED,        TinkerModifiers.olympic);
     addDefaultTraits(MaterialIds.lead, ModifierIds.heavy);
     addTraits(MaterialIds.silver, MELEE_HARVEST, ModifierIds.smite);
-    addTraits(MaterialIds.silver, RANGED, TinkerModifiers.holy);
+    addTraits(MaterialIds.silver, RANGED, ModifierIds.holy);
     addTraits(MaterialIds.silver, ARMOR, ModifierIds.consecrated);
     addDefaultTraits(MaterialIds.treatedWood, ModifierIds.preserved);
     // tier 3 - mod compat
@@ -119,6 +121,9 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.necronium, TinkerModifiers.decay);
     addDefaultTraits(MaterialIds.electrum, ModifierIds.experienced);
     addDefaultTraits(MaterialIds.platedSlimewood, TinkerModifiers.overworked, TinkerModifiers.overslime);
+    // tier 4 - mod compat
+    addDefaultTraits(MaterialIds.fiery, TinkerModifiers.autosmelt);
+    addTraits(MaterialIds.fiery, ARMOR, ModifierIds.temperedProtection);
 
     // slimeskull
     addTraits(MaterialIds.glass,        SkullStats.ID, TinkerModifiers.selfDestructive.getId(), ModifierIds.creeperDisguise);

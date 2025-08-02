@@ -1,0 +1,16 @@
+{
+  "type": "mantle:empty_item",
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "twilightforest:fiery_blood"
+    }
+  ],
+  "fluid": {
+    "amount": 250,
+    "fluid": "tconstruct:fiery_liquid"
+  },
+  "input": {
+    "item": "twilightforest:fiery_blood"
+  }
+}

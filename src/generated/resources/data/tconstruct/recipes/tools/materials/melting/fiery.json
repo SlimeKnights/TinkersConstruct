@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:material_melting",
+  "byproducts": [
+    {
+      "amount": 90,
+      "tag": "forge:molten_iron"
+    }
+  ],
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "forge:ingots/fiery"
+    }
+  ],
+  "input": "tconstruct:fiery",
+  "result": {
+    "amount": 250,
+    "fluid": "tconstruct:fiery_liquid"
+  },
+  "temperature": 1500
+}

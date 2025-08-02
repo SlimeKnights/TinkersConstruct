@@ -73,6 +73,7 @@ public class FluidTextureProvider extends AbstractFluidTextureProvider {
     alloy(TinkerFluids.moltenNetherite);
     // alloy - end
     alloy(TinkerFluids.moltenSoulsteel);
+    alloy(TinkerFluids.moltenKnightmetal);
     alloy(TinkerFluids.moltenKnightslime);
 
     // compat - ore
@@ -102,6 +103,9 @@ public class FluidTextureProvider extends AbstractFluidTextureProvider {
     compatAlloy(TinkerFluids.moltenRefinedGlowstone);
     // metalborn
     compatAlloy(TinkerFluids.moltenNicrosil);
+    compatAlloy(TinkerFluids.moltenDuralumin);
+    // twilight
+    slime(TinkerFluids.fieryLiquid, "fiery");
   }
 
 

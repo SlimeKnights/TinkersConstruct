@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.library.recipe.casting;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
@@ -29,7 +28,6 @@ import java.util.List;
 /**
  * Recipe for casting a fluid onto an item, copying the fluid NBT to the item
  */
-@RequiredArgsConstructor
 public class PotionCastingRecipe implements ICastingRecipe, IMultiRecipe<DisplayCastingRecipe> {
   public static final RecordLoadable<PotionCastingRecipe> LOADER = RecordLoadable.create(
     LoadableRecipeSerializer.TYPED_SERIALIZER.requiredField(), ContextKey.ID.requiredField(), LoadableRecipeSerializer.RECIPE_GROUP,
@@ -53,6 +51,17 @@ public class PotionCastingRecipe implements ICastingRecipe, IMultiRecipe<Display
   private final Item result;
   /** Cooling time for this recipe, used for tipped arrows */
   private final int coolingTime;
+
+  public PotionCastingRecipe(TypeAwareRecipeSerializer<?> serializer, ResourceLocation id, String group, Ingredient bottle, FluidIngredient fluid, Item result, int coolingTime) {
+    this.serializer = serializer;
+    this.id = id;
+    this.group = group;
+    this.bottle = bottle;
+    this.fluid = fluid;
+    this.result = result;
+    this.coolingTime = coolingTime;
+    CastingRecipeLookup.registerCastable(result);
+  }
 
   @Override
   public RecipeType<?> getType() {

@@ -42,6 +42,7 @@ import slimeknights.tconstruct.library.modifiers.fluid.GroupCost;
 import slimeknights.tconstruct.library.modifiers.fluid.TimeAction;
 import slimeknights.tconstruct.library.modifiers.fluid.block.BlockInteractFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.block.BreakBlockFluidEffect;
+import slimeknights.tconstruct.library.modifiers.fluid.block.MeltBlockFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.block.MobEffectCloudFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.block.MoveBlocksFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.block.OffsetBlockFluidEffect;
@@ -253,6 +254,8 @@ public class FluidEffectProvider extends AbstractFluidEffectProvider {
     addMetal(TinkerFluids.moltenManyullyn).fireDamage(4).addEffect(FluidMobEffect.builder().effect(TinkerEffects.bleeding.get(), 20 * 2, 1), TimeAction.SET);
     addMetal(TinkerFluids.moltenHepatizon).fireDamage(4).addEffect(FluidMobEffect.builder().effect(MobEffects.DAMAGE_RESISTANCE, 20 * 15, 1), TimeAction.SET);
     addMetal(TinkerFluids.moltenNetherite).fireDamage(5).addEffect(FluidMobEffect.builder().effect(MobEffects.BLINDNESS, 20 * 5, 1), TimeAction.SET);
+    // tinkers end
+    addMetal(TinkerFluids.moltenKnightmetal).magicDamage(4).addEffect(FluidMobEffect.builder().effect(TinkerEffects.pierce.get(), 20 * 5, 2), TimeAction.SET);
     // thermal compat
     compatFluid("glowstone", FluidValues.GEM).addEffect(FluidMobEffect.builder().effect(MobEffects.GLOWING, 20 * 10), TimeAction.ADD).addBlockEffect(new PlaceBlockFluidEffect(TinkerCommons.glow.get()));
     compatFluid("redstone", FluidValues.GEM).addEffect(ExplosionFluidEffect.radius(1, 0.5f).knockback(LevelingValue.eachLevel(-2)).ignoreBlocks().build());
@@ -264,6 +267,7 @@ public class FluidEffectProvider extends AbstractFluidEffectProvider {
     compatMetal(TinkerFluids.moltenRefinedObsidian).spikeDamage(3).addEffect(FluidMobEffect.builder().effect(TinkerEffects.bleeding.get(), 20 * 2, 1), TimeAction.SET);
     // metalborn compat
     compatMetal(TinkerFluids.moltenNicrosil).magicDamage(3).addEffect(FluidMobEffect.builder().effect(TinkerEffects.experienced.get(), 20 * 5, 1), TimeAction.SET);
+    compatMetal(TinkerFluids.moltenDuralumin).magicDamage(3).addEffect(FluidMobEffect.builder().effect(MobEffects.INVISIBILITY, 20 * 5, 1), TimeAction.SET);
 
     // immersive engineering compat
     // ethanol - burns
@@ -305,6 +309,10 @@ public class FluidEffectProvider extends AbstractFluidEffectProvider {
         .offsetBlockEffect(TinkerPredicate.CAN_BE_REPLACED, new SetBlockFluidEffect(concreteSprayed))
         .addEntityEffect(concreteFeet).offsetBlockEffect(concreteFeet);
     }
+
+    // twilight forest compat
+    addFluid(TinkerFluids.fieryLiquid, FluidValues.SIP).metalCondition("fiery")
+        .addBlockEffect(new MeltBlockFluidEffect(BlockPredicate.ANY, FluidValues.INGOT, 1500));
 
     // potion fluid compat
     // standard potion is 250 mb, but we want a smaller number. divide into 5 pieces at 25% a piece (so healing is 1 health), means you gain 25% per potion

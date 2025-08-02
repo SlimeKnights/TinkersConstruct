@@ -42,7 +42,10 @@ public enum SmelteryCompat {
   REFINED_GLOWSTONE(TinkerFluids.moltenRefinedGlowstone, false),
   REFINED_OBSIDIAN (TinkerFluids.moltenRefinedObsidian, false),
   // metalborn
-  NICROSIL(TinkerFluids.moltenNicrosil, false);
+  NICROSIL(TinkerFluids.moltenNicrosil, false),
+  DURALUMIN(TinkerFluids.moltenDuralumin, false),
+  // twilight
+  FIERY(TinkerFluids.fieryLiquid, false);
 
   @Getter
   private final String name = this.name().toLowerCase(Locale.US);

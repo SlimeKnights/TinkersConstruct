@@ -7,6 +7,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
@@ -31,6 +33,7 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<Melti
     MaterialVariantId.LOADABLE.requiredField("input", r -> r.input.getVariant()),
     IntLoadable.FROM_ONE.requiredField("temperature", r -> r.temperature),
     FluidOutput.Loadable.REQUIRED.requiredField("result", r -> r.result),
+    FluidOutput.Loadable.REQUIRED.list(0).defaultField("byproducts", List.of(), false, r -> r.byproducts),
     MaterialMeltingRecipe::new);
 
   @Getter
@@ -38,12 +41,20 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<Melti
   private final MaterialVariant input;
   private final int temperature;
   private final FluidOutput result;
+  private final List<FluidOutput> byproducts;
 
-  public MaterialMeltingRecipe(ResourceLocation id, MaterialVariantId input, int temperature, FluidOutput result) {
+  public MaterialMeltingRecipe(ResourceLocation id, MaterialVariantId input, int temperature, FluidOutput result, List<FluidOutput> byproducts) {
     this.id = id;
     this.input = MaterialVariant.of(input);
     this.temperature = temperature;
     this.result = result;
+    this.byproducts = byproducts;
+  }
+
+  /** @deprecated use {@link #MaterialMeltingRecipe(ResourceLocation,MaterialVariantId,int,FluidOutput,List)} */
+  @Deprecated(forRemoval = true)
+  public MaterialMeltingRecipe(ResourceLocation id, MaterialVariantId input, int temperature, FluidOutput result) {
+    this(id, input, temperature, result, List.of());
   }
 
   @Override
@@ -76,6 +87,16 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<Melti
   }
 
   @Override
+  public void handleByproducts(IMeltingContainer inv, IFluidHandler handler) {
+    if (!byproducts.isEmpty()) {
+      int cost = MaterialCastingLookup.getItemCost(inv.getStack().getItem());
+      for (FluidOutput byproduct : byproducts) {
+        handler.fill(new FluidStack(byproduct.get(), byproduct.getAmount() * cost), FluidAction.EXECUTE);
+      }
+    }
+  }
+
+  @Override
   public RecipeSerializer<?> getSerializer() {
     return TinkerSmeltery.materialMeltingSerializer.get();
   }
@@ -97,11 +118,18 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<Melti
           .filter(entry -> entry.getKey().canUseMaterial(inputId.getId()))
           .map(entry -> {
             FluidOutput output = this.result;
-            if (entry.getIntValue() != 1) {
-              output = FluidOutput.fromStack(new FluidStack(output.get(), output.getAmount() * entry.getIntValue()));
+            List<FluidOutput> byproducts = this.byproducts;
+            int cost = entry.getIntValue();
+            // if the part cost is 1, can skip messing with the output size
+            if (cost != 1) {
+              output = FluidOutput.fromStack(new FluidStack(output.get(), output.getAmount() * cost));
+              // skip streaming the byproducts if empty
+              if (!byproducts.isEmpty()) {
+                byproducts = byproducts.stream().map(fluid -> FluidOutput.fromStack(new FluidStack(fluid.get(), fluid.getAmount() * cost))).toList();
+              }
             }
             return new MeltingRecipe(id, "", MaterialIngredient.of(entry.getKey(), inputId), output, temperature,
-                                     IMeltingRecipe.calcTimeForAmount(temperature, output.getAmount()), Collections.emptyList(), false);
+                                     IMeltingRecipe.calcTimeForAmount(temperature, output.getAmount()), byproducts, false);
           }).collect(Collectors.toList());
       }
     }

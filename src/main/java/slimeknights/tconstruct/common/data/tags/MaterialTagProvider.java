@@ -57,7 +57,9 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
       // tier 2
       MaterialIds.treatedWood, MaterialIds.osmium,
       // tier 3
-      MaterialIds.platedSlimewood, MaterialIds.electrum
+      MaterialIds.platedSlimewood, MaterialIds.electrum,
+      // tier 4
+      MaterialIds.fiery
     );
     tag(TinkerTags.Materials.HARVEST).add(
       // tier 1
@@ -82,7 +84,7 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
       // tier 3
       MaterialIds.nahuatl, MaterialIds.steel, MaterialIds.darkthread,
       // tier 4
-      MaterialIds.manyullyn, MaterialIds.blazingBone, MaterialIds.enderslimeVine
+      MaterialIds.manyullyn, MaterialIds.blazingBone, MaterialIds.knightmetal
     ).addOptional(
       // tier 2
       MaterialIds.silver, MaterialIds.lead,
@@ -115,7 +117,7 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
       // tier 3
       MaterialIds.nahuatl,
       // tier 4
-      MaterialIds.hepatizon, MaterialIds.queensSlime
+      MaterialIds.hepatizon, MaterialIds.queensSlime, MaterialIds.knightmetal
     ).addOptional(
       // tier 2
       MaterialIds.aluminum, MaterialIds.tungsten,
@@ -135,7 +137,9 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
       // tier 2
       MaterialIds.silver, MaterialIds.lead,
       // tier 3
-      MaterialIds.bronze, MaterialIds.electrum
+      MaterialIds.bronze, MaterialIds.electrum,
+      // tier 4
+      MaterialIds.fiery
     );
   }
 

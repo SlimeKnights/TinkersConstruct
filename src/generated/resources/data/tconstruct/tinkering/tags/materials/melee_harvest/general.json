@@ -28,6 +28,10 @@
     {
       "id": "tconstruct:electrum",
       "required": false
+    },
+    {
+      "id": "tconstruct:fiery",
+      "required": false
     }
   ]
 }

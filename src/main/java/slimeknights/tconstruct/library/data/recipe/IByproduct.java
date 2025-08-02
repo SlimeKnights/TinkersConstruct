@@ -16,4 +16,9 @@ public interface IByproduct {
 
   /** Gets the rate for the given byproduct */
   OreRateType getOreRate();
+
+  /** Gets the scaling unit for the byproduct for damagable melting recipes */
+  default int getDamageUnit() {
+    return 1;
+  }
 }

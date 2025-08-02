@@ -155,6 +155,11 @@
   "item.tconstruct.queens_slime_ingot": "Queen's Slime Ingot",
   "item.tconstruct.queens_slime_nugget": "Queen's Slime Nugget",
 
+  "block.tconstruct.knightmetal_block": "Block of Knightmetal",
+  "block.tconstruct.knightmetal_block.tooltip": "Can be used as spiky beacon base",
+  "item.tconstruct.knightmetal_ingot": "Knightmetal Ingot",
+  "item.tconstruct.knightmetal_nugget": "Knightmetal Nugget",
+
   "block.tconstruct.soulsteel_block": "Block of Soulsteel",
   "block.tconstruct.soulsteel_block.tooltip": "Can be used as beacon base",
   "item.tconstruct.soulsteel_ingot": "Soulsteel Ingot",
@@ -720,6 +725,12 @@
   "item.tconstruct.molten_hepatizon_bucket": "Molten Hepatizon Bucket",
   "fluid.tconstruct.molten_hepatizon.fluid_effect": "Is molten hepatizon best for defense, or combat? Either is a risk reward setup.",
 
+  "block.tconstruct.molten_knightmetal_fluid": "Molten Knightmetal",
+  "fluid.tconstruct.molten_knightmetal": "Molten Knightmetal",
+  "fluid.tconstruct.flowing_molten_knightmetal": "Flowing Molten Knightmetal",
+  "item.tconstruct.molten_knightmetal_bucket": "Molten Knightmetal Bucket",
+  "fluid.tconstruct.molten_knightmetal.fluid_effect": "Ironically, Knightmetal is most suited to killing those from who it comes.",
+
   "block.tconstruct.molten_cinderslime_fluid": "Molten Cinderslime",
   "fluid.tconstruct.molten_cinderslime": "Molten Cinderslime",
   "fluid.tconstruct.flowing_molten_cinderslime": "Flowing Molten Cinderslime",
@@ -893,6 +904,18 @@
   "item.tconstruct.molten_nicrosil_bucket": "Molten Nicrosil Bucket",
   "fluid.tconstruct.molten_nicrosil.fluid_effect": "Nicrosil has an innate pull on magic, seems like a waste to use it like this.",
 
+  "block.tconstruct.molten_duralumin_fluid": "Molten Duralumin",
+  "fluid.tconstruct.molten_duralumin": "Molten Duralumin",
+  "fluid.tconstruct.flowing_molten_duralumin": "Flowing Molten Duralumin",
+  "item.tconstruct.molten_duralumin_bucket": "Molten Duralumin Bucket",
+  "fluid.tconstruct.molten_duralumin.fluid_effect": "Disconnects you from the world.",
+
+  "block.tconstruct.fiery_liquid": "Fiery Liquid",
+  "fluid.tconstruct.fiery_liquid": "Fiery Liquid",
+  "fluid.tconstruct.flowing_fiery_liquid": "Flowing Fiery Liquid",
+  "item.tconstruct.fiery_liquid_bucket": "Fiery Liquid Bucket",
+  "fluid.tconstruct.fiery_liquid.fluid_effect": "You might think this is a fantastic deal, so many extra ingots! But remember, fiery is really hard to get.",
+
 
   "_comment": "Fluid effect contents",
   "fluid_effect.tconstruct.separator": "%s and %s",
@@ -942,6 +965,7 @@
   "fluid_effect.tconstruct.potion_cloud": "Lingering potion cloud",
   "fluid_effect.tconstruct.move_block.push": "Pushes block",
   "fluid_effect.tconstruct.move_block.pull": "Pulls block",
+  "fluid_effect.tconstruct.melt_block": "Melts block into liquid",
 
   "fluid_effect.tconstruct.drop_item": "Drops %s",
   "fluid_effect.tconstruct.explosion": "Power %s explosion",
@@ -1177,6 +1201,8 @@
   "death.attack.tconstruct.smeltery_heat.player": "%1$s tried to make molten player whilst fighting %2$s",
   "death.attack.tconstruct.smeltery_magic": "%1$s has become one with the smeltery",
   "death.attack.tconstruct.smeltery_magic.player": "%1$s has become one with the smeltery whilst fighting %2$s",
+  "death.attack.tconstruct.knightmetal": "%1$s was skewered by Knightmetal",
+  "death.attack.tconstruct.knightmetal.player": "%1$s was skewered by Knightmetal escaping %2$s",
   "death.attack.tconstruct.self_destruct": "%1$s self destructed",
   "death.attack.tconstruct.self_destruct.player": "%1$s self destructed whilst fighting %2$s",
   "death.attack.tconstruct.piercing": "%1$s was pierced by %2$s",
@@ -1847,6 +1873,12 @@
   "material.tconstruct.hepatizon.ranged": "Boosts drawspeed by up to 25% per level, linearly increasing while firing 16 consecutive arrows",
   "material.tconstruct.hepatizon.armor": "Converts 50% of damage taken into a temporary flat damage reduction. Reduction lasts 5 seconds per level.",
 
+  "material.tconstruct.knightmetal": "Knightmetal",
+  "material.tconstruct.knightmetal.flavor": "Metal of the traveling slime, also found from armored Twilight creates.",
+  "material.tconstruct.knightmetal.encyclopedia": "Grants +0.5 damage per level per piece of armor worn by the target",
+  "material.tconstruct.knightmetal.ranged": "Grants +0.25 damage per level per piece of armor worn by the target (before velocity)",
+  "material.tconstruct.knightmetal.armor": "Increases protection by 5% per level per item in the attacker's arms",
+
   "material.tconstruct.ichorskin": "Ichorskin",
   "material.tconstruct.ichorskin.flavor": "Ichor definately does not have skin",
   "material.tconstruct.ichorskin.encyclopedia": "Consumes up to 5 overslime to reduce damage by 1% per overslime consumed (up to 5%).",
@@ -1959,7 +1991,7 @@
   "material.tconstruct.silver": "Silver",
   "material.tconstruct.silver.flavor": "You know, this tool isn't going to look so shiny in a few days.",
   "material.tconstruct.silver.encyclopedia": "Gives +2 damage against undead per level",
-  "material.tconstruct.silver.ranged": "Gives +0.5 projectile power against undead per level",
+  "material.tconstruct.silver.ranged": "Gives +0.75 projectile power against undead per level",
   "material.tconstruct.silver.armor": "Reduces damage from undead by 5% per level",
 
   "material.tconstruct.whitestone": "End Stone",
@@ -1982,7 +2014,7 @@
   "__comment": "Tier 3 Integration Materials",
   "material.tconstruct.steel": "Steel",
   "material.tconstruct.steel.flavor": "Basically 90% of material science",
-  "material.tconstruct.steel.encyclopedia": "Grants +10% durability and melee damage per level",
+  "material.tconstruct.steel.encyclopedia": "Grants +10% durability and +8% melee damage per level",
   "material.tconstruct.steel.ranged": "Grants +10% durability and +5% projectile power per level",
   "material.tconstruct.steel.armor": "Grants +10% durability and +1 toughness per level",
 
@@ -2023,6 +2055,15 @@
   "material.tconstruct.plated_slimewood": "Plated Slimewood",
   "material.tconstruct.plated_slimewood.flavor": "All the shininess of brass with the squish of slime",
   "material.tconstruct.plated_slimewood.encyclopedia": "Grants +100% to all methods of restoring overslime",
+
+
+  "_comment": "Tier 4 Integration Materials",
+
+  "material.tconstruct.fiery": "Fiery",
+  "material.tconstruct.fiery.flavor": "Metal of the traveling slime, also found from armored Twilight creates.",
+  "material.tconstruct.fiery.encyclopedia": "Tool automatically smelts all drops. Higher levels have a 25% chance of extra smelted drops",
+  "material.tconstruct.fiery.ranged": "Arrows automatically smelts all drops. Higher levels have a 25% chance of extra smelted drops",
+  "material.tconstruct.fiery.armor": "Increases protection by 5% per level against on fire attackers",
 
 
   "_comment": "Modifiers",
@@ -2743,6 +2784,15 @@
   "modifier.tconstruct.kinetic.flavor": "No pain no gain!",
   "modifier.tconstruct.kinetic.description": "During combat you deal more and more damage every time you take a hit",
   "modifier.tconstruct.kinetic.attack_damage": "Kinetic Damage",
+  "modifier.tconstruct.valiant": "Valiant",
+  "modifier.tconstruct.valiant.flavor": "Knightslayer!",
+  "modifier.tconstruct.valiant.description": "Increases damage against armored targets",
+  "modifier.tconstruct.valiant.attack_damage": "Valiant Damage",
+  "modifier.tconstruct.valiant.projectile_damage": "Valiant Damage",
+  "modifier.tconstruct.stalwart": "Stalwart",
+  "modifier.tconstruct.stalwart.flavor": "Knightstopper!",
+  "modifier.tconstruct.stalwart.description": "Reduces damage from armed attackers",
+  "modifier.tconstruct.stalwart.resistance": "Stalwart Resistance",
   "modifier.tconstruct.conducting": "Conducting",
   "modifier.tconstruct.conducting.flavor": "Thermodynamic!",
   "modifier.tconstruct.conducting.description": "Tool deals multiplied damage when you are on fire",
@@ -2751,6 +2801,10 @@
   "modifier.tconstruct.flame_barrier.flavor": "Thermoshielding!",
   "modifier.tconstruct.flame_barrier.description": "Increases protection while on fire",
   "modifier.tconstruct.flame_barrier.resistance": "Barrier Resistance",
+  "modifier.tconstruct.tempered_protection": "Tempered Protection",
+  "modifier.tconstruct.tempered_protection.flavor": "Resists the flames!",
+  "modifier.tconstruct.tempered_protection.description": "Reduces damage from attackers who are on fire",
+  "modifier.tconstruct.tempered_protection.resistance": "Resistance",
 
   "__comment": "Tier 5 Traits",
   "modifier.tconstruct.enderporting": "Enderporting",
@@ -3331,6 +3385,7 @@
   "command.tconstruct.material.not_found": "Unknown material %s",
   "command.tconstruct.modifier.not_found": "Unknown modifier %s",
   "command.tconstruct.modifier_hook.not_found": "Unknown modifier hook %s",
+
   "command.tconstruct.modifier_usage": "Successfully printed modifier usage to the game log",
   "command.tconstruct.modifier_priority": "Successfully printed modifier priorities to the game log",
 
@@ -3384,6 +3439,8 @@
   "command.tconstruct.generate_part_textures.finish": "Successfully generated %s part textures in %s s at %s",
   "command.tconstruct.generate_part_textures.no_materials": "No material's have generator info, nothing to generate",
   "command.tconstruct.generate_part_textures.no_parts": "No part sprites present in resource packs",
+
+  "command.tconstruct.generate.melting_recipes": "Successfully generated %s melting recipes in %s seconds. Run /reload to activate pack at %s",
 
 
   "_comment": "JEI Strings",

@@ -156,6 +156,7 @@ public class ModifierIds {
   public static final ModifierId featherweight = id("featherweight");
   public static final ModifierId consecrated = id("consecrated");
   public static final ModifierId preserved = id("preserved");
+  public static final ModifierId holy = id("holy");
   // traits - tier 3
   public static final ModifierId overcast = id("overcast");
   public static final ModifierId overshield = id("overshield");
@@ -179,6 +180,10 @@ public class ModifierIds {
   public static final ModifierId kinetic = id("kinetic");
   public static final ModifierId flameBarrier = id("flame_barrier");
   public static final ModifierId vintage = id("vintage");
+  public static final ModifierId valiant = id("valiant");
+  public static final ModifierId stalwart = id("stalwart");
+  // traits - tier 4 compat
+  public static final ModifierId temperedProtection = id("tempered_protection");
 
   // traits - slimeskull
   public static final ModifierId mithridatism = id("mithridatism");

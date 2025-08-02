@@ -1404,8 +1404,8 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                         .save(consumer, location(folder + "glass/block"));
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerTags.Items.GLASS_PANES_SILICA), TinkerFluids.moltenGlass, FluidValues.GLASS_PANE, 0.5f)
                         .save(consumer, location(folder + "glass/pane"));
-    MeltingRecipeBuilder.melting(Ingredient.of(Items.GLASS_BOTTLE), TinkerFluids.moltenGlass, FluidValues.GLASS_BLOCK, 1.25f)
-                        .save(consumer, location(folder + "glass/bottle"));
+    MeltingRecipeBuilder.melting(CompoundIngredient.of(Ingredient.of(Items.GLASS_BOTTLE), Ingredient.of(TinkerTags.Items.SPLASH_BOTTLE), Ingredient.of(TinkerTags.Items.LINGERING_BOTTLE)),
+      TinkerFluids.moltenGlass, FluidValues.GLASS_BLOCK, 1.25f).save(consumer, location(folder + "glass/bottle"));
     // melt extra sand casts back
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.blankSandCast, TinkerSmeltery.blankRedSandCast),
                                  TinkerFluids.moltenGlass, FluidValues.GLASS_PANE, 0.75f)
@@ -1966,6 +1966,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                       .save(wrapped, prefix(TinkerFluids.moltenRefinedObsidian, folder));
 
     // nicrosil
+    // TODO: consider adding chromium as an option
     wrapped = withCondition(consumer, tagCondition("ingots/nicrosil"), tagCondition("ingots/tin"));
     ConditionalRecipe.builder()
       // if we have both tin and lead, do the combined recipe. Ratio is from Metalborn/Allomancy
@@ -1984,6 +1985,13 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
         .addInput(TinkerFluids.moltenQuartz.ingredient(FluidValues.GEM))::save)
 
       .build(wrapped, prefix(TinkerFluids.moltenNicrosil, folder));
+
+    // duralumin
+    wrapped = withCondition(consumer, tagCondition("ingots/duralumin"), tagCondition("ingots/aluminum"));
+    AlloyRecipeBuilder.alloy(TinkerFluids.moltenDuralumin, FluidValues.INGOT * 4)
+      .addInput(TinkerFluids.moltenAluminum.ingredient(FluidValues.INGOT * 3))
+      .addInput(TinkerFluids.moltenCopper.ingredient(FluidValues.INGOT))
+      .save(wrapped, prefix(TinkerFluids.moltenDuralumin, folder));
   }
 
   private void addEntityMeltingRecipes(Consumer<FinishedRecipe> consumer) {
@@ -2165,6 +2173,18 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     metal(consumer, TinkerFluids.moltenHepatizon  ).metal();
     metal(consumer, TinkerFluids.moltenCinderslime).metal();
     metal(consumer, TinkerFluids.moltenQueensSlime).metal();
+    String tf = "twilightforest";
+    metal(consumer, TinkerFluids.moltenKnightmetal).metal().common(AXES, LEGGINGS_PLUS)
+      .metalMelting(4, tf, "ring", false)
+      .metalMelting(2, tf, "sword", true)
+      .metalMelting(5, tf, "helmet", true)
+      .metalMelting(8, tf, "chestplate", true)
+      .itemMelting(16, tf, "block_and_chain", true)
+      // leggings and shields covered
+      .metalMelting(4, tf, "boots", true)
+      // not using a traditional ore recipe as there isn't a reasonable byproduct, plus crafting a 3x3 doesn't feel like enough for a 3 nugget bonus
+      .melting(1, "raw", "raw_materials", false, true)
+      .itemMelting(1/9f, tf, "armor_shard", false);
 
     // compat ores
     metal(consumer, TinkerFluids.moltenTin     ).ore(Byproduct.NICKEL, Byproduct.COPPER).optional().metal().dust().oreberry().plate().gear().coin().common(TOOLS_COMPLEMENT).common(ARMOR);
@@ -2191,9 +2211,25 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     metal(consumer, TinkerFluids.moltenRefinedObsidian ).optional().metal().common(TOOLS).common(MEKANISM_ARMOR);
     metal(consumer, TinkerFluids.moltenRefinedGlowstone).optional().metal().common(TOOLS).common(MEKANISM_ARMOR);
     metal(consumer, TinkerFluids.moltenNicrosil).optional().metal();
+    metal(consumer, TinkerFluids.moltenDuralumin).optional().metal();
     // embers provides their own fluid. so we just have to add the recipes
     TagKey<Fluid> dawnstone = getFluidTag(COMMON, "molten_dawnstone");
     metal(withCondition(consumer, new TagFilledCondition<>(dawnstone)), "dawnstone", dawnstone).temperature(900).optional().metal().plate();
+
+    // fiery doesn't have a molten form, rather its composite the whole way
+    fluid(consumer, "fiery", TinkerFluids.fieryLiquid).optional()
+      .baseUnit(FluidValues.BOTTLE).damageUnit(FluidValues.SIP).unitByproducts(Byproduct.IRON)
+      // block and ingot
+      .melting(9, "block", "storage_blocks", 3.0f, false, false)
+      .blockCasting(9, Ingredient.of(Tags.Items.STORAGE_BLOCKS_IRON), false)
+      .meltingCasting(1, "ingot", "iron", 1, false)
+      // armor and tools
+      .metalMelting(3, tf, "pickaxe", true)
+      .metalMelting(2, tf, "sword", true)
+      .metalMelting(5, tf, "helmet", true)
+      .metalMelting(8, tf, "chestplate", true)
+      .metalMelting(7, tf, "leggings", true)
+      .metalMelting(4, tf, "boots", true);
   }
 
   private void addCompatRecipes(Consumer<FinishedRecipe> consumer) {

@@ -78,6 +78,7 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addMaterial(MaterialIds.manyullyn,   4, ORDER_WEAPON,  false);
     addMaterial(MaterialIds.blazingBone, 4, ORDER_SPECIAL, true);
     addMaterial(MaterialIds.blazewood,   4, ORDER_RANGED,  true);
+    addMaterial(MaterialIds.knightmetal, 4, ORDER_END,     false);
     //addMetalMaterial(MaterialIds.soulsteel, 4, ORDER_SPECIAL, false, 0x6a5244);
     // tier 4 - binding
     addMaterial(MaterialIds.ancientHide, 4, ORDER_BINDING, false);
@@ -107,6 +108,8 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addCompatMaterial     (MaterialIds.necronium,       3, ORDER_COMPAT + ORDER_WEAPON, true, "ingots/uranium");
     addCompatMetalMaterial(MaterialIds.electrum,        3, ORDER_COMPAT + ORDER_SPECIAL, "electrum", "silver");
     addCompatMetalMaterial(MaterialIds.platedSlimewood, 3, ORDER_COMPAT + ORDER_SPECIAL, "brass", "zinc");
+    // tier 4 (mod integration)
+    addCompatMetalMaterial(MaterialIds.fiery,           4, ORDER_COMPAT + ORDER_END);
 
     // slimeskull - put in the most appropriate tier
     addMaterial(MaterialIds.gold,        2, ORDER_REPAIR, false);

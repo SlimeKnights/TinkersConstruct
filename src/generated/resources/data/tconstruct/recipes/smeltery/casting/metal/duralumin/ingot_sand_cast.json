@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "tag": "tconstruct:casts/single_use/ingot"
+  },
+  "cast_consumed": true,
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "forge:ingots/duralumin"
+    }
+  ],
+  "cooling_time": 54,
+  "fluid": {
+    "amount": 90,
+    "tag": "forge:molten_duralumin"
+  },
+  "result": {
+    "tag": "forge:ingots/duralumin"
+  }
+}

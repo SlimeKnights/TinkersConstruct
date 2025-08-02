@@ -34,6 +34,7 @@ import slimeknights.tconstruct.library.client.armor.texture.FixedArmorTextureSup
 import slimeknights.tconstruct.library.client.armor.texture.MaterialArmorTextureSupplier;
 import slimeknights.tconstruct.library.client.armor.texture.TrimArmorTextureSupplier;
 import slimeknights.tconstruct.library.client.book.TinkerBook;
+import slimeknights.tconstruct.library.client.data.spritetransformer.FramesSpriteTransformer;
 import slimeknights.tconstruct.library.client.data.spritetransformer.GreyToColorMapping;
 import slimeknights.tconstruct.library.client.data.spritetransformer.GreyToSpriteTransformer;
 import slimeknights.tconstruct.library.client.data.spritetransformer.IColorMapping;
@@ -69,6 +70,7 @@ public class TinkerClient {
     ISpriteTransformer.SERIALIZER.registerDeserializer(RecolorSpriteTransformer.NAME, RecolorSpriteTransformer.DESERIALIZER);
     GreyToSpriteTransformer.init();
     ISpriteTransformer.SERIALIZER.registerDeserializer(OffsettingSpriteTransformer.NAME, OffsettingSpriteTransformer.DESERIALIZER);
+    ISpriteTransformer.SERIALIZER.registerDeserializer(FramesSpriteTransformer.NAME, FramesSpriteTransformer.DESERIALIZER);
     IColorMapping.SERIALIZER.registerDeserializer(GreyToColorMapping.NAME, GreyToColorMapping.DESERIALIZER);
 
     // armor textures

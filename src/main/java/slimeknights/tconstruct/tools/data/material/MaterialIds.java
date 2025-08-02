@@ -60,6 +60,7 @@ public final class MaterialIds {
   public static final MaterialId queensSlime = id("queens_slime");
   public static final MaterialId blazingBone = id("blazing_bone");
   public static final MaterialId blazewood = id("blazewood");
+  public static final MaterialId knightmetal = id("knightmetal");
   //public static final MaterialId soulsteel = id("soulsteel");
   // tier 4 - bindings
   public static final MaterialId ancientHide = id("ancient_hide");
@@ -83,6 +84,8 @@ public final class MaterialIds {
   public static final MaterialId electrum = id("electrum");
   public static final MaterialId pewter = id("pewter");
   public static final MaterialId platedSlimewood = id("plated_slimewood");
+  // twilight forest
+  public static final MaterialId fiery = id("fiery");
 
   // plate
   public static final MaterialId gold = id("gold");
@@ -106,7 +109,7 @@ public final class MaterialIds {
   /** List of custom trim materials we support */
   public static final MaterialId[] TRIM_MATERIALS = {
     slimesteel, amethystBronze, pigIron, roseGold,
-    steel, cobalt, manyullyn, hepatizon, cinderslime, queensSlime,
+    steel, cobalt, manyullyn, hepatizon, cinderslime, queensSlime, knightmetal,
     earthslime, skyslime, ichor, enderslime
   };
 

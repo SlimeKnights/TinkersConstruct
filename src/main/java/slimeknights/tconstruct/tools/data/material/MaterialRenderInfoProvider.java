@@ -81,6 +81,7 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.queensSlime).color(0x809912).fallbacks("slime_metal", "metal").luminosity(9);
     buildRenderInfo(MaterialIds.hepatizon).color(0x60496b).fallbacks("metal");
     buildRenderInfo(MaterialIds.manyullyn).color(0x9261cc).fallbacks("metal");
+    buildRenderInfo(MaterialIds.knightmetal).color(0xC4D6AE).fallbacks("metal");
     buildRenderInfo(MaterialIds.blazingBone).color(0xF2D500).fallbacks("bone", "rock").luminosity(15);
     buildRenderInfo(MaterialIds.blazewood).fallbacks("wood", "stick").luminosity(7);
     buildRenderInfo(MaterialIds.ancientHide);
@@ -109,6 +110,9 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.necronium).color(0x9CBD89).fallbacks("bone", "metal");
     buildRenderInfo(MaterialIds.electrum).color(0xFFEA65).fallbacks("metal");
     buildRenderInfo(MaterialIds.platedSlimewood).color(0xFFE170).fallbacks("slime_metal", "metal");
+
+    // tier 4 compat
+    buildRenderInfo(MaterialIds.fiery).color(0x893D14).fallbacks("metal").luminosity(15);
 
     // plate
     buildRenderInfo(MaterialIds.gold).color(0xFDF55F).fallbacks("metal");

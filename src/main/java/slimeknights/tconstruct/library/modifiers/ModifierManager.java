@@ -418,6 +418,16 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
   /**
    * Gets all values contained in the given tag
    * @param tag  Tag instance
+   * @return  Contained values, or null if the tag is absent
+   */
+  @Nullable
+  public static List<Modifier> getTagOrNull(TagKey<Modifier> tag) {
+    return INSTANCE.tags.get(tag);
+  }
+
+  /**
+   * Gets all values contained in the given tag
+   * @param tag  Tag instance
    * @return  Contained values
    */
   public static List<Modifier> getTagValues(TagKey<Modifier> tag) {

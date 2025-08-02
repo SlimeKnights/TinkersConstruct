@@ -246,6 +246,7 @@
     "maintained":   "#D58F36",
     "searing":      "#4F4A47",
     "stonebound":   "#999999",
+    "valiant":      "#C4D6AE",
 
     "__traits_ranged__": null,
     "crystalbound":  "#C687BD",
@@ -262,9 +263,11 @@
     "flame_barrier":        "#DBCC0B",
     "kinetic":              "#9261cc",
     "recurrent_protection": "#60496b",
+    "stalwart":             "#C4D6AE",
     "skyfall":              "#00F4DA",
     "vital_protection":     "#999483",
     "frostshield":          "#AAFFFF",
+    "tempered_protection":  "#893D14",
 
     "__traits_slimeskull__": null,
     "boon_of_sssss":    "#605448",
@@ -371,6 +374,7 @@
     "queens_slime": "#236c45",
     "hepatizon":    "#60496b",
     "manyullyn":    "#9261cc",
+    "knightmetal":  "#C4D6AE",
     "blazing_bone": "#DBCC0B",
     "blazewood":    "#DBCC0B",
     "ancient_hide": "#7E6059",
@@ -399,6 +403,9 @@
     "necronium":        "#7F9374",
     "electrum":         "#D9C25F",
     "plated_slimewood": "#E6D08D",
+
+    "__tier_4_integration__": null,
+    "fiery": "#893D14",
 
     "__plate__": null,
     "obsidian":  "#443753",

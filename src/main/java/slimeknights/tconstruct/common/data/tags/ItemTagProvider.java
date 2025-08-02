@@ -160,6 +160,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     addMetalTags(TinkerMaterials.hepatizon);
     addMetalTags(TinkerMaterials.soulsteel);
     // tier 5
+    addMetalTags(TinkerMaterials.knightmetal);
     addMetalTags(TinkerMaterials.knightslime);
     this.copy(Tags.Blocks.STORAGE_BLOCKS, Tags.Items.STORAGE_BLOCKS);
 
@@ -193,7 +194,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     // beacons are happy to accept any expensive ingots
     this.tag(ItemTags.BEACON_PAYMENT_ITEMS)
         .addTags(TinkerMaterials.steel.getIngotTag(), TinkerMaterials.cobalt.getIngotTag(), TinkerMaterials.queensSlime.getIngotTag(),
-                 TinkerMaterials.manyullyn.getIngotTag(), TinkerMaterials.hepatizon.getIngotTag());
+                 TinkerMaterials.manyullyn.getIngotTag(), TinkerMaterials.hepatizon.getIngotTag(), TinkerMaterials.cinderslime.getIngotTag());
 
     this.copy(TinkerTags.Blocks.COPPER_PLATFORMS, TinkerTags.Items.COPPER_PLATFORMS);
 
@@ -204,6 +205,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.tag(ItemTags.TRIM_MATERIALS).add(
       TinkerMaterials.slimesteel.getIngot(), TinkerMaterials.amethystBronze.getIngot(), TinkerMaterials.pigIron.getIngot(), TinkerMaterials.roseGold.getIngot(),
       TinkerMaterials.steel.getIngot(), TinkerMaterials.cobalt.getIngot(), TinkerMaterials.manyullyn.getIngot(), TinkerMaterials.hepatizon.getIngot(), TinkerMaterials.cinderslime.getIngot(), TinkerMaterials.queensSlime.getIngot(),
+      TinkerMaterials.knightmetal.getIngot(),
       TinkerWorld.earthGeode.asItem(), TinkerWorld.skyGeode.asItem(), TinkerWorld.ichorGeode.asItem(), TinkerWorld.enderGeode.asItem()
     );
 
@@ -569,6 +571,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     // melting tags //
     // ores
     Function<String,ResourceLocation> ie = path -> new ResourceLocation("immersiveengineering", path);
+    String tf = "twilightforest";
     moltenTools(TinkerFluids.moltenCopper).add(1, Items.BRUSH).toolTags().toolsComplement();
     moltenTools(TinkerFluids.moltenIron).minecraft()
       .add(1, Items.FLINT_AND_STEEL, Items.SHIELD)
@@ -586,6 +589,9 @@ public class ItemTagProvider extends ItemTagsProvider {
                                               .add(7, true, ie.apply("armor_steel_leggings"))
       .armorTag(4, "boots"      ).add(4, true, ie.apply("armor_steel_boots"));
     moltenTools(TinkerFluids.moltenNetherite).minecraft();
+    moltenTools(TinkerFluids.moltenKnightmetal)
+      .optionalMetal(3, tf, "axe", "pickaxe")
+      .optionalMetal(7, tf, "leggings", "shield");
     // gems
     moltenTools(TinkerFluids.moltenDiamond).minecraft().excavatorSpikeMaul().crowbar();
     // mod ores

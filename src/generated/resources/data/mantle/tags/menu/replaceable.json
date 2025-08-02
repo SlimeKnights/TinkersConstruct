@@ -1,0 +1,14 @@
+{
+  "values": [
+    "tconstruct:tool_container",
+    "tconstruct:tinker_chest",
+    "tconstruct:single_item",
+    "tconstruct:crafting_station",
+    "tconstruct:part_builder",
+    "tconstruct:tinker_station",
+    "tconstruct:modifier_worktable",
+    "tconstruct:melter",
+    "tconstruct:alloyer",
+    "tconstruct:smeltery"
+  ]
+}

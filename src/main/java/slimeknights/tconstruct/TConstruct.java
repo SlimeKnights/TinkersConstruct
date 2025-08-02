@@ -30,6 +30,7 @@ import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.data.AdvancementsProvider;
+import slimeknights.tconstruct.common.data.ConfigurationDataProvider;
 import slimeknights.tconstruct.common.data.DamageTypeProvider;
 import slimeknights.tconstruct.common.data.loot.GlobalLootModifiersProvider;
 import slimeknights.tconstruct.common.data.loot.LootTableInjectionProvider;
@@ -185,6 +186,7 @@ public class TConstruct {
     generator.addProvider(server, new AdvancementsProvider(packOutput));
     generator.addProvider(server, new GlobalLootModifiersProvider(packOutput));
     generator.addProvider(server, new LootTableInjectionProvider(packOutput));
+    generator.addProvider(server, new ConfigurationDataProvider(packOutput));
   }
 
   /** Handles missing mappings of all types */

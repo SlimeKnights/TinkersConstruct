@@ -13,7 +13,7 @@ import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.behavior.ProcessLootModifierHook;
-import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
+import slimeknights.tconstruct.library.modifiers.impl.SingleLevelModifier;
 import slimeknights.tconstruct.library.module.ModuleHookMap.Builder;
 import slimeknights.tconstruct.library.recipe.SingleItemContainer;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -24,7 +24,7 @@ import java.util.ListIterator;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
-public class AutosmeltModifier extends NoLevelsModifier implements ProcessLootModifierHook {
+public class AutosmeltModifier extends SingleLevelModifier implements ProcessLootModifierHook {
   /** Cache of relevant smelting recipes */
   private final Cache<Item,Optional<SmeltingRecipe>> recipeCache = CacheBuilder
     .newBuilder()
@@ -109,6 +109,21 @@ public class AutosmeltModifier extends NoLevelsModifier implements ProcessLootMo
         ItemStack stack = iterator.next();
         ItemStack smelted = smeltItem(stack, world);
         if (stack != smelted) {
+          int level = modifier.intEffectiveLevel();
+
+          // at higher levels of autosmelt, randomly boost the drops
+          if (level > 1) {
+            // will add at most this number of items
+            int extraItems = stack.getCount() * (level - 1);
+            int bonus = 0;
+            for (int i = 0; i < extraItems; i++) {
+              // 25% chance to add each item
+              if (context.getRandom().nextFloat() < 0.25f) {
+                bonus += 1;
+              }
+            }
+            smelted.grow(bonus);
+          }
           iterator.set(smelted);
         }
       }

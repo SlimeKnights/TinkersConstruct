@@ -1,0 +1,24 @@
+{
+  "type": "tconstruct:melting",
+  "byproducts": [
+    {
+      "amount": 810,
+      "tag": "forge:molten_iron"
+    }
+  ],
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "forge:storage_blocks/fiery"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:storage_blocks/fiery"
+  },
+  "result": {
+    "amount": 2250,
+    "fluid": "tconstruct:fiery_liquid"
+  },
+  "temperature": 1500,
+  "time": 241
+}

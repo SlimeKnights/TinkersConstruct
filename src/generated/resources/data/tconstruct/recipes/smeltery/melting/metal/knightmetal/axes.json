@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "tconstruct:melting/knightmetal/tools_costing_3"
+    }
+  ],
+  "ingredient": {
+    "tag": "tconstruct:melting/knightmetal/tools_costing_3"
+  },
+  "result": {
+    "amount": 270,
+    "fluid": "tconstruct:molten_knightmetal",
+    "unit_size": 10
+  },
+  "temperature": 1300,
+  "time": 130
+}

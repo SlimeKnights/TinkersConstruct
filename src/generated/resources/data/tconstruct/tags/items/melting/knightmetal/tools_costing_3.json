@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "twilightforest:knightmetal_axe",
+      "required": false
+    },
+    {
+      "id": "twilightforest:knightmetal_pickaxe",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+{
+  "color": "FFFFFFFF",
+  "flowing": "tconstruct:fluid/molten/compat_alloy/duralumin/flowing",
+  "still": "tconstruct:fluid/molten/compat_alloy/duralumin/still"
+}

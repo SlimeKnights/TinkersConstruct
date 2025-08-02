@@ -1172,7 +1172,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Tags.Items.INGOTS)
                          .addInput(Tags.Items.STORAGE_BLOCKS_COAL)
                          .addInput(Tags.Items.STORAGE_BLOCKS_COAL)
-                         .setMaxLevel(1).checkTraitLevel()
+                         .setMaxLevel(1)
                          .setSlots(SlotType.ABILITY, 1)
                          .setTools(TinkerTags.Items.HARVEST)
                          .saveSalvage(consumer, prefix(TinkerModifiers.autosmelt, abilitySalvage))

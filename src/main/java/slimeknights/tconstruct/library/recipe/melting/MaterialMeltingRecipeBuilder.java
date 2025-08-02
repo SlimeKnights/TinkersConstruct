@@ -11,6 +11,8 @@ import slimeknights.mantle.recipe.helper.FluidOutput;
 import slimeknights.mantle.registration.object.FluidObject;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 
 import static slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe.getTemperature;
@@ -23,6 +25,7 @@ public class MaterialMeltingRecipeBuilder extends AbstractRecipeBuilder<Material
   private final MaterialVariantId inputId;
   private final int temperature;
   private final FluidOutput result;
+  private final List<FluidOutput> byproducts = new ArrayList<>();
 
   /** Creates a recipe using the fluids temperature */
   public static MaterialMeltingRecipeBuilder material(MaterialVariantId materialId, int temperature, FluidOutput result) {
@@ -52,6 +55,25 @@ public class MaterialMeltingRecipeBuilder extends AbstractRecipeBuilder<Material
     return material(materialId, new FluidStack(result, amount));
   }
 
+  /**
+   * Adds a byproduct to this recipe
+   * @param fluid  Byproduct to add
+   * @return  Builder instance
+   */
+  public MaterialMeltingRecipeBuilder addByproduct(FluidOutput fluid) {
+    byproducts.add(fluid);
+    return this;
+  }
+
+  /**
+   * Adds a byproduct to this recipe
+   * @param fluid  Byproduct to add
+   * @return  Builder instance
+   */
+  public MaterialMeltingRecipeBuilder addByproduct(FluidStack fluid) {
+    return addByproduct(FluidOutput.fromStack(fluid));
+  }
+
   @Override
   public void save(Consumer<FinishedRecipe> consumer) {
     save(consumer, inputId.getId());
@@ -60,6 +82,6 @@ public class MaterialMeltingRecipeBuilder extends AbstractRecipeBuilder<Material
   @Override
   public void save(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
     ResourceLocation advancementID = this.buildOptionalAdvancement(id, "melting");
-    consumer.accept(new LoadableFinishedRecipe<>(new MaterialMeltingRecipe(id, inputId, temperature, result), MaterialMeltingRecipe.LOADER, advancementID));
+    consumer.accept(new LoadableFinishedRecipe<>(new MaterialMeltingRecipe(id, inputId, temperature, result, byproducts), MaterialMeltingRecipe.LOADER, advancementID));
   }
 }

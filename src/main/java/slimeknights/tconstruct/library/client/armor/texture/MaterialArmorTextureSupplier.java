@@ -27,10 +27,10 @@ public abstract class MaterialArmorTextureSupplier implements ArmorTextureSuppli
   private static final LoadableField<ResourceLocation,MaterialArmorTextureSupplier> PREFIX_FIELD = Loadables.RESOURCE_LOCATION.requiredField("prefix", m -> m.prefix);
 
   /** Makes a texture for the given variant and material, returns null if its missing */
-  private static ArmorTexture tryTexture(ResourceLocation name, int color, String material) {
+  private static ArmorTexture tryTexture(ResourceLocation name, int color, int luminosity, String material) {
     ResourceLocation texture = name.withSuffix(material);
     if (TEXTURE_VALIDATOR.test(texture)) {
-      return new TintedArmorTexture(ArmorTextureSupplier.getTexturePath(texture), color);
+      return new TintedArmorTexture(ArmorTextureSupplier.getTexturePath(texture), color, luminosity);
     }
     return ArmorTexture.EMPTY;
   }
@@ -46,20 +46,22 @@ public abstract class MaterialArmorTextureSupplier implements ArmorTextureSuppli
       if (!materialStr.isEmpty()) {
         MaterialVariantId material = MaterialVariantId.tryParse(materialStr);
         int color = -1;
+        int luminosity = 0;
         if (material != null) {
           Optional<MaterialRenderInfo> infoOptional = MaterialRenderInfoLoader.INSTANCE.getRenderInfo(material);
           if (infoOptional.isPresent()) {
             MaterialRenderInfo info = infoOptional.get();
             ResourceLocation untinted = info.texture();
+            luminosity = info.luminosity();
             if (untinted != null) {
-              ArmorTexture texture = tryTexture(name, -1, '_' + untinted.getNamespace() + '_' + untinted.getPath());
+              ArmorTexture texture = tryTexture(name, -1, luminosity, '_' + untinted.getNamespace() + '_' + untinted.getPath());
               if (texture != ArmorTexture.EMPTY) {
                 return texture;
               }
             }
             color = info.vertexColor();
             for (String fallback : info.fallbacks()) {
-              ArmorTexture texture = tryTexture(name, color, '_' + fallback);
+              ArmorTexture texture = tryTexture(name, color, luminosity, '_' + fallback);
               if (texture != ArmorTexture.EMPTY) {
                 return texture;
               }
@@ -67,7 +69,7 @@ public abstract class MaterialArmorTextureSupplier implements ArmorTextureSuppli
           }
         }
         // base texture guaranteed to exist, else we would not be in this function
-        return new TintedArmorTexture(ArmorTextureSupplier.getTexturePath(name), color);
+        return new TintedArmorTexture(ArmorTextureSupplier.getTexturePath(name), color, luminosity);
       }
       return ArmorTexture.EMPTY;
     });

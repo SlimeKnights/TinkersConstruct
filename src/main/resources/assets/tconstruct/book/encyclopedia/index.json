@@ -151,12 +151,13 @@
         "molten_zinc", "molten_brass",
         "molten_tin", "molten_pewter",
         "molten_gold", "molten_rose_gold", "molten_electrum",
-        "molten_aluminum", "molten_silver",
+        "molten_aluminum", "molten_duralumin", "molten_silver", "molten_nicrosil",
 
         "molten_nickel", "molten_invar", "molten_constantan",
         "molten_lead", "molten_platinum", "molten_tungsten", "molten_osmium", "molten_uranium",
 
-        "molten_cobalt", "molten_hepatizon", "molten_manyullyn", "molten_netherite"
+        "molten_cobalt", "molten_hepatizon", "molten_manyullyn", "molten_netherite",
+        "molten_knightmetal"
       ],
       "__comment": "Anything not in this order simply sorts to the end, for addons."
     }},

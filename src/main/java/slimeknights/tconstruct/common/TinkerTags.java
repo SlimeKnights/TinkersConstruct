@@ -503,6 +503,8 @@ public class TinkerTags {
     public static final TagKey<Fluid> SLIME = local("slime");
     /** Causes the fluid to be formatted like a metal in tooltips */
     public static final TagKey<Fluid> SLIME_TOOLTIPS = local("tooltips/slime");
+    /** Causes the fluid to be formatted with buckets, bottles, and drops in the tooltip, like venom */
+    public static final TagKey<Fluid> BOTTLE_TOOLTIPS = local("tooltips/bottle");
     /** Causes the fluid to be formatted like a clay in tooltips */
     public static final TagKey<Fluid> CLAY_TOOLTIPS = local("tooltips/clay");
     /** Causes the fluid to be formatted like a metal in tooltips */

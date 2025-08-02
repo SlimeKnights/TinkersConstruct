@@ -1,0 +1,10 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:holy_arrow",
+      "flat": 0.75
+    }
+  ],
+  "tooltip_display": "always"
+}

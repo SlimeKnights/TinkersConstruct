@@ -1,7 +1,6 @@
 {
   "type": "tconstruct:modifier",
   "allow_crystal": true,
-  "check_trait_level": true,
   "inputs": [
     {
       "tag": "forge:raw_materials"

@@ -1,0 +1,18 @@
+{
+  "input": "mantle:any",
+  "recipe_type": "minecraft:smithing",
+  "result": {
+    "type": "mantle:set",
+    "items": [
+      "minecraft:netherite_pickaxe",
+      "minecraft:netherite_axe",
+      "minecraft:netherite_shovel",
+      "minecraft:netherite_sword",
+      "minecraft:netherite_hoe",
+      "minecraft:netherite_helmet",
+      "minecraft:netherite_chestplate",
+      "minecraft:netherite_leggings",
+      "minecraft:netherite_boots"
+    ]
+  }
+}

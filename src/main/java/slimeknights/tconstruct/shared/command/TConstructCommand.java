@@ -2,21 +2,26 @@ package slimeknights.tconstruct.shared.command;
 
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
+import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import slimeknights.mantle.command.argument.TagSourceArgument;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.registration.ArgumentTypeDeferredRegister;
+import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.shared.command.argument.MaterialArgument;
 import slimeknights.tconstruct.shared.command.argument.MaterialStatsArgument;
 import slimeknights.tconstruct.shared.command.argument.MaterialVariantArgument;
 import slimeknights.tconstruct.shared.command.argument.ModifierArgument;
 import slimeknights.tconstruct.shared.command.argument.ModifierHookArgument;
+import slimeknights.tconstruct.shared.command.argument.ModifierTagSource;
 import slimeknights.tconstruct.shared.command.argument.SlotTypeArgument;
 import slimeknights.tconstruct.shared.command.argument.ToolStatArgument;
+import slimeknights.tconstruct.shared.command.subcommand.GenerateMeltingRecipesCommand;
 import slimeknights.tconstruct.shared.command.subcommand.GeneratePartTexturesCommand;
 import slimeknights.tconstruct.shared.command.subcommand.MaterialsCommand;
 import slimeknights.tconstruct.shared.command.subcommand.ModifierPriorityCommand;
@@ -42,6 +47,9 @@ public class TConstructCommand {
     ARGUMENT_TYPE.registerSingleton("material_stat", MaterialStatsArgument.class, MaterialStatsArgument::stats);
     ARGUMENT_TYPE.registerSingleton("modifier_hook", ModifierHookArgument.class, ModifierHookArgument::modifierHook);
 
+    TagSourceArgument.registerCustom(ModifierTagSource.INSTANCE);
+    TagSourceArgument.registerCustom(MaterialRegistry.getTagSource());
+
     // add command listener
     MinecraftForge.EVENT_BUS.addListener(TConstructCommand::registerCommand);
   }
@@ -56,6 +64,7 @@ public class TConstructCommand {
   /** Event listener to register the Mantle command */
   private static void registerCommand(RegisterCommandsEvent event) {
     LiteralArgumentBuilder<CommandSourceStack> builder = Commands.literal(TConstruct.MOD_ID);
+    CommandBuildContext context = event.getBuildContext();
 
     // sub commands
     register(builder, "modifiers", ModifiersCommand::register);
@@ -67,6 +76,7 @@ public class TConstructCommand {
       register(b, "modifier_priority", ModifierPriorityCommand::register);
     });
     register(builder, "generate_part_textures", GeneratePartTexturesCommand::register);
+    register(builder, "generate_melting_recipes", b -> GenerateMeltingRecipesCommand.register(b, context));
 
     // register final command
     event.getDispatcher().register(builder);

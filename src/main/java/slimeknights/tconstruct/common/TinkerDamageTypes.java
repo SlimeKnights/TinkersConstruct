@@ -19,6 +19,8 @@ public class TinkerDamageTypes {
   public static final ResourceKey<DamageType> SMELTERY_HEAT = create("smeltery_heat");
   /** Special damage source for "absorbing" hot entities */
   public static final ResourceKey<DamageType> SMELTERY_MAGIC = create("smeltery_magic");
+  /** Damage from a knightmetal block */
+  public static final ResourceKey<DamageType> KNIGHTMETAL = create("knightmetal");
 
   /** Damage source that bypasses armor */
   public static final ResourceKey<DamageType> PIERCING = create("piercing");

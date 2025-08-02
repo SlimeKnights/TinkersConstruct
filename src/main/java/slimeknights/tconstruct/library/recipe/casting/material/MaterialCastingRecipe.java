@@ -15,6 +15,7 @@ import slimeknights.mantle.recipe.helper.LoadableRecipeSerializer;
 import slimeknights.mantle.recipe.helper.TypeAwareRecipeSerializer;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
+import slimeknights.tconstruct.library.recipe.casting.CastingRecipeLookup;
 import slimeknights.tconstruct.library.recipe.casting.DisplayCastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.ICastingContainer;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
@@ -41,6 +42,7 @@ public class MaterialCastingRecipe extends AbstractMaterialCastingRecipe impleme
   public MaterialCastingRecipe(TypeAwareRecipeSerializer<?> serializer, ResourceLocation id, String group, Ingredient cast, int itemCost, IMaterialItem result, boolean consumed, boolean switchSlots) {
     super(serializer, id, group, cast, itemCost, consumed, switchSlots);
     this.result = result;
+    CastingRecipeLookup.registerCastable(result);
     MaterialCastingLookup.registerItemCost(result, itemCost);
   }
 

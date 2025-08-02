@@ -30,7 +30,12 @@ public class CostTagAppender {
   public static CostTagAppender moltenToolMelting(FluidObject<?> fluid, Function<ResourceLocation,IntrinsicTagAppender<Item>> tag) {
     ResourceLocation id = fluid.getId();
     String metal = id.getPath().substring("molten_".length());
-    return new CostTagAppender(metal, id.withPath("melting/" + metal + "/tools_costing_"), "", tag);
+    return moltenToolMelting(id.getNamespace(), metal, tag);
+  }
+
+  /** Creates a builder for a molten gear */
+  public static CostTagAppender moltenToolMelting(String domain, String metal, Function<ResourceLocation,IntrinsicTagAppender<Item>> tag) {
+    return new CostTagAppender(metal, new ResourceLocation(domain, "melting/" + metal + "/tools_costing_"), "", tag);
   }
 
   /** Creates a tag for the given cost */

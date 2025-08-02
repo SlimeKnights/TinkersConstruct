@@ -15,6 +15,7 @@
     "#tconstruct:molten_queens_slime",
     "#forge:molten_netherite",
     "#tconstruct:molten_soulsteel",
+    "#tconstruct:molten_knightmetal",
     "#tconstruct:molten_knightslime",
     "#forge:molten_tin",
     "#forge:molten_aluminum",
@@ -38,6 +39,7 @@
     "#forge:molten_refined_glowstone",
     "#forge:molten_refined_obsidian",
     "#forge:molten_nicrosil",
+    "#forge:molten_duralumin",
     "tconstruct:molten_cinderslime"
   ]
 }

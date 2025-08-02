@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "tag": "tconstruct:casts/single_use/nugget"
+  },
+  "cast_consumed": true,
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "forge:nuggets/duralumin"
+    }
+  ],
+  "cooling_time": 18,
+  "fluid": {
+    "amount": 10,
+    "tag": "forge:molten_duralumin"
+  },
+  "result": {
+    "tag": "forge:nuggets/duralumin"
+  }
+}

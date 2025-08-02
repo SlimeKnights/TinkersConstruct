@@ -8,6 +8,7 @@
     "#forge:storage_blocks/queens_slime",
     "#forge:storage_blocks/manyullyn",
     "#forge:storage_blocks/hepatizon",
+    "#forge:storage_blocks/knightmetal",
     "#forge:storage_blocks/netherite",
     {
       "id": "#forge:storage_blocks/bronze",
@@ -55,6 +56,14 @@
     },
     {
       "id": "#forge:storage_blocks/nicrosil",
+      "required": false
+    },
+    {
+      "id": "#forge:storage_blocks/duralumin",
+      "required": false
+    },
+    {
+      "id": "#forge:storage_blocks/fiery",
       "required": false
     }
   ]
