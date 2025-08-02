@@ -38,17 +38,17 @@
   "block.tconstruct.obsidian_pane": "黑曜石板",
   "block.tconstruct.gold_bars": "金栏杆",
   "block.tconstruct.gold_bars.tooltip": "在铸件台上充当空白金质铸模",
-
+  
   "block.tconstruct.gold_platform": "金平台",
   "block.tconstruct.gold_platform.tooltip": "在铸造盆中充当空白金质铸模",
   "block.tconstruct.iron_platform": "铁平台",
   "block.tconstruct.cobalt_platform": "钴平台",
-
+  
   "block.tconstruct.copper_platform": "铜平台",
   "block.tconstruct.exposed_copper_platform": "斑驳的铜平台",
   "block.tconstruct.weathered_copper_platform": "锈蚀的铜平台",
   "block.tconstruct.oxidized_copper_platform": "氧化的铜平台",
-
+  
   "block.tconstruct.waxed_copper_platform": "涂蜡的铜平台",
   "block.tconstruct.waxed_exposed_copper_platform": "涂蜡的斑驳铜平台",
   "block.tconstruct.waxed_weathered_copper_platform": "涂蜡的锈蚀铜平台",
@@ -154,6 +154,11 @@
   "block.tconstruct.queens_slime_block.tooltip": "可用于建造信标基座",
   "item.tconstruct.queens_slime_ingot": "皇后史莱姆锭",
   "item.tconstruct.queens_slime_nugget": "皇后史莱姆粒",
+
+  "block.tconstruct.knightmetal_block": "骑士金属块",
+  "block.tconstruct.knightmetal_block.tooltip": "可用于建造尖刺信标基座",
+  "item.tconstruct.knightmetal_ingot": "骑士金属锭",
+  "item.tconstruct.knightmetal_nugget": "骑士金属粒",
 
   "block.tconstruct.soulsteel_block": "魂钢块",
   "block.tconstruct.soulsteel_block.tooltip": "可用于建造信标基座",
@@ -512,7 +517,7 @@
   "fluid.tconstruct.flowing_rabbit_stew": "流动的兔肉煲",
   "item.tconstruct.rabbit_stew_bucket": "兔肉煲桶",
   "fluid.tconstruct.rabbit_stew.fluid_effect": "兔肉煲，上等汤羹，宜大口啜饮。",
-  
+
   "block.tconstruct.meat_soup_fluid": "肉汤",
   "fluid.tconstruct.meat_soup": "肉汤",
   "fluid.tconstruct.flowing_meat_soup": "流动的肉汤",
@@ -720,6 +725,12 @@
   "item.tconstruct.molten_hepatizon_bucket": "熔融黑色科林斯青铜桶",
   "fluid.tconstruct.molten_hepatizon.fluid_effect": "熔融黑色柯林斯青铜适合防御还是攻击？事实上两者都算是机遇与风险并存。",
 
+  "block.tconstruct.molten_knightmetal_fluid": "熔融骑士金属",
+  "fluid.tconstruct.molten_knightmetal": "熔融骑士金属",
+  "fluid.tconstruct.flowing_molten_knightmetal": "流动的熔融骑士金属",
+  "item.tconstruct.molten_knightmetal_bucket": "熔融的骑士金属桶",
+  "fluid.tconstruct.molten_knightmetal.fluid_effect": "极具讽刺意味的是，熔融骑士金属非常适合自裁。",
+
   "block.tconstruct.molten_cinderslime_fluid": "熔融余烬黏液",
   "fluid.tconstruct.molten_cinderslime": "熔融余烬黏液",
   "fluid.tconstruct.flowing_molten_cinderslime": "流动的熔融余烬黏液",
@@ -899,6 +910,12 @@
   "item.tconstruct.molten_duralumin_bucket": "熔融硬铝桶",
   "fluid.tconstruct.molten_duralumin.fluid_effect": "让你断开连接。",
 
+  "block.tconstruct.fiery_liquid": "炽热的液体",
+  "fluid.tconstruct.fiery_liquid": "炽热的液体",
+  "fluid.tconstruct.flowing_fiery_liquid": "流动的炽热的液体",
+  "item.tconstruct.fiery_liquid_bucket": "炽热的液体桶",
+  "fluid.tconstruct.fiery_liquid.fluid_effect": "这么多金属！你可能认为这划算极了。但别忘了，炽热的液体本身就很难得。",
+
 
   "_comment": "Fluid effect contents",
   "fluid_effect.tconstruct.separator": "%s；%s",
@@ -948,6 +965,7 @@
   "fluid_effect.tconstruct.potion_cloud": "区域效果云",
   "fluid_effect.tconstruct.move_block.push": "推动方块",
   "fluid_effect.tconstruct.move_block.pull": "拉动方块",
+  "fluid_effect.tconstruct.melt_block": "将方块熔炼为液体",
 
   "fluid_effect.tconstruct.drop_item": "掉落%s",
   "fluid_effect.tconstruct.explosion": "爆炸威力%s",
@@ -990,7 +1008,7 @@
   "item.tconstruct.piggy_backpack": "肩驮架",
   "item.tconstruct.piggy_backpack.tooltip": "对生物使用来驮起它们",
   "effect.tconstruct.carry": "背负",
-
+  
   "block.tconstruct.blaze_head": "烈焰人的头",
   "block.tconstruct.enderman_head": "末影人的头",
   "block.tconstruct.stray_head": "流浪者头颅",
@@ -1058,18 +1076,18 @@
   "item.tconstruct.earth_staff": "大地黏液手杖",
   "item.tconstruct.ichor_staff": "灵浆手杖",
   "item.tconstruct.ender_staff": "末影黏液手杖",
-
+  
   "item.tconstruct.melting_pan": "熔炼锅",
   "item.tconstruct.battlesign": "战斗牌子",
   "item.tconstruct.war_pick": "战镐",
   "item.tconstruct.swasher": "喷流刃",
-
+  
   "item.tconstruct.travelers_helmet": "旅行者护目镜",
   "item.tconstruct.travelers_chestplate": "旅行者背心",
   "item.tconstruct.travelers_leggings": "旅行者裤子",
   "item.tconstruct.travelers_boots": "旅行者靴子",
   "item.tconstruct.travelers_shield": "旅行者盾牌",
-
+  
   "item.tconstruct.plate_helmet": "镶板头盔",
   "item.tconstruct.plate_chestplate": "镶板胸甲",
   "item.tconstruct.plate_leggings": "镶板护腿",
@@ -1120,7 +1138,7 @@
   "item.tconstruct.tough_binding": "坚韧套环",
   "item.tconstruct.adze_head": "锛头",
   "item.tconstruct.large_plate": "大板",
-
+  
   "item.tconstruct.bow_limb": "弓臂",
   "item.tconstruct.bow_grip": "弓把",
   "item.tconstruct.bowstring": "弓弦",
@@ -1183,6 +1201,8 @@
   "death.attack.tconstruct.smeltery_heat.player": "%1$s在与%2$s战斗时试图制作熔融玩家",
   "death.attack.tconstruct.smeltery_magic": "%1$s与冶炼炉融为一体",
   "death.attack.tconstruct.smeltery_magic.player": "%1$s在与%2$s战斗时与冶炼炉融为一体",
+  "death.attack.tconstruct.knightmetal": "%1$s被骑士金属刺穿了",
+  "death.attack.tconstruct.knightmetal.player": "%1$s在试图逃离%2$s时被骑士金属刺穿了",
   "death.attack.tconstruct.self_destruct": "%1$s自我毁灭了",
   "death.attack.tconstruct.self_destruct.player": "%1$s在与%2$s战斗时自我毁灭了",
   "death.attack.tconstruct.piercing": "%1$s被%2$s刺穿了",
@@ -1853,6 +1873,12 @@
   "material.tconstruct.hepatizon.ranged": "连续发射16次后拉弓速度呈线性增加，每级拉弓速度至多+25%",
   "material.tconstruct.hepatizon.armor": "受到伤害后，将伤害的50%暂时转换为伤害减免值，每级伤害减免持续时间+5秒。",
 
+  "material.tconstruct.knightmetal": "骑士金属",
+  "material.tconstruct.knightmetal.flavor": "来自旅行的史莱姆的金属，也能从暮色森林某一穿盔甲的生物那找到。",
+  "material.tconstruct.knightmetal.encyclopedia": "目标每穿戴一件盔甲，每级伤害+0.5",
+  "material.tconstruct.knightmetal.ranged": "目标每穿戴一件盔甲，每级箭矢伤害+0.25（先于初速度计算）",
+  "material.tconstruct.knightmetal.armor": "目标每手持一件物品，每级提供的保护+5%",
+
   "material.tconstruct.ichorskin": "灵浆皮",
   "material.tconstruct.ichorskin.flavor": "灵浆显然没有外皮",
   "material.tconstruct.ichorskin.encyclopedia": "消耗最多5点黏液覆层，每消耗1点减少1%受到的伤害（上限5%）。",
@@ -2029,6 +2055,15 @@
   "material.tconstruct.plated_slimewood": "复合黏木",
   "material.tconstruct.plated_slimewood.flavor": "黄铜的光泽感加上那黏液的啪叽啪叽声，多么美妙啊！",
   "material.tconstruct.plated_slimewood.encyclopedia": "所有恢复黏液覆层的方法+100%。",
+
+
+  "_comment": "Tier 4 Integration Materials",
+
+  "material.tconstruct.fiery": "炽铁",
+  "material.tconstruct.fiery.flavor": "来自旅行的史莱姆的金属，也能从暮色森林某一穿盔甲的生物那找到。",
+  "material.tconstruct.fiery.encyclopedia": "工具能自动烧炼所有掉落物。之后每级增加25%额外烧炼产物掉落",
+  "material.tconstruct.fiery.ranged": "箭矢能自动烧炼所有掉落物。之后每级增加25%额外烧炼产物掉落",
+  "material.tconstruct.fiery.armor": "每级增加5%对着火中敌人的抗性",
 
 
   "_comment": "Modifiers",
@@ -2441,7 +2476,7 @@
   "modifier.tconstruct.silky.description": "工具所挖掘的方块将掉落其自身",
   "modifier.tconstruct.autosmelt": "自动烧炼",
   "modifier.tconstruct.autosmelt.flavor": "下界之火蕴于工具之中！",
-  "modifier.tconstruct.autosmelt.description": "自动烧炼工具所挖掘的方块",
+  "modifier.tconstruct.autosmelt.description": "工具能自动烧炼所有掉落物",
   "modifier.tconstruct.luck": "幸运",
   "modifier.tconstruct.luck.2": "幸运+",
   "modifier.tconstruct.luck.3": "幸运++",
@@ -2747,8 +2782,17 @@
   "modifier.tconstruct.insatiable.attack_damage": "贪婪攻击伤害",
   "modifier.tconstruct.kinetic": "动能",
   "modifier.tconstruct.kinetic.flavor": "不经一事，不长一智！",
-  "modifier.tconstruct.kinetic.description": "受到攻击后造成的伤害逐渐增大",
-  "modifier.tconstruct.kinetic.attack_damage": "贪婪伤害",
+  "modifier.tconstruct.kinetic.description": "每次受到攻击后，造成的伤害都会增加",
+  "modifier.tconstruct.kinetic.attack_damage": "动能伤害",
+  "modifier.tconstruct.valiant": "勇烈",
+  "modifier.tconstruct.valiant.flavor": "骑士之矛！",
+  "modifier.tconstruct.valiant.description": "增加对有盔甲的目标的伤害",
+  "modifier.tconstruct.valiant.attack_damage": "勇烈伤害",
+  "modifier.tconstruct.valiant.projectile_damage": "勇烈伤害",
+  "modifier.tconstruct.stalwart": "坚盾",
+  "modifier.tconstruct.stalwart.flavor": "骑士之盾！",
+  "modifier.tconstruct.stalwart.description": "减少来自有盔甲的目标的伤害",
+  "modifier.tconstruct.stalwart.resistance": "坚盾抗性",
   "modifier.tconstruct.conducting": "导热",
   "modifier.tconstruct.conducting.flavor": "热学之力！",
   "modifier.tconstruct.conducting.description": "着火时工具会造成成倍的伤害",
@@ -2757,6 +2801,10 @@
   "modifier.tconstruct.flame_barrier.flavor": "热学之卫！",
   "modifier.tconstruct.flame_barrier.description": "着火时增加保护",
   "modifier.tconstruct.flame_barrier.resistance": "火障抗性",
+  "modifier.tconstruct.tempered_protection": "隔火",
+  "modifier.tconstruct.tempered_protection.flavor": "抵御火焰！",
+  "modifier.tconstruct.tempered_protection.description": "减少来自着火状态的攻击者的伤害",
+  "modifier.tconstruct.tempered_protection.resistance": "隔火抗性",
 
   "__comment": "Tier 5 Traits",
   "modifier.tconstruct.enderporting": "末影传送",
@@ -3047,7 +3095,7 @@
   "tool_stat.tconstruct.handle.attack_damage.description": "工具的最终攻击伤害会被这一数值修正",
   "tool_stat.tconstruct.handle.attack_speed.description": "工具的最终攻击速度会被这一数值修正",
   "tool_stat.tconstruct.handle.mining_speed.description": "工具的最终挖掘速度会被这一数值修正",
-
+  
   "stat.tconstruct.limb": "弓臂",
   "stat.tconstruct.grip": "弓把",
   "tool_stat.tconstruct.draw_speed": "拉弓速度：",
@@ -3329,7 +3377,6 @@
 
   "_comment": "Commands",
 
-  "command.tconstruct.item.not_found": "未知物品%s",
   "command.tconstruct.slot_type.not_found": "未知槽位类型%s",
   "command.tconstruct.fluid.not_found": "未知流体%s",
   "command.tconstruct.stat_type.not_found": "未知工具数据%s",
@@ -3393,8 +3440,6 @@
   "command.tconstruct.generate_part_textures.no_materials": "材料没有生成信息，什么也没有生成",
   "command.tconstruct.generate_part_textures.no_parts": "资源包中没有部件信息",
 
-  "command.tconstruct.generate.remove_recipes": "成功移除%s个配方，耗时%s秒。运行/reload以激活位于%s的数据包",
-  "command.tconstruct.generate.remove_recipes.preset_not_found": "移除配方预设“%s”缺失或无效。详细信息请检查日志。",
   "command.tconstruct.generate.melting_recipes": "成功生成%s个熔炼配方，耗时%s秒。运行/reload以激活位于%s的数据包",
 
 
