@@ -3012,7 +3012,7 @@
   "_comment": "Cake effects",
   "effect.tconstruct.bouncy": "弹跳",
   "effect.tconstruct.double_jump": "二段跳",
-  "effect.tconstruct.antigravity": "抗重力",
+  "effect.tconstruct.antigravity": "反重力",
   "effect.tconstruct.returning": "折返",
 
   "_comment": "Gameplay effects",
