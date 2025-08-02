@@ -1874,7 +1874,7 @@
   "material.tconstruct.hepatizon.armor": "受到伤害后，将伤害的50%暂时转换为伤害减免值，每级伤害减免持续时间+5秒。",
 
   "material.tconstruct.knightmetal": "骑士金属",
-  "material.tconstruct.knightmetal.flavor": "来自旅行的史莱姆的金属，也能从暮色森林某一穿盔甲的生物那找到。",
+  "material.tconstruct.knightmetal.flavor": "史莱姆们旅途中得到的金属，也能从暮色森林某一穿盔甲的生物那找到。",
   "material.tconstruct.knightmetal.encyclopedia": "目标每穿戴一件盔甲，每级伤害+0.5",
   "material.tconstruct.knightmetal.ranged": "目标每穿戴一件盔甲，每级箭矢伤害+0.25（先于初速度计算）",
   "material.tconstruct.knightmetal.armor": "目标每手持一件物品，每级提供的保护+5%",
@@ -2060,7 +2060,7 @@
   "_comment": "Tier 4 Integration Materials",
 
   "material.tconstruct.fiery": "炽铁",
-  "material.tconstruct.fiery.flavor": "来自旅行的史莱姆的金属，也能从暮色森林某一穿盔甲的生物那找到。",
+  "material.tconstruct.fiery.flavor": "史莱姆们旅途中得到的金属，也能从暮色森林某一穿盔甲的生物那找到。",
   "material.tconstruct.fiery.encyclopedia": "工具能自动烧炼所有掉落物。之后每级增加25%额外烧炼产物掉落",
   "material.tconstruct.fiery.ranged": "箭矢能自动烧炼所有掉落物。之后每级增加25%额外烧炼产物掉落",
   "material.tconstruct.fiery.armor": "每级增加5%对着火中敌人的抗性",
