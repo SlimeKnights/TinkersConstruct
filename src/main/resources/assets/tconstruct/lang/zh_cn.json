@@ -599,7 +599,7 @@
   "fluid.tconstruct.molten_clay": "熔融黏土",
   "fluid.tconstruct.flowing_molten_clay": "流动的熔融黏土",
   "item.tconstruct.molten_clay_bucket": "熔融黏土桶",
-  "fluid.tconstruct.molten_clay.fluid_effect": "能快速筑起一道墙，或者固化黏土。",
+  "fluid.tconstruct.molten_clay.fluid_effect": "能快速筑起一道墙，或者在没有铸模的情况下固化黏土。",
 
   "block.tconstruct.molten_glass_fluid": "熔融玻璃",
   "fluid.tconstruct.molten_glass": "熔融玻璃",
@@ -947,9 +947,9 @@
   "_comment": "Fluid effect contents",
   "fluid_effect.tconstruct.separator": "%s；%s",
 
-  "fluid_effect.tconstruct.extinguish_fire": "灭火",
+  "fluid_effect.tconstruct.extinguish_fire": "熄灭火焰",
   "fluid_effect.tconstruct.remove_block": "破坏方块",
-  "fluid_effect.tconstruct.weather": "风化铜",
+  "fluid_effect.tconstruct.weather": "让铜锈蚀",
   "fluid_effect.tconstruct.teleport": "传送目标",
   "fluid_effect.tconstruct.calcified": "+10秒钙质化",
   "fluid_effect.tconstruct.interact.block": "与方块交互",
