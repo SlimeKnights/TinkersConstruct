@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:forecast",
+  "text": [
+    {
+      "text": "矿工们梦寐以求的愿望实现了，冰冷的矿石换成了温暖的升级槽。"
+    }
+  ],
+  "effects": [
+    "增加1个升级槽",
+    "单个等级"
+  ]
+}

@@ -819,6 +819,19 @@
   "item.tconstruct.molten_uranium_bucket": "熔融铀桶",
   "fluid.tconstruct.molten_uranium.fluid_effect": "熔融铀产生的放射性衰变可不安全，所以把它喷到你的敌人身上吧。",
 
+  "block.tconstruct.molten_chromium_fluid": "熔融铬",
+  "fluid.tconstruct.molten_chromium": "熔融铬",
+  "fluid.tconstruct.flowing_molten_chromium": "流动的熔融铬",
+  "item.tconstruct.molten_chromium_bucket": "熔融铬桶",
+  "fluid.tconstruct.molten_chromium.fluid_effect": "要是幸运效果有用的话，这种流体便是最棒的饮料！",
+
+  "block.tconstruct.molten_cadmium_fluid": "熔融镉",
+  "fluid.tconstruct.molten_cadmium": "熔融镉",
+  "fluid.tconstruct.flowing_molten_cadmium": "流动的熔融镉",
+  "item.tconstruct.molten_cadmium_bucket": "熔融镉桶",
+  "fluid.tconstruct.molten_cadmium.fluid_effect": "深水作战的最好选择。",
+
+
   "_comment": "Compat Alloys",
 
   "block.tconstruct.molten_bronze_fluid": "熔融青铜",
@@ -896,7 +909,7 @@
   "item.tconstruct.molten_refined_obsidian_bucket": "熔融强化黑曜石桶",
   "fluid.tconstruct.molten_refined_obsidian.fluid_effect": "熔融强化黑曜石打击装甲单位可是一把好手。",
 
-  "_comment": "Metalborn Alloys",
+  "_comment": "Cosmere Alloys",
 
   "block.tconstruct.molten_nicrosil_fluid": "熔融镍铬合金",
   "fluid.tconstruct.molten_nicrosil": "熔融镍铬合金",
@@ -908,7 +921,21 @@
   "fluid.tconstruct.molten_duralumin": "熔融硬铝",
   "fluid.tconstruct.flowing_molten_duralumin": "流动的熔融硬铝",
   "item.tconstruct.molten_duralumin_bucket": "熔融硬铝桶",
-  "fluid.tconstruct.molten_duralumin.fluid_effect": "让你断开连接。",
+  "fluid.tconstruct.molten_duralumin.fluid_effect": "让你断开与世界的连接。",
+
+  "block.tconstruct.molten_bendalloy_fluid": "熔融弯管合金",
+  "fluid.tconstruct.molten_bendalloy": "熔融弯管合金",
+  "fluid.tconstruct.flowing_molten_bendalloy": "流动的熔融弯管合金",
+  "item.tconstruct.molten_bendalloy_bucket": "熔融弯管合金桶",
+  "fluid.tconstruct.molten_bendalloy.fluid_effect": "事已至此，先吃饭吧。",
+
+  "_comment": "Twilight Forest Alloys",
+
+  "block.tconstruct.molten_steeleaf": "熔融钢叶",
+  "fluid.tconstruct.molten_steeleaf": "熔融钢叶",
+  "fluid.tconstruct.flowing_molten_steeleaf": "流动的熔融钢叶",
+  "item.tconstruct.molten_steeleaf_bucket": "熔融钢叶桶",
+  "fluid.tconstruct.molten_steeleaf.fluid_effect": "你与你的对手都能获得尽可能多的经验。",
 
   "block.tconstruct.fiery_liquid": "炽热的液体",
   "fluid.tconstruct.fiery_liquid": "炽热的液体",
@@ -941,8 +968,8 @@
   "fluid_effect.tconstruct.freeze.set": "%d秒冰冻时间",
   "fluid_effect.tconstruct.award_stat.add": "+%s%s",
   "fluid_effect.tconstruct.award_stat.subtract": "-%s%s",
-  "fluid_effect.tconstruct.add_breath.add": "+%d氧气值",
-  "fluid_effect.tconstruct.add_breath.subtract": "-%d氧气值",
+  "fluid_effect.tconstruct.add_breath.add": "+%s气泡",
+  "fluid_effect.tconstruct.add_breath.subtract": "-%s气泡",
   "fluid_effect.tconstruct.push_entity.push": "推动目标",
   "fluid_effect.tconstruct.push_entity.pull": "拉动目标",
 
@@ -1209,6 +1236,8 @@
   "death.attack.tconstruct.piercing.item": "%1$s被%2$s使用%3$s刺穿了",
   "death.attack.tconstruct.entangled": "%1$s没能放开自己的工具",
   "death.attack.tconstruct.entangled.player": "%1$s在与%2$s战斗时没能放开自己的工具",
+  "death.attack.tconstruct.shock": "%1$s在试图伤害%2$s时被击倒了",
+  "death.attack.tconstruct.shock.item": "%1$s在试图伤害%2$s时被%3$s击倒了",
 
   "death.attack.tconstruct.fluid.impact": "%1$s被%2$s击中了",
   "death.attack.tconstruct.fluid.impact.item": "%1$s被%2$s用%3$s击中了",
@@ -1971,21 +2000,10 @@
   "material.tconstruct.osmium.flavor": "脑袋太“沉”，追不上笑点",
   "material.tconstruct.osmium.encyclopedia": "第1级时，维修消耗+25%，耐久损失-33%",
 
-  "material.tconstruct.tungsten": "钨",
-  "material.tconstruct.tungsten.flavor": "你考虑过组建一支“重”金属乐队吗？",
-  "material.tconstruct.tungsten.encyclopedia": "每级挖掘速度+15%，移动速度-10%",
-  "material.tconstruct.tungsten.ranged": "每级拉弓速度+15%，移动速度-10%",
-  "material.tconstruct.tungsten.armor": "每级盔甲韧性+2，移动速度-10%",
-
-  "material.tconstruct.platinum": "铂",
-  "material.tconstruct.platinum.flavor": "它是胜利者的专属",
-  "material.tconstruct.platinum.encyclopedia": "挖掘矿石时，额外掉落2-6个金属粒，等级越高掉落金属粒的数量越多",
-  "material.tconstruct.platinum.ranged": "命中远处怪物时，有5%概率掉落金属粒。距离50格及以上掉落铂粒，40格掉落金粒，30格掉落铁粒，20格掉落铜粒。",
-
   "material.tconstruct.lead": "铅",
   "material.tconstruct.lead.flavor": "可以试试用这东西做个三明治",
-  "material.tconstruct.lead.encyclopedia": "每级攻击力+15%，移动速度-10%",
-  "material.tconstruct.lead.ranged": "每级弹射物力量+10%，移动速度-10%",
+  "material.tconstruct.lead.encyclopedia": "每级挖掘速度+15%，击退抗性+10%，移动速度-10%，重力+5%",
+  "material.tconstruct.lead.ranged": "每级弹射物精确度+10%，击退抗性+10%，移动速度-10%，重力+5%",
   "material.tconstruct.lead.armor": "每级击退抗性+15%，移动速度-10%",
 
   "material.tconstruct.silver": "银",
@@ -2010,6 +2028,10 @@
   "material.tconstruct.treated_wood.flavor": "善自珍摄，浸待重逢",
   "material.tconstruct.treated_wood.encyclopedia": "耐久度和修理效率+15%",
 
+  "material.tconstruct.ironwood": "铁树",
+  "material.tconstruct.ironwood.flavor": "铁树是树吗？",
+  "material.tconstruct.ironwood.encyclopedia": "随等级提升，降低工具使用后耐久降低的概率。1级为75%，2级为55%，3级为40%，4级为30%。",
+
 
   "__comment": "Tier 3 Integration Materials",
   "material.tconstruct.steel": "钢",
@@ -2032,8 +2054,8 @@
 
   "material.tconstruct.invar": "殷钢",
   "material.tconstruct.invar.flavor": "它不仅能抵御温度的变化，还能避免追捕。",
-  "material.tconstruct.invar.encyclopedia": "在适中温度的生物群系伤害+1.6",
-  "material.tconstruct.invar.ranged": "在适中温度的生物群系精确度+0.15",
+  "material.tconstruct.invar.encyclopedia": "每级近战伤害+15%，移动速度-10%，重力+5%",
+  "material.tconstruct.invar.ranged": "每级弹射物力量+0.75，移动速度-10%，重力+5%",
   "material.tconstruct.invar.armor": "在适中温度的生物群系每级伤害-5%",
 
   "material.tconstruct.pewter": "白镴",
@@ -2044,9 +2066,9 @@
 
   "material.tconstruct.electrum": "琥珀金",
   "material.tconstruct.electrum.flavor": "适用于电子元器件。",
-  "material.tconstruct.electrum.encyclopedia": "挖掘方块或击杀怪物时，每级经验掉落+50%",
-  "material.tconstruct.electrum.ranged": "用箭矢击杀怪物时，每级经验掉落+50%",
-  "material.tconstruct.electrum.armor": "挖掘方块或击杀怪物时，每级经验掉落+25%",
+  "material.tconstruct.electrum.encyclopedia": "每级对处于水中的目标伤害+2，对处于雨中的目标伤害+1",
+  "material.tconstruct.electrum.ranged": "每级对处于水中的目标弹射物力量+1，对处于雨中的目标弹射物力量+0.5",
+  "material.tconstruct.electrum.armor": "每级有20%概率对水中的攻击者造成2至5点伤害，攻击者处于雨中时概率改为10%",
 
   "material.tconstruct.necronium": "辐射之骨",
   "material.tconstruct.necronium.flavor": "这么多的辐射，很可能标志着你为数不多的生命只剩下四分之一了",
@@ -2055,6 +2077,12 @@
   "material.tconstruct.plated_slimewood": "复合黏木",
   "material.tconstruct.plated_slimewood.flavor": "黄铜的光泽感加上那黏液的啪叽啪叽声，多么美妙啊！",
   "material.tconstruct.plated_slimewood.encyclopedia": "所有恢复黏液覆层的方法+100%。",
+
+  "material.tconstruct.steeleaf": "钢叶",
+  "material.tconstruct.steeleaf.flavor": "钢叶是树叶吗？",
+  "material.tconstruct.steeleaf.encyclopedia": "每级使从方块或怪物处获得的经验+50%",
+  "material.tconstruct.steeleaf.ranged": "每级使被箭矢射杀的怪物掉落的经验+50%",
+  "material.tconstruct.steeleaf.armor": "每级使从方块或怪物处获得的经验+25%",
 
 
   "_comment": "Tier 4 Integration Materials",
@@ -2600,9 +2628,12 @@
   "modifier.tconstruct.recapitated": "重置",
   "modifier.tconstruct.recapitated.flavor": "落首得返！",
   "modifier.tconstruct.recapitated.description": "使工具获得1个额外的升级槽！",
-  "modifier.tconstruct.resurrected": "复生",
-  "modifier.tconstruct.resurrected.flavor": "殒命得归！",
-  "modifier.tconstruct.resurrected.description": "使工具的1个升级槽重获新生！",
+  "modifier.tconstruct.forecast": "启示",
+  "modifier.tconstruct.forecast.flavor": "全新升级！",
+  "modifier.tconstruct.forecast.description": "揭示工具的下1个升级槽！",
+  "modifier.tconstruct.embossed": "浮雕",
+  "modifier.tconstruct.embossed.flavor": "野兽杀手！",
+  "modifier.tconstruct.embossed.description": "为工具添加1个额外的升级槽！",
   "modifier.tconstruct.gilded": "镶金",
   "modifier.tconstruct.gilded.flavor": "等价交换！",
   "modifier.tconstruct.gilded.description": "以1个能力槽换取2个升级槽！",
@@ -2816,9 +2847,6 @@
   "modifier.tconstruct.dense": "致密",
   "modifier.tconstruct.dense.flavor": "几乎没有变形",
   "modifier.tconstruct.dense.description": "工具耐久度更多，但是也更难修复",
-  "modifier.tconstruct.sharpweight": "千斤利器",
-  "modifier.tconstruct.sharpweight.flavor": "千斤钝器的反义词",
-  "modifier.tconstruct.sharpweight.description": "更强大，但是移动变得更加困难",
   "modifier.tconstruct.lustrous": "光泽",
   "modifier.tconstruct.lustrous.flavor": "闪闪亮的矿石！",
   "modifier.tconstruct.lustrous.description": "挖掘的矿石额外掉落金属粒",
@@ -2827,7 +2855,7 @@
   "modifier.tconstruct.olympic.description": "命中远处目标时获得奖牌",
   "modifier.tconstruct.heavy": "沉重",
   "modifier.tconstruct.heavy.flavor": "密度超大！",
-  "modifier.tconstruct.heavy.description": "持握时减缓移动速度，但工具的重量也使其攻击伤害得以增强",
+  "modifier.tconstruct.heavy.description": "持握时减缓移动速度，但加快挖掘速度",
   "modifier.tconstruct.stoneshield": "石盾",
   "modifier.tconstruct.stoneshield.flavor": "大师级的制石工艺",
   "modifier.tconstruct.stoneshield.description": "挖掘的石头有概率保护工具免受之后的耐久度损失",
@@ -2875,6 +2903,15 @@
   "modifier.tconstruct.invariant.attack_damage": "适中温度伤害",
   "modifier.tconstruct.invariant.accuracy": "适中温度精确度",
   "modifier.tconstruct.invariant.resistance": "恒常抗性",
+  "modifier.tconstruct.solid": "稳固",
+  "modifier.tconstruct.solid.flavor": "四平八稳",
+  "modifier.tconstruct.solid.description": "工具能造成更多伤害，盔甲能提供更多护甲，代价是行动困难",
+  "modifier.tconstruct.solid.resistance": "抗性",
+  "modifier.tconstruct.shock": "震击",
+  "modifier.tconstruct.shock.flavor": "导电",
+  "modifier.tconstruct.shock.description": "对水中目标造成更多伤害，ater, and damages",
+  "modifier.tconstruct.shock.attack_damage": "震击伤害",
+  "modifier.tconstruct.shock.projectile_damage": "震击伤害",
   "modifier.tconstruct.decay": "衰变",
   "modifier.tconstruct.decay.flavor": "放射性凋零效果",
   "modifier.tconstruct.decay.description": "能对目标生物造成凋零效果，也有概率给持有者也造成同样效果",
@@ -3372,7 +3409,7 @@
   "book.tconstruct.material.category.light": "轻型工具材料",
   "book.tconstruct.material.category.light.description": "这类材料适合于更高拉弓速度的武器，有更高的每秒伤害",
   "book.tconstruct.material.category.heavy": "重型工具材料",
-  "book.tconstruct.material.category.heavy.description": "这类材料适用于更高箭矢速度的武器，有更高的弹射物伤害",
+  "book.tconstruct.material.category.heavy.description": "这类材料适用于更高箭矢速度的武器，有更高的弹射物力量",
 
 
   "_comment": "Commands",
@@ -3511,7 +3548,7 @@
   "advancements.tconstruct.tools.modified.title": "修缮强化",
   "advancements.tconstruct.tools.modified.description": "为匠魂工具加持一个强化",
   "advancements.tconstruct.tools.upgrade_slots.title": "升级大全",
-  "advancements.tconstruct.tools.upgrade_slots.description": "使用“铭刻”“镶金”“重置”“和睦”与“复生”为工具增加6个额外的升级槽",
+  "advancements.tconstruct.tools.upgrade_slots.description": "使用“铭刻”“镶金”“重置”“和睦”与“启示”为工具增加6个额外的升级槽",
   "advancements.tconstruct.tools.glass_cannon.title": "玻璃大炮",
   "advancements.tconstruct.tools.glass_cannon.description": "打造一件攻击伤害大于20但耐久度不超过100的工具",
   "advancements.tconstruct.tools.tool_smith.title": "工具精匠",
