@@ -12,7 +12,11 @@ public class ModifierIds {
   public static final ModifierId writable    = id("writable");
   public static final ModifierId recapitated = id("recapitated");
   public static final ModifierId harmonious  = id("harmonious");
+  public static final ModifierId forecast = id("forecast");
+  /** @deprecated use {@link #forecast} */
+  @Deprecated(forRemoval = true)
   public static final ModifierId resurrected = id("resurrected");
+  public static final ModifierId embossed    = id("embossed");
   public static final ModifierId rebalanced  = id("rebalanced");
   public static final ModifierId gilded      = id("gilded");
   public static final ModifierId draconic    = id("draconic");
@@ -151,6 +155,8 @@ public class ModifierIds {
   // traits - tier 2 compat
   public static final ModifierId dense = id("dense");
   public static final ModifierId lustrous = id("lustrous");
+  /** @deprecated use {@link #heavy} */
+  @Deprecated(forRemoval = true)
   public static final ModifierId sharpweight = id("sharpweight");
   public static final ModifierId heavy = id("heavy");
   public static final ModifierId featherweight = id("featherweight");
@@ -169,7 +175,11 @@ public class ModifierIds {
   public static final ModifierId maintained = id("maintained");
   public static final ModifierId ductile = id("ductile");
   public static final ModifierId temperate = id("temperate");
+  /** @deprecated no longer used. Make a copy if you need it */
+  @Deprecated
   public static final ModifierId invariant = id("invariant");
+  public static final ModifierId solid = id("solid");
+  public static final ModifierId shock = id("shock");
   public static final ModifierId raging = id("raging");
   public static final ModifierId vitalProtection = id("vital_protection");
   // traits - tier 4

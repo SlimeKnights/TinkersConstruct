@@ -17,16 +17,18 @@ import java.util.Locale;
 @Internal
 public enum SmelteryCompat {
   // ores
-  TIN     (TinkerFluids.moltenTin,      true),
-  ALUMINUM(TinkerFluids.moltenAluminum, true),
-  LEAD    (TinkerFluids.moltenLead,     true),
-  SILVER  (TinkerFluids.moltenSilver,   true),
-  NICKEL  (TinkerFluids.moltenNickel,   true),
-  ZINC    (TinkerFluids.moltenZinc,     true),
-  PLATINUM(TinkerFluids.moltenPlatinum, true),
-  TUNGSTEN(TinkerFluids.moltenTungsten, true),
-  OSMIUM  (TinkerFluids.moltenOsmium,   true),
-  URANIUM (TinkerFluids.moltenUranium,  true),
+  TIN     (TinkerFluids.moltenTin,      CompatType.ORE),
+  ALUMINUM(TinkerFluids.moltenAluminum, CompatType.ORE),
+  LEAD    (TinkerFluids.moltenLead,     CompatType.ORE),
+  SILVER  (TinkerFluids.moltenSilver,   CompatType.ORE),
+  NICKEL  (TinkerFluids.moltenNickel,   CompatType.ORE),
+  ZINC    (TinkerFluids.moltenZinc,     CompatType.ORE),
+  PLATINUM(TinkerFluids.moltenPlatinum, CompatType.ORE),
+  TUNGSTEN(TinkerFluids.moltenTungsten, CompatType.ORE),
+  OSMIUM  (TinkerFluids.moltenOsmium,   CompatType.ORE),
+  URANIUM (TinkerFluids.moltenUranium,  CompatType.ORE),
+  CHROMIUM(TinkerFluids.moltenChromium, CompatType.ORE),
+  CADMIUM (TinkerFluids.moltenCadmium,  CompatType.ORE),
   // alloys
   BRONZE    (TinkerFluids.moltenBronze, "tin"),
   BRASS     (TinkerFluids.moltenBrass, "zinc"),
@@ -35,38 +37,46 @@ public enum SmelteryCompat {
   CONSTANTAN(TinkerFluids.moltenConstantan, "nickel"),
   PEWTER    (TinkerFluids.moltenPewter, "tin", "lead"),
   // thermal alloys
-  ENDERIUM(TinkerFluids.moltenEnderium, false),
-  LUMIUM  (TinkerFluids.moltenLumium, false),
-  SIGNALUM(TinkerFluids.moltenSignalum, false),
+  ENDERIUM(TinkerFluids.moltenEnderium, CompatType.ALLOY),
+  LUMIUM  (TinkerFluids.moltenLumium,   CompatType.ALLOY),
+  SIGNALUM(TinkerFluids.moltenSignalum, CompatType.ALLOY),
   // mekanism alloys
-  REFINED_GLOWSTONE(TinkerFluids.moltenRefinedGlowstone, false),
-  REFINED_OBSIDIAN (TinkerFluids.moltenRefinedObsidian, false),
-  // metalborn
-  NICROSIL(TinkerFluids.moltenNicrosil, false),
-  DURALUMIN(TinkerFluids.moltenDuralumin, false),
+  REFINED_GLOWSTONE(TinkerFluids.moltenRefinedGlowstone, CompatType.ALLOY),
+  REFINED_OBSIDIAN (TinkerFluids.moltenRefinedObsidian,  CompatType.ALLOY),
+  // cosmere
+  NICROSIL(TinkerFluids.moltenNicrosil,   CompatType.ALLOY),
+  DURALUMIN(TinkerFluids.moltenDuralumin, CompatType.ALLOY),
+  BENDALLOY(TinkerFluids.moltenBendalloy, CompatType.ALLOY),
   // twilight
-  FIERY(TinkerFluids.fieryLiquid, false);
+  STEELEAF(TinkerFluids.moltenSteeleaf, CompatType.NONE),
+  FIERY   (TinkerFluids.fieryLiquid,    CompatType.ALLOY);
 
   @Getter
   private final String name = this.name().toLowerCase(Locale.US);
   private final FluidObject<? extends ForgeFlowingFluid> fluid;
   @Getter
-  private final boolean isOre;
+  private final CompatType type;
   /** If any of these tags contains no values, skips */
   @Getter
   private final String[] tags;
 
-  SmelteryCompat(FluidObject<? extends ForgeFlowingFluid> fluid, boolean isOre) {
+  SmelteryCompat(FluidObject<? extends ForgeFlowingFluid> fluid, CompatType type) {
     this.fluid = fluid;
-    this.isOre = isOre;
+    this.type = type;
     this.tags = new String[] { this.name };
   }
 
   /** Byproducts means its an ore, no byproucts are alloys */
   SmelteryCompat(FluidObject<? extends ForgeFlowingFluid> fluid, String... altTags) {
     this.fluid = fluid;
-    this.isOre = false;
+    this.type = CompatType.ALLOY;
     this.tags = Util.append(altTags, name);
+  }
+
+  /** @deprecated use {@link #getType()} */
+  @Deprecated(forRemoval = true)
+  public boolean isOre() {
+    return type == CompatType.ORE;
   }
 
   /** @deprecated use {@link #getTags()} */
@@ -79,5 +89,15 @@ public enum SmelteryCompat {
   /** Gets teh fluid for this compat */
   public FluidObject<?> getFluid() {
     return fluid;
+  }
+
+  /** Helper for tracking types of ores */
+  public enum CompatType {
+    /** Fluid has ores, and should get support from lustrous */
+    ORE,
+    /** Fluid is an alloy, and should get an anvil variant */
+    ALLOY,
+    /** Fluid is neither ore nor alloy */
+    NONE
   }
 }

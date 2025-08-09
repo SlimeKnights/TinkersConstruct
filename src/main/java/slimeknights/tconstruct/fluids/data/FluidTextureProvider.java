@@ -87,6 +87,8 @@ public class FluidTextureProvider extends AbstractFluidTextureProvider {
     compatOre(TinkerFluids.moltenTungsten);
     compatOre(TinkerFluids.moltenUranium);
     compatOre(TinkerFluids.moltenZinc);
+    tintedMolten(TinkerFluids.moltenChromium).color(0xFFC4B180);
+    tintedMolten(TinkerFluids.moltenCadmium).color(0xFF8AB8C8);
     // compat - alloy
     compatAlloy(TinkerFluids.moltenBrass);
     compatAlloy(TinkerFluids.moltenBronze);
@@ -104,7 +106,9 @@ public class FluidTextureProvider extends AbstractFluidTextureProvider {
     // metalborn
     compatAlloy(TinkerFluids.moltenNicrosil);
     compatAlloy(TinkerFluids.moltenDuralumin);
+    tintedMolten(TinkerFluids.moltenBendalloy).color(0xFFD6D2C1);
     // twilight
+    compatOre(TinkerFluids.moltenSteeleaf);
     slime(TinkerFluids.fieryLiquid, "fiery");
   }
 
@@ -185,6 +189,11 @@ public class FluidTextureProvider extends AbstractFluidTextureProvider {
   /** Builder with the stone texture */
   private FluidTexture.Builder tintedStone(FluidObject<?> fluid) {
     return named(fluid, "molten/stone");
+  }
+
+  /** Builder with the stone texture */
+  private FluidTexture.Builder tintedMolten(FluidObject<?> fluid) {
+    return named(fluid, "molten");
   }
 
   @Override

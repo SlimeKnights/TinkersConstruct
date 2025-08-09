@@ -17,7 +17,7 @@
     },
     {
       "type": "tconstruct:add_breath",
-      "amount": 80
+      "amount": 90
     }
   ],
   "fluid": {

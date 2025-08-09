@@ -1,11 +1,7 @@
 {
-  "level_display": "tconstruct:single_level",
-  "modules": [
+  "redirects": [
     {
-      "type": "tconstruct:modifier_slot",
-      "each_level": 1,
-      "name": "upgrades"
+      "id": "tconstruct:forecast"
     }
-  ],
-  "tooltip_display": "tinker_station"
+  ]
 }

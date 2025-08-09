@@ -19,10 +19,10 @@
       "mining_tier": "minecraft:iron"
     },
     "tconstruct:limb": {
-      "accuracy": -0.1,
-      "draw_speed": -0.15,
+      "accuracy": 0.1,
+      "draw_speed": -0.05,
       "durability": 300,
-      "velocity": 0.1
+      "velocity": 0.0
     },
     "tconstruct:maille": {},
     "tconstruct:plating_boots": {

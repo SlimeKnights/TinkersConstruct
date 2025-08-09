@@ -1,0 +1,17 @@
+{
+  "type": "tconstruct:casting_basin",
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "forge:storage_blocks/chromium"
+    }
+  ],
+  "cooling_time": 190,
+  "fluid": {
+    "amount": 810,
+    "tag": "forge:molten_chromium"
+  },
+  "result": {
+    "tag": "forge:storage_blocks/chromium"
+  }
+}

@@ -154,14 +154,6 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .meleeHarvest().armor()
       .fallbacks("metal")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF51586D).addARGB(102, 0xFF707C92).addARGB(140, 0xFF7C8BA6).addARGB(178, 0xFF9AACC1).addARGB(216, 0xFFBBCEDD).addARGB(255, 0xFFE1F1F7).build());
-    buildMaterial(MaterialIds.platinum)
-      .meleeHarvest().ranged().armor()
-      .fallbacks("metal")
-      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF1B4A54).addARGB(102, 0xFF286B77).addARGB(140, 0xFF5093A0).addARGB(178, 0xFF79BCC6).addARGB(216, 0xFFA6D7DD).addARGB(255, 0xFFD5EAEF).build());
-    buildMaterial(MaterialIds.tungsten)
-      .meleeHarvest().ranged().armor()
-      .fallbacks("metal")
-      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF211F19).addARGB(102, 0xFF33312C).addARGB(140, 0xFF424039).addARGB(178, 0xFF514F46).addARGB(216, 0xFF5B5950).addARGB(255, 0xFF707063).build());
     buildMaterial(MaterialIds.lead)
       .meleeHarvest().ranged().armor()
       .fallbacks("metal")
@@ -184,6 +176,10 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF777B7C).addARGB(102, 0xFF818587).addARGB(140, 0xFF909698).addARGB(178, 0xFF999FA2).addARGB(216, 0xFFB2BABC).addARGB(255, 0xFFC5CDD0).build());
     buildPlanks(MaterialIds.treatedWood).variant(false)
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF362015).addARGB(102, 0xFF402215).addARGB(140, 0xFF492A1B).addARGB(178, 0xFF55311F).addARGB(216, 0xFF5C3523).addARGB(234, 0xFF673C29).addARGB(255, 0xFF72422D).build());
+    buildMaterial(MaterialIds.ironwood)
+      .meleeHarvest().ranged().maille().shieldCore()
+      .fallbacks("wood", "stick", "primitive")
+      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF1C1713).addARGB(102, 0xFF433B27).addARGB(140, 0xFF6C645C).addARGB(178, 0xFF887E71).addARGB(216, 0xFFB9B3AC).addARGB(255, 0xFF9AE43E).build());
     // tier 2 - slimewood
     IColorMapping greenSlime = GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF229630).addARGB(102, 0xFF24A033).addARGB(140, 0xFF27AB37).addARGB(178, 0xFF3EBD42).addARGB(216, 0xFF56CF4C).addARGB(234, 0xFF6FEA60).addARGB(255, 0xFF82F86D).build();
     buildPlanks(MaterialIds.greenheart)
@@ -278,6 +274,10 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .statType(StatlessMaterialStats.BINDING, StatlessMaterialStats.BOWSTRING).repairKit()
       .fallbacks("primitive")
       .colorMapper(obsidianPalette);
+    buildMaterial(MaterialIds.steeleaf)
+      .meleeHarvest().ranged().armor()
+      .fallbacks("metal_contrast", "metal", "contrast")
+      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF1E3214).addARGB(102, 0xFF27401D).addARGB(140, 0xFF416230).addARGB(178, 0xFF52873A).addARGB(216, 0xFF6DA25E).addARGB(255, 0xFF83BF72).build());
 
     // tier 4
     ResourceLocation baseTexture = getResource("generator/queens_slime");

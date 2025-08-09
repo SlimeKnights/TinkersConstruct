@@ -57,7 +57,7 @@ public record OvershieldModule(float protection, int consumed) implements Modifi
           // scale the modifier value based on the consumed overslime
           modifierValue += protection * consumed / consumed;
           // remove overslime from the tool
-          overslimeModifier.addOverslime(tool, overslimeEntry, -consumed);
+          overslimeModifier.removeOverslime(tool, overslimeEntry, consumed);
         }
       }
     }

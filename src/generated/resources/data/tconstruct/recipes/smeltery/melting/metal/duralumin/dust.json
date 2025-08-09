@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "forge:dusts/duralumin"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:dusts/duralumin"
+  },
+  "result": {
+    "amount": 90,
+    "tag": "forge:molten_duralumin"
+  },
+  "temperature": 625,
+  "time": 41
+}

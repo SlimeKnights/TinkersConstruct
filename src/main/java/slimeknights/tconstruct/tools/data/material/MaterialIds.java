@@ -71,7 +71,11 @@ public final class MaterialIds {
   // tier 2 (mod integration)
   public static final MaterialId treatedWood = id("treated_wood");
   public static final MaterialId osmium = id("osmium");
+  /** @deprecated removing material, use alternative or recreate in your addon */
+  @Deprecated(forRemoval = true)
   public static final MaterialId tungsten = id("tungsten");
+  /** @deprecated removing material, use alternative or recreate in your addon */
+  @Deprecated(forRemoval = true)
   public static final MaterialId platinum = id("platinum");
   public static final MaterialId silver = id("silver");
   public static final MaterialId lead = id("lead");
@@ -85,6 +89,8 @@ public final class MaterialIds {
   public static final MaterialId pewter = id("pewter");
   public static final MaterialId platedSlimewood = id("plated_slimewood");
   // twilight forest
+  public static final MaterialId ironwood = id("ironwood");
+  public static final MaterialId steeleaf = id("steeleaf");
   public static final MaterialId fiery = id("fiery");
 
   // plate
@@ -154,8 +160,14 @@ public final class MaterialIds {
   // whitestone
   public static final MaterialVariantId endstone            = create(whitestone, "end");
   public static final MaterialVariantId whitestoneComposite = create(whitestone, "composite");
+  /** @deprecated use {@link #whitestoneComposite} */
+  @Deprecated
   public static final MaterialVariantId whitestoneAluminum  = create(whitestone, "aluminum");
+  /** @deprecated use {@link #whitestoneComposite} */
+  @Deprecated
   public static final MaterialVariantId whitestoneTin       = create(whitestone, "tin");
+  /** @deprecated use {@link #whitestoneComposite} */
+  @Deprecated
   public static final MaterialVariantId whitestoneZinc      = create(whitestone, "zinc");
   // slimewood
   public static final MaterialVariantId slimewoodComposite = create(slimewood, "composite");

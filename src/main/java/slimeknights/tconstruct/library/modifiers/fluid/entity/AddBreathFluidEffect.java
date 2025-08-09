@@ -8,6 +8,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
+import slimeknights.mantle.util.TranslationHelper;
 import slimeknights.tconstruct.library.modifiers.fluid.EffectLevel;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffectContext;
@@ -34,7 +35,7 @@ public record AddBreathFluidEffect(int amount) implements FluidEffect<FluidEffec
       int max = target.getMaxAirSupply();
       int current = target.getAirSupply();
       if (action.execute()) {
-        target.setAirSupply(Mth.clamp(current + Math.round(amount * level.value()), 0, max));
+        target.setAirSupply(Mth.clamp(current + Math.round(amount * level.value()), -20, max));
       }
       // based on whether we are increasing or decreasing breath, the max change varies
       // only consume fluid based on the air we got/lost
@@ -47,6 +48,6 @@ public record AddBreathFluidEffect(int amount) implements FluidEffect<FluidEffec
   @Override
   public Component getDescription(RegistryAccess registryAccess) {
     String prefix = FluidEffect.getTranslationKey(getLoader()) + (amount >= 0 ? ".add" : ".subtract");
-    return Component.translatable(prefix, Math.round(amount));
+    return Component.translatable(prefix, TranslationHelper.COMMA_FORMAT.format(Math.abs(amount) / 30f));
   }
 }

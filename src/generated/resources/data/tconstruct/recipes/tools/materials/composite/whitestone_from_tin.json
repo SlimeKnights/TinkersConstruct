@@ -11,6 +11,6 @@
     "tag": "forge:molten_tin"
   },
   "input": "tconstruct:rock",
-  "output": "tconstruct:whitestone#tin",
+  "output": "tconstruct:whitestone#composite",
   "temperature": 225
 }

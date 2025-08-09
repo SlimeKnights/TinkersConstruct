@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "allomancy:bronze_flakes"
+    }
+  ],
+  "ingredient": {
+    "item": "allomancy:bronze_flakes"
+  },
+  "result": {
+    "amount": 30,
+    "tag": "forge:molten_bronze"
+  },
+  "temperature": 700,
+  "time": 33
+}

@@ -195,7 +195,7 @@ public class AdvancementsProvider extends GenericDataProvider {
           HasModifierPredicate.hasUpgrade(ModifierIds.writable, 1),
           HasModifierPredicate.hasUpgrade(ModifierIds.recapitated, 1),
           HasModifierPredicate.hasUpgrade(ModifierIds.harmonious, 1),
-          HasModifierPredicate.hasUpgrade(ModifierIds.resurrected, 1),
+          HasModifierPredicate.hasUpgrade(ModifierIds.forecast, 1),
           HasModifierPredicate.hasUpgrade(ModifierIds.gilded, 1)))))
     );
 

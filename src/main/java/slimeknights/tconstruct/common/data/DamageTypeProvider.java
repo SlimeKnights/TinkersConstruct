@@ -22,6 +22,7 @@ import static slimeknights.tconstruct.common.TinkerDamageTypes.MELEE_ARROW;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.MOB_EXPLOSION;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.PIERCING;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.SELF_DESTRUCT;
+import static slimeknights.tconstruct.common.TinkerDamageTypes.SHOCK;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.SMELTERY_HEAT;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.SMELTERY_MAGIC;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.WATER;
@@ -43,6 +44,7 @@ public class DamageTypeProvider implements RegistrySetBuilder.RegistryBootstrap<
     context.register(PIERCING, new DamageType(prefix("piercing"), 0.1f));
     context.register(BLEEDING, new DamageType(prefix("bleed"), DamageScaling.NEVER, 0.1f));
     context.register(ENTANGLED, new DamageType(prefix("entangled"), DamageScaling.NEVER, 0.1f));
+    context.register(SHOCK, new DamageType(prefix("shock"), 0.1f, DamageEffects.BURNING));
     context.register(SELF_DESTRUCT, new DamageType(prefix("self_destruct"), DamageScaling.NEVER, 0.1f));
     context.register(MELEE_ARROW, new DamageType("arrow", 0.1f));
     register(context, EXPLOSION, new DamageType("explosion", DamageScaling.NEVER, 0.1f));

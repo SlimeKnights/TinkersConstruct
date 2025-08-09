@@ -87,27 +87,25 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     // tier 5 binding, temporarily in book 4
     addMaterial(MaterialIds.enderslimeVine, 4, ORDER_BINDING, true);
 
-    // tier 2 (end)
-    //addMaterialNoFluid(MaterialIds.endstone, 2, ORDER_END, true, 0xe0d890);
-
     // tier 2 (mod integration)
-    addCompatMetalMaterial(MaterialIds.osmium,     2, ORDER_COMPAT + ORDER_GENERAL);
-    addCompatMetalMaterial(MaterialIds.tungsten,   2, ORDER_COMPAT + ORDER_HARVEST);
-    addCompatMetalMaterial(MaterialIds.platinum,   2, ORDER_COMPAT + ORDER_HARVEST);
-    addCompatMetalMaterial(MaterialIds.silver,     2, ORDER_COMPAT + ORDER_WEAPON);
-    addCompatMetalMaterial(MaterialIds.lead,       2, ORDER_COMPAT + ORDER_WEAPON);
-    addCompatMetalMaterial(MaterialIds.aluminum,   2, ORDER_COMPAT + ORDER_RANGED);
+    addCompatMetalMaterial(MaterialIds.osmium,   2, ORDER_COMPAT + ORDER_GENERAL);
+    addCompatMetalMaterial(MaterialIds.lead,     2, ORDER_COMPAT + ORDER_HARVEST);
+    addCompatMetalMaterial(MaterialIds.silver,   2, ORDER_COMPAT + ORDER_WEAPON);
+    addCompatMetalMaterial(MaterialIds.aluminum, 2, ORDER_COMPAT + ORDER_RANGED);
+    // ironwood works in a part builder even though its ingots
+    addCompatMaterial(MaterialIds.ironwood, 2, ORDER_COMPAT + ORDER_GENERAL, true, "ingots/ironwood");
     // treated wood comes from treated wood or creosote oil
     addMaterial(MaterialIds.treatedWood, 2, ORDER_COMPAT + ORDER_GENERAL, true, false,
       new OrCondition(ConfigEnabledCondition.FORCE_INTEGRATION_MATERIALS, tagExistsCondition("treated_wood"), new TagFilledCondition<>(FluidTags.create(commonResource("creosote")))));
     // tier 3 (mod integration)
+    addCompatMetalMaterial(MaterialIds.electrum,        3, ORDER_COMPAT + ORDER_GENERAL, "electrum", "silver");
     addCompatMetalMaterial(MaterialIds.bronze,          3, ORDER_COMPAT + ORDER_HARVEST, "bronze", "tin");
     addCompatMetalMaterial(MaterialIds.constantan,      3, ORDER_COMPAT + ORDER_HARVEST, "constantan", "nickel");
     addCompatMetalMaterial(MaterialIds.invar,           3, ORDER_COMPAT + ORDER_WEAPON,  "invar", "nickel");
     addCompatMetalMaterial(MaterialIds.pewter,          3, ORDER_COMPAT + ORDER_WEAPON,  "pewter", "tin", "lead");
     addCompatMaterial     (MaterialIds.necronium,       3, ORDER_COMPAT + ORDER_WEAPON, true, "ingots/uranium");
-    addCompatMetalMaterial(MaterialIds.electrum,        3, ORDER_COMPAT + ORDER_SPECIAL, "electrum", "silver");
     addCompatMetalMaterial(MaterialIds.platedSlimewood, 3, ORDER_COMPAT + ORDER_SPECIAL, "brass", "zinc");
+    addCompatMetalMaterial(MaterialIds.steeleaf,        3, ORDER_COMPAT + ORDER_SPECIAL);
     // tier 4 (mod integration)
     addCompatMetalMaterial(MaterialIds.fiery,           4, ORDER_COMPAT + ORDER_END);
 
@@ -130,6 +128,19 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addMaterial(MaterialIds.phantom,    1, ORDER_REPAIR, true);
 
     // rose gold is most comparable to chain as you can use the extra slot for reinforced
-    addRedirect(new MaterialId(TConstruct.MOD_ID, "chain"), redirect(MaterialIds.roseGold));
+    addRedirect(id("chain"), redirect(MaterialIds.roseGold));
+    addRedirect(id("platinum"), redirect(MaterialIds.searedStone));
+    addRedirect(id("tungsten"),
+      conditionalRedirect(MaterialIds.lead, tagExistsCondition("ingots/lead")),
+      conditionalRedirect(MaterialIds.invar, new OrCondition(tagExistsCondition("ingots/invar"), tagExistsCondition("ingots/nickel"))),
+      redirect(MaterialIds.iron));
+  }
+  /**
+   * Creates a new material ID
+   * @param name  ID name
+   * @return  Material ID object
+   */
+  private static MaterialId id(String name) {
+    return new MaterialId(TConstruct.MOD_ID, name);
   }
 }

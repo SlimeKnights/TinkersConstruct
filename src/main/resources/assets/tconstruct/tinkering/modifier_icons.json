@@ -136,12 +136,13 @@
   "tconstruct:soulspeed":        "tconstruct:gui/modifiers/armor/soulspeed",
   "tconstruct:wings": [ "minecraft:item/elytra", "tconstruct:gui/modifiers/plus" ],
   
-  "tconstruct:gilded":      ["minecraft:item/golden_apple", "tconstruct:gui/modifiers/plus"],
+  "tconstruct:gilded":      ["tconstruct:gui/modifiers/gilded", "tconstruct:gui/modifiers/plus"],
   "tconstruct:writable":    ["minecraft:item/writable_book", "tconstruct:gui/modifiers/plus"],
   "tconstruct:harmonious":  ["minecraft:item/music_disc_13", "tconstruct:gui/modifiers/plus"],
   "tconstruct:recapitated": ["tconstruct:gui/modifiers/recapitated", "tconstruct:gui/modifiers/plus"],
-  "tconstruct:resurrected": ["minecraft:item/end_crystal", "tconstruct:gui/modifiers/plus"],
-  "tconstruct:rebalanced":  ["tconstruct:gui/modifiers/rebalanced", "tconstruct:gui/modifiers/plus"],
+  "tconstruct:forecast":    ["tconstruct:gui/modifiers/forecast", "tconstruct:gui/modifiers/plus"],
+  "tconstruct:embossed":    ["tconstruct:gui/modifiers/embossed", "tconstruct:gui/modifiers/plus"],
+  "tconstruct:rebalanced":  ["minecraft:item/end_crystal", "tconstruct:gui/modifiers/plus"],
   "tconstruct:draconic":    ["tconstruct:gui/modifiers/draconic", "tconstruct:gui/modifiers/plus"],
 
   "tconstruct:golden":        ["minecraft:item/golden_chestplate", "tconstruct:gui/modifiers/book"],

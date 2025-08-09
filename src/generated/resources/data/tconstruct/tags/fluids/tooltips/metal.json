@@ -27,6 +27,8 @@
     "#forge:molten_tungsten",
     "#forge:molten_osmium",
     "#forge:molten_uranium",
+    "#forge:molten_chromium",
+    "#forge:molten_cadmium",
     "#forge:molten_bronze",
     "#forge:molten_brass",
     "#forge:molten_electrum",
@@ -40,6 +42,8 @@
     "#forge:molten_refined_obsidian",
     "#forge:molten_nicrosil",
     "#forge:molten_duralumin",
+    "#forge:molten_bendalloy",
+    "#tconstruct:molten_steeleaf",
     "tconstruct:molten_cinderslime"
   ]
 }

@@ -80,6 +80,8 @@ public class FluidTagProvider extends FluidTagsProvider {
     fluidTag(TinkerFluids.moltenTungsten);
     fluidTag(TinkerFluids.moltenOsmium);
     fluidTag(TinkerFluids.moltenUranium);
+    fluidTag(TinkerFluids.moltenChromium);
+    fluidTag(TinkerFluids.moltenCadmium);
     // compat alloys
     fluidTag(TinkerFluids.moltenBronze);
     fluidTag(TinkerFluids.moltenBrass);
@@ -94,10 +96,12 @@ public class FluidTagProvider extends FluidTagsProvider {
     // mekanism compat alloys
     fluidTag(TinkerFluids.moltenRefinedGlowstone);
     fluidTag(TinkerFluids.moltenRefinedObsidian);
-    // metalborn compat alloys
+    // cosmere compat alloys
     fluidTag(TinkerFluids.moltenNicrosil);
     fluidTag(TinkerFluids.moltenDuralumin);
+    fluidTag(TinkerFluids.moltenBendalloy);
     // twilight compat fluids
+    fluidTag(TinkerFluids.moltenSteeleaf);
     fluidTag(TinkerFluids.fieryLiquid);
     // unplacable fluids
     fluidTag(TinkerFluids.honey);
@@ -146,7 +150,7 @@ public class FluidTagProvider extends FluidTagsProvider {
         TinkerFluids.moltenZinc.getLocalTag(), TinkerFluids.moltenTin.getLocalTag(), TinkerFluids.moltenAluminum.getLocalTag(),
         TinkerFluids.moltenSilver.getLocalTag(), TinkerFluids.moltenLead.getLocalTag(), TinkerFluids.moltenNickel.getLocalTag(),
         TinkerFluids.moltenPlatinum.getLocalTag(), TinkerFluids.moltenTungsten.getLocalTag(), TinkerFluids.moltenOsmium.getLocalTag(),
-        TinkerFluids.moltenUranium.getLocalTag(),
+        TinkerFluids.moltenUranium.getLocalTag(), TinkerFluids.moltenChromium.getLocalTag(), TinkerFluids.moltenCadmium.getLocalTag(),
         // tier 3
         TinkerFluids.moltenAmethystBronze.getLocalTag(), TinkerFluids.moltenPigIron.getLocalTag(), TinkerFluids.moltenRoseGold.getLocalTag(),
         TinkerFluids.moltenCobalt.getLocalTag(), TinkerFluids.moltenSteel.getLocalTag(),
@@ -159,7 +163,9 @@ public class FluidTagProvider extends FluidTagsProvider {
         // thermal alloys
         TinkerFluids.moltenLumium.getLocalTag(), TinkerFluids.moltenEnderium.getLocalTag(),
         // mekanism alloys
-        TinkerFluids.moltenRefinedGlowstone.getLocalTag(), TinkerFluids.moltenRefinedObsidian.getLocalTag()
+        TinkerFluids.moltenRefinedGlowstone.getLocalTag(), TinkerFluids.moltenRefinedObsidian.getLocalTag(),
+        // cosmere alloys
+        TinkerFluids.moltenNicrosil.getLocalTag(), TinkerFluids.moltenDuralumin.getLocalTag(), TinkerFluids.moltenBendalloy.getLocalTag()
       );
     // both effects - all the neat slimes
     this.tag(TinkerTags.Fluids.CHEMTHROWER_BOTH_EFFECTS)
@@ -189,9 +195,10 @@ public class FluidTagProvider extends FluidTagsProvider {
         TinkerFluids.moltenManyullyn.getTag(), TinkerFluids.moltenHepatizon.getTag(), TinkerFluids.moltenQueensSlime.getTag(), TinkerFluids.moltenNetherite.getTag(),
         TinkerFluids.moltenSoulsteel.getTag(), TinkerFluids.moltenKnightmetal.getTag(), TinkerFluids.moltenKnightslime.getTag(),
         // compat ores
-        TinkerFluids.moltenTin.getTag(), TinkerFluids.moltenAluminum.getTag(), TinkerFluids.moltenLead.getTag(), TinkerFluids.moltenSilver.getTag(),
-        TinkerFluids.moltenNickel.getTag(), TinkerFluids.moltenZinc.getTag(), TinkerFluids.moltenPlatinum.getTag(),
-        TinkerFluids.moltenTungsten.getTag(), TinkerFluids.moltenOsmium.getTag(), TinkerFluids.moltenUranium.getTag(),
+        TinkerFluids.moltenTin.getTag(), TinkerFluids.moltenAluminum.getTag(), TinkerFluids.moltenLead.getTag(),
+        TinkerFluids.moltenSilver.getTag(), TinkerFluids.moltenNickel.getTag(), TinkerFluids.moltenZinc.getTag(),
+        TinkerFluids.moltenPlatinum.getTag(), TinkerFluids.moltenTungsten.getTag(), TinkerFluids.moltenOsmium.getTag(),
+        TinkerFluids.moltenUranium.getTag(), TinkerFluids.moltenChromium.getTag(), TinkerFluids.moltenCadmium.getTag(),
         // compat alloys
         TinkerFluids.moltenBronze.getTag(), TinkerFluids.moltenBrass.getTag(), TinkerFluids.moltenElectrum.getTag(),
         TinkerFluids.moltenInvar.getTag(), TinkerFluids.moltenConstantan.getTag(), TinkerFluids.moltenPewter.getTag(),
@@ -199,8 +206,10 @@ public class FluidTagProvider extends FluidTagsProvider {
         TinkerFluids.moltenEnderium.getTag(), TinkerFluids.moltenLumium.getTag(), TinkerFluids.moltenSignalum.getTag(),
         // mekanism alloys
         TinkerFluids.moltenRefinedGlowstone.getTag(), TinkerFluids.moltenRefinedObsidian.getTag(),
-        // Metalborn alloys
-        TinkerFluids.moltenNicrosil.getTag(), TinkerFluids.moltenDuralumin.getTag()
+        // cosmere alloys
+        TinkerFluids.moltenNicrosil.getTag(), TinkerFluids.moltenDuralumin.getTag(), TinkerFluids.moltenBendalloy.getTag(),
+        // Twilight alloys
+        TinkerFluids.moltenSteeleaf.getTag()
     ).add(TinkerFluids.moltenCinderslime.get());
 
     this.tag(TinkerTags.Fluids.LARGE_GEM_TOOLTIPS).addTags(TinkerFluids.moltenEmerald.getTag(), TinkerFluids.moltenDiamond.getTag());

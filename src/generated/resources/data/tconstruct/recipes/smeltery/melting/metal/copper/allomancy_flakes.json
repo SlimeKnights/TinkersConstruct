@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "allomancy:copper_flakes"
+    }
+  ],
+  "ingredient": {
+    "item": "allomancy:copper_flakes"
+  },
+  "result": {
+    "amount": 30,
+    "tag": "forge:molten_copper"
+  },
+  "temperature": 500,
+  "time": 29
+}

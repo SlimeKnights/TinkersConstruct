@@ -1,16 +1,17 @@
 package slimeknights.tconstruct.tools.modifiers.traits.ranged;
 
-import slimeknights.tconstruct.library.json.LevelingValue;
+import net.minecraft.world.entity.MobType;
+import slimeknights.mantle.data.predicate.entity.MobTypePredicate;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.modules.combat.ConditionalPowerModule;
 import slimeknights.tconstruct.library.module.ModuleHookMap.Builder;
-import slimeknights.tconstruct.tools.modules.ranged.HolyArrowModule;
 
-/** @deprecated use {@link slimeknights.tconstruct.tools.modules.ranged.HolyArrowModule} */
+/** @deprecated use {@link ConditionalPowerModule} */
 @Deprecated(forRemoval = true)
 public class HolyModifier extends Modifier {
   @Override
   protected void registerHooks(Builder hookBuilder) {
     super.registerHooks(hookBuilder);
-    hookBuilder.addModule(new HolyArrowModule(LevelingValue.flat(0.75f)));
+    hookBuilder.addModule(ConditionalPowerModule.builder().target(new MobTypePredicate(MobType.UNDEAD)).eachLevel(0.75f));
   }
 }

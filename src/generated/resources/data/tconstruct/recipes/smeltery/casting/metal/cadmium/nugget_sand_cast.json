@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "tag": "tconstruct:casts/single_use/nugget"
+  },
+  "cast_consumed": true,
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "forge:nuggets/cadmium"
+    }
+  ],
+  "cooling_time": 14,
+  "fluid": {
+    "amount": 10,
+    "tag": "forge:molten_cadmium"
+  },
+  "result": {
+    "tag": "forge:nuggets/cadmium"
+  }
+}

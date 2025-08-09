@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "forge:dusts/cadmium"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:dusts/cadmium"
+  },
+  "result": {
+    "amount": 90,
+    "tag": "forge:molten_cadmium"
+  },
+  "temperature": 294,
+  "time": 31
+}

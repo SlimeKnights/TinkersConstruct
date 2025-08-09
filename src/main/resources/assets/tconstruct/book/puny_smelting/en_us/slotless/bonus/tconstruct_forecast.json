@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:forecast",
+  "text": [
+    {
+      "text": "Miners dream, turning your ore blocks into upgrade slots."
+    }
+  ],
+  "effects": [
+    "Adds an upgrade slot",
+    "Single level"
+  ]
+}

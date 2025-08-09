@@ -215,9 +215,9 @@ public class FluidEffectProvider extends AbstractFluidEffectProvider {
 
     // metals, lose reference to mistborn (though a true fan would probably get angry at how much I stray from the source)
     // copper/bronze - air/rest
-    addMetal(TinkerFluids.moltenCopper).fireDamage(1).addEntityEffect(new AddBreathFluidEffect(80));
-    compatMetal(TinkerFluids.moltenBronze, "tin").fireDamage(3).addEntityEffect(new AwardStatFluidEffect(Stats.TIME_SINCE_REST, - 2000));
-    addMetal(TinkerFluids.moltenAmethystBronze).fireDamage(3).addEntityEffect(new AwardStatFluidEffect(Stats.TIME_SINCE_REST, 2000));
+    addMetal(TinkerFluids.moltenCopper).fireDamage(1).addEntityEffect(new AddBreathFluidEffect(90));
+    compatMetal(TinkerFluids.moltenBronze, "tin").fireDamage(3).addEntityEffect(new AwardStatFluidEffect(Stats.TIME_SINCE_REST, -6000));
+    addMetal(TinkerFluids.moltenAmethystBronze).fireDamage(3).addEntityEffect(new AwardStatFluidEffect(Stats.TIME_SINCE_REST, 6000));
     // iron/steel - pull/push
     addMetal(TinkerFluids.moltenIron).fireDamage(2f).addEffect(FluidMobEffect.builder().effect(TinkerEffects.magnetic.get(), 20 * 5, 2), TimeAction.SET);
     addMetal(TinkerFluids.moltenSteel).fireDamage(2f).addEffect(FluidMobEffect.builder().effect(TinkerEffects.repulsive.get(), 20 * 5, 2), TimeAction.SET);
@@ -231,8 +231,15 @@ public class FluidEffectProvider extends AbstractFluidEffectProvider {
     addMetal(TinkerFluids.moltenGold).magicDamage(2).addEffect(FluidMobEffect.builder().effect(MobEffects.REGENERATION, 20 * 6, 2), TimeAction.SET);
     compatMetal(TinkerFluids.moltenElectrum, "silver").magicDamage(3).addEffect(FluidMobEffect.builder().effect(MobEffects.DIG_SPEED, 20 * 8, 1), TimeAction.SET);
     addMetal(TinkerFluids.moltenRoseGold).magicDamage(3).addEffect(FluidMobEffect.builder().effect(MobEffects.ABSORPTION, 20 * 15, 2), TimeAction.SET);
-    // aluminum/silver - remove effects
+    // chromium/nicrosil - luck/xp
+    compatMetal(TinkerFluids.moltenChromium).magicDamage(2).addEffect(FluidMobEffect.builder().effect(MobEffects.LUCK, 20 * 5, 1), TimeAction.SET);
+    compatMetal(TinkerFluids.moltenNicrosil).magicDamage(3).addEffect(FluidMobEffect.builder().effect(TinkerEffects.experienced.get(), 20 * 5, 1), TimeAction.SET);
+    // cadmium/bendalloy - breath/energy
+    compatMetal(TinkerFluids.moltenCadmium).fireDamage(2).addEntityEffect(new AddBreathFluidEffect(-90));
+    compatMetal(TinkerFluids.moltenBendalloy).fireDamage(3).addEffect(FluidMobEffect.builder().effect(MobEffects.SATURATION, 20 * 5, 1), TimeAction.SET);
+    // aluminum/duralumin/silver - remove effects/you
     compatMetal(TinkerFluids.moltenAluminum).magicDamage(2).addEntityEffect(new CureEffectsFluidEffect(Items.MILK_BUCKET));
+    compatMetal(TinkerFluids.moltenDuralumin).magicDamage(3).addEffect(FluidMobEffect.builder().effect(MobEffects.INVISIBILITY, 20 * 5, 1), TimeAction.SET);
     compatMetal(TinkerFluids.moltenSilver).magicDamage(2).addEntityEffect(new RemoveEffectFluidEffect(MobEffects.WITHER));
     // non-cosmere ores
     compatMetal(TinkerFluids.moltenLead).fireDamage(2).addEffect(FluidMobEffect.builder().effect(MobEffects.POISON, 20 * 5, 1), TimeAction.SET);
@@ -265,9 +272,6 @@ public class FluidEffectProvider extends AbstractFluidEffectProvider {
     // mekanism compat
     compatMetal(TinkerFluids.moltenRefinedGlowstone).magicDamage(3).addEffect(FluidMobEffect.builder().effect(MobEffects.GLOWING, 20 * 10, 1), TimeAction.SET);
     compatMetal(TinkerFluids.moltenRefinedObsidian).spikeDamage(3).addEffect(FluidMobEffect.builder().effect(TinkerEffects.bleeding.get(), 20 * 2, 1), TimeAction.SET);
-    // metalborn compat
-    compatMetal(TinkerFluids.moltenNicrosil).magicDamage(3).addEffect(FluidMobEffect.builder().effect(TinkerEffects.experienced.get(), 20 * 5, 1), TimeAction.SET);
-    compatMetal(TinkerFluids.moltenDuralumin).magicDamage(3).addEffect(FluidMobEffect.builder().effect(MobEffects.INVISIBILITY, 20 * 5, 1), TimeAction.SET);
 
     // immersive engineering compat
     // ethanol - burns
@@ -311,6 +315,7 @@ public class FluidEffectProvider extends AbstractFluidEffectProvider {
     }
 
     // twilight forest compat
+    compatMetal(TinkerFluids.moltenSteeleaf).magicDamage(2).addEffect(FluidMobEffect.builder().effect(TinkerEffects.experienced.get(), 20 * 5, 1), TimeAction.SET);
     addFluid(TinkerFluids.fieryLiquid, FluidValues.SIP).metalCondition("fiery")
         .addBlockEffect(new MeltBlockFluidEffect(BlockPredicate.ANY, FluidValues.INGOT, 1500));
 

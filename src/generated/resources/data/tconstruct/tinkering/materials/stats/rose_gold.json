@@ -4,7 +4,7 @@
     "tconstruct:bowstring": {},
     "tconstruct:grip": {
       "accuracy": 0.25,
-      "durability": -0.4,
+      "durability": -0.3,
       "melee_damage": 1.0
     },
     "tconstruct:handle": {

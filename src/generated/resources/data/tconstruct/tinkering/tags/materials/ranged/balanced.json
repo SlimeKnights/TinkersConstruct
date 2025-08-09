@@ -20,7 +20,11 @@
       "required": false
     },
     {
-      "id": "tconstruct:platinum",
+      "id": "tconstruct:silver",
+      "required": false
+    },
+    {
+      "id": "tconstruct:ironwood",
       "required": false
     },
     {
@@ -29,6 +33,10 @@
     },
     {
       "id": "tconstruct:pewter",
+      "required": false
+    },
+    {
+      "id": "tconstruct:steeleaf",
       "required": false
     }
   ]

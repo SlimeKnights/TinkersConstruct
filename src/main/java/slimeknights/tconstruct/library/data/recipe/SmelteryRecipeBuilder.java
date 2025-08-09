@@ -468,8 +468,7 @@ public class SmelteryRecipeBuilder {
 
   /** Adds a recipe for melting a tool from the given mod, automatically prefixing the metal into the name */
   public SmelteryRecipeBuilder toolItemMelting(int cost, String domain, String path) {
-    itemMelting(cost, domain + '_' + path, (float)Math.sqrt(cost), new ResourceLocation(domain, this.name.getPath() + '_' + path), true);
-    return this;
+    return metalMelting(cost, domain, path, true);
   }
 
   /** Adds a recipe melting a tool with the given cost using the common tools tag. See {@link #melting(float, String, String, boolean, boolean)} for armor as names are less standard */
@@ -501,6 +500,12 @@ public class SmelteryRecipeBuilder {
     oreMelting(1, "raw_materials/",      null, 1.5f, "raw",       false);
     oreMelting(9, "storage_blocks/raw_", null, 6.0f, "raw_block", false);
     return this;
+  }
+
+  /** Adds a raw ore recipe with the given byproducts */
+  public SmelteryRecipeBuilder rawOre(IByproduct... byproducts) {
+    this.oreByproducts = byproducts;
+    return rawOre();
   }
 
   /** Adds the sparse ore recipe at the given scale. Automatcally called by {@link #metal()} and {@link #gem(int)}, so only needed if doing unusual things. */
@@ -693,6 +698,15 @@ public class SmelteryRecipeBuilder {
       builder.toolItemMelting(cost, domain, name);
     }
   }
+
+  /** Consumer for melting a specific tool from a mod with the metal prefix */
+  public record MetalMelting(float cost, String domain, String name) implements CommonRecipe {
+    @Override
+    public void accept(SmelteryRecipeBuilder builder) {
+      builder.metalMelting(cost, domain, name, false);
+    }
+  }
+
 
   /* Common tool melting */
 

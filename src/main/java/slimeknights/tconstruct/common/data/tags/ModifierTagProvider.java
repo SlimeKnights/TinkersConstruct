@@ -168,7 +168,8 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
       TinkerModifiers.dyed.getId(), TinkerModifiers.embellishment.getId(), TinkerModifiers.trim.getId());
     this.tag(BONUS_SLOTLESS).add(
       ModifierIds.draconic, ModifierIds.rebalanced,
-      ModifierIds.harmonious, ModifierIds.recapitated, ModifierIds.resurrected, ModifierIds.writable);
+      ModifierIds.harmonious, ModifierIds.recapitated, ModifierIds.forecast, ModifierIds.writable)
+      .addOptional(ModifierIds.embossed);
   }
 
   @Override

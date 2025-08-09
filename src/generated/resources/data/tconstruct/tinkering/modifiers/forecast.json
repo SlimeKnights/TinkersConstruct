@@ -1,0 +1,11 @@
+{
+  "level_display": "tconstruct:single_level",
+  "modules": [
+    {
+      "type": "tconstruct:modifier_slot",
+      "each_level": 1,
+      "name": "upgrades"
+    }
+  ],
+  "tooltip_display": "tinker_station"
+}

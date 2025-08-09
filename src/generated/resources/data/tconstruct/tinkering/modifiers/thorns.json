@@ -9,6 +9,7 @@
       "constant_damage": {
         "flat": 1.0
       },
+      "damage_type": "minecraft:thorns",
       "durability_usage": 1,
       "random_damage": {
         "flat": 3.0

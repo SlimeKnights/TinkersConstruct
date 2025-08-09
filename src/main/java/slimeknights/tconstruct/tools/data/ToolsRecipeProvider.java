@@ -142,7 +142,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
 
     // travelers gear
     Consumer<FinishedRecipe> shapedMaterial = ShapedMaterialConsumerBuilder.wrap().material(MaterialIds.leather).build(consumer);
-    Function<MaterialStatsId,Ingredient> materialsCosting = type -> MaterialValueIngredient.of(MaterialPredicate.and(MaterialPredicate.CASTABLE, new MaterialStatTypePredicate(type)), 1);
+    Function<MaterialStatsId,Ingredient> materialsCosting = type -> MaterialValueIngredient.of(MaterialPredicate.and(MaterialPredicate.or(MaterialPredicate.CASTABLE, MaterialPredicate.COMPOSITE), new MaterialStatTypePredicate(type)), 1);
     ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, TinkerTools.travelersGear.get(ArmorItem.Type.HELMET))
       .pattern("l l")
       .pattern("glg")

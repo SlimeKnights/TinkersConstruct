@@ -103,24 +103,23 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
 
     // tier 2 - mod compat
     addDefaultTraits(MaterialIds.osmium, ModifierIds.dense);
-    addDefaultTraits(MaterialIds.tungsten, ModifierIds.sharpweight);
-    addTraits(MaterialIds.platinum, MELEE_HARVEST, ModifierIds.lustrous);
-    addTraits(MaterialIds.platinum, RANGED,        TinkerModifiers.olympic);
     addDefaultTraits(MaterialIds.lead, ModifierIds.heavy);
     addTraits(MaterialIds.silver, MELEE_HARVEST, ModifierIds.smite);
     addTraits(MaterialIds.silver, RANGED, ModifierIds.holy);
     addTraits(MaterialIds.silver, ARMOR, ModifierIds.consecrated);
     addDefaultTraits(MaterialIds.treatedWood, ModifierIds.preserved);
+    addDefaultTraits(MaterialIds.ironwood, ModifierIds.reinforced);
     // tier 3 - mod compat
     addDefaultTraits(MaterialIds.steel, ModifierIds.ductile);
     addDefaultTraits(MaterialIds.bronze, ModifierIds.maintained);
     addDefaultTraits(MaterialIds.constantan, ModifierIds.temperate);
-    addDefaultTraits(MaterialIds.invar, ModifierIds.invariant);
+    addDefaultTraits(MaterialIds.invar, ModifierIds.solid);
     addDefaultTraits(MaterialIds.pewter, ModifierIds.raging);
     addTraits(MaterialIds.pewter, ARMOR, ModifierIds.vitalProtection);
     addDefaultTraits(MaterialIds.necronium, TinkerModifiers.decay);
-    addDefaultTraits(MaterialIds.electrum, ModifierIds.experienced);
+    addDefaultTraits(MaterialIds.electrum, ModifierIds.shock);
     addDefaultTraits(MaterialIds.platedSlimewood, TinkerModifiers.overworked, TinkerModifiers.overslime);
+    addDefaultTraits(MaterialIds.steeleaf, ModifierIds.experienced);
     // tier 4 - mod compat
     addDefaultTraits(MaterialIds.fiery, TinkerModifiers.autosmelt);
     addTraits(MaterialIds.fiery, ARMOR, ModifierIds.temperedProtection);

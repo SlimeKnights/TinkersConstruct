@@ -1,0 +1,26 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "byproducts": [
+    {
+      "amount": 80,
+      "tag": "forge:molten_gold",
+      "unit_size": 10
+    }
+  ],
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "twilightforest:ironwood_chestplate"
+    }
+  ],
+  "ingredient": {
+    "item": "twilightforest:ironwood_chestplate"
+  },
+  "result": {
+    "amount": 720,
+    "tag": "forge:molten_iron",
+    "unit_size": 10
+  },
+  "temperature": 800,
+  "time": 170
+}

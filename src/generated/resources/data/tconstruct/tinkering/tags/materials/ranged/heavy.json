@@ -8,10 +8,6 @@
     "tconstruct:manyullyn",
     "tconstruct:cinderslime",
     {
-      "id": "tconstruct:silver",
-      "required": false
-    },
-    {
       "id": "tconstruct:lead",
       "required": false
     },

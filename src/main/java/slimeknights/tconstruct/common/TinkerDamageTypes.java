@@ -28,6 +28,8 @@ public class TinkerDamageTypes {
   public static final ResourceKey<DamageType> BLEEDING = create("bleeding");
   /** Damage source entangled modifier from twisted vines */
   public static final ResourceKey<DamageType> ENTANGLED = create("entangled");
+  /** Damage source for shock modifier */
+  public static final ResourceKey<DamageType> SHOCK = create("shock");
 
   /** Damage source for the self-destructing modifier */
   public static final ResourceKey<DamageType> SELF_DESTRUCT = create("self_destruct");

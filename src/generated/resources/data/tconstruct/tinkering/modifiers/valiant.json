@@ -29,8 +29,31 @@
       }
     },
     {
-      "type": "tconstruct:valiant_arrow",
-      "each_level": 0.25
+      "type": "tconstruct:conditional_power",
+      "formula": [
+        "$equipment",
+        0.25,
+        "*",
+        "$multiplier",
+        "*",
+        "$damage",
+        "+"
+      ],
+      "percent": false,
+      "variables": {
+        "equipment": {
+          "type": "tconstruct:entity",
+          "entity_type": "tconstruct:equipment_count",
+          "fallback": 4.0,
+          "slots": [
+            "feet",
+            "legs",
+            "chest",
+            "head"
+          ],
+          "which": "target"
+        }
+      }
     }
   ],
   "tooltip_display": "always"

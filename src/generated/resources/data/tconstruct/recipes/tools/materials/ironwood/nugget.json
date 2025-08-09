@@ -1,0 +1,15 @@
+{
+  "type": "tconstruct:material",
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "forge:nuggets/ironwood"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:nuggets/ironwood"
+  },
+  "material": "tconstruct:ironwood",
+  "needed": 9,
+  "value": 1
+}

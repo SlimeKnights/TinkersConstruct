@@ -27,6 +27,8 @@
     "#tconstruct:molten_tungsten",
     "#tconstruct:molten_osmium",
     "#tconstruct:molten_uranium",
+    "#tconstruct:molten_chromium",
+    "#tconstruct:molten_cadmium",
     "#tconstruct:molten_amethyst_bronze",
     "#tconstruct:molten_pig_iron",
     "#tconstruct:molten_rose_gold",
@@ -44,6 +46,9 @@
     "#tconstruct:molten_lumium",
     "#tconstruct:molten_enderium",
     "#tconstruct:molten_refined_glowstone",
-    "#tconstruct:molten_refined_obsidian"
+    "#tconstruct:molten_refined_obsidian",
+    "#tconstruct:molten_nicrosil",
+    "#tconstruct:molten_duralumin",
+    "#tconstruct:molten_bendalloy"
   ]
 }

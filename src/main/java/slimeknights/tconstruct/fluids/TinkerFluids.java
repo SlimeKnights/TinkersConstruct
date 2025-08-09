@@ -178,6 +178,8 @@ public final class TinkerFluids extends TinkerModule {
   public static final FlowingFluidObject<ForgeFlowingFluid> moltenTungsten = FLUIDS.register("molten_tungsten").type(hot("molten_tungsten").temperature(1250).lightLevel(12)).block(createBurning(MapColor.TERRACOTTA_BLACK, 12, 10, 5f)).bucket().commonTag().flowing();
   public static final FlowingFluidObject<ForgeFlowingFluid> moltenOsmium   = FLUIDS.register("molten_osmium").type(hot("molten_osmium").temperature(1275).lightLevel(4)).block(createBurning(MapColor.CLAY, 4, 10, 5f)).bucket().commonTag().flowing();
   public static final FlowingFluidObject<ForgeFlowingFluid> moltenUranium  = FLUIDS.register("molten_uranium").type(hot("molten_uranium").temperature(1130).lightLevel(15)).block(createBurning(MapColor.TERRACOTTA_GREEN, 15, 10, 5f)).bucket().commonTag().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenChromium = FLUIDS.register("molten_chromium").type(hot("molten_chromium").temperature(1200).lightLevel(13)).block(createBurning(MapColor.COLOR_CYAN, 13, 10, 5f)).bucket().commonTag().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenCadmium  = FLUIDS.register("molten_cadmium").type(hot("molten_cadmium").temperature(594).lightLevel(10)).block(createBurning(MapColor.COLOR_BROWN, 10, 10, 5f)).bucket().commonTag().flowing();
 
   // compat alloys
   public static final FlowingFluidObject<ForgeFlowingFluid> moltenBronze     = FLUIDS.register("molten_bronze").type(hot("molten_bronze").temperature(1000).lightLevel(10)).block(createBurning(MapColor.TERRACOTTA_ORANGE, 10, 10, 6f)).bucket().commonTag().flowing();
@@ -195,10 +197,12 @@ public final class TinkerFluids extends TinkerModule {
   // mekanism
   public static final FlowingFluidObject<ForgeFlowingFluid> moltenRefinedGlowstone = FLUIDS.register("molten_refined_glowstone").type(hot("molten_refined_glowstone").temperature(1125).lightLevel(15)).block(createBurning(MapColor.COLOR_YELLOW, 15, 10, 7f)).bucket().commonTag().flowing();
   public static final FlowingFluidObject<ForgeFlowingFluid> moltenRefinedObsidian  = FLUIDS.register("molten_refined_obsidian").type(hot("molten_refined_obsidian").temperature(1775).lightLevel(7)).block(createBurning(MapColor.TERRACOTTA_BLUE, 7, 10, 7f)).bucket().commonTag().flowing();
-  // metalborn
+  // cosmere metals
   public static final FlowingFluidObject<ForgeFlowingFluid> moltenNicrosil = FLUIDS.register("molten_nicrosil").type(hot("molten_nicrosil").temperature(1400).lightLevel(14)).block(createBurning(MapColor.SNOW, 12, 10, 6f)).bucket().commonTag().flowing();
   public static final FlowingFluidObject<ForgeFlowingFluid> moltenDuralumin = FLUIDS.register("molten_duralumin").type(hot("molten_duralumin").temperature(925).lightLevel(10)).block(createBurning(MapColor.COLOR_LIGHT_GREEN, 10, 10, 6f)).bucket().commonTag().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenBendalloy = FLUIDS.register("molten_bendalloy").type(hot("molten_bendalloy").temperature(400).lightLevel(9)).block(createBurning(MapColor.SNOW, 9, 10, 6f)).bucket().commonTag().flowing();
   // twilight
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenSteeleaf = FLUIDS.register("molten_steeleaf").type(hot("molten_steeleaf").temperature(1334).lightLevel(10)).block(createBurning(MapColor.COLOR_GREEN, 10, 10, 6f)).bucket().flowing();
   public static final FlowingFluidObject<ForgeFlowingFluid> fieryLiquid = FLUIDS.register("fiery_liquid").type(hot("fiery_liquid").temperature(1800).lightLevel(15)).block(createBurning(MapColor.CRIMSON_HYPHAE, 15, 20, 6f)).bucket().flowing();
 
   // fluid data serializer
@@ -345,6 +349,8 @@ public final class TinkerFluids extends TinkerModule {
       DispenserBlock.registerBehavior(moltenTungsten, dispenseBucket);
       DispenserBlock.registerBehavior(moltenOsmium, dispenseBucket);
       DispenserBlock.registerBehavior(moltenUranium, dispenseBucket);
+      DispenserBlock.registerBehavior(moltenChromium, dispenseBucket);
+      DispenserBlock.registerBehavior(moltenCadmium, dispenseBucket);
       // compat alloys
       DispenserBlock.registerBehavior(moltenBronze, dispenseBucket);
       DispenserBlock.registerBehavior(moltenBrass, dispenseBucket);
@@ -361,6 +367,8 @@ public final class TinkerFluids extends TinkerModule {
       DispenserBlock.registerBehavior(moltenRefinedObsidian, dispenseBucket);
       DispenserBlock.registerBehavior(moltenNicrosil, dispenseBucket);
       DispenserBlock.registerBehavior(moltenDuralumin, dispenseBucket);
+      DispenserBlock.registerBehavior(moltenBendalloy, dispenseBucket);
+      DispenserBlock.registerBehavior(moltenSteeleaf, dispenseBucket);
       DispenserBlock.registerBehavior(fieryLiquid, dispenseBucket);
 
       // brew congealed slime into bottles to get slime bottles, easy melting
@@ -448,13 +456,15 @@ public final class TinkerFluids extends TinkerModule {
     acceptMolten(output, moltenTungsten);
     acceptMolten(output, moltenOsmium);
     acceptMolten(output, moltenUranium);
+    acceptMolten(output, moltenChromium);
+    acceptMolten(output, moltenCadmium);
     // compat alloys
     acceptMolten(output, moltenBronze, "tin");
     acceptMolten(output, moltenBrass, "zinc");
     acceptMolten(output, moltenElectrum, "silver");
     acceptMolten(output, moltenInvar, "nickel");
     acceptMolten(output, moltenConstantan, "nickel");
-    acceptMolten(output, moltenPewter);
+    acceptCompat(output, moltenPewter, "pewter", "tin", "lead");
     acceptMolten(output, moltenEnderium);
     acceptMolten(output, moltenLumium);
     acceptMolten(output, moltenSignalum);
@@ -462,6 +472,8 @@ public final class TinkerFluids extends TinkerModule {
     acceptMolten(output, moltenRefinedObsidian);
     acceptMolten(output, moltenNicrosil);
     acceptMolten(output, moltenDuralumin);
+    acceptMolten(output, moltenBendalloy);
+    acceptMolten(output, moltenSteeleaf);
     acceptCompat(output, fieryLiquid, "fiery");
     BuiltInRegistries.POTION.holders().filter(holder -> {
       Potion potion = holder.get();

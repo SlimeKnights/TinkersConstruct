@@ -22,11 +22,19 @@
       "required": false
     },
     {
+      "id": "tconstruct:ironwood",
+      "required": false
+    },
+    {
       "id": "tconstruct:plated_slimewood",
       "required": false
     },
     {
       "id": "tconstruct:electrum",
+      "required": false
+    },
+    {
+      "id": "tconstruct:steeleaf",
       "required": false
     },
     {

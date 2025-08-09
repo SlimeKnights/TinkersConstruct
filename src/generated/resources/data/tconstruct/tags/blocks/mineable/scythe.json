@@ -1,18 +1,18 @@
 {
+  "remove": [
+    "minecraft:pumpkin",
+    "minecraft:carved_pumpkin",
+    "minecraft:melon"
+  ],
   "values": [
-    "minecraft:attached_melon_stem",
-    "minecraft:attached_pumpkin_stem",
-    "minecraft:big_dripleaf_stem",
-    "minecraft:big_dripleaf",
     "minecraft:kelp",
     "minecraft:kelp_plant",
     "minecraft:nether_wart",
     "minecraft:small_dripleaf",
-    "minecraft:spore_blossom",
     "minecraft:sugar_cane",
-    "minecraft:sweet_berry_bush",
     "#minecraft:mineable/hoe",
     "#forge:mineable/shears",
+    "#forge:mineable/sword",
     "#minecraft:crops"
   ]
 }

@@ -111,4 +111,9 @@ public class OverslimeModifier extends DurabilityShieldModifier implements ToolS
     // grants +100% restoring per level
     addShield(tool, entry, amount * getOverworkedBonus(tool));
   }
+
+  /** Removes overslime from a tool. Unlike {@link #addOverslime(IToolStackView, ModifierEntry, int)}, does not trigger overworked */
+  public void removeOverslime(IToolStackView tool, ModifierEntry entry, int amount) {
+    addShield(tool, entry, -amount);
+  }
 }

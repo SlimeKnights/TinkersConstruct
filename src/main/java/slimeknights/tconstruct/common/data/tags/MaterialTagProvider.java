@@ -14,7 +14,8 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
 
   @Override
   protected void addTags() {
-    tag(TinkerTags.Materials.EXCLUDE_FROM_LOOT);
+    // fiery is obtained through specific progression in TF, better to not add a progression bypass
+    tag(TinkerTags.Materials.EXCLUDE_FROM_LOOT).addOptional(MaterialIds.fiery);
     tag(TinkerTags.Materials.NETHER).add(
       // tier 1
       MaterialIds.wood, MaterialIds.flint, MaterialIds.rock, MaterialIds.bone,
@@ -54,10 +55,12 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
       // tier 4
       MaterialIds.cinderslime, MaterialIds.queensSlime, MaterialIds.enderslimeVine
     ).addOptional(
+      // tier 1
+      MaterialIds.treatedWood,
       // tier 2
-      MaterialIds.treatedWood, MaterialIds.osmium,
+      MaterialIds.osmium, MaterialIds.ironwood,
       // tier 3
-      MaterialIds.platedSlimewood, MaterialIds.electrum,
+      MaterialIds.platedSlimewood, MaterialIds.electrum, MaterialIds.steeleaf,
       // tier 4
       MaterialIds.fiery
     );
@@ -72,7 +75,7 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
       MaterialIds.hepatizon, MaterialIds.ancientHide
     ).addOptional(
       // tier 2
-      MaterialIds.tungsten, MaterialIds.platinum,
+      MaterialIds.lead,
       // tier 3
       MaterialIds.bronze, MaterialIds.constantan
     );
@@ -87,7 +90,7 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
       MaterialIds.manyullyn, MaterialIds.blazingBone, MaterialIds.knightmetal
     ).addOptional(
       // tier 2
-      MaterialIds.silver, MaterialIds.lead,
+      MaterialIds.silver,
       // tier 3
       MaterialIds.invar, MaterialIds.pewter, MaterialIds.necronium
     );
@@ -104,10 +107,12 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
       // tier 4
       MaterialIds.blazingBone, MaterialIds.ancientHide, MaterialIds.enderslimeVine
     ).addOptional(
+      // tier 1
+      MaterialIds.treatedWood,
       // tier 2
-      MaterialIds.treatedWood, MaterialIds.platinum,
+      MaterialIds.silver, MaterialIds.ironwood,
       // tier 3
-      MaterialIds.invar, MaterialIds.pewter
+      MaterialIds.invar, MaterialIds.pewter, MaterialIds.steeleaf
     );
     tag(TinkerTags.Materials.LIGHT).add(
       // tier 1
@@ -120,7 +125,7 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
       MaterialIds.hepatizon, MaterialIds.queensSlime, MaterialIds.knightmetal
     ).addOptional(
       // tier 2
-      MaterialIds.aluminum, MaterialIds.tungsten,
+      MaterialIds.aluminum,
       // tier 3
       MaterialIds.necronium, MaterialIds.constantan, MaterialIds.platedSlimewood
     );
@@ -135,7 +140,7 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
       MaterialIds.manyullyn, MaterialIds.cinderslime
     ).addOptional(
       // tier 2
-      MaterialIds.silver, MaterialIds.lead,
+      MaterialIds.lead,
       // tier 3
       MaterialIds.bronze, MaterialIds.electrum,
       // tier 4

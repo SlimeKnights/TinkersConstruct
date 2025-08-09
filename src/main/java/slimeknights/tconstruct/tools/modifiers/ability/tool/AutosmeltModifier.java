@@ -2,6 +2,7 @@ package slimeknights.tconstruct.tools.modifiers.ability.tool;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -10,10 +11,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.loot.LootContext;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.behavior.ProcessLootModifierHook;
-import slimeknights.tconstruct.library.modifiers.impl.SingleLevelModifier;
+import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.module.ModuleHookMap.Builder;
 import slimeknights.tconstruct.library.recipe.SingleItemContainer;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -24,7 +26,7 @@ import java.util.ListIterator;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
-public class AutosmeltModifier extends SingleLevelModifier implements ProcessLootModifierHook {
+public class AutosmeltModifier extends Modifier implements ProcessLootModifierHook {
   /** Cache of relevant smelting recipes */
   private final Cache<Item,Optional<SmeltingRecipe>> recipeCache = CacheBuilder
     .newBuilder()
@@ -39,6 +41,11 @@ public class AutosmeltModifier extends SingleLevelModifier implements ProcessLoo
         recipeCache.invalidateAll();
       }
     });
+  }
+
+  @Override
+  public Component getDisplayName(int level) {
+    return ModifierLevelDisplay.PLUSES.nameForLevel(this, level);
   }
 
   @Override

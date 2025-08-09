@@ -483,6 +483,8 @@ public class TinkerTags {
     // compat tags
     /** Tag meaning necronium is available */
     public static final TagKey<Item> URANIUM_INGOTS = common("ingots/uranium");
+    /** Tag of trophies from bosses, to grant an additional upgrade slot to tools. Meant for Twilight Forest boss trophies, but suppose you can add other bosses that are not easily farmed. */
+    public static final TagKey<Item> BOSS_TROPHIES = local("boss_trophies");
 
     /** Fluids in this tag won't show in JEI */
     public static final TagKey<Item> HIDDEN_IN_RECIPE_VIEWERS = hiddenFromRecipeViewers(Registries.ITEM);

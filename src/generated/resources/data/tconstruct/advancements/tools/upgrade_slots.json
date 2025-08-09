@@ -38,7 +38,7 @@
                   "check": "upgrades",
                   "modifier": {
                     "type": "tconstruct:single",
-                    "modifier": "tconstruct:resurrected"
+                    "modifier": "tconstruct:forecast"
                   }
                 },
                 {

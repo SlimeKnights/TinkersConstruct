@@ -61,7 +61,7 @@ public class MaterialManager extends SimpleJsonResourceReloadListener {
   /** GSON for loading materials */
   public static final Gson GSON = (new GsonBuilder())
     .registerTypeAdapter(ResourceLocation.class, new ResourceLocation.Serializer())
-    .registerTypeAdapter(ICondition.class, ConditionSerializer.INSTANCE)
+    .registerTypeHierarchyAdapter(ICondition.class, ConditionSerializer.INSTANCE)
     .setPrettyPrinting()
     .disableHtmlEscaping()
     .create();

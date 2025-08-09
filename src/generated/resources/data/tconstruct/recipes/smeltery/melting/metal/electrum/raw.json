@@ -1,0 +1,66 @@
+{
+  "type": "forge:conditional",
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "forge:raw_materials/electrum"
+    }
+  ],
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "mantle:tag_filled",
+          "tag": "forge:ingots/silver"
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:ore_melting",
+        "byproducts": [
+          {
+            "amount": 90,
+            "rate": "metal",
+            "tag": "forge:molten_silver"
+          }
+        ],
+        "ingredient": {
+          "tag": "forge:raw_materials/electrum"
+        },
+        "rate": "metal",
+        "result": {
+          "amount": 90,
+          "tag": "forge:molten_electrum"
+        },
+        "temperature": 760,
+        "time": 88
+      }
+    },
+    {
+      "conditions": [
+        {
+          "type": "forge:true"
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:ore_melting",
+        "byproducts": [
+          {
+            "amount": 90,
+            "rate": "metal",
+            "tag": "forge:molten_gold"
+          }
+        ],
+        "ingredient": {
+          "tag": "forge:raw_materials/electrum"
+        },
+        "rate": "metal",
+        "result": {
+          "amount": 90,
+          "tag": "forge:molten_electrum"
+        },
+        "temperature": 760,
+        "time": 88
+      }
+    }
+  ]
+}

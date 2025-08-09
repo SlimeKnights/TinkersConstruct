@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "allomancy:duralumin_flakes"
+    }
+  ],
+  "ingredient": {
+    "item": "allomancy:duralumin_flakes"
+  },
+  "result": {
+    "amount": 30,
+    "tag": "forge:molten_duralumin"
+  },
+  "temperature": 625,
+  "time": 31
+}

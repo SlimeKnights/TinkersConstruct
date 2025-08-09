@@ -20,15 +20,20 @@ public enum Byproduct implements IByproduct {
   IRON      (true, TinkerFluids.moltenIron),
   GOLD      (true, TinkerFluids.moltenGold),
   SMALL_GOLD("gold", true, TinkerFluids.moltenGold, FluidValues.NUGGET * 3, FluidValues.NUGGET, OreRateType.METAL),
+  TINY_GOLD ("gold", true, TinkerFluids.moltenGold, FluidValues.NUGGET, FluidValues.NUGGET, OreRateType.NONE),
   COBALT    (true, TinkerFluids.moltenCobalt),
   STEEL     (true, TinkerFluids.moltenSteel),
   DEBRIS    ("netherite_scrap", true, TinkerFluids.moltenDebris, FluidValues.INGOT, FluidValues.NUGGET, OreRateType.METAL),
   // compat metals
+  ALUMINUM(false, TinkerFluids.moltenAluminum),
   TIN     (false, TinkerFluids.moltenTin),
   SILVER  (false, TinkerFluids.moltenSilver),
   NICKEL  (false, TinkerFluids.moltenNickel),
   LEAD    (false, TinkerFluids.moltenLead),
   PLATINUM(false, TinkerFluids.moltenPlatinum),
+  ZINC    (false, TinkerFluids.moltenZinc),
+  CHROMIUM(false, TinkerFluids.moltenChromium),
+  CADMIUM (false, TinkerFluids.moltenCadmium),
   // gems
   DIAMOND(true, TinkerFluids.moltenDiamond, FluidValues.GEM, FluidValues.GEM_SHARD, OreRateType.GEM),
   SMALL_DIAMOND("diamond", true, TinkerFluids.moltenDiamond, FluidValues.GEM_SHARD, FluidValues.GEM_SHARD, OreRateType.GEM); // quarter diamond is comparable to third of an ingot

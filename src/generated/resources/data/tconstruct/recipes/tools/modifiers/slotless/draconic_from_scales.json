@@ -3,13 +3,13 @@
   "allow_crystal": false,
   "inputs": [
     {
-      "item": "minecraft:wither_rose"
+      "item": "minecraft:dragon_breath"
     },
     {
       "item": "tconstruct:dragon_scale"
     },
     {
-      "item": "minecraft:wither_rose"
+      "item": "minecraft:dragon_breath"
     },
     {
       "item": "tconstruct:dragon_scale"

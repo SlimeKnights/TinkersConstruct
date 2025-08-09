@@ -1,0 +1,24 @@
+{
+  "type": "tconstruct:melting",
+  "byproducts": [
+    {
+      "amount": 90,
+      "tag": "forge:molten_gold"
+    }
+  ],
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "forge:storage_blocks/ironwood"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:storage_blocks/ironwood"
+  },
+  "result": {
+    "amount": 810,
+    "tag": "forge:molten_iron"
+  },
+  "temperature": 800,
+  "time": 180
+}

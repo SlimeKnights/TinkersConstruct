@@ -13,10 +13,6 @@
       "required": false
     },
     {
-      "id": "tconstruct:tungsten",
-      "required": false
-    },
-    {
       "id": "tconstruct:necronium",
       "required": false
     },

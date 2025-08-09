@@ -51,6 +51,8 @@ import slimeknights.tconstruct.library.json.variable.mining.BlockLightVariable;
 import slimeknights.tconstruct.library.json.variable.mining.BlockMiningSpeedVariable;
 import slimeknights.tconstruct.library.json.variable.mining.BlockTemperatureVariable;
 import slimeknights.tconstruct.library.json.variable.mining.MiningSpeedVariable;
+import slimeknights.tconstruct.library.json.variable.power.EntityPowerVariable;
+import slimeknights.tconstruct.library.json.variable.power.PowerVariable;
 import slimeknights.tconstruct.library.json.variable.protection.EntityProtectionVariable;
 import slimeknights.tconstruct.library.json.variable.protection.ProtectionVariable;
 import slimeknights.tconstruct.library.json.variable.stat.ConditionalStatVariable;
@@ -121,6 +123,7 @@ import slimeknights.tconstruct.library.modifiers.modules.build.SwappableSlotModu
 import slimeknights.tconstruct.library.modifiers.modules.build.SwappableToolTraitsModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.VolatileFlagModule;
 import slimeknights.tconstruct.library.modifiers.modules.combat.ConditionalMeleeDamageModule;
+import slimeknights.tconstruct.library.modifiers.modules.combat.ConditionalPowerModule;
 import slimeknights.tconstruct.library.modifiers.modules.combat.KnockbackModule;
 import slimeknights.tconstruct.library.modifiers.modules.combat.LootingModule;
 import slimeknights.tconstruct.library.modifiers.modules.combat.MeleeAttributeModule;
@@ -278,10 +281,8 @@ import slimeknights.tconstruct.tools.modules.interaction.BrushModule;
 import slimeknights.tconstruct.tools.modules.interaction.ExtinguishCampfireModule;
 import slimeknights.tconstruct.tools.modules.interaction.PlaceGlowModule;
 import slimeknights.tconstruct.tools.modules.ranged.BulkQuiverModule;
-import slimeknights.tconstruct.tools.modules.ranged.HolyArrowModule;
 import slimeknights.tconstruct.tools.modules.ranged.RestrictAngleModule;
 import slimeknights.tconstruct.tools.modules.ranged.TrickQuiverModule;
-import slimeknights.tconstruct.tools.modules.ranged.ValiantArrowModule;
 import slimeknights.tconstruct.tools.recipe.ArmorDyeingRecipe;
 import slimeknights.tconstruct.tools.recipe.ArmorTrimRecipe;
 import slimeknights.tconstruct.tools.recipe.EnchantmentConvertingRecipe;
@@ -679,6 +680,7 @@ public final class TinkerModifiers extends TinkerModule {
       ModifierModule.LOADER.register(getResource("volatile_flag"), VolatileFlagModule.LOADER);
       // combat
       ModifierModule.LOADER.register(getResource("conditional_melee_damage"), ConditionalMeleeDamageModule.LOADER);
+      ModifierModule.LOADER.register(getResource("conditional_power"), ConditionalPowerModule.LOADER);
       ModifierModule.LOADER.register(getResource("knockback"), KnockbackModule.LOADER);
       ModifierModule.LOADER.register(getResource("melee_attribute"), MeleeAttributeModule.LOADER);
       ModifierModule.LOADER.register(getResource("mob_effect"), MobEffectModule.LOADER);
@@ -738,8 +740,6 @@ public final class TinkerModifiers extends TinkerModule {
       ModifierModule.LOADER.register(getResource("bulk_quiver"), BulkQuiverModule.LOADER);
       ModifierModule.LOADER.register(getResource("trick_quiver"), TrickQuiverModule.LOADER);
       ModifierModule.LOADER.register(getResource("infinity"), InfinityModule.LOADER);
-      ModifierModule.LOADER.register(getResource("holy_arrow"), HolyArrowModule.LOADER);
-      ModifierModule.LOADER.register(getResource("valiant_arrow"), ValiantArrowModule.LOADER);
       // compat
       ModifierModule.LOADER.register(getResource("the_one_probe"), TheOneProbeModule.INSTANCE.getLoader());
       ModifierModule.LOADER.register(getResource("headlight"), HeadlightModule.LOADER);
@@ -767,6 +767,7 @@ public final class TinkerModifiers extends TinkerModule {
       EntityVariable.LOADER.register(getResource("light"), EntityLightVariable.LOADER);
       EntityVariable.LOADER.register(getResource("equipment_count"), EquipmentCountEntityVariable.LOADER);
       EntityVariable.LOADER.register(getResource("biome_temperature"), EntityVariable.BIOME_TEMPERATURE.getLoader());
+      EntityVariable.LOADER.register(getResource("water"), EntityVariable.WATER.getLoader());
       // tool
       ToolVariable.LOADER.register(getResource("constant"), ToolVariable.Constant.LOADER);
       ToolVariable.register(getResource("tool_conditional"), ConditionalToolVariable.LOADER);
@@ -778,6 +779,9 @@ public final class TinkerModifiers extends TinkerModule {
       // melee
       MeleeVariable.LOADER.register(getResource("constant"), MeleeVariable.Constant.LOADER);
       MeleeVariable.LOADER.register(getResource("entity"), EntityMeleeVariable.LOADER);
+      // power
+      PowerVariable.LOADER.register(getResource("constant"), PowerVariable.Constant.LOADER);
+      PowerVariable.LOADER.register(getResource("entity"), EntityPowerVariable.LOADER);
       // mining speed
       MiningSpeedVariable.LOADER.register(getResource("constant"), MiningSpeedVariable.Constant.LOADER);
       MiningSpeedVariable.LOADER.register(getResource("block"), BlockMiningSpeedVariable.LOADER);

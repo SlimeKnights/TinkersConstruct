@@ -63,6 +63,10 @@
       "required": false
     },
     {
+      "id": "#forge:storage_blocks/bendalloy",
+      "required": false
+    },
+    {
       "id": "#forge:storage_blocks/fiery",
       "required": false
     }

@@ -60,6 +60,7 @@ import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.data.recipe.ISmelteryRecipeHelper;
 import slimeknights.tconstruct.library.data.recipe.SmelteryRecipeBuilder;
 import slimeknights.tconstruct.library.data.recipe.SmelteryRecipeBuilder.CommonRecipe;
+import slimeknights.tconstruct.library.data.recipe.SmelteryRecipeBuilder.MetalMelting;
 import slimeknights.tconstruct.library.data.recipe.SmelteryRecipeBuilder.ToolItemMelting;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipeBuilder;
@@ -1911,8 +1912,8 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
       // if we have both tin and lead, do the combined recipe. Ratio is from Metalborn/Allomancy
       .addCondition(new AndCondition(lead, tin))
       // ratio from Metalborn/Allomancy
-      .addRecipe(AlloyRecipeBuilder.alloy(TinkerFluids.moltenPewter, FluidValues.INGOT * 3)
-        .addInput(TinkerFluids.moltenTin.ingredient(FluidValues.INGOT * 2))
+      .addRecipe(AlloyRecipeBuilder.alloy(TinkerFluids.moltenPewter, FluidValues.INGOT * 4)
+        .addInput(TinkerFluids.moltenTin.ingredient(FluidValues.INGOT * 3))
         .addInput(TinkerFluids.moltenLead.ingredient(FluidValues.INGOT))::save)
 
       // otherwise, substitute iron for the missing part
@@ -1966,22 +1967,34 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                       .save(wrapped, prefix(TinkerFluids.moltenRefinedObsidian, folder));
 
     // nicrosil
-    // TODO: consider adding chromium as an option
-    wrapped = withCondition(consumer, tagCondition("ingots/nicrosil"), tagCondition("ingots/tin"));
+    wrapped = withCondition(consumer, tagCondition("ingots/nicrosil"));
     ConditionalRecipe.builder()
-      // if we have both tin and lead, do the combined recipe. Ratio is from Metalborn/Allomancy
-      .addCondition(tagCondition("ingots/nickel"))
-      // ratio from Metalborn - if nickel is present use that in high amounts
+      // if we have both chromium and nickel, can do the proper recipe
+      .addCondition(new AndCondition(tagCondition("ingots/chromium"), tagCondition("ingots/nickel")))
+      .addRecipe(AlloyRecipeBuilder.alloy(TinkerFluids.moltenNicrosil, FluidValues.INGOT * 4)
+        .addInput(TinkerFluids.moltenNickel.ingredient(FluidValues.INGOT * 2))
+        .addInput(TinkerFluids.moltenChromium.ingredient(FluidValues.INGOT))
+        .addInput(TinkerFluids.moltenQuartz.ingredient(FluidValues.GEM))::save)
+
+      // if chromium is missing, sub in tin per metalborn, can do the proper recipe
+      .addCondition(new AndCondition(tagCondition("ingots/tin"), tagCondition("ingots/nickel")))
       .addRecipe(AlloyRecipeBuilder.alloy(TinkerFluids.moltenNicrosil, FluidValues.INGOT * 4)
         .addInput(TinkerFluids.moltenNickel.ingredient(FluidValues.INGOT * 2))
         .addInput(TinkerFluids.moltenTin.ingredient(FluidValues.INGOT))
         .addInput(TinkerFluids.moltenQuartz.ingredient(FluidValues.GEM))::save)
 
-      // otherwise, just use tin and quartz
-      .addCondition(TrueCondition.INSTANCE)
-      // ratio from Metalborn - if nickel is absent
-      .addRecipe(AlloyRecipeBuilder.alloy(TinkerFluids.moltenNicrosil, FluidValues.INGOT * 2)
-        .addInput(TinkerFluids.moltenTin.ingredient(FluidValues.INGOT))
+      // nickel missing? use more chromium and sub in a bit of iron
+      .addCondition(tagCondition("ingots/chromium"))
+      .addRecipe(AlloyRecipeBuilder.alloy(TinkerFluids.moltenNicrosil, FluidValues.INGOT * 4)
+        .addInput(TinkerFluids.moltenChromium.ingredient(FluidValues.INGOT * 2))
+        .addInput(TinkerFluids.moltenIron.ingredient(FluidValues.INGOT))
+        .addInput(TinkerFluids.moltenQuartz.ingredient(FluidValues.GEM))::save)
+
+      // no nickel or chromium? just use tin and iron per metalborn
+      .addCondition(tagCondition("ingots/tin"))
+      .addRecipe(AlloyRecipeBuilder.alloy(TinkerFluids.moltenNicrosil, FluidValues.INGOT * 4)
+        .addInput(TinkerFluids.moltenTin.ingredient(FluidValues.INGOT * 2))
+        .addInput(TinkerFluids.moltenIron.ingredient(FluidValues.INGOT))
         .addInput(TinkerFluids.moltenQuartz.ingredient(FluidValues.GEM))::save)
 
       .build(wrapped, prefix(TinkerFluids.moltenNicrosil, folder));
@@ -1992,6 +2005,14 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
       .addInput(TinkerFluids.moltenAluminum.ingredient(FluidValues.INGOT * 3))
       .addInput(TinkerFluids.moltenCopper.ingredient(FluidValues.INGOT))
       .save(wrapped, prefix(TinkerFluids.moltenDuralumin, folder));
+
+    // bendalloy
+    wrapped = withCondition(consumer, tagCondition("ingots/bendalloy"), tagCondition("ingots/tin"), tagCondition("ingots/lead"), tagCondition("ingots/cadmium"));
+    AlloyRecipeBuilder.alloy(TinkerFluids.moltenBendalloy, FluidValues.INGOT * 4)
+      .addInput(TinkerFluids.moltenTin.ingredient(FluidValues.INGOT * 2))
+      .addInput(TinkerFluids.moltenLead.ingredient(FluidValues.INGOT))
+      .addInput(TinkerFluids.moltenCadmium.ingredient(FluidValues.INGOT))
+      .save(wrapped, prefix(TinkerFluids.moltenBendalloy, folder));
   }
 
   private void addEntityMeltingRecipes(Consumer<FinishedRecipe> consumer) {
@@ -2144,16 +2165,17 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     // mekanism support - they want us to use the cost 7 tag for leggings, and a shield
     ToolItemMelting MEKANISM_SHIELD = new ToolItemMelting(6, "mekanism", "shield");
     CommonRecipe[] MEKANISM_ARMOR = {HELMET, CHESTPLATE, LEGGINGS_PLUS, BOOTS, MEKANISM_SHIELD};
+    CommonRecipe FLAKES = new MetalMelting(1/3f, "allomancy", "flakes");
 
     // metal ores
     // copper has the brush for cost 1, so always keep that one around
-    metal(consumer, TinkerFluids.moltenCopper).ore(Byproduct.SMALL_GOLD   ).metal().dust().plate().gear().coin().sheetmetal().geore().oreberry().wire().common(SWORD, AXES, EXCAVATOR, HAMMER).common(ARMOR).toolCostMelting(1, "shovel", false);
+    metal(consumer, TinkerFluids.moltenCopper).ore(Byproduct.SMALL_GOLD   ).metal().dust().plate().gear().coin().sheetmetal().geore().oreberry().wire().common(SWORD, AXES, EXCAVATOR, HAMMER, FLAKES).common(ARMOR).toolCostMelting(1, "shovel", false);
     // iron has both railcraft spikemaul and tools complement excavator at cost 11
-    metal(consumer, TinkerFluids.moltenIron  ).ore(Byproduct.STEEL        ).metal().dust().plate().gear().coin().sheetmetal().geore().oreberry().minecraftTools().toolCostMelting(11, "tools_costing_11").common(HAMMER).rod();
+    metal(consumer, TinkerFluids.moltenIron  ).ore(Byproduct.STEEL        ).metal().dust().plate().gear().coin().sheetmetal().geore().oreberry().minecraftTools().toolCostMelting(11, "tools_costing_11").common(HAMMER, FLAKES).rod();
     metal(consumer, TinkerFluids.moltenCobalt).ore(Byproduct.SMALL_DIAMOND).metal().dust();
-    metal(consumer, TinkerFluids.moltenSteel ).metal().dust().plate().gear().coin().sheetmetal().common(SHOVEL_PLUS, SWORD, AXES, MEKANISM_SHIELD).common(ARMOR_PLUS).wire().rod().toolItemMelting(11, "railcraft", "spike_maul");
+    metal(consumer, TinkerFluids.moltenSteel ).metal().dust().plate().gear().coin().sheetmetal().common(SHOVEL_PLUS, SWORD, AXES, MEKANISM_SHIELD, FLAKES).common(ARMOR_PLUS).wire().rod().rawOre(Byproduct.IRON).toolItemMelting(11, "railcraft", "spike_maul");
     // gold ore does non-standard byproduct handling, as it wants sparse gold ore to have a different byproduct, hence moving byproducts so we don't have ores for the metal call
-    metal(consumer, TinkerFluids.moltenGold).metal().ore(Byproduct.COBALT).dust().plate().gear().coin().sheetmetal().geore().oreberry().minecraftTools("golden").common(EXCAVATOR, HAMMER).rawOre().singularOre(2).denseOre(6);
+    metal(consumer, TinkerFluids.moltenGold).metal().ore(Byproduct.COBALT).dust().plate().gear().coin().sheetmetal().geore().oreberry().minecraftTools("golden").common(EXCAVATOR, HAMMER, FLAKES).rawOre().singularOre(2).denseOre(6);
     // gem ores
     // diamond has both railcraft spikemaul and tools complement excavator at cost 11
     molten(consumer, TinkerFluids.moltenDiamond).ore(Byproduct.DEBRIS ).largeGem().dust().gear().geore().minecraftTools().toolCostMelting(11, "tools_costing_11").common(HAMMER);
@@ -2174,48 +2196,54 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     metal(consumer, TinkerFluids.moltenCinderslime).metal();
     metal(consumer, TinkerFluids.moltenQueensSlime).metal();
     String tf = "twilightforest";
-    metal(consumer, TinkerFluids.moltenKnightmetal).metal().common(AXES, LEGGINGS_PLUS)
+    CommonRecipe tfHelmet     = new ToolItemMelting(5, tf, "helmet");
+    CommonRecipe tfChestplate = new ToolItemMelting(8, tf, "chestplate");
+    CommonRecipe tfBoots      = new ToolItemMelting(4, tf, "boots");
+    CommonRecipe tfSword      = new ToolItemMelting(2, tf, "sword");
+    metal(consumer, TinkerFluids.moltenKnightmetal).metal().common(AXES, tfHelmet, tfChestplate, LEGGINGS_PLUS, tfBoots, tfSword)
       .metalMelting(4, tf, "ring", false)
-      .metalMelting(2, tf, "sword", true)
-      .metalMelting(5, tf, "helmet", true)
-      .metalMelting(8, tf, "chestplate", true)
       .itemMelting(16, tf, "block_and_chain", true)
-      // leggings and shields covered
-      .metalMelting(4, tf, "boots", true)
       // not using a traditional ore recipe as there isn't a reasonable byproduct, plus crafting a 3x3 doesn't feel like enough for a 3 nugget bonus
       .melting(1, "raw", "raw_materials", false, true)
       .itemMelting(1/9f, tf, "armor_shard", false);
 
     // compat ores
-    metal(consumer, TinkerFluids.moltenTin     ).ore(Byproduct.NICKEL, Byproduct.COPPER).optional().metal().dust().oreberry().plate().gear().coin().common(TOOLS_COMPLEMENT).common(ARMOR);
-    metal(consumer, TinkerFluids.moltenAluminum).ore(Byproduct.IRON                    ).optional().metal().dust().oreberry().plate().gear().coin().sheetmetal().wire().rod();
-    metal(consumer, TinkerFluids.moltenLead    ).ore(Byproduct.SILVER, Byproduct.GOLD  ).optional().metal().dust().oreberry().plate().gear().coin().common(TOOLS_COMPLEMENT).common(ARMOR).sheetmetal().wire();
-    metal(consumer, TinkerFluids.moltenSilver  ).ore(Byproduct.LEAD, Byproduct.GOLD    ).optional().metal().dust().oreberry().plate().gear().coin().common(TOOLS_COMPLEMENT).common(ARMOR).sheetmetal();
+    metal(consumer, TinkerFluids.moltenTin     ).ore(Byproduct.NICKEL, Byproduct.COPPER).optional().metal().dust().oreberry().plate().gear().coin().common(TOOLS_COMPLEMENT).common(ARMOR).common(FLAKES);
+    metal(consumer, TinkerFluids.moltenAluminum).ore(Byproduct.IRON                    ).optional().metal().dust().oreberry().plate().gear().coin().sheetmetal().wire().rod().common(FLAKES);
+    metal(consumer, TinkerFluids.moltenLead    ).ore(Byproduct.SILVER, Byproduct.GOLD  ).optional().metal().dust().oreberry().plate().gear().coin().common(TOOLS_COMPLEMENT).common(ARMOR).common(FLAKES).sheetmetal().wire();
+    metal(consumer, TinkerFluids.moltenSilver  ).ore(Byproduct.LEAD, Byproduct.GOLD    ).optional().metal().dust().oreberry().plate().gear().coin().common(TOOLS_COMPLEMENT).common(ARMOR).common(FLAKES).sheetmetal();
     metal(consumer, TinkerFluids.moltenNickel  ).ore(Byproduct.PLATINUM, Byproduct.IRON).optional().metal().dust().oreberry().plate().gear().coin().common(TOOLS_COMPLEMENT).common(ARMOR).sheetmetal();
-    metal(consumer, TinkerFluids.moltenZinc    ).ore(Byproduct.TIN, Byproduct.COPPER   ).optional().metal().dust().oreberry().plate().gear().geore();
+    metal(consumer, TinkerFluids.moltenZinc    ).ore(Byproduct.TIN, Byproduct.COPPER   ).optional().metal().dust().oreberry().plate().gear().geore().common(FLAKES);
     metal(consumer, TinkerFluids.moltenPlatinum).ore(Byproduct.GOLD                    ).optional().metal().dust();
     metal(consumer, TinkerFluids.moltenTungsten).ore(Byproduct.PLATINUM, Byproduct.GOLD).optional().metal().dust();
+    metal(consumer, TinkerFluids.moltenChromium).ore(Byproduct.ALUMINUM, Byproduct.IRON).optional().metal().dust().common(FLAKES);
+    metal(consumer, TinkerFluids.moltenCadmium ).ore(Byproduct.LEAD, Byproduct.COPPER  ).optional().metal().dust().common(FLAKES);
     metal(consumer, TinkerFluids.moltenOsmium  ).ore(Byproduct.IRON                    ).optional().metal().dust().oreberry().common(TOOLS).common(MEKANISM_ARMOR);
     metal(consumer, TinkerFluids.moltenUranium ).ore(Byproduct.LEAD, Byproduct.COPPER  ).optional().metal().dust().oreberry().plate().gear().coin().sheetmetal();
     // compat alloys
-    metal(consumer, TinkerFluids.moltenBronze    ).optional().metal().dust().plate().gear().coin().common(TOOLS_COMPLEMENT).common(MEKANISM_ARMOR);
-    metal(consumer, TinkerFluids.moltenBrass     ).optional().metal().dust().plate().gear();
-    metal(consumer, TinkerFluids.moltenElectrum  ).optional().metal().dust().plate().gear().coin().common(TOOLS_COMPLEMENT).common(ARMOR).sheetmetal().wire();
+    metal(consumer, TinkerFluids.moltenBronze    ).optional().metal().dust().plate().gear().coin().common(TOOLS_COMPLEMENT).common(MEKANISM_ARMOR).common(FLAKES).rawOre(Byproduct.COPPER);
+    metal(consumer, TinkerFluids.moltenBrass     ).optional().metal().dust().plate().gear().common(FLAKES).rawOre(Byproduct.ZINC, Byproduct.COPPER);
+    metal(consumer, TinkerFluids.moltenElectrum  ).optional().metal().dust().plate().gear().rawOre(Byproduct.SILVER, Byproduct.GOLD).coin().common(TOOLS_COMPLEMENT).common(ARMOR).sheetmetal().wire().common(FLAKES);
     metal(consumer, TinkerFluids.moltenInvar     ).optional().metal().dust().plate().gear().coin().common(TOOLS_COMPLEMENT).common(ARMOR);
     metal(consumer, TinkerFluids.moltenConstantan).optional().metal().dust().plate().gear().coin().common(TOOLS_COMPLEMENT).common(ARMOR).sheetmetal();
-    metal(consumer, TinkerFluids.moltenPewter    ).optional().metal().dust();
+    metal(consumer, TinkerFluids.moltenPewter    ).optional().metal().dust().common(FLAKES).rawOre(Byproduct.TIN, Byproduct.LEAD, Byproduct.IRON);
+    metal(consumer, TinkerFluids.moltenNicrosil  ).optional().metal().dust().common(FLAKES).rawOre(Byproduct.CHROMIUM);
+    metal(consumer, TinkerFluids.moltenDuralumin ).optional().metal().dust().common(FLAKES).rawOre(Byproduct.ALUMINUM, Byproduct.COPPER);
+    metal(consumer, TinkerFluids.moltenBendalloy ).optional().metal().dust().common(FLAKES).rawOre(Byproduct.CADMIUM);
     // specialty alloys
     metal(consumer, TinkerFluids.moltenEnderium).optional().metal().dust().plate().gear().coin();
     metal(consumer, TinkerFluids.moltenLumium  ).optional().metal().dust().plate().gear().coin();
     metal(consumer, TinkerFluids.moltenSignalum).optional().metal().dust().plate().gear().coin();
     metal(consumer, TinkerFluids.moltenRefinedObsidian ).optional().metal().common(TOOLS).common(MEKANISM_ARMOR);
     metal(consumer, TinkerFluids.moltenRefinedGlowstone).optional().metal().common(TOOLS).common(MEKANISM_ARMOR);
-    metal(consumer, TinkerFluids.moltenNicrosil).optional().metal();
-    metal(consumer, TinkerFluids.moltenDuralumin).optional().metal();
     // embers provides their own fluid. so we just have to add the recipes
     TagKey<Fluid> dawnstone = getFluidTag(COMMON, "molten_dawnstone");
     metal(withCondition(consumer, new TagFilledCondition<>(dawnstone)), "dawnstone", dawnstone).temperature(900).optional().metal().plate();
-
+    // twilight forest
+    CommonRecipe tfLeggings = new ToolItemMelting(7, tf, "leggings");
+    CommonRecipe tfShovel = new ToolItemMelting(1, tf, "shovel");
+    metal(consumer, TinkerFluids.moltenSteeleaf).optional().metal()
+      .common(AXES, SWORD, tfShovel, tfHelmet, tfChestplate, tfLeggings, tfBoots);
     // fiery doesn't have a molten form, rather its composite the whole way
     fluid(consumer, "fiery", TinkerFluids.fieryLiquid).optional()
       .baseUnit(FluidValues.BOTTLE).damageUnit(FluidValues.SIP).unitByproducts(Byproduct.IRON)
@@ -2224,12 +2252,16 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
       .blockCasting(9, Ingredient.of(Tags.Items.STORAGE_BLOCKS_IRON), false)
       .meltingCasting(1, "ingot", "iron", 1, false)
       // armor and tools
-      .metalMelting(3, tf, "pickaxe", true)
-      .metalMelting(2, tf, "sword", true)
-      .metalMelting(5, tf, "helmet", true)
-      .metalMelting(8, tf, "chestplate", true)
-      .metalMelting(7, tf, "leggings", true)
-      .metalMelting(4, tf, "boots", true);
+      .common(tfSword, tfHelmet, tfChestplate, tfLeggings, tfBoots)
+      .metalMelting(3, tf, "pickaxe", true);
+    fluid(consumer, "ironwood", TinkerFluids.moltenIron).optional()
+      .baseUnit(FluidValues.INGOT).damageUnit(FluidValues.NUGGET).unitByproducts(Byproduct.TINY_GOLD)
+      // block and ingot melting
+      .melting(9, "block", "storage_blocks", 3.0f, false, false)
+      .melting(1, "ingot", 1f, false)
+      .melting(1, "raw", "raw_materials", false, false)
+      // armor and tools
+      .common(AXES, SWORD, tfShovel, tfHelmet, tfChestplate, tfLeggings, tfBoots);
   }
 
   private void addCompatRecipes(Consumer<FinishedRecipe> consumer) {

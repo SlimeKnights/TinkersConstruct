@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/nugget"
+  },
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "forge:nuggets/bendalloy"
+    }
+  ],
+  "cooling_time": 11,
+  "fluid": {
+    "amount": 10,
+    "tag": "forge:molten_bendalloy"
+  },
+  "result": {
+    "tag": "forge:nuggets/bendalloy"
+  }
+}

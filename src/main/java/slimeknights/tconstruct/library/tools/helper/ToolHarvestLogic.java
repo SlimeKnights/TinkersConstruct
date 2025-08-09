@@ -201,7 +201,8 @@ public class ToolHarvestLogic {
     //return this.breakBlock(stack, pos, player);
 
     // client can run normal block breaking
-    if (player.level().isClientSide || !(player instanceof ServerPlayer serverPlayer)) {
+    // if its not harvest, skip our hooks as well
+    if (player.level().isClientSide || !stack.is(TinkerTags.Items.HARVEST) || !(player instanceof ServerPlayer serverPlayer)) {
       return false;
     }
 
@@ -269,6 +270,9 @@ public class ToolHarvestLogic {
 
   /** Handles {@link net.minecraft.world.item.Item#mineBlock(net.minecraft.world.item.ItemStack, net.minecraft.world.level.Level, net.minecraft.world.level.block.state.BlockState, net.minecraft.core.BlockPos, net.minecraft.world.entity.LivingEntity)} for modifiable items */
   public static boolean mineBlock(ItemStack stack, Level worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
+    if (!stack.is(TinkerTags.Items.HARVEST)) {
+      return false;
+    }
     ToolStack tool = ToolStack.from(stack);
     if (tool.isBroken()) {
       return false;

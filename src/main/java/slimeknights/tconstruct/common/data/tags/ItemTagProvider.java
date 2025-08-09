@@ -104,6 +104,7 @@ import static slimeknights.tconstruct.common.TinkerTags.Items.WORN_ARMOR;
 
 @SuppressWarnings("unchecked")
 public class ItemTagProvider extends ItemTagsProvider {
+  private final Function<ResourceLocation,IntrinsicTagAppender<Item>> MAKE_TAG = tag -> tag(ItemTags.create(tag));
 
   public ItemTagProvider(PackOutput output, CompletableFuture<Provider> lookupProvider, CompletableFuture<TagLookup<Block>> blockTagProvider, ExistingFileHelper existingFileHelper) {
     super(output, lookupProvider, blockTagProvider, TConstruct.MOD_ID, existingFileHelper);
@@ -461,6 +462,19 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.copy(TinkerTags.Blocks.BLACKSTONE, TinkerTags.Items.BLACKSTONE);
     this.copy(TinkerTags.Blocks.DEEPSLATE,  TinkerTags.Items.DEEPSLATE);
     this.copy(TinkerTags.Blocks.BASALT,     TinkerTags.Items.BASALT);
+
+    // twilight forest trophies
+    Function<String,ResourceLocation> trophy = name -> new ResourceLocation("twilightforest", name + "_trophy");
+    this.tag(TinkerTags.Items.BOSS_TROPHIES)
+      .addOptional(trophy.apply("naga"))
+      .addOptional(trophy.apply("lich"))
+      .addOptional(trophy.apply("minoshroom"))
+      .addOptional(trophy.apply("hydra"))
+      .addOptional(trophy.apply("knight_phantom"))
+      .addOptional(trophy.apply("ur_ghast"))
+      .addOptional(trophy.apply("alpha_yeti"))
+      .addOptional(trophy.apply("snow_queen"))
+      .addOptional(trophy.apply("quest_ram"));
   }
 
   private void addSmeltery() {
@@ -608,6 +622,13 @@ public class ItemTagProvider extends ItemTagsProvider {
     // special alloys
     moltenTools(TinkerFluids.moltenRefinedGlowstone).toolTags().leggingsPaxel();
     moltenTools(TinkerFluids.moltenRefinedObsidian).toolTags().leggingsPaxel();
+    // twilight forest
+    CostTagAppender.moltenToolMelting(TConstruct.MOD_ID, "ironwood", MAKE_TAG)
+      .optionalMetal(2, tf, "sword", "hoe")
+      .optionalMetal(3, tf, "axe", "pickaxe");
+    moltenTools(TinkerFluids.moltenSteeleaf)
+      .optionalMetal(2, tf, "sword", "hoe")
+      .optionalMetal(3, tf, "axe", "pickaxe");
   }
 
   @Override
@@ -676,6 +697,6 @@ public class ItemTagProvider extends ItemTagsProvider {
 
   /** Creates a builder for a melting tag with a molten fluid */
   protected CostTagAppender moltenTools(FluidObject<?> fluid) {
-    return CostTagAppender.moltenToolMelting(fluid, tag -> tag(ItemTags.create(tag)));
+    return CostTagAppender.moltenToolMelting(fluid, MAKE_TAG);
   }
 }

@@ -3,27 +3,13 @@
   "allow_crystal": false,
   "inputs": [
     {
-      "ingredient": [
-        {
-          "item": "tconstruct:dragon_scale"
-        },
-        {
-          "item": "minecraft:gilded_blackstone"
-        }
-      ]
+      "tag": "forge:nuggets/manyullyn"
     },
     {
-      "tag": "forge:ingots/manyullyn"
+      "item": "minecraft:end_crystal"
     },
     {
-      "ingredient": [
-        {
-          "item": "tconstruct:dragon_scale"
-        },
-        {
-          "item": "minecraft:gilded_blackstone"
-        }
-      ]
+      "tag": "forge:nuggets/manyullyn"
     },
     {
       "item": "tconstruct:ender_slime_crystal_block"

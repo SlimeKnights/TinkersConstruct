@@ -3,7 +3,7 @@
   "allow_crystal": true,
   "inputs": [
     {
-      "item": "minecraft:golden_apple"
+      "item": "minecraft:gilded_blackstone"
     }
   ],
   "result": "tconstruct:gilded",
