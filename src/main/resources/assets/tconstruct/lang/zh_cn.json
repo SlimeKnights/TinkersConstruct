@@ -2909,7 +2909,7 @@
   "modifier.tconstruct.solid.resistance": "抗性",
   "modifier.tconstruct.shock": "震击",
   "modifier.tconstruct.shock.flavor": "导电",
-  "modifier.tconstruct.shock.description": "对水中目标造成更多伤害，ater, and damages",
+  "modifier.tconstruct.shock.description": "对水中目标造成更多伤害",
   "modifier.tconstruct.shock.attack_damage": "震击伤害",
   "modifier.tconstruct.shock.projectile_damage": "震击伤害",
   "modifier.tconstruct.decay": "衰变",
