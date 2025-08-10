@@ -2028,8 +2028,8 @@
   "material.tconstruct.treated_wood.flavor": "善自珍摄，浸待重逢",
   "material.tconstruct.treated_wood.encyclopedia": "耐久度和修理效率+15%",
 
-  "material.tconstruct.ironwood": "铁树",
-  "material.tconstruct.ironwood.flavor": "铁树是树吗？",
+  "material.tconstruct.ironwood": "铁木",
+  "material.tconstruct.ironwood.flavor": "铁木是木头吗？",
   "material.tconstruct.ironwood.encyclopedia": "随等级提升，降低工具使用后耐久降低的概率。1级为75%，2级为55%，3级为40%，4级为30%。",
 
 
@@ -2397,7 +2397,12 @@
   "modifier.tconstruct.aqua_affinity.description": "在水下挖掘方块时不再减慢挖掘速度",
   "modifier.tconstruct.item_frame": "物品展示框",
   "modifier.tconstruct.item_frame.flavor": "我能目清一切",
-  "modifier.tconstruct.item_frame.description": "为头盔增加物品栏，从而便于查看。非常适合放置时钟或指南针",
+  "modifier.tconstruct.item_frame.description": "为头盔增加数个物品栏，从而便于查看。非常适合放置时钟或指南针",
+  "modifier.tconstruct.minimap": "小地图",
+  "modifier.tconstruct.minimap.flavor": "探险家的梦想",
+  "modifier.tconstruct.minimap.description": "为头盔增加数个物品栏，可以放置地图",
+  "modifier.tconstruct.minimap.disabled": "小地图：关闭",
+  "modifier.tconstruct.minimap.selected": "小地图：已从栏位%3$s选择%1$s #%2$s",
 
   "_comment": "Armor - chestplate",
   "modifier.tconstruct.armor_power": "能量",
