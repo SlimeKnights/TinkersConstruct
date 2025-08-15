@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:minimap",
   "text": [
     {
-      "text": "在你的前方显示地图，一如传说中的“平视显示器”那样。"
+      "text": "在你视野的前方显示地图，一如传说中的“平视显示器”那样。"
     }
   ],
   "effects": [
