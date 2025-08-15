@@ -253,6 +253,9 @@ public abstract class AbstractMaterialContent extends PageContent {
   /** Gets all trait text data for the given stat instance */
   protected static void addTraitLines(List<TextComponentData> lineData, List<ModifierEntry> traits) {
     for (ModifierEntry trait : traits) {
+      if (!trait.isBound()) {
+        continue;
+      }
       Modifier mod = trait.getModifier();
       TextComponentData textComponentData = new TextComponentData(mod.getDisplayName());
 

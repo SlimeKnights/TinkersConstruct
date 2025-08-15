@@ -42,8 +42,10 @@ public interface ModifierTraitHook {
     /** Adds the given modifier to the builder and adds all its traits */
     @Override
     public TraitBuilder add(ModifierEntry entry) {
-      builder.add(entry);
-      addTraits(entry);
+      if (entry.isBound()) {
+        builder.add(entry);
+        addTraits(entry);
+      }
       return this;
     }
 

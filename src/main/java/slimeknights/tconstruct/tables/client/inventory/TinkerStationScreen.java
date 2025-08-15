@@ -24,7 +24,6 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.client.GuiUtil;
-import slimeknights.tconstruct.library.client.RenderUtils;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.library.tools.layout.LayoutIcon;
 import slimeknights.tconstruct.library.tools.layout.LayoutSlot;
@@ -64,23 +63,23 @@ public class TinkerStationScreen extends ToolTableScreen<TinkerStationBlockEntit
   private static final int STILL_FILLED_SPACING = 18;
 
   // texture
-  private static final ResourceLocation TINKER_STATION_TEXTURE = TConstruct.getResource("textures/gui/tinker_station.png");
+  private static final ResourceLocation TINKER_TEXTURE = TConstruct.getResource("textures/gui/tinker.png");
   // texture elements
-  private static final ElementScreen ACTIVE_TEXT_FIELD = new ElementScreen(TINKER_STATION_TEXTURE, 0, 210, 91, 12, 256, 256);
+  private static final ElementScreen ACTIVE_TEXT_FIELD = new ElementScreen(TINKER_TEXTURE, 0, 232, 90, 12, 256, 256);
   private static final ElementScreen ITEM_COVER = ACTIVE_TEXT_FIELD.move(176, 18, 70, 64);
   // slots
   private static final ElementScreen SLOT_BACKGROUND = ACTIVE_TEXT_FIELD.move(176, 0, 18, 18);
   private static final ElementScreen SLOT_BORDER = ACTIVE_TEXT_FIELD.move(194, 0, 18, 18);
-  private static final ElementScreen SLOT_SPACE_TOP = ACTIVE_TEXT_FIELD.move(0, 174 + 2, 18, 2);
-  private static final ElementScreen SLOT_SPACE_BOTTOM = ACTIVE_TEXT_FIELD.move(0, 174, 18, 2);
+  private static final ElementScreen SLOT_SPACE_TOP = ACTIVE_TEXT_FIELD.move(0, 198, 18, 2);
+  private static final ElementScreen SLOT_SPACE_BOTTOM = ACTIVE_TEXT_FIELD.move(0, 196, 18, 2);
   // panel
-  private static final ElementScreen PANEL_SPACE_LEFT = ACTIVE_TEXT_FIELD.move(0, 174, 5, 4);
-  private static final ElementScreen PANEL_SPACE_RIGHT = ACTIVE_TEXT_FIELD.move(9, 174, 9, 4);
-  private static final ElementScreen LEFT_BEAM = ACTIVE_TEXT_FIELD.move(0, 180, 2, 7);
-  private static final ElementScreen RIGHT_BEAM = ACTIVE_TEXT_FIELD.move(131, 180, 2, 7);
-  private static final ScalableElementScreen CENTER_BEAM = new ScalableElementScreen(TINKER_STATION_TEXTURE, 2, 180, 129, 7, 256, 256);
+  private static final ElementScreen PANEL_SPACE_LEFT = ACTIVE_TEXT_FIELD.move(0, 196, 5, 4);
+  private static final ElementScreen PANEL_SPACE_RIGHT = ACTIVE_TEXT_FIELD.move(9, 196, 9, 4);
+  private static final ElementScreen LEFT_BEAM = ACTIVE_TEXT_FIELD.move(0, 202, 2, 7);
+  private static final ElementScreen RIGHT_BEAM = ACTIVE_TEXT_FIELD.move(131, 202, 2, 7);
+  private static final ScalableElementScreen CENTER_BEAM = new ScalableElementScreen(TINKER_TEXTURE, 2, 202, 129, 7, 256, 256);
   // text boxes
-  private static final ElementScreen TEXT_BOX = ACTIVE_TEXT_FIELD.move(0, 222, 90, 12);
+  private static final ElementScreen TEXT_BOX = ACTIVE_TEXT_FIELD.move(0, 244, 90, 12);
 
   /** Number of button columns in the UI */
   public static final int COLUMN_COUNT = 5;
@@ -120,7 +119,7 @@ public class TinkerStationScreen extends ToolTableScreen<TinkerStationBlockEntit
     this.tinkerInfo.yOffset = 5;
     this.modifierInfo.yOffset = this.tinkerInfo.imageHeight + 9;
 
-    this.imageHeight = 174;
+    this.imageHeight = 184;
 
     // determine number of inputs
     int max = 5;
@@ -166,7 +165,7 @@ public class TinkerStationScreen extends ToolTableScreen<TinkerStationBlockEntit
 
     int x = (this.width - this.imageWidth) / 2;
     int y = (this.height - this.imageHeight) / 2;
-    textField = new EditBox(this.font, x + 80, y + 5, 82, 9, Component.empty());
+    textField = new EditBox(this.font, x + 80, y + 7, 82, 9, Component.empty());
     textField.setCanLoseFocus(true);
     textField.setTextColor(-1);
     textField.setTextColorUneditable(-1);
@@ -192,7 +191,7 @@ public class TinkerStationScreen extends ToolTableScreen<TinkerStationBlockEntit
     this.buttonsScreen = new TinkerStationButtonsWidget(this, this.cornerX - TinkerStationButtonsWidget.width(COLUMN_COUNT) - 2,
       this.cornerY + this.centerBeam.h + this.buttonDecorationTop.h, layouts, buttonsStyle);
 
-    this.setupArmorStandPreview(-55, 190, 35);
+    this.setupArmorStandPreview(-55, 195, 35);
 
     this.updateLayout();
   }
@@ -321,7 +320,7 @@ public class TinkerStationScreen extends ToolTableScreen<TinkerStationBlockEntit
 
   @Override
   protected void renderBg(GuiGraphics graphics, float partialTicks, int mouseX, int mouseY) {
-    this.drawBackground(graphics, TINKER_STATION_TEXTURE);
+    this.drawBackground(graphics, TINKER_TEXTURE);
 
     int x = 0;
     int y = 0;
@@ -340,7 +339,7 @@ public class TinkerStationScreen extends ToolTableScreen<TinkerStationBlockEntit
     renderPose.popPose();
 
     // rebind gui texture since itemstack drawing sets it to something else
-    RenderUtils.setup(TINKER_STATION_TEXTURE, 1.0f, 1.0f, 1.0f, 0.82f);
+    RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 0.82f);
     RenderSystem.enableBlend();
     //RenderSystem.enableAlphaTest();
     //RenderHelper.turnOff();
@@ -362,7 +361,7 @@ public class TinkerStationScreen extends ToolTableScreen<TinkerStationBlockEntit
     RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
     for (int i = 0; i <= maxInputs; i++) {
       Slot slot = this.getMenu().getSlot(i);
-      if ((slot instanceof TinkerStationSlot && (!((TinkerStationSlot) slot).isDormant() || slot.hasItem()))) {
+      if ((slot instanceof TinkerStationSlot tinkerSlot && (!tinkerSlot.isDormant() || slot.hasItem()))) {
         SLOT_BORDER.draw(graphics, x + this.cornerX + slot.x - 1, y + this.cornerY + slot.y - 1);
       }
     }
@@ -416,8 +415,7 @@ public class TinkerStationScreen extends ToolTableScreen<TinkerStationBlockEntit
 
     // text field
     if (textField != null && textField.visible) {
-      RenderUtils.setup(TINKER_STATION_TEXTURE, 1.0f, 1.0f, 1.0f, 1.0f);
-      TEXT_BOX.draw(graphics, this.cornerX + 79, this.cornerY + 3);
+      TEXT_BOX.draw(graphics, this.cornerX + 79, this.cornerY + 5);
       this.textField.render(graphics, mouseX, mouseY, partialTicks);
     }
 

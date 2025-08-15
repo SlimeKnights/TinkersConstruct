@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:minimap",
+  "text": [
+    {
+      "text": "Display the map up on your head, making it a head's up display."
+    }
+  ],
+  "effects": [
+    "Adds slots to the helmet, interact to access",
+    "Helmet will explore map when worn",
+    "Swap map with control + helmet interact",
+    "Requires 1 upgrade slot per level"
+  ]
+}

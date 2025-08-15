@@ -25,6 +25,11 @@ public class TinkerChestContainerMenu extends TabbedContainerMenu<AbstractChestB
     this(id, inv, getTileEntityFromBuf(buf, AbstractChestBlockEntity.class));
   }
 
+  @Override
+  protected int getInventoryYOffset() {
+    return 102;
+  }
+
   /** Resizable inventory */
   public static class DynamicChestInventory extends SideInventoryContainer<AbstractChestBlockEntity> {
     public DynamicChestInventory(MenuType<?> containerType, int windowId, Inventory inv, AbstractChestBlockEntity tile, int x, int y, int columns) {

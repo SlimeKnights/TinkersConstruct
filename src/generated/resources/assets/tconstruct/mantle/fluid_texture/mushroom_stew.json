@@ -1,5 +1,13 @@
 {
+  "camera": "tconstruct:fluid/food/stew/camera",
+  "camera_opacity": 0.1,
   "color": "FFCD8C6F",
   "flowing": "tconstruct:fluid/food/stew/flowing",
+  "fog": {
+    "calculate_color": true,
+    "end": 2.0,
+    "shape": "sphere",
+    "start": 0.25
+  },
   "still": "tconstruct:fluid/food/stew/still"
 }

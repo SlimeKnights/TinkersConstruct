@@ -30,6 +30,7 @@ public class FluidTagProvider extends FluidTagsProvider {
     // slime
     fluidTag(TinkerFluids.earthSlime);
     fluidTag(TinkerFluids.skySlime);
+    fluidTag(TinkerFluids.ichor);
     fluidTag(TinkerFluids.enderSlime);
     fluidTag(TinkerFluids.magma);
     fluidTag(TinkerFluids.venom);
@@ -64,6 +65,7 @@ public class FluidTagProvider extends FluidTagsProvider {
     fluidTag(TinkerFluids.moltenManyullyn);
     fluidTag(TinkerFluids.moltenHepatizon);
     fluidTag(TinkerFluids.moltenQueensSlime);
+    fluidTag(TinkerFluids.moltenCinderslime);
     fluidTag(TinkerFluids.moltenSoulsteel);
     fluidTag(TinkerFluids.moltenNetherite);
     // end alloys
@@ -114,8 +116,8 @@ public class FluidTagProvider extends FluidTagsProvider {
     this.tag(TinkerTags.Fluids.SLIME)
         .addTag(TinkerFluids.earthSlime.getTag())
         .addTag(TinkerFluids.skySlime.getTag())
-        .addTag(TinkerFluids.enderSlime.getTag())
-        .add(TinkerFluids.ichor.get());
+        .addTags(TinkerFluids.ichor.getTag())
+        .addTag(TinkerFluids.enderSlime.getTag());
 
     fluidTag(TinkerFluids.potion);
     fluidTag(TinkerFluids.powderedSnow);
@@ -170,13 +172,12 @@ public class FluidTagProvider extends FluidTagsProvider {
     // both effects - all the neat slimes
     this.tag(TinkerTags.Fluids.CHEMTHROWER_BOTH_EFFECTS)
       // slime
-      .add(TinkerFluids.ichor.get(), TinkerFluids.moltenCinderslime.get())
       .addTags(
         // slime
-        TinkerFluids.earthSlime.getLocalTag(), TinkerFluids.skySlime.getLocalTag(), TinkerFluids.enderSlime.getTag(),
+        TinkerFluids.earthSlime.getLocalTag(), TinkerFluids.skySlime.getLocalTag(), TinkerFluids.ichor.getTag(), TinkerFluids.enderSlime.getTag(),
         TinkerFluids.magma.getLocalTag(), TinkerFluids.moltenEnder.getLocalTag(),
         // slime metal
-        TinkerFluids.moltenSlimesteel.getLocalTag(), TinkerFluids.moltenQueensSlime.getLocalTag(),
+        TinkerFluids.moltenSlimesteel.getLocalTag(), TinkerFluids.moltenQueensSlime.getLocalTag(), TinkerFluids.moltenCinderslime.getLocalTag(),
         // thermal alloys
         TinkerFluids.moltenSignalum.getLocalTag()
       );
@@ -192,8 +193,8 @@ public class FluidTagProvider extends FluidTagsProvider {
         TinkerFluids.moltenCobalt.getTag(), TinkerFluids.moltenSteel.getTag(), TinkerFluids.moltenDebris.getTag(),
         // base alloys
         TinkerFluids.moltenSlimesteel.getTag(), TinkerFluids.moltenAmethystBronze.getTag(), TinkerFluids.moltenRoseGold.getTag(), TinkerFluids.moltenPigIron.getTag(),
-        TinkerFluids.moltenManyullyn.getTag(), TinkerFluids.moltenHepatizon.getTag(), TinkerFluids.moltenQueensSlime.getTag(), TinkerFluids.moltenNetherite.getTag(),
-        TinkerFluids.moltenSoulsteel.getTag(), TinkerFluids.moltenKnightmetal.getTag(), TinkerFluids.moltenKnightslime.getTag(),
+        TinkerFluids.moltenManyullyn.getTag(), TinkerFluids.moltenHepatizon.getTag(), TinkerFluids.moltenQueensSlime.getTag(), TinkerFluids.moltenCinderslime.getTag(),
+        TinkerFluids.moltenNetherite.getTag(), TinkerFluids.moltenSoulsteel.getTag(), TinkerFluids.moltenKnightmetal.getTag(), TinkerFluids.moltenKnightslime.getTag(),
         // compat ores
         TinkerFluids.moltenTin.getTag(), TinkerFluids.moltenAluminum.getTag(), TinkerFluids.moltenLead.getTag(),
         TinkerFluids.moltenSilver.getTag(), TinkerFluids.moltenNickel.getTag(), TinkerFluids.moltenZinc.getTag(),

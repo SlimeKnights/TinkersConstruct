@@ -795,6 +795,14 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setSlots(SlotType.UPGRADE, 1)
                          .saveSalvage(consumer, prefix(TinkerModifiers.itemFrame, upgradeSalvage))
                          .save(consumer, prefix(TinkerModifiers.itemFrame, upgradeFolder));
+    ModifierRecipeBuilder.modifier(ModifierIds.minimap)
+      .setTools(TinkerTags.Items.HELMETS)
+      .addInput(Items.COMPASS)
+      .addInput(Tags.Items.SLIMEBALLS)
+      .addInput(Items.PAPER)
+      .setSlots(SlotType.UPGRADE, 1)
+      .saveSalvage(consumer, prefix(ModifierIds.minimap, upgradeSalvage))
+      .save(consumer, prefix(ModifierIds.minimap, upgradeFolder));
     // upgrade - leggings
     hasteRecipes(consumer, ModifierIds.speedy, Ingredient.of(TinkerTags.Items.LEGGINGS), 3, upgradeFolder, upgradeSalvage);
     // leaping lets you disable skyslime geodes in case you don't like fun

@@ -104,6 +104,7 @@
   
   "tconstruct:aqua_affinity":  ["minecraft:item/heart_of_the_sea", "tconstruct:gui/modifiers/book"],
   "tconstruct:item_frame":    ["minecraft:item/item_frame", "tconstruct:gui/modifiers/book"],
+  "tconstruct:minimap":       ["minecraft:item/filled_map", "tconstruct:gui/modifiers/book"],
   "tconstruct:respiration":   "tconstruct:gui/modifiers/armor/respiration",
   "tconstruct:slurping":      "tconstruct:gui/modifiers/armor/slurping",
   "tconstruct:zoom":          ["minecraft:item/spyglass", "tconstruct:gui/modifiers/book"],

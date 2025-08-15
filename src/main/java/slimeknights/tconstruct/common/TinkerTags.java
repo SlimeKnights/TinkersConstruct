@@ -323,8 +323,6 @@ public class TinkerTags {
     /** Containers that can be used in the duct */
     public static final TagKey<Item> DUCT_CONTAINERS = local("duct_containers");
 
-    /** Items that cannot be autosmelted */
-    public static final TagKey<Item> AUTOSMELT_BLACKLIST = local("autosmelt_blacklist");
 
     /** Items that are seeds for kama harvest */
     public static final TagKey<Item> SEEDS = local("seeds");
@@ -342,6 +340,10 @@ public class TinkerTags {
     public static final TagKey<Item> CHRYSOPHILITE_ORES = local("chrysophilite_ores");
     /** All ore rates that are not {@link net.minecraftforge.common.Tags.Items#ORE_RATES_SINGULAR}. Used for recipe conditioning. */
     public static final TagKey<Item> NON_SINGULAR_ORE_RATES = local("non_singular_ore_rates");
+    /** Items that cannot be autosmelted */
+    public static final TagKey<Item> AUTOSMELT_BLACKLIST = local("autosmelt_blacklist");
+    /** Items which should not be duplicated from higher levels of autosmelt */
+    public static final TagKey<Item> AUTOSMELT_PLUS_BLACKLIST = common("autosmelt_plus_blacklist");
 
     /*
      * Tool tags

@@ -31,10 +31,10 @@ public class PartBuilderContainerMenu extends TabbedContainerMenu<PartBuilderBlo
     // unfortunately, nothing works with no tile
     if (tile != null) {
       // slots
-      this.addSlot(this.outputSlot = new LazyResultSlot(tile.getCraftingResult(), 148, 33));
+      this.addSlot(this.outputSlot = new LazyResultSlot(tile.getCraftingResult(), 148, 42));
       // inputs
-      this.addSlot(this.patternSlot = new PatternSlot(tile, 8, 34));
-      this.addSlot(this.inputSlot = new MaterialSlot(tile, PartBuilderBlockEntity.MATERIAL_SLOT, 29, 34));
+      this.addSlot(this.patternSlot = new PatternSlot(tile, 8, 43));
+      this.addSlot(this.inputSlot = new MaterialSlot(tile, PartBuilderBlockEntity.MATERIAL_SLOT, 29, 43));
 
       // other inventories
       this.addChestSideInventory();
@@ -56,6 +56,11 @@ public class PartBuilderContainerMenu extends TabbedContainerMenu<PartBuilderBlo
 
   public PartBuilderContainerMenu(int id, Inventory inv, FriendlyByteBuf buf) {
     this(id, inv, getTileEntityFromBuf(buf, PartBuilderBlockEntity.class));
+  }
+
+  @Override
+  protected int getInventoryYOffset() {
+    return 102;
   }
 
   @Override

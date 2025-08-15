@@ -6,6 +6,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ArrowItem;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.MapItem;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour.BlockStateBase;
 import slimeknights.mantle.client.TooltipKey;
@@ -34,6 +35,8 @@ public class TinkerPredicate {
   public static ItemPredicate BUCKET = ItemPredicate.simple(item -> item instanceof BucketItem);
   /** Predicate matching any arrows */
   public static ItemPredicate ARROW = ItemPredicate.simple(item -> item instanceof ArrowItem);
+  /** Predicate matching any maps */
+  public static ItemPredicate MAP = ItemPredicate.simple(item -> item instanceof MapItem);
   /** Predicate matching any items with a remainder after crafting. */
   @SuppressWarnings("deprecation")
   public static ItemPredicate HAS_CONTAINER = ItemPredicate.simple(Item::hasCraftingRemainingItem);

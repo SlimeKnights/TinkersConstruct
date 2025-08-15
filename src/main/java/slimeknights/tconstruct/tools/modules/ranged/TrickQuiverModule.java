@@ -10,8 +10,10 @@ import net.minecraft.world.item.ItemStack;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.loadable.record.SingletonLoader;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
+import slimeknights.tconstruct.library.modifiers.hook.build.ModifierRemovalHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.BowAmmoModifierHook;
@@ -23,14 +25,15 @@ import slimeknights.tconstruct.library.tools.capability.inventory.ToolInventoryC
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Predicate;
 
 /** Module implementing trick quiver, with a selectable arrow slot */
-public enum TrickQuiverModule implements ModifierModule, BowAmmoModifierHook, GeneralInteractionModifierHook {
+public enum TrickQuiverModule implements ModifierModule, BowAmmoModifierHook, GeneralInteractionModifierHook, ModifierRemovalHook {
   INSTANCE;
   public static final SingletonLoader<TrickQuiverModule> LOADER = new SingletonLoader<>(INSTANCE);
-  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<TrickQuiverModule>defaultHooks(ModifierHooks.BOW_AMMO, ModifierHooks.GENERAL_INTERACT);
+  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<TrickQuiverModule>defaultHooks(ModifierHooks.BOW_AMMO, ModifierHooks.GENERAL_INTERACT, ModifierHooks.REMOVE);
   /** Key for the currently selected arrow */
   private static final ResourceLocation SELECTED_SLOT = TConstruct.getResource("trick_quiver_selected");
   /** Message when disabling the trick quiver */
@@ -90,5 +93,12 @@ public enum TrickQuiverModule implements ModifierModule, BowAmmoModifierHook, Ge
       return InteractionResult.SUCCESS;
     }
     return InteractionResult.PASS;
+  }
+
+  @Nullable
+  @Override
+  public Component onRemoved(IToolStackView tool, Modifier modifier) {
+    tool.getPersistentData().remove(SELECTED_SLOT);
+    return null;
   }
 }

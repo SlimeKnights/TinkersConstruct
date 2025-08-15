@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:minimap",
+  "text": [
+    {
+      "text": "Adds 3 slots per level for maps to view while wandering. Use control plus helmet interact to swap the active map."
+    },
+    {
+      "text": "Helmet inventory can be opened by interacting with it while holding.", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Requires 1 upgrade slot per level"
+  ]
+}

@@ -1,5 +1,13 @@
 {
+  "camera": "tconstruct:fluid/slime/sky/camera",
+  "camera_opacity": 0.1,
   "color": "FFFFFFFF",
   "flowing": "tconstruct:fluid/slime/sky/flowing",
+  "fog": {
+    "calculate_color": true,
+    "end": 24.0,
+    "shape": "sphere",
+    "start": -8.0
+  },
   "still": "tconstruct:fluid/slime/sky/still"
 }

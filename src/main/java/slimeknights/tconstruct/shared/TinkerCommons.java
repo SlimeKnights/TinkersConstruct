@@ -202,6 +202,7 @@ public final class TinkerCommons extends TinkerModule {
       // item
       ItemPredicate.LOADER.register(getResource("arrow"), TinkerPredicate.ARROW.getLoader());
       ItemPredicate.LOADER.register(getResource("bucket"), TinkerPredicate.BUCKET.getLoader());
+      ItemPredicate.LOADER.register(getResource("map"), TinkerPredicate.MAP.getLoader());
       ItemPredicate.LOADER.register(getResource("has_container"), TinkerPredicate.HAS_CONTAINER.getLoader());
       ItemPredicate.LOADER.register(getResource("can_melt"), TinkerPredicate.CAN_MELT_ITEM.getLoader());
       ItemPredicate.LOADER.register(getResource("castable"), TinkerPredicate.CASTABLE.getLoader());

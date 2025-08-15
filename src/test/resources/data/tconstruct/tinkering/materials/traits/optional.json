@@ -1,0 +1,12 @@
+{
+    "default": [
+        { "name": "test:modifier_1", "level": 3, "optional": true },
+        { "name": "test:modifier_2", "level": 4 }
+    ],
+    "perStat": {
+        "test:mat_stat_1": [
+          { "name": "test:modifier_1", "level": 1, "optional": false },
+          { "name": "test:modifier_2", "level": 2, "optional": true }
+        ]
+    }
+}

@@ -58,6 +58,9 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
       if (canUseMaterial(id)) {
         TooltipKey key = SafeClientAccess.getTooltipKey();
         for (ModifierEntry entry : MaterialRegistry.getInstance().getTraits(id, getStatType())) {
+          if (!entry.isBound()) {
+            continue;
+          }
           Component name = entry.getDisplayName();
           if (flag.isAdvanced() && Config.CLIENT.modifiersIDsInAdvancedTooltips.get()) {
             tooltip.add(Component.translatable(TooltipUtil.KEY_ID_FORMAT, name, Component.literal(entry.getModifier().getId().toString())).withStyle(ChatFormatting.DARK_GRAY));

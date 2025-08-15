@@ -15,16 +15,20 @@ public class TinkerChestScreen extends BaseTabbedScreen<AbstractChestBlockEntity
 
   public TinkerChestScreen(TabbedContainerMenu<AbstractChestBlockEntity> container, Inventory playerInventory, Component title) {
     super(container, playerInventory, title);
+
+    this.imageHeight = 184;
     TinkerChestContainerMenu.DynamicChestInventory chestContainer = container.getSubContainer(TinkerChestContainerMenu.DynamicChestInventory.class);
     if (chestContainer != null) {
       this.scalingChestScreen = new ScalingChestScreen<>(this, chestContainer, playerInventory, title);
+      // add one extra row to the height
+      this.scalingChestScreen.imageHeight += 18;
       this.addModule(scalingChestScreen);
     }
   }
 
   @Override
   protected void renderBg(GuiGraphics graphics, float partialTicks, int mouseX, int mouseY) {
-    this.drawBackground(graphics, BLANK_BACK);
+    this.drawBackground(graphics, BLANK_BACK_PLUS_1);
 
     if (this.scalingChestScreen != null) {
       this.scalingChestScreen.update(mouseX, mouseY);

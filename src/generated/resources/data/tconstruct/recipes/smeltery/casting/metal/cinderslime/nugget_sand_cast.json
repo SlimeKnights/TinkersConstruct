@@ -7,7 +7,7 @@
   "cooling_time": 23,
   "fluid": {
     "amount": 10,
-    "fluid": "tconstruct:molten_cinderslime"
+    "tag": "tconstruct:molten_cinderslime"
   },
   "result": {
     "tag": "forge:nuggets/cinderslime"

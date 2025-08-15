@@ -3,7 +3,7 @@
   "cooling_time": 190,
   "fluid": {
     "amount": 1000,
-    "fluid": "tconstruct:ichor"
+    "tag": "tconstruct:ichor"
   },
   "result": "tconstruct:ichor_congealed_slime"
 }

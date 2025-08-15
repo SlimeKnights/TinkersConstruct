@@ -395,6 +395,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.tag(TinkerTags.Items.SCYTHES).add(TinkerTools.kama.get(), TinkerTools.scythe.get());
     // nothing to blacklist, just want the empty tag so it appears in datapacks
     this.tag(TinkerTags.Items.AUTOSMELT_BLACKLIST);
+    this.tag(TinkerTags.Items.AUTOSMELT_PLUS_BLACKLIST);
 
     // carrots and potatoes are not seeds in vanilla, so make a tag with them
     this.tag(TinkerTags.Items.SEEDS)

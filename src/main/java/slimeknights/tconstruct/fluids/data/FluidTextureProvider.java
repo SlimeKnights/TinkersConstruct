@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.fluids.data;
 
+import com.mojang.blaze3d.shaders.FogShape;
 import net.minecraft.data.PackOutput;
 import slimeknights.mantle.fluid.texture.AbstractFluidTextureProvider;
 import slimeknights.mantle.fluid.texture.FluidTexture;
@@ -22,22 +23,22 @@ public class FluidTextureProvider extends AbstractFluidTextureProvider {
     root(TinkerFluids.powderedSnow);
     root(TinkerFluids.potion).color(0xfff800f8);
     // slime
-    slime(TinkerFluids.earthSlime, "earth");
-    slime(TinkerFluids.skySlime, "sky");
+    waterFog(slime(TinkerFluids.earthSlime, "earth"));
+    waterFog(slime(TinkerFluids.skySlime, "sky"));
     slime(TinkerFluids.ichor, "ichor");
-    slime(TinkerFluids.enderSlime, "ender");
+    waterFog(slime(TinkerFluids.enderSlime, "ender"));
     slime(TinkerFluids.magma);
-    slime(TinkerFluids.venom);
-    slime(TinkerFluids.liquidSoul, "soul");
+    waterFog(slime(TinkerFluids.venom));
+    moltenFog(slime(TinkerFluids.liquidSoul, "soul"));
     // food
-    folder(TinkerFluids.honey, "food");
+    waterFog(folder(TinkerFluids.honey, "food"));
     tintedStew(TinkerFluids.beetrootSoup).color(0xFF84160D);
     tintedStew(TinkerFluids.mushroomStew).color(0xFFCD8C6F);
     tintedStew(TinkerFluids.rabbitStew).color(0xFF984A2C);
     tintedStew(TinkerFluids.meatSoup).color(0xFFE03E35);
 
     // molten
-    molten(TinkerFluids.moltenGlass);
+    molten(TinkerFluids.moltenGlass).fog(FogShape.SPHERE, 0.25f, 8);
     named(TinkerFluids.blazingBlood, "molten/blaze");
     // stone
     tintedStone(TinkerFluids.searedStone).color(0xFF4F4A47);
@@ -48,9 +49,9 @@ public class FluidTextureProvider extends AbstractFluidTextureProvider {
     tintedStone(TinkerFluids.moltenEnder).color(0xFF105E51);
 
     // ore - non-metal
-    ore(TinkerFluids.moltenDiamond);
-    ore(TinkerFluids.moltenEmerald);
-    ore(TinkerFluids.moltenAmethyst);
+    moltenFog(ore(TinkerFluids.moltenDiamond));
+    moltenFog(ore(TinkerFluids.moltenEmerald));
+    moltenFog(ore(TinkerFluids.moltenAmethyst));
     ore(TinkerFluids.moltenQuartz);
     tintedStone(TinkerFluids.moltenDebris).color(0xFF411E15);
     // ore - tinkers
@@ -69,7 +70,7 @@ public class FluidTextureProvider extends AbstractFluidTextureProvider {
     alloy(TinkerFluids.moltenManyullyn);
     alloy(TinkerFluids.moltenHepatizon);
     alloy(TinkerFluids.moltenCinderslime);
-    alloy(TinkerFluids.moltenQueensSlime);
+    alloy(TinkerFluids.moltenQueensSlime).fogColor(0x478A33);
     alloy(TinkerFluids.moltenNetherite);
     // alloy - end
     alloy(TinkerFluids.moltenSoulsteel);
@@ -115,19 +116,30 @@ public class FluidTextureProvider extends AbstractFluidTextureProvider {
 
   /* Helpers */
 
+  /** Sets builder properties to make it act like water with fog */
+  private static FluidTexture.Builder waterFog(FluidTexture.Builder builder) {
+    return builder.fog(FogShape.SPHERE, -8, 24);
+  }
+
+  /** Sets builder properties to make it act like water with fog */
+  private static FluidTexture.Builder moltenFog(FluidTexture.Builder builder) {
+    return builder.fog(FogShape.SPHERE, 0.25f, 4);
+  }
+
   /** Creates a texture in the root folder */
   private FluidTexture.Builder root(FluidObject<?> fluid) {
     return texture(fluid).wrapId("fluid/", "/", false, false);
   }
 
-  /** Creates a texture using the fluid's ID in the given folder */
-  private FluidTexture.Builder folder(FluidObject<?> fluid, String folder) {
-    return texture(fluid).wrapId("fluid/"+folder+"/", "/", false, false);
-  }
-
   /** Creates a texture using the given fixed name in the fluid folder */
   private FluidTexture.Builder named(FluidObject<?> fluid, String name) {
-    return texture(fluid).textures(getResource("fluid/"+name+"/"), false, false);
+    return texture(fluid).root(getResource("fluid/"+name+"/"))
+      .still().flowing().camera().calculateFogColor(true).fog(FogShape.SPHERE, 0.25f, 2);
+  }
+
+  /** Creates a texture using the fluid's ID in the given folder */
+  private FluidTexture.Builder folder(FluidObject<?> fluid, String folder) {
+    return named(fluid, folder + '/' + fluid.getId().getPath());
   }
 
   /** Creates a texture in the slime folder using the ID */

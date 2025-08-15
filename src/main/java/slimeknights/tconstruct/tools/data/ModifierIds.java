@@ -101,6 +101,7 @@ public class ModifierIds {
   public static final ModifierId revitalizing = id("revitalizing");
   // helmet
   public static final ModifierId respiration = id("respiration");
+  public static final ModifierId minimap = id("minimap");
   public static final ModifierId aquaAffinity = id("aqua_affinity");
   // chestplate
   public static final ModifierId strength = id("strength");

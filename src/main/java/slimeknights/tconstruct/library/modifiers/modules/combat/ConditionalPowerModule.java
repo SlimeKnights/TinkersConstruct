@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.modifiers.modules.combat;
 
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -53,6 +54,8 @@ public record ConditionalPowerModule(IJsonPredicate<LivingEntity> target, IJsonP
     PowerFormula.LOADER.directField(ConditionalPowerModule::formula),
     ModifierEntry.VALID_LEVEL.defaultField("modifier_level", ConditionalPowerModule::modifierLevel),
     ConditionalPowerModule::new);
+  /** Persistent data key for the stat multiplier */
+  private static final ResourceLocation MULTIPLIER = ToolStats.PROJECTILE_DAMAGE.getName().withSuffix("_multiplier");
 
   /** @apiNote Internal constructor, use {@link #builder()} */
   @Internal
@@ -83,13 +86,13 @@ public record ConditionalPowerModule(IJsonPredicate<LivingEntity> target, IJsonP
   @Override
   public void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, Projectile projectile, @Nullable AbstractArrow arrow, ModDataNBT persistentData, boolean primary) {
     // copy projectile multiplier into the arrow damage so we can use it later
-    persistentData.putFloat(PowerFormula.MULTIPLIER, tool.getMultiplier(ToolStats.PROJECTILE_DAMAGE));
+    persistentData.putFloat(MULTIPLIER, tool.getMultiplier(ToolStats.PROJECTILE_DAMAGE));
   }
 
   @Override
   public boolean onProjectileHitEntity(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
     if (modifierLevel.test(modifier.getLevel()) && TinkerPredicate.matches(this.target, target) && TinkerPredicate.matches(this.holder, attacker) && projectile instanceof AbstractArrow arrow) {
-      arrow.setBaseDamage(formula.apply(modifiers, persistentData, modifier, projectile, hit, attacker, target, arrow.getBaseDamage()));
+      arrow.setBaseDamage(formula.apply(modifiers, persistentData, modifier, projectile, hit, attacker, target, arrow.getBaseDamage(), persistentData.getFloat(MULTIPLIER)));
     }
     return false;
   }
@@ -111,7 +114,7 @@ public record ConditionalPowerModule(IJsonPredicate<LivingEntity> target, IJsonP
 
   @Override
   public float computeTooltipValue(IToolStackView tool, ModifierEntry entry, @Nullable Player player) {
-    return formula.apply(tool.getModifiers(), tool.getPersistentData(), entry, null, null, player, null, 1);
+    return formula.apply(tool.getModifiers(), tool.getPersistentData(), entry, null, null, player, null, 1, tool.getMultiplier(ToolStats.PROJECTILE_DAMAGE));
   }
 
 

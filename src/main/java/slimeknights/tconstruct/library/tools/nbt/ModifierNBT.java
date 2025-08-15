@@ -258,7 +258,7 @@ public class ModifierNBT implements Iterable<ModifierEntry> {
 
     @Override
     public Builder add(ModifierEntry entry) {
-      if (entry != ModifierEntry.EMPTY) {
+      if (entry != ModifierEntry.EMPTY && entry.isBound()) {
         ModifierId id = entry.getId();
         ModifierEntry current = modifiers.get(id);
         if (current != null) {

@@ -21,9 +21,14 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 
 public class FirebreathModifier extends NoLevelsModifier implements KeybindInteractModifierHook {
   @Override
+  public int getPriority() {
+    return 40;
+  }
+
+  @Override
   public boolean startInteract(IToolStackView tool, ModifierEntry modifier, Player player, EquipmentSlot slot, TooltipKey keyModifier) {
     // stopped by water and by cooldown
-    if (!player.isShiftKeyDown() && !player.hasEffect(TinkerModifiers.fireballCooldownEffect.get()) && !player.isInWaterRainOrBubble()) {
+    if (keyModifier == TooltipKey.NORMAL && !player.hasEffect(TinkerModifiers.fireballCooldownEffect.get()) && !player.isInWaterRainOrBubble()) {
       // if not creative, this costs a fire charge
       boolean hasFireball = true;
       Level level = player.level();

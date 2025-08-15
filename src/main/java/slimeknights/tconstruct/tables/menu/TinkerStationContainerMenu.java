@@ -63,9 +63,9 @@ public class TinkerStationContainerMenu extends TabbedContainerMenu<TinkerStatio
 
     // add armor and offhand slots, for convenience
     for (ArmorItem.Type slotType : ArmorItem.Type.values()) {
-      this.addSlot(new ArmorSlot(inv, slotType.getSlot(), 152, 16 + slotType.ordinal() * 18));
+      this.addSlot(new ArmorSlot(inv, slotType.getSlot(), 152, 20 + slotType.ordinal() * 18));
     }
-    this.addSlot(new Slot(inv, 40, 132, 70).setBackground(InventoryMenu.BLOCK_ATLAS, InventoryMenu.EMPTY_ARMOR_SLOT_SHIELD));
+    this.addSlot(new Slot(inv, 40, 132, 74).setBackground(InventoryMenu.BLOCK_ATLAS, InventoryMenu.EMPTY_ARMOR_SLOT_SHIELD));
 
     this.addInventorySlots();
   }
@@ -82,7 +82,7 @@ public class TinkerStationContainerMenu extends TabbedContainerMenu<TinkerStatio
 
   @Override
   protected int getInventoryYOffset() {
-    return 92;
+    return 102;
   }
 
   @Override

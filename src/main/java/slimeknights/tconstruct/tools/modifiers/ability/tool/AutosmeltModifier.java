@@ -119,7 +119,7 @@ public class AutosmeltModifier extends Modifier implements ProcessLootModifierHo
           int level = modifier.intEffectiveLevel();
 
           // at higher levels of autosmelt, randomly boost the drops
-          if (level > 1) {
+          if (level > 1 && !smelted.is(TinkerTags.Items.AUTOSMELT_PLUS_BLACKLIST)) {
             // will add at most this number of items
             int extraItems = stack.getCount() * (level - 1);
             int bonus = 0;
