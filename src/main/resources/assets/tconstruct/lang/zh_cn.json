@@ -2004,12 +2004,12 @@
   "material.tconstruct.lead.flavor": "可以试试用这东西做个三明治",
   "material.tconstruct.lead.encyclopedia": "每级挖掘速度+15%，击退抗性+10%，移动速度-10%，重力+5%",
   "material.tconstruct.lead.ranged": "每级弹射物精确度+10%，击退抗性+10%，移动速度-10%，重力+5%",
-  "material.tconstruct.lead.armor": "每级击退抗性+15%，移动速度-10%",
+  "material.tconstruct.lead.armor": "每级击退抗性+15%，移动速度-10%，重力+5%",
 
   "material.tconstruct.silver": "银",
   "material.tconstruct.silver.flavor": "你知道的，这东西没几天就不再闪闪发光了。",
   "material.tconstruct.silver.encyclopedia": "每级对亡灵生物伤害+2",
-  "material.tconstruct.silver.ranged": "每级对亡灵生物弹射物力量+0.5",
+  "material.tconstruct.silver.ranged": "每级对亡灵生物弹射物力量+0.75",
   "material.tconstruct.silver.armor": "每级来自亡灵生物伤害-5%",
 
   "material.tconstruct.whitestone": "末地石",
@@ -2036,7 +2036,7 @@
   "__comment": "Tier 3 Integration Materials",
   "material.tconstruct.steel": "钢",
   "material.tconstruct.steel.flavor": "差不多90%的材料科学内容都是它",
-  "material.tconstruct.steel.encyclopedia": "每级耐久度、近战伤害+10%",
+  "material.tconstruct.steel.encyclopedia": "每级耐久度+10%，近战伤害+8%",
   "material.tconstruct.steel.ranged": "每级耐久度+10%，弹射物力量+5%",
   "material.tconstruct.steel.armor": "每级耐久度+10%，盔甲韧性+1",
 
@@ -2056,13 +2056,13 @@
   "material.tconstruct.invar.flavor": "它不仅能抵御温度的变化，还能避免追捕。",
   "material.tconstruct.invar.encyclopedia": "每级近战伤害+15%，移动速度-10%，重力+5%",
   "material.tconstruct.invar.ranged": "每级弹射物力量+0.75，移动速度-10%，重力+5%",
-  "material.tconstruct.invar.armor": "在适中温度的生物群系每级伤害-5%",
+  "material.tconstruct.invar.armor": "每级保护+5%，移动速度-10%，重力+5%",
 
   "material.tconstruct.pewter": "白镴",
   "material.tconstruct.pewter.flavor": "最强金属。",
   "material.tconstruct.pewter.encyclopedia": "当生命值小于11时，每额外损失1点，伤害+0.25×等级",
   "material.tconstruct.pewter.ranged": "当生命值小于11时，每额外损失1点，弹射物力量+0.1×等级",
-  "material.tconstruct.pewter.armor": "当生命值小于11时，每额外损失1点，保护+1%",
+  "material.tconstruct.pewter.armor": "当生命值小于11时，每额外损失1点，保护+1%×等级",
 
   "material.tconstruct.electrum": "琥珀金",
   "material.tconstruct.electrum.flavor": "适用于电子元器件。",
@@ -2089,8 +2089,8 @@
 
   "material.tconstruct.fiery": "炽铁",
   "material.tconstruct.fiery.flavor": "史莱姆们旅途中得到的金属，也能从暮色森林某一穿盔甲的生物那找到。",
-  "material.tconstruct.fiery.encyclopedia": "工具能自动烧炼所有掉落物。之后每级增加25%额外烧炼产物掉落",
-  "material.tconstruct.fiery.ranged": "箭矢能自动烧炼所有掉落物。之后每级增加25%额外烧炼产物掉落",
+  "material.tconstruct.fiery.encyclopedia": "工具能自动烧炼所有掉落物。之后每级增加25%额外掉落烧炼产物的概率",
+  "material.tconstruct.fiery.ranged": "箭矢能自动烧炼所有掉落物。之后每级增加25%额外掉落烧炼产物的概率",
   "material.tconstruct.fiery.armor": "每级增加5%对着火中敌人的抗性",
 
 
@@ -2728,7 +2728,7 @@
   "modifier.tconstruct.overgrowth.description": "工具会缓慢生长出黏液覆层",
   "modifier.tconstruct.raging": "愤怒",
   "modifier.tconstruct.raging.flavor": "破釜沉舟，背水一战！",
-  "modifier.tconstruct.raging.description": "当生命值低时工具伤害更高，拉弓速度更快",
+  "modifier.tconstruct.raging.description": "工具在持有者生命值较低时造成更多伤害",
   "modifier.tconstruct.raging.attack_damage": "低生命值伤害",
   "modifier.tconstruct.raging.projectile_damage": "低生命值弹射物力量",
   "modifier.tconstruct.vital_protection": "关键保护",
