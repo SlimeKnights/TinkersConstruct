@@ -288,6 +288,11 @@
   "pattern.tconstruct.gem": "宝石",
   "pattern.tconstruct.rod": "杆",
 
+  "pattern.tconstruct.block": "块",
+  "pattern.tconstruct.shard": "碎片",
+  "pattern.tconstruct.crystal": "水晶",
+  "pattern.tconstruct.scale": "鳞片",
+
   "pattern.tconstruct.gear": "齿轮",
   "pattern.tconstruct.plate": "小板",
   "pattern.tconstruct.coin": "币",
@@ -1108,6 +1113,7 @@
   "item.tconstruct.battlesign": "战斗牌子",
   "item.tconstruct.war_pick": "战镐",
   "item.tconstruct.swasher": "喷流刃",
+  "item.tconstruct.minotaur_axe": "米诺陶战斧",
 
   "item.tconstruct.travelers_helmet": "旅行者护目镜",
   "item.tconstruct.travelers_chestplate": "旅行者背心",
@@ -2244,6 +2250,10 @@
   "modifier.tconstruct.swiftstrike.5": "迅捷打击++++",
   "modifier.tconstruct.swiftstrike.flavor": "魔法！",
   "modifier.tconstruct.swiftstrike.description": "魔法般的紫色宝石让工具变得更轻巧，挥动更省力！",
+  "modifier.tconstruct.charge_attack": "冲刺攻击",
+  "modifier.tconstruct.charge_attack.flavor": "蛮牛冲撞",
+  "modifier.tconstruct.charge_attack.description": "疾跑时可以造成额外伤害",
+  "modifier.tconstruct.charge_attack.attack_damage": "冲刺时伤害",
 
 
   "_comment": "Ranged",
@@ -3295,13 +3305,15 @@
   "recipe.tconstruct.remove_modifier.no_modifiers": "此配方下工具没有可移除的强化。",
 
   "recipe.tconstruct.modifier_sorting.title": "强化排序",
-  "recipe.tconstruct.modifier_sorting.description": "选择一个强化以将其纹理位置与在列表中的下一个强化的纹理位置互换。互换时不消耗配方物品",
+  "recipe.tconstruct.modifier_sorting.description": "选择一个强化，将其纹理与列表中相邻强化的纹理位置互换。不消耗配方物品",
+  "recipe.tconstruct.modifier_sorting.description.forward": "选择一个强化，将其纹理与列表中上一个强化的纹理位置互换。不消耗配方物品",
+  "recipe.tconstruct.modifier_sorting.description.reversed": "选择一个强化，将其纹理与列表中下一个强化的纹理位置互换。不消耗配方物品",
   "recipe.tconstruct.modifier_sorting.not_enough_modifiers": "工具至少需要加持2种强化以排序",
 
   "recipe.tconstruct.invisible_modifiers.adding.title": "隐形墨水",
-  "recipe.tconstruct.invisible_modifiers.adding.description": "选择一个强化以将其纹理从工具模型中隐藏",
+  "recipe.tconstruct.invisible_modifiers.adding.description": "选择一个强化，将其纹理从工具模型中隐藏",
   "recipe.tconstruct.invisible_modifiers.removing.title": "显形墨水",
-  "recipe.tconstruct.invisible_modifiers.removing.description": "选择一个隐藏的强化以使其纹理从工具模型中再次显形",
+  "recipe.tconstruct.invisible_modifiers.removing.description": "选择一个已隐藏的强化，使其纹理从工具模型中再次显形",
 
   "modifier.tconstruct.attack_toggled": "%s（攻击键）",
   "recipe.tconstruct.attack_modifiers.adding.title": "交互切换",
@@ -3338,6 +3350,10 @@
   "recipe.tconstruct.tool_recycling": "工具回收",
   "recipe.tconstruct.tool_recycling.info": "从组装此工具的工具部件中选择你想回收的一个。根据工具剩余的耐久度多少，甚至有可能回收第2个工具部件。",
   "recipe.tconstruct.tool_recycling.no_modifiers": "无法回收加持升级或能力的工具，你需要先移除它们。",
+  "recipe.tconstruct.recycling": "回收",
+  "recipe.tconstruct.recycling.info": "从组成此工具的材料物品中选择你想回收的一个。根据工具剩余的耐久度多少，未选择的工具材料也有可能回收。",
+  "recipe.tconstruct.recycling.not_enough_durability": "工具的耐久不足，无法被回收。",
+  "recipe.tconstruct.recycling.no_enchantments": "无法回收已附魔的工具，你需要先使用砂轮移除这些魔咒。",
 
 
   "_comment": "GUIs Messages",
