@@ -44,4 +44,5 @@ public final class ToolDefinitions {
   public static final ToolDefinition WAR_PICK = ToolDefinition.create(TinkerTools.warPick);
   public static final ToolDefinition BATTLESIGN = ToolDefinition.create(TinkerTools.battlesign);
   public static final ToolDefinition SWASHER = ToolDefinition.create(TinkerTools.swasher);
+  public static final ToolDefinition MINOTAUR_AXE = ToolDefinition.create(TinkerTools.minotaurAxe);
 }

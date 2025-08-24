@@ -363,6 +363,11 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
     return null;
   }
 
+  /** Checks if the given modifier has an enchantment equivelent */
+  public boolean hasEnchantment(Modifier modifier) {
+    return enchantmentMap.containsValue(modifier) || enchantmentTagMap.containsValue(modifier);
+  }
+
   /** Gets a stream of all enchantments that match the given modifiers */
   @SuppressWarnings("deprecation")  // eventually it won't be if we move away from forge
   public Stream<Enchantment> getEquivalentEnchantments(Predicate<ModifierId> modifiers) {

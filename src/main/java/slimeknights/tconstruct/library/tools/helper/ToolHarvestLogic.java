@@ -89,20 +89,27 @@ public class ToolHarvestLogic {
     return removed;
   }
 
+  /** @deprecated use {@link #breakBlock(ToolStack, ItemStack, ToolHarvestContext, boolean)}*/
+  @Deprecated(forRemoval = true)
+  protected static boolean breakBlock(ToolStack tool, ItemStack stack, ToolHarvestContext context) {
+    return breakBlock(tool, stack, context, false);
+  }
+
   /**
    * Called to break a block using this tool
    * @param tool      Tool instance
    * @param stack     Stack instance for vanilla functions
    * @param context   Harvest context
+   * @param useLastXP If true, fetches the XP from {@link BlockSideHitListener} instead of firing the event. Prevents firing {@link net.minecraftforge.event.level.BlockEvent.BreakEvent} twice.
    * @return  True if broken
    */
-  protected static boolean breakBlock(ToolStack tool, ItemStack stack, ToolHarvestContext context) {
+  protected static boolean breakBlock(ToolStack tool, ItemStack stack, ToolHarvestContext context, boolean useLastXP) {
     // have to rerun the event to get the EXP, also ensures extra blocks broken get EXP properly
     ServerPlayer player = Objects.requireNonNull(context.getPlayer());
     ServerLevel world = context.getWorld();
     BlockPos pos = context.getPos();
     GameType type = player.gameMode.getGameModeForPlayer();
-    int exp = ForgeHooks.onBlockBreakEvent(world, type, player, pos);
+    int exp = useLastXP ? BlockSideHitListener.getLastXP(player) : ForgeHooks.onBlockBreakEvent(world, type, player, pos);
     if (exp == -1) {
       return false;
     }
@@ -158,7 +165,7 @@ public class ToolHarvestLogic {
    */
   public static boolean breakExtraBlock(ToolStack tool, ItemStack stack, ToolHarvestContext context) {
     // break the actual block
-    if (breakBlock(tool, stack, context)) {
+    if (breakBlock(tool, stack, context, false)) {
       Level world = context.getWorld();
       BlockPos pos = context.getPos();
       // need to send the event to tell the client a block was broken
@@ -218,7 +225,7 @@ public class ToolHarvestLogic {
       player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
       ToolHarvestContext context = new ToolHarvestContext(world, serverPlayer, state, pos, sideHit,
                                                           !player.isCreative() && state.canHarvestBlock(world, pos, player), false);
-      breakBlock(tool, ItemStack.EMPTY, context);
+      breakBlock(tool, ItemStack.EMPTY, context, true);
       player.setItemInHand(InteractionHand.MAIN_HAND, stack);
     } else {
       // add in harvest info
@@ -239,7 +246,7 @@ public class ToolHarvestLogic {
 
       // actually break the block, run AOE if successful
       int harvested = 0;
-      if (breakBlock(tool, stack, context)) {
+      if (breakBlock(tool, stack, context, true)) {
         harvested += 1;
       }
       if (harvested > 0) {

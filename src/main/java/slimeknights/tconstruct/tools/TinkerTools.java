@@ -19,7 +19,9 @@ import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegisterEvent;
 import net.minecraftforge.registries.RegistryObject;
 import slimeknights.mantle.registration.object.EnumObject;
@@ -184,6 +186,15 @@ public final class TinkerTools extends TinkerModule {
   public static final ItemObject<ModifiableCrossbowItem> warPick = ITEMS.register("war_pick", () -> new ModifiableCrossbowItem(UNSTACKABLE_PROPS, ToolDefinitions.WAR_PICK));
   public static final ItemObject<ModifiableItem> battlesign = ITEMS.register("battlesign", () -> new ModifiableItem(UNSTACKABLE_PROPS, ToolDefinitions.BATTLESIGN));
   public static final ItemObject<ModifiableItem> swasher = ITEMS.register("swasher", () -> new ModifiableItem(UNSTACKABLE_PROPS, ToolDefinitions.SWASHER));
+  public static final ItemObject<ModifiableItem> minotaurAxe;
+  static {
+    // conditionally register minotaur axe as it's the easiest way to keep it out of JEI display
+    if (ModList.get().isLoaded("twilightforest")) {
+      minotaurAxe = ITEMS.register("minotaur_axe", () -> new ModifiableItem(UNSTACKABLE_PROPS, ToolDefinitions.MINOTAUR_AXE));
+    } else {
+      minotaurAxe = new ItemObject<>(RegistryObject.create(getResource("minotaur_axe"), ForgeRegistries.ITEMS));
+    }
+  }
 
   // armor
   public static final EnumObject<ArmorItem.Type,ModifiableArmorItem> travelersGear = ITEMS.registerEnum("travelers", ArmorItem.Type.values(), type -> new MultilayerArmorItem(ArmorDefinitions.TRAVELERS, type, UNSTACKABLE_PROPS));
@@ -368,6 +379,9 @@ public final class TinkerTools extends TinkerModule {
     acceptTool(output, warPick);
     acceptTool(output, battlesign);
     acceptTool(output, swasher);
+    if (ModList.get().isLoaded("twilightforest")) {
+      acceptTool(output, minotaurAxe);
+    }
 
     // armor
     acceptTools(output, travelersGear);

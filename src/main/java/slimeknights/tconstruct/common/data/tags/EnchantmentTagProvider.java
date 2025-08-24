@@ -32,6 +32,8 @@ public class EnchantmentTagProvider extends TagsProvider<Enchantment> {
     modifierTag(ModifierIds.stepUp, "cyclic:step");
     modifierTag(ModifierIds.soulbound, "ensorcellation:soulbound");
     modifierTag(ModifierIds.trueshot, "ensorcellation:trueshot");
+    modifierTag(ModifierIds.fiery, "twilightforest:fire_react");
+    modifierTag(ModifierIds.freezing, "twilightforest:chill_aura");
 
     // defense
     modifierTag(ModifierIds.knockbackResistance, "cyclic:steady");

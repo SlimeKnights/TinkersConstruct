@@ -5,7 +5,7 @@
     "tconstruct:repair_kit"
   ],
   "pattern": {
-    "tag": "tconstruct:patterns/default"
+    "item": "tconstruct:venom_bottle"
   },
   "tools": {
     "item": "tconstruct:battlesign"

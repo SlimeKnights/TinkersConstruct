@@ -40,6 +40,7 @@ import slimeknights.tconstruct.library.utils.NBTTags;
 import slimeknights.tconstruct.shared.block.entity.TableBlockEntity;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.CastingTankBlock;
+import slimeknights.tconstruct.smeltery.block.entity.component.TankBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.component.TankBlockEntity.ITankBlock;
 import slimeknights.tconstruct.smeltery.item.TankItem;
 
@@ -260,20 +261,10 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
   @Override
   public void onTankContentsChanged() {
     ITankInventoryBlockEntity.super.onTankContentsChanged();
-    if (this.level != null) {
-      level.getLightEngine().checkBlock(this.worldPosition);
-      this.requestModelDataUpdate();
-    }
-
     tryToProcessItem();
-  }
-
-  @Override
-  public void updateFluidTo(FluidStack fluid) {
-    ITankInventoryBlockEntity.super.updateFluidTo(fluid);
-    // update light if the fluid changes
     if (this.level != null) {
-      level.getLightEngine().checkBlock(this.worldPosition);
+      TankBlockEntity.updateLight(this, tank);
+      this.requestModelDataUpdate();
     }
   }
 
@@ -300,9 +291,7 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
       tank.setFluid(FluidStack.EMPTY);
     } else {
       tank.readFromNBT(nbt);
-      if (level != null) {
-        level.getLightEngine().checkBlock(worldPosition);
-      }
+      TankBlockEntity.updateLight(this, tank);
     }
   }
 

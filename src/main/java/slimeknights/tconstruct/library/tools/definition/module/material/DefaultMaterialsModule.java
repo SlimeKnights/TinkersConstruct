@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.tools.definition.module.material;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.util.RandomSource;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.RandomMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
@@ -43,8 +44,12 @@ public record DefaultMaterialsModule(List<RandomMaterial> materials) implements 
     // start with all existing materials
     MaterialNBT.Builder builder = MaterialNBT.builder();
     builder.addAll(existing);
-    // next, add missing materials
+    // next, add missing materials, but don't add more materials than the stats size
     int defaultSize = materials.size();
+    if (stats.size() < defaultSize) {
+      TConstruct.LOG.error("Tool definition {} has fewer tool parts than default materials. This is a bug with the mod/datapack and should be fixed by the author.", definition.getId());
+      defaultSize = stats.size();
+    }
     for (int i = existing.size(); i < defaultSize; i++) {
       builder.add(materials.get(i).getMaterial(stats.get(i), random));
     }

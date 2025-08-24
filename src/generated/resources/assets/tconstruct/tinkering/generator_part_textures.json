@@ -967,6 +967,21 @@
       "path": "tconstruct:item/tool/swasher/barrel_2",
       "skip_variants": true,
       "stat_type": "tconstruct:grip"
+    },
+    {
+      "path": "tconstruct:item/tool/minotaur_axe/front",
+      "skip_variants": true,
+      "stat_type": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/minotaur_axe/front_broken",
+      "skip_variants": true,
+      "stat_type": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/minotaur_axe/back",
+      "skip_variants": true,
+      "stat_type": "tconstruct:head"
     }
   ],
   "replace": false

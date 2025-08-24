@@ -66,6 +66,8 @@ public class EnchantmentToModifierProvider extends AbstractEnchantmentToModifier
     addCompat(ModifierIds.stepUp);
     addCompat(ModifierIds.soulbound);
     addCompat(ModifierIds.trueshot);
+    addCompat(ModifierIds.freezing);
+    addCompat(ModifierIds.fiery);
 
     // defense
     addCompat(ModifierIds.knockbackResistance);

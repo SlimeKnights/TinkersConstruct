@@ -1,0 +1,24 @@
+{
+  "entity": "#forge:piglins",
+  "equip": {
+    "chance": 0.05,
+    "match": {
+      "type": "mantle:set",
+      "items": [
+        "minecraft:golden_sword",
+        "minecraft:golden_axe"
+      ]
+    },
+    "materials": [
+      {
+        "type": "tconstruct:ancient"
+      },
+      {
+        "type": "tconstruct:ancient"
+      }
+    ],
+    "priority": 100,
+    "slot": "mainhand",
+    "tool": "tconstruct:battlesign"
+  }
+}

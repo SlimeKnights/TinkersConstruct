@@ -288,6 +288,11 @@
   "pattern.tconstruct.gem": "Gem",
   "pattern.tconstruct.rod": "Rod",
 
+  "pattern.tconstruct.block": "Block",
+  "pattern.tconstruct.shard": "Shard",
+  "pattern.tconstruct.crystal": "Crystal",
+  "pattern.tconstruct.scale": "Scale",
+
   "pattern.tconstruct.gear": "Gear",
   "pattern.tconstruct.plate": "Small Plate",
   "pattern.tconstruct.coin": "Coin",
@@ -1108,6 +1113,7 @@
   "item.tconstruct.battlesign": "Battlesign",
   "item.tconstruct.war_pick": "War Pick",
   "item.tconstruct.swasher": "Swasher",
+  "item.tconstruct.minotaur_axe": "Minotaur Axe",
   
   "item.tconstruct.travelers_helmet": "Traveler's Goggles",
   "item.tconstruct.travelers_chestplate": "Traveler's Vest",
@@ -2244,6 +2250,10 @@
   "modifier.tconstruct.swiftstrike.5": "Swiftesteststrike",
   "modifier.tconstruct.swiftstrike.flavor": "Magic!",
   "modifier.tconstruct.swiftstrike.description": "Magic purple gems make the weapon lighter and easier to swing!",
+  "modifier.tconstruct.charge_attack": "Charge Attack",
+  "modifier.tconstruct.charge_attack.flavor": "Zoomies",
+  "modifier.tconstruct.charge_attack.description": "Deals bonus damage while sprinting",
+  "modifier.tconstruct.charge_attack.attack_damage": "Charging Damage",
 
 
   "_comment": "Ranged",
@@ -3295,7 +3305,9 @@
   "recipe.tconstruct.remove_modifier.no_modifiers": "Tool does not have any modifiers removable by this recipe",
 
   "recipe.tconstruct.modifier_sorting.title": "Sort Modifiers",
-  "recipe.tconstruct.modifier_sorting.description": "Select a modifier to swap its location with the next modifier in the list. Does not consume items to swap.",
+  "recipe.tconstruct.modifier_sorting.description": "Select a modifier to swap its location with an adjacent modifier on the tool. Does not consume items to swap.",
+  "recipe.tconstruct.modifier_sorting.description.forward": "Select a modifier to swap its location with the previous modifier in the list. Does not consume items to swap.",
+  "recipe.tconstruct.modifier_sorting.description.reversed": "Select a modifier to swap its location with the previous modifier in the list. Does not consume items to swap.",
   "recipe.tconstruct.modifier_sorting.not_enough_modifiers": "Tool needs at least two modifiers to sort",
 
   "recipe.tconstruct.invisible_modifiers.adding.title": "Invisible Ink",
@@ -3338,6 +3350,10 @@
   "recipe.tconstruct.tool_recycling": "Tool Recycling",
   "recipe.tconstruct.tool_recycling.info": "Select which part to salvage from this tool. There is a chance based on the tool's remaining durability to salvage a second part.",
   "recipe.tconstruct.tool_recycling.no_modifiers": "A tool cannot be recycled if it contains any upgrades or abilities, those must be removed first.",
+  "recipe.tconstruct.recycling": "Recycling",
+  "recipe.tconstruct.recycling.info": "Select which item to salvage. Based on the durability, may be able to salvage unselected items.",
+  "recipe.tconstruct.recycling.not_enough_durability": "Item does not have enough durability to salvage anything.",
+  "recipe.tconstruct.recycling.no_enchantments": "A tool cannot be recycled if it is enchanted, use the grindstone to remove them first.",
 
 
   "_comment": "GUIs Messages",

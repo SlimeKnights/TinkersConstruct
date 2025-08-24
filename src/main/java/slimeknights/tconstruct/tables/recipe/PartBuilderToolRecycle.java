@@ -16,14 +16,18 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
+import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.common.IngredientLoadable;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
+import slimeknights.mantle.recipe.IMultiRecipe;
 import slimeknights.mantle.recipe.ingredient.SizedIngredient;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
+import slimeknights.tconstruct.library.recipe.partbuilder.DisplayPartRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.IPartBuilderContainer;
 import slimeknights.tconstruct.library.recipe.partbuilder.IPartBuilderRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
@@ -31,15 +35,22 @@ import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.definition.module.material.ToolMaterialHook;
 import slimeknights.tconstruct.library.tools.definition.module.material.ToolPartsHook;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
+import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
+import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
+import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tables.TinkerTables;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 /**
@@ -48,13 +59,13 @@ import java.util.stream.Stream;
  */
 @SuppressWarnings("deprecation")  // Forge is dumb
 @RequiredArgsConstructor
-public class PartBuilderToolRecycle implements IPartBuilderRecipe {
+public class PartBuilderToolRecycle implements IPartBuilderRecipe, IMultiRecipe<DisplayPartRecipe> {
   /** Title for the screen */
   private static final Component TOOL_RECYCLING = TConstruct.makeTranslation("recipe", "tool_recycling");
   /** General instructions for recycling */
   private static final List<Component> INSTRUCTIONS = Collections.singletonList(TConstruct.makeTranslation("recipe", "tool_recycling.info"));
   /** Error for trying to recycle a tool that cannot be */
-  private static final List<Component> NO_MODIFIERS = Collections.singletonList(TConstruct.makeTranslation("recipe", "tool_recycling.no_modifiers").withStyle(ChatFormatting.RED));
+  public static final List<Component> NO_MODIFIERS = Collections.singletonList(TConstruct.makeTranslation("recipe", "tool_recycling.no_modifiers").withStyle(ChatFormatting.RED));
   /** Default tool field */
   public static final SizedIngredient DEFAULT_TOOLS = SizedIngredient.fromTag(TinkerTags.Items.MULTIPART_TOOL);
 
@@ -66,8 +77,6 @@ public class PartBuilderToolRecycle implements IPartBuilderRecipe {
     TinkerLoadables.MATERIAL_ITEM.list(0).defaultField("parts", List.of(), r -> r.parts),
     PartBuilderToolRecycle::new);
 
-  /** Should never be needed, but just in case better than null */
-  private static final Pattern ERROR = new Pattern(TConstruct.MOD_ID, "missingno");
   @Getter
   private final ResourceLocation id;
   private final SizedIngredient toolRequirement;
@@ -82,7 +91,7 @@ public class PartBuilderToolRecycle implements IPartBuilderRecipe {
 
   @Override
   public Pattern getPattern() {
-    return ERROR;
+    return MISSING;
   }
 
   @Override
@@ -214,6 +223,43 @@ public class PartBuilderToolRecycle implements IPartBuilderRecipe {
   @Override
   public List<Component> getText(IPartBuilderContainer inv) {
     return ModifierUtil.hasUpgrades(inv.getStack()) ? NO_MODIFIERS : INSTRUCTIONS;
+  }
+
+
+  /* JEI */
+  private List<DisplayPartRecipe> displayRecipes;
+
+  private record PartIndex(IMaterialItem part, int index) {};
+
+  /** Helper handling both cases of making recipes */
+  private Stream<DisplayPartRecipe> makeRecipes(List<? extends IMaterialItem> parts, List<ItemStack> patternItems, List<ItemStack> tool) {
+    Collection<PartIndex> displayParts = IntStream.range(0, parts.size()).mapToObj(i -> new PartIndex(parts.get(i), i)).collect(Collectors.toMap(PartIndex::part, Function.identity(), (a, b) -> a)).values();
+    return displayParts.stream().map(pi -> {
+      ItemStack part = pi.part.withMaterialForDisplay(ToolBuildHandler.getRenderMaterial(pi.index));
+      part.getOrCreateTag().putBoolean(TooltipUtil.KEY_DISPLAY, true);
+      return new DisplayPartRecipe(id, MaterialVariant.UNKNOWN, new Pattern(Loadables.ITEM.getKey(pi.part.asItem())), patternItems, 0, tool, List.of(part));
+    });
+  }
+
+  @Override
+  public List<DisplayPartRecipe> getRecipes(RegistryAccess access) {
+    if (displayRecipes == null) {
+      List<ItemStack> patternItems = List.of(this.pattern.getItems());
+      // if we have parts, will be using the same list for all tools, so make just 1 recipe per part
+      if (!parts.isEmpty()) {
+        List<ItemStack> tools = toolRequirement.getMatchingStacks().stream().map(IModifiableDisplay::getDisplayStack).toList();
+        displayRecipes = makeRecipes(parts, patternItems, tools).toList();
+      } else {
+        // no parts? make a recipe per tool per part
+        displayRecipes = toolRequirement.getMatchingStacks().stream().flatMap(stack -> {
+          if (stack.getItem() instanceof IModifiable modifiable) {
+            return makeRecipes(ToolPartsHook.parts(modifiable.getToolDefinition()), patternItems, List.of(IModifiableDisplay.getDisplayStack(stack)));
+          }
+          return Stream.empty();
+        }).toList();
+      }
+    }
+    return displayRecipes;
   }
 
   /** @deprecated use {@link slimeknights.tconstruct.library.recipe.partbuilder.recycle.PartBuilderToolRecycleBuilder} */

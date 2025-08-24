@@ -3,14 +3,14 @@
   "allow_crystal": true,
   "inputs": [
     {
-      "item": "tconstruct:splash_bottle"
+      "tag": "forge:bottles/splash"
     },
     {
       "type": "tconstruct:no_container",
       "tag": "tconstruct:tanks"
     },
     {
-      "item": "tconstruct:splash_bottle"
+      "tag": "forge:bottles/splash"
     },
     {
       "tag": "forge:ingots/copper"

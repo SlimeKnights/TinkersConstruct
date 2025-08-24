@@ -43,7 +43,6 @@ import slimeknights.tconstruct.library.tools.part.IToolPart;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -151,29 +150,25 @@ public class ContentTool extends PageContent {
     if (this.parts == null || slotPos == null) {
       IModifiableDisplay tool = getTool();
       List<IToolPart> required = ToolPartsHook.parts(tool.getToolDefinition());
-      // if no required components, do a crafting recipe lookup
-      if (required.isEmpty()) {
-        // get the stacks for the first crafting table recipe
-        Recipe<CraftingContainer> recipe = Optional.ofNullable(Minecraft.getInstance().level)
-                                                   .flatMap(world -> {
-                                                     RegistryAccess access = world.registryAccess();
-                                                     return world.getRecipeManager().byType(RecipeType.CRAFTING).values().stream()
-                                                          .filter(r -> r.getResultItem(access).getItem() == tool.asItem())
-                                                          .findFirst();
-                                                   })
-                                                   .orElse(null);
-        if (recipe != null) {
-          // parts is just the items in the recipe
-          this.parts = recipe.getIngredients().stream().map(ingredient -> ItemStackList.of(ingredient.getItems())).collect(Collectors.toList());
 
-          // if we have a shaped recipe, display slots in order
-          if (recipe instanceof IShapedRecipe<?> shaped) {
-            int width = Mth.clamp(shaped.getRecipeWidth() - 1, 0, 2);
-            this.imgSlots = IMG_SLOTS_SHAPED[Mth.clamp(shaped.getRecipeHeight() - 1, 0, 2)][width];
-            this.slotPos = SLOTS_WIDTH[width];
-          }
-        } else {
-          this.parts = Collections.emptyList();
+      // get the stacks for the first crafting table recipe, prefer this option over parts as it may not be craftable with said parts
+      Recipe<CraftingContainer> recipe = Optional.ofNullable(Minecraft.getInstance().level)
+                                                 .flatMap(world -> {
+                                                   RegistryAccess access = world.registryAccess();
+                                                   return world.getRecipeManager().byType(RecipeType.CRAFTING).values().stream()
+                                                        .filter(r -> r.getResultItem(access).getItem() == tool.asItem())
+                                                        .findFirst();
+                                                 })
+                                                 .orElse(null);
+      if (recipe != null) {
+        // parts is just the items in the recipe
+        this.parts = recipe.getIngredients().stream().map(ingredient -> ItemStackList.of(ingredient.getItems())).collect(Collectors.toList());
+
+        // if we have a shaped recipe, display slots in order
+        if (recipe instanceof IShapedRecipe<?> shaped) {
+          int width = Mth.clamp(shaped.getRecipeWidth() - 1, 0, 2);
+          this.imgSlots = IMG_SLOTS_SHAPED[Mth.clamp(shaped.getRecipeHeight() - 1, 0, 2)][width];
+          this.slotPos = SLOTS_WIDTH[width];
         }
       } else {
         ImmutableList.Builder<ItemStackList> partBuilder = ImmutableList.builder();

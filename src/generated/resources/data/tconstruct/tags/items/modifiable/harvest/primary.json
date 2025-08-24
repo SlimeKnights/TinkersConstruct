@@ -11,6 +11,10 @@
     "tconstruct:kama",
     "tconstruct:scythe",
     "tconstruct:melting_pan",
-    "tconstruct:war_pick"
+    "tconstruct:war_pick",
+    {
+      "id": "tconstruct:minotaur_axe",
+      "required": false
+    }
   ]
 }

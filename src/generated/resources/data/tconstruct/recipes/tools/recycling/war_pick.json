@@ -6,7 +6,7 @@
     "tconstruct:bowstring"
   ],
   "pattern": {
-    "tag": "tconstruct:patterns/default"
+    "item": "tconstruct:venom_bottle"
   },
   "tools": {
     "item": "tconstruct:war_pick"

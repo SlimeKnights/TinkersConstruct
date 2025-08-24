@@ -3,6 +3,8 @@
   "#tconstruct:modifier_like/double_jump": "tconstruct:double_jump",
   "#tconstruct:modifier_like/expanded": "tconstruct:expanded",
   "#tconstruct:modifier_like/experienced": "tconstruct:experienced",
+  "#tconstruct:modifier_like/fiery": "tconstruct:fiery",
+  "#tconstruct:modifier_like/freezing": "tconstruct:freezing",
   "#tconstruct:modifier_like/killager": "tconstruct:killager",
   "#tconstruct:modifier_like/knockback_resistance": "tconstruct:knockback_resistance",
   "#tconstruct:modifier_like/luck": "tconstruct:luck",

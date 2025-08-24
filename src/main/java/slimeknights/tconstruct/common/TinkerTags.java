@@ -569,6 +569,8 @@ public class TinkerTags {
     public static final TagKey<EntityType<?>> CREEPERS = common("creepers");
     public static final TagKey<EntityType<?>> VILLAGERS = common("villagers");
     public static final TagKey<EntityType<?>> ILLAGERS = common("illagers");
+    /** Entities in this tag may spawn with battle signs */
+    public static final TagKey<EntityType<?>> PIGLINS = common("piglins");
     /** Entities in this tag take more damage from killager */
     public static final TagKey<EntityType<?>> KILLAGERS = local("killagers");
     /** Mobs that rarely spawn, boosts drop rate of severing */

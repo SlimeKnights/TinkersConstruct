@@ -24,27 +24,29 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.block.InventoryBlock;
 import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.library.utils.NBTTags;
+import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock;
 import slimeknights.tconstruct.smeltery.block.entity.CastingTankBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.ITankBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.component.TankBlockEntity.ITankBlock;
 
 import javax.annotation.Nullable;
 
+import static slimeknights.tconstruct.smeltery.block.component.SearedTankBlock.LIGHT;
+
 public class CastingTankBlock extends InventoryBlock implements ITankBlock, EntityBlock {
   public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
   public CastingTankBlock(Properties properties) {
     super(properties);
-    registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH));
+    registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(LIGHT, 0));
   }
 
   @Override
   public BlockState getStateForPlacement(BlockPlaceContext context) {
-    return defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
+    return SearedTankBlock.setLightLevel(defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite()), context);
   }
 
   @Deprecated
@@ -61,7 +63,7 @@ public class CastingTankBlock extends InventoryBlock implements ITankBlock, Enti
 
   @Override
   protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-    builder.add(FACING);
+    builder.add(FACING, LIGHT);
   }
 
   @Override
@@ -89,16 +91,6 @@ public class CastingTankBlock extends InventoryBlock implements ITankBlock, Enti
       return InteractionResult.SUCCESS;
     }
     return InteractionResult.FAIL;
-  }
-
-  @Override
-  public int getLightEmission(BlockState state, BlockGetter world, BlockPos pos) {
-    BlockEntity te = world.getBlockEntity(pos);
-    if (te instanceof ITankBlockEntity tankBlockEntity) {
-      FluidStack fluid = tankBlockEntity.getTank().getFluid();
-      return fluid.getFluid().getFluidType().getLightLevel(fluid);
-    }
-    return super.getLightEmission(state, world, pos);
   }
 
   @Override

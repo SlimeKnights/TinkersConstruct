@@ -165,6 +165,7 @@
     "smite":         "#CC9720",
     "sweeping_edge": "#888888",
     "swiftstrike":   "#B38EF1",
+    "charge_attack": "#A1A1A1",
 
     "__ranged_upgrades__": null,
     "blindshot":    "#966C4A",

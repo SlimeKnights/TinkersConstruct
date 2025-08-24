@@ -61,9 +61,7 @@ public class MultitankFuelModule extends FuelModule implements IFluidHandler {
     super.resetHandler(source);
   }
 
-  /**
-   * Called on structure rebuild to clear the gui handler list
-   */
+  /** Called on structure rebuild to clear the gui handler list */
   public void clearFluidListeners() {
     if (tankHandlers != null) {
       if (Util.isForge()) {
@@ -72,6 +70,18 @@ public class MultitankFuelModule extends FuelModule implements IFluidHandler {
         }
       }
       tankHandlers = null;
+    }
+  }
+
+  /** Called on servant load to ensure the listener is present in the cache */
+  public void ensureTankPresent(BlockEntity be) {
+    BlockPos pos = be.getBlockPos();
+    if (tankHandlers != null && !tankHandlers.containsKey(pos)) {
+      LazyOptional<IFluidHandler> handler = be.getCapability(ForgeCapabilities.FLUID_HANDLER);
+      if (handler.isPresent()) {
+        handler.addListener(tankHandlerListener);
+        tankHandlers.put(pos, handler);
+      }
     }
   }
 

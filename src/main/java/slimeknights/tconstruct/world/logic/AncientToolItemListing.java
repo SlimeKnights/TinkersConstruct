@@ -10,6 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.MerchantOffer;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.materials.RandomMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
@@ -33,11 +34,11 @@ public enum AncientToolItemListing implements ItemListing {
     Optional<Holder<Item>> selected = BuiltInRegistries.ITEM.getTag(TinkerTags.Items.TRADER_TOOLS).flatMap(t -> t.getRandomElement(random));
     if (selected.isPresent() && selected.get().value() instanceof IModifiable toolItem) {
       // step 2: select materials
-      ToolStack tool = ToolBuildHandler.buildToolRandomMaterials(toolItem, random);
+      ToolStack tool = ToolBuildHandler.buildToolRandomMaterials(toolItem, RandomMaterial.ancient(), random);
       // step 3: calculate cost based on tier
       float tier = 0;
       MaterialNBT materials = tool.getMaterials();
-      if (materials.size() == 0) {
+      if (materials.isEmpty()) {
         // if no materials, just choose a baseline tier of 2
         tier = 2;
       } else {

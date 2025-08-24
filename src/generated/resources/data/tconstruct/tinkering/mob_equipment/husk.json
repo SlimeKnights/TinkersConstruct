@@ -1,0 +1,17 @@
+{
+  "entity": "minecraft:husk",
+  "equip": {
+    "chance": 0.05,
+    "materials": [
+      {
+        "type": "tconstruct:ancient"
+      },
+      {
+        "type": "tconstruct:ancient"
+      }
+    ],
+    "priority": 100,
+    "slot": "mainhand",
+    "tool": "tconstruct:melting_pan"
+  }
+}

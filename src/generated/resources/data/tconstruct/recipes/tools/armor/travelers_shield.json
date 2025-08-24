@@ -8,9 +8,6 @@
     "l": {
       "tag": "forge:leather"
     },
-    "p": {
-      "item": "tconstruct:pattern"
-    },
     "w": {
       "type": "tconstruct:material_value",
       "material": {
@@ -21,9 +18,8 @@
     }
   },
   "pattern": [
-    " p ",
-    "lwl",
-    " p "
+    "wl",
+    "lw"
   ],
   "result": {
     "item": "tconstruct:travelers_shield"

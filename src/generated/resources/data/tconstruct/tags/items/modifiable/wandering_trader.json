@@ -1,5 +1,8 @@
 {
   "values": [
-    "#tconstruct:modifiable/ancient"
+    "tconstruct:melting_pan",
+    "tconstruct:war_pick",
+    "tconstruct:battlesign",
+    "tconstruct:swasher"
   ]
 }

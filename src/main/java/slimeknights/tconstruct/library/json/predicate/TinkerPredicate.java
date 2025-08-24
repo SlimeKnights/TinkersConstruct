@@ -30,6 +30,9 @@ public class TinkerPredicate {
 
   /** Entities that are in the air, notably does not count you as airborne if swimming, riding, or climbing */
   public static LivingEntityPredicate AIRBORNE = LivingEntityPredicate.simple(entity -> !entity.onGround() && !entity.onClimbable() && !entity.isInWater() && !entity.isPassenger());
+  /** Entities that are currently sprinting */
+  public static LivingEntityPredicate SPRINTING = LivingEntityPredicate.simple(Entity::isSprinting);
+
 
   /** Predicate matching any buckets */
   public static ItemPredicate BUCKET = ItemPredicate.simple(item -> item instanceof BucketItem);

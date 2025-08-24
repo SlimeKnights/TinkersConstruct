@@ -29,6 +29,7 @@ import net.minecraftforge.event.TickEvent.Phase;
 import net.minecraftforge.event.TickEvent.PlayerTickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -181,6 +182,9 @@ public class ToolClientEvents extends ClientEventBase {
       TinkerItemProperties.registerCrossbowProperties(TinkerTools.warPick);
       TinkerItemProperties.registerToolProperties(TinkerTools.battlesign);
       TinkerItemProperties.registerToolProperties(TinkerTools.swasher);
+      if (ModList.get().isLoaded("twilightforest")) {
+        TinkerItemProperties.registerToolProperties(TinkerTools.minotaurAxe);
+      }
       // armor
       TinkerItemProperties.registerToolProperties(TinkerTools.travelersShield);
       TinkerItemProperties.registerToolProperties(TinkerTools.plateShield);
@@ -230,6 +234,9 @@ public class ToolClientEvents extends ClientEventBase {
     registerItemColors(colors, TinkerTools.warPick);
     registerItemColors(colors, TinkerTools.battlesign);
     registerItemColors(colors, TinkerTools.swasher);
+    if (ModList.get().isLoaded("twilightforest")) {
+      registerItemColors(colors, TinkerTools.minotaurAxe);
+    }
     // armor
     registerItemColors(colors, TinkerTools.travelersShield);
     registerItemColors(colors, TinkerTools.plateShield);

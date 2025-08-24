@@ -14,6 +14,10 @@
     "tconstruct:sword",
     "tconstruct:cleaver",
     "tconstruct:flint_and_brick",
+    {
+      "id": "tconstruct:minotaur_axe",
+      "required": false
+    },
     "#tconstruct:modifiable/interactable/dual"
   ]
 }

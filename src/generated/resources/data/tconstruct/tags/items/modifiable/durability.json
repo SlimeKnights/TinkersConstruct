@@ -24,6 +24,10 @@
     "tconstruct:war_pick",
     "tconstruct:battlesign",
     "tconstruct:swasher",
+    {
+      "id": "tconstruct:minotaur_axe",
+      "required": false
+    },
     "tconstruct:travelers_helmet",
     "tconstruct:travelers_chestplate",
     "tconstruct:travelers_leggings",

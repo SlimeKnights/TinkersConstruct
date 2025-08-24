@@ -197,6 +197,7 @@ public final class TinkerCommons extends TinkerModule {
       DamageSourcePredicate.LOADER.register(getResource("direct"), TinkerPredicate.DIRECT_DAMAGE.getLoader());
       // entity
       LivingEntityPredicate.LOADER.register(getResource("airborne"), TinkerPredicate.AIRBORNE.getLoader());
+      LivingEntityPredicate.LOADER.register(getResource("sprinting"), TinkerPredicate.SPRINTING.getLoader());
       LivingEntityPredicate.LOADER.register(getResource("has_effect"), HasMobEffectPredicate.LOADER);
       LivingEntityPredicate.LOADER.register(getResource("block_at_feet"), BlockAtFeetEntityPredicate.LOADER);
       // item

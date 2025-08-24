@@ -84,6 +84,16 @@ public interface IModifierWorktableRecipe extends ICommonRecipe<ITinkerableConta
   /** Gets the number of inputs for this recipe */
   int getInputCount();
 
+  /** If true, the input in the tool slot is consumed rather than being a catalyst. */
+  default boolean isToolInput() {
+    return false;
+  }
+
+  /** If true, attempts a focus link on the tools and modifier slots */
+  default boolean linkToolsModifiers() {
+    return false;
+  }
+
   /** If true, the recipe modifier is an output */
   default boolean isModifierOutput() {
     return false;

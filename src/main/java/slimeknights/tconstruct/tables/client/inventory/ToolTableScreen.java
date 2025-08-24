@@ -160,7 +160,7 @@ public abstract class ToolTableScreen<T extends BlockEntity, C extends TabbedCon
     if (hasControlDown()) {
       title = TRAITS_TEXT;
       Map<Modifier,Integer> upgrades = tool.getUpgrades().getModifiers().stream()
-                                           .collect(Collectors.toMap(ModifierEntry::getModifier, ModifierEntry::getLevel));
+                                           .collect(Collectors.toMap(ModifierEntry::getModifier, ModifierEntry::getLevel, Integer::sum));
       for (ModifierEntry entry : tool.getModifierList()) {
         Modifier mod = entry.getModifier();
         if (mod.shouldDisplay(true)) {

@@ -8,7 +8,7 @@
   "level": {
     "max": 3
   },
-  "needed_per_level": 18,
+  "needed_per_level": 5,
   "result": "tconstruct:sweeping_edge",
   "slots": {
     "upgrades": 1

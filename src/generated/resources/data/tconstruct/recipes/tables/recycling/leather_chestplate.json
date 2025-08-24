@@ -1,0 +1,15 @@
+{
+  "type": "tconstruct:part_builder_recycling",
+  "pattern": {
+    "item": "tconstruct:venom_bottle"
+  },
+  "results": {
+    "tconstruct:maille": {
+      "count": 8,
+      "item": "minecraft:leather"
+    }
+  },
+  "tool": {
+    "item": "minecraft:leather_chestplate"
+  }
+}

@@ -35,6 +35,7 @@ import slimeknights.mantle.block.entity.NameableBlockEntity;
 import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.mantle.util.RetexturedHelper;
 import slimeknights.tconstruct.common.multiblock.IMasterLogic;
+import slimeknights.tconstruct.common.multiblock.IServantLogic;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.client.model.ModelProperties;
 import slimeknights.tconstruct.smeltery.block.controller.ControllerBlock;
@@ -305,12 +306,38 @@ public abstract class HeatingStructureBlockEntity extends NameableBlockEntity im
   }
 
 
+  /* Load */
+
+  @Override
+  public void onLoad() {
+    super.onLoad();
+    // just to clear out invalid references to the old master/no master, nothing should actually change behavior
+    if (level != null && !level.isClientSide && structure != null) {
+      structure.forEachContained(pos -> {
+        if (level.getBlockEntity(pos) instanceof IServantLogic servant) {
+          servant.onMasterLoad(this);
+        }
+      });
+    }
+  }
+
+  @Override
+  public <T extends BlockEntity & IServantLogic> void onServantLoad(T servant) {
+    // if it's a tank, ensure the fluid tank listener is tracking it
+    if (structure != null && structure.getTanks().contains(servant.getBlockPos())) {
+      fuelModule.ensureTankPresent(servant);
+    }
+  }
+
   /* Capability */
 
   @Override
   public void invalidateCaps() {
     super.invalidateCaps();
     this.itemCapability.invalidate();
+    // fluidCapability is only used by drains, but still need to invalidate it so drains stop talking to an invalid smeltery
+    // on the chance we have no fluid capability (invalid structure), this will simply no-op internally
+    this.fluidCapability.invalidate();
   }
 
   @Nonnull

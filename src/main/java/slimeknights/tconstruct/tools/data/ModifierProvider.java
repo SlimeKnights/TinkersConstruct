@@ -401,6 +401,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(MeleeAttributeModule.builder(Attributes.ARMOR, Operation.ADDITION).eachLevel(-1))
       // use a mob effect to make this work on ranged, to ensure it automatically cancels
       .addModule(MobEffectModule.builder(TinkerEffects.pierce.get()).level(RandomLevelingValue.perLevel(0, 1)).time(RandomLevelingValue.flat(2)).build(), ModifierHooks.PROJECTILE_HIT);
+    buildModifier(ModifierIds.chargeAttack).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(ConditionalMeleeDamageModule.builder().attacker(TinkerPredicate.SPRINTING).flat(7));
 
     // ranged
     buildModifier(ModifierIds.power).addModule(StatBoostModule.add(ToolStats.PROJECTILE_DAMAGE).amount(0.5f, 0.5f));

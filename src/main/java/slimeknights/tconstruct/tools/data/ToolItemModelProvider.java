@@ -72,6 +72,7 @@ public class ToolItemModelProvider extends AbstractToolItemModelProvider {
     // battlesign has custom properties for blocking, so that is just written directly
     transformTool("tool/battlesign/broken", readJson(TinkerTools.battlesign.getId()), "", false, "broken", "head");
     pulling(TinkerTools.swasher, readJson(getResource("base/swasher_blocking")), AmmoType.NONE, "blade", 2, "barrel");
+    tool(TinkerTools.minotaurAxe, toolBlocking, "front");
   }
 
   @Override

@@ -3,6 +3,7 @@ package slimeknights.tconstruct.plugin.jei.modifiers;
 import lombok.Getter;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
@@ -16,6 +17,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.worktable.IModifierWorktableRecipe;
 import slimeknights.tconstruct.plugin.jei.TConstructJEIConstants;
 import slimeknights.tconstruct.tables.TinkerTables;
@@ -78,13 +80,18 @@ public class ModifierWorktableCategory implements IRecipeCategory<IModifierWorkt
   @Override
   public void setRecipe(IRecipeLayoutBuilder builder, IModifierWorktableRecipe recipe, IFocusGroup focuses) {
     // items
-    builder.addSlot(RecipeIngredientRole.CATALYST, 23, 16).addItemStacks(recipe.getInputTools());
+    List<ItemStack> tools = recipe.getInputTools();
+    IRecipeSlotBuilder toolSlot = builder.addSlot(recipe.isToolInput() ? RecipeIngredientRole.INPUT : RecipeIngredientRole.CATALYST, 23, 16).addItemStacks(tools);
     int max = Math.min(2, recipe.getInputCount());
     for (int i = 0; i < max; i++) {
       builder.addSlot(RecipeIngredientRole.INPUT, 43 + i*18, 16).addItemStacks(recipe.getDisplayItems(i));
     }
     // modifier input
-    builder.addSlot(recipe.isModifierOutput() ? RecipeIngredientRole.OUTPUT : RecipeIngredientRole.CATALYST, 82, 16).addIngredients(TConstructJEIConstants.MODIFIER_TYPE, recipe.getModifierOptions(null));
+    List<ModifierEntry> modifiers = recipe.getModifierOptions(null);
+    IRecipeSlotBuilder modifierSlot = builder.addSlot(recipe.isModifierOutput() ? RecipeIngredientRole.OUTPUT : RecipeIngredientRole.CATALYST, 82, 16).addIngredients(TConstructJEIConstants.MODIFIER_TYPE, modifiers);
+    if (recipe.linkToolsModifiers() && tools.size() == modifiers.size()) {
+      builder.createFocusLink(toolSlot, modifierSlot);
+    }
   }
 
   @Override

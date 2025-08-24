@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:part_builder_recycling",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "twilightforest"
+    }
+  ],
+  "pattern": {
+    "item": "tconstruct:venom_bottle"
+  },
+  "results": {
+    "tconstruct:maille": {
+      "count": 8,
+      "item": "twilightforest:arctic_fur"
+    }
+  },
+  "tool": {
+    "item": "twilightforest:arctic_chestplate"
+  }
+}

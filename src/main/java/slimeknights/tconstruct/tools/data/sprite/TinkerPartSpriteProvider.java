@@ -137,5 +137,6 @@ public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
     buildTool("battlesign").skipVariants().addBreakableHead("head").addPart("handle", PlatingMaterialStats.SHIELD.getId());
     buildTool("swasher").skipVariants().addBreakableHead("blade").addHandle("handle")
                         .addGrip("barrel").addGrip("barrel_1").addGrip("barrel_2");
+    buildTool("minotaur_axe").skipVariants().addBreakableHead("front").addHead("back");
   }
 }

@@ -8,6 +8,7 @@ import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -65,6 +66,7 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.registration.GeodeItemObject;
 import slimeknights.tconstruct.common.registration.GeodeItemObject.BudSize;
 import slimeknights.tconstruct.fluids.TinkerFluids;
+import slimeknights.tconstruct.library.json.loot.equipment.MobEquipmentManager;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
@@ -87,6 +89,7 @@ import slimeknights.tconstruct.world.block.SlimeSaplingBlock;
 import slimeknights.tconstruct.world.block.SlimeTallGrassBlock;
 import slimeknights.tconstruct.world.block.SlimeVineBlock;
 import slimeknights.tconstruct.world.block.StickySlimeBlock;
+import slimeknights.tconstruct.world.data.MobEquipmentProvider;
 import slimeknights.tconstruct.world.data.WorldRecipeProvider;
 import slimeknights.tconstruct.world.entity.EnderSlimeEntity;
 import slimeknights.tconstruct.world.entity.SkySlimeEntity;
@@ -105,6 +108,10 @@ import java.util.function.Function;
  */
 @SuppressWarnings("unused")
 public final class TinkerWorld extends TinkerModule {
+  public TinkerWorld() {
+    MobEquipmentManager.init();
+  }
+
   public static final PlantType SLIME_PLANT_TYPE = PlantType.get("slime");
 
   /** Creative tab for anything that is naturally found in the world */
@@ -393,7 +400,10 @@ public final class TinkerWorld extends TinkerModule {
   @SubscribeEvent
   void gatherData(final GatherDataEvent event) {
     DataGenerator generator = event.getGenerator();
-    generator.addProvider(event.includeServer(), new WorldRecipeProvider(generator.getPackOutput()));
+    boolean server = event.includeServer();
+    PackOutput packOutput = generator.getPackOutput();
+    generator.addProvider(server, new WorldRecipeProvider(packOutput));
+    generator.addProvider(server, new MobEquipmentProvider(packOutput));
   }
 
   /** Adds all relevant items to the creative tab */

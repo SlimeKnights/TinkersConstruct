@@ -3,6 +3,10 @@
     "tconstruct:melting_pan",
     "tconstruct:war_pick",
     "tconstruct:battlesign",
-    "tconstruct:swasher"
+    "tconstruct:swasher",
+    {
+      "id": "tconstruct:minotaur_axe",
+      "required": false
+    }
   ]
 }

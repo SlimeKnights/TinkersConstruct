@@ -1,0 +1,23 @@
+{
+  "type": "tconstruct:part_builder_recycling",
+  "pattern": {
+    "item": "tconstruct:venom_bottle"
+  },
+  "results": {
+    "tconstruct:block": {
+      "count": 2,
+      "item": "tconstruct:greenheart_log"
+    },
+    "tconstruct:crystal": {
+      "count": 2,
+      "item": "tconstruct:sky_slime_crystal"
+    },
+    "tconstruct:ingot": {
+      "count": 1,
+      "tag": "forge:ingots/cobalt"
+    }
+  },
+  "tool": {
+    "item": "tconstruct:sky_staff"
+  }
+}

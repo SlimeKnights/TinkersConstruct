@@ -17,7 +17,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.block.InventoryBlock;
 import slimeknights.tconstruct.smeltery.block.entity.ProxyTankBlockEntity;
 
@@ -43,8 +42,8 @@ public class ProxyTankBlock extends Block implements EntityBlock {
   }
 
   @Override
-  public BlockState getStateForPlacement(BlockPlaceContext pContext) {
-    return this.defaultBlockState().setValue(HORIZONTAL_FACING, pContext.getHorizontalDirection().getOpposite());
+  public BlockState getStateForPlacement(BlockPlaceContext context) {
+    return this.defaultBlockState().setValue(HORIZONTAL_FACING, context.getHorizontalDirection().getOpposite());
   }
 
   @Override
@@ -118,15 +117,6 @@ public class ProxyTankBlock extends Block implements EntityBlock {
   @Override
   public float getShadeBrightness(BlockState state, BlockGetter worldIn, BlockPos pos) {
     return 1.0F;
-  }
-
-  @Override
-  public int getLightEmission(BlockState state, BlockGetter world, BlockPos pos) {
-    if (world.getBlockEntity(pos) instanceof ProxyTankBlockEntity tank) {
-      FluidStack fluid = tank.getItemTank().getFluidInTank(0);
-      return fluid.getFluid().getFluidType().getLightLevel(fluid);
-    }
-    return super.getLightEmission(state, world, pos);
   }
 
   @Deprecated

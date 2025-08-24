@@ -741,6 +741,27 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       // behavior
       .module(ToolActionsModule.of(ToolActions.SWORD_DIG))
       .module(swordHarvest);
+    // minotaur axe
+    define(ToolDefinitions.MINOTAUR_AXE)
+      // parts
+      .module(MaterialStatsModule.stats()
+        .stat(HeadMaterialStats.ID)
+        .stat(HeadMaterialStats.ID)
+        .stat(HandleMaterialStats.ID).build())
+      .module(ancientThreeParts)
+      // ancient tools when rebalanced get both heads
+      .module(new MaterialTraitsModule(PlatingMaterialStats.SHIELD.getId(), 1), ToolHooks.REBALANCED_TRAIT)
+      // stats
+      .module(new SetStatsModule(StatsNBT.builder()
+        .set(ToolStats.ATTACK_DAMAGE, 3.0f)
+        .set(ToolStats.ATTACK_SPEED, 0.9f).build()))
+      .smallToolStartingSlots()
+      .module(ToolTraitsModule.builder().trait(ModifierIds.chargeAttack).build())
+      // harvest
+      .module(ToolActionsModule.of(ToolActions.AXE_DIG, TinkerToolActions.SHIELD_DISABLE))
+      .module(IsEffectiveModule.tag(TinkerTags.Blocks.MINABLE_WITH_HAND_AXE))
+      .module(BoxAOEIterator.builder(0, 5, 0).addWidth(1).addDepth(1).direction(IBoxExpansion.HEIGHT).build())
+      .module(new ParticleWeaponAttack(TinkerTools.axeAttackParticle.get()));
   }
 
   @Override

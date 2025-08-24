@@ -6,6 +6,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeType;
 import slimeknights.mantle.recipe.ICommonRecipe;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.library.recipe.material.IMaterialValue;
@@ -20,6 +21,8 @@ import java.util.stream.Stream;
 public interface IPartBuilderRecipe extends ICommonRecipe<IPartBuilderContainer> {
   /** Default patterns in a part builder recipe, Forge has cache invalidation for vanilla, so this is fine as long as that persists */
   Ingredient DEFAULT_PATTERNS = Ingredient.of(TinkerTags.Items.DEFAULT_PATTERNS);
+  /** Pattern to use for recipes that don't implement the standard pattern behavior */
+  Pattern MISSING = new Pattern(TConstruct.MOD_ID, "missingno");
 
   /** Gets the pattern needed for this recipe,
    * if there are multiple recipes with the same pattern, they are effectively merged */

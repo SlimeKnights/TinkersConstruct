@@ -19,6 +19,7 @@ import net.minecraftforge.common.crafting.DifferenceIngredient;
 import net.minecraftforge.common.crafting.IntersectionIngredient;
 import net.minecraftforge.fluids.FluidType;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
+import slimeknights.mantle.datagen.MantleTags;
 import slimeknights.mantle.recipe.condition.TagFilledCondition;
 import slimeknights.mantle.recipe.data.ItemNameIngredient;
 import slimeknights.mantle.recipe.helper.ItemOutput;
@@ -490,7 +491,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .save(consumer, wrap(ModifierIds.sharpness, upgradeFolder, "_from_block"));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.sweeping)
                                     .setTools(TinkerTags.Items.SWORD)
-                                    .setInput(Blocks.CHAIN, 1, 18) // every 9 is 11 ingots, so this is 22 ingots
+                                    .setInput(Blocks.CHAIN, 1, 5) // 5% per chain, costing 55 nuggets, or just above 6 ingots
                                     .setMaxLevel(3) // goes 25%, 50%, 75%
                                     .setSlots(SlotType.UPGRADE, 1)
                                     .saveSalvage(consumer, prefix(TinkerModifiers.sweeping, upgradeSalvage))
@@ -846,7 +847,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     // upgrade - boots
     IncrementalModifierRecipeBuilder.modifier(ModifierIds.featherFalling)
                                     .setTools(TinkerTags.Items.BOOTS)
-                                    .setInput(Items.FEATHER, 1, 15)
+                                    .setInput(Items.FEATHER, 1, 15) // 1% per feather
                                     .setSlots(SlotType.UPGRADE, 1)
                                     .setMaxLevel(4)
                                     .saveSalvage(consumer, prefix(ModifierIds.featherFalling, upgradeSalvage))
@@ -1223,9 +1224,9 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .saveSalvage(consumer, prefix(TinkerModifiers.spilling, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.spilling, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.splashing)
-                         .addInput(TinkerFluids.splashBottle)
+                         .addInput(MantleTags.Items.SPLASH_BOTTLE)
                          .addInput(tanks)
-                         .addInput(TinkerFluids.splashBottle)
+                         .addInput(MantleTags.Items.SPLASH_BOTTLE)
                          .addInput(Tags.Items.INGOTS_COPPER)
                          .addInput(Tags.Items.INGOTS_COPPER)
                          .setSlots(SlotType.ABILITY, 1)
