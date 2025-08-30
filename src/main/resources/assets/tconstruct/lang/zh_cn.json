@@ -2036,7 +2036,7 @@
 
   "material.tconstruct.ironwood": "铁木",
   "material.tconstruct.ironwood.flavor": "铁木是木头吗？",
-  "material.tconstruct.ironwood.encyclopedia": "损失耐久时，额外损失1点耐久分享给任一位于快捷栏或副手栏。目标获得1+等级的树皮覆层。",
+  "material.tconstruct.ironwood.encyclopedia": "损失耐久时，额外损失1点耐久分享给任一位于快捷栏或副手栏的工具。目标获得1+等级的树皮覆层。",
   "material.tconstruct.ironwood.armor": "损失耐久时，额外损失1点耐久分享给任一当前穿戴的盔甲。目标获得1+等级的树皮覆层。",
 
 
