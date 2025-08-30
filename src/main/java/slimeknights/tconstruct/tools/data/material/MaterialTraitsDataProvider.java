@@ -30,7 +30,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.flint, TinkerModifiers.jagged);
     addDefaultTraits(MaterialIds.bone, ModifierIds.pierce);
     addDefaultTraits(MaterialIds.bamboo, ModifierIds.unburdened);
-    addDefaultTraits(MaterialIds.ice, TinkerModifiers.frostshield);
+    addDefaultTraits(MaterialIds.ice, ModifierIds.frostshield);
     addDefaultTraits(MaterialIds.cactus, ModifierIds.thorns);
     // tier 1 - end
     addDefaultTraits(MaterialIds.chorus, TinkerModifiers.enderference);
@@ -58,7 +58,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.scorchedStone, ModifierIds.scorching);
     addTraits(MaterialIds.scorchedStone, ARMOR, ModifierIds.scorchProtection);
     // tier 2 - end
-    addDefaultTraits(MaterialIds.whitestone, TinkerModifiers.stoneshield);
+    addDefaultTraits(MaterialIds.whitestone, ModifierIds.stoneshield);
     // tier 2 - binding
     addDefaultTraits(MaterialIds.skyslimeVine, ModifierIds.airborne);
     addTraits(MaterialIds.skyslimeVine, ARMOR, ModifierIds.skyfall);
@@ -108,7 +108,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addTraits(MaterialIds.silver, RANGED, ModifierIds.holy);
     addTraits(MaterialIds.silver, ARMOR, ModifierIds.consecrated);
     addDefaultTraits(MaterialIds.treatedWood, ModifierIds.preserved);
-    addDefaultTraits(MaterialIds.ironwood, ModifierIds.reinforced);
+    addDefaultTraits(MaterialIds.ironwood, ModifierIds.deciduous);
     // tier 3 - mod compat
     addDefaultTraits(MaterialIds.steel, ModifierIds.ductile);
     addDefaultTraits(MaterialIds.bronze, ModifierIds.maintained);

@@ -8,8 +8,8 @@ import slimeknights.mantle.util.ItemLayerPixels;
 import slimeknights.tconstruct.library.client.modifiers.IUnbakedModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.NormalModifierModel;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.modules.capacity.OverslimeModule;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import slimeknights.tconstruct.tools.modifiers.slotless.OverslimeModifier;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
@@ -37,7 +37,7 @@ public class OverslimeModifierModel extends NormalModifierModel {
   @Nullable
   @Override
   public Object getCacheKey(IToolStackView tool, ModifierEntry entry) {
-    if (entry.getModifier() instanceof OverslimeModifier overslime && overslime.getShield(tool) == 0) {
+    if (OverslimeModule.INSTANCE.getAmount(tool) == 0) {
       return null;
     }
     return super.getCacheKey(tool, entry);
@@ -45,7 +45,7 @@ public class OverslimeModifierModel extends NormalModifierModel {
 
   @Override
   public void addQuads(IToolStackView tool, ModifierEntry entry, Function<Material,TextureAtlasSprite> spriteGetter, Transformation transforms, boolean isLarge, int startTintIndex, Consumer<Collection<BakedQuad>> quadConsumer, @Nullable ItemLayerPixels pixels) {
-    if (!(entry.getModifier() instanceof OverslimeModifier overslime) || overslime.getShield(tool) != 0) {
+    if (OverslimeModule.INSTANCE.getAmount(tool) > 0) {
       super.addQuads(tool, entry, spriteGetter, transforms, isLarge, startTintIndex, quadConsumer, pixels);
     }
   }

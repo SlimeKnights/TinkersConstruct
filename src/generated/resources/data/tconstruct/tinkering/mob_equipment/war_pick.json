@@ -1,5 +1,8 @@
 {
-  "entity": "minecraft:zombie_villager",
+  "entity": [
+    "minecraft:zombie_villager",
+    "minecraft:vindicator"
+  ],
   "equip": {
     "chance": 0.05,
     "materials": [

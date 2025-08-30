@@ -12,9 +12,12 @@ import slimeknights.mantle.recipe.data.ItemNameOutput;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.FakeRegistryEntry;
+import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.data.tinkering.AbstractMobEquipmentProvider;
 import slimeknights.tconstruct.library.materials.RandomMaterial;
 import slimeknights.tconstruct.tools.TinkerTools;
+
+import java.util.List;
 
 /** Provider for custom mob equipment */
 public class MobEquipmentProvider extends AbstractMobEquipmentProvider {
@@ -33,7 +36,7 @@ public class MobEquipmentProvider extends AbstractMobEquipmentProvider {
       .match(ItemPredicate.set(Items.GOLDEN_SWORD, Items.GOLDEN_AXE))
       .tool(TinkerTools.battlesign)
       .material(random, random);
-    // drowned spawn with swashers
+    // drowned spawn with swashers filled with lava
     equip(EntityType.DROWNED)
       .slot(EquipmentSlot.MAINHAND)
       // only replace empty hand
@@ -41,13 +44,19 @@ public class MobEquipmentProvider extends AbstractMobEquipmentProvider {
       .tool(TinkerTools.swasher)
       .fluid(Fluids.LAVA)
       .material(random, random, random);
-    // husks spawn with melting pans
-    equip(EntityType.HUSK)
+    // wither skeletons spawn with swashers containing hepatizon for wither
+    equip(EntityType.WITHER_SKELETON)
+      .slot(EquipmentSlot.MAINHAND)
+      .tool(TinkerTools.swasher)
+      .fluid(TinkerFluids.moltenHepatizon.get())
+      .material(random, random, random);
+    // zombies spawn with melting pans
+    equip("melting_pan", List.of(EntityType.ZOMBIE, EntityType.ZOMBIE_VILLAGER, EntityType.HUSK))
       .slot(EquipmentSlot.MAINHAND)
       .tool(TinkerTools.meltingPan)
       .material(random, random);
-    // zombie villagers spawn with war picks
-    equip(EntityType.ZOMBIE_VILLAGER)
+    // evil villagers spawn with war picks
+    equip("war_pick", List.of(EntityType.ZOMBIE_VILLAGER, EntityType.VINDICATOR))
       .slot(EquipmentSlot.MAINHAND)
       .tool(TinkerTools.warPick)
       .material(random, random, random);

@@ -6,7 +6,7 @@
         {
           "effect": "tconstruct:bleeding",
           "level": 1,
-          "time": 40
+          "time": 60
         }
       ]
     }
@@ -32,7 +32,7 @@
       "action": "set",
       "effect": "tconstruct:bleeding",
       "level": 1,
-      "time": 40
+      "time": 60
     }
   ],
   "fluid": {

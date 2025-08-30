@@ -1,27 +1,24 @@
 package slimeknights.tconstruct.tools.modifiers.traits;
 
-import net.minecraft.network.chat.Component;
 import net.minecraft.tags.DamageTypeTags;
-import net.minecraft.util.Mth;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.EquipmentSlot;
-import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.modifiers.ModifierHooks;
-import slimeknights.tconstruct.library.modifiers.hook.armor.ModifyDamageModifierHook;
-import slimeknights.tconstruct.library.modifiers.impl.DurabilityShieldModifier;
+import slimeknights.mantle.data.predicate.damage.DamageSourcePredicate;
+import slimeknights.tconstruct.library.json.LevelingInt;
+import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.modules.capacity.CapacityBarModule;
+import slimeknights.tconstruct.library.modifiers.modules.capacity.DamageToCapacityModule;
+import slimeknights.tconstruct.library.modifiers.modules.capacity.DurabilityShieldModule;
 import slimeknights.tconstruct.library.module.ModuleHookMap.Builder;
-import slimeknights.tconstruct.library.tools.context.EquipmentContext;
-import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
-import javax.annotation.Nullable;
-
-/** Modifier for ice's trait */
-public class FrostshieldModifier extends DurabilityShieldModifier implements ModifyDamageModifierHook {
+/** @deprecated use {@link CapacityBarModule}, {@link DurabilityShieldModule}, and {@link DamageToCapacityModule} */
+@Deprecated(forRemoval = true)
+public class FrostshieldModifier extends Modifier {
   @Override
   protected void registerHooks(Builder hookBuilder) {
     super.registerHooks(hookBuilder);
-    hookBuilder.addHook(this, ModifierHooks.MODIFY_HURT);
+    hookBuilder.addModule(new CapacityBarModule(LevelingInt.eachLevel(100), ToolStats.DURABILITY));
+    hookBuilder.addModule(new DurabilityShieldModule(0xAAFFFF));
+    hookBuilder.addModule(DamageToCapacityModule.source(DamageSourcePredicate.tag(DamageTypeTags.IS_FREEZING)).reduceDamage().flat(1));
   }
 
 
@@ -31,52 +28,5 @@ public class FrostshieldModifier extends DurabilityShieldModifier implements Mod
   public int getPriority() {
     // higher than overslime, to ensure this is removed first
     return 175;
-  }
-
-  @Override
-  public int getShieldCapacity(IToolStackView tool, ModifierEntry modifier) {
-    return (int)(modifier.getEffectiveLevel() * 100 * tool.getMultiplier(ToolStats.DURABILITY));
-  }
-
-
-  /* Display */
-
-  @Override
-  public Component getDisplayName(int level) {
-    return super.getDisplayName();
-  }
-
-  @Nullable
-  @Override
-  public Boolean showDurabilityBar(IToolStackView tool, ModifierEntry modifier) {
-    return getShield(tool) > 0 ? true : null;
-  }
-
-  @Override
-  public int getDurabilityRGB(IToolStackView tool, ModifierEntry modifier) {
-    if (getShield(tool) > 0) {
-      return 0xAAFFFF;
-    }
-    return -1;
-  }
-
-
-  /* Restoring */
-
-  @Override
-  public float modifyDamageTaken(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
-    // if its freezing damage, absorb it
-    if (source.is(DamageTypeTags.IS_FREEZING)) {
-      // absorbed damage becomes durability
-      int capacity = getShieldCapacity(tool, modifier);
-      int current = getShield(tool);
-      // once it fills though, you take the damage directly
-      if (current < capacity) {
-        int added = Math.min(capacity - current, Mth.ceil(amount));
-        setShield(tool.getPersistentData(), current + added);
-        amount -= added;
-      }
-    }
-    return amount;
   }
 }

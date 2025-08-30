@@ -17,12 +17,11 @@ import slimeknights.tconstruct.library.modifiers.hook.armor.ProtectionModifierHo
 import slimeknights.tconstruct.library.modifiers.hook.display.TooltipModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.armor.ProtectionModule;
+import slimeknights.tconstruct.library.modifiers.modules.capacity.OverslimeModule;
 import slimeknights.tconstruct.library.module.HookProvider;
 import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import slimeknights.tconstruct.tools.TinkerModifiers;
-import slimeknights.tconstruct.tools.modifiers.slotless.OverslimeModifier;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -48,17 +47,13 @@ public record OvershieldModule(float protection, int consumed) implements Modifi
   @Override
   public float getProtectionModifier(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float modifierValue) {
     if (DamageSourcePredicate.CAN_PROTECT.matches(source)) {
-      ModifierEntry overslimeEntry = tool.getModifier(TinkerModifiers.overslime.getId());
-      if (overslimeEntry.getLevel() > 0) {
-        OverslimeModifier overslimeModifier = TinkerModifiers.overslime.get();
-        int overslime = overslimeModifier.getShield(tool);
-        if (overslime > 0) {
-          int consumed = Math.min(overslime, this.consumed);
-          // scale the modifier value based on the consumed overslime
-          modifierValue += protection * consumed / consumed;
-          // remove overslime from the tool
-          overslimeModifier.removeOverslime(tool, overslimeEntry, consumed);
-        }
+      int overslime = OverslimeModule.INSTANCE.getAmount(tool);
+      if (overslime > 0) {
+        int consumed = Math.min(overslime, this.consumed);
+        // scale the modifier value based on the consumed overslime
+        modifierValue += protection * consumed / consumed;
+        // remove overslime from the tool
+        OverslimeModule.INSTANCE.removeAmount(tool, consumed);
       }
     }
     return modifierValue;
@@ -68,8 +63,7 @@ public record OvershieldModule(float protection, int consumed) implements Modifi
   public void addTooltip(IToolStackView tool, ModifierEntry modifier, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
     float protection = this.protection;
     if (tooltipKey == TooltipKey.SHIFT) {
-      OverslimeModifier overslimeModifier = TinkerModifiers.overslime.get();
-      int overslime = overslimeModifier.getShield(tool);
+      int overslime = OverslimeModule.INSTANCE.getAmount(tool);
       if (overslime == 0) {
         return;
       }

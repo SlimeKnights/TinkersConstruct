@@ -13,6 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import slimeknights.mantle.command.MantleCommand;
+import slimeknights.mantle.fluid.FluidTransferHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.TinkerTags.Modifiers;
@@ -104,7 +105,7 @@ public class ModifierCrystalItem extends Item {
             player.displayClientMessage(toolValidation, false);
           } else {
             tool.updateStack(toolItem);
-            player.playSound(SoundEvents.ENCHANTMENT_TABLE_USE, 1, 0.8f + stack.getCount() * 0.2f);
+            FluidTransferHelper.playUISound(player, SoundEvents.ENCHANTMENT_TABLE_USE);
           }
         }
         return true;
@@ -157,7 +158,7 @@ public class ModifierCrystalItem extends Item {
 
           // success, update tool
           tool.updateStack(toolItem);
-          player.playSound(SoundEvents.GRINDSTONE_USE, 1, 0.8f + stack.getCount() * 0.2f);
+          FluidTransferHelper.playUISound(player, SoundEvents.GRINDSTONE_USE);
         }
         return true;
       }

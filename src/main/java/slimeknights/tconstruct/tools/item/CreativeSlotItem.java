@@ -14,6 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import slimeknights.mantle.command.MantleCommand;
+import slimeknights.mantle.fluid.FluidTransferHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
@@ -141,7 +142,11 @@ public class CreativeSlotItem extends Item {
             // neither add or removing modifier, just build it
             tool.rebuildStats();
           }
-          player.playSound(amount > 0 ? SoundEvents.ENCHANTMENT_TABLE_USE : SoundEvents.GRINDSTONE_USE, 1, 0.8f + stack.getCount() * 0.2f);
+          if (amount > 0) {
+            FluidTransferHelper.playUISound(player, SoundEvents.ENCHANTMENT_TABLE_USE);
+          } else {
+            FluidTransferHelper.playUISound(player, SoundEvents.GRINDSTONE_USE);
+          }
         } else if (!player.isCreative()) {
           player.displayClientMessage(CREATIVE_ONLY, false);
         }

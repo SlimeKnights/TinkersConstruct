@@ -68,7 +68,7 @@ public class InteractionHandler {
     Player player = event.getEntity();
     InteractionHand hand = event.getHand();
     InteractionSource source = InteractionSource.RIGHT_CLICK;
-    if (!stack.is(TinkerTags.Items.HELD)) {
+    if (!stack.is(TinkerTags.Items.INTERACTABLE_RIGHT)) {
       // if the hand is empty, allow performing chestplate interaction (assuming a modifiable chestplate)
       if (stack.isEmpty()) {
         stack = player.getItemBySlot(EquipmentSlot.CHEST);

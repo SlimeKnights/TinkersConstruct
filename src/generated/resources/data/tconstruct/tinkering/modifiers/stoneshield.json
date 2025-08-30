@@ -1,0 +1,26 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:capacity_bar",
+      "each_level": 100,
+      "multiplier": "tconstruct:durability"
+    },
+    {
+      "type": "tconstruct:durability_shield",
+      "color": "7F7F7F"
+    },
+    {
+      "type": "tconstruct:loot_to_capacity",
+      "amount": 3,
+      "chance": {
+        "each_level": 0.2
+      },
+      "consume": {
+        "tag": "tconstruct:stoneshields"
+      }
+    }
+  ],
+  "priority": 175,
+  "tooltip_display": "always"
+}

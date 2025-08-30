@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:damagable_melting",
   "ingredient": {
-    "item": "minecraft:diamond_boots"
+    "tag": "tconstruct:melting/diamond/tools_costing_4"
   },
   "result": {
     "amount": 400,

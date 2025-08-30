@@ -2036,7 +2036,8 @@
 
   "material.tconstruct.ironwood": "Ironwood",
   "material.tconstruct.ironwood.flavor": "Is it wood?",
-  "material.tconstruct.ironwood.encyclopedia": "Reduces the chance for the tool to take damage. Has a 75% chance of taking damage at level 1, 55% chance at level 2, 40% at level 3, and 30% at level 4.",
+  "material.tconstruct.ironwood.encyclopedia": "When losing durability, tool loses 1 extra durability to share durability with a random tool in the hotbar or offhand. Target gains 1 barkskin plus 1 per level.",
+  "material.tconstruct.ironwood.armor": "When losing durability, tool loses 1 extra durability to share durability with a random equipped armor. Target gains 1 barkskin plus 1 per level.",
 
 
   "__comment": "Tier 3 Integration Materials",
@@ -2307,6 +2308,10 @@
   "modifier.tconstruct.scope": "Scope",
   "modifier.tconstruct.scope.flavor": "360 with scope does not sound as cool",
   "modifier.tconstruct.scope.description": "Zoom in on the target when charging the tool.",
+  "modifier.tconstruct.war_charge": "War Charge",
+  "modifier.tconstruct.war_charge.flavor": "Potential energy",
+  "modifier.tconstruct.war_charge.description": "Mining blocks while loaded increases the velocity of the next shot",
+  "modifier.tconstruct.war_charge.velocity": "Velocity",
 
   "_comment": "Armor",
   "modifier.tconstruct.knockback_resistance": "Knockback Resistance",
@@ -2890,7 +2895,13 @@
   "modifier.tconstruct.consecrated.resistance": "Undead Resistance",
   "modifier.tconstruct.preserved": "Preserved",
   "modifier.tconstruct.preserved.flavor":  "A nice oil finish",
-  "modifier.tconstruct.preserved.description": "Makes the tool more durability and easier to repair",
+  "modifier.tconstruct.preserved.description": "Makes the tool more durable and easier to repair",
+  "modifier.tconstruct.deciduous": "Deciduous",
+  "modifier.tconstruct.deciduous.flavor":  "Shedding bark",
+  "modifier.tconstruct.deciduous.description": "Shares some of its durability with other tools when taking damage",
+  "modifier.tconstruct.barkskin": "Barkskin",
+  "modifier.tconstruct.barkskin.flavor":  "Shed bark",
+  "modifier.tconstruct.barkskin.description": "Tool uses barkskin instead of durability until it runs out",
 
 
   "__comment": "Tier 3 Mod Compat Traits",
@@ -2919,7 +2930,7 @@
   "modifier.tconstruct.invariant.accuracy": "Neutral Accuracy",
   "modifier.tconstruct.invariant.resistance": "Invariant Resistance",
   "modifier.tconstruct.solid": "Solid",
-  "modifier.tconstruct.solid.flavor": "Well-balancec",
+  "modifier.tconstruct.solid.flavor": "Well-balanced",
   "modifier.tconstruct.solid.description": "Tool does more damage and armor protects more, but its difficult to move",
   "modifier.tconstruct.solid.resistance": "Resistance",
   "modifier.tconstruct.shock": "Shock",
@@ -3349,7 +3360,7 @@
 
   "recipe.tconstruct.tool_recycling": "Tool Recycling",
   "recipe.tconstruct.tool_recycling.info": "Select which part to salvage from this tool. There is a chance based on the tool's remaining durability to salvage a second part.",
-  "recipe.tconstruct.tool_recycling.no_modifiers": "A tool cannot be recycled if it contains any upgrades or abilities, those must be removed first.",
+  "recipe.tconstruct.tool_recycling.no_modifiers": "A tool cannot be recycled if it contains any upgrades or abilities, those must be removed first using a modifier worktable.",
   "recipe.tconstruct.recycling": "Recycling",
   "recipe.tconstruct.recycling.info": "Select which item to salvage. Based on the durability, may be able to salvage unselected items.",
   "recipe.tconstruct.recycling.not_enough_durability": "Item does not have enough durability to salvage anything.",

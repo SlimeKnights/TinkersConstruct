@@ -37,7 +37,10 @@ public record RepairModule(ModifierFormula formula, ModifierCondition<IToolStack
 
   @Override
   public float getRepairFactor(IToolStackView tool, ModifierEntry entry, float factor) {
-    return formula.apply(formula.processLevel(entry), factor);
+    if (condition.matches(tool, entry)) {
+      return formula.apply(formula.processLevel(entry), factor);
+    }
+    return factor;
   }
 
   @Override

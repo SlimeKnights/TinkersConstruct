@@ -597,7 +597,9 @@ public class ItemTagProvider extends ItemTagsProvider {
       .add(2, Items.SHEARS)
       .add(2, true, ie.apply("hammer"))
       .crowbar().excavatorSpikeMaul();
-    moltenTools(TinkerFluids.moltenGold).minecraft("golden");
+    moltenTools(TinkerFluids.moltenGold).minecraft("golden")
+      .add(4, false, new ResourceLocation("golden_boots"))
+      .add(4, true,  new ResourceLocation(tf, "gold_minotaur_axe"));
     moltenTools(TinkerFluids.moltenSteel).toolTags().leggingsPaxel().crowbar()
       .toolTag(1, "shovel")
       .add(1, true, ie.apply("shovel_steel"))
@@ -612,7 +614,9 @@ public class ItemTagProvider extends ItemTagsProvider {
       .optionalMetal(3, tf, "axe", "pickaxe")
       .optionalMetal(7, tf, "leggings", "shield");
     // gems
-    moltenTools(TinkerFluids.moltenDiamond).minecraft().excavatorSpikeMaul().crowbar();
+    moltenTools(TinkerFluids.moltenDiamond).minecraft().excavatorSpikeMaul().crowbar()
+      .add(4, false, new ResourceLocation("diamond_boots"))
+      .add(4, true,  new ResourceLocation(tf, "diamond_minotaur_axe"));
     // mod ores
     moltenTools(TinkerFluids.moltenTin).toolTags().toolsComplement();
     moltenTools(TinkerFluids.moltenLead).toolTags().toolsComplement();

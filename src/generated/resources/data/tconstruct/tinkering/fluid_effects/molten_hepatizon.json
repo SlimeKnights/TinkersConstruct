@@ -4,35 +4,28 @@
       "type": "tconstruct:mob_effect_cloud",
       "effects": [
         {
-          "effect": "minecraft:resistance",
+          "effect": "minecraft:wither",
           "level": 1,
-          "time": 300
+          "time": 160
         }
       ]
     }
   ],
   "entity_effects": [
     {
-      "type": "tconstruct:conditional",
-      "effect": {
-        "type": "tconstruct:damage",
-        "damage": 4.0,
-        "damage_type": {
-          "melee": "tconstruct:fluid_fire_melee",
-          "ranged": "tconstruct:fluid_fire_ranged"
-        }
-      },
-      "target": {
-        "type": "mantle:inverted",
-        "inverted_type": "mantle:fire_immune"
+      "type": "tconstruct:damage",
+      "damage": 4.0,
+      "damage_type": {
+        "melee": "tconstruct:fluid_magic_melee",
+        "ranged": "tconstruct:fluid_magic_ranged"
       }
     },
     {
       "type": "tconstruct:mob_effect",
       "action": "set",
-      "effect": "minecraft:resistance",
+      "effect": "minecraft:wither",
       "level": 1,
-      "time": 300
+      "time": 160
     }
   ],
   "fluid": {

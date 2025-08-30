@@ -1,0 +1,9 @@
+{
+  "values": [
+    "minecraft:diamond_boots",
+    {
+      "id": "twilightforest:diamond_minotaur_axe",
+      "required": false
+    }
+  ]
+}

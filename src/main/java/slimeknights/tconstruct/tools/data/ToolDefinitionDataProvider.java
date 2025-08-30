@@ -690,6 +690,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       // stats
       .module(new SetStatsModule(StatsNBT.builder().set(ToolStats.ATTACK_SPEED, 1.2f).build()))
       .smallToolStartingSlots()
+      .module(ToolTraitsModule.builder().trait(ModifierIds.warCharge).build())
       // harvest
       .module(ToolActionsModule.of(ToolActions.PICKAXE_DIG))
       .module(IsEffectiveModule.tag(BlockTags.MINEABLE_WITH_PICKAXE))

@@ -56,6 +56,7 @@ import slimeknights.tconstruct.library.modifiers.hook.ranged.BowAmmoModifierHook
 import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileLaunchModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.special.BlockTransformModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.special.CapacityBarHook;
 import slimeknights.tconstruct.library.modifiers.hook.special.PlantHarvestModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.special.ShearsModifierHook;
 import slimeknights.tconstruct.library.module.ModuleHook;
@@ -108,6 +109,24 @@ public class ModifierHooks {
 
   /** Hook running while the tool is in the inventory */
   public static final ModuleHook<InventoryTickModifierHook> INVENTORY_TICK = register("inventory_tick", InventoryTickModifierHook.class, InventoryTickModifierHook.AllMerger::new, (tool, modifier, world, holder, itemSlot, isSelected, isCorrectSlot, stack) -> {});
+
+  /* Technical */
+
+  /** Hook for working with capacity bars, mainly used for durability bars  */
+  public static final ModuleHook<CapacityBarHook> CAPACITY_BAR = register("capacity_bar", CapacityBarHook.class, new CapacityBarHook() {
+    @Override
+    public int getAmount(IToolStackView tool) {
+      return 0;
+    }
+
+    @Override
+    public int getCapacity(IToolStackView tool, ModifierEntry entry) {
+      return 0;
+    }
+
+    @Override
+    public void setAmount(IToolStackView tool, ModifierEntry entry, int amount) {}
+  });
 
 
   /* Composable only  */

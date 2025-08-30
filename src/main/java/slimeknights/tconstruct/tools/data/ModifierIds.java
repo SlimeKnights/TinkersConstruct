@@ -82,6 +82,7 @@ public class ModifierIds {
   public static final ModifierId trickQuiver = id("trick_quiver");
   public static final ModifierId crystalshot = id("crystalshot");
   public static final ModifierId barebow = id("barebow");
+  public static final ModifierId warCharge = id("war_charge");
 
   // armor
   public static final ModifierId protection = id("protection");
@@ -144,6 +145,7 @@ public class ModifierIds {
   public static final ModifierId unburdened = id("unburdened");
   public static final ModifierId depthProtection = id("depth_protection");
   public static final ModifierId enderclearance = id("enderclearance");
+  public static final ModifierId frostshield = id("frostshield");
   // traits - tier 2
   public static final ModifierId overgrowth = id("overgrowth");
   public static final ModifierId searing = id("searing");
@@ -154,6 +156,9 @@ public class ModifierIds {
   public static final ModifierId skyfall = id("skyfall");
   public static final ModifierId flamestance = id("flamestance");
   public static final ModifierId entangled = id("entangled");
+  public static final ModifierId stoneshield = id("stoneshield");
+  public static final ModifierId deciduous = id("deciduous");
+  public static final ModifierId barkskin = id("barkskin");
   // traits - tier 2 compat
   public static final ModifierId dense = id("dense");
   public static final ModifierId lustrous = id("lustrous");

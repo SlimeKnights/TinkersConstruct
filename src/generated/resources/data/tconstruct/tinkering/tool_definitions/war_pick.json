@@ -48,6 +48,15 @@
       }
     },
     {
+      "type": "tconstruct:traits",
+      "traits": [
+        {
+          "level": 1,
+          "name": "tconstruct:war_charge"
+        }
+      ]
+    },
+    {
       "type": "tconstruct:tool_actions",
       "tool_actions": [
         "pickaxe_dig"

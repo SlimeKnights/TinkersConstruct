@@ -10,11 +10,10 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InventoryTickModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
+import slimeknights.tconstruct.library.modifiers.modules.capacity.OverslimeModule;
 import slimeknights.tconstruct.library.module.HookProvider;
 import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import slimeknights.tconstruct.tools.TinkerModifiers;
-import slimeknights.tconstruct.tools.modifiers.slotless.OverslimeModifier;
 
 import java.util.List;
 
@@ -39,11 +38,9 @@ public record OvergrowthModule(LevelingValue chance) implements ModifierModule, 
   public void onInventoryTick(IToolStackView tool, ModifierEntry modifier, Level world, LivingEntity holder, int itemSlot, boolean isSelected, boolean isCorrectSlot, ItemStack stack) {
     // update 1 times a second, but skip when active (messes with pulling bow back)
     if (!world.isClientSide && holder.tickCount % 20 == 0 && holder.getUseItem() != stack) {
-      OverslimeModifier overslime = TinkerModifiers.overslime.get();
-      ModifierEntry entry = tool.getModifier(TinkerModifiers.overslime.getId());
       // has a 5% chance of restoring each second per level
-      if (entry.getLevel() > 0 && overslime.getShield(tool) < overslime.getShieldCapacity(tool, entry) && Modifier.RANDOM.nextFloat() < chance.compute(modifier.getEffectiveLevel())) {
-        overslime.addOverslime(tool, entry, 1);
+      if (OverslimeModule.INSTANCE.getAmount(tool) < OverslimeModule.getCapacity(tool) && Modifier.RANDOM.nextFloat() < chance.compute(modifier.getEffectiveLevel())) {
+        OverslimeModule.INSTANCE.addAmount(tool, 1);
       }
     }
   }

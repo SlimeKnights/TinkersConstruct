@@ -338,7 +338,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
       .save(consumer, location(folder + "swasher"));
     PartBuilderToolRecycleBuilder.tools(SizedIngredient.of(ItemNameIngredient.from(TinkerTools.minotaurAxe.getId())))
       .part(TinkerToolParts.smallAxeHead)
-      .part(TinkerToolParts.smallAxeHead)
+      .part(TinkerToolParts.repairKit)
       .part(TinkerToolParts.toolHandle)
       .save(withCondition(consumer, new ModLoadedCondition("twilightforest")), location(folder + "minotaur_axe"));
   }

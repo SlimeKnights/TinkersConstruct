@@ -631,7 +631,7 @@ public class SmelteryRecipeBuilder {
 
   /** Adds vanilla tools with the given prefix for item IDs */
   @Internal
-  public SmelteryRecipeBuilder minecraftTools(String prefix) {
+  public SmelteryRecipeBuilder minecraftTools(String prefix, boolean minotaur) {
     // shovel needs the cost tag for tool's complement knife
     toolCostMelting(1, "shovel", false);
     // sword recipe also handles hoe
@@ -641,7 +641,13 @@ public class SmelteryRecipeBuilder {
     // armor
     minecraftArmorMelting(5, prefix, "helmet");
     minecraftArmorMelting(8, prefix, "chestplate");
-    minecraftArmorMelting(4, prefix, "boots");
+    // diamond and gold use the boots tag for minotaur axes. Any other can just directly add the boots recipe
+    // yeah, its a special case, but this is a builder method just for us
+    if (minotaur) {
+      toolCostMelting(4, "boots", false);
+    } else {
+      minecraftArmorMelting(4, prefix, "boots");
+    }
     // mekanism adds paxels for all vanilla tools, so use a tag to make supporting that easy
     toolCostMelting(7, "leggings", false);
     return this;
@@ -650,7 +656,7 @@ public class SmelteryRecipeBuilder {
   /** Adds vanilla tools with the default prefix for item IDs */
   @Internal
   public SmelteryRecipeBuilder minecraftTools() {
-    return minecraftTools(name.getPath());
+    return minecraftTools(name.getPath(), false);
   }
 
 
