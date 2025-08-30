@@ -2036,7 +2036,8 @@
 
   "material.tconstruct.ironwood": "铁木",
   "material.tconstruct.ironwood.flavor": "铁木是木头吗？",
-  "material.tconstruct.ironwood.encyclopedia": "随等级提升，降低工具使用后耐久降低的概率。1级为75%，2级为55%，3级为40%，4级为30%。",
+  "material.tconstruct.ironwood.encyclopedia": "损失耐久时，额外损失1点耐久分享给任一位于快捷栏或副手栏。目标获得1+等级的树皮覆层。",
+  "material.tconstruct.ironwood.armor": "损失耐久时，额外损失1点耐久分享给任一当前穿戴的盔甲。目标获得1+等级的树皮覆层。",
 
 
   "__comment": "Tier 3 Integration Materials",
@@ -2307,6 +2308,10 @@
   "modifier.tconstruct.scope": "瞄准",
   "modifier.tconstruct.scope.flavor": "360度带瞄准没那么厉害",
   "modifier.tconstruct.scope.description": "拉弦时放大视野。",
+  "modifier.tconstruct.war_charge": "战斗冲锋",
+  "modifier.tconstruct.war_charge.flavor": "后备能源",
+  "modifier.tconstruct.war_charge.description": "填装状态下，挖掘方块可提升下一次射击时弹射物的速度",
+  "modifier.tconstruct.war_charge.velocity": "弹射物速度",
 
   "_comment": "Armor",
   "modifier.tconstruct.knockback_resistance": "击退抗性",
@@ -2890,7 +2895,13 @@
   "modifier.tconstruct.consecrated.resistance": "亡灵抗性",
   "modifier.tconstruct.preserved": "防腐",
   "modifier.tconstruct.preserved.flavor": "优质的油性涂层",
-  "modifier.tconstruct.preserved.description": "增加工具耐久度，并使其更易修理",
+  "modifier.tconstruct.preserved.description": "工具更加耐用，并且更易修理",
+  "modifier.tconstruct.deciduous": "落叶",
+  "modifier.tconstruct.deciduous.flavor":  "脱下树皮",
+  "modifier.tconstruct.deciduous.description": "损失耐久时，额外分享耐久给其他工具",
+  "modifier.tconstruct.barkskin": "树皮覆层",
+  "modifier.tconstruct.barkskin.flavor":  "穿上树皮",
+  "modifier.tconstruct.barkskin.description": "工具优先消耗铁树覆层而不是耐久度",
 
 
   "__comment": "Tier 3 Mod Compat Traits",
@@ -3349,7 +3360,7 @@
 
   "recipe.tconstruct.tool_recycling": "工具回收",
   "recipe.tconstruct.tool_recycling.info": "从组装此工具的工具部件中选择你想回收的一个。根据工具剩余的耐久度多少，甚至有可能回收第2个工具部件。",
-  "recipe.tconstruct.tool_recycling.no_modifiers": "无法回收加持升级或能力的工具，你需要先移除它们。",
+  "recipe.tconstruct.tool_recycling.no_modifiers": "无法回收加持升级或能力的工具，你需要先在强化调配台上移除它们。",
   "recipe.tconstruct.recycling": "回收",
   "recipe.tconstruct.recycling.info": "从组成此工具的材料物品中选择你想回收的一个。根据工具剩余的耐久度多少，未选择的工具材料也有可能回收。",
   "recipe.tconstruct.recycling.not_enough_durability": "工具的耐久不足，无法被回收。",
