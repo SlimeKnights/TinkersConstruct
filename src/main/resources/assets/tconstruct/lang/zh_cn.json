@@ -2901,7 +2901,7 @@
   "modifier.tconstruct.deciduous.description": "损失耐久时，额外分享耐久给其他工具",
   "modifier.tconstruct.barkskin": "树皮覆层",
   "modifier.tconstruct.barkskin.flavor":  "穿上树皮",
-  "modifier.tconstruct.barkskin.description": "工具优先消耗铁树覆层而不是耐久度",
+  "modifier.tconstruct.barkskin.description": "工具优先消耗树皮覆层而不是耐久度",
 
 
   "__comment": "Tier 3 Mod Compat Traits",
