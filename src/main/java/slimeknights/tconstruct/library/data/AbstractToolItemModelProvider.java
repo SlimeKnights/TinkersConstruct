@@ -22,6 +22,7 @@ import slimeknights.mantle.registration.object.IdAwareObject;
 import slimeknights.tconstruct.library.tools.item.ranged.ModifiableCrossbowItem;
 import slimeknights.tconstruct.library.tools.item.ranged.ModifiableLauncherItem;
 
+import javax.annotation.Nullable;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Arrays;
@@ -61,10 +62,12 @@ public abstract class AbstractToolItemModelProvider extends GenericDataProvider 
   /* Model types */
 
   /** Creates models for blocking and broken for the given tool */
-  protected void tool(IdAwareObject tool, JsonObject properties, String... brokenParts) throws IOException {
+  protected void tool(IdAwareObject tool, @Nullable JsonObject blocking, String... brokenParts) throws IOException {
     ResourceLocation id = tool.getId();
     String name = id.getPath();
-    withDisplay("tool/" + name + "/blocking", id, properties);
+    if (blocking != null) {
+      withDisplay("tool/" + name + "/blocking", id, blocking);
+    }
     transformTool("tool/" + name + "/broken", readJson(id), "", false, "broken", brokenParts);
   }
 
@@ -188,16 +191,16 @@ public abstract class AbstractToolItemModelProvider extends GenericDataProvider 
   }
 
   /** Creates a model in the blocking folder with the given copied display */
-  protected void pulling(IdAwareObject bow, JsonObject properties, AmmoHandler ammo, String brokenPart, int pullingCount, String... pullingParts) throws IOException {
+  protected void pulling(IdAwareObject bow, JsonObject blocking, AmmoHandler ammo, String brokenPart, int pullingCount, String... pullingParts) throws IOException {
     ResourceLocation id = bow.getId();
     String name = id.getPath();
     JsonObject base = readJson(id);
     base.remove("overrides"); // don't need them anywhere, notably ditching for the sake of ammo models
     transformTool("tool/" + name + "/broken", base, "", false, "broken", brokenPart);
-    withDisplay("tool/" + name + "/blocking", id, properties);
+    withDisplay("tool/" + name + "/blocking", id, blocking);
 
     // apply ammo specific code
-    ammo.apply(this, name, base, properties, pullingCount, pullingParts);
+    ammo.apply(this, name, base, blocking, pullingCount, pullingParts);
   }
 
   /** Creates models for blocking, broken and fully charged for the given tool */
@@ -248,6 +251,21 @@ public abstract class AbstractToolItemModelProvider extends GenericDataProvider 
   /** Adds broken and blocking models for the armor set */
   protected void armor(String name, EnumObject<ArmorItem.Type,? extends Item> armor, String... textures) throws IOException {
     armor(name, armor, ArmorItem.Type.values(), textures);
+  }
+
+  /** Creates models for fishing rods cast and broken */
+  @SuppressWarnings("SameParameterValue") // API
+  protected void fishingRod(IdAwareObject tool, @Nullable JsonObject blocking, String[] castParts, String[] brokenParts) throws IOException {
+    ResourceLocation id = tool.getId();
+    String name = id.getPath();
+    JsonObject base = readJson(id);
+    String cast = "tool/" + name + "/cast";
+    transformTool(cast,   base, "", false, "cast", castParts);
+    transformTool("tool/" + name + "/broken", base, "", false, "broken", brokenParts);
+    if (blocking != null) {
+      withDisplay("tool/" + name + "/blocking", id, blocking);
+      withDisplay("tool/" + name + "/blocking_cast", resource(cast), blocking);
+    }
   }
 
   /* Helpers */

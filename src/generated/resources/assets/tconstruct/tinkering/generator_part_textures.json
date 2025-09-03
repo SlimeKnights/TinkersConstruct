@@ -874,6 +874,62 @@
       "stat_type": "tconstruct:bowstring"
     },
     {
+      "path": "tconstruct:item/tool/fishing_rod/rod",
+      "stat_type": "tconstruct:limb"
+    },
+    {
+      "path": "tconstruct:item/tool/fishing_rod/string",
+      "stat_type": "tconstruct:bowstring"
+    },
+    {
+      "path": "tconstruct:item/tool/fishing_rod/string_broken",
+      "stat_type": "tconstruct:bowstring"
+    },
+    {
+      "path": "tconstruct:item/tool/fishing_rod/string_cast",
+      "stat_type": "tconstruct:bowstring"
+    },
+    {
+      "path": "tconstruct:item/tool/javelin/head",
+      "stat_type": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/javelin/head_broken",
+      "stat_type": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/javelin/guard",
+      "stat_type": "tconstruct:limb"
+    },
+    {
+      "path": "tconstruct:item/tool/javelin/handle",
+      "stat_type": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:item/tool/javelin/grip",
+      "stat_type": "tconstruct:grip"
+    },
+    {
+      "path": "tconstruct:item/tool/javelin/large/head",
+      "stat_type": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/javelin/large/head_broken",
+      "stat_type": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/javelin/large/guard",
+      "stat_type": "tconstruct:limb"
+    },
+    {
+      "path": "tconstruct:item/tool/javelin/large/handle",
+      "stat_type": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:item/tool/javelin/large/grip",
+      "stat_type": "tconstruct:grip"
+    },
+    {
       "path": "tconstruct:item/tool/melting_pan/head",
       "skip_variants": true,
       "stat_type": "tconstruct:plating_shield"

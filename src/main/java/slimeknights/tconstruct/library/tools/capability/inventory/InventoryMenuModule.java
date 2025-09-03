@@ -20,7 +20,6 @@ import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.module.HookProvider;
 import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.tools.definition.module.ToolHooks;
-import slimeknights.tconstruct.library.tools.definition.module.interaction.DualOptionInteraction;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nullable;
@@ -62,7 +61,7 @@ public enum InventoryMenuModule implements ModifierModule, KeybindInteractModifi
 
   @Override
   public Component getDisplayName(IToolStackView tool, ModifierEntry entry, Component name, @Nullable RegistryAccess access) {
-    return DualOptionInteraction.formatModifierName(tool, entry.getModifier(), name);
+    return InteractionSource.formatModifierName(tool, entry.getModifier(), name);
   }
 
   @Override

@@ -1,0 +1,22 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:trait",
+      "fixed_level": true,
+      "level": 1,
+      "name": "tconstruct:tank_handler"
+    },
+    {
+      "type": "tconstruct:stat_boost",
+      "each_level": 1000.0,
+      "operation": "add",
+      "stat": "tconstruct:tank_capacity"
+    },
+    {
+      "type": "tconstruct:spilling",
+      "each_level": 1.0
+    }
+  ],
+  "tooltip_display": "always"
+}

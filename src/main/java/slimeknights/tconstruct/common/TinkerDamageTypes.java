@@ -15,6 +15,7 @@ import javax.annotation.Nullable;
 public class TinkerDamageTypes {
   private TinkerDamageTypes() {}
 
+  /* World */
   /** Standard damage source for melting most mobs */
   public static final ResourceKey<DamageType> SMELTERY_HEAT = create("smeltery_heat");
   /** Special damage source for "absorbing" hot entities */
@@ -22,6 +23,12 @@ public class TinkerDamageTypes {
   /** Damage from a knightmetal block */
   public static final ResourceKey<DamageType> KNIGHTMETAL = create("knightmetal");
 
+  /** Damage from throwing a tool */
+  public static final ResourceKey<DamageType> THROWN_TOOL = create("thrown_tool");
+  /** Damage from a fishing rod */
+  public static final ResourceKey<DamageType> FISHING_HOOK = create("fishing_hook");
+
+  /* Modifiers */
   /** Damage source that bypasses armor */
   public static final ResourceKey<DamageType> PIERCING = create("piercing");
   /** Damage source for potion effect, bypassing armor */
@@ -30,7 +37,6 @@ public class TinkerDamageTypes {
   public static final ResourceKey<DamageType> ENTANGLED = create("entangled");
   /** Damage source for shock modifier */
   public static final ResourceKey<DamageType> SHOCK = create("shock");
-
   /** Damage source for the self-destructing modifier */
   public static final ResourceKey<DamageType> SELF_DESTRUCT = create("self_destruct");
 

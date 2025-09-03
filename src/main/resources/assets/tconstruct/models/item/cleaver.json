@@ -1,6 +1,6 @@
 {
   "loader": "tconstruct:tool",
-  "parent": "forge:item/default-tool",
+  "parent": "tconstruct:item/base/tall",
   "textures": {
     "head":   "tconstruct:item/tool/cleaver/head",
     "handle": "tconstruct:item/tool/cleaver/handle",

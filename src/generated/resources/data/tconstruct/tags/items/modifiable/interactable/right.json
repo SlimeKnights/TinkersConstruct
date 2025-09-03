@@ -13,6 +13,7 @@
     "tconstruct:dagger",
     "tconstruct:sword",
     "tconstruct:cleaver",
+    "tconstruct:javelin",
     "tconstruct:flint_and_brick",
     {
       "id": "tconstruct:minotaur_axe",

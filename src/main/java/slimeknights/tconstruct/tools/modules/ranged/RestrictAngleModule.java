@@ -24,7 +24,7 @@ import java.util.List;
 public enum RestrictAngleModule implements ModifierModule, ProjectileLaunchModifierHook {
   INSTANCE;
 
-  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<RestrictAngleModule>defaultHooks(ModifierHooks.PROJECTILE_LAUNCH);
+  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<RestrictAngleModule>defaultHooks(ModifierHooks.PROJECTILE_LAUNCH, ModifierHooks.PROJECTILE_THROWN);
   public static final SingletonLoader<RestrictAngleModule> LOADER = new SingletonLoader<>(INSTANCE);
 
   @Override

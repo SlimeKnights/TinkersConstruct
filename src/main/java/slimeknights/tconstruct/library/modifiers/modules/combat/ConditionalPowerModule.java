@@ -22,6 +22,7 @@ import slimeknights.tconstruct.library.json.variable.power.PowerFormula;
 import slimeknights.tconstruct.library.json.variable.power.PowerVariable;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
+import slimeknights.tconstruct.library.modifiers.entity.ProjectileWithPower;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileLaunchModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
@@ -91,8 +92,12 @@ public record ConditionalPowerModule(IJsonPredicate<LivingEntity> target, IJsonP
 
   @Override
   public boolean onProjectileHitEntity(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
-    if (modifierLevel.test(modifier.getLevel()) && TinkerPredicate.matches(this.target, target) && TinkerPredicate.matches(this.holder, attacker) && projectile instanceof AbstractArrow arrow) {
-      arrow.setBaseDamage(formula.apply(modifiers, persistentData, modifier, projectile, hit, attacker, target, arrow.getBaseDamage(), persistentData.getFloat(MULTIPLIER)));
+    if (modifierLevel.test(modifier.getLevel()) && TinkerPredicate.matches(this.target, target) && TinkerPredicate.matches(this.holder, attacker)) {
+      if (projectile instanceof AbstractArrow arrow) {
+        arrow.setBaseDamage(formula.apply(modifiers, persistentData, modifier, projectile, hit, attacker, target, arrow.getBaseDamage(), persistentData.getFloat(MULTIPLIER)));
+      } else if (projectile instanceof ProjectileWithPower withPower) {
+        withPower.setPower(formula.apply(modifiers, persistentData, modifier, projectile, hit, attacker, target, withPower.getPower(), persistentData.getFloat(MULTIPLIER)));
+      }
     }
     return false;
   }

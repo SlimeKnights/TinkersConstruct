@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:punch",
   "text": [
     {
-      "text": "Increases the knockback dealt by arrows each level."
+      "text": "Increases the knockback dealt by arrows and the distance fishing rods pull mobs each level."
     }
   ],
   "more_text_space": true,
   "effects": [
-    "Maximum of 5 levels",
+    "Maximum of 3 levels",
     "Requires 1 upgrade slot per level"
   ]
 }

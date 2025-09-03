@@ -3,6 +3,7 @@
     "tconstruct:bulk_quiver",
     "tconstruct:trick_quiver",
     "tconstruct:crystalshot",
-    "tconstruct:multishot"
+    "tconstruct:multishot",
+    "tconstruct:grapple"
   ]
 }

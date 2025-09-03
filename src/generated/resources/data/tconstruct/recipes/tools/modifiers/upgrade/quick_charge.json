@@ -19,6 +19,9 @@
     },
     {
       "tag": "tconstruct:modifiable/staffs"
+    },
+    {
+      "tag": "tconstruct:modifiable/fishing_rods"
     }
   ]
 }

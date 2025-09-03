@@ -1102,6 +1102,8 @@
 
   "item.tconstruct.crossbow": "Crossbow",
   "item.tconstruct.longbow": "Longbow",
+  "item.tconstruct.fishing_rod": "Fishing Rod",
+  "item.tconstruct.javelin": "Javelin",
 
   "item.tconstruct.flint_and_brick": "Flint and Brick",
   "item.tconstruct.sky_staff": "Skyslime Staff",
@@ -1210,6 +1212,8 @@
 
   "item.tconstruct.crossbow.description": "The Crossbow is a light ranged weapon, capable of quickly firing arrows and fireworks.",
   "item.tconstruct.longbow.description": "The Longbow is a broad ranged weapon, capable of firing arrows with precision over long distances.",
+  "item.tconstruct.fishing_rod.description": "The Fishing Rod is a light ranged weapon, capable of short distance attacks without requiring ammo. It also can be used to fish if you're into that.",
+  "item.tconstruct.javelin.description": "The Javelin is a hybrid melee/ranged weapon, ideal for both melee combat along with throwing for ranged damage. Just be careful after throwing as you will be without a weapon.",
 
   "gui.tconstruct.plate_armor": "Plate Armor",
   "gui.tconstruct.plate_armor.description": "Plate armor is a highly defensive armor set with limited ability slots.",
@@ -1238,6 +1242,10 @@
   "death.attack.tconstruct.knightmetal.player": "%1$s was skewered by Knightmetal escaping %2$s",
   "death.attack.tconstruct.self_destruct": "%1$s self destructed",
   "death.attack.tconstruct.self_destruct.player": "%1$s self destructed whilst fighting %2$s",
+  "death.attack.tconstruct.thrown_tool": "%1$s was impaled by %2$s",
+  "death.attack.tconstruct.thrown_tool.item": "%1$s was impaled by %2$s with %3$s",
+  "death.attack.tconstruct.fishing_hook": "%1$s was impaled by %2$s's fish hook",
+  "death.attack.tconstruct.fishing_hook.item": "%1$s was impaled by %2$s's fish hook from %3$s",
   "death.attack.tconstruct.piercing": "%1$s was pierced by %2$s",
   "death.attack.tconstruct.piercing.item": "%1$s was pierced by %2$s using %3$s",
   "death.attack.tconstruct.entangled": "%1$s could not let go of their tool",
@@ -2529,7 +2537,7 @@
   "modifier.tconstruct.luck.2": "Luckier",
   "modifier.tconstruct.luck.3": "Luckiest",
   "modifier.tconstruct.luck.flavor": "Flashy!",
-  "modifier.tconstruct.luck.description": "Gives you more nice things when mining or killing mobs!",
+  "modifier.tconstruct.luck.description": "Gives you more nice things when mining, killing mobs, or fishing using this tool or wearing this armor!",
   "modifier.tconstruct.fortune": "Fortune",
   "modifier.tconstruct.fortune.flavor": "Luck of the Ores!",
   "modifier.tconstruct.fortune.description": "Gives you more nice things when mining!",
@@ -2600,6 +2608,25 @@
   "modifier.tconstruct.warping": "Warping",
   "modifier.tconstruct.warping.flavor": "Ender transporting",
   "modifier.tconstruct.warping.description": "Charge up, aim at a wall, and warp to the other side!",
+
+  "modifier.tconstruct.throwing": "Throwing",
+  "modifier.tconstruct.throwing.flavor": "Cooler than tridents!",
+  "modifier.tconstruct.throwing.description": "Allows throwing the tool to do melee damage at a distance.",
+  "modifier.tconstruct.loyalty": "Loyalty",
+  "modifier.tconstruct.loyalty.flavor": "Like a magic magnet",
+  "modifier.tconstruct.loyalty.description": "Causes the thrown tool to return to you after hitting a target.",
+  "modifier.tconstruct.loyalty.requirements": "Loyalty requires Throwing",
+
+  "modifier.tconstruct.fishing": "Fishing",
+  "modifier.tconstruct.fishing.flavor": "Obligatory fishing minigame",
+  "modifier.tconstruct.fishing.description": "Tool can cast a fishing bobber projectile, which potentially damages foes.",
+  "modifier.tconstruct.lure": "Lure",
+  "modifier.tconstruct.lure.flavor": "Tasty worms",
+  "modifier.tconstruct.lure.description": "Reduces the time it takes to catch fish",
+  "modifier.tconstruct.grapple": "Grapple",
+  "modifier.tconstruct.grapple.flavor": "Pull the blocks to you",
+  "modifier.tconstruct.grapple.description": "Allows you to pull yourself towards blocks grabbed by the fishing hook",
+  "modifier.tconstruct.grapple.requirements": "Grapple requires Fishing",
 
   "_comment": "Fluids",
   "modifier.tconstruct.melting": "Melting",
@@ -3179,6 +3206,11 @@
   "tool_stat.tconstruct.block_angle": "Block Angle: ",
   "tool_stat.tconstruct.block_angle.description": "Total angle of protection in front when shielding out of a max 360 degrees. Any attacks from an angle beyond this are not blocked.",
 
+  "tool_stat.tconstruct.sea_luck": "Sea Luck: ",
+  "tool_stat.tconstruct.sea_luck.description": "Increases the chance of good rewards from fishing.",
+  "tool_stat.tconstruct.lure": "Lure: ",
+  "tool_stat.tconstruct.lure.description": "Reduces the time it takes to catch fish.",
+
   "tool_stat.tconstruct.overslime": "Overslime Capacity: ",
   "tool_stat.tconstruct.overslime.description": "Maximum amount of overslime allowed on this tool.",
 
@@ -3327,10 +3359,9 @@
   "recipe.tconstruct.invisible_modifiers.removing.description": "Select a hidden modifier to make it show in the tool's model again",
 
   "modifier.tconstruct.attack_toggled": "%s (Attack)",
-  "recipe.tconstruct.attack_modifiers.adding.title": "Toggle Interaction",
-  "recipe.tconstruct.attack_modifiers.adding.description": "Switches an interaction modifier from activating on interaction to attack",
-  "recipe.tconstruct.attack_modifiers.removing.title": "Untoggle Interaction",
-  "recipe.tconstruct.attack_modifiers.removing.description": "Switches an interaction modifier back to activating on interaction",
+  "modifier.tconstruct.interact_toggled": "%s (Interact)",
+  "recipe.tconstruct.toggle_interaction.title": "Toggle Interaction",
+  "recipe.tconstruct.toggle_interaction.description": "Toggles an interaction between interaction and attack activation",
 
   "recipe.tconstruct.extract_modifier.upgrades": "Extract Upgrade",
   "recipe.tconstruct.extract_modifier.slotless": "Extract Slotless",

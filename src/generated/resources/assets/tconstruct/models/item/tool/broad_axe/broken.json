@@ -1,6 +1,6 @@
 {
   "loader": "tconstruct:tool",
-  "parent": "forge:item/default-tool",
+  "parent": "tconstruct:item/base/tall_axe",
   "textures": {
     "head": "tconstruct:item/tool/broad_axe/blade_broken",
     "handle": "tconstruct:item/tool/broad_axe/handle",

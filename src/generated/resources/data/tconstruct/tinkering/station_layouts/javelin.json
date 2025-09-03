@@ -1,0 +1,46 @@
+{
+  "icon": {
+    "item": "tconstruct:javelin",
+    "nbt": "{Damage:0,tic_broken:0b,tic_display:1b,tic_materials:[\"tconstruct:ui_render#head\",\"tconstruct:ui_render#handle\",\"tconstruct:ui_render#extra\",\"tconstruct:ui_render#large\",\"tconstruct:ui_render#extra_large\"]}"
+  },
+  "input_slots": [
+    {
+      "filter": {
+        "item": "tconstruct:small_blade"
+      },
+      "icon": "tconstruct:small_blade",
+      "translation_key": "item.tconstruct.small_blade",
+      "x": 45,
+      "y": 26
+    },
+    {
+      "filter": {
+        "item": "tconstruct:tool_handle"
+      },
+      "icon": "tconstruct:tool_handle",
+      "translation_key": "item.tconstruct.tool_handle",
+      "x": 7,
+      "y": 62
+    },
+    {
+      "filter": {
+        "item": "tconstruct:bow_limb"
+      },
+      "icon": "tconstruct:bow_limb",
+      "translation_key": "item.tconstruct.bow_limb",
+      "x": 45,
+      "y": 46
+    },
+    {
+      "filter": {
+        "item": "tconstruct:bow_grip"
+      },
+      "icon": "tconstruct:bow_grip",
+      "translation_key": "item.tconstruct.bow_grip",
+      "x": 25,
+      "y": 46
+    }
+  ],
+  "sortIndex": 14,
+  "translation_key": "item.tconstruct.javelin"
+}

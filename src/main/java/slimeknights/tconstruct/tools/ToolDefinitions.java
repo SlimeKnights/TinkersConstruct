@@ -28,9 +28,11 @@ public final class ToolDefinitions {
   public static final ToolDefinition SWORD = ToolDefinition.create(TinkerTools.sword);
   public static final ToolDefinition CLEAVER = ToolDefinition.create(TinkerTools.cleaver);
 
-  // bows
+  // ranged
   public static final ToolDefinition CROSSBOW = ToolDefinition.create(TinkerTools.crossbow);
   public static final ToolDefinition LONGBOW = ToolDefinition.create(TinkerTools.longbow);
+  public static final ToolDefinition FISHING_ROD = ToolDefinition.create(TinkerTools.fishingRod);
+  public static final ToolDefinition JAVELIN = ToolDefinition.create(TinkerTools.javelin);
 
   // special
   public static final ToolDefinition FLINT_AND_BRICK = ToolDefinition.create(TinkerTools.flintAndBrick);

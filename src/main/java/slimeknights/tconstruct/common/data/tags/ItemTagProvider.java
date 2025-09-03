@@ -64,6 +64,7 @@ import static slimeknights.tconstruct.common.TinkerTags.Items.DYEABLE;
 import static slimeknights.tconstruct.common.TinkerTags.Items.EMBELLISHMENT_SLIME;
 import static slimeknights.tconstruct.common.TinkerTags.Items.EMBELLISHMENT_WOOD;
 import static slimeknights.tconstruct.common.TinkerTags.Items.FANTASTIC_ARMOR;
+import static slimeknights.tconstruct.common.TinkerTags.Items.FISHING_RODS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.GADGETRY_ARMOR;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HARVEST;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HARVEST_PRIMARY;
@@ -77,6 +78,7 @@ import static slimeknights.tconstruct.common.TinkerTags.Items.INTERACTABLE_CHARG
 import static slimeknights.tconstruct.common.TinkerTags.Items.INTERACTABLE_DUAL;
 import static slimeknights.tconstruct.common.TinkerTags.Items.INTERACTABLE_LEFT;
 import static slimeknights.tconstruct.common.TinkerTags.Items.INTERACTABLE_RIGHT;
+import static slimeknights.tconstruct.common.TinkerTags.Items.LAUNCHERS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.LEGGINGS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.LONGBOWS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.LOOT_CAPABLE_TOOL;
@@ -310,9 +312,11 @@ public class ItemTagProvider extends ItemTagsProvider {
     addToolTags(TinkerTools.dagger,  MULTIPART_TOOL, DURABILITY, HARVEST, MELEE_PRIMARY, INTERACTABLE_RIGHT, PARRY, SMALL_TOOLS, BONUS_SLOTS, ItemTags.SWORDS, UNSALVAGABLE);
     addToolTags(TinkerTools.sword,   MULTIPART_TOOL, DURABILITY, HARVEST, MELEE_PRIMARY, INTERACTABLE_RIGHT, SWORD, SMALL_TOOLS, BONUS_SLOTS, ItemTags.SWORDS, AOE);
     addToolTags(TinkerTools.cleaver, MULTIPART_TOOL, DURABILITY, HARVEST, MELEE_PRIMARY, INTERACTABLE_RIGHT, SWORD, BROAD_TOOLS, BONUS_SLOTS, ItemTags.SWORDS, AOE);
-    // bow
-    addToolTags(TinkerTools.crossbow, MULTIPART_TOOL, DURABILITY, MELEE_WEAPON, CROSSBOWS, INTERACTABLE_LEFT, SMALL_TOOLS, BONUS_SLOTS, Tags.Items.TOOLS_CROSSBOWS);
-    addToolTags(TinkerTools.longbow,  MULTIPART_TOOL, DURABILITY, MELEE_WEAPON, LONGBOWS,  INTERACTABLE_LEFT, BROAD_TOOLS, BONUS_SLOTS, Tags.Items.TOOLS_BOWS);
+    // ranged
+    addToolTags(TinkerTools.crossbow,   MULTIPART_TOOL, DURABILITY, MELEE_WEAPON, CROSSBOWS,    INTERACTABLE_LEFT,  SMALL_TOOLS, BONUS_SLOTS, Tags.Items.TOOLS_CROSSBOWS);
+    addToolTags(TinkerTools.longbow,    MULTIPART_TOOL, DURABILITY, MELEE_WEAPON, LONGBOWS,     INTERACTABLE_LEFT,  BROAD_TOOLS, BONUS_SLOTS, Tags.Items.TOOLS_BOWS);
+    addToolTags(TinkerTools.fishingRod, MULTIPART_TOOL, DURABILITY, MELEE_WEAPON, FISHING_RODS, INTERACTABLE_DUAL,  SMALL_TOOLS, BONUS_SLOTS, Tags.Items.TOOLS_FISHING_RODS);
+    addToolTags(TinkerTools.javelin,    MULTIPART_TOOL, DURABILITY, MELEE_PRIMARY, RANGED,      INTERACTABLE_RIGHT, BROAD_TOOLS, BONUS_SLOTS, Tags.Items.TOOLS_TRIDENTS);
     // specialized
     addToolTags(TinkerTools.flintAndBrick, DURABILITY, MELEE_WEAPON, INTERACTABLE_RIGHT, AOE, SMALL_TOOLS, BONUS_SLOTS);
     addToolTags(TinkerTools.skyStaff,      DURABILITY, STAFFS, SPECIAL_TOOLS, HELD_ARMOR, INTERACTABLE_DUAL, AOE, DYEABLE, EMBELLISHMENT_WOOD, BONUS_SLOTS);
@@ -323,7 +327,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     addToolTags(TinkerTools.meltingPan, MULTIPART_TOOL, DURABILITY, ANCIENT_TOOLS, TRADER_TOOLS, HARVEST_PRIMARY, STAFFS, HELD_ARMOR, INTERACTABLE_DUAL, AOE, BONUS_SLOTS);
     addToolTags(TinkerTools.warPick,    MULTIPART_TOOL, DURABILITY, ANCIENT_TOOLS, TRADER_TOOLS, HARVEST_PRIMARY, STONE_HARVEST, MELEE_WEAPON, HELD, AOE, CLUSTER_MAX_HARVESTABLES, CROSSBOWS, BONUS_SLOTS, ItemTags.PICKAXES, Tags.Items.TOOLS_CROSSBOWS);
     addToolTags(TinkerTools.battlesign, MULTIPART_TOOL, DURABILITY, ANCIENT_TOOLS, TRADER_TOOLS, MELEE_PRIMARY, SHIELDS, BONUS_SLOTS, Tags.Items.TOOLS_SHIELDS);
-    addToolTags(TinkerTools.swasher,    MULTIPART_TOOL, DURABILITY, ANCIENT_TOOLS, TRADER_TOOLS, HARVEST, MELEE_PRIMARY, RANGED, HELD, BONUS_SLOTS, ItemTags.SWORDS, STAFFS, INTERACTABLE_CHARGE);
+    addToolTags(TinkerTools.swasher,    MULTIPART_TOOL, DURABILITY, ANCIENT_TOOLS, TRADER_TOOLS, HARVEST, MELEE_PRIMARY, LAUNCHERS, HELD, BONUS_SLOTS, ItemTags.SWORDS, STAFFS, INTERACTABLE_CHARGE);
     optionalToolTags(TinkerTools.minotaurAxe, MULTIPART_TOOL, DURABILITY, ANCIENT_TOOLS, HARVEST_PRIMARY, MELEE_PRIMARY, INTERACTABLE_RIGHT, AOE, BONUS_SLOTS, ItemTags.AXES);
 
     // armor
@@ -365,7 +369,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.tag(MELEE_WEAPON).addTags(MELEE_PRIMARY, SWORD, PARRY);
     this.tag(MELEE).addTags(MELEE_WEAPON, UNARMED);
     // modifier helper tags
-    this.tag(LOOT_CAPABLE_TOOL).addTag(MELEE).addTag(HARVEST);
+    this.tag(LOOT_CAPABLE_TOOL).addTags(MELEE, HARVEST, FISHING_RODS);
     this.tag(UNARMED).addTag(CHESTPLATES);
     this.tag(INTERACTABLE_RIGHT).addTags(INTERACTABLE_DUAL);
     this.tag(INTERACTABLE_LEFT).addTag(INTERACTABLE_DUAL);
@@ -379,7 +383,8 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.tag(HELD_ARMOR).addTag(SHIELDS);
     this.tag(ARMOR).addTags(WORN_ARMOR, HELD_ARMOR);
     this.tag(AOE).addTag(BOOTS); // boot walk modifiers
-    this.tag(RANGED).addTags(BOWS, STAFFS);
+    this.tag(LAUNCHERS).addTags(BOWS, STAFFS, FISHING_RODS);
+    this.tag(RANGED).addTags(LAUNCHERS);
     this.tag(BOWS).addTags(LONGBOWS, CROSSBOWS);
     // TODO 1.21: consider dropping unsalvagable from this tag
     this.tag(UNRECYCLABLE).addTags(UNSALVAGABLE, ANCIENT_TOOLS); // ancient tools lack tool parts, but may have special override recipes to salvage
@@ -603,7 +608,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     moltenTools(TinkerFluids.moltenSteel).toolTags().leggingsPaxel().crowbar()
       .toolTag(1, "shovel")
       .add(1, true, ie.apply("shovel_steel"))
-      .add(2, true, ie.apply("sword_steel")).add(3, true, ie.apply("hoe_steel"))
+      .add(2, true, ie.apply("sword_steel")).add(2, true, ie.apply("hoe_steel"))
       .add(3, true, ie.apply("axe_steel")).add(3, true, ie.apply("pickaxe_steel"))
       .armorTag(5, "helmets"    ).add(5, true, ie.apply("armor_steel_helmet"))
       .armorTag(8, "chestplates").add(8, true, ie.apply("armor_steel_chestplate"))

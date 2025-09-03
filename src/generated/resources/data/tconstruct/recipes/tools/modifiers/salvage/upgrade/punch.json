@@ -5,6 +5,6 @@
     "upgrades": 1
   },
   "tools": {
-    "tag": "tconstruct:modifiable/ranged"
+    "tag": "tconstruct:modifiable/ranged/launcher"
   }
 }

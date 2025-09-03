@@ -33,6 +33,8 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import slimeknights.mantle.inventory.EmptyItemHandler;
 import slimeknights.tconstruct.fluids.TinkerFluids;
+import slimeknights.tconstruct.library.modifiers.entity.ProjectileWithKnockback;
+import slimeknights.tconstruct.library.modifiers.entity.ProjectileWithPower;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffectContext;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffectManager;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffects;
@@ -49,13 +51,13 @@ import java.util.stream.Stream;
  * Projectile that applies a fluid effect on hit, based on {@link LlamaSpit}, but not extending as we want custom movement logic
  */
 @Setter
-public class FluidEffectProjectile extends Projectile {
+public class FluidEffectProjectile extends Projectile implements ProjectileWithKnockback, ProjectileWithPower {
   private static final EntityDataAccessor<FluidStack> FLUID = SynchedEntityData.defineId(FluidEffectProjectile.class, TinkerFluids.FLUID_DATA_SERIALIZER);
   /** Projectile power determining how much fluid is used at most */
+  @Getter
   private float power = 1;
   /** Amount of knockback for the projectile to cause, scaled like arrow knockback */
-  @Getter
-  private int knockback = 1;
+  private float knockback = 1;
   /** Position of the cannon that fired this projectile */
   @Nullable
   private BlockPos cannon;
@@ -100,6 +102,23 @@ public class FluidEffectProjectile extends Projectile {
    */
   public void setFluid(FluidStack fluid) {
     this.entityData.set(FLUID, fluid);
+  }
+
+  @Override
+  public void addKnockback(float amount) {
+    this.knockback += amount;
+  }
+
+  /** @deprecated use {@link #addKnockback(float)} */
+  @Deprecated
+  public int getKnockback() {
+    return (int) knockback;
+  }
+
+  /** @deprecated use {@link #addKnockback(float)} */
+  @Deprecated
+  public void setKnockback(int knockback) {
+    this.knockback = knockback;
   }
 
   @Override
@@ -301,7 +320,7 @@ public class FluidEffectProjectile extends Projectile {
   protected void addAdditionalSaveData(CompoundTag nbt) {
     super.addAdditionalSaveData(nbt);
     nbt.putFloat("power", power);
-    nbt.putInt("knockback", knockback);
+    nbt.putFloat("knockback", knockback);
     if (cannon != null) {
       nbt.put("cannon", NbtUtils.writeBlockPos(cannon));
     }
@@ -315,7 +334,7 @@ public class FluidEffectProjectile extends Projectile {
   protected void readAdditionalSaveData(CompoundTag nbt) {
     super.readAdditionalSaveData(nbt);
     this.power = nbt.getFloat("power");
-    this.knockback = nbt.getInt("knockback");
+    this.knockback = nbt.getFloat("knockback");
     if (nbt.contains("cannon")) {
       this.cannon = NbtUtils.readBlockPos(nbt.getCompound("cannon"));
     } else {

@@ -366,13 +366,20 @@ public class TooltipUtil {
     if (tool.hasTag(TinkerTags.Items.DURABILITY)) {
       builder.addDurability();
     }
+    boolean meleePrimary = tool.hasTag(TinkerTags.Items.MELEE_PRIMARY);
+    if (meleePrimary) {
+      builder.addWithAttribute(ToolStats.ATTACK_DAMAGE, Attributes.ATTACK_DAMAGE);
+      builder.add(ToolStats.ATTACK_SPEED);
+    }
     if (tool.hasTag(TinkerTags.Items.RANGED)) {
       builder.add(ToolStats.DRAW_SPEED);
       builder.add(ToolStats.VELOCITY);
-      builder.add(ToolStats.PROJECTILE_DAMAGE);
+      if (tool.hasTag(TinkerTags.Items.LAUNCHERS)) {
+        builder.add(ToolStats.PROJECTILE_DAMAGE);
+      }
       builder.add(ToolStats.ACCURACY);
     }
-    if (tool.hasTag(TinkerTags.Items.MELEE_WEAPON)) {
+    if (!meleePrimary && tool.hasTag(TinkerTags.Items.MELEE_WEAPON)) {
       builder.addWithAttribute(ToolStats.ATTACK_DAMAGE, Attributes.ATTACK_DAMAGE);
       builder.add(ToolStats.ATTACK_SPEED);
     }

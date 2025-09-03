@@ -11,10 +11,8 @@ import slimeknights.mantle.data.predicate.block.BlockPredicate;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.data.tinkering.AbstractToolDefinitionDataProvider;
-import slimeknights.tconstruct.library.json.predicate.modifier.ModifierPredicate;
 import slimeknights.tconstruct.library.json.predicate.modifier.SingleModifierPredicate;
 import slimeknights.tconstruct.library.materials.RandomMaterial;
-import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.definition.module.ToolHooks;
 import slimeknights.tconstruct.library.tools.definition.module.ToolModule;
@@ -30,8 +28,9 @@ import slimeknights.tconstruct.library.tools.definition.module.build.ToolActions
 import slimeknights.tconstruct.library.tools.definition.module.build.ToolSlotsModule;
 import slimeknights.tconstruct.library.tools.definition.module.build.ToolTraitsModule;
 import slimeknights.tconstruct.library.tools.definition.module.build.VolatileFlagModule;
+import slimeknights.tconstruct.library.tools.definition.module.interaction.AttackInteraction;
 import slimeknights.tconstruct.library.tools.definition.module.interaction.DualOptionInteraction;
-import slimeknights.tconstruct.library.tools.definition.module.interaction.PreferenceSetInteraction;
+import slimeknights.tconstruct.library.tools.definition.module.interaction.ToggleableSetInteraction;
 import slimeknights.tconstruct.library.tools.definition.module.material.DefaultMaterialsModule;
 import slimeknights.tconstruct.library.tools.definition.module.material.MaterialRepairModule;
 import slimeknights.tconstruct.library.tools.definition.module.material.MaterialStatsModule;
@@ -464,6 +463,39 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .module(new MultiplyStatsModule(MultiplierNBT.builder()
         .set(ToolStats.DURABILITY, 1.5f).build())) // gets effectively 2x durability from having 2 heads
       .largeToolStartingSlots();
+    // fishing rods are also ranged
+    define(ToolDefinitions.FISHING_ROD)
+      // parts
+      .module(PartStatsModule.parts()
+        .part(bowLimb)
+        .part(bowstring).build())
+      .module(defaultTwoParts)
+      // stats
+      .module(new SetStatsModule(StatsNBT.builder()
+        .set(ToolStats.DURABILITY, 70) // gives just about twice the durability as a vanilla rod to wood to make up for damaging on cast and reel
+        .set(ToolStats.ATTACK_SPEED, 2.0f)
+        .build()))
+      .module(ToolSlotsModule.builder().slots(SlotType.ABILITY, 1).slots(SlotType.UPGRADE, 4).build())
+      // traits
+      .module(ToolTraitsModule.builder().trait(ModifierIds.fishing).build())
+      // put fishing on right click, everything else on left, but support toggling
+      .module(new ToggleableSetInteraction(new SingleModifierPredicate(ModifierIds.fishing)));
+    // javelins are melee and ranged
+    define(ToolDefinitions.JAVELIN)
+      // parts
+      .module(PartStatsModule.parts()
+        .part(smallBlade)
+        .part(toolHandle)
+        .part(bowLimb)
+        .part(bowGrip).build())
+      .module(defaultFourParts)
+      // stats
+      .module(new SetStatsModule(StatsNBT.builder()
+        .set(ToolStats.ATTACK_DAMAGE, 3f)
+        .set(ToolStats.ATTACK_SPEED, 1.1f).build()))
+      .largeToolStartingSlots()
+      // traits
+      .module(ToolTraitsModule.builder().trait(ModifierIds.throwing).build());
 
     // special
     define(ToolDefinitions.FLINT_AND_BRICK)
@@ -549,10 +581,6 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
 
 
     // travelers armor
-    PreferenceSetInteraction shieldInteraction = new PreferenceSetInteraction(
-      InteractionSource.RIGHT_CLICK,
-      ModifierPredicate.or(new SingleModifierPredicate(TinkerModifiers.blocking.getId()), ModifierPredicate.tag(TinkerTags.Modifiers.BLOCK_WHILE_CHARGING))
-    );
     defineArmor(ArmorDefinitions.TRAVELERS)
       .modules(slots -> MaterialStatsModule.armorStats(slots)
         .plating(0.75f)
@@ -586,7 +614,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .module(new StatlessPartRepairModule(0, 100))
       .module(new StatlessPartRepairModule(1, 200))
       .module(ToolTraitsModule.builder().trait(TinkerModifiers.blocking).build())
-      .module(shieldInteraction);
+      .module(AttackInteraction.INSTANCE);
 
     // plate armor
     RandomMaterial tier2Material = RandomMaterial.random().tier(1, 2).build();
@@ -615,7 +643,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
         .set(ToolStats.BLOCK_ANGLE, 180).build()))
       .module(plateSlots)
       .module(ToolTraitsModule.builder().trait(TinkerModifiers.blocking).build())
-      .module(shieldInteraction);
+      .module(AttackInteraction.INSTANCE);
 
     // slime suit
     ToolTraitsModule.Builder slimeTraits = ToolTraitsModule.builder().trait(ModifierIds.overslimeFriend);
@@ -737,7 +765,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       // traits
       .module(ToolTraitsModule.builder()
         .trait(TinkerModifiers.spitting)
-        .trait(TinkerModifiers.spilling)
+        .trait(ModifierIds.spilling)
         .trait(TinkerModifiers.silkyShears).build())
       // behavior
       .module(ToolActionsModule.of(ToolActions.SWORD_DIG))

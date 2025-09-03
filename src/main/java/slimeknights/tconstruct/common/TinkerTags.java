@@ -451,8 +451,10 @@ public class TinkerTags {
     /** Full list of armor shown in tinkers gadgetry, automatically added last to encyclopedia */
     public static final TagKey<Item> GADGETRY_ARMOR = local("modifiable/book_armor/tinkers_gadgetry");
 
-    /** Modifiable items that support ranged attacks. Items in this tag support {@link ToolStats#DRAW_SPEED}, {@link ToolStats#VELOCITY}, {@link ToolStats#PROJECTILE_DAMAGE} and {@link ToolStats#ACCURACY} */
+    /** Modifiable items that support ranged attacks. Items in this tag support {@link ToolStats#DRAW_SPEED}, {@link ToolStats#VELOCITY} and {@link ToolStats#ACCURACY} */
     public static final TagKey<Item> RANGED = local("modifiable/ranged");
+    /** Modifiable items that launch a projectile, as opposed to being the projectile. Additionally includes {@link ToolStats#PROJECTILE_DAMAGE} for its launch power. */
+    public static final TagKey<Item> LAUNCHERS = local("modifiable/ranged/launcher");
     /** Any modifiable ranged items that are a bow, includes crosbows and longbows */
     public static final TagKey<Item> BOWS = local("modifiable/ranged/bows");
     /** Any modifiable bows that fire arrows on release */
@@ -461,6 +463,8 @@ public class TinkerTags {
     public static final TagKey<Item> CROSSBOWS = local("modifiable/ranged/crossbows");
     /** Modifiable items support special staff modifiers, is a subtag of ranged. */
     public static final TagKey<Item> STAFFS = local("modifiable/staffs");
+    /** Modifiable items that support fishing modifiers. */
+    public static final TagKey<Item> FISHING_RODS = local("modifiable/fishing_rods");
 
     /** Tools that can receive wood based embellishments */
     public static final TagKey<Item> EMBELLISHMENT_WOOD = local("modifiable/embellishment/wood");

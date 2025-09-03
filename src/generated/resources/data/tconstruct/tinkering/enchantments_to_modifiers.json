@@ -35,6 +35,8 @@
   "minecraft:infinity": "tconstruct:crystalshot",
   "minecraft:knockback": "tconstruct:knockback",
   "minecraft:looting": "tconstruct:luck",
+  "minecraft:luck_of_the_sea": "tconstruct:luck",
+  "minecraft:lure": "tconstruct:lure",
   "minecraft:multishot": "tconstruct:multishot",
   "minecraft:piercing": "tconstruct:impaling",
   "minecraft:power": "tconstruct:power",

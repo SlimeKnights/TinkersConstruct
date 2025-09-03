@@ -263,6 +263,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(TinkerTools.scythe);
       with.accept(TinkerTools.cleaver);
       with.accept(TinkerTools.longbow);
+      with.accept(TinkerTools.javelin);
     });
     builder(TinkerModifiers.silkyCloth, resource("smeltery/abilities"), anvil, FrameType.CHALLENGE, builder -> {
       Consumer<ModifierId> with = modifier -> builder.addCriterion(modifier.getPath(), InventoryChangeTrigger.TriggerInstance.hasItems(ToolStackItemPredicate.ofContext(HasModifierPredicate.hasUpgrade(modifier, 1))));
@@ -327,7 +328,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(ModifierIds.trickQuiver);
       // fluid
       withL.accept(TinkerModifiers.spitting);
-      withL.accept(TinkerModifiers.spilling);
+      with.accept(ModifierIds.spilling);
       withL.accept(TinkerModifiers.splashing);
       withL.accept(TinkerModifiers.bursting);
     });

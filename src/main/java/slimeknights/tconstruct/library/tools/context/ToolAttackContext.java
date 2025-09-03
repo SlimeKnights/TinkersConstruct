@@ -7,6 +7,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.library.utils.Util;
 
@@ -40,6 +41,13 @@ public class ToolAttackContext {
   private final float cooldown;
   /** If true, this is a secondary attack, such as for scythes */
   private final boolean isExtraAttack;
+  /** The projectile causing this damage. See {@link slimeknights.tconstruct.tools.entity.ThrownTool} */
+  @Nullable
+  private final Projectile projectile;
+
+  public ToolAttackContext(LivingEntity attacker, @Nullable Player playerAttacker, InteractionHand hand, EquipmentSlot slotType, Entity target, @Nullable LivingEntity livingTarget, boolean isCritical, float cooldown, boolean isExtraAttack) {
+    this(attacker, playerAttacker, hand, slotType, target, livingTarget, isCritical, cooldown, isExtraAttack, null);
+  }
 
   public ToolAttackContext(LivingEntity attacker, @Nullable Player playerAttacker, InteractionHand hand, Entity target, @Nullable LivingEntity livingTarget, boolean isCritical, float cooldown, boolean isExtraAttack) {
     this(attacker, playerAttacker, hand, Util.getSlotType(hand), target, livingTarget, isCritical, cooldown, isExtraAttack);
@@ -48,6 +56,11 @@ public class ToolAttackContext {
   /** Returns true if this attack is fully charged */
   public boolean isFullyCharged() {
     return getCooldown() > 0.9f;
+  }
+
+  /** Returns true if this context was created by a projectile */
+  public boolean isProjectile() {
+    return projectile != null;
   }
 
   /** Gets the level for this context */

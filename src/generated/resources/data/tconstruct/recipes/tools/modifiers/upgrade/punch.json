@@ -10,13 +10,13 @@
     }
   ],
   "level": {
-    "max": 5
+    "max": 3
   },
   "result": "tconstruct:punch",
   "slots": {
     "upgrades": 1
   },
   "tools": {
-    "tag": "tconstruct:modifiable/ranged"
+    "tag": "tconstruct:modifiable/ranged/launcher"
   }
 }

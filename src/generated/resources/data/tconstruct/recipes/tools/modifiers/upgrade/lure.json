@@ -1,0 +1,25 @@
+{
+  "type": "tconstruct:modifier",
+  "allow_crystal": true,
+  "inputs": [
+    {
+      "item": "tconstruct:cheese_ingot"
+    },
+    {
+      "item": "tconstruct:cheese_ingot"
+    },
+    {
+      "item": "tconstruct:cheese_ingot"
+    }
+  ],
+  "level": {
+    "max": 3
+  },
+  "result": "tconstruct:lure",
+  "slots": {
+    "upgrades": 1
+  },
+  "tools": {
+    "tag": "tconstruct:modifiable/fishing_rods"
+  }
+}

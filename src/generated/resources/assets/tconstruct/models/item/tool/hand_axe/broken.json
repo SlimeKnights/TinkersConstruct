@@ -1,6 +1,6 @@
 {
   "loader": "tconstruct:tool",
-  "parent": "forge:item/default-tool",
+  "parent": "tconstruct:item/base/axe",
   "textures": {
     "head": "tconstruct:item/tool/hand_axe/head_broken",
     "handle": "tconstruct:item/tool/pickaxe/handle",

@@ -71,11 +71,11 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
       .add(TinkerModifiers.bucketing.getId(), TinkerModifiers.splashing.getId(),
            ModifierIds.glowing, TinkerModifiers.firestarter.getId(),
            ModifierIds.stripping, ModifierIds.tilling, ModifierIds.pathing,
-           TinkerModifiers.shears.getId(), TinkerModifiers.harvest.getId())
+           TinkerModifiers.shears.getId(), TinkerModifiers.harvest.getId(), ModifierIds.fishing)
       .addOptional(ModifierIds.pockets);
     tag(BLOCK_WHILE_CHARGING)
       .add(TinkerModifiers.flinging.getId(), TinkerModifiers.springing.getId(), TinkerModifiers.bonking.getId(), TinkerModifiers.warping.getId(),
-           TinkerModifiers.spitting.getId(), ModifierIds.scope, ModifierIds.zoom, ModifierIds.brushing);
+           TinkerModifiers.spitting.getId(), ModifierIds.scope, ModifierIds.zoom, ModifierIds.brushing, ModifierIds.throwing);
     tag(SLIME_DEFENSE)
       .add(ModifierIds.meleeProtection, ModifierIds.projectileProtection,
            ModifierIds.fireProtection, ModifierIds.magicProtection,
@@ -122,10 +122,11 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
     this.tag(BOOT_UPGRADES).add(ModifierIds.depthStrider, ModifierIds.featherFalling, ModifierIds.lightspeed, TinkerModifiers.soulspeed.getId());
 
     this.tag(RANGED_UPGRADES).add(
-      ModifierIds.pierce, ModifierIds.power, TinkerModifiers.punch.getId(), ModifierIds.quickCharge,
+      ModifierIds.pierce, ModifierIds.power, ModifierIds.punch, ModifierIds.quickCharge,
       TinkerModifiers.sinistral.getId(), ModifierIds.trueshot,
       ModifierIds.fiery, ModifierIds.freezing,
-      TinkerModifiers.impaling.getId(), TinkerModifiers.necrotic.getId());
+      TinkerModifiers.impaling.getId(), TinkerModifiers.necrotic.getId(),
+      ModifierIds.lure);
 
     // abilities
     this.tag(GENERAL_ABILITIES).add(
@@ -133,11 +134,12 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
       ModifierIds.luck, TinkerModifiers.melting.getId());
     this.tag(MELEE_ABILITIES).add(
       TinkerModifiers.blocking.getId(), TinkerModifiers.parrying.getId(),
-      TinkerModifiers.dualWielding.getId(), TinkerModifiers.spilling.getId());
+      TinkerModifiers.dualWielding.getId(), ModifierIds.spilling);
     this.tag(HARVEST_ABILITIES).add(TinkerModifiers.autosmelt.getId(), TinkerModifiers.exchanging.getId(), TinkerModifiers.silky.getId());
     this.tag(RANGED_ABILITIES).add(
       ModifierIds.bulkQuiver, ModifierIds.trickQuiver,
-      ModifierIds.crystalshot, TinkerModifiers.multishot.getId());
+      ModifierIds.crystalshot, TinkerModifiers.multishot.getId(),
+      ModifierIds.grapple);
     this.tag(INTERACTION_ABILITIES).add(
       TinkerModifiers.bucketing.getId(), TinkerModifiers.firestarter.getId(), ModifierIds.glowing,
       ModifierIds.pathing, ModifierIds.stripping, ModifierIds.tilling, ModifierIds.brushing,

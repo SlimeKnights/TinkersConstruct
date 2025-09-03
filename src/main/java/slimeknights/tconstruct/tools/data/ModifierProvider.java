@@ -152,6 +152,7 @@ import slimeknights.tconstruct.tools.modules.OverburnModule;
 import slimeknights.tconstruct.tools.modules.OvergrowthModule;
 import slimeknights.tconstruct.tools.modules.ShareDurabilityModule;
 import slimeknights.tconstruct.tools.modules.SmeltingModule;
+import slimeknights.tconstruct.tools.modules.SpillingModule;
 import slimeknights.tconstruct.tools.modules.TheOneProbeModule;
 import slimeknights.tconstruct.tools.modules.ZoomModule;
 import slimeknights.tconstruct.tools.modules.armor.DepthProtectionModule;
@@ -173,8 +174,12 @@ import slimeknights.tconstruct.tools.modules.combat.FieryAttackModule;
 import slimeknights.tconstruct.tools.modules.combat.FreezingAttackModule;
 import slimeknights.tconstruct.tools.modules.interaction.BrushModule;
 import slimeknights.tconstruct.tools.modules.interaction.ExtinguishCampfireModule;
+import slimeknights.tconstruct.tools.modules.interaction.FishingModule;
 import slimeknights.tconstruct.tools.modules.interaction.PlaceGlowModule;
+import slimeknights.tconstruct.tools.modules.interaction.ThrowingModule;
 import slimeknights.tconstruct.tools.modules.ranged.BulkQuiverModule;
+import slimeknights.tconstruct.tools.modules.ranged.GrappleModule;
+import slimeknights.tconstruct.tools.modules.ranged.PunchModule;
 import slimeknights.tconstruct.tools.modules.ranged.RestrictAngleModule;
 import slimeknights.tconstruct.tools.modules.ranged.TrickQuiverModule;
 
@@ -372,7 +377,9 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     // the air check on weapon looting is for projectiles which use an item of air in their tool context
     LootingModule WEAPON_LOOTING = LootingModule.builder().toolItem(ItemPredicate.or(ItemPredicate.set(Items.AIR), ItemPredicate.tag(MELEE))).weapon();
     LootingModule ARMOR_LOOTING = LootingModule.builder().toolItem(armor).armor(ARMOR_SLOTS);
-    buildModifier(ModifierIds.luck).levelDisplay(new UniqueForLevels(3)).addModules(CONSTANT_FORTUNE, ARMOR_FORTUNE, WEAPON_LOOTING, ARMOR_LOOTING);
+    buildModifier(ModifierIds.luck).levelDisplay(new UniqueForLevels(3))
+      .addModules(CONSTANT_FORTUNE, ARMOR_FORTUNE, WEAPON_LOOTING, ARMOR_LOOTING)
+      .addModule(StatBoostModule.add(ToolStats.SEA_LUCK).eachLevel(1));
     buildModifier(ModifierIds.fortune).addModules(CONSTANT_FORTUNE, ARMOR_FORTUNE);
     buildModifier(ModifierIds.looting).addModules(WEAPON_LOOTING, ARMOR_LOOTING);
     // note that the held tool bonus is hardcoded to 50% based on this modifier ID
@@ -418,6 +425,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
 
     // ranged
     buildModifier(ModifierIds.power).addModule(StatBoostModule.add(ToolStats.PROJECTILE_DAMAGE).amount(0.5f, 0.5f));
+    buildModifier(ModifierIds.punch).addModule(new PunchModule(LevelingValue.eachLevel(1), ModifierCondition.ANY_TOOL));
     buildModifier(ModifierIds.quickCharge).addModule(StatBoostModule.multiplyBase(ToolStats.DRAW_SPEED).eachLevel(0.25f));
     buildModifier(ModifierIds.trueshot).addModule(StatBoostModule.add(ToolStats.ACCURACY).eachLevel(0.1f));
     buildModifier(ModifierIds.blindshot).addModule(StatBoostModule.add(ToolStats.ACCURACY).eachLevel(-0.1f));
@@ -480,6 +488,12 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.springy)
       .addModule(KnockbackModule.builder().eachLevel(0.25f))
       .addModule(KnockbackCounterModule.builder().constantFlat(0.5f).randomFlat(0.5f).build());
+
+    // fluid
+    buildModifier(ModifierIds.spilling)
+      .addModule(ToolTankHelper.TANK_HANDLER)
+      .addModule(StatBoostModule.add(ToolTankHelper.CAPACITY_STAT).eachLevel(FluidType.BUCKET_VOLUME))
+      .addModule(new SpillingModule(LevelingValue.eachLevel(1), ModifierCondition.ANY_TOOL));
 
     // armor
     buildModifier(TinkerModifiers.golden).addModule(new VolatileFlagModule(ModifiableArmorItem.PIGLIN_NEUTRAL)).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
@@ -582,7 +596,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.pathing)
       .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
       .addModule(ShowOffhandModule.DISALLOW_BROKEN)
-      .addModule(ExtinguishCampfireModule.INSTANCE)
+      .addModule(ExtinguishCampfireModule.INSTANCE, ModifierHooks.BLOCK_INTERACT, ModifierHooks.AOE_HIGHLIGHT)
       .addModule(ToolActionTransformModule.builder(ToolActions.SHOVEL_FLATTEN, SoundEvents.SHOVEL_FLATTEN).requireGround().build())
       .addModule(ToolActionWalkerTransformModule.builder(ToolActions.SHOVEL_FLATTEN, SoundEvents.SHOVEL_FLATTEN).amount(0.5f, 1));
     buildModifier(ModifierIds.stripping)
@@ -597,6 +611,17 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(ToolActionTransformModule.builder(ToolActions.HOE_TILL, SoundEvents.HOE_TILL).build())
       .addModule(ToolActionWalkerTransformModule.builder(ToolActions.HOE_TILL, SoundEvents.HOE_TILL).amount(0.5f, 1));
     buildModifier(ModifierIds.brushing).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(BrushModule.INSTANCE);
+    buildModifier(ModifierIds.throwing).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(ThrowingModule.INSTANCE);
+    // mostly hardcoded at this time
+    buildModifier(ModifierIds.loyalty).addModule(ModifierRequirementsModule.builder().requireModifier(ModifierIds.throwing, 1).modifierKey(ModifierIds.loyalty).build());
+
+    // fishing
+    buildModifier(ModifierIds.fishing).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(FishingModule.INSTANCE);
+    buildModifier(ModifierIds.lure).addModule(StatBoostModule.add(ToolStats.LURE).eachLevel(1));
+    buildModifier(ModifierIds.grapple)
+      .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
+      .addModule(new GrappleModule(ModifierCondition.ANY_TOOL))
+      .addModule(ModifierRequirementsModule.builder().requireModifier(ModifierIds.fishing, 1).modifierKey(ModifierIds.grapple).build());
 
     // traits
     buildModifier(ModifierIds.smelting)

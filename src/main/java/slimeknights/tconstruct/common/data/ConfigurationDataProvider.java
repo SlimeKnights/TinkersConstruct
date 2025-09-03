@@ -69,6 +69,7 @@ public class ConfigurationDataProvider extends GenericDataProvider {
         ItemPredicate.tag(Tags.Items.TOOLS_SHIELDS),
         ItemPredicate.tag(Tags.Items.TOOLS_BOWS),
         ItemPredicate.tag(Tags.Items.TOOLS_CROSSBOWS),
+        ItemPredicate.tag(Tags.Items.TOOLS_FISHING_RODS),
         ItemPredicate.tag(Tags.Items.ARMORS),
         ItemPredicate.set(Items.FLINT_AND_STEEL, Items.SHEARS, Items.BRUSH)
       ),

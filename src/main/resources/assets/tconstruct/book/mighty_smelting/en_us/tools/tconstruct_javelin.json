@@ -1,0 +1,17 @@
+{
+  "tool": "tconstruct:javelin",
+  "text": [
+    {
+      "text": "The Javelin is a hybrid melee/ranged weapon, providing strong close ranged attacks and distance."
+    },
+    {
+      "text": "Just be careful when throwing as you leave yourself without a weapon!",
+	  "paragraph": true
+    }
+  ],
+  "properties": [
+    "Medium Damage",
+    "Medium Speed",
+    "Throwable"
+  ]
+}

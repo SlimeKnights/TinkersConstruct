@@ -1,6 +1,6 @@
 {
   "loader": "tconstruct:tool",
-  "parent": "forge:item/default-tool",
+  "parent": "tconstruct:item/base/axe",
   "textures": {
     "front":   "tconstruct:item/tool/minotaur_axe/front",
     "back":    "tconstruct:item/tool/minotaur_axe/back",

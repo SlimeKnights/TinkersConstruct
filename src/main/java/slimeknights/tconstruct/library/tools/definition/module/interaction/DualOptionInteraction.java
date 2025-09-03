@@ -3,7 +3,6 @@ package slimeknights.tconstruct.library.tools.definition.module.interaction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import slimeknights.mantle.data.loadable.record.SingletonLoader;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
@@ -24,10 +23,9 @@ public enum DualOptionInteraction implements InteractionToolModule, ToolModule {
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<DualOptionInteraction>defaultHooks(ToolHooks.INTERACTION);
   /** Loader instance */
   public static final SingletonLoader<DualOptionInteraction> LOADER = new SingletonLoader<>(INSTANCE);
-  /** Key for persistent data set of modifiers */
-  public static final ResourceLocation KEY = TConstruct.getResource("attack_modifiers");
-  /** Key for denoting this feature in the tooltip */
-  private static final String MODIFIER_FORMAT = TConstruct.makeTranslationKey("modifier", "attack_toggled");
+  /** @deprecated use {@link InteractionSource#getKey()} */
+  @Deprecated(forRemoval = true)
+  public static final ResourceLocation KEY = InteractionSource.LEFT_CLICK.getKey();
 
   @Override
   public List<ModuleHook<?>> getDefaultHooks() {
@@ -44,11 +42,9 @@ public enum DualOptionInteraction implements InteractionToolModule, ToolModule {
     return LOADER;
   }
 
-  /** Adds the format string to the modifier name */
+  /** @deprecated use {@link InteractionSource#formatModifierName(IToolStackView, Modifier, Component)} */
+  @Deprecated(forRemoval = true)
   public static Component formatModifierName(IToolStackView tool, Modifier modifier, Component originalName) {
-    if (ModifierSetWorktableRecipe.isInSet(tool.getPersistentData(), KEY, modifier.getId())) {
-      return modifier.applyStyle(Component.translatable(MODIFIER_FORMAT, originalName));
-    }
-    return originalName;
+    return InteractionSource.formatModifierName(tool, modifier, originalName);
   }
 }

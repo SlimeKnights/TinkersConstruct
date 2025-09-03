@@ -32,7 +32,6 @@ import slimeknights.tconstruct.library.modifiers.modules.behavior.ShowOffhandMod
 import slimeknights.tconstruct.library.module.ModuleHookMap.Builder;
 import slimeknights.tconstruct.library.tools.definition.module.ToolHooks;
 import slimeknights.tconstruct.library.tools.definition.module.aoe.AreaOfEffectIterator;
-import slimeknights.tconstruct.library.tools.definition.module.interaction.DualOptionInteraction;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
@@ -60,7 +59,7 @@ public class HarvestAbilityModifier extends NoLevelsModifier implements BlockInt
 
   @Override
   public Component getDisplayName(IToolStackView tool, ModifierEntry entry, @Nullable RegistryAccess access) {
-    return DualOptionInteraction.formatModifierName(tool, this, super.getDisplayName(tool, entry, access));
+    return InteractionSource.formatModifierName(tool, this, super.getDisplayName(tool, entry, access));
   }
   
   /**

@@ -1,0 +1,14 @@
+{
+  "tool": "tconstruct:fishing_rod",
+  "text": [
+    {
+      "text": "The fishing rod is useful for fighting close-distance targets without wasting ammo. It also catches fish as a bonus if used on water."
+    }
+  ],
+  "properties": [
+    "Short distance ranged weapon",
+    "Damages monsters when reeled back",
+    "Requires no ammo",
+	  "Can catch fish"
+  ]
+}

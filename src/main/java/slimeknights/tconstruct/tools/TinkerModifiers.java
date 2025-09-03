@@ -129,6 +129,7 @@ import slimeknights.tconstruct.library.modifiers.modules.capacity.DurabilityShie
 import slimeknights.tconstruct.library.modifiers.modules.capacity.LaunchCapacityModule;
 import slimeknights.tconstruct.library.modifiers.modules.capacity.LootToCapacityModule;
 import slimeknights.tconstruct.library.modifiers.modules.capacity.MiningCapacityModule;
+import slimeknights.tconstruct.library.modifiers.modules.capacity.TimeToCapacityModule;
 import slimeknights.tconstruct.library.modifiers.modules.combat.ConditionalMeleeDamageModule;
 import slimeknights.tconstruct.library.modifiers.modules.combat.ConditionalPowerModule;
 import slimeknights.tconstruct.library.modifiers.modules.combat.KnockbackModule;
@@ -188,7 +189,6 @@ import slimeknights.tconstruct.tools.modifiers.ability.armor.FlamewakeModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.ReflectingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.fluid.BurstingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.fluid.SlurpingModifier;
-import slimeknights.tconstruct.tools.modifiers.ability.fluid.SpillingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.fluid.SpittingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.fluid.SplashingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.fluid.WettingModifier;
@@ -256,15 +256,16 @@ import slimeknights.tconstruct.tools.modifiers.upgrades.melee.PiercingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.SeveringModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.SweepingEdgeModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.ranged.ImpalingModifier;
-import slimeknights.tconstruct.tools.modifiers.upgrades.ranged.PunchModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.ranged.SinistralModifier;
 import slimeknights.tconstruct.tools.modules.DamageOnUnequipModule;
+import slimeknights.tconstruct.tools.modules.DurabilityAsCapacityModule;
 import slimeknights.tconstruct.tools.modules.HeadlightModule;
 import slimeknights.tconstruct.tools.modules.MeltingModule;
 import slimeknights.tconstruct.tools.modules.OverburnModule;
 import slimeknights.tconstruct.tools.modules.OvergrowthModule;
 import slimeknights.tconstruct.tools.modules.ShareDurabilityModule;
 import slimeknights.tconstruct.tools.modules.SmeltingModule;
+import slimeknights.tconstruct.tools.modules.SpillingModule;
 import slimeknights.tconstruct.tools.modules.TheOneProbeModule;
 import slimeknights.tconstruct.tools.modules.ZoomModule;
 import slimeknights.tconstruct.tools.modules.armor.DepthProtectionModule;
@@ -286,8 +287,12 @@ import slimeknights.tconstruct.tools.modules.combat.FieryAttackModule;
 import slimeknights.tconstruct.tools.modules.combat.FreezingAttackModule;
 import slimeknights.tconstruct.tools.modules.interaction.BrushModule;
 import slimeknights.tconstruct.tools.modules.interaction.ExtinguishCampfireModule;
+import slimeknights.tconstruct.tools.modules.interaction.FishingModule;
 import slimeknights.tconstruct.tools.modules.interaction.PlaceGlowModule;
+import slimeknights.tconstruct.tools.modules.interaction.ThrowingModule;
 import slimeknights.tconstruct.tools.modules.ranged.BulkQuiverModule;
+import slimeknights.tconstruct.tools.modules.ranged.GrappleModule;
+import slimeknights.tconstruct.tools.modules.ranged.PunchModule;
 import slimeknights.tconstruct.tools.modules.ranged.RestrictAngleModule;
 import slimeknights.tconstruct.tools.modules.ranged.TrickQuiverModule;
 import slimeknights.tconstruct.tools.recipe.ArmorDyeingRecipe;
@@ -296,6 +301,7 @@ import slimeknights.tconstruct.tools.recipe.EnchantmentConvertingRecipe;
 import slimeknights.tconstruct.tools.recipe.ExtractModifierRecipe;
 import slimeknights.tconstruct.tools.recipe.ModifierRemovalRecipe;
 import slimeknights.tconstruct.tools.recipe.ModifierSortingRecipe;
+import slimeknights.tconstruct.tools.recipe.ToggleInteractionWorktableRecipe;
 import slimeknights.tconstruct.tools.recipe.severing.MooshroomDemushroomingRecipe;
 import slimeknights.tconstruct.tools.recipe.severing.PlayerBeheadingRecipe;
 import slimeknights.tconstruct.tools.recipe.severing.SheepShearingRecipe;
@@ -363,7 +369,9 @@ public final class TinkerModifiers extends TinkerModule {
   public static final StaticModifier<SweepingEdgeModifier> sweeping = MODIFIERS.register("sweeping_edge", SweepingEdgeModifier::new);
 
   // ranged
-  public static final StaticModifier<PunchModifier> punch = MODIFIERS.register("punch", PunchModifier::new);
+  /** @deprecated use {@link slimeknights.tconstruct.tools.data.ModifierIds#punch} */
+  @Deprecated(forRemoval = true)
+  public static final DynamicModifier punch = MODIFIERS.registerDynamic("punch");
   public static final StaticModifier<ImpalingModifier> impaling = MODIFIERS.register("impaling", ImpalingModifier::new);
   /** @deprecated use {@link slimeknights.tconstruct.tools.data.ModifierIds#freezing} */
   @Deprecated(forRemoval = true)
@@ -427,7 +435,9 @@ public final class TinkerModifiers extends TinkerModule {
   public static final StaticModifier<Modifier> tankHandler = MODIFIERS.register("tank_handler", () -> ModuleHookMap.builder().addModule(new TankModule(ToolTankHelper.TANK_HELPER)).modifier().levelDisplay(ModifierLevelDisplay.NO_LEVELS).priority(300).build());
   public static final DynamicModifier melting = MODIFIERS.registerDynamic("melting");
   public static final StaticModifier<BucketingModifier> bucketing = MODIFIERS.register("bucketing", BucketingModifier::new);
-  public static final StaticModifier<SpillingModifier> spilling = MODIFIERS.register("spilling", SpillingModifier::new);
+  /** @deprecated use {@link slimeknights.tconstruct.tools.data.ModifierIds#spilling} */
+  @Deprecated(forRemoval = true)
+  public static final DynamicModifier spilling = MODIFIERS.registerDynamic("spilling");
   public static final StaticModifier<SpittingModifier> spitting = MODIFIERS.register("spitting", SpittingModifier::new);
   public static final StaticModifier<BurstingModifier> bursting = MODIFIERS.register("bursting", BurstingModifier::new);
   public static final StaticModifier<SplashingModifier> splashing = MODIFIERS.register("splashing", SplashingModifier::new);
@@ -579,6 +589,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<RecipeSerializer<ModifierSortingRecipe>> modifierSortingSerializer = RECIPE_SERIALIZERS.register("modifier_sorting", () -> LoadableRecipeSerializer.of(ModifierSortingRecipe.LOADER));
   public static final RegistryObject<RecipeSerializer<ModifierSetWorktableRecipe>> modifierSetWorktableSerializer = RECIPE_SERIALIZERS.register("modifier_set_worktable", () -> LoadableRecipeSerializer.of(ModifierSetWorktableRecipe.LOADER));
   public static final RegistryObject<RecipeSerializer<EnchantmentConvertingRecipe>> enchantmentConvertingSerializer = RECIPE_SERIALIZERS.register("enchantment_converting", () -> LoadableRecipeSerializer.of(EnchantmentConvertingRecipe.LOADER));
+  public static final RegistryObject<RecipeSerializer<ToggleInteractionWorktableRecipe>> toggleInteractionSerializer = RECIPE_SERIALIZERS.register("toggle_interaction", () -> LoadableRecipeSerializer.of(ToggleInteractionWorktableRecipe.LOADER));
 
   // severing
   public static final RegistryObject<RecipeSerializer<SeveringRecipe>> severingSerializer = RECIPE_SERIALIZERS.register("severing", () -> LoadableRecipeSerializer.of(SeveringRecipe.LOADER));
@@ -710,9 +721,11 @@ public final class TinkerModifiers extends TinkerModule {
       ModifierModule.LOADER.register(getResource("conditional_mining_speed"), ConditionalMiningSpeedModule.LOADER);
       // capacity
       ModifierModule.LOADER.register(getResource("capacity_bar"), CapacityBarModule.LOADER);
+      ModifierModule.LOADER.register(getResource("durability_as_capacity"), DurabilityAsCapacityModule.LOADER);
       ModifierModule.LOADER.register(getResource("durability_shield"), DurabilityShieldModule.LOADER);
       ModifierModule.LOADER.register(getResource("loot_to_capacity"), LootToCapacityModule.LOADER);
       ModifierModule.LOADER.register(getResource("damage_to_capacity"), DamageToCapacityModule.LOADER);
+      ModifierModule.LOADER.register(getResource("time_to_capacity"), TimeToCapacityModule.LOADER);
       ModifierModule.LOADER.register(getResource("launch_capacity"), LaunchCapacityModule.LOADER);
       ModifierModule.LOADER.register(getResource("mining_capacity"), MiningCapacityModule.LOADER);
       // technical
@@ -732,6 +745,8 @@ public final class TinkerModifiers extends TinkerModule {
       ModifierModule.LOADER.register(getResource("lightspeed_attribute"), LightspeedAttributeModule.LOADER);
       ModifierModule.LOADER.register(getResource("zoom"), ZoomModule.LOADER);
       ModifierModule.LOADER.register(getResource("brush"), BrushModule.LOADER);
+      ModifierModule.LOADER.register(getResource("fishing"), FishingModule.LOADER);
+      ModifierModule.LOADER.register(getResource("throwing"), ThrowingModule.LOADER);
       ModifierModule.LOADER.register(getResource("damage_on_unequip"), DamageOnUnequipModule.LOADER);
       ModifierModule.LOADER.register(getResource("share_durability"), ShareDurabilityModule.LOADER);
       // overslime
@@ -741,6 +756,7 @@ public final class TinkerModifiers extends TinkerModule {
       // combat
       ModifierModule.LOADER.register(getResource("fiery_attack"), FieryAttackModule.LOADER);
       ModifierModule.LOADER.register(getResource("freezing_attack"), FreezingAttackModule.LOADER);
+      ModifierModule.LOADER.register(getResource("spilling"), SpillingModule.LOADER);
       // armor
       ModifierModule.LOADER.register(getResource("enderclearance"), EnderclearanceModule.LOADER);
       ModifierModule.LOADER.register(getResource("depth_protection"), DepthProtectionModule.LOADER);
@@ -760,6 +776,8 @@ public final class TinkerModifiers extends TinkerModule {
       ModifierModule.LOADER.register(getResource("bulk_quiver"), BulkQuiverModule.LOADER);
       ModifierModule.LOADER.register(getResource("trick_quiver"), TrickQuiverModule.LOADER);
       ModifierModule.LOADER.register(getResource("infinity"), InfinityModule.LOADER);
+      ModifierModule.LOADER.register(getResource("punch"), PunchModule.LOADER);
+      ModifierModule.LOADER.register(getResource("grapple"), GrappleModule.LOADER);
       // compat
       ModifierModule.LOADER.register(getResource("the_one_probe"), TheOneProbeModule.INSTANCE.getLoader());
       ModifierModule.LOADER.register(getResource("headlight"), HeadlightModule.LOADER);

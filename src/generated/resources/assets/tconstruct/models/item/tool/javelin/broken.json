@@ -1,0 +1,47 @@
+{
+  "loader": "tconstruct:tool",
+  "parent": "tconstruct:item/base/tall",
+  "textures": {
+    "head": "tconstruct:item/tool/javelin/head_broken",
+    "guard": "tconstruct:item/tool/javelin/guard",
+    "handle": "tconstruct:item/tool/javelin/handle",
+    "grip": "tconstruct:item/tool/javelin/grip",
+    "large_head": "tconstruct:item/tool/javelin/large/head_broken",
+    "large_guard": "tconstruct:item/tool/javelin/large/guard",
+    "large_handle": "tconstruct:item/tool/javelin/large/handle",
+    "large_grip": "tconstruct:item/tool/javelin/large/grip"
+  },
+  "modifier_roots": {
+    "small": [
+      "tconstruct:item/tool/javelin/modifiers/broken/",
+      "tconstruct:item/tool/javelin/modifiers/"
+    ],
+    "large": [
+      "tconstruct:item/tool/javelin/large/modifiers/broken/",
+      "tconstruct:item/tool/javelin/large/modifiers/"
+    ]
+  },
+  "large": true,
+  "large_offset": [
+    -2,
+    2
+  ],
+  "parts": [
+    {
+      "name": "handle",
+      "index": 1
+    },
+    {
+      "name": "grip",
+      "index": 3
+    },
+    {
+      "name": "head",
+      "index": 0
+    },
+    {
+      "name": "guard",
+      "index": 2
+    }
+  ]
+}

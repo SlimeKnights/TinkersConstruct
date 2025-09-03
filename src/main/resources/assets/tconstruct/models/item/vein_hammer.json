@@ -1,6 +1,6 @@
 {
   "loader": "tconstruct:tool",
-  "parent": "forge:item/default-tool",
+  "parent": "tconstruct:item/tool/vein_hammer/display",
   "textures": {
     "head":   "tconstruct:item/tool/vein_hammer/head",
     "handle": "tconstruct:item/tool/vein_hammer/handle",

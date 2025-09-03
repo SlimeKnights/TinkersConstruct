@@ -5,10 +5,13 @@ import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.ItemLike;
+import net.minecraftforge.common.ToolActions;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
@@ -71,6 +74,21 @@ public class TinkerItemProperties {
     int drawtime = ModifierUtil.getPersistentInt(stack, GeneralInteractionModifierHook.KEY_DRAWTIME, -1);
     return drawtime == -1 ? 0 : (float)(stack.getUseDuration() - holder.getUseItemRemainingTicks()) / drawtime;
   };
+  /** ID for the cast fishing rods */
+  private static final ResourceLocation CAST_ID = TConstruct.getResource("cast");
+  /** Property for casting a fishing rod */
+  private static final ItemPropertyFunction CAST = (stack, level, holder, seed) -> {
+    // must be a fishing rod, and the player must be fishing
+    // does player check first since its the fastest, avoids NBT parsing
+    if (holder instanceof Player player && player.fishing != null && stack.canPerformAction(ToolActions.FISHING_ROD_CAST)) {
+      // must be in a hand, but if both hands have fishing rods, must be the one in the main hand
+      ItemStack mainhand = holder.getMainHandItem();
+      if (mainhand == stack || holder.getOffhandItem() == stack && !mainhand.canPerformAction(ToolActions.FISHING_ROD_CAST)) {
+        return 1;
+      }
+    }
+    return 0;
+  };
 
   /** Registers properties for a tool, including the option to have charge/block animations */
   public static void registerBrokenProperty(Item item) {
@@ -83,6 +101,7 @@ public class TinkerItemProperties {
     registerBrokenProperty(item);
     ItemProperties.register(item, CHARGING_ID, CHARGING);
     ItemProperties.register(item, CHARGE_ID, CHARGE);
+    ItemProperties.register(item, CAST_ID, CAST);
   }
 
   /** Registers properties for a bow */

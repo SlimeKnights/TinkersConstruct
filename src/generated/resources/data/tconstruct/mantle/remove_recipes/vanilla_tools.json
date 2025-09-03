@@ -41,6 +41,10 @@
           },
           {
             "type": "mantle:tag",
+            "tag": "forge:tools/fishing_rods"
+          },
+          {
+            "type": "mantle:tag",
             "tag": "forge:armors"
           },
           {

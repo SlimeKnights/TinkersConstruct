@@ -35,7 +35,6 @@ import slimeknights.tconstruct.library.module.ModuleHookMap.Builder;
 import slimeknights.tconstruct.library.tools.capability.fluid.ToolTankHelper;
 import slimeknights.tconstruct.library.tools.definition.module.ToolHooks;
 import slimeknights.tconstruct.library.tools.definition.module.aoe.AreaOfEffectIterator.AOEMatchType;
-import slimeknights.tconstruct.library.tools.definition.module.interaction.DualOptionInteraction;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
@@ -60,7 +59,7 @@ public class SplashingModifier extends Modifier implements EntityInteractionModi
 
   @Override
   public Component getDisplayName(IToolStackView tool, ModifierEntry entry, @Nullable RegistryAccess access) {
-    return DualOptionInteraction.formatModifierName(tool, entry.getModifier(), entry.getDisplayName());
+    return InteractionSource.formatModifierName(tool, entry.getModifier(), entry.getDisplayName());
   }
 
   @Override

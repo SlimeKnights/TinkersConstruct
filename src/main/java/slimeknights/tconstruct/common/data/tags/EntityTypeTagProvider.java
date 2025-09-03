@@ -8,6 +8,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 import java.util.concurrent.CompletableFuture;
@@ -39,7 +40,7 @@ public class EntityTypeTagProvider extends EntityTypeTagsProvider {
 
     this.tag(TinkerTags.EntityTypes.SMALL_ARMOR).addTag(TinkerTags.EntityTypes.SLIMES);
     this.tag(TinkerTags.EntityTypes.REFLECTING_BLACKLIST);
-    this.tag(TinkerTags.EntityTypes.REFLECTING_PRESERVE_OWNER).add(EntityType.FISHING_BOBBER);
+    this.tag(TinkerTags.EntityTypes.REFLECTING_PRESERVE_OWNER).add(EntityType.FISHING_BOBBER, TinkerTools.fishingHook.get());
   }
 
   @Override
