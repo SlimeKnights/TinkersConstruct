@@ -4,11 +4,11 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -16,7 +16,9 @@ import net.minecraft.world.entity.projectile.ThrownTrident;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
+import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
@@ -33,6 +35,8 @@ import javax.annotation.Nullable;
 public class ThrownTool extends ThrownTrident {
   /** Key to sync the stack to the client */
   protected static final EntityDataAccessor<ItemStack> STACK = SynchedEntityData.defineId(ThrownTool.class, EntityDataSerializers.ITEM_STACK);
+  /** Volatile integer key for the loyalty level */
+  public static final ResourceLocation LOYALTY = TConstruct.getResource("loyalty");
 
   @Nullable
   private IToolStackView tool = null;
@@ -54,17 +58,18 @@ public class ThrownTool extends ThrownTrident {
     // trident - stack constructor
     this.tridentItem = stack.copyWithCount(1);
     this.entityData.set(STACK, tridentItem);
-    this.entityData.set(ID_LOYALTY, (byte) tool.getModifiers().getLevel(ModifierIds.loyalty));
-    // TODO: find loyalty on the tool somewhere, maybe just the modifier ID?
+    this.entityData.set(ID_LOYALTY, (byte) tool.getVolatileData().getInt(LOYALTY));
     this.entityData.set(ID_FOIL, tool.getVolatileData().getBoolean(ModifiableItem.SHINY));
     this.charge = charge;
   }
 
   @Override
   public boolean isChanneling() {
-    // TODO: hardcode to channeling modifier perhaps?
-    return false;
+    return !tridentItem.isEmpty() && getTool().getModifiers().getLevel(ModifierIds.channeling) > 0;
   }
+
+
+  /* Despawn */
 
   @Override
   public void tickDespawn() {
@@ -83,6 +88,22 @@ public class ThrownTool extends ThrownTrident {
       }
     }
   }
+
+  @Override
+  protected void onBelowWorld() {
+    // don't discard tools below world if they have loyalty
+    if (pickup == Pickup.ALLOWED && this.entityData.get(ID_LOYALTY) != 0) {
+      // ensure it returns
+      dealtDamage = true;
+      // we don't damage the tool on throw, so instead damage it when it hits a block or an entity
+      if (!tridentItem.isEmpty()) {
+        ToolDamageUtil.damage(getTool(), 1, getOwner() instanceof LivingEntity l ? l : null, tridentItem);
+      }
+    } else {
+      super.onBelowWorld();
+    }
+  }
+
 
   /* Combat */
 
@@ -115,29 +136,33 @@ public class ThrownTool extends ThrownTrident {
       Entity target = pResult.getEntity();
       // hack: swap the offhand for the tool so any relevant modifier hooks (notably looting) see the right thing
       ItemStack offhand = owner.getOffhandItem();
-      owner.setItemInHand(InteractionHand.OFF_HAND, tridentItem);
 
-      // OFFHAND slot is a bit of a hack, ensures the damage is fetched from the tool instead of the attribute, and any hooks detect the tool properly
       IToolStackView tool = getTool();
-      // isExtraAttack bypasses a lot of main hit behaviors, like critical and sounds
-      if (ToolAttackUtil.attackEntity(tool, owner, InteractionHand.OFF_HAND, target, () -> charge, false, EquipmentSlot.OFFHAND, this)) {
-        if (target.getType() == EntityType.ENDERMAN && tool.getModifiers().getLevel(TinkerModifiers.enderference.getId()) == 0) {
-          // restore held item
-          owner.setItemInHand(InteractionHand.OFF_HAND, offhand);
-          return;
+      if (ToolAttackUtil.canPerformAttack(tool) && ToolAttackUtil.isAttackable(owner, target)) {
+        // does not actually matter which slot we use, just need the tool there to ensure hooks are properly run
+        owner.setItemInHand(InteractionHand.OFF_HAND, tridentItem);
+        // TODO: consider whether redundant sound is fine
+        if (ToolAttackUtil.performAttack(tool, ToolAttackContext.attacker(owner).target(target).hand(InteractionHand.OFF_HAND).applyStats(tool).cooldown(charge).projectile(this).build())) {
+          if (target.getType() == EntityType.ENDERMAN && tool.getModifiers().getLevel(TinkerModifiers.enderference.getId()) == 0) {
+            // restore held item
+            owner.setItemInHand(InteractionHand.OFF_HAND, offhand);
+            return;
+          }
+          if (target instanceof LivingEntity living) {
+            this.doPostHurtEffects(living);
+          }
         }
-        if (target instanceof LivingEntity living) {
-          this.doPostHurtEffects(living);
-        }
+
+        // restore held item
+        owner.setItemInHand(InteractionHand.OFF_HAND, offhand);
       }
-      // restore held item
-      owner.setItemInHand(InteractionHand.OFF_HAND, offhand);
 
       // back off from the target
       this.setDeltaMovement(this.getDeltaMovement().multiply(-0.01, -0.1, -0.01));
       // play sound
-      // TODO: change this sound for channeling?
-      this.playSound(SoundEvents.TRIDENT_HIT, 1.0f, 1.0f);
+      if (!level().isClientSide && tool.getModifiers().getLevel(ModifierIds.channeling) == 0) {
+        this.playSound(tool.isBroken() ? SoundEvents.ITEM_BREAK : SoundEvents.TRIDENT_HIT, 1.0f, 1.0f);
+      }
     }
   }
 
@@ -160,7 +185,7 @@ public class ThrownTool extends ThrownTrident {
     // update the tool to sync to client, if its set
     if (tag.contains("Trident", CompoundTag.TAG_COMPOUND)) {
       this.entityData.set(STACK, tridentItem);
-      this.entityData.set(ID_LOYALTY, (byte) ModifierUtil.getModifierLevel(tridentItem, ModifierIds.loyalty));
+      this.entityData.set(ID_LOYALTY, (byte) ModifierUtil.getVolatileInt(tridentItem, LOYALTY));
     }
   }
 }

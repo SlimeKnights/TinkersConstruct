@@ -91,6 +91,7 @@ import slimeknights.tconstruct.library.modifiers.modules.behavior.ReduceToolDama
 import slimeknights.tconstruct.library.modifiers.modules.behavior.RepairModule;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.ShowOffhandModule;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.ToolActionTransformModule;
+import slimeknights.tconstruct.library.modifiers.modules.behavior.ToolActionsModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.EnchantmentModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.ModifierRequirementsModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.ModifierSlotModule;
@@ -101,6 +102,7 @@ import slimeknights.tconstruct.library.modifiers.modules.build.StatCopyModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.SwappableSlotModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.SwappableToolTraitsModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.VolatileFlagModule;
+import slimeknights.tconstruct.library.modifiers.modules.build.VolatileIntModule;
 import slimeknights.tconstruct.library.modifiers.modules.capacity.CapacityBarModule;
 import slimeknights.tconstruct.library.modifiers.modules.capacity.DamageToCapacityModule;
 import slimeknights.tconstruct.library.modifiers.modules.capacity.DurabilityShieldModule;
@@ -141,8 +143,10 @@ import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.shared.TinkerAttributes;
 import slimeknights.tconstruct.shared.TinkerEffects;
 import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.tools.TinkerToolActions;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.data.material.MaterialIds;
+import slimeknights.tconstruct.tools.entity.ThrownTool;
 import slimeknights.tconstruct.tools.item.CrystalshotItem;
 import slimeknights.tconstruct.tools.logic.ModifierEvents;
 import slimeknights.tconstruct.tools.modules.DamageOnUnequipModule;
@@ -170,6 +174,7 @@ import slimeknights.tconstruct.tools.modules.armor.RecurrentProtectionModule;
 import slimeknights.tconstruct.tools.modules.armor.ShieldStrapModule;
 import slimeknights.tconstruct.tools.modules.armor.ThornsModule;
 import slimeknights.tconstruct.tools.modules.armor.ToolBeltModule;
+import slimeknights.tconstruct.tools.modules.combat.ChannelingModule;
 import slimeknights.tconstruct.tools.modules.combat.FieryAttackModule;
 import slimeknights.tconstruct.tools.modules.combat.FreezingAttackModule;
 import slimeknights.tconstruct.tools.modules.interaction.BrushModule;
@@ -178,7 +183,6 @@ import slimeknights.tconstruct.tools.modules.interaction.FishingModule;
 import slimeknights.tconstruct.tools.modules.interaction.PlaceGlowModule;
 import slimeknights.tconstruct.tools.modules.interaction.ThrowingModule;
 import slimeknights.tconstruct.tools.modules.ranged.BulkQuiverModule;
-import slimeknights.tconstruct.tools.modules.ranged.GrappleModule;
 import slimeknights.tconstruct.tools.modules.ranged.PunchModule;
 import slimeknights.tconstruct.tools.modules.ranged.RestrictAngleModule;
 import slimeknights.tconstruct.tools.modules.ranged.TrickQuiverModule;
@@ -414,7 +418,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(MobEffectModule.builder(MobEffects.MOVEMENT_SLOWDOWN).level(RandomLevelingValue.flat(4)).time(RandomLevelingValue.random(20, 10)).target(baneSssssPredicate).build(), ModifierHooks.MELEE_HIT);
     buildModifier(ModifierIds.killager).addModule(ConditionalMeleeDamageModule.builder().target(LivingEntityPredicate.or(
       new MobTypePredicate(MobType.ILLAGER),
-      LivingEntityPredicate.LOADER.tag(TinkerTags.EntityTypes.VILLAGERS))).eachLevel(2.0f));
+      LivingEntityPredicate.LOADER.tag(TinkerTags.EntityTypes.KILLAGERS))).eachLevel(2.0f));
     buildModifier(ModifierIds.pierce)
       // less than sharpness, but pierces 1 armor
       .addModule(StatBoostModule.add(ToolStats.ATTACK_DAMAGE).eachLevel(0.5f))
@@ -425,6 +429,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
 
     // ranged
     buildModifier(ModifierIds.power).addModule(StatBoostModule.add(ToolStats.PROJECTILE_DAMAGE).amount(0.5f, 0.5f));
+    buildModifier(ModifierIds.underbowed).addModule(StatBoostModule.add(ToolStats.PROJECTILE_DAMAGE).eachLevel(-1));
     buildModifier(ModifierIds.punch).addModule(new PunchModule(LevelingValue.eachLevel(1), ModifierCondition.ANY_TOOL));
     buildModifier(ModifierIds.quickCharge).addModule(StatBoostModule.multiplyBase(ToolStats.DRAW_SPEED).eachLevel(0.25f));
     buildModifier(ModifierIds.trueshot).addModule(StatBoostModule.add(ToolStats.ACCURACY).eachLevel(0.1f));
@@ -612,16 +617,28 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(ToolActionWalkerTransformModule.builder(ToolActions.HOE_TILL, SoundEvents.HOE_TILL).amount(0.5f, 1));
     buildModifier(ModifierIds.brushing).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(BrushModule.INSTANCE);
     buildModifier(ModifierIds.throwing).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(ThrowingModule.INSTANCE);
-    // mostly hardcoded at this time
-    buildModifier(ModifierIds.loyalty).addModule(ModifierRequirementsModule.builder().requireModifier(ModifierIds.throwing, 1).modifierKey(ModifierIds.loyalty).build());
+    buildModifier(ModifierIds.returning)
+      .addModule(new VolatileIntModule(ThrownTool.LOYALTY, LevelingInt.eachLevel(1)))
+      .addModule(ModifierRequirementsModule.builder().requireModifier(ModifierIds.throwing, 1).modifierKey(ModifierIds.returning).build());
+    buildModifier(ModifierIds.channeling)
+      .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
+      .addModule(new ChannelingModule(0.15f, 0.65f, 1.0f, false))
+      .addModule(ModifierRequirementsModule.builder()
+        .requireModifier(TinkerTags.Modifiers.CHANNELING, 1)
+        .displayModifier(ModifierIds.throwing, 1)
+        .modifierKey(ModifierIds.channeling).build());
 
     // fishing
     buildModifier(ModifierIds.fishing).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(FishingModule.INSTANCE);
     buildModifier(ModifierIds.lure).addModule(StatBoostModule.add(ToolStats.LURE).eachLevel(1));
     buildModifier(ModifierIds.grapple)
       .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
-      .addModule(new GrappleModule(ModifierCondition.ANY_TOOL))
+      .addModule(new ToolActionsModule(TinkerToolActions.GRAPPLE_HOOK))
       .addModule(ModifierRequirementsModule.builder().requireModifier(ModifierIds.fishing, 1).modifierKey(ModifierIds.grapple).build());
+    buildModifier(ModifierIds.collecting)
+      .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
+      .addModule(new ToolActionsModule(TinkerToolActions.ITEM_HOOK))
+      .addModule(ModifierRequirementsModule.builder().requireModifier(ModifierIds.fishing, 1).modifierKey(ModifierIds.collecting).build());
 
     // traits
     buildModifier(ModifierIds.smelting)

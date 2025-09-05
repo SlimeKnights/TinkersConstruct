@@ -4,6 +4,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -43,6 +44,11 @@ public class SpringingModifier extends SlingModifier {
           (look.x + random.nextGaussian() * inaccuracy) * f,
           (look.y + random.nextGaussian() * inaccuracy) * f / 2f,
           (look.z + random.nextGaussian() * inaccuracy) * f);
+
+        // if on the ground, get off the ground so jumping is not required before springing
+        if (player.onGround()) {
+          player.move(MoverType.SELF, new Vec3(0, 1.3f, 0));
+        }
 
         SlimeBounceHandler.addBounceHandler(player);
         if (!level.isClientSide) {

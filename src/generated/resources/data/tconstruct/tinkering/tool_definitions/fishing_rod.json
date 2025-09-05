@@ -24,8 +24,13 @@
     {
       "type": "tconstruct:base_stats",
       "stats": {
-        "tconstruct:attack_speed": 2.0,
-        "tconstruct:durability": 70.0
+        "tconstruct:attack_speed": 2.0
+      }
+    },
+    {
+      "type": "tconstruct:multiply_stats",
+      "multipliers": {
+        "tconstruct:durability": 1.5
       }
     },
     {

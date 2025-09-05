@@ -43,6 +43,7 @@ import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInterac
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.ComputableDataKey;
+import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -259,8 +260,9 @@ public class InteractionHandler {
         ItemStack chestplate = attacker.getItemBySlot(EquipmentSlot.CHEST);
         if (chestplate.is(TinkerTags.Items.UNARMED)) {
           ToolStack tool = ToolStack.from(chestplate);
-          if (!tool.isBroken()) {
-            ToolAttackUtil.attackEntity(tool, attacker, InteractionHand.MAIN_HAND, event.getTarget(), ToolAttackUtil.getCooldownFunction(attacker, InteractionHand.MAIN_HAND), false, EquipmentSlot.CHEST);
+          Entity target = event.getTarget();
+          if (!tool.isBroken() && ToolAttackUtil.isAttackable(attacker, target)) {
+            ToolAttackUtil.performAttack(tool, ToolAttackContext.attacker(attacker).target(target).slot(EquipmentSlot.CHEST, InteractionHand.MAIN_HAND).defaultCooldown().toolAttributes(tool).build());
             event.setCanceled(true);
           }
         }

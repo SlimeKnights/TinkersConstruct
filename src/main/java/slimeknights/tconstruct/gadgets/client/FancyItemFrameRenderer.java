@@ -96,7 +96,7 @@ public class FancyItemFrameRenderer<T extends FancyItemFrameEntity> extends Item
       }
       int frameRotation = frame.getRotation();
       // for diamond, render the timer as a partial rotation
-      if (frameType == FrameType.DIAMOND) {
+      if (frameType.hasMoreRotations()) {
         int rotation = mapdata != null ? (frameRotation + 2) % 4 * 4 : frameRotation;
         matrices.mulPose(Axis.ZP.rotationDegrees(rotation * 360f / 16f));
       } else {

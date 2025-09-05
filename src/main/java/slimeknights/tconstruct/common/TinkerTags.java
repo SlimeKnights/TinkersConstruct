@@ -8,6 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
@@ -390,6 +391,8 @@ public class TinkerTags {
     public static final TagKey<Item> INTERACTABLE_RIGHT = local("modifiable/interactable/right");
     /** Tools that can charge up interaction. Includes anything in {@link #INTERACTABLE_RIGHT}, {@link #BOWS}, or {@link #SHIELDS} */
     public static final TagKey<Item> INTERACTABLE_CHARGE = local("modifiable/interactable/charge");
+    /** Tools that can charge up interaction, using a modifier for their main action. Like {@link #INTERACTABLE_CHARGE} but excludes bows. */
+    public static final TagKey<Item> INTERACTABLE_CHARGE_MODIFIER = local("modifiable/interactable/charge/modifier");
     /** Tools that can interact on left click */
     public static final TagKey<Item> INTERACTABLE_LEFT = local("modifiable/interactable/left");
     /** Tools that can interact when worn as armor */
@@ -582,6 +585,9 @@ public class TinkerTags {
     /** Mobs that get the 4x protection boost due to only 1 armor piece */
     public static final TagKey<EntityType<?>> SMALL_ARMOR = common("small_armor");
 
+    /** Things that can be collected using {@link net.minecraft.world.entity.Entity#playerTouch(Player)} using a fishing rod. */
+    public static final TagKey<EntityType<?>> COLLECTABLES = common("collectables");
+
     /** Projectiles with this tag cannot be reflected */
     public static final TagKey<EntityType<?>> REFLECTING_BLACKLIST = common("reflecting/blacklist");
     /** Projectiles with this tag cannot be reflected */
@@ -631,12 +637,16 @@ public class TinkerTags {
     private static void init() {}
     /** Gem modifiers, one of which is needed for netherite */
     public static final TagKey<Modifier> GEMS = local("gems");
+    /** Modifiers allowing access to the channeling modifier */
+    public static final TagKey<Modifier> CHANNELING = local("channeling");
     /** Blacklist for modifiers that cannot be hidden with invisible ink */
     public static final TagKey<Modifier> INVISIBLE_INK_BLACKLIST = local("invisible_ink_blacklist");
     /** Blacklist for modifiers that cannot be extracted via the general recipe */
     public static final TagKey<Modifier> EXTRACT_MODIFIER_BLACKLIST = local("extract_blacklist/tools");
     /** Blacklist for modifiers that cannot be extracted via the slotless recipe */
     public static final TagKey<Modifier> EXTRACT_SLOTLESS_BLACKLIST = local("extract_blacklist/slotless");
+    /** Blacklist for modifiers that cannot be extracted via the upgrade recipe */
+    public static final TagKey<Modifier> EXTRACT_UPGRADE_BLACKLIST = local("extract_blacklist/upgrade");
     /** Modifiers that support blocking while charging, for the sake of shields */
     public static final TagKey<Modifier> BLOCK_WHILE_CHARGING = local("block_while_charging");
     /** Modifiers that can be used on both left and right click. Does not care about armor modifiers */
@@ -691,6 +701,7 @@ public class TinkerTags {
     public static final TagKey<Modifier> SLOTLESS = local("slotless");
     public static final TagKey<Modifier> GENERAL_SLOTLESS = local("slotless/general");
     public static final TagKey<Modifier> BONUS_SLOTLESS = local("slotless/bonus");
+    public static final TagKey<Modifier> COSMETIC_SLOTLESS = local("slotless/cosmetic");
 
     // JEI
     public static final TagKey<Modifier> HIDDEN_FROM_RECIPE_VIEWERS = hiddenFromRecipeViewers(ModifierManager.REGISTRY_KEY);

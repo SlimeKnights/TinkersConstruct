@@ -60,6 +60,10 @@ public class EnchantmentToModifierProvider extends AbstractEnchantmentToModifier
     add(Enchantments.FISHING_LUCK, ModifierIds.luck);
     add(Enchantments.FISHING_SPEED, ModifierIds.lure);
 
+    // trident
+    add(Enchantments.LOYALTY, ModifierIds.returning);
+    add(Enchantments.CHANNELING, ModifierIds.channeling);
+
     // tag compat
     // upgrade
     addCompat(ModifierIds.experienced);

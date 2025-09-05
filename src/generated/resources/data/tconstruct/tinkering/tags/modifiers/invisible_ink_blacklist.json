@@ -5,13 +5,7 @@
     "tconstruct:trim",
     "tconstruct:creative_slot",
     "tconstruct:stat_override",
-    {
-      "id": "tconstruct:shiny",
-      "required": false
-    },
-    {
-      "id": "tconstruct:golden",
-      "required": false
-    }
+    "tconstruct:shiny",
+    "tconstruct:golden"
   ]
 }

@@ -10,9 +10,6 @@
     "tconstruct:shears",
     "tconstruct:harvest",
     "tconstruct:fishing",
-    {
-      "id": "tconstruct:pockets",
-      "required": false
-    }
+    "tconstruct:pockets"
   ]
 }

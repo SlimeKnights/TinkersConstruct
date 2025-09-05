@@ -133,14 +133,21 @@ public class FancyItemFrameEntity extends ItemFrame implements IEntityAdditional
   @Override
   protected void setRotation(int rotationIn, boolean updateComparator) {
     this.rotationTimer = 0;
-    // diamond goes 0-8 rotation, no modulo and needs to sync with client
-    if (getFrameId() == FrameType.DIAMOND.getId()) {
-      if (!level().isClientSide && updateComparator) {
-        // play a sound as diamond is special
-        this.playSound(Sounds.ITEM_FRAME_CLICK.getSound(), 1.0f, 1.0f);
+    // diamond, manyullyn, and netherite goes 0-8 rotation
+    int id = getFrameId();
+    if (FrameType.hasMoreRotations(id)) {
+      // diamond caps at 16, while the others circle around
+      if (id == FrameType.DIAMOND.getId()) {
+        if (!level().isClientSide && updateComparator) {
+          // play a sound as diamond is special
+          this.playSound(Sounds.ITEM_FRAME_CLICK.getSound(), 1.0f, 1.0f);
+        }
+        rotationIn = Math.min(rotationIn, 16);
+      } else {
+        rotationIn = rotationIn % 16;
       }
       // diamond allows rotation between 0 and 16
-      setRotationRaw(Math.min(rotationIn, 16), updateComparator);
+      setRotationRaw(rotationIn, updateComparator);
     } else {
       // non diamond rotates around after 7
       setRotationRaw(rotationIn % 8, updateComparator);
@@ -199,8 +206,9 @@ public class FancyItemFrameEntity extends ItemFrame implements IEntityAdditional
       return 0;
     }
     int rotation = getRotation();
-    if (getFrameId() == FrameType.DIAMOND.getId()) {
-      return Math.min(15, rotation + 1);
+    // seems more useful to have 16 unique rotation values than 15 unique values plus 1 for empty
+    if (FrameType.hasMoreRotations(getFrameId())) {
+      return rotation;
     }
     return rotation % 8 + 1;
   }

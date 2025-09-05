@@ -276,7 +276,7 @@ public class ModifierHooks {
   /** Hook called when an arrow hits an entity or block */
   public static final ModuleHook<ProjectileHitModifierHook> PROJECTILE_HIT = register("projectile_hit", ProjectileHitModifierHook.class, ProjectileHitModifierHook.AllMerger::new, new ProjectileHitModifierHook() {});
   /** Hook called when a projectile hits an entity with context on the tool that launched it. Allows modifiers such as melting or spilling to work. */
-  public static final ModuleHook<LauncherHitModifierHook> LAUNCHER_HIT = register("launcher_hit", LauncherHitModifierHook.class, LauncherHitModifierHook.AllMerger::new, (tool, modifier, projectile, attacker, target, livingTarget, damageDealt) -> {});
+  public static final ModuleHook<LauncherHitModifierHook> LAUNCHER_HIT = register("launcher_hit", LauncherHitModifierHook.class, LauncherHitModifierHook.AllMerger::new, new LauncherHitModifierHook() {});
   /** Hook called when a bow is looking for ammo. Does not support merging multiple hooks on one modifier */
   public static final ModuleHook<BowAmmoModifierHook> BOW_AMMO = register("bow_ammo", BowAmmoModifierHook.class, BowAmmoModifierHook.EMPTY);
 

@@ -11,7 +11,10 @@ import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import javax.annotation.Nullable;
 import java.util.Collection;
 
-/** Hook fired when an arrow hits an entity */
+/**
+ * Hook fired when an arrow hits an entity
+ * @see LauncherHitModifierHook
+ */
 public interface ProjectileHitModifierHook {
   /**
    * Called when a projectile hits an entity

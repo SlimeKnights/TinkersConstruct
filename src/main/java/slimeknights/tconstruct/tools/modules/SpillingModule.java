@@ -71,7 +71,7 @@ public record SpillingModule(LevelingValue level, ModifierCondition<IToolStackVi
   }
 
   @Override
-  public void onToolProjectileHit(IToolStackView tool, ModifierEntry modifier, Projectile projectile, LivingEntity attacker, Entity target, @Nullable LivingEntity livingTarget, float damageDealt) {
+  public void onLauncherHitEntity(IToolStackView tool, ModifierEntry modifier, Projectile projectile, LivingEntity attacker, Entity target, @Nullable LivingEntity livingTarget, float damageDealt) {
     if (damageDealt > 0) {
       applyEffect(tool, modifier, attacker, ModifierUtil.asPlayer(attacker), target, livingTarget);
     }

@@ -470,11 +470,10 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
         .part(bowLimb)
         .part(bowstring).build())
       .module(defaultTwoParts)
-      // stats
-      .module(new SetStatsModule(StatsNBT.builder()
-        .set(ToolStats.DURABILITY, 70) // gives just about twice the durability as a vanilla rod to wood to make up for damaging on cast and reel
-        .set(ToolStats.ATTACK_SPEED, 2.0f)
-        .build()))
+      // stats - high attack speed so melee modifying it is not useless with its base 1 attack damage
+      .module(new SetStatsModule(StatsNBT.builder().set(ToolStats.ATTACK_SPEED, 2.0f).build()))
+      // give a bit more durability to make up for modifier costs, plus non-fishing uses are really durability hungry
+      .module(new MultiplyStatsModule(MultiplierNBT.builder().set(ToolStats.DURABILITY, 1.5f).build()))
       .module(ToolSlotsModule.builder().slots(SlotType.ABILITY, 1).slots(SlotType.UPGRADE, 4).build())
       // traits
       .module(ToolTraitsModule.builder().trait(ModifierIds.fishing).build())

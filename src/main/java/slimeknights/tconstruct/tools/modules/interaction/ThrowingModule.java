@@ -19,11 +19,13 @@ import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.build.ConditionalStatModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.UsingToolModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.module.HookProvider;
 import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.tools.capability.PersistentDataCapability;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
+import slimeknights.tconstruct.library.tools.item.ranged.ModifiableLauncherItem;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
@@ -33,10 +35,10 @@ import slimeknights.tconstruct.tools.modifiers.ability.interaction.BlockingModif
 import java.util.List;
 
 /** Module allowing throwing a tool */
-public enum ThrowingModule implements ModifierModule, GeneralInteractionModifierHook {
+public enum ThrowingModule implements ModifierModule, GeneralInteractionModifierHook, UsingToolModifierHook {
   INSTANCE;
 
-  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<ThrowingModule>defaultHooks(ModifierHooks.GENERAL_INTERACT);
+  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<ThrowingModule>defaultHooks(ModifierHooks.GENERAL_INTERACT, ModifierHooks.TOOL_USING);
   public static final RecordLoadable<ThrowingModule> LOADER = new SingletonLoader<>(INSTANCE);
 
   @Override
@@ -106,6 +108,14 @@ public enum ThrowingModule implements ModifierModule, GeneralInteractionModifier
         }
         player.awardStat(Stats.ITEM_USED.get(tool.getItem()));
       }
+    }
+  }
+
+  @Override
+  public void beforeReleaseUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int useDuration, int timeLeft, ModifierEntry activeModifier) {
+    // when using a tool that doesn't fire right click hooks, allow throwing here provided its out of ammo
+    if (activeModifier == ModifierEntry.EMPTY && !tool.getPersistentData().contains(ModifiableLauncherItem.KEY_DRAWBACK_AMMO)) {
+      onStoppedUsing(tool, modifier, entity, timeLeft);
     }
   }
 }

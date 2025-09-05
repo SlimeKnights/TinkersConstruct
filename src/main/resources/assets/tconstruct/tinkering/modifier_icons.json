@@ -36,9 +36,14 @@
   "tconstruct:bonking":   "tconstruct:gui/modifiers/held/bonking",
   "tconstruct:warping":   "tconstruct:gui/modifiers/held/warping",
 
-  "tconstruct:fishing": ["minecraft:item/fishing_rod", "tconstruct:gui/modifiers/book"],
-  "tconstruct:lure":    "tconstruct:gui/modifiers/ranged/lure",
-  "tconstruct:grapple": "tconstruct:gui/modifiers/ranged/grapple",
+  "tconstruct:fishing":    ["minecraft:item/fishing_rod", "tconstruct:gui/modifiers/book"],
+  "tconstruct:lure":       "tconstruct:gui/modifiers/ranged/lure",
+  "tconstruct:grapple":    "tconstruct:gui/modifiers/ranged/grapple",
+  "tconstruct:collecting": ["minecraft:item/hopper", "tconstruct:gui/modifiers/book"],
+
+  "tconstruct:throwing": ["minecraft:item/trident", "tconstruct:gui/modifiers/book"],
+  "tconstruct:returning": ["tconstruct:gui/modifiers/ranged/returning", "tconstruct:gui/modifiers/book"],
+  "tconstruct:channeling": "tconstruct:gui/modifiers/melee/channeling",
 
   "tconstruct:exchanging":  "tconstruct:gui/modifiers/harvest/exchanging",
   "tconstruct:expanded":    "tconstruct:gui/modifiers/harvest/expanded",
@@ -75,6 +80,7 @@
   "tconstruct:freezing":     "tconstruct:gui/modifiers/ranged/freezing",
   "tconstruct:impaling":     "tconstruct:gui/modifiers/ranged/impaling",
   "tconstruct:power":        "tconstruct:gui/modifiers/ranged/power",
+  "tconstruct:underbowed":   "tconstruct:gui/modifiers/ranged/underbowed",
   "tconstruct:punch":        "tconstruct:gui/modifiers/ranged/punch",
   "tconstruct:quick_charge": "tconstruct:gui/modifiers/ranged/quick_charge",
   "tconstruct:scope":        "tconstruct:gui/modifiers/ranged/scope",

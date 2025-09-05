@@ -20,6 +20,7 @@ import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.ShowOffhandModule;
 import slimeknights.tconstruct.library.module.ModuleHookMap.Builder;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
+import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -48,7 +49,7 @@ public class OffhandAttackModifier extends NoLevelsModifier implements EntityInt
 
   /** If true, we can use the attack */
   protected boolean canAttack(IToolStackView tool, Player player, InteractionHand hand) {
-    return !tool.isBroken() && hand == InteractionHand.OFF_HAND && OffhandCooldownTracker.isAttackReady(player);
+    return ToolAttackUtil.canPerformAttack(tool) && hand == InteractionHand.OFF_HAND && OffhandCooldownTracker.isAttackReady(player);
   }
 
   /** Applies offhand cooldown based on the tool attack speed */
@@ -60,7 +61,7 @@ public class OffhandAttackModifier extends NoLevelsModifier implements EntityInt
     } else {
       // if we get here, its always offhand
       // need to cancel out the base 4 attack speed in the tool attack speed, since we removed the main hand one doing it
-      attackSpeed = ToolAttackUtil.getSlotAttribute(tool, player, EquipmentSlot.OFFHAND, Attributes.ATTACK_SPEED, tool.getStats().get(ToolStats.ATTACK_SPEED) - 4);
+      attackSpeed = ToolAttackUtil.getToolAttribute(tool, player, Attributes.ATTACK_SPEED, tool.getStats().get(ToolStats.ATTACK_SPEED) - 4);
     }
     OffhandCooldownTracker.applyCooldown(player, attackSpeed, 20);
   }
@@ -68,8 +69,8 @@ public class OffhandAttackModifier extends NoLevelsModifier implements EntityInt
   @Override
   public InteractionResult beforeEntityUse(IToolStackView tool, ModifierEntry modifier, Player player, Entity target, InteractionHand hand, InteractionSource source) {
     if (canAttack(tool, player, hand)) {
-      if (!player.level().isClientSide()) {
-        ToolAttackUtil.attackEntity(tool, player, InteractionHand.OFF_HAND, target, ToolAttackUtil.getCooldownFunction(player, InteractionHand.OFF_HAND), false, source.getSlot(hand));
+      if (!player.level().isClientSide() && ToolAttackUtil.isAttackable(player, target)) {
+        ToolAttackUtil.performAttack(tool, ToolAttackContext.attacker(player).target(target).offhandCooldown().slot(source.getSlot(hand), hand).toolAttributes(tool).build());
       }
       applyCooldown(tool, player, source);
       // we handle swinging the arm, return consume to prevent resetting cooldown

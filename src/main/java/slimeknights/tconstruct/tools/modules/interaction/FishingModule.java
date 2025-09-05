@@ -39,6 +39,7 @@ import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.Util;
+import slimeknights.tconstruct.tools.TinkerToolActions;
 import slimeknights.tconstruct.tools.entity.CombatFishingHook;
 
 import javax.annotation.Nullable;
@@ -73,7 +74,8 @@ public enum FishingModule implements ModifierModule, GeneralInteractionModifierH
 
   @Override
   public InteractionResult onToolUse(IToolStackView tool, ModifierEntry modifier, Player player, InteractionHand hand, InteractionSource source) {
-    if (source != InteractionSource.ARMOR && !tool.isBroken() && tool.getHook(ToolHooks.INTERACTION).canInteract(tool, modifier.getId(), source)) {
+    // disallow casting if the main hand can cast. Only comes up if the main hand is doing left click fishing; vanilla limitations means we can't support that
+    if (source != InteractionSource.ARMOR && !tool.isBroken() && tool.getHook(ToolHooks.INTERACTION).canInteract(tool, modifier.getId(), source) && (hand == InteractionHand.MAIN_HAND || !player.getMainHandItem().canPerformAction(ToolActions.FISHING_ROD_CAST))) {
       Level level = player.level();
       if (player.fishing != null) {
         ItemStack stack = player.getItemInHand(hand);
@@ -102,6 +104,12 @@ public enum FishingModule implements ModifierModule, GeneralInteractionModifierH
           // copy tool data to the bobber for modifier hooks
           ModifierNBT modifiers = tool.getModifiers();
           hook.getCapability(EntityModifierCapability.CAPABILITY).ifPresent(cap -> cap.setModifiers(modifiers));
+          if (ModifierUtil.canPerformAction(tool, TinkerToolActions.GRAPPLE_HOOK)) {
+            hook.setGrapple();
+          }
+          if (ModifierUtil.canPerformAction(tool, TinkerToolActions.ITEM_HOOK)) {
+            hook.setCollecting();
+          }
 
           // fetch the persistent data for the hook as modifiers may want to store data
           ModDataNBT arrowData = PersistentDataCapability.getOrWarn(hook);
@@ -111,9 +119,6 @@ public enum FishingModule implements ModifierModule, GeneralInteractionModifierH
             entry.getHook(ModifierHooks.PROJECTILE_LAUNCH).onProjectileLaunch(tool, entry, player, ItemStack.EMPTY, hook, null, arrowData, true);
           }
           level.addFreshEntity(hook);
-
-          // we damage on both cast and release to prevent some cheese with some modifiers and swapping items post cast
-          ToolDamageUtil.damageAnimated(tool, 1, player, hand);
         }
 
         player.awardStat(Stats.ITEM_USED.get(tool.getItem()));

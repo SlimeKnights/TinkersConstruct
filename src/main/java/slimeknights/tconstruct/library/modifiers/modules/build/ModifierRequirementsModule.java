@@ -158,7 +158,7 @@ public class ModifierRequirementsModule implements ValidateModifierHook, Modifie
 
     /** Adds an undisplayed modifier requirement to the builder */
     public Builder requireModifier(TagKey<Modifier> tag, int level) {
-      this.requirements.add(HasModifierPredicate.hasUpgrade(ModifierPredicate.tag(tag), level));
+      this.requirements.add(HasModifierPredicate.hasModifier(ModifierPredicate.tag(tag), level));
       return this;
     }
 

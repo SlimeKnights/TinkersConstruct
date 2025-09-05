@@ -75,6 +75,7 @@ import static slimeknights.tconstruct.common.TinkerTags.Items.HIDDEN_IN_RECIPE_V
 import static slimeknights.tconstruct.common.TinkerTags.Items.INTERACTABLE;
 import static slimeknights.tconstruct.common.TinkerTags.Items.INTERACTABLE_ARMOR;
 import static slimeknights.tconstruct.common.TinkerTags.Items.INTERACTABLE_CHARGE;
+import static slimeknights.tconstruct.common.TinkerTags.Items.INTERACTABLE_CHARGE_MODIFIER;
 import static slimeknights.tconstruct.common.TinkerTags.Items.INTERACTABLE_DUAL;
 import static slimeknights.tconstruct.common.TinkerTags.Items.INTERACTABLE_LEFT;
 import static slimeknights.tconstruct.common.TinkerTags.Items.INTERACTABLE_RIGHT;
@@ -327,7 +328,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     addToolTags(TinkerTools.meltingPan, MULTIPART_TOOL, DURABILITY, ANCIENT_TOOLS, TRADER_TOOLS, HARVEST_PRIMARY, STAFFS, HELD_ARMOR, INTERACTABLE_DUAL, AOE, BONUS_SLOTS);
     addToolTags(TinkerTools.warPick,    MULTIPART_TOOL, DURABILITY, ANCIENT_TOOLS, TRADER_TOOLS, HARVEST_PRIMARY, STONE_HARVEST, MELEE_WEAPON, HELD, AOE, CLUSTER_MAX_HARVESTABLES, CROSSBOWS, BONUS_SLOTS, ItemTags.PICKAXES, Tags.Items.TOOLS_CROSSBOWS);
     addToolTags(TinkerTools.battlesign, MULTIPART_TOOL, DURABILITY, ANCIENT_TOOLS, TRADER_TOOLS, MELEE_PRIMARY, SHIELDS, BONUS_SLOTS, Tags.Items.TOOLS_SHIELDS);
-    addToolTags(TinkerTools.swasher,    MULTIPART_TOOL, DURABILITY, ANCIENT_TOOLS, TRADER_TOOLS, HARVEST, MELEE_PRIMARY, LAUNCHERS, HELD, BONUS_SLOTS, ItemTags.SWORDS, STAFFS, INTERACTABLE_CHARGE);
+    addToolTags(TinkerTools.swasher,    MULTIPART_TOOL, DURABILITY, ANCIENT_TOOLS, TRADER_TOOLS, HARVEST, MELEE_PRIMARY, LAUNCHERS, HELD, BONUS_SLOTS, ItemTags.SWORDS, STAFFS, INTERACTABLE_CHARGE_MODIFIER);
     optionalToolTags(TinkerTools.minotaurAxe, MULTIPART_TOOL, DURABILITY, ANCIENT_TOOLS, HARVEST_PRIMARY, MELEE_PRIMARY, INTERACTABLE_RIGHT, AOE, BONUS_SLOTS, ItemTags.AXES);
 
     // armor
@@ -373,7 +374,8 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.tag(UNARMED).addTag(CHESTPLATES);
     this.tag(INTERACTABLE_RIGHT).addTags(INTERACTABLE_DUAL);
     this.tag(INTERACTABLE_LEFT).addTag(INTERACTABLE_DUAL);
-    this.tag(INTERACTABLE_CHARGE).addTags(INTERACTABLE_RIGHT, BOWS, SHIELDS);
+    this.tag(INTERACTABLE_CHARGE_MODIFIER).addTags(INTERACTABLE_RIGHT, SHIELDS);
+    this.tag(INTERACTABLE_CHARGE).addTags(INTERACTABLE_CHARGE_MODIFIER, BOWS);
     // interactable armor is mostly so some mod could disable all chestplate interactions in one swing
     this.tag(INTERACTABLE_ARMOR).addTag(CHESTPLATES);
     // left and right handed are held, but not armor

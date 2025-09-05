@@ -1,0 +1,7 @@
+{
+  "values": [
+    "tconstruct:swasher",
+    "#tconstruct:modifiable/interactable/right",
+    "#tconstruct:modifiable/shields"
+  ]
+}

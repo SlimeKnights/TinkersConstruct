@@ -98,10 +98,16 @@ public class BonkingModifier extends SlingModifier implements MeleeHitModifierHo
           BlockHitResult mop = ModifiableItem.blockRayTrace(level, player, ClipContext.Fluid.NONE);
           if (mop.getType() != HitResult.Type.BLOCK || targetDist < mop.getBlockPos().distToCenterSqr(start)) {
             // melee tools also do damage as a treat
-            if (tool.hasTag(TinkerTags.Items.MELEE)) {
+            if (tool.hasTag(TinkerTags.Items.MELEE) && ToolAttackUtil.isAttackable(entity, target)) {
               isBonking = true;
               InteractionHand hand = player.getUsedItemHand();
-              ToolAttackUtil.attackEntity(tool, entity, hand, target, () -> Math.min(1, f), true);
+              ToolAttackContext.Builder builder = ToolAttackContext.attacker(entity).target(target).hand(hand).cooldown(Math.min(1, f)).extraAttack();
+              if (hand == InteractionHand.MAIN_HAND) {
+                builder.applyAttributes();
+              } else {
+                builder.toolAttributes(tool);
+              }
+              ToolAttackUtil.performAttack(tool, builder.build());
               isBonking = false;
             }
 

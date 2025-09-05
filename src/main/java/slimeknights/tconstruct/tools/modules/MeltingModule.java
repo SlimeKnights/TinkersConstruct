@@ -245,7 +245,7 @@ public record MeltingModule(LevelingInt temperature, LevelingInt nuggetsPerMetal
   }
 
   @Override
-  public void onToolProjectileHit(IToolStackView tool, ModifierEntry modifier, Projectile projectile, LivingEntity attacker, Entity target, @Nullable LivingEntity livingTarget, float damageDealt) {
+  public void onLauncherHitEntity(IToolStackView tool, ModifierEntry modifier, Projectile projectile, LivingEntity attacker, Entity target, @Nullable LivingEntity livingTarget, float damageDealt) {
     meltTarget(tool, modifier, livingTarget, damageDealt);
   }
 

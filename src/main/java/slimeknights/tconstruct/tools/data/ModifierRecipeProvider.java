@@ -523,6 +523,10 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .setMaxLevel(5)
                                     .saveSalvage(consumer, prefix(ModifierIds.power, upgradeSalvage))
                                     .save(consumer, prefix(ModifierIds.power, upgradeFolder));
+    IncrementalModifierRecipeBuilder.modifier(ModifierIds.underbowed)
+      .setTools(TinkerTags.Items.LAUNCHERS)
+      .setInput(ItemTags.WOOL, 1, 10)
+      .save(consumer, prefix(ModifierIds.underbowed, slotlessFolder));
     IncrementalModifierRecipeBuilder.modifier(ModifierIds.quickCharge)
                                     .setTools(ingredientFromTags(TinkerTags.Items.CROSSBOWS, TinkerTags.Items.STAFFS, TinkerTags.Items.FISHING_RODS))
                                     .setInput(Items.MAGMA_CREAM, 1, 5)
@@ -672,6 +676,38 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
       .setMaxLevel(1).checkTraitLevel()
       .saveSalvage(consumer, prefix(ModifierIds.grapple, abilitySalvage))
       .save(consumer, prefix(ModifierIds.grapple, abilityFolder));
+    ModifierRecipeBuilder.modifier(ModifierIds.collecting)
+      .setTools(TinkerTags.Items.FISHING_RODS)
+      .addInput(Blocks.HOPPER)
+      .setSlots(SlotType.ABILITY, 1)
+      .setMaxLevel(1).checkTraitLevel()
+      .saveSalvage(consumer, prefix(ModifierIds.collecting, abilitySalvage))
+      .save(consumer, prefix(ModifierIds.collecting, abilityFolder));
+
+    // throwing
+    Ingredient chargable = IntersectionIngredient.of(
+      Ingredient.of(TinkerTags.Items.DURABILITY),
+      Ingredient.of(TinkerTags.Items.INTERACTABLE_CHARGE)
+    );
+    Ingredient bowLimb = MaterialIngredient.of(TinkerToolParts.bowLimb.get());
+    ModifierRecipeBuilder.modifier(ModifierIds.throwing)
+      .setTools(chargable)
+      .addInput(bowLimb)
+      .addInput(TinkerMaterials.cinderslime.getIngotTag())
+      .addInput(MaterialIngredient.of(TinkerToolParts.bowGrip.get()))
+      .setSlots(SlotType.ABILITY, 1)
+      .setMaxLevel(1).checkTraitLevel()
+      .saveSalvage(consumer, prefix(ModifierIds.throwing, abilitySalvage))
+      .save(consumer, prefix(ModifierIds.throwing, abilityFolder));
+    MultilevelModifierRecipeBuilder.modifier(ModifierIds.returning)
+      .setTools(chargable)
+      .addInput(Items.ENDER_PEARL)
+      .addInput(Items.CLOCK)
+      .addInput(Items.ENDER_PEARL)
+      .addLevel(SlotType.ABILITY, 1, 1)
+      .addLevelRange(SlotType.UPGRADE, 1, 2, 4)
+      .saveSalvage(consumer, prefix(ModifierIds.returning, abilitySalvage))
+      .save(consumer, prefix(ModifierIds.returning, abilityFolder));
 
     /*
      * armor
@@ -1207,6 +1243,18 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setTools(ingredientFromTags(TinkerTags.Items.HARVEST, TinkerTags.Items.FISHING_RODS))
                          .saveSalvage(consumer, prefix(TinkerModifiers.autosmelt, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.autosmelt, abilityFolder));
+    ModifierRecipeBuilder.modifier(ModifierIds.channeling)
+      .addInput(Blocks.LIGHTNING_ROD)
+      .addInput(Blocks.CREEPER_HEAD)
+      .addInput(Blocks.LIGHTNING_ROD)
+      .addInput(Blocks.LIGHTNING_ROD)
+      .addInput(Blocks.LIGHTNING_ROD)
+      .setMaxLevel(1).checkTraitLevel()
+      .setSlots(SlotType.ABILITY, 1)
+      .setTools(ingredientFromTags(TinkerTags.Items.MELEE, TinkerTags.Items.FISHING_RODS))
+      .saveSalvage(consumer, prefix(ModifierIds.channeling, abilitySalvage))
+      .save(consumer, prefix(ModifierIds.channeling, abilityFolder));
+
     // fluid stuff
     ModifierRecipeBuilder.modifier(TinkerModifiers.melting)
                          .addInput(Items.BLAZE_ROD)
@@ -1263,7 +1311,6 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setTools(ingredientFromTags(TinkerTags.Items.CHESTPLATES, TinkerTags.Items.SHIELDS))
                          .saveSalvage(consumer, prefix(TinkerModifiers.bursting, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.bursting, abilityFolder));
-    Ingredient bowLimb = MaterialIngredient.of(TinkerToolParts.bowLimb.get());
     ModifierRecipeBuilder.modifier(TinkerModifiers.spitting)
                          .addInput(bowLimb)
                          .addInput(TinkerSmeltery.searedFluidCannon)
@@ -1272,7 +1319,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          // swasher gets spitting to get multishot, rest get to spit with their non-spit. No spitting with arrows
                          .setTools(IntersectionIngredient.of(
                            Ingredient.of(TinkerTags.Items.DURABILITY),
-                           DifferenceIngredient.of(Ingredient.of(TinkerTags.Items.INTERACTABLE_CHARGE), Ingredient.of(TinkerTags.Items.BOWS))
+                           Ingredient.of(TinkerTags.Items.INTERACTABLE_CHARGE_MODIFIER)
                          ))
                          .saveSalvage(consumer, prefix(TinkerModifiers.spitting, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.spitting, abilityFolder));
@@ -1645,7 +1692,8 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
       EnchantmentConvertingRecipeBuilder.converting("upgrades", matchBook)
                                         .addInput(TinkerWorld.skyGeode.asItem())
                                         .addInput(Tags.Items.GEMS_LAPIS, 3)
-                                        .modifierPredicate(new SlotTypeModifierPredicate(SlotType.UPGRADE))
+                                        .modifierPredicate(ModifierPredicate.and(new SlotTypeModifierPredicate(SlotType.UPGRADE),
+                                          ModifierPredicate.tag(TinkerTags.Modifiers.EXTRACT_UPGRADE_BLACKLIST).inverted()))
                                         .save(consumer, location(worktableFolder + "enchantment_converting/upgrade" + suffix));
       EnchantmentConvertingRecipeBuilder.converting("defense", matchBook)
                                         .addInput(TinkerWorld.earthGeode.asItem())

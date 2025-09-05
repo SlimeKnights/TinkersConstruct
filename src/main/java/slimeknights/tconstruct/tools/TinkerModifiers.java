@@ -123,6 +123,7 @@ import slimeknights.tconstruct.library.modifiers.modules.build.StatCopyModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.SwappableSlotModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.SwappableToolTraitsModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.VolatileFlagModule;
+import slimeknights.tconstruct.library.modifiers.modules.build.VolatileIntModule;
 import slimeknights.tconstruct.library.modifiers.modules.capacity.CapacityBarModule;
 import slimeknights.tconstruct.library.modifiers.modules.capacity.DamageToCapacityModule;
 import slimeknights.tconstruct.library.modifiers.modules.capacity.DurabilityShieldModule;
@@ -283,6 +284,7 @@ import slimeknights.tconstruct.tools.modules.armor.RecurrentProtectionModule;
 import slimeknights.tconstruct.tools.modules.armor.ShieldStrapModule;
 import slimeknights.tconstruct.tools.modules.armor.ThornsModule;
 import slimeknights.tconstruct.tools.modules.armor.ToolBeltModule;
+import slimeknights.tconstruct.tools.modules.combat.ChannelingModule;
 import slimeknights.tconstruct.tools.modules.combat.FieryAttackModule;
 import slimeknights.tconstruct.tools.modules.combat.FreezingAttackModule;
 import slimeknights.tconstruct.tools.modules.interaction.BrushModule;
@@ -291,7 +293,6 @@ import slimeknights.tconstruct.tools.modules.interaction.FishingModule;
 import slimeknights.tconstruct.tools.modules.interaction.PlaceGlowModule;
 import slimeknights.tconstruct.tools.modules.interaction.ThrowingModule;
 import slimeknights.tconstruct.tools.modules.ranged.BulkQuiverModule;
-import slimeknights.tconstruct.tools.modules.ranged.GrappleModule;
 import slimeknights.tconstruct.tools.modules.ranged.PunchModule;
 import slimeknights.tconstruct.tools.modules.ranged.RestrictAngleModule;
 import slimeknights.tconstruct.tools.modules.ranged.TrickQuiverModule;
@@ -700,6 +701,7 @@ public final class TinkerModifiers extends TinkerModule {
       ModifierModule.LOADER.register(getResource("set_stat"), SetStatModule.LOADER);
       ModifierModule.LOADER.register(getResource("trait"), ModifierTraitModule.LOADER);
       ModifierModule.LOADER.register(getResource("volatile_flag"), VolatileFlagModule.LOADER);
+      ModifierModule.LOADER.register(getResource("volatile_int"), VolatileIntModule.LOADER);
       // combat
       ModifierModule.LOADER.register(getResource("conditional_melee_damage"), ConditionalMeleeDamageModule.LOADER);
       ModifierModule.LOADER.register(getResource("conditional_power"), ConditionalPowerModule.LOADER);
@@ -757,6 +759,7 @@ public final class TinkerModifiers extends TinkerModule {
       ModifierModule.LOADER.register(getResource("fiery_attack"), FieryAttackModule.LOADER);
       ModifierModule.LOADER.register(getResource("freezing_attack"), FreezingAttackModule.LOADER);
       ModifierModule.LOADER.register(getResource("spilling"), SpillingModule.LOADER);
+      ModifierModule.LOADER.register(getResource("channeling"), ChannelingModule.LOADER);
       // armor
       ModifierModule.LOADER.register(getResource("enderclearance"), EnderclearanceModule.LOADER);
       ModifierModule.LOADER.register(getResource("depth_protection"), DepthProtectionModule.LOADER);
@@ -777,7 +780,6 @@ public final class TinkerModifiers extends TinkerModule {
       ModifierModule.LOADER.register(getResource("trick_quiver"), TrickQuiverModule.LOADER);
       ModifierModule.LOADER.register(getResource("infinity"), InfinityModule.LOADER);
       ModifierModule.LOADER.register(getResource("punch"), PunchModule.LOADER);
-      ModifierModule.LOADER.register(getResource("grapple"), GrappleModule.LOADER);
       // compat
       ModifierModule.LOADER.register(getResource("the_one_probe"), TheOneProbeModule.INSTANCE.getLoader());
       ModifierModule.LOADER.register(getResource("headlight"), HeadlightModule.LOADER);

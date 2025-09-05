@@ -331,6 +331,13 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(ModifierIds.spilling);
       withL.accept(TinkerModifiers.splashing);
       withL.accept(TinkerModifiers.bursting);
+      // fishing
+      with.accept(ModifierIds.grapple);
+      with.accept(ModifierIds.collecting);
+      // trident
+      with.accept(ModifierIds.throwing);
+      with.accept(ModifierIds.returning);
+      with.accept(ModifierIds.channeling);
     });
 
     // foundry path

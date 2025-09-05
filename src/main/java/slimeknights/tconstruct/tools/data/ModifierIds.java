@@ -41,6 +41,7 @@ public class ModifierIds {
   public static final ModifierId freezing = id("freezing");
   public static final ModifierId springy = id("springy");
   public static final ModifierId spilling = id("spilling");
+  public static final ModifierId channeling = id("channeling");
   // general abilities
   public static final ModifierId reach = id("reach");
   public static final ModifierId glowing = id("glowing");
@@ -76,6 +77,7 @@ public class ModifierIds {
 
   // ranged
   public static final ModifierId power = id("power");
+  public static final ModifierId underbowed = id("underbowed");
   public static final ModifierId punch = id("punch");
   public static final ModifierId quickCharge = id("quick_charge");
   public static final ModifierId trueshot = id("trueshot");
@@ -137,12 +139,13 @@ public class ModifierIds {
   public static final ModifierId tilling = id("tilling");
   public static final ModifierId brushing = id("brushing");
   public static final ModifierId throwing = id("throwing");
-  public static final ModifierId loyalty = id("loyalty");
+  public static final ModifierId returning = id("returning");
 
   // fishing
   public static final ModifierId fishing = id("fishing");
   public static final ModifierId lure = id("lure");
   public static final ModifierId grapple = id("grapple");
+  public static final ModifierId collecting = id("collecting");
 
   // internal
   public static final ModifierId overslimeFriend = id("overslime_friend");

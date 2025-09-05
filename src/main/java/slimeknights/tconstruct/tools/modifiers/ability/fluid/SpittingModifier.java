@@ -49,7 +49,7 @@ public class SpittingModifier extends Modifier implements GeneralInteractionModi
 
   @Override
   public int getPriority() {
-    return 110; // want to run before sling modifiers so we can sling spit
+    return 120; // want to run before sling modifiers so we can sling spit, and before throwing so we use our tank first
   }
 
   @Override

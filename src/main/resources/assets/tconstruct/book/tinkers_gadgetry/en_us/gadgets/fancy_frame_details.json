@@ -5,10 +5,11 @@
     { "text": "\n" },
     { "text": "• Gold: Gradually rotates the item automatically. Crafting with a redstone torch reverses the direction." },
     { "text": "\n" },
-    { "text": "• Diamond: Gradually reduces the rotation until the item is upright. Supports more rotations than a standard frame." },
+    { "text": "• Diamond: Gradually reduces the rotation until the item is upright." },
     { "text": "\n" },
     { "text": "• Manyullyn: Always appears fully lit, even in darkness." },
     { "text": "\n" },
-    { "text": "• Netherite: Resistant to fire and explosions." }
+    { "text": "• Netherite: Resistant to fire and explosions." },
+    { "text": "Diamond, manyullyn, and netherite also support twice as many rotations as other frames.", "paragraph": true }
   ]
 }

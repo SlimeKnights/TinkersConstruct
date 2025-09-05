@@ -224,7 +224,7 @@ public record SmeltingModule(RecipeType<? extends AbstractCookingRecipe> recipeT
   }
 
   @Override
-  public void onToolProjectileHit(IToolStackView tool, ModifierEntry modifier, Projectile projectile, LivingEntity attacker, Entity target, @Nullable LivingEntity livingTarget, float damageDealt) {
+  public void onLauncherHitEntity(IToolStackView tool, ModifierEntry modifier, Projectile projectile, LivingEntity attacker, Entity target, @Nullable LivingEntity livingTarget, float damageDealt) {
     cookItems(tool, modifier, attacker, damageDealt);
   }
 

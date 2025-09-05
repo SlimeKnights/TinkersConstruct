@@ -27,6 +27,16 @@ public enum FrameType implements StringRepresentable {
     return VALUES[id];
   }
 
+  /** If true, this type supports 16 rotations instead of 8 */
+  public boolean hasMoreRotations() {
+    return this == DIAMOND || this == MANYULLYN || this == NETHERITE;
+  }
+
+  /** If true, this type supports 16 rotations instead of 8 */
+  public static boolean hasMoreRotations(int id) {
+    return id == DIAMOND.getId() || id == MANYULLYN.getId() || id == NETHERITE.getId();
+  }
+
   @Override
   public String getSerializedName() {
     return this.toString().toLowerCase(Locale.US);
