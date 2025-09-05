@@ -38,17 +38,17 @@
   "block.tconstruct.obsidian_pane": "黑曜石板",
   "block.tconstruct.gold_bars": "金栏杆",
   "block.tconstruct.gold_bars.tooltip": "在铸件台上充当空白金质铸模",
-
+  
   "block.tconstruct.gold_platform": "金平台",
   "block.tconstruct.gold_platform.tooltip": "在铸造盆中充当空白金质铸模",
   "block.tconstruct.iron_platform": "铁平台",
   "block.tconstruct.cobalt_platform": "钴平台",
-
+  
   "block.tconstruct.copper_platform": "铜平台",
   "block.tconstruct.exposed_copper_platform": "斑驳的铜平台",
   "block.tconstruct.weathered_copper_platform": "锈蚀的铜平台",
   "block.tconstruct.oxidized_copper_platform": "氧化的铜平台",
-
+  
   "block.tconstruct.waxed_copper_platform": "涂蜡的铜平台",
   "block.tconstruct.waxed_exposed_copper_platform": "涂蜡的斑驳铜平台",
   "block.tconstruct.waxed_weathered_copper_platform": "涂蜡的锈蚀铜平台",
@@ -1040,7 +1040,7 @@
   "item.tconstruct.piggy_backpack": "肩驮架",
   "item.tconstruct.piggy_backpack.tooltip": "对生物使用来驮起它们",
   "effect.tconstruct.carry": "背负",
-
+  
   "block.tconstruct.blaze_head": "烈焰人的头",
   "block.tconstruct.enderman_head": "末影人的头",
   "block.tconstruct.stray_head": "流浪者头颅",
@@ -1102,6 +1102,8 @@
 
   "item.tconstruct.crossbow": "弩",
   "item.tconstruct.longbow": "长弓",
+  "item.tconstruct.fishing_rod": "钓鱼竿",
+  "item.tconstruct.javelin": "标枪",
 
   "item.tconstruct.flint_and_brick": "焦砖打火石",
   "item.tconstruct.sky_staff": "碧空黏液手杖",
@@ -1208,8 +1210,10 @@
   "item.tconstruct.sword.description": "剑是一种泛用型武器，其横扫攻击能阻截成群结队的敌人。\n还能高效清理蜘蛛网！",
   "item.tconstruct.cleaver.description": "劈刀是冶炼术大师必备的武器。再棘手的敌人在高伤害范围攻击的劈刀面前也难以脱身。",
 
-  "item.tconstruct.crossbow.description": "弩是一种迅捷远程武器，能快速发射箭或烟花。",
+  "item.tconstruct.crossbow.description": "弩是一种轻型远程武器，能快速发射箭或烟花。",
   "item.tconstruct.longbow.description": "长弓是一种宽型远程武器，能对极远的目标实施精确打击。",
+  "item.tconstruct.fishing_rod.description": "钓鱼竿是一种轻型远程武器，无需弹药即可对近处的目标实施打击。如果你想的话，还可以拿来钓鱼。",
+  "item.tconstruct.javelin.description": "标枪是一种兼具近战与远程能力的武器。既可以造成近战伤害，也能投掷出去造成弹射物伤害。请注意，不要在标枪脱手后没武器可用！",
 
   "gui.tconstruct.plate_armor": "镶板盔甲",
   "gui.tconstruct.plate_armor.description": "镶板盔甲是一种防御较高但能力槽有限的盔甲。",
@@ -1234,10 +1238,14 @@
   "death.attack.tconstruct.smeltery_heat.player": "%1$s在与%2$s战斗时试图制作熔融玩家",
   "death.attack.tconstruct.smeltery_magic": "%1$s与冶炼炉融为一体",
   "death.attack.tconstruct.smeltery_magic.player": "%1$s在与%2$s战斗时与冶炼炉融为一体",
-  "death.attack.tconstruct.knightmetal": "%1$s被骑士金属刺穿了",
-  "death.attack.tconstruct.knightmetal.player": "%1$s在试图逃离%2$s时被骑士金属刺穿了",
+  "death.attack.tconstruct.knightmetal": "%1$s被骑士金属扎穿了",
+  "death.attack.tconstruct.knightmetal.player": "%1$s在试图逃离%2$s时被骑士金属扎穿了",
   "death.attack.tconstruct.self_destruct": "%1$s自我毁灭了",
   "death.attack.tconstruct.self_destruct.player": "%1$s在与%2$s战斗时自我毁灭了",
+  "death.attack.tconstruct.thrown_tool": "%1$s被%2$s刺死了",
+  "death.attack.tconstruct.thrown_tool.item": "%1$s被%2$s使用%3$s刺死了",
+  "death.attack.tconstruct.fishing_hook": "%1$s被%2$s使用鱼钩刺死了",
+  "death.attack.tconstruct.fishing_hook.item": "%1$s被%2$s使用%3$s上的鱼钩刺死了",
   "death.attack.tconstruct.piercing": "%1$s被%2$s刺穿了",
   "death.attack.tconstruct.piercing.item": "%1$s被%2$s使用%3$s刺穿了",
   "death.attack.tconstruct.entangled": "%1$s没能放开自己的工具",
@@ -1255,8 +1263,8 @@
   "death.attack.tconstruct.fluid.magic.item": "%1$s被%2$s用%3$s击穿了",
   "death.attack.tconstruct.fluid.water": "%1$s被%2$溺死了",
   "death.attack.tconstruct.fluid.water.item": "%1$s被%2$s用%3$s溺死了",
-  "death.attack.tconstruct.fluid.spike": "%1$s被%2$s刺穿了",
-  "death.attack.tconstruct.fluid.spike.item": "%1$s被%2$s用%3$s刺穿了",
+  "death.attack.tconstruct.fluid.spike": "%1$s被%2$s戳死了",
+  "death.attack.tconstruct.fluid.spike.item": "%1$s被%2$s用%3$s戳死了",
 
   "gui.tconstruct.melting.no_recipe": "该物品无法被熔炼。",
   "gui.tconstruct.melting.no_heat": "炉内温度不足以熔炼该物品。",
@@ -2601,6 +2609,25 @@
   "modifier.tconstruct.warping.flavor": "末影传送",
   "modifier.tconstruct.warping.description": "蓄力，瞄准墙壁，隔墙传送！",
 
+  "modifier.tconstruct.throwing": "投掷",
+  "modifier.tconstruct.throwing.flavor": "比三叉戟还酷！",
+  "modifier.tconstruct.throwing.description": "工具现在可以被投掷，可以对一定距离的敌人造成近战伤害。",
+  "modifier.tconstruct.loyalty": "忠诚",
+  "modifier.tconstruct.loyalty.flavor": "神奇魔法吸铁石",
+  "modifier.tconstruct.loyalty.description": "工具被投掷并击中目标后可以返回手中。",
+  "modifier.tconstruct.loyalty.requirements": "“忠诚”需要“投掷”作为前置",
+
+  "modifier.tconstruct.fishing": "垂钓",
+  "modifier.tconstruct.fishing.flavor": "我必须立刻开始钓鱼小游戏",
+  "modifier.tconstruct.fishing.description": "工具可以掷出浮漂弹射物，可以对敌人造成伤害。",
+  "modifier.tconstruct.lure": "铒钓",
+  "modifier.tconstruct.lure.flavor": "美味虫饵",
+  "modifier.tconstruct.lure.description": "减少鱼上钩前的等待时间",
+  "modifier.tconstruct.grapple": "抓钩",
+  "modifier.tconstruct.grapple.flavor": "我能让这方块过来",
+  "modifier.tconstruct.grapple.description": "可以使自己被拉向被钩住的方块",
+  "modifier.tconstruct.grapple.requirements": "“抓钩”需要“垂钓”作为前置",
+
   "_comment": "Fluids",
   "modifier.tconstruct.melting": "熔炼",
   "modifier.tconstruct.melting.flavor": "木棍上的熔炼之力！",
@@ -3158,7 +3185,7 @@
   "tool_stat.tconstruct.handle.attack_damage.description": "工具的最终攻击伤害会被这一数值修正",
   "tool_stat.tconstruct.handle.attack_speed.description": "工具的最终攻击速度会被这一数值修正",
   "tool_stat.tconstruct.handle.mining_speed.description": "工具的最终挖掘速度会被这一数值修正",
-
+  
   "stat.tconstruct.limb": "弓臂",
   "stat.tconstruct.grip": "弓把",
   "tool_stat.tconstruct.draw_speed": "拉弓速度：",
@@ -3178,6 +3205,11 @@
   "tool_stat.tconstruct.block_amount.description": "每次受到攻击时所阻挡伤害的最大值",
   "tool_stat.tconstruct.block_angle": "格挡角度：",
   "tool_stat.tconstruct.block_angle.description": "防御时前方能格挡攻击的总角度，超出该角度范围的攻击不会被阻挡",
+
+  "tool_stat.tconstruct.sea_luck": "海之眷顾：",
+  "tool_stat.tconstruct.sea_luck.description": "增加钓中更好战利品的概率",
+  "tool_stat.tconstruct.lure": "铒钓：",
+  "tool_stat.tconstruct.lure.description": "减少鱼上钩前的等待时间",
 
   "tool_stat.tconstruct.overslime": "黏液覆层容量：",
   "tool_stat.tconstruct.overslime.description": "此工具上黏液覆层堆积的最大值",
@@ -3327,10 +3359,9 @@
   "recipe.tconstruct.invisible_modifiers.removing.description": "选择一个已隐藏的强化，使其纹理从工具模型中再次显形",
 
   "modifier.tconstruct.attack_toggled": "%s（攻击键）",
-  "recipe.tconstruct.attack_modifiers.adding.title": "交互切换",
-  "recipe.tconstruct.attack_modifiers.adding.description": "将交互强化的触发键位更改至“攻击”键",
-  "recipe.tconstruct.attack_modifiers.removing.title": "交互切换",
-  "recipe.tconstruct.attack_modifiers.removing.description": "将交互强化的触发键位更改至“交互”键",
+  "modifier.tconstruct.interact_toggled": "%s（交互键）",
+  "recipe.tconstruct.toggle_interaction.title": "交互切换",
+  "recipe.tconstruct.toggle_interaction.description": "将交互强化的触发键位更改至“交互”键或“攻击”键",
 
   "recipe.tconstruct.extract_modifier.upgrades": "升级强化提取",
   "recipe.tconstruct.extract_modifier.slotless": "无槽位强化提取",
