@@ -1110,19 +1110,19 @@
   "item.tconstruct.earth_staff": "大地黏液手杖",
   "item.tconstruct.ichor_staff": "灵浆手杖",
   "item.tconstruct.ender_staff": "末影黏液手杖",
-
+  
   "item.tconstruct.melting_pan": "熔炼锅",
   "item.tconstruct.battlesign": "战斗牌子",
   "item.tconstruct.war_pick": "战镐",
   "item.tconstruct.swasher": "喷流刃",
   "item.tconstruct.minotaur_axe": "米诺陶战斧",
-
+  
   "item.tconstruct.travelers_helmet": "旅行者护目镜",
   "item.tconstruct.travelers_chestplate": "旅行者背心",
   "item.tconstruct.travelers_leggings": "旅行者裤子",
   "item.tconstruct.travelers_boots": "旅行者靴子",
   "item.tconstruct.travelers_shield": "旅行者盾牌",
-
+  
   "item.tconstruct.plate_helmet": "镶板头盔",
   "item.tconstruct.plate_chestplate": "镶板胸甲",
   "item.tconstruct.plate_leggings": "镶板护腿",
@@ -1173,7 +1173,7 @@
   "item.tconstruct.tough_binding": "坚韧套环",
   "item.tconstruct.adze_head": "锛头",
   "item.tconstruct.large_plate": "大板",
-
+  
   "item.tconstruct.bow_limb": "弓臂",
   "item.tconstruct.bow_grip": "弓把",
   "item.tconstruct.bowstring": "弓弦",
@@ -2270,6 +2270,9 @@
   "modifier.tconstruct.power": "力量",
   "modifier.tconstruct.power.flavor": "内力外显",
   "modifier.tconstruct.power.description": "增加箭矢的伤害",
+  "modifier.tconstruct.underbowed": "软弓",
+  "modifier.tconstruct.underbowed.flavor": "由外入内，力化于心。",
+  "modifier.tconstruct.underbowed.description": "减少工具的弹射物力量",
   "modifier.tconstruct.quick_charge": "快速装填",
   "modifier.tconstruct.quick_charge.flavor": "拉弦不再费时",
   "modifier.tconstruct.quick_charge.description": "缩短远程武器的拉弓速度",
@@ -2612,10 +2615,14 @@
   "modifier.tconstruct.throwing": "投掷",
   "modifier.tconstruct.throwing.flavor": "比三叉戟还酷！",
   "modifier.tconstruct.throwing.description": "工具现在可以被投掷，可以对一定距离的敌人造成近战伤害。",
-  "modifier.tconstruct.loyalty": "忠诚",
-  "modifier.tconstruct.loyalty.flavor": "神奇魔法吸铁石",
-  "modifier.tconstruct.loyalty.description": "工具被投掷并击中目标后可以返回手中。",
-  "modifier.tconstruct.loyalty.requirements": "“忠诚”需要“投掷”作为前置",
+  "modifier.tconstruct.returning": "复返",
+  "modifier.tconstruct.returning.flavor": "神奇魔法吸铁石",
+  "modifier.tconstruct.returning.description": "工具被投掷并击中目标后，可以返回手中。",
+  "modifier.tconstruct.returning.requirements": "“复返”需要“投掷”作为前置",
+  "modifier.tconstruct.channeling": "引雷",
+  "modifier.tconstruct.channeling.flavor": "咔嚓！",
+  "modifier.tconstruct.channeling.description": "可以召唤闪电攻击命中的目标。",
+  "modifier.tconstruct.channeling.requirements": "“引雷”需要“投掷”或“垂钓”作为前置",
 
   "modifier.tconstruct.fishing": "垂钓",
   "modifier.tconstruct.fishing.flavor": "我必须立刻开始钓鱼小游戏",
@@ -2627,6 +2634,10 @@
   "modifier.tconstruct.grapple.flavor": "我能让这方块过来",
   "modifier.tconstruct.grapple.description": "可以使自己被拉向被钩住的方块",
   "modifier.tconstruct.grapple.requirements": "“抓钩”需要“垂钓”作为前置",
+  "modifier.tconstruct.collecting": "收集",
+  "modifier.tconstruct.collecting.flavor": "是我的了！",
+  "modifier.tconstruct.collecting.description": "掷出的鱼钩可以钩取物品实体、经验球、箭矢或掷出的武器",
+  "modifier.tconstruct.collecting.requirements": "“收集”需要“垂钓”作为前置",
 
   "_comment": "Fluids",
   "modifier.tconstruct.melting": "熔炼",
