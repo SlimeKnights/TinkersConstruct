@@ -33,6 +33,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import org.joml.Matrix4f;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.library.events.ToolEquipmentChangeEvent;
@@ -43,10 +44,13 @@ import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.capability.inventory.ToolInventoryCapability;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
+import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
+import slimeknights.tconstruct.library.tools.item.ranged.ModifiableBowItem;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.Orientation2D;
 import slimeknights.tconstruct.library.utils.Orientation2D.Orientation1D;
+import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.modules.armor.MinimapModule;
 
@@ -74,15 +78,21 @@ public class ModifierClientEvents {
   /** Determines whether to render the given hand based on modifiers */
   @SubscribeEvent
   static void renderHand(RenderHandEvent event) {
-    InteractionHand hand = event.getHand();
     Player player = Minecraft.getInstance().player;
-    if (hand != InteractionHand.OFF_HAND || player == null) {
+    if (player == null) {
+      return;
+    }
+    // when firing your melee weapon with ballista, don't render it in the other hand; makes it look like you duplicated your weapon
+    InteractionHand hand = event.getHand();
+    ItemStack held = player.getItemInHand(hand);
+    ItemStack opposite = player.getItemInHand(Util.getOpposite(hand));
+    if (!held.isEmpty() && !opposite.isEmpty() && opposite.is(TinkerTags.Items.BALLISTAS) && ModifierUtil.getPersistentInt(opposite, ModifiableBowItem.KEY_BALLISTA, 0) == ModifiableBowItem.FLAG_BALLISTA_HELD) {
+      event.setCanceled(true);
       return;
     }
 
     // if the data is set, render the empty offhand
-    ItemStack offhand = event.getItemStack();
-    if (offhand.isEmpty()) {
+    if (hand == InteractionHand.OFF_HAND && held.isEmpty()) {
       if (!player.isInvisible() && player.getMainHandItem().getItem() != Items.FILLED_MAP && ArmorLevelModule.getLevel(player, TinkerDataKeys.SHOW_EMPTY_OFFHAND) > 0) {
         PoseStack matrices = event.getPoseStack();
         matrices.pushPose();

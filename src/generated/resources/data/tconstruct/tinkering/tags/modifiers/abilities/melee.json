@@ -2,10 +2,8 @@
   "values": [
     "tconstruct:blocking",
     "tconstruct:parrying",
-    "tconstruct:channeling",
     "tconstruct:dual_wielding",
     "tconstruct:spilling",
-    "tconstruct:throwing",
-    "tconstruct:returning"
+    "tconstruct:throwing"
   ]
 }

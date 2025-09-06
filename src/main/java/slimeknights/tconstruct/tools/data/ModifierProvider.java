@@ -35,6 +35,7 @@ import slimeknights.mantle.data.predicate.damage.DamageSourcePredicate;
 import slimeknights.mantle.data.predicate.damage.DamageTypePredicate;
 import slimeknights.mantle.data.predicate.damage.SourceAttackerPredicate;
 import slimeknights.mantle.data.predicate.entity.HasEnchantmentEntityPredicate;
+import slimeknights.mantle.data.predicate.entity.HasMobEffectPredicate;
 import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
 import slimeknights.mantle.data.predicate.entity.MobTypePredicate;
 import slimeknights.mantle.data.predicate.item.ItemPredicate;
@@ -46,7 +47,6 @@ import slimeknights.tconstruct.library.data.tinkering.AbstractModifierProvider;
 import slimeknights.tconstruct.library.json.LevelingInt;
 import slimeknights.tconstruct.library.json.LevelingValue;
 import slimeknights.tconstruct.library.json.RandomLevelingValue;
-import slimeknights.tconstruct.library.json.predicate.HasMobEffectPredicate;
 import slimeknights.tconstruct.library.json.predicate.TinkerPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.HasModifierPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.PersistentDataPredicate;
@@ -67,6 +67,7 @@ import slimeknights.tconstruct.library.json.variable.protection.EntityProtection
 import slimeknights.tconstruct.library.json.variable.stat.EntityConditionalStatVariable;
 import slimeknights.tconstruct.library.json.variable.tool.ModDataSource;
 import slimeknights.tconstruct.library.json.variable.tool.ModDataVariable;
+import slimeknights.tconstruct.library.json.variable.tool.StatMultiplierVariable;
 import slimeknights.tconstruct.library.json.variable.tool.ToolStatVariable;
 import slimeknights.tconstruct.library.json.variable.tool.ToolVariable;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -137,6 +138,7 @@ import slimeknights.tconstruct.library.tools.capability.inventory.ToolInventoryC
 import slimeknights.tconstruct.library.tools.definition.module.ToolHooks;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.item.armor.ModifiableArmorItem;
+import slimeknights.tconstruct.library.tools.item.ranged.ModifiableBowItem;
 import slimeknights.tconstruct.library.tools.item.ranged.ModifiableCrossbowItem;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
@@ -184,6 +186,7 @@ import slimeknights.tconstruct.tools.modules.interaction.PlaceGlowModule;
 import slimeknights.tconstruct.tools.modules.interaction.ThrowingModule;
 import slimeknights.tconstruct.tools.modules.ranged.BulkQuiverModule;
 import slimeknights.tconstruct.tools.modules.ranged.PunchModule;
+import slimeknights.tconstruct.tools.modules.ranged.QuiverInventoryModule;
 import slimeknights.tconstruct.tools.modules.ranged.RestrictAngleModule;
 import slimeknights.tconstruct.tools.modules.ranged.TrickQuiverModule;
 
@@ -425,7 +428,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(MeleeAttributeModule.builder(Attributes.ARMOR, Operation.ADDITION).eachLevel(-1))
       // use a mob effect to make this work on ranged, to ensure it automatically cancels
       .addModule(MobEffectModule.builder(TinkerEffects.pierce.get()).level(RandomLevelingValue.perLevel(0, 1)).time(RandomLevelingValue.flat(2)).build(), ModifierHooks.PROJECTILE_HIT);
-    buildModifier(ModifierIds.chargeAttack).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(ConditionalMeleeDamageModule.builder().attacker(TinkerPredicate.SPRINTING).flat(7));
+    buildModifier(ModifierIds.chargeAttack).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(ConditionalMeleeDamageModule.builder().attacker(LivingEntityPredicate.SPRINTING).flat(7));
 
     // ranged
     buildModifier(ModifierIds.power).addModule(StatBoostModule.add(ToolStats.PROJECTILE_DAMAGE).amount(0.5f, 0.5f));
@@ -436,25 +439,11 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.blindshot).addModule(StatBoostModule.add(ToolStats.ACCURACY).eachLevel(-0.1f));
     // ammo
     buildModifier(ModifierIds.trickQuiver).priority(70) // before bulk quiver
-      .addModule(InventoryModule.builder().pattern(pattern("tipped_arrow"))
-                                .toolItem(ItemPredicate.tag(TinkerTags.Items.CROSSBOWS).inverted())
-                                .filter(TinkerPredicate.ARROW)
-                                .limitPerLevel(32).flatSlots(3))
-      .addModule(InventoryModule.builder().pattern(pattern("tipped_arrow"))
-                                .toolItem(ItemPredicate.tag(TinkerTags.Items.CROSSBOWS))
-                                .filter(ItemPredicate.or(TinkerPredicate.ARROW, ItemPredicate.set(Items.FIREWORK_ROCKET)))
-                                .limitPerLevel(32).flatSlots(3))
+      .addModule(QuiverInventoryModule.builder().pattern(pattern("tipped_arrow")).flatLimit(32).slotsPerLevel(3))
       .addModule(TrickQuiverModule.INSTANCE)
       .addModule(InventoryMenuModule.ANY);
     buildModifier(ModifierIds.bulkQuiver).priority(60) // after trick quiver, before crystalshot
-      .addModule(InventoryModule.builder().pattern(pattern("arrow"))
-                                .toolItem(ItemPredicate.tag(TinkerTags.Items.CROSSBOWS).inverted())
-                                .filter(TinkerPredicate.ARROW)
-                                .slotsPerLevel(2))
-      .addModule(InventoryModule.builder().pattern(pattern("arrow"))
-                                .toolItem(ItemPredicate.tag(TinkerTags.Items.CROSSBOWS))
-                                .filter(ItemPredicate.or(TinkerPredicate.ARROW, ItemPredicate.set(Items.FIREWORK_ROCKET)))
-                                .slotsPerLevel(2))
+      .addModule(QuiverInventoryModule.builder().pattern(pattern("arrow")).slotsPerLevel(2))
       .addModule(new BulkQuiverModule(true))
       .addModule(InventoryMenuModule.ANY);
     buildModifier(ModifierIds.crystalshot).priority(50) // after bulk quiver
@@ -617,16 +606,9 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(ToolActionWalkerTransformModule.builder(ToolActions.HOE_TILL, SoundEvents.HOE_TILL).amount(0.5f, 1));
     buildModifier(ModifierIds.brushing).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(BrushModule.INSTANCE);
     buildModifier(ModifierIds.throwing).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(ThrowingModule.INSTANCE);
-    buildModifier(ModifierIds.returning)
-      .addModule(new VolatileIntModule(ThrownTool.LOYALTY, LevelingInt.eachLevel(1)))
-      .addModule(ModifierRequirementsModule.builder().requireModifier(ModifierIds.throwing, 1).modifierKey(ModifierIds.returning).build());
-    buildModifier(ModifierIds.channeling)
-      .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
-      .addModule(new ChannelingModule(0.15f, 0.65f, 1.0f, false))
-      .addModule(ModifierRequirementsModule.builder()
-        .requireModifier(TinkerTags.Modifiers.CHANNELING, 1)
-        .displayModifier(ModifierIds.throwing, 1)
-        .modifierKey(ModifierIds.channeling).build());
+    buildModifier(ModifierIds.returning).addModule(new VolatileIntModule(ThrownTool.LOYALTY, LevelingInt.eachLevel(1)));
+    buildModifier(ModifierIds.channeling).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(new ChannelingModule(0.15f, 0.65f, 1.0f, false));
+    buildModifier(ModifierIds.ballista).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(new VolatileFlagModule(ModifiableBowItem.KEY_BALLISTA));
 
     // fishing
     buildModifier(ModifierIds.fishing).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(FishingModule.INSTANCE);
@@ -665,6 +647,66 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(new CapacityBarModule(LevelingInt.eachLevel(100), ToolStats.DURABILITY))
       .addModule(new DurabilityShieldModule(0xAAFFFF))
       .addModule(DamageToCapacityModule.source(DamageSourcePredicate.tag(DamageTypeTags.IS_FREEZING)).reduceDamage().flat(1));
+    buildModifier(ModifierIds.stonebound)
+      .addModule(ConditionalMiningSpeedModule.builder()
+        .percent()
+        .formula()
+        // square root of the lost durability, though stat multiplier reduces the effectiveness
+        .customVariable("lost", ToolVariable.CURRENT_DAMAGE)
+        .customVariable("max", new StatMultiplierVariable(ToolStats.DURABILITY))
+        .divide().sqrt()
+        // multiply effect by level of trait
+        .variable(LEVEL).multiply()
+        // we get a percent per value remaining
+        .constant(0.01f).multiply()
+        .constant(1).add()
+        // multiply into the final value
+        .variable(VALUE).multiply().build())
+      .addModule(ConditionalMeleeDamageModule.builder()
+        .percent()
+        .formula()
+        // square root of the lost durability, though stat multiplier reduces the effectiveness
+        .customVariable("lost", ToolVariable.CURRENT_DAMAGE)
+        .customVariable("max", new StatMultiplierVariable(ToolStats.DURABILITY))
+        .divide().sqrt()
+        // multiply effect by level of trait
+        .variable(LEVEL).multiply()
+        // we lose half a percent per value remaining
+        .constant(-0.005f).multiply()
+        .constant(1).add()
+        // multiply into the final value
+        .variable(VALUE).multiply().build());
+    // same as stonebound with the signs flipped
+    buildModifier(ModifierIds.jagged)
+      .addModule(ConditionalMeleeDamageModule.builder()
+        .percent()
+        .formula()
+        // square root of the lost durability, though stat multiplier reduces the effectiveness
+        .customVariable("lost", ToolVariable.CURRENT_DAMAGE)
+        .customVariable("max", new StatMultiplierVariable(ToolStats.DURABILITY))
+        .divide().sqrt()
+        // multiply effect by level of trait
+        .variable(LEVEL).multiply()
+        // we gain half a percent per value remaining
+        .constant(0.005f).multiply()
+        .constant(1).add()
+        // multiply into the final value
+        .variable(VALUE).multiply().build())
+      .addModule(ConditionalMiningSpeedModule.builder()
+        .percent()
+        .formula()
+        // square root of the lost durability, though stat multiplier reduces the effectiveness
+        .customVariable("lost", ToolVariable.CURRENT_DAMAGE)
+        .customVariable("max", new StatMultiplierVariable(ToolStats.DURABILITY))
+        .divide().sqrt()
+        // multiply effect by level of trait
+        .variable(LEVEL).multiply()
+        // we lose a percent per value remaining
+        .constant(-0.01f).multiply()
+        .constant(1).add()
+        // multiply into the final value
+        .variable(VALUE).multiply().build());
+
     // traits - tier 2
     buildModifier(ModifierIds.stoneshield)
       .priority(175) // higher than overslime, to ensure this is removed first

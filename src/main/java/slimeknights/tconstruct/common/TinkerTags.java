@@ -412,6 +412,8 @@ public class TinkerTags {
     public static final TagKey<Item> UNARMED = local("modifiable/melee/unarmed");
     /** Modifiable items that can parry, cannot receive blocking */
     public static final TagKey<Item> PARRY = local("modifiable/melee/parry");
+    /** Melee weapons that support being fired using bows with the ballisa modifier. */
+    public static final TagKey<Item> BALLISTA_AMMO = local("modifiable/melee/ballista_ammo");
 
     /** Modifiable items that can break blocks. Items in this tag support the {@link ToolStats#MINING_SPEED} and {@link ToolStats#HARVEST_TIER} stats. */
     public static final TagKey<Item> HARVEST = local("modifiable/harvest");
@@ -462,6 +464,8 @@ public class TinkerTags {
     public static final TagKey<Item> BOWS = local("modifiable/ranged/bows");
     /** Any modifiable bows that fire arrows on release */
     public static final TagKey<Item> LONGBOWS = local("modifiable/ranged/longbows");
+    /** Bows supporting the ballista modifier. In code, only {@link slimeknights.tconstruct.library.tools.item.ranged.ModifiableBowItem} implements this functionality. */
+    public static final TagKey<Item> BALLISTAS = local("modifiable/ranged/ballistas");
     /** Any modifiable bows that store an arrow then fire on next use */
     public static final TagKey<Item> CROSSBOWS = local("modifiable/ranged/crossbows");
     /** Modifiable items support special staff modifiers, is a subtag of ranged. */
@@ -588,6 +592,8 @@ public class TinkerTags {
     /** Things that can be collected using {@link net.minecraft.world.entity.Entity#playerTouch(Player)} using a fishing rod. */
     public static final TagKey<EntityType<?>> COLLECTABLES = common("collectables");
 
+    /** Projectiles with this tag will not be discarded by any relevant modifiers. */
+    public static final TagKey<EntityType<?>> REUSABLE_AMMO = common("reusable_ammo");
     /** Projectiles with this tag cannot be reflected */
     public static final TagKey<EntityType<?>> REFLECTING_BLACKLIST = common("reflecting/blacklist");
     /** Projectiles with this tag cannot be reflected */
@@ -637,8 +643,6 @@ public class TinkerTags {
     private static void init() {}
     /** Gem modifiers, one of which is needed for netherite */
     public static final TagKey<Modifier> GEMS = local("gems");
-    /** Modifiers allowing access to the channeling modifier */
-    public static final TagKey<Modifier> CHANNELING = local("channeling");
     /** Blacklist for modifiers that cannot be hidden with invisible ink */
     public static final TagKey<Modifier> INVISIBLE_INK_BLACKLIST = local("invisible_ink_blacklist");
     /** Blacklist for modifiers that cannot be extracted via the general recipe */

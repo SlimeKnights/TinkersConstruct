@@ -41,7 +41,7 @@ public class ConfigurationDataProvider extends GenericDataProvider {
       ItemPredicate.tag(TinkerTags.Items.MODIFIABLE),
       ItemPredicate.tag(TinkerTags.Items.BOOKS),
       ItemPredicate.tag(Tags.Items.DYES),
-      TinkerPredicate.HAS_CONTAINER
+      ItemPredicate.HAS_CONTAINER
     ).inverted());
     item(meltingRecipes, "inputs", ItemPredicate.ANY);
     item(meltingRecipes, "ignore", ItemPredicate.ANY);

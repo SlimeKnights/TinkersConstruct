@@ -71,6 +71,8 @@ public interface ToolVariable extends IHaveLoader, MeleeVariable, ConditionalSta
 
   /** Current durability of the tool */
   ToolVariable CURRENT_DURABILITY = simple(IToolStackView::getCurrentDurability);
+  /** Current lost durability of the tool */
+  ToolVariable CURRENT_DAMAGE = simple(IToolStackView::getDamage);
 
 
   /** Registers a variable with tools, melee, conditional stat, and mining speed */

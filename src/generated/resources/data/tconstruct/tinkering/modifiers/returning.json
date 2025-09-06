@@ -5,24 +5,6 @@
       "type": "tconstruct:volatile_int",
       "each_level": 1,
       "flag": "tconstruct:loyalty"
-    },
-    {
-      "type": "tconstruct:requirements",
-      "display_modifiers": [
-        {
-          "level": 1,
-          "name": "tconstruct:throwing"
-        }
-      ],
-      "requirement": {
-        "type": "tconstruct:has_modifier",
-        "check": "all",
-        "modifier": {
-          "type": "tconstruct:single",
-          "modifier": "tconstruct:throwing"
-        }
-      },
-      "translation_key": "modifier.tconstruct.returning.requirements"
     }
   ],
   "tooltip_display": "always"

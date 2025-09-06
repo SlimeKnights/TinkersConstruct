@@ -307,7 +307,11 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
 
   @Override
   public void onStopUsing(ItemStack stack, LivingEntity entity, int timeLeft) {
-    ToolStack tool = ToolStack.from(stack);
+    onStopUsing(ToolStack.from(stack), entity, timeLeft);
+  }
+
+  /** Same as {@link #onStopUsing(ItemStack, LivingEntity, int)} but uses a tool. */
+  protected void onStopUsing(IToolStackView tool, LivingEntity entity, int timeLeft) {
     UsingToolModifierHook.afterStopUsing(tool, entity, timeLeft);
     ModDataNBT data = tool.getPersistentData();
     data.remove(KEY_DRAWTIME);

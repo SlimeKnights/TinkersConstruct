@@ -46,7 +46,7 @@ public class ThrownTool extends ThrownTrident {
     super(type, level);
   }
 
-  public ThrownTool(Level level, LivingEntity shooter, ItemStack stack, IToolStackView tool, float charge) {
+  public ThrownTool(Level level, LivingEntity shooter, ItemStack stack, float charge) {
     this(TinkerTools.thrownTool.get(), level);
     // AbstractArrow - positional constructor
     this.setPos(shooter.getX(), shooter.getEyeY() - 0.1, shooter.getZ());
@@ -58,8 +58,8 @@ public class ThrownTool extends ThrownTrident {
     // trident - stack constructor
     this.tridentItem = stack.copyWithCount(1);
     this.entityData.set(STACK, tridentItem);
-    this.entityData.set(ID_LOYALTY, (byte) tool.getVolatileData().getInt(LOYALTY));
-    this.entityData.set(ID_FOIL, tool.getVolatileData().getBoolean(ModifiableItem.SHINY));
+    this.entityData.set(ID_LOYALTY, (byte) ModifierUtil.getVolatileInt(stack, LOYALTY));
+    this.entityData.set(ID_FOIL, ModifierUtil.checkVolatileFlag(stack, ModifiableItem.SHINY));
     this.charge = charge;
   }
 

@@ -15,6 +15,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.events.teleport.EnderportingTeleportEvent;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
@@ -132,7 +133,8 @@ public class EnderportingModifier extends NoLevelsModifier implements PlantHarve
   public void onProjectileHitBlock(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, BlockHitResult hit, @Nullable LivingEntity attacker) {
     if (attacker != null && persistentData.getBoolean(PRIMARY_ARROW)) {
       BlockPos target = hit.getBlockPos().relative(hit.getDirection());
-      if (attacker.level() == projectile.level() && tryTeleport(attacker, target.getX() + 0.5f, target.getY(), target.getZ() + 0.5f)) {
+      // attempt the teleport, if successful and the projectile is not reusable then discard it
+      if (attacker.level() == projectile.level() && tryTeleport(attacker, target.getX() + 0.5f, target.getY(), target.getZ() + 0.5f) && !projectile.getType().is(TinkerTags.EntityTypes.REUSABLE_AMMO)) {
         projectile.discard();
       }
     }

@@ -82,7 +82,12 @@ public class TinkerStationScreen extends ToolTableScreen<TinkerStationBlockEntit
   private static final ElementScreen TEXT_BOX = ACTIVE_TEXT_FIELD.move(0, 244, 90, 12);
 
   /** Number of button columns in the UI */
-  public static final int COLUMN_COUNT = 5;
+  public static final int COLUMN_COUNT = 6;
+  // TODO: a scrollbar for this instead would be good
+  /** If we have more than this many buttons, offset the armor stand down slightly */
+  private static final int OFFSET_ARMOR_STAND_AFTER = COLUMN_COUNT * 5;
+  /** If we have more than this many buttons, disable the armor stand preview */
+  private static final int DISABLE_ARMOR_STAND_AFTER = COLUMN_COUNT * 6;
 
   // configurable elements
   protected ElementScreen buttonDecorationTop = SLOT_SPACE_TOP;
@@ -177,8 +182,6 @@ public class TinkerStationScreen extends ToolTableScreen<TinkerStationBlockEntit
     textField.visible = false;
     textField.setEditable(false);
 
-    super.init();
-
     int buttonsStyle = this.maxInputs > 3 ? TinkerStationButtonsWidget.METAL_STYLE : TinkerStationButtonsWidget.WOOD_STYLE;
 
     List<StationSlotLayout> layouts = Lists.newArrayList();
@@ -188,10 +191,22 @@ public class TinkerStationScreen extends ToolTableScreen<TinkerStationBlockEntit
     layouts.addAll(StationSlotLayoutLoader.getInstance().getSortedSlots().stream()
       .filter(layout -> layout.getInputSlots().size() <= this.maxInputs).toList());
 
+    // if we have more than 5 rows of buttons, offset armor stand down a bit
+    // more than 6 rows causes us to just disable it fully
+    int size = layouts.size();
+    int armorY = 195;
+    if (size > DISABLE_ARMOR_STAND_AFTER) {
+      enableArmorStandPreview = false;
+    } else if (size > OFFSET_ARMOR_STAND_AFTER) {
+      armorY = 210;
+    }
+
+    // init after we set the enable boolean
+    super.init();
     this.buttonsScreen = new TinkerStationButtonsWidget(this, this.cornerX - TinkerStationButtonsWidget.width(COLUMN_COUNT) - 2,
       this.cornerY + this.centerBeam.h + this.buttonDecorationTop.h, layouts, buttonsStyle);
 
-    this.setupArmorStandPreview(-55, 195, 35);
+    this.setupArmorStandPreview(-55, armorY, 35);
 
     this.updateLayout();
   }

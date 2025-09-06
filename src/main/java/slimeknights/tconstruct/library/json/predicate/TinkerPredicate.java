@@ -5,7 +5,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ArrowItem;
 import net.minecraft.world.item.BucketItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.MapItem;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour.BlockStateBase;
@@ -30,9 +29,6 @@ public class TinkerPredicate {
 
   /** Entities that are in the air, notably does not count you as airborne if swimming, riding, or climbing */
   public static LivingEntityPredicate AIRBORNE = LivingEntityPredicate.simple(entity -> !entity.onGround() && !entity.onClimbable() && !entity.isInWater() && !entity.isPassenger());
-  /** Entities that are currently sprinting */
-  public static LivingEntityPredicate SPRINTING = LivingEntityPredicate.simple(Entity::isSprinting);
-
 
   /** Predicate matching any buckets */
   public static ItemPredicate BUCKET = ItemPredicate.simple(item -> item instanceof BucketItem);
@@ -41,14 +37,13 @@ public class TinkerPredicate {
   /** Predicate matching any maps */
   public static ItemPredicate MAP = ItemPredicate.simple(item -> item instanceof MapItem);
   /** Predicate matching any items with a remainder after crafting. */
-  @SuppressWarnings("deprecation")
-  public static ItemPredicate HAS_CONTAINER = ItemPredicate.simple(Item::hasCraftingRemainingItem);
-  /** Predicate matching any items with a remainder after crafting. */
   public static ItemPredicate CASTABLE = ItemPredicate.simple(CastingRecipeLookup::isCastable);
 
-  /** Predicate matching blocks that block motion */
+  /** @deprecated use {@link BlockPredicate#BLOCKS_MOTION} */
+  @Deprecated
   public static BlockPredicate BLOCKS_MOTION = BlockPredicate.simple(BlockStateBase::blocksMotion);
-  /** Predicate matching blocks that can be replaced when placing blocks */
+  /** @deprecated use {@link BlockPredicate#CAN_BE_REPLACED} */
+  @Deprecated
   public static BlockPredicate CAN_BE_REPLACED = BlockPredicate.simple(BlockStateBase::canBeReplaced);
   /** Predicate matching bush blocks */
   public static BlockPredicate BUSH = BlockPredicate.simple(state -> state.getBlock() instanceof BushBlock);

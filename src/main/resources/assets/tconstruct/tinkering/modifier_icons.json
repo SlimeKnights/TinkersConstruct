@@ -87,6 +87,7 @@
   "tconstruct:sinistral":    "tconstruct:gui/modifiers/ranged/sinistral",
   "tconstruct:trueshot":     "tconstruct:gui/modifiers/ranged/trueshot",
 
+  "tconstruct:ballista": "tconstruct:gui/modifiers/ranged/ballista",
   "tconstruct:bulk_quiver": "tconstruct:gui/modifiers/ranged/bulk_quiver",
   "tconstruct:crystalshot": "tconstruct:item/arrow/amethyst",
   "tconstruct:multishot":    "tconstruct:gui/modifiers/ranged/multishot",

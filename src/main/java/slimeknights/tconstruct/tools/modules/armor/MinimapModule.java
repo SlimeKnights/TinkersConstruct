@@ -32,16 +32,15 @@ import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.capability.inventory.ToolInventoryCapability;
-import slimeknights.tconstruct.library.tools.capability.inventory.ToolInventoryCapability.InventoryModifierHook;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
+import slimeknights.tconstruct.tools.modules.InventorySelectionModule;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
 /** Module implementing the minimap module. Should be paired with an {@link slimeknights.tconstruct.library.tools.capability.inventory.InventoryModule} */
-public enum MinimapModule implements ModifierModule, EquipmentChangeModifierHook, KeybindInteractModifierHook, InventoryTickModifierHook, ModifierRemovalHook {
+public enum MinimapModule implements ModifierModule, EquipmentChangeModifierHook, KeybindInteractModifierHook, InventoryTickModifierHook, ModifierRemovalHook, InventorySelectionModule {
   INSTANCE;
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<MinimapModule>defaultHooks(ModifierHooks.EQUIPMENT_CHANGE, ModifierHooks.ARMOR_INTERACT, ModifierHooks.INVENTORY_TICK, ModifierHooks.REMOVE);
   public static final RecordLoadable<MinimapModule> LOADER = new SingletonLoader<>(INSTANCE);
@@ -124,35 +123,19 @@ public enum MinimapModule implements ModifierModule, EquipmentChangeModifierHook
   }
 
   @Override
+  public void onDisableSelection(IToolStackView tool, ModifierEntry modifier, Player player) {
+    player.displayClientMessage(DISABLED, true);
+  }
+
+  @Override
+  public void onInventorySelect(IToolStackView tool, ModifierEntry modifier, Player player, int newIndex, ItemStack stack) {
+    player.displayClientMessage(Component.translatable(SELECTED, stack.getHoverName(), MapItem.getMapId(stack), newIndex + 1), true);
+  }
+
+  @Override
   public boolean startInteract(IToolStackView tool, ModifierEntry modifier, Player player, EquipmentSlot slot, TooltipKey keyModifier) {
     if (keyModifier == TooltipKey.NORMAL || keyModifier == TooltipKey.CONTROL) {
-      // first, find the new number
-      ModDataNBT data = tool.getPersistentData();
-      InventoryModifierHook inventory = modifier.getHook(ToolInventoryCapability.HOOK);
-      int totalSlots = inventory.getSlots(tool, modifier);
-      int current = data.getInt(SELECTED_SLOT);
-      // support going 1 above max to disable the map
-      int newSelected = (current + 1) % (totalSlots + 1);
-      // skip over empty slots; helps when you don't use the full space
-      while (newSelected < totalSlots && inventory.getStack(tool, modifier, newSelected).isEmpty()) {
-        newSelected++;
-      }
-
-      // only mark as doing something if we changed something
-      if (newSelected != current) {
-        if (!player.level().isClientSide) {
-          data.putInt(SELECTED_SLOT, newSelected);
-
-          // display a message about what is now selected
-          if (newSelected == totalSlots) {
-            player.displayClientMessage(DISABLED, true);
-          } else {
-            ItemStack selectedStack = inventory.getStack(tool, modifier, newSelected);
-            player.displayClientMessage(Component.translatable(SELECTED, selectedStack.getHoverName(), MapItem.getMapId(selectedStack), newSelected + 1), true);
-          }
-        }
-        return true;
-      }
+      return selectNext(tool, modifier, player, SELECTED_SLOT);
     }
     return false;
   }

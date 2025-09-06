@@ -51,6 +51,8 @@ import static slimeknights.mantle.Mantle.commonResource;
 import static slimeknights.tconstruct.common.TinkerTags.Items.ANCIENT_TOOLS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.AOE;
 import static slimeknights.tconstruct.common.TinkerTags.Items.ARMOR;
+import static slimeknights.tconstruct.common.TinkerTags.Items.BALLISTAS;
+import static slimeknights.tconstruct.common.TinkerTags.Items.BALLISTA_AMMO;
 import static slimeknights.tconstruct.common.TinkerTags.Items.BASIC_ARMOR;
 import static slimeknights.tconstruct.common.TinkerTags.Items.BONUS_SLOTS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.BOOK_ARMOR;
@@ -315,7 +317,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     addToolTags(TinkerTools.cleaver, MULTIPART_TOOL, DURABILITY, HARVEST, MELEE_PRIMARY, INTERACTABLE_RIGHT, SWORD, BROAD_TOOLS, BONUS_SLOTS, ItemTags.SWORDS, AOE);
     // ranged
     addToolTags(TinkerTools.crossbow,   MULTIPART_TOOL, DURABILITY, MELEE_WEAPON, CROSSBOWS,    INTERACTABLE_LEFT,  SMALL_TOOLS, BONUS_SLOTS, Tags.Items.TOOLS_CROSSBOWS);
-    addToolTags(TinkerTools.longbow,    MULTIPART_TOOL, DURABILITY, MELEE_WEAPON, LONGBOWS,     INTERACTABLE_LEFT,  BROAD_TOOLS, BONUS_SLOTS, Tags.Items.TOOLS_BOWS);
+    addToolTags(TinkerTools.longbow,    MULTIPART_TOOL, DURABILITY, MELEE_WEAPON, LONGBOWS,     INTERACTABLE_LEFT,  BROAD_TOOLS, BONUS_SLOTS, Tags.Items.TOOLS_BOWS, BALLISTAS);
     addToolTags(TinkerTools.fishingRod, MULTIPART_TOOL, DURABILITY, MELEE_WEAPON, FISHING_RODS, INTERACTABLE_DUAL,  SMALL_TOOLS, BONUS_SLOTS, Tags.Items.TOOLS_FISHING_RODS);
     addToolTags(TinkerTools.javelin,    MULTIPART_TOOL, DURABILITY, MELEE_PRIMARY, RANGED,      INTERACTABLE_RIGHT, BROAD_TOOLS, BONUS_SLOTS, Tags.Items.TOOLS_TRIDENTS);
     // specialized
@@ -368,7 +370,9 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.tag(TinkerTags.Items.HARVEST).addTags(HARVEST_PRIMARY, STONE_HARVEST);
     // melee nesting - currently most all sub-tags are held exclusive as they revolve around tool damage or having an item in hand
     this.tag(MELEE_WEAPON).addTags(MELEE_PRIMARY, SWORD, PARRY);
-    this.tag(MELEE).addTags(MELEE_WEAPON, UNARMED);
+    // by default, this tag just redirects to melee weapon, but you can reconfigure it to suit your pack
+    this.tag(BALLISTA_AMMO).addTag(MELEE_WEAPON);
+    this.tag(MELEE).addTags(MELEE_WEAPON, UNARMED, BALLISTA_AMMO);
     // modifier helper tags
     this.tag(LOOT_CAPABLE_TOOL).addTags(MELEE, HARVEST, FISHING_RODS);
     this.tag(UNARMED).addTag(CHESTPLATES);

@@ -15,7 +15,6 @@ import static slimeknights.tconstruct.common.TinkerTags.Modifiers.BLOCK_WHILE_CH
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.BONUS_SLOTLESS;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.BOOT_ABILITIES;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.BOOT_UPGRADES;
-import static slimeknights.tconstruct.common.TinkerTags.Modifiers.CHANNELING;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.CHARGE_EMPTY_BOW_WITHOUT_DRAWTIME;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.CHARGE_EMPTY_BOW_WITH_DRAWTIME;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.CHESTPLATE_ABILITIES;
@@ -61,7 +60,6 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
   @Override
   protected void addTags() {
     tag(GEMS).add(ModifierIds.diamond, ModifierIds.emerald);
-    tag(CHANNELING).add(ModifierIds.throwing, ModifierIds.fishing);
     tag(INVISIBLE_INK_BLACKLIST).add(
       TinkerModifiers.embellishment.getId(), TinkerModifiers.dyed.getId(), TinkerModifiers.trim.getId(),
       TinkerModifiers.creativeSlot.getId(), TinkerModifiers.statOverride.getId(),
@@ -147,14 +145,15 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
       TinkerModifiers.expanded.getId(), ModifierIds.gilded, TinkerModifiers.unbreakable.getId(),
       ModifierIds.luck, TinkerModifiers.melting.getId());
     this.tag(MELEE_ABILITIES).add(
-      TinkerModifiers.blocking.getId(), TinkerModifiers.parrying.getId(), ModifierIds.channeling,
+      TinkerModifiers.blocking.getId(), TinkerModifiers.parrying.getId(),
       TinkerModifiers.dualWielding.getId(), ModifierIds.spilling,
-      ModifierIds.throwing, ModifierIds.returning);
+      ModifierIds.throwing);
     this.tag(HARVEST_ABILITIES).add(TinkerModifiers.autosmelt.getId(), TinkerModifiers.exchanging.getId(), TinkerModifiers.silky.getId());
     this.tag(RANGED_ABILITIES).add(
       ModifierIds.bulkQuiver, ModifierIds.trickQuiver,
-      ModifierIds.crystalshot, TinkerModifiers.multishot.getId(),
-      ModifierIds.grapple, ModifierIds.collecting);
+      ModifierIds.crystalshot, TinkerModifiers.multishot.getId(), ModifierIds.ballista,
+      ModifierIds.grapple, ModifierIds.collecting,
+      ModifierIds.channeling, ModifierIds.returning);
     this.tag(INTERACTION_ABILITIES).add(
       TinkerModifiers.bucketing.getId(), TinkerModifiers.firestarter.getId(), ModifierIds.glowing,
       ModifierIds.pathing, ModifierIds.stripping, ModifierIds.tilling, ModifierIds.brushing,

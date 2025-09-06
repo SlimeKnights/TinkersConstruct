@@ -586,11 +586,19 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(TinkerWorld.skySlimeVine)
                          .addInput(TinkerWorld.skySlimeVine)
                          .setSlots(SlotType.ABILITY, 1)
-                         .setMaxLevel(2)
                          .setTools(TinkerTags.Items.BOWS)
                          .saveSalvage(consumer, prefix(ModifierIds.trickQuiver, abilitySalvage))
                          .setTools(IntersectionIngredient.of(Ingredient.of(TinkerTags.Items.BOWS), Ingredient.of(TinkerTags.Items.INTERACTABLE)))
                          .save(consumer, prefix(ModifierIds.trickQuiver, abilityFolder));
+    ModifierRecipeBuilder.modifier(ModifierIds.ballista)
+      .addInput(TinkerMaterials.hepatizon.getIngotTag())
+      .addInput(Items.CHAIN)
+      .addInput(TinkerMaterials.hepatizon.getIngotTag())
+      .setSlots(SlotType.ABILITY, 1)
+      .setMaxLevel(1).checkTraitLevel()
+      .setTools(TinkerTags.Items.BALLISTAS)
+      .saveSalvage(consumer, prefix(ModifierIds.ballista, abilitySalvage))
+      .save(consumer, prefix(ModifierIds.ballista, abilityFolder));
     BiConsumer<ItemLike,String> crystalshotRecipe = (item, variant) ->
       SwappableModifierRecipeBuilder.modifier(ModifierIds.crystalshot, variant)
                                     .addInput(item)
@@ -685,13 +693,12 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
       .save(consumer, prefix(ModifierIds.collecting, abilityFolder));
 
     // throwing
-    Ingredient chargable = IntersectionIngredient.of(
-      Ingredient.of(TinkerTags.Items.DURABILITY),
-      Ingredient.of(TinkerTags.Items.INTERACTABLE_CHARGE)
-    );
     Ingredient bowLimb = MaterialIngredient.of(TinkerToolParts.bowLimb.get());
     ModifierRecipeBuilder.modifier(ModifierIds.throwing)
-      .setTools(chargable)
+      .setTools(IntersectionIngredient.of(
+        Ingredient.of(TinkerTags.Items.DURABILITY),
+        Ingredient.of(TinkerTags.Items.INTERACTABLE_CHARGE)
+      ))
       .addInput(bowLimb)
       .addInput(TinkerMaterials.cinderslime.getIngotTag())
       .addInput(MaterialIngredient.of(TinkerToolParts.bowGrip.get()))
@@ -700,7 +707,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
       .saveSalvage(consumer, prefix(ModifierIds.throwing, abilitySalvage))
       .save(consumer, prefix(ModifierIds.throwing, abilityFolder));
     MultilevelModifierRecipeBuilder.modifier(ModifierIds.returning)
-      .setTools(chargable)
+      .setTools(TinkerTags.Items.MELEE_WEAPON)
       .addInput(Items.ENDER_PEARL)
       .addInput(Items.CLOCK)
       .addInput(Items.ENDER_PEARL)
@@ -1251,7 +1258,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
       .addInput(Blocks.LIGHTNING_ROD)
       .setMaxLevel(1).checkTraitLevel()
       .setSlots(SlotType.ABILITY, 1)
-      .setTools(ingredientFromTags(TinkerTags.Items.MELEE, TinkerTags.Items.FISHING_RODS))
+      .setTools(ingredientFromTags(TinkerTags.Items.MELEE_WEAPON, TinkerTags.Items.FISHING_RODS))
       .saveSalvage(consumer, prefix(ModifierIds.channeling, abilitySalvage))
       .save(consumer, prefix(ModifierIds.channeling, abilityFolder));
 

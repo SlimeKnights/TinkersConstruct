@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:ballista",
+  "text": [
+    {
+      "text": "Allows the bow to fire melee weapons from your other hand or quiver. Firing a melee weapon causes 3 damage to the bow instead of 1."
+    },
+    {
+      "text": "Fired melee weapons act similarly to thrown weapons, using melee damage instead of projectile damage. Their velocity will be affected by their attack speed.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Single level",
+    "Requires 1 ability slot"
+  ]
+}

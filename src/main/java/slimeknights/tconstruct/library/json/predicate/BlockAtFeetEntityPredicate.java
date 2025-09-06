@@ -7,7 +7,8 @@ import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.block.BlockPredicate;
 import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
 
-/** Predicate matching entities with the given block at their feet */
+/** @deprecated use {@link slimeknights.mantle.data.predicate.entity.BlockAtEntityPredicate} */
+@Deprecated
 public record BlockAtFeetEntityPredicate(IJsonPredicate<BlockState> block) implements LivingEntityPredicate {
   public static final RecordLoadable<BlockAtFeetEntityPredicate> LOADER = RecordLoadable.create(BlockPredicate.LOADER.directField("block_type", BlockAtFeetEntityPredicate::block), BlockAtFeetEntityPredicate::new);
 

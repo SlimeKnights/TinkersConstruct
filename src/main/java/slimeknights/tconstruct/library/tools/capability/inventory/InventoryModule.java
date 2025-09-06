@@ -1,5 +1,8 @@
 package slimeknights.tconstruct.library.tools.capability.inventory;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.nbt.CompoundTag;
@@ -12,8 +15,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.data.loadable.Loadables;
+import slimeknights.mantle.data.loadable.field.LoadableField;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.item.ItemPredicate;
@@ -49,16 +52,10 @@ import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Predicate;
 
-/**
- * Module adding an inventory to a tool
- * @param key            Location to save the inventory
- * @param slots          Slots to add to the tool
- * @param slotLimit      Maximum stack size in each slot
- * @param filter         Filter for valid items in the slot
- * @param pattern        Slot background to show
- * @param condition      Additional conditions
- */
-public record InventoryModule(@Nullable ResourceLocation key, LevelingInt slots, LevelingInt slotLimit, IJsonPredicate<Item> filter, @Nullable Pattern pattern, ModifierCondition<IToolContext> condition, IntRange validationLevel) implements ModifierModule, InventoryModifierHook, VolatileDataModifierHook, ValidateModifierHook, ModifierRemovalHook, ModuleWithKey, ConditionalModule<IToolContext>, SlotStackModifierHook {
+@Getter
+@Accessors(fluent = true)
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
+public class InventoryModule implements ModifierModule, InventoryModifierHook, VolatileDataModifierHook, ValidateModifierHook, ModifierRemovalHook, ModuleWithKey, ConditionalModule<IToolContext>, SlotStackModifierHook {
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<InventoryModule>defaultHooks(ToolInventoryCapability.HOOK, ModifierHooks.VOLATILE_DATA, ModifierHooks.VALIDATE, ModifierHooks.REMOVE, ModifierHooks.SLOT_STACK);
   /** Mod Data NBT mapper to get a compound list */
   public static final BiFunction<CompoundTag,String,ListTag> GET_COMPOUND_LIST = (nbt, name) -> nbt.getList(name, Tag.TAG_COMPOUND);
@@ -66,23 +63,33 @@ public record InventoryModule(@Nullable ResourceLocation key, LevelingInt slots,
   private static final Component HAS_ITEMS = TConstruct.makeTranslation("modifier", "inventory_cannot_remove");
   /** NBT key to store the slot for a stack */
   public static final String TAG_SLOT = "Slot";
+  // fields
+  protected static final LoadableField<ResourceLocation,InventoryModule> KEY_FIELD = Loadables.RESOURCE_LOCATION.nullableField("key", InventoryModule::key);
+  protected static final LoadableField<LevelingInt, InventoryModule> SLOTS_FIELD = LevelingInt.LOADABLE.requiredField("slots", InventoryModule::slots);
+  protected static final LoadableField<LevelingInt, InventoryModule> LIMIT_FIELD = LevelingInt.LOADABLE.defaultField("limit", LevelingInt.flat(64), InventoryModule::slotLimit);
+  protected static final LoadableField<IJsonPredicate<Item>, InventoryModule> FILTER_FIELD = ItemPredicate.LOADER.defaultField("filter", InventoryModule::filter);
+  protected static final LoadableField<Pattern, InventoryModule> PATTERN_FIELD = Pattern.PARSER.nullableField("pattern", InventoryModule::pattern);
+  protected static final LoadableField<IntRange,InventoryModule> VALIDATION_FIELD = ModifierEntry.VALID_LEVEL.defaultField("validation_level", InventoryModule::validationLevel);
   /** Loader instance */
-  public static final RecordLoadable<InventoryModule> LOADER = RecordLoadable.create(
-    Loadables.RESOURCE_LOCATION.nullableField("key", InventoryModule::key),
-    LevelingInt.LOADABLE.requiredField("slots", InventoryModule::slots),
-    LevelingInt.LOADABLE.defaultField("limit", LevelingInt.flat(64), InventoryModule::slotLimit),
-    ItemPredicate.LOADER.defaultField("filter", InventoryModule::filter),
-    Pattern.PARSER.nullableField("pattern", InventoryModule::pattern),
-    ModifierCondition.CONTEXT_FIELD,
-    ModifierEntry.VALID_LEVEL.defaultField("validation_level", InventoryModule::validationLevel),
-    InventoryModule::new);
+  public static final RecordLoadable<InventoryModule> LOADER = RecordLoadable.create(KEY_FIELD, SLOTS_FIELD, LIMIT_FIELD, FILTER_FIELD, PATTERN_FIELD, ModifierCondition.CONTEXT_FIELD, VALIDATION_FIELD, InventoryModule::new);
 
-  /** @apiNote Internal constructor. Use {@link #builder()} to instantiate. */
-  @Internal
-  public InventoryModule {}
+  /** Module adding an inventory to a tool */
+  private final @Nullable ResourceLocation key;
+  /** Location to save the inventory */
+  private final LevelingInt slots;
+  /** Slots to add to the tool */
+  private final LevelingInt slotLimit;
+  /** Maximum stack size in each slot */
+  private final IJsonPredicate<Item> filter;
+  /** Filter for valid items in the slot */
+  private final @Nullable Pattern pattern;
+  /** Slot background to show */
+  private final ModifierCondition<IToolContext> condition;
+  /** Additional conditions */
+  private final IntRange validationLevel;
 
   @Override
-  public RecordLoadable<InventoryModule> getLoader() {
+  public RecordLoadable<? extends InventoryModule> getLoader() {
     return LOADER;
   }
 
@@ -333,14 +340,14 @@ public record InventoryModule(@Nullable ResourceLocation key, LevelingInt slots,
   @Setter
   public static class Builder extends ModuleBuilder.Context<Builder> {
     @Nullable
-    private ResourceLocation key = null;
-    private LevelingInt slotLimit = LevelingInt.flat(64);
-    private IJsonPredicate<Item> filter = ItemPredicate.ANY;
+    protected ResourceLocation key = null;
+    protected LevelingInt slotLimit = LevelingInt.flat(64);
+    protected IJsonPredicate<Item> filter = ItemPredicate.ANY;
     @Nullable
-    private Pattern pattern = null;
-    private IntRange validationLevel = ModifierEntry.VALID_LEVEL;
+    protected Pattern pattern = null;
+    protected IntRange validationLevel = ModifierEntry.VALID_LEVEL;
 
-    private Builder() {}
+    protected Builder() {}
 
     /** Sets the base slot limit */
     public Builder flatLimit(int limit) {

@@ -18,9 +18,6 @@
       "item": "tconstruct:sky_slime_vine"
     }
   ],
-  "level": {
-    "max": 2
-  },
   "result": "tconstruct:trick_quiver",
   "slots": {
     "abilities": 1

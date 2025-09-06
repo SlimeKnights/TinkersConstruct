@@ -4,7 +4,10 @@
     "tconstruct:trick_quiver",
     "tconstruct:crystalshot",
     "tconstruct:multishot",
+    "tconstruct:ballista",
     "tconstruct:grapple",
-    "tconstruct:collecting"
+    "tconstruct:collecting",
+    "tconstruct:channeling",
+    "tconstruct:returning"
   ]
 }

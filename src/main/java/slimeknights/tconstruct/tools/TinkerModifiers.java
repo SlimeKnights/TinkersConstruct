@@ -59,6 +59,7 @@ import slimeknights.tconstruct.library.json.variable.stat.ConditionalStatVariabl
 import slimeknights.tconstruct.library.json.variable.stat.EntityConditionalStatVariable;
 import slimeknights.tconstruct.library.json.variable.tool.ConditionalToolVariable;
 import slimeknights.tconstruct.library.json.variable.tool.ModDataVariable;
+import slimeknights.tconstruct.library.json.variable.tool.StatMultiplierVariable;
 import slimeknights.tconstruct.library.json.variable.tool.ToolStatVariable;
 import slimeknights.tconstruct.library.json.variable.tool.ToolVariable;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -224,7 +225,6 @@ import slimeknights.tconstruct.tools.modifiers.slotless.NearsightedModifier;
 import slimeknights.tconstruct.tools.modifiers.slotless.OverslimeModifier;
 import slimeknights.tconstruct.tools.modifiers.slotless.StatOverrideModifier;
 import slimeknights.tconstruct.tools.modifiers.slotless.TrimModifier;
-import slimeknights.tconstruct.tools.modifiers.traits.DamageSpeedTradeModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.general.EnderportingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.general.SolarPoweredModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.general.TannedModifier;
@@ -294,6 +294,7 @@ import slimeknights.tconstruct.tools.modules.interaction.PlaceGlowModule;
 import slimeknights.tconstruct.tools.modules.interaction.ThrowingModule;
 import slimeknights.tconstruct.tools.modules.ranged.BulkQuiverModule;
 import slimeknights.tconstruct.tools.modules.ranged.PunchModule;
+import slimeknights.tconstruct.tools.modules.ranged.QuiverInventoryModule;
 import slimeknights.tconstruct.tools.modules.ranged.RestrictAngleModule;
 import slimeknights.tconstruct.tools.modules.ranged.TrickQuiverModule;
 import slimeknights.tconstruct.tools.recipe.ArmorDyeingRecipe;
@@ -467,8 +468,12 @@ public final class TinkerModifiers extends TinkerModule {
   public static final StaticModifier<StatOverrideModifier> statOverride = MODIFIERS.register("stat_override", StatOverrideModifier::new);
 
   // traits - tier 1
-  public static final StaticModifier<DamageSpeedTradeModifier> jagged = MODIFIERS.register("jagged", () -> new DamageSpeedTradeModifier(0.005f));
-  public static final StaticModifier<DamageSpeedTradeModifier> stonebound = MODIFIERS.register("stonebound", () -> new DamageSpeedTradeModifier(-0.005f));
+  /** @deprecated use {@link slimeknights.tconstruct.tools.data.ModifierIds#jagged} */
+  @Deprecated(forRemoval = true)
+  public static final DynamicModifier jagged = MODIFIERS.registerDynamic("jagged");
+  /** @deprecated use {@link slimeknights.tconstruct.tools.data.ModifierIds#stonebound} */
+  @Deprecated(forRemoval = true)
+  public static final DynamicModifier stonebound = MODIFIERS.registerDynamic("stonebound");
   /** @deprecated use {@link slimeknights.tconstruct.tools.data.ModifierIds#frostshield} */
   @Deprecated(forRemoval = true)
   public static final DynamicModifier frostshield = MODIFIERS.registerDynamic("frostshield");
@@ -778,6 +783,7 @@ public final class TinkerModifiers extends TinkerModule {
       ModifierModule.LOADER.register(getResource("restrict_projectile_angle"), RestrictAngleModule.LOADER);
       ModifierModule.LOADER.register(getResource("bulk_quiver"), BulkQuiverModule.LOADER);
       ModifierModule.LOADER.register(getResource("trick_quiver"), TrickQuiverModule.LOADER);
+      ModifierModule.LOADER.register(getResource("quiver_inventory"), QuiverInventoryModule.LOADER);
       ModifierModule.LOADER.register(getResource("infinity"), InfinityModule.LOADER);
       ModifierModule.LOADER.register(getResource("punch"), PunchModule.LOADER);
       // compat
@@ -812,7 +818,9 @@ public final class TinkerModifiers extends TinkerModule {
       ToolVariable.LOADER.register(getResource("constant"), ToolVariable.Constant.LOADER);
       ToolVariable.register(getResource("tool_conditional"), ConditionalToolVariable.LOADER);
       ToolVariable.register(getResource("tool_durability"), ToolVariable.CURRENT_DURABILITY.getLoader());
+      ToolVariable.register(getResource("tool_lost_durability"), ToolVariable.CURRENT_DAMAGE.getLoader());
       ToolVariable.register(getResource("tool_stat"), ToolStatVariable.LOADER);
+      ToolVariable.register(getResource("stat_multiplier"), StatMultiplierVariable.LOADER);
       ToolVariable.register(getResource("mod_data"), ModDataVariable.LOADER);
       // stat
       ConditionalStatVariable.LOADER.register(getResource("constant"), ConditionalStatVariable.Constant.LOADER);

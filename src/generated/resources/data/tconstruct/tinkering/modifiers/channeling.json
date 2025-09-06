@@ -7,24 +7,6 @@
       "chance_clear": 0.15,
       "chance_rain": 0.65,
       "chance_thunder": 1.0
-    },
-    {
-      "type": "tconstruct:requirements",
-      "display_modifiers": [
-        {
-          "level": 1,
-          "name": "tconstruct:throwing"
-        }
-      ],
-      "requirement": {
-        "type": "tconstruct:has_modifier",
-        "check": "all",
-        "modifier": {
-          "type": "tconstruct:tag",
-          "tag": "tconstruct:channeling"
-        }
-      },
-      "translation_key": "modifier.tconstruct.channeling.requirements"
     }
   ],
   "tooltip_display": "always"
