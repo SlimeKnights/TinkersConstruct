@@ -312,6 +312,7 @@
   "pattern.tconstruct.small_blade": "小型剑刃",
   "pattern.tconstruct.adze_head": "锛头",
   "pattern.tconstruct.bow_limb": "弓臂",
+  "pattern.tconstruct.arrow_head": "箭头",
 
   "_comment": "Large Head Patterns",
 
@@ -333,6 +334,7 @@
   "pattern.tconstruct.tool_handle": "工具手柄",
   "pattern.tconstruct.tough_handle": "坚韧手柄",
   "pattern.tconstruct.bow_grip": "弓把",
+  "pattern.tconstruct.arrow_shaft": "箭杆",
 
 
   "_comment": "Tinkers Gold Casts",
@@ -1082,6 +1084,11 @@
   "item.tconstruct.tool.id_format": "%s（%s）",
   "item.tconstruct.tool.material_separator": "-",
 
+  "entity.tconstruct.arrow": "箭矢",
+  "entity.tconstruct.thrown_shuriken": "手里剑",
+  "entity.tconstruct.thrown_tool": "掷出的工具",
+  "entity.tconstruct.fishing_bobber": "浮漂",
+
   "item.tconstruct.pickaxe": "镐",
   "item.tconstruct.sledge_hammer": "大锤",
   "item.tconstruct.vein_hammer": "矿脉锤",
@@ -1104,6 +1111,8 @@
   "item.tconstruct.longbow": "长弓",
   "item.tconstruct.fishing_rod": "钓鱼竿",
   "item.tconstruct.javelin": "标枪",
+  "item.tconstruct.arrow": "箭矢",
+  "item.tconstruct.shuriken": "手里剑",
 
   "item.tconstruct.flint_and_brick": "焦砖打火石",
   "item.tconstruct.sky_staff": "碧空黏液手杖",
@@ -1177,6 +1186,8 @@
   "item.tconstruct.bow_limb": "弓臂",
   "item.tconstruct.bow_grip": "弓把",
   "item.tconstruct.bowstring": "弓弦",
+  "item.tconstruct.arrow_head": "Arrow Head",
+  "item.tconstruct.arrow_shaft": "Arrow Shaft",
 
   "item.tconstruct.helmet_plating": "头盔镶板",
   "item.tconstruct.chestplate_plating": "胸甲镶板",
@@ -1214,6 +1225,8 @@
   "item.tconstruct.longbow.description": "长弓是一种宽型远程武器，能对极远的目标实施精确打击。",
   "item.tconstruct.fishing_rod.description": "钓鱼竿是一种轻型远程武器，无需弹药即可对近处的目标实施打击。如果你想的话，还可以拿来钓鱼。",
   "item.tconstruct.javelin.description": "标枪是一种兼具近战与远程能力的武器。既可以造成近战伤害，也能投掷出去造成弹射物伤害。请注意，不要在标枪脱手后没武器可用！",
+  "item.tconstruct.arrow.description": "箭矢是最基础的一次性使用的弹射物，可以通过长弓或弩发射。",
+  "item.tconstruct.shurikens.description": "手里剑是一种简单易用的弹射物，可以不借助其他工具而直接投掷。",
 
   "gui.tconstruct.plate_armor": "镶板盔甲",
   "gui.tconstruct.plate_armor.description": "镶板盔甲是一种防御较高但能力槽有限的盔甲。",
@@ -1759,8 +1772,8 @@
 
   "material.tconstruct.bone": "骨头",
   "material.tconstruct.bone.flavor": "吾为所持剑之骨",
-  "material.tconstruct.bone.encyclopedia": "每级近战伤害+0.5，穿透护甲值+1",
-  "material.tconstruct.bone.ranged": "每级近战伤害+0.5，穿透护甲值+1",
+  "material.tconstruct.bone.encyclopedia": "每级近战伤害+0.5，额外穿甲伤害+1",
+  "material.tconstruct.bone.ranged": "每级近战伤害+0.5，额外穿甲伤害+1",
   "material.tconstruct.bone.skull_flavor": "来点奶么？",
   "material.tconstruct.bone.skull_encyclopedia": "饮用奶后获得1分钟抗性提升",
 
@@ -1865,6 +1878,18 @@
   "material.tconstruct.twisting_vine.ranged": "获得+15%拉弓速度，代价是每次放下工具时受到1点伤害",
   "material.tconstruct.twisting_vine.armor": "获得+10%击退抗性，代价是每次脱下盔甲时受到2点伤害",
 
+  "material.tconstruct.amethyst": "紫水晶",
+
+  "material.tconstruct.prismarine": "海晶石",
+
+  "material.tconstruct.skyslime": "碧空黏液",
+
+  "material.tconstruct.blaze": "烈焰棒",
+
+  "material.tconstruct.ender_pearl": "末影珍珠",
+  "material.tconstruct.ender_pearl.skull_flavor": "末影人懂得如何回避危险，科学家也是。他们几个礼拜以来一直漠视我的采访邀请！",
+  "material.tconstruct.ender_pearl.skull_encyclopedia": "受到弹射物攻击时自动传送，受到近战攻击时有一定概率随机传送。冷却时间15秒",
+
 
   "__comment": "Tier 3 Materials",
   "material.tconstruct.slimesteel": "黏钢",
@@ -1903,6 +1928,8 @@
   "material.tconstruct.cobalt.encyclopedia": "每级攻击速度和挖掘速度+7%",
   "material.tconstruct.cobalt.ranged": "每级拉弓速度和初速度+5%",
   "material.tconstruct.cobalt.armor": "每级近战攻击伤害-10%，移动速度+5%，等级由强化等级最高的盔甲决定。",
+
+  "material.tconstruct.quartz": "石英",
 
   "material.tconstruct.manyullyn": "玛玉灵",
   "material.tconstruct.manyullyn.flavor": "没几个工匠能叫对这材料的名字。他们说这个材料能够斩断星辰。",
@@ -1968,9 +1995,6 @@
   "material.tconstruct.glass.skull_flavor": "现在是谁炸谁了，苦力怕？",
   "material.tconstruct.glass.skull_encyclopedia": "潜行按住“头盔交互”键会使穿戴者爆炸",
 
-  "material.tconstruct.ender_pearl": "末影珍珠",
-  "material.tconstruct.ender_pearl.skull_flavor": "末影人懂得如何回避危险，科学家也是。他们几个礼拜以来一直漠视我的采访邀请！",
-  "material.tconstruct.ender_pearl.skull_encyclopedia": "受到弹射物攻击时自动传送，受到近战攻击时有一定概率随机传送。冷却时间15秒",
 
   "material.tconstruct.rotten_flesh": "腐肉",
   "material.tconstruct.rotten_flesh.skull_flavor": "还行吧",
@@ -1992,7 +2016,6 @@
   "material.tconstruct.ancient.armor": "通过堡垒遗迹内的镶板盔甲、战斗牌子、熔炼锅或猪灵以物易物机制获得。每级能力槽+1，但移动速度-10%；对于盾牌，攻击速度-10%。",
   "material.tconstruct.netherite": "下界合金",
   "material.tconstruct.earthslime": "大地黏液",
-  "material.tconstruct.skyslime": "碧空黏液",
   "material.tconstruct.blood": "血",
   "material.tconstruct.magma": "岩浆",
   "material.tconstruct.ichor": "灵浆",
@@ -2027,6 +2050,7 @@
   "material.tconstruct.silver.armor": "每级来自亡灵生物伤害-5%",
 
   "material.tconstruct.whitestone": "末地石",
+  "material.tconstruct.whitestone.composite": "白石",
   "material.tconstruct.whitestone.aluminum": "白石",
   "material.tconstruct.whitestone.tin": "白石",
   "material.tconstruct.whitestone.zinc": "白石",
@@ -2212,13 +2236,13 @@
   "modifier.tconstruct.necrotic.lifesteal": "生命汲取",
 
   "_comment": "Damage boost",
-  "modifier.tconstruct.piercing": "穿刺",
+  "modifier.tconstruct.piercing": "尖刺",
   "modifier.tconstruct.piercing.flavor": "变身仙人掌！",
-  "modifier.tconstruct.piercing.description": "工具会无视护甲值造成额外伤害！",
+  "modifier.tconstruct.piercing.description": "工具将造成额外伤害，这部分伤害无视护甲！",
   "modifier.tconstruct.piercing.attack_damage": "穿刺伤害",
-  "modifier.tconstruct.pierce": "穿刺",
+  "modifier.tconstruct.pierce": "穿甲",
   "modifier.tconstruct.pierce.flavor": "变身尖竹钉！",
-  "modifier.tconstruct.pierce.description": "攻击会抵消目标的部分护甲值！",
+  "modifier.tconstruct.pierce.description": "攻击会无视目标的部分护甲值！",
   "modifier.tconstruct.smite": "亡灵杀手",
   "modifier.tconstruct.smite.flavor": "死吧，贱种！",
   "modifier.tconstruct.smite.description": "哪只亡灵不惧怕这金光闪闪的西瓜！",
@@ -2323,7 +2347,7 @@
   "modifier.tconstruct.war_charge.flavor": "后备能源",
   "modifier.tconstruct.war_charge.description": "填装状态下，挖掘方块可提升下一次射击时弹射物的速度",
   "modifier.tconstruct.war_charge.velocity": "弹射物速度",
-  "modifier.tconstruct.ballista": "投射机",
+  "modifier.tconstruct.ballista": "投射",
   "modifier.tconstruct.ballista.flavor": "与长弓更搭的弹药",
   "modifier.tconstruct.ballista.description": "弓现可从副手发射近战工具",
 
@@ -2575,6 +2599,9 @@
   "modifier.tconstruct.glowing": "荧光",
   "modifier.tconstruct.glowing.flavor": "闪闪放光芒！",
   "modifier.tconstruct.glowing.description": "持握者潜行时可放置荧光球，会消耗工具耐久度",
+  "modifier.tconstruct.spectral": "光灵",
+  "modifier.tconstruct.spectral.flavor": "熠熠生光辉！",
+  "modifier.tconstruct.spectral.description": "让弹射物击中的目标发光，不论目标是方块还是实体",
   "modifier.tconstruct.exchanging": "置换",
   "modifier.tconstruct.exchanging.flavor": "出其不意！",
   "modifier.tconstruct.exchanging.description": "若有可能，副手持握的方块将会在该工具挖掘方块后，立即填补被挖空的位置",
@@ -2624,6 +2651,9 @@
   "modifier.tconstruct.channeling": "引雷",
   "modifier.tconstruct.channeling.flavor": "咔嚓！",
   "modifier.tconstruct.channeling.description": "工具发射的弹射物命中时，可以召唤闪电攻击目标。",
+  "modifier.tconstruct.fins": "鱼鳍",
+  "modifier.tconstruct.fins.flavor": "扑通！",
+  "modifier.tconstruct.fins.description": "工具作为弹射物在水下飞行时，不受阻力影响。",
 
   "modifier.tconstruct.fishing": "垂钓",
   "modifier.tconstruct.fishing.flavor": "我必须立刻开始钓鱼小游戏",
@@ -2731,6 +2761,9 @@
   "modifier.tconstruct.cultivated": "培植",
   "modifier.tconstruct.cultivated.flavor": "精打细算！",
   "modifier.tconstruct.cultivated.description": "工具在修复时，单位材料能够提供更多耐久度",
+  "modifier.tconstruct.economical": "节约",
+  "modifier.tconstruct.economical.flavor": "低碳环保！",
+  "modifier.tconstruct.economical.description": "合成的箭矢数量翻倍",
   "modifier.tconstruct.jagged": "锯齿",
   "modifier.tconstruct.jagged.flavor": "破缘生锋刃！",
   "modifier.tconstruct.jagged.description": "工具的耐久度越低，伤害值越高，但挖掘速度越低",
@@ -2750,6 +2783,9 @@
   "modifier.tconstruct.unburdened": "轻省",
   "modifier.tconstruct.unburdened.flavor": "易用",
   "modifier.tconstruct.unburdened.description": "使用该物品时，移动速度的减益较小。",
+  "modifier.tconstruct.woodwind": "木笛",
+  "modifier.tconstruct.woodwind.flavor": "破空之声",
+  "modifier.tconstruct.woodwind.description": "在空气中更自如地飞行，精准度大幅提升。有时还能听到它飞行时的音乐",
   "modifier.tconstruct.stringy": "丝线",
   "modifier.tconstruct.stringy.flavor": "有点像奶酪，但是味道不大好",
   "modifier.tconstruct.stringy.description": "工具可用线进行修复",
@@ -3216,6 +3252,8 @@
 
   "stat.tconstruct.binding": "绑定结",
   "stat.tconstruct.bowstring": "弓弦",
+  "stat.tconstruct.arrow_head": "箭头",
+  "stat.tconstruct.arrow_shaft": "箭杆",
   "tool_stat.tconstruct.extra.no_stats": "无数据",
 
   "tool_stat.tconstruct.block_amount": "格挡值：",
@@ -3350,6 +3388,7 @@
   "gui.tconstruct.manual.cycle.recipes": "切换至其它配方",
 
   "recipe.tconstruct.tool_repair.fully_repaired": "工具完好无损",
+  "recipe.tconstruct.tool_build.no_count": "工具因某个特性而无法制作。",
   "recipe.tconstruct.damaging.broken": "工具已损坏",
   "recipe.tconstruct.overslime.at_capacity": "工具已无更多空间来容纳黏液覆层",
 
