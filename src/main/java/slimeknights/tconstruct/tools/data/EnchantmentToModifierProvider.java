@@ -54,7 +54,7 @@ public class EnchantmentToModifierProvider extends AbstractEnchantmentToModifier
     add(Enchantments.INFINITY_ARROWS, ModifierIds.crystalshot);
     add(Enchantments.MULTISHOT, TinkerModifiers.multishot.getId());
     add(Enchantments.QUICK_CHARGE, ModifierIds.quickCharge);
-    add(Enchantments.PIERCING, TinkerModifiers.impaling.getId());
+    add(Enchantments.PIERCING, ModifierIds.arrowPierce);
 
     // fishing
     add(Enchantments.FISHING_LUCK, ModifierIds.luck);

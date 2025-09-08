@@ -4,5 +4,8 @@
       "level": 1,
       "name": "tconstruct:jagged"
     }
-  ]
+  ],
+  "perStat": {
+    "tconstruct:ammo": []
+  }
 }

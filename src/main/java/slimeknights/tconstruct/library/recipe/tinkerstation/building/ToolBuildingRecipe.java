@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.recipe.tinkerstation.building;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -18,12 +19,15 @@ import slimeknights.mantle.util.LogicHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipeCache;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.tools.definition.module.material.ToolPartsHook;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
+import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 import slimeknights.tconstruct.library.tools.layout.LayoutSlot;
 import slimeknights.tconstruct.library.tools.layout.StationSlotLayoutLoader;
 import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
@@ -45,6 +49,7 @@ import java.util.stream.IntStream;
 
 @RequiredArgsConstructor
 public class ToolBuildingRecipe implements ITinkerStationRecipe {
+  protected static final RecipeResult<LazyToolStack> NO_COUNT = RecipeResult.failure(TConstruct.makeTranslationKey("recipe", "tool_build.no_count"));
   public static final RecordLoadable<ToolBuildingRecipe> LOADER = RecordLoadable.create(
     ContextKey.ID.requiredField(),
     LoadableRecipeSerializer.RECIPE_GROUP,
@@ -66,6 +71,7 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
   protected final List<Ingredient> ingredients;
   protected List<LayoutSlot> layoutSlots;
   protected List<List<ItemStack>> allToolParts;
+  protected ItemStack displayOutput;
   public static final int X_OFFSET = -6;
   public static final int Y_OFFSET = -15;
   public static final int SLOT_SIZE = 18;
@@ -75,7 +81,7 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
    * Typically matches the output definition ID, but some tool recipes share a single layout.
    */
   public ResourceLocation getLayoutSlotId() {
-    return Objects.requireNonNullElse(layoutSlot, getOutput().getToolDefinition().getId());
+    return Objects.requireNonNullElse(layoutSlot, output.getToolDefinition().getId());
   }
 
   /** Gets the layout slots so we know where go position item slots for guis */
@@ -101,7 +107,7 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
 
   /** Gets the tool parts for this tool */
   public List<IToolPart> getToolParts() {
-    return ToolPartsHook.parts(getOutput().getToolDefinition());
+    return ToolPartsHook.parts(output.getToolDefinition());
   }
 
   /**
@@ -117,6 +123,17 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
         .toList();
     }
     return allToolParts;
+  }
+
+  /** Gets the result to display */
+  public ItemStack getDisplayOutput() {
+    if (displayOutput == null) {
+      displayOutput = output instanceof IModifiableDisplay modifiable ? modifiable.getRenderTool() : output.asItem().getDefaultInstance();
+      if (outputCount > 1) {
+        displayOutput = displayOutput.copyWithCount(outputCount);
+      }
+    }
+    return displayOutput;
   }
 
   /** Gets the additional recipe requirements beyond the tool parts */
@@ -171,7 +188,21 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
     List<MaterialVariant> materials = IntStream.range(0, ToolPartsHook.parts(output.getToolDefinition()).size())
                                                .mapToObj(i -> MaterialVariant.of(IMaterialItem.getMaterialFromStack(inv.getInput(i))))
                                                .toList();
-    return LazyToolStack.success(ToolStack.createTool(output.asItem(), output.getToolDefinition(), new MaterialNBT(materials)), outputCount);
+    ToolStack tool = ToolStack.createTool(output.asItem(), output.getToolDefinition(), new MaterialNBT(materials));
+    // ammo modifier hook
+    int count = outputCount;
+    for (ModifierEntry entry : tool.getModifiers()) {
+      count = entry.getHook(ModifierHooks.TOOL_CRAFT).onToolCraft(tool, entry, count);
+      if (count <= 0) {
+        return NO_COUNT;
+      }
+    }
+    // validate the tool, lets people have traits reject each other or do weird slot shenanigans
+    Component error = tool.tryValidate();
+    if (error != null) {
+      return RecipeResult.failure(error);
+    }
+    return LazyToolStack.success(tool, Math.min(output.asItem().getMaxStackSize(), count));
   }
 
   @Deprecated

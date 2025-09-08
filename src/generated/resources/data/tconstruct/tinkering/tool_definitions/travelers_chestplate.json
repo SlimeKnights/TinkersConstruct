@@ -43,6 +43,10 @@
       "type": "tconstruct:statless_part_repair",
       "part_index": 1,
       "repair_amount": 120
+    },
+    {
+      "type": "tconstruct:fixed_material_name",
+      "index": 0
     }
   ]
 }

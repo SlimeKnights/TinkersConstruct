@@ -17,6 +17,10 @@
         "flat": 2.0
       },
       "tool_damage": 5
+    },
+    {
+      "type": "tconstruct:projectile_place_glow",
+      "target": "any"
     }
   ],
   "tooltip_display": "always"

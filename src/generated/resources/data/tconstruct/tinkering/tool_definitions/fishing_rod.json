@@ -55,6 +55,10 @@
         "type": "tconstruct:single",
         "modifier": "tconstruct:fishing"
       }
+    },
+    {
+      "type": "tconstruct:fixed_material_name",
+      "index": 0
     }
   ]
 }

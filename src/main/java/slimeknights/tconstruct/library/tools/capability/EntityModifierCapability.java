@@ -36,6 +36,9 @@ public class EntityModifierCapability {
 
     @Override
     public void setModifiers(ModifierNBT nbt) {}
+
+    @Override
+    public void addModifiers(ModifierNBT nbt) {}
   };
 
   private EntityModifierCapability() {}
@@ -49,6 +52,11 @@ public class EntityModifierCapability {
   private static final ResourceLocation ID = TConstruct.getResource("modifiers");
   /** Capability type */
   public static final Capability<EntityModifiers> CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {});
+
+  /** Gets the capability for the entity or an empty instance if missing */
+  public static EntityModifiers getCapability(Entity entity) {
+    return entity.getCapability(CAPABILITY).orElse(EMPTY);
+  }
 
   /** Gets the data or an empty instance if missing */
   public static ModifierNBT getOrEmpty(Entity entity) {
@@ -126,5 +134,15 @@ public class EntityModifierCapability {
 
     /** Sets the stored modifiers */
     void setModifiers(ModifierNBT nbt);
+
+    /** Adds additional modifiers to the stored modifiers */
+    default void addModifiers(ModifierNBT nbt) {
+      ModifierNBT existing = getModifiers();
+      if (existing.isEmpty()) {
+        setModifiers(nbt);
+      } else {
+        setModifiers(ModifierNBT.builder().add(existing).add(nbt).build());
+      }
+    }
   }
 }

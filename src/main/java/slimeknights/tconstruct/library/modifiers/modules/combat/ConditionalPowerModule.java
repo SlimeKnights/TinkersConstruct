@@ -87,6 +87,7 @@ public record ConditionalPowerModule(IJsonPredicate<LivingEntity> target, IJsonP
   @Override
   public void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, Projectile projectile, @Nullable AbstractArrow arrow, ModDataNBT persistentData, boolean primary) {
     // copy projectile multiplier into the arrow damage so we can use it later
+    // TODO: can we support power multipliers on ammo?
     persistentData.putFloat(MULTIPLIER, tool.getMultiplier(ToolStats.PROJECTILE_DAMAGE));
   }
 

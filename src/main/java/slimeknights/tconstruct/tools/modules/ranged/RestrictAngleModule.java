@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.modules.ranged;
 
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -8,6 +9,7 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.entity.living.LivingKnockBackEvent;
 import slimeknights.mantle.data.loadable.record.SingletonLoader;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileLaunchModifierHook;
@@ -24,7 +26,8 @@ import java.util.List;
 public enum RestrictAngleModule implements ModifierModule, ProjectileLaunchModifierHook {
   INSTANCE;
 
-  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<RestrictAngleModule>defaultHooks(ModifierHooks.PROJECTILE_LAUNCH, ModifierHooks.PROJECTILE_THROWN);
+  private static final ResourceLocation TOTAL_LEVEL = TConstruct.getResource("restrict_angle_level");
+  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<RestrictAngleModule>defaultHooks(ModifierHooks.PROJECTILE_LAUNCH, ModifierHooks.PROJECTILE_SHOT, ModifierHooks.PROJECTILE_THROWN);
   public static final SingletonLoader<RestrictAngleModule> LOADER = new SingletonLoader<>(INSTANCE);
 
   @Override
@@ -39,7 +42,10 @@ public enum RestrictAngleModule implements ModifierModule, ProjectileLaunchModif
 
   @Override
   public void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, Projectile projectile, @Nullable AbstractArrow arrow, ModDataNBT persistentData, boolean primary) {
-    RestrictAngleModule.clampDirection(projectile.getDeltaMovement(), modifier.getLevel(), projectile);
+    // store the level in persistent data, so we can have this module add from multiple sources
+    int level = persistentData.getInt(TOTAL_LEVEL) + modifier.intEffectiveLevel();
+    persistentData.putInt(TOTAL_LEVEL, level);
+    RestrictAngleModule.clampDirection(projectile.getDeltaMovement(), level, projectile);
   }
 
 

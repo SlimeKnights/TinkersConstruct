@@ -1,0 +1,12 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:stat_boost",
+      "each_level": 0.25,
+      "operation": "add",
+      "stat": "tconstruct:accuracy"
+    }
+  ],
+  "tooltip_display": "always"
+}

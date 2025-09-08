@@ -32,6 +32,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
   protected void addMaterialStats() {
     addMeleeHarvest();
     addRanged();
+    addAmmo();
     addArmor();
     addMisc();
   }
@@ -372,13 +373,33 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     // tier 4 (end)
     addMaterialStats(MaterialIds.knightmetal,
       new LimbMaterialStats(512, 0.2f, 0.05f, -0.1f),
-      new GripMaterialStats(1.0f, 0.1f, 3.0f));
+      new GripMaterialStats(0, 0.1f, 3.0f));
     addMaterialStats(MaterialIds.enderslimeVine, StatlessMaterialStats.BOWSTRING);
 
     // tier 4 (compat)
     addMaterialStats(MaterialIds.fiery,
       new LimbMaterialStats(1024, -0.25f, 0.2f, -0.05f),
-      new GripMaterialStats(1.0f, 0.05f, 3.5f));
+      new GripMaterialStats(0, 0.05f, 3.5f));
+  }
+
+  private void addAmmo() {
+    // tier 1
+    addMaterialStats(MaterialIds.flint, StatlessMaterialStats.ARROW_HEAD);
+    addMaterialStats(MaterialIds.wood, StatlessMaterialStats.ARROW_SHAFT);
+    addMaterialStats(MaterialIds.bone, StatlessMaterialStats.ARROW_SHAFT);
+    addMaterialStats(MaterialIds.bamboo, StatlessMaterialStats.ARROW_SHAFT);
+    addMaterialStats(MaterialIds.chorus, StatlessMaterialStats.ARROW_SHAFT);
+    // tier 2
+    addMaterialStats(MaterialIds.amethyst, StatlessMaterialStats.ARROW_HEAD);
+    addMaterialStats(MaterialIds.prismarine, StatlessMaterialStats.ARROW_HEAD);
+    addMaterialStats(MaterialIds.skyslime, StatlessMaterialStats.ARROW_HEAD);
+    addMaterialStats(MaterialIds.enderPearl, StatlessMaterialStats.ARROW_HEAD);
+    addMaterialStats(MaterialIds.necroticBone, StatlessMaterialStats.ARROW_SHAFT);
+    addMaterialStats(MaterialIds.blaze, StatlessMaterialStats.ARROW_SHAFT);
+    // tier 3
+    addMaterialStats(MaterialIds.ice, StatlessMaterialStats.ARROW_HEAD);
+    addMaterialStats(MaterialIds.quartz, StatlessMaterialStats.ARROW_HEAD);
+    addMaterialStats(MaterialIds.ichor, StatlessMaterialStats.ARROW_HEAD);
   }
 
   private void addArmor() {
@@ -472,10 +493,8 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.phantom, StatlessMaterialStats.REPAIR_KIT);
     // slimesuit embellishments
     addMaterialStats(MaterialIds.earthslime);
-    addMaterialStats(MaterialIds.skyslime);
     addMaterialStats(MaterialIds.blood);
     addMaterialStats(MaterialIds.magma);
-    addMaterialStats(MaterialIds.ichor);
     addMaterialStats(MaterialIds.clay);
     addMaterialStats(MaterialIds.honey);
   }

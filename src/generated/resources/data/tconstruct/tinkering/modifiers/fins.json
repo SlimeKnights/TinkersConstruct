@@ -1,0 +1,21 @@
+{
+  "level_display": "tconstruct:single_level",
+  "modules": [
+    {
+      "type": "tconstruct:stat_boost",
+      "each_level": 0.4,
+      "operation": "add",
+      "stat": "tconstruct:water_inertia"
+    },
+    {
+      "type": "tconstruct:conditional_power",
+      "each_level": 2.0,
+      "modifier_level": {
+        "min": 2
+      },
+      "percent": false,
+      "target": "mantle:underwater"
+    }
+  ],
+  "tooltip_display": "always"
+}

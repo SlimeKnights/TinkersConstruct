@@ -34,6 +34,7 @@ import slimeknights.tconstruct.library.recipe.casting.material.PartSwapCastingRe
 import slimeknights.tconstruct.library.recipe.ingredient.MaterialIngredient;
 import slimeknights.tconstruct.library.recipe.ingredient.MaterialValueIngredient;
 import slimeknights.tconstruct.library.recipe.material.ShapedMaterialConsumerBuilder;
+import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.library.recipe.partbuilder.recycle.PartBuilderRecycleBuilder;
 import slimeknights.tconstruct.library.recipe.partbuilder.recycle.PartBuilderToolRecycleBuilder;
@@ -98,6 +99,14 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     toolBuilding(consumer, TinkerTools.longbow, folder);
     toolBuilding(consumer, TinkerTools.fishingRod, folder);
     toolBuilding(consumer, TinkerTools.javelin, folder);
+    // ammo
+    ToolBuildingRecipeBuilder.toolBuildingRecipe(TinkerTools.arrow.get())
+      .outputSize(4)
+      .addExtraRequirement(Ingredient.of(Items.FEATHER))
+      .save(consumer, prefix(TinkerTools.arrow, folder));
+    ToolBuildingRecipeBuilder.toolBuildingRecipe(TinkerTools.shuriken.get())
+      .outputSize(4)
+      .save(consumer, prefix(TinkerTools.shuriken, folder));
 
     // specialized
     ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, TinkerTools.flintAndBrick)
@@ -375,6 +384,19 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     // bowstrings and shield cores are part builder exclusive. Shield core additionally disallows anything that conflicts with casting shield plating (obsidian/nahuatl conflict)
     uncastablePart(consumer, TinkerToolParts.bowstring.get(), 1, null, partFolder);
     uncastablePart(consumer, TinkerToolParts.shieldCore.get(), 4, PlatingMaterialStats.SHIELD.getId(), partFolder);
+    // arrow parts are just part builder, no composite currently
+    PartRecipeBuilder.partRecipe(TinkerToolParts.arrowHead.get())
+      .setPattern(TinkerToolParts.arrowHead.getId())
+      .setPatternItem(Ingredient.of(TinkerTags.Items.DEFAULT_PATTERNS))
+      .setCost(1)
+      .setAllowUncraftable(true)
+      .save(consumer, location(partFolder + "builder/arrow_head"));
+    PartRecipeBuilder.partRecipe(TinkerToolParts.arrowShaft.get())
+      .setPattern(TinkerToolParts.arrowShaft.getId())
+      .setPatternItem(Ingredient.of(TinkerTags.Items.DEFAULT_PATTERNS))
+      .setCost(1)
+      .setAllowUncraftable(true)
+      .save(consumer, location(partFolder + "builder/arrow_shaft"));
   }
 
   /** Helper to create a casting recipe for a slimeskull variant */

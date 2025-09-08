@@ -27,6 +27,9 @@
         "tag": "tconstruct:modifiable/durability"
       },
       {
+        "tag": "tconstruct:modifiable/melee/weapon"
+      },
+      {
         "tag": "tconstruct:modifiable/interactable/charge"
       }
     ]

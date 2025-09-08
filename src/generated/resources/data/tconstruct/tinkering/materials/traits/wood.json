@@ -4,5 +4,13 @@
       "level": 1,
       "name": "tconstruct:cultivated"
     }
-  ]
+  ],
+  "perStat": {
+    "tconstruct:ammo": [
+      {
+        "level": 1,
+        "name": "tconstruct:economical"
+      }
+    ]
+  }
 }

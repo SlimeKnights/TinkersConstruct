@@ -40,7 +40,7 @@ import java.util.function.Predicate;
 public record InfinityModule(ItemStack ammo, String variantTag, int durabilityUsage, boolean checkStandardArrows) implements ModifierModule, BowAmmoModifierHook, ModifierRemovalHook, ProjectileLaunchModifierHook {
   /** NBT marking the stack as infinity to set arrow pickup */
   private static final String INFINITY = "tic_infinity";
-  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<InfinityModule>defaultHooks(ModifierHooks.BOW_AMMO, ModifierHooks.PROJECTILE_LAUNCH, ModifierHooks.REMOVE);
+  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<InfinityModule>defaultHooks(ModifierHooks.BOW_AMMO, ModifierHooks.PROJECTILE_LAUNCH, ModifierHooks.PROJECTILE_SHOT, ModifierHooks.REMOVE);
   public static final RecordLoadable<InfinityModule> LOADER = RecordLoadable.create(
     ItemStackLoadable.REQUIRED_ITEM_NBT.requiredField("ammo", InfinityModule::ammo),
     StringLoadable.DEFAULT.defaultField("variant_tag", "", InfinityModule::variantTag),

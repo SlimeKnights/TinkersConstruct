@@ -473,6 +473,9 @@ public class TinkerTags {
     /** Modifiable items that support fishing modifiers. */
     public static final TagKey<Item> FISHING_RODS = local("modifiable/fishing_rods");
 
+    /** Items in this tag have a primary purpose of being ammo */
+    public static final TagKey<Item> AMMO = local("modifiable/ammo");
+
     /** Tools that can receive wood based embellishments */
     public static final TagKey<Item> EMBELLISHMENT_WOOD = local("modifiable/embellishment/wood");
     /** Tools that can receive slime based embellishments */
@@ -485,6 +488,8 @@ public class TinkerTags {
     public static final TagKey<Item> UNRECYCLABLE = local("modifiable/unrecyclable");
     /** Tools to blacklist from default salvage recipes. May still be salvagable in other recipes */
     public static final TagKey<Item> UNSALVAGABLE = local("modifiable/unsalvageable");
+    /** Tools to blacklist from part swapping */
+    public static final TagKey<Item> UNSWAPPABLE = local("modifiable/unswappable");
 
     /** Tag so mods like thermal know our scyhtes can harvest */
     public static final TagKey<Item> SCYTHES = common("tools/scythe");

@@ -153,9 +153,10 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
   public List<ItemStack> getToolWithModifier() {
     if (toolWithModifier == null) {
       List<ModifierEntry> result = List.of(RESULT);
+      int maxSize = shrinkToolSlotBy();
       toolWithModifier = Arrays.stream(this.tools.getItems())
         .map(MAP_TOOL_STACK_FOR_RENDERING)
-        .map(stack -> withModifiers(stack, result, data -> OverslimeModule.INSTANCE.setAmountRaw(data, restoreAmount)))
+        .map(stack -> withModifiers(stack, maxSize, result, data -> OverslimeModule.INSTANCE.setAmountRaw(data, restoreAmount)))
         .toList();
     }
     return toolWithModifier;

@@ -7,6 +7,8 @@
         "$equipment",
         0.5,
         "*",
+        "$level",
+        "*",
         "$multiplier",
         "*",
         "$damage",

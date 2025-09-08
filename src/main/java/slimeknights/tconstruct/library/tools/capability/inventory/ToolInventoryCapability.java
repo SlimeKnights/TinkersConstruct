@@ -26,8 +26,8 @@ import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.library.tools.capability.ToolCapabilityProvider.IToolCapabilityProvider;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
+import slimeknights.tconstruct.library.tools.definition.module.display.ToolNameHook;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
-import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.tools.menu.ToolContainerMenu;
@@ -531,7 +531,7 @@ public class ToolInventoryCapability extends InventoryModifierHookIterator<Modif
       if (player instanceof ServerPlayer serverPlayer) {
         NetworkHooks.openScreen(serverPlayer, new SimpleMenuProvider(
           (id, inventory, p) -> new ToolContainerMenu(id, inventory, stack, handler, slotIndex),
-          TooltipUtil.getDisplayName(stack, tool, definition)
+          ToolNameHook.getName(definition, stack, tool)
         ), buf -> {
           buf.writeVarInt(slotIndex);
           buf.writeItem(stack);

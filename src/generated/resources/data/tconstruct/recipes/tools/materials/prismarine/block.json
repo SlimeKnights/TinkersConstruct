@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material",
+  "ingredient": {
+    "item": "minecraft:prismarine"
+  },
+  "leftover": "minecraft:prismarine_shard",
+  "material": "tconstruct:prismarine",
+  "needed": 1,
+  "value": 4
+}

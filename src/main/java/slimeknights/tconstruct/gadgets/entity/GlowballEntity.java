@@ -20,8 +20,9 @@ import slimeknights.tconstruct.shared.TinkerCommons;
 
 import javax.annotation.Nonnull;
 
+/** @deprecated use {@link slimeknights.tconstruct.tools.entity.ThrownShuriken} */
+@Deprecated
 public class GlowballEntity extends ThrowableItemProjectile implements IEntityAdditionalSpawnData {
-
   public GlowballEntity(EntityType<? extends GlowballEntity> p_i50159_1_, Level p_i50159_2_) {
     super(p_i50159_1_, p_i50159_2_);
   }

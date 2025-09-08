@@ -26,7 +26,7 @@ import java.util.List;
 
 /** Module that fills capacity by launching projectiles. */
 public record LaunchCapacityModule(LevelingInt grant, @Nullable ModifierId owner, ModifierCondition<IToolStackView> condition) implements ModifierModule, ProjectileLaunchModifierHook, CapacitySourceModule, ConditionalModule<IToolStackView> {
-  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<LaunchCapacityModule>defaultHooks(ModifierHooks.PROJECTILE_LAUNCH, ModifierHooks.PROJECTILE_THROWN);
+  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<LaunchCapacityModule>defaultHooks(ModifierHooks.PROJECTILE_LAUNCH, ModifierHooks.PROJECTILE_SHOT, ModifierHooks.PROJECTILE_THROWN);
   public static final RecordLoadable<LaunchCapacityModule> LOADER = RecordLoadable.create(
     LevelingInt.LOADABLE.defaultField("grant", LevelingInt.ZERO, false, LaunchCapacityModule::grant),
     OWNER_FIELD, ModifierCondition.TOOL_FIELD,

@@ -248,6 +248,18 @@ public abstract class AbstractMaterialSpriteProvider {
       return this;
     }
 
+    /** Makes this work as the head for an arrow or shuriken */
+    public MaterialSpriteInfoBuilder arrowHead() {
+      statType(StatlessMaterialStats.ARROW_HEAD.getIdentifier());
+      return this;
+    }
+
+    /** Makes this work as the shaft for an arrow */
+    public MaterialSpriteInfoBuilder arrowShaft() {
+      statType(StatlessMaterialStats.ARROW_SHAFT.getIdentifier());
+      return this;
+    }
+
     /** Builds a material sprite info */
     @CheckReturnValue
     private MaterialSpriteInfo build() {

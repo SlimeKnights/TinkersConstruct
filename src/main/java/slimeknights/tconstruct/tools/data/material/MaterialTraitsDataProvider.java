@@ -3,11 +3,13 @@ package slimeknights.tconstruct.tools.data.material;
 import net.minecraft.data.PackOutput;
 import slimeknights.tconstruct.library.data.material.AbstractMaterialDataProvider;
 import slimeknights.tconstruct.library.data.material.AbstractMaterialTraitDataProvider;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.data.ModifierIds;
 import slimeknights.tconstruct.tools.stats.PlatingMaterialStats;
 import slimeknights.tconstruct.tools.stats.SkullStats;
 
+import static slimeknights.tconstruct.library.materials.MaterialRegistry.AMMO;
 import static slimeknights.tconstruct.library.materials.MaterialRegistry.ARMOR;
 import static slimeknights.tconstruct.library.materials.MaterialRegistry.MELEE_HARVEST;
 import static slimeknights.tconstruct.library.materials.MaterialRegistry.RANGED;
@@ -26,11 +28,14 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
   protected void addMaterialTraits() {
     // tier 1
     addDefaultTraits(MaterialIds.wood, ModifierIds.cultivated);
+    addTraits(MaterialIds.wood, AMMO, ModifierIds.economical);
     addDefaultTraits(MaterialIds.rock, ModifierIds.stonebound);
     addDefaultTraits(MaterialIds.flint, ModifierIds.jagged);
+    addTraits(MaterialIds.flint, AMMO, new ModifierId[0]); // TODO: flint trait
     addDefaultTraits(MaterialIds.bone, ModifierIds.pierce);
+    addTraits(MaterialIds.bone, AMMO, ModifierIds.arrowPierce);
     addDefaultTraits(MaterialIds.bamboo, ModifierIds.unburdened);
-    addDefaultTraits(MaterialIds.ice, ModifierIds.frostshield);
+    addTraits(MaterialIds.bamboo, AMMO, ModifierIds.woodwind);
     addDefaultTraits(MaterialIds.cactus, ModifierIds.thorns);
     // tier 1 - end
     addDefaultTraits(MaterialIds.chorus, TinkerModifiers.enderference);
@@ -64,6 +69,12 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addTraits(MaterialIds.skyslimeVine, ARMOR, ModifierIds.skyfall);
     addDefaultTraits(MaterialIds.weepingVine, ModifierIds.flamestance);
     addDefaultTraits(MaterialIds.twistingVine, ModifierIds.entangled);
+    // tier 2 - ammo
+    addTraits(MaterialIds.amethyst, AMMO, ModifierIds.crystalbound);
+    addTraits(MaterialIds.prismarine, AMMO, ModifierIds.fins);
+    addTraits(MaterialIds.skyslime, AMMO, ModifierIds.punch);
+    addDefaultTraits(MaterialIds.blaze, ModifierIds.fiery);
+    addTraits(MaterialIds.enderPearl, AMMO, TinkerModifiers.enderporting);
 
     // tier 3
     addDefaultTraits(MaterialIds.slimesteel, ModifierIds.overcast, TinkerModifiers.overslime.getId());
@@ -80,6 +91,11 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     // tier 3 - binding
     addDefaultTraits(MaterialIds.darkthread, ModifierIds.looting);
     addDefaultTraits(MaterialIds.ichorskin, ModifierIds.overshield, TinkerModifiers.overslime.getId());
+    addDefaultTraits(MaterialIds.ice, ModifierIds.frostshield);
+    addTraits(MaterialIds.ice, AMMO, ModifierIds.freezing);
+    // tier 3 - ammo
+    addTraits(MaterialIds.quartz, AMMO, ModifierIds.power);
+    addTraits(MaterialIds.ichor, AMMO, ModifierIds.spectral);
 
     // tier 4
     addDefaultTraits(MaterialIds.cinderslime, ModifierIds.overburn, TinkerModifiers.overslime.getId());
@@ -141,10 +157,8 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addTraits(MaterialIds.pigIron,      SkullStats.ID, TinkerModifiers.revenge.getId(), ModifierIds.zombifiedPiglinDisguise);
     // slimesuit
     noTraits(MaterialIds.earthslime);
-    noTraits(MaterialIds.skyslime);
     noTraits(MaterialIds.blood);
     noTraits(MaterialIds.magma);
-    noTraits(MaterialIds.ichor);
     noTraits(MaterialIds.enderslime);
     noTraits(MaterialIds.clay);
     noTraits(MaterialIds.honey);

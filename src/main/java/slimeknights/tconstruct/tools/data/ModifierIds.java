@@ -41,6 +41,7 @@ public class ModifierIds {
   public static final ModifierId freezing = id("freezing");
   public static final ModifierId springy = id("springy");
   public static final ModifierId spilling = id("spilling");
+  public static final ModifierId fins = id("fins");
   public static final ModifierId channeling = id("channeling");
   // general abilities
   public static final ModifierId reach = id("reach");
@@ -79,6 +80,8 @@ public class ModifierIds {
   public static final ModifierId power = id("power");
   public static final ModifierId underbowed = id("underbowed");
   public static final ModifierId punch = id("punch");
+  // TODO 1.20 - change ID to arrow_pierce
+  public static final ModifierId arrowPierce = id("impaling");
   public static final ModifierId quickCharge = id("quick_charge");
   public static final ModifierId trueshot = id("trueshot");
   public static final ModifierId blindshot = id("blindshot");
@@ -154,6 +157,7 @@ public class ModifierIds {
 
   // traits - tier 1
   public static final ModifierId cultivated = id("cultivated");
+  public static final ModifierId economical = id("economical");
   public static final ModifierId stonebound = id("stonebound");
   public static final ModifierId jagged = id("jagged");
   public static final ModifierId stringy = id("stringy");
@@ -161,6 +165,7 @@ public class ModifierIds {
   public static final ModifierId depthProtection = id("depth_protection");
   public static final ModifierId enderclearance = id("enderclearance");
   public static final ModifierId frostshield = id("frostshield");
+  public static final ModifierId woodwind = id("woodwind");
   // traits - tier 2
   public static final ModifierId overgrowth = id("overgrowth");
   public static final ModifierId searing = id("searing");
@@ -193,6 +198,7 @@ public class ModifierIds {
   public static final ModifierId lightweight = id("lightweight");
   public static final ModifierId crystalbound = id("crystalbound");
   public static final ModifierId crystalstrike = id("crystalstrike");
+  public static final ModifierId spectral = id("spectral");
   // traits - tier 3 compat
   public static final ModifierId maintained = id("maintained");
   public static final ModifierId ductile = id("ductile");

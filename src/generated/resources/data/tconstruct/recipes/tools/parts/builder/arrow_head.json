@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:part_builder",
+  "allow_uncraftable": true,
+  "cost": 1,
+  "pattern": "tconstruct:arrow_head",
+  "pattern_item": {
+    "tag": "tconstruct:patterns/default"
+  },
+  "result": {
+    "item": "tconstruct:arrow_head"
+  }
+}

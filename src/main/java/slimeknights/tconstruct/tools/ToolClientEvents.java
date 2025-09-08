@@ -73,6 +73,7 @@ import slimeknights.tconstruct.tools.client.CrystalshotRenderer;
 import slimeknights.tconstruct.tools.client.FluidEffectProjectileRenderer;
 import slimeknights.tconstruct.tools.client.OverslimeModifierModel;
 import slimeknights.tconstruct.tools.client.SlimeskullArmorModel;
+import slimeknights.tconstruct.tools.client.ThrownShurikenRenderer;
 import slimeknights.tconstruct.tools.client.ThrownToolRenderer;
 import slimeknights.tconstruct.tools.client.ToolContainerScreen;
 import slimeknights.tconstruct.tools.item.ModifierCrystalItem;
@@ -133,6 +134,9 @@ public class ToolClientEvents extends ClientEventBase {
     event.registerEntityRenderer(TinkerTools.crystalshotEntity.get(), CrystalshotRenderer::new);
     // TODO: custom renderer?
     event.registerEntityRenderer(TinkerTools.fishingHook.get(), FishingHookRenderer::new);
+    // TODO: config option for vanilla style renderer
+    event.registerEntityRenderer(TinkerTools.materialArrow.get(), ThrownToolRenderer::new);
+    event.registerEntityRenderer(TinkerTools.thrownShuriken.get(), ThrownShurikenRenderer::new);
     event.registerEntityRenderer(TinkerTools.thrownTool.get(), ThrownToolRenderer::new);
     event.registerEntityRenderer(TinkerModifiers.fluidSpitEntity.get(), FluidEffectProjectileRenderer::new);
   }
@@ -238,6 +242,8 @@ public class ToolClientEvents extends ClientEventBase {
     registerItemColors(colors, TinkerTools.longbow);
     registerItemColors(colors, TinkerTools.fishingRod);
     registerItemColors(colors, TinkerTools.javelin);
+    registerItemColors(colors, TinkerTools.arrow);
+    registerItemColors(colors, TinkerTools.shuriken);
     // ancient
     registerItemColors(colors, TinkerTools.meltingPan);
     registerItemColors(colors, TinkerTools.warPick);

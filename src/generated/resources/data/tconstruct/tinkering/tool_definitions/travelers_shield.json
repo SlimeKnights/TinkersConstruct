@@ -61,6 +61,10 @@
     },
     {
       "type": "tconstruct:attack_interaction"
+    },
+    {
+      "type": "tconstruct:fixed_material_name",
+      "index": 0
     }
   ]
 }

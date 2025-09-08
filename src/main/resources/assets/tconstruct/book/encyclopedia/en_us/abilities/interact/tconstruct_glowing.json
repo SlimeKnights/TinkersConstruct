@@ -3,6 +3,9 @@
   "text": [
     {
       "text": "Causes the side of the targeted block to glow, giving off light. Placing a glow consumes 5 durability."
+    },
+    {
+      "text": "On bows, will also place a glow at blocks targeted by the arrow, consuming the arrow in the process."
     }
   ],
   "more_text_space": true,

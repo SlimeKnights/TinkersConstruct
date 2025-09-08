@@ -36,8 +36,8 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addMaterial(MaterialIds.string,  1, ORDER_BINDING - 2, true); // earlier order so its the first in stat type
     addMaterial(MaterialIds.leather, 1, ORDER_BINDING, true);
     addMaterial(MaterialIds.vine,    1, ORDER_BINDING, true);
-    addMaterial(MaterialIds.ice,     1, ORDER_BINDING, true);
-    addMaterial(MaterialIds.cactus,  1, ORDER_BINDING, true);
+    // tier 1 - shield cores
+    addMaterial(MaterialIds.cactus, 1, ORDER_BINDING, true);
 
     // tier 2
     addMaterial(MaterialIds.iron,        2, ORDER_GENERAL, false);
@@ -54,6 +54,12 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addMaterial(MaterialIds.skyslimeVine, 2, ORDER_BINDING, true);
     addMaterial(MaterialIds.weepingVine,  2, ORDER_BINDING, true);
     addMaterial(MaterialIds.twistingVine, 2, ORDER_BINDING, true);
+    // tier 2 - ammo
+    addMaterial(MaterialIds.amethyst,   2, ORDER_REPAIR, false);
+    addMaterial(MaterialIds.prismarine, 2, ORDER_REPAIR, true);
+    addMaterial(MaterialIds.skyslime,   2, ORDER_REPAIR, true);
+    addMaterial(MaterialIds.blaze,      2, ORDER_REPAIR, true);
+    addMaterial(MaterialIds.enderPearl, 2, ORDER_REPAIR, false);
     // bloodbone reworked into venombone
     addRedirect(new MaterialId(TConstruct.MOD_ID, "bloodbone"), redirect(MaterialIds.venombone));
 
@@ -70,6 +76,11 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     // tier 3 - binding
     addMaterial(MaterialIds.darkthread, 3, ORDER_BINDING, false);
     addMaterial(MaterialIds.ichorskin,  3, ORDER_BINDING, false);
+    // tier 3 - shield cores
+    addMaterial(MaterialIds.ice, 3, ORDER_BINDING, true);
+    // tier 3 - ammo
+    addMaterial(MaterialIds.quartz, 3, ORDER_REPAIR, false);
+    addMaterial(MaterialIds.ichor,  3, ORDER_REPAIR, true);
 
     // tier 4
     addMaterial(MaterialIds.queensSlime, 4, ORDER_GENERAL, false);
@@ -113,13 +124,10 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addMaterial(MaterialIds.gold,        2, ORDER_REPAIR, false);
     addMaterial(MaterialIds.glass,       2, ORDER_REPAIR, false);
     addMaterial(MaterialIds.rottenFlesh, 1, ORDER_REPAIR, true);
-    addMaterial(MaterialIds.enderPearl,  2, ORDER_REPAIR, false);
     // slimesuit - textures
     addMaterial(MaterialIds.earthslime, 1, ORDER_REPAIR, true);
-    addMaterial(MaterialIds.skyslime,   1, ORDER_REPAIR, true);
     addMaterial(MaterialIds.blood,      2, ORDER_REPAIR, true);
     addMaterial(MaterialIds.magma,      2, ORDER_REPAIR, true);
-    addMaterial(MaterialIds.ichor,      3, ORDER_REPAIR, true);
     addMaterial(MaterialIds.enderslime, 4, ORDER_REPAIR, true);
     addMaterial(MaterialIds.clay,       1, ORDER_REPAIR, true);
     addMaterial(MaterialIds.honey,      1, ORDER_REPAIR, true);

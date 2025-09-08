@@ -103,7 +103,7 @@ public enum FishingModule implements ModifierModule, GeneralInteractionModifierH
 
           // copy tool data to the bobber for modifier hooks
           ModifierNBT modifiers = tool.getModifiers();
-          hook.getCapability(EntityModifierCapability.CAPABILITY).ifPresent(cap -> cap.setModifiers(modifiers));
+          EntityModifierCapability.getCapability(hook).setModifiers(modifiers);
           if (ModifierUtil.canPerformAction(tool, TinkerToolActions.GRAPPLE_HOOK)) {
             hook.setGrapple();
           }

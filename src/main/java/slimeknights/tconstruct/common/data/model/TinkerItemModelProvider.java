@@ -45,6 +45,8 @@ public class TinkerItemModelProvider extends ItemModelProvider {
     part(TinkerToolParts.bowLimb, "longbow/limb_bottom").offset(5, -2);
     part(TinkerToolParts.bowGrip, "crossbow/body").offset(-2, -2);
     part(TinkerToolParts.bowstring);
+    part(TinkerToolParts.arrowHead, "ammo/arrow_head").offset(-4, 3);
+    part(TinkerToolParts.arrowShaft, "ammo/arrow_shaft");
     // other
     part(TinkerToolParts.toolBinding);
     part(TinkerToolParts.toolHandle);

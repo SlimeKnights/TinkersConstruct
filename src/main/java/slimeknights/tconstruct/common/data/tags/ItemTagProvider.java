@@ -48,6 +48,7 @@ import java.util.function.Function;
 
 import static net.minecraft.tags.ItemTags.CLUSTER_MAX_HARVESTABLES;
 import static slimeknights.mantle.Mantle.commonResource;
+import static slimeknights.tconstruct.common.TinkerTags.Items.AMMO;
 import static slimeknights.tconstruct.common.TinkerTags.Items.ANCIENT_TOOLS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.AOE;
 import static slimeknights.tconstruct.common.TinkerTags.Items.ARMOR;
@@ -106,6 +107,7 @@ import static slimeknights.tconstruct.common.TinkerTags.Items.TRIM;
 import static slimeknights.tconstruct.common.TinkerTags.Items.UNARMED;
 import static slimeknights.tconstruct.common.TinkerTags.Items.UNRECYCLABLE;
 import static slimeknights.tconstruct.common.TinkerTags.Items.UNSALVAGABLE;
+import static slimeknights.tconstruct.common.TinkerTags.Items.UNSWAPPABLE;
 import static slimeknights.tconstruct.common.TinkerTags.Items.WORN_ARMOR;
 
 @SuppressWarnings("unchecked")
@@ -320,6 +322,8 @@ public class ItemTagProvider extends ItemTagsProvider {
     addToolTags(TinkerTools.longbow,    MULTIPART_TOOL, DURABILITY, MELEE_WEAPON, LONGBOWS,     INTERACTABLE_LEFT,  BROAD_TOOLS, BONUS_SLOTS, Tags.Items.TOOLS_BOWS, BALLISTAS);
     addToolTags(TinkerTools.fishingRod, MULTIPART_TOOL, DURABILITY, MELEE_WEAPON, FISHING_RODS, INTERACTABLE_DUAL,  SMALL_TOOLS, BONUS_SLOTS, Tags.Items.TOOLS_FISHING_RODS);
     addToolTags(TinkerTools.javelin,    MULTIPART_TOOL, DURABILITY, MELEE_PRIMARY, RANGED,      INTERACTABLE_RIGHT, BROAD_TOOLS, BONUS_SLOTS, Tags.Items.TOOLS_TRIDENTS);
+    addToolTags(TinkerTools.arrow,    MULTIPART_TOOL, AMMO, UNSALVAGABLE, UNSWAPPABLE, DYEABLE, ItemTags.ARROWS);
+    addToolTags(TinkerTools.shuriken, MULTIPART_TOOL, AMMO, UNSALVAGABLE, UNSWAPPABLE);
     // specialized
     addToolTags(TinkerTools.flintAndBrick, DURABILITY, MELEE_WEAPON, INTERACTABLE_RIGHT, AOE, SMALL_TOOLS, BONUS_SLOTS);
     addToolTags(TinkerTools.skyStaff,      DURABILITY, STAFFS, SPECIAL_TOOLS, HELD_ARMOR, INTERACTABLE_DUAL, AOE, DYEABLE, EMBELLISHMENT_WOOD, BONUS_SLOTS);
@@ -399,7 +403,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 
     // general
     this.tag(MULTIPART_TOOL).addTag(SINGLEPART_TOOL);
-    this.tag(MODIFIABLE).addTags(MULTIPART_TOOL, DURABILITY, MELEE, HARVEST, AOE, HELD, BONUS_SLOTS);
+    this.tag(MODIFIABLE).addTags(MULTIPART_TOOL, DURABILITY, MELEE, HARVEST, RANGED, AMMO, AOE, HELD, BONUS_SLOTS);
     // disable parry mod on our items, we have our own modifier for that
     this.tag(TagKey.create(Registries.ITEM, new ResourceLocation("parry", "excluded_shields"))).addTag(HELD);
 
@@ -420,9 +424,12 @@ public class ItemTagProvider extends ItemTagsProvider {
     copy(TinkerTags.Blocks.CHRYSOPHILITE_ORES, TinkerTags.Items.CHRYSOPHILITE_ORES);
 
     // tag for tool parts, mostly used by JEI right now
-    this.tag(TinkerTags.Items.TOOL_PARTS)
-        .add(TinkerToolParts.repairKit.get()) // repair kit is not strictly a tool part, but this list just helps out JEI
-        .addTag(TinkerTags.Items.BARTERED_PARTS); // all bartered parts must be tool parts
+    this.tag(TinkerTags.Items.TOOL_PARTS).add(
+      // arrow part bartering is weird as they have such low tiers
+      TinkerToolParts.arrowHead.get(), TinkerToolParts.arrowShaft.get(),
+      // repair kit is not strictly a tool part, but this list just helps out JEI
+      TinkerToolParts.repairKit.get()
+    ).addTag(TinkerTags.Items.BARTERED_PARTS); // all bartered parts must be tool parts
     this.tag(TinkerTags.Items.BARTERED_PARTS)
         .add(
           TinkerToolParts.pickHead.get(), TinkerToolParts.hammerHead.get(),

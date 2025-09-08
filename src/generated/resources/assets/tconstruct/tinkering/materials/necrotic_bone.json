@@ -11,7 +11,8 @@
       "tconstruct:binding",
       "tconstruct:repair_kit",
       "tconstruct:limb",
-      "tconstruct:grip"
+      "tconstruct:grip",
+      "tconstruct:arrow_shaft"
     ],
     "transformer": {
       "type": "tconstruct:recolor_sprite",

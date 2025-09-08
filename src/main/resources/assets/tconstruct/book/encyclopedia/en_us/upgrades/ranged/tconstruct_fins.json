@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:fins",
+  "text": [
+    {
+      "text": "Allows the tool when thrown or fired from ballista to move at full speed underwater instead of 60% speed."
+    },
+    {
+      "text": "When used on bows, does not affect fired arrows. Bows only benefit if they themselves are the projectile."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum of 1 level",
+    "Requires 1 upgrade slot",
+    "Requires throwing or a ballista bow"
+  ]
+}

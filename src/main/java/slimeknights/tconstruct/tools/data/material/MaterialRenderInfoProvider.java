@@ -114,23 +114,28 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     // tier 4 compat
     buildRenderInfo(MaterialIds.fiery).color(0x893D14).fallbacks("metal").luminosity(15);
 
+    // ammo
+    buildRenderInfo(MaterialIds.amethyst);
+    buildRenderInfo(MaterialIds.prismarine);
+    buildRenderInfo(MaterialIds.skyslime);
+    buildRenderInfo(MaterialIds.blaze);
+    buildRenderInfo(MaterialIds.enderPearl);
+    buildRenderInfo(MaterialIds.quartz);
+    buildRenderInfo(MaterialIds.ichor);
+
     // plate
     buildRenderInfo(MaterialIds.gold).color(0xFDF55F).fallbacks("metal");
     buildRenderInfo(MaterialIds.obsidian);
     // slimeskull
     buildRenderInfo(MaterialIds.glass);
-    buildRenderInfo(MaterialIds.enderPearl);
     buildRenderInfo(MaterialIds.rottenFlesh);
     // slimesuit
     buildRenderInfo(MaterialIds.earthslime);
-    buildRenderInfo(MaterialIds.skyslime);
     buildRenderInfo(MaterialIds.blood);
     buildRenderInfo(MaterialIds.magma);
-    buildRenderInfo(MaterialIds.ichor);
     buildRenderInfo(MaterialIds.enderslime);
     buildRenderInfo(MaterialIds.clay);
     buildRenderInfo(MaterialIds.honey);
-
     buildRenderInfo(MaterialIds.phantom);
 
     // UI internal

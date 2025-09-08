@@ -26,6 +26,8 @@ public class PartRecipeBuilder extends AbstractRecipeBuilder<PartRecipeBuilder> 
   private ResourceLocation pattern = null;
   @Setter
   private Ingredient patternItem = IPartBuilderRecipe.DEFAULT_PATTERNS;
+  @Setter
+  private boolean allowUncraftable = false;
 
   /**
    * Creates a new part recipe that outputs a single item
@@ -53,6 +55,6 @@ public class PartRecipeBuilder extends AbstractRecipeBuilder<PartRecipeBuilder> 
       throw new IllegalStateException("recipe " + id + " has no pattern associated with it");
     }
     ResourceLocation advancementId = this.buildOptionalAdvancement(id, "parts");
-    consumerIn.accept(new LoadableFinishedRecipe<>(new PartRecipe(id, group, new Pattern(pattern), patternItem, cost, output, outputAmount), PartRecipe.LOADER, advancementId));
+    consumerIn.accept(new LoadableFinishedRecipe<>(new PartRecipe(id, group, new Pattern(pattern), patternItem, cost, allowUncraftable, output, outputAmount), PartRecipe.LOADER, advancementId));
   }
 }

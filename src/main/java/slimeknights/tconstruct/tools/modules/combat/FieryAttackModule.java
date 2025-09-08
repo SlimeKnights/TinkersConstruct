@@ -26,7 +26,7 @@ import java.util.List;
 
 /** Module for lighting the target on fire after a melee or ranged attack */
 public record FieryAttackModule(LevelingValue time) implements ModifierModule, ProjectileLaunchModifierHook, ProjectileHitModifierHook, MeleeHitModifierHook {
-  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<FieryAttackModule>defaultHooks(ModifierHooks.MELEE_HIT, ModifierHooks.PROJECTILE_LAUNCH, ModifierHooks.PROJECTILE_THROWN, ModifierHooks.PROJECTILE_HIT);
+  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<FieryAttackModule>defaultHooks(ModifierHooks.MELEE_HIT, ModifierHooks.PROJECTILE_LAUNCH, ModifierHooks.PROJECTILE_SHOT, ModifierHooks.PROJECTILE_THROWN, ModifierHooks.PROJECTILE_HIT);
   public static final RecordLoadable<FieryAttackModule> LOADER = RecordLoadable.create(
     LevelingValue.LOADABLE.requiredField("seconds", FieryAttackModule::time),
     FieryAttackModule::new);

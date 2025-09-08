@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.entity;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -19,12 +20,14 @@ import net.minecraft.world.phys.EntityHitResult;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
+import slimeknights.tconstruct.library.tools.definition.module.display.ToolNameHook;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.item.ModifiableItem;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.data.ModifierIds;
@@ -32,21 +35,25 @@ import slimeknights.tconstruct.tools.data.ModifierIds;
 import javax.annotation.Nullable;
 
 /** Based on {@link net.minecraft.world.entity.projectile.ThrownTrident} for throwing a modifiable weapon. */
-public class ThrownTool extends ThrownTrident {
+public class ThrownTool extends ThrownTrident implements ToolProjectile {
   /** Key to sync the stack to the client */
   protected static final EntityDataAccessor<ItemStack> STACK = SynchedEntityData.defineId(ThrownTool.class, EntityDataSerializers.ITEM_STACK);
+  /** Movement speed in water */
+  protected static final EntityDataAccessor<Float> WATER_INERTIA = SynchedEntityData.defineId(ThrownTool.class, EntityDataSerializers.FLOAT);
   /** Volatile integer key for the loyalty level */
   public static final ResourceLocation LOYALTY = TConstruct.getResource("loyalty");
 
   @Nullable
   private IToolStackView tool = null;
   private float charge = 1;
+  private float multiplier = 1;
+  private boolean noDespawn = false;
 
   public ThrownTool(EntityType<? extends ThrownTrident> type, Level level) {
     super(type, level);
   }
 
-  public ThrownTool(Level level, LivingEntity shooter, ItemStack stack, float charge) {
+  public ThrownTool(Level level, LivingEntity shooter, ItemStack stack, float charge, float multiplier, float waterInertia) {
     this(TinkerTools.thrownTool.get(), level);
     // AbstractArrow - positional constructor
     this.setPos(shooter.getX(), shooter.getEyeY() - 0.1, shooter.getZ());
@@ -57,15 +64,37 @@ public class ThrownTool extends ThrownTrident {
     }
     // trident - stack constructor
     this.tridentItem = stack.copyWithCount(1);
-    this.entityData.set(STACK, tridentItem);
-    this.entityData.set(ID_LOYALTY, (byte) ModifierUtil.getVolatileInt(stack, LOYALTY));
-    this.entityData.set(ID_FOIL, ModifierUtil.checkVolatileFlag(stack, ModifiableItem.SHINY));
     this.charge = charge;
+    this.multiplier = multiplier;
+    this.entityData.set(WATER_INERTIA, waterInertia);
+    updateFromStack();
+  }
+
+  /** Sets any relevant properties from the stack */
+  private void updateFromStack() {
+    this.entityData.set(STACK, tridentItem);
+    this.entityData.set(ID_LOYALTY, (byte) ModifierUtil.getVolatileInt(tridentItem, LOYALTY));
+    this.entityData.set(ID_FOIL, ModifierUtil.checkVolatileFlag(tridentItem, ModifiableItem.SHINY));
+    this.noDespawn = ModifierUtil.checkVolatileFlag(tridentItem, IndestructibleItemEntity.INDESTRUCTIBLE_ENTITY);
+  }
+
+  @Override
+  protected float getWaterInertia() {
+    return entityData.get(WATER_INERTIA);
   }
 
   @Override
   public boolean isChanneling() {
     return !tridentItem.isEmpty() && getTool().getModifiers().getLevel(ModifierIds.channeling) > 0;
+  }
+
+  @Override
+  public Component getDisplayName() {
+    if (tridentItem.isEmpty()) {
+      return super.getDisplayName();
+    }
+    IToolStackView tool = getTool();
+    return ToolNameHook.getName(tool.getDefinition(), tridentItem, tool);
   }
 
 
@@ -80,7 +109,7 @@ public class ThrownTool extends ThrownTrident {
         this.discard();
       }
       // if its worldbound or loyalty, don't despawn
-    } else if (this.entityData.get(ID_LOYALTY) == 0 && getTool().getVolatileData().getBoolean(IndestructibleItemEntity.INDESTRUCTIBLE_ENTITY)) {
+    } else if (!noDespawn && this.entityData.get(ID_LOYALTY) == 0) {
       // otherwise despawn in 5 minutes like a normal item. Like seriously mojang, why does your rare enchanted trident despawn in 1 minute?
       this.life += 1;
       if (this.life >= 6000) {
@@ -117,6 +146,7 @@ public class ThrownTool extends ThrownTrident {
 
   @Override
   public void tick() {
+    // TODO: consider expiry time for loyalty
     if (!dealtDamage && inGroundTime > 4) {
       // we don't damage the tool on throw, so instead damage it when it hits a block or an entity
       if (!tridentItem.isEmpty()) {
@@ -142,7 +172,7 @@ public class ThrownTool extends ThrownTrident {
         // does not actually matter which slot we use, just need the tool there to ensure hooks are properly run
         owner.setItemInHand(InteractionHand.OFF_HAND, tridentItem);
         // TODO: consider whether redundant sound is fine
-        if (ToolAttackUtil.performAttack(tool, ToolAttackContext.attacker(owner).target(target).hand(InteractionHand.OFF_HAND).applyStats(tool).cooldown(charge).projectile(this).build())) {
+        if (ToolAttackUtil.performAttack(tool, ToolAttackContext.attacker(owner).target(target).hand(InteractionHand.OFF_HAND).baseDamage(tool.getStats().get(ToolStats.ATTACK_DAMAGE) * multiplier).cooldown(charge).projectile(this).build())) {
           if (target.getType() == EntityType.ENDERMAN && tool.getModifiers().getLevel(TinkerModifiers.enderference.getId()) == 0) {
             // restore held item
             owner.setItemInHand(InteractionHand.OFF_HAND, offhand);
@@ -172,11 +202,26 @@ public class ThrownTool extends ThrownTrident {
   protected void defineSynchedData() {
     super.defineSynchedData();
     this.entityData.define(STACK, ItemStack.EMPTY);
+    this.entityData.define(WATER_INERTIA, 0.6f);
   }
 
-  /** Gets the tool for display. Use {@link #getPickupItem()} for pickup. */
-  public ItemStack getToolItem() {
+  @Override
+  public ItemStack getDisplayTool() {
     return this.entityData.get(STACK);
+  }
+
+
+  /* NBT */
+  private static final String KEY_CHARGE = "charge";
+  private static final String KEY_MULTIPLIER = "multiplier";
+  private static final String KEY_WATER_INERTIA = "water_inertia";
+
+  @Override
+  public void addAdditionalSaveData(CompoundTag tag) {
+    super.addAdditionalSaveData(tag);
+    tag.putFloat(KEY_CHARGE, this.charge);
+    tag.putFloat(KEY_MULTIPLIER, this.multiplier);
+    tag.putFloat(KEY_WATER_INERTIA, this.entityData.get(WATER_INERTIA));
   }
 
   @Override
@@ -184,8 +229,10 @@ public class ThrownTool extends ThrownTrident {
     super.readAdditionalSaveData(tag);
     // update the tool to sync to client, if its set
     if (tag.contains("Trident", CompoundTag.TAG_COMPOUND)) {
-      this.entityData.set(STACK, tridentItem);
-      this.entityData.set(ID_LOYALTY, (byte) ModifierUtil.getVolatileInt(tridentItem, LOYALTY));
+      updateFromStack();
     }
+    this.charge = tag.getFloat(KEY_CHARGE);
+    this.multiplier = tag.getFloat(KEY_MULTIPLIER);
+    this.entityData.set(WATER_INERTIA, tag.getFloat(KEY_WATER_INERTIA));
   }
 }

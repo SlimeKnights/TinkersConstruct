@@ -14,6 +14,8 @@ import slimeknights.tconstruct.library.tools.definition.module.build.ToolActionT
 import slimeknights.tconstruct.library.tools.definition.module.build.ToolStatsHook;
 import slimeknights.tconstruct.library.tools.definition.module.build.ToolTraitHook;
 import slimeknights.tconstruct.library.tools.definition.module.build.VolatileDataToolHook;
+import slimeknights.tconstruct.library.tools.definition.module.display.MaterialToolName;
+import slimeknights.tconstruct.library.tools.definition.module.display.ToolNameHook;
 import slimeknights.tconstruct.library.tools.definition.module.interaction.InteractionToolModule;
 import slimeknights.tconstruct.library.tools.definition.module.material.MaterialRepairToolHook;
 import slimeknights.tconstruct.library.tools.definition.module.material.MaterialRepairToolHook.MaxMerger;
@@ -122,6 +124,11 @@ public class ToolHooks {
 
   /** Hook for configuring interaction behaviors on the tool */
   public static final ModuleHook<InteractionToolModule> INTERACTION = register("tool_interaction", InteractionToolModule.class, (t, m, s) -> true);
+
+
+  /* Display */
+  /** Hook for setting the display name on a tool */ // TODO 1.21: make the default show no materials?
+  public static final ModuleHook<ToolNameHook> DISPLAY_NAME = register("display_name", ToolNameHook.class, (MaterialToolName) (index, statType, material) -> MaterialRegistry.getInstance().canRepair(statType));
 
 
   /* Registration */

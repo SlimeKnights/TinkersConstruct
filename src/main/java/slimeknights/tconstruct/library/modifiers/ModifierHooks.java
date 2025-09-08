@@ -27,6 +27,7 @@ import slimeknights.tconstruct.library.modifiers.hook.build.ConditionalStatModif
 import slimeknights.tconstruct.library.modifiers.hook.build.ModifierRemovalHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.ModifierTraitHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.RawDataModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.build.ToolCraftModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.ToolStatsModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.ValidateModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.VolatileDataModifierHook;
@@ -166,6 +167,9 @@ public class ModifierHooks {
 
   /* Tool Building */
 
+  /** Hook called on tool crafting to allow modifying the amount crafted */
+  public static final ModuleHook<ToolCraftModifierHook> TOOL_CRAFT = register("tool_craft", ToolCraftModifierHook.class, ToolCraftModifierHook.ComposeMerger::new, (context, modifier, amount) -> amount);
+
   /** Hook for adding raw unconditional stats to a tool */
   public static final ModuleHook<ToolStatsModifierHook> TOOL_STATS = register("modifier_stats", ToolStatsModifierHook.class, ToolStatsModifierHook.AllMerger::new, (context, modifier, builder) -> {});
 
@@ -267,10 +271,13 @@ public class ModifierHooks {
   public static final ModuleHook<ProjectileLaunchModifierHook> PROJECTILE_LAUNCH;
   /** Hook for throwing a projectile that will not be firing {@link #PROJECTILE_HIT} later. */
   public static final ModuleHook<ProjectileLaunchModifierHook> PROJECTILE_THROWN;
+  /** Hook for when a projectile is launched, but called with the projectile tool rather than the launcher */
+  public static final ModuleHook<ProjectileLaunchModifierHook> PROJECTILE_SHOT;
   static {
     ProjectileLaunchModifierHook defaultInstance = (tool, modifier, shooter, projectile, arrow, persistentData, primary) -> {};
     Function<Collection<ProjectileLaunchModifierHook>,ProjectileLaunchModifierHook> merger = ProjectileLaunchModifierHook.AllMerger::new;
     PROJECTILE_LAUNCH = register("projectile_launch", ProjectileLaunchModifierHook.class, merger, defaultInstance);
+    PROJECTILE_SHOT = register("projectile_shot", ProjectileLaunchModifierHook.class, merger, defaultInstance);
     PROJECTILE_THROWN = register("projectile_thrown", ProjectileLaunchModifierHook.class, merger, defaultInstance);
   }
   /** Hook called when an arrow hits an entity or block */

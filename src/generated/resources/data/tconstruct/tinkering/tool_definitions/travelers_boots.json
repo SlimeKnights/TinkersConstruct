@@ -51,6 +51,10 @@
           "name": "tconstruct:snow_boots"
         }
       ]
+    },
+    {
+      "type": "tconstruct:fixed_material_name",
+      "index": 0
     }
   ]
 }

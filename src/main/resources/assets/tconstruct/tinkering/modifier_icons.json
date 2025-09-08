@@ -44,6 +44,7 @@
   "tconstruct:throwing": ["minecraft:item/trident", "tconstruct:gui/modifiers/book"],
   "tconstruct:returning": ["tconstruct:gui/modifiers/ranged/returning", "tconstruct:gui/modifiers/book"],
   "tconstruct:channeling": "tconstruct:gui/modifiers/melee/channeling",
+  "tconstruct:fins": ["minecraft:item/tropical_fish", "tconstruct:gui/modifiers/book"],
 
   "tconstruct:exchanging":  "tconstruct:gui/modifiers/harvest/exchanging",
   "tconstruct:expanded":    "tconstruct:gui/modifiers/harvest/expanded",

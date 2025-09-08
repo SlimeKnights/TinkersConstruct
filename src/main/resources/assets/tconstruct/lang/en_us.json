@@ -312,6 +312,7 @@
   "pattern.tconstruct.small_blade": "Small Blade",
   "pattern.tconstruct.adze_head": "Adze Head",
   "pattern.tconstruct.bow_limb": "Bow Limb",
+  "pattern.tconstruct.arrow_head": "Arrow Head",
 
   "_comment": "Large Head Patterns",
 
@@ -333,6 +334,7 @@
   "pattern.tconstruct.tool_handle": "Tool Handle",
   "pattern.tconstruct.tough_handle": "Tough Handle",
   "pattern.tconstruct.bow_grip": "Bow Grip",
+  "pattern.tconstruct.arrow_shaft": "Arrow Shaft",
 
 
   "_comment": "Tinkers Gold Casts",
@@ -1082,6 +1084,11 @@
   "item.tconstruct.tool.id_format": "%s (%s)",
   "item.tconstruct.tool.material_separator": "-",
 
+  "entity.tconstruct.arrow": "Arrow",
+  "entity.tconstruct.thrown_shuriken": "Shuriken",
+  "entity.tconstruct.thrown_tool": "Thrown Tool",
+  "entity.tconstruct.fishing_bobber": "Fishing Bobber",
+
   "item.tconstruct.pickaxe": "Pickaxe",
   "item.tconstruct.sledge_hammer": "Sledge Hammer",
   "item.tconstruct.vein_hammer": "Vein Hammer",
@@ -1104,6 +1111,8 @@
   "item.tconstruct.longbow": "Longbow",
   "item.tconstruct.fishing_rod": "Fishing Rod",
   "item.tconstruct.javelin": "Javelin",
+  "item.tconstruct.arrow": "Arrow",
+  "item.tconstruct.shuriken": "Shuriken",
 
   "item.tconstruct.flint_and_brick": "Flint and Brick",
   "item.tconstruct.sky_staff": "Skyslime Staff",
@@ -1177,6 +1186,8 @@
   "item.tconstruct.bow_limb": "Bow Limb",
   "item.tconstruct.bow_grip": "Bow Grip",
   "item.tconstruct.bowstring": "Bowstring",
+  "item.tconstruct.arrow_head": "Arrow Head",
+  "item.tconstruct.arrow_shaft": "Arrow Shaft",
 
   "item.tconstruct.helmet_plating": "Helmet Plating",
   "item.tconstruct.chestplate_plating": "Chest Plating",
@@ -1214,6 +1225,8 @@
   "item.tconstruct.longbow.description": "The Longbow is a broad ranged weapon, capable of firing arrows with precision over long distances.",
   "item.tconstruct.fishing_rod.description": "The Fishing Rod is a light ranged weapon, capable of short distance attacks without requiring ammo. It also can be used to fish if you're into that.",
   "item.tconstruct.javelin.description": "The Javelin is a hybrid melee/ranged weapon, ideal for both melee combat along with throwing for ranged damage. Just be careful after throwing as you will be without a weapon.",
+  "item.tconstruct.arrow.description": "Arrows are your standard single-use projectile weapon, fired from both longbows and crossbows.",
+  "item.tconstruct.shurikens.description": "Shurikens are simple, disposable projectiles that can be thrown directly without any other tools.",
 
   "gui.tconstruct.plate_armor": "Plate Armor",
   "gui.tconstruct.plate_armor.description": "Plate armor is a highly defensive armor set with limited ability slots.",
@@ -1865,6 +1878,18 @@
   "material.tconstruct.twisting_vine.ranged": "Grants +15% draw speed at the cost of taking 1 damage when you put down the tool",
   "material.tconstruct.twisting_vine.armor": "Grants +10% knockback resistance at the cost of taking 2 damage when you remove the armor",
 
+  "material.tconstruct.amethyst": "Amethyst",
+
+  "material.tconstruct.prismarine": "Prismarine",
+
+  "material.tconstruct.skyslime": "Skyslime",
+
+  "material.tconstruct.blaze": "Blaze",
+
+  "material.tconstruct.ender_pearl": "Ender Pearl",
+  "material.tconstruct.ender_pearl.skull_flavor": "Endermen know how to stay away from harm, and scientists. They have been ignoring my interview requests for weeks!",
+  "material.tconstruct.ender_pearl.skull_encyclopedia": "Teleports automatically when attacked by a projectile, and randomly from melee. Has a 15 second cooldown",
+
 
   "__comment": "Tier 3 Materials",
   "material.tconstruct.slimesteel": "Slimesteel",
@@ -1903,6 +1928,8 @@
   "material.tconstruct.cobalt.encyclopedia": "Boosts mining and attack speed by 7% per level",
   "material.tconstruct.cobalt.ranged": "Boosts drawspeed and velocity by 5% per level",
   "material.tconstruct.cobalt.armor": "Reduces damage from melee attacks by 10% per level, and boosts movement speed when using items by 5% per max level",
+
+  "material.tconstruct.quartz": "Quartz",
 
   "material.tconstruct.manyullyn": "Manyullyn",
   "material.tconstruct.manyullyn.flavor": "The metal that most Tinkers will never pronounce right. Also known as a star cutting material.",
@@ -1968,9 +1995,6 @@
   "material.tconstruct.glass.skull_flavor": "Whose nice things are being destroyed now, creeper?",
   "material.tconstruct.glass.skull_encyclopedia": "Holding the helmet interact key while sneaking causes the wearer to explode",
 
-  "material.tconstruct.ender_pearl": "Ender Pearl",
-  "material.tconstruct.ender_pearl.skull_flavor": "Endermen know how to stay away from harm, and scientists. They have been ignoring my interview requests for weeks!",
-  "material.tconstruct.ender_pearl.skull_encyclopedia": "Teleports automatically when attacked by a projectile, and randomly from melee. Has a 15 second cooldown",
 
   "material.tconstruct.rotten_flesh": "Rotten Flesh",
   "material.tconstruct.rotten_flesh.skull_flavor": "This is fine",
@@ -1992,7 +2016,6 @@
   "material.tconstruct.ancient.armor": "Obtained on plate armor in bastions, battle signs, melting pans, and from bartering. Each level grants +1 ability slot at the cost of +10% gravity, and -10% movement speed or -10% attack speed on shields.",
   "material.tconstruct.netherite":  "Netherite",
   "material.tconstruct.earthslime": "Earthslime",
-  "material.tconstruct.skyslime":   "Skyslime",
   "material.tconstruct.blood":      "Blood",
   "material.tconstruct.magma":      "Magma",
   "material.tconstruct.ichor":      "Ichor",
@@ -2027,6 +2050,7 @@
   "material.tconstruct.silver.armor": "Reduces damage from undead by 5% per level",
 
   "material.tconstruct.whitestone": "End Stone",
+  "material.tconstruct.whitestone.composite": "Whitestone",
   "material.tconstruct.whitestone.aluminum": "Whitestone",
   "material.tconstruct.whitestone.tin": "Whitestone",
   "material.tconstruct.whitestone.zinc": "Whitestone",
@@ -2212,11 +2236,11 @@
   "modifier.tconstruct.necrotic.lifesteal": "Life Steal",
 
   "_comment": "Damage boost",
-  "modifier.tconstruct.piercing": "Piercing",
+  "modifier.tconstruct.piercing": "Spiking",
   "modifier.tconstruct.piercing.flavor": "Become the cactus!",
   "modifier.tconstruct.piercing.description": "Tool deals bonus damage which attacks through armor!",
   "modifier.tconstruct.piercing.attack_damage": "Pierce Damage",
-  "modifier.tconstruct.pierce": "Pierce",
+  "modifier.tconstruct.pierce": "Armor Pierce",
   "modifier.tconstruct.pierce.flavor": "Become the punji!",
   "modifier.tconstruct.pierce.description": "Attacks cancels out some of the target's armor!",
   "modifier.tconstruct.smite": "Smite",
@@ -2279,7 +2303,7 @@
   "modifier.tconstruct.punch": "Punch",
   "modifier.tconstruct.punch.flavor": "The classic boxing glove arrow",
   "modifier.tconstruct.punch.description": "Makes arrows apply additional knockback",
-  "modifier.tconstruct.impaling": "Impaling",
+  "modifier.tconstruct.impaling": "Arrow Pierce",
   "modifier.tconstruct.impaling.flavor": "Just keeps on going and going and going",
   "modifier.tconstruct.impaling.description": "Arrows keep moving after hitting a target, potentially hitting more targets",
   "modifier.tconstruct.trueshot": "Trueshot",
@@ -2574,7 +2598,10 @@
   "modifier.tconstruct.brushing.description": "Tool can brush suspicious blocks for pottery",
   "modifier.tconstruct.glowing": "Glowing",
   "modifier.tconstruct.glowing.flavor": "Shine bright!",
-  "modifier.tconstruct.glowing.description": "Tool can place glow balls, consuming durability",
+  "modifier.tconstruct.glowing.description": "Tool can place glows, consuming durability",
+  "modifier.tconstruct.spectral": "Spectral",
+  "modifier.tconstruct.spectral.flavor": "Shine brighter!",
+  "modifier.tconstruct.spectral.description": "Causes the target of the projectile to glow, be it a block or entity",
   "modifier.tconstruct.exchanging": "Exchanging",
   "modifier.tconstruct.exchanging.flavor": "The Ole Switcheroo!",
   "modifier.tconstruct.exchanging.description": "Blocks broken by this tool are replaced by the block in the offhand if possible",
@@ -2624,6 +2651,9 @@
   "modifier.tconstruct.channeling": "Channeling",
   "modifier.tconstruct.channeling.flavor": "Ka-chow!",
   "modifier.tconstruct.channeling.description": "Causes lightning to strike the target of tool projectiles during storms.",
+  "modifier.tconstruct.fins": "Fins",
+  "modifier.tconstruct.fins.flavor": "Splash!",
+  "modifier.tconstruct.fins.description": "Allows the tool as a projectile to move freely underwater.",
 
   "modifier.tconstruct.fishing": "Fishing",
   "modifier.tconstruct.fishing.flavor": "Obligatory fishing minigame",
@@ -2731,6 +2761,9 @@
   "modifier.tconstruct.cultivated": "Cultivated",
   "modifier.tconstruct.cultivated.flavor": "Economical!",
   "modifier.tconstruct.cultivated.description": "Tool practically grows more material when repairing",
+  "modifier.tconstruct.economical": "Economical",
+  "modifier.tconstruct.economical.flavor": "Ecological!",
+  "modifier.tconstruct.economical.description": "Doubles the number of arrows crafted",
   "modifier.tconstruct.jagged": "Jagged",
   "modifier.tconstruct.jagged.flavor": "Broken edges make it sharp!",
   "modifier.tconstruct.jagged.description": "Every point durability lost increases damage, but decreases mining speed",
@@ -2750,6 +2783,9 @@
   "modifier.tconstruct.unburdened": "Unburdened",
   "modifier.tconstruct.unburdened.flavor": "Easy to use",
   "modifier.tconstruct.unburdened.description": "Movement speed is hindered less when using the item.",
+  "modifier.tconstruct.woodwind": "Woodwind",
+  "modifier.tconstruct.woodwind.flavor": "Song of air",
+  "modifier.tconstruct.woodwind.description": "Moves more freely in the wind, granting a large accuracy bonus. Some even claim to hear music as it flies.",
   "modifier.tconstruct.stringy": "Stringy",
   "modifier.tconstruct.stringy.flavor": "Like cheese, but less tasty",
   "modifier.tconstruct.stringy.description": "Tool can be repaired using string",
@@ -2841,7 +2877,7 @@
   "modifier.tconstruct.crumbling.mining_speed": "Crumbling Speed",
   "modifier.tconstruct.crystalbound": "Crystalbound",
   "modifier.tconstruct.crystalbound.flavor": "The way of the crystal is straight",
-  "modifier.tconstruct.crystalbound.description": "Bows gain bonus velocity, but arrow angle is restricted",
+  "modifier.tconstruct.crystalbound.description": "Gains bonus damage potential, but arrow angle is restricted",
   "modifier.tconstruct.crystalstrike": "Crystalstrike",
   "modifier.tconstruct.crystalstrike.flavor": "Speed of the crystal comes at a cost",
   "modifier.tconstruct.crystalstrike.description": "Increases attack speed but also restricts knockback angles",
@@ -3216,6 +3252,8 @@
 
   "stat.tconstruct.binding": "Binding",
   "stat.tconstruct.bowstring": "Bowstring",
+  "stat.tconstruct.arrow_head": "Arrow Head",
+  "stat.tconstruct.arrow_shaft": "Arrow Shaft",
   "tool_stat.tconstruct.extra.no_stats": "No stats",
 
   "tool_stat.tconstruct.block_amount": "Block Amount: ",
@@ -3350,6 +3388,7 @@
   "gui.tconstruct.manual.cycle.recipes": "Cycle to other recipes",
 
   "recipe.tconstruct.tool_repair.fully_repaired": "Tool is not damaged",
+  "recipe.tconstruct.tool_build.no_count": "One of the traits prevented this tool from being crafted.",
   "recipe.tconstruct.damaging.broken": "Tool is already broken",
   "recipe.tconstruct.overslime.at_capacity": "Tool has no more space for overslime",
 

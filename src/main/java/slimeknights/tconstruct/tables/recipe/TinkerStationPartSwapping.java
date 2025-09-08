@@ -47,7 +47,7 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
   @Override
   public boolean matches(ITinkerStationContainer inv, Level world) {
     ItemStack tinkerable = inv.getTinkerableStack();
-    if (tinkerable.isEmpty() || !tinkerable.is(TinkerTags.Items.MULTIPART_TOOL)|| !(tinkerable.getItem() instanceof IModifiable modifiable)) {
+    if (tinkerable.isEmpty() || !tinkerable.is(TinkerTags.Items.MULTIPART_TOOL) || tinkerable.is(TinkerTags.Items.UNSWAPPABLE) || !(tinkerable.getItem() instanceof IModifiable modifiable)) {
       return false;
     }
     // get the list of parts, empty means its not multipart

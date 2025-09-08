@@ -84,6 +84,10 @@
     {
       "type": "tconstruct:sweep_melee",
       "range": 1.0
+    },
+    {
+      "type": "tconstruct:fixed_material_name",
+      "index": 0
     }
   ]
 }

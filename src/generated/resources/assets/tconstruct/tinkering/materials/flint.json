@@ -10,7 +10,8 @@
       "tconstruct:head",
       "tconstruct:handle",
       "tconstruct:binding",
-      "tconstruct:repair_kit"
+      "tconstruct:repair_kit",
+      "tconstruct:arrow_head"
     ],
     "transformer": {
       "type": "tconstruct:recolor_sprite",
