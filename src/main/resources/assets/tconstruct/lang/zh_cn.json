@@ -374,6 +374,8 @@
 
   "item.tconstruct.tool_binding_cast": "绑定结金质铸模",
   "item.tconstruct.tough_binding_cast": "坚韧套环金质铸模",
+  "item.tconstruct.arrow_cast": "箭部件金质模具",
+  "item.tconstruct.arrow_cast.tooltip": "可在部件制作台上制作箭头和箭杆的模具，使用后不消耗",
 
   "_comment": "Tool Handle Gold Casts",
 
@@ -1882,6 +1884,8 @@
 
   "material.tconstruct.prismarine": "海晶石",
 
+  "material.tconstruct.earthslime": "大地黏液",
+
   "material.tconstruct.skyslime": "碧空黏液",
 
   "material.tconstruct.blaze": "烈焰棒",
@@ -2015,7 +2019,6 @@
   "material.tconstruct.ancient.ranged": "通过熔炼锅、战镐或猪灵以物易物机制获得。每级能力槽+1，但拉弓速度-10%。",
   "material.tconstruct.ancient.armor": "通过堡垒遗迹内的镶板盔甲、战斗牌子、熔炼锅或猪灵以物易物机制获得。每级能力槽+1，但移动速度-10%；对于盾牌，攻击速度-10%。",
   "material.tconstruct.netherite": "下界合金",
-  "material.tconstruct.earthslime": "大地黏液",
   "material.tconstruct.blood": "血",
   "material.tconstruct.magma": "岩浆",
   "material.tconstruct.ichor": "灵浆",
@@ -2294,6 +2297,9 @@
   "modifier.tconstruct.power": "力量",
   "modifier.tconstruct.power.flavor": "由内而外，内力外显",
   "modifier.tconstruct.power.description": "增加箭矢与其他弹射物的伤害",
+  "modifier.tconstruct.keen": "锐利",
+  "modifier.tconstruct.keen.flavor": "多带劲啊？",
+  "modifier.tconstruct.keen.description": "增加弹射物击中目标时造成的伤害",
   "modifier.tconstruct.underbowed": "软弓",
   "modifier.tconstruct.underbowed.flavor": "由外入内，力化于心。",
   "modifier.tconstruct.underbowed.description": "减少工具的弹射物力量",
@@ -2303,6 +2309,9 @@
   "modifier.tconstruct.punch": "冲击",
   "modifier.tconstruct.punch.flavor": "经典款拳套箭！",
   "modifier.tconstruct.punch.description": "增加箭矢的击退能力",
+  "modifier.tconstruct.drawback": "回拉",
+  "modifier.tconstruct.drawback.flavor": "鱼钩箭",
+  "modifier.tconstruct.drawback.description": "箭矢将造成相反方向的击退效果，看上去像拉动了目标一样",
   "modifier.tconstruct.impaling": "穿透",
   "modifier.tconstruct.impaling.flavor": "就这样飞啊，飞啊，飞啊……",
   "modifier.tconstruct.impaling.description": "箭矢在击中一个目标后，会继续飞行并击中多个目标。",
@@ -3432,7 +3441,8 @@
   "recipe.tconstruct.enchantment_converting.no_enchantments": "物品没有任何可提取的魔咒",
   "recipe.tconstruct.enchantment_converting.too_few": "需要更多的配方物品以转换更高等级的魔咒",
 
-  "recipe.tconstruct.part_swapping.too_many_parts": "该工具无法在此替换部件",
+  "recipe.tconstruct.part_swapping.too_many_parts": "工具台槽位不足，无法替换工具部件",
+  "recipe.tconstruct.part_swapping.too_few_inputs": "工具堆叠数太少，无法完成部件替换操作",
 
   "recipe.tconstruct.modifier.not_enough_slot": "至少需要1个%s槽来加持该强化",
   "recipe.tconstruct.modifier.not_enough_slots": "至少需要%s个%s槽来加持该强化",
