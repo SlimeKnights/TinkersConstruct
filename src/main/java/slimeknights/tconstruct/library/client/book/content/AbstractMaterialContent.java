@@ -448,11 +448,11 @@ public abstract class AbstractMaterialContent extends PageContent {
     int rgb = MaterialTooltipCache.getColor(getMaterialVariant()).getValue();
 
     StringBuilder builder = new StringBuilder("\n<div class=\"page-material\">")
-      .append(getTitleHTML("color: " + HTMLUtils.hexRGB(rgb), "text-shadow: 1px 1px 0 color-mix(in srgb, currentColor 25%, #000 75%);"))
+      .append(getTitleHTML("color: " + HTMLUtils.hexRGB(rgb), "text-shadow: 1px 1px 0 color-mix(in srgb, currentColor 25%%, #000 75%%)"))
       .append("%s<p class=\"trait\">");
 
     if (!detailed) builder.append("\"<span style=\"font-style: italic\">");
-    builder.append(ForgeI18n.getPattern(getTextKey(getMaterialVariant().getId())).replace("%", "%%")); // have to escape %
+    builder.append(ForgeI18n.getPattern(getTextKey(getMaterialVariant().getId())).replaceAll("%", "%%"));
     if (!detailed) builder.append("</span>\"");
 
     return builder.append("</p></div>").toString();
