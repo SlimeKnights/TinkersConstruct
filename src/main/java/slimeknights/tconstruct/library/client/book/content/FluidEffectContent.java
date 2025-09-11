@@ -131,15 +131,7 @@ public class FluidEffectContent extends PageContent {
   @Override
   public String toHTML() {
     StringBuilder builder = new StringBuilder()
-      .append(
-        HTMLUtils.line(
-          getTitle(),
-          HTMLUtils.slugify(ID.getPath() + "_" + getTitle()),
-          true,
-          isLarge(),
-          isCentered() ? "align-self: center" : ""
-        )
-      )
+      .append(getTitleHTML())
       .append("<div>")
       .append(HTMLUtils.line(text, "height: 64px", "padding-left: 64px"));
 

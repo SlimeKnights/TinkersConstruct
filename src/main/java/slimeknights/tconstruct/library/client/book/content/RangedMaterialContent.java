@@ -1,11 +1,9 @@
 package slimeknights.tconstruct.library.client.book.content;
 
 import net.minecraft.resources.ResourceLocation;
-import slimeknights.mantle.client.book.HTMLUtils;
 import slimeknights.mantle.client.screen.book.element.ItemElement;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.client.materials.MaterialTooltipCache;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
@@ -13,8 +11,6 @@ import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.stats.GripMaterialStats;
-import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
-import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 import slimeknights.tconstruct.tools.stats.LimbMaterialStats;
 import slimeknights.tconstruct.tools.stats.StatlessMaterialStats;
 
@@ -83,14 +79,14 @@ public class RangedMaterialContent extends AbstractMaterialContent {
     String div = String.format(
       """
       <div class="grid-material-stats">
-          %s
-          %s
-          %s
+      %s
+      %s
+      %s
       </div>
       """,
-      getStatLines(LimbMaterialStats.ID),
-      getStatLines(GripMaterialStats.ID),
-      getStatLines(StatlessMaterialStats.BOWSTRING.getIdentifier())
+      getStatHTML(LimbMaterialStats.ID),
+      getStatHTML(GripMaterialStats.ID),
+      getStatHTML(StatlessMaterialStats.BOWSTRING.getIdentifier())
     );
     return String.format(super.toHTML(), div);
   }

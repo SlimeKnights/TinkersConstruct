@@ -216,17 +216,10 @@ public class ArmorMaterialContent extends AbstractMaterialContent {
     StringBuilder builder = new StringBuilder();
 
     if (!stats.isEmpty()) {
-      builder.append(String.format(
-        """
-        <div>
-          <div class="row">
-            %s
-            %s
-          </div>
-        """,
-        HTMLUtils.line(PLATING_LABEL.getString(), true, "font-weight: bold", "padding-right: 16px"),
-        HTMLUtils.line("/").repeat(stats.size() - 1)
-      ));
+      builder.append("<div><div class=\"row\">")
+        .append(HTMLUtils.line(PLATING_LABEL.getString(), true, "font-weight: bold", "padding-right: 16px"))
+        .append(HTMLUtils.line("/").repeat(stats.size() - 1))
+        .append("</div>");
       List<TextComponentData> lineData = new ArrayList<>();
       addStatLine(lineData, stats, ToolStats.DURABILITY, PlatingMaterialStats::durability);
       addStatLine(lineData, stats, ToolStats.ARMOR, PlatingMaterialStats::armor);
@@ -242,16 +235,16 @@ public class ArmorMaterialContent extends AbstractMaterialContent {
     builder.append(String.format(
       """
       <div class="grid-armor-traits">
-          %s
-          %s
-          %s
-          %s
+      %s
+      %s
+      %s
+      %s
       </div>
       """,
-      getStatLines(HELMET.getId(), ARMOR_PLATING_LABEL.getString(),  true),
-      getStatLines(SHIELD.getId(), SHIELD_LABEL.getString(), true),
-      getStatLines(StatlessMaterialStats.MAILLE.getIdentifier(), true),
-      getStatLines(StatlessMaterialStats.SHIELD_CORE.getIdentifier(), true)
+      getStatHTML(HELMET.getId(), ARMOR_PLATING_LABEL.getString(),  true),
+      getStatHTML(SHIELD.getId(), SHIELD_LABEL.getString(), true),
+      getStatHTML(StatlessMaterialStats.MAILLE.getIdentifier(), true),
+      getStatHTML(StatlessMaterialStats.SHIELD_CORE.getIdentifier(), true)
     ));
     return String.format(super.toHTML(), builder);
   }
