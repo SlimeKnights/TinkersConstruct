@@ -317,8 +317,7 @@ public class ContentModifier extends PageContent {
         </div>
       </div>
       """,
-      // have to escape %
-      getTitleHTML("color: " + HTMLUtils.hexRGB(rgb), "text-shadow: 1px 1px 0 color-mix(in srgb, currentColor 25%%, #000 75%%)"),
+      getTitleHTML("color: " + HTMLUtils.hexRGB(rgb), "text-shadow: 1px 1px 0 color-mix(in srgb, currentColor 25%, #000 75%)"),
       h * 2,
       TextData.toHTML(text, parent.parent.parent),
       I18n.get(KEY_EFFECTS),
