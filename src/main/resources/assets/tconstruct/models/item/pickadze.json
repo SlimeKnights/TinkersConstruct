@@ -1,6 +1,6 @@
 {
   "loader": "tconstruct:tool",
-  "parent": "forge:item/default-tool",
+  "parent": "tconstruct:item/base/axe",
   "textures": {
     "adze":   "tconstruct:item/tool/pickadze/adze",
     "pick":   "tconstruct:item/tool/pickadze/pick",

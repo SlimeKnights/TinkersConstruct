@@ -23,7 +23,11 @@ public enum StatlessMaterialStats implements IMaterialStats {
   /** Internal stat type that forces a repair kit to appear. Repair kits will also show if any repairable stat type is present. */
   REPAIR_KIT("repair_kit"),
   /** Leather part for travelers gear. Generally supports leather and leather composites. */
-  CUIRASS("cuirass");
+  CUIRASS("cuirass"),
+  /** Stat type for the heads of arrows and blades of shurikens. */
+  ARROW_HEAD("arrow_head"),
+  /** Stat type for the shafts of arrows. */
+  ARROW_SHAFT("arrow_shaft");
 
   private static final List<Component> LOCALIZED = List.of(IMaterialStats.makeTooltip(TConstruct.getResource("extra.no_stats")));
   private static final List<Component> DESCRIPTION = List.of(Component.empty());

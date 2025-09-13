@@ -9,7 +9,7 @@
       "tag": "tconstruct:modifiable/melee"
     },
     {
-      "tag": "tconstruct:modifiable/ranged"
+      "tag": "tconstruct:modifiable/ranged/launcher"
     }
   ]
 }

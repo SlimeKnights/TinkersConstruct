@@ -37,6 +37,18 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "javelin": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:javelin"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "longbow": {
       "conditions": {
         "items": [
@@ -123,6 +135,9 @@
     ],
     [
       "longbow"
+    ],
+    [
+      "javelin"
     ]
   ],
   "sends_telemetry_event": true

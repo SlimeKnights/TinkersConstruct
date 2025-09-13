@@ -134,10 +134,8 @@ public class MaterialTraits {
       }
     }
 
-    /**
-     * Serializes this object to a trait mapping JSON
-     * @return  Trait mapping Json
-     */
+    /** @deprecated use {@link slimeknights.tconstruct.library.data.material.AbstractMaterialTraitDataProvider.MaterialTraitsBuilder} */
+    @Deprecated(forRemoval = true)
     public MaterialTraitsJson serialize() {
       // need to adjust the map to the right generics
       // also suppress the map if no stat types were defined

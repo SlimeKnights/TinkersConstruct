@@ -9,7 +9,7 @@
     "Gives the bow three toggleable arrow slots",
     "Switch slots by attacking",
     "Access the slots by sneaking and attacking",
-    "Single level",
-    "Requires 1 ability slot"
+    "Multiple levels, each level adds more arrows",
+    "Requires 1 ability slot per level"
   ]
 }

@@ -206,6 +206,10 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
     ForgeEventFactory.firePlayerCraftingEvent(player, resultItem, this.inventoryWrapper);
     this.playCraftSound(player);
 
+    // fetch this before updating inputs so they can do input sensitive shrinking
+    ItemStack tinkerable = this.getItem(TINKER_SLOT);
+    int shrinkToolSlot = tinkerable.isEmpty() ? 0 : lastRecipe.shrinkToolSlotBy(result, inventoryWrapper);
+
     // run the recipe, will shrink inputs
     // run both sides for the sake of shift clicking
     this.inventoryWrapper.setPlayer(player);
@@ -213,9 +217,7 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
     this.inventoryWrapper.setPlayer(null);
 
     // remove the center slot item, just clear it entirely (if you want shrinking you should use the outer slots or ask nicely for a shrink amount hook)
-    ItemStack tinkerable = this.getItem(TINKER_SLOT);
-    if (!tinkerable.isEmpty()) {
-      int shrinkToolSlot = lastRecipe.shrinkToolSlotBy();
+    if (shrinkToolSlot > 0) {
       if (tinkerable.getCount() <= shrinkToolSlot) {
         this.setItem(TINKER_SLOT, ItemStack.EMPTY);
       } else {
@@ -236,7 +238,11 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
   @Override
   protected void playCraftSound(Player player) {
     if (isSoundReady(player)) {
-      SoundUtils.playSoundForAll(player, this.getInputCount() > 4 ? SoundEvents.ANVIL_USE : Sounds.SAW.getSound(), 0.8f, 0.8f + 0.4f * player.getRandom().nextFloat());
+      if (this.getInputCount() > 4) {
+        SoundUtils.playSoundForAll(player, SoundEvents.ANVIL_USE, 0.4f, 0.9f + 0.1f * player.getRandom().nextFloat());
+      } else {
+        SoundUtils.playSoundForAll(player, Sounds.SAW.getSound(), 0.8f, 0.8f + 0.4f * player.getRandom().nextFloat());
+      }
     }
   }
 

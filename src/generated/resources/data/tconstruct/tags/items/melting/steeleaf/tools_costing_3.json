@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "twilightforest:steeleaf_axe",
+      "required": false
+    },
+    {
+      "id": "twilightforest:steeleaf_pickaxe",
+      "required": false
+    }
+  ]
+}

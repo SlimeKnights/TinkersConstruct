@@ -28,6 +28,8 @@ public class TinkerItemDisplays {
   public static ItemDisplayContext CASTING_BASIN = create("casting_basin", ItemDisplayContext.NONE);
   /** Used by the fluid cannon for display of the item in front */
   public static ItemDisplayContext FLUID_CANNON = create("fluid_cannon", ItemDisplayContext.FIXED);
+  /** Used by throwing to allow adjusting the tool position */
+  public static ItemDisplayContext THROWN = create("thrown", ItemDisplayContext.FIXED);
 
   /** Creates a transform type */
   private static ItemDisplayContext create(String name, ItemDisplayContext fallback) {
@@ -47,6 +49,7 @@ public class TinkerItemDisplays {
       register(registry, CASTING_TABLE);
       register(registry, CASTING_BASIN);
       register(registry, FLUID_CANNON);
+      register(registry, THROWN);
     }
   }
 

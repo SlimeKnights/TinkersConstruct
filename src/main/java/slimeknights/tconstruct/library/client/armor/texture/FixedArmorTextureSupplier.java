@@ -9,6 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.common.ColorLoadable;
+import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.primitive.StringLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
@@ -25,34 +26,51 @@ public class FixedArmorTextureSupplier implements ArmorTextureSupplier {
     Loadables.RESOURCE_LOCATION.requiredField("prefix", s -> s.prefix),
     StringLoadable.DEFAULT.defaultField("suffix", "", s -> s.suffix),
     ColorLoadable.ALPHA.defaultField("color", -1, s -> s.color),
+    IntLoadable.range(0, 15).defaultField("luminosity", 0, false, s -> s.luminosity),
     ModifierId.PARSER.nullableField("modifier", s -> s.modifier),
     FixedArmorTextureSupplier::new);
 
   private final ResourceLocation prefix;
   private final String suffix;
   private final int color;
+  private final int luminosity;
   @Nullable
   private final ModifierId modifier;
   private final TintedArmorTexture[] textures;
+
+  /** @deprecated use {@link #FixedArmorTextureSupplier(ResourceLocation,String,int,int,ModifierId)} */
+  @Deprecated(forRemoval = true)
   public FixedArmorTextureSupplier(ResourceLocation prefix, String suffix, int color, @Nullable ModifierId modifier) {
+    this(prefix, suffix, color, 0, modifier);
+  }
+
+  public FixedArmorTextureSupplier(ResourceLocation prefix, String suffix, int color, int luminosity, @Nullable ModifierId modifier) {
     this.prefix = prefix;
     this.suffix = suffix;
     this.color = color;
+    this.luminosity = luminosity;
     this.modifier = modifier;
     // ensure the texture exists to add it. Not an issue during datagen as this section is not serialized
     this.textures = new TintedArmorTexture[] {
-      getTexture(prefix, "armor" + suffix, color),
-      getTexture(prefix, "leggings" + suffix, color),
-      getTexture(prefix, "wings" + suffix, color),
+      getTexture(prefix, "armor" + suffix, color, luminosity),
+      getTexture(prefix, "leggings" + suffix, color, luminosity),
+      getTexture(prefix, "wings" + suffix, color, luminosity),
     };
+  }
+
+  /** @deprecated use {@link #getTexture(ResourceLocation, String, int, int)} */
+  @Nullable
+  @Deprecated(forRemoval = true)
+  public static TintedArmorTexture getTexture(ResourceLocation base, String suffix, int color) {
+    return getTexture(base, suffix, color, 0);
   }
 
   /** Gets the texture for the given name */
   @Nullable
-  public static TintedArmorTexture getTexture(ResourceLocation base, String suffix, int color) {
+  public static TintedArmorTexture getTexture(ResourceLocation base, String suffix, int color, int luminosity) {
     ResourceLocation name = base.withSuffix(suffix);
     if (TEXTURE_VALIDATOR.test(name)) {
-      return new TintedArmorTexture(ArmorTextureSupplier.getTexturePath(name), color);
+      return new TintedArmorTexture(ArmorTextureSupplier.getTexturePath(name), color, luminosity);
     }
     return null;
   }
@@ -88,6 +106,7 @@ public class FixedArmorTextureSupplier implements ArmorTextureSupplier {
     @Nullable
     private ModifierId modifier;
     private int color = -1;
+    private int luminosity;
     private String suffix = "";
 
     /** Sets the suffix to a material variant */
@@ -97,7 +116,7 @@ public class FixedArmorTextureSupplier implements ArmorTextureSupplier {
     }
 
     public FixedArmorTextureSupplier build() {
-      return new FixedArmorTextureSupplier(name, suffix, color, modifier);
+      return new FixedArmorTextureSupplier(name, suffix, color, luminosity, modifier);
     }
   }
 }

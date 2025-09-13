@@ -1,0 +1,44 @@
+{
+  "level_display": "tconstruct:no_levels",
+  "modules": [
+    {
+      "type": "tconstruct:capacity_bar",
+      "flat": 25
+    },
+    {
+      "type": "tconstruct:mining_capacity",
+      "grant": {
+        "flat": 1
+      },
+      "tool": {
+        "type": "tconstruct:has_persistent_key",
+        "key": "tconstruct:crossbow_ammo"
+      }
+    },
+    {
+      "type": "tconstruct:launch_capacity"
+    },
+    {
+      "type": "tconstruct:conditional_stat",
+      "formula": [
+        "$charge",
+        0.01,
+        "*",
+        "$multiplier",
+        "*",
+        "$value",
+        "+"
+      ],
+      "percent": false,
+      "stat": "tconstruct:velocity",
+      "variables": {
+        "charge": {
+          "type": "tconstruct:mod_data",
+          "key": "tconstruct:war_charge",
+          "source": "persistent"
+        }
+      }
+    }
+  ],
+  "tooltip_display": "always"
+}

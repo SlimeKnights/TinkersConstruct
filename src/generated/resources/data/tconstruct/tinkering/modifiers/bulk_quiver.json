@@ -2,39 +2,10 @@
   "level_display": "tconstruct:default",
   "modules": [
     {
-      "type": "tconstruct:inventory",
-      "filter": "tconstruct:arrow",
+      "type": "tconstruct:quiver_inventory",
       "pattern": "tconstruct:arrow",
       "slots": {
         "each_level": 2
-      },
-      "tool": {
-        "type": "mantle:inverted",
-        "inverted_type": "mantle:tag",
-        "tag": "tconstruct:modifiable/ranged/crossbows"
-      }
-    },
-    {
-      "type": "tconstruct:inventory",
-      "filter": {
-        "type": "mantle:or",
-        "predicates": [
-          "tconstruct:arrow",
-          {
-            "type": "mantle:set",
-            "items": [
-              "minecraft:firework_rocket"
-            ]
-          }
-        ]
-      },
-      "pattern": "tconstruct:arrow",
-      "slots": {
-        "each_level": 2
-      },
-      "tool": {
-        "type": "mantle:tag",
-        "tag": "tconstruct:modifiable/ranged/crossbows"
       }
     },
     {

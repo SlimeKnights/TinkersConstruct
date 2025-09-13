@@ -80,7 +80,7 @@ public class ToolRenderEvents {
     AOEMatchType matchType = AOEMatchType.BREAKING;
     // if we have any modifier that has an AOE interaction, make our match type more liberal
     if (tool.getModifiers().has(TinkerTags.Modifiers.AOE_INTERACTION)) {
-      matchType = AOEMatchType.TRANSFORM;
+      matchType = AOEMatchType.DISPLAY;
     } else if (!IsEffectiveToolHook.isEffective(tool, state)) {
       return;
     }

@@ -75,9 +75,7 @@ public class ToolBuildingCategory implements IRecipeCategory<ToolBuildingRecipe>
              .addItemStacks(partsAndExtras.get(i));
     }
 
-    ItemStack outputStack = recipe.getOutput() instanceof IModifiableDisplay modifiable ? modifiable.getRenderTool() : recipe.getOutput().asItem().getDefaultInstance();
-    builder.addSlot(RecipeIngredientRole.OUTPUT, WIDTH - 26, 23)
-      .addItemStack(outputStack);
+    builder.addSlot(RecipeIngredientRole.OUTPUT, WIDTH - 26, 23).addItemStack(recipe.getDisplayOutput());
   }
 
   @Override

@@ -38,7 +38,7 @@ public record ParticleWeaponAttack(SimpleParticleType particle) implements Melee
 
   @Override
   public void afterMeleeHit(IToolStackView tool, ToolAttackContext context, float damage) {
-    if (context.isFullyCharged()) {
+    if (context.isFullyCharged() && !context.isProjectile()) {
       ToolAttackUtil.spawnAttackParticle(particle, context.getAttacker(), 0.8d);
     }
   }

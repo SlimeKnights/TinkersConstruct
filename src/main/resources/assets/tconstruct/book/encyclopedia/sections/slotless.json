@@ -10,5 +10,11 @@
     "type": "mantle:text",
     "data": "slotless/bonus.json",
     "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:slotless/bonus", "path": "slotless/bonus", "prefix": "bonus" }}
+  },
+  {
+    "name": "group_cosmetic",
+    "type": "mantle:text",
+    "data": "slotless/cosmetic.json",
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:slotless/cosmetic", "path": "slotless/cosmetic", "prefix": "cosmetic" }}
   }
 ]

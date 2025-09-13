@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:embossed",
+  "text": [
+    {
+      "text": "You feel powerful after defeating that boss? Well, take that power and put it into your tools!"
+    }
+  ],
+  "effects": [
+    "Adds an upgrade slot",
+    "Single level"
+  ]
+}

@@ -363,6 +363,11 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
     return null;
   }
 
+  /** Checks if the given modifier has an enchantment equivelent */
+  public boolean hasEnchantment(Modifier modifier) {
+    return enchantmentMap.containsValue(modifier) || enchantmentTagMap.containsValue(modifier);
+  }
+
   /** Gets a stream of all enchantments that match the given modifiers */
   @SuppressWarnings("deprecation")  // eventually it won't be if we move away from forge
   public Stream<Enchantment> getEquivalentEnchantments(Predicate<ModifierId> modifiers) {
@@ -413,6 +418,16 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
    */
   public static boolean isInTag(ModifierId modifier, TagKey<Modifier> tag) {
     return INSTANCE.reverseTags.getOrDefault(modifier, Set.of()).contains(tag);
+  }
+
+  /**
+   * Gets all values contained in the given tag
+   * @param tag  Tag instance
+   * @return  Contained values, or null if the tag is absent
+   */
+  @Nullable
+  public static List<Modifier> getTagOrNull(TagKey<Modifier> tag) {
+    return INSTANCE.tags.get(tag);
   }
 
   /**

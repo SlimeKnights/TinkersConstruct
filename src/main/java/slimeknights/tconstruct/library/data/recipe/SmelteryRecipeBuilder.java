@@ -60,6 +60,9 @@ import static slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe.getT
 @Accessors(fluent = true)
 @CanIgnoreReturnValue
 public class SmelteryRecipeBuilder {
+  /** Array to pass into undamagable recipes */
+  private static final int[] UNDAMAGABLE = {0};
+
   /** Consumer for recipe results */
   private final Consumer<FinishedRecipe> consumer;
   /** Resource name, domain is location for results and name is tag root */
@@ -81,8 +84,10 @@ public class SmelteryRecipeBuilder {
   private boolean optional = false;
   /** If true, ore recipes should be added */
   private boolean hasOre = false;
-  /** List of byproducts for these recipes */
-  private IByproduct[] byproducts = new IByproduct[0];
+  /** List of byproducts for ore recipes */
+  private IByproduct[] oreByproducts = new IByproduct[0];
+  /** List of byproducts for non-ore recipes */
+  private IByproduct[] unitByproducts = new IByproduct[0];
   /** Folder to save melting recipes */
   private String meltingFolder = "melting/";
   /** Folder to save casting recipes */
@@ -95,7 +100,7 @@ public class SmelteryRecipeBuilder {
   private int baseUnit = 0;
   /** Base unit value for builder */
   @Setter
-  private int damageUnit = 0;
+  private int damageUnit = 1;
 
   /* Constructors */
 
@@ -138,8 +143,14 @@ public class SmelteryRecipeBuilder {
 
   /** Sets the byproducts for following recipes */
   public SmelteryRecipeBuilder ore(IByproduct... byproducts) {
-    this.byproducts = byproducts;
+    this.oreByproducts = byproducts;
     this.hasOre = true;
+    return this;
+  }
+
+  /** Sets the byproducts for unit melting */
+  public SmelteryRecipeBuilder unitByproducts(IByproduct... byproducts) {
+    this.unitByproducts = byproducts;
     return this;
   }
 
@@ -218,6 +229,16 @@ public class SmelteryRecipeBuilder {
     return name.withPath(folder + name.getPath() + '/' + variant);
   }
 
+  /** Gets the units for a damagable melting recipe */
+  private int[] damageUnits() {
+    int[] units = new int[1 + unitByproducts.length];
+    units[0] = damageUnit;
+    for (int i = 0; i < unitByproducts.length; i++) {
+      units[i+1] = unitByproducts[i].getDamageUnit();
+    }
+    return units;
+  }
+
 
   /* Melting helpers */
 
@@ -233,23 +254,33 @@ public class SmelteryRecipeBuilder {
   }
 
   /** Adds a recipe for melting an item by ID. Automatically optional */
-  private void itemMelting(int amount, String output, float factor, ResourceLocation itemName, boolean damagable) {
-    MeltingRecipeBuilder.melting(ItemNameIngredient.from(itemName), result(amount), temperature, factor)
-                        .setDamagable(damagable ? damageUnit : 0)
-                        .save(withCondition(new ItemExistsCondition(itemName)), location(meltingFolder, output));
+  private void itemMelting(float scale, String output, float factor, ResourceLocation itemName, boolean damagable) {
+    MeltingRecipeBuilder builder = MeltingRecipeBuilder.melting(ItemNameIngredient.from(itemName), result((int) (baseUnit * scale)), temperature, factor);
+    if (damagable) {
+      builder.setDamagable(damageUnits());
+    }
+    for (IByproduct byproduct : unitByproducts) {
+      builder.addByproduct(byproduct.getFluid(scale));
+    }
+    builder.save(withCondition(new ItemExistsCondition(itemName)), location(meltingFolder, output));
   }
 
   /** Adds a recipe for melting an item from a tag */
-  private void tagMelting(int amount, String output, float factor, String tagName, boolean forceOptional) {
-    tagMelting(amount, output, factor, commonResource(tagName), false, forceOptional);
+  private void tagMelting(float scale, String output, float factor, String tagName, boolean forceOptional) {
+    tagMelting(scale, output, factor, commonResource(tagName), false, forceOptional);
   }
 
   /** Adds a recipe for melting an item from a tag */
-  private void tagMelting(int amount, String output, float factor, ResourceLocation tagName, boolean damagable, boolean forceOptional) {
+  private void tagMelting(float scale, String output, float factor, ResourceLocation tagName, boolean damagable, boolean forceOptional) {
     Consumer<FinishedRecipe> wrapped = optional || forceOptional ? withCondition(tagCondition(tagName)) : consumer;
-    MeltingRecipeBuilder.melting(Ingredient.of(ItemTags.create(tagName)), result(amount), temperature, factor)
-                        .setDamagable(damagable ? damageUnit : 0)
-                        .save(wrapped, location(meltingFolder, output));
+    MeltingRecipeBuilder builder = MeltingRecipeBuilder.melting(Ingredient.of(ItemTags.create(tagName)), result((int) (baseUnit * scale)), temperature, factor);
+    if (damagable) {
+      builder.setDamagable(damageUnits());
+    }
+    for (IByproduct byproduct : unitByproducts) {
+      builder.addByproduct(byproduct.getFluid(scale));
+    }
+    builder.save(wrapped, location(meltingFolder, output));
   }
 
   /** Adds recipes to melt an ore item with byproducts */
@@ -277,19 +308,19 @@ public class SmelteryRecipeBuilder {
     ResourceLocation location = location(meltingFolder, output);
 
     // if no byproducts, just build directly
-    if (byproducts.length == 0) {
+    if (oreByproducts.length == 0) {
       supplier.get().save(wrapped, location);
       // if first option is always present, only need that one
-    } else if (byproducts[0].isAlwaysPresent()) {
+    } else if (oreByproducts[0].isAlwaysPresent()) {
       supplier.get()
-              .addByproduct(byproducts[0].getFluid(scale))
-              .setOre(oreRate, byproducts[0].getOreRate())
+              .addByproduct(oreByproducts[0].getFluid(scale))
+              .setOre(oreRate, oreByproducts[0].getOreRate())
               .save(wrapped, location);
     } else {
       // multiple options, will need a conditonal recipe
       ConditionalRecipe.Builder builder = ConditionalRecipe.builder();
       boolean alwaysPresent = false;
-      for (IByproduct byproduct : byproducts) {
+      for (IByproduct byproduct : oreByproducts) {
         // found an always present byproduct? no need to tag and we are done
         alwaysPresent = byproduct.isAlwaysPresent();
         if (alwaysPresent) {
@@ -316,9 +347,13 @@ public class SmelteryRecipeBuilder {
   /* Casting helpers */
 
   /** Recipe to cast using a cast */
-  private void tagCasting(int amount, String outputPrefix, CastItemObject cast, String tagName, boolean forceOptional) {
+  private void tagCasting(float scale, String outputPrefix, CastItemObject cast, String tagName, boolean forceOptional) {
+    if (unitByproducts.length > 0) {
+      throw new IllegalArgumentException("Cannot cast using a cast for a fluid with byproducts");
+    }
     Consumer<FinishedRecipe> wrapped = optional || forceOptional ? withCondition(tagCondition(tagName)) : consumer;
     ItemOutput output = ItemOutput.fromTag(itemTag(tagName));
+    int amount = (int) (baseUnit * scale);
     FluidIngredient fluid = ingredient(amount);
     ItemCastingRecipeBuilder.tableRecipe(output)
                             .setFluid(fluid)
@@ -332,13 +367,29 @@ public class SmelteryRecipeBuilder {
                             .save(wrapped, location(castingFolder, outputPrefix + "_sand_cast"));
   }
 
-  /** Recipe to cast using a basin */
-  private void basinCasting(int amount, String output, String tagName, boolean forceOptional) {
+  /** Recipe to composite cast */
+  private void tagCasting(float scale, String outputName, Ingredient cast, String tagName, boolean forceOptional) {
+    Consumer<FinishedRecipe> wrapped = optional || forceOptional ? withCondition(tagCondition(tagName)) : consumer;
+    ItemOutput output = ItemOutput.fromTag(itemTag(tagName));
+    int amount = (int) (baseUnit * scale);
+    FluidIngredient fluid = ingredient(amount);
+    ItemCastingRecipeBuilder.tableRecipe(output)
+      .setFluid(fluid)
+      .setCoolingTime(temperature, amount)
+      .setCast(cast, true)
+      .save(wrapped, location(castingFolder, outputName));
+  }
+
+  /** Recipe to cast the block */
+  public SmelteryRecipeBuilder blockCasting(int factor, Ingredient cast, boolean forceOptional) {
+    String tagName = "storage_blocks/" + this.name.getPath();
     Consumer<FinishedRecipe> wrapped = optional || forceOptional ? withCondition(tagCondition(tagName)) : consumer;
     ItemCastingRecipeBuilder.basinRecipe(ItemOutput.fromTag(itemTag(tagName)))
-                            .setFluid(ingredient(amount))
-                            .setCoolingTime(temperature, amount)
-                            .save(wrapped, location(castingFolder, output));
+      .setFluid(ingredient(baseUnit * factor))
+      .setCoolingTime(temperature, baseUnit * factor)
+      .setCast(cast, true)
+      .save(wrapped, location(castingFolder, "block"));
+    return this;
   }
 
 
@@ -347,10 +398,9 @@ public class SmelteryRecipeBuilder {
   /** Adds melting and casting recipes for the given object */
   public SmelteryRecipeBuilder meltingCasting(float scale, String tagPrefix, CastItemObject cast, float factor, boolean forceOptional) {
     assert baseUnit != 0;
-    int amount = (int)(baseUnit * scale);
     String tagName = tagPrefix + "s/" + name.getPath();
-    tagMelting(amount, tagPrefix, factor, tagName, forceOptional);
-    tagCasting(amount, tagPrefix, cast,   tagName, forceOptional);
+    tagMelting(scale, tagPrefix, factor, tagName, forceOptional);
+    tagCasting(scale, tagPrefix, cast,   tagName, forceOptional);
     return this;
   }
 
@@ -360,18 +410,41 @@ public class SmelteryRecipeBuilder {
   }
 
 
+  /* Composite casting */
+
+  /** Adds melting and casting recipes for the given object */
+  public SmelteryRecipeBuilder meltingCasting(float scale, String tagPrefix, Ingredient cast, float factor, boolean forceOptional) {
+    assert baseUnit != 0;
+    String tagName = tagPrefix + "s/" + name.getPath();
+    tagMelting(scale, tagPrefix, factor, tagName, forceOptional);
+    tagCasting(scale, tagPrefix, cast,   tagName, forceOptional);
+    return this;
+  }
+
+  /** Adds melting and casting recipes for the given object */
+  public SmelteryRecipeBuilder meltingCasting(float scale, String tagPrefix, String castMaterial, float factor, boolean forceOptional) {
+    return meltingCasting(scale, tagPrefix, Ingredient.of(itemTag(tagPrefix + "s/" + castMaterial)), factor, forceOptional);
+  }
+
+
   /* Melting helpers */
 
   /** Adds a recipe for melting a tool from the given mod */
   public SmelteryRecipeBuilder itemMelting(float scale, String domain, String path, boolean damagable) {
-    itemMelting((int)(baseUnit * scale), domain + '_' + path, (float)Math.sqrt(scale), new ResourceLocation(domain, path), damagable);
+    itemMelting(scale, domain + '_' + path, (float)Math.sqrt(scale), new ResourceLocation(domain, path), damagable);
+    return this;
+  }
+
+  /** Adds a recipe for melting an metal item with the metal prefix in the name */
+  public SmelteryRecipeBuilder metalMelting(float scale, String domain, String path, boolean damagable) {
+    itemMelting(scale, domain + '_' + path, (float)Math.sqrt(scale), new ResourceLocation(domain, name.getPath() + '_' + path), damagable);
     return this;
   }
 
   /** Adds a recipe melting a tag item */
   public SmelteryRecipeBuilder melting(float scale, String output, ResourceLocation tagName, float factor, boolean damagable, boolean forceOptional) {
     assert baseUnit != 0;
-    tagMelting((int)(baseUnit * scale), output, factor, tagName, damagable, forceOptional);
+    tagMelting(scale, output, factor, tagName, damagable, forceOptional);
     return this;
   }
 
@@ -395,8 +468,7 @@ public class SmelteryRecipeBuilder {
 
   /** Adds a recipe for melting a tool from the given mod, automatically prefixing the metal into the name */
   public SmelteryRecipeBuilder toolItemMelting(int cost, String domain, String path) {
-    itemMelting(baseUnit * cost, domain + '_' + path, (float)Math.sqrt(cost), new ResourceLocation(domain, this.name.getPath() + '_' + path), true);
-    return this;
+    return metalMelting(cost, domain, path, true);
   }
 
   /** Adds a recipe melting a tool with the given cost using the common tools tag. See {@link #melting(float, String, String, boolean, boolean)} for armor as names are less standard */
@@ -430,6 +502,12 @@ public class SmelteryRecipeBuilder {
     return this;
   }
 
+  /** Adds a raw ore recipe with the given byproducts */
+  public SmelteryRecipeBuilder rawOre(IByproduct... byproducts) {
+    this.oreByproducts = byproducts;
+    return rawOre();
+  }
+
   /** Adds the sparse ore recipe at the given scale. Automatcally called by {@link #metal()} and {@link #gem(int)}, so only needed if doing unusual things. */
   public SmelteryRecipeBuilder sparseOre(float scale) {
     oreMelting(scale, "ores/", Tags.Items.ORE_RATES_SPARSE, 1.5f, "ore_sparse", false);
@@ -454,7 +532,7 @@ public class SmelteryRecipeBuilder {
     baseUnit = FluidValues.INGOT;
     damageUnit = FluidValues.NUGGET;
     melting(9, "block", "storage_blocks", 3.0f, false, false);
-    basinCasting(FluidValues.METAL_BLOCK, "block", "storage_blocks/" + name.getPath(), false);
+    blockCasting(9, Ingredient.EMPTY, false);
     meltingCasting(1,      TinkerSmeltery.ingotCast,  1.0f, false);
     meltingCasting(1 / 9f, TinkerSmeltery.nuggetCast, 1 / 3f, false);
     // if we set byproducts, we are an ore
@@ -472,9 +550,8 @@ public class SmelteryRecipeBuilder {
     oreRate = OreRateType.GEM;
     baseUnit = FluidValues.GEM;
     damageUnit = FluidValues.GEM_SHARD;
-    String name = this.name.getPath();
     melting(storageSize, "block", "storage_blocks", (float)Math.sqrt(storageSize), false, false);
-    basinCasting(FluidValues.GEM * storageSize, "block", "storage_blocks/" + name, false);
+    blockCasting(storageSize, Ingredient.EMPTY, false);
     meltingCasting(1, TinkerSmeltery.gemCast, 1.0f, false);
     // if we set byproducts, we are an ore
     if (hasOre) {
@@ -513,7 +590,7 @@ public class SmelteryRecipeBuilder {
   /** Adds recipes to melt oreberries */
   public SmelteryRecipeBuilder oreberry() {
     assert baseUnit == FluidValues.INGOT;
-    itemMelting(FluidValues.NUGGET, "oreberry", 1 / 3f, new ResourceLocation("oreberriesreplanted", name.getPath() + "_oreberry"), false);
+    itemMelting(1/9f, "oreberry", 1 / 3f, new ResourceLocation("oreberriesreplanted", name.getPath() + "_oreberry"), false);
     return this;
   }
 
@@ -554,7 +631,7 @@ public class SmelteryRecipeBuilder {
 
   /** Adds vanilla tools with the given prefix for item IDs */
   @Internal
-  public SmelteryRecipeBuilder minecraftTools(String prefix) {
+  public SmelteryRecipeBuilder minecraftTools(String prefix, boolean minotaur) {
     // shovel needs the cost tag for tool's complement knife
     toolCostMelting(1, "shovel", false);
     // sword recipe also handles hoe
@@ -564,7 +641,13 @@ public class SmelteryRecipeBuilder {
     // armor
     minecraftArmorMelting(5, prefix, "helmet");
     minecraftArmorMelting(8, prefix, "chestplate");
-    minecraftArmorMelting(4, prefix, "boots");
+    // diamond and gold use the boots tag for minotaur axes. Any other can just directly add the boots recipe
+    // yeah, its a special case, but this is a builder method just for us
+    if (minotaur) {
+      toolCostMelting(4, "boots", false);
+    } else {
+      minecraftArmorMelting(4, prefix, "boots");
+    }
     // mekanism adds paxels for all vanilla tools, so use a tag to make supporting that easy
     toolCostMelting(7, "leggings", false);
     return this;
@@ -573,7 +656,7 @@ public class SmelteryRecipeBuilder {
   /** Adds vanilla tools with the default prefix for item IDs */
   @Internal
   public SmelteryRecipeBuilder minecraftTools() {
-    return minecraftTools(name.getPath());
+    return minecraftTools(name.getPath(), false);
   }
 
 
@@ -621,6 +704,15 @@ public class SmelteryRecipeBuilder {
       builder.toolItemMelting(cost, domain, name);
     }
   }
+
+  /** Consumer for melting a specific tool from a mod with the metal prefix */
+  public record MetalMelting(float cost, String domain, String name) implements CommonRecipe {
+    @Override
+    public void accept(SmelteryRecipeBuilder builder) {
+      builder.metalMelting(cost, domain, name, false);
+    }
+  }
+
 
   /* Common tool melting */
 

@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "forge:dusts/chromium"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:dusts/chromium"
+  },
+  "result": {
+    "amount": 90,
+    "tag": "forge:molten_chromium"
+  },
+  "temperature": 900,
+  "time": 47
+}

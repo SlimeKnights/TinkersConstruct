@@ -19,7 +19,7 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 import java.util.Map;
 
 public class SheepShearingRecipe extends SeveringRecipe {
-  private static final Map<DyeColor,ItemLike> WOOL_BY_COLOR = Util.make(Maps.newEnumMap(DyeColor.class), map -> {
+  public static final Map<DyeColor,ItemLike> WOOL_BY_COLOR = Util.make(Maps.newEnumMap(DyeColor.class), map -> {
     map.put(DyeColor.WHITE, Blocks.WHITE_WOOL);
     map.put(DyeColor.ORANGE, Blocks.ORANGE_WOOL);
     map.put(DyeColor.MAGENTA, Blocks.MAGENTA_WOOL);

@@ -52,31 +52,6 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
                        .pattern(" # ")
                        .unlockedBy("has_item", has(Tags.Items.DUSTS_GLOWSTONE))
                        .save(consumer, prefix(TinkerGadgets.efln, folder));
-    ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, TinkerGadgets.glowBall.get(), 8)
-                       .define('#', Items.SNOWBALL)
-                       .define('X', Tags.Items.DUSTS_GLOWSTONE)
-                       .pattern("###")
-                       .pattern("#X#")
-                       .pattern("###")
-                       .unlockedBy("has_item", has(Tags.Items.DUSTS_GLOWSTONE))
-                       .save(consumer, prefix(TinkerGadgets.glowBall, folder));
-
-    // Shurikens
-    folder = "gadgets/shuriken/";
-    ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, TinkerGadgets.flintShuriken.get(), 4)
-                        .define('X', Items.FLINT)
-                        .pattern(" X ")
-                        .pattern("X X")
-                        .pattern(" X ")
-                        .unlockedBy("has_item", has(Items.FLINT))
-                        .save(consumer, prefix(TinkerGadgets.flintShuriken, folder));
-    ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, TinkerGadgets.quartzShuriken.get(), 4)
-                        .define('X', Items.QUARTZ)
-                        .pattern(" X ")
-                        .pattern("X X")
-                        .pattern(" X ")
-                        .unlockedBy("has_item", has(Items.QUARTZ))
-                        .save(consumer, prefix(TinkerGadgets.quartzShuriken, folder));
 
     // piggybackpack
     folder = "gadgets/";

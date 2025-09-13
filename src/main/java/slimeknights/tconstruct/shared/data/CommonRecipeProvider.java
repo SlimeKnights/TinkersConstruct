@@ -276,6 +276,7 @@ public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonR
     metalCrafting(consumer, TinkerMaterials.queensSlime, folder);
     metalCrafting(consumer, TinkerMaterials.manyullyn, folder);
     metalCrafting(consumer, TinkerMaterials.hepatizon, folder);
+    metalCrafting(consumer, TinkerMaterials.knightmetal, folder);
     //registerMineralRecipes(consumer, TinkerMaterials.soulsteel,   folder);
     packingRecipe(consumer, RecipeCategory.MISC, "ingot", Items.COPPER_INGOT,    "nugget", TinkerMaterials.copperNugget,    TinkerTags.Items.NUGGETS_COPPER,    folder);
     packingRecipe(consumer, RecipeCategory.MISC, "ingot", Items.NETHERITE_INGOT, "nugget", TinkerMaterials.netheriteNugget, TinkerTags.Items.NUGGETS_NETHERITE, folder);

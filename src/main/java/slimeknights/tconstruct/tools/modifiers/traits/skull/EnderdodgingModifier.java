@@ -14,12 +14,9 @@ import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.TeleportHelper;
-import slimeknights.tconstruct.library.utils.TeleportHelper.ITeleportEventFactory;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 public class EnderdodgingModifier extends NoLevelsModifier implements DamageBlockModifierHook, OnAttackedModifierHook {
-  private static final ITeleportEventFactory FACTORY = EnderdodgingTeleportEvent::new;
-
   @Override
   protected void registerHooks(Builder hookBuilder) {
     super.registerHooks(hookBuilder);
@@ -31,7 +28,7 @@ public class EnderdodgingModifier extends NoLevelsModifier implements DamageBloc
     // teleport always from projectiles
     LivingEntity self = context.getEntity();
     if (!self.hasEffect(TinkerModifiers.teleportCooldownEffect.get()) && source.isIndirect()) {
-      if (TeleportHelper.randomNearbyTeleport(context.getEntity(), FACTORY)) {
+      if (TeleportHelper.randomNearbyTeleport(context.getEntity(), (e, x, y, z) -> new EnderdodgingTeleportEvent(e, x, y, z, modifier))) {
         TinkerModifiers.teleportCooldownEffect.get().apply(self, 15 * 20, 0, true);
         ToolDamageUtil.damageAnimated(tool, (int)amount, self, slotType);
         return true;
@@ -46,7 +43,7 @@ public class EnderdodgingModifier extends NoLevelsModifier implements DamageBloc
     // teleport randomly from other damage
     LivingEntity self = context.getEntity();
     if (!self.hasEffect(TinkerModifiers.teleportCooldownEffect.get()) && source.getEntity() instanceof LivingEntity && RANDOM.nextInt(10) == 0) {
-      if (TeleportHelper.randomNearbyTeleport(context.getEntity(), FACTORY)) {
+      if (TeleportHelper.randomNearbyTeleport(context.getEntity(), (e, x, y, z) -> new EnderdodgingTeleportEvent(e, x, y, z, modifier))) {
         TinkerModifiers.teleportCooldownEffect.get().apply(self, 15 * 20, 1, true);
       }
     }

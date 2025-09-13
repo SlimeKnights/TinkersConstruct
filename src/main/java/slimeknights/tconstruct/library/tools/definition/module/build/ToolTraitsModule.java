@@ -17,7 +17,7 @@ import java.util.List;
 
 /** Module for adding traits to a tool */
 public record ToolTraitsModule(List<ModifierEntry> traits) implements ToolTraitHook, ToolModule {
-  public static final RecordLoadable<ToolTraitsModule> LOADER = RecordLoadable.create(ModifierEntry.LOADABLE.list(1).requiredField("traits", ToolTraitsModule::traits), ToolTraitsModule::new);
+  public static final RecordLoadable<ToolTraitsModule> LOADER = RecordLoadable.create(ModifierEntry.OPTIONAL_LOADABLE.list(1).requiredField("traits", ToolTraitsModule::traits), ToolTraitsModule::new);
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<ToolTraitsModule>defaultHooks(ToolHooks.TOOL_TRAITS);
 
   public static Builder builder() {

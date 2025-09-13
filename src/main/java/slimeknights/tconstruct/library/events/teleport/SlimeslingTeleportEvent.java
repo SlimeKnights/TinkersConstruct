@@ -6,7 +6,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.EntityTeleportEvent;
 import net.minecraftforge.eventbus.api.Cancelable;
 
-/** Event fired when an entity teleports using a slimesling */
+/** @deprecated No longer used. See {@link SlingModifierTeleportEvent} */
+@Deprecated(forRemoval = true)
 @Cancelable
 public class SlimeslingTeleportEvent extends EntityTeleportEvent {
   @Getter

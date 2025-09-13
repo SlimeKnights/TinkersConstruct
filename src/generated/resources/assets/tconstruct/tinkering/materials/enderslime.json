@@ -2,7 +2,8 @@
   "color": "FFD37CFF",
   "generator": {
     "supported_stats": [
-      "tconstruct:repair_kit"
+      "tconstruct:repair_kit",
+      "tconstruct:arrow_head"
     ],
     "transformer": {
       "type": "tconstruct:recolor_sprite",

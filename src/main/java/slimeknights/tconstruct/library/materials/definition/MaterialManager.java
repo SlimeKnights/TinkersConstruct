@@ -37,6 +37,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static java.util.Objects.requireNonNullElse;
 
@@ -60,7 +61,7 @@ public class MaterialManager extends SimpleJsonResourceReloadListener {
   /** GSON for loading materials */
   public static final Gson GSON = (new GsonBuilder())
     .registerTypeAdapter(ResourceLocation.class, new ResourceLocation.Serializer())
-    .registerTypeAdapter(ICondition.class, ConditionSerializer.INSTANCE)
+    .registerTypeHierarchyAdapter(ICondition.class, ConditionSerializer.INSTANCE)
     .setPrettyPrinting()
     .disableHtmlEscaping()
     .create();
@@ -134,6 +135,11 @@ public class MaterialManager extends SimpleJsonResourceReloadListener {
     return TagKey.create(REGISTRY_KEY, id);
   }
 
+  /** Gets the set of tags for a material */
+  public Stream<TagKey<IMaterial>> getTagKeys(MaterialId id) {
+    return reverseTags.getOrDefault(id, Set.of()).stream();
+  }
+
   /**
    * Checks if the given modifier is in the given tag
    * @return  True if the modifier is in the tag
@@ -145,10 +151,25 @@ public class MaterialManager extends SimpleJsonResourceReloadListener {
   /**
    * Gets all values contained in the given tag
    * @param tag  Tag instance
+   * @return  Contained values, or null if the tag is absent
+   */
+  @Nullable
+  public List<IMaterial> getTagOrNull(TagKey<IMaterial> tag) {
+    return tags.get(tag);
+  }
+
+  /**
+   * Gets all values contained in the given tag
+   * @param tag  Tag instance
    * @return  Contained values
    */
   public List<IMaterial> getValues(TagKey<IMaterial> tag) {
     return tags.getOrDefault(tag, List.of());
+  }
+
+  /** Gets a stream of all tag ID to tag value mappings */
+  public Stream<Entry<TagKey<IMaterial>,List<IMaterial>>> getAllTags() {
+    return tags.entrySet().stream();
   }
 
 

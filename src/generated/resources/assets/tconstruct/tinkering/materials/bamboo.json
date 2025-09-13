@@ -11,7 +11,8 @@
       "tconstruct:grip",
       "tconstruct:repair_kit",
       "tconstruct:shield_core",
-      "tconstruct:wood"
+      "tconstruct:wood",
+      "tconstruct:arrow_shaft"
     ],
     "transformer": {
       "type": "tconstruct:recolor_sprite",

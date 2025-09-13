@@ -1,0 +1,27 @@
+{
+  "loader": "tconstruct:tool",
+  "parent": "tconstruct:item/base/axe",
+  "textures": {
+    "front": "tconstruct:item/tool/minotaur_axe/front_broken",
+    "back": "tconstruct:item/tool/minotaur_axe/back",
+    "handle": "tconstruct:item/tool/pickaxe/handle"
+  },
+  "modifier_roots": [
+    "tconstruct:item/tool/minotaur_axe/modifiers/broken/",
+    "tconstruct:item/tool/minotaur_axe/modifiers/"
+  ],
+  "parts": [
+    {
+      "name": "handle",
+      "index": 2
+    },
+    {
+      "name": "front",
+      "index": 0
+    },
+    {
+      "name": "back",
+      "index": 1
+    }
+  ]
+}

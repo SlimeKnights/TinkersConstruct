@@ -116,6 +116,10 @@
     {
       "type": "tconstruct:circle_melee",
       "diameter": 2.0
+    },
+    {
+      "type": "tconstruct:fixed_material_name",
+      "index": 0
     }
   ]
 }

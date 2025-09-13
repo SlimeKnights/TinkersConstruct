@@ -1,0 +1,13 @@
+{
+  "tool": "tconstruct:minotaur_axe",
+  "text": [
+    { "text": "The minotaur axe is a special weapon that boosts damage when attacking while sprinting. It can be found in the hands of minotaurs from the labyrinths." }
+  ],
+  "properties": [
+    "High Damage",
+    "Low Attack Speed",
+    "Bonus charging damage",
+    "3 Upgrade Slots",
+    "1 Ability Slot"
+  ]
+}

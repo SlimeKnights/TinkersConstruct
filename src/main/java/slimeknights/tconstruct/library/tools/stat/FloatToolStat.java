@@ -13,7 +13,8 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.Item;
-import slimeknights.mantle.util.RegistryHelper;
+import slimeknights.mantle.data.predicate.IJsonPredicate;
+import slimeknights.mantle.data.predicate.item.ItemPredicate;
 import slimeknights.tconstruct.library.utils.TagUtil;
 
 import javax.annotation.Nullable;
@@ -36,25 +37,28 @@ public class FloatToolStat implements INumericToolStat<Float> {
   /** Max value for this stat */
   @Getter
   private final float maxValue;
-  @Nullable
-  private final TagKey<Item> tag;
+  private final IJsonPredicate<Item> items;
 
-  public FloatToolStat(ToolStatId name, int color, float defaultValue, float minValue, float maxValue, @Nullable TagKey<Item> tag) {
+  public FloatToolStat(ToolStatId name, int color, float defaultValue, float minValue, float maxValue, IJsonPredicate<Item> items) {
     this.name = name;
     this.color = TextColor.fromRgb(color);
     this.defaultValue = defaultValue;
     this.minValue = minValue;
     this.maxValue = maxValue;
-    this.tag = tag;
+    this.items = items;
+  }
+
+  public FloatToolStat(ToolStatId name, int color, float defaultValue, float minValue, float maxValue, @Nullable TagKey<Item> tag) {
+    this(name, color, defaultValue, minValue, maxValue, tag == null ? ItemPredicate.ANY : ItemPredicate.tag(tag));
   }
 
   public FloatToolStat(ToolStatId name, int color, float defaultValue, float minValue, float maxValue) {
-    this(name, color, defaultValue, minValue, maxValue, null);
+    this(name, color, defaultValue, minValue, maxValue, ItemPredicate.ANY);
   }
 
   @Override
   public boolean supports(Item item) {
-    return tag == null || RegistryHelper.contains(tag, item);
+    return items.matches(item);
   }
 
   @Override

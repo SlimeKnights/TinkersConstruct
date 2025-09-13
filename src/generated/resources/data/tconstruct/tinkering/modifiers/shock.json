@@ -1,0 +1,94 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:conditional_melee_damage",
+      "formula": [
+        "$water",
+        "$level",
+        "*",
+        "$multiplier",
+        "*",
+        "$damage",
+        "+"
+      ],
+      "percent": false,
+      "variables": {
+        "water": {
+          "type": "tconstruct:entity",
+          "entity_type": "tconstruct:water",
+          "fallback": 2.0,
+          "which": "target"
+        }
+      }
+    },
+    {
+      "type": "tconstruct:conditional_power",
+      "formula": [
+        "$water",
+        2.0,
+        "/",
+        "$level",
+        "*",
+        "$multiplier",
+        "*",
+        "$damage",
+        "+"
+      ],
+      "percent": false,
+      "variables": {
+        "water": {
+          "type": "tconstruct:entity",
+          "entity_type": "tconstruct:water",
+          "fallback": 2.0,
+          "which": "target"
+        }
+      }
+    },
+    {
+      "type": "tconstruct:thorns",
+      "attacker": {
+        "type": "mantle:or",
+        "predicates": [
+          "mantle:eyes_in_water",
+          "mantle:feet_in_water"
+        ]
+      },
+      "chance": {
+        "each_level": 0.2
+      },
+      "constant_damage": {
+        "flat": 2.0
+      },
+      "damage_type": "tconstruct:shock",
+      "durability_usage": 1,
+      "random_damage": {
+        "flat": 3.0
+      },
+      "tool": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:modifiable/armor"
+      }
+    },
+    {
+      "type": "tconstruct:thorns",
+      "attacker": "mantle:raining_at",
+      "chance": {
+        "each_level": 0.1
+      },
+      "constant_damage": {
+        "flat": 2.0
+      },
+      "damage_type": "tconstruct:shock",
+      "durability_usage": 1,
+      "random_damage": {
+        "flat": 3.0
+      },
+      "tool": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:modifiable/armor"
+      }
+    }
+  ],
+  "tooltip_display": "always"
+}

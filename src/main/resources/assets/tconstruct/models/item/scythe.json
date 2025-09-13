@@ -1,6 +1,6 @@
 {
   "loader": "tconstruct:tool",
-  "parent": "forge:item/default-tool",
+  "parent": "tconstruct:item/tool/scythe/display",
   "textures": {
     "head":      "tconstruct:item/tool/scythe/head",
     "handle":    "tconstruct:item/tool/scythe/handle",

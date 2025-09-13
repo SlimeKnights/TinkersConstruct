@@ -17,6 +17,7 @@ import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.player.Player;
 import org.apache.commons.lang3.mutable.MutableInt;
+import slimeknights.mantle.command.GeneratePackHelper;
 import slimeknights.mantle.data.datamap.RegistryDataMapLoader;
 import slimeknights.mantle.data.loadable.ErrorFactory;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
@@ -35,7 +36,6 @@ import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
-import slimeknights.tconstruct.shared.command.subcommand.generate.GeneratePackUtil;
 import slimeknights.tconstruct.shared.network.GeneratePartTexturesPacket.Operation;
 
 import java.io.BufferedReader;
@@ -66,10 +66,10 @@ public class ClientGeneratePartTexturesCommand {
   /** Part file to load, pulls from all namespaces, but no merging */
   private static final String GENERATOR_PART_TEXTURES = "tinkering/generator_part_textures.json";
 
-  /** @deprecated use {@link GeneratePackUtil#getOutputComponent(File)} */
+  /** @deprecated use {@link GeneratePackHelper#getOutputComponent(File)} */
   @Deprecated(forRemoval = true)
   protected static Component getOutputComponent(File file) {
-    return GeneratePackUtil.getOutputComponent(file);
+    return GeneratePackHelper.getOutputComponent(file);
   }
 
   /** Generates all textures using the resource pack list */
@@ -109,7 +109,7 @@ public class ClientGeneratePartTexturesCommand {
     BiConsumer<ResourceLocation,JsonObject> metaSaver = (outputPath, image) -> saveMetadata(path, outputPath, image);
 
     // create a pack.mcmeta so its a valid resource pack
-    GeneratePackUtil.saveMcmeta(path, PackType.CLIENT_RESOURCES, "Generated Resources from the Tinkers' Construct Part Texture Generator");
+    GeneratePackHelper.saveMcmeta(path, PackType.CLIENT_RESOURCES, "Generated Resources from the Tinkers' Construct Part Texture Generator");
 
     // predicate for whether we should generate the texture
     AbstractSpriteReader spriteReader = new ResourceManagerSpriteReader(manager, MaterialPartTextureGenerator.FOLDER);
@@ -155,7 +155,7 @@ public class ClientGeneratePartTexturesCommand {
     MaterialPartTextureGenerator.runCallbacks(null, null);
     log.info("Finished generating {} textures in {} ms", count, deltaTime / 1000000f);
     if (Minecraft.getInstance().player != null) {
-      Minecraft.getInstance().player.displayClientMessage(Component.translatable(SUCCESS_KEY, count, (deltaTime / 1000000) / 1000f, GeneratePackUtil.getOutputComponent(path.toFile())), false);
+      Minecraft.getInstance().player.displayClientMessage(Component.translatable(SUCCESS_KEY, count, (deltaTime / 1000000) / 1000f, GeneratePackHelper.getOutputComponent(path.toFile())), false);
     }
   }
 

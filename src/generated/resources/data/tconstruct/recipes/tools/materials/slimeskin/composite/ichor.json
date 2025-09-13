@@ -2,7 +2,7 @@
   "type": "tconstruct:material_fluid",
   "fluid": {
     "amount": 250,
-    "fluid": "tconstruct:ichor"
+    "tag": "tconstruct:ichor"
   },
   "input": "tconstruct:leather",
   "output": "tconstruct:ichorskin",

@@ -1,0 +1,67 @@
+{
+  "input": "mantle:any",
+  "recipe_type": "minecraft:crafting",
+  "result": {
+    "type": "mantle:and",
+    "predicates": [
+      {
+        "type": "mantle:or",
+        "predicates": [
+          {
+            "type": "mantle:tag",
+            "tag": "minecraft:pickaxes"
+          },
+          {
+            "type": "mantle:tag",
+            "tag": "minecraft:axes"
+          },
+          {
+            "type": "mantle:tag",
+            "tag": "minecraft:shovels"
+          },
+          {
+            "type": "mantle:tag",
+            "tag": "minecraft:swords"
+          },
+          {
+            "type": "mantle:tag",
+            "tag": "minecraft:hoes"
+          },
+          {
+            "type": "mantle:tag",
+            "tag": "forge:tools/shields"
+          },
+          {
+            "type": "mantle:tag",
+            "tag": "forge:tools/bows"
+          },
+          {
+            "type": "mantle:tag",
+            "tag": "forge:tools/crossbows"
+          },
+          {
+            "type": "mantle:tag",
+            "tag": "forge:tools/fishing_rods"
+          },
+          {
+            "type": "mantle:tag",
+            "tag": "forge:armors"
+          },
+          {
+            "type": "mantle:set",
+            "items": [
+              "minecraft:flint_and_steel",
+              "minecraft:shears",
+              "minecraft:brush"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "mantle:inverted",
+        "inverted_type": "mantle:tag",
+        "tag": "tconstruct:modifiable"
+      }
+    ]
+  }
+}

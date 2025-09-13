@@ -21,7 +21,7 @@
         "type": "tconstruct:alloy",
         "inputs": [
           {
-            "amount": 180,
+            "amount": 270,
             "tag": "forge:molten_tin"
           },
           {
@@ -30,7 +30,7 @@
           }
         ],
         "result": {
-          "amount": 270,
+          "amount": 360,
           "tag": "forge:molten_pewter"
         },
         "temperature": 400

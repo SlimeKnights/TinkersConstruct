@@ -3,7 +3,14 @@
   "allow_crystal": true,
   "inputs": [
     {
-      "item": "minecraft:enchanted_golden_apple"
+      "ingredient": [
+        {
+          "item": "minecraft:enchanted_golden_apple"
+        },
+        {
+          "item": "minecraft:nether_star"
+        }
+      ]
     }
   ],
   "level": 1,

@@ -73,13 +73,13 @@ public interface AreaOfEffectIterator {
   static Predicate<BlockPos> defaultBlockPredicate(IToolStackView tool, UseOnContext context, AOEMatchType matchType) {
     // requires effectiveness
     Level world = context.getLevel();
-    if (matchType == AOEMatchType.DISPLAY) {
+    if (matchType == AOEMatchType.TRANSFORM) {
       return pos -> !world.isEmptyBlock(pos);
     } else {
       // don't let hardness vary too much
       BlockPos origin = context.getClickedPos();
       float refHardness = world.getBlockState(origin).getDestroySpeed(world, origin);
-      if (matchType == AOEMatchType.TRANSFORM) {
+      if (matchType == AOEMatchType.DISPLAY) {
         return pos -> {
           Level level = context.getLevel();
           if (isEffective(tool, level, pos, refHardness)) {

@@ -1,0 +1,66 @@
+{
+  "type": "forge:conditional",
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "forge:storage_blocks/raw_brass"
+    }
+  ],
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "mantle:tag_filled",
+          "tag": "forge:ingots/zinc"
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:ore_melting",
+        "byproducts": [
+          {
+            "amount": 810,
+            "rate": "metal",
+            "tag": "forge:molten_zinc"
+          }
+        ],
+        "ingredient": {
+          "tag": "forge:storage_blocks/raw_brass"
+        },
+        "rate": "metal",
+        "result": {
+          "amount": 810,
+          "tag": "forge:molten_brass"
+        },
+        "temperature": 605,
+        "time": 322
+      }
+    },
+    {
+      "conditions": [
+        {
+          "type": "forge:true"
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:ore_melting",
+        "byproducts": [
+          {
+            "amount": 810,
+            "rate": "metal",
+            "tag": "forge:molten_copper"
+          }
+        ],
+        "ingredient": {
+          "tag": "forge:storage_blocks/raw_brass"
+        },
+        "rate": "metal",
+        "result": {
+          "amount": 810,
+          "tag": "forge:molten_brass"
+        },
+        "temperature": 605,
+        "time": 322
+      }
+    }
+  ]
+}

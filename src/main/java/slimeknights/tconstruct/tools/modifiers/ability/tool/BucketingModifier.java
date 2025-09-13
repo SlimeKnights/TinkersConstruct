@@ -49,7 +49,6 @@ import slimeknights.tconstruct.library.modifiers.modules.build.StatBoostModule;
 import slimeknights.tconstruct.library.module.ModuleHookMap.Builder;
 import slimeknights.tconstruct.library.tools.capability.fluid.ToolTankHelper;
 import slimeknights.tconstruct.library.tools.definition.module.ToolHooks;
-import slimeknights.tconstruct.library.tools.definition.module.interaction.DualOptionInteraction;
 import slimeknights.tconstruct.library.tools.item.ModifiableItem;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
@@ -71,7 +70,7 @@ public class BucketingModifier extends Modifier implements BlockInteractionModif
 
   @Override
   public Component getDisplayName(IToolStackView tool, ModifierEntry entry, @Nullable RegistryAccess access) {
-    return DualOptionInteraction.formatModifierName(tool, this, super.getDisplayName(tool, entry, access));
+    return InteractionSource.formatModifierName(tool, this, super.getDisplayName(tool, entry, access));
   }
 
   /**

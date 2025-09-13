@@ -1,0 +1,17 @@
+{
+  "tag": "tconstruct:tooltips/bottle",
+  "units": [
+    {
+      "key": "gui.mantle.fluid.bucket",
+      "needed": 1000
+    },
+    {
+      "key": "gui.mantle.fluid.bottle",
+      "needed": 250
+    },
+    {
+      "key": "gui.mantle.fluid.drop",
+      "needed": 50
+    }
+  ]
+}

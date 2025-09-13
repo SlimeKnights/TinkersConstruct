@@ -226,6 +226,12 @@ public class Config {
     public final ForgeConfigSpec.EnumValue<Orientation2D> itemFrameLocation;
     public final ForgeConfigSpec.IntValue itemsPerRow;
 
+    // map modifier
+    public final ForgeConfigSpec.IntValue mapXOffset;
+    public final ForgeConfigSpec.IntValue mapYOffset;
+    public final ForgeConfigSpec.DoubleValue mapScale;
+    public final ForgeConfigSpec.EnumValue<Orientation2D> mapLocation;
+
     Client(ForgeConfigSpec.Builder builder) {
       builder.comment("Client only settings").push("client");
 
@@ -334,6 +340,24 @@ public class Config {
             .defineInRange("itemsPerRow", 5, 0, 100);
         }
         builder.pop();
+
+        builder.comment("Settings related to the minimap modifier").push("minimap");
+        {
+          this.mapXOffset = builder
+            .comment("Offset in the X direction for the minimap.")
+            .defineInRange("xOffset", 0, Short.MIN_VALUE, Short.MAX_VALUE);
+          this.mapYOffset = builder
+            .comment("Offset in the Y direction for the minimap.")
+            .defineInRange("yOffset", 0, Short.MIN_VALUE, Short.MAX_VALUE);
+          this.mapScale = builder
+            .comment("Size to render the minimap. Set to 0 to disable the renderer")
+            .defineInRange("scale", 0.75f, 0, 100);
+          this.mapLocation = builder
+            .comment("Location of the minimap on the screen.")
+            .defineEnum("location", Orientation2D.TOP_LEFT);
+        }
+        builder.pop();
+
       }
       builder.pop();
 

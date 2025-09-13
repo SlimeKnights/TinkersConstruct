@@ -1,0 +1,10 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:reverse_punch",
+      "each_level": 0.6
+    }
+  ],
+  "tooltip_display": "always"
+}

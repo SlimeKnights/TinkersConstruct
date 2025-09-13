@@ -42,7 +42,6 @@ import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.definition.module.ToolHooks;
 import slimeknights.tconstruct.library.tools.definition.module.aoe.AreaOfEffectIterator;
 import slimeknights.tconstruct.library.tools.definition.module.aoe.CircleAOEIterator;
-import slimeknights.tconstruct.library.tools.definition.module.interaction.DualOptionInteraction;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.Util;
@@ -78,7 +77,7 @@ public class FirestarterModifier extends NoLevelsModifier implements EntityInter
 
   @Override
   public Component getDisplayName(IToolStackView tool, ModifierEntry entry, @Nullable RegistryAccess access) {
-    return DualOptionInteraction.formatModifierName(tool, this, super.getDisplayName(tool, entry, access));
+    return InteractionSource.formatModifierName(tool, this, super.getDisplayName(tool, entry, access));
   }
 
   @Override

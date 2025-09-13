@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:incremental_modifier",
+  "allow_crystal": true,
+  "amount_per_item": 1,
+  "input": {
+    "tag": "minecraft:wool"
+  },
+  "needed_per_level": 10,
+  "result": "tconstruct:underbowed",
+  "tools": {
+    "tag": "tconstruct:modifiable/ranged/launcher"
+  }
+}

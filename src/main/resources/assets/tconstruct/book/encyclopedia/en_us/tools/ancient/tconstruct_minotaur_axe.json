@@ -1,0 +1,14 @@
+{
+  "tool": "tconstruct:minotaur_axe",
+  "text": [
+    { "text": "The minotaur axe is a special axe obtained from minotaurs in the Twilight Forest. The axe grants bonus damage when hitting targets while sprinting, often dealing more damage than critical hits. It also breaks wood in a column." }
+  ],
+  "properties": [
+    "+3 Attack Damage",
+    "+7 Charging Damage",
+    "0.9 Attack Speed",
+    "Full stats from both heads",
+    "3 Upgrade Slots",
+    "1 Ability Slot"
+  ]
+}

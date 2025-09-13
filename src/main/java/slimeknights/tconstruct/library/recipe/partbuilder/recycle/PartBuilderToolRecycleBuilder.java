@@ -11,6 +11,7 @@ import net.minecraft.world.level.ItemLike;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.mantle.recipe.ingredient.SizedIngredient;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.tables.recipe.PartBuilderToolRecycle;
 
@@ -28,7 +29,7 @@ import java.util.function.Supplier;
 public class PartBuilderToolRecycleBuilder extends AbstractRecipeBuilder<PartBuilderToolRecycleBuilder> {
   private final SizedIngredient tools;
   @Setter
-  private Ingredient pattern = Ingredient.of(TinkerTags.Items.DEFAULT_PATTERNS);
+  private Ingredient pattern = Ingredient.of(TinkerFluids.venomBottle);
   private final List<IMaterialItem> parts = new ArrayList<>();
 
   /** Creates a builder for the given tool */

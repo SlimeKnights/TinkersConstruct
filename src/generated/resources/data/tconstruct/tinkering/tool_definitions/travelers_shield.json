@@ -60,21 +60,11 @@
       ]
     },
     {
-      "type": "tconstruct:preference_set_interaction",
-      "preferred_modifiers": {
-        "type": "mantle:or",
-        "predicates": [
-          {
-            "type": "tconstruct:single",
-            "modifier": "tconstruct:blocking"
-          },
-          {
-            "type": "tconstruct:tag",
-            "tag": "tconstruct:block_while_charging"
-          }
-        ]
-      },
-      "preferred_source": "right_click"
+      "type": "tconstruct:attack_interaction"
+    },
+    {
+      "type": "tconstruct:fixed_material_name",
+      "index": 0
     }
   ]
 }

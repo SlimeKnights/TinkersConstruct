@@ -29,5 +29,6 @@ upgrades.group_armor.boots=Boots
 
 slotless=Slotless Modifier
 slotless.subtext=These modifiers do not require any slots to apply, you can have them all if you wish.
-slotless.group_slotless=Slotless
+slotless.group_slotless=General
 slotless.group_bonus_upgrades=Slots++
+slotless.group_cosmetic=Cosmetic

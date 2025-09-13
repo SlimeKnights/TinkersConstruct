@@ -66,7 +66,7 @@ public class RangedMaterialContent extends AbstractMaterialContent {
   @Override
   protected void addCategory(List<ItemElement> displayTools, MaterialId material) {
     if (MaterialRegistry.getInstance().isInTag(material, TinkerTags.Materials.BALANCED)) {
-      displayTools.add(makeCategoryIcon(TinkerTools.swasher.get().getRenderTool(), getResource("balanced")));
+      displayTools.add(makeCategoryIcon(TinkerTools.fishingRod.get().getRenderTool(), getResource("balanced")));
     } else if (MaterialRegistry.getInstance().isInTag(material, TinkerTags.Materials.LIGHT)) {
       displayTools.add(makeCategoryIcon(TinkerTools.crossbow.get().getRenderTool(), getResource("light")));
     } else if (MaterialRegistry.getInstance().isInTag(material, TinkerTags.Materials.HEAVY)) {

@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:grapple",
+  "text": [
+    {
+      "text": "GRAPPLING HOOK!"
+    }
+  ],
+  "effects": [
+    "Allows you to pull yourself towards hooked blocks",
+    "Fishing hook can also stick into walls",
+    "Single level",
+    "Requires 1 ability slot"
+  ]
+}

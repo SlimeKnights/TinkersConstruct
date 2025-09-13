@@ -3,27 +3,13 @@
   "allow_crystal": false,
   "inputs": [
     {
-      "ingredient": [
-        {
-          "item": "tconstruct:dragon_scale"
-        },
-        {
-          "item": "minecraft:gilded_blackstone"
-        }
-      ]
+      "tag": "forge:nuggets/queens_slime"
     },
     {
-      "tag": "forge:ingots/queens_slime"
+      "item": "minecraft:end_crystal"
     },
     {
-      "ingredient": [
-        {
-          "item": "tconstruct:dragon_scale"
-        },
-        {
-          "item": "minecraft:gilded_blackstone"
-        }
-      ]
+      "tag": "forge:nuggets/queens_slime"
     },
     {
       "item": "tconstruct:ichor_slime_crystal_block"

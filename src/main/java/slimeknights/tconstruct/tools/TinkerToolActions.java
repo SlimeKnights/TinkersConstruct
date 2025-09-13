@@ -6,4 +6,8 @@ import net.minecraftforge.common.ToolAction;
 public class TinkerToolActions {
   /** Tinker tools that can disable shields on attack */
   public static final ToolAction SHIELD_DISABLE = ToolAction.get("shield_disable");
+  /** Fishing rods that can act as a grappling hook */
+  public static final ToolAction GRAPPLE_HOOK = ToolAction.get("grapple_hook");
+  /** Fishing rods that can collect items */
+  public static final ToolAction ITEM_HOOK = ToolAction.get("item_hook");
 }

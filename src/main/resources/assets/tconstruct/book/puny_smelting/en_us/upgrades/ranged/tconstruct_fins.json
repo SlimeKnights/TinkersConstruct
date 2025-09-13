@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:fins",
+  "text": [
+    {
+      "text": "Turns your sword into a fish. A swordfish?"
+    }
+  ],
+  "effects": [
+    "Allows the thrown tool to move freely underwater",
+    "Single level",
+    "Requires 1 upgrade slot",
+    "Requires throwing or a ballista bow"
+  ]
+}

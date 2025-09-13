@@ -30,6 +30,9 @@
   "tconstruct:tank":      "tconstruct:tank",
   "tconstruct:bucketing": "tconstruct:fluid",
 
+  "tconstruct:tipped": "tconstruct:potion",
+  "tconstruct:smashing": "tconstruct:smashing_fluid",
+
   "tconstruct:golden":        "tconstruct:normal",
   "tconstruct:embellishment": "tconstruct:material",
   "tconstruct:dyed":          "tconstruct:dyed",

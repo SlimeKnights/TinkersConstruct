@@ -1,6 +1,7 @@
 {
   "values": [
     "#tconstruct:slotless/general",
-    "#tconstruct:slotless/bonus"
+    "#tconstruct:slotless/bonus",
+    "#tconstruct:slotless/cosmetic"
   ]
 }

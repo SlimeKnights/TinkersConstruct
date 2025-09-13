@@ -1,0 +1,18 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:share_durability",
+      "consume": {
+        "flat": 1
+      },
+      "grant": {
+        "each_level": 1,
+        "flat": 1
+      },
+      "shield": "tconstruct:barkskin"
+    }
+  ],
+  "priority": 250,
+  "tooltip_display": "always"
+}

@@ -120,6 +120,13 @@ public class EnchantmentConvertingRecipe extends AbstractWorktableRecipe {
     return ModifierRecipe.checkMatch(inv, inputs);
   }
 
+  /** Gets a list of all modifiers that match this recipe, set to level 1 for display */
+  private List<ModifierEntry> getMatchingModifiers() {
+    return ModifierRecipeLookup.getAllRecipeModifiers()
+      .filter(modifier -> modifierPredicate.matches(modifier.getId()) && ModifierManager.INSTANCE.hasEnchantment(modifier))
+      .map(mod -> new ModifierEntry(mod, 1)).toList();
+  }
+
   @Override
   public List<ModifierEntry> getModifierOptions(@Nullable ITinkerableContainer inv) {
     if (inv != null) {
@@ -133,7 +140,16 @@ public class EnchantmentConvertingRecipe extends AbstractWorktableRecipe {
       }).filter(Objects::nonNull).distinct().toList();
     }
     if (displayModifiers == null) {
-      displayModifiers = ModifierRecipeLookup.getAllRecipeModifiers().filter(modifier -> modifierPredicate.matches(modifier.getId())).map(mod -> new ModifierEntry(mod, 1)).toList();
+      if (matchBook) {
+        Set<ModifierId> modifiers = getMatchingModifiers().stream().map(ModifierEntry::getId).collect(Collectors.toSet());
+        Modifier defaultModifier = ModifierManager.INSTANCE.getDefaultValue();
+        displayModifiers = ModifierManager.INSTANCE.getEquivalentEnchantments(modifiers::contains)
+          .flatMap(enchantment -> IntStream.rangeClosed(1, enchantment.getMaxLevel())
+            .mapToObj(level -> new ModifierEntry(Objects.requireNonNullElse(ModifierManager.INSTANCE.get(enchantment), defaultModifier), level)))
+          .toList();
+      } else {
+        displayModifiers = getMatchingModifiers();
+      }
     }
     return displayModifiers;
   }
@@ -221,6 +237,16 @@ public class EnchantmentConvertingRecipe extends AbstractWorktableRecipe {
   /* Display */
 
   @Override
+  public boolean isToolInput() {
+    return true;
+  }
+
+  @Override
+  public boolean linkToolsModifiers() {
+    return matchBook;
+  }
+
+  @Override
   public boolean isModifierOutput() {
     return true;
   }
@@ -233,11 +259,12 @@ public class EnchantmentConvertingRecipe extends AbstractWorktableRecipe {
     }
     // for books, cache per recipe as we show the enchants
     if (tools == null) {
-      Set<ModifierId> modifiers = getModifierOptions(null).stream().map(ModifierEntry::getId).collect(Collectors.toSet());
+      // don't use the cached value from getModifierOptions as that is going to contain some redundant listings
+      Set<ModifierId> modifiers = getMatchingModifiers().stream().map(ModifierEntry::getId).collect(Collectors.toSet());
       tools = ModifierManager.INSTANCE.getEquivalentEnchantments(modifiers::contains)
-                                      .flatMap(enchantment -> IntStream.rangeClosed(1, enchantment.getMaxLevel())
-                                                                       .mapToObj(level -> EnchantedBookItem.createForEnchantment(new EnchantmentInstance(enchantment, level))))
-                                      .toList();
+        .flatMap(enchantment -> IntStream.rangeClosed(1, enchantment.getMaxLevel())
+          .mapToObj(level -> EnchantedBookItem.createForEnchantment(new EnchantmentInstance(enchantment, level))))
+        .toList();
     }
     return tools;
   }

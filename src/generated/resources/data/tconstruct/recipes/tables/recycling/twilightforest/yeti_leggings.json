@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:part_builder_recycling",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "twilightforest"
+    }
+  ],
+  "pattern": {
+    "item": "tconstruct:venom_bottle"
+  },
+  "results": {
+    "tconstruct:maille": {
+      "count": 7,
+      "item": "twilightforest:alpha_yeti_fur"
+    }
+  },
+  "tool": {
+    "item": "twilightforest:yeti_leggings"
+  }
+}

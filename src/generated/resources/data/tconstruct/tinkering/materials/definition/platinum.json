@@ -1,19 +1,7 @@
 {
-  "condition": {
-    "type": "forge:or",
-    "values": [
-      {
-        "type": "tconstruct:config",
-        "prop": "force_integration_materials"
-      },
-      {
-        "type": "mantle:tag_filled",
-        "tag": "forge:ingots/platinum"
-      }
-    ]
-  },
-  "craftable": false,
-  "hidden": false,
-  "sortOrder": 6,
-  "tier": 2
+  "redirect": [
+    {
+      "id": "tconstruct:seared_stone"
+    }
+  ]
 }

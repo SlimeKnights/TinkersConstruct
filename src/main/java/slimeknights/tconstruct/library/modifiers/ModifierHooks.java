@@ -27,6 +27,7 @@ import slimeknights.tconstruct.library.modifiers.hook.build.ConditionalStatModif
 import slimeknights.tconstruct.library.modifiers.hook.build.ModifierRemovalHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.ModifierTraitHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.RawDataModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.build.ToolCraftModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.ToolStatsModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.ValidateModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.VolatileDataModifierHook;
@@ -53,9 +54,12 @@ import slimeknights.tconstruct.library.modifiers.hook.mining.BreakSpeedModifierH
 import slimeknights.tconstruct.library.modifiers.hook.mining.HarvestEnchantmentsModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.mining.RemoveBlockModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.BowAmmoModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.ranged.LauncherHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileLaunchModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileShootModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.special.BlockTransformModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.special.CapacityBarHook;
 import slimeknights.tconstruct.library.modifiers.hook.special.PlantHarvestModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.special.ShearsModifierHook;
 import slimeknights.tconstruct.library.module.ModuleHook;
@@ -109,6 +113,24 @@ public class ModifierHooks {
   /** Hook running while the tool is in the inventory */
   public static final ModuleHook<InventoryTickModifierHook> INVENTORY_TICK = register("inventory_tick", InventoryTickModifierHook.class, InventoryTickModifierHook.AllMerger::new, (tool, modifier, world, holder, itemSlot, isSelected, isCorrectSlot, stack) -> {});
 
+  /* Technical */
+
+  /** Hook for working with capacity bars, mainly used for durability bars  */
+  public static final ModuleHook<CapacityBarHook> CAPACITY_BAR = register("capacity_bar", CapacityBarHook.class, new CapacityBarHook() {
+    @Override
+    public int getAmount(IToolStackView tool) {
+      return 0;
+    }
+
+    @Override
+    public int getCapacity(IToolStackView tool, ModifierEntry entry) {
+      return 0;
+    }
+
+    @Override
+    public void setAmount(IToolStackView tool, ModifierEntry entry, int amount) {}
+  });
+
 
   /* Composable only  */
 
@@ -145,6 +167,9 @@ public class ModifierHooks {
 
 
   /* Tool Building */
+
+  /** Hook called on tool crafting to allow modifying the amount crafted */
+  public static final ModuleHook<ToolCraftModifierHook> TOOL_CRAFT = register("tool_craft", ToolCraftModifierHook.class, ToolCraftModifierHook.ComposeMerger::new, (context, modifier, amount) -> amount);
 
   /** Hook for adding raw unconditional stats to a tool */
   public static final ModuleHook<ToolStatsModifierHook> TOOL_STATS = register("modifier_stats", ToolStatsModifierHook.class, ToolStatsModifierHook.AllMerger::new, (context, modifier, builder) -> {});
@@ -244,9 +269,22 @@ public class ModifierHooks {
   /* Ranged */
 
   /** Hook for firing arrows or other projectiles to modify the entity post firing */
-  public static final ModuleHook<ProjectileLaunchModifierHook> PROJECTILE_LAUNCH = register("projectile_launch", ProjectileLaunchModifierHook.class, ProjectileLaunchModifierHook.AllMerger::new, (tool, modifier, shooter, projectile, arrow, persistentData, primary) -> {});
+  public static final ModuleHook<ProjectileLaunchModifierHook> PROJECTILE_LAUNCH;
+  /** Hook for throwing a projectile that will not be firing {@link #PROJECTILE_HIT} later. */
+  public static final ModuleHook<ProjectileShootModifierHook> PROJECTILE_THROWN;
+  /** Hook for when a projectile is launched, but called with the projectile tool rather than the launcher */
+  public static final ModuleHook<ProjectileShootModifierHook> PROJECTILE_SHOT;
+  static {
+    ProjectileLaunchModifierHook defaultInstance = (tool, modifier, shooter, projectile, arrow, persistentData, primary) -> {};
+    Function<Collection<ProjectileShootModifierHook>,ProjectileShootModifierHook> merger = ProjectileShootModifierHook.AllMerger::new;
+    PROJECTILE_LAUNCH = register("projectile_launch", ProjectileLaunchModifierHook.class, ProjectileLaunchModifierHook.AllMerger::new, defaultInstance);
+    PROJECTILE_SHOT = register("projectile_shot", ProjectileShootModifierHook.class, merger, defaultInstance);
+    PROJECTILE_THROWN = register("projectile_thrown", ProjectileShootModifierHook.class, merger, defaultInstance);
+  }
   /** Hook called when an arrow hits an entity or block */
   public static final ModuleHook<ProjectileHitModifierHook> PROJECTILE_HIT = register("projectile_hit", ProjectileHitModifierHook.class, ProjectileHitModifierHook.AllMerger::new, new ProjectileHitModifierHook() {});
+  /** Hook called when a projectile hits an entity with context on the tool that launched it. Allows modifiers such as melting or spilling to work. */
+  public static final ModuleHook<LauncherHitModifierHook> LAUNCHER_HIT = register("launcher_hit", LauncherHitModifierHook.class, LauncherHitModifierHook.AllMerger::new, new LauncherHitModifierHook() {});
   /** Hook called when a bow is looking for ammo. Does not support merging multiple hooks on one modifier */
   public static final ModuleHook<BowAmmoModifierHook> BOW_AMMO = register("bow_ammo", BowAmmoModifierHook.class, BowAmmoModifierHook.EMPTY);
 

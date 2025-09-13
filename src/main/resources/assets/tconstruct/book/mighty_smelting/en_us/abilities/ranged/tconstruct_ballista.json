@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:grapple",
+  "text": [
+    {
+      "text": "Regular arrows not doing it for you? Try ballistic ammo! Fire only the highest quality melee weapons."
+    }
+  ],
+  "effects": [
+    "Allows your bow to fire melee weapons",
+    "Melee weapon must be in other hand or quiver",
+    "Single level",
+    "Requires 1 ability slot"
+  ]
+}

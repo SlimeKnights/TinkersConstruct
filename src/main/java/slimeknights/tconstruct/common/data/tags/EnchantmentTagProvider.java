@@ -30,8 +30,10 @@ public class EnchantmentTagProvider extends TagsProvider<Enchantment> {
     modifierTag(TinkerModifiers.necrotic.getId(), "cyclic:life_leech", "ensorcellation:leech");
     modifierTag(TinkerModifiers.severing.getId(), "cyclic:beheading", "ensorcellation:vorpal");
     modifierTag(ModifierIds.stepUp, "cyclic:step");
-    modifierTag(ModifierIds.soulbound, "ensorcellation:soulbound");
+    modifierTag(ModifierIds.soulbound, "ensorcellation:soulbound", "enderzoology:soulbound");
     modifierTag(ModifierIds.trueshot, "ensorcellation:trueshot");
+    modifierTag(ModifierIds.fiery, "twilightforest:fire_react");
+    modifierTag(ModifierIds.freezing, "twilightforest:chill_aura");
 
     // defense
     modifierTag(ModifierIds.knockbackResistance, "cyclic:steady");

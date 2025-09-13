@@ -60,11 +60,6 @@
     "data": "worktable/toggle_interaction.json"
   },
   {
-    "name": "untoggle_interaction",
-    "type": "mantle:image_text",
-    "data": "worktable/untoggle_interaction.json"
-  },
-  {
     "type": "mantle:right_padding",
     "data": "no-load"
   }

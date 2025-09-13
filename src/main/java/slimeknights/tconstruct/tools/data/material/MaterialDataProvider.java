@@ -36,8 +36,10 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addMaterial(MaterialIds.string,  1, ORDER_BINDING - 2, true); // earlier order so its the first in stat type
     addMaterial(MaterialIds.leather, 1, ORDER_BINDING, true);
     addMaterial(MaterialIds.vine,    1, ORDER_BINDING, true);
-    addMaterial(MaterialIds.ice,     1, ORDER_BINDING, true);
-    addMaterial(MaterialIds.cactus,  1, ORDER_BINDING, true);
+    // tier 1 - shield cores
+    addMaterial(MaterialIds.cactus, 1, ORDER_BINDING, true);
+    // tier 1 - ammo
+    addMaterial(MaterialIds.wool, 1, ORDER_BINDING, true);
 
     // tier 2
     addMaterial(MaterialIds.iron,        2, ORDER_GENERAL, false);
@@ -54,6 +56,14 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addMaterial(MaterialIds.skyslimeVine, 2, ORDER_BINDING, true);
     addMaterial(MaterialIds.weepingVine,  2, ORDER_BINDING, true);
     addMaterial(MaterialIds.twistingVine, 2, ORDER_BINDING, true);
+    // tier 2 - ammo
+    addMaterial(MaterialIds.amethyst,   2, ORDER_REPAIR, false);
+    addMaterial(MaterialIds.prismarine, 2, ORDER_REPAIR, true);
+    addMaterial(MaterialIds.earthslime, 2, ORDER_REPAIR, true);
+    addMaterial(MaterialIds.skyslime,   2, ORDER_REPAIR, true);
+    addMaterial(MaterialIds.blaze,      2, ORDER_REPAIR, true);
+    addMaterial(MaterialIds.enderPearl, 2, ORDER_REPAIR, false);
+    addMaterial(MaterialIds.glass,      2, ORDER_REPAIR, false);
     // bloodbone reworked into venombone
     addRedirect(new MaterialId(TConstruct.MOD_ID, "bloodbone"), redirect(MaterialIds.venombone));
 
@@ -70,6 +80,11 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     // tier 3 - binding
     addMaterial(MaterialIds.darkthread, 3, ORDER_BINDING, false);
     addMaterial(MaterialIds.ichorskin,  3, ORDER_BINDING, false);
+    // tier 3 - shield cores
+    addMaterial(MaterialIds.ice, 3, ORDER_BINDING, true);
+    // tier 3 - ammo
+    addMaterial(MaterialIds.quartz, 3, ORDER_REPAIR, false);
+    addMaterial(MaterialIds.ichor,  3, ORDER_REPAIR, true);
 
     // tier 4
     addMaterial(MaterialIds.queensSlime, 4, ORDER_GENERAL, false);
@@ -78,48 +93,46 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addMaterial(MaterialIds.manyullyn,   4, ORDER_WEAPON,  false);
     addMaterial(MaterialIds.blazingBone, 4, ORDER_SPECIAL, true);
     addMaterial(MaterialIds.blazewood,   4, ORDER_RANGED,  true);
+    addMaterial(MaterialIds.knightmetal, 4, ORDER_END,     false);
     //addMetalMaterial(MaterialIds.soulsteel, 4, ORDER_SPECIAL, false, 0x6a5244);
     // tier 4 - binding
     addMaterial(MaterialIds.ancientHide, 4, ORDER_BINDING, false);
     addMaterial(MaterialIds.ancient,     4, ORDER_NETHER,  false, true, null);
+    // tier 4 - ammo
+    addMaterial(MaterialIds.dragonScale, 4, ORDER_REPAIR, true);
+    addMaterial(MaterialIds.enderslime,  4, ORDER_REPAIR, true);
 
     // tier 5 binding, temporarily in book 4
     addMaterial(MaterialIds.enderslimeVine, 4, ORDER_BINDING, true);
 
-    // tier 2 (end)
-    //addMaterialNoFluid(MaterialIds.endstone, 2, ORDER_END, true, 0xe0d890);
-
     // tier 2 (mod integration)
-    addCompatMetalMaterial(MaterialIds.osmium,     2, ORDER_COMPAT + ORDER_GENERAL);
-    addCompatMetalMaterial(MaterialIds.tungsten,   2, ORDER_COMPAT + ORDER_HARVEST);
-    addCompatMetalMaterial(MaterialIds.platinum,   2, ORDER_COMPAT + ORDER_HARVEST);
-    addCompatMetalMaterial(MaterialIds.silver,     2, ORDER_COMPAT + ORDER_WEAPON);
-    addCompatMetalMaterial(MaterialIds.lead,       2, ORDER_COMPAT + ORDER_WEAPON);
-    addCompatMetalMaterial(MaterialIds.aluminum,   2, ORDER_COMPAT + ORDER_RANGED);
+    addCompatMetalMaterial(MaterialIds.osmium,   2, ORDER_COMPAT + ORDER_GENERAL);
+    addCompatMetalMaterial(MaterialIds.lead,     2, ORDER_COMPAT + ORDER_HARVEST);
+    addCompatMetalMaterial(MaterialIds.silver,   2, ORDER_COMPAT + ORDER_WEAPON);
+    addCompatMetalMaterial(MaterialIds.aluminum, 2, ORDER_COMPAT + ORDER_RANGED);
+    // ironwood works in a part builder even though its ingots
+    addCompatMaterial(MaterialIds.ironwood, 2, ORDER_COMPAT + ORDER_GENERAL, true, "ingots/ironwood");
     // treated wood comes from treated wood or creosote oil
     addMaterial(MaterialIds.treatedWood, 2, ORDER_COMPAT + ORDER_GENERAL, true, false,
       new OrCondition(ConfigEnabledCondition.FORCE_INTEGRATION_MATERIALS, tagExistsCondition("treated_wood"), new TagFilledCondition<>(FluidTags.create(commonResource("creosote")))));
     // tier 3 (mod integration)
+    addCompatMetalMaterial(MaterialIds.electrum,        3, ORDER_COMPAT + ORDER_GENERAL, "electrum", "silver");
     addCompatMetalMaterial(MaterialIds.bronze,          3, ORDER_COMPAT + ORDER_HARVEST, "bronze", "tin");
     addCompatMetalMaterial(MaterialIds.constantan,      3, ORDER_COMPAT + ORDER_HARVEST, "constantan", "nickel");
     addCompatMetalMaterial(MaterialIds.invar,           3, ORDER_COMPAT + ORDER_WEAPON,  "invar", "nickel");
     addCompatMetalMaterial(MaterialIds.pewter,          3, ORDER_COMPAT + ORDER_WEAPON,  "pewter", "tin", "lead");
     addCompatMaterial     (MaterialIds.necronium,       3, ORDER_COMPAT + ORDER_WEAPON, true, "ingots/uranium");
-    addCompatMetalMaterial(MaterialIds.electrum,        3, ORDER_COMPAT + ORDER_SPECIAL, "electrum", "silver");
     addCompatMetalMaterial(MaterialIds.platedSlimewood, 3, ORDER_COMPAT + ORDER_SPECIAL, "brass", "zinc");
+    addCompatMetalMaterial(MaterialIds.steeleaf,        3, ORDER_COMPAT + ORDER_SPECIAL);
+    // tier 4 (mod integration)
+    addCompatMetalMaterial(MaterialIds.fiery,           4, ORDER_COMPAT + ORDER_END);
 
     // slimeskull - put in the most appropriate tier
     addMaterial(MaterialIds.gold,        2, ORDER_REPAIR, false);
-    addMaterial(MaterialIds.glass,       2, ORDER_REPAIR, false);
     addMaterial(MaterialIds.rottenFlesh, 1, ORDER_REPAIR, true);
-    addMaterial(MaterialIds.enderPearl,  2, ORDER_REPAIR, false);
     // slimesuit - textures
-    addMaterial(MaterialIds.earthslime, 1, ORDER_REPAIR, true);
-    addMaterial(MaterialIds.skyslime,   1, ORDER_REPAIR, true);
     addMaterial(MaterialIds.blood,      2, ORDER_REPAIR, true);
     addMaterial(MaterialIds.magma,      2, ORDER_REPAIR, true);
-    addMaterial(MaterialIds.ichor,      3, ORDER_REPAIR, true);
-    addMaterial(MaterialIds.enderslime, 4, ORDER_REPAIR, true);
     addMaterial(MaterialIds.clay,       1, ORDER_REPAIR, true);
     addMaterial(MaterialIds.honey,      1, ORDER_REPAIR, true);
     //addMaterial(MaterialIds.venom,      3, ORDER_REPAIR, true);
@@ -127,6 +140,19 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addMaterial(MaterialIds.phantom,    1, ORDER_REPAIR, true);
 
     // rose gold is most comparable to chain as you can use the extra slot for reinforced
-    addRedirect(new MaterialId(TConstruct.MOD_ID, "chain"), redirect(MaterialIds.roseGold));
+    addRedirect(id("chain"), redirect(MaterialIds.roseGold));
+    addRedirect(id("platinum"), redirect(MaterialIds.searedStone));
+    addRedirect(id("tungsten"),
+      conditionalRedirect(MaterialIds.lead, tagExistsCondition("ingots/lead")),
+      conditionalRedirect(MaterialIds.invar, new OrCondition(tagExistsCondition("ingots/invar"), tagExistsCondition("ingots/nickel"))),
+      redirect(MaterialIds.iron));
+  }
+  /**
+   * Creates a new material ID
+   * @param name  ID name
+   * @return  Material ID object
+   */
+  private static MaterialId id(String name) {
+    return new MaterialId(TConstruct.MOD_ID, name);
   }
 }

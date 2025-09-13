@@ -29,12 +29,17 @@ public interface ConditionalStatTooltip extends TooltipModifierHook, Conditional
   /** Computes the value to display in the tooltip */
   float computeTooltipValue(IToolStackView tool, ModifierEntry entry, @Nullable Player player);
 
+  /** Checks if the tool condition matches */
+  default boolean matchesTool(IToolStackView tool, ModifierEntry entry) {
+    return condition().matches(tool, entry);
+  }
+
   @Override
   default void addTooltip(IToolStackView tool, ModifierEntry entry, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
     // if holding shift, or we have no attacker condition, then we don't need the player to show the tooltip
     INumericToolStat<?> stat = stat();
     IJsonPredicate<LivingEntity> holder = holder();
-    if (stat.supports(tool.getItem()) && condition().matches(tool, entry) && TinkerPredicate.matchesInTooltip(holder, player, tooltipKey)) {
+    if (stat.supports(tool.getItem()) && matchesTool(tool, entry) && TinkerPredicate.matchesInTooltip(holder, player, tooltipKey)) {
       // it's hard to display a good tooltip value without knowing the details of the formula, best we can do is guess based on the boolean
       // if this is inaccurate, just add this module without the tooltip hook to ignore
       Modifier modifier = entry.getModifier();

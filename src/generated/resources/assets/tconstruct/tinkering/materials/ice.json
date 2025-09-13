@@ -3,7 +3,8 @@
   "generator": {
     "supported_stats": [
       "tconstruct:shield_core",
-      "tconstruct:repair_kit"
+      "tconstruct:repair_kit",
+      "tconstruct:arrow_head"
     ],
     "transformer": {
       "type": "tconstruct:grey_to_sprite",

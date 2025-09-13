@@ -20,10 +20,13 @@ import java.util.function.Supplier;
 @SuppressWarnings("deprecation")  // just let me get item keys forge
 public abstract class AbstractStationSlotLayoutProvider extends GenericDataProvider {
 
+  // TODO 1.21: rework these to have a bit more space between numbers
   /** Sort index for weapons */
   protected static final int SORT_WEAPON = 3;
   /** Sort index for harvest */
   protected static final int SORT_HARVEST = 6;
+  /** Sort index for ammo */
+  protected static final int SORT_AMMO = 7;
   /** Sort index for ranged */
   protected static final int SORT_RANGED = 8;
   /** Index for large tools, add to either weapon or harvest */

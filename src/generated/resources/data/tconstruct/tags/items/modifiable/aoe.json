@@ -19,6 +19,10 @@
     "tconstruct:ender_staff",
     "tconstruct:melting_pan",
     "tconstruct:war_pick",
+    {
+      "id": "tconstruct:minotaur_axe",
+      "required": false
+    },
     "#tconstruct:modifiable/armor/boots"
   ]
 }

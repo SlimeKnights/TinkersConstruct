@@ -131,8 +131,18 @@ public interface IDisplayModifierRecipe extends IModifierRecipe {
   }
 
   /* Gets a copy of the stack with the given modifiers */
+  static ItemStack withModifiers(ItemStack stack, int maxSize, List<ModifierEntry> modifiers) {
+    return withModifiers(stack, maxSize, modifiers, data -> {});
+  }
+
+  /* Gets a copy of the stack with the given modifiers */
   static ItemStack withModifiers(ItemStack stack, List<ModifierEntry> modifierList, Consumer<ModDataNBT> persistentDataConsumer) {
-    ItemStack output = stack.copy();
+    return withModifiers(stack, 1, modifierList, persistentDataConsumer);
+  }
+
+  /* Gets a copy of the stack with the given modifiers */
+  static ItemStack withModifiers(ItemStack stack, int maxSize, List<ModifierEntry> modifierList, Consumer<ModDataNBT> persistentDataConsumer) {
+    ItemStack output = stack.copyWithCount(Math.min(stack.getMaxStackSize(), maxSize));
     CompoundTag nbt = output.getOrCreateTag();
 
     // build modifiers list

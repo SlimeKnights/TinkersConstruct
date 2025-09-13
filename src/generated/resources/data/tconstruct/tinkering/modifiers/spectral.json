@@ -1,0 +1,20 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:mob_effect",
+      "effect": "minecraft:glowing",
+      "level": {
+        "flat": 1.0
+      },
+      "time": {
+        "per_level": 200.0
+      }
+    },
+    {
+      "type": "tconstruct:projectile_place_glow",
+      "target": "blocks"
+    }
+  ],
+  "tooltip_display": "always"
+}

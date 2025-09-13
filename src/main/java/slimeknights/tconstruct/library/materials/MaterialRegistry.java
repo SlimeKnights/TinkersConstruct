@@ -7,6 +7,7 @@ import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.OnDatapackSyncEvent;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.PacketDistributor.PacketTarget;
+import slimeknights.mantle.command.argument.TagSource;
 import slimeknights.mantle.network.packet.ISimplePacket;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
@@ -21,6 +22,7 @@ import slimeknights.tconstruct.library.materials.stats.MaterialStatsManager;
 import slimeknights.tconstruct.library.materials.stats.UpdateMaterialStatsPacket;
 import slimeknights.tconstruct.library.materials.traits.MaterialTraitsManager;
 import slimeknights.tconstruct.library.materials.traits.UpdateMaterialTraitsPacket;
+import slimeknights.tconstruct.shared.command.argument.MaterialTagSource;
 import slimeknights.tconstruct.tools.stats.GripMaterialStats;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
@@ -41,6 +43,8 @@ public final class MaterialRegistry {
   public static final MaterialStatsId RANGED = new MaterialStatsId(TConstruct.getResource("ranged"));
   /** Internal material stats ID for the sake of adding traits exclusive to armor materials */
   public static final MaterialStatsId ARMOR = new MaterialStatsId(TConstruct.getResource("armor"));
+  /** Internal material stats ID for the sake of adding traits exclusive to ammo materials */
+  public static final MaterialStatsId AMMO = new MaterialStatsId(TConstruct.getResource("ammo"));
 
   static MaterialRegistry INSTANCE;
 
@@ -114,6 +118,9 @@ public final class MaterialRegistry {
     registry.registerStatType(StatlessMaterialStats.CUIRASS.getType(), ARMOR);
     registry.registerStatType(StatlessMaterialStats.MAILLE.getType(), ARMOR);
     registry.registerStatType(StatlessMaterialStats.SHIELD_CORE.getType(), ARMOR);
+    // ammo
+    registry.registerStatType(StatlessMaterialStats.ARROW_HEAD.getType(), AMMO);
+    registry.registerStatType(StatlessMaterialStats.ARROW_SHAFT.getType(), AMMO);
     // misc
     registry.registerStatType(StatlessMaterialStats.REPAIR_KIT.getType());
     registry.registerStatType(SkullStats.TYPE);
@@ -172,6 +179,11 @@ public final class MaterialRegistry {
    */
   public static Collection<IMaterial> getMaterials() {
     return INSTANCE.registry.getVisibleMaterials();
+  }
+
+  /** Gets the tag source for materials for use in commands. Generally better to use methods from {@link IMaterialRegistry} for addons for the sake of tests */
+  public static TagSource<IMaterial> getTagSource() {
+    return new MaterialTagSource(INSTANCE.materialManager);
   }
 
 

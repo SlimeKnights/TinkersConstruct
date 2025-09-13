@@ -16,11 +16,9 @@ import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.modifiers.ModifierId;
+import slimeknights.tconstruct.library.modifiers.modules.capacity.OverslimeModule;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
-import slimeknights.tconstruct.tools.modifiers.slotless.OverslimeModifier;
 
 import javax.annotation.Nullable;
 import java.util.function.Predicate;
@@ -93,11 +91,9 @@ public class OverslimeCraftingTableRecipe extends CustomRecipe {
     }
     // found both tool and ingredient, ensure we need overslime
     ToolStack tool = ToolStack.from(match.tool);
-    OverslimeModifier overslime = TinkerModifiers.overslime.get();
-    ModifierEntry entry = tool.getModifier(overslime);
     // no adding overslime via this recipe, only refilling it
     // mostly simplifies some of the craft remainder logic
-    return entry.getLevel() > 0 || overslime.getShield(tool) < overslime.getShieldCapacity(tool, entry);
+    return tool.getModifierLevel(TinkerModifiers.overslime.getId()) > 0 || OverslimeModule.INSTANCE.getAmount(tool) < OverslimeModule.getCapacity(tool);
   }
 
   @Override
@@ -108,8 +104,7 @@ public class OverslimeCraftingTableRecipe extends CustomRecipe {
       return ItemStack.EMPTY;
     }
     ToolStack tool = ToolStack.copyFrom(match.tool);
-    ModifierId overslime = TinkerModifiers.overslime.getId();
-    TinkerModifiers.overslime.get().addOverslime(tool, tool.getModifier(overslime), match.itemsFound * restoreAmount);
+    OverslimeModule.INSTANCE.addAmount(tool, match.itemsFound * restoreAmount);
     return tool.copyStack(match.tool);
   }
 
@@ -141,9 +136,8 @@ public class OverslimeCraftingTableRecipe extends CustomRecipe {
     int repairPerItem = restoreAmount;
     if (inputs != null) {
       ToolStack tool = ToolStack.from(inputs.tool);
-      OverslimeModifier overslime = TinkerModifiers.overslime.get();
-      repairNeeded = overslime.getShieldCapacity(tool, tool.getModifier(overslime)) - overslime.getShield(tool);
-      repairPerItem *= OverslimeModifier.getOverworkedBonus(tool);
+      repairNeeded = OverslimeModule.getCapacity(tool) - OverslimeModule.INSTANCE.getAmount(tool);
+      repairPerItem *= OverslimeModule.getOverworkedBonus(tool);
     }
 
     // step 2: consume as many items as are needed to do the repair

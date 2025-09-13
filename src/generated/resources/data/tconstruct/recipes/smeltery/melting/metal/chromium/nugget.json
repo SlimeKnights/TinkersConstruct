@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "forge:nuggets/chromium"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:nuggets/chromium"
+  },
+  "result": {
+    "amount": 10,
+    "tag": "forge:molten_chromium"
+  },
+  "temperature": 900,
+  "time": 21
+}

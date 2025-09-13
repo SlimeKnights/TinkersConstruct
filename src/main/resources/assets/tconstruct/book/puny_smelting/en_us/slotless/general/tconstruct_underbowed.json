@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:underbowed",
+  "text": [
+    {
+      "text": "Underbowed is when you use a bow that is beneath your strength."
+    }
+  ],
+  "effects": [
+    "Decreases power of fired projectiles",
+    "Multiple levels, each level decreases power further",
+    "Slotless"
+  ]
+}

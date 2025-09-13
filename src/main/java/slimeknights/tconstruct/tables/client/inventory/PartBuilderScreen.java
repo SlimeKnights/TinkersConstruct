@@ -36,8 +36,38 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
   private static final Component TRAIT_TITLE = TConstruct.makeTranslation("gui", "part_builder.trait").withStyle(ChatFormatting.UNDERLINE);
   private static final MutableComponent UNCRAFTABLE_MATERIAL = TConstruct.makeTranslation("gui", "part_builder.uncraftable").withStyle(ChatFormatting.RED);
   private static final MutableComponent UNCRAFTABLE_MATERIAL_TOOLTIP = TConstruct.makeTranslation("gui", "part_builder.uncraftable.tooltip");
-
-  private static final ResourceLocation BACKGROUND = TConstruct.getResource("textures/gui/partbuilder.png");
+  private static final ResourceLocation BACKGROUND = TConstruct.getResource("textures/gui/part_builder.png");
+  // locations
+  // slider
+  /** Texture U for the handle texture */
+  private static final int HANDLE_U = 176;
+  /** Texture U for the handle texture when the scrollbar is disabled */
+  private static final int HANDLE_U_DISABLE = 188;
+  /** Width of the slider handle */
+  private static final int SLIDER_WIDTH = 12;
+  /** Height of the slider handle */
+  private static final int HANDLE_HEIGHT = 15;
+  /** Height of the full slider bar */
+  private static final int BAR_HEIGHT = 72;
+  /** Height of the scrollable bar area */
+  private static final int SROLLABLE_AREA = BAR_HEIGHT + 2 - HANDLE_HEIGHT;
+  /** Furthest left position of slider */
+  private static final int SLIDER_LEFT = 126;
+  /** Furthest top position of the slider */
+  private static final int SLIDER_TOP = 15;
+  // patterns
+  /** Furthest left position of the patterns */
+  private static final int PATTERN_LEFT = 51;
+  /** Furthest top position of the patterns */
+  private static final int PATTERN_TOP = 15;
+  /** Largest pattern index to display */
+  private static final int MAX_PATTERN = 16;
+  /** Width and height of a pattern button */
+  private static final int PATTERN_SIZE = 18;
+  /** U coordinate of the pattern textures */
+  private static final int PATTERN_U = 176;
+  /** V coordinate of the first pattern texture */
+  private static final int PATTERN_V_START = 15;
 
   /** Part builder side panel */
   protected PartInfoPanelScreen infoPanelScreen;
@@ -48,13 +78,15 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
 
   /**
    * The index of the first recipe to display.
-   * The number of recipes displayed at any time is 12 (4 recipes per row, and 3 rows). If the player scrolled down one
+   * The number of recipes displayed at any time is 16 (4 recipes per row, and 4 rows). If the player scrolled down one
    * row, this value would be 4 (representing the index of the first slot on the second row).
    */
   private int recipeIndexOffset = 0;
 
   public PartBuilderScreen(PartBuilderContainerMenu container, Inventory playerInventory, Component title) {
     super(container, playerInventory, title);
+
+    this.imageHeight = 184;
 
     this.infoPanelScreen = new PartInfoPanelScreen(this, container, playerInventory, title);
     this.infoPanelScreen.setTextScale(7/9f);
@@ -68,13 +100,13 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
     this.drawBackground(graphics, BACKGROUND);
 
     // draw scrollbar
-    graphics.blit(BACKGROUND, this.cornerX + 126, this.cornerY + 15 + (int) (41.0F * this.sliderProgress), 176 + (this.canScroll() ? 0 : 12), 0, 12, 15);
-    this.drawRecipesBackground(graphics, mouseX, mouseY, this.cornerX + 51, this.cornerY + 15);
+    graphics.blit(BACKGROUND, this.cornerX + SLIDER_LEFT, this.cornerY + SLIDER_TOP + (int) (SROLLABLE_AREA * this.sliderProgress), canScroll() ? HANDLE_U : HANDLE_U_DISABLE, 0, SLIDER_WIDTH, HANDLE_HEIGHT);
+    this.drawRecipesBackground(graphics, mouseX, mouseY, this.cornerX + PATTERN_LEFT, this.cornerY + PATTERN_TOP);
 
     // draw slot icons
     this.drawIconEmpty(graphics, this.getMenu().getPatternSlot(), Icons.PATTERN);
     this.drawIconEmpty(graphics, this.getMenu().getInputSlot(), Icons.INGOT);
-    this.drawRecipesItems(graphics, this.cornerX + 51, this.cornerY + 15);
+    this.drawRecipesItems(graphics, this.cornerX + PATTERN_LEFT, this.cornerY + PATTERN_TOP);
 
     super.renderBg(graphics, partialTicks, mouseX, mouseY);
   }
@@ -89,15 +121,15 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
     if (tile != null) {
       List<Pattern> buttons = tile.getSortedButtons();
       if (!buttons.isEmpty()) {
-        int x = this.cornerX + 51;
-        int y = this.cornerY + 15;
-        int maxIndex = Math.min((this.recipeIndexOffset + 12), buttons.size());
-        for (int l = this.recipeIndexOffset; l < maxIndex; ++l) {
-          int relative = l - this.recipeIndexOffset;
-          double buttonX = mouseX - (double)(x + relative % 4 * 18);
-          double buttonY = mouseY - (double)(y + relative / 4 * 18);
-          if (buttonX >= 0.0D && buttonY >= 0.0D && buttonX < 18.0D && buttonY < 18.0D) {
-            return l;
+        int x = this.cornerX + PATTERN_LEFT;
+        int y = this.cornerY + PATTERN_TOP;
+        int maxIndex = Math.min((this.recipeIndexOffset + MAX_PATTERN), buttons.size());
+        for (int i = this.recipeIndexOffset; i < maxIndex; ++i) {
+          int relative = i - this.recipeIndexOffset;
+          double buttonX = mouseX - (double)(x + relative % 4 * PATTERN_SIZE);
+          double buttonY = mouseY - (double)(y + relative / 4 * PATTERN_SIZE);
+          if (buttonX >= 0 && buttonY >= 0 && buttonX < PATTERN_SIZE && buttonY < PATTERN_SIZE) {
+            return i;
           }
         }
       }
@@ -126,18 +158,18 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
     if (tile == null) {
       return;
     }
-    int max = Math.min(this.recipeIndexOffset + 12, this.getPartRecipeCount());
-    for (int i = this.recipeIndexOffset; i < max; ++i) {
+    int max = Math.min(this.recipeIndexOffset + MAX_PATTERN, this.getPartRecipeCount());
+    for (int i = this.recipeIndexOffset; i < max; i++) {
       int relative = i - this.recipeIndexOffset;
-      int x = left + relative % 4 * 18;
-      int y = top + (relative / 4) * 18;
-      int u = this.imageHeight;
+      int x = left + relative % 4 * PATTERN_SIZE;
+      int y = top + (relative / 4) * PATTERN_SIZE;
+      int v = PATTERN_V_START;
       if (i == this.tile.getSelectedIndex()) {
-        u += 18;
-      } else if (mouseX >= x && mouseY >= y && mouseX < x + 18 && mouseY < y + 18) {
-        u += 36;
+        v += PATTERN_SIZE;
+      } else if (mouseX >= x && mouseY >= y && mouseX < x + PATTERN_SIZE && mouseY < y + PATTERN_SIZE) {
+        v += 2 * PATTERN_SIZE;
       }
-      graphics.blit(BACKGROUND, x, y, 0, u, 18, 18);
+      graphics.blit(BACKGROUND, x, y, PATTERN_U, v, PATTERN_SIZE, PATTERN_SIZE);
     }
   }
 
@@ -149,11 +181,11 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
     Function<ResourceLocation, TextureAtlasSprite> spriteGetter = this.minecraft.getTextureAtlas(InventoryMenu.BLOCK_ATLAS);
     // iterate all recipes
     List<Pattern> list = this.tile.getSortedButtons();
-    int max = Math.min(this.recipeIndexOffset + 12, this.getPartRecipeCount());
+    int max = Math.min(this.recipeIndexOffset + MAX_PATTERN, this.getPartRecipeCount());
     for (int i = this.recipeIndexOffset; i < max; ++i) {
       int relative = i - this.recipeIndexOffset;
-      int x = left + relative % 4 * 18 + 1;
-      int y = top + (relative / 4) * 18 + 1;
+      int x = left + relative % 4 * PATTERN_SIZE + 1;
+      int y = top + (relative / 4) * PATTERN_SIZE + 1;
       // get the sprite for the pattern and draw
       Pattern pattern = list.get(i);
       graphics.blit(x, y, 100, 16, 16, spriteGetter.apply(pattern.getTexture()));
@@ -162,10 +194,13 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
 
   @Override
   public void updateDisplay() {
-    // if we can no longer scroll, reset scrollbar progress
-    // fixes the case where we added an item and lost recipes
-    if (!canScroll()) {
-      this.sliderProgress = 0.0F;
+    if (canScroll()) {
+      // if we can still scroll, make sure the scroll bar is in a valid position
+      this.recipeIndexOffset = Math.min(this.recipeIndexOffset, getPartRecipeCount() - MAX_PATTERN);
+      this.sliderProgress = this.recipeIndexOffset / 4f / this.getHiddenRows();
+    } else {
+      // if we can no longer scroll, reset scrollbar progress
+      this.sliderProgress = 0;
       this.recipeIndexOffset = 0;
     }
 
@@ -255,9 +290,11 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
         List<ModifierEntry> traits = MaterialRegistry.getInstance().getTraits(id, stat.getIdentifier());
         if (!traits.isEmpty()) {
           for (ModifierEntry trait : traits) {
-            Modifier mod = trait.getModifier();
-            stats.add(mod.getDisplayName(trait.getLevel()));
-            tips.add(mod.getDescription(trait.getLevel()));
+            if (trait.isBound()) {
+              Modifier mod = trait.getModifier();
+              stats.add(mod.getDisplayName(trait.getLevel()));
+              tips.add(mod.getDescription(trait.getLevel()));
+            }
           }
         }
 
@@ -299,9 +336,9 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
       }
 
       // scrollbar position
-      int x = this.cornerX + 126;
-      int y = this.cornerY + 15;
-      if (mouseX >= x && mouseX < (x + 12) && mouseY >= y && mouseY < (y + 54)) {
+      int x = this.cornerX + SLIDER_LEFT;
+      int y = this.cornerY + SLIDER_TOP;
+      if (mouseX >= x && mouseX < (x + SLIDER_WIDTH) && mouseY >= y && mouseY < (y + BAR_HEIGHT)) {
         this.clickedOnScrollBar = true;
       }
     }
@@ -316,11 +353,10 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
     }
 
     if (this.clickedOnScrollBar && this.canScroll()) {
-      int i = this.cornerY + 14;
-      int j = i + 54;
-      this.sliderProgress = ((float) mouseY - i - 7.5F) / ((float) (j - i) - 15.0F);
-      this.sliderProgress = Mth.clamp(this.sliderProgress, 0.0F, 1.0F);
-      this.recipeIndexOffset = (int) ((this.sliderProgress * this.getHiddenRows()) + 0.5D) * 4;
+      int barStart = this.cornerY + SLIDER_TOP;
+      int barEnd = barStart + BAR_HEIGHT;
+      this.sliderProgress = Mth.clamp(((float) mouseY - barStart - 7.5f) / (barEnd - barStart - SLIDER_TOP), 0, 1);
+      this.recipeIndexOffset = Math.round(this.sliderProgress * this.getHiddenRows()) * 4;
       return true;
     } else {
       return super.mouseDragged(mouseX, mouseY, clickedMouseButton, timeSinceLastClick, unknown);
@@ -337,9 +373,9 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
     }
 
     if (this.canScroll()) {
-      int i = this.getHiddenRows();
-      this.sliderProgress = Mth.clamp((float) (this.sliderProgress - delta / i), 0.0F, 1.0F);
-      this.recipeIndexOffset = (int) ((this.sliderProgress * (float) i) + 0.5f) * 4;
+      int hidden = this.getHiddenRows();
+      this.sliderProgress = Mth.clamp((float) (this.sliderProgress - delta / hidden), 0, 1);
+      this.recipeIndexOffset = Math.round(this.sliderProgress * hidden) * 4;
       return true;
     }
     return false;
@@ -379,11 +415,11 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
 
   /** If true, we can scroll */
   private boolean canScroll() {
-    return this.getPartRecipeCount() > 12;
+    return this.getPartRecipeCount() > MAX_PATTERN;
   }
 
   /** Gets the number of hidden part recipe rows */
   private int getHiddenRows() {
-    return (this.getPartRecipeCount() + 4 - 1) / 4 - 3;
+    return (this.getPartRecipeCount() + 3) / 4 - 4;
   }
 }

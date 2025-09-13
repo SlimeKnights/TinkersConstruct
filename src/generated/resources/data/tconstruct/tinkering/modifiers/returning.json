@@ -1,0 +1,11 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:volatile_int",
+      "each_level": 1,
+      "flag": "tconstruct:loyalty"
+    }
+  ],
+  "tooltip_display": "always"
+}

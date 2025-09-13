@@ -18,7 +18,8 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.BiFunction;
 
-// TODO: lot of code here looks like glow ball and efln, shared base class?
+/** @deprecated use {@link slimeknights.tconstruct.library.tools.item.ModifiableShurikenItem} */
+@Deprecated
 public class ShurikenItem extends SnowballItem {
 
   private final BiFunction<Level, Player, ShurikenEntityBase> entity;

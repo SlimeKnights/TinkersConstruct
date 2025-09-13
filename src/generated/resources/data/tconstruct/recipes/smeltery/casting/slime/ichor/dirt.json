@@ -7,7 +7,7 @@
   "cooling_time": 134,
   "fluid": {
     "amount": 500,
-    "fluid": "tconstruct:ichor"
+    "tag": "tconstruct:ichor"
   },
   "result": "tconstruct:ichor_slime_dirt"
 }

@@ -10,6 +10,8 @@ import slimeknights.mantle.data.loadable.record.RecordLoadable;
  * @see RandomLevelingValue
  */
 public record LevelingInt(int flat, int eachLevel) {
+  /** Instance that returns zero regardless */
+  public static final LevelingInt ZERO = new LevelingInt(0, 0);
   /** Loadable instance for parsing */
   public static final RecordLoadable<LevelingInt> LOADABLE = RecordLoadable.create(
       IntLoadable.ANY_SHORT.defaultField("flat", 0, LevelingInt::flat),

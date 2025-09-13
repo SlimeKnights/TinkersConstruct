@@ -4,7 +4,7 @@
     {
       "type": "tconstruct:conditional_melee_damage",
       "attacker": {
-        "type": "tconstruct:has_effect",
+        "type": "mantle:has_effect",
         "effect": "minecraft:poison"
       },
       "formula": [
@@ -32,7 +32,7 @@
     {
       "type": "tconstruct:conditional_stat",
       "entity": {
-        "type": "tconstruct:has_effect",
+        "type": "mantle:has_effect",
         "effect": "minecraft:poison"
       },
       "formula": [

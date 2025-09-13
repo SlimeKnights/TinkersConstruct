@@ -10,6 +10,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import slimeknights.mantle.util.TranslationHelper;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
@@ -97,6 +98,7 @@ public class RepairKitItem extends MaterialItem implements IRepairKitItem {
             ToolDamageUtil.repair(tool, (int)amount);
             tool.updateStack(toolItem);
             stack.shrink(1);
+            player.playSound(Sounds.SAW.getSound(), 1, 0.8f + 0.4f * player.level().random.nextFloat());
           }
         }
         return true;

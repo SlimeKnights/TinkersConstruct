@@ -129,6 +129,15 @@ public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
       .addLimb("limb_top").addLimb("limb_top_1").addLimb("limb_top_2").addLimb("limb_top_3")
       .addGrip("grip")
       .addBreakableBowstring("bowstring").addBowstring("bowstring_1").addBowstring("bowstring_2").addBowstring("bowstring_3");
+    buildTool("fishing_rod")
+      .addLimb("rod")
+      .addBreakableBowstring("string").addBowstring("string_cast");
+    buildTool("javelin").withLarge().addBreakableHead("head").addLimb("guard").addHandle("handle").addGrip("grip");
+    buildTool("ammo")
+      // arrow
+      .addArrowHead("arrow_head").addPart("arrow_shaft", StatlessMaterialStats.ARROW_SHAFT)
+      // shuriken
+      .addArrowHead("shuriken_top").addArrowHead("shuriken_bottom");
 
     // ancient tools
     buildTool("melting_pan").skipVariants().addBreakablePart("head", PlatingMaterialStats.SHIELD.getId()).addLimb("handle");
@@ -137,5 +146,6 @@ public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
     buildTool("battlesign").skipVariants().addBreakableHead("head").addPart("handle", PlatingMaterialStats.SHIELD.getId());
     buildTool("swasher").skipVariants().addBreakableHead("blade").addHandle("handle")
                         .addGrip("barrel").addGrip("barrel_1").addGrip("barrel_2");
+    buildTool("minotaur_axe").skipVariants().addBreakableHead("front").addHead("back");
   }
 }

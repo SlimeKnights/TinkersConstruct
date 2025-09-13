@@ -1,0 +1,15 @@
+{
+  "type": "tconstruct:material",
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "forge:ingots/steeleaf"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:ingots/steeleaf"
+  },
+  "material": "tconstruct:steeleaf",
+  "needed": 1,
+  "value": 1
+}

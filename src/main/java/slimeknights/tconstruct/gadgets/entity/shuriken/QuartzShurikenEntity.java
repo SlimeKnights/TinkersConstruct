@@ -6,6 +6,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 
+/** @deprecated use {@link slimeknights.tconstruct.tools.entity.ThrownShuriken} */
+@Deprecated
 public class QuartzShurikenEntity extends ShurikenEntityBase {
 
   public QuartzShurikenEntity(EntityType<? extends QuartzShurikenEntity> p_i50159_1_, Level p_i50159_2_) {

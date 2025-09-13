@@ -46,6 +46,7 @@ slotless=Slotless
 slotless.subtext=Slotless modifiers do not require any slots.
 slotless.group_general=General
 slotless.group_bonus=Bonus
+slotless.group_cosmetic=Cosmetic
 
 abilities=Abilities
 abilities.subtext=Ability modifiers have fewer slots than upgrades, but are stronger per slot.

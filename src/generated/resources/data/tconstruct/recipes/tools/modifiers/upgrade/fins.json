@@ -1,0 +1,24 @@
+{
+  "type": "tconstruct:modifier",
+  "allow_crystal": true,
+  "check_trait_level": true,
+  "inputs": [
+    {
+      "tag": "minecraft:fishes"
+    },
+    {
+      "item": "minecraft:prismarine_bricks"
+    },
+    {
+      "tag": "minecraft:fishes"
+    }
+  ],
+  "level": 1,
+  "result": "tconstruct:fins",
+  "slots": {
+    "upgrades": 1
+  },
+  "tools": {
+    "tag": "tconstruct:modifiable/melee/weapon"
+  }
+}

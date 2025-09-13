@@ -10,6 +10,8 @@ import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunct
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemDamageFunction;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import net.minecraftforge.common.crafting.conditions.ICondition;
+import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidType;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
@@ -18,6 +20,7 @@ import slimeknights.mantle.loot.LootTableInjection;
 import slimeknights.mantle.loot.function.SetFluidLootFunction;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.common.data.FakeRegistryEntry;
 import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.json.loot.AddToolDataFunction;
@@ -55,7 +58,7 @@ public class LootTableInjectionProvider extends AbstractLootTableInjectionProvid
 
     // bartering
     IJsonPredicate<MaterialVariantId> includeInLoot = MaterialPredicate.tag(TinkerTags.Materials.EXCLUDE_FROM_LOOT).inverted();
-    RandomMaterial random = RandomMaterial.random().allowHidden().material(includeInLoot).build();
+    RandomMaterial random = RandomMaterial.ancient();
     AddToolDataFunction.Builder ancientToolData2 = AddToolDataFunction.builder().addMaterial(random).addMaterial(random);
     injectGameplay("piglin_bartering")
       .addToPool("main", LootItem.lootTableItem(TinkerSmeltery.scorchedLantern).setWeight(20)
@@ -181,6 +184,17 @@ public class LootTableInjectionProvider extends AbstractLootTableInjectionProvid
                                  .apply(ancientToolData3)
                                  .apply(setFluid)
                                  .build());
+
+    // twilight forest - minotaur axe
+    String tf = "twilightforest";
+    ICondition tfLoaded = new ModLoadedCondition(tf);
+    LootPoolEntryContainer minotaurAxe = LootItem.lootTableItem(FakeRegistryEntry.item(TinkerTools.minotaurAxe.getId()))
+      .setWeight(1) // TF tends to use 1 for its weight
+      .apply(ancientToolData3)
+      .build();
+    inject("labyrinth_room", new ResourceLocation(tf, "chests/labyrinth_room"), tfLoaded)
+      .addToPool("pool1", minotaurAxe)
+      .addToPool("pool2", minotaurAxe);
   }
 
   @Override

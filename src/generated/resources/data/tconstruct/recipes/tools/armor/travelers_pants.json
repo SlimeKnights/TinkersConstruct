@@ -10,7 +10,13 @@
       "material": {
         "type": "mantle:and",
         "predicates": [
-          "tconstruct:castable",
+          {
+            "type": "mantle:or",
+            "predicates": [
+              "tconstruct:castable",
+              "tconstruct:composite"
+            ]
+          },
           {
             "type": "tconstruct:stat_type",
             "stat_type": "tconstruct:plating_leggings"

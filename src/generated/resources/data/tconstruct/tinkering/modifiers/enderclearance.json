@@ -1,10 +1,17 @@
 {
-  "level_display": "tconstruct:single_level",
+  "level_display": "tconstruct:default",
   "modules": [
     {
       "type": "tconstruct:enderclearance",
       "chance": {
         "each_level": 0.25
+      },
+      "diameter": {
+        "each_level": 8,
+        "flat": 8
+      },
+      "teleport_chances": {
+        "flat": 16
       }
     }
   ],

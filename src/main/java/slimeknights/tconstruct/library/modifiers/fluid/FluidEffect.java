@@ -6,7 +6,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LevelEvent;
@@ -20,8 +19,8 @@ import slimeknights.mantle.data.loadable.record.SingletonLoader;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.events.teleport.FluidEffectTeleportEvent;
-import slimeknights.tconstruct.library.utils.TeleportHelper;
+import slimeknights.tconstruct.library.json.LevelingInt;
+import slimeknights.tconstruct.library.modifiers.fluid.entity.RandomTeleportFluidEffect;
 import slimeknights.tconstruct.library.utils.Util;
 
 import java.util.function.BinaryOperator;
@@ -65,17 +64,9 @@ public interface FluidEffect<C extends FluidEffectContext> extends IHaveLoader, 
     return 0;
   });
 
-  /** Effect which randomly teleports the target */
-  FluidEffect<FluidEffectContext.Entity> TELEPORT = simple((fluid, level, context, action) -> {
-    LivingEntity target = context.getLivingTarget();
-    if (target != null && level.isFull()) {
-      if (action.execute()) {
-        TeleportHelper.randomNearbyTeleport(target, FluidEffectTeleportEvent.TELEPORT_FACTORY);
-      }
-      return 1;
-    }
-    return 0;
-  });
+  /** @deprecated use {@link RandomTeleportFluidEffect} */
+  @Deprecated(forRemoval = true)
+  FluidEffect<FluidEffectContext.Entity> TELEPORT = new RandomTeleportFluidEffect(LevelingInt.flat(16), LevelingInt.flat(16));
 
   /** Weathers the targeted copper block */
   FluidEffect<FluidEffectContext.Block> WEATHER = simple((fluid, level, context, action) -> {

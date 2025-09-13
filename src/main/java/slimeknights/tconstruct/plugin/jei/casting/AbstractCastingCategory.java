@@ -23,6 +23,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
+import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.library.recipe.FluidValues;
@@ -106,20 +107,23 @@ public abstract class AbstractCastingCategory implements IRecipeCategory<IDispla
     // fluids
     // tank fluids
     int capacity = FluidValues.METAL_BLOCK;
-    builder.addSlot(RecipeIngredientRole.INPUT, 3, 3)
+    List<FluidStack> inputs = recipe.getFluids();
+    IRecipeSlotBuilder tank = builder.addSlot(RecipeIngredientRole.INPUT, 3, 3)
            .addTooltipCallback(FluidTooltipCallback.UNITS)
            .setFluidRenderer(capacity, false, 32, 32)
            .setOverlay(tankOverlay, 0, 0)
-           .addIngredients(ForgeTypes.FLUID_STACK, recipe.getFluids());
+           .addIngredients(ForgeTypes.FLUID_STACK, inputs);
     // pouring fluid
     int h = 11;
     if (!recipe.hasCast()) {
       h += 16;
     }
-    builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 43, 8)
+    IRecipeSlotBuilder faucet = builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 43, 8)
            .addTooltipCallback(FluidTooltipCallback.UNITS)
            .setFluidRenderer(1, false, 6, h)
-           .addIngredients(ForgeTypes.FLUID_STACK, recipe.getFluids());
+           .addIngredients(ForgeTypes.FLUID_STACK, inputs);
+
+    builder.createFocusLink(tank, faucet);
   }
 
   @Nullable

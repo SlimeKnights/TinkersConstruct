@@ -22,7 +22,6 @@ import slimeknights.tconstruct.library.module.HookProvider;
 import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.tools.definition.module.ToolHooks;
 import slimeknights.tconstruct.library.tools.definition.module.aoe.AreaOfEffectIterator.AOEMatchType;
-import slimeknights.tconstruct.library.tools.definition.module.interaction.DualOptionInteraction;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.MutableUseOnContext;
@@ -47,7 +46,7 @@ public interface BlockTransformModule extends ModifierModule, BlockInteractionMo
 
   @Override
   default Component getDisplayName(IToolStackView tool, ModifierEntry entry, Component name, @Nullable RegistryAccess access) {
-    return DualOptionInteraction.formatModifierName(tool, entry.getModifier(), name);
+    return InteractionSource.formatModifierName(tool, entry.getModifier(), name);
   }
 
   @Override

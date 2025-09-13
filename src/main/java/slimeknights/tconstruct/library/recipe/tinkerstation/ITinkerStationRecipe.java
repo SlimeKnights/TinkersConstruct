@@ -41,6 +41,11 @@ public interface ITinkerStationRecipe extends ICommonRecipe<ITinkerStationContai
     return DEFAULT_TOOL_STACK_SIZE;
   }
 
+  /** Gets the number to shrink the tool slot by, perfectly valid for this to be higher than the contained number of tools */
+  default int shrinkToolSlotBy(LazyToolStack result, ITinkerStationContainer inv) {
+    return shrinkToolSlotBy();
+  }
+
   /**
    * Updates the input stacks upon crafting this recipe
    * @param result  Result from {@link #assemble(ITinkerStationContainer, RegistryAccess)}. Generally should not be modified.

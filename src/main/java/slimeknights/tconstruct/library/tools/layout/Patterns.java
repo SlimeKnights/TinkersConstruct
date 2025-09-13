@@ -21,6 +21,8 @@ public class Patterns {
   public static final Pattern PLATE_ARMOR = pattern("plate_armor");
   /** Pattern for generic plating */
   public static final Pattern PLATING = pattern("plating");
+  /** Feather for arrows */
+  public static final Pattern FEATHER = pattern("feather");
 
   private static Pattern pattern(String name) {
     return new Pattern(TConstruct.MOD_ID, name);

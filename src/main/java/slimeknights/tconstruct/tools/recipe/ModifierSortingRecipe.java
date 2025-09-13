@@ -1,9 +1,12 @@
 package slimeknights.tconstruct.tools.recipe;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
+import slimeknights.mantle.data.loadable.ErrorFactory;
+import slimeknights.mantle.data.loadable.array.ArrayLoadable;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.ingredient.SizedIngredient;
@@ -29,10 +32,24 @@ import java.util.stream.IntStream;
 /** Reorders modifiers ion a tool */
 public class ModifierSortingRecipe extends AbstractWorktableRecipe {
   private static final Component TITLE = TConstruct.makeTranslation("recipe", "modifier_sorting.title");
+  /** JEI description */
   private static final Component DESCRIPTION = TConstruct.makeTranslation("recipe", "modifier_sorting.description");
-  private static final Component NOT_ENOUGH_MODIFIERS = TConstruct.makeTranslation("recipe", "modifier_sorting.not_enough_modifiers");
+  /** Forward sorting description */
+  private static final Component DESCRIPTION_FORWARD = TConstruct.makeTranslation("recipe", "modifier_sorting.description.forward");
+  /** Reverse sorting description */
+  private static final Component DESCRIPTION_REVERSE = TConstruct.makeTranslation("recipe", "modifier_sorting.description.reversed");
+  /** Error for too few modifiers */
+  private static final Component NOT_ENOUGH_MODIFIERS = TConstruct.makeTranslation("recipe", "modifier_sorting.not_enough_modifiers").withStyle(ChatFormatting.RED);
 
-  public static final RecordLoadable<ModifierSortingRecipe> LOADER = RecordLoadable.create(ContextKey.ID.requiredField(), INPUTS_FIELD, ModifierSortingRecipe::new);
+  public static final RecordLoadable<ModifierSortingRecipe> LOADER = RecordLoadable.create(
+    ContextKey.ID.requiredField(),
+    SizedIngredient.LOADABLE.list(ArrayLoadable.COMPACT).validate((list, error) -> {
+      if ((error == ErrorFactory.RUNTIME || error == ErrorFactory.JSON_SYNTAX_ERROR) && list.size() > 1) {
+        TConstruct.LOG.warn("Using multiple ingredients for the modifier sorting recipe is deprecated. Use just a single input.");
+      }
+      return list;
+    }).requiredField("inputs", r -> r.inputs),
+    ModifierSortingRecipe::new);
 
   public ModifierSortingRecipe(ResourceLocation id, List<SizedIngredient> inputs) {
     super(id, inputs);
@@ -53,8 +70,18 @@ public class ModifierSortingRecipe extends AbstractWorktableRecipe {
 
   @Override
   public Component getDescription(@Nullable ITinkerableContainer inv) {
-    if (inv != null && inv.getTinkerable().getUpgrades().getModifiers().size() < 2) {
-      return NOT_ENOUGH_MODIFIERS;
+    if (inv != null) {
+      if (inv.getTinkerable().getUpgrades().getModifiers().size() < 2) {
+        return NOT_ENOUGH_MODIFIERS;
+      }
+      if (inv.getInput(0).isEmpty()) {
+        return DESCRIPTION_REVERSE;
+      }
+    }
+    // if we have multiple inputs, show the forwards description in JEI instead of the generic one
+    // if we have just the one input, use a more generic one in JEI
+    if (inv != null || inputs.size() > 1) {
+      return DESCRIPTION_FORWARD;
     }
     return DESCRIPTION;
   }
@@ -88,7 +115,14 @@ public class ModifierSortingRecipe extends AbstractWorktableRecipe {
     // reorder
     tool = tool.copy();
     List<ModifierEntry> newUpgrades = new ArrayList<>(upgrades);
-    Collections.swap(newUpgrades, toMove, toMove == upgrades.size() - 1 ? 0 : toMove + 1);
+    // first slot empty? reverse direction
+    int target;
+    if (inv.getInput(0).isEmpty()) {
+      target = toMove == 0 ? upgrades.size() - 1 : toMove - 1;
+    } else {
+      target = toMove == upgrades.size() - 1 ? 0 : toMove + 1;
+    }
+    Collections.swap(newUpgrades, toMove, target);
     tool.setUpgrades(new ModifierNBT(newUpgrades));
 
     // no need to validate, its the same modifiers

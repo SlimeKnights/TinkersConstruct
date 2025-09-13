@@ -18,6 +18,7 @@ import slimeknights.mantle.data.registry.GenericLoaderRegistry;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.mantle.util.typed.TypedMap;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.json.IntRange;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
 import slimeknights.tconstruct.library.json.predicate.material.MaterialPredicate;
@@ -51,6 +52,7 @@ public abstract class RandomMaterial implements IHaveLoader {
     LOADER.register(getResource("first"), First.LOADER);
     LOADER.register(getResource("random"), Randomized.LOADER);
     LOADER.register(getResource("random_variant"), RandomVariant.LOADER);
+    LOADER.register(getResource("ancient"), Randomized.ANCIENT.getLoader());
   }
 
   /** Creates an instance for a fixed material */
@@ -73,8 +75,16 @@ public abstract class RandomMaterial implements IHaveLoader {
     return new RandomVariant(materials);
   }
 
+  /** Gets the ancient tool material instance */
+  public static RandomMaterial ancient() {
+    return Randomized.ANCIENT;
+  }
+
   /** Gets a random material */
   public abstract MaterialVariantId getMaterial(MaterialStatsId statType, RandomSource random);
+
+  @Override
+  public abstract RecordLoadable<? extends RandomMaterial> getLoader();
 
   /** Clears any cache associated with the random material */
   public void clearCache() {}
@@ -205,9 +215,17 @@ public abstract class RandomMaterial implements IHaveLoader {
     }
 
     @Override
-    public RecordLoadable<Randomized> getLoader() {
+    public RecordLoadable<? extends RandomMaterial> getLoader() {
       return LOADER;
     }
+
+    /** Singleton instance for commonly used ancient tool materials */
+    public static final RandomMaterial ANCIENT = SingletonLoader.singleton(loader -> new Randomized(Randomized.TIER_RANGE, true, MaterialPredicate.tag(TinkerTags.Materials.EXCLUDE_FROM_LOOT).inverted()) {
+      @Override
+      public RecordLoadable<? extends RandomMaterial> getLoader() {
+        return loader;
+      }
+    });
   }
 
   /** Produces a random material from a material tier */

@@ -1,0 +1,22 @@
+{
+  "loader": "tconstruct:tool",
+  "parent": "tconstruct:item/base/rod",
+  "textures": {
+    "rod": "tconstruct:item/tool/fishing_rod/rod",
+    "string": "tconstruct:item/tool/fishing_rod/string_broken"
+  },
+  "modifier_roots": [
+    "tconstruct:item/tool/fishing_rod/modifiers/broken/",
+    "tconstruct:item/tool/fishing_rod/modifiers/"
+  ],
+  "parts": [
+    {
+      "name": "rod",
+      "index": 0
+    },
+    {
+      "name": "string",
+      "index": 1
+    }
+  ]
+}
