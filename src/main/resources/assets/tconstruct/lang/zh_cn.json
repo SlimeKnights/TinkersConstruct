@@ -375,7 +375,7 @@
   "item.tconstruct.tool_binding_cast": "绑定结金质铸模",
   "item.tconstruct.tough_binding_cast": "坚韧套环金质铸模",
   "item.tconstruct.arrow_cast": "箭部件金质模具",
-  "item.tconstruct.arrow_cast.tooltip": "可在部件制作台上制作箭头和箭杆的模具，使用后不消耗",
+  "item.tconstruct.arrow_cast.tooltip": "在部件制作台上用以制作箭头和箭杆的模具，使用后不消耗",
 
   "_comment": "Tool Handle Gold Casts",
 
@@ -1765,17 +1765,17 @@
   "material.tconstruct.rock.blackstone": "黑石",
   "material.tconstruct.rock.deepslate": "深板岩",
   "material.tconstruct.rock.flavor": "保证坚如磐石",
-  "material.tconstruct.rock.encyclopedia": "每级使挖掘速度提高1%乘以已损失耐久度的平方根。在这之前先计算已损失耐久值除以工具耐久度乘数作为已损失耐久度。",
+  "material.tconstruct.rock.encyclopedia": "每级使挖掘速度增加已损失耐久值与工具耐久乘数之比的平方根的1%。",
 
   "material.tconstruct.flint": "燧石",
   "material.tconstruct.flint.basalt": "玄武岩",
   "material.tconstruct.flint.flavor": "点燃你滚烫的工匠之心！",
-  "material.tconstruct.flint.encyclopedia": "每级使近战伤害提高1%乘以已损失耐久度的平方根。在这之前先计算已损失耐久值除以工具耐久度乘数作为已损失耐久度。",
+  "material.tconstruct.flint.encyclopedia": "每级使近战伤害提高已损失耐久值与工具耐久乘数之比的平方根的1%。",
 
   "material.tconstruct.bone": "骨头",
   "material.tconstruct.bone.flavor": "吾为所持剑之骨",
-  "material.tconstruct.bone.encyclopedia": "每级近战伤害+0.5，额外穿甲伤害+1",
-  "material.tconstruct.bone.ranged": "每级近战伤害+0.5，额外穿甲伤害+1",
+  "material.tconstruct.bone.encyclopedia": "每级近战伤害+0.5，穿透护甲值+1",
+  "material.tconstruct.bone.ranged": "每级近战伤害+0.5，穿透护甲值+1",
   "material.tconstruct.bone.skull_flavor": "来点奶么？",
   "material.tconstruct.bone.skull_encyclopedia": "饮用奶后获得1分钟抗性提升",
 
@@ -3171,7 +3171,7 @@
   "effect.tconstruct.bleeding": "流血",
   "effect.tconstruct.magnetic": "磁性",
   "effect.tconstruct.repulsive": "排斥",
-  "effect.tconstruct.pierce": "穿刺",
+  "effect.tconstruct.pierce": "穿甲",
   "effect.tconstruct.calcified": "钙质化",
   "effect.tconstruct.self_destructing": "自斥",
 
