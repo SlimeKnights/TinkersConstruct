@@ -5,23 +5,6 @@
   },
   "restore_amount": 320,
   "tools": {
-    "type": "forge:difference",
-    "base": {
-      "tag": "tconstruct:modifiable/durability"
-    },
-    "subtracted": [
-      {
-        "item": "tconstruct:slime_helmet"
-      },
-      {
-        "item": "tconstruct:slime_chestplate"
-      },
-      {
-        "item": "tconstruct:slime_leggings"
-      },
-      {
-        "item": "tconstruct:slime_boots"
-      }
-    ]
+    "tag": "tconstruct:modifiable/durability"
   }
 }

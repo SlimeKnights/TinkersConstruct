@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.data.sprite;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.DyeColor;
 import slimeknights.tconstruct.library.client.data.material.AbstractMaterialSpriteProvider;
 import slimeknights.tconstruct.library.client.data.spritetransformer.FramesSpriteTransformer;
 import slimeknights.tconstruct.library.client.data.spritetransformer.GreyToColorMapping;
@@ -287,7 +288,7 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .fallbacks("primitive")
       .colorMapper(obsidianPalette);
     buildMaterial(MaterialIds.steeleaf)
-      .meleeHarvest().ranged().armor()
+      .meleeHarvest().ranged().armor().arrowHead()
       .fallbacks("metal_contrast", "metal", "contrast")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF1E3214).addARGB(102, 0xFF27401D).addARGB(140, 0xFF416230).addARGB(178, 0xFF52873A).addARGB(216, 0xFF6DA25E).addARGB(255, 0xFF83BF72).build());
 
@@ -376,10 +377,22 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
 //    buildMaterial(MaterialIds.brass).fallbacks("metal").colorMapper(brassPalette);
 //    buildMaterial(MaterialIds.uranium).fallbacks("metal").colorMapper(uraniumPalette);
 
+    buildMaterial(MaterialIds.dragonScale)
+      .arrowHead().maille()
+      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF0B090C).addARGB(102, 0xFF161417).addARGB(140, 0xFF221F22).addARGB(178, 0xFF2A282B).addARGB(216, 0xFF393738).addARGB(255, 0xFF474747).build());
+
+    // wool for arrows
+    for (DyeColor color : DyeColor.values()) {
+      String name = color.getName();
+      buildMaterial(MaterialVariantId.create(MaterialIds.wool, name))
+        .variant(color != DyeColor.WHITE)
+        .arrowHead().arrowShaft()
+        .transformer(transformerFromSprite(new ResourceLocation("block/" + name + "_wool"), 0, 0));
+    }
 
     // slimeskull
     buildMaterial(MaterialIds.glass)
-      .repairKit().fallbacks("crystal")
+      .repairKit().arrowHead().fallbacks("crystal")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF7BAEB7).addARGB(102, 0xFFA8D0D9).addARGB(140, 0x00000000).addARGB(216, 0x00000000).addARGB(255, 0xFFD0EAE9).build());
     buildMaterial(MaterialIds.enderPearl)
       .repairKit().arrowHead().fallbacks("rock")
@@ -389,14 +402,14 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF28140A).addARGB(102, 0xFF522C10).addARGB(140, 0xFF6F4D1B).addARGB(178, 0xFF6A5D18).addARGB(216, 0xFFB44420).addARGB(255, 0xFFC5815A).build());
     // slimesuit
     buildMaterial(MaterialIds.enderslime)
-      .repairKit()
+      .repairKit().arrowHead()
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF6300B0).addARGB(102, 0xFF790DC6).addARGB(140, 0xFFA936ED).addARGB(178, 0xFFBF58F7).addARGB(216, 0xFFD37CFF).addARGB(255, 0xFFEEBFFF).build());
     buildMaterial(MaterialIds.phantom)
       .repairKit().fallbacks("wood")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF6F516C).addARGB(102, 0xFF7E627B).addARGB(140, 0xFF958C79).addARGB(178, 0xFFA99B87).addARGB(216, 0xFFC3B9A1).addARGB(255, 0xFFDCD9C0).build());
     // slimesuit embellishments
     buildMaterial(MaterialIds.earthslime)
-      .statType(SLIMESUIT)
+      .statType(SLIMESUIT).arrowHead()
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF34532F).addARGB(102, 0xFF406D3B).addARGB(140, 0xFF508049).addARGB(178, 0xFF71AC63).addARGB(216, 0xFF8CD782).addARGB(255, 0xFFFFFFFF).build());
     buildMaterial(MaterialIds.skyslime)
       .statType(SLIMESUIT).arrowHead()

@@ -184,7 +184,7 @@ public final class ModifierUtil {
   }
 
   /** Calculates inaccuracy from the conditional tool stat. */
-  public static float getInaccuracy(IToolStackView tool, LivingEntity living) {
+  public static float getInaccuracy(IToolStackView tool, @Nullable LivingEntity living) {
     return 3 * (1 / ConditionalStatModifierHook.getModifiedStat(tool, living, ToolStats.ACCURACY) - 1);
   }
 

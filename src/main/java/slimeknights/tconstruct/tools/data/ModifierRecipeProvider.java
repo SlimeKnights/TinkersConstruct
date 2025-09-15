@@ -44,6 +44,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.util.LazyModifier;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.casting.PotionCastingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.ingredient.MaterialIngredient;
 import slimeknights.tconstruct.library.recipe.ingredient.NoContainerIngredient;
 import slimeknights.tconstruct.library.recipe.ingredient.ToolHookIngredient;
@@ -201,16 +202,29 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setSlots(SlotType.UPGRADE, 1)
                          .saveSalvage(consumer, prefix(ModifierIds.diamond, upgradeSalvage))
                          .save(consumer, prefix(ModifierIds.diamond, upgradeFolder));
+    Ingredient multiuse = DifferenceIngredient.of(Ingredient.of(TinkerTags.Items.MODIFIABLE), Ingredient.of(TinkerTags.Items.SINGLE_USE));
     ModifierRecipeBuilder.modifier(ModifierIds.worldbound)
-                         .addInput(TinkerTags.Items.INGOTS_NETHERITE_SCRAP)
-                         .setMaxLevel(1)
-                         .save(consumer, prefix(ModifierIds.worldbound, slotlessFolder));
+      .setTools(multiuse)
+      .addInput(TinkerTags.Items.INGOTS_NETHERITE_SCRAP)
+      .setMaxLevel(1)
+      .save(consumer, prefix(ModifierIds.worldbound, slotlessFolder));
+    ModifierRecipeBuilder.modifier(ModifierIds.worldbound)
+      .setTools(TinkerTags.Items.SINGLE_USE)
+      .addInput(TinkerTags.Items.NUGGETS_NETHERITE_SCRAP)
+      .setMaxLevel(1)
+      .save(consumer, wrap(ModifierIds.worldbound, slotlessFolder, "_ammo"));
     ModifierRecipeBuilder.modifier(ModifierIds.soulbound)
-                         .addInput(Ingredient.of(Items.ECHO_SHARD))
-                         .setSlots(SlotType.UPGRADE, 1)
-                         .setMaxLevel(1)
-                         .saveSalvage(consumer, prefix(ModifierIds.soulbound, upgradeSalvage))
-                         .save(consumer, prefix(ModifierIds.soulbound, upgradeFolder));
+      .setTools(multiuse)
+      .addInput(Items.ECHO_SHARD)
+      .setSlots(SlotType.UPGRADE, 1)
+      .setMaxLevel(1)
+      .saveSalvage(consumer, prefix(ModifierIds.soulbound, upgradeSalvage))
+      .save(consumer, prefix(ModifierIds.soulbound, upgradeFolder));
+    ModifierRecipeBuilder.modifier(ModifierIds.soulbound)
+      .setTools(TinkerTags.Items.SINGLE_USE)
+      .addInput(Items.DRAGON_BREATH)
+      .setMaxLevel(1)
+      .save(consumer, wrap(ModifierIds.soulbound, slotlessFolder, "_ammo"));
     ModifierRecipeBuilder.modifier(ModifierIds.netherite)
                          .setTools(TinkerTags.Items.DURABILITY)
                          .addInput(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE)
@@ -221,9 +235,9 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .save(consumer, prefix(ModifierIds.netherite, upgradeFolder));
 
     // overslime
+    Ingredient overslimeTools = Ingredient.of(TinkerTags.Items.DURABILITY);
     for (SlimeType type : SlimeType.values()) {
       int amount;
-      Ingredient tool = Ingredient.of(TinkerTags.Items.DURABILITY);
       switch (type) {
         // earth is common and easy to get
         case EARTH -> amount = 20;
@@ -234,7 +248,6 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
         // ender is late game, but easier to farm than ichor
         case ENDER -> {
           amount = 80;
-          tool = DifferenceIngredient.of(tool, Ingredient.of(TinkerTools.slimesuit.values().toArray(Item[]::new)));
         }
         // unhandled -> update
         default -> {
@@ -244,18 +257,18 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
       String name = type.getSerializedName();
       // ball and bottle - base amount
       OverslimeModifierRecipeBuilder.modifier(TinkerCommons.slimeball.get(type), amount)
-        .setTools(tool)
+        .setTools(overslimeTools)
         .save(consumer, location(slotlessFolder + "overslime/" + name + "_ball"));
       OverslimeModifierRecipeBuilder.modifier(TinkerFluids.slimeBottle.get(type), amount)
         .saveCrafting(consumer, location(slotlessFolder + "overslime/" + name + "_bottle_crafting_table"))
         .save(consumer, location(slotlessFolder + "overslime/" + name + "_bottle"));
       // congealed: 4x
       OverslimeModifierRecipeBuilder.modifier(TinkerWorld.congealedSlime.get(type), amount * 4)
-        .setTools(tool)
+        .setTools(overslimeTools)
         .save(consumer, location(slotlessFolder + "overslime/" + name + "_congealed"));
       // block: 9x
       OverslimeModifierRecipeBuilder.modifier(TinkerWorld.slime.get(type), amount * 9)
-        .setTools(tool)
+        .setTools(overslimeTools)
         .save(consumer, location(slotlessFolder + "overslime/" + name + "_block"));
     }
 
@@ -289,9 +302,8 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setSlots(SlotType.UPGRADE, 1)
                          .setTools(ingredientFromTags(TinkerTags.Items.MELEE_WEAPON, TinkerTags.Items.HARVEST, TinkerTags.Items.WORN_ARMOR))
                          .saveSalvage(consumer, prefix(TinkerModifiers.magnetic, upgradeSalvage));
-    // no salvage so we can potentially grant shiny in another way without being an apple farm, and no recipe as that leaves nothing to salvage
     ModifierRecipeBuilder.modifier(ModifierIds.shiny)
-                         .addInput(Items.ENCHANTED_GOLDEN_APPLE)
+                         .addInput(Ingredient.of(Items.ENCHANTED_GOLDEN_APPLE, Items.NETHER_STAR))
                          .setMaxLevel(1)
                          .save(consumer, prefix(ModifierIds.shiny, slotlessFolder));
     Ingredient sighted = ingredientFromTags(TinkerTags.Items.HELD, TinkerTags.Items.ARMOR);
@@ -1620,6 +1632,13 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
       .addInput(TinkerWorld.enderGeode.getBlock())
       .disallowCrystal()
       .save(consumer, wrap(ModifierIds.rebalanced, slotlessFolder, "_traits"));
+
+    // tipping arrows and shurikens
+    PotionCastingRecipeBuilder.tableRecipe(ModifierIds.tipped)
+      .setBottle(TinkerTags.Items.AMMO)
+      .setCoolingTime(20)
+      .setFluid(TinkerFluids.potion.ingredient(FluidValues.BOTTLE / 10))
+      .save(consumer, location(slotlessFolder + "ammo_tipping"));
 
     // removal
     ModifierRemovalRecipeBuilder.removal()

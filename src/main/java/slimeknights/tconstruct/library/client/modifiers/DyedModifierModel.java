@@ -19,7 +19,7 @@ import java.util.Collection;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-/** Modifier model that copies dye from a key and is breakable */
+/** Modifier model that copies dye from a key */
 @RequiredArgsConstructor
 public class DyedModifierModel implements IBakedModifierModel {
   /** Constant unbaked model instance, as they are all the same */

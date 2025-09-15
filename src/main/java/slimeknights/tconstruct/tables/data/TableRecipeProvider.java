@@ -33,6 +33,8 @@ import slimeknights.tconstruct.library.recipe.partbuilder.recycle.PartBuilderRec
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.recipe.TinkerStationDamagingRecipeBuilder;
+import slimeknights.tconstruct.tables.recipe.TinkerStationPartSwappingBuilder;
+import slimeknights.tconstruct.tools.TinkerTools;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -225,9 +227,15 @@ public class TableRecipeProvider extends BaseRecipeProvider {
                                  .setMatchAll()
                                  .build(toolForge, location(folder + "scorched_forge"));
 
+    // part swapping
+    TinkerStationPartSwappingBuilder.tools(DifferenceIngredient.of(Ingredient.of(TinkerTags.Items.MULTIPART_TOOL), Ingredient.of(TinkerTags.Items.UNSWAPPABLE)))
+      .save(consumer, location(folder + "tinker_station_part_swapping"));
+    TinkerStationPartSwappingBuilder.tools(Ingredient.of(TinkerTools.arrow.get(), TinkerTools.shuriken.get()))
+      .maxStackSize(4)
+      .save(consumer, location(folder + "ammo_part_swapping"));
+
     // tool repair recipe
     consumer.accept(new SimpleFinishedRecipe(location(folder + "tinker_station_repair"), TinkerTables.tinkerStationRepairSerializer.get()));
-    consumer.accept(new SimpleFinishedRecipe(location(folder + "tinker_station_part_swapping"), TinkerTables.tinkerStationPartSwappingSerializer.get()));
     consumer.accept(new SimpleFinishedRecipe(location(folder + "crafting_table_repair"), TinkerTables.craftingTableRepairSerializer.get()));
   }
 

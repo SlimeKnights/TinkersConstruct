@@ -56,6 +56,7 @@ import slimeknights.tconstruct.library.client.modifiers.MaterialModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.ModifierModelManager;
 import slimeknights.tconstruct.library.client.modifiers.ModifierModelManager.ModifierModelRegistrationEvent;
 import slimeknights.tconstruct.library.client.modifiers.NormalModifierModel;
+import slimeknights.tconstruct.library.client.modifiers.PotionModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.TankModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.TrimModifierModel;
 import slimeknights.tconstruct.library.client.particle.AttackParticle;
@@ -79,6 +80,7 @@ import slimeknights.tconstruct.tools.client.ToolContainerScreen;
 import slimeknights.tconstruct.tools.item.ModifierCrystalItem;
 import slimeknights.tconstruct.tools.logic.DoubleJumpHandler;
 import slimeknights.tconstruct.tools.logic.InteractionHandler;
+import slimeknights.tconstruct.tools.modules.ranged.SmashingModule;
 import slimeknights.tconstruct.tools.network.TinkerControlPacket;
 
 import java.util.function.Consumer;
@@ -126,6 +128,8 @@ public class ToolClientEvents extends ClientEventBase {
     event.registerModel(getResource("material"), MaterialModifierModel.UNBAKED_INSTANCE);
     event.registerModel(getResource("dyed"), DyedModifierModel.UNBAKED_INSTANCE);
     event.registerModel(getResource("trim"), TrimModifierModel.UNBAKED_INSTANCE);
+    event.registerModel(getResource("potion"), PotionModifierModel.UNBAKED_INSTANCE);
+    event.registerModel(getResource("smashing_fluid"), new FluidModifierModel.Unbaked(SmashingModule.TANK_HELPER));
   }
 
   @SubscribeEvent

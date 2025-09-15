@@ -374,6 +374,8 @@
 
   "item.tconstruct.tool_binding_cast": "Tool Binding Gold Cast",
   "item.tconstruct.tough_binding_cast": "Tough Collar Gold Cast",
+  "item.tconstruct.arrow_cast": "Arrow Gold Pattern",
+  "item.tconstruct.arrow_cast.tooltip": "Reusable pattern for making arrow heads and shafts in the part builder",
 
   "_comment": "Tool Handle Gold Casts",
 
@@ -1740,16 +1742,19 @@
   "material.tconstruct.wood.warped":  "Warped Hyphae",
   "material.tconstruct.wood.format": "Wooden %s",
   "material.tconstruct.wood.flavor": "How much wood could a woodchuck chuck if a woodchuck could chuck wood?",
-  "material.tconstruct.wood.encyclopedia": "Makes repairs 50% more effective per part",
+  "material.tconstruct.wood.encyclopedia": "Makes repairs 50% more effective per part.",
+  "material.tconstruct.wood.ammo": "Grants you twice as many arrows when crafting or part swapping, though lose half of the arrows when swapping from wood.",
 
   "material.tconstruct.bamboo": "Bamboo",
   "material.tconstruct.bamboo.flavor": "Get bamboozled!",
   "material.tconstruct.bamboo.ranged": "Movement penalty when drawing back the bow is reduced by 10%",
   "material.tconstruct.bamboo.armor": "Movement penalty when using the shield is reduced by 10%",
+  "material.tconstruct.bamboo.ammo": "Gives the arrow 100% accuracy, even when the bow is inaccurate.",
 
   "material.tconstruct.ice": "Ice",
   "material.tconstruct.ice.flavor": "Chill!",
   "material.tconstruct.ice.armor": "Converts taken cold damage into durability shield.",
+  "material.tconstruct.ice.ammo": "Freezes the target for 4 seconds (plus 4 seconds per level), causing slowness and damage over time.",
 
   "material.tconstruct.cactus": "Cactus",
   "material.tconstruct.cactus.flavor": "A spiky shield spikes serious stabbers.",
@@ -1769,6 +1774,7 @@
   "material.tconstruct.flint.basalt": "Basalt",
   "material.tconstruct.flint.flavor": "This will spark the flames of a Tinker's heart!",
   "material.tconstruct.flint.encyclopedia": "Increases melee damage by 1% times the square root of lost durability each level. Tool durability multiplier will divide the lost durability.",
+  "material.tconstruct.flint.ammo": "Allows casting potion on the ammo to tip it. Tipped ammo will apply a potion effect in addition to its damage.",
 
   "material.tconstruct.bone": "Bone",
   "material.tconstruct.bone.flavor": "I am the bone of my sword",
@@ -1776,11 +1782,13 @@
   "material.tconstruct.bone.ranged": "Increases melee damage by 0.5 and grants 1 armor pierce per level",
   "material.tconstruct.bone.skull_flavor": "Got Milk?",
   "material.tconstruct.bone.skull_encyclopedia": "Grants resistance for 1 minute after drinking milk",
+  "material.tconstruct.bone.ammo": "Causes the arrow to pierce through the first target it hits, allowing it to hit a second target.",
 
   "material.tconstruct.necrotic_bone": "Necrotic Bone",
   "material.tconstruct.necrotic_bone.flavor": "Do you have a bone to pick with me?",
-  "material.tconstruct.necrotic_bone.encyclopedia": "Heals a percentage of damage dealt from critical hits",
-  "material.tconstruct.necrotic_bone.ranged": "Heals a percentage of damage dealt from successful arrow hits",
+  "material.tconstruct.necrotic_bone.encyclopedia": "Heals 5% per level of damage dealt from critical hits",
+  "material.tconstruct.necrotic_bone.ranged": "Heals 5% per level of damage dealt from successful arrow hits",
+  "material.tconstruct.necrotic_bone.ammo": "Heals 5% per level of damage dealt from successful hits",
   "material.tconstruct.necrotic_bone.skull_flavor": "Spooky Scary Skeleton!",
   "material.tconstruct.necrotic_bone.skull_encyclopedia": "Melee attacks cause withering. After drinking milk the effect becomes faster",
 
@@ -1788,7 +1796,8 @@
   "material.tconstruct.chorus.flavor": "Not just the endermen, but the enderwomen, and the enderchildren",
   "material.tconstruct.chorus.encyclopedia": "Prevents the target from teleporting for a 5 seconds per effect level",
   "material.tconstruct.chorus.ranged": "Prevents the target from teleporting for a 5 seconds per effect level and allows damaging endermen with arrows",
-  "material.tconstruct.chorus.armor": "Has a 25% chance randomly teleporting attackers away, or a 50% chance when blocking",
+  "material.tconstruct.chorus.armor": "Has a 25% chance randomly teleporting attackers away, or a 50% chance when blocking.",
+  "material.tconstruct.chorus.ammo": "Prevents the target from teleporting for 5 seconds per level, and can be fired at endermen.",
 
   "material.tconstruct.string": "String",
   "material.tconstruct.string.flavor": "Theoretically the best material.",
@@ -1863,7 +1872,7 @@
   "material.tconstruct.skyslime_vine.slimeskin": "Slimeskin",
   "material.tconstruct.skyslime_vine.flavor": "Float like a butterfly, sting like a bee.",
   "material.tconstruct.skyslime_vine.encyclopedia": "Cancels out the mining speed reduction when not on the ground",
-  "material.tconstruct.skyslime_vine.ranged": "Grants +0.5 accuracy when not on the ground or a ladder",
+  "material.tconstruct.skyslime_vine.ranged": "Grants +0.1 velocity when not on the ground or a ladder",
   "material.tconstruct.skyslime_vine.armor": "Reduces gravity by 20% per piece",
 
   "material.tconstruct.weeping_vine": "Weeping Vine",
@@ -1878,17 +1887,57 @@
   "material.tconstruct.twisting_vine.ranged": "Grants +15% draw speed at the cost of taking 1 damage when you put down the tool",
   "material.tconstruct.twisting_vine.armor": "Grants +10% knockback resistance at the cost of taking 2 damage when you remove the armor",
 
+  "material.tconstruct.wool": "Wool",
+  "material.tconstruct.wool.white": "White Wool",
+  "material.tconstruct.wool.orange": "Orange Wool",
+  "material.tconstruct.wool.magenta": "Magenta Wool",
+  "material.tconstruct.wool.light_blue": "Light Blue Wool",
+  "material.tconstruct.wool.yellow": "Yellow Wool",
+  "material.tconstruct.wool.lime": "Lime Wool",
+  "material.tconstruct.wool.pink": "Pink Wool",
+  "material.tconstruct.wool.gray": "Gray Wool",
+  "material.tconstruct.wool.light_gray": "Light Gray Wool",
+  "material.tconstruct.wool.cyan": "Cyan Wool",
+  "material.tconstruct.wool.purple": "Purple Wool",
+  "material.tconstruct.wool.blue": "Blue Wool",
+  "material.tconstruct.wool.brown": "Brown Wool",
+  "material.tconstruct.wool.green": "Green Wool",
+  "material.tconstruct.wool.red": "Red Wool",
+  "material.tconstruct.wool.black": "Black Wool",
+  "material.tconstruct.wool.flavor": "Woolooloo",
+  "material.tconstruct.wool.ammo": "Multiplies the projectile damage by 0. Note damage may still be increased by bow power, and it may still aggravate mobs.",
+
   "material.tconstruct.amethyst": "Amethyst",
+  "material.tconstruct.amethyst.flavor": "Protects you from bad aim, provided you were aiming straight ahead",
+  "material.tconstruct.amethyst.ammo": "Grants +0.75 projectile damage per level, but restricts the angles the projectile may be thrown at. Stacks with amethyst bronze bows to further restrict angles.",
 
   "material.tconstruct.prismarine": "Prismarine",
+  "material.tconstruct.prismarine.flavor": "Weapon of the sea",
+  "material.tconstruct.prismarine.ammo": "Lets the projectile move freely underwater. Additionally, grants +1 projectile damage per level to underwater targets.",
+
+  "material.tconstruct.earthslime": "Earthslime",
+  "material.tconstruct.earthslime.flavor": "To me!",
+  "material.tconstruct.earthslime.ammo": "Causes the target to be knocked back in the opposite direction.",
 
   "material.tconstruct.skyslime": "Skyslime",
+  "material.tconstruct.skyslime.flavor": "Away from me!",
+  "material.tconstruct.skyslime.ammo": "Increases the knockback of the projectile.",
 
   "material.tconstruct.blaze": "Blaze",
+  "material.tconstruct.blaze.flavor": "Burn it all",
+  "material.tconstruct.blaze.ammo": "Causes arrows to ignite, burning targets for 5 seconds per level.",
 
   "material.tconstruct.ender_pearl": "Ender Pearl",
+  "material.tconstruct.ender_pearl.flavor": "The safer way to pearl",
+  "material.tconstruct.ender_pearl.ammo": "Causes you to teleport to the location the projectile lands, destroying it. If it hits a monster, swaps places.",
   "material.tconstruct.ender_pearl.skull_flavor": "Endermen know how to stay away from harm, and scientists. They have been ignoring my interview requests for weeks!",
   "material.tconstruct.ender_pearl.skull_encyclopedia": "Teleports automatically when attacked by a projectile, and randomly from melee. Has a 15 second cooldown",
+
+  "material.tconstruct.glass": "Glass",
+  "material.tconstruct.glass.flavor": "Shatters on impact!",
+  "material.tconstruct.glass.ammo": "Decreases projectile damage by 0.75 per level, but gives it a tank. Upon impact, applies fluid effects from the fluid in the tank.",
+  "material.tconstruct.glass.skull_flavor": "Whose nice things are being destroyed now, creeper?",
+  "material.tconstruct.glass.skull_encyclopedia": "Holding the helmet interact key while sneaking causes the wearer to explode",
 
 
   "__comment": "Tier 3 Materials",
@@ -1930,6 +1979,13 @@
   "material.tconstruct.cobalt.armor": "Reduces damage from melee attacks by 10% per level, and boosts movement speed when using items by 5% per max level",
 
   "material.tconstruct.quartz": "Quartz",
+  "material.tconstruct.quartz.flavor": "Sharp!",
+  "material.tconstruct.quartz.ammo": "Increases projectile damage by 0.5 per level.",
+
+  "material.tconstruct.dragon_scale": "Dragon Scale",
+  "material.tconstruct.dragon_scale.flavor": "With this, even dragons will fear me!",
+  "material.tconstruct.dragon_scale.armor": "Grants +10% resistance while airborne, and boosts attack damage by 5% per level based on the highest piece.",
+  "material.tconstruct.dragon_scale.ammo": "Increases projectile damage by 1 per level if launched while in mid air.",
 
   "material.tconstruct.manyullyn": "Manyullyn",
   "material.tconstruct.manyullyn.flavor": "The metal that most Tinkers will never pronounce right. Also known as a star cutting material.",
@@ -1990,11 +2046,16 @@
   "material.tconstruct.enderslime_vine.ranged": "Teleports the holder to the location of arrows that land in blocks or swaps the holder with monsters hit by arrows",
   "material.tconstruct.enderslime_vine.armor": "Has a 25% chance per piece of randomly teleporting attackers away",
 
-  "__comment": "Slimesuit materials",
-  "material.tconstruct.glass": "Glass",
-  "material.tconstruct.glass.skull_flavor": "Whose nice things are being destroyed now, creeper?",
-  "material.tconstruct.glass.skull_encyclopedia": "Holding the helmet interact key while sneaking causes the wearer to explode",
+  "material.tconstruct.ichor": "Ichor",
+  "material.tconstruct.ichor.flavor": "Brightest day, blackest night, no cave will escape my light!",
+  "material.tconstruct.ichor.ammo": "Causes the target to glow for 10 seconds per level. If it hits a block, places a permanent light source.",
 
+  "material.tconstruct.enderslime": "Enderslime",
+  "material.tconstruct.enderslime.flavor": "Zwooop",
+  "material.tconstruct.enderslime.ammo": "Causes the target to be teleported randomly up to 16 blocks, or up to 24 blocks at level 2.",
+
+
+  "__comment": "Slimesuit materials",
 
   "material.tconstruct.rotten_flesh": "Rotten Flesh",
   "material.tconstruct.rotten_flesh.skull_flavor": "This is fine",
@@ -2015,11 +2076,8 @@
   "material.tconstruct.ancient.ranged": "Available on melting pans, war picks, and from bartering. Each level grants +1 ability slot at the cost of -10% draw speed, and +10% gravity.",
   "material.tconstruct.ancient.armor": "Obtained on plate armor in bastions, battle signs, melting pans, and from bartering. Each level grants +1 ability slot at the cost of +10% gravity, and -10% movement speed or -10% attack speed on shields.",
   "material.tconstruct.netherite":  "Netherite",
-  "material.tconstruct.earthslime": "Earthslime",
   "material.tconstruct.blood":      "Blood",
   "material.tconstruct.magma":      "Magma",
-  "material.tconstruct.ichor":      "Ichor",
-  "material.tconstruct.enderslime": "Enderslime",
   "material.tconstruct.clay":       "Clay",
   "material.tconstruct.honey":      "Honey",
   "material.tconstruct.venom":      "Venom",
@@ -2119,6 +2177,7 @@
 
   "material.tconstruct.steeleaf": "Steeleaf",
   "material.tconstruct.steeleaf.flavor": "Is it a leaf?",
+  "material.tconstruct.steeleaf.ammo": "Increases loot drops of targets killed with the projectile. Stacks with luck and looting from bows.",
   "material.tconstruct.steeleaf.encyclopedia": "Grants +50% XP per level from blocks and monsters",
   "material.tconstruct.steeleaf.ranged": "Grants +50% XP per level from monsters killed by arrows",
   "material.tconstruct.steeleaf.armor": "Grants +25% XP per level from blocks and monsters",
@@ -2294,6 +2353,9 @@
   "modifier.tconstruct.power": "Power",
   "modifier.tconstruct.power.flavor": "The power within becomes the power without",
   "modifier.tconstruct.power.description": "Boosts damage of arrows and other launched projectiles",
+  "modifier.tconstruct.keen": "Keen",
+  "modifier.tconstruct.keen.flavor": "How Keen?",
+  "modifier.tconstruct.keen.description": "Boosts damage when the projectile hits the target",
   "modifier.tconstruct.underbowed": "Underbowed",
   "modifier.tconstruct.underbowed.flavor": "The power without becomes the power within",
   "modifier.tconstruct.underbowed.description": "Reduces the power of the launcher",
@@ -2303,6 +2365,9 @@
   "modifier.tconstruct.punch": "Punch",
   "modifier.tconstruct.punch.flavor": "The classic boxing glove arrow",
   "modifier.tconstruct.punch.description": "Makes arrows apply additional knockback",
+  "modifier.tconstruct.drawback": "Drawback",
+  "modifier.tconstruct.drawback.flavor": "Fishing rod arrow",
+  "modifier.tconstruct.drawback.description": "Causes the arrow to apply knockback in the opposite direction, pulling in the target",
   "modifier.tconstruct.impaling": "Arrow Pierce",
   "modifier.tconstruct.impaling.flavor": "Just keeps on going and going and going",
   "modifier.tconstruct.impaling.description": "Arrows keep moving after hitting a target, potentially hitting more targets",
@@ -2695,6 +2760,11 @@
   "modifier.tconstruct.spitting": "Spitting",
   "modifier.tconstruct.spitting.flavor": "Become the better llama",
   "modifier.tconstruct.spitting.description": "Can charge the tool to launch fluid projectiles from the tank, applying the effect to the target. Affected by bow stats.",
+  "modifier.tconstruct.smashing": "Smashing",
+  "modifier.tconstruct.smashing.format": "%s (%s)",
+  "modifier.tconstruct.smashing.flavor": "Shattered",
+  "modifier.tconstruct.smashing.description": "Projectile breaks on hitting an entity, applying the effect of the filled fluid to them.",
+  "modifier.tconstruct.smashing.empty_to_swap": "Cannot increase the capacity of smashing unless empty",
 
   "_comment": "Bonus modifier slots",
   "modifier.tconstruct.creative_slot": "Creative Slot",
@@ -2769,6 +2839,10 @@
   "modifier.tconstruct.jagged.description": "Every point durability lost increases damage, but decreases mining speed",
   "modifier.tconstruct.jagged.mining_speed": "Mining Speed",
   "modifier.tconstruct.jagged.attack_damage": "Melee Damage",
+  "modifier.tconstruct.tipped": "Tippable",
+  "modifier.tconstruct.tipped.format": "Tipped %s (%s)",
+  "modifier.tconstruct.tipped.flavor": "Could be improved",
+  "modifier.tconstruct.tipped.description": "Upon hit, applies the effects of the potion casted on this projectile",
   "modifier.tconstruct.stonebound": "Stonebound",
   "modifier.tconstruct.stonebound.flavor": "Your tool absolutely loves stone!",
   "modifier.tconstruct.stonebound.description": "The tool mines faster as it wears out, but does less damage",
@@ -2786,6 +2860,9 @@
   "modifier.tconstruct.woodwind": "Woodwind",
   "modifier.tconstruct.woodwind.flavor": "Song of air",
   "modifier.tconstruct.woodwind.description": "Moves more freely in the wind, granting a large accuracy bonus. Some even claim to hear music as it flies.",
+  "modifier.tconstruct.soft": "Soft",
+  "modifier.tconstruct.soft.flavor": "Friendly weapon",
+  "modifier.tconstruct.soft.description": "Reduces the projectile power to 0.",
   "modifier.tconstruct.stringy": "Stringy",
   "modifier.tconstruct.stringy.flavor": "Like cheese, but less tasty",
   "modifier.tconstruct.stringy.description": "Tool can be repaired using string",
@@ -2846,7 +2923,7 @@
   "modifier.tconstruct.airborne": "Airborne",
   "modifier.tconstruct.airborne.flavor": "Take to the skies!",
   "modifier.tconstruct.airborne.description": "Tool no longer is penalized when mining in the air and gains a projectile accuracy bonus",
-  "modifier.tconstruct.airborne.accuracy": "Airborne Accuracy",
+  "modifier.tconstruct.airborne.velocity": "Airborne Velocity",
   "modifier.tconstruct.skyfall": "Skyfall",
   "modifier.tconstruct.skyfall.flavor": "Falling with style!",
   "modifier.tconstruct.skyfall.description": "Reduces the effect of gravity",
@@ -2935,6 +3012,10 @@
   "modifier.tconstruct.tempered_protection.flavor": "Resists the flames!",
   "modifier.tconstruct.tempered_protection.description": "Reduces damage from attackers who are on fire",
   "modifier.tconstruct.tempered_protection.resistance": "Resistance",
+  "modifier.tconstruct.dragonshot": "Dragonshot",
+  "modifier.tconstruct.dragonshot.flavor": "Weapon of a dragon",
+  "modifier.tconstruct.dragonshot.description": "Does extra damage when shot from the air",
+  "modifier.tconstruct.dragonshot.projectile_damage": "Airborne Damage",
 
   "__comment": "Tier 5 Traits",
   "modifier.tconstruct.enderporting": "Enderporting",
@@ -3433,6 +3514,7 @@
   "recipe.tconstruct.enchantment_converting.too_few": "Need to provide more inputs to convert an enchantment of a higher level",
 
   "recipe.tconstruct.part_swapping.too_many_parts": "Table is too small to swap parts on this tool",
+  "recipe.tconstruct.part_swapping.too_few_inputs": "Tool stack size is too small to perform this part swap",
 
   "recipe.tconstruct.modifier.not_enough_slot": "Need at least 1 %s slot to add this modifier",
   "recipe.tconstruct.modifier.not_enough_slots": "Need at least %s %s slots to add this modifier",

@@ -14,6 +14,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTab.ItemDisplayParameters;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -124,7 +125,7 @@ import slimeknights.tconstruct.tools.data.material.MaterialTraitsDataProvider;
 import slimeknights.tconstruct.tools.data.sprite.TinkerMaterialSpriteProvider;
 import slimeknights.tconstruct.tools.data.sprite.TinkerPartSpriteProvider;
 import slimeknights.tconstruct.tools.entity.CombatFishingHook;
-import slimeknights.tconstruct.tools.entity.MaterialArrow;
+import slimeknights.tconstruct.tools.entity.ModifiableArrow;
 import slimeknights.tconstruct.tools.entity.ThrownShuriken;
 import slimeknights.tconstruct.tools.entity.ThrownTool;
 import slimeknights.tconstruct.tools.item.CrystalshotItem;
@@ -132,6 +133,8 @@ import slimeknights.tconstruct.tools.item.CrystalshotItem.CrystalshotEntity;
 import slimeknights.tconstruct.tools.item.ModifiableSwordItem;
 import slimeknights.tconstruct.tools.item.SlimeskullItem;
 import slimeknights.tconstruct.tools.logic.EquipmentChangeWatcher;
+import slimeknights.tconstruct.tools.logic.ModifiableArrowDispenserBehavior;
+import slimeknights.tconstruct.tools.logic.ModifiableShurikenDispenserBehavior;
 import slimeknights.tconstruct.tools.menu.ToolContainerMenu;
 import slimeknights.tconstruct.tools.modules.MeltingFluidEffectiveModule;
 
@@ -246,7 +249,7 @@ public final class TinkerTools extends TinkerModule {
                       .clientTrackingRange(4)
                       .updateInterval(20));
   public static final RegistryObject<EntityType<CombatFishingHook>> fishingHook = ENTITIES.register("fishing_bobber", () -> EntityType.Builder.<CombatFishingHook>of(CombatFishingHook::new, MobCategory.MISC).noSave().noSummon().sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(5));
-  public static final RegistryObject<EntityType<MaterialArrow>> materialArrow = ENTITIES.register("arrow", () -> EntityType.Builder.<MaterialArrow>of(MaterialArrow::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
+  public static final RegistryObject<EntityType<ModifiableArrow>> materialArrow = ENTITIES.register("arrow", () -> EntityType.Builder.<ModifiableArrow>of(ModifiableArrow::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20));
   public static final RegistryObject<EntityType<ThrownShuriken>> thrownShuriken = ENTITIES.register("thrown_shuriken", () -> EntityType.Builder.<ThrownShuriken>of(ThrownShuriken::new, MobCategory.MISC).sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10));
   public static final RegistryObject<EntityType<ThrownTool>> thrownTool = ENTITIES.register("thrown_tool", () -> EntityType.Builder.<ThrownTool>of(ThrownTool::new, MobCategory.MISC).sized(0.5f, 0.5f).clientTrackingRange(4).updateInterval(20));
 
@@ -268,6 +271,10 @@ public final class TinkerTools extends TinkerModule {
     for (ConfigurableAction action : Config.COMMON.toolTweaks) {
       event.enqueueWork(action);
     }
+    event.enqueueWork(() -> {
+      DispenserBlock.registerBehavior(TinkerTools.arrow.get(), ModifiableArrowDispenserBehavior.INSTANCE);
+      DispenserBlock.registerBehavior(TinkerTools.shuriken.get(), ModifiableShurikenDispenserBehavior.INSTANCE);
+    });
     ModifierHooks.init();
     ToolHooks.init();
   }

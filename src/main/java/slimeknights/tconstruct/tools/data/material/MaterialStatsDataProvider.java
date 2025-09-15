@@ -385,6 +385,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
   private void addAmmo() {
     // tier 1
     addMaterialStats(MaterialIds.flint, StatlessMaterialStats.ARROW_HEAD);
+    addMaterialStats(MaterialIds.wool, StatlessMaterialStats.ARROW_HEAD, StatlessMaterialStats.ARROW_SHAFT);
     addMaterialStats(MaterialIds.wood, StatlessMaterialStats.ARROW_SHAFT);
     addMaterialStats(MaterialIds.bone, StatlessMaterialStats.ARROW_SHAFT);
     addMaterialStats(MaterialIds.bamboo, StatlessMaterialStats.ARROW_SHAFT);
@@ -392,14 +393,20 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     // tier 2
     addMaterialStats(MaterialIds.amethyst, StatlessMaterialStats.ARROW_HEAD);
     addMaterialStats(MaterialIds.prismarine, StatlessMaterialStats.ARROW_HEAD);
+    addMaterialStats(MaterialIds.earthslime, StatlessMaterialStats.ARROW_HEAD);
     addMaterialStats(MaterialIds.skyslime, StatlessMaterialStats.ARROW_HEAD);
     addMaterialStats(MaterialIds.enderPearl, StatlessMaterialStats.ARROW_HEAD);
+    addMaterialStats(MaterialIds.glass, StatlessMaterialStats.ARROW_HEAD);
     addMaterialStats(MaterialIds.necroticBone, StatlessMaterialStats.ARROW_SHAFT);
     addMaterialStats(MaterialIds.blaze, StatlessMaterialStats.ARROW_SHAFT);
+    addMaterialStats(MaterialIds.steeleaf, StatlessMaterialStats.ARROW_HEAD);
     // tier 3
     addMaterialStats(MaterialIds.ice, StatlessMaterialStats.ARROW_HEAD);
     addMaterialStats(MaterialIds.quartz, StatlessMaterialStats.ARROW_HEAD);
     addMaterialStats(MaterialIds.ichor, StatlessMaterialStats.ARROW_HEAD);
+    // tier 4
+    addMaterialStats(MaterialIds.enderslime, StatlessMaterialStats.ARROW_HEAD);
+    addMaterialStats(MaterialIds.dragonScale, StatlessMaterialStats.ARROW_HEAD);
   }
 
   private void addArmor() {
@@ -457,6 +464,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     // tier 4 (end)
     addArmorShieldStats(MaterialIds.knightmetal, PlatingMaterialStats.builder().durabilityFactor(20).armor(2, 5, 7, 2).toughness(2).knockbackResistance(0.05f), StatlessMaterialStats.MAILLE);
     addMaterialStats(MaterialIds.enderslimeVine, StatlessMaterialStats.MAILLE, StatlessMaterialStats.CUIRASS);
+    addMaterialStats(MaterialIds.dragonScale, StatlessMaterialStats.MAILLE);
     // tier 4 (compat)
     addArmorShieldStats(MaterialIds.fiery, PlatingMaterialStats.builder().durabilityFactor(25).armor(3, 6, 8, 3).toughness(1.5f), StatlessMaterialStats.MAILLE);
   }
@@ -492,7 +500,6 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.enderslime, StatlessMaterialStats.REPAIR_KIT);
     addMaterialStats(MaterialIds.phantom, StatlessMaterialStats.REPAIR_KIT);
     // slimesuit embellishments
-    addMaterialStats(MaterialIds.earthslime);
     addMaterialStats(MaterialIds.blood);
     addMaterialStats(MaterialIds.magma);
     addMaterialStats(MaterialIds.clay);

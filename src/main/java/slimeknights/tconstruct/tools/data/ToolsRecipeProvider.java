@@ -5,6 +5,7 @@ import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -12,6 +13,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.crafting.CompoundIngredient;
 import net.minecraftforge.common.crafting.DifferenceIngredient;
 import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
 import slimeknights.mantle.recipe.data.ItemNameIngredient;
@@ -42,6 +44,7 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildin
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.data.material.MaterialIds;
@@ -107,6 +110,12 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     ToolBuildingRecipeBuilder.toolBuildingRecipe(TinkerTools.shuriken.get())
       .outputSize(4)
       .save(consumer, prefix(TinkerTools.shuriken, folder));
+    ToolBuildingRecipeBuilder.toolBuildingRecipe(TinkerTools.arrow.get())
+      .addExtraRequirement(Ingredient.of(Items.ARROW))
+      .noParts()
+      .addExtraMaterial(MaterialIds.flint).addExtraMaterial(MaterialIds.wood)
+      .layoutSlot(TinkerTables.tinkerStation.getId())
+      .save(consumer, wrap(TinkerTools.arrow, folder, "_from_vanilla"));
 
     // specialized
     ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, TinkerTools.flintAndBrick)
@@ -367,6 +376,11 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     partRecipes(consumer, TinkerToolParts.broadBlade,   TinkerSmeltery.broadBladeCast,   8, partFolder, castFolder);
     partRecipes(consumer, TinkerToolParts.bowLimb,      TinkerSmeltery.bowLimbCast,      2, partFolder, castFolder);
     partRecipes(consumer, TinkerToolParts.bowGrip,      TinkerSmeltery.bowGripCast,      2, partFolder, castFolder);
+    // arrow patterns are just a reusable pattern for the part builder
+    ItemCastingRecipeBuilder.tableRecipe(TinkerSmeltery.arrowCast)
+      .setFluidAndTime(TinkerFluids.moltenGold, FluidValues.INGOT)
+      .setCast(ItemTags.ARROWS, true)
+      .save(consumer, location(castFolder + "gold/arrow"));
     // other parts
     partRecipes(consumer, TinkerToolParts.toolBinding,  TinkerSmeltery.toolBindingCast,  1, partFolder, castFolder);
     partRecipes(consumer, TinkerToolParts.toughBinding, TinkerSmeltery.toughBindingCast, 3, partFolder, castFolder);
@@ -385,15 +399,16 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     uncastablePart(consumer, TinkerToolParts.bowstring.get(), 1, null, partFolder);
     uncastablePart(consumer, TinkerToolParts.shieldCore.get(), 4, PlatingMaterialStats.SHIELD.getId(), partFolder);
     // arrow parts are just part builder, no composite currently
+    Ingredient arrowPattern = CompoundIngredient.of(Ingredient.of(TinkerTags.Items.DEFAULT_PATTERNS), Ingredient.of(TinkerSmeltery.arrowCast));
     PartRecipeBuilder.partRecipe(TinkerToolParts.arrowHead.get())
       .setPattern(TinkerToolParts.arrowHead.getId())
-      .setPatternItem(Ingredient.of(TinkerTags.Items.DEFAULT_PATTERNS))
+      .setPatternItem(arrowPattern)
       .setCost(1)
       .setAllowUncraftable(true)
       .save(consumer, location(partFolder + "builder/arrow_head"));
     PartRecipeBuilder.partRecipe(TinkerToolParts.arrowShaft.get())
       .setPattern(TinkerToolParts.arrowShaft.getId())
-      .setPatternItem(Ingredient.of(TinkerTags.Items.DEFAULT_PATTERNS))
+      .setPatternItem(arrowPattern)
       .setCost(1)
       .setAllowUncraftable(true)
       .save(consumer, location(partFolder + "builder/arrow_shaft"));

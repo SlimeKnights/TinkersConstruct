@@ -6,6 +6,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.entity.living.LivingKnockBackEvent;
 import slimeknights.mantle.data.loadable.record.SingletonLoader;
@@ -23,7 +24,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 /** Modifier to restrict a projectile angle, used also by an event for knockback angle */
-public enum RestrictAngleModule implements ModifierModule, ProjectileLaunchModifierHook {
+public enum RestrictAngleModule implements ModifierModule, ProjectileLaunchModifierHook.NoShooter {
   INSTANCE;
 
   private static final ResourceLocation TOTAL_LEVEL = TConstruct.getResource("restrict_angle_level");
@@ -41,7 +42,7 @@ public enum RestrictAngleModule implements ModifierModule, ProjectileLaunchModif
   }
 
   @Override
-  public void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, Projectile projectile, @Nullable AbstractArrow arrow, ModDataNBT persistentData, boolean primary) {
+  public void onProjectileShoot(IToolStackView tool, ModifierEntry modifier, @Nullable LivingEntity shooter, ItemStack ammo, Projectile projectile, @Nullable AbstractArrow arrow, ModDataNBT persistentData, boolean primary) {
     // store the level in persistent data, so we can have this module add from multiple sources
     int level = persistentData.getInt(TOTAL_LEVEL) + modifier.intEffectiveLevel();
     persistentData.putInt(TOTAL_LEVEL, level);

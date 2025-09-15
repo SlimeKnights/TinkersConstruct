@@ -1,16 +1,18 @@
 package slimeknights.tconstruct.library.utils;
 
 import com.google.common.collect.ImmutableSet;
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.RelativeMovement;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityTeleportEvent;
 import slimeknights.tconstruct.common.Sounds;
@@ -21,27 +23,41 @@ public class TeleportHelper {
   private static final Set<RelativeMovement> PACKET_FLAGS = ImmutableSet.of(RelativeMovement.X, RelativeMovement.Y, RelativeMovement.Z);
 
   /** Randomly teleports an entity, mostly copied from chorus fruit */
+  @CanIgnoreReturnValue
   public static boolean randomNearbyTeleport(LivingEntity living, ITeleportEventFactory factory) {
-    if (living.getCommandSenderWorld().isClientSide) {
+    return randomNearbyTeleport(living, factory, 16, 16);
+  }
+
+  /** Randomly teleports an entity, mostly copied from chorus fruit */
+  @CanIgnoreReturnValue
+  public static boolean randomNearbyTeleport(LivingEntity living, ITeleportEventFactory factory, int diameter, int chances) {
+    Level level = living.level();
+    if (level.isClientSide) {
       return true;
     }
     double posX = living.getX();
     double posY = living.getY();
     double posZ = living.getZ();
 
-    for(int i = 0; i < 16; ++i) {
-      double x = posX + (living.getRandom().nextDouble() - 0.5D) * 16.0D;
-      double y = Mth.clamp(posY + (double)(living.getRandom().nextInt(16) - 8), 0.0D, living.getCommandSenderWorld().getHeight() - 1);
-      double z = posZ + (living.getRandom().nextDouble() - 0.5D) * 16.0D;
+    RandomSource random = living.getRandom();
+    float minHeight = level.getMinBuildHeight();
+    float maxHeight = (level instanceof ServerLevel server ? (level.getMinBuildHeight() + server.getLogicalHeight()) : level.getMaxBuildHeight()) - 1;
+    for(int i = 0; i < chances; ++i) {
+      double x = posX + (random.nextDouble() - 0.5D) * diameter;
+      double y = Mth.clamp(posY + (double)(random.nextInt(diameter) - 8), minHeight, maxHeight);
+      double z = posZ + (random.nextDouble() - 0.5D) * diameter;
       if (living.isPassenger()) {
         living.stopRiding();
       }
 
+      level.gameEvent(GameEvent.TELEPORT, living.position(), GameEvent.Context.of(living));
       EntityTeleportEvent event = factory.create(living, x, y, z);
       MinecraftForge.EVENT_BUS.post(event);
       if (!event.isCanceled() && living.randomTeleport(event.getTargetX(), event.getTargetY(), event.getTargetZ(), true)) {
         SoundEvent soundevent = Sounds.SLIME_TELEPORT.getSound();
-        living.level().playSound(null, posX, posY, posZ, soundevent, SoundSource.PLAYERS, 1.0F, 1.0F);
+        // sound where we left
+        level.playSound(null, posX, posY, posZ, soundevent, living.getSoundSource(), 1.0F, 1.0F);
+        // sound at destination
         living.playSound(soundevent, 1.0F, 1.0F);
         return true;
       }

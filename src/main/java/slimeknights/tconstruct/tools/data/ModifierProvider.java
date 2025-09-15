@@ -118,6 +118,7 @@ import slimeknights.tconstruct.library.modifiers.modules.combat.LootingModule;
 import slimeknights.tconstruct.library.modifiers.modules.combat.MeleeAttributeModule;
 import slimeknights.tconstruct.library.modifiers.modules.combat.MobEffectModule;
 import slimeknights.tconstruct.library.modifiers.modules.display.DurabilityBarColorModule;
+import slimeknights.tconstruct.library.modifiers.modules.display.MaterialVariantColorModule;
 import slimeknights.tconstruct.library.modifiers.modules.display.ModifierVariantColorModule;
 import slimeknights.tconstruct.library.modifiers.modules.display.ModifierVariantNameModule;
 import slimeknights.tconstruct.library.modifiers.modules.mining.ConditionalMiningSpeedModule;
@@ -151,6 +152,7 @@ import slimeknights.tconstruct.tools.data.material.MaterialIds;
 import slimeknights.tconstruct.tools.entity.ThrownTool;
 import slimeknights.tconstruct.tools.item.CrystalshotItem;
 import slimeknights.tconstruct.tools.logic.ModifierEvents;
+import slimeknights.tconstruct.tools.modules.CraftCountModule;
 import slimeknights.tconstruct.tools.modules.DamageOnUnequipModule;
 import slimeknights.tconstruct.tools.modules.HeadlightModule;
 import slimeknights.tconstruct.tools.modules.MeltingModule;
@@ -160,7 +162,6 @@ import slimeknights.tconstruct.tools.modules.ShareDurabilityModule;
 import slimeknights.tconstruct.tools.modules.SmeltingModule;
 import slimeknights.tconstruct.tools.modules.SpillingModule;
 import slimeknights.tconstruct.tools.modules.TheOneProbeModule;
-import slimeknights.tconstruct.tools.modules.ToolCraftCountModule;
 import slimeknights.tconstruct.tools.modules.ZoomModule;
 import slimeknights.tconstruct.tools.modules.armor.DepthProtectionModule;
 import slimeknights.tconstruct.tools.modules.armor.EnderclearanceModule;
@@ -191,6 +192,9 @@ import slimeknights.tconstruct.tools.modules.ranged.ProjectilePlaceGlowModule;
 import slimeknights.tconstruct.tools.modules.ranged.PunchModule;
 import slimeknights.tconstruct.tools.modules.ranged.QuiverInventoryModule;
 import slimeknights.tconstruct.tools.modules.ranged.RestrictAngleModule;
+import slimeknights.tconstruct.tools.modules.ranged.ReversePunchModule;
+import slimeknights.tconstruct.tools.modules.ranged.SmashingModule;
+import slimeknights.tconstruct.tools.modules.ranged.TippedModule;
 import slimeknights.tconstruct.tools.modules.ranged.TrickQuiverModule;
 
 import static slimeknights.tconstruct.common.TinkerTags.Items.ARMOR;
@@ -436,12 +440,15 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
 
     // ranged
     buildModifier(ModifierIds.power).addModule(StatBoostModule.add(ToolStats.PROJECTILE_DAMAGE).amount(0.5f, 0.5f));
+    buildModifier(ModifierIds.keen).addModule(StatBoostModule.add(ToolStats.PROJECTILE_DAMAGE).eachLevel(0.5f));
     buildModifier(ModifierIds.underbowed).addModule(StatBoostModule.add(ToolStats.PROJECTILE_DAMAGE).eachLevel(-1));
     buildModifier(ModifierIds.punch).addModule(new PunchModule(LevelingValue.eachLevel(1), ModifierCondition.ANY_TOOL));
+    buildModifier(ModifierIds.drawback).addModule(new ReversePunchModule(LevelingValue.eachLevel(0.6f)));
     buildModifier(ModifierIds.arrowPierce).addModule(new ArrowPierceModule(LevelingInt.eachLevel(1), ModifierCondition.ANY_TOOL));
     buildModifier(ModifierIds.quickCharge).addModule(StatBoostModule.multiplyBase(ToolStats.DRAW_SPEED).eachLevel(0.25f));
     buildModifier(ModifierIds.trueshot).addModule(StatBoostModule.add(ToolStats.ACCURACY).eachLevel(0.1f));
     buildModifier(ModifierIds.blindshot).addModule(StatBoostModule.add(ToolStats.ACCURACY).eachLevel(-0.1f));
+    buildModifier(ModifierIds.dragonshot).addModule(ConditionalStatModule.stat(ToolStats.PROJECTILE_DAMAGE).holder(TinkerPredicate.AIRBORNE).eachLevel(1));
     // ammo
     buildModifier(ModifierIds.trickQuiver).priority(70) // before bulk quiver
       .addModule(QuiverInventoryModule.builder().pattern(pattern("tipped_arrow")).flatLimit(32).slotsPerLevel(3))
@@ -493,6 +500,9 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(ToolTankHelper.TANK_HANDLER)
       .addModule(StatBoostModule.add(ToolTankHelper.CAPACITY_STAT).eachLevel(FluidType.BUCKET_VOLUME))
       .addModule(new SpillingModule(LevelingValue.eachLevel(1), ModifierCondition.ANY_TOOL));
+    buildModifier(ModifierIds.smashing)
+      .addModule(StatBoostModule.add(ToolStats.PROJECTILE_DAMAGE).eachLevel(-0.75f))
+      .addModule(SmashingModule.INSTANCE);
 
     // armor
     buildModifier(TinkerModifiers.golden).addModule(new VolatileFlagModule(ModifiableArmorItem.PIGLIN_NEUTRAL)).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
@@ -616,8 +626,8 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.ballista).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(new VolatileFlagModule(ModifiableBowItem.KEY_BALLISTA));
     buildModifier(ModifierIds.fins)
       .levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
-      .addModule(StatBoostModule.add(ToolStats.WATER_INERTIA).eachLevel(0.4f))
-      .addModule(ConditionalPowerModule.builder().minLevel(2).target(LivingEntityPredicate.UNDERWATER).eachLevel(2));
+      .addModule(StatBoostModule.add(ToolStats.WATER_INERTIA).flat(0.4f))
+      .addModule(ConditionalPowerModule.builder().target(LivingEntityPredicate.UNDERWATER).eachLevel(1));
 
     // fishing
     buildModifier(ModifierIds.fishing).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(FishingModule.INSTANCE);
@@ -644,14 +654,14 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
 
     // traits - tier 1
     buildModifier(ModifierIds.cultivated).addModule(RepairModule.builder().eachLevel(0.5f));
-    buildModifier(ModifierIds.economical).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(new ToolCraftCountModule(LevelingValue.flat(2), ModifierCondition.ANY_TOOL));
+    buildModifier(ModifierIds.economical).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(new CraftCountModule(LevelingValue.flat(2), ModifierCondition.ANY_TOOL));
     buildModifier(ModifierIds.stringy).addModule(MaterialRepairModule.material(MaterialIds.string).constant(140));
     buildModifier(ModifierIds.woodwind).addModule(StatBoostModule.add(ToolStats.ACCURACY).eachLevel(0.25f)); // TODO: can we make it play a bamboo sound?
     buildModifier(ModifierIds.unburdened)
       .addModule(StatBoostModule.add(ToolStats.USE_ITEM_SPEED).eachLevel(0.1f))
       .addModule(AttributeModule.builder(TinkerAttributes.USE_ITEM_SPEED, Operation.ADDITION).slots(ARMOR_SLOTS).tooltipStyle(TooltipStyle.PERCENT).toolItem(ItemPredicate.tag(WORN_ARMOR)).eachLevel(0.05f));
     buildModifier(ModifierIds.depthProtection).addModule(DepthProtectionModule.builder().baselineHeight(64).neutralRange(32).eachLevel(1.25f));
-    buildModifier(ModifierIds.enderclearance).addModule(new EnderclearanceModule(LevelingValue.eachLevel(0.25f))).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL);
+    buildModifier(ModifierIds.enderclearance).addModule(new EnderclearanceModule(LevelingValue.eachLevel(0.25f), new LevelingInt(8, 8), LevelingInt.flat(16)));
     buildModifier(ModifierIds.frostshield)
       .levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
       .priority(175) // higher than overslime, to ensure this is removed first
@@ -717,6 +727,11 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
         .constant(1).add()
         // multiply into the final value
         .variable(VALUE).multiply().build());
+    buildModifier(ModifierIds.tipped).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(TippedModule.INSTANCE);
+    buildModifier(ModifierIds.soft)
+      .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
+      .addModule(new MaterialVariantColorModule(MaterialIds.wool))
+      .addModule(StatBoostModule.multiplyAll(ToolStats.PROJECTILE_DAMAGE).flat(-1));
 
     // traits - tier 2
     buildModifier(ModifierIds.stoneshield)
@@ -736,8 +751,8 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.airborne)
       // 400% boost means 5x mining speed
       .addModule(ConditionalMiningSpeedModule.builder().holder(LivingEntityPredicate.ON_GROUND.inverted()).percent().allowIneffective().flat(4), ModifierHooks.BREAK_SPEED)
-      // accuracy gets a 0.5 boost under the stricter version of in air (no boost just for being on a ladder)
-      .addModule(ConditionalStatModule.stat(ToolStats.ACCURACY).holder(TinkerPredicate.AIRBORNE).flat(0.5f));
+      // accuracy gets a 0.1 boost under the stricter version of in air (no boost just for being on a ladder)
+      .addModule(ConditionalStatModule.stat(ToolStats.VELOCITY).holder(TinkerPredicate.AIRBORNE).flat(0.1f));
     buildModifier(ModifierIds.skyfall)
       .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
       .addModule(AttributeModule.builder(ForgeMod.ENTITY_GRAVITY.get(), Operation.MULTIPLY_TOTAL).tooltipStyle(TooltipStyle.PERCENT).flat(-0.2f))
@@ -885,7 +900,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.crystalbound)
       .addModule(RestrictAngleModule.INSTANCE)
       .addModule(StatBoostModule.add(ToolStats.VELOCITY).eachLevel(0.1f))
-      .addModule(StatBoostModule.add(ToolStats.PROJECTILE_DAMAGE).toolTag(TinkerTags.Items.AMMO).eachLevel(2));
+      .addModule(StatBoostModule.add(ToolStats.PROJECTILE_DAMAGE).toolTag(TinkerTags.Items.AMMO).eachLevel(0.75f));
     buildModifier(ModifierIds.crystalstrike)
       .addModule(AttributeModule.builder(Attributes.ATTACK_SPEED, Operation.MULTIPLY_TOTAL).eachLevel(0.025f))
       .addModule(new ArmorLevelModule(TinkerDataKeys.CRYSTALSTRIKE, false, TinkerTags.Items.HELD_ARMOR));

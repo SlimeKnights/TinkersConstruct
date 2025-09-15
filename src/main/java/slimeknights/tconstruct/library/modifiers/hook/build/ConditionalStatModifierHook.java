@@ -6,6 +6,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
 
+import javax.annotation.Nullable;
 import java.util.Collection;
 
 /** Hook for modifying a stat conditioned on the holder. */
@@ -23,16 +24,18 @@ public interface ConditionalStatModifierHook {
   float modifyStat(IToolStackView tool, ModifierEntry modifier, LivingEntity living, FloatToolStat stat, float baseValue, float multiplier);
 
   /** Gets the given stat from the tool, as modified by this hook */
-  static float getModifiedStat(IToolStackView tool, LivingEntity living, FloatToolStat stat, float value) {
-    float multiplier = tool.getMultiplier(stat);
-    for (ModifierEntry entry : tool.getModifierList()) {
-      value = entry.getHook(ModifierHooks.CONDITIONAL_STAT).modifyStat(tool, entry, living, stat, value, multiplier);
+  static float getModifiedStat(IToolStackView tool, @Nullable LivingEntity living, FloatToolStat stat, float value) {
+    if (living != null) {
+      float multiplier = tool.getMultiplier(stat);
+      for (ModifierEntry entry : tool.getModifierList()) {
+        value = entry.getHook(ModifierHooks.CONDITIONAL_STAT).modifyStat(tool, entry, living, stat, value, multiplier);
+      }
     }
     return stat.clamp(value);
   }
 
   /** Gets the given stat from the tool, as modified by this hook */
-  static float getModifiedStat(IToolStackView tool, LivingEntity living, FloatToolStat stat) {
+  static float getModifiedStat(IToolStackView tool, @Nullable LivingEntity living, FloatToolStat stat) {
     return getModifiedStat(tool, living, stat, tool.getStats().get(stat));
   }
 

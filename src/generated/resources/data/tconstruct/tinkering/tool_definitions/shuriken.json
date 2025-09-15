@@ -24,8 +24,14 @@
     {
       "type": "tconstruct:base_stats",
       "stats": {
-        "tconstruct:projectile_damage": 4.0,
+        "tconstruct:projectile_damage": 1.5,
         "tconstruct:water_inertia": 0.8
+      }
+    },
+    {
+      "type": "tconstruct:multiply_stats",
+      "multipliers": {
+        "tconstruct:projectile_damage": 2.0
       }
     },
     {

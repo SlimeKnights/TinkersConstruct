@@ -38,6 +38,8 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addMaterial(MaterialIds.vine,    1, ORDER_BINDING, true);
     // tier 1 - shield cores
     addMaterial(MaterialIds.cactus, 1, ORDER_BINDING, true);
+    // tier 1 - ammo
+    addMaterial(MaterialIds.wool, 1, ORDER_BINDING, true);
 
     // tier 2
     addMaterial(MaterialIds.iron,        2, ORDER_GENERAL, false);
@@ -57,9 +59,11 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     // tier 2 - ammo
     addMaterial(MaterialIds.amethyst,   2, ORDER_REPAIR, false);
     addMaterial(MaterialIds.prismarine, 2, ORDER_REPAIR, true);
+    addMaterial(MaterialIds.earthslime, 2, ORDER_REPAIR, true);
     addMaterial(MaterialIds.skyslime,   2, ORDER_REPAIR, true);
     addMaterial(MaterialIds.blaze,      2, ORDER_REPAIR, true);
     addMaterial(MaterialIds.enderPearl, 2, ORDER_REPAIR, false);
+    addMaterial(MaterialIds.glass,      2, ORDER_REPAIR, false);
     // bloodbone reworked into venombone
     addRedirect(new MaterialId(TConstruct.MOD_ID, "bloodbone"), redirect(MaterialIds.venombone));
 
@@ -94,6 +98,9 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     // tier 4 - binding
     addMaterial(MaterialIds.ancientHide, 4, ORDER_BINDING, false);
     addMaterial(MaterialIds.ancient,     4, ORDER_NETHER,  false, true, null);
+    // tier 4 - ammo
+    addMaterial(MaterialIds.dragonScale, 4, ORDER_REPAIR, true);
+    addMaterial(MaterialIds.enderslime,  4, ORDER_REPAIR, true);
 
     // tier 5 binding, temporarily in book 4
     addMaterial(MaterialIds.enderslimeVine, 4, ORDER_BINDING, true);
@@ -122,13 +129,10 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
 
     // slimeskull - put in the most appropriate tier
     addMaterial(MaterialIds.gold,        2, ORDER_REPAIR, false);
-    addMaterial(MaterialIds.glass,       2, ORDER_REPAIR, false);
     addMaterial(MaterialIds.rottenFlesh, 1, ORDER_REPAIR, true);
     // slimesuit - textures
-    addMaterial(MaterialIds.earthslime, 1, ORDER_REPAIR, true);
     addMaterial(MaterialIds.blood,      2, ORDER_REPAIR, true);
     addMaterial(MaterialIds.magma,      2, ORDER_REPAIR, true);
-    addMaterial(MaterialIds.enderslime, 4, ORDER_REPAIR, true);
     addMaterial(MaterialIds.clay,       1, ORDER_REPAIR, true);
     addMaterial(MaterialIds.honey,      1, ORDER_REPAIR, true);
     //addMaterial(MaterialIds.venom,      3, ORDER_REPAIR, true);

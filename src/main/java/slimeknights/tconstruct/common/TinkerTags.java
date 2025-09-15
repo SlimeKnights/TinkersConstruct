@@ -475,6 +475,8 @@ public class TinkerTags {
 
     /** Items in this tag have a primary purpose of being ammo */
     public static final TagKey<Item> AMMO = local("modifiable/ammo");
+    /** Items in this tag have some cheaper modifier recipes since they are not reusable */
+    public static final TagKey<Item> SINGLE_USE = local("modifiable/single_use");
 
     /** Tools that can receive wood based embellishments */
     public static final TagKey<Item> EMBELLISHMENT_WOOD = local("modifiable/embellishment/wood");

@@ -97,6 +97,7 @@ import static slimeknights.tconstruct.common.TinkerTags.Items.PUNY_ARMOR;
 import static slimeknights.tconstruct.common.TinkerTags.Items.RANGED;
 import static slimeknights.tconstruct.common.TinkerTags.Items.SHIELDS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.SINGLEPART_TOOL;
+import static slimeknights.tconstruct.common.TinkerTags.Items.SINGLE_USE;
 import static slimeknights.tconstruct.common.TinkerTags.Items.SMALL_TOOLS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.SPECIAL_TOOLS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.STAFFS;
@@ -322,8 +323,8 @@ public class ItemTagProvider extends ItemTagsProvider {
     addToolTags(TinkerTools.longbow,    MULTIPART_TOOL, DURABILITY, MELEE_WEAPON, LONGBOWS,     INTERACTABLE_LEFT,  BROAD_TOOLS, BONUS_SLOTS, Tags.Items.TOOLS_BOWS, BALLISTAS);
     addToolTags(TinkerTools.fishingRod, MULTIPART_TOOL, DURABILITY, MELEE_WEAPON, FISHING_RODS, INTERACTABLE_DUAL,  SMALL_TOOLS, BONUS_SLOTS, Tags.Items.TOOLS_FISHING_RODS);
     addToolTags(TinkerTools.javelin,    MULTIPART_TOOL, DURABILITY, MELEE_PRIMARY, RANGED,      INTERACTABLE_RIGHT, BROAD_TOOLS, BONUS_SLOTS, Tags.Items.TOOLS_TRIDENTS);
-    addToolTags(TinkerTools.arrow,    MULTIPART_TOOL, AMMO, UNSALVAGABLE, UNSWAPPABLE, DYEABLE, ItemTags.ARROWS);
-    addToolTags(TinkerTools.shuriken, MULTIPART_TOOL, AMMO, UNSALVAGABLE, UNSWAPPABLE);
+    addToolTags(TinkerTools.arrow,    MULTIPART_TOOL, AMMO, UNSALVAGABLE, UNSWAPPABLE, SINGLE_USE, DYEABLE, ItemTags.ARROWS);
+    addToolTags(TinkerTools.shuriken, MULTIPART_TOOL, AMMO, UNSALVAGABLE, UNSWAPPABLE, SINGLE_USE);
     // specialized
     addToolTags(TinkerTools.flintAndBrick, DURABILITY, MELEE_WEAPON, INTERACTABLE_RIGHT, AOE, SMALL_TOOLS, BONUS_SLOTS);
     addToolTags(TinkerTools.skyStaff,      DURABILITY, STAFFS, SPECIAL_TOOLS, HELD_ARMOR, INTERACTABLE_DUAL, AOE, DYEABLE, EMBELLISHMENT_WOOD, BONUS_SLOTS);
@@ -586,6 +587,9 @@ public class ItemTagProvider extends ItemTagsProvider {
     addCast.accept(TinkerSmeltery.leggingsPlatingCast);
     addCast.accept(TinkerSmeltery.bootsPlatingCast);
     addCast.accept(TinkerSmeltery.mailleCast);
+
+    // arrow patterns are basically a gold cast
+    goldCasts.add(TinkerSmeltery.arrowCast.get());
 
     // add all casts to a common tag
     this.tag(TinkerTags.Items.CASTS)

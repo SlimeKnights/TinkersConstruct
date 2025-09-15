@@ -25,6 +25,8 @@ public final class MaterialIds {
   public static final MaterialId vine = id("vine");
   // tier 1 - shield cores
   public static final MaterialId cactus = id("cactus");
+  // tier 1 - ammo
+  public static final MaterialId wool = id("wool");
   // tier 2
   public static final MaterialId iron = id("iron");
   public static final MaterialId searedStone = id("seared_stone");
@@ -43,9 +45,11 @@ public final class MaterialIds {
   // tier 2 - ammo
   public static final MaterialId amethyst = id("amethyst");
   public static final MaterialId prismarine = id("prismarine");
+  public static final MaterialId earthslime = id("earthslime");
   public static final MaterialId skyslime = id("skyslime");
   public static final MaterialId blaze = id("blaze");
   public static final MaterialId enderPearl = id("ender_pearl");
+  public static final MaterialId glass = id("glass");
   // tier 3
   public static final MaterialId slimesteel = id("slimesteel");
   public static final MaterialId amethystBronze = id("amethyst_bronze");
@@ -71,12 +75,14 @@ public final class MaterialIds {
   public static final MaterialId blazingBone = id("blazing_bone");
   public static final MaterialId blazewood = id("blazewood");
   public static final MaterialId knightmetal = id("knightmetal");
+  public static final MaterialId ancient = id("ancient");
   //public static final MaterialId soulsteel = id("soulsteel");
   // tier 4 - bindings
   public static final MaterialId ancientHide = id("ancient_hide");
-  public static final MaterialId ancient = id("ancient");
-  // tier 5 - bindings
   public static final MaterialId enderslimeVine = id("enderslime_vine");
+  // tier 4 - ammo
+  public static final MaterialId enderslime = id("enderslime");
+  public static final MaterialId dragonScale = id("dragon_scale");
 
   // tier 2 (mod integration)
   public static final MaterialId treatedWood = id("treated_wood");
@@ -107,13 +113,10 @@ public final class MaterialIds {
   public static final MaterialId gold = id("gold");
   public static final MaterialId obsidian = id("obsidian");
   // slimeskull
-  public static final MaterialId glass = id("glass");
   public static final MaterialId rottenFlesh = id("rotten_flesh");
   // slimesuit
-  public static final MaterialId enderslime = id("enderslime");
   public static final MaterialId phantom = id("phantom");
   // slimesuit - textures
-  public static final MaterialId earthslime = id("earthslime");
   public static final MaterialId blood = id("blood");
   public static final MaterialId magma = id("magma");
   public static final MaterialId clay = id("clay");

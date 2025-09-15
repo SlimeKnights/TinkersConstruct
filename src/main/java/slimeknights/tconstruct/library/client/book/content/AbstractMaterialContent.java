@@ -101,6 +101,11 @@ public abstract class AbstractMaterialContent extends PageContent {
   @Nullable
   protected abstract MaterialStatsId getStatType(int index);
 
+  /** Gets the number of rows to display for the stats section */
+  protected int getStatRows() {
+    return 2;
+  }
+
   /** Gets the text to display, empty if no text */
   protected abstract String getTextKey(MaterialId material);
 
@@ -177,7 +182,7 @@ public abstract class AbstractMaterialContent extends PageContent {
     int x = (rightSide ? 0 : COLUMN_MARGIN) + 2;
 
     // material stats
-    y = addAllMaterialStats(x, y, list, 2, true);
+    y = addAllMaterialStats(x, y, list, getStatRows(), true);
     // material description
     addDescription(x, y, list);
   }

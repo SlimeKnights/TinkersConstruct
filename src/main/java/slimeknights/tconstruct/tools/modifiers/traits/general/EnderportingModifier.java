@@ -52,7 +52,7 @@ public class EnderportingModifier extends NoLevelsModifier implements PlantHarve
   }
 
   /** Attempts to teleport to the given location */
-  private static boolean tryTeleport(LivingEntity living, double x, double y, double z) {
+  private static boolean tryTeleport(ModifierEntry modifier, LivingEntity living, double x, double y, double z) {
     Level world = living.getCommandSenderWorld();
     // should never happen with the hooks, but just in case
     if (world.isClientSide) {
@@ -75,7 +75,7 @@ public class EnderportingModifier extends NoLevelsModifier implements PlantHarve
 
     // as long as no collision now, we can teleport
     if (!didCollide) {
-      return TeleportHelper.tryTeleport(new EnderportingTeleportEvent(living, x, y, z));
+      return TeleportHelper.tryTeleport(new EnderportingTeleportEvent(living, x, y, z, modifier));
     }
     return false;
   }
@@ -88,8 +88,8 @@ public class EnderportingModifier extends NoLevelsModifier implements PlantHarve
       if (target != null) {
         LivingEntity attacker = context.getAttacker();
         Vec3 oldPosition = attacker.position();
-        if (tryTeleport(attacker, target.getX(), target.getY(), target.getZ())) {
-          tryTeleport(target, oldPosition.x, oldPosition.y, oldPosition.z);
+        if (tryTeleport(modifier, attacker, target.getX(), target.getY(), target.getZ())) {
+          tryTeleport(modifier, target, oldPosition.x, oldPosition.y, oldPosition.z);
           ToolDamageUtil.damageAnimated(tool, 2, attacker, context.getSlotType());
         }
       }
@@ -101,7 +101,7 @@ public class EnderportingModifier extends NoLevelsModifier implements PlantHarve
     if (harvested > 0 && context.canHarvest()) {
       BlockPos pos = context.getPos();
       LivingEntity living = context.getLiving();
-      if (tryTeleport(living, pos.getX() + 0.5f, pos.getY(), pos.getZ() + 0.5f)) {
+      if (tryTeleport(modifier, living, pos.getX() + 0.5f, pos.getY(), pos.getZ() + 0.5f)) {
         ToolDamageUtil.damageAnimated(tool, 2, living);
       }
     }
@@ -112,7 +112,7 @@ public class EnderportingModifier extends NoLevelsModifier implements PlantHarve
     // only teleport to the center block
     if (context.getClickedPos().equals(pos)) {
       LivingEntity living = context.getPlayer();
-      if (living != null && tryTeleport(living, pos.getX() + 0.5f, pos.getY(), pos.getZ() + 0.5f)) {
+      if (living != null && tryTeleport(modifier, living, pos.getX() + 0.5f, pos.getY(), pos.getZ() + 0.5f)) {
         ToolDamageUtil.damageAnimated(tool, 2, living, context.getHand());
       }
     }
@@ -128,8 +128,8 @@ public class EnderportingModifier extends NoLevelsModifier implements PlantHarve
     if (attacker != null && attacker != target && canTeleport(persistentData, projectile)) {
       Entity hitEntity = hit.getEntity();
       Vec3 oldPosition = attacker.position();
-      if (attacker.level() == projectile.level() && tryTeleport(attacker, hitEntity.getX(), hitEntity.getY(), hitEntity.getZ()) && target != null) {
-        tryTeleport(target, oldPosition.x, oldPosition.y, oldPosition.z);
+      if (attacker.level() == projectile.level() && tryTeleport(modifier, attacker, hitEntity.getX(), hitEntity.getY(), hitEntity.getZ()) && target != null) {
+        tryTeleport(modifier, target, oldPosition.x, oldPosition.y, oldPosition.z);
       }
     }
     return false;
@@ -140,7 +140,7 @@ public class EnderportingModifier extends NoLevelsModifier implements PlantHarve
     if (attacker != null && canTeleport(persistentData, projectile)) {
       BlockPos target = hit.getBlockPos().relative(hit.getDirection());
       // attempt the teleport, if successful and the projectile is not reusable then discard it
-      if (attacker.level() == projectile.level() && tryTeleport(attacker, target.getX() + 0.5f, target.getY(), target.getZ() + 0.5f) && !projectile.getType().is(TinkerTags.EntityTypes.REUSABLE_AMMO)) {
+      if (attacker.level() == projectile.level() && tryTeleport(modifier, attacker, target.getX() + 0.5f, target.getY(), target.getZ() + 0.5f) && !projectile.getType().is(TinkerTags.EntityTypes.REUSABLE_AMMO)) {
         projectile.discard();
       }
     }

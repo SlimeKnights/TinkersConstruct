@@ -4,6 +4,6 @@
     "tag": "forge:glass_panes"
   },
   "material": "tconstruct:glass",
-  "needed": 4,
+  "needed": 1,
   "value": 1
 }

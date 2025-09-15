@@ -1,0 +1,12 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:stat_boost",
+      "each_level": 0.5,
+      "operation": "add",
+      "stat": "tconstruct:projectile_damage"
+    }
+  ],
+  "tooltip_display": "always"
+}

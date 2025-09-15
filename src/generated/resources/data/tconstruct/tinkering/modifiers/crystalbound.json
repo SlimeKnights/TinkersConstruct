@@ -12,7 +12,7 @@
     },
     {
       "type": "tconstruct:stat_boost",
-      "each_level": 2.0,
+      "each_level": 0.75,
       "operation": "add",
       "stat": "tconstruct:projectile_damage",
       "tool": {

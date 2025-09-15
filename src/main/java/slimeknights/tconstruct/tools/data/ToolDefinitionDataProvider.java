@@ -538,8 +538,10 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .module(defaultTwoParts)
       // stats
       .module(new SetStatsModule(StatsNBT.builder()
-        .set(ToolStats.PROJECTILE_DAMAGE, 4f)
+        .set(ToolStats.PROJECTILE_DAMAGE, 1.5f)
         .set(ToolStats.WATER_INERTIA, 0.8f).build()))
+      .module(new MultiplyStatsModule(MultiplierNBT.builder()
+        .set(ToolStats.PROJECTILE_DAMAGE, 2f).build()))
       // display both heads
       .module(MaterialToolNameModule.ALL);
 

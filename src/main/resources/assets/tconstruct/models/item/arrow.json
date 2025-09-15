@@ -8,6 +8,7 @@
   },
   "modifier_roots": [ "tconstruct:item/tool/ammo/arrow_modifiers/" ],
   "first_modifiers": [ "tconstruct:dyed" ],
+  "show_traits": true,
   "parts": [
     { "name": "shaft", "index": 1 },
     { "name": "head",  "index": 0 },

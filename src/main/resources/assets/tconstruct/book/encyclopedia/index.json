@@ -114,6 +114,14 @@
     }
   },
   {
+    "name": "materials_ammo",
+    "data": "no-load",
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:ammo", "detailed": true }},
+    "icon": {
+      "item": "minecraft:blaze_rod"
+    }
+  },
+  {
     "name": "materials_armor",
     "data": "no-load",
     "extraData": { "tconstruct:material_tier": { "type": "tconstruct:armor", "detailed": true } },

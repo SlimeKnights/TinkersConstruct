@@ -33,6 +33,7 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.FakeRegistryEntry;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.data.tinkering.AbstractFluidEffectProvider;
+import slimeknights.tconstruct.library.json.LevelingInt;
 import slimeknights.tconstruct.library.json.LevelingValue;
 import slimeknights.tconstruct.library.json.predicate.HarvestTierPredicate;
 import slimeknights.tconstruct.library.json.predicate.TinkerPredicate;
@@ -58,6 +59,7 @@ import slimeknights.tconstruct.library.modifiers.fluid.entity.FreezeFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.entity.MobEffectFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.entity.PotionFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.entity.PushEntityFluidEffect;
+import slimeknights.tconstruct.library.modifiers.fluid.entity.RandomTeleportFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.entity.RemoveEffectFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.entity.RestoreHungerFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.general.AreaMobEffectFluidEffect;
@@ -135,7 +137,7 @@ public class FluidEffectProvider extends AbstractFluidEffectProvider {
       // if returning, extend it, need to do this first as otherwise we extend ourself
       .addEntityEffect(hasReturning, new MobEffectFluidEffect(returningEffect, TimeAction.ADD))
       // if no returning, give returning then teleport
-      .addEntityEffect(hasReturning.inverted(), SequenceFluidEffect.entities().effect(new MobEffectFluidEffect(returningEffect, TimeAction.SET)).effect(FluidEffect.TELEPORT).build())
+      .addEntityEffect(hasReturning.inverted(), SequenceFluidEffect.entities().effect(new MobEffectFluidEffect(returningEffect, TimeAction.SET)).effect(new RandomTeleportFluidEffect(LevelingInt.eachLevel(8), LevelingInt.flat(16))).build())
       .addBlockEffect(SequenceFluidEffect.blocks().effect(new BreakBlockFluidEffect(0)).effect(new PlaceBlockFluidEffect(null)).build());
 
     // slimelike - miscelaneous //

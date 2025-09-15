@@ -6,6 +6,7 @@ import slimeknights.mantle.client.book.BookLoader;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.repository.FileRepository;
 import slimeknights.mantle.client.book.transformer.BookTransformer;
+import slimeknights.tconstruct.library.client.book.content.AmmoMaterialContent;
 import slimeknights.tconstruct.library.client.book.content.ArmorMaterialContent;
 import slimeknights.tconstruct.library.client.book.content.ContentMaterialSkull;
 import slimeknights.tconstruct.library.client.book.content.ContentModifier;
@@ -60,6 +61,7 @@ public class TinkerBook extends BookData {
     BookLoader.registerPageType(MeleeHarvestMaterialContent.ID, MeleeHarvestMaterialContent.class);
     BookLoader.registerPageType(RangedMaterialContent.ID,       RangedMaterialContent.class);
     BookLoader.registerPageType(ArmorMaterialContent.ID,        ArmorMaterialContent.class);
+    BookLoader.registerPageType(AmmoMaterialContent.ID,        ArmorMaterialContent.class);
     BookLoader.registerPageType(ContentTool.ID, ContentTool.class);
     BookLoader.registerPageType(ContentModifier.ID, ContentModifier.class);
     BookLoader.registerPageType(TooltipShowcaseContent.ID, TooltipShowcaseContent.class);
@@ -68,6 +70,7 @@ public class TinkerBook extends BookData {
     // material types
     TierRangeMaterialSectionTransformer.registerMaterialType(getResource("melee_harvest"), MeleeHarvestMaterialContent::new, HeadMaterialStats.ID, HandleMaterialStats.ID, StatlessMaterialStats.BINDING.getIdentifier());
     TierRangeMaterialSectionTransformer.registerMaterialType(getResource("ranged"), RangedMaterialContent::new, LimbMaterialStats.ID, GripMaterialStats.ID, StatlessMaterialStats.BOWSTRING.getIdentifier());
+    TierRangeMaterialSectionTransformer.registerMaterialType(getResource("ammo"), AmmoMaterialContent::new, StatlessMaterialStats.ARROW_HEAD.getIdentifier(), StatlessMaterialStats.ARROW_SHAFT.getIdentifier());
     TierRangeMaterialSectionTransformer.registerMaterialType(getResource("armor"), ArmorMaterialContent::new,
                                                              HELMET.getId(), CHESTPLATE.getId(), LEGGINGS.getId(), BOOTS.getId(), SHIELD.getId(),
                                                              StatlessMaterialStats.MAILLE.getIdentifier(), StatlessMaterialStats.SHIELD_CORE.getIdentifier());

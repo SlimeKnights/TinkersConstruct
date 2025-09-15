@@ -58,8 +58,7 @@ public class ModifiableShurikenItem extends Item implements IModifiableDisplay {
   public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
     ItemStack stack = player.getItemInHand(hand);
     level.playSound(null, player.getX(), player.getY(), player.getZ(), Sounds.SHURIKEN_THROW.getSound(), SoundSource.NEUTRAL, 0.5F, 0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F));
-    // TODO: use throwspeed of some sort?
-    player.getCooldowns().addCooldown(stack.getItem(), 5);
+    player.getCooldowns().addCooldown(stack.getItem(), 10);
     if (!level.isClientSide()) {
       ThrownShuriken shuriken = new ThrownShuriken(level, player);
       shuriken.onCreate(stack.copyWithCount(1), player);

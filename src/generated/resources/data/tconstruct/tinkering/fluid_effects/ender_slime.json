@@ -47,7 +47,13 @@
             "time": 140
           },
           {
-            "type": "tconstruct:teleport"
+            "type": "tconstruct:teleport",
+            "chances": {
+              "flat": 16
+            },
+            "diameter": {
+              "each_level": 8
+            }
           }
         ]
       },

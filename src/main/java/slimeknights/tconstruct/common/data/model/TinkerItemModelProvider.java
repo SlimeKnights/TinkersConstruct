@@ -102,6 +102,7 @@ public class TinkerItemModelProvider extends ItemModelProvider {
     // bow
     cast(TinkerSmeltery.bowLimbCast);
     cast(TinkerSmeltery.bowGripCast);
+    basicItem(TinkerSmeltery.arrowCast.getId(), "cast/arrow");
     // armor
     cast(TinkerSmeltery.helmetPlatingCast);
     cast(TinkerSmeltery.chestplatePlatingCast);

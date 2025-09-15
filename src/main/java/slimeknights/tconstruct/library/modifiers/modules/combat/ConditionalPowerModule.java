@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.modifiers.modules.combat;
 
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -13,6 +14,7 @@ import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.json.IntRange;
 import slimeknights.tconstruct.library.json.math.ModifierFormula;
 import slimeknights.tconstruct.library.json.predicate.TinkerPredicate;
@@ -55,8 +57,10 @@ public record ConditionalPowerModule(IJsonPredicate<LivingEntity> target, IJsonP
     PowerFormula.LOADER.directField(ConditionalPowerModule::formula),
     ModifierEntry.VALID_LEVEL.defaultField("modifier_level", ConditionalPowerModule::modifierLevel),
     ConditionalPowerModule::new);
-  /** Persistent data key for the stat multiplier */
-  private static final ResourceLocation MULTIPLIER = ToolStats.PROJECTILE_DAMAGE.getName().withSuffix("_multiplier");
+  /** Projectile persistent data key for the stat multiplier */
+  private static final ResourceLocation AMMO_MULTIPLIER = ToolStats.PROJECTILE_DAMAGE.getName().withSuffix("_ammo_multiplier");
+  /** Projectile persistent data key for the stat multiplier */
+  private static final ResourceLocation BOW_MULTIPLIER = ToolStats.PROJECTILE_DAMAGE.getName().withSuffix("_bow_multiplier");
 
   /** @apiNote Internal constructor, use {@link #builder()} */
   @Internal
@@ -87,17 +91,24 @@ public record ConditionalPowerModule(IJsonPredicate<LivingEntity> target, IJsonP
   @Override
   public void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, Projectile projectile, @Nullable AbstractArrow arrow, ModDataNBT persistentData, boolean primary) {
     // copy projectile multiplier into the arrow damage so we can use it later
-    // TODO: can we support power multipliers on ammo?
-    persistentData.putFloat(MULTIPLIER, tool.getMultiplier(ToolStats.PROJECTILE_DAMAGE));
+    // we use a separate key for ammo vs bow as those may mismatch. But for the same weapon its fine if multiple modifiers reuse it
+    persistentData.putFloat(tool.hasTag(TinkerTags.Items.AMMO) ? AMMO_MULTIPLIER : BOW_MULTIPLIER, tool.getMultiplier(ToolStats.PROJECTILE_DAMAGE));
   }
 
   @Override
   public boolean onProjectileHitEntity(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
     if (modifierLevel.test(modifier.getLevel()) && TinkerPredicate.matches(this.target, target) && TinkerPredicate.matches(this.holder, attacker)) {
+      float multiplier = 1;
+      if (persistentData.contains(AMMO_MULTIPLIER, Tag.TAG_ANY_NUMERIC)) {
+        multiplier += persistentData.getFloat(AMMO_MULTIPLIER);
+      }
+      if (persistentData.contains(BOW_MULTIPLIER, Tag.TAG_ANY_NUMERIC)) {
+        multiplier += persistentData.getFloat(BOW_MULTIPLIER);
+      }
       if (projectile instanceof AbstractArrow arrow) {
-        arrow.setBaseDamage(formula.apply(modifiers, persistentData, modifier, projectile, hit, attacker, target, arrow.getBaseDamage(), persistentData.getFloat(MULTIPLIER)));
+        arrow.setBaseDamage(formula.apply(modifiers, persistentData, modifier, projectile, hit, attacker, target, arrow.getBaseDamage(), multiplier));
       } else if (projectile instanceof ProjectileWithPower withPower) {
-        withPower.setPower(formula.apply(modifiers, persistentData, modifier, projectile, hit, attacker, target, withPower.getPower(), persistentData.getFloat(MULTIPLIER)));
+        withPower.setPower(formula.apply(modifiers, persistentData, modifier, projectile, hit, attacker, target, withPower.getPower(), multiplier));
       }
     }
     return false;

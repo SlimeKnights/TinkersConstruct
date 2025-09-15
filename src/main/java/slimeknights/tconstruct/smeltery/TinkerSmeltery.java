@@ -53,6 +53,7 @@ import slimeknights.tconstruct.library.recipe.casting.CastDuplicationRecipe;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.PotionCastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.RetexturedCastingRecipe;
+import slimeknights.tconstruct.library.recipe.casting.ToolPotionCastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.container.ContainerFillingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.material.CompositeCastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.material.MaterialCastingRecipe;
@@ -366,6 +367,7 @@ public final class TinkerSmeltery extends TinkerModule {
   // bow
   public static final CastItemObject bowLimbCast = ITEMS.registerCast(TinkerToolParts.bowLimb, ITEM_PROPS);
   public static final CastItemObject bowGripCast = ITEMS.registerCast(TinkerToolParts.bowGrip, ITEM_PROPS);
+  public static final ItemObject<Item> arrowCast = ITEMS.register("arrow_cast", TOOLTIP_ITEM);
   // armor
   public static final CastItemObject helmetPlatingCast = ITEMS.registerCast("helmet_plating", () -> new PartCastItem(ITEM_PROPS, () -> TinkerToolParts.plating.get(ArmorItem.Type.HELMET)));
   public static final CastItemObject chestplatePlatingCast = ITEMS.registerCast("chestplate_plating", () -> new PartCastItem(ITEM_PROPS, () -> TinkerToolParts.plating.get(ArmorItem.Type.CHESTPLATE)));
@@ -388,6 +390,8 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final RegistryObject<TypeAwareRecipeSerializer<CastDuplicationRecipe>> tableDuplicationRecipeSerializer = RECIPE_SERIALIZERS.register("table_duplication", () -> LoadableRecipeSerializer.of(CastDuplicationRecipe.LOADER, TinkerRecipeTypes.CASTING_TABLE));
   public static final RegistryObject<TypeAwareRecipeSerializer<PotionCastingRecipe>> basinPotionRecipeSerializer = RECIPE_SERIALIZERS.register("casting_basin_potion", () -> LoadableRecipeSerializer.of(PotionCastingRecipe.LOADER, TinkerRecipeTypes.CASTING_BASIN));
   public static final RegistryObject<TypeAwareRecipeSerializer<PotionCastingRecipe>> tablePotionRecipeSerializer = RECIPE_SERIALIZERS.register("casting_table_potion", () -> LoadableRecipeSerializer.of(PotionCastingRecipe.LOADER, TinkerRecipeTypes.CASTING_TABLE));
+  public static final RegistryObject<TypeAwareRecipeSerializer<ToolPotionCastingRecipe>> basinToolPotionRecipeSerializer = RECIPE_SERIALIZERS.register("casting_basin_tool_potion", () -> LoadableRecipeSerializer.of(ToolPotionCastingRecipe.LOADER, TinkerRecipeTypes.CASTING_BASIN));
+  public static final RegistryObject<TypeAwareRecipeSerializer<ToolPotionCastingRecipe>> tableToolPotionRecipeSerializer = RECIPE_SERIALIZERS.register("casting_table_tool_potion", () -> LoadableRecipeSerializer.of(ToolPotionCastingRecipe.LOADER, TinkerRecipeTypes.CASTING_TABLE));
   public static final RegistryObject<TypeAwareRecipeSerializer<RetexturedCastingRecipe>> retexturedBasinRecipeSerializer = RECIPE_SERIALIZERS.register("retextured_casting_basin", () -> LoadableRecipeSerializer.of(RetexturedCastingRecipe.LOADER, TinkerRecipeTypes.CASTING_BASIN));
   public static final RegistryObject<TypeAwareRecipeSerializer<RetexturedCastingRecipe>> retexturedTableRecipeSerializer = RECIPE_SERIALIZERS.register("retextured_casting_table", () -> LoadableRecipeSerializer.of(RetexturedCastingRecipe.LOADER, TinkerRecipeTypes.CASTING_TABLE));
   // material casting
@@ -585,6 +589,7 @@ public final class TinkerSmeltery extends TinkerModule {
     // ranged
     accept(output, getter, bowLimbCast);
     accept(output, getter, bowGripCast);
+    output.accept(arrowCast);
     // no binding cast
     // armor
     accept(output, getter, helmetPlatingCast);

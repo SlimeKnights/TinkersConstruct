@@ -84,6 +84,7 @@ import slimeknights.tconstruct.library.modifiers.fluid.entity.FreezeFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.entity.MobEffectFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.entity.PotionFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.entity.PushEntityFluidEffect;
+import slimeknights.tconstruct.library.modifiers.fluid.entity.RandomTeleportFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.entity.RemoveEffectFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.entity.RestoreHungerFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.general.AlternativesFluidEffect;
@@ -139,6 +140,7 @@ import slimeknights.tconstruct.library.modifiers.modules.combat.LootingModule;
 import slimeknights.tconstruct.library.modifiers.modules.combat.MeleeAttributeModule;
 import slimeknights.tconstruct.library.modifiers.modules.combat.MobEffectModule;
 import slimeknights.tconstruct.library.modifiers.modules.display.DurabilityBarColorModule;
+import slimeknights.tconstruct.library.modifiers.modules.display.MaterialVariantColorModule;
 import slimeknights.tconstruct.library.modifiers.modules.display.ModifierVariantColorModule;
 import slimeknights.tconstruct.library.modifiers.modules.display.ModifierVariantNameModule;
 import slimeknights.tconstruct.library.modifiers.modules.mining.ConditionalMiningSpeedModule;
@@ -257,6 +259,7 @@ import slimeknights.tconstruct.tools.modifiers.upgrades.melee.PiercingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.SeveringModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.SweepingEdgeModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.ranged.SinistralModifier;
+import slimeknights.tconstruct.tools.modules.CraftCountModule;
 import slimeknights.tconstruct.tools.modules.DamageOnUnequipModule;
 import slimeknights.tconstruct.tools.modules.DurabilityAsCapacityModule;
 import slimeknights.tconstruct.tools.modules.HeadlightModule;
@@ -267,7 +270,6 @@ import slimeknights.tconstruct.tools.modules.ShareDurabilityModule;
 import slimeknights.tconstruct.tools.modules.SmeltingModule;
 import slimeknights.tconstruct.tools.modules.SpillingModule;
 import slimeknights.tconstruct.tools.modules.TheOneProbeModule;
-import slimeknights.tconstruct.tools.modules.ToolCraftCountModule;
 import slimeknights.tconstruct.tools.modules.ZoomModule;
 import slimeknights.tconstruct.tools.modules.armor.DepthProtectionModule;
 import slimeknights.tconstruct.tools.modules.armor.EnderclearanceModule;
@@ -298,6 +300,9 @@ import slimeknights.tconstruct.tools.modules.ranged.ProjectilePlaceGlowModule;
 import slimeknights.tconstruct.tools.modules.ranged.PunchModule;
 import slimeknights.tconstruct.tools.modules.ranged.QuiverInventoryModule;
 import slimeknights.tconstruct.tools.modules.ranged.RestrictAngleModule;
+import slimeknights.tconstruct.tools.modules.ranged.ReversePunchModule;
+import slimeknights.tconstruct.tools.modules.ranged.SmashingModule;
+import slimeknights.tconstruct.tools.modules.ranged.TippedModule;
 import slimeknights.tconstruct.tools.modules.ranged.TrickQuiverModule;
 import slimeknights.tconstruct.tools.recipe.ArmorDyeingRecipe;
 import slimeknights.tconstruct.tools.recipe.ArmorTrimRecipe;
@@ -639,7 +644,7 @@ public final class TinkerModifiers extends TinkerModule {
       // simple
       FluidEffect.ENTITY_EFFECTS.register(getResource("calcified"), StrongBonesModifier.FLUID_EFFECT.getLoader());
       FluidEffect.ENTITY_EFFECTS.register(getResource("extinguish"), FluidEffect.EXTINGUISH_FIRE.getLoader());
-      FluidEffect.ENTITY_EFFECTS.register(getResource("teleport"), FluidEffect.TELEPORT.getLoader());
+      FluidEffect.ENTITY_EFFECTS.register(getResource("teleport"), RandomTeleportFluidEffect.LOADER);
       FluidEffect.BLOCK_EFFECTS.register(getResource("weather"), FluidEffect.WEATHER.getLoader());
       // potions
       FluidEffect.ENTITY_EFFECTS.register(getResource("cure_effects"), CureEffectsFluidEffect.LOADER);
@@ -721,6 +726,7 @@ public final class TinkerModifiers extends TinkerModule {
       ModifierModule.LOADER.register(getResource("durability_color"), DurabilityBarColorModule.LOADER);
       ModifierModule.LOADER.register(getResource("variant_name"), ModifierVariantNameModule.LOADER);
       ModifierModule.LOADER.register(getResource("variant_color"), ModifierVariantColorModule.LOADER);
+      ModifierModule.LOADER.register(getResource("material_variant_color"), MaterialVariantColorModule.LOADER);
       // enchantment
       ModifierModule.LOADER.register(getResource("constant_enchantment"), EnchantmentModule.Constant.LOADER);
       ModifierModule.LOADER.register(getResource("main_hand_harvest_enchantment"), EnchantmentModule.MainHandHarvest.LOADER);
@@ -761,7 +767,8 @@ public final class TinkerModifiers extends TinkerModule {
       ModifierModule.LOADER.register(getResource("damage_on_unequip"), DamageOnUnequipModule.LOADER);
       ModifierModule.LOADER.register(getResource("share_durability"), ShareDurabilityModule.LOADER);
       ModifierModule.LOADER.register(getResource("projectile_place_glow"), ProjectilePlaceGlowModule.LOADER);
-      ModifierModule.LOADER.register(getResource("tool_craft_count"), ToolCraftCountModule.LOADER);
+      ModifierModule.LOADER.register(getResource("craft_count"), CraftCountModule.LOADER);
+      ModifierModule.LOADER.register(getResource("tipped"), TippedModule.LOADER);
       // overslime
       ModifierModule.LOADER.register(getResource("overgrowth"), OvergrowthModule.LOADER);
       ModifierModule.LOADER.register(getResource("overburn"), OverburnModule.INSTANCE.getLoader());
@@ -771,6 +778,7 @@ public final class TinkerModifiers extends TinkerModule {
       ModifierModule.LOADER.register(getResource("freezing_attack"), FreezingAttackModule.LOADER);
       ModifierModule.LOADER.register(getResource("spilling"), SpillingModule.LOADER);
       ModifierModule.LOADER.register(getResource("channeling"), ChannelingModule.LOADER);
+      ModifierModule.LOADER.register(getResource("smashing"), SmashingModule.LOADER);
       // armor
       ModifierModule.LOADER.register(getResource("enderclearance"), EnderclearanceModule.LOADER);
       ModifierModule.LOADER.register(getResource("depth_protection"), DepthProtectionModule.LOADER);
@@ -792,6 +800,7 @@ public final class TinkerModifiers extends TinkerModule {
       ModifierModule.LOADER.register(getResource("quiver_inventory"), QuiverInventoryModule.LOADER);
       ModifierModule.LOADER.register(getResource("infinity"), InfinityModule.LOADER);
       ModifierModule.LOADER.register(getResource("punch"), PunchModule.LOADER);
+      ModifierModule.LOADER.register(getResource("reverse_punch"), ReversePunchModule.LOADER);
       ModifierModule.LOADER.register(getResource("arrow_pierce"), ArrowPierceModule.LOADER);
       // compat
       ModifierModule.LOADER.register(getResource("the_one_probe"), TheOneProbeModule.INSTANCE.getLoader());

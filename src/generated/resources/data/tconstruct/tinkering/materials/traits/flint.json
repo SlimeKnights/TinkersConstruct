@@ -6,6 +6,11 @@
     }
   ],
   "perStat": {
-    "tconstruct:ammo": []
+    "tconstruct:ammo": [
+      {
+        "level": 1,
+        "name": "tconstruct:tipped"
+      }
+    ]
   }
 }
