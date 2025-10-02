@@ -1,11 +1,16 @@
 package slimeknights.tconstruct.library.modifiers;
 
+import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import slimeknights.mantle.data.registry.IdAwareComponentRegistry;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
@@ -50,6 +55,7 @@ import slimeknights.tconstruct.library.modifiers.hook.interaction.SlotStackModif
 import slimeknights.tconstruct.library.modifiers.hook.interaction.UsingToolModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.mining.BlockBreakModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.mining.BlockHarvestModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.mining.BreakSpeedContext;
 import slimeknights.tconstruct.library.modifiers.hook.mining.BreakSpeedModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.mining.HarvestEnchantmentsModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.mining.RemoveBlockModifierHook;
@@ -58,13 +64,16 @@ import slimeknights.tconstruct.library.modifiers.hook.ranged.LauncherHitModifier
 import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileLaunchModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileShootModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.ranged.ScheduledProjectileTaskModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.special.BlockTransformModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.special.CapacityBarHook;
 import slimeknights.tconstruct.library.modifiers.hook.special.PlantHarvestModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.special.ShearsModifierHook;
 import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
+import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.utils.RestrictedCompoundTag;
+import slimeknights.tconstruct.library.utils.Schedule.Scheduler;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
@@ -254,7 +263,15 @@ public class ModifierHooks {
   /* Harvest */
 
   /** Hook for conditionally modifying the break speed of a block */
-  public static final ModuleHook<BreakSpeedModifierHook> BREAK_SPEED = register("break_speed", BreakSpeedModifierHook.class, BreakSpeedModifierHook.AllMerger::new, (tool, modifier, event, sideHit, isEffective, miningSpeedModifier) -> {});
+  public static final ModuleHook<BreakSpeedModifierHook> BREAK_SPEED = register("break_speed", BreakSpeedModifierHook.class, BreakSpeedModifierHook.AllMerger::new, new BreakSpeedModifierHook() {
+    @Override
+    public void onBreakSpeed(IToolStackView tool, ModifierEntry modifier, BreakSpeed event, Direction sideHit, boolean isEffective, float miningSpeedModifier) {}
+
+    @Override
+    public float modifyBreakSpeed(IToolStackView tool, ModifierEntry modifier, BreakSpeedContext context, float speed) {
+      return speed;
+    }
+  });
 
   /** Called when a block is broken by a tool to allow the modifier to take over the block removing logic */
   public static final ModuleHook<RemoveBlockModifierHook> REMOVE_BLOCK = register("remove_block", RemoveBlockModifierHook.class, RemoveBlockModifierHook.FirstMerger::new, (tool, modifier, context) -> null);
@@ -281,12 +298,31 @@ public class ModifierHooks {
     PROJECTILE_SHOT = register("projectile_shot", ProjectileShootModifierHook.class, merger, defaultInstance);
     PROJECTILE_THROWN = register("projectile_thrown", ProjectileShootModifierHook.class, merger, defaultInstance);
   }
-  /** Hook called when an arrow hits an entity or block */
-  public static final ModuleHook<ProjectileHitModifierHook> PROJECTILE_HIT = register("projectile_hit", ProjectileHitModifierHook.class, ProjectileHitModifierHook.AllMerger::new, new ProjectileHitModifierHook() {});
+  /** Hook called when an arrow hits an entity or block on the serverside. TODO 1.21: run this hook on the client too. */
+  public static final ModuleHook<ProjectileHitModifierHook> PROJECTILE_HIT;
+  /** Hook called when an arrow hits an entity or block on the clientside. Separate from {@link #PROJECTILE_HIT} to prevent a breaking change. TODO 1.21: merge into {@link #PROJECTILE_LAUNCH} */
+  public static final ModuleHook<ProjectileHitModifierHook> PROJECTILE_HIT_CLIENT;
+  static {
+    ProjectileHitModifierHook defaultInstance = new ProjectileHitModifierHook() {};
+    Function<Collection<ProjectileHitModifierHook>,ProjectileHitModifierHook> merger = ProjectileHitModifierHook.AllMerger::new;
+    PROJECTILE_HIT = register("projectile_hit", ProjectileHitModifierHook.class, merger, defaultInstance);
+    PROJECTILE_HIT_CLIENT = register("projectile_hit_client", ProjectileHitModifierHook.class, merger, defaultInstance);
+  }
+
   /** Hook called when a projectile hits an entity with context on the tool that launched it. Allows modifiers such as melting or spilling to work. */
   public static final ModuleHook<LauncherHitModifierHook> LAUNCHER_HIT = register("launcher_hit", LauncherHitModifierHook.class, LauncherHitModifierHook.AllMerger::new, new LauncherHitModifierHook() {});
   /** Hook called when a bow is looking for ammo. Does not support merging multiple hooks on one modifier */
   public static final ModuleHook<BowAmmoModifierHook> BOW_AMMO = register("bow_ammo", BowAmmoModifierHook.class, BowAmmoModifierHook.EMPTY);
+
+  /** Hook for scheduling tasks to happen later in a projectile's lifetime. Only works on modifiable projectiles, launchers such as bows will never use this hook. */
+  public static final ModuleHook<ScheduledProjectileTaskModifierHook> SCHEDULE_PROJECTILE_TASK = register("schedule_projectile_task", ScheduledProjectileTaskModifierHook.class, ScheduledProjectileTaskModifierHook.ScheduleMerger::new, new ScheduledProjectileTaskModifierHook() {
+    @Override
+    public void scheduleProjectileTask(IToolStackView tool, ModifierEntry modifier, ItemStack ammo, Projectile projectile, @Nullable AbstractArrow arrow, ModDataNBT persistentData, Scheduler scheduler) {}
+
+    @Override
+    public void onScheduledProjectileTask(IToolStackView tool, ModifierEntry modifier, ItemStack ammo, Projectile projectile, @Nullable AbstractArrow arrow, ModDataNBT persistentData, int task) {}
+  });
+
 
   /* Misc Armor */
 

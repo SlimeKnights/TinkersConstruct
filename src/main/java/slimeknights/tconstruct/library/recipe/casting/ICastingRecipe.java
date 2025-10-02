@@ -21,23 +21,27 @@ public interface ICastingRecipe extends ICommonRecipe<ICastingContainer> {
   /**
    * Gets the amount of fluid required for this recipe
    * @param inv  Inventory instance
-   * @return  Fluid amount when using the fluid in the inventory
+   * @return Fluid amount when using the fluid in the inventory
    */
   int getFluidAmount(ICastingContainer inv);
 
   /**
-   * @return true if the cast item is consumed on crafting
+   * TODO 1.21: move this method to {@link IDisplayableCastingRecipe}.
+   * {@return true if the cast item is consumed on crafting}
    */
   boolean isConsumed();
 
-  /**
-   * @return true if the recipe output is placed into the casting input slot
-   */
+  /** {@return true if the cast item is consumed on crafting} */
+  default boolean isConsumed(ICastingContainer inv) {
+    return isConsumed();
+  }
+
+  /** {@return true if the recipe output is placed into the casting input slot} */
   boolean switchSlots();
 
   /**
    * @param inv ICastingInventory for casting recipe
-   * @return  cooling time for the output.
+   * {@return cooling time for the output}
    */
   int getCoolingTime(ICastingContainer inv);
 

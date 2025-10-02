@@ -7,6 +7,7 @@ import net.minecraft.data.PackOutput.Target;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ItemLike;
 import slimeknights.mantle.data.GenericDataProvider;
+import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 import slimeknights.tconstruct.library.tools.layout.StationSlotLayout;
 import slimeknights.tconstruct.library.tools.layout.StationSlotLayoutLoader;
@@ -53,6 +54,11 @@ public abstract class AbstractStationSlotLayoutProvider extends GenericDataProvi
   /** Defines the given ID as a item layout */
   protected StationSlotLayout.Builder define(ItemLike item) {
     return define(BuiltInRegistries.ITEM.getKey(item.asItem()));
+  }
+
+  /** Defines the given ID as a general layout */
+  protected StationSlotLayout.Builder definePattern(Pattern id) {
+    return define(id).icon(id);
   }
 
   /** Defines the given ID as a tool layout, sets icon and name */

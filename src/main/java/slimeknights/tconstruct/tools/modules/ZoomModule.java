@@ -30,7 +30,10 @@ import slimeknights.tconstruct.tools.modifiers.ability.interaction.BlockingModif
 
 import java.util.List;
 
-/** Shared logic for {@link slimeknights.tconstruct.tools.data.ModifierIds#scope} and {@link slimeknights.tconstruct.tools.data.ModifierIds#zoom} */
+/**
+ * Shared logic for {@link slimeknights.tconstruct.tools.data.ModifierIds#scope} and {@link slimeknights.tconstruct.tools.data.ModifierIds#zoom}.
+ * TODO 1.21: move to {@link slimeknights.tconstruct.tools.modules.interaction}
+ */
 public enum ZoomModule implements ModifierModule, GeneralInteractionModifierHook, KeybindInteractModifierHook, UsingToolModifierHook, EquipmentChangeModifierHook {
   SPYGLASS(ModifierHooks.GENERAL_INTERACT, ModifierHooks.TOOL_USING, ModifierHooks.EQUIPMENT_CHANGE, ModifierHooks.ARMOR_INTERACT) {
     @Override

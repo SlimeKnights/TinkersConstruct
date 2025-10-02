@@ -10,11 +10,14 @@ import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.field.LoadableField;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
+import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.recipe.IMultiRecipe;
 import slimeknights.mantle.recipe.helper.LoadableRecipeSerializer;
 import slimeknights.mantle.recipe.helper.TypeAwareRecipeSerializer;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
+import slimeknights.tconstruct.library.json.predicate.material.MaterialPredicate;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.recipe.casting.CastingRecipeLookup;
 import slimeknights.tconstruct.library.recipe.casting.DisplayCastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.ICastingContainer;
@@ -34,16 +37,22 @@ public class MaterialCastingRecipe extends AbstractMaterialCastingRecipe impleme
   public static final RecordLoadable<MaterialCastingRecipe> LOADER = RecordLoadable.create(
     LoadableRecipeSerializer.TYPED_SERIALIZER.requiredField(),
     ContextKey.ID.requiredField(), LoadableRecipeSerializer.RECIPE_GROUP, CAST_FIELD,
-    ITEM_COST_FIELD, RESULT_FIELD, CAST_CONSUMED_FIELD, SWITCH_SLOTS_FIELD,
+    ITEM_COST_FIELD, RESULT_FIELD, MATERIALS_FIELD, CAST_CONSUMED_FIELD, SWITCH_SLOTS_FIELD,
     MaterialCastingRecipe::new);
 
   protected final IMaterialItem result;
 
-  public MaterialCastingRecipe(TypeAwareRecipeSerializer<?> serializer, ResourceLocation id, String group, Ingredient cast, int itemCost, IMaterialItem result, boolean consumed, boolean switchSlots) {
-    super(serializer, id, group, cast, itemCost, consumed, switchSlots);
+  public MaterialCastingRecipe(TypeAwareRecipeSerializer<?> serializer, ResourceLocation id, String group, Ingredient cast, int itemCost, IMaterialItem result, IJsonPredicate<MaterialVariantId> materials, boolean consumed, boolean switchSlots) {
+    super(serializer, id, group, cast, itemCost, consumed, switchSlots, materials);
     this.result = result;
     CastingRecipeLookup.registerCastable(result);
     MaterialCastingLookup.registerItemCost(result, itemCost);
+  }
+
+  /** @deprecated use {@link #MaterialCastingRecipe(TypeAwareRecipeSerializer, ResourceLocation, String, Ingredient, int, IMaterialItem, IJsonPredicate, boolean, boolean)} */
+  @Deprecated(forRemoval = true)
+  public MaterialCastingRecipe(TypeAwareRecipeSerializer<?> serializer, ResourceLocation id, String group, Ingredient cast, int itemCost, IMaterialItem result, boolean consumed, boolean switchSlots) {
+    this(serializer, id, group, cast, itemCost, result, MaterialPredicate.ANY, consumed, switchSlots);
   }
 
   @Override
@@ -77,7 +86,7 @@ public class MaterialCastingRecipe extends AbstractMaterialCastingRecipe impleme
         .getAllCastingFluids().stream()
         .filter(recipe -> {
           MaterialVariant output = recipe.getOutput();
-          return !output.isUnknown() && !output.get().isHidden() && result.canUseMaterial(output.getId());
+          return recipe.isVisible() && result.canUseMaterial(output.getId()) && this.materials.matches(output.getVariant());
         })
         .map(recipe -> {
           List<FluidStack> fluids = resizeFluids(recipe.getFluids());

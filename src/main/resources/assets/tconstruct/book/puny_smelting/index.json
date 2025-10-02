@@ -32,7 +32,11 @@
     "data": "no-load",
     "extraData": { "tconstruct:material_tier": { "type": "tconstruct:melee_harvest", "tier": 2 } },
     "icon": {
-      "item": "tconstruct:seared_brick"
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:small_axe_head",
+        "nbt": { "Material": "tconstruct:seared_stone" }
+      }
     }
   },
   {
@@ -40,7 +44,11 @@
     "data": "no-load",
     "extraData": { "tconstruct:material_tier": { "type": "tconstruct:ranged", "tier": 2 } },
     "icon": {
-      "item": "minecraft:iron_ingot"
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:bow_grip",
+        "nbt": { "Material": "tconstruct:slimewood" }
+      }
     }
   },
   {
@@ -48,7 +56,11 @@
     "data": "no-load",
     "extraData": { "tconstruct:material_tier": { "type": "tconstruct:armor", "tier": { "min": 1, "max": 2 } } },
     "icon": {
-      "item": "minecraft:gold_ingot"
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:maille",
+        "nbt": { "Material": "tconstruct:gold" }
+      }
     }
   },
   {

@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material",
+  "ingredient": {
+    "item": "minecraft:glowstone"
+  },
+  "leftover": "minecraft:glowstone_dust",
+  "material": "tconstruct:glowstone",
+  "needed": 1,
+  "value": 4
+}

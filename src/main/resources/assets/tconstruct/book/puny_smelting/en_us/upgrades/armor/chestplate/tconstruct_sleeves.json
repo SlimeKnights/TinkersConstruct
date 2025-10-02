@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:sleeves",
+  "text": [
+    {
+      "text": "Hidden shurikens, the classic ninja trick."
+    }
+  ],
+  "effects": [
+    "Throw items from empty hand by interacting",
+    "Sneak to toggle selected item",
+    "Right click chestplate in inventory to access",
+    "Multiple levels, each level adds more slots",
+    "Requires 1 upgrade slot per level"
+  ]
+}

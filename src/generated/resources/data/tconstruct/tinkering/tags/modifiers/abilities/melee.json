@@ -3,7 +3,6 @@
     "tconstruct:blocking",
     "tconstruct:parrying",
     "tconstruct:dual_wielding",
-    "tconstruct:spilling",
-    "tconstruct:throwing"
+    "tconstruct:spilling"
   ]
 }

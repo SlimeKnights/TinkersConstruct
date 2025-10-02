@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "type": "mantle:potion_display",
+    "item": "minecraft:tipped_arrow"
+  },
+  "cast_consumed": true,
+  "cooling_time": 1,
+  "fluid": {
+    "amount": 50,
+    "tag": "mantle:water"
+  },
+  "result": "minecraft:arrow"
+}

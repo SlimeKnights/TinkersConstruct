@@ -52,6 +52,7 @@ import slimeknights.tconstruct.library.json.variable.mining.BlockMiningSpeedVari
 import slimeknights.tconstruct.library.json.variable.mining.BlockTemperatureVariable;
 import slimeknights.tconstruct.library.json.variable.mining.MiningSpeedVariable;
 import slimeknights.tconstruct.library.json.variable.power.EntityPowerVariable;
+import slimeknights.tconstruct.library.json.variable.power.PersistentDataPowerVariable;
 import slimeknights.tconstruct.library.json.variable.power.PowerVariable;
 import slimeknights.tconstruct.library.json.variable.protection.EntityProtectionVariable;
 import slimeknights.tconstruct.library.json.variable.protection.ProtectionVariable;
@@ -261,14 +262,11 @@ import slimeknights.tconstruct.tools.modifiers.upgrades.melee.SweepingEdgeModifi
 import slimeknights.tconstruct.tools.modifiers.upgrades.ranged.SinistralModifier;
 import slimeknights.tconstruct.tools.modules.CraftCountModule;
 import slimeknights.tconstruct.tools.modules.DamageOnUnequipModule;
-import slimeknights.tconstruct.tools.modules.DurabilityAsCapacityModule;
 import slimeknights.tconstruct.tools.modules.HeadlightModule;
 import slimeknights.tconstruct.tools.modules.MeltingModule;
 import slimeknights.tconstruct.tools.modules.OverburnModule;
 import slimeknights.tconstruct.tools.modules.OvergrowthModule;
-import slimeknights.tconstruct.tools.modules.ShareDurabilityModule;
 import slimeknights.tconstruct.tools.modules.SmeltingModule;
-import slimeknights.tconstruct.tools.modules.SpillingModule;
 import slimeknights.tconstruct.tools.modules.TheOneProbeModule;
 import slimeknights.tconstruct.tools.modules.ZoomModule;
 import slimeknights.tconstruct.tools.modules.armor.DepthProtectionModule;
@@ -284,32 +282,39 @@ import slimeknights.tconstruct.tools.modules.armor.MinimapModule;
 import slimeknights.tconstruct.tools.modules.armor.OvershieldModule;
 import slimeknights.tconstruct.tools.modules.armor.RecurrentProtectionModule;
 import slimeknights.tconstruct.tools.modules.armor.ShieldStrapModule;
+import slimeknights.tconstruct.tools.modules.armor.SleevesModule;
 import slimeknights.tconstruct.tools.modules.armor.ThornsModule;
 import slimeknights.tconstruct.tools.modules.armor.ToolBeltModule;
 import slimeknights.tconstruct.tools.modules.combat.ChannelingModule;
 import slimeknights.tconstruct.tools.modules.combat.FieryAttackModule;
 import slimeknights.tconstruct.tools.modules.combat.FreezingAttackModule;
+import slimeknights.tconstruct.tools.modules.combat.SpillingModule;
+import slimeknights.tconstruct.tools.modules.durability.DurabilityAsCapacityModule;
+import slimeknights.tconstruct.tools.modules.durability.ShareDurabilityModule;
 import slimeknights.tconstruct.tools.modules.interaction.BrushModule;
 import slimeknights.tconstruct.tools.modules.interaction.ExtinguishCampfireModule;
 import slimeknights.tconstruct.tools.modules.interaction.FishingModule;
 import slimeknights.tconstruct.tools.modules.interaction.PlaceGlowModule;
 import slimeknights.tconstruct.tools.modules.interaction.ThrowingModule;
-import slimeknights.tconstruct.tools.modules.ranged.ArrowPierceModule;
 import slimeknights.tconstruct.tools.modules.ranged.BulkQuiverModule;
-import slimeknights.tconstruct.tools.modules.ranged.ProjectilePlaceGlowModule;
-import slimeknights.tconstruct.tools.modules.ranged.PunchModule;
-import slimeknights.tconstruct.tools.modules.ranged.QuiverInventoryModule;
 import slimeknights.tconstruct.tools.modules.ranged.RestrictAngleModule;
-import slimeknights.tconstruct.tools.modules.ranged.ReversePunchModule;
-import slimeknights.tconstruct.tools.modules.ranged.SmashingModule;
-import slimeknights.tconstruct.tools.modules.ranged.TippedModule;
 import slimeknights.tconstruct.tools.modules.ranged.TrickQuiverModule;
+import slimeknights.tconstruct.tools.modules.ranged.ammo.ProjectileGravityModule;
+import slimeknights.tconstruct.tools.modules.ranged.ammo.SmashingModule;
+import slimeknights.tconstruct.tools.modules.ranged.ammo.TippedModule;
+import slimeknights.tconstruct.tools.modules.ranged.bow.QuiverInventoryModule;
+import slimeknights.tconstruct.tools.modules.ranged.common.ArrowPierceModule;
+import slimeknights.tconstruct.tools.modules.ranged.common.ProjectileBounceModule;
+import slimeknights.tconstruct.tools.modules.ranged.common.ProjectilePlaceGlowModule;
+import slimeknights.tconstruct.tools.modules.ranged.common.PunchModule;
+import slimeknights.tconstruct.tools.modules.ranged.common.ReversePunchModule;
 import slimeknights.tconstruct.tools.recipe.ArmorDyeingRecipe;
 import slimeknights.tconstruct.tools.recipe.ArmorTrimRecipe;
 import slimeknights.tconstruct.tools.recipe.EnchantmentConvertingRecipe;
 import slimeknights.tconstruct.tools.recipe.ExtractModifierRecipe;
 import slimeknights.tconstruct.tools.recipe.ModifierRemovalRecipe;
 import slimeknights.tconstruct.tools.recipe.ModifierSortingRecipe;
+import slimeknights.tconstruct.tools.recipe.TippedToolTransformRecipe;
 import slimeknights.tconstruct.tools.recipe.ToggleInteractionWorktableRecipe;
 import slimeknights.tconstruct.tools.recipe.severing.MooshroomDemushroomingRecipe;
 import slimeknights.tconstruct.tools.recipe.severing.PlayerBeheadingRecipe;
@@ -416,6 +421,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final DynamicModifier zoom = MODIFIERS.registerDynamic("zoom");
   public static final StaticModifier<SlurpingModifier> slurping = MODIFIERS.register("slurping", SlurpingModifier::new);
   // chestplate
+  public static final DynamicModifier sleeves = MODIFIERS.registerDynamic("sleeves");
   public static final StaticModifier<AmbidextrousModifier> ambidextrous = MODIFIERS.register("ambidextrous", AmbidextrousModifier::new);
   // leggings
   public static final DynamicModifier shieldStrap = MODIFIERS.registerDynamic("shield_strap");
@@ -587,6 +593,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<RecipeSerializer<ModifierSalvage>> modifierSalvageSerializer = RECIPE_SERIALIZERS.register("modifier_salvage", () -> LoadableRecipeSerializer.of(ModifierSalvage.LOADER));
   public static final RegistryObject<RecipeSerializer<ArmorDyeingRecipe>> armorDyeingSerializer = RECIPE_SERIALIZERS.register("armor_dyeing_modifier", () -> new SimpleRecipeSerializer<>(ArmorDyeingRecipe::new));
   public static final RegistryObject<RecipeSerializer<ArmorTrimRecipe>> armorTrimSerializer = RECIPE_SERIALIZERS.register("armor_trim_modifier", () -> new SimpleRecipeSerializer<>(ArmorTrimRecipe::new));
+  public static final RegistryObject<RecipeSerializer<TippedToolTransformRecipe>> tippedToolTransformRecipeSerializer = RECIPE_SERIALIZERS.register("tipped_tool_transform", () -> LoadableRecipeSerializer.of(TippedToolTransformRecipe.LOADER));
   // modifiers
   public static final RegistryObject<RecipeSerializer<ModifierRepairTinkerStationRecipe>> modifierRepair = RECIPE_SERIALIZERS.register("modifier_repair", () -> LoadableRecipeSerializer.of(ModifierRepairTinkerStationRecipe.LOADER));
   public static final RegistryObject<RecipeSerializer<ModifierRepairCraftingRecipe>> craftingModifierRepair = RECIPE_SERIALIZERS.register("crafting_modifier_repair", () -> LoadableRecipeSerializer.of(ModifierRepairCraftingRecipe.LOADER));
@@ -769,6 +776,7 @@ public final class TinkerModifiers extends TinkerModule {
       ModifierModule.LOADER.register(getResource("projectile_place_glow"), ProjectilePlaceGlowModule.LOADER);
       ModifierModule.LOADER.register(getResource("craft_count"), CraftCountModule.LOADER);
       ModifierModule.LOADER.register(getResource("tipped"), TippedModule.LOADER);
+      ModifierModule.LOADER.register(getResource("projectile_bounce"), ProjectileBounceModule.LOADER);
       // overslime
       ModifierModule.LOADER.register(getResource("overgrowth"), OvergrowthModule.LOADER);
       ModifierModule.LOADER.register(getResource("overburn"), OverburnModule.INSTANCE.getLoader());
@@ -788,6 +796,7 @@ public final class TinkerModifiers extends TinkerModule {
       ModifierModule.LOADER.register(getResource("shield_strap"), ShieldStrapModule.LOADER);
       ModifierModule.LOADER.register(getResource("tool_belt"), ToolBeltModule.LOADER);
       ModifierModule.LOADER.register(getResource("minimap"), MinimapModule.LOADER);
+      ModifierModule.LOADER.register(getResource("sleeves"), SleevesModule.LOADER);
       // counterattack
       ModifierModule.LOADER.register(getResource("thorns"), ThornsModule.LOADER);
       ModifierModule.LOADER.register(getResource("fiery_counter"), FieryCounterModule.LOADER);
@@ -802,6 +811,7 @@ public final class TinkerModifiers extends TinkerModule {
       ModifierModule.LOADER.register(getResource("punch"), PunchModule.LOADER);
       ModifierModule.LOADER.register(getResource("reverse_punch"), ReversePunchModule.LOADER);
       ModifierModule.LOADER.register(getResource("arrow_pierce"), ArrowPierceModule.LOADER);
+      ModifierModule.LOADER.register(getResource("projectile_gravity"), ProjectileGravityModule.LOADER);
       // compat
       ModifierModule.LOADER.register(getResource("the_one_probe"), TheOneProbeModule.INSTANCE.getLoader());
       ModifierModule.LOADER.register(getResource("headlight"), HeadlightModule.LOADER);
@@ -847,6 +857,7 @@ public final class TinkerModifiers extends TinkerModule {
       // power
       PowerVariable.LOADER.register(getResource("constant"), PowerVariable.Constant.LOADER);
       PowerVariable.LOADER.register(getResource("entity"), EntityPowerVariable.LOADER);
+      PowerVariable.LOADER.register(getResource("persistent_data"), PersistentDataPowerVariable.LOADER);
       // mining speed
       MiningSpeedVariable.LOADER.register(getResource("constant"), MiningSpeedVariable.Constant.LOADER);
       MiningSpeedVariable.LOADER.register(getResource("block"), BlockMiningSpeedVariable.LOADER);

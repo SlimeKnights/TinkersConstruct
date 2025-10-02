@@ -66,6 +66,7 @@ public final class MaterialIds {
   public static final MaterialId ice = id("ice");
   // tier 3 - ammo
   public static final MaterialId quartz = id("quartz");
+  public static final MaterialId glowstone = id("glowstone");
   public static final MaterialId ichor = id("ichor");
   // tier 4
   public static final MaterialId manyullyn = id("manyullyn");
@@ -81,6 +82,7 @@ public final class MaterialIds {
   public static final MaterialId ancientHide = id("ancient_hide");
   public static final MaterialId enderslimeVine = id("enderslime_vine");
   // tier 4 - ammo
+  public static final MaterialId shulker = id("shulker");
   public static final MaterialId enderslime = id("enderslime");
   public static final MaterialId dragonScale = id("dragon_scale");
 
@@ -112,7 +114,8 @@ public final class MaterialIds {
   // plate
   public static final MaterialId gold = id("gold");
   public static final MaterialId obsidian = id("obsidian");
-  // slimeskull
+  /** @deprecated use {@link #leather} */
+  @Deprecated(forRemoval = true)
   public static final MaterialId rottenFlesh = id("rotten_flesh");
   // slimesuit
   public static final MaterialId phantom = id("phantom");

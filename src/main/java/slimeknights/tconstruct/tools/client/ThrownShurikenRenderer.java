@@ -26,8 +26,8 @@ public class ThrownShurikenRenderer<T extends Projectile & ToolProjectile> exten
   public void render(T entity, float entityYaw, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn) {
     if (entity.tickCount >= 2 || !(this.entityRenderDispatcher.camera.getEntity().distanceToSqr(entity) < 12.25D)) {
       matrixStackIn.pushPose();
-      matrixStackIn.mulPose(Axis.XP.rotationDegrees(90));
-      matrixStackIn.mulPose(Axis.ZP.rotationDegrees(-(entity.tickCount + partialTicks) * 30 % 360));
+      matrixStackIn.mulPose(Axis.YP.rotationDegrees(entityYaw + 90));
+      matrixStackIn.mulPose(Axis.ZP.rotationDegrees((entity.tickCount + partialTicks) * 30 % 360));
       matrixStackIn.translate(-0.03125, -0.09375, 0);
       // TODO: custom display properties?
       this.itemRenderer.renderStatic(entity.getDisplayTool(), ItemDisplayContext.GROUND, packedLightIn, OverlayTexture.NO_OVERLAY, matrixStackIn, bufferIn, entity.level(), entity.getId());

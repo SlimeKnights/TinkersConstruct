@@ -4,15 +4,14 @@
     {
       "text": "I'd be rather appalled if you impaled me with impaling."
     },
-	
-	{
+    {
       "text": "Not to be confused with antiaquatic",
-	  "paragraph": true
-	}
+      "paragraph": true
+    }
   ],
   "effects": [
-    "Increases damage of projectiles fired from crossbows",
-	"Multiple levels, each level increases damage further",
-	"Requires 1 upgrade slot per level"
+    "Allows arrows to keep going after hitting a target",
+    "Multiple levels, each can pierce another target",
+    "Requires 1 upgrade slot per level"
   ]
 }

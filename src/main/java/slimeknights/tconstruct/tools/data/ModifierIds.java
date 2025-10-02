@@ -14,7 +14,7 @@ public class ModifierIds {
   public static final ModifierId harmonious  = id("harmonious");
   public static final ModifierId forecast = id("forecast");
   /** @deprecated use {@link #forecast} */
-  @Deprecated(forRemoval = true)
+  @Deprecated
   public static final ModifierId resurrected = id("resurrected");
   public static final ModifierId embossed    = id("embossed");
   public static final ModifierId rebalanced  = id("rebalanced");
@@ -169,6 +169,7 @@ public class ModifierIds {
   public static final ModifierId frostshield = id("frostshield");
   public static final ModifierId woodwind = id("woodwind");
   public static final ModifierId soft = id("soft");
+  public static final ModifierId spike = id("spike");
   // traits - tier 2
   public static final ModifierId overgrowth = id("overgrowth");
   public static final ModifierId searing = id("searing");
@@ -181,6 +182,8 @@ public class ModifierIds {
   public static final ModifierId entangled = id("entangled");
   public static final ModifierId stoneshield = id("stoneshield");
   public static final ModifierId smashing = id("smashing");
+  public static final ModifierId bounce = id("bounce");
+  public static final ModifierId venom = id("venom");
   // traits - tier 2 compat
   public static final ModifierId deciduous = id("deciduous");
   public static final ModifierId barkskin = id("barkskin");
@@ -204,6 +207,7 @@ public class ModifierIds {
   public static final ModifierId crystalstrike = id("crystalstrike");
   public static final ModifierId spectral = id("spectral");
   public static final ModifierId keen = id("keen");
+  public static final ModifierId rebound = id("rebound");
   // traits - tier 3 compat
   public static final ModifierId maintained = id("maintained");
   public static final ModifierId ductile = id("ductile");
@@ -221,11 +225,13 @@ public class ModifierIds {
   public static final ModifierId recurrentProtection = id("recurrent_protection");
   public static final ModifierId fortified = id("fortified");
   public static final ModifierId kinetic = id("kinetic");
+  public static final ModifierId conductive = id("conductive");
   public static final ModifierId flameBarrier = id("flame_barrier");
   public static final ModifierId vintage = id("vintage");
   public static final ModifierId valiant = id("valiant");
   public static final ModifierId stalwart = id("stalwart");
   public static final ModifierId dragonshot = id("dragonshot");
+  public static final ModifierId reclaim = id("reclaim");
   // traits - tier 4 compat
   public static final ModifierId temperedProtection = id("tempered_protection");
 

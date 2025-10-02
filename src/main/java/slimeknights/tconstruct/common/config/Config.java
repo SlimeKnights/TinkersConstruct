@@ -206,6 +206,7 @@ public class Config {
     public final ForgeConfigSpec.BooleanValue logMissingMaterialTextures;
     public final ForgeConfigSpec.BooleanValue logMissingModifierTextures;
     public final ForgeConfigSpec.BooleanValue renderShieldSlotItem;
+    public final ForgeConfigSpec.BooleanValue renderSleevesItem;
     public final ForgeConfigSpec.BooleanValue modifiersIDsInAdvancedTooltips;
     public final ForgeConfigSpec.IntValue maxSmelteryItemQuads;
 
@@ -320,6 +321,9 @@ public class Config {
         this.renderShieldSlotItem = builder
           .comment("If true, the shield slot legging modifier will render the next offhand item above the offhand slot.")
           .define("renderShieldSlotItem", true);
+        this.renderSleevesItem = builder
+          .comment("If true, the selected item from sleeves will render next to the offhand slit.")
+          .define("renderSleevesItem", true);
 
         builder.comment("Settings related to the frame helmet modifier").push("itemFrame");
         {

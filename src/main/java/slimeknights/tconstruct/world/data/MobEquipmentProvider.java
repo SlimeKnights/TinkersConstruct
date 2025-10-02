@@ -52,7 +52,7 @@ public class MobEquipmentProvider extends AbstractMobEquipmentProvider {
       .material(random, random, random);
     // zombies spawn with melting pans
     equip("melting_pan", List.of(EntityType.ZOMBIE, EntityType.ZOMBIE_VILLAGER, EntityType.HUSK))
-      .slot(EquipmentSlot.MAINHAND)
+      .slot(EquipmentSlot.OFFHAND)
       .tool(TinkerTools.meltingPan)
       .material(random, random);
     // evil villagers spawn with war picks

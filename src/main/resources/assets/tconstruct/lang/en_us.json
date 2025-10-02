@@ -335,6 +335,7 @@
   "pattern.tconstruct.tough_handle": "Tough Handle",
   "pattern.tconstruct.bow_grip": "Bow Grip",
   "pattern.tconstruct.arrow_shaft": "Arrow Shaft",
+  "pattern.tconstruct.arrow_part": "Arrow Head or Shaft",
 
 
   "_comment": "Tinkers Gold Casts",
@@ -1115,6 +1116,7 @@
   "item.tconstruct.javelin": "Javelin",
   "item.tconstruct.arrow": "Arrow",
   "item.tconstruct.shuriken": "Shuriken",
+  "item.tconstruct.throwing_axe": "Throwing Axe",
 
   "item.tconstruct.flint_and_brick": "Flint and Brick",
   "item.tconstruct.sky_staff": "Skyslime Staff",
@@ -1151,7 +1153,7 @@
   "item.tconstruct.slime_helmet.material.tconstruct.necrotic_bone": "Wither Skeleton Slimeskull",
   "item.tconstruct.slime_helmet.material.tconstruct.string":        "Spider Slimeskull",
   "item.tconstruct.slime_helmet.material.tconstruct.darkthread":    "Cave Spider Slimeskull",
-  "item.tconstruct.slime_helmet.material.tconstruct.rotten_flesh":  "Zombie Slimeskull",
+  "item.tconstruct.slime_helmet.material.tconstruct.leather":       "Zombie Slimeskull",
   "item.tconstruct.slime_helmet.material.tconstruct.iron":          "Husk Slimeskull",
   "item.tconstruct.slime_helmet.material.tconstruct.copper":        "Drowned Slimeskull",
   "item.tconstruct.slime_helmet.material.tconstruct.blazing_bone":  "Blaze Slimeskull",
@@ -1228,10 +1230,11 @@
   "item.tconstruct.fishing_rod.description": "The Fishing Rod is a light ranged weapon, capable of short distance attacks without requiring ammo. It also can be used to fish if you're into that.",
   "item.tconstruct.javelin.description": "The Javelin is a hybrid melee/ranged weapon, ideal for both melee combat along with throwing for ranged damage. Just be careful after throwing as you will be without a weapon.",
   "item.tconstruct.arrow.description": "Arrows are your standard single-use projectile weapon, fired from both longbows and crossbows.",
-  "item.tconstruct.shurikens.description": "Shurikens are simple, disposable projectiles that can be thrown directly without any other tools.",
 
   "gui.tconstruct.plate_armor": "Plate Armor",
   "gui.tconstruct.plate_armor.description": "Plate armor is a highly defensive armor set with limited ability slots.",
+  "gui.tconstruct.thrown_ammo": "Throwing Weapon",
+  "gui.tconstruct.thrown_ammo.description": "Shurikens and throwing axes are simple, disposable projectiles that can be thrown directly without any other tools. Shurikens fly a bit further, while axes deal more damage.",
 
   "_comment": "Smeltery shared",
 
@@ -1749,7 +1752,7 @@
   "material.tconstruct.bamboo.flavor": "Get bamboozled!",
   "material.tconstruct.bamboo.ranged": "Movement penalty when drawing back the bow is reduced by 10%",
   "material.tconstruct.bamboo.armor": "Movement penalty when using the shield is reduced by 10%",
-  "material.tconstruct.bamboo.ammo": "Gives the arrow 100% accuracy, even when the bow is inaccurate.",
+  "material.tconstruct.bamboo.ammo": "Gives the projectile +25% accuracy, making arrows have perfect accuracy (even in inaccurate bows). Thrown weapons also get +25% velocity.",
 
   "material.tconstruct.ice": "Ice",
   "material.tconstruct.ice.flavor": "Chill!",
@@ -1778,16 +1781,18 @@
 
   "material.tconstruct.bone": "Bone",
   "material.tconstruct.bone.flavor": "I am the bone of my sword",
-  "material.tconstruct.bone.encyclopedia": "Increases melee damage by 0.5 and grants 1 armor pierce per level",
-  "material.tconstruct.bone.ranged": "Increases melee damage by 0.5 and grants 1 armor pierce per level",
+  "material.tconstruct.bone.encyclopedia": "Increases melee damage by 0.5 and grants 1 armor pierce per level for 5 seconds",
+  "material.tconstruct.bone.ranged": "Arrows apply 1 armor pierce per level for 5 seconds",
+  "material.tconstruct.bone.armor": "Has a 15% chance on hit for attackers receive 1 armor pierce per level for 5 seconds (or 10 seconds if blocking).",
+  "material.tconstruct.bone.ammo": "Causes the arrow to pierce through the first target it hits, while thrown projectiles disable shields.",
   "material.tconstruct.bone.skull_flavor": "Got Milk?",
   "material.tconstruct.bone.skull_encyclopedia": "Grants resistance for 1 minute after drinking milk",
-  "material.tconstruct.bone.ammo": "Causes the arrow to pierce through the first target it hits, allowing it to hit a second target.",
 
   "material.tconstruct.necrotic_bone": "Necrotic Bone",
   "material.tconstruct.necrotic_bone.flavor": "Do you have a bone to pick with me?",
   "material.tconstruct.necrotic_bone.encyclopedia": "Heals 5% per level of damage dealt from critical hits",
   "material.tconstruct.necrotic_bone.ranged": "Heals 5% per level of damage dealt from successful arrow hits",
+  "material.tconstruct.necrotic_bone.armor": "Has a 15% chance on hit to heal over time 25% of damage received.",
   "material.tconstruct.necrotic_bone.ammo": "Heals 5% per level of damage dealt from successful hits",
   "material.tconstruct.necrotic_bone.skull_flavor": "Spooky Scary Skeleton!",
   "material.tconstruct.necrotic_bone.skull_encyclopedia": "Melee attacks cause withering. After drinking milk the effect becomes faster",
@@ -1808,6 +1813,9 @@
   "material.tconstruct.leather": "Leather",
   "material.tconstruct.leather.flavor": "Killed a cow, tanned it's hide.",
   "material.tconstruct.leather.encyclopedia": "Prevents the tool from taking more than 1 damage in an action",
+  "material.tconstruct.leather.skull_flavor": "This is fine",
+  "material.tconstruct.leather.skull_encyclopedia": "Melee attacks increase the targets fire time based on the wearer's fire time",
+
 
   "material.tconstruct.vine": "Vine",
   "material.tconstruct.vine.flavor": "Keeps living, unlike the social network.",
@@ -1821,7 +1829,7 @@
   "material.tconstruct.iron.flavor": "Ironic. He could save others from death, but not himself.",
   "material.tconstruct.iron.encyclopedia": "Causes mining blocks and hitting mobs to attract nearby items.",
   "material.tconstruct.iron.ranged": "Causes firing arrows to attract nearby items to the holder.",
-  "material.tconstruct.iron.armor": "Reduces damage from projectiles by 10% per level, and grants 5% knockback resistance times the max level.",
+  "material.tconstruct.iron.armor": "Reduces damage from projectiles by 8% per level, and grants 5% knockback resistance times the max level.",
   "material.tconstruct.iron.skull_flavor": "Violation of quarantine",
   "material.tconstruct.iron.skull_encyclopedia": "Melee attacks copy all negative status effects from the wearer to the target",
 
@@ -1844,6 +1852,12 @@
   "material.tconstruct.copper.skull_flavor": "Knocks the wind right out of them",
   "material.tconstruct.copper.skull_encyclopedia": "Melee attacks steal 3 seconds of air from the target",
 
+  "material.tconstruct.gold": "Gold",
+  "material.tconstruct.gold.flavor": "Piglins love it.",
+  "material.tconstruct.gold.armor": "Grants 10% protection per level against magic damage and reduces the time of negative potion effects. Also makes piglins friendly.",
+  "material.tconstruct.gold.skull_flavor": "So shiny",
+  "material.tconstruct.gold.skull_encyclopedia": "Causes some gold ores to drop extra gold nuggets, and increases drop chance of gold armor by 4%. Nuggets and armor drops are further boosted by each piece of golden armor worn.",
+
   "material.tconstruct.slimewood": "Slimewood",
   "material.tconstruct.slimewood.greenheart":  "Greenheart",
   "material.tconstruct.slimewood.skyroot":     "Skyroot",
@@ -1851,6 +1865,7 @@
   "material.tconstruct.slimewood.enderbark":  "Enderbark",
   "material.tconstruct.slimewood.flavor": "Is this the wood of a slime or slime that's been infused with wood?",
   "material.tconstruct.slimewood.encyclopedia": "Gives a 5% chance per level of regenerating overslime each second",
+  "material.tconstruct.slimewood.ammo": "Causes projectiles moving fast enough to bounce off blocks they hit up to 3 times",
   "material.tconstruct.slimeskin": "Slimeskin",
   "material.tconstruct.slimeskin.flavor": "Do slimes even have skin?",
   "material.tconstruct.slimeskin.encyclopedia": "Gives a 5% chance per level of regenerating overslime each second",
@@ -1859,6 +1874,8 @@
   "material.tconstruct.venombone.flavor": "Become the bane of your enemies",
   "material.tconstruct.venombone.encyclopedia": "Boosts melee damage when poisoned by 0.5 plus the level of poison",
   "material.tconstruct.venombone.ranged": "Boosts drawspeed when poisoned by 0.05 plus 0.1 per level of poison",
+  "material.tconstruct.venombone.armor": "Has a 15% chance on hit to make attacker take 200% magic damage for the next 5 to 10 seconds (or up to 15 seconds if blocking).",
+  "material.tconstruct.venombone.ammo": "Causes the target to take 200% magic damage for the next 5 to 10 seconds.",
   "material.tconstruct.venombone.skull_flavor": "Chills straight to the bone",
   "material.tconstruct.venombone.skull_encyclopedia": "Projectiles cause slowness to the target. After drinking milk, melee attacks cause slowness and the level is stronger.",
 
@@ -1935,7 +1952,7 @@
 
   "material.tconstruct.glass": "Glass",
   "material.tconstruct.glass.flavor": "Shatters on impact!",
-  "material.tconstruct.glass.ammo": "Decreases projectile damage by 0.75 per level, but gives it a tank. Upon impact, applies fluid effects from the fluid in the tank.",
+  "material.tconstruct.glass.ammo": "Decreases projectile damage by 0.75 per level, but gives it a tank. Upon impact, applies fluid effects from the fluid in the tank. Breaks upon hitting a block when filled.",
   "material.tconstruct.glass.skull_flavor": "Whose nice things are being destroyed now, creeper?",
   "material.tconstruct.glass.skull_encyclopedia": "Holding the helmet interact key while sneaking causes the wearer to explode",
 
@@ -1948,7 +1965,11 @@
   "material.tconstruct.nahuatl": "Nahuatl",
   "material.tconstruct.nahuatl.flavor": "This is not an obsidian part, if it was it would say \"Obsidian.\"",
   "material.tconstruct.nahuatl.encyclopedia": "Has a 50% chance of doing up to 5 damage over time, more damage at higher levels",
-  "material.tconstruct.nahuatl.armor": "Has a 25% chance per level of doing up to 5 damage over time",
+  "material.tconstruct.nahuatl.armor": "Has a 25% chance per level (50% if blocking) of doing up to 5 damage over time",
+
+  "material.tconstruct.obsidian":   "Obsidian",
+  "material.tconstruct.obsidian.flavor": "This is an obsidian part, if it was not it would not say \"Obsidian.\"",
+  "material.tconstruct.obsidian.armor": "Grants 10% protection per level against explosions, and reduces explosion knockback",
 
   "material.tconstruct.amethyst_bronze": "Amethyst Bronze",
   "material.tconstruct.amethyst_bronze.flavor": "Not to be confused with bronze.",
@@ -1976,7 +1997,7 @@
   "material.tconstruct.cobalt.flavor": "Coblat. The material of the Red Army.",
   "material.tconstruct.cobalt.encyclopedia": "Boosts mining and attack speed by 7% per level",
   "material.tconstruct.cobalt.ranged": "Boosts drawspeed and velocity by 5% per level",
-  "material.tconstruct.cobalt.armor": "Reduces damage from melee attacks by 10% per level, and boosts movement speed when using items by 5% per max level",
+  "material.tconstruct.cobalt.armor": "Reduces damage from melee attacks by 8% per level, and boosts movement speed when using items by 5% per max level",
 
   "material.tconstruct.quartz": "Quartz",
   "material.tconstruct.quartz.flavor": "Sharp!",
@@ -1986,6 +2007,11 @@
   "material.tconstruct.dragon_scale.flavor": "With this, even dragons will fear me!",
   "material.tconstruct.dragon_scale.armor": "Grants +10% resistance while airborne, and boosts attack damage by 5% per level based on the highest piece.",
   "material.tconstruct.dragon_scale.ammo": "Increases projectile damage by 1 per level if launched while in mid air.",
+
+  "material.tconstruct.shulker": "Shulker Shell",
+  "material.tconstruct.shulker.flavor": "Unbreakable!",
+  "material.tconstruct.shulker.armor": "Grants +10% resistance while sneaking, but decreases attack damage by 10% per level while sneaking.",
+  "material.tconstruct.shulker.ammo": "Allows collecting projectiles that hit entities instead of just blocks, making them infinitely reusable. Item will additionally not despawn.",
 
   "material.tconstruct.manyullyn": "Manyullyn",
   "material.tconstruct.manyullyn.flavor": "The metal that most Tinkers will never pronounce right. Also known as a star cutting material.",
@@ -1998,12 +2024,6 @@
   "material.tconstruct.hepatizon.encyclopedia": "Boosts mining speed by up to 25% per level, linearly increasing over mining 32 consecutive blocks",
   "material.tconstruct.hepatizon.ranged": "Boosts drawspeed by up to 25% per level, linearly increasing while firing 16 consecutive arrows",
   "material.tconstruct.hepatizon.armor": "Converts 50% of damage taken into a temporary flat damage reduction. Reduction lasts 5 seconds per level.",
-
-  "material.tconstruct.knightmetal": "Knightmetal",
-  "material.tconstruct.knightmetal.flavor": "Metal of the traveling slime, also found from armored Twilight creates.",
-  "material.tconstruct.knightmetal.encyclopedia": "Grants +0.5 damage per level per piece of armor worn by the target",
-  "material.tconstruct.knightmetal.ranged": "Grants +0.25 damage per level per piece of armor worn by the target (before velocity)",
-  "material.tconstruct.knightmetal.armor": "Increases protection by 5% per level per item in the attacker's arms",
 
   "material.tconstruct.ichorskin": "Ichorskin",
   "material.tconstruct.ichorskin.flavor": "Ichor definately does not have skin",
@@ -2021,12 +2041,23 @@
   "material.tconstruct.blazing_bone.flavor": "Harness the full power of the Nether Fortress - bone and blaze",
   "material.tconstruct.blazing_bone.encyclopedia": "Grants +1% damage per second of fire, up to +15% from lava's 15 seconds. Bonus reduced by fire resistance.",
   "material.tconstruct.blazing_bone.ranged": "Grants +1% arrow damage per second of fire, up to +15% from lava's 15 seconds. Bonus reduced by fire resistance.",
+  "material.tconstruct.blazing_bone.armor": "Has a 15% chance on hit to cause attackers to take 200% fire damage for the next 5 to 10 seconds (or up to 15 seconds if blocking).",
+  "material.tconstruct.blazing_bone.ammo": "Causes the target to take 200% fire damage for the next 5 to 10 seconds.",
   "material.tconstruct.blazing_bone.skull_flavor": "I told them this is technically firespit, not firebreath, but apparently I don't get to decide the names for things I invent",
   "material.tconstruct.blazing_bone.skull_encyclopedia": "Allows spitting firecharges from the inventory as fireballs. Has a cooldown of 5 seconds and does not work underwater",
 
   "material.tconstruct.blazewood": "Blazewood",
   "material.tconstruct.blazewood.flavor": "The flame protects the flame",
-  "material.tconstruct.blazewood.encyclopedia": "Grants +0.5% protection against non-fire damage per second of fire, up to +7.5% from lava's 15 seconds. Bonus reduced by fire resistance.",
+  "material.tconstruct.blazewood.encyclopedia": "Inflicts the attacker with 10 seconds of glowing, or 20 seconds when blocking.",
+  "material.tconstruct.blazewood.ammo": "Causes the target to glow for 10 seconds. If it hits a block, places a permanent light source at the cost of the projectile.",
+
+  "material.tconstruct.ichor": "Ichor",
+  "material.tconstruct.ichor.flavor": "Skipping stones",
+  "material.tconstruct.ichor.ammo": "Projectile will bounce upon hitting a block up to 1 time, plus 2 per level. Increases power by 0.5 per bounce per level before hitting the target. ",
+
+  "material.tconstruct.glowstone": "Glowstone",
+  "material.tconstruct.glowstone.flavor": "Brightest day, blackest night, no cave will escape my light!",
+  "material.tconstruct.glowstone.ammo": "Causes the target to glow for 10 seconds per level. If it hits a block, places a permanent light source at the cost of the projectile.",
 
   "material.tconstruct.soulsteel": "Soulsteel",
 
@@ -2036,7 +2067,21 @@
   "material.tconstruct.ancient_hide.ranged": "Grants an extra defense slot",
   "material.tconstruct.ancient_hide.armor": "Grants an extra defense slot",
 
+  "material.tconstruct.ancient":     "Ancient",
+  "material.tconstruct.ancient.flavor": "They don't make them like they used to.",
+  "material.tconstruct.ancient.encyclopedia": "Found on war picks, swashers, and battlesigns, plus from bartering. Each level grants +1 ability slot at the cost of -10% attack speed, -10% mining speed, and +10% gravity.",
+  "material.tconstruct.ancient.ranged": "Available on melting pans, war picks, and from bartering. Each level grants +1 ability slot at the cost of -10% draw speed, and +10% gravity.",
+  "material.tconstruct.ancient.armor": "Obtained on plate armor in bastions, battle signs, melting pans, and from bartering. Each level grants +1 ability slot at the cost of +10% gravity, and -10% movement speed or -10% attack speed on shields.",
+
+
   "__comment": "Tier End Materials",
+
+  "material.tconstruct.knightmetal": "Knightmetal",
+  "material.tconstruct.knightmetal.flavor": "Metal of the traveling slime, also found from armored Twilight creates.",
+  "material.tconstruct.knightmetal.encyclopedia": "Grants +0.5 damage per level per piece of armor worn by the target",
+  "material.tconstruct.knightmetal.ranged": "Grants +0.25 damage per level per piece of armor worn by the target (before velocity)",
+  "material.tconstruct.knightmetal.armor": "Increases protection by 5% per level per item in the attacker's arms",
+
   "material.tconstruct.knightslime": "Knightslime",
 
   "material.tconstruct.enderslime_vine": "Slimy Vine",
@@ -2046,10 +2091,6 @@
   "material.tconstruct.enderslime_vine.ranged": "Teleports the holder to the location of arrows that land in blocks or swaps the holder with monsters hit by arrows",
   "material.tconstruct.enderslime_vine.armor": "Has a 25% chance per piece of randomly teleporting attackers away",
 
-  "material.tconstruct.ichor": "Ichor",
-  "material.tconstruct.ichor.flavor": "Brightest day, blackest night, no cave will escape my light!",
-  "material.tconstruct.ichor.ammo": "Causes the target to glow for 10 seconds per level. If it hits a block, places a permanent light source.",
-
   "material.tconstruct.enderslime": "Enderslime",
   "material.tconstruct.enderslime.flavor": "Zwooop",
   "material.tconstruct.enderslime.ammo": "Causes the target to be teleported randomly up to 16 blocks, or up to 24 blocks at level 2.",
@@ -2057,37 +2098,11 @@
 
   "__comment": "Slimesuit materials",
 
-  "material.tconstruct.rotten_flesh": "Rotten Flesh",
-  "material.tconstruct.rotten_flesh.skull_flavor": "This is fine",
-  "material.tconstruct.rotten_flesh.skull_encyclopedia": "Melee attacks increase the targets fire time based on the wearer's fire time",
-
-  "material.tconstruct.gold": "Gold",
-  "material.tconstruct.gold.flavor": "Piglins love it.",
-  "material.tconstruct.gold.armor": "Grants 10% protection per level against magic damage and reduces the time of negative potion effects. Also makes piglins friendly.",
-  "material.tconstruct.gold.skull_flavor": "So shiny",
-  "material.tconstruct.gold.skull_encyclopedia": "Causes some gold ores to drop extra gold nuggets, and increases drop chance of gold armor by 4%. Nuggets and armor drops are further boosted by each piece of golden armor worn.",
-
-  "material.tconstruct.obsidian":   "Obsidian",
-  "material.tconstruct.obsidian.flavor": "This is an obsidian part, if it was not it would not say \"Obsidian.\"",
-  "material.tconstruct.obsidian.armor": "Grants 10% protection per level against explosions, and reduces explosion knockback",
-  "material.tconstruct.ancient":     "Ancient",
-  "material.tconstruct.ancient.flavor": "They don't make them like they used to.",
-  "material.tconstruct.ancient.encyclopedia": "Found on war picks, swashers, and battlesigns, plus from bartering. Each level grants +1 ability slot at the cost of -10% attack speed, -10% mining speed, and +10% gravity.",
-  "material.tconstruct.ancient.ranged": "Available on melting pans, war picks, and from bartering. Each level grants +1 ability slot at the cost of -10% draw speed, and +10% gravity.",
-  "material.tconstruct.ancient.armor": "Obtained on plate armor in bastions, battle signs, melting pans, and from bartering. Each level grants +1 ability slot at the cost of +10% gravity, and -10% movement speed or -10% attack speed on shields.",
-  "material.tconstruct.netherite":  "Netherite",
-  "material.tconstruct.blood":      "Blood",
-  "material.tconstruct.magma":      "Magma",
-  "material.tconstruct.clay":       "Clay",
-  "material.tconstruct.honey":      "Honey",
-  "material.tconstruct.venom":      "Venom",
-  "material.tconstruct.phantom":    "Phantom Membrane",
-
-  "material.tconstruct.nickel":   "Nickel",
-  "material.tconstruct.tin":      "Tin",
-  "material.tconstruct.zinc":     "Zinc",
-  "material.tconstruct.brass":    "Brass",
-  "material.tconstruct.uranium":  "Uranium",
+  "material.tconstruct.blood":   "Blood",
+  "material.tconstruct.magma":   "Magma",
+  "material.tconstruct.clay":    "Clay",
+  "material.tconstruct.honey":   "Honey",
+  "material.tconstruct.phantom": "Phantom Membrane",
 
 
   "__comment": "Tier 2 Integration Materials",
@@ -2170,6 +2185,7 @@
   "material.tconstruct.necronium": "Necronium",
   "material.tconstruct.necronium.flavor": "This much decay probably only leaves it with a quarter life",
   "material.tconstruct.necronium.encyclopedia": "Causes at least 5 seconds of wither, to your target and at a 25% chance to you",
+  "material.tconstruct.necronium.armor": "Has a 50% chance on hit (or 100% chance if blocking) to wither the attacker for at least 5 seconds, plus a 10% chance to wither you",
 
   "material.tconstruct.plated_slimewood": "Plated Slimewood",
   "material.tconstruct.plated_slimewood.flavor": "All the shininess of brass with the squish of slime",
@@ -2371,6 +2387,9 @@
   "modifier.tconstruct.impaling": "Arrow Pierce",
   "modifier.tconstruct.impaling.flavor": "Just keeps on going and going and going",
   "modifier.tconstruct.impaling.description": "Arrows keep moving after hitting a target, potentially hitting more targets",
+  "modifier.tconstruct.spike": "Spike",
+  "modifier.tconstruct.spike.flavor": "Effective at better stabbing",
+  "modifier.tconstruct.spike.description": "Arrow keeps moving after hitting a target, while thrown disable shields",
   "modifier.tconstruct.trueshot": "Trueshot",
   "modifier.tconstruct.trueshot.flavor": "This bow will always aim true",
   "modifier.tconstruct.trueshot.description": "Increases the accuracy of the weapon",
@@ -2529,6 +2548,11 @@
   "modifier.tconstruct.strength": "Strength",
   "modifier.tconstruct.strength.flavor": "Can you feel the strength flowing through you?",
   "modifier.tconstruct.strength.description": "Makes your weapons stronger",
+  "modifier.tconstruct.sleeves": "Sleeves",
+  "modifier.tconstruct.sleeves.flavor": "Ideal for shurikens!",
+  "modifier.tconstruct.sleeves.description": "Gives the chestplate 9 slots for throwable items, which can be thrown when interacting with an empty hand.",
+  "modifier.tconstruct.sleeves.disabled": "Sleeves: Disabled",
+  "modifier.tconstruct.sleeves.selected": "Sleeves: Selected %s from slot %s",
   "modifier.tconstruct.ambidextrous": "Ambidextrous",
   "modifier.tconstruct.ambidextrous.flavor": "The monk option",
   "modifier.tconstruct.ambidextrous.description": "Allows punching with both hands",
@@ -2719,6 +2743,7 @@
   "modifier.tconstruct.fins": "Fins",
   "modifier.tconstruct.fins.flavor": "Splash!",
   "modifier.tconstruct.fins.description": "Allows the tool as a projectile to move freely underwater.",
+  "modifier.tconstruct.fins.projectile_damage": "Underwater Damage",
 
   "modifier.tconstruct.fishing": "Fishing",
   "modifier.tconstruct.fishing.flavor": "Obligatory fishing minigame",
@@ -2790,6 +2815,10 @@
   "modifier.tconstruct.forecast": "Forecast",
   "modifier.tconstruct.forecast.flavor": "Upgrades on the horizon!",
   "modifier.tconstruct.forecast.description": "Reveals an upcoming upgrade slot!",
+  "modifier.tconstruct.resurrected": "Resurrected",
+  "modifier.tconstruct.resurrected.flavor": "Bring it back to life!",
+  "modifier.tconstruct.resurrected.description": "Respawns one of this tool's upgrade slots!",
+  "modifier.tconstruct.resurrected.requirements": "Forecast is not compatible with resurrected",
   "modifier.tconstruct.embossed": "Embossed",
   "modifier.tconstruct.embossed.flavor": "Beastslayer!",
   "modifier.tconstruct.embossed.description": "Adorns your tool with an additional upgrade slot!",
@@ -2859,7 +2888,7 @@
   "modifier.tconstruct.unburdened.description": "Movement speed is hindered less when using the item.",
   "modifier.tconstruct.woodwind": "Woodwind",
   "modifier.tconstruct.woodwind.flavor": "Song of air",
-  "modifier.tconstruct.woodwind.description": "Moves more freely in the wind, granting a large accuracy bonus. Some even claim to hear music as it flies.",
+  "modifier.tconstruct.woodwind.description": "Moves more freely in the wind, granting a large accuracy bonus, plus a velocity bonus to thrown ammo. Some even claim to hear music as it flies.",
   "modifier.tconstruct.soft": "Soft",
   "modifier.tconstruct.soft.flavor": "Friendly weapon",
   "modifier.tconstruct.soft.description": "Reduces the projectile power to 0.",
@@ -2897,6 +2926,13 @@
   "modifier.tconstruct.overgrowth": "Overgrowth",
   "modifier.tconstruct.overgrowth.flavor": "Fungal!",
   "modifier.tconstruct.overgrowth.description": "Tool slowly grows overslime",
+  "modifier.tconstruct.bounce": "Bounce",
+  "modifier.tconstruct.bounce.flavor": "Ricocheting!",
+  "modifier.tconstruct.bounce.description": "Causes arrows to bounce off blocks they hit, perfect for trick shots!",
+  "modifier.tconstruct.rebound": "Rebound",
+  "modifier.tconstruct.rebound.flavor": "Trickshot!",
+  "modifier.tconstruct.rebound.description": "Increases power based on how many times the projectile bounces.",
+  "modifier.tconstruct.rebound.projectile_damage": "Rebound Damage",
   "modifier.tconstruct.raging": "Raging",
   "modifier.tconstruct.raging.flavor": "A desperate solution!",
   "modifier.tconstruct.raging.description": "Tool does more damage when the holder's health is low",
@@ -2911,6 +2947,9 @@
   "modifier.tconstruct.antitoxin.description": "Tool does more damage and draws faster when poisoned",
   "modifier.tconstruct.antitoxin.attack_damage": "Venom Damage",
   "modifier.tconstruct.antitoxin.draw_speed": "Venom Draw Speed",
+  "modifier.tconstruct.venom": "Venom",
+  "modifier.tconstruct.venom.flavor": "Toxic!",
+  "modifier.tconstruct.venom.description": "Causes the target to take double magic damage for a short time",
   "modifier.tconstruct.enhanced": "Enhanced",
   "modifier.tconstruct.enhanced.flavor": "Flashy!",
   "modifier.tconstruct.enhanced.description": "Rose gold goes great with a bonus upgrade slot!",
@@ -3004,6 +3043,9 @@
   "modifier.tconstruct.conducting.flavor": "Thermodynamic!",
   "modifier.tconstruct.conducting.description": "Tool deals multiplied damage when you are on fire",
   "modifier.tconstruct.conducting.boost": "On-Fire Boost Max",
+  "modifier.tconstruct.conductive": "Conductive",
+  "modifier.tconstruct.conductive.flavor": "Thermofluid!",
+  "modifier.tconstruct.conductive.description": "Causes the target to take double fire damage for a short time",
   "modifier.tconstruct.flame_barrier": "Flame Barrier",
   "modifier.tconstruct.flame_barrier.flavor": "Thermoshielding!",
   "modifier.tconstruct.flame_barrier.description": "Increases protection while on fire",
@@ -3016,6 +3058,9 @@
   "modifier.tconstruct.dragonshot.flavor": "Weapon of a dragon",
   "modifier.tconstruct.dragonshot.description": "Does extra damage when shot from the air",
   "modifier.tconstruct.dragonshot.projectile_damage": "Airborne Damage",
+  "modifier.tconstruct.reclaim": "Reclaim",
+  "modifier.tconstruct.reclaim.flavor": "Reduce, reuse, recycle",
+  "modifier.tconstruct.reclaim.description": "After hitting the target, projectile will bounce off and can be collected to reuse.",
 
   "__comment": "Tier 5 Traits",
   "modifier.tconstruct.enderporting": "Enderporting",
@@ -3246,6 +3291,8 @@
   "effect.tconstruct.pierce": "Pierced",
   "effect.tconstruct.calcified": "Calcified",
   "effect.tconstruct.self_destructing": "Self Destructing",
+  "effect.tconstruct.venom": "Venom",
+  "effect.tconstruct.conductive": "Conductive",
 
   "_comment": "Internal effects",
   "effect.tconstruct.momentum_harvest": "Momentum",

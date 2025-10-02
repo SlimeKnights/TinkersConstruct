@@ -118,6 +118,7 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
 
     // tier 2
     metalMaterialRecipe(consumer, MaterialIds.iron, folder, "iron", false);
+    metalMaterialRecipe(consumer, MaterialIds.gold, folder, "gold", false);
     materialRecipe(consumer, MaterialIds.searedStone,   Ingredient.of(TinkerSmeltery.searedBrick),       1, 1, folder + "seared_stone/brick");
     materialRecipe(consumer, MaterialIds.searedStone,   Ingredient.of(TinkerTags.Items.SEARED_BLOCKS),   4, 1, ItemOutput.fromItem(TinkerSmeltery.searedBrick), folder + "seared_stone/block");
     materialRecipe(consumer, MaterialIds.scorchedStone, Ingredient.of(TinkerSmeltery.scorchedBrick),     1, 1, folder + "scorched_stone/brick");
@@ -163,6 +164,8 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialRecipe(consumer, MaterialIds.ichor, Ingredient.of(TinkerWorld.ichorGeode), 1, 1, folder + "ichor");
     materialRecipe(consumer, MaterialIds.quartz, Ingredient.of(Tags.Items.GEMS_QUARTZ),           1, 1, folder + "quartz/gem");
     materialRecipe(consumer, MaterialIds.quartz, Ingredient.of(Tags.Items.STORAGE_BLOCKS_QUARTZ), 4, 1, folder + "quartz/block");
+    materialRecipe(consumer, MaterialIds.glowstone, Ingredient.of(Tags.Items.DUSTS_GLOWSTONE), 1, 1, folder + "glowstone/dust");
+    materialRecipe(consumer, MaterialIds.glowstone, Ingredient.of(Blocks.GLOWSTONE), 4, 1, ItemOutput.fromItem(Items.GLOWSTONE_DUST),folder + "glowstone/block");
 
     // tier 2 (nether)
     // tier 3 (nether)
@@ -181,6 +184,7 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialRecipe(consumer, MaterialIds.ancient, Ingredient.of(TinkerTags.Items.INGOTS_NETHERITE_SCRAP), 1, 1, folder + "ancient/ingot");
     materialRecipe(consumer, MaterialIds.ancient, Ingredient.of(TinkerTags.Items.NUGGETS_NETHERITE_SCRAP), 1, 9, folder + "ancient/nugget");
     materialRecipe(consumer, MaterialIds.dragonScale, Ingredient.of(TinkerModifiers.dragonScale), 1, 1, folder + "dragon_scale");
+    materialRecipe(consumer, MaterialIds.shulker, Ingredient.of(Items.SHULKER_SHELL), 1, 1, folder + "shulker");
 
     // tier 5
     materialRecipe(consumer, MaterialIds.enderslimeVine, Ingredient.of(TinkerWorld.enderSlimeVine), 1, 1, folder + "enderslime_vine");
@@ -205,9 +209,6 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     // tier 4 (mod integration)
     metalMaterialRecipe(consumer, MaterialIds.fiery, folder, "fiery", true);
 
-    // slimeskull
-    metalMaterialRecipe(consumer, MaterialIds.gold, folder, "gold", false);
-    materialRecipe(consumer, MaterialIds.rottenFlesh, Ingredient.of(Items.ROTTEN_FLESH),     1, 1, folder + "rotten_flesh");
     // slimesuit
     materialRecipe(consumer, MaterialIds.enderslime, Ingredient.of(TinkerWorld.enderGeode), 1, 1, folder + "enderslime");
     materialRecipe(consumer, MaterialIds.phantom,    Ingredient.of(Items.PHANTOM_MEMBRANE), 1, 1, folder + "phantom_membrane");

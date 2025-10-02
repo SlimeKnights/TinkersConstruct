@@ -7,6 +7,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArrowItem;
@@ -99,6 +100,7 @@ import slimeknights.tconstruct.library.tools.definition.module.weapon.CircleWeap
 import slimeknights.tconstruct.library.tools.definition.module.weapon.ParticleWeaponAttack;
 import slimeknights.tconstruct.library.tools.definition.module.weapon.SweepWeaponAttack;
 import slimeknights.tconstruct.library.tools.helper.ModifierLootingHandler;
+import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.item.ModifiableArrowItem;
@@ -195,6 +197,7 @@ public final class TinkerTools extends TinkerModule {
   public static final ItemObject<ModifiableItem> javelin = ITEMS.register("javelin", () -> new ModifiableItem(UNSTACKABLE_PROPS, ToolDefinitions.JAVELIN));
   public static final ItemObject<ModifiableArrowItem> arrow = ITEMS.register("arrow", () -> new ModifiableArrowItem(ITEM_PROPS, ToolDefinitions.ARROW));
   public static final ItemObject<ModifiableShurikenItem> shuriken = ITEMS.register("shuriken", () -> new ModifiableShurikenItem(new Item.Properties().stacksTo(16), ToolDefinitions.SHURIKEN));
+  public static final ItemObject<ModifiableShurikenItem> throwingAxe = ITEMS.register("throwing_axe", () -> new ModifiableShurikenItem(new Item.Properties().stacksTo(16), ToolDefinitions.THROWING_AXE));
 
   public static final ItemObject<ModifiableItem> flintAndBrick = ITEMS.register("flint_and_brick", () -> new ModifiableItem(UNSTACKABLE_PROPS, ToolDefinitions.FLINT_AND_BRICK));
   public static final ItemObject<ModifiableItem> skyStaff = ITEMS.register("sky_staff", () -> new ModifiableItem(UNSTACKABLE_PROPS, ToolDefinitions.SKY_STAFF));
@@ -274,6 +277,12 @@ public final class TinkerTools extends TinkerModule {
     event.enqueueWork(() -> {
       DispenserBlock.registerBehavior(TinkerTools.arrow.get(), ModifiableArrowDispenserBehavior.INSTANCE);
       DispenserBlock.registerBehavior(TinkerTools.shuriken.get(), ModifiableShurikenDispenserBehavior.INSTANCE);
+      DispenserBlock.registerBehavior(TinkerTools.throwingAxe.get(), ModifiableShurikenDispenserBehavior.INSTANCE);
+      ModifierUtil.registerShieldDisabler(entity -> {
+        if (entity instanceof Player player && player.isBlocking()) {
+          player.disableShield(true);
+        }
+      }, EntityType.PLAYER);
     });
     ModifierHooks.init();
     ToolHooks.init();
@@ -416,6 +425,7 @@ public final class TinkerTools extends TinkerModule {
     acceptTool(output, javelin);
     acceptTool(output, arrow);
     acceptTool(output, shuriken);
+    acceptTool(output, throwingAxe);
 
     // ancient tools
     acceptTool(output, meltingPan);

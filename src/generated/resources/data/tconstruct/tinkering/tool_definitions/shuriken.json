@@ -12,12 +12,7 @@
       "type": "tconstruct:default_materials",
       "materials": [
         {
-          "type": "tconstruct:random",
-          "tier": 1
-        },
-        {
-          "type": "tconstruct:random",
-          "tier": 1
+          "type": "tconstruct:random"
         }
       ]
     },
@@ -25,6 +20,7 @@
       "type": "tconstruct:base_stats",
       "stats": {
         "tconstruct:projectile_damage": 1.5,
+        "tconstruct:velocity": 1.5,
         "tconstruct:water_inertia": 0.8
       }
     },

@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:throwing",
+  "text": [
+    {
+      "text": "Throws melee weapons or harvest tools as a projectile. Ignores player attributes; typically means -1 melee damage. Breaks effective blocks if it could mine them in 1 second or less."
+    },
+    {
+      "text": "Throw speed is attack speed times drawspeed. Velocity determines distance, damage, and mining speed multiplier.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum of 1 level",
+    "Requires 1 ability slot",
+    "Requires no ammo for launchers"
+  ]
+}

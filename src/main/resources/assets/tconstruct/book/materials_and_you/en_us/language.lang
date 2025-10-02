@@ -8,6 +8,9 @@ ammo_materials=Ammo Materials
 ammo_materials.subtext=These materials can be used to craft ammo, such as arrows and shurikens.
 
 tools=Tools
+tools.group_general=General
+tools.group_ranged=Ranged
+tools.group_info=Information
 
 armor=Basic Armor
 armor.subtext=Basic armor allows basic protection without needing to hunt for resources or build any machinery. This will grant limited defense, but there are still many opportunities to upgrade your suit of armor! Oh what fun things will you create?

@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.material.Fluid;
+import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator.DuelSidedListener;
@@ -137,20 +138,49 @@ public class MaterialCastingLookup {
   /**
    * Gets the material the given fluid casts into
    * @param fluid  Fluid
-   * @return  Recipe
+   * @return  Recipe, or {@link MaterialFluidRecipe#EMPTY} if not found.
    */
   public static MaterialFluidRecipe getCastingFluid(Fluid fluid) {
     return CASTING_CACHE.apply(fluid);
   }
 
   /**
+   * Gets the material the given fluid casts into
+   * @param fluid  Fluid
+   * @param filter Material filter, will skip recipes that don't match
+   * @return  Recipe, or {@link MaterialFluidRecipe#EMPTY} if not found.
+   */
+  public static MaterialFluidRecipe getCastingFluid(Fluid fluid, IJsonPredicate<MaterialVariantId> filter) {
+    MaterialFluidRecipe recipe = getCastingFluid(fluid);
+    if (recipe != MaterialFluidRecipe.EMPTY && filter.matches(recipe.getOutput().getVariant())) {
+      return recipe;
+    }
+    return MaterialFluidRecipe.EMPTY;
+  }
+
+  /**
    * Gets the composite fluid recipe for the given inventory
    * @param fluid     Fluid
    * @param material  Material input
-   * @return  Composite fluid recipe
+   * @return  Composite fluid recipe, or {@link MaterialFluidRecipe#EMPTY} if not found.
    */
   public static MaterialFluidRecipe getCompositeFluid(Fluid fluid, MaterialVariantId material) {
     return COMPOSITE_CACHE.apply(new CompositeCacheKey(fluid, material));
+  }
+
+  /**
+   * Gets the composite fluid recipe for the given inventory
+   * @param fluid     Fluid
+   * @param material  Material input
+   * @param filter    Material filter, will skip recipes that don't match
+   * @return  Composite fluid recipe, or {@link MaterialFluidRecipe#EMPTY} if not found.
+   */
+  public static MaterialFluidRecipe getCompositeFluid(Fluid fluid, MaterialVariantId material, IJsonPredicate<MaterialVariantId> filter) {
+    MaterialFluidRecipe recipe = getCompositeFluid(fluid, material);
+    if (recipe != MaterialFluidRecipe.EMPTY && filter.matches(recipe.getOutput().getVariant())) {
+      return recipe;
+    }
+    return MaterialFluidRecipe.EMPTY;
   }
 
   /**

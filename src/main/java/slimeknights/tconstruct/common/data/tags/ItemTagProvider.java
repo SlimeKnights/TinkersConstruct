@@ -59,6 +59,7 @@ import static slimeknights.tconstruct.common.TinkerTags.Items.BONUS_SLOTS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.BOOK_ARMOR;
 import static slimeknights.tconstruct.common.TinkerTags.Items.BOOTS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.BOWS;
+import static slimeknights.tconstruct.common.TinkerTags.Items.BROAD_RANGED;
 import static slimeknights.tconstruct.common.TinkerTags.Items.BROAD_TOOLS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.CHESTPLATES;
 import static slimeknights.tconstruct.common.TinkerTags.Items.CROSSBOWS;
@@ -98,11 +99,13 @@ import static slimeknights.tconstruct.common.TinkerTags.Items.RANGED;
 import static slimeknights.tconstruct.common.TinkerTags.Items.SHIELDS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.SINGLEPART_TOOL;
 import static slimeknights.tconstruct.common.TinkerTags.Items.SINGLE_USE;
+import static slimeknights.tconstruct.common.TinkerTags.Items.SMALL_RANGED;
 import static slimeknights.tconstruct.common.TinkerTags.Items.SMALL_TOOLS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.SPECIAL_TOOLS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.STAFFS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.STONE_HARVEST;
 import static slimeknights.tconstruct.common.TinkerTags.Items.SWORD;
+import static slimeknights.tconstruct.common.TinkerTags.Items.THROWN_AMMO;
 import static slimeknights.tconstruct.common.TinkerTags.Items.TRADER_TOOLS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.TRIM;
 import static slimeknights.tconstruct.common.TinkerTags.Items.UNARMED;
@@ -111,7 +114,7 @@ import static slimeknights.tconstruct.common.TinkerTags.Items.UNSALVAGABLE;
 import static slimeknights.tconstruct.common.TinkerTags.Items.UNSWAPPABLE;
 import static slimeknights.tconstruct.common.TinkerTags.Items.WORN_ARMOR;
 
-@SuppressWarnings("unchecked")
+@SuppressWarnings({"unchecked", "removal"})
 public class ItemTagProvider extends ItemTagsProvider {
   /** Twlight forest uncrafting table blacklist */
   private static final TagKey<Item> BANNED_UNCRAFTABLE = ItemTags.create(new ResourceLocation("twilightforest", "banned_uncraftables"));
@@ -319,12 +322,13 @@ public class ItemTagProvider extends ItemTagsProvider {
     addToolTags(TinkerTools.sword,   MULTIPART_TOOL, DURABILITY, HARVEST, MELEE_PRIMARY, INTERACTABLE_RIGHT, SWORD, SMALL_TOOLS, BONUS_SLOTS, ItemTags.SWORDS, AOE);
     addToolTags(TinkerTools.cleaver, MULTIPART_TOOL, DURABILITY, HARVEST, MELEE_PRIMARY, INTERACTABLE_RIGHT, SWORD, BROAD_TOOLS, BONUS_SLOTS, ItemTags.SWORDS, AOE);
     // ranged
-    addToolTags(TinkerTools.crossbow,   MULTIPART_TOOL, DURABILITY, MELEE_WEAPON, CROSSBOWS,    INTERACTABLE_LEFT,  SMALL_TOOLS, BONUS_SLOTS, Tags.Items.TOOLS_CROSSBOWS);
-    addToolTags(TinkerTools.longbow,    MULTIPART_TOOL, DURABILITY, MELEE_WEAPON, LONGBOWS,     INTERACTABLE_LEFT,  BROAD_TOOLS, BONUS_SLOTS, Tags.Items.TOOLS_BOWS, BALLISTAS);
-    addToolTags(TinkerTools.fishingRod, MULTIPART_TOOL, DURABILITY, MELEE_WEAPON, FISHING_RODS, INTERACTABLE_DUAL,  SMALL_TOOLS, BONUS_SLOTS, Tags.Items.TOOLS_FISHING_RODS);
-    addToolTags(TinkerTools.javelin,    MULTIPART_TOOL, DURABILITY, MELEE_PRIMARY, RANGED,      INTERACTABLE_RIGHT, BROAD_TOOLS, BONUS_SLOTS, Tags.Items.TOOLS_TRIDENTS);
-    addToolTags(TinkerTools.arrow,    MULTIPART_TOOL, AMMO, UNSALVAGABLE, UNSWAPPABLE, SINGLE_USE, DYEABLE, ItemTags.ARROWS);
-    addToolTags(TinkerTools.shuriken, MULTIPART_TOOL, AMMO, UNSALVAGABLE, UNSWAPPABLE, SINGLE_USE);
+    addToolTags(TinkerTools.crossbow,   MULTIPART_TOOL, DURABILITY, MELEE_WEAPON, CROSSBOWS,    INTERACTABLE_LEFT,  SMALL_RANGED, BONUS_SLOTS, Tags.Items.TOOLS_CROSSBOWS);
+    addToolTags(TinkerTools.longbow,    MULTIPART_TOOL, DURABILITY, MELEE_WEAPON, LONGBOWS,     INTERACTABLE_LEFT,  BROAD_RANGED, BONUS_SLOTS, Tags.Items.TOOLS_BOWS, BALLISTAS);
+    addToolTags(TinkerTools.fishingRod, MULTIPART_TOOL, DURABILITY, MELEE_WEAPON, FISHING_RODS, INTERACTABLE_DUAL,  SMALL_RANGED, BONUS_SLOTS, Tags.Items.TOOLS_FISHING_RODS);
+    addToolTags(TinkerTools.javelin,    MULTIPART_TOOL, DURABILITY, MELEE_PRIMARY, RANGED,      INTERACTABLE_RIGHT, BROAD_RANGED, BONUS_SLOTS, Tags.Items.TOOLS_TRIDENTS);
+    addToolTags(TinkerTools.arrow,       MULTIPART_TOOL, AMMO,        UNSALVAGABLE, UNSWAPPABLE, SINGLE_USE, DYEABLE, ItemTags.ARROWS);
+    addToolTags(TinkerTools.shuriken,    MULTIPART_TOOL, THROWN_AMMO, UNSALVAGABLE, UNSWAPPABLE, SINGLE_USE);
+    addToolTags(TinkerTools.throwingAxe, MULTIPART_TOOL, THROWN_AMMO, UNSALVAGABLE, UNSWAPPABLE, SINGLE_USE);
     // specialized
     addToolTags(TinkerTools.flintAndBrick, DURABILITY, MELEE_WEAPON, INTERACTABLE_RIGHT, AOE, SMALL_TOOLS, BONUS_SLOTS);
     addToolTags(TinkerTools.skyStaff,      DURABILITY, STAFFS, SPECIAL_TOOLS, HELD_ARMOR, INTERACTABLE_DUAL, AOE, DYEABLE, EMBELLISHMENT_WOOD, BONUS_SLOTS);
@@ -375,9 +379,10 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.tag(TinkerTags.Items.HARVEST).addTags(HARVEST_PRIMARY, STONE_HARVEST);
     // melee nesting - currently most all sub-tags are held exclusive as they revolve around tool damage or having an item in hand
     this.tag(MELEE_WEAPON).addTags(MELEE_PRIMARY, SWORD, PARRY);
+    this.tag(AMMO).addTag(THROWN_AMMO);
     // by default, this tag just redirects to melee weapon, but you can reconfigure it to suit your pack
-    this.tag(BALLISTA_AMMO).addTag(MELEE_WEAPON);
-    this.tag(MELEE).addTags(MELEE_WEAPON, UNARMED, BALLISTA_AMMO);
+    this.tag(BALLISTA_AMMO).addTags(MELEE_WEAPON, HARVEST);
+    this.tag(MELEE).addTags(MELEE_WEAPON, UNARMED);
     // modifier helper tags
     this.tag(LOOT_CAPABLE_TOOL).addTags(MELEE, HARVEST, FISHING_RODS);
     this.tag(UNARMED).addTag(CHESTPLATES);
@@ -395,7 +400,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.tag(ARMOR).addTags(WORN_ARMOR, HELD_ARMOR);
     this.tag(AOE).addTag(BOOTS); // boot walk modifiers
     this.tag(LAUNCHERS).addTags(BOWS, STAFFS, FISHING_RODS);
-    this.tag(RANGED).addTags(LAUNCHERS);
+    this.tag(RANGED).addTags(LAUNCHERS, SMALL_RANGED, BROAD_RANGED);
     this.tag(BOWS).addTags(LONGBOWS, CROSSBOWS);
     // TODO 1.21: consider dropping unsalvagable from this tag
     this.tag(UNRECYCLABLE).addTags(UNSALVAGABLE, ANCIENT_TOOLS); // ancient tools lack tool parts, but may have special override recipes to salvage
@@ -463,6 +468,10 @@ public class ItemTagProvider extends ItemTagsProvider {
              Items.YELLOW_SHULKER_BOX, Items.LIME_SHULKER_BOX, Items.PINK_SHULKER_BOX, Items.GRAY_SHULKER_BOX,
              Items.LIGHT_GRAY_SHULKER_BOX, Items.CYAN_SHULKER_BOX, Items.PURPLE_SHULKER_BOX, Items.BLUE_SHULKER_BOX,
              Items.BROWN_SHULKER_BOX, Items.GREEN_SHULKER_BOX, Items.RED_SHULKER_BOX, Items.BLACK_SHULKER_BOX);
+    this.tag(TinkerTags.Items.THROWABLE)
+      .add(Items.SNOWBALL, Items.EGG, Items.ENDER_PEARL, Items.SPLASH_POTION, Items.LINGERING_POTION, Items.EXPERIENCE_BOTTLE)
+      .add(TinkerGadgets.efln.get(), TinkerGadgets.flintShuriken.get(), TinkerGadgets.quartzShuriken.get(), TinkerGadgets.glowBall.get())
+      .addTag(THROWN_AMMO);
 
     this.tag(TinkerTags.Items.VARIANT_PLANKS)
         .add(Items.CRIMSON_PLANKS, Items.WARPED_PLANKS)
@@ -488,7 +497,8 @@ public class ItemTagProvider extends ItemTagsProvider {
 
     // twilight forest
     this.tag(BANNED_UNCRAFTABLE).addTag(MODIFIABLE);
-    Function<String,ResourceLocation> trophy = name -> new ResourceLocation("twilightforest", name + "_trophy");
+    String tf = "twilightforest";
+    Function<String,ResourceLocation> trophy = name -> new ResourceLocation(tf, name + "_trophy");
     this.tag(TinkerTags.Items.BOSS_TROPHIES)
       .addOptional(trophy.apply("naga"))
       .addOptional(trophy.apply("lich"))
@@ -499,6 +509,8 @@ public class ItemTagProvider extends ItemTagsProvider {
       .addOptional(trophy.apply("alpha_yeti"))
       .addOptional(trophy.apply("snow_queen"))
       .addOptional(trophy.apply("quest_ram"));
+    this.tag(TinkerTags.Items.THROWABLE)
+      .addOptional(new ResourceLocation(tf, "ice_bomb"));
   }
 
   private void addSmeltery() {

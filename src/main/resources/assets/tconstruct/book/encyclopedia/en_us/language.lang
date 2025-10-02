@@ -1,9 +1,10 @@
 intro=Introduction
 
 tools=Tools
-tools.group_small=Small Tools
-tools.group_large=Broad Tools
-tools.group_ancient=Ancient Tools
+tools.group_small=Small
+tools.group_large=Broad
+tools.group_ranged=Ranged
+tools.group_ancient=Ancient
 tools.group_staff=Staffs
 tools.tconstruct.earth_staff=Earthslime
 tools.tconstruct.sky_staff=Skyslime

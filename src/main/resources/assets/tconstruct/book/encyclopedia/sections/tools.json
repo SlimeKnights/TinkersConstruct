@@ -12,6 +12,16 @@
     "extraData": { "tconstruct:load_tools": { "tag": "tconstruct:modifiable/broad", "path": "tools/broad" }}
   },
   {
+    "name": "group_ranged",
+    "type": "mantle:text",
+    "data": "tools/ranged.json",
+    "extraData": { "tconstruct:load_tools": [
+      { "tag": "tconstruct:modifiable/ranged/small", "path": "tools/ranged" },
+      { "tag": "tconstruct:modifiable/ranged/broad", "path": "tools/ranged" },
+      { "tag": "tconstruct:modifiable/ammo",         "path": "tools/ranged" }
+    ]}
+  },
+  {
     "name": "group_staff",
     "type": "mantle:text",
     "data": "tools/staff.json",

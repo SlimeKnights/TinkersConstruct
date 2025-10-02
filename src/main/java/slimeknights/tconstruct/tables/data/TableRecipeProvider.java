@@ -233,6 +233,9 @@ public class TableRecipeProvider extends BaseRecipeProvider {
     TinkerStationPartSwappingBuilder.tools(Ingredient.of(TinkerTools.arrow.get(), TinkerTools.shuriken.get()))
       .maxStackSize(4)
       .save(consumer, location(folder + "ammo_part_swapping"));
+    TinkerStationPartSwappingBuilder.tools(Ingredient.of(TinkerTools.throwingAxe.get()))
+      .maxStackSize(2)
+      .save(consumer, location(folder + "throwing_axe_part_swapping"));
 
     // tool repair recipe
     consumer.accept(new SimpleFinishedRecipe(location(folder + "tinker_station_repair"), TinkerTables.tinkerStationRepairSerializer.get()));

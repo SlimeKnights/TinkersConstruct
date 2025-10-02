@@ -62,16 +62,19 @@ public interface MaterialToolName extends ToolNameHook {
       return nameForMaterial(displayMaterials.iterator().next(), itemName);
     } else {
       // mix of materials get hyphenated
-      MutableComponent builder = Component.literal("");
-      Iterator<MaterialVariantId> iter = displayMaterials.iterator();
-      builder.append(MaterialTooltipCache.getDisplayName(iter.next()));
-      while (iter.hasNext()) {
-        builder.append(MATERIAL_SEPARATOR).append(MaterialTooltipCache.getDisplayName(iter.next()));
+      Set<Component> names = new LinkedHashSet<>(displayMaterials.size());
+      for (MaterialVariantId id : displayMaterials) {
+        names.add(MaterialTooltipCache.getDisplayName(id));
       }
-      materialName = builder;
+      MutableComponent builder = Component.literal("");
+      Iterator<Component> iter = names.iterator();
+      builder.append(iter.next());
+      while (iter.hasNext()) {
+        builder.append(MATERIAL_SEPARATOR).append(iter.next());
+      }
+      // build final name
+      return Component.translatable(TooltipUtil.KEY_FORMAT, builder, itemName);
     }
-    // build final name
-    return Component.translatable(TooltipUtil.KEY_FORMAT, materialName, itemName);
   }
 
   /** Gets the tool name for the given material */

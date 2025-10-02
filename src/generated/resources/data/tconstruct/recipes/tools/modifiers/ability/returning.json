@@ -30,7 +30,12 @@
     }
   ],
   "result": "tconstruct:returning",
-  "tools": {
-    "tag": "tconstruct:modifiable/melee/weapon"
-  }
+  "tools": [
+    {
+      "tag": "tconstruct:modifiable/melee/weapon"
+    },
+    {
+      "tag": "tconstruct:modifiable/harvest"
+    }
+  ]
 }

@@ -63,6 +63,7 @@ import slimeknights.tconstruct.library.json.variable.mining.BlockLightVariable;
 import slimeknights.tconstruct.library.json.variable.mining.BlockMiningSpeedVariable;
 import slimeknights.tconstruct.library.json.variable.mining.BlockTemperatureVariable;
 import slimeknights.tconstruct.library.json.variable.power.EntityPowerVariable;
+import slimeknights.tconstruct.library.json.variable.power.PersistentDataPowerVariable;
 import slimeknights.tconstruct.library.json.variable.protection.EntityProtectionVariable;
 import slimeknights.tconstruct.library.json.variable.stat.EntityConditionalStatVariable;
 import slimeknights.tconstruct.library.json.variable.tool.ModDataSource;
@@ -158,9 +159,7 @@ import slimeknights.tconstruct.tools.modules.HeadlightModule;
 import slimeknights.tconstruct.tools.modules.MeltingModule;
 import slimeknights.tconstruct.tools.modules.OverburnModule;
 import slimeknights.tconstruct.tools.modules.OvergrowthModule;
-import slimeknights.tconstruct.tools.modules.ShareDurabilityModule;
 import slimeknights.tconstruct.tools.modules.SmeltingModule;
-import slimeknights.tconstruct.tools.modules.SpillingModule;
 import slimeknights.tconstruct.tools.modules.TheOneProbeModule;
 import slimeknights.tconstruct.tools.modules.ZoomModule;
 import slimeknights.tconstruct.tools.modules.armor.DepthProtectionModule;
@@ -176,26 +175,30 @@ import slimeknights.tconstruct.tools.modules.armor.MinimapModule;
 import slimeknights.tconstruct.tools.modules.armor.OvershieldModule;
 import slimeknights.tconstruct.tools.modules.armor.RecurrentProtectionModule;
 import slimeknights.tconstruct.tools.modules.armor.ShieldStrapModule;
+import slimeknights.tconstruct.tools.modules.armor.SleevesModule;
 import slimeknights.tconstruct.tools.modules.armor.ThornsModule;
 import slimeknights.tconstruct.tools.modules.armor.ToolBeltModule;
 import slimeknights.tconstruct.tools.modules.combat.ChannelingModule;
 import slimeknights.tconstruct.tools.modules.combat.FieryAttackModule;
 import slimeknights.tconstruct.tools.modules.combat.FreezingAttackModule;
+import slimeknights.tconstruct.tools.modules.combat.SpillingModule;
+import slimeknights.tconstruct.tools.modules.durability.ShareDurabilityModule;
 import slimeknights.tconstruct.tools.modules.interaction.BrushModule;
 import slimeknights.tconstruct.tools.modules.interaction.ExtinguishCampfireModule;
 import slimeknights.tconstruct.tools.modules.interaction.FishingModule;
 import slimeknights.tconstruct.tools.modules.interaction.PlaceGlowModule;
 import slimeknights.tconstruct.tools.modules.interaction.ThrowingModule;
-import slimeknights.tconstruct.tools.modules.ranged.ArrowPierceModule;
 import slimeknights.tconstruct.tools.modules.ranged.BulkQuiverModule;
-import slimeknights.tconstruct.tools.modules.ranged.ProjectilePlaceGlowModule;
-import slimeknights.tconstruct.tools.modules.ranged.PunchModule;
-import slimeknights.tconstruct.tools.modules.ranged.QuiverInventoryModule;
 import slimeknights.tconstruct.tools.modules.ranged.RestrictAngleModule;
-import slimeknights.tconstruct.tools.modules.ranged.ReversePunchModule;
-import slimeknights.tconstruct.tools.modules.ranged.SmashingModule;
-import slimeknights.tconstruct.tools.modules.ranged.TippedModule;
 import slimeknights.tconstruct.tools.modules.ranged.TrickQuiverModule;
+import slimeknights.tconstruct.tools.modules.ranged.ammo.SmashingModule;
+import slimeknights.tconstruct.tools.modules.ranged.ammo.TippedModule;
+import slimeknights.tconstruct.tools.modules.ranged.bow.QuiverInventoryModule;
+import slimeknights.tconstruct.tools.modules.ranged.common.ArrowPierceModule;
+import slimeknights.tconstruct.tools.modules.ranged.common.ProjectileBounceModule;
+import slimeknights.tconstruct.tools.modules.ranged.common.ProjectilePlaceGlowModule;
+import slimeknights.tconstruct.tools.modules.ranged.common.PunchModule;
+import slimeknights.tconstruct.tools.modules.ranged.common.ReversePunchModule;
 
 import static slimeknights.tconstruct.common.TinkerTags.Items.ARMOR;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HARVEST;
@@ -236,7 +239,10 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(new SwappableSlotModule.BonusSlot(null, SlotType.ABILITY, SlotType.ABILITY, -1, ModifierCondition.ANY_CONTEXT.with(ancientTool)))
       .addModule(new SwappableToolTraitsModule(null, "traits", ToolHooks.REBALANCED_TRAIT));
     // resurrected replaced with forecast
-    addRedirect(id("resurrected"), redirect(ModifierIds.forecast));
+    buildModifier(ModifierIds.resurrected)
+      .tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(UPGRADE)
+      // migration: disallow having both resurrected and forecast, as forecast is meant to replace resurrected. Not giving you a free upgrade slot for updating tinkers
+      .addModule(ModifierRequirementsModule.builder().requirement(HasModifierPredicate.hasUpgrade(ModifierIds.forecast, 1).inverted()).modifierKey(ModifierIds.resurrected).build());
 
     // tier upgrades
     // emerald
@@ -433,9 +439,13 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.pierce)
       // less than sharpness, but pierces 1 armor
       .addModule(StatBoostModule.add(ToolStats.ATTACK_DAMAGE).eachLevel(0.5f))
-      .addModule(MeleeAttributeModule.builder(Attributes.ARMOR, Operation.ADDITION).eachLevel(-1))
-      // use a mob effect to make this work on ranged, to ensure it automatically cancels
-      .addModule(MobEffectModule.builder(TinkerEffects.pierce.get()).level(RandomLevelingValue.perLevel(0, 1)).time(RandomLevelingValue.flat(2)).build(), ModifierHooks.PROJECTILE_HIT);
+      // effect is applied post hit, so skip armor cancel if effect is present. TODO: maybe apply effect in a before hook instead?
+      .addModule(MeleeAttributeModule.builder(Attributes.ARMOR, Operation.ADDITION).target(new HasMobEffectPredicate(TinkerEffects.pierce.get()).inverted()).eachLevel(-2))
+      .addModule(MobEffectModule.builder(TinkerEffects.pierce)
+        // apply effect for 5 seconds, canceling 2 armor per level
+        .level(RandomLevelingValue.perLevel(0, 2)).time(RandomLevelingValue.flat(5 * 20))
+        // 100% chance on armor
+        .chance(LevelingValue.flat(1)).build());
     buildModifier(ModifierIds.chargeAttack).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(ConditionalMeleeDamageModule.builder().attacker(LivingEntityPredicate.SPRINTING).flat(7));
 
     // ranged
@@ -445,10 +455,22 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.punch).addModule(new PunchModule(LevelingValue.eachLevel(1), ModifierCondition.ANY_TOOL));
     buildModifier(ModifierIds.drawback).addModule(new ReversePunchModule(LevelingValue.eachLevel(0.6f)));
     buildModifier(ModifierIds.arrowPierce).addModule(new ArrowPierceModule(LevelingInt.eachLevel(1), ModifierCondition.ANY_TOOL));
+    buildModifier(ModifierIds.spike).levelDisplay(ModifierLevelDisplay.NO_LEVELS)
+      .addModule(new ToolActionsModule(TinkerToolActions.SHIELD_DISABLE))
+      .addModule(new ArrowPierceModule(LevelingInt.flat(1), ModifierCondition.ANY_TOOL));
     buildModifier(ModifierIds.quickCharge).addModule(StatBoostModule.multiplyBase(ToolStats.DRAW_SPEED).eachLevel(0.25f));
     buildModifier(ModifierIds.trueshot).addModule(StatBoostModule.add(ToolStats.ACCURACY).eachLevel(0.1f));
     buildModifier(ModifierIds.blindshot).addModule(StatBoostModule.add(ToolStats.ACCURACY).eachLevel(-0.1f));
     buildModifier(ModifierIds.dragonshot).addModule(ConditionalStatModule.stat(ToolStats.PROJECTILE_DAMAGE).holder(TinkerPredicate.AIRBORNE).eachLevel(1));
+    buildModifier(ModifierIds.rebound).addModule(ConditionalPowerModule.builder()
+      .formula()
+      .customVariable("bounces", new PersistentDataPowerVariable(ModifierIds.bounce, 1))
+      .constant(0.5f).multiply()
+      .variable(LEVEL).multiply()
+      .variable(MULTIPLIER).multiply()
+      .variable(VALUE).add().build());
+    buildModifier(ModifierIds.reclaim).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(new VolatileFlagModule(IndestructibleItemEntity.INDESTRUCTIBLE_ENTITY));
+
     // ammo
     buildModifier(ModifierIds.trickQuiver).priority(70) // before bulk quiver
       .addModule(QuiverInventoryModule.builder().pattern(pattern("tipped_arrow")).flatLimit(32).slotsPerLevel(3))
@@ -551,6 +573,9 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.minimap).addModule(InventoryModule.builder().pattern(pattern("map")).filter(TinkerPredicate.MAP).flatLimit(1).slotsPerLevel(3)).addModule(MinimapModule.INSTANCE);
     // chestplate
     buildModifier(ModifierIds.strength).addModule(AttributeModule.builder(Attributes.ATTACK_DAMAGE, Operation.MULTIPLY_TOTAL).slots(armorSlots).eachLevel(0.1f));
+    buildModifier(TinkerModifiers.sleeves)
+      .addModule(SleevesModule.INSTANCE)
+      .addModule(InventoryModule.builder().flatLimit(16).filter(ItemPredicate.tag(TinkerTags.Items.THROWABLE)).pattern(new Pattern(TConstruct.MOD_ID, "shuriken")).slotsPerLevel(3));
     // leggings
     buildModifier(ModifierIds.pockets)
       .addModule(InventoryModule.builder().slotsPerLevel(18))
@@ -596,6 +621,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(ReplaceBlockWalkerModule.builder().replaceAlways(BlockPropertiesPredicate.block(Blocks.WATER).matches(LiquidBlock.LEVEL, 0).build(), Blocks.FROSTED_ICE.defaultBlockState()).amount(2, 1));
     buildModifier(ModifierIds.snowdrift).priority(90).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(CoverGroundWalkerModule.block(Blocks.SNOW).amount(0.5f, 1));
     buildModifier(ModifierIds.bouncy).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(AttributeModule.builder(TinkerAttributes.BOUNCY.get(), Operation.ADDITION).tooltipStyle(TooltipStyle.NONE).flat(1));
+    buildModifier(ModifierIds.bounce).addModule(new ProjectileBounceModule(new LevelingInt(-1, 2)));
     buildModifier(ModifierIds.doubleJump).levelDisplay(new UniqueForLevels(4, false)).addModule(AttributeModule.builder(TinkerAttributes.JUMP_COUNT.get(), Operation.ADDITION).slots(ARMOR_SLOTS).tooltipStyle(TooltipStyle.NONE).eachLevel(1));
     // shield
     buildModifier(ModifierIds.boundless)
@@ -626,7 +652,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.ballista).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(new VolatileFlagModule(ModifiableBowItem.KEY_BALLISTA));
     buildModifier(ModifierIds.fins)
       .levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
-      .addModule(StatBoostModule.add(ToolStats.WATER_INERTIA).flat(0.4f))
+      .addModule(StatBoostModule.add(ToolStats.WATER_INERTIA).flat(0.5f))
       .addModule(ConditionalPowerModule.builder().target(LivingEntityPredicate.UNDERWATER).eachLevel(1));
 
     // fishing
@@ -654,9 +680,11 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
 
     // traits - tier 1
     buildModifier(ModifierIds.cultivated).addModule(RepairModule.builder().eachLevel(0.5f));
-    buildModifier(ModifierIds.economical).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(new CraftCountModule(LevelingValue.flat(2), ModifierCondition.ANY_TOOL));
+    buildModifier(ModifierIds.economical).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(new CraftCountModule(LevelingInt.flat(2), ModifierCondition.ANY_TOOL));
     buildModifier(ModifierIds.stringy).addModule(MaterialRepairModule.material(MaterialIds.string).constant(140));
-    buildModifier(ModifierIds.woodwind).addModule(StatBoostModule.add(ToolStats.ACCURACY).eachLevel(0.25f)); // TODO: can we make it play a bamboo sound?
+    buildModifier(ModifierIds.woodwind) // TODO: can we make it play a bamboo sound?
+      .addModule(StatBoostModule.add(ToolStats.ACCURACY).eachLevel(0.25f))
+      .addModule(StatBoostModule.add(ToolStats.VELOCITY).eachLevel(0.25f));
     buildModifier(ModifierIds.unburdened)
       .addModule(StatBoostModule.add(ToolStats.USE_ITEM_SPEED).eachLevel(0.1f))
       .addModule(AttributeModule.builder(TinkerAttributes.USE_ITEM_SPEED, Operation.ADDITION).slots(ARMOR_SLOTS).tooltipStyle(TooltipStyle.PERCENT).toolItem(ItemPredicate.tag(WORN_ARMOR)).eachLevel(0.05f));
@@ -795,6 +823,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(new DamageOnUnequipModule(1, ModifierCondition.ANY_TOOL.with(ToolStackPredicate.tag(TinkerTags.Items.WORN_ARMOR).inverted())))
       .addModule(new DamageOnUnequipModule(2, ModifierCondition.ANY_TOOL.with(ToolStackPredicate.tag(TinkerTags.Items.WORN_ARMOR))));
 
+    buildModifier(ModifierIds.venom).priority(150).addModule(MobEffectModule.builder(TinkerEffects.venom).time(RandomLevelingValue.random(5 * 20, 5 * 20)).chance(LevelingValue.flat(0.15f)).build());
     buildModifier(ModifierIds.antitoxin)
       .addModule(ConditionalMeleeDamageModule.builder()
         .attacker(new HasMobEffectPredicate(MobEffects.POISON))
@@ -904,8 +933,8 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.crystalstrike)
       .addModule(AttributeModule.builder(Attributes.ATTACK_SPEED, Operation.MULTIPLY_TOTAL).eachLevel(0.025f))
       .addModule(new ArmorLevelModule(TinkerDataKeys.CRYSTALSTRIKE, false, TinkerTags.Items.HELD_ARMOR));
-    buildModifier(ModifierIds.spectral)
-      .addModule(MobEffectModule.builder(MobEffects.GLOWING).time(RandomLevelingValue.perLevel(0, 200)).build())
+    buildModifier(ModifierIds.spectral).priority(60) // after bounce, before enderference
+      .addModule(MobEffectModule.builder(MobEffects.GLOWING).chance(LevelingValue.flat(1)).time(RandomLevelingValue.perLevel(0, 200)).build())
       .addModule(ProjectilePlaceGlowModule.BLOCKS);
     // traits - tier 3 nether
     buildModifier(ModifierIds.lightweight)
@@ -1072,6 +1101,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.fortified).priority(60).addModule(ModifierSlotModule.slot(SlotType.DEFENSE).eachLevel(1));
     buildModifier(ModifierIds.kinetic).addModule(KineticModule.INSTANCE);
     buildModifier(ModifierIds.recurrentProtection).addModule(new RecurrentProtectionModule(LevelingValue.flat(0.5f), LevelingInt.eachLevel(5 * 20)));
+    buildModifier(ModifierIds.conductive).priority(150).addModule(MobEffectModule.builder(TinkerEffects.conductive).time(RandomLevelingValue.random(5 * 20, 5 * 20)).chance(LevelingValue.flat(0.15f)).build());
     buildModifier(ModifierIds.flameBarrier).addModule(new FlameBarrierModule(LevelingValue.eachLevel(1.875f)));
     buildModifier(ModifierIds.vintage)
       .addModule(ModifierSlotModule.slot(SlotType.ABILITY).eachLevel(1))

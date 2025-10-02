@@ -8,6 +8,7 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -28,6 +29,9 @@ import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Consumer;
 
 /** Generic modifier hooks that don't quite fit elsewhere */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -197,4 +201,23 @@ public final class ModifierUtil {
   /** Instance of the current food consumer, will be either no-op or an implementation calling the Diet API, never null. */
   @Nonnull
   public static FoodConsumer foodConsumer = (player, stack, hunger, saturation) -> {};
+
+  /* Shield disabling */
+  /** Map of how to disable shields for different targets */
+  private static final Map<EntityType<?>, Consumer<Entity>> SHIELD_DISABLER = new HashMap<>();
+
+  /** Registers a method for shield disabling */
+  public static void registerShieldDisabler(Consumer<Entity> disabler, EntityType<?>... types) {
+    for (EntityType<?> type : types){
+      SHIELD_DISABLER.putIfAbsent(type, disabler);
+    }
+  }
+
+  /** Disables shield for the target entity */
+  public static void disableShield(Entity entity) {
+    Consumer<Entity> consumer = SHIELD_DISABLER.get(entity.getType());
+    if (consumer != null) {
+      consumer.accept(entity);
+    }
+  }
 }

@@ -3,7 +3,6 @@ package slimeknights.tconstruct.tools.modifiers.traits.melee;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.EquipmentSlot.Type;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -22,6 +21,7 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.shared.TinkerEffects;
+import slimeknights.tconstruct.tools.modules.armor.CounterModule;
 
 import javax.annotation.Nullable;
 
@@ -65,12 +65,12 @@ public class LaceratingModifier extends Modifier implements ProjectileHitModifie
   public void onAttacked(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
     // this works like vanilla, damage is capped due to the hurt immunity mechanics, so if multiple pieces apply thorns between us and vanilla, damage is capped at 4
     if (isDirectDamage && tool.hasTag(TinkerTags.Items.ARMOR) && source.getEntity() instanceof LivingEntity attacker) {
-      // 15% chance of working per level, doubled bonus on shields
-      int level = modifier.getLevel();
-      if (slotType.getType() == Type.HAND) {
-        level *= 2;
+      // 25% chance of working, doubled chance on shields
+      float chance = 0.25f;
+      if (CounterModule.isBlocking(tool, slotType, context.getEntity())) {
+        chance *= 2;
       }
-      if (RANDOM.nextFloat() < (level * 0.25f)) {
+      if (RANDOM.nextFloat() < chance) {
         applyEffect(attacker, modifier.getLevel());
       }
     }

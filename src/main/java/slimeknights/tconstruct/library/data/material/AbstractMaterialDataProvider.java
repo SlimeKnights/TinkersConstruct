@@ -101,7 +101,10 @@ public abstract class AbstractMaterialDataProvider extends GenericDataProvider {
 
   /** Adds a material to be generated with a condition and redirect data */
   protected void addMaterial(IMaterial material, @Nullable ICondition condition, JsonRedirect... redirect) {
-    allMaterials.put(material.getIdentifier(), new DataMaterial(material, condition, redirect));
+    DataMaterial existing = allMaterials.putIfAbsent(material.getIdentifier(), new DataMaterial(material, condition, redirect));
+    if (existing != null) {
+      throw new IllegalArgumentException("Duplicate material with ID: " + material.getIdentifier());
+    }
   }
 
   /** Adds JSON to redirect an ID to another ID */

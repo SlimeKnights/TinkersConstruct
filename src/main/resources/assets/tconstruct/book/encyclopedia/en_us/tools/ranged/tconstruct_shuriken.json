@@ -1,0 +1,14 @@
+{
+  "tool": "tconstruct:shuriken",
+  "text": [
+    { "text": "Shurikens are quick, single-use ammo that can be thrown without requiring another tool." },
+    { "text": "This makes them easy to use, but limits their potential.", "paragraph": true }
+  ],
+  "properties": [
+    "1.5 Velocity",
+    "1.5 Projectile Damage",
+    "200% Damage Multiplier",
+    "0.75 Accuracy",
+    "2 Head Trait"
+  ]
+}

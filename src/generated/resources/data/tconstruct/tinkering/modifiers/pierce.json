@@ -10,20 +10,25 @@
     {
       "type": "tconstruct:melee_attribute",
       "attribute": "minecraft:generic.armor",
-      "each_level": -1.0,
-      "operation": "addition"
+      "each_level": -2.0,
+      "operation": "addition",
+      "target": {
+        "type": "mantle:inverted",
+        "effect": "tconstruct:pierce",
+        "inverted_type": "mantle:has_effect"
+      }
     },
     {
       "type": "tconstruct:mob_effect",
+      "chance": {
+        "flat": 1.0
+      },
       "effect": "tconstruct:pierce",
-      "hooks": [
-        "tconstruct:projectile_hit"
-      ],
       "level": {
-        "per_level": 1.0
+        "per_level": 2.0
       },
       "time": {
-        "flat": 2.0
+        "flat": 100.0
       }
     }
   ],

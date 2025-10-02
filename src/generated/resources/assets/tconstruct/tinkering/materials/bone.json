@@ -12,7 +12,8 @@
       "tconstruct:repair_kit",
       "tconstruct:limb",
       "tconstruct:grip",
-      "tconstruct:arrow_shaft"
+      "tconstruct:arrow_shaft",
+      "tconstruct:shield_core"
     ],
     "transformer": {
       "type": "tconstruct:recolor_sprite",

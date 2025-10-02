@@ -3,7 +3,7 @@
   "modules": [
     {
       "type": "tconstruct:stat_boost",
-      "flat": 0.4,
+      "flat": 0.5,
       "operation": "add",
       "stat": "tconstruct:water_inertia"
     },

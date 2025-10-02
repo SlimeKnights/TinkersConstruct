@@ -4,5 +4,13 @@
       "level": 1,
       "name": "tconstruct:decay"
     }
-  ]
+  ],
+  "perStat": {
+    "tconstruct:ammo": [
+      {
+        "level": 2,
+        "name": "tconstruct:decay"
+      }
+    ]
+  }
 }

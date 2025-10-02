@@ -1,0 +1,14 @@
+[
+  {
+    "name": "group_general",
+    "type": "mantle:text",
+    "data": "no-load",
+    "extraData": { "tconstruct:load_tools": { "tag": "tconstruct:modifiable/broad", "path": "tools" }}
+  },
+  {
+    "name": "group_ranged",
+    "type": "mantle:text",
+    "data": "no-load",
+    "extraData": { "tconstruct:load_tools": { "tag": "tconstruct:modifiable/ranged/broad", "path": "tools" }}
+  }
+]

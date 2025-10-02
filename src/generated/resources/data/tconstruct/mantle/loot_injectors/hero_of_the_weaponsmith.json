@@ -21,8 +21,7 @@
               ]
             }
           ],
-          "name": "tconstruct:war_pick",
-          "weight": 2
+          "name": "tconstruct:war_pick"
         }
       ],
       "name": "main"

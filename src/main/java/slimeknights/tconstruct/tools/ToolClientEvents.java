@@ -80,7 +80,7 @@ import slimeknights.tconstruct.tools.client.ToolContainerScreen;
 import slimeknights.tconstruct.tools.item.ModifierCrystalItem;
 import slimeknights.tconstruct.tools.logic.DoubleJumpHandler;
 import slimeknights.tconstruct.tools.logic.InteractionHandler;
-import slimeknights.tconstruct.tools.modules.ranged.SmashingModule;
+import slimeknights.tconstruct.tools.modules.ranged.ammo.SmashingModule;
 import slimeknights.tconstruct.tools.network.TinkerControlPacket;
 
 import java.util.function.Consumer;
@@ -248,6 +248,7 @@ public class ToolClientEvents extends ClientEventBase {
     registerItemColors(colors, TinkerTools.javelin);
     registerItemColors(colors, TinkerTools.arrow);
     registerItemColors(colors, TinkerTools.shuriken);
+    registerItemColors(colors, TinkerTools.throwingAxe);
     // ancient
     registerItemColors(colors, TinkerTools.meltingPan);
     registerItemColors(colors, TinkerTools.warPick);

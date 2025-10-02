@@ -36,6 +36,7 @@ public final class ToolDefinitions {
   // ammo
   public static final ToolDefinition ARROW = ToolDefinition.create(TinkerTools.arrow);
   public static final ToolDefinition SHURIKEN = ToolDefinition.create(TinkerTools.shuriken);
+  public static final ToolDefinition THROWING_AXE = ToolDefinition.create(TinkerTools.throwingAxe);
 
   // special
   public static final ToolDefinition FLINT_AND_BRICK = ToolDefinition.create(TinkerTools.flintAndBrick);

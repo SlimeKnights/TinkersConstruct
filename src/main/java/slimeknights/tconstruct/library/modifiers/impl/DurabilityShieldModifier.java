@@ -62,6 +62,7 @@ public abstract class DurabilityShieldModifier extends Modifier implements Capac
   }
 
   /** @deprecated use {@link #getAmount(IToolStackView)} */
+  @Deprecated
   public int getShield(IToolStackView tool) {
     return tool.getPersistentData().getInt(getShieldKey());
   }

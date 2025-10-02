@@ -1,36 +1,54 @@
 package slimeknights.tconstruct.tools.entity;
 
+import lombok.Setter;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ThrownTrident;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.ModifierHooks;
+import slimeknights.tconstruct.library.modifiers.hook.mining.BreakSpeedContext;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
+import slimeknights.tconstruct.library.tools.definition.module.ToolHooks;
 import slimeknights.tconstruct.library.tools.definition.module.display.ToolNameHook;
+import slimeknights.tconstruct.library.tools.definition.module.mining.IsEffectiveToolHook;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
+import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.item.ModifiableItem;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
+import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.data.ModifierIds;
+import slimeknights.tconstruct.tools.modifiers.upgrades.general.MagneticModifier;
 
 import javax.annotation.Nullable;
 
@@ -48,6 +66,10 @@ public class ThrownTool extends ThrownTrident implements ToolProjectile {
   private float charge = 1;
   private float multiplier = 1;
   private boolean noDespawn = false;
+  private int magnet = 0;
+  @Setter
+  private int originalSlot = -1;
+  private boolean hitBlock = false;
 
   public ThrownTool(EntityType<? extends ThrownTrident> type, Level level) {
     super(type, level);
@@ -76,6 +98,9 @@ public class ThrownTool extends ThrownTrident implements ToolProjectile {
     this.entityData.set(ID_LOYALTY, (byte) ModifierUtil.getVolatileInt(tridentItem, LOYALTY));
     this.entityData.set(ID_FOIL, ModifierUtil.checkVolatileFlag(tridentItem, ModifiableItem.SHINY));
     this.noDespawn = ModifierUtil.checkVolatileFlag(tridentItem, IndestructibleItemEntity.INDESTRUCTIBLE_ENTITY);
+    if (!level().isClientSide) {
+      this.magnet = ModifierUtil.getModifierLevel(tridentItem, TinkerModifiers.magnetic.getId());
+    }
   }
 
   @Override
@@ -155,6 +180,11 @@ public class ThrownTool extends ThrownTrident implements ToolProjectile {
       dealtDamage = true;
     }
     super.tick();
+
+    // magnet
+    if (magnet > 0) {
+      MagneticModifier.applyVelocity(level(), position(), magnet - 1, ItemEntity.class, 3, 0.05f, 32);
+    }
   }
 
   @Override
@@ -164,12 +194,12 @@ public class ThrownTool extends ThrownTrident implements ToolProjectile {
     // need a living entity to run our attack hooks, just do nothing if we lack an owner
     if (!tridentItem.isEmpty() && this.getOwner() instanceof LivingEntity owner) {
       Entity target = pResult.getEntity();
-      // hack: swap the offhand for the tool so any relevant modifier hooks (notably looting) see the right thing
-      ItemStack offhand = owner.getOffhandItem();
 
       IToolStackView tool = getTool();
       if (ToolAttackUtil.canPerformAttack(tool) && ToolAttackUtil.isAttackable(owner, target)) {
+        // hack: swap the offhand for the tool so any relevant modifier hooks (notably looting) see the right thing
         // does not actually matter which slot we use, just need the tool there to ensure hooks are properly run
+        ItemStack offhand = owner.getOffhandItem();
         owner.setItemInHand(InteractionHand.OFF_HAND, tridentItem);
         // TODO: consider whether redundant sound is fine
         if (ToolAttackUtil.performAttack(tool, ToolAttackContext.attacker(owner).target(target).hand(InteractionHand.OFF_HAND).baseDamage(tool.getStats().get(ToolStats.ATTACK_DAMAGE) * multiplier).cooldown(charge).projectile(this).build())) {
@@ -196,6 +226,105 @@ public class ThrownTool extends ThrownTrident implements ToolProjectile {
     }
   }
 
+
+  /* block breaking */
+
+  @Override
+  protected void onHitBlock(BlockHitResult result) {
+    // ensure we did not attempt to hit before
+    if (!hitBlock) {
+      // always mark as hit, don't want it deflecting off and hitting something else
+      hitBlock = true;
+      // skip if we hit a monster, also need a player as a lot of block breaking logic relies on players
+      if (!dealtDamage && !tridentItem.isEmpty() && tridentItem.is(TinkerTags.Items.HARVEST) && this.getOwner() instanceof ServerPlayer owner) {
+        // tool can't be broken; no running vanilla logic
+        IToolStackView tool = getTool();
+        if (!tool.isBroken()) {
+          // must be effective and not unbreakable
+          BlockPos pos = result.getBlockPos();
+          Level level = level();
+          BlockState state = level.getBlockState(pos);
+          float hardness = state.getDestroySpeed(level, pos);
+          if (hardness != -1 && IsEffectiveToolHook.isEffective(tool, state)) {
+            // fetch base mining speed, though can skip if its already instant
+            float miningSpeed = 1;
+            if (hardness > 0) {
+              miningSpeed = Math.max(1, tool.getHook(ToolHooks.MINING_SPEED).modifyDestroySpeed(tool, state, tool.getStats().get(ToolStats.MINING_SPEED)));
+              float multiplier = charge * this.multiplier;
+              // if underwater and no fins, give underwater penalty
+              if (isInWater() && getWaterInertia() < 0.9f) {
+                multiplier /= 5;
+              }
+              miningSpeed *= multiplier;
+
+              // apply mining speed modifiers
+              ModifierNBT modifiers = tool.getModifiers();
+              Direction sideHit = result.getDirection();
+              if (!modifiers.isEmpty()) {
+                BreakSpeedContext context = new BreakSpeedContext.Direct(owner, state, pos, sideHit, true, miningSpeed, multiplier);
+                for (ModifierEntry entry : tool.getModifiers()) {
+                  miningSpeed = entry.getHook(ModifierHooks.BREAK_SPEED).modifyBreakSpeed(tool, entry, context, miningSpeed);
+                }
+              }
+            }
+            // normally, mining speed is added once per tick, and once it exceeds hardness * 30 the block breaks
+            // for thrown tools, our condition is anything that breaks in 1 second, hence the factor of 1.5 * hardness
+            if (miningSpeed > 1.5 * hardness) {
+              // hack: swap the mainhand for the tool so relevant modifier hooks (notably loot tables) run correctly
+              ItemStack mainhand = owner.getMainHandItem();
+              owner.setItemInHand(InteractionHand.MAIN_HAND, tridentItem);
+              int harvested = ToolHarvestLogic.runBlockBreak(tridentItem, tool, state, pos, result.getDirection(), owner, this);
+              owner.setItemInHand(InteractionHand.MAIN_HAND, mainhand);
+
+              // if we broke anything, back off and skip standard stick in block logic
+              if (harvested > 0) {
+                // no damaging a monster after this, and also reminds loyalty to return
+                dealtDamage = true;
+                // backing off the block makes the tool easier to collect
+                this.setDeltaMovement(this.getDeltaMovement().multiply(-0.01, -0.1, -0.01));
+                return;
+              }
+            }
+          }
+        }
+      }
+    }
+    super.onHitBlock(result);
+  }
+
+
+  /* returning to slot */
+
+  /**
+   * Handles returning the item to the player.
+   * Unlike {@link Inventory#add(ItemStack)}, supports adding to the offhand/armor slots, and does not overwrite existing tool stacks in the slot.
+   */
+  private boolean addToInventory(Player player) {
+    ItemStack pickup = getPickupItem();
+    Inventory inventory = player.getInventory();
+    if (originalSlot != -1) {
+      ItemStack current = inventory.getItem(originalSlot);
+      if (current.isEmpty()) {
+        inventory.setItem(originalSlot, pickup);
+        return true;
+      } else if (current.getCount() < current.getMaxStackSize() && ItemStack.isSameItemSameTags(current, pickup)) {
+        current.grow(1);
+        return true;
+      }
+    }
+    return inventory.add(pickup);
+  }
+
+  @Override
+  protected boolean tryPickup(Player player) {
+    return switch (this.pickup) {
+      case ALLOWED -> addToInventory(player);
+      case CREATIVE_ONLY -> player.getAbilities().instabuild;
+      default -> this.isNoPhysics() && this.ownedBy(player) && addToInventory(player);
+    };
+  }
+
+
   /* Client */
 
   @Override
@@ -215,6 +344,8 @@ public class ThrownTool extends ThrownTrident implements ToolProjectile {
   private static final String KEY_CHARGE = "charge";
   private static final String KEY_MULTIPLIER = "multiplier";
   private static final String KEY_WATER_INERTIA = "water_inertia";
+  private static final String KEY_ORIGINAL_SLOT = "original_slot";
+  private static final String KEY_HIT_BLOCK = "hit_block";
 
   @Override
   public void addAdditionalSaveData(CompoundTag tag) {
@@ -222,6 +353,10 @@ public class ThrownTool extends ThrownTrident implements ToolProjectile {
     tag.putFloat(KEY_CHARGE, this.charge);
     tag.putFloat(KEY_MULTIPLIER, this.multiplier);
     tag.putFloat(KEY_WATER_INERTIA, this.entityData.get(WATER_INERTIA));
+    tag.putBoolean(KEY_HIT_BLOCK, hitBlock);
+    if (this.originalSlot != -1) {
+      tag.putInt(KEY_ORIGINAL_SLOT, this.originalSlot);
+    }
   }
 
   @Override
@@ -234,5 +369,11 @@ public class ThrownTool extends ThrownTrident implements ToolProjectile {
     this.charge = tag.getFloat(KEY_CHARGE);
     this.multiplier = tag.getFloat(KEY_MULTIPLIER);
     this.entityData.set(WATER_INERTIA, tag.getFloat(KEY_WATER_INERTIA));
+    this.hitBlock = tag.getBoolean(KEY_HIT_BLOCK);
+    if (tag.contains(KEY_ORIGINAL_SLOT, Tag.TAG_ANY_NUMERIC)) {
+      this.originalSlot = tag.getInt(KEY_ORIGINAL_SLOT);
+    } else {
+      this.originalSlot = -1;
+    }
   }
 }

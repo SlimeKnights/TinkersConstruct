@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:sleeves",
+  "text": [
+    {
+      "text": "Gives the chestplate 3 inventory slots per level to hold throwable items. Items in sleeves can be thrown by interacting with an empty hand. Can sneak while interacting to change the selected item."
+    },
+    {
+      "text": "Inventory can be accessed by right clicking the chestplate from an inventory."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum of 3 levels",
+    "Requires 1 upgrade slot per level"
+  ]
+}

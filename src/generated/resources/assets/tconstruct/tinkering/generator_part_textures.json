@@ -946,6 +946,10 @@
       "stat_type": "tconstruct:arrow_head"
     },
     {
+      "path": "tconstruct:item/tool/ammo/axe_head",
+      "stat_type": "tconstruct:arrow_head"
+    },
+    {
       "path": "tconstruct:item/tool/melting_pan/head",
       "skip_variants": true,
       "stat_type": "tconstruct:plating_shield"

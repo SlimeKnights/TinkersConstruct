@@ -1,7 +1,6 @@
 {
   "values": [
     "#tconstruct:modifiable/melee/weapon",
-    "#tconstruct:modifiable/melee/unarmed",
-    "#tconstruct:modifiable/melee/ballista_ammo"
+    "#tconstruct:modifiable/melee/unarmed"
   ]
 }

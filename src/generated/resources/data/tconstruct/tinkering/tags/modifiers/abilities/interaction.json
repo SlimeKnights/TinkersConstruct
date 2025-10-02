@@ -13,6 +13,7 @@
     "tconstruct:bonking",
     "tconstruct:flinging",
     "tconstruct:springing",
-    "tconstruct:warping"
+    "tconstruct:warping",
+    "tconstruct:throwing"
   ]
 }

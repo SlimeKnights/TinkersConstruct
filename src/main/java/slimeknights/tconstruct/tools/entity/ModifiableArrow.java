@@ -10,9 +10,12 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.Vec3;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.build.ConditionalStatModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.ranged.ScheduledProjectileTaskModifierHook;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
 import slimeknights.tconstruct.library.tools.capability.EntityModifierCapability;
 import slimeknights.tconstruct.library.tools.capability.PersistentDataCapability;
@@ -21,6 +24,7 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.library.utils.Schedule;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 import javax.annotation.Nullable;
@@ -34,7 +38,11 @@ public class ModifiableArrow extends AbstractArrow implements ToolProjectile {
 
   private ItemStack stack = ItemStack.EMPTY;
   private IToolStackView tool = null;
-  private boolean noDespawn = false;
+  private boolean reclaim = false;
+  private boolean dealtDamage = false;
+  /** Tasks queued by modifiers */
+  private Schedule tasks = Schedule.EMPTY;
+
   public ModifiableArrow(EntityType<? extends AbstractArrow> type, Level level) {
     super(type, level);
   }
@@ -59,7 +67,7 @@ public class ModifiableArrow extends AbstractArrow implements ToolProjectile {
   private void setStack(ItemStack stack) {
     this.stack = stack;
     this.entityData.set(STACK, stack);
-    this.noDespawn = ModifierUtil.checkVolatileFlag(stack, IndestructibleItemEntity.INDESTRUCTIBLE_ENTITY);
+    this.reclaim = ModifierUtil.checkVolatileFlag(stack, IndestructibleItemEntity.INDESTRUCTIBLE_ENTITY);
   }
 
   /** Gets the tool instance, ensuring its created */
@@ -105,11 +113,22 @@ public class ModifiableArrow extends AbstractArrow implements ToolProjectile {
       for (ModifierEntry entry : tool.getModifiers()) {
         entry.getHook(ModifierHooks.PROJECTILE_SHOT).onProjectileShoot(tool, entry, shooter, stack, this, this, arrowData, true);
       }
+
+      // schedule tasks
+      this.tasks = ScheduledProjectileTaskModifierHook.createSchedule(tool, stack, this, this, arrowData);
     } else {
       super.shoot(pX, pY, pZ, velocity, inaccuracy);
     }
   }
 
+  @Override
+  public void tick() {
+    super.tick();
+    // check if any tasks are ready
+    if (!tasks.isEmpty() && !stack.isEmpty()) {
+      ScheduledProjectileTaskModifierHook.checkSchedule(getTool(), stack, this, this, PersistentDataCapability.getOrWarn(this), tasks);
+    }
+  }
 
   /* Stats */
 
@@ -136,9 +155,46 @@ public class ModifiableArrow extends AbstractArrow implements ToolProjectile {
   @Override
   public void tickDespawn() {
     // if we can pick up the arrows, don't despawn with worldbound
-    if (pickup != Pickup.ALLOWED || !noDespawn) {
+    if (pickup != Pickup.ALLOWED || !reclaim) {
       super.tickDespawn();
     }
+  }
+
+  private enum CaptureDiscard { NOT_CAPTURING,  CAPTURING,  DISCARDED }
+  private CaptureDiscard captureDiscard = CaptureDiscard.NOT_CAPTURING;
+
+  @Override
+  protected void onHitEntity(EntityHitResult result) {
+    if (reclaim) {
+      // prevent the entity from being discarded for a bit
+      captureDiscard = CaptureDiscard.CAPTURING;
+    }
+
+    super.onHitEntity(result);
+
+    // if we tried to discard it, back off the movement and mark it to prevent further damage
+    if (captureDiscard == CaptureDiscard.DISCARDED) {
+      dealtDamage = true;
+      setDeltaMovement(getDeltaMovement().multiply(-0.01, -0.1, -0.01));
+    }
+    captureDiscard = CaptureDiscard.NOT_CAPTURING;
+  }
+
+  @Override
+  public void remove(RemovalReason reason) {
+    // capturing is used for worldbound to keep the ammo around after hit
+    // however, there is a single case where we don't want to stick around, and that is when we failed to hit a target and the movement is now too small
+    if (reason == RemovalReason.DISCARDED && captureDiscard != CaptureDiscard.NOT_CAPTURING && getDeltaMovement().lengthSqr() >= 1.0E-7D) {
+      captureDiscard = CaptureDiscard.DISCARDED;
+    } else {
+      super.remove(reason);
+    }
+  }
+
+  @Override
+  @Nullable
+  protected EntityHitResult findHitEntity(Vec3 pStartVec, Vec3 pEndVec) {
+    return this.dealtDamage ? null : super.findHitEntity(pStartVec, pEndVec);
   }
 
 
@@ -165,12 +221,18 @@ public class ModifiableArrow extends AbstractArrow implements ToolProjectile {
   /* NBT */
   private static final String KEY_STACK = "stack";
   private static final String KEY_WATER_INERTIA = "water_inertia";
+  private static final String KEY_DEALT_DAMAGE = "dealt_damage";
+  private static final String KEY_TASKS = "tasks";
 
   @Override
   public void addAdditionalSaveData(CompoundTag tag) {
     super.addAdditionalSaveData(tag);
     tag.put(KEY_STACK, this.stack.save(new CompoundTag()));
     tag.putFloat(KEY_WATER_INERTIA, this.entityData.get(WATER_INERTIA));
+    tag.putBoolean(KEY_DEALT_DAMAGE, dealtDamage);
+    if (!this.tasks.isEmpty()) {
+      tag.put(KEY_TASKS, this.tasks.serialize());
+    }
   }
 
   @Override
@@ -180,5 +242,9 @@ public class ModifiableArrow extends AbstractArrow implements ToolProjectile {
       setStack(ItemStack.of(tag.getCompound(KEY_STACK)));
     }
     this.entityData.set(WATER_INERTIA, tag.getFloat(KEY_WATER_INERTIA));
+    this.dealtDamage = tag.getBoolean(KEY_DEALT_DAMAGE);
+    if (tag.contains(KEY_TASKS, CompoundTag.TAG_COMPOUND)) {
+      this.tasks = Schedule.deserialize(tag.getList(KEY_TASKS, CompoundTag.TAG_COMPOUND));
+    }
   }
 }

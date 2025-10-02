@@ -77,7 +77,6 @@ public record MeltingModule(LevelingInt temperature, LevelingInt nuggetsPerMetal
   /** Last melting recipe used */
   private static IMeltingRecipe lastRecipe = null;
   /** Current item stack being processed */
-  @Setter
   private static ItemStack stack = ItemStack.EMPTY;
   /** Current modifier level being processed */
   private static int level = 0;
@@ -112,13 +111,13 @@ public record MeltingModule(LevelingInt temperature, LevelingInt nuggetsPerMetal
    */
   private FluidStack meltItem(ModifierEntry modifier, ItemStack stack, Level world) {
     level = modifier.intEffectiveLevel();
-    setStack(stack);
+    MeltingModule.stack = stack;
     // first, update inventory
     IMeltingRecipe recipe = lastRecipe;
     if (recipe == null || !recipe.matches(this, world)) {
       recipe = world.getRecipeManager().getRecipeFor(TinkerRecipeTypes.MELTING.get(), this, world).orElse(null);
       if (recipe == null) {
-        setStack(ItemStack.EMPTY);
+        MeltingModule.stack = ItemStack.EMPTY;
         return FluidStack.EMPTY;
       }
       lastRecipe = recipe;
@@ -128,7 +127,7 @@ public record MeltingModule(LevelingInt temperature, LevelingInt nuggetsPerMetal
     if (recipe.getTemperature(this) <= temperature.compute(level)) {
       result = recipe.getOutput(this);
     }
-    setStack(ItemStack.EMPTY);
+    MeltingModule.stack = ItemStack.EMPTY;
     return result;
   }
 

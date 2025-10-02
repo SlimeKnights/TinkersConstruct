@@ -1,0 +1,16 @@
+{
+  "perStat": {
+    "tconstruct:ammo": [
+      {
+        "level": 1,
+        "name": "tconstruct:reclaim"
+      }
+    ],
+    "tconstruct:armor": [
+      {
+        "level": 1,
+        "name": "tconstruct:shulking"
+      }
+    ]
+  }
+}

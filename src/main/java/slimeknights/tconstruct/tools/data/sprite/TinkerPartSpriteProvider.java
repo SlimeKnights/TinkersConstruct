@@ -137,7 +137,9 @@ public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
       // arrow
       .addArrowHead("arrow_head").addPart("arrow_shaft", StatlessMaterialStats.ARROW_SHAFT)
       // shuriken
-      .addArrowHead("shuriken_top").addArrowHead("shuriken_bottom");
+      .addArrowHead("shuriken_top").addArrowHead("shuriken_bottom")
+      // throwing axe - reuses arrow shaft
+      .addArrowHead("axe_head");
 
     // ancient tools
     buildTool("melting_pan").skipVariants().addBreakablePart("head", PlatingMaterialStats.SHIELD.getId()).addLimb("handle");

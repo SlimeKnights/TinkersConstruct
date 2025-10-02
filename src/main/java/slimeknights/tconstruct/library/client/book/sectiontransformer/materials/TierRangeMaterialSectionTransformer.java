@@ -30,6 +30,8 @@ import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
@@ -38,6 +40,7 @@ import java.util.Set;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 /**
  * Section transformer to show a range of materials tiers in the book
@@ -51,10 +54,15 @@ public class TierRangeMaterialSectionTransformer extends BookTransformer {
   public static final TierRangeMaterialSectionTransformer INSTANCE = new TierRangeMaterialSectionTransformer();
 
   /** Registers a new group of stat types to show on a page */
-  public static void registerMaterialType(ResourceLocation id, BiFunction<MaterialVariantId,Boolean,AbstractMaterialContent> constructor, MaterialStatsId... stats) {
-    if (MATERIAL_TYPES.putIfAbsent(id, new MaterialType(constructor, ImmutableSet.copyOf(stats))) != null) {
+  public static void registerMaterialType(ResourceLocation id, BiFunction<MaterialVariantId,Boolean,AbstractMaterialContent> constructor, @Nullable Comparator<IMaterial> sortComparator, MaterialStatsId... stats) {
+    if (MATERIAL_TYPES.putIfAbsent(id, new MaterialType(constructor, ImmutableSet.copyOf(stats), sortComparator)) != null) {
       throw new IllegalArgumentException("Duplicate material stat group " + id);
     }
+  }
+
+  /** Registers a new group of stat types to show on a page */
+  public static void registerMaterialType(ResourceLocation id, BiFunction<MaterialVariantId,Boolean,AbstractMaterialContent> constructor, MaterialStatsId... stats) {
+    registerMaterialType(id, constructor, null, stats);
   }
 
   @Override
@@ -75,7 +83,7 @@ public class TierRangeMaterialSectionTransformer extends BookTransformer {
           }
           visibleStats = typeData.visibleStats();
           pageBuilder = typeData.getMapping(GsonHelper.getAsBoolean(json, "detailed", false));
-          createPages(book, section, new ValidMaterial(visibleStats, tier, tag), pageBuilder);
+          createPages(book, section, new ValidMaterial(visibleStats, tier, tag), pageBuilder, typeData.sortComparator);
         } catch (JsonSyntaxException e) {
           TConstruct.LOG.error("Failed to parse material tier section data", e);
         }
@@ -107,14 +115,14 @@ public class TierRangeMaterialSectionTransformer extends BookTransformer {
   }
 
   /** Internal record from the registry */
-  private record MaterialType(BiFunction<MaterialVariantId,Boolean,AbstractMaterialContent> pageConstructor, Set<MaterialStatsId> visibleStats) {
+  private record MaterialType(BiFunction<MaterialVariantId,Boolean,AbstractMaterialContent> pageConstructor, Set<MaterialStatsId> visibleStats, @Nullable Comparator<IMaterial> sortComparator) {
     public Function<MaterialVariantId,AbstractMaterialContent> getMapping(boolean detailed) {
       return id -> pageConstructor.apply(id, detailed);
     }
   }
 
   /** Helper to add a page to the section */
-  private static PageData addPageStatic(SectionData data, String name, ResourceLocation type, PageContent content) {
+  private static PageData createPage(SectionData data, String name, ResourceLocation type, PageContent content) {
     PageData page = new PageData(true);
     page.source = data.source;
     page.parent = data;
@@ -122,10 +130,13 @@ public class TierRangeMaterialSectionTransformer extends BookTransformer {
     page.type = type;
     page.content = content;
     page.load();
-
-    data.pages.add(page);
-
     return page;
+  }
+
+  /** @deprecated use {@link #createPages(BookData, SectionData, Predicate, Function, Comparator)} */
+  @Deprecated(forRemoval = true)
+  public static void createPages(BookData book, SectionData sectionData, Predicate<IMaterial> validMaterial, Function<MaterialVariantId,AbstractMaterialContent> pageCreator) {
+    createPages(book, sectionData, validMaterial, pageCreator, null);
   }
 
   /**
@@ -135,11 +146,15 @@ public class TierRangeMaterialSectionTransformer extends BookTransformer {
    * @param validMaterial   Predicate to validate materials
    * @param pageCreator     Logic to create a page
    */
-  public static void createPages(BookData book, SectionData sectionData, Predicate<IMaterial> validMaterial, Function<MaterialVariantId,AbstractMaterialContent> pageCreator) {
+  public static void createPages(BookData book, SectionData sectionData, Predicate<IMaterial> validMaterial, Function<MaterialVariantId,AbstractMaterialContent> pageCreator, @Nullable Comparator<IMaterial> sortComparator) {
     sectionData.source = BookRepository.DUMMY;
     sectionData.parent = book;
 
-    List<IMaterial> materialList = MaterialRegistry.getMaterials().stream().filter(validMaterial).toList();
+    Stream<IMaterial> materialStream = MaterialRegistry.getMaterials().stream().filter(validMaterial);
+    if (sortComparator != null) {
+      materialStream = materialStream.sorted(sortComparator);
+    }
+    List<IMaterial> materialList = materialStream.toList();
     if (materialList.isEmpty()) {
       return;
     }
@@ -151,15 +166,41 @@ public class TierRangeMaterialSectionTransformer extends BookTransformer {
     ListIterator<ContentPageIconList> iter = listPages.listIterator();
     ContentPageIconList overview = iter.next();
 
+    List<PageData> newPages = new ArrayList<>(materialList.size());
     for (IMaterial material : materialList) {
       MaterialId materialId = material.getIdentifier();
       AbstractMaterialContent contentMaterial = pageCreator.apply(materialId);
-      PageData page = addPageStatic(sectionData, materialId.toString(), contentMaterial.getId(), contentMaterial);
+      PageData page = createPage(sectionData, materialId.toString(), contentMaterial.getId(), contentMaterial);
+      newPages.add(page);
 
       SizedBookElement icon = new ItemElement(0, 0, 1f, contentMaterial.getDisplayStacks());
       while (!overview.addLink(icon, contentMaterial.getTitleComponent(), page)) {
         overview = iter.next();
       }
     }
+    // insert new pages at the beginning after index, ensures its before any padding from the next section
+    sectionData.pages.addAll(listPages.size(), newPages);
+  }
+
+
+  /* Helpers */
+
+  /** Creates a feature extractor for a comparator that sorts based on a stat type being present, with order absent -> present */
+  public static Function<IMaterial,Boolean> hasStatType(MaterialStatsId statType) {
+    return mat -> MaterialRegistry.getInstance().getMaterialStats(mat.getIdentifier(), statType).isPresent();
+  }
+
+  /** Creates a feature extractor for a comparator that sorts based on a stat type being present, with order absent -> present */
+  public static Function<IMaterial,Boolean> hasStatType(IMaterialStats statType) {
+    return hasStatType(statType.getIdentifier());
+  }
+
+  /** Creates a feature extractor for a comparator that sorts based on tag order */
+  public static Function<IMaterial,Integer> tagOrder(TagKey<IMaterial> tag) {
+    return mat -> {
+      List<IMaterial> values = MaterialRegistry.getInstance().getTagValues(tag);
+      int index = values.indexOf(mat);
+      return index == -1 ? values.size() : index;
+    };
   }
 }

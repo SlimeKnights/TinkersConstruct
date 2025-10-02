@@ -208,11 +208,6 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
       .addInput(TinkerTags.Items.INGOTS_NETHERITE_SCRAP)
       .setMaxLevel(1)
       .save(consumer, prefix(ModifierIds.worldbound, slotlessFolder));
-    ModifierRecipeBuilder.modifier(ModifierIds.worldbound)
-      .setTools(TinkerTags.Items.SINGLE_USE)
-      .addInput(TinkerTags.Items.NUGGETS_NETHERITE_SCRAP)
-      .setMaxLevel(1)
-      .save(consumer, wrap(ModifierIds.worldbound, slotlessFolder, "_ammo"));
     ModifierRecipeBuilder.modifier(ModifierIds.soulbound)
       .setTools(multiuse)
       .addInput(Items.ECHO_SHARD)
@@ -572,9 +567,18 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Items.POINTED_DRIPSTONE)
                          .setMaxLevel(4) // same max as vanilla
                          .setSlots(SlotType.UPGRADE, 1)
-                         .setTools(TinkerTags.Items.BOWS) // pierce on longbows sounds fun in theory, may reconsider once ricochet is coded
+                         .setTools(TinkerTags.Items.BOWS) // salvage for old recipe
                          .saveSalvage(consumer, prefix(ModifierIds.arrowPierce, upgradeSalvage))
+                         .setTools(TinkerTags.Items.CROSSBOWS)
                          .save(consumer, prefix(ModifierIds.arrowPierce, upgradeFolder));
+    ModifierRecipeBuilder.modifier(ModifierIds.bounce)
+      .addInput(Items.PISTON)
+      .addInput(TinkerWorld.slime.get(SlimeType.ICHOR))
+      .setMaxLevel(3) // 7 bounces is more than you will ever need
+      .setSlots(SlotType.UPGRADE, 1)
+      .setTools(TinkerTags.Items.LONGBOWS)
+      .saveSalvage(consumer, prefix(ModifierIds.bounce, upgradeSalvage))
+      .save(consumer, prefix(ModifierIds.bounce, upgradeFolder));
     ModifierRecipeBuilder.modifier(ModifierIds.freezing)
                          .addInput(Items.POWDER_SNOW_BUCKET)
                          .setMaxLevel(3)
@@ -656,8 +660,9 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(SlimeType.ICHOR.getSlimeballTag())
                          .addInput(SlimeType.ICHOR.getSlimeballTag())
                          .setSlots(SlotType.ABILITY, 1)
-                         .setTools(TinkerTags.Items.BOWS)
+                         .setTools(TinkerTags.Items.BOWS) // allow salvaging multishot from an older bow
                          .saveSalvage(consumer, prefix(TinkerModifiers.multishot, abilitySalvage))
+                         .setTools(TinkerTags.Items.CROSSBOWS) // crossbow exclusive now
                          .save(consumer, prefix(TinkerModifiers.multishot, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.sinistral)
                          .addInput(TinkerMaterials.slimesteel.getIngotTag())
@@ -710,8 +715,8 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     ModifierRecipeBuilder.modifier(ModifierIds.throwing)
       .setTools(IntersectionIngredient.of(
         Ingredient.of(TinkerTags.Items.DURABILITY),
-        Ingredient.of(TinkerTags.Items.MELEE_WEAPON),
-        Ingredient.of(TinkerTags.Items.INTERACTABLE_CHARGE)
+        Ingredient.of(TinkerTags.Items.INTERACTABLE_CHARGE),
+        ingredientFromTags(TinkerTags.Items.MELEE_WEAPON, TinkerTags.Items.HARVEST)
       ))
       .addInput(bowLimb)
       .addInput(TinkerMaterials.cinderslime.getIngotTag())
@@ -721,7 +726,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
       .saveSalvage(consumer, prefix(ModifierIds.throwing, abilitySalvage))
       .save(consumer, prefix(ModifierIds.throwing, abilityFolder));
     MultilevelModifierRecipeBuilder.modifier(ModifierIds.returning)
-      .setTools(TinkerTags.Items.MELEE_WEAPON)
+      .setTools(ingredientFromTags(TinkerTags.Items.MELEE_WEAPON, TinkerTags.Items.HARVEST))
       .addInput(Items.ENDER_PEARL)
       .addInput(Items.CLOCK)
       .addInput(Items.ENDER_PEARL)
@@ -1017,6 +1022,15 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setSlots(SlotType.ABILITY, 2)
                          .saveSalvage(consumer, prefix(ModifierIds.wings, abilitySalvage))
                          .save(consumer, prefix(ModifierIds.wings, abilityFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.sleeves)
+      .setTools(TinkerTags.Items.CHESTPLATES)
+      .addInput(TinkerModifiers.silkyCloth)
+      .addInput(TinkerMaterials.cinderslime.getIngotTag())
+      .addInput(TinkerModifiers.silkyCloth)
+      .setSlots(SlotType.UPGRADE, 1)
+      .setMaxLevel(3)
+      .saveSalvage(consumer, prefix(TinkerModifiers.sleeves, upgradeSalvage))
+      .save(consumer, prefix(TinkerModifiers.sleeves, upgradeFolder));
 
     // leggings
     ModifierRecipeBuilder.modifier(ModifierIds.pockets)
@@ -1634,10 +1648,10 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
       .save(consumer, wrap(ModifierIds.rebalanced, slotlessFolder, "_traits"));
 
     // tipping arrows and shurikens
-    PotionCastingRecipeBuilder.tableRecipe(ModifierIds.tipped)
+    PotionCastingRecipeBuilder.tableTipping(ModifierIds.tipped)
       .setBottle(TinkerTags.Items.AMMO)
       .setCoolingTime(20)
-      .setFluid(TinkerFluids.potion.ingredient(FluidValues.BOTTLE / 10))
+      .setFluid(TinkerFluids.potion.ingredient(FluidValues.BOTTLE / 5))
       .save(consumer, location(slotlessFolder + "ammo_tipping"));
 
     // removal

@@ -66,7 +66,7 @@ public class PotionCastingRecipeBuilder extends AbstractRecipeBuilder<PotionCast
   /* Modifier casting */
 
   /** Creates a new casting recipe for a bottle */
-  public static PotionCastingRecipeBuilder castingRecipe(ModifierId modifier, TypeAwareRecipeSerializer<ToolPotionCastingRecipe> serializer) {
+  public static PotionCastingRecipeBuilder tippingRecipe(ModifierId modifier, TypeAwareRecipeSerializer<? extends PotionCastingRecipe> serializer) {
     return new PotionCastingRecipeBuilder(Items.AIR, modifier, serializer);
   }
 
@@ -75,8 +75,8 @@ public class PotionCastingRecipeBuilder extends AbstractRecipeBuilder<PotionCast
    * @param modifier  Modifier required to cast
    * @return  Builder instance
    */
-  public static PotionCastingRecipeBuilder basinRecipe(ModifierId modifier) {
-    return castingRecipe(modifier, TinkerSmeltery.basinToolPotionRecipeSerializer.get());
+  public static PotionCastingRecipeBuilder basinTipping(ModifierId modifier) {
+    return tippingRecipe(modifier, TinkerSmeltery.basinTippingRecipeSerializer.get());
   }
 
   /**
@@ -84,8 +84,8 @@ public class PotionCastingRecipeBuilder extends AbstractRecipeBuilder<PotionCast
    * @param modifier  Recipe result
    * @return  Builder instance
    */
-  public static PotionCastingRecipeBuilder tableRecipe(ModifierId modifier) {
-    return castingRecipe(modifier, TinkerSmeltery.tableToolPotionRecipeSerializer.get());
+  public static PotionCastingRecipeBuilder tableTipping(ModifierId modifier) {
+    return tippingRecipe(modifier, TinkerSmeltery.tableTippingRecipeSerializer.get());
   }
 
 
@@ -161,7 +161,7 @@ public class PotionCastingRecipeBuilder extends AbstractRecipeBuilder<PotionCast
     }
     ResourceLocation advancementId = this.buildOptionalAdvancement(id, "casting");
     if (modifier != null) {
-      consumer.accept(new LoadableFinishedRecipe<>(new ToolPotionCastingRecipe(recipeSerializer, id, group, bottle, fluid, coolingTime, modifier), ToolPotionCastingRecipe.LOADER, advancementId));
+      consumer.accept(new LoadableFinishedRecipe<>(new TippingCastingRecipe(recipeSerializer, id, group, bottle, fluid, coolingTime, modifier), TippingCastingRecipe.LOADER, advancementId));
     } else {
       consumer.accept(new LoadableFinishedRecipe<>(new PotionCastingRecipe(recipeSerializer, id, group, bottle, fluid, result, coolingTime), PotionCastingRecipe.LOADER, advancementId));
     }
