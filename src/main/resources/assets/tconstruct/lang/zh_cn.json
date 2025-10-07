@@ -335,6 +335,7 @@
   "pattern.tconstruct.tough_handle": "坚韧手柄",
   "pattern.tconstruct.bow_grip": "弓把",
   "pattern.tconstruct.arrow_shaft": "箭杆",
+  "pattern.tconstruct.arrow_part": "箭头或箭杆",
 
 
   "_comment": "Tinkers Gold Casts",
@@ -1115,6 +1116,7 @@
   "item.tconstruct.javelin": "标枪",
   "item.tconstruct.arrow": "箭矢",
   "item.tconstruct.shuriken": "手里剑",
+  "item.tconstruct.throwing_axe": "投斧",
 
   "item.tconstruct.flint_and_brick": "焦砖打火石",
   "item.tconstruct.sky_staff": "碧空黏液手杖",
@@ -1151,7 +1153,7 @@
   "item.tconstruct.slime_helmet.material.tconstruct.necrotic_bone": "凋灵骷髅黏液头颅",
   "item.tconstruct.slime_helmet.material.tconstruct.string": "蜘蛛黏液头颅",
   "item.tconstruct.slime_helmet.material.tconstruct.darkthread": "洞穴蜘蛛黏液头颅",
-  "item.tconstruct.slime_helmet.material.tconstruct.rotten_flesh": "僵尸黏液头颅",
+  "item.tconstruct.slime_helmet.material.tconstruct.leather":       "僵尸黏液头颅",
   "item.tconstruct.slime_helmet.material.tconstruct.iron": "尸壳黏液头颅",
   "item.tconstruct.slime_helmet.material.tconstruct.copper": "溺尸黏液头颅",
   "item.tconstruct.slime_helmet.material.tconstruct.blazing_bone": "烈焰人黏液头颅",
@@ -1228,10 +1230,11 @@
   "item.tconstruct.fishing_rod.description": "钓鱼竿是一种轻型远程武器，无需弹药即可对近处的目标实施打击。如果你想的话，还可以拿来钓鱼。",
   "item.tconstruct.javelin.description": "标枪是一种兼具近战与远程能力的武器。既可以造成近战伤害，也能投掷出去造成弹射物伤害。请注意，不要在标枪脱手后没武器可用！",
   "item.tconstruct.arrow.description": "箭矢是最基础的一次性使用的弹射物，可以通过长弓或弩发射。",
-  "item.tconstruct.shurikens.description": "手里剑是一种简单易用的弹射物，可以不借助其他工具而直接投掷。",
 
   "gui.tconstruct.plate_armor": "镶板盔甲",
   "gui.tconstruct.plate_armor.description": "镶板盔甲是一种防御较高但能力槽有限的盔甲。",
+  "gui.tconstruct.thrown_ammo": "可投掷武器",
+  "gui.tconstruct.thrown_ammo.description": "手里剑和投斧是可以轻松投掷的一种弹射物，无需其他工具也能投掷。手里剑飞行的距离更远，投斧造成的伤害更高。",
 
   "_comment": "Smeltery shared",
 
@@ -1749,7 +1752,7 @@
   "material.tconstruct.bamboo.flavor": "被敲竹杠了！",
   "material.tconstruct.bamboo.ranged": "拉弓时的移动速度惩罚-10%",
   "material.tconstruct.bamboo.armor": "举盾时的移动速度惩罚-10%",
-  "material.tconstruct.bamboo.ammo": "使箭矢获得100%精确度，即便弓提供的精确度不足",
+  "material.tconstruct.bamboo.ammo": "使弹射物+25%精确度，让箭矢更加精准（即便弓提供的精确度不足）。可投掷武器获得+25%速度",
 
   "material.tconstruct.ice": "冰",
   "material.tconstruct.ice.flavor": "冷静一下！",
@@ -1778,16 +1781,18 @@
 
   "material.tconstruct.bone": "骨头",
   "material.tconstruct.bone.flavor": "吾为所持剑之骨",
-  "material.tconstruct.bone.encyclopedia": "每级近战伤害+0.5，穿透护甲值+1",
-  "material.tconstruct.bone.ranged": "每级近战伤害+0.5，穿透护甲值+1",
+  "material.tconstruct.bone.encyclopedia": "每级近战伤害+0.5，攻击后穿透护甲值+1×等级，持续5秒",
+  "material.tconstruct.bone.ranged": "箭矢使目标被穿透护甲值+1×等级，持续5秒",
+  "material.tconstruct.bone.armor": "受击时，有15%概率使攻击者在接下来5秒内被穿透护甲值+1×等级（若格挡则改为10秒）",
+  "material.tconstruct.bone.ammo": "箭矢能穿过命中的第一个目标；可投掷武器可以禁用盾牌",
   "material.tconstruct.bone.skull_flavor": "来点奶么？",
   "material.tconstruct.bone.skull_encyclopedia": "饮用奶后获得1分钟抗性提升",
-  "material.tconstruct.bone.ammo": "能穿过命中的第一个目标，从而能击中第二个目标",
 
   "material.tconstruct.necrotic_bone": "噬生之骨",
   "material.tconstruct.necrotic_bone.flavor": "故意挑我骨头是不？",
   "material.tconstruct.necrotic_bone.encyclopedia": "暴击时，每级回复等同于造成伤害5%的生命值",
   "material.tconstruct.necrotic_bone.ranged": "箭矢命中时，每级回复等同于造成伤害5%的生命值",
+  "material.tconstruct.necrotic_bone.armor": "受击时，15%概率逐渐回复当次伤害最多25%的生命值",
   "material.tconstruct.necrotic_bone.ammo": "命中时，每级回复等同于造成伤害5%的生命值",
   "material.tconstruct.necrotic_bone.skull_flavor": "惊悚恐怖骷髅头！",
   "material.tconstruct.necrotic_bone.skull_encyclopedia": "普通攻击给予敌人凋零效果。饮用奶后治疗速度更快",
@@ -1808,6 +1813,9 @@
   "material.tconstruct.leather": "皮革",
   "material.tconstruct.leather.flavor": "温“鞣”地杀死一头牛。",
   "material.tconstruct.leather.encyclopedia": "每次使用工具最高只会消耗1点耐久度",
+  "material.tconstruct.leather.skull_flavor": "还行吧",
+  "material.tconstruct.leather.skull_encyclopedia": "近战攻击时，会根据穿戴者的剩余燃烧时间延长目标的燃烧时间 ",
+
 
   "material.tconstruct.vine": "藤蔓",
   "material.tconstruct.vine.flavor": "朝气蓬勃，不像那死气沉沉的社交网络。",
@@ -1821,7 +1829,7 @@
   "material.tconstruct.iron.flavor": "他铁了心要保护别人不死，却不能保护他自己，多么讽刺。",
   "material.tconstruct.iron.encyclopedia": "挖掘方块与攻击生物时吸引周围物品。",
   "material.tconstruct.iron.ranged": "发射箭矢时吸引周围物品。",
-  "material.tconstruct.iron.armor": "每级弹射物伤害-10%；并提供最高等级5%的击退抗性。",
+  "material.tconstruct.iron.armor": "每级使受到的弹射物伤害-8%；并提供最高等级5%的击退抗性。",
   "material.tconstruct.iron.skull_flavor": "违反隔离条例",
   "material.tconstruct.iron.skull_encyclopedia": "近战攻击会将攻击者携带的所有负面效果复制到攻击目标身上",
 
@@ -1844,6 +1852,12 @@
   "material.tconstruct.copper.skull_flavor": "你的攻击令人窒息",
   "material.tconstruct.copper.skull_encyclopedia": "近战攻击使敌人3秒钟无法呼吸",
 
+  "material.tconstruct.gold": "金",
+  "material.tconstruct.gold.flavor": "猪灵的最爱",
+  "material.tconstruct.gold.armor": "每级对魔法伤害保护+10%，减少负面效果时间。让猪灵变得更友好。",
+  "material.tconstruct.gold.skull_flavor": "金闪闪",
+  "material.tconstruct.gold.skull_encyclopedia": "使得某些金矿掉落更多金粒，使金盔甲掉落概率+4%。每穿戴一件金盔甲，金粒和金盔甲的掉落概率也会随之增加。",
+
   "material.tconstruct.slimewood": "黏木",
   "material.tconstruct.slimewood.greenheart": "绿心木",
   "material.tconstruct.slimewood.skyroot": "天根木",
@@ -1851,6 +1865,7 @@
   "material.tconstruct.slimewood.enderbark":  "末影皮木",
   "material.tconstruct.slimewood.flavor": "这黏木到底是长了黏液的木头还是长了木头的黏液？",
   "material.tconstruct.slimewood.encyclopedia": "有概率每秒自行再生黏液覆层，每级概率+5%",
+  "material.tconstruct.slimewood.ammo": "使弹射物飞行速度快到可以在方块上弹跳，最多3次",
   "material.tconstruct.slimeskin": "黏液皮",
   "material.tconstruct.slimeskin.flavor": "史莱姆也有皮肤？",
   "material.tconstruct.slimeskin.encyclopedia": "有概率每秒自行再生黏液覆层，每级概率+5%",
@@ -1859,6 +1874,8 @@
   "material.tconstruct.venombone.flavor": "敌人的眼中钉",
   "material.tconstruct.venombone.encyclopedia": "中毒时增加0.5+中毒效果等级点近战伤害",
   "material.tconstruct.venombone.ranged": "中毒时增加0.05+0.1×中毒效果等级点拉弓速度",
+  "material.tconstruct.venombone.armor": "受击时，有15%概率使攻击者在接下来5至10秒内受到的魔法伤害增加到200%（若格挡则延长至最多15秒）",
+  "material.tconstruct.venombone.ammo": "使目标在接下来5至10秒内受到的魔法伤害增加到200%",
   "material.tconstruct.venombone.skull_flavor": "令人毛骨悚然",
   "material.tconstruct.venombone.skull_encyclopedia": "弹射物对目标施加缓慢效果。饮用牛奶后，近战攻击也会给予目标更高等级的缓慢效果。",
 
@@ -1904,7 +1921,7 @@
   "material.tconstruct.wool.green": "绿色羊毛",
   "material.tconstruct.wool.red": "红色羊毛",
   "material.tconstruct.wool.black": "黑色羊毛",
-  "material.tconstruct.wool.flavor": "Woolooloo",
+  "material.tconstruct.wool.flavor": "软绵绵",
   "material.tconstruct.wool.ammo": "弹射物伤害会乘以0。注意，实际伤害仍可能因弓提供的弹射物力量而增加，且仍会激怒特定生物",
 
   "material.tconstruct.amethyst": "紫水晶",
@@ -1935,7 +1952,7 @@
 
   "material.tconstruct.glass": "玻璃",
   "material.tconstruct.glass.flavor": "一碰即碎！",
-  "material.tconstruct.glass.ammo": "每级-0.75弹射物伤害，但增加一个储罐。命中目标时，对它造成储罐内流体所对应的效果",
+  "material.tconstruct.glass.ammo": "每级-0.75弹射物伤害，但增加一个储罐。命中目标时，对它造成储罐内流体所对应的效果。充填流体时，击中方块将会碎裂",
   "material.tconstruct.glass.skull_flavor": "现在是谁炸谁了，苦力怕？",
   "material.tconstruct.glass.skull_encyclopedia": "潜行按住“头盔交互”键会使穿戴者爆炸",
 
@@ -1948,7 +1965,11 @@
   "material.tconstruct.nahuatl": "纳瓦特尔",
   "material.tconstruct.nahuatl.flavor": "这真的不是黑曜石，如果是的话它的名字就会叫做“黑曜石”了。",
   "material.tconstruct.nahuatl.encyclopedia": "有50%概率在一段时间内造成总共5点伤害。每级增加伤害总量",
-  "material.tconstruct.nahuatl.armor": "每级有25%概率在一段时间内造成总共5点伤害。",
+  "material.tconstruct.nahuatl.armor": "每级有25%概率在一段时间内造成总共5点伤害（格挡时改为50%概率）",
+
+  "material.tconstruct.obsidian": "黑曜石",
+  "material.tconstruct.obsidian.flavor": "这才是真的黑曜石，所以它的名字就叫“黑曜石”。",
+  "material.tconstruct.obsidian.armor": "每级对爆炸抗性+10%，同时降低爆炸造成的击退效果。",
 
   "material.tconstruct.amethyst_bronze": "紫水晶青铜",
   "material.tconstruct.amethyst_bronze.flavor": "别和青铜搞混了。",
@@ -1976,7 +1997,7 @@
   "material.tconstruct.cobalt.flavor": "雄关漫道真如钴，而今回首从头迈。",
   "material.tconstruct.cobalt.encyclopedia": "每级攻击速度和挖掘速度+7%",
   "material.tconstruct.cobalt.ranged": "每级拉弓速度和初速度+5%",
-  "material.tconstruct.cobalt.armor": "每级近战攻击伤害-10%，移动速度+5%，等级由强化等级最高的盔甲决定。",
+  "material.tconstruct.cobalt.armor": "每级近战攻击伤害-8%，移动速度+5%，等级由强化等级最高的盔甲决定。",
 
   "material.tconstruct.quartz": "石英",
   "material.tconstruct.quartz.flavor": "锋利！",
@@ -1986,6 +2007,11 @@
   "material.tconstruct.dragon_scale.flavor": "只要有了这个，龙看见了也得怕！",
   "material.tconstruct.dragon_scale.armor": "滞空时+10%抗性；每级攻击伤害+5%，等级由强化等级最高的盔甲决定",
   "material.tconstruct.dragon_scale.ammo": "对于滞空时发射的弹射物，每级使其伤害+1",
+
+  "material.tconstruct.shulker": "潜影壳",
+  "material.tconstruct.shulker.flavor": "牢不可破！",
+  "material.tconstruct.shulker.armor": "潜行时抗性+10%，但同时减少10%×等级攻击伤害",
+  "material.tconstruct.shulker.ammo": "现在除了击中方块的弹射物以外，命中了实体的弹射物也可以回收，由此使这些物品几乎无限回收。此外，带有此强化的物品不会自然消失。",
 
   "material.tconstruct.manyullyn": "玛玉灵",
   "material.tconstruct.manyullyn.flavor": "没几个工匠能叫对这材料的名字。他们说这个材料能够斩断星辰。",
@@ -1998,12 +2024,6 @@
   "material.tconstruct.hepatizon.encyclopedia": "在连续挖掘32个方块后挖掘速度呈线性增加，每级挖掘速度至多+25%",
   "material.tconstruct.hepatizon.ranged": "连续发射16次后拉弓速度呈线性增加，每级拉弓速度至多+25%",
   "material.tconstruct.hepatizon.armor": "受到伤害后，将伤害的50%暂时转换为伤害减免值，每级伤害减免持续时间+5秒。",
-
-  "material.tconstruct.knightmetal": "骑士金属",
-  "material.tconstruct.knightmetal.flavor": "史莱姆们旅途中得到的金属，也能从暮色森林某一穿盔甲的生物那找到。",
-  "material.tconstruct.knightmetal.encyclopedia": "目标每穿戴一件盔甲，每级伤害+0.5",
-  "material.tconstruct.knightmetal.ranged": "目标每穿戴一件盔甲，每级箭矢伤害+0.25（先于初速度计算）",
-  "material.tconstruct.knightmetal.armor": "目标每手持一件物品，每级提供的保护+5%",
 
   "material.tconstruct.ichorskin": "灵浆皮",
   "material.tconstruct.ichorskin.flavor": "灵浆显然没有外皮",
@@ -2021,12 +2041,23 @@
   "material.tconstruct.blazing_bone.flavor": "获取下界要塞的所有力量——烈焰之力与骨之力",
   "material.tconstruct.blazing_bone.encyclopedia": "在火焰中每秒伤害+1%，在熔岩中15秒伤害至多+15%。若有抗火效果会减少加成。",
   "material.tconstruct.blazing_bone.ranged": "在火焰中每秒箭矢伤害+1%，在熔岩中15秒伤害至多+15%。若有抗火效果会减少加成。",
+  "material.tconstruct.blazing_bone.armor": "受击时，有15%概率使攻击者在接下来5至10秒内受到的火焰伤害增加到200%（若格挡则延长至最多15秒）",
+  "material.tconstruct.blazing_bone.ammo": "使目标在接下来5至10秒内受到的火焰伤害增加到200%",
   "material.tconstruct.blazing_bone.skull_flavor": "我给他们说了，这东西从技术层面来说其实是吐火，不是喷火。但是很显然，我发明的东西我却没有命名权",
   "material.tconstruct.blazing_bone.skull_encyclopedia": "能够以火球的形式从物品栏中发射火焰弹。冷却时间5秒，不能在水下使用",
 
   "material.tconstruct.blazewood": "烈焰木",
   "material.tconstruct.blazewood.flavor": "火光守护着烈焰",
-  "material.tconstruct.blazewood.encyclopedia": "着火后，每秒对非火焰伤害保护+0.5%，在熔岩中15秒伤害至多+7.5%。若有抗火效果会减少加成。",
+  "material.tconstruct.blazewood.encyclopedia": "使攻击者发光，持续10秒；若格挡则改为20秒",
+  "material.tconstruct.blazewood.ammo": "使目标发光，持续10秒。若击中方块，则消耗箭矢在目标位置放置一个永久的光源",
+
+  "material.tconstruct.ichor": "灵浆",
+  "material.tconstruct.ichor.flavor": "弹跳的石子",
+  "material.tconstruct.ichor.ammo": "弹射物会在击中方块后反弹，初始最多1次，每级增加上限2次。命中目标前每弹跳一次，弹射物力量都会增加0.5×等级",
+
+  "material.tconstruct.glowstone": "荧石",
+  "material.tconstruct.glowstone.flavor": "白昼朗朗，黑夜茫茫。深山老洞，无所遁藏！",
+  "material.tconstruct.glowstone.ammo": "使目标发光，每级增加持续时间10秒。若击中方块，则消耗箭矢在目标位置放置一个永久的光源",
 
   "material.tconstruct.soulsteel": "魂钢",
 
@@ -2036,7 +2067,21 @@
   "material.tconstruct.ancient_hide.ranged": "获得一个额外的防御槽",
   "material.tconstruct.ancient_hide.armor": "获得一个额外的防御槽",
 
+  "material.tconstruct.ancient": "远古残骸",
+  "material.tconstruct.ancient.flavor": "如今之物，不复旧时之质",
+  "material.tconstruct.ancient.encyclopedia": "通过战镐、喷流刃、战斗牌子或猪灵以物易物机制获得。每级能力槽+1，但攻击速度和挖掘速度分别-10%，重力+10%。",
+  "material.tconstruct.ancient.ranged": "通过熔炼锅、战镐或猪灵以物易物机制获得。每级能力槽+1，但拉弓速度-10%，重力+10%。",
+  "material.tconstruct.ancient.armor": "通过堡垒遗迹内的镶板盔甲、战斗牌子、熔炼锅或猪灵以物易物机制获得。每级能力槽+1，但重力+10%，移动速度-10%；对于盾牌，攻击速度-10%。",
+
+
   "__comment": "Tier End Materials",
+
+  "material.tconstruct.knightmetal": "骑士金属",
+  "material.tconstruct.knightmetal.flavor": "史莱姆们旅途中得到的金属，也能从暮色森林某一穿盔甲的生物那找到。",
+  "material.tconstruct.knightmetal.encyclopedia": "目标每穿戴一件盔甲，每级伤害+0.5",
+  "material.tconstruct.knightmetal.ranged": "目标每穿戴一件盔甲，每级箭矢伤害+0.25（先于初速度计算）",
+  "material.tconstruct.knightmetal.armor": "目标每手持一件物品，每级提供的保护+5%",
+
   "material.tconstruct.knightslime": "骑士史莱姆",
 
   "material.tconstruct.enderslime_vine": "黏液藤蔓",
@@ -2046,10 +2091,6 @@
   "material.tconstruct.enderslime_vine.ranged": "将持有者传送到击中方块的箭矢处，或交换持有者与被命中生物的位置",
   "material.tconstruct.enderslime_vine.armor": "每件装备增加25%概率，将攻击者随机传送走",
 
-  "material.tconstruct.ichor": "灵浆",
-  "material.tconstruct.ichor.flavor": "白昼朗朗，黑夜茫茫。深山老洞，无所遁藏！",
-  "material.tconstruct.ichor.ammo": "每级使目标+10秒发光时间。命中方块时，放置一永久的光源",
-
   "material.tconstruct.enderslime": "末影黏液",
   "material.tconstruct.enderslime.flavor": "去无踪",
   "material.tconstruct.enderslime.ammo": "使目标随机传送到最多16格远，2级时改为最多24格远",
@@ -2057,37 +2098,11 @@
 
   "__comment": "Slimesuit materials",
 
-  "material.tconstruct.rotten_flesh": "腐肉",
-  "material.tconstruct.rotten_flesh.skull_flavor": "还行吧",
-  "material.tconstruct.rotten_flesh.skull_encyclopedia": "近战攻击时，会根据穿戴者的燃烧时间延长攻击目标的燃烧时间",
-
-  "material.tconstruct.gold": "金",
-  "material.tconstruct.gold.flavor": "猪灵的最爱",
-  "material.tconstruct.gold.armor": "每级对魔法伤害保护+10%，减少负面效果时间。让猪灵变得更友好。",
-  "material.tconstruct.gold.skull_flavor": "金闪闪",
-  "material.tconstruct.gold.skull_encyclopedia": "使得某些金矿掉落更多金粒，使金盔甲掉落概率+4%。每穿戴一件金盔甲，金粒和金盔甲的掉落概率也会随之增加。",
-
-  "material.tconstruct.obsidian": "黑曜石",
-  "material.tconstruct.obsidian.flavor": "这才是真的黑曜石，所以它的名字就叫“黑曜石”。",
-  "material.tconstruct.obsidian.armor": "每级对爆炸抗性+10%，同时降低爆炸造成的击退效果。",
-  "material.tconstruct.ancient": "远古残骸",
-  "material.tconstruct.ancient.flavor": "如今之物，不复旧时之质",
-  "material.tconstruct.ancient.encyclopedia": "通过战镐、喷流刃、战斗牌子或猪灵以物易物机制获得。每级能力槽+1，但攻击速度和挖掘速度分别-10%。",
-  "material.tconstruct.ancient.ranged": "通过熔炼锅、战镐或猪灵以物易物机制获得。每级能力槽+1，但拉弓速度-10%。",
-  "material.tconstruct.ancient.armor": "通过堡垒遗迹内的镶板盔甲、战斗牌子、熔炼锅或猪灵以物易物机制获得。每级能力槽+1，但移动速度-10%；对于盾牌，攻击速度-10%。",
-  "material.tconstruct.netherite": "下界合金",
   "material.tconstruct.blood": "血",
   "material.tconstruct.magma": "岩浆",
   "material.tconstruct.clay": "黏土",
   "material.tconstruct.honey": "蜂蜜",
-  "material.tconstruct.venom": "毒液",
   "material.tconstruct.phantom": "幻翼膜",
-
-  "material.tconstruct.nickel": "镍",
-  "material.tconstruct.tin": "锡",
-  "material.tconstruct.zinc": "锌",
-  "material.tconstruct.brass": "黄铜",
-  "material.tconstruct.uranium": "铀",
 
 
   "__comment": "Tier 2 Integration Materials",
@@ -2168,8 +2183,9 @@
   "material.tconstruct.electrum.armor": "每级有20%概率对水中的攻击者造成2至5点伤害，攻击者处于雨中时概率改为10%",
 
   "material.tconstruct.necronium": "辐射之骨",
-  "material.tconstruct.necronium.flavor": "这么多的辐射，很可能标志着你为数不多的生命只剩下四分之一了",
-  "material.tconstruct.necronium.encyclopedia": "能对目标生物造成至少5秒的凋零效果，也有25%的概率给自身也造成同样效果",
+  "material.tconstruct.necronium.flavor": "这么强的辐射，你的半条命怕是还要打个折",
+  "material.tconstruct.necronium.encyclopedia": "能对目标生物造成至少5秒的凋零效果，另有25%概率对自身造成相同效果",
+  "material.tconstruct.necronium.armor": "受击时，有50%概率使攻击者凋零，持续5秒（格挡时改为100%概率）；另有10%概率给自身造成相同效果",
 
   "material.tconstruct.plated_slimewood": "复合黏木",
   "material.tconstruct.plated_slimewood.flavor": "黄铜的光泽感加上那黏液的啪叽啪叽声，多么美妙啊！",
@@ -2371,6 +2387,9 @@
   "modifier.tconstruct.impaling": "穿透",
   "modifier.tconstruct.impaling.flavor": "就这样飞啊，飞啊，飞啊……",
   "modifier.tconstruct.impaling.description": "箭矢在击中一个目标后，会继续飞行并击中多个目标。",
+  "modifier.tconstruct.spike": "尖刺",
+  "modifier.tconstruct.spike.flavor": "拿来戳人一定很痛吧",
+  "modifier.tconstruct.spike.description": "箭矢在击中目标后会继续飞行；可投掷武器可以禁用盾牌",
   "modifier.tconstruct.trueshot": "神射",
   "modifier.tconstruct.trueshot.flavor": "百步穿杨！",
   "modifier.tconstruct.trueshot.description": "增加武器的精确度",
@@ -2515,12 +2534,12 @@
   "modifier.tconstruct.aqua_affinity.description": "在水下挖掘方块时不再减慢挖掘速度",
   "modifier.tconstruct.item_frame": "物品展示框",
   "modifier.tconstruct.item_frame.flavor": "我能目清一切",
-  "modifier.tconstruct.item_frame.description": "为头盔增加数个物品栏，从而便于查看。非常适合放置时钟或指南针",
+  "modifier.tconstruct.item_frame.description": "为头盔增加数个物品槽位，便于查看其中物品。非常适合放置时钟或指南针",
   "modifier.tconstruct.minimap": "小地图",
   "modifier.tconstruct.minimap.flavor": "探险家的梦想",
-  "modifier.tconstruct.minimap.description": "为头盔增加数个物品栏，可以放置地图",
+  "modifier.tconstruct.minimap.description": "为头盔增加数个物品槽位，可以放置地图",
   "modifier.tconstruct.minimap.disabled": "小地图：关闭",
-  "modifier.tconstruct.minimap.selected": "小地图：已从栏位%3$s选择%1$s #%2$s",
+  "modifier.tconstruct.minimap.selected": "小地图：从%3$s中槽位选择了%1$s #%2$s",
 
   "_comment": "Armor - chestplate",
   "modifier.tconstruct.armor_power": "能量",
@@ -2529,6 +2548,11 @@
   "modifier.tconstruct.strength": "力量",
   "modifier.tconstruct.strength.flavor": "你能感受到流过体内的力量么？",
   "modifier.tconstruct.strength.description": "让你的武器更加强大",
+  "modifier.tconstruct.sleeves": "袖袋",
+  "modifier.tconstruct.sleeves.flavor": "适合存放手里剑！",
+  "modifier.tconstruct.sleeves.description": "为胸甲添加9个物品槽位，用于放置可投掷物品，空手时按下交互键可以将其掷出",
+  "modifier.tconstruct.sleeves.disabled": "袖袋：关闭",
+  "modifier.tconstruct.sleeves.selected": "袖袋：从%2$s槽位中选择了%1$s",
   "modifier.tconstruct.ambidextrous": "双利手",
   "modifier.tconstruct.ambidextrous.flavor": "僧侣之选",
   "modifier.tconstruct.ambidextrous.description": "使主副手都能徒手攻击",
@@ -2719,6 +2743,7 @@
   "modifier.tconstruct.fins": "鱼鳍",
   "modifier.tconstruct.fins.flavor": "扑通！",
   "modifier.tconstruct.fins.description": "工具作为弹射物在水下飞行时，不受阻力影响。",
+  "modifier.tconstruct.fins.projectile_damage": "水下伤害",
 
   "modifier.tconstruct.fishing": "垂钓",
   "modifier.tconstruct.fishing.flavor": "我必须立刻开始钓鱼小游戏",
@@ -2790,6 +2815,10 @@
   "modifier.tconstruct.forecast": "启示",
   "modifier.tconstruct.forecast.flavor": "全新升级！",
   "modifier.tconstruct.forecast.description": "揭示工具的下1个升级槽！",
+  "modifier.tconstruct.resurrected": "复生",
+  "modifier.tconstruct.resurrected.flavor": "殒命得归！",
+  "modifier.tconstruct.resurrected.description": "使工具的1个升级槽重获新生！",
+  "modifier.tconstruct.resurrected.requirements": "“启示”与“复生”不兼容",
   "modifier.tconstruct.embossed": "浮雕",
   "modifier.tconstruct.embossed.flavor": "野兽杀手！",
   "modifier.tconstruct.embossed.description": "为工具添加1个额外的升级槽！",
@@ -2839,7 +2868,7 @@
   "modifier.tconstruct.jagged.description": "工具的耐久度越低，伤害值越高，但挖掘速度越低",
   "modifier.tconstruct.jagged.mining_speed": "挖掘速度",
   "modifier.tconstruct.jagged.attack_damage": "近战伤害",
-  "modifier.tconstruct.tipped": "可浸药",
+  "modifier.tconstruct.tipped": "可以浇注药水",
   "modifier.tconstruct.tipped.format": "浇注了%s（%s）",
   "modifier.tconstruct.tipped.flavor": "还可改良",
   "modifier.tconstruct.tipped.description": "命中时，造成弹射物上浇注药水的对应效果",
@@ -2857,9 +2886,9 @@
   "modifier.tconstruct.unburdened": "轻省",
   "modifier.tconstruct.unburdened.flavor": "易用",
   "modifier.tconstruct.unburdened.description": "使用该物品时，移动速度的减益较小。",
-  "modifier.tconstruct.woodwind": "木笛",
+  "modifier.tconstruct.woodwind": "木管",
   "modifier.tconstruct.woodwind.flavor": "破空之声",
-  "modifier.tconstruct.woodwind.description": "在空气中更自如地飞行，精确度大幅提升。有时还能听到它飞行时的音乐",
+  "modifier.tconstruct.woodwind.description": "在空气中更自如地飞行，精确度大幅提升，对可投掷武器的速度也有所加成。有人称曾听到它飞行时的哨音",
   "modifier.tconstruct.soft": "柔软",
   "modifier.tconstruct.soft.flavor": "化干戈为玉帛",
   "modifier.tconstruct.soft.description": "使弹射物伤害降低至0",
@@ -2897,6 +2926,13 @@
   "modifier.tconstruct.overgrowth": "蔓生",
   "modifier.tconstruct.overgrowth.flavor": "像菌子一样！",
   "modifier.tconstruct.overgrowth.description": "工具会缓慢生长出黏液覆层",
+  "modifier.tconstruct.bounce": "弹射",
+  "modifier.tconstruct.bounce.flavor": "弹力十足！",
+  "modifier.tconstruct.bounce.description": "箭矢在击中方块后可以反弹，非常适合于特技射击！",
+  "modifier.tconstruct.rebound": "回弹",
+  "modifier.tconstruct.rebound.flavor": "特技射击！",
+  "modifier.tconstruct.rebound.description": "基于已反弹的次数，增加弹射物力量",
+  "modifier.tconstruct.rebound.projectile_damage": "回弹伤害",
   "modifier.tconstruct.raging": "愤怒",
   "modifier.tconstruct.raging.flavor": "破釜沉舟，背水一战！",
   "modifier.tconstruct.raging.description": "工具在持有者生命值较低时造成更多伤害",
@@ -2911,6 +2947,9 @@
   "modifier.tconstruct.antitoxin.description": "中毒时工具伤害更高，拉弓速度更快",
   "modifier.tconstruct.antitoxin.attack_damage": "毒液伤害",
   "modifier.tconstruct.antitoxin.draw_speed": "毒液拉弓速度",
+  "modifier.tconstruct.venom": "毒素",
+  "modifier.tconstruct.venom.flavor": "有毒！",
+  "modifier.tconstruct.venom.description": "使攻击目标短时间内受到的魔法伤害翻倍",
   "modifier.tconstruct.enhanced": "增强",
   "modifier.tconstruct.enhanced.flavor": "闪闪放光芒！",
   "modifier.tconstruct.enhanced.description": "玫瑰金极佳地容纳了更多的升级槽！",
@@ -3004,6 +3043,9 @@
   "modifier.tconstruct.conducting.flavor": "热学之力！",
   "modifier.tconstruct.conducting.description": "着火时工具会造成成倍的伤害",
   "modifier.tconstruct.conducting.boost": "着火时最大伤害增益",
+  "modifier.tconstruct.conductive": "导热",
+  "modifier.tconstruct.conductive.flavor": "热流！",
+  "modifier.tconstruct.conductive.description": "使攻击目标短时间内受到的火焰伤害翻倍",
   "modifier.tconstruct.flame_barrier": "火障",
   "modifier.tconstruct.flame_barrier.flavor": "热学之卫！",
   "modifier.tconstruct.flame_barrier.description": "着火时增加保护",
@@ -3016,6 +3058,9 @@
   "modifier.tconstruct.dragonshot.flavor": "龙之兵器",
   "modifier.tconstruct.dragonshot.description": "在空中射击时造成额外伤害",
   "modifier.tconstruct.dragonshot.projectile_damage": "悬空时伤害",
+  "modifier.tconstruct.reclaim": "回收",
+  "modifier.tconstruct.reclaim.flavor": "降解、复用、循环",
+  "modifier.tconstruct.reclaim.description": "击中目标后，弹射物会弹开，以便收集再利用",
 
   "__comment": "Tier 5 Traits",
   "modifier.tconstruct.enderporting": "末影传送",
@@ -3246,6 +3291,8 @@
   "effect.tconstruct.pierce": "穿甲",
   "effect.tconstruct.calcified": "钙质化",
   "effect.tconstruct.self_destructing": "自斥",
+  "effect.tconstruct.venom": "毒素",
+  "effect.tconstruct.conductive": "导热",
 
   "_comment": "Internal effects",
   "effect.tconstruct.momentum_harvest": "动力",
