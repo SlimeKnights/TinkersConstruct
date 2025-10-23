@@ -275,6 +275,10 @@ public class TinkerTags {
     public static final TagKey<Item> RAW_BLOCK_COBALT = common("storage_blocks/raw_cobalt");
     public static final TagKey<Item> RAW_COBALT = common("raw_materials/cobalt");
 
+    // non-standard prefix for items that smelt into 1 nugget but are not in fact nuggets
+    public static final TagKey<Item> STEEL_SHARD = common("raw_nuggets/steel");
+    public static final TagKey<Item> KNIGHTMETAL_SHARD = common("raw_nuggets/knightmetal");
+
     public static final TagKey<Item> NUGGETS_NETHERITE = common("nuggets/netherite");
     public static final TagKey<Item> INGOTS_NETHERITE_SCRAP = common("ingots/netherite_scrap");
     public static final TagKey<Item> NUGGETS_NETHERITE_SCRAP = common("nuggets/netherite_scrap");

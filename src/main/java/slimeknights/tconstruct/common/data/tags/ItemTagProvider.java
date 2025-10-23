@@ -160,6 +160,9 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.tag(TinkerTags.Items.NUGGETS_NETHERITE).add(TinkerMaterials.netheriteNugget.get());
     this.tag(TinkerTags.Items.NUGGETS_NETHERITE_SCRAP).add(TinkerMaterials.debrisNugget.get());
 
+    this.tag(TinkerTags.Items.STEEL_SHARD).add(TinkerWorld.steelShard.get());
+    this.tag(TinkerTags.Items.KNIGHTMETAL_SHARD).add(TinkerWorld.knightmetalShard.get());
+
     // ores
     addMetalTags(TinkerMaterials.steel);
     addMetalTags(TinkerMaterials.cobalt);
@@ -469,7 +472,7 @@ public class ItemTagProvider extends ItemTagsProvider {
              Items.LIGHT_GRAY_SHULKER_BOX, Items.CYAN_SHULKER_BOX, Items.PURPLE_SHULKER_BOX, Items.BLUE_SHULKER_BOX,
              Items.BROWN_SHULKER_BOX, Items.GREEN_SHULKER_BOX, Items.RED_SHULKER_BOX, Items.BLACK_SHULKER_BOX);
     this.tag(TinkerTags.Items.THROWABLE)
-      .add(Items.SNOWBALL, Items.EGG, Items.ENDER_PEARL, Items.SPLASH_POTION, Items.LINGERING_POTION, Items.EXPERIENCE_BOTTLE)
+      .add(Items.SNOWBALL, Items.EGG, Items.ENDER_PEARL, Items.SPLASH_POTION, Items.LINGERING_POTION, Items.EXPERIENCE_BOTTLE, Items.ENDER_EYE, Items.FIREWORK_ROCKET)
       .add(TinkerGadgets.efln.get(), TinkerGadgets.flintShuriken.get(), TinkerGadgets.quartzShuriken.get(), TinkerGadgets.glowBall.get())
       .addTag(THROWN_AMMO);
 
@@ -511,6 +514,7 @@ public class ItemTagProvider extends ItemTagsProvider {
       .addOptional(trophy.apply("quest_ram"));
     this.tag(TinkerTags.Items.THROWABLE)
       .addOptional(new ResourceLocation(tf, "ice_bomb"));
+    this.tag(TinkerTags.Items.KNIGHTMETAL_SHARD).addOptional(new ResourceLocation(tf, "armor_shard"));
   }
 
   private void addSmeltery() {

@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "item": "tconstruct:steel_cluster"
+  },
+  "result": {
+    "amount": 40,
+    "tag": "forge:molten_steel"
+  },
+  "temperature": 950,
+  "time": 162
+}

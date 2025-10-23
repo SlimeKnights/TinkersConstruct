@@ -18,6 +18,7 @@
     "melting":       "#FFD800",
     "silky":         "#F7CDBB",
     "spilling":      "#F98648",
+    "spilling_rod":  "#F98648",
 
     "__interaction_abilities__": null,
     "blocking":    "#755A30",
@@ -33,6 +34,7 @@
     "returning":   "#EADB84",
     "fishing":     "#C6A271",
     "lure":        "#F7CD36",
+    "lure_rod":    "#F7CD36",
     "grapple":     "#B80000",
     "collecting":  "#67718C",
 
@@ -180,6 +182,7 @@
     "__ranged_upgrades__": null,
     "blindshot":    "#966C4A",
     "fins":         "#7CB3A4",
+    "fins_ammo":    "#7CB3A4",
     "freezing":     "#BEF0F0",
     "impaling":     "#F6E2CD",
     "power":        "#EAA727",
@@ -279,7 +282,9 @@
     "drawback":      "#01cd4e",
     "tipped":        "#696969",
     "dragonshot":    "#474747",
+    "amorphous":     "#D0EAE9",
     "smashing":      "#D0EAE9",
+    "smashing_ammo": "#D0EAE9",
     "reclaim":       "#8F648F",
     "bounce":        "#82c873",
     "rebound":       "#ff970d",

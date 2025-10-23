@@ -3,7 +3,11 @@
     "tconstruct:ammo": [
       {
         "level": 1,
-        "name": "tconstruct:fins"
+        "name": "tconstruct:fins_ammo"
+      },
+      {
+        "level": 1,
+        "name": "tconstruct:lure_rod"
       }
     ]
   }

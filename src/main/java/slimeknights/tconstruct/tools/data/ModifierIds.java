@@ -41,7 +41,9 @@ public class ModifierIds {
   public static final ModifierId freezing = id("freezing");
   public static final ModifierId springy = id("springy");
   public static final ModifierId spilling = id("spilling");
+  public static final ModifierId spillingRod = id("spilling_rod");
   public static final ModifierId fins = id("fins");
+  public static final ModifierId finsAmmo = id("fins_ammo");
   public static final ModifierId channeling = id("channeling");
   // general abilities
   public static final ModifierId reach = id("reach");
@@ -149,6 +151,7 @@ public class ModifierIds {
   // fishing
   public static final ModifierId fishing = id("fishing");
   public static final ModifierId lure = id("lure");
+  public static final ModifierId lureRod = id("lure_rod");
   public static final ModifierId grapple = id("grapple");
   public static final ModifierId collecting = id("collecting");
 
@@ -181,7 +184,9 @@ public class ModifierIds {
   public static final ModifierId flamestance = id("flamestance");
   public static final ModifierId entangled = id("entangled");
   public static final ModifierId stoneshield = id("stoneshield");
+  public static final ModifierId amorphous = id("amorphous");
   public static final ModifierId smashing = id("smashing");
+  public static final ModifierId smashingAmmo = id("smashing_ammo");
   public static final ModifierId bounce = id("bounce");
   public static final ModifierId venom = id("venom");
   // traits - tier 2 compat

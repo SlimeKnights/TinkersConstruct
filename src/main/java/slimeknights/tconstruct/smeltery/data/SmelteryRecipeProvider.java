@@ -1762,6 +1762,11 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                           .setOre(OreRateType.GEM)
                           .save(consumer, location(slimeFolder + "ichor/bud_" + bud.getName()));
     }
+    // clusters
+    MeltingRecipeBuilder.melting(Ingredient.of(TinkerWorld.steelCluster), TinkerFluids.moltenSteel, FluidValues.NUGGET * 4, 5/2f)
+      .save(consumer, location(folder + "metal/steel/cluster"));
+    MeltingRecipeBuilder.melting(Ingredient.of(TinkerWorld.knightmetalCluster), TinkerFluids.moltenKnightmetal, FluidValues.NUGGET * 4, 5/2f)
+      .save(consumer, location(folder + "metal/knightmetal/cluster"));
 
     // recycle saplings
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerWorld.slimeSapling.get(FoliageType.EARTH)), TinkerFluids.earthSlime, FluidValues.SLIMEBALL)
@@ -2179,7 +2184,9 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     // iron has both railcraft spikemaul and tools complement excavator at cost 11
     metal(consumer, TinkerFluids.moltenIron  ).ore(Byproduct.STEEL        ).metal().dust().plate().gear().coin().sheetmetal().geore().oreberry().minecraftTools().toolCostMelting(11, "tools_costing_11").common(HAMMER, FLAKES).rod();
     metal(consumer, TinkerFluids.moltenCobalt).ore(Byproduct.SMALL_DIAMOND).metal().dust();
-    metal(consumer, TinkerFluids.moltenSteel ).metal().dust().plate().gear().coin().sheetmetal().common(SHOVEL_PLUS, SWORD, AXES, MEKANISM_SHIELD, FLAKES).common(ARMOR_PLUS).wire().rod().rawOre(Byproduct.IRON).toolItemMelting(11, "railcraft", "spike_maul");
+    metal(consumer, TinkerFluids.moltenSteel ).metal().dust().plate().gear().coin().sheetmetal().common(SHOVEL_PLUS, SWORD, AXES, MEKANISM_SHIELD, FLAKES).common(ARMOR_PLUS).wire().rod().rawOre(Byproduct.IRON)
+      .toolItemMelting(11, "railcraft", "spike_maul")
+      .melting(1/9f, "raw_nugget", 1/2f, false);
     // gold ore does non-standard byproduct handling, as it wants sparse gold ore to have a different byproduct, hence moving byproducts so we don't have ores for the metal call
     metal(consumer, TinkerFluids.moltenGold).metal().ore(Byproduct.COBALT).dust().plate().gear().coin().sheetmetal().geore().oreberry().minecraftTools("golden", true).common(EXCAVATOR, HAMMER, FLAKES).rawOre().singularOre(2).denseOre(6);
     // gem ores
@@ -2211,7 +2218,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
       .itemMelting(16, tf, "block_and_chain", true)
       // not using a traditional ore recipe as there isn't a reasonable byproduct, plus crafting a 3x3 doesn't feel like enough for a 3 nugget bonus
       .melting(1, "raw", "raw_materials", false, true)
-      .itemMelting(1/9f, tf, "armor_shard", false);
+      .melting(1/9f, "raw_nugget", 1/2f, false);
 
     // compat ores
     metal(consumer, TinkerFluids.moltenTin     ).ore(Byproduct.NICKEL, Byproduct.COPPER).optional().metal().dust().oreberry().plate().gear().coin().common(TOOLS_COMPLEMENT).common(ARMOR).common(FLAKES);

@@ -1,7 +1,0 @@
-{
-  "render_type": "minecraft:cutout",
-  "parent": "minecraft:block/cross",
-  "textures": {
-    "cross": "tconstruct:block/geode/sky/large_bud"
-  }
-}

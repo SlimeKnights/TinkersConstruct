@@ -16,6 +16,7 @@ import slimeknights.tconstruct.common.registration.CastItemObject;
 import slimeknights.tconstruct.library.tools.part.MaterialItem;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerToolParts;
+import slimeknights.tconstruct.world.TinkerWorld;
 
 import static slimeknights.tconstruct.TConstruct.getResource;
 
@@ -111,6 +112,13 @@ public class TinkerItemModelProvider extends ItemModelProvider {
     cast(TinkerSmeltery.mailleCast);
     // dummy parts
     TinkerSmeltery.dummyPlating.forEach((type, item) -> basicItem(item, "tool/parts/plating_" + type.getName()));
+
+    // world //
+    // shards
+    basicItem(TinkerWorld.steelShard, "materials/steel_shard");
+    basicItem(TinkerWorld.knightmetalShard, "materials/knightmetal_shard");
+    generated(TinkerWorld.steelCluster, "block/geode/steel_cluster");
+    generated(TinkerWorld.knightmetalCluster, "block/geode/knightmetal_cluster");
   }
 
   @SuppressWarnings("deprecation") // no its not

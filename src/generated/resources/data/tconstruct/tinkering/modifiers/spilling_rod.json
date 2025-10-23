@@ -1,0 +1,16 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:trait",
+      "fixed_level": false,
+      "level": 1,
+      "name": "tconstruct:spilling",
+      "tool": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:modifiable/fishing_rods"
+      }
+    }
+  ],
+  "tooltip_display": "never"
+}

@@ -287,7 +287,7 @@ public class ModifierHooks {
 
   /** Hook for firing arrows or other projectiles to modify the entity post firing */
   public static final ModuleHook<ProjectileLaunchModifierHook> PROJECTILE_LAUNCH;
-  /** Hook for throwing a projectile that will not be firing {@link #PROJECTILE_HIT} later. */
+  /** Hook for throwing a projectile that will not be firing {@link #PROJECTILE_HIT} later, such as javelins. */
   public static final ModuleHook<ProjectileShootModifierHook> PROJECTILE_THROWN;
   /** Hook for when a projectile is launched, but called with the projectile tool rather than the launcher */
   public static final ModuleHook<ProjectileShootModifierHook> PROJECTILE_SHOT;

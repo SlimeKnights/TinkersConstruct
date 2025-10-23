@@ -84,7 +84,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.function.BiFunction;
@@ -149,7 +148,10 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
             if (model != null) {
               int modelIndexes = model.getTintIndexes();
               if (localIndex + modelIndexes > index) {
-                return model.getTint(tool, Objects.requireNonNullElse(entry, ModifierEntry.EMPTY), index - localIndex);
+                if (entry == null) {
+                  entry = new ModifierEntry(first.id, 0);
+                }
+                return model.getTint(tool, entry, index - localIndex);
               }
               localIndex += modelIndexes;
             }
@@ -301,7 +303,10 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
         if (entry != null || first.forced) {
           IBakedModifierModel model = modifierModels.get(first.id);
           if (model != null) {
-            model.addQuads(tool, Objects.requireNonNullElse(entry, ModifierEntry.EMPTY), spriteGetter, transforms, isLarge, modelIndex, quadConsumer, pixels);
+            if (entry == null) {
+              entry = new ModifierEntry(first.id, 0);
+            }
+            model.addQuads(tool, entry, spriteGetter, transforms, isLarge, modelIndex, quadConsumer, pixels);
             modelIndex += model.getTintIndexes();
           }
         }
@@ -762,7 +767,10 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
         if (entry != null || modifier.forced) {
           IBakedModifierModel model = modifierModels.get(modifier.id);
           if (model != null) {
-            Object cacheKey = model.getCacheKey(tool, Objects.requireNonNullElse(entry, ModifierEntry.EMPTY));
+            if (entry == null) {
+              entry = new ModifierEntry(modifier.id, 0);
+            }
+            Object cacheKey = model.getCacheKey(tool, entry);
             if (cacheKey != null) {
               builder.add(cacheKey);
             }

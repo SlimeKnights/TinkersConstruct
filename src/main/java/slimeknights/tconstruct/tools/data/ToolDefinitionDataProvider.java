@@ -494,13 +494,14 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       // parts
       .module(PartStatsModule.parts()
         .part(bowLimb)
-        .part(bowstring).build())
+        .part(bowstring)
+        .part(arrowHead).build())
       .module(defaultTwoParts)
       // stats - high attack speed so melee modifying it is not useless with its base 1 attack damage
       .module(new SetStatsModule(StatsNBT.builder().set(ToolStats.ATTACK_SPEED, 2.0f).build()))
       // give a bit more durability to make up for modifier costs, plus non-fishing uses are really durability hungry
       .module(new MultiplyStatsModule(MultiplierNBT.builder().set(ToolStats.DURABILITY, 1.5f).build()))
-      .module(ToolSlotsModule.builder().slots(SlotType.ABILITY, 1).slots(SlotType.UPGRADE, 4).build())
+      .smallToolStartingSlots()
       // traits
       .module(ToolTraitsModule.builder().trait(ModifierIds.fishing).build())
       // put fishing on right click, everything else on left, but support toggling

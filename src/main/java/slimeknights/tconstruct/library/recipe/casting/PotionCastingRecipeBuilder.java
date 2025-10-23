@@ -88,6 +88,24 @@ public class PotionCastingRecipeBuilder extends AbstractRecipeBuilder<PotionCast
     return tippingRecipe(modifier, TinkerSmeltery.tableTippingRecipeSerializer.get());
   }
 
+  /**
+   * Creates a new tool potion casting basin recipe
+   * @param modifier  Modifier required to cast
+   * @return  Builder instance
+   */
+  public static PotionCastingRecipeBuilder basinClearing(ModifierId modifier) {
+    return tippingRecipe(modifier, TinkerSmeltery.basinTipClearingRecipeSerializer.get());
+  }
+
+  /**
+   * Creates a new tool potion casting table recipe
+   * @param modifier  Recipe result
+   * @return  Builder instance
+   */
+  public static PotionCastingRecipeBuilder tableClearing(ModifierId modifier) {
+    return tippingRecipe(modifier, TinkerSmeltery.tableTipClearingRecipeSerializer.get());
+  }
+
 
   /* Fluids */
 

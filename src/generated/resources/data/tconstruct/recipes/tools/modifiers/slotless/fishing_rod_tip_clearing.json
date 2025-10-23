@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:casting_table_tipped_clearing",
+  "cooling_time": 20,
+  "fluid": {
+    "amount": 250,
+    "tag": "mantle:water"
+  },
+  "modifier": "tconstruct:tipped",
+  "tools": {
+    "tag": "tconstruct:modifiable/fishing_rods"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:item/generated",
+  "display": {
+    "head": {
+      "translation": [ 0, 14, -5 ]
+    }
+  }
+}

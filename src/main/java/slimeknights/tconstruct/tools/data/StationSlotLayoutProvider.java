@@ -156,6 +156,7 @@ public class StationSlotLayoutProvider extends AbstractStationSlotLayoutProvider
       .sortIndex(SORT_RANGED)
       .addInputItem(TinkerToolParts.bowLimb,   28, 38)
       .addInputItem(TinkerToolParts.bowstring, 50, 38)
+      .addInputItem(TinkerToolParts.arrowHead, 50, 58)
       .build();
     defineModifiable(TinkerTools.javelin)
       .sortIndex(SORT_RANGED + SORT_LARGE)

@@ -5,6 +5,17 @@
       "bonus_rolls": 0.0,
       "conditions": [
         {
+          "condition": "minecraft:inverted",
+          "term": {
+            "condition": "minecraft:damage_source_properties",
+            "predicate": {
+              "source_entity": {
+                "type": "minecraft:frog"
+              }
+            }
+          }
+        },
+        {
           "condition": "minecraft:entity_properties",
           "entity": "this",
           "predicate": {
@@ -17,85 +28,140 @@
       ],
       "entries": [
         {
-          "type": "minecraft:alternatives",
-          "children": [
+          "type": "minecraft:item",
+          "conditions": [
             {
-              "type": "minecraft:item",
-              "conditions": [
-                {
-                  "condition": "minecraft:damage_source_properties",
-                  "predicate": {
-                    "source_entity": {
-                      "type": "minecraft:frog"
-                    }
-                  }
+              "condition": "minecraft:inverted",
+              "term": {
+                "condition": "minecraft:entity_properties",
+                "entity": "this",
+                "predicate": {
+                  "nbt": "{metal:1b}"
                 }
-              ],
-              "functions": [
-                {
-                  "add": false,
-                  "count": 1.0,
-                  "function": "minecraft:set_count"
-                }
-              ],
-              "name": "tconstruct:ender_slime_ball"
-            },
-            {
-              "type": "minecraft:item",
-              "conditions": [
-                {
-                  "condition": "minecraft:entity_properties",
-                  "entity": "this",
-                  "predicate": {
-                    "nbt": "{metal:1b}"
-                  }
-                }
-              ],
-              "functions": [
-                {
-                  "add": false,
-                  "count": {
-                    "type": "minecraft:uniform",
-                    "max": 2.0,
-                    "min": 0.0
-                  },
-                  "function": "minecraft:set_count"
-                },
-                {
-                  "count": {
-                    "type": "minecraft:uniform",
-                    "max": 1.0,
-                    "min": 0.0
-                  },
-                  "function": "minecraft:looting_enchant"
-                }
-              ],
-              "name": "tconstruct:knightmetal_nugget"
-            },
-            {
-              "type": "minecraft:item",
-              "functions": [
-                {
-                  "add": false,
-                  "count": {
-                    "type": "minecraft:uniform",
-                    "max": 2.0,
-                    "min": 0.0
-                  },
-                  "function": "minecraft:set_count"
-                },
-                {
-                  "count": {
-                    "type": "minecraft:uniform",
-                    "max": 1.0,
-                    "min": 0.0
-                  },
-                  "function": "minecraft:looting_enchant"
-                }
-              ],
-              "name": "tconstruct:ender_slime_ball"
+              }
             }
-          ]
+          ],
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 2.0,
+                "min": 0.0
+              },
+              "function": "minecraft:set_count"
+            },
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 1.0,
+                "min": 0.0
+              },
+              "function": "minecraft:looting_enchant"
+            }
+          ],
+          "name": "tconstruct:ender_slime_ball"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:entity_properties",
+              "entity": "this",
+              "predicate": {
+                "nbt": "{metal:1b}"
+              }
+            }
+          ],
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 2.0,
+                "min": 0.0
+              },
+              "function": "minecraft:set_count"
+            },
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 1.0,
+                "min": 0.0
+              },
+              "function": "minecraft:looting_enchant"
+            }
+          ],
+          "name": "tconstruct:knightmetal_shard"
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:damage_source_properties",
+          "predicate": {
+            "source_entity": {
+              "type": "minecraft:frog"
+            }
+          }
+        },
+        {
+          "condition": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "type_specific": {
+              "type": "slime",
+              "size": 1
+            }
+          }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:inverted",
+              "term": {
+                "condition": "minecraft:entity_properties",
+                "entity": "this",
+                "predicate": {
+                  "nbt": "{metal:1b}"
+                }
+              }
+            }
+          ],
+          "functions": [
+            {
+              "add": false,
+              "count": 1.0,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "tconstruct:ender_slime_ball"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:entity_properties",
+              "entity": "this",
+              "predicate": {
+                "nbt": "{metal:1b}"
+              }
+            }
+          ],
+          "functions": [
+            {
+              "add": false,
+              "count": 1.0,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "tconstruct:knightmetal_shard"
         }
       ],
       "rolls": 1.0

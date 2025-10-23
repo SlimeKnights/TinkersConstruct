@@ -1653,6 +1653,21 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
       .setCoolingTime(20)
       .setFluid(TinkerFluids.potion.ingredient(FluidValues.BOTTLE / 5))
       .save(consumer, location(slotlessFolder + "ammo_tipping"));
+    PotionCastingRecipeBuilder.tableClearing(ModifierIds.tipped)
+      .setBottle(TinkerTags.Items.AMMO)
+      .setCoolingTime(20)
+      .setFluid(MantleTags.Fluids.WATER, FluidValues.BOTTLE / 5)
+      .save(consumer, location(slotlessFolder + "ammo_tip_clearing"));
+    PotionCastingRecipeBuilder.tableTipping(ModifierIds.tipped)
+      .setBottle(TinkerTags.Items.FISHING_RODS)
+      .setCoolingTime(20)
+      .setFluid(TinkerFluids.potion.ingredient(FluidValues.BOTTLE))
+      .save(consumer, location(slotlessFolder + "fishing_rod_tipping"));
+    PotionCastingRecipeBuilder.tableClearing(ModifierIds.tipped)
+      .setBottle(TinkerTags.Items.FISHING_RODS)
+      .setCoolingTime(20)
+      .setFluid(MantleTags.Fluids.WATER, FluidValues.BOTTLE)
+      .save(consumer, location(slotlessFolder + "fishing_rod_tip_clearing"));
 
     // removal
     ModifierRemovalRecipeBuilder.removal()

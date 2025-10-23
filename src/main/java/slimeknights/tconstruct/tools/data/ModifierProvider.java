@@ -97,6 +97,7 @@ import slimeknights.tconstruct.library.modifiers.modules.behavior.ToolActionsMod
 import slimeknights.tconstruct.library.modifiers.modules.build.EnchantmentModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.ModifierRequirementsModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.ModifierSlotModule;
+import slimeknights.tconstruct.library.modifiers.modules.build.ModifierTraitModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.RarityModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.SetStatModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.StatBoostModule;
@@ -522,9 +523,15 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(ToolTankHelper.TANK_HANDLER)
       .addModule(StatBoostModule.add(ToolTankHelper.CAPACITY_STAT).eachLevel(FluidType.BUCKET_VOLUME))
       .addModule(new SpillingModule(LevelingValue.eachLevel(1), ModifierCondition.ANY_TOOL));
-    buildModifier(ModifierIds.smashing)
-      .addModule(StatBoostModule.add(ToolStats.PROJECTILE_DAMAGE).eachLevel(-0.75f))
-      .addModule(SmashingModule.INSTANCE);
+    // on fishing rods, we want spilling, but no spilling on bows
+    buildModifier(ModifierIds.spillingRod).tooltipDisplay(TooltipDisplay.NEVER).addModule(ModifierTraitModule.tagCondition(ModifierIds.spilling, TinkerTags.Items.FISHING_RODS));
+
+    // glass trait is implemented in two parts: a constantly added debuff, and a conditionally added smashing module
+    buildModifier(ModifierIds.amorphous).addModule(StatBoostModule.add(ToolStats.PROJECTILE_DAMAGE).eachLevel(-0.75f));
+    buildModifier(ModifierIds.smashing).addModule(SmashingModule.INSTANCE);
+    // we use an internal modifier to ensure smashing doesn't go on fishng rods
+    buildModifier(ModifierIds.smashingAmmo).tooltipDisplay(TooltipDisplay.NEVER).addModule(ModifierTraitModule.tagCondition(ModifierIds.smashing, TinkerTags.Items.AMMO));
+
 
     // armor
     buildModifier(TinkerModifiers.golden).addModule(new VolatileFlagModule(ModifiableArmorItem.PIGLIN_NEUTRAL)).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
@@ -654,10 +661,14 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
       .addModule(StatBoostModule.add(ToolStats.WATER_INERTIA).flat(0.5f))
       .addModule(ConditionalPowerModule.builder().target(LivingEntityPredicate.UNDERWATER).eachLevel(1));
+    // fins on prismarine arrow heads should only apply to arrows
+    buildModifier(ModifierIds.finsAmmo).tooltipDisplay(TooltipDisplay.NEVER).addModule(ModifierTraitModule.tagCondition(ModifierIds.fins, TinkerTags.Items.AMMO));
 
     // fishing
     buildModifier(ModifierIds.fishing).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(FishingModule.INSTANCE);
     buildModifier(ModifierIds.lure).addModule(StatBoostModule.add(ToolStats.LURE).eachLevel(1));
+    // lure on prismarine arrows should only apply to fishing rods
+    buildModifier(ModifierIds.lureRod).tooltipDisplay(TooltipDisplay.NEVER).addModule(ModifierTraitModule.tagCondition(ModifierIds.lure, TinkerTags.Items.FISHING_RODS));
     buildModifier(ModifierIds.grapple)
       .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
       .addModule(new ToolActionsModule(TinkerToolActions.GRAPPLE_HOOK))
