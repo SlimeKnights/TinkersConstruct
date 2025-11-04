@@ -86,8 +86,10 @@ public class TinkerBook extends BookData {
     TierRangeMaterialSectionTransformer.registerMaterialType(getResource("ammo"), AmmoMaterialContent::new,
       // first, we want anything with arrow heads, and thins without second
       // among heads, want anything with shafts last. If it lacks a head, it must have a shaft so that order no longer matters
-      Comparator.comparing(hasStatType(StatlessMaterialStats.ARROW_HEAD)).reversed().thenComparing(hasStatType(StatlessMaterialStats.ARROW_SHAFT)),
-      StatlessMaterialStats.ARROW_HEAD.getIdentifier(), StatlessMaterialStats.ARROW_SHAFT.getIdentifier());
+      Comparator.comparing(hasStatType(StatlessMaterialStats.ARROW_HEAD)).reversed()
+        .thenComparing(hasStatType(StatlessMaterialStats.FLETCHING))
+        .thenComparing(hasStatType(StatlessMaterialStats.ARROW_SHAFT)),
+      StatlessMaterialStats.ARROW_HEAD.getIdentifier(), StatlessMaterialStats.ARROW_SHAFT.getIdentifier(), StatlessMaterialStats.FLETCHING.getIdentifier());
     TierRangeMaterialSectionTransformer.registerMaterialType(getResource("armor"), ArmorMaterialContent::new,
       Comparator.comparing(mat -> {
         // ordering:
@@ -161,6 +163,7 @@ public class TinkerBook extends BookData {
    * @param book Book instance
    * @param id   Book ID
    */
+  @SuppressWarnings("removal")
   private static void addStandardData(BookData book, ResourceLocation id, BookTransformer... extraTransformers) {
     book.addRepository(new FileRepository(new ResourceLocation(id.getNamespace(), "book/" + id.getPath())));
     book.addTransformer(BookTransformer.indexTranformer());

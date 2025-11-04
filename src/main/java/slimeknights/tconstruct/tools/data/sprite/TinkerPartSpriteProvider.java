@@ -137,6 +137,7 @@ public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
     buildTool("ammo")
       // arrow
       .addArrowHead("arrow_head").addPart("arrow_shaft", StatlessMaterialStats.ARROW_SHAFT)
+      .addPart("arrow_feather", StatlessMaterialStats.FLETCHING)
       // shuriken
       .addArrowHead("shuriken_top").addArrowHead("shuriken_bottom")
       // throwing axe - reuses arrow shaft

@@ -39,7 +39,10 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     // tier 1 - shield cores
     addMaterial(MaterialIds.cactus, 1, ORDER_BINDING, true);
     // tier 1 - ammo
-    addMaterial(MaterialIds.wool, 1, ORDER_BINDING, true);
+    addMaterial(MaterialIds.wool,    1, ORDER_BINDING, true);
+    addMaterial(MaterialIds.feather, 1, ORDER_GENERAL, true); // want to ensure its first
+    addMaterial(MaterialIds.leaves,  1, ORDER_BINDING, true);
+    addMaterial(MaterialIds.paper,   1, ORDER_BINDING, true);
 
     // tier 2
     addMaterial(MaterialIds.iron,        2, ORDER_GENERAL, false);
@@ -65,6 +68,7 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addMaterial(MaterialIds.blaze,      2, ORDER_REPAIR, true);
     addMaterial(MaterialIds.enderPearl, 2, ORDER_REPAIR, false);
     addMaterial(MaterialIds.glass,      2, ORDER_REPAIR, false);
+    addMaterial(MaterialIds.slimeball,  2, ORDER_REPAIR, true);
     // bloodbone reworked into venombone
     addRedirect(new MaterialId(TConstruct.MOD_ID, "bloodbone"), redirect(MaterialIds.venombone));
 
@@ -87,6 +91,8 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addMaterial(MaterialIds.quartz,    3, ORDER_REPAIR, false);
     addMaterial(MaterialIds.ichor,     3, ORDER_REPAIR, true);
     addMaterial(MaterialIds.glowstone, 3, ORDER_REPAIR, true);
+    addMaterial(MaterialIds.magnetite, 3, ORDER_REPAIR, true);
+    addMaterial(MaterialIds.magma,     3, ORDER_REPAIR, true);
 
     // tier 4
     addMaterial(MaterialIds.queensSlime, 4, ORDER_GENERAL, false);
@@ -104,6 +110,8 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addMaterial(MaterialIds.shulker,     4, ORDER_REPAIR, true);
     addMaterial(MaterialIds.dragonScale, 4, ORDER_REPAIR, true);
     addMaterial(MaterialIds.enderslime,  4, ORDER_REPAIR, true);
+    addMaterial(MaterialIds.knightly,    4, ORDER_REPAIR, true);
+    addMaterial(MaterialIds.endRod,      4, ORDER_REPAIR, true);
 
     // tier 5 binding, temporarily in book 4
     addMaterial(MaterialIds.enderslimeVine, 4, ORDER_BINDING, true);
@@ -119,25 +127,25 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addMaterial(MaterialIds.treatedWood, 2, ORDER_COMPAT + ORDER_GENERAL, true, false,
       new OrCondition(ConfigEnabledCondition.FORCE_INTEGRATION_MATERIALS, tagExistsCondition("treated_wood"), new TagFilledCondition<>(FluidTags.create(commonResource("creosote")))));
     // tier 3 (mod integration)
-    addCompatMetalMaterial(MaterialIds.electrum,        3, ORDER_COMPAT + ORDER_GENERAL, "electrum", "silver");
-    addCompatMetalMaterial(MaterialIds.bronze,          3, ORDER_COMPAT + ORDER_HARVEST, "bronze", "tin");
-    addCompatMetalMaterial(MaterialIds.constantan,      3, ORDER_COMPAT + ORDER_HARVEST, "constantan", "nickel");
-    addCompatMetalMaterial(MaterialIds.invar,           3, ORDER_COMPAT + ORDER_WEAPON,  "invar", "nickel");
-    addCompatMetalMaterial(MaterialIds.pewter,          3, ORDER_COMPAT + ORDER_WEAPON,  "pewter", "tin", "lead");
-    addCompatMaterial     (MaterialIds.necronium,       3, ORDER_COMPAT + ORDER_WEAPON, true, "ingots/uranium");
-    addCompatMetalMaterial(MaterialIds.platedSlimewood, 3, ORDER_COMPAT + ORDER_SPECIAL, "brass", "zinc");
-    addCompatMetalMaterial(MaterialIds.steeleaf,        3, ORDER_COMPAT + ORDER_SPECIAL);
+    addCompatAlloy(MaterialIds.electrum,        3, ORDER_COMPAT + ORDER_GENERAL, "silver");
+    addCompatAlloy(MaterialIds.bronze,          3, ORDER_COMPAT + ORDER_HARVEST, "tin");
+    addCompatAlloy(MaterialIds.constantan,      3, ORDER_COMPAT + ORDER_HARVEST, "nickel");
+    addCompatAlloy(MaterialIds.invar,           3, ORDER_COMPAT + ORDER_WEAPON,  "nickel");
+    // TODO 1.21: consider making this an and condition, so we only get pewter if pewter is present or we have both
+    addCompatAlloy(MaterialIds.pewter,          3, ORDER_COMPAT + ORDER_WEAPON,  new OrCondition(tagExistsCondition("ingots/tin"), tagExistsCondition("ingots/lead")));
+    addCompatAlloy(MaterialIds.platedSlimewood, 3, ORDER_COMPAT + ORDER_SPECIAL, "zinc");
+    addCompatMaterial(MaterialIds.necronium,       3, ORDER_COMPAT + ORDER_WEAPON, true, "ingots/uranium");
+    addCompatMetalMaterial(MaterialIds.steeleaf, 3, ORDER_COMPAT + ORDER_SPECIAL);
     // tier 4 (mod integration)
     addCompatMetalMaterial(MaterialIds.fiery,           4, ORDER_COMPAT + ORDER_END);
 
     // slimesuit - textures
-    addMaterial(MaterialIds.blood,      2, ORDER_REPAIR, true);
-    addMaterial(MaterialIds.magma,      2, ORDER_REPAIR, true);
-    addMaterial(MaterialIds.clay,       1, ORDER_REPAIR, true);
-    addMaterial(MaterialIds.honey,      1, ORDER_REPAIR, true);
+    addMaterial(MaterialIds.blood, 2, ORDER_REPAIR, true);
+    addMaterial(MaterialIds.clay,  1, ORDER_REPAIR, true);
+    addMaterial(MaterialIds.honey, 1, ORDER_REPAIR, true);
     //addMaterial(MaterialIds.venom,      3, ORDER_REPAIR, true);
     // slimesuit - repair
-    addMaterial(MaterialIds.phantom,    1, ORDER_REPAIR, true);
+    addMaterial(MaterialIds.phantom, 1, ORDER_REPAIR, true);
 
     // rose gold is most comparable to chain as you can use the extra slot for reinforced
     addRedirect(id("chain"), redirect(MaterialIds.roseGold));

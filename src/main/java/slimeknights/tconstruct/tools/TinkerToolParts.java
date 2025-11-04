@@ -70,6 +70,7 @@ public final class TinkerToolParts extends TinkerModule {
   // ammo
   public static final ItemObject<ToolPartItem> arrowHead = ITEMS.register("arrow_head", () -> new ToolPartItem(ITEM_PROPS, StatlessMaterialStats.ARROW_HEAD.getIdentifier()));
   public static final ItemObject<ToolPartItem> arrowShaft = ITEMS.register("arrow_shaft", () -> new ToolPartItem(ITEM_PROPS, StatlessMaterialStats.ARROW_SHAFT.getIdentifier()));
+  public static final ItemObject<ToolPartItem> fletching = ITEMS.register("fletching", () -> new ToolPartItem(ITEM_PROPS, StatlessMaterialStats.FLETCHING.getIdentifier()));
   // other parts
   public static final ItemObject<ToolPartItem> toolBinding = ITEMS.register("tool_binding", () -> new ToolPartItem(ITEM_PROPS, StatlessMaterialStats.BINDING.getIdentifier()));
   public static final ItemObject<ToolPartItem> toughBinding = ITEMS.register("tough_binding", () -> new ToolPartItem(ITEM_PROPS, StatlessMaterialStats.BINDING.getIdentifier()));
@@ -108,6 +109,7 @@ public final class TinkerToolParts extends TinkerModule {
     accept(output, bowstring);
     accept(output, arrowHead);
     accept(output, arrowShaft);
+    accept(output, fletching);
     // plating, pair each one with the dummy plating item
     for (ArmorItem.Type type : ArmorItem.Type.values()) {
       tab.accept(TinkerSmeltery.dummyPlating.get(type));

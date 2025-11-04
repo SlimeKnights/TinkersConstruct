@@ -49,6 +49,7 @@ public class Config {
     public final OreRate foundryOreRate, foundryByproductRate;
 
     // compatability
+    public final BooleanValue allowIngotlessAlloys;
     public final DoubleValue chemthrowerShotValue;
 
     // debug
@@ -167,6 +168,12 @@ public class Config {
 
       builder.comment("Configuration related to integration with other mods").push("compatability");
       {
+        this.allowIngotlessAlloys = builder
+          .comment("If true, integration alloy materials will be enabled if any of their components is present, allowing creating them from their molten liquid forms.",
+            "If false, they will only be only be present if another mod adds an ingot.",
+            "This config option is provided as while most players prefer the additional materials, some players dislike having no ingot for a material, forcing repair kits for repair.")
+          .worldRestart()
+          .define("allowIngotlessAlloys", true);
         chemthrowerShotValue = builder
           .comment(
             "Amount of fluid each chemthrower shot projectile from Immersive Engineering is worth towards our fluid effect registry.",

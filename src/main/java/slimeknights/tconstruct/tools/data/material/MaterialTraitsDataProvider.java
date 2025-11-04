@@ -38,6 +38,9 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addTraits(MaterialIds.bamboo, AMMO, ModifierIds.woodwind);
     addDefaultTraits(MaterialIds.cactus, ModifierIds.thorns);
     addTraits(MaterialIds.wool, AMMO, ModifierIds.soft);
+    noTraits(MaterialIds.feather);
+    addTraits(MaterialIds.paper, AMMO, ModifierIds.weak);
+    addTraits(MaterialIds.leaves, AMMO, ModifierIds.cheap);
     // tier 1 - end
     addDefaultTraits(MaterialIds.chorus, TinkerModifiers.enderference);
     addTraits(MaterialIds.chorus, ARMOR, ModifierIds.enderclearance);
@@ -81,6 +84,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.blaze, ModifierIds.fiery);
     addTraits(MaterialIds.enderPearl, AMMO, TinkerModifiers.enderporting);
     addTraits(MaterialIds.glass, AMMO, ModifierIds.amorphous, ModifierIds.smashingAmmo, ModifierIds.spillingRod);
+    addTraits(MaterialIds.slimeball, AMMO, ModifierIds.erratic);
 
     // tier 3
     addDefaultTraits(MaterialIds.slimesteel, ModifierIds.overcast, TinkerModifiers.overslime.getId());
@@ -94,6 +98,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     // tier 3 - nether
     addDefaultTraits(MaterialIds.cobalt, ModifierIds.lightweight);
     addTraits(MaterialIds.cobalt, ARMOR, ModifierIds.meleeProtection);
+    addDefaultTraits(MaterialIds.steel, ModifierIds.ductile);
     // tier 3 - binding
     addDefaultTraits(MaterialIds.darkthread, ModifierIds.looting);
     addDefaultTraits(MaterialIds.ichorskin, ModifierIds.overshield, TinkerModifiers.overslime.getId());
@@ -103,6 +108,8 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addTraits(MaterialIds.quartz, AMMO, ModifierIds.keen);
     addTraits(MaterialIds.ichor, AMMO, ModifierIds.rebound, ModifierIds.bounce);
     addTraits(MaterialIds.glowstone, AMMO, ModifierIds.spectral);
+    addDefaultTraits(MaterialIds.magnetite, ModifierIds.attractive);
+    addTraits(MaterialIds.magma, AMMO, ModifierIds.fuse);
 
     // tier 4
     addDefaultTraits(MaterialIds.cinderslime, ModifierIds.overburn, TinkerModifiers.overslime.getId());
@@ -129,8 +136,10 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     // tier 4 (end)
     addDefaultTraits(MaterialIds.knightmetal, ModifierIds.valiant);
     addTraits(MaterialIds.knightmetal, ARMOR, ModifierIds.stalwart);
+    addDefaultTraits(MaterialIds.knightly, ModifierIds.valiant);
     addDefaultTraits(MaterialIds.enderslimeVine, TinkerModifiers.enderporting);
     addTraits(MaterialIds.enderslimeVine, ARMOR, ModifierIds.enderclearance);
+    addDefaultTraits(MaterialIds.endRod, ModifierIds.hover);
 
     // tier 2 - mod compat
     addDefaultTraits(MaterialIds.osmium, ModifierIds.dense);
@@ -141,7 +150,6 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.treatedWood, ModifierIds.preserved);
     addDefaultTraits(MaterialIds.ironwood, ModifierIds.deciduous);
     // tier 3 - mod compat
-    addDefaultTraits(MaterialIds.steel, ModifierIds.ductile);
     addDefaultTraits(MaterialIds.bronze, ModifierIds.maintained);
     addDefaultTraits(MaterialIds.constantan, ModifierIds.temperate);
     addDefaultTraits(MaterialIds.invar, ModifierIds.solid);
@@ -175,7 +183,6 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addTraits(MaterialIds.pigIron,      SkullStats.ID, TinkerModifiers.revenge.getId(), ModifierIds.zombifiedPiglinDisguise);
     // slimesuit
     noTraits(MaterialIds.blood);
-    noTraits(MaterialIds.magma);
     noTraits(MaterialIds.clay);
     noTraits(MaterialIds.honey);
     noTraits(MaterialIds.phantom);

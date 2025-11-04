@@ -4,6 +4,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.PackOutput.Target;
+import net.minecraftforge.common.crafting.conditions.AndCondition;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.OrCondition;
 import slimeknights.mantle.Mantle;
@@ -16,6 +17,7 @@ import slimeknights.tconstruct.library.materials.definition.Material;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialManager;
 import slimeknights.tconstruct.library.materials.json.MaterialJson;
+import slimeknights.tconstruct.library.utils.Util;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
@@ -143,7 +145,8 @@ public abstract class AbstractMaterialDataProvider extends GenericDataProvider {
     addMaterial(location, tier, order, craftable, false, condition);
   }
 
-  /** Creates a new compat material */
+  /** @deprecated use {@link #addCompatMetalMaterial(MaterialId, int, int)} or {@link #addCompatAlloy(MaterialId, int, int, String)} (MaterialId, int, int, String...)} */
+  @Deprecated(forRemoval = true)
   protected void addCompatMetalMaterial(MaterialId location, int tier, int order, String... ingotNames) {
     addCompatMaterial(location, tier, order, false, Arrays.stream(ingotNames).map(name -> "ingots/" + name).toArray(String[]::new));
   }
@@ -151,6 +154,24 @@ public abstract class AbstractMaterialDataProvider extends GenericDataProvider {
   /** Creates a new compat material */
   protected void addCompatMetalMaterial(MaterialId location, int tier, int order) {
     addCompatMetalMaterial(location, tier, order, location.getPath());
+  }
+
+  /** Creates a new compat alloy, enabled if its components are present */
+  protected void addCompatAlloy(MaterialId location, int tier, int order, ICondition... alloyConditions) {
+    ICondition condition = new OrCondition(
+      // if forced
+      ConfigEnabledCondition.FORCE_INTEGRATION_MATERIALS,
+      // or we have the matching alloy ingot
+      tagExistsCondition("ingots/" + location.getPath()),
+      // or we allow ingotless alloys and have all alloy components
+      new AndCondition(Util.prepend(alloyConditions, ConfigEnabledCondition.ALLOW_INGOTLESS_ALLOYS))
+    );
+    addMaterial(location, tier, order, false, false, condition);
+  }
+
+  /** Creates a new compat alloy, enabled if its component is present */
+  protected void addCompatAlloy(MaterialId location, int tier, int order, String component) {
+    addCompatAlloy(location, tier, order, tagExistsCondition("ingots/" + component));
   }
 
 

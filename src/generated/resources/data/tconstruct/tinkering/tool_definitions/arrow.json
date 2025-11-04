@@ -4,13 +4,20 @@
       "type": "tconstruct:part_stats",
       "parts": [
         "tconstruct:arrow_head",
-        "tconstruct:arrow_shaft"
+        "tconstruct:arrow_shaft",
+        "tconstruct:fletching"
       ],
       "primary_part": 0
     },
     {
       "type": "tconstruct:default_materials",
       "materials": [
+        {
+          "type": "tconstruct:random"
+        },
+        {
+          "type": "tconstruct:random"
+        },
         {
           "type": "tconstruct:random"
         }

@@ -16,6 +16,7 @@ import slimeknights.tconstruct.tools.recipe.TippedToolTransformRecipe;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -61,6 +62,12 @@ public class ToolBuildingRecipeBuilder extends AbstractRecipeBuilder<ToolBuildin
   /** Adds a material to set after the end of the parts list */
   public ToolBuildingRecipeBuilder addExtraMaterial(MaterialVariantId material) {
     extraMaterials.add(material);
+    return this;
+  }
+
+  /** Adds a material to set after the end of the parts list */
+  public ToolBuildingRecipeBuilder addExtraMaterial(MaterialVariantId... materials) {
+    Collections.addAll(extraMaterials, materials);
     return this;
   }
 

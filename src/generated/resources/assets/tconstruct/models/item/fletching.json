@@ -1,0 +1,11 @@
+{
+  "parent": "forge:item/default",
+  "loader": "tconstruct:material",
+  "offset": [
+    4,
+    -5
+  ],
+  "textures": {
+    "texture": "tconstruct:item/tool/ammo/arrow_feather"
+  }
+}

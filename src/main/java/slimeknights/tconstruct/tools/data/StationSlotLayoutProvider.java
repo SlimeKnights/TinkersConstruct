@@ -2,7 +2,6 @@ package slimeknights.tconstruct.tools.data;
 
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import slimeknights.tconstruct.TConstruct;
@@ -167,9 +166,9 @@ public class StationSlotLayoutProvider extends AbstractStationSlotLayoutProvider
       .build();
     defineModifiable(TinkerTools.arrow)
       .sortIndex(SORT_AMMO)
-      .addInputItem(TinkerToolParts.arrowHead,       53, 22)
-      .addInputItem(TinkerToolParts.arrowShaft,      33, 42)
-      .addInputItem(Patterns.FEATHER, Items.FEATHER, 15, 60)
+      .addInputItem(TinkerToolParts.arrowHead,  53, 22)
+      .addInputItem(TinkerToolParts.arrowShaft, 33, 42)
+      .addInputItem(TinkerToolParts.fletching,  15, 60)
       .build();
     // use a single button for both throwing weapons
     definePattern(Patterns.THROWN_AMMO)

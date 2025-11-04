@@ -196,12 +196,14 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
     // note there is an edge case when you have a fixed material that adjusts count plus parts, not really a good solution for that case
     if (parts > 0) {
       // apply tool craft hook for remaining traits
+      float newCount = count;
       for (ModifierEntry entry : tool.getModifiers()) {
-        count = entry.getHook(ModifierHooks.CRAFT_COUNT).modifyCraftCount(tool, entry, count);
-        if (count <= 0) {
+        newCount = entry.getHook(ModifierHooks.CRAFT_COUNT).modifyCraftCount(tool, entry, newCount);
+        if (newCount <= 0) {
           return NO_COUNT;
         }
       }
+      count = (int) newCount;
     }
 
     // validate the tool, lets people have traits reject each other or do weird slot shenanigans

@@ -4,7 +4,7 @@
     {
       "type": "tconstruct:craft_count",
       "multiplier": {
-        "flat": 2
+        "flat": 2.0
       }
     }
   ],

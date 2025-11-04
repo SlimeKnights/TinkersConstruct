@@ -29,13 +29,9 @@ public class AmmoMaterialContent extends AbstractMaterialContent {
     return switch (index) {
       case 0 -> StatlessMaterialStats.ARROW_HEAD.getIdentifier();
       case 1 -> StatlessMaterialStats.ARROW_SHAFT.getIdentifier();
+      case 2 -> StatlessMaterialStats.FLETCHING.getIdentifier();
       default -> null;
     };
-  }
-
-  @Override
-  protected int getStatRows() {
-    return 1;
   }
 
   @Override
@@ -52,6 +48,8 @@ public class AmmoMaterialContent extends AbstractMaterialContent {
 
   @Override
   protected boolean supportsStatType(MaterialStatsId statsId) {
-    return statsId.equals(StatlessMaterialStats.ARROW_HEAD.getIdentifier()) || statsId.equals(StatlessMaterialStats.ARROW_SHAFT.getIdentifier());
+    return statsId.equals(StatlessMaterialStats.ARROW_HEAD.getIdentifier())
+      || statsId.equals(StatlessMaterialStats.ARROW_SHAFT.getIdentifier())
+      || statsId.equals(StatlessMaterialStats.FLETCHING.getIdentifier());
   }
 }

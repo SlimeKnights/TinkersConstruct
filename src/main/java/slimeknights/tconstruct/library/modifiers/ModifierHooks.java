@@ -61,6 +61,7 @@ import slimeknights.tconstruct.library.modifiers.hook.mining.HarvestEnchantments
 import slimeknights.tconstruct.library.modifiers.hook.mining.RemoveBlockModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.BowAmmoModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.LauncherHitModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileFuseModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileLaunchModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileShootModifierHook;
@@ -311,6 +312,8 @@ public class ModifierHooks {
 
   /** Hook called when a projectile hits an entity with context on the tool that launched it. Allows modifiers such as melting or spilling to work. */
   public static final ModuleHook<LauncherHitModifierHook> LAUNCHER_HIT = register("launcher_hit", LauncherHitModifierHook.class, LauncherHitModifierHook.AllMerger::new, new LauncherHitModifierHook() {});
+  /** Hook called when {@link slimeknights.tconstruct.tools.modules.ranged.ammo.ProjectileFuseModule} removes a projectile. */
+  public static final ModuleHook<ProjectileFuseModifierHook> PROJECTILE_FUSE = register("projectile_fuse", ProjectileFuseModifierHook.class, ProjectileFuseModifierHook.AllMerger::new, (modifiers, persistentData, modifier, ammo, projectile, arrow) -> {});
   /** Hook called when a bow is looking for ammo. Does not support merging multiple hooks on one modifier */
   public static final ModuleHook<BowAmmoModifierHook> BOW_AMMO = register("bow_ammo", BowAmmoModifierHook.class, BowAmmoModifierHook.EMPTY);
 

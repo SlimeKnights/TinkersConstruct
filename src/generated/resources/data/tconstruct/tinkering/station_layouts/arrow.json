@@ -24,10 +24,10 @@
     },
     {
       "filter": {
-        "item": "minecraft:feather"
+        "item": "tconstruct:fletching"
       },
-      "icon": "tconstruct:feather",
-      "translation_key": "item.minecraft.feather",
+      "icon": "tconstruct:fletching",
+      "translation_key": "item.tconstruct.fletching",
       "x": 15,
       "y": 60
     }

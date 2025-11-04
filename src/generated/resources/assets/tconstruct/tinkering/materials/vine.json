@@ -8,7 +8,8 @@
       "tconstruct:binding",
       "tconstruct:bowstring",
       "tconstruct:maille",
-      "tconstruct:armor_maille"
+      "tconstruct:armor_maille",
+      "tconstruct:fletching"
     ],
     "transformer": {
       "type": "tconstruct:recolor_sprite",

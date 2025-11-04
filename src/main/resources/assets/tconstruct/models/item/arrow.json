@@ -10,9 +10,9 @@
   "first_modifiers": [ "tconstruct:dyed" ],
   "show_traits": true,
   "parts": [
-    { "name": "shaft", "index": 1 },
-    { "name": "head",  "index": 0 },
-    { "name": "feather" }
+    { "name": "shaft",   "index": 1 },
+    { "name": "head",    "index": 0 },
+    { "name": "feather", "index": 2 }
   ],
   "display": {
     "tconstruct:thrown": {

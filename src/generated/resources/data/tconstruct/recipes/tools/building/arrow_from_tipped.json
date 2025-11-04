@@ -6,7 +6,8 @@
   },
   "materials": [
     "tconstruct:flint",
-    "tconstruct:wood"
+    "tconstruct:wood",
+    "tconstruct:feather"
   ],
   "modifier": "tconstruct:tipped",
   "result": "tconstruct:arrow",

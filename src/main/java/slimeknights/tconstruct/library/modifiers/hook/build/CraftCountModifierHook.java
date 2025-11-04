@@ -17,14 +17,14 @@ public interface CraftCountModifierHook {
    * @param tool    Tool instance
    * @param entry   Modifier running the hook
    * @param amount  Amount crafted
-   * @return  New amount crafted.
+   * @return  New amount crafted. Will be floored if a non-whole number. If 0, nothing will be crafted.
    */
-  int modifyCraftCount(IToolStackView tool, ModifierEntry entry, int amount);
+  float modifyCraftCount(IToolStackView tool, ModifierEntry entry, float amount);
 
   /** Merger running each hook */
   record ComposeMerger(Collection<CraftCountModifierHook> modules) implements CraftCountModifierHook {
     @Override
-    public int modifyCraftCount(IToolStackView tool, ModifierEntry entry, int amount) {
+    public float modifyCraftCount(IToolStackView tool, ModifierEntry entry, float amount) {
       for (CraftCountModifierHook module : modules) {
         amount = module.modifyCraftCount(tool, entry, amount);
         if (amount <= 0) {

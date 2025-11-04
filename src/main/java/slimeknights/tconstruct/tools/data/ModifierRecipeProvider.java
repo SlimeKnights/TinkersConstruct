@@ -531,10 +531,6 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .setMaxLevel(5)
                                     .saveSalvage(consumer, prefix(ModifierIds.power, upgradeSalvage))
                                     .save(consumer, prefix(ModifierIds.power, upgradeFolder));
-    IncrementalModifierRecipeBuilder.modifier(ModifierIds.underbowed)
-      .setTools(TinkerTags.Items.LAUNCHERS)
-      .setInput(ItemTags.WOOL, 1, 10)
-      .save(consumer, prefix(ModifierIds.underbowed, slotlessFolder));
     IncrementalModifierRecipeBuilder.modifier(ModifierIds.quickCharge)
                                     .setTools(ingredientFromTags(TinkerTags.Items.CROSSBOWS, TinkerTags.Items.STAFFS, TinkerTags.Items.FISHING_RODS))
                                     .setInput(Items.MAGMA_CREAM, 1, 5)
@@ -705,10 +701,10 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     ModifierRecipeBuilder.modifier(ModifierIds.collecting)
       .setTools(TinkerTags.Items.FISHING_RODS)
       .addInput(Blocks.HOPPER)
-      .setSlots(SlotType.ABILITY, 1)
+      .setSlots(SlotType.UPGRADE, 1)
       .setMaxLevel(1).checkTraitLevel()
-      .saveSalvage(consumer, prefix(ModifierIds.collecting, abilitySalvage))
-      .save(consumer, prefix(ModifierIds.collecting, abilityFolder));
+      .saveSalvage(consumer, prefix(ModifierIds.collecting, upgradeSalvage))
+      .save(consumer, prefix(ModifierIds.collecting, upgradeFolder));
 
     // throwing
     Ingredient bowLimb = MaterialIngredient.of(TinkerToolParts.bowLimb.get());

@@ -2,7 +2,8 @@
   "type": "tconstruct:tool_building",
   "extra_materials": [
     "tconstruct:flint",
-    "tconstruct:wood"
+    "tconstruct:wood",
+    "tconstruct:feather"
   ],
   "extra_requirements": [
     {

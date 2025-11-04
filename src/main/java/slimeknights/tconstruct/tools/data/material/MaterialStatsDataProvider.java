@@ -390,6 +390,9 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.bone, StatlessMaterialStats.ARROW_SHAFT);
     addMaterialStats(MaterialIds.bamboo, StatlessMaterialStats.ARROW_SHAFT);
     addMaterialStats(MaterialIds.chorus, StatlessMaterialStats.ARROW_SHAFT);
+    addMaterialStats(MaterialIds.feather, StatlessMaterialStats.FLETCHING);
+    addMaterialStats(MaterialIds.leaves, StatlessMaterialStats.FLETCHING);
+    addMaterialStats(MaterialIds.paper, StatlessMaterialStats.FLETCHING);
     // tier 2
     addMaterialStats(MaterialIds.amethyst, StatlessMaterialStats.ARROW_HEAD);
     addMaterialStats(MaterialIds.prismarine, StatlessMaterialStats.ARROW_HEAD);
@@ -402,18 +405,23 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.blaze, StatlessMaterialStats.ARROW_SHAFT);
     addMaterialStats(MaterialIds.venombone, StatlessMaterialStats.ARROW_SHAFT);
     addMaterialStats(MaterialIds.steeleaf, StatlessMaterialStats.ARROW_HEAD);
+    addMaterialStats(MaterialIds.slimeball, StatlessMaterialStats.FLETCHING);
     // tier 3
     addMaterialStats(MaterialIds.ice, StatlessMaterialStats.ARROW_HEAD);
     addMaterialStats(MaterialIds.quartz, StatlessMaterialStats.ARROW_HEAD);
     addMaterialStats(MaterialIds.ichor, StatlessMaterialStats.ARROW_HEAD);
     addMaterialStats(MaterialIds.glowstone, StatlessMaterialStats.ARROW_HEAD);
     addMaterialStats(MaterialIds.necronium, StatlessMaterialStats.ARROW_SHAFT);
+    addMaterialStats(MaterialIds.magnetite, StatlessMaterialStats.ARROW_HEAD);
+    addMaterialStats(MaterialIds.magma, StatlessMaterialStats.FLETCHING);
     // tier 4
     addMaterialStats(MaterialIds.enderslime, StatlessMaterialStats.ARROW_HEAD);
     addMaterialStats(MaterialIds.dragonScale, StatlessMaterialStats.ARROW_HEAD);
     addMaterialStats(MaterialIds.shulker, StatlessMaterialStats.ARROW_HEAD);
     addMaterialStats(MaterialIds.blazewood, StatlessMaterialStats.ARROW_SHAFT);
     addMaterialStats(MaterialIds.blazingBone, StatlessMaterialStats.ARROW_SHAFT);
+    addMaterialStats(MaterialIds.knightly, StatlessMaterialStats.ARROW_HEAD);
+    addMaterialStats(MaterialIds.endRod, StatlessMaterialStats.ARROW_SHAFT);
   }
 
   private void addArmor() {
@@ -514,7 +522,6 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.phantom, StatlessMaterialStats.REPAIR_KIT);
     // slimesuit embellishments
     addMaterialStats(MaterialIds.blood);
-    addMaterialStats(MaterialIds.magma);
     addMaterialStats(MaterialIds.clay);
     addMaterialStats(MaterialIds.honey);
   }

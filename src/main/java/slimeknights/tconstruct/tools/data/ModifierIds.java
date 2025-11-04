@@ -80,7 +80,6 @@ public class ModifierIds {
 
   // ranged
   public static final ModifierId power = id("power");
-  public static final ModifierId underbowed = id("underbowed");
   public static final ModifierId punch = id("punch");
   public static final ModifierId drawback = id("drawback");
   // TODO 1.20 - change ID to arrow_pierce
@@ -213,9 +212,10 @@ public class ModifierIds {
   public static final ModifierId spectral = id("spectral");
   public static final ModifierId keen = id("keen");
   public static final ModifierId rebound = id("rebound");
+  public static final ModifierId ductile = id("ductile");
+  public static final ModifierId attractive = id("attractive");
   // traits - tier 3 compat
   public static final ModifierId maintained = id("maintained");
-  public static final ModifierId ductile = id("ductile");
   public static final ModifierId temperate = id("temperate");
   /** @deprecated no longer used. Make a copy if you need it */
   @Deprecated
@@ -237,8 +237,14 @@ public class ModifierIds {
   public static final ModifierId stalwart = id("stalwart");
   public static final ModifierId dragonshot = id("dragonshot");
   public static final ModifierId reclaim = id("reclaim");
+  public static final ModifierId hover = id("hover");
   // traits - tier 4 compat
   public static final ModifierId temperedProtection = id("tempered_protection");
+  // traits - fletching
+  public static final ModifierId cheap = id("cheap");
+  public static final ModifierId weak = id("weak");
+  public static final ModifierId erratic = id("erratic");
+  public static final ModifierId fuse = id("fuse");
 
   // traits - slimeskull
   public static final ModifierId mithridatism = id("mithridatism");

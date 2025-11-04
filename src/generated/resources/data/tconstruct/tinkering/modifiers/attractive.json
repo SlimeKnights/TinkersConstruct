@@ -1,0 +1,15 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:projectile_attract_mobs",
+      "radius": {
+        "each_level": 3.0
+      },
+      "strength": {
+        "flat": 0.5
+      }
+    }
+  ],
+  "tooltip_display": "always"
+}

@@ -344,6 +344,7 @@
   "pattern.tconstruct.tough_handle": "Tough Handle",
   "pattern.tconstruct.bow_grip": "Bow Grip",
   "pattern.tconstruct.arrow_shaft": "Arrow Shaft",
+  "pattern.tconstruct.fletching": "Arrow Fletching",
   "pattern.tconstruct.arrow_part": "Arrow Head or Shaft",
 
 
@@ -385,7 +386,7 @@
   "item.tconstruct.tool_binding_cast": "Tool Binding Gold Cast",
   "item.tconstruct.tough_binding_cast": "Tough Collar Gold Cast",
   "item.tconstruct.arrow_cast": "Arrow Gold Pattern",
-  "item.tconstruct.arrow_cast.tooltip": "Reusable pattern for making arrow heads and shafts in the part builder",
+  "item.tconstruct.arrow_cast.tooltip": "Reusable pattern for making arrow parts in the part builder",
 
   "_comment": "Tool Handle Gold Casts",
 
@@ -1201,6 +1202,7 @@
   "item.tconstruct.bowstring": "Bowstring",
   "item.tconstruct.arrow_head": "Arrow Head",
   "item.tconstruct.arrow_shaft": "Arrow Shaft",
+  "item.tconstruct.fletching": "Arrow Fletching",
 
   "item.tconstruct.helmet_plating": "Helmet Plating",
   "item.tconstruct.chestplate_plating": "Chest Plating",
@@ -1761,7 +1763,7 @@
   "material.tconstruct.bamboo.flavor": "Get bamboozled!",
   "material.tconstruct.bamboo.ranged": "Movement penalty when drawing back the bow is reduced by 10%",
   "material.tconstruct.bamboo.armor": "Movement penalty when using the shield is reduced by 10%",
-  "material.tconstruct.bamboo.ammo": "Gives the projectile +25% accuracy, making arrows have perfect accuracy (even in inaccurate bows). Thrown weapons also get +25% velocity.",
+  "material.tconstruct.bamboo.ammo": "Gives the projectile +0.5 accuracy, making arrows have perfect accuracy (even in inaccurate bows). Thrown weapons also get +25% velocity.",
 
   "material.tconstruct.ice": "Ice",
   "material.tconstruct.ice.flavor": "Chill!",
@@ -1933,6 +1935,18 @@
   "material.tconstruct.wool.flavor": "Woolooloo",
   "material.tconstruct.wool.ammo": "Multiplies the projectile damage by 0. Note damage may still be increased by bow power, and it may still aggravate mobs.",
 
+  "material.tconstruct.feather": "Feather",
+  "material.tconstruct.feather.flavor": "The traditional arrow fletching",
+  "material.tconstruct.feather.ammo": "Has no special effect, but unlike other fletching choices lacks a downside.",
+
+  "material.tconstruct.paper": "Paper",
+  "material.tconstruct.paper.flavor": "Flimsy, but effective",
+  "material.tconstruct.paper.ammo": "Reduces arrow power by 1.",
+
+  "material.tconstruct.leaves": "Leaves",
+  "material.tconstruct.leaves.flavor": "All natural",
+  "material.tconstruct.leaves.ammo": "Grants you half as many arrows when crafting or part swapping, though they might be gained back if swapping from leaves.",
+
   "material.tconstruct.amethyst": "Amethyst",
   "material.tconstruct.amethyst.flavor": "Protects you from bad aim, provided you were aiming straight ahead",
   "material.tconstruct.amethyst.ammo": "Grants +0.75 projectile damage per level, but restricts the angles the projectile may be thrown at. Stacks with amethyst bronze bows to further restrict angles.",
@@ -1964,6 +1978,14 @@
   "material.tconstruct.glass.ammo": "Decreases projectile damage by 0.75 per level, but gives it a tank. Upon impact, applies fluid effects from the fluid in the tank. Ammo breaks upon hitting a block when filled.",
   "material.tconstruct.glass.skull_flavor": "Whose nice things are being destroyed now, creeper?",
   "material.tconstruct.glass.skull_encyclopedia": "Holding the helmet interact key while sneaking causes the wearer to explode",
+
+  "material.tconstruct.slimeball": "Slime",
+  "material.tconstruct.slimeball.earth": "Earthslime",
+  "material.tconstruct.slimeball.sky": "Skyslime",
+  "material.tconstruct.slimeball.ichor": "Ichor",
+  "material.tconstruct.slimeball.ender": "Enderslime",
+  "material.tconstruct.slimeball.flavor": "Flexes like rubber!",
+  "material.tconstruct.slimeball.ammo": "Reduces arrow accuracy by 0.5.",
 
 
   "__comment": "Tier 3 Materials",
@@ -2064,6 +2086,10 @@
   "material.tconstruct.ichor.flavor": "Skipping stones",
   "material.tconstruct.ichor.ammo": "Projectile will bounce upon hitting a block up to 1 time, plus 2 per level. Increases power by 0.5 per bounce per level before hitting the target. ",
 
+  "material.tconstruct.magma": "Magma",
+  "material.tconstruct.magma.flavor": "Flame out",
+  "material.tconstruct.magma.ammo": "Projectile will disappear half a second after launch, causing some traits to run in the air.",
+
   "material.tconstruct.glowstone": "Glowstone",
   "material.tconstruct.glowstone.flavor": "Brightest day, blackest night, no cave will escape my light!",
   "material.tconstruct.glowstone.ammo": "Causes the target to glow for 10 seconds per level. If it hits a block, places a permanent light source at the cost of the projectile.",
@@ -2091,6 +2117,14 @@
   "material.tconstruct.knightmetal.ranged": "Grants +0.25 damage per level per piece of armor worn by the target (before velocity)",
   "material.tconstruct.knightmetal.armor": "Increases protection by 5% per level per item in the attacker's arms",
 
+  "material.tconstruct.knightly": "Knightly",
+  "material.tconstruct.knightly.flavor": "Shard of the traveling slime, sharper when unrefined.",
+  "material.tconstruct.knightly.ammo": "Grants +0.25 damage per level per piece of armor worn by the target (before velocity)",
+
+  "material.tconstruct.end_rod": "End Rod",
+  "material.tconstruct.end_rod.flavor": "Arrow end's justify its means.",
+  "material.tconstruct.end_rod.ammo": "Projectile ignores gravity fort hte first second of its life",
+
   "material.tconstruct.knightslime": "Knightslime",
 
   "material.tconstruct.enderslime_vine": "Slimy Vine",
@@ -2108,7 +2142,6 @@
   "__comment": "Slimesuit materials",
 
   "material.tconstruct.blood":   "Blood",
-  "material.tconstruct.magma":   "Magma",
   "material.tconstruct.clay":    "Clay",
   "material.tconstruct.honey":   "Honey",
   "material.tconstruct.phantom": "Phantom Membrane",
@@ -2160,6 +2193,10 @@
   "material.tconstruct.steel.encyclopedia": "Grants +10% durability and +8% melee damage per level",
   "material.tconstruct.steel.ranged": "Grants +10% durability and +5% projectile power per level",
   "material.tconstruct.steel.armor": "Grants +10% durability and +1 toughness per level",
+
+  "material.tconstruct.magnetite": "Magnetite",
+  "material.tconstruct.magnetite.flavor": "Naturally occurring magnetism",
+  "material.tconstruct.magnetite.ammo": "Attracts mobs within a radius of 3 blocks per level towards the place the projectile hits",
 
   "material.tconstruct.bronze": "Bronze",
   "material.tconstruct.bronze.flavor": "Not to be confused with amethyst bronze.",
@@ -2381,9 +2418,9 @@
   "modifier.tconstruct.keen": "Keen",
   "modifier.tconstruct.keen.flavor": "How Keen?",
   "modifier.tconstruct.keen.description": "Boosts damage when the projectile hits the target",
-  "modifier.tconstruct.underbowed": "Underbowed",
-  "modifier.tconstruct.underbowed.flavor": "The power without becomes the power within",
-  "modifier.tconstruct.underbowed.description": "Reduces the power of the launcher",
+  "modifier.tconstruct.weak": "Weak",
+  "modifier.tconstruct.weak.flavor": "I've outgrown you!",
+  "modifier.tconstruct.weak.description": "Reduces damage when the projectile hits the target",
   "modifier.tconstruct.quick_charge": "Quick Charge",
   "modifier.tconstruct.quick_charge.flavor": "For when you are tired of all the extra fees",
   "modifier.tconstruct.quick_charge.description": "Increases drawspeed of ranged weapons",
@@ -2405,6 +2442,9 @@
   "modifier.tconstruct.blindshot": "Blindshot",
   "modifier.tconstruct.blindshot.flavor": "Gonna put some dirt in your eye",
   "modifier.tconstruct.blindshot.description": "Decreases the accuracy of the weapon",
+  "modifier.tconstruct.erratic": "Erratic",
+  "modifier.tconstruct.erratic.flavor": "Unexpected directions",
+  "modifier.tconstruct.erratic.description": "Decreases the accuracy of the arrow",
   "modifier.tconstruct.freezing": "Freezing",
   "modifier.tconstruct.freezing.flavor": "Alright, everyone. Chill!",
   "modifier.tconstruct.freezing.description": "Causes melee attacks, fired arrows, and counterattacks to freeze the target",
@@ -2806,6 +2846,9 @@
   "modifier.tconstruct.amorphous": "Amorphous",
   "modifier.tconstruct.amorphous.flavor": "Transitional",
   "modifier.tconstruct.amorphous.description": "Weapon has reduced projectile power",
+  "modifier.tconstruct.fuse": "Fuse",
+  "modifier.tconstruct.fuse.flavor": "Tick tock",
+  "modifier.tconstruct.fuse.description": "Projectile disappears after a short time",
   "modifier.tconstruct.smashing": "Smashing",
   "modifier.tconstruct.smashing.format": "%s (%s)",
   "modifier.tconstruct.smashing.flavor": "Shattered",
@@ -2887,6 +2930,9 @@
   "modifier.tconstruct.economical": "Economical",
   "modifier.tconstruct.economical.flavor": "Ecological!",
   "modifier.tconstruct.economical.description": "Doubles the number of arrows crafted",
+  "modifier.tconstruct.cheap": "Cheap",
+  "modifier.tconstruct.cheap.flavor": "Not ecological!",
+  "modifier.tconstruct.cheap.description": "Halves the number of arrows crafted",
   "modifier.tconstruct.jagged": "Jagged",
   "modifier.tconstruct.jagged.flavor": "Broken edges make it sharp!",
   "modifier.tconstruct.jagged.description": "Every point durability lost increases damage, but decreases mining speed",
@@ -3027,6 +3073,9 @@
   "modifier.tconstruct.tasty": "Tasty",
   "modifier.tconstruct.tasty.flavor": "Om Nom Nom",
   "modifier.tconstruct.tasty.description": "Smells so good, you cannot resist taking a few bites of your tool",
+  "modifier.tconstruct.attractive": "Attractive",
+  "modifier.tconstruct.attractive.flavor": "That's a really nice arrow",
+  "modifier.tconstruct.attractive.description": "Draws in mobs near where the projectile hits.",
 
   "death.attack.tconstruct.bleed": "%1$s bled to death",
   "death.attack.tconstruct.bleed.item": "%1$s bled to death from injuries caused by %2$s",
@@ -3085,6 +3134,9 @@
   "modifier.tconstruct.reclaim": "Reclaim",
   "modifier.tconstruct.reclaim.flavor": "Reduce, reuse, recycle",
   "modifier.tconstruct.reclaim.description": "After hitting the target, projectile will bounce off and can be collected to reuse.",
+  "modifier.tconstruct.hover": "Hover",
+  "modifier.tconstruct.hover.flavor": "Free like the wind!",
+  "modifier.tconstruct.hover.description": "Projectile briefly ignores gravity after firing.",
 
   "__comment": "Tier 5 Traits",
   "modifier.tconstruct.enderporting": "Enderporting",
@@ -3406,6 +3458,7 @@
   "stat.tconstruct.bowstring": "Bowstring",
   "stat.tconstruct.arrow_head": "Arrow Head",
   "stat.tconstruct.arrow_shaft": "Arrow Shaft",
+  "stat.tconstruct.fletching": "Arrow Fletching",
   "tool_stat.tconstruct.extra.no_stats": "No stats",
 
   "tool_stat.tconstruct.block_amount": "Block Amount: ",

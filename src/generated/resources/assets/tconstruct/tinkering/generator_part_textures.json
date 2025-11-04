@@ -946,6 +946,10 @@
       "stat_type": "tconstruct:arrow_shaft"
     },
     {
+      "path": "tconstruct:item/tool/ammo/arrow_feather",
+      "stat_type": "tconstruct:fletching"
+    },
+    {
       "path": "tconstruct:item/tool/ammo/shuriken_top",
       "stat_type": "tconstruct:arrow_head"
     },

@@ -2,7 +2,8 @@
   "color": "FFE9ECEC",
   "generator": {
     "supported_stats": [
-      "tconstruct:arrow_head"
+      "tconstruct:arrow_head",
+      "tconstruct:fletching"
     ],
     "transformer": {
       "type": "tconstruct:grey_to_sprite",

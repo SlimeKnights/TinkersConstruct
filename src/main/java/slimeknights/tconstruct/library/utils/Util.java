@@ -139,6 +139,15 @@ public class Util {
     return result;
   }
 
+  /** Creates a new array by copying the second array and appending all elements in the first. */
+  @SuppressWarnings("unchecked")
+  @SafeVarargs
+  public static <T> T[] prepend(T[] first, T... second) {
+    T[] result = (T[]) Arrays.copyOf(second, first.length + second.length, first.getClass());
+    System.arraycopy(first, 0, result, second.length, first.length);
+    return result;
+  }
+
   /**
    * Obtains a direction based on the difference between two positions
    * @param pos       Tile position

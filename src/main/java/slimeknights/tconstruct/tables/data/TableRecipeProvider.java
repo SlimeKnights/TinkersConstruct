@@ -60,7 +60,7 @@ public class TableRecipeProvider extends BaseRecipeProvider {
   private void tableRecipes(Consumer<FinishedRecipe> consumer) {
     String folder = "tables/";
     // pattern
-    ShapedRecipeBuilder.shaped(RecipeCategory.MISC, TinkerTables.pattern, 3)
+    ShapedRecipeBuilder.shaped(RecipeCategory.MISC, TinkerTables.pattern, 6)
       .define('s', Tags.Items.RODS_WOODEN)
       .define('p', ItemTags.PLANKS)
       .pattern("ps")

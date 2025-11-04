@@ -1,5 +1,20 @@
 {
   "type": "forge:conditional",
+  "conditions": [
+    {
+      "type": "forge:or",
+      "values": [
+        {
+          "type": "tconstruct:config",
+          "prop": "allow_ingotless_alloys"
+        },
+        {
+          "type": "mantle:tag_filled",
+          "tag": "forge:ingots/pewter"
+        }
+      ]
+    }
+  ],
   "recipes": [
     {
       "conditions": [

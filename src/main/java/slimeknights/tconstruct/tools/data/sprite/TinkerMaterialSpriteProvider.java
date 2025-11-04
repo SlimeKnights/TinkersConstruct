@@ -31,6 +31,7 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
     return "Tinkers' Construct Materials";
   }
 
+  @SuppressWarnings("removal")
   @Override
   protected void addAllMaterials() {
     // unknown: just do a black border, make sure it stands out when data is missing
@@ -67,13 +68,16 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .fallbacks("primitive")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF2F4547).addARGB(102, 0xFF4D5859).addARGB(140, 0xFF838B8C).addARGB(178, 0xFFAFB3B5).addARGB(216, 0xFFDBDBDB).addARGB(255, 0xFFF7F7F7).build());
     buildMaterial(MaterialIds.vine)
-      .statType(StatlessMaterialStats.BINDING, StatlessMaterialStats.BOWSTRING).maille()
+      .statType(StatlessMaterialStats.BINDING, StatlessMaterialStats.BOWSTRING).maille().fletching()
       .fallbacks("primitive", "cloth")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF143306).addARGB(102, 0xFF183D08).addARGB(140, 0xFF1F4E0A).addARGB(178, 0xFF265F0D).addARGB(216, 0xFF2E730F).addARGB(255, 0xFF3A9313).build());
     buildMaterial(MaterialIds.chorus)
       .meleeHarvest().ranged().shieldCore().arrowHead().arrowShaft().maille()
       .fallbacks("rock")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF4F2A4F).addARGB(102, 0xFF593559).addARGB(140, 0xFF643C64).addARGB(178, 0xFF774D77).addARGB(216, 0xFF8F648F).addARGB(255, 0xFFA47CA4).build());
+    buildMaterial(MaterialIds.paper)
+      .fletching().fallbacks("primitive")
+      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF878787).addARGB(102, 0xFFAEAEAE).addARGB(140, 0xFFC1C1C1).addARGB(178, 0xFFD6D6D6).addARGB(216, 0xFFE9EAEB).addARGB(255, 0xFFFCFCF2).build());
     // tier 1 - wood
     buildMaterial(MaterialIds.wood)
       .meleeHarvest().ranged().shieldCore().arrowShaft()
@@ -248,7 +252,7 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .fallbacks("metal")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFFAD685B).addARGB(102, 0xFFBF8070).addARGB(140, 0xFFDB9A87).addARGB(178, 0xFFE8B3A0).addARGB(216, 0xFFF7CDBB).addARGB(255, 0xFFFFE7DB).build());
     buildMaterial(MaterialIds.steel)
-      .meleeHarvest().ranged().armor()
+      .meleeHarvest().ranged().armor().arrowHead()
       .fallbacks("metal")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF1B202D).addARGB(102, 0xFF252C3D).addARGB(140, 0xFF323847).addARGB(178, 0xFF3E4453).addARGB(216, 0xFF495065).addARGB(255, 0xFF67718C).build());
 //      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF222626).addARGB(102, 0xFF393D3D).addARGB(140, 0xFF515454).addARGB(178, 0xFF6A6D6D).addARGB(216, 0xFF898C8C).addARGB(255, 0xFFADAFAF).build());
@@ -321,7 +325,7 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .fallbacks("metal")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF350C57).addARGB(102, 0xFF481D6D).addARGB(140, 0xFF5C268A).addARGB(178, 0xFF7141AC).addARGB(216, 0xFF9261CC).addARGB(255, 0xFFC299F3).build());
     buildMaterial(MaterialIds.knightmetal)
-      .meleeHarvest().ranged().armor()
+      .meleeHarvest().ranged().armor().arrowHead()
       .fallbacks("slime_metal", "metal")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF333232).addARGB(102, 0xFF4D4C4B).addARGB(140, 0xFF808C72).addARGB(178, 0xFFA3B391).addARGB(216, 0xFFC4D6AE).addARGB(255, 0xFFE7FCCD).build());
     ResourceLocation fiery = getResource("generator/fiery");
@@ -356,6 +360,9 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .statType(StatlessMaterialStats.BINDING, StatlessMaterialStats.BOWSTRING).cuirass().maille()
       .fallbacks("primitive", "cloth")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF6300B0).addARGB(102, 0xFF790CC9).addARGB(140, 0xFF9727DD).addARGB(178, 0xFFA936ED).addARGB(216, 0xFFBF58F7).addARGB(255, 0xFFD37CFF).build());
+    buildMaterial(MaterialIds.endRod)
+      .arrowShaft()
+      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFFF6E2CD).addARGB(102, 0xFFF6EACD).addARGB(140, 0xFFFFF2D5).addARGB(178, 0xFFFFF6F6).addARGB(216, 0xFFFFF6F6).addARGB(255, 0xFFFFFFFF).build());
 
     // plate
     buildMaterial(MaterialIds.gold)
@@ -388,10 +395,13 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
     // wool for arrows
     for (DyeColor color : DyeColor.values()) {
       String name = color.getName();
-      buildMaterial(MaterialVariantId.create(MaterialIds.wool, name))
-        .variant(color != DyeColor.WHITE)
-        .arrowHead()
-        .transformer(transformerFromSprite(new ResourceLocation("block/" + name + "_wool"), 0, 0));
+      MaterialSpriteInfoBuilder builder = buildMaterial(MaterialVariantId.create(MaterialIds.wool, name));
+      builder.arrowHead().transformer(transformerFromSprite(new ResourceLocation("block/" + name + "_wool"), 0, 0));
+      if (color == DyeColor.WHITE) {
+        builder.fletching();
+      } else {
+        builder.variant(true);
+      }
     }
 
     // slimeskull
@@ -403,26 +413,26 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF032620).addARGB(102, 0xFF0C3730).addARGB(140, 0xFF0B4D42).addARGB(178, 0xFF105E51).addARGB(216, 0xFF349988).addARGB(255, 0xFF8CF4E2).build());
     // slimesuit
     buildMaterial(MaterialIds.enderslime)
-      .repairKit().arrowHead()
+      .repairKit().arrowHead().fletching()
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF6300B0).addARGB(102, 0xFF790DC6).addARGB(140, 0xFFA936ED).addARGB(178, 0xFFBF58F7).addARGB(216, 0xFFD37CFF).addARGB(255, 0xFFEEBFFF).build());
     buildMaterial(MaterialIds.phantom)
       .repairKit().fallbacks("wood")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF6F516C).addARGB(102, 0xFF7E627B).addARGB(140, 0xFF958C79).addARGB(178, 0xFFA99B87).addARGB(216, 0xFFC3B9A1).addARGB(255, 0xFFDCD9C0).build());
     // slimesuit embellishments
     buildMaterial(MaterialIds.earthslime)
-      .statType(SLIMESUIT).arrowHead()
+      .statType(SLIMESUIT).arrowHead().fletching()
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF34532F).addARGB(102, 0xFF406D3B).addARGB(140, 0xFF508049).addARGB(178, 0xFF71AC63).addARGB(216, 0xFF8CD782).addARGB(255, 0xFFFFFFFF).build());
     buildMaterial(MaterialIds.skyslime)
-      .statType(SLIMESUIT).arrowHead()
+      .statType(SLIMESUIT).arrowHead().fletching()
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF2F5351).addARGB(102, 0xFF3B6D6D).addARGB(140, 0xFF49807E).addARGB(178, 0xFF63ACAB).addARGB(216, 0xFF82D7D5).addARGB(255, 0xFFFFFFFF).build());
     buildMaterial(MaterialIds.blood)
       .statType(SLIMESUIT)
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF5D0000).addARGB(102, 0xFF750000).addARGB(140, 0xFF820000).addARGB(178, 0xFFA00000).addARGB(216, 0xFFB80000).addARGB(255, 0xFFE82323).build());
     buildMaterial(MaterialIds.magma) // note the non-standard grey values, as we are targeting the slime armor directly
-      .statType(SLIMESUIT)
+      .statType(SLIMESUIT).fletching()
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(140, 0xFFCA4E06).addARGB(155, 0xFFE66410).addARGB(170, 0xFF411616).addARGB(193, 0xFF501B1B).addARGB(216, 0xFF652828).addARGB(236, 0xFF411616).build());
     IColorMapping ichor = GreyToColorMapping.builderFromBlack().addARGB(63, 0xFFB04000).addARGB(102, 0xFFD35200).addARGB(140, 0xFFEC5E00).addARGB(178, 0xFFFF8324).addARGB(216, 0xFFFFB97C).addARGB(255, 0xFFFFFFFF).build();
-    buildMaterial(MaterialIds.ichor).statType(SLIMESUIT).arrowHead().colorMapper(ichor);
+    buildMaterial(MaterialIds.ichor).statType(SLIMESUIT).arrowHead().fletching().colorMapper(ichor);
     buildMaterial(MaterialIds.ichorskin).fallbacks("cloth").cuirass().maille().colorMapper(ichor);
     buildMaterial(MaterialIds.clay)
       .statType(SLIMESUIT)

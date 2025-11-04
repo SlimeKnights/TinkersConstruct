@@ -108,7 +108,6 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     // ammo
     ToolBuildingRecipeBuilder.toolBuildingRecipe(TinkerTools.arrow.get())
       .outputSize(4)
-      .addExtraRequirement(Ingredient.of(Items.FEATHER))
       .save(consumer, prefix(TinkerTools.arrow, folder));
     ToolBuildingRecipeBuilder.toolBuildingRecipe(TinkerTools.shuriken.get())
       .layoutSlot(Patterns.THROWN_AMMO)
@@ -121,13 +120,13 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     ToolBuildingRecipeBuilder.toolBuildingRecipe(TinkerTools.arrow.get())
       .addExtraRequirement(Ingredient.of(Items.ARROW))
       .noParts()
-      .addExtraMaterial(MaterialIds.flint).addExtraMaterial(MaterialIds.wood)
+      .addExtraMaterial(MaterialIds.flint, MaterialIds.wood, MaterialIds.feather)
       .layoutSlot(TinkerTables.tinkerStation.getId())
       .save(consumer, wrap(TinkerTools.arrow, folder, "_from_vanilla"));
     ToolBuildingRecipeBuilder.toolBuildingRecipe(TinkerTools.arrow.get())
       .addExtraRequirement(PotionDisplayIngredient.of(Items.TIPPED_ARROW))
       .noParts()
-      .addExtraMaterial(MaterialIds.flint).addExtraMaterial(MaterialIds.wood)
+      .addExtraMaterial(MaterialIds.flint, MaterialIds.wood, MaterialIds.feather)
       .tippedModifier(ModifierIds.tipped)
       .layoutSlot(TinkerTables.tinkerStation.getId())
       .save(consumer, wrap(TinkerTools.arrow, folder, "_from_tipped"));
@@ -427,6 +426,12 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
       .setCost(1)
       .setAllowUncraftable(true)
       .save(consumer, location(partFolder + "builder/arrow_shaft"));
+    PartRecipeBuilder.partRecipe(TinkerToolParts.fletching.get())
+      .setPattern(TinkerToolParts.fletching.getId())
+      .setPatternItem(arrowPattern)
+      .setCost(1)
+      .setAllowUncraftable(true)
+      .save(consumer, location(partFolder + "builder/fletching"));
   }
 
   /** Helper to create a casting recipe for a slimeskull variant */

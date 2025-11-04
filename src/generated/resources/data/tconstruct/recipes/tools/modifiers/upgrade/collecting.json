@@ -10,7 +10,7 @@
   "level": 1,
   "result": "tconstruct:collecting",
   "slots": {
-    "abilities": 1
+    "upgrades": 1
   },
   "tools": {
     "tag": "tconstruct:modifiable/fishing_rods"

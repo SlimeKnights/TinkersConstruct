@@ -81,7 +81,6 @@
   "tconstruct:freezing":     "tconstruct:gui/modifiers/ranged/freezing",
   "tconstruct:impaling":     "tconstruct:gui/modifiers/ranged/impaling",
   "tconstruct:power":        "tconstruct:gui/modifiers/ranged/power",
-  "tconstruct:underbowed":   "tconstruct:gui/modifiers/ranged/underbowed",
   "tconstruct:punch":        "tconstruct:gui/modifiers/ranged/punch",
   "tconstruct:quick_charge": "tconstruct:gui/modifiers/ranged/quick_charge",
   "tconstruct:scope":        "tconstruct:gui/modifiers/ranged/scope",

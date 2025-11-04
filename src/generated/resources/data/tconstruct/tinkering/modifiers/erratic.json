@@ -1,0 +1,16 @@
+{
+  "level_display": "tconstruct:no_levels",
+  "modules": [
+    {
+      "type": "tconstruct:material_variant_color",
+      "material": "tconstruct:slimeball"
+    },
+    {
+      "type": "tconstruct:stat_boost",
+      "flat": -0.5,
+      "operation": "add",
+      "stat": "tconstruct:accuracy"
+    }
+  ],
+  "tooltip_display": "always"
+}

@@ -54,6 +54,7 @@ public interface ScheduledProjectileTaskModifierHook {
     ListScheduler scheduler = builder.list(size);
     for (int i = 0; i < size; i++) {
       ModifierEntry entry = modifiers.get(i);
+      scheduler.setIndex(i);
       entry.getHook(ModifierHooks.SCHEDULE_PROJECTILE_TASK).scheduleProjectileTask(tool, entry, ammo, projectile, arrow, persistentData, scheduler);
     }
     return builder.build();
