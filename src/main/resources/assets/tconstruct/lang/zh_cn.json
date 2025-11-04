@@ -234,10 +234,10 @@
   "block.tconstruct.ender_slime_crystal_cluster": "末影黏液水晶簇",
   "block.tconstruct.budding_ender_slime_crystal": "末影黏液水晶母岩",
 
-  "item.tconstruct.steel_shard": "钢晶碎片",
+  "item.tconstruct.steel_shard": "钢碎片",
   "item.tconstruct.steel_shard.tooltip": "被碧空史莱姆吞食的钢晶碎片",
-  "block.tconstruct.steel_cluster": "钢晶晶簇",
-  "block.tconstruct.steel_cluster.tooltip": "自然形成的钢晶碎片堆。采集后不会再生",
+  "block.tconstruct.steel_cluster": "钢晶簇",
+  "block.tconstruct.steel_cluster.tooltip": "自然形成的钢碎片堆。采集后不会再生",
   "item.tconstruct.knightmetal_shard": "骑士金属碎片",
   "item.tconstruct.knightmetal_shard.tooltip": "被末影史莱姆吞食的骑士金属碎片",
   "block.tconstruct.knightmetal_cluster": "骑士金属晶簇",
@@ -344,6 +344,7 @@
   "pattern.tconstruct.tough_handle": "坚韧手柄",
   "pattern.tconstruct.bow_grip": "弓把",
   "pattern.tconstruct.arrow_shaft": "箭杆",
+  "pattern.tconstruct.fletching": "箭羽",
   "pattern.tconstruct.arrow_part": "箭头或箭杆",
 
 
@@ -385,7 +386,7 @@
   "item.tconstruct.tool_binding_cast": "绑定结金质铸模",
   "item.tconstruct.tough_binding_cast": "坚韧套环金质铸模",
   "item.tconstruct.arrow_cast": "箭部件金质模具",
-  "item.tconstruct.arrow_cast.tooltip": "在部件制作台上用以制作箭头和箭杆的模具，使用后不消耗",
+  "item.tconstruct.arrow_cast.tooltip": "在部件制作台上用以制作箭矢部件的模具，使用后不消耗",
 
   "_comment": "Tool Handle Gold Casts",
 
@@ -1201,6 +1202,7 @@
   "item.tconstruct.bowstring": "弓弦",
   "item.tconstruct.arrow_head": "箭头",
   "item.tconstruct.arrow_shaft": "箭杆",
+  "item.tconstruct.fletching": "箭羽",
 
   "item.tconstruct.helmet_plating": "头盔镶板",
   "item.tconstruct.chestplate_plating": "胸甲镶板",
@@ -1761,7 +1763,7 @@
   "material.tconstruct.bamboo.flavor": "被敲竹杠了！",
   "material.tconstruct.bamboo.ranged": "拉弓时的移动速度惩罚-10%",
   "material.tconstruct.bamboo.armor": "举盾时的移动速度惩罚-10%",
-  "material.tconstruct.bamboo.ammo": "使弹射物+25%精确度，让箭矢更加精准（即便弓提供的精确度不足）。可投掷武器获得+25%速度",
+  "material.tconstruct.bamboo.ammo": "使弹射物+0.5精确度，让箭矢更加精准（即便弓提供的精确度不足）。可投掷武器获得+25%速度",
 
   "material.tconstruct.ice": "冰",
   "material.tconstruct.ice.flavor": "冷静一下！",
@@ -1933,6 +1935,18 @@
   "material.tconstruct.wool.flavor": "软绵绵",
   "material.tconstruct.wool.ammo": "弹射物伤害会乘以0。注意，实际伤害仍可能因弓提供的弹射物力量而增加，且仍会激怒特定生物",
 
+  "material.tconstruct.feather": "羽毛",
+  "material.tconstruct.feather.flavor": "传统的箭羽",
+  "material.tconstruct.feather.ammo": "没有特殊效果，相较其他箭羽材料而言也没有缺陷。",
+
+  "material.tconstruct.paper": "纸",
+  "material.tconstruct.paper.flavor": "脆弱，但易得",
+  "material.tconstruct.paper.ammo": "箭矢的弹射物力量减1。",
+
+  "material.tconstruct.leaves": "树叶",
+  "material.tconstruct.leaves.flavor": "纯天然",
+  "material.tconstruct.leaves.ammo": "合成或部件替换时，箭矢数量减少一半，由树叶部件换走时重新得到这部分箭矢。",
+
   "material.tconstruct.amethyst": "紫水晶",
   "material.tconstruct.amethyst.flavor": "抛开只能向正前方发射不谈，确实不用担心瞄不准了",
   "material.tconstruct.amethyst.ammo": "每级+0.75弹射物伤害，但限制弹射物可投掷的方向。与紫水晶青铜的效果叠加将进一步限制瞄准角度",
@@ -1964,6 +1978,14 @@
   "material.tconstruct.glass.ammo": "每级-0.75弹射物伤害，但增加一个储罐。命中目标时，对它造成储罐内流体所对应的效果。充填流体时，击中方块将会碎裂",
   "material.tconstruct.glass.skull_flavor": "现在是谁炸谁了，苦力怕？",
   "material.tconstruct.glass.skull_encyclopedia": "潜行按住“头盔交互”键会使穿戴者爆炸",
+
+  "material.tconstruct.slimeball": "黏液",
+  "material.tconstruct.slimeball.earth": "大地黏液",
+  "material.tconstruct.slimeball.sky": "碧空黏液",
+  "material.tconstruct.slimeball.ichor": "灵浆",
+  "material.tconstruct.slimeball.ender": "末影黏液",
+  "material.tconstruct.slimeball.flavor": "橡胶般柔韧",
+  "material.tconstruct.slimeball.ammo": "箭矢精准度减少0.5。",
 
 
   "__comment": "Tier 3 Materials",
@@ -2064,6 +2086,10 @@
   "material.tconstruct.ichor.flavor": "弹跳的石子",
   "material.tconstruct.ichor.ammo": "弹射物会在击中方块后反弹，初始最多1次，每级增加上限2次。命中目标前每弹跳一次，弹射物力量都会增加0.5×等级",
 
+  "material.tconstruct.magma": "岩浆",
+  "material.tconstruct.magma.flavor": "燃尽",
+  "material.tconstruct.magma.ammo": "弹射物在发射的半秒后消失，部分特性将直接在半空中触发。",
+
   "material.tconstruct.glowstone": "荧石",
   "material.tconstruct.glowstone.flavor": "白昼朗朗，黑夜茫茫。深山老洞，无所遁藏！",
   "material.tconstruct.glowstone.ammo": "使目标发光，每级增加持续时间10秒。若击中方块，则消耗箭矢在目标位置放置一个永久的光源",
@@ -2088,8 +2114,16 @@
   "material.tconstruct.knightmetal": "骑士金属",
   "material.tconstruct.knightmetal.flavor": "史莱姆们旅途中得到的金属，也能从暮色森林某一穿盔甲的生物那找到。",
   "material.tconstruct.knightmetal.encyclopedia": "目标每穿戴一件盔甲，每级伤害+0.5",
-  "material.tconstruct.knightmetal.ranged": "目标每穿戴一件盔甲，每级箭矢伤害+0.25（先于初速度计算）",
+  "material.tconstruct.knightmetal.ranged": "目标每穿戴一件盔甲，每级箭矢伤害+0.25（先于速度计算）",
   "material.tconstruct.knightmetal.armor": "目标每手持一件物品，每级提供的保护+5%",
+
+  "material.tconstruct.knightly": "骑士金属",
+  "material.tconstruct.knightly.flavor": "史莱姆旅途中得到的碎片，未打磨时尤为尖锐。",
+  "material.tconstruct.knightly.ammo": "目标每穿戴一件盔甲，每级箭矢伤害+0.25（先于速度计算）",
+
+  "material.tconstruct.end_rod": "末地烛",
+  "material.tconstruct.end_rod.flavor": "没箭入石，箭“末”入石。",
+  "material.tconstruct.end_rod.ammo": "弹射物在最开始的一秒中无视重力",
 
   "material.tconstruct.knightslime": "骑士史莱姆",
 
@@ -2108,7 +2142,6 @@
   "__comment": "Slimesuit materials",
 
   "material.tconstruct.blood": "血",
-  "material.tconstruct.magma": "岩浆",
   "material.tconstruct.clay": "黏土",
   "material.tconstruct.honey": "蜂蜜",
   "material.tconstruct.phantom": "幻翼膜",
@@ -2160,6 +2193,10 @@
   "material.tconstruct.steel.encyclopedia": "每级耐久度+10%，近战伤害+8%",
   "material.tconstruct.steel.ranged": "每级耐久度+10%，弹射物力量+5%",
   "material.tconstruct.steel.armor": "每级耐久度+10%，盔甲韧性+1",
+
+  "material.tconstruct.magnetite": "磁铁",
+  "material.tconstruct.magnetite.flavor": "天然磁场",
+  "material.tconstruct.magnetite.ammo": "在弹射物的落点处吸引生物，每级增加3格",
 
   "material.tconstruct.bronze": "青铜",
   "material.tconstruct.bronze.flavor": "别和紫水晶青铜搞混了。",
@@ -2381,9 +2418,9 @@
   "modifier.tconstruct.keen": "锐利",
   "modifier.tconstruct.keen.flavor": "多带劲啊？",
   "modifier.tconstruct.keen.description": "增加弹射物击中目标时造成的伤害",
-  "modifier.tconstruct.underbowed": "软弓",
-  "modifier.tconstruct.underbowed.flavor": "由外入内，力化于心。",
-  "modifier.tconstruct.underbowed.description": "减少工具的弹射物力量",
+  "modifier.tconstruct.weak": "软弱",
+  "modifier.tconstruct.weak.flavor": "我不喜欢你了！",
+  "modifier.tconstruct.weak.description": "弹射物击中目标时造成的伤害降低",
   "modifier.tconstruct.quick_charge": "快速装填",
   "modifier.tconstruct.quick_charge.flavor": "拉弦不再费时",
   "modifier.tconstruct.quick_charge.description": "缩短远程武器的拉弓速度",
@@ -2405,6 +2442,9 @@
   "modifier.tconstruct.blindshot": "盲射",
   "modifier.tconstruct.blindshot.flavor": "给你眼里撒点灰！",
   "modifier.tconstruct.blindshot.description": "降低武器的精确度",
+  "modifier.tconstruct.erratic": "漂移",
+  "modifier.tconstruct.erratic.flavor": "未曾设想的方向",
+  "modifier.tconstruct.erratic.description": "降低武器的精确度",
   "modifier.tconstruct.freezing": "冰冻",
   "modifier.tconstruct.freezing.flavor": "冻住不许走！",
   "modifier.tconstruct.freezing.description": "近战攻击、着火的箭矢以及被动攻击能使目标进入冰冻状态",
@@ -2806,6 +2846,9 @@
   "modifier.tconstruct.amorphous": "玻璃态",
   "modifier.tconstruct.amorphous.flavor": "容易变形",
   "modifier.tconstruct.amorphous.description": "工具的弹射物力量变弱",
+  "modifier.tconstruct.fuse": "引信",
+  "modifier.tconstruct.fuse.flavor": "争分夺秒",
+  "modifier.tconstruct.fuse.description": "弹射物在短时间后消失",
   "modifier.tconstruct.smashing": "迸射",
   "modifier.tconstruct.smashing.format": "%s（%s）",
   "modifier.tconstruct.smashing.flavor": "易碎",
@@ -2887,6 +2930,9 @@
   "modifier.tconstruct.economical": "节约",
   "modifier.tconstruct.economical.flavor": "低碳环保！",
   "modifier.tconstruct.economical.description": "合成的箭矢数量翻倍",
+  "modifier.tconstruct.cheap": "廉价",
+  "modifier.tconstruct.cheap.flavor": "粗制滥造！",
+  "modifier.tconstruct.cheap.description": "合成的箭矢数量减半",
   "modifier.tconstruct.jagged": "锯齿",
   "modifier.tconstruct.jagged.flavor": "破缘生锋刃！",
   "modifier.tconstruct.jagged.description": "工具的耐久度越低，伤害值越高，但挖掘速度越低",
@@ -3027,6 +3073,9 @@
   "modifier.tconstruct.tasty": "美味",
   "modifier.tconstruct.tasty.flavor": "吧唧吧唧",
   "modifier.tconstruct.tasty.description": "闻起来真香，香得让你忍不住在这工具上添几道牙印",
+  "modifier.tconstruct.attractive": "诱引",
+  "modifier.tconstruct.attractive.flavor": "现在知道谁的箭好看了",
+  "modifier.tconstruct.attractive.description": "弹射物会牵引落点附近的生物",
 
   "death.attack.tconstruct.bleed": "%1$s倒在了血泊之中",
   "death.attack.tconstruct.bleed.item": "%2$s的攻击使%1$s流血致死",
@@ -3085,6 +3134,9 @@
   "modifier.tconstruct.reclaim": "回收",
   "modifier.tconstruct.reclaim.flavor": "降解、复用、循环",
   "modifier.tconstruct.reclaim.description": "击中目标后，弹射物会弹开，以便收集再利用",
+  "modifier.tconstruct.hover": "悬浮",
+  "modifier.tconstruct.hover.flavor": "自由飞翔！",
+  "modifier.tconstruct.hover.description": "弹射物刚发射的短时间里无视重力",
 
   "__comment": "Tier 5 Traits",
   "modifier.tconstruct.enderporting": "末影传送",
@@ -3406,6 +3458,7 @@
   "stat.tconstruct.bowstring": "弓弦",
   "stat.tconstruct.arrow_head": "箭头",
   "stat.tconstruct.arrow_shaft": "箭杆",
+  "stat.tconstruct.fletching": "箭羽",
   "tool_stat.tconstruct.extra.no_stats": "无数据",
 
   "tool_stat.tconstruct.block_amount": "格挡值：",
