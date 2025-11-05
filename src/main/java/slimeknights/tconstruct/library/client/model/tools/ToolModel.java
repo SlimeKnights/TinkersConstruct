@@ -512,7 +512,8 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
     if (ammoKey != null) {
       // flipping rotates it 180 degrees, but because the origin is 0,0 instead of 0.5,0,5 it gets shifted
       // I could do some composition to shift the orgin, but its faster to just correct for it below
-      Quaternionf ammoRotation = flipAmmo ? Axis.YP.rotationDegrees(-180) : null;
+      // Additional 90 degree rotation around Z axis is applied after the flip
+      Quaternionf ammoRotation = flipAmmo ? Axis.YP.rotationDegrees(-180).mul(Axis.ZP.rotationDegrees(90)) : null;
       float flipOffset = flipAmmo ? 1 : 0;
 
       // left if requested is based on either small or right, reusing a variable allows us to keep the one that ended up used.
