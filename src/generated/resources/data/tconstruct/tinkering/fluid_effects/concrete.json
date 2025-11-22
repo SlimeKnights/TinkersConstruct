@@ -2,7 +2,7 @@
   "block_effects": [
     {
       "type": "tconstruct:offset",
-      "block": "tconstruct:can_be_replaced",
+      "block": "mantle:can_be_replaced",
       "effect": {
         "type": "tconstruct:set_block",
         "block": "immersiveengineering:concrete_sprayed"
@@ -32,8 +32,8 @@
         "block": "immersiveengineering:concrete_sprayed"
       },
       "target": {
-        "type": "tconstruct:block_at_feet",
-        "block_type": "tconstruct:can_be_replaced"
+        "type": "mantle:block_at_entity",
+        "block_type": "mantle:can_be_replaced"
       }
     },
     {

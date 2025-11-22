@@ -1,0 +1,23 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:sleeves"
+    },
+    {
+      "type": "tconstruct:inventory",
+      "filter": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:throwable"
+      },
+      "limit": {
+        "flat": 16
+      },
+      "pattern": "tconstruct:shuriken",
+      "slots": {
+        "each_level": 3
+      }
+    }
+  ],
+  "tooltip_display": "always"
+}

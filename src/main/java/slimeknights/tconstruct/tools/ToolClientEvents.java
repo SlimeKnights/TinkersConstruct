@@ -56,6 +56,7 @@ import slimeknights.tconstruct.library.client.modifiers.MaterialModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.ModifierModelManager;
 import slimeknights.tconstruct.library.client.modifiers.ModifierModelManager.ModifierModelRegistrationEvent;
 import slimeknights.tconstruct.library.client.modifiers.NormalModifierModel;
+import slimeknights.tconstruct.library.client.modifiers.PotionModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.TankModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.TrimModifierModel;
 import slimeknights.tconstruct.library.client.particle.AttackParticle;
@@ -73,10 +74,13 @@ import slimeknights.tconstruct.tools.client.CrystalshotRenderer;
 import slimeknights.tconstruct.tools.client.FluidEffectProjectileRenderer;
 import slimeknights.tconstruct.tools.client.OverslimeModifierModel;
 import slimeknights.tconstruct.tools.client.SlimeskullArmorModel;
+import slimeknights.tconstruct.tools.client.ThrownShurikenRenderer;
+import slimeknights.tconstruct.tools.client.ThrownToolRenderer;
 import slimeknights.tconstruct.tools.client.ToolContainerScreen;
 import slimeknights.tconstruct.tools.item.ModifierCrystalItem;
 import slimeknights.tconstruct.tools.logic.DoubleJumpHandler;
 import slimeknights.tconstruct.tools.logic.InteractionHandler;
+import slimeknights.tconstruct.tools.modules.ranged.ammo.SmashingModule;
 import slimeknights.tconstruct.tools.network.TinkerControlPacket;
 
 import java.util.function.Consumer;
@@ -124,6 +128,8 @@ public class ToolClientEvents extends ClientEventBase {
     event.registerModel(getResource("material"), MaterialModifierModel.UNBAKED_INSTANCE);
     event.registerModel(getResource("dyed"), DyedModifierModel.UNBAKED_INSTANCE);
     event.registerModel(getResource("trim"), TrimModifierModel.UNBAKED_INSTANCE);
+    event.registerModel(getResource("potion"), PotionModifierModel.UNBAKED_INSTANCE);
+    event.registerModel(getResource("smashing_fluid"), new FluidModifierModel.Unbaked(SmashingModule.TANK_HELPER));
   }
 
   @SubscribeEvent
@@ -132,6 +138,10 @@ public class ToolClientEvents extends ClientEventBase {
     event.registerEntityRenderer(TinkerTools.crystalshotEntity.get(), CrystalshotRenderer::new);
     // TODO: custom renderer?
     event.registerEntityRenderer(TinkerTools.fishingHook.get(), FishingHookRenderer::new);
+    // TODO: config option for vanilla style renderer
+    event.registerEntityRenderer(TinkerTools.materialArrow.get(), ThrownToolRenderer::new);
+    event.registerEntityRenderer(TinkerTools.thrownShuriken.get(), ThrownShurikenRenderer::new);
+    event.registerEntityRenderer(TinkerTools.thrownTool.get(), ThrownToolRenderer::new);
     event.registerEntityRenderer(TinkerModifiers.fluidSpitEntity.get(), FluidEffectProjectileRenderer::new);
   }
 
@@ -175,6 +185,7 @@ public class ToolClientEvents extends ClientEventBase {
       TinkerItemProperties.registerCrossbowProperties(TinkerTools.crossbow);
       TinkerItemProperties.registerToolProperties(TinkerTools.longbow);
       TinkerItemProperties.registerToolProperties(TinkerTools.fishingRod);
+      TinkerItemProperties.registerToolProperties(TinkerTools.javelin);
       // misc
       TinkerItemProperties.registerToolProperties(TinkerTools.flintAndBrick);
       TinkerItemProperties.registerToolProperties(TinkerTools.skyStaff);
@@ -234,6 +245,10 @@ public class ToolClientEvents extends ClientEventBase {
     registerItemColors(colors, TinkerTools.crossbow);
     registerItemColors(colors, TinkerTools.longbow);
     registerItemColors(colors, TinkerTools.fishingRod);
+    registerItemColors(colors, TinkerTools.javelin);
+    registerItemColors(colors, TinkerTools.arrow);
+    registerItemColors(colors, TinkerTools.shuriken);
+    registerItemColors(colors, TinkerTools.throwingAxe);
     // ancient
     registerItemColors(colors, TinkerTools.meltingPan);
     registerItemColors(colors, TinkerTools.warPick);

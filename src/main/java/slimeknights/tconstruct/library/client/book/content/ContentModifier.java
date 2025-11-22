@@ -147,7 +147,7 @@ public class ContentModifier extends PageContent {
 
     // description
     int y = getTitleHeight();
-    int h = more_text_space ? BookScreen.PAGE_HEIGHT * 2 / 5 : BookScreen.PAGE_HEIGHT * 2 / 7;
+    int h = more_text_space ? BookScreen.PAGE_HEIGHT / 2 - 5 : BookScreen.PAGE_HEIGHT * 2 / 7;
     list.add(new TextElement(5, y, BookScreen.PAGE_WIDTH - 10, h, text));
 
     if (this.effects.length > 0) {
@@ -164,7 +164,7 @@ public class ContentModifier extends PageContent {
         effectData.add(new TextData("\n"));
       }
 
-      list.add(new TextElement(5, y + 14 + h, BookScreen.PAGE_WIDTH / 2 + 5, BookScreen.PAGE_HEIGHT - h - 20, effectData));
+      list.add(new TextElement(5, y + 14 + h, BookScreen.PAGE_WIDTH / 2 + 7, BookScreen.PAGE_HEIGHT - h - 20, effectData));
     }
 
     int size = recipes.size();

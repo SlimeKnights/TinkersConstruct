@@ -2,7 +2,8 @@
   "color": "FF652828",
   "generator": {
     "supported_stats": [
-      "tconstruct:slimesuit"
+      "tconstruct:slimesuit",
+      "tconstruct:fletching"
     ],
     "transformer": {
       "type": "tconstruct:recolor_sprite",
@@ -40,5 +41,6 @@
         ]
       }
     }
-  }
+  },
+  "luminosity": 5
 }

@@ -6,7 +6,11 @@
       "mode": "disallow_broken"
     },
     {
-      "type": "tconstruct:campfire_extinguish"
+      "type": "tconstruct:campfire_extinguish",
+      "hooks": [
+        "tconstruct:block_interact",
+        "tconstruct:aoe_highlight"
+      ]
     },
     {
       "type": "tconstruct:tool_action_transform",

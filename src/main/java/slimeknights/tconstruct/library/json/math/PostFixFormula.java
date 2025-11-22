@@ -164,6 +164,11 @@ public record PostFixFormula(List<StackOperation> operations, int numArguments) 
       return operation(PostFixOperator.POWER);
     }
 
+    /** Pushes a square root operation into the builder */
+    public T sqrt() {
+      return operation(PostFixOperator.SQRT);
+    }
+
     /** Pushes a power flipped operation into the builder */
     public T powerFlipped() {
       return operation(PostFixOperator.POWER_FLIPPED);

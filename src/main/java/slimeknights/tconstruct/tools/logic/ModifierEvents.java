@@ -4,6 +4,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
@@ -22,6 +23,7 @@ import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
+import net.minecraftforge.event.entity.living.LivingGetProjectileEvent;
 import net.minecraftforge.event.entity.living.LivingKnockBackEvent;
 import net.minecraftforge.event.entity.living.MobEffectEvent;
 import net.minecraftforge.event.entity.player.CriticalHitEvent;
@@ -33,6 +35,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.Sounds;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.json.predicate.TinkerPredicate;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.modules.armor.EffectImmunityModule;
@@ -44,6 +47,7 @@ import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.Tin
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.helper.ModifierLootingHandler;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
+import slimeknights.tconstruct.library.tools.item.ranged.ModifiableBowItem;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.SlimeBounceHandler;
@@ -379,5 +383,35 @@ public class ModifierEvents {
       living.setOnGround(false); // need to be on ground for server to process this event
     }
     living.playSound(Sounds.SLIMY_BOUNCE.getSound(), 1f, 1f);
+  }
+
+  @SubscribeEvent
+  static void onProjectile(LivingGetProjectileEvent event) {
+    // the held projectile method is not stack sensitive, so use this instead
+    ItemStack bow = event.getProjectileWeaponItemStack();
+    ItemStack ammo = event.getProjectileItemStack();
+    // if the bow supports it, and we currently have arrows or nothing, we have a chance to swap the ammo
+    // skip if the b
+    if (bow.is(TinkerTags.Items.BALLISTAS) && ModifierUtil.checkVolatileFlag(bow, ModifiableBowItem.KEY_BALLISTA) && (ammo.isEmpty() || ammo.is(ItemTags.ARROWS))) {
+      // check active flag
+      int flag = ModifierUtil.getPersistentInt(bow, ModifiableBowItem.KEY_BALLISTA, 0);
+
+      // if requesting a held ballista or haven't decided, find it in either hand
+      if (flag <= ModifiableBowItem.FLAG_BALLISTA_HELD) {
+        // try both hands, but don't return the bow itself
+        LivingEntity entity = event.getEntity();
+        ItemStack check = entity.getOffhandItem();
+        if (check != bow && check.is(TinkerTags.Items.BALLISTA_AMMO)) {
+          event.setProjectileItemStack(check);
+        }
+        check = entity.getMainHandItem();
+        if (check != bow && check.is(TinkerTags.Items.BALLISTA_AMMO)) {
+          event.setProjectileItemStack(check);
+        }
+      // if requesting a ballista from the quiver, cancel whatever stack we got from inventory
+      } else if (flag == ModifiableBowItem.FLAG_BALLISTA_QUIVER) {
+        event.setProjectileItemStack(ItemStack.EMPTY);
+      }
+    }
   }
 }

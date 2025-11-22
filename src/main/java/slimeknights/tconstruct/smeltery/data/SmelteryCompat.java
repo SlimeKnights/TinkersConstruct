@@ -1,13 +1,20 @@
 package slimeknights.tconstruct.smeltery.data;
 
 import lombok.Getter;
+import net.minecraft.core.HolderSet.Named;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
 import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.registration.object.FluidObject;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.fluids.TinkerFluids;
-import slimeknights.tconstruct.library.utils.Util;
 
 import java.util.Locale;
+import java.util.Optional;
+
+import static slimeknights.mantle.Mantle.commonResource;
 
 /**
  * Enum holding all relevant smeltery compat, used in datagen and JEI.
@@ -56,21 +63,23 @@ public enum SmelteryCompat {
   private final FluidObject<? extends ForgeFlowingFluid> fluid;
   @Getter
   private final CompatType type;
-  /** If any of these tags contains no values, skips */
+  /** @deprecated use {@link #isPresent()} */
+  @SuppressWarnings("DeprecatedIsStillUsed")
+  @Deprecated
   @Getter
   private final String[] tags;
 
   SmelteryCompat(FluidObject<? extends ForgeFlowingFluid> fluid, CompatType type) {
     this.fluid = fluid;
     this.type = type;
-    this.tags = new String[] { this.name };
+    this.tags = new String[0];
   }
 
   /** Byproducts means its an ore, no byproucts are alloys */
   SmelteryCompat(FluidObject<? extends ForgeFlowingFluid> fluid, String... altTags) {
     this.fluid = fluid;
     this.type = CompatType.ALLOY;
-    this.tags = Util.append(altTags, name);
+    this.tags = altTags;
   }
 
   /** @deprecated use {@link #getType()} */
@@ -79,16 +88,32 @@ public enum SmelteryCompat {
     return type == CompatType.ORE;
   }
 
-  /** @deprecated use {@link #getTags()} */
+  /** @deprecated use {@link #isPresent()} */
   @Deprecated(forRemoval = true)
   public String getAltTag() {
-    // only 1 tag means just the name, we don't want that
-    return tags.length < 2 ? "" : tags[0];
+    return tags.length == 0 ? "" : tags[0];
   }
 
   /** Gets teh fluid for this compat */
   public FluidObject<?> getFluid() {
     return fluid;
+  }
+
+  /** Checks if this compat is present */
+  public boolean isPresent() {
+    // if our ingot is present, we good
+    if (ingotPresent(this.name)) {
+      return true;
+    }
+    // if any of the alloy components is present, only show if the config option is also enabled
+    if (tags.length > 0 && Config.COMMON.allowIngotlessAlloys.get()) {
+      for (String tag : tags) {
+        if (ingotPresent(tag)) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   /** Helper for tracking types of ores */
@@ -99,5 +124,12 @@ public enum SmelteryCompat {
     ALLOY,
     /** Fluid is neither ore nor alloy */
     NONE
+  }
+
+  /** Checks if the given tag exists */
+  @SuppressWarnings("deprecation")
+  private static boolean ingotPresent(String name) {
+    Optional<Named<Item>> tag = BuiltInRegistries.ITEM.getTag(ItemTags.create(commonResource("ingots/" + name)));
+    return tag.isPresent() && tag.get().size() > 0;
   }
 }

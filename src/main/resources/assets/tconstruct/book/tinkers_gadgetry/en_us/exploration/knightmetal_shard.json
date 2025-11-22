@@ -1,0 +1,10 @@
+{
+  "title": "Knightmetal Shards",
+  "item": "tconstruct:knightmetal_shard",
+  "text": [
+    {
+      "text": "Like steel shards, knightmetal shards are primarily obtained from slimes, though in this case its enderslimes with a knightmetal core. Similarly, they can be found in knightmetal geodes, again not regrowing after harvesting. These metal shards can also be located in the Twilight Forest, though to many the knowledge of reaching that dimension has become lost.",
+      "paragraph": true
+    }
+  ]
+}

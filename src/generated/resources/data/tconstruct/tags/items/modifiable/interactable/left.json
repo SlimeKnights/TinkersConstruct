@@ -2,7 +2,6 @@
   "values": [
     "tconstruct:crossbow",
     "tconstruct:longbow",
-    "tconstruct:fishing_rod",
     "tconstruct:travelers_shield",
     "tconstruct:plate_shield",
     "#tconstruct:modifiable/interactable/dual"

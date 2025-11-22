@@ -19,11 +19,14 @@ import static slimeknights.tconstruct.common.TinkerTags.Modifiers.CHARGE_EMPTY_B
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.CHARGE_EMPTY_BOW_WITH_DRAWTIME;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.CHESTPLATE_ABILITIES;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.CHESTPLATE_UPGRADES;
+import static slimeknights.tconstruct.common.TinkerTags.Modifiers.COSMETIC_SLOTLESS;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.DAMAGE_UPGRADES;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.DEFENSE;
+import static slimeknights.tconstruct.common.TinkerTags.Modifiers.DRILL_ATTACKS;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.DUAL_INTERACTION;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.EXTRACT_MODIFIER_BLACKLIST;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.EXTRACT_SLOTLESS_BLACKLIST;
+import static slimeknights.tconstruct.common.TinkerTags.Modifiers.EXTRACT_UPGRADE_BLACKLIST;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.GEMS;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.GENERAL_ABILITIES;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.GENERAL_ARMOR_ABILITIES;
@@ -57,35 +60,46 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
 
   @Override
   protected void addTags() {
-    tag(GEMS).addOptional(ModifierIds.diamond, ModifierIds.emerald);
-    tag(INVISIBLE_INK_BLACKLIST)
-      .add(TinkerModifiers.embellishment.getId(), TinkerModifiers.dyed.getId(), TinkerModifiers.trim.getId(), TinkerModifiers.creativeSlot.getId(), TinkerModifiers.statOverride.getId())
-      .addOptional(ModifierIds.shiny, TinkerModifiers.golden.getId());
-    tag(EXTRACT_MODIFIER_BLACKLIST)
-      .add(TinkerModifiers.embellishment.getId(), TinkerModifiers.dyed.getId(), TinkerModifiers.trim.getId(), TinkerModifiers.creativeSlot.getId(), TinkerModifiers.statOverride.getId(), ModifierIds.rebalanced);
+    tag(GEMS).add(ModifierIds.diamond, ModifierIds.emerald);
+    tag(INVISIBLE_INK_BLACKLIST).add(
+      TinkerModifiers.embellishment.getId(), TinkerModifiers.dyed.getId(), TinkerModifiers.trim.getId(),
+      TinkerModifiers.creativeSlot.getId(), TinkerModifiers.statOverride.getId(),
+      ModifierIds.shiny, TinkerModifiers.golden.getId()
+    );
+    tag(EXTRACT_MODIFIER_BLACKLIST).add(
+      TinkerModifiers.embellishment.getId(), TinkerModifiers.dyed.getId(), TinkerModifiers.trim.getId(),
+      TinkerModifiers.creativeSlot.getId(), TinkerModifiers.statOverride.getId(),
+      ModifierIds.rebalanced, ModifierIds.redirected
+    );
     // blacklist modifiers that are not really slotless, they just have a slotless recipe
     tag(EXTRACT_SLOTLESS_BLACKLIST).add(ModifierIds.luck, ModifierIds.toolBelt);
+    tag(EXTRACT_UPGRADE_BLACKLIST);
 
     // modifiers in this tag support both left click and right click interaction
-    tag(DUAL_INTERACTION)
-      .add(TinkerModifiers.bucketing.getId(), TinkerModifiers.splashing.getId(),
-           ModifierIds.glowing, TinkerModifiers.firestarter.getId(),
-           ModifierIds.stripping, ModifierIds.tilling, ModifierIds.pathing,
-           TinkerModifiers.shears.getId(), TinkerModifiers.harvest.getId())
-      .addOptional(ModifierIds.pockets);
-    tag(BLOCK_WHILE_CHARGING)
-      .add(TinkerModifiers.flinging.getId(), TinkerModifiers.springing.getId(), TinkerModifiers.bonking.getId(), TinkerModifiers.warping.getId(),
-           TinkerModifiers.spitting.getId(), ModifierIds.scope, ModifierIds.zoom, ModifierIds.brushing);
-    tag(SLIME_DEFENSE)
-      .add(ModifierIds.meleeProtection, ModifierIds.projectileProtection,
-           ModifierIds.fireProtection, ModifierIds.magicProtection,
-           ModifierIds.blastProtection);
-    tag(OVERSLIME_FRIEND)
-      .add(ModifierIds.overgrowth, ModifierIds.overcast, ModifierIds.overshield, ModifierIds.overburn, ModifierIds.overlord,
-           ModifierIds.overforced, ModifierIds.overslimeFriend, TinkerModifiers.overworked.getId());
+    tag(DUAL_INTERACTION).add(
+      TinkerModifiers.bucketing.getId(), TinkerModifiers.splashing.getId(),
+      ModifierIds.glowing, TinkerModifiers.firestarter.getId(),
+      ModifierIds.stripping, ModifierIds.tilling, ModifierIds.pathing,
+      TinkerModifiers.shears.getId(), TinkerModifiers.harvest.getId(), ModifierIds.fishing,
+      ModifierIds.pockets
+    );
+    tag(BLOCK_WHILE_CHARGING).add(
+      TinkerModifiers.flinging.getId(), TinkerModifiers.springing.getId(), TinkerModifiers.bonking.getId(), TinkerModifiers.warping.getId(),
+      TinkerModifiers.spitting.getId(), ModifierIds.scope, ModifierIds.zoom, ModifierIds.brushing, ModifierIds.throwing
+    );
+    tag(SLIME_DEFENSE).add(
+      ModifierIds.meleeProtection, ModifierIds.projectileProtection,
+      ModifierIds.fireProtection, ModifierIds.magicProtection,
+      ModifierIds.blastProtection
+    );
+    tag(OVERSLIME_FRIEND).add(
+      ModifierIds.overgrowth, ModifierIds.overcast, ModifierIds.overshield, ModifierIds.overburn, ModifierIds.overlord,
+      ModifierIds.overforced, ModifierIds.overslimeFriend, TinkerModifiers.overworked.getId()
+    );
     tag(AOE_INTERACTION).add(ModifierIds.pathing, ModifierIds.stripping, ModifierIds.tilling, ModifierIds.brushing, TinkerModifiers.splashing.getId(), TinkerModifiers.harvest.getId());
-    tag(CHARGE_EMPTY_BOW_WITH_DRAWTIME).add(TinkerModifiers.flinging.getId(), TinkerModifiers.springing.getId(), TinkerModifiers.bonking.getId(), TinkerModifiers.warping.getId());
+    tag(CHARGE_EMPTY_BOW_WITH_DRAWTIME).add(TinkerModifiers.flinging.getId(), TinkerModifiers.springing.getId(), TinkerModifiers.bonking.getId(), TinkerModifiers.warping.getId(), ModifierIds.throwing);
     tag(CHARGE_EMPTY_BOW_WITHOUT_DRAWTIME).add(TinkerModifiers.blocking.getId(), ModifierIds.scope, ModifierIds.zoom);
+    tag(DRILL_ATTACKS).add(TinkerModifiers.flinging.getId(), TinkerModifiers.springing.getId(), ModifierIds.grapple);
 
     // book tags
     this.tag(UPGRADES).addTag(GENERAL_UPGRADES, MELEE_UPGRADES, DAMAGE_UPGRADES, HARVEST_UPGRADES, ARMOR_UPGRADES, RANGED_UPGRADES);
@@ -93,7 +107,7 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
     this.tag(ABILITIES).addTag(GENERAL_ABILITIES, INTERACTION_ABILITIES, MELEE_ABILITIES, HARVEST_ABILITIES, ARMOR_ABILITIES, RANGED_ABILITIES);
     this.tag(ARMOR_ABILITIES).addTag(GENERAL_ARMOR_ABILITIES, HELMET_ABILITIES, CHESTPLATE_ABILITIES, LEGGING_ABILITIES, BOOT_ABILITIES, SHIELD_ABILITIES);
     this.tag(DEFENSE).addTag(PROTECTION_DEFENSE, SPECIAL_DEFENSE);
-    this.tag(SLOTLESS).addTag(GENERAL_SLOTLESS, BONUS_SLOTLESS);
+    this.tag(SLOTLESS).addTag(GENERAL_SLOTLESS, BONUS_SLOTLESS, COSMETIC_SLOTLESS);
 
     // upgrades
     this.tag(GENERAL_UPGRADES).add(
@@ -117,7 +131,7 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
       ModifierIds.fiery, ModifierIds.freezing, ModifierIds.thorns,
       ModifierIds.ricochet, ModifierIds.springy);
     this.tag(HELMET_UPGRADES).add(TinkerModifiers.itemFrame.getId(), ModifierIds.respiration, ModifierIds.minimap).addOptional(ModifierIds.headlight);
-    this.tag(CHESTPLATE_UPGRADES).add(ModifierIds.haste, TinkerModifiers.knockback.getId());
+    this.tag(CHESTPLATE_UPGRADES).add(ModifierIds.haste, TinkerModifiers.knockback.getId(), TinkerModifiers.sleeves.getId());
     this.tag(LEGGING_UPGRADES).add(ModifierIds.leaping, TinkerModifiers.shieldStrap.getId(), ModifierIds.speedy, ModifierIds.swiftSneak, ModifierIds.stepUp);
     this.tag(BOOT_UPGRADES).add(ModifierIds.depthStrider, ModifierIds.featherFalling, ModifierIds.lightspeed, TinkerModifiers.soulspeed.getId());
 
@@ -125,8 +139,8 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
       ModifierIds.pierce, ModifierIds.power, ModifierIds.punch, ModifierIds.quickCharge,
       TinkerModifiers.sinistral.getId(), ModifierIds.trueshot,
       ModifierIds.fiery, ModifierIds.freezing,
-      TinkerModifiers.impaling.getId(), TinkerModifiers.necrotic.getId(),
-      ModifierIds.lure);
+      ModifierIds.arrowPierce, ModifierIds.bounce, TinkerModifiers.necrotic.getId(),
+      ModifierIds.lure, ModifierIds.collecting, ModifierIds.fins);
 
     // abilities
     this.tag(GENERAL_ABILITIES).add(
@@ -138,13 +152,15 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
     this.tag(HARVEST_ABILITIES).add(TinkerModifiers.autosmelt.getId(), TinkerModifiers.exchanging.getId(), TinkerModifiers.silky.getId());
     this.tag(RANGED_ABILITIES).add(
       ModifierIds.bulkQuiver, ModifierIds.trickQuiver,
-      ModifierIds.crystalshot, TinkerModifiers.multishot.getId(),
-      ModifierIds.grapple);
+      ModifierIds.crystalshot, TinkerModifiers.multishot.getId(), ModifierIds.ballista,
+      ModifierIds.grapple,
+      ModifierIds.channeling, ModifierIds.returning);
     this.tag(INTERACTION_ABILITIES).add(
       TinkerModifiers.bucketing.getId(), TinkerModifiers.firestarter.getId(), ModifierIds.glowing,
       ModifierIds.pathing, ModifierIds.stripping, ModifierIds.tilling, ModifierIds.brushing,
       TinkerModifiers.spitting.getId(), TinkerModifiers.splashing.getId(), TinkerModifiers.slurping.getId(),
-      TinkerModifiers.bonking.getId(), TinkerModifiers.flinging.getId(), TinkerModifiers.springing.getId(), TinkerModifiers.warping.getId());
+      TinkerModifiers.bonking.getId(), TinkerModifiers.flinging.getId(), TinkerModifiers.springing.getId(), TinkerModifiers.warping.getId(),
+      ModifierIds.throwing, ModifierIds.drillAttack);
     // armor
     this.tag(GENERAL_ARMOR_ABILITIES).add(ModifierIds.protection, TinkerModifiers.bursting.getId(), TinkerModifiers.wetting.getId());
     this.tag(HELMET_ABILITIES).add(ModifierIds.aquaAffinity, TinkerModifiers.slurping.getId());
@@ -164,14 +180,17 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
 
     // slotless
     this.tag(GENERAL_SLOTLESS).add(
-      TinkerModifiers.overslime.getId(), ModifierIds.shiny, ModifierIds.worldbound,
-      ModifierIds.offhanded, ModifierIds.blindshot, ModifierIds.workbench,
-      TinkerModifiers.farsighted.getId(), TinkerModifiers.nearsighted.getId(), ModifierIds.barebow,
-      TinkerModifiers.dyed.getId(), TinkerModifiers.embellishment.getId(), TinkerModifiers.trim.getId());
+      TinkerModifiers.overslime.getId(), ModifierIds.worldbound,
+      ModifierIds.offhanded, ModifierIds.workbench,
+      ModifierIds.blindshot, ModifierIds.barebow);
     this.tag(BONUS_SLOTLESS).add(
-      ModifierIds.draconic, ModifierIds.rebalanced,
+      ModifierIds.draconic, ModifierIds.rebalanced, ModifierIds.redirected,
       ModifierIds.harmonious, ModifierIds.recapitated, ModifierIds.forecast, ModifierIds.writable)
       .addOptional(ModifierIds.embossed);
+    this.tag(COSMETIC_SLOTLESS).add(
+      ModifierIds.shiny,
+      TinkerModifiers.dyed.getId(), TinkerModifiers.embellishment.getId(), TinkerModifiers.trim.getId(),
+      TinkerModifiers.farsighted.getId(), TinkerModifiers.nearsighted.getId());
   }
 
   @Override

@@ -213,6 +213,10 @@ public class BlockLootTableProvider extends BlockLootSubProvider {
     this.dropSelf(TinkerWorld.enderbarkRoots.get());
     TinkerWorld.slimyEnderbarkRoots.forEach(this::dropSelf);
 
+    // shards
+    this.registerCluster(TinkerWorld.steelCluster.get(), TinkerWorld.steelShard);
+    this.registerCluster(TinkerWorld.knightmetalCluster.get(), TinkerWorld.knightmetalShard);
+
     // geode
     this.registerGeode(TinkerWorld.earthGeode);
     this.registerGeode(TinkerWorld.skyGeode);
@@ -408,16 +412,21 @@ public class BlockLootTableProvider extends BlockLootSubProvider {
     this.add(table, ADD_TABLE);
   }
 
+  /** Registers drops for a cluster */
+  private void registerCluster(Block cluster, ItemLike drop) {
+    this.add(cluster, block -> createSilkTouchDispatchTable(
+      block, LootItem.lootTableItem(drop)
+        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(4.0F)))
+        .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))
+        .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ItemTags.CLUSTER_MAX_HARVESTABLES)))
+        .otherwise(applyExplosionDecay(block, LootItem.lootTableItem(drop).apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F)))))));
+  }
+
   /** Adds all loot tables relevant to the given geode block set */
   private void registerGeode(GeodeItemObject geode) {
     this.dropSelf(geode.getBlock());
     // cluster
-    this.add(geode.getBud(BudSize.CLUSTER), block -> createSilkTouchDispatchTable(
-      block, LootItem.lootTableItem(geode.get())
-                     .apply(SetItemCountFunction.setCount(ConstantValue.exactly(4.0F)))
-                     .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))
-                     .when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ItemTags.CLUSTER_MAX_HARVESTABLES)))
-                     .otherwise(applyExplosionDecay(block, LootItem.lootTableItem(geode.get()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F)))))));
+    registerCluster(geode.getBud(BudSize.CLUSTER), geode);
     // buds
     for (BudSize size : BudSize.SIZES) {
       this.dropWhenSilkTouch(geode.getBud(size));

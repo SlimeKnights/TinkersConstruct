@@ -28,7 +28,10 @@ import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import javax.annotation.Nullable;
 import java.util.List;
 
-/** Module implementing the overburn modifier */
+/**
+ * Module implementing the overburn modifier.
+ * TODO 1.21: move to {@link slimeknights.tconstruct.tools.modules.durability}
+ */
 public enum OverburnModule implements ModifierModule, InventoryTickModifierHook, ModifierRemovalHook {
   INSTANCE;
 

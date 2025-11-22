@@ -9,7 +9,7 @@
       "tag": "forge:ingots/steeleaf"
     }
   ],
-  "cooling_time": 67,
+  "cooling_time": 64,
   "fluid": {
     "amount": 90,
     "tag": "tconstruct:molten_steeleaf"

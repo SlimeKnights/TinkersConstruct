@@ -40,6 +40,7 @@ public class LootTableInjectionProvider extends AbstractLootTableInjectionProvid
     super(packOutput, TConstruct.MOD_ID);
   }
 
+  @SuppressWarnings("removal")
   @Override
   protected void addTables() {
     // slimy foliage injections
@@ -113,9 +114,9 @@ public class LootTableInjectionProvider extends AbstractLootTableInjectionProvid
                                  .setWeight(2) // common as a stone axe
                                  .apply(ancientToolData2)
                                  .build());
-    inject("hero_of_the_toolsmith", "gameplay/hero_of_the_village/toolsmith_gift")
+    inject("hero_of_the_armorer", "gameplay/hero_of_the_village/armorer_gift")
       .addToPool("main", LootItem.lootTableItem(TinkerTools.meltingPan.get())
-                                 .setWeight(2) // makes it a 40% chance of frypan as opposed to an axe variant
+                                 .setWeight(1) // 1 in 5 chance of a melting pan compared to the chainmail
                                  .apply(ancientToolData2)
                                  .build());
 
@@ -138,7 +139,7 @@ public class LootTableInjectionProvider extends AbstractLootTableInjectionProvid
                                  .build());
     inject("hero_of_the_weaponsmith", "gameplay/hero_of_the_village/weaponsmith_gift")
       .addToPool("main", LootItem.lootTableItem(TinkerTools.warPick.get())
-                                 .setWeight(2) // makes it a 33% chance of war pick as opposed to a stone tool
+                                 .setWeight(1) // makes it a 1 in 4 chance of a war pick
                                  .apply(ancientToolData3)
                                  .build());
 
@@ -184,6 +185,13 @@ public class LootTableInjectionProvider extends AbstractLootTableInjectionProvid
                                  .apply(ancientToolData3)
                                  .apply(setFluid)
                                  .build());
+
+    // fletchers give you some arrows
+    inject("hero_of_the_fletcher", "gameplay/hero_of_the_village/fletcher_gift")
+      .addToPool("main", LootItem.lootTableItem(TinkerTools.arrow.get())
+        .setWeight(10) // bit more rare than tipped arrows
+        .apply(ancientToolData2)
+        .build());
 
     // twilight forest - minotaur axe
     String tf = "twilightforest";

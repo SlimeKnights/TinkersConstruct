@@ -1,6 +1,0 @@
-{
-  "parent": "item/small_amethyst_bud",
-  "textures": {
-    "layer0": "tconstruct:block/geode/sky/small_bud"
-  }
-}

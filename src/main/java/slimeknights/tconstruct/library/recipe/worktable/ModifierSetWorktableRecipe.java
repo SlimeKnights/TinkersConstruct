@@ -31,6 +31,7 @@ import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -41,9 +42,9 @@ import java.util.stream.Collectors;
 /** Recipe to add or remove a modifier from a set in persistent data */
 public class ModifierSetWorktableRecipe extends AbstractWorktableRecipe {
   /** Message to display if there are no matching modifiers on the tool */
-  private static final Component NO_MATCHES = TConstruct.makeTranslation("recipe", "modifier_set_worktable.empty");
+  public static final Component NO_MATCHES = TConstruct.makeTranslation("recipe", "modifier_set_worktable.empty");
   /** Logic to fetch a list of strings from the persistent data */
-  private static final BiFunction<CompoundTag, String, ListTag> LIST_GETTER = (tag, name) -> tag.getList(name, Tag.TAG_STRING);
+  public static final BiFunction<CompoundTag, String, ListTag> LIST_GETTER = (tag, name) -> tag.getList(name, Tag.TAG_STRING);
   /** Loader instance */
   public static final RecordLoadable<ModifierSetWorktableRecipe> LOADER = RecordLoadable.create(
     ContextKey.ID.requiredField(),
@@ -51,6 +52,7 @@ public class ModifierSetWorktableRecipe extends AbstractWorktableRecipe {
     INPUTS_FIELD, TOOL_FIELD,
     // TODO: move modifier predicate to base recipe
     ModifierPredicate.LOADER.defaultField("modifier_predicate", false, r -> r.modifierPredicate),
+    // TODO: switch to an enum with ADD, REMOVE, and TOGGLE options
     BooleanLoadable.INSTANCE.requiredField("add_to_set", r -> r.addToSet),
     BooleanLoadable.INSTANCE.defaultField("allow_traits", false, r -> r.allowTraits),
     ModifierSetWorktableRecipe::new);
@@ -119,26 +121,20 @@ public class ModifierSetWorktableRecipe extends AbstractWorktableRecipe {
   public RecipeResult<LazyToolStack> getResult(ITinkerableContainer inv, ModifierEntry modifier) {
     ToolStack tool = inv.getTinkerable().copy();
     ModDataNBT persistentData = tool.getPersistentData();
-    ListTag tagList;
-    if (persistentData.contains(dataKey, Tag.TAG_LIST)) {
-      tagList = persistentData.get(dataKey, LIST_GETTER);
-    } else {
-      tagList = new ListTag();
-      persistentData.put(dataKey, tagList);
-    }
+    // get or create the tag
+    ListTag tagList = persistentData.get(dataKey, LIST_GETTER);
     String value = modifier.getId().toString();
-    boolean found = false;
-    for (int i = 0; i < tagList.size(); i++) {
-      if (tagList.getString(i).equals(value)) {
-        if (!addToSet) {
-          tagList.remove(i);
-        }
-        found = true;
-        break;
-      }
+    // try to find the selected modifier
+    boolean found = isInSet(tagList, modifier.getId(), !addToSet);
+    // if removing and removed the last entry, remove the list
+    if (!addToSet && tagList.isEmpty()) {
+      persistentData.remove(dataKey);
     }
+    // add to list if not in list
     if (!found && addToSet) {
       tagList.add(StringTag.valueOf(value));
+      // this might be the first one added, so ensure the list is there
+      persistentData.put(dataKey, tagList);
     }
     return LazyToolStack.successCopy(tool, inv.getTinkerableStack());
   }
@@ -158,9 +154,18 @@ public class ModifierSetWorktableRecipe extends AbstractWorktableRecipe {
     if (!modData.contains(key, Tag.TAG_LIST)) {
       return false;
     }
+    return isInSet(modData.get(key, LIST_GETTER), modifier, false);
+  }
+
+  /** Checks if the given modifier is in the set. Removes the modifier if requested. */
+  public static boolean isInSet(ListTag list, ModifierId modifier, boolean remove) {
     String modifierStr = modifier.toString();
-    for (Tag tag : modData.get(key, LIST_GETTER)) {
-      if (modifierStr.equals(tag.getAsString())) {
+    Iterator<Tag> iterator = list.iterator();
+    while (iterator.hasNext()) {
+      if (modifierStr.equals(iterator.next().getAsString())) {
+        if (remove) {
+          iterator.remove();
+        }
         return true;
       }
     }

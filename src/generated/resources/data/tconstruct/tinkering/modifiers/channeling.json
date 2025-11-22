@@ -1,0 +1,13 @@
+{
+  "level_display": "tconstruct:no_levels",
+  "modules": [
+    {
+      "type": "tconstruct:channeling",
+      "allow_melee": false,
+      "chance_clear": 0.15,
+      "chance_rain": 0.65,
+      "chance_thunder": 1.0
+    }
+  ],
+  "tooltip_display": "always"
+}

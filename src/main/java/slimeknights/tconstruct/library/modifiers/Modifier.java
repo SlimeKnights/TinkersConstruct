@@ -7,20 +7,16 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.server.packs.PackType;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffectUtil;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import slimeknights.mantle.client.ResourceColorManager;
 import slimeknights.mantle.registration.object.IdAwareObject;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierManager.ModifierRegistrationEvent;
+import slimeknights.tconstruct.library.modifiers.hook.mining.BreakSpeedContext;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.module.ModuleHookMap;
@@ -358,34 +354,9 @@ public class Modifier implements IdAwareObject {
     return tool.isBroken() ? null : tool;
   }
 
-  /**
-   * Gets the mining speed modifier for the current conditions, notably potions and armor enchants
-   * @param entity  Entity to check
-   * @return  Mining speed modifier
-   */
+  /** @deprecated use {@link BreakSpeedContext#getMiningModifier(LivingEntity)} */
+  @Deprecated(forRemoval = true)
   public static float getMiningModifier(LivingEntity entity) {
-    float modifier = 1.0f;
-    // haste effect
-    if (MobEffectUtil.hasDigSpeed(entity)) {
-      modifier *= 1.0F + (MobEffectUtil.getDigSpeedAmplification(entity) + 1) * 0.2f;
-    }
-    // mining fatigue
-    MobEffectInstance miningFatigue = entity.getEffect(MobEffects.DIG_SLOWDOWN);
-    if (miningFatigue != null) {
-      switch (miningFatigue.getAmplifier()) {
-        case 0 -> modifier *= 0.3F;
-        case 1 -> modifier *= 0.09F;
-        case 2 -> modifier *= 0.0027F;
-        default -> modifier *= 8.1E-4F;
-      }
-    }
-    // water
-    if (entity.isEyeInFluid(FluidTags.WATER) && !EnchantmentHelper.hasAquaAffinity(entity)) {
-      modifier /= 5.0F;
-    }
-    if (!entity.onGround()) {
-      modifier /= 5.0F;
-    }
-    return modifier;
+    return BreakSpeedContext.getMiningModifier(entity);
   }
 }

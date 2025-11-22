@@ -146,6 +146,22 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
       // tier 4
       MaterialIds.fiery
     );
+
+    // slimeskull sort order
+    tag(TinkerTags.Materials.SLIMESKULL).add(
+      // creeper
+      MaterialIds.glass,
+      // zombie
+      MaterialIds.leather, MaterialIds.iron, MaterialIds.copper,
+      // spider
+      MaterialIds.string, MaterialIds.darkthread,
+      // skeleton
+      MaterialIds.bone, MaterialIds.venombone, MaterialIds.necroticBone,
+      // piglins
+      MaterialIds.gold, MaterialIds.roseGold, MaterialIds.pigIron,
+      // misc
+      MaterialIds.blazingBone, MaterialIds.enderPearl
+    );
   }
 
   @Override

@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:material",
+  "ingredient": {
+    "item": "tconstruct:ender_slime_crystal"
+  },
+  "material": "tconstruct:enderslime",
+  "needed": 1,
+  "value": 1
+}

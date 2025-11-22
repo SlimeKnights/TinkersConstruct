@@ -15,7 +15,7 @@
       }
     ],
     "priority": 100,
-    "slot": "mainhand",
+    "slot": "offhand",
     "tool": "tconstruct:melting_pan"
   }
 }

@@ -26,7 +26,8 @@ import java.util.List;
 
 /**
  * Module implementing the overgrowth module
- * TODO 1.21: consider merging into {@link slimeknights.tconstruct.library.modifiers.modules.capacity.TimeToCapacityModule}.
+ * TODO 1.21: consider merging into {@link slimeknights.tconstruct.library.modifiers.modules.capacity.TimeToCapacityModule}..
+ * TODO 1.21: otherwise move to {@link slimeknights.tconstruct.tools.modules.durability}
  */
 @Getter
 @Accessors(fluent = true)

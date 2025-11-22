@@ -1,1 +1,10 @@
-{}
+{
+  "perStat": {
+    "tconstruct:ammo": [
+      {
+        "level": 1,
+        "name": "tconstruct:punch"
+      }
+    ]
+  }
+}

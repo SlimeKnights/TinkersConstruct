@@ -1,13 +1,25 @@
 package slimeknights.tconstruct.library.events.teleport;
 
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraftforge.event.entity.EntityTeleportEvent;
+import net.minecraft.world.entity.Entity;
 import net.minecraftforge.eventbus.api.Cancelable;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.tools.data.ModifierIds;
 
-/** Event fired when an entity teleports using the enderporting modifier */
+/**
+ * Event fired when an entity teleports using {@link slimeknights.tconstruct.tools.modifiers.traits.skull.EnderdodgingModifier}
+ * @deprecated replacing with {@link ModifierTeleportEvent} in the future.
+ */
+@SuppressWarnings("DeprecatedIsStillUsed")
 @Cancelable
-public class EnderdodgingTeleportEvent extends EntityTeleportEvent {
-  public EnderdodgingTeleportEvent(LivingEntity entity, double targetX, double targetY, double targetZ) {
-    super(entity, targetX, targetY, targetZ);
+@Deprecated
+public class EnderdodgingTeleportEvent extends ModifierTeleportEvent {
+  public EnderdodgingTeleportEvent(Entity entity, double targetX, double targetY, double targetZ, ModifierEntry modifier) {
+    super(entity, targetX, targetY, targetZ, modifier);
+  }
+
+  /** @deprecated use {@link #EnderdodgingTeleportEvent(Entity, double, double, double, ModifierEntry)} */
+  @Deprecated(forRemoval = true)
+  public EnderdodgingTeleportEvent(Entity entity, double targetX, double targetY, double targetZ) {
+    this(entity, targetX, targetY, targetZ, new ModifierEntry(ModifierIds.enderclearance, 1));
   }
 }

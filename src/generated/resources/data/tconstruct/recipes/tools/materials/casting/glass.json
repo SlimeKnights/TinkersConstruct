@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:material_fluid",
   "fluid": {
-    "amount": 1000,
+    "amount": 250,
     "tag": "tconstruct:molten_glass"
   },
   "output": "tconstruct:glass",

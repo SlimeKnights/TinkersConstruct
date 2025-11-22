@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.tools.modules.interaction;
 
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -15,11 +17,13 @@ import net.minecraftforge.common.ToolActions;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.loadable.record.SingletonLoader;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
+import slimeknights.mantle.util.OffhandCooldownTracker;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.armor.EquipmentChangeModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.behavior.ToolActionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.ConditionalStatModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.display.DisplayNameModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
@@ -36,15 +40,18 @@ import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.Util;
+import slimeknights.tconstruct.tools.TinkerToolActions;
 import slimeknights.tconstruct.tools.entity.CombatFishingHook;
+import slimeknights.tconstruct.tools.entity.CombatFishingHook.GrappleType;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 /** Module implementing fishing behavior */
-public enum FishingModule implements ModifierModule, GeneralInteractionModifierHook, ToolActionModifierHook, EquipmentChangeModifierHook {
+public enum FishingModule implements ModifierModule, GeneralInteractionModifierHook, ToolActionModifierHook, EquipmentChangeModifierHook, DisplayNameModifierHook {
   INSTANCE;
 
-  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<FishingModule>defaultHooks(ModifierHooks.GENERAL_INTERACT, ModifierHooks.TOOL_ACTION, ModifierHooks.EQUIPMENT_CHANGE);
+  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<FishingModule>defaultHooks(ModifierHooks.GENERAL_INTERACT, ModifierHooks.TOOL_ACTION, ModifierHooks.EQUIPMENT_CHANGE, ModifierHooks.DISPLAY_NAME);
   public static final RecordLoadable<FishingModule> LOADER = new SingletonLoader<>(INSTANCE);
 
   @Override
@@ -58,27 +65,34 @@ public enum FishingModule implements ModifierModule, GeneralInteractionModifierH
   }
 
   @Override
+  public Component getDisplayName(IToolStackView tool, ModifierEntry entry, Component name, @Nullable RegistryAccess access) {
+    return InteractionSource.formatModifierName(tool, entry.getModifier(), name);
+  }
+
+  @Override
   public boolean canPerformAction(IToolStackView tool, ModifierEntry modifier, ToolAction toolAction) {
     return toolAction == ToolActions.FISHING_ROD_CAST;
   }
 
   @Override
   public InteractionResult onToolUse(IToolStackView tool, ModifierEntry modifier, Player player, InteractionHand hand, InteractionSource source) {
-    if (source != InteractionSource.ARMOR && !tool.isBroken() && tool.getHook(ToolHooks.INTERACTION).canInteract(tool, modifier.getId(), source)) {
+    // disallow casting if the main hand can cast. Only comes up if the main hand is doing left click fishing; vanilla limitations means we can't support that
+    if (source != InteractionSource.ARMOR && !tool.isBroken() && tool.getHook(ToolHooks.INTERACTION).canInteract(tool, modifier.getId(), source) && (hand == InteractionHand.MAIN_HAND || !player.getMainHandItem().canPerformAction(ToolActions.FISHING_ROD_CAST))) {
       Level level = player.level();
       if (player.fishing != null) {
         ItemStack stack = player.getItemInHand(hand);
         // due to fishing rod buggy behavior, chance we end up retrieving someone else's cast, so keep this logic 1 to 1 with vanilla
-        Level level1 = player.level();
-        if (!level1.isClientSide) {
-          ToolDamageUtil.damageAnimated(tool, player.fishing.retrieve(stack), player, Util.getSlotType(hand));
+        if (!level.isClientSide) {
+          int damage = player.fishing.retrieve(stack);
+          if (damage > 0) {
+            ToolDamageUtil.damageAnimated(tool, damage, player, Util.getSlotType(hand));
+            // we apply cooldown as this is a weapon, don't want to let you spam it. But only need the cooldown if something happened
+            player.getCooldowns().addCooldown(tool.getItem(), (int)(20 / ConditionalStatModifierHook.getModifiedStat(tool, player, ToolStats.DRAW_SPEED)));
+          }
         }
 
-        level1.playSound( null, player.getX(), player.getY(), player.getZ(), SoundEvents.FISHING_BOBBER_RETRIEVE, SoundSource.NEUTRAL, 1, 0.4f / (level1.getRandom().nextFloat() * 0.4f + 0.8f));
+        level.playSound( null, player.getX(), player.getY(), player.getZ(), SoundEvents.FISHING_BOBBER_RETRIEVE, SoundSource.NEUTRAL, 1, 0.4f / (level.getRandom().nextFloat() * 0.4f + 0.8f));
         player.gameEvent(GameEvent.ITEM_INTERACT_FINISH);
-
-        // we apply cooldown as this is a weapon, don't want to let you spam it
-        player.getCooldowns().addCooldown(tool.getItem(), (int)(20 / ConditionalStatModifierHook.getModifiedStat(tool, player, ToolStats.DRAW_SPEED)));
       } else {
         level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.FISHING_BOBBER_THROW, SoundSource.NEUTRAL, 0.5f, 0.4f / (level.getRandom().nextFloat() * 0.4f + 0.8f));
         if (!level.isClientSide) {
@@ -91,7 +105,15 @@ public enum FishingModule implements ModifierModule, GeneralInteractionModifierH
 
           // copy tool data to the bobber for modifier hooks
           ModifierNBT modifiers = tool.getModifiers();
-          hook.getCapability(EntityModifierCapability.CAPABILITY).ifPresent(cap -> cap.setModifiers(modifiers));
+          EntityModifierCapability.getCapability(hook).setModifiers(modifiers);
+          // apply grapple or drill
+          if (ModifierUtil.canPerformAction(tool, TinkerToolActions.GRAPPLE_HOOK)) {
+            hook.setGrapple(ModifierUtil.canPerformAction(tool, TinkerToolActions.DRILL_ATTACK) ? GrappleType.DRILL : GrappleType.DASH);
+          }
+          // apply collecting
+          if (ModifierUtil.canPerformAction(tool, TinkerToolActions.ITEM_HOOK)) {
+            hook.setCollecting();
+          }
 
           // fetch the persistent data for the hook as modifiers may want to store data
           ModDataNBT arrowData = PersistentDataCapability.getOrWarn(hook);
@@ -101,17 +123,16 @@ public enum FishingModule implements ModifierModule, GeneralInteractionModifierH
             entry.getHook(ModifierHooks.PROJECTILE_LAUNCH).onProjectileLaunch(tool, entry, player, ItemStack.EMPTY, hook, null, arrowData, true);
           }
           level.addFreshEntity(hook);
-
-          // we damage on both cast and release to prevent some cheese with some modifiers and swapping items post cast
-          ToolDamageUtil.damageAnimated(tool, 1, player, hand);
         }
 
         player.awardStat(Stats.ITEM_USED.get(tool.getItem()));
         player.gameEvent(GameEvent.ITEM_INTERACT_START);
       }
 
-
-      return InteractionResult.sidedSuccess(level.isClientSide);
+      if (level.isClientSide) {
+        OffhandCooldownTracker.swingHand(player, hand, false);
+      }
+      return InteractionResult.CONSUME;
     }
     return InteractionResult.PASS;
   }

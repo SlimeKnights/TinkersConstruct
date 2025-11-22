@@ -23,6 +23,8 @@ public class TinkerDamageTypes {
   /** Damage from a knightmetal block */
   public static final ResourceKey<DamageType> KNIGHTMETAL = create("knightmetal");
 
+  /** Damage from throwing a tool */
+  public static final ResourceKey<DamageType> THROWN_TOOL = create("thrown_tool");
   /** Damage from a fishing rod */
   public static final ResourceKey<DamageType> FISHING_HOOK = create("fishing_hook");
 

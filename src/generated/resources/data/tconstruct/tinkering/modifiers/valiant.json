@@ -7,6 +7,8 @@
         "$equipment",
         0.5,
         "*",
+        "$level",
+        "*",
         "$multiplier",
         "*",
         "$damage",
@@ -33,6 +35,8 @@
       "formula": [
         "$equipment",
         0.25,
+        "*",
+        "$level",
         "*",
         "$multiplier",
         "*",

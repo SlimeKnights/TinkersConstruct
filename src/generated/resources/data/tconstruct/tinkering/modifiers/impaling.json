@@ -1,0 +1,10 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:arrow_pierce",
+      "each_level": 1
+    }
+  ],
+  "tooltip_display": "always"
+}

@@ -2,17 +2,20 @@ package slimeknights.tconstruct.library.modifiers.modules.combat;
 
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.EntityHitResult;
 import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.json.IntRange;
 import slimeknights.tconstruct.library.json.math.ModifierFormula;
 import slimeknights.tconstruct.library.json.predicate.TinkerPredicate;
@@ -47,16 +50,18 @@ import java.util.List;
  * @param formula       Power formula
  * @param modifierLevel Modifier level condition
  */
-public record ConditionalPowerModule(IJsonPredicate<LivingEntity> target, IJsonPredicate<LivingEntity> holder, PowerFormula formula, IntRange modifierLevel) implements ModifierModule, ProjectileLaunchModifierHook, ProjectileHitModifierHook, ConditionalStatTooltip {
-  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<ConditionalPowerModule>defaultHooks(ModifierHooks.PROJECTILE_LAUNCH, ModifierHooks.PROJECTILE_HIT, ModifierHooks.TOOLTIP);
+public record ConditionalPowerModule(IJsonPredicate<LivingEntity> target, IJsonPredicate<LivingEntity> holder, PowerFormula formula, IntRange modifierLevel) implements ModifierModule, ProjectileLaunchModifierHook.NoShooter, ProjectileHitModifierHook, ConditionalStatTooltip {
+  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<ConditionalPowerModule>defaultHooks(ModifierHooks.PROJECTILE_LAUNCH, ModifierHooks.PROJECTILE_SHOT, ModifierHooks.PROJECTILE_HIT, ModifierHooks.TOOLTIP);
   public static final RecordLoadable<ConditionalPowerModule> LOADER = RecordLoadable.create(
     LivingEntityPredicate.LOADER.defaultField("target", ConditionalPowerModule::target),
     LivingEntityPredicate.LOADER.defaultField("holder", ConditionalPowerModule::holder),
     PowerFormula.LOADER.directField(ConditionalPowerModule::formula),
     ModifierEntry.VALID_LEVEL.defaultField("modifier_level", ConditionalPowerModule::modifierLevel),
     ConditionalPowerModule::new);
-  /** Persistent data key for the stat multiplier */
-  private static final ResourceLocation MULTIPLIER = ToolStats.PROJECTILE_DAMAGE.getName().withSuffix("_multiplier");
+  /** Projectile persistent data key for the stat multiplier */
+  private static final ResourceLocation AMMO_MULTIPLIER = ToolStats.PROJECTILE_DAMAGE.getName().withSuffix("_ammo_multiplier");
+  /** Projectile persistent data key for the stat multiplier */
+  private static final ResourceLocation BOW_MULTIPLIER = ToolStats.PROJECTILE_DAMAGE.getName().withSuffix("_bow_multiplier");
 
   /** @apiNote Internal constructor, use {@link #builder()} */
   @Internal
@@ -85,18 +90,34 @@ public record ConditionalPowerModule(IJsonPredicate<LivingEntity> target, IJsonP
   }
 
   @Override
-  public void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, Projectile projectile, @Nullable AbstractArrow arrow, ModDataNBT persistentData, boolean primary) {
+  public void onProjectileShoot(IToolStackView tool, ModifierEntry modifier, @Nullable LivingEntity shooter, ItemStack ammo, Projectile projectile, @Nullable AbstractArrow arrow, ModDataNBT persistentData, boolean primary) {
     // copy projectile multiplier into the arrow damage so we can use it later
-    persistentData.putFloat(MULTIPLIER, tool.getMultiplier(ToolStats.PROJECTILE_DAMAGE));
+    // we use a separate key for ammo vs bow as those may mismatch. But for the same weapon its fine if multiple modifiers reuse it
+    persistentData.putFloat(tool.hasTag(TinkerTags.Items.AMMO) ? AMMO_MULTIPLIER : BOW_MULTIPLIER, tool.getMultiplier(ToolStats.PROJECTILE_DAMAGE));
   }
 
   @Override
   public boolean onProjectileHitEntity(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
-    if (modifierLevel.test(modifier.getLevel()) && TinkerPredicate.matches(this.target, target) && TinkerPredicate.matches(this.holder, attacker)) {
-      if (projectile instanceof AbstractArrow arrow) {
-        arrow.setBaseDamage(formula.apply(modifiers, persistentData, modifier, projectile, hit, attacker, target, arrow.getBaseDamage(), persistentData.getFloat(MULTIPLIER)));
-      } else if (projectile instanceof ProjectileWithPower withPower) {
-        withPower.setPower(formula.apply(modifiers, persistentData, modifier, projectile, hit, attacker, target, withPower.getPower(), persistentData.getFloat(MULTIPLIER)));
+    ResourceLocation key = modifier.getId();
+    // if we already boosted power from an entity, don't boost again
+    // minimizes issues with projectile bounces and piercing
+    if (modifierLevel.test(modifier.getLevel()) && !persistentData.getBoolean(key)) {
+      // as soon as we attempt to boost, mark this modifier as having run
+      // means the second entity will not get to apply its boost if the first did not apply it
+      persistentData.putBoolean(key, true);
+      if (TinkerPredicate.matches(this.target, target) && TinkerPredicate.matches(this.holder, attacker)) {
+        float multiplier = 1;
+        if (persistentData.contains(AMMO_MULTIPLIER, Tag.TAG_ANY_NUMERIC)) {
+          multiplier *= persistentData.getFloat(AMMO_MULTIPLIER);
+        }
+        if (persistentData.contains(BOW_MULTIPLIER, Tag.TAG_ANY_NUMERIC)) {
+          multiplier *= persistentData.getFloat(BOW_MULTIPLIER);
+        }
+        if (projectile instanceof AbstractArrow arrow) {
+          arrow.setBaseDamage(formula.apply(modifiers, persistentData, modifier, projectile, hit, attacker, target, arrow.getBaseDamage(), multiplier));
+        } else if (projectile instanceof ProjectileWithPower withPower) {
+          withPower.setPower(formula.apply(modifiers, persistentData, modifier, projectile, hit, attacker, target, withPower.getPower(), multiplier));
+        }
       }
     }
     return false;

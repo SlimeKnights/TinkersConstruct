@@ -4,6 +4,19 @@
     {
       "type": "mantle:tag_filled",
       "tag": "forge:ingots/zinc"
+    },
+    {
+      "type": "forge:or",
+      "values": [
+        {
+          "type": "tconstruct:config",
+          "prop": "allow_ingotless_alloys"
+        },
+        {
+          "type": "mantle:tag_filled",
+          "tag": "forge:ingots/brass"
+        }
+      ]
     }
   ],
   "inputs": [

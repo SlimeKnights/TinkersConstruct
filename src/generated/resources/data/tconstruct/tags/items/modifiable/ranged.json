@@ -1,8 +1,8 @@
 {
   "values": [
-    "tconstruct:swasher",
-    "#tconstruct:modifiable/ranged/bows",
-    "#tconstruct:modifiable/staffs",
-    "#tconstruct:modifiable/fishing_rods"
+    "tconstruct:javelin",
+    "#tconstruct:modifiable/ranged/launcher",
+    "#tconstruct:modifiable/ranged/small",
+    "#tconstruct:modifiable/ranged/broad"
   ]
 }

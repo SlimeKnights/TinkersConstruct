@@ -27,6 +27,7 @@
     "tconstruct:chestplate_plating_cast",
     "tconstruct:leggings_plating_cast",
     "tconstruct:boots_plating_cast",
-    "tconstruct:maille_cast"
+    "tconstruct:maille_cast",
+    "tconstruct:arrow_cast"
   ]
 }

@@ -3,6 +3,8 @@ package slimeknights.tconstruct.plugin;
 import blusunrize.immersiveengineering.api.tool.ChemthrowerHandler;
 import blusunrize.immersiveengineering.api.tool.ChemthrowerHandler.ChemthrowerEffect;
 import blusunrize.immersiveengineering.common.entities.ChemthrowerShotEntity;
+import blusunrize.immersiveengineering.common.entities.illager.EngineerIllager;
+import blusunrize.immersiveengineering.common.register.IEEntityTypes;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -25,6 +27,7 @@ import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffectContext;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffectManager;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffects;
+import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -36,6 +39,15 @@ public class ImmersiveEngineeringPlugin {
     ChemthrowerHandler.registerEffect(Fluids.CHEMTHROWER_BOTH_EFFECTS, new FluidEffectChemThrowerEffect(true, true));
     ChemthrowerHandler.registerEffect(Fluids.CHEMTHROWER_BLOCK_EFFECTS, new FluidEffectChemThrowerEffect(true, false));
     ChemthrowerHandler.registerEffect(Fluids.CHEMTHROWER_ENTITY_EFFECTS, new FluidEffectChemThrowerEffect(false, true));
+
+    // register shield disabling predicates
+    event.enqueueWork(() -> {
+      ModifierUtil.registerShieldDisabler(entity -> {
+        if (entity instanceof EngineerIllager illager && illager.isBlocking()) {
+          illager.disableShield();
+        }
+      }, IEEntityTypes.BULWARK.get(), IEEntityTypes.COMMANDO.get(), IEEntityTypes.FUSILIER.get());
+    });
   }
 
   /** Chem thrower effect that redirects to our fluid effect API */

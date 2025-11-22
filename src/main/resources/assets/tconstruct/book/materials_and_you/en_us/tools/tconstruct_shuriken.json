@@ -1,0 +1,20 @@
+{
+  "tool": "tconstruct:shuriken",
+  "text": [
+    {
+      "text": "Shurikens are a quick, disposable ammo meant for keeping monsters at bay."
+    },
+	{
+      "text": "\n"
+    },
+	 {
+      "text": "They can't receive many modifiers, but can still provide decent damage.",
+	  "paragraph": true
+    }
+  
+  ],
+  "properties": [
+    "Quick, disposable ranged option",
+    "Does not require another tool to fire"
+  ]
+}

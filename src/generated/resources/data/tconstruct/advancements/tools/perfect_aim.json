@@ -7,10 +7,19 @@
           {
             "type": "tconstruct:tool_stack",
             "predicate": {
-              "type": "tconstruct:stat_in_range",
-              "max": 1.0,
-              "min": 1.0,
-              "stat": "tconstruct:accuracy"
+              "type": "mantle:or",
+              "predicates": [
+                {
+                  "type": "mantle:tag",
+                  "tag": "tconstruct:modifiable/ranged/bows"
+                },
+                {
+                  "type": "tconstruct:stat_in_range",
+                  "max": 1.0,
+                  "min": 1.0,
+                  "stat": "tconstruct:accuracy"
+                }
+              ]
             }
           }
         ]

@@ -54,11 +54,16 @@ public class EnchantmentToModifierProvider extends AbstractEnchantmentToModifier
     add(Enchantments.INFINITY_ARROWS, ModifierIds.crystalshot);
     add(Enchantments.MULTISHOT, TinkerModifiers.multishot.getId());
     add(Enchantments.QUICK_CHARGE, ModifierIds.quickCharge);
-    add(Enchantments.PIERCING, TinkerModifiers.impaling.getId());
+    add(Enchantments.PIERCING, ModifierIds.arrowPierce);
 
     // fishing
     add(Enchantments.FISHING_LUCK, ModifierIds.luck);
     add(Enchantments.FISHING_SPEED, ModifierIds.lure);
+
+    // trident
+    add(Enchantments.LOYALTY, ModifierIds.returning);
+    add(Enchantments.CHANNELING, ModifierIds.channeling);
+    add(Enchantments.RIPTIDE, ModifierIds.drillAttack);
 
     // tag compat
     // upgrade

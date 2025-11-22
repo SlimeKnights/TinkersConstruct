@@ -1,0 +1,19 @@
+{
+  "tool": "tconstruct:throwing_axe",
+  "text": [
+    {
+      "text": "Throwing axes are a harder hitting but shorter range throwable projectile."
+    },
+	  {
+      "text": "\n"
+    },
+	  {
+      "text": "Throwing axes also can't receive modifiers, but who needs them?",
+	    "paragraph": true
+    }
+  ],
+  "properties": [
+    "Quick, disposable ranged option",
+    "Does not require another tool to fire"
+  ]
+}

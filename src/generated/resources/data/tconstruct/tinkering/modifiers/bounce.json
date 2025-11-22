@@ -1,0 +1,11 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:projectile_bounce",
+      "each_level": 2,
+      "flat": -1
+    }
+  ],
+  "tooltip_display": "always"
+}

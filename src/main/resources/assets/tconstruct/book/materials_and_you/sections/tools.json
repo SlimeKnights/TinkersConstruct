@@ -1,5 +1,27 @@
 [
   {
+    "name": "group_general",
+    "type": "mantle:text",
+    "data": "no-load",
+    "extraData": {
+      "tconstruct:load_tools": { "tag": "tconstruct:modifiable/small", "path": "tools" }
+    }
+  },
+  {
+    "name": "group_ranged",
+    "type": "mantle:text",
+    "data": "no-load",
+    "extraData": { "tconstruct:load_tools": [
+      { "tag": "tconstruct:modifiable/ranged/small", "path": "tools" },
+      { "tag": "tconstruct:modifiable/ammo",         "path": "tools" }
+    ]}
+  },
+  {
+    "name": "group_info",
+    "type": "mantle:text",
+    "data": "no-load"
+  },
+  {
     "name": "repairing",
     "type": "mantle:crafting",
     "data": "tools/repairing.json"

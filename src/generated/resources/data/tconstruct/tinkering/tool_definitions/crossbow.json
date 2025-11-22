@@ -45,6 +45,10 @@
         "abilities": 1,
         "upgrades": 3
       }
+    },
+    {
+      "type": "tconstruct:fixed_material_name",
+      "index": 0
     }
   ]
 }

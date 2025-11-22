@@ -2,12 +2,14 @@ package slimeknights.tconstruct.tools.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -16,6 +18,7 @@ import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.FishingHook;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -34,6 +37,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.entity.ProjectileWithKnockback;
 import slimeknights.tconstruct.library.modifiers.entity.ProjectileWithPower;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
+import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerTools;
@@ -43,7 +47,8 @@ public class CombatFishingHook extends FishingHook implements ProjectileWithKnoc
   private static final float PI = (float) Math.PI;
   /** Force to apply for grapple. Will be divided by the square root of the desired distance. */
   private static final float GRAPPLE_STRENGTH = 0.58f;
-  private static final EntityDataAccessor<Boolean> GRAPPLE = SynchedEntityData.defineId(CombatFishingHook.class, EntityDataSerializers.BOOLEAN);
+  private static final EntityDataAccessor<Byte> GRAPPLE = SynchedEntityData.defineId(CombatFishingHook.class, EntityDataSerializers.BYTE);
+  private static final EntityDataAccessor<Boolean> COLLECTING = SynchedEntityData.defineId(CombatFishingHook.class, EntityDataSerializers.BOOLEAN);
 
   /** Damage dealt by the fishing hook */
   @Getter @Setter
@@ -57,13 +62,11 @@ public class CombatFishingHook extends FishingHook implements ProjectileWithKnoc
 
   public CombatFishingHook(EntityType<? extends FishingHook> pEntityType, Level pLevel) {
     super(pEntityType, pLevel);
-    setGrapple(false);
   }
 
   // set velocity to 0.6 for vanilla behavior
   public CombatFishingHook(Player player, Level level, int luck, int lure, float velocity, float inaccuracy) {
     super(TinkerTools.fishingHook.get(), level, luck, lure);
-    setGrapple(false);
     this.setOwner(player);
     float xRot = player.getXRot();
     float yRot = player.getYRot();
@@ -97,7 +100,8 @@ public class CombatFishingHook extends FishingHook implements ProjectileWithKnoc
   @Override
   protected void defineSynchedData() {
     super.defineSynchedData();
-    this.entityData.define(GRAPPLE, false);
+    this.entityData.define(GRAPPLE, (byte) GrappleType.NONE.ordinal());
+    this.entityData.define(COLLECTING, false);
   }
 
   @Override
@@ -105,39 +109,93 @@ public class CombatFishingHook extends FishingHook implements ProjectileWithKnoc
     this.knockback += amount;
   }
 
-  /** Sets the grapple level, causing the hook to pull the player when retrieved */
-  public void setGrapple(boolean value) {
-    this.entityData.set(GRAPPLE, value);
+  /** Enables grapple functionality */
+  public void setGrapple(GrappleType type) {
+    this.entityData.set(GRAPPLE, (byte)type.ordinal());
   }
 
-  /** Gets the current grapple amount */
-  public boolean isGrapple() {
-    return entityData.get(GRAPPLE);
+  /** Enables collecting functionality */
+  public void setCollecting() {
+    this.entityData.set(COLLECTING, true);
+  }
+
+  /** Checks whether grapple is active */
+  private boolean isGrapple() {
+    return entityData.get(GRAPPLE) != GrappleType.NONE.ordinal();
+  }
+
+  /** Checks if drill is active */
+  private boolean isDrill() {
+    return entityData.get(GRAPPLE) == GrappleType.DRILL.ordinal();
+  }
+
+  /** Checks if collecting is active */
+  private boolean isCollecting() {
+    return entityData.get(COLLECTING);
   }
 
 
   /* Damage and knockback */
+
+  /** Damages the rod if locatable */
+  private void damageRod() {
+    // we damage on both cast and release to prevent some cheese with some modifiers and swapping items post cast
+    if (!level().isClientSide && getOwner() instanceof LivingEntity living) {
+      ItemStack stack = living.getMainHandItem();
+      InteractionHand hand = InteractionHand.MAIN_HAND;
+      // must be able to cast
+      if (!stack.canPerformAction(ToolActions.FISHING_ROD_CAST)) {
+        stack = living.getOffhandItem();
+        if (!stack.canPerformAction(ToolActions.FISHING_ROD_CAST)) {
+          return;
+        }
+        hand = InteractionHand.OFF_HAND;
+      }
+      // must be modifiable
+      if (stack.is(TinkerTags.Items.MODIFIABLE)) {
+        ToolDamageUtil.damageAnimated(ToolStack.from(stack), 1, living, hand);
+      }
+    }
+  }
 
   @Override
   protected void onHitEntity(EntityHitResult result) {
     super.onHitEntity(result);
     // store the impact velocity to scale our damage later
     impactVelocity = this.getDeltaMovement().length();
+    damageRod();
+  }
+
+  @Override
+  protected boolean canHitEntity(Entity target) {
+    return super.canHitEntity(target) || (target.isAlive() && isCollecting() && (target.getType().is(TinkerTags.EntityTypes.COLLECTABLES) || target instanceof AbstractArrow));
   }
 
   @Override
   protected void pullEntity(Entity target) {
     Entity owner = this.getOwner();
     if (owner != null) {
-      // TODO: probably want a modifier that prevents damage
-      // TODO: consider a tag for the immune entities instead of just the instance of check
-      if (power > 0 && !(target instanceof ItemEntity)) {
+      // if requested, collect the targeted item
+      // include arrows directly for modded arrow compat
+      boolean collectable = target.getType().is(TinkerTags.EntityTypes.COLLECTABLES) || target instanceof ItemEntity || target instanceof AbstractArrow;
+      if (collectable && isCollecting()) {
+        if (owner instanceof Player player) {
+          target.playerTouch(player);
+          if (target.isRemoved()) {
+            return;
+          }
+        }
+      }
+
+      // don't damage anything thats a collectable, mainly affects items
+      if (power > 0 && !collectable) {
         // mark target hurt
         if (owner instanceof LivingEntity living) {
           living.setLastHurtMob(target);
         }
-        // setup damage
-        float damage = Mth.ceil(Mth.clamp(this.impactVelocity * this.power * 10, 0, Integer.MAX_VALUE)) / 10f;
+        // setup damage, round to the nearest 0.1
+        // we start by multiplying by 20 to make the damage approximately 2/3 of a bow (as bows multiply velocity by 3)
+        float damage = Mth.ceil(Mth.clamp(this.impactVelocity * this.power * 20, 0, Integer.MAX_VALUE)) / 10f;
         DamageSource source = CombatHelper.damageSource(TinkerDamageTypes.FISHING_HOOK, this, owner);
         LivingEntity targetLiving = ToolAttackUtil.getLivingEntity(target);
         // don't want to apply default knockback, we will apply our own later in the opposite direction
@@ -149,7 +207,6 @@ public class CombatFishingHook extends FishingHook implements ProjectileWithKnoc
             if (targetLiving != null) {
               EnchantmentHelper.doPostHurtEffects(targetLiving, owner);
             }
-            EnchantmentHelper.doPostDamageEffects(ownerLiving, target);
 
             // run modifier hook
             modifierHook: {
@@ -171,7 +228,7 @@ public class CombatFishingHook extends FishingHook implements ProjectileWithKnoc
                 // actually run the hook
                 IToolStackView tool = ToolStack.from(stack);
                 for (ModifierEntry modifier : tool.getModifiers()) {
-                  modifier.getHook(ModifierHooks.TOOL_PROJECTILE_HIT).onToolProjectileHit(tool, modifier, this, ownerLiving, target, targetLiving, damageDealt);
+                  modifier.getHook(ModifierHooks.LAUNCHER_HIT).onLauncherHitEntity(tool, modifier, this, ownerLiving, target, targetLiving, damageDealt);
                 }
               }
             }
@@ -180,29 +237,59 @@ public class CombatFishingHook extends FishingHook implements ProjectileWithKnoc
         ToolAttackUtil.enableKnockback(knockback);
       }
       // pull the target, bonus pulling if we have punch
-      Vec3 knockback = new Vec3(owner.getX() - this.getX(), owner.getY() - this.getY(), owner.getZ() - this.getZ()).scale(0.1 + 0.05 * this.knockback);
-      target.setDeltaMovement(target.getDeltaMovement().add(knockback));
+      Vec3 knockback = new Vec3(owner.getX() - this.getX(), owner.getY() - this.getY(), owner.getZ() - this.getZ());
+      float scale = 0.1f;
+      if (this.knockback > 0) {
+        // use the normalized distance for the punch bonus, keep the original 0.1 as scale of total for vanilla consistency
+        scale += this.knockback * 0.25f * Mth.invSqrt(knockback.lengthSqr());
+      }
+      target.setDeltaMovement(target.getDeltaMovement().add(knockback.scale(scale)));
+
+      // if still alive and drill attack, we shoot towards them
+      if (isDrill()) {
+        pullGrapple(owner);
+      }
     }
   }
 
 
   /* Grappling */
 
+  /** Pulls in the given entity using grapple force */
+  private void pullGrapple(Entity owner) {
+    // pull the owner, bonus pulling if we have knockback
+    Vec3 knockback = new Vec3(this.getX() - owner.getX(), this.getY() - owner.getY(), this.getZ() - owner.getZ());
+    // goal is dividing the scale by the square root of the length, computed as the negative 4th root of the length squared to reduce sqrt calls.
+    knockback = knockback.scale(GRAPPLE_STRENGTH * Math.pow(knockback.lengthSqr(), -0.25f));
+    owner.push(knockback.x, knockback.y, knockback.z);
+    if (isDrill() && owner instanceof Player player) {
+      player.startAutoSpinAttack(20);
+    }
+    if (owner instanceof ServerPlayer player) {
+      player.connection.send(new ClientboundSetEntityMotionPacket(player.getId(), player.getDeltaMovement()));
+    }
+  }
+
   @Override
   public int retrieve(ItemStack stack) {
     Entity owner = this.getOwner();
-    if (isGrapple() && (this.onGround() || wallState != null) && owner != null) {
-      // pull the owner, bonus pulling if we have knockback
-      Vec3 knockback = new Vec3(this.getX() - owner.getX(), this.getY() - owner.getY(), this.getZ() - owner.getZ());
-      // goal is dividing the scale by the square root of the length, computed as the negative 4th root of the length squared to reduce sqrt calls.
-      knockback = knockback.scale(GRAPPLE_STRENGTH * Math.pow(knockback.lengthSqr(), -0.25f));
-      owner.push(knockback.x, knockback.y, knockback.z);
-      if (owner instanceof ServerPlayer player) {
-        player.connection.send(new ClientboundSetEntityMotionPacket(player.getId(), player.getDeltaMovement()));
+    if (this.onGround() || wallState != null) {
+      if (owner != null && isGrapple()) {
+        pullGrapple(owner);
       }
-      return Math.max(2, super.retrieve(stack));
+      // run modifier hook
+      if (owner instanceof LivingEntity living && stack.is(TinkerTags.Items.MODIFIABLE)) {
+        IToolStackView tool = ToolStack.from(stack);
+        BlockPos pos = blockPosition();
+        for (ModifierEntry entry : tool.getModifiers()) {
+          entry.getHook(ModifierHooks.LAUNCHER_HIT).onLauncherHitBlock(tool, entry, this, living, pos);
+        }
+      }
+      // do at least 2 damage, but not more than 3, practically this should always be 2
+      return Mth.clamp(super.retrieve(stack), 2, 3);
     }
-    return super.retrieve(stack);
+    // deal 3 damage for mob hooking instead of 5
+    return Math.min(super.retrieve(stack), 3);
   }
 
   @Override
@@ -262,4 +349,7 @@ public class CombatFishingHook extends FishingHook implements ProjectileWithKnoc
       }
     }
   }
+
+  /** Grappling behavior options */
+  public enum GrappleType { NONE, DASH, DRILL }
 }

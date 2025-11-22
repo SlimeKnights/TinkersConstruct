@@ -4,6 +4,7 @@ import net.minecraft.SharedConstants;
 import net.minecraft.server.Bootstrap;
 import net.minecraftforge.common.TierSortingRegistry;
 import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.network.NetworkRegistry;
 import org.junit.jupiter.api.BeforeAll;
 import org.mockito.MockedStatic;
@@ -16,11 +17,13 @@ import static org.mockito.ArgumentMatchers.any;
 
 public class BaseMcTest {
 
-  @SuppressWarnings("ResultOfMethodCallIgnored")
+  @SuppressWarnings({"ResultOfMethodCallIgnored", "unused"})
   @BeforeAll
   static void setUpRegistries() {
     SharedConstants.setVersion(TestWorldVersion.INSTANCE);
-    Bootstrap.bootStrap();
+    try (MockedStatic<NetworkHooks> mockNetwork = Mockito.mockStatic(NetworkHooks.class)) {
+      Bootstrap.bootStrap();
+    }
     ModLoadingContext.get().setActiveContainer(new TestModContainer(TestModInfo.INSTANCE));
 
     // ensure during static initialization, we don't load channel stuff that we lack access to

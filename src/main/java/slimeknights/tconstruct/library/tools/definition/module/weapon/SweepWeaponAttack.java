@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.tools.definition.module.weapon;
 
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.decoration.ArmorStand;
@@ -14,7 +15,6 @@ import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.definition.module.ToolHooks;
 import slimeknights.tconstruct.library.tools.definition.module.ToolModule;
-import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
@@ -40,7 +40,7 @@ public record SweepWeaponAttack(float range) implements MeleeHitToolHook, ToolMo
     // sweep code from Player#attack(Entity)
     // basically: no crit, no sprinting and has to stand on the ground for sweep. Also has to move regularly slowly
     LivingEntity attacker = context.getAttacker();
-    if (context.isFullyCharged() && !attacker.isSprinting() && !context.isCritical() && attacker.onGround() && (attacker.walkDist - attacker.walkDistO) < attacker.getSpeed()) {
+    if (context.isFullyCharged() && !attacker.isSprinting() && !context.isCritical() && !context.isProjectile() && attacker.onGround() && (attacker.walkDist - attacker.walkDistO) < attacker.getSpeed()) {
       // loop through all nearby entities
       double range = this.range + tool.getModifierLevel(TinkerModifiers.expanded.getId());
       double rangeSq = (2 + range); // TODO: why do we add 2 here? should that not be defined in the datagen?
@@ -49,12 +49,13 @@ public record SweepWeaponAttack(float range) implements MeleeHitToolHook, ToolMo
       float sweepDamage = TinkerModifiers.sweeping.get().getSweepingDamage(tool, damage);
       Entity target = context.getTarget();
       Level level = attacker.level();
+      DamageSource source = context.makeDamageSource();
       for (LivingEntity aoeTarget : level.getEntitiesOfClass(LivingEntity.class, target.getBoundingBox().inflate(range, 0.25D, range))) {
         if (aoeTarget != attacker && aoeTarget != target && !attacker.isAlliedTo(aoeTarget)
             && !(aoeTarget instanceof ArmorStand armorStand && armorStand.isMarker()) && attacker.distanceToSqr(aoeTarget) < rangeSq) {
           float angle = attacker.getYRot() * ((float) Math.PI / 180F);
           aoeTarget.knockback(0.4F, Mth.sin(angle), -Mth.cos(angle));
-          ToolAttackUtil.dealDefaultDamage(attacker, aoeTarget, sweepDamage);
+          aoeTarget.hurt(source, sweepDamage);
         }
       }
 

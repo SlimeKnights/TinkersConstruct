@@ -11,9 +11,11 @@ import slimeknights.mantle.data.loadable.common.IngredientLoadable;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
+import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.recipe.IMultiRecipe;
 import slimeknights.mantle.recipe.helper.LoadableRecipeSerializer;
 import slimeknights.mantle.recipe.helper.TypeAwareRecipeSerializer;
+import slimeknights.tconstruct.library.json.predicate.material.MaterialPredicate;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
@@ -40,6 +42,7 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -54,6 +57,7 @@ public class PartSwapCastingRecipe extends AbstractMaterialCastingRecipe impleme
     IngredientLoadable.ALLOW_EMPTY.requiredField("tools", AbstractCastingRecipe::getCast),
     ITEM_COST_FIELD,
     IntLoadable.FROM_ZERO.requiredField("index", r -> r.index),
+    MATERIALS_FIELD,
     PartSwapCastingRecipe::new);
 
   private final int index;
@@ -61,9 +65,15 @@ public class PartSwapCastingRecipe extends AbstractMaterialCastingRecipe impleme
   @Nullable
   private MaterialFluidRecipe cachedPartSwapping = null;
 
-  protected PartSwapCastingRecipe(TypeAwareRecipeSerializer<?> serializer, ResourceLocation id, String group, Ingredient cast, int itemCost, int index) {
-    super(serializer, id, group, cast, itemCost, true, false);
+  protected PartSwapCastingRecipe(TypeAwareRecipeSerializer<?> serializer, ResourceLocation id, String group, Ingredient cast, int itemCost, int index, IJsonPredicate<MaterialVariantId> materials) {
+    super(serializer, id, group, cast, itemCost, true, false, materials);
     this.index = index;
+  }
+
+  /** @deprecated use {@link #PartSwapCastingRecipe(TypeAwareRecipeSerializer, ResourceLocation, String, Ingredient, int, int, IJsonPredicate)} */
+  @Deprecated(forRemoval = true)
+  protected PartSwapCastingRecipe(TypeAwareRecipeSerializer<?> serializer, ResourceLocation id, String group, Ingredient cast, int itemCost, int index) {
+    this(serializer, id, group, cast, itemCost, index, MaterialPredicate.ANY);
   }
 
   /** Maps negative indices to the end of the parts list */
@@ -93,14 +103,14 @@ public class PartSwapCastingRecipe extends AbstractMaterialCastingRecipe impleme
     // cache did not match? try a casting recipe.
     // note its possible we have a valid casting material that is just not valid for this tool, hence the extra check
     // the casting recipe needs to match our stat type to be valid
-    MaterialFluidRecipe casting = super.getFluidRecipe(inv);
+    MaterialFluidRecipe casting = MaterialCastingLookup.getCastingFluid(fluid, materials);
     // need to validate the stat type, since the super call will not check stat type
     if (casting != MaterialFluidRecipe.EMPTY && !casting.getOutput().sameVariant(currentMaterial) && requirements.get(index).canUseMaterial(casting.getOutput().getId())) {
       cachedPartSwapping = casting;
       return casting;
     }
     // no casting? try composite.
-    MaterialFluidRecipe composite = MaterialCastingLookup.getCompositeFluid(fluid, currentMaterial);
+    MaterialFluidRecipe composite = MaterialCastingLookup.getCompositeFluid(fluid, currentMaterial, materials);
     if (composite != MaterialFluidRecipe.EMPTY) {
       cachedPartSwapping = composite;
       return composite;
@@ -211,10 +221,11 @@ public class PartSwapCastingRecipe extends AbstractMaterialCastingRecipe impleme
   public List<IDisplayableCastingRecipe> getRecipes(RegistryAccess access) {
     if (multiRecipes == null) {
       List<ItemStack> casts = List.of(getCast().getItems());
+      Predicate<MaterialFluidRecipe> validRecipe = recipe -> recipe.isVisible() && materials.matches(recipe.getOutput().getVariant());
       multiRecipes = Stream.concat(
           // show recipes for creating the tool from all castable fluids
           MaterialCastingLookup.getAllCastingFluids().stream()
-            .filter(MaterialFluidRecipe::isVisible)
+            .filter(validRecipe)
             .flatMap(recipe -> {
               // map each cast item to contain the new material
               MaterialVariant output = recipe.getOutput();
@@ -242,7 +253,7 @@ public class PartSwapCastingRecipe extends AbstractMaterialCastingRecipe impleme
             }),
           // all composite fluids become special composite swapping recipes
           MaterialCastingLookup.getAllCompositeFluids().stream()
-            .filter(MaterialFluidRecipe::isVisible)
+            .filter(validRecipe)
             .flatMap(recipe -> {
               // start creating our list of tools to display
               MaterialVariant output = recipe.getOutput();

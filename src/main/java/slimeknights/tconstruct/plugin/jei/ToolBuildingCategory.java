@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import lombok.Getter;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
@@ -70,14 +71,21 @@ public class ToolBuildingCategory implements IRecipeCategory<ToolBuildingRecipe>
       }
     }
 
+    IRecipeSlotBuilder firstSlot = null;
     for (int i = 0; i < layoutSlots.size(); i++) {
-      builder.addSlot(RecipeIngredientRole.INPUT, layoutSlots.get(i).getX() + X_OFFSET, layoutSlots.get(i).getY() + Y_OFFSET)
+      IRecipeSlotBuilder slot = builder.addSlot(RecipeIngredientRole.INPUT, layoutSlots.get(i).getX() + X_OFFSET, layoutSlots.get(i).getY() + Y_OFFSET)
              .addItemStacks(partsAndExtras.get(i));
+      if (i == 0) {
+        firstSlot = slot;
+      }
     }
 
-    ItemStack outputStack = recipe.getOutput() instanceof IModifiableDisplay modifiable ? modifiable.getRenderTool() : recipe.getOutput().asItem().getDefaultInstance();
-    builder.addSlot(RecipeIngredientRole.OUTPUT, WIDTH - 26, 23)
-      .addItemStack(outputStack);
+    // create a focus link between result and first slot if same size
+    List<ItemStack> result = recipe.getDisplayOutput();
+    IRecipeSlotBuilder resultSlot = builder.addSlot(RecipeIngredientRole.OUTPUT, WIDTH - 26, 23).addItemStacks(result);
+    if (result.size() > 1 && partsAndExtras.get(0).size() == result.size()) {
+      builder.createFocusLink(resultSlot, firstSlot);
+    }
   }
 
   @Override

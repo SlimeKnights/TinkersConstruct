@@ -44,6 +44,8 @@ public class MaterialRecipeCache {
   private static final DuelSidedListener LISTENER = RecipeCacheInvalidator.addDuelSidedListener(() -> {
     RECIPES.clear();
     RECIPE_BY_ITEM.clear();
+    RECIPES_BY_MATERIAL.clear();
+    ITEMS_BY_MATERIAL.clear();
     KNOWN_VARIANTS.clear();
     SORTED_VARIANTS = null;
   });

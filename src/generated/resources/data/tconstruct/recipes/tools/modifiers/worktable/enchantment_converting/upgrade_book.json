@@ -11,8 +11,18 @@
   ],
   "match_book": true,
   "modifier_predicate": {
-    "type": "tconstruct:slot_type",
-    "slot": "upgrades"
+    "type": "mantle:and",
+    "predicates": [
+      {
+        "type": "tconstruct:slot_type",
+        "slot": "upgrades"
+      },
+      {
+        "type": "mantle:inverted",
+        "inverted_type": "tconstruct:tag",
+        "tag": "tconstruct:extract_blacklist/upgrade"
+      }
+    ]
   },
   "name": "upgrades",
   "return_unenchanted": false

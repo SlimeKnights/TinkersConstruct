@@ -153,7 +153,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
       int min = level.min() - 1;
       ModifierEntry existing = min > 0 ? new ModifierEntry(result, min) : null;
       ModifierEntry displayResult = getDisplayResult();
-      displayInputs = getToolInputs().stream().map(stack -> withModifiers(stack, modifiersForResult(displayResult, existing))).collect(Collectors.toList());
+      displayInputs = getToolInputs().stream().map(stack -> withModifiers(stack, maxToolSize, modifiersForResult(displayResult, existing))).collect(Collectors.toList());
     }
     return displayInputs;
   }
@@ -162,7 +162,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   public List<ItemStack> getToolWithModifier() {
     if (toolWithModifier == null) {
       ModifierEntry result = getDisplayResult();
-      toolWithModifier = getToolInputs().stream().map(stack -> withModifiers(stack, modifiersForResult(result, result))).collect(Collectors.toList());
+      toolWithModifier = getToolInputs().stream().map(stack -> withModifiers(stack, maxToolSize, modifiersForResult(result, result))).collect(Collectors.toList());
     }
     return toolWithModifier;
   }
@@ -301,7 +301,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   /** Creates a successful result for the given tool and original stack */
   @NonExtendable
   protected RecipeResult<LazyToolStack> success(ToolStack tool, ItemStack original) {
-    return LazyToolStack.successCopy(tool, original);
+    return success(tool, original.getCount(), original);
   }
 
   /** @deprecated use {@link #success(ToolStack, int, ItemStack)} or {@link #success(ToolStack, ItemStack)} to preserve capabilities. */

@@ -1,0 +1,6 @@
+{
+  "parent": "tconstruct:item/base/geode/large_bud",
+  "textures": {
+    "layer0": "tconstruct:block/geode/sky/large_bud"
+  }
+}

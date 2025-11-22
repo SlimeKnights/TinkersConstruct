@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:material",
+  "ingredient": {
+    "item": "tconstruct:dragon_scale"
+  },
+  "material": "tconstruct:dragon_scale",
+  "needed": 1,
+  "value": 1
+}

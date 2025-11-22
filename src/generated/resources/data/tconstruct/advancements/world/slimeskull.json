@@ -209,6 +209,32 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "leather": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "mantle:and",
+              "predicates": [
+                {
+                  "type": "mantle:set",
+                  "items": [
+                    "tconstruct:slime_helmet"
+                  ]
+                },
+                {
+                  "type": "tconstruct:has_material",
+                  "index": 0,
+                  "material": "tconstruct:leather"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "necrotic_bone": {
       "conditions": {
         "items": [
@@ -279,32 +305,6 @@
                   "type": "tconstruct:has_material",
                   "index": 0,
                   "material": "tconstruct:rose_gold"
-                }
-              ]
-            }
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "rotten_flesh": {
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool_stack",
-            "predicate": {
-              "type": "mantle:and",
-              "predicates": [
-                {
-                  "type": "mantle:set",
-                  "items": [
-                    "tconstruct:slime_helmet"
-                  ]
-                },
-                {
-                  "type": "tconstruct:has_material",
-                  "index": 0,
-                  "material": "tconstruct:rotten_flesh"
                 }
               ]
             }
@@ -393,7 +393,7 @@
       "necrotic_bone"
     ],
     [
-      "rotten_flesh"
+      "leather"
     ],
     [
       "ender_pearl"

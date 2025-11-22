@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:throwing",
+  "text": [
+    {
+      "text": "How effective is throwing your sword? Way more effective than throwing your bow!"
+    }
+  ],
+  "effects": [
+    "Allows throwing tools",
+    "Hit monsters for damage!",
+    "Hitting effective blocks may break them!",
+    "Must retrieve manually",
+    "Single level",
+    "Requires 1 ability slot"
+  ]
+}

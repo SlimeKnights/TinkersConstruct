@@ -1,9 +1,0 @@
-{
-  "type": "tconstruct:material",
-  "ingredient": {
-    "item": "tconstruct:ender_congealed_slime"
-  },
-  "material": "tconstruct:enderslime",
-  "needed": 1,
-  "value": 4
-}

@@ -25,14 +25,15 @@ import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileHitModifi
 import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileLaunchModifierHook;
 import slimeknights.tconstruct.library.module.ModuleHookMap.Builder;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
+import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 
 import javax.annotation.Nullable;
 
 import static slimeknights.mantle.Mantle.commonResource;
 
+@Deprecated
 public class OlympicModifier extends Modifier implements ProjectileLaunchModifierHook, ProjectileHitModifierHook {
   private static final ResourceLocation OLYMPIC_START = TConstruct.getResource("olympic_start");
   private static final TagKey<Item> PLATINUM_NUGGET = ItemTags.create(commonResource("nuggets/platinum"));
@@ -60,7 +61,7 @@ public class OlympicModifier extends Modifier implements ProjectileLaunchModifie
 
   @Override
   protected void registerHooks(Builder hookBuilder) {
-    hookBuilder.addHook(this, ModifierHooks.PROJECTILE_LAUNCH, ModifierHooks.PROJECTILE_HIT);
+    hookBuilder.addHook(this, ModifierHooks.PROJECTILE_LAUNCH, ModifierHooks.PROJECTILE_SHOT, ModifierHooks.PROJECTILE_HIT);
   }
 
   @Override
@@ -74,7 +75,7 @@ public class OlympicModifier extends Modifier implements ProjectileLaunchModifie
   }
 
   @Override
-  public boolean onProjectileHitEntity(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
+  public boolean onProjectileHitEntity(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target, boolean notBlocked) {
     // 10% chance per level
     Entity targetEntity = hit.getEntity();
     Level level = projectile.level();

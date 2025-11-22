@@ -75,8 +75,10 @@ public class TConstructCommand {
       register(b, "modifier_usage", ModifierUsageCommand::register);
       register(b, "modifier_priority", ModifierPriorityCommand::register);
     });
-    register(builder, "generate_part_textures", GeneratePartTexturesCommand::register);
-    register(builder, "generate_melting_recipes", b -> GenerateMeltingRecipesCommand.register(b, context));
+    register(builder, "generate", b -> {
+      register(b, "part_textures", GeneratePartTexturesCommand::register);
+      register(b, "melting_recipes", bb -> GenerateMeltingRecipesCommand.register(bb, context));
+    });
 
     // register final command
     event.getDispatcher().register(builder);

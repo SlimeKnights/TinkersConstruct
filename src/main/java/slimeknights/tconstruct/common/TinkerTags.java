@@ -6,10 +6,13 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -48,7 +51,7 @@ public class TinkerTags {
   }
 
   /** Creates a tag that hides things from JEI */
-  @SuppressWarnings("SameParameterValue")
+  @SuppressWarnings({"SameParameterValue", "removal"}) // there really is no benefit to migrating to new constructors early; just lose Neo compat
   private static <R> TagKey<R> hiddenFromRecipeViewers(ResourceKey<? extends Registry<R>> registry) {
     return TagKey.create(registry, new ResourceLocation("c", "hidden_from_recipe_viewers"));
   }
@@ -272,6 +275,10 @@ public class TinkerTags {
     public static final TagKey<Item> RAW_BLOCK_COBALT = common("storage_blocks/raw_cobalt");
     public static final TagKey<Item> RAW_COBALT = common("raw_materials/cobalt");
 
+    // non-standard prefix for items that smelt into 1 nugget but are not in fact nuggets
+    public static final TagKey<Item> STEEL_SHARD = common("raw_nuggets/steel");
+    public static final TagKey<Item> KNIGHTMETAL_SHARD = common("raw_nuggets/knightmetal");
+
     public static final TagKey<Item> NUGGETS_NETHERITE = common("nuggets/netherite");
     public static final TagKey<Item> INGOTS_NETHERITE_SCRAP = common("ingots/netherite_scrap");
     public static final TagKey<Item> NUGGETS_NETHERITE_SCRAP = common("nuggets/netherite_scrap");
@@ -344,6 +351,8 @@ public class TinkerTags {
     public static final TagKey<Item> AUTOSMELT_BLACKLIST = local("autosmelt_blacklist");
     /** Items which should not be duplicated from higher levels of autosmelt */
     public static final TagKey<Item> AUTOSMELT_PLUS_BLACKLIST = common("autosmelt_plus_blacklist");
+    /** Items that can be thrown from sleeves. Item must implement {@link Item#use(Level, Player, InteractionHand)} */
+    public static final TagKey<Item> THROWABLE = local("throwable");
 
     /*
      * Tool tags
@@ -390,6 +399,8 @@ public class TinkerTags {
     public static final TagKey<Item> INTERACTABLE_RIGHT = local("modifiable/interactable/right");
     /** Tools that can charge up interaction. Includes anything in {@link #INTERACTABLE_RIGHT}, {@link #BOWS}, or {@link #SHIELDS} */
     public static final TagKey<Item> INTERACTABLE_CHARGE = local("modifiable/interactable/charge");
+    /** Tools that can charge up interaction, using a modifier for their main action. Like {@link #INTERACTABLE_CHARGE} but excludes bows. */
+    public static final TagKey<Item> INTERACTABLE_CHARGE_MODIFIER = local("modifiable/interactable/charge/modifier");
     /** Tools that can interact on left click */
     public static final TagKey<Item> INTERACTABLE_LEFT = local("modifiable/interactable/left");
     /** Tools that can interact when worn as armor */
@@ -451,18 +462,35 @@ public class TinkerTags {
     /** Full list of armor shown in tinkers gadgetry, automatically added last to encyclopedia */
     public static final TagKey<Item> GADGETRY_ARMOR = local("modifiable/book_armor/tinkers_gadgetry");
 
-    /** Modifiable items that support ranged attacks. Items in this tag support {@link ToolStats#DRAW_SPEED}, {@link ToolStats#VELOCITY}, {@link ToolStats#PROJECTILE_DAMAGE} and {@link ToolStats#ACCURACY} */
+    /** Modifiable items that support ranged attacks. Items in this tag support {@link ToolStats#DRAW_SPEED}, {@link ToolStats#VELOCITY} and {@link ToolStats#ACCURACY} */
     public static final TagKey<Item> RANGED = local("modifiable/ranged");
+    /** Modifiable items that launch a projectile, as opposed to being the projectile. Additionally includes {@link ToolStats#PROJECTILE_DAMAGE} for its launch power. */
+    public static final TagKey<Item> LAUNCHERS = local("modifiable/ranged/launcher");
     /** Any modifiable ranged items that are a bow, includes crosbows and longbows */
     public static final TagKey<Item> BOWS = local("modifiable/ranged/bows");
     /** Any modifiable bows that fire arrows on release */
     public static final TagKey<Item> LONGBOWS = local("modifiable/ranged/longbows");
+    /** Bows supporting the ballista modifier. In code, only {@link slimeknights.tconstruct.library.tools.item.ranged.ModifiableBowItem} implements this functionality. */
+    public static final TagKey<Item> BALLISTAS = local("modifiable/ranged/ballistas");
     /** Any modifiable bows that store an arrow then fire on next use */
     public static final TagKey<Item> CROSSBOWS = local("modifiable/ranged/crossbows");
     /** Modifiable items support special staff modifiers, is a subtag of ranged. */
     public static final TagKey<Item> STAFFS = local("modifiable/staffs");
     /** Modifiable items that support fishing modifiers. */
     public static final TagKey<Item> FISHING_RODS = local("modifiable/fishing_rods");
+    /** Ranged tools to show in materials and you and the encyclopedia. */
+    public static final TagKey<Item> SMALL_RANGED = local("modifiable/ranged/small");
+    /** Ranged tools to show in mighty smelting and the encyclopedia. */
+    public static final TagKey<Item> BROAD_RANGED = local("modifiable/ranged/broad");
+
+    /** Items in this tag have a primary purpose of being ammo */
+    public static final TagKey<Item> AMMO = local("modifiable/ammo");
+    /** Ammo that is thrown directly, instead of using a launcher. */
+    public static final TagKey<Item> THROWN_AMMO = local("modifiable/ammo/thrown");
+    /** Tools that support being fired using bows with the ballisa modifier. */
+    public static final TagKey<Item> BALLISTA_AMMO = local("modifiable/ballista_ammo");
+    /** Items in this tag have some cheaper modifier recipes since they are not reusable */
+    public static final TagKey<Item> SINGLE_USE = local("modifiable/single_use");
 
     /** Tools that can receive wood based embellishments */
     public static final TagKey<Item> EMBELLISHMENT_WOOD = local("modifiable/embellishment/wood");
@@ -476,6 +504,8 @@ public class TinkerTags {
     public static final TagKey<Item> UNRECYCLABLE = local("modifiable/unrecyclable");
     /** Tools to blacklist from default salvage recipes. May still be salvagable in other recipes */
     public static final TagKey<Item> UNSALVAGABLE = local("modifiable/unsalvageable");
+    /** Tools to blacklist from part swapping */
+    public static final TagKey<Item> UNSWAPPABLE = local("modifiable/unswappable");
 
     /** Tag so mods like thermal know our scyhtes can harvest */
     public static final TagKey<Item> SCYTHES = common("tools/scythe");
@@ -580,6 +610,11 @@ public class TinkerTags {
     /** Mobs that get the 4x protection boost due to only 1 armor piece */
     public static final TagKey<EntityType<?>> SMALL_ARMOR = common("small_armor");
 
+    /** Things that can be collected using {@link net.minecraft.world.entity.Entity#playerTouch(Player)} using a fishing rod. */
+    public static final TagKey<EntityType<?>> COLLECTABLES = common("collectables");
+
+    /** Projectiles with this tag will not be discarded by any relevant modifiers. */
+    public static final TagKey<EntityType<?>> REUSABLE_AMMO = common("reusable_ammo");
     /** Projectiles with this tag cannot be reflected */
     public static final TagKey<EntityType<?>> REFLECTING_BLACKLIST = common("reflecting/blacklist");
     /** Projectiles with this tag cannot be reflected */
@@ -635,6 +670,8 @@ public class TinkerTags {
     public static final TagKey<Modifier> EXTRACT_MODIFIER_BLACKLIST = local("extract_blacklist/tools");
     /** Blacklist for modifiers that cannot be extracted via the slotless recipe */
     public static final TagKey<Modifier> EXTRACT_SLOTLESS_BLACKLIST = local("extract_blacklist/slotless");
+    /** Blacklist for modifiers that cannot be extracted via the upgrade recipe */
+    public static final TagKey<Modifier> EXTRACT_UPGRADE_BLACKLIST = local("extract_blacklist/upgrade");
     /** Modifiers that support blocking while charging, for the sake of shields */
     public static final TagKey<Modifier> BLOCK_WHILE_CHARGING = local("block_while_charging");
     /** Modifiers that can be used on both left and right click. Does not care about armor modifiers */
@@ -650,6 +687,8 @@ public class TinkerTags {
     public static final TagKey<Modifier> CHARGE_EMPTY_BOW_WITH_DRAWTIME = local("charge_empty_bow/with_drawtime");
     /** Modifiers in this tag will allow charging a bow that has no ammo, but won't charge the bow */
     public static final TagKey<Modifier> CHARGE_EMPTY_BOW_WITHOUT_DRAWTIME = local("charge_empty_bow/without_drawtime");
+    /** Movement modifiers that can activate the drill attack */
+    public static final TagKey<Modifier> DRILL_ATTACKS = local("drill_attacks");
 
     // book tags - these are used to determine pages to load in resource packs
     // upgrades
@@ -689,6 +728,7 @@ public class TinkerTags {
     public static final TagKey<Modifier> SLOTLESS = local("slotless");
     public static final TagKey<Modifier> GENERAL_SLOTLESS = local("slotless/general");
     public static final TagKey<Modifier> BONUS_SLOTLESS = local("slotless/bonus");
+    public static final TagKey<Modifier> COSMETIC_SLOTLESS = local("slotless/cosmetic");
 
     // JEI
     public static final TagKey<Modifier> HIDDEN_FROM_RECIPE_VIEWERS = hiddenFromRecipeViewers(ModifierManager.REGISTRY_KEY);
@@ -724,6 +764,10 @@ public class TinkerTags {
     public static final TagKey<IMaterial> LIGHT = local("ranged/light");
     /** Ranged materials that maximize damage */
     public static final TagKey<IMaterial> HEAVY = local("ranged/heavy");
+
+    // slimeskull
+    /** Materials that are a slimeskull. Mostly used for a sort order in books rather than having gameplay function. */
+    public static final TagKey<IMaterial> SLIMESKULL = local("slimeskull");
 
     @SuppressWarnings("SameParameterValue")  // may want more tags later
     private static TagKey<IMaterial> local(String name) {

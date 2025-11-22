@@ -19,7 +19,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.behavior.ProcessLootModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
-import slimeknights.tconstruct.library.modifiers.hook.ranged.ToolProjectileHitModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.ranged.LauncherHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.util.ModifierCondition;
 import slimeknights.tconstruct.library.modifiers.modules.util.ModifierCondition.ConditionalModule;
@@ -50,8 +50,8 @@ import static slimeknights.tconstruct.library.tools.capability.fluid.ToolTankHel
  * @param shardsPerGem     Number of quarter gems to produce per gem from ore recipes.
  * @param condition        General modifier conditions
  */
-public record MeltingModule(LevelingInt temperature, LevelingInt nuggetsPerMetal, LevelingInt shardsPerGem, ModifierCondition<IToolStackView> condition) implements ModifierModule, MeleeHitModifierHook, ToolProjectileHitModifierHook, ProcessLootModifierHook, ConditionalModule<IToolStackView>, IMeltingContainer, IOreRate {
-  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<MeltingModule>defaultHooks(ModifierHooks.MELEE_HIT, ModifierHooks.TOOL_PROJECTILE_HIT, ModifierHooks.PROCESS_LOOT);
+public record MeltingModule(LevelingInt temperature, LevelingInt nuggetsPerMetal, LevelingInt shardsPerGem, ModifierCondition<IToolStackView> condition) implements ModifierModule, MeleeHitModifierHook, LauncherHitModifierHook, ProcessLootModifierHook, ConditionalModule<IToolStackView>, IMeltingContainer, IOreRate {
+  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<MeltingModule>defaultHooks(ModifierHooks.MELEE_HIT, ModifierHooks.LAUNCHER_HIT, ModifierHooks.PROCESS_LOOT);
   /** Volatile data flag which makes a tool always melt regardless of tank space */
   public static final ResourceLocation FORCE_MELTING = TConstruct.getResource("force_melting");
 
@@ -77,7 +77,6 @@ public record MeltingModule(LevelingInt temperature, LevelingInt nuggetsPerMetal
   /** Last melting recipe used */
   private static IMeltingRecipe lastRecipe = null;
   /** Current item stack being processed */
-  @Setter
   private static ItemStack stack = ItemStack.EMPTY;
   /** Current modifier level being processed */
   private static int level = 0;
@@ -112,13 +111,13 @@ public record MeltingModule(LevelingInt temperature, LevelingInt nuggetsPerMetal
    */
   private FluidStack meltItem(ModifierEntry modifier, ItemStack stack, Level world) {
     level = modifier.intEffectiveLevel();
-    setStack(stack);
+    MeltingModule.stack = stack;
     // first, update inventory
     IMeltingRecipe recipe = lastRecipe;
     if (recipe == null || !recipe.matches(this, world)) {
       recipe = world.getRecipeManager().getRecipeFor(TinkerRecipeTypes.MELTING.get(), this, world).orElse(null);
       if (recipe == null) {
-        setStack(ItemStack.EMPTY);
+        MeltingModule.stack = ItemStack.EMPTY;
         return FluidStack.EMPTY;
       }
       lastRecipe = recipe;
@@ -128,7 +127,7 @@ public record MeltingModule(LevelingInt temperature, LevelingInt nuggetsPerMetal
     if (recipe.getTemperature(this) <= temperature.compute(level)) {
       result = recipe.getOutput(this);
     }
-    setStack(ItemStack.EMPTY);
+    MeltingModule.stack = ItemStack.EMPTY;
     return result;
   }
 
@@ -245,7 +244,7 @@ public record MeltingModule(LevelingInt temperature, LevelingInt nuggetsPerMetal
   }
 
   @Override
-  public void onToolProjectileHit(IToolStackView tool, ModifierEntry modifier, Projectile projectile, LivingEntity attacker, Entity target, @Nullable LivingEntity livingTarget, float damageDealt) {
+  public void onLauncherHitEntity(IToolStackView tool, ModifierEntry modifier, Projectile projectile, LivingEntity attacker, Entity target, @Nullable LivingEntity livingTarget, float damageDealt) {
     meltTarget(tool, modifier, livingTarget, damageDealt);
   }
 

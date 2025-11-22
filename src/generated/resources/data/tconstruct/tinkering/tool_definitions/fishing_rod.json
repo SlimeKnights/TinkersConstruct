@@ -4,7 +4,8 @@
       "type": "tconstruct:part_stats",
       "parts": [
         "tconstruct:bow_limb",
-        "tconstruct:bowstring"
+        "tconstruct:bowstring",
+        "tconstruct:arrow_head"
       ],
       "primary_part": 0
     },
@@ -24,15 +25,20 @@
     {
       "type": "tconstruct:base_stats",
       "stats": {
-        "tconstruct:attack_speed": 2.0,
-        "tconstruct:durability": 70.0
+        "tconstruct:attack_speed": 2.0
+      }
+    },
+    {
+      "type": "tconstruct:multiply_stats",
+      "multipliers": {
+        "tconstruct:durability": 1.5
       }
     },
     {
       "type": "tconstruct:modifier_slots",
       "slots": {
         "abilities": 1,
-        "upgrades": 4
+        "upgrades": 3
       }
     },
     {
@@ -43,6 +49,17 @@
           "name": "tconstruct:fishing"
         }
       ]
+    },
+    {
+      "type": "tconstruct:toggleable_set_interaction",
+      "interact_modifiers": {
+        "type": "tconstruct:single",
+        "modifier": "tconstruct:fishing"
+      }
+    },
+    {
+      "type": "tconstruct:fixed_material_name",
+      "index": 0
     }
   ]
 }

@@ -32,7 +32,11 @@
     "data": "no-load",
     "extraData": { "tconstruct:material_tier": { "type": "tconstruct:melee_harvest", "tier": 4 } },
     "icon": {
-      "item": "tconstruct:manyullyn_ingot"
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:large_plate",
+        "nbt": { "Material": "tconstruct:manyullyn" }
+      }
     }
   },
   {
@@ -40,7 +44,11 @@
     "data": "no-load",
     "extraData": { "tconstruct:material_tier": { "type": "tconstruct:ranged", "tier": 4 } },
     "icon": {
-      "item": "tconstruct:hepatizon_ingot"
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:bow_grip",
+        "nbt": { "Material": "tconstruct:hepatizon" }
+      }
     }
   },
   {
@@ -48,7 +56,11 @@
     "data": "no-load",
     "extraData": { "tconstruct:material_tier": { "type": "tconstruct:armor", "tier": 4 } },
     "icon": {
-      "item": "tconstruct:blazewood"
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:shield_core",
+        "nbt": { "Material": "tconstruct:blazewood" }
+      }
     }
   },
   {

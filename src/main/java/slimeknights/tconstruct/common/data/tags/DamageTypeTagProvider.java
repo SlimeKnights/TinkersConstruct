@@ -46,6 +46,7 @@ import static slimeknights.tconstruct.common.TinkerDamageTypes.SELF_DESTRUCT;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.SHOCK;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.SMELTERY_HEAT;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.SMELTERY_MAGIC;
+import static slimeknights.tconstruct.common.TinkerDamageTypes.THROWN_TOOL;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.WATER;
 import static slimeknights.tconstruct.common.TinkerTags.DamageTypes.BLAST_PROTECTION;
 import static slimeknights.tconstruct.common.TinkerTags.DamageTypes.FALL_PROTECTION;
@@ -71,7 +72,7 @@ public class DamageTypeTagProvider extends DamageTypeTagsProvider {
     tag(BYPASSES_EFFECTS).add(ENTANGLED);
     tag(AVOIDS_GUARDIAN_THORNS).add(BLEEDING, SHOCK);
     // whole reason these are a pair is so we can tag one as projectile
-    tag(IS_PROJECTILE).add(FISHING_HOOK, FLUID_IMPACT.ranged(), FLUID_FIRE.ranged(), FLUID_COLD.ranged(), FLUID_MAGIC.ranged(), WATER.ranged(), FLUID_SPIKE.ranged(), EXPLOSION.ranged(), MOB_EXPLOSION.ranged());
+    tag(IS_PROJECTILE).add(THROWN_TOOL, FISHING_HOOK, FLUID_IMPACT.ranged(), FLUID_FIRE.ranged(), FLUID_COLD.ranged(), FLUID_MAGIC.ranged(), WATER.ranged(), FLUID_SPIKE.ranged(), EXPLOSION.ranged(), MOB_EXPLOSION.ranged());
 
     // protection modifier tags
     tag(MELEE_PROTECTION).add(PLAYER_ATTACK, MOB_ATTACK, MOB_ATTACK_NO_AGGRO, CRAMMING, STING);

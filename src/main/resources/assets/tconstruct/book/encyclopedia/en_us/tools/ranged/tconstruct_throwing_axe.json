@@ -1,0 +1,14 @@
+{
+  "tool": "tconstruct:throwing_axe",
+  "text": [
+    { "text": "Throwing axes are short range, high damage, single-use ammo that can be thrown without requiring another tool." },
+    { "text": "Ideal when you want to pack a bit more of a punch over a shuriken.", "paragraph": true }
+  ],
+  "properties": [
+    "0.75 Velocity",
+    "1.5 Projectile Damage",
+    "300% Damage Multiplier",
+    "0.5 Accuracy",
+    "1 Head Trait, 1 Shaft Trait"
+  ]
+}

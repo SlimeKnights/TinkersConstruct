@@ -70,7 +70,11 @@ public interface BowAmmoModifierHook {
    * @param predicate  Predicate for finding ammo in modifiers
    * @return  True if there is ammo either on the player or on the modifiers
    */
-  static ItemStack getAmmo(IToolStackView tool, ItemStack bow, LivingEntity living, Predicate<ItemStack> predicate) {
+  static ItemStack getAmmo(IToolStackView tool, ItemStack bow, LivingEntity living, @Nullable Predicate<ItemStack> predicate) {
+    // if no predicate, means we want the event result, used for ballista
+    if (predicate == null) {
+      return ForgeHooks.getProjectile(living, bow, ItemStack.EMPTY);
+    }
     ItemStack standardAmmo = tool.getVolatileData().getBoolean(SKIP_INVENTORY_AMMO) ? ItemStack.EMPTY : living.getProjectile(bow);
     for (ModifierEntry entry : tool.getModifierList()) {
       ItemStack ammo = entry.getHook(ModifierHooks.BOW_AMMO).findAmmo(tool, entry, living, standardAmmo, predicate);
@@ -116,6 +120,11 @@ public interface BowAmmoModifierHook {
     return consumeAmmo(tool, bow, player, player, predicate);
   }
 
+  /** Gets the number of projectiles desired for the given tool */
+  static int getDesiredProjectiles(IToolStackView tool) {
+    return 1 + (2 * tool.getModifierLevel(TinkerModifiers.multishot.getId()));
+  }
+
   /**
    * Finds ammo in the inventory, and consume it if not creative
    * @param tool       Tool instance
@@ -125,29 +134,52 @@ public interface BowAmmoModifierHook {
    * @param player     Player firing bow. If null, will not remove the fired stack from the player inventory.
    * @return  Found ammo
    */
-  static ItemStack consumeAmmo(IToolStackView tool, ItemStack bow, LivingEntity living, @Nullable Player player, Predicate<ItemStack> predicate) {
-    int projectilesDesired = 1 + (2 * tool.getModifierLevel(TinkerModifiers.multishot.getId()));
+  static ItemStack consumeAmmo(IToolStackView tool, ItemStack bow, LivingEntity living, @Nullable Player player, @Nullable Predicate<ItemStack> predicate) {
+    return consumeAmmo(tool, bow, living, player, predicate, getDesiredProjectiles(tool));
+  }
+
+  /**
+   * Finds ammo in the inventory, and consume it if not creative
+   * @param tool       Tool instance
+   * @param bow        Bow stack instance
+   * @param predicate  Predicate for valid ammo
+   * @param living     Living entity to search.
+   * @param player     Player firing bow. If null, will not remove the fired stack from the player inventory.
+   * @param projectilesDesired  Number of projectiles to locate at maximum.
+   * @return  Found ammo
+   */
+  static ItemStack consumeAmmo(IToolStackView tool, ItemStack bow, LivingEntity living, @Nullable Player player, @Nullable Predicate<ItemStack> predicate, int projectilesDesired) {
     // treat client side as creative, no need to shrink the stacks clientside
     Level level = living.level();
     boolean creative = (player != null && player.getAbilities().instabuild) || level.isClientSide;
 
     // first search, find what ammo type we want
     boolean skipInventoryAmmo = tool.getVolatileData().getBoolean(SKIP_INVENTORY_AMMO);
-    ItemStack standardAmmo = skipInventoryAmmo ? ItemStack.EMPTY : living.getProjectile(bow);
+    ItemStack standardAmmo;
+    if (skipInventoryAmmo) {
+      standardAmmo = ItemStack.EMPTY;
+    } else if (predicate == null) {
+      // no predicate means we just want the event result to start, used for ballista
+      standardAmmo = ForgeHooks.getProjectile(living, bow, ItemStack.EMPTY);
+    } else {
+      standardAmmo = living.getProjectile(bow);
+    }
     ItemStack resultStack = ItemStack.EMPTY;
-    for (ModifierEntry entry : tool.getModifierList()) {
-      BowAmmoModifierHook hook = entry.getHook(ModifierHooks.BOW_AMMO);
-      ItemStack ammo = hook.findAmmo(tool, entry, living, standardAmmo, predicate);
-      if (!ammo.isEmpty()) {
-        // if creative, we are done, just return the ammo with the given size
-        if (creative) {
-          return ItemHandlerHelper.copyStackWithSize(ammo, projectilesDesired);
-        }
+    if (predicate != null) {
+      for (ModifierEntry entry : tool.getModifierList()) {
+        BowAmmoModifierHook hook = entry.getHook(ModifierHooks.BOW_AMMO);
+        ItemStack ammo = hook.findAmmo(tool, entry, living, standardAmmo, predicate);
+        if (!ammo.isEmpty()) {
+          // if creative, we are done, just return the ammo with the given size
+          if (creative) {
+            return ItemHandlerHelper.copyStackWithSize(ammo, projectilesDesired);
+          }
 
-        // not creative, split out the desired amount. We may have to do more work if it is too small
-        resultStack = ItemHandlerHelper.copyStackWithSize(ammo, Math.min(projectilesDesired, ammo.getCount()));
-        hook.shrinkAmmo(tool, entry, living, ammo, resultStack.getCount());
-        break;
+          // not creative, split out the desired amount. We may have to do more work if it is too small
+          resultStack = ItemHandlerHelper.copyStackWithSize(ammo, Math.min(projectilesDesired, ammo.getCount()));
+          hook.shrinkAmmo(tool, entry, living, ammo, resultStack.getCount());
+          break;
+        }
       }
     }
 

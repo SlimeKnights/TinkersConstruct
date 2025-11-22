@@ -1,0 +1,24 @@
+{
+  "loader": "tconstruct:tool",
+  "parent": "forge:item/default",
+  "textures": {
+    "head":    "tconstruct:item/tool/ammo/arrow_head",
+    "shaft":   "tconstruct:item/tool/ammo/arrow_shaft",
+    "feather": "tconstruct:item/tool/ammo/arrow_feather"
+  },
+  "modifier_roots": [ "tconstruct:item/tool/ammo/arrow_modifiers/" ],
+  "first_modifiers": [ "tconstruct:dyed" ],
+  "show_traits": true,
+  "parts": [
+    { "name": "shaft",   "index": 1 },
+    { "name": "head",    "index": 0 },
+    { "name": "feather", "index": 2 }
+  ],
+  "display": {
+    "tconstruct:thrown": {
+      "rotation": [ 0, 0, 90 ],
+      "scale": [ 1, 1, 1 ],
+      "translation": [ 2, -2, 0 ]
+    }
+  }
+}
