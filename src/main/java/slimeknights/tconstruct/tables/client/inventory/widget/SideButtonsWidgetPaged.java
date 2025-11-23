@@ -8,13 +8,22 @@ import slimeknights.mantle.client.screen.MultiModuleScreen;
 import lombok.Getter;
 import net.minecraft.client.gui.GuiGraphics;
 
+/**
+ * A side buttons widget with pagination
+ * <p>
+ * The widget will show up to {@link #MAX_ROWS} rows of buttons at a time.
+ * The number of buttons shown will be the minimum of the number of buttons and {@link #MAX_ROWS} times the number of columns.
+ * <p>
+ * The widget will also show previous and next page buttons if there are more buttons than fit in the widget.
+ */
 public class SideButtonsWidgetPaged<T extends Button> extends SideButtonsWidget<T> {
 
-    public static final int SPACING = 4;
-
-    public static final int MAX_ROWS = 8;
-
-    public final MultiModuleScreen<?> parent;
+    private static final int SPACING = 4;
+    
+    /**
+     * Maximum number of rows of buttons to show at a time
+     */
+    private static final int MAX_ROWS = 8;
 
     @Getter
     private final int leftPos;
@@ -25,8 +34,9 @@ public class SideButtonsWidgetPaged<T extends Button> extends SideButtonsWidget<
 
     private final int columns;
 
-    public int page;
+    private int page;
 
+    
     private Button previousPageButton;
     private Button nextPageButton;
 
@@ -35,7 +45,6 @@ public class SideButtonsWidgetPaged<T extends Button> extends SideButtonsWidget<
     public SideButtonsWidgetPaged(MultiModuleScreen<?> parent, int leftPos, int topPos, int columns, int rows,
             int buttonWidth, int buttonHeight) {
         super(parent, leftPos, topPos, columns, Math.min(MAX_ROWS, rows), buttonWidth, buttonHeight); // show up to 8 rows at a time
-        this.parent = parent;
         this.leftPos = leftPos;
         this.topPos = topPos;
         this.columns = columns;
@@ -66,7 +75,12 @@ public class SideButtonsWidgetPaged<T extends Button> extends SideButtonsWidget<
         this.page = 0;
     }
 
-    public boolean isMaxPage(int page) {
+    /**
+     * Checks if the given page is the last page
+     * @param page  The page to check
+     * @return  True if the page is the last page, false otherwise
+     */
+    private boolean isMaxPage(int page) {
         return buttons.size() <= (page + 1) * columns * MAX_ROWS;
     }
 
