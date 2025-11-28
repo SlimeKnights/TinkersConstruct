@@ -599,6 +599,26 @@ public class TinkerTags {
     public static final TagKey<EntityType<?>> SLIMES = common("slimes");
     public static final TagKey<EntityType<?>> BACON_PRODUCER = local("bacon_producer");
 
+    // Here goes a big block of tags used in entity melting recipes.
+    public static final TagKey<EntityType<?>> MELTABLE_BEES = local("melting/meltable_bees");
+    public static final TagKey<EntityType<?>> MELTABLE_BLAZES = local("melting/meltable_blazes");
+    public static final TagKey<EntityType<?>> MELTABLE_CREEPERS = local("melting/meltable_creepers");
+    public static final TagKey<EntityType<?>> MELTABLE_DROWNED = local("melting/meltable_drowned");
+    public static final TagKey<EntityType<?>> MELTABLE_ENDERMEN = local("melting/meltable_endermen");
+    public static final TagKey<EntityType<?>> MELTABLE_FROGS = local("melting/meltable_frogs");
+    public static final TagKey<EntityType<?>> MELTABLE_GHASTS = local("melting/meltable_ghasts");
+    public static final TagKey<EntityType<?>> MELTABLE_GUARDIANS = local("melting/meltable_guardians");
+    public static final TagKey<EntityType<?>> MELTABLE_MAGMA_CUBES = local("melting/meltable_magma_cubes");
+    public static final TagKey<EntityType<?>> MELTABLE_PHANTOMS = local("melting/meltable_phantoms");
+    public static final TagKey<EntityType<?>> MELTABLE_PIGLINS = local("melting/meltable_piglins");
+    public static final TagKey<EntityType<?>> MELTABLE_SHULKERS = local("melting/meltable_shulkers");
+    public static final TagKey<EntityType<?>> MELTABLE_SILVERFISH = local("melting/meltable_silverfish");
+    public static final TagKey<EntityType<?>> MELTABLE_EARTH_SLIMES = local("melting/meltable_earth_slimes");
+    public static final TagKey<EntityType<?>> MELTABLE_SPIDERS = local("melting/meltable_spiders");
+    public static final TagKey<EntityType<?>> MELTABLE_STRIDERS = local("melting/meltable_striders");
+    public static final TagKey<EntityType<?>> MELTABLE_TURTLES = local("melting/meltable_turtles");
+    public static final TagKey<EntityType<?>> MELTABLE_ZOMBIES = local("melting/meltable_zombies");
+
     public static final TagKey<EntityType<?>> MELTING_SHOW = local("melting/show_in_default");
     public static final TagKey<EntityType<?>> MELTING_HIDE = local("melting/hide_in_default");
     public static final TagKey<EntityType<?>> PIGGYBACKPACK_BLACKLIST = local("piggybackpack_blacklist");

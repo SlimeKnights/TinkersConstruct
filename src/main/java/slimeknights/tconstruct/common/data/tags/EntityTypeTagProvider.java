@@ -29,6 +29,25 @@ public class EntityTypeTagProvider extends EntityTypeTagsProvider {
     this.tag(EntityTypeTags.FROG_FOOD).add(TinkerWorld.skySlimeEntity.get(), TinkerWorld.enderSlimeEntity.get(), TinkerWorld.terracubeEntity.get());
     this.tag(TinkerTags.EntityTypes.BACON_PRODUCER).add(EntityType.PIG, EntityType.PIGLIN, EntityType.HOGLIN);
 
+    this.tag(TinkerTags.EntityTypes.MELTABLE_BEES).add(EntityType.BEE);
+    this.tag(TinkerTags.EntityTypes.MELTABLE_BLAZES).add(EntityType.BLAZE);
+    this.tag(TinkerTags.EntityTypes.MELTABLE_CREEPERS).add(EntityType.CREEPER);
+    this.tag(TinkerTags.EntityTypes.MELTABLE_DROWNED).add(EntityType.DROWNED);
+    this.tag(TinkerTags.EntityTypes.MELTABLE_ENDERMEN).add(EntityType.ENDERMAN);
+    this.tag(TinkerTags.EntityTypes.MELTABLE_FROGS).add(EntityType.FROG);
+    this.tag(TinkerTags.EntityTypes.MELTABLE_GHASTS).add(EntityType.GHAST);
+    this.tag(TinkerTags.EntityTypes.MELTABLE_GUARDIANS).add(EntityType.GUARDIAN, EntityType.ELDER_GUARDIAN);
+    this.tag(TinkerTags.EntityTypes.MELTABLE_MAGMA_CUBES).add(EntityType.MAGMA_CUBE);
+    this.tag(TinkerTags.EntityTypes.MELTABLE_PHANTOMS).add(EntityType.PHANTOM);
+    this.tag(TinkerTags.EntityTypes.MELTABLE_PIGLINS).add(EntityType.PIGLIN, EntityType.PIGLIN_BRUTE, EntityType.ZOMBIFIED_PIGLIN);
+    this.tag(TinkerTags.EntityTypes.MELTABLE_SHULKERS).add(EntityType.SHULKER);
+    this.tag(TinkerTags.EntityTypes.MELTABLE_SILVERFISH).add(EntityType.SILVERFISH);
+    this.tag(TinkerTags.EntityTypes.MELTABLE_EARTH_SLIMES).add(EntityType.SLIME);
+    this.tag(TinkerTags.EntityTypes.MELTABLE_SPIDERS).add(EntityType.SPIDER, EntityType.CAVE_SPIDER);
+    this.tag(TinkerTags.EntityTypes.MELTABLE_STRIDERS).add(EntityType.STRIDER);
+    this.tag(TinkerTags.EntityTypes.MELTABLE_TURTLES).add(EntityType.TURTLE);
+    this.tag(TinkerTags.EntityTypes.MELTABLE_ZOMBIES).add(EntityType.ZOMBIE, EntityType.HUSK, EntityType.ZOMBIE_HORSE);
+
     this.tag(TinkerTags.EntityTypes.MELTING_SHOW).add(EntityType.IRON_GOLEM, EntityType.SNOW_GOLEM, EntityType.VILLAGER, EntityType.PLAYER);
     this.tag(TinkerTags.EntityTypes.MELTING_HIDE).add(EntityType.GIANT);
     this.tag(TinkerTags.EntityTypes.PIGGYBACKPACK_BLACKLIST);

@@ -2,7 +2,7 @@
   "type": "tconstruct:entity_melting",
   "damage": 4,
   "entity": {
-    "type": "minecraft:strider"
+    "tag": "tconstruct:melting/meltable_striders"
   },
   "result": {
     "amount": 50,

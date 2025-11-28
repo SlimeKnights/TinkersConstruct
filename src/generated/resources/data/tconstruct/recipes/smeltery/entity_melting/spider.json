@@ -2,10 +2,7 @@
   "type": "tconstruct:entity_melting",
   "damage": 2,
   "entity": {
-    "types": [
-      "minecraft:spider",
-      "minecraft:cave_spider"
-    ]
+    "tag": "tconstruct:melting/meltable_spiders"
   },
   "result": {
     "amount": 25,
