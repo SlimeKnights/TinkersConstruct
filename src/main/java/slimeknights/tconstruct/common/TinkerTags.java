@@ -693,7 +693,14 @@ public class TinkerTags {
     public static final TagKey<EntityType<?>> MELTING_SHOW = local("melting/show_in_default");
     /** Entities in this tag are hidden from JEI and blacklisted from melting in the smeltery */
     public static final TagKey<EntityType<?>> MELTING_HIDE = local("melting/hide_in_default");
-    /**  */
+    /**
+     * Tags used in entity melting recipes to help make it easier for mods that
+     * add vanilla-like mobs to add support.
+     * <br><br>
+     * For example, a mod might have X ghast-like variants and add them to <b>forge:ghasts</b>,
+     * but each variant may not necessarily drop "correct" loot or be thematically fitting for
+     * the relevant entity melting recipe, so these tags are intended to narrow the scope a bit.
+     */
     public static final TagKey<EntityType<?>> MELTABLE_BEES = local("melting/meltable_bees");
     public static final TagKey<EntityType<?>> MELTABLE_BLAZES = local("melting/meltable_blazes");
     public static final TagKey<EntityType<?>> MELTABLE_CREEPERS = local("melting/meltable_creepers");

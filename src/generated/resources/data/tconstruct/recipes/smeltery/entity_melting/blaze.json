@@ -2,7 +2,7 @@
   "type": "tconstruct:entity_melting",
   "damage": 2,
   "entity": {
-    "tag": "tconstruct:melting/meltable_blazes"
+    "tag": "tconstruct:melting/blazes"
   },
   "result": {
     "amount": 20,
