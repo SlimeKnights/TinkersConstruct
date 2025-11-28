@@ -31,6 +31,7 @@ public class WettingModifier extends UseFluidOnHitModifier implements ModifyDama
 
   @Override
   public float modifyDamageTaken(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
+    // don't trigger if the attacker is us, causes some weird recursion
     if (!source.is(DamageTypeTags.BYPASSES_EFFECTS) && !source.is(DamageTypeTags.BYPASSES_INVULNERABILITY) && source.getEntity() != context.getEntity()) {
       useFluid(tool, modifier, context, slotType, source);
     }

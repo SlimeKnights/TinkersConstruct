@@ -28,7 +28,10 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Predicate;
 
-/** Module implementing trick quiver, with a selectable arrow slot */
+/**
+ * Module implementing trick quiver, with a selectable arrow slot.
+ * TODO 1.21: move to {@link slimeknights.tconstruct.tools.modules.ranged.bow}
+ */
 public enum TrickQuiverModule implements ModifierModule, BowAmmoModifierHook, GeneralInteractionModifierHook, ModifierRemovalHook, InventorySelectionModule {
   INSTANCE;
   public static final SingletonLoader<TrickQuiverModule> LOADER = new SingletonLoader<>(INSTANCE);

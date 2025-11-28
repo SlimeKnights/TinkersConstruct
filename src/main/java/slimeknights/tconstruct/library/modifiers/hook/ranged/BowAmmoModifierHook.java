@@ -120,6 +120,11 @@ public interface BowAmmoModifierHook {
     return consumeAmmo(tool, bow, player, player, predicate);
   }
 
+  /** Gets the number of projectiles desired for the given tool */
+  static int getDesiredProjectiles(IToolStackView tool) {
+    return 1 + (2 * tool.getModifierLevel(TinkerModifiers.multishot.getId()));
+  }
+
   /**
    * Finds ammo in the inventory, and consume it if not creative
    * @param tool       Tool instance
@@ -130,7 +135,20 @@ public interface BowAmmoModifierHook {
    * @return  Found ammo
    */
   static ItemStack consumeAmmo(IToolStackView tool, ItemStack bow, LivingEntity living, @Nullable Player player, @Nullable Predicate<ItemStack> predicate) {
-    int projectilesDesired = 1 + (2 * tool.getModifierLevel(TinkerModifiers.multishot.getId()));
+    return consumeAmmo(tool, bow, living, player, predicate, getDesiredProjectiles(tool));
+  }
+
+  /**
+   * Finds ammo in the inventory, and consume it if not creative
+   * @param tool       Tool instance
+   * @param bow        Bow stack instance
+   * @param predicate  Predicate for valid ammo
+   * @param living     Living entity to search.
+   * @param player     Player firing bow. If null, will not remove the fired stack from the player inventory.
+   * @param projectilesDesired  Number of projectiles to locate at maximum.
+   * @return  Found ammo
+   */
+  static ItemStack consumeAmmo(IToolStackView tool, ItemStack bow, LivingEntity living, @Nullable Player player, @Nullable Predicate<ItemStack> predicate, int projectilesDesired) {
     // treat client side as creative, no need to shrink the stacks clientside
     Level level = living.level();
     boolean creative = (player != null && player.getAbilities().instabuild) || level.isClientSide;

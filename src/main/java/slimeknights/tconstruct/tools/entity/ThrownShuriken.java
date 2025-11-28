@@ -29,6 +29,8 @@ import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.entity.ProjectileWithKnockback;
 import slimeknights.tconstruct.library.modifiers.entity.ProjectileWithPower;
 import slimeknights.tconstruct.library.modifiers.hook.build.ConditionalStatModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.ranged.ScheduledProjectileTaskModifierHook;
+import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
 import slimeknights.tconstruct.library.tools.capability.EntityModifierCapability;
 import slimeknights.tconstruct.library.tools.capability.PersistentDataCapability;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
@@ -36,27 +38,27 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.library.utils.Schedule;
+import slimeknights.tconstruct.tools.TinkerToolActions;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 import javax.annotation.Nullable;
 
 /** Modifiable shuriken entity */
 public class ThrownShuriken extends Projectile implements ToolProjectile, ProjectileWithPower, ProjectileWithKnockback {
-
-  /**
-   * Key to sync the stack to the client
-   */
+  /** Key to sync the stack to the client */
   protected static final EntityDataAccessor<ItemStack> STACK = SynchedEntityData.defineId(ThrownShuriken.class, EntityDataSerializers.ITEM_STACK);
-  /**
-   * Movement speed in water
-   */
+  /** Movement speed in water */
   protected static final EntityDataAccessor<Float> WATER_INERTIA = SynchedEntityData.defineId(ThrownShuriken.class, EntityDataSerializers.FLOAT);
 
   private ItemStack stack = ItemStack.EMPTY;
   private IToolStackView tool = null;
+  private boolean reclaim = false;
   @Getter
   private float power = 4;
   private float knockback = 0;
+  /** Tasks queued by modifiers */
+  private Schedule tasks = Schedule.EMPTY;
 
   public ThrownShuriken(EntityType<? extends ThrownShuriken> type, Level level) {
     super(type, level);
@@ -81,6 +83,7 @@ public class ThrownShuriken extends Projectile implements ToolProjectile, Projec
   private void setStack(ItemStack stack) {
     this.stack = stack;
     this.entityData.set(STACK, stack);
+    this.reclaim = ModifierUtil.checkVolatileFlag(stack, IndestructibleItemEntity.INDESTRUCTIBLE_ENTITY);
   }
 
   /**
@@ -97,17 +100,15 @@ public class ThrownShuriken extends Projectile implements ToolProjectile, Projec
    * Called when the arrow is created to set initial properties.
    * @see ModifiableArrow#onCreate(ItemStack, LivingEntity)
    */
-  public void onCreate(ItemStack stack, @Nullable LivingEntity shooter) {
-    if (stack.isEmpty()) {
-      setStack(ItemStack.EMPTY);
-      return;
-    }
+  public IToolStackView onCreate(ItemStack stack, @Nullable LivingEntity shooter) {
+    stack = stack.copyWithCount(1);
     setStack(stack);
     // initialize arrow stats
     IToolStackView tool = getTool();
     EntityModifierCapability.getCapability(this).addModifiers(tool.getModifiers());
     this.power = ConditionalStatModifierHook.getModifiedStat(tool, shooter, ToolStats.PROJECTILE_DAMAGE);
     this.entityData.set(WATER_INERTIA, ConditionalStatModifierHook.getModifiedStat(tool, shooter, ToolStats.WATER_INERTIA));
+    return tool;
   }
 
   /** @see ModifiableArrow#shoot(double, double, double, float, float)  */
@@ -127,6 +128,9 @@ public class ThrownShuriken extends Projectile implements ToolProjectile, Projec
       for (ModifierEntry entry : tool.getModifiers()) {
         entry.getHook(ModifierHooks.PROJECTILE_SHOT).onProjectileShoot(tool, entry, shooter, stack, this, null, arrowData, true);
       }
+
+      // schedule tasks
+      this.tasks = ScheduledProjectileTaskModifierHook.createSchedule(tool, stack, this, null, arrowData);
     } else {
       super.shoot(pX, pY, pZ, velocity, inaccuracy);
     }
@@ -156,8 +160,14 @@ public class ThrownShuriken extends Projectile implements ToolProjectile, Projec
       }
     }
 
-    if (hit.getType() != HitResult.Type.MISS && !teleported && !ForgeEventFactory.onProjectileImpact(this, hit)) {
-      this.onHit(hit);
+    HitResult.Type type = hit.getType();
+    if (type != HitResult.Type.MISS && !teleported) {
+      if (!stack.isEmpty() && type == HitResult.Type.ENTITY && ModifierUtil.canPerformAction(getTool(), TinkerToolActions.SHIELD_DISABLE)) {
+        ModifierUtil.disableShield(((EntityHitResult)hit).getEntity());
+      }
+      if (!ForgeEventFactory.onProjectileImpact(this, hit)) {
+        this.onHit(hit);
+      }
     }
 
     // update position
@@ -187,24 +197,34 @@ public class ThrownShuriken extends Projectile implements ToolProjectile, Projec
     }
 
     this.setPos(x, y, z);
+
+    // check if any tasks are ready
+    if (!tasks.isEmpty() && !stack.isEmpty()) {
+      ScheduledProjectileTaskModifierHook.checkSchedule(getTool(), stack, this, null, tasks);
+    }
   }
 
   @Override
   protected void onHitEntity(EntityHitResult result) {
     Entity target = result.getEntity();
-    target.hurt(damageSources().thrown(this, this.getOwner()), power);
+    boolean hit = target.hurt(damageSources().thrown(this, this.getOwner()), power);
+
+    if (hit && knockback > 0 && target instanceof LivingEntity living) {
+      // knockback logic based on arrows
+      double resistance = Math.max(0, 1 - living.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
+      Vec3 motion = this.getDeltaMovement().multiply(1, 0, 1).normalize().scale(knockback * 0.6 * resistance);
+      if (motion.lengthSqr() > 0) {
+        target.push(motion.x, 0.1f, motion.z);
+      }
+    }
 
     Level level = level();
     if (!level.isClientSide) {
-      if (knockback > 0 && target instanceof LivingEntity living) {
-        // knockback logic based on arrows
-        double resistance = Math.max(0, 1 - living.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
-        Vec3 motion = this.getDeltaMovement().multiply(1, 0, 1).normalize().scale(knockback * 0.6 * resistance);
-        if (motion.lengthSqr() > 0) {
-          target.push(motion.x, 0.1f, motion.z);
-        }
+      if ((!hit || reclaim) && !this.isRemoved()) {
+        this.spawnAtLocation(stack.copy());
+      } else {
+        level.broadcastEntityEvent(this, (byte) 3); // TODO: find the proper constant for this event ID
       }
-      level.broadcastEntityEvent(this, (byte) 3); // TODO: find the proper constant for this event ID
       this.discard();
     }
   }
@@ -267,12 +287,16 @@ public class ThrownShuriken extends Projectile implements ToolProjectile, Projec
   /* NBT */
   private static final String KEY_STACK = "stack";
   private static final String KEY_WATER_INERTIA = "water_inertia";
+  private static final String KEY_TASKS = "tasks";
 
   @Override
   public void addAdditionalSaveData(CompoundTag tag) {
     super.addAdditionalSaveData(tag);
     tag.put(KEY_STACK, this.stack.save(new CompoundTag()));
     tag.putFloat(KEY_WATER_INERTIA, this.entityData.get(WATER_INERTIA));
+    if (!this.tasks.isEmpty()) {
+      tag.put(KEY_TASKS, this.tasks.serialize());
+    }
   }
 
   @Override
@@ -282,5 +306,8 @@ public class ThrownShuriken extends Projectile implements ToolProjectile, Projec
       setStack(ItemStack.of(tag.getCompound(KEY_STACK)));
     }
     this.entityData.set(WATER_INERTIA, tag.getFloat(KEY_WATER_INERTIA));
+    if (tag.contains(KEY_TASKS, CompoundTag.TAG_COMPOUND)) {
+      this.tasks = Schedule.deserialize(tag.getList(KEY_TASKS, CompoundTag.TAG_COMPOUND));
+    }
   }
 }

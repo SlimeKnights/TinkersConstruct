@@ -44,6 +44,7 @@ import slimeknights.tconstruct.common.data.tags.EntityTypeTagProvider;
 import slimeknights.tconstruct.common.data.tags.FluidTagProvider;
 import slimeknights.tconstruct.common.data.tags.ItemTagProvider;
 import slimeknights.tconstruct.common.data.tags.MenuTypeTagProvider;
+import slimeknights.tconstruct.common.data.tags.PotionTagProvider;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
@@ -55,6 +56,7 @@ import slimeknights.tconstruct.library.tools.definition.ToolDefinitionLoader;
 import slimeknights.tconstruct.library.tools.layout.StationSlotLayoutLoader;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.plugin.DietPlugin;
+import slimeknights.tconstruct.plugin.DummmmmmyPlugin;
 import slimeknights.tconstruct.plugin.ImmersiveEngineeringPlugin;
 import slimeknights.tconstruct.plugin.craftingtweaks.CraftingTweaksPlugin;
 import slimeknights.tconstruct.plugin.jsonthings.JsonThingsPlugin;
@@ -145,6 +147,9 @@ public class TConstruct {
     if (modList.isLoaded("craftingtweaks")) {
       CraftingTweaksPlugin.onConstruct();
     }
+    if (modList.isLoaded("dummmmmmy")) {
+      bus.register(new DummmmmmyPlugin());
+    }
   }
 
   @SubscribeEvent
@@ -179,6 +184,7 @@ public class TConstruct {
     generator.addProvider(server, new BiomeTagProvider(packOutput, lookupProvider, existingFileHelper));
     generator.addProvider(server, new EnchantmentTagProvider(packOutput, lookupProvider, existingFileHelper));
     generator.addProvider(server, new MenuTypeTagProvider(packOutput, lookupProvider, existingFileHelper));
+    generator.addProvider(server, new PotionTagProvider(packOutput, lookupProvider, existingFileHelper));
     generator.addProvider(server, new DamageTypeTagProvider(packOutput, datapackRegistryProvider.getRegistryProvider(), existingFileHelper));
 
     // other datagen

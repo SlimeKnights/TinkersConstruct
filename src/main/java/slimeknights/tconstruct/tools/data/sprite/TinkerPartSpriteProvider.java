@@ -131,13 +131,17 @@ public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
       .addBreakableBowstring("bowstring").addBowstring("bowstring_1").addBowstring("bowstring_2").addBowstring("bowstring_3");
     buildTool("fishing_rod")
       .addLimb("rod")
-      .addBreakableBowstring("string").addBowstring("string_cast");
+      .addBreakableBowstring("string").addBowstring("string_cast")
+      .addBreakablePart("hook", StatlessMaterialStats.ARROW_HEAD.getIdentifier());
     buildTool("javelin").withLarge().addBreakableHead("head").addLimb("guard").addHandle("handle").addGrip("grip");
     buildTool("ammo")
       // arrow
       .addArrowHead("arrow_head").addPart("arrow_shaft", StatlessMaterialStats.ARROW_SHAFT)
+      .addPart("arrow_feather", StatlessMaterialStats.FLETCHING)
       // shuriken
-      .addArrowHead("shuriken_top").addArrowHead("shuriken_bottom");
+      .addArrowHead("shuriken_top").addArrowHead("shuriken_bottom")
+      // throwing axe - reuses arrow shaft
+      .addArrowHead("axe_head");
 
     // ancient tools
     buildTool("melting_pan").skipVariants().addBreakablePart("head", PlatingMaterialStats.SHIELD.getId()).addLimb("handle");

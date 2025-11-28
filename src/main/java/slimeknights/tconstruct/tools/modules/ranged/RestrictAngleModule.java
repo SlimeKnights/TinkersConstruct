@@ -23,7 +23,10 @@ import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import javax.annotation.Nullable;
 import java.util.List;
 
-/** Modifier to restrict a projectile angle, used also by an event for knockback angle */
+/**
+ * Modifier to restrict a projectile angle, used also by an event for knockback angle.
+ * TODO 1.21: move to {@link slimeknights.tconstruct.tools.modules.ranged.common}
+ */
 public enum RestrictAngleModule implements ModifierModule, ProjectileLaunchModifierHook.NoShooter {
   INSTANCE;
 

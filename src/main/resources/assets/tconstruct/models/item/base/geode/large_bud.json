@@ -1,0 +1,8 @@
+  {
+  "parent": "item/amethyst_bud",
+  "display": {
+    "fixed": {
+      "translation": [ 0, 4, 0 ]
+    }
+  }
+}

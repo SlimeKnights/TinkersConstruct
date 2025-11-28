@@ -1,6 +1,6 @@
 {
   "values": [
     "tconstruct:arrow",
-    "tconstruct:shuriken"
+    "#tconstruct:modifiable/ammo/thrown"
   ]
 }

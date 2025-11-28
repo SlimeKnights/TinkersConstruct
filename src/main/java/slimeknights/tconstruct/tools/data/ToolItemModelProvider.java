@@ -61,7 +61,7 @@ public class ToolItemModelProvider extends AbstractToolItemModelProvider {
       new Vec2(-2, -2), new Vec2(0, 0), new Vec2(1, 1)
     }, true, true), "limb_bottom", "limb_top", "bowstring");
     bow(TinkerTools.crossbow, toolBlocking, new CrossbowAmmo(new Vec2(-1, -1), true, false), "bowstring");
-    String[] rodParts = { "string" };
+    String[] rodParts = { "string", "hook" };
     fishingRod(TinkerTools.fishingRod, readJson(getResource("tool/fishing_rod/blocking_display")), rodParts, rodParts);
     tool(TinkerTools.javelin, toolBlocking, "head");
     // staff

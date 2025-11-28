@@ -7,13 +7,17 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
+import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.mantle.recipe.helper.TypeAwareRecipeSerializer;
+import slimeknights.tconstruct.library.json.predicate.material.MaterialPredicate;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import java.util.function.Consumer;
 
 /** Builder for {@link PartSwapCastingRecipe} */
+@Accessors(chain = true)
 @RequiredArgsConstructor(staticName = "castingRecipe")
 public class PartSwapCastingRecipeBuilder extends AbstractRecipeBuilder<PartSwapCastingRecipeBuilder> {
   private final Ingredient tools;
@@ -22,6 +26,8 @@ public class PartSwapCastingRecipeBuilder extends AbstractRecipeBuilder<PartSwap
   @Setter
   @Accessors(fluent = true)
   private int index = 0;
+  @Setter
+  private IJsonPredicate<MaterialVariantId> allowedMaterials = MaterialPredicate.ANY;
 
   /**
    * Creates a new part swapping recipe
@@ -50,6 +56,6 @@ public class PartSwapCastingRecipeBuilder extends AbstractRecipeBuilder<PartSwap
 
   @Override
   public void save(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
-    consumer.accept(new LoadableFinishedRecipe<>(new PartSwapCastingRecipe(recipeSerializer, id, group, tools, itemCost, index), PartSwapCastingRecipe.LOADER, this.buildOptionalAdvancement(id, "materials")));
+    consumer.accept(new LoadableFinishedRecipe<>(new PartSwapCastingRecipe(recipeSerializer, id, group, tools, itemCost, index, allowedMaterials), PartSwapCastingRecipe.LOADER, this.buildOptionalAdvancement(id, "materials")));
   }
 }

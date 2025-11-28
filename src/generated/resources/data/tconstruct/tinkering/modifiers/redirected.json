@@ -1,0 +1,10 @@
+{
+  "level_display": "tconstruct:no_levels",
+  "modules": [
+    {
+      "type": "tconstruct:swappable_tool_traits",
+      "hook": "tconstruct:rebalanced_trait"
+    }
+  ],
+  "tooltip_display": "tinker_station"
+}

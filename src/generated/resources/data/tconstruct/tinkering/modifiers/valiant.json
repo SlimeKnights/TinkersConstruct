@@ -36,6 +36,8 @@
         "$equipment",
         0.25,
         "*",
+        "$level",
+        "*",
         "$multiplier",
         "*",
         "$damage",

@@ -5,6 +5,7 @@
     "tconstruct:trim",
     "tconstruct:creative_slot",
     "tconstruct:stat_override",
-    "tconstruct:rebalanced"
+    "tconstruct:rebalanced",
+    "tconstruct:redirected"
   ]
 }

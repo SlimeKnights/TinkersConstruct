@@ -1,0 +1,6 @@
+{
+  "type": "tconstruct:tool_building",
+  "result": "tconstruct:throwing_axe",
+  "result_count": 2,
+  "slot_layout": "tconstruct:thrown_ammo"
+}

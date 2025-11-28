@@ -10,7 +10,7 @@
     "name": "gadgets",
     "data": "sections/gadgets.json",
     "icon": {
-      "item": "tconstruct:flint_shuriken"
+      "item": "tconstruct:piggy_backpack"
     }
   },
   {

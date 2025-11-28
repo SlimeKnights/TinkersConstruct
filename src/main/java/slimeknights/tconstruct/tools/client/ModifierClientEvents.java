@@ -53,6 +53,7 @@ import slimeknights.tconstruct.library.utils.Orientation2D.Orientation1D;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.modules.armor.MinimapModule;
+import slimeknights.tconstruct.tools.modules.armor.SleevesModule;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -147,6 +148,8 @@ public class ModifierClientEvents {
 
   @Nonnull
   private static ItemStack nextOffhand = ItemStack.EMPTY;
+  @Nonnull
+  private static ItemStack currentSleeve = ItemStack.EMPTY;
 
   /** Items to render for the item frame modifier */
   private static final List<ItemStack> itemFrames = new ArrayList<>();
@@ -160,9 +163,12 @@ public class ModifierClientEvents {
   /** Update the slot in the first shield slot */
   @SubscribeEvent
   static void equipmentChange(ToolEquipmentChangeEvent event) {
+    if (event.getEntity() != Minecraft.getInstance().player) {
+      return;
+    }
     EquipmentChangeContext context = event.getContext();
     if (Config.CLIENT.renderShieldSlotItem.get()) {
-      if (event.getEntity() == Minecraft.getInstance().player && context.getChangedSlot() == EquipmentSlot.LEGS) {
+      if (context.getChangedSlot() == EquipmentSlot.LEGS) {
         IToolStackView tool = context.getToolInSlot(EquipmentSlot.LEGS);
         if (tool != null) {
           ModifierEntry entry = tool.getModifiers().getEntry(TinkerModifiers.shieldStrap.getId());
@@ -174,9 +180,22 @@ public class ModifierClientEvents {
         nextOffhand = ItemStack.EMPTY;
       }
     }
+    if (Config.CLIENT.renderSleevesItem.get()) {
+      if (context.getChangedSlot() == EquipmentSlot.CHEST) {
+        IToolStackView tool = context.getToolInSlot(EquipmentSlot.CHEST);
+        if (tool != null) {
+          ModifierEntry entry = tool.getModifiers().getEntry(TinkerModifiers.sleeves.getId());
+          if (entry != ModifierEntry.EMPTY) {
+            currentSleeve = entry.getHook(ToolInventoryCapability.HOOK).getStack(tool, entry, tool.getPersistentData().getInt(SleevesModule.SELECTED_SLOT));
+            return;
+          }
+        }
+        currentSleeve = ItemStack.EMPTY;
+      }
+    }
 
     if (Config.CLIENT.renderItemFrame.get()) {
-      if (event.getEntity() == Minecraft.getInstance().player && context.getChangedSlot() == EquipmentSlot.HEAD) {
+      if (context.getChangedSlot() == EquipmentSlot.HEAD) {
         itemFrames.clear();
         IToolStackView tool = context.getToolInSlot(EquipmentSlot.HEAD);
         if (tool != null) {
@@ -215,6 +234,7 @@ public class ModifierClientEvents {
       return;
     }
     boolean renderShield = Config.CLIENT.renderShieldSlotItem.get() && !nextOffhand.isEmpty();
+    boolean renderSleeves = Config.CLIENT.renderSleevesItem.get() && !currentSleeve.isEmpty();
     boolean renderItemFrame = Config.CLIENT.renderItemFrame.get() && !itemFrames.isEmpty();
     // fetch map stack instance
     float mapScale = Config.CLIENT.mapScale.get().floatValue();
@@ -225,7 +245,7 @@ public class ModifierClientEvents {
         map = data.get(MinimapModule.MAP, ItemStack.EMPTY);
       }
     }
-    if (!renderItemFrame && !renderShield && map.isEmpty()) {
+    if (!renderItemFrame && !renderShield && !renderSleeves && map.isEmpty()) {
       return;
     }
     MultiPlayerGameMode playerController = mc.gameMode;
@@ -238,12 +258,21 @@ public class ModifierClientEvents {
       GuiGraphics graphics = event.getGuiGraphics();
       float partialTicks = event.getPartialTick();
 
-      // want just above the normal hotbar item
+      // want just above the normal offhand item
+      boolean emptyOffhand = player.getOffhandItem().isEmpty();
+      boolean rightHanded = player.getMainArm() == HumanoidArm.RIGHT;
       if (renderShield) {
-        int x = scaledWidth / 2 + (player.getMainArm().getOpposite() == HumanoidArm.LEFT ? -117 : 101);
+        int x = scaledWidth / 2 + (rightHanded ? -117 : 101);
         int y = scaledHeight - 38;
-        graphics.blit(Icons.ICONS, x - 3, y - 3, player.getOffhandItem().isEmpty() ? 211 : 189, 0, SLOT_BACKGROUND_SIZE, SLOT_BACKGROUND_SIZE, 256, 256);
+        graphics.blit(Icons.ICONS, x - 3, y - 3, emptyOffhand ? 211 : 189, 0, SLOT_BACKGROUND_SIZE, SLOT_BACKGROUND_SIZE, 256, 256);
         mc.gui.renderSlot(graphics, x, y, partialTicks, player, nextOffhand, 11);
+      }
+      // want to the side above the normal offhand item
+      if (renderSleeves) {
+        int x = scaledWidth / 2 + (rightHanded ? -136 : 120);
+        int y = scaledHeight - 19;
+        graphics.blit(Icons.ICONS, x - 3, y - 3, emptyOffhand ? 211 : rightHanded ? 145 : 123, 0, SLOT_BACKGROUND_SIZE, SLOT_BACKGROUND_SIZE, 256, 256);
+        mc.gui.renderSlot(graphics, x, y, partialTicks, player, currentSleeve, 11);
       }
 
       // render map
@@ -327,7 +356,6 @@ public class ModifierClientEvents {
         }
 
         // draw backgrounds
-        RenderSystem.setShaderTexture(0, Icons.ICONS);
         int lastRow = rows - 1;
         for (int r = 0; r < lastRow; r++) {
           for (int c = 0; c < columns; c++) {

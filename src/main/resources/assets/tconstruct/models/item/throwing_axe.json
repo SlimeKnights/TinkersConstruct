@@ -1,0 +1,14 @@
+{
+  "loader": "tconstruct:tool",
+  "parent": "forge:item/default-tool",
+  "textures": {
+    "head":  "tconstruct:item/tool/ammo/axe_head",
+    "shaft": "tconstruct:item/tool/ammo/arrow_shaft"
+  },
+  "modifier_roots": [ "tconstruct:item/tool/ammo/axe_modifiers/" ],
+  "show_traits": true,
+  "parts": [
+    { "name": "shaft", "index": 1 },
+    { "name": "head",  "index": 0 }
+  ]
+}

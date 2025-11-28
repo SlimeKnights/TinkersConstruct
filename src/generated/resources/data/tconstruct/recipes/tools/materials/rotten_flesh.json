@@ -1,9 +1,0 @@
-{
-  "type": "tconstruct:material",
-  "ingredient": {
-    "item": "minecraft:rotten_flesh"
-  },
-  "material": "tconstruct:rotten_flesh",
-  "needed": 1,
-  "value": 1
-}

@@ -17,6 +17,9 @@ import slimeknights.tconstruct.gadgets.entity.EFLNEntity;
 import javax.annotation.Nullable;
 import java.util.List;
 
+
+/** @deprecated use {@link slimeknights.tconstruct.library.tools.item.ModifiableShurikenItem} with {@link slimeknights.tconstruct.library.modifiers.modules.combat.ProjectileExplosionModule} */
+@Deprecated
 public class EFLNItem extends SnowballItem {
   public EFLNItem(Properties properties) {
     super(properties);

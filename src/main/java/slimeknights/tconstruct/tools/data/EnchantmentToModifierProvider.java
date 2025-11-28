@@ -63,6 +63,7 @@ public class EnchantmentToModifierProvider extends AbstractEnchantmentToModifier
     // trident
     add(Enchantments.LOYALTY, ModifierIds.returning);
     add(Enchantments.CHANNELING, ModifierIds.channeling);
+    add(Enchantments.RIPTIDE, ModifierIds.drillAttack);
 
     // tag compat
     // upgrade

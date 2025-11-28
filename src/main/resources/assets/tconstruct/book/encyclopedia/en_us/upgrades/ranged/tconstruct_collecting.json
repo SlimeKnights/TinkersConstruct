@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:collecting",
+  "text": [
+    {
+      "text": "Allows reeling in more objects with the fishing rod. Items, XP orbs, arrows, and thrown tools can all be hooked and reeled in."
+    },
+    {
+      "text": "Successfully reeled in objects will be moved directly to the player.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Single level",
+    "Requires 1 upgrade slot"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:fishing_rod",
+  "text": [
+    { "text": "The Fishing Rod is a short-distance ranged weapon that requires no ammo. It damages reeled in monsters, and is useful for fishing." },
+    { "text": "When using interaction modifiers, by default the fishing rod acts on left click, though a modifier worktable can change that.", "paragraph": true }
+  ],
+  "properties": [
+    "2.0 Attack Speed",
+    "1.0 Draw Speed",
+    "1.00 Arrow Velocity",
+    "0.75 Accuracy",
+    "150% Durability Multiplier",
+    "Catches fish"
+  ]
+}

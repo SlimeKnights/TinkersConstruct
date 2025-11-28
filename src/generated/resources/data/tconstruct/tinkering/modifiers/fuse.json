@@ -1,0 +1,13 @@
+{
+  "level_display": "tconstruct:no_levels",
+  "modules": [
+    {
+      "type": "tconstruct:projectile_fuse",
+      "particle": "minecraft:flame",
+      "time": {
+        "flat": 10
+      }
+    }
+  ],
+  "tooltip_display": "always"
+}

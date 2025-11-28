@@ -3,6 +3,7 @@ package slimeknights.tconstruct.common.data.tags;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -20,6 +21,7 @@ public class EntityTypeTagProvider extends EntityTypeTagsProvider {
     super(packOutput, lookupProvider, TConstruct.MOD_ID, existingFileHelper);
   }
 
+  @SuppressWarnings("removal")
   @Override
   protected void addTags(Provider provider) {
     this.tag(TinkerTags.EntityTypes.SLIMES)
@@ -47,6 +49,8 @@ public class EntityTypeTagProvider extends EntityTypeTagsProvider {
       EntityType.TRIDENT, TinkerTools.thrownTool.get(),
       EntityType.ITEM, TinkerTools.indestructibleItem.get(),
       EntityType.EXPERIENCE_ORB);
+    // prevent dummy from healing you with necrotic
+    this.tag(TinkerTags.EntityTypes.NECROTIC_BLACKLIST).addOptional(new ResourceLocation("dummmmmmy", "target_dummy"));
   }
 
   @Override

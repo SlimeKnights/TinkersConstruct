@@ -24,6 +24,7 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.biome.MobSpawnSettings.SpawnerData;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.MangrovePropaguleBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -86,11 +87,13 @@ import slimeknights.tconstruct.world.worldgen.trees.LeaveVineDecorator;
 import slimeknights.tconstruct.world.worldgen.trees.config.SlimeFungusConfig;
 import slimeknights.tconstruct.world.worldgen.trees.config.SlimeTreeConfig;
 
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 import static net.minecraft.core.HolderSet.direct;
 import static slimeknights.tconstruct.TConstruct.getResource;
@@ -249,13 +252,13 @@ public class WorldgenProvider {
     register(context, configuredLargeCobaltOre, Feature.ORE, new OreConfiguration(netherrack, cobaltOre, 6));
 
     // geodes
-    configureGeode(context, configuredEarthGeode, earthGeode, BlockStateProvider.simple(Blocks.CALCITE), BlockStateProvider.simple(Blocks.CLAY),
+    configureGeode(context, configuredEarthGeode, earthGeode, BlockStateProvider.simple(Blocks.CALCITE), BlockStateProvider.simple(Blocks.CLAY), null,
                    new GeodeLayerSettings(1.7D, 2.2D, 3.2D, 5.2D), new GeodeCrackSettings(0.95D, 2.0D, 2), UniformInt.of(6, 9), UniformInt.of(3, 4), UniformInt.of(1, 2), 16, 1);
-    configureGeode(context, configuredSkyGeode, skyGeode, BlockStateProvider.simple(Blocks.CALCITE), BlockStateProvider.simple(Blocks.MOSSY_COBBLESTONE),
+    configureGeode(context, configuredSkyGeode, skyGeode, BlockStateProvider.simple(Blocks.CALCITE), BlockStateProvider.simple(Blocks.MOSSY_COBBLESTONE), TinkerWorld.steelCluster,
                    new GeodeLayerSettings(1.5D, 2.0D, 3.0D, 4.5D), new GeodeCrackSettings(0.55D, 0.5D, 2), UniformInt.of(3, 4), ConstantInt.of(2), ConstantInt.of(1), 8, 3);
-    configureGeode(context, configuredIchorGeode, ichorGeode, BlockStateProvider.simple(Blocks.CALCITE), BlockStateProvider.simple(Blocks.NETHERRACK),
+    configureGeode(context, configuredIchorGeode, ichorGeode, BlockStateProvider.simple(Blocks.CALCITE), BlockStateProvider.simple(Blocks.NETHERRACK), null,
                    new GeodeLayerSettings(1.7D, 2.2D, 3.2D, 4.2D), new GeodeCrackSettings(0.75D, 2.0D, 2), UniformInt.of(4, 6), UniformInt.of(3, 4), UniformInt.of(1, 2), 24, 20);
-    configureGeode(context, configuredEnderGeode, enderGeode, BlockStateProvider.simple(Blocks.CALCITE), BlockStateProvider.simple(Blocks.END_STONE),
+    configureGeode(context, configuredEnderGeode, enderGeode, BlockStateProvider.simple(Blocks.CALCITE), BlockStateProvider.simple(Blocks.END_STONE), TinkerWorld.knightmetalCluster,
                    new GeodeLayerSettings(1.7D, 2.2D, 3.2D, 5.2D), new GeodeCrackSettings(0.45, 1.0D, 2), UniformInt.of(4, 10), UniformInt.of(3, 4), UniformInt.of(1, 2), 16, 10000);
   }
 
@@ -388,14 +391,19 @@ public class WorldgenProvider {
 
   /** Configures a geode feature */
   private static void configureGeode(BootstapContext<ConfiguredFeature<?,?>> context, ResourceKey<ConfiguredFeature<?,?>> key, GeodeItemObject geode,
-                                     BlockStateProvider middleLayer, BlockStateProvider outerLayer, GeodeLayerSettings layerSettings, GeodeCrackSettings crackSettings,
+                                     BlockStateProvider middleLayer, BlockStateProvider outerLayer, @Nullable Supplier<? extends Block> extraCluster, GeodeLayerSettings layerSettings, GeodeCrackSettings crackSettings,
                                      IntProvider outerWall, IntProvider distributionPoints, IntProvider pointOffset, int genOffset, int invalidBlocks) {
+    // allow adding in an extra cluster type to the geode
+    Stream<BlockState> buds = Arrays.stream(BudSize.values()).map(type -> geode.getBud(type).defaultBlockState());
+    if (extraCluster != null) {
+      buds = Stream.concat(buds, Stream.of(extraCluster.get().defaultBlockState()));
+    }
     register(context, key, Feature.GEODE, new GeodeConfiguration(
       new GeodeBlockSettings(BlockStateProvider.simple(Blocks.AIR),
                              BlockStateProvider.simple(geode.getBlock()),
                              BlockStateProvider.simple(geode.getBudding()),
                              middleLayer, outerLayer,
-                             Arrays.stream(BudSize.values()).map(type -> geode.getBud(type).defaultBlockState()).toList(),
+                             buds.toList(),
                              BlockTags.FEATURES_CANNOT_REPLACE, BlockTags.GEODE_INVALID_BLOCKS),
       layerSettings, crackSettings, 0.335, 0.083, true, outerWall, distributionPoints, pointOffset, -genOffset, genOffset, 0.05D, invalidBlocks)
     );

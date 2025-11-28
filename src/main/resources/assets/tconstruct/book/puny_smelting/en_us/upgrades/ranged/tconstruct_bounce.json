@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:bounce",
+  "text": [
+    {
+      "text": "The ultimate trick shot. Shoot around corners or over obstacles. Just be careful your arrow doesn't bounce back at you!"
+    }
+  ],
+  "effects": [
+    "Causes arrows to bounce off blocks",
+    "Multiple levels, each level adds more bounces",
+    "Requires 1 upgrade slot per level"
+  ]
+}

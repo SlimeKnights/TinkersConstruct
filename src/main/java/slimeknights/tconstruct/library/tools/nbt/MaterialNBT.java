@@ -198,6 +198,14 @@ public class MaterialNBT implements Iterable<MaterialVariant> {
     }
 
     /** Adds all materials from the given list */
+    public Builder add(List<MaterialVariantId> materials) {
+      for (MaterialVariantId material : materials) {
+        add(material);
+      }
+      return this;
+    }
+
+    /** Adds all materials from the given list */
     public Builder addAll(List<MaterialVariant> existing) {
       builder.addAll(existing);
       return this;

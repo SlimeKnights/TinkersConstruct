@@ -7,9 +7,9 @@ import slimeknights.tconstruct.library.modifiers.modules.build.StatBoostModule;
 import slimeknights.tconstruct.library.modifiers.modules.util.ModifierCondition;
 import slimeknights.tconstruct.library.module.ModuleHookMap.Builder;
 import slimeknights.tconstruct.library.tools.capability.fluid.ToolTankHelper;
-import slimeknights.tconstruct.tools.modules.SpillingModule;
+import slimeknights.tconstruct.tools.modules.combat.SpillingModule;
 
-/** @deprecated use {@link slimeknights.tconstruct.tools.modules.SpillingModule}, {@link ToolTankHelper#CAPACITY_STAT}, and {@link ToolTankHelper#TANK_HANDLER} */
+/** @deprecated use {@link SpillingModule}, {@link ToolTankHelper#CAPACITY_STAT}, and {@link ToolTankHelper#TANK_HANDLER} */
 @Deprecated(forRemoval = true)
 public class SpillingModifier extends Modifier {
   @Override

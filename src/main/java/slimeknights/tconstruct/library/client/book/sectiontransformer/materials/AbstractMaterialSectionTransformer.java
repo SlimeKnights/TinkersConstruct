@@ -52,6 +52,6 @@ public abstract class AbstractMaterialSectionTransformer extends SectionTransfor
    */
   @Deprecated(forRemoval = true)
   public static void createPages(BookData book, SectionData sectionData, Predicate<IMaterial> validMaterial, Function<MaterialVariantId,AbstractMaterialContent> pageCreator) {
-    TierRangeMaterialSectionTransformer.createPages(book, sectionData, validMaterial, pageCreator);
+    TierRangeMaterialSectionTransformer.createPages(book, sectionData, validMaterial, pageCreator, null);
   }
 }

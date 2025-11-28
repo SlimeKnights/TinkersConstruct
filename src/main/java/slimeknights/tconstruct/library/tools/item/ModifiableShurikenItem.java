@@ -21,6 +21,7 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import slimeknights.mantle.client.SafeClientAccess;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.tconstruct.common.Sounds;
+import slimeknights.tconstruct.library.modifiers.hook.build.ConditionalStatModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InventoryTickModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.SlotStackModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.build.RarityModule;
@@ -33,6 +34,7 @@ import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.entity.ThrownShuriken;
 
 import javax.annotation.Nullable;
@@ -61,8 +63,9 @@ public class ModifiableShurikenItem extends Item implements IModifiableDisplay {
     player.getCooldowns().addCooldown(stack.getItem(), 10);
     if (!level.isClientSide()) {
       ThrownShuriken shuriken = new ThrownShuriken(level, player);
-      shuriken.onCreate(stack.copyWithCount(1), player);
-      shuriken.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5F, 1.0F);
+      IToolStackView tool = shuriken.onCreate(stack, player);
+      float velocity = ConditionalStatModifierHook.getModifiedStat(tool, player, ToolStats.VELOCITY);
+      shuriken.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, velocity, 1.0F);
       level.addFreshEntity(shuriken);
     }
 

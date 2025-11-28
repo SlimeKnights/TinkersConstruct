@@ -3,6 +3,9 @@
   "modules": [
     {
       "type": "tconstruct:mob_effect",
+      "chance": {
+        "flat": 1.0
+      },
       "effect": "minecraft:glowing",
       "level": {
         "flat": 1.0
@@ -13,8 +16,11 @@
     },
     {
       "type": "tconstruct:projectile_place_glow",
-      "target": "blocks"
+      "blocks": true,
+      "entities": false,
+      "tool_damage": 5
     }
   ],
+  "priority": 60,
   "tooltip_display": "always"
 }

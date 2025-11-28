@@ -118,16 +118,35 @@ public class ToolFluidCapability extends FluidModifierHookIterator<ModifierEntry
     return fill(tool.get(), resource, action);
   }
 
+  /** Scales the result for the given stack size */
+  private static FluidStack scaleResult(FluidStack stack, int size) {
+    if (size > 1 && !stack.isEmpty()) {
+      stack.setAmount(stack.getAmount() * size);
+    }
+    return stack;
+  }
+
   @Nonnull
   @Override
   public FluidStack drain(FluidStack resource, FluidAction action) {
-    return drain(tool.get(), resource, action);
+    if (resource.isEmpty()) {
+      return FluidStack.EMPTY;
+    }
+    int size = container.getCount();
+    if (size > 1) {
+      resource = new FluidStack(resource, resource.getAmount() / size);
+    }
+    return scaleResult(drain(tool.get(), resource, action), size);
   }
 
   @Nonnull
   @Override
   public FluidStack drain(int maxDrain, FluidAction action) {
-    return drain(tool.get(), maxDrain, action);
+    if (maxDrain < 0) {
+      return FluidStack.EMPTY;
+    }
+    int size = container.getCount();
+    return scaleResult(drain(tool.get(), maxDrain / size, action), size);
   }
 
   /** Adds the tanks from the fluid modifier to the tool */

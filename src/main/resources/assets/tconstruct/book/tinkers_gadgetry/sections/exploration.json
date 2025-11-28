@@ -15,6 +15,16 @@
     "data": "exploration/necrotic_bones.json"
   },
   {
+    "name": "steel_shard",
+    "type": "mantle:showcase",
+    "data": "exploration/steel_shard.json"
+  },
+  {
+    "name": "knightmetal_shard",
+    "type": "mantle:showcase",
+    "data": "exploration/knightmetal_shard.json"
+  },
+  {
     "name": "dragon_scales",
     "type": "mantle:showcase",
     "data": "exploration/dragon_scales.json"

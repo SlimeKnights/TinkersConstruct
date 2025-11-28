@@ -3,9 +3,15 @@
   "modules": [
     {
       "type": "tconstruct:stat_boost",
-      "each_level": 0.25,
+      "each_level": 0.5,
       "operation": "add",
       "stat": "tconstruct:accuracy"
+    },
+    {
+      "type": "tconstruct:stat_boost",
+      "each_level": 0.25,
+      "operation": "add",
+      "stat": "tconstruct:velocity"
     }
   ],
   "tooltip_display": "always"

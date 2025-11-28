@@ -1,0 +1,18 @@
+{
+  "values": [
+    "tconstruct:glass",
+    "tconstruct:leather",
+    "tconstruct:iron",
+    "tconstruct:copper",
+    "tconstruct:string",
+    "tconstruct:darkthread",
+    "tconstruct:bone",
+    "tconstruct:venombone",
+    "tconstruct:necrotic_bone",
+    "tconstruct:gold",
+    "tconstruct:rose_gold",
+    "tconstruct:pig_iron",
+    "tconstruct:blazing_bone",
+    "tconstruct:ender_pearl"
+  ]
+}

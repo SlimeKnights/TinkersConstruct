@@ -2,7 +2,6 @@ package slimeknights.tconstruct.tools.data;
 
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import slimeknights.tconstruct.TConstruct;
@@ -156,6 +155,7 @@ public class StationSlotLayoutProvider extends AbstractStationSlotLayoutProvider
       .sortIndex(SORT_RANGED)
       .addInputItem(TinkerToolParts.bowLimb,   28, 38)
       .addInputItem(TinkerToolParts.bowstring, 50, 38)
+      .addInputItem(TinkerToolParts.arrowHead, 50, 58)
       .build();
     defineModifiable(TinkerTools.javelin)
       .sortIndex(SORT_RANGED + SORT_LARGE)
@@ -166,20 +166,21 @@ public class StationSlotLayoutProvider extends AbstractStationSlotLayoutProvider
       .build();
     defineModifiable(TinkerTools.arrow)
       .sortIndex(SORT_AMMO)
-      .addInputItem(TinkerToolParts.arrowHead,       53, 22)
-      .addInputItem(TinkerToolParts.arrowShaft,      33, 42)
-      .addInputItem(Patterns.FEATHER, Items.FEATHER, 15, 60)
+      .addInputItem(TinkerToolParts.arrowHead,  53, 22)
+      .addInputItem(TinkerToolParts.arrowShaft, 33, 42)
+      .addInputItem(TinkerToolParts.fletching,  15, 60)
       .build();
-    defineModifiable(TinkerTools.shuriken)
+    // use a single button for both throwing weapons
+    definePattern(Patterns.THROWN_AMMO)
       .sortIndex(SORT_AMMO)
-      .addInputItem(TinkerToolParts.arrowHead, 28, 38)
-      .addInputItem(TinkerToolParts.arrowHead, 50, 38)
+      .translationKey(TConstruct.makeTranslationKey("gui", "thrown_ammo"))
+      .addInputItem(TinkerToolParts.arrowHead, 33, 29)
+      .addInputPattern(Patterns.ARROW_PART, 33, 53, Ingredient.of(TinkerToolParts.arrowHead, TinkerToolParts.arrowShaft))
       .build();
     // use a single button for all plate armor, its all the same recipe and a single description is suitable
-    define(TConstruct.getResource("plate_armor"))
+    definePattern(Patterns.PLATE_ARMOR)
       .sortIndex(SORT_ARMOR)
       .translationKey(TConstruct.makeTranslationKey("gui", "plate_armor"))
-      .icon(Patterns.PLATE_ARMOR)
       .addInputPattern(Patterns.PLATING,   33, 29, Ingredient.of(TinkerToolParts.plating.values().toArray(new Item[0])))
       .addInputItem(TinkerToolParts.maille, 33, 53)
       .build();

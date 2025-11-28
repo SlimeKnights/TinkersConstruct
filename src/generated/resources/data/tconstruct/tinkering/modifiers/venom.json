@@ -1,0 +1,21 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:mob_effect",
+      "chance": {
+        "flat": 0.15
+      },
+      "effect": "tconstruct:venom",
+      "level": {
+        "flat": 1.0
+      },
+      "time": {
+        "flat": 100.0,
+        "random": 100.0
+      }
+    }
+  ],
+  "priority": 150,
+  "tooltip_display": "always"
+}

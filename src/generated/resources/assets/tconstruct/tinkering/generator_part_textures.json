@@ -890,6 +890,14 @@
       "stat_type": "tconstruct:bowstring"
     },
     {
+      "path": "tconstruct:item/tool/fishing_rod/hook",
+      "stat_type": "tconstruct:arrow_head"
+    },
+    {
+      "path": "tconstruct:item/tool/fishing_rod/hook_broken",
+      "stat_type": "tconstruct:arrow_head"
+    },
+    {
       "path": "tconstruct:item/tool/javelin/head",
       "stat_type": "tconstruct:head"
     },
@@ -938,11 +946,19 @@
       "stat_type": "tconstruct:arrow_shaft"
     },
     {
+      "path": "tconstruct:item/tool/ammo/arrow_feather",
+      "stat_type": "tconstruct:fletching"
+    },
+    {
       "path": "tconstruct:item/tool/ammo/shuriken_top",
       "stat_type": "tconstruct:arrow_head"
     },
     {
       "path": "tconstruct:item/tool/ammo/shuriken_bottom",
+      "stat_type": "tconstruct:arrow_head"
+    },
+    {
+      "path": "tconstruct:item/tool/ammo/axe_head",
       "stat_type": "tconstruct:arrow_head"
     },
     {

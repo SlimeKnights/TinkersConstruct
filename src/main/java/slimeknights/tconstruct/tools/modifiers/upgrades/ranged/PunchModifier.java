@@ -4,7 +4,7 @@ import slimeknights.tconstruct.library.json.LevelingValue;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.modules.util.ModifierCondition;
 import slimeknights.tconstruct.library.module.ModuleHookMap.Builder;
-import slimeknights.tconstruct.tools.modules.ranged.PunchModule;
+import slimeknights.tconstruct.tools.modules.ranged.common.PunchModule;
 
 /** @deprecated use {@link PunchModule} */
 @Deprecated(forRemoval = true)

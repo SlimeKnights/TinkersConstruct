@@ -5,7 +5,7 @@
       "text": "After mining blocks or attacking mobs (for tools) or passively (for armor), pulls items within 3 blocks towards the player, ignoring gravity."
     },
     {
-      "text": "Each level adds 1 extra block of range, and increases the speed.",
+      "text": "Each level adds 1 extra block of range, and increases the speed. Thrown magnetic tools will pull items during their flight.",
       "paragraph": true
     }
   ],

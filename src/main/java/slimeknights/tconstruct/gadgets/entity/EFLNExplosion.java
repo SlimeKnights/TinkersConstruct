@@ -20,8 +20,14 @@ import java.util.Set;
  * A normal explosion does a bunch of ray casts from the center, and those ray casts can be interrupted by blocks with high enough resistance (such as water).
  */
 public class EFLNExplosion extends CustomExplosion {
+  public EFLNExplosion(Level world, Vec3 location, float size, @Nullable Entity entity, float damage, @Nullable DamageSource source, float knockback, boolean causesFire, BlockInteraction mode) {
+    super(world, location, size, entity, null, damage, source, knockback, null, causesFire, mode);
+  }
+
+  /** @deprecated use {@link #EFLNExplosion(Level, Vec3, float, Entity, float, DamageSource, float, boolean, BlockInteraction)} */
+  @Deprecated(forRemoval = true)
   public EFLNExplosion(Level world, Vec3 location, float size, @Nullable Entity entity, float damage, @Nullable DamageSource source, boolean causesFire, BlockInteraction mode) {
-    super(world, location, size, entity, null, damage, source, 1, null, causesFire, mode);
+    this(world, location, size, entity, damage, source, 1, causesFire, mode);
   }
 
   @Override

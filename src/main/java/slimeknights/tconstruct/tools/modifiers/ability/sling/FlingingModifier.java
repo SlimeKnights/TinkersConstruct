@@ -15,6 +15,7 @@ import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.item.ModifiableItem;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.SlimeBounceHandler;
+import slimeknights.tconstruct.tools.TinkerToolActions;
 
 /** Add velocity opposite of the targeted block */
 public class FlingingModifier extends SlingModifier {
@@ -41,6 +42,10 @@ public class FlingingModifier extends SlingModifier {
             player.causeFoodExhaustion(0.2F);
             player.getCooldowns().addCooldown(tool.getItem(), 3);
             ToolDamageUtil.damageAnimated(tool, 1, entity);
+          }
+          // apply drill attack if the modifier is present
+          if (ModifierUtil.canPerformAction(tool, TinkerToolActions.DRILL_ATTACK)) {
+            player.startAutoSpinAttack(20);
           }
           return;
         }

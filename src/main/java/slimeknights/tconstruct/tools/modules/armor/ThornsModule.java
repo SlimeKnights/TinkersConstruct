@@ -11,7 +11,6 @@ import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.util.CombatHelper;
-import slimeknights.tconstruct.common.TinkerDamageTypes;
 import slimeknights.tconstruct.library.json.LevelingValue;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.modules.util.ModifierCondition;
@@ -51,6 +50,6 @@ public record ThornsModule(ResourceKey<DamageType> damageType, LevelingValue cha
   @Override
   public void applyEffect(IToolStackView tool, ModifierEntry modifier, float value, EquipmentContext context, Entity attacker, DamageSource source, float damageDealt) {
     // this works like vanilla, damage is capped due to the hurt immunity mechanics, so if multiple pieces apply thorns between us and vanilla, damage is capped at max amount
-    attacker.hurt(CombatHelper.damageSource(TinkerDamageTypes.SHOCK, context.getEntity()), value);
+    attacker.hurt(CombatHelper.damageSource(damageType, context.getEntity()), value);
   }
 }

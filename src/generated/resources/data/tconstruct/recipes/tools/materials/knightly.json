@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:material",
+  "ingredient": {
+    "tag": "forge:raw_nuggets/knightmetal"
+  },
+  "material": "tconstruct:knightly",
+  "needed": 1,
+  "value": 1
+}

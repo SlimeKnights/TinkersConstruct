@@ -3,7 +3,7 @@
   "generator": {
     "supported_stats": [
       "tconstruct:arrow_head",
-      "tconstruct:arrow_shaft"
+      "tconstruct:fletching"
     ],
     "transformer": {
       "type": "tconstruct:grey_to_sprite",

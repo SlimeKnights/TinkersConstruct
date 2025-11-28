@@ -16,6 +16,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.build.ConditionalStatModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.display.TooltipModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.mining.BreakSpeedContext;
 import slimeknights.tconstruct.library.modifiers.hook.mining.BreakSpeedModifierHook;
 import slimeknights.tconstruct.library.module.ModuleHookMap.Builder;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -85,6 +86,17 @@ public class DwarvenModifier extends Modifier implements ConditionalStatModifier
       return;
     }
     event.setNewSpeed(getBoost(event.getEntity().level(), pos.get().getY(), modifier, event.getNewSpeed(), miningSpeedModifier * tool.getMultiplier(ToolStats.MINING_SPEED) * MINING_BONUS));
+  }
+
+  @Override
+  public float modifyBreakSpeed(IToolStackView tool, ModifierEntry modifier, BreakSpeedContext context, float speed) {
+    if (context.isEffective()) {
+      BlockPos pos = context.pos();
+      if (pos != null) {
+        return getBoost(context.player().level(), pos.getY(), modifier, speed, context.miningSpeedMultiplier() * tool.getMultiplier(ToolStats.MINING_SPEED) * MINING_BONUS);
+      }
+    }
+    return speed;
   }
 
   @Override

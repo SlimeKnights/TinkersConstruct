@@ -64,6 +64,7 @@ public final class TinkerGadgets extends TinkerModule {
   // throwballs
   @Deprecated
   public static final ItemObject<GlowBallItem> glowBall;
+  @Deprecated
   public static final ItemObject<EFLNItem> efln;
   @Deprecated
   public static final ItemObject<ShurikenItem> quartzShuriken, flintShuriken;
@@ -113,6 +114,7 @@ public final class TinkerGadgets extends TinkerModule {
       .setCustomClientFactory((spawnEntity, world) -> new GlowballEntity(TinkerGadgets.glowBallEntity.get(), world))
       .setShouldReceiveVelocityUpdates(true)
   );
+  @Deprecated
   public static final RegistryObject<EntityType<EFLNEntity>> eflnEntity = ENTITIES.register("efln_ball", () ->
     EntityType.Builder.<EFLNEntity>of(EFLNEntity::new, MobCategory.MISC)
       .sized(0.25F, 0.25F)
@@ -171,7 +173,6 @@ public final class TinkerGadgets extends TinkerModule {
   public static void addTabItems(ItemDisplayParameters itemDisplayParameters, Output output) {
     output.accept(punji);
     accept(output, itemFrame);
-    output.accept(efln);
     output.accept(piggyBackpack);
     accept(output, cake);
     output.accept(magmaCake);

@@ -2,6 +2,7 @@
   "values": [
     "tconstruct:arrow_head",
     "tconstruct:arrow_shaft",
+    "tconstruct:fletching",
     "tconstruct:repair_kit",
     "#tconstruct:parts/bartered"
   ]

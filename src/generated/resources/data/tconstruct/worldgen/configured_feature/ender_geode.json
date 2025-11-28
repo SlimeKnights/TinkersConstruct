@@ -49,6 +49,13 @@
             "facing": "up",
             "waterlogged": "false"
           }
+        },
+        {
+          "Name": "tconstruct:knightmetal_cluster",
+          "Properties": {
+            "facing": "up",
+            "waterlogged": "false"
+          }
         }
       ],
       "invalid_blocks": "#minecraft:geode_invalid_blocks",

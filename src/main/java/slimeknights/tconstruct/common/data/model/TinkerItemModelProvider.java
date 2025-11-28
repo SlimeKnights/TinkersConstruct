@@ -16,6 +16,7 @@ import slimeknights.tconstruct.common.registration.CastItemObject;
 import slimeknights.tconstruct.library.tools.part.MaterialItem;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerToolParts;
+import slimeknights.tconstruct.world.TinkerWorld;
 
 import static slimeknights.tconstruct.TConstruct.getResource;
 
@@ -46,7 +47,8 @@ public class TinkerItemModelProvider extends ItemModelProvider {
     part(TinkerToolParts.bowGrip, "crossbow/body").offset(-2, -2);
     part(TinkerToolParts.bowstring);
     part(TinkerToolParts.arrowHead, "ammo/arrow_head").offset(-4, 3);
-    part(TinkerToolParts.arrowShaft, "ammo/arrow_shaft");
+    part(TinkerToolParts.arrowShaft, "ammo/arrow_shaft").offset(1, -1);;
+    part(TinkerToolParts.fletching, "ammo/arrow_feather").offset(4, -5);;
     // other
     part(TinkerToolParts.toolBinding);
     part(TinkerToolParts.toolHandle);
@@ -111,6 +113,13 @@ public class TinkerItemModelProvider extends ItemModelProvider {
     cast(TinkerSmeltery.mailleCast);
     // dummy parts
     TinkerSmeltery.dummyPlating.forEach((type, item) -> basicItem(item, "tool/parts/plating_" + type.getName()));
+
+    // world //
+    // shards
+    basicItem(TinkerWorld.steelShard, "materials/steel_shard");
+    basicItem(TinkerWorld.knightmetalShard, "materials/knightmetal_shard");
+    generated(TinkerWorld.steelCluster, "block/geode/steel_cluster");
+    generated(TinkerWorld.knightmetalCluster, "block/geode/knightmetal_cluster");
   }
 
   @SuppressWarnings("deprecation") // no its not

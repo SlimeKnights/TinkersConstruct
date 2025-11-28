@@ -121,6 +121,7 @@ public final class MaterialRegistry {
     // ammo
     registry.registerStatType(StatlessMaterialStats.ARROW_HEAD.getType(), AMMO);
     registry.registerStatType(StatlessMaterialStats.ARROW_SHAFT.getType(), AMMO);
+    registry.registerStatType(StatlessMaterialStats.FLETCHING.getType(), AMMO);
     // misc
     registry.registerStatType(StatlessMaterialStats.REPAIR_KIT.getType());
     registry.registerStatType(SkullStats.TYPE);

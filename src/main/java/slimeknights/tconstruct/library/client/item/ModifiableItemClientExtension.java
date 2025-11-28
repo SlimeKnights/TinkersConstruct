@@ -126,7 +126,7 @@ public class ModifiableItemClientExtension implements IClientItemExtensions {
     } else if (player.isAutoSpinAttack()) {
       applyItemArmTransform(poseStack, equipProgress, sideOffset);
       poseStack.translate(sideOffset * -0.4f, 0.8f, 0.3f);
-      poseStack.mulPose(Axis.YP.rotationDegrees(sideOffset * 65));
+      poseStack.mulPose(Axis.YP.rotationDegrees(sideOffset * 105));
       poseStack.mulPose(Axis.ZP.rotationDegrees(sideOffset * -85));
     } else {
       poseStack.translate(

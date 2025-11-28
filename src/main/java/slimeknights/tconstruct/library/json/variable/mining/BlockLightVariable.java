@@ -8,6 +8,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import slimeknights.mantle.data.loadable.primitive.FloatLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
+import slimeknights.tconstruct.library.modifiers.hook.mining.BreakSpeedContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nullable;
@@ -24,22 +25,34 @@ public record BlockLightVariable(LightLayer lightLayer, float fallback) implemen
     FloatLoadable.ANY.requiredField("fallback", BlockLightVariable::fallback),
     BlockLightVariable::new);
 
-  /** Gets the block position relative to the arguments */
-  private BlockPos getPos(@Nullable BreakSpeed event, Player player, @Nullable Direction sideHit) {
-    // use block position if possible player position otherwise
-    if (event != null && sideHit != null) {
-      Optional<BlockPos> eventPos = event.getPosition();
-      if (eventPos.isPresent()) {
-        return eventPos.get().relative(sideHit);
-      }
-    }
-    return player.blockPosition();
-  }
-
   @Override
   public float getValue(IToolStackView tool, @Nullable BreakSpeed event, @Nullable Player player, @Nullable Direction sideHit) {
     if (player != null) {
-      return player.level().getBrightness(lightLayer, getPos(event, player, sideHit));
+      // use block position if possible player position otherwise
+      BlockPos pos = player.blockPosition();
+      if (event != null && sideHit != null) {
+        Optional<BlockPos> eventPos = event.getPosition();
+        if (eventPos.isPresent()) {
+          pos = eventPos.get().relative(sideHit);
+        }
+      }
+      return player.level().getBrightness(lightLayer, pos);
+    }
+    return fallback;
+  }
+
+  @Override
+  public float getValue(IToolStackView tool, @Nullable BreakSpeedContext context, @Nullable Player player) {
+    if (player != null) {
+      // use block position if possible, player position otherwise
+      BlockPos pos = player.blockPosition();
+      if (context != null) {
+        BlockPos contextPos = context.pos();
+        if (contextPos != null) {
+          pos = contextPos.relative(context.sideHit());
+        }
+      }
+      return player.level().getBrightness(lightLayer, pos);
     }
     return fallback;
   }

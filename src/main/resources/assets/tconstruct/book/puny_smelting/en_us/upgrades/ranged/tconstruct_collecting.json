@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:collecting",
+  "text": [
+    {
+      "text": "YOINK!"
+    }
+  ],
+  "effects": [
+    "Allows hooking items, XP orbs, arrows, and thrown tools",
+    "Single level",
+    "Requires 1 upgrade slot"
+  ]
+}

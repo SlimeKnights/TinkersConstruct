@@ -2,6 +2,7 @@
   "values": [
     "tconstruct:dagger",
     "tconstruct:arrow",
-    "tconstruct:shuriken"
+    "tconstruct:shuriken",
+    "tconstruct:throwing_axe"
   ]
 }

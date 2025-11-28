@@ -111,7 +111,7 @@ public class ModifiableItem extends TieredItem implements IModifiableDisplay {
   @Nullable
   @Override
   public EquipmentSlot getEquipmentSlot(ItemStack stack) {
-    if (stack.is(TinkerTags.Items.SHIELDS)) {
+    if (stack.is(TinkerTags.Items.HELD_ARMOR)) {
       return EquipmentSlot.OFFHAND;
     }
     return null;

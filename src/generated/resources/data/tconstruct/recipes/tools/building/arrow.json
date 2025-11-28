@@ -1,10 +1,5 @@
 {
   "type": "tconstruct:tool_building",
-  "extra_requirements": [
-    {
-      "item": "minecraft:feather"
-    }
-  ],
   "result": "tconstruct:arrow",
   "result_count": 4
 }

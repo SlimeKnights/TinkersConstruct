@@ -77,6 +77,7 @@ import static slimeknights.tconstruct.tools.TinkerToolParts.bowLimb;
 import static slimeknights.tconstruct.tools.TinkerToolParts.bowstring;
 import static slimeknights.tconstruct.tools.TinkerToolParts.broadAxeHead;
 import static slimeknights.tconstruct.tools.TinkerToolParts.broadBlade;
+import static slimeknights.tconstruct.tools.TinkerToolParts.fletching;
 import static slimeknights.tconstruct.tools.TinkerToolParts.hammerHead;
 import static slimeknights.tconstruct.tools.TinkerToolParts.largePlate;
 import static slimeknights.tconstruct.tools.TinkerToolParts.pickHead;
@@ -95,12 +96,14 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
   @Override
   protected void addToolDefinitions() {
     RandomMaterial tier1Material = RandomMaterial.random().tier(1).build();
-    RandomMaterial randomMaterial = RandomMaterial.random().allowHidden().build();
+    RandomMaterial anyMaterial = RandomMaterial.random().allowHidden().build();
+    RandomMaterial nonHiddenMaterial = RandomMaterial.random().build();
     DefaultMaterialsModule defaultTwoParts = DefaultMaterialsModule.builder().material(tier1Material, tier1Material).build();
     DefaultMaterialsModule defaultThreeParts = DefaultMaterialsModule.builder().material(tier1Material, tier1Material, tier1Material).build();
     DefaultMaterialsModule defaultFourParts = DefaultMaterialsModule.builder().material(tier1Material, tier1Material, tier1Material, tier1Material).build();
-    DefaultMaterialsModule ancientTwoParts = DefaultMaterialsModule.builder().material(randomMaterial, randomMaterial).build();
-    DefaultMaterialsModule ancientThreeParts = DefaultMaterialsModule.builder().material(randomMaterial, randomMaterial, randomMaterial).build();
+    DefaultMaterialsModule ancientTwoParts = DefaultMaterialsModule.builder().material(anyMaterial, anyMaterial).build();
+    DefaultMaterialsModule ancientThreeParts = DefaultMaterialsModule.builder().material(anyMaterial, anyMaterial, anyMaterial).build();
+    DefaultMaterialsModule ammoParts = DefaultMaterialsModule.builder().material(nonHiddenMaterial, nonHiddenMaterial).build();
 
     // pickaxes
     define(ToolDefinitions.PICKAXE)
@@ -492,13 +495,14 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       // parts
       .module(PartStatsModule.parts()
         .part(bowLimb)
-        .part(bowstring).build())
+        .part(bowstring)
+        .part(arrowHead).build())
       .module(defaultTwoParts)
       // stats - high attack speed so melee modifying it is not useless with its base 1 attack damage
       .module(new SetStatsModule(StatsNBT.builder().set(ToolStats.ATTACK_SPEED, 2.0f).build()))
       // give a bit more durability to make up for modifier costs, plus non-fishing uses are really durability hungry
       .module(new MultiplyStatsModule(MultiplierNBT.builder().set(ToolStats.DURABILITY, 1.5f).build()))
-      .module(ToolSlotsModule.builder().slots(SlotType.ABILITY, 1).slots(SlotType.UPGRADE, 4).build())
+      .smallToolStartingSlots()
       // traits
       .module(ToolTraitsModule.builder().trait(ModifierIds.fishing).build())
       // put fishing on right click, everything else on left, but support toggling
@@ -526,8 +530,9 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       // parts
       .module(PartStatsModule.parts()
         .part(arrowHead)
-        .part(arrowShaft).build())
-      .module(defaultTwoParts)
+        .part(arrowShaft)
+        .part(fletching).build())
+      .module(DefaultMaterialsModule.builder().material(nonHiddenMaterial, nonHiddenMaterial, nonHiddenMaterial).build())
       // display the arrow head, despite not being repairable
       .module(FixedMaterialToolName.FIRST);
     define(ToolDefinitions.SHURIKEN)
@@ -535,15 +540,32 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .module(PartStatsModule.parts()
         .part(arrowHead)
         .part(arrowHead).build())
-      .module(defaultTwoParts)
+      .module(ammoParts)
       // stats
       .module(new SetStatsModule(StatsNBT.builder()
         .set(ToolStats.PROJECTILE_DAMAGE, 1.5f)
+        .set(ToolStats.VELOCITY, 1.5f)
         .set(ToolStats.WATER_INERTIA, 0.8f).build()))
       .module(new MultiplyStatsModule(MultiplierNBT.builder()
         .set(ToolStats.PROJECTILE_DAMAGE, 2f).build()))
       // display both heads
       .module(MaterialToolNameModule.ALL);
+    define(ToolDefinitions.THROWING_AXE)
+      // parts
+      .module(PartStatsModule.parts()
+        .part(arrowHead)
+        .part(arrowShaft).build())
+      .module(ammoParts)
+      // stats
+      .module(new SetStatsModule(StatsNBT.builder()
+        .set(ToolStats.PROJECTILE_DAMAGE, 1.5f)
+        .set(ToolStats.VELOCITY, 0.75f)
+        .set(ToolStats.ACCURACY, 0.5f)
+        .set(ToolStats.WATER_INERTIA, 0.5f).build()))
+      .module(new MultiplyStatsModule(MultiplierNBT.builder()
+        .set(ToolStats.PROJECTILE_DAMAGE, 3f).build()))
+      // display just the head
+      .module(FixedMaterialToolName.FIRST);
 
     // special
     define(ToolDefinitions.FLINT_AND_BRICK)
@@ -718,7 +740,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .module(ArmorItem.Type.BOOTS, MaterialRepairModule.of(MaterialIds.leather, ArmorItem.Type.BOOTS, 42))
       // stats
       .module(ArmorItem.Type.HELMET, MaterialStatsModule.stats().stat(SkullStats.ID, 1).build())
-      .module(ArmorItem.Type.HELMET, DefaultMaterialsModule.builder().material(randomMaterial).build())
+      .module(ArmorItem.Type.HELMET, DefaultMaterialsModule.builder().material(anyMaterial).build())
       .module(ArmorItem.Type.HELMET, slimeTraits.build())
       // traits
       .module(ArmorItem.Type.CHESTPLATE, slimeTraits.copy().trait(ModifierIds.wings).build())

@@ -421,7 +421,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(MaterialIds.glass);
       with.accept(MaterialIds.bone);
       with.accept(MaterialIds.necroticBone);
-      with.accept(MaterialIds.rottenFlesh);
+      with.accept(MaterialIds.leather);
       with.accept(MaterialIds.enderPearl);
       with.accept(MaterialIds.venombone);
       with.accept(MaterialIds.string);

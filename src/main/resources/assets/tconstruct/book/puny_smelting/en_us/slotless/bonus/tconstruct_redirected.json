@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:redirected",
+  "text": [
+    {
+      "text": "Direct the arrow back in the direction it was already going."
+    }
+  ],
+  "effects": [
+    "Copies the head trait",
+    "Single level"
+  ]
+}

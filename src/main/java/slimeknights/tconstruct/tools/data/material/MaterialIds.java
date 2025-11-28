@@ -27,6 +27,9 @@ public final class MaterialIds {
   public static final MaterialId cactus = id("cactus");
   // tier 1 - ammo
   public static final MaterialId wool = id("wool");
+  public static final MaterialId feather = id("feather");
+  public static final MaterialId leaves = id("leaves");
+  public static final MaterialId paper = id("paper");
   // tier 2
   public static final MaterialId iron = id("iron");
   public static final MaterialId searedStone = id("seared_stone");
@@ -50,12 +53,16 @@ public final class MaterialIds {
   public static final MaterialId blaze = id("blaze");
   public static final MaterialId enderPearl = id("ender_pearl");
   public static final MaterialId glass = id("glass");
+  public static final MaterialId gunpowder = id("gunpowder");
+  // tier 2 - ammo slimeballs
+  public static final MaterialId slimeball = id("slimeball");
   // tier 3
   public static final MaterialId slimesteel = id("slimesteel");
   public static final MaterialId amethystBronze = id("amethyst_bronze");
   public static final MaterialId nahuatl = id("nahuatl");
   public static final MaterialId pigIron = id("pig_iron");
   public static final MaterialId roseGold = id("rose_gold");
+  public static final MaterialId magnetite = id("magnetite");
   // tier 3 (nether)
   public static final MaterialId cobalt = id("cobalt");
   public static final MaterialId steel = id("steel");
@@ -66,7 +73,9 @@ public final class MaterialIds {
   public static final MaterialId ice = id("ice");
   // tier 3 - ammo
   public static final MaterialId quartz = id("quartz");
+  public static final MaterialId glowstone = id("glowstone");
   public static final MaterialId ichor = id("ichor");
+  public static final MaterialId magma = id("magma");
   // tier 4
   public static final MaterialId manyullyn = id("manyullyn");
   public static final MaterialId hepatizon = id("hepatizon");
@@ -75,12 +84,15 @@ public final class MaterialIds {
   public static final MaterialId blazingBone = id("blazing_bone");
   public static final MaterialId blazewood = id("blazewood");
   public static final MaterialId knightmetal = id("knightmetal");
+  public static final MaterialId knightly = id("knightly");
   public static final MaterialId ancient = id("ancient");
+  public static final MaterialId endRod = id("end_rod");
   //public static final MaterialId soulsteel = id("soulsteel");
   // tier 4 - bindings
   public static final MaterialId ancientHide = id("ancient_hide");
   public static final MaterialId enderslimeVine = id("enderslime_vine");
   // tier 4 - ammo
+  public static final MaterialId shulker = id("shulker");
   public static final MaterialId enderslime = id("enderslime");
   public static final MaterialId dragonScale = id("dragon_scale");
 
@@ -112,13 +124,13 @@ public final class MaterialIds {
   // plate
   public static final MaterialId gold = id("gold");
   public static final MaterialId obsidian = id("obsidian");
-  // slimeskull
+  /** @deprecated use {@link #leather} */
+  @Deprecated(forRemoval = true)
   public static final MaterialId rottenFlesh = id("rotten_flesh");
   // slimesuit
   public static final MaterialId phantom = id("phantom");
   // slimesuit - textures
   public static final MaterialId blood = id("blood");
-  public static final MaterialId magma = id("magma");
   public static final MaterialId clay = id("clay");
   public static final MaterialId honey = id("honey");
 

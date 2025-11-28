@@ -13,6 +13,7 @@ import net.minecraft.world.level.Level;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.common.IngredientLoadable;
 import slimeknights.mantle.data.loadable.field.ContextKey;
+import slimeknights.mantle.data.loadable.field.LoadableField;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.helper.LoadableRecipeSerializer;
@@ -60,13 +61,14 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
   public static final int SLOT_SIZE = 18;
   /** Error for when the result ends up at stack size 0 due to weird tool traits */
   protected static final RecipeResult<LazyToolStack> NO_COUNT = RecipeResult.failure(TConstruct.makeTranslationKey("recipe", "tool_build.no_count"));
+  // loadable fields
+  protected static final LoadableField<IModifiable,ToolBuildingRecipe> RESULT_FIELD = TinkerLoadables.MODIFIABLE_ITEM.requiredField("result", r -> r.output);
+  protected static final LoadableField<ResourceLocation,ToolBuildingRecipe> LAYOUT_FIELD = Loadables.RESOURCE_LOCATION.nullableField("slot_layout",  r -> r.layoutSlot);
   /** Loader instance */
   public static final RecordLoadable<ToolBuildingRecipe> LOADER = RecordLoadable.create(
-    ContextKey.ID.requiredField(),
-    LoadableRecipeSerializer.RECIPE_GROUP,
-    TinkerLoadables.MODIFIABLE_ITEM.requiredField("result", r -> r.output),
+    ContextKey.ID.requiredField(), LoadableRecipeSerializer.RECIPE_GROUP, RESULT_FIELD,
     IntLoadable.FROM_ONE.defaultField("result_count", 1, true, r -> r.outputCount),
-    Loadables.RESOURCE_LOCATION.nullableField("slot_layout",  r -> r.layoutSlot),
+    LAYOUT_FIELD,
     IngredientLoadable.DISALLOW_EMPTY.list(0).defaultField("extra_requirements", List.of(), r -> r.ingredients),
     TinkerLoadables.TOOL_PART_ITEM.list(0).nullableField("parts_override", r -> r.parts),
     MaterialVariantId.LOADABLE.list(0).defaultField("extra_materials", List.of(), false, r -> r.materials),
@@ -94,7 +96,7 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
   // JEI cache
   protected List<LayoutSlot> layoutSlots;
   protected List<List<ItemStack>> allToolParts;
-  protected ItemStack displayOutput;
+  protected List<ItemStack> displayOutput;
 
   @Deprecated(forRemoval = true)
   public ToolBuildingRecipe(ResourceLocation id, String group, IModifiable output, int outputCount, @Nullable ResourceLocation layoutSlot, List<Ingredient> ingredients) {
@@ -125,15 +127,33 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
       return false;
     }
     List<IToolPart> parts = getToolParts();
-    int requiredInputs = parts.size() + ingredients.size();
+    int partSize = parts.size();
+    int requiredInputs = partSize + ingredients.size();
     int maxInputs = inv.getInputCount();
     // disallow if we have no inputs, or if we have too few slots
     if (requiredInputs == 0 || requiredInputs > maxInputs) {
       return false;
     }
+
+    // if we are crafting the tool using a single non-part input, allow matching it in any slot
+    if (requiredInputs == 1 && partSize == 0) {
+      Ingredient ingredient = ingredients.get(0);
+      boolean found = false;
+      for (int i = 0; i < maxInputs; i++) {
+        ItemStack stack = inv.getInput(i);
+        if (!stack.isEmpty()) {
+          // if we already found our input, or this stack doesn't match, recipe failed
+          if (found || !ingredient.test(stack)) {
+            return false;
+          }
+          found = true;
+        }
+      }
+      return found;
+    }
+
     // each part must match the given slot
     int i;
-    int partSize = parts.size();
     for (i = 0; i < partSize; i++) {
       if (parts.get(i).asItem() != inv.getInput(i).getItem()) {
         return false;
@@ -176,12 +196,14 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
     // note there is an edge case when you have a fixed material that adjusts count plus parts, not really a good solution for that case
     if (parts > 0) {
       // apply tool craft hook for remaining traits
+      float newCount = count;
       for (ModifierEntry entry : tool.getModifiers()) {
-        count = entry.getHook(ModifierHooks.TOOL_CRAFT).onToolCraft(tool, entry, count);
-        if (count <= 0) {
+        newCount = entry.getHook(ModifierHooks.CRAFT_COUNT).modifyCraftCount(tool, entry, newCount);
+        if (newCount <= 0) {
           return NO_COUNT;
         }
       }
+      count = (int) newCount;
     }
 
     // validate the tool, lets people have traits reject each other or do weird slot shenanigans
@@ -245,9 +267,10 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
   }
 
   /** Gets the result to display */
-  public ItemStack getDisplayOutput() {
+  public List<ItemStack> getDisplayOutput() {
     if (displayOutput == null) {
       // apply extra materials
+      ItemStack result = null;
       if (!this.materials.isEmpty()) {
         // first, determine if we need them; our parts list applies first
         // if not, saves effort using the default render material
@@ -266,23 +289,24 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
           }
           // if we have only real materials, make a proper tool
           if (offset == 0) {
-            displayOutput = ToolBuildHandler.buildItemFromMaterials(output, new MaterialNBT(list.stream().map(MaterialVariant::of).toList()));
-            displayOutput.setCount(outputCount);
+            result = ToolBuildHandler.buildItemFromMaterials(output, new MaterialNBT(list.stream().map(MaterialVariant::of).toList()));
+            result.setCount(outputCount);
           } else {
             // not a full list? mark it for display with just the materials on the end
-            displayOutput = new MaterialIdNBT(list).updateStack(new ItemStack(output, outputCount));
-            displayOutput.getOrCreateTag().putBoolean(TooltipUtil.KEY_DISPLAY, true);
+            result = new MaterialIdNBT(list).updateStack(new ItemStack(output, outputCount));
+            result.getOrCreateTag().putBoolean(TooltipUtil.KEY_DISPLAY, true);
           }
         }
       }
       // if the materials override did not make a tool successfully, make one now
-      if (displayOutput == null) {
-        displayOutput = output instanceof IModifiableDisplay modifiable ? modifiable.getRenderTool() : output.asItem().getDefaultInstance();
+      if (result == null) {
+        result = output instanceof IModifiableDisplay modifiable ? modifiable.getRenderTool() : output.asItem().getDefaultInstance();
         // apply output count
         if (outputCount > 1) {
-          displayOutput = displayOutput.copyWithCount(outputCount);
+          result = result.copyWithCount(outputCount);
         }
       }
+      displayOutput = List.of(result);
     }
     return displayOutput;
   }

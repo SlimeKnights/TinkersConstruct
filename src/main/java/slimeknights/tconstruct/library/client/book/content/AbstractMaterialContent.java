@@ -107,6 +107,11 @@ public abstract class AbstractMaterialContent extends PageContent {
   @Nullable
   protected abstract MaterialStatsId getStatType(int index);
 
+  /** Gets the number of rows to display for the stats section */
+  protected int getStatRows() {
+    return 2;
+  }
+
   /** Gets the text to display, empty if no text */
   protected abstract String getTextKey(MaterialId material);
 
@@ -183,7 +188,7 @@ public abstract class AbstractMaterialContent extends PageContent {
     int x = (rightSide ? 0 : COLUMN_MARGIN) + 2;
 
     // material stats
-    y = addAllMaterialStats(x, y, list, 2, true);
+    y = addAllMaterialStats(x, y, list, getStatRows(), true);
     // material description
     addDescription(x, y, list);
   }
@@ -356,7 +361,7 @@ public abstract class AbstractMaterialContent extends PageContent {
       MaterialId materialId = materialVariant.getId();
       toolLoop:
       for (Holder<Item> item : BuiltInRegistries.ITEM.getTagOrEmpty(TinkerTags.Items.MULTIPART_TOOL)) {
-        if (item.value() instanceof IModifiable tool) {
+        if (item.value() instanceof IModifiable tool && (showAllTools || !item.is(TinkerTags.Items.ANCIENT_TOOLS))) {
           List<MaterialStatsId> requirements = ToolMaterialHook.stats(tool.getToolDefinition());
           // start building the tool with the given material
           MaterialNBT.Builder materials = MaterialNBT.builder();
@@ -365,10 +370,6 @@ public abstract class AbstractMaterialContent extends PageContent {
             // by default, give up if the tool contains any parts of another stat type. Mostly filters out ancient tools
             // but by request we can keep those visible
             boolean supported = supportsStatType(part);
-            if (!showAllTools && !supported) {
-              continue toolLoop;
-            }
-
             // if the stat type is not supported by the material, substitute
             if (part.canUseMaterial(materialId)) {
               materials.add(materialVariant);
