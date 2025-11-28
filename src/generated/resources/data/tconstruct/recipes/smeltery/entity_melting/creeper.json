@@ -2,7 +2,7 @@
   "type": "tconstruct:entity_melting",
   "damage": 2,
   "entity": {
-    "tag": "tconstruct:melting/meltable_creepers"
+    "tag": "tconstruct:melting/creepers"
   },
   "result": {
     "amount": 50,

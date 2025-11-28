@@ -599,28 +599,36 @@ public class TinkerTags {
     public static final TagKey<EntityType<?>> SLIMES = common("slimes");
     public static final TagKey<EntityType<?>> BACON_PRODUCER = local("bacon_producer");
 
-    // Here goes a big block of tags used in entity melting recipes.
-    public static final TagKey<EntityType<?>> MELTABLE_BEES = local("melting/meltable_bees");
-    public static final TagKey<EntityType<?>> MELTABLE_BLAZES = local("melting/meltable_blazes");
-    public static final TagKey<EntityType<?>> MELTABLE_CREEPERS = local("melting/meltable_creepers");
-    public static final TagKey<EntityType<?>> MELTABLE_DROWNED = local("melting/meltable_drowned");
-    public static final TagKey<EntityType<?>> MELTABLE_ENDERMEN = local("melting/meltable_endermen");
-    public static final TagKey<EntityType<?>> MELTABLE_FROGS = local("melting/meltable_frogs");
-    public static final TagKey<EntityType<?>> MELTABLE_GHASTS = local("melting/meltable_ghasts");
-    public static final TagKey<EntityType<?>> MELTABLE_GUARDIANS = local("melting/meltable_guardians");
-    public static final TagKey<EntityType<?>> MELTABLE_MAGMA_CUBES = local("melting/meltable_magma_cubes");
-    public static final TagKey<EntityType<?>> MELTABLE_PHANTOMS = local("melting/meltable_phantoms");
-    public static final TagKey<EntityType<?>> MELTABLE_PIGLINS = local("melting/meltable_piglins");
-    public static final TagKey<EntityType<?>> MELTABLE_SHULKERS = local("melting/meltable_shulkers");
-    public static final TagKey<EntityType<?>> MELTABLE_SILVERFISH = local("melting/meltable_silverfish");
-    public static final TagKey<EntityType<?>> MELTABLE_EARTH_SLIMES = local("melting/meltable_earth_slimes");
-    public static final TagKey<EntityType<?>> MELTABLE_SPIDERS = local("melting/meltable_spiders");
-    public static final TagKey<EntityType<?>> MELTABLE_STRIDERS = local("melting/meltable_striders");
-    public static final TagKey<EntityType<?>> MELTABLE_TURTLES = local("melting/meltable_turtles");
-    public static final TagKey<EntityType<?>> MELTABLE_ZOMBIES = local("melting/meltable_zombies");
+    /**
+     * Tags used in entity melting recipes to help make it easier for mods that
+     * add vanilla-like mobs to add support.
+     * <br><br>
+     * For example, a mod might have X ghast-like variants and add them to <b>forge:ghasts</b>,
+     * but each variant may not necessarily drop "correct" loot or be thematically fitting for
+     * the relevant entity melting recipe, so these tags are intended to narrow the scope a bit.
+     */
+    public static final TagKey<EntityType<?>> MELTING_BEES = local("melting/bees");
+    public static final TagKey<EntityType<?>> MELTING_BLAZES = local("melting/blazes");
+    public static final TagKey<EntityType<?>> MELTING_CREEPERS = local("melting/creepers");
+    public static final TagKey<EntityType<?>> MELTING_DROWNED = local("melting/drowned");
+    public static final TagKey<EntityType<?>> MELTING_ENDERMEN = local("melting/endermen");
+    public static final TagKey<EntityType<?>> MELTING_FROGS = local("melting/frogs");
+    public static final TagKey<EntityType<?>> MELTING_GHASTS = local("melting/ghasts");
+    public static final TagKey<EntityType<?>> MELTING_GUARDIANS = local("melting/guardians");
+    public static final TagKey<EntityType<?>> MELTING_MAGMA_CUBES = local("melting/magma_cubes");
+    public static final TagKey<EntityType<?>> MELTING_PHANTOMS = local("melting/phantoms");
+    public static final TagKey<EntityType<?>> MELTING_PIGLINS = local("melting/piglins");
+    public static final TagKey<EntityType<?>> MELTING_SHULKERS = local("melting/shulkers");
+    public static final TagKey<EntityType<?>> MELTING_SILVERFISH = local("melting/silverfish");
+    public static final TagKey<EntityType<?>> MELTING_EARTH_SLIMES = local("melting/earth_slimes");
+    public static final TagKey<EntityType<?>> MELTING_SPIDERS = local("melting/spiders");
+    public static final TagKey<EntityType<?>> MELTING_STRIDERS = local("melting/striders");
+    public static final TagKey<EntityType<?>> MELTING_TURTLES = local("melting/turtles");
+    public static final TagKey<EntityType<?>> MELTING_ZOMBIES = local("melting/zombies");
 
     public static final TagKey<EntityType<?>> MELTING_SHOW = local("melting/show_in_default");
     public static final TagKey<EntityType<?>> MELTING_HIDE = local("melting/hide_in_default");
+
     public static final TagKey<EntityType<?>> PIGGYBACKPACK_BLACKLIST = local("piggybackpack_blacklist");
 
     /** Entities in this tag take more damage from bane of sssss */

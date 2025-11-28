@@ -2,7 +2,7 @@
   "type": "tconstruct:entity_melting",
   "damage": 3,
   "entity": {
-    "tag": "tconstruct:melting/meltable_shulkers"
+    "tag": "tconstruct:melting/shulkers"
   },
   "result": {
     "amount": 25,

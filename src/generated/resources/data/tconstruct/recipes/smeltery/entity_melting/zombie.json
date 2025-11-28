@@ -2,7 +2,7 @@
   "type": "tconstruct:entity_melting",
   "damage": 4,
   "entity": {
-    "tag": "tconstruct:melting/meltable_zombies"
+    "tag": "tconstruct:melting/zombies"
   },
   "result": {
     "amount": 10,

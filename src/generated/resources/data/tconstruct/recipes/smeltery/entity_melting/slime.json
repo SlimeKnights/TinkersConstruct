@@ -2,7 +2,7 @@
   "type": "tconstruct:entity_melting",
   "damage": 2,
   "entity": {
-    "tag": "tconstruct:melting/meltable_earth_slimes"
+    "tag": "tconstruct:melting/earth_slimes"
   },
   "result": {
     "amount": 25,

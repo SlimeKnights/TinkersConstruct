@@ -3,7 +3,7 @@
   "damage": 2,
   "entity": [
     {
-      "tag": "tconstruct:melting/meltable_ghasts"
+      "tag": "tconstruct:melting/ghasts"
     },
     {
       "type": "minecraft:axolotl"
