@@ -2,10 +2,7 @@
   "type": "tconstruct:entity_melting",
   "damage": 4,
   "entity": {
-    "types": [
-      "minecraft:guardian",
-      "minecraft:elder_guardian"
-    ]
+    "tag": "tconstruct:melting/meltable_guardians"
   },
   "result": {
     "amount": 50,

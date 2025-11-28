@@ -1,13 +1,17 @@
 {
   "type": "tconstruct:entity_melting",
   "damage": 2,
-  "entity": {
-    "types": [
-      "minecraft:enderman",
-      "minecraft:endermite",
-      "minecraft:ender_dragon"
-    ]
-  },
+  "entity": [
+    {
+      "tag": "tconstruct:melting/meltable_endermen"
+    },
+    {
+      "types": [
+        "minecraft:endermite",
+        "minecraft:ender_dragon"
+      ]
+    }
+  ],
   "result": {
     "amount": 25,
     "tag": "forge:ender"

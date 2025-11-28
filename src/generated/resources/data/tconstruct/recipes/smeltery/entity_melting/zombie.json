@@ -2,11 +2,7 @@
   "type": "tconstruct:entity_melting",
   "damage": 4,
   "entity": {
-    "types": [
-      "minecraft:zombie",
-      "minecraft:husk",
-      "minecraft:zombie_horse"
-    ]
+    "tag": "tconstruct:melting/meltable_zombies"
   },
   "result": {
     "amount": 10,
