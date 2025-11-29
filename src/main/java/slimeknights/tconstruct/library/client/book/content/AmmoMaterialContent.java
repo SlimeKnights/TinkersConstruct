@@ -52,4 +52,15 @@ public class AmmoMaterialContent extends AbstractMaterialContent {
       || statsId.equals(StatlessMaterialStats.ARROW_SHAFT.getIdentifier())
       || statsId.equals(StatlessMaterialStats.FLETCHING.getIdentifier());
   }
+
+  @Override
+  public String toHTML() {
+    StringBuilder builder = new StringBuilder("<div class=\"row-material-stats\"><div class=\"column\">")
+        .append(getStatHTML(StatlessMaterialStats.ARROW_HEAD.getIdentifier(), true))
+        .append(getStatHTML(StatlessMaterialStats.FLETCHING.getIdentifier(), true))
+        .append("</div>")
+        .append(getStatHTML(StatlessMaterialStats.ARROW_SHAFT.getIdentifier(), true))
+        .append("</div>");
+    return String.format(super.toHTML(), builder);
+  }
 }

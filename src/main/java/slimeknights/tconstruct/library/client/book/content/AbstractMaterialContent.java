@@ -452,7 +452,7 @@ public abstract class AbstractMaterialContent extends PageContent {
     int rgb = MaterialTooltipCache.getColor(getMaterialVariant()).getValue();
 
     StringBuilder builder = new StringBuilder("\n<div class=\"page-material\">")
-      .append(getTitleHTML("color: " + HTMLUtils.hexRGB(rgb), "text-shadow: 1px 1px 0 color-mix(in srgb, currentColor 25%%, #000 75%%)"))
+      .append(getTitleHTML("format-custom", "color: " + HTMLUtils.hexRGB(rgb)))
       .append("%s<p class=\"trait\">");
 
     if (!detailed) builder.append("\"<span style=\"font-style: italic\">");
@@ -479,12 +479,11 @@ public abstract class AbstractMaterialContent extends PageContent {
     IMaterialStats stats = statsOptional.get();
 
     StringBuilder builder = new StringBuilder("<div>\n")
-      .append(HTMLUtils.line(Objects.requireNonNullElse(name, stats.getLocalizedName().getString()),
-        true, "font-weight: bold", "padding-bottom: 2px", paddingLeft ? "padding-left: 20px" : ""));
+      .append(HTMLUtils.p(Objects.requireNonNullElse(name, stats.getLocalizedName().getString()), "underline", null, "font-weight: bold; padding-bottom: 2px" + (paddingLeft ? "; padding-left: 20px" : "")));
 
     if (!traitsOnly)
       builder.append(stats.getLocalizedInfo().stream()
-        .map(HTMLUtils::line)
+        .map(HTMLUtils::p)
         .collect(Collectors.joining("\n")));
 
     return builder.append(getTraitHTML(statsId))
@@ -496,7 +495,7 @@ public abstract class AbstractMaterialContent extends PageContent {
   protected String getTraitHTML(MaterialStatsId statsId) {
     return MaterialRegistry.getInstance().getTraits(getMaterialVariant().getId(), statsId).stream()
       .map(ModifierEntry::getModifier)
-      .map(m -> HTMLUtils.line(m.getDisplayName().getString(), null, HTMLUtils.line(m.getDescription()).replaceAll("'", "&quot;"), true, false, "color: #545454"))
+      .map(m -> HTMLUtils.p(m.getDisplayName().getString(), "underline", HTMLUtils.p(m.getDescription()).replaceAll("'", "&quot;"), "color: #545454"))
       .collect(Collectors.joining("\n"));
   }
 }

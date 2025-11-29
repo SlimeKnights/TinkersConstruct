@@ -70,18 +70,12 @@ public class MeleeHarvestMaterialContent extends AbstractMaterialContent {
 
   @Override
   public String toHTML() {
-    String div = String.format(
-      """
-      <div class="grid-material-stats">
-      %s
-      %s
-      %s
-      </div>
-      """,
-      getStatHTML(HeadMaterialStats.ID),
-      getStatHTML(HandleMaterialStats.ID),
-      getStatHTML(StatlessMaterialStats.BINDING.getIdentifier())
-    );
-    return String.format(super.toHTML(), div);
+    StringBuilder builder = new StringBuilder("<div class=\"row-material-stats\"><div class=\"column\">")
+      .append(getStatHTML(HeadMaterialStats.ID))
+      .append(getStatHTML(StatlessMaterialStats.BINDING.getIdentifier()))
+      .append("</div>")
+      .append(getStatHTML(HandleMaterialStats.ID))
+      .append("</div>");
+    return String.format(super.toHTML(), builder);
   }
 }

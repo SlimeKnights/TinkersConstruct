@@ -76,18 +76,12 @@ public class RangedMaterialContent extends AbstractMaterialContent {
 
   @Override
   public String toHTML() {
-    String div = String.format(
-      """
-      <div class="grid-material-stats">
-      %s
-      %s
-      %s
-      </div>
-      """,
-      getStatHTML(LimbMaterialStats.ID),
-      getStatHTML(GripMaterialStats.ID),
-      getStatHTML(StatlessMaterialStats.BOWSTRING.getIdentifier())
-    );
-    return String.format(super.toHTML(), div);
+    StringBuilder builder = new StringBuilder("<div class=\"row-material-stats\"><div class=\"column\">")
+      .append(getStatHTML(LimbMaterialStats.ID))
+      .append(getStatHTML(StatlessMaterialStats.BOWSTRING.getIdentifier()))
+      .append("</div>")
+      .append(getStatHTML(GripMaterialStats.ID))
+      .append("</div>");
+    return String.format(super.toHTML(), builder);
   }
 }

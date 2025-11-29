@@ -133,33 +133,27 @@ public class FluidEffectContent extends PageContent {
     StringBuilder builder = new StringBuilder()
       .append(getTitleHTML())
       .append("<div>")
-      .append(HTMLUtils.line(text, "height: 64px", "padding-left: 64px"));
+      .append(HTMLUtils.p(text, "height: 64px; padding-left: 64px"));
 
     assert (entityComponents.isEmpty() || entity == null);
     assert (blockComponents.isEmpty() || block == null);
 
-    if (!entityComponents.isEmpty() || entity != null ) {
-      builder.append("<div style=\"height: 128px\">\n")
-        .append(HTMLUtils.line(I18n.get(KEY_ENTITY_EFFECTS), true))
-        .append("<ul class=\"prop-list\">\n");
-      for (Component component : entityComponents) builder.append("<li>").append(HTMLUtils.line(component)).append("</li>\n");
-      if (entity != null) {
-        for (String string : entity) builder.append("<li>").append(HTMLUtils.line(string)).append("</li>\n");
-      }
-      builder.append("</ul>\n</div>");
-    }
-
-    if (!blockComponents.isEmpty() || block != null ) {
-      builder.append("<div style=\"height: 128px\">\n")
-        .append(HTMLUtils.line(I18n.get(KEY_BLOCK_EFFECTS), true))
-        .append("<ul class=\"prop-list\">\n");
-      for (Component component : blockComponents) builder.append("<li>").append(HTMLUtils.line(component)).append("</li>\n");
-      if (block != null) {
-        for (String string : block) builder.append("<li>").append(HTMLUtils.line(string)).append("</li>\n");
-      }
-      builder.append("</ul>\n</div>");
-    }
+    liHelper(builder, entityComponents, entity);
+    liHelper(builder, blockComponents, block);
 
     return builder.append("</div>").toString();
+  }
+
+  private void liHelper(StringBuilder builder, List<Component> components, @Nullable String[] strings) {
+    if (components.isEmpty() && strings == null) return;
+
+    builder.append("<div style=\"height: 128px\">")
+      .append(HTMLUtils.li(I18n.get(KEY_ENTITY_EFFECTS), "underline", null, null))
+      .append("<ul class=\"prop-list\">");
+
+    for (Component component : components) builder.append(HTMLUtils.li(component));
+    if (strings != null) for (String string : strings) builder.append(HTMLUtils.li(string));
+
+    builder.append("</ul></div>");
   }
 }
