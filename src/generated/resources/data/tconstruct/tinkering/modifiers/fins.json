@@ -12,6 +12,14 @@
       "each_level": 1.0,
       "percent": false,
       "target": "mantle:underwater"
+    },
+    {
+      "type": "tconstruct:volatile_flag",
+      "flag": "tconstruct:efln",
+      "hooks": [
+        "tconstruct:projectile_launch",
+        "tconstruct:projectile_shot"
+      ]
     }
   ],
   "tooltip_display": "always"

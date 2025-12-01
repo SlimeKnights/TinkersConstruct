@@ -53,6 +53,7 @@ public final class MaterialIds {
   public static final MaterialId blaze = id("blaze");
   public static final MaterialId enderPearl = id("ender_pearl");
   public static final MaterialId glass = id("glass");
+  public static final MaterialId gunpowder = id("gunpowder");
   // tier 2 - ammo slimeballs
   public static final MaterialId slimeball = id("slimeball");
   // tier 3
@@ -143,7 +144,6 @@ public final class MaterialIds {
   /*
    * Variants
    */
-  public static final MaterialVariantId basalt  = create(flint, "basalt");
   // wood
   /** @deprecated use {@link #wood} */
   @Deprecated(forRemoval = true)
@@ -176,8 +176,11 @@ public final class MaterialIds {
   public static final MaterialVariantId andesite   = create(rock, "andesite");
   public static final MaterialVariantId diorite    = create(rock, "diorite");
   public static final MaterialVariantId granite    = create(rock, "granite");
+  public static final MaterialVariantId calcite    = create(rock, "calcite");
   public static final MaterialVariantId blackstone = create(rock, "blackstone");
-  public static final MaterialVariantId deepslate  = create(rock, "deepslate");
+  // flint
+  public static final MaterialVariantId basalt    = create(flint, "basalt");
+  public static final MaterialVariantId deepslate = create(flint, "deepslate");
   // whitestone
   public static final MaterialVariantId endstone            = create(whitestone, "end");
   public static final MaterialVariantId whitestoneComposite = create(whitestone, "composite");

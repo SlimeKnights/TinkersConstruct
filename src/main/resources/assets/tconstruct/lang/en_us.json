@@ -1780,12 +1780,13 @@
   "material.tconstruct.rock.diorite":    "Diorite",
   "material.tconstruct.rock.granite":    "Granite",
   "material.tconstruct.rock.blackstone": "Blackstone",
-  "material.tconstruct.rock.deepslate":  "Deepslate",
+  "material.tconstruct.rock.calcite":    "Calcite",
   "material.tconstruct.rock.flavor": "Rock solid",
   "material.tconstruct.rock.encyclopedia": "Causes the tool to mine faster by 1% times the square root of lost durability each level. Tool durability multiplier will divide the lost durability.",
 
   "material.tconstruct.flint": "Flint",
   "material.tconstruct.flint.basalt": "Basalt",
+  "material.tconstruct.flint.deepslate": "Deepslate",
   "material.tconstruct.flint.flavor": "This will spark the flames of a Tinker's heart!",
   "material.tconstruct.flint.encyclopedia": "Increases melee damage by 1% times the square root of lost durability each level. Tool durability multiplier will divide the lost durability.",
   "material.tconstruct.flint.ammo": "Allows casting potion on the ammo to tip it. Tipped ammo will apply a potion effect in addition to its damage.",
@@ -1955,6 +1956,10 @@
   "material.tconstruct.prismarine.flavor": "Weapon of the sea",
   "material.tconstruct.prismarine.ammo": "Lets the ammo move freely underwater and grants +1 projectile damage per level to underwater targets. Fishing rods instead gain a level of lure.",
 
+  "material.tconstruct.gunpowder": "Gunpowder",
+  "material.tconstruct.gunpowder.flavor": "Explosive!",
+  "material.tconstruct.gunpowder.ammo": "Causes the arrow to explode at a radius of 1 plus 1 per level. Explosion damage is based on projectile power.",
+
   "material.tconstruct.earthslime": "Earthslime",
   "material.tconstruct.earthslime.flavor": "To me!",
   "material.tconstruct.earthslime.ammo": "Causes the target to be knocked back in the opposite direction.",
@@ -2112,7 +2117,7 @@
   "__comment": "Tier End Materials",
 
   "material.tconstruct.knightmetal": "Knightmetal",
-  "material.tconstruct.knightmetal.flavor": "Metal of the traveling slime, also found from armored Twilight creates.",
+  "material.tconstruct.knightmetal.flavor": "Metal of the traveling slime, also found from armored Twilight creatures.",
   "material.tconstruct.knightmetal.encyclopedia": "Grants +0.5 damage per level per piece of armor worn by the target",
   "material.tconstruct.knightmetal.ranged": "Grants +0.25 damage per level per piece of armor worn by the target (before velocity)",
   "material.tconstruct.knightmetal.armor": "Increases protection by 5% per level per item in the attacker's arms",
@@ -2248,7 +2253,7 @@
   "_comment": "Tier 4 Integration Materials",
 
   "material.tconstruct.fiery": "Fiery",
-  "material.tconstruct.fiery.flavor": "Metal of the traveling slime, also found from armored Twilight creates.",
+  "material.tconstruct.fiery.flavor": "The hottest new metal, forged to perfection.",
   "material.tconstruct.fiery.encyclopedia": "Tool automatically smelts all drops. Higher levels have a 25% chance of extra smelted drops",
   "material.tconstruct.fiery.ranged": "Arrows automatically smelts all drops. Higher levels have a 25% chance of extra smelted drops",
   "material.tconstruct.fiery.armor": "Increases protection by 5% per level against on fire attackers",
@@ -2740,6 +2745,9 @@
   "modifier.tconstruct.spectral": "Spectral",
   "modifier.tconstruct.spectral.flavor": "Shine brighter!",
   "modifier.tconstruct.spectral.description": "Causes the target of the projectile to glow, be it a block or entity",
+  "modifier.tconstruct.explosive": "Explosive",
+  "modifier.tconstruct.explosive.flavor": "Bomb!",
+  "modifier.tconstruct.explosive.description": "Causes the arrow to explode upon hitting the target",
   "modifier.tconstruct.exchanging": "Exchanging",
   "modifier.tconstruct.exchanging.flavor": "The Ole Switcheroo!",
   "modifier.tconstruct.exchanging.description": "Blocks broken by this tool are replaced by the block in the offhand if possible",
@@ -2779,6 +2787,11 @@
   "modifier.tconstruct.warping": "Warping",
   "modifier.tconstruct.warping.flavor": "Ender transporting",
   "modifier.tconstruct.warping.description": "Charge up, aim at a wall, and warp to the other side!",
+
+  "modifier.tconstruct.drill_attack": "Drill Attack",
+  "modifier.tconstruct.drill_attack.flavor": "Dizzying!",
+  "modifier.tconstruct.drill_attack.description": "Melees any hit enemies during your tool's movement.",
+  "modifier.tconstruct.drill_attack.requirements": "Requires springing, flinging, or grapple.",
 
   "modifier.tconstruct.throwing": "Throwing",
   "modifier.tconstruct.throwing.flavor": "Cooler than tridents!",
@@ -2903,6 +2916,9 @@
   "modifier.tconstruct.rebalanced.souls": "Soul",
   "modifier.tconstruct.rebalanced.defense": "Defense",
   "modifier.tconstruct.rebalanced.traits": "Trait",
+  "modifier.tconstruct.redirected": "Redirected",
+  "modifier.tconstruct.redirected.flavor": "Sent the arrow back",
+  "modifier.tconstruct.redirected.description": "Grants the projectile an extra copy of its head trait.",
 
   "__comment": "Three more +1 upgrade modifiers for modpacks",
   "modifier.tconstruct.red_extra_upgrade": "Red Extra Upgrade",
@@ -3799,6 +3815,7 @@
 
   "command.tconstruct.generate_part_textures.start": "Started generating part textures",
   "command.tconstruct.generate_part_textures.finish": "Successfully generated %s part textures in %s s at %s",
+  "command.tconstruct.generate_part_textures.failure": "Failed to generate part textures after %s s: %s. Check the log for more details.",
   "command.tconstruct.generate_part_textures.no_materials": "No material's have generator info, nothing to generate",
   "command.tconstruct.generate_part_textures.no_parts": "No part sprites present in resource packs",
 

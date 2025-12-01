@@ -8,7 +8,6 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.phys.EntityHitResult;
@@ -19,6 +18,7 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
+import slimeknights.tconstruct.library.modifiers.entity.ProjectileWithPower;
 import slimeknights.tconstruct.library.modifiers.hook.armor.OnAttackedModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.display.TooltipModifierHook;
@@ -45,7 +45,7 @@ public class NecroticModifier extends Modifier implements ProjectileHitModifierH
 
   @Override
   public void afterMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damageDealt) {
-    if (context.isFullyCharged() && context.isCritical() && damageDealt > 0) {
+    if (context.isFullyCharged() && context.isCritical() && damageDealt > 0 && !context.getTarget().getType().is(TinkerTags.EntityTypes.NECROTIC_BLACKLIST)) {
       // heals a percentage of damage dealt, using same rate as reinforced
       float percent = 0.05f * modifier.getEffectiveLevel();
       if (percent > 0) {
@@ -60,13 +60,14 @@ public class NecroticModifier extends Modifier implements ProjectileHitModifierH
 
   @Override
   public boolean onProjectileHitEntity(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
-    if (target != null && attacker != null) {
+    if (target != null && attacker != null && !target.getType().is(TinkerTags.EntityTypes.NECROTIC_BLACKLIST)) {
       float percent = 0.05f * modifier.getEffectiveLevel();
       if (percent > 0) {
-        if (projectile instanceof AbstractArrow arrow && arrow.isCritArrow()) {
-          // we don't actually know how much damage will be dealt, so just guess by using the standard formula
-          // to prevent healing too much, limit by the target's health. Will let you life steal ignoring armor, but eh, only so much we can do efficiently
-          attacker.heal((float)(percent * Math.min(target.getHealth(), arrow.getBaseDamage() * arrow.getDeltaMovement().length())));
+        // we don't actually know how much damage will be dealt, so just grab the projectile power, scaled by velocity if needed
+        // to prevent healing too much, limit by the target's health. Will let you life steal ignoring armor, but eh, only so much we can do efficiently
+        float power = ProjectileWithPower.getDamage(projectile);
+        if (power > 0) {
+          attacker.heal(percent * Math.min(target.getHealth(), power));
           attacker.level().playSound(null, attacker.getX(), attacker.getY(), attacker.getZ(), Sounds.NECROTIC_HEAL.getSound(), SoundSource.PLAYERS, 1.0f, 1.0f);
         }
       }

@@ -1,6 +1,7 @@
 {
   "type": "tconstruct:multilevel_modifier",
   "allow_crystal": true,
+  "check_trait_level": true,
   "inputs": [
     {
       "item": "minecraft:ender_pearl"

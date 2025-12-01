@@ -238,7 +238,7 @@ public class GreyToSpriteTransformer implements IRecolorSpriteTransformer {
         try {
           image = READER.read(path);
         } catch (IOException ex) {
-          throw new IllegalStateException("Failed to load required image", ex);
+          throw new IllegalStateException("Failed to load required image from " + path, ex);
         }
         MAPPINGS_TO_CLEAR.add(this);
       }

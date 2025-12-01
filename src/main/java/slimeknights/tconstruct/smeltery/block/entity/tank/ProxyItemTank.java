@@ -62,6 +62,7 @@ public class ProxyItemTank<T extends MantleBlockEntity & IFluidTankUpdater> exte
     }
     // sync changes
     if (needsUpdate) {
+      parent.onTankContentsChanged();
       BlockPos pos = parent.getBlockPos();
       TinkerNetwork.getInstance().sendToClientsAround(new InventorySlotSyncPacket(newStack, 0, pos), world, pos);
     }
@@ -109,7 +110,6 @@ public class ProxyItemTank<T extends MantleBlockEntity & IFluidTankUpdater> exte
     // hopefully it's the same instance, but we still need a client sync likely
     if (filled > 0 && action.execute()) {
       setStack(tank.getContainer(), true);
-      parent.onTankContentsChanged();
     }
     return filled;
   }
@@ -120,7 +120,6 @@ public class ProxyItemTank<T extends MantleBlockEntity & IFluidTankUpdater> exte
     FluidStack drained = tank.drain(resource, action);
     if (!drained.isEmpty() && action.execute()) {
       setStack(tank.getContainer(), true);
-      parent.onTankContentsChanged();
     }
     return drained;
   }
@@ -131,7 +130,6 @@ public class ProxyItemTank<T extends MantleBlockEntity & IFluidTankUpdater> exte
     FluidStack drained = tank.drain(maxDrain, action);
     if (!drained.isEmpty() && action.execute()) {
       setStack(tank.getContainer(), true);
-      parent.onTankContentsChanged();
     }
     return drained;
   }

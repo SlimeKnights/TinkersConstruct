@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.world.item.ArmorItem;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.module.HookProvider;
 import slimeknights.tconstruct.library.module.ModuleHook;
@@ -30,7 +29,7 @@ public record StatlessPartRepairModule(int partIndex, int repairAmount) implemen
   }
 
   @Override
-  public RecordLoadable<? extends IHaveLoader> getLoader() {
+  public RecordLoadable<StatlessPartRepairModule> getLoader() {
     return LOADER;
   }
 

@@ -1,0 +1,26 @@
+{
+  "values": [
+    "tconstruct:chorus",
+    "tconstruct:whitestone",
+    "tconstruct:knightmetal",
+    "tconstruct:knightly",
+    "tconstruct:enderslime_vine",
+    "tconstruct:ancient",
+    "tconstruct:shulker",
+    "tconstruct:dragon_scale",
+    "tconstruct:enderslime",
+    "tconstruct:end_rod",
+    {
+      "id": "tconstruct:ironwood",
+      "required": false
+    },
+    {
+      "id": "tconstruct:steeleaf",
+      "required": false
+    },
+    {
+      "id": "tconstruct:fiery",
+      "required": false
+    }
+  ]
+}

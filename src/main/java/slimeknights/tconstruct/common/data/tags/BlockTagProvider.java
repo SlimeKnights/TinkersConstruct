@@ -458,6 +458,7 @@ public class BlockTagProvider extends BlockTagsProvider {
     tagLogs(MINEABLE_WITH_AXE, NEEDS_IRON_TOOL, TinkerWorld.bloodshroom);
     tagLogs(MINEABLE_WITH_AXE, NEEDS_DIAMOND_TOOL, TinkerWorld.enderbark);
     tagPlanks(MINEABLE_WITH_SHOVEL, TinkerWorld.greenheart, TinkerWorld.skyroot, TinkerWorld.bloodshroom, TinkerWorld.enderbark);
+    tagPlanks(MINEABLE_WITH_AXE, true, TinkerWorld.greenheart, TinkerWorld.skyroot, TinkerWorld.bloodshroom, TinkerWorld.enderbark);
     tagBlocks(MINEABLE_WITH_SHOVEL, TinkerWorld.slimyEnderbarkRoots);
     tagBlocks(MINEABLE_WITH_AXE, TinkerWorld.skySlimeVine, TinkerWorld.enderSlimeVine, TinkerWorld.enderbarkRoots);
     tagBlocks(MINEABLE_WITH_AXE, TinkerWorld.slimeTallGrass, TinkerWorld.slimeFern);
@@ -600,15 +601,28 @@ public class BlockTagProvider extends BlockTagsProvider {
     }
   }
 
-  /** Applies a set of tags to either wood or logs from a block */
+  /** Adds or removes the planks from the tag. */
   @SuppressWarnings("SameParameterValue")
-  private void tagPlanks(TagKey<Block> tag, WoodBlockObject... blocks) {
+  private void tagPlanks(TagKey<Block> tag, boolean remove, WoodBlockObject... blocks) {
     for (WoodBlockObject block : blocks) {
-      tag(tag).add(block.get(), block.getSlab(), block.getStairs(), block.getFence(),
-                   block.getStrippedLog(), block.getStrippedWood(), block.getFenceGate(), block.getDoor(), block.getTrapdoor(),
-                   block.getPressurePlate(), block.getButton(),
-                   block.getSign(), block.getWallSign(), block.getHangingSign(), block.getWallHangingSign());
+      Block[] update = {
+        block.getSlab(), block.getStairs(), block.getFence(),
+        block.getStrippedLog(), block.getStrippedWood(),
+        block.getFenceGate(), block.getDoor(), block.getTrapdoor(),
+        block.getPressurePlate(), block.getButton(),
+        block.getSign(), block.getWallSign(), block.getHangingSign(), block.getWallHangingSign()
+      };
+      if (remove) {
+        tag(tag).remove(block.get(), update);
+      } else {
+        tag(tag).add(block.get()).add(update);
+      }
     }
+  }
+
+  /** Applies a set of tags to either wood or logs from a block */
+  private void tagPlanks(TagKey<Block> tag, WoodBlockObject... blocks) {
+    tagPlanks(tag, false, blocks);
   }
 
   /**

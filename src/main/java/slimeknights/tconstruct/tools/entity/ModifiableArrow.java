@@ -126,7 +126,7 @@ public class ModifiableArrow extends AbstractArrow implements ToolProjectile {
     super.tick();
     // check if any tasks are ready
     if (!tasks.isEmpty() && !stack.isEmpty()) {
-      ScheduledProjectileTaskModifierHook.checkSchedule(getTool(), stack, this, this, PersistentDataCapability.getOrWarn(this), tasks);
+      ScheduledProjectileTaskModifierHook.checkSchedule(getTool(), stack, this, this, tasks);
     }
   }
 

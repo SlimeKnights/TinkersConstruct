@@ -140,6 +140,7 @@ import slimeknights.tconstruct.library.modifiers.modules.combat.KnockbackModule;
 import slimeknights.tconstruct.library.modifiers.modules.combat.LootingModule;
 import slimeknights.tconstruct.library.modifiers.modules.combat.MeleeAttributeModule;
 import slimeknights.tconstruct.library.modifiers.modules.combat.MobEffectModule;
+import slimeknights.tconstruct.library.modifiers.modules.combat.ProjectileExplosionModule;
 import slimeknights.tconstruct.library.modifiers.modules.display.DurabilityBarColorModule;
 import slimeknights.tconstruct.library.modifiers.modules.display.MaterialVariantColorModule;
 import slimeknights.tconstruct.library.modifiers.modules.display.ModifierVariantColorModule;
@@ -693,6 +694,7 @@ public final class TinkerModifiers extends TinkerModule {
       ModifierLevelDisplay.LOADER.register(getResource("unique"), UniqueForLevels.LOADER);
 
       // modifier modules //
+      ModifierModule.LOADER.register(getResource("empty"), ModifierModule.EMPTY.getLoader());
       // armor
       ModifierModule.LOADER.register(getResource("max_armor_attribute"), MaxArmorAttributeModule.LOADER);
       ModifierModule.LOADER.register(getResource("effect_immunity"), EffectImmunityModule.LOADER);
@@ -731,6 +733,7 @@ public final class TinkerModifiers extends TinkerModule {
       ModifierModule.LOADER.register(getResource("knockback"), KnockbackModule.LOADER);
       ModifierModule.LOADER.register(getResource("melee_attribute"), MeleeAttributeModule.LOADER);
       ModifierModule.LOADER.register(getResource("mob_effect"), MobEffectModule.LOADER);
+      ModifierModule.LOADER.register(getResource("projectile_explosion"), ProjectileExplosionModule.LOADER);
       // display
       ModifierModule.LOADER.register(getResource("durability_color"), DurabilityBarColorModule.LOADER);
       ModifierModule.LOADER.register(getResource("variant_name"), ModifierVariantNameModule.LOADER);

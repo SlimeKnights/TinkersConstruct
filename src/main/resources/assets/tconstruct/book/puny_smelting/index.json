@@ -30,7 +30,13 @@
   {
     "name": "melee_harvest_materials",
     "data": "no-load",
-    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:melee_harvest", "tier": 2 } },
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:melee_harvest", "tier": 2, "predicate": {
+      "type": "mantle:or",
+      "predicates": [
+        { "type": "mantle:inverted", "inverted_type": "mantle:tag", "tag": "tconstruct:book/distant" },
+        { "type": "mantle:conditional", "conditions": [{ "type": "mantle:tag_filled", "tag": "tconstruct:whitestone_ingots" }], "if_true": { "type": "tconstruct:id", "id": "tconstruct:whitestone" }}
+      ]
+    }}},
     "icon": {
       "item": {
         "type": "forge:nbt",
@@ -42,7 +48,7 @@
   {
     "name": "ranged_materials",
     "data": "no-load",
-    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:ranged", "tier": 2 } },
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:ranged", "tier": 2, "predicate": { "type": "mantle:inverted", "inverted_type": "mantle:tag", "tag": "tconstruct:book/distant" }}},
     "icon": {
       "item": {
         "type": "forge:nbt",
@@ -54,11 +60,11 @@
   {
     "name": "armor_materials",
     "data": "no-load",
-    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:armor", "tier": { "min": 1, "max": 2 } } },
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:armor", "tier": { "min": 0, "max": 2 }, "predicate":  { "type": "mantle:inverted", "inverted_type": "mantle:tag", "tag": "tconstruct:book/distant" } } },
     "icon": {
       "item": {
         "type": "forge:nbt",
-        "item": "tconstruct:maille",
+        "item": "tconstruct:leggings_plating",
         "nbt": { "Material": "tconstruct:gold" }
       }
     }

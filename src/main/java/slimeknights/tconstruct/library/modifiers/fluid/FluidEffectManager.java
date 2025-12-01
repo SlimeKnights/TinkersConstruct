@@ -17,8 +17,10 @@ import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.OnDatapackSyncEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import org.jetbrains.annotations.ApiStatus.Internal;
+import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import slimeknights.mantle.util.JsonHelper;
+import slimeknights.mantle.util.typed.TypedMapBuilder;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.utils.JsonUtils;
 
@@ -65,6 +67,11 @@ public class FluidEffectManager extends SimpleJsonResourceReloadListener {
     conditionContext = event.getConditionContext();
   }
 
+  /** Creates context for modifier parsing */
+  public static TypedMapBuilder contextBuilder(ResourceLocation key) {
+    return TypedMapBuilder.builder().put(ContextKey.ID, key).put(ContextKey.DEBUG, "Fluid Effect " + key);
+  }
+
   @Override
   protected void apply(Map<ResourceLocation,JsonElement> splashList, ResourceManager pResourceManager, ProfilerFiller pProfiler) {
     long time = System.nanoTime();
@@ -80,7 +87,7 @@ public class FluidEffectManager extends SimpleJsonResourceReloadListener {
         if (!CraftingHelper.processConditions(json, "conditions", conditionContext)) {
           continue;
         }
-        fluids.add(new FluidEffects.Entry(key, FluidEffects.LOADABLE.deserialize(json)));
+        fluids.add(new FluidEffects.Entry(key, FluidEffects.LOADABLE.deserialize(json, contextBuilder(key).put(ContextKey.CONDITION_CONTEXT, conditionContext).build())));
       } catch (JsonSyntaxException e) {
         TConstruct.LOG.error("Failed to load fluid effect {}", key, e);
       }

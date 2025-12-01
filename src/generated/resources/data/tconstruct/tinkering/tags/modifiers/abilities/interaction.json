@@ -14,6 +14,7 @@
     "tconstruct:flinging",
     "tconstruct:springing",
     "tconstruct:warping",
-    "tconstruct:throwing"
+    "tconstruct:throwing",
+    "tconstruct:drill_attack"
   ]
 }

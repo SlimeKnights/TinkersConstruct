@@ -51,9 +51,12 @@ import slimeknights.tconstruct.library.json.predicate.tool.ToolContextPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.ToolStackItemPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.ToolStackPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.VolatileDataPredicate;
+import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.RandomMaterial;
+import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
+import slimeknights.tconstruct.library.modifiers.ModifierManager;
 import slimeknights.tconstruct.library.modifiers.modules.capacity.OverslimeModule;
 import slimeknights.tconstruct.library.recipe.ingredient.ToolHookIngredient;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
@@ -63,6 +66,7 @@ import slimeknights.tconstruct.library.tools.capability.ToolEnergyCapability;
 import slimeknights.tconstruct.library.tools.capability.fluid.ToolFluidCapability;
 import slimeknights.tconstruct.library.tools.capability.fluid.ToolTankHelper;
 import slimeknights.tconstruct.library.tools.capability.inventory.ToolInventoryCapability;
+import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.definition.module.ToolHooks;
 import slimeknights.tconstruct.library.tools.definition.module.ToolModule;
 import slimeknights.tconstruct.library.tools.definition.module.aoe.AreaOfEffectIterator;
@@ -92,6 +96,7 @@ import slimeknights.tconstruct.library.tools.definition.module.material.Material
 import slimeknights.tconstruct.library.tools.definition.module.material.PartStatsModule;
 import slimeknights.tconstruct.library.tools.definition.module.material.PartsModule;
 import slimeknights.tconstruct.library.tools.definition.module.material.StatlessPartRepairModule;
+import slimeknights.tconstruct.library.tools.definition.module.material.ToolMaterialHook;
 import slimeknights.tconstruct.library.tools.definition.module.mining.IsEffectiveModule;
 import slimeknights.tconstruct.library.tools.definition.module.mining.MaxTierModule;
 import slimeknights.tconstruct.library.tools.definition.module.mining.MiningSpeedModifierModule;
@@ -110,10 +115,13 @@ import slimeknights.tconstruct.library.tools.item.armor.ModifiableArmorItem;
 import slimeknights.tconstruct.library.tools.item.armor.MultilayerArmorItem;
 import slimeknights.tconstruct.library.tools.item.ranged.ModifiableBowItem;
 import slimeknights.tconstruct.library.tools.item.ranged.ModifiableCrossbowItem;
+import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.BlockSideHitListener;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.data.ArmorModelProvider;
+import slimeknights.tconstruct.tools.data.ModifierIds;
 import slimeknights.tconstruct.tools.data.StationSlotLayoutProvider;
 import slimeknights.tconstruct.tools.data.ToolDefinitionDataProvider;
 import slimeknights.tconstruct.tools.data.ToolItemModelProvider;
@@ -299,6 +307,7 @@ public final class TinkerTools extends TinkerModule {
       ToolStats.register(ToolTankHelper.CAPACITY_STAT);
       ToolStats.register(ToolEnergyCapability.MAX_STAT);
 
+      ToolModule.LOADER.register(getResource("empty"), ToolModule.EMPTY.getLoader());
       // tool definition components
       ToolModule.LOADER.register(getResource("base_stats"), SetStatsModule.LOADER);
       ToolModule.LOADER.register(getResource("multiply_stats"), MultiplyStatsModule.LOADER);
@@ -320,6 +329,7 @@ public final class TinkerTools extends TinkerModule {
       ToolModule.LOADER.register(getResource("default_materials"), DefaultMaterialsModule.LOADER);
       ToolModule.LOADER.register(getResource("statless_part_repair"), StatlessPartRepairModule.LOADER);
       // aoe
+      AreaOfEffectIterator.LOADER.register(getResource("empty"), AreaOfEffectIterator.EMPTY.getLoader());
       AreaOfEffectIterator.register(getResource("box_aoe"), BoxAOEIterator.LOADER);
       AreaOfEffectIterator.register(getResource("circle_aoe"), CircleAOEIterator.LOADER);
       AreaOfEffectIterator.register(getResource("tree_aoe"), TreeAOEIterator.LOADER);
@@ -425,6 +435,7 @@ public final class TinkerTools extends TinkerModule {
     acceptTool(output, javelin);
     acceptTool(output, arrow);
     acceptTool(output, shuriken);
+    acceptEFLN(shuriken.get(), tab);
     acceptTool(output, throwingAxe);
 
     // ancient tools
@@ -452,5 +463,27 @@ public final class TinkerTools extends TinkerModule {
   /** Adds a tool to the tab */
   private static void acceptTools(Consumer<ItemStack> output, EnumObject<?,? extends IModifiable> tools) {
     tools.forEach(tool -> ToolBuildHandler.addVariants(output, tool, ""));
+  }
+
+  /**
+   * Creates a EFLN using the given shuriken style item.
+   * @param item  Item to add
+   * @param tab   Creative tab to fill
+   */
+  private static void acceptEFLN(IModifiable item, CreativeModeTab.Output tab) {
+    ToolDefinition definition = item.getToolDefinition();
+    if (ToolMaterialHook.stats(definition).size() == 2) {
+      IMaterial gunpowder = MaterialRegistry.getMaterial(MaterialIds.gunpowder);
+      IMaterial prismarine = MaterialRegistry.getMaterial(MaterialIds.prismarine);
+      if (gunpowder != IMaterial.UNKNOWN && prismarine != IMaterial.UNKNOWN) {
+        ToolStack efln = ToolStack.createTool(item.asItem(), definition, MaterialNBT.of(gunpowder, prismarine));
+        if (ModifierManager.INSTANCE.contains(ModifierIds.redirected)) {
+          efln.addModifier(ModifierIds.redirected, 1);
+        }
+        ItemStack stack = efln.createStack();
+        stack.setHoverName(TConstruct.makeTranslation("item", "efln_ball"));
+        tab.accept(stack);
+      }
+    }
   }
 }

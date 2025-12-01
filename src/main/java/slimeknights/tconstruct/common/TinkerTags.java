@@ -12,6 +12,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
@@ -47,13 +48,18 @@ public class TinkerTags {
     Materials.init();
     DamageTypes.init();
     MenuTypes.init();
+    Potions.init();
     MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, TagsUpdatedEvent.class, event -> tagsLoaded = true);
   }
 
+  /** Resource location of the hidden from recipe tags used in JEI. */
+  @SuppressWarnings("removal")
+  public static final ResourceLocation HIDDEN_FROM_RECIPE_VIEWERS = new ResourceLocation("c", "hidden_from_recipe_viewers");
+
   /** Creates a tag that hides things from JEI */
-  @SuppressWarnings({"SameParameterValue", "removal"}) // there really is no benefit to migrating to new constructors early; just lose Neo compat
+  @SuppressWarnings("SameParameterValue") // there really is no benefit to migrating to new constructors early; just lose Neo compat
   private static <R> TagKey<R> hiddenFromRecipeViewers(ResourceKey<? extends Registry<R>> registry) {
-    return TagKey.create(registry, new ResourceLocation("c", "hidden_from_recipe_viewers"));
+    return TagKey.create(registry, HIDDEN_FROM_RECIPE_VIEWERS);
   }
 
   public static class Blocks {
@@ -202,6 +208,7 @@ public class TinkerTags {
     // misc compat
     public static final TagKey<Block> BUDDING = common("budding");
     // ceramics compat
+    @SuppressWarnings("removal")
     public static final TagKey<Block> CISTERN_CONNECTIONS = TagKey.create(Registries.BLOCK, new ResourceLocation("ceramics", "cistern_connections"));
 
     /** Makes a tag in the tinkers domain */
@@ -283,6 +290,8 @@ public class TinkerTags {
     public static final TagKey<Item> INGOTS_NETHERITE_SCRAP = common("ingots/netherite_scrap");
     public static final TagKey<Item> NUGGETS_NETHERITE_SCRAP = common("nuggets/netherite_scrap");
     public static final TagKey<Item> NUGGETS_COPPER = common("nuggets/copper");
+    /** Ingots in this tag will make the whitestone composite variant show in the books. */
+    public static final TagKey<Item> WHITESTONE_INGOTS = local("whitestone_ingots");
 
     public static final TagKey<Item> CASTS = local("casts");
     public static final TagKey<Item> GOLD_CASTS = local("casts/gold");
@@ -620,6 +629,9 @@ public class TinkerTags {
     /** Projectiles with this tag cannot be reflected */
     public static final TagKey<EntityType<?>> REFLECTING_PRESERVE_OWNER = common("reflecting/preserve_owner");
 
+    /** Entities that will not heal you using necrotic */
+    public static final TagKey<EntityType<?>> NECROTIC_BLACKLIST = common("necrotic_blacklist");
+
     private static TagKey<EntityType<?>> local(String name) {
       return TagKey.create(Registries.ENTITY_TYPE, getResource(name));
     }
@@ -666,6 +678,8 @@ public class TinkerTags {
     public static final TagKey<Modifier> GEMS = local("gems");
     /** Blacklist for modifiers that cannot be hidden with invisible ink */
     public static final TagKey<Modifier> INVISIBLE_INK_BLACKLIST = local("invisible_ink_blacklist");
+    /** Blacklist for modifiers that cannot be removed via the general recipe */
+    public static final TagKey<Modifier> REMOVE_MODIFIER_BLACKLIST = local("remove_blacklist");
     /** Blacklist for modifiers that cannot be extracted via the general recipe */
     public static final TagKey<Modifier> EXTRACT_MODIFIER_BLACKLIST = local("extract_blacklist/tools");
     /** Blacklist for modifiers that cannot be extracted via the slotless recipe */
@@ -687,6 +701,8 @@ public class TinkerTags {
     public static final TagKey<Modifier> CHARGE_EMPTY_BOW_WITH_DRAWTIME = local("charge_empty_bow/with_drawtime");
     /** Modifiers in this tag will allow charging a bow that has no ammo, but won't charge the bow */
     public static final TagKey<Modifier> CHARGE_EMPTY_BOW_WITHOUT_DRAWTIME = local("charge_empty_bow/without_drawtime");
+    /** Movement modifiers that can activate the drill attack */
+    public static final TagKey<Modifier> DRILL_ATTACKS = local("drill_attacks");
 
     // book tags - these are used to determine pages to load in resource packs
     // upgrades
@@ -739,12 +755,23 @@ public class TinkerTags {
 
   public static class Materials {
     private static void init() {}
-    /** Materials available in nether */
+    /** Materials available in nether. */
     public static final TagKey<IMaterial> NETHER = local("nether");
+    /** Materials that cannot be obtained without going to the nether. */
+    public static final TagKey<IMaterial> NETHER_GATED = local("nether/gated");
+
     /** Materials bartered from piglins */
     public static final TagKey<IMaterial> BARTERED = local("bartered");
     /** Materials not found on ancient tools or other loot sources */
     public static final TagKey<IMaterial> EXCLUDE_FROM_LOOT = local("exclude_from_loot");
+
+    // tags for book material lists
+    /** Ammo materials to show in materials and you. Used instead of tiers due to non-standard ammo behavior. */
+    public static final TagKey<IMaterial> BASIC_AMMO = local("book/basic_ammo");
+    /** Materials gated behind blazing blood, typically tier 4. Will show in Fantastic Foundry. */
+    public static final TagKey<IMaterial> BLAZING_BLOOD = local("book/blazing_blood");
+    /** Materials found from late game exploration such as the end. */
+    public static final TagKey<IMaterial> DISTANT = local("book/distant");
 
     // material categories
     // melee harvest
@@ -798,5 +825,12 @@ public class TinkerTags {
 
     /** Any menus that support being closed in favor of the tool inventory */
     public static final TagKey<MenuType<?>> TOOL_INVENTORY_REPLACEMENTS = TagKey.create(Registries.MENU, getResource("tool_inventory_replacements"));
+  }
+
+  public static class Potions {
+    private static void init() {}
+
+    /** Any potion variants in this tag will be hidden from the variants of the potion fluid shown in JEI. */
+    public static final TagKey<Potion> HIDDEN_FLUID = TagKey.create(Registries.POTION, getResource("hide_in_fluid"));
   }
 }

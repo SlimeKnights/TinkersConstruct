@@ -264,8 +264,14 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
   }
 
   /** Creates context for modifier parsing */
+  public static TypedMapBuilder contextBuilder(ResourceLocation modifier) {
+    return TypedMapBuilder.builder().put(ContextKey.ID, modifier).put(ContextKey.DEBUG, "Modifier " + modifier);
+  }
+
+  /** @deprecated use {@link #contextBuilder(ResourceLocation)} */
+  @Deprecated(forRemoval = true)
   public static TypedMap createContext(ResourceLocation modifier) {
-    return TypedMapBuilder.builder().put(ContextKey.ID, modifier).put(ContextKey.DEBUG, "Modifier " + modifier).build();
+    return contextBuilder(modifier).build();
   }
 
   /** Loads a modifier from JSON */
@@ -293,7 +299,7 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
       }
 
       // fallback to actual modifier
-      Modifier modifier = ComposableModifier.LOADER.deserialize(json, createContext(key));
+      Modifier modifier = ComposableModifier.LOADER.deserialize(json, contextBuilder(key).put(ContextKey.CONDITION_CONTEXT, conditionContext).build());
       modifier.setId(new ModifierId(key));
       return modifier;
     } catch (JsonSyntaxException e) {

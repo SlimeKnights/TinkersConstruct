@@ -22,6 +22,7 @@ import static slimeknights.tconstruct.common.TinkerTags.Modifiers.CHESTPLATE_UPG
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.COSMETIC_SLOTLESS;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.DAMAGE_UPGRADES;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.DEFENSE;
+import static slimeknights.tconstruct.common.TinkerTags.Modifiers.DRILL_ATTACKS;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.DUAL_INTERACTION;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.EXTRACT_MODIFIER_BLACKLIST;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.EXTRACT_SLOTLESS_BLACKLIST;
@@ -46,6 +47,7 @@ import static slimeknights.tconstruct.common.TinkerTags.Modifiers.OVERSLIME_FRIE
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.PROTECTION_DEFENSE;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.RANGED_ABILITIES;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.RANGED_UPGRADES;
+import static slimeknights.tconstruct.common.TinkerTags.Modifiers.REMOVE_MODIFIER_BLACKLIST;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.SHIELD_ABILITIES;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.SLIME_DEFENSE;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.SLOTLESS;
@@ -65,11 +67,11 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
       TinkerModifiers.creativeSlot.getId(), TinkerModifiers.statOverride.getId(),
       ModifierIds.shiny, TinkerModifiers.golden.getId()
     );
+    tag(REMOVE_MODIFIER_BLACKLIST).add(TinkerModifiers.creativeSlot.getId(), TinkerModifiers.statOverride.getId());
     tag(EXTRACT_MODIFIER_BLACKLIST).add(
       TinkerModifiers.embellishment.getId(), TinkerModifiers.dyed.getId(), TinkerModifiers.trim.getId(),
-      TinkerModifiers.creativeSlot.getId(), TinkerModifiers.statOverride.getId(),
-      ModifierIds.rebalanced
-    );
+      ModifierIds.rebalanced, ModifierIds.redirected
+    ).addTag(REMOVE_MODIFIER_BLACKLIST);
     // blacklist modifiers that are not really slotless, they just have a slotless recipe
     tag(EXTRACT_SLOTLESS_BLACKLIST).add(ModifierIds.luck, ModifierIds.toolBelt);
     tag(EXTRACT_UPGRADE_BLACKLIST);
@@ -98,6 +100,7 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
     tag(AOE_INTERACTION).add(ModifierIds.pathing, ModifierIds.stripping, ModifierIds.tilling, ModifierIds.brushing, TinkerModifiers.splashing.getId(), TinkerModifiers.harvest.getId());
     tag(CHARGE_EMPTY_BOW_WITH_DRAWTIME).add(TinkerModifiers.flinging.getId(), TinkerModifiers.springing.getId(), TinkerModifiers.bonking.getId(), TinkerModifiers.warping.getId(), ModifierIds.throwing);
     tag(CHARGE_EMPTY_BOW_WITHOUT_DRAWTIME).add(TinkerModifiers.blocking.getId(), ModifierIds.scope, ModifierIds.zoom);
+    tag(DRILL_ATTACKS).add(TinkerModifiers.flinging.getId(), TinkerModifiers.springing.getId(), ModifierIds.grapple);
 
     // book tags
     this.tag(UPGRADES).addTag(GENERAL_UPGRADES, MELEE_UPGRADES, DAMAGE_UPGRADES, HARVEST_UPGRADES, ARMOR_UPGRADES, RANGED_UPGRADES);
@@ -158,7 +161,7 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
       ModifierIds.pathing, ModifierIds.stripping, ModifierIds.tilling, ModifierIds.brushing,
       TinkerModifiers.spitting.getId(), TinkerModifiers.splashing.getId(), TinkerModifiers.slurping.getId(),
       TinkerModifiers.bonking.getId(), TinkerModifiers.flinging.getId(), TinkerModifiers.springing.getId(), TinkerModifiers.warping.getId(),
-      ModifierIds.throwing);
+      ModifierIds.throwing, ModifierIds.drillAttack);
     // armor
     this.tag(GENERAL_ARMOR_ABILITIES).add(ModifierIds.protection, TinkerModifiers.bursting.getId(), TinkerModifiers.wetting.getId());
     this.tag(HELMET_ABILITIES).add(ModifierIds.aquaAffinity, TinkerModifiers.slurping.getId());
@@ -182,7 +185,7 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
       ModifierIds.offhanded, ModifierIds.workbench,
       ModifierIds.blindshot, ModifierIds.barebow);
     this.tag(BONUS_SLOTLESS).add(
-      ModifierIds.draconic, ModifierIds.rebalanced,
+      ModifierIds.draconic, ModifierIds.rebalanced, ModifierIds.redirected,
       ModifierIds.harmonious, ModifierIds.recapitated, ModifierIds.forecast, ModifierIds.writable)
       .addOptional(ModifierIds.embossed);
     this.tag(COSMETIC_SLOTLESS).add(

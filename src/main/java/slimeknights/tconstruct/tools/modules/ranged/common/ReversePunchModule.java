@@ -7,7 +7,6 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.tconstruct.library.json.LevelingValue;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
@@ -27,7 +26,7 @@ public record ReversePunchModule(LevelingValue amount) implements ModifierModule
   public static final RecordLoadable<ReversePunchModule> LOADER = RecordLoadable.create(LevelingValue.LOADABLE.directField(ReversePunchModule::amount), ReversePunchModule::new);
 
   @Override
-  public RecordLoadable<? extends IHaveLoader> getLoader() {
+  public RecordLoadable<ReversePunchModule> getLoader() {
     return LOADER;
   }
 

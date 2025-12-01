@@ -22,7 +22,6 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
 
     // tier 1
     buildRenderInfo(MaterialIds.flint).color(0x3D3C3C).fallbacks("crystal", "rock", "stick");
-    buildRenderInfo(MaterialIds.basalt);
     buildRenderInfo(MaterialIds.bone).color(0xE8E5D2).fallbacks("bone", "rock");
     buildRenderInfo(MaterialIds.chorus);
     buildRenderInfo(MaterialIds.string).color(0xFFFFFF);
@@ -41,11 +40,13 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     // tier 1 - stone
     redirect(MaterialIds.rock, MaterialIds.stone);
     buildRenderInfo(MaterialIds.stone).color(0xB1AFAD);
-    buildRenderInfo(MaterialIds.andesite);
     buildRenderInfo(MaterialIds.diorite);
     buildRenderInfo(MaterialIds.granite);
-    buildRenderInfo(MaterialIds.deepslate);
     buildRenderInfo(MaterialIds.blackstone);
+    buildRenderInfo(MaterialIds.basalt);
+    redirect(MaterialIds.andesite, MaterialIds.stone);
+    redirect(MaterialIds.calcite, MaterialIds.diorite);
+    redirect(MaterialIds.deepslate, MaterialIds.basalt);
     // tier 1 - wool
     MaterialVariantId whiteWool = MaterialVariantId.create(MaterialIds.wool, DyeColor.WHITE.getName());
     redirect(MaterialIds.wool, whiteWool);
@@ -144,6 +145,7 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.ichor).luminosity(10);
     buildRenderInfo(MaterialIds.magma).luminosity(5);
     buildRenderInfo(MaterialIds.glowstone).luminosity(15);
+    buildRenderInfo(MaterialIds.gunpowder);
     buildRenderInfo(MaterialIds.dragonScale);
     buildRenderInfo(MaterialIds.endRod);
     redirect(MaterialIds.magnetite, MaterialIds.steel);

@@ -6,5 +6,6 @@
   "slotColor": 0x4FB4E1,
   "drawSectionListText": true,
   "largePageTitles": false,
-  "centerPageTitles": false
+  "centerPageTitles": false,
+  "drawFourColumnIndex": true
 }

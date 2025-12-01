@@ -18,6 +18,7 @@ public class ModifierIds {
   public static final ModifierId resurrected = id("resurrected");
   public static final ModifierId embossed    = id("embossed");
   public static final ModifierId rebalanced  = id("rebalanced");
+  public static final ModifierId redirected  = id("redirected");
   public static final ModifierId gilded      = id("gilded");
   public static final ModifierId draconic    = id("draconic");
 
@@ -45,6 +46,7 @@ public class ModifierIds {
   public static final ModifierId fins = id("fins");
   public static final ModifierId finsAmmo = id("fins_ammo");
   public static final ModifierId channeling = id("channeling");
+  public static final ModifierId drillAttack = id("drill_attack");
   // general abilities
   public static final ModifierId reach = id("reach");
   public static final ModifierId glowing = id("glowing");
@@ -214,6 +216,7 @@ public class ModifierIds {
   public static final ModifierId rebound = id("rebound");
   public static final ModifierId ductile = id("ductile");
   public static final ModifierId attractive = id("attractive");
+  public static final ModifierId explosive = id("explosive");
   // traits - tier 3 compat
   public static final ModifierId maintained = id("maintained");
   public static final ModifierId temperate = id("temperate");

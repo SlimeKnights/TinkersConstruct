@@ -23,7 +23,6 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.common.ForgeMod;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.loadable.record.SingletonLoader;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.AreaOfEffectHighlightModifierHook;
@@ -50,7 +49,7 @@ public enum BrushModule implements ModifierModule, GeneralInteractionModifierHoo
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<BrushModule>defaultHooks(ModifierHooks.GENERAL_INTERACT, ModifierHooks.BLOCK_INTERACT, ModifierHooks.AOE_HIGHLIGHT);
 
   @Override
-  public RecordLoadable<? extends IHaveLoader> getLoader() {
+  public RecordLoadable<BrushModule> getLoader() {
     return LOADER;
   }
 

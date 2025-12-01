@@ -10,14 +10,7 @@
     "name": "gadgets",
     "data": "sections/gadgets.json",
     "icon": {
-      "item": "tconstruct:flint_shuriken"
-    }
-  },
-  {
-    "name": "exploration",
-    "data": "sections/exploration.json",
-    "icon": {
-      "item": "tconstruct:sky_slime_sapling"
+      "item": "tconstruct:piggy_backpack"
     }
   },
   {
@@ -27,6 +20,61 @@
     },
     "data": "no-load",
     "extraData": { "tconstruct:load_tools": { "tag": "tconstruct:modifiable/special", "path": "staffs", "sort": false }}
+  },
+  {
+    "name": "exploration",
+    "data": "sections/exploration.json",
+    "icon": {
+      "item": "tconstruct:sky_slime_sapling"
+    }
+  },
+  {
+    "name": "melee_harvest_materials",
+    "data": "no-load",
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:melee_harvest", "tag": "tconstruct:book/distant" } },
+    "icon": {
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:broad_blade",
+        "nbt": { "Material": "tconstruct:knightmetal" }
+      }
+    }
+  },
+  {
+    "name": "ranged_materials",
+    "data": "no-load",
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:ranged", "tag": "tconstruct:book/distant" } },
+    "icon": {
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:bowstring",
+        "nbt": { "Material": "tconstruct:enderslime_vine" }
+      }
+    }
+  },
+  {
+    "name": "armor_materials",
+    "data": "no-load",
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:armor", "tag": "tconstruct:book/distant" } },
+    "icon": {
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:maille",
+        "nbt": { "Material": "tconstruct:dragon_scale" }
+      }
+    }
+  },
+  {
+    "name": "ammo_materials",
+    "data": "no-load",
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:ammo", "predicate": { "type":  "mantle:inverted", "inverted_type": "mantle:tag", "tag": "tconstruct:book/basic_ammo" }}},
+    "icon": {
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:arrow_head",
+        "nbt": { "Material": "tconstruct:shulker" }
+      }
+    }
   },
   {
     "name": "ancient_tools",

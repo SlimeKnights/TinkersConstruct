@@ -27,10 +27,13 @@ import java.util.function.BinaryOperator;
 
 /** Represents an effect applied by a fluid to an entity or block */
 public interface FluidEffect<C extends FluidEffectContext> extends IHaveLoader, UnloadableFluidEffect<C> {
+  /** Effect that does nothing, useful for conditionals. */
+  FluidEffect<FluidEffectContext> EMPTY = simple(((fluid, scale, context, action) -> 0));
+
   /** Registry for fluid effect loaders */
-  GenericLoaderRegistry<FluidEffect<? super FluidEffectContext.Block>> BLOCK_EFFECTS = new GenericLoaderRegistry<>("Fluid block effect", false);
+  GenericLoaderRegistry<FluidEffect<? super FluidEffectContext.Block>> BLOCK_EFFECTS = new GenericLoaderRegistry<>("Fluid block effect", EMPTY, false);
   /** Registry for fluid effect loaders */
-  GenericLoaderRegistry<FluidEffect<? super FluidEffectContext.Entity>> ENTITY_EFFECTS = new GenericLoaderRegistry<>("Fluid entity effect", false);
+  GenericLoaderRegistry<FluidEffect<? super FluidEffectContext.Entity>> ENTITY_EFFECTS = new GenericLoaderRegistry<>("Fluid entity effect", EMPTY, false);
 
   /** Registers an effect to both blocks and entities */
   static void registerGeneral(ResourceLocation id, RecordLoadable<? extends FluidEffect<FluidEffectContext>> loader) {
@@ -49,8 +52,6 @@ public interface FluidEffect<C extends FluidEffectContext> extends IHaveLoader, 
 
   /* Singletons */
 
-  /** Effect that does nothing */
-  FluidEffect<FluidEffectContext> EMPTY = simple(((fluid, scale, context, action) -> 0));
 
   /** Effect which extinguishes fire from the entity */
   FluidEffect<FluidEffectContext.Entity> EXTINGUISH_FIRE = simple((fluid, level, context, action) -> {

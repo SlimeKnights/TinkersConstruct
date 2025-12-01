@@ -7,6 +7,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.mojang.blaze3d.platform.NativeImage;
 import lombok.extern.log4j.Log4j2;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -59,6 +60,7 @@ import java.util.stream.Collectors;
 @Log4j2
 public class ClientGeneratePartTexturesCommand {
   private static final String SUCCESS_KEY = TConstruct.makeTranslationKey("command", "generate_part_textures.finish");
+  private static final String FAILURE_KEY = TConstruct.makeTranslationKey("command", "generate_part_textures.failure");
   private static final Component NO_PARTS = TConstruct.makeTranslation("command", "generate_part_textures.no_parts");
   private static final Component NO_MATERIALS = TConstruct.makeTranslation("command", "generate_part_textures.no_materials");
   /** Path to add the data */
@@ -75,87 +77,95 @@ public class ClientGeneratePartTexturesCommand {
   /** Generates all textures using the resource pack list */
   public static void generateTextures(Operation operation, String modId, String materialPath) {
     long time = System.nanoTime();
-    ResourceManager manager = Minecraft.getInstance().getResourceManager();
-    // the forge mod bus is annoying, but stuck using it due to the normal bus not existing at datagen time
-    MaterialPartTextureGenerator.runCallbacks(null, manager);
+    try {
+      ResourceManager manager = Minecraft.getInstance().getResourceManager();
+      // the forge mod bus is annoying, but stuck using it due to the normal bus not existing at datagen time
+      MaterialPartTextureGenerator.runCallbacks(null, manager);
 
-    Player player = Minecraft.getInstance().player;
+      Player player = Minecraft.getInstance().player;
 
-    // get the list of sprites
-    GeneratorConfiguration generatorConfig = loadGeneratorConfig(manager);
-    if (generatorConfig.sprites.isEmpty()) {
-      if (player != null) {
-        player.displayClientMessage(NO_PARTS, false);
+      // get the list of sprites
+      GeneratorConfiguration generatorConfig = loadGeneratorConfig(manager);
+      if (generatorConfig.sprites.isEmpty()) {
+        if (player != null) {
+          player.displayClientMessage(NO_PARTS, false);
+        }
+        return;
       }
-      return;
-    }
 
-    // Predicate to check if a material ID is valid
-    // TODO: variant filter?
-    Predicate<MaterialVariantId> validMaterialId = loc -> (modId.isEmpty() || modId.equals(loc.getId().getNamespace())) && (materialPath.isEmpty() || materialPath.equals(loc.getId().getPath()));
+      // Predicate to check if a material ID is valid
+      // TODO: variant filter?
+      Predicate<MaterialVariantId> validMaterialId = loc -> (modId.isEmpty() || modId.equals(loc.getId().getNamespace())) && (materialPath.isEmpty() || materialPath.equals(loc.getId().getPath()));
 
-    // get all materials, filtered by the given parameters
-    List<MaterialSpriteInfo> materialSprites = loadMaterialRenderInfoGenerators(manager, validMaterialId);
-    if (materialSprites.isEmpty()) {
-      if (player != null) {
-        player.displayClientMessage(NO_MATERIALS, false);
+      // get all materials, filtered by the given parameters
+      List<MaterialSpriteInfo> materialSprites = loadMaterialRenderInfoGenerators(manager, validMaterialId);
+      if (materialSprites.isEmpty()) {
+        if (player != null) {
+          player.displayClientMessage(NO_MATERIALS, false);
+        }
+        return;
       }
-      return;
-    }
 
-    // prepare the output directory
-    Path path = Minecraft.getInstance().getResourcePackDirectory().resolve(PACK_NAME);
-    BiConsumer<ResourceLocation,NativeImage> saver = (outputPath, image) -> saveImage(path, outputPath, image);
-    BiConsumer<ResourceLocation,JsonObject> metaSaver = (outputPath, image) -> saveMetadata(path, outputPath, image);
+      // prepare the output directory
+      Path path = Minecraft.getInstance().getResourcePackDirectory().resolve(PACK_NAME);
+      BiConsumer<ResourceLocation, NativeImage> saver = (outputPath, image) -> saveImage(path, outputPath, image);
+      BiConsumer<ResourceLocation, JsonObject> metaSaver = (outputPath, image) -> saveMetadata(path, outputPath, image);
 
-    // create a pack.mcmeta so its a valid resource pack
-    GeneratePackHelper.saveMcmeta(path, PackType.CLIENT_RESOURCES, "Generated Resources from the Tinkers' Construct Part Texture Generator");
+      // create a pack.mcmeta so its a valid resource pack
+      GeneratePackHelper.saveMcmeta(path, PackType.CLIENT_RESOURCES, "Generated Resources from the Tinkers' Construct Part Texture Generator");
 
-    // predicate for whether we should generate the texture
-    AbstractSpriteReader spriteReader = new ResourceManagerSpriteReader(manager, MaterialPartTextureGenerator.FOLDER);
-    MutableInt generated = new MutableInt(0); // keep track of how many generated
-    Predicate<ResourceLocation> shouldGenerate;
-    if (operation == Operation.ALL) {
-      shouldGenerate = exists -> {
-        generated.add(1);
-        return true;
-      };
-    } else {
-      shouldGenerate = loc -> {
-        if (!spriteReader.exists(loc)) {
+      // predicate for whether we should generate the texture
+      AbstractSpriteReader spriteReader = new ResourceManagerSpriteReader(manager, MaterialPartTextureGenerator.FOLDER);
+      MutableInt generated = new MutableInt(0); // keep track of how many generated
+      Predicate<ResourceLocation> shouldGenerate;
+      if (operation == Operation.ALL) {
+        shouldGenerate = exists -> {
           generated.add(1);
           return true;
-        }
-        return false;
-      };
-    }
+        };
+      } else {
+        shouldGenerate = loc -> {
+          if (!spriteReader.exists(loc)) {
+            generated.add(1);
+            return true;
+          }
+          return false;
+        };
+      }
 
-    // at this point in time we have all our materials, time to generate our sprites
-    for (MaterialSpriteInfo material : materialSprites) {
-      for (PartSpriteInfo part : generatorConfig.sprites) {
-        // if the part skips variants and the material is a variant, skip
-        if (!material.isVariant() || !part.isSkipVariants()) {
-          for (MaterialStatsId statType : part.getStatTypes()) {
-            if (material.supportStatType(statType) || generatorConfig.statOverrides.hasOverride(statType, material.getTexture())) {
-              ResourceLocation spritePath = MaterialPartTextureGenerator.outputPath(part, material);
-              if (shouldGenerate.test(spritePath)) {
-                MaterialPartTextureGenerator.generateSprite(spriteReader, material, part, spritePath, saver, metaSaver);
+      // at this point in time we have all our materials, time to generate our sprites
+      for (MaterialSpriteInfo material : materialSprites) {
+        for (PartSpriteInfo part : generatorConfig.sprites) {
+          // if the part skips variants and the material is a variant, skip
+          if (!material.isVariant() || !part.isSkipVariants()) {
+            for (MaterialStatsId statType : part.getStatTypes()) {
+              if (material.supportStatType(statType) || generatorConfig.statOverrides.hasOverride(statType, material.getTexture())) {
+                ResourceLocation spritePath = MaterialPartTextureGenerator.outputPath(part, material);
+                if (shouldGenerate.test(spritePath)) {
+                  MaterialPartTextureGenerator.generateSprite(spriteReader, material, part, spritePath, saver, metaSaver);
+                }
+                break;
               }
-              break;
             }
           }
         }
       }
-    }
-    spriteReader.closeAll();
+      spriteReader.closeAll();
 
-    // success message
-    long deltaTime = System.nanoTime() - time;
-    int count = generated.getValue();
-    MaterialPartTextureGenerator.runCallbacks(null, null);
-    log.info("Finished generating {} textures in {} ms", count, deltaTime / 1000000f);
-    if (Minecraft.getInstance().player != null) {
-      Minecraft.getInstance().player.displayClientMessage(Component.translatable(SUCCESS_KEY, count, (deltaTime / 1000000) / 1000f, GeneratePackHelper.getOutputComponent(path.toFile())), false);
+      // success message
+      long deltaTime = System.nanoTime() - time;
+      int count = generated.getValue();
+      MaterialPartTextureGenerator.runCallbacks(null, null);
+      log.info("Finished generating {} textures in {} ms", count, deltaTime / 1000000f);
+      if (Minecraft.getInstance().player != null) {
+        Minecraft.getInstance().player.displayClientMessage(Component.translatable(SUCCESS_KEY, count, (deltaTime / 1000000) / 1000f, GeneratePackHelper.getOutputComponent(path.toFile())), false);
+      }
+    } catch (Exception e) {
+      long deltaTime = System.nanoTime() - time;
+      log.error("Failed to generate part textures after {} ms", deltaTime / 1000000f, e);
+      if (Minecraft.getInstance().player != null) {
+        Minecraft.getInstance().player.displayClientMessage(Component.translatable(FAILURE_KEY, (deltaTime / 1000000) / 1000f, e.getMessage()).withStyle(ChatFormatting.RED), false);
+      }
     }
   }
 
@@ -190,6 +200,7 @@ public class ClientGeneratePartTexturesCommand {
   private record GeneratorConfiguration(Collection<PartSpriteInfo> sprites, StatOverride statOverrides) {}
 
   /** Loads all part sprites file */
+  @SuppressWarnings("removal")
   private static GeneratorConfiguration loadGeneratorConfig(ResourceManager manager) {
     Map<ResourceLocation,PartSpriteInfo> builder = new HashMap<>();
     StatOverride.Builder stats = new StatOverride.Builder();
@@ -243,7 +254,7 @@ public class ClientGeneratePartTexturesCommand {
               break;
             }
           } catch (Exception ex) {
-            log.error("Failed to load modifier models from {} for pack {}", location, resource.sourcePackId(), ex);
+            log.error("Failed to load generator config from {} for pack {}", location, resource.sourcePackId(), ex);
           }
         }
       }
@@ -296,13 +307,11 @@ public class ClientGeneratePartTexturesCommand {
             MaterialSpriteInfo info = RegistryDataMapLoader.parseData("Material Generator Info", jsons, location, json, null, SPRITE_LOADER, context);
             MaterialSpriteInfo oldInfo = builder.putIfAbsent(info.getTexture(), info);
             if (oldInfo != null) {
-              TConstruct.LOG.error("Received multiple generators for texture " + info.getTexture() + ": " + oldInfo.getTransformer() + ", " + info.getTransformer());
+              TConstruct.LOG.error("Received multiple generators for texture {}: {}, {}", info.getTexture(), oldInfo.getTransformer(), info.getTransformer());
             }
           }
         } catch (JsonSyntaxException e) {
           log.error("Failed to read tool part texture generator info for {}", id, e);
-        } catch (Exception e) {
-          // NO-OP, that is a resource pack bug, not our job
         }
       }
     }

@@ -105,10 +105,6 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .meleeHarvest()
       .fallbacks("rock")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF181818).addARGB(102, 0xFF494949).addARGB(140, 0xFF5A5A5A).addARGB(178, 0xFF787777).addARGB(216, 0xFF95918D).addARGB(255, 0xFFB3B1AF).build());
-    buildMaterial(MaterialIds.andesite)
-      .meleeHarvest()
-      .fallbacks("rock").variant()
-      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF181818).addARGB(102, 0xFF494949).addARGB(140, 0xFF686868).addARGB(178, 0xFF8A8A8E).addARGB(216, 0xFF9C9C9C).addARGB(255, 0xFFA8AA9A).build());
     buildMaterial(MaterialIds.diorite)
       .meleeHarvest()
       .fallbacks("rock").variant()
@@ -117,10 +113,6 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .meleeHarvest()
       .fallbacks("rock").variant()
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF3F2C24).addARGB(102, 0xFF54382E).addARGB(140, 0xFF724C3F).addARGB(178, 0xFF926251).addARGB(216, 0xFFA97764).addARGB(255, 0xFFD3B3A5).build());
-    buildMaterial(MaterialIds.deepslate)
-      .meleeHarvest()
-      .fallbacks("rock").variant()
-      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF131316).addARGB(102, 0xFF2F2F37).addARGB(140, 0xFF3D3D43).addARGB(178, 0xFF515151).addARGB(216, 0xFF646464).addARGB(255, 0xFF797979).build());
     buildMaterial(MaterialIds.blackstone)
       .meleeHarvest()
       .fallbacks("rock").variant()
@@ -173,7 +165,7 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF717275).addARGB(102, 0xFF7F8084).addARGB(140, 0xFF989A9E).addARGB(178, 0xFFA0A1A1).addARGB(216, 0xFFB4B9BE).addARGB(255, 0xFFCFD2D4).build());
     buildMaterial(MaterialIds.scorchedStone)
       .meleeHarvest().armor()
-      .fallbacks("rock")
+      .fallbacks("crystal", "rock", "stick") // match flint rather than stone
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF241D19).addARGB(102, 0xFF2D231D).addARGB(140, 0xFF3E3029).addARGB(178, 0xFF483A32).addARGB(216, 0xFF53453C).addARGB(255, 0xFF66554A).build());
     buildMaterial(MaterialIds.aluminum)
       .ranged().armor()
@@ -201,6 +193,9 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .arrowHead()
       .fallbacks("crystal", "rock")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF5A391C).addARGB(102, 0xFF7E4821).addARGB(140, 0xFFB47140).addARGB(178, 0xFFEBAA4E).addARGB(216, 0xFFFFBC5E).addARGB(255, 0xFFF9D49C).build());
+    buildMaterial(MaterialIds.gunpowder)
+      .arrowHead()
+      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF2D2D2D).addARGB(102, 0xFF3E3E3E).addARGB(140, 0xFF494949).addARGB(178, 0xFF545454).addARGB(216, 0xFF727272).addARGB(255, 0xFF8A8A8A).build());
     // tier 2 - slimewood
     IColorMapping greenSlime = GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF229630).addARGB(102, 0xFF24A033).addARGB(140, 0xFF27AB37).addARGB(178, 0xFF3EBD42).addARGB(216, 0xFF56CF4C).addARGB(234, 0xFF6FEA60).addARGB(255, 0xFF82F86D).build();
     buildPlanks(MaterialIds.greenheart).arrowShaft()

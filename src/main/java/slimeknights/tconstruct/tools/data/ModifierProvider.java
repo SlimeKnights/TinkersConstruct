@@ -20,6 +20,7 @@ import net.minecraft.world.item.Tiers;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.Explosion.BlockInteraction;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LevelEvent;
@@ -120,6 +121,7 @@ import slimeknights.tconstruct.library.modifiers.modules.combat.KnockbackModule;
 import slimeknights.tconstruct.library.modifiers.modules.combat.LootingModule;
 import slimeknights.tconstruct.library.modifiers.modules.combat.MeleeAttributeModule;
 import slimeknights.tconstruct.library.modifiers.modules.combat.MobEffectModule;
+import slimeknights.tconstruct.library.modifiers.modules.combat.ProjectileExplosionModule;
 import slimeknights.tconstruct.library.modifiers.modules.display.DurabilityBarColorModule;
 import slimeknights.tconstruct.library.modifiers.modules.display.MaterialVariantColorModule;
 import slimeknights.tconstruct.library.modifiers.modules.display.ModifierVariantColorModule;
@@ -243,6 +245,9 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(new SwappableSlotModule.BonusSlot(null, SlotType.ABILITY, SlotType.UPGRADE, -1, ModifierCondition.ANY_CONTEXT.with(ancientTool.inverted())))
       .addModule(new SwappableSlotModule.BonusSlot(null, SlotType.ABILITY, SlotType.ABILITY, -1, ModifierCondition.ANY_CONTEXT.with(ancientTool)))
       .addModule(new SwappableToolTraitsModule(null, "traits", ToolHooks.REBALANCED_TRAIT));
+    buildModifier(ModifierIds.redirected)
+      .tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.NO_LEVELS)
+      .addModule(new SwappableToolTraitsModule(null, "", ToolHooks.REBALANCED_TRAIT));
     // resurrected replaced with forecast
     buildModifier(ModifierIds.resurrected)
       .tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(UPGRADE)
@@ -310,7 +315,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(ShowOffhandModule.DISALLOW_BROKEN)
       .addModule(new PlaceGlowModule(5))
       .addModule(new GlowWalkerModule(new LevelingValue(2, 1), 3, 5))
-      .addModule(ProjectilePlaceGlowModule.ANY);
+      .addModule(new ProjectilePlaceGlowModule(5, true, true));
     buildModifier(TinkerModifiers.melting)
       .levelDisplay(ModifierLevelDisplay.PLUSES)
       .addModule(ToolTankHelper.TANK_HANDLER)
@@ -671,7 +676,9 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.fins)
       .levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
       .addModule(StatBoostModule.add(ToolStats.WATER_INERTIA).flat(0.5f))
-      .addModule(ConditionalPowerModule.builder().target(LivingEntityPredicate.UNDERWATER).eachLevel(1));
+      .addModule(ConditionalPowerModule.builder().target(LivingEntityPredicate.UNDERWATER).eachLevel(1))
+      // make explosive use EFLN style, it works underwater!
+      .addModule(new VolatileFlagModule(ProjectileExplosionModule.EFLN), ModifierHooks.PROJECTILE_LAUNCH, ModifierHooks.PROJECTILE_SHOT);
     // fins on prismarine arrow heads should only apply to arrows
     buildModifier(ModifierIds.finsAmmo).tooltipDisplay(TooltipDisplay.NEVER).addModule(ModifierTraitModule.tagCondition(ModifierIds.fins, TinkerTags.Items.AMMO));
 
@@ -688,6 +695,10 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
       .addModule(new ToolActionsModule(TinkerToolActions.ITEM_HOOK))
       .addModule(ModifierRequirementsModule.builder().requireModifier(ModifierIds.fishing, 1).modifierKey(ModifierIds.collecting).build());
+    buildModifier(ModifierIds.drillAttack)
+      .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
+      .addModule(new ToolActionsModule(TinkerToolActions.DRILL_ATTACK))
+      .addModule(ModifierRequirementsModule.builder().requireModifier(TinkerTags.Modifiers.DRILL_ATTACKS, 1).modifierKey(ModifierIds.drillAttack).build());
 
     // traits
     buildModifier(ModifierIds.smelting)
@@ -956,9 +967,12 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.crystalstrike)
       .addModule(AttributeModule.builder(Attributes.ATTACK_SPEED, Operation.MULTIPLY_TOTAL).eachLevel(0.025f))
       .addModule(new ArmorLevelModule(TinkerDataKeys.CRYSTALSTRIKE, false, TinkerTags.Items.HELD_ARMOR));
-    buildModifier(ModifierIds.spectral).priority(60) // after bounce, before enderference
+    buildModifier(ModifierIds.spectral).priority(60) // after explosive, before enderference
       .addModule(MobEffectModule.builder(MobEffects.GLOWING).chance(LevelingValue.flat(1)).time(RandomLevelingValue.perLevel(0, 200)).build())
-      .addModule(ProjectilePlaceGlowModule.BLOCKS);
+      // damage is for fishing rods
+      .addModule(new ProjectilePlaceGlowModule(5, true, false));
+    buildModifier(ModifierIds.explosive).priority(75) // after bounce, before spectral
+      .addModule(ProjectileExplosionModule.radius(1, 1).eflnBonus(0.5f).blockInteraction(BlockInteraction.DESTROY).build());
     // traits - tier 3 nether
     buildModifier(ModifierIds.lightweight)
       .addModule(StatBoostModule.multiplyBase(ToolStats.ATTACK_SPEED).eachLevel(0.07f))

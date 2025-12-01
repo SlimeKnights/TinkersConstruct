@@ -35,7 +35,7 @@ public class SwappableToolTraitsModule implements ModifierModule, ModifierTraitH
   @SuppressWarnings("unchecked")
   public static final RecordLoadable<SwappableToolTraitsModule> LOADER = RecordLoadable.create(
     ModuleWithKey.FIELD,
-    StringLoadable.DEFAULT.requiredField("match", m -> m.match),
+    StringLoadable.DEFAULT.defaultField("match", "", false, m -> m.match),
     ToolHooks.LOADER.comapFlatMap((hook, error) -> {
       if (!hook.supportsHook(ToolTraitHook.class)) {
         throw error.create("Hook " + hook.getId() + " is not valid for ToolTraitHook");
@@ -55,6 +55,7 @@ public class SwappableToolTraitsModule implements ModifierModule, ModifierTraitH
     this.key = key;
     this.match = match;
     this.hook = hook;
+    // TODO: this shouldn't hardcode to modifier slot types
     this.component = Component.translatable(SlotType.KEY_DISPLAY + match);
   }
 
@@ -70,7 +71,7 @@ public class SwappableToolTraitsModule implements ModifierModule, ModifierTraitH
 
   @Override
   public Component getDisplayName(IToolStackView tool, ModifierEntry entry, Component name, @Nullable RegistryAccess access) {
-    if (match.equals(tool.getPersistentData().getString(getKey(entry.getModifier())))) {
+    if (!match.isEmpty() && match.equals(tool.getPersistentData().getString(getKey(entry.getModifier())))) {
       return Component.translatable(FORMAT, name.plainCopy(), component).withStyle(name.getStyle());
     }
     return name;
@@ -79,7 +80,7 @@ public class SwappableToolTraitsModule implements ModifierModule, ModifierTraitH
 
   @Override
   public void addTraits(IToolContext context, ModifierEntry modifier, TraitBuilder builder, boolean firstEncounter) {
-    if (match.equals(context.getPersistentData().getString(getKey(modifier.getModifier())))) {
+    if (match.isEmpty() || match.equals(context.getPersistentData().getString(getKey(modifier.getModifier())))) {
       ToolDefinition definition = context.getDefinition();
       definition.getHook(hook).addTraits(definition, context.getMaterials(), builder);
     }
@@ -88,7 +89,9 @@ public class SwappableToolTraitsModule implements ModifierModule, ModifierTraitH
   @Nullable
   @Override
   public Component onRemoved(IToolStackView tool, Modifier modifier) {
-    tool.getPersistentData().remove(getKey(modifier));
+    if (!match.isEmpty()) {
+      tool.getPersistentData().remove(getKey(modifier));
+    }
     return null;
   }
 }

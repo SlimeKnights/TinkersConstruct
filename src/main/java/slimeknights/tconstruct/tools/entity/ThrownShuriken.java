@@ -200,7 +200,7 @@ public class ThrownShuriken extends Projectile implements ToolProjectile, Projec
 
     // check if any tasks are ready
     if (!tasks.isEmpty() && !stack.isEmpty()) {
-      ScheduledProjectileTaskModifierHook.checkSchedule(getTool(), stack, this, null, PersistentDataCapability.getOrWarn(this), tasks);
+      ScheduledProjectileTaskModifierHook.checkSchedule(getTool(), stack, this, null, tasks);
     }
   }
 

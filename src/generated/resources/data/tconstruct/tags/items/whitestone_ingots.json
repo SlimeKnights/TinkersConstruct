@@ -1,0 +1,28 @@
+{
+  "values": [
+    {
+      "id": "#forge:ingots/aluminum",
+      "required": false
+    },
+    {
+      "id": "#forge:ingots/tin",
+      "required": false
+    },
+    {
+      "id": "#forge:ingots/zinc",
+      "required": false
+    },
+    {
+      "id": "#forge:ingots/nickel",
+      "required": false
+    },
+    {
+      "id": "#forge:ingots/chromium",
+      "required": false
+    },
+    {
+      "id": "#forge:ingots/cadmium",
+      "required": false
+    }
+  ]
+}

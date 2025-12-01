@@ -4,6 +4,10 @@
     {
       "id": "tools_complement:gold_knife",
       "required": false
+    },
+    {
+      "id": "farmers_delight:golden_knife",
+      "required": false
     }
   ]
 }

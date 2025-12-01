@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 /** Helper to generate tags for cost variants of items, typically used for melting */
+@SuppressWarnings("removal")
 @RequiredArgsConstructor
 @CanIgnoreReturnValue
 public class CostTagAppender {
@@ -149,6 +150,11 @@ public class CostTagAppender {
   /** Creates a tag for the paxel and leggings. We currently have no paxels withot leggings, and leggings can be used directly without paxels */
   public CostTagAppender leggingsPaxel() {
     return armorTag(7, "leggings").toolTag(7, "paxels");
+  }
+
+  /** Adds the farmers delight knife to the tag. */
+  public CostTagAppender fdKnife() {
+    return optionalMetal(1, "farmersdelight", "knife");
   }
 
   /** Adds a railcraft crowbar */

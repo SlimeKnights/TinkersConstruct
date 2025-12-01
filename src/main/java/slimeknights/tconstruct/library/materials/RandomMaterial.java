@@ -2,14 +2,17 @@ package slimeknights.tconstruct.library.materials;
 
 import com.google.gson.JsonObject;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.util.RandomSource;
+import net.minecraftforge.common.crafting.conditions.ICondition;
 import slimeknights.mantle.data.loadable.LegacyLoadable;
 import slimeknights.mantle.data.loadable.field.ContextKey;
+import slimeknights.mantle.data.loadable.mapping.ConditionalLoadable.ConditionalObject;
 import slimeknights.mantle.data.loadable.primitive.BooleanLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.loadable.record.SingletonLoader;
@@ -28,6 +31,7 @@ import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipeCache;
 import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
+import slimeknights.tconstruct.library.utils.Util;
 
 import java.util.List;
 import java.util.Map;
@@ -79,6 +83,12 @@ public abstract class RandomMaterial implements IHaveLoader {
   public static RandomMaterial ancient() {
     return Randomized.ANCIENT;
   }
+
+  /** Creates a new conditional random material for datagen. */
+  public static RandomMaterial conditional(RandomMaterial ifTrue, RandomMaterial ifFalse, ICondition... conditions) {
+    return new Conditional(ifTrue, ifFalse, conditions);
+  }
+
 
   /** Gets a random material */
   public abstract MaterialVariantId getMaterial(MaterialStatsId statType, RandomSource random);
@@ -281,6 +291,26 @@ public abstract class RandomMaterial implements IHaveLoader {
     @Override
     public RecordLoadable<RandomVariant> getLoader() {
       return LOADER;
+    }
+  }
+
+  /** Conditional random material for datagen. */
+  @Getter
+  @Accessors(fluent = true)
+  @RequiredArgsConstructor
+  private static class Conditional extends RandomMaterial implements ConditionalObject<RandomMaterial> {
+    private final RandomMaterial ifTrue;
+    private final RandomMaterial ifFalse;
+    private final ICondition[] conditions;
+
+    @Override
+    public MaterialVariantId getMaterial(MaterialStatsId statType, RandomSource random) {
+      return (Util.testConditions(conditions) ? ifTrue : ifFalse).getMaterial(statType, random);
+    }
+
+    @Override
+    public RecordLoadable<? extends RandomMaterial> getLoader() {
+      return LOADER.getConditionalLoader();
     }
   }
 

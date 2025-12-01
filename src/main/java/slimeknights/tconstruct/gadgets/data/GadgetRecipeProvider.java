@@ -42,19 +42,8 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
 
   @Override
   protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
-    // throw balls
-    String folder = "gadgets/throwball/";
-    ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, TinkerGadgets.efln.get())
-                       .define('#', Tags.Items.GUNPOWDER)
-                       .define('X', Items.FLINT)
-                       .pattern(" # ")
-                       .pattern("#X#")
-                       .pattern(" # ")
-                       .unlockedBy("has_item", has(Tags.Items.DUSTS_GLOWSTONE))
-                       .save(consumer, prefix(TinkerGadgets.efln, folder));
-
     // piggybackpack
-    folder = "gadgets/";
+    String folder = "gadgets/";
     ItemCastingRecipeBuilder.tableRecipe(TinkerGadgets.piggyBackpack)
                             .setCast(Items.SADDLE, true)
                             .setFluidAndTime(TinkerFluids.skySlime, FluidValues.SLIMEBALL * 4)

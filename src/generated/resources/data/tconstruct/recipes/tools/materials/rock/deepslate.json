@@ -1,9 +1,0 @@
-{
-  "type": "tconstruct:material",
-  "ingredient": {
-    "tag": "forge:deepslate"
-  },
-  "material": "tconstruct:rock#deepslate",
-  "needed": 1,
-  "value": 1
-}

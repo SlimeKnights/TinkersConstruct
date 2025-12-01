@@ -16,7 +16,6 @@ import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.loadable.record.SingletonLoader;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.mantle.util.LogicHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -54,7 +53,7 @@ public enum MinimapModule implements ModifierModule, EquipmentChangeModifierHook
   private static final String SELECTED = TConstruct.makeTranslationKey("modifier", "minimap.selected");
 
   @Override
-  public RecordLoadable<? extends IHaveLoader> getLoader() {
+  public RecordLoadable<MinimapModule> getLoader() {
     return LOADER;
   }
 

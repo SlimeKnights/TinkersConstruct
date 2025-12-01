@@ -362,12 +362,12 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
 
   @Override
   public boolean overrideStackedOnOther(ItemStack held, Slot slot, ClickAction action, Player player) {
-    return SlotStackModifierHook.overrideStackedOnOther(held, slot, action, player);
+    return SlotStackModifierHook.overrideStackedOnOther(held, slot, action, player) || super.overrideStackedOnOther(held, slot, action, player);
   }
 
   @Override
   public boolean overrideOtherStackedOnMe(ItemStack slotStack, ItemStack held, Slot slot, ClickAction action, Player player, SlotAccess access) {
-    return SlotStackModifierHook.overrideOtherStackedOnMe(slotStack, held, slot, action, player, access);
+    return SlotStackModifierHook.overrideOtherStackedOnMe(slotStack, held, slot, action, player, access) || super.overrideOtherStackedOnMe(slotStack, held, slot, action, player, access);
   }
 
 

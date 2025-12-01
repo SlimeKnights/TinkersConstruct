@@ -414,7 +414,8 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       // stats
       .module(new SetStatsModule(StatsNBT.builder()
         .set(ToolStats.ATTACK_DAMAGE, 3f)
-        .set(ToolStats.ATTACK_SPEED, 1.6f).build()))
+        .set(ToolStats.ATTACK_SPEED, 1.6f)
+        .set(ToolStats.BLOCK_AMOUNT, 10).build()))
       .module(new MultiplyStatsModule(MultiplierNBT.builder()
         .set(ToolStats.MINING_SPEED, 0.5f)
         .set(ToolStats.DURABILITY, 1.1f).build()))
@@ -439,7 +440,8 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       // stats
       .module(new SetStatsModule(StatsNBT.builder()
         .set(ToolStats.ATTACK_DAMAGE, 3f)
-        .set(ToolStats.ATTACK_SPEED, 1.0f).build()))
+        .set(ToolStats.ATTACK_SPEED, 1.0f)
+        .set(ToolStats.BLOCK_AMOUNT, 10).build()))
       .module(new MultiplyStatsModule(MultiplierNBT.builder()
         .set(ToolStats.ATTACK_DAMAGE, 1.5f)
         .set(ToolStats.MINING_SPEED, 0.25f)
@@ -522,7 +524,8 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       // stats
       .module(new SetStatsModule(StatsNBT.builder()
         .set(ToolStats.ATTACK_DAMAGE, 3f)
-        .set(ToolStats.ATTACK_SPEED, 1.1f).build()))
+        .set(ToolStats.ATTACK_SPEED, 1.1f)
+        .set(ToolStats.BLOCK_AMOUNT, 10).build()))
       .largeToolStartingSlots()
       // traits
       .module(ToolTraitsModule.builder().trait(ModifierIds.throwing).build());

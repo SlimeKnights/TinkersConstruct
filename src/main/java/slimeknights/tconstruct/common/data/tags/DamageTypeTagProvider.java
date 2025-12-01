@@ -23,6 +23,7 @@ import static net.minecraft.tags.DamageTypeTags.WITCH_RESISTANT_TO;
 import static net.minecraft.world.damagesource.DamageTypes.CRAMMING;
 import static net.minecraft.world.damagesource.DamageTypes.DRAGON_BREATH;
 import static net.minecraft.world.damagesource.DamageTypes.FALLING_ANVIL;
+import static net.minecraft.world.damagesource.DamageTypes.FALLING_BLOCK;
 import static net.minecraft.world.damagesource.DamageTypes.FALLING_STALACTITE;
 import static net.minecraft.world.damagesource.DamageTypes.FLY_INTO_WALL;
 import static net.minecraft.world.damagesource.DamageTypes.MOB_ATTACK;
@@ -76,7 +77,7 @@ public class DamageTypeTagProvider extends DamageTypeTagsProvider {
 
     // protection modifier tags
     tag(MELEE_PROTECTION).add(PLAYER_ATTACK, MOB_ATTACK, MOB_ATTACK_NO_AGGRO, CRAMMING, STING);
-    tag(PROJECTILE_PROTECTION).addTag(IS_PROJECTILE).add(FALLING_ANVIL, FALLING_ANVIL, FALLING_STALACTITE);
+    tag(PROJECTILE_PROTECTION).addTag(IS_PROJECTILE).add(FALLING_ANVIL, FALLING_BLOCK, FALLING_STALACTITE);
     tag(FIRE_PROTECTION).addTags(IS_FIRE, IS_LIGHTNING).add(SHOCK);
     tag(BLAST_PROTECTION).addTag(IS_EXPLOSION);
     tag(MAGIC_PROTECTION).addTag(WITCH_RESISTANT_TO).add(WITHER, WITHER_SKULL, DRAGON_BREATH);

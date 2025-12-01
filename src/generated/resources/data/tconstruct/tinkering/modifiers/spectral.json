@@ -16,7 +16,9 @@
     },
     {
       "type": "tconstruct:projectile_place_glow",
-      "target": "blocks"
+      "blocks": true,
+      "entities": false,
+      "tool_damage": 5
     }
   ],
   "priority": 60,

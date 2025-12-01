@@ -5,6 +5,7 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
+import slimeknights.tconstruct.library.tools.capability.PersistentDataCapability;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.utils.Schedule;
@@ -61,12 +62,13 @@ public interface ScheduledProjectileTaskModifierHook {
   }
 
   /** Creates the schedule for the given tool */
-  static void checkSchedule(IToolStackView tool, ItemStack ammo, Projectile projectile, @Nullable AbstractArrow arrow, ModDataNBT persistentData, Schedule schedule) {
+  static void checkSchedule(IToolStackView tool, ItemStack ammo, Projectile projectile, @Nullable AbstractArrow arrow, Schedule schedule) {
     do {
       int task = schedule.check(projectile.tickCount);
       if (task < 0) {
         break;
       }
+      ModDataNBT persistentData = PersistentDataCapability.getOrWarn(projectile);
       List<ModifierEntry> modifiers = tool.getModifiers().getModifiers();
       int size = modifiers.size();
       int index = Schedule.index(task, size);

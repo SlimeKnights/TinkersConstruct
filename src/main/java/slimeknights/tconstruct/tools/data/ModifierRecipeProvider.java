@@ -155,6 +155,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                .save(consumer, prefix(TinkerModifiers.tasty, folder));
   }
 
+  @SuppressWarnings("removal")
   private void addModifierRecipes(Consumer<FinishedRecipe> consumer) {
     // modifiers
     String upgradeFolder = "tools/modifiers/upgrade/";
@@ -217,7 +218,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
       .save(consumer, prefix(ModifierIds.soulbound, upgradeFolder));
     ModifierRecipeBuilder.modifier(ModifierIds.soulbound)
       .setTools(TinkerTags.Items.SINGLE_USE)
-      .addInput(Items.DRAGON_BREATH)
+      .addInput(Items.SCULK_VEIN)
       .setMaxLevel(1)
       .save(consumer, wrap(ModifierIds.soulbound, slotlessFolder, "_ammo"));
     ModifierRecipeBuilder.modifier(ModifierIds.netherite)
@@ -698,6 +699,16 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
       .setMaxLevel(1).checkTraitLevel()
       .saveSalvage(consumer, prefix(ModifierIds.grapple, abilitySalvage))
       .save(consumer, prefix(ModifierIds.grapple, abilityFolder));
+    ModifierRecipeBuilder.modifier(ModifierIds.drillAttack)
+      // allow on anything that might get springing, flinging, or grapple
+      .setTools(ingredientFromTags(TinkerTags.Items.INTERACTABLE_CHARGE, TinkerTags.Items.FISHING_RODS))
+      .addInput(TinkerMaterials.blazingBone)
+      .addInput(Items.POINTED_DRIPSTONE)
+      .addInput(TinkerMaterials.blazingBone)
+      .setSlots(SlotType.ABILITY, 1)
+      .setMaxLevel(1).checkTraitLevel()
+      .saveSalvage(consumer, prefix(ModifierIds.drillAttack, abilitySalvage))
+      .save(consumer, prefix(ModifierIds.drillAttack, abilityFolder));
     ModifierRecipeBuilder.modifier(ModifierIds.collecting)
       .setTools(TinkerTags.Items.FISHING_RODS)
       .addInput(Blocks.HOPPER)
@@ -728,6 +739,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
       .addInput(Items.ENDER_PEARL)
       .addLevel(SlotType.ABILITY, 1, 1)
       .addLevelRange(SlotType.UPGRADE, 1, 2, 4)
+      .checkTraitLevel()
       .saveSalvage(consumer, prefix(ModifierIds.returning, abilitySalvage))
       .save(consumer, prefix(ModifierIds.returning, abilityFolder));
 
@@ -1642,6 +1654,10 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
       .addInput(TinkerWorld.enderGeode.getBlock())
       .disallowCrystal()
       .save(consumer, wrap(ModifierIds.rebalanced, slotlessFolder, "_traits"));
+    ModifierRecipeBuilder.modifier(ModifierIds.redirected)
+      .setTools(ToolHookIngredient.of(TinkerTags.Items.AMMO, ToolHooks.REBALANCED_TRAIT))
+      .addInput(Items.DRAGON_BREATH)
+      .save(consumer, prefix(ModifierIds.redirected, slotlessFolder));
 
     // tipping arrows and shurikens
     PotionCastingRecipeBuilder.tableTipping(ModifierIds.tipped)
@@ -1666,15 +1682,19 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
       .save(consumer, location(slotlessFolder + "fishing_rod_tip_clearing"));
 
     // removal
+    IJsonPredicate<ModifierId> removable = ModifierPredicate.tag(TinkerTags.Modifiers.REMOVE_MODIFIER_BLACKLIST).inverted();
     ModifierRemovalRecipeBuilder.removal()
-                                .addInput(Blocks.WET_SPONGE)
-                                .addLeftover(Blocks.SPONGE)
-                                .save(consumer, location(worktableFolder + "remove_modifier_sponge"));
+      .addInput(Blocks.WET_SPONGE)
+      .addLeftover(Blocks.SPONGE)
+      .modifierPredicate(removable)
+      .save(consumer, location(worktableFolder + "remove_modifier_sponge"));
     ModifierRemovalRecipeBuilder.removal()
-                                .addInput(CompoundIngredient.of(FluidContainerIngredient.fromFluid(TinkerFluids.venom),
-                                                                 FluidContainerIngredient.fromIngredient(TinkerFluids.venom.ingredient(FluidValues.BOTTLE),
-                                                                                                         Ingredient.of(TinkerFluids.venomBottle))))
-                                .save(consumer, location(worktableFolder + "remove_modifier_venom"));
+      .addInput(CompoundIngredient.of(
+        FluidContainerIngredient.fromFluid(TinkerFluids.venom),
+        FluidContainerIngredient.fromIngredient(TinkerFluids.venom.ingredient(FluidValues.BOTTLE), Ingredient.of(TinkerFluids.venomBottle)))
+      )
+      .modifierPredicate(removable)
+      .save(consumer, location(worktableFolder + "remove_modifier_venom"));
     // modifier extracting: sponge + crystal
     IJsonPredicate<ModifierId> extractBlacklist = ModifierPredicate.tag(TinkerTags.Modifiers.EXTRACT_MODIFIER_BLACKLIST).inverted();
     for (boolean dagger : new boolean[]{false, true}) {

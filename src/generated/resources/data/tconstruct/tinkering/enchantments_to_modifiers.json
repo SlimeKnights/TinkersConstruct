@@ -47,6 +47,7 @@
   "minecraft:punch": "tconstruct:punch",
   "minecraft:quick_charge": "tconstruct:quick_charge",
   "minecraft:respiration": "tconstruct:respiration",
+  "minecraft:riptide": "tconstruct:drill_attack",
   "minecraft:sharpness": "tconstruct:sharpness",
   "minecraft:silk_touch": "tconstruct:silky",
   "minecraft:smite": "tconstruct:smite",

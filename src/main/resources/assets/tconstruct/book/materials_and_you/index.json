@@ -9,7 +9,7 @@
   {
     "name": "melee_harvest_materials",
     "data": "no-load",
-    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:melee_harvest", "tier": 1 } },
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:melee_harvest", "tier": { "min": 0, "max": 1 }, "predicate": { "type": "mantle:inverted", "inverted_type": "mantle:tag", "tag": "tconstruct:book/distant" }}},
     "icon": {
       "item": {
         "type": "forge:nbt",
@@ -21,7 +21,7 @@
   {
     "name": "ranged_materials",
     "data": "no-load",
-    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:ranged", "tier": 1 } },
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:ranged", "tier": { "min": 0, "max": 1 }, "predicate": { "type": "mantle:inverted", "inverted_type": "mantle:tag", "tag": "tconstruct:book/distant" }}},
     "icon": {
       "item": {
         "type": "forge:nbt",
@@ -33,7 +33,7 @@
   {
     "name": "ammo_materials",
     "data": "no-load",
-    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:ammo" } },
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:ammo", "tag": "tconstruct:book/basic_ammo" }},
     "icon": {
       "item": {
         "type": "forge:nbt",

@@ -253,6 +253,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 
   private void addWorld() {
     IntrinsicTagAppender<Item> heads = this.tag(Tags.Items.HEADS);
+    heads.add(Items.PIGLIN_HEAD);
     TinkerWorld.heads.forEach(head -> heads.add(head.asItem()));
 
     this.copy(TinkerTags.Blocks.SLIME_BLOCK, TinkerTags.Items.SLIME_BLOCK);
@@ -475,6 +476,13 @@ public class ItemTagProvider extends ItemTagsProvider {
       .add(Items.SNOWBALL, Items.EGG, Items.ENDER_PEARL, Items.SPLASH_POTION, Items.LINGERING_POTION, Items.EXPERIENCE_BOTTLE, Items.ENDER_EYE, Items.FIREWORK_ROCKET)
       .add(TinkerGadgets.efln.get(), TinkerGadgets.flintShuriken.get(), TinkerGadgets.quartzShuriken.get(), TinkerGadgets.glowBall.get())
       .addTag(THROWN_AMMO);
+    this.tag(TinkerTags.Items.WHITESTONE_INGOTS)
+      .addOptionalTag(commonResource("ingots/aluminum"))
+      .addOptionalTag(commonResource("ingots/tin"))
+      .addOptionalTag(commonResource("ingots/zinc"))
+      .addOptionalTag(commonResource("ingots/nickel"))
+      .addOptionalTag(commonResource("ingots/chromium"))
+      .addOptionalTag(commonResource("ingots/cadmium"));
 
     this.tag(TinkerTags.Items.VARIANT_PLANKS)
         .add(Items.CRIMSON_PLANKS, Items.WARPED_PLANKS)
@@ -499,7 +507,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.copy(TinkerTags.Blocks.BASALT,     TinkerTags.Items.BASALT);
 
     // twilight forest
-    this.tag(BANNED_UNCRAFTABLE).addTag(MODIFIABLE);
+    this.tag(BANNED_UNCRAFTABLE).addTag(MODIFIABLE).add(TinkerTables.tinkersAnvil.asItem(), TinkerTables.scorchedAnvil.asItem(), TinkerTables.modifierWorktable.asItem());
     String tf = "twilightforest";
     Function<String,ResourceLocation> trophy = name -> new ResourceLocation(tf, name + "_trophy");
     this.tag(TinkerTags.Items.BOSS_TROPHIES)
@@ -631,11 +639,12 @@ public class ItemTagProvider extends ItemTagsProvider {
     String tf = "twilightforest";
     moltenTools(TinkerFluids.moltenCopper).add(1, Items.BRUSH).toolTags().toolsComplement();
     moltenTools(TinkerFluids.moltenIron).minecraft()
-      .add(1, Items.FLINT_AND_STEEL, Items.SHIELD)
+      .add(1, Items.FLINT_AND_STEEL, Items.SHIELD).fdKnife()
       .add(2, Items.SHEARS)
       .add(2, true, ie.apply("hammer"))
       .crowbar().excavatorSpikeMaul();
     moltenTools(TinkerFluids.moltenGold).minecraft("golden")
+      .add(1, true,  new ResourceLocation("farmers_delight", "golden_knife"))
       .add(4, false, new ResourceLocation("golden_boots"))
       .add(4, true,  new ResourceLocation(tf, "gold_minotaur_axe"));
     moltenTools(TinkerFluids.moltenSteel).toolTags().leggingsPaxel().crowbar()
@@ -647,12 +656,12 @@ public class ItemTagProvider extends ItemTagsProvider {
       .armorTag(8, "chestplates").add(8, true, ie.apply("armor_steel_chestplate"))
                                               .add(7, true, ie.apply("armor_steel_leggings"))
       .armorTag(4, "boots"      ).add(4, true, ie.apply("armor_steel_boots"));
-    moltenTools(TinkerFluids.moltenNetherite).minecraft();
+    moltenTools(TinkerFluids.moltenNetherite).minecraft().fdKnife();
     moltenTools(TinkerFluids.moltenKnightmetal)
       .optionalMetal(3, tf, "axe", "pickaxe")
       .optionalMetal(7, tf, "leggings", "shield");
     // gems
-    moltenTools(TinkerFluids.moltenDiamond).minecraft().excavatorSpikeMaul().crowbar()
+    moltenTools(TinkerFluids.moltenDiamond).minecraft().excavatorSpikeMaul().crowbar().fdKnife()
       .add(4, false, new ResourceLocation("diamond_boots"))
       .add(4, true,  new ResourceLocation(tf, "diamond_minotaur_axe"));
     // mod ores

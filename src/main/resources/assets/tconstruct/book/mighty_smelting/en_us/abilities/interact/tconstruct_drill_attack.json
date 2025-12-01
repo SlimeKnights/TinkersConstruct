@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:drill_attack",
+  "text": [
+    {
+      "text": "I'm getting dizzy."
+    }
+  ],
+  "effects": [
+    "Requires springing, flinging, or grapple",
+    "Hitting a mob during movement will perform a melee attack",
+    "Single level",
+    "Requires 1 ability slot"
+  ]
+}

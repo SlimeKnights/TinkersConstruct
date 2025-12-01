@@ -18,8 +18,10 @@ import java.util.function.Predicate;
 public interface MaterialPredicate extends IJsonPredicate<MaterialVariantId> {
   /** Instance that always returns true */
   MaterialPredicate ANY = simple(material -> true);
+  /** Instance that always returns false */
+  MaterialPredicate NONE = simple(material -> false);
   /** Loader for material predicates */
-  TagPredicateRegistry<IMaterial,MaterialVariantId> LOADER = new TagPredicateRegistry<>("Material Predicate", ANY, TinkerLoadables.MATERIAL_TAGS, (tag, source) -> MaterialRegistry.getInstance().isInTag(source.getId(), tag));
+  TagPredicateRegistry<IMaterial,MaterialVariantId> LOADER = new TagPredicateRegistry<>("Material Predicate", ANY, NONE, TinkerLoadables.MATERIAL_TAGS, (tag, source) -> MaterialRegistry.getInstance().isInTag(source.getId(), tag));
 
   /** Gets an inverted condition */
   @Override

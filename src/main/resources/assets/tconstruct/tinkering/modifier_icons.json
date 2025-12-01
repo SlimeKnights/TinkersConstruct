@@ -40,6 +40,7 @@
   "tconstruct:lure":       "tconstruct:gui/modifiers/ranged/lure",
   "tconstruct:grapple":    "tconstruct:gui/modifiers/ranged/grapple",
   "tconstruct:collecting": ["minecraft:item/hopper", "tconstruct:gui/modifiers/book"],
+  "tconstruct:drill_attack": "tconstruct:gui/modifiers/held/drill_attack",
 
   "tconstruct:throwing": ["minecraft:item/trident", "tconstruct:gui/modifiers/book"],
   "tconstruct:returning": ["tconstruct:gui/modifiers/ranged/returning", "tconstruct:gui/modifiers/book"],
@@ -157,6 +158,7 @@
   "tconstruct:forecast":    ["tconstruct:gui/modifiers/forecast", "tconstruct:gui/modifiers/plus"],
   "tconstruct:embossed":    ["tconstruct:gui/modifiers/embossed", "tconstruct:gui/modifiers/plus"],
   "tconstruct:rebalanced":  ["minecraft:item/end_crystal", "tconstruct:gui/modifiers/plus"],
+  "tconstruct:redirected":  ["minecraft:item/dragon_breath", "tconstruct:gui/modifiers/plus"],
   "tconstruct:draconic":    ["tconstruct:gui/modifiers/draconic", "tconstruct:gui/modifiers/plus"],
 
   "tconstruct:golden":        ["minecraft:item/golden_chestplate", "tconstruct:gui/modifiers/book"],

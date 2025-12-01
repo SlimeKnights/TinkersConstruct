@@ -16,11 +16,17 @@ import slimeknights.mantle.client.book.repository.BookRepository;
 import slimeknights.mantle.client.book.transformer.BookTransformer;
 import slimeknights.mantle.client.screen.book.element.ItemElement;
 import slimeknights.mantle.client.screen.book.element.SizedBookElement;
+import slimeknights.mantle.data.loadable.field.ContextKey;
+import slimeknights.mantle.data.predicate.IJsonPredicate;
+import slimeknights.mantle.util.DataLoadedConditionContext;
 import slimeknights.mantle.util.JsonHelper;
+import slimeknights.mantle.util.typed.TypedMap;
+import slimeknights.mantle.util.typed.TypedMapBuilder;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.book.content.AbstractMaterialContent;
 import slimeknights.tconstruct.library.json.IntRange;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
+import slimeknights.tconstruct.library.json.predicate.material.MaterialPredicate;
 import slimeknights.tconstruct.library.materials.IMaterialRegistry;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
@@ -48,6 +54,7 @@ import java.util.stream.Stream;
 public class TierRangeMaterialSectionTransformer extends BookTransformer {
   private static final ResourceLocation KEY = TConstruct.getResource("material_tier");
   private static final IntRange TIER = new IntRange(0, Short.MAX_VALUE);
+  private static final TypedMap CONTEXT = TypedMapBuilder.builder().put(ContextKey.CONDITION_CONTEXT, DataLoadedConditionContext.INSTANCE).build();
 
   private static final Map<ResourceLocation,MaterialType> MATERIAL_TYPES = new HashMap<>();
 
@@ -72,18 +79,28 @@ public class TierRangeMaterialSectionTransformer extends BookTransformer {
       if (element != null) {
         try {
           JsonObject json = GsonHelper.convertToJsonObject(element, KEY.toString());
+          // we handle tier range outside of predicate for efficiency, since the predicates have to refetch materials otherwise
           IntRange tier = TIER.getOrDefault(json, "tier");
-          Function<MaterialVariantId,AbstractMaterialContent> pageBuilder;
-          Set<MaterialStatsId> visibleStats;
-          TagKey<IMaterial> tag = TinkerLoadables.MATERIAL_TAGS.getOrDefault(json, "tag", null);
+
+          // load in predicate
+          IJsonPredicate<MaterialVariantId> predicate = MaterialPredicate.ANY;
+          if (json.has("predicate")) {
+            predicate = MaterialPredicate.LOADER.getIfPresent(json, "predicate", CONTEXT);
+          } else if (json.has("tag")) {
+            // shortcut for simple tag predicates
+            predicate = MaterialPredicate.tag(TinkerLoadables.MATERIAL_TAGS.getIfPresent(json, "tag"));
+          }
+
+          // load in type specific data
           ResourceLocation type = JsonHelper.getResourceLocation(json, "type");
           MaterialType typeData = MATERIAL_TYPES.get(type);
           if (typeData == null) {
             throw new JsonSyntaxException("Invalid material section type " + type);
           }
-          visibleStats = typeData.visibleStats();
-          pageBuilder = typeData.getMapping(GsonHelper.getAsBoolean(json, "detailed", false));
-          createPages(book, section, new ValidMaterial(visibleStats, tier, tag), pageBuilder, typeData.sortComparator);
+          Function<MaterialVariantId,AbstractMaterialContent> pageBuilder = typeData.getMapping(GsonHelper.getAsBoolean(json, "detailed", false));
+
+          // create final pages
+          createPages(book, section, new ValidMaterial(typeData.visibleStats(), tier, predicate), pageBuilder, typeData.sortComparator);
         } catch (JsonSyntaxException e) {
           TConstruct.LOG.error("Failed to parse material tier section data", e);
         }
@@ -92,7 +109,13 @@ public class TierRangeMaterialSectionTransformer extends BookTransformer {
   }
 
   /** Helper to create a material predicate */
-  public record ValidMaterial(Set<MaterialStatsId> visibleStats, IntRange tier, @Nullable TagKey<IMaterial> tag) implements Predicate<IMaterial> {
+  public record ValidMaterial(Set<MaterialStatsId> visibleStats, IntRange tier, IJsonPredicate<MaterialVariantId> predicate) implements Predicate<IMaterial> {
+    /** @deprecated use {@link #ValidMaterial(Set, IntRange, IJsonPredicate)} */
+    @Deprecated(forRemoval = true)
+    public ValidMaterial(Set<MaterialStatsId> visibleStats, IntRange tier, TagKey<IMaterial> tag) {
+      this(visibleStats, tier, MaterialPredicate.tag(tag));
+    }
+
     @Override
     public boolean test(IMaterial material) {
       if (!this.tier.test(material.getTier())) {
@@ -100,7 +123,7 @@ public class TierRangeMaterialSectionTransformer extends BookTransformer {
       }
       IMaterialRegistry registry = MaterialRegistry.getInstance();
       MaterialId id = material.getIdentifier();
-      if (tag != null && !registry.isInTag(id, tag)) {
+      if (!predicate.matches(id)) {
         return false;
       }
       // only show material stats for types with the proper stat types, as otherwise the page will be empty

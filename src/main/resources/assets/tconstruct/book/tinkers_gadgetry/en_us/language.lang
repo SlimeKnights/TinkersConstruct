@@ -27,3 +27,12 @@ ancient_tools.subtext=Ancient tools are tools rarely found in loot throughout th
 
 materials=Skull Materials
 materials.subtext=Placing one of these skulls in a casting basin and adding enderslime can enhance their ability as a helmet.
+
+melee_harvest_materials=General Materials
+melee_harvest_materials.subtext=These materials are found in exploration of distant locations, and can be used to create tool parts for melee weapons or harvest tools.
+ranged_materials=Ranged Materials
+ranged_materials.subtext=These materials are found in exploration of distant locations, and can be used to create tool parts for ranged weapons like bows.
+armor_materials=Armor Materials
+armor_materials.subtext=These materials are found in exploration of distant locations, and can be crafted into armor and shields.
+ammo_materials=Advanced Ammo Materials
+ammo_materials.subtext=These materials are used to craft better ammo using rarer materials.

@@ -30,7 +30,7 @@
   {
     "name": "melee_harvest_materials",
     "data": "no-load",
-    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:melee_harvest", "tier": 4 } },
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:melee_harvest", "tag": "tconstruct:book/blazing_blood" } },
     "icon": {
       "item": {
         "type": "forge:nbt",
@@ -42,7 +42,7 @@
   {
     "name": "ranged_materials",
     "data": "no-load",
-    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:ranged", "tier": 4 } },
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:ranged", "tag": "tconstruct:book/blazing_blood" } },
     "icon": {
       "item": {
         "type": "forge:nbt",
@@ -54,7 +54,7 @@
   {
     "name": "armor_materials",
     "data": "no-load",
-    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:armor", "tier": 4 } },
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:armor", "tag": "tconstruct:book/blazing_blood" } },
     "icon": {
       "item": {
         "type": "forge:nbt",

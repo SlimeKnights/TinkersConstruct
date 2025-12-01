@@ -20,7 +20,9 @@
     },
     {
       "type": "tconstruct:projectile_place_glow",
-      "target": "any"
+      "blocks": true,
+      "entities": true,
+      "tool_damage": 5
     }
   ],
   "tooltip_display": "always"

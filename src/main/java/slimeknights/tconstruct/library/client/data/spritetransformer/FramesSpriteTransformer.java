@@ -86,7 +86,7 @@ public class FramesSpriteTransformer implements IRecolorSpriteTransformer {
       try {
         meta = GreyToSpriteTransformer.READER.readMetadata(metaPath);
       } catch (IOException ex) {
-        throw new IllegalStateException("Failed to load required metadata", ex);
+        throw new IllegalStateException("Failed to load required metadata from " + metaPath, ex);
       }
     }
     return meta;

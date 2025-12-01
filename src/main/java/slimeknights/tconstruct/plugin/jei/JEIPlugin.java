@@ -500,7 +500,7 @@ public class JEIPlugin implements IModPlugin {
       manager.addIngredientsAtRuntime(ForgeTypes.FLUID_STACK,
                                       BuiltInRegistries.POTION.holders().filter(holder -> {
                                         Potion potion = holder.get();
-                                        return potion != Potions.EMPTY && potion != Potions.WATER;
+                                        return potion != Potions.EMPTY && potion != Potions.WATER && !holder.is(TinkerTags.Potions.HIDDEN_FLUID);
                                       }).map(holder -> PotionFluidType.potionFluid(holder.key(), FluidType.BUCKET_VOLUME)).toList());
     }
     // remove variantless potion fluid

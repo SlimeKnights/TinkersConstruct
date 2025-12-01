@@ -1,5 +1,8 @@
 {
   "values": [
-    "#tconstruct:modifiable"
+    "#tconstruct:modifiable",
+    "tconstruct:tinkers_anvil",
+    "tconstruct:scorched_anvil",
+    "tconstruct:modifier_worktable"
   ]
 }
