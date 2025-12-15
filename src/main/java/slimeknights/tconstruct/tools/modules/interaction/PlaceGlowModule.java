@@ -58,7 +58,7 @@ public record PlaceGlowModule(int damage) implements ModifierModule, DisplayName
 
   @Override
   public InteractionResult afterBlockUse(IToolStackView tool, ModifierEntry modifier, UseOnContext context, InteractionSource source) {
-    if (tool.getHook(ToolHooks.INTERACTION).canInteract(tool, modifier.getId(), source)) {
+    if (!tool.isBroken() && tool.getHook(ToolHooks.INTERACTION).canInteract(tool, modifier.getId(), source)) {
       Player player = context.getPlayer();
       if (!context.getLevel().isClientSide) {
         Level world = context.getLevel();

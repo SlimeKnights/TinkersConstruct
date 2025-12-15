@@ -13,6 +13,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.armor.OnAttackedModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.combat.MonsterMeleeHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.module.HookProvider;
@@ -28,9 +29,9 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 /** Module making the target teleport */
-public record EnderclearanceModule(LevelingValue chance, LevelingInt diameter, LevelingInt teleportChances) implements ModifierModule, ProjectileHitModifierHook, MeleeHitModifierHook, OnAttackedModifierHook {
+public record EnderclearanceModule(LevelingValue chance, LevelingInt diameter, LevelingInt teleportChances) implements ModifierModule, ProjectileHitModifierHook, MeleeHitModifierHook, MonsterMeleeHitModifierHook.RedirectAfter, OnAttackedModifierHook {
   private static final LevelingInt DEFAULT = LevelingInt.flat(16);
-  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<EnderclearanceModule>defaultHooks(ModifierHooks.PROJECTILE_HIT, ModifierHooks.MELEE_HIT, ModifierHooks.ON_ATTACKED);
+  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<EnderclearanceModule>defaultHooks(ModifierHooks.PROJECTILE_HIT, ModifierHooks.MELEE_HIT, ModifierHooks.MONSTER_MELEE_HIT, ModifierHooks.ON_ATTACKED);
   /** @deprecated use {@link #EnderclearanceModule(LevelingValue)} */
   @Deprecated(forRemoval = true)
   public static final EnderclearanceModule INSTANCE = new EnderclearanceModule(LevelingValue.eachLevel(0.25f));

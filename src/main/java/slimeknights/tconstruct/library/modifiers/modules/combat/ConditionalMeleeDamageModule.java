@@ -37,7 +37,7 @@ import java.util.List;
  * @param condition  Standard modifier conditions
  */
 public record ConditionalMeleeDamageModule(IJsonPredicate<LivingEntity> target, IJsonPredicate<LivingEntity> attacker, MeleeFormula formula, ModifierCondition<IToolStackView> condition) implements MeleeDamageModifierHook, ConditionalStatTooltip, ModifierModule, ConditionalModule<IToolStackView> {
-  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<ConditionalMeleeDamageModule>defaultHooks(ModifierHooks.MELEE_DAMAGE, ModifierHooks.TOOLTIP);
+  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<ConditionalMeleeDamageModule>defaultHooks(ModifierHooks.MELEE_DAMAGE, ModifierHooks.MONSTER_MELEE_DAMAGE, ModifierHooks.TOOLTIP);
   public static final RecordLoadable<ConditionalMeleeDamageModule> LOADER = RecordLoadable.create(
     LivingEntityPredicate.LOADER.defaultField("target", ConditionalMeleeDamageModule::target),
     LivingEntityPredicate.LOADER.defaultField("attacker", ConditionalMeleeDamageModule::attacker),

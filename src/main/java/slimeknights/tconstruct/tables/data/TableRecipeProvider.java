@@ -28,12 +28,15 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.data.recipe.CraftingNBTWrapper;
+import slimeknights.tconstruct.library.recipe.ingredient.MaterialIngredient;
+import slimeknights.tconstruct.library.recipe.material.MaterialsConsumerBuilder;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.library.recipe.partbuilder.recycle.PartBuilderRecycleBuilder;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.recipe.TinkerStationDamagingRecipeBuilder;
 import slimeknights.tconstruct.tables.recipe.TinkerStationPartSwappingBuilder;
+import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 import java.util.function.Consumer;
@@ -174,15 +177,28 @@ public class TableRecipeProvider extends BaseRecipeProvider {
     // tinker anvil
     ShapedRetexturedRecipeBuilder.fromShaped(
       ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TinkerTables.tinkersAnvil)
-                         .define('m', TinkerTags.Items.ANVIL_METAL)
-                         .define('s', TinkerTags.Items.SEARED_BLOCKS)
-                         .pattern("mmm")
-                         .pattern(" s ")
-                         .pattern("sss")
-                         .unlockedBy("has_item", has(TinkerTags.Items.ANVIL_METAL)))
-                                 .setSource(TinkerTags.Items.ANVIL_METAL)
-                                 .setMatchAll()
-                                 .build(consumer, prefix(TinkerTables.tinkersAnvil, folder));
+        .define('m', TinkerTags.Items.ANVIL_METAL)
+        .define('s', TinkerTags.Items.SEARED_BLOCKS)
+        .pattern("mmm")
+        .pattern(" s ")
+        .pattern("sss")
+        .unlockedBy("has_item", has(TinkerTags.Items.ANVIL_METAL)))
+      .setSource(TinkerTags.Items.ANVIL_METAL)
+      .setMatchAll()
+      .build(consumer, prefix(TinkerTables.tinkersAnvil, folder));
+    ShapedRetexturedRecipeBuilder.fromShaped(
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TinkerTables.scorchedAnvil)
+          .define('m', TinkerTags.Items.ANVIL_METAL)
+          .define('s', TinkerTags.Items.SCORCHED_BLOCKS)
+          .pattern("mmm")
+          .pattern(" s ")
+          .pattern("sss")
+          .unlockedBy("has_item", has(TinkerTags.Items.ANVIL_METAL)))
+      .setSource(TinkerTags.Items.ANVIL_METAL)
+      .setMatchAll()
+      .build(consumer, prefix(TinkerTables.scorchedAnvil, folder));
+
+    // tool forge - just a humor recipe
     Consumer<FinishedRecipe> toolForge;
     {
       CompoundTag nbt = new CompoundTag();
@@ -204,28 +220,36 @@ public class TableRecipeProvider extends BaseRecipeProvider {
       .setMatchAll()
       .build(toolForge, location(folder + "tinkers_forge"));
     ShapedRetexturedRecipeBuilder.fromShaped(
-      ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TinkerTables.scorchedAnvil)
-                         .define('m', TinkerTags.Items.ANVIL_METAL)
-                         .define('s', TinkerTags.Items.SCORCHED_BLOCKS)
-                         .pattern("mmm")
-                         .pattern(" s ")
-                         .pattern("sss")
-                         .unlockedBy("has_item", has(TinkerTags.Items.ANVIL_METAL)))
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TinkerTables.scorchedAnvil)
+          .define('m', TinkerTags.Items.ANVIL_METAL)
+          .define('s', TinkerTags.Items.SCORCHED_BLOCKS)
+          .define('t', TinkerTables.tinkerStation)
+          .pattern("mmm")
+          .pattern("sts")
+          .pattern("s s")
+          .unlockedBy("has_item", has(TinkerTags.Items.ANVIL_METAL)))
       .setSource(TinkerTags.Items.ANVIL_METAL)
       .setMatchAll()
-      .build(consumer, prefix(TinkerTables.scorchedAnvil, folder));
-    ShapedRetexturedRecipeBuilder.fromShaped(
-      ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TinkerTables.scorchedAnvil)
-                         .define('m', TinkerTags.Items.ANVIL_METAL)
-                         .define('s', TinkerTags.Items.SCORCHED_BLOCKS)
-                         .define('t', TinkerTables.tinkerStation)
-                         .pattern("mmm")
-                         .pattern("sts")
-                         .pattern("s s")
-                         .unlockedBy("has_item", has(TinkerTags.Items.ANVIL_METAL)))
-                                 .setSource(TinkerTags.Items.ANVIL_METAL)
-                                 .setMatchAll()
-                                 .build(toolForge, location(folder + "scorched_forge"));
+      .build(toolForge, location(folder + "scorched_forge"));
+
+    // material recipes - for the material fallbacks
+    Consumer<FinishedRecipe> materialConsumer = MaterialsConsumerBuilder.shaped("m").build(consumer);
+    ShapedRecipeBuilder.shaped(RecipeCategory.MISC, TinkerTables.tinkersAnvil)
+      .define('m', MaterialIngredient.of(TinkerToolParts.fakeStorageBlock))
+      .define('s', TinkerTags.Items.SEARED_BLOCKS)
+      .pattern("mmm")
+      .pattern(" s ")
+      .pattern("sss")
+      .unlockedBy("has_item", has(TinkerToolParts.fakeStorageBlock))
+      .save(materialConsumer, wrap(TinkerTables.tinkersAnvil, folder, "_material"));
+    ShapedRecipeBuilder.shaped(RecipeCategory.MISC, TinkerTables.scorchedAnvil)
+      .define('m', MaterialIngredient.of(TinkerToolParts.fakeStorageBlock))
+      .define('s', TinkerTags.Items.SCORCHED_BLOCKS)
+      .pattern("mmm")
+      .pattern(" s ")
+      .pattern("sss")
+      .unlockedBy("has_item", has(TinkerToolParts.fakeStorageBlock))
+      .save(materialConsumer, wrap(TinkerTables.scorchedAnvil, folder, "_material"));
 
     // part swapping
     TinkerStationPartSwappingBuilder.tools(DifferenceIngredient.of(Ingredient.of(TinkerTags.Items.MULTIPART_TOOL), Ingredient.of(TinkerTags.Items.UNSWAPPABLE)))
@@ -259,6 +283,7 @@ public class TableRecipeProvider extends BaseRecipeProvider {
       .save(consumer, location(damageFolder + "blazing_bucket"));
   }
 
+  @SuppressWarnings("removal")
   private void recyclingRecipes(Consumer<FinishedRecipe> consumer) {
     // recipes for recycling vanilla tools
     String folder = "tables/recycling/";

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "G": {
+      "item": "minecraft:glowstone"
+    },
+    "b": {
+      "item": "tconstruct:scorched_brick"
+    }
+  },
+  "pattern": [
+    " b ",
+    "bGb",
+    " b "
+  ],
+  "result": {
+    "item": "tconstruct:scorched_lamp"
+  },
+  "show_notification": true
+}

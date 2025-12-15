@@ -26,6 +26,11 @@ public interface IMaterialValue {
   /** Gets the value of a single item of this material */
   int getValue();
 
+  /** Checks if a leftover is present without creating item stack copies. */
+  default boolean hasLeftover() {
+    return false;
+  }
+
   /**
    * Gets a copy of the leftover stack for this recipe
    * @return  Leftover stack

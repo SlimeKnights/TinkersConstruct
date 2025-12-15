@@ -1,0 +1,5 @@
+{
+  "type": "tconstruct:basin_casting_material",
+  "item_cost": 9,
+  "result": "tconstruct:fake_storage_block"
+}

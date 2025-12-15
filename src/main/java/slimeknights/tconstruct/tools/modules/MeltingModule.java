@@ -19,6 +19,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.behavior.ProcessLootModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.combat.MonsterMeleeHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.LauncherHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.util.ModifierCondition;
@@ -50,8 +51,8 @@ import static slimeknights.tconstruct.library.tools.capability.fluid.ToolTankHel
  * @param shardsPerGem     Number of quarter gems to produce per gem from ore recipes.
  * @param condition        General modifier conditions
  */
-public record MeltingModule(LevelingInt temperature, LevelingInt nuggetsPerMetal, LevelingInt shardsPerGem, ModifierCondition<IToolStackView> condition) implements ModifierModule, MeleeHitModifierHook, LauncherHitModifierHook, ProcessLootModifierHook, ConditionalModule<IToolStackView>, IMeltingContainer, IOreRate {
-  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<MeltingModule>defaultHooks(ModifierHooks.MELEE_HIT, ModifierHooks.LAUNCHER_HIT, ModifierHooks.PROCESS_LOOT);
+public record MeltingModule(LevelingInt temperature, LevelingInt nuggetsPerMetal, LevelingInt shardsPerGem, ModifierCondition<IToolStackView> condition) implements ModifierModule, MeleeHitModifierHook, MonsterMeleeHitModifierHook.RedirectAfter, LauncherHitModifierHook, ProcessLootModifierHook, ConditionalModule<IToolStackView>, IMeltingContainer, IOreRate {
+  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<MeltingModule>defaultHooks(ModifierHooks.MELEE_HIT, ModifierHooks.MONSTER_MELEE_HIT, ModifierHooks.LAUNCHER_HIT, ModifierHooks.PROCESS_LOOT);
   /** Volatile data flag which makes a tool always melt regardless of tank space */
   public static final ResourceLocation FORCE_MELTING = TConstruct.getResource("force_melting");
 

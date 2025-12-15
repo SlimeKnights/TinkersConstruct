@@ -19,16 +19,16 @@ import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.recipe.ingredient.MaterialValueIngredient;
-import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
-import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tables.TinkerTables;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
 /**
- * Shaped recipe with a number of {@link slimeknights.tconstruct.library.recipe.ingredient.MaterialValueIngredient} to set the material of the result
+ * Shaped recipe with a number of {@link slimeknights.tconstruct.library.recipe.ingredient.MaterialValueIngredient} to set the material of the result.
+ * @deprecated use {@link ShapedMaterialsRecipe}, which requires specifying the ingredients for each part.
  */
+@Deprecated
 public class ShapedMaterialRecipe extends ShapedRecipe {
   private MaterialValueIngredient material;
   private final List<MaterialVariantId> extraMaterials;
@@ -121,12 +121,7 @@ public class ShapedMaterialRecipe extends ShapedRecipe {
 
   /** Sets the material for the given stack */
   public void setMaterial(ItemStack stack, MaterialVariantId material) {
-    MaterialNBT.Builder builder = MaterialNBT.builder();
-    builder.add(material);
-    for (MaterialVariantId extraMaterial : extraMaterials) {
-      builder.add(extraMaterial);
-    }
-    ToolStack.from(stack).setMaterials(builder.build());
+    ShapedMaterialsRecipe.setMaterial(stack, material, extraMaterials);
   }
 
   @Override
@@ -145,7 +140,7 @@ public class ShapedMaterialRecipe extends ShapedRecipe {
   }
 
   public static class Serializer implements LoggingRecipeSerializer<ShapedMaterialRecipe> {
-    static final Loadable<List<MaterialVariantId>> EXTRA_MATERIALS = MaterialVariantId.LOADABLE.list(0);
+    static final Loadable<List<MaterialVariantId>> EXTRA_MATERIALS = ShapedMaterialsRecipe.Serializer.EXTRA_MATERIALS;
     static final LoadableField<List<MaterialVariantId>,ShapedMaterialRecipe> MATERIAL_FIELD = EXTRA_MATERIALS.defaultField("extra_materials", List.of(), r -> r.extraMaterials);
 
     @Override

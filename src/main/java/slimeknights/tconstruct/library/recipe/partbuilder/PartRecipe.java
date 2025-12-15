@@ -133,20 +133,32 @@ public class PartRecipe implements IPartBuilderRecipe, IMultiRecipe<IDisplayPart
    * @return  Output of the recipe
    */
   @SuppressWarnings("WeakerAccess")
-  public ItemStack getRecipeOutput(MaterialVariantId material) {
+  public ItemStack getRecipeOutput(MaterialVariantId material, int count) {
     ItemStack stack = output.withMaterial(material);
-    stack.setCount(outputCount);
+    stack.setCount(count);
     return stack;
+  }
+
+  /** @deprecated use {@link #getRecipeOutput(MaterialVariantId, int)} */
+  @Deprecated(forRemoval = true)
+  public ItemStack getRecipeOutput(MaterialVariantId material) {
+    return getRecipeOutput(material, outputCount);
   }
 
   @Override
   public ItemStack assemble(IPartBuilderContainer inv, RegistryAccess access) {
     MaterialVariant material = MaterialVariant.UNKNOWN;
+    int count = outputCount;
     IMaterialValue materialRecipe = inv.getMaterial();
     if (materialRecipe != null) {
       material = materialRecipe.getMaterial();
+      // if no leftover, give them more parts provided we have the patterns for it
+      int value = materialRecipe.getValue();
+      if (!materialRecipe.hasLeftover() && value > cost) {
+        count = outputCount * value / cost;
+      }
     }
-    return this.getRecipeOutput(material.getVariant());
+    return this.getRecipeOutput(material.getVariant(), count);
   }
 
   /** Cache of recipes for display in JEI */

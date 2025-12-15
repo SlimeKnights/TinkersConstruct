@@ -34,9 +34,11 @@ import slimeknights.tconstruct.smeltery.item.TankItem;
 
 import javax.annotation.Nullable;
 import java.util.Locale;
+import java.util.function.ToIntFunction;
 
 public class SearedTankBlock extends SearedBlock implements ITankBlock, EntityBlock {
   public static final IntegerProperty LIGHT = IntegerProperty.create("light", 0, 15);
+  public static final ToIntFunction<BlockState> LIGHT_GETTER = state -> state.getValue(SearedTankBlock.LIGHT);
 
   @Getter
   private final int capacity;

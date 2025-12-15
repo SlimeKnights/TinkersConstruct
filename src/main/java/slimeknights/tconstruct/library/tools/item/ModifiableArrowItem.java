@@ -3,6 +3,10 @@ package slimeknights.tconstruct.library.tools.item;
 import lombok.Getter;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.SlotAccess;
@@ -18,6 +22,9 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import slimeknights.mantle.client.SafeClientAccess;
 import slimeknights.mantle.client.TooltipKey;
+import slimeknights.tconstruct.common.Sounds;
+import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.modifiers.hook.build.ConditionalStatModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InventoryTickModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.SlotStackModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.build.RarityModule;
@@ -30,6 +37,7 @@ import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.entity.ModifiableArrow;
 
 import javax.annotation.Nullable;
@@ -61,6 +69,34 @@ public class ModifiableArrowItem extends ArrowItem implements IModifiableDisplay
   @Override
   public boolean isInfinite(ItemStack stack, ItemStack bow, Player player) {
     return false;
+  }
+
+
+  /* Shurikening */
+
+  @Override
+  public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    ItemStack stack = player.getItemInHand(hand);
+    // only throw arrows if they have the throwable tool action. Useful for the other style of projectile in addons, or a really weird arrow modifier.
+    if (stack.is(TinkerTags.Items.THROWN_AMMO)) {
+      level.playSound(null, player.getX(), player.getY(), player.getZ(), Sounds.SHURIKEN_THROW.getSound(), SoundSource.NEUTRAL, 0.5F, 0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F));
+      player.getCooldowns().addCooldown(stack.getItem(), 10);
+      if (!level.isClientSide()) {
+        ModifiableArrow arrow = new ModifiableArrow(level, player);
+        IToolStackView tool = arrow.onCreate(stack, player);
+        float velocity = ConditionalStatModifierHook.getModifiedStat(tool, player, ToolStats.VELOCITY);
+        arrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, velocity, 1.0F);
+        level.addFreshEntity(arrow);
+      }
+
+      player.awardStat(Stats.ITEM_USED.get(this));
+      if (!player.getAbilities().instabuild) {
+        stack.shrink(1);
+      }
+
+      return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
+    }
+    return InteractionResultHolder.pass(stack);
   }
 
 

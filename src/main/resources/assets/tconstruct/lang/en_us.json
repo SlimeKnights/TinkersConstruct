@@ -1180,6 +1180,8 @@
 
   "item.tconstruct.repair_kit": "Repair Kit",
   "item.tconstruct.repair_kit.tooltip": "Use on a tool in the inventory to repair it the equivalent of %s ingots",
+  "item.tconstruct.fake_ingot": "Ingot",
+  "block.tconstruct.fake_storage_block": "Block",
 
   "item.tconstruct.pick_head": "Pick Head",
   "item.tconstruct.hammer_head": "Hammer Head",
@@ -1379,6 +1381,8 @@
 
   "block.tconstruct.seared_ladder": "Seared Ladder",
   "block.tconstruct.seared_ladder.tooltip": "Climbable Smeltery block.",
+  "block.tconstruct.seared_lamp": "Seared Lamp",
+  "block.tconstruct.seared_lamp.tooltip": "Smeltery block that emits light.",
 
   "block.tconstruct.seared_fuel_tank": "Seared Fuel Tank",
   "block.tconstruct.seared_fuel_tank.tooltip": "Heart of the Smeltery.\nRetains liquid when broken.",
@@ -1470,6 +1474,8 @@
 
   "block.tconstruct.scorched_ladder": "Scorched Ladder",
   "block.tconstruct.scorched_ladder.tooltip": "Climbable Foundry block.",
+  "block.tconstruct.scorched_lamp": "Scorched Lamp",
+  "block.tconstruct.scorched_lamp.tooltip": "Foundry block that emits light.",
 
   "block.tconstruct.scorched_fuel_tank": "Scorched Fuel Tank",
   "block.tconstruct.scorched_fuel_tank.tooltip": "Heart of the Foundry.\nRetains liquid when broken.",
@@ -2000,7 +2006,7 @@
 
   "material.tconstruct.nahuatl": "Nahuatl",
   "material.tconstruct.nahuatl.flavor": "This is not an obsidian part, if it was it would say \"Obsidian.\"",
-  "material.tconstruct.nahuatl.encyclopedia": "Has a 50% chance of doing up to 5 damage over time, more damage at higher levels",
+  "material.tconstruct.nahuatl.encyclopedia": "Causes 1 damage per second over time for 2 seconds per level. Consecutive hits add instead of replacing the time.",
   "material.tconstruct.nahuatl.armor": "Has a 25% chance per level (50% if blocking) of doing up to 5 damage over time",
 
   "material.tconstruct.obsidian":   "Obsidian",
@@ -2051,8 +2057,8 @@
 
   "material.tconstruct.manyullyn": "Manyullyn",
   "material.tconstruct.manyullyn.flavor": "The metal that most Tinkers will never pronounce right. Also known as a star cutting material.",
-  "material.tconstruct.manyullyn.encyclopedia": "Grants up to +2 damage per level, with the damage increasing linearly over 8 consecutive hits",
-  "material.tconstruct.manyullyn.ranged": "Arrows gain up to +1 damage per level (before velocity), with damage increasing linearly over 8 consecutive arrow hits",
+  "material.tconstruct.manyullyn.encyclopedia": "Grants up to +2.5 damage per level, with the damage increasing by +0.5 per hit over 5 consecutive hits",
+  "material.tconstruct.manyullyn.ranged": "Arrows gain up to +1.25 power per level (before velocity), with damage increasing linearly over 5 consecutive arrow hits",
   "material.tconstruct.manyullyn.armor": "Temporarily boosts melee damage by 1 after taking damage, capping at the total level across all armor",
 
   "material.tconstruct.hepatizon": "Hepatizon",
@@ -2075,8 +2081,8 @@
 
   "material.tconstruct.blazing_bone": "Blazing Bone",
   "material.tconstruct.blazing_bone.flavor": "Harness the full power of the Nether Fortress - bone and blaze",
-  "material.tconstruct.blazing_bone.encyclopedia": "Grants +1% damage per second of fire, up to +15% from lava's 15 seconds. Bonus reduced by fire resistance.",
-  "material.tconstruct.blazing_bone.ranged": "Grants +1% arrow damage per second of fire, up to +15% from lava's 15 seconds. Bonus reduced by fire resistance.",
+  "material.tconstruct.blazing_bone.encyclopedia": "Grants +1% damage per second of fire, up to +20% from 10+ seconds. Bonus reduced by fire resistance.",
+  "material.tconstruct.blazing_bone.ranged": "Grants +1% arrow damage per second of fire, up to +20% from 10+ seconds. Bonus reduced by fire resistance.",
   "material.tconstruct.blazing_bone.armor": "Has a 15% chance on hit to cause attackers to take 200% fire damage for the next 5 to 10 seconds (or up to 15 seconds if blocking).",
   "material.tconstruct.blazing_bone.ammo": "Causes the target to take 200% fire damage for the next 5 to 10 seconds.",
   "material.tconstruct.blazing_bone.skull_flavor": "I told them this is technically firespit, not firebreath, but apparently I don't get to decide the names for things I invent",

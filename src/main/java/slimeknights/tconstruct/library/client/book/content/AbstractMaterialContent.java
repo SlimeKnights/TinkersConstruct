@@ -47,6 +47,7 @@ import slimeknights.tconstruct.library.tools.definition.module.material.ToolMate
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
+import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.library.tools.part.IToolPart;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tables.TinkerTables;
@@ -57,13 +58,18 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Optional;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /** Base class for material content pages */
 public abstract class AbstractMaterialContent extends PageContent {
+  /** List of fallback items for the icon if no material recipes. */
+  private static final List<Supplier<? extends IMaterialItem>> FALLBACKS = new ArrayList<>();
+
   private static final List<Component> PART_BUILDER = List.of(
     TConstruct.makeTranslation("book", "material.craftable"),
     TConstruct.makeTranslation("book", "material.part_builder").withStyle(ChatFormatting.GRAY)
@@ -138,14 +144,24 @@ public abstract class AbstractMaterialContent extends PageContent {
       // simply combine all items from all recipes
       MaterialVariantId material = getMaterialVariant();
       repairStacks = RecipeHelper.getUIRecipes(world.getRecipeManager(), TinkerRecipeTypes.MATERIAL.get(), MaterialRecipe.class, recipe -> material.matchesVariant(recipe.getMaterial()))
-                                 .stream()
-                                 .flatMap(recipe -> Arrays.stream(recipe.getIngredient().getItems()))
-                                 .collect(Collectors.toList());
-      // no repair items? use the repair kit
+        .stream()
+        // prefer 1 value 1 needed (ingots), then 1 value with higher needed (nuggets), then higher value (blocks)
+        .sorted(Comparator.comparing(MaterialRecipe::getValue).thenComparing(MaterialRecipe::getNeeded))
+        .flatMap(recipe -> Arrays.stream(recipe.getIngredient().getItems()))
+        .collect(Collectors.toList());
+      // no repair items? use the fallbacks
       if (repairStacks.isEmpty()) {
-        TConstruct.LOG.debug("Material with id " + material + " has no representation items associated with it, using repair kit");
-        // bypass the valid check, because we need to show something
-        repairStacks = Collections.singletonList(TinkerToolParts.repairKit.get().withMaterialForDisplay(material));
+        // use the fallback stacks
+        repairStacks = FALLBACKS.stream().map(Supplier::get)
+          .filter(part -> part.canUseMaterial(material.getId()))
+          .map(part -> part.withMaterialForDisplay(material)).toList();
+
+        // no matching fallback? just use a repair kit
+        if (repairStacks.isEmpty()) {
+          TConstruct.LOG.debug("Material with id " + material + " has no representation items associated with it, using repair kit");
+          // bypass the valid check, because we need to show something
+          repairStacks = Collections.singletonList(TinkerToolParts.repairKit.get().withMaterialForDisplay(material));
+        }
       }
     }
     return repairStacks;
@@ -439,5 +455,10 @@ public abstract class AbstractMaterialContent extends PageContent {
                          .filter(part -> part.getStatType().equals(statType))
                          .map(part -> part.withMaterialForDisplay(material))
                          .toList();
+  }
+
+  /** Registers a part to use for display of materials with no material recipes. If none of these parts match, the repair kit will be used. */
+  public static void registerFallbackPart(Supplier<? extends IMaterialItem> part) {
+    FALLBACKS.add(part);
   }
 }

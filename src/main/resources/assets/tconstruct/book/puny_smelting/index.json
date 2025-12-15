@@ -34,7 +34,7 @@
       "type": "mantle:or",
       "predicates": [
         { "type": "mantle:inverted", "inverted_type": "mantle:tag", "tag": "tconstruct:book/distant" },
-        { "type": "mantle:conditional", "conditions": [{ "type": "mantle:tag_filled", "tag": "tconstruct:whitestone_ingots" }], "if_true": { "type": "tconstruct:id", "id": "tconstruct:whitestone" }}
+        { "type": "mantle:load_condition", "conditions": [{ "type": "mantle:tag_filled", "tag": "tconstruct:whitestone_ingots" }], "if_true": { "type": "tconstruct:id", "id": "tconstruct:whitestone" }}
       ]
     }}},
     "icon": {

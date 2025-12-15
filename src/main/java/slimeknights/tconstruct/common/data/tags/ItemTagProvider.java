@@ -106,6 +106,7 @@ import static slimeknights.tconstruct.common.TinkerTags.Items.STAFFS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.STONE_HARVEST;
 import static slimeknights.tconstruct.common.TinkerTags.Items.SWORD;
 import static slimeknights.tconstruct.common.TinkerTags.Items.THROWN_AMMO;
+import static slimeknights.tconstruct.common.TinkerTags.Items.TOOL_PARTS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.TRADER_TOOLS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.TRIM;
 import static slimeknights.tconstruct.common.TinkerTags.Items.UNARMED;
@@ -149,7 +150,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     }
     TinkerCommons.slimeball.forEach((type, ball) -> this.tag(type.getSlimeballTag()).add(ball));
 
-    this.tag(Tags.Items.INGOTS).add(TinkerSmeltery.searedBrick.get(), TinkerSmeltery.scorchedBrick.get()).addTag(TinkerTags.Items.INGOTS_NETHERITE_SCRAP);
+    this.tag(Tags.Items.INGOTS).add(TinkerSmeltery.searedBrick.get(), TinkerSmeltery.scorchedBrick.get(), TinkerToolParts.fakeIngot.get()).addTag(TinkerTags.Items.INGOTS_NETHERITE_SCRAP);
     this.tag(Tags.Items.NUGGETS).addTags(TinkerTags.Items.NUGGETS_COPPER, TinkerTags.Items.NUGGETS_NETHERITE, TinkerTags.Items.NUGGETS_NETHERITE_SCRAP);
     this.tag(TinkerTags.Items.BONES).add(Items.BONE);
     this.tag(TinkerTags.Items.WITHER_BONES).add(TinkerMaterials.necroticBone.get()).addTag(TinkerTags.Items.WEIRD_WITHER_BONES_TAG);
@@ -438,7 +439,7 @@ public class ItemTagProvider extends ItemTagsProvider {
       // arrow part bartering is weird as they have such low tiers
       TinkerToolParts.arrowHead.get(), TinkerToolParts.arrowShaft.get(), TinkerToolParts.fletching.get(),
       // repair kit is not strictly a tool part, but this list just helps out JEI
-      TinkerToolParts.repairKit.get()
+      TinkerToolParts.repairKit.get(), TinkerToolParts.fakeIngot.get(), TinkerToolParts.fakeStorageBlock.asItem()
     ).addTag(TinkerTags.Items.BARTERED_PARTS); // all bartered parts must be tool parts
     this.tag(TinkerTags.Items.BARTERED_PARTS)
         .add(
@@ -507,7 +508,9 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.copy(TinkerTags.Blocks.BASALT,     TinkerTags.Items.BASALT);
 
     // twilight forest
-    this.tag(BANNED_UNCRAFTABLE).addTag(MODIFIABLE).add(TinkerTables.tinkersAnvil.asItem(), TinkerTables.scorchedAnvil.asItem(), TinkerTables.modifierWorktable.asItem());
+    this.tag(BANNED_UNCRAFTABLE).addTag(MODIFIABLE).addTag(TOOL_PARTS).add(
+      TinkerTables.tinkersAnvil.asItem(), TinkerTables.scorchedAnvil.asItem(), TinkerTables.modifierWorktable.asItem()
+    );
     String tf = "twilightforest";
     Function<String,ResourceLocation> trophy = name -> new ResourceLocation(tf, name + "_trophy");
     this.tag(TinkerTags.Items.BOSS_TROPHIES)
@@ -631,7 +634,9 @@ public class ItemTagProvider extends ItemTagsProvider {
         .addTag(TinkerTags.Items.SCORCHED_TANKS);
 
     // blacklist for proxy tank - mostly to encourage you to use the better suited casting tank
-    this.tag(TinkerTags.Items.PROXY_TANK_BLACKLIST).add(Items.BUCKET, Items.GLASS_BOTTLE, Items.BOWL, TinkerSmeltery.copperCan.get());
+    this.tag(TinkerTags.Items.PROXY_TANK_BLACKLIST)
+      .add(Items.BUCKET, Items.GLASS_BOTTLE, Items.BOWL, TinkerSmeltery.copperCan.get())
+      .addTag(TinkerTags.Items.AMMO); // ammo has exact size tanks, unlike other modifiable items that have variable sized
 
     // melting tags //
     // ores

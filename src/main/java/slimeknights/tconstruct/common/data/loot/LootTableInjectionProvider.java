@@ -75,7 +75,7 @@ public class LootTableInjectionProvider extends AbstractLootTableInjectionProvid
                                  .build());
 
     // spawn chest
-    RandomMaterial randomTier1 = RandomMaterial.random().tier(1).material(includeInLoot).build();
+    RandomMaterial randomTier1 = RandomMaterial.random().tier(0, 1).material(includeInLoot).build();
     RandomMaterial firstWithStat = RandomMaterial.firstWithStat(); // should be wood
     injectChest("spawn_bonus_chest")
       .addToPool("main", LootItem.lootTableItem(TinkerTools.handAxe.get())

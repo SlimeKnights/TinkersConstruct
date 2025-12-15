@@ -27,12 +27,12 @@ import java.util.List;
 /** Deals a percentage boost in damage when on fire */
 public class ConductingModifier extends Modifier implements ConditionalStatModifierHook, TooltipModifierHook, MeleeDamageModifierHook {
   private static final Component BOOST = TConstruct.makeTranslation("modifier", "conducting.boost");
-  private static final int MAX_BONUS_TICKS = 15 * 20; // time from lava
-  private static final float PERCENT_PER_LEVEL = 0.15f; // 15% bonus when in lava essentially
+  private static final int MAX_BONUS_TICKS = 10 * 20; // 2/3 time from lava
+  private static final float PERCENT_PER_LEVEL = 0.2f; // 20% bonus when in lava essentially
 
   @Override
   protected void registerHooks(Builder hookBuilder) {
-    hookBuilder.addHook(this, ModifierHooks.CONDITIONAL_STAT, ModifierHooks.TOOLTIP, ModifierHooks.MELEE_DAMAGE);
+    hookBuilder.addHook(this, ModifierHooks.CONDITIONAL_STAT, ModifierHooks.TOOLTIP, ModifierHooks.MELEE_DAMAGE, ModifierHooks.MONSTER_MELEE_DAMAGE);
   }
 
   @Override

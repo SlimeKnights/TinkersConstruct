@@ -49,7 +49,7 @@ import static net.minecraft.world.level.block.state.properties.BlockStatePropert
 import static net.minecraftforge.client.model.generators.ModelProvider.BLOCK_FOLDER;
 import static slimeknights.tconstruct.TConstruct.getResource;
 
-@SuppressWarnings({"UnusedReturnValue", "SameParameterValue"})
+@SuppressWarnings({"UnusedReturnValue", "SameParameterValue", "removal"})
 public class TinkerBlockStateProvider extends BlockStateProvider {
   private final UncheckedModelFile GENERATED = new UncheckedModelFile("item/generated");
 
@@ -102,6 +102,10 @@ public class TinkerBlockStateProvider extends BlockStateProvider {
     geode(TinkerWorld.skyGeode,   "sky");
     geode(TinkerWorld.ichorGeode, "ichor");
     geode(TinkerWorld.enderGeode, "ender");
+
+    // smeltery
+    basicBlock(TinkerSmeltery.searedLamp.get(), "block/smeltery/seared/lamp", blockTexture("smeltery/seared/lamp"));
+    basicBlock(TinkerSmeltery.scorchedLamp.get(), "block/foundry/scorched/lamp", blockTexture("foundry/scorched/lamp"));
   }
 
 

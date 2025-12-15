@@ -32,6 +32,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.hook.armor.OnAttackedModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.combat.MonsterMeleeHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.mining.BlockHarvestModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.LauncherHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileLaunchModifierHook;
@@ -54,7 +55,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 /** Module that cooks items inside a frypan */
-public record SmeltingModule(RecipeType<? extends AbstractCookingRecipe> recipeType, float multiplier, InventoryModule inventory) implements ModifierModule, MeleeHitModifierHook, LauncherHitModifierHook, BlockHarvestModifierHook, ProjectileLaunchModifierHook, OnAttackedModifierHook, PlantHarvestModifierHook, ShearsModifierHook {
+public record SmeltingModule(RecipeType<? extends AbstractCookingRecipe> recipeType, float multiplier, InventoryModule inventory) implements ModifierModule, MeleeHitModifierHook, MonsterMeleeHitModifierHook.RedirectAfter, LauncherHitModifierHook, BlockHarvestModifierHook, ProjectileLaunchModifierHook, OnAttackedModifierHook, PlantHarvestModifierHook, ShearsModifierHook {
   /** NBT key to store the cooking time */
   private static final String TAG_TIME = "tic_remaining_time";
   /** Container instance for recipe lookups */
@@ -63,7 +64,7 @@ public record SmeltingModule(RecipeType<? extends AbstractCookingRecipe> recipeT
   private static AbstractCookingRecipe lastRecipe = null;
   /** Cooking time for when an item finishes cooking */
   private static final int DONE_COOKING = -1;
-  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<SmeltingModule>defaultHooks(ModifierHooks.MELEE_HIT, ModifierHooks.LAUNCHER_HIT, ModifierHooks.BLOCK_HARVEST, ModifierHooks.PROJECTILE_LAUNCH, ModifierHooks.ON_ATTACKED, ModifierHooks.PLANT_HARVEST, ModifierHooks.SHEAR_ENTITY);
+  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<SmeltingModule>defaultHooks(ModifierHooks.MELEE_HIT, ModifierHooks.MONSTER_MELEE_HIT, ModifierHooks.LAUNCHER_HIT, ModifierHooks.BLOCK_HARVEST, ModifierHooks.PROJECTILE_LAUNCH, ModifierHooks.ON_ATTACKED, ModifierHooks.PLANT_HARVEST, ModifierHooks.SHEAR_ENTITY);
   @SuppressWarnings("unchecked")
   public static final RecordLoadable<SmeltingModule> LOADER = RecordLoadable.create(
       TinkerLoadables.RECIPE_TYPE.<RecipeType<? extends AbstractCookingRecipe>>flatXmap(t -> (RecipeType<? extends AbstractCookingRecipe>) t, t -> t)

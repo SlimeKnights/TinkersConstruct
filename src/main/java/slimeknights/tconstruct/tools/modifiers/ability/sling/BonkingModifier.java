@@ -44,7 +44,7 @@ public class BonkingModifier extends SlingModifier implements MeleeHitModifierHo
   @Override
   protected void registerHooks(Builder builder) {
     super.registerHooks(builder);
-    builder.addHook(this, ModifierHooks.MELEE_HIT);
+    builder.addHook(this, ModifierHooks.MELEE_HIT, ModifierHooks.MELEE_DAMAGE);
   }
 
   @Override

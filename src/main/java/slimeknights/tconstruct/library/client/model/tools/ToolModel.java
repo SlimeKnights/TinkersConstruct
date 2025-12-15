@@ -15,7 +15,6 @@ import it.unimi.dsi.fastutil.ints.Int2IntFunction;
 import it.unimi.dsi.fastutil.ints.Int2IntMap;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.client.color.item.ItemColors;
@@ -612,10 +611,7 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
   /**
    * Dynamic override handler to swap in the material texture
    */
-  @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-  public static final class MaterialOverrideHandler extends ItemOverrides {
-    /** If true, we are currently resolving a nested model and should ignore further nesting */
-    private static boolean ignoreNested = false;
+  public static final class MaterialOverrideHandler extends NestedOverrides {
 
     // contains all the baked models since they'll never change, cleared automatically as the baked model is discarded
     private final Cache<ToolCacheKey, BakedModel> cache = CacheBuilder
@@ -632,7 +628,6 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
     @Nullable
     private final Transformation largeTransforms;
     private final Map<ModifierId,IBakedModifierModel> modifierModels;
-    private final ItemOverrides nested;
     @Nullable
     private final ResourceLocation ammoKey;
     private final boolean flipAmmo;
@@ -642,6 +637,21 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
     private final Transformation largeAmmoTransforms;
     @Nullable
     private final Transformation leftAmmoTransforms;
+
+    private MaterialOverrideHandler(IGeometryBakingContext owner, List<ToolPart> toolParts, List<FirstModifier> firstModifiers, boolean showTraits, @Nullable Transformation largeTransforms, Map<ModifierId, IBakedModifierModel> modifierModels, ItemOverrides nested, @Nullable ResourceLocation ammoKey, boolean flipAmmo, @Nullable Transformation smallAmmoTransforms, @Nullable Transformation largeAmmoTransforms, @Nullable Transformation leftAmmoTransforms) {
+      super(nested);
+      this.owner = owner;
+      this.toolParts = toolParts;
+      this.firstModifiers = firstModifiers;
+      this.showTraits = showTraits;
+      this.largeTransforms = largeTransforms;
+      this.modifierModels = modifierModels;
+      this.ammoKey = ammoKey;
+      this.flipAmmo = flipAmmo;
+      this.smallAmmoTransforms = smallAmmoTransforms;
+      this.largeAmmoTransforms = largeAmmoTransforms;
+      this.leftAmmoTransforms = leftAmmoTransforms;
+    }
 
     /**
      * Bakes a copy of this model using the given material
@@ -712,18 +722,11 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
     @Nullable
     @Override
     public BakedModel resolve(BakedModel originalModel, ItemStack stack, @Nullable ClientLevel world, @Nullable LivingEntity entity, int seed) {
-      // first, resolve the overrides
-      // hack: we set a boolean flag to prevent that model from resolving its nested overrides, no nesting multiple deep
-      if (!ignoreNested) {
-        BakedModel overridden = nested.resolve(originalModel, stack, world, entity, seed);
-        if (overridden != null && overridden != originalModel) {
-          ignoreNested = true;
-          // if the override does have a new model, make sure to fetch its overrides to handle the nested texture as its most likely a tool model
-          BakedModel finalModel = overridden.getOverrides().resolve(overridden, stack, world, entity, seed);
-          ignoreNested = false;
-          return finalModel;
-        }
+      BakedModel resolved = super.resolve(originalModel, stack, world, entity, seed);
+      if (resolved != originalModel) {
+        return resolved;
       }
+      
       // use material IDs for the sake of internal rendering materials
       List<MaterialVariantId> materialIds = MaterialIdNBT.from(stack).getMaterials();
       IToolStackView tool = ToolStack.from(stack);

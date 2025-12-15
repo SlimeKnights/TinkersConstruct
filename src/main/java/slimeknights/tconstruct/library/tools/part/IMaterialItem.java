@@ -24,20 +24,30 @@ public interface IMaterialItem extends ItemLike {
    */
   MaterialVariantId getMaterial(ItemStack stack);
 
-  /** Returns the item with the given material, bypassing material validation */
-  default ItemStack withMaterialForDisplay(MaterialVariantId materialId) {
-    ItemStack stack = new ItemStack(this);
-    // FIXME: it is odd that we assume the NBT format in this method but not in getMaterial, should be consistent in the implementation location
-    stack.getOrCreateTag().putString(MATERIAL_TAG, materialId.toString());
+  /** Sets the material on the existing stack. */
+  default ItemStack setMaterial(ItemStack stack, MaterialVariantId material) {
+    if (canUseMaterial(material.getId())) {
+      return setMaterialForced(stack, material);
+    }
     return stack;
+  }
+
+  /** Sets the material on the existing stack, bypassing the valid material check. */
+  default ItemStack setMaterialForced(ItemStack stack, MaterialVariantId material) {
+    // FIXME: it is odd that we assume the NBT format in this method but not in getMaterial, should be consistent in the implementation location
+    stack.getOrCreateTag().putString(MATERIAL_TAG, material.toString());
+    return stack;
+  }
+
+  /** Returns the item with the given material, bypassing material validation */
+  default ItemStack withMaterialForDisplay(MaterialVariantId material) {
+    // TODO 1.21: ditch this in favor of setMaterialForDisplay?
+    return setMaterialForced(new ItemStack(this), material);
   }
 
   /** Returns the item with the given material, validating it */
   default ItemStack withMaterial(MaterialVariantId material) {
-    if (canUseMaterial(material.getId())) {
-      return withMaterialForDisplay(material);
-    }
-    return new ItemStack(this);
+    return setMaterial(new ItemStack(this), material);
   }
 
   /**
@@ -101,14 +111,8 @@ public interface IMaterialItem extends ItemLike {
    */
   static ItemStack withMaterial(ItemStack stack, MaterialVariantId material) {
     Item item = stack.getItem();
-    if (item instanceof IMaterialItem) {
-      ItemStack output = ((IMaterialItem) item).withMaterial(material);
-      if (stack.hasTag()) {
-        assert stack.getTag() != null;
-        assert output.getTag() != null;
-        output.getTag().merge(stack.getTag());
-      }
-      return output;
+    if (item instanceof IMaterialItem materialItem) {
+      return materialItem.setMaterial(stack.copy(), material);
     }
     return stack;
   }

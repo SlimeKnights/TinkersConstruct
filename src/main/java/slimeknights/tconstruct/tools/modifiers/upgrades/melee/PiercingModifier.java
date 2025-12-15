@@ -11,6 +11,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.build.ToolStatsModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.combat.MonsterMeleeHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.display.TooltipModifierHook;
 import slimeknights.tconstruct.library.module.ModuleHookMap.Builder;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
@@ -24,11 +25,11 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 
-public class PiercingModifier extends Modifier implements ToolStatsModifierHook, MeleeHitModifierHook, TooltipModifierHook {
+public class PiercingModifier extends Modifier implements ToolStatsModifierHook, MeleeHitModifierHook, MonsterMeleeHitModifierHook.RedirectAfter, TooltipModifierHook {
   @Override
   protected void registerHooks(Builder hookBuilder) {
     super.registerHooks(hookBuilder);
-    hookBuilder.addHook(this, ModifierHooks.TOOL_STATS, ModifierHooks.MELEE_HIT, ModifierHooks.TOOLTIP);
+    hookBuilder.addHook(this, ModifierHooks.TOOL_STATS, ModifierHooks.MELEE_HIT, ModifierHooks.MONSTER_MELEE_HIT, ModifierHooks.TOOLTIP);
   }
 
   @Override

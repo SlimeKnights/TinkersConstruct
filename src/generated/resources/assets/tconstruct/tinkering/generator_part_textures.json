@@ -33,6 +33,14 @@
       "stat_type": "tconstruct:repair_kit"
     },
     {
+      "path": "tconstruct:item/tool/parts/ingot",
+      "stat_type": "tconstruct:ingot"
+    },
+    {
+      "path": "tconstruct:block/storage/fallback",
+      "stat_type": "tconstruct:storage_block"
+    },
+    {
       "allow_animated": false,
       "path": "tconstruct:tinker_armor/travelers/metal_armor",
       "stat_type": "tconstruct:armor_plating"

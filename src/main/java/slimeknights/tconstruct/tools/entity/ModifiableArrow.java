@@ -82,11 +82,7 @@ public class ModifiableArrow extends AbstractArrow implements ToolProjectile {
    * Called when the arrow is created to set initial properties.
    * @see ThrownShuriken#onCreate(ItemStack, LivingEntity)
    */
-  public void onCreate(ItemStack stack, @Nullable LivingEntity shooter) {
-    if (stack.isEmpty()) {
-      setStack(ItemStack.EMPTY);
-      return;
-    }
+  public IToolStackView onCreate(ItemStack stack, @Nullable LivingEntity shooter) {
     stack = stack.copyWithCount(1);
     setStack(stack);
     // initialize arrow stats
@@ -94,6 +90,7 @@ public class ModifiableArrow extends AbstractArrow implements ToolProjectile {
     EntityModifierCapability.getCapability(this).addModifiers(tool.getModifiers());
     setBaseDamage(ConditionalStatModifierHook.getModifiedStat(tool, shooter, ToolStats.PROJECTILE_DAMAGE));
     this.entityData.set(WATER_INERTIA, ConditionalStatModifierHook.getModifiedStat(tool, shooter, ToolStats.WATER_INERTIA));
+    return tool;
   }
 
   /** @see ThrownShuriken#shoot(double, double, double, float, float)  */

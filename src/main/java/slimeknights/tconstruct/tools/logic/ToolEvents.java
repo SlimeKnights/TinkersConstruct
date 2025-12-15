@@ -66,6 +66,7 @@ import slimeknights.tconstruct.library.tools.capability.PersistentDataCapability
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
+import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
 import slimeknights.tconstruct.library.tools.definition.module.mining.IsEffectiveToolHook;
 import slimeknights.tconstruct.library.tools.helper.ArmorUtil;
@@ -273,6 +274,32 @@ public class ToolEvents {
     float modifierValue = 0;
     float originalDamage = event.getAmount();
 
+    Entity attacker = source.getEntity();
+    if (attacker instanceof LivingEntity living) {
+      // boost damage based on monster's melee weapon
+      if (Config.COMMON.allowMonsterMeleeModifiers.get() && !source.isIndirect() && !source.is(TinkerTags.DamageTypes.MELEE_MODIFIER_BLACKLIST) && !living.getType().is(TinkerTags.EntityTypes.MELEE_MODIFIER_BLACKLIST)) {
+        ItemStack weapon = living.getMainHandItem();
+        if (!weapon.isEmpty() && weapon.is(TinkerTags.Items.MELEE_WEAPON)) {
+          IToolStackView tool = ToolStack.from(weapon);
+          // already know the player is null
+          ToolAttackContext meleeContext = ToolAttackContext.attacker(living, null).target(entity).applyAttributes().build();
+          float baseDamage = originalDamage;
+          for (ModifierEntry entry : tool.getModifiers()) {
+            originalDamage = entry.getHook(ModifierHooks.MONSTER_MELEE_DAMAGE).getMeleeDamage(tool, entry, meleeContext, baseDamage, originalDamage);
+          }
+        }
+      }
+
+      // run shulking global damage "boost", its a bit hardcoded Java wise to make it softcoded in JSON
+      if (attacker.isCrouching()) {
+        double crouchMultiplier = living.getAttributeValue(TinkerAttributes.CROUCH_DAMAGE_MULTIPLIER.get());
+        crouchMultiplier += ArmorStatModule.getStat(attacker, TinkerDataKeys.CROUCH_DAMAGE);
+        if (crouchMultiplier != 0) {
+          originalDamage *= crouchMultiplier;
+        }
+      }
+    }
+
     // conducting - boosts damage from fire
     if (source.is(TinkerTags.DamageTypes.FIRE_PROTECTION)) {
       int level = TinkerEffect.getLevel(entity, TinkerEffects.conductive);
@@ -287,16 +314,7 @@ public class ToolEvents {
         originalDamage *= Math.pow(2, level);
       }
     }
-
-    // run shulking global damage "boost", its a bit hardcoded Java wise to make it softcoded in JSON
-    Entity attacker = event.getSource().getEntity();
-    if (attacker != null && attacker.isCrouching()) {
-      double crouchMultiplier = attacker instanceof LivingEntity living ? living.getAttributeValue(TinkerAttributes.CROUCH_DAMAGE_MULTIPLIER.get()) : 1;
-      crouchMultiplier += ArmorStatModule.getStat(attacker, TinkerDataKeys.CROUCH_DAMAGE);
-      if (crouchMultiplier != 0) {
-        originalDamage *= crouchMultiplier;
-      }
-    }
+    
     // ensure any changes made so far apply, though we may change it again
     event.setAmount(originalDamage);
 
@@ -391,18 +409,37 @@ public class ToolEvents {
     DamageSource source = event.getSource();
 
     // give modifiers a chance to respond to damage happening
+    float amount = event.getAmount();
     EquipmentContext context = new EquipmentContext(entity);
     if (context.hasModifiableArmor()) {
-      float amount = ModifyDamageModifierHook.modifyDamageTaken(ModifierHooks.MODIFY_DAMAGE, context, source, event.getAmount(), OnAttackedModifierHook.isDirectDamage(source));
+      amount = ModifyDamageModifierHook.modifyDamageTaken(ModifierHooks.MODIFY_DAMAGE, context, source, amount, OnAttackedModifierHook.isDirectDamage(source));
       event.setAmount(amount);
       if (amount <= 0) {
         event.setCanceled(true);
-        return;
+      }
+    }
+
+    // for remaining code, ensure amount is not more than they will take
+    amount = Math.min(amount, entity.getHealth());
+
+    // apply post hit modifier effects. Done regardless of damage dealt - don't care if absorption took it all
+    if (Config.COMMON.allowMonsterMeleeModifiers.get() && !source.isIndirect() && !source.is(TinkerTags.DamageTypes.MELEE_MODIFIER_BLACKLIST)) {
+      Entity attacker = event.getSource().getEntity();
+      if (attacker != null && !attacker.getType().is(TinkerTags.EntityTypes.MELEE_MODIFIER_BLACKLIST) && attacker instanceof LivingEntity living) {
+        ItemStack weapon = living.getMainHandItem();
+        if (!weapon.isEmpty() && weapon.is(TinkerTags.Items.MELEE_WEAPON)) {
+          // already know we are not a player
+          ToolAttackContext meleeContext = ToolAttackContext.attacker(living, null).target(event.getEntity()).applyAttributes().build();
+          IToolStackView tool = ToolStack.from(weapon);
+          for (ModifierEntry entry : tool.getModifiers()) {
+            entry.getHook(ModifierHooks.MONSTER_MELEE_HIT).onMonsterMeleeHit(tool, entry, meleeContext, amount);
+          }
+        }
       }
     }
 
     // when damaging ender dragons, may drop scales - must be player caused explosion, end crystals and TNT are examples
-    if (Config.COMMON.dropDragonScales.get() && entity.getType() == EntityType.ENDER_DRAGON && event.getAmount() > 0
+    if (amount > 0 && Config.COMMON.dropDragonScales.get() && entity.getType() == EntityType.ENDER_DRAGON && event.getAmount() > 0
         && source.is(DamageTypeTags.IS_EXPLOSION) && source.getEntity() != null && source.getEntity().getType() == EntityType.PLAYER) {
       // drops 1 - 8 scales
       ModifierUtil.dropItem(entity, new ItemStack(TinkerModifiers.dragonScale, 1 + entity.level().random.nextInt(8)));

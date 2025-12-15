@@ -45,9 +45,11 @@ import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.client.armor.AbstractArmorModel;
 import slimeknights.tconstruct.library.client.armor.ArmorModelManager;
 import slimeknights.tconstruct.library.client.armor.texture.TrimArmorTextureSupplier;
+import slimeknights.tconstruct.library.client.book.content.AbstractMaterialContent;
 import slimeknights.tconstruct.library.client.materials.MaterialTooltipCache;
 import slimeknights.tconstruct.library.client.model.DynamicTextureLoader;
 import slimeknights.tconstruct.library.client.model.TinkerItemProperties;
+import slimeknights.tconstruct.library.client.model.tools.MaterialBlockModel;
 import slimeknights.tconstruct.library.client.model.tools.MaterialModel;
 import slimeknights.tconstruct.library.client.model.tools.ToolModel;
 import slimeknights.tconstruct.library.client.modifiers.DyedModifierModel;
@@ -117,6 +119,7 @@ public class ToolClientEvents extends ClientEventBase {
   static void registerModelLoaders(RegisterGeometryLoaders event) {
     event.register("material", MaterialModel.LOADER);
     event.register("tool", ToolModel.LOADER);
+    event.register("material_block", MaterialBlockModel.LOADER);
   }
 
   @SubscribeEvent
@@ -159,6 +162,9 @@ public class ToolClientEvents extends ClientEventBase {
 
     // keybinds
     event.enqueueWork(() -> {
+      // fake ingot showing in the book is a little nicer than the repair kits
+      AbstractMaterialContent.registerFallbackPart(TinkerToolParts.fakeIngot);
+      AbstractMaterialContent.registerFallbackPart(TinkerToolParts.fakeStorageBlockItem);
       // screens
       MenuScreens.register(TinkerTools.toolContainer.get(), ToolContainerScreen::new);
 

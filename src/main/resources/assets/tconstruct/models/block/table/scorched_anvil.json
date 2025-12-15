@@ -1,9 +1,9 @@
 {
-  "loader": "mantle:retextured",
+  "loader": "tconstruct:material_block",
   "parent": "block/block",
   "textures": {
-    "particle": "minecraft:block/gilded_blackstone",
-    "top":      "minecraft:block/gilded_blackstone",
+    "particle": "tconstruct:block/storage/fallback",
+    "top":      "tconstruct:block/storage/fallback",
     "base":     "tconstruct:block/table/scorched_anvil_base",
     "upper":    "tconstruct:block/table/scorched_anvil_base_upper"
   },

@@ -17,6 +17,8 @@ public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
   public static final MaterialStatsId ARMOR_PLATING = new MaterialStatsId(TConstruct.MOD_ID, "armor_plating");
   public static final MaterialStatsId ARMOR_MAILLE = new MaterialStatsId(TConstruct.MOD_ID, "armor_maille");
   public static final MaterialStatsId ARMOR_CUIRASS = new MaterialStatsId(TConstruct.MOD_ID, "armor_cuirass");
+  public static final MaterialStatsId INGOT = new MaterialStatsId(TConstruct.MOD_ID, "ingot");
+  public static final MaterialStatsId STORAGE_BLOCK = new MaterialStatsId(TConstruct.MOD_ID, "storage_block");
 
   public TinkerPartSpriteProvider() {
     super(TConstruct.MOD_ID);
@@ -41,6 +43,8 @@ public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
     addBinding("tool_binding");
     addBinding("tough_binding");
     addPart("repair_kit", StatlessMaterialStats.REPAIR_KIT.getIdentifier());
+    addPart("ingot", INGOT);
+    addTexture("block/storage/fallback", STORAGE_BLOCK);
 
     // travelers textures
     addTexture("tinker_armor/travelers/metal_armor", ARMOR_PLATING).disallowAnimated();

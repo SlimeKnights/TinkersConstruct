@@ -26,7 +26,6 @@ public class Config {
    * Common specific configuration
    */
   public static class Common {
-
     public final BooleanValue shouldSpawnWithTinkersBook;
     public final List<ConfigurableAction> toolTweaks;
 
@@ -51,6 +50,7 @@ public class Config {
     // compatability
     public final BooleanValue allowIngotlessAlloys;
     public final DoubleValue chemthrowerShotValue;
+    public final BooleanValue allowMonsterMeleeModifiers;
 
     // debug
     public final BooleanValue forceIntegrationMaterials;
@@ -171,7 +171,7 @@ public class Config {
         this.allowIngotlessAlloys = builder
           .comment("If true, integration alloy materials will be enabled if any of their components is present, allowing creating them from their molten liquid forms.",
             "If false, they will only be only be present if another mod adds an ingot.",
-            "This config option is provided as while most players prefer the additional materials, some players dislike having no ingot for a material, forcing repair kits for repair.")
+            "This config option is provided as while most players prefer the additional materials, some dislike having no proper ingot. Note we do have NBT ingots for these materials.")
           .worldRestart()
           .define("allowIngotlessAlloys", true);
         chemthrowerShotValue = builder
@@ -180,6 +180,10 @@ public class Config {
             "IE launches 8 projectiles per tick while consuming the value in their config, so dividing it by 8 makes them comparable to our projectiles.",
             "However, keeping it as a separate config option gives pack makers more control over how strong TiC ends up in the chemthrower.")
           .defineInRange("immersive_engineering_chemthrower_shot_value", 1.25, 0, Integer.MAX_VALUE);
+        this.allowMonsterMeleeModifiers = builder
+          .comment("If true, monsters will run melee modifiers when attacking with a modifiable weapon. Provided to work around potential issues with addons allowing more monsters to use tools.",
+            "Note that if its just a specific mob or damage source that has an issue, there are tag blacklists.")
+          .define("allowMonsterMeleeModifiers", true);
       }
       builder.pop();
 

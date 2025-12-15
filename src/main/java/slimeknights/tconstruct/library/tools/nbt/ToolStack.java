@@ -197,6 +197,7 @@ public class ToolStack implements IToolStackView {
    * Creates a new tool stack for a completely new tool
    * @param item        Item
    * @param definition  Tool definition
+   * @param materials  Materials list
    * @return  Tool stack
    */
   public static ToolStack createTool(Item item, ToolDefinition definition, MaterialNBT materials) {
@@ -664,8 +665,15 @@ public class ToolStack implements IToolStackView {
     }
     // next, ensure modifiers validate
     Component result;
-    for (ModifierEntry entry : getModifierList()) {
+    for (ModifierEntry entry : getModifiers()) {
       result = entry.getHook(ModifierHooks.VALIDATE).validate(this, entry);
+      if (result != null) {
+        return result;
+      }
+    }
+    // some validations should only run if the modifier was crafted on the tool
+    for (ModifierEntry entry : getUpgrades()) {
+      result = entry.getHook(ModifierHooks.VALIDATE_UPGRADE).validate(this, entry);
       if (result != null) {
         return result;
       }

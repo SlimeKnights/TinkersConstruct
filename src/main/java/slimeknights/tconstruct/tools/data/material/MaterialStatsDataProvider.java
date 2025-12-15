@@ -412,6 +412,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.quartz, StatlessMaterialStats.ARROW_HEAD);
     addMaterialStats(MaterialIds.ichor, StatlessMaterialStats.ARROW_HEAD);
     addMaterialStats(MaterialIds.glowstone, StatlessMaterialStats.ARROW_HEAD);
+    addMaterialStats(MaterialIds.nahuatl, StatlessMaterialStats.ARROW_SHAFT);
     addMaterialStats(MaterialIds.necronium, StatlessMaterialStats.ARROW_SHAFT);
     addMaterialStats(MaterialIds.magnetite, StatlessMaterialStats.ARROW_HEAD);
     addMaterialStats(MaterialIds.magma, StatlessMaterialStats.FLETCHING);

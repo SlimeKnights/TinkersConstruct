@@ -269,18 +269,32 @@ public class ModifierEvents {
     Inventory originalInv = original.getInventory();
     Inventory cloneInv = clone.getInventory();
     int size = Math.min(originalInv.getContainerSize(), cloneInv.getContainerSize()); // not needed probably, but might as well be safe
+    List<ItemStack> takenSlot = new ArrayList<>();
     for(int i = 0; i < size; i++) {
       ItemStack stack = originalInv.getItem(i);
       if (!stack.isEmpty()) {
         CompoundTag tag = stack.getTag();
         if (tag != null && tag.contains(SOULBOUND_SLOT, Tag.TAG_ANY_NUMERIC)) {
-          cloneInv.setItem(i, stack);
+          if (cloneInv.getItem(i).isEmpty()) {
+            cloneInv.setItem(i, stack);
+          } else {
+            takenSlot.add(stack);
+          }
           // remove the slot tag, clear the tag if needed
           tag.remove(SOULBOUND_SLOT);
           if (tag.isEmpty()) {
             stack.setTag(null);
           }
         }
+      }
+    }
+
+    // handle items that did not get their requested slot last, to ensure they don't take someone else's slot while being added to a default
+    for (ItemStack stack : takenSlot) {
+      if (!cloneInv.add(stack)) {
+        // last resort, somehow we just cannot put the stack anywhere, so drop it on the ground
+        // this should never happen, but better to be safe
+        clone.drop(stack, false);
       }
     }
   }

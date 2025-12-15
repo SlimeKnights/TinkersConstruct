@@ -25,6 +25,7 @@ public class TinkersAnvilBlock extends TinkerStationBlock {
   public TinkersAnvilBlock(Properties builder, int slotCount) {
     super(builder, slotCount);
   }
+
   @Override
   @Deprecated
   public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {

@@ -114,7 +114,8 @@ public class TinkerBook extends BookData {
         return registry.getMaterialStats(id, StatlessMaterialStats.MAILLE.getIdentifier()).isPresent() ? 3 : 5;
       }),
       HELMET.getId(), CHESTPLATE.getId(), LEGGINGS.getId(), BOOTS.getId(), SHIELD.getId(),
-      StatlessMaterialStats.MAILLE.getIdentifier(), StatlessMaterialStats.SHIELD_CORE.getIdentifier());
+      StatlessMaterialStats.MAILLE.getIdentifier(), StatlessMaterialStats.CUIRASS.getIdentifier(),
+      StatlessMaterialStats.SHIELD_CORE.getIdentifier());
     TierRangeMaterialSectionTransformer.registerMaterialType(getResource("skull"), ContentMaterialSkull::new,
       Comparator.comparing(TierRangeMaterialSectionTransformer.tagOrder(TinkerTags.Materials.SLIMESKULL)), SkullStats.ID);
 

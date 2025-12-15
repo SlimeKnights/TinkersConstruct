@@ -41,6 +41,7 @@ import slimeknights.tconstruct.library.modifiers.hook.combat.DamageDealtModifier
 import slimeknights.tconstruct.library.modifiers.hook.combat.LootingModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeDamageModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.combat.MonsterMeleeHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.display.DisplayNameModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.display.DurabilityDisplayModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.display.RequirementsModifierHook;
@@ -210,8 +211,19 @@ public class ModifierHooks {
     public void removeRawData(IToolStackView tool, Modifier modifier, RestrictedCompoundTag tag) {}
   });
 
-  /** Hook called to give a modifier a chance to clean up data while on the tool and to reject the current tool state */
-  public static final ModuleHook<ValidateModifierHook> VALIDATE = register("validate", ValidateModifierHook.class, ValidateModifierHook.AllMerger::new, (tool, modifier) -> null);
+  /**
+   * Hook called to give a modifier a chance to clean up data while on the tool and to reject the current tool state.
+   * TOD0 1.21: rename to disambiguate from {@link #VALIDATE_UPGRADE}.
+   */
+  public static final ModuleHook<ValidateModifierHook> VALIDATE;
+  /** Same as {@link #VALIDATE}, but only called on modifiers in {@link slimeknights.tconstruct.library.tools.nbt.ToolStack#getUpgrades()}. */
+  public static final ModuleHook<ValidateModifierHook> VALIDATE_UPGRADE;
+  static {
+    Function<Collection<ValidateModifierHook>,ValidateModifierHook> merger = ValidateModifierHook.AllMerger::new;
+    ValidateModifierHook defaultInstance = (tool, modifier) -> null;
+    VALIDATE = register("validate", ValidateModifierHook.class, merger, defaultInstance);
+    VALIDATE_UPGRADE = register("validate_upgrade", ValidateModifierHook.class, merger, defaultInstance);
+  }
 
   /** Hook called when a modifier is removed to give it a chance to clean up data */
   public static final ModuleHook<ModifierRemovalHook> REMOVE = register("remove", ModifierRemovalHook.class, ModifierRemovalHook.FirstMerger::new, (tool, modifier) -> null);
@@ -222,10 +234,20 @@ public class ModifierHooks {
   /* Combat */
 
   /** Hook to adjust melee damage when a weapon is attacking an entity */
-  public static final ModuleHook<MeleeDamageModifierHook> MELEE_DAMAGE = register("melee_damage", MeleeDamageModifierHook.class, MeleeDamageModifierHook.AllMerger::new, (tool, modifier, context, baseDamage, damage) -> damage);
+  public static final ModuleHook<MeleeDamageModifierHook> MELEE_DAMAGE;
+  /** Hook to adjust melee damage for monsters that lack player left click actions */
+  public static final ModuleHook<MeleeDamageModifierHook> MONSTER_MELEE_DAMAGE;
+  static {
+    MeleeDamageModifierHook defaultInstance = (tool, modifier, context, baseDamage, damage) -> damage;
+    Function<Collection<MeleeDamageModifierHook>,MeleeDamageModifierHook> merger = MeleeDamageModifierHook.AllMerger::new;
+    MELEE_DAMAGE = register("melee_damage", MeleeDamageModifierHook.class, merger, defaultInstance);
+    MONSTER_MELEE_DAMAGE = register("monster_melee_damage", MeleeDamageModifierHook.class, merger, defaultInstance);
+  }
 
   /** Hook called when an entity is attacked to apply special effects */
   public static final ModuleHook<MeleeHitModifierHook> MELEE_HIT = register("melee_hit", MeleeHitModifierHook.class, MeleeHitModifierHook.AllMerger::new, new MeleeHitModifierHook() {});
+  /** Hook called when an entity is attacked by a monster that lacks player left click actions */
+  public static final ModuleHook<MonsterMeleeHitModifierHook> MONSTER_MELEE_HIT = register("monster_melee_hit", MonsterMeleeHitModifierHook.class, MonsterMeleeHitModifierHook.AllMerger::new, (tool, modifier, context, damage) -> {});
 
   /** Hook called when taking damage wearing this armor to reduce the damage, runs after {@link #MODIFY_HURT} and before {@link #MODIFY_DAMAGE} */
   public static final ModuleHook<ProtectionModifierHook> PROTECTION = register("protection", ProtectionModifierHook.class, ProtectionModifierHook.AllMerger::new, (tool, modifier, context, slotType, source, modifierValue) -> modifierValue);

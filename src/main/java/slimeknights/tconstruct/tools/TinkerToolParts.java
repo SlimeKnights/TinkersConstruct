@@ -5,19 +5,27 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTab.ItemDisplayParameters;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryType;
 import net.minecraftforge.registries.RegistryObject;
 import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.json.loot.ToolPartLootEntry;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
+import slimeknights.tconstruct.library.tools.part.IRepairKitItem;
 import slimeknights.tconstruct.library.tools.part.ToolPartItem;
+import slimeknights.tconstruct.library.tools.part.block.MaterialBlock;
+import slimeknights.tconstruct.library.tools.part.block.MaterialBlockEntity;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.tools.item.FakeIngotItem;
+import slimeknights.tconstruct.tools.item.FakeStorageBlockItem;
 import slimeknights.tconstruct.tools.item.ModifierCrystalItem;
 import slimeknights.tconstruct.tools.item.RepairKitItem;
 import slimeknights.tconstruct.tools.stats.GripMaterialStats;
@@ -48,8 +56,14 @@ public final class TinkerToolParts extends TinkerModule {
                                        .withSearchBar()
                                        .build());
 
-  // repair kit, technically a head so it filters to things useful for repair
+  // repair kits
   public static final ItemObject<RepairKitItem> repairKit = ITEMS.register("repair_kit", () -> new RepairKitItem(ITEM_PROPS));
+  /** Fake ingot tool part for the sake of compat materials that lack an ingot form. Mainly used for compat alloys such as bronze which can be activated by their components. */
+  public static final ItemObject<FakeIngotItem> fakeIngot = ITEMS.register("fake_ingot", () -> new FakeIngotItem(ITEM_PROPS, 1, TinkerTags.Materials.COMPATABILITY_METALS));
+  /** Fake block tool part for the sake of compat materials that lack an ingot form. Mainly used for compat alloys such as bronze which can be activated by their components. */
+  public static final ItemObject<MaterialBlock> fakeStorageBlock = BLOCKS.register("fake_storage_block", () -> new MaterialBlock(metalBuilder(MapColor.COLOR_GRAY), MaterialBlockEntity::new), block -> new FakeStorageBlockItem(block, ITEM_PROPS, 9,TinkerTags.Materials.COMPATABILITY_ALLOYS));
+  /** Same as {@link #fakeStorageBlock} but casted to an appropriate item interface form */
+  public static final Supplier<IRepairKitItem> fakeStorageBlockItem = () -> (IRepairKitItem) fakeStorageBlock.asItem();
 
   // rock
   public static final ItemObject<ToolPartItem> pickHead = ITEMS.register("pick_head", () -> new ToolPartItem(ITEM_PROPS, HeadMaterialStats.ID));
@@ -81,6 +95,9 @@ public final class TinkerToolParts extends TinkerModule {
   public static final ItemObject<ToolPartItem> maille = ITEMS.register("maille", () -> new ToolPartItem(ITEM_PROPS, StatlessMaterialStats.MAILLE.getIdentifier()));
   public static final ItemObject<ToolPartItem> shieldCore = ITEMS.register("shield_core", () -> new ToolPartItem(ITEM_PROPS, StatlessMaterialStats.SHIELD_CORE.getIdentifier()));
 
+  // block entities
+  public static final RegistryObject<BlockEntityType<MaterialBlockEntity>> materialBlock = BLOCK_ENTITIES.register("material_block", MaterialBlockEntity::new, fakeStorageBlock);
+
   // loot
   public static final RegistryObject<LootPoolEntryType> toolPartLootEntry = LOOT_ENTRIES.register("tool_part", () -> new LootPoolEntryType(new ToolPartLootEntry.Serializer()));
 
@@ -88,6 +105,7 @@ public final class TinkerToolParts extends TinkerModule {
   private static void addTabItems(ItemDisplayParameters itemDisplayParameters, CreativeModeTab.Output tab) {
     Consumer<ItemStack> output = tab::accept;
     accept(output, repairKit);
+    // fake ingot is in materials tab, helps the illusion
     // small heads
     accept(output, pickHead);
     accept(output, smallAxeHead);

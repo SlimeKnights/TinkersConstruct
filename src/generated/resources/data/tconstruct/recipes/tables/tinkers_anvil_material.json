@@ -1,0 +1,23 @@
+{
+  "type": "tconstruct:crafting_shaped_materials",
+  "category": "misc",
+  "key": {
+    "m": {
+      "type": "tconstruct:material",
+      "item": "tconstruct:fake_storage_block"
+    },
+    "s": {
+      "tag": "tconstruct:seared_blocks"
+    }
+  },
+  "parts": "m",
+  "pattern": [
+    "mmm",
+    " s ",
+    "sss"
+  ],
+  "result": {
+    "item": "tconstruct:tinkers_anvil"
+  },
+  "show_notification": true
+}

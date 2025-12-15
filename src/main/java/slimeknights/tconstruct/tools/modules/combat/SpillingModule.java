@@ -14,6 +14,7 @@ import slimeknights.tconstruct.library.modifiers.fluid.FluidEffectContext;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffectManager;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffects;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.combat.MonsterMeleeHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.LauncherHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.util.ModifierCondition;
@@ -31,8 +32,8 @@ import static slimeknights.tconstruct.library.tools.capability.fluid.ToolTankHel
 import static slimeknights.tconstruct.tools.modifiers.ability.fluid.UseFluidOnHitModifier.spawnParticles;
 
 /** Module to apply spilling effects post melee or projectile hit */
-public record SpillingModule(LevelingValue level, ModifierCondition<IToolStackView> condition) implements ModifierModule, MeleeHitModifierHook, LauncherHitModifierHook, ConditionalModule<IToolStackView> {
-  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<SpillingModule>defaultHooks(ModifierHooks.MELEE_HIT, ModifierHooks.LAUNCHER_HIT);
+public record SpillingModule(LevelingValue level, ModifierCondition<IToolStackView> condition) implements ModifierModule, MeleeHitModifierHook, MonsterMeleeHitModifierHook.RedirectAfter, LauncherHitModifierHook, ConditionalModule<IToolStackView> {
+  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<SpillingModule>defaultHooks(ModifierHooks.MELEE_HIT, ModifierHooks.MONSTER_MELEE_HIT, ModifierHooks.LAUNCHER_HIT);
   public static final RecordLoadable<SpillingModule> LOADER = RecordLoadable.create(LevelingValue.LOADABLE.directField(SpillingModule::level), ModifierCondition.TOOL_FIELD, SpillingModule::new);
 
   @Override

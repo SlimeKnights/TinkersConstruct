@@ -26,7 +26,7 @@ import java.util.function.Consumer;
 public class CompositeCastingRecipeBuilder extends AbstractRecipeBuilder<CompositeCastingRecipeBuilder> {
   private final IMaterialItem result;
   private final int itemCost;
-  @Setter
+  @Setter @Nullable
   private MaterialStatsId castingStatConflict = null;
   private final TypeAwareRecipeSerializer<? extends CompositeCastingRecipe> serializer;
   @Setter

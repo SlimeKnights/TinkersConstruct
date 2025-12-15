@@ -1,0 +1,33 @@
+{
+  "values": [
+    {
+      "id": "tconstruct:silver",
+      "required": false
+    },
+    {
+      "id": "tconstruct:lead",
+      "required": false
+    },
+    {
+      "id": "tconstruct:aluminum",
+      "required": false
+    },
+    {
+      "id": "tconstruct:osmium",
+      "required": false
+    },
+    {
+      "id": "tconstruct:ironwood",
+      "required": false
+    },
+    {
+      "id": "tconstruct:steeleaf",
+      "required": false
+    },
+    {
+      "id": "tconstruct:fiery",
+      "required": false
+    },
+    "#tconstruct:compatibility_metals/alloys"
+  ]
+}

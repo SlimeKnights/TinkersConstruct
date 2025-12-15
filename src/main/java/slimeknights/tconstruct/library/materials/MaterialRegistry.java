@@ -7,6 +7,7 @@ import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.OnDatapackSyncEvent;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.PacketDistributor.PacketTarget;
+import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.command.argument.TagSource;
 import slimeknights.mantle.network.packet.ISimplePacket;
 import slimeknights.tconstruct.TConstruct;
@@ -64,10 +65,17 @@ public final class MaterialRegistry {
   @VisibleForTesting
   static boolean fullyLoaded = false;
 
+  /**
+   * Gets the created instance of the material registry.
+   * Only valid after {@link #init()} has been called in {@link TConstruct}, so do not call during mod constructor or static init.
+   * Registry events are the recommended time to use {@link IMaterialRegistry#registerStatType(MaterialStatType)}.
+   */
   public static IMaterialRegistry getInstance() {
     return INSTANCE.registry;
   }
 
+  /** @apiNote Internal method to initialize the material registry. Addons should never call this as it may break the registry state. */
+  @Internal
   public static void init() {
     // create registry instance
     INSTANCE = new MaterialRegistry();

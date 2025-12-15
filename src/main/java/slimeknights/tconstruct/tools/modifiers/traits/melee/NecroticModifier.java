@@ -21,6 +21,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.entity.ProjectileWithPower;
 import slimeknights.tconstruct.library.modifiers.hook.armor.OnAttackedModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.combat.MonsterMeleeHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.display.TooltipModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileHitModifierHook;
 import slimeknights.tconstruct.library.module.ModuleHookMap.Builder;
@@ -35,26 +36,33 @@ import slimeknights.tconstruct.library.utils.Util;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class NecroticModifier extends Modifier implements ProjectileHitModifierHook, MeleeHitModifierHook, OnAttackedModifierHook, TooltipModifierHook {
+public class NecroticModifier extends Modifier implements ProjectileHitModifierHook, MeleeHitModifierHook, MonsterMeleeHitModifierHook, OnAttackedModifierHook, TooltipModifierHook {
   private static final Component LIFE_STEAL = TConstruct.makeTranslation("modifier", "necrotic.lifesteal");
 
   @Override
   protected void registerHooks(Builder hookBuilder) {
-    hookBuilder.addHook(this, ModifierHooks.PROJECTILE_HIT, ModifierHooks.MELEE_HIT, ModifierHooks.ON_ATTACKED, ModifierHooks.TOOLTIP);
+    hookBuilder.addHook(this, ModifierHooks.PROJECTILE_HIT, ModifierHooks.MELEE_HIT, ModifierHooks.MONSTER_MELEE_HIT, ModifierHooks.ON_ATTACKED, ModifierHooks.TOOLTIP);
   }
 
   @Override
-  public void afterMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damageDealt) {
-    if (context.isFullyCharged() && context.isCritical() && damageDealt > 0 && !context.getTarget().getType().is(TinkerTags.EntityTypes.NECROTIC_BLACKLIST)) {
+  public void onMonsterMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damage) {
+    if (damage > 0 && !context.getTarget().getType().is(TinkerTags.EntityTypes.NECROTIC_BLACKLIST)) {
       // heals a percentage of damage dealt, using same rate as reinforced
       float percent = 0.05f * modifier.getEffectiveLevel();
       if (percent > 0) {
         LivingEntity attacker = context.getAttacker();
-        attacker.heal(percent * damageDealt);
+        attacker.heal(percent * damage);
         attacker.level().playSound(null, attacker.getX(), attacker.getY(), attacker.getZ(), Sounds.NECROTIC_HEAL.getSound(), SoundSource.PLAYERS, 1.0f, 1.0f);
         // take a bit of extra damage to heal
         ToolDamageUtil.damageAnimated(tool, modifier.getLevel(), attacker, context.getSlotType());
       }
+    }
+  }
+
+  @Override
+  public void afterMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damageDealt) {
+    if (context.isFullyCharged() && context.isCritical()) {
+      onMonsterMeleeHit(tool, modifier, context, damageDealt);
     }
   }
 

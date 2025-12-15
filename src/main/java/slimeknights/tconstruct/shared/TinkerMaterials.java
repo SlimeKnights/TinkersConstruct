@@ -4,6 +4,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.CreativeModeTab.ItemDisplayParameters;
 import net.minecraft.world.item.CreativeModeTab.Output;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
@@ -16,6 +17,7 @@ import slimeknights.mantle.registration.object.MetalItemObject;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.json.predicate.material.MaterialDefinitionPredicate;
+import slimeknights.tconstruct.library.json.predicate.material.MaterialHasPartPredicate;
 import slimeknights.tconstruct.library.json.predicate.material.MaterialIdPredicate;
 import slimeknights.tconstruct.library.json.predicate.material.MaterialPredicate;
 import slimeknights.tconstruct.library.json.predicate.material.MaterialStatTypePredicate;
@@ -26,6 +28,9 @@ import slimeknights.tconstruct.library.recipe.ingredient.MaterialValueIngredient
 import slimeknights.tconstruct.shared.block.KnightMetalBlock;
 import slimeknights.tconstruct.shared.block.OrientableBlock;
 import slimeknights.tconstruct.shared.block.SlimesteelBlock;
+import slimeknights.tconstruct.tools.TinkerToolParts;
+
+import java.util.function.Consumer;
 
 import static slimeknights.tconstruct.TConstruct.getResource;
 
@@ -74,6 +79,7 @@ public final class TinkerMaterials extends TinkerModule {
 
       MaterialPredicate.LOADER.register(getResource("variant"), MaterialVariantPredicate.LOADER);
       MaterialPredicate.LOADER.register(getResource("id"), MaterialIdPredicate.LOADER);
+      MaterialPredicate.LOADER.register(getResource("has_part"), MaterialHasPartPredicate.LOADER);
       MaterialPredicate.LOADER.register(getResource("stat_type"), MaterialStatTypePredicate.LOADER);
       MaterialPredicate.LOADER.register(getResource("castable"), MaterialPredicate.CASTABLE.getLoader());
       MaterialPredicate.LOADER.register(getResource("composite"), MaterialPredicate.COMPOSITE.getLoader());
@@ -110,6 +116,10 @@ public final class TinkerMaterials extends TinkerModule {
     accept(output, hepatizon);
     output.accept(netheriteNugget);
     accept(output, knightmetal);
+    // fake storage items make more sense here than tool parts
+    Consumer<ItemStack> consumer = output::accept;
+    TinkerToolParts.fakeIngot.get().addVariants(consumer, "");
+    TinkerToolParts.fakeStorageBlockItem.get().addVariants(consumer, "");
     // future: soulsteel
     // future: knightslime
   }

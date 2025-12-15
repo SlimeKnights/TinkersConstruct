@@ -55,6 +55,7 @@ public class TinkerItemModelProvider extends ItemModelProvider {
     part(TinkerToolParts.toughHandle);
     part(TinkerToolParts.toughBinding);
     part(TinkerToolParts.repairKit);
+    part(TinkerToolParts.fakeIngot, "parts/ingot");
     // armor
     TinkerToolParts.plating.forEach((slot, item) -> {
       MaterialModelBuilder<ItemModelBuilder> b = this.part(item, "armor/plate/" + slot.getName() + "/plating");

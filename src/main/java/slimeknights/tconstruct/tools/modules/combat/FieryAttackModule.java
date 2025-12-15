@@ -11,6 +11,7 @@ import slimeknights.tconstruct.library.json.LevelingValue;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.combat.MonsterMeleeHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileLaunchModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
@@ -25,8 +26,8 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 /** Module for lighting the target on fire after a melee or ranged attack */
-public record FieryAttackModule(LevelingValue time) implements ModifierModule, ProjectileLaunchModifierHook.NoShooter, ProjectileHitModifierHook, MeleeHitModifierHook {
-  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<FieryAttackModule>defaultHooks(ModifierHooks.MELEE_HIT, ModifierHooks.PROJECTILE_LAUNCH, ModifierHooks.PROJECTILE_SHOT, ModifierHooks.PROJECTILE_THROWN, ModifierHooks.PROJECTILE_HIT);
+public record FieryAttackModule(LevelingValue time) implements ModifierModule, ProjectileLaunchModifierHook.NoShooter, ProjectileHitModifierHook, MeleeHitModifierHook, MonsterMeleeHitModifierHook.RedirectAfter {
+  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<FieryAttackModule>defaultHooks(ModifierHooks.MELEE_HIT, ModifierHooks.MONSTER_MELEE_HIT, ModifierHooks.PROJECTILE_LAUNCH, ModifierHooks.PROJECTILE_SHOT, ModifierHooks.PROJECTILE_THROWN, ModifierHooks.PROJECTILE_HIT);
   public static final RecordLoadable<FieryAttackModule> LOADER = RecordLoadable.create(
     LevelingValue.LOADABLE.requiredField("seconds", FieryAttackModule::time),
     FieryAttackModule::new);
@@ -60,7 +61,7 @@ public record FieryAttackModule(LevelingValue time) implements ModifierModule, P
   public void failedMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damageAttempted) {
     // conclusion of vanilla hack: we don't want the target on fire if we did not hit them
     LivingEntity target = context.getLivingTarget();
-    if (target != null && target.isOnFire()) {
+    if (target != null && target.getRemainingFireTicks() == 1) {
       target.clearFire();
     }
   }

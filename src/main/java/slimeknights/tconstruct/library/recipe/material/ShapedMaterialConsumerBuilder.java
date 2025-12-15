@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 /** Special variant of {@link ConsumerWrapperBuilder} for {@link ShapedMaterialRecipe} */
+@Deprecated
 @NoArgsConstructor(staticName = "wrap")
 public class ShapedMaterialConsumerBuilder {
   private final List<MaterialVariantId> materials = new ArrayList<>();

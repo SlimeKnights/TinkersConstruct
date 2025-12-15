@@ -1,0 +1,24 @@
+{
+  "values": [
+    {
+      "id": "tconstruct:bronze",
+      "required": false
+    },
+    {
+      "id": "tconstruct:constantan",
+      "required": false
+    },
+    {
+      "id": "tconstruct:invar",
+      "required": false
+    },
+    {
+      "id": "tconstruct:electrum",
+      "required": false
+    },
+    {
+      "id": "tconstruct:pewter",
+      "required": false
+    }
+  ]
+}

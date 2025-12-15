@@ -44,7 +44,7 @@ public class ModifierRequirementsModule implements ValidateModifierHook, Modifie
     ModifierEntry.LOADABLE.list(0).defaultField("display_modifiers", List.of(), m -> m.display),
     ModifierRequirementsModule::new);
 
-  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<ModifierRequirementsModule>defaultHooks(ModifierHooks.VALIDATE, ModifierHooks.REQUIREMENTS);
+  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<ModifierRequirementsModule>defaultHooks(ModifierHooks.VALIDATE_UPGRADE, ModifierHooks.REQUIREMENTS);
 
   /** Requirements to check, if they fail, the error will be displayed */
   private final IJsonPredicate<IToolContext> requirement;

@@ -602,6 +602,12 @@ public class TinkerTags {
     public static final TagKey<EntityType<?>> SLIMES = common("slimes");
     public static final TagKey<EntityType<?>> BACON_PRODUCER = local("bacon_producer");
 
+    /**
+     * Entities in this tag either run proper hooks to use a melee weapon on left click or cause issues with our melee modifier logic.
+     * Anything not in this tag will attempt the fallback behavior which applys effects during damage events.
+     */
+    public static final TagKey<EntityType<?>> MELEE_MODIFIER_BLACKLIST = local("melee_modifier_blacklist");
+
     public static final TagKey<EntityType<?>> MELTING_SHOW = local("melting/show_in_default");
     public static final TagKey<EntityType<?>> MELTING_HIDE = local("melting/hide_in_default");
     public static final TagKey<EntityType<?>> PIGGYBACKPACK_BLACKLIST = local("piggybackpack_blacklist");
@@ -765,6 +771,11 @@ public class TinkerTags {
     /** Materials not found on ancient tools or other loot sources */
     public static final TagKey<IMaterial> EXCLUDE_FROM_LOOT = local("exclude_from_loot");
 
+    /** Materials acting as compatability metals. Will allow them to use {@link slimeknights.tconstruct.tools.TinkerToolParts#fakeIngot} assuming they lack an ingot. */
+    public static final TagKey<IMaterial> COMPATABILITY_METALS = local("compatibility_metals");
+    /** Materials acting as compatability alloys. Will allow them to use {@link slimeknights.tconstruct.tools.TinkerToolParts#fakeStorageBlock}. */
+    public static final TagKey<IMaterial> COMPATABILITY_ALLOYS = local("compatibility_metals/alloys");
+
     // tags for book material lists
     /** Ammo materials to show in materials and you. Used instead of tiers due to non-standard ammo behavior. */
     public static final TagKey<IMaterial> BASIC_AMMO = local("book/basic_ammo");
@@ -814,6 +825,9 @@ public class TinkerTags {
     public static final TagKey<DamageType> MAGIC_PROTECTION = local("protection/magic");
     /** Damage types reduced by the feather falling modifier */
     public static final TagKey<DamageType> FALL_PROTECTION = local("protection/fall");
+
+    /** Damage types that will not apply monster melee effects. Only necessary to tag damage types that use direct damage. Must tag any recursive damage effects. */
+    public static final TagKey<DamageType> MELEE_MODIFIER_BLACKLIST = local("melee_modifier_blacklist");
 
     private static TagKey<DamageType> local(String name) {
       return TagKey.create(Registries.DAMAGE_TYPE, getResource(name));

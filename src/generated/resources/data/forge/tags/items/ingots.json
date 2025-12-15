@@ -2,6 +2,7 @@
   "values": [
     "tconstruct:seared_brick",
     "tconstruct:scorched_brick",
+    "tconstruct:fake_ingot",
     "#forge:ingots/netherite_scrap",
     "#forge:ingots/steel",
     "#forge:ingots/cobalt",
