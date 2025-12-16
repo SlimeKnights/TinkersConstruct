@@ -235,7 +235,7 @@
   "block.tconstruct.budding_ender_slime_crystal": "末影黏液水晶母岩",
 
   "item.tconstruct.steel_shard": "钢碎片",
-  "item.tconstruct.steel_shard.tooltip": "被碧空史莱姆吞食的钢晶碎片",
+  "item.tconstruct.steel_shard.tooltip": "被碧空史莱姆吞食的钢碎片",
   "block.tconstruct.steel_cluster": "钢晶簇",
   "block.tconstruct.steel_cluster.tooltip": "自然形成的钢碎片堆。采集后不会再生",
   "item.tconstruct.knightmetal_shard": "骑士金属碎片",
@@ -1180,6 +1180,8 @@
 
   "item.tconstruct.repair_kit": "修补件",
   "item.tconstruct.repair_kit.tooltip": "修复物品栏工具时，可提供等同%s锭的修复量",
+  "item.tconstruct.fake_ingot": "锭",
+  "block.tconstruct.fake_storage_block": "块",
 
   "item.tconstruct.pick_head": "镐头",
   "item.tconstruct.hammer_head": "锤头",
@@ -1379,6 +1381,8 @@
 
   "block.tconstruct.seared_ladder": "焦黑梯子",
   "block.tconstruct.seared_ladder.tooltip": "可供攀爬的冶炼炉建材",
+  "block.tconstruct.seared_lamp": "焦黑灯",
+  "block.tconstruct.seared_lamp.tooltip": "可供照明的冶炼炉建材",
 
   "block.tconstruct.seared_fuel_tank": "焦黑燃料储罐",
   "block.tconstruct.seared_fuel_tank.tooltip": "冶炼炉的心脏\n被破坏后仍能保留其中的流体",
@@ -1470,6 +1474,8 @@
 
   "block.tconstruct.scorched_ladder": "焦褐梯子",
   "block.tconstruct.scorched_ladder.tooltip": "可供攀爬的熔铸炉建材",
+  "block.tconstruct.scorched_lamp": "焦褐灯",
+  "block.tconstruct.scorched_lamp.tooltip": "可供照明的熔铸炉建材",
 
   "block.tconstruct.scorched_fuel_tank": "焦褐燃料储罐",
   "block.tconstruct.scorched_fuel_tank.tooltip": "熔铸炉的心脏\n被破坏后仍能保留其中的流体",
@@ -1795,7 +1801,7 @@
   "material.tconstruct.bone.flavor": "吾为所持剑之骨",
   "material.tconstruct.bone.encyclopedia": "每级近战伤害+0.5，攻击后穿透护甲值+1×等级，持续5秒",
   "material.tconstruct.bone.ranged": "箭矢使目标被穿透护甲值+1×等级，持续5秒",
-  "material.tconstruct.bone.armor": "受击时，有15%概率使攻击者在接下来5秒内被穿透护甲值+1×等级（若格挡则改为10秒）",
+  "material.tconstruct.bone.armor": "受到攻击后，有15%概率使攻击者在接下来5秒内被穿透护甲值+1×等级（成功格挡则改为10秒）",
   "material.tconstruct.bone.ammo": "箭矢能穿过命中的第一个目标；可投掷武器可以禁用盾牌",
   "material.tconstruct.bone.skull_flavor": "来点奶么？",
   "material.tconstruct.bone.skull_encyclopedia": "饮用奶后获得1分钟抗性提升",
@@ -1804,7 +1810,7 @@
   "material.tconstruct.necrotic_bone.flavor": "故意挑我骨头是不？",
   "material.tconstruct.necrotic_bone.encyclopedia": "暴击时，每级回复等同于造成伤害5%的生命值",
   "material.tconstruct.necrotic_bone.ranged": "箭矢命中时，每级回复等同于造成伤害5%的生命值",
-  "material.tconstruct.necrotic_bone.armor": "受击时，15%概率逐渐回复当次伤害最多25%的生命值",
+  "material.tconstruct.necrotic_bone.armor": "受到攻击后，15%概率逐渐回复当次伤害最多25%的生命值",
   "material.tconstruct.necrotic_bone.ammo": "命中时，每级回复等同于造成伤害5%的生命值",
   "material.tconstruct.necrotic_bone.skull_flavor": "惊悚恐怖骷髅头！",
   "material.tconstruct.necrotic_bone.skull_encyclopedia": "普通攻击给予敌人凋零效果。饮用奶后治疗速度更快",
@@ -1813,7 +1819,7 @@
   "material.tconstruct.chorus.flavor": "不只是末影人，还有末影娘和末影孩",
   "material.tconstruct.chorus.encyclopedia": "防止目标瞬移，每级+5秒。",
   "material.tconstruct.chorus.ranged": "防止目标瞬移，每级+5秒，也使得箭矢能击中末影人",
-  "material.tconstruct.chorus.armor": "有25%的概率将攻击者随机传送，格挡时概率改为50%",
+  "material.tconstruct.chorus.armor": "有25%的概率将攻击者随机传送，成功格挡则概率改为50%",
   "material.tconstruct.chorus.ammo": "防止目标瞬移，每级+5秒，也使得弹射物能击中末影人",
 
   "material.tconstruct.string": "线",
@@ -1886,7 +1892,7 @@
   "material.tconstruct.venombone.flavor": "敌人的眼中钉",
   "material.tconstruct.venombone.encyclopedia": "中毒时增加0.5+中毒效果等级点近战伤害",
   "material.tconstruct.venombone.ranged": "中毒时增加0.05+0.1×中毒效果等级点拉弓速度",
-  "material.tconstruct.venombone.armor": "受击时，有15%概率使攻击者在接下来5至10秒内受到的魔法伤害增加到200%（若格挡则延长至最多15秒）",
+  "material.tconstruct.venombone.armor": "受到攻击后，有15%概率使攻击者在接下来5至10秒内受到的魔法伤害增加到200%（成功格挡则最大值改为15秒）",
   "material.tconstruct.venombone.ammo": "使目标在接下来5至10秒内受到的魔法伤害增加到200%",
   "material.tconstruct.venombone.skull_flavor": "令人毛骨悚然",
   "material.tconstruct.venombone.skull_encyclopedia": "弹射物对目标施加缓慢效果。饮用牛奶后，近战攻击也会给予目标更高等级的缓慢效果。",
@@ -1958,7 +1964,7 @@
 
   "material.tconstruct.gunpowder": "火药",
   "material.tconstruct.gunpowder.flavor": "当心爆炸！",
-  "material.tconstruct.gunpowder.ammo": "令箭矢在1+等级的范围内爆炸。爆炸伤害取决于弹射物强度",
+  "material.tconstruct.gunpowder.ammo": "令箭矢在等级+1的范围内爆炸。爆炸伤害取决于弹射物力量",
 
   "material.tconstruct.earthslime": "大地黏液",
   "material.tconstruct.earthslime.flavor": "过来！",
@@ -2000,8 +2006,8 @@
 
   "material.tconstruct.nahuatl": "纳瓦特尔",
   "material.tconstruct.nahuatl.flavor": "这真的不是黑曜石，如果是的话它的名字就会叫做“黑曜石”了。",
-  "material.tconstruct.nahuatl.encyclopedia": "有50%概率在一段时间内造成总共5点伤害。每级增加伤害总量",
-  "material.tconstruct.nahuatl.armor": "每级有25%概率在一段时间内造成总共5点伤害（格挡时改为50%概率）",
+  "material.tconstruct.nahuatl.encyclopedia": "造成1点/秒的持续伤害，每级增加2秒。连续攻击可延长持续时间",
+  "material.tconstruct.nahuatl.armor": "每级提供25%概率（成功格挡则改为50%概率），造成总计最多5点持续伤害",
 
   "material.tconstruct.obsidian": "黑曜石",
   "material.tconstruct.obsidian.flavor": "这才是真的黑曜石，所以它的名字就叫“黑曜石”。",
@@ -2051,8 +2057,8 @@
 
   "material.tconstruct.manyullyn": "玛玉灵",
   "material.tconstruct.manyullyn.flavor": "没几个工匠能叫对这材料的名字。他们说这个材料能够斩断星辰。",
-  "material.tconstruct.manyullyn.encyclopedia": "8次连击后伤害呈线性增加，每级伤害至多+2。",
-  "material.tconstruct.manyullyn.ranged": "连续发射8次后伤害呈线性增加，每级箭矢伤害至多+1（先于初速度计算）",
+  "material.tconstruct.manyullyn.encyclopedia": "攻击后使攻击伤害+0.5，上限为+2.5攻击伤害，需要连续攻击5次",
+  "material.tconstruct.manyullyn.ranged": "箭矢命中后线性增加弹射物力量（加成先于初速度计算），上限为+1.25弹射物力量，需要连续命中5次",
   "material.tconstruct.manyullyn.armor": "受到伤害后，近战伤害暂时+1，至多为盔甲强化等级之和。",
 
   "material.tconstruct.hepatizon": "黑色科林斯青铜",
@@ -2075,16 +2081,16 @@
 
   "material.tconstruct.blazing_bone": "烈焰之骨",
   "material.tconstruct.blazing_bone.flavor": "获取下界要塞的所有力量——烈焰之力与骨之力",
-  "material.tconstruct.blazing_bone.encyclopedia": "在火焰中每秒伤害+1%，在熔岩中15秒伤害至多+15%。若有抗火效果会减少加成。",
-  "material.tconstruct.blazing_bone.ranged": "在火焰中每秒箭矢伤害+1%，在熔岩中15秒伤害至多+15%。若有抗火效果会减少加成。",
-  "material.tconstruct.blazing_bone.armor": "受击时，有15%概率使攻击者在接下来5至10秒内受到的火焰伤害增加到200%（若格挡则延长至最多15秒）",
+  "material.tconstruct.blazing_bone.encyclopedia": "每剩余1秒着火时间，攻击伤害+2%，上限为+20%（剩余着火时间为10秒或更多）。加成会受抗火效果影响而减少",
+  "material.tconstruct.blazing_bone.ranged": "每剩余1秒着火时间，箭矢伤害+2%，上限为+20%（剩余着火时间为10秒或更多）。加成会受抗火效果影响而减少",
+  "material.tconstruct.blazing_bone.armor": "受到攻击后，有15%概率使攻击者在接下来5至10秒内受到的火焰伤害增加到200%（成功格挡则最大值改为15秒）",
   "material.tconstruct.blazing_bone.ammo": "使目标在接下来5至10秒内受到的火焰伤害增加到200%",
   "material.tconstruct.blazing_bone.skull_flavor": "我给他们说了，这东西从技术层面来说其实是吐火，不是喷火。但是很显然，我发明的东西我却没有命名权",
   "material.tconstruct.blazing_bone.skull_encyclopedia": "能够以火球的形式从物品栏中发射火焰弹。冷却时间5秒，不能在水下使用",
 
   "material.tconstruct.blazewood": "烈焰木",
   "material.tconstruct.blazewood.flavor": "火光守护着烈焰",
-  "material.tconstruct.blazewood.encyclopedia": "使攻击者发光，持续10秒；若格挡则改为20秒",
+  "material.tconstruct.blazewood.encyclopedia": "使攻击者发光，持续10秒；成功格挡则改为20秒",
   "material.tconstruct.blazewood.ammo": "使目标发光，持续10秒。若击中方块，则消耗箭矢在目标位置放置一个永久的光源",
 
   "material.tconstruct.ichor": "灵浆",
@@ -2154,7 +2160,7 @@
 
   "__comment": "Tier 2 Integration Materials",
   "material.tconstruct.osmium": "锇",
-  "material.tconstruct.osmium.flavor": "脑袋太“沉”，追不上笑点",
+  "material.tconstruct.osmium.flavor": "这“锇”太“沉”了，不好笑吗？",
   "material.tconstruct.osmium.encyclopedia": "第1级时，维修消耗+25%，耐久损失-33%",
 
   "material.tconstruct.lead": "铅",
@@ -2236,7 +2242,7 @@
   "material.tconstruct.necronium": "辐射之骨",
   "material.tconstruct.necronium.flavor": "这么强的辐射，你的半条命怕是还要打个折",
   "material.tconstruct.necronium.encyclopedia": "能对目标生物造成至少5秒的凋零效果，另有25%概率对自身造成相同效果",
-  "material.tconstruct.necronium.armor": "受击时，有50%概率使攻击者凋零，持续5秒（格挡时改为100%概率）；另有10%概率给自身造成相同效果",
+  "material.tconstruct.necronium.armor": "受到攻击后，有50%概率使攻击者凋零，持续5秒（格挡时改为100%概率）；另有10%概率给自身造成相同效果",
 
   "material.tconstruct.plated_slimewood": "复合黏木",
   "material.tconstruct.plated_slimewood.flavor": "黄铜的光泽感加上那黏液的啪叽啪叽声，多么美妙啊！",
