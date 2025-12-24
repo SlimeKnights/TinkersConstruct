@@ -81,9 +81,9 @@ public enum BlockInteractFluidEffect implements FluidEffect<FluidEffectContext.B
     Player player = context.getPlayer();
     boolean skipBlock = false;
     if (player != null) {
-      skipBlock = player.isSecondaryUseActive() && !player.getMainHandItem().doesSneakBypassUse(world, pos, player) || !player.getOffhandItem().doesSneakBypassUse(player.level(), pos, player);
+      skipBlock = player.isSecondaryUseActive() && (!player.getMainHandItem().doesSneakBypassUse(world, pos, player) || !player.getOffhandItem().doesSneakBypassUse(player.level(), pos, player));
     } else if (entity != null) {
-      skipBlock = entity.isShiftKeyDown() && !entity.getMainHandItem().isEmpty() || !entity.getOffhandItem().isEmpty();
+      skipBlock = entity.isShiftKeyDown() && (!entity.getMainHandItem().isEmpty() || !entity.getOffhandItem().isEmpty());
     }
 
     // interact with both hands if we have an entity, just main hand otherwise

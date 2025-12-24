@@ -1,0 +1,25 @@
+{
+  "values": [
+    "tconstruct:twisting_vine",
+    "tconstruct:weeping_vine",
+    "tconstruct:scorched_stone",
+    "tconstruct:necrotic_bone",
+    "tconstruct:cobalt",
+    "tconstruct:manyullyn",
+    "tconstruct:hepatizon",
+    "tconstruct:cinderslime",
+    "tconstruct:queens_slime",
+    "tconstruct:blazing_bone",
+    "tconstruct:blazewood",
+    "tconstruct:ancient_hide",
+    "tconstruct:glowstone",
+    "tconstruct:ichor",
+    "tconstruct:quartz",
+    "tconstruct:blaze",
+    "tconstruct:magma",
+    {
+      "id": "tconstruct:necronium",
+      "required": false
+    }
+  ]
+}

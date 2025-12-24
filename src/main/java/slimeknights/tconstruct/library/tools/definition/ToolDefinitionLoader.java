@@ -8,9 +8,12 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.crafting.conditions.ICondition.IContext;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.OnDatapackSyncEvent;
+import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.util.JsonHelper;
+import slimeknights.mantle.util.typed.TypedMapBuilder;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 
 import java.util.Collection;
@@ -30,6 +33,9 @@ public class ToolDefinitionLoader extends SimpleJsonResourceReloadListener {
 
   /** Tool definitions registered to be loaded */
   private final Map<ResourceLocation,ToolDefinition> definitions = new HashMap<>();
+
+  /** Condition context */
+  private IContext conditionContext = IContext.EMPTY;
 
   private ToolDefinitionLoader() {
     super(JsonHelper.DEFAULT_GSON, FOLDER);
@@ -64,6 +70,11 @@ public class ToolDefinitionLoader extends SimpleJsonResourceReloadListener {
     }
   }
 
+  /** Creates context for modifier parsing */
+  public static TypedMapBuilder contextBuilder(ResourceLocation key) {
+    return TypedMapBuilder.builder().put(ContextKey.ID, key).put(ContextKey.DEBUG, "Tool Definition " + key);
+  }
+
   @Override
   protected void apply(Map<ResourceLocation,JsonElement> splashList, ResourceManager resourceManagerIn, ProfilerFiller profilerIn) {
     long time = System.nanoTime();
@@ -79,7 +90,8 @@ public class ToolDefinitionLoader extends SimpleJsonResourceReloadListener {
         continue;
       }
       try {
-        ToolDefinitionData data = ToolDefinitionData.LOADABLE.convert(element, key.toString());
+        // TODO: do we want to allow load conditions for tool definitions? might make merging harder should we go that route instead
+        ToolDefinitionData data = ToolDefinitionData.LOADABLE.convert(element, key.toString(), contextBuilder(key).put(ContextKey.CONDITION_CONTEXT, conditionContext).build());
         builder.put(key, data);
         definition.setData(data);
       } catch (Exception e) {
@@ -105,6 +117,7 @@ public class ToolDefinitionLoader extends SimpleJsonResourceReloadListener {
   /** Adds the managers as datapack listeners */
   private void addDataPackListeners(final AddReloadListenerEvent event) {
     event.addListener(this);
+    conditionContext = event.getConditionContext();
   }
 
   /** Registers a tool definition with the loader */

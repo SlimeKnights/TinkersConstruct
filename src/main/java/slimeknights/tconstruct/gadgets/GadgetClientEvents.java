@@ -1,6 +1,8 @@
 package slimeknights.tconstruct.gadgets;
 
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.ModelEvent.RegisterAdditional;
@@ -10,7 +12,8 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.gadgets.client.FancyItemFrameRenderer;
-import slimeknights.tconstruct.gadgets.client.RenderShuriken;
+import slimeknights.tconstruct.gadgets.entity.shuriken.ShurikenEntityBase;
+import slimeknights.tconstruct.tools.client.material.ThrownShurikenRenderer;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber(modid=TConstruct.MOD_ID, value=Dist.CLIENT, bus=Bus.MOD)
@@ -24,9 +27,11 @@ public class GadgetClientEvents extends ClientEventBase {
   @SubscribeEvent
   static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
     event.registerEntityRenderer(TinkerGadgets.itemFrameEntity.get(), FancyItemFrameRenderer::new);
-    event.registerEntityRenderer(TinkerGadgets.glowBallEntity.get(), ThrownItemRenderer::new);
-    event.registerEntityRenderer(TinkerGadgets.eflnEntity.get(), ThrownItemRenderer::new);
-    event.registerEntityRenderer(TinkerGadgets.quartzShurikenEntity.get(), RenderShuriken::new);
-    event.registerEntityRenderer(TinkerGadgets.flintShurikenEntity.get(), RenderShuriken::new);
+    EntityRendererProvider<ThrowableItemProjectile> throwable = ThrownItemRenderer::new;
+    event.registerEntityRenderer(TinkerGadgets.glowBallEntity.get(), throwable);
+    event.registerEntityRenderer(TinkerGadgets.eflnEntity.get(), throwable);
+    EntityRendererProvider<ShurikenEntityBase> shuriken = ThrownShurikenRenderer::new;
+    event.registerEntityRenderer(TinkerGadgets.quartzShurikenEntity.get(), shuriken);
+    event.registerEntityRenderer(TinkerGadgets.flintShurikenEntity.get(), shuriken);
   }
 }

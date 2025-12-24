@@ -1,9 +1,10 @@
 intro=Introduction
 
 tools=Tools
-tools.group_small=Small Tools
-tools.group_large=Broad Tools
-tools.group_ancient=Ancient Tools
+tools.group_small=Small
+tools.group_large=Broad
+tools.group_ranged=Ranged
+tools.group_ancient=Ancient
 tools.group_staff=Staffs
 tools.tconstruct.earth_staff=Earthslime
 tools.tconstruct.sky_staff=Skyslime
@@ -15,6 +16,8 @@ materials_harvest=General Materials
 materials_harvest.subtext=Materials used for creating melee weapons or harvest tools.
 materials_ranged=Ranged Materials
 materials_ranged.subtext=Materials used for creating ranged weapons.
+materials_ammo=Ammo Materials
+materials_ammo.subtext=Materials used for creating arrows and shurikens.
 materials_armor=Armor Materials
 materials_armor.subtext=Materials used for creating armor and shields.
 materials_skull=Slimeskulls
@@ -46,6 +49,7 @@ slotless=Slotless
 slotless.subtext=Slotless modifiers do not require any slots.
 slotless.group_general=General
 slotless.group_bonus=Bonus
+slotless.group_cosmetic=Cosmetic
 
 abilities=Abilities
 abilities.subtext=Ability modifiers have fewer slots than upgrades, but are stronger per slot.

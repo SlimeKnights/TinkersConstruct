@@ -9,6 +9,10 @@
     "tconstruct:fiery",
     "tconstruct:freezing",
     "tconstruct:impaling",
-    "tconstruct:necrotic"
+    "tconstruct:bounce",
+    "tconstruct:necrotic",
+    "tconstruct:lure",
+    "tconstruct:collecting",
+    "tconstruct:fins"
   ]
 }

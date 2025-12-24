@@ -1,8 +1,6 @@
 {
   "values": [
-    "tconstruct:swasher",
-    "#tconstruct:modifiable/interactable/right",
-    "#tconstruct:modifiable/ranged/bows",
-    "#tconstruct:modifiable/shields"
+    "#tconstruct:modifiable/interactable/charge/modifier",
+    "#tconstruct:modifiable/ranged/bows"
   ]
 }

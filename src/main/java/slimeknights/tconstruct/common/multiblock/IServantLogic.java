@@ -34,6 +34,9 @@ public interface IServantLogic extends IForgeBlockEntity {
    */
   void setPotentialMaster(IMasterLogic master);
 
+  /** Called when the master block entity loads into the world to clear caches. Should not altar the master state. */
+  default void onMasterLoad(IMasterLogic master) {}
+
   /**
    * Removes this master from the given servant
    * @param master  Master to remove

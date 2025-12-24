@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:redirected",
+  "text": [
+    {
+      "text": "Increases the level of one of the projectile's traits, typically the first arrow head."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Single use",
+    "Slotless"
+  ]
+}

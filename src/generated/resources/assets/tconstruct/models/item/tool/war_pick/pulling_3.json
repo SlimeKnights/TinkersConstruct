@@ -1,6 +1,6 @@
 {
   "loader": "tconstruct:tool",
-  "parent": "forge:item/default-tool",
+  "parent": "tconstruct:item/tool/war_pick/display",
   "textures": {
     "limb": "tconstruct:item/tool/war_pick/limb",
     "body": "tconstruct:item/tool/war_pick/body",

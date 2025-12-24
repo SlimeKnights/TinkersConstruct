@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat.Mode;
 import net.minecraft.client.renderer.RenderType;
+import slimeknights.mantle.client.render.MantleRenderTypes;
 import slimeknights.tconstruct.TConstruct;
 
 import java.util.OptionalDouble;
@@ -32,7 +33,7 @@ public class TinkerRenderTypes extends RenderType {
     TConstruct.resourceString("smeltery_fluid"), DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP, VertexFormat.Mode.QUADS, 256, false, true,
     CompositeState.builder()
                   .setLightmapState(LIGHTMAP)
-                  .setShaderState(POSITION_COLOR_TEX_LIGHTMAP_SHADER)
+                  .setShaderState(MantleRenderTypes.FLUID_SHADER)
                   .setTextureState(BLOCK_SHEET_MIPPED)
                   .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
                   .setCullState(NO_CULL)

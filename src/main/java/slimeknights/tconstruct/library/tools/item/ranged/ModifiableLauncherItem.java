@@ -27,10 +27,12 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import slimeknights.mantle.client.SafeClientAccess;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.client.item.ModifiableItemClientExtension;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.behavior.AttributesModifierHook;
@@ -44,6 +46,7 @@ import slimeknights.tconstruct.library.modifiers.modules.build.RarityModule;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
 import slimeknights.tconstruct.library.tools.capability.ToolCapabilityProvider;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
+import slimeknights.tconstruct.library.tools.definition.module.display.ToolNameHook;
 import slimeknights.tconstruct.library.tools.definition.module.mining.IsEffectiveToolHook;
 import slimeknights.tconstruct.library.tools.definition.module.mining.MiningSpeedToolHook;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
@@ -307,7 +310,11 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
 
   @Override
   public void onStopUsing(ItemStack stack, LivingEntity entity, int timeLeft) {
-    ToolStack tool = ToolStack.from(stack);
+    onStopUsing(ToolStack.from(stack), entity, timeLeft);
+  }
+
+  /** Same as {@link #onStopUsing(ItemStack, LivingEntity, int)} but uses a tool. */
+  protected void onStopUsing(IToolStackView tool, LivingEntity entity, int timeLeft) {
     UsingToolModifierHook.afterStopUsing(tool, entity, timeLeft);
     ModDataNBT data = tool.getPersistentData();
     data.remove(KEY_DRAWTIME);
@@ -334,7 +341,7 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
 
   @Override
   public Component getName(ItemStack stack) {
-    return TooltipUtil.getDisplayName(stack, getToolDefinition());
+    return ToolNameHook.getName(getToolDefinition(), stack);
   }
 
   @Override
@@ -348,7 +355,7 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
   }
 
 
-  /* Display items */
+  /* Display */
 
   @Override
   public ItemStack getRenderTool() {
@@ -356,6 +363,11 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
       toolForRendering = ToolBuildHandler.buildToolForRendering(this, this.getToolDefinition());
     }
     return toolForRendering;
+  }
+
+  @Override
+  public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+    consumer.accept(ModifiableItemClientExtension.INSTANCE);
   }
 
 

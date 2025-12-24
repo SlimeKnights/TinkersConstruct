@@ -1,0 +1,12 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:protection",
+      "attacker": "mantle:on_fire",
+      "damage_source": "mantle:can_protect",
+      "each_level": 1.25
+    }
+  ],
+  "tooltip_display": "always"
+}

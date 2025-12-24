@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:part_builder_tool_recycling",
   "pattern": {
-    "tag": "tconstruct:patterns/default"
+    "item": "tconstruct:venom_bottle"
   },
   "tools": {
     "type": "forge:difference",

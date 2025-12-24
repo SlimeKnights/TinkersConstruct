@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:material",
+  "ingredient": {
+    "tag": "forge:dusts/glowstone"
+  },
+  "material": "tconstruct:glowstone",
+  "needed": 4,
+  "value": 1
+}

@@ -4,8 +4,13 @@ melee_harvest_materials=一级通用材料
 melee_harvest_materials.subtext=这些材料可以放在部件制造台中，用于制造近战武器或采掘工具的工具部件。
 ranged_materials=一级远程材料
 ranged_materials.subtext=这些材料可以放在部件制造台中，用于制造像弓那样的远程武器的工具部件。
+ammo_materials=基础弹药材料
+ammo_materials.subtext=这些材料适合制造早期的箭矢和手里剑等。
 
 tools=工具
+tools.group_general=通用工具
+tools.group_ranged=远程工具
+tools.group_info=信息
 
 armor=基础盔甲
 armor.subtext=基础盔甲无需通过猎杀获取资源或是建造任何机械即可制作。虽然防御能力有限，但是提供了较多升级机会！所以，你会做出什么有趣的东西来呢？

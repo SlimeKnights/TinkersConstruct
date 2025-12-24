@@ -13,6 +13,8 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
+import slimeknights.mantle.data.predicate.IJsonPredicate;
+import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
 import slimeknights.tconstruct.library.json.LevelingValue;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -42,13 +44,14 @@ import java.util.function.Supplier;
  * @param amount     Amount of the attribute to apply
  * @param condition  Standard modifier conditions
  */
-public record MeleeAttributeModule(String unique, Attribute attribute, UUID uuid, Operation operation, LevelingValue amount, ModifierCondition<IToolStackView> condition) implements ModifierModule, MeleeHitModifierHook, ConditionalModule<IToolStackView> {
+public record MeleeAttributeModule(String unique, Attribute attribute, UUID uuid, Operation operation, LevelingValue amount, IJsonPredicate<LivingEntity> target, ModifierCondition<IToolStackView> condition) implements ModifierModule, MeleeHitModifierHook, ConditionalModule<IToolStackView> {
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<MeleeAttributeModule>defaultHooks(ModifierHooks.MELEE_HIT);
   public static final RecordLoadable<MeleeAttributeModule> LOADER = RecordLoadable.create(
     new AttributeUniqueField<>(MeleeAttributeModule::unique),
     Loadables.ATTRIBUTE.requiredField("attribute", MeleeAttributeModule::attribute),
     TinkerLoadables.OPERATION.requiredField("operation", MeleeAttributeModule::operation),
     LevelingValue.LOADABLE.directField(MeleeAttributeModule::amount),
+    LivingEntityPredicate.LOADER.defaultField("target", MeleeAttributeModule::target),
     ModifierCondition.TOOL_FIELD,
     MeleeAttributeModule::new);
 
@@ -56,8 +59,8 @@ public record MeleeAttributeModule(String unique, Attribute attribute, UUID uuid
   @Internal
   public MeleeAttributeModule {}
 
-  private MeleeAttributeModule(String unique, Attribute attribute, Operation operation, LevelingValue amount, ModifierCondition<IToolStackView> condition) {
-    this(unique, attribute, UUID.nameUUIDFromBytes(unique.getBytes()), operation, amount, condition);
+  private MeleeAttributeModule(String unique, Attribute attribute, Operation operation, LevelingValue amount, IJsonPredicate<LivingEntity> target, ModifierCondition<IToolStackView> condition) {
+    this(unique, attribute, UUID.nameUUIDFromBytes(unique.getBytes()), operation, amount, target, condition);
   }
 
   @Override
@@ -72,6 +75,8 @@ public record MeleeAttributeModule(String unique, Attribute attribute, UUID uuid
       if (target != null) {
         AttributeInstance instance = target.getAttribute(attribute);
         if (instance != null) {
+          // ensure we don't already have the modifier from someone misusing melee hooks or simultaneous attacks
+          instance.removeModifier(uuid);
           instance.addTransientModifier(new AttributeModifier(uuid, unique, amount.compute(modifier.getEffectiveLevel()), operation));
         }
       }
@@ -113,13 +118,14 @@ public record MeleeAttributeModule(String unique, Attribute attribute, UUID uuid
     return new Builder(attribute.get(), operation);
   }
 
+  @Setter
+  @Accessors(fluent = true)
   @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
   public static class Builder extends ModuleBuilder.Stack<Builder> implements LevelingValue.Builder<MeleeAttributeModule>  {
     protected final Attribute attribute;
     protected final Operation operation;
-    @Setter
-    @Accessors(fluent = true)
     protected String unique = "";
+    protected IJsonPredicate<LivingEntity> target = LivingEntityPredicate.ANY;
 
     /**
      * Sets the unique string using a resource location
@@ -130,7 +136,7 @@ public record MeleeAttributeModule(String unique, Attribute attribute, UUID uuid
 
     @Override
     public MeleeAttributeModule amount(float flat, float eachLevel) {
-      return new MeleeAttributeModule(unique, attribute, operation, new LevelingValue(flat, eachLevel), condition);
+      return new MeleeAttributeModule(unique, attribute, operation, new LevelingValue(flat, eachLevel), target, condition);
     }
   }
 }

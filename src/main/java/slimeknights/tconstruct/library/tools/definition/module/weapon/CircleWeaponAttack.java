@@ -48,17 +48,21 @@ public record CircleWeaponAttack(float diameter) implements MeleeHitToolHook, To
       Entity target = context.getTarget();
       Level level = attacker.level();
       for (LivingEntity aoeTarget : level.getEntitiesOfClass(LivingEntity.class, target.getBoundingBox().inflate(range, 0.25D, range))) {
-        if (aoeTarget != attacker && aoeTarget != target && !attacker.isAlliedTo(aoeTarget)
+        if (tool.isBroken()) {
+          break;
+        }
+        if (aoeTarget != attacker && aoeTarget != target && !attacker.isAlliedTo(aoeTarget) && ToolAttackUtil.isAttackable(attacker, aoeTarget)
             && !(aoeTarget instanceof ArmorStand stand && stand.isMarker()) && target.distanceToSqr(aoeTarget) < rangeSq) {
           float angle = attacker.getYRot() * ((float)Math.PI / 180F);
           aoeTarget.knockback(0.4F, Mth.sin(angle), -Mth.cos(angle));
           // TODO: do we want to bring back the behavior where circle returns success if any AOE target is hit?
-          ToolAttackUtil.extraEntityAttack(tool, attacker, context.getHand(), aoeTarget);
+          ToolAttackUtil.performAttack(tool, context.withAOETarget(aoeTarget));
         }
       }
 
       level.playSound(null, attacker.getX(), attacker.getY(), attacker.getZ(), SoundEvents.PLAYER_ATTACK_SWEEP, attacker.getSoundSource(), 1.0F, 1.0F);
-      if (attacker instanceof Player player) {
+      Player player = context.getPlayerAttacker();
+      if (!context.isProjectile() && player != null) {
         player.sweepAttack();
       }
     }

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:bounce",
+  "text": [
+    {
+      "text": "Causes arrows to bounce after hitting a block instead of stopping. First level allows a single bounce, each further level adds up to 2 more bounces."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum of 3 levels",
+    "Requires 1 upgrade slot per level"
+  ]
+}

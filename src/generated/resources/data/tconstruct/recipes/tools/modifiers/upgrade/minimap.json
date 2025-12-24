@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:modifier",
+  "allow_crystal": true,
+  "inputs": [
+    {
+      "item": "minecraft:compass"
+    },
+    {
+      "tag": "forge:slimeballs"
+    },
+    {
+      "item": "minecraft:paper"
+    }
+  ],
+  "result": "tconstruct:minimap",
+  "slots": {
+    "upgrades": 1
+  },
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/helmets"
+  }
+}

@@ -6,6 +6,8 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
+import slimeknights.mantle.data.loadable.record.SingletonLoader;
+import slimeknights.mantle.data.registry.DefaultingLoaderRegistry;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
@@ -21,10 +23,12 @@ import java.util.function.Predicate;
 
 /** Logic for iterating over a set of blocks */
 public interface AreaOfEffectIterator {
-
   /** Interface for loadable area of effect iterators, used for the fallback AOE iterator */
   interface Loadable extends AreaOfEffectIterator, ToolModule {
     List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<Loadable>defaultHooks(ToolHooks.AOE_ITERATOR);
+
+    @Override
+    RecordLoadable<? extends Loadable> getLoader();
 
     @Override
     default List<ModuleHook<?>> getDefaultHooks() {
@@ -32,8 +36,21 @@ public interface AreaOfEffectIterator {
     }
   }
 
-  /** Registry of all AOE loaders */
-  GenericLoaderRegistry<Loadable> LOADER = new GenericLoaderRegistry<>("AOE Iterator", false);
+  /** Empty instance for {@link ConditionalAOEIterator} nesting con */
+  Loadable EMPTY = SingletonLoader.singleton(loader -> new Loadable() {
+    @Override
+    public RecordLoadable<? extends Loadable> getLoader() {
+      return loader;
+    }
+
+    @Override
+    public Iterable<BlockPos> getBlocks(IToolStackView tool, UseOnContext context, BlockState state, AOEMatchType matchType) {
+      return List.of();
+    }
+  });
+
+  /** Registry of all AOE loaders. TODO 1.21: change field type to {@link DefaultingLoaderRegistry} */
+  GenericLoaderRegistry<Loadable> LOADER = new DefaultingLoaderRegistry<>("AOE Iterator", EMPTY, false);
 
   /** Registers a loader with both tool modules and area of effect (latter used for fallback loader) */
   static void register(ResourceLocation name, RecordLoadable<? extends Loadable> loader) {
@@ -73,13 +90,13 @@ public interface AreaOfEffectIterator {
   static Predicate<BlockPos> defaultBlockPredicate(IToolStackView tool, UseOnContext context, AOEMatchType matchType) {
     // requires effectiveness
     Level world = context.getLevel();
-    if (matchType == AOEMatchType.DISPLAY) {
+    if (matchType == AOEMatchType.TRANSFORM) {
       return pos -> !world.isEmptyBlock(pos);
     } else {
       // don't let hardness vary too much
       BlockPos origin = context.getClickedPos();
       float refHardness = world.getBlockState(origin).getDestroySpeed(world, origin);
-      if (matchType == AOEMatchType.TRANSFORM) {
+      if (matchType == AOEMatchType.DISPLAY) {
         return pos -> {
           Level level = context.getLevel();
           if (isEffective(tool, level, pos, refHardness)) {

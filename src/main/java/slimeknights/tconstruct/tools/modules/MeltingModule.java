@@ -3,7 +3,9 @@ package slimeknights.tconstruct.tools.modules;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -17,6 +19,8 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.behavior.ProcessLootModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.combat.MonsterMeleeHitModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.ranged.LauncherHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.util.ModifierCondition;
 import slimeknights.tconstruct.library.modifiers.modules.util.ModifierCondition.ConditionalModule;
@@ -34,6 +38,7 @@ import slimeknights.tconstruct.library.tools.definition.module.ToolHooks;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.smeltery.block.entity.module.EntityMeltingModule;
 
+import javax.annotation.Nullable;
 import java.util.Iterator;
 import java.util.List;
 
@@ -46,8 +51,8 @@ import static slimeknights.tconstruct.library.tools.capability.fluid.ToolTankHel
  * @param shardsPerGem     Number of quarter gems to produce per gem from ore recipes.
  * @param condition        General modifier conditions
  */
-public record MeltingModule(LevelingInt temperature, LevelingInt nuggetsPerMetal, LevelingInt shardsPerGem, ModifierCondition<IToolStackView> condition) implements ModifierModule, MeleeHitModifierHook, ProcessLootModifierHook, ConditionalModule<IToolStackView>, IMeltingContainer, IOreRate {
-  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<MeltingModule>defaultHooks(ModifierHooks.MELEE_HIT, ModifierHooks.PROCESS_LOOT);
+public record MeltingModule(LevelingInt temperature, LevelingInt nuggetsPerMetal, LevelingInt shardsPerGem, ModifierCondition<IToolStackView> condition) implements ModifierModule, MeleeHitModifierHook, MonsterMeleeHitModifierHook.RedirectAfter, LauncherHitModifierHook, ProcessLootModifierHook, ConditionalModule<IToolStackView>, IMeltingContainer, IOreRate {
+  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<MeltingModule>defaultHooks(ModifierHooks.MELEE_HIT, ModifierHooks.MONSTER_MELEE_HIT, ModifierHooks.LAUNCHER_HIT, ModifierHooks.PROCESS_LOOT);
   /** Volatile data flag which makes a tool always melt regardless of tank space */
   public static final ResourceLocation FORCE_MELTING = TConstruct.getResource("force_melting");
 
@@ -73,7 +78,6 @@ public record MeltingModule(LevelingInt temperature, LevelingInt nuggetsPerMetal
   /** Last melting recipe used */
   private static IMeltingRecipe lastRecipe = null;
   /** Current item stack being processed */
-  @Setter
   private static ItemStack stack = ItemStack.EMPTY;
   /** Current modifier level being processed */
   private static int level = 0;
@@ -108,13 +112,13 @@ public record MeltingModule(LevelingInt temperature, LevelingInt nuggetsPerMetal
    */
   private FluidStack meltItem(ModifierEntry modifier, ItemStack stack, Level world) {
     level = modifier.intEffectiveLevel();
-    setStack(stack);
+    MeltingModule.stack = stack;
     // first, update inventory
     IMeltingRecipe recipe = lastRecipe;
     if (recipe == null || !recipe.matches(this, world)) {
       recipe = world.getRecipeManager().getRecipeFor(TinkerRecipeTypes.MELTING.get(), this, world).orElse(null);
       if (recipe == null) {
-        setStack(ItemStack.EMPTY);
+        MeltingModule.stack = ItemStack.EMPTY;
         return FluidStack.EMPTY;
       }
       lastRecipe = recipe;
@@ -124,7 +128,7 @@ public record MeltingModule(LevelingInt temperature, LevelingInt nuggetsPerMetal
     if (recipe.getTemperature(this) <= temperature.compute(level)) {
       result = recipe.getOutput(this);
     }
-    setStack(ItemStack.EMPTY);
+    MeltingModule.stack = ItemStack.EMPTY;
     return result;
   }
 
@@ -194,14 +198,13 @@ public record MeltingModule(LevelingInt temperature, LevelingInt nuggetsPerMetal
     }
   }
 
-  @Override
-  public void afterMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damageDealt) {
+  /** Melts the target entity based on the damage dealt */
+  private void meltTarget(IToolStackView tool, ModifierEntry modifier, @Nullable LivingEntity target, float damageDealt) {
     // must have done damage, and must be fully charged
-    if (damageDealt > 0 && context.isFullyCharged() && condition.matches(tool, modifier)) {
+    if (damageDealt > 0 && condition.matches(tool, modifier)) {
       // first, find the proper recipe
-      LivingEntity target = context.getLivingTarget();
       if (target != null) {
-        EntityMeltingRecipe recipe = EntityMeltingRecipeCache.findRecipe(context.getLevel().getRecipeManager(), target.getType());
+        EntityMeltingRecipe recipe = EntityMeltingRecipeCache.findRecipe(target.level().getRecipeManager(), target.getType());
         FluidStack output;
         int damagePerOutput;
         if (recipe != null) {
@@ -232,6 +235,18 @@ public record MeltingModule(LevelingInt temperature, LevelingInt nuggetsPerMetal
         }
       }
     }
+  }
+
+  @Override
+  public void afterMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damageDealt) {
+    if (context.isFullyCharged()) {
+      meltTarget(tool, modifier, context.getLivingTarget(), damageDealt);
+    }
+  }
+
+  @Override
+  public void onLauncherHitEntity(IToolStackView tool, ModifierEntry modifier, Projectile projectile, LivingEntity attacker, Entity target, @Nullable LivingEntity livingTarget, float damageDealt) {
+    meltTarget(tool, modifier, livingTarget, damageDealt);
   }
 
 

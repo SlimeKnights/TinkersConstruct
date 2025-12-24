@@ -8,6 +8,7 @@ import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -65,12 +66,14 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.registration.GeodeItemObject;
 import slimeknights.tconstruct.common.registration.GeodeItemObject.BudSize;
 import slimeknights.tconstruct.fluids.TinkerFluids;
+import slimeknights.tconstruct.library.json.loot.equipment.MobEquipmentManager;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.world.block.CongealedSlimeBlock;
+import slimeknights.tconstruct.world.block.CrystalClusterBlock;
 import slimeknights.tconstruct.world.block.DirtType;
 import slimeknights.tconstruct.world.block.FoliageType;
 import slimeknights.tconstruct.world.block.PiglinHeadBlock;
@@ -87,11 +90,13 @@ import slimeknights.tconstruct.world.block.SlimeSaplingBlock;
 import slimeknights.tconstruct.world.block.SlimeTallGrassBlock;
 import slimeknights.tconstruct.world.block.SlimeVineBlock;
 import slimeknights.tconstruct.world.block.StickySlimeBlock;
+import slimeknights.tconstruct.world.data.MobEquipmentProvider;
 import slimeknights.tconstruct.world.data.WorldRecipeProvider;
 import slimeknights.tconstruct.world.entity.EnderSlimeEntity;
 import slimeknights.tconstruct.world.entity.SkySlimeEntity;
 import slimeknights.tconstruct.world.entity.SlimePlacementPredicate;
 import slimeknights.tconstruct.world.entity.TerracubeEntity;
+import slimeknights.tconstruct.world.item.EndermanHeadItem;
 import slimeknights.tconstruct.world.item.SlimeGrassSeedItem;
 import slimeknights.tconstruct.world.worldgen.trees.SlimeTree;
 
@@ -105,6 +110,10 @@ import java.util.function.Function;
  */
 @SuppressWarnings("unused")
 public final class TinkerWorld extends TinkerModule {
+  public TinkerWorld() {
+    MobEquipmentManager.init();
+  }
+
   public static final PlantType SLIME_PLANT_TYPE = PlantType.get("slime");
 
   /** Creative tab for anything that is naturally found in the world */
@@ -120,12 +129,22 @@ public final class TinkerWorld extends TinkerModule {
    */
 
   /*
-   * Blocks
+   * Metals
    */
   // ores
   public static final ItemObject<Block> cobaltOre = BLOCKS.register("cobalt_ore", () -> new Block(builder(MapColor.NETHER, SoundType.NETHER_ORE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(10.0F)), BLOCK_ITEM);
   public static final ItemObject<Block> rawCobaltBlock = BLOCKS.register("raw_cobalt_block", () -> new Block(builder(MapColor.COLOR_BLUE, SoundType.NETHER_ORE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(6.0f, 7.0f)), BLOCK_ITEM);
   public static final ItemObject<Item> rawCobalt = ITEMS.register("raw_cobalt", ITEM_PROPS);
+
+  // shards
+  public static final ItemObject<Item> steelShard = ITEMS.register("steel_shard", TOOLTIP_ITEM);
+  public static final ItemObject<Item> knightmetalShard = ITEMS.register("knightmetal_shard", TOOLTIP_ITEM);
+  public static final ItemObject<Block> steelCluster, knightmetalCluster;
+  static {
+    steelCluster = BLOCKS.register("steel_cluster", () -> new CrystalClusterBlock(Sounds.SKY_CRYSTAL_CHIME.getSound(), 7, 3, BlockBehaviour.Properties.of().mapColor(MapColor.STONE).forceSolidOn().noOcclusion().randomTicks().strength(2.5f).requiresCorrectToolForDrops().pushReaction(PushReaction.DESTROY).lightLevel(state -> 5).sound(SoundType.METAL)), TOOLTIP_BLOCK_ITEM);
+    knightmetalCluster = BLOCKS.register("knightmetal_cluster", () -> new CrystalClusterBlock(Sounds.ENDER_CRYSTAL_CHIME.getSound(), 7, 3, BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).forceSolidOn().noOcclusion().randomTicks().strength(2.5F).requiresCorrectToolForDrops().pushReaction(PushReaction.DESTROY).lightLevel(state -> 12).sound(SoundType.NETHERITE_BLOCK)), TOOLTIP_BLOCK_ITEM);
+  }
+
 
   // slime
   public static final EnumObject<SlimeType, SlimeBlock> slime = Util.make(() -> {
@@ -203,7 +222,7 @@ public final class TinkerWorld extends TinkerModule {
     slimeFern = BLOCKS.registerEnum(FoliageType.values(), "slime_fern", type -> new SlimeTallGrassBlock(props.apply(type), type), BLOCK_ITEM);
     slimeTallGrass = BLOCKS.registerEnum(FoliageType.values(), "slime_tall_grass", type -> new SlimeTallGrassBlock(props.apply(type), type), BLOCK_ITEM);
   }
-  public static final EnumObject<FoliageType,FlowerPotBlock> pottedSlimeFern = BLOCKS.registerPottedEnum(FoliageType.values(), "slime_fern", slimeFern);
+  public static final EnumObject<FoliageType,FlowerPotBlock> pottedSlimeFern = BLOCKS.registerPottedEnum("slime_fern", slimeFern);
 
   // trees
   public static final EnumObject<FoliageType, Block> slimeSapling = Util.make(() -> {
@@ -254,9 +273,9 @@ public final class TinkerWorld extends TinkerModule {
   public static final ResourceKey<BiomeModifier> spawnEnderGeode = key(ForgeRegistries.Keys.BIOME_MODIFIERS, "ender_geode");
 
   // heads
-  public static final EnumObject<TinkerHeadType,SkullBlock>               heads     = BLOCKS.registerEnumNoItem(TinkerHeadType.values(), "head", TinkerWorld::makeHead);
-  public static final EnumObject<TinkerHeadType,WallSkullBlock>           wallHeads = BLOCKS.registerEnumNoItem(TinkerHeadType.values(), "wall_head", TinkerWorld::makeWallHead);
-  public static final EnumObject<TinkerHeadType,StandingAndWallBlockItem> headItems = ITEMS.registerEnum(TinkerHeadType.values(), "head", type -> new StandingAndWallBlockItem(heads.get(type), wallHeads.get(type), new Item.Properties().rarity(Rarity.UNCOMMON), Direction.DOWN));
+  public static final EnumObject<TinkerHeadType,SkullBlock> heads = BLOCKS.registerEnumNoItem(TinkerHeadType.values(), "head", TinkerWorld::makeHead);
+  public static final EnumObject<TinkerHeadType,WallSkullBlock> wallHeads = BLOCKS.registerEnumNoItem(TinkerHeadType.values(), "wall_head", TinkerWorld::makeWallHead);
+  public static final EnumObject<TinkerHeadType,StandingAndWallBlockItem> headItems = ITEMS.registerEnum(TinkerHeadType.values(), "head", TinkerWorld::makeHeadItem);
 
   /*
    * Entities
@@ -393,7 +412,10 @@ public final class TinkerWorld extends TinkerModule {
   @SubscribeEvent
   void gatherData(final GatherDataEvent event) {
     DataGenerator generator = event.getGenerator();
-    generator.addProvider(event.includeServer(), new WorldRecipeProvider(generator.getPackOutput()));
+    boolean server = event.includeServer();
+    PackOutput packOutput = generator.getPackOutput();
+    generator.addProvider(server, new WorldRecipeProvider(packOutput));
+    generator.addProvider(server, new MobEquipmentProvider(packOutput));
   }
 
   /** Adds all relevant items to the creative tab */
@@ -458,8 +480,12 @@ public final class TinkerWorld extends TinkerModule {
     // geodes
     accept(output, earthGeode);
     accept(output, skyGeode);
+    output.accept(steelShard);
+    output.accept(steelCluster);
     accept(output, ichorGeode);
     accept(output, enderGeode);
+    output.accept(knightmetalShard);
+    output.accept(knightmetalCluster);
   }
 
   /** Add a geode to the creative tab */
@@ -491,5 +517,14 @@ public final class TinkerWorld extends TinkerModule {
       return new PiglinWallHeadBlock(type, props);
     }
     return new WallSkullBlock(type, props);
+  }
+
+  /** Creates a skull wall block for the given head type */
+  private static StandingAndWallBlockItem makeHeadItem(TinkerHeadType type) {
+    Item.Properties properties = new Item.Properties().rarity(Rarity.UNCOMMON);
+    if (type == TinkerHeadType.ENDERMAN) {
+      return new EndermanHeadItem(heads.get(type), wallHeads.get(type), properties, Direction.DOWN);
+    }
+    return new StandingAndWallBlockItem(heads.get(type), wallHeads.get(type), properties, Direction.DOWN);
   }
 }

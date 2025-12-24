@@ -100,7 +100,9 @@ public record MoveBlocksFluidEffect(boolean push, SoundEvent sound) implements F
       if (!push) {
         direction = direction.getOpposite();
       }
-      if (!PistonBaseBlock.isPushable(originalState, world, pos, direction, false, facing)) {
+      // even though isPushable will eventually check for block entities, some mods mixin to remove that check
+      // since we don't have moving block entity logic, just add back tne (sometimes redundant) check
+      if (originalState.hasBlockEntity() || !PistonBaseBlock.isPushable(originalState, world, pos, direction, false, facing)) {
         return 0;
       }
 

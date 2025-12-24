@@ -22,7 +22,6 @@ import slimeknights.tconstruct.library.module.HookProvider;
 import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.definition.module.ToolHooks;
-import slimeknights.tconstruct.library.tools.definition.module.interaction.DualOptionInteraction;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.shared.TinkerCommons;
@@ -54,12 +53,12 @@ public record PlaceGlowModule(int damage) implements ModifierModule, DisplayName
 
   @Override
   public Component getDisplayName(IToolStackView tool, ModifierEntry entry, Component name, @Nullable RegistryAccess access) {
-    return DualOptionInteraction.formatModifierName(tool, entry.getModifier(), name);
+    return InteractionSource.formatModifierName(tool, entry.getModifier(), name);
   }
 
   @Override
   public InteractionResult afterBlockUse(IToolStackView tool, ModifierEntry modifier, UseOnContext context, InteractionSource source) {
-    if (tool.getHook(ToolHooks.INTERACTION).canInteract(tool, modifier.getId(), source)) {
+    if (!tool.isBroken() && tool.getHook(ToolHooks.INTERACTION).canInteract(tool, modifier.getId(), source)) {
       Player player = context.getPlayer();
       if (!context.getLevel().isClientSide) {
         Level world = context.getLevel();

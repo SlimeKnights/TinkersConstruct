@@ -3,12 +3,8 @@
   "modules": [
     {
       "type": "tconstruct:knockback",
-      "each_level": 0.5,
-      "tool": {
-        "type": "mantle:inverted",
-        "inverted_type": "mantle:tag",
-        "tag": "tconstruct:modifiable/armor/chestplate"
-      }
+      "allow": "projectile",
+      "each_level": 0.5
     },
     {
       "type": "tconstruct:attribute",
@@ -16,6 +12,7 @@
       "each_level": 1.0,
       "operation": "addition",
       "slots": [
+        "mainhand",
         "feet",
         "legs",
         "chest",

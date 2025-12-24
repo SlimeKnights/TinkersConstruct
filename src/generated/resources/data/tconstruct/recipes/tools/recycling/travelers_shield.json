@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:part_builder_tool_recycling",
+  "parts": [
+    "tconstruct:repair_kit",
+    "tconstruct:maille"
+  ],
+  "pattern": {
+    "item": "tconstruct:venom_bottle"
+  },
+  "tools": {
+    "item": "tconstruct:travelers_shield"
+  }
+}

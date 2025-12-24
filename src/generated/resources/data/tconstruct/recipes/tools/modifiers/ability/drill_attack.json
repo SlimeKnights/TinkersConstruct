@@ -1,0 +1,29 @@
+{
+  "type": "tconstruct:modifier",
+  "allow_crystal": true,
+  "check_trait_level": true,
+  "inputs": [
+    {
+      "item": "tconstruct:blazing_bone"
+    },
+    {
+      "item": "minecraft:pointed_dripstone"
+    },
+    {
+      "item": "tconstruct:blazing_bone"
+    }
+  ],
+  "level": 1,
+  "result": "tconstruct:drill_attack",
+  "slots": {
+    "abilities": 1
+  },
+  "tools": [
+    {
+      "tag": "tconstruct:modifiable/interactable/charge"
+    },
+    {
+      "tag": "tconstruct:modifiable/fishing_rods"
+    }
+  ]
+}

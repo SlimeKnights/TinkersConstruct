@@ -1,0 +1,16 @@
+{
+  "level_display": "tconstruct:no_levels",
+  "modules": [
+    {
+      "type": "tconstruct:material_variant_color",
+      "material": "tconstruct:wool"
+    },
+    {
+      "type": "tconstruct:stat_boost",
+      "flat": -1.0,
+      "operation": "multiply_all",
+      "stat": "tconstruct:projectile_damage"
+    }
+  ],
+  "tooltip_display": "always"
+}

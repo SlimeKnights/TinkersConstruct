@@ -27,8 +27,12 @@
   "tconstruct:unbreakable": { "type": "tconstruct:normal", "luminosity": 2 },
   "tconstruct:firestarter": "tconstruct:normal",
   
-  "tconstruct:tank":      "tconstruct:tank",
+  "tconstruct:tank": "tconstruct:tank",
+  "tconstruct:tank_handler": "tconstruct:tank",
   "tconstruct:bucketing": "tconstruct:fluid",
+
+  "tconstruct:tipped": "tconstruct:potion",
+  "tconstruct:smashing": "tconstruct:smashing_fluid",
 
   "tconstruct:golden":        "tconstruct:normal",
   "tconstruct:embellishment": "tconstruct:material",

@@ -54,6 +54,7 @@ import slimeknights.tconstruct.library.json.predicate.tool.StatInRangePredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.StatInSetPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.ToolContextPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.ToolStackItemPredicate;
+import slimeknights.tconstruct.library.json.predicate.tool.ToolStackPredicate;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.util.LazyModifier;
@@ -122,7 +123,10 @@ public class AdvancementsProvider extends GenericDataProvider {
     Advancement harvestLevel = builder(Items.NETHERITE_INGOT, resource("tools/netherite_tier"), tinkerTool, FrameType.GOAL, builder ->
       builder.addCriterion("harvest_level", InventoryChangeTrigger.TriggerInstance.hasItems(ToolStackItemPredicate.ofTool(new StatInSetPredicate<>(ToolStats.HARVEST_TIER, Tiers.NETHERITE)))));
     builder(Items.TARGET, resource("tools/perfect_aim"), tinkerTool, FrameType.GOAL, builder ->
-      builder.addCriterion("accuracy", InventoryChangeTrigger.TriggerInstance.hasItems(ToolStackItemPredicate.ofTool(StatInRangePredicate.match(ToolStats.ACCURACY, 1)))));
+      builder.addCriterion("accuracy", InventoryChangeTrigger.TriggerInstance.hasItems(ToolStackItemPredicate.ofTool(ToolStackPredicate.or(
+        ToolStackPredicate.tag(TinkerTags.Items.BOWS),
+        StatInRangePredicate.match(ToolStats.ACCURACY, 1)
+      )))));
     // note that attack damage gets +1 from player attributes, so 20 is actually 21 damage with the tool
     builder(Items.ZOMBIE_HEAD, resource("tools/one_shot"), tinkerTool, FrameType.GOAL, builder ->
       builder.addCriterion("damage", InventoryChangeTrigger.TriggerInstance.hasItems(ToolStackItemPredicate.ofTool(StatInRangePredicate.min(ToolStats.ATTACK_DAMAGE, 20)))));
@@ -167,6 +171,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(MaterialIds.blazingBone);
       with.accept(MaterialIds.blazewood);
       with.accept(MaterialIds.ancientHide);
+      with.accept(MaterialIds.knightmetal);
       with.accept(MaterialIds.enderslimeVine);
     });
     builder(TinkerTools.travelersGear.get(ArmorItem.Type.HELMET).getRenderTool(), resource("tools/travelers_gear"), tinkerStation, FrameType.TASK, builder ->
@@ -194,7 +199,7 @@ public class AdvancementsProvider extends GenericDataProvider {
           HasModifierPredicate.hasUpgrade(ModifierIds.writable, 1),
           HasModifierPredicate.hasUpgrade(ModifierIds.recapitated, 1),
           HasModifierPredicate.hasUpgrade(ModifierIds.harmonious, 1),
-          HasModifierPredicate.hasUpgrade(ModifierIds.resurrected, 1),
+          HasModifierPredicate.hasUpgrade(ModifierIds.forecast, 1),
           HasModifierPredicate.hasUpgrade(ModifierIds.gilded, 1)))))
     );
 
@@ -262,6 +267,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(TinkerTools.scythe);
       with.accept(TinkerTools.cleaver);
       with.accept(TinkerTools.longbow);
+      with.accept(TinkerTools.javelin);
     });
     builder(TinkerModifiers.silkyCloth, resource("smeltery/abilities"), anvil, FrameType.CHALLENGE, builder -> {
       Consumer<ModifierId> with = modifier -> builder.addCriterion(modifier.getPath(), InventoryChangeTrigger.TriggerInstance.hasItems(ToolStackItemPredicate.ofContext(HasModifierPredicate.hasUpgrade(modifier, 1))));
@@ -326,9 +332,16 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(ModifierIds.trickQuiver);
       // fluid
       withL.accept(TinkerModifiers.spitting);
-      withL.accept(TinkerModifiers.spilling);
+      with.accept(ModifierIds.spilling);
       withL.accept(TinkerModifiers.splashing);
       withL.accept(TinkerModifiers.bursting);
+      // fishing
+      with.accept(ModifierIds.grapple);
+      with.accept(ModifierIds.collecting);
+      // trident
+      with.accept(ModifierIds.throwing);
+      with.accept(ModifierIds.returning);
+      with.accept(ModifierIds.channeling);
     });
 
     // foundry path
@@ -408,7 +421,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(MaterialIds.glass);
       with.accept(MaterialIds.bone);
       with.accept(MaterialIds.necroticBone);
-      with.accept(MaterialIds.rottenFlesh);
+      with.accept(MaterialIds.leather);
       with.accept(MaterialIds.enderPearl);
       with.accept(MaterialIds.venombone);
       with.accept(MaterialIds.string);

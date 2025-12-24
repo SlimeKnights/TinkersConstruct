@@ -164,7 +164,9 @@ public class MaterialsCommand {
       output.append("\n* ").append(NO_TRAITS);
     } else {
       for (ModifierEntry trait : traits) {
-        output.append("\n* ").append(trait.getDisplayName());
+        output.append("\n* ")
+          .append(trait.getDisplayName())
+          .append(Component.literal(" (" + trait.getId() + ")").withStyle(ChatFormatting.GRAY));
       }
     }
     context.getSource().sendSuccess(() -> output, true);

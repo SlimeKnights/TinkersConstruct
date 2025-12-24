@@ -1,0 +1,70 @@
+{
+  "modules": [
+    {
+      "type": "tconstruct:part_stats",
+      "parts": [
+        "tconstruct:bow_limb",
+        "tconstruct:bowstring",
+        "tconstruct:arrow_head"
+      ],
+      "primary_part": 0
+    },
+    {
+      "type": "tconstruct:volatile_int",
+      "flag": "tconstruct:hook_material",
+      "value": 2
+    },
+    {
+      "type": "tconstruct:default_materials",
+      "materials": [
+        {
+          "type": "tconstruct:random",
+          "tier": 1
+        },
+        {
+          "type": "tconstruct:random",
+          "tier": 1
+        }
+      ]
+    },
+    {
+      "type": "tconstruct:base_stats",
+      "stats": {
+        "tconstruct:attack_speed": 2.0
+      }
+    },
+    {
+      "type": "tconstruct:multiply_stats",
+      "multipliers": {
+        "tconstruct:durability": 1.5
+      }
+    },
+    {
+      "type": "tconstruct:modifier_slots",
+      "slots": {
+        "abilities": 1,
+        "upgrades": 3
+      }
+    },
+    {
+      "type": "tconstruct:traits",
+      "traits": [
+        {
+          "level": 1,
+          "name": "tconstruct:fishing"
+        }
+      ]
+    },
+    {
+      "type": "tconstruct:toggleable_set_interaction",
+      "interact_modifiers": {
+        "type": "tconstruct:single",
+        "modifier": "tconstruct:fishing"
+      }
+    },
+    {
+      "type": "tconstruct:fixed_material_name",
+      "index": 0
+    }
+  ]
+}

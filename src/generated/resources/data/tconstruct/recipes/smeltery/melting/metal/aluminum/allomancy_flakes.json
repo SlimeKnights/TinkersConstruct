@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "allomancy:aluminum_flakes"
+    }
+  ],
+  "ingredient": {
+    "item": "allomancy:aluminum_flakes"
+  },
+  "result": {
+    "amount": 30,
+    "tag": "forge:molten_aluminum"
+  },
+  "temperature": 425,
+  "time": 27
+}

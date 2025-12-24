@@ -26,7 +26,6 @@ public class Config {
    * Common specific configuration
    */
   public static class Common {
-
     public final BooleanValue shouldSpawnWithTinkersBook;
     public final List<ConfigurableAction> toolTweaks;
 
@@ -49,7 +48,9 @@ public class Config {
     public final OreRate foundryOreRate, foundryByproductRate;
 
     // compatability
+    public final BooleanValue allowIngotlessAlloys;
     public final DoubleValue chemthrowerShotValue;
+    public final BooleanValue allowMonsterMeleeModifiers;
 
     // debug
     public final BooleanValue forceIntegrationMaterials;
@@ -167,12 +168,22 @@ public class Config {
 
       builder.comment("Configuration related to integration with other mods").push("compatability");
       {
+        this.allowIngotlessAlloys = builder
+          .comment("If true, integration alloy materials will be enabled if any of their components is present, allowing creating them from their molten liquid forms.",
+            "If false, they will only be only be present if another mod adds an ingot.",
+            "This config option is provided as while most players prefer the additional materials, some dislike having no proper ingot. Note we do have NBT ingots for these materials.")
+          .worldRestart()
+          .define("allowIngotlessAlloys", true);
         chemthrowerShotValue = builder
           .comment(
             "Amount of fluid each chemthrower shot projectile from Immersive Engineering is worth towards our fluid effect registry.",
             "IE launches 8 projectiles per tick while consuming the value in their config, so dividing it by 8 makes them comparable to our projectiles.",
             "However, keeping it as a separate config option gives pack makers more control over how strong TiC ends up in the chemthrower.")
           .defineInRange("immersive_engineering_chemthrower_shot_value", 1.25, 0, Integer.MAX_VALUE);
+        this.allowMonsterMeleeModifiers = builder
+          .comment("If true, monsters will run melee modifiers when attacking with a modifiable weapon. Provided to work around potential issues with addons allowing more monsters to use tools.",
+            "Note that if its just a specific mob or damage source that has an issue, there are tag blacklists.")
+          .define("allowMonsterMeleeModifiers", true);
       }
       builder.pop();
 
@@ -206,6 +217,7 @@ public class Config {
     public final ForgeConfigSpec.BooleanValue logMissingMaterialTextures;
     public final ForgeConfigSpec.BooleanValue logMissingModifierTextures;
     public final ForgeConfigSpec.BooleanValue renderShieldSlotItem;
+    public final ForgeConfigSpec.BooleanValue renderSleevesItem;
     public final ForgeConfigSpec.BooleanValue modifiersIDsInAdvancedTooltips;
     public final ForgeConfigSpec.IntValue maxSmelteryItemQuads;
 
@@ -225,6 +237,12 @@ public class Config {
     public final ForgeConfigSpec.IntValue itemFrameYOffset;
     public final ForgeConfigSpec.EnumValue<Orientation2D> itemFrameLocation;
     public final ForgeConfigSpec.IntValue itemsPerRow;
+
+    // map modifier
+    public final ForgeConfigSpec.IntValue mapXOffset;
+    public final ForgeConfigSpec.IntValue mapYOffset;
+    public final ForgeConfigSpec.DoubleValue mapScale;
+    public final ForgeConfigSpec.EnumValue<Orientation2D> mapLocation;
 
     Client(ForgeConfigSpec.Builder builder) {
       builder.comment("Client only settings").push("client");
@@ -314,6 +332,9 @@ public class Config {
         this.renderShieldSlotItem = builder
           .comment("If true, the shield slot legging modifier will render the next offhand item above the offhand slot.")
           .define("renderShieldSlotItem", true);
+        this.renderSleevesItem = builder
+          .comment("If true, the selected item from sleeves will render next to the offhand slit.")
+          .define("renderSleevesItem", true);
 
         builder.comment("Settings related to the frame helmet modifier").push("itemFrame");
         {
@@ -334,6 +355,24 @@ public class Config {
             .defineInRange("itemsPerRow", 5, 0, 100);
         }
         builder.pop();
+
+        builder.comment("Settings related to the minimap modifier").push("minimap");
+        {
+          this.mapXOffset = builder
+            .comment("Offset in the X direction for the minimap.")
+            .defineInRange("xOffset", 0, Short.MIN_VALUE, Short.MAX_VALUE);
+          this.mapYOffset = builder
+            .comment("Offset in the Y direction for the minimap.")
+            .defineInRange("yOffset", 0, Short.MIN_VALUE, Short.MAX_VALUE);
+          this.mapScale = builder
+            .comment("Size to render the minimap. Set to 0 to disable the renderer")
+            .defineInRange("scale", 0.75f, 0, 100);
+          this.mapLocation = builder
+            .comment("Location of the minimap on the screen.")
+            .defineEnum("location", Orientation2D.TOP_LEFT);
+        }
+        builder.pop();
+
       }
       builder.pop();
 

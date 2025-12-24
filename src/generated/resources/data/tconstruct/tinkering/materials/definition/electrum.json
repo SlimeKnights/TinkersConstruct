@@ -11,13 +11,22 @@
         "tag": "forge:ingots/electrum"
       },
       {
-        "type": "mantle:tag_filled",
-        "tag": "forge:ingots/silver"
+        "type": "forge:and",
+        "values": [
+          {
+            "type": "tconstruct:config",
+            "prop": "allow_ingotless_alloys"
+          },
+          {
+            "type": "mantle:tag_filled",
+            "tag": "forge:ingots/silver"
+          }
+        ]
       }
     ]
   },
   "craftable": false,
   "hidden": false,
-  "sortOrder": 8,
+  "sortOrder": 5,
   "tier": 3
 }

@@ -17,6 +17,8 @@ public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
   public static final MaterialStatsId ARMOR_PLATING = new MaterialStatsId(TConstruct.MOD_ID, "armor_plating");
   public static final MaterialStatsId ARMOR_MAILLE = new MaterialStatsId(TConstruct.MOD_ID, "armor_maille");
   public static final MaterialStatsId ARMOR_CUIRASS = new MaterialStatsId(TConstruct.MOD_ID, "armor_cuirass");
+  public static final MaterialStatsId INGOT = new MaterialStatsId(TConstruct.MOD_ID, "ingot");
+  public static final MaterialStatsId STORAGE_BLOCK = new MaterialStatsId(TConstruct.MOD_ID, "storage_block");
 
   public TinkerPartSpriteProvider() {
     super(TConstruct.MOD_ID);
@@ -41,6 +43,10 @@ public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
     addBinding("tool_binding");
     addBinding("tough_binding");
     addPart("repair_kit", StatlessMaterialStats.REPAIR_KIT.getIdentifier());
+    addPart("ingot", INGOT);
+    addTexture("block/storage/fallback", STORAGE_BLOCK);
+    // fishing hook is an arrow head
+    addTexture("tinker_armor/fishing_hook/material", StatlessMaterialStats.ARROW_HEAD.getIdentifier());
 
     // travelers textures
     addTexture("tinker_armor/travelers/metal_armor", ARMOR_PLATING).disallowAnimated();
@@ -129,6 +135,19 @@ public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
       .addLimb("limb_top").addLimb("limb_top_1").addLimb("limb_top_2").addLimb("limb_top_3")
       .addGrip("grip")
       .addBreakableBowstring("bowstring").addBowstring("bowstring_1").addBowstring("bowstring_2").addBowstring("bowstring_3");
+    buildTool("fishing_rod")
+      .addLimb("rod")
+      .addBreakableBowstring("string").addBowstring("string_cast")
+      .addBreakablePart("hook", StatlessMaterialStats.ARROW_HEAD.getIdentifier());
+    buildTool("javelin").withLarge().addBreakableHead("head").addLimb("guard").addHandle("handle").addGrip("grip");
+    buildTool("ammo")
+      // arrow
+      .addArrowHead("arrow_head").addPart("arrow_shaft", StatlessMaterialStats.ARROW_SHAFT)
+      .addPart("arrow_feather", StatlessMaterialStats.FLETCHING)
+      // shuriken
+      .addArrowHead("shuriken_top").addArrowHead("shuriken_bottom")
+      // throwing axe - reuses arrow shaft
+      .addArrowHead("axe_head");
 
     // ancient tools
     buildTool("melting_pan").skipVariants().addBreakablePart("head", PlatingMaterialStats.SHIELD.getId()).addLimb("handle");
@@ -137,5 +156,6 @@ public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
     buildTool("battlesign").skipVariants().addBreakableHead("head").addPart("handle", PlatingMaterialStats.SHIELD.getId());
     buildTool("swasher").skipVariants().addBreakableHead("blade").addHandle("handle")
                         .addGrip("barrel").addGrip("barrel_1").addGrip("barrel_2");
+    buildTool("minotaur_axe").skipVariants().addBreakableHead("front").addHead("back");
   }
 }

@@ -23,6 +23,7 @@ import static net.minecraft.tags.DamageTypeTags.WITCH_RESISTANT_TO;
 import static net.minecraft.world.damagesource.DamageTypes.CRAMMING;
 import static net.minecraft.world.damagesource.DamageTypes.DRAGON_BREATH;
 import static net.minecraft.world.damagesource.DamageTypes.FALLING_ANVIL;
+import static net.minecraft.world.damagesource.DamageTypes.FALLING_BLOCK;
 import static net.minecraft.world.damagesource.DamageTypes.FALLING_STALACTITE;
 import static net.minecraft.world.damagesource.DamageTypes.FLY_INTO_WALL;
 import static net.minecraft.world.damagesource.DamageTypes.MOB_ATTACK;
@@ -34,6 +35,7 @@ import static net.minecraft.world.damagesource.DamageTypes.WITHER_SKULL;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.BLEEDING;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.ENTANGLED;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.EXPLOSION;
+import static slimeknights.tconstruct.common.TinkerDamageTypes.FISHING_HOOK;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.FLUID_COLD;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.FLUID_FIRE;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.FLUID_IMPACT;
@@ -42,14 +44,17 @@ import static slimeknights.tconstruct.common.TinkerDamageTypes.FLUID_SPIKE;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.MOB_EXPLOSION;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.PIERCING;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.SELF_DESTRUCT;
+import static slimeknights.tconstruct.common.TinkerDamageTypes.SHOCK;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.SMELTERY_HEAT;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.SMELTERY_MAGIC;
+import static slimeknights.tconstruct.common.TinkerDamageTypes.THROWN_TOOL;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.WATER;
 import static slimeknights.tconstruct.common.TinkerTags.DamageTypes.BLAST_PROTECTION;
 import static slimeknights.tconstruct.common.TinkerTags.DamageTypes.FALL_PROTECTION;
 import static slimeknights.tconstruct.common.TinkerTags.DamageTypes.FIRE_PROTECTION;
 import static slimeknights.tconstruct.common.TinkerTags.DamageTypes.MAGIC_PROTECTION;
 import static slimeknights.tconstruct.common.TinkerTags.DamageTypes.MELEE_PROTECTION;
+import static slimeknights.tconstruct.common.TinkerTags.DamageTypes.MODIFIER_WHITELIST;
 import static slimeknights.tconstruct.common.TinkerTags.DamageTypes.PROJECTILE_PROTECTION;
 
 public class DamageTypeTagProvider extends DamageTypeTagsProvider {
@@ -67,14 +72,17 @@ public class DamageTypeTagProvider extends DamageTypeTagsProvider {
     tag(BYPASSES_ARMOR).add(PIERCING, SELF_DESTRUCT, BLEEDING, ENTANGLED).add(WATER.values()).add(FLUID_SPIKE.values());
     tag(BYPASSES_ENCHANTMENTS).add(BLEEDING);
     tag(BYPASSES_EFFECTS).add(ENTANGLED);
-    tag(AVOIDS_GUARDIAN_THORNS).add(BLEEDING);
+    tag(AVOIDS_GUARDIAN_THORNS).add(BLEEDING, SHOCK);
     // whole reason these are a pair is so we can tag one as projectile
-    tag(IS_PROJECTILE).add(FLUID_IMPACT.ranged(), FLUID_FIRE.ranged(), FLUID_COLD.ranged(), FLUID_MAGIC.ranged(), WATER.ranged(), FLUID_SPIKE.ranged(), EXPLOSION.ranged(), MOB_EXPLOSION.ranged());
+    tag(IS_PROJECTILE).add(THROWN_TOOL, FISHING_HOOK, FLUID_IMPACT.ranged(), FLUID_FIRE.ranged(), FLUID_COLD.ranged(), FLUID_MAGIC.ranged(), WATER.ranged(), FLUID_SPIKE.ranged(), EXPLOSION.ranged(), MOB_EXPLOSION.ranged());
+
+    // modifiers
+    tag(MODIFIER_WHITELIST).add(MOB_ATTACK, MOB_ATTACK_NO_AGGRO);
 
     // protection modifier tags
     tag(MELEE_PROTECTION).add(PLAYER_ATTACK, MOB_ATTACK, MOB_ATTACK_NO_AGGRO, CRAMMING, STING);
-    tag(PROJECTILE_PROTECTION).addTag(IS_PROJECTILE).add(FALLING_ANVIL, FALLING_ANVIL, FALLING_STALACTITE);
-    tag(FIRE_PROTECTION).addTags(IS_FIRE, IS_LIGHTNING);
+    tag(PROJECTILE_PROTECTION).addTag(IS_PROJECTILE).add(FALLING_ANVIL, FALLING_BLOCK, FALLING_STALACTITE);
+    tag(FIRE_PROTECTION).addTags(IS_FIRE, IS_LIGHTNING).add(SHOCK);
     tag(BLAST_PROTECTION).addTag(IS_EXPLOSION);
     tag(MAGIC_PROTECTION).addTag(WITCH_RESISTANT_TO).add(WITHER, WITHER_SKULL, DRAGON_BREATH);
     tag(FALL_PROTECTION).addTag(IS_FALL).add(FLY_INTO_WALL);

@@ -10,7 +10,6 @@ import slimeknights.mantle.data.loadable.field.LoadableField;
 import slimeknights.mantle.data.loadable.mapping.EitherLoadable;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -52,7 +51,7 @@ public sealed class MaterialRepairModule implements ModifierModule, MaterialRepa
   }
 
   @Override
-  public RecordLoadable<? extends IHaveLoader> getLoader() {
+  public RecordLoadable<? extends MaterialRepairModule> getLoader() {
     return LOADER;
   }
 

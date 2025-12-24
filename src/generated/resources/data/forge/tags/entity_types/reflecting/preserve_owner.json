@@ -1,5 +1,6 @@
 {
   "values": [
-    "minecraft:fishing_bobber"
+    "minecraft:fishing_bobber",
+    "tconstruct:fishing_bobber"
   ]
 }

@@ -99,6 +99,12 @@ public enum PostFixOperator implements StackOperation {
       stack.push(Mth.ceil(stack.popFloat()));
     }
   },
+  SQRT("sqrt") {
+    @Override
+    public void perform(FloatStack stack, float[] variables) {
+      stack.push(Mth.sqrt(stack.popFloat()));
+    }
+  },
 
   // stack operations
   /** Swaps the top two elements */

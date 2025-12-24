@@ -14,6 +14,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.build.ConditionalStatModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeDamageModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.combat.MonsterMeleeHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.display.TooltipModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileHitModifierHook;
 import slimeknights.tconstruct.library.module.ModuleHookMap.Builder;
@@ -29,13 +30,12 @@ import slimeknights.tconstruct.tools.stats.ToolType;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class InsatiableModifier extends Modifier implements ProjectileHitModifierHook, ConditionalStatModifierHook, MeleeDamageModifierHook, MeleeHitModifierHook, TooltipModifierHook {
+public class InsatiableModifier extends Modifier implements ProjectileHitModifierHook, ConditionalStatModifierHook, MeleeDamageModifierHook, MonsterMeleeHitModifierHook.RedirectAfter, MeleeHitModifierHook, TooltipModifierHook {
   public static final ToolType[] TYPES = {ToolType.MELEE, ToolType.RANGED};
 
   /** Gets the current bonus for the entity */
-  private static float getBonus(LivingEntity attacker, int level, ToolType type) {
-    int effectLevel = TinkerEffect.getLevel(attacker, TinkerModifiers.insatiableEffect.get(type));
-    return level * effectLevel / 4f;
+  private static float getEffect(LivingEntity attacker, ToolType type) {
+    return TinkerEffect.getLevel(attacker, TinkerModifiers.insatiableEffect.get(type));
   }
 
   /** Applies the effect to the target */
@@ -46,36 +46,36 @@ public class InsatiableModifier extends Modifier implements ProjectileHitModifie
 
   @Override
   protected void registerHooks(Builder hookBuilder) {
-    hookBuilder.addHook(this, ModifierHooks.PROJECTILE_HIT, ModifierHooks.CONDITIONAL_STAT, ModifierHooks.MELEE_DAMAGE, ModifierHooks.MELEE_HIT, ModifierHooks.TOOLTIP);
+    hookBuilder.addHook(this, ModifierHooks.PROJECTILE_HIT, ModifierHooks.CONDITIONAL_STAT, ModifierHooks.MELEE_DAMAGE, ModifierHooks.MONSTER_MELEE_DAMAGE, ModifierHooks.MELEE_HIT, ModifierHooks.MONSTER_MELEE_HIT, ModifierHooks.TOOLTIP);
   }
 
   @Override
   public float getMeleeDamage(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float baseDamage, float damage) {
-    // gives +2 damage per level at max
-    return damage + (getBonus(context.getAttacker(), modifier.getLevel(), ToolType.MELEE) * tool.getMultiplier(ToolStats.ATTACK_DAMAGE));
+    // gives +0.5 per effect level, for +2.5 per modifier level at max
+    return damage + (getEffect(context.getAttacker(), ToolType.MELEE) * modifier.getEffectiveLevel() / 2f * tool.getMultiplier(ToolStats.ATTACK_DAMAGE));
   }
 
   @Override
   public void afterMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damageDealt) {
     // 8 hits gets you to max, levels faster at higher levels
     if (!context.isExtraAttack() && context.isFullyCharged()) {
-      applyEffect(context.getAttacker(), ToolType.MELEE, 5*20, 1, 7);
+      applyEffect(context.getAttacker(), ToolType.MELEE, 5*20, 1, 4);
     }
   }
 
   @Override
   public float modifyStat(IToolStackView tool, ModifierEntry modifier, LivingEntity living, FloatToolStat stat, float baseValue, float multiplier) {
     if (stat == ToolStats.PROJECTILE_DAMAGE) {
-      // get bonus is +2 damage per level, but we want to half for the actual damage due to velocity stuff
-      baseValue += (getBonus(living, modifier.getLevel(), ToolType.RANGED) / 2f * multiplier);
+      // gives +0.25 power per effect level, up to +1.25 at 5 levels
+      baseValue += (getEffect(living, ToolType.RANGED) * modifier.getEffectiveLevel() / 4f * multiplier);
     }
     return baseValue;
   }
 
   @Override
-  public boolean onProjectileHitEntity(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
+  public boolean onProjectileHitEntity(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target, boolean notBlocked) {
     if (attacker != null) {
-      applyEffect(attacker, ToolType.RANGED, 10*20, 1, 7);
+      applyEffect(attacker, ToolType.RANGED, 10*20, 1, 4);
     }
     return false;
   }
@@ -84,10 +84,10 @@ public class InsatiableModifier extends Modifier implements ProjectileHitModifie
   public void addTooltip(IToolStackView tool, ModifierEntry modifier, @Nullable Player player, List<Component> tooltip, TooltipKey key, TooltipFlag tooltipFlag) {
     ToolType type = ToolType.from(tool.getItem(), TYPES);
     if (type != null) {
-      int level = modifier.getLevel();
-      float bonus = level * 2;
+      float level = modifier.getEffectiveLevel();
+      float bonus = level * 2.5f;
       if (player != null && key == TooltipKey.SHIFT) {
-        bonus = getBonus(player, level, type);
+        bonus = getEffect(player, type) * level;
       }
       if (bonus > 0) {
         TooltipModifierHook.addFlatBoost(this, TooltipModifierHook.statName(this, ToolStats.ATTACK_DAMAGE), bonus, tooltip);

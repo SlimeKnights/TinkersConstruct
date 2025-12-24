@@ -7,10 +7,14 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
+import slimeknights.mantle.data.loadable.common.IngredientLoadable;
+import slimeknights.mantle.data.loadable.field.ContextKey;
+import slimeknights.mantle.data.loadable.primitive.IntLoadable;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
@@ -26,6 +30,7 @@ import slimeknights.tconstruct.library.tools.definition.module.material.Material
 import slimeknights.tconstruct.library.tools.definition.module.material.ToolPartsHook;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.part.IToolPart;
@@ -40,14 +45,24 @@ import java.util.stream.IntStream;
 @AllArgsConstructor
 public class TinkerStationPartSwapping implements ITinkerStationRecipe {
   private static final RecipeResult<LazyToolStack> TOO_MANY_PARTS = RecipeResult.failure(TConstruct.makeTranslationKey("recipe", "part_swapping.too_many_parts"));
+  private static final RecipeResult<LazyToolStack> TOO_FEW_INPUTS = RecipeResult.failure(TConstruct.makeTranslationKey("recipe", "part_swapping.too_few_inputs"));
+  public static final RecordLoadable<TinkerStationPartSwapping> LOADER = RecordLoadable.create(
+    ContextKey.ID.requiredField(),
+    IngredientLoadable.DISALLOW_EMPTY.requiredField("tools", r -> r.tools),
+    IntLoadable.FROM_ONE.defaultField("max_stack_size", 16, true, r -> r.maxStackSize),
+    TinkerStationPartSwapping::new);
 
   @Getter
   protected final ResourceLocation id;
+  /** Tools that may use this recipe */
+  protected final Ingredient tools;
+  /** Max stack size that can be swapped at once */
+  protected final int maxStackSize;
 
   @Override
   public boolean matches(ITinkerStationContainer inv, Level world) {
     ItemStack tinkerable = inv.getTinkerableStack();
-    if (tinkerable.isEmpty() || !tinkerable.is(TinkerTags.Items.MULTIPART_TOOL)|| !(tinkerable.getItem() instanceof IModifiable modifiable)) {
+    if (tinkerable.isEmpty() || !tools.test(tinkerable) || !(tinkerable.getItem() instanceof IModifiable modifiable)) {
       return false;
     }
     // get the list of parts, empty means its not multipart
@@ -78,6 +93,36 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
   }
 
   @Override
+  public int shrinkToolSlotBy() {
+    return maxStackSize;
+  }
+
+  /** Gets the max stack size for the given tool, calling the modifier hook */
+  private static int maxStackSize(IToolStackView tool, int count) {
+    float newCount = count;
+    for (ModifierEntry entry : tool.getModifiers()) {
+      newCount = entry.getHook(ModifierHooks.CRAFT_COUNT).modifyCraftCount(tool, entry, newCount);
+      if (newCount <= 0) {
+        return 0;
+      }
+    }
+    return (int) newCount;
+  }
+
+  /** Gets the max stack size for the given tool, calling the modifier hook */
+  private int maxStackSize(IToolStackView tool) {
+    return maxStackSize(tool, maxStackSize);
+  }
+
+  @Override
+  public int shrinkToolSlotBy(LazyToolStack result, ITinkerStationContainer inv) {
+    // if the output is shrinking, we want to ensure we take the minumum amount needed for that output
+    // for example, if its reducing by 50%, just consuming the full amount might consume 3 arrows to produce 1 (instead of 2 to produce 1)
+    int outputMax = maxStackSize(result.getTool());
+    return maxStackSize(inv.getTinkerable(), result.getSize() * maxStackSize / outputMax);
+  }
+
+  @Override
   public RecipeResult<LazyToolStack> getValidatedResult(ITinkerStationContainer inv, RegistryAccess access) {
     // copy the tool NBT to ensure the original tool is intact
     ToolStack original = inv.getTinkerable();
@@ -86,6 +131,12 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
     // prevent part swapping on large tools in small tables
     if (parts.size() > inv.getInputCount()) {
       return TOO_MANY_PARTS;
+    }
+
+    // ensure we have enough items to get a result
+    int shrink = maxStackSize(inv.getTinkerable());
+    if (shrink <= 0) {
+      return TOO_FEW_INPUTS;
     }
 
     // actual part swap logic
@@ -167,8 +218,17 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
             return RecipeResult.failure(error);
           }
         }
+
+        ItemStack originalStack = inv.getTinkerableStack();
+        // need to scale our result based on the stack size differential, e.g. if the input max is 8 and the output 4, result should be halved
+        int outputMax = maxStackSize(tool);
+        int resultSize = Math.min(originalStack.getCount() * outputMax / shrink, outputMax);
+        if (resultSize <= 0) {
+          return TOO_FEW_INPUTS;
+        }
+
         // everything worked, so good to go
-        return ITinkerStationRecipe.success(tool, inv);
+        return LazyToolStack.successCopy(tool, resultSize, originalStack);
       }
     }
     // no item found, should never happen

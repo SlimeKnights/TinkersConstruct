@@ -1,0 +1,13 @@
+{
+  "parent": "item/amethyst_bud",
+  "display": {
+    "firstperson_righthand": {
+      "rotation": [ 0, -90, 25 ],
+      "translation": [ 0, 6, 0 ],
+      "scale": [ 0.68, 0.68, 0.68 ]
+    },
+    "fixed": {
+      "translation": [ 0, 7, 0 ]
+    }
+  }
+}

@@ -10,11 +10,15 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition.Builder;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -26,11 +30,16 @@ import slimeknights.tconstruct.library.utils.NBTTags;
 import slimeknights.tconstruct.smeltery.block.entity.ITankBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.component.TankBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.component.TankBlockEntity.ITankBlock;
+import slimeknights.tconstruct.smeltery.item.TankItem;
 
 import javax.annotation.Nullable;
 import java.util.Locale;
+import java.util.function.ToIntFunction;
 
 public class SearedTankBlock extends SearedBlock implements ITankBlock, EntityBlock {
+  public static final IntegerProperty LIGHT = IntegerProperty.create("light", 0, 15);
+  public static final ToIntFunction<BlockState> LIGHT_GETTER = state -> state.getValue(SearedTankBlock.LIGHT);
+
   @Getter
   private final int capacity;
   private final PushReaction pushReaction;
@@ -38,10 +47,17 @@ public class SearedTankBlock extends SearedBlock implements ITankBlock, EntityBl
     super(properties, true);
     this.capacity = capacity;
     this.pushReaction = pushReaction;
+    registerDefaultState(defaultBlockState().setValue(LIGHT, 0));
   }
 
   public SearedTankBlock(Properties properties, int capacity) {
     this(properties, capacity, PushReaction.BLOCK);
+  }
+
+  @Override
+  protected void createBlockStateDefinition(Builder<Block, BlockState> builder) {
+    super.createBlockStateDefinition(builder);
+    builder.add(LIGHT);
   }
 
   @Override
@@ -70,23 +86,29 @@ public class SearedTankBlock extends SearedBlock implements ITankBlock, EntityBl
     return super.use(state, world, pos, player, hand, hit);
   }
 
-  @Override
-  public int getLightEmission(BlockState state, BlockGetter world, BlockPos pos) {
-    BlockEntity te = world.getBlockEntity(pos);
-    if (te instanceof TankBlockEntity) {
-      FluidStack fluid = ((TankBlockEntity) te).getTank().getFluid();
-      return fluid.getFluid().getFluidType().getLightLevel(fluid);
+  /** Helper for setting the light level on placement */
+  public static BlockState setLightLevel(BlockState state, BlockPlaceContext context) {
+    ItemStack stack = context.getItemInHand();
+    FluidStack fluid = TankItem.getTank(stack, 1).getFluid();
+    if (!fluid.isEmpty()) {
+      state = state.setValue(LIGHT, fluid.getFluid().getFluidType().getLightLevel(fluid));
     }
-    return super.getLightEmission(state, world, pos);
+    return state;
+  }
+
+  @Nullable
+  @Override
+  public BlockState getStateForPlacement(BlockPlaceContext context) {
+    return setLightLevel(this.defaultBlockState(), context);
   }
 
   @Override
-  public void setPlacedBy(Level worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+  public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
     CompoundTag nbt = stack.getTag();
-    if (nbt != null) {
-      BlockEntityHelper.get(TankBlockEntity.class, worldIn, pos).ifPresent(te -> te.updateTank(nbt.getCompound(NBTTags.TANK)));
+    if (nbt != null && world.getBlockEntity(pos) instanceof TankBlockEntity tank) {
+      tank.updateTank(nbt.getCompound(NBTTags.TANK));
     }
-    super.setPlacedBy(worldIn, pos, state, placer, stack);
+    super.setPlacedBy(world, pos, state, placer, stack);
   }
 
   @Deprecated

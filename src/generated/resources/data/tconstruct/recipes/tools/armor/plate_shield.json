@@ -1,9 +1,0 @@
-{
-  "type": "tconstruct:table_tool_casting",
-  "cast": {
-    "type": "tconstruct:material",
-    "item": "tconstruct:shield_core"
-  },
-  "item_cost": 3,
-  "result": "tconstruct:plate_shield"
-}

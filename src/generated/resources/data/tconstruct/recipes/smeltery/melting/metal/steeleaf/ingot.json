@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "forge:ingots/steeleaf"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:ingots/steeleaf"
+  },
+  "result": {
+    "amount": 90,
+    "fluid": "tconstruct:molten_steeleaf"
+  },
+  "temperature": 934,
+  "time": 64
+}

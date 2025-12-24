@@ -14,4 +14,4 @@ melee_harvest_materials.subtext=These materials require blazing blood to create,
 ranged_materials=Tier 4 Ranged Materials
 ranged_materials.subtext=These materials require blazing blood to create, and can be used to create tool parts for ranged weapons like bows.
 armor_materials=Tier 4 Armor Materials
-armor_materials.subtext=These materials can be casted into armor and shields.
+armor_materials.subtext=These materials require blazing blood to create, and can be casted into armor and shields.

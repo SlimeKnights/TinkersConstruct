@@ -1,0 +1,59 @@
+{
+  "modules": [
+    {
+      "type": "tconstruct:part_stats",
+      "parts": [
+        "tconstruct:small_blade",
+        "tconstruct:tool_handle",
+        "tconstruct:bow_limb",
+        "tconstruct:bow_grip"
+      ],
+      "primary_part": 0
+    },
+    {
+      "type": "tconstruct:default_materials",
+      "materials": [
+        {
+          "type": "tconstruct:random",
+          "tier": 1
+        },
+        {
+          "type": "tconstruct:random",
+          "tier": 1
+        },
+        {
+          "type": "tconstruct:random",
+          "tier": 1
+        },
+        {
+          "type": "tconstruct:random",
+          "tier": 1
+        }
+      ]
+    },
+    {
+      "type": "tconstruct:base_stats",
+      "stats": {
+        "tconstruct:attack_damage": 3.0,
+        "tconstruct:attack_speed": 1.1,
+        "tconstruct:block_amount": 10.0
+      }
+    },
+    {
+      "type": "tconstruct:modifier_slots",
+      "slots": {
+        "abilities": 1,
+        "upgrades": 2
+      }
+    },
+    {
+      "type": "tconstruct:traits",
+      "traits": [
+        {
+          "level": 1,
+          "name": "tconstruct:throwing"
+        }
+      ]
+    }
+  ]
+}

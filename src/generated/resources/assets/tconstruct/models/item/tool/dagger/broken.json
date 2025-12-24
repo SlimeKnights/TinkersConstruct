@@ -1,6 +1,6 @@
 {
   "loader": "tconstruct:tool",
-  "parent": "forge:item/default-tool",
+  "parent": "tconstruct:item/tool/dagger/display",
   "textures": {
     "head": "tconstruct:item/tool/dagger/blade_broken",
     "crossguard": "tconstruct:item/tool/dagger/crossguard"

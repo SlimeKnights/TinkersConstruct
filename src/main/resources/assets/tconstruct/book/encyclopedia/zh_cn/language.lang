@@ -3,6 +3,7 @@ intro=介绍
 tools=工具
 tools.group_small=小型工具
 tools.group_large=宽型工具
+tools.group_ranged=远程工具
 tools.group_ancient=远古工具
 tools.group_staff=手杖
 tools.tconstruct.earth_staff=大地黏液手杖
@@ -15,6 +16,8 @@ materials_harvest=通用材料
 materials_harvest.subtext=这些材料可以锻造出近战武器或采掘工具。
 materials_ranged=远程材料
 materials_ranged.subtext=这些材料可以锻造出远程武器。
+materials_ammo=弹药材料
+materials_ammo.subtext=这些材料可以锻造出箭矢或手里剑。
 materials_armor=盔甲材料
 materials_armor.subtext=这些材料可以锻造成盔甲和盾牌的部件。
 materials_skull=黏液头颅
@@ -32,7 +35,7 @@ upgrades.group_armor.helmet=头盔升级
 upgrades.group_armor.chestplate=胸甲升级
 upgrades.group_armor.leggings=护腿升级
 upgrades.group_armor.boots=靴子升级
-upgrades.boots.tconstruct.feather_falling=摔落保护
+upgrades.boots.tconstruct.feather_falling=摔落缓冲
 # can add other modifiers using [section].[prefix].[mod_id].[modifier_id], we just use this for long names
 # you should also be able to leave off feather falling in your language and it will fallback to the language .json
 # see the section json to find the prefix, any modifier type that defines that can use it
@@ -44,8 +47,9 @@ defense.group_special=特殊防御
 
 slotless=无槽位强化
 slotless.subtext=无槽位强化不需要强化槽。
-slotless.group_general=通用无槽位强化
-slotless.group_bonus=额外槽位强化
+slotless.group_general=通用
+slotless.group_bonus=额外槽位
+slotless.group_cosmetic=装饰用
 
 abilities=能力强化
 abilities.subtext=能力强化的槽位数量比升级强化要少，不过效果更强。

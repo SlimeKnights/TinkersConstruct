@@ -6,6 +6,7 @@
     }
   ],
   "effects": [
+    "Adds 1 heart per level",
     "Can apply levels incrementally",
     "Maximum of 5 levels",
     "Requires 1 defense slot per level"

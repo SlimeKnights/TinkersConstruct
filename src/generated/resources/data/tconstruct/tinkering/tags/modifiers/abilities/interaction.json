@@ -13,6 +13,8 @@
     "tconstruct:bonking",
     "tconstruct:flinging",
     "tconstruct:springing",
-    "tconstruct:warping"
+    "tconstruct:warping",
+    "tconstruct:throwing",
+    "tconstruct:drill_attack"
   ]
 }

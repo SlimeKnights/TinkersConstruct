@@ -1,0 +1,26 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "byproducts": [
+    {
+      "amount": 270,
+      "tag": "forge:molten_iron",
+      "unit_size": 10
+    }
+  ],
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "twilightforest:fiery_pickaxe"
+    }
+  ],
+  "ingredient": {
+    "item": "twilightforest:fiery_pickaxe"
+  },
+  "result": {
+    "amount": 750,
+    "fluid": "tconstruct:fiery_liquid",
+    "unit_size": 50
+  },
+  "temperature": 1500,
+  "time": 139
+}

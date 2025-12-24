@@ -17,9 +17,9 @@
     {
       "type": "tconstruct:conditional_stat",
       "entity": "tconstruct:airborne",
-      "flat": 0.5,
+      "flat": 0.1,
       "percent": false,
-      "stat": "tconstruct:accuracy"
+      "stat": "tconstruct:velocity"
     }
   ],
   "tooltip_display": "always"

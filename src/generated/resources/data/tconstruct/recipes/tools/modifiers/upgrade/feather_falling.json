@@ -6,9 +6,9 @@
     "item": "minecraft:feather"
   },
   "level": {
-    "max": 4
+    "max": 2
   },
-  "needed_per_level": 15,
+  "needed_per_level": 25,
   "result": "tconstruct:feather_falling",
   "slots": {
     "upgrades": 1

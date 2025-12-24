@@ -6,6 +6,18 @@
     }
   ],
   "perStat": {
+    "tconstruct:ammo": [
+      {
+        "level": 1,
+        "name": "tconstruct:conductive"
+      }
+    ],
+    "tconstruct:armor": [
+      {
+        "level": 1,
+        "name": "tconstruct:conductive"
+      }
+    ],
     "tconstruct:skull": [
       {
         "level": 1,

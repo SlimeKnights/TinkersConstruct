@@ -199,6 +199,42 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "channeling": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "check": "upgrades",
+              "modifier": {
+                "type": "tconstruct:single",
+                "modifier": "tconstruct:channeling"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "collecting": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "check": "upgrades",
+              "modifier": {
+                "type": "tconstruct:single",
+                "modifier": "tconstruct:collecting"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "crafting_table": {
       "conditions": {
         "items": [
@@ -415,6 +451,24 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "grapple": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "check": "upgrades",
+              "modifier": {
+                "type": "tconstruct:single",
+                "modifier": "tconstruct:grapple"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "long_fall": {
       "conditions": {
         "items": [
@@ -595,6 +649,24 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "returning": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "check": "upgrades",
+              "modifier": {
+                "type": "tconstruct:single",
+                "modifier": "tconstruct:returning"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "silky": {
       "conditions": {
         "items": [
@@ -768,6 +840,24 @@
               "modifier": {
                 "type": "tconstruct:single",
                 "modifier": "tconstruct:stripping"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "throwing": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "check": "upgrades",
+              "modifier": {
+                "type": "tconstruct:single",
+                "modifier": "tconstruct:throwing"
               }
             }
           }
@@ -1046,6 +1136,21 @@
     ],
     [
       "bursting"
+    ],
+    [
+      "grapple"
+    ],
+    [
+      "collecting"
+    ],
+    [
+      "throwing"
+    ],
+    [
+      "returning"
+    ],
+    [
+      "channeling"
     ]
   ],
   "sends_telemetry_event": true

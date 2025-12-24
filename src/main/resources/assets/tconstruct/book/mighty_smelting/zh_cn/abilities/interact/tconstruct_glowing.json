@@ -7,8 +7,8 @@
   ],
   "tool_filter": "tconstruct:modifiable/interactable",
   "effects": [
-    "交互以放置荧光球",
-	  "放置荧光球会消耗耐久度",
+    "交互以消耗耐久放置荧光球",
+    "弓能消耗箭矢放置荧光球",
     "单个等级",
     "需要1个能力槽"
   ]

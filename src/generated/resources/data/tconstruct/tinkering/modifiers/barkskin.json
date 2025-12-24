@@ -1,0 +1,16 @@
+{
+  "level_display": "tconstruct:no_levels",
+  "modules": [
+    {
+      "type": "tconstruct:capacity_bar",
+      "flat": 100,
+      "multiplier": "tconstruct:durability"
+    },
+    {
+      "type": "tconstruct:durability_shield",
+      "color": "B9B3AC"
+    }
+  ],
+  "priority": 200,
+  "tooltip_display": "always"
+}

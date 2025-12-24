@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "twilightforest:ironwood_axe",
+      "required": false
+    },
+    {
+      "id": "twilightforest:ironwood_pickaxe",
+      "required": false
+    }
+  ]
+}

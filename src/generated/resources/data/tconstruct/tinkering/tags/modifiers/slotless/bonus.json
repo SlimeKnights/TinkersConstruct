@@ -2,9 +2,14 @@
   "values": [
     "tconstruct:draconic",
     "tconstruct:rebalanced",
+    "tconstruct:redirected",
     "tconstruct:harmonious",
     "tconstruct:recapitated",
-    "tconstruct:resurrected",
-    "tconstruct:writable"
+    "tconstruct:forecast",
+    "tconstruct:writable",
+    {
+      "id": "tconstruct:embossed",
+      "required": false
+    }
   ]
 }

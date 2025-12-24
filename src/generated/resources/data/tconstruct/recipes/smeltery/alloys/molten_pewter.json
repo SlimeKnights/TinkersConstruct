@@ -1,5 +1,20 @@
 {
   "type": "forge:conditional",
+  "conditions": [
+    {
+      "type": "forge:or",
+      "values": [
+        {
+          "type": "tconstruct:config",
+          "prop": "allow_ingotless_alloys"
+        },
+        {
+          "type": "mantle:tag_filled",
+          "tag": "forge:ingots/pewter"
+        }
+      ]
+    }
+  ],
   "recipes": [
     {
       "conditions": [
@@ -21,7 +36,7 @@
         "type": "tconstruct:alloy",
         "inputs": [
           {
-            "amount": 180,
+            "amount": 270,
             "tag": "forge:molten_tin"
           },
           {
@@ -30,7 +45,7 @@
           }
         ],
         "result": {
-          "amount": 270,
+          "amount": 360,
           "tag": "forge:molten_pewter"
         },
         "temperature": 400

@@ -26,6 +26,7 @@ import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.EntityInteract;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.LeftClickBlock;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.LeftClickBlock.Action;
 import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -42,6 +43,7 @@ import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInterac
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.ComputableDataKey;
+import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -67,7 +69,7 @@ public class InteractionHandler {
     Player player = event.getEntity();
     InteractionHand hand = event.getHand();
     InteractionSource source = InteractionSource.RIGHT_CLICK;
-    if (!stack.is(TinkerTags.Items.HELD)) {
+    if (!stack.is(TinkerTags.Items.INTERACTABLE_RIGHT)) {
       // if the hand is empty, allow performing chestplate interaction (assuming a modifiable chestplate)
       if (stack.isEmpty()) {
         stack = player.getItemBySlot(EquipmentSlot.CHEST);
@@ -258,8 +260,9 @@ public class InteractionHandler {
         ItemStack chestplate = attacker.getItemBySlot(EquipmentSlot.CHEST);
         if (chestplate.is(TinkerTags.Items.UNARMED)) {
           ToolStack tool = ToolStack.from(chestplate);
-          if (!tool.isBroken()) {
-            ToolAttackUtil.attackEntity(tool, attacker, InteractionHand.MAIN_HAND, event.getTarget(), ToolAttackUtil.getCooldownFunction(attacker, InteractionHand.MAIN_HAND), false, EquipmentSlot.CHEST);
+          Entity target = event.getTarget();
+          if (!tool.isBroken() && ToolAttackUtil.isAttackable(attacker, target)) {
+            ToolAttackUtil.performAttack(tool, ToolAttackContext.attacker(attacker).target(target).slot(EquipmentSlot.CHEST, InteractionHand.MAIN_HAND).defaultCooldown().toolAttributes(tool).build());
             event.setCanceled(true);
           }
         }
@@ -364,6 +367,9 @@ public class InteractionHandler {
   /** Implements {@link slimeknights.tconstruct.library.modifiers.hook.interaction.BlockInteractionModifierHook} for weapons with left click */
   @SubscribeEvent
   static void leftClickBlock(LeftClickBlock event) {
+    if (event.getAction() != Action.START) {
+      return;
+    }
     // ensure we have not fired this tick
     Player player = event.getEntity();
     if (player.getCapability(TinkerDataCapability.CAPABILITY).filter(data -> data.computeIfAbsent(LAST_TICK).update(player)).isEmpty()) {

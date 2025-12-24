@@ -10,22 +10,20 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import slimeknights.mantle.util.TranslationHelper;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
-import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.tools.definition.module.material.MaterialRepairToolHook;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
-import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.part.IRepairKitItem;
 import slimeknights.tconstruct.library.tools.part.MaterialItem;
-import slimeknights.tconstruct.library.tools.part.ToolPartItem;
 import slimeknights.tconstruct.tools.stats.StatlessMaterialStats;
 
 import javax.annotation.Nullable;
@@ -53,14 +51,12 @@ public class RepairKitItem extends MaterialItem implements IRepairKitItem {
   }
 
   @Override
-  public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flag) {
-    if (flag.isAdvanced() && !TooltipUtil.isDisplay(stack)) {
-      MaterialVariantId materialVariant = this.getMaterial(stack);
-      if (!materialVariant.equals(IMaterial.UNKNOWN_ID)) {
-        tooltip.add((Component.translatable(ToolPartItem.MATERIAL_KEY, materialVariant.toString())).withStyle(ChatFormatting.DARK_GRAY));
-      }
+  public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
+    super.appendHoverText(stack, world, tooltip, flag);
+    // tooltip is about inventory repair
+    if (canRepairInCraftingTable()) {
+      tooltip.add(Component.translatable(TOOLTIP_KEY, TranslationHelper.COMMA_FORMAT.format(getRepairAmount())).withStyle(ChatFormatting.GRAY));
     }
-    tooltip.add(Component.translatable(TOOLTIP_KEY, TranslationHelper.COMMA_FORMAT.format(getRepairAmount())).withStyle(ChatFormatting.GRAY));
   }
 
   @Override
@@ -74,7 +70,7 @@ public class RepairKitItem extends MaterialItem implements IRepairKitItem {
   @Override
   public boolean overrideStackedOnOther(ItemStack stack, Slot slot, ClickAction action, Player player) {
     // stacking on a tool repairs the tool, if the material is valid
-    if (action == ClickAction.SECONDARY && slot.allowModification(player)) {
+    if (canRepairInCraftingTable() && action == ClickAction.SECONDARY && slot.allowModification(player)) {
       // tool must be modifiable, if so block interactions beyond repair
       ItemStack toolItem = slot.getItem();
       if (!toolItem.isEmpty() && toolItem.is(TinkerTags.Items.MODIFIABLE)) {
@@ -97,6 +93,7 @@ public class RepairKitItem extends MaterialItem implements IRepairKitItem {
             ToolDamageUtil.repair(tool, (int)amount);
             tool.updateStack(toolItem);
             stack.shrink(1);
+            player.playSound(Sounds.SAW.getSound(), 1, 0.8f + 0.4f * player.level().random.nextFloat());
           }
         }
         return true;

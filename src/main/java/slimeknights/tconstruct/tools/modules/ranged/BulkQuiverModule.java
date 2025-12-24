@@ -19,7 +19,10 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import java.util.List;
 import java.util.function.Predicate;
 
-/** Module implementing bulk quiver, which pulls arrows from the inventory to fire */
+/**
+ * Module implementing bulk quiver, which pulls arrows from the inventory to fire.
+ * TODO 1.21: move to {@link slimeknights.tconstruct.tools.modules.ranged.bow}
+ */
 public record BulkQuiverModule(boolean checkStandardArrows) implements ModifierModule, BowAmmoModifierHook {
   public static final RecordLoadable<BulkQuiverModule> LOADER = RecordLoadable.create(
     BooleanLoadable.INSTANCE.defaultField("check_standard_arrows", true, BulkQuiverModule::checkStandardArrows),

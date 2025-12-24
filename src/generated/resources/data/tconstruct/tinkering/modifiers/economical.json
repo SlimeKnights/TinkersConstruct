@@ -1,0 +1,12 @@
+{
+  "level_display": "tconstruct:no_levels",
+  "modules": [
+    {
+      "type": "tconstruct:craft_count",
+      "multiplier": {
+        "flat": 2.0
+      }
+    }
+  ],
+  "tooltip_display": "always"
+}

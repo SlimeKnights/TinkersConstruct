@@ -6,6 +6,12 @@
     }
   ],
   "perStat": {
+    "tconstruct:ammo": [
+      {
+        "level": 1,
+        "name": "tconstruct:spike"
+      }
+    ],
     "tconstruct:skull": [
       {
         "level": 1,

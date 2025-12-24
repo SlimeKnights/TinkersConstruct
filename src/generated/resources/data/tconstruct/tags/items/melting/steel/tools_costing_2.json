@@ -11,6 +11,10 @@
     {
       "id": "immersiveengineering:sword_steel",
       "required": false
+    },
+    {
+      "id": "immersiveengineering:hoe_steel",
+      "required": false
     }
   ]
 }

@@ -22,6 +22,7 @@ import slimeknights.mantle.block.entity.IRetexturedBlockEntity;
 import slimeknights.mantle.inventory.EmptyItemHandler;
 import slimeknights.mantle.util.RetexturedHelper;
 import slimeknights.mantle.util.WeakConsumerWrapper;
+import slimeknights.tconstruct.common.multiblock.IMasterLogic;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.entity.tank.ISmelteryTankHandler;
 
@@ -66,6 +67,11 @@ public abstract class SmelteryInputOutputBlockEntity<T> extends SmelteryComponen
   @Override
   public void invalidateCaps() {
     super.invalidateCaps();
+    clearHandler();
+  }
+
+  @Override
+  public void onMasterLoad(IMasterLogic master) {
     clearHandler();
   }
 
@@ -194,8 +200,8 @@ public abstract class SmelteryInputOutputBlockEntity<T> extends SmelteryComponen
     @Override
     protected LazyOptional<IFluidHandler> getCapability(BlockEntity parent) {
       // fluid capability is not exposed directly in the smeltery
-      if (parent instanceof ISmelteryTankHandler) {
-        LazyOptional<IFluidHandler> capability = ((ISmelteryTankHandler) parent).getFluidCapability();
+      if (parent instanceof ISmelteryTankHandler tankHandler) {
+        LazyOptional<IFluidHandler> capability = tankHandler.getFluidCapability();
         if (capability.isPresent()) {
           capability.addListener(listener);
           return makeWrapper(capability);

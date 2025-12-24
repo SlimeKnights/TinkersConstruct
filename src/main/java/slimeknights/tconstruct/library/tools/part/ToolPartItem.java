@@ -42,22 +42,25 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
     return this.materialStatId;
   }
 
-  @Override
-  public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flag) {
+  /** Helper to append the tooltip for this part. */
+  public static void appendHoverText(IToolPart self, ItemStack stack, List<Component> tooltip, TooltipFlag flag) {
     if (TooltipUtil.isDisplay(stack)) {
       return;
     }
-
-    // add all traits to the info
-    MaterialVariantId materialVariant = this.getMaterial(stack);
+    MaterialVariantId materialVariant = self.getMaterial(stack);
     MaterialId id = materialVariant.getId();
     if (!materialVariant.equals(IMaterial.UNKNOWN_ID)) {
+      // internal material ID
       if (flag.isAdvanced()) {
         tooltip.add((Component.translatable(MATERIAL_KEY, materialVariant.toString())).withStyle(ChatFormatting.DARK_GRAY));
       }
-      if (canUseMaterial(id)) {
+      if (self.canUseMaterial(id)) {
+        // add all valid traits
         TooltipKey key = SafeClientAccess.getTooltipKey();
-        for (ModifierEntry entry : MaterialRegistry.getInstance().getTraits(id, getStatType())) {
+        for (ModifierEntry entry : MaterialRegistry.getInstance().getTraits(id, self.getStatType())) {
+          if (!entry.isBound()) {
+            continue;
+          }
           Component name = entry.getDisplayName();
           if (flag.isAdvanced() && Config.CLIENT.modifiersIDsInAdvancedTooltips.get()) {
             tooltip.add(Component.translatable(TooltipUtil.KEY_ID_FORMAT, name, Component.literal(entry.getModifier().getId().toString())).withStyle(ChatFormatting.DARK_GRAY));
@@ -73,9 +76,16 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
             }
           }
         }
-        // add stats
+        // add stats on shift
         if (key == TooltipKey.SHIFT || key == TooltipKey.UNKNOWN) {
-          this.addStatInfoTooltip(id, tooltip);
+          MaterialRegistry.getInstance().getMaterialStats(id, self.getStatType()).ifPresent(stat -> {
+            List<Component> text = stat.getLocalizedInfo();
+            if (!text.isEmpty()) {
+              tooltip.add(Component.empty());
+              tooltip.add(stat.getLocalizedName().withStyle(ChatFormatting.WHITE, ChatFormatting.UNDERLINE));
+              tooltip.addAll(stat.getLocalizedInfo());
+            }
+          });
         } else if (key != TooltipKey.CONTROL) {
           // info tooltip for detailed and component info
           tooltip.add(Component.empty());
@@ -88,11 +98,16 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
         if (material == IMaterial.UNKNOWN) {
           tooltip.add(Component.translatable(MISSING_MATERIAL_KEY, id));
         } else {
-          tooltip.add(Component.translatable(MISSING_STATS_KEY, materialStatId).withStyle(ChatFormatting.GRAY));
+          tooltip.add(Component.translatable(MISSING_STATS_KEY, self.getStatType()).withStyle(ChatFormatting.GRAY));
         }
       }
     }
     // mod handled by getCreatorModId
+  }
+
+  @Override
+  public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flag) {
+    appendHoverText(this, stack, tooltip, flag);
   }
 
   /**
@@ -100,6 +115,7 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
    * @param tooltip   Tooltip list
    * @param material  Material to add
    */
+  @Deprecated(forRemoval = true)
   protected void addStatInfoTooltip(MaterialId material, List<Component> tooltip) {
     MaterialRegistry.getInstance().getMaterialStats(material, this.materialStatId).ifPresent((stat) -> {
       List<Component> text = stat.getLocalizedInfo();

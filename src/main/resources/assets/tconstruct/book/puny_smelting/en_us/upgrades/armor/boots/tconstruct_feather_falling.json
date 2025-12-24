@@ -7,7 +7,7 @@
   ],
   "effects": [
     "Reduces fall damage",
-	"Multiple levels, each level decreases fall damage further",
-	"Requires 1 upgrade slot per level"
+    "Multiple levels, each level decreases fall damage further",
+    "Requires 1 upgrade slot per level"
   ]
 }

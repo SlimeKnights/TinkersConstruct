@@ -19,6 +19,7 @@ import java.util.List;
 /**
  * Module that colors the display name based on the variant.
  * @see ModifierVariantNameModule
+ * @see MaterialVariantColorModule
  */
 public enum ModifierVariantColorModule implements ModifierModule, DisplayNameModifierHook {
   INSTANCE;

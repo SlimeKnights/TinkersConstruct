@@ -26,4 +26,7 @@ public interface IMasterLogic {
    * @param state    State that changed. May not be the servant state
    */
   void notifyChange(BlockPos pos, BlockState state);
+
+  /** Called when the servant block entity loads into the world to clear any caches. Should not altar structure state. */
+  default <T extends BlockEntity & IServantLogic> void onServantLoad(T servant) {}
 }

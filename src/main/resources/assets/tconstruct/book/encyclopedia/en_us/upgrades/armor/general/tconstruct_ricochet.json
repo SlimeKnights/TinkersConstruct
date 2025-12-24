@@ -7,8 +7,8 @@
   ],
   "more_text_space": true,
   "effects": [
-    "Maximum of 2 levels per piece",
-    "Combines effect of all pieces",
+    "Max 2 levels per piece",
+    "Stacks across armor",
     "Requires 1 upgrade slot per level"
   ]
 }

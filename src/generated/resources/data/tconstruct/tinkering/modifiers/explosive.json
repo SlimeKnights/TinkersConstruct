@@ -1,0 +1,20 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:projectile_explosion",
+      "block_interaction": "destroy",
+      "efln_bonus": 0.5,
+      "knockback": {
+        "flat": 1.0
+      },
+      "place_fire": false,
+      "radius": {
+        "each_level": 1.0,
+        "flat": 1.0
+      }
+    }
+  ],
+  "priority": 75,
+  "tooltip_display": "always"
+}

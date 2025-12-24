@@ -14,12 +14,12 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import slimeknights.mantle.registration.deferred.PotionDeferredRegister;
+import slimeknights.mantle.registration.deferred.PotionDeferredRegister.PotionType;
 import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerEffect;
 import slimeknights.tconstruct.common.TinkerModule;
-import slimeknights.tconstruct.common.registration.PotionDeferredRegister;
-import slimeknights.tconstruct.common.registration.PotionDeferredRegister.PotionType;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.shared.effect.AntigravityEffect;
 import slimeknights.tconstruct.shared.effect.ReturningEffect;
@@ -51,6 +51,9 @@ public class TinkerEffects extends TinkerModule {
   public static final RegistryObject<TinkerEffect> selfDestructing = MOB_EFFECTS.register("self_destructing", SelfDestructiveEffect::new);
   public static final RegistryObject<RepulsiveEffect> repulsive = MOB_EFFECTS.register("repulsive", RepulsiveEffect::new);
   public static final RegistryObject<TinkerEffect> pierce = MOB_EFFECTS.register("pierce", () -> new NoMilkEffect(MobEffectCategory.HARMFUL, 0xD1D37A, true).addAttributeModifier(Attributes.ARMOR, "cd45be7c-c86f-4a7e-813b-42a44a054f44", -1, Operation.ADDITION));
+  // damage boost
+  public static final RegistryObject<TinkerEffect> conductive = MOB_EFFECTS.register("conductive", () -> new TinkerEffect(MobEffectCategory.HARMFUL, 0xF2D500, true));
+  public static final RegistryObject<TinkerEffect> venom = MOB_EFFECTS.register("venom", () -> new TinkerEffect(MobEffectCategory.HARMFUL, 0xA2935E, true));
 
   // potions
   public static final EnumObject<PotionType,Potion> experiencedPotion = POTIONS.registerTypes(experienced).withStrong().withLong().build();
@@ -58,6 +61,7 @@ public class TinkerEffects extends TinkerModule {
   public static final EnumObject<PotionType,Potion> levitationPotion = POTIONS.registerTypes("levitation", () -> MobEffects.LEVITATION, 15 * 20, 0).withStrong().withLong(40 * 20, 0).build();
   public static final EnumObject<PotionType,Potion> enderferencePotion = POTIONS.registerTypes(enderference, 90 * 20, 0).withLong().build();
 
+  @SuppressWarnings("removal")
   public TinkerEffects() {
     POTIONS.register(FMLJavaModLoadingContext.get().getModEventBus());
   }

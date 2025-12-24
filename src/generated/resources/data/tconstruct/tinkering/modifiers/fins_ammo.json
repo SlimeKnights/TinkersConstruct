@@ -1,0 +1,16 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:trait",
+      "fixed_level": false,
+      "level": 1,
+      "name": "tconstruct:fins",
+      "tool": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:modifiable/ammo"
+      }
+    }
+  ],
+  "tooltip_display": "never"
+}

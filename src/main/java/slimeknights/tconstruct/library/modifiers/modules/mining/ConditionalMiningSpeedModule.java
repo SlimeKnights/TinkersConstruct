@@ -19,6 +19,7 @@ import slimeknights.tconstruct.library.json.variable.mining.MiningSpeedFormula;
 import slimeknights.tconstruct.library.json.variable.mining.MiningSpeedVariable;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
+import slimeknights.tconstruct.library.modifiers.hook.mining.BreakSpeedContext;
 import slimeknights.tconstruct.library.modifiers.hook.mining.BreakSpeedModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.util.ConditionalStatTooltip;
@@ -69,6 +70,7 @@ public record ConditionalMiningSpeedModule(
     return percent() ? 75 : null;
   }
 
+  @SuppressWarnings("removal")
   @Override
   public void onBreakSpeed(IToolStackView tool, ModifierEntry modifier, BreakSpeed event, Direction sideHit, boolean isEffective, float miningSpeedModifier) {
     Player player = event.getEntity();
@@ -78,13 +80,22 @@ public record ConditionalMiningSpeedModule(
   }
 
   @Override
+  public float modifyBreakSpeed(IToolStackView tool, ModifierEntry modifier, BreakSpeedContext context, float speed) {
+    Player player = context.player();
+    if ((!requireEffective || context.isEffective()) && condition.matches(tool, modifier) && block.matches(context.state()) && holder.matches(player)) {
+      return formula.apply(tool, modifier, context, player, context.originalSpeed(), speed, context.miningSpeedMultiplier());
+    }
+    return speed;
+  }
+
+  @Override
   public INumericToolStat<?> stat() {
     return ToolStats.MINING_SPEED;
   }
 
   @Override
   public float computeTooltipValue(IToolStackView tool, ModifierEntry entry, @Nullable Player player) {
-    return formula.apply(tool, entry, null, player, null, 1, 1, 1);
+    return formula.apply(tool, entry, null, player, 1, 1, 1);
   }
 
   @Override

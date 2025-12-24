@@ -1,0 +1,57 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:conditional_mining_speed",
+      "formula": [
+        "$lost",
+        "$max",
+        "/",
+        "sqrt",
+        "$level",
+        "*",
+        0.01,
+        "*",
+        1.0,
+        "+",
+        "$speed",
+        "*"
+      ],
+      "percent": true,
+      "require_effective": true,
+      "variables": {
+        "lost": "tconstruct:tool_lost_durability",
+        "max": {
+          "type": "tconstruct:stat_multiplier",
+          "stat": "tconstruct:durability"
+        }
+      }
+    },
+    {
+      "type": "tconstruct:conditional_melee_damage",
+      "formula": [
+        "$lost",
+        "$max",
+        "/",
+        "sqrt",
+        "$level",
+        "*",
+        -0.005,
+        "*",
+        1.0,
+        "+",
+        "$damage",
+        "*"
+      ],
+      "percent": true,
+      "variables": {
+        "lost": "tconstruct:tool_lost_durability",
+        "max": {
+          "type": "tconstruct:stat_multiplier",
+          "stat": "tconstruct:durability"
+        }
+      }
+    }
+  ],
+  "tooltip_display": "always"
+}

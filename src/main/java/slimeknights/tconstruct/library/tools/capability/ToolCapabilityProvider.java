@@ -22,10 +22,13 @@ import java.util.stream.Collectors;
 public class ToolCapabilityProvider implements ICapabilityProvider {
   private static final List<BiFunction<ItemStack,Supplier<? extends IToolStackView>,IToolCapabilityProvider>> PROVIDER_CONSTRUCTORS = new ArrayList<>();
 
+  private final ItemStack stack;
   private final Lazy<ToolStack> tool;
   private final List<IToolCapabilityProvider> providers;
+
   public ToolCapabilityProvider(ItemStack stack) {
     // NBT is not yet initialized when capabilities are created, so delay tool stack creation
+    this.stack = stack;
     this.tool = Lazy.of(() -> ToolStack.from(stack));
     this.providers = PROVIDER_CONSTRUCTORS.stream().map(con -> con.apply(stack, tool)).filter(Objects::nonNull).collect(Collectors.toList());
   }
@@ -35,7 +38,7 @@ public class ToolCapabilityProvider implements ICapabilityProvider {
   public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
     // clear the tool cache, as it may have changed since the last time a cap was fetched
     ToolStack toolStack = tool.get();
-    toolStack.clearCache();
+    toolStack.refreshTag(stack);
     // return the first successful provider
     for (IToolCapabilityProvider provider : providers) {
       provider.clearCache();

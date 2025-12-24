@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "forge:storage_blocks/cadmium"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:storage_blocks/cadmium"
+  },
+  "result": {
+    "amount": 810,
+    "tag": "forge:molten_cadmium"
+  },
+  "temperature": 294,
+  "time": 126
+}

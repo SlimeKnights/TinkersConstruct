@@ -1,0 +1,41 @@
+{
+  "modules": [
+    {
+      "type": "tconstruct:part_stats",
+      "parts": [
+        "tconstruct:arrow_head",
+        "tconstruct:arrow_head"
+      ],
+      "primary_part": 0
+    },
+    {
+      "type": "tconstruct:default_materials",
+      "materials": [
+        {
+          "type": "tconstruct:random"
+        },
+        {
+          "type": "tconstruct:random"
+        }
+      ]
+    },
+    {
+      "type": "tconstruct:base_stats",
+      "stats": {
+        "tconstruct:projectile_damage": 1.5,
+        "tconstruct:velocity": 1.5,
+        "tconstruct:water_inertia": 0.8
+      }
+    },
+    {
+      "type": "tconstruct:multiply_stats",
+      "multipliers": {
+        "tconstruct:projectile_damage": 2.0
+      }
+    },
+    {
+      "type": "tconstruct:material_name",
+      "filter": "all"
+    }
+  ]
+}

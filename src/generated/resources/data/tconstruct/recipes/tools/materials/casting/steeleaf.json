@@ -1,0 +1,15 @@
+{
+  "type": "tconstruct:material_fluid",
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "forge:ingots/steeleaf"
+    }
+  ],
+  "fluid": {
+    "amount": 90,
+    "tag": "tconstruct:molten_steeleaf"
+  },
+  "output": "tconstruct:steeleaf",
+  "temperature": 934
+}

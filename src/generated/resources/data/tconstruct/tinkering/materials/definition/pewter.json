@@ -11,12 +11,26 @@
         "tag": "forge:ingots/pewter"
       },
       {
-        "type": "mantle:tag_filled",
-        "tag": "forge:ingots/tin"
-      },
-      {
-        "type": "mantle:tag_filled",
-        "tag": "forge:ingots/lead"
+        "type": "forge:and",
+        "values": [
+          {
+            "type": "tconstruct:config",
+            "prop": "allow_ingotless_alloys"
+          },
+          {
+            "type": "forge:or",
+            "values": [
+              {
+                "type": "mantle:tag_filled",
+                "tag": "forge:ingots/tin"
+              },
+              {
+                "type": "mantle:tag_filled",
+                "tag": "forge:ingots/lead"
+              }
+            ]
+          }
+        ]
       }
     ]
   },

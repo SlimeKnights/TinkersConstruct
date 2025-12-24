@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:drill_attack",
+  "text": [
+    {
+      "text": "Hitting a mob within the first second of a movement ability such as springing, flinging, or grapple will cause them to be attacked with the main hand weapon."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum of 1 level",
+    "Requires 1 ability slot",
+    "Requires springing, flinging, or grapple"
+  ]
+}

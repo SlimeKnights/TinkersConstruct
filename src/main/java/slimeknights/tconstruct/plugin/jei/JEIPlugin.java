@@ -58,6 +58,8 @@ import slimeknights.tconstruct.library.recipe.casting.IDisplayableCastingRecipe;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.library.recipe.material.ShapedMaterialRecipe;
+import slimeknights.tconstruct.library.recipe.material.ShapedMaterialsRecipe;
+import slimeknights.tconstruct.library.recipe.material.ShapelessMaterialsRecipe;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IDisplayModifierRecipe;
@@ -81,6 +83,8 @@ import slimeknights.tconstruct.plugin.jei.casting.CastingTableCategory;
 import slimeknights.tconstruct.plugin.jei.entity.DefaultEntityMeltingRecipe;
 import slimeknights.tconstruct.plugin.jei.entity.EntityMeltingRecipeCategory;
 import slimeknights.tconstruct.plugin.jei.entity.SeveringCategory;
+import slimeknights.tconstruct.plugin.jei.material.MaterialsCraftingExtension;
+import slimeknights.tconstruct.plugin.jei.material.ShapedMaterialsExtension;
 import slimeknights.tconstruct.plugin.jei.melting.FoundryCategory;
 import slimeknights.tconstruct.plugin.jei.melting.MeltingCategory;
 import slimeknights.tconstruct.plugin.jei.melting.MeltingFuelHandler;
@@ -173,6 +177,8 @@ public class JEIPlugin implements IModPlugin {
   @Override
   public void registerVanillaCategoryExtensions(IVanillaCategoryExtensionRegistration registry) {
     registry.getCraftingCategory().addCategoryExtension(ShapedMaterialRecipe.class, ShapedMaterialExtension::new);
+    registry.getCraftingCategory().addCategoryExtension(ShapedMaterialsRecipe.class, ShapedMaterialsExtension::create);
+    registry.getCraftingCategory().addCategoryExtension(ShapelessMaterialsRecipe.class, MaterialsCraftingExtension::shapeless);
   }
 
   @Override
@@ -314,9 +320,7 @@ public class JEIPlugin implements IModPlugin {
     registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerTables.craftingStation.asItem(), tables);
     registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerTables.partBuilder.asItem(), tables);
     registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerTables.tinkerStation.asItem(), tables);
-    registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerTables.tinkersAnvil.asItem(), tables);
     registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerTables.modifierWorktable.asItem(), tables);
-    registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerTables.scorchedAnvil.asItem(), tables);
     registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerSmeltery.smelteryController.asItem(), tables);
     registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerSmeltery.searedDrain.asItem(), tables);
     registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerSmeltery.searedDuct.asItem(), tables);
@@ -325,6 +329,22 @@ public class JEIPlugin implements IModPlugin {
     registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerSmeltery.scorchedDrain.asItem(), tables);
     registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerSmeltery.scorchedDuct.asItem(), tables);
     registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerSmeltery.scorchedChute.asItem(), tables);
+
+    // anvils have both texture and material blocks
+    IIngredientSubtypeInterpreter<ItemStack> anvils = (stack, context) -> {
+      if (context == UidContext.Ingredient) {
+        String name = RetexturedHelper.getTextureName(stack);
+        if (!name.isEmpty()) {
+          return '#' + name;
+        }
+        return ToolPartSubtypeInterpreter.INSTANCE.apply(stack, UidContext.Ingredient);
+      }
+      return IIngredientSubtypeInterpreter.NONE;
+    };
+    registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerTables.tinkersAnvil.asItem(), anvils);
+    registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerTables.scorchedAnvil.asItem(), anvils);
+
+    // potions
     registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerFluids.potion.asItem(), (PotionSubtypeInterpreter<ItemStack>)ItemStack::getTag);
     registry.registerSubtypeInterpreter(ForgeTypes.FLUID_STACK, TinkerFluids.potion.get(), (PotionSubtypeInterpreter<FluidStack>)FluidStack::getTag);
 
@@ -396,11 +416,10 @@ public class JEIPlugin implements IModPlugin {
 
   /** Removes any retextured variants that shouldn't show */
   private static void cleanupRetexturedBlock(Predicate<ItemStack> remover, boolean showAll, ItemLike item, TagKey<Item> tag) {
-    if (showAll) {
-      remover.test(new ItemStack(item));
-    } else {
+    if (!showAll) {
       RetexturedHelper.addTagVariants(remover, item, tag);
     }
+    // do not remove blank if not showing all as that removes all anvils from the catalyst display due to recipe context
   }
 
   @Override
@@ -462,8 +481,11 @@ public class JEIPlugin implements IModPlugin {
     cleanupRetexturedBlock(cleanupItem, showTables, TinkerTables.modifierWorktable, TinkerTags.Items.WORKSTATION_ROCK);
     // anvils
     boolean showAnvils = Config.CLIENT.showAllAnvilVariants.get();
-    cleanupRetexturedBlock(cleanupItem, showAnvils, TinkerTables.tinkersAnvil, TinkerTags.Items.ANVIL_METAL);
-    cleanupRetexturedBlock(cleanupItem, showAnvils, TinkerTables.scorchedAnvil, TinkerTags.Items.ANVIL_METAL);
+    if (!showAnvils) {
+      Consumer<ItemStack> consumer = removeItems::add;
+      ((IMaterialItem) TinkerTables.tinkersAnvil.asItem()).addVariants(consumer, "");
+      ((IMaterialItem) TinkerTables.scorchedAnvil.asItem()).addVariants(consumer, "");
+    }
     // smeltery
     boolean showSmeltery = Config.CLIENT.showAllSmelteryVariants.get();
     cleanupRetexturedBlock(cleanupItem, showSmeltery, TinkerSmeltery.smelteryController, TinkerTags.Items.SEARED_BLOCKS);
@@ -487,12 +509,9 @@ public class JEIPlugin implements IModPlugin {
     compatLoop:
     for (SmelteryCompat compat : SmelteryCompat.values()) {
       // if none of the tags exist, remove the fluid
-      for (String name : compat.getTags()) {
-        if (tagExists("ingots/" + name)) {
-          continue compatLoop;
-        }
+      if (!compat.isPresent()) {
+        removeFluid(manager, compat.getFluid().get());
       }
-      removeFluid(manager, compat.getFluid().get());
     }
     if (!ModList.get().isLoaded("ceramics")) {
       removeFluid(manager, TinkerFluids.moltenPorcelain.get());
@@ -503,7 +522,7 @@ public class JEIPlugin implements IModPlugin {
       manager.addIngredientsAtRuntime(ForgeTypes.FLUID_STACK,
                                       BuiltInRegistries.POTION.holders().filter(holder -> {
                                         Potion potion = holder.get();
-                                        return potion != Potions.EMPTY && potion != Potions.WATER;
+                                        return potion != Potions.EMPTY && potion != Potions.WATER && !holder.is(TinkerTags.Potions.HIDDEN_FLUID);
                                       }).map(holder -> PotionFluidType.potionFluid(holder.key(), FluidType.BUCKET_VOLUME)).toList());
     }
     // remove variantless potion fluid

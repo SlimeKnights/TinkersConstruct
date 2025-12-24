@@ -3,7 +3,7 @@
   "cooling_time": 203,
   "fluid": {
     "amount": 810,
-    "fluid": "tconstruct:molten_cinderslime"
+    "tag": "tconstruct:molten_cinderslime"
   },
   "result": {
     "tag": "forge:storage_blocks/cinderslime"

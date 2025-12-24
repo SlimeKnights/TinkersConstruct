@@ -1,0 +1,11 @@
+{
+  "tool": "tconstruct:arrow",
+  "text": [
+    { "text": "Arrows are a single-use projectile fired from longbows and crossbows. They cannot be used directly to attack." }
+  ],
+  "properties": [
+    "2.0 Projectile Damage",
+    "0.75 Accuracy",
+    "1 Head Trait, 1 Shaft Trait"
+  ]
+}

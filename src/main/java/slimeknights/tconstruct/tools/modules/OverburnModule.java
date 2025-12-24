@@ -16,6 +16,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.build.ModifierRemovalHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InventoryTickModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
+import slimeknights.tconstruct.library.modifiers.modules.capacity.OverslimeModule;
 import slimeknights.tconstruct.library.module.HookProvider;
 import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
@@ -23,13 +24,14 @@ import slimeknights.tconstruct.library.recipe.fuel.MeltingFuelLookup;
 import slimeknights.tconstruct.library.tools.capability.fluid.ToolTankHelper;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
-import slimeknights.tconstruct.tools.TinkerModifiers;
-import slimeknights.tconstruct.tools.modifiers.slotless.OverslimeModifier;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-/** Module implementing the overburn modifier */
+/**
+ * Module implementing the overburn modifier.
+ * TODO 1.21: move to {@link slimeknights.tconstruct.tools.modules.durability}
+ */
 public enum OverburnModule implements ModifierModule, InventoryTickModifierHook, ModifierRemovalHook {
   INSTANCE;
 
@@ -91,9 +93,7 @@ public enum OverburnModule implements ModifierModule, InventoryTickModifierHook,
     // does mean you may end up wasting some fuel, could be as much as 19 lost. So, don't hold your bows for 20 updates?
     if (!world.isClientSide && holder.tickCount % updateInterval == 0 && holder.getUseItem() != stack) {
       // must have overslime and space to fill
-      OverslimeModifier overslime = TinkerModifiers.overslime.get();
-      ModifierEntry entry = tool.getModifier(TinkerModifiers.overslime.getId());
-      if (entry.getLevel() > 0 && overslime.getShield(tool) < overslime.getShieldCapacity(tool, entry)) {
+      if (OverslimeModule.INSTANCE.getAmount(tool) < OverslimeModule.getCapacity(tool)) {
         // find current fuel info
         ResourceLocation key = modifier.getId();
         FuelInfo info = FuelInfo.read(tool, key);
@@ -144,7 +144,7 @@ public enum OverburnModule implements ModifierModule, InventoryTickModifierHook,
           if (remainder > 0 && Modifier.RANDOM.nextInt(10) < remainder) {
             restore++;
           }
-          overslime.addOverslime(tool, entry, restore);
+          OverslimeModule.INSTANCE.addAmount(tool, restore);
         }
       }
     }

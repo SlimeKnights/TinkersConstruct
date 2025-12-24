@@ -3,27 +3,13 @@
   "allow_crystal": false,
   "inputs": [
     {
-      "ingredient": [
-        {
-          "item": "tconstruct:dragon_scale"
-        },
-        {
-          "item": "minecraft:gilded_blackstone"
-        }
-      ]
+      "tag": "forge:nuggets/cobalt"
     },
     {
-      "tag": "forge:ingots/cobalt"
+      "item": "minecraft:end_crystal"
     },
     {
-      "ingredient": [
-        {
-          "item": "tconstruct:dragon_scale"
-        },
-        {
-          "item": "minecraft:gilded_blackstone"
-        }
-      ]
+      "tag": "forge:nuggets/cobalt"
     },
     {
       "item": "tconstruct:earth_slime_crystal_block"

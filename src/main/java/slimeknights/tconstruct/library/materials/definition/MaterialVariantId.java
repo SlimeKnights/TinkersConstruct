@@ -6,6 +6,7 @@ import com.google.gson.JsonSyntaxException;
 import com.mojang.brigadier.StringReader;
 import net.minecraft.ResourceLocationException;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
@@ -27,6 +28,7 @@ public sealed interface MaterialVariantId permits MaterialId, MaterialVariantIdI
     return location;
   }, MaterialVariantId::toString);
   ContextKey<MaterialVariantId> CONTEXT_KEY = new ContextKey<>("material_variant");
+  EntityDataSerializer<MaterialVariantId> DATA_ACCESSOR = EntityDataSerializer.simple((buffer, material) -> material.toNetwork(buffer), MaterialVariantId::fromNetwork);
 
   /** Variant ID that will match normal {@link MaterialId} with no variant, to allow checking for non-variant materials specifically. */
   String DEFAULT_VARIANT = "default";

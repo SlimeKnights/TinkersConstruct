@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:redirected",
+  "text": [
+    {
+      "text": "“箭头”沿相反方向指到了自己。"
+    }
+  ],
+  "effects": [
+    "复制头部特性",
+    "单个等级"
+  ]
+}

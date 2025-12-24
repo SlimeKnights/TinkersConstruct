@@ -1,0 +1,64 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:conditional_melee_damage",
+      "formula": [
+        "$equipment",
+        0.5,
+        "*",
+        "$level",
+        "*",
+        "$multiplier",
+        "*",
+        "$damage",
+        "+"
+      ],
+      "percent": false,
+      "variables": {
+        "equipment": {
+          "type": "tconstruct:entity",
+          "entity_type": "tconstruct:equipment_count",
+          "fallback": 4.0,
+          "slots": [
+            "feet",
+            "legs",
+            "chest",
+            "head"
+          ],
+          "which": "target"
+        }
+      }
+    },
+    {
+      "type": "tconstruct:conditional_power",
+      "formula": [
+        "$equipment",
+        0.25,
+        "*",
+        "$level",
+        "*",
+        "$multiplier",
+        "*",
+        "$damage",
+        "+"
+      ],
+      "percent": false,
+      "variables": {
+        "equipment": {
+          "type": "tconstruct:entity",
+          "entity_type": "tconstruct:equipment_count",
+          "fallback": 4.0,
+          "slots": [
+            "feet",
+            "legs",
+            "chest",
+            "head"
+          ],
+          "which": "target"
+        }
+      }
+    }
+  ],
+  "tooltip_display": "always"
+}

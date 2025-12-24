@@ -1,0 +1,52 @@
+{
+  "type": "mantle:add_entry",
+  "conditions": [
+    {
+      "condition": "mantle:block_tag",
+      "tag": "forge:ores/cadmium"
+    },
+    {
+      "condition": "mantle:tag_filled",
+      "tag": "forge:nuggets/cadmium"
+    },
+    {
+      "condition": "tconstruct:has_modifier",
+      "modifier": "tconstruct:lustrous"
+    }
+  ],
+  "entry": {
+    "type": "mantle:tag_preference",
+    "tag": "forge:nuggets/cadmium"
+  },
+  "functions": [
+    {
+      "add": false,
+      "count": {
+        "type": "minecraft:uniform",
+        "max": 4,
+        "min": 2
+      },
+      "function": "minecraft:set_count"
+    },
+    {
+      "formula": "minecraft:ore_drops",
+      "function": "tconstruct:modifier_bonus",
+      "include_base": false,
+      "modifier": "tconstruct:lustrous"
+    },
+    {
+      "function": "minecraft:explosion_decay"
+    }
+  ],
+  "post_conditions": [
+    {
+      "type": "mantle:inverted",
+      "condition": {
+        "type": "mantle:contains_item",
+        "ingredient": {
+          "tag": "forge:ores/cadmium"
+        }
+      }
+    }
+  ]
+}

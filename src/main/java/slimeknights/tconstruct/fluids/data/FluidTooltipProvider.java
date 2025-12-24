@@ -4,12 +4,12 @@ import net.minecraft.data.PackOutput;
 import net.minecraftforge.fluids.FluidType;
 import slimeknights.mantle.fluid.tooltip.AbstractFluidTooltipProvider;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.menu.AlloyerContainerMenu;
 import slimeknights.tconstruct.smeltery.menu.MelterContainerMenu;
 
+import static slimeknights.tconstruct.common.TinkerTags.Fluids.BOTTLE_TOOLTIPS;
 import static slimeknights.tconstruct.common.TinkerTags.Fluids.CLAY_TOOLTIPS;
 import static slimeknights.tconstruct.common.TinkerTags.Fluids.GLASS_TOOLTIPS;
 import static slimeknights.tconstruct.common.TinkerTags.Fluids.LARGE_GEM_TOOLTIPS;
@@ -56,10 +56,10 @@ public class FluidTooltipProvider extends AbstractFluidTooltipProvider {
       .addUnit("block", FluidValues.GLASS_BLOCK)
       .addUnit("pane", FluidValues.GLASS_PANE);
 
-    add("venom", TinkerFluids.venom.getTag())
-      .addUnit("bucket",     "mantle", FluidType.BUCKET_VOLUME)
-      .addUnit("bottle",     "mantle", FluidValues.BOTTLE)
-      .addUnit("drop",       "mantle", FluidValues.SIP);
+    add("bottle", BOTTLE_TOOLTIPS)
+      .addUnit("bucket", "mantle", FluidType.BUCKET_VOLUME)
+      .addUnit("bottle", "mantle", FluidValues.BOTTLE)
+      .addUnit("drop",   "mantle", FluidValues.SIP);
   }
 
   @Override

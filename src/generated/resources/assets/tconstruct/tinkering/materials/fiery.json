@@ -1,0 +1,106 @@
+{
+  "color": "FF893D14",
+  "fallbacks": [
+    "metal"
+  ],
+  "generator": {
+    "supported_stats": [
+      "tconstruct:head",
+      "tconstruct:handle",
+      "tconstruct:binding",
+      "tconstruct:repair_kit",
+      "tconstruct:limb",
+      "tconstruct:grip",
+      "tconstruct:armor_plating",
+      "tconstruct:plating_helmet",
+      "tconstruct:plating_chestplate",
+      "tconstruct:plating_leggings",
+      "tconstruct:plating_boots",
+      "tconstruct:plating_shield",
+      "tconstruct:maille",
+      "tconstruct:armor_maille",
+      "tconstruct:ingot"
+    ],
+    "transformer": {
+      "type": "tconstruct:frames",
+      "frames": [
+        {
+          "type": "tconstruct:grey_to_sprite",
+          "palette": [
+            {
+              "color": "FF000000",
+              "grey": 0
+            },
+            {
+              "color": "FF191919",
+              "grey": 25
+            },
+            {
+              "grey": 26,
+              "path": "tconstruct:generator/fiery"
+            },
+            {
+              "grey": 102,
+              "path": "tconstruct:generator/fiery"
+            },
+            {
+              "color": "FF3C2323",
+              "grey": 140
+            },
+            {
+              "color": "FF2D1B1B",
+              "grey": 178
+            },
+            {
+              "color": "FF191313",
+              "grey": 216
+            },
+            {
+              "color": "FF080606",
+              "grey": 255
+            }
+          ]
+        },
+        {
+          "type": "tconstruct:grey_to_sprite",
+          "palette": [
+            {
+              "color": "FF000000",
+              "grey": 0
+            },
+            {
+              "color": "FF191919",
+              "grey": 25
+            },
+            {
+              "grey": 26,
+              "path": "tconstruct:generator/fiery"
+            },
+            {
+              "grey": 102,
+              "path": "tconstruct:generator/fiery"
+            },
+            {
+              "color": "FF893D14",
+              "grey": 140
+            },
+            {
+              "color": "FF773511",
+              "grey": 178
+            },
+            {
+              "color": "FF662D09",
+              "grey": 216
+            },
+            {
+              "color": "FF5D2603",
+              "grey": 255
+            }
+          ]
+        }
+      ],
+      "meta": "tconstruct:generator/fiery"
+    }
+  },
+  "luminosity": 15
+}

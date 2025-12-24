@@ -49,7 +49,7 @@ public class SpittingModifier extends Modifier implements GeneralInteractionModi
 
   @Override
   public int getPriority() {
-    return 110; // want to run before sling modifiers so we can sling spit
+    return 120; // want to run before sling modifiers so we can sling spit, and before throwing so we use our tank first
   }
 
   @Override
@@ -115,7 +115,7 @@ public class SpittingModifier extends Modifier implements GeneralInteractionModi
                 spit.shoot(targetVector.x(), targetVector.y(), targetVector.z(), velocity, inaccuracy);
 
                 // store all modifiers on the spit
-                spit.getCapability(EntityModifierCapability.CAPABILITY).ifPresent(cap -> cap.setModifiers(tool.getModifiers()));
+                EntityModifierCapability.getCapability(spit).setModifiers(tool.getModifiers());
 
                 // fetch the persistent data for the arrow as modifiers may want to store data
                 ModDataNBT arrowData = PersistentDataCapability.getOrWarn(spit);

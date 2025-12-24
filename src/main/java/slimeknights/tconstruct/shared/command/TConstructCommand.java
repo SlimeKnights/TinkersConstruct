@@ -9,15 +9,19 @@ import net.minecraft.network.chat.Component;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import slimeknights.mantle.command.argument.TagSourceArgument;
+import slimeknights.mantle.registration.deferred.ArgumentTypeDeferredRegister;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.common.registration.ArgumentTypeDeferredRegister;
+import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.shared.command.argument.MaterialArgument;
 import slimeknights.tconstruct.shared.command.argument.MaterialStatsArgument;
 import slimeknights.tconstruct.shared.command.argument.MaterialVariantArgument;
 import slimeknights.tconstruct.shared.command.argument.ModifierArgument;
 import slimeknights.tconstruct.shared.command.argument.ModifierHookArgument;
+import slimeknights.tconstruct.shared.command.argument.ModifierTagSource;
 import slimeknights.tconstruct.shared.command.argument.SlotTypeArgument;
 import slimeknights.tconstruct.shared.command.argument.ToolStatArgument;
+import slimeknights.tconstruct.shared.command.subcommand.GenerateMeltingRecipesCommand;
 import slimeknights.tconstruct.shared.command.subcommand.GeneratePartTexturesCommand;
 import slimeknights.tconstruct.shared.command.subcommand.MaterialsCommand;
 import slimeknights.tconstruct.shared.command.subcommand.ModifierPriorityCommand;
@@ -25,10 +29,7 @@ import slimeknights.tconstruct.shared.command.subcommand.ModifierUsageCommand;
 import slimeknights.tconstruct.shared.command.subcommand.ModifiersCommand;
 import slimeknights.tconstruct.shared.command.subcommand.SlotsCommand;
 import slimeknights.tconstruct.shared.command.subcommand.StatsCommand;
-import slimeknights.tconstruct.shared.command.subcommand.generate.GenerateMeltingRecipesCommand;
-import slimeknights.tconstruct.shared.command.subcommand.generate.RemoveRecipesCommand;
 
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 public class TConstructCommand {
@@ -46,6 +47,9 @@ public class TConstructCommand {
     ARGUMENT_TYPE.registerSingleton("material_stat", MaterialStatsArgument.class, MaterialStatsArgument::stats);
     ARGUMENT_TYPE.registerSingleton("modifier_hook", ModifierHookArgument.class, ModifierHookArgument::modifierHook);
 
+    TagSourceArgument.registerCustom(ModifierTagSource.INSTANCE);
+    TagSourceArgument.registerCustom(MaterialRegistry.getTagSource());
+
     // add command listener
     MinecraftForge.EVENT_BUS.addListener(TConstructCommand::registerCommand);
   }
@@ -54,13 +58,6 @@ public class TConstructCommand {
   private static void register(LiteralArgumentBuilder<CommandSourceStack> root, String name, Consumer<LiteralArgumentBuilder<CommandSourceStack>> consumer) {
     LiteralArgumentBuilder<CommandSourceStack> subCommand = Commands.literal(name);
     consumer.accept(subCommand);
-    root.then(subCommand);
-  }
-
-  /** Registers a sub command for the root Mantle command */
-  private static void register(LiteralArgumentBuilder<CommandSourceStack> root, String name, CommandBuildContext context, BiConsumer<LiteralArgumentBuilder<CommandSourceStack>,CommandBuildContext> consumer) {
-    LiteralArgumentBuilder<CommandSourceStack> subCommand = Commands.literal(name);
-    consumer.accept(subCommand, context);
     root.then(subCommand);
   }
 
@@ -78,10 +75,9 @@ public class TConstructCommand {
       register(b, "modifier_usage", ModifierUsageCommand::register);
       register(b, "modifier_priority", ModifierPriorityCommand::register);
     });
-    register(builder, "generate_part_textures", GeneratePartTexturesCommand::register);
     register(builder, "generate", b -> {
-      register(b, "melting_recipes", context, GenerateMeltingRecipesCommand::register);
-      register(b, "remove_recipe", context, RemoveRecipesCommand::register);
+      register(b, "part_textures", GeneratePartTexturesCommand::register);
+      register(b, "melting_recipes", bb -> GenerateMeltingRecipesCommand.register(bb, context));
     });
 
     // register final command

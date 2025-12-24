@@ -1,6 +1,6 @@
 {
   "loader": "tconstruct:tool",
-  "parent": "tconstruct:item/base/swasher",
+  "parent": "tconstruct:item/tool/swasher/display",
   "textures": {
     "blade": "tconstruct:item/tool/swasher/blade_broken",
     "barrel": "tconstruct:item/tool/swasher/barrel",

@@ -26,6 +26,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.armor.OnAttackedModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.combat.MonsterMeleeHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileHitModifierHook;
 import slimeknights.tconstruct.library.module.ModuleHookMap.Builder;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
@@ -39,7 +40,7 @@ import slimeknights.tconstruct.tools.modules.armor.CounterModule;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class EnderferenceModifier extends Modifier implements ProjectileHitModifierHook, MeleeHitModifierHook, OnAttackedModifierHook {
+public class EnderferenceModifier extends Modifier implements ProjectileHitModifierHook, MeleeHitModifierHook, MonsterMeleeHitModifierHook.RedirectAfter, OnAttackedModifierHook {
   public EnderferenceModifier() {
     MinecraftForge.EVENT_BUS.addListener(EnderferenceModifier::onTeleport);
   }
@@ -52,7 +53,7 @@ public class EnderferenceModifier extends Modifier implements ProjectileHitModif
 
   @Override
   protected void registerHooks(Builder hookBuilder) {
-    hookBuilder.addHook(this, ModifierHooks.PROJECTILE_HIT, ModifierHooks.MELEE_HIT, ModifierHooks.ON_ATTACKED);
+    hookBuilder.addHook(this, ModifierHooks.PROJECTILE_HIT, ModifierHooks.MELEE_HIT, ModifierHooks.MONSTER_MELEE_HIT, ModifierHooks.ON_ATTACKED);
   }
 
   @Override

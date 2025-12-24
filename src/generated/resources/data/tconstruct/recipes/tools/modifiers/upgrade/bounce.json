@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:modifier",
+  "allow_crystal": true,
+  "inputs": [
+    {
+      "item": "minecraft:piston"
+    },
+    {
+      "item": "tconstruct:ichor_slime"
+    }
+  ],
+  "level": {
+    "max": 3
+  },
+  "result": "tconstruct:bounce",
+  "slots": {
+    "upgrades": 1
+  },
+  "tools": {
+    "tag": "tconstruct:modifiable/ranged/longbows"
+  }
+}

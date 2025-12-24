@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.modifiers.ability.sling;
 
 import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
@@ -15,6 +16,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
@@ -32,19 +34,20 @@ import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.item.ModifiableItem;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
+import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 /** Add velocity to the target away from yourself */
 public class BonkingModifier extends SlingModifier implements MeleeHitModifierHook, MeleeDamageModifierHook {
   private static final float RANGE = 5F;
-  /** If true, bonking is in progress, suppresses knockback and boosts damage */
-  private static boolean isBonking = false;
+  /** Temporary boolean in persistent data. Means bonking is in progress, suppresses knockback and boosts damage. */
+  public static final ResourceLocation IS_BONKING = TConstruct.getResource("is_bonking");
 
   @Override
   protected void registerHooks(Builder builder) {
     super.registerHooks(builder);
-    builder.addHook(this, ModifierHooks.MELEE_HIT);
+    builder.addHook(this, ModifierHooks.MELEE_HIT, ModifierHooks.MELEE_DAMAGE);
   }
 
   @Override
@@ -64,15 +67,15 @@ public class BonkingModifier extends SlingModifier implements MeleeHitModifierHo
 
   @Override
   public float beforeMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damage, float baseKnockback, float knockback) {
-    if (isBonking) {
-      knockback = 0;
+    if (tool.getPersistentData().getBoolean(IS_BONKING)) {
+      return 0;
     }
     return knockback;
   }
 
   @Override
   public float getMeleeDamage(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float baseDamage, float damage) {
-    if (isBonking) {
+    if (tool.getPersistentData().getBoolean(IS_BONKING)) {
       damage *= 1.5f;
     }
     return damage;
@@ -98,11 +101,18 @@ public class BonkingModifier extends SlingModifier implements MeleeHitModifierHo
           BlockHitResult mop = ModifiableItem.blockRayTrace(level, player, ClipContext.Fluid.NONE);
           if (mop.getType() != HitResult.Type.BLOCK || targetDist < mop.getBlockPos().distToCenterSqr(start)) {
             // melee tools also do damage as a treat
-            if (tool.hasTag(TinkerTags.Items.MELEE)) {
-              isBonking = true;
+            if (tool.hasTag(TinkerTags.Items.MELEE) && ToolAttackUtil.isAttackable(entity, target)) {
+              ModDataNBT data = tool.getPersistentData();
+              data.putBoolean(IS_BONKING, true);
               InteractionHand hand = player.getUsedItemHand();
-              ToolAttackUtil.attackEntity(tool, entity, hand, target, () -> Math.min(1, f), true);
-              isBonking = false;
+              ToolAttackContext.Builder builder = ToolAttackContext.attacker(entity).target(target).hand(hand).cooldown(Math.min(1, f)).extraAttack();
+              if (hand == InteractionHand.MAIN_HAND) {
+                builder.applyAttributes();
+              } else {
+                builder.toolAttributes(tool);
+              }
+              ToolAttackUtil.performAttack(tool, builder.build());
+              data.remove(IS_BONKING);
             }
 
             // send it flying

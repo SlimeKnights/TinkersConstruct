@@ -1,6 +1,11 @@
 {
   "values": [
+    "tconstruct:arrow_head",
+    "tconstruct:arrow_shaft",
+    "tconstruct:fletching",
     "tconstruct:repair_kit",
+    "tconstruct:fake_ingot",
+    "tconstruct:fake_storage_block",
     "#tconstruct:parts/bartered"
   ]
 }

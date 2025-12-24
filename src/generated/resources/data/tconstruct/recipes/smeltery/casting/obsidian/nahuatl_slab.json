@@ -4,9 +4,9 @@
     "tag": "minecraft:wooden_slabs"
   },
   "cast_consumed": true,
-  "cooling_time": 156,
+  "cooling_time": 78,
   "fluid": {
-    "amount": 500,
+    "amount": 125,
     "tag": "tconstruct:molten_obsidian"
   },
   "result": "tconstruct:nahuatl_slab"

@@ -7,7 +7,16 @@
         "type": "mantle:tag",
         "tag": "tconstruct:protection/fall"
       },
-      "each_level": 3.75
+      "each_level": 6.25,
+      "tool": {
+        "type": "tconstruct:has_modifier",
+        "check": "all",
+        "level": 0,
+        "modifier": {
+          "type": "tconstruct:single",
+          "modifier": "tconstruct:long_fall"
+        }
+      }
     }
   ],
   "tooltip_display": "always"

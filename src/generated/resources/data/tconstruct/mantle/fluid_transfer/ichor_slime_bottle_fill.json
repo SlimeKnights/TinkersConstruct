@@ -2,7 +2,7 @@
   "type": "mantle:fill_item",
   "fluid": {
     "amount": 250,
-    "fluid": "tconstruct:ichor"
+    "tag": "tconstruct:ichor"
   },
   "input": {
     "item": "minecraft:glass_bottle"

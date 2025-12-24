@@ -12,7 +12,6 @@ import slimeknights.mantle.data.loadable.primitive.BooleanLoadable;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.primitive.StringLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
@@ -37,10 +36,10 @@ import java.util.function.Predicate;
  * @param durabilityUsage      Amount of extra durability consumed when using this module.
  * @param checkStandardArrows  If true, won't fire infinite arrows if there are standard arrows.
  */
-public record InfinityModule(ItemStack ammo, String variantTag, int durabilityUsage, boolean checkStandardArrows) implements ModifierModule, BowAmmoModifierHook, ModifierRemovalHook, ProjectileLaunchModifierHook {
+public record InfinityModule(ItemStack ammo, String variantTag, int durabilityUsage, boolean checkStandardArrows) implements ModifierModule, BowAmmoModifierHook, ModifierRemovalHook, ProjectileLaunchModifierHook.NoShooter {
   /** NBT marking the stack as infinity to set arrow pickup */
   private static final String INFINITY = "tic_infinity";
-  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<InfinityModule>defaultHooks(ModifierHooks.BOW_AMMO, ModifierHooks.PROJECTILE_LAUNCH, ModifierHooks.REMOVE);
+  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<InfinityModule>defaultHooks(ModifierHooks.BOW_AMMO, ModifierHooks.PROJECTILE_LAUNCH, ModifierHooks.PROJECTILE_SHOT, ModifierHooks.REMOVE);
   public static final RecordLoadable<InfinityModule> LOADER = RecordLoadable.create(
     ItemStackLoadable.REQUIRED_ITEM_NBT.requiredField("ammo", InfinityModule::ammo),
     StringLoadable.DEFAULT.defaultField("variant_tag", "", InfinityModule::variantTag),
@@ -50,7 +49,7 @@ public record InfinityModule(ItemStack ammo, String variantTag, int durabilityUs
   );
 
   @Override
-  public RecordLoadable<? extends IHaveLoader> getLoader() {
+  public RecordLoadable<InfinityModule> getLoader() {
     return LOADER;
   }
 
@@ -81,10 +80,7 @@ public record InfinityModule(ItemStack ammo, String variantTag, int durabilityUs
   }
 
   @Override
-  public void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, Projectile projectile, @Nullable AbstractArrow arrow, ModDataNBT persistentData, boolean primary) {}
-
-  @Override
-  public void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, ItemStack ammo, Projectile projectile, @Nullable AbstractArrow arrow, ModDataNBT persistentData, boolean primary) {
+  public void onProjectileShoot(IToolStackView tool, ModifierEntry modifier, @Nullable LivingEntity shooter, ItemStack ammo, Projectile projectile, @Nullable AbstractArrow arrow, ModDataNBT persistentData, boolean primary) {
     // for arrows fired by this module, set them to creative only pickup
     // not an issue if you have multiple types of infinity, they all agree on the goal here
     if (arrow != null && arrow.pickup != Pickup.CREATIVE_ONLY) {

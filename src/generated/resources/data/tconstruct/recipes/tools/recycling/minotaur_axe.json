@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:part_builder_tool_recycling",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "twilightforest"
+    }
+  ],
+  "parts": [
+    "tconstruct:small_axe_head",
+    "tconstruct:repair_kit",
+    "tconstruct:tool_handle"
+  ],
+  "pattern": {
+    "item": "tconstruct:venom_bottle"
+  },
+  "tools": {
+    "item": "tconstruct:minotaur_axe"
+  }
+}

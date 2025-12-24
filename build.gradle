@@ -10,7 +10,7 @@ plugins {
     id 'eclipse'
     id 'idea'
     id 'maven-publish'
-    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+    id 'net.minecraftforge.gradle' version '[6.0,6.0.37]'
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
     id 'io.freefair.lombok' version '8.6'
 }
@@ -194,7 +194,8 @@ dependencies {
 
     compileOnly fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${minecraft_version}-${ie_version}")
     runtimeOnly fg.deobf("curse.maven:MoonlightLib-499980:6000197")
-    runtimeOnly fg.deobf("curse.maven:MmmMmmMmmMmm-225738:5737040")
+    implementation fg.deobf("curse.maven:MmmMmmMmmMmm-225738:5737040")
+//    runtimeOnly fg.deobf("curse.maven:the-twilight-forest-227639:5468648")
 
     compileOnly fg.deobf("curse.maven:diet-443570:4813904")
 

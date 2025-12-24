@@ -19,6 +19,8 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraftforge.common.crafting.conditions.ICondition.IContext;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.OnDatapackSyncEvent;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
@@ -59,6 +61,9 @@ public class StationSlotLayoutLoader extends SimpleJsonResourceReloadListener {
   @Getter
   private List<StationSlotLayout> sortedSlots = Collections.emptyList();
 
+  /** Context for parsing conditions */
+  private IContext conditionContext = IContext.EMPTY;
+
   private StationSlotLayoutLoader() {
     super(GSON, FOLDER);
   }
@@ -87,7 +92,7 @@ public class StationSlotLayoutLoader extends SimpleJsonResourceReloadListener {
       try {
         // skip empty objects, allows disabling a slot at a lower datapack
         JsonObject object = GsonHelper.convertToJsonObject(value, "station_layout");
-        if (!object.entrySet().isEmpty()) {
+        if (!object.entrySet().isEmpty() && CraftingHelper.processConditions(object, "conditions", conditionContext)) {
           // just need a valid slot information
           StationSlotLayout layout = GSON.fromJson(object, StationSlotLayout.class);
           int size = layout.getInputSlots().size() + (layout.getToolSlot().isHidden() ? 0 : 1);
@@ -131,6 +136,7 @@ public class StationSlotLayoutLoader extends SimpleJsonResourceReloadListener {
   /** Adds the managers as datapack listeners */
   private void addDataPackListeners(final AddReloadListenerEvent event) {
     event.addListener(this);
+    conditionContext = event.getConditionContext();
   }
 
 

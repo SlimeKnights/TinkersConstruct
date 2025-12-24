@@ -1,0 +1,51 @@
+{
+  "type": "tconstruct:crafting_shaped_materials",
+  "category": "equipment",
+  "extra_materials": [
+    "tconstruct:leather"
+  ],
+  "key": {
+    "c": [
+      {
+        "type": "tconstruct:material_value",
+        "material": {
+          "type": "mantle:and",
+          "predicates": [
+            {
+              "type": "mantle:or",
+              "predicates": [
+                "tconstruct:castable",
+                "tconstruct:composite"
+              ]
+            },
+            {
+              "type": "tconstruct:stat_type",
+              "stat_type": "tconstruct:plating_boots"
+            }
+          ]
+        },
+        "value": 1.0
+      },
+      {
+        "type": "tconstruct:material",
+        "item": "tconstruct:fake_ingot",
+        "material": {
+          "type": "tconstruct:stat_type",
+          "stat_type": "tconstruct:plating_boots"
+        }
+      }
+    ],
+    "l": {
+      "tag": "forge:leather"
+    }
+  },
+  "parts": "c",
+  "pattern": [
+    "c c",
+    "l l"
+  ],
+  "result": {
+    "item": "tconstruct:travelers_boots"
+  },
+  "show_notification": true
+}

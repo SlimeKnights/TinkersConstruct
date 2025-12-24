@@ -6,7 +6,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
-import com.mojang.blaze3d.platform.NativeImage;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.resources.ResourceLocation;
@@ -17,7 +16,7 @@ import java.lang.reflect.Type;
 
 /** Sprite transformer that applies the given color mapping to recolor each pixel */
 @RequiredArgsConstructor
-public class RecolorSpriteTransformer implements ISpriteTransformer {
+public class RecolorSpriteTransformer implements IRecolorSpriteTransformer {
   public static final ResourceLocation NAME = TConstruct.getResource("recolor_sprite");
   public static final Deserializer DESERIALIZER = new Deserializer();
 
@@ -26,12 +25,8 @@ public class RecolorSpriteTransformer implements ISpriteTransformer {
   private final IColorMapping colorMapping;
 
   @Override
-  public void transform(NativeImage image, boolean allowAnimated) {
-    for (int x = 0; x < image.getWidth(); x++) {
-      for (int y = 0; y < image.getHeight(); y++) {
-        image.setPixelRGBA(x, y, colorMapping.mapColor(image.getPixelRGBA(x, y)));
-      }
-    }
+  public int getNewColor(int color, int x, int y, int frame) {
+    return colorMapping.mapColor(color);
   }
 
   @Override

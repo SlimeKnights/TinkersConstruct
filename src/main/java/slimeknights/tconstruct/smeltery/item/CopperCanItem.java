@@ -16,6 +16,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
+import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -54,7 +55,7 @@ public class CopperCanItem extends Item {
   }
 
   @Override
-  public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
+  public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flag) {
     Fluid fluid = getFluid(stack);
     if (fluid != Fluids.EMPTY) {
       CompoundTag fluidTag = getFluidTag(stack);
@@ -66,6 +67,9 @@ public class CopperCanItem extends Item {
         text = Component.translatable(fluid.getFluidType().getDescriptionId());
       }
       tooltip.add(Component.translatable(this.getDescriptionId() + ".contents", text).withStyle(ChatFormatting.GRAY));
+      if (flag.isAdvanced()) {
+        tooltip.add(Component.translatable(TankItem.FLUID_ID, Loadables.FLUID.getKey(fluid)).withStyle(ChatFormatting.DARK_GRAY));
+      }
     } else {
       tooltip.add(Component.translatable(this.getDescriptionId() + ".tooltip").withStyle(ChatFormatting.GRAY));
     }

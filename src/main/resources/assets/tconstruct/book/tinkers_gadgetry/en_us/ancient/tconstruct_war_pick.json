@@ -6,6 +6,7 @@
   "properties": [
     "Mines stone blocks and similar",
     "Able to keep an arrow prepared to fire",
+    "Mining blocks boosts velocity of loaded arrow",
     "3 Upgrade Slots",
     "1 Ability Slot"
   ]

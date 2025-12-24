@@ -17,6 +17,7 @@ import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHoo
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.util.ModifierCondition;
 import slimeknights.tconstruct.library.modifiers.modules.util.ModifierCondition.ConditionalModule;
+import slimeknights.tconstruct.library.modifiers.modules.util.ProjectilePredicate;
 import slimeknights.tconstruct.library.module.HookProvider;
 import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
@@ -29,7 +30,7 @@ import java.util.List;
  * @param entity     Filter on entities to receive knockback
  * @param formula    Formula to compute the knockback amount
  */
-public record KnockbackModule(IJsonPredicate<LivingEntity> entity, ModifierFormula formula, ModifierCondition<IToolStackView> condition) implements MeleeHitModifierHook, ModifierModule, ConditionalModule<IToolStackView> {
+public record KnockbackModule(IJsonPredicate<LivingEntity> entity, ModifierFormula formula, ProjectilePredicate projectile, ModifierCondition<IToolStackView> condition) implements MeleeHitModifierHook, ModifierModule, ConditionalModule<IToolStackView> {
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<KnockbackModule>defaultHooks(ModifierHooks.MELEE_HIT);
   /** Setup for the formula */
   private static final FormulaLoadable FORMULA = new FormulaLoadable(FallbackFormula.ADD, "level", "knockback");
@@ -37,6 +38,7 @@ public record KnockbackModule(IJsonPredicate<LivingEntity> entity, ModifierFormu
   public static final RecordLoadable<KnockbackModule> LOADER = RecordLoadable.create(
     LivingEntityPredicate.LOADER.defaultField("entity", KnockbackModule::entity),
     FORMULA.directField(KnockbackModule::formula),
+    ProjectilePredicate.LOADABLE.defaultField("allow", ProjectilePredicate.ALWAYS, KnockbackModule::projectile),
     ModifierCondition.TOOL_FIELD,
     KnockbackModule::new);
 
@@ -51,11 +53,9 @@ public record KnockbackModule(IJsonPredicate<LivingEntity> entity, ModifierFormu
 
   @Override
   public float beforeMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damage, float baseKnockback, float knockback) {
-    if (this.condition.matches(tool, modifier)) {
-      // might want to consider an entity predicate here, this special casing is a bit odd
-      if (TinkerPredicate.matches(entity, context.getLivingTarget())) {
-        return formula.apply(formula.processLevel(modifier), knockback);
-      }
+    // might want to consider an entity predicate here, this special casing is a bit odd
+    if (this.condition.matches(tool, modifier) && projectile.test(context.isProjectile()) && TinkerPredicate.matches(entity, context.getLivingTarget())) {
+      return formula.apply(formula.processLevel(modifier), knockback);
     }
     return knockback;
   }
@@ -75,10 +75,11 @@ public record KnockbackModule(IJsonPredicate<LivingEntity> entity, ModifierFormu
   }
 
   /** Builder class */
+  @Setter
+  @Accessors(fluent = true)
   public static class Builder extends ModifierFormula.Builder<Builder,KnockbackModule> {
-    @Setter
-    @Accessors(fluent = true)
     private IJsonPredicate<LivingEntity> entity = LivingEntityPredicate.ANY;
+    private ProjectilePredicate projectile = ProjectilePredicate.ALWAYS;
 
     private Builder() {
       super(FORMULA.variables());
@@ -86,7 +87,7 @@ public record KnockbackModule(IJsonPredicate<LivingEntity> entity, ModifierFormu
 
     @Override
     protected KnockbackModule build(ModifierFormula formula) {
-      return new KnockbackModule(entity, formula, condition);
+      return new KnockbackModule(entity, formula, projectile, condition);
     }
   }
 }

@@ -1,0 +1,37 @@
+{
+  "loader": "tconstruct:tool",
+  "parent": "tconstruct:item/base/rod",
+  "textures": {
+    "rod": "tconstruct:item/tool/fishing_rod/rod",
+    "string": "tconstruct:item/tool/fishing_rod/string_cast",
+    "hook": "tconstruct:item/tool/fishing_rod/hook_cast"
+  },
+  "modifier_roots": [
+    "tconstruct:item/tool/fishing_rod/modifiers/cast/",
+    "tconstruct:item/tool/fishing_rod/modifiers/"
+  ],
+  "parts": [
+    {
+      "name": "rod",
+      "index": 0
+    },
+    {
+      "name": "string",
+      "index": 1
+    },
+    {
+      "name": "hook",
+      "index": 2
+    }
+  ],
+  "first_modifiers": [
+    {
+      "name": "tconstruct:tipped",
+      "forced": true
+    },
+    {
+      "name": "tconstruct:tank_handler",
+      "forced": true
+    }
+  ]
+}

@@ -17,6 +17,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.build.ConditionalStatModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.display.TooltipModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.mining.BlockBreakModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.mining.BreakSpeedContext;
 import slimeknights.tconstruct.library.modifiers.hook.mining.BreakSpeedModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileLaunchModifierHook;
 import slimeknights.tconstruct.library.module.ModuleHookMap.Builder;
@@ -62,6 +63,15 @@ public class MomentumModifier extends Modifier implements ProjectileLaunchModifi
       // 25% boost per level at max
       event.setNewSpeed(event.getNewSpeed() * (1 + getBonus(event.getEntity(), ToolType.HARVEST, modifier) / 128f));
     }
+  }
+
+  @Override
+  public float modifyBreakSpeed(IToolStackView tool, ModifierEntry modifier, BreakSpeedContext context, float speed) {
+    if (context.isEffective()) {
+      // 25% boost per level at max
+      speed *= 1 + getBonus(context.player(), ToolType.HARVEST, modifier) / 128f;
+    }
+    return speed;
   }
 
   @Override

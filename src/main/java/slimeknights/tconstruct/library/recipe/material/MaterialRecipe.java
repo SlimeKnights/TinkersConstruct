@@ -99,6 +99,11 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleStackContainer
   }
 
   @Override
+  public boolean hasLeftover() {
+    return !this.leftover.isEmpty();
+  }
+
+  @Override
   public ItemStack getLeftover() {
     return this.leftover.get().copy();
   }

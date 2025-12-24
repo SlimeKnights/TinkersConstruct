@@ -1,0 +1,26 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:mob_effect",
+      "chance": {
+        "flat": 1.0
+      },
+      "effect": "minecraft:glowing",
+      "level": {
+        "flat": 1.0
+      },
+      "time": {
+        "per_level": 200.0
+      }
+    },
+    {
+      "type": "tconstruct:projectile_place_glow",
+      "blocks": true,
+      "entities": false,
+      "tool_damage": 5
+    }
+  ],
+  "priority": 60,
+  "tooltip_display": "always"
+}

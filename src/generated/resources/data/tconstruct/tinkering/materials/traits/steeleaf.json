@@ -1,0 +1,16 @@
+{
+  "default": [
+    {
+      "level": 1,
+      "name": "tconstruct:experienced"
+    }
+  ],
+  "perStat": {
+    "tconstruct:ammo": [
+      {
+        "level": 1,
+        "name": "tconstruct:looting"
+      }
+    ]
+  }
+}

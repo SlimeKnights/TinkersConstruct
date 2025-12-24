@@ -3,7 +3,6 @@ package slimeknights.tconstruct.tools.modules;
 import net.minecraft.world.level.Level;
 import slimeknights.mantle.data.loadable.primitive.FloatLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.tconstruct.common.TinkerDamageTypes;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
@@ -27,7 +26,7 @@ public record DamageOnUnequipModule(float damage, ModifierCondition<IToolStackVi
     DamageOnUnequipModule::new);
 
   @Override
-  public RecordLoadable<? extends IHaveLoader> getLoader() {
+  public RecordLoadable<DamageOnUnequipModule> getLoader() {
     return LOADER;
   }
 

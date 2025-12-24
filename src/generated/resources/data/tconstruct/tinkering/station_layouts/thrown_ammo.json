@@ -1,0 +1,32 @@
+{
+  "icon": {
+    "pattern": "tconstruct:thrown_ammo"
+  },
+  "input_slots": [
+    {
+      "filter": {
+        "item": "tconstruct:arrow_head"
+      },
+      "icon": "tconstruct:arrow_head",
+      "translation_key": "item.tconstruct.arrow_head",
+      "x": 33,
+      "y": 29
+    },
+    {
+      "filter": [
+        {
+          "item": "tconstruct:arrow_head"
+        },
+        {
+          "item": "tconstruct:arrow_shaft"
+        }
+      ],
+      "icon": "tconstruct:arrow_part",
+      "translation_key": "pattern.tconstruct.arrow_part",
+      "x": 33,
+      "y": 53
+    }
+  ],
+  "sortIndex": 7,
+  "translation_key": "gui.tconstruct.thrown_ammo"
+}

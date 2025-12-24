@@ -61,6 +61,9 @@ public class ToolItemModelProvider extends AbstractToolItemModelProvider {
       new Vec2(-2, -2), new Vec2(0, 0), new Vec2(1, 1)
     }, true, true), "limb_bottom", "limb_top", "bowstring");
     bow(TinkerTools.crossbow, toolBlocking, new CrossbowAmmo(new Vec2(-1, -1), true, false), "bowstring");
+    String[] rodParts = { "string", "hook" };
+    fishingRod(TinkerTools.fishingRod, readJson(getResource("tool/fishing_rod/blocking_display")), rodParts, rodParts);
+    tool(TinkerTools.javelin, toolBlocking, "head");
     // staff
     staff(TinkerTools.skyStaff, toolBlocking);
     staff(TinkerTools.earthStaff, toolBlocking);
@@ -69,9 +72,9 @@ public class ToolItemModelProvider extends AbstractToolItemModelProvider {
     // ancient
     charged(TinkerTools.meltingPan, shieldBlocking, "head");
     bow(TinkerTools.warPick, toolBlocking, new CrossbowAmmo(new Vec2(1, -1), false, true), "bowstring");
-    // battlesign has custom properties for blocking, so that is just written directly
-    transformTool("tool/battlesign/broken", readJson(TinkerTools.battlesign.getId()), "", false, "broken", "head");
-    pulling(TinkerTools.swasher, readJson(getResource("base/swasher_blocking")), AmmoType.NONE, "blade", 2, "barrel");
+    tool(TinkerTools.battlesign, null, "head");
+    pulling(TinkerTools.swasher, readJson(getResource("tool/swasher/blocking_display")), AmmoType.NONE, "blade", 2, "barrel");
+    tool(TinkerTools.minotaurAxe, toolBlocking, "front");
   }
 
   @Override

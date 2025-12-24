@@ -1,0 +1,8 @@
+{
+  "loader": "tconstruct:material_block",
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "tconstruct:block/storage/fallback"
+  },
+  "material": "all"
+}

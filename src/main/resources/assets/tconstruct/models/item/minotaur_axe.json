@@ -1,0 +1,25 @@
+{
+  "loader": "tconstruct:tool",
+  "parent": "tconstruct:item/base/axe",
+  "textures": {
+    "front":   "tconstruct:item/tool/minotaur_axe/front",
+    "back":    "tconstruct:item/tool/minotaur_axe/back",
+    "handle":  "tconstruct:item/tool/pickaxe/handle"
+  },
+  "modifier_roots": [ "tconstruct:item/tool/minotaur_axe/modifiers/" ],
+  "parts": [
+    { "name": "handle", "index": 2 },
+    { "name": "front",  "index": 0 },
+    { "name": "back",   "index": 1 }
+  ],
+  "overrides": [
+    {
+      "predicate": { "tconstruct:charging": 2 },
+      "model": "tconstruct:item/tool/minotaur_axe/blocking"
+    },
+    {
+      "predicate": { "tconstruct:broken": 1 },
+      "model": "tconstruct:item/tool/minotaur_axe/broken"
+    }
+  ]
+}

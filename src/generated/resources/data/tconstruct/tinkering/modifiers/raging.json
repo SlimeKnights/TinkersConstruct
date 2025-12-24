@@ -40,8 +40,6 @@
         "percent_clamp",
         "$level",
         "*",
-        1.0,
-        "*",
         "$multiplier",
         "*",
         "$value",

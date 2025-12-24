@@ -3,27 +3,13 @@
   "allow_crystal": false,
   "inputs": [
     {
-      "ingredient": [
-        {
-          "item": "tconstruct:dragon_scale"
-        },
-        {
-          "item": "minecraft:gilded_blackstone"
-        }
-      ]
+      "tag": "forge:nuggets/rose_gold"
     },
     {
-      "tag": "forge:ingots/rose_gold"
+      "item": "minecraft:end_crystal"
     },
     {
-      "ingredient": [
-        {
-          "item": "tconstruct:dragon_scale"
-        },
-        {
-          "item": "minecraft:gilded_blackstone"
-        }
-      ]
+      "tag": "forge:nuggets/rose_gold"
     },
     {
       "item": "tconstruct:sky_slime_crystal_block"

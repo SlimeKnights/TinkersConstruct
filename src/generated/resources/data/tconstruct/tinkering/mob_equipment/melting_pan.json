@@ -1,0 +1,21 @@
+{
+  "entity": [
+    "minecraft:zombie",
+    "minecraft:zombie_villager",
+    "minecraft:husk"
+  ],
+  "equip": {
+    "chance": 0.05,
+    "materials": [
+      {
+        "type": "tconstruct:ancient"
+      },
+      {
+        "type": "tconstruct:ancient"
+      }
+    ],
+    "priority": 100,
+    "slot": "offhand",
+    "tool": "tconstruct:melting_pan"
+  }
+}

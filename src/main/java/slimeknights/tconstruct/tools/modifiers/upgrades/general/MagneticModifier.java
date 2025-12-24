@@ -9,6 +9,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -19,6 +20,7 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.combat.MonsterMeleeHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.mining.BlockBreakModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileLaunchModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.special.PlantHarvestModifierHook;
@@ -35,7 +37,7 @@ import slimeknights.tconstruct.shared.TinkerEffects;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class MagneticModifier extends Modifier implements PlantHarvestModifierHook, ShearsModifierHook, BlockBreakModifierHook, MeleeHitModifierHook, ProjectileLaunchModifierHook {
+public class MagneticModifier extends Modifier implements PlantHarvestModifierHook, ShearsModifierHook, BlockBreakModifierHook, MeleeHitModifierHook, MonsterMeleeHitModifierHook.RedirectAfter, ProjectileLaunchModifierHook {
   /** Player modifier data key for haste */
   private static final TinkerDataKey<Integer> MAGNET = TConstruct.createKey("magnet");
 
@@ -47,20 +49,20 @@ public class MagneticModifier extends Modifier implements PlantHarvestModifierHo
   @Override
   protected void registerHooks(Builder hookBuilder) {
     super.registerHooks(hookBuilder);
-    hookBuilder.addHook(this, ModifierHooks.PLANT_HARVEST, ModifierHooks.SHEAR_ENTITY, ModifierHooks.BLOCK_BREAK, ModifierHooks.MELEE_HIT, ModifierHooks.PROJECTILE_LAUNCH);
+    hookBuilder.addHook(this, ModifierHooks.PLANT_HARVEST, ModifierHooks.SHEAR_ENTITY, ModifierHooks.BLOCK_BREAK, ModifierHooks.MELEE_HIT, ModifierHooks.MONSTER_MELEE_HIT, ModifierHooks.PROJECTILE_LAUNCH, ModifierHooks.PROJECTILE_SHOT);
     hookBuilder.addModule(new ArmorLevelModule(MAGNET, false, null));
   }
 
   @Override
   public void afterBlockBreak(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context) {
-    if (!context.isAOE()) {
+    if (!context.isAOE() && !context.isProjectile()) {
       TinkerEffects.magnetic.get().apply(context.getLiving(), 30, modifier.getLevel() - 1);
     }
   }
 
   @Override
   public void afterMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damageDealt) {
-    if (!context.isExtraAttack()) {
+    if (!context.isExtraAttack() && !context.isProjectile()) {
       TinkerEffects.magnetic.get().apply(context.getAttacker(), 30, modifier.getLevel() - 1);
     }
   }
@@ -97,31 +99,33 @@ public class MagneticModifier extends Modifier implements PlantHarvestModifierHo
     if (!entity.isSpectator() && (entity.tickCount & 1) == 0) {
       int level = ArmorLevelModule.getLevel(entity, MAGNET);
       if (level > 0) {
-        applyMagnet(entity, level);
+        applyMagnet(entity, level - 1);
       }
     }
   }
 
-  /** Performs the magnetic effect */
+  /** Performs the magnetic effect. */
   public static <T extends Entity> void applyVelocity(LivingEntity entity, int amplifier, Class<T> targetClass, int minRange, float speed, int maxPush) {
+    applyVelocity(entity.level(), entity.position(), amplifier, targetClass, minRange, speed, maxPush);
+  }
+
+  /** Performs the magnetic effect */
+  public static <T extends Entity> void applyVelocity(Level level, Vec3 origin, int amplifier, Class<T> targetClass, int minRange, float speed, int maxPush) {
     // super magnetic - inspired by botanias code
-    double x = entity.getX();
-    double y = entity.getY();
-    double z = entity.getZ();
+    double x = origin.x;
+    double y = origin.y;
+    double z = origin.z;
     float range = minRange + amplifier;
-    List<T> targets = entity.level().getEntitiesOfClass(targetClass, new AABB(x - range, y - range, z - range, x + range, y + range, z + range));
+    List<T> targets = level.getEntitiesOfClass(targetClass, new AABB(x - range, y - range, z - range, x + range, y + range, z + range));
 
     // only pull up to a max targets
     int pulled = 0;
     for (T target : targets) {
-      if (target.isRemoved()) {
+      if (target.isRemoved() || target.position().distanceToSqr(origin) < 0.25f) {
         continue;
       }
       // calculate direction: item -> player
-      Vec3 vec = entity.position()
-                       .subtract(target.getX(), target.getY(), target.getZ())
-                       .normalize()
-                       .scale(speed * (amplifier + 1));
+      Vec3 vec = origin.subtract(target.getX(), target.getY(), target.getZ()).normalize().scale(speed * (amplifier + 1));
       if (!target.isNoGravity()) {
         vec = vec.add(0, 0.04f, 0);
       }

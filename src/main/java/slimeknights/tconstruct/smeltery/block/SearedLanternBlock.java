@@ -6,16 +6,19 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.LanternBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.phys.HitResult;
-import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.library.utils.NBTTags;
+import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock;
 import slimeknights.tconstruct.smeltery.block.entity.ITankBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.LanternBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.component.TankBlockEntity;
@@ -23,12 +26,21 @@ import slimeknights.tconstruct.smeltery.block.entity.component.TankBlockEntity.I
 
 import javax.annotation.Nullable;
 
+import static slimeknights.tconstruct.smeltery.block.component.SearedTankBlock.LIGHT;
+
 public class SearedLanternBlock extends LanternBlock implements ITankBlock, EntityBlock {
   @Getter
   private final int capacity;
   public SearedLanternBlock(Properties properties, int capacity) {
     super(properties);
     this.capacity = capacity;
+    registerDefaultState(defaultBlockState().setValue(LIGHT, 0));
+  }
+
+  @Override
+  protected void createBlockStateDefinition(Builder<Block, BlockState> builder) {
+    super.createBlockStateDefinition(builder);
+    builder.add(LIGHT);
   }
 
   @Nullable
@@ -37,21 +49,17 @@ public class SearedLanternBlock extends LanternBlock implements ITankBlock, Enti
     return new LanternBlockEntity(pos, state, this);
   }
 
+  @Nullable
   @Override
-  public int getLightEmission(BlockState state, BlockGetter world, BlockPos pos) {
-    BlockEntity te = world.getBlockEntity(pos);
-    if (te instanceof TankBlockEntity tank) {
-      FluidStack fluid = tank.getTank().getFluid();
-      return fluid.getFluid().getFluidType().getLightLevel(fluid);
-    }
-    return 0;
+  public BlockState getStateForPlacement(BlockPlaceContext context) {
+    return SearedTankBlock.setLightLevel(defaultBlockState(), context);
   }
 
   @Override
-  public void setPlacedBy(Level worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+  public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
     CompoundTag nbt = stack.getTag();
-    if (nbt != null) {
-      BlockEntityHelper.get(TankBlockEntity.class, worldIn, pos).ifPresent(te -> te.updateTank(nbt.getCompound(NBTTags.TANK)));
+    if (nbt != null && world.getBlockEntity(pos) instanceof TankBlockEntity tank) {
+      tank.updateTank(nbt.getCompound(NBTTags.TANK));
     }
   }
 

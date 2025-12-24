@@ -33,7 +33,7 @@ public record HasModifierPredicate(IJsonPredicate<ModifierId> modifier, IntRange
     for (ModifierEntry entry : check.getModifiers(tool).getModifiers()) {
       // TODO: what if multiple modifiers match?
       if (modifier.matches(entry.getId())) {
-        return level.test(entry.getLevel());
+        return level.test(entry.intEffectiveLevel());
       }
     }
     return level.test(0);

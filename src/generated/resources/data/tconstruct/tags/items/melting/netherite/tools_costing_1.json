@@ -4,6 +4,10 @@
     {
       "id": "tools_complement:netherite_knife",
       "required": false
+    },
+    {
+      "id": "farmersdelight:netherite_knife",
+      "required": false
     }
   ]
 }

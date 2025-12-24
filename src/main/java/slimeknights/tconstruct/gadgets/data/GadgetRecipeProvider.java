@@ -42,44 +42,8 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
 
   @Override
   protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
-    // throw balls
-    String folder = "gadgets/throwball/";
-    ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, TinkerGadgets.efln.get())
-                       .define('#', Tags.Items.GUNPOWDER)
-                       .define('X', Items.FLINT)
-                       .pattern(" # ")
-                       .pattern("#X#")
-                       .pattern(" # ")
-                       .unlockedBy("has_item", has(Tags.Items.DUSTS_GLOWSTONE))
-                       .save(consumer, prefix(TinkerGadgets.efln, folder));
-    ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, TinkerGadgets.glowBall.get(), 8)
-                       .define('#', Items.SNOWBALL)
-                       .define('X', Tags.Items.DUSTS_GLOWSTONE)
-                       .pattern("###")
-                       .pattern("#X#")
-                       .pattern("###")
-                       .unlockedBy("has_item", has(Tags.Items.DUSTS_GLOWSTONE))
-                       .save(consumer, prefix(TinkerGadgets.glowBall, folder));
-
-    // Shurikens
-    folder = "gadgets/shuriken/";
-    ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, TinkerGadgets.flintShuriken.get(), 4)
-                        .define('X', Items.FLINT)
-                        .pattern(" X ")
-                        .pattern("X X")
-                        .pattern(" X ")
-                        .unlockedBy("has_item", has(Items.FLINT))
-                        .save(consumer, prefix(TinkerGadgets.flintShuriken, folder));
-    ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, TinkerGadgets.quartzShuriken.get(), 4)
-                        .define('X', Items.QUARTZ)
-                        .pattern(" X ")
-                        .pattern("X X")
-                        .pattern(" X ")
-                        .unlockedBy("has_item", has(Items.QUARTZ))
-                        .save(consumer, prefix(TinkerGadgets.quartzShuriken, folder));
-
     // piggybackpack
-    folder = "gadgets/";
+    String folder = "gadgets/";
     ItemCastingRecipeBuilder.tableRecipe(TinkerGadgets.piggyBackpack)
                             .setCast(Items.SADDLE, true)
                             .setFluidAndTime(TinkerFluids.skySlime, FluidValues.SLIMEBALL * 4)

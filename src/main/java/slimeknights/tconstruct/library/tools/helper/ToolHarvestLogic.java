@@ -10,6 +10,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.GameType;
@@ -34,6 +35,7 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.BlockSideHitListener;
 import slimeknights.tconstruct.library.utils.Util;
 
+import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.Objects;
 
@@ -45,12 +47,23 @@ public class ToolHarvestLogic {
   private ToolHarvestLogic() {}
 
   /**
-   * Gets the amount of damage this tool should take for the given block state
+   * Gets the amount of damage this tool should take for the given block state.
+   * TODO 1.21: remove in favor of {@link #getDamage(IToolStackView, Level, BlockPos, BlockState)}
    * @param tool   Tool to check
    * @param state  State to check
    * @return  Damage to deal
    */
   public static int getDamage(ToolStack tool, Level world, BlockPos pos, BlockState state) {
+    return getDamage((IToolStackView) tool, world, pos, state);
+  }
+
+  /**
+   * Gets the amount of damage this tool should take for the given block state
+   * @param tool   Tool to check
+   * @param state  State to check
+   * @return  Damage to deal
+   */
+  public static int getDamage(IToolStackView tool, Level world, BlockPos pos, BlockState state) {
     if (state.getDestroySpeed(world, pos) == 0 || !tool.hasTag(TinkerTags.Items.HARVEST)) {
       // tools that can shear take damage from instant break for non-fire
       return (!state.is(BlockTags.FIRE) && ModifierUtil.canPerformAction(tool, ToolActions.SHEARS_DIG)) ? 1 : 0;
@@ -89,20 +102,33 @@ public class ToolHarvestLogic {
     return removed;
   }
 
+  /** @deprecated use {@link #breakBlock(ToolStack, ItemStack, ToolHarvestContext, boolean)}*/
+  @Deprecated(forRemoval = true)
+  protected static boolean breakBlock(ToolStack tool, ItemStack stack, ToolHarvestContext context) {
+    return breakBlock(tool, stack, context, false);
+  }
+
+  /** @deprecated use {@link #breakBlock(IToolStackView, ItemStack, ToolHarvestContext, boolean)} */
+  @Deprecated(forRemoval = true)
+  protected static boolean breakBlock(ToolStack tool, ItemStack stack, ToolHarvestContext context, boolean useLastXP) {
+    return breakBlock((IToolStackView) tool, stack, context, useLastXP);
+  }
+
   /**
    * Called to break a block using this tool
    * @param tool      Tool instance
    * @param stack     Stack instance for vanilla functions
    * @param context   Harvest context
+   * @param useLastXP If true, fetches the XP from {@link BlockSideHitListener} instead of firing the event. Prevents firing {@link net.minecraftforge.event.level.BlockEvent.BreakEvent} twice.
    * @return  True if broken
    */
-  protected static boolean breakBlock(ToolStack tool, ItemStack stack, ToolHarvestContext context) {
+  protected static boolean breakBlock(IToolStackView tool, ItemStack stack, ToolHarvestContext context, boolean useLastXP) {
     // have to rerun the event to get the EXP, also ensures extra blocks broken get EXP properly
     ServerPlayer player = Objects.requireNonNull(context.getPlayer());
     ServerLevel world = context.getWorld();
     BlockPos pos = context.getPos();
     GameType type = player.gameMode.getGameModeForPlayer();
-    int exp = ForgeHooks.onBlockBreakEvent(world, type, player, pos);
+    int exp = useLastXP ? BlockSideHitListener.getLastXP(player) : ForgeHooks.onBlockBreakEvent(world, type, player, pos);
     if (exp == -1) {
       return false;
     }
@@ -151,14 +177,27 @@ public class ToolHarvestLogic {
   }
 
   /**
+   * Breaks a secondary block.
+   * TODO 1.21: remove this header in favor of {@link #breakExtraBlock(IToolStackView, ItemStack, ToolHarvestContext)}
+   * @param tool      Tool instance
+   * @param stack     Stack instance for vanilla functions
+   * @param context   Tool harvest context
+   * @return true if a block was broken.
+   */
+  public static boolean breakExtraBlock(ToolStack tool, ItemStack stack, ToolHarvestContext context) {
+    return breakExtraBlock((IToolStackView) tool, stack, context);
+  }
+
+  /**
    * Breaks a secondary block
    * @param tool      Tool instance
    * @param stack     Stack instance for vanilla functions
    * @param context   Tool harvest context
+   * @return true if a block was broken.
    */
-  public static boolean breakExtraBlock(ToolStack tool, ItemStack stack, ToolHarvestContext context) {
+  public static boolean breakExtraBlock(IToolStackView tool, ItemStack stack, ToolHarvestContext context) {
     // break the actual block
-    if (breakBlock(tool, stack, context)) {
+    if (breakBlock(tool, stack, context, false)) {
       Level world = context.getWorld();
       BlockPos pos = context.getPos();
       // need to send the event to tell the client a block was broken
@@ -198,77 +237,94 @@ public class ToolHarvestLogic {
       off.setTag(tag);
     }*/
 
-    //return this.breakBlock(stack, pos, player);
-
     // client can run normal block breaking
-    if (player.level().isClientSide || !(player instanceof ServerPlayer serverPlayer)) {
+    // if its not harvest, skip our hooks as well
+    if (player.level().isClientSide || !stack.is(TinkerTags.Items.HARVEST) || !(player instanceof ServerPlayer serverPlayer)) {
       return false;
     }
 
-    // create contexts
-    ServerLevel world = serverPlayer.serverLevel();
-    ToolStack tool = ToolStack.from(stack);
-    BlockState state = world.getBlockState(pos);
-    Direction sideHit = BlockSideHitListener.getSideHit(player);
-
     // if broken, clear the item stack temporarily then break
+    ToolStack tool = ToolStack.from(stack);
+    Direction sideHit = BlockSideHitListener.getSideHit(player);
+    ServerLevel world = serverPlayer.serverLevel();
+    BlockState state = world.getBlockState(pos);
     if (tool.isBroken()) {
       // no harvest context
       player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
       ToolHarvestContext context = new ToolHarvestContext(world, serverPlayer, state, pos, sideHit,
-                                                          !player.isCreative() && state.canHarvestBlock(world, pos, player), false);
-      breakBlock(tool, ItemStack.EMPTY, context);
+        !player.isCreative() && state.canHarvestBlock(world, pos, player), false);
+      breakBlock(tool, ItemStack.EMPTY, context, true);
       player.setItemInHand(InteractionHand.MAIN_HAND, stack);
     } else {
-      // add in harvest info
-      // must not be broken, and the tool definition must be effective
-      ToolHarvestContext context = new ToolHarvestContext(world, serverPlayer, state, pos, sideHit,
-                                                          !player.isCreative() && state.canHarvestBlock(world, pos, player),
-                                                          IsEffectiveToolHook.isEffective(tool, state));
-      // tell modifiers we are about to harvest, lets them add for instance modifiers conditioned on harvesting
-      for (ModifierEntry entry : tool.getModifierList()) {
-        entry.getHook(ModifierHooks.BLOCK_HARVEST).startHarvest(tool, entry, context);
-      }
-      // let armor change enchantments
-      // TODO: should we have a hook for non-enchantment armor responses?
-      ListTag originalEnchantments = HarvestEnchantmentsModifierHook.updateHarvestEnchantments(tool, stack, context);
-      // need to calculate the iterator before we break the block, as we need the reference hardness from the center
-      UseOnContext useContext = new UseOnContext(world, player, InteractionHand.MAIN_HAND, stack, Util.createTraceResult(pos, sideHit, false));
-      Iterable<BlockPos> extraBlocks = context.isEffective() ? tool.getHook(ToolHooks.AOE_ITERATOR).getBlocks(tool, useContext, state, AOEMatchType.BREAKING) : Collections.emptyList();
+      // run standard breaking logic
+      runBlockBreak(stack, tool, state, pos, sideHit, serverPlayer, null);
+    }
+    return true;
+  }
 
-      // actually break the block, run AOE if successful
-      int harvested = 0;
-      if (breakBlock(tool, stack, context)) {
-        harvested += 1;
-      }
-      if (harvested > 0) {
-        for (BlockPos extraPos : extraBlocks) {
-          BlockState extraState = world.getBlockState(extraPos);
-          // prevent calling that stuff for air blocks, could lead to unexpected behaviour since it fires events
-          // this should never actually happen, but just in case some AOE is odd
-          if (!extraState.isAir()) {
-            // prevent mutable position leak, breakBlock has a few places wanting immutable
-            if (breakExtraBlock(tool, stack, context.forPosition(extraPos.immutable(), extraState))) {
-              harvested += 1;
-            }
+  /**
+   * Called serverside to break a block and run all relevant hooks
+   * @param stack    Stack used for breaking
+   * @param tool     Tool for the stack
+   * @param pos      Position being broken
+   * @param sideHit  Side of the block being broken
+   * @param player   Player breaking the block
+   * @return Number of blocks broken
+   */
+  public static int runBlockBreak(ItemStack stack, IToolStackView tool, BlockState state, BlockPos pos, Direction sideHit, ServerPlayer player, @Nullable Projectile projectile) {
+    // create contexts
+    ServerLevel world = player.serverLevel();
+
+    // add in harvest info
+    // must not be broken, and the tool definition must be effective
+    ToolHarvestContext context = new ToolHarvestContext(world, player, projectile, state, pos, sideHit,
+                                                        !player.isCreative() && state.canHarvestBlock(world, pos, player),
+                                                        IsEffectiveToolHook.isEffective(tool, state));
+    // tell modifiers we are about to harvest, lets them add for instance modifiers conditioned on harvesting
+    for (ModifierEntry entry : tool.getModifierList()) {
+      entry.getHook(ModifierHooks.BLOCK_HARVEST).startHarvest(tool, entry, context);
+    }
+    // let armor change enchantments
+    // TODO: should we have a hook for non-enchantment armor responses?
+    ListTag originalEnchantments = HarvestEnchantmentsModifierHook.updateHarvestEnchantments(tool, stack, context);
+    // need to calculate the iterator before we break the block, as we need the reference hardness from the center
+    UseOnContext useContext = new UseOnContext(world, player, InteractionHand.MAIN_HAND, stack, Util.createTraceResult(pos, sideHit, false));
+    Iterable<BlockPos> extraBlocks = context.isEffective() ? tool.getHook(ToolHooks.AOE_ITERATOR).getBlocks(tool, useContext, state, AOEMatchType.BREAKING) : Collections.emptyList();
+
+    // actually break the block, run AOE if successful
+    int harvested = 0;
+    if (breakBlock(tool, stack, context, true)) {
+      harvested += 1;
+    }
+    if (harvested > 0) {
+      for (BlockPos extraPos : extraBlocks) {
+        BlockState extraState = world.getBlockState(extraPos);
+        // prevent calling that stuff for air blocks, could lead to unexpected behaviour since it fires events
+        // this should never actually happen, but just in case some AOE is odd
+        if (!extraState.isAir()) {
+          // prevent mutable position leak, breakBlock has a few places wanting immutable
+          if (breakExtraBlock(tool, stack, context.forPosition(extraPos.immutable(), extraState))) {
+            harvested += 1;
           }
         }
       }
-      // restore the enchantments harvest changed
-      if (originalEnchantments != null) {
-        HarvestEnchantmentsModifierHook.restoreEnchantments(stack, originalEnchantments);
-      }
-      // alert modifiers we finished harvesting
-      for (ModifierEntry entry : tool.getModifierList()) {
-        entry.getHook(ModifierHooks.BLOCK_HARVEST).finishHarvest(tool, entry, context, harvested);
-      }
     }
-
-    return true;
+    // restore the enchantments harvest changed
+    if (originalEnchantments != null) {
+      HarvestEnchantmentsModifierHook.restoreEnchantments(stack, originalEnchantments);
+    }
+    // alert modifiers we finished harvesting
+    for (ModifierEntry entry : tool.getModifierList()) {
+      entry.getHook(ModifierHooks.BLOCK_HARVEST).finishHarvest(tool, entry, context, harvested);
+    }
+    return harvested;
   }
 
   /** Handles {@link net.minecraft.world.item.Item#mineBlock(net.minecraft.world.item.ItemStack, net.minecraft.world.level.Level, net.minecraft.world.level.block.state.BlockState, net.minecraft.core.BlockPos, net.minecraft.world.entity.LivingEntity)} for modifiable items */
   public static boolean mineBlock(ItemStack stack, Level worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
+    if (!stack.is(TinkerTags.Items.HARVEST)) {
+      return false;
+    }
     ToolStack tool = ToolStack.from(stack);
     if (tool.isBroken()) {
       return false;

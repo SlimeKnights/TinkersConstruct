@@ -14,15 +14,18 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.phys.EntityHitResult;
 import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.data.loadable.Loadables;
+import slimeknights.mantle.data.loadable.primitive.BooleanLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.json.LevelingValue;
 import slimeknights.tconstruct.library.json.RandomLevelingValue;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.armor.OnAttackedModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.combat.MonsterMeleeHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.util.ModifierCondition;
@@ -36,28 +39,37 @@ import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
+import slimeknights.tconstruct.tools.modules.armor.CounterModule;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.function.Supplier;
 
 import static slimeknights.tconstruct.TConstruct.RANDOM;
 
 /**
  * Module that applies a mob effect on melee attack, projectile hit, and counterattack
  */
-public record MobEffectModule(IJsonPredicate<LivingEntity> target, MobEffect effect, RandomLevelingValue level, RandomLevelingValue time, ModifierCondition<IToolStackView> condition) implements OnAttackedModifierHook, MeleeHitModifierHook, ProjectileHitModifierHook, ModifierModule, ConditionalModule<IToolStackView> {
-  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<MobEffectModule>defaultHooks(ModifierHooks.ON_ATTACKED, ModifierHooks.MELEE_HIT, ModifierHooks.PROJECTILE_HIT);
+public record MobEffectModule(IJsonPredicate<LivingEntity> target, MobEffect effect, RandomLevelingValue level, RandomLevelingValue time, LevelingValue chance, boolean applyBeforeMelee, ModifierCondition<IToolStackView> condition) implements OnAttackedModifierHook, MeleeHitModifierHook, MonsterMeleeHitModifierHook, ProjectileHitModifierHook, ModifierModule, ConditionalModule<IToolStackView> {
+  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<MobEffectModule>defaultHooks(ModifierHooks.ON_ATTACKED, ModifierHooks.MELEE_HIT, ModifierHooks.MONSTER_MELEE_HIT, ModifierHooks.PROJECTILE_HIT);
   public static final RecordLoadable<MobEffectModule> LOADER = RecordLoadable.create(
     LivingEntityPredicate.LOADER.defaultField("target", MobEffectModule::target),
     Loadables.MOB_EFFECT.requiredField("effect", MobEffectModule::effect),
     RandomLevelingValue.LOADABLE.requiredField("level", MobEffectModule::level),
     RandomLevelingValue.LOADABLE.requiredField("time", MobEffectModule::time),
+    LevelingValue.LOADABLE.defaultField("chance", LevelingValue.eachLevel(0.25f), false, MobEffectModule::chance),
+    BooleanLoadable.INSTANCE.defaultField("apply_before_melee", false, false, MobEffectModule::applyBeforeMelee),
     ModifierCondition.TOOL_FIELD,
     MobEffectModule::new);
 
   /** Creates a builder instance */
   public static MobEffectModule.Builder builder(MobEffect effect) {
     return new Builder(effect);
+  }
+
+  /** Creates a builder instance */
+  public static MobEffectModule.Builder builder(Supplier<? extends MobEffect> effect) {
+    return new Builder(effect.get());
   }
   
   /** @apiNote Internal constructor, use {@link #builder(MobEffect)} */
@@ -82,24 +94,44 @@ public record MobEffectModule(IJsonPredicate<LivingEntity> target, MobEffect eff
   @Override
   public void onAttacked(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
     Entity attacker = source.getEntity();
-    if (isDirectDamage && tool.hasTag(TinkerTags.Items.ARMOR) && attacker instanceof LivingEntity living) {
-      // 15% chance of working per level
-      float scaledLevel = modifier.getEffectiveLevel();
-      if (RANDOM.nextFloat() < (scaledLevel * 0.25f)) {
+    if (isDirectDamage && tool.hasTag(TinkerTags.Items.ARMOR) && condition.matches(tool, modifier) && attacker instanceof LivingEntity living) {
+      LivingEntity defender = context.getEntity();
+      float scaledLevel = CounterModule.getLevel(tool, modifier, slotType, defender);
+      float chance = this.chance.compute(scaledLevel);
+      if (chance >= 1 || RANDOM.nextFloat() < chance) {
         applyEffect(living, scaledLevel);
-        ToolDamageUtil.damageAnimated(tool, 1, context.getEntity(), slotType);
+        ToolDamageUtil.damageAnimated(tool, 1, defender, slotType);
       }
     }
   }
 
   @Override
+  public float beforeMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damage, float baseKnockback, float knockback) {
+    if (applyBeforeMelee && condition.matches(tool, modifier)) {
+      applyEffect(context.getLivingTarget(), modifier.getEffectiveLevel());
+    }
+    return knockback;
+  }
+
+  @Override
   public void afterMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damageDealt) {
-    applyEffect(context.getLivingTarget(), modifier.getEffectiveLevel());
+    if (!applyBeforeMelee && condition.matches(tool, modifier)) {
+      applyEffect(context.getLivingTarget(), modifier.getEffectiveLevel());
+    }
+  }
+
+  @Override
+  public void onMonsterMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damage) {
+    if (condition.matches(tool, modifier)) {
+      applyEffect(context.getLivingTarget(), modifier.getEffectiveLevel());
+    }
   }
 
   @Override
   public boolean onProjectileHitEntity(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
-    applyEffect(target, modifier.getEffectiveLevel());
+    if (condition.modifierLevel().test(modifier.getLevel())) {
+      applyEffect(target, modifier.getEffectiveLevel());
+    }
     return false;
   }
 
@@ -122,10 +154,12 @@ public record MobEffectModule(IJsonPredicate<LivingEntity> target, MobEffect eff
     private IJsonPredicate<LivingEntity> target = LivingEntityPredicate.ANY;
     private RandomLevelingValue level = RandomLevelingValue.flat(1);
     private RandomLevelingValue time = RandomLevelingValue.flat(0);
+    private LevelingValue chance = LevelingValue.eachLevel(0.25f);
+    private boolean applyBeforeMelee = false;
 
     /** Builds the finished modifier */
     public MobEffectModule build() {
-      return new MobEffectModule(target, effect, level, time, condition);
+      return new MobEffectModule(target, effect, level, time, chance, applyBeforeMelee, condition);
     }
   }
 }

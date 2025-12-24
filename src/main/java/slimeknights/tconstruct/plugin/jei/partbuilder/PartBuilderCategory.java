@@ -63,7 +63,7 @@ public class PartBuilderCategory implements IRecipeCategory<IDisplayPartBuilderR
       graphics.drawString(fontRenderer, name, 3, 2, -1, true);
       String coolingString = I18n.get(KEY_COST, recipe.getCost());
       graphics.drawString(fontRenderer, coolingString, 3, 35, Color.GRAY.getRGB(), false);
-    } else {
+    } else if (recipe.getMaterialItems().isEmpty()) {
       GuiUtil.renderPattern(graphics, Patterns.INGOT, 25, 16);
     }
   }

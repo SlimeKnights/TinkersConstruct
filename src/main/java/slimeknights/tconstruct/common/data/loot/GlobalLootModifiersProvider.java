@@ -26,6 +26,7 @@ import slimeknights.tconstruct.common.json.BlockOrEntityCondition;
 import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.smeltery.data.SmelteryCompat;
+import slimeknights.tconstruct.smeltery.data.SmelteryCompat.CompatType;
 import slimeknights.tconstruct.tools.data.ModifierIds;
 import slimeknights.tconstruct.tools.modifiers.ModifierLootModifier;
 import slimeknights.tconstruct.tools.modifiers.loot.ChrysophiliteBonusFunction;
@@ -68,7 +69,7 @@ public class GlobalLootModifiersProvider extends GlobalLootModifierProvider {
     addLustrous("cobalt", false);
     addLustrous("netherite_scrap", false);
     for (SmelteryCompat compat : SmelteryCompat.values()) {
-      if (compat.isOre()) {
+      if (compat.getType() == CompatType.ORE) {
         addLustrous(compat.getName(), true);
       }
     }

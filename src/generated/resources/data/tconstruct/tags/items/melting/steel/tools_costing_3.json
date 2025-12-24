@@ -13,10 +13,6 @@
       "required": false
     },
     {
-      "id": "immersiveengineering:hoe_steel",
-      "required": false
-    },
-    {
       "id": "immersiveengineering:axe_steel",
       "required": false
     },

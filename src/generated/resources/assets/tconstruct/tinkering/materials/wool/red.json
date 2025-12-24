@@ -1,0 +1,32 @@
+{
+  "color": "FFA02722",
+  "generator": {
+    "supported_stats": [
+      "tconstruct:arrow_head"
+    ],
+    "transformer": {
+      "type": "tconstruct:grey_to_sprite",
+      "palette": [
+        {
+          "color": "FF000000",
+          "grey": 0
+        },
+        {
+          "color": "FF404040",
+          "grey": 63,
+          "path": "minecraft:block/red_wool"
+        },
+        {
+          "color": "FF808080",
+          "grey": 102,
+          "path": "minecraft:block/red_wool"
+        },
+        {
+          "grey": 140,
+          "path": "minecraft:block/red_wool"
+        }
+      ]
+    },
+    "variant": true
+  }
+}

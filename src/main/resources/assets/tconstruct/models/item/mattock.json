@@ -1,6 +1,6 @@
 {
   "loader": "tconstruct:tool",
-  "parent": "forge:item/default-tool",
+  "parent": "tconstruct:item/base/axe",
   "textures": {
     "axe":    "tconstruct:item/tool/mattock/axe",
     "pick":   "tconstruct:item/tool/mattock/pick",

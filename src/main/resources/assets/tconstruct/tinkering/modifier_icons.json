@@ -36,6 +36,17 @@
   "tconstruct:bonking":   "tconstruct:gui/modifiers/held/bonking",
   "tconstruct:warping":   "tconstruct:gui/modifiers/held/warping",
 
+  "tconstruct:fishing":    ["minecraft:item/fishing_rod", "tconstruct:gui/modifiers/book"],
+  "tconstruct:lure":       "tconstruct:gui/modifiers/ranged/lure",
+  "tconstruct:grapple":    "tconstruct:gui/modifiers/ranged/grapple",
+  "tconstruct:collecting": ["minecraft:item/hopper", "tconstruct:gui/modifiers/book"],
+  "tconstruct:drill_attack": "tconstruct:gui/modifiers/held/drill_attack",
+
+  "tconstruct:throwing": ["minecraft:item/trident", "tconstruct:gui/modifiers/book"],
+  "tconstruct:returning": ["tconstruct:gui/modifiers/ranged/returning", "tconstruct:gui/modifiers/book"],
+  "tconstruct:channeling": "tconstruct:gui/modifiers/melee/channeling",
+  "tconstruct:fins": ["minecraft:item/tropical_fish", "tconstruct:gui/modifiers/book"],
+
   "tconstruct:exchanging":  "tconstruct:gui/modifiers/harvest/exchanging",
   "tconstruct:expanded":    "tconstruct:gui/modifiers/harvest/expanded",
   "tconstruct:hydraulic":   "tconstruct:gui/modifiers/harvest/hydraulic",
@@ -76,7 +87,9 @@
   "tconstruct:scope":        "tconstruct:gui/modifiers/ranged/scope",
   "tconstruct:sinistral":    "tconstruct:gui/modifiers/ranged/sinistral",
   "tconstruct:trueshot":     "tconstruct:gui/modifiers/ranged/trueshot",
+  "tconstruct:bounce":       "tconstruct:gui/modifiers/ranged/bounce",
 
+  "tconstruct:ballista": "tconstruct:gui/modifiers/ranged/ballista",
   "tconstruct:bulk_quiver": "tconstruct:gui/modifiers/ranged/bulk_quiver",
   "tconstruct:crystalshot": "tconstruct:item/arrow/amethyst",
   "tconstruct:multishot":    "tconstruct:gui/modifiers/ranged/multishot",
@@ -104,6 +117,7 @@
   
   "tconstruct:aqua_affinity":  ["minecraft:item/heart_of_the_sea", "tconstruct:gui/modifiers/book"],
   "tconstruct:item_frame":    ["minecraft:item/item_frame", "tconstruct:gui/modifiers/book"],
+  "tconstruct:minimap":       ["minecraft:item/filled_map", "tconstruct:gui/modifiers/book"],
   "tconstruct:respiration":   "tconstruct:gui/modifiers/armor/respiration",
   "tconstruct:slurping":      "tconstruct:gui/modifiers/armor/slurping",
   "tconstruct:zoom":          ["minecraft:item/spyglass", "tconstruct:gui/modifiers/book"],
@@ -111,6 +125,7 @@
   "tconstruct:ambidextrous":  "tconstruct:gui/modifiers/armor/ambidextrous",
   "tconstruct:reach":    "tconstruct:gui/modifiers/armor/reach",
   "tconstruct:strength": "tconstruct:gui/modifiers/armor/strength",
+  "tconstruct:sleeves":  "tconstruct:gui/modifiers/armor/sleeves",
 
   "tconstruct:bursting":      "tconstruct:gui/modifiers/armor/bursting",
   "tconstruct:depth_strider": "tconstruct:gui/modifiers/armor/depth_strider",
@@ -136,12 +151,14 @@
   "tconstruct:soulspeed":        "tconstruct:gui/modifiers/armor/soulspeed",
   "tconstruct:wings": [ "minecraft:item/elytra", "tconstruct:gui/modifiers/plus" ],
   
-  "tconstruct:gilded":      ["minecraft:item/golden_apple", "tconstruct:gui/modifiers/plus"],
+  "tconstruct:gilded":      ["tconstruct:gui/modifiers/gilded", "tconstruct:gui/modifiers/plus"],
   "tconstruct:writable":    ["minecraft:item/writable_book", "tconstruct:gui/modifiers/plus"],
   "tconstruct:harmonious":  ["minecraft:item/music_disc_13", "tconstruct:gui/modifiers/plus"],
   "tconstruct:recapitated": ["tconstruct:gui/modifiers/recapitated", "tconstruct:gui/modifiers/plus"],
-  "tconstruct:resurrected": ["minecraft:item/end_crystal", "tconstruct:gui/modifiers/plus"],
-  "tconstruct:rebalanced":  ["tconstruct:gui/modifiers/rebalanced", "tconstruct:gui/modifiers/plus"],
+  "tconstruct:forecast":    ["tconstruct:gui/modifiers/forecast", "tconstruct:gui/modifiers/plus"],
+  "tconstruct:embossed":    ["tconstruct:gui/modifiers/embossed", "tconstruct:gui/modifiers/plus"],
+  "tconstruct:rebalanced":  ["minecraft:item/end_crystal", "tconstruct:gui/modifiers/plus"],
+  "tconstruct:redirected":  ["minecraft:item/dragon_breath", "tconstruct:gui/modifiers/plus"],
   "tconstruct:draconic":    ["tconstruct:gui/modifiers/draconic", "tconstruct:gui/modifiers/plus"],
 
   "tconstruct:golden":        ["minecraft:item/golden_chestplate", "tconstruct:gui/modifiers/book"],

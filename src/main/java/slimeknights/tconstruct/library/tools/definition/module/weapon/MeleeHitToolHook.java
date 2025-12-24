@@ -2,7 +2,6 @@ package slimeknights.tconstruct.library.tools.definition.module.weapon;
 
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.definition.module.ToolHooks;
-import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import java.util.Collection;
@@ -19,7 +18,7 @@ public interface MeleeHitToolHook {
 
   /** Deals damage using the given tool, applying any post damage effects */
   static boolean dealDamage(IToolStackView tool, ToolAttackContext context, float damage) {
-    boolean hit = ToolAttackUtil.dealDefaultDamage(context.getAttacker(), context.getTarget(), damage);
+    boolean hit = context.getTarget().hurt(context.makeDamageSource(), damage);
     if (hit) {
       tool.getHook(ToolHooks.MELEE_HIT).afterMeleeHit(tool, context, damage);
     }

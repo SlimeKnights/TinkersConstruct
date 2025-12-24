@@ -30,25 +30,43 @@
   {
     "name": "melee_harvest_materials",
     "data": "no-load",
-    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:melee_harvest", "tier": 2 } },
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:melee_harvest", "tier": 2, "predicate": {
+      "type": "mantle:or",
+      "predicates": [
+        { "type": "mantle:inverted", "inverted_type": "mantle:tag", "tag": "tconstruct:book/distant" },
+        { "type": "mantle:load_condition", "conditions": [{ "type": "mantle:tag_filled", "tag": "tconstruct:whitestone_ingots" }], "if_true": { "type": "tconstruct:id", "id": "tconstruct:whitestone" }}
+      ]
+    }}},
     "icon": {
-      "item": "tconstruct:seared_brick"
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:small_axe_head",
+        "nbt": { "Material": "tconstruct:seared_stone" }
+      }
     }
   },
   {
     "name": "ranged_materials",
     "data": "no-load",
-    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:ranged", "tier": 2 } },
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:ranged", "tier": 2, "predicate": { "type": "mantle:inverted", "inverted_type": "mantle:tag", "tag": "tconstruct:book/distant" }}},
     "icon": {
-      "item": "minecraft:iron_ingot"
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:bow_grip",
+        "nbt": { "Material": "tconstruct:slimewood" }
+      }
     }
   },
   {
     "name": "armor_materials",
     "data": "no-load",
-    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:armor", "tier": { "min": 1, "max": 2 } } },
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:armor", "tier": { "min": 0, "max": 2 }, "predicate":  { "type": "mantle:inverted", "inverted_type": "mantle:tag", "tag": "tconstruct:book/distant" } } },
     "icon": {
-      "item": "minecraft:gold_ingot"
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:leggings_plating",
+        "nbt": { "Material": "tconstruct:gold" }
+      }
     }
   },
   {

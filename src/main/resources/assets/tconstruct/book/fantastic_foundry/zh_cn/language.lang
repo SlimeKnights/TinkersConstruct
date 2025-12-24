@@ -14,4 +14,4 @@ melee_harvest_materials.subtext=这些材料需要烈焰血才能合成，用于
 ranged_materials=四级远程材料
 ranged_materials.subtext=这些材料需要烈焰血才能合成，可用于制造像弓那样的远程武器的工具部件。
 armor_materials=四级盔甲材料
-armor_materials.subtext=这些材料可以锻造成盔甲和盾牌的部件。
+armor_materials.subtext=这些材料需要烈焰血才能合成，可以锻造成盔甲和盾牌的部件。

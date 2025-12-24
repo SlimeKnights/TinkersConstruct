@@ -1,0 +1,27 @@
+{
+  "level_display": "tconstruct:single_level",
+  "modules": [
+    {
+      "type": "tconstruct:capacity_bar",
+      "each_level": 100,
+      "multiplier": "tconstruct:durability"
+    },
+    {
+      "type": "tconstruct:durability_shield",
+      "color": "AAFFFF"
+    },
+    {
+      "type": "tconstruct:damage_to_capacity",
+      "multiplier": {
+        "flat": 1.0
+      },
+      "reduce_damage": true,
+      "source": {
+        "type": "mantle:tag",
+        "tag": "minecraft:is_freezing"
+      }
+    }
+  ],
+  "priority": 175,
+  "tooltip_display": "always"
+}

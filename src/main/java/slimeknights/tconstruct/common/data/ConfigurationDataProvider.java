@@ -11,14 +11,14 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.common.Tags;
+import slimeknights.mantle.command.RemoveRecipesCommand;
 import slimeknights.mantle.data.GenericDataProvider;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.item.ItemPredicate;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.json.predicate.ContextItemPredicate;
 import slimeknights.tconstruct.library.json.predicate.TinkerPredicate;
-import slimeknights.tconstruct.shared.command.subcommand.generate.GenerateMeltingRecipesCommand;
-import slimeknights.tconstruct.shared.command.subcommand.generate.RemoveRecipesCommand;
+import slimeknights.tconstruct.shared.command.subcommand.GenerateMeltingRecipesCommand;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import java.util.LinkedHashMap;
@@ -41,7 +41,7 @@ public class ConfigurationDataProvider extends GenericDataProvider {
       ItemPredicate.tag(TinkerTags.Items.MODIFIABLE),
       ItemPredicate.tag(TinkerTags.Items.BOOKS),
       ItemPredicate.tag(Tags.Items.DYES),
-      TinkerPredicate.HAS_CONTAINER
+      ItemPredicate.HAS_CONTAINER
     ).inverted());
     item(meltingRecipes, "inputs", ItemPredicate.ANY);
     item(meltingRecipes, "ignore", ItemPredicate.ANY);
@@ -52,7 +52,7 @@ public class ConfigurationDataProvider extends GenericDataProvider {
     item(removeIngots, "result", ItemPredicate.and(
       ItemPredicate.tag(Tags.Items.INGOTS),
       ItemPredicate.set(Items.BRICK, TinkerSmeltery.searedBrick.get(), TinkerSmeltery.scorchedBrick.get()).inverted(),
-      new ContextItemPredicate(RemoveRecipesCommand.KEY_CASTABLE_ITEM)
+      TinkerPredicate.CASTABLE
     ));
     item(removeIngots, "input", ItemPredicate.ANY);
     recipeType(removeIngots, RecipeType.SMELTING, RecipeType.BLASTING);
@@ -69,6 +69,7 @@ public class ConfigurationDataProvider extends GenericDataProvider {
         ItemPredicate.tag(Tags.Items.TOOLS_SHIELDS),
         ItemPredicate.tag(Tags.Items.TOOLS_BOWS),
         ItemPredicate.tag(Tags.Items.TOOLS_CROSSBOWS),
+        ItemPredicate.tag(Tags.Items.TOOLS_FISHING_RODS),
         ItemPredicate.tag(Tags.Items.ARMORS),
         ItemPredicate.set(Items.FLINT_AND_STEEL, Items.SHEARS, Items.BRUSH)
       ),
@@ -103,7 +104,7 @@ public class ConfigurationDataProvider extends GenericDataProvider {
 
   /** Gets or creates a config object for a recipe removal preset */
   private JsonObject removePreset(String name) {
-    return config(RemoveRecipesCommand.presetLocation(name));
+    return config(RemoveRecipesCommand.PRESETS.idToFile(TConstruct.getResource(name)));
   }
 
   /** Adds an item predicate */

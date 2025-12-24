@@ -42,6 +42,7 @@ public class ItemCastingRecipe extends AbstractCastingRecipe implements IDisplay
     this.fluid = fluid;
     this.result = result;
     this.coolingTime = coolingTime;
+    CastingRecipeLookup.registerCastable(result);
   }
 
   @Override

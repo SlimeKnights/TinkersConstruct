@@ -7,12 +7,9 @@
     "tconstruct:nahuatl",
     "tconstruct:hepatizon",
     "tconstruct:queens_slime",
+    "tconstruct:knightmetal",
     {
       "id": "tconstruct:aluminum",
-      "required": false
-    },
-    {
-      "id": "tconstruct:tungsten",
       "required": false
     },
     {

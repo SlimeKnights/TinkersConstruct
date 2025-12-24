@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.library.tools.helper;
 
 import com.google.common.collect.Multimap;
-import com.google.common.collect.Sets;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -9,7 +8,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -28,14 +26,13 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.materials.MaterialTooltipCache;
-import slimeknights.tconstruct.library.materials.IMaterialRegistry;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
+import slimeknights.tconstruct.library.tools.definition.module.display.ToolNameHook;
 import slimeknights.tconstruct.library.tools.definition.module.material.ToolMaterialHook;
 import slimeknights.tconstruct.library.tools.definition.module.material.ToolPartsHook;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
@@ -50,11 +47,8 @@ import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
-import java.util.Set;
 import java.util.UUID;
 import java.util.function.BiPredicate;
 
@@ -64,8 +58,6 @@ public class TooltipUtil {
   public static final String KEY_FORMAT = TConstruct.makeTranslationKey("item", "tool.format");
   /** Format for a name ID pair */
   public static final String KEY_ID_FORMAT = TConstruct.makeTranslationKey("item", "tool.id_format");
-  /** Translation key for the tool name format string */
-  private static final Component MATERIAL_SEPARATOR = TConstruct.makeTranslation("item", "tool.material_separator");
 
   /** Tool tag to set that makes a tool a display tool */
   public static final String KEY_DISPLAY = "tic_display";
@@ -107,69 +99,6 @@ public class TooltipUtil {
     return nbt != null && nbt.getBoolean(KEY_DISPLAY);
   }
 
-  /** Gets the name for a given material variant */
-  @Nullable
-  private static Component nameFor(String itemKey, Component itemName, MaterialVariantId variantId) {
-    String materialKey = MaterialTooltipCache.getKey(variantId);
-    String key = itemKey + "." + materialKey;
-    if (Util.canTranslate(key)) {
-      return Component.translatable(key);
-    }
-    // name format override
-    String formatKey = materialKey + ".format";
-    if (Util.canTranslate(formatKey)) {
-      return Component.translatable(formatKey, itemName);
-    }
-    // base name with generic format
-    if (Util.canTranslate(materialKey)) {
-      return Component.translatable(KEY_FORMAT, Component.translatable(materialKey), itemName);
-    }
-    return null;
-  }
-
-  /**
-   * Gets the display name for a single material
-   * @param stack     Stack instance
-   * @param itemName  Name of the stack on its own
-   * @param material  Material to use
-   * @return  Name for a material tool
-   */
-  private static Component getMaterialItemName(ItemStack stack, Component itemName, MaterialVariantId material) {
-    String itemKey = stack.getDescriptionId();
-    if (material.hasVariant()) {
-      Component component = nameFor(itemKey, itemName, material);
-      if (component != null) {
-        return component;
-      }
-    }
-    Component component = nameFor(itemKey, itemName, material.getId());
-    if (component != null) {
-      return component;
-    }
-    return itemName;
-  }
-
-  /**
-   * Combines the given display name with the material names to form the new given name
-   *
-   * @param itemName the standard display name
-   * @param materials the list of material names
-   * @return the combined item name
-   */
-  private static Component getCombinedItemName(Component itemName, Collection<Component> materials) {
-    if (materials.isEmpty()) {
-      return itemName;
-    }
-    // separate materials by dash
-    MutableComponent name = Component.literal("");
-    Iterator<Component> iter = materials.iterator();
-    name.append(iter.next());
-    while (iter.hasNext()) {
-      name.append(MATERIAL_SEPARATOR).append(iter.next());
-    }
-    return Component.translatable(KEY_FORMAT, name, itemName);
-  }
-
   /** Sets the tool name in a way that will not be italic */
   public static void setDisplayName(ItemStack tool, String name) {
     if (name.isEmpty()) {
@@ -197,9 +126,11 @@ public class TooltipUtil {
    * @param stack           Stack instance
    * @param toolDefinition  Tool definition
    * @return  Display name including the head material
+   * @deprecated call using {@link ToolNameHook#getName(ToolDefinition, ItemStack)}.
    */
+  @Deprecated(forRemoval = true)
   public static Component getDisplayName(ItemStack stack, ToolDefinition toolDefinition) {
-    return getDisplayName(stack, null, toolDefinition);
+    return ToolNameHook.getName(toolDefinition, stack);
   }
 
   /**
@@ -207,47 +138,11 @@ public class TooltipUtil {
    * @param stack  Stack instance
    * @param tool   Tool instance
    * @return  Display name including the head material
+   * @deprecated call using {@link ToolNameHook#getName(ToolDefinition, ItemStack)}.
    */
+  @Deprecated(forRemoval = true)
   public static Component getDisplayName(ItemStack stack, @Nullable IToolStackView tool, ToolDefinition toolDefinition) {
-    String name = getDisplayName(stack);
-    if (!name.isEmpty()) {
-      return Component.literal(name);
-    }
-    List<MaterialStatsId> components = ToolMaterialHook.stats(toolDefinition);
-    Component baseName = Component.translatable(stack.getDescriptionId());
-    if (components.isEmpty()) {
-      return baseName;
-    }
-
-    // if there is a mismatch in material size, just stop here
-    if (tool == null) tool = ToolStack.from(stack);
-    MaterialNBT materials = tool.getMaterials();
-    if (materials.size() != components.size()) {
-      return baseName;
-    }
-
-    // if the tool is not named we use the repair materials for a prefix like thing
-    // set ensures we don't use the same name twice, specifically a set of components ensures if two variants have the same name we don't use both
-    Set<Component> nameMaterials = Sets.newLinkedHashSet();
-    MaterialVariantId firstMaterial = null;
-    IMaterialRegistry registry = MaterialRegistry.getInstance();
-    for (int i = 0; i < components.size(); i++) {
-      if (i < materials.size() && registry.canRepair(components.get(i))) {
-        MaterialVariantId material = materials.get(i).getVariant();
-        if (!IMaterial.UNKNOWN_ID.equals(material)) {
-          if (firstMaterial == null) {
-            firstMaterial = material;
-          }
-          nameMaterials.add(MaterialTooltipCache.getDisplayName(material));
-        }
-      }
-    }
-    // if a single material, use the single material logic
-    if (nameMaterials.size() == 1) {
-      return getMaterialItemName(stack, baseName, firstMaterial);
-    }
-    // multiple means we mix them together
-    return getCombinedItemName(baseName, nameMaterials);
+    return ToolNameHook.getName(toolDefinition, stack, tool);
   }
 
   /** Replaces the world argument with the local player */
@@ -366,13 +261,20 @@ public class TooltipUtil {
     if (tool.hasTag(TinkerTags.Items.DURABILITY)) {
       builder.addDurability();
     }
+    boolean meleePrimary = tool.hasTag(TinkerTags.Items.MELEE_PRIMARY);
+    if (meleePrimary) {
+      builder.addWithAttribute(ToolStats.ATTACK_DAMAGE, Attributes.ATTACK_DAMAGE);
+      builder.add(ToolStats.ATTACK_SPEED);
+    }
     if (tool.hasTag(TinkerTags.Items.RANGED)) {
       builder.add(ToolStats.DRAW_SPEED);
       builder.add(ToolStats.VELOCITY);
-      builder.add(ToolStats.PROJECTILE_DAMAGE);
+      if (tool.hasTag(TinkerTags.Items.LAUNCHERS)) {
+        builder.add(ToolStats.PROJECTILE_DAMAGE);
+      }
       builder.add(ToolStats.ACCURACY);
     }
-    if (tool.hasTag(TinkerTags.Items.MELEE_WEAPON)) {
+    if (!meleePrimary && tool.hasTag(TinkerTags.Items.MELEE_WEAPON)) {
       builder.addWithAttribute(ToolStats.ATTACK_DAMAGE, Attributes.ATTACK_DAMAGE);
       builder.add(ToolStats.ATTACK_SPEED);
     }
@@ -402,7 +304,7 @@ public class TooltipUtil {
   }
 
   /**
-   * Gets the  default information for the given tool stack
+   * Gets the armor information for the given tool stack
    *
    * @param tool      the tool stack
    * @param tooltip   Tooltip list
@@ -430,6 +332,29 @@ public class TooltipUtil {
     }
     return builder.getTooltips();
   }
+
+  /**
+   * Gets the ammo information for the given tool stack
+   *
+   * @param tool      the tool stack
+   * @param tooltip   Tooltip list
+   * @param flag      Tooltip flag
+   * @return List from the parameter after filling
+   */
+  public static List<Component> getAmmoStats(IToolStackView tool, @Nullable Player player, List<Component> tooltip, TooltipKey key, TooltipFlag flag) {
+    TooltipBuilder builder = new TooltipBuilder(tool, tooltip);
+    builder.add(ToolStats.PROJECTILE_DAMAGE);
+    builder.add(ToolStats.ACCURACY);
+    if (tool.hasTag(TinkerTags.Items.THROWN_AMMO)) {
+      builder.add(ToolStats.VELOCITY);
+    }
+    builder.addAllFreeSlots();
+    for (ModifierEntry entry : tool.getModifierList()) {
+      entry.getHook(ModifierHooks.TOOLTIP).addTooltip(tool, entry, player, tooltip, key, flag);
+    }
+    return builder.getTooltips();
+  }
+
 
   /**
    * Gets the tooltip of the components list of a tool

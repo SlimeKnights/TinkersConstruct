@@ -1,7 +1,7 @@
 {
   "tool": "tconstruct:swasher",
   "text": [
-    { "text": "The swasher is a combination of a melee weapon and a handheld fluid pistol. It is often found in buried treasure and shipwrecks, the hands of drowned, and sometimes caught when fishing." }
+    { "text": "The swasher is a combination of a melee weapon and a handheld fluid pistol. It is often found in buried treasure and shipwrecks, the hands of drowned or wither skeletons, and sometimes caught when fishing." }
   ],
   "properties": [
     "+0 Attack Damage",

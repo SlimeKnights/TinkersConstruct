@@ -17,7 +17,7 @@
     },
     {
       "type": "tconstruct:award_stat",
-      "amount": 2000,
+      "amount": 6000,
       "stat": "minecraft:time_since_rest"
     }
   ],

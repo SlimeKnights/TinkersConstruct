@@ -69,6 +69,10 @@
     {
       "type": "tconstruct:melee_particle",
       "particle": "tconstruct:axe_attack"
+    },
+    {
+      "type": "tconstruct:fixed_material_name",
+      "index": 0
     }
   ]
 }

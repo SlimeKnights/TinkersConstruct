@@ -8,11 +8,20 @@
       },
       {
         "type": "mantle:tag_filled",
-        "tag": "forge:ingots/brass"
+        "tag": "forge:ingots/plated_slimewood"
       },
       {
-        "type": "mantle:tag_filled",
-        "tag": "forge:ingots/zinc"
+        "type": "forge:and",
+        "values": [
+          {
+            "type": "tconstruct:config",
+            "prop": "allow_ingotless_alloys"
+          },
+          {
+            "type": "mantle:tag_filled",
+            "tag": "forge:ingots/zinc"
+          }
+        ]
       }
     ]
   },

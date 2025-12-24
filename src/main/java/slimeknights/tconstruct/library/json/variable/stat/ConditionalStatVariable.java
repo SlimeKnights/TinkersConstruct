@@ -10,6 +10,7 @@ import slimeknights.mantle.data.registry.GenericLoaderRegistry;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.tconstruct.library.json.variable.VariableLoaderRegistry;
 import slimeknights.tconstruct.library.json.variable.mining.MiningSpeedVariable;
+import slimeknights.tconstruct.library.modifiers.hook.mining.BreakSpeedContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nullable;
@@ -31,6 +32,11 @@ public interface ConditionalStatVariable extends IHaveLoader, MiningSpeedVariabl
 
   @Override
   default float getValue(IToolStackView tool, @Nullable BreakSpeed event, @Nullable Player player, @Nullable Direction sideHit) {
+    return getValue(tool, player);
+  }
+
+  @Override
+  default float getValue(IToolStackView tool, @Nullable BreakSpeedContext context, @Nullable Player player) {
     return getValue(tool, player);
   }
 

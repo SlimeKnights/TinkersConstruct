@@ -17,12 +17,14 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeI18n;
+import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
+import slimeknights.mantle.util.DataLoadedConditionContext;
 import slimeknights.tconstruct.TConstruct;
 
 import javax.annotation.Nullable;
@@ -139,6 +141,15 @@ public class Util {
     return result;
   }
 
+  /** Creates a new array by copying the second array and appending all elements in the first. */
+  @SuppressWarnings("unchecked")
+  @SafeVarargs
+  public static <T> T[] prepend(T[] first, T... second) {
+    T[] result = (T[]) Arrays.copyOf(second, first.length + second.length, first.getClass());
+    System.arraycopy(first, 0, result, second.length, first.length);
+    return result;
+  }
+
   /**
    * Obtains a direction based on the difference between two positions
    * @param pos       Tile position
@@ -201,6 +212,16 @@ public class Util {
       return context;
     }
     return new UseOnContext(context.getLevel(), context.getPlayer(), context.getHand(), context.getItemInHand(), offset(context.getHitResult(), offset));
+  }
+
+  /** Tests the given list of conditions using {@link DataLoadedConditionContext#INSTANCE} to see if all pass. */
+  public static boolean testConditions(ICondition[] conditions) {
+    for (ICondition condition : conditions) {
+      if (!condition.test(DataLoadedConditionContext.INSTANCE)) {
+        return false;
+      }
+    }
+    return true;
   }
 
   /** Creates a new client block entity data packet with better generics than the vanilla method */

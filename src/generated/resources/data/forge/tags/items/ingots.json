@@ -2,6 +2,7 @@
   "values": [
     "tconstruct:seared_brick",
     "tconstruct:scorched_brick",
+    "tconstruct:fake_ingot",
     "#forge:ingots/netherite_scrap",
     "#forge:ingots/steel",
     "#forge:ingots/cobalt",
@@ -14,6 +15,7 @@
     "#forge:ingots/manyullyn",
     "#forge:ingots/hepatizon",
     "#forge:ingots/soulsteel",
+    "#forge:ingots/knightmetal",
     "#forge:ingots/knightslime"
   ]
 }

@@ -9,6 +9,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraftforge.client.extensions.common.IClientMobEffectExtensions;
 
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 /** Effect extension with a few helpers */
 public class TinkerEffect extends MobEffect {
@@ -91,6 +92,15 @@ public class TinkerEffect extends MobEffect {
    */
   public static int getLevel(LivingEntity entity, MobEffect effect) {
     return getAmplifier(entity, effect) + 1;
+  }
+
+  /**
+   * Gets the level of the effect on the entity starting from 1, or 0 if not active
+   * @param entity  Entity to check
+   * @return  Level, or 0 if inactive
+   */
+  public static int getLevel(LivingEntity entity, Supplier<? extends MobEffect> effect) {
+    return getAmplifier(entity, effect.get()) + 1;
   }
 
   /**

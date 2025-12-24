@@ -35,7 +35,6 @@ import slimeknights.tconstruct.library.module.ModuleHookMap.Builder;
 import slimeknights.tconstruct.library.tools.capability.fluid.ToolTankHelper;
 import slimeknights.tconstruct.library.tools.definition.module.ToolHooks;
 import slimeknights.tconstruct.library.tools.definition.module.aoe.AreaOfEffectIterator.AOEMatchType;
-import slimeknights.tconstruct.library.tools.definition.module.interaction.DualOptionInteraction;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
@@ -60,7 +59,7 @@ public class SplashingModifier extends Modifier implements EntityInteractionModi
 
   @Override
   public Component getDisplayName(IToolStackView tool, ModifierEntry entry, @Nullable RegistryAccess access) {
-    return DualOptionInteraction.formatModifierName(tool, entry.getModifier(), entry.getDisplayName());
+    return InteractionSource.formatModifierName(tool, entry.getModifier(), entry.getDisplayName());
   }
 
   @Override
@@ -81,6 +80,11 @@ public class SplashingModifier extends Modifier implements EntityInteractionModi
         FluidEffects recipe = FluidEffectManager.INSTANCE.find(fluid.getFluid());
         if (recipe.hasEntityEffects()) {
           Level world = player.level();
+
+          // cooldown based on attack speed/draw speed. both are on the same scale and default to 1, we don't care which one the tool uses
+          // applied before we do the effect to block recursive calls, notably ender might cause that
+          player.getCooldowns().addCooldown(tool.getItem(), (int)(20 / ConditionalStatModifierHook.getModifiedStat(tool, player, ToolStats.DRAW_SPEED)));
+
           if (!world.isClientSide) {
             // for the main target, consume fluids
             float level = modifier.getEffectiveLevel();
@@ -123,8 +127,6 @@ public class SplashingModifier extends Modifier implements EntityInteractionModi
             }
           }
 
-          // cooldown based on attack speed/draw speed. both are on the same scale and default to 1, we don't care which one the tool uses
-          player.getCooldowns().addCooldown(tool.getItem(), (int)(20 / ConditionalStatModifierHook.getModifiedStat(tool, player, ToolStats.DRAW_SPEED)));
           return InteractionResult.SUCCESS;
         }
       }
@@ -149,6 +151,13 @@ public class SplashingModifier extends Modifier implements EntityInteractionModi
         if (recipe.hasBlockEffects()) {
           Player player = context.getPlayer();
           Level world = context.getLevel();
+
+          // cooldown based on draw speed, works similarly enough to attack speed
+          // applied before we do the effect to block recursive calls, notably ender might cause that
+          if (player != null) {
+            player.getCooldowns().addCooldown(tool.getItem(), (int)(20 / ConditionalStatModifierHook.getModifiedStat(tool, player, ToolStats.DRAW_SPEED)));
+          }
+
           if (!context.getLevel().isClientSide) {
             float level = modifier.getEffectiveLevel();
             int numTargets = 0;
@@ -190,11 +199,6 @@ public class SplashingModifier extends Modifier implements EntityInteractionModi
                 player.broadcastBreakEvent(source.getSlot(context.getHand()));
               }
             }
-          }
-
-          // cooldown based on draw speed, works similarly enough to attack speed
-          if (player != null) {
-            player.getCooldowns().addCooldown(tool.getItem(), (int)(20 / ConditionalStatModifierHook.getModifiedStat(tool, player, ToolStats.DRAW_SPEED)));
           }
           return InteractionResult.SUCCESS;
         }

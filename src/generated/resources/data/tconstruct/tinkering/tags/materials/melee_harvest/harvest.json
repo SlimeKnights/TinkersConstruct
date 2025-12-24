@@ -10,11 +10,7 @@
     "tconstruct:hepatizon",
     "tconstruct:ancient_hide",
     {
-      "id": "tconstruct:tungsten",
-      "required": false
-    },
-    {
-      "id": "tconstruct:platinum",
+      "id": "tconstruct:lead",
       "required": false
     },
     {

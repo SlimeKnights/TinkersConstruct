@@ -1,27 +1,5 @@
 {
   "values": [
-    "minecraft:generic_9x1",
-    "minecraft:generic_9x2",
-    "minecraft:generic_9x3",
-    "minecraft:generic_9x4",
-    "minecraft:generic_9x5",
-    "minecraft:generic_9x6",
-    "minecraft:shulker_box",
-    "minecraft:generic_3x3",
-    "minecraft:hopper",
-    "minecraft:furnace",
-    "minecraft:blast_furnace",
-    "minecraft:smoker",
-    "minecraft:brewing_stand",
-    "tconstruct:tool_container",
-    "tconstruct:tinker_chest",
-    "tconstruct:single_item",
-    "tconstruct:crafting_station",
-    "tconstruct:part_builder",
-    "tconstruct:tinker_station",
-    "tconstruct:modifier_worktable",
-    "tconstruct:melter",
-    "tconstruct:alloyer",
-    "tconstruct:smeltery"
+    "#mantle:replaceable"
   ]
 }

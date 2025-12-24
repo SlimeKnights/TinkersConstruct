@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:embossed",
+  "text": [
+    {
+      "text": "在击败了boss后，感到前所未有的强大？好，接受这份力量，灌注到工具上！"
+    }
+  ],
+  "effects": [
+    "增加1个升级槽",
+    "单个等级"
+  ]
+}

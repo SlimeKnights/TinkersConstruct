@@ -1,0 +1,13 @@
+{
+  "title": "提取魔咒",
+  "image": {
+    "file": "tconstruct:book/images/worktable/extract_enchantment.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "有曾经历过这样的事吗？好伙伴给了你一件工具，但它的“魔咒”不是很好。现在不必担心这一工具只能垫桌角。只需利用末影黏液水晶和龙息就能提取出工具或书上的魔咒，让它们变成强化水晶。可以重复上述操作直到所有魔咒均被提取。"
+    }
+  ]
+}

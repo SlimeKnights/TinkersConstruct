@@ -1,0 +1,20 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:inventory",
+      "filter": "tconstruct:map",
+      "limit": {
+        "flat": 1
+      },
+      "pattern": "tconstruct:map",
+      "slots": {
+        "each_level": 3
+      }
+    },
+    {
+      "type": "tconstruct:minimap"
+    }
+  ],
+  "tooltip_display": "always"
+}

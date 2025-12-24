@@ -9,8 +9,9 @@ import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
 
 /**
  * Predicate that checks if an entity has the given mob effect.
- * TODO: move to Mantle
+ * @deprecated use {@link slimeknights.mantle.data.predicate.entity.HasMobEffectPredicate}
  */
+@Deprecated
 public record HasMobEffectPredicate(MobEffect effect) implements LivingEntityPredicate {
   public static final RecordLoadable<HasMobEffectPredicate> LOADER = RecordLoadable.create(Loadables.MOB_EFFECT.requiredField("effect", HasMobEffectPredicate::effect), HasMobEffectPredicate::new);
 

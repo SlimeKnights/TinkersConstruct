@@ -17,8 +17,10 @@ import java.util.function.Predicate;
 public interface ToolStackPredicate extends IJsonPredicate<IToolStackView> {
   /** Predicate that matches all tools */
   ToolStackPredicate ANY = simple(tool -> true);
+  /** Predicate that matches no tools */
+  ToolStackPredicate NONE = simple(tool -> true);
   /** Loader for tool predicates */
-  FallbackPredicateRegistry<IToolStackView,IToolContext> LOADER = new FallbackPredicateRegistry<>("Tool Stack Predicate", ANY, ToolContextPredicate.LOADER, t -> t, "tool");
+  FallbackPredicateRegistry<IToolStackView,IToolContext> LOADER = new FallbackPredicateRegistry<>("Tool Stack Predicate", ANY, NONE, ToolContextPredicate.LOADER, t -> t, "tool");
 
   @Override
   default IJsonPredicate<IToolStackView> inverted() {

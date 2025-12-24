@@ -1,0 +1,35 @@
+{
+  "block_effects": [
+    {
+      "type": "tconstruct:mob_effect_cloud",
+      "effects": [
+        {
+          "effect": "tconstruct:pierce",
+          "level": 2,
+          "time": 100
+        }
+      ]
+    }
+  ],
+  "entity_effects": [
+    {
+      "type": "tconstruct:damage",
+      "damage": 4.0,
+      "damage_type": {
+        "melee": "tconstruct:fluid_spike_melee",
+        "ranged": "tconstruct:fluid_spike_ranged"
+      }
+    },
+    {
+      "type": "tconstruct:mob_effect",
+      "action": "set",
+      "effect": "tconstruct:pierce",
+      "level": 2,
+      "time": 100
+    }
+  ],
+  "fluid": {
+    "amount": 10,
+    "tag": "tconstruct:molten_knightmetal"
+  }
+}

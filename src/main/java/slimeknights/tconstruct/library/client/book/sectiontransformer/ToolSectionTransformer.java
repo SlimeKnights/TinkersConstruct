@@ -29,7 +29,7 @@ public class ToolSectionTransformer extends ContentGroupingSectionTransformer {
       return false;
     } else if (page.name.startsWith("group_")) {
       // skip adding the page if no data
-      if (page.data.isEmpty()) {
+      if (page.data.isEmpty() || "no-load".equals(page.data)) {
         builder.addGroup(page.getTitle(), null);
         return false;
       } else {

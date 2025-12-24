@@ -1,7 +1,7 @@
 {
   "tool": "tconstruct:melting_pan",
   "text": [
-    { "text": "The melting pan mines meltable blocks and also functions as a staff. It can be found from dungeons, igloos, husks, and a gift from toolsmiths after defeating a raid." },
+    { "text": "The melting pan mines meltable blocks and also functions as a staff. It can be found from dungeons, igloos, zombies, and a gift from armorsmiths after defeating a raid." },
     { "text": "Expanders mine multiple blocks of the same type, with range based on the level.", "paragraph": true }
   ],
   "properties": [

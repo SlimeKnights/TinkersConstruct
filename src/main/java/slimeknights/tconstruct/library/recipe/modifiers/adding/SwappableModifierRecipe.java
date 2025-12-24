@@ -135,7 +135,7 @@ public class SwappableModifierRecipe extends ModifierRecipe {
     if (toolWithModifier == null) {
       ResourceLocation id = result.getId();
       ModifierEntry result = getDisplayResult();
-      toolWithModifier = getToolInputs().stream().map(stack -> withModifiers(stack, modifiersForResult(result, result), data -> data.putString(id, value))).collect(Collectors.toList());
+      toolWithModifier = getToolInputs().stream().map(stack -> withModifiers(stack, maxToolSize, modifiersForResult(result, result), data -> data.putString(id, value))).collect(Collectors.toList());
     }
     return toolWithModifier;
   }

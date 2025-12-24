@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:material_fluid",
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "forge:ingots/cadmium"
+    }
+  ],
+  "fluid": {
+    "amount": 90,
+    "tag": "forge:molten_cadmium"
+  },
+  "input": "tconstruct:rock",
+  "output": "tconstruct:whitestone#composite",
+  "temperature": 294
+}

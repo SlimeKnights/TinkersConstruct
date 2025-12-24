@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "tconstruct:item/materials/ichor_slime_crystal"
+  }
+}

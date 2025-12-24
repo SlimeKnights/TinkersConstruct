@@ -32,7 +32,7 @@ public class BleedingEffect extends NoMilkEffect {
 
     // perform damage
     int hurtResistantTime = target.invulnerableTime;
-    ToolAttackUtil.attackEntitySecondary(source, (level + 1f) / 2f, target, target, true);
+    ToolAttackUtil.attackEntitySecondary(source, 1, target, target, true);
     target.invulnerableTime = hurtResistantTime;
 
     // damage particles

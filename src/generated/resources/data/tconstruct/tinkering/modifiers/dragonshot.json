@@ -1,0 +1,13 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:conditional_stat",
+      "each_level": 1.0,
+      "entity": "tconstruct:airborne",
+      "percent": false,
+      "stat": "tconstruct:projectile_damage"
+    }
+  ],
+  "tooltip_display": "always"
+}

@@ -1,5 +1,6 @@
 {
   "stats": {
+    "tconstruct:arrow_shaft": {},
     "tconstruct:binding": {},
     "tconstruct:grip": {
       "accuracy": -0.2,

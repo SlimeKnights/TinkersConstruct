@@ -73,7 +73,7 @@ public class SlurpingModifier extends Modifier implements KeybindInteractModifie
 
   @Override
   public boolean startInteract(IToolStackView tool, ModifierEntry modifier, Player player, EquipmentSlot slot, TooltipKey keyModifier) {
-    if (!player.isShiftKeyDown()) {
+    if (keyModifier == TooltipKey.NORMAL) {
       FluidStack fluid = TANK_HELPER.getFluid(tool);
       if (slurp(fluid, modifier.getEffectiveLevel(), player, FluidAction.SIMULATE) > 0) {
         player.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.put(SLURP_FINISH_TIME, new SlurpingInfo(fluid, player.tickCount + 20)));

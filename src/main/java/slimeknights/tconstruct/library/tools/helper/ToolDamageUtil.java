@@ -67,7 +67,7 @@ public class ToolDamageUtil {
    * @return  True if the tool is broken now
    */
   public static boolean directDamage(IToolStackView tool, int amount, @Nullable LivingEntity entity, @Nullable ItemStack stack) {
-    if (entity instanceof Player && ((Player)entity).isCreative()) {
+    if (entity instanceof Player player && player.isCreative()) {
       return false;
     }
 
@@ -79,11 +79,11 @@ public class ToolDamageUtil {
       // criteria updates
       int newDamage = damage + amount;
       // TODO: needed?
-      if (entity instanceof ServerPlayer) {
+      if (entity instanceof ServerPlayer player) {
         if (stack == null) {
           stack = entity.getMainHandItem();
         }
-        CriteriaTriggers.ITEM_DURABILITY_CHANGED.trigger((ServerPlayer)entity, stack, newDamage);
+        CriteriaTriggers.ITEM_DURABILITY_CHANGED.trigger(player, stack, newDamage);
       }
 
       tool.setDamage(newDamage);
@@ -106,7 +106,7 @@ public class ToolDamageUtil {
 
     // try each modifier
     for (ModifierEntry entry : tool.getModifierList()) {
-      amount = entry.getHook(ModifierHooks.TOOL_DAMAGE).onDamageTool(tool, entry, amount, entity);
+      amount = entry.getHook(ModifierHooks.TOOL_DAMAGE).onDamageTool(tool, entry, amount, entity, stack);
       // if no more damage, done
       if (amount <= 0) {
         return false;

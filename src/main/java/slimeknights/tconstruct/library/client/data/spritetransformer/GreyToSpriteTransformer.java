@@ -41,7 +41,7 @@ import java.util.function.ToIntFunction;
  * Supports including sprites as "part of the palette"
  */
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
-public class GreyToSpriteTransformer implements ISpriteTransformer {
+public class GreyToSpriteTransformer implements IRecolorSpriteTransformer {
   public static final ResourceLocation NAME = TConstruct.getResource("grey_to_sprite");
   public static final Deserializer<GreyToSpriteTransformer> DESERIALIZER = new Deserializer<>((builder, json) -> builder.build());
 
@@ -72,8 +72,8 @@ public class GreyToSpriteTransformer implements ISpriteTransformer {
     return foundSpriteCache[grey];
   }
 
-  /** Gets the color at the given location from its full color value */
-  private int getNewColor(int color, int x, int y) {
+  @Override
+  public int getNewColor(int color, int x, int y, int f) {
     // if fully transparent, just return fully transparent
     // we do not do 0 alpha RGB values to save effort
     if (FastColor.ABGR32.alpha(color) == 0) {
@@ -85,18 +85,10 @@ public class GreyToSpriteTransformer implements ISpriteTransformer {
   }
 
   @Override
-  public void transform(NativeImage image, boolean allowAnimated) {
-    for (int x = 0; x < image.getWidth(); x++) {
-      for (int y = 0; y < image.getHeight(); y++) {
-        image.setPixelRGBA(x, y, getNewColor(image.getPixelRGBA(x, y), x, y));
-      }
-    }
-  }
-
-  @Override
   public int getFallbackColor() {
     return getSpriteRange(216).getAverage(216);
   }
+
 
   /* Serializing */
 
@@ -246,7 +238,7 @@ public class GreyToSpriteTransformer implements ISpriteTransformer {
         try {
           image = READER.read(path);
         } catch (IOException ex) {
-          throw new IllegalStateException("Failed to load required image", ex);
+          throw new IllegalStateException("Failed to load required image from " + path, ex);
         }
         MAPPINGS_TO_CLEAR.add(this);
       }

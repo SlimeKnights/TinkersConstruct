@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:casting_table_tipping",
+  "cooling_time": 20,
+  "fluid": {
+    "amount": 50,
+    "tag": "forge:potion"
+  },
+  "modifier": "tconstruct:tipped",
+  "tools": {
+    "tag": "tconstruct:modifiable/ammo"
+  }
+}

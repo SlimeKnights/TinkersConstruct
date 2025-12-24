@@ -1,0 +1,24 @@
+{
+  "type": "tconstruct:modifier",
+  "allow_crystal": true,
+  "inputs": [
+    {
+      "ingredient": [
+        {
+          "tag": "forge:ores/diamond"
+        },
+        {
+          "tag": "forge:ores/emerald"
+        },
+        {
+          "tag": "forge:ores/cobalt"
+        }
+      ]
+    }
+  ],
+  "level": 1,
+  "result": "tconstruct:forecast",
+  "tools": {
+    "tag": "tconstruct:modifiable/bonus_slots"
+  }
+}

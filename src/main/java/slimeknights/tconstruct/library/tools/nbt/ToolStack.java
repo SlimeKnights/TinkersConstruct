@@ -3,7 +3,6 @@ package slimeknights.tconstruct.library.tools.nbt;
 import com.google.common.collect.ImmutableSet;
 import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
@@ -13,6 +12,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.items.ItemHandlerHelper;
+import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
@@ -44,7 +44,6 @@ import java.util.Set;
 /**
  * Class handling parsing all tool related NBT
  */
-@RequiredArgsConstructor(staticName = "from")
 public class ToolStack implements IToolStackView {
   /** Error messages for when there are not enough remaining modifiers */
   private static final String KEY_VALIDATE_SLOTS = TConstruct.makeTranslationKey("recipe", "modifier.validate_slots");
@@ -85,7 +84,7 @@ public class ToolStack implements IToolStackView {
   private final ToolDefinition definition;
   /** Original tool NBT */
   @Getter(AccessLevel.PROTECTED)
-  private final CompoundTag nbt;
+  private CompoundTag nbt;
   /** Public view of the internal NBT, to give to modifier hooks */
   private RestrictedCompoundTag restrictedNBT;
 
@@ -122,6 +121,23 @@ public class ToolStack implements IToolStackView {
   private IModDataView volatileModData;
 
   /* Creating */
+  private ToolStack(Item item, ToolDefinition definition, CompoundTag nbt) {
+    this.item = item;
+    this.definition = definition;
+    this.nbt = nbt;
+  }
+
+
+  /**
+   * Creates a new tool stack from item and NBT
+   * @param item        Item instance
+   * @param definition  Item tool definition
+   * @param nbt         Tool stack NBT
+   * @return  Tool stack instance
+   */
+  public static ToolStack from(Item item, ToolDefinition definition, CompoundTag nbt) {
+    return new ToolStack(item, definition, nbt);
+  }
 
   /**
    * Creates a tool stack from an item stack
@@ -181,6 +197,7 @@ public class ToolStack implements IToolStackView {
    * Creates a new tool stack for a completely new tool
    * @param item        Item
    * @param definition  Tool definition
+   * @param materials  Materials list
    * @return  Tool stack
    */
   public static ToolStack createTool(Item item, ToolDefinition definition, MaterialNBT materials) {
@@ -223,6 +240,18 @@ public class ToolStack implements IToolStackView {
     this.multipliers = null;
     this.volatileModData = null;
     this.persistentModData = null;
+  }
+
+  /** Updates the tool stack instance to match the given item stack */
+  @Internal
+  public void refreshTag(ItemStack stack) {
+    CompoundTag tag = stack.getTag();
+    if (tag == null) {
+      tag = new CompoundTag();
+      stack.setTag(tag);
+    }
+    this.nbt = tag;
+    clearCache();
   }
 
   /** Creates an item stack from this tool stack */
@@ -636,8 +665,15 @@ public class ToolStack implements IToolStackView {
     }
     // next, ensure modifiers validate
     Component result;
-    for (ModifierEntry entry : getModifierList()) {
+    for (ModifierEntry entry : getModifiers()) {
       result = entry.getHook(ModifierHooks.VALIDATE).validate(this, entry);
+      if (result != null) {
+        return result;
+      }
+    }
+    // some validations should only run if the modifier was crafted on the tool
+    for (ModifierEntry entry : getUpgrades()) {
+      result = entry.getHook(ModifierHooks.VALIDATE_UPGRADE).validate(this, entry);
       if (result != null) {
         return result;
       }

@@ -2,6 +2,9 @@ package slimeknights.tconstruct.world.entity;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -28,13 +31,38 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoField;
 
 public abstract class ArmoredSlimeEntity extends Slime {
-  public ArmoredSlimeEntity(EntityType<? extends Slime> type, Level world) {
+  private static final EntityDataAccessor<Boolean> METAL = SynchedEntityData.defineId(ArmoredSlimeEntity.class, EntityDataSerializers.BOOLEAN);
+  public static final String TAG_METAL = "metal";
+  public ArmoredSlimeEntity(EntityType<? extends ArmoredSlimeEntity> type, Level world) {
     super(type, world);
     if (!world.isClientSide) {
       tryAddAttribute(Attributes.ARMOR, new AttributeModifier("tconstruct.small_armor_bonus", 3, Operation.MULTIPLY_TOTAL));
       tryAddAttribute(Attributes.ARMOR_TOUGHNESS, new AttributeModifier("tconstruct.small_toughness_bonus", 3, Operation.MULTIPLY_TOTAL));
       tryAddAttribute(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier("tconstruct.small_resistence_bonus", 3, Operation.MULTIPLY_TOTAL));
     }
+    this.entityData.set(METAL, false);
+  }
+
+  @SuppressWarnings("unchecked")
+  @Override
+  public EntityType<? extends ArmoredSlimeEntity> getType() {
+    return (EntityType<? extends ArmoredSlimeEntity>)super.getType();
+  }
+
+  @Override
+  protected void defineSynchedData() {
+    super.defineSynchedData();
+    this.entityData.define(METAL, false);
+  }
+
+  /** Sets this slime to have a metal core */
+  protected void setMetal(boolean metal) {
+    this.entityData.set(METAL, metal);
+  }
+
+  /** Returns true if the slime has a metal core */
+  public boolean isMetal() {
+    return this.entityData.get(METAL);
   }
 
   /** Adds an attribute if possible */
@@ -89,13 +117,15 @@ public abstract class ArmoredSlimeEntity extends Slime {
       slotChance = 0.25f;
     }
     boolean alwaysDrop = slotChance > 1.0F;
-    if (!stack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(stack) && (recentlyHit || alwaysDrop) && (this.random.nextFloat() - (looting * 0.01f)) < slotChance) {
-      if (!alwaysDrop && stack.isDamageableItem()) {
-        int max = stack.getMaxDamage();
-        stack.setDamageValue(max - this.random.nextInt(1 + this.random.nextInt(Math.max(max - 3, 1))));
+    if (!stack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(stack) && (recentlyHit || alwaysDrop)) {
+      if ((this.random.nextFloat() - (looting * 0.01f)) < slotChance) {
+        if (!alwaysDrop && stack.isDamageableItem()) {
+          int max = stack.getMaxDamage();
+          stack.setDamageValue(max - this.random.nextInt(1 + this.random.nextInt(Math.max(max - 3, 1))));
+        }
+        this.spawnAtLocation(stack);
+        this.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
       }
-      this.spawnAtLocation(stack);
-      this.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
     }
   }
 
@@ -114,6 +144,7 @@ public abstract class ArmoredSlimeEntity extends Slime {
       int count = 2 + this.random.nextInt(3);
       // determine which child will receive the helmet
       ItemStack helmet = getItemBySlot(EquipmentSlot.HEAD);
+      boolean metal = isMetal();
       int helmetIndex = -1;
       if (!helmet.isEmpty()) {
         helmetIndex = this.random.nextInt(count);
@@ -124,7 +155,7 @@ public abstract class ArmoredSlimeEntity extends Slime {
       for(int i = 0; i < count; ++i) {
         float x = ((i % 2) - 0.5F) * offset;
         float z = ((i / 2) - 0.5F) * offset;
-        Slime slime = this.getType().create(level);
+        ArmoredSlimeEntity slime = this.getType().create(level);
         assert slime != null;
         if (this.isPersistenceRequired()) {
           slime.setPersistenceRequired();
@@ -133,6 +164,9 @@ public abstract class ArmoredSlimeEntity extends Slime {
         slime.setNoAi(noAi);
         slime.setInvulnerable(invulnerable);
         slime.setSize(newSize, true);
+        if (metal) {
+          slime.setMetal(metal);
+        }
         if (i == helmetIndex) {
           slime.setItemSlot(EquipmentSlot.HEAD, helmet.copy());
           setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
@@ -150,5 +184,17 @@ public abstract class ArmoredSlimeEntity extends Slime {
       this.gameEvent(GameEvent.ENTITY_DIE);
     }
     this.invalidateCaps();
+  }
+
+  @Override
+  public void addAdditionalSaveData(CompoundTag tag) {
+    super.addAdditionalSaveData(tag);
+    tag.putBoolean(TAG_METAL, this.isMetal());
+  }
+
+  @Override
+  public void readAdditionalSaveData(CompoundTag tag) {
+    super.readAdditionalSaveData(tag);
+    this.setMetal(tag.getBoolean(TAG_METAL));
   }
 }

@@ -1,0 +1,10 @@
+{
+  "title": "Steel Shards",
+  "item": "tconstruct:steel_shard",
+  "text": [
+    {
+      "text": "Steel shards are dropped from uncommon skyslimes that have a steel core. They can also be found occasionally in skyslime geodes, though they will not regrow. Outside of shard form, steel can also be obtained as a byproduct of iron ore, though this will not let you recreate steel shards for weapons.",
+      "paragraph": true
+    }
+  ]
+}

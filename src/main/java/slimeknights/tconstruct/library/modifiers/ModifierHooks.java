@@ -1,11 +1,16 @@
 package slimeknights.tconstruct.library.modifiers;
 
+import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import slimeknights.mantle.data.registry.IdAwareComponentRegistry;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
@@ -24,6 +29,7 @@ import slimeknights.tconstruct.library.modifiers.hook.behavior.RepairFactorModif
 import slimeknights.tconstruct.library.modifiers.hook.behavior.ToolActionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.behavior.ToolDamageModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.ConditionalStatModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.build.CraftCountModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.ModifierRemovalHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.ModifierTraitHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.RawDataModifierHook;
@@ -35,6 +41,7 @@ import slimeknights.tconstruct.library.modifiers.hook.combat.DamageDealtModifier
 import slimeknights.tconstruct.library.modifiers.hook.combat.LootingModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeDamageModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.combat.MonsterMeleeHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.display.DisplayNameModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.display.DurabilityDisplayModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.display.RequirementsModifierHook;
@@ -49,18 +56,26 @@ import slimeknights.tconstruct.library.modifiers.hook.interaction.SlotStackModif
 import slimeknights.tconstruct.library.modifiers.hook.interaction.UsingToolModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.mining.BlockBreakModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.mining.BlockHarvestModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.mining.BreakSpeedContext;
 import slimeknights.tconstruct.library.modifiers.hook.mining.BreakSpeedModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.mining.HarvestEnchantmentsModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.mining.RemoveBlockModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.BowAmmoModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.ranged.LauncherHitModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileFuseModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileLaunchModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileShootModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.ranged.ScheduledProjectileTaskModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.special.BlockTransformModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.special.CapacityBarHook;
 import slimeknights.tconstruct.library.modifiers.hook.special.PlantHarvestModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.special.ShearsModifierHook;
 import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
+import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.utils.RestrictedCompoundTag;
+import slimeknights.tconstruct.library.utils.Schedule.Scheduler;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
@@ -109,6 +124,24 @@ public class ModifierHooks {
   /** Hook running while the tool is in the inventory */
   public static final ModuleHook<InventoryTickModifierHook> INVENTORY_TICK = register("inventory_tick", InventoryTickModifierHook.class, InventoryTickModifierHook.AllMerger::new, (tool, modifier, world, holder, itemSlot, isSelected, isCorrectSlot, stack) -> {});
 
+  /* Technical */
+
+  /** Hook for working with capacity bars, mainly used for durability bars  */
+  public static final ModuleHook<CapacityBarHook> CAPACITY_BAR = register("capacity_bar", CapacityBarHook.class, new CapacityBarHook() {
+    @Override
+    public int getAmount(IToolStackView tool) {
+      return 0;
+    }
+
+    @Override
+    public int getCapacity(IToolStackView tool, ModifierEntry entry) {
+      return 0;
+    }
+
+    @Override
+    public void setAmount(IToolStackView tool, ModifierEntry entry, int amount) {}
+  });
+
 
   /* Composable only  */
 
@@ -146,6 +179,9 @@ public class ModifierHooks {
 
   /* Tool Building */
 
+  /** Hook called on tool crafting to allow modifying the amount crafted */
+  public static final ModuleHook<CraftCountModifierHook> CRAFT_COUNT = register("craft_count", CraftCountModifierHook.class, CraftCountModifierHook.ComposeMerger::new, (context, modifier, amount) -> amount);
+
   /** Hook for adding raw unconditional stats to a tool */
   public static final ModuleHook<ToolStatsModifierHook> TOOL_STATS = register("modifier_stats", ToolStatsModifierHook.class, ToolStatsModifierHook.AllMerger::new, (context, modifier, builder) -> {});
 
@@ -175,8 +211,19 @@ public class ModifierHooks {
     public void removeRawData(IToolStackView tool, Modifier modifier, RestrictedCompoundTag tag) {}
   });
 
-  /** Hook called to give a modifier a chance to clean up data while on the tool and to reject the current tool state */
-  public static final ModuleHook<ValidateModifierHook> VALIDATE = register("validate", ValidateModifierHook.class, ValidateModifierHook.AllMerger::new, (tool, modifier) -> null);
+  /**
+   * Hook called to give a modifier a chance to clean up data while on the tool and to reject the current tool state.
+   * TOD0 1.21: rename to disambiguate from {@link #VALIDATE_UPGRADE}.
+   */
+  public static final ModuleHook<ValidateModifierHook> VALIDATE;
+  /** Same as {@link #VALIDATE}, but only called on modifiers in {@link slimeknights.tconstruct.library.tools.nbt.ToolStack#getUpgrades()}. */
+  public static final ModuleHook<ValidateModifierHook> VALIDATE_UPGRADE;
+  static {
+    Function<Collection<ValidateModifierHook>,ValidateModifierHook> merger = ValidateModifierHook.AllMerger::new;
+    ValidateModifierHook defaultInstance = (tool, modifier) -> null;
+    VALIDATE = register("validate", ValidateModifierHook.class, merger, defaultInstance);
+    VALIDATE_UPGRADE = register("validate_upgrade", ValidateModifierHook.class, merger, defaultInstance);
+  }
 
   /** Hook called when a modifier is removed to give it a chance to clean up data */
   public static final ModuleHook<ModifierRemovalHook> REMOVE = register("remove", ModifierRemovalHook.class, ModifierRemovalHook.FirstMerger::new, (tool, modifier) -> null);
@@ -187,10 +234,20 @@ public class ModifierHooks {
   /* Combat */
 
   /** Hook to adjust melee damage when a weapon is attacking an entity */
-  public static final ModuleHook<MeleeDamageModifierHook> MELEE_DAMAGE = register("melee_damage", MeleeDamageModifierHook.class, MeleeDamageModifierHook.AllMerger::new, (tool, modifier, context, baseDamage, damage) -> damage);
+  public static final ModuleHook<MeleeDamageModifierHook> MELEE_DAMAGE;
+  /** Hook to adjust melee damage for monsters that lack player left click actions */
+  public static final ModuleHook<MeleeDamageModifierHook> MONSTER_MELEE_DAMAGE;
+  static {
+    MeleeDamageModifierHook defaultInstance = (tool, modifier, context, baseDamage, damage) -> damage;
+    Function<Collection<MeleeDamageModifierHook>,MeleeDamageModifierHook> merger = MeleeDamageModifierHook.AllMerger::new;
+    MELEE_DAMAGE = register("melee_damage", MeleeDamageModifierHook.class, merger, defaultInstance);
+    MONSTER_MELEE_DAMAGE = register("monster_melee_damage", MeleeDamageModifierHook.class, merger, defaultInstance);
+  }
 
   /** Hook called when an entity is attacked to apply special effects */
   public static final ModuleHook<MeleeHitModifierHook> MELEE_HIT = register("melee_hit", MeleeHitModifierHook.class, MeleeHitModifierHook.AllMerger::new, new MeleeHitModifierHook() {});
+  /** Hook called when an entity is attacked by a monster that lacks player left click actions */
+  public static final ModuleHook<MonsterMeleeHitModifierHook> MONSTER_MELEE_HIT = register("monster_melee_hit", MonsterMeleeHitModifierHook.class, MonsterMeleeHitModifierHook.AllMerger::new, (tool, modifier, context, damage) -> {});
 
   /** Hook called when taking damage wearing this armor to reduce the damage, runs after {@link #MODIFY_HURT} and before {@link #MODIFY_DAMAGE} */
   public static final ModuleHook<ProtectionModifierHook> PROTECTION = register("protection", ProtectionModifierHook.class, ProtectionModifierHook.AllMerger::new, (tool, modifier, context, slotType, source, modifierValue) -> modifierValue);
@@ -229,7 +286,15 @@ public class ModifierHooks {
   /* Harvest */
 
   /** Hook for conditionally modifying the break speed of a block */
-  public static final ModuleHook<BreakSpeedModifierHook> BREAK_SPEED = register("break_speed", BreakSpeedModifierHook.class, BreakSpeedModifierHook.AllMerger::new, (tool, modifier, event, sideHit, isEffective, miningSpeedModifier) -> {});
+  public static final ModuleHook<BreakSpeedModifierHook> BREAK_SPEED = register("break_speed", BreakSpeedModifierHook.class, BreakSpeedModifierHook.AllMerger::new, new BreakSpeedModifierHook() {
+    @Override
+    public void onBreakSpeed(IToolStackView tool, ModifierEntry modifier, BreakSpeed event, Direction sideHit, boolean isEffective, float miningSpeedModifier) {}
+
+    @Override
+    public float modifyBreakSpeed(IToolStackView tool, ModifierEntry modifier, BreakSpeedContext context, float speed) {
+      return speed;
+    }
+  });
 
   /** Called when a block is broken by a tool to allow the modifier to take over the block removing logic */
   public static final ModuleHook<RemoveBlockModifierHook> REMOVE_BLOCK = register("remove_block", RemoveBlockModifierHook.class, RemoveBlockModifierHook.FirstMerger::new, (tool, modifier, context) -> null);
@@ -244,11 +309,45 @@ public class ModifierHooks {
   /* Ranged */
 
   /** Hook for firing arrows or other projectiles to modify the entity post firing */
-  public static final ModuleHook<ProjectileLaunchModifierHook> PROJECTILE_LAUNCH = register("projectile_launch", ProjectileLaunchModifierHook.class, ProjectileLaunchModifierHook.AllMerger::new, (tool, modifier, shooter, projectile, arrow, persistentData, primary) -> {});
-  /** Hook called when an arrow hits an entity or block */
-  public static final ModuleHook<ProjectileHitModifierHook> PROJECTILE_HIT = register("projectile_hit", ProjectileHitModifierHook.class, ProjectileHitModifierHook.AllMerger::new, new ProjectileHitModifierHook() {});
+  public static final ModuleHook<ProjectileLaunchModifierHook> PROJECTILE_LAUNCH;
+  /** Hook for throwing a projectile that will not be firing {@link #PROJECTILE_HIT} later, such as javelins. */
+  public static final ModuleHook<ProjectileShootModifierHook> PROJECTILE_THROWN;
+  /** Hook for when a projectile is launched, but called with the projectile tool rather than the launcher */
+  public static final ModuleHook<ProjectileShootModifierHook> PROJECTILE_SHOT;
+  static {
+    ProjectileLaunchModifierHook defaultInstance = (tool, modifier, shooter, projectile, arrow, persistentData, primary) -> {};
+    Function<Collection<ProjectileShootModifierHook>,ProjectileShootModifierHook> merger = ProjectileShootModifierHook.AllMerger::new;
+    PROJECTILE_LAUNCH = register("projectile_launch", ProjectileLaunchModifierHook.class, ProjectileLaunchModifierHook.AllMerger::new, defaultInstance);
+    PROJECTILE_SHOT = register("projectile_shot", ProjectileShootModifierHook.class, merger, defaultInstance);
+    PROJECTILE_THROWN = register("projectile_thrown", ProjectileShootModifierHook.class, merger, defaultInstance);
+  }
+  /** Hook called when an arrow hits an entity or block on the serverside. TODO 1.21: run this hook on the client too. */
+  public static final ModuleHook<ProjectileHitModifierHook> PROJECTILE_HIT;
+  /** Hook called when an arrow hits an entity or block on the clientside. Separate from {@link #PROJECTILE_HIT} to prevent a breaking change. TODO 1.21: merge into {@link #PROJECTILE_LAUNCH} */
+  public static final ModuleHook<ProjectileHitModifierHook> PROJECTILE_HIT_CLIENT;
+  static {
+    ProjectileHitModifierHook defaultInstance = new ProjectileHitModifierHook() {};
+    Function<Collection<ProjectileHitModifierHook>,ProjectileHitModifierHook> merger = ProjectileHitModifierHook.AllMerger::new;
+    PROJECTILE_HIT = register("projectile_hit", ProjectileHitModifierHook.class, merger, defaultInstance);
+    PROJECTILE_HIT_CLIENT = register("projectile_hit_client", ProjectileHitModifierHook.class, merger, defaultInstance);
+  }
+
+  /** Hook called when a projectile hits an entity with context on the tool that launched it. Allows modifiers such as melting or spilling to work. */
+  public static final ModuleHook<LauncherHitModifierHook> LAUNCHER_HIT = register("launcher_hit", LauncherHitModifierHook.class, LauncherHitModifierHook.AllMerger::new, new LauncherHitModifierHook() {});
+  /** Hook called when {@link slimeknights.tconstruct.tools.modules.ranged.ammo.ProjectileFuseModule} removes a projectile. */
+  public static final ModuleHook<ProjectileFuseModifierHook> PROJECTILE_FUSE = register("projectile_fuse", ProjectileFuseModifierHook.class, ProjectileFuseModifierHook.AllMerger::new, (modifiers, persistentData, modifier, ammo, projectile, arrow) -> {});
   /** Hook called when a bow is looking for ammo. Does not support merging multiple hooks on one modifier */
   public static final ModuleHook<BowAmmoModifierHook> BOW_AMMO = register("bow_ammo", BowAmmoModifierHook.class, BowAmmoModifierHook.EMPTY);
+
+  /** Hook for scheduling tasks to happen later in a projectile's lifetime. Only works on modifiable projectiles, launchers such as bows will never use this hook. */
+  public static final ModuleHook<ScheduledProjectileTaskModifierHook> SCHEDULE_PROJECTILE_TASK = register("schedule_projectile_task", ScheduledProjectileTaskModifierHook.class, ScheduledProjectileTaskModifierHook.ScheduleMerger::new, new ScheduledProjectileTaskModifierHook() {
+    @Override
+    public void scheduleProjectileTask(IToolStackView tool, ModifierEntry modifier, ItemStack ammo, Projectile projectile, @Nullable AbstractArrow arrow, ModDataNBT persistentData, Scheduler scheduler) {}
+
+    @Override
+    public void onScheduledProjectileTask(IToolStackView tool, ModifierEntry modifier, ItemStack ammo, Projectile projectile, @Nullable AbstractArrow arrow, ModDataNBT persistentData, int task) {}
+  });
+
 
   /* Misc Armor */
 

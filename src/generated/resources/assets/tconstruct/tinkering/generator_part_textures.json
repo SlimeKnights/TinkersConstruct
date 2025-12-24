@@ -33,6 +33,18 @@
       "stat_type": "tconstruct:repair_kit"
     },
     {
+      "path": "tconstruct:item/tool/parts/ingot",
+      "stat_type": "tconstruct:ingot"
+    },
+    {
+      "path": "tconstruct:block/storage/fallback",
+      "stat_type": "tconstruct:storage_block"
+    },
+    {
+      "path": "tconstruct:tinker_armor/fishing_hook/material",
+      "stat_type": "tconstruct:arrow_head"
+    },
+    {
       "allow_animated": false,
       "path": "tconstruct:tinker_armor/travelers/metal_armor",
       "stat_type": "tconstruct:armor_plating"
@@ -874,6 +886,94 @@
       "stat_type": "tconstruct:bowstring"
     },
     {
+      "path": "tconstruct:item/tool/fishing_rod/rod",
+      "stat_type": "tconstruct:limb"
+    },
+    {
+      "path": "tconstruct:item/tool/fishing_rod/string",
+      "stat_type": "tconstruct:bowstring"
+    },
+    {
+      "path": "tconstruct:item/tool/fishing_rod/string_broken",
+      "stat_type": "tconstruct:bowstring"
+    },
+    {
+      "path": "tconstruct:item/tool/fishing_rod/string_cast",
+      "stat_type": "tconstruct:bowstring"
+    },
+    {
+      "path": "tconstruct:item/tool/fishing_rod/hook",
+      "stat_type": "tconstruct:arrow_head"
+    },
+    {
+      "path": "tconstruct:item/tool/fishing_rod/hook_broken",
+      "stat_type": "tconstruct:arrow_head"
+    },
+    {
+      "path": "tconstruct:item/tool/javelin/head",
+      "stat_type": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/javelin/head_broken",
+      "stat_type": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/javelin/guard",
+      "stat_type": "tconstruct:limb"
+    },
+    {
+      "path": "tconstruct:item/tool/javelin/handle",
+      "stat_type": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:item/tool/javelin/grip",
+      "stat_type": "tconstruct:grip"
+    },
+    {
+      "path": "tconstruct:item/tool/javelin/large/head",
+      "stat_type": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/javelin/large/head_broken",
+      "stat_type": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/javelin/large/guard",
+      "stat_type": "tconstruct:limb"
+    },
+    {
+      "path": "tconstruct:item/tool/javelin/large/handle",
+      "stat_type": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:item/tool/javelin/large/grip",
+      "stat_type": "tconstruct:grip"
+    },
+    {
+      "path": "tconstruct:item/tool/ammo/arrow_head",
+      "stat_type": "tconstruct:arrow_head"
+    },
+    {
+      "path": "tconstruct:item/tool/ammo/arrow_shaft",
+      "stat_type": "tconstruct:arrow_shaft"
+    },
+    {
+      "path": "tconstruct:item/tool/ammo/arrow_feather",
+      "stat_type": "tconstruct:fletching"
+    },
+    {
+      "path": "tconstruct:item/tool/ammo/shuriken_top",
+      "stat_type": "tconstruct:arrow_head"
+    },
+    {
+      "path": "tconstruct:item/tool/ammo/shuriken_bottom",
+      "stat_type": "tconstruct:arrow_head"
+    },
+    {
+      "path": "tconstruct:item/tool/ammo/axe_head",
+      "stat_type": "tconstruct:arrow_head"
+    },
+    {
       "path": "tconstruct:item/tool/melting_pan/head",
       "skip_variants": true,
       "stat_type": "tconstruct:plating_shield"
@@ -967,6 +1067,21 @@
       "path": "tconstruct:item/tool/swasher/barrel_2",
       "skip_variants": true,
       "stat_type": "tconstruct:grip"
+    },
+    {
+      "path": "tconstruct:item/tool/minotaur_axe/front",
+      "skip_variants": true,
+      "stat_type": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/minotaur_axe/front_broken",
+      "skip_variants": true,
+      "stat_type": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/minotaur_axe/back",
+      "skip_variants": true,
+      "stat_type": "tconstruct:head"
     }
   ],
   "replace": false

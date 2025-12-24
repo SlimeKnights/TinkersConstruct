@@ -6,7 +6,6 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
 import slimeknights.mantle.client.ResourceColorManager;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.display.DisplayNameModifierHook;
@@ -46,7 +45,7 @@ public record ModifierVariantNameModule(VariantFormatter formatter) implements M
   }
 
   @Override
-  public RecordLoadable<? extends IHaveLoader> getLoader() {
+  public RecordLoadable<ModifierVariantNameModule> getLoader() {
     return LOADER;
   }
 

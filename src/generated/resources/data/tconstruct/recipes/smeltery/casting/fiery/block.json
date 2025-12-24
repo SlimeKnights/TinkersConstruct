@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:casting_basin",
+  "cast": {
+    "tag": "forge:storage_blocks/iron"
+  },
+  "cast_consumed": true,
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "forge:storage_blocks/fiery"
+    }
+  ],
+  "cooling_time": 401,
+  "fluid": {
+    "amount": 2250,
+    "tag": "tconstruct:fiery_liquid"
+  },
+  "result": {
+    "tag": "forge:storage_blocks/fiery"
+  }
+}
