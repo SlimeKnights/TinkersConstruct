@@ -1,11 +1,9 @@
 package slimeknights.tconstruct.library.client.book.content;
 
 import net.minecraft.resources.ResourceLocation;
-import slimeknights.mantle.client.book.HTMLUtils;
 import slimeknights.mantle.client.screen.book.element.ItemElement;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.client.materials.MaterialTooltipCache;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
@@ -13,8 +11,6 @@ import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.stats.GripMaterialStats;
-import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
-import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 import slimeknights.tconstruct.tools.stats.LimbMaterialStats;
 import slimeknights.tconstruct.tools.stats.StatlessMaterialStats;
 
@@ -80,18 +76,12 @@ public class RangedMaterialContent extends AbstractMaterialContent {
 
   @Override
   public String toHTML() {
-    String div = String.format(
-      """
-      <div class="grid-material-stats">
-          %s
-          %s
-          %s
-      </div>
-      """,
-      getStatLines(LimbMaterialStats.ID),
-      getStatLines(GripMaterialStats.ID),
-      getStatLines(StatlessMaterialStats.BOWSTRING.getIdentifier())
-    );
-    return String.format(super.toHTML(), div);
+    StringBuilder builder = new StringBuilder("<div class=\"row-material-stats\"><div class=\"column\">")
+      .append(getStatHTML(LimbMaterialStats.ID))
+      .append(getStatHTML(StatlessMaterialStats.BOWSTRING.getIdentifier()))
+      .append("</div>")
+      .append(getStatHTML(GripMaterialStats.ID))
+      .append("</div>");
+    return String.format(super.toHTML(), builder);
   }
 }

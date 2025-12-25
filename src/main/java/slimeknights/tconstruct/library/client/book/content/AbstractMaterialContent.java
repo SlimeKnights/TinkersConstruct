@@ -473,54 +473,50 @@ public abstract class AbstractMaterialContent extends PageContent {
     int rgb = MaterialTooltipCache.getColor(getMaterialVariant()).getValue();
 
     StringBuilder builder = new StringBuilder("\n<div class=\"page-material\">")
-      .append(getTitleHTML("color: " + HTMLUtils.hexRGB(rgb), "filter: drop-shadow(1px 1px #000000)"))
+      .append(getTitleHTML("format-custom", "color: " + HTMLUtils.hexRGB(rgb)))
       .append("%s<p class=\"trait\">");
 
     if (!detailed) builder.append("\"<span style=\"font-style: italic\">");
-    builder.append(ForgeI18n.getPattern(getTextKey(getMaterialVariant().getId())).replace("%", "%%")); // have to escape %
+    builder.append(ForgeI18n.getPattern(getTextKey(getMaterialVariant().getId())).replaceAll("%", "%%"));
     if (!detailed) builder.append("</span>\"");
 
     return builder.append("</p></div>").toString();
   }
 
-  protected String getStatLines(MaterialStatsId statsId) {
-    return getStatLines(statsId, null, false);
+  protected String getStatHTML(MaterialStatsId statsId) {
+    return getStatHTML(statsId, null, false);
   }
 
-  protected String getStatLines(MaterialStatsId statsId, boolean traitsOnly) {
-    return getStatLines(statsId, null, traitsOnly);
+  protected String getStatHTML(MaterialStatsId statsId, boolean traitsOnly) {
+    return getStatHTML(statsId, null, traitsOnly);
   }
 
   /** Formats materials stats as HTML */
-  protected String getStatLines(MaterialStatsId statsId, @Nullable String name, boolean traitsOnly) {
+  protected String getStatHTML(MaterialStatsId statsId, @Nullable String name, boolean traitsOnly) {
     Optional<IMaterialStats> statsOptional = MaterialRegistry.getInstance().getMaterialStats(getMaterialVariant().getId(), statsId);
     if (statsOptional.isEmpty()) return "";
 
     boolean paddingLeft = !statsId.equals(HELMET.getId()) && !statsId.equals(SHIELD.getId()) && !statsId.equals(SkullStats.ID);
     IMaterialStats stats = statsOptional.get();
-    return String.format(
-      """
-      <div>
-          %s
-          %s
-          %s
-      </div>
-      """,
-      HTMLUtils.line(Objects.requireNonNullElse(name, stats.getLocalizedName().getString()), true, "font-weight: bold", "padding-bottom: 2px", paddingLeft ? "padding-left: 20px" : ""),
-      traitsOnly ? "" : stats.getLocalizedInfo().stream()
-        .map(HTMLUtils::line)
-        .collect(Collectors.joining("\n")),
-      getTraitLines(statsId)
-    );
+
+    StringBuilder builder = new StringBuilder("<div>\n")
+      .append(HTMLUtils.p(Objects.requireNonNullElse(name, stats.getLocalizedName().getString()), "underline", null, "font-weight: bold; padding-bottom: 2px" + (paddingLeft ? "; padding-left: 20px" : "")));
+
+    if (!traitsOnly)
+      builder.append(stats.getLocalizedInfo().stream()
+        .map(HTMLUtils::p)
+        .collect(Collectors.joining("\n")));
+
+    return builder.append(getTraitHTML(statsId))
+      .append("</div>")
+      .toString();
   }
 
   /** Formats materials traits as HTML */
-  protected String getTraitLines(MaterialStatsId statsId) {
+  protected String getTraitHTML(MaterialStatsId statsId) {
     return MaterialRegistry.getInstance().getTraits(getMaterialVariant().getId(), statsId).stream()
       .map(ModifierEntry::getModifier)
-      .map(Modifier::getDisplayName)
-      .map(Component::getString)
-      .map(s -> HTMLUtils.line(s, true, "color: #545454"))
+      .map(m -> HTMLUtils.p(m.getDisplayName().getString(), "underline", HTMLUtils.p(m.getDescription()).replaceAll("'", "&quot;"), "color: #545454"))
       .collect(Collectors.joining("\n"));
   }
 }

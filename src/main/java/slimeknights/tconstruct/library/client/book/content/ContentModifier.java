@@ -306,18 +306,18 @@ public class ContentModifier extends PageContent {
       """
       %s
       <div style="padding-left: 10px">
-        <div class="column" style="height: %dpx">
-          %s
-        </div>
-        <div style="width: 210px">
-          <p class="underline">%s</p>
-          <ul class="prop-list">
-          %s
-          </ul>
-        </div>
+      <div class="column" style="height: %dpx">
+      %s
+      </div>
+      <div style="width: 210px">
+      <p class="underline">%s</p>
+      <ul class="prop-list">
+      %s
+      </ul>
+      </div>
       </div>
       """,
-      getTitleHTML(HTMLUtils.slugify(getTitle()), "color: " + HTMLUtils.hexRGB(rgb), "filter: drop-shadow(1px 1px #000000)"),
+      getTitleHTML("format-custom", "color: " + HTMLUtils.hexRGB(rgb)),
       h * 2,
       TextData.toHTML(text, parent.parent.parent),
       I18n.get(KEY_EFFECTS),

@@ -1,17 +1,12 @@
 package slimeknights.tconstruct.library.client.book.content;
 
-import net.minecraft.client.resources.language.I18n;
 import net.minecraft.resources.ResourceLocation;
-import slimeknights.mantle.client.book.HTMLUtils;
 import slimeknights.mantle.client.screen.book.element.ItemElement;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.client.materials.MaterialTooltipCache;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
-import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
-import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
@@ -19,8 +14,6 @@ import slimeknights.tconstruct.tools.stats.StatlessMaterialStats;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static slimeknights.tconstruct.TConstruct.getResource;
 
@@ -77,18 +70,12 @@ public class MeleeHarvestMaterialContent extends AbstractMaterialContent {
 
   @Override
   public String toHTML() {
-    String div = String.format(
-      """
-      <div class="grid-material-stats">
-          %s
-          %s
-          %s
-      </div>
-      """,
-      getStatLines(HeadMaterialStats.ID),
-      getStatLines(HandleMaterialStats.ID),
-      getStatLines(StatlessMaterialStats.BINDING.getIdentifier())
-    );
-    return String.format(super.toHTML(), div);
+    StringBuilder builder = new StringBuilder("<div class=\"row-material-stats\"><div class=\"column\">")
+      .append(getStatHTML(HeadMaterialStats.ID))
+      .append(getStatHTML(StatlessMaterialStats.BINDING.getIdentifier()))
+      .append("</div>")
+      .append(getStatHTML(HandleMaterialStats.ID))
+      .append("</div>");
+    return String.format(super.toHTML(), builder);
   }
 }
