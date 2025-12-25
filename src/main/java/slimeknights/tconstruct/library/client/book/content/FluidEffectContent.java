@@ -138,17 +138,17 @@ public class FluidEffectContent extends PageContent {
     assert (entityComponents.isEmpty() || entity == null);
     assert (blockComponents.isEmpty() || block == null);
 
-    liHelper(builder, entityComponents, entity);
-    liHelper(builder, blockComponents, block);
+    liHelper(builder, KEY_ENTITY_EFFECTS, entity, entityComponents);
+    liHelper(builder, KEY_BLOCK_EFFECTS, block, blockComponents);
 
     return builder.append("</div>").toString();
   }
 
-  private void liHelper(StringBuilder builder, List<Component> components, @Nullable String[] strings) {
+  private void liHelper(StringBuilder builder, String key, @Nullable String[] strings, List<Component> components) {
     if (components.isEmpty() && strings == null) return;
 
     builder.append("<div style=\"height: 128px\">")
-      .append(HTMLUtils.li(I18n.get(KEY_ENTITY_EFFECTS), "underline", null, null))
+      .append(HTMLUtils.p(I18n.get(key), "underline", null, null))
       .append("<ul class=\"prop-list\">");
 
     for (Component component : components) builder.append(HTMLUtils.li(component));
