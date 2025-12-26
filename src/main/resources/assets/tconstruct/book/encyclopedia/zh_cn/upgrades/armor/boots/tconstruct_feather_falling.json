@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:feather_falling",
   "text": [
     {
-      "text": "每级摔落伤害抗性+15%，最高4级，可以抵消60%摔落伤害。"
+      "text": "每级使摔落伤害抗性+25%，最高2级，可以抵消50%摔落伤害。"
     }
   ],
   "more_text_space": true,
   "effects": [
     "可以逐级强化",
-    "最高4级",
+    "最高2级",
     "每级需要1个升级槽"
   ]
 }

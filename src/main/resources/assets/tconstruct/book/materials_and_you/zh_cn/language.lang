@@ -5,7 +5,7 @@ melee_harvest_materials.subtext=这些材料可以放在部件制造台中，用
 ranged_materials=一级远程材料
 ranged_materials.subtext=这些材料可以放在部件制造台中，用于制造像弓那样的远程武器的工具部件。
 ammo_materials=基础弹药材料
-ammo_materials.subtext=这些材料适合制造早期的箭矢和手里剑等。
+ammo_materials.subtext=这些材料适合制作前期使用的箭矢和手里剑。
 
 tools=工具
 tools.group_general=通用工具
