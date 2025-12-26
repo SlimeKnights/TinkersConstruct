@@ -2082,8 +2082,8 @@
 
   "material.tconstruct.blazing_bone": "烈焰之骨",
   "material.tconstruct.blazing_bone.flavor": "获取下界要塞的所有力量——烈焰之力与骨之力",
-  "material.tconstruct.blazing_bone.encyclopedia": "每剩余1秒着火时间，攻击伤害+2%，上限为+20%（剩余着火时间为10秒或更多）。加成会受抗火效果影响而减少",
-  "material.tconstruct.blazing_bone.ranged": "每剩余1秒着火时间，箭矢伤害+2%，上限为+20%（剩余着火时间为10秒或更多）。加成会受抗火效果影响而减少",
+  "material.tconstruct.blazing_bone.encyclopedia": "每剩余1秒着火时间，攻击伤害+2%，上限为+20%（剩余着火时间不少于10秒）。加成会受抗火效果影响而减少",
+  "material.tconstruct.blazing_bone.ranged": "每剩余1秒着火时间，箭矢伤害+2%，上限为+20%（剩余着火时间不少于10秒）。加成会受抗火效果影响而减少",
   "material.tconstruct.blazing_bone.armor": "受到攻击后，有15%概率使攻击者在接下来5至10秒内受到的火焰伤害增加到200%（成功格挡则最大值改为15秒）",
   "material.tconstruct.blazing_bone.ammo": "使目标在接下来5至10秒内受到的火焰伤害增加到200%",
   "material.tconstruct.blazing_bone.skull_flavor": "我给他们说了，这东西从技术层面来说其实是吐火，不是喷火。但是很显然，我发明的东西我却没有命名权",
@@ -2095,7 +2095,7 @@
   "material.tconstruct.blazewood.ammo": "使目标发光，持续10秒。若击中方块，则消耗箭矢在目标位置放置一个永久的光源",
 
   "material.tconstruct.ichor": "灵浆",
-  "material.tconstruct.ichor.flavor": "弹跳的石子",
+  "material.tconstruct.ichor.flavor": "打水漂",
   "material.tconstruct.ichor.ammo": "弹射物会在击中方块后反弹，初始最多1次，每级增加上限2次。命中目标前每弹跳一次，弹射物力量都会增加0.5×等级",
 
   "material.tconstruct.magma": "岩浆",
@@ -2127,7 +2127,7 @@
   "material.tconstruct.knightmetal.flavor": "史莱姆们旅途中得到的金属，也能从暮色森林某一穿盔甲的生物那找到。",
   "material.tconstruct.knightmetal.encyclopedia": "目标每穿戴一件盔甲，每级伤害+0.5",
   "material.tconstruct.knightmetal.ranged": "目标每穿戴一件盔甲，每级箭矢伤害+0.25（先于速度计算）",
-  "material.tconstruct.knightmetal.armor": "目标每手持一件物品，每级提供的保护+5%",
+  "material.tconstruct.knightmetal.armor": "目标每手持一件物品，每级提供的保护+4%",
 
   "material.tconstruct.knightly": "骑士金属碎片",
   "material.tconstruct.knightly.flavor": "史莱姆旅途中得到的碎片，未打磨时尤为尖锐。",
@@ -2665,7 +2665,7 @@
   "modifier.tconstruct.long_fall.flavor": "腿部装甲靴！",
   "modifier.tconstruct.long_fall.description": "抵消所有摔落伤害",
   "modifier.tconstruct.long_fall.resistance": "摔落抗性",
-  "modifier.tconstruct.long_fall.requirements": "“远距防摔”需要“摔落缓冲 IV”作为前置",
+  "modifier.tconstruct.long_fall.requirements": "“远距防摔”需要“摔落缓冲 II”作为前置",
   "modifier.tconstruct.soulspeed": "灵魂疾行",
   "modifier.tconstruct.soulspeed.flavor": "鬼怪",
   "modifier.tconstruct.soulspeed.description": "提升灵魂沙上的移动速度",
@@ -3138,8 +3138,8 @@
   "modifier.tconstruct.stalwart.resistance": "坚盾抗性",
   "modifier.tconstruct.conducting": "传导",
   "modifier.tconstruct.conducting.flavor": "热学之力！",
-  "modifier.tconstruct.conducting.description": "着火时工具会造成成倍的伤害",
-  "modifier.tconstruct.conducting.boost": "着火时最大伤害增益",
+  "modifier.tconstruct.conducting.description": "着火时，工具造成更多伤害",
+  "modifier.tconstruct.conducting.boost": "着火增益上限",
   "modifier.tconstruct.conductive": "导热",
   "modifier.tconstruct.conductive.flavor": "热流！",
   "modifier.tconstruct.conductive.description": "使攻击目标短时间内受到的火焰伤害翻倍",
