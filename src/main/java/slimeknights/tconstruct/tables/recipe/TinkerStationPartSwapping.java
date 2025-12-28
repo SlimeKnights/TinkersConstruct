@@ -98,15 +98,14 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
   }
 
   /** Gets the max stack size for the given tool, calling the modifier hook */
-  private static int maxStackSize(IToolStackView tool, int count) {
-    float newCount = count;
+  private static int maxStackSize(IToolStackView tool, float count) {
     for (ModifierEntry entry : tool.getModifiers()) {
-      newCount = entry.getHook(ModifierHooks.CRAFT_COUNT).modifyCraftCount(tool, entry, newCount);
-      if (newCount <= 0) {
+      count = entry.getHook(ModifierHooks.CRAFT_COUNT).modifyCraftCount(tool, entry, count);
+      if (count <= 0) {
         return 0;
       }
     }
-    return (int) newCount;
+    return (int) count;
   }
 
   /** Gets the max stack size for the given tool, calling the modifier hook */
@@ -119,7 +118,7 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
     // if the output is shrinking, we want to ensure we take the minumum amount needed for that output
     // for example, if its reducing by 50%, just consuming the full amount might consume 3 arrows to produce 1 (instead of 2 to produce 1)
     int outputMax = maxStackSize(result.getTool());
-    return maxStackSize(inv.getTinkerable(), result.getSize() * maxStackSize / outputMax);
+    return maxStackSize(inv.getTinkerable(), result.getSize() * maxStackSize / (float) outputMax);
   }
 
   @Override

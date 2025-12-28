@@ -6,7 +6,7 @@
       "damage_source": "mantle:can_protect",
       "formula": [
         "$equipment",
-        1.25,
+        "$level",
         "*",
         "$protection",
         "+"

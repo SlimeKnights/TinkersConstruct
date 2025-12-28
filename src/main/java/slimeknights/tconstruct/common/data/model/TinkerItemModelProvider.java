@@ -118,8 +118,10 @@ public class TinkerItemModelProvider extends ItemModelProvider {
     // world //
     // shards
     basicItem(TinkerWorld.steelShard, "materials/steel_shard");
+    basicItem(TinkerWorld.cobaltShard, "materials/cobalt_shard");
     basicItem(TinkerWorld.knightmetalShard, "materials/knightmetal_shard");
     generated(TinkerWorld.steelCluster, "block/geode/steel_cluster");
+    generated(TinkerWorld.cobaltCluster, "block/geode/cobalt_cluster");
     generated(TinkerWorld.knightmetalCluster, "block/geode/knightmetal_cluster");
   }
 

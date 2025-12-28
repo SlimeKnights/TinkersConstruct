@@ -95,6 +95,7 @@ public class TinkerBlockStateProvider extends BlockStateProvider {
 
     // shards
     bud(TinkerWorld.steelCluster.get(), "block/geode/steel_cluster", blockTexture("geode/steel_cluster"));
+    bud(TinkerWorld.cobaltCluster.get(), "block/geode/cobalt_cluster", blockTexture("geode/cobalt_cluster"));
     bud(TinkerWorld.knightmetalCluster.get(), "block/geode/knightmetal_cluster", blockTexture("geode/knightmetal_cluster"));
 
     // geodes

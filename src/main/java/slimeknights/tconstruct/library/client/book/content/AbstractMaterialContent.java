@@ -75,8 +75,8 @@ import static slimeknights.tconstruct.tools.stats.PlatingMaterialStats.SHIELD;
 public abstract class AbstractMaterialContent extends PageContent {
   /** List of fallback items for the icon if no material recipes. */
   private static final List<Supplier<? extends IMaterialItem>> FALLBACKS = new ArrayList<>();
-
-  private static final List<Component> PART_BUILDER = List.of(
+  /** Tooltip components for the part builder craftable icon */
+  public static final List<Component> PART_BUILDER = List.of(
     TConstruct.makeTranslation("book", "material.craftable"),
     TConstruct.makeTranslation("book", "material.part_builder").withStyle(ChatFormatting.GRAY)
   );

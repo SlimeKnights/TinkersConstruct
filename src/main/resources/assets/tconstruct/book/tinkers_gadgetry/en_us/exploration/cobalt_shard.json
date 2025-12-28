@@ -1,0 +1,10 @@
+{
+  "title": "Cobalt Shards",
+  "item": "tconstruct:cobalt_shard",
+  "text": [
+    {
+      "text": "Cobalt shards cannot be found from slimes, only appearing in ichor geodes. They are primarily useful as an alternative source of the ore.",
+      "paragraph": true
+    }
+  ]
+}

@@ -1171,7 +1171,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(ProtectionModule.builder()
         .formula()
         .customVariable("equipment", new EntityProtectionVariable(new EquipmentCountEntityVariable(handSlots), EntityProtectionVariable.WhichEntity.ATTACKER, 2))
-        .constant(1.25f).multiply()
+        .variable(LEVEL).multiply()
         .variable(VALUE).add()
         .build());
     buildModifier(ModifierIds.temperedProtection).addModule(ProtectionModule.builder().attacker(LivingEntityPredicate.ON_FIRE).eachLevel(1.25f));

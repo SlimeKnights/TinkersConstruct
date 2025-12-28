@@ -40,7 +40,7 @@ public record ProjectileBounceModule(LevelingInt bounces) implements ModifierMod
   @Override
   public Integer getPriority() {
     // run later so other hooks can run before we cancel it all
-    return 75;
+    return 80;
   }
 
   @Override

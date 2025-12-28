@@ -96,9 +96,10 @@ public final class TinkerStructures extends TinkerModule {
   public static final RegistryObject<StructureType<IslandStructure>> island = STRUCTURE_TYPE.register("island", () -> () -> IslandStructure.CODEC);
 
 
-  // island structures
+  // island structures - TODO 1.21: rename to better match placement?
   public static final ResourceKey<Structure> earthSlimeIsland = key(Registries.STRUCTURE, "earth_slime_island");
   public static final ResourceKey<Structure> skySlimeIsland = key(Registries.STRUCTURE, "sky_slime_island");
+  public static final ResourceKey<Structure> oceanSkyslimeIsland = key(Registries.STRUCTURE, "ocean_skyslime_island");
   public static final ResourceKey<Structure> clayIsland = key(Registries.STRUCTURE, "clay_island");
   public static final ResourceKey<Structure> bloodIsland = key(Registries.STRUCTURE, "blood_island");
   public static final ResourceKey<Structure> endSlimeIsland = key(Registries.STRUCTURE, "end_slime_island");

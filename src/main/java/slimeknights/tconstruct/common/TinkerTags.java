@@ -284,6 +284,7 @@ public class TinkerTags {
 
     // non-standard prefix for items that smelt into 1 nugget but are not in fact nuggets
     public static final TagKey<Item> STEEL_SHARD = common("raw_nuggets/steel");
+    public static final TagKey<Item> COBALT_SHARD = common("raw_nuggets/cobalt");
     public static final TagKey<Item> KNIGHTMETAL_SHARD = common("raw_nuggets/knightmetal");
 
     public static final TagKey<Item> NUGGETS_NETHERITE = common("nuggets/netherite");

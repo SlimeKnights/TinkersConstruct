@@ -23,6 +23,7 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
+import slimeknights.tconstruct.library.tools.stat.INumericToolStat;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.stats.ToolType;
@@ -31,7 +32,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class InsatiableModifier extends Modifier implements ProjectileHitModifierHook, ConditionalStatModifierHook, MeleeDamageModifierHook, MonsterMeleeHitModifierHook.RedirectAfter, MeleeHitModifierHook, TooltipModifierHook {
-  public static final ToolType[] TYPES = {ToolType.MELEE, ToolType.RANGED};
+  public static final ToolType[] TYPES = {ToolType.RANGED, ToolType.MELEE};
 
   /** Gets the current bonus for the entity */
   private static float getEffect(LivingEntity attacker, ToolType type) {
@@ -82,15 +83,23 @@ public class InsatiableModifier extends Modifier implements ProjectileHitModifie
 
   @Override
   public void addTooltip(IToolStackView tool, ModifierEntry modifier, @Nullable Player player, List<Component> tooltip, TooltipKey key, TooltipFlag tooltipFlag) {
-    ToolType type = ToolType.from(tool.getItem(), TYPES);
-    if (type != null) {
-      float level = modifier.getEffectiveLevel();
-      float bonus = level * 2.5f;
-      if (player != null && key == TooltipKey.SHIFT) {
-        bonus = getEffect(player, type) * level;
-      }
-      if (bonus > 0) {
-        TooltipModifierHook.addFlatBoost(this, TooltipModifierHook.statName(this, ToolStats.ATTACK_DAMAGE), bonus, tooltip);
+    // run both tooltips always, helps for ranged weapons to show the right bonus
+    for (ToolType type : TYPES) {
+      if (tool.hasTag(type.getTag())) {
+        float level = modifier.getEffectiveLevel();
+        float bonus = level * 2.5f;
+        INumericToolStat<?> stat = type == ToolType.MELEE ? ToolStats.ATTACK_DAMAGE : ToolStats.PROJECTILE_DAMAGE;
+        // if not in the tinker station, show the realized bonus instead of the max bonus
+        if (player != null && key == TooltipKey.SHIFT) {
+          bonus = getEffect(player, type) * level * tool.getMultiplier(stat) / 2;
+        }
+        if (bonus > 0) {
+          // ranged gets half the bonus of melee
+          if (type == ToolType.RANGED) {
+            bonus /= 2;
+          }
+          TooltipModifierHook.addFlatBoost(this, TooltipModifierHook.statName(this, stat), bonus, tooltip);
+        }
       }
     }
   }

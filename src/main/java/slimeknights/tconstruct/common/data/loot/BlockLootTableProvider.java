@@ -218,6 +218,7 @@ public class BlockLootTableProvider extends BlockLootSubProvider {
 
     // shards
     this.registerCluster(TinkerWorld.steelCluster.get(), TinkerWorld.steelShard);
+    this.registerCluster(TinkerWorld.cobaltCluster.get(), TinkerWorld.cobaltShard);
     this.registerCluster(TinkerWorld.knightmetalCluster.get(), TinkerWorld.knightmetalShard);
 
     // geode

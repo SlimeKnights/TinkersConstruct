@@ -20,6 +20,11 @@
     "data": "exploration/steel_shard.json"
   },
   {
+    "name": "cobalt_shard",
+    "type": "mantle:showcase",
+    "data": "exploration/cobalt_shard.json"
+  },
+  {
     "name": "knightmetal_shard",
     "type": "mantle:showcase",
     "data": "exploration/knightmetal_shard.json"

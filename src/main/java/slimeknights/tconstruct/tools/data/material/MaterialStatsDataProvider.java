@@ -197,7 +197,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      HandleMaterialStats.multipliers().durability(1.25f).miningSpeed(0.9f).attackSpeed(0.9f).attackDamage(1.05f).build(),
                      StatlessMaterialStats.BINDING);
     addMaterialStats(MaterialIds.steeleaf,
-      new HeadMaterialStats(200, 8, IRON, 3),
+      new HeadMaterialStats(200, 8, DIAMOND, 3),
       HandleMaterialStats.multipliers().durability(0.65f).attackSpeed(1.15f).miningSpeed(1.15f).build(),
       StatlessMaterialStats.BINDING);
 

@@ -6,7 +6,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.entity.projectile.AbstractArrow.Pickup;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
@@ -122,13 +121,13 @@ public class EnderportingModifier extends NoLevelsModifier implements PlantHarve
   }
 
   /** Checks if the given projectile allows teleporting */
-  private static boolean canTeleport(ModDataNBT persistentData, Projectile projectile) {
-    return !persistentData.getBoolean(SECONDARY_ARROW) && (!(projectile instanceof AbstractArrow arrow) || arrow.pickup == Pickup.ALLOWED);
+  private static boolean canTeleport(ModDataNBT persistentData) {
+    return !persistentData.getBoolean(SECONDARY_ARROW);
   }
 
   @Override
   public boolean onProjectileHitEntity(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
-    if (attacker != null && attacker != target && canTeleport(persistentData, projectile)) {
+    if (attacker != null && attacker != target && canTeleport(persistentData)) {
       Entity hitEntity = hit.getEntity();
       Vec3 oldPosition = attacker.position();
       if (attacker.level() == projectile.level() && tryTeleport(modifier, attacker, hitEntity.getX(), hitEntity.getY(), hitEntity.getZ()) && target != null) {
@@ -140,7 +139,7 @@ public class EnderportingModifier extends NoLevelsModifier implements PlantHarve
 
   @Override
   public void onProjectileHitBlock(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, BlockHitResult hit, @Nullable LivingEntity attacker) {
-    if (attacker != null && canTeleport(persistentData, projectile)) {
+    if (attacker != null && canTeleport(persistentData)) {
       BlockPos target = hit.getBlockPos().relative(hit.getDirection());
       // attempt the teleport, if successful and the projectile is not reusable then discard it
       if (attacker.level() == projectile.level() && tryTeleport(modifier, attacker, target.getX() + 0.5f, target.getY(), target.getZ() + 0.5f) && !projectile.getType().is(TinkerTags.EntityTypes.REUSABLE_AMMO)) {
@@ -151,7 +150,7 @@ public class EnderportingModifier extends NoLevelsModifier implements PlantHarve
 
   @Override
   public void onProjectileFuseFinish(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, ItemStack ammo, Projectile projectile, @Nullable AbstractArrow arrow) {
-    if (canTeleport(persistentData, projectile) && projectile.getOwner() instanceof LivingEntity attacker) {
+    if (canTeleport(persistentData) && projectile.getOwner() instanceof LivingEntity attacker) {
       // no need to discard, fuse did that for us
       if (attacker.level() == projectile.level()) {
         // teleport to the expired projectile

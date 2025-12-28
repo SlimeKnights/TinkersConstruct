@@ -1,14 +1,19 @@
 package slimeknights.tconstruct.library.client.book.content;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import slimeknights.mantle.client.screen.book.element.ItemElement;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.client.book.elements.TinkerItemElement;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.utils.Util;
+import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.stats.StatlessMaterialStats;
 
 import javax.annotation.Nullable;
+import java.util.List;
 
 public class AmmoMaterialContent extends AbstractMaterialContent {
   /** Page ID for using this index directly */
@@ -51,6 +56,15 @@ public class AmmoMaterialContent extends AbstractMaterialContent {
     return statsId.equals(StatlessMaterialStats.ARROW_HEAD.getIdentifier())
       || statsId.equals(StatlessMaterialStats.ARROW_SHAFT.getIdentifier())
       || statsId.equals(StatlessMaterialStats.FLETCHING.getIdentifier());
+  }
+
+  @Override
+  protected void addPrimaryDisplayItems(List<ItemElement> displayTools, MaterialVariantId materialId) {
+    // ammo is always craftable, regardless of what the material properties say
+    // never castable or compositable
+    ItemElement elementItem = new TinkerItemElement(new ItemStack(TinkerTables.partBuilder));
+    elementItem.tooltip = PART_BUILDER;
+    displayTools.add(elementItem);
   }
 
   @Override
