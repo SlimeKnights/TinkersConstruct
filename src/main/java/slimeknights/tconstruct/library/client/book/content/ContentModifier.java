@@ -300,7 +300,7 @@ public class ContentModifier extends PageContent {
 
   @Override
   public String toHTML() {
-    int rgb = Objects.requireNonNullElse(modifier.getColor(), 0);
+    int rgb = modifier == null ? 0 : modifier.getColor();
     int h = more_text_space ? BookScreen.PAGE_HEIGHT * 2 / 5 : BookScreen.PAGE_HEIGHT * 2 / 7;
     return String.format(
       """
@@ -315,8 +315,7 @@ public class ContentModifier extends PageContent {
       %s
       </ul>
       </div>
-      </div>
-      """,
+      </div>""",
       getTitleHTML("format-custom", "color: " + HTMLUtils.hexRGB(rgb)),
       h * 2,
       TextData.toHTML(text, parent.parent.parent),
