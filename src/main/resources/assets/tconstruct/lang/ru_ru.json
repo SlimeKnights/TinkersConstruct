@@ -202,13 +202,13 @@
   "block.tconstruct.cheese_block": "Сырный блок",
   "item.tconstruct.cheese.tooltip": "Удаляет случайный эффект при употреблении.",
 
-  "item.tconstruct.earth_slime_crystal": "Слизневый кристалл",
-  "block.tconstruct.earth_slime_crystal_block": "Блок слизневого кристалла",
-  "block.tconstruct.small_earth_slime_crystal_bud": "Малый слизневый кристальный бутон",
-  "block.tconstruct.medium_earth_slime_crystal_bud": "Средний слизневый кристальный бутон",
-  "block.tconstruct.large_earth_slime_crystal_bud": "Большой слизневый кристальный бутон",
-  "block.tconstruct.earth_slime_crystal_cluster": "Слизневая кристальная друза",
-  "block.tconstruct.budding_earth_slime_crystal": "Цветущий слизневый кристалл",
+  "item.tconstruct.earth_slime_crystal": "Земной слизневый кристалл",
+  "block.tconstruct.earth_slime_crystal_block": "Блок земного слизневого кристалла",
+  "block.tconstruct.small_earth_slime_crystal_bud": "Малый земной слизневый кристальный бутон",
+  "block.tconstruct.medium_earth_slime_crystal_bud": "Средний земной слизневый кристальный бутон",
+  "block.tconstruct.large_earth_slime_crystal_bud": "Большой земной слизневый кристальный бутон",
+  "block.tconstruct.earth_slime_crystal_cluster": "Земная слизневая кристальная друза",
+  "block.tconstruct.budding_earth_slime_crystal": "Цветущий земной слизневый кристалл",
 
   "item.tconstruct.sky_slime_crystal": "Небесный слизневый кристалл",
   "block.tconstruct.sky_slime_crystal_block": "Блок небесного слизневого кристалла",
@@ -258,7 +258,7 @@
   "item.tconstruct.necronium_bone": "Некромантная кость",
   "item.tconstruct.venombone": "Ядовитая кость",
   "item.tconstruct.blazing_bone": "Огненная кость",
-  "item.tconstruct.dragon_scale": "Чешуя Дракона",
+  "item.tconstruct.dragon_scale": "Чешуя дракона",
   "item.tconstruct.dragon_scale.tooltip": "Выбивается взрывом из эндер-дракона.",
 
   "item.tconstruct.modifier_crystal": "Кристалл модификатора",
@@ -1012,7 +1012,7 @@
   "block.tconstruct.tool_forge": "Кузница инструментов",
 
   "block.tconstruct.part_builder": "Конструктор деталей",
-  "block.tconstruct.modifier_worktable": "Рабочий стол модификатора",
+  "block.tconstruct.modifier_worktable": "Рабочий стол для модификаторов",
 
   "block.tconstruct.part_chest": "Ящик для деталей",
   "block.tconstruct.part_chest.tooltip": "Вмещает до 256 различных деталей инструментов.",
@@ -1425,9 +1425,9 @@
   "gui.tconstruct.fluid.block": "Блоков: %s",
   "gui.tconstruct.fluid.ingot": "Слитков: %s",
   "gui.tconstruct.fluid.nugget": "Кусочков: %s",
-  "gui.tconstruct.fluid.gem": " Драгоценных камней: %s",
+  "gui.tconstruct.fluid.gem": "Драгоценных камней: %s",
   "gui.tconstruct.fluid.shard": "Осколков: %s",
-  "gui.tconstruct.fluid.pane": " Панелей: %s",
+  "gui.tconstruct.fluid.pane": "Панелей: %s",
   "gui.tconstruct.fluid.slimeball": "Сгустков слизи: %s",
   "gui.tconstruct.fluid.drop": "Капель: %s",
   "gui.tconstruct.fluid.sip": "Глотков: %s",
@@ -1686,13 +1686,13 @@
   "material.tconstruct.rock.granite":    "Гранит",
   "material.tconstruct.rock.blackstone": "Чернит",
   "material.tconstruct.rock.deepslate":  "Глубинный сланец",
-  "material.tconstruct.rock.flavor": "Твёрдая скала",
+  "material.tconstruct.rock.flavor": "Твёрдый, как скала!",
   "material.tconstruct.rock.encyclopedia": "Ускоряет добычу с помощью инструмента на величину, равную половине квадратного корня из уровня характеристики, умноженного на потерянную прочность.",
 
   "material.tconstruct.flint": "Кремень",
   "material.tconstruct.flint.basalt": "Базальт",
   "material.tconstruct.flint.flavor": "Это разожжёт пламя в сердце литейщика!",
-  "material.tconstruct.flint.encyclopedia": "Увеличивает урон на четверть квадратного корня из уровня свойства, умноженного на потерянную прочность.",
+  "material.tconstruct.flint.encyclopedia": "Увеличивает урон на четверть квадратного корня из уровня особенности, умноженного на потерянную прочность.",
 
   "material.tconstruct.bone": "Кость",
   "material.tconstruct.bone.flavor": "Я — кость своего меча.",
@@ -2555,9 +2555,9 @@
   "modifier.tconstruct.creative_slot": "Творческий слот",
   "modifier.tconstruct.creative_slot.flavor": "Грязный читер!",
   "modifier.tconstruct.creative_slot.description": "Зачитерины дополнительные слоты для модификаторов.",
-  "modifier.tconstruct.stat_override": "Переопределение статистики",
+  "modifier.tconstruct.stat_override": "Переопределение характеристики",
   "modifier.tconstruct.stat_override.flavor": "Хакер!",
-  "modifier.tconstruct.stat_override.description": "Статистика инструмента изменены с помощью команд.",
+  "modifier.tconstruct.stat_override.description": "Характеристика инструмента изменена с помощью команд.",
   "modifier.tconstruct.stat_override.bonuses": "Бонусы:",
   "modifier.tconstruct.stat_override.multipliers": "Множители:",
 
@@ -2588,27 +2588,27 @@
   "modifier.tconstruct.rebalanced.abilities": "Умение",
   "modifier.tconstruct.rebalanced.souls": "Душа",
   "modifier.tconstruct.rebalanced.defense": "Защита",
-  "modifier.tconstruct.rebalanced.traits": "Свойство",
+  "modifier.tconstruct.rebalanced.traits": "Особенность",
 
-  "__comment": "Ещё три модификатора улучшения +1 для модпаков",
+  "__comment": "Ещё три модификатора улучшения +1 для пакетов ресурсов",
   "modifier.tconstruct.red_extra_upgrade": "Красное дополнительное улучшение",
-  "modifier.tconstruct.red_extra_upgrade.flavor": "Для модпаков!",
+  "modifier.tconstruct.red_extra_upgrade.flavor": "Для пакетов ресурсов!",
   "modifier.tconstruct.red_extra_upgrade.description": "Попросите создателя вашего модпака предоставить ресурспак, который лучше раскроет эту историю.",
   "modifier.tconstruct.green_extra_upgrade": "Зелёное дополнительное улучшение",
-  "modifier.tconstruct.green_extra_upgrade.flavor": "Для модпаков!",
+  "modifier.tconstruct.green_extra_upgrade.flavor": "Для пакетов ресурсов!",
   "modifier.tconstruct.green_extra_upgrade.description": "Попросите создателя вашего модпака предоставить ресурспак, который лучше раскроет эту историю.",
   "modifier.tconstruct.blue_extra_upgrade": "Синее дополнительное улучшение",
-  "modifier.tconstruct.blue_extra_upgrade.flavor": "Для модпаков!",
+  "modifier.tconstruct.blue_extra_upgrade.flavor": "Для пакетов ресурсов!",
   "modifier.tconstruct.blue_extra_upgrade.description": "Попросите создателя вашего модпака предоставить ресурспак, который лучше раскроет эту историю.",
   "modifier.tconstruct.extra_ability": "Дополнительное умение",
-  "modifier.tconstruct.extra_ability.flavor": "Для модпаков!",
+  "modifier.tconstruct.extra_ability.flavor": "Для пакетов ресурсов!",
   "modifier.tconstruct.extra_ability.description": "Попросите создателя вашего модпака предоставить ресурспак, который лучше раскроет эту историю.",
 
   "modifier.tconstruct.smelting": "Плавка",
   "modifier.tconstruct.smelting.flavor": "Бекон с приятной хрустящей корочкой!",
   "modifier.tconstruct.smelting.description": "Использование инструмента готовит находящиеся внутри предметы! Наполните инструмент в приседе во время взаимодействия.",
 
-  "__comment": "Свойства (1 уровень)",
+  "__comment": "Особенности (1 уровень)",
 
   "modifier.tconstruct.cultivated": "Культивируемый",
   "modifier.tconstruct.cultivated.flavor": "Экономичный!",
@@ -2638,7 +2638,7 @@
   "modifier.tconstruct.solar_powered.flavor": "Полезно для окружающей среды!",
   "modifier.tconstruct.solar_powered.description": "Инструмент устойчив к повреждениям при солнечном свете.",
 
-  "__comment": "Свойства (2 уровень)",
+  "__comment": "Особенности (2 уровень)",
   "modifier.tconstruct.sturdy": "Крепкий",
   "modifier.tconstruct.sturdy.flavor": "Хорошо сделано!",
   "modifier.tconstruct.sturdy.description": "Изготовлено из прочнейшего железа.",
@@ -2702,7 +2702,7 @@
   "modifier.tconstruct.entangled.flavor": "Симбиотический!",
   "modifier.tconstruct.entangled.description": "Увеличивает скорость или сопротивление отбрасыванию ценой получения урона при снятии экипировки.",
 
-  "__comment": "Свойства (3 уровень)",
+  "__comment": "Особенности (3 уровень)",
   "modifier.tconstruct.overcast": "Утолщение",
   "modifier.tconstruct.overcast.flavor": "Густое покрытие!",
   "modifier.tconstruct.overcast.description": "Утолщает слой покрытия сверхслизи на инструменте.",
@@ -2733,7 +2733,7 @@
   "death.attack.tconstruct.bleed": "%1$s истёк кровью до смерти",
   "death.attack.tconstruct.bleed.item": "%1$s истёк кровью до смерти от травм, нанесённых %2$s",
 
-  "__comment": "Свойства (4 уровень)",
+  "__comment": "Особенности (4 уровень)",
   "modifier.tconstruct.overburn": "Перегорание",
   "modifier.tconstruct.overburn.flavor": "Термальный!",
   "modifier.tconstruct.overburn.description": "Инструмент преобразует жидкое топливо в сверхслизь.",
@@ -2765,13 +2765,13 @@
   "modifier.tconstruct.flame_barrier.description": "Повышает защиту при возгорании.",
   "modifier.tconstruct.flame_barrier.resistance": "Сопротивление барьеру",
 
-  "__comment": "Свойства (5 уровень)",
+  "__comment": "Особенности (5 уровень)",
   "modifier.tconstruct.enderporting": "Эндер-портирование",
   "modifier.tconstruct.enderporting.flavor": "Обуздайте силу эндер-слизня!",
   "modifier.tconstruct.enderporting.description": "Инструмент телепортирует владельца к добытым блокам или убитым сущностям.",
 
 
-  "__comment": "Совместимые свойства модов (2 уровень)",
+  "__comment": "Совместимые особенности модов (2 уровень)",
   "modifier.tconstruct.dense": "Плотный",
   "modifier.tconstruct.dense.flavor": "Почти не теряет форму!",
   "modifier.tconstruct.dense.description": "Инструмент служит дольше, но его сложнее чинить.",
@@ -2809,7 +2809,7 @@
   "modifier.tconstruct.preserved.description": "Повышает прочность инструмента и облегчает его ремонт.",
 
 
-  "__comment": "Совместимые свойства модов (3 уровень)",
+  "__comment": "Совместимые особенности модов (3 уровень)",
   "modifier.tconstruct.ductile": "Пластичный",
   "modifier.tconstruct.ductile.flavor": "Хорошо меняет форму!",
   "modifier.tconstruct.ductile.description": "Инструмент служит дольше, наносит больше урона и более прочный.",
@@ -2841,7 +2841,7 @@
   "modifier.tconstruct.overworked.flavor": "Низкооплачиваемый!",
   "modifier.tconstruct.overworked.description": "Увеличивает количество восстанавливаемой сверхслизи из всех источников.",
 
-  "_comment": "Свойства слизневого черепа",
+  "_comment": "Особенности слизневого черепа",
   "modifier.tconstruct.self_destructive": "Саморазрушительный",
   "modifier.tconstruct.self_destructive.flavor": "Не очень полезно...",
   "modifier.tconstruct.self_destructive.description": "Может взорваться при взаимодействии со шлемом в приседе.",
@@ -3015,7 +3015,7 @@
   "roman_numeral.value.19": "XIX",
   "roman_numeral.value.20": "XX",
 
-  "_comment": "Статистика",
+  "_comment": "Характеристика",
 
   "tool_stat.tconstruct.attack_speed": "§7Скорость ближнего боя: ",
   "tool_stat.tconstruct.attack_speed.description": "Базовое значение для расчёта скорости атаки ближнего боя.\nПримерно равно количеству атак полной силы в секунду.",
@@ -3112,7 +3112,7 @@
   "stat.tconstruct.slot.display.abilities": "§7для умений",
   "stat.tconstruct.slot.display.souls": "§7для душ",
   "stat.tconstruct.slot.display.defense": "§7для защиты",
-  "stat.tconstruct.slot.display.traits": "§7для свойств",
+  "stat.tconstruct.slot.display.traits": "§7для особенностей",
 
   "armor_stat.tconstruct.mining_speed": "Скорость добычи",
   "armor_stat.tconstruct.use_item_speed": "Скорость использования предмета",
@@ -3174,7 +3174,7 @@
   "gui.tconstruct.part_builder.info": "Здесь вы можете создавать детали инструментов, чтобы воплотить в жизнь свои литейные фантазии.\n\nЧтобы создать деталь, просто поместите пустой шаблон в левый слот и выберите нужную деталь. В оставшемся слоте находится материал, из которого вы хотите создать деталь.",
   "gui.tconstruct.part_builder.material_value": "Кол-во материала: %s",
   "gui.tconstruct.part_builder.cost": "Стоимость шаблона: %s",
-  "gui.tconstruct.part_builder.trait": "Свойство",
+  "gui.tconstruct.part_builder.trait": "Особенность",
   "gui.tconstruct.part_builder.uncraftable": "Невозможно придать форму",
   "gui.tconstruct.part_builder.uncraftable.tooltip": "Материалу нельзя придать форму в формирователе частей. Требуются другие методы, такие как литье.",
 
@@ -3189,10 +3189,10 @@
   "gui.tconstruct.tinker_station.repair.description": "Создавайте как небольшие, так и сложные инструменты и модифицируйте существующие инструменты, чтобы воплотить свои мечты! Выберите макет с помощью кнопок слева, чтобы начать.",
   "gui.tconstruct.tinker_station.modifiers": "Модификаторы",
   "gui.tconstruct.tinker_station.upgrades": "Улучшения и умения",
-  "gui.tconstruct.tinker_station.traits": "Свойства",
+  "gui.tconstruct.tinker_station.traits": "Особенности",
   "gui.tconstruct.tinker_station.components": "Компоненты",
   "gui.tconstruct.tinker_station.info": "Основной способ ремонта или замены инструментов. Для начала поместите инструмент и материал слева.",
-  "gui.tconstruct.tinker_station.no_traits": "Нет свойств :с",
+  "gui.tconstruct.tinker_station.no_traits": "Нет особенностей :с",
 
   "gui.tconstruct.manual.cycle.recipes": "Перейти к другим рецептам",
 
@@ -3202,13 +3202,13 @@
 
   "recipe.tconstruct.swappable.already_present": "Инструмент уже содержит %s с вариантом %s",
 
-  "gui.tconstruct.modifier_worktable": "Рабочий стол модификатора",
+  "gui.tconstruct.modifier_worktable": "Рабочий стол для модификаторов",
   "gui.tconstruct.modifier_worktable.title": "Настройка модификаторов",
   "gui.tconstruct.modifier_worktable.info": "Добавьте инструмент и соответствующие предметы для настройки модификаторов инструмента.",
   "recipe.tconstruct.modifier_set_worktable.empty": "У инструмента нет применимых модификаторов.",
 
   "recipe.tconstruct.remove_modifier.modifiers": "Удаление модификаторов",
-  "recipe.tconstruct.remove_modifier.description": "Выберите модификатор для удаления. Будут возвращены слоты для модификаторов. Жидкость будет потреблена из входа, и контейнер будет возвращён.",
+  "recipe.tconstruct.remove_modifier.description": "Выберите модификатор для удаления. Будут возвращены слоты для модификаторов. Жидкость будет потреблена из входного материала, и контейнер будет возвращён.",
   "recipe.tconstruct.remove_modifier.no_modifiers": "У инструмента нет модификаторов, которые можно удалить с помощью этого рецепта.",
 
   "recipe.tconstruct.modifier_sorting.title": "Сортировка модификаторов",
@@ -3237,17 +3237,17 @@
   "recipe.tconstruct.enchantment_converting.description.lost": "Выберите модификатор заданного типа из книги зачарованных предметов, чтобы извлечь его в виде кристалла модификатора. Зачарованный предмет будет потерян.",
   "recipe.tconstruct.enchantment_converting.description.keep": "Выберите модификатор заданного типа из книги зачарованных предметов, чтобы извлечь его в виде кристалла модификатора. Предмет будет возвращён без этого зачарования.",
   "recipe.tconstruct.enchantment_converting.no_enchantments": "У предмета нет подходящих зачарований.",
-  "recipe.tconstruct.enchantment_converting.too_few": "Необходимо предоставить больше входов для преобразования зачарования более высокого уровня.",
+  "recipe.tconstruct.enchantment_converting.too_few": "Необходимо предоставить больше входных материалов для преобразования зачарования более высокого уровня.",
 
   "recipe.tconstruct.part_swapping.too_many_parts": "Стол слишком мал для замены деталей на этом инструменте.",
 
   "recipe.tconstruct.modifier.not_enough_slot": "Для добавления этого модификатора требуется как минимум 1 слот %s",
   "recipe.tconstruct.modifier.not_enough_slots": "Для добавления этого модификатора требуется как минимум %s слотов %s",
   "recipe.tconstruct.modifier.validate_slots": "Это изменение оставляет инструменту слишком мало слотов %s",
-  "recipe.tconstruct.modifier.min_level": "Для применения этого рецепта инструменту требуется иметь как минимум %s (без учета свойств).",
-  "recipe.tconstruct.modifier.max_level": "Этот рецепт не может повысить %s выше уровня %s (без учета свойств).",
-  "recipe.tconstruct.modifier.min_level.traits": "Для применения этого рецепта инструменту требуется иметь как минимум %s (включая свойства).",
-  "recipe.tconstruct.modifier.max_level.traits": "Этот рецепт не может повысить %s выше уровня %s (включая свойства).",
+  "recipe.tconstruct.modifier.min_level": "Для применения этого рецепта инструменту требуется иметь как минимум %s (без учета особенностей).",
+  "recipe.tconstruct.modifier.max_level": "Этот рецепт не может повысить %s выше уровня %s (без учета особенностей).",
+  "recipe.tconstruct.modifier.min_level.traits": "Для применения этого рецепта инструменту требуется иметь как минимум %s (включая особенности).",
+  "recipe.tconstruct.modifier.max_level.traits": "Этот рецепт не может повысить %s выше уровня %s (включая особенности).",
 
   "recipe.tconstruct.modifier.armor_trim.invalid_material": "%s не является допустимым материалом отделки, это обычно указывает на недопустимый тег.",
   "recipe.tconstruct.modifier.armor_trim.invalid_pattern": "%s не является допустимым шаблоном отделки, это обычно указывает на недопустимый тег.",
@@ -3257,135 +3257,198 @@
   "recipe.tconstruct.tool_recycling.no_modifiers": "Инструмент не может быть переработан, если он содержит какие-либо улучшения или умения, их необходимо сначала удалить.",
 
 
-  "_comment": "GUIs Messages",
+  "_comment": "Сообщения графического интерфейса",
 
   "gui.tconstruct.caption": "Заголовок",
   "gui.tconstruct.error": "ОШИБКА",
   "gui.tconstruct.warning": "ПРЕДУПРЕЖДЕНИЕ",
   "gui.tconstruct.general.hover": "Наведите курсор на надпись для получения дополнительной информации",
-  "gui.tconstruct.error.invalid_pattern": "Шаблон не содержит допустимую часть инструмента!",
-  "gui.tconstruct.error.invalid_recipe": "Неизвестный рецепт!",
+  "gui.tconstruct.error.invalid_pattern": "Шаблон не содержит допустимой детали инструмента!",
+  "gui.tconstruct.error.invalid_recipe": "Недействительный рецепт!",
   "gui.tconstruct.error.unknown_material": "Неизвестный материал",
-  "gui.tconstruct.error.useless_tool_part": "Эта часть не может быть использована для создания какого-либо инструмента! \n\nЛибо в материале %s отсутствует какая-то информация, либо для создания инструментов не используется %s.",
-  "gui.tconstruct.error.not_enough_durability": "Недостаточно прочности для замены частей!\n%d требуется больше прочности.",
+  "gui.tconstruct.error.useless_tool_part": "Эту деталь нельзя использовать для создания какого-либо инструмента!\n\nЛибо в материале %s отсутствует какая-то информация, либо ни один инструмент не использует %s при создании.",
+  "gui.tconstruct.error.not_enough_durability": "Недостаточно прочности для замены детали!\n%d требуется больше прочности.",
 
-  "_comment": "Book Strings",
 
-  "book.tconstruct.material.part_builder": "Можно создать в формирователе частей",
-  "book.tconstruct.material.cast_from": "Можно отлить из %s в литейных формах",
-  "book.tconstruct.material.composite_from": "Можно создать вылив %s на части из %s",
-  "book.tconstruct.material.skull_from": "Можно создать вылив эндер-слизь на %s в литейном резервуаре",
-  "book.tconstruct.modifiers.effect": "Результаты:",
-  "book.tconstruct.tool.properties": "Особенности:",
-  
-    "_comment": "Subtitles for sounds",
+  "_comment": "Субтитры для звука",
 
   "subtitles.tconstruct.little_saw": "Скрежет топора",
-  "subtitles.tconstruct.item_frame_click": "Рамка щёлкает",
+  "subtitles.tconstruct.item_frame_click": " Рамка щёлкает",
   "subtitles.tconstruct.casting_cools": "Отлитый предмет остывает",
+  "subtitles.tconstruct.casting.click": "Отлитый блок щёлкает",
 
   "subtitles.tconstruct.slime_sling": "Прыжок на слизневой рогатке",
   "subtitles.tconstruct.slime_sling.teleport": "Телепорт на слизневой рогатке",
-  "subtitles.tconstruct.enderporting": "Существа телепортируются",
-  "subtitles.tconstruct.throw.throwball": "Снаряд летит",
+  "subtitles.tconstruct.enderporting": "Сущность эндер-портируется",
+  "subtitles.tconstruct.throw.throwball": "Брошенный шар летит",
   "subtitles.tconstruct.throw.shuriken": "Сюрикен летит",
+  "subtitles.tconstruct.longbow.charge": "Длинный лук натягивается",
+  "subtitles.tconstruct.crystalshot": "Попадание стрелой",
+  "subtitles.tconstruct.bonk": "Инструмент стучит",
+  "subtitles.tconstruct.spit": "Жидкость выплёвывается",
 
   "subtitles.tconstruct.necrotic_heal": "Жизнь истощается",
+  "subtitles.tconstruct.extra_jump": "Сущность пронеслась со свистом",
 
-  "subtitles.tconstruct.slime_teleport": "Слизни телепортируются",
+  "subtitles.tconstruct.slime_teleport": "Слизень телепортируется",
   "subtitles.tconstruct.slimy_bounce": "Слизень подпрыгивает",
 
-  "subtitles.tconstruct.equip.slime": "Слизневая броня трясётся",
+  "subtitles.tconstruct.equip.slime": "Слизневая броня покачивается",
+  "subtitles.tconstruct.equip.travelers": "Броня путешественника шуршит",
+  "subtitles.tconstruct.equip.plate": "Пластинчатая броня лязгает",
 
-  "_comment": "Commands",
-
-  "command.tconstruct.slot_type.not_found": "Unknown slot type %s",
-  "command.tconstruct.stat_type.not_found": "Unknown stat type %s",
-  "command.tconstruct.stat_type.wrong_type": "Invalid stat type %s, must inherit from %s",
-  "command.tconstruct.material.not_found": "Unknown material %s",
-  "command.tconstruct.modifier_usage": "Successfully printed modifier usage to the game log",
-
-  "command.tconstruct.modifiers.success.add.single": "Applied modifier %s to %s's item",
-  "command.tconstruct.modifiers.success.add.multiple": "Applied modifier %s to %s entities",
-  "command.tconstruct.modifiers.success.remove.single": "Removed modifier %s from %s's item",
-  "command.tconstruct.modifiers.success.remove.multiple": "Removed modifier %s from %s entities",
-  "command.tconstruct.modifiers.failure.too_few_levels": "Cannot remove modifier %s from to %s's item",
-
-  "command.tconstruct.slots.success.add.single": "Applied %s %s slots to %s's item",
-  "command.tconstruct.slots.success.add.multiple": "Applied %s %s slots to %s entities",
-  "command.tconstruct.slots.success.set.single": "Set %s slots to %s on %s's item",
-  "command.tconstruct.slots.success.set.multiple": "Set %s slots to %s on %s entities",
-  "command.tconstruct.slots.failure.invalid_count": "Cannot add zero slots, must add a positive or a negative value",
-
-  "command.tconstruct.stats.success.bonus.modify.single": "%sIncreased by %s on %s's item",
-  "command.tconstruct.stats.success.bonus.modify.multiple": "%sIncreased by %s on %s entities",
-  "command.tconstruct.stats.success.bonus.set.single": "%sSet bonus to %s on %s's item",
-  "command.tconstruct.stats.success.bonus.set.multiple": "%sSet bonus to %s on %s entities",
-
-  "command.tconstruct.stats.success.multiply.modify.single": "%sMultiplied by %s on %s's item",
-  "command.tconstruct.stats.success.multiply.modify.multiple": "%sMultiplied by %s on %s entities",
-  "command.tconstruct.stats.success.multiply.set.single": "%sSet multiplier to %s on %s's item",
-  "command.tconstruct.stats.success.multiply.set.multiple": "%sSet multiplier to %s on %s entities",
-
-  "command.tconstruct.stats.success.reset.all.single": "Reset all tool stats bonuses and multipliers on %s's item",
-  "command.tconstruct.stats.success.reset.all.multiple": "Reset all tool stats bonuses and multipliers on %s entities",
-  "command.tconstruct.stats.success.reset.stat.single": "%sReset bonuses and multipliers on %s's item",
-  "command.tconstruct.stats.success.reset.stat.multiple": "%sReset bonuses and multipliers on %s entities",
-
-  "command.tconstruct.stats.failure.invalid_add": "Cannot add zero to a stat, must add a positive or negative number",
-  "command.tconstruct.stats.failure.invalid_multiply": "Cannot multiply a stat by 1, must multiply by a different positive number",
-
-  "command.tconstruct.held_modifiable.failed": "Nothing changed. Targets have no modifiable item in their hands or no targets were found",
-  "command.tconstruct.held_modifiable.failed.nonliving": "%s is not a valid entity for this command",
-  "command.tconstruct.held_modifiable.failed.no_item": "%s is not holding any item",
-  "command.tconstruct.held_modifiable.failed.invalid_item": "%s is not holding a modifiable item",
-
-  "command.tconstruct.generate_part_textures.start": "Started generating part textures",
-  "command.tconstruct.generate_part_textures.finish": "Successfully generated %s part textures in %s s at %s",
-  "command.tconstruct.generate_part_textures.no_materials": "No material's have generator info, nothing to generate",
-  "command.tconstruct.generate_part_textures.no_parts": "No part sprites present in resource packs",
+  "subtitles.tconstruct.block.earth_crystal.chime": "Земной слизневый кристалл звенит",
+  "subtitles.tconstruct.block.sky_crystal.chime":   "Небесный слизневый кристалл звенит",
+  "subtitles.tconstruct.block.ichor_crystal.chime": "Ихоровый кристалл звенит",
+  "subtitles.tconstruct.block.ender_crystal.chime": "Эндер-слизневый кристалл звенит",
 
 
-  "_comment": "JEI Strings",
-  "jei.tconstruct.time": "%s сек",
+  "_comment": "Строки из книги",
+
+  "book.tconstruct.material.craftable": "Конструктор деталей",
+  "book.tconstruct.material.part_builder": "Может быть создано в конструкторе деталей",
+  "book.tconstruct.material.castable": "Можно отлить",
+  "book.tconstruct.material.cast_from": "Может быть отлито из %s в процессе отливки",
+  "book.tconstruct.material.composite": "Составной",
+  "book.tconstruct.material.composite_from": "Может быть отлито из %s на %s деталей",
+  "book.tconstruct.material.skull": "Создание черепа",
+  "book.tconstruct.material.skull_from": "Можно создать, отливая эндер-слизь на %s в литейном баке",
+
+  "book.tconstruct.modifiers.effect": "Эффекты:",
+  "book.tconstruct.tool.properties": "Свойства:",
+  "book.tconstruct.fluid_effects.entity": "Эффекты сущности:",
+  "book.tconstruct.fluid_effects.block": "Эффекты блока:",
+
+  "book.tconstruct.material.category.general": "Общий материал",
+  "book.tconstruct.material.category.general.description": "Этот материал хорош для всех инструментов, но, возможно, не подходит для выполнения конкретной задачи.",
+  "book.tconstruct.material.category.melee": "Материал для ближнего боя",
+  "book.tconstruct.material.category.melee.description": "Этот материал лучше всего подходит для оружия ближнего боя и для эффективной борьбы с монстрами.",
+  "book.tconstruct.material.category.harvest": "Материал для сбора урожая",
+  "book.tconstruct.material.category.harvest.description": "Этот материал лучше всего подходит для инструментов для сбора урожая и для эффективной добычи блоков.",
+
+  "book.tconstruct.material.category.balanced": "Сбалансированный материал",
+  "book.tconstruct.material.category.balanced.description": "Этот материал обладает балансом скорости натяжения и скорости полёта.",
+  "book.tconstruct.material.category.light": "Лёгкий материал",
+  "book.tconstruct.material.category.light.description": "Этот материал идеально подходит для оружия с высокой скоростью натяжения, что приводит к высокому урону в секунду.",
+  "book.tconstruct.material.category.heavy": "Тяжёлый материал",
+  "book.tconstruct.material.category.heavy.description": "Этот материал идеально подходит для оружия с высокой скоростью полёта, что приводит к высокому урону от снарядов.",
+
+
+  "_comment": "Команды",
+
+  "command.tconstruct.slot_type.not_found": "Неизвестный тип слота: %s",
+  "command.tconstruct.fluid.not_found": "Неизвестная жидкость: %s",
+  "command.tconstruct.stat_type.not_found": "Неизвестная характеристика инструмента: %s",
+  "command.tconstruct.material_stat.not_found": "Неизвестная характеристика материала: %s",
+  "command.tconstruct.stat_type.wrong_type": "Неверная характеристика инструмента %s, должно наследоваться от %s",
+  "command.tconstruct.material.not_found": "Неизвестный материал: %s",
+  "command.tconstruct.modifier.not_found": "Неизвестный модификатор: %s",
+  "command.tconstruct.modifier_hook.not_found": "Неизвестный крюк модификатора: %s",
+  "command.tconstruct.modifier_usage": "Использование модификаторов успешно выведено в игровой журнал",
+  "command.tconstruct.modifier_priority": "Приоритеты модификаторов успешно выведены в игровой журнал",
+
+  "command.tconstruct.modifiers.success.add.single": "Модификатор [%s] применён к предмету игрока %s",
+  "command.tconstruct.modifiers.success.add.multiple": "Модификатор [%s] применён к %s сущностям",
+  "command.tconstruct.modifiers.success.remove.single": "Модификатор [%s] удалён с предмета игрока %s",
+  "command.tconstruct.modifiers.success.remove.multiple": "Модификатор [%s] удалён из %s сущностей",
+  "command.tconstruct.modifiers.failure.too_few_levels": "Невозможно удалить модификатор [%s] с предмета игрока %s",
+
+  "command.tconstruct.materials.success.set.single": "Установлено значение материала [%s] равное %s к предмету игрока %s",
+  "command.tconstruct.materials.success.set.multiple": "Установлено значение материала [%s] равное %s к %s сущностям",
+  "command.tconstruct.materials.failure.invalid_index": "Индекс [%s] слишком большой для предмета игрока %s",
+  "command.tconstruct.materials.success.stats.default": "Характеристика по умолчанию для %s:",
+  "command.tconstruct.materials.success.stats.material": "Характеристика %s для %s:",
+  "command.tconstruct.materials.failure.invalid_stats": "Характеристика %s не зарегистрирована для %s",
+  "command.tconstruct.materials.success.traits.default": "Особенности по умолчанию для %s:",
+  "command.tconstruct.materials.success.traits.stat": "Особенности %s для %s:",
+  "command.tconstruct.materials.failure.no_traits": "Нет особенностей",
+
+  "command.tconstruct.slots.success.add.single": "Применено %s слот(ов) [%s] к предмету игрока %s",
+  "command.tconstruct.slots.success.add.multiple": "Применено %s слот(ов) [%s] к %s сущностям",
+  "command.tconstruct.slots.success.set.single": "Установлено %s слот(ов) [%s] к предмету игрока %s",
+  "command.tconstruct.slots.success.set.multiple": "Установлено %s слот(ов) [%s] к %s сущностям",
+  "command.tconstruct.slots.failure.invalid_count": "Невозможно добавить ноль слотов, необходимо добавить положительное или отрицательное значение",
+
+  "command.tconstruct.stats.success.bonus.modify.single": "%sЗначение увеличено на %s для предмета игрока %s",
+  "command.tconstruct.stats.success.bonus.modify.multiple": "%sЗначение увеличено на %s для %s сущностей",
+  "command.tconstruct.stats.success.bonus.set.single": "%sЗначение бонуса %s установлено для предмета игрока %s",
+  "command.tconstruct.stats.success.bonus.set.multiple": "%sЗначение бонуса %s установлено для %s сущностей",
+  "command.tconstruct.stats.success.bonus.set.parse_fail": "%sНе удалось выполнить синтаксический анализ %s",
+
+  "command.tconstruct.stats.success.multiply.modify.single": "%sМножитель на %s для предмета игрока %s",
+  "command.tconstruct.stats.success.multiply.modify.multiple": "%sМножитель на %s для %s сущностей",
+  "command.tconstruct.stats.success.multiply.set.single": "%sУстановлен множитель на %s для предмета игрока %s",
+  "command.tconstruct.stats.success.multiply.set.multiple": "%sУстановлен множитель на %s для %s сущностей",
+
+  "command.tconstruct.stats.success.reset.all.single": "Сброс всех бонусов и множителей характеристик инструментов на предмете игрока %s",
+  "command.tconstruct.stats.success.reset.all.multiple": "Сброс всех бонусов и множителей характеристик инструментов у %s сущностей",
+  "command.tconstruct.stats.success.reset.stat.single": "%sСброс бонусов и множителей на предмете игрока %s",
+  "command.tconstruct.stats.success.reset.stat.multiple": "%sСброс бонусов и множителей у %s сущностей",
+
+  "command.tconstruct.stats.failure.invalid_add": "Нельзя прибавлять ноль к характеристике, необходимо прибавлять положительное или отрицательное число",
+  "command.tconstruct.stats.failure.invalid_multiply": "Нельзя умножать характеристику на 1, необходимо умножать на другое положительное число",
+
+  "command.tconstruct.held_modifiable.failed": "Ничего не изменилось. У целей нет изменяемых предметов в руках или цели не были найдены",
+  "command.tconstruct.held_modifiable.failed.nonliving": "%s не является допустимой сущностью для этой команды",
+  "command.tconstruct.held_modifiable.failed.no_item": "%s не держит никаких предметов",
+  "command.tconstruct.held_modifiable.failed.invalid_item": "%s не держит изменяемый предмет",
+
+  "command.tconstruct.generate_part_textures.start": "Началась генерация текстур деталей...",
+  "command.tconstruct.generate_part_textures.finish": "%s текстур деталей успешно сгенерированы за %s сек. в папку: %s",
+  "command.tconstruct.generate_part_textures.no_materials": "Ни в одном материале нет информации о генераторе, генерировать нечего",
+  "command.tconstruct.generate_part_textures.no_parts": "В пакетах ресурсов нет спрайтов деталей",
+
+
+  "_comment": "Строки JEI",
+  "jei.tconstruct.time": "%s сек.",
   "jei.tconstruct.temperature": "%s°C",
   "jei.tconstruct.modifier_ingredient": "Модификатор: %s",
-  "jei.tconstruct.modifier_slot.ingredient": "Слот модификатора %s",
-  "jei.tconstruct.modifier_slot.id": "Slot ID: %s",
+  "jei.tconstruct.modifier_slot.ingredient": "Стол модификатора: %s",
+  "jei.tconstruct.modifier_slot.id": "ID слота: %s",
 
-  "jei.tconstruct.casting.basin": "Литейный резервуар",
+  "jei.tconstruct.casting.basin": "Литейный бак",
   "jei.tconstruct.casting.table": "Литейный стол",
-  "jei.tconstruct.casting.cast_kept": "Отлитый предмет можно повторно использовать в других рецептах",
-  "jei.tconstruct.casting.cast_consumed": "Предмет расходуется во время литья",
+  "jei.tconstruct.casting.cast_kept": "Отлитый предмет можно повторно использовать в последующих рецептах.",
+  "jei.tconstruct.casting.cast_consumed": "Отлитый предмет расходуется при отливке.",
 
-  "jei.tconstruct.molding.title": "Формирование",
-  "jei.tconstruct.molding.pattern_consumed": "Шаблон расходуется на создание",
+  "jei.tconstruct.molding.title": "Литьё",
+  "jei.tconstruct.molding.pattern_consumed": "Шаблон используется при создании.",
 
-  "jei.tconstruct.melting.title": "Переплавка",
-  "jei.tconstruct.melting.multiplier": "Множитель скорости: %sx",
-  "jei.tconstruct.melting.ore": "Время выполнения рецепта увеличивается в зависимости от типа контроллера",
-  "jei.tconstruct.melting.time": "Время плавления: %s s",
+  "jei.tconstruct.melting.title": "Плавление",
+  "jei.tconstruct.melting.multiplier": "Множитель скорости: x%s",
+  "jei.tconstruct.melting.ore": "Выход рецепта увеличивается в зависимости от типа контроллера.",
+  "jei.tconstruct.melting.time": "Время плавления: %s сек.",
   "jei.tconstruct.melting.smeltery": "В плавильне:",
   "jei.tconstruct.melting.melter": "В плавильной печи:",
   "jei.tconstruct.foundry.title": "Литейная печь",
 
-  "jei.tconstruct.entity_melting.title": "Переплавка существ",
-  "jei.tconstruct.entity_melting.per_hearts": "За %s сердцец здоровья",
-  "jei.tconstruct.entity_melting.per_heart": "За 1.0 сердце здоровья",
+  "jei.tconstruct.entity_melting.title": "Плавление сущности",
+  "jei.tconstruct.entity_melting.per_hearts": "(за каждые %s ед. урона здоровью)",
+  "jei.tconstruct.entity_melting.per_heart": "(за одну единицу урона здоровью)",
 
   "jei.tconstruct.alloy.title": "Смешивание",
+  "jei.tconstruct.alloy.catalyst": "Не расходуется",
 
   "jei.tconstruct.modifiers.title": "Модификаторы",
-  "jei.tconstruct.modifiers.slot": "Для применения модификатора требуется 1 слот %s",
-  "jei.tconstruct.modifiers.slots": "Для применения модификатора требуется %s слота %s",
-  "jei.tconstruct.modifiers.free": "Для применения модификатора не требуется слотов",
-  "jei.tconstruct.modifiers.incremental": "Рецепт является пошаговым, Вы можете применить часть материалов, для получения частичного эффекта",
-  "jei.tconstruct.modifiers.max": "Макс: ",
+  "jei.tconstruct.modifiers.slot": "Для применения требуется 1 слот %s.",
+  "jei.tconstruct.modifiers.slots": "Для применения требуется %s слот(ов) %s.",
+  "jei.tconstruct.modifiers.free": "Для применения модификаторов слоты не требуются.",
+  "jei.tconstruct.modifiers.incremental": "Рецепт является пошаговым, вы можете применить часть материалов для получения частичного эффекта.",
+  "jei.tconstruct.modifiers.level.min": "Мин. уровень: %s",
+  "jei.tconstruct.modifiers.level.max": "Макс. уровень: %s",
+  "jei.tconstruct.modifiers.level.range": "Диапазон уровней: %s - %s",
+  "jei.tconstruct.modifiers.level.exact": "Для уровня: %s",
 
   "jei.tconstruct.severing.title": "Отсечение",
 
-  "jei.tconstruct.part_builder.title": "Формирователь частей",
+  "jei.tconstruct.tinkering.tool_building": "Создание инструмента",
+  "jei.tconstruct.tinkering.tool_building.anvil": "Для широких инструментов требуется создать литейную наковальню или поменять местами детали.",
+
+  "jei.tconstruct.part_builder.title": "Конструктор деталей",
   "jei.tconstruct.part_builder.cost": "Затраты: %s",
+
+  "jei.tconstruct.modifier_worktable.title": "Рабочий стол для модификаторов",
+  "jei.tconstruct.tinker_station.too_large": "Рецепт слишком большой для создания на этой станции.",
 
 
    "_comment": "Tool Advancements",
@@ -3473,6 +3536,4 @@
   "advancements.tconstruct.world.slime_sling.description": "Используйте все 4 вида слизневых рогаток",
   "advancements.tconstruct.world.piggybackpack.title": "Свинья за спиной",
   "advancements.tconstruct.world.piggybackpack.description": "Поднимите свинью с помощью свино-рюкзака"
-
 }
-
