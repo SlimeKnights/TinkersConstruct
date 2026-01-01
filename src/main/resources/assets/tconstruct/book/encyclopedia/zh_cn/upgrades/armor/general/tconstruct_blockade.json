@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:blockade",
+  "text": [
+    {
+      "text": "每级工具的基础格挡上限+100%，3级时达到最大值+300%。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "可以逐级强化",
+    "最高5级",
+    "每级需要1个升级槽",
+    "需要“格挡”或“招架”作为前置"
+  ]
+}

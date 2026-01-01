@@ -5,7 +5,7 @@
       "text": "每一等级为头盔增加3个可放置地图的槽位。同时按下Ctrl键和“头盔交互”键切换当前激活的地图。"
     },
     {
-      "text": "手持头盔右击可以打开物品槽位。", "paragraph": true
+      "text": "手持头盔时按下交互键可以打开物品栏。", "paragraph": true
     }
   ],
   "more_text_space": true,

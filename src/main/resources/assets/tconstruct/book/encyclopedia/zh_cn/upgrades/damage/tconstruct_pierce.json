@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:pierce",
   "text": [
     {
-      "text": "每级近战伤害+0.5，抵消护甲值+1。"
+      "text": "每级近战伤害+0.5。击中敌人后，接下来5秒内每级使近战攻击无视敌人2点护甲值。"
     }
   ],
   "more_text_space": true,
