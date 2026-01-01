@@ -3451,7 +3451,7 @@
   "jei.tconstruct.tinker_station.too_large": "Рецепт слишком большой для создания на этой станции.",
 
 
-  "_comment": "Достижения инструмента",
+  "_comment": "Достижения по инструментам",
   "advancements.tconstruct.tools.materials_and_you.title": "Литейщик на все руки",
   "advancements.tconstruct.tools.materials_and_you.description": "Создайте руководство «Литейное дело: Материалы и Вы»",
   "advancements.tconstruct.tools.part_builder.title": "Конструктор деталей",
@@ -3481,7 +3481,7 @@
   "advancements.tconstruct.tools.material_master.title": "Мастер материалов",
   "advancements.tconstruct.tools.material_master.description": "Используйте каждый материал по умолчанию хотя бы один раз",
 
-  "_comment": "Достижения плавильни",
+  "_comment": "Достижения по плавильне",
   "advancements.tconstruct.smeltery.puny_smelting.title": "Рекрут плавильньного дела",
   "advancements.tconstruct.smeltery.puny_smelting.description": "Создайте руководство «Литейное дело: Лёгкая металлургия»",
   "advancements.tconstruct.smeltery.melter.title": "Базовая плавильня",
@@ -3503,7 +3503,7 @@
   "advancements.tconstruct.smeltery.abilities.title": "Мастер умений",
   "advancements.tconstruct.smeltery.abilities.description": "Примените каждый модификатор умений по умолчанию к инструменту хотя бы один раз",
 
-  "_comment": "Достижения литейной печи",
+  "_comment": "Достижения по литейной печи",
   "advancements.tconstruct.foundry.fantastic_foundry.title": "Плавильня Незера",
   "advancements.tconstruct.foundry.fantastic_foundry.description": "Создайте руководство по выплавке в Незере «Литейное дело: Фантастическая металлургия»",
   "advancements.tconstruct.foundry.alloyer.title": "Базовый смешиватель",
@@ -3519,7 +3519,7 @@
   "advancements.tconstruct.foundry.encyclopedia.title": "Энциклопедия",
   "advancements.tconstruct.foundry.encyclopedia.description": "Создайте книгу «Литейное дело: Металлургическая энциклопедия», используя знания из всех книг",
 
-  "_comment": "Гаджетные достижения",
+  "_comment": "Достижения по гаджетам",
   "advancements.tconstruct.world.tinkers_gadgetry.title": "Литейные гаджеты",
   "advancements.tconstruct.world.tinkers_gadgetry.description": "Создайте руководство «Литейное дело: Литейнные гаджеты», чтобы начать исследовать мир",
   "advancements.tconstruct.world.earth_island.title": "Земной слизневый остров",
@@ -3543,4 +3543,3 @@
   "advancements.tconstruct.world.ancient_tools.title": "Археолог",
   "advancements.tconstruct.world.ancient_tools.description": "Откройте для себя все оригинальные типы древних инструментов"
 }
-
