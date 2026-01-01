@@ -1,55 +1,65 @@
-intro=Introduction
+intro=Введение
 
-small_tools=Малые инструменты
-small_tools.info=Информация об инструментах
-large_tools=Широкие инструменты
-large_tools.info=Информация об инструментах
-
+tools=Инструменты
+tools.group_small=Маленькие инструменты
+tools.group_large=Широкие инструменты
+tools.group_ancient=Древние инструменты
+tools.group_staff=Посохи
+tools.tconstruct.earth_staff=Земная слизь
+tools.tconstruct.sky_staff=Небесная слизь
+tools.tconstruct.ichor_staff=Ихор
+tools.tconstruct.ender_staff=Эндер-слизь
 armor=Броня
-armor.info=Информация о броне
 
-materials_1=Материалы 1-го уровня
-materials_1.subtext=Эти материалы легко найти, и их можно поместить в формирователь частей для создания частей инструментов
-
-materials_2=Материалы 2-го уровня
-materials_2.subtext=Эти материалы требуют плавки и литья для создания, и могут быть немного более редкими
-
-materials_3=Материалы 3-го уровня
-materials_3.subtext=Эти материалы создаются смешиванием, либо в смешивателе или в плавильне
-
-materials_4=Материалы 4-го уровня
-materials_4.subtext=Эти материалы невозможно найти без путешествия в Незер
-skull_materials=Слизечерепа
-skull_materials.subtext=В этом разделе описаные все эффекты, которые имеют слизечерепа после создания
+materials_harvest=Общие материалы
+materials_harvest.subtext=Материалы, используемые для создания оружия ближнего боя или инструментов для сбора урожая.
+materials_ranged=Материалы для дальнего боя 
+materials_ranged.subtext=Материалы, используемые для создания оружия дальнего боя.
+materials_armor=Материалы для брони
+materials_armor.subtext=Материалы, используемые для создания брони и щитов.
+materials_skull=Слизневые черепа
+materials_skull.subtext=В этом разделе описываются эффекты всех типов черепов при создании слизневого черепа.
 
 upgrades=Улучшения
-upgrades.subtext=Каждый инструмент имеет ограниченное суммарное количество слотов для улучшений.
-upgrades.group_general=Основные
-upgrades.group_harvest=Для копания
-upgrades.group_melee=Для оружия
-upgrades.group_damage=Увелич. урон
-upgrades.group_armor=Для брони
+upgrades.subtext=Каждому инструменту доступно ограниченное количество слотов для улучшений.
+upgrades.group_general=Общие
+upgrades.group_harvest=Сбор урожая
+upgrades.group_weapon=Ближний бой
+upgrades.group_ranged=Дальний бой
+upgrades.group_damage=Усиление урона
+upgrades.group_armor=Броня
+upgrades.group_armor.helmet=Шлем
+upgrades.group_armor.chestplate=Нагрудник
+upgrades.group_armor.leggings=Поножи
+upgrades.group_armor.boots=Ботинки
 upgrades.boots.tconstruct.feather_falling=Невесомость
+# Можно добавить другие модификаторы, используя [section].[prefix].[mod_id].[modifier_id], мы используем это только для длинных названий
+# Вы также можете отключить параметр «Невесомость» в настройках языка, и в этом случае будет использоваться файл языка .json
+# Смотрите раздел JSON, чтобы найти префикс, любой тип модификатора, который определяет, что его можно использовать
 
 defense=Защита
-defense.subtext=Вместо особенностей от материалов, броня будет иметь защитные слоты для усиления защиты.
+defense.subtext=Вместо характеристик от материала, броня будет включать защитные слоты для усиления защиты.
 defense.group_protection=Защитные
 defense.group_special=Специальные
 
-slotless=Бесслотовые
-slotless.subtext=Бесслотовые модификаторы не требуют слотов.
-slotless.group_general=Основные
-slotless.group_bonus=Дополнительные
+slotless=Без слота
+slotless.subtext=Модификаторы без слотов не требуют слотов.
+slotless.group_general=Общие
+slotless.group_bonus=Бонусные
 
 abilities=Умения
-abilities.subtext=Для умений-модификаторов обычно меньше слотов, чем для улучшений, но они сильнее.
-abilities.group_general=Основные
-abilities.group_harvest=Для копания
-abilities.group_melee=Для оружия
-abilities.group_interact=Для взаимод.
-abilities.group_armor=Для брони
-abilities.unarmed=Безоружные
+abilities.subtext=У модификаторов умений меньше слотов, чем у улучшений, но они сильнее в каждом слоте.
+abilities.group_general=Общие
+abilities.group_harvest=Сбор урожая
+abilities.group_melee=Ближний бой
+abilities.group_ranged=Дальний бой
+abilities.group_interact=Взаимодействие
+abilities.group_armor=Броня
+abilities.group_armor.helmet=Шлем
+abilities.group_armor.chestplate=Нагрудник
+abilities.group_armor.leggings=Поножи
+abilities.group_armor.boots=Ботинки
+abilities.group_armor.shield=Щиты
 
-modifier.effect=Effects:
-tool.properties=Properties:
-
+fluid_effects=Эффекты жидкости
+fluid_effects.subtext=Эффекты жидкости определяют поведение при попадании жидкости на блок или сущность с помощью различных модификаторов, таких как выплёвывание, разливание и разбрызгивание.
