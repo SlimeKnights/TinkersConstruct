@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:blunted",
+  "text": [
+    {
+      "text": "为热衷于远程作战的人准备的。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "防止工具触发近战攻击",
+    "适合与攻击时生效的强化搭配",
+    "单个等级",
+    "无需槽位"
+  ]
+}

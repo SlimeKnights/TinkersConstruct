@@ -1,8 +1,8 @@
 {
-  "modifier_id": "tconstruct:recapitated",
+  "modifier_id": "tconstruct:blunted",
   "text": [
     {
-      "text": "额外获得1个升级槽。"
+      "text": "防止工具触发近战攻击，改为触发交互功能。"
     }
   ],
   "more_text_space": true,
