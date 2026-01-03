@@ -119,7 +119,6 @@
   "__comment": "Литейное дело: Металлы (3 уровень)",
 
   "block.tconstruct.slimesteel_block": "Блок слизневой стали",
-  "block.tconstruct.slimesteel_block.tooltip": "Может использоваться в основании для маяка.",
   "item.tconstruct.slimesteel_ingot": "Слиток слизневой стали",
   "item.tconstruct.slimesteel_nugget": "Кусочек слизневой стали",
 
@@ -128,12 +127,10 @@
   "item.tconstruct.amethyst_bronze_nugget": "Кусочек аметистовой бронзы",
 
   "block.tconstruct.rose_gold_block": "Блок розового золота",
-  "block.tconstruct.rose_gold_block.tooltip": "Может использоваться в основании для маяка.",
   "item.tconstruct.rose_gold_ingot": "Слиток розового золота",
   "item.tconstruct.rose_gold_nugget": "Кусочек розового золота",
 
   "block.tconstruct.pig_iron_block": "Блок свиного железа",
-  "block.tconstruct.pig_iron_block.tooltip": "Может использоваться в основании для маяка.",
   "item.tconstruct.pig_iron_ingot": "Слиток свиного железа",
   "item.tconstruct.pig_iron_nugget": "Кусочек свиного железа",
 
@@ -159,6 +156,11 @@
   "item.tconstruct.queens_slime_ingot": "Слиток королевской слизи",
   "item.tconstruct.queens_slime_nugget": "Кусочек королевской слизи",
 
+  "block.tconstruct.knightmetal_block": "Блок рыцарского металла",
+  "block.tconstruct.knightmetal_block.tooltip": "Может использоваться в основании для маяка.",
+  "item.tconstruct.knightmetal_ingot": "Слиток рыцарского металла",
+  "item.tconstruct.knightmetal_nugget": "Кусочек рыцарского металла",
+
   "block.tconstruct.soulsteel_block": "Стальной блок душ",
   "block.tconstruct.soulsteel_block.tooltip": "Может использоваться в основании для маяка.",
   "item.tconstruct.soulsteel_ingot": "Стальной слиток душ",
@@ -172,7 +174,6 @@
   "__comment": "Литейное дело: Металлы (5 уровень)",
 
   "block.tconstruct.knightslime_block": "Блок рыцарской слизи",
-  "block.tconstruct.knightslime_block.tooltip": "Может использоваться в основании для маяка.",
   "item.tconstruct.knightslime_ingot": "Слиток рыцарской слизи",
   "item.tconstruct.knightslime_ingot.tooltip": "Склизкая, металлическая, но в то же время каменная? Очаровательно!",
   "item.tconstruct.knightslime_nugget": "Кусочек рыцарской слизи",
@@ -234,6 +235,15 @@
   "block.tconstruct.ender_slime_crystal_cluster": "Эндер-слизневая кристальная друза",
   "block.tconstruct.budding_ender_slime_crystal": "Цветущий эндер-слизневый кристалл",
 
+  "item.tconstruct.steel_shard": "Стальной осколок",
+  "item.tconstruct.steel_shard.tooltip": "Осколки металла, поглощённые небесными слизнями.",
+  "block.tconstruct.steel_cluster": "Стальная друза",
+  "block.tconstruct.steel_cluster.tooltip": "Естественное образование стальных осколков. Не отрастает заново.",
+  "item.tconstruct.knightmetal_shard": "Осколок рыцарского металла",
+  "item.tconstruct.knightmetal_shard.tooltip": "Осколки металла, поглощённые эндер-слизнями.",
+  "block.tconstruct.knightmetal_cluster": "Друза рыцарского металла",
+  "block.tconstruct.knightmetal_cluster.tooltip": "Естественное образование осколков рыцарского металла. Не отрастает заново.",
+
   "item.tconstruct.emerald_reinforcement": "Изумрудное укрепление",
   "item.tconstruct.emerald_reinforcement.tooltip": "Увеличивает устойчивость брони к взрывам.",
   "item.tconstruct.slimesteel_reinforcement": "Укрепление из слизневой стали",
@@ -265,7 +275,7 @@
   "item.tconstruct.modifier_crystal.format": "Кристалл: %s",
   "item.tconstruct.modifier_crystal.missing": "Отсутствует или недействительный NBT, определяющий тип модификатора.",
   "item.tconstruct.modifier_crystal.tooltip": "Применить к инструменту, чтобы получить 1 уровень модификатора, используя соответствующие слоты.",
-  "item.tconstruct.modifier_crystal.modifier_id": "ID модификатора: %s",
+  "item.tconstruct.modifier_crystal.modifier_id": "Идентификатор модификатора: %s",
 
   "item.tconstruct.creative_slot": "Творческий слот",
   "item.tconstruct.creative_slot.upgrades": "Творческое улучшение",
@@ -288,6 +298,11 @@
   "pattern.tconstruct.gem": "Драгоценный камень",
   "pattern.tconstruct.rod": "Стержень",
 
+  "pattern.tconstruct.block": "Блок",
+  "pattern.tconstruct.shard": "Осколок",
+  "pattern.tconstruct.crystal": "Кристалл",
+  "pattern.tconstruct.scale": "Чешуя",
+
   "pattern.tconstruct.gear": "Шестерня",
   "pattern.tconstruct.plate": "Маленькая пластина",
   "pattern.tconstruct.coin": "Монета",
@@ -307,6 +322,7 @@
   "pattern.tconstruct.small_blade": "Маленькое лезвие",
   "pattern.tconstruct.adze_head": "Наконечник тесла",
   "pattern.tconstruct.bow_limb": "Плечо лука",
+  "pattern.tconstruct.arrow_head": "Наконечник стрелы",
 
   "_comment": "Литейное дело: Шаблоны больших наконечников",
 
@@ -328,6 +344,9 @@
   "pattern.tconstruct.tool_handle": "Рукоятка инструмента",
   "pattern.tconstruct.tough_handle": "Прочная рукоятка",
   "pattern.tconstruct.bow_grip": "Рукоятка лука",
+  "pattern.tconstruct.arrow_shaft": "Древко стрелы",
+  "pattern.tconstruct.fletching": "Оперение стрелы",
+  "pattern.tconstruct.arrow_part": "Наконечник стрелы или древко",
 
 
   "_comment": "Литейное дело: Золотые литейные формы",
@@ -367,6 +386,8 @@
 
   "item.tconstruct.tool_binding_cast": "Золотая литейная форма: Крепление инструмента",
   "item.tconstruct.tough_binding_cast": "Золотая литейная форма: Жёсткий поясок",
+  "item.tconstruct.arrow_cast": "Золотая литейная форма: Стрела",
+  "item.tconstruct.arrow_cast.tooltip": "Многоразовый шаблон для создания деталей стрел в конструкторе деталей.",
 
   "_comment": "Литейное дело: Золотые формы рукояток инструментов",
 
@@ -374,7 +395,6 @@
   "item.tconstruct.tough_handle_cast": "Золотая литейная форма: Прочная рукоятка",
 
   "_comment": "Литейное дело: Золотые формы брони",
-
   "item.tconstruct.helmet_plating_cast": "Золотая литейная форма: Покрытие шлема",
   "item.tconstruct.chestplate_plating_cast": "Золотая литейная форма: Покрытие нагрудника",
   "item.tconstruct.leggings_plating_cast": "Золотая литейная форма: Покрытие поножей",
@@ -726,6 +746,12 @@
   "item.tconstruct.molten_hepatizon_bucket": "Ведро расплавленного гепатизона",
   "fluid.tconstruct.molten_hepatizon.fluid_effect": "Расплавленный гепатизон подходит лучше для защиты или боя? В любом случае, это рискованная стратегия.",
 
+  "block.tconstruct.molten_knightmetal_fluid": "Расплавленный рыцарский металл",
+  "fluid.tconstruct.molten_knightmetal": "Расплавленный рыцарский металл",
+  "fluid.tconstruct.flowing_molten_knightmetal": "Текучий расплавленный рыцарский металл",
+  "item.tconstruct.molten_knightmetal_bucket": "Ведро расплавленного рыцарского металла",
+  "fluid.tconstruct.molten_knightmetal.fluid_effect": "По иронии судьбы, рыцарский металл больше всего подходит для убийства того, от кого он исходит.",
+
   "block.tconstruct.molten_cinderslime_fluid": "Расплавленная зольная слизь",
   "fluid.tconstruct.molten_cinderslime": "Расплавленная зольная слизь",
   "fluid.tconstruct.flowing_molten_cinderslime": "Текучая расплавленная зольная слизь",
@@ -814,6 +840,19 @@
   "item.tconstruct.molten_uranium_bucket": "Ведро расплавленного урана",
   "fluid.tconstruct.molten_uranium.fluid_effect": "Радиоактивный распад расплавленного урана небезопасен, поэтому сбрасывайте его на своих противников.",
 
+  "block.tconstruct.molten_chromium_fluid": "Расплавленный хром",
+  "fluid.tconstruct.molten_chromium": "Расплавленный хром",
+  "fluid.tconstruct.flowing_molten_chromium": "Текучий расплавленный хром",
+  "item.tconstruct.molten_chromium_bucket": "Ведро расплавленного хрома",
+  "fluid.tconstruct.molten_chromium.fluid_effect": "Если бы только удача была на самом деле полезным эффектом, эту жидкость было бы здорово пить!",
+
+  "block.tconstruct.molten_cadmium_fluid": "Расплавленный кадмий",
+  "fluid.tconstruct.molten_cadmium": "Расплавленный кадмий",
+  "fluid.tconstruct.flowing_molten_cadmium": "Текучий расплавленный кадмий",
+  "item.tconstruct.molten_cadmium_bucket": "Ведро расплавленного кадмия",
+  "fluid.tconstruct.molten_cadmium.fluid_effect": "Идеально подходит для подводных боёв.",
+
+
   "_comment": "Литейное дело: Совместимые сплавы",
 
   "block.tconstruct.molten_bronze_fluid": "Расплавленная бронза",
@@ -891,13 +930,39 @@
   "item.tconstruct.molten_refined_obsidian_bucket": "Ведро расплавленного очищенного обсидиана",
   "fluid.tconstruct.molten_refined_obsidian.fluid_effect": "Расплавленный очищенный обсидиан наносит максимальный урон бронированным целям.",
 
-  "_comment": "Литейное дело: Металлоборнские сплавы",
+  "_comment": "Литейное дело: Сплавы Космера",
 
   "block.tconstruct.molten_nicrosil_fluid": "Расплавленный никросил",
   "fluid.tconstruct.molten_nicrosil": "Расплавленный никросил",
   "fluid.tconstruct.flowing_molten_nicrosil": "Текучий расплавленный никросил",
   "item.tconstruct.molten_nicrosil_bucket": "Ведро расплавленного никросила",
   "fluid.tconstruct.molten_nicrosil.fluid_effect": "Никросил обладает врожденной способностью к магии, поэтому использовать его таким образом - пустая трата времени.",
+
+  "block.tconstruct.molten_duralumin_fluid": "Расплавленный дюралюминий",
+  "fluid.tconstruct.molten_duralumin": "Расплавленный дюралюминий",
+  "fluid.tconstruct.flowing_molten_duralumin": "Текучий расплавленный дюралюминий",
+  "item.tconstruct.molten_duralumin_bucket": "Ведро расплавленного дюралюминия",
+  "fluid.tconstruct.molten_duralumin.fluid_effect": "Отключает вас от мира.",
+
+  "block.tconstruct.molten_bendalloy_fluid": "Расплавленный сплав Вуда",
+  "fluid.tconstruct.molten_bendalloy": "Расплавленный сплав Вуда",
+  "fluid.tconstruct.flowing_molten_bendalloy": "Текучий расплавленный сплав Вуда",
+  "item.tconstruct.molten_bendalloy_bucket": "Ведро расплавленного сплава Вуда",
+  "fluid.tconstruct.molten_bendalloy.fluid_effect": "Идеальная закуска в разгар сражения.",
+
+  "_comment": "Литейное дело: Сплавы сумеречного леса",
+
+  "block.tconstruct.molten_steeleaf": "Расплавленный стальной лист",
+  "fluid.tconstruct.molten_steeleaf": "Расплавленный стальной лист",
+  "fluid.tconstruct.flowing_molten_steeleaf": "Текучий расплавленный стальной лист",
+  "item.tconstruct.molten_steeleaf_bucket": "Ведро расплавленного стального листа",
+  "fluid.tconstruct.molten_steeleaf.fluid_effect": "Полезно как для вас, так и для вашей цели, чтобы максимально использовать полученный опыт.",
+
+  "block.tconstruct.fiery_liquid": "Огненная жидкость",
+  "fluid.tconstruct.fiery_liquid": "Огненная жидкость",
+  "fluid.tconstruct.flowing_fiery_liquid": "Текучая огненная жидкость",
+  "item.tconstruct.fiery_liquid_bucket": "Ведро огненной жидкости",
+  "fluid.tconstruct.fiery_liquid.fluid_effect": "Вы можете подумать, что это фантастическая сделка, столько дополнительных слитков! Но помните, что огненную жидкость действительно трудно достать.",
 
 
   "_comment": "Литейное дело: Содержимое эффекта жидкости",
@@ -948,6 +1013,7 @@
   "fluid_effect.tconstruct.potion_cloud": "Туманное облако зелья",
   "fluid_effect.tconstruct.move_block.push": "Толкает блок",
   "fluid_effect.tconstruct.move_block.pull": "Притягивает блок",
+  "fluid_effect.tconstruct.melt_block": "Расплавляет блок в жидкость",
 
   "fluid_effect.tconstruct.drop_item": "Выпадение %s",
   "fluid_effect.tconstruct.explosion": "Мощность взрыва: %s",
@@ -1032,6 +1098,11 @@
   "item.tconstruct.tool.id_format": "%1$s (%2$s)",
   "item.tconstruct.tool.material_separator": " | ",
 
+  "entity.tconstruct.arrow": "Стрела",
+  "entity.tconstruct.thrown_shuriken": "Сюрикен",
+  "entity.tconstruct.thrown_tool": "Метательный инструмент",
+  "entity.tconstruct.fishing_bobber": "Поплавок",
+
   "item.tconstruct.pickaxe": "Кирка",
   "item.tconstruct.sledge_hammer": "Молот",
   "item.tconstruct.vein_hammer": "Жильный молот",
@@ -1052,6 +1123,11 @@
 
   "item.tconstruct.crossbow": "Арбалет",
   "item.tconstruct.longbow": "Длинный лук",
+  "item.tconstruct.fishing_rod": "Удочка",
+  "item.tconstruct.javelin": "Копьё",
+  "item.tconstruct.arrow": "Стрела",
+  "item.tconstruct.shuriken": "Сюрикен",
+  "item.tconstruct.throwing_axe": "Метательный топор",
 
   "item.tconstruct.flint_and_brick": "Обожжённое огниво",
   "item.tconstruct.sky_staff": "Посох из небесной слизи",
@@ -1063,7 +1139,8 @@
   "item.tconstruct.battlesign": "Боевая табличка",
   "item.tconstruct.war_pick": "Боевая кирка",
   "item.tconstruct.swasher": "Жидкостный пистолет",
-  
+  "item.tconstruct.minotaur_axe": "Топор минотавра",
+
   "item.tconstruct.travelers_helmet": "Очки путешественника",
   "item.tconstruct.travelers_chestplate": "Жилет путешественника",
   "item.tconstruct.travelers_leggings": "Штаны путешественника",
@@ -1104,6 +1181,8 @@
 
   "item.tconstruct.repair_kit": "Ремонтный комплект",
   "item.tconstruct.repair_kit.tooltip": "Используйте на инструменте в инвентаре, чтобы отремонтировать его на сумму, эквивалентную %s слиткам.",
+  "item.tconstruct.fake_ingot": "Слиток",
+  "block.tconstruct.fake_storage_block": "Блок",
 
   "item.tconstruct.pick_head":   "Наконечник кирки",
   "item.tconstruct.hammer_head": "Наконечник молота",
@@ -1124,6 +1203,9 @@
   "item.tconstruct.bow_limb": "Плечо лука",
   "item.tconstruct.bow_grip": "Рукоятка лука",
   "item.tconstruct.bowstring": "Тетива лука",
+  "item.tconstruct.arrow_head": "Наконечник стрелы",
+  "item.tconstruct.arrow_shaft": "Древко стрелы",
+  "item.tconstruct.fletching": "Оперение стрелы",
 
   "item.tconstruct.helmet_plating": "Покрытие шлема",
   "item.tconstruct.chestplate_plating": "Покрытие нагрудника",
@@ -1159,9 +1241,14 @@
 
   "item.tconstruct.crossbow.description": "Арбалет — это лёгкое дальнобойное оружие, способное быстро стрелять стрелами и фейерверками.",
   "item.tconstruct.longbow.description": "Длинный лук — это дальнобойное оружие широкого радиуса действия, способное точно стрелять стрелами на большие расстояния.",
+  "item.tconstruct.fishing_rod.description": "Удочка — это лёгкое дальнобойное оружие, способное наносить удары на коротких дистанциях без использования боеприпасов. Её также можно использовать для рыбалки, если вам это нравится.",
+  "item.tconstruct.javelin.description": "Копьё — это гибридное оружие ближнего и дальнего боя, идеально подходящее как для рукопашного боя, так и для метания с целью нанесения урона на расстоянии. Будьте осторожны после броска, так как вы останетесь без оружия.",
+  "item.tconstruct.arrow.description": "Стрелы — это стандартное одноразовое метательное оружие, выпускаемое как из длинных луков, так и из арбалетов.",
 
   "gui.tconstruct.plate_armor": "Пластинчатая броня",
   "gui.tconstruct.plate_armor.description": "Пластинчатая броня — это комплект брони с высокой защитой и ограниченным количеством слотов для способностей.",
+  "gui.tconstruct.thrown_ammo": "Метательное оружие",
+  "gui.tconstruct.thrown_ammo.description": "Сюрикены и метательные топоры — это простые одноразовые снаряды, которые можно метать напрямую без каких-либо дополнительных инструментов. Сюрикены летят немного дальше, а топоры наносят больший урон.",
 
   "_comment": "Литейное дело: Плавильня (Общее)",
 
@@ -1183,12 +1270,20 @@
   "death.attack.tconstruct.smeltery_heat.player": "%1$s пытался расплавиться, сражаясь с %2$s",
   "death.attack.tconstruct.smeltery_magic": "%1$s стал единым целым с плавильней",
   "death.attack.tconstruct.smeltery_magic.player": "%1$s стал единым целым с плавильней, сражаясь с %2$s",
+  "death.attack.tconstruct.knightmetal": "%1$s был насажен на рыцарский металл",
+  "death.attack.tconstruct.knightmetal.player": "%1$s насажен на рыцарский металл, убегая от %2$s",
   "death.attack.tconstruct.self_destruct": "%1$s самоуничтожился",
   "death.attack.tconstruct.self_destruct.player": "%1$s самоуничтожился, сражаясь с %2$s",
+  "death.attack.tconstruct.thrown_tool": "%1$s был пронзён %2$s",
+  "death.attack.tconstruct.thrown_tool.item": "%1$s был пронзён %2$s с помощью %3$s",
+  "death.attack.tconstruct.fishing_hook": "%1$s был пронзён %2$s рыболовным крючком",
+  "death.attack.tconstruct.fishing_hook.item": "%1$s был пронзён %2$s рыболовным крючком от %3$s",
   "death.attack.tconstruct.piercing": "%1$s был пронзён %2$s",
   "death.attack.tconstruct.piercing.item": "%1$s был пронзён %2$s с помощью %3$s",
   "death.attack.tconstruct.entangled": "%1$s не мог выпустить свой инструмент из рук",
   "death.attack.tconstruct.entangled.player": "%1$s не мог выпустить свой инструмент из рук во время боя с %2$s",
+  "death.attack.tconstruct.shock": "%1$s был шокирован, пытаясь навредить %2$s",
+  "death.attack.tconstruct.shock.item": "%1$s был шокирован, когда %3$s пытался навредить %2$s",
 
   "death.attack.tconstruct.fluid.impact": "%1$s был избит %2$s",
   "death.attack.tconstruct.fluid.impact.item": "%1$s был избит %2$s с помощью %3$s",
@@ -1286,7 +1381,9 @@
   "block.tconstruct.seared_soul_glass_pane.tooltip": "Нельзя использовать в структуре плавильни, но можно пройти через неё.",
 
   "block.tconstruct.seared_ladder": "Обожжённая лестница",
-  "block.tconstruct.seared_ladder.tooltip": "Блок плавильной печи, по которому можно подняться.",
+  "block.tconstruct.seared_ladder.tooltip": "Блок плавильни, по которому можно подняться.",
+  "block.tconstruct.seared_lamp": "Обожжённая лампа",
+  "block.tconstruct.seared_lamp.tooltip": "Блок плавильни, излучающий свет.",
 
   "block.tconstruct.seared_fuel_tank": "Обожжённый топливный резервуар",
   "block.tconstruct.seared_fuel_tank.tooltip": "Сердце плавильни.\nСохраняет жидкость при ломании.",
@@ -1298,6 +1395,7 @@
   "block.tconstruct.seared_ingot_gauge.tooltip": "Идеально подходит для металлов, вмещает 48 слитков жидкости.\nСохраняет жидкость при ломании.",
   "block.tconstruct.seared_lantern": "Обожжённый фонарь",
   "block.tconstruct.seared_lantern.tooltip": "Идеально подходит для украшения, вмещает 50 мБ жидкости.\nСохраняет жидкость при ломании.",
+  "item.tconstruct.tank.fluid_id": "Идентификатор жидкости: %s",
 
   "block.tconstruct.seared_faucet": "Обожжённый кран",
   "block.tconstruct.seared_faucet.tooltip": "Сливает жидкости из плавилен и резервуаров.",
@@ -1378,6 +1476,8 @@
 
   "block.tconstruct.scorched_ladder": "Выжженная лестница",
   "block.tconstruct.scorched_ladder.tooltip": "Блок литейной печи, по которому можно подняться.",
+  "block.tconstruct.scorched_lamp": "Выжженная лампа",
+  "block.tconstruct.scorched_lamp.tooltip": "Блок литейной печи, излучающий свет.",
 
   "block.tconstruct.scorched_fuel_tank": "Выжженный топливный резервуар",
   "block.tconstruct.scorched_fuel_tank.tooltip": "Сердце литейной печи.\nСохраняет жидкость при ломании.",
@@ -1665,15 +1765,18 @@
   "material.tconstruct.wood.format": "%s [Дерево]",
   "material.tconstruct.wood.flavor": "Сколько дров мог бы наколоть сурок, если бы сурок мог колоть дрова?",
   "material.tconstruct.wood.encyclopedia": "Повышает эффективность ремонта на 50% на каждую деталь.",
+  "material.tconstruct.wood.ammo": "Даёт вам в два раза больше стрел при создании или замене деталей, хотя при замене из дерева вы теряете половину стрел.",
 
   "material.tconstruct.bamboo": "Бамбук",
   "material.tconstruct.bamboo.flavor": "Вас отбамбучили!",
   "material.tconstruct.bamboo.ranged": "Штраф за перемещение при натягивании лука уменьшается на 10%.",
   "material.tconstruct.bamboo.armor": "Штраф за перемещение при использовании щита уменьшается на 10%.",
+  "material.tconstruct.bamboo.ammo": "Даёт снаряду +0,5 ед. к точности, что позволяет стрелам достигать идеальной точности (даже при использовании неточных луков). Метательное оружие также увеличивает скорость на +25%.",
 
   "material.tconstruct.ice": "Лёд",
   "material.tconstruct.ice.flavor": "Охлаждение!",
   "material.tconstruct.ice.armor": "Преобразует полученный урон от холода в прочный щит.",
+  "material.tconstruct.ice.ammo": "Замораживает цель на 4 сек. (+4 сек. за каждый уровень), замедляя действие и нанося урон с течением времени.",
 
   "material.tconstruct.cactus": "Кактус",
   "material.tconstruct.cactus.flavor": "Колючий щит защищает от серьёзных ударов ножом.",
@@ -1685,19 +1788,23 @@
   "material.tconstruct.rock.diorite":    "Диорит",
   "material.tconstruct.rock.granite":    "Гранит",
   "material.tconstruct.rock.blackstone": "Чернит",
-  "material.tconstruct.rock.deepslate":  "Глубинный сланец",
+  "material.tconstruct.rock.calcite":    "Кальцит",
   "material.tconstruct.rock.flavor": "Твёрдый, как скала!",
   "material.tconstruct.rock.encyclopedia": "Ускоряет добычу с помощью инструмента на величину, равную половине квадратного корня из уровня характеристики, умноженного на потерянную прочность.",
 
   "material.tconstruct.flint": "Кремень",
   "material.tconstruct.flint.basalt": "Базальт",
+  "material.tconstruct.flint.deepslate": "Глубинный сланец",
   "material.tconstruct.flint.flavor": "Это разожжёт пламя в сердце литейщика!",
   "material.tconstruct.flint.encyclopedia": "Увеличивает урон на четверть квадратного корня из уровня особенности, умноженного на потерянную прочность.",
+  "material.tconstruct.flint.ammo": "Позволяет использовать зелье на боеприпасах, чтобы опрокинуть их. Опрокинутые боеприпасы будут применять эффект зелья в дополнение к урону.",
 
   "material.tconstruct.bone": "Кость",
   "material.tconstruct.bone.flavor": "Я — кость своего меча.",
   "material.tconstruct.bone.encyclopedia": "Увеличивает урон в ближнем бою на 0,5 ед. и даёт 1 ед. пробивания брони за уровень.",
   "material.tconstruct.bone.ranged": "Увеличивает урон в ближнем бою на 0,5 ед. и даёт 1 ед. пробивания брони за уровень.",
+  "material.tconstruct.bone.armor": "Имеет 15% шанс, что при попадании атакующие получат 1ед. пробивания брони за каждый уровень в течение 5 сек. (или 10 сек. при блокировании).",
+  "material.tconstruct.bone.ammo": "Заставляет стрелу пробивать первую цель, в которую она попадает, а выпущенные снаряды выводят из строя щиты.",
   "material.tconstruct.bone.skull_flavor": "Есть молоко?",
   "material.tconstruct.bone.skull_encyclopedia": "Даёт сопротивление на 1 минуту после употребления молока.",
 
@@ -1705,6 +1812,8 @@
   "material.tconstruct.necrotic_bone.flavor": "У тебя есть ко мне претензии?",
   "material.tconstruct.necrotic_bone.encyclopedia": "Восстанавливает процент урона, нанесенного критическими попаданиями.",
   "material.tconstruct.necrotic_bone.ranged": "Восстанавливает процент урона, нанесенного успешными попаданиями стрел.",
+  "material.tconstruct.necrotic_bone.armor": "При попадании с вероятностью 15% восстанавливает 25% от полученного урона.",
+  "material.tconstruct.necrotic_bone.ammo": "Восстанавливает 5% от уровня урона, нанесённого при удачном попадании.",
   "material.tconstruct.necrotic_bone.skull_flavor": "Жуткий, страшный скелет!",
   "material.tconstruct.necrotic_bone.skull_encyclopedia": "Удары ближнего боя вызывают иссушение. После употребления молока эффект усиливается.",
 
@@ -1713,7 +1822,8 @@
   "material.tconstruct.chorus.encyclopedia": "Предотвращает телепортацию цели на 5 сек. за каждый уровень эффекта.",
   "material.tconstruct.chorus.ranged": "Предотвращает телепортацию цели на 5 сек. за каждый уровень эффекта и позволяет наносить урон эндерменам стрелами.",
   "material.tconstruct.chorus.armor": "Имеет 25% шанс случайной телепортации атакующих или 50% шанс при блокировании.",
- 
+  "material.tconstruct.chorus.ammo": "Предотвращает телепортацию цели на 5 сек. за уровень и может быть запущено в эндермена.",
+
   "material.tconstruct.string": "Нить",
   "material.tconstruct.string.flavor": "Теоретически лучший материал.",
   "material.tconstruct.string.encyclopedia": "Позволяет ремонтировать инструмент с помощью нити в литейной станции или верстаке.",
@@ -1723,6 +1833,9 @@
   "material.tconstruct.leather": "Кожа",
   "material.tconstruct.leather.flavor": "Убил корову, выделал из неё шкуру.",
   "material.tconstruct.leather.encyclopedia": "Предотвращает получение инструментом более 1 ед. урона за одно действие.",
+  "material.tconstruct.leather.skull_flavor": "Это прекрасно!",
+  "material.tconstruct.leather.skull_encyclopedia": "Атаки в ближнем бою увеличивают время стрельбы по целям в зависимости от времени стрельбы пользователя.",
+
 
   "material.tconstruct.vine": "Лианы",
   "material.tconstruct.vine.flavor": "Поддерживает жизнь, в отличие от социальных сетей.",
@@ -1730,7 +1843,6 @@
 
 
   "__comment": "Литейное дело:  Материалы (2 уровень)",
-
   "material.tconstruct.iron": "Железо",
   "material.tconstruct.iron.wrought": "Кованое железо",
   "material.tconstruct.iron.oxidized": "Рудное железо",
@@ -1760,6 +1872,12 @@
   "material.tconstruct.copper.skull_flavor": "Выбивает из них весь дух.",
   "material.tconstruct.copper.skull_encyclopedia": "Во время атаки в ближнем бою у цели забирается воздух на 3 сек.",
 
+  "material.tconstruct.gold": "Золото",
+  "material.tconstruct.gold.flavor": "Пиглины его обожают!",
+  "material.tconstruct.gold.armor": "Даёт 10% защиты за уровень от магического урона и сокращает время действия негативных эффектов зелий. Также делает пиглинов дружелюбными.",
+  "material.tconstruct.gold.skull_flavor": "Такой блестящий!",
+  "material.tconstruct.gold.skull_encyclopedia": "Приводит к тому, что из некоторых золотых руд выпадают дополнительные кусочки золота, и увеличивает шанс выпадения золотой брони на 4%. Шанс выпадения кусочков и брони доп. увеличивается с каждым надетым золотым предметом брони.",
+
   "material.tconstruct.slimewood": "Слизневое дерево",
   "material.tconstruct.slimewood.greenheart":  "Зелёное сердце",
   "material.tconstruct.slimewood.skyroot":     "Небесный корень",
@@ -1767,6 +1885,7 @@
   "material.tconstruct.slimewood.enderbark":  "Эндербарк",
   "material.tconstruct.slimewood.flavor": "Это древесина из слизи или слизь, пропитанная древесиной?",
   "material.tconstruct.slimewood.encyclopedia": "Даёт 5% шанс на регенерацию избыточной слизи каждую секунду за каждый уровень.",
+  "material.tconstruct.slimewood.ammo": "Заставляет снаряды двигаться достаточно быстро, чтобы отскакивать от блоков, в которые они попадают, до 3 раз.",
   "material.tconstruct.slimeskin": "Слизневая кожа",
   "material.tconstruct.slimeskin.flavor": "А у слизней вообще есть кожа?",
   "material.tconstruct.slimeskin.encyclopedia": "Даёт 5% шанс на регенерацию слизи каждую секунду за каждый уровень.",
@@ -1775,6 +1894,8 @@
   "material.tconstruct.venombone.flavor": "Станьте проклятием для своих противников.",
   "material.tconstruct.venombone.encyclopedia": "Увеличивает урон в ближнем бою при отравлении на 0,5 ед. + уровень яда.",
   "material.tconstruct.venombone.ranged": "Увеличивает скорость извлечения при отравлении на 0,05 ед. + 0,1 ед. за уровень яда.",
+  "material.tconstruct.venombone.armor": "При попадании с вероятностью 15% атакующий получает 200% магического урона в течение следующих 5-10 сек. (или до 15 сек. при блокировании).",
+  "material.tconstruct.venombone.ammo": "Наносит цели 200% магического урона в течение следующих 5-10 сек.",
   "material.tconstruct.venombone.skull_flavor": "Пробирает до костей.",
   "material.tconstruct.venombone.skull_encyclopedia": "Снаряды замедляют цель. После употребления молока атаки в ближнем бою замедляются, и уровень повышается.",
 
@@ -1803,6 +1924,82 @@
   "material.tconstruct.twisting_vine.ranged": "Даёт +15% к скорости извлечения за счёт получения 1 ед. урона, когда вы опускаете инструмент.",
   "material.tconstruct.twisting_vine.armor": "Даёт +10% сопротивления отбрасыванию за счёт получения 2 ед. урона при снятии брони.",
 
+  "material.tconstruct.wool": "Шерсть",
+  "material.tconstruct.wool.white": "Белая шерсть",
+  "material.tconstruct.wool.orange": "Оранжевая шерсть",
+  "material.tconstruct.wool.magenta": "Пурпурная шерсть",
+  "material.tconstruct.wool.light_blue": "Голубая шерсть",
+  "material.tconstruct.wool.yellow": "Жёлтая шерсть",
+  "material.tconstruct.wool.lime": "Лаймовая шерсть",
+  "material.tconstruct.wool.pink": "Розовая шерсть",
+  "material.tconstruct.wool.gray": "Серая шерсть",
+  "material.tconstruct.wool.light_gray": "Светло-серая шерсть",
+  "material.tconstruct.wool.cyan": "Бирюзовая шерсть",
+  "material.tconstruct.wool.purple": "Фиолетовая шерсть",
+  "material.tconstruct.wool.blue": "Синяя шерсть",
+  "material.tconstruct.wool.brown": "Коричневая шерсть",
+  "material.tconstruct.wool.green": "Зелёная шерсть",
+  "material.tconstruct.wool.red": "Красная шерсть",
+  "material.tconstruct.wool.black": "Чёрная шерсть",
+  "material.tconstruct.wool.flavor": "Ву-лу-лу!",
+  "material.tconstruct.wool.ammo": "Умножает урон от снаряда на 0 ед. Обратите внимание, что урон может быть увеличен за счёт силы лука, и это может по-прежнему раздражать мобов.",
+
+  "material.tconstruct.feather": "Перо",
+  "material.tconstruct.feather.flavor": "Традиционное оперение стрелы.",
+  "material.tconstruct.feather.ammo": "Не имеет особого эффекта, но, в отличие от других вариантов оперения, не имеет недостатков.",
+
+  "material.tconstruct.paper": "Бумага",
+  "material.tconstruct.paper.flavor": "Хлипкая, но эффективная.",
+  "material.tconstruct.paper.ammo": "Снижает мощность стрелы на 1 ед.",
+
+  "material.tconstruct.leaves": "Листья",
+  "material.tconstruct.leaves.flavor": "Всё натуральное!",
+  "material.tconstruct.leaves.ammo": "Даёт вам вдвое меньше стрел при создании или замене деталей, хотя их можно получить обратно, если поменять их на листья.",
+
+  "material.tconstruct.amethyst": "Аметист",
+  "material.tconstruct.amethyst.flavor": "Защищает от неправильного прицеливания при условии, что вы целились прямо перед собой.",
+  "material.tconstruct.amethyst.ammo": "Даёт +0,75 ед. урона от снаряда за уровень, но ограничивает углы, под которыми может быть выпущен снаряд. Суммируется с аметистовыми бронзовыми луками для дальнейшего ограничения углов.",
+
+  "material.tconstruct.prismarine": "Призмарин",
+  "material.tconstruct.prismarine.flavor": "Морское оружие!",
+  "material.tconstruct.prismarine.ammo": "Позволяет боеприпасам свободно перемещаться под водой и даёт +1 ед. урона от снарядов за каждый уровень подводным целям. Удочки вместо этого получают один уровень приманки.",
+
+  "material.tconstruct.gunpowder": "Порох",
+  "material.tconstruct.gunpowder.flavor": "Взрывоопасно!",
+  "material.tconstruct.gunpowder.ammo": "Заставляет стрелы взрываться радиусом 1 + 1 за каждый уровень. Урон от взрыва зависит от мощности снаряда.",
+
+  "material.tconstruct.earthslime": "Земная слизь",
+  "material.tconstruct.earthslime.flavor": "Ко мне!",
+  "material.tconstruct.earthslime.ammo": "Отбрасывает цель в противоположном направлении.",
+
+  "material.tconstruct.skyslime": "Небесная слизь",
+  "material.tconstruct.skyslime.flavor": "Прочь от меня!",
+  "material.tconstruct.skyslime.ammo": "Увеличивает отбрасывание снаряда.",
+
+  "material.tconstruct.blaze": "Огненное",
+  "material.tconstruct.blaze.flavor": "Сожгите всё!",
+  "material.tconstruct.blaze.ammo": "Заставляет стрелы воспламеняться, поджигая цели на 5 сек. за каждый уровень.",
+
+  "material.tconstruct.ender_pearl": "Эндер-жемчуг",
+  "material.tconstruct.ender_pearl.flavor": "Безопасный способ добыть жемчуг.",
+  "material.tconstruct.ender_pearl.ammo": "Заставляет вас телепортироваться в место приземления снаряда, уничтожая его. Если он попадает в монстра, меняет вас с ним местами.",
+  "material.tconstruct.ender_pearl.skull_flavor": "Эндермены знают, как держаться подальше от опасности и учёных. Они игнорируют мои просьбы об интервью уже несколько недель!",
+  "material.tconstruct.ender_pearl.skull_encyclopedia": "Автоматически телепортирует при атаке снарядом, а также случайным образом в ближнем бою. Имеет 15 сек. перезарядки.",
+
+  "material.tconstruct.glass": "Стекло",
+  "material.tconstruct.glass.flavor": "Разбивается при ударе!",
+  "material.tconstruct.glass.ammo": "Снижает урон от снаряда на 0,75 ед. за уровень, но увеличивает его ёмкость. Боеприпасы ломаются при ударе о блок, когда резервуар заполнен.",
+  "material.tconstruct.glass.skull_flavor": "Чьи красивые вещи сейчас уничтожаются, крипер?",
+  "material.tconstruct.glass.skull_encyclopedia": "Удерживая клавишу взаимодействия со шлемом в приседе, пользователь взрывается.",
+
+  "material.tconstruct.slimeball": "Слизь",
+  "material.tconstruct.slimeball.earth": "Земная слизь",
+  "material.tconstruct.slimeball.sky": "Небесная слизь",
+  "material.tconstruct.slimeball.ichor": "Ихор",
+  "material.tconstruct.slimeball.ender": "Эндер-слизь",
+  "material.tconstruct.slimeball.flavor": "Гнётся, как резина!",
+  "material.tconstruct.slimeball.ammo": "Снижает точность стрельбы на 0,5 ед.",
+
 
   "__comment": "Литейное дело:  Материалы (3 уровень)",
   "material.tconstruct.slimesteel": "Слизневая сталь",
@@ -1813,6 +2010,10 @@
   "material.tconstruct.nahuatl.flavor": "Это не обсидиановая деталь, если бы это была она, было бы написано «Обсидиан».",
   "material.tconstruct.nahuatl.encyclopedia": "Имеет 50% шанс нанести до 5 ед. урона с течением времени, урон увеличивается на более высоких уровнях.",
   "material.tconstruct.nahuatl.armor": "Имеет 25% шанс нанести до 5 ед. урона за каждый уровень с течением времени.",
+
+  "material.tconstruct.obsidian":   "Обсидиан",
+  "material.tconstruct.obsidian.flavor": "Это обсидиановая деталь, если бы это было не так, не было бы написано «Обсидиан».",
+  "material.tconstruct.obsidian.armor": "Даёт 10% защиты от взрывов за каждый уровень и уменьшает отбрасывание при взрыве.",
 
   "material.tconstruct.amethyst_bronze": "Аметистовая бронза",
   "material.tconstruct.amethyst_bronze.flavor": "Не путать с бронзой.",
@@ -1836,12 +2037,25 @@
 
 
   "__comment": "Литейное дело: Материалы Незера",
-
   "material.tconstruct.cobalt": "Кобальт",
   "material.tconstruct.cobalt.flavor": "Кобальт. Материал Красной армии.",
   "material.tconstruct.cobalt.encyclopedia": "Увеличивает скорость добычи и атаки на 7% за уровень.",
   "material.tconstruct.cobalt.ranged": "Увеличивает скорость извлечения предметов и скорость передвижения на 5% за уровень.",
   "material.tconstruct.cobalt.armor": "Снижает урон от рукопашных атак на 10% за уровень и увеличивает скорость передвижения при использовании предметов на 5% за максимальный уровень.",
+
+  "material.tconstruct.quartz": "Кварц",
+  "material.tconstruct.quartz.flavor": "Острый!",
+  "material.tconstruct.quartz.ammo": "Увеличивает урон от снарядов на 0,5 ед. за каждый уровень.",
+
+  "material.tconstruct.dragon_scale": "Чешуя дракона",
+  "material.tconstruct.dragon_scale.flavor": "С этим даже драконы будут бояться меня!",
+  "material.tconstruct.dragon_scale.armor": "Даёт +10% сопротивления в воздухе и увеличивает урон от атаки на 5% за уровень в зависимости от самой высокой детали.",
+  "material.tconstruct.dragon_scale.ammo": "Увеличивает урон от снаряда на 1 ед. за уровень, если он запущен в воздухе.",
+
+  "material.tconstruct.shulker": "Панцирь шалкера",
+  "material.tconstruct.shulker.flavor": "Нерушимый!",
+  "material.tconstruct.shulker.armor": "Даёт +10% сопротивления в приседе, но уменьшает урон от атаки на 10% за каждый уровень в приседе.",
+  "material.tconstruct.shulker.ammo": "Позволяет собирать снаряды, которые поражают не только блоки, но и другие сущности, что делает их бесконечно многоразовыми. Кроме того, предмет не исчезнет.",
 
   "material.tconstruct.manyullyn": "Маньюлин",
   "material.tconstruct.manyullyn.flavor": "Металл, название которого большинство литейщиков никогда не произнесут правильно. Также известен как материал для резки звёзд.",
@@ -1871,12 +2085,27 @@
   "material.tconstruct.blazing_bone.flavor": "Используйте всю мощь крепости Незера - кость и огонь.",
   "material.tconstruct.blazing_bone.encyclopedia": "Даёт +1% урона в сек. от огня, до +15% от 15 сек. действия лавы. Бонус уменьшается сопротивлением огню.",
   "material.tconstruct.blazing_bone.ranged": "Даёт +1% урона от стрел в секунду от огня, до +15% от 15 сек. действия лавы. Бонус уменьшается сопротивлением огню.",
+  "material.tconstruct.blazing_bone.armor": "Имеет 15% шанс при попадании нанести атакующим 200% урона от огня в течение следующих 5-10 сек. (или до 15 сек. при блокировании).",
+  "material.tconstruct.blazing_bone.ammo": "Наносит цели 200% урона от огня в течение следующих 5-10 сек.",
   "material.tconstruct.blazing_bone.skull_flavor": "Я сказал им, что это технически огненное плевание, а не огненное дыхание, но, видимо, я не могу выбирать названия для вещей, которые изобретаю.",
   "material.tconstruct.blazing_bone.skull_encyclopedia": "Позволяет выплёвывать огненные заряды из инвентаря в виде огненных шаров. Имеет время перезарядки 5 сек. и не работает под водой.",
 
   "material.tconstruct.blazewood": "Огненное дерево",
   "material.tconstruct.blazewood.flavor": "Пламя защищает пламя.",
   "material.tconstruct.blazewood.encyclopedia": "Даёт +0,5% защиты от урона, не связанного с огнём, в сек. огня, до +7,5% от 15 сек. действия лавы. Бонус уменьшается сопротивлением огню.",
+  "material.tconstruct.blazewood.ammo": "Заставляет цель светиться в течение 10 сек. При попадании в блок размещает постоянный источник света ценой попадания снаряда.",
+
+  "material.tconstruct.ichor": "Ихор",
+  "material.tconstruct.ichor.flavor": "Пропускающие камни!",
+  "material.tconstruct.ichor.ammo": "Снаряд будет отскакивать при попадании в блок до 1 раза + 2 за уровень. Увеличивает мощность на 0,5 ед. за каждый отскок за уровень до попадания в цель.",
+
+  "material.tconstruct.magma": "Магма",
+  "material.tconstruct.magma.flavor": "Вспышка!",
+  "material.tconstruct.magma.ammo": "Снаряд исчезнет через полсекунды после запуска, в результате чего некоторые особенности будут перемещаться в воздухе.",
+
+  "material.tconstruct.glowstone": "Светокамень",
+  "material.tconstruct.glowstone.flavor": "Самый яркий день, самая тёмная ночь, ни одна пещера не ускользнёт от моего света!",
+  "material.tconstruct.glowstone.ammo": "Заставляет цель светиться в течение 10 сек. за каждый уровень. Если попадает в блок, размещает постоянный источник света ценой снаряда.",
 
   "material.tconstruct.soulsteel": "Сталь душ",
 
@@ -1886,7 +2115,28 @@
   "material.tconstruct.ancient_hide.ranged": "Даёт дополнительный слот защиты.",
   "material.tconstruct.ancient_hide.armor": "Даёт дополнительный слот защиты.",
 
+  "material.tconstruct.ancient":     "Древнее",
+  "material.tconstruct.ancient.flavor": "Сейчас такое уже не делают.",
+  "material.tconstruct.ancient.encyclopedia": "Найдено на боевых кирках, жидкостных пистолетах и боевых табличках, а также при торговле. Каждый уровень дает +1 слот для способностей за счёт -10% скорости атаки, -10% скорости добычи и +10% гравитации.",
+  "material.tconstruct.ancient.ranged": "Доступно на сковородках, боевых кирках и при торговле. Каждый уровень даёт +1 слот для способностей за счёт -10% скорости извлечения оружия и +10% гравитации.",
+  "material.tconstruct.ancient.armor": "Добывается на пластинчатой ​​броне в бастионах, боевых табличках, сковородках и при торговле. Каждый уровень даёт +1 слот для способностей за счёт +10% гравитации и -10% скорости передвижения или -10% скорости атаки на щитах.",
+
+
   "__comment": "Литейное дело: Материалы Энда",
+
+  "material.tconstruct.knightmetal": "Рыцарский металл",
+  "material.tconstruct.knightmetal.flavor": "Металл странствующей слизи, также встречается у бронированных сумеречных существ.",
+  "material.tconstruct.knightmetal.encyclopedia": "Даёт +0,5 ед. урона за уровень за каждый предмет брони, который носит цель.",
+  "material.tconstruct.knightmetal.ranged": "Даёт +0,25 ед. урона за уровень за каждый предмет брони, который носит цель (без учета скорости).",
+  "material.tconstruct.knightmetal.armor": "Увеличивает защиту на 5% за уровень за каждый предмет в руках атакующего.",
+
+  "material.tconstruct.knightly": "Рыцарское",
+  "material.tconstruct.knightly.flavor": "Осколок странствующей слизи, более острый в необработанном виде.",
+  "material.tconstruct.knightly.ammo": "Даёт +0,25 ед. урона за уровень за каждый предмет брони, который носит цель (без учета скорости).",
+
+  "material.tconstruct.end_rod": "Стержень Энда",
+  "material.tconstruct.end_rod.flavor": "Стрела оправдывает свои средства.",
+  "material.tconstruct.end_rod.ammo": "Снаряд игнорирует гравитацию в течение первой секунды своего существования.",
 
   "material.tconstruct.knightslime": "Рыцарская слизь",
 
@@ -1897,69 +2147,23 @@
   "material.tconstruct.enderslime_vine.ranged": "Телепортирует пользователя к месту расположения стрел, попавших в блоки, или меняет пользователя местами с монстрами, пораженными стрелами.",
   "material.tconstruct.enderslime_vine.armor": "Имеет 25% шанс за каждый предмет случайным образом телепортировать атакующих.",
 
+  "material.tconstruct.enderslime": "Эндер-слизь",
+  "material.tconstruct.enderslime.flavor": "Звууп!",
+  "material.tconstruct.enderslime.ammo": "Вызывает случайную телепортацию цели на расстояние до 16 блоков, или до 24 блоков на 2-м уровне.",
+
+
   "__comment": "Литейное дело: Слизневые материалы",
 
-  "material.tconstruct.glass": "Стекло",
-  "material.tconstruct.glass.skull_flavor": "Чьи красивые вещи сейчас уничтожаются, крипер?",
-  "material.tconstruct.glass.skull_encyclopedia": "Удерживая клавишу взаимодействия со шлемом в присяде, пользователь взрывается.",
-
-  "material.tconstruct.ender_pearl": "Эндер-жемчуг",
-  "material.tconstruct.ender_pearl.skull_flavor": "Эндермены знают, как держаться подальше от опасности и учёных. Они игнорируют мои просьбы об интервью уже несколько недель!",
-  "material.tconstruct.ender_pearl.skull_encyclopedia": "Автоматически телепортирует при атаке снарядом и случайным образом при ближнем бою. Имеет 15-секундную перезарядку.",
-
-  "material.tconstruct.rotten_flesh": "Гнилая плоть",
-  "material.tconstruct.rotten_flesh.skull_flavor": "Это прекрасно.",
-  "material.tconstruct.rotten_flesh.skull_encyclopedia": "Удары ближнего боя увеличивают время стрельбы цели в зависимости от времени стрельбы пользователя.",
-
-  "material.tconstruct.gold": "Золото",
-  "material.tconstruct.gold.flavor": "Пиглины его обожают.",
-  "material.tconstruct.gold.armor": "Даёт 10% защиты за уровень от магического урона и сокращает время действия негативных эффектов зелий. Также делает пиглинов дружелюбными.",
-  "material.tconstruct.gold.skull_flavor": "Такое блестящее.",
-  "material.tconstruct.gold.skull_encyclopedia": "Приводит к тому, что из некоторых золотых руд выпадают дополнительные кусочки золота, и увеличивает шанс выпадения золотой брони на 4%. Шанс выпадения кусочков и брони дополнительно увеличивается с каждым надетым золотым предметом брони.",
-
-  "material.tconstruct.obsidian":   "Обсидиан",
-  "material.tconstruct.obsidian.flavor": "Это обсидиановая деталь, если бы это было не так, не было бы написано «Обсидиан».",
-  "material.tconstruct.obsidian.armor": "Даёт 10% защиты от взрывов за уровень и уменьшает отбрасывание при взрыве.",
-  "material.tconstruct.ancient":     "Древнее",
-  "material.tconstruct.ancient.flavor": "Сейчас такое уже не делают.",
-  "material.tconstruct.ancient.encyclopedia": "Найдено на боевых кирках, жидкостных пистолетах и боевых табличках, а также при торговле. Каждый уровень дает +1 слот для способностей за счёт -10% скорости атаки, -10% скорости добычи и +10% гравитации.",
-  "material.tconstruct.ancient.ranged": "Доступно на сковородках, боевых кирках и при торговле. Каждый уровень даёт +1 слот для способностей за счёт -10% скорости извлечения оружия и +10% гравитации.",
-  "material.tconstruct.ancient.armor": "Добывается на пластинчатой ​​броне в бастионах, боевых табличках, сковородках и при торговле. Каждый уровень даёт +1 слот для способностей за счёт +10% гравитации и -10% скорости передвижения или -10% скорости атаки на щитах.",
-  "material.tconstruct.netherite":  "Незерит",
-  "material.tconstruct.earthslime": "Земная слизь",
-  "material.tconstruct.skyslime":   "Небесная слизь",
   "material.tconstruct.blood":      "Кровь",
-  "material.tconstruct.magma":      "Магма",
-  "material.tconstruct.ichor":      "Ихор",
-  "material.tconstruct.enderslime": "Эндер-слизь",
   "material.tconstruct.clay":       "Глина",
   "material.tconstruct.honey":      "Мёд",
-  "material.tconstruct.venom":      "Яд",
   "material.tconstruct.phantom":    "Мембрана фантома",
-
-  "material.tconstruct.nickel":   "Никель",
-  "material.tconstruct.tin":      "Олово",
-  "material.tconstruct.zinc":     "Цинк",
-  "material.tconstruct.brass":    "Латунь",
-  "material.tconstruct.uranium":  "Уран",
 
 
   "__comment": "Литейное дело: Интеграционные материалы (2 уровень)",
-
   "material.tconstruct.osmium": "Осмий",
   "material.tconstruct.osmium.flavor": "Слишком тупой, чтобы понять большинство шуток.",
   "material.tconstruct.osmium.encyclopedia": "Предотвращает 33% урона ценой доп. 25% затрат на ремонт на первом уровне.",
-
-  "material.tconstruct.tungsten": "Вольфрам",
-  "material.tconstruct.tungsten.flavor": "Вы не думали о создании хэви-метал группы?",
-  "material.tconstruct.tungsten.encyclopedia": "Даёт +15% скорости добычи, -10% скорости передвижения и +5% гравитации за уровень.",
-  "material.tconstruct.tungsten.ranged": "Даёт +15% скорости вытягивания, -10% скорости передвижения и +5% гравитации за уровень.",
-  "material.tconstruct.tungsten.armor": "Даёт +2 ед. к прочности, -10% скорости передвижения и +5% гравитации за уровень.",
-
-  "material.tconstruct.platinum": "Платина",
-  "material.tconstruct.platinum.flavor": "Это то, что используют победители!",
-  "material.tconstruct.platinum.encyclopedia": "Даёт 2-6 бонусных кусочков при добыче руды, эффект усиливается на более высоких уровнях.",
-  "material.tconstruct.platinum.ranged": "При попадании по удалённому монстру есть 5% шанс за уровень получить кусочки. При попадании в 50 блоков и более выпадает платина, в 40 блоков – золото, в 30 блоков – железо и в 20 блоков – медь.",
 
   "material.tconstruct.lead": "Свинец",
   "material.tconstruct.lead.flavor": "Из этого можно сделать бутерброд.",
@@ -1989,6 +2193,11 @@
   "material.tconstruct.treated_wood.flavor": "Slán go fóill. (До свидания.)",
   "material.tconstruct.treated_wood.encyclopedia": "Увеличивает прочность и эффективность ремонта на 15%.",
 
+  "material.tconstruct.ironwood": "Железное дерево",
+  "material.tconstruct.ironwood.flavor": "Это дерево?",
+  "material.tconstruct.ironwood.encyclopedia": "При потере 1 ед. прочности инструмент теряет 1 доп. ед. прочности (без учета модификаторов), которая распределяется между случайным инструментом на панели быстрого доступа или в левой руке. Цель получает 1 ед. коры + 1 за каждый уровень.",
+  "material.tconstruct.ironwood.armor": "При потере 1 ед. прочности инструмент теряет 1 доп. ед. прочности (без учета модификаторов), которая распределяется между случайной экипированной бронёй. Цель получает 1 ед. коры + 1 за каждый уровень.",
+
 
   "__comment": "Литейное дело: Интеграционные материалы (3 уровень)",
 
@@ -1997,6 +2206,10 @@
   "material.tconstruct.steel.encyclopedia": "Даёт +10% прочности и урона в ближнем бою за уровень.",
   "material.tconstruct.steel.ranged": "Даёт +10% прочности и +5% силы снаряда за уровень.",
   "material.tconstruct.steel.armor": "Даёт +10% прочности и +1 ед. к стойкости за уровень.",
+
+  "material.tconstruct.magnetite": "Магнетит",
+  "material.tconstruct.magnetite.flavor": "Природный магнетизм.",
+  "material.tconstruct.magnetite.ammo": "Притягивает мобов в радиусе 3 блоков за уровень к месту попадания снаряда.",
 
   "material.tconstruct.bronze": "Бронза",
   "material.tconstruct.bronze.flavor": "Не путать с аметистовой бронзой.",
@@ -2031,10 +2244,27 @@
   "material.tconstruct.necronium": "Некроний",
   "material.tconstruct.necronium.flavor": "При таком количестве разложения срок его службы, вероятно, составляет всего четверть.",
   "material.tconstruct.necronium.encyclopedia": "Вызывает как минимум 5 сек. иссушения у вашей цели и с 25% вероятностью у вас.",
+  "material.tconstruct.necronium.armor": "При попадании имеет 50% шанс (или 100% шанс при блокировании) иссушить атакующего как минимум на 5 сек. + 10% шанс иссушить вас.",
 
   "material.tconstruct.plated_slimewood": "Покрытое слизневое дерево",
   "material.tconstruct.plated_slimewood.flavor": "Блеск латуни с лёгким привкусом слизи.",
   "material.tconstruct.plated_slimewood.encyclopedia": "Даёт +100% ко всем методам восстановления избыточной слизи.",
+
+  "material.tconstruct.steeleaf": "Стальной лист",
+  "material.tconstruct.steeleaf.flavor": "Это лист?",
+  "material.tconstruct.steeleaf.ammo": "Увеличивает количество выпадающей добычи с целей, убитых снарядом. Суммируется с удачей и добычей из луков.",
+  "material.tconstruct.steeleaf.encyclopedia": "Даёт +50% опыта за уровень от блоков и монстров.",
+  "material.tconstruct.steeleaf.ranged": "Даёт +50% опыта за уровень от монстров, убитых стрелами.",
+  "material.tconstruct.steeleaf.armor": "Даёт +25% опыта за уровень от блоков и монстров.",
+
+
+  "_comment": "Литейное дело: Интеграционные материалы (4 уровень)",
+
+  "material.tconstruct.fiery": "Огненное",
+  "material.tconstruct.fiery.flavor": "Самый горячий новый металл, выкованный до совершенства.",
+  "material.tconstruct.fiery.encyclopedia": "Инструмент автоматически переплавляет все выпавшие предметы. Более высокие уровни имеют 25% шанс получить доп. переплавленные предметы.",
+  "material.tconstruct.fiery.ranged": "Стрелы автоматически переплавляют все выпавшие предметы. Более высокие уровни имеют 25% шанс получить доп. переплавленные предметы.",
+  "material.tconstruct.fiery.armor": "Увеличивает защиту на 5% за уровень от атакующих, находящихся в огне.",
 
 
   "_comment": "Литейное дело: Модификаторы",
@@ -2187,40 +2417,59 @@
   "modifier.tconstruct.swiftstrike.5": "Быстрый удар V",
   "modifier.tconstruct.swiftstrike.flavor": "Магия!",
   "modifier.tconstruct.swiftstrike.description": "Магические фиолетовые драгоценные камни делают оружие более лёгким и удобным для взмаха!",
+  "modifier.tconstruct.charge_attack": "Заряженная атака",
+  "modifier.tconstruct.charge_attack.flavor": "Гиперактивный!",
+  "modifier.tconstruct.charge_attack.description": "Наносит дополнительный урон во время бега.",
+  "modifier.tconstruct.charge_attack.attack_damage": "Заряженный урон",
 
 
-  "_comment": "Модификаторы: Ранжирование",
+  "_comment": "Модификаторы: Дальний бой",
 
   "modifier.tconstruct.power": "Сила",
   "modifier.tconstruct.power.flavor": "Внутренняя сила становится внешней.",
   "modifier.tconstruct.power.description": "Увеличивает урон от стрел.",
+  "modifier.tconstruct.keen": "Сильный",
+  "modifier.tconstruct.keen.flavor": "Насколько сильный?",
+  "modifier.tconstruct.keen.description": "Увеличивает урон, наносимый снарядом при попадании в цель.",
+  "modifier.tconstruct.weak": "Слабый",
+  "modifier.tconstruct.weak.flavor": "Я тебя перерос!",
+  "modifier.tconstruct.weak.description": "Уменьшает урон, наносимый снарядом при попадании в цель.",
   "modifier.tconstruct.quick_charge": "Быстрая зарядка",
   "modifier.tconstruct.quick_charge.flavor": "На случай, если вы устанете от всех этих дополнительных сборов.",
   "modifier.tconstruct.quick_charge.description": "Увеличивает скорость натяжения дальнобойного оружия.",
   "modifier.tconstruct.punch": "Удар",
   "modifier.tconstruct.punch.flavor": "Классическая стрела в боксерской перчатке.",
   "modifier.tconstruct.punch.description": "Придает стрелам дополнительный отбрасывающий эффект.",
+  "modifier.tconstruct.drawback": "Обратная отдача",
+  "modifier.tconstruct.drawback.flavor": "Стрела-удочка!",
+  "modifier.tconstruct.drawback.description": "Заставляет стрелу применять отдачу в противоположном направлении, притягивая цель.",
   "modifier.tconstruct.impaling": "Накалывание",
   "modifier.tconstruct.impaling.flavor": "Продолжает двигаться, двигаться и двигаться.",
   "modifier.tconstruct.impaling.description": "Стрелы продолжают двигаться после попадания в цель, потенциально поражая больше целей.",
+  "modifier.tconstruct.spike": "Шип",
+  "modifier.tconstruct.spike.flavor": "Эффективен для более эффективного нанесения колющих ударов.",
+  "modifier.tconstruct.spike.description": "Стрела продолжает двигаться после попадания в цель, а при броске отключает щиты.",
   "modifier.tconstruct.trueshot": "Точный выстрел",
   "modifier.tconstruct.trueshot.flavor": "Этот лук всегда будет целиться точно.",
   "modifier.tconstruct.trueshot.description": "Повышает точность оружия.",
   "modifier.tconstruct.blindshot": "Слепой выстрел",
   "modifier.tconstruct.blindshot.flavor": "Попадание грязи в глаза.",
   "modifier.tconstruct.blindshot.description": "Снижает точность оружия.",
+  "modifier.tconstruct.erratic": "Непредсказуемый",
+  "modifier.tconstruct.erratic.flavor": "Неожиданные направления!",
+  "modifier.tconstruct.erratic.description": "Снижает точность стрелы.",
   "modifier.tconstruct.freezing": "Замораживание",
   "modifier.tconstruct.freezing.flavor": "Ладно, всё. Успокойтесь!",
   "modifier.tconstruct.freezing.description": "Заставляет цели замораживаться при рукопашных атаках, выстрелах стрелами и контратаках.",
+
   "modifier.tconstruct.bulk_quiver": "Объёмный колчан",
   "modifier.tconstruct.bulk_quiver.flavor": "Значение удержания стрел переоценено.",
-  "modifier.tconstruct.bulk_quiver.description": "Позволяет луку доставать стрелы из собственного инвентаря, когда они заканчиваются. Доступ осуществляется в присяде и атаке.",
+  "modifier.tconstruct.bulk_quiver.description": "Позволяет луку доставать стрелы из собственного инвентаря, когда они заканчиваются. Доступ осуществляется в приседе и атаке.",
   "modifier.tconstruct.trick_quiver": "Хитрый колчан",
   "modifier.tconstruct.trick_quiver.flavor": "Будь крутым, как соколиный глаз.",
   "modifier.tconstruct.trick_quiver.description": "Даёт луку три переключаемых слота для стрел. Щёлкните [ЛКМ], чтобы выбрать слот или получите к слотам доступ, удерживая [Shift + ЛКМ].",
   "modifier.tconstruct.trick_quiver.disabled": "Хитрый колчан: Отключен",
-  "modifier.tconstruct.trick_quiver.empty": "Хитрый колчан: Нет стрел в слоте %s, используются стандартные стрелы",
-  "modifier.tconstruct.trick_quiver.selected": "Хитрый колчан: Выбрана [%s] из %s слота",
+  "modifier.tconstruct.trick_quiver.selected": "Хитрый колчан: Выбрана %s из %s слота",
   "modifier.tconstruct.crystalshot": "Кристаллический выстрел",
   "modifier.tconstruct.crystalshot.flavor": "Значение удержания стрел переоценено.",
   "modifier.tconstruct.crystalshot.description": "Вместо стрел стреляет кристаллами, выросшими из самого лука. Выращивание кристаллов требует дополнительной прочности.",
@@ -2236,10 +2485,17 @@
   "modifier.tconstruct.multishot.description": "Позволяет стрелять несколькими стрелами одновременно.",
   "modifier.tconstruct.sinistral": "Синистраль",
   "modifier.tconstruct.sinistral.flavor": "Звучит зловеще, но уверяю вас, это совершенно естественное состояние.",
-  "modifier.tconstruct.sinistral.description": "В основной руке арбалет стреляет при атаке, а не при взаимодействии, и не заряжается в присяде.",
+  "modifier.tconstruct.sinistral.description": "В основной руке арбалет стреляет при атаке, а не при взаимодействии, и не заряжается в приседе.",
   "modifier.tconstruct.scope": "Прицел",
   "modifier.tconstruct.scope.flavor": "Поворот на 360 градусов с прицелом звучит не так круто.",
   "modifier.tconstruct.scope.description": "Приближает цель при зарядке инструмента.",
+  "modifier.tconstruct.war_charge": "Боевой заряд",
+  "modifier.tconstruct.war_charge.flavor": "Потенциальная энергия!",
+  "modifier.tconstruct.war_charge.description": "Добыча блоков при наличии заряда увеличивает скорость следующего выстрела.",
+  "modifier.tconstruct.war_charge.velocity": "Скорость",
+  "modifier.tconstruct.ballista": "Баллиста",
+  "modifier.tconstruct.ballista.flavor": "Улучшенные боеприпасы для длинного лука.",
+  "modifier.tconstruct.ballista.description": "Позволяет использовать лук для ближнего боя другой рукой.",
 
     "_comment": "Модификаторы: Броня",
   "modifier.tconstruct.knockback_resistance": "Сопротивление отбрасыванию",
@@ -2307,7 +2563,7 @@
   "modifier.tconstruct.dragonborn.resistance": "Сопротивление в воздухе",
   "modifier.tconstruct.shulking": "Шалкеровый панцирь",
   "modifier.tconstruct.shulking.flavor": "Этот панцирь — мой дом.",
-  "modifier.tconstruct.shulking.description": "Увеличивает сопротивление в присяде, но также уменьшает урон.",
+  "modifier.tconstruct.shulking.description": "Увеличивает сопротивление в приседе, но также уменьшает урон.",
   "modifier.tconstruct.shulking.resistance": "Панцирное сопротивление",
   "modifier.tconstruct.boundless": "Безграничный",
   "modifier.tconstruct.boundless.flavor": "Увеличивает ваши лимиты.",
@@ -2331,7 +2587,7 @@
   "modifier.tconstruct.respiration.description": "Увеличивает объём лёгких.",
   "modifier.tconstruct.zoom": "Увеличение",
   "modifier.tconstruct.zoom.flavor": "Ускоряет движение глаз!",
-  "modifier.tconstruct.zoom.description": "Позволяет видеть удалённые объекты при взаимодействии в присяде.",
+  "modifier.tconstruct.zoom.description": "Позволяет видеть удалённые объекты при взаимодействии в приседе.",
   "modifier.tconstruct.slurping": "Хлюпанье",
   "modifier.tconstruct.slurping.flavor": "Хлюююююп!",
   "modifier.tconstruct.slurping.description": "Позволяет пить жидкость из шлема при взаимодействии.",
@@ -2341,6 +2597,11 @@
   "modifier.tconstruct.item_frame": "Рамка",
   "modifier.tconstruct.item_frame.flavor": "Я вижу всё.",
   "modifier.tconstruct.item_frame.description": "Добавляет слоты инвентаря в шлем для предметов, за которыми можно наблюдать. Идеально подходит для часов и компасов.",
+  "modifier.tconstruct.minimap": "Миникарта",
+  "modifier.tconstruct.minimap.flavor": "Мечта исследователя!",
+  "modifier.tconstruct.minimap.description": "Добавляет слот в инвентарь шлема для заполнения карты.",
+  "modifier.tconstruct.minimap.disabled": "Миникарта: Отключена",
+  "modifier.tconstruct.minimap.selected": "Миникарта: Выбрана %s #%s из %s слота",
 
   "_comment": "Модификаторы: Броня (Нагрудник)",
   "modifier.tconstruct.armor_power": "Мощь",
@@ -2349,6 +2610,11 @@
   "modifier.tconstruct.strength": "Сила",
   "modifier.tconstruct.strength.flavor": "Чувствуете ли вы, как сила течёт сквозь вас?",
   "modifier.tconstruct.strength.description": "Делает ваше оружие сильнее.",
+  "modifier.tconstruct.sleeves": "Рукава",
+  "modifier.tconstruct.sleeves.flavor": "Идеально подходит для сюрикенов!",
+  "modifier.tconstruct.sleeves.description": "Даёт нагруднику 9 слотов для метательных предметов, которые можно метать, взаимодействуя с пустой рукой.",
+  "modifier.tconstruct.sleeves.disabled": "Рукава: Отключены",
+  "modifier.tconstruct.sleeves.selected": "Рукава: Выбран %s из %s слота",
   "modifier.tconstruct.ambidextrous": "Амбидекстр",
   "modifier.tconstruct.ambidextrous.flavor": "Вариант монаха.",
   "modifier.tconstruct.ambidextrous.description": "Позволяет бить обеими руками.",
@@ -2399,6 +2665,7 @@
   "modifier.tconstruct.long_fall": "Долгое падение",
   "modifier.tconstruct.long_fall.flavor": "Броня на основе ног.",
   "modifier.tconstruct.long_fall.description": "Нейтрализует весь урон от падения.",
+  "modifier.tconstruct.long_fall.resistance": "Сопротивление падению",
   "modifier.tconstruct.long_fall.requirements": "Для применения эффекта «Долгое падение» требуется «Невесомость IV».",
   "modifier.tconstruct.soulspeed": "Скорость души",
   "modifier.tconstruct.soulspeed.flavor": "Жутко...",
@@ -2425,7 +2692,6 @@
   "modifier.tconstruct.flamewake": "Воспламенение",
   "modifier.tconstruct.flamewake.flavor": "Всё в порядке!",
   "modifier.tconstruct.flamewake.description": "Оставляет за собой огненный след.",
-
 
   "_comment": "Модификаторы: Броня (Щиты)",
   "modifier.tconstruct.reflecting": "Отражение",
@@ -2485,6 +2751,12 @@
   "modifier.tconstruct.glowing": "Свечение",
   "modifier.tconstruct.glowing.flavor": "Сияй ярко!",
   "modifier.tconstruct.glowing.description": "Инструмент может размещать светошарики, расходуя прочность.",
+  "modifier.tconstruct.spectral": "Спектральный",
+  "modifier.tconstruct.spectral.flavor": "Сияй ярче!",
+  "modifier.tconstruct.spectral.description": "Заставляет цель снаряда светиться, будь то блок или сущность.",
+  "modifier.tconstruct.explosive": "Взрывной",
+  "modifier.tconstruct.explosive.flavor": "Бомба!",
+  "modifier.tconstruct.explosive.description": "Заставляет стрелу взорваться при попадании в цель.",
   "modifier.tconstruct.exchanging": "Замена",
   "modifier.tconstruct.exchanging.flavor": "Старая добрая замена!",
   "modifier.tconstruct.exchanging.description": "Блоки, разрушенные этим инструментом, по возможности заменяются блоком из левой руки.",
@@ -2525,6 +2797,46 @@
   "modifier.tconstruct.warping.flavor": "Эндер-перемещение!",
   "modifier.tconstruct.warping.description": "Зарядитесь, нацельтесь на стену и переместитесь!",
 
+  "modifier.tconstruct.drill_attack": "Атака дрелью",
+  "modifier.tconstruct.drill_attack.flavor": "Головокружительно!",
+  "modifier.tconstruct.drill_attack.description": "Наносит удары по любым противникам во время движения вашего инструмента.",
+  "modifier.tconstruct.drill_attack.requirements": "Требуется модификатор пружины, броска или захвата.",
+
+  "modifier.tconstruct.throwing": "Метание",
+  "modifier.tconstruct.throwing.flavor": "Круче, чем трезубцы!",
+  "modifier.tconstruct.throwing.description": "Позволяет метать инструмент и наносить урон в ближнем бою на расстоянии.",
+  "modifier.tconstruct.returning": "Возвращение",
+  "modifier.tconstruct.returning.flavor": "Как волшебный магнит!",
+  "modifier.tconstruct.returning.description": "Заставляет брошенный или выпущенный инструмент вернуться к вам после попадания в цель.",
+  "modifier.tconstruct.channeling": "Направление",
+  "modifier.tconstruct.channeling.flavor": "Ка-чау!",
+  "modifier.tconstruct.channeling.description": "Вызывает попадание молнии в цель для метательных снарядов во время грозы.",
+  "modifier.tconstruct.fins": "Плавники",
+  "modifier.tconstruct.fins.flavor": "Всплеск!",
+  "modifier.tconstruct.fins.description": "Позволяет инструменту свободно перемещаться под водой в качестве снаряда.",
+  "modifier.tconstruct.fins.projectile_damage": "Подводный урон",
+  "modifier.tconstruct.fins_ammo": "Плавники",
+  "modifier.tconstruct.fins_ammo.flavor": "Всплеск!",
+  "modifier.tconstruct.fins_ammo.description": "При наличии боеприпасов может свободно перемещаться под водой и наносит немного больше урона.",
+
+  "modifier.tconstruct.fishing": "Рыбалка",
+  "modifier.tconstruct.fishing.flavor": "Обязательная мини-игра «Рыбалка»!",
+  "modifier.tconstruct.fishing.description": "Инструмент может запускать поплавок, который потенциально может наносить урон противникам.",
+  "modifier.tconstruct.lure": "Приманка",
+  "modifier.tconstruct.lure.flavor": "Вкусные черви!",
+  "modifier.tconstruct.lure.description": "Сокращает время, необходимое для ловли рыбы.",
+  "modifier.tconstruct.lure_rod": "Приманка",
+  "modifier.tconstruct.lure_rod.flavor": "Вкусные черви!",
+  "modifier.tconstruct.lure_rod.description": "На удочках сокращает время, необходимое для ловли рыбы",
+  "modifier.tconstruct.grapple": "Захват",
+  "modifier.tconstruct.grapple.flavor": "Притягивает блоки к себе!",
+  "modifier.tconstruct.grapple.description": "Позволяет подтягиваться к блокам, захваченным рыболовным крючком.",
+  "modifier.tconstruct.grapple.requirements": "Захват требует модификатор рыбалки.",
+  "modifier.tconstruct.collecting": "Сбор",
+  "modifier.tconstruct.collecting.flavor": "Йоинк!",
+  "modifier.tconstruct.collecting.description": "Позволяет рыболовному крючку собирать пойманные предметы, опыт, стрелы и метательное оружие.",
+  "modifier.tconstruct.collecting.requirements": "Для сбора требуется модификатор рыбалки.",
+
   "_comment": "Модификаторы: Жидкости",
   "modifier.tconstruct.melting": "Плавление",
   "modifier.tconstruct.melting.flavor": "Сила плавильщика на палке!",
@@ -2538,6 +2850,9 @@
   "modifier.tconstruct.spilling": "Разливание",
   "modifier.tconstruct.spilling.flavor": "Всплеск-всплеск!",
   "modifier.tconstruct.spilling.description": "Жидкость, содержащаяся в оружии, разливается на цели в ближнем бою, вызывая эффекты, зависящие от жидкости.",
+  "modifier.tconstruct.spilling_rod": "Разливание",
+  "modifier.tconstruct.spilling_rod.flavor": "Всплеск-всплеск!",
+  "modifier.tconstruct.spilling_rod.description": "При использовании на удочке жидкости, содержащейся в удочке, выливается на цель, вызывая эффекты, зависящие от состава жидкости.",
   "modifier.tconstruct.splashing": "Разбрызгивание",
   "modifier.tconstruct.splashing.flavor": "Всплеск-всплеск!",
   "modifier.tconstruct.splashing.description": "Жидкость, содержащаяся в инструменте, разливается на взаимодействующие блоки и целевые сущности, вызывая эффекты, зависящие от жидкости",
@@ -2547,9 +2862,23 @@
   "modifier.tconstruct.wetting": "Увлажнение",
   "modifier.tconstruct.wetting.flavor": "Не такое уж и увлажнение!",
   "modifier.tconstruct.wetting.description": "Вызывает увлажнение при повреждении, применяя различные эффекты в зависимости от содержащейся жидкости.",
-  "modifier.tconstruct.spitting": "Плевок",
+  "modifier.tconstruct.spitting": "Выплёвывание",
   "modifier.tconstruct.spitting.flavor": "Станьте лучшей ламой!",
   "modifier.tconstruct.spitting.description": "Можно зарядить инструмент, чтобы запускать жидкие снаряды из резервуара, применяя эффект к цели. Зависит от характеристик лука.",
+  "modifier.tconstruct.amorphous": "Аморфный",
+  "modifier.tconstruct.amorphous.flavor": "Переходной!",
+  "modifier.tconstruct.amorphous.description": "Оружие имеет уменьшенную мощность снаряда.",
+  "modifier.tconstruct.fuse": "Фитиль",
+  "modifier.tconstruct.fuse.flavor": "Тик-так!",
+  "modifier.tconstruct.fuse.description": "Снаряд исчезает через короткое время.",
+  "modifier.tconstruct.smashing": "Разбивание",
+  "modifier.tconstruct.smashing.format": "%s (%s)",
+  "modifier.tconstruct.smashing.flavor": "Разбитый вдребезги!",
+  "modifier.tconstruct.smashing.description": "Снаряд разбивается при попадании в сущность, применяя к ней эффект заполненной жидкости.",
+  "modifier.tconstruct.smashing.empty_to_swap": "Нельзя увеличить вместимость для разбивания, если он не пуст.",
+  "modifier.tconstruct.smashing_ammo": "Разбивание",
+  "modifier.tconstruct.smashing_ammo.flavor": "Разбитый вдребезги!",
+  "modifier.tconstruct.smashing_ammo.description": "При использовании с боеприпасами, они разбиваются при попадании в цель, применяя к ним эффект наполненной жидкости.",
 
   "_comment": "Слоты для бонусных модификаторов",
   "modifier.tconstruct.creative_slot": "Творческий слот",
@@ -2572,9 +2901,16 @@
   "modifier.tconstruct.recapitated": "Обезглавленный",
   "modifier.tconstruct.recapitated.flavor": "Вернуть голову на место!",
   "modifier.tconstruct.recapitated.description": "Установите на этот инструмент голову, добавив одно улучшение!",
+  "modifier.tconstruct.forecast": "Прогноз",
+  "modifier.tconstruct.forecast.flavor": "Улучшения на горизонте!",
+  "modifier.tconstruct.forecast.description": "Открывает слот для предстоящего улучшения!",
   "modifier.tconstruct.resurrected": "Возрождающий",
   "modifier.tconstruct.resurrected.flavor": "Вернуть к жизни!",
   "modifier.tconstruct.resurrected.description": "Возрождает один из слотов улучшения этого инструмента!",
+  "modifier.tconstruct.resurrected.requirements": "Прогноз несовместим с возрождающим модификатором.",
+  "modifier.tconstruct.embossed": "Тиснёный",
+  "modifier.tconstruct.embossed.flavor": "Убийца зверей!",
+  "modifier.tconstruct.embossed.description": "Украшает ваш инструмент дополнительным слотом для улучшения!",
   "modifier.tconstruct.gilded": "Позолоченный",
   "modifier.tconstruct.gilded.flavor": "Равноценный обмен!",
   "modifier.tconstruct.gilded.description": "Обменивает слот для умений на два слота для улучшений!",
@@ -2583,12 +2919,15 @@
   "modifier.tconstruct.draconic.description": "Голова великого зверя даёт вашему инструменту второй слот для умений!",
   "modifier.tconstruct.rebalanced": "Перебалансированный",
   "modifier.tconstruct.rebalanced.flavor": "Весы баланса на вашем инструменте!",
-  "modifier.tconstruct.rebalanced.description": "Предоставляет вашему инструменту дополнительный тип слота на ваш выбор. Наказывает за выбор наиболее мощного типа.",
+  "modifier.tconstruct.rebalanced.description": "Даёт вашему инструменту дополнительный тип слота на ваш выбор. Наказывает за выбор наиболее мощного типа.",
   "modifier.tconstruct.rebalanced.upgrades": "Улучшение",
   "modifier.tconstruct.rebalanced.abilities": "Умение",
   "modifier.tconstruct.rebalanced.souls": "Душа",
   "modifier.tconstruct.rebalanced.defense": "Защита",
   "modifier.tconstruct.rebalanced.traits": "Особенность",
+  "modifier.tconstruct.redirected": "Перенаправленный",
+  "modifier.tconstruct.redirected.flavor": "Отправить ​​стрелу обратно!",
+  "modifier.tconstruct.redirected.description": "Даёт снаряду дополнительную копию характеристики головы.",
 
   "__comment": "Ещё три модификатора улучшения +1 для пакетов ресурсов",
   "modifier.tconstruct.red_extra_upgrade": "Красное дополнительное улучшение",
@@ -2613,12 +2952,26 @@
   "modifier.tconstruct.cultivated": "Культивируемый",
   "modifier.tconstruct.cultivated.flavor": "Экономичный!",
   "modifier.tconstruct.cultivated.description": "При ремонте инструмент, по сути, увеличивает объём материала.",
+  "modifier.tconstruct.economical": "Экономичный",
+  "modifier.tconstruct.economical.flavor": "Экологичный!",
+  "modifier.tconstruct.economical.description": "Удваивает количество созданных стрел.",
+  "modifier.tconstruct.cheap": "Дешёвый",
+  "modifier.tconstruct.cheap.flavor": "Неэкологичный!",
+  "modifier.tconstruct.cheap.description": "Уменьшает количество созданных стрел вдвое.",
   "modifier.tconstruct.jagged": "Зазубренный",
   "modifier.tconstruct.jagged.flavor": "Сломанные края делают его острым!",
   "modifier.tconstruct.jagged.description": "Каждая потерянная ед. прочности увеличивает урон, но снижает скорость добычи.",
+  "modifier.tconstruct.jagged.mining_speed": "Скорость добычи",
+  "modifier.tconstruct.jagged.attack_damage": "Урон в ближнем бою",
+  "modifier.tconstruct.tipped": "Опрокидывающий",
+  "modifier.tconstruct.tipped.format": "Опрокинуто: %s (%s)",
+  "modifier.tconstruct.tipped.flavor": "Может быть улучшено!",
+  "modifier.tconstruct.tipped.description": "При попадании применяется действие зелья, наложенного на этот снаряд.",
   "modifier.tconstruct.stonebound": "Камнелюбивый",
   "modifier.tconstruct.stonebound.flavor": "Ваш инструмент просто обожает камень!",
   "modifier.tconstruct.stonebound.description": "Инструмент добывает быстрее по мере износа, но наносит меньше урона.",
+  "modifier.tconstruct.stonebound.mining_speed": "Скорость добычи",
+  "modifier.tconstruct.stonebound.attack_damage": "Урон в ближнем бою",
   "modifier.tconstruct.enderference": "Эндерференция",
   "modifier.tconstruct.enderference.flavor": "Очень отвлекает!",
   "modifier.tconstruct.enderference.description": "Предотвращает телепортацию цели на короткое время.",
@@ -2628,6 +2981,12 @@
   "modifier.tconstruct.unburdened": "Облегчённый",
   "modifier.tconstruct.unburdened.flavor": "Простота в использовании!",
   "modifier.tconstruct.unburdened.description": "При использовании предмета скорость передвижения снижается меньше.",
+  "modifier.tconstruct.woodwind": "Деревянно-духовой",
+  "modifier.tconstruct.woodwind.flavor": "Песнь воздуха!",
+  "modifier.tconstruct.woodwind.description": "Более свободно перемещается по ветру, что даёт большой бонус к точности, а также бонус к скорости метания боеприпасов. Некоторые даже утверждают, что слышат музыку во время полёта.",
+  "modifier.tconstruct.soft": "Мягкий",
+  "modifier.tconstruct.soft.flavor": "Дружественное оружие!",
+  "modifier.tconstruct.soft.description": "Снижает мощность снаряда до нуля.",
   "modifier.tconstruct.stringy": "Волокнистый",
   "modifier.tconstruct.stringy.flavor": "Как сыр, но менее вкусный!",
   "modifier.tconstruct.stringy.description": "Инструмент можно починить с помощью нити.",
@@ -2662,6 +3021,13 @@
   "modifier.tconstruct.overgrowth": "Разрастание",
   "modifier.tconstruct.overgrowth.flavor": "Грибковый!",
   "modifier.tconstruct.overgrowth.description": "Инструмент медленно обрастает сверхслизью.",
+  "modifier.tconstruct.bounce": "Отскок",
+  "modifier.tconstruct.bounce.flavor": "Рикошетирующий!",
+  "modifier.tconstruct.bounce.description": "Заставляет стрелы отскакивать от блоков, в которые они попадают, идеально подходит для трюковых выстрелов!",
+  "modifier.tconstruct.rebound": "Подскок",
+  "modifier.tconstruct.rebound.flavor": "Трюковый выстрел!",
+  "modifier.tconstruct.rebound.description": "Увеличивает мощность в зависимости от количества отскоков снаряда.",
+  "modifier.tconstruct.rebound.projectile_damage": "Урон от подскока",
   "modifier.tconstruct.raging": "Яростный",
   "modifier.tconstruct.raging.flavor": "Отчаянное решение!",
   "modifier.tconstruct.raging.description": "Инструмент наносит больше урона, когда здоровье пользователя низкое.",
@@ -2676,6 +3042,9 @@
   "modifier.tconstruct.antitoxin.description": "Инструмент наносит больше урона и быстрее извлекается при отравлении.",
   "modifier.tconstruct.antitoxin.attack_damage": "Урон от яда",
   "modifier.tconstruct.antitoxin.draw_speed": "Скорость извлечения яда",
+  "modifier.tconstruct.venom": "Яд",
+  "modifier.tconstruct.venom.flavor": "Токсичный!",
+  "modifier.tconstruct.venom.description": "Накладывает на цель двойной магический урон на короткое время.",
   "modifier.tconstruct.enhanced": "Улучшенный",
   "modifier.tconstruct.enhanced.flavor": "Эффективный!",
   "modifier.tconstruct.enhanced.description": "Розовое золото отлично сочетается с бонусным улучшением!",
@@ -2729,6 +3098,9 @@
   "modifier.tconstruct.tasty": "Вкусный",
   "modifier.tconstruct.tasty.flavor": "Ом-ням-ням!",
   "modifier.tconstruct.tasty.description": "Так хорошо пахнет, что вы не сможете устоять и откусите несколько кусочков от своего инструмента.",
+  "modifier.tconstruct.attractive": "Привлекательный",
+  "modifier.tconstruct.attractive.flavor": "Это действительно красивая стрела!",
+  "modifier.tconstruct.attractive.description": "Привлекает мобов к месту попадания снаряда.",
 
   "death.attack.tconstruct.bleed": "%1$s истёк кровью до смерти",
   "death.attack.tconstruct.bleed.item": "%1$s истёк кровью до смерти от травм, нанесённых %2$s",
@@ -2756,14 +3128,40 @@
   "modifier.tconstruct.kinetic.flavor": "Ни боли, ни выгоды!",
   "modifier.tconstruct.kinetic.description": "Во время боя вы наносите всё больше и больше урона с каждым полученным ударом.",
   "modifier.tconstruct.kinetic.attack_damage": "Кинетический урон",
-  "modifier.tconstruct.conducting": "Проводящий",
+  "modifier.tconstruct.valiant": "Доблестный",
+  "modifier.tconstruct.valiant.flavor": "Рыцарь-убийца!",
+  "modifier.tconstruct.valiant.description": "Увеличивает урон по бронированным целям.",
+  "modifier.tconstruct.valiant.attack_damage": "Доблестный урон",
+  "modifier.tconstruct.valiant.projectile_damage": "Доблестный урон",
+  "modifier.tconstruct.stalwart": "Стойкий",
+  "modifier.tconstruct.stalwart.flavor": "Рыцарь-стопор!",
+  "modifier.tconstruct.stalwart.description": "Уменьшает урон от вооружённых нападающих.",
+  "modifier.tconstruct.stalwart.resistance": "Стойкое сопротивление",
+  "modifier.tconstruct.conducting": "Проведение",
   "modifier.tconstruct.conducting.flavor": "Термодинамический!",
   "modifier.tconstruct.conducting.description": "Инструмент наносит многократный урон, когда вы горите.",
   "modifier.tconstruct.conducting.boost": "Макс. усиление при горении",
+  "modifier.tconstruct.conductive": "Проводящий",
+  "modifier.tconstruct.conductive.flavor": "Терможидкостный!",
+  "modifier.tconstruct.conductive.description": "На короткое время наносит цели двойной урон от огня.",
   "modifier.tconstruct.flame_barrier": "Огненный барьер",
   "modifier.tconstruct.flame_barrier.flavor": "Термозащитный!",
   "modifier.tconstruct.flame_barrier.description": "Повышает защиту при возгорании.",
   "modifier.tconstruct.flame_barrier.resistance": "Сопротивление барьеру",
+  "modifier.tconstruct.tempered_protection": "Закалённая защита",
+  "modifier.tconstruct.tempered_protection.flavor": "Не поддается воздействию пламени!",
+  "modifier.tconstruct.tempered_protection.description": "Снижает урон от нападающих, находящихся в огне.",
+  "modifier.tconstruct.tempered_protection.resistance": "Сопротивление",
+  "modifier.tconstruct.dragonshot": "Выстрел дракона",
+  "modifier.tconstruct.dragonshot.flavor": "Оружие дракона!",
+  "modifier.tconstruct.dragonshot.description": "Наносит дополнительный урон при выстреле с воздуха.",
+  "modifier.tconstruct.dragonshot.projectile_damage": "Урон в воздухе",
+  "modifier.tconstruct.reclaim": "Восстановление",
+  "modifier.tconstruct.reclaim.flavor": "Сократите, повторно используйте, переработайте!",
+  "modifier.tconstruct.reclaim.description": "После попадания в цель снаряд отскочит и может быть собран для повторного использования.",
+  "modifier.tconstruct.hover": "Парение",
+  "modifier.tconstruct.hover.flavor": "Свободен, как ветер!",
+  "modifier.tconstruct.hover.description": "Снаряд кратковременно игнорирует гравитацию после выстрела.",
 
   "__comment": "Особенности (5 уровень)",
   "modifier.tconstruct.enderporting": "Эндер-портирование",
@@ -2775,9 +3173,6 @@
   "modifier.tconstruct.dense": "Плотный",
   "modifier.tconstruct.dense.flavor": "Почти не теряет форму!",
   "modifier.tconstruct.dense.description": "Инструмент служит дольше, но его сложнее чинить.",
-  "modifier.tconstruct.sharpweight": "Острый вес",
-  "modifier.tconstruct.sharpweight.flavor": "В отличие от гантели!",
-  "modifier.tconstruct.sharpweight.description": "Сильный, но его чрезвычайно трудно перемещать.",
   "modifier.tconstruct.lustrous": "Блестящий",
   "modifier.tconstruct.lustrous.flavor": "Самая блестящая руда!",
   "modifier.tconstruct.lustrous.description": "Из руд выпадают бонусные кусочки.",
@@ -2800,6 +3195,7 @@
   "modifier.tconstruct.holy": "Святой",
   "modifier.tconstruct.holy.flavor": "Умри, птичье создание!",
   "modifier.tconstruct.holy.description": "Стрелы наносят дополнительный урон нежити.",
+  "modifier.tconstruct.holy.projectile_damage": "Урон нежити",
   "modifier.tconstruct.consecrated": "Освящённый",
   "modifier.tconstruct.consecrated.flavor": "Умри, птичье создание!",
   "modifier.tconstruct.consecrated.description": "Получайте меньше урона от нежити.",
@@ -2807,6 +3203,12 @@
   "modifier.tconstruct.preserved": "Сохранившийся",
   "modifier.tconstruct.preserved.flavor":  "Приятное масляное послевкусие!",
   "modifier.tconstruct.preserved.description": "Повышает прочность инструмента и облегчает его ремонт.",
+  "modifier.tconstruct.deciduous": "Лиственный",
+  "modifier.tconstruct.deciduous.flavor":  "Осыпание коры!",
+  "modifier.tconstruct.deciduous.description": "Разделяет часть своей прочности с другими инструментами при получении урона.",
+  "modifier.tconstruct.barkskin": "Кора",
+  "modifier.tconstruct.barkskin.flavor":  "Сбрасывание коры!",
+  "modifier.tconstruct.barkskin.description": "Инструмент использует кору вместо прочности, пока она не закончится.",
 
 
   "__comment": "Совместимые особенности модов (3 уровень)",
@@ -2834,6 +3236,15 @@
   "modifier.tconstruct.invariant.attack_damage": "Нейтральный урон",
   "modifier.tconstruct.invariant.accuracy": "Нейтральная точность",
   "modifier.tconstruct.invariant.resistance": "Инвариантное сопротивление",
+  "modifier.tconstruct.solid": "Твёрдый",
+  "modifier.tconstruct.solid.flavor": "Хорошо сбалансированный!",
+  "modifier.tconstruct.solid.description": "Инструмент наносит больше урона, а броня обеспечивает лучшую защиту, но его трудно перемещать.",
+  "modifier.tconstruct.solid.resistance": "Сопротивление",
+  "modifier.tconstruct.shock": "Шокирующий",
+  "modifier.tconstruct.shock.flavor": "Электризующий!",
+  "modifier.tconstruct.shock.description": "Наносит больше урона целям в воде и увеличивает урон.",
+  "modifier.tconstruct.shock.attack_damage": "Шокирующий урон",
+  "modifier.tconstruct.shock.projectile_damage": "Шокирующий урон",
   "modifier.tconstruct.decay": "Распад",
   "modifier.tconstruct.decay.flavor": "Радиоактивное иссушение",
   "modifier.tconstruct.decay.description": "Вызывает иссушение целей, но также может вызвать иссушение и самого пользователя.",
@@ -2978,9 +3389,11 @@
   "effect.tconstruct.bleeding": "Кровотечение",
   "effect.tconstruct.magnetic": "Магнетизм",
   "effect.tconstruct.repulsive": "Импульс",
-  "effect.tconstruct.pierce": "Пронзённый",
+  "effect.tconstruct.pierce": "Прокол",
   "effect.tconstruct.calcified": "Кальцифицированный",
   "effect.tconstruct.self_destructing": "Саморазрушение",
+  "effect.tconstruct.venom": "Яд",
+  "effect.tconstruct.conductive": "Проводящий",
 
   "_comment": "Внутренние эффекты",
   "effect.tconstruct.momentum_harvest": "Импульс сбора",
@@ -3068,12 +3481,20 @@
 
   "stat.tconstruct.binding": "Крепление",
   "stat.tconstruct.bowstring": "Тетива",
+  "stat.tconstruct.arrow_head": "Наконечник стрелы",
+  "stat.tconstruct.arrow_shaft": "Древко стрелы",
+  "stat.tconstruct.fletching": "Оперение стрелы",
   "tool_stat.tconstruct.extra.no_stats": "§7Нет характеристик",
 
   "tool_stat.tconstruct.block_amount": "§7Кол-во блокируемого урона: ",
   "tool_stat.tconstruct.block_amount.description": "Максимальное количество урона, блокируемое этим щитом за атаку.",
   "tool_stat.tconstruct.block_angle": "§7Угол блокируемого урона: ",
   "tool_stat.tconstruct.block_angle.description": "Общий угол защиты спереди при использовании щита, выходящего за пределы 360 градусов. Любые атаки под углом, превышающим этот, не блокируются.",
+
+  "tool_stat.tconstruct.sea_luck": "§7Морская удача: ",
+  "tool_stat.tconstruct.sea_luck.description": "Увеличивает вероятность получения хорошей награды за рыбалку.",
+  "tool_stat.tconstruct.lure": "§7Приманка: ",
+  "tool_stat.tconstruct.lure.description": "Сокращает время, необходимое для ловли рыбы.",
 
   "tool_stat.tconstruct.overslime": "§7Вместимость избыточной слизи: ",
   "tool_stat.tconstruct.overslime.description": "Максимальное количество избыточной слизи, разрешённое для этого инструмента.",
@@ -3120,7 +3541,7 @@
   "armor_stat.tconstruct.critical_damage": "Критический урон",
   "armor_stat.tconstruct.good_effect_duration": "Время хорошего зелья",
   "armor_stat.tconstruct.bad_effect_duration": "Время плохого зелья",
-  "armor_stat.tconstruct.crouch_damage": "Урон в присяде",
+  "armor_stat.tconstruct.crouch_damage": "Урон в приседе",
   "armor_stat.tconstruct.knockback": "Отдача",
 
   "attribute.name.tconstruct.player.use_item_speed": "Скорость использования предмета",
@@ -3132,7 +3553,7 @@
   "attribute.name.tconstruct.generic.protection_cap": "Макс. защита",
   "attribute.name.tconstruct.generic.jump_boost": "Высота прыжка",
   "attribute.name.tconstruct.generic.safe_fall_distance": "Безопасное расстояние падения",
-  "attribute.name.tconstruct.generic.crouch_damage_multiplier": "Урон в присяде",
+  "attribute.name.tconstruct.generic.crouch_damage_multiplier": "Урон в приседе",
   "attribute.name.tconstruct.generic.knockback_multiplier": "Отдача",
   "attribute.name.tconstruct.generic.good_effect_duration_multiplier": "Время хорошего зелья",
   "attribute.name.tconstruct.generic.bad_effect_duration_multiplier": "Время плохого зелья",
@@ -3197,6 +3618,7 @@
   "gui.tconstruct.manual.cycle.recipes": "Перейти к другим рецептам",
 
   "recipe.tconstruct.tool_repair.fully_repaired": "Инструмент не повреждён.",
+  "recipe.tconstruct.tool_build.no_count": "Одна из особенностей помешала созданию этого инструмента.",
   "recipe.tconstruct.damaging.broken": "Инструмент уже сломан.",
   "recipe.tconstruct.overslime.at_capacity": "В инструменте больше нет места для слизи.",
 
@@ -3213,6 +3635,8 @@
 
   "recipe.tconstruct.modifier_sorting.title": "Сортировка модификаторов",
   "recipe.tconstruct.modifier_sorting.description": "Выберите модификатор, чтобы поменять его местоположение со следующим модификатором в списке. Не использует предметы для замены.",
+  "recipe.tconstruct.modifier_sorting.description.forward": "Выберите модификатор, чтобы поменять его местоположение с предыдущим модификатором в списке. Не использует предметы для замены.",
+  "recipe.tconstruct.modifier_sorting.description.reversed": "Выберите модификатор, чтобы поменять его местоположение с предыдущим модификатором в списке. Не использует предметы для замены.",
   "recipe.tconstruct.modifier_sorting.not_enough_modifiers": "Инструменту для сортировки требуется как минимум два модификатора.",
 
   "recipe.tconstruct.invisible_modifiers.adding.title": "Невидимые чернила",
@@ -3221,10 +3645,9 @@
   "recipe.tconstruct.invisible_modifiers.removing.description": "Выберите скрытый модификатор, чтобы он снова отображался в модели инструмента.",
 
   "modifier.tconstruct.attack_toggled": "%s (атака)",
-  "recipe.tconstruct.attack_modifiers.adding.title": "Переключить взаимодействие",
-  "recipe.tconstruct.attack_modifiers.adding.description": "Переключает модификатор взаимодействия с активации при взаимодействии на атаку.",
-  "recipe.tconstruct.attack_modifiers.removing.title": "Отменить взаимодействие",
-  "recipe.tconstruct.attack_modifiers.removing.description": "Переключает модификатор взаимодействия обратно на активацию при взаимодействии.",
+  "modifier.tconstruct.interact_toggled": "%s (взаимодействие)",
+  "recipe.tconstruct.toggle_interaction.title": "Переключить взаимодействие",
+  "recipe.tconstruct.toggle_interaction.description": "Переключает режим взаимодействия между активацией взаимодействия и активацией атаки.",
 
   "recipe.tconstruct.extract_modifier.upgrades": "Извлечение улучшения",
   "recipe.tconstruct.extract_modifier.slotless": "Извлечение без слота",
@@ -3240,6 +3663,7 @@
   "recipe.tconstruct.enchantment_converting.too_few": "Необходимо предоставить больше входных материалов для преобразования зачарования более высокого уровня.",
 
   "recipe.tconstruct.part_swapping.too_many_parts": "Стол слишком мал для замены деталей на этом инструменте.",
+  "recipe.tconstruct.part_swapping.too_few_inputs": "Размер стека инструмента слишком мал для выполнения этой замены детали.",
 
   "recipe.tconstruct.modifier.not_enough_slot": "Для добавления этого модификатора требуется как минимум 1 слот %s",
   "recipe.tconstruct.modifier.not_enough_slots": "Для добавления этого модификатора требуется как минимум %s слотов %s",
@@ -3255,6 +3679,10 @@
   "recipe.tconstruct.tool_recycling": "Переработка инструмента",
   "recipe.tconstruct.tool_recycling.info": "Выберите, какую деталь следует извлечь из этого инструмента. В зависимости от оставшейся прочности инструмента есть шанс получить вторую деталь.",
   "recipe.tconstruct.tool_recycling.no_modifiers": "Инструмент не может быть переработан, если он содержит какие-либо улучшения или умения, их необходимо сначала удалить.",
+  "recipe.tconstruct.recycling": "Переработка",
+  "recipe.tconstruct.recycling.info": "Выберите предмет для переработки. В зависимости от прочности, возможно, удастся восстановить невыбранные предметы.",
+  "recipe.tconstruct.recycling.not_enough_durability": "У предмета недостаточно прочности, чтобы что-либо восстановить.",
+  "recipe.tconstruct.recycling.no_enchantments": "Инструмент не может быть переработан, если он зачарован, используйте точило, чтобы сначала удалить зачарование.",
 
 
   "_comment": "Сообщения графического интерфейса",
@@ -3344,6 +3772,7 @@
   "command.tconstruct.material.not_found": "Неизвестный материал: %s",
   "command.tconstruct.modifier.not_found": "Неизвестный модификатор: %s",
   "command.tconstruct.modifier_hook.not_found": "Неизвестный крюк модификатора: %s",
+
   "command.tconstruct.modifier_usage": "Использование модификаторов успешно выведено в игровой журнал",
   "command.tconstruct.modifier_priority": "Приоритеты модификаторов успешно выведены в игровой журнал",
 
@@ -3395,8 +3824,11 @@
 
   "command.tconstruct.generate_part_textures.start": "Началась генерация текстур деталей...",
   "command.tconstruct.generate_part_textures.finish": "%s текстур деталей успешно сгенерированы за %s сек. в папку: %s",
-  "command.tconstruct.generate_part_textures.no_materials": "Ни в одном материале нет информации о генераторе, генерировать нечего",
-  "command.tconstruct.generate_part_textures.no_parts": "В пакетах ресурсов нет спрайтов деталей",
+  "command.tconstruct.generate_part_textures.failure": "Не удалось сгенерировать текстуры деталей после %s сек.: %s. Проверьте журнал для получения более подробной информации.",
+  "command.tconstruct.generate_part_textures.no_materials": "Ни в одном материале нет информации о генераторе, генерировать нечего.",
+  "command.tconstruct.generate_part_textures.no_parts": "В пакетах ресурсов нет спрайтов деталей.",
+
+  "command.tconstruct.generate.melting_recipes": "Рецепты плавки %s успешно сгенерированы за %s сек. Запустите команду /reload, чтобы активировать пакет в %s",
 
 
   "_comment": "Строки JEI",
@@ -3404,7 +3836,7 @@
   "jei.tconstruct.temperature": "%s°C",
   "jei.tconstruct.modifier_ingredient": "Модификатор: %s",
   "jei.tconstruct.modifier_slot.ingredient": "Стол модификатора %s",
-  "jei.tconstruct.modifier_slot.id": "ID слота: %s",
+  "jei.tconstruct.modifier_slot.id": "Идентификатор слота: %s",
 
   "jei.tconstruct.casting.basin": "Литейный бак",
   "jei.tconstruct.casting.table": "Литейный стол",
