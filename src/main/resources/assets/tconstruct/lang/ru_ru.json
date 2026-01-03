@@ -1755,7 +1755,7 @@
 
 
   "material.tconstruct.unknown": "Неизвестно",
-  "trim_material.tconstruct.format": "Материал: %s",
+  "trim_material.tconstruct.format": "%s",
   "material.tconstruct.ui_render": "Любой",
 
   "__comment": "Литейное дело:  Материалы (1 уровень)",
