@@ -2974,7 +2974,7 @@
   "modifier.tconstruct.jagged.description": "工具的耐久度越低，伤害值越高，但挖掘速度越低",
   "modifier.tconstruct.jagged.mining_speed": "挖掘速度",
   "modifier.tconstruct.jagged.attack_damage": "近战伤害",
-  "modifier.tconstruct.tipped": "可以浇注药水",
+  "modifier.tconstruct.tipped": "可注药",
   "modifier.tconstruct.tipped.format": "浇注了%s（%s）",
   "modifier.tconstruct.tipped.flavor": "洗濯磨淬",
   "modifier.tconstruct.tipped.description": "命中时，造成弹射物上浇注药水的对应效果",
