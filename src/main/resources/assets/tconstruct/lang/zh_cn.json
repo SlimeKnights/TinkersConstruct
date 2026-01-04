@@ -1284,8 +1284,10 @@
   "death.attack.tconstruct.fishing_hook.item": "%1$s被%2$s使用%3$s上的鱼钩刺死了",
   "death.attack.tconstruct.piercing": "%1$s被%2$s刺穿了",
   "death.attack.tconstruct.piercing.item": "%1$s被%2$s使用%3$s刺穿了",
-  "death.attack.tconstruct.entangled": "%1$s没能放开自己的工具",
-  "death.attack.tconstruct.entangled.player": "%1$s在与%2$s战斗时没能放开自己的工具",
+  "death.attack.tconstruct.entangled": "%1$s被自己的工具绞杀了",
+  "death.attack.tconstruct.entangled.player": "%1$s在与%2$s战斗时被自己的工具绞杀了",
+  "death.attack.tconstruct.spiny": "%1$s被尖刺戳死了",
+  "death.attack.tconstruct.spiny.player": "%1$s在与%2$s战斗时被尖刺戳死了",
   "death.attack.tconstruct.shock": "%1$s在试图伤害%2$s时被击倒了",
   "death.attack.tconstruct.shock.item": "%1$s在试图伤害%2$s时被%3$s击倒了",
 
@@ -1784,6 +1786,8 @@
 
   "material.tconstruct.cactus": "仙人掌",
   "material.tconstruct.cactus.flavor": "刺背刺客被背刺",
+  "material.tconstruct.cactus.ranged": "每级使弹射物初速度+0.1，代价为每次发射箭矢时，每级使自己流失1点生命值",
+  "material.tconstruct.cactus.ammo": "每级使可投掷武器初速度+0.1，弹射物力量+0.5，代价为每次投掷时，每级使自己流失1点生命值",
   "material.tconstruct.cactus.armor": "被动攻击时额外增加15%概率造成1-4点伤害，格挡时概率改为增加30%",
 
   "material.tconstruct.rock": "岩石",
@@ -1924,9 +1928,9 @@
 
   "material.tconstruct.twisting_vine": "缠怨藤",
   "material.tconstruct.twisting_vine.flavor": "吞食孢子！",
-  "material.tconstruct.twisting_vine.encyclopedia": "获得+6挖掘速度，代价是每次放下工具时受到1点伤害",
-  "material.tconstruct.twisting_vine.ranged": "获得+15%拉弓速度，代价是每次放下工具时受到1点伤害",
-  "material.tconstruct.twisting_vine.armor": "获得+10%击退抗性，代价是每次脱下盔甲时受到2点伤害",
+  "material.tconstruct.twisting_vine.encyclopedia": "获得+6挖掘速度，代价是每次放下工具时流失1点生命值",
+  "material.tconstruct.twisting_vine.ranged": "获得+15%拉弓速度，代价是每次放下工具时流失1点生命值",
+  "material.tconstruct.twisting_vine.armor": "获得+10%击退抗性，代价是每次脱下盔甲时流失2点生命值",
 
   "material.tconstruct.wool": "羊毛",
   "material.tconstruct.wool.white": "白色羊毛",
@@ -2377,7 +2381,7 @@
   "modifier.tconstruct.necrotic.lifesteal": "生命汲取",
 
   "_comment": "Damage boost",
-  "modifier.tconstruct.piercing": "尖刺",
+  "modifier.tconstruct.piercing": "穿刺",
   "modifier.tconstruct.piercing.flavor": "变身仙人掌！",
   "modifier.tconstruct.piercing.description": "工具将造成额外伤害，这部分伤害无视护甲！",
   "modifier.tconstruct.piercing.attack_damage": "穿刺伤害",
@@ -2995,6 +2999,9 @@
   "modifier.tconstruct.woodwind": "木管",
   "modifier.tconstruct.woodwind.flavor": "破空之声",
   "modifier.tconstruct.woodwind.description": "在空气中更自如地飞行，精确度大幅提升，对可投掷武器的速度也有所加成。有人称曾听到它飞行时的哨音",
+  "modifier.tconstruct.spiny": "棘手",
+  "modifier.tconstruct.spiny.flavor": "伤痛使你更强！",
+  "modifier.tconstruct.spiny.description": "提升弹射物伤害，但每次使用对自己造成伤害",
   "modifier.tconstruct.soft": "柔软",
   "modifier.tconstruct.soft.flavor": "化干戈为玉帛",
   "modifier.tconstruct.soft.description": "使弹射物伤害降低至0",
