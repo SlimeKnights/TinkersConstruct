@@ -1786,8 +1786,8 @@
 
   "material.tconstruct.cactus": "仙人掌",
   "material.tconstruct.cactus.flavor": "刺背刺客被背刺",
-  "material.tconstruct.cactus.ranged": "每级使弹射物初速度+0.1，代价为每次发射箭矢时，每级使自己流失1点生命值",
-  "material.tconstruct.cactus.ammo": "每级使可投掷武器初速度+0.1，弹射物力量+0.5，代价为每次投掷时，每级使自己流失1点生命值",
+  "material.tconstruct.cactus.ranged": "每级使弹射物初速度+0.1；代价为每次发射箭矢时，每级使自己流失1点生命值",
+  "material.tconstruct.cactus.ammo": "每级使可投掷武器初速度+0.1，弹射物力量+0.5；代价为每次投掷时，每级使自己流失1点生命值",
   "material.tconstruct.cactus.armor": "被动攻击时额外增加15%概率造成1-4点伤害，格挡时概率改为增加30%",
 
   "material.tconstruct.rock": "岩石",
