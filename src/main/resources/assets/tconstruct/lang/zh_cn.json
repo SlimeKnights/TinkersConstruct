@@ -752,7 +752,7 @@
   "block.tconstruct.molten_knightmetal_fluid": "熔融骑士金属",
   "fluid.tconstruct.molten_knightmetal": "熔融骑士金属",
   "fluid.tconstruct.flowing_molten_knightmetal": "流动的熔融骑士金属",
-  "item.tconstruct.molten_knightmetal_bucket": "熔融的骑士金属桶",
+  "item.tconstruct.molten_knightmetal_bucket": "熔融骑士金属桶",
   "fluid.tconstruct.molten_knightmetal.fluid_effect": "极具讽刺意味的是，熔融骑士金属非常适合自裁。",
 
   "block.tconstruct.molten_cinderslime_fluid": "熔融余烬黏液",
@@ -1798,13 +1798,13 @@
   "material.tconstruct.rock.blackstone": "黑石",
   "material.tconstruct.rock.calcite": "方解石",
   "material.tconstruct.rock.flavor": "保证坚如磐石",
-  "material.tconstruct.rock.encyclopedia": "每级使挖掘速度增加已损失耐久值与工具耐久乘数之比的平方根的1%。",
+  "material.tconstruct.rock.encyclopedia": "每级使挖掘速度增加已损失耐久度与工具耐久乘数之比的平方根的1%。",
 
   "material.tconstruct.flint": "燧石",
   "material.tconstruct.flint.basalt": "玄武岩",
   "material.tconstruct.flint.deepslate": "深板岩",
   "material.tconstruct.flint.flavor": "点燃你滚烫的工匠之心！",
-  "material.tconstruct.flint.encyclopedia": "每级使近战伤害提高已损失耐久值与工具耐久乘数之比的平方根的1%。",
+  "material.tconstruct.flint.encyclopedia": "每级使近战伤害提高已损失耐久度与工具耐久乘数之比的平方根的1%。",
   "material.tconstruct.flint.ammo": "可向弹药类工具浇注药水。已浸药的工具在造成伤害的同时可以施加药水效果",
 
   "material.tconstruct.bone": "骨头",
@@ -2204,8 +2204,8 @@
 
   "material.tconstruct.ironwood": "铁木",
   "material.tconstruct.ironwood.flavor": "铁木是木头吗？",
-  "material.tconstruct.ironwood.encyclopedia": "每损失1点耐久值，额外损失1点耐久值（无视其他升级）分享给任一位于快捷栏或副手栏的工具。目标获得1+等级的树皮覆层。",
-  "material.tconstruct.ironwood.armor": "每损失1点耐久值，额外损失1点耐久值（无视其他升级）分享给任一当前穿戴的盔甲。目标获得1+等级的树皮覆层。",
+  "material.tconstruct.ironwood.encyclopedia": "每损失1点耐久度，额外损失1点耐久度（无视其他升级）分享给任一位于快捷栏或副手栏的工具。目标获得1+等级的树皮覆层。",
+  "material.tconstruct.ironwood.armor": "每损失1点耐久度，额外损失1点耐久度（无视其他升级）分享给任一当前穿戴的盔甲。目标获得1+等级的树皮覆层。",
 
 
   "__comment": "Tier 3 Integration Materials",
