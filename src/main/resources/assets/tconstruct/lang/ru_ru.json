@@ -2862,7 +2862,7 @@
   "modifier.tconstruct.tank.description": "Инструмент имеет резервуар для жидкости, позволяющий хранить жидкость.",
   "modifier.tconstruct.bucketing": "Зачёрпывание",
   "modifier.tconstruct.bucketing.flavor": "Хлюп!",
-  "modifier.tconstruct.bucketing.description": "Инструмент может набирать жидкость или размещать её в приседе.",
+  "modifier.tconstruct.bucketing.description": "Инструмент может собирать жидкость или размещать её в приседе.",
   "modifier.tconstruct.spilling": "Разливание",
   "modifier.tconstruct.spilling.flavor": "Всплеск-всплеск!",
   "modifier.tconstruct.spilling.description": "Жидкость, содержащаяся в оружии, разливается на цели в ближнем бою, вызывая эффекты, зависящие от жидкости.",
