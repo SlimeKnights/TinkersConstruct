@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -16,9 +17,13 @@ import slimeknights.mantle.util.JsonHelper;
 import slimeknights.mantle.util.typed.TypedMapBuilder;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.json.MaterialStatJson;
+import slimeknights.tconstruct.library.materials.stats.types.FlexMaterialStatType;
 import slimeknights.tconstruct.library.utils.Util;
 
 import javax.annotation.Nullable;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -55,6 +60,12 @@ public class MaterialStatsManager extends MergingJsonDataLoader<Map<ResourceLoca
   @Getter
   private final IdAwareComponentRegistry<MaterialStatType<?>> statTypes = new IdAwareComponentRegistry<>("Unknown Material Stat Type");
 
+  /**
+   * Another registry, cleared on reload.
+   */
+  @Getter
+  private IdAwareComponentRegistry<FlexMaterialStatType> dynamicStatTypes = null;
+
   /** Final map of material ID to material stat ID to material stats */
   private Map<MaterialId, Map<MaterialStatsId, IMaterialStats>> materialToStatsPerType = Collections.emptyMap();
 
@@ -71,10 +82,30 @@ public class MaterialStatsManager extends MergingJsonDataLoader<Map<ResourceLoca
     statTypes.register(type);
   }
 
-  /** Gets a lit of all material stat IDs */
-  public Collection<ResourceLocation> getAllStatTypeIds() {
-    return statTypes.getKeys();
+  public void clearAndRecreateDynamicStatTypes() {
+    dynamicStatTypes = new IdAwareComponentRegistry<>("Unknown Dynamic Material Stat Type");
   }
+
+    /**
+   * Registers a new material stat type
+   * @param type   Type object
+   */
+  public <T extends IMaterialStats> void registerDynamicStatType(FlexMaterialStatType type) {
+    if(dynamicStatTypes == null) {
+      clearAndRecreateDynamicStatTypes();
+    }
+    dynamicStatTypes.register(type);
+  }
+
+  /** Gets a list of all material stat IDs */
+  public Collection<ResourceLocation> getAllStatTypeIds() {
+    Collection<ResourceLocation> newCollection = new ArrayList<>(statTypes.getKeys());
+    if(dynamicStatTypes != null) {
+      newCollection.addAll(dynamicStatTypes.getKeys());
+    }
+    return newCollection;
+  }
+  
 
   /**
    * Gets the stat type for the given ID
@@ -84,7 +115,11 @@ public class MaterialStatsManager extends MergingJsonDataLoader<Map<ResourceLoca
   @SuppressWarnings("unchecked")
   @Nullable
   public <T extends IMaterialStats> MaterialStatType<T> getStatType(MaterialStatsId id) {
-    return (MaterialStatType<T>) statTypes.getValue(id);
+    MaterialStatType<T> type=(MaterialStatType<T>) statTypes.getValue(id);
+    if(type==null && dynamicStatTypes != null) {
+      type=(MaterialStatType<T>) dynamicStatTypes.getValue(id);
+    }
+    return type;
   }
 
   /**
@@ -186,7 +221,8 @@ public class MaterialStatsManager extends MergingJsonDataLoader<Map<ResourceLoca
                             .collect(Collectors.toMap(
                               Map.Entry::getKey,
                               entry -> entry.getValue().values()));
-    return new UpdateMaterialStatsPacket(networkPayload);
+    Collection<FlexMaterialStatType> types = dynamicStatTypes.getValues();
+    return new UpdateMaterialStatsPacket(networkPayload,types);
   }
 
   /**

@@ -7,12 +7,14 @@ import slimeknights.mantle.data.registry.IdAwareComponentRegistry;
 import slimeknights.tconstruct.fixture.MaterialFixture;
 import slimeknights.tconstruct.fixture.MaterialStatsFixture;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.materials.stats.types.FlexMaterialStatType;
 import slimeknights.tconstruct.test.BaseMcTest;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 import slimeknights.tconstruct.tools.stats.StatlessMaterialStats;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -35,7 +37,8 @@ class UpdateMaterialStatsPacketTest extends BaseMcTest {
       MATERIAL_ID, List.of(MaterialStatsFixture.MATERIAL_STATS)
     );
 
-    UpdateMaterialStatsPacket packetToDecode = sendAndReceivePacket(materialToStats);
+    Collection<FlexMaterialStatType> dynamic = new HashSet<>();// I dont know how to test so just an empty set
+    UpdateMaterialStatsPacket packetToDecode = sendAndReceivePacket(materialToStats, dynamic);
     assertThat(packetToDecode.materialToStats).hasSize(1);
     assertThat(packetToDecode.materialToStats).containsKey(MATERIAL_ID);
     assertThat(packetToDecode.materialToStats.get(MATERIAL_ID)).hasSize(1);
@@ -57,16 +60,16 @@ class UpdateMaterialStatsPacketTest extends BaseMcTest {
         HandleMaterialStats.TYPE.getDefaultStats(),
         StatlessMaterialStats.BINDING);
     Map<MaterialId, Collection<IMaterialStats>> materialToStats = Map.of(MATERIAL_ID, stats);
-
-    UpdateMaterialStatsPacket packet = sendAndReceivePacket(materialToStats);
+    Collection<FlexMaterialStatType> dynamic = new HashSet<>();
+    UpdateMaterialStatsPacket packet = sendAndReceivePacket(materialToStats, dynamic);
 
     assertThat(packet.materialToStats.get(MATERIAL_ID)).isEqualTo(stats);
   }
 
-  private UpdateMaterialStatsPacket sendAndReceivePacket(Map<MaterialId, Collection<IMaterialStats>> materialToStats) {
+  private UpdateMaterialStatsPacket sendAndReceivePacket(Map<MaterialId, Collection<IMaterialStats>> materialToStats, Collection<FlexMaterialStatType> dynamic) {
     FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer());
 
-    UpdateMaterialStatsPacket packetToEncode = new UpdateMaterialStatsPacket(materialToStats);
+    UpdateMaterialStatsPacket packetToEncode = new UpdateMaterialStatsPacket(materialToStats, dynamic);
     packetToEncode.encode(buffer);
 
     return new UpdateMaterialStatsPacket(buffer, LOADER);

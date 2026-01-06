@@ -6,10 +6,13 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent.Context;
 import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.data.loadable.Loadable;
+import slimeknights.mantle.data.registry.IdAwareComponentRegistry;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.mantle.util.typed.TypedMapBuilder;
+import slimeknights.tconstruct.library.materials.IMaterialRegistry;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.materials.stats.types.FlexMaterialStatType;
 import slimeknights.tconstruct.library.utils.Util;
 
 import java.util.ArrayList;
@@ -24,12 +27,18 @@ public class UpdateMaterialStatsPacket implements IThreadsafePacket {
   private static final Logger log = Util.getLogger("NetworkSync");
 
   protected final Map<MaterialId, Collection<IMaterialStats>> materialToStats;
+  protected Collection<FlexMaterialStatType> dynamicStatTypes;
 
   public UpdateMaterialStatsPacket(FriendlyByteBuf buffer) {
     this(buffer, MaterialRegistry.getInstance().getStatTypeLoader());
   }
 
   public UpdateMaterialStatsPacket(FriendlyByteBuf buffer, Loadable<MaterialStatType<?>> statTypeLoader) {
+    int statTypeCount = buffer.readInt();
+    IMaterialRegistry instance=MaterialRegistry.getInstance();
+    instance.clearDynamicStatTypes();
+    for(int i = 0;i < statTypeCount;i++)
+      instance.registerDynamicStatType(FlexMaterialStatType.decode(buffer));
     int materialCount = buffer.readInt();
     materialToStats = new HashMap<>(materialCount);
     for (int i = 0; i < materialCount; i++) {
@@ -39,7 +48,8 @@ public class UpdateMaterialStatsPacket implements IThreadsafePacket {
       for (int j = 0; j < statCount; j++) {
         try {
           MaterialStatType<?> statType = statTypeLoader.decode(buffer);
-          statList.add(statType.getLoadable().decode(buffer, TypedMapBuilder.builder().put(MaterialStatType.CONTEXT_KEY, statType).build()));
+          statList.add(statType.getLoadable().decode(buffer,
+              TypedMapBuilder.builder().put(MaterialStatType.CONTEXT_KEY, statType).build()));
         } catch (Exception e) {
           log.error("Could not deserialize stat. Are client and server in sync?", e);
         }
@@ -50,6 +60,8 @@ public class UpdateMaterialStatsPacket implements IThreadsafePacket {
 
   @Override
   public void encode(FriendlyByteBuf buffer) {
+    buffer.writeInt(dynamicStatTypes.size());
+    dynamicStatTypes.forEach(statType->statType.encode(buffer));
     buffer.writeInt(materialToStats.size());
     materialToStats.forEach((materialId, stats) -> {
       buffer.writeResourceLocation(materialId);
@@ -60,11 +72,13 @@ public class UpdateMaterialStatsPacket implements IThreadsafePacket {
 
   /**
    * Encodes a single material stat
-   * @param buffer  Buffer instance
-   * @param stat    Stat to encode
+   *
+   * @param buffer Buffer instance
+   * @param stat   Stat to encode
    */
   @SuppressWarnings("unchecked")
-  private <T extends IMaterialStats> void encodeStat(FriendlyByteBuf buffer, IMaterialStats stat, MaterialStatType<T> type) {
+  private <T extends IMaterialStats> void encodeStat(FriendlyByteBuf buffer, IMaterialStats stat,
+      MaterialStatType<T> type) {
     MaterialStatsId.PARSER.encode(buffer, type.getId());
     type.getLoadable().encode(buffer, (T) stat);
   }

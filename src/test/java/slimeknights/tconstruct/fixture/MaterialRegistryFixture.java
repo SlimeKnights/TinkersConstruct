@@ -9,6 +9,7 @@ import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatType;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
+import slimeknights.tconstruct.library.materials.stats.types.FlexMaterialStatType;
 import slimeknights.tconstruct.library.materials.traits.MaterialTraits;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 
@@ -93,6 +94,15 @@ public class MaterialRegistryFixture implements IMaterialRegistry {
 
   @Override
   public void registerStatType(MaterialStatType<?> type) {
+    throw new UnsupportedOperationException("No registration possible in test mock");
+  }
+
+  @Override
+  public void clearDynamicStatTypes() {
+  }
+  
+  @Override
+  public void registerDynamicStatType(FlexMaterialStatType type) {
     throw new UnsupportedOperationException("No registration possible in test mock");
   }
 

@@ -10,6 +10,8 @@ import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatType;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsManager;
+import slimeknights.tconstruct.library.materials.stats.types.FlexMaterialStatType;
+import slimeknights.tconstruct.library.materials.stats.types.MaterialStatTypesLoader;
 import slimeknights.tconstruct.library.materials.traits.MaterialTraitsManager;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 
@@ -27,11 +29,13 @@ import java.util.Optional;
  */
 public class MaterialRegistryImpl implements IMaterialRegistry {
   private final MaterialManager materialManager;
+  private final MaterialStatTypesLoader materialStatTypesLoader;
   private final MaterialStatsManager materialStatsManager;
   private final MaterialTraitsManager materialTraitsManager;
 
-  protected MaterialRegistryImpl(MaterialManager materialManager, MaterialStatsManager materialStatsManager, MaterialTraitsManager materialTraitsManager) {
+  protected MaterialRegistryImpl(MaterialManager materialManager, MaterialStatTypesLoader materialStatTypesLoader, MaterialStatsManager materialStatsManager, MaterialTraitsManager materialTraitsManager) {
     this.materialManager = materialManager;
+    this.materialStatTypesLoader = materialStatTypesLoader;
     this.materialStatsManager = materialStatsManager;
     this.materialTraitsManager = materialTraitsManager;
   }
@@ -113,6 +117,16 @@ public class MaterialRegistryImpl implements IMaterialRegistry {
     if (fallback != null) {
       materialTraitsManager.registerStatTypeFallback(type.getId(), fallback);
     }
+  }
+
+  @Override
+  public void clearDynamicStatTypes() {
+    materialStatsManager.clearAndRecreateDynamicStatTypes();
+  }
+
+  @Override
+  public void registerDynamicStatType(FlexMaterialStatType type) {
+    materialStatsManager.registerDynamicStatType(type);
   }
 
 

@@ -9,6 +9,7 @@ import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatType;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
+import slimeknights.tconstruct.library.materials.stats.types.FlexMaterialStatType;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 
 import javax.annotation.Nullable;
@@ -170,6 +171,16 @@ public interface IMaterialRegistry {
   default void registerStatType(MaterialStatType<?> type, @Nullable MaterialStatsId traitFallback) {
     registerStatType(type);
   }
+  /**
+   * Clears all dynamic stat types..
+   */
+  void clearDynamicStatTypes();
+  /**
+   * Registers a dynamic stat type. Dynamic stat types are stat types that reloads when datapacks reload.
+   * Fallback is not supported for dynamic stat types.
+   * @param type  Stat type
+   */
+  void registerDynamicStatType(FlexMaterialStatType type);
 
 
   /* Traits */
