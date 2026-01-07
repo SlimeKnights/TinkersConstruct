@@ -52,14 +52,17 @@ public class TinkerItemProperties {
   /** Boolean indicating the bow is pulling */
   private static final ItemPropertyFunction CHARGING = (stack, level, holder, seed) -> {
     if (holder != null && holder.isUsingItem() && holder.getUseItem() == stack) {
-      // if boolean is set, change the numbers to remove the arrow
-      boolean arrow = ModifierUtil.checkPersistentPresent(stack, ModifiableLauncherItem.KEY_DRAWBACK_AMMO);
       UseAnim anim = stack.getUseAnimation();
       if (anim == UseAnim.BLOCK) {
-        return arrow ? 2.5f : 2;
+        return ModifierUtil.checkPersistentPresent(stack, ModifiableLauncherItem.KEY_DRAWBACK_AMMO) ? 2.5f : 2;
+      }
+      // TODO 1.21: space this out a bit more
+      if (anim == UseAnim.SPEAR) {
+        // shouldn't need to worry about arrows on spearing, everything supporting arrows uses just bow or block
+        return 1.75f;
       }
       if (anim != UseAnim.EAT && anim != UseAnim.DRINK) {
-        return arrow ? 1.5f : 1;
+        return ModifierUtil.checkPersistentPresent(stack, ModifiableLauncherItem.KEY_DRAWBACK_AMMO) ? 1.5f : 1;
       }
     }
     return 0;

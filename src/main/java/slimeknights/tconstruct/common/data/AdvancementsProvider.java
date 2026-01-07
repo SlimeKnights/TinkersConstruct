@@ -123,7 +123,7 @@ public class AdvancementsProvider extends GenericDataProvider {
     Advancement harvestLevel = builder(Items.NETHERITE_INGOT, resource("tools/netherite_tier"), tinkerTool, FrameType.GOAL, builder ->
       builder.addCriterion("harvest_level", InventoryChangeTrigger.TriggerInstance.hasItems(ToolStackItemPredicate.ofTool(new StatInSetPredicate<>(ToolStats.HARVEST_TIER, Tiers.NETHERITE)))));
     builder(Items.TARGET, resource("tools/perfect_aim"), tinkerTool, FrameType.GOAL, builder ->
-      builder.addCriterion("accuracy", InventoryChangeTrigger.TriggerInstance.hasItems(ToolStackItemPredicate.ofTool(ToolStackPredicate.or(
+      builder.addCriterion("accuracy", InventoryChangeTrigger.TriggerInstance.hasItems(ToolStackItemPredicate.ofTool(ToolStackPredicate.and(
         ToolStackPredicate.tag(TinkerTags.Items.BOWS),
         StatInRangePredicate.match(ToolStats.ACCURACY, 1)
       )))));

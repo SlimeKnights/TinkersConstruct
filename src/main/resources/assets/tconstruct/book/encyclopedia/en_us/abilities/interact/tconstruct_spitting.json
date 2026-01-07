@@ -10,7 +10,7 @@
   ],
   "more_text_space": true,
   "effects": [
-    "No max level",
+    "Maximum of 3 levels",
     "Requires 1 ability slot per level"
   ]
 }

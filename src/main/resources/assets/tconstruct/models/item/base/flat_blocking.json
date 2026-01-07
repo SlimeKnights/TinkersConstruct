@@ -3,16 +3,6 @@
   "parent": "forge:item/default",
   "gui_light": "front",
   "display": {
-    "thirdperson_righthand": {
-      "rotation": [ 45, 135, 0 ],
-      "translation": [ 3.6, -1, -1 ],
-      "scale": [ 1, 1, 1 ]
-    },
-    "thirdperson_lefthand": {
-      "rotation": [ 45, 315, 0 ],
-      "translation": [ 3.6, 0, 0 ],
-      "scale": [ 1, 1, 1 ]
-    },
     "firstperson_righthand": {
       "rotation": [ 0, 0, 5 ],
       "translation": [ -5, 0, -0.2 ],
