@@ -120,7 +120,6 @@ public class FloatDynamicStatField implements DynamicStatField<FloatDynamicStat>
             }
             return IToolStat.formatColoredPercentBoost(localizedInfoPrefix, value);
         }
-
     }
 
     public static class FloatDynamicStatDecoder implements DynamicStatDecoder<FloatDynamicStatField> {
@@ -140,7 +139,6 @@ public class FloatDynamicStatField implements DynamicStatField<FloatDynamicStat>
             String localizedDescription = GsonHelper.getAsString(json, "desc",makeTooltipKey(new ResourceLocation(path.getNamespace(), path.getPath()+"."+name+".description")));
             String localizedInfoPrefix = GsonHelper.getAsString(json, "info",makeTooltipKey(new ResourceLocation(path.getNamespace(), name)));
             if (stat != null && stat instanceof FloatToolStat floatStat) {
-
                 return new FloatDynamicStatField(name, floatStat, defaultValue, operator, localizedDescription, localizedInfoPrefix);
             }
             throw new JsonParseException("Could not find float stat: " + statId);

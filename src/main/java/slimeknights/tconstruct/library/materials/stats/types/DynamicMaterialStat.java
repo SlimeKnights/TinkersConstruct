@@ -13,12 +13,20 @@ import slimeknights.tconstruct.library.materials.stats.MaterialStatType;
 import slimeknights.tconstruct.library.materials.stats.types.DynamicStatField.DynamicStat;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 
+/**
+ * A material stat that has dynamic stat fields.
+ */
 public class DynamicMaterialStat implements IMaterialStats {
-
 
 	private final MaterialStatType<?> type;
 	private final Map<String,DynamicStat> stats;
-
+	
+	/**
+	 * Constructs a dynamic material stat.
+	 * 
+	 * @param type   The material stat type.
+	 * @param stats  The dynamic stats.
+	 */
 	public DynamicMaterialStat(MaterialStatType<?> type, Map<String,DynamicStat> stats) {
 		this.type = type;
 		this.stats = stats;

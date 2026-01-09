@@ -12,6 +12,9 @@ import slimeknights.mantle.util.typed.TypedMap;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatType;
 import slimeknights.tconstruct.library.materials.stats.types.DynamicStatField.DynamicStat;
 
+/**
+ * A record class that represents a dynamic material stat.
+ */
 public record DynamicMaterialStatRecord(MaterialStatType<?> type, List<DynamicStatField<?>> statFields)
         implements RecordLoadable<DynamicMaterialStat> {
 

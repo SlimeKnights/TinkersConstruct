@@ -9,13 +9,22 @@ import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatType;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 
+/**
+ * A material stat type that has dynamic stat fields.
+ */
 public class DynamicMaterialStatType extends MaterialStatType<DynamicMaterialStat> {
 
     private final List<DynamicStatField<?>> statFields;
     private final boolean canRepair;
 
-    public DynamicMaterialStatType(MaterialStatsId id, boolean canRepair,
-            List<DynamicStatField<?>> statFields) {
+    /**
+     * Constructs a dynamic material stat type.
+     * 
+     * @param id          The material stats ID.
+     * @param canRepair   Whether the tool with this material stat type can be repaired.
+     * @param statFields  The dynamic stat fields.
+     */
+    public DynamicMaterialStatType(MaterialStatsId id, boolean canRepair, List<DynamicStatField<?>> statFields) {
         super(id, new DynamicMaterialStat(null, new LinkedHashMap<>()), new DynamicMaterialStatRecord(null, statFields));
             // I have no way to make all these parameters nonnull.
         this.canRepair = canRepair;

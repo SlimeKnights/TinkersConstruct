@@ -113,10 +113,8 @@ public class TierDynamicStatField implements DynamicStatField<TierDynamicStat> {
             ToolStatId statId = new ToolStatId(withDefaultNamespace(json.get("stat").getAsString()));
             Tiers defaultValue = Tiers.valueOf(GsonHelper.getAsString(json, "default_value").toUpperCase());
             IToolStat<?> stat = ToolStats.getToolStat(statId);
-            String localizedDescription = GsonHelper.getAsString(json, "desc", makeTooltipKey(
-                    new ResourceLocation(path.getNamespace(), path.getPath()+"."+name+".description")));
+            String localizedDescription = GsonHelper.getAsString(json, "desc", makeTooltipKey( new ResourceLocation(path.getNamespace(), path.getPath()+"."+name+".description")));
             if (stat != null && stat instanceof ToolTierStat tierStat) {
-
                 return new TierDynamicStatField(name, tierStat, defaultValue, localizedDescription);
             }
             throw new JsonParseException("Could not find tier stat: " + statId);
