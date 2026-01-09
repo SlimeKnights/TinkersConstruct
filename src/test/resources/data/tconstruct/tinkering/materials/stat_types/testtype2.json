@@ -4,7 +4,7 @@
         {
             "type": "float",
             "name": "durability",
-            "stat": "durability",
+            "stat": "test_stat",
             "default_value": 0.0,
             "operator": "percent",
             "info": "info3",
@@ -13,7 +13,7 @@
         {
             "type": "float",
             "name": "mining_speed",
-            "stat": "mining_speed",
+            "stat": "test_stat",
             "default_value": 1.0,
             "operator": "update",
             "info": "info4",

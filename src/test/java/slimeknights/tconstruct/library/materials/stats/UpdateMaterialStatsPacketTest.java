@@ -34,7 +34,6 @@ class UpdateMaterialStatsPacketTest extends BaseMcTest {
     LOADER.register(HeadMaterialStats.TYPE);
     LOADER.register(HandleMaterialStats.TYPE);
     LOADER.register(StatlessMaterialStats.BINDING.getType());
-    LOADER.register(MaterialStatTypesFixture.DYNAMIC_TYPE);
   }
 
   @Test

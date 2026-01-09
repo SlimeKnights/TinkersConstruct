@@ -1,0 +1,12 @@
+{
+    "stats": {
+        "tconstruct:testtype1": {
+            "durability": 123,
+            "mining_tier": "diamond",
+            "text": "why would you ever do this for stats"
+        },
+        "tconstruct:testtype2": {
+            "mining_speed": 45.67
+        }
+    }
+}

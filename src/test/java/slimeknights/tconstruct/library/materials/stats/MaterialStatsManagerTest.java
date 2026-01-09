@@ -4,7 +4,12 @@ import org.assertj.core.data.Offset;
 import org.junit.jupiter.api.Test;
 import slimeknights.mantle.data.listener.MergingJsonFileLoader;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
+import slimeknights.tconstruct.library.tools.stat.ToolStatId;
+import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.library.tools.stat.ToolTierStat;
 import slimeknights.tconstruct.test.BaseMcTest;
 
 import java.util.Optional;
@@ -13,12 +18,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class MaterialStatsManagerTest extends BaseMcTest {
   private static final MaterialStatsId STATS_ID_SIMPLE = new MaterialStatsId("test", "stat");
-  private static final MaterialStatType<ComplexTestStats> STATS_TYPE_SIMPLE = ComplexTestStats.makeType(STATS_ID_SIMPLE);
+  private static final MaterialStatType<ComplexTestStats> STATS_TYPE_SIMPLE = ComplexTestStats
+      .makeType(STATS_ID_SIMPLE);
   private static final MaterialStatsId STATS_ID_DONT_CARE = new MaterialStatsId("dont", "care");
 
-  private final MaterialStatsManager materialStatsManager = new MaterialStatsManager(() -> {});
+  private final MaterialStatsManager materialStatsManager = new MaterialStatsManager(() -> {
+  });
   private final MergingJsonFileLoader<?> fileLoader = new MergingJsonFileLoader<>(materialStatsManager);
-  private final MergingJsonFileLoader<?> anoFileLoader = new MergingJsonFileLoader<>(materialStatsManager.getStatTypesLoader());
+  private final MergingJsonFileLoader<?> anoFileLoader = new MergingJsonFileLoader<>(
+      materialStatsManager.getStatTypesLoader());
+
   @Test
   void testLoadFile_statsExist() {
     materialStatsManager.registerStatType(STATS_TYPE_SIMPLE);
@@ -64,7 +73,8 @@ class MaterialStatsManagerTest extends BaseMcTest {
     MaterialId material = new MaterialId(TConstruct.getResource("empty"));
     fileLoader.loadAndParseFiles(null, material);
 
-    // ensure that we get this far and that querying the missing material causes no errors
+    // ensure that we get this far and that querying the missing material causes no
+    // errors
     Optional<ComplexTestStats> optionalStats = materialStatsManager.getStats(material, STATS_ID_DONT_CARE);
     assertThat(optionalStats).isEmpty();
   }
@@ -74,7 +84,8 @@ class MaterialStatsManagerTest extends BaseMcTest {
     MaterialId material = new MaterialId(TConstruct.getResource("missing_stats"));
     fileLoader.loadAndParseFiles(null, material);
 
-    // ensure that we get this far and that querying the missing material causes no errors
+    // ensure that we get this far and that querying the missing material causes no
+    // errors
     Optional<ComplexTestStats> optionalStats = materialStatsManager.getStats(material, STATS_ID_DONT_CARE);
     assertThat(optionalStats).isEmpty();
   }
@@ -93,7 +104,8 @@ class MaterialStatsManagerTest extends BaseMcTest {
   }
 
   // Tests the behaviour when multiple mods try to add the same material
-  // the top data pack should override lower ones, meaning the duplicate stats are kept
+  // the top data pack should override lower ones, meaning the duplicate stats are
+  // kept
   @Test
   void testLoadMultipleFiles_addSameStatsFromDifferentSources_useFirst() {
     materialStatsManager.registerStatType(STATS_TYPE_SIMPLE);
@@ -116,7 +128,8 @@ class MaterialStatsManagerTest extends BaseMcTest {
     MaterialId material = new MaterialId(TConstruct.getResource("nonexistant"));
     fileLoader.loadAndParseFiles(null);
 
-    // ensure that we get this far and that querying the missing material causes no errors
+    // ensure that we get this far and that querying the missing material causes no
+    // errors
     Optional<ComplexTestStats> optionalStats = materialStatsManager.getStats(material, STATS_ID_DONT_CARE);
     assertThat(optionalStats).isEmpty();
   }
@@ -126,7 +139,8 @@ class MaterialStatsManagerTest extends BaseMcTest {
     MaterialId material = new MaterialId(TConstruct.getResource("invalid"));
     fileLoader.loadAndParseFiles(null, material);
 
-    Optional<ComplexTestStats> optionalStats = materialStatsManager.getStats(material, new MaterialStatsId("test", "fails"));
+    Optional<ComplexTestStats> optionalStats = materialStatsManager.getStats(material,
+        new MaterialStatsId("test", "fails"));
     assertThat(optionalStats).isEmpty();
   }
 
@@ -146,12 +160,18 @@ class MaterialStatsManagerTest extends BaseMcTest {
 
   @Test
   void testLoadFile_withDynamicStats() {
+    ToolStats.register(new FloatToolStat(new ToolStatId(TConstruct.MOD_ID, "test_stat"), 0xFF47CC47, 1, 1, Integer.MAX_VALUE, TinkerTags.Items.DURABILITY));
+    ToolStats.register(new ToolTierStat(new ToolStatId(TConstruct.MOD_ID, "test_tier_stat")));
     MaterialStatsId statId1 = new MaterialStatsId(TConstruct.getResource("testtype1"));
     MaterialStatsId statId2 = new MaterialStatsId(TConstruct.getResource("testtype2"));
+    MaterialId testStatType = new MaterialId(TConstruct.getResource("teststattype"));
 
     anoFileLoader.loadAndParseFiles(null, statId1, statId2);
+    fileLoader.loadAndParseFiles(null, testStatType);
 
     assertThat(materialStatsManager.getStatType(statId1)).isNotNull();
-    assertThat(materialStatsManager.getAllStatTypeIds().contains(statId2)).isTrue();
+    assertThat(materialStatsManager.getStatType(statId2)).isNotNull();
+    assertThat(materialStatsManager.getStats(testStatType, statId1)).isPresent();
+    assertThat(materialStatsManager.getStats(testStatType, statId2)).isPresent();
   }
 }
