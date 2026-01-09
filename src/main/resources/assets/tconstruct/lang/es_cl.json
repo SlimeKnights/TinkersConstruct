@@ -111,6 +111,7 @@
   "item.tconstruct.cobalt_nugget": "Pepita de Cobalto",
 
   "block.tconstruct.steel_block": "Bloque de Acero",
+  "block.tconstruct.steel_block.tooltip": "Puede usarse como base para el faro",
   "item.tconstruct.steel_ingot": "Lingote de Acero",
   "item.tconstruct.steel_nugget": "Pepita de Acero",
 
@@ -118,6 +119,7 @@
   "__comment": "Materiales de Tier 3",
 
   "block.tconstruct.slimesteel_block": "Bloque de Acero Slime",
+  "block.tconstruct.slimesteel_block.tooltip": "Puede usarse como base para el faro",
   "item.tconstruct.slimesteel_ingot": "Lingote de Acero Slime",
   "item.tconstruct.slimesteel_nugget": "Pepita de Acero Slime",
 
@@ -147,6 +149,7 @@
   "item.tconstruct.hepatizon_nugget": "Hepatizon Pepita",
 
   "block.tconstruct.cinderslime_block": "Bloque de Slime Ceniza",
+  "block.tconstruct.cinderslime_block.tooltip": "Puede usarse como base para el faro",
   "item.tconstruct.cinderslime_ingot": "Lingote de Slime Ceniza",
   "item.tconstruct.cinderslime_nugget": "Pepita de Slime Ceniza",
 
@@ -2051,7 +2054,7 @@
   "material.tconstruct.cobalt": "Cobalto",
   "material.tconstruct.cobalt.flavor": "Coblato. El material del ejército rojo.",
   "material.tconstruct.cobalt.encyclopedia": "Aumenta la velocidad de minería y ataque en un 8% cada nivel",
-  "material.tconstruct.cobalt.ranged": "Aumenta la velocidad de carga y la velocidad en un 7% cada nivel",
+  "material.tconstruct.cobalt.ranged": "Aumenta la velocidad de carga y velocidad en +0.03 cada nivel",
   "material.tconstruct.cobalt.armor": "Reduce el daño de ataques cuerpo a cuerpo en un 8% cada nivel, y aumenta la velocidad al usar items en un 3% cada nivel",
 
   "material.tconstruct.quartz": "Cuarzo",
@@ -2180,7 +2183,7 @@
   "material.tconstruct.lead": "Plomo",
   "material.tconstruct.lead.flavor": "Podrías intentar y hacer un sandwitch con esto.",
   "material.tconstruct.lead.encyclopedia": "Otorga +15% de velocidad minera, +10% de resistencia al empuje, -10% de velocidad de movimiento, y +5% de gravedad cada nivel",
-  "material.tconstruct.lead.ranged": "Otorga +10% de precisión, +10% de resistencia al empuje, -10% de velocidad de movimiento, y +5% de gravedad cada nivel",
+  "material.tconstruct.lead.ranged": "Otorga +0.1 de precisión, +10% de resistencia al empuje, -10% de velocidad de movimiento, y +5% de gravedad cada nivel",
   "material.tconstruct.lead.armor": "Otorga +15% de resistencia al empuje, -10% de velocidad de movimiento, y +5% de gravedad cada nivel",
 
   "material.tconstruct.silver": "Plata",
@@ -3999,4 +4002,3 @@
   "advancements.tconstruct.world.ancient_tools.title": "Arqueología",
   "advancements.tconstruct.world.ancient_tools.description": "Descubre todos los tipos originales de herramientas antiguas"
 }
-
