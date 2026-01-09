@@ -6,13 +6,11 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent.Context;
 import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.data.loadable.Loadable;
-import slimeknights.mantle.data.registry.IdAwareComponentRegistry;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.mantle.util.typed.TypedMapBuilder;
-import slimeknights.tconstruct.library.materials.IMaterialRegistry;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
-import slimeknights.tconstruct.library.materials.stats.types.FlexMaterialStatType;
+import slimeknights.tconstruct.library.materials.stats.types.DynamicMaterialStatType;
 import slimeknights.tconstruct.library.utils.Util;
 
 import java.util.ArrayList;
@@ -27,7 +25,7 @@ public class UpdateMaterialStatsPacket implements IThreadsafePacket {
   private static final Logger log = Util.getLogger("NetworkSync");
 
   protected final Map<MaterialId, Collection<IMaterialStats>> materialToStats;
-  protected Collection<FlexMaterialStatType> dynamicStatTypes;
+  protected final Map<MaterialStatsId, DynamicMaterialStatType> dynamicStatTypes;
 
   public UpdateMaterialStatsPacket(FriendlyByteBuf buffer) {
     this(buffer, MaterialRegistry.getInstance().getStatTypeLoader());
@@ -35,10 +33,10 @@ public class UpdateMaterialStatsPacket implements IThreadsafePacket {
 
   public UpdateMaterialStatsPacket(FriendlyByteBuf buffer, Loadable<MaterialStatType<?>> statTypeLoader) {
     int statTypeCount = buffer.readInt();
-    IMaterialRegistry instance=MaterialRegistry.getInstance();
-    instance.clearDynamicStatTypes();
+    dynamicStatTypes = new HashMap<>(statTypeCount);
     for(int i = 0;i < statTypeCount;i++)
-      instance.registerDynamicStatType(FlexMaterialStatType.decode(buffer));
+      dynamicStatTypes.put(DynamicMaterialStatType.decode(buffer).getId(), DynamicMaterialStatType.decode(buffer));
+    MaterialRegistry.getInstance().setDynamicStatTypes(dynamicStatTypes);;
     int materialCount = buffer.readInt();
     materialToStats = new HashMap<>(materialCount);
     for (int i = 0; i < materialCount; i++) {
@@ -61,7 +59,7 @@ public class UpdateMaterialStatsPacket implements IThreadsafePacket {
   @Override
   public void encode(FriendlyByteBuf buffer) {
     buffer.writeInt(dynamicStatTypes.size());
-    dynamicStatTypes.forEach(statType->statType.encode(buffer));
+    dynamicStatTypes.forEach((id, statType) -> statType.encode(buffer));
     buffer.writeInt(materialToStats.size());
     materialToStats.forEach((materialId, stats) -> {
       buffer.writeResourceLocation(materialId);

@@ -21,7 +21,10 @@ import slimeknights.tconstruct.library.materials.stats.MaterialStatType;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsManager;
 import slimeknights.tconstruct.library.materials.stats.UpdateMaterialStatsPacket;
+import slimeknights.tconstruct.library.materials.stats.types.DynamicStatField;
+import slimeknights.tconstruct.library.materials.stats.types.FloatDynamicStatField;
 import slimeknights.tconstruct.library.materials.stats.types.MaterialStatTypesLoader;
+import slimeknights.tconstruct.library.materials.stats.types.TierDynamicStatField;
 import slimeknights.tconstruct.library.materials.traits.MaterialTraitsManager;
 import slimeknights.tconstruct.library.materials.traits.UpdateMaterialTraitsPacket;
 import slimeknights.tconstruct.shared.command.argument.MaterialTagSource;
@@ -54,7 +57,6 @@ public final class MaterialRegistry {
   private static final Map<MaterialStatsId,IMaterial> FIRST_MATERIALS = new HashMap<>();
 
   private final MaterialManager materialManager;
-  private final MaterialStatTypesLoader materialStatTypesLoader;
   private final MaterialStatsManager materialStatsManager;
   private final MaterialTraitsManager materialTraitsManager;
   private final IMaterialRegistry registry;
@@ -103,10 +105,6 @@ public final class MaterialRegistry {
       materialsLoaded = true;
       checkAllLoaded();
     });
-    materialStatTypesLoader = new MaterialStatTypesLoader(() -> {
-      statsLoaded = true;
-      checkAllLoaded();
-    });
     materialStatsManager = new MaterialStatsManager(() -> {
       statsLoaded = true;
       checkAllLoaded();
@@ -115,7 +113,7 @@ public final class MaterialRegistry {
       traitsLoaded = true;
       checkAllLoaded();
     });
-    registry = new MaterialRegistryImpl(materialManager, materialStatTypesLoader, materialStatsManager, materialTraitsManager);
+    registry = new MaterialRegistryImpl(materialManager, materialStatsManager, materialTraitsManager);
 
     // melee harvest
     registry.registerStatType(HeadMaterialStats.TYPE, MELEE_HARVEST);
@@ -139,13 +137,16 @@ public final class MaterialRegistry {
     // misc
     registry.registerStatType(StatlessMaterialStats.REPAIR_KIT.getType());
     registry.registerStatType(SkullStats.TYPE);
+
+    // stat type fields
+    DynamicStatField.REGISTRY.register(new TierDynamicStatField.TierDynamicStatDecoder());
+    DynamicStatField.REGISTRY.register(new FloatDynamicStatField.FloatDynamicStatDecoder());
   }
 
   @VisibleForTesting
   MaterialRegistry(IMaterialRegistry registry) {
     this.registry = registry;
     this.materialManager = null;
-    this.materialStatTypesLoader = null;
     this.materialStatsManager = null;
     this.materialTraitsManager = null;
   }
@@ -245,7 +246,6 @@ public final class MaterialRegistry {
   private void addDataPackListeners(final AddReloadListenerEvent event) {
     event.addListener(materialManager);
     materialManager.setConditionContext(event.getConditionContext());
-    event.addListener(materialStatTypesLoader);
     event.addListener(materialStatsManager);
     event.addListener(materialTraitsManager);
   }
