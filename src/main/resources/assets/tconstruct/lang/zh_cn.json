@@ -111,6 +111,7 @@
   "item.tconstruct.cobalt_nugget": "钴粒",
 
   "block.tconstruct.steel_block": "钢块",
+  "block.tconstruct.steel_block.tooltip": "可用于建造信标基座",
   "item.tconstruct.steel_ingot": "钢锭",
   "item.tconstruct.steel_nugget": "钢粒",
 
@@ -118,6 +119,7 @@
   "__comment": "Tier 3 Metals",
 
   "block.tconstruct.slimesteel_block": "黏钢块",
+  "block.tconstruct.slimesteel_block.tooltip": "可用于建造信标基座",
   "item.tconstruct.slimesteel_ingot": "黏钢锭",
   "item.tconstruct.slimesteel_nugget": "黏钢粒",
 
@@ -147,6 +149,7 @@
   "item.tconstruct.hepatizon_nugget": "黑色科林斯青铜粒",
 
   "block.tconstruct.cinderslime_block": "余烬黏液块",
+  "block.tconstruct.cinderslime_block.tooltip": "可用于建造信标基座",
   "item.tconstruct.cinderslime_ingot": "余烬黏液锭",
   "item.tconstruct.cinderslime_nugget": "余烬黏液粒",
 
