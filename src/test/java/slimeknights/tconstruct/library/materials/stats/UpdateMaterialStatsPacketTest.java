@@ -2,19 +2,23 @@ package slimeknights.tconstruct.library.materials.stats;
 
 import io.netty.buffer.Unpooled;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.item.Tiers;
+
 import org.junit.jupiter.api.Test;
 import slimeknights.mantle.data.registry.IdAwareComponentRegistry;
 import slimeknights.tconstruct.fixture.MaterialFixture;
+import slimeknights.tconstruct.fixture.MaterialStatTypesFixture;
 import slimeknights.tconstruct.fixture.MaterialStatsFixture;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
-import slimeknights.tconstruct.library.materials.stats.types.FlexMaterialStatType;
+import slimeknights.tconstruct.library.materials.stats.types.DynamicMaterialStat;
+import slimeknights.tconstruct.library.materials.stats.types.DynamicMaterialStatType;
 import slimeknights.tconstruct.test.BaseMcTest;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 import slimeknights.tconstruct.tools.stats.StatlessMaterialStats;
 
 import java.util.Collection;
-import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -23,27 +27,35 @@ import static org.assertj.core.api.Assertions.assertThat;
 class UpdateMaterialStatsPacketTest extends BaseMcTest {
 
   public static final MaterialId MATERIAL_ID = MaterialFixture.MATERIAL_1.getIdentifier();
-  private static final IdAwareComponentRegistry<MaterialStatType<?>> LOADER = new IdAwareComponentRegistry<>("Unknown stat type");
+  private static final IdAwareComponentRegistry<MaterialStatType<?>> LOADER = new IdAwareComponentRegistry<>(
+      "Unknown stat type");
   static {
     LOADER.register(MaterialStatsFixture.COMPLEX_TYPE);
     LOADER.register(HeadMaterialStats.TYPE);
     LOADER.register(HandleMaterialStats.TYPE);
     LOADER.register(StatlessMaterialStats.BINDING.getType());
+    LOADER.register(MaterialStatTypesFixture.DYNAMIC_TYPE);
   }
 
   @Test
   void testGenericEncodeDecode() {
     Map<MaterialId, Collection<IMaterialStats>> materialToStats = Map.of(
-      MATERIAL_ID, List.of(MaterialStatsFixture.MATERIAL_STATS)
-    );
+        MATERIAL_ID, List.of(MaterialStatsFixture.MATERIAL_STATS, MaterialStatTypesFixture.MATERIAL_STATS));
 
-    Collection<FlexMaterialStatType> dynamic = new HashSet<>();// I dont know how to test so just an empty set
-    UpdateMaterialStatsPacket packetToDecode = sendAndReceivePacket(materialToStats, dynamic);
+    Map<MaterialStatsId, DynamicMaterialStatType> dynamicStatTypes = Map.of(
+        MaterialStatTypesFixture.STATS_TYPE, MaterialStatTypesFixture.DYNAMIC_TYPE
+    );
+    UpdateMaterialStatsPacket packetToDecode = sendAndReceivePacket(materialToStats, dynamicStatTypes);
+    assertThat(packetToDecode.dynamicStatTypes).hasSize(1);
+    assertThat(packetToDecode.dynamicStatTypes).containsKey(MaterialStatTypesFixture.STATS_TYPE);
+    assertThat(packetToDecode.dynamicStatTypes.get(MaterialStatTypesFixture.STATS_TYPE)).isEqualTo(MaterialStatTypesFixture.DYNAMIC_TYPE);
+
     assertThat(packetToDecode.materialToStats).hasSize(1);
     assertThat(packetToDecode.materialToStats).containsKey(MATERIAL_ID);
-    assertThat(packetToDecode.materialToStats.get(MATERIAL_ID)).hasSize(1);
+    assertThat(packetToDecode.materialToStats.get(MATERIAL_ID)).hasSize(2);
 
-    IMaterialStats materialStats = packetToDecode.materialToStats.get(MATERIAL_ID).iterator().next();
+    Iterator<IMaterialStats> iterator = packetToDecode.materialToStats.get(MATERIAL_ID).iterator();
+    IMaterialStats materialStats = iterator.next();
     assertThat(materialStats).isExactlyInstanceOf(ComplexTestStats.class);
     // ensure the loadable is passed the context field for the proper type
     assertThat(materialStats.getType()).isEqualTo(MaterialStatsFixture.COMPLEX_TYPE);
@@ -51,6 +63,18 @@ class UpdateMaterialStatsPacketTest extends BaseMcTest {
     assertThat(realStats.num()).isEqualTo(1);
     assertThat(realStats.floating()).isEqualTo(2f);
     assertThat(realStats.text()).isEqualTo("3");
+
+    materialStats = iterator.next();
+    assertThat(materialStats).isExactlyInstanceOf(DynamicMaterialStat.class);
+    // ensure the loadable is passed the context field for the proper type
+    assertThat(materialStats.getType()).isEqualTo(MaterialStatTypesFixture.STATS_TYPE);
+    DynamicMaterialStat realDynamicStats = (DynamicMaterialStat) materialStats;
+    assertThat(realDynamicStats.getStat("test1")).isExactlyInstanceOf(Float.class);
+    assertThat(realDynamicStats.getStat("test1")).isEqualTo(1f);
+    assertThat(realDynamicStats.getStat("test2")).isExactlyInstanceOf(Float.class);
+    assertThat(realDynamicStats.getStat("test2")).isEqualTo(2f);
+    assertThat(realDynamicStats.getStat("test3")).isEqualTo(Tiers.STONE);
+
   }
 
   @Test
@@ -60,16 +84,16 @@ class UpdateMaterialStatsPacketTest extends BaseMcTest {
         HandleMaterialStats.TYPE.getDefaultStats(),
         StatlessMaterialStats.BINDING);
     Map<MaterialId, Collection<IMaterialStats>> materialToStats = Map.of(MATERIAL_ID, stats);
-    Collection<FlexMaterialStatType> dynamic = new HashSet<>();
-    UpdateMaterialStatsPacket packet = sendAndReceivePacket(materialToStats, dynamic);
+    
+    UpdateMaterialStatsPacket packet = sendAndReceivePacket(materialToStats, Map.of());
 
     assertThat(packet.materialToStats.get(MATERIAL_ID)).isEqualTo(stats);
   }
 
-  private UpdateMaterialStatsPacket sendAndReceivePacket(Map<MaterialId, Collection<IMaterialStats>> materialToStats, Collection<FlexMaterialStatType> dynamic) {
+  private UpdateMaterialStatsPacket sendAndReceivePacket(Map<MaterialId, Collection<IMaterialStats>> materialToStats, Map<MaterialStatsId, DynamicMaterialStatType> dynamicStatTypes) {
     FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer());
 
-    UpdateMaterialStatsPacket packetToEncode = new UpdateMaterialStatsPacket(materialToStats, dynamic);
+    UpdateMaterialStatsPacket packetToEncode = new UpdateMaterialStatsPacket(materialToStats, dynamicStatTypes);
     packetToEncode.encode(buffer);
 
     return new UpdateMaterialStatsPacket(buffer, LOADER);

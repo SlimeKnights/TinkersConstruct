@@ -26,7 +26,10 @@ public class FloatDynamicStatField implements DynamicStatField<FloatDynamicStat>
 
     public static final ResourceLocation TYPE = TConstruct.getResource("float");
 
-    private static enum Operator {
+    /**
+     * Operation to perform on the stat.
+     */
+    public static enum Operation {
         UPDATE,
         ADD,
         PERCENT,
@@ -37,7 +40,7 @@ public class FloatDynamicStatField implements DynamicStatField<FloatDynamicStat>
     private final String name;
     private final FloatToolStat stat;
     private final float defaultValue;
-    private final Operator operator;
+    private final Operation operation;
     private final String localizedDescription;
     private final String localizedInfoPrefix;
 
@@ -56,7 +59,7 @@ public class FloatDynamicStatField implements DynamicStatField<FloatDynamicStat>
         buffer.writeUtf(name);
         buffer.writeUtf(stat.getName().toString());
         buffer.writeFloat(defaultValue);
-        buffer.writeEnum(operator);
+        buffer.writeEnum(operation);
         buffer.writeUtf(localizedDescription);
         buffer.writeUtf(localizedInfoPrefix);
     }
@@ -66,14 +69,14 @@ public class FloatDynamicStatField implements DynamicStatField<FloatDynamicStat>
         json.addProperty("name", name);
         json.addProperty("stat", stat.getName().toString());
         json.addProperty("default_value", defaultValue);
-        json.addProperty("operator", operator.toString().toLowerCase());
+        json.addProperty("operation", operation.toString().toLowerCase());
         json.addProperty("desc", localizedDescription);
         json.addProperty("info", localizedInfoPrefix);
     }
 
     @Override
     public FloatDynamicStat decode(FriendlyByteBuf buffer) {
-        return new FloatDynamicStat(stat, buffer.readFloat(), operator, Component.translatable(localizedDescription), localizedInfoPrefix);
+        return new FloatDynamicStat(stat, buffer.readFloat(), operation, Component.translatable(localizedDescription), localizedInfoPrefix);
     }
 
     @Override
@@ -83,7 +86,7 @@ public class FloatDynamicStatField implements DynamicStatField<FloatDynamicStat>
 
     @Override
     public FloatDynamicStat deserialize(JsonObject json) {
-        return new FloatDynamicStat(stat, GsonHelper.getAsFloat(json, name, defaultValue), operator, Component.translatable(localizedDescription), localizedInfoPrefix);
+        return new FloatDynamicStat(stat, GsonHelper.getAsFloat(json, name, defaultValue), operation, Component.translatable(localizedDescription), localizedInfoPrefix);
     }
 
     @Override
@@ -97,14 +100,14 @@ public class FloatDynamicStatField implements DynamicStatField<FloatDynamicStat>
         private final FloatToolStat stat;
         @Getter
         private final float value;
-        private final Operator operator;
+        private final Operation operation;
         @Getter
         private final Component localizedDescription;
         private final String localizedInfoPrefix;
 
         @Override
         public void apply(ModifierStatsBuilder builder, float scale) {
-            switch (operator) {
+            switch (operation) {
                 case UPDATE -> stat.update(builder, value * scale);
                 case ADD -> stat.add(builder, value * scale);
                 case PERCENT -> stat.percent(builder, value);
@@ -115,7 +118,7 @@ public class FloatDynamicStatField implements DynamicStatField<FloatDynamicStat>
 
         @Override
         public Component getLocalizedInfo() {
-            if (operator != Operator.PERCENT) {
+            if (operation != Operation.PERCENT) {   
                 return stat.formatValue(value);
             }
             return IToolStat.formatColoredPercentBoost(localizedInfoPrefix, value);
@@ -134,12 +137,12 @@ public class FloatDynamicStatField implements DynamicStatField<FloatDynamicStat>
             String name = json.get("name").getAsString();
             ToolStatId statId = new ToolStatId(withDefaultNamespace(json.get("stat").getAsString()));
             float defaultValue = json.get("default_value").getAsFloat();
-            Operator operator = Operator.valueOf(json.get("operator").getAsString().toUpperCase());
+            Operation operation = Operation.valueOf(json.get("operation").getAsString().toUpperCase());
             IToolStat<?> stat = ToolStats.getToolStat(statId);
             String localizedDescription = GsonHelper.getAsString(json, "desc",makeTooltipKey(new ResourceLocation(path.getNamespace(), path.getPath()+"."+name+".description")));
             String localizedInfoPrefix = GsonHelper.getAsString(json, "info",makeTooltipKey(new ResourceLocation(path.getNamespace(), name)));
             if (stat != null && stat instanceof FloatToolStat floatStat) {
-                return new FloatDynamicStatField(name, floatStat, defaultValue, operator, localizedDescription, localizedInfoPrefix);
+                return new FloatDynamicStatField(name, floatStat, defaultValue, operation, localizedDescription, localizedInfoPrefix);
             }
             throw new JsonParseException("Could not find float stat: " + statId);
         }
@@ -149,12 +152,12 @@ public class FloatDynamicStatField implements DynamicStatField<FloatDynamicStat>
             String name = buffer.readUtf();
             ToolStatId statId = new ToolStatId(buffer.readUtf());
             float defaultValue = buffer.readFloat();
-            Operator operator = buffer.readEnum(Operator.class);
+            Operation operation = buffer.readEnum(Operation.class);
             IToolStat<?> stat = ToolStats.getToolStat(statId);
             String localizedDescription = buffer.readUtf();
             String localizedInfoPrefix = buffer.readUtf();
             if (stat != null && stat instanceof FloatToolStat floatStat) {
-                return new FloatDynamicStatField(name, floatStat, defaultValue, operator, localizedDescription, localizedInfoPrefix);
+                return new FloatDynamicStatField(name, floatStat, defaultValue, operation, localizedDescription, localizedInfoPrefix);
             }
             throw new JsonParseException("Could not find float stat: " + statId);
         }

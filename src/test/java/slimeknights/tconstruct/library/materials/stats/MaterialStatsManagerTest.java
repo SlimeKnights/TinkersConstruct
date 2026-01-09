@@ -18,7 +18,7 @@ class MaterialStatsManagerTest extends BaseMcTest {
 
   private final MaterialStatsManager materialStatsManager = new MaterialStatsManager(() -> {});
   private final MergingJsonFileLoader<?> fileLoader = new MergingJsonFileLoader<>(materialStatsManager);
-
+  private final MergingJsonFileLoader<?> anoFileLoader = new MergingJsonFileLoader<>(materialStatsManager.getStatTypesLoader());
   @Test
   void testLoadFile_statsExist() {
     materialStatsManager.registerStatType(STATS_TYPE_SIMPLE);
@@ -142,5 +142,16 @@ class MaterialStatsManagerTest extends BaseMcTest {
 
     assertThat(materialStatsManager.getStats(material, statId1)).isPresent();
     assertThat(materialStatsManager.getStats(material, statId2)).isNotPresent();
+  }
+
+  @Test
+  void testLoadFile_withDynamicStats() {
+    MaterialStatsId statId1 = new MaterialStatsId(TConstruct.getResource("testtype1"));
+    MaterialStatsId statId2 = new MaterialStatsId(TConstruct.getResource("testtype2"));
+
+    anoFileLoader.loadAndParseFiles(null, statId1, statId2);
+
+    assertThat(materialStatsManager.getStatType(statId1)).isNotNull();
+    assertThat(materialStatsManager.getAllStatTypeIds().contains(statId2)).isTrue();
   }
 }

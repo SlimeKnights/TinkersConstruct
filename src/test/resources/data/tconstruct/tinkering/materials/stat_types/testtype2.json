@@ -1,0 +1,23 @@
+{
+    "can_repair": true,
+    "stats": [
+        {
+            "type": "float",
+            "name": "durability",
+            "stat": "durability",
+            "default_value": 0.0,
+            "operator": "percent",
+            "info": "info3",
+            "desc": "desc3"
+        },
+        {
+            "type": "float",
+            "name": "mining_speed",
+            "stat": "mining_speed",
+            "default_value": 1.0,
+            "operator": "update",
+            "info": "info4",
+            "desc": "desc4"
+        }
+    ]
+}

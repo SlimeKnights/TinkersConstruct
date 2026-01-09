@@ -36,7 +36,7 @@ public class UpdateMaterialStatsPacket implements IThreadsafePacket {
     dynamicStatTypes = new HashMap<>(statTypeCount);
     for(int i = 0;i < statTypeCount;i++)
       dynamicStatTypes.put(DynamicMaterialStatType.decode(buffer).getId(), DynamicMaterialStatType.decode(buffer));
-    MaterialRegistry.getInstance().setDynamicStatTypes(dynamicStatTypes);;
+
     int materialCount = buffer.readInt();
     materialToStats = new HashMap<>(materialCount);
     for (int i = 0; i < materialCount; i++) {

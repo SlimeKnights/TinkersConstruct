@@ -167,7 +167,7 @@ public final class MaterialRegistry {
    * @param packet  Materials stats packet
    */
   public static void updateMaterialStatsFromServer(UpdateMaterialStatsPacket packet) {
-    INSTANCE.materialStatsManager.updateMaterialStatsFromServer(packet.getMaterialToStats());
+    INSTANCE.materialStatsManager.updateMaterialStatsFromServer(packet.getMaterialToStats(), packet.getDynamicStatTypes());
   }
 
   /**

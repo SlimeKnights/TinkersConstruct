@@ -1,0 +1,20 @@
+{
+    "can_repair": true,
+    "stats": [
+        {
+            "type": "float",
+            "name": "durability",
+            "stat": "durability",
+            "default_value": 1.0,
+            "operator": "update",
+            "desc": "desc1"
+        },
+        {
+            "type": "tier",
+            "name": "mining_tier",
+            "stat": "harvest_tier",
+            "default_value": "diamond",
+            "desc": "desc2"
+        }
+    ]
+}

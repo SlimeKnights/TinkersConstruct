@@ -70,6 +70,7 @@ public class MaterialStatsManager extends MergingJsonDataLoader<Map<ResourceLoca
   private final IdAwareComponentRegistry<MaterialStatType<?>> statTypes = new IdAwareComponentRegistry<>(
       "Unknown Material Stat Type");
 
+  @Getter
   private MaterialStatTypesLoader statTypesLoader = null;
 
   /** Final map of material ID to material stat ID to material stats */
@@ -151,7 +152,8 @@ public class MaterialStatsManager extends MergingJsonDataLoader<Map<ResourceLoca
    * 
    * @param materialStats Material stats list
    */
-  public void updateMaterialStatsFromServer(Map<MaterialId, Collection<IMaterialStats>> materialStats) {
+  public void updateMaterialStatsFromServer(Map<MaterialId, Collection<IMaterialStats>> materialStats, Map<MaterialStatsId, DynamicMaterialStatType> dynamicStatTypes) {
+    this.statTypesLoader.setStatTypes(dynamicStatTypes);
     this.materialToStatsPerType = materialStats.entrySet().stream()
         .collect(Collectors.toMap(
             Map.Entry::getKey,
