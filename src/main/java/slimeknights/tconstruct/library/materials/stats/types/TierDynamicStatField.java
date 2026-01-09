@@ -44,6 +44,7 @@ public class TierDynamicStatField implements DynamicStatField<TierDynamicStat> {
 
     @Override
     public void encodeSelf(FriendlyByteBuf buffer) {
+        buffer.writeUtf(TYPE.toString());
         buffer.writeUtf(name);
         buffer.writeUtf(stat.getName().toString());
         buffer.writeEnum(defaultValue);
@@ -52,6 +53,7 @@ public class TierDynamicStatField implements DynamicStatField<TierDynamicStat> {
 
     @Override
     public void serializeSelf(JsonObject json) {
+        json.addProperty("type", TYPE.toString());
         json.addProperty("name", name);
         json.addProperty("stat", stat.getName().toString());
         json.addProperty("default_value", defaultValue.toString().toLowerCase());
@@ -109,8 +111,8 @@ public class TierDynamicStatField implements DynamicStatField<TierDynamicStat> {
 
         @Override
         public TierDynamicStatField deserialize(JsonObject json, ResourceLocation path) {
-            String name = json.get("name").getAsString();
-            ToolStatId statId = new ToolStatId(withDefaultNamespace(json.get("stat").getAsString()));
+            String name = GsonHelper.getAsString(json, "name");
+            ToolStatId statId = new ToolStatId(withDefaultNamespace(GsonHelper.getAsString(json, "stat")));
             Tiers defaultValue = Tiers.valueOf(GsonHelper.getAsString(json, "default_value").toUpperCase());
             IToolStat<?> stat = ToolStats.getToolStat(statId);
             String localizedDescription = GsonHelper.getAsString(json, "desc", makeTooltipKey( new ResourceLocation(path.getNamespace(), path.getPath()+"."+name+".description")));

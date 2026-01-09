@@ -20,8 +20,18 @@ public final class MaterialStatTypesFixture {
 
   public static final MaterialStatsId STATS_TYPE = new MaterialStatsId("test", "dynamic");
 
-  public static final FloatToolStat TestFloatStat = ToolStats.register(new FloatToolStat(new ToolStatId(TConstruct.MOD_ID, "test_stat"), 0xFF47CC47, 1, 1, Integer.MAX_VALUE, TinkerTags.Items.DURABILITY));
-  public static final ToolTierStat TestTierStat = ToolStats.register(new ToolTierStat(new ToolStatId(TConstruct.MOD_ID, "test_tier_stat")));
+  public static final FloatToolStat TestFloatStat = new FloatToolStat(new ToolStatId(TConstruct.MOD_ID, "test_stat"), 0xFF47CC47, 1, 1, Integer.MAX_VALUE, TinkerTags.Items.DURABILITY);
+  public static final ToolTierStat TestTierStat = new ToolTierStat(new ToolStatId(TConstruct.MOD_ID, "test_tier_stat"));
+  static {
+    try {
+      DynamicStatField.REGISTRY.register(new TierDynamicStatField.TierDynamicStatDecoder());
+      DynamicStatField.REGISTRY.register(new FloatDynamicStatField.FloatDynamicStatDecoder());
+      ToolStats.register(TestFloatStat);
+      ToolStats.register(TestTierStat);
+    } catch (Exception e) {
+      //
+    }
+  }
   
   public static final List<DynamicStatField<?>> statFields = List.of(
     new FloatDynamicStatField("test1",TestFloatStat,1f,FloatDynamicStatField.Operation.PERCENT, "desc1", "info1"),

@@ -6,7 +6,7 @@
             "name": "durability",
             "stat": "test_stat",
             "default_value": 1.0,
-            "operator": "update",
+            "operation": "update",
             "desc": "desc1"
         },
         {

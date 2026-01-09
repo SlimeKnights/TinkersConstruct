@@ -6,7 +6,7 @@
             "name": "durability",
             "stat": "test_stat",
             "default_value": 0.0,
-            "operator": "percent",
+            "operation": "percent",
             "info": "info3",
             "desc": "desc3"
         },
@@ -15,7 +15,7 @@
             "name": "mining_speed",
             "stat": "test_stat",
             "default_value": 1.0,
-            "operator": "update",
+            "operation": "update",
             "info": "info4",
             "desc": "desc4"
         }

@@ -4,14 +4,24 @@ import io.netty.buffer.Unpooled;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.Tiers;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import slimeknights.mantle.data.registry.IdAwareComponentRegistry;
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.fixture.MaterialFixture;
 import slimeknights.tconstruct.fixture.MaterialStatTypesFixture;
 import slimeknights.tconstruct.fixture.MaterialStatsFixture;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.types.DynamicMaterialStat;
 import slimeknights.tconstruct.library.materials.stats.types.DynamicMaterialStatType;
+import slimeknights.tconstruct.library.materials.stats.types.DynamicStatField;
+import slimeknights.tconstruct.library.materials.stats.types.FloatDynamicStatField;
+import slimeknights.tconstruct.library.materials.stats.types.TierDynamicStatField;
+import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
+import slimeknights.tconstruct.library.tools.stat.ToolStatId;
+import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.library.tools.stat.ToolTierStat;
 import slimeknights.tconstruct.test.BaseMcTest;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
@@ -42,7 +52,7 @@ class UpdateMaterialStatsPacketTest extends BaseMcTest {
         MATERIAL_ID, List.of(MaterialStatsFixture.MATERIAL_STATS, MaterialStatTypesFixture.MATERIAL_STATS));
 
     Map<MaterialStatsId, DynamicMaterialStatType> dynamicStatTypes = Map.of(
-        MaterialStatTypesFixture.STATS_TYPE, MaterialStatTypesFixture.DYNAMIC_TYPE
+        MaterialStatTypesFixture.DYNAMIC_TYPE.getId(), MaterialStatTypesFixture.DYNAMIC_TYPE
     );
     UpdateMaterialStatsPacket packetToDecode = sendAndReceivePacket(materialToStats, dynamicStatTypes);
     assertThat(packetToDecode.dynamicStatTypes).hasSize(1);
@@ -66,13 +76,14 @@ class UpdateMaterialStatsPacketTest extends BaseMcTest {
     materialStats = iterator.next();
     assertThat(materialStats).isExactlyInstanceOf(DynamicMaterialStat.class);
     // ensure the loadable is passed the context field for the proper type
-    assertThat(materialStats.getType()).isEqualTo(MaterialStatTypesFixture.STATS_TYPE);
+    assertThat(materialStats.getType().getId()).isEqualTo(MaterialStatTypesFixture.STATS_TYPE);
     DynamicMaterialStat realDynamicStats = (DynamicMaterialStat) materialStats;
-    assertThat(realDynamicStats.getStat("test1")).isExactlyInstanceOf(Float.class);
-    assertThat(realDynamicStats.getStat("test1")).isEqualTo(1f);
-    assertThat(realDynamicStats.getStat("test2")).isExactlyInstanceOf(Float.class);
-    assertThat(realDynamicStats.getStat("test2")).isEqualTo(2f);
-    assertThat(realDynamicStats.getStat("test3")).isEqualTo(Tiers.STONE);
+    assertThat(realDynamicStats.getStat("test1")).isExactlyInstanceOf(FloatDynamicStatField.FloatDynamicStat.class);
+    assertThat(((FloatDynamicStatField.FloatDynamicStat)realDynamicStats.getStat("test1")).getValue()).isEqualTo(1f);
+    assertThat(realDynamicStats.getStat("test2")).isExactlyInstanceOf(FloatDynamicStatField.FloatDynamicStat.class);
+    assertThat(((FloatDynamicStatField.FloatDynamicStat)realDynamicStats.getStat("test2")).getValue()).isEqualTo(2f);
+    assertThat(realDynamicStats.getStat("test3")).isExactlyInstanceOf(TierDynamicStatField.TierDynamicStat.class);
+    assertThat(((TierDynamicStatField.TierDynamicStat)realDynamicStats.getStat("test3")).getValue()).isEqualTo(Tiers.STONE);
 
   }
 

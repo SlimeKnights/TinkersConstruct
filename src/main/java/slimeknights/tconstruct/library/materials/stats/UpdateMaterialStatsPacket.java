@@ -3,9 +3,11 @@ package slimeknights.tconstruct.library.materials.stats;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.network.NetworkEvent.Context;
 import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.data.loadable.Loadable;
+import slimeknights.mantle.data.registry.AbstractNamedComponentRegistry;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.mantle.util.typed.TypedMapBuilder;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
@@ -34,8 +36,10 @@ public class UpdateMaterialStatsPacket implements IThreadsafePacket {
   public UpdateMaterialStatsPacket(FriendlyByteBuf buffer, Loadable<MaterialStatType<?>> statTypeLoader) {
     int statTypeCount = buffer.readInt();
     dynamicStatTypes = new HashMap<>(statTypeCount);
-    for(int i = 0;i < statTypeCount;i++)
-      dynamicStatTypes.put(DynamicMaterialStatType.decode(buffer).getId(), DynamicMaterialStatType.decode(buffer));
+    for(int i = 0;i < statTypeCount;i++){
+      DynamicMaterialStatType statType = DynamicMaterialStatType.decode(buffer);
+      dynamicStatTypes.put(statType.getId(), statType);
+    }
 
     int materialCount = buffer.readInt();
     materialToStats = new HashMap<>(materialCount);
@@ -45,7 +49,13 @@ public class UpdateMaterialStatsPacket implements IThreadsafePacket {
       List<IMaterialStats> statList = new ArrayList<>();
       for (int j = 0; j < statCount; j++) {
         try {
-          MaterialStatType<?> statType = statTypeLoader.decode(buffer);
+          ResourceLocation statTypeId = buffer.readResourceLocation();
+          MaterialStatType<?> statType = null;
+          if(dynamicStatTypes.containsKey(statTypeId)){ // have to check in which register it is
+            statType = dynamicStatTypes.get(statTypeId);
+          } else {
+            statType = ((AbstractNamedComponentRegistry<MaterialStatType<?>>)statTypeLoader).getValue(statTypeId);
+          }
           statList.add(statType.getLoadable().decode(buffer,
               TypedMapBuilder.builder().put(MaterialStatType.CONTEXT_KEY, statType).build()));
         } catch (Exception e) {

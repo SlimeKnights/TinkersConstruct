@@ -56,6 +56,7 @@ public class FloatDynamicStatField implements DynamicStatField<FloatDynamicStat>
 
     @Override
     public void encodeSelf(FriendlyByteBuf buffer) {
+        buffer.writeUtf(TYPE.toString());
         buffer.writeUtf(name);
         buffer.writeUtf(stat.getName().toString());
         buffer.writeFloat(defaultValue);
@@ -66,6 +67,7 @@ public class FloatDynamicStatField implements DynamicStatField<FloatDynamicStat>
 
     @Override
     public void serializeSelf(JsonObject json) {
+        json.addProperty("type", TYPE.toString());
         json.addProperty("name", name);
         json.addProperty("stat", stat.getName().toString());
         json.addProperty("default_value", defaultValue);
@@ -134,10 +136,10 @@ public class FloatDynamicStatField implements DynamicStatField<FloatDynamicStat>
 
         @Override
         public FloatDynamicStatField deserialize(JsonObject json, ResourceLocation path) {
-            String name = json.get("name").getAsString();
-            ToolStatId statId = new ToolStatId(withDefaultNamespace(json.get("stat").getAsString()));
-            float defaultValue = json.get("default_value").getAsFloat();
-            Operation operation = Operation.valueOf(json.get("operation").getAsString().toUpperCase());
+            String name = GsonHelper.getAsString(json, "name");
+            ToolStatId statId = new ToolStatId(withDefaultNamespace(GsonHelper.getAsString(json, "stat")));
+            float defaultValue = GsonHelper.getAsFloat(json, "default_value", 0.0f);
+            Operation operation = Operation.valueOf(GsonHelper.getAsString(json, "operation").toUpperCase());
             IToolStat<?> stat = ToolStats.getToolStat(statId);
             String localizedDescription = GsonHelper.getAsString(json, "desc",makeTooltipKey(new ResourceLocation(path.getNamespace(), path.getPath()+"."+name+".description")));
             String localizedInfoPrefix = GsonHelper.getAsString(json, "info",makeTooltipKey(new ResourceLocation(path.getNamespace(), name)));
