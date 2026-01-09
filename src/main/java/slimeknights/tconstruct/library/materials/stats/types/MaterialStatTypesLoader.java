@@ -11,7 +11,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import slimeknights.mantle.data.listener.MergingJsonDataLoader;
 import slimeknights.mantle.util.JsonHelper;
-import slimeknights.tconstruct.library.materials.stats.MaterialStatType;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 
 import java.util.HashMap;

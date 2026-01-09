@@ -15,13 +15,14 @@ import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 
 public class DynamicMaterialStat implements IMaterialStats {
 
+
+	private final MaterialStatType<?> type;
+	private final Map<String,DynamicStat> stats;
+
 	public DynamicMaterialStat(MaterialStatType<?> type, Map<String,DynamicStat> stats) {
 		this.type = type;
 		this.stats = stats;
 	}
-
-	private final MaterialStatType<?> type;
-	private final Map<String,DynamicStat> stats;
 
 
 	/**

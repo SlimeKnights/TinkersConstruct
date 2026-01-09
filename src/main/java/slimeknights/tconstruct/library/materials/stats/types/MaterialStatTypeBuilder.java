@@ -12,14 +12,7 @@ import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 
 public class MaterialStatTypeBuilder {
 
-    protected MaterialStatTypeBuilder(ResourceLocation registryName) {
-        this.registryName = registryName;
-    }
 
-    public static MaterialStatTypeBuilder begin(
-            ResourceLocation registryName) {
-        return new MaterialStatTypeBuilder(registryName);
-    }
 
     private final ResourceLocation registryName;
     private List<DynamicStatField<?>> fields = new ArrayList<>();
@@ -30,6 +23,14 @@ public class MaterialStatTypeBuilder {
     @Accessors(fluent = true)
     private boolean shouldBuild = true;
 
+    protected MaterialStatTypeBuilder(ResourceLocation registryName) {
+        this.registryName = registryName;
+    }
+
+    public static MaterialStatTypeBuilder begin(
+            ResourceLocation registryName) {
+        return new MaterialStatTypeBuilder(registryName);
+    }
 
     /**
      * Adds a stat field to the material stat type.

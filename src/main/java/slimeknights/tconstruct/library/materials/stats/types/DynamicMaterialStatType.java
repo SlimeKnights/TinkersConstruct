@@ -11,6 +11,9 @@ import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 
 public class DynamicMaterialStatType extends MaterialStatType<DynamicMaterialStat> {
 
+    private final List<DynamicStatField<?>> statFields;
+    private final boolean canRepair;
+
     public DynamicMaterialStatType(MaterialStatsId id, boolean canRepair,
             List<DynamicStatField<?>> statFields) {
         super(id, new DynamicMaterialStat(null, new LinkedHashMap<>()), new DynamicMaterialStatRecord(null, statFields));
@@ -18,9 +21,6 @@ public class DynamicMaterialStatType extends MaterialStatType<DynamicMaterialSta
         this.canRepair = canRepair;
         this.statFields = statFields;
     }
-
-    private final List<DynamicStatField<?>> statFields;
-    private final boolean canRepair;
 
     /**
      * Decodes the material stat type from the given byte buffer.
