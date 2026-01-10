@@ -9,14 +9,12 @@ import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatType;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
-import slimeknights.tconstruct.library.materials.stats.types.DynamicMaterialStatType;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 public interface IMaterialRegistry {
@@ -172,14 +170,6 @@ public interface IMaterialRegistry {
   default void registerStatType(MaterialStatType<?> type, @Nullable MaterialStatsId traitFallback) {
     registerStatType(type);
   }
-
-  /**
-   * Sets the dynamic stat types for the registry.
-   * Dynamic stat types are stat types that reloads when datapacks reload.
-   * Fallback is not supported for dynamic stat types.
-   * @param dynamicStatTypes  Dynamic stat types
-   */
-  void setDynamicStatTypes(Map<MaterialStatsId, DynamicMaterialStatType> dynamicStatTypes);
 
 
   /* Traits */

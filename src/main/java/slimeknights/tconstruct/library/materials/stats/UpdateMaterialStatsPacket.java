@@ -80,13 +80,11 @@ public class UpdateMaterialStatsPacket implements IThreadsafePacket {
 
   /**
    * Encodes a single material stat
-   *
-   * @param buffer Buffer instance
-   * @param stat   Stat to encode
+   * @param buffer  Buffer instance
+   * @param stat    Stat to encode
    */
   @SuppressWarnings("unchecked")
-  private <T extends IMaterialStats> void encodeStat(FriendlyByteBuf buffer, IMaterialStats stat,
-      MaterialStatType<T> type) {
+  private <T extends IMaterialStats> void encodeStat(FriendlyByteBuf buffer, IMaterialStats stat, MaterialStatType<T> type) {
     MaterialStatsId.PARSER.encode(buffer, type.getId());
     type.getLoadable().encode(buffer, (T) stat);
   }

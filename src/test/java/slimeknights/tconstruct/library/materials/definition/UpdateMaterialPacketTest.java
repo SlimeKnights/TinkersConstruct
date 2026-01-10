@@ -3,7 +3,6 @@ package slimeknights.tconstruct.library.materials.definition;
 import com.google.common.collect.ImmutableMap;
 import io.netty.buffer.Unpooled;
 import net.minecraft.network.FriendlyByteBuf;
-
 import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.fixture.MaterialFixture;
 import slimeknights.tconstruct.test.BaseMcTest;

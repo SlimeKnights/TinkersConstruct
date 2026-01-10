@@ -10,15 +10,12 @@ import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatType;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsManager;
-import slimeknights.tconstruct.library.materials.stats.types.DynamicMaterialStatType;
-import slimeknights.tconstruct.library.materials.stats.types.MaterialStatTypesLoader;
 import slimeknights.tconstruct.library.materials.traits.MaterialTraitsManager;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -118,11 +115,6 @@ public class MaterialRegistryImpl implements IMaterialRegistry {
     }
   }
 
-  
-  @Override
-  public void setDynamicStatTypes(Map<MaterialStatsId, DynamicMaterialStatType> dynamicStatTypes) {
-    materialStatsManager.setDynamicStatTypes(dynamicStatTypes);
-  }
 
   /* Traits */
 

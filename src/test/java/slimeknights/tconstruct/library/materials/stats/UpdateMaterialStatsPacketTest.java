@@ -4,24 +4,16 @@ import io.netty.buffer.Unpooled;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.Tiers;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import slimeknights.mantle.data.registry.IdAwareComponentRegistry;
-import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.fixture.MaterialFixture;
 import slimeknights.tconstruct.fixture.MaterialStatTypesFixture;
 import slimeknights.tconstruct.fixture.MaterialStatsFixture;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.types.DynamicMaterialStat;
 import slimeknights.tconstruct.library.materials.stats.types.DynamicMaterialStatType;
-import slimeknights.tconstruct.library.materials.stats.types.DynamicStatField;
 import slimeknights.tconstruct.library.materials.stats.types.FloatDynamicStatField;
 import slimeknights.tconstruct.library.materials.stats.types.TierDynamicStatField;
-import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
-import slimeknights.tconstruct.library.tools.stat.ToolStatId;
-import slimeknights.tconstruct.library.tools.stat.ToolStats;
-import slimeknights.tconstruct.library.tools.stat.ToolTierStat;
 import slimeknights.tconstruct.test.BaseMcTest;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
@@ -37,8 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class UpdateMaterialStatsPacketTest extends BaseMcTest {
 
   public static final MaterialId MATERIAL_ID = MaterialFixture.MATERIAL_1.getIdentifier();
-  private static final IdAwareComponentRegistry<MaterialStatType<?>> LOADER = new IdAwareComponentRegistry<>(
-      "Unknown stat type");
+  private static final IdAwareComponentRegistry<MaterialStatType<?>> LOADER = new IdAwareComponentRegistry<>("Unknown stat type");
   static {
     LOADER.register(MaterialStatsFixture.COMPLEX_TYPE);
     LOADER.register(HeadMaterialStats.TYPE);
