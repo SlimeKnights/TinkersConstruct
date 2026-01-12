@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tools.modifiers.ability.tool;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
@@ -45,6 +46,7 @@ public class ExchangingModifier extends NoLevelsModifier implements RemoveBlockM
     BlockState state = context.getState();
     Level world = context.getWorld();
     BlockPos pos = context.getPos();
+    LivingEntity entity = context.getLiving();
     if (offhand.isEmpty()) {
       return null;
     }
@@ -52,7 +54,7 @@ public class ExchangingModifier extends NoLevelsModifier implements RemoveBlockM
     if (blockProvider == null) {
       return null;
     }
-    BlockItem blockItem = blockProvider.getBlockItem();
+    BlockItem blockItem = blockProvider.getBlockItem(offhand, entity);
     if (blockItem == null) {
       return null;
     }
@@ -87,7 +89,7 @@ public class ExchangingModifier extends NoLevelsModifier implements RemoveBlockM
 
     // If our fake stack is now empty then it got placed (or otherwise consumed), so consume an item from the provider.
     if (fakeStack.isEmpty()) {
-      blockProvider.consume();
+      blockProvider.consume(offhand, entity);
     }
 
     if (success.consumesAction()) {

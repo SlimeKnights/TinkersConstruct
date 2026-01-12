@@ -88,7 +88,7 @@ public record PlaceBlockFluidEffect(@Nullable Block block, @Nullable SoundEvent 
           ItemStack held = entity.getItemInHand(hand);
           var cap = getBlockProvider(held);
           if (cap == null) continue;
-          BlockItem blockItem = cap.getBlockItem();
+          BlockItem blockItem = cap.getBlockItem(held, entity);
           if (blockItem == null) continue;
 
           ItemStack stack = new ItemStack(blockItem);
@@ -98,15 +98,16 @@ public record PlaceBlockFluidEffect(@Nullable Block block, @Nullable SoundEvent 
           BlockPlaceContext placeContext = new BlockPlaceContext(world, player, useHand, stack, context.getHitResult());
           int result = placeBlockItem(blockItem, context, action, blockItem.getBlock(), placeContext);
           if (stack.isEmpty()) {
-            cap.consume();
+            cap.consume(held, entity);
           }
           return result;
         }
 
       } else {
-        var cap = getBlockProvider(context.getStack());
+        ItemStack held = context.getStack();
+        var cap = getBlockProvider(held);
         if (cap == null) return 0;
-        BlockItem blockItem = cap.getBlockItem();
+        BlockItem blockItem = cap.getBlockItem(held, entity);
         if (blockItem == null) return 0;
         ItemStack stack = new ItemStack(blockItem);
         if (context.placeRestricted(stack)) return 0;
@@ -115,7 +116,7 @@ public record PlaceBlockFluidEffect(@Nullable Block block, @Nullable SoundEvent 
         BlockPlaceContext placeContext = new BlockPlaceContext(world, player, useHand, stack, context.getHitResult());
         int result = placeBlockItem(blockItem, context, action, blockItem.getBlock(), placeContext);
         if (stack.isEmpty()) {
-          cap.consume();
+          cap.consume(held, entity);
         }
         return result;
       }

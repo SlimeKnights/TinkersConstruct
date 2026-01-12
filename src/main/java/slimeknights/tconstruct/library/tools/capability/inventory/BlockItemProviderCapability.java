@@ -2,6 +2,8 @@ package slimeknights.tconstruct.library.tools.capability.inventory;
 
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
@@ -21,8 +23,8 @@ import javax.annotation.Nullable;
 /**
  * A capability that provides block items to things that place blocks, such as
  * the Exchanging modifier or some place block fluid effects like Ichor.
- * Providers of this capability should keep a reference to the stack provided from
- * and update it as needed in the consume method.
+ * Providers of this capability are encouraged to use a single instance for all objects that use
+ * the same logic, as the stack and more context are provided in the relevant methods.
  */
 public interface BlockItemProviderCapability {
 
@@ -45,8 +47,8 @@ public interface BlockItemProviderCapability {
 
   /** Event listener to attach default implementation(s) of the capability */
   private static void attachCapability(AttachCapabilitiesEvent<ItemStack> event) {
-    if (event.getObject().getItem() instanceof BlockItem block) {
-      event.addCapability(ID, new SimpleBlockItem(event.getObject(), block));
+    if (event.getObject().getItem() instanceof BlockItem) {
+      event.addCapability(SimpleBlockItem.ID, SimpleBlockItem.INSTANCE);
     }
   }
 
@@ -60,47 +62,43 @@ public interface BlockItemProviderCapability {
   }
 
   /**
+   * @param stack The {@link ItemStack} that this capability was attached to.
+   * @param entity The {@link LivingEntity} (usually a {@link Player}) that is requesting a block.
    * @return the {@link BlockItem} that this provides, or {@code null} if this cannot provide more block items (for example if the stack has been depleted)
    */
   @Nullable
-  BlockItem getBlockItem();
+  BlockItem getBlockItem(ItemStack stack, @Nullable LivingEntity entity);
 
   /**
-   * Consume a block from this provider. For example may decrease a contained stacks size or remove fluid from the tank.
+   * @param stack The {@link ItemStack} that this capability was attached to.
+   * @param entity The {@link LivingEntity} (usually a {@link Player}) that has just consumed a block.
+   * Consume a block from this provider. For example may decrease a contained stacks size or remove fluid from the stack's tank.
    */
-  void consume();
+  void consume(ItemStack stack, @Nullable LivingEntity entity);
 
   /**
    * A simple implementation of {@link BlockItemProviderCapability} that provides from an ItemStack holding a BlockItem
    */
   final class SimpleBlockItem implements BlockItemProviderCapability, ICapabilityProvider {
+    public static final SimpleBlockItem INSTANCE = new SimpleBlockItem();
+    private static final ResourceLocation ID = TConstruct.getResource("block_item_provider");
 
-    private final ItemStack stack;
-    private final BlockItem contained;
-    @Nullable
-    private LazyOptional<BlockItemProviderCapability> lazy;
-
-    public SimpleBlockItem(ItemStack stack, BlockItem contained) {
-      this.stack = stack;
-      this.contained = contained;
-    }
+    private final LazyOptional<BlockItemProviderCapability> lazy = LazyOptional.of(() -> this);
 
     @Override
     @Nullable
-    public BlockItem getBlockItem() {
-      return stack.isEmpty() ? null : contained;
+    public BlockItem getBlockItem(ItemStack stack, @Nullable LivingEntity entity) {
+      return stack.isEmpty() ? null : ((BlockItem) stack.getItem());
     }
 
     @Override
-    public void consume() {
+    public void consume(ItemStack stack, @Nullable LivingEntity entity) {
       stack.shrink(1);
     }
 
     // Because this is an incredibly simple capability it acts as provider and as the actual capability implementation.
     @Override
     public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction dir) {
-      if (lazy == null)
-        return CAPABILITY.orEmpty(cap, lazy = LazyOptional.of(() -> this));
       return CAPABILITY.orEmpty(cap, lazy);
     }
   }
