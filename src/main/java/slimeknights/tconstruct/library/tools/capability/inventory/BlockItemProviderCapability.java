@@ -79,6 +79,7 @@ public interface BlockItemProviderCapability {
     }
 
     @Override
+    @Nullable
     public BlockItem getBlockItem() {
       return stack.isEmpty() ? null : contained;
     }
