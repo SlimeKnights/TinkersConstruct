@@ -19,9 +19,10 @@ import slimeknights.tconstruct.TConstruct;
 import javax.annotation.Nullable;
 
 /**
- * A capability that provides blocks to modifiers, primarily the Exchanging modifier.
+ * A capability that provides block items to things that place blocks, such as
+ * the Exchanging modifier or some place block fluid effects like Ichor.
  * Providers of this capability should keep a reference to the stack provided from
- * and update it as needed.
+ * and update it as needed in the consume method.
  */
 public interface BlockItemProviderCapability {
 
@@ -42,7 +43,7 @@ public interface BlockItemProviderCapability {
     event.register(BlockItemProviderCapability.class);
   }
 
-  /** Event listener to attach the capability */
+  /** Event listener to attach default implementation(s) of the capability */
   private static void attachCapability(AttachCapabilitiesEvent<ItemStack> event) {
     if (event.getObject().getItem() instanceof BlockItem block) {
       event.addCapability(ID, new SimpleBlockItem(event.getObject(), block));
@@ -58,9 +59,15 @@ public interface BlockItemProviderCapability {
     return stack.getCapability(CAPABILITY).orElse(null);
   }
 
+  /**
+   * @return the {@link BlockItem} that this provides, or {@code null} if this cannot provide more block items (for example if the stack has been depleted)
+   */
   @Nullable
   BlockItem getBlockItem();
 
+  /**
+   * Consume a block from this provider. For example may decrease a contained stacks size or remove fluid from the tank.
+   */
   void consume();
 
   /**
