@@ -1,6 +1,6 @@
-intro=介绍
+intro=引言
 
-tools=工具
+tools=工具类型
 tools.group_small=小型工具
 tools.group_large=宽型工具
 tools.group_ranged=远程工具
@@ -13,15 +13,15 @@ tools.tconstruct.ender_staff=末影黏液手杖
 armor=盔甲
 
 materials_harvest=通用材料
-materials_harvest.subtext=这些材料可以锻造出近战武器或采掘工具。
+materials_harvest.subtext=这些材料可用于制作近战武器或采掘工具。
 materials_ranged=远程材料
-materials_ranged.subtext=这些材料可以锻造出远程武器。
+materials_ranged.subtext=这些材料可用于制作远程武器。
 materials_ammo=弹药材料
-materials_ammo.subtext=这些材料可以锻造出箭矢或手里剑。
+materials_ammo.subtext=这些材料可用于制作箭矢和手里剑。
 materials_armor=盔甲材料
-materials_armor.subtext=这些材料可以锻造成盔甲和盾牌的部件。
+materials_armor.subtext=这些材料可用于制作盔甲和盾牌。
 materials_skull=黏液头颅
-materials_skull.subtext=本章节介绍了所有类型的头颅制成的黏液头颅的效果。
+materials_skull.subtext=本章节介绍用所有类型的头颅制成黏液头颅后，它们各自的效果。
 
 upgrades=升级强化
 upgrades.subtext=每一把工具都有一些升级强化槽，不过数量有限。
