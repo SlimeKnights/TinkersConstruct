@@ -129,7 +129,7 @@ public class FluidEffectContent extends PageContent {
   }
 
   @Override
-  public String toHTML() {
+  public String toHTML(BookData book) {
     StringBuilder builder = new StringBuilder()
       .append(getTitleHTML())
       .append("<div>")

@@ -208,7 +208,7 @@ public class ArmorMaterialContent extends AbstractMaterialContent {
   }
 
   @Override
-  public String toHTML() {
+  public String toHTML(BookData book) {
     List<PlatingMaterialStats> stats = TOP_DOWN_STATS.stream()
       .flatMap(id -> MaterialRegistry.getInstance().<PlatingMaterialStats>getMaterialStats(getMaterial().getIdentifier(), id).stream())
       .toList();
@@ -247,6 +247,6 @@ public class ArmorMaterialContent extends AbstractMaterialContent {
       getStatHTML(StatlessMaterialStats.MAILLE.getIdentifier(), true),
       getStatHTML(StatlessMaterialStats.SHIELD_CORE.getIdentifier(), true)
     ));
-    return String.format(super.toHTML(), builder);
+    return String.format(super.toHTML(book), builder);
   }
 }

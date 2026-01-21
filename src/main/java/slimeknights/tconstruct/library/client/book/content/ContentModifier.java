@@ -38,7 +38,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class ContentModifier extends PageContent {
@@ -299,7 +298,7 @@ public class ContentModifier extends PageContent {
   }
 
   @Override
-  public String toHTML() {
+  public String toHTML(BookData book) {
     int rgb = modifier == null ? 0 : modifier.getColor();
     int h = more_text_space ? BookScreen.PAGE_HEIGHT * 2 / 5 : BookScreen.PAGE_HEIGHT * 2 / 7;
     return String.format(
@@ -318,11 +317,9 @@ public class ContentModifier extends PageContent {
       </div>""",
       getTitleHTML("format-custom", "color: " + HTMLUtils.hexRGB(rgb)),
       h * 2,
-      TextData.toHTML(text, parent.parent.parent),
+      TextData.toHTML(text, book),
       I18n.get(KEY_EFFECTS),
-      Arrays.stream(effects)
-        .map(s -> String.format("<li>%s</li>", HTMLUtils.parse(s)))
-        .collect(Collectors.joining("\n"))
+      Arrays.stream(effects).map(HTMLUtils::parse).map(HTMLUtils::li).collect(Collectors.joining("\n"))
     );
   }
 }

@@ -270,9 +270,8 @@ public class ContentTool extends PageContent {
   }
 
   @Override
-  public String toHTML() {
-    return String.format(
-      """
+  public String toHTML(BookData book) {
+    return String.format("""
       %s
       <div style="padding-left: 10px">
       <div class="column" style="height: 128px">
@@ -284,15 +283,12 @@ public class ContentTool extends PageContent {
       %s
       </ul>
       </div>
-      </div>
-      """,
+      </div>""",
       getTitleHTML(),
-      TextData.toHTML(text, parent.parent.parent),
+      TextData.toHTML(text, book),
       I18n.get(KEY_PROPERTIES),
-      Arrays.stream(properties)
-        .map(s -> String.format("<li>%s</li>", s))
-        .collect(Collectors.joining("\n"))
-      );
+      Arrays.stream(properties).map(HTMLUtils::parse).map(HTMLUtils::li).collect(Collectors.joining("\n"))
+    );
   }
 
   /** Simple record to hold a XY pair */

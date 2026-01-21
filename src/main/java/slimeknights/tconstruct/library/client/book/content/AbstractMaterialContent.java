@@ -469,7 +469,7 @@ public abstract class AbstractMaterialContent extends PageContent {
   }
 
   @Override
-  public String toHTML() {
+  public String toHTML(BookData book) {
     int rgb = MaterialTooltipCache.getColor(getMaterialVariant()).getValue();
 
     StringBuilder builder = new StringBuilder("\n<div class=\"page-material\">")
