@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:sleeves",
+  "text": [
+    {
+      "text": "Otorga al peto 3 ranuras de inventario por nivel para guardar objetos arrojadizos. Los objetos en las mangas se pueden lanzar interactuando con la mano vacía. Puedes agacharte mientras interactúas para cambiar el objeto seleccionado."
+    },
+    {
+      "text": "Se puede acceder al inventario haciendo clic derecho en el peto desde un inventario."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 3 niveles",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

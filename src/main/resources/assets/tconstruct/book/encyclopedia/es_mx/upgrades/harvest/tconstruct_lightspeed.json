@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:lightspeed",
+  "text": [
+    {
+      "text": "Otorga +1 de velocidad de minado por nivel con un nivel de luz de 5, +3 de velocidad de minado por nivel con un nivel de luz de 10 y +9 de velocidad de minado por nivel con un nivel de luz de 15."
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/harvest",
+  "effects": [
+    "Se pueden aplicar niveles de forma incremental",
+    "Máximo de 5 niveles",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

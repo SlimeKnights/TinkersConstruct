@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:knockback",
+  "text": [
+    {
+      "text": "Otorga 1 de empuje por nivel a todas las armas, lo que lanza a una criatura aproximadamente 2 bloques. La mayoría de las herramientas comienzan con 0.4 de empuje."
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/armor",
+  "effects": [
+    "Máximo de 3 niveles",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

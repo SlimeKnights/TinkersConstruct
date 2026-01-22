@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:haste",
+  "text": [
+    {
+      "text": "Otorga +10% de velocidad de minado por nivel para todas las herramientas en la mano."
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/armor",
+  "effects": [
+    "Niveles Incrementales",
+    "Máximo de 5 niveles",
+    "Cada nivel gasta 1 mejora"
+  ]
+}

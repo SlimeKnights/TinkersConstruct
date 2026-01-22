@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:collecting",
+  "text": [
+    {
+      "text": "Permite recoger más objetos con la caña de pescar. Los objetos, orbes de XP, flechas y herramientas arrojadas pueden ser enganchados y atraídos."
+    },
+    {
+      "text": "Los objetos atraídos con éxito se moverán directamente al jugador.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Nivel único",
+    "Requiere 1 ranura de mejora"
+  ]
+}

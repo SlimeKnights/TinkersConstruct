@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:sinistral",
+  "text": [
+    {
+      "text": "Hace que la ballesta dispare al atacar en lugar de al interactuar, y que solo se cargue cuando no estés agachado. Permite usar un objeto en la mano secundaria mientras usas la ballesta."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Nivel único",
+    "Requiere 1 ranura de mejora"
+  ]
+}

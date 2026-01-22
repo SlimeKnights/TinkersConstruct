@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:tank",
+  "text": [
+    {
+      "text": "Aumenta la capacidad en 1 balde por nivel. Útil con habilidades de llenado (bucketing) o fundición (melting)."
+    },
+    {
+      "text": "Los tanques se llenan interactuando con bloques de fluidos. La armadura debe sostenerse en la mano para vaciar o llenar.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Sin nivel máximo",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

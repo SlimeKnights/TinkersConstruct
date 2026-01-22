@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:reinforced",
+  "text": [
+    {
+      "text": "Reduce la probabilidad de que la herramienta reciba daño. Tiene un 75% de probabilidad de recibir daño en el nivel 1, 55% en el nivel 2, 40% en el nivel 3, 30% en el nivel 4 y 25% en el nivel 5."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Se pueden aplicar niveles de forma incremental",
+    "Máximo de 5 niveles",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:diamond",
+  "text": [
+    {
+      "text": "Otorga +500 durabilidad (+250 armadura), +0.5 daño, +2 vel. minado, +0.5 potencia y +1 armadura. Sube el nivel de minado a diamante."
+    },
+    {
+      "text": "Solo se aplican las mejoras compatibles; las herramientas de mano no reciben el +1 de armadura.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nivel",
+    "Requiere 1 ranura de mejora"
+  ]
+}

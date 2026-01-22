@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:sweeping_edge",
+  "text": [
+    {
+      "text": "Aumenta la cantidad de daño infligido por el ataque de barrido de la espada. Hace que la herramienta inflija el 25% del daño del ataque principal en el nivel 1, el 50% en el nivel 2 y el 75% en el nivel 3."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Se pueden aplicar niveles de forma incremental",
+    "Máximo de 3 niveles",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

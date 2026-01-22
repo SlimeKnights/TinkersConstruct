@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:the_one_probe",
+  "text": [
+    {
+      "text": "Muestra información sobre el bloque al que apuntas, igual que el objeto The One Probe."
+    },
+    {
+      "text": "Se debe llevar puesto el casco para obtener información, o sostener la herramienta en cualquiera de las manos.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Nivel único",
+    "Requiere 1 ranura de mejora"
+  ]
+}

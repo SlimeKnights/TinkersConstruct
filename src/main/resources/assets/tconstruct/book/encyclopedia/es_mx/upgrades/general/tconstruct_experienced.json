@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:experienced",
+  "text": [
+    {
+      "text": "Aumenta la experiencia obtenida al matar criaturas y romper bloques en un 50% por nivel."
+    },
+    {
+      "text": "En armaduras, aumenta la experiencia en un 25% por nivel al usar cualquier herramienta.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 5 niveles",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

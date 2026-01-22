@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:fins",
+  "text": [
+    {
+      "text": "Permite que la herramienta, al ser lanzada o disparada desde una balista, se mueva a velocidad completa bajo el agua en lugar del 60% de velocidad."
+    },
+    {
+      "text": "Cuando se usa en arcos, no afecta a las flechas disparadas. Los arcos solo se benefician si ellos mismos son el proyectil.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nivel",
+    "Requiere 1 ranura de mejora",
+    "Requiere lanzamiento o un arco de balista"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:emerald",
+  "text": [
+    {
+      "text": "Otorga +50% durabilidad, +0.1 precisión y +1 dureza. Sube minado a hierro y potencia daño y velocidad en 25%."
+    },
+    {
+      "text": "Solo se aplican mejoras compatibles (ej. herramientas no reciben dureza).",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nivel",
+    "Requiere 1 ranura de mejora"
+  ]
+}

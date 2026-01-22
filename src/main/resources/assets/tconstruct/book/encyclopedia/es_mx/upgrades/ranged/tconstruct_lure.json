@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:lure",
+  "text": [
+    {
+      "text": "Reduce el tiempo necesario para pescar en 5 segundos por nivel."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 3 niveles",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:severing",
+  "text": [
+    {
+      "text": "Otorga un 5% de probabilidad por nivel de que una criatura suelte su cabeza u otras partes del cuerpo. La suerte añade un 1% de probabilidad extra por cada nivel de suerte multiplicado por el nivel de decapitación (severing). Contra criaturas raras como jefes, la probabilidad se duplica."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 3 niveles",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

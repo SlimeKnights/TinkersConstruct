@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:springy",
+  "text": [
+    {
+      "text": "Tiene un 15% de probabilidad por nivel de aplicar de 2 a 4 bloques de empuje al atacante. Aplica el efecto de la pieza con la mayor bonificación."
+    },
+    {
+      "text": "Los escudos son el doble de efectivos pero solo funcionan al bloquear.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Se pueden aplicar niveles de forma incremental",
+    "Máximo de 3 niveles",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

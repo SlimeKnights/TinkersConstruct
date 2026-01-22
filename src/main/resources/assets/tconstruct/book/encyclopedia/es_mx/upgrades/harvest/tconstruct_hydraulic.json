@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:hydraulic",
+  "text": [
+    {
+      "text": "Otorga +4 de velocidad de minado por nivel bajo la lluvia. Bajo el agua, otorga en su lugar +8 de velocidad de minado por nivel, ignorando la penalización normal de minar bajo el agua."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Se pueden aplicar niveles de forma incremental",
+    "Máximo de 5 niveles",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}
