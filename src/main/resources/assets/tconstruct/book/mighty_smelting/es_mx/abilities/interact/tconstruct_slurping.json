@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:slurping",
+  "text": [
+    {
+      "text": "¡Mmm, delicioso!"
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/interactable/charge",
+  "effects": [
+    "Bebe los fluidos del tanque al usarla",
+    "Requiere 1 ranura de habilidad por nivel",
+    "Niveles altos beben más para mayor efecto"
+  ]
+}

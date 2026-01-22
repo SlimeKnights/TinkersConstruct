@@ -1,0 +1,21 @@
+{
+  "tool": "tconstruct:pickadze",
+  "text": [
+    {
+      "text": "La pico-azuela es multiusos para piedra y tierra, pero tiene un nivel de cosecha limitado."
+    },
+    {
+      "text": "Los expansores aumentan la altura de minado para crear escaleras.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "+0.5 daño de ataque",
+    "115% mod. de ataque",
+    "1.3 vel. de ataque",
+    "75% multi. de minado",
+    "130% multi. durabilidad",
+    "Crea caminos",
+    "Cosecha máx: Oro"
+  ]
+}

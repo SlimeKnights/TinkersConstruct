@@ -1,0 +1,13 @@
+{
+  "title": "Islas verdes",
+  "image": {
+    "file": "tconstruct:book/images/islands/earthslime.png",
+    "width": 180,
+    "height": 84
+  },
+  "text": [
+    {
+      "text": "Estas islas aparecen en los océanos del mundo real y parecen menos alienígenas que sus primas celestes. No son la única forma de hallar slimes verdes, pero su hierba hace que aparezcan con mucha más frecuencia."
+    }
+  ]
+}

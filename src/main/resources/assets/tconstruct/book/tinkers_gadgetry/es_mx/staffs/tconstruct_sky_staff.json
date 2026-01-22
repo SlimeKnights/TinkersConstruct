@@ -1,0 +1,11 @@
+{
+  "tool": "tconstruct:sky_staff",
+  "text": [
+    { "text": "Los bastones de slime celeste dejan mucho espacio para la modificación. Otorgan una mayor velocidad de tensado a costa de la velocidad del proyectil." }
+  ],
+  "properties": [
+    "Baja durabilidad",
+    "5 Ranuras de mejora",
+    "2 Ranuras de habilidad"
+  ]
+}

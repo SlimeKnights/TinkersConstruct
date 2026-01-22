@@ -1,0 +1,14 @@
+{
+  "title": "Medidores",
+  "item": "tconstruct:copper_gauge",
+  "text": [
+    {
+      "text": "¿Quieres saber cuánto fluido hay en un tanque? ¡Usa un medidor! Los medidores te indican la cantidad de líquido dentro de un bloque al interactuar con ellos.",
+      "paragraph": true
+    },
+    {
+      "text": "Los de obsidiana además muestran el fluido en su ventana, ¡aunque no es difícil mirar dentro de mis propios tanques!",
+      "paragraph": true
+    }
+  ]
+}

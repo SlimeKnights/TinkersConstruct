@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:blunted",
+  "text": [
+    {
+      "text": "Para los que solo aman el combate a distancia."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Desactiva ataques cuerpo a cuerpo (combina con mejoras de ataque)",
+    "Sin ranuras"
+  ]
+}

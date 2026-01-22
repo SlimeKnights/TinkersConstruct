@@ -1,0 +1,11 @@
+{
+  "text": "El signalum fundido es excelente para el combate con explosiones invertidas con un daño ambiental mínimo.",
+  "entity": [
+    "Explosión de potencia 2",
+    "Hasta 2 de daño por explosión",
+    "Empuje de explosión invertido"
+  ],
+  "block": [
+    "La explosión ignora los bloques"
+  ]
+}

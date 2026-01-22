@@ -1,0 +1,16 @@
+{
+  "title": "Ícor",
+  "item": [
+    "tconstruct:ichor_slime_ball",
+    "tconstruct:ichor_congealed_slime",
+    "tconstruct:ichor_slime",
+    "tconstruct:ichor_slime_crystal",
+    "tconstruct:ichor_slime_crystal_block"
+  ],
+  "text": [
+    {
+      "text": "Puedes obtener sangre ardiente fundiendo ícor, aunque esto es menos ideal, ya que primero necesitas un combustible más caliente para lograr fundirlo. En última instancia, supone una ganancia neta, por lo que es una buena opción para aumentar tus reservas una vez que consigas sangre ardiente de otra fuente.",
+      "paragraph": true
+    }
+  ]
+}

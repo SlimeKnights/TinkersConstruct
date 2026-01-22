@@ -1,0 +1,39 @@
+intro=Introducción
+entity_melting=Fundición de Entidades
+melee_harvest_materials=Materiales Generales de Tier 3
+melee_harvest_materials.subtext=Estos materiales se crean mediante aleaciones y se funden en partes para armas cuerpo a cuerpo o herramientas de cosecha.
+ranged_materials=Materiales de Distancia de Tier 3
+ranged_materials.subtext=Estos materiales se crean mediante aleaciones y se funden en partes para armas a distancia como los arcos.
+armor_materials=Materiales de Armadura de Tier 3
+armor_materials.subtext=Estos materiales pueden fundirse para crear piezas de armadura y escudos.
+
+tools=Herramientas Pesadas
+tools.subtext=Las herramientas pesadas requieren el uso de un yunque del tinker para ser creadas.
+tools.group_general=General
+tools.group_ranged=A distancia
+tools.group_info=Información
+
+armor=Armaduras Poderosas
+armor.subtext=Las aleaciones desbloquean una mayor variedad de materiales para armaduras, otorgando habilidades más allá de los sets básicos.
+
+smeltery=Fundición
+
+abilities=Habilidades
+abilities.subtext=Las habilidades son más poderosas que las mejoras, pero tienen un número de ranuras más limitado.
+abilities.group_general=General
+abilities.group_harvest=Cosecha
+abilities.group_melee=Cuerpo a cuerpo
+abilities.group_ranged=A distancia
+abilities.group_interact=Interacción
+abilities.group_armor=Armadura
+abilities.group_armor.helmet=Casco
+abilities.group_armor.chestplate=Peto
+abilities.group_armor.leggings=Grebas
+abilities.group_armor.boots=Botas
+abilities.group_armor.shield=Escudo
+upgrades.subtext=Las herramientas pueden potenciarse con mejoras, aunque solo se puede aplicar un número limitado a cada una.
+
+defense=Defensa
+defense.subtext=Los modificadores de defensa solo se aplican a armaduras usando ranuras de defensa.
+defense.group_protection=Protección
+defense.group_special=Especial

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:shiny",
+  "text": [
+    {
+      "text": "Hace que la herramienta brille como si estuviera encantada. Eso es todo, es solo decorativo."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nivel",
+    "Sin ranura"
+  ]
+}

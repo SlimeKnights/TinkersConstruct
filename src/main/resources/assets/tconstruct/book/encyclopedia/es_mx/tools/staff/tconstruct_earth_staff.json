@@ -1,0 +1,18 @@
+{
+  "tool": "tconstruct:earth_staff",
+  "text": [
+    {
+      "text": "El bastón de slime de tierra es una variante con alta defensa y precisión."
+    }
+  ],
+  "properties": [
+    "800 durabilidad",
+    "1 potencia proyectil",
+    "0.9 precisión",
+    "35 bloqueo máx.",
+    "140° ángulo bloqueo",
+    "2 ranuras mejora",
+    "3 ranuras defensa",
+    "2 ranuras habilidad"
+  ]
+}

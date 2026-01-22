@@ -1,0 +1,14 @@
+{
+  "title": "Cristal de Almas quemado",
+  "item": "tconstruct:seared_soul_glass",
+  "text": [
+    {
+      "text": "A veces mirar no es suficiente y quieres sentir los fluidos de la fundición. ¡Con el cristal de almas puedes crear una ventana que puedes atravesar caminando!",
+      "paragraph": true
+    },
+  {
+      "text": "El cristal no puede utilizarse para el suelo de la fundición.",
+      "paragraph": true
+    }
+  ]
+}

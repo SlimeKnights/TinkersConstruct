@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:knockback",
+  "text": [
+    {
+      "text": "Deja de gastar energía corriendo; haz que ellos la gasten regresando a ti."
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/melee",
+  "effects": [
+    "Empuja a los enemigos al golpear",
+    "Varios niveles, aumentan la fuerza",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

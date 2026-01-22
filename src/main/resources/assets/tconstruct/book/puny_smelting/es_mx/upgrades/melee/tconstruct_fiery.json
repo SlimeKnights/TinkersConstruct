@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:fiery",
+  "text": [
+    {
+      "text": "Las llamas del Nether castigan a tus enemigos.¡QUE ARDAA!."
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/melee",
+  "effects": [
+    "Quema a los objetivos al golpear",
+    "Varios niveles, aumentan la duración",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

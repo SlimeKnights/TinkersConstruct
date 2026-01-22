@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:blocking",
+  "text": [
+    {
+      "text": "Permite usar la herramienta como un escudo, bloqueando muchos ataques potenciales. A menudo permite bloquear mientras se carga la herramienta."
+    },
+    {
+      "text": "La mayoría de las herramientas pueden bloquear hasta 5 de daño, pero algunas (como los bastones) pueden bloquear cantidades en el rango de 15 a 20 de daño."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Nivel único",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

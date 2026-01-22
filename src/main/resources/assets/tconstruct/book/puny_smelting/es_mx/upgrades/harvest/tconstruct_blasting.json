@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:blasting",
+  "text": [
+    {
+      "text": "Así que, como sea, empecé a repartir explosiones."
+    }
+  ],
+  "effects": [
+    "Mina más rápido bloques débiles a explosivos",
+    "Varios niveles, aumentan más la velocidad",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

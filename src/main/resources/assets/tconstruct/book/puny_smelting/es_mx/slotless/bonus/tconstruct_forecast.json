@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:forecast",
+  "text": [
+    {
+      "text": "El sueño de todo minero: convertir tus bloques de mineral en ranuras de mejora."
+    }
+  ],
+  "effects": [
+    "Añade una ranura de mejora",
+    "Nivel único",
+    "Sin ranuras"
+  ]
+}

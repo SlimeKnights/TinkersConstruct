@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:blunted",
+  "text": [
+    {
+      "text": "Evita que la herramienta realice ataques cuerpo a cuerpo, realizando interacciones generales en su lugar."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nivel",
+    "Sin ranura"
+  ]
+}

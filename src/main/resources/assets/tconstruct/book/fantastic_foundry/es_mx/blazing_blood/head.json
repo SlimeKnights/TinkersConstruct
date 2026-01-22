@@ -1,0 +1,10 @@
+{
+  "title": "Fundir cabezas",
+  "item": "tconstruct:blaze_head",
+  "text": [
+    {
+      "text": "Alternativamente, puede que no necesitemos fundir al blaze entero. Si encontrara una forma de cortarle la cabeza, apuesto a que eso sería suficiente para fundirla y obtener combustible.",
+      "paragraph": true
+    }
+  ]
+}

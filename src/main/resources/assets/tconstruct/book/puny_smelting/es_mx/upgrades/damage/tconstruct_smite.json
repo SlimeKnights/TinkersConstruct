@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:smite",
+  "text": [
+    {
+      "text": "Témanme, muertos vivientes..."
+    },
+    {
+      "text": "¡Porque porto el poder de las sandías doradas! Quizás una armadura de sandía los mantendría lejos de mí.",
+      "paragraph": true
+    }
+  ],
+  "effects": [
+    "Aumenta el daño a los no muertos",
+    "Varios niveles, suben más el daño",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

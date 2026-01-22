@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:drill_attack",
+  "text": [
+    {
+      "text": "Me estoy mareando..."
+    }
+  ],
+  "effects": [
+    "Requiere Impulso, Lanzamiento o Gancho",
+    "Ataca cuerpo a cuerpo al chocar con mobs",
+    "Nivel único",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

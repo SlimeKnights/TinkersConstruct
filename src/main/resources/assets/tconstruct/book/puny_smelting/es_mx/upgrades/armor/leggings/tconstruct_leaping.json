@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:leaping",
+  "text": [
+    {
+      "text": "Salta hacia las estrellas; si no llegas, ¡vuélvelo a intentar desde la cima!"
+    }
+  ],
+  "effects": [
+    "Mejora la altura del salto y la caída segura por nivel",
+    "Nvl 1: Ranura Mejora | Nvl 2: Ranura Habilidad"
+  ]
+}

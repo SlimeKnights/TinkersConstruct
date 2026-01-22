@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:workbench",
+  "text": [
+    {
+      "text": "Añade una mesa de trabajo de 2x2 al inventario de la herramienta."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nivel",
+    "Sin ranura"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:tilling",
+  "text": [
+    {
+      "text": "¿Alguna vez has necesitado crear una gran granja? ¿Una granja realmente enorme? Ahora puedes."
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/armor/boots",
+  "effects": [
+    "Crea tierra de cultivo al caminar",
+    "Área aumentada por el modificador Expandido",
+    "Nivel único",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

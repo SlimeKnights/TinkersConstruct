@@ -1,0 +1,14 @@
+{
+  "title": "Cristal quemado Tintado",
+  "item": "tconstruct:seared_tinted_glass",
+  "text": [
+    {
+      "text": "¿Tu fundición brilla demasiado? Considera mantener el interior oscuro usando cristal chamuscado tintado; mantiene la luz dentro pero es totalmente transparente, es algo mágico.",
+      "paragraph": true
+    },
+  {
+      "text": "El cristal no puede utilizarse para el suelo de la fundición.",
+      "paragraph": true
+    }
+  ]
+}

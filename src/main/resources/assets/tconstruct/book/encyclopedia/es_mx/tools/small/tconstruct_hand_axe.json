@@ -1,0 +1,17 @@
+{
+  "tool": "tconstruct:hand_axe",
+  "text": [
+    {
+      "text": "El hacha de mano es una herramienta de tala de precisión, efectiva en madera, plantas y hojas."
+    },
+    {
+      "text": "Los expansores aumentan el radio circular del hacha.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "+6 de daño de ataque",
+    "0.9 de velocidad de ataque",
+    "Descorteza madera"
+  ]
+}

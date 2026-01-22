@@ -1,0 +1,13 @@
+{
+  "tool": "tconstruct:minotaur_axe",
+  "text": [
+    { "text": "El hacha de minotauro es un arma especial que potencia el daño al atacar mientras corres. Puede hallarse en manos de los minotauros en los laberintos." }
+  ],
+  "properties": [
+    "Daño alto",
+    "Velocidad de ataque baja",
+    "Bonificación de daño por carga",
+    "3 Espacios de mejora",
+    "1 Espacio de habilidad"
+  ]
+}

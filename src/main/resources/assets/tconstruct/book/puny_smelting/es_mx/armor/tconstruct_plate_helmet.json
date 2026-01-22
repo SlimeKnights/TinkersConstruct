@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:plate_helmet",
+  "text": [
+    { "text": "Cascos duros para cabezas duras." },
+  {
+      "text": "Un casco sólido para proteger tu cerebro. ¡Nada podrá herir esa cabezota tuya!", "paragraph": true
+    }
+  ],
+  "properties": [
+    "Más durabilidad",
+    "Más armadura",
+    "2 ranuras de mejora",
+    "3 ranuras de defensa",
+    "2 rasgos de material"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "tool": "tconstruct:plate_chestplate",
+  "text": [
+    { "text": "El peto de placas es un peto defensivo, con una alta protección, pocas ranuras de habilidad y muchas ranuras de defensa." }
+  ],
+  "properties": [
+    "Estadísticas controladas por el material",
+    "40% de ataque desarmado",
+    "2 ranuras de mejora",
+    "3 ranuras de defensa",
+    "2 rasgos de material"
+  ]
+}

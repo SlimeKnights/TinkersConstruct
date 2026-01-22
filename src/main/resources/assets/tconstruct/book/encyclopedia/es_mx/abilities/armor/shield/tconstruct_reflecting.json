@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:reflecting",
+  "text": [
+    {
+      "text": "Los proyectiles se redirigen en la dirección a la que miras cuando se bloquean dentro de los 2 segundos posteriores a desplegar tu escudo. Cada nivel adicional otorga 2 segundos extra para reflejar."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Requiere 1 ranura de habilidad"
+  ]
+}

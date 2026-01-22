@@ -1,0 +1,12 @@
+{
+  "title": "Aleador",
+  "image": {
+    "file": "tconstruct:book/images/alloyer.png"
+  },
+  "text": [
+    {
+      "text": "¡A alear se ha dicho!",
+      "paragraph": true
+    }
+  ]
+}

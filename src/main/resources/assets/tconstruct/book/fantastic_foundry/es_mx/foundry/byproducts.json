@@ -1,0 +1,16 @@
+{
+  "title": "Subproductos",
+  "text": [
+    {
+      "text": "Mi Fundición Fantástica te otorgará subproductos a partir de tus minerales. Quizás te estés preguntando: 'Pero Nemea, ¿qué son estos subproductos?'. Pues sigue leyendo un poco más y lo descubrirás."
+    },
+    {
+      "text": "Los subproductos son extras ocultos dentro de tus minerales que normalmente no podrías obtener con un simple horno. Es un poco de material adicional de otro tipo que se encuentra escondido en la roca.",
+      "paragraph": true
+    },
+    {
+      "text": "Un par de ejemplos: el mineral de cobre otorga oro como subproducto, y el mineral de cobalto otorga hierro como subproducto.",
+      "paragraph": true
+    }
+  ]
+}

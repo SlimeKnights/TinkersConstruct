@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:fire_protection",
+  "text": [
+    {
+      "text": "A través del fuego y las llamas."
+    }
+  ],
+  "effects": [
+    "Reduce el daño por fuego y el tiempo de quemadura",
+    "Más niveles reducen el daño y el tiempo aún más",
+    "Requiere 1 ranura de defensa por nivel"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:double_jump",
+  "text": [
+    {
+      "text": "Hacer bunny hopping mejora tus habilidades y te hace mucho mejor en el juego. No olvides tumbarte al suelo para un efecto máximo."
+    }
+  ],
+  "effects": [
+    "Permite realizar un salto extra",
+    "Cada nivel otorga un salto adicional",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

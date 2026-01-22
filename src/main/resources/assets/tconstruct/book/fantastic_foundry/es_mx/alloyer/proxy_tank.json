@@ -1,0 +1,14 @@
+{
+  "title": "Tanque Tinker",
+  "item": "tconstruct:scorched_proxy_tank",
+  "text": [
+    {
+      "text": "El tanque tinker es ideal para llenar o vaciar objetos de fluido de tamaño variable, como herramientas con tanques integrados. Simplemente coloca la herramienta en el tanque y llénala usando objetos de fluido, grifos o canales.",
+      "paragraph": true
+    },
+    {
+      "text": "Lamentablemente, este diseño no funciona bien con recipientes como cubos o latas de cobre, ya que su tamaño rígido impide que los grifos los llenen gradualmente. Para ellos, es mejor utilizar un tanque de moldeo.",
+      "paragraph": true
+    }
+  ]
+}

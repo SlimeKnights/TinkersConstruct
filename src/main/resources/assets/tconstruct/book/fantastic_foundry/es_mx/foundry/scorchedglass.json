@@ -1,0 +1,14 @@
+{
+  "title": "Cristal chamuscado",
+  "item": "tconstruct:scorched_glass",
+  "text": [
+    {
+      "text": "Con este cristal podrás contemplar tus imponentes maravillas de materiales fundidos sin invalidar tu fantástica fundición. Ten en cuenta que, a diferencia de los tanques, este no almacena fluidos.",
+      "paragraph": true
+    },
+  {
+      "text": "El cristal no se puede utilizar para el suelo de la fundición.",
+      "paragraph": true
+    }
+  ]
+}

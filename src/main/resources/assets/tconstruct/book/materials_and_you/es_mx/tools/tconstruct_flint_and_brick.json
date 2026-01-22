@@ -1,0 +1,19 @@
+{
+  "tool": "tconstruct:flint_and_brick",
+  "text": [
+    {
+      "text": "El yesquero de ladrillo es una herramienta económica y eficaz para iniciar fuegos."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "A diferencia de la mayoría de las otras herramientas, esta se fabrica en una estación de fabricación o mesa de crafteo."
+    }
+  ],
+  "properties": [
+    "Crea fuego",
+    "Comienza con Ígneo I",
+    "Se repara usando ladrillos fundidos o chamuscados"
+  ]
+}

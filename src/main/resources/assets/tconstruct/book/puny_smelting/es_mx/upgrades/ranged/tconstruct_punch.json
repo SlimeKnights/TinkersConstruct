@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:punch",
+  "text": [
+    {
+      "text": "Aquí viene el remate del chiste. El chiste es que saldrás volando."
+    }
+  ],
+  "effects": [
+    "Aumenta el empuje de los proyectiles",
+    "Hace que las cañas de pescar tiren con más fuerza",
+    "Varios niveles, aumentan más el empuje",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

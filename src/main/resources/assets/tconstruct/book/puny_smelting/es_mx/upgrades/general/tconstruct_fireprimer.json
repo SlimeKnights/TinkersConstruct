@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:fireprimer",
+  "text": [
+    {
+      "text": "Tranqui, ta bien eso."
+    }
+  ],
+  "effects": [
+    "Aumenta el área de efecto del mechero",
+    "Nivel único",
+    "Requiere 1 ranura de mejora"
+  ]
+}

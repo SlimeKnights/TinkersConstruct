@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:slime_leggings",
+  "text": [
+    { "text": "El caparazón de slime aprovecha el poder del shulker, aumentando el inventario y la defensa." },
+    { "text": "Se crean vertiendo enderslime sobre un caparazón de shulker, y se reparan con fruta coral horneada.", "paragraph": true }
+  ],
+  "properties": [
+    "630 de durabilidad",
+    "5 ranuras de mejora",
+    "0 ranuras de defensa",
+    "1 ranura de habilidad",
+    "Bolsillos",
+    "Shulking I"
+  ]
+}

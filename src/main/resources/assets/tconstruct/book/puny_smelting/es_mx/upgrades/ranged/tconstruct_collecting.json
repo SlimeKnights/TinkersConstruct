@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:collecting",
+  "text": [
+    {
+      "text": "¡YOINK! Si lo alcanzo, es mío. Así de simple."
+    }
+  ],
+  "effects": [
+    "Engancha objetos, orbes de XP y flechas",
+    "Nivel único",
+    "Requiere 1 ranura de mejora"
+  ]
+}

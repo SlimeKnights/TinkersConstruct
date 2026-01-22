@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:silky",
+  "text": [
+    {
+      "text": "Hace que los bloques minados se suelten a sí mismos sin modificaciones. En el caso de espadas, cuchillos, guadañas y dagas, permite además trasquilar a las criaturas."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nivel",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

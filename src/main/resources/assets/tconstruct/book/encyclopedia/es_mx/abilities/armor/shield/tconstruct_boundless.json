@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:boundless",
+  "text": [
+    {
+      "text": "Aumenta el límite de los modificadores como protección, sangre de dragón o shulking del 80% al 90% con 1 nivel, y del 90% al 95% con 2 niveles combinando varios escudos."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nivel",
+    "Requiere 1 ranura de habilidad por nivel"
+  ]
+}

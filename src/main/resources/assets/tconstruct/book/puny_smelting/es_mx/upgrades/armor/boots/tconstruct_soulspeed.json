@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:soulspeed",
+  "text": [
+    {
+      "text": "Al parecer, las almas son ideales para correr rápido. ¿Será esto éticamente correcto? Probablemente no, pero qué importa."
+    }
+  ],
+  "effects": [
+    "Aumenta la velocidad sobre Arena de Almas",
+    "Varios niveles, aumentan más la velocidad",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:bulk_quiver",
+  "text": [
+    {
+      "text": "Otorga al arco ranuras internas para guardar flechas. Las flechas en estas ranuras se usarán si no hay flechas en el inventario principal."
+    },
+    {
+      "text": "Se puede acceder al inventario del carcaj agachándose y atacando. El inventario tiene capacidad para dos pilas de 64 flechas por nivel.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Sin nivel máximo",
+    "Requiere 1 ranura de habilidad por nivel"
+  ]
+}

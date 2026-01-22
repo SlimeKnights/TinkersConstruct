@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:travelers_chestplate",
+  "text": [
+    { "text": "El chaleco de viajero es un peto equilibrado, con una protección media y una cantidad promedio de ranuras de mejora y defensa." }
+  ],
+  "properties": [
+    "75% multiplicador de durabilidad",
+    "75% estadísticas de chapado",
+    "2 ranuras de mejora",
+    "2 ranuras de defensa",
+    "1 ranura de habilidad",
+    "2 rasgos de material",
+    "Aislado"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:necrotic",
+  "text": [
+    {
+      "text": "Cosecha la vida de tus enemigos para durar más. Un intercambio justo, aunque ellos no opinen lo mismo."
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/ranged",
+  "effects": [
+    "Flechas cargadas roban vida para curarte",
+    "Varios niveles, roban más vida",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

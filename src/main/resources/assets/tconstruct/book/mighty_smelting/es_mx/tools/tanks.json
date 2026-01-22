@@ -1,0 +1,13 @@
+{
+  "title": "Tanques de Herramienta",
+  "image": {
+    "file": "tconstruct:book/images/smeltergui.png",
+    "width": 179,
+    "height": 82
+  },
+  "text": [
+    {
+      "text": "Modificadores como escupir o fundir añaden un tanque. Interactúa con tanques para mover fluidos. También puedes usar la ranura (4) de la fundición o hacer clic en el líquido (2) con la herramienta."
+    }
+  ]
+}

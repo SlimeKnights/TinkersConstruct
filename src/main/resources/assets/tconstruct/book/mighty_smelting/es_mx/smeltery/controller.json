@@ -1,0 +1,13 @@
+{
+  "title": "Controlador de la Fundición",
+  "image": {
+    "file": "tconstruct:book/images/scontroller.png",
+    "width": 128,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "Usando tu fundidor, vierte cuatro lingotes de cobre sobre ladrillos chamuscados para obtener tu controlador."
+    }
+  ]
+}

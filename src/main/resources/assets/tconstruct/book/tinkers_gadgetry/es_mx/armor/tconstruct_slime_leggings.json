@@ -1,0 +1,13 @@
+{
+  "tool": "tconstruct:slime_helmet",
+  "text": [
+    { "text": "He descubierto que el enderslime puede usarse para imitar los efectos de ciertos monstruos si se usa el foco adecuado, como un cráneo." },
+    { "text": "Los cráneos que he probado se describen en la siguiente sección del libro.", "paragraph": true }
+  ],
+  "properties": [
+    "Durabilidad alta",
+    "5 Espacios de mejora",
+    "0 Espacios de defensa",
+    "1 Espacio de habilidad"
+  ]
+}

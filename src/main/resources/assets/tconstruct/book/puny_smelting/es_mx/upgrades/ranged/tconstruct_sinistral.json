@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:sinistral",
+  "text": [
+    {
+      "text": "Doble ballesta, doble problema. Porque disparar de una en una es para principiantes."
+    }
+  ],
+  "effects": [
+    "Las ballestas en mano principal disparan con el botón de ataque",
+    "Permite usar dos ballestas a la vez o una con escudo",
+    "Nivel único",
+    "Requiere 1 ranura de mejora"
+  ]
+}

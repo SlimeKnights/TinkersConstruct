@@ -1,0 +1,19 @@
+{
+  "tool": "tconstruct:cleaver",
+  "text": [
+    {
+      "text": "La cuchilla es un arma de gran daño y velocidad lenta."
+    },
+    {
+      "text": "Los expansores aumentan el área del ataque de barrido, y el modificador sedoso otorga trasquilado en área (AOE).",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "+3 de daño de ataque",
+    "150% de multiplicador de ataque",
+    "1.0 de velocidad de ataque",
+    "350% de multiplicador de durabilidad",
+    "Degüello II"
+  ]
+}

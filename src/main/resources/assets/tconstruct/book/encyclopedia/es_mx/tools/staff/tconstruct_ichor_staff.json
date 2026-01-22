@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:ichor_staff",
+  "text": [
+    {
+      "text": "El bastón de icor es una variante de bastón con alta velocidad y muchas ranuras de habilidad."
+    }
+  ],
+  "properties": [
+    "1225 de durabilidad",
+    "1.2 de velocidad",
+    "0.75 de velocidad de carga",
+    "2 ranuras de mejora",
+    "3 ranuras de habilidad"
+  ]
+}

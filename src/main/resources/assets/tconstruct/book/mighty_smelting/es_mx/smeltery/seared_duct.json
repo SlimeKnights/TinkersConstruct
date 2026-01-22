@@ -1,0 +1,14 @@
+{
+  "title": "Conducto quemado",
+  "item": "tconstruct:seared_duct",
+  "text": [
+    {
+      "text": "El conducto quemado es la forma de extraer un fluido específico de la fundición. El fluido se elige colocando una lata de cobre o un cubo lleno de líquido en la ranura de filtro del conducto.",
+      "paragraph": true
+    },
+  {
+      "text": "El fluido que hayas seleccionado para ser filtrado se mostrará en el centro del conducto.",
+      "paragraph": true
+    }
+  ]
+}

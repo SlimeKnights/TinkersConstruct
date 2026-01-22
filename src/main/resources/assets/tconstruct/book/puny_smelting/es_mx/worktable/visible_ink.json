@@ -1,0 +1,13 @@
+{
+  "title": "Tinta Visible",
+  "image": {
+    "file": "tconstruct:book/images/worktable/visible_ink.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "¿Ah, cambiaste de opinión y quieres ver ese modificador feo otra vez? Por suerte para alguien tan indeciso como tú, un cubo de leche es suficiente para que el modificador vuelva a ser visible."
+    }
+  ]
+}

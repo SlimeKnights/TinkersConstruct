@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:embellishment",
+  "text": [
+    {
+      "text": "Permite cambiar la apariencia de los trajes de mucosidad, bastones y escudos."
+    },
+    {
+      "text": "La mucosidad utiliza bloques de mucosidad congelada, mientras que los bastones y escudos utilizan embellecimientos de madera.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Intercambiable",
+    "Sin ranura"
+  ]
+}

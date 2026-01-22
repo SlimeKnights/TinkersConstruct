@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:quick_charge",
+  "text": [
+    {
+      "text": "Para los que viven con la cuerda siempre tensa. Literalmente."
+    }
+  ],
+  "effects": [
+    "Aumenta la velocidad de carga en ballestas y báculos",
+    "Varios niveles, cargan aún más rápido",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

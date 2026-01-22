@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:protection",
+  "text": [
+    {
+      "text": "Después de todos estos años. Finalmente, los tengo todos."
+    }
+  ],
+  "effects": [
+    "Aumenta la protección contra todo tipo de daño",
+    "Nivel único",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

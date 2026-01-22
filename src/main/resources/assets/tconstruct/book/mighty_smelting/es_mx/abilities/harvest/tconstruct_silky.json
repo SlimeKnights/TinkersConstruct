@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:silky",
+  "text": [
+    {
+      "text": "Un modificador agradable y cómodo."
+    }
+  ],
+  "effects": [
+    "Los bloques minados se sueltan a sí mismos",
+    "Nivel único",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

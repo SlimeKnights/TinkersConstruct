@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:haste",
+  "text": [
+    {
+      "text": "Ponerle redstone a un peto parece hacer que todas tus herramientas sean más rápidas, como si tus brazos se volvieran súper eficientes."
+    },
+    {
+      "text": "En serio, es una locura, ¿a poco no?",
+      "paragraph": true
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/armor",
+  "effects": [
+    "Aumenta la velocidad de minado",
+    "Varios niveles, aumentan más la velocidad",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

@@ -1,0 +1,93 @@
+[
+  {
+    "name": "intro",
+    "data": "sections/intro.json",
+    "icon": {
+      "item": "tconstruct:ichor_slime_ball"
+    }
+  },
+   {
+    "name": "alloyer",
+    "data": "sections/alloyer.json",
+    "icon": {
+      "item": "tconstruct:scorched_alloyer"
+    }
+  },
+  {
+    "name": "foundry",
+    "data": "sections/foundry.json",
+    "icon": {
+      "item": "tconstruct:foundry_controller"
+    }
+  },
+  {
+    "name": "blazing_blood",
+    "data": "sections/blazing_blood.json",
+    "icon": {
+      "item": "tconstruct:blazing_blood_bucket"
+    }
+  },
+  {
+    "name": "melee_harvest_materials",
+    "data": "no-load",
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:melee_harvest", "tag": "tconstruct:book/blazing_blood" } },
+    "icon": {
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:large_plate",
+        "nbt": { "Material": "tconstruct:manyullyn" }
+      }
+    }
+  },
+  {
+    "name": "ranged_materials",
+    "data": "no-load",
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:ranged", "tag": "tconstruct:book/blazing_blood" } },
+    "icon": {
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:bow_grip",
+        "nbt": { "Material": "tconstruct:hepatizon" }
+      }
+    }
+  },
+  {
+    "name": "armor_materials",
+    "data": "no-load",
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:armor", "tag": "tconstruct:book/blazing_blood" } },
+    "icon": {
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:shield_core",
+        "nbt": { "Material": "tconstruct:blazewood" }
+      }
+    }
+  },
+  {
+    "name": "armor",
+    "icon": {
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:plate_chestplate",
+        "nbt": {
+          "tic_broken": false,
+          "tic_display": true,
+          "Damage": 0,
+          "tic_materials": [
+            "tconstruct:ui_render#extra",
+            "tconstruct:ui_render#head"
+          ]
+        }
+      }
+    },
+    "condition": {
+      "type": "tconstruct:tag_not_empty",
+      "registry": "minecraft:item",
+      "tag": "tconstruct:modifiable/book_armor/fantastic_foundry"
+    },
+    "data": "no-load",
+    "extraData": {
+      "tconstruct:load_tools": { "tag": "tconstruct:modifiable/book_armor/fantastic_foundry", "path": "armor", "sort": false }
+    }
+  }
+]

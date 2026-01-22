@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:swift_sneak",
+  "text": [
+    {
+      "text": "Hay que escabullirse rápido. ¡Sigilo a toda velocidad!"
+    }
+  ],
+  "effects": [
+    "Aumenta la velocidad de movimiento al estar agachado",
+    "Varios niveles, aumentan aún más la velocidad",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

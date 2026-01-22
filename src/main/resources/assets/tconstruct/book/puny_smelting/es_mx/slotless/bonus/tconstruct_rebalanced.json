@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:rebalanced",
+  "text": [
+    {
+      "text": "El equilibrio es la escala de la paz; o la vida de un dragón."
+    }
+  ],
+  "effects": [
+    "Añade una ranura según la receta (los codiciosos serán penalizados)",
+    "El Enderslime otorga un rasgo especial",
+    "Nivel único | Sin ranuras"
+  ]
+}

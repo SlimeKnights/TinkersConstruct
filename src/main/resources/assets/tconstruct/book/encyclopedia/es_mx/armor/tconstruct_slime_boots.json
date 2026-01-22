@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:slime_boots",
+  "text": [
+    { "text": "Las botas de slime son botas de gran movilidad, sin protección ni ranuras de defensa, pero con muchas ranuras de mejora." },
+    { "text": "Se pueden crear vertiendo enderslime sobre una pata de conejo, y se reparan con piel de conejo.", "paragraph": true }
+  ],
+  "properties": [
+    "546 de durabilidad",
+    "5 ranuras de mejora",
+    "0 ranuras de defensa",
+    "1 ranura de habilidad",
+    "Rebotar",
+    "Salto I"
+  ]
+}

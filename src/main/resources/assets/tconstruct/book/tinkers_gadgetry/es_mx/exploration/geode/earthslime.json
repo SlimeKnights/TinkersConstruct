@@ -1,0 +1,13 @@
+{
+  "title": "Geodas verdes",
+  "image": {
+    "file": "tconstruct:book/images/geodes/earthslime.png",
+    "width": 180,
+    "height": 90
+  },
+  "text": [
+    {
+      "text": "Las geodas verdes se hallan a gran profundidad y son de las más grandes que existen. Se pueden identificar fácilmente por la presencia de arcilla."
+    }
+  ]
+}

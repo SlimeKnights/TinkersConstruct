@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:bouncy",
+  "text": [
+    {
+      "text": "El mundo es tu trampolín."
+    }
+  ],
+  "effects": [
+    "Rebota al aterrizar",
+    "Nivel único",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

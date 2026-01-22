@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:padded",
+  "text": [
+    {
+      "text": "Un poquito de acolchadito no le hace daño a nadie."
+    }
+  ],
+  "effects": [
+    "Reduce el empuje de la herramienta",
+    "Varios niveles, reducen más el empuje",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

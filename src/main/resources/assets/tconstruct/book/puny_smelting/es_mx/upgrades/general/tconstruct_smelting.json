@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:smelting",
+  "text": [
+    {
+      "text": "¿Qué tan duro hay que cachetear al pollo para que se cocine, o asi no es?"
+    }
+  ],
+  "effects": [
+    "Agáchate para llenar la herramienta",
+    "Usarla cocina los objetos",
+    "Varios niveles, funden más a la vez",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

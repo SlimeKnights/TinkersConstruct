@@ -1,0 +1,8 @@
+{
+  "title": "Fabricación de moldes",
+  "recipe": "tconstruct:tables/pattern",
+  "grid_size": "small",
+  "description": [
+    { "text": "Necesitarás muchos moldes a medida que creas herramientas, tanto para crear piezas de herramientas como para las mesas de trabajo." }
+  ]
+}

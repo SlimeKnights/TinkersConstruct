@@ -1,0 +1,13 @@
+{
+  "title": "Extraer Encantamiento",
+  "image": {
+    "file": "tconstruct:book/images/worktable/extract_enchantment.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "¿Tu amigo te dio una herramienta con esos 'encantamientos' inferiores? No es un desperdicio total de espacio. Puedes usar cristales de enderslime y aliento de dragón para convertir un encantamiento de una herramienta o libro en un cristal de modificación. Puedes repetir esto hasta extraer cada encantamiento del objeto."
+    }
+  ]
+}

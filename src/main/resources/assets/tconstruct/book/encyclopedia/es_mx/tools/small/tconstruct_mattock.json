@@ -1,0 +1,20 @@
+{
+  "tool": "tconstruct:mattock",
+  "text": [
+    {
+      "text": "La mata-hacha sirve para agricultura, efectiva en troncos, tierra, grava y arena. Es más veloz con la madera."
+    },
+    {
+      "text": "Los expansores permiten minar bloques adyacentes del mismo tipo según el nivel del modificador.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "+1.5 de daño de ataque",
+    "110% de modificador de ataque",
+    "0.9 de vel. de ataque",
+    "110% multi. de minado",
+    "125% multi. durabilidad",
+    "Ara la tierra"
+  ]
+}

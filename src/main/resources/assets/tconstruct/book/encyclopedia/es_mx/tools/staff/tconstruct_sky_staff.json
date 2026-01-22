@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:sky_staff",
+  "text": [
+    {
+      "text": "El bastón de slime celeste es una variante de bastón rápida y altamente mejorable."
+    }
+  ],
+  "properties": [
+    "500 de durabilidad",
+    "0.8 de velocidad",
+    "1.25 de velocidad de carga",
+    "5 ranuras de mejora",
+    "2 ranuras de habilidad"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:aqua_affinity",
+  "text": [
+    {
+      "text": "Una atrayente afinidad al área acuática que anula todas las aflicciones aéreas."
+    }
+  ],
+  "effects": [
+    "Aumenta la velocidad de minado bajo el agua",
+    "Nivel único",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

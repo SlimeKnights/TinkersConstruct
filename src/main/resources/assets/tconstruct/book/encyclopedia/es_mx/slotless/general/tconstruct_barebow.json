@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:barebow",
+  "text": [
+    {
+      "text": "Evita que el arco use munición del inventario. Es útil para asegurar que se use el disparo de cristal o el carcaj a granel, o para usar un arco para disparar cosas que no sean flechas."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nivel",
+    "Sin ranura"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "title": "Habilidades de Armadura",
+  "text": [
+    { "text": "Las habilidades de armadura suelen ser exclusivas de un tipo de pieza. Cada una tiene un atributo especial diferente:" },
+    { "text": "• Cascos: Se controlan con una tecla específica para efectos especiales.", "paragraph": true },
+    { "text": "\n• Petos: Reciben habilidades de interacción al tener las manos vacías (ver sección de interacción)." },
+    { "text": "\n• Pantalones: Tienen habilidades de inventario y mejoras pasivas para el jugador." },
+    { "text": "\n• Botas: Proporcionan habilidades de movimiento y de salto." },
+    { "text": "\n• Escudos: Tienen habilidades al bloquear, incluyendo contraataques más fuertes." }
+  ]
+}

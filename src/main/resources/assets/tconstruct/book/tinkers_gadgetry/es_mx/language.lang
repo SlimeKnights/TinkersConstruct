@@ -1,0 +1,38 @@
+intro=Introducción
+
+gadgets=Artilugios
+
+exploration=Exploración
+exploration.necrotic_bones=Hueso necrótico
+
+exploration.skyslime_island=Slime celeste
+exploration.earthslime_island=Slime verde
+exploration.clay_island=Arcilla
+exploration.blood_island=Sangre
+exploration.enderslime_island=Slime Ender
+
+exploration.skyslime_geode=Geoda celeste
+exploration.earthslime_geode=Geoda verde
+exploration.ichor_geode=Geoda ícor
+exploration.enderslime_geode=Geoda Ender
+
+armor=Armadura viscosa
+armor.subtext=Mezclar slime con partes de criaturas produce un conjunto de armadura interesante. No es la más defensiva, pero puede potenciar mucho tus habilidades.
+
+staffs=Bastones
+staffs.subtext=Combinar cristales y madera de slime ayuda a crear herramientas muy flexibles. Solo necesitas un poco de metal para mantener todo unido.
+
+ancient_tools=Herramientas antiguas
+ancient_tools.subtext=Son herramientas raras que se encuentran como botín por el mundo. Su construcción parece aleatoria y no se puede alterar, pero admiten modificadores. En raras ocasiones, pueden estar hechas de materiales únicos que solo se ven en piezas obtenidas de piglins.
+
+materials=Materiales de cráneo
+materials.subtext=Colocar uno de estos cráneos en una cuenca de fundición con slime de Ender potencia sus propiedades como casco.
+
+melee_harvest_materials=Materiales generales
+melee_harvest_materials.subtext=Estos materiales se encuentran explorando lugares distantes y sirven para crear piezas de armas cuerpo a cuerpo o herramientas de recolección.
+ranged_materials=Materiales a distancia
+ranged_materials.subtext=Materiales hallados en exploraciones lejanas, útiles para crear piezas de armas a distancia como arcos.
+armor_materials=Materiales de armadura
+armor_materials.subtext=Materiales de lugares distantes que pueden convertirse en armaduras y escudos.
+ammo_materials=Materiales de munición avanzada
+ammo_materials.subtext=Estos materiales se utilizan para fabricar mejor munición usando componentes poco comunes.

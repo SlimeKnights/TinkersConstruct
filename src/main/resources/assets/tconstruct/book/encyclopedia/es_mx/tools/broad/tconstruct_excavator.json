@@ -1,0 +1,21 @@
+{
+  "tool": "tconstruct:excavator",
+  "text": [
+    {
+      "text": "Herramienta de excavación amplia, efectiva en tierra, grava y arena en un área de 3x3."
+    },
+    {
+      "text": "Los expansores alternan entre aumentar anchura y altura.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "+1.5 daño de ataque",
+    "120% multi. de ataque",
+    "1.0 vel. de ataque",
+    "30% multi. de minado",
+    "375% multi. durabilidad",
+    "Empuje II",
+    "Crea caminos"
+  ]
+}

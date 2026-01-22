@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:farsighted",
+  "text": [
+    {
+      "text": "El Manyullyn es un gran material, pero hay muchos otros materiales buenos que son más fáciles de conseguir. Tómate un tiempo y pruébalos antes de correr hacia el final."
+    }
+  ],
+  "effects": [
+    "Reduce el FOV (campo de visión) de la herramienta o armadura equipada",
+    "Múltiples niveles",
+    "Sin ranuras"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "title": "Sangre ardiente",
+  "image": {
+    "file": "tconstruct:book/images/manyullyn_alloy.png",
+    "width": 179,
+    "height": 69
+  },
+  "text": [
+    {
+      "text": "Así que, Tinker, ¿estás intentando crear mejores aleaciones y has descubierto que la lava es demasiado débil? ¿Por qué no licuar la esencia de blazes vivos para alimentar tus deseos?",
+      "paragraph": true
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:swiftstrike",
+  "text": [
+    {
+      "text": "Ese sonido de 'clink' al romper amatista es... extrañamente adictivo."
+    }
+  ],
+  "effects": [
+    "Aumenta la velocidad de ataque",
+    "Varios niveles, suben más la velocidad",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

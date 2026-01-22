@@ -1,0 +1,19 @@
+{
+  "tool": "tconstruct:crossbow",
+  "text": [
+    {
+      "text": "La ballesta dispara flechas y cohetes. Las flechas pueden precargarse para dispararse en cualquier momento posterior."
+    },
+    {
+      "text": "Con modificadores de interacción, se usa con clic izquierdo.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "1.0 vel. de ataque",
+    "1.0 vel. de carga",
+    "1.00 vel. de flecha",
+    "0.75 de precisión",
+    "200% multi. durabilidad"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "tool": "tconstruct:arrow",
+  "text": [
+    {
+      "text": "Las flechas son el proyectil básico para la mayoría de los arcos. Aunque puedes usar las flechas básicas que sueltan los esqueletos, estas son mucho mejores."
+    }
+  ],
+  "properties": [
+    "Requiere un arco o una ballesta",
+    "Mejora respecto a las flechas de esqueleto",
+    "Tiene diferentes efectos según los materiales"
+  ]
+}

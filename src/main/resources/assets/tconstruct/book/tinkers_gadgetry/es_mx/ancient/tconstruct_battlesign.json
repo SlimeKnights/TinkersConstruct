@@ -1,0 +1,12 @@
+{
+  "tool": "tconstruct:battlesign",
+  "text": [
+    { "text": "El letrero de batalla es una combinación de arma cuerpo a cuerpo y escudo. Suele encontrarse en bastiones y puede obtenerse de los piglins." }
+  ],
+  "properties": [
+    "Daño medio",
+    "Potencial de bloqueo medio",
+    "3 Espacios de defensa",
+    "1 Espacio de habilidad"
+  ]
+}

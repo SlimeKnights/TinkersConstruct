@@ -1,0 +1,10 @@
+{
+  "title": "Exploración",
+  "subText": "Muchos hojalateros mencionan recursos útiles para modificadores o materiales, pero olvidan decir cómo obtenerlos. Por suerte, en mis viajes he localizado muchos de ellos para compartir mis hallazgos contigo.",
+  "operations": [
+    { "before": "steel_shard", "action": "add_group", "data": "Recursos" },
+    { "before": "skyslime_island", "action": "column_break" },
+    { "before": "skyslime_island", "action": "add_group", "data": "Islas" },
+    { "before": "slimy_seeds", "action": "add_group", "data": "Semillas" }
+  ]
+}

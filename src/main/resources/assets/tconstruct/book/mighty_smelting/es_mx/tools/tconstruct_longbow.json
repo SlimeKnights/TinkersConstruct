@@ -1,0 +1,19 @@
+{
+  "tool": "tconstruct:longbow",
+  "text": [
+    {
+      "text": "El Arco Largo es útil para aquellos que están listos para mantener su posición y luchar con poder."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Más largo que un arco, pero más corto que un arco largo largo.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "Un arco más lento pero más poderoso",
+    "Diseñado para causar un mayor daño"
+  ]
+}

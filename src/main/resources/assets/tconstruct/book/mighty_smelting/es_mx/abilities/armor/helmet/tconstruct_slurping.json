@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:slurping",
+  "text": [
+    {
+      "text": "¡Él era el número uno!"
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/armor",
+  "effects": [
+    "Bebe los fluidos almacenados en el casco",
+    "Usa la tecla configurada para beber",
+    "Requiere 1 ranura de habilidad por nivel",
+    "Niveles altos beben más para mayor efecto"
+  ]
+}

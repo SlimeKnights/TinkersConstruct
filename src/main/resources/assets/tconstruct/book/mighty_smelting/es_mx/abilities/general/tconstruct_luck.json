@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:luck",
+  "text": [
+    {
+      "text": "En mi experiencia, la suerte no existe."
+    }
+  ],
+  "effects": [
+    "Aumenta el botín de mobs y bloques",
+    "En herramientas: 3 niveles (recetas distintas)",
+    "En grebas: 1 nivel (potencia el arma en mano)",
+    "Solo el nivel 1 consume ranura de habilidad"
+  ]
+}

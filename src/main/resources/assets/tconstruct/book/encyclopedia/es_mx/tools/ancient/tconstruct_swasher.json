@@ -1,0 +1,20 @@
+{
+  "tool": "tconstruct:swasher",
+  "text": [
+    {
+      "text": "El swasher es una combinación de un arma cuerpo a cuerpo y una pistola de fluidos de mano."
+    },
+    {
+      "text": "Se halla en tesoros, naufragios, ahogados, esqueletos wither o al pescar.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "+0 daño de ataque",
+    "1.5 vel. de ataque",
+    "Escupitajo I",
+    "Derramamiento I",
+    "3 ranuras mejora",
+    "1 ranura habilidad"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:melee_protection",
+  "text": [
+    {
+      "text": "Saco de boxeo móvil."
+    }
+  ],
+  "effects": [
+    "Reduce el daño de los ataques cuerpo a cuerpo",
+    "Aumenta la velocidad de movimiento al usar escudos y arcos",
+    "Más niveles aumentan ambos efectos",
+    "Requiere 1 ranura de defensa por nivel"
+  ]
+}

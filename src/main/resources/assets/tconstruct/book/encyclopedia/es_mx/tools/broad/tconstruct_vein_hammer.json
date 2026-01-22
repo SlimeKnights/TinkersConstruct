@@ -1,0 +1,20 @@
+{
+  "tool": "tconstruct:vein_hammer",
+  "text": [
+    {
+      "text": "Mina piedra y bloques adyacentes del mismo tipo hasta a 2 bloques de distancia."
+    },
+    {
+      "text": "Cada expansor aumenta la distancia máxima en 1 bloque.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "+3 daño de ataque",
+    "125% multi. de ataque",
+    "0.85 vel. de ataque",
+    "30% multi. de minado",
+    "500% multi. durabilidad",
+    "Perforación II"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "title": "Moldes de arena",
+  "text": [
+    {
+      "text": "Para fundir piezas: pon un molde de arena vacío en la mesa de fundición. Crea una pieza en el constructor de piezas y úsala en el molde vacío; luego retírala. Vierte el metal fundido y recoge la pieza cuando enfríe. El molde se consume en el proceso."
+    },
+    {
+      "text": "Los moldes de arena grabados volverán a ser moldes vacíos al recogerlos.",
+      "paragraph": true
+    }
+  ]
+}

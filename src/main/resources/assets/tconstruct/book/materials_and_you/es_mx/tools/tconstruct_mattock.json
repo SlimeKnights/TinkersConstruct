@@ -1,0 +1,18 @@
+{
+  "tool": "tconstruct:mattock",
+  "text": [
+    {
+      "text": "El Pico-hacha es una herramienta versátil. Es eficaz tanto con los troncos como con la tierra."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Puede ayudarte a crear la granja de tus sueños."
+    }
+  ],
+  "properties": [
+    "Labra la tierra",
+    "Eficaz contra tierra y troncos"
+  ]
+}

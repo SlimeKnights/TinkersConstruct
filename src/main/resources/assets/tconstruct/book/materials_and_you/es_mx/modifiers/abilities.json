@@ -1,0 +1,25 @@
+{
+  "type": "tconstruct:showcase",
+  "title": "Habilidades",
+  "item": {
+    "type": "forge:nbt",
+    "item": "tconstruct:creative_slot",
+    "nbt": {
+      "slot": "abilities"
+    }
+  },
+  "tooltip": [ "Icono de ranura de habilidad" ],
+  "text": [
+    {
+      "text": "Las habilidades son modificadores que cambian drásticamente la herramienta, como 'sedoso' para obtener bloques intactos o 'autofundición' para procesar minerales al minar."
+    },
+    {
+      "text": "Suelen tener una sola ranura inicial y admiten máximo 2 más. Elige con sabiduría.",
+      "paragraph": true
+    },
+    {
+      "text": "Consulta 'Fundición poderosa' o la Enciclopedia de Tinkering para ver la lista completa.",
+      "paragraph": true
+    }
+  ]
+}

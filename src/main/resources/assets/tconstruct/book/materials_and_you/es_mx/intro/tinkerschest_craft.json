@@ -1,0 +1,7 @@
+{
+  "title": "Fabricación del Cofre de Tinkers",
+  "recipe": "tconstruct:tables/tinkers_chest",
+  "description": [
+    { "text": "Después de fabricarlo, puedes teñir el cofre de cualquier color que desees." }
+  ]
+}

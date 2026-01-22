@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:plate_shield",
+  "text": [
+    { "text": "Un escudo brillante para aventuras rectangulares." },
+    {
+      "text": "Escudo potente para bloquear ataques fuertes. Se fabrica fundiendo metal o cerámica sobre un núcleo escudo.", "paragraph": true
+    }
+  ],
+  "properties": [
+    "Más potencial de bloqueo",
+    "Lento al cubrirse",
+    "2 ranuras de mejora",
+    "3 ranuras de defensa",
+    "2 rasgos de material"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "title": "Cristal quemado",
+  "item": "tconstruct:seared_glass",
+  "text": [
+    {
+      "text": "Este cristal permite observar tus maravillas de materiales fundidos sin invalidar la fundición. Ten en cuenta que, a diferencia de los tanques, no almacena fluidos.",
+      "paragraph": true
+    },
+  {
+      "text": "El cristal no puede utilizarse para el suelo de la fundición.",
+      "paragraph": true
+    }
+  ]
+}

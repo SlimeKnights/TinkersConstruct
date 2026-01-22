@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:expanded",
+  "text": [
+    {
+      "text": "¿Más grande siempre es mejor, verdad?"
+    }
+  ],
+  "effects": [
+    "Aumenta ancho y alto de minado",
+    "El rango varía según la herramienta",
+    "Cada nivel suma uno al ancho y alto",
+    "Requiere 1 ranura de habilidad por nivel"
+  ]
+}

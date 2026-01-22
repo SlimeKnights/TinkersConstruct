@@ -34,7 +34,6 @@
     "type": "mantle:showcase",
     "data": "exploration/knightmetal_shard.json"
   },
-
   {
     "name": "skyslime_island",
     "type": "mantle:image_text",
@@ -64,26 +63,5 @@
     "name": "grass_seeds",
     "type": "mantle:showcase",
     "data": "exploration/grass_seeds.json"
-  },
-
-  {
-    "name": "skyslime_geode",
-    "type": "mantle:image_text",
-    "data": "exploration/geode/skyslime.json"
-  },
-  {
-    "name": "earthslime_geode",
-    "type": "mantle:image_text",
-    "data": "exploration/geode/earthslime.json"
-  },
-  {
-    "name": "ichor_geode",
-    "type": "mantle:image_text",
-    "data": "exploration/geode/ichor.json"
-  },
-  {
-    "name": "enderslime_geode",
-    "type": "mantle:image_text",
-    "data": "exploration/geode/enderslime.json"
   }
 ]

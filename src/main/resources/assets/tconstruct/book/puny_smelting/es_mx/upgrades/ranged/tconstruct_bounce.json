@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:bounce",
+  "text": [
+    {
+      "text": "El tiro con truco definitivo. Dispara tras las esquinas o sobre obstáculos. Solo cuida que la flecha no rebote hacia ti. Sería vergonzoso."
+    }
+  ],
+  "effects": [
+    "Hace que las flechas reboten en bloques",
+    "Varios niveles, añaden más rebotes",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

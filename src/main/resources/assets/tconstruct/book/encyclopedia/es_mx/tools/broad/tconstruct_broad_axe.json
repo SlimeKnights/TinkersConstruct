@@ -1,0 +1,20 @@
+{
+  "tool": "tconstruct:broad_axe",
+  "text": [
+    {
+      "text": "La gran hacha tala una columna de árbol o 6 bloques verticales."
+    },
+    {
+      "text": "Los expansores alternan entre aumentar la anchura y la profundidad.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "+5 daño de ataque",
+    "165% multi. de ataque",
+    "0.6 vel. de ataque",
+    "30% multi. de minado",
+    "425% multi. durabilidad",
+    "Descorteza madera"
+  ]
+}

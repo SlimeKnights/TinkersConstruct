@@ -1,0 +1,20 @@
+{
+  "tool": "tconstruct:cleaver",
+  "text": [
+    {
+      "text": "La Cuchilla es un arma de gran daño, pero de ataque lento."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "¡Que les corten la cabeza!",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "Arma Fuerte",
+    "Ataque Lento",
+    "Comienza con Decapitación II"
+  ]
+}

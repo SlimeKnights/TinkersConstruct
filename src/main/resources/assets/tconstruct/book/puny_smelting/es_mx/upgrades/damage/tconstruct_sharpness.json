@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:sharpness",
+  "text": [
+    {
+      "text": "Entre más filosa sea la hoja, más filoso se ve quien la porta. Supongo."
+    }
+  ],
+  "effects": [
+    "Aumenta el daño de la herramienta",
+    "Varios niveles, suben más el daño",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

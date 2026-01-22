@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:tank",
+  "text": [
+    {
+      "text": "Tiene un cañón de 120mm y... ¿Ah, no es ese tipo de tanque? Qué mal, yo quería el vehículo. Pero bueno, ta bien."
+    }
+  ],
+  "effects": [
+    "Aumenta la capacidad de fluidos",
+    "La herramienta guarda líquidos",
+    "Varios niveles, suben la capacidad",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

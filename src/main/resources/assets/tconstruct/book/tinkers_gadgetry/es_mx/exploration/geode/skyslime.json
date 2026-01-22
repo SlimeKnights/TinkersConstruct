@@ -1,0 +1,13 @@
+{
+  "title": "Geodas celestes",
+  "image": {
+    "file": "tconstruct:book/images/geodes/skyslime.png",
+    "width": 180,
+    "height": 96
+  },
+  "text": [
+    {
+      "text": "Se hallan bajo tierra en zonas elevadas. Su presencia cerca de la superficie sugiere un origen espacial. Estas geodas fomentan el crecimiento de musgo y a veces contienen fragmentos de acero."
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:magic_protection",
+  "text": [
+    {
+      "text": "No eres un mago muy bueno, Harry, si tienes que usar esto. Usa más hechizos de desvío."
+    }
+  ],
+  "effects": [
+    "Reduce el daño mágico",
+    "Más niveles reducen el daño mágico aún más",
+    "Requiere 1 ranura de defensa por nivel"
+  ]
+}

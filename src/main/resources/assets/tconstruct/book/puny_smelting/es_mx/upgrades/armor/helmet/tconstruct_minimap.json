@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:minimap",
+  "text": [
+    {
+      "text": "Proyecta un mapa táctico directamente en tu visión (HUD)."
+    }
+  ],
+  "effects": [
+    "Añade ranuras al casco para mapear el mundo",
+    "Ctrl + interactuar para cambiar de mapa",
+    "Consume 1 ranura de mejora por nivel"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:worldbound",
+  "text": [
+    {
+      "text": "Alternativa a la netherita que hace que las herramientas sean invulnerables al soltarlas sin requerir una ranura de mejora. No otorga aumentos de estadísticas."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nivel",
+    "Sin ranura"
+  ]
+}

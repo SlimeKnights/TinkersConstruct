@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:bonking",
+  "text": [
+    {
+      "text": "Carga y suelta para empujar (consume 1 de durabilidad). En armas cuerpo a cuerpo, inflige un 150% de daño."
+    },
+    {
+      "text": "Fuerza basada en potencia y velocidad. Mejora con empuje y carga rápida, pero baja con acolchado o resistencia del objetivo.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nivel",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

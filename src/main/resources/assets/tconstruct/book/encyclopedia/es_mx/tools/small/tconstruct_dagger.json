@@ -1,0 +1,20 @@
+{
+  "tool": "tconstruct:dagger",
+  "text": [
+    {
+      "text": "Arma rápida y precisa para ambas manos. Las dagas idénticas pueden apilarse hasta 2 si están intactas, ahorrando costes al modificarlas."
+    },
+    {
+      "text": "El modificador Sedoso permite trasquilar.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "+3 de daño de ataque",
+    "65% de modificador de ataque",
+    "2.0 de velocidad de ataque",
+    "75% de multiplicador de durabilidad",
+    "Acolchado I",
+    "Ataque mano secundaria"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "title": "Constructor de piezas",
+  "image": {
+    "file": "tconstruct:book/images/partbuilder.png",
+    "width": 170,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "Para crear una pieza: simplemente toma un molde, ponlo en la ranura de patrones, selecciona qué parte de herramienta deseas crear, inserta un material blando que puedas moldear con tus manos y toma tu pieza. También puedes remodelar una pieza blanda que hayas hecho previamente.",
+      "paragraph": true
+    }
+  ]
+}

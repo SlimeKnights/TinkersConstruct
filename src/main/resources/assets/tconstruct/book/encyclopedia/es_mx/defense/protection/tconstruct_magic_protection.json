@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:magic_protection",
+  "text": [
+    {
+      "text": "Otorga un +10% de resistencia contra el daño mágico, como el de veneno o espinas. Tiene un límite del 80% en todo el conjunto, u 8 niveles."
+    },
+    {
+      "text": "Reduce la duración de las pociones negativas en un 5% por cada nivel de la pieza de mayor nivel.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Se pueden aplicar niveles de forma incremental",
+    "Requiere 1 ranura de defensa por nivel"
+  ]
+}

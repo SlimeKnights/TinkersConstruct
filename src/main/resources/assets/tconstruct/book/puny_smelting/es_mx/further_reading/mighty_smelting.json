@@ -1,0 +1,13 @@
+{
+  "title": "Fundición Poderosa",
+  "image": {
+    "file": "tconstruct:book/images/book_mighty_smelting.png",
+    "width": 128,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "Había demasiada genialidad para que cupiera en un solo tomo, así que tuve que escribir un segundo libro. Una vez que hayas dominado el fundidor, ve a derretir un poco de cemento (grout) y viértelo sobre un libro para fabricar la secuela."
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:shulking",
+  "text": [
+    {
+      "text": "Otorga un +10% de resistencia mientras te escabulles. Tiene un límite del 80% en todo el conjunto, u 8 niveles."
+    },
+    {
+      "text": "Reduce el daño de ataque mientras te escabulles en un 10% por cada nivel de la pieza de mayor nivel.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Se pueden aplicar niveles de forma incremental",
+    "Requiere 1 ranura de defensa por nivel"
+  ]
+}

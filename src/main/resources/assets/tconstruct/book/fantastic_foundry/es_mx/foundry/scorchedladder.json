@@ -1,0 +1,10 @@
+{
+  "title": "Escalera chamuscada",
+  "item": "tconstruct:scorched_ladder",
+  "text": [
+    {
+      "text": "La escalera chamuscada se puede usar para subir o salir fácilmente de tu fundición sin invalidar la estructura. ¡Es muy útil si tienes planeado ampliarla más adelante!",
+      "paragraph": true
+    }
+  ]
+}

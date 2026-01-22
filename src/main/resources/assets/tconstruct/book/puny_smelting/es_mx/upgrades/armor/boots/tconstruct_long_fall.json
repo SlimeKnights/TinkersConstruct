@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:long_fall",
+  "text": [
+    {
+      "text": "Anda, intenta aterrizar de cabeza. ¡Ja! ¡No podrás hacerlo!"
+    }
+  ],
+  "effects": [
+    "Evita todo el daño por caída",
+    "Requiere Caída de Pluma II",
+    "Nivel único",
+    "Requiere 1 ranura de mejora"
+  ]
+}

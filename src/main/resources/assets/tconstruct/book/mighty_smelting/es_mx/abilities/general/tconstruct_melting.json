@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:melting",
+  "text": [
+    {
+      "text": "¿La fundición no es portátil? ¡Convierte tu herramienta en una fundidora de mano!"
+    },
+    {
+      "text": "Haz clic derecho en un tanque con la herramienta para vaciar el fluido.", "paragraph": true
+    }
+  ],
+  "effects": [
+    "Fundite a los mobs en el tanque del arma",
+    "Derrite los objetos soltados si es posible",
+    "Se vacía en tanques o drenajes de fundición",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

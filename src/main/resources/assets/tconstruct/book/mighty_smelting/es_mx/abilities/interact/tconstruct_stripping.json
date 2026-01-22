@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:stripping",
+  "text": [
+    {
+      "text": "Un momento, ¿no es esa clase de descortezado? QUÉ DECEPCIÓN."
+    }
+  ],
+  "effects": [
+    "Permite descortezar madera con tus herramientas",
+    "Nivel único",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

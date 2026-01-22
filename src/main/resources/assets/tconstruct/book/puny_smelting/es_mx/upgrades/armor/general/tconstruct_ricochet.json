@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:ricochet",
+  "text": [
+    {
+      "text": "Hora de una huida audaz. A veces, salir volando es la mejor estrategia."
+    }
+  ],
+  "effects": [
+    "Aumenta el empuje que recibes",
+    "Varios niveles, aumentan más el empuje",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

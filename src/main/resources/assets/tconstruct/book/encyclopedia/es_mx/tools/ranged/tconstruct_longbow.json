@@ -1,0 +1,20 @@
+{
+  "tool": "tconstruct:longbow",
+  "text": [
+    {
+      "text": "Arma de proyectiles que dispara flechas al soltarse."
+    },
+    {
+      "text": "Con interacción, usa clic izquierdo.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "1.0 vel. ataque",
+    "1.0 vel. carga",
+    "1.00 vel. flecha",
+    "0.75 precisión",
+    "Suma stats de palas",
+    "150% multi. durabilidad"
+  ]
+}

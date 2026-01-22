@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:spitting",
+  "text": [
+    {
+      "text": "Nunca entres en un concurso de escupitajos con una llama."
+    }
+  ],
+  "effects": [
+    "Carga para lanzar el fluido hacia donde miras",
+    "Niveles altos disparan más proyectiles",
+    "Requiere 1 ranura de habilidad por nivel"
+  ]
+}

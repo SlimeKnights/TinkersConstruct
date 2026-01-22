@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:killager",
+  "text": [
+    {
+      "text": "La nueva banda de death metal de Minecraft. Próximamente en una aldea cerca de ti."
+    }
+  ],
+  "effects": [
+    "Aumenta el daño contra aldeanos e illagers",
+    "Varios niveles, aumentan más el daño",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}
