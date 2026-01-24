@@ -1983,7 +1983,11 @@
   "material.tconstruct.gunpowder": "Pólvora",
   "material.tconstruct.gunpowder.flavor": "¡Explosivo!",
   "material.tconstruct.gunpowder.ammo": "Causa que la flecha explote en un radio de 1 más 1 por nivel. El daño de explosión se basa en la potencia del proyectil.",
-
+  
+  "material.tconstruct.redstone": "Redstone",
+  "material.tconstruct.redstone.flavor": "¡Veloz!",
+  "material.tconstruct.redstone.ammo": "Otorga +10% de velocidad por nivel a flechas y +20% por nivel a proyectiles arrojadizos.",
+  
   "material.tconstruct.earthslime": "Slime de tierra",
   "material.tconstruct.earthslime.flavor": "¡Hacia mí!",
   "material.tconstruct.earthslime.ammo": "Causa que el objetivo sea empujado en la dirección opuesta (hacia ti).",
