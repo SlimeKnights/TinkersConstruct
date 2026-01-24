@@ -12,6 +12,7 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.build.ToolStatsModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.EntityInteractionModifierHook;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
@@ -51,9 +52,9 @@ public interface AttributesModifierHook {
   static Multimap<Attribute,AttributeModifier> getHeldAttributeModifiers(IToolStackView tool, EquipmentSlot slot) {
     ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
     if (!tool.isBroken()) {
-      // base stats
+      // base melee stats - skip if not melee
       StatsNBT statsNBT = tool.getStats();
-      if (slot == EquipmentSlot.MAINHAND && tool.hasTag(TinkerTags.Items.MELEE_WEAPON)) {
+      if (slot == EquipmentSlot.MAINHAND && tool.hasTag(TinkerTags.Items.MELEE_WEAPON) && !tool.getVolatileData().getBoolean(EntityInteractionModifierHook.NO_MELEE)) {
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(Item.BASE_ATTACK_DAMAGE_UUID, "tconstruct.tool.attack_damage", statsNBT.get(ToolStats.ATTACK_DAMAGE), AttributeModifier.Operation.ADDITION));
         // base attack speed is 4, but our numbers start from 4
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(Item.BASE_ATTACK_SPEED_UUID, "tconstruct.tool.attack_speed", statsNBT.get(ToolStats.ATTACK_SPEED) - 4d, AttributeModifier.Operation.ADDITION));

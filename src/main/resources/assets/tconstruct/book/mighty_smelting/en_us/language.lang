@@ -11,6 +11,7 @@ tools=Broad Tools
 tools.subtext=Broad tools all require the use of a tinker's anvil to create
 tools.group_general=General
 tools.group_ranged=Ranged
+tools.group_info=Information
 
 armor=Mighty Armor
 armor.subtext=Alloys unlock a wider range of materials for armor creation. These may grant additional abilities beyond basic sets like travelers gear.

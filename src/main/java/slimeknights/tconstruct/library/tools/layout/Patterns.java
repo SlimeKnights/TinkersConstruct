@@ -27,6 +27,8 @@ public class Patterns {
   public static final Pattern ARROW_PART = pattern("arrow_part");
   /** Feather for arrows */
   public static final Pattern FEATHER = pattern("feather");
+  /** Icon for a result slot */
+  public static final Pattern RESULT = pattern("result");
 
   private static Pattern pattern(String name) {
     return new Pattern(TConstruct.MOD_ID, name);

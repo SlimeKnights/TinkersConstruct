@@ -28,6 +28,6 @@
       "id": "tconstruct:fiery",
       "required": false
     },
-    "#tconstruct:compatibility_metals/alloys"
+    "#tconstruct:compatibility_metals/blocks"
   ]
 }

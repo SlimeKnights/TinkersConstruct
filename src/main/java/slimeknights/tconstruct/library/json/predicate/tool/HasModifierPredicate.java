@@ -21,7 +21,7 @@ public record HasModifierPredicate(IJsonPredicate<ModifierId> modifier, IntRange
   public static final RecordLoadable<HasModifierPredicate> LOADER = RecordLoadable.create(
     ModifierPredicate.LOADER.requiredField("modifier", HasModifierPredicate::modifier),
     ModifierEntry.ANY_LEVEL.defaultField("level", ModifierEntry.VALID_LEVEL, HasModifierPredicate::level),
-    new EnumLoadable<>(ModifierCheck.class).requiredField("check", HasModifierPredicate::check),
+    ModifierCheck.LOADABLE.requiredField("check", HasModifierPredicate::check),
     HasModifierPredicate::new);
 
   public HasModifierPredicate(ModifierId modifier, IntRange level, ModifierCheck check) {
@@ -72,6 +72,8 @@ public record HasModifierPredicate(IJsonPredicate<ModifierId> modifier, IntRange
         return tool.getModifiers();
       }
     };
+
+    public static final EnumLoadable<ModifierCheck> LOADABLE = new EnumLoadable<>(ModifierCheck.class);
 
     public abstract ModifierNBT getModifiers(IToolContext tool);
   }

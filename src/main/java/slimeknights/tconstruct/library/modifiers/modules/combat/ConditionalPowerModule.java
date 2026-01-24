@@ -27,6 +27,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.entity.ProjectileWithPower;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileLaunchModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.special.sling.SlingForceModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.util.ConditionalStatTooltip;
 import slimeknights.tconstruct.library.modifiers.modules.util.ModifierCondition;
@@ -49,8 +50,8 @@ import java.util.List;
  * @param formula       Power formula
  * @param modifierLevel Modifier level condition
  */
-public record ConditionalPowerModule(IJsonPredicate<LivingEntity> target, IJsonPredicate<LivingEntity> holder, PowerFormula formula, IntRange modifierLevel) implements ModifierModule, ProjectileLaunchModifierHook.NoShooter, ProjectileHitModifierHook, ConditionalStatTooltip {
-  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<ConditionalPowerModule>defaultHooks(ModifierHooks.PROJECTILE_LAUNCH, ModifierHooks.PROJECTILE_SHOT, ModifierHooks.PROJECTILE_HIT, ModifierHooks.TOOLTIP);
+public record ConditionalPowerModule(IJsonPredicate<LivingEntity> target, IJsonPredicate<LivingEntity> holder, PowerFormula formula, IntRange modifierLevel) implements ModifierModule, ProjectileLaunchModifierHook.NoShooter, ProjectileHitModifierHook, SlingForceModifierHook, ConditionalStatTooltip {
+  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<ConditionalPowerModule>defaultHooks(ModifierHooks.PROJECTILE_LAUNCH, ModifierHooks.PROJECTILE_SHOT, ModifierHooks.PROJECTILE_HIT, ModifierHooks.SLING_FORCE, ModifierHooks.TOOLTIP);
   public static final RecordLoadable<ConditionalPowerModule> LOADER = RecordLoadable.create(
     LivingEntityPredicate.LOADER.defaultField("target", ConditionalPowerModule::target),
     LivingEntityPredicate.LOADER.defaultField("holder", ConditionalPowerModule::holder),
@@ -120,6 +121,14 @@ public record ConditionalPowerModule(IJsonPredicate<LivingEntity> target, IJsonP
       }
     }
     return false;
+  }
+
+  @Override
+  public float modifySlingForce(IToolStackView tool, ModifierEntry modifier, LivingEntity holder, LivingEntity target, ModifierEntry slingSource, float force, float multiplier) {
+    if (modifierLevel.test(modifier.getLevel()) && ToolStats.PROJECTILE_DAMAGE.supports(tool.getItem()) && this.holder.matches(holder) && this.target.matches(target)) {
+      return formula.apply(tool.getModifiers(), tool.getPersistentData(), modifier, null, null, holder, target, force, multiplier * tool.getMultiplier(ToolStats.PROJECTILE_DAMAGE));
+    }
+    return force;
   }
 
   @Override

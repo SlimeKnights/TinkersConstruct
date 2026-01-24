@@ -9,14 +9,14 @@
     },
     {
       "type": "tconstruct:stat_boost",
-      "each_level": 0.08,
+      "each_level": 0.05,
       "operation": "multiply_base",
       "stat": "tconstruct:attack_damage"
     },
     {
       "type": "tconstruct:stat_boost",
-      "each_level": 0.05,
-      "operation": "multiply_base",
+      "each_level": 0.25,
+      "operation": "add",
       "stat": "tconstruct:projectile_damage"
     },
     {

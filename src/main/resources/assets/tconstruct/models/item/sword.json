@@ -14,6 +14,10 @@
   ],
   "overrides": [
     {
+      "predicate": { "tconstruct:charging": 1.75 },
+      "model": "tconstruct:item/tool/sword/throwing"
+    },
+    {
       "predicate": { "tconstruct:charging": 2 },
       "model": "tconstruct:item/tool/sword/blocking"
     },

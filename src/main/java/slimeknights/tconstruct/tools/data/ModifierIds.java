@@ -32,9 +32,11 @@ public class ModifierIds {
   public static final ModifierId overforced = id("overforced");
   public static final ModifierId worldbound = id("worldbound");
   public static final ModifierId shiny      = id("shiny");
+  @Deprecated(forRemoval = true)
   public static final ModifierId sticky     = id("sticky");
   public static final ModifierId tank       = id("tank");
   public static final ModifierId offhanded  = id("offhanded");
+  public static final ModifierId blunted    = id("blunted");
   public static final ModifierId soulbound = id("soulbound");
   public static final ModifierId smelting = id("smelting");
   // combat
@@ -137,6 +139,7 @@ public class ModifierIds {
   public static final ModifierId bouncy = id("bouncy");
   public static final ModifierId doubleJump = id("double_jump");
   // shield
+  public static final ModifierId blockade = id("blockade");
   public static final ModifierId boundless = id("boundless");
 
 
@@ -174,6 +177,7 @@ public class ModifierIds {
   public static final ModifierId woodwind = id("woodwind");
   public static final ModifierId soft = id("soft");
   public static final ModifierId spike = id("spike");
+  public static final ModifierId spiny = id("spiny");
   // traits - tier 2
   public static final ModifierId overgrowth = id("overgrowth");
   public static final ModifierId searing = id("searing");
@@ -217,6 +221,7 @@ public class ModifierIds {
   public static final ModifierId ductile = id("ductile");
   public static final ModifierId attractive = id("attractive");
   public static final ModifierId explosive = id("explosive");
+  public static final ModifierId supercharged = id("supercharged");
   // traits - tier 3 compat
   public static final ModifierId maintained = id("maintained");
   public static final ModifierId temperate = id("temperate");

@@ -20,6 +20,7 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.ForgeEventFactory;
+import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 
 import javax.annotation.Nullable;
 import java.util.HashSet;
@@ -43,11 +44,19 @@ public class CustomExplosion extends Explosion {
   protected final float knockback;
   /** Determines which entities are affected by this explosion */
   protected final Predicate<Entity> entityPredicate;
-  public CustomExplosion(Level level, Vec3 location, float radius, @Nullable Entity sourceEntity, @Nullable Predicate<Entity> entityPredicate, float damage, @Nullable DamageSource damageSource, float knockback, @Nullable ExplosionDamageCalculator damageCalculator, boolean placeFire, BlockInteraction blockInteraction) {
+  /** If true, explosion damage bypasses the invulnerability time */
+  protected final boolean bypassInvulnerableTime;
+
+  public CustomExplosion(Level level, Vec3 location, float radius, @Nullable Entity sourceEntity, @Nullable Predicate<Entity> entityPredicate, float damage, @Nullable DamageSource damageSource, float knockback, @Nullable ExplosionDamageCalculator damageCalculator, boolean placeFire, BlockInteraction blockInteraction, boolean bypassInvulnerableTime) {
     super(level, sourceEntity, damageSource, damageCalculator, location.x, location.y, location.z, radius, placeFire, blockInteraction);
     this.entityPredicate = Objects.requireNonNullElse(entityPredicate, DEFAULT_ENTITY_PREDICATE);
     this.damage = damage;
     this.knockback = knockback;
+    this.bypassInvulnerableTime = bypassInvulnerableTime;
+  }
+
+  public CustomExplosion(Level level, Vec3 location, float radius, @Nullable Entity sourceEntity, @Nullable Predicate<Entity> entityPredicate, float damage, @Nullable DamageSource damageSource, float knockback, @Nullable ExplosionDamageCalculator damageCalculator, boolean placeFire, BlockInteraction blockInteraction) {
+    this(level, location, radius, sourceEntity, entityPredicate ,damage, damageSource, knockback, damageCalculator, placeFire, blockInteraction, false);
   }
 
   @Override
@@ -153,7 +162,12 @@ public class CustomExplosion extends Explosion {
           double strength = (1 - distance) * getSeenPercent(center, entity);
           // vanilla change: instead of multiplying the damage by 7, we make that a parameter, which can be 0 for no damage
           if (damage > 0) {
-            entity.hurt(this.getDamageSource(), (int)((strength * strength + strength) / 2 * damage + 1));
+            int toDeal = (int) ((strength * strength + strength) / 2 * damage + 1);
+            if (bypassInvulnerableTime) {
+              ToolAttackUtil.hurtNoInvulnerableTime(entity, getDamageSource(), toDeal);
+            } else {
+              entity.hurt(getDamageSource(), toDeal);
+            }
           }
 
           // apply enchantment to reduce knockback

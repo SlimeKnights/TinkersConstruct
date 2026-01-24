@@ -35,7 +35,7 @@
     "fishing":     "#C6A271",
     "lure":        "#F7CD36",
     "lure_rod":    "#F7CD36",
-    "grapple":     "#B80000",
+    "grapple":     "#27C6C6",
     "collecting":  "#67718C",
 
     "__sling_abilities__": null,
@@ -118,6 +118,8 @@
     "shiny":         "#FFA3EF",
     "worldbound":    "#7E6059",
     "redirected":    "#EED2E6",
+    "offhanded":     "#7E627B",
+    "blunted":       "#FABF29",
 
     "__slotless_extra_slot__": null,
     "writable":    "#ffffff",
@@ -141,7 +143,6 @@
     "fireprimer":    "#4A281D",
     "magnetic":      "#720000",
     "netherite":     "#8E7C7F",
-    "offhanded":     "#7E627B",
     "overforced":    "#2759C4",
     "reinforced":    "#41f384",
     "smelting":      "#FFBC5E",
@@ -213,6 +214,7 @@
     "sticky":           "#ffffff",
     "swift_sneak":      "#009295",
     "thorns":           "#9FA76D",
+    "blockade":         "#9277B2",
 
 
     "__traits__": null,
@@ -282,6 +284,7 @@
     "olympic":       "#A3E7FE",
     "spectral":      "#F9D49C",
     "explosive":     "#727272",
+    "supercharged":  "#7F0901",
     "fuse":          "#652828",
     "keen":          "#EAE5DE",
     "attractive":    "#67718C",
@@ -299,6 +302,7 @@
     "venom":         "#A2935E",
     "conductive":    "#DBCC0B",
     "spike":         "#E8E5D2",
+    "spiny":         "#649832",
 
     "__traits_armor__": null,
     "consecrated":          "#D3DFE8",
@@ -479,7 +483,7 @@
     "fiery": "#893D14",
 
     "__plate__": null,
-    "obsidian":  "#443753",
+    "obsidian":  "#9277B2",
     "netherite": "#4C4143",
     "nickel":    "#EBF1DE",
     "tin":       "#A1C6C2",
@@ -498,6 +502,7 @@
     "ichor":       "#ff970d",
     "glowstone":   "#F9D49C",
     "gunpowder":   "#727272",
+    "redstone":    "#7F0901",
     "enderslime":  "#af4cf6",
     "glass":       "#D0EAE9",
     "magma":       "#652828",

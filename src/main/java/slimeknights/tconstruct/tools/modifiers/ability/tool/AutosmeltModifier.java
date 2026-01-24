@@ -125,7 +125,7 @@ public class AutosmeltModifier extends Modifier implements ProcessLootModifierHo
             int bonus = 0;
             for (int i = 0; i < extraItems; i++) {
               // 25% chance to add each item
-              if (context.getRandom().nextFloat() < 0.25f) {
+              if (context.getRandom().nextFloat() < 0.2f) {
                 bonus += 1;
               }
             }

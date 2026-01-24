@@ -19,7 +19,5 @@
     "item": "tconstruct:seared_chute"
   },
   "show_notification": true,
-  "texture": {
-    "tag": "tconstruct:smeltery_bricks"
-  }
+  "texture": "#"
 }

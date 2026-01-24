@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:blockade",
+  "text": [
+    {
+      "text": "Increases the tool's base block amount by +100% per level, up to a maximum of +300% by level 3."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Can apply levels incrementally",
+    "Maximum of 3 levels",
+    "Requires 1 upgrade slot per level",
+    "Requires blocking or parrying"
+  ]
+}

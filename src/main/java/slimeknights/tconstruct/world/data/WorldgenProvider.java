@@ -257,9 +257,9 @@ public class WorldgenProvider {
     configureGeode(context, configuredEarthGeode, earthGeode, BlockStateProvider.simple(Blocks.CALCITE), BlockStateProvider.simple(Blocks.CLAY), TinkerWorld.steelCluster,
                    new GeodeLayerSettings(1.7D, 2.2D, 3.2D, 5.2D), new GeodeCrackSettings(0.95D, 2.0D, 2), UniformInt.of(6, 9), UniformInt.of(3, 4), UniformInt.of(1, 2), 16, 1);
     configureGeode(context, configuredSkyGeode, skyGeode, BlockStateProvider.simple(Blocks.CALCITE), BlockStateProvider.simple(Blocks.MOSSY_COBBLESTONE), TinkerWorld.steelCluster,
-                   new GeodeLayerSettings(1.5D, 2.0D, 3.0D, 4.5D), new GeodeCrackSettings(0.55D, 0.5D, 2), UniformInt.of(3, 4), ConstantInt.of(2), ConstantInt.of(1), 8, 3);
+                   new GeodeLayerSettings(1.7D, 2.2D, 3.2D, 4.2D), new GeodeCrackSettings(0.95D, 2.0D, 2), UniformInt.of(4, 7), UniformInt.of(3, 4), UniformInt.of(1, 2), 16, 1);
     configureGeode(context, configuredIchorGeode, ichorGeode, BlockStateProvider.simple(Blocks.CALCITE), BlockStateProvider.simple(Blocks.NETHERRACK), TinkerWorld.cobaltCluster,
-                   new GeodeLayerSettings(1.7D, 2.2D, 3.2D, 4.2D), new GeodeCrackSettings(0.75D, 2.0D, 2), UniformInt.of(4, 6), UniformInt.of(3, 4), UniformInt.of(1, 2), 24, 20);
+                   new GeodeLayerSettings(1.7D, 2.2D, 3.2D, 4.2D), new GeodeCrackSettings(0.75D, 2.0D, 2), UniformInt.of(4, 6), UniformInt.of(3, 4), UniformInt.of(1, 2), 24, 2);
     configureGeode(context, configuredEnderGeode, enderGeode, BlockStateProvider.simple(Blocks.CALCITE), BlockStateProvider.simple(Blocks.END_STONE), TinkerWorld.knightmetalCluster,
                    new GeodeLayerSettings(1.7D, 2.2D, 3.2D, 5.2D), new GeodeCrackSettings(0.45, 1.0D, 2), UniformInt.of(4, 10), UniformInt.of(3, 4), UniformInt.of(1, 2), 16, 10000);
   }
@@ -271,8 +271,8 @@ public class WorldgenProvider {
     register(context, placedLargeCobaltOre, configuredLargeCobaltOre, CountPlacement.of(3), InSquarePlacement.spread(), HeightRangePlacement.triangle(VerticalAnchor.absolute(8), VerticalAnchor.absolute(32)), BiomeFilter.biome());
 
     // geodes
-    placeGeode(context, placedEarthGeode, configuredEarthGeode, RarityFilter.onAverageOnceEvery(128), HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(6),  VerticalAnchor.aboveBottom(54)));
-    placeGeode(context, placedSkyGeode,   configuredSkyGeode,   RarityFilter.onAverageOnceEvery(64),  HeightRangePlacement.uniform(VerticalAnchor.absolute(16),    VerticalAnchor.absolute(54)));
+    placeGeode(context, placedEarthGeode, configuredEarthGeode, RarityFilter.onAverageOnceEvery(256), HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(6),  VerticalAnchor.aboveBottom(54)));
+    placeGeode(context, placedSkyGeode,   configuredSkyGeode,   RarityFilter.onAverageOnceEvery(128), HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(24), VerticalAnchor.absolute(30)));
     placeGeode(context, placedIchorGeode, configuredIchorGeode, RarityFilter.onAverageOnceEvery(52),  HeightRangePlacement.uniform(VerticalAnchor.belowTop(48),    VerticalAnchor.belowTop(16)));
     placeGeode(context, placedEnderGeode, configuredEnderGeode, RarityFilter.onAverageOnceEvery(256), HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(16), VerticalAnchor.aboveBottom(64)));
   }
@@ -352,7 +352,7 @@ public class WorldgenProvider {
     context.register(spawnEnderGeode, new AddFeaturesBiomeModifier(and(end, not(direct(biomes.getOrThrow(Biomes.THE_END)))), direct(placed.getOrThrow(TinkerWorld.placedEnderGeode)), Decoration.LOCAL_MODIFICATIONS));
     // spawns
     context.register(spawnOverworldSlime, new AddSpawnsBiomeModifier(overworld, List.of(new SpawnerData(TinkerWorld.skySlimeEntity.get(), 100, 2, 4))));
-    context.register(spawnTerracube,      new AddSpawnsBiomeModifier(overworld, List.of(new SpawnerData(TinkerWorld.terracubeEntity.get(), 10, 2, 4))));
+    context.register(spawnTerracube,      new AddSpawnsBiomeModifier(and(overworld, not(biomes.getOrThrow(TinkerTags.Biomes.NO_DEFAULT_MONSTERS))), List.of(new SpawnerData(TinkerWorld.terracubeEntity.get(), 10, 2, 4))));
     context.register(spawnEndSlime,       new AddSpawnsBiomeModifier(end,       List.of(new SpawnerData(TinkerWorld.enderSlimeEntity.get(), 10, 2, 4))));
   }
 

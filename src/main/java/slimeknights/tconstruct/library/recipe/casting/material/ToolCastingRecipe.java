@@ -211,7 +211,8 @@ public class ToolCastingRecipe extends PartSwapCastingRecipe implements IMultiRe
         List<IDisplayableCastingRecipe> recipes = new ArrayList<>();
         Predicate<MaterialFluidRecipe> validRecipe = recipe -> {
           MaterialVariant output = recipe.getOutput();
-          return recipe.isVisible() && requirement.canUseMaterial(output.getId()) && this.materials.matches(output.getVariant());
+          MaterialVariant input = recipe.getInput();
+          return recipe.isVisible() && requirement.canUseMaterial(output.getId()) && (input == null || requirement.canUseMaterial(input.getId())) && this.materials.matches(output.getVariant());
         };
 
         // show recipes for creating the tool from all castable fluids

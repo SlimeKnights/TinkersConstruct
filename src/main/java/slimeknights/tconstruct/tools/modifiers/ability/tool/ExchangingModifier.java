@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers.ability.tool;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -22,6 +21,8 @@ import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.Util;
 
+import javax.annotation.Nullable;
+
 public class ExchangingModifier extends NoLevelsModifier implements RemoveBlockModifierHook {
   @Override
   protected void registerHooks(Builder hookBuilder) {
@@ -35,6 +36,7 @@ public class ExchangingModifier extends NoLevelsModifier implements RemoveBlockM
     return Short.MIN_VALUE - 20;
   }
 
+  @Nullable
   @Override
   public Boolean removeBlock(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context) {
     // must have blocks in the offhand
@@ -52,7 +54,7 @@ public class ExchangingModifier extends NoLevelsModifier implements RemoveBlockM
       state.getBlock().playerWillDestroy(world, pos, state, player);
     }
 
-    // block is unchanged, stuck setting it to a temporary block before replacing, as otherwise we risk duplication with the TE and tryPlace will likely fail
+    // block is unchanged? stuck setting it to a temporary block before replacing, as otherwise we risk duplication with the TE and tryPlace will likely fail
     BlockState fluidState = world.getFluidState(pos).createLegacyBlock();
     boolean placedBlock = false;
     if (state.getBlock() == blockItem.getBlock()) {
@@ -66,9 +68,8 @@ public class ExchangingModifier extends NoLevelsModifier implements RemoveBlockM
     }
 
     // generate placing context
-    Direction sideHit = context.getSideHit();
-    // subtract the offsets instead of adding as the position is empty, want to "hit" a realistic location
-    BlockPlaceContext blockUseContext = new BlockPlaceContext(world, player, InteractionHand.OFF_HAND, offhand, Util.createTraceResult(pos, sideHit, true));
+    // use opposite side for hit as that produces better slab placement
+    BlockPlaceContext blockUseContext = new BlockPlaceContext(world, player, InteractionHand.OFF_HAND, offhand, Util.createTraceResult(pos, context.getSideHit().getOpposite(), true));
     blockUseContext.replaceClicked = true; // force replacement, even if the position is not replacable (as it most always will be)
 
     // swap the block, it never goes to air so things like torches will remain

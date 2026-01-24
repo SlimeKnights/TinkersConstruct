@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:blunted",
+  "text": [
+    {
+      "text": "Prevents the tool from performing melee attacks, performing general interactions instead."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum of 1 level",
+    "Slotless"
+  ]
+}

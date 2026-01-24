@@ -162,7 +162,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      StatlessMaterialStats.BINDING);
     addMaterialStats(MaterialIds.steel,
                      new HeadMaterialStats(775, 6f, DIAMOND, 2.75f),
-                     HandleMaterialStats.multipliers().durability(1.05f).miningSpeed(1.05f).attackSpeed(1.05f).build(),
+                     HandleMaterialStats.multipliers().durability(1.05f).miningSpeed(1.05f).attackDamage(1.05f).build(),
                      StatlessMaterialStats.BINDING);
     // tier 3 - binding
     addMaterialStats(MaterialIds.darkthread, StatlessMaterialStats.BINDING);
@@ -251,6 +251,9 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.bamboo,
                      new LimbMaterialStats(70, 0.1f, -0.05f, -0.05f),
                      new GripMaterialStats(-0.05f, 0.05f, 0.75f));
+    addMaterialStats(MaterialIds.cactus,
+      new LimbMaterialStats(110, -0.05f, 0.05f, -0.10f),
+      new GripMaterialStats(-0.1f, -0.05f, 1.5f));
     addMaterialStats(MaterialIds.bone,
                      new LimbMaterialStats(100, 0.05f, -0.05f, 0.05f),
                      new GripMaterialStats(-0.25f, 0.05f, 1.25f));
@@ -390,6 +393,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.bone, StatlessMaterialStats.ARROW_SHAFT);
     addMaterialStats(MaterialIds.bamboo, StatlessMaterialStats.ARROW_SHAFT);
     addMaterialStats(MaterialIds.chorus, StatlessMaterialStats.ARROW_SHAFT);
+    addMaterialStats(MaterialIds.cactus, StatlessMaterialStats.ARROW_SHAFT);
     addMaterialStats(MaterialIds.feather, StatlessMaterialStats.FLETCHING);
     addMaterialStats(MaterialIds.leaves, StatlessMaterialStats.FLETCHING);
     addMaterialStats(MaterialIds.paper, StatlessMaterialStats.FLETCHING);
@@ -407,6 +411,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.steeleaf, StatlessMaterialStats.ARROW_HEAD);
     addMaterialStats(MaterialIds.slimeball, StatlessMaterialStats.FLETCHING);
     addMaterialStats(MaterialIds.gunpowder, StatlessMaterialStats.ARROW_HEAD);
+    addMaterialStats(MaterialIds.redstone, StatlessMaterialStats.ARROW_HEAD);
     // tier 3
     addMaterialStats(MaterialIds.ice, StatlessMaterialStats.ARROW_HEAD);
     addMaterialStats(MaterialIds.quartz, StatlessMaterialStats.ARROW_HEAD);
@@ -451,7 +456,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addArmorShieldStats(MaterialIds.scorchedStone, PlatingMaterialStats.builder().durabilityFactor(10).armor(1, 4, 5, 2).knockbackResistance(0.05f), StatlessMaterialStats.MAILLE);
     // tier 2 - compat
     addArmorShieldStats(MaterialIds.osmium,   PlatingMaterialStats.builder().durabilityFactor(25).armor(1, 3, 5, 2).knockbackResistance(0.05f), StatlessMaterialStats.MAILLE);
-    addArmorShieldStats(MaterialIds.aluminum, PlatingMaterialStats.builder().durabilityFactor(13).armor(2, 6, 4, 2), StatlessMaterialStats.MAILLE);
+    addArmorShieldStats(MaterialIds.aluminum, PlatingMaterialStats.builder().durabilityFactor(13).armor(2, 4, 6, 2), StatlessMaterialStats.MAILLE);
     addArmorShieldStats(MaterialIds.silver,   PlatingMaterialStats.builder().durabilityFactor(18).armor(1, 4, 5, 2).knockbackResistance(0.05f), StatlessMaterialStats.MAILLE);
     addArmorShieldStats(MaterialIds.lead,     PlatingMaterialStats.builder().durabilityFactor(12).armor(1, 3, 4, 2).knockbackResistance(0.1f), StatlessMaterialStats.MAILLE);
     addMaterialStats(MaterialIds.treatedWood, StatlessMaterialStats.SHIELD_CORE);
@@ -502,7 +507,6 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.ancientHide, StatlessMaterialStats.REPAIR_KIT);
     // travelers's shield
     addMaterialStats(MaterialIds.ice, StatlessMaterialStats.REPAIR_KIT);
-    addMaterialStats(MaterialIds.cactus, StatlessMaterialStats.REPAIR_KIT);
     addMaterialStats(MaterialIds.blazewood, StatlessMaterialStats.REPAIR_KIT);
     // slimeskull
     addMaterialStats(MaterialIds.glass,        new SkullStats( 90, 0));

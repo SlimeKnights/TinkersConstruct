@@ -1,11 +1,13 @@
 package slimeknights.tconstruct.library.modifiers.hook.interaction;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
@@ -20,6 +22,9 @@ import java.util.List;
  * Hooks for standard interaction logic though entities. See {@link GeneralInteractionModifierHook} for general interaction and {@link BlockInteractionModifierHook} for blocks.
  */
 public interface EntityInteractionModifierHook {
+  /** Modifier volatile data key to disable melee attacks against monsters */
+  ResourceLocation NO_MELEE = TConstruct.getResource("no_melee");
+
   /**
 	 * Called when interacting with an entity before standard entity interaction.
    * In general, its better to use {@link #afterEntityUse(IToolStackView, ModifierEntry, Player, LivingEntity, InteractionHand, InteractionSource)} for behavior more consistent with vanilla.
@@ -81,6 +86,7 @@ public interface EntityInteractionModifierHook {
   static boolean leftClickEntity(ItemStack stack, Player player, Entity target) {
     ToolStack tool = ToolStack.from(stack);
     if (stack.is(TinkerTags.Items.INTERACTABLE_LEFT)) {
+      boolean noMelee = tool.getVolatileData().getBoolean(NO_MELEE);
       if (!player.getCooldowns().isOnCooldown(stack.getItem())) {
         List<ModifierEntry> modifiers = tool.getModifierList();
         // TODO: should this be in the event?
@@ -96,6 +102,20 @@ public interface EntityInteractionModifierHook {
             }
           }
         }
+        // if melee attacks are disabled, we don't actually end up running right click hooks so run them here
+        // also run the hook if we are not a melee weapon, as we don't need to bother with the 1 damage hit then
+        if (noMelee || !tool.hasTag(TinkerTags.Items.MELEE)) {
+          for (ModifierEntry entry : modifiers) {
+            if (entry.getHook(ModifierHooks.GENERAL_INTERACT).onToolUse(tool, entry, player, InteractionHand.MAIN_HAND, InteractionSource.LEFT_CLICK).consumesAction()) {
+              return true;
+            }
+          }
+        }
+      }
+      // block vanilla left click when melee is disabled, not just our left click
+      // block even on cooldown
+      if (noMelee) {
+        return true;
       }
     }
     // no left click modifiers? fallback to standard attack

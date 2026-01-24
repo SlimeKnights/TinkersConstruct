@@ -1,0 +1,28 @@
+{
+  "type": "tconstruct:multilevel_incremental_modifier",
+  "allow_crystal": false,
+  "amount_per_item": 4,
+  "input": {
+    "item": "tconstruct:sky_slime_crystal_block"
+  },
+  "leftover": "tconstruct:sky_slime_crystal",
+  "levels": [
+    {
+      "level": 1,
+      "slots": {
+        "upgrades": 1
+      }
+    },
+    {
+      "level": 2,
+      "slots": {
+        "abilities": 1
+      }
+    }
+  ],
+  "needed_per_level": 36,
+  "result": "tconstruct:leaping",
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/leggings"
+  }
+}

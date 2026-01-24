@@ -13,12 +13,16 @@
   ],
   "entity_effects": [
     {
-      "type": "tconstruct:damage",
-      "damage": 4.0,
-      "damage_type": {
-        "melee": "tconstruct:fluid_magic_melee",
-        "ranged": "tconstruct:fluid_magic_ranged"
-      }
+      "type": "tconstruct:conditional",
+      "effect": {
+        "type": "tconstruct:damage",
+        "damage": 4.0,
+        "damage_type": {
+          "melee": "tconstruct:fluid_cold_melee",
+          "ranged": "tconstruct:fluid_cold_ranged"
+        }
+      },
+      "target": "mantle:can_freeze"
     },
     {
       "type": "tconstruct:mob_effect",

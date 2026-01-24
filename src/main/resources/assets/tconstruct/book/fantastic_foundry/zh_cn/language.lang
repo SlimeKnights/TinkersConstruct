@@ -10,8 +10,8 @@ armor=奇异盔甲
 armor.subtext=使用来自下界的材料，你便能制造出更高阶的的盔甲。强大的镶板盔甲能够提供很高的防御，不过相对地，它的升级槽就没那么多。但有了这么高的防御力，还要乱七八糟的特性做什么？
 
 melee_harvest_materials=四级通用材料
-melee_harvest_materials.subtext=这些材料需要烈焰血才能合成，用于制造近战武器和采掘工具的工具部件。
+melee_harvest_materials.subtext=这些材料需要烈焰血才能制作，用于制造近战武器和采掘工具的工具部件。
 ranged_materials=四级远程材料
-ranged_materials.subtext=这些材料需要烈焰血才能合成，可用于制造像弓那样的远程武器的工具部件。
+ranged_materials.subtext=这些材料需要烈焰血才能制作，用于制造弓等远程武器的工具部件。
 armor_materials=四级盔甲材料
-armor_materials.subtext=这些材料需要烈焰血才能合成，可以锻造成盔甲和盾牌的部件。
+armor_materials.subtext=这些材料要烈焰血才能制作，可以浇注成盔甲和盾牌的部件。

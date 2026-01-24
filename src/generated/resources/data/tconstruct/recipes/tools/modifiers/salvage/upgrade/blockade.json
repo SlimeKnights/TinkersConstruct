@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:modifier_salvage",
+  "modifier": "tconstruct:blockade",
+  "slots": {
+    "upgrades": 1
+  },
+  "tools": {
+    "type": "forge:intersection",
+    "children": [
+      {
+        "tag": "tconstruct:modifiable/interactable/charge"
+      },
+      {
+        "tag": "tconstruct:modifiable/durability"
+      }
+    ]
+  }
+}

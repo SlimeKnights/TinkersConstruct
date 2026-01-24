@@ -76,10 +76,11 @@ public class ToolStats {
   /** Number of times per second a tool can be used */
   public static final FloatToolStat DRAW_SPEED = register(new FloatToolStat(name("draw_speed"), 0xFF8547CC, 1, 0, 1024f, TinkerTags.Items.RANGED));
   /** Starting velocity of the projectile launched from a ranged weapon */
-  public static final FloatToolStat VELOCITY = register(new FloatToolStat(name("velocity"), 0xFF78A0CD, 1, 0, 1024f, or(tag(TinkerTags.Items.RANGED), tag(TinkerTags.Items.THROWN_AMMO))));
+  public static final FloatToolStat VELOCITY = register(new FloatToolStat(name("velocity"), 0xFF78A0CD, 1, 0, 1024f, or(tag(TinkerTags.Items.RANGED), tag(TinkerTags.Items.AMMO))));
   /** Starting velocity of the projectile launched from a ranged weapon */
   public static final FloatToolStat ACCURACY = register(new FloatToolStat(name("accuracy"), 0xFF8547CC, 0.75f, 0.1f, 1f, or(tag(TinkerTags.Items.RANGED), tag(TinkerTags.Items.AMMO))));
   /** Base damage of the projectile, boosted by enchantments such as power. Assumes the arrow itself does 2 damage, so we boost on top of that */
+  // TODO 1.21: rename to projectile power?
   public static final FloatToolStat PROJECTILE_DAMAGE = register(new FloatToolStat(name("projectile_damage"), 0xFFD76464, 2f, 0f, 1024f, or(tag(TinkerTags.Items.LAUNCHERS), tag(TinkerTags.Items.AMMO))));
   /** Projectile movement speed reduction while underwater */
   public static final FloatToolStat WATER_INERTIA = register(new FloatToolStat(name("water_inertia"), 0xFF5A82F3, 0.6f, 0.01f, 0.99f, or(tag(TinkerTags.Items.MELEE_WEAPON), tag(TinkerTags.Items.AMMO))));

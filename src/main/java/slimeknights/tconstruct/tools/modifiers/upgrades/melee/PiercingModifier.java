@@ -25,6 +25,8 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 
+/** @deprecated use {@link slimeknights.tconstruct.shared.TinkerEffects#pierce} or {@link slimeknights.tconstruct.tools.data.ModifierIds#spilling} */
+@Deprecated(forRemoval = true)
 public class PiercingModifier extends Modifier implements ToolStatsModifierHook, MeleeHitModifierHook, MonsterMeleeHitModifierHook.RedirectAfter, TooltipModifierHook {
   @Override
   protected void registerHooks(Builder hookBuilder) {

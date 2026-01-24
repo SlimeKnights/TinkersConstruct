@@ -34,6 +34,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -44,8 +45,10 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fml.ModList;
+import slimeknights.mantle.client.SafeClientAccess;
 import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.mantle.util.RetexturedHelper;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.fluids.TinkerFluids;
@@ -120,6 +123,7 @@ import slimeknights.tconstruct.tools.item.CreativeSlotItem;
 import slimeknights.tconstruct.tools.item.ModifierCrystalItem;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -132,6 +136,13 @@ import static slimeknights.mantle.Mantle.commonResource;
 
 @JeiPlugin
 public class JEIPlugin implements IModPlugin {
+  /** Recipes that are meant as jokes and tend to confuse players, so are hidden */
+  private static final ResourceLocation[] EASTER_EGG_RECIPES = {
+    TConstruct.getResource("tables/tinkers_forge"),
+    TConstruct.getResource("tables/scorched_forge"),
+    TConstruct.getResource("tables/seared_forge_material"),
+    TConstruct.getResource("tables/scorched_forge_material")
+  };
   public static IModIdHelper modIdHelper;
 
   @Override
@@ -527,6 +538,20 @@ public class JEIPlugin implements IModPlugin {
     }
     // remove variantless potion fluid
     removeFluid(manager, TinkerFluids.potion.get());
+
+    // hide easter egg recipes
+    Level level = SafeClientAccess.getLevel();
+    if (level != null) {
+      RecipeManager recipes = level.getRecipeManager();
+      List<CraftingRecipe> easterEggs = Arrays.stream(EASTER_EGG_RECIPES)
+        .flatMap(id -> recipes.byKey(id).stream())
+        .filter(recipe -> recipe instanceof CraftingRecipe)
+        .map(recipe -> (CraftingRecipe) recipe)
+        .toList();
+      if (!easterEggs.isEmpty()) {
+        jeiRuntime.getRecipeManager().hideRecipes(RecipeTypes.CRAFTING, easterEggs);
+      }
+    }
 
     modIdHelper = jeiRuntime.getJeiHelpers().getModIdHelper();
   }

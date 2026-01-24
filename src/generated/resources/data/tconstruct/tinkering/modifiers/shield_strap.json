@@ -23,6 +23,6 @@
       "flag": "tconstruct:inventory_show_offhand"
     }
   ],
-  "priority": 95,
+  "priority": 120,
   "tooltip_display": "always"
 }

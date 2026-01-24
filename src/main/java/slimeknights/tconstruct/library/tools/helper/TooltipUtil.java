@@ -31,6 +31,7 @@ import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.EntityInteractionModifierHook;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.definition.module.display.ToolNameHook;
 import slimeknights.tconstruct.library.tools.definition.module.material.ToolMaterialHook;
@@ -261,7 +262,8 @@ public class TooltipUtil {
     if (tool.hasTag(TinkerTags.Items.DURABILITY)) {
       builder.addDurability();
     }
-    boolean meleePrimary = tool.hasTag(TinkerTags.Items.MELEE_PRIMARY);
+    boolean allowMelee = !tool.getVolatileData().getBoolean(EntityInteractionModifierHook.NO_MELEE);
+    boolean meleePrimary = allowMelee && tool.hasTag(TinkerTags.Items.MELEE_PRIMARY);
     if (meleePrimary) {
       builder.addWithAttribute(ToolStats.ATTACK_DAMAGE, Attributes.ATTACK_DAMAGE);
       builder.add(ToolStats.ATTACK_SPEED);
@@ -274,7 +276,7 @@ public class TooltipUtil {
       }
       builder.add(ToolStats.ACCURACY);
     }
-    if (!meleePrimary && tool.hasTag(TinkerTags.Items.MELEE_WEAPON)) {
+    if (allowMelee && !meleePrimary && tool.hasTag(TinkerTags.Items.MELEE_WEAPON)) {
       builder.addWithAttribute(ToolStats.ATTACK_DAMAGE, Attributes.ATTACK_DAMAGE);
       builder.add(ToolStats.ATTACK_SPEED);
     }
@@ -344,10 +346,8 @@ public class TooltipUtil {
   public static List<Component> getAmmoStats(IToolStackView tool, @Nullable Player player, List<Component> tooltip, TooltipKey key, TooltipFlag flag) {
     TooltipBuilder builder = new TooltipBuilder(tool, tooltip);
     builder.add(ToolStats.PROJECTILE_DAMAGE);
+    builder.add(ToolStats.VELOCITY);
     builder.add(ToolStats.ACCURACY);
-    if (tool.hasTag(TinkerTags.Items.THROWN_AMMO)) {
-      builder.add(ToolStats.VELOCITY);
-    }
     builder.addAllFreeSlots();
     for (ModifierEntry entry : tool.getModifierList()) {
       entry.getHook(ModifierHooks.TOOLTIP).addTooltip(tool, entry, player, tooltip, key, flag);

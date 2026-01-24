@@ -218,8 +218,8 @@ public class MaterialManager extends SimpleJsonResourceReloadListener {
     this.redirects = redirects;
     onMaterialUpdate();
     
-    log.debug("Loaded materials: {}", Util.toIndentedStringList(materials.keySet()));
-    log.debug("Loaded redirects: {}", Util.toIndentedStringList(redirects.keySet()));
+    log.debug("Loaded materials: {}", Util.toIndentedStringList(materials.keySet().stream().sorted().toList()));
+    log.debug("Loaded redirects: {}", Util.toIndentedStringList(redirects.keySet().stream().sorted().toList()));
     long timeStep = System.nanoTime();
     log.info("Loaded {} materials in {} ms", materials.size(), (timeStep - time) / 1000000f);
 

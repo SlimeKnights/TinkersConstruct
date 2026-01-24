@@ -111,6 +111,7 @@
   "item.tconstruct.cobalt_nugget": "Cobalt Nugget",
 
   "block.tconstruct.steel_block": "Block of Steel",
+  "block.tconstruct.steel_block.tooltip": "Can be used as beacon base",
   "item.tconstruct.steel_ingot": "Steel Ingot",
   "item.tconstruct.steel_nugget": "Steel Nugget",
 
@@ -118,6 +119,7 @@
   "__comment": "Tier 3 Metals",
 
   "block.tconstruct.slimesteel_block": "Block of Slimesteel",
+  "block.tconstruct.slimesteel_block.tooltip": "Can be used as beacon base",
   "item.tconstruct.slimesteel_ingot": "Slimesteel Ingot",
   "item.tconstruct.slimesteel_nugget": "Slimesteel Nugget",
 
@@ -147,6 +149,7 @@
   "item.tconstruct.hepatizon_nugget": "Hepatizon Nugget",
 
   "block.tconstruct.cinderslime_block": "Block of Cinderslime",
+  "block.tconstruct.cinderslime_block.tooltip": "Can be used as beacon base",
   "item.tconstruct.cinderslime_ingot": "Cinderslime Ingot",
   "item.tconstruct.cinderslime_nugget": "Cinderslime Nugget",
 
@@ -1160,6 +1163,7 @@
   "item.tconstruct.slime_chestplate": "Slimelytra",
   "item.tconstruct.slime_leggings": "Slimeshell",
   "item.tconstruct.slime_boots": "Slimeboots",
+  "item.tconstruct.slime_helmet.material.tconstruct.ui_render.head": "Any Slimeskull",
   "item.tconstruct.slime_helmet.material.tconstruct.glass":         "Creeper Slimeskull",
   "item.tconstruct.slime_helmet.material.tconstruct.ender_pearl":   "Enderman Slimeskull",
   "item.tconstruct.slime_helmet.material.tconstruct.bone":          "Skeleton Slimeskull",
@@ -1285,6 +1289,8 @@
   "death.attack.tconstruct.piercing.item": "%1$s was pierced by %2$s using %3$s",
   "death.attack.tconstruct.entangled": "%1$s could not let go of their tool",
   "death.attack.tconstruct.entangled.player": "%1$s could not let go of their tool whilst fighting %2$s",
+  "death.attack.tconstruct.spiny": "%1$s was killed by a splinter",
+  "death.attack.tconstruct.spiny.player": "%1$s was killed by a splinter whilst fighting %2$s",
   "death.attack.tconstruct.shock": "%1$s was shocked trying to hurt %2$s",
   "death.attack.tconstruct.shock.item": "%1$s was shocked by %3$s trying to hurt %2$s",
 
@@ -1783,6 +1789,8 @@
 
   "material.tconstruct.cactus": "Cactus",
   "material.tconstruct.cactus.flavor": "A spiky shield spikes serious stabbers.",
+  "material.tconstruct.cactus.ranged": "Adds +0.1 velocity per level at the cost of losing 1 health per level when firing arrows.",
+  "material.tconstruct.cactus.ammo": "Adds +0.1 velocity per level and +0.5 power to thrown ammo at the cost of losing 1 health per level when launched.",
   "material.tconstruct.cactus.armor": "Adds a 15% chance to deal 1-4 damage on counterattacks, or a 30% chance when blocking.",
 
   "material.tconstruct.rock": "Rock",
@@ -1804,9 +1812,9 @@
 
   "material.tconstruct.bone": "Bone",
   "material.tconstruct.bone.flavor": "I am the bone of my sword",
-  "material.tconstruct.bone.encyclopedia": "Increases melee damage by 0.5 and grants 1 armor pierce per level for 5 seconds",
-  "material.tconstruct.bone.ranged": "Arrows apply 1 armor pierce per level for 5 seconds",
-  "material.tconstruct.bone.armor": "Has a 15% chance on hit for attackers receive 1 armor pierce per level for 5 seconds (or 10 seconds if blocking).",
+  "material.tconstruct.bone.encyclopedia": "Increases melee damage by 0.5 and grants 2 armor pierce per level for 5 seconds",
+  "material.tconstruct.bone.ranged": "Arrows apply 2 armor pierce per level for 5 seconds",
+  "material.tconstruct.bone.armor": "Has a 15% chance when hit for attackers receive 2 armor pierce per level for 5 seconds (or 10 seconds if blocking).",
   "material.tconstruct.bone.ammo": "Causes the arrow to pierce through the first target it hits, while thrown projectiles disable shields.",
   "material.tconstruct.bone.skull_flavor": "Got Milk?",
   "material.tconstruct.bone.skull_encyclopedia": "Grants resistance for 1 minute after drinking milk",
@@ -1815,7 +1823,7 @@
   "material.tconstruct.necrotic_bone.flavor": "Do you have a bone to pick with me?",
   "material.tconstruct.necrotic_bone.encyclopedia": "Heals 5% per level of damage dealt from critical hits",
   "material.tconstruct.necrotic_bone.ranged": "Heals 5% per level of damage dealt from successful arrow hits",
-  "material.tconstruct.necrotic_bone.armor": "Has a 15% chance on hit to heal over time 25% of damage received.",
+  "material.tconstruct.necrotic_bone.armor": "Has a 15% chance when hit to heal over time 25% of damage received.",
   "material.tconstruct.necrotic_bone.ammo": "Heals 5% per level of damage dealt from successful hits",
   "material.tconstruct.necrotic_bone.skull_flavor": "Spooky Scary Skeleton!",
   "material.tconstruct.necrotic_bone.skull_encyclopedia": "Melee attacks cause withering. After drinking milk the effect becomes faster",
@@ -1897,7 +1905,7 @@
   "material.tconstruct.venombone.flavor": "Become the bane of your enemies",
   "material.tconstruct.venombone.encyclopedia": "Boosts melee damage when poisoned by 0.5 plus the level of poison",
   "material.tconstruct.venombone.ranged": "Boosts drawspeed when poisoned by 0.05 plus 0.1 per level of poison",
-  "material.tconstruct.venombone.armor": "Has a 15% chance on hit to make attacker take 200% magic damage for the next 5 to 10 seconds (or up to 15 seconds if blocking).",
+  "material.tconstruct.venombone.armor": "Has a 15% chance when hit to make attacker take 200% magic damage for the next 5 to 10 seconds (or up to 15 seconds if blocking).",
   "material.tconstruct.venombone.ammo": "Causes the target to take 200% magic damage for the next 5 to 10 seconds.",
   "material.tconstruct.venombone.skull_flavor": "Chills straight to the bone",
   "material.tconstruct.venombone.skull_encyclopedia": "Projectiles cause slowness to the target. After drinking milk, melee attacks cause slowness and the level is stronger.",
@@ -1923,9 +1931,9 @@
 
   "material.tconstruct.twisting_vine": "Twisting Vine",
   "material.tconstruct.twisting_vine.flavor": "Eat the spores!",
-  "material.tconstruct.twisting_vine.encyclopedia": "Grants +6 mining speed at the cost of taking 1 damage when you put down the tool",
-  "material.tconstruct.twisting_vine.ranged": "Grants +15% draw speed at the cost of taking 1 damage when you put down the tool",
-  "material.tconstruct.twisting_vine.armor": "Grants +10% knockback resistance at the cost of taking 2 damage when you remove the armor",
+  "material.tconstruct.twisting_vine.encyclopedia": "Grants +6 mining speed at the cost of losing 1 health when you put down the tool",
+  "material.tconstruct.twisting_vine.ranged": "Grants +15% draw speed at the cost of losing 1 health when you put down the tool",
+  "material.tconstruct.twisting_vine.armor": "Grants +10% knockback resistance at the cost of losing 2 health when you remove the armor",
 
   "material.tconstruct.wool": "Wool",
   "material.tconstruct.wool.white": "White Wool",
@@ -1970,6 +1978,10 @@
   "material.tconstruct.gunpowder": "Gunpowder",
   "material.tconstruct.gunpowder.flavor": "Explosive!",
   "material.tconstruct.gunpowder.ammo": "Causes the arrow to explode at a radius of 1 plus 1 per level. Explosion damage is based on projectile power.",
+
+  "material.tconstruct.redstone": "Redstone",
+  "material.tconstruct.redstone.flavor": "Speedy!",
+  "material.tconstruct.redstone.ammo": "Grants +10% velocity per level to arrows, and +20% velocity per level to thrown projectiles.",
 
   "material.tconstruct.earthslime": "Earthslime",
   "material.tconstruct.earthslime.flavor": "To me!",
@@ -2042,8 +2054,8 @@
   "__comment": "Tier Nether Materials",
   "material.tconstruct.cobalt": "Cobalt",
   "material.tconstruct.cobalt.flavor": "Coblat. The material of the Red Army.",
-  "material.tconstruct.cobalt.encyclopedia": "Boosts mining and attack speed by 7% per level",
-  "material.tconstruct.cobalt.ranged": "Boosts drawspeed and velocity by 5% per level",
+  "material.tconstruct.cobalt.encyclopedia": "Boosts mining and attack speed by 8% per level",
+  "material.tconstruct.cobalt.ranged": "Boosts drawspeed and velocity by +0.03 per level",
   "material.tconstruct.cobalt.armor": "Reduces damage from melee attacks by 8% per level, and boosts movement speed when using items by 5% per max level",
 
   "material.tconstruct.quartz": "Quartz",
@@ -2062,14 +2074,14 @@
 
   "material.tconstruct.manyullyn": "Manyullyn",
   "material.tconstruct.manyullyn.flavor": "The metal that most Tinkers will never pronounce right. Also known as a star cutting material.",
-  "material.tconstruct.manyullyn.encyclopedia": "Grants up to +2.5 damage per level, with the damage increasing by +0.5 per hit over 5 consecutive hits",
-  "material.tconstruct.manyullyn.ranged": "Arrows gain up to +1.25 power per level (before velocity), with damage increasing linearly over 5 consecutive arrow hits",
+  "material.tconstruct.manyullyn.encyclopedia": "Grants up to +2.5 damage per level, with the damage increasing by +0.5 per level per hit over 5 consecutive hits",
+  "material.tconstruct.manyullyn.ranged": "Arrows gain up to +1.25 power per level, with the damage increasing by +0.25 per level per hit over 5 consecutive arrow hits",
   "material.tconstruct.manyullyn.armor": "Temporarily boosts melee damage by 1 after taking damage, capping at the total level across all armor",
 
   "material.tconstruct.hepatizon": "Hepatizon",
   "material.tconstruct.hepatizon.flavor": "He-pa-ti-zon - boil it, mash it, put it in a stew.",
-  "material.tconstruct.hepatizon.encyclopedia": "Boosts mining speed by up to 25% per level, linearly increasing over mining 32 consecutive blocks",
-  "material.tconstruct.hepatizon.ranged": "Boosts drawspeed by up to 25% per level, linearly increasing while firing 16 consecutive arrows",
+  "material.tconstruct.hepatizon.encyclopedia": "Boosts mining speed by up to 25% per level, increasing by +2.5% per level over 10 consecutive blocks mined",
+  "material.tconstruct.hepatizon.ranged": "Boosts drawspeed by up to 25% per level, increasing by +2.5% per level over 10 consecutive arrows fired",
   "material.tconstruct.hepatizon.armor": "Converts 50% of damage taken into a temporary flat damage reduction. Reduction lasts 5 seconds per level.",
 
   "material.tconstruct.ichorskin": "Ichorskin",
@@ -2086,9 +2098,9 @@
 
   "material.tconstruct.blazing_bone": "Blazing Bone",
   "material.tconstruct.blazing_bone.flavor": "Harness the full power of the Nether Fortress - bone and blaze",
-  "material.tconstruct.blazing_bone.encyclopedia": "Grants +1% damage per second of fire, up to +20% from 10+ seconds. Bonus reduced by fire resistance.",
-  "material.tconstruct.blazing_bone.ranged": "Grants +1% arrow damage per second of fire, up to +20% from 10+ seconds. Bonus reduced by fire resistance.",
-  "material.tconstruct.blazing_bone.armor": "Has a 15% chance on hit to cause attackers to take 200% fire damage for the next 5 to 10 seconds (or up to 15 seconds if blocking).",
+  "material.tconstruct.blazing_bone.encyclopedia": "Grants +2% damage per second of fire, up to +20% from 10+ seconds. Bonus reduced by fire resistance.",
+  "material.tconstruct.blazing_bone.ranged": "Grants +2% arrow damage per second of fire, up to +20% from 10+ seconds. Bonus reduced by fire resistance.",
+  "material.tconstruct.blazing_bone.armor": "Has a 15% chance when hit to cause attackers to take 200% fire damage for the next 5 to 10 seconds (or up to 15 seconds if blocking).",
   "material.tconstruct.blazing_bone.ammo": "Causes the target to take 200% fire damage for the next 5 to 10 seconds.",
   "material.tconstruct.blazing_bone.skull_flavor": "I told them this is technically firespit, not firebreath, but apparently I don't get to decide the names for things I invent",
   "material.tconstruct.blazing_bone.skull_encyclopedia": "Allows spitting firecharges from the inventory as fireballs. Has a cooldown of 5 seconds and does not work underwater",
@@ -2171,7 +2183,7 @@
   "material.tconstruct.lead": "Lead",
   "material.tconstruct.lead.flavor": "Could try and make a sandwich out of this.",
   "material.tconstruct.lead.encyclopedia": "Grants +15% mining speed, +10% knockback resistance, -10% movement speed, and +5% gravity per level",
-  "material.tconstruct.lead.ranged": "Grants +10% accuracy, +10% knockback resistance, -10% movement speed, and +5% gravity per level",
+  "material.tconstruct.lead.ranged": "Grants +0.1 accuracy, +10% knockback resistance, -10% movement speed, and +5% gravity per level",
   "material.tconstruct.lead.armor": "Grants +15% knockback resistance, -10% movement speed, and +5% gravity per level",
 
   "material.tconstruct.silver": "Silver",
@@ -2190,7 +2202,7 @@
 
   "material.tconstruct.aluminum": "Aluminum",
   "material.tconstruct.aluminum.flavor": "Found most commonly in ashmounds.",
-  "material.tconstruct.aluminum.ranged": "Grants +7% drawspeed and accuracy at the cost of 5% loss of protection",
+  "material.tconstruct.aluminum.ranged": "Grants +0.07 drawspeed and accuracy at the cost of 5% loss of protection",
   "material.tconstruct.aluminum.armor": "Grants +5% use item speed at the cost of 5% loss of protection",
 
   "material.tconstruct.treated_wood": "Treated Wood",
@@ -2206,8 +2218,8 @@
   "__comment": "Tier 3 Integration Materials",
   "material.tconstruct.steel": "Steel",
   "material.tconstruct.steel.flavor": "Basically 90% of material science",
-  "material.tconstruct.steel.encyclopedia": "Grants +10% durability and +8% melee damage per level",
-  "material.tconstruct.steel.ranged": "Grants +10% durability and +5% projectile power per level",
+  "material.tconstruct.steel.encyclopedia": "Grants +10% durability and +5% melee damage per level",
+  "material.tconstruct.steel.ranged": "Grants +10% durability and +0.25 projectile power per level",
   "material.tconstruct.steel.armor": "Grants +10% durability and +1 toughness per level",
 
   "material.tconstruct.magnetite": "Magnetite",
@@ -2217,7 +2229,7 @@
   "material.tconstruct.bronze": "Bronze",
   "material.tconstruct.bronze.flavor": "Not to be confused with amethyst bronze.",
   "material.tconstruct.bronze.encyclopedia": "Grants +6 mining speed per level at full durability, 0 boost below 50% durability",
-  "material.tconstruct.bronze.ranged": "Grants +0.05 velocity per level at full durability, 0 boost below 50% durability",
+  "material.tconstruct.bronze.ranged": "Grants +0.08 velocity per level at full durability, 0 boost below 50% durability",
   "material.tconstruct.bronze.armor": "Boosts toughness by 2 per level when at full durability, but boost drops to 0 below 50% durability",
 
   "material.tconstruct.constantan": "Constantan",
@@ -2247,7 +2259,7 @@
   "material.tconstruct.necronium": "Necronium",
   "material.tconstruct.necronium.flavor": "This much decay probably only leaves it with a quarter life",
   "material.tconstruct.necronium.encyclopedia": "Causes at least 5 seconds of wither, to your target and at a 25% chance to you",
-  "material.tconstruct.necronium.armor": "Has a 50% chance on hit (or 100% chance if blocking) to wither the attacker for at least 5 seconds, plus a 10% chance to wither you",
+  "material.tconstruct.necronium.armor": "Has a 50% chance when hit (or 100% chance if blocking) to wither the attacker for at least 5 seconds, plus a 10% chance to wither you",
 
   "material.tconstruct.plated_slimewood": "Plated Slimewood",
   "material.tconstruct.plated_slimewood.flavor": "All the shininess of brass with the squish of slime",
@@ -2265,8 +2277,8 @@
 
   "material.tconstruct.fiery": "Fiery",
   "material.tconstruct.fiery.flavor": "The hottest new metal, forged to perfection.",
-  "material.tconstruct.fiery.encyclopedia": "Tool automatically smelts all drops. Higher levels have a 25% chance of extra smelted drops",
-  "material.tconstruct.fiery.ranged": "Arrows automatically smelts all drops. Higher levels have a 25% chance of extra smelted drops",
+  "material.tconstruct.fiery.encyclopedia": "Tool automatically smelts all drops. Higher levels have a 20% chance of an extra smelted drops per level",
+  "material.tconstruct.fiery.ranged": "Arrows automatically smelts all drops. Higher levels have a 20% chance of an extra smelted drops per level",
   "material.tconstruct.fiery.armor": "Increases protection by 5% per level against on fire attackers",
 
 
@@ -2293,6 +2305,9 @@
   "modifier.tconstruct.offhanded.2": "Nohanded",
   "modifier.tconstruct.offhanded.flavor": "Don't think about it too hard",
   "modifier.tconstruct.offhanded.description": "Disables the tools interaction abilities when the offhand is filled. Second level disables interaction abilities entirely.",
+  "modifier.tconstruct.blunted": "Blunted",
+  "modifier.tconstruct.blunted.flavor": "Safety when sparing",
+  "modifier.tconstruct.blunted.description": "Prevents the tool from performing melee attacks on hitting a mob, making it easier to use interaction abilities.",
   "modifier.tconstruct.barebow": "Barebow",
   "modifier.tconstruct.barebow.flavor": "A historical archery discipline",
   "modifier.tconstruct.barebow.description": "Bow will not use arrows from the inventory, though will still use arrows from quiver or crystalshot.",
@@ -2451,7 +2466,7 @@
   "modifier.tconstruct.impaling.description": "Arrows keep moving after hitting a target, potentially hitting more targets",
   "modifier.tconstruct.spike": "Spike",
   "modifier.tconstruct.spike.flavor": "Effective at better stabbing",
-  "modifier.tconstruct.spike.description": "Arrow keeps moving after hitting a target, while thrown disable shields",
+  "modifier.tconstruct.spike.description": "Arrows keeps moving after hitting a target, while thrown ammo disable shields",
   "modifier.tconstruct.trueshot": "Trueshot",
   "modifier.tconstruct.trueshot.flavor": "This bow will always aim true",
   "modifier.tconstruct.trueshot.description": "Increases the accuracy of the weapon",
@@ -2568,6 +2583,10 @@
   "modifier.tconstruct.shulking.flavor": "This shell is my home",
   "modifier.tconstruct.shulking.description": "Increases resistance while sneaking, but also decreases damage",
   "modifier.tconstruct.shulking.resistance": "Shell Resistance",
+  "modifier.tconstruct.blockade": "Blockade",
+  "modifier.tconstruct.blockade.flavor": "Aids blocking",
+  "modifier.tconstruct.blockade.description": "Increases the maximum amount of damage this tool can block",
+  "modifier.tconstruct.blockade.requirements": "Blockade requires blocking or parrying",
   "modifier.tconstruct.boundless": "Boundless",
   "modifier.tconstruct.boundless.flavor": "Increasing your limits",
   "modifier.tconstruct.boundless.description": "Increases the maximum percentage of protection from any source",
@@ -2759,7 +2778,10 @@
   "modifier.tconstruct.spectral.description": "Causes the target of the projectile to glow, be it a block or entity",
   "modifier.tconstruct.explosive": "Explosive",
   "modifier.tconstruct.explosive.flavor": "Bomb!",
-  "modifier.tconstruct.explosive.description": "Causes the arrow to explode upon hitting the target",
+  "modifier.tconstruct.explosive.description": "Causes the projectile to explode upon hitting the target",
+  "modifier.tconstruct.supercharged": "Supercharged",
+  "modifier.tconstruct.supercharged.flavor": "Zooom!",
+  "modifier.tconstruct.supercharged.description": "Causes the projectile to move quicker, potentially dealing more damage",
   "modifier.tconstruct.exchanging": "Exchanging",
   "modifier.tconstruct.exchanging.flavor": "The Ole Switcheroo!",
   "modifier.tconstruct.exchanging.description": "Blocks broken by this tool are replaced by the block in the offhand if possible",
@@ -2987,6 +3009,9 @@
   "modifier.tconstruct.woodwind": "Woodwind",
   "modifier.tconstruct.woodwind.flavor": "Song of air",
   "modifier.tconstruct.woodwind.description": "Moves more freely in the wind, granting a large accuracy bonus, plus a velocity bonus to thrown ammo. Some even claim to hear music as it flies.",
+  "modifier.tconstruct.spiny": "Spiny",
+  "modifier.tconstruct.spiny.flavor": "The pain makes you strong!",
+  "modifier.tconstruct.spiny.description": "Boosts the projectile's damage, but damages you when used.",
   "modifier.tconstruct.soft": "Soft",
   "modifier.tconstruct.soft.flavor": "Friendly weapon",
   "modifier.tconstruct.soft.description": "Reduces the projectile power to 0.",
@@ -3059,7 +3084,7 @@
   "modifier.tconstruct.vintage.description": "Tool gains an ability slot at the cost of some mobility.",
   "modifier.tconstruct.airborne": "Airborne",
   "modifier.tconstruct.airborne.flavor": "Take to the skies!",
-  "modifier.tconstruct.airborne.description": "Tool no longer is penalized when mining in the air and gains a projectile accuracy bonus",
+  "modifier.tconstruct.airborne.description": "Tool no longer is penalized when mining in the air and gains a projectile velocity bonus",
   "modifier.tconstruct.airborne.velocity": "Airborne Velocity",
   "modifier.tconstruct.skyfall": "Skyfall",
   "modifier.tconstruct.skyfall.flavor": "Falling with style!",
@@ -3246,7 +3271,7 @@
   "modifier.tconstruct.solid.resistance": "Resistance",
   "modifier.tconstruct.shock": "Shock",
   "modifier.tconstruct.shock.flavor": "Electrifying",
-  "modifier.tconstruct.shock.description": "Does more damage to targets in water, and damages",
+  "modifier.tconstruct.shock.description": "Does more damage to targets in water, while armor may damage submerged attackers",
   "modifier.tconstruct.shock.attack_damage": "Shock Damage",
   "modifier.tconstruct.shock.projectile_damage": "Shock Power",
   "modifier.tconstruct.decay": "Decay",
@@ -3832,6 +3857,7 @@
   "command.tconstruct.generate_part_textures.no_materials": "No material's have generator info, nothing to generate",
   "command.tconstruct.generate_part_textures.no_parts": "No part sprites present in resource packs",
 
+  "command.tconstruct.generate_hidden_fluids": "Successfully added %s entries to fluid tag '%s'. Run /reload to activate pack at %s.",
   "command.tconstruct.generate.melting_recipes": "Successfully generated %s melting recipes in %s seconds. Run /reload to activate pack at %s",
 
 

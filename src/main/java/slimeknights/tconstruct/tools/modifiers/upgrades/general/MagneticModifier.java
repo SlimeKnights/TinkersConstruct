@@ -25,6 +25,7 @@ import slimeknights.tconstruct.library.modifiers.hook.mining.BlockBreakModifierH
 import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileLaunchModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.special.PlantHarvestModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.special.ShearsModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.special.sling.SlingLaunchModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.technical.ArmorLevelModule;
 import slimeknights.tconstruct.library.module.ModuleHookMap.Builder;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
@@ -37,7 +38,7 @@ import slimeknights.tconstruct.shared.TinkerEffects;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class MagneticModifier extends Modifier implements PlantHarvestModifierHook, ShearsModifierHook, BlockBreakModifierHook, MeleeHitModifierHook, MonsterMeleeHitModifierHook.RedirectAfter, ProjectileLaunchModifierHook {
+public class MagneticModifier extends Modifier implements PlantHarvestModifierHook, ShearsModifierHook, BlockBreakModifierHook, MeleeHitModifierHook, MonsterMeleeHitModifierHook.RedirectAfter, ProjectileLaunchModifierHook, SlingLaunchModifierHook {
   /** Player modifier data key for haste */
   private static final TinkerDataKey<Integer> MAGNET = TConstruct.createKey("magnet");
 
@@ -49,7 +50,7 @@ public class MagneticModifier extends Modifier implements PlantHarvestModifierHo
   @Override
   protected void registerHooks(Builder hookBuilder) {
     super.registerHooks(hookBuilder);
-    hookBuilder.addHook(this, ModifierHooks.PLANT_HARVEST, ModifierHooks.SHEAR_ENTITY, ModifierHooks.BLOCK_BREAK, ModifierHooks.MELEE_HIT, ModifierHooks.MONSTER_MELEE_HIT, ModifierHooks.PROJECTILE_LAUNCH, ModifierHooks.PROJECTILE_SHOT);
+    hookBuilder.addHook(this, ModifierHooks.PLANT_HARVEST, ModifierHooks.SHEAR_ENTITY, ModifierHooks.BLOCK_BREAK, ModifierHooks.MELEE_HIT, ModifierHooks.MONSTER_MELEE_HIT, ModifierHooks.PROJECTILE_LAUNCH, ModifierHooks.PROJECTILE_SHOT, ModifierHooks.SLING_LAUNCH);
     hookBuilder.addModule(new ArmorLevelModule(MAGNET, false, null));
   }
 
@@ -87,6 +88,11 @@ public class MagneticModifier extends Modifier implements PlantHarvestModifierHo
     if (primary) {
       TinkerEffects.magnetic.get().apply(shooter, 30, modifier.getLevel() - 1);
     }
+  }
+
+  @Override
+  public void afterSlingLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity holder, LivingEntity target, ModifierEntry slingSource, float force, float multiplier, Vec3 angle) {
+    TinkerEffects.magnetic.get().apply(holder, 30, modifier.getLevel() - 1);
   }
 
 

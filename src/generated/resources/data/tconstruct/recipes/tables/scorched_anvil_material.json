@@ -4,7 +4,11 @@
   "key": {
     "m": {
       "type": "tconstruct:material",
-      "item": "tconstruct:fake_storage_block"
+      "item": "tconstruct:fake_storage_block",
+      "material": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:compatibility_metals/alloys"
+      }
     },
     "s": {
       "tag": "tconstruct:scorched_blocks"

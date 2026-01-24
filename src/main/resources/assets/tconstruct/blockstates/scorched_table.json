@@ -1,8 +1,12 @@
 {
   "variants": {
-    "facing=north": { "model": "tconstruct:block/foundry/table" },
-    "facing=south": { "model": "tconstruct:block/foundry/table", "y": 180 },
-    "facing=west":  { "model": "tconstruct:block/foundry/table", "y": 270 },
-    "facing=east":  { "model": "tconstruct:block/foundry/table", "y":  90 }
+    "facing=north,has_item=true": { "model": "tconstruct:block/foundry/table" },
+    "facing=south,has_item=true": { "model": "tconstruct:block/foundry/table", "y": 180 },
+    "facing=west,has_item=true":  { "model": "tconstruct:block/foundry/table", "y": 270 },
+    "facing=east,has_item=true":  { "model": "tconstruct:block/foundry/table", "y":  90 },
+    "facing=north,has_item=false": { "model": "tconstruct:block/foundry/table_covered" },
+    "facing=south,has_item=false": { "model": "tconstruct:block/foundry/table_covered", "y": 180 },
+    "facing=west,has_item=false":  { "model": "tconstruct:block/foundry/table_covered", "y": 270 },
+    "facing=east,has_item=false":  { "model": "tconstruct:block/foundry/table_covered", "y":  90 }
   }
 }

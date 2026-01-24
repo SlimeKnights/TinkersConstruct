@@ -1,10 +1,14 @@
 {
   "values": [
     "#forge:storage_blocks/cobalt",
+    "#forge:storage_blocks/steel",
+    "#forge:storage_blocks/slimesteel",
+    "#forge:storage_blocks/cinderslime",
     "#forge:storage_blocks/queens_slime",
     "#forge:storage_blocks/manyullyn",
     "#forge:storage_blocks/hepatizon",
     "#forge:storage_blocks/soulsteel",
-    "#forge:storage_blocks/knightmetal"
+    "#forge:storage_blocks/knightmetal",
+    "#forge:storage_blocks/knightslime"
   ]
 }

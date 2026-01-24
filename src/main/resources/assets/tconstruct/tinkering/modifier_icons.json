@@ -30,6 +30,7 @@
   "tconstruct:stripping":   "tconstruct:gui/modifiers/held/stripping",
   "tconstruct:tilling":     "tconstruct:gui/modifiers/held/tilling",
   "tconstruct:offhanded":   "tconstruct:gui/modifiers/held/offhanded",
+  "tconstruct:blunted":     "tconstruct:gui/modifiers/held/blunted",
 
   "tconstruct:flinging":  "tconstruct:gui/modifiers/held/flinging",
   "tconstruct:springing": "tconstruct:gui/modifiers/held/springing",
@@ -95,6 +96,7 @@
   "tconstruct:multishot":    "tconstruct:gui/modifiers/ranged/multishot",
   "tconstruct:trick_quiver": "tconstruct:gui/modifiers/ranged/trick_quiver",
 
+  "tconstruct:blockade":              "tconstruct:gui/modifiers/armor/blockade",
   "tconstruct:boundless":             "tconstruct:gui/modifiers/armor/boundless",
   "tconstruct:protection":            "tconstruct:gui/modifiers/armor/protection",
   "tconstruct:melee_protection":      "tconstruct:gui/modifiers/armor/melee_protection",

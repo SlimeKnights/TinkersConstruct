@@ -6,6 +6,9 @@
       "item": "minecraft:campfire"
     }
   ],
+  "level": {
+    "max": 4
+  },
   "result": "tconstruct:smelting",
   "slots": {
     "upgrades": 1

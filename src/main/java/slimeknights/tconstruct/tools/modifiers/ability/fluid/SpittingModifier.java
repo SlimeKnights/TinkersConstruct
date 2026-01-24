@@ -67,7 +67,7 @@ public class SpittingModifier extends Modifier implements GeneralInteractionModi
     if (!tool.isBroken() && source == InteractionSource.RIGHT_CLICK) {
       // launch if the fluid has effects, cannot simulate as we don't know the target yet
       FluidStack fluid = TANK_HELPER.getFluid(tool);
-      if (fluid.getAmount() >= (1 + 2 * (modifier.getLevel() - 1)) && FluidEffectManager.INSTANCE.find(fluid.getFluid()).hasEffects()) {
+      if (fluid.getAmount() >= modifier.getLevel() && FluidEffectManager.INSTANCE.find(fluid.getFluid()).hasEffects()) {
         GeneralInteractionModifierHook.startUsingWithDrawtime(tool, modifier.getId(), player, hand, 1.5f);
         return InteractionResult.SUCCESS;
       }
@@ -92,7 +92,7 @@ public class SpittingModifier extends Modifier implements GeneralInteractionModi
             float power = charge * ConditionalStatModifierHook.getModifiedStat(tool, entity, ToolStats.PROJECTILE_DAMAGE);
             // level acts like multishot level, meaning higher produces more projectiles
             int level = modifier.intEffectiveLevel();
-            // amount is the amount per projectile, total cost is amount times level (every other shot is free)
+            // amount is the amount per projectile, total cost is amount times level
             // if its 0, that means we have only a couple mb left
             int amount = Math.min(fluid.getAmount(), (int)(recipe.getAmount(fluid.getFluid()) * power) * level) / level;
             if (amount > 0) {
@@ -102,10 +102,9 @@ public class SpittingModifier extends Modifier implements GeneralInteractionModi
               float inaccuracy = ModifierUtil.getInaccuracy(tool, entity);
 
               // multishot stuff
-              int shots = 1 + 2 * (level - 1);
-              float startAngle = ModifiableLauncherItem.getAngleStart(shots);
-              int primaryIndex = shots / 2;
-              for (int shotIndex = 0; shotIndex < shots; shotIndex++) {
+              float startAngle = ModifiableLauncherItem.getAngleStart(level);
+              int primaryIndex = level / 2;
+              for (int shotIndex = 0; shotIndex < level; shotIndex++) {
                 FluidEffectProjectile spit = new FluidEffectProjectile(world, entity, new FluidStack(fluid, amount), power);
 
                 // setup projectile target
@@ -133,7 +132,7 @@ public class SpittingModifier extends Modifier implements GeneralInteractionModi
               // consume the fluid and durability
               fluid.shrink(amount * level);
               TANK_HELPER.setFluid(tool, fluid);
-              ToolDamageUtil.damageAnimated(tool, shots, entity, entity.getUsedItemHand());
+              ToolDamageUtil.damageAnimated(tool, level, entity, entity.getUsedItemHand());
             }
           }
         }

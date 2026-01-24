@@ -83,7 +83,7 @@ public class BucketingModifier extends Modifier implements BlockInteractionModif
    */
   private static boolean cannotContainFluid(Level world, BlockPos pos, BlockState state, Fluid fluid) {
     Block block = state.getBlock();
-    return !state.canBeReplaced(fluid) && !(block instanceof LiquidBlockContainer container && container.canPlaceLiquid(world, pos, state, fluid));
+    return !(block instanceof LiquidBlockContainer container && container.canPlaceLiquid(world, pos, state, fluid));
   }
 
   @Override
@@ -162,7 +162,7 @@ public class BucketingModifier extends Modifier implements BlockInteractionModif
       return InteractionResult.PASS;
     }
     Fluid fluid = fluidStack.getFluid();
-    if (!(fluid instanceof FlowingFluid)) {
+    if (!(fluid instanceof FlowingFluid flowing)) {
       return InteractionResult.PASS;
     }
 
@@ -180,21 +180,32 @@ public class BucketingModifier extends Modifier implements BlockInteractionModif
     if (cannotContainFluid(world, target, existing, fluidStack.getFluid())) {
       target = offset;
       existing = world.getBlockState(target);
-      if (cannotContainFluid(world, target, existing, fluidStack.getFluid())) {
+      if (!existing.isAir() && !existing.canBeReplaced(fluid) && cannotContainFluid(world, target, existing, fluidStack.getFluid())) {
         return InteractionResult.PASS;
       }
     }
 
     // if water, evaporate
     boolean placed = false;
-    if (world.dimensionType().ultraWarm() && fluid.is(FluidTags.WATER)) {
+    // start with forge vaporizing
+    FluidType fluidType = fluid.getFluidType();
+    if (fluidType.isVaporizedOnPlacement(world, target, fluidStack)) {
+      fluidType.onVaporize(player, world, target, fluidStack);
+      placed = true;
+    // next, try vanilla vaporizing
+    } else if (world.dimensionType().ultraWarm() && fluid.is(FluidTags.WATER)) {
       world.playSound(player, target, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 0.5F, 2.6F + (world.random.nextFloat() - world.random.nextFloat()) * 0.8F);
       for(int l = 0; l < 8; ++l) {
         world.addParticle(ParticleTypes.LARGE_SMOKE, target.getX() + Math.random(), target.getY() + Math.random(), target.getZ() + Math.random(), 0.0D, 0.0D, 0.0D);
       }
       placed = true;
+    // continue with container blocks
+    } else if (existing.getBlock() instanceof LiquidBlockContainer container) {
+      container.placeLiquid(world, target, existing, flowing.getSource(false));
+      world.playSound(null, target, FluidTransferHelper.getEmptySound(fluidStack), SoundSource.BLOCKS, 1.0F, 1.0F);
+      placed = true;
+    // finally, just replace the existing block with the fluid
     } else if (existing.canBeReplaced(fluid)) {
-      // if its a liquid container, we should have validated it already
       if (!world.isClientSide && !existing.liquid()) {
         world.destroyBlock(target, true);
       }
@@ -202,11 +213,6 @@ public class BucketingModifier extends Modifier implements BlockInteractionModif
         world.playSound(null, target, FluidTransferHelper.getEmptySound(fluidStack), SoundSource.BLOCKS, 1.0F, 1.0F);
         placed = true;
       }
-    } else if (existing.getBlock() instanceof LiquidBlockContainer container) {
-      // if not replaceable, it must be a liquid container
-      container.placeLiquid(world, target, existing, ((FlowingFluid)fluid).getSource(false));
-      world.playSound(null, target, FluidTransferHelper.getEmptySound(fluidStack), SoundSource.BLOCKS, 1.0F, 1.0F);
-      placed = true;
     }
 
     // if we placed something, consume fluid

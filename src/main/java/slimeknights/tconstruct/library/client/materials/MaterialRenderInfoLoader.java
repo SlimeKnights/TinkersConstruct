@@ -24,6 +24,7 @@ import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.utils.Util;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -136,7 +137,7 @@ public class MaterialRenderInfoLoader implements IEarlySafeManagerReloadListener
 
     // store the list immediately, otherwise it is not in place in time for models to load
     this.renderInfos = Map.copyOf(map);
-    log.debug("Loaded material render infos: {}", Util.toIndentedStringList(map.keySet()));
+    log.debug("Loaded material render infos: {}", Util.toIndentedStringList(map.keySet().stream().sorted(Comparator.comparing(MaterialVariantId::getId).thenComparing(MaterialVariantId::getVariant)).toList()));
     log.info("{} material render infos loaded", map.size());
   }
 }

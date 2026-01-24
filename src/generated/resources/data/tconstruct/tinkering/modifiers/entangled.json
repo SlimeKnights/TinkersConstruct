@@ -22,6 +22,7 @@
     {
       "type": "tconstruct:damage_on_unequip",
       "damage": 1.0,
+      "damage_type": "tconstruct:entangled",
       "tool": {
         "type": "mantle:inverted",
         "inverted_type": "mantle:tag",
@@ -31,6 +32,7 @@
     {
       "type": "tconstruct:damage_on_unequip",
       "damage": 2.0,
+      "damage_type": "tconstruct:entangled",
       "tool": {
         "type": "mantle:tag",
         "tag": "tconstruct:modifiable/armor/worn"

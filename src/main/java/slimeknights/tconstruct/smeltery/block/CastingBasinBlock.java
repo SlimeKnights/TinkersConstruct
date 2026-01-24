@@ -24,9 +24,6 @@ public class CastingBasinBlock extends AbstractCastingBlock {
     Shapes.or(
       Block.box(0.0D, 0.0D, 5.0D, 16.0D, 2.0D, 11.0D),
       Block.box(5.0D, 0.0D, 0.0D, 11.0D, 2.0D, 16.0D),
-      Block.box(2.0D, 0.0D, 3.0D, 14.0D, 3.0D, 14.0D),
-      Block.box(7.0D, 5.0D, 0.0D, 9.0D, 13.0D, 16.0D),
-      Block.box(0.0D, 5.0D, 7.0D, 16.0D, 13.0D, 9.0D),
       Block.box(2.0D, 4.0D, 2.0D, 14.0D, 16.0D, 14.0D)),
     BooleanOp.ONLY_FIRST);
 

@@ -36,7 +36,8 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addTraits(MaterialIds.bone, AMMO, ModifierIds.spike);
     addDefaultTraits(MaterialIds.bamboo, ModifierIds.unburdened);
     addTraits(MaterialIds.bamboo, AMMO, ModifierIds.woodwind);
-    addDefaultTraits(MaterialIds.cactus, ModifierIds.thorns);
+    addDefaultTraits(MaterialIds.cactus, ModifierIds.spiny);
+    addTraits(MaterialIds.cactus, ARMOR, ModifierIds.thorns);
     addTraits(MaterialIds.wool, AMMO, ModifierIds.soft);
     noTraits(MaterialIds.feather);
     addTraits(MaterialIds.paper, AMMO, ModifierIds.weak);
@@ -86,6 +87,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addTraits(MaterialIds.glass, AMMO, ModifierIds.amorphous, ModifierIds.smashingAmmo, ModifierIds.spillingRod);
     addTraits(MaterialIds.slimeball, AMMO, ModifierIds.erratic);
     addTraits(MaterialIds.gunpowder, AMMO, ModifierIds.explosive);
+    addTraits(MaterialIds.redstone, AMMO, ModifierIds.supercharged);
 
     // tier 3
     addDefaultTraits(MaterialIds.slimesteel, ModifierIds.overcast, TinkerModifiers.overslime.getId());

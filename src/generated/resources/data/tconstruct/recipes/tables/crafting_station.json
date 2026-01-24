@@ -7,14 +7,9 @@
     },
     "w": {
       "type": "forge:difference",
-      "base": [
-        {
-          "tag": "forge:workbenches"
-        },
-        {
-          "tag": "tconstruct:tables"
-        }
-      ],
+      "base": {
+        "tag": "forge:workbenches"
+      },
       "subtracted": {
         "item": "tconstruct:crafting_station"
       }

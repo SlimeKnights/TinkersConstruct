@@ -160,8 +160,8 @@ public class CombatFishingHook extends FishingHook implements ProjectileWithKnoc
       velocity = getDeltaMovement().length();
     }
     // round to the nearest 0.1
-    // we start by multiplying by 20 to make the damage approximately 2/3 of a bow (as bows multiply velocity by 3)
-    return Mth.ceil(Mth.clamp(velocity * this.power * 20, 0, Integer.MAX_VALUE)) / 10f;
+    // we start by multiplying by 15 to make the damage approximately 1/2 of a bow (as bows multiply velocity by 3)
+    return Mth.ceil(Mth.clamp(velocity * this.power * 15, 0, Integer.MAX_VALUE)) / 10f;
   }
 
 
@@ -211,7 +211,12 @@ public class CombatFishingHook extends FishingHook implements ProjectileWithKnoc
       if (collectable && isCollecting()) {
         if (owner instanceof Player player) {
           target.playerTouch(player);
+          // if removed, we are done here
           if (target.isRemoved()) {
+            return;
+            // if not removed but it's on the list to discard on failed pickup, discard and als be done
+          } else if (target.getType().is(TinkerTags.EntityTypes.DISCARDABLE_COLLECTABLES)) {
+            target.discard();
             return;
           }
         }

@@ -525,7 +525,8 @@ public class TinkerTags {
     public static final TagKey<Item> LINGERING_BOTTLE = common("bottles/lingering");
 
     // compat tags
-    /** Tag meaning necronium is available */
+    /** @deprecated necronium bones now show based on {@link slimeknights.tconstruct.tools.data.material.MaterialIds#necronium} */
+    @Deprecated(forRemoval = true)
     public static final TagKey<Item> URANIUM_INGOTS = common("ingots/uranium");
     /** Tag of trophies from bosses, to grant an additional upgrade slot to tools. Meant for Twilight Forest boss trophies, but suppose you can add other bosses that are not easily farmed. */
     public static final TagKey<Item> BOSS_TROPHIES = local("boss_trophies");
@@ -633,6 +634,8 @@ public class TinkerTags {
 
     /** Things that can be collected using {@link net.minecraft.world.entity.Entity#playerTouch(Player)} using a fishing rod. */
     public static final TagKey<EntityType<?>> COLLECTABLES = common("collectables");
+    /** {@link #COLLECTABLES} that should be discarded when they fail to collect. For example, arrows due to creative only pickup. */
+    public static final TagKey<EntityType<?>> DISCARDABLE_COLLECTABLES = common("collectables/discardable");
 
     /** Projectiles with this tag will not be discarded by any relevant modifiers. */
     public static final TagKey<EntityType<?>> REUSABLE_AMMO = common("reusable_ammo");
@@ -679,6 +682,9 @@ public class TinkerTags {
     /** Biomes the enderslime island can spawn in, generally the outer end islands */
     public static final TagKey<Biome> ENDERSLIME_ISLANDS = local("islands/enderslime");
 
+    /** Common tag for biomes that do not spawn monsters, to exclude terracube spawns there. */
+    public static final TagKey<Biome> NO_DEFAULT_MONSTERS = TagKey.create(Registries.BIOME, commonResource("no_default_monsters"));
+
     private static TagKey<Biome> local(String name) {
       return TagKey.create(Registries.BIOME, getResource(name));
     }
@@ -715,6 +721,12 @@ public class TinkerTags {
     public static final TagKey<Modifier> CHARGE_EMPTY_BOW_WITHOUT_DRAWTIME = local("charge_empty_bow/without_drawtime");
     /** Movement modifiers that can activate the drill attack */
     public static final TagKey<Modifier> DRILL_ATTACKS = local("drill_attacks");
+    /** Sling modifiers that get a bonus from knockback. */
+    public static final TagKey<Modifier> KNOCKBACK_SLINGS = local("knockback_slings");
+    /** Sling modifiers that get a bonus from knockback, targeting yourself (so should add in attributes). */
+    public static final TagKey<Modifier> SELF_KNOCKBACK_SLINGS = local("knockback_slings/self");
+    /** Sling modifiers that get a bonus from knockback, targeting someone else (so attributes are automatically applied). */
+    public static final TagKey<Modifier> TARGET_KNOCKBACK_SLINGS = local("knockback_slings/target");
 
     // book tags - these are used to determine pages to load in resource packs
     // upgrades
@@ -779,7 +791,9 @@ public class TinkerTags {
 
     /** Materials acting as compatability metals. Will allow them to use {@link slimeknights.tconstruct.tools.TinkerToolParts#fakeIngot} assuming they lack an ingot. */
     public static final TagKey<IMaterial> COMPATABILITY_METALS = local("compatibility_metals");
-    /** Materials acting as compatability alloys. Will allow them to use {@link slimeknights.tconstruct.tools.TinkerToolParts#fakeStorageBlock}. */
+    /** Materials acting as compatability metals with a block form. Will allow them to use {@link slimeknights.tconstruct.tools.TinkerToolParts#fakeStorageBlock}. */
+    public static final TagKey<IMaterial> COMPATABILITY_BLOCKS = local("compatibility_metals/blocks");
+    /** Materials acting as compatability alloys. Will allow them to use {@link slimeknights.tconstruct.tables.TinkerTables#tinkersAnvil}. Typically, the same as {@link #COMPATABILITY_BLOCKS}, though left separate for datapack flexibility. */
     public static final TagKey<IMaterial> COMPATABILITY_ALLOYS = local("compatibility_metals/alloys");
 
     // tags for book material lists

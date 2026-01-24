@@ -161,9 +161,7 @@ public class ContentModifier extends PageContent {
       List<TextData> effectData = Lists.newArrayList();
 
       for (String e : this.effects) {
-        effectData.add(new TextData("\u25CF "));
-        effectData.add(new TextData(e));
-        effectData.add(new TextData("\n"));
+        effectData.add(new TextData("● " + e).linebreak(true));
       }
 
       list.add(new TextElement(5, y + 14 + h, BookScreen.PAGE_WIDTH / 2 + 7, BookScreen.PAGE_HEIGHT - h - 20, effectData));

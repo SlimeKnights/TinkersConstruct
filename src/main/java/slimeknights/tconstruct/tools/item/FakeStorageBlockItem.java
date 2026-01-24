@@ -4,7 +4,6 @@ import it.unimi.dsi.fastutil.objects.Object2BooleanArrayMap;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
-import slimeknights.tconstruct.library.materials.IMaterialRegistry;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
@@ -36,11 +35,8 @@ public class FakeStorageBlockItem extends MaterialBlockItem implements IRepairKi
 
   @Override
   public boolean canUseMaterial(MaterialId material) {
-    IMaterialRegistry registry = MaterialRegistry.getInstance();
-    if (registry.isInTag(material, validMaterials)) {
-      return missingItemCache.computeIfAbsent(material, missingItemGetter);
-    }
-    return false;
+    return MaterialRegistry.getInstance().isInTag(material, validMaterials)
+      && missingItemCache.computeIfAbsent(material, missingItemGetter);
   }
 
   @Override

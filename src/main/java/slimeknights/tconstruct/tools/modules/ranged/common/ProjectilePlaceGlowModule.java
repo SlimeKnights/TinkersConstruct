@@ -80,7 +80,6 @@ public record ProjectilePlaceGlowModule(int damage, boolean blocks, boolean enti
       if (!projectile.getType().is(TinkerTags.EntityTypes.REUSABLE_AMMO)) {
         ModifierUtil.updateFishingRod(projectile, damage, true);
         projectile.discard();
-        return true;
       }
     }
     return false;

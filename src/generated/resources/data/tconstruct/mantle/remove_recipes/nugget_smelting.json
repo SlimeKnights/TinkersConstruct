@@ -1,0 +1,17 @@
+{
+  "input": "mantle:any",
+  "recipe_type": [
+    "minecraft:smelting",
+    "minecraft:blasting"
+  ],
+  "result": {
+    "type": "mantle:and",
+    "predicates": [
+      {
+        "type": "mantle:tag",
+        "tag": "forge:nuggets"
+      },
+      "tconstruct:castable"
+    ]
+  }
+}

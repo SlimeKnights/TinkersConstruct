@@ -43,6 +43,9 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.registration.BlockDeferredRegisterExtension;
 import slimeknights.tconstruct.common.registration.FluidDeferredRegisterExtension;
 import slimeknights.tconstruct.common.registration.ItemDeferredRegisterExtension;
+import slimeknights.tconstruct.library.materials.MaterialRegistry;
+import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 
 import java.util.Optional;
@@ -181,7 +184,17 @@ public abstract class TinkerModule {
   }
 
   /** Accepts the given item if the passed tag has items */
+  @SuppressWarnings("UnusedReturnValue")
   protected static boolean acceptIfTag(CreativeModeTab.Output output, ItemLike item, TagKey<Item> tagCondition) {
     return acceptIfTag(output, item, TabVisibility.PARENT_AND_SEARCH_TABS, tagCondition);
+  }
+
+  /** Accepts the given item if the given material is present */
+  protected static boolean acceptIfMaterial(CreativeModeTab.Output output, ItemLike item, MaterialId material) {
+    if (MaterialRegistry.getMaterial(material) != IMaterial.UNKNOWN) {
+      output.accept(item);
+      return true;
+    }
+    return false;
   }
 }

@@ -392,12 +392,12 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                        .save(consumer, location(folder + "drain"));
     ShapedRetexturedRecipeBuilder.fromShaped(
       ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, TinkerSmeltery.searedDrain)
-                         .define('#', TinkerTags.Items.SMELTERY_BRICKS)
-                         .define('C', Tags.Items.INGOTS_COPPER)
-                         .pattern("C#C")
-                         .unlockedBy("has_item", has(TinkerTags.Items.SMELTERY_BRICKS)))
-                                 .setSource(TinkerTags.Items.SMELTERY_BRICKS)
-                                 .build(consumer, location(folder + "drain_retextured"));
+        .define('#', TinkerTags.Items.SMELTERY_BRICKS)
+        .define('C', Tags.Items.INGOTS_COPPER)
+        .pattern("C#C")
+        .unlockedBy("has_item", has(TinkerTags.Items.SMELTERY_BRICKS)))
+      .setSource('#')
+      .build(consumer, location(folder + "drain_retextured"));
     ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, TinkerSmeltery.searedChute)
                        .define('#', TinkerSmeltery.searedBrick)
                        .define('C', Tags.Items.INGOTS_COPPER)
@@ -408,14 +408,14 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                        .save(consumer, location(folder + "chute"));
     ShapedRetexturedRecipeBuilder.fromShaped(
       ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, TinkerSmeltery.searedChute)
-                         .define('#', TinkerTags.Items.SMELTERY_BRICKS)
-                         .define('C', Tags.Items.INGOTS_COPPER)
-                         .pattern("C")
-                         .pattern("#")
-                         .pattern("C")
-                         .unlockedBy("has_item", has(TinkerTags.Items.SMELTERY_BRICKS)))
-                                 .setSource(TinkerTags.Items.SMELTERY_BRICKS)
-                                 .build(consumer, location(folder + "chute_retextured"));
+        .define('#', TinkerTags.Items.SMELTERY_BRICKS)
+        .define('C', Tags.Items.INGOTS_COPPER)
+        .pattern("C")
+        .pattern("#")
+        .pattern("C")
+        .unlockedBy("has_item", has(TinkerTags.Items.SMELTERY_BRICKS)))
+      .setSource('#')
+      .build(consumer, location(folder + "chute_retextured"));
     ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, TinkerSmeltery.searedDuct)
                        .define('#', TinkerSmeltery.searedBrick)
                        .define('C', Tags.Items.INGOTS_GOLD)
@@ -426,12 +426,12 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                        .save(consumer, location(folder + "duct"));
     ShapedRetexturedRecipeBuilder.fromShaped(
       ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, TinkerSmeltery.searedDuct)
-                         .define('#', TinkerTags.Items.SMELTERY_BRICKS)
-                         .define('C', Tags.Items.INGOTS_GOLD)
-                         .pattern("C#C")
-                         .unlockedBy("has_item", has(TinkerTags.Items.SMELTERY_BRICKS)))
-                                 .setSource(TinkerTags.Items.SMELTERY_BRICKS)
-                                 .build(consumer, location(folder + "duct_retextured"));
+        .define('#', TinkerTags.Items.SMELTERY_BRICKS)
+        .define('C', Tags.Items.INGOTS_GOLD)
+        .pattern("C#C")
+        .unlockedBy("has_item", has(TinkerTags.Items.SMELTERY_BRICKS)))
+      .setSource('#')
+      .build(consumer, location(folder + "duct_retextured"));
 
     // controllers
     Ingredient similarTanks = NoContainerIngredient.of(TinkerSmeltery.searedTank.get(TankType.FUEL_GAUGE), TinkerSmeltery.searedTank.get(TankType.INGOT_GAUGE));
@@ -801,19 +801,21 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
 
     // casting
     ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TinkerSmeltery.scorchedBasin.get())
-                       .define('#', TinkerSmeltery.scorchedBrick)
-                       .pattern("# #")
-                       .pattern("# #")
-                       .pattern("###")
-                       .unlockedBy("has_item", has(TinkerSmeltery.scorchedBrick))
-                       .save(consumer, location(folder + "basin"));
+      .define('#', TinkerSmeltery.scorchedBrick)
+      .define('G', TinkerCommons.goldPlatform)
+      .pattern("# #")
+      .pattern("#G#")
+      .pattern("###")
+      .unlockedBy("has_item", has(TinkerSmeltery.scorchedBrick))
+      .save(consumer, location(folder + "basin"));
     ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TinkerSmeltery.scorchedTable.get())
-                       .define('#', TinkerSmeltery.scorchedBrick)
-                       .pattern("###")
-                       .pattern("# #")
-                       .pattern("# #")
-                       .unlockedBy("has_item", has(TinkerSmeltery.scorchedBrick))
-                       .save(consumer, location(folder + "table"));
+      .define('#', TinkerSmeltery.scorchedBrick)
+      .define('G', TinkerCommons.goldBars)
+      .pattern("###")
+      .pattern("#G#")
+      .pattern("# #")
+      .unlockedBy("has_item", has(TinkerSmeltery.scorchedBrick))
+      .save(consumer, location(folder + "table"));
     ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, TinkerSmeltery.scorchedProxyTank.get())
       .define('#', TinkerSmeltery.scorchedBrick)
       .define('G', Tags.Items.GEMS_QUARTZ)
@@ -844,12 +846,12 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                        .save(consumer, location(folder + "drain"));
     ShapedRetexturedRecipeBuilder.fromShaped(
       ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, TinkerSmeltery.scorchedDrain)
-                         .define('#', TinkerTags.Items.FOUNDRY_BRICKS)
-                         .define('C', TinkerCommons.obsidianPane)
-                         .pattern("C#C")
-                         .unlockedBy("has_item", has(TinkerTags.Items.FOUNDRY_BRICKS)))
-                                 .setSource(TinkerTags.Items.FOUNDRY_BRICKS)
-                                 .build(consumer, location(folder + "drain_retextured"));
+        .define('#', TinkerTags.Items.FOUNDRY_BRICKS)
+        .define('C', TinkerCommons.obsidianPane)
+        .pattern("C#C")
+        .unlockedBy("has_item", has(TinkerTags.Items.FOUNDRY_BRICKS)))
+      .setSource('#')
+      .build(consumer, location(folder + "drain_retextured"));
     ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, TinkerSmeltery.scorchedChute)
                        .define('#', TinkerSmeltery.scorchedBrick)
                        .define('C', TinkerCommons.obsidianPane)
@@ -860,14 +862,14 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                        .save(consumer, location(folder + "chute"));
     ShapedRetexturedRecipeBuilder.fromShaped(
       ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, TinkerSmeltery.scorchedChute)
-                         .define('#', TinkerTags.Items.FOUNDRY_BRICKS)
-                         .define('C', TinkerCommons.obsidianPane)
-                         .pattern("C")
-                         .pattern("#")
-                         .pattern("C")
-                         .unlockedBy("has_item", has(TinkerTags.Items.FOUNDRY_BRICKS)))
-                                 .setSource(TinkerTags.Items.FOUNDRY_BRICKS)
-                                 .build(consumer, location(folder + "chute_retextured"));
+        .define('#', TinkerTags.Items.FOUNDRY_BRICKS)
+        .define('C', TinkerCommons.obsidianPane)
+        .pattern("C")
+        .pattern("#")
+        .pattern("C")
+        .unlockedBy("has_item", has(TinkerTags.Items.FOUNDRY_BRICKS)))
+      .setSource('#')
+      .build(consumer, location(folder + "chute_retextured"));
     ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, TinkerSmeltery.scorchedDuct)
                        .define('#', TinkerSmeltery.scorchedBrick)
                        .define('C', Tags.Items.INGOTS_GOLD)
@@ -878,12 +880,12 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                        .save(consumer, location(folder + "duct"));
     ShapedRetexturedRecipeBuilder.fromShaped(
       ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, TinkerSmeltery.scorchedDuct)
-                         .define('#', TinkerTags.Items.FOUNDRY_BRICKS)
-                         .define('C', Tags.Items.INGOTS_GOLD)
-                         .pattern("C#C")
-                         .unlockedBy("has_item", has(TinkerTags.Items.FOUNDRY_BRICKS)))
-                                 .setSource(TinkerTags.Items.FOUNDRY_BRICKS)
-                                 .build(consumer, location(folder + "duct_retextured"));
+        .define('#', TinkerTags.Items.FOUNDRY_BRICKS)
+        .define('C', Tags.Items.INGOTS_GOLD)
+        .pattern("C#C")
+        .unlockedBy("has_item", has(TinkerTags.Items.FOUNDRY_BRICKS)))
+      .setSource('#')
+      .build(consumer, location(folder + "duct_retextured"));
 
     // controllers
     Ingredient similarTanks = NoContainerIngredient.of(TinkerSmeltery.scorchedTank.get(TankType.INGOT_GAUGE), TinkerSmeltery.scorchedTank.get(TankType.FUEL_GAUGE));
@@ -973,8 +975,12 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     // melt down foundry components
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.scorchedFaucet, TinkerSmeltery.scorchedChannel), TinkerFluids.scorchedStone, FluidValues.BRICK, 1.5f)
                         .save(consumer, location(meltingFolder + "faucet"));
-    MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.scorchedBasin, TinkerSmeltery.scorchedTable), TinkerFluids.scorchedStone, FluidValues.BRICK * 7, 2.5f)
-                        .save(consumer, location(meltingFolder + "casting"));
+    MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.scorchedBasin), TinkerFluids.scorchedStone, FluidValues.BRICK * 7, 2.5f)
+      .addByproduct(TinkerFluids.moltenGold.result(FluidValues.NUGGET * 10))
+      .save(consumer, location(meltingFolder + "casting_basin"));
+    MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.scorchedTable), TinkerFluids.scorchedStone, FluidValues.BRICK * 7, 2.5f)
+      .addByproduct(TinkerFluids.moltenGold.result(FluidValues.NUGGET * 4))
+      .save(consumer, location(meltingFolder + "casting_table"));
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.scorchedProxyTank), TinkerFluids.moltenObsidian, FluidValues.GLASS_PANE * 2, 2.5f)
       .addByproduct(TinkerFluids.scorchedStone.result(FluidValues.BRICK * 4))
       .addByproduct(TinkerFluids.moltenQuartz.result(FluidValues.GEM * 3))

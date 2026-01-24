@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:pierce",
   "text": [
     {
-      "text": "Arrows cancel out 1 point of armor per level."
+      "text": "Arrows cancel out 2 point of armor per level which lasts for 5 seconds after hit."
     }
   ],
   "more_text_space": true,

@@ -142,16 +142,17 @@ public class MaterialTraitsManager extends MergingJsonDataLoader<MaterialTraits.
   @Override
   protected void finishLoad(Map<ResourceLocation,MaterialTraits.Builder> map, ResourceManager manager) {
     ImmutableMap.Builder<MaterialId,MaterialTraits> builder = ImmutableMap.builder();
-    for (Entry<ResourceLocation,MaterialTraits.Builder> entry : map.entrySet()) {
+    map.entrySet().stream().sorted(Entry.comparingByKey()).forEach(entry -> {
       MaterialTraits traits = entry.getValue().build(statTypeFallbacks);
       builder.put(new MaterialId(entry.getKey()), traits);
       log.debug("Loaded traits for material '{}': \n\tDefault - {}{}",
                 entry.getKey(),
                 Arrays.toString(traits.getDefaultTraits().toArray()),
                 Util.toIndentedStringList(traits.getTraitsPerStats().entrySet().stream()
-                                                .map(entry2 -> String.format("%s - %s", entry2.getKey(), Arrays.toString(entry2.getValue().toArray())))
-                                                .collect(Collectors.toList())));
-    }
+                  .sorted(Entry.comparingByKey())
+                  .map(entry2 -> String.format("%s - %s", entry2.getKey(), Arrays.toString(entry2.getValue().toArray())))
+                  .collect(Collectors.toList())));
+    });
     materialTraits = builder.build();
     onLoaded.run();
   }

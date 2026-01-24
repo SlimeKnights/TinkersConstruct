@@ -224,6 +224,14 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
     if (original.isEmpty() != stack.isEmpty()) {
       updateAnalogSignal();
     }
+    // update the block property for having an item
+    if (level != null && !level.isClientSide) {
+      boolean hasItem = !getItem(INPUT).isEmpty() || !getItem(OUTPUT).isEmpty();
+      BlockState state = getBlockState();
+      if (state.getValue(AbstractCastingBlock.HAS_ITEM) != hasItem) {
+        level.setBlockAndUpdate(worldPosition, state.setValue(AbstractCastingBlock.HAS_ITEM, hasItem));
+      }
+    }
   }
 
   /** Called on block update to update the redstone state */

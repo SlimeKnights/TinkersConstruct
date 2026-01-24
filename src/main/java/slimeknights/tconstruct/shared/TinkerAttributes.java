@@ -3,12 +3,15 @@ package slimeknights.tconstruct.shared;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.RegistryObject;
 import slimeknights.mantle.registration.deferred.AttributeDeferredRegister;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.config.Config;
 
 public class TinkerAttributes {
   private static final AttributeDeferredRegister ATTRIBUTES = new AttributeDeferredRegister(TConstruct.MOD_ID);
@@ -70,6 +73,16 @@ public class TinkerAttributes {
     addToAll(event, KNOCKBACK_MULTIPLIER);
     addToAll(event, GOOD_EFFECT_DURATION);
     addToAll(event, BAD_EFFECT_DURATION);
+  }
+
+  @SubscribeEvent
+  void commonSetup(FMLCommonSetupEvent event) {
+    event.enqueueWork(() -> {
+      // make knockback resistance syncable, as we need that info clientside
+      if (Config.COMMON.syncKnockbackResistance.get()) {
+        Attributes.KNOCKBACK_RESISTANCE.setSyncable(true);
+      }
+    });
   }
 
   /** Adds an attribute to all entities */

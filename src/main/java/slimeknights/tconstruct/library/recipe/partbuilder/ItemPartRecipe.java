@@ -62,6 +62,12 @@ public class ItemPartRecipe implements IDisplayPartBuilderRecipe {
   }
 
   @Override
+  public boolean allowUncraftable() {
+    // if we have a recipe, we craft it
+    return true;
+  }
+
+  @Override
   public boolean partialMatch(IPartBuilderContainer inv) {
     // first, must have a pattern
     if (!patternItem.test(inv.getPatternStack())) {

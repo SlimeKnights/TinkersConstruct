@@ -36,7 +36,6 @@ import slimeknights.tconstruct.tools.modules.ArmorModuleBuilder;
 import slimeknights.tconstruct.tools.stats.PlatingMaterialStats;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.IntStream;
 
 /** Module for building tool stats using materials */
@@ -117,20 +116,14 @@ public class MaterialStatsModule implements ToolStatsHook, ToolTraitHook, ToolMa
   @Override
   public void addToolStats(IToolContext context, ModifierStatsBuilder builder) {
     MaterialNBT materials = context.getMaterials();
-    if (materials.size() > 0) {
+    if (!materials.isEmpty()) {
       IMaterialRegistry registry = MaterialRegistry.getInstance();
       for (int i = 0; i < statTypes.size(); i++) {
         MaterialStatsId statType = statTypes.get(i);
-        // apply the stats if they exist for the material
-        Optional<IMaterialStats> stats = registry.getMaterialStats(materials.get(i).getId(), statType);
-        if (stats.isPresent()) {
-          stats.get().apply(builder, scales[i]);
-        } else {
-          // fallback to the default stats if present
-          IMaterialStats defaultStats = registry.getDefaultStats(statType);
-          if (defaultStats != null) {
-            defaultStats.apply(builder, scales[i]);
-          }
+        // apply the stats for the material, assuming the stat ID is valid
+        IMaterialStats stats = registry.getStatsOrDefault(materials.get(i).getId(), statType);
+        if (stats != null) {
+          stats.apply(builder, scales[i]);
         }
       }
     }

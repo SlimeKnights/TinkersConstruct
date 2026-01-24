@@ -269,7 +269,7 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
     List<Component> tips = Lists.newArrayList();
 
     // add warning that the material is uncraftable
-    if (!materialVariant.get().isCraftable()) {
+    if (!materialVariant.get().isCraftable() && !tile.allowUncraftable()) {
       stats.add(UNCRAFTABLE_MATERIAL);
       stats.add(Component.empty());
       tips.add(UNCRAFTABLE_MATERIAL_TOOLTIP);

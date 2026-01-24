@@ -100,6 +100,7 @@ public class ModifiableArrow extends AbstractArrow implements ToolProjectile {
       IToolStackView tool = getTool();
       // apply accuracy, no need to compute this earlier nor store it
       LivingEntity shooter = ModifierUtil.asLiving(getOwner());
+      velocity *= ConditionalStatModifierHook.getModifiedStat(tool, shooter, ToolStats.VELOCITY);
       inaccuracy *= ModifierUtil.getInaccuracy(tool, shooter);
 
       // shoot with new information

@@ -266,8 +266,8 @@ public class HarvestAbilityModifier extends NoLevelsModifier implements BlockInt
           broken = survival && ToolDamageUtil.damage(tool, 1, player, stack);
         }
 
-        // if we have a player and harvest logic, try doing AOE harvest
-        if (!broken && player != null) {
+        // if we have harvest logic, try doing AOE harvest
+        if (!broken) {
           for (BlockPos newPos : tool.getHook(ToolHooks.AOE_ITERATOR).getBlocks(tool, context, state, AreaOfEffectIterator.AOEMatchType.TRANSFORM)) {
             // try harvesting the crop, if successful and survival, damage the tool
             if (harvest(context, tool, server, world.getBlockState(newPos), newPos, source)) {

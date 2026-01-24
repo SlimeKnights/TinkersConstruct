@@ -48,10 +48,10 @@ public class EntityTypeTagProvider extends EntityTypeTagsProvider {
     this.tag(TinkerTags.EntityTypes.REFLECTING_BLACKLIST);
     this.tag(TinkerTags.EntityTypes.REFLECTING_PRESERVE_OWNER).add(EntityType.FISHING_BOBBER, TinkerTools.fishingHook.get());
     this.tag(TinkerTags.EntityTypes.COLLECTABLES).add(
-      EntityType.ARROW, EntityType.SPECTRAL_ARROW,
       EntityType.TRIDENT, TinkerTools.thrownTool.get(),
       EntityType.ITEM, TinkerTools.indestructibleItem.get(),
-      EntityType.EXPERIENCE_ORB);
+      EntityType.EXPERIENCE_ORB).addTag(TinkerTags.EntityTypes.DISCARDABLE_COLLECTABLES);
+    this.tag(TinkerTags.EntityTypes.DISCARDABLE_COLLECTABLES).add(EntityType.ARROW, EntityType.SPECTRAL_ARROW, TinkerTools.materialArrow.get());
     // prevent dummy from healing you with necrotic
     this.tag(TinkerTags.EntityTypes.NECROTIC_BLACKLIST).addOptional(new ResourceLocation("dummmmmmy", "target_dummy"));
   }

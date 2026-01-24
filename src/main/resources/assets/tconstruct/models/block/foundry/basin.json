@@ -1,7 +1,7 @@
 {
   "parent": "tconstruct:block/template/basin",
   "textures": {
-    "top":    "tconstruct:block/foundry/casting/basin_top",
+    "top":    "tconstruct:block/foundry/casting/basin_top_bars",
     "side":   "tconstruct:block/foundry/casting/basin_side",
     "bottom": "tconstruct:block/foundry/casting/basin_bottom"
   }

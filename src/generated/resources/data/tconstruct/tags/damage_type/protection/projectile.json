@@ -3,6 +3,10 @@
     "#minecraft:is_projectile",
     "minecraft:falling_anvil",
     "minecraft:falling_block",
-    "minecraft:falling_stalactite"
+    "minecraft:falling_stalactite",
+    {
+      "id": "twilightforest:falling_ice",
+      "required": false
+    }
   ]
 }

@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+/** Common interface for part builder recipes */
 public interface IPartBuilderRecipe extends ICommonRecipe<IPartBuilderContainer> {
   /** Default patterns in a part builder recipe, Forge has cache invalidation for vanilla, so this is fine as long as that persists */
   Ingredient DEFAULT_PATTERNS = Ingredient.of(TinkerTags.Items.DEFAULT_PATTERNS);
@@ -38,6 +39,11 @@ public interface IPartBuilderRecipe extends ICommonRecipe<IPartBuilderContainer>
    * @return  Material amount
    */
   int getCost();
+
+  /** If true, allows crafting despite the material being uncraftable. */
+  default boolean allowUncraftable() {
+    return false;
+  }
 
   /**
    * Checks if the recipe can possibly match. Should treat empty input as a match, and does not need to check sizes

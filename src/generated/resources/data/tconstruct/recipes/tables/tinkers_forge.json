@@ -14,9 +14,9 @@
   },
   "match_all": true,
   "pattern": [
-    "mmm",
-    "sts",
-    "s s"
+    "sss",
+    "mtm",
+    "m m"
   ],
   "result": {
     "item": "tconstruct:tinkers_anvil",
@@ -27,7 +27,5 @@
     }
   },
   "show_notification": true,
-  "texture": {
-    "tag": "tconstruct:anvil_metal"
-  }
+  "texture": "m"
 }

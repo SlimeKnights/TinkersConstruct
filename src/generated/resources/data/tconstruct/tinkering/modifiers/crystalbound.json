@@ -8,7 +8,11 @@
       "type": "tconstruct:stat_boost",
       "each_level": 0.1,
       "operation": "add",
-      "stat": "tconstruct:velocity"
+      "stat": "tconstruct:velocity",
+      "tool": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:modifiable/ranged"
+      }
     },
     {
       "type": "tconstruct:stat_boost",

@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:modifier",
+  "allow_crystal": true,
+  "check_trait_level": true,
+  "inputs": [
+    {
+      "item": "minecraft:honeycomb"
+    },
+    {
+      "item": "minecraft:feather"
+    },
+    {
+      "item": "minecraft:honeycomb"
+    }
+  ],
+  "level": 1,
+  "result": "tconstruct:blunted",
+  "tools": {
+    "tag": "tconstruct:modifiable/interactable/left"
+  }
+}

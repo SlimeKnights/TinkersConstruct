@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:boundless",
   "text": [
     {
-      "text": "Increases the  cap from modifiers like protection, dragonborn, or shulking from 80% to 90% at 1 level, and 90% to 95% at 2 levels across. Stacks across multiple shields."
+      "text": "Increases the  cap from modifiers like protection, dragonborn, or shulking from 80% to 90% at 1 level, and 90% to 95% at 2 levels across multiple shields."
     }
   ],
   "more_text_space": true,
   "effects": [
-    "Maximum of 2 levels",
+    "Maximum of 1 levels",
     "Requires 1 ability slot per level"
   ]
 }

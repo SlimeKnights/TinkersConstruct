@@ -5,6 +5,8 @@
       "type": "tconstruct:conditional_melee_damage",
       "formula": [
         "$equipment",
+        "$small_armor",
+        "*",
         0.5,
         "*",
         "$level",
@@ -27,6 +29,16 @@
             "head"
           ],
           "which": "target"
+        },
+        "small_armor": {
+          "type": "tconstruct:entity",
+          "condition_type": "mantle:tag",
+          "entity_type": "tconstruct:conditional",
+          "fallback": 1.0,
+          "if_false": 1.0,
+          "if_true": 4.0,
+          "tag": "forge:small_armor",
+          "which": "target"
         }
       }
     },
@@ -34,6 +46,8 @@
       "type": "tconstruct:conditional_power",
       "formula": [
         "$equipment",
+        "$small_armor",
+        "*",
         0.25,
         "*",
         "$level",
@@ -55,6 +69,16 @@
             "chest",
             "head"
           ],
+          "which": "target"
+        },
+        "small_armor": {
+          "type": "tconstruct:entity",
+          "condition_type": "mantle:tag",
+          "entity_type": "tconstruct:conditional",
+          "fallback": 1.0,
+          "if_false": 1.0,
+          "if_true": 4.0,
+          "tag": "forge:small_armor",
           "which": "target"
         }
       }

@@ -16,8 +16,8 @@
       "type": "tconstruct:damage",
       "damage": 5.0,
       "damage_type": {
-        "melee": "tconstruct:fluid_magic_melee",
-        "ranged": "tconstruct:fluid_magic_ranged"
+        "melee": "tconstruct:fluid_impact_melee",
+        "ranged": "tconstruct:fluid_impact_ranged"
       }
     },
     {

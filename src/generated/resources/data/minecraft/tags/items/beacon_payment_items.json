@@ -2,9 +2,11 @@
   "values": [
     "#forge:ingots/steel",
     "#forge:ingots/cobalt",
+    "#forge:ingots/slimesteel",
+    "#forge:ingots/cinderslime",
     "#forge:ingots/queens_slime",
     "#forge:ingots/manyullyn",
     "#forge:ingots/hepatizon",
-    "#forge:ingots/cinderslime"
+    "#forge:ingots/knightmetal"
   ]
 }

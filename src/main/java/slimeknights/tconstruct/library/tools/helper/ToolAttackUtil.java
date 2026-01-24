@@ -424,34 +424,65 @@ public class ToolAttackUtil {
   }
 
   /**
-   * Adds secondary damage to an entity
+   * Hurts an entity, bypassing invulnerability timers.
+   * @param target  Entity to damage
+   * @param living  Living version of the target. Needed for the last hurt time.
+   * @param source  Damage source to apply
+   * @param damage  Damage to deal
+   * @return True if the entity was actually damaged
+   * @see #attackEntitySecondary(DamageSource, float, Entity, LivingEntity, boolean)
+   */
+  public static boolean hurtNoInvulnerableTime(Entity target, @Nullable LivingEntity living, DamageSource source, float damage) {
+    // store last damage before secondary attack
+    float oldLastDamage = living == null ? 0 : living.lastHurt;
+
+    // set hurt resistance time to 0 because we always want to deal damage in traits
+    int lastInvulnerableTime = target.invulnerableTime;
+    target.invulnerableTime = 0;
+    boolean hit = target.hurt(source, damage);
+    // reset to the old time so bows work right
+    target.invulnerableTime = lastInvulnerableTime;
+    // set total received damage, important for AI and stuff
+    if (living != null) {
+      living.lastHurt += oldLastDamage;
+    }
+    return hit;
+  }
+
+  /**
+   * Hurts an entity, bypassing invulnerability timers.
+   * @param target  Entity to damage
+   * @param source  Damage source to apply
+   * @param damage  Damage to deal
+   * @return True if the entity was actually damaged
+   * @see #attackEntitySecondary(DamageSource, float, Entity, LivingEntity, boolean)
+   */
+  @SuppressWarnings("UnusedReturnValue") // API
+  public static boolean hurtNoInvulnerableTime(Entity target, DamageSource source, float damage) {
+    return hurtNoInvulnerableTime(target, getLivingEntity(target), source, damage);
+  }
+
+  /**
+   * Damages an entity, bypassing invulnerability timers and optionally disabling knockback.
+   * TODO 1.21: rename or remove, not sure we need this {@link #disableKnockback(LivingEntity)} is so easy to use now.
    * @param source       Damage source
    * @param damage       Damage amount
    * @param target       Target entity
    * @param living       If the target is living, the living target. May be a different entity from target for multipart entities
    * @param noKnockback  If true, prevents extra knockback
    * @return  True if damaged
+   * @see #hurtNoInvulnerableTime(Entity, LivingEntity, DamageSource, float)
    */
   @SuppressWarnings("UnusedReturnValue")
   public static boolean attackEntitySecondary(DamageSource source, float damage, Entity target, @Nullable LivingEntity living, boolean noKnockback) {
     AttributeInstance knockbackResistance = null;
-    // store last damage before secondary attack
-    float oldLastDamage = living == null ? 0 : living.lastHurt;
-
     // prevent knockback in secondary attacks, if requested
     if (noKnockback) {
       knockbackResistance = disableKnockback(living);
     }
 
-    // set hurt resistance time to 0 because we always want to deal damage in traits
-    int lastInvulnerableTime = target.invulnerableTime;
-    target.invulnerableTime = 0;
-    boolean hit = target.hurt(source, damage);
-    target.invulnerableTime = lastInvulnerableTime; // reset to the old time so bows work right
-    // set total received damage, important for AI and stuff
-    if (living != null) {
-      living.lastHurt += oldLastDamage;
-    }
+    // hurt the target, bypassing invulnerability
+    boolean hit = hurtNoInvulnerableTime(target, living, source, damage);
 
     // remove no knockback marker
     if (noKnockback) {

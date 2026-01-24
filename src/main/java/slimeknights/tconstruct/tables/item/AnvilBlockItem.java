@@ -3,12 +3,14 @@ package slimeknights.tconstruct.tables.item;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import slimeknights.mantle.util.RetexturedHelper;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
@@ -27,14 +29,22 @@ import java.util.function.Supplier;
  */
 public class AnvilBlockItem extends MaterialBlockItem {
   private final Supplier<? extends IMaterialItem> matching;
-  public AnvilBlockItem(Block block, Properties properties, Supplier<? extends IMaterialItem> matching) {
+  private final TagKey<IMaterial> validMaterials;
+  public AnvilBlockItem(Block block, Properties properties, Supplier<? extends IMaterialItem> matching, TagKey<IMaterial> validMaterials) {
     super(block, properties);
     this.matching = matching;
+    this.validMaterials = validMaterials;
+  }
+
+  /** @deprecated use {@link #AnvilBlockItem(Block, Properties, Supplier, TagKey)} */
+  @Deprecated(forRemoval = true)
+  public AnvilBlockItem(Block block, Properties properties, Supplier<? extends IMaterialItem> matching) {
+    this(block, properties, matching, TinkerTags.Materials.COMPATABILITY_ALLOYS);
   }
 
   @Override
   public boolean canUseMaterial(MaterialId material) {
-    return matching.get().canUseMaterial(material);
+    return MaterialRegistry.getInstance().isInTag(material, validMaterials) && matching.get().canUseMaterial(material);
   }
 
 

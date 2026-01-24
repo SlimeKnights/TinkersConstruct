@@ -57,6 +57,15 @@ public class ConfigurationDataProvider extends GenericDataProvider {
     item(removeIngots, "input", ItemPredicate.ANY);
     recipeType(removeIngots, RecipeType.SMELTING, RecipeType.BLASTING);
 
+    // recipe removal preset that makes nuggets not smeltable in furnaces, recycle in the smeltery!
+    JsonObject removeNuggets = removePreset("nugget_smelting");
+    item(removeNuggets, "result", ItemPredicate.and(
+      ItemPredicate.tag(Tags.Items.NUGGETS),
+      TinkerPredicate.CASTABLE
+    ));
+    item(removeNuggets, "input", ItemPredicate.ANY);
+    recipeType(removeNuggets, RecipeType.SMELTING, RecipeType.BLASTING);
+
     // preset to remove vanilla tool crafting
     JsonObject removeVanillaTools = removePreset("vanilla_tools");
     item(removeVanillaTools, "result", ItemPredicate.and(

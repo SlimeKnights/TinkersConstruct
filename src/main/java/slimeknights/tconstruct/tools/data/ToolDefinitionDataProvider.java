@@ -589,6 +589,8 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .module(MaterialRepairModule.of(MaterialIds.scorchedStone, HeadMaterialStats.ID));
     // staff
     MaterialRepairModule staffRepair = MaterialRepairModule.of(MaterialIds.slimewood, LimbMaterialStats.ID);
+    ToolTraitsModule staffTraits = ToolTraitsModule.builder().trait(ModifierIds.overslimeFriend).trait(ModifierIds.reach).build();
+    ToolTraitsModule staffRebalanced = ToolTraitsModule.builder().trait(ModifierIds.reach).build();
     define(ToolDefinitions.SKY_STAFF)
       .module(new SetStatsModule(StatsNBT.builder()
         .set(ToolStats.DURABILITY, 500)
@@ -599,8 +601,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .module(ToolSlotsModule.builder()
         .slots(SlotType.UPGRADE, 5)
         .slots(SlotType.ABILITY, 2).build())
-      .module(ToolTraitsModule.builder().trait(ModifierIds.overslimeFriend).build())
-      .module(ToolTraitsModule.builder().trait(ModifierIds.reach).build(), ToolHooks.REBALANCED_TRAIT)
+      .module(staffTraits).module(staffRebalanced, ToolHooks.REBALANCED_TRAIT)
       .module(staffRepair)
       .module(new CircleAOEIterator(1, false))
       .module(DualOptionInteraction.INSTANCE);
@@ -616,8 +617,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
         .slots(SlotType.UPGRADE, 2)
         .slots(SlotType.DEFENSE, 3)
         .slots(SlotType.ABILITY, 2).build())
-      .module(ToolTraitsModule.builder().trait(ModifierIds.overslimeFriend).build())
-      .module(ToolTraitsModule.builder().trait(ModifierIds.reach).build(), ToolHooks.REBALANCED_TRAIT)
+      .module(staffTraits).module(staffRebalanced, ToolHooks.REBALANCED_TRAIT)
       .module(staffRepair)
       .module(BoxAOEIterator.builder(0, 0, 0).addDepth(2).addHeight(1).direction(IBoxExpansion.PITCH).build())
       .module(DualOptionInteraction.INSTANCE);
@@ -631,8 +631,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .module(ToolSlotsModule.builder()
         .slots(SlotType.UPGRADE, 2)
         .slots(SlotType.ABILITY, 3).build())
-      .module(ToolTraitsModule.builder().trait(ModifierIds.overslimeFriend).build())
-      .module(ToolTraitsModule.builder().trait(ModifierIds.reach).build(), ToolHooks.REBALANCED_TRAIT)
+      .module(staffTraits).module(staffRebalanced, ToolHooks.REBALANCED_TRAIT)
       .module(staffRepair)
       .module(new VeiningAOEIterator(0))
       .module(DualOptionInteraction.INSTANCE);
@@ -650,7 +649,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .module(ToolTraitsModule.builder()
         .trait(ModifierIds.overslimeFriend)
         .trait(ModifierIds.reach, 2).build())
-      .module(ToolTraitsModule.builder().trait(ModifierIds.reach).build(), ToolHooks.REBALANCED_TRAIT)
+      .module(staffRebalanced, ToolHooks.REBALANCED_TRAIT)
       .module(staffRepair)
       .module(BoxAOEIterator.builder(0, 0, 0).addExpansion(1, 1, 0).addDepth(2).build())
       .module(DualOptionInteraction.INSTANCE);

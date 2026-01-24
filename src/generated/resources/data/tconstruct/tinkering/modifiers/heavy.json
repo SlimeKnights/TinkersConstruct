@@ -10,7 +10,7 @@
     {
       "type": "tconstruct:stat_boost",
       "each_level": 0.1,
-      "operation": "multiply_base",
+      "operation": "add",
       "stat": "tconstruct:accuracy"
     },
     {

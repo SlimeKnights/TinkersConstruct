@@ -123,7 +123,7 @@ public class AdvancementsProvider extends GenericDataProvider {
     Advancement harvestLevel = builder(Items.NETHERITE_INGOT, resource("tools/netherite_tier"), tinkerTool, FrameType.GOAL, builder ->
       builder.addCriterion("harvest_level", InventoryChangeTrigger.TriggerInstance.hasItems(ToolStackItemPredicate.ofTool(new StatInSetPredicate<>(ToolStats.HARVEST_TIER, Tiers.NETHERITE)))));
     builder(Items.TARGET, resource("tools/perfect_aim"), tinkerTool, FrameType.GOAL, builder ->
-      builder.addCriterion("accuracy", InventoryChangeTrigger.TriggerInstance.hasItems(ToolStackItemPredicate.ofTool(ToolStackPredicate.or(
+      builder.addCriterion("accuracy", InventoryChangeTrigger.TriggerInstance.hasItems(ToolStackItemPredicate.ofTool(ToolStackPredicate.and(
         ToolStackPredicate.tag(TinkerTags.Items.BOWS),
         StatInRangePredicate.match(ToolStats.ACCURACY, 1)
       )))));
@@ -273,41 +273,39 @@ public class AdvancementsProvider extends GenericDataProvider {
       Consumer<ModifierId> with = modifier -> builder.addCriterion(modifier.getPath(), InventoryChangeTrigger.TriggerInstance.hasItems(ToolStackItemPredicate.ofContext(HasModifierPredicate.hasUpgrade(modifier, 1))));
       Consumer<LazyModifier> withL = modifier -> with.accept(modifier.getId());
 
+      // sorted like the modifier tag provider tags
       // general
+      withL.accept(TinkerModifiers.expanded);
       with.accept(ModifierIds.gilded);
       with.accept(ModifierIds.luck);
       withL.accept(TinkerModifiers.unbreakable);
-      // armor
-      with.accept(ModifierIds.protection);
-      // helmet
-      with.accept(ModifierIds.aquaAffinity);
-      withL.accept(TinkerModifiers.slurping);
-      // chestplate
-      withL.accept(TinkerModifiers.ambidextrous);
-      with.accept(ModifierIds.reach);
-      with.accept(ModifierIds.strength);
-      // leggings
-      with.accept(ModifierIds.pockets);
-      with.accept(ModifierIds.toolBelt);
-      with.accept(ModifierIds.soulBelt);
-      with.accept(ModifierIds.craftingTable);
-      withL.accept(TinkerModifiers.wetting);
-      // boots
-      with.accept(ModifierIds.bouncy);
-      with.accept(ModifierIds.doubleJump);
-      withL.accept(TinkerModifiers.flamewake);
-      with.accept(ModifierIds.frostWalker);
-      with.accept(ModifierIds.longFall);
-      with.accept(ModifierIds.snowdrift);
-      // shield
-      with.accept(ModifierIds.boundless);
-      withL.accept(TinkerModifiers.reflecting);
+      withL.accept(TinkerModifiers.melting);
+
+      // melee
+      withL.accept(TinkerModifiers.blocking);
+      withL.accept(TinkerModifiers.parrying);
+      withL.accept(TinkerModifiers.dualWielding);
+      with.accept(ModifierIds.spilling);
+
       // harvest
       withL.accept(TinkerModifiers.autosmelt);
       withL.accept(TinkerModifiers.exchanging);
-      withL.accept(TinkerModifiers.expanded);
       withL.accept(TinkerModifiers.silky);
-      // interact
+
+      // ranged
+      with.accept(ModifierIds.bulkQuiver);
+      with.accept(ModifierIds.trickQuiver);
+      with.accept(ModifierIds.crystalshot);
+      withL.accept(TinkerModifiers.multishot);
+      with.accept(ModifierIds.ballista);
+      // fishing
+      with.accept(ModifierIds.grapple);
+      // throwing
+      with.accept(ModifierIds.throwing);
+      with.accept(ModifierIds.returning);
+      with.accept(ModifierIds.channeling);
+
+      // interaction
       withL.accept(TinkerModifiers.bucketing);
       withL.accept(TinkerModifiers.firestarter);
       with.accept(ModifierIds.glowing);
@@ -315,33 +313,42 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(ModifierIds.stripping);
       with.accept(ModifierIds.tilling);
       with.accept(ModifierIds.brushing);
+      // fluid
+      withL.accept(TinkerModifiers.spitting);
+      withL.accept(TinkerModifiers.splashing);
+      withL.accept(TinkerModifiers.slurping);
       // staff
       withL.accept(TinkerModifiers.bonking);
       withL.accept(TinkerModifiers.flinging);
       withL.accept(TinkerModifiers.springing);
       withL.accept(TinkerModifiers.warping);
-      // weapon
-      withL.accept(TinkerModifiers.dualWielding);
-      withL.accept(TinkerModifiers.melting);
-      withL.accept(TinkerModifiers.blocking);
-      withL.accept(TinkerModifiers.parrying);
-      // ranged
-      with.accept(ModifierIds.crystalshot);
-      withL.accept(TinkerModifiers.multishot);
-      with.accept(ModifierIds.bulkQuiver);
-      with.accept(ModifierIds.trickQuiver);
-      // fluid
-      withL.accept(TinkerModifiers.spitting);
-      with.accept(ModifierIds.spilling);
-      withL.accept(TinkerModifiers.splashing);
+      with.accept(ModifierIds.drillAttack);
+
+      // armor
+      with.accept(ModifierIds.protection);
       withL.accept(TinkerModifiers.bursting);
-      // fishing
-      with.accept(ModifierIds.grapple);
-      with.accept(ModifierIds.collecting);
-      // trident
-      with.accept(ModifierIds.throwing);
-      with.accept(ModifierIds.returning);
-      with.accept(ModifierIds.channeling);
+      withL.accept(TinkerModifiers.wetting);
+      // helmet
+      with.accept(ModifierIds.aquaAffinity);
+      // chestplate
+      withL.accept(TinkerModifiers.ambidextrous);
+      with.accept(ModifierIds.reach);
+      with.accept(ModifierIds.strength);
+      with.accept(ModifierIds.wings);
+      // leggings
+      with.accept(ModifierIds.pockets);
+      with.accept(ModifierIds.toolBelt);
+      with.accept(ModifierIds.soulBelt);
+      with.accept(ModifierIds.craftingTable);
+      // boots
+      with.accept(ModifierIds.bouncy);
+      with.accept(ModifierIds.doubleJump);
+      withL.accept(TinkerModifiers.flamewake);
+      with.accept(ModifierIds.frostWalker);
+      with.accept(ModifierIds.snowdrift);
+      // shield
+      with.accept(ModifierIds.boundless);
+      withL.accept(TinkerModifiers.reflecting);
     });
 
     // foundry path

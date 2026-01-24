@@ -31,11 +31,13 @@ import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
 import slimeknights.tconstruct.library.module.ModuleHookMap.Builder;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
+import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.utils.TeleportHelper;
+import slimeknights.tconstruct.tools.TinkerTools;
 
 import javax.annotation.Nullable;
 
@@ -131,7 +133,9 @@ public class EnderportingModifier extends NoLevelsModifier implements PlantHarve
       Entity hitEntity = hit.getEntity();
       Vec3 oldPosition = attacker.position();
       if (attacker.level() == projectile.level() && tryTeleport(modifier, attacker, hitEntity.getX(), hitEntity.getY(), hitEntity.getZ()) && target != null) {
-        tryTeleport(modifier, target, oldPosition.x, oldPosition.y, oldPosition.z);
+        if (tryTeleport(modifier, target, oldPosition.x, oldPosition.y, oldPosition.z)) {
+          ModifierUtil.updateFishingRod(projectile, 10, false);
+        }
       }
     }
     return false;
@@ -143,6 +147,7 @@ public class EnderportingModifier extends NoLevelsModifier implements PlantHarve
       BlockPos target = hit.getBlockPos().relative(hit.getDirection());
       // attempt the teleport, if successful and the projectile is not reusable then discard it
       if (attacker.level() == projectile.level() && tryTeleport(modifier, attacker, target.getX() + 0.5f, target.getY(), target.getZ() + 0.5f) && !projectile.getType().is(TinkerTags.EntityTypes.REUSABLE_AMMO)) {
+        ModifierUtil.updateFishingRod(projectile, 10, true);
         projectile.discard();
       }
     }
@@ -155,7 +160,9 @@ public class EnderportingModifier extends NoLevelsModifier implements PlantHarve
       if (attacker.level() == projectile.level()) {
         // teleport to the expired projectile
         Vec3 target = projectile.position();
-        tryTeleport(modifier, attacker, target.x, target.y, target.z);
+        if (tryTeleport(modifier, attacker, target.x, target.y, target.z)) {
+          ModifierUtil.updateFishingRod(projectile, 10, true);
+        }
       }
     }
   }
@@ -164,7 +171,10 @@ public class EnderportingModifier extends NoLevelsModifier implements PlantHarve
   public void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, Projectile projectile, @Nullable AbstractArrow arrow, ModDataNBT persistentData, boolean primary) {
     if (primary) {
       // damage on shoot as we won't have tool context once the arrow lands
-      ToolDamageUtil.damageAnimated(tool, 10, shooter, shooter.getUsedItemHand());
+      // don't damage fishing hooks though, we will do that on hit
+      if (projectile.getType() != TinkerTools.fishingHook.get()){
+        ToolDamageUtil.damageAnimated(tool, 10, shooter, shooter.getUsedItemHand());
+      }
     } else {
       persistentData.putBoolean(SECONDARY_ARROW, true);
     }

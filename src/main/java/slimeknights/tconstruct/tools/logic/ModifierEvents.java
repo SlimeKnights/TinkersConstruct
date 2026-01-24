@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.tools.logic;
 
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.ItemTags;
@@ -9,7 +7,6 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -19,7 +16,6 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
@@ -27,12 +23,12 @@ import net.minecraftforge.event.entity.living.LivingGetProjectileEvent;
 import net.minecraftforge.event.entity.living.LivingKnockBackEvent;
 import net.minecraftforge.event.entity.living.MobEffectEvent;
 import net.minecraftforge.event.entity.player.CriticalHitEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.level.BlockEvent.BreakEvent;
 import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
+import slimeknights.mantle.MantleEvents;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -56,17 +52,11 @@ import slimeknights.tconstruct.shared.TinkerEffects;
 import slimeknights.tconstruct.tools.data.ModifierIds;
 import slimeknights.tconstruct.tools.modules.ranged.RestrictAngleModule;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Optional;
 
 /** Events to implement modifier specific behaviors, such as those defined by {@link TinkerDataKeys}. General hooks will typically be in {@link ToolEvents} */
 @EventBusSubscriber(modid = TConstruct.MOD_ID, bus = Bus.FORGE)
 public class ModifierEvents {
-  /** NBT key for items to preserve their slot in soulbound */
-  private static final String SOULBOUND_SLOT = "tic_soulbound_slot";
   /** Multiplier for experience drops from events */
   private static final TinkerDataKey<Float> PROJECTILE_EXPERIENCE = TConstruct.createKey("projectile_experience");
   /** Volatile data flag making a modifier grant the tool soulbound */
@@ -145,7 +135,7 @@ public class ModifierEvents {
       for (int i = 0; i < hotbarSize; i++) {
         ItemStack stack = inventory.getItem(i);
         if (!stack.isEmpty() && (soulBelt || ModifierUtil.checkVolatileFlag(stack, SOULBOUND))) {
-          stack.getOrCreateTag().putInt(SOULBOUND_SLOT, i);
+          stack.getOrCreateTag().putInt(MantleEvents.SOULBOUND_SLOT, i);
         }
       }
       // rest of the inventory, only check soulbound (no modifier that moves non-soulbound currently)
@@ -154,7 +144,7 @@ public class ModifierEvents {
       for (int i = hotbarSize; i < totalSize; i++) {
         ItemStack stack = inventory.getItem(i);
         if (!stack.isEmpty() && ModifierUtil.checkVolatileFlag(stack, SOULBOUND)) {
-          stack.getOrCreateTag().putInt(SOULBOUND_SLOT, i);
+          stack.getOrCreateTag().putInt(MantleEvents.SOULBOUND_SLOT, i);
         }
       }
     }
@@ -198,104 +188,6 @@ public class ModifierEvents {
       ToolStack tool = Modifier.getHeldTool(player, ModifierLootingHandler.getLootingSlot(player));
       double multiplier = armorMultiplier + (tool != null ? tool.getModifier(ModifierIds.experienced).getEffectiveLevel() : 0) * 0.5;
       event.setDroppedExperience((int) (event.getDroppedExperience() * multiplier));
-    }
-  }
-
-
-  /* Soulbound */
-
-  /** Called when the player dies to store the item in the original inventory */
-  @SubscribeEvent
-  static void onPlayerDropItems(LivingDropsEvent event) {
-    // only care about real players with keep inventory off
-    LivingEntity entity = event.getEntity();
-    if (!entity.level().getGameRules().getBoolean(GameRules.RULE_KEEPINVENTORY) && entity instanceof Player player && !(entity instanceof FakePlayer)) {
-      Collection<ItemEntity> drops = event.getDrops();
-      Iterator<ItemEntity> iter = drops.iterator();
-      Inventory inventory = player.getInventory();
-      List<ItemEntity> takenSlot = new ArrayList<>();
-      while (iter.hasNext()) {
-        ItemEntity itemEntity = iter.next();
-        ItemStack stack = itemEntity.getItem();
-        // find items with our soulbound tag set and move them back into the inventory, will move them over later
-        CompoundTag tag = stack.getTag();
-        if (tag != null && tag.contains(SOULBOUND_SLOT, Tag.TAG_ANY_NUMERIC)) {
-          int slot = tag.getInt(SOULBOUND_SLOT);
-          // return the tool to its requested slot if possible, remove from the drops
-          if (inventory.getItem(slot).isEmpty()) {
-            inventory.setItem(slot, stack);
-          } else {
-            // hold off on handling items that did not get the requested slot for now
-            // want to make sure they don't get in the way of items that have not yet been seen
-            takenSlot.add(itemEntity);
-          }
-          iter.remove();
-          // don't clear the tag yet, we need it one last time for player clone
-        }
-      }
-      // handle items that did not get their requested slot last, to ensure they don't take someone else's slot while being added to a default
-      for (ItemEntity itemEntity : takenSlot) {
-        ItemStack stack = itemEntity.getItem();
-        if (!inventory.add(stack)) {
-          // last resort, somehow we just cannot put the stack anywhere, so drop it on the ground
-          // this should never happen, but better to be safe
-          // ditch the soulbound slot tag, to prevent item stacking issues
-          CompoundTag tag = stack.getTag();
-          if (tag != null) {
-            tag.remove(SOULBOUND_SLOT);
-            if (tag.isEmpty()) {
-              stack.setTag(null);
-            }
-          }
-          drops.add(itemEntity);
-        }
-      }
-    }
-  }
-
-  /** Called when the new player is created to fetch the soulbound item from the old */
-  @SubscribeEvent
-  static void onPlayerClone(PlayerEvent.Clone event) {
-    if (!event.isWasDeath()) {
-      return;
-    }
-    Player original = event.getOriginal();
-    Player clone = event.getEntity();
-    // inventory already copied
-    if (clone.level().getGameRules().getBoolean(GameRules.RULE_KEEPINVENTORY) || original.isSpectator()) {
-      return;
-    }
-    // find items with the soulbound tag set and move them over
-    Inventory originalInv = original.getInventory();
-    Inventory cloneInv = clone.getInventory();
-    int size = Math.min(originalInv.getContainerSize(), cloneInv.getContainerSize()); // not needed probably, but might as well be safe
-    List<ItemStack> takenSlot = new ArrayList<>();
-    for(int i = 0; i < size; i++) {
-      ItemStack stack = originalInv.getItem(i);
-      if (!stack.isEmpty()) {
-        CompoundTag tag = stack.getTag();
-        if (tag != null && tag.contains(SOULBOUND_SLOT, Tag.TAG_ANY_NUMERIC)) {
-          if (cloneInv.getItem(i).isEmpty()) {
-            cloneInv.setItem(i, stack);
-          } else {
-            takenSlot.add(stack);
-          }
-          // remove the slot tag, clear the tag if needed
-          tag.remove(SOULBOUND_SLOT);
-          if (tag.isEmpty()) {
-            stack.setTag(null);
-          }
-        }
-      }
-    }
-
-    // handle items that did not get their requested slot last, to ensure they don't take someone else's slot while being added to a default
-    for (ItemStack stack : takenSlot) {
-      if (!cloneInv.add(stack)) {
-        // last resort, somehow we just cannot put the stack anywhere, so drop it on the ground
-        // this should never happen, but better to be safe
-        clone.drop(stack, false);
-      }
     }
   }
 

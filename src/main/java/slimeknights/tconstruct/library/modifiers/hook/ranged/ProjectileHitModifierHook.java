@@ -25,7 +25,7 @@ public interface ProjectileHitModifierHook {
    * @param hit             Hit result
    * @param attacker        Living entity who fired the projectile, null if non-living or not fired
    * @param target          Living target, will be null if not living
-   * @return true if the hit should be canceled, preventing vanilla logic
+   * @return true if the hit should be canceled, preventing vanilla and other modifiers logic
    * @deprecated use {@link #onProjectileHitEntity(ModifierNBT, ModDataNBT, ModifierEntry, Projectile, EntityHitResult, LivingEntity, LivingEntity, boolean)} for shield blocking info. Overriding is okay.
    */
   @Deprecated
@@ -43,7 +43,7 @@ public interface ProjectileHitModifierHook {
    * @param attacker        Living entity who fired the projectile, null if non-living or not fired
    * @param target          Living target, will be null if not living
    * @param notBlocked      If false, the projectile was blocked with a shield. Some modifiers may wish to run their effects regardless, just keep in mind the projectile is often reusable when blocked.
-   * @return true if the hit should be canceled, preventing vanilla logic
+   * @return true if the hit should be canceled, preventing vanilla and other modifiers logic
    */
   default boolean onProjectileHitEntity(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target, boolean notBlocked) {
     return notBlocked && onProjectileHitEntity(modifiers, persistentData, modifier, projectile, hit, attacker, target);
@@ -57,7 +57,7 @@ public interface ProjectileHitModifierHook {
    * @param projectile      Projectile that hit the entity
    * @param hit             Hit result
    * @param attacker        Living entity who fired the projectile, null if non-living or not fired
-   * @deprecated Call
+   * @deprecated Call {@link #onProjectileHitsBlock(ModifierNBT, ModDataNBT, ModifierEntry, Projectile, BlockHitResult, LivingEntity)}. Overriding is okay.
    */
   @Deprecated
   default void onProjectileHitBlock(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, BlockHitResult hit, @Nullable LivingEntity attacker) {}
@@ -70,6 +70,7 @@ public interface ProjectileHitModifierHook {
    * @param projectile      Projectile that hit the entity
    * @param hit             Hit result
    * @param owner           Living entity who fired the projectile, null if non-living or not fired
+   * @return true if the hit should be canceled, preventing vanilla and other modifiers logic
    */
   default boolean onProjectileHitsBlock(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, BlockHitResult hit, @Nullable LivingEntity owner) {
     onProjectileHitBlock(modifiers, persistentData, modifier, projectile, hit, owner);
@@ -82,6 +83,16 @@ public interface ProjectileHitModifierHook {
     public boolean onProjectileHitEntity(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
       for (ProjectileHitModifierHook module : modules) {
         if (module.onProjectileHitEntity(modifiers, persistentData, modifier, projectile, hit, attacker, target)) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    @Override
+    public boolean onProjectileHitEntity(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target, boolean notBlocked) {
+      for (ProjectileHitModifierHook module : modules) {
+        if (module.onProjectileHitEntity(modifiers, persistentData, modifier, projectile, hit, attacker, target, notBlocked)) {
           return true;
         }
       }

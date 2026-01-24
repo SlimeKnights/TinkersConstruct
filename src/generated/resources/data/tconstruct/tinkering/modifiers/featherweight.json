@@ -4,13 +4,13 @@
     {
       "type": "tconstruct:stat_boost",
       "each_level": 0.07,
-      "operation": "multiply_base",
+      "operation": "add",
       "stat": "tconstruct:draw_speed"
     },
     {
       "type": "tconstruct:stat_boost",
       "each_level": 0.07,
-      "operation": "multiply_base",
+      "operation": "add",
       "stat": "tconstruct:accuracy"
     },
     {
