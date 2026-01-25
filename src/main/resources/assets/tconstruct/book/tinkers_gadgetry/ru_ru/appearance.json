@@ -1,0 +1,10 @@
+{
+  "coverTexture": "tconstruct:book/tinkers_gadgetry/ru_ru/images/gadgetry_cover.png",
+  "coverColor": -1,
+  "bookTexture": "tconstruct:book/images/covers/gadgetry_pages.png",
+  "arrowColor": -1,
+  "slotColor": 0xFDF500,
+  "drawSectionListText": true,
+  "centerPageTitles": true,
+  "drawFourColumnIndex": true
+}
