@@ -1,0 +1,196 @@
+[
+  {
+    "name": "intro",
+    "data": "sections/intro.json",
+    "icon": {
+      "item": "minecraft:paper"
+    },
+    "extraData": { "mantle:index": { "hidden": true }}
+  },
+  {
+    "name": "tools",
+    "data": "sections/tools.json",
+    "icon": {
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:pickaxe",
+        "nbt": {
+          "tic_broken": false,
+          "tic_display": true,
+          "Damage": 0,
+          "tic_materials": [
+            "tconstruct:ui_render#head",
+            "tconstruct:ui_render#handle",
+            "tconstruct:ui_render#extra"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "name": "materials_harvest",
+    "data": "no-load",
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:melee_harvest", "detailed": true }},
+    "icon": {
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:pick_head",
+        "nbt": { "Material": "tconstruct:ui_render#extra_large" }
+      }
+    }
+  },
+  {
+    "name": "materials_ranged",
+    "data": "no-load",
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:ranged", "detailed": true }},
+    "icon": {
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:bow_limb",
+        "nbt": { "Material": "tconstruct:ui_render#handle" }
+      }
+    }
+  },
+  {
+    "name": "materials_ammo",
+    "data": "no-load",
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:ammo", "detailed": true }},
+    "icon": {
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:arrow_head",
+        "nbt": { "Material": "tconstruct:ui_render#head" }
+      }
+    }
+  },
+  {
+    "name": "armor",
+    "data": "sections/armor.json",
+    "icon": {
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:plate_chestplate",
+        "nbt": {
+          "tic_broken": false,
+          "tic_display": true,
+          "Damage": 0,
+          "tic_materials": [
+            "tconstruct:ui_render#extra",
+            "tconstruct:ui_render#head"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "name": "materials_armor",
+    "data": "no-load",
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:armor", "detailed": true } },
+    "icon": {
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:leggings_plating",
+        "nbt": { "Material": "tconstruct:ui_render#large" }
+      }
+    }
+  },
+  {
+    "name": "materials_skull",
+    "data": "no-load",
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:skull", "detailed": true } },
+    "icon": {
+      "item": "minecraft:skeleton_skull"
+    }
+  },
+  {
+    "name": "fluid_effects",
+    "data": "no-load",
+    "extraData": { "tconstruct:fluid_effects": {
+      "path": "fluids",
+      "order": [
+        "water", "milk", "lava", "blazing_blood", "powdered_snow", "potion",
+        "honey", "beetroot_soup", "mushroom_stew", "rabbit_stew", "meat_soup",
+
+        "molten_clay", "seared_stone", "scorched_stone",
+        "molten_glass", "molten_obsidian", "liquid_soul",
+        "molten_amethyst", "molten_quartz", "molten_emerald", "molten_diamond", "molten_debris",
+
+        "venom", "magma", "molten_ender",
+        "earth_slime", "sky_slime", "ichor", "ender_slime",
+        "molten_slimesteel", "molten_cinderslime", "molten_queens_slime",
+
+        "molten_copper", "molten_bronze", "molten_amethyst_bronze",
+        "molten_iron", "molten_pig_iron", "molten_steel",
+        "molten_zinc", "molten_brass",
+        "molten_tin", "molten_pewter",
+        "molten_gold", "molten_rose_gold",
+        "molten_silver", "molten_electrum",
+        "molten_cadmium", "molten_bendalloy",
+        "molten_aluminum", "molten_duralumin",
+        "molten_chromium", "molten_nicrosil",
+
+        "molten_nickel", "molten_invar", "molten_constantan",
+        "molten_lead", "molten_platinum", "molten_tungsten", "molten_osmium", "molten_uranium",
+
+        "molten_cobalt", "molten_hepatizon", "molten_manyullyn", "molten_netherite",
+        "molten_knightmetal"
+      ],
+      "__comment": "Anything not in this order simply sorts to the end, for addons."
+    }},
+    "icon": {
+      "item": "tconstruct:molten_iron_bucket"
+    }
+  },
+  {
+    "name": "upgrades",
+    "data": "sections/upgrades.json",
+    "icon": {
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:creative_slot",
+        "nbt": {
+          "slot": "upgrades"
+        }
+      }
+    }
+  },
+  {
+    "name": "defense",
+    "data": "sections/defense.json",
+    "icon": {
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:creative_slot",
+        "nbt": {
+          "slot": "defense"
+        }
+      }
+    }
+  },
+  {
+    "name": "slotless",
+    "data": "sections/slotless.json",
+    "icon": {
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:creative_slot",
+        "nbt": {
+          "slot": "slotless"
+        }
+      }
+    }
+  },
+  {
+    "name": "abilities",
+    "data": "sections/abilities.json",
+    "icon": {
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:creative_slot",
+        "nbt": {
+          "slot": "abilities"
+        }
+      }
+    }
+  }
+]
