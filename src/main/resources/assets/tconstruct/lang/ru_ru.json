@@ -1,5 +1,5 @@
 {
-  "_translators_comment": "Перевод выполнен пользователем deaddiesel для русскоговорящего сообщества",
+  "_translators_comment": "Обновлено и переведено пользователем deaddiesel",
   "_comment": "Литейное дело: Общее",
 
   "block.tconstruct.sky_slime": "Блок небесной слизи",
@@ -11,7 +11,7 @@
 
   "block.tconstruct.earth_congealed_slime": "Застывший блок слизи",
   "block.tconstruct.earth_congealed_slime.tooltip": "Позволяет прыгать очень высоко.",
-  "block.tconstruct.sky_congealed_slime": "Застывший блок небесной слизи.",
+  "block.tconstruct.sky_congealed_slime": "Застывший блок небесной слизи",
   "block.tconstruct.sky_congealed_slime.tooltip": "Позволяет прыгать очень высоко.",
   "block.tconstruct.ender_congealed_slime": "Застывший блок эндер-слизи",
   "block.tconstruct.ender_congealed_slime.tooltip": "Позволяет прыгать очень высоко.",
@@ -137,10 +137,10 @@
 
   "__comment": "Литейное дело: Металлы (4 уровень)",
 
-  "block.tconstruct.manyullyn_block": "Блок маньюлина",
+  "block.tconstruct.manyullyn_block": "Блок маньюллина",
   "block.tconstruct.manyullyn_block.tooltip": "Может использоваться в основании для маяка.",
-  "item.tconstruct.manyullyn_ingot": "Слиток маньюлина",
-  "item.tconstruct.manyullyn_nugget": "Кусочек маньюлина",
+  "item.tconstruct.manyullyn_ingot": "Слиток маньюллина",
+  "item.tconstruct.manyullyn_nugget": "Кусочек маньюллина",
 
   "block.tconstruct.hepatizon_block": "Блок гепатизона",
   "block.tconstruct.hepatizon_block.tooltip": "Может использоваться в основании для маяка.",
@@ -183,7 +183,7 @@
   "item.tconstruct.encyclopedia": "Литейное дело: Металлургическая энциклопедия",
   "item.tconstruct.encyclopedia.tooltip": "Справочник, который необходим каждому литейщику.\nАвтор: §9Селена",
 
-  "item.tconstruct.tinkers_gadgetry": "Литейное дело: Литейные гаджеты",
+  "item.tconstruct.tinkers_gadgetry": "Литейное дело: Гаджеты",
   "item.tconstruct.tinkers_gadgetry.tooltip": "Книга об использовании слизи в повседневных задачах.\nАвтор: §9Мелвин",
 
   "item.tconstruct.puny_smelting": "Литейное дело: Лёгкая металлургия",
@@ -738,10 +738,10 @@
 
   "_comment": "Литейное дело: Сплавы (4 уровень)",
 
-  "block.tconstruct.molten_manyullyn_fluid": "Расплавленный маньюлин",
-  "fluid.tconstruct.molten_manyullyn": "Расплавленный маньюлин",
-  "fluid.tconstruct.flowing_molten_manyullyn": "Текучий расплавленный маньюлин",
-  "item.tconstruct.molten_manyullyn_bucket": "Ведро расплавленного маньюлина",
+  "block.tconstruct.molten_manyullyn_fluid": "Расплавленный маньюллин",
+  "fluid.tconstruct.molten_manyullyn": "Расплавленный маньюллин",
+  "fluid.tconstruct.flowing_molten_manyullyn": "Текучий расплавленный маньюллин",
+  "item.tconstruct.molten_manyullyn_bucket": "Ведро расплавленного маньюллина",
   "fluid.tconstruct.molten_manyullyn.fluid_effect": "Расплавленный маньюллин обладает наибольшим потенциалом урона как в виде фиксированного урона, так и в виде периодического урона.",
 
   "block.tconstruct.molten_hepatizon_fluid": "Расплавленный гепатизон",
@@ -981,49 +981,49 @@
   "fluid_effect.tconstruct.interact.entity": "Взаимодействует с сущностью",
 
   "fluid_effect.tconstruct.cure_effects": "Излечивает большинство негативных эффектов",
-  "fluid_effect.tconstruct.remove_effect": "Удаляет %s",
-  "fluid_effect.tconstruct.mob_effect.add": "+%d сек. %s",
-  "fluid_effect.tconstruct.mob_effect.set": "%d сек. %s",
+  "fluid_effect.tconstruct.remove_effect": "Удаляет эффект «%s»",
+  "fluid_effect.tconstruct.mob_effect.add": "+%d сек. к эффекту «%s»",
+  "fluid_effect.tconstruct.mob_effect.set": "%d сек. к эффекту «%s»",
   "fluid_effect.tconstruct.potion": "Применяет эффекты зелья",
 
-  "fluid_effect.tconstruct.restore_hunger": "Восстанавливает %d голода",
+  "fluid_effect.tconstruct.restore_hunger": "Восстанавливает %d голод(а)",
   "fluid_effect.tconstruct.fire.add": "+%d сек. к огню",
-  "fluid_effect.tconstruct.fire.set": "%d сек. к огню",
+  "fluid_effect.tconstruct.fire.set": "%d сек. огня",
   "fluid_effect.tconstruct.freeze.add": "+%d сек. к заморозке",
-  "fluid_effect.tconstruct.freeze.set": "%d сек. к заморозке",
-  "fluid_effect.tconstruct.award_stat.add": "+%s %s",
-  "fluid_effect.tconstruct.award_stat.subtract": "-%s %s",
+  "fluid_effect.tconstruct.freeze.set": "%d сек. заморозки",
+  "fluid_effect.tconstruct.award_stat.add": "+%s к «%s»",
+  "fluid_effect.tconstruct.award_stat.subtract": "-%s к «%s»",
   "fluid_effect.tconstruct.add_breath.add": "+%d к дыханию",
   "fluid_effect.tconstruct.add_breath.subtract": "-%d к дыханию",
   "fluid_effect.tconstruct.push_entity.push": "Толкает цель",
   "fluid_effect.tconstruct.push_entity.pull": "Притягивает цель",
 
-  "fluid_effect.tconstruct.damage": "%s урона",
-  "fluid_effect.tconstruct.damage.tconstruct.fluid.impact": "%s урона",
-  "fluid_effect.tconstruct.damage.tconstruct.fluid.fire": "%s урона от огня",
-  "fluid_effect.tconstruct.damage.tconstruct.fluid.cold": "%s урона от холода",
-  "fluid_effect.tconstruct.damage.tconstruct.fluid.magic": "%s урона от магии",
-  "fluid_effect.tconstruct.damage.tconstruct.fluid.water": "%s урона от воды",
-  "fluid_effect.tconstruct.damage.tconstruct.fluid.spike": "%s урона от пробития",
+  "fluid_effect.tconstruct.damage": "%s к урону",
+  "fluid_effect.tconstruct.damage.tconstruct.fluid.impact": "%s к урону",
+  "fluid_effect.tconstruct.damage.tconstruct.fluid.fire": "%s к урону от огня",
+  "fluid_effect.tconstruct.damage.tconstruct.fluid.cold": "%s к урону от холода",
+  "fluid_effect.tconstruct.damage.tconstruct.fluid.magic": "%s к урону от магии",
+  "fluid_effect.tconstruct.damage.tconstruct.fluid.water": "%s к урону от воды",
+  "fluid_effect.tconstruct.damage.tconstruct.fluid.spike": "%s к урону от пробития",
 
-  "fluid_effect.tconstruct.place_block": "Размещает %s",
+  "fluid_effect.tconstruct.place_block": "Размещает: %s",
   "fluid_effect.tconstruct.place_block.held": "Размещает удерживаемый блок",
-  "fluid_effect.tconstruct.set_block": "Размещает %s",
-  "fluid_effect.tconstruct.break_block": "Добывает блок",
-  "fluid_effect.tconstruct.break_block.enchanted": "Добывает блок с %s",
-  "fluid_effect.tconstruct.break_block.hardness": "Добывает блок с прочностью %s",
-  "fluid_effect.tconstruct.break_block.enchanted.hardness": "Добывает блок до прочности %s с %s",
-  "fluid_effect.tconstruct.mob_effect_cloud": "Туманное облако с %s",
+  "fluid_effect.tconstruct.set_block": "Устанавливает: %s",
+  "fluid_effect.tconstruct.break_block": "Ломает блок.",
+  "fluid_effect.tconstruct.break_block.enchanted": "Ломает блок с зачарованием «%s».",
+  "fluid_effect.tconstruct.break_block.hardness": "Ломает блок с прочностью %s",
+  "fluid_effect.tconstruct.break_block.enchanted.hardness": "Ломает блок с прочностью %s с зачарованием «%s»",
+  "fluid_effect.tconstruct.mob_effect_cloud": "Туманное облако %s",
   "fluid_effect.tconstruct.potion_cloud": "Туманное облако зелья",
   "fluid_effect.tconstruct.move_block.push": "Толкает блок",
   "fluid_effect.tconstruct.move_block.pull": "Притягивает блок",
   "fluid_effect.tconstruct.melt_block": "Расплавляет блок в жидкость",
 
-  "fluid_effect.tconstruct.drop_item": "Выпадение %s",
+  "fluid_effect.tconstruct.drop_item": "Выпадает: %s",
   "fluid_effect.tconstruct.explosion": "Мощность взрыва: %s",
 
 
-  "_comment": "Литейное дело: Литейные гаджеты",
+  "_comment": "Литейное дело: Гаджеты",
 
   "block.tconstruct.punji": "Палочки Панджи",
   "block.tconstruct.punji.tooltip": "Заострённые! Также прилипают к стенам.",
@@ -1032,7 +1032,7 @@
   "item.tconstruct.gold_item_frame": "Золотая рамка",
   "item.tconstruct.reversed_gold_item_frame": "Перевёрнутая золотая рамка",
   "item.tconstruct.diamond_item_frame": "Алмазная рамка",
-  "item.tconstruct.manyullyn_item_frame": "Маньюлиновая рамка",
+  "item.tconstruct.manyullyn_item_frame": "Маньюллиновая рамка",
   "item.tconstruct.netherite_item_frame": "Незеритовая рамка",
   "entity.tconstruct.item_frame": "Необычная рамка для предмета",
 
@@ -1082,7 +1082,7 @@
   "block.tconstruct.tool_forge": "Кузница инструментов",
 
   "block.tconstruct.part_builder": "Конструктор деталей",
-  "block.tconstruct.modifier_worktable": "Рабочий стол для модификаторов",
+  "block.tconstruct.modifier_worktable": "Рабочий стол модификатора",
 
   "block.tconstruct.part_chest": "Ящик для деталей",
   "block.tconstruct.part_chest.tooltip": "Вмещает до 256 различных деталей инструментов.",
@@ -1977,6 +1977,10 @@
   "material.tconstruct.gunpowder.flavor": "Взрывоопасно!",
   "material.tconstruct.gunpowder.ammo": "Заставляет стрелы взрываться радиусом 1 + 1 за каждый уровень. Урон от взрыва зависит от мощности снаряда.",
 
+  "material.tconstruct.redstone": "Редстоун",
+  "material.tconstruct.redstone.flavor": "Быстро!",
+  "material.tconstruct.redstone.ammo": "Даёт +10% скорости за каждый уровень стрелам и +20% скорости за каждый уровень метательным снарядам.",
+
   "material.tconstruct.earthslime": "Земная слизь",
   "material.tconstruct.earthslime.flavor": "Ко мне!",
   "material.tconstruct.earthslime.ammo": "Отбрасывает цель в противоположном направлении.",
@@ -2066,7 +2070,7 @@
   "material.tconstruct.shulker.armor": "Даёт +10% сопротивления в приседе, но уменьшает урон от атаки на 10% за каждый уровень в приседе.",
   "material.tconstruct.shulker.ammo": "Позволяет собирать снаряды, которые поражают не только блоки, но и другие сущности, что делает их бесконечно многоразовыми. Кроме того, предмет не исчезнет.",
 
-  "material.tconstruct.manyullyn": "Маньюлин",
+  "material.tconstruct.manyullyn": "Маньюллин",
   "material.tconstruct.manyullyn.flavor": "Металл, название которого большинство литейщиков никогда не произнесут правильно. Также известен как материал для резки звёзд.",
   "material.tconstruct.manyullyn.encyclopedia": "Увеличивает урон до +2.5 за каждый уровень, при этом урон увеличивается на +0.5 за каждый удар в течение 5 последовательных попаданий.",
   "material.tconstruct.manyullyn.ranged": "Стрелы получают до +1.25 силы за каждый уровень (до учёта скорости), при этом урон увеличивается линейно в течение 5 последовательных попаданий стрелами.",
@@ -2456,7 +2460,7 @@
   "modifier.tconstruct.drawback": "Обратная отдача",
   "modifier.tconstruct.drawback.flavor": "Стрела-удочка!",
   "modifier.tconstruct.drawback.description": "Заставляет стрелу применять отдачу в противоположном направлении, притягивая цель.",
-  "modifier.tconstruct.impaling": "Накалывание",
+  "modifier.tconstruct.impaling": "Прокалывание",
   "modifier.tconstruct.impaling.flavor": "Продолжает двигаться, двигаться и двигаться.",
   "modifier.tconstruct.impaling.description": "Стрелы продолжают двигаться после попадания в цель, потенциально поражая больше целей.",
   "modifier.tconstruct.spike": "Шип",
@@ -2773,7 +2777,10 @@
   "modifier.tconstruct.spectral.description": "Заставляет цель снаряда светиться, будь то блок или сущность.",
   "modifier.tconstruct.explosive": "Взрывной",
   "modifier.tconstruct.explosive.flavor": "Бомба!",
-  "modifier.tconstruct.explosive.description": "Заставляет стрелу взорваться при попадании в цель.",
+  "modifier.tconstruct.explosive.description": "При попадании в цель снаряд взрывается.",
+  "modifier.tconstruct.supercharged": "Перегрузка",
+  "modifier.tconstruct.supercharged.flavor": "Зууум!",
+  "modifier.tconstruct.supercharged.description": "Заставляет снаряд двигаться быстрее, потенциально нанося больший урон.",
   "modifier.tconstruct.exchanging": "Замена",
   "modifier.tconstruct.exchanging.flavor": "Старая добрая замена!",
   "modifier.tconstruct.exchanging.description": "Блоки, разрушенные этим инструментом, по возможности заменяются блоком из левой руки.",
@@ -2851,7 +2858,7 @@
   "modifier.tconstruct.grapple.requirements": "Захват требует модификатор «Рыбалка».",
   "modifier.tconstruct.collecting": "Сбор",
   "modifier.tconstruct.collecting.flavor": "Йоинк!",
-  "modifier.tconstruct.collecting.description": "Позволяет рыболовному крючку собирать пойманные предметы, опыт, стрелы и метательное оружие.",
+  "modifier.tconstruct.collecting.description": "Позволяет рыболовному крючку подцеплять предметы, опыт, стрелы и метательное оружие.",
   "modifier.tconstruct.collecting.requirements": "Для сбора требуется модификатор «Рыбалка».",
 
   "_comment": "Модификаторы: Жидкости",
@@ -3645,7 +3652,7 @@
 
   "recipe.tconstruct.swappable.already_present": "Инструмент уже содержит %s с вариантом %s",
 
-  "gui.tconstruct.modifier_worktable": "Рабочий стол для модификаторов",
+  "gui.tconstruct.modifier_worktable": "Рабочий стол модификатора",
   "gui.tconstruct.modifier_worktable.title": "Настройка модификаторов",
   "gui.tconstruct.modifier_worktable.info": "Добавьте инструмент и соответствующие предметы для настройки модификаторов инструмента.",
   "recipe.tconstruct.modifier_set_worktable.empty": "У инструмента нет применимых модификаторов.",
@@ -3901,7 +3908,7 @@
   "jei.tconstruct.part_builder.title": "Конструктор деталей",
   "jei.tconstruct.part_builder.cost": "Затраты: %s",
 
-  "jei.tconstruct.modifier_worktable.title": "Рабочий стол для модификаторов",
+  "jei.tconstruct.modifier_worktable.title": "Рабочий стол модификатора",
   "jei.tconstruct.tinker_station.too_large": "Рецепт слишком большой для создания на этой станции.",
 
 
@@ -3969,13 +3976,13 @@
   "advancements.tconstruct.foundry.plate_armor.title": "Пластинчатая броня",
   "advancements.tconstruct.foundry.plate_armor.description": "Создайте полный комплект пластинчатой брони",
   "advancements.tconstruct.foundry.manyullyn_lanterns.title": "Богатое освещение",
-  "advancements.tconstruct.foundry.manyullyn_lanterns.description": "Создайте полную стопку обожжённых или выжженных фонарей и наполните их расплавленным маньюлином",
+  "advancements.tconstruct.foundry.manyullyn_lanterns.description": "Создайте полную стопку обожжённых или выжженных фонарей и наполните их расплавленным маньюллином",
   "advancements.tconstruct.foundry.encyclopedia.title": "Энциклопедия",
   "advancements.tconstruct.foundry.encyclopedia.description": "Создайте книгу «Литейное дело: Металлургическая энциклопедия», используя знания из всех книг",
 
   "_comment": "Достижения по гаджетам",
   "advancements.tconstruct.world.tinkers_gadgetry.title": "Литейные гаджеты",
-  "advancements.tconstruct.world.tinkers_gadgetry.description": "Создайте руководство «Литейное дело: Литейнные гаджеты», чтобы начать исследовать мир",
+  "advancements.tconstruct.world.tinkers_gadgetry.description": "Создайте руководство «Литейное дело: Гаджеты», чтобы начать исследовать мир",
   "advancements.tconstruct.world.earth_island.title": "Земной слизневый остров",
   "advancements.tconstruct.world.earth_island.description": "Найдите земной слизневый остров в океане",
   "advancements.tconstruct.world.sky_island.title": "Небесный слизневый остров",
