@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:pathing",
+  "text": [
+    {
+      "text": "Вытаптывайте дёрн во время шага, оставляя после себя тропу. Область действия можно увеличить модификатором «Расширенный»."
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/armor/boots",
+  "effects": [
+    "Макс. уровень: 1",
+    "Требуется слотов для умений: 1"
+  ]
+}
