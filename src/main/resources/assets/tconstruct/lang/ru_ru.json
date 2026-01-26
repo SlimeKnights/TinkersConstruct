@@ -3665,9 +3665,9 @@
   "recipe.tconstruct.remove_modifier.no_modifiers": "У инструмента нет модификаторов, которые можно удалить с помощью этого рецепта.",
 
   "recipe.tconstruct.modifier_sorting.title": "Сортировка модификаторов",
-  "recipe.tconstruct.modifier_sorting.description": "Выберите модификатор, чтобы поменять его местоположение со следующим модификатором в списке. Не использует предметы для замены.",
-  "recipe.tconstruct.modifier_sorting.description.forward": "Выберите модификатор, чтобы поменять его местоположение с предыдущим модификатором в списке. Не использует предметы для замены.",
-  "recipe.tconstruct.modifier_sorting.description.reversed": "Выберите модификатор, чтобы поменять его местоположение с предыдущим модификатором в списке. Не использует предметы для замены.",
+  "recipe.tconstruct.modifier_sorting.description": "Выберите модификатор, чтобы поменять его место со следующим модификатором в списке. Не использует предметы для замены.",
+  "recipe.tconstruct.modifier_sorting.description.forward": "Выберите модификатор, чтобы поменять его место с предыдущим модификатором в списке. Не использует предметы для замены.",
+  "recipe.tconstruct.modifier_sorting.description.reversed": "Выберите модификатор, чтобы поменять его место с предыдущим модификатором в списке. Не использует предметы для замены.",
   "recipe.tconstruct.modifier_sorting.not_enough_modifiers": "Инструменту для сортировки требуется как минимум два модификатора.",
 
   "recipe.tconstruct.invisible_modifiers.adding.title": "Невидимые чернила",
@@ -3684,7 +3684,7 @@
   "recipe.tconstruct.extract_modifier.slotless": "Извлечение без слота",
   "recipe.tconstruct.extract_modifier.abilities": "Извлечение умения",
   "recipe.tconstruct.extract_modifier.defense": "Извлечение обороны",
-  "recipe.tconstruct.extract_modifier.modifiers": "Извлечение модификатора",
+  "recipe.tconstruct.extract_modifier.modifiers": "Извлечение модификаторов",
   "recipe.tconstruct.extract_modifier.description": "Выберите модификатор для извлечения на кристалл модификатора. Слоты модификаторов будут возвращены.",
   "recipe.tconstruct.extract_modifier.no_modifiers": "Инструмент не имеет модификаторов, которые можно извлечь с помощью этого рецепта.",
 
