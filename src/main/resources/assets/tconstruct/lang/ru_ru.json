@@ -112,6 +112,7 @@
   "item.tconstruct.cobalt_nugget": "Кусочек кобальта",
 
   "block.tconstruct.steel_block": "Стальной блок",
+  "block.tconstruct.steel_block.tooltip": "Может использоваться в основании для маяка.",
   "item.tconstruct.steel_ingot": "Стальной слиток",
   "item.tconstruct.steel_nugget": "Кусочек стали",
 
@@ -119,6 +120,7 @@
   "__comment": "Литейное дело: Металлы (3 уровень)",
 
   "block.tconstruct.slimesteel_block": "Блок слизневой стали",
+  "block.tconstruct.slimesteel_block.tooltip": "Может использоваться в основании для маяка.",
   "item.tconstruct.slimesteel_ingot": "Слиток слизневой стали",
   "item.tconstruct.slimesteel_nugget": "Кусочек слизневой стали",
 
@@ -148,6 +150,7 @@
   "item.tconstruct.hepatizon_nugget": "Кусочек гепатизона",
 
   "block.tconstruct.cinderslime_block": "Блок зольной слизи",
+  "block.tconstruct.cinderslime_block.tooltip": "Может использоваться в основании для маяка.",
   "item.tconstruct.cinderslime_ingot": "Слиток зольной слизи",
   "item.tconstruct.cinderslime_nugget": "Кусочек зольной слизи",
 
