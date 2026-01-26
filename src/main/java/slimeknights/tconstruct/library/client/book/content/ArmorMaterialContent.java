@@ -234,20 +234,15 @@ public class ArmorMaterialContent extends AbstractMaterialContent {
       ).append("</div>");
     }
 
-    builder.append(String.format(
-      """
-      <div class="grid-armor-traits">
-      %s
-      %s
-      %s
-      %s
-      </div>
-      """,
-      getStatHTML(HELMET.getId(), ARMOR_PLATING_LABEL.getString(), true),
-      getStatHTML(SHIELD.getId(), SHIELD_LABEL.getString(), true),
-      getStatHTML(StatlessMaterialStats.MAILLE.getIdentifier(), true),
-      getStatHTML(StatlessMaterialStats.SHIELD_CORE.getIdentifier(), true)
-    ));
+    builder.append("<div class=\"row-material-stats\">")
+      .append("<div class=\"column\" style=\"gap: 12px\">")
+        .append(getStatHTML(HELMET.getId(), ARMOR_PLATING_LABEL.getString(), true))
+        .append(getStatHTML(StatlessMaterialStats.MAILLE.getIdentifier(), true))
+        .append(getStatHTML(StatlessMaterialStats.SHIELD_CORE.getIdentifier(), true))
+      .append("</div>")
+      .append(getStatHTML(SHIELD.getId(), SHIELD_LABEL.getString(), true))
+    .append("</div>");
+
     return String.format(super.toHTML(book), builder);
   }
 }
