@@ -1,5 +1,0 @@
-{
-  "title": "Создание формирователя частей",
-  "recipe": "tconstruct:tables/part_builder",
-  "grid_size": "small"
-}
