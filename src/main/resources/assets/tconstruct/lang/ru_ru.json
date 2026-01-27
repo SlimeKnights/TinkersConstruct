@@ -2039,8 +2039,8 @@
 
   "material.tconstruct.pig_iron": "Свиное железо",
   "material.tconstruct.pig_iron.flavor": "Абсолютно лучший материал, без споров.",
-  "material.tconstruct.pig_iron.encyclopedia": "Можно съесть, чтобы восстановить 1 голод за уровень при насыщении 0.6.",
-  "material.tconstruct.pig_iron.armor": "Даёт 15% шанс за уровень съесть броню, восстановив 1 голод за уровень при насыщении 0.6.",
+  "material.tconstruct.pig_iron.encyclopedia": "Можно съесть, чтобы восстановить 1 голод за уровень при насыщении 0.6, но ценой снижения выносливости.",
+  "material.tconstruct.pig_iron.armor": "Даёт 15% шанс за уровень съесть броню, восстановив 1 голод за уровень при насыщении 0.6, но ценой снижения выносливости.",
   "material.tconstruct.pig_iron.skull_flavor": "Вам не понравится, когда я буду злиться!",
   "material.tconstruct.pig_iron.skull_encyclopedia": "Даёт 15 сек. силы при получении урона от другого моба.",
 
@@ -2217,7 +2217,6 @@
 
 
   "__comment": "Литейное дело: Интеграционные материалы (3 уровень)",
-
   "material.tconstruct.steel": "Сталь",
   "material.tconstruct.steel.flavor": "В основном 90% материаловедения.",
   "material.tconstruct.steel.encyclopedia": "Даёт +10% прочности и +8% урона в ближнем бою за уровень.",
@@ -2781,9 +2780,6 @@
   "modifier.tconstruct.explosive": "Взрывной",
   "modifier.tconstruct.explosive.flavor": "Бомба!",
   "modifier.tconstruct.explosive.description": "При попадании в цель снаряд взрывается.",
-  "modifier.tconstruct.supercharged": "Перегрузка",
-  "modifier.tconstruct.supercharged.flavor": "Зууум!",
-  "modifier.tconstruct.supercharged.description": "Заставляет снаряд двигаться быстрее, потенциально нанося больший урон.",
   "modifier.tconstruct.exchanging": "Замена",
   "modifier.tconstruct.exchanging.flavor": "Старая добрая замена!",
   "modifier.tconstruct.exchanging.description": "Блоки, разрушенные этим инструментом, по возможности заменяются блоком из левой руки.",
@@ -3684,7 +3680,7 @@
   "recipe.tconstruct.extract_modifier.slotless": "Извлечение без слота",
   "recipe.tconstruct.extract_modifier.abilities": "Извлечение умения",
   "recipe.tconstruct.extract_modifier.defense": "Извлечение обороны",
-  "recipe.tconstruct.extract_modifier.modifiers": "Извлечение модификаторов",
+  "recipe.tconstruct.extract_modifier.modifiers": "Извлечение модификатора",
   "recipe.tconstruct.extract_modifier.description": "Выберите модификатор для извлечения на кристалл модификатора. Слоты модификаторов будут возвращены.",
   "recipe.tconstruct.extract_modifier.no_modifiers": "Инструмент не имеет модификаторов, которые можно извлечь с помощью этого рецепта.",
 
@@ -4007,3 +4003,4 @@
   "advancements.tconstruct.world.ancient_tools.title": "Археолог",
   "advancements.tconstruct.world.ancient_tools.description": "Откройте для себя все оригинальные типы древних инструментов"
 }
+
