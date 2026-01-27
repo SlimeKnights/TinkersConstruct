@@ -1,0 +1,7 @@
+{
+  "title": "Создание литейного ящика",
+  "recipe": "tconstruct:tables/tinkers_chest",
+  "description": [
+    { "text": "После создания вы можете покрасить ящик в любой желаемый цвет." }
+  ]
+}
