@@ -3022,6 +3022,7 @@
   "modifier.tconstruct.solar_powered": "Питаемый от солнца",
   "modifier.tconstruct.solar_powered.flavor": "Полезно для окружающей среды!",
   "modifier.tconstruct.solar_powered.description": "Инструмент устойчив к повреждениям при солнечном свете.",
+  "modifier.tconstruct.solar_powered.reinforced": "Солнечное укрепление",
 
   "__comment": "Особенности (2 уровень)",
   "modifier.tconstruct.sturdy": "Крепкий",
