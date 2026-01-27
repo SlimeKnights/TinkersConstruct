@@ -1,0 +1,39 @@
+intro=Введение
+entity_melting=Плавление сущностей
+melee_harvest_materials=Общие материалы (3 уровень)
+melee_harvest_materials.subtext=Эти материалы могут быть созданы с помощью сплава, а затем отлиты в детали для оружия ближнего боя или инструментов для сбора.
+ranged_materials=Материалы для дальнего боя (3 уровень)
+ranged_materials.subtext=Эти материалы могут быть созданы с помощью сплава, а затем отлиты в детали для оружия дальнего боя, такого как луки.
+armor_materials=Материалы для брони (3 уровень)
+armor_materials.subtext=Из этих материалов можно отлить броню и щиты.
+
+tools=Широкие инструменты
+tools.subtext=Для создания всех широких инструментов требуется использовать литейную наковальню.
+tools.group_general=Общие
+tools.group_ranged=Дальний бой
+tools.group_info=Информация
+
+armor=Тяжёлая броня
+armor.subtext=Сплавы открывают доступ к более широкому спектру материалов для создания брони. Они могут наделять доп. умениями, выходящими за рамки базовых комплектов, таких как снаряжение путешественника.
+
+smeltery=Плавильня
+
+abilities=Умения
+abilities.subtext=Умения более мощные, чем улучшения, но также имеют более ограниченное кол-во слотов.
+abilities.group_general=Общие
+abilities.group_harvest=Сбор
+abilities.group_melee=Ближний бой
+abilities.group_ranged=Дальний бой
+abilities.group_interact=Взаимод.
+abilities.group_armor=Броня
+abilities.group_armor.helmet=Шлем
+abilities.group_armor.chestplate=Нагрудник
+abilities.group_armor.leggings=Поножи
+abilities.group_armor.boots=Ботинки
+abilities.group_armor.shield=Щит
+upgrades.subtext=Инструменты могут быть улучшены с помощью улучшений, хотя к каждому инструменту можно применить только ограниченное кол-во из них.
+
+defense=Оборона
+defense.subtext=Модификаторы обороны могут применяться только к броне, используя слоты для модификаторов обороны.
+defense.group_protection=Защитные
+defense.group_special=Специальные
