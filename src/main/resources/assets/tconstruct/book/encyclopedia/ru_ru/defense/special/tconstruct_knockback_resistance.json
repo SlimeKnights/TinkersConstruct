@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:knockback_resistance",
+  "text": [
+    {
+      "text": "Уменьшает кол-во получаемого отбрасывания на 10%. "
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Макс. уровень за деталь: 1",
+    "Требуется слотов для защиты: 1"
+  ]
+}
