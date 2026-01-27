@@ -1,0 +1,35 @@
+intro=Введение
+melter=Плавильная печь
+moving_fluids=Перемещение жидкостей
+casting=Литьё
+worktable=Рабочий стол для модификаторов
+melee_harvest_materials=Общие материалы (2 уровень)
+melee_harvest_materials.subtext=Из этих материалов отлить детали для оружия ближнего боя или инструментов для сбора.
+ranged_materials=Материалы для дальнего боя (2 уровень)
+ranged_materials.subtext=Из этих материалов можно отлить детали для оружия дальнего боя, например луков.
+armor_materials=Материалы для брони (2 уровень)
+armor_materials.subtext=Из этих материалов можно отлить броню и щиты.
+
+further_reading=Дальнейшее изучение
+
+armor=Лёгкая броня
+armor.subtext=Выбирайте свой путь в выборе брони: снаряжение путешественника позволяет использовать множество модификаций и даёт больше возможностей для развития умений, а пластинчатая броня предоставляет больше возможностей для обороны. Если у вас нет чувства стиля, вы можете сочетать оба варианта.
+
+upgrades=Улучшения
+upgrades.subtext=Инструменты можно улучшать с помощью улучшений, хотя кол-во улучшений для каждого инструмента ограничено.
+upgrades.group_general=Общие
+upgrades.group_harvest=Сбор
+upgrades.group_melee=Ближний бой
+upgrades.group_ranged=Дальний бой
+upgrades.group_damage=Доп. урон
+upgrades.group_armor=Броня
+upgrades.group_armor.helmet=Шлем
+upgrades.group_armor.chestplate=Нагрудник
+upgrades.group_armor.leggings=Поножи
+upgrades.group_armor.boots=Ботинки
+
+slotless=Модификатор без слота
+slotless.subtext=Для применения этих модификаторов не требуется никаких слотов, вы можете использовать их все, если пожелаете.
+slotless.group_slotless=Общие
+slotless.group_bonus_upgrades=Слоты++
+slotless.group_cosmetic=Косметика
