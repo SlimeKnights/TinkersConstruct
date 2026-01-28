@@ -2823,7 +2823,7 @@
   "modifier.tconstruct.drill_attack": "Атака дрелью",
   "modifier.tconstruct.drill_attack.flavor": "Головокружительно!",
   "modifier.tconstruct.drill_attack.description": "Наносит удары по любым противникам во время движения вашего инструмента.",
-  "modifier.tconstruct.drill_attack.requirements": "Требуется модификатор пружины, броска или захвата.",
+  "modifier.tconstruct.drill_attack.requirements": "Требуется модификатор «Пружина», «Бросок» или «Захват».",
 
   "modifier.tconstruct.throwing": "Метание",
   "modifier.tconstruct.throwing.flavor": "Круче, чем трезубцы!",
