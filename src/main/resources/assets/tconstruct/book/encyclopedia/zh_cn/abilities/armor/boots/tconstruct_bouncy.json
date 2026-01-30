@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:bouncy",
   "text": [
     {
-      "text": "能够在落地时弹跳，不会受到摔落伤害并以90%的原速度向上弹起。"
+      "text": "能够在落地时弹跳，不再受到摔落伤害，而是以90%的原速度向上弹起。"
     }
   ],
   "more_text_space": true,

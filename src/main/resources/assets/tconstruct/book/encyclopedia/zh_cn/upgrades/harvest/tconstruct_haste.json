@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:haste",
   "text": [
     {
-      "text": "加持于采掘工具上时，每级挖掘速度+4。"
+      "text": "加持于采掘工具上时，每级使挖掘速度+4。"
     }
   ],
   "more_text_space": true,
   "tool_filter": "tconstruct:modifiable/harvest",
   "effects": [
-    "可以逐级强化",
+    "支持累积强化",
     "最高5级",
     "每级需要1个升级槽"
   ]

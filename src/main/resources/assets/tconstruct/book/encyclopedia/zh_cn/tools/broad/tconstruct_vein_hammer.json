@@ -1,7 +1,7 @@
 {
   "tool": "tconstruct:vein_hammer",
   "text": [
-    { "text": "矿脉锤可以挖掘石头方块以及相邻的同种方块，最远范围为2格。" },
+    { "text": "矿脉锤可以挖掘石质方块及相邻的同类型方块，最远范围为2格。" },
     { "text": "“延展”每级可增加1格最远挖掘范围。", "paragraph": true }
   ],
   "properties": [

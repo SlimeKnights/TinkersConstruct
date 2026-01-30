@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:pockets",
   "text": [
     {
-      "text": "增加18个物品储存槽位，手持或装备护腿时潜行并按下“护腿交互”键即可打开。"
+      "text": "增加18个物品储存槽位。潜行并按下“护腿交互”键，或手持时交互可以打开物品栏。"
     }
   ],
   "more_text_space": true,

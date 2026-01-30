@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:pathing",
   "text": [
     {
-      "text": "踩平你走过的草方块，并留下一条土径。“延展”可以扩大其作用范围。"
+      "text": "将走过的草方块踩平，留下一条土径。可通过“延展”强化扩大作用范围。"
     }
   ],
   "more_text_space": true,
