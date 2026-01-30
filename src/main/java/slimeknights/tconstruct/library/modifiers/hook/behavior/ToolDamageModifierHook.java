@@ -19,7 +19,7 @@ public interface ToolDamageModifierHook {
    * @param amount     Amount of damage to deal
    * @param holder     Entity holding the tool
    * @return  Replacement damage. Returning 0 cancels the damage and stops other modifiers from processing.
-   * @deprecated use {@link #onDamageTool(IToolStackView, ModifierEntry, int, LivingEntity, ItemStack)}. Overriding is okay.
+   * @deprecated use {@link #onDamageTool(IToolStackView, ModifierEntry, int, LivingEntity, ItemStack, boolean)}. Overriding is okay.
    */
   @Deprecated
   int onDamageTool(IToolStackView tool, ModifierEntry modifier, int amount, @Nullable LivingEntity holder);
@@ -32,9 +32,25 @@ public interface ToolDamageModifierHook {
    * @param holder     Entity holding the tool
    * @param stack      Stack instance being damaged. Useful for identifying the slot being damaged.
    * @return  Replacement damage. Returning 0 cancels the damage and stops other modifiers from processing.
+   * @deprecated use {@link #onDamageTool(IToolStackView, ModifierEntry, int, LivingEntity, ItemStack, boolean)}. Overriding is okay.
    */
+  @Deprecated
   default int onDamageTool(IToolStackView tool, ModifierEntry modifier, int amount, @Nullable LivingEntity holder, @Nullable ItemStack stack) {
     return onDamageTool(tool, modifier, amount, holder);
+  }
+
+  /**
+   * Called when the tool is damaged. Can be used to cancel, decrease, or increase the damage.
+   * @param tool       Tool stack
+   * @param modifier   Modifier running this hook
+   * @param amount     Amount of damage to deal
+   * @param holder     Entity holding the tool
+   * @param stack      Stack instance being damaged. Useful for identifying the slot being damaged.
+   * @param secondary  If true, this is not the primary source of damage for this action and the tool will be damaged another time.
+   * @return  Replacement damage. Returning 0 cancels the damage and stops other modifiers from processing.
+   */
+  default int onDamageTool(IToolStackView tool, ModifierEntry modifier, int amount, @Nullable LivingEntity holder, @Nullable ItemStack stack, boolean secondary) {
+    return onDamageTool(tool, modifier, amount, holder, stack);
   }
 
   /** Merger that runs all nested modules, but stops if the amount ever reaches 0 */

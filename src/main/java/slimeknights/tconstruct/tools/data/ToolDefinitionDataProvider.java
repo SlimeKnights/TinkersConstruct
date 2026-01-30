@@ -249,7 +249,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .largeToolStartingSlots()
       // traits
       .module(ToolTraitsModule.builder()
-        .trait(TinkerModifiers.knockback, 2)
+        .trait(ModifierIds.knockback, 2)
         .trait(ModifierIds.pathing).build())
       // harvest
       .module(ToolActionsModule.of(ToolActions.SHOVEL_DIG))
@@ -333,8 +333,8 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       // traits
       .module(ToolTraitsModule.builder()
         .trait(ModifierIds.tilling)
-        .trait(TinkerModifiers.shears)
-        .trait(TinkerModifiers.harvest).build())
+        .trait(ModifierIds.shears)
+        .trait(ModifierIds.harvest).build())
       // harvest
       .module(ToolActionsModule.of(ToolActions.HOE_DIG))
       .module(scytheHarvest)
@@ -362,8 +362,8 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       // traits
       .module(ToolTraitsModule.builder()
         .trait(ModifierIds.tilling)
-        .trait(TinkerModifiers.aoeSilkyShears)
-        .trait(TinkerModifiers.harvest).build())
+        .trait(ModifierIds.silkyShears, 2)
+        .trait(ModifierIds.harvest).build())
       // behavior
       .module(scytheHarvest)
       .module(BoxAOEIterator.builder(1, 1, 2).addExpansion(1, 1, 0).addDepth(2).build())
@@ -392,9 +392,9 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .smallToolStartingSlots()
       // traits
       .module(ToolTraitsModule.builder()
-        .trait(TinkerModifiers.padded, 1)
+        .trait(ModifierIds.padded, 1)
         .trait(TinkerModifiers.offhandAttack)
-        .trait(TinkerModifiers.silkyShears).build())
+        .trait(ModifierIds.silkyShears).build())
       // behavior
       .module(ToolActionsModule.of(ToolActions.SWORD_DIG, ToolActions.HOE_DIG))
       .module(IsEffectiveModule.tag(TinkerTags.Blocks.MINABLE_WITH_DAGGER))
@@ -423,7 +423,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
         .set(ToolStats.DURABILITY, 1.1f).build()))
       .smallToolStartingSlots()
       // traits
-      .module(ToolTraitsModule.builder().trait(TinkerModifiers.silkyShears).build())
+      .module(ToolTraitsModule.builder().trait(ModifierIds.silkyShears).build())
       .module(ToolActionsModule.of(ToolActions.SWORD_DIG))
       // behavior
       .module(swordHarvest)
@@ -452,7 +452,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       // traits
       .module(ToolTraitsModule.builder()
         .trait(TinkerModifiers.severing, 2)
-        .trait(TinkerModifiers.aoeSilkyShears).build())
+        .trait(ModifierIds.silkyShears, 2).build())
       // behavior
       .module(ToolActionsModule.of(ToolActions.SWORD_DIG))
       .module(swordHarvest)
@@ -580,7 +580,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .module(new ToolSlotsModule(ImmutableMap.of(SlotType.UPGRADE, 1)))
       // traits
       .module(ToolTraitsModule.builder()
-        .trait(TinkerModifiers.firestarter)
+        .trait(ModifierIds.firestarter)
         .trait(ModifierIds.fiery)
         .trait(ModifierIds.scorching).build())
       .module(ToolTraitsModule.builder().trait(ModifierIds.scorching).build(), ToolHooks.REBALANCED_TRAIT)
@@ -690,7 +690,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
         .slots(SlotType.ABILITY, 1).build())
       .module(new StatlessPartRepairModule(0, 100))
       .module(new StatlessPartRepairModule(1, 200))
-      .module(ToolTraitsModule.builder().trait(TinkerModifiers.blocking).build())
+      .module(ToolTraitsModule.builder().trait(ModifierIds.blocking).build())
       .module(AttackInteraction.INSTANCE)
       // display the shield core as the material, despite not being repairable
       .module(FixedMaterialToolName.FIRST);
@@ -723,7 +723,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
         .set(ToolStats.BLOCK_AMOUNT, 100)
         .set(ToolStats.BLOCK_ANGLE, 180).build()))
       .module(plateSlots)
-      .module(ToolTraitsModule.builder().trait(TinkerModifiers.blocking).build())
+      .module(ToolTraitsModule.builder().trait(ModifierIds.blocking).build())
       .module(AttackInteraction.INSTANCE)
       // faster display name logic
       .module(new FixedMaterialToolName(1));
@@ -828,9 +828,9 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
         .slots(SlotType.ABILITY, 1).build())
       // traits
       .module(ToolTraitsModule.builder()
-        .trait(TinkerModifiers.blocking)
-        .trait(TinkerModifiers.bonking)
-        .trait(TinkerModifiers.knockback).build())
+        .trait(ModifierIds.blocking)
+        .trait(ModifierIds.bonking)
+        .trait(ModifierIds.knockback).build())
       .module(new ParticleWeaponAttack(TinkerTools.bonkAttackParticle.get()));
     // swasher
     define(ToolDefinitions.SWASHER)
@@ -849,9 +849,9 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .smallToolStartingSlots()
       // traits
       .module(ToolTraitsModule.builder()
-        .trait(TinkerModifiers.spitting)
+        .trait(ModifierIds.spitting)
         .trait(ModifierIds.spilling)
-        .trait(TinkerModifiers.silkyShears).build())
+        .trait(ModifierIds.silkyShears).build())
       // behavior
       .module(ToolActionsModule.of(ToolActions.SWORD_DIG))
       .module(swordHarvest)

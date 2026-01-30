@@ -11,6 +11,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.field.LoadableField;
+import slimeknights.mantle.data.loadable.primitive.FloatLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
 import slimeknights.mantle.recipe.container.IEmptyContainer;
@@ -25,10 +26,13 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 @RequiredArgsConstructor
 public class SeveringRecipe implements ICustomOutputRecipe<IEmptyContainer> {
   protected static LoadableField<EntityIngredient,SeveringRecipe> ENTITY_FIELD = EntityIngredient.LOADABLE.requiredField("entity", r -> r.ingredient);
+  protected static LoadableField<Float,SeveringRecipe> BASE_CHANCE_FIELD = FloatLoadable.PERCENT.defaultField("per_level_chance", 0.05f, true, r -> r.baseChance);
+  protected static LoadableField<Float,SeveringRecipe> LOOTING_BONUS_FIELD = FloatLoadable.PERCENT.defaultField("looting_bonus", 0.01f, true, r -> r.lootingBonus);
   /** Loader instance */
   public static final RecordLoadable<SeveringRecipe> LOADER = RecordLoadable.create(
     ContextKey.ID.requiredField(), ENTITY_FIELD,
     ItemOutput.Loadable.REQUIRED_STACK.requiredField("result", r -> r.output),
+    BASE_CHANCE_FIELD, LOOTING_BONUS_FIELD,
     SeveringRecipe::new);
 
   @Getter
@@ -36,6 +40,14 @@ public class SeveringRecipe implements ICustomOutputRecipe<IEmptyContainer> {
   @Getter
   protected final EntityIngredient ingredient;
   protected final ItemOutput output;
+  protected final float baseChance;
+  protected final float lootingBonus;
+
+  /** @deprecated use {@link #SeveringRecipe(ResourceLocation, EntityIngredient, ItemOutput, float, float)} */
+  @Deprecated(forRemoval = true)
+  public SeveringRecipe(ResourceLocation id, EntityIngredient ingredient, ItemOutput output) {
+    this(id, ingredient, output, 0.05f, 0.01f);
+  }
 
   /**
    * Checks if the recipe matches the given type
@@ -44,6 +56,11 @@ public class SeveringRecipe implements ICustomOutputRecipe<IEmptyContainer> {
    */
   public boolean matches(EntityType<?> type) {
     return ingredient.test(type);
+  }
+
+  /** Gets the chance of this recipe. */
+  public float getChance(float level, float looting) {
+    return level * (baseChance + lootingBonus * looting);
   }
 
   /**

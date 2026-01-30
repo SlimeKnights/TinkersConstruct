@@ -4,13 +4,13 @@
   "check_trait_level": true,
   "inputs": [
     {
-      "tag": "forge:string"
+      "item": "minecraft:vine"
     },
     {
       "item": "tconstruct:earth_slime_crystal"
     },
     {
-      "tag": "forge:string"
+      "item": "minecraft:vine"
     },
     {
       "item": "tconstruct:earth_congealed_slime"

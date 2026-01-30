@@ -44,10 +44,7 @@ public class LazyModifier implements Supplier<Modifier>, IdAwareObject {
 
   /** Returns true if this static modifier has a value. A return of true here means a useful value is returned by {@link #get()} */
   public boolean isBound() {
-    if (!ModifierManager.INSTANCE.isDynamicModifiersLoaded()) {
-      return false;
-    }
-    return getUnchecked() != ModifierManager.INSTANCE.getDefaultValue();
+    return ModifierManager.INSTANCE.isDynamicModifiersLoaded() && getUnchecked() != ModifierManager.INSTANCE.getDefaultValue();
   }
 
   /**
@@ -57,8 +54,7 @@ public class LazyModifier implements Supplier<Modifier>, IdAwareObject {
   @Override
   public Modifier get() {
     if (!ModifierManager.INSTANCE.isDynamicModifiersLoaded()) {
-      throw new IllegalStateException("Attempted to load a modifier before dynamic modifiers are loaded");
-      //return ModifierManager.INSTANCE.getDefaultValue();
+      throw new IllegalStateException("Attempted to fetch a modifier before modifiers are loaded");
     }
     return getUnchecked();
   }

@@ -19,7 +19,7 @@ import slimeknights.mantle.util.ItemLayerPixels;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import slimeknights.tconstruct.tools.modifiers.slotless.TrimModifier;
+import slimeknights.tconstruct.tools.modules.cosmetic.TrimModule;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
@@ -59,13 +59,13 @@ public enum TrimModifierModel implements IBakedModifierModel {
 
   @Override
   public Object getCacheKey(IToolStackView tool, ModifierEntry modifier) {
-    return tool.getPersistentData().getString(TrimModifier.TRIM_MATERIAL);
+    return tool.getPersistentData().getString(TrimModule.materialKey(modifier.getId()));
   }
 
   @Override
   public void addQuads(IToolStackView tool, ModifierEntry modifier, Function<Material,TextureAtlasSprite> spriteGetter, Transformation transforms, boolean isLarge, int startTintIndex, Consumer<Collection<BakedQuad>> quadConsumer, @Nullable ItemLayerPixels pixels) {
     if (!isLarge) {
-      String materialId = tool.getPersistentData().getString(TrimModifier.TRIM_MATERIAL);
+      String materialId = tool.getPersistentData().getString(TrimModule.materialKey(modifier.getId()));
       if (!materialId.isEmpty() && tool.getItem() instanceof ArmorItem armor) {
         Map<String,TrimTexture> cache = TEXTURE_CACHE[armor.getType().ordinal()];
         // start with the cache, saves us having to lookup the material again

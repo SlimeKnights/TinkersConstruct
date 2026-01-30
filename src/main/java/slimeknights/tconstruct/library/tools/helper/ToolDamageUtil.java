@@ -97,16 +97,17 @@ public class ToolDamageUtil {
    * @param amount  Amount to damage
    * @param entity  Entity for criteria updates, if null no updates run
    * @param stack   Stack to use for criteria updates, if null uses main hand stack
+   * @param secondary  If true, this is not the primary source of damage for this action. Used by some modifiers such as tanned.
    * @return true if the tool broke when damaging
    */
-  public static boolean damage(IToolStackView tool, int amount, @Nullable LivingEntity entity, @Nullable ItemStack stack) {
+  public static boolean damage(IToolStackView tool, int amount, @Nullable LivingEntity entity, @Nullable ItemStack stack, boolean secondary) {
     if (amount <= 0 || tool.isBroken() || tool.isUnbreakable() || !tool.hasTag(TinkerTags.Items.DURABILITY)) {
       return false;
     }
 
     // try each modifier
     for (ModifierEntry entry : tool.getModifierList()) {
-      amount = entry.getHook(ModifierHooks.TOOL_DAMAGE).onDamageTool(tool, entry, amount, entity, stack);
+      amount = entry.getHook(ModifierHooks.TOOL_DAMAGE).onDamageTool(tool, entry, amount, entity, stack, secondary);
       // if no more damage, done
       if (amount <= 0) {
         return false;
@@ -116,15 +117,59 @@ public class ToolDamageUtil {
   }
 
   /**
+   * Damages the tool by the given amount
+   * @param amount  Amount to damage
+   * @param entity  Entity for criteria updates, if null no updates run
+   * @param stack   Stack to use for criteria updates, if null uses main hand stack
+   * @return true if the tool broke when damaging
+   */
+  public static boolean damage(IToolStackView tool, int amount, @Nullable LivingEntity entity, @Nullable ItemStack stack) {
+    return damage(tool, amount, entity, stack, false);
+  }
+
+  /**
    * Damages the tool and sends the break animation if it broke
    * @param tool    Tool to damage
    * @param amount  Amount of damage
    * @param entity  Entity for animation
    * @param slot    Slot containing the stack
+   * @param secondary  If true, this is not the primary source of damage for this action. Used by some modifiers such as tanned.
+   * @return true if the tool broke.
+   */
+  public static boolean damageAnimated(IToolStackView tool, int amount, LivingEntity entity, EquipmentSlot slot, boolean secondary) {
+    if (damage(tool, amount, entity, entity.getItemBySlot(slot), secondary)) {
+      entity.broadcastBreakEvent(slot);
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Damages the tool and sends the break animation if it broke
+   * @param tool    Tool to damage
+   * @param amount  Amount of damage
+   * @param entity  Entity for animation
+   * @param slot    Slot containing the stack
+   * @return true if the tool broke.
    */
   public static boolean damageAnimated(IToolStackView tool, int amount, LivingEntity entity, EquipmentSlot slot) {
-    if (damage(tool, amount, entity, entity.getItemBySlot(slot))) {
-      entity.broadcastBreakEvent(slot);
+    return damageAnimated(tool, amount, entity, slot, false);
+  }
+
+
+  /**
+   * Damages the tool and sends the break animation if it broke
+   * @param tool    Tool to damage
+   * @param amount  Amount of damage
+   * @param entity  Entity for animation
+   * @param hand    Hand containing the stack
+   * @param secondary  If true, this is not the primary source of damage for this action. Used by some modifiers such as tanned.
+   * @return true if the tool broke when damaging
+   */
+  public static boolean damageAnimated(IToolStackView tool, int amount, LivingEntity entity, InteractionHand hand, boolean secondary) {
+    if (damage(tool, amount, entity, entity.getItemInHand(hand), secondary)) {
+      entity.broadcastBreakEvent(hand);
+      // TODO: why don't we fire ForgeEventFactory.onPlayerDestroyItem here?
       return true;
     }
     return false;
@@ -139,12 +184,7 @@ public class ToolDamageUtil {
    * @return true if the tool broke when damaging
    */
   public static boolean damageAnimated(IToolStackView tool, int amount, LivingEntity entity, InteractionHand hand) {
-    if (damage(tool, amount, entity, entity.getItemInHand(hand))) {
-      entity.broadcastBreakEvent(hand);
-      // TODO: why don't we fire ForgeEventFactory.onPlayerDestroyItem here?
-      return true;
-    }
-    return false;
+    return damageAnimated(tool, amount, entity, hand, false);
   }
 
   /**

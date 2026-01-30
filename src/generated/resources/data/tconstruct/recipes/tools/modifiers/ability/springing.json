@@ -4,13 +4,13 @@
   "check_trait_level": true,
   "inputs": [
     {
-      "tag": "forge:feathers"
+      "item": "tconstruct:sky_slime_vine"
     },
     {
       "item": "tconstruct:sky_slime_crystal"
     },
     {
-      "tag": "forge:feathers"
+      "item": "tconstruct:sky_slime_vine"
     },
     {
       "item": "tconstruct:sky_congealed_slime"

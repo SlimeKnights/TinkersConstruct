@@ -8,6 +8,8 @@ import net.minecraft.world.entity.animal.MushroomCow.MushroomType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import slimeknights.mantle.data.loadable.field.ContextKey;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.mantle.recipe.ingredient.EntityIngredient;
 import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipe;
@@ -17,8 +19,10 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
  * Recipe to deshroom a mooshroom, taking brown into account
  */
 public class MooshroomDemushroomingRecipe extends SeveringRecipe {
-  public MooshroomDemushroomingRecipe(ResourceLocation id) {
-    super(id, EntityIngredient.of(EntityType.MOOSHROOM), ItemOutput.fromItem(Items.RED_MUSHROOM, 5));
+  public static final RecordLoadable<MooshroomDemushroomingRecipe> LOADER = RecordLoadable.create(ContextKey.ID.requiredField(), BASE_CHANCE_FIELD, LOOTING_BONUS_FIELD, MooshroomDemushroomingRecipe::new);
+
+  public MooshroomDemushroomingRecipe(ResourceLocation id, float baseChance, float lootingBonus) {
+    super(id, EntityIngredient.of(EntityType.MOOSHROOM), ItemOutput.fromItem(Items.RED_MUSHROOM, 5), baseChance, lootingBonus);
   }
 
   @Override

@@ -5,7 +5,7 @@
       "text": "Charge and release to launch yourself away from the targeted block for 1 durability."
     },
     {
-      "text": "Effect strength is based on half of power times velocity. Boosted by 25% per knockback level, though the knockback effect is halved by padded and multiplied by armor knockback such as springy and knockback resistance. Quick charge reduces charge time.", "paragraph": true
+      "text": "Effect strength is based on half of power times velocity. Boosted by 25% per knockback level, multiplied by armor knockback such as ricochet and knockback resistance. Total effect is halved by padded. Quick charge reduces charge time.", "paragraph": true
     }
   ],
   "more_text_space": true,

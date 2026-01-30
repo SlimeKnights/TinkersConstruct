@@ -1,0 +1,20 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:shears",
+      "expanded": 1.0,
+      "flat": 1.0,
+      "tool": {
+        "type": "tconstruct:has_modifier",
+        "check": "all",
+        "modifier": {
+          "type": "tconstruct:single",
+          "modifier": "tconstruct:silky"
+        }
+      }
+    }
+  ],
+  "priority": 70,
+  "tooltip_display": "always"
+}

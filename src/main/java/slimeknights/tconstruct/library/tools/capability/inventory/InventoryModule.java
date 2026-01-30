@@ -159,12 +159,14 @@ public class InventoryModule implements ModifierModule, InventoryModifierHook, V
       ModDataNBT modData = tool.getPersistentData();
       // if the tag exists, fetch it
       ResourceLocation key = getKey(modifier.getModifier());
+      int insertIndex = 0;
       if (modData.contains(key, Tag.TAG_LIST)) {
         list = modData.get(key, GET_COMPOUND_LIST);
         // first, try to find an existing stack in the slot
         for (int i = 0; i < list.size(); i++) {
           CompoundTag compound = list.getCompound(i);
-          if (compound.getInt(TAG_SLOT) == slot) {
+          int listSlot = compound.getInt(TAG_SLOT);
+          if (listSlot == slot) {
             if (stack.isEmpty()) {
               list.remove(i);
             } else {
@@ -172,6 +174,9 @@ public class InventoryModule implements ModifierModule, InventoryModifierHook, V
               writeStack(stack, slot, compound);
             }
             return;
+          // try to keep the stacks in order by inserting after the last slot smaller than the target
+          } else if (listSlot < slot) {
+            insertIndex = i + 1;
           }
         }
       } else if (stack.isEmpty()) {
@@ -184,7 +189,13 @@ public class InventoryModule implements ModifierModule, InventoryModifierHook, V
 
       // list did not contain the slot, so add it
       if (!stack.isEmpty()) {
-        list.add(writeStack(stack, slot, new CompoundTag()));
+        CompoundTag compound = writeStack(stack, slot, new CompoundTag());
+        // if out of bounds, just put at the end. Shouldn't happen
+        if (insertIndex > list.size()) {
+          list.add(compound);
+        } else {
+          list.add(insertIndex, compound);
+        }
       }
     }
   }

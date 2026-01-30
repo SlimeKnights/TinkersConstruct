@@ -1,0 +1,44 @@
+{
+  "color": "FFAA0F01",
+  "generator": {
+    "supported_stats": [
+      "tconstruct:arrow_head"
+    ],
+    "transformer": {
+      "type": "tconstruct:recolor_sprite",
+      "color_mapping": {
+        "type": "tconstruct:grey_to_color",
+        "palette": [
+          {
+            "color": "FF000000",
+            "grey": 0
+          },
+          {
+            "color": "FF2D0000",
+            "grey": 63
+          },
+          {
+            "color": "FF410500",
+            "grey": 102
+          },
+          {
+            "color": "FF720000",
+            "grey": 140
+          },
+          {
+            "color": "FF720000",
+            "grey": 178
+          },
+          {
+            "color": "FFAA0F01",
+            "grey": 216
+          },
+          {
+            "color": "FFFF0000",
+            "grey": 255
+          }
+        ]
+      }
+    }
+  }
+}

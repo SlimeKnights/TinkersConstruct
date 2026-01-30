@@ -4,5 +4,7 @@
   "child_result": "minecraft:scute",
   "entity": {
     "type": "minecraft:turtle"
-  }
+  },
+  "looting_bonus": 0.01,
+  "per_level_chance": 0.05
 }

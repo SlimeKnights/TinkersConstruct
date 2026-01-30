@@ -1,0 +1,11 @@
+{
+  "level_display": "tconstruct:no_levels",
+  "modules": [
+    {
+      "type": "tconstruct:sling_teleport",
+      "drawtime_multiplier": 1.5,
+      "force_multiplier": 6.0
+    }
+  ],
+  "tooltip_display": "always"
+}

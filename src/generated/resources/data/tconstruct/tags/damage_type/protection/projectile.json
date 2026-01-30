@@ -5,7 +5,7 @@
     "minecraft:falling_block",
     "minecraft:falling_stalactite",
     {
-      "id": "twlightforest:falling_ice",
+      "id": "twilightforest:falling_ice",
       "required": false
     }
   ]

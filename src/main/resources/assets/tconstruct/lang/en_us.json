@@ -111,6 +111,7 @@
   "item.tconstruct.cobalt_nugget": "Cobalt Nugget",
 
   "block.tconstruct.steel_block": "Block of Steel",
+  "block.tconstruct.steel_block.tooltip": "Can be used as beacon base",
   "item.tconstruct.steel_ingot": "Steel Ingot",
   "item.tconstruct.steel_nugget": "Steel Nugget",
 
@@ -118,6 +119,7 @@
   "__comment": "Tier 3 Metals",
 
   "block.tconstruct.slimesteel_block": "Block of Slimesteel",
+  "block.tconstruct.slimesteel_block.tooltip": "Can be used as beacon base",
   "item.tconstruct.slimesteel_ingot": "Slimesteel Ingot",
   "item.tconstruct.slimesteel_nugget": "Slimesteel Nugget",
 
@@ -147,6 +149,7 @@
   "item.tconstruct.hepatizon_nugget": "Hepatizon Nugget",
 
   "block.tconstruct.cinderslime_block": "Block of Cinderslime",
+  "block.tconstruct.cinderslime_block.tooltip": "Can be used as beacon base",
   "item.tconstruct.cinderslime_ingot": "Cinderslime Ingot",
   "item.tconstruct.cinderslime_nugget": "Cinderslime Nugget",
 
@@ -1976,6 +1979,10 @@
   "material.tconstruct.gunpowder.flavor": "Explosive!",
   "material.tconstruct.gunpowder.ammo": "Causes the arrow to explode at a radius of 1 plus 1 per level. Explosion damage is based on projectile power.",
 
+  "material.tconstruct.redstone": "Redstone",
+  "material.tconstruct.redstone.flavor": "Speedy!",
+  "material.tconstruct.redstone.ammo": "Grants +10% velocity per level to arrows, and +20% velocity per level to thrown projectiles.",
+
   "material.tconstruct.earthslime": "Earthslime",
   "material.tconstruct.earthslime.flavor": "To me!",
   "material.tconstruct.earthslime.ammo": "Causes the target to be knocked back in the opposite direction.",
@@ -2031,8 +2038,8 @@
 
   "material.tconstruct.pig_iron": "Pig Iron",
   "material.tconstruct.pig_iron.flavor": "The absolute best material, no debates.",
-  "material.tconstruct.pig_iron.encyclopedia": "Can be eaten to restore 1 hunger per level at 0.6 saturation",
-  "material.tconstruct.pig_iron.armor": "Grants a 15% chance per level of eating the armor for 1 hunger per level at 0.6 saturation",
+  "material.tconstruct.pig_iron.encyclopedia": "Can be eaten to restore 1 hunger per level at 0.6 saturation at the cost of durability",
+  "material.tconstruct.pig_iron.armor": "Grants a 15% chance per level of eating the armor for 1 hunger per level at 0.6 saturation at the cost of durability",
   "material.tconstruct.pig_iron.skull_flavor": "You won't like me when I'm angry!",
   "material.tconstruct.pig_iron.skull_encyclopedia": "Grants 15 seconds of strength when damaged by another mob",
 
@@ -2048,7 +2055,7 @@
   "material.tconstruct.cobalt": "Cobalt",
   "material.tconstruct.cobalt.flavor": "Coblat. The material of the Red Army.",
   "material.tconstruct.cobalt.encyclopedia": "Boosts mining and attack speed by 8% per level",
-  "material.tconstruct.cobalt.ranged": "Boosts drawspeed and velocity by 3% per level",
+  "material.tconstruct.cobalt.ranged": "Boosts drawspeed and velocity by +0.03 per level",
   "material.tconstruct.cobalt.armor": "Reduces damage from melee attacks by 8% per level, and boosts movement speed when using items by 5% per max level",
 
   "material.tconstruct.quartz": "Quartz",
@@ -2176,7 +2183,7 @@
   "material.tconstruct.lead": "Lead",
   "material.tconstruct.lead.flavor": "Could try and make a sandwich out of this.",
   "material.tconstruct.lead.encyclopedia": "Grants +15% mining speed, +10% knockback resistance, -10% movement speed, and +5% gravity per level",
-  "material.tconstruct.lead.ranged": "Grants +10% accuracy, +10% knockback resistance, -10% movement speed, and +5% gravity per level",
+  "material.tconstruct.lead.ranged": "Grants +0.1 accuracy, +10% knockback resistance, -10% movement speed, and +5% gravity per level",
   "material.tconstruct.lead.armor": "Grants +15% knockback resistance, -10% movement speed, and +5% gravity per level",
 
   "material.tconstruct.silver": "Silver",
@@ -2195,7 +2202,7 @@
 
   "material.tconstruct.aluminum": "Aluminum",
   "material.tconstruct.aluminum.flavor": "Found most commonly in ashmounds.",
-  "material.tconstruct.aluminum.ranged": "Grants +7% drawspeed and accuracy at the cost of 5% loss of protection",
+  "material.tconstruct.aluminum.ranged": "Grants +0.07 drawspeed and accuracy at the cost of 5% loss of protection",
   "material.tconstruct.aluminum.armor": "Grants +5% use item speed at the cost of 5% loss of protection",
 
   "material.tconstruct.treated_wood": "Treated Wood",
@@ -2290,10 +2297,10 @@
   "modifier.tconstruct.shiny.description": "Tool glows with an enchanted glint",
   "modifier.tconstruct.farsighted": "Farsighted",
   "modifier.tconstruct.farsighted.flavor": "Shows great foresight",
-  "modifier.tconstruct.farsighted.description": "Decreases the field of vision while equipped",
+  "modifier.tconstruct.farsighted.description": "Decreases the field of vision while equipped, making far objects easier to see",
   "modifier.tconstruct.nearsighted": "Nearsighted",
   "modifier.tconstruct.nearsighted.flavor": "Not thinking of the future",
-  "modifier.tconstruct.nearsighted.description": "Increases the field of vision while equipped",
+  "modifier.tconstruct.nearsighted.description": "Increases the field of vision while equipped, letting you see more",
   "modifier.tconstruct.offhanded": "Offhanded",
   "modifier.tconstruct.offhanded.2": "Nohanded",
   "modifier.tconstruct.offhanded.flavor": "Don't think about it too hard",
@@ -2771,7 +2778,10 @@
   "modifier.tconstruct.spectral.description": "Causes the target of the projectile to glow, be it a block or entity",
   "modifier.tconstruct.explosive": "Explosive",
   "modifier.tconstruct.explosive.flavor": "Bomb!",
-  "modifier.tconstruct.explosive.description": "Causes the arrow to explode upon hitting the target",
+  "modifier.tconstruct.explosive.description": "Causes the projectile to explode upon hitting the target",
+  "modifier.tconstruct.supercharged": "Supercharged",
+  "modifier.tconstruct.supercharged.flavor": "Zooom!",
+  "modifier.tconstruct.supercharged.description": "Causes the projectile to move quicker, potentially dealing more damage",
   "modifier.tconstruct.exchanging": "Exchanging",
   "modifier.tconstruct.exchanging.flavor": "The Ole Switcheroo!",
   "modifier.tconstruct.exchanging.description": "Blocks broken by this tool are replaced by the block in the offhand if possible",
@@ -2787,7 +2797,7 @@
   "modifier.tconstruct.silky_shears": "Silky Shears",
   "modifier.tconstruct.silky_shears.flavor": "Snip snip!",
   "modifier.tconstruct.silky_shears.description": "Tool can shear mobs if the silky modifier is added",
-  "modifier.tconstruct.silky_aoe_shears": "Silky Shears",
+  "modifier.tconstruct.silky_aoe_shears": "Silky Shears+",
   "modifier.tconstruct.silky_aoe_shears.flavor": "Snip snip!",
   "modifier.tconstruct.silky_aoe_shears.description": "Tool can shear mobs if the silky modifier is added",
   "modifier.tconstruct.harvest": "Harvest",
@@ -3014,6 +3024,7 @@
   "modifier.tconstruct.solar_powered": "Solar Powered",
   "modifier.tconstruct.solar_powered.flavor": "Good for the environment",
   "modifier.tconstruct.solar_powered.description": "Tool resists damage in sunlight",
+  "modifier.tconstruct.solar_powered.reinforced": "Solar Reinforced",
 
   "__comment": "Tier 2 Traits",
   "modifier.tconstruct.sturdy": "Sturdy",

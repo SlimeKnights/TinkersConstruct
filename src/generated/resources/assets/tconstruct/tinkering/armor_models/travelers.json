@@ -9,7 +9,6 @@
       "options": [
         {
           "type": "tconstruct:dyed",
-          "modifier": "tconstruct:dyed",
           "prefix": "tconstruct:travelers/cuirass_"
         },
         {

@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.modifiers.traits.general;
 
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.behavior.ToolDamageModifierHook;
@@ -10,10 +11,11 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nullable;
 
+/** @deprecated use {@link slimeknights.tconstruct.tools.modules.durability.ToolDamageRangeModule} */
+@Deprecated(forRemoval = true)
 public class TannedModifier extends NoLevelsModifier implements ToolDamageModifierHook {
   @Override
   protected void registerHooks(Builder hookBuilder) {
-    super.registerHooks(hookBuilder);
     hookBuilder.addHook(this, ModifierHooks.TOOL_DAMAGE);
   }
 
@@ -26,5 +28,10 @@ public class TannedModifier extends NoLevelsModifier implements ToolDamageModifi
   @Override
   public int onDamageTool(IToolStackView tool, ModifierEntry modifier, int amount, @Nullable LivingEntity holder) {
     return amount >= 1 ? 1 : 0;
+  }
+
+  @Override
+  public int onDamageTool(IToolStackView tool, ModifierEntry modifier, int amount, @Nullable LivingEntity holder, @Nullable ItemStack stack, boolean secondary) {
+    return amount >= 1 && !secondary ? 1 : 0;
   }
 }

@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.tools.modules.interaction;
 
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -24,7 +22,6 @@ import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.armor.EquipmentChangeModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.behavior.ToolActionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.ConditionalStatModifierHook;
-import slimeknights.tconstruct.library.modifiers.hook.display.DisplayNameModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
@@ -45,14 +42,13 @@ import slimeknights.tconstruct.tools.TinkerToolActions;
 import slimeknights.tconstruct.tools.entity.CombatFishingHook;
 import slimeknights.tconstruct.tools.entity.CombatFishingHook.GrappleType;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 /** Module implementing fishing behavior */
-public enum FishingModule implements ModifierModule, GeneralInteractionModifierHook, ToolActionModifierHook, EquipmentChangeModifierHook, DisplayNameModifierHook {
+public enum FishingModule implements ModifierModule, GeneralInteractionModifierHook, ToolActionModifierHook, EquipmentChangeModifierHook {
   INSTANCE;
 
-  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<FishingModule>defaultHooks(ModifierHooks.GENERAL_INTERACT, ModifierHooks.TOOL_ACTION, ModifierHooks.EQUIPMENT_CHANGE, ModifierHooks.DISPLAY_NAME);
+  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<FishingModule>defaultHooks(ModifierHooks.GENERAL_INTERACT, ModifierHooks.TOOL_ACTION, ModifierHooks.EQUIPMENT_CHANGE);
   public static final ResourceLocation HOOK_MATERIAL = TConstruct.getResource("hook_material");
   public static final RecordLoadable<FishingModule> LOADER = new SingletonLoader<>(INSTANCE);
 
@@ -64,11 +60,6 @@ public enum FishingModule implements ModifierModule, GeneralInteractionModifierH
   @Override
   public List<ModuleHook<?>> getDefaultHooks() {
     return DEFAULT_HOOKS;
-  }
-
-  @Override
-  public Component getDisplayName(IToolStackView tool, ModifierEntry entry, Component name, @Nullable RegistryAccess access) {
-    return InteractionSource.formatModifierName(tool, entry.getModifier(), name);
   }
 
   @Override

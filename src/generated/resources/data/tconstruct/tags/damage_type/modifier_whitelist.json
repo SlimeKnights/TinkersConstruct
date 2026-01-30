@@ -3,15 +3,15 @@
     "minecraft:mob_attack",
     "minecraft:mob_attack_no_aggro",
     {
-      "id": "twlightforest:axing",
+      "id": "twilightforest:axing",
       "required": false
     },
     {
-      "id": "twlightforest:slam",
+      "id": "twilightforest:slam",
       "required": false
     },
     {
-      "id": "twlightforest:ant",
+      "id": "twilightforest:ant",
       "required": false
     }
   ]

@@ -639,7 +639,7 @@ public final class TinkerSmeltery extends TinkerModule {
 
   /** Properties for transparent smeltery or foundry blocks, such as glass. */
   private static Properties structureNonSolid(MapColor color, SoundType sound) {
-    return structureProps(color, sound).isValidSpawn(Blocks::never).isRedstoneConductor(NEVER).isSuffocating(NEVER).isViewBlocking(NEVER).noOcclusion();
+    return structureProps(color, sound).isValidSpawn(Blocks::never).isRedstoneConductor(NEVER).isSuffocating(NEVER).isViewBlocking(NEVER).noOcclusion().forceSolidOn();
   }
 
   /** Properties for an opaque seared block, such as bricks. */

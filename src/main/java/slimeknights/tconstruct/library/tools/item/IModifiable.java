@@ -14,8 +14,10 @@ public interface IModifiable extends ItemLike {
   /** @deprecated use {@link IndestructibleItemEntity#INDESTRUCTIBLE_ENTITY} */
   @Deprecated(forRemoval = true)
   ResourceLocation INDESTRUCTIBLE_ENTITY = IndestructibleItemEntity.INDESTRUCTIBLE_ENTITY;
-  /** Modifier key to make a tool spawn an indestructable entity */
+  /** Volatile boolean key to make a tool spawn an indestructable entity */
   ResourceLocation SHINY = TConstruct.getResource("shiny");
+  /** Volatile int key to increase a tool's range */
+  ResourceLocation EXPANDED = TConstruct.getResource("expanded");
   /** @deprecated use {@link RarityModule#RARITY} */
   @Deprecated(forRemoval = true)
   ResourceLocation RARITY = RarityModule.RARITY;

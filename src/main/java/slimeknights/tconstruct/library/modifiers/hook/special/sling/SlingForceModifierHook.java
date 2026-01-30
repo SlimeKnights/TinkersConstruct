@@ -16,7 +16,7 @@ public interface SlingForceModifierHook {
    * @param modifier    Modifier entry calling the hook
    * @param holder      Entity holding the sling
    * @param target      Entity being moved by the sling. Might be the same as {@code holder}, but not always (see bonking).
-   * @param slingSource Modifier entry of the sling modifier, such as {@link slimeknights.tconstruct.tools.TinkerModifiers#flinging}
+   * @param slingSource Modifier entry of the sling modifier, such as {@link slimeknights.tconstruct.tools.data.ModifierIds#flinging}
    * @param force       Current force value
    * @param multiplier  Force multiplier from non-power sources such as charge.
    * @return Updated force value.

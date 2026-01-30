@@ -16,6 +16,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ToolAction;
@@ -26,6 +27,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.hook.build.ConditionalStatModifierHook;
 import slimeknights.tconstruct.library.tools.definition.module.ToolHooks;
+import slimeknights.tconstruct.library.tools.item.ranged.ModifiableLauncherItem;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
@@ -191,6 +193,14 @@ public final class ModifierUtil {
     return false;
   }
 
+  /**
+   * Makes the tool use the blocking animation if the blocking modifier is installed, falling back to the given animation.
+   * Allows your tool to block while charging up.
+   */
+  public static UseAnim blockWhileCharging(IToolStackView tool, UseAnim fallback) {
+    return canPerformAction(tool, ToolActions.SHIELD_BLOCK) ? UseAnim.BLOCK : fallback;
+  }
+
   /** Calculates inaccuracy from the conditional tool stat. */
   public static float getInaccuracy(IToolStackView tool, @Nullable LivingEntity living) {
     return 3 * (1 / ConditionalStatModifierHook.getModifiedStat(tool, living, ToolStats.ACCURACY) - 1);
@@ -199,6 +209,12 @@ public final class ModifierUtil {
   /** Causes cooldown on the given tool based on its draw speed stat. */
   public static void addCooldown(IToolStackView tool, Player player) {
     player.getCooldowns().addCooldown(tool.getItem(), (int)(20 / ConditionalStatModifierHook.getModifiedStat(tool, player, ToolStats.DRAW_SPEED)));
+  }
+
+  /** Checks if this modifier is the one actively being used. Used for failure sound effects. */
+  public static boolean isActiveModifier(IToolStackView tool, ModifierEntry modifier, ModifierEntry activeModifier) {
+    // active modifier being us, or a bow is firing and no drawback ammo
+    return modifier == activeModifier || (activeModifier.getLevel() == 0 && !tool.getPersistentData().contains(ModifiableLauncherItem.KEY_DRAWBACK_AMMO));
   }
 
   /**
@@ -234,7 +250,9 @@ public final class ModifierUtil {
           }
           // damage the rod
           if (damage > 0) {
-            ToolDamageUtil.damageAnimated(tool, damage, living, hand);
+            // if we are applying cooldown, means this is a full retraction from block so this was primary damage
+            // no cooldown is done on secondary effects like entity hitting
+            ToolDamageUtil.damageAnimated(tool, damage, living, hand, !applyCooldown);
           }
         }
         return hand;

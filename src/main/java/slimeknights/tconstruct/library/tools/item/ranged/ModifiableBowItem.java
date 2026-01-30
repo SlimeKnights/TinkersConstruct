@@ -39,7 +39,6 @@ import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.entity.ThrownTool;
-import slimeknights.tconstruct.tools.modifiers.ability.interaction.BlockingModifier;
 
 import java.util.function.Predicate;
 
@@ -90,7 +89,7 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
 
   @Override
   public UseAnim getUseAnimation(ItemStack stack) {
-    return BlockingModifier.blockWhileCharging(ToolStack.from(stack), UseAnim.BOW);
+    return ModifierUtil.blockWhileCharging(ToolStack.from(stack), UseAnim.BOW);
   }
 
 

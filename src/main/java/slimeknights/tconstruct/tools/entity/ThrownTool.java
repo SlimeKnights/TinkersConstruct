@@ -188,8 +188,11 @@ public class ThrownTool extends ThrownTrident implements ToolProjectile {
     // TODO: consider expiry time for loyalty
     if (!dealtDamage && inGroundTime > 4) {
       // we don't damage the tool on throw, so instead damage it when it hits a block or an entity
-      if (!tridentItem.isEmpty()) {
+      if (!tridentItem.isEmpty() && !level().isClientSide) {
         ToolDamageUtil.damage(getTool(), 1, getOwner() instanceof LivingEntity l ? l : null, tridentItem);
+        // update the stack so visual changes to the tool render (e.g. broken or fluid)
+        // need to force since its the same instance, just NBT changes
+        this.entityData.set(STACK, tridentItem, true);
       }
       dealtDamage = true;
     }
@@ -246,9 +249,14 @@ public class ThrownTool extends ThrownTrident implements ToolProjectile {
 
       // back off from the target
       this.setDeltaMovement(this.getDeltaMovement().multiply(-0.01, -0.1, -0.01));
-      // play sound
-      if (!level().isClientSide && tool.getModifiers().getLevel(ModifierIds.channeling) == 0) {
-        this.playSound(tool.isBroken() ? SoundEvents.ITEM_BREAK : SoundEvents.TRIDENT_HIT, 1.0f, 1.0f);
+      if (!level().isClientSide) {
+        // play sound
+        if (tool.getModifiers().getLevel(ModifierIds.channeling) == 0) {
+          this.playSound(tool.isBroken() ? SoundEvents.ITEM_BREAK : SoundEvents.TRIDENT_HIT, 1.0f, 1.0f);
+        }
+        // update the stack so visual changes to the tool render (e.g. broken or fluid)
+        // need to force since its the same instance, just NBT changes
+        this.entityData.set(STACK, tridentItem, true);
       }
     }
   }
@@ -309,6 +317,11 @@ public class ThrownTool extends ThrownTrident implements ToolProjectile {
                 dealtDamage = true;
                 // backing off the block makes the tool easier to collect
                 this.setDeltaMovement(this.getDeltaMovement().multiply(-0.01, -0.1, -0.01));
+                // update the stack so visual changes to the tool render (e.g. broken or fluid)
+                // need to force since its the same instance, just NBT changes
+                if (!level.isClientSide) {
+                  this.entityData.set(STACK, tridentItem, true);
+                }
                 return;
               }
             }

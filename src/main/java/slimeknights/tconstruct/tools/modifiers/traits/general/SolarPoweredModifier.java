@@ -12,6 +12,8 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nullable;
 
+/** @deprecated use {@link slimeknights.tconstruct.library.modifiers.modules.behavior.ReduceToolDamageModule} with {@link slimeknights.tconstruct.library.json.variable.entity.EntityLightVariable} */
+@Deprecated(forRemoval = true)
 public class SolarPoweredModifier extends NoLevelsModifier implements ToolDamageModifierHook {
   @Override
   protected void registerHooks(Builder hookBuilder) {

@@ -5,15 +5,15 @@
     "minecraft:wither_skull",
     "minecraft:dragon_breath",
     {
-      "id": "twlightforest:haunt",
+      "id": "twilightforest:haunt",
       "required": false
     },
     {
-      "id": "twlightforest:ominous_fire",
+      "id": "twilightforest:ominous_fire",
       "required": false
     },
     {
-      "id": "twlightforest:twilight_scepter",
+      "id": "twilightforest:twilight_scepter",
       "required": false
     }
   ]

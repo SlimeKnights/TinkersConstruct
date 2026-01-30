@@ -53,9 +53,10 @@ public class TinkerNetwork extends NetworkWrapper {
    * Network versions:
    * 1: 3.10.1 and before
    * 2: 3.10.2 - new material stat type; item removal
+   * 3: 3.11.2+ - lost track of how much changed but its a lot
    */
   private TinkerNetwork() {
-    super(TConstruct.getResource("network"), "2");
+    super(TConstruct.getResource("network"), "3");
   }
 
   /** Gets the instance of the network */

@@ -237,9 +237,7 @@ public class ContentTool extends PageContent {
 
       List<TextData> effectData = Lists.newArrayList();
       for (String e : properties) {
-        effectData.add(new TextData("\u25CF "));
-        effectData.add(new TextData(e));
-        effectData.add(new TextData("\n"));
+        effectData.add(new TextData("● " + e).linebreak(true));
       }
 
       list.add(new TextElement(padding, 44 + h, BookScreen.PAGE_WIDTH / 2 + 5, BookScreen.PAGE_HEIGHT - h - 20, effectData));

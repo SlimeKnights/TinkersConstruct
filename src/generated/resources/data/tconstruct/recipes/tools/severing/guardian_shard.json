@@ -6,6 +6,8 @@
       "minecraft:elder_guardian"
     ]
   },
+  "looting_bonus": 0.01,
+  "per_level_chance": 0.05,
   "result": {
     "count": 2,
     "item": "minecraft:prismarine_shard"

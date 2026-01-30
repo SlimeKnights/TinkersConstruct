@@ -6,39 +6,39 @@
     "minecraft:cramming",
     "minecraft:sting",
     {
-      "id": "twlightforest:ghast_tear",
+      "id": "twilightforest:ghast_tear",
       "required": false
     },
     {
-      "id": "twlightforest:hydra_bite",
+      "id": "twilightforest:hydra_bite",
       "required": false
     },
     {
-      "id": "twlightforest:squish",
+      "id": "twilightforest:squish",
       "required": false
     },
     {
-      "id": "twlightforest:axing",
+      "id": "twilightforest:axing",
       "required": false
     },
     {
-      "id": "twlightforest:slam",
+      "id": "twilightforest:slam",
       "required": false
     },
     {
-      "id": "twlightforest:yeeted",
+      "id": "twilightforest:yeeted",
       "required": false
     },
     {
-      "id": "twlightforest:ant",
+      "id": "twilightforest:ant",
       "required": false
     },
     {
-      "id": "twlightforest:clamped",
+      "id": "twilightforest:clamped",
       "required": false
     },
     {
-      "id": "twlightforest:spiked",
+      "id": "twilightforest:spiked",
       "required": false
     }
   ]

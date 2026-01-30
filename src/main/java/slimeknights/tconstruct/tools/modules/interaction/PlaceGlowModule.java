@@ -2,8 +2,6 @@ package slimeknights.tconstruct.tools.modules.interaction;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -13,7 +11,6 @@ import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
-import slimeknights.tconstruct.library.modifiers.hook.display.DisplayNameModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.BlockInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.modifiers.hook.mining.RemoveBlockModifierHook;
@@ -30,8 +27,8 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 /** Module to place a glow on right click */
-public record PlaceGlowModule(int damage) implements ModifierModule, DisplayNameModifierHook, BlockInteractionModifierHook, RemoveBlockModifierHook {
-  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<PlaceGlowModule>defaultHooks(ModifierHooks.DISPLAY_NAME, ModifierHooks.BLOCK_INTERACT, ModifierHooks.REMOVE_BLOCK);
+public record PlaceGlowModule(int damage) implements ModifierModule, BlockInteractionModifierHook, RemoveBlockModifierHook {
+  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<PlaceGlowModule>defaultHooks(ModifierHooks.BLOCK_INTERACT, ModifierHooks.REMOVE_BLOCK);
   public static final RecordLoadable<PlaceGlowModule> LOADER = RecordLoadable.create(
     IntLoadable.FROM_ZERO.requiredField("tool_damage", PlaceGlowModule::damage),
     PlaceGlowModule::new);
@@ -49,11 +46,6 @@ public record PlaceGlowModule(int damage) implements ModifierModule, DisplayName
   @Override
   public List<ModuleHook<?>> getDefaultHooks() {
     return DEFAULT_HOOKS;
-  }
-
-  @Override
-  public Component getDisplayName(IToolStackView tool, ModifierEntry entry, Component name, @Nullable RegistryAccess access) {
-    return InteractionSource.formatModifierName(tool, entry.getModifier(), name);
   }
 
   @Override

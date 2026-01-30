@@ -318,6 +318,9 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      new LimbMaterialStats(175, 0.15f, -0.25f, 0.15f),
                      new GripMaterialStats(-0.3f, 0.25f, 1.0f),
                      StatlessMaterialStats.BOWSTRING);
+    addMaterialStats(MaterialIds.pigIron,
+      new LimbMaterialStats(580, 0, 0, 0.1f),
+      new GripMaterialStats(0.1f, -0.15f, 2.5f));
     addMaterialStats(MaterialIds.cobalt,
                      new LimbMaterialStats(800, 0.05f, 0.05f, 0.05f),
                      new GripMaterialStats(0.05f, 0.05f, 2.25f));
@@ -411,6 +414,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.steeleaf, StatlessMaterialStats.ARROW_HEAD);
     addMaterialStats(MaterialIds.slimeball, StatlessMaterialStats.FLETCHING);
     addMaterialStats(MaterialIds.gunpowder, StatlessMaterialStats.ARROW_HEAD);
+    addMaterialStats(MaterialIds.redstone, StatlessMaterialStats.ARROW_HEAD);
     // tier 3
     addMaterialStats(MaterialIds.ice, StatlessMaterialStats.ARROW_HEAD);
     addMaterialStats(MaterialIds.quartz, StatlessMaterialStats.ARROW_HEAD);

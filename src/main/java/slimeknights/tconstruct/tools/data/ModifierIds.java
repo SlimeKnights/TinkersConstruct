@@ -29,15 +29,18 @@ public class ModifierIds {
 
   // general
   public static final ModifierId reinforced = id("reinforced");
+  public static final ModifierId unbreakable = id("unbreakable");
   public static final ModifierId overforced = id("overforced");
   public static final ModifierId worldbound = id("worldbound");
   public static final ModifierId shiny      = id("shiny");
+  @Deprecated(forRemoval = true)
   public static final ModifierId sticky     = id("sticky");
   public static final ModifierId tank       = id("tank");
   public static final ModifierId offhanded  = id("offhanded");
   public static final ModifierId blunted    = id("blunted");
   public static final ModifierId soulbound = id("soulbound");
   public static final ModifierId smelting = id("smelting");
+  public static final ModifierId fireprimer = id("fireprimer");
   // combat
   public static final ModifierId fiery = id("fiery");
   public static final ModifierId freezing = id("freezing");
@@ -48,15 +51,25 @@ public class ModifierIds {
   public static final ModifierId finsAmmo = id("fins_ammo");
   public static final ModifierId channeling = id("channeling");
   public static final ModifierId drillAttack = id("drill_attack");
+  public static final ModifierId knockback = id("knockback");
+  public static final ModifierId padded = id("padded");
+  public static final ModifierId sweeping = id("sweeping_edge");
   // general abilities
   public static final ModifierId reach = id("reach");
   public static final ModifierId glowing = id("glowing");
+  public static final ModifierId firestarter = id("firestarter");
+  public static final ModifierId flamewake = id("flamewake"); // TODO: consider merging into firestarter, the rest do it
+  public static final ModifierId bucketing = id("bucketing");
+  public static final ModifierId autosmelt = id("autosmelt");
+  public static final ModifierId expanded = id("expanded");
   // compat
   public static final ModifierId theOneProbe = id("the_one_probe");
   public static final ModifierId headlight = id("headlight");
   // zoom
   public static final ModifierId scope = id("scope");
   public static final ModifierId zoom = id("zoom");
+  public static final ModifierId farsighted = id("farsighted");
+  public static final ModifierId nearsighted = id("nearsighted");
 
   // harvest
   public static final ModifierId haste = id("haste");
@@ -69,6 +82,7 @@ public class ModifierIds {
   public static final ModifierId looting = id("looting");
   public static final ModifierId fortune = id("fortune");
   public static final ModifierId experienced = id("experienced");
+  public static final ModifierId silky = id("silky");
 
   // damage boost
   public static final ModifierId sharpness   = id("sharpness");
@@ -95,6 +109,7 @@ public class ModifierIds {
   public static final ModifierId crystalshot = id("crystalshot");
   public static final ModifierId barebow = id("barebow");
   public static final ModifierId warCharge = id("war_charge");
+  public static final ModifierId multishot = id("multishot");
 
   // armor
   public static final ModifierId protection = id("protection");
@@ -131,6 +146,7 @@ public class ModifierIds {
   public static final ModifierId craftingTable = id("crafting_table");
   // boots
   public static final ModifierId depthStrider = id("depth_strider");
+  public static final ModifierId soulspeed = id("soulspeed");
   public static final ModifierId featherFalling = id("feather_falling");
   public static final ModifierId longFall = id("long_fall");
   public static final ModifierId frostWalker = id("frost_walker");
@@ -138,8 +154,10 @@ public class ModifierIds {
   public static final ModifierId bouncy = id("bouncy");
   public static final ModifierId doubleJump = id("double_jump");
   // shield
+  public static final ModifierId blocking = id("blocking");
   public static final ModifierId blockade = id("blockade");
   public static final ModifierId boundless = id("boundless");
+  public static final ModifierId reflecting = id("reflecting");
 
 
   // interaction
@@ -147,6 +165,19 @@ public class ModifierIds {
   public static final ModifierId stripping = id("stripping");
   public static final ModifierId tilling = id("tilling");
   public static final ModifierId brushing = id("brushing");
+  public static final ModifierId harvest = id("harvest");
+  public static final ModifierId shears = id("shears");
+  public static final ModifierId silkyShears = id("silky_shears");
+  public static final ModifierId splashing = id("splashing");
+  public static final ModifierId slurping = id("slurping");
+  // sling
+  public static final ModifierId flinging = id("flinging");
+  public static final ModifierId springing = id("springing");
+  public static final ModifierId bonking = id("bonking");
+  public static final ModifierId warping = id("warping");
+  public static final ModifierId spitting = id("spitting");
+
+  // throwing
   public static final ModifierId throwing = id("throwing");
   public static final ModifierId returning = id("returning");
   public static final ModifierId ballista = id("ballista");
@@ -169,6 +200,8 @@ public class ModifierIds {
   public static final ModifierId jagged = id("jagged");
   public static final ModifierId tipped = id("tipped");
   public static final ModifierId stringy = id("stringy");
+  public static final ModifierId tanned = id("tanned");
+  public static final ModifierId solarPowered = id("solar_powered");
   public static final ModifierId unburdened = id("unburdened");
   public static final ModifierId depthProtection = id("depth_protection");
   public static final ModifierId enderclearance = id("enderclearance");
@@ -211,6 +244,7 @@ public class ModifierIds {
   public static final ModifierId overshield = id("overshield");
   public static final ModifierId crumbling = id("crumbling");
   public static final ModifierId enhanced = id("enhanced");
+  public static final ModifierId tasty = id("tasty");
   public static final ModifierId lightweight = id("lightweight");
   public static final ModifierId crystalbound = id("crystalbound");
   public static final ModifierId crystalstrike = id("crystalstrike");
@@ -220,6 +254,7 @@ public class ModifierIds {
   public static final ModifierId ductile = id("ductile");
   public static final ModifierId attractive = id("attractive");
   public static final ModifierId explosive = id("explosive");
+  public static final ModifierId supercharged = id("supercharged");
   // traits - tier 3 compat
   public static final ModifierId maintained = id("maintained");
   public static final ModifierId temperate = id("temperate");

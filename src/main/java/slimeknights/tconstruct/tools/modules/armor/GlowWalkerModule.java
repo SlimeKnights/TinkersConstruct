@@ -15,9 +15,9 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.armor.ArmorWalkRadiusModule;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
+import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.shared.TinkerCommons;
-import slimeknights.tconstruct.tools.TinkerModifiers;
 
 /** Module that places glow blocks at low light levels */
 public record GlowWalkerModule(LevelingValue radius, int minLight, int damage) implements ModifierModule, ArmorWalkRadiusModule<Void> {
@@ -34,7 +34,7 @@ public record GlowWalkerModule(LevelingValue radius, int minLight, int damage) i
 
   @Override
   public float getRadius(IToolStackView tool, ModifierEntry modifier) {
-    return radius.compute(modifier.getLevel() + tool.getModifierLevel(TinkerModifiers.expanded.getId()));
+    return radius.compute(modifier.getEffectiveLevel() + tool.getVolatileData().getInt(IModifiable.EXPANDED));
   }
 
   @Override

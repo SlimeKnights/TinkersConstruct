@@ -385,11 +385,8 @@ public class ToolEvents {
             // for our own armor, saves effort to damage directly with our utility
             IToolStackView tool = context.getToolInSlot(slotType);
             if (tool != null && (!source.is(DamageTypeTags.IS_FIRE) || !tool.getItem().isFireResistant())) {
-              // damaging the tool twice is generally not an issue, except for tanned where there is a difference between damaging by the sum and damaging twoce in pieces
-              // so work around this by hardcoding a tanned check. Not making this a hook as this whole chunk of code should hopefully be unneeded in 1.21
-              if (tool.getModifierLevel(TinkerModifiers.tanned.getId()) == 0) {
-                ToolDamageUtil.damageAnimated(tool, damageMissed, entity, slotType);
-              }
+              // mark this as secondary damage so modifiers like tanned can avoid taking damage twice
+              ToolDamageUtil.damageAnimated(tool, damageMissed, entity, slotType, true);
             } else {
               // if not our armor, damage using vanilla like logic
               ItemStack armorStack = entity.getItemBySlot(slotType);

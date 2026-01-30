@@ -138,7 +138,8 @@ public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
     buildTool("fishing_rod")
       .addLimb("rod")
       .addBreakableBowstring("string").addBowstring("string_cast")
-      .addBreakablePart("hook", StatlessMaterialStats.ARROW_HEAD.getIdentifier());
+      .addBreakablePart("hook", StatlessMaterialStats.ARROW_HEAD.getIdentifier())
+      .addPart("hook_cast", StatlessMaterialStats.ARROW_HEAD.getIdentifier());
     buildTool("javelin").withLarge().addBreakableHead("head").addLimb("guard").addHandle("handle").addGrip("grip");
     buildTool("ammo")
       // arrow

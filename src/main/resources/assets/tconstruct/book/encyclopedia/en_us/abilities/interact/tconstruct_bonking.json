@@ -5,7 +5,7 @@
       "text": "Charge and release to knockback the targeted mob, consuming 1 durability. If used on a melee weapon, does a melee attack at 150% damage."
     },
     {
-      "text": "Effect strength is based on half of power times velocity. Boosted by 25% per knockback level, halved by padded. Quick charge reduces charge time, and target's armor knockback like springy or knockback resistance apply.", "paragraph": true
+      "text": "Strength is based on half of power times velocity, plus 0.25 per knockback level. Total effect halved by padded. Quick charge reduces charge time, and target's armor ricochet and knockback resistance apply.", "paragraph": true
     }
   ],
   "more_text_space": true,

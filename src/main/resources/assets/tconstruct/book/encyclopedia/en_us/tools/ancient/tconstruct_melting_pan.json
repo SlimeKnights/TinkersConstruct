@@ -1,8 +1,8 @@
 {
   "tool": "tconstruct:melting_pan",
   "text": [
-    { "text": "The melting pan mines meltable blocks and also functions as a staff. It can be found from dungeons, igloos, zombies, and a gift from armorsmiths after defeating a raid." },
-    { "text": "Expanders mine multiple blocks of the same type, with range based on the level.", "paragraph": true }
+    { "text": "The melting pan is a staff that mines meltable blocks, producing an extra 6 nuggets per ore (as opposed to the smeltery's extra 3 nuggets). Expanders work like a vein hammer." },
+    { "text": "Found from zombies, dungeons, igloos, and gifted from armorsmiths after a raid.", "paragraph": true }
   ],
   "properties": [
     "6 Mining Speed",

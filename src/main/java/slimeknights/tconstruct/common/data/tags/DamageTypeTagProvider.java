@@ -94,7 +94,7 @@ public class DamageTypeTagProvider extends DamageTypeTagsProvider {
     tag(FALL_PROTECTION).addTag(IS_FALL).add(FLY_INTO_WALL);
 
     // TF support
-    String tf = "twlightforest";
+    String tf = "twilightforest";
     addOptional(MODIFIER_WHITELIST, tf, "axing", "slam", "ant");
     addOptional(MELEE_PROTECTION, tf, "ghast_tear", "hydra_bite", "squish", "axing", "slam", "yeeted", "ant", "clamped", "spiked");
     addOptional(MAGIC_PROTECTION, tf, "haunt", "ominous_fire", "twilight_scepter");

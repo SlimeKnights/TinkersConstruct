@@ -140,6 +140,9 @@ public interface GeneralInteractionModifierHook {
    * @param chargeTime  Ticks the item has been used so far, typically from {@link #onStoppedUsing(IToolStackView, ModifierEntry, LivingEntity, int)}.
    */
   static float getToolCharge(IToolStackView tool, float chargeTime) {
+    if (chargeTime < 0) {
+      return 0;
+    }
     float charge = chargeTime / tool.getPersistentData().getInt(KEY_DRAWTIME);
     charge = (charge * charge + charge * 2) / 3;
     if (charge > 1) {

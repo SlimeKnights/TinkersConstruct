@@ -13,13 +13,14 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
 import java.util.function.Predicate;
 
 /** Hook to find ammo on a bow.*/
 public interface BowAmmoModifierHook {
+  /** Volatile data int for extra shots to fire. */
+  ResourceLocation MULTISHOT = TConstruct.getResource("multishot");
   /** Volatile data key telling the tool to not fetch ammo from the inventory. */
   ResourceLocation SKIP_INVENTORY_AMMO = TConstruct.getResource("skip_inventory_ammo");
 
@@ -122,7 +123,7 @@ public interface BowAmmoModifierHook {
 
   /** Gets the number of projectiles desired for the given tool */
   static int getDesiredProjectiles(IToolStackView tool) {
-    return 1 + (2 * tool.getModifierLevel(TinkerModifiers.multishot.getId()));
+    return 1 + tool.getVolatileData().getInt(MULTISHOT);
   }
 
   /**

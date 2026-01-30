@@ -10,9 +10,10 @@ import slimeknights.tconstruct.library.modifiers.ModifierManager.ModifiersLoaded
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Supplier that will return a modifier from a datapack, automatically updating to the new instance when datapacks reload
+ * Supplier that will return a modifier from a datapack, automatically updating to the new instance when datapacks reload.
+ * Extends {@link StaticModifier} to make it easier to migrate a static modifier to a dynamic one without breaking binary compatability on the field.
  */
-public class DynamicModifier extends LazyModifier {
+public class DynamicModifier extends StaticModifier<Modifier> {
   /** List of all dynamic modifiers, to clear cache when modifiers reload */
   private static final AtomicInteger INVALIDATION_COUNTER = new AtomicInteger(0);
 
@@ -29,11 +30,13 @@ public class DynamicModifier extends LazyModifier {
   }
 
   @Override
+  public boolean isBound() {
+    return ModifierManager.INSTANCE.isDynamicModifiersLoaded() && getUnchecked() != ModifierManager.INSTANCE.getDefaultValue();
+  }
+
+  @Override
   protected Modifier getUnchecked() {
-    if (invalidationCount < INVALIDATION_COUNTER.get()) {
-      result = null;
-    }
-    if (result == null) {
+    if (result == null || invalidationCount < INVALIDATION_COUNTER.get()) {
       result = ModifierManager.getValue(id);
       invalidationCount = INVALIDATION_COUNTER.get();
     }
@@ -48,7 +51,7 @@ public class DynamicModifier extends LazyModifier {
   @Override
   public Modifier get() {
     if (!ModifierManager.INSTANCE.isDynamicModifiersLoaded()) {
-      throw new IllegalStateException("Cannot fetch a dynamic modifiers before datapacks load");
+      throw new IllegalStateException("Cannot fetch a dynamic modifiers before datapacks are loaded");
     }
     Modifier result = getUnchecked();
     if (result == ModifierManager.INSTANCE.getDefaultValue()) {

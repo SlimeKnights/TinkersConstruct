@@ -33,10 +33,6 @@
         "*",
         "$knockback_multiplier",
         "*",
-        2.0,
-        "$padded",
-        "^",
-        "/",
         "$value",
         "+"
       ],
@@ -57,14 +53,6 @@
           "attribute": "minecraft:generic.knockback_resistance",
           "entity_type": "tconstruct:attribute",
           "fallback": 0.0
-        },
-        "padded": {
-          "type": "tconstruct:modifier_level",
-          "check": "all",
-          "modifier": {
-            "type": "tconstruct:single",
-            "modifier": "tconstruct:padded"
-          }
         }
       }
     },
@@ -76,10 +64,6 @@
         "*",
         "$multiplier",
         "*",
-        2.0,
-        "$padded",
-        "^",
-        "/",
         "$value",
         "+"
       ],
@@ -87,16 +71,6 @@
       "sling": {
         "type": "tconstruct:tag",
         "tag": "tconstruct:knockback_slings/target"
-      },
-      "variables": {
-        "padded": {
-          "type": "tconstruct:modifier_level",
-          "check": "all",
-          "modifier": {
-            "type": "tconstruct:single",
-            "modifier": "tconstruct:padded"
-          }
-        }
       }
     }
   ],

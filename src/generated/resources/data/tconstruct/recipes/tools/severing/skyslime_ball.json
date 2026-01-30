@@ -3,5 +3,7 @@
   "entity": {
     "type": "tconstruct:sky_slime"
   },
+  "looting_bonus": 0.01,
+  "per_level_chance": 0.05,
   "result": "tconstruct:sky_slime_ball"
 }

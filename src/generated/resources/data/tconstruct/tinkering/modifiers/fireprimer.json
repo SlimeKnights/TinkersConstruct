@@ -1,0 +1,11 @@
+{
+  "level_display": "tconstruct:no_levels",
+  "modules": [
+    {
+      "type": "tconstruct:volatile_int",
+      "flag": "tconstruct:expanded",
+      "flat": 1
+    }
+  ],
+  "tooltip_display": "always"
+}

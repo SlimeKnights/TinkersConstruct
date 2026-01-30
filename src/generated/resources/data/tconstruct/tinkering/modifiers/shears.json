@@ -1,0 +1,19 @@
+{
+  "level_display": "tconstruct:pluses",
+  "modules": [
+    {
+      "type": "tconstruct:show_offhand",
+      "mode": "disallow_broken"
+    },
+    {
+      "type": "tconstruct:shears",
+      "expanded": 1.0,
+      "per_level": 1.0
+    },
+    {
+      "type": "tconstruct:show_interaction_source"
+    }
+  ],
+  "priority": 70,
+  "tooltip_display": "always"
+}
