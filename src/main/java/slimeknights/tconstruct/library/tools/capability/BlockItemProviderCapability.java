@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.tools.capability.inventory;
+package slimeknights.tconstruct.library.tools.capability;
 
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
