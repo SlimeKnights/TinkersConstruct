@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:fiery",
   "text": [
     {
-      "text": "使攻击到的生物燃烧，每级增加5秒燃烧时间。"
+      "text": "使攻击到的生物燃烧，每级延长5秒燃烧时间。"
     }
   ],
   "more_text_space": true,

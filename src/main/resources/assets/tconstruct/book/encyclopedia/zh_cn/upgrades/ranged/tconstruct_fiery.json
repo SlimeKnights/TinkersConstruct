@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:fiery",
   "text": [
     {
-      "text": "使射出的箭矢着火，并且点燃击中的目标，每级增加5秒燃烧时间。"
+      "text": "使射出的箭矢着火，并且点燃击中的目标，每级延长5秒燃烧时间。"
     }
   ],
   "more_text_space": true,
