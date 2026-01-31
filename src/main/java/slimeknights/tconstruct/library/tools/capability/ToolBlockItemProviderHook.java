@@ -24,6 +24,15 @@ public interface ToolBlockItemProviderHook {
      */
     void consume(IToolStackView tool, ModifierEntry modifier, @Nullable LivingEntity entity, @Nullable ItemStack stack);
 
+    @Nullable
+    static BlockItemProviderCapability getHookAsCapability(IToolStackView tool) {
+        for (ModifierEntry entry : tool.getModifiers()) {
+            ToolBlockItemProviderHook provider = entry.getModifier().getHooks().getOrNull(ModifierHooks.BLOCK_ITEM_PROVIDER);
+            if (provider != null) return new CapabilityImpl(provider, tool, entry);
+        }
+        return null;
+    }
+
     record CapabilityImpl(ToolBlockItemProviderHook base, IToolStackView tool, ModifierEntry modifier) implements BlockItemProviderCapability {
 
         @Override
@@ -53,14 +62,10 @@ public interface ToolBlockItemProviderHook {
                 LazyOptional<BlockItemProviderCapability> lo = lazy;
                 if (lo == null) {
                     // Iterate modifiers to see if any of them actually provide this hook so we don't provide the cap unless we actually have the hook
-                    for (ModifierEntry entry : tool.getModifiers()) {
-                        ToolBlockItemProviderHook provider = entry.getModifier().getHooks().getOrNull(ModifierHooks.BLOCK_ITEM_PROVIDER);
-                        if (provider == null)
-                            continue;
-                        lo = lazy = LazyOptional.of(() -> new CapabilityImpl(provider, tool, entry));
-                    }
-                    if (lo == null)
+                    BlockItemProviderCapability capability = getHookAsCapability(tool);
+                    if (capability == null)
                         return LazyOptional.empty();
+                    lo = lazy = LazyOptional.of(() -> capability);
                 }
                 return lo.cast();
             }

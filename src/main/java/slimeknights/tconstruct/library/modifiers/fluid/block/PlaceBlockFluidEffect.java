@@ -84,7 +84,8 @@ public record PlaceBlockFluidEffect(@Nullable Block block, @Nullable SoundEvent 
 
       if (entity != null) {
         // either hand is fine, allows using the tool from offhand or mainhand
-        for (InteractionHand hand : InteractionHand.values()) {
+        // iterate in reverse order so that we prefer the offhand
+        for (InteractionHand hand : new InteractionHand[]{InteractionHand.OFF_HAND, InteractionHand.MAIN_HAND}) {
           ItemStack held = entity.getItemInHand(hand);
           var cap = getBlockProvider(held);
           if (cap == null) continue;

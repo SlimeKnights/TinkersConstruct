@@ -19,6 +19,7 @@ import slimeknights.tconstruct.library.modifiers.hook.mining.RemoveBlockModifier
 import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
 import slimeknights.tconstruct.library.module.ModuleHookMap.Builder;
 import slimeknights.tconstruct.library.tools.capability.BlockItemProviderCapability;
+import slimeknights.tconstruct.library.tools.capability.ToolBlockItemProviderHook;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.Util;
@@ -41,22 +42,30 @@ public class ExchangingModifier extends NoLevelsModifier implements RemoveBlockM
   @Nullable
   @Override
   public Boolean removeBlock(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context) {
-    // must have blocks in the offhand
-    ItemStack offhand = context.getLiving().getOffhandItem();
+    // We check the offhand first
+    ItemStack item = context.getLiving().getOffhandItem();
     BlockState state = context.getState();
     Level world = context.getWorld();
     BlockPos pos = context.getPos();
     LivingEntity entity = context.getLiving();
-    if (offhand.isEmpty()) {
+    if (item.isEmpty()) {
       return null;
     }
-    BlockItemProviderCapability blockProvider = BlockItemProviderCapability.getBlockProvider(offhand);
-    if (blockProvider == null) {
-      return null;
-    }
-    BlockItem blockItem = blockProvider.getBlockItem(offhand, entity);
+    BlockItemProviderCapability blockProvider = BlockItemProviderCapability.getBlockProvider(item);
+    BlockItem blockItem = blockProvider == null ? null : blockProvider.getBlockItem(item, entity);
+    // if the thing in our offhand cannot provide at all or cannot currently provide then check
+    // the mainhand next (this tool), in case we have glowing or a similar modifier to provide blocks.
     if (blockItem == null) {
-      return null;
+      item = context.getLiving().getMainHandItem();
+      // skip forges cap system and go to the tinkers hook because we know this is a tinkers tool
+      blockProvider = ToolBlockItemProviderHook.getHookAsCapability(tool);
+      if (blockProvider == null)
+        return null;
+      blockItem = blockProvider.getBlockItem(item, entity);
+
+      // nothing could provide
+      if (blockItem == null)
+        return null;
     }
     ItemStack fakeStack = new ItemStack(blockItem);
 
@@ -89,7 +98,7 @@ public class ExchangingModifier extends NoLevelsModifier implements RemoveBlockM
 
     // If our fake stack is now empty then it got placed (or otherwise consumed), so consume an item from the provider.
     if (fakeStack.isEmpty()) {
-      blockProvider.consume(offhand, entity);
+      blockProvider.consume(item, entity);
     }
 
     if (success.consumesAction()) {
