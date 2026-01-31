@@ -33,7 +33,7 @@ import slimeknights.tconstruct.library.modifiers.fluid.FluidEffectContext;
 import javax.annotation.Nullable;
 import java.util.Objects;
 
-import static slimeknights.tconstruct.library.tools.capability.inventory.BlockItemProviderCapability.getBlockProvider;
+import static slimeknights.tconstruct.library.tools.capability.BlockItemProviderCapability.getBlockProvider;
 
 /** Effect to place a block in using logic similar to block item placement. */
 public record PlaceBlockFluidEffect(@Nullable Block block, @Nullable SoundEvent sound) implements FluidEffect<FluidEffectContext.Block> {
