@@ -2142,8 +2142,8 @@
 
   "material.tconstruct.knightmetal": "Рыцарский металл",
   "material.tconstruct.knightmetal.flavor": "Металл странствующей слизи, также встречается у бронированных сумеречных существ.",
-  "material.tconstruct.knightmetal.encyclopedia": "Даёт +0.5 урона за уровень за каждый предмет брони, который носит цель.",
-  "material.tconstruct.knightmetal.ranged": "Даёт +0.25 урона за уровень за каждый предмет брони, который носит цель (без учёта скорости).",
+  "material.tconstruct.knightmetal.encyclopedia": "Даёт +0.4 урона за уровень за каждый предмет брони, который носит цель.",
+  "material.tconstruct.knightmetal.ranged": "Даёт +0.2 урона за уровень за каждый предмет брони, который носит цель (без учёта скорости).",
   "material.tconstruct.knightmetal.armor": "Увеличивает защиту на 5% за уровень за каждый предмет в руках атакующего.",
 
   "material.tconstruct.knightly": "Рыцарское",
