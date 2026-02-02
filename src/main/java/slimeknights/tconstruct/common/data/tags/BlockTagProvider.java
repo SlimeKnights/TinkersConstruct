@@ -370,7 +370,7 @@ public class BlockTagProvider extends BlockTagsProvider {
         .addTag(TinkerTags.Blocks.SCORCHED_TANKS);
 
     // blocks to ignore like air
-    this.tag(TinkerTags.Blocks.STRUCTURE_AIR).add(Blocks.LIGHT, TinkerCommons.glow.get());
+    this.tag(TinkerTags.Blocks.STRUCTURE_AIR).add(Blocks.LIGHT, TinkerCommons.glowBlock.get());
 
     // smeltery blocks
     // floor allows any basic seared blocks and all IO blocks

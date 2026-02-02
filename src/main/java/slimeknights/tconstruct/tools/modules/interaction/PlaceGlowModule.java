@@ -64,7 +64,7 @@ public record PlaceGlowModule(int damage) implements ModifierModule, DisplayName
         Level world = context.getLevel();
         Direction face = context.getClickedFace();
         BlockPos pos = context.getClickedPos().relative(face);
-        if (TinkerCommons.glow.get().addGlow(world, pos, face.getOpposite())) {
+        if (TinkerCommons.glowBlock.get().addGlow(world, pos, face.getOpposite())) {
           // damage the tool, showing animation if relevant
           if (ToolDamageUtil.damage(tool, damage, player, context.getItemInHand()) && player != null) {
             player.broadcastBreakEvent(source.getSlot(context.getHand()));
@@ -80,7 +80,7 @@ public record PlaceGlowModule(int damage) implements ModifierModule, DisplayName
   @Nullable
   @Override
   public Boolean removeBlock(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context) {
-    if (context.getState().is(TinkerCommons.glow.get()) && tool.getHook(ToolHooks.INTERACTION).canInteract(tool, modifier.getId(), InteractionSource.LEFT_CLICK)) {
+    if (context.getState().is(TinkerCommons.glowBlock.get()) && tool.getHook(ToolHooks.INTERACTION).canInteract(tool, modifier.getId(), InteractionSource.LEFT_CLICK)) {
       return false;
     }
     return null;
