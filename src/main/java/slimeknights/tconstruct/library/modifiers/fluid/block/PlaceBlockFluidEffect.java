@@ -143,14 +143,15 @@ public record PlaceBlockFluidEffect(@Nullable Block block, @Nullable SoundEvent 
         return 1;
       }
       return 0;
+    } else {
+      // simulating is trickier but the methods exist
+      placeContext = blockItem.updatePlacementContext(placeContext);
+      if (placeContext == null) {
+        return 0;
+      }
+      // we cannot simulate anything more with a BlockItem, so delegate to the same way as regular blocks
+      return placeNonBlockItem(context, action, block, placeContext);
     }
-    // simulating is trickier but the methods exist
-    placeContext = blockItem.updatePlacementContext(placeContext);
-    if (placeContext == null) {
-      return 0;
-    }
-    // we cannot simulate anything more with a BlockItem, so delegate to the same way as regular blocks
-    return placeNonBlockItem(context, action, block, placeContext);
   }
 
   private int placeNonBlockItem(FluidEffectContext.Block context, FluidAction action, Block block, BlockPlaceContext placeContext) {
