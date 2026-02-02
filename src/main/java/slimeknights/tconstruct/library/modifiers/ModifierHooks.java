@@ -128,8 +128,9 @@ public class ModifierHooks {
 
   /** Hook for providing a BlockItem via the {@link slimeknights.tconstruct.library.tools.capability.BlockItemProviderCapability}*/
   public static final ModuleHook<ToolBlockItemProviderHook> BLOCK_ITEM_PROVIDER = register("block_item_provider", ToolBlockItemProviderHook.class, new ToolBlockItemProviderHook() {
+    @Nullable
     @Override
-    public @Nullable BlockItem getBlockItem(IToolStackView tool, ModifierEntry modifier, @Nullable LivingEntity entity, @Nullable ItemStack stack) {
+    public BlockItem getBlockItem(IToolStackView tool, ModifierEntry modifier, @Nullable LivingEntity entity, @Nullable ItemStack stack) {
       return null;
     }
 

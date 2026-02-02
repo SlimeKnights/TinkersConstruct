@@ -71,59 +71,59 @@ public record PlaceBlockFluidEffect(@Nullable Block block, @Nullable SoundEvent 
 
       if (block != null) {
         ItemStack stack = new ItemStack(block);
-        if (!context.placeRestricted(stack)) {
+        if (player == null || player.mayBuild()) {
           BlockPlaceContext placeContext = new BlockPlaceContext(world, player, useHand, stack, context.getHitResult());
           if (stack.getItem() instanceof BlockItem blockItem) {
-            // path 1: there is a block provided and it has a block item
+            // path 1: there is a block provided, and it has a block item
             return placeBlockItem(blockItem, context, action, block, placeContext);
           } else {
-            // path 2:  there is a block probided but it has no block item
+            // path 2:  there is a block provided, but it has no block item
             return placeNonBlockItem(context, action, block, placeContext);
           }
+        } else {
+          return 0;
         }
       }
 
-      if (entity != null) {
+      if (entity != null && !context.placeRestricted(context.getStack())) {
         // either hand is fine, allows using the tool from offhand or mainhand
         // iterate in reverse order so that we prefer the offhand
         for (InteractionHand hand : new InteractionHand[]{InteractionHand.OFF_HAND, InteractionHand.MAIN_HAND}) {
+          // path 3: check if there is an item being held that provides a block item
           ItemStack held = entity.getItemInHand(hand);
-          var cap = getBlockProvider(held);
-          if (cap == null) continue;
-          BlockItem blockItem = cap.getBlockItem(held, entity);
-          if (blockItem == null) continue;
-
-          ItemStack stack = new ItemStack(blockItem);
-          if (context.placeRestricted(stack)) continue;
-
-          // path 3: there is an item being held that provides a block item
-          BlockPlaceContext placeContext = new BlockPlaceContext(world, player, useHand, stack, context.getHitResult());
-          int result = placeBlockItem(blockItem, context, action, blockItem.getBlock(), placeContext);
-          if (stack.isEmpty()) {
-            cap.consume(held, entity);
-          }
-          return result;
+          Integer result = maybePlaceFrom(context, action, held, useHand);
+          if (result != null) return result;
         }
 
       } else {
-        ItemStack held = context.getStack();
-        var cap = getBlockProvider(held);
-        if (cap == null) return 0;
-        BlockItem blockItem = cap.getBlockItem(held, entity);
-        if (blockItem == null) return 0;
-        ItemStack stack = new ItemStack(blockItem);
-        if (context.placeRestricted(stack)) return 0;
-
         // path 4: there is an item in the context that provides a block item
-        BlockPlaceContext placeContext = new BlockPlaceContext(world, player, useHand, stack, context.getHitResult());
-        int result = placeBlockItem(blockItem, context, action, blockItem.getBlock(), placeContext);
-        if (stack.isEmpty()) {
-          cap.consume(held, entity);
-        }
-        return result;
+        ItemStack held = context.getStack();
+        Integer result = maybePlaceFrom(context, action, held, useHand);
+        return result == null ? 0 : result;
       }
     }
     return 0;
+  }
+
+  /**
+   * Attempt to place from an item that may or may not provide a {@link BlockItem} via {@link BlockItemProviderCapability}
+   * @return {@code null} if the item couldn't provide a {@link BlockItem} to place. {@code 0} if placement failed, {@code 1} if it succeeded.
+   */
+  private @Nullable Integer maybePlaceFrom(FluidEffectContext.Block context, FluidAction action, ItemStack held, InteractionHand useHand) {
+    LivingEntity entity = context.getEntity();
+    BlockItemProviderCapability cap = getBlockProvider(held);
+    if (cap == null) return null;
+    BlockItem blockItem = cap.getBlockItem(held, entity);
+    if (blockItem == null) return null;
+
+    ItemStack stack = new ItemStack(blockItem);
+    BlockPlaceContext placeContext = new BlockPlaceContext(context.getLevel(), context.getPlayer(), useHand, stack, context.getHitResult());
+
+    int result = placeBlockItem(blockItem, context, action, blockItem.getBlock(), placeContext);
+    if (stack.isEmpty()) {
+      cap.consume(held, blockItem, entity);
+    }
+    return result;
   }
 
   private int placeBlockItem(BlockItem blockItem, FluidEffectContext.Block context, FluidAction action, Block block, BlockPlaceContext placeContext) {

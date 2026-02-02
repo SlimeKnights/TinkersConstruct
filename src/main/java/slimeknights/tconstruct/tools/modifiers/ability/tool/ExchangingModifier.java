@@ -48,9 +48,8 @@ public class ExchangingModifier extends NoLevelsModifier implements RemoveBlockM
     Level world = context.getWorld();
     BlockPos pos = context.getPos();
     LivingEntity entity = context.getLiving();
-    if (item.isEmpty()) {
-      return null;
-    }
+    if (item.isEmpty()) return null;
+
     BlockItemProviderCapability blockProvider = BlockItemProviderCapability.getBlockProvider(item);
     BlockItem blockItem = blockProvider == null ? null : blockProvider.getBlockItem(item, entity);
     // if the thing in our offhand cannot provide at all or cannot currently provide then check
@@ -59,13 +58,12 @@ public class ExchangingModifier extends NoLevelsModifier implements RemoveBlockM
       item = context.getLiving().getMainHandItem();
       // skip forges cap system and go to the tinkers hook because we know this is a tinkers tool
       blockProvider = ToolBlockItemProviderHook.getHookAsCapability(tool);
-      if (blockProvider == null)
-        return null;
+      if (blockProvider == null) return null;
+
       blockItem = blockProvider.getBlockItem(item, entity);
 
       // nothing could provide
-      if (blockItem == null)
-        return null;
+      if (blockItem == null) return null;
     }
     ItemStack fakeStack = new ItemStack(blockItem);
 
@@ -98,7 +96,7 @@ public class ExchangingModifier extends NoLevelsModifier implements RemoveBlockM
 
     // If our fake stack is now empty then it got placed (or otherwise consumed), so consume an item from the provider.
     if (fakeStack.isEmpty()) {
-      blockProvider.consume(item, entity);
+      blockProvider.consume(item, blockItem, entity);
     }
 
     if (success.consumesAction()) {

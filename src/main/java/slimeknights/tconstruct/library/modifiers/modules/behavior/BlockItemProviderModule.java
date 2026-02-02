@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.modifiers.modules.behavior;
 
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
@@ -50,6 +51,13 @@ public record BlockItemProviderModule(BlockItem item, int damage, ModifierCondit
 
     @Override
     public void consume(IToolStackView tool, ModifierEntry modifier, @Nullable LivingEntity entity, @Nullable ItemStack stack) {
-        ToolDamageUtil.damage(tool, damage, entity, stack);
+        if (ToolDamageUtil.damage(tool, damage, entity, stack) && entity != null && stack != null) {
+            for (EquipmentSlot slot : EquipmentSlot.values()) {
+                if (entity.getItemBySlot(slot) == stack) {
+                    entity.broadcastBreakEvent(slot);
+                    return;
+                }
+            }
+        }
     }
 }

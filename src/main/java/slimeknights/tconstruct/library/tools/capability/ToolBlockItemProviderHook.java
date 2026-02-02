@@ -41,7 +41,7 @@ public interface ToolBlockItemProviderHook {
         }
 
         @Override
-        public void consume(ItemStack stack, @Nullable LivingEntity entity) {
+        public void consume(ItemStack stack, BlockItem item, @Nullable LivingEntity entity) {
             base.consume(tool, modifier, entity, stack);
         }
     }

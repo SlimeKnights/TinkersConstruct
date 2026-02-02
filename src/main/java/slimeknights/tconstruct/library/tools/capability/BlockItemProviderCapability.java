@@ -16,15 +16,15 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import org.jetbrains.annotations.ApiStatus;
+import slimeknights.mantle.util.LogicHelper;
 import slimeknights.tconstruct.TConstruct;
 
 import javax.annotation.Nullable;
 
 /**
- * A capability that provides block items to things that place blocks, such as
- * the Exchanging modifier or some place block fluid effects like Ichor.
- * Providers of this capability are encouraged to use a single instance for all objects that use
- * the same logic, as the stack and more context are provided in the relevant methods.
+ * A capability that provides block items to things that place blocks, such as the Exchanging modifier or some place block fluid effects like Ichor.
+ * Providers of this capability are encouraged to use a single instance for all objects that use the same logic, as the stack and more context are provided in the relevant methods.
  */
 public interface BlockItemProviderCapability {
 
@@ -34,6 +34,7 @@ public interface BlockItemProviderCapability {
   Capability<BlockItemProviderCapability> CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {});
 
   /** Registers this capability */
+  @ApiStatus.Internal
   static void register() {
     FMLJavaModLoadingContext.get().getModEventBus().addListener(EventPriority.NORMAL, false, RegisterCapabilitiesEvent.class, BlockItemProviderCapability::register);
     // receive the attach event on low priority, so that our default implementations do not override other mods.
@@ -55,10 +56,9 @@ public interface BlockItemProviderCapability {
   /**
    * @return The block provider for this stack, or null if this stack cannot provide blocks
    */
-  @SuppressWarnings("DataFlowIssue")
   @Nullable
   static BlockItemProviderCapability getBlockProvider(ItemStack stack) {
-    return stack.getCapability(CAPABILITY).orElse(null);
+    return LogicHelper.orElseNull(stack.getCapability(CAPABILITY));
   }
 
   /**
@@ -71,10 +71,11 @@ public interface BlockItemProviderCapability {
 
   /**
    * @param stack The {@link ItemStack} that this capability was attached to.
+   * @param item The {@link BlockItem} that we want to consume. Should have been provided recently by {@link #getBlockItem}
    * @param entity The {@link LivingEntity} (usually a {@link Player}) that has just consumed a block.
    * Consume a block from this provider. For example may decrease a contained stacks size or remove fluid from the stack's tank.
    */
-  void consume(ItemStack stack, @Nullable LivingEntity entity);
+  void consume(ItemStack stack, BlockItem item, @Nullable LivingEntity entity);
 
   /**
    * A simple implementation of {@link BlockItemProviderCapability} that provides from an ItemStack holding a BlockItem
@@ -92,7 +93,7 @@ public interface BlockItemProviderCapability {
     }
 
     @Override
-    public void consume(ItemStack stack, @Nullable LivingEntity entity) {
+    public void consume(ItemStack stack, BlockItem item, @Nullable LivingEntity entity) {
       stack.shrink(1);
     }
 

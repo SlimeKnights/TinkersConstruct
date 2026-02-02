@@ -321,7 +321,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(new PlaceGlowModule(5))
       .addModule(new GlowWalkerModule(new LevelingValue(2, 1), 3, 5))
       .addModule(new ProjectilePlaceGlowModule(5, true, true))
-      .addModule(new BlockItemProviderModule((BlockItem) TinkerCommons.glow.asItem(), 5,ModifierCondition.ANY_TOOL.with(ToolStackPredicate.tag(TinkerTags.Items.HELD))));
+      .addModule(new BlockItemProviderModule((BlockItem) TinkerCommons.glowBlock.asItem(), 5, ModifierCondition.ANY_TOOL.with(ToolStackPredicate.tag(TinkerTags.Items.HELD))));
     buildModifier(TinkerModifiers.melting)
       .levelDisplay(ModifierLevelDisplay.PLUSES)
       .addModule(ToolTankHelper.TANK_HANDLER)
