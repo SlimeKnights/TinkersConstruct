@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tools.modifiers;
+package slimeknights.tconstruct.library.modifiers.modules.behavior;
 
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.BlockItem;
@@ -18,6 +18,13 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import java.util.List;
 
+/**
+ * A module that uses {@link slimeknights.tconstruct.library.tools.capability.BlockItemProviderCapability BlockItemProviderCapability} via {@link ToolBlockItemProviderHook} to provide BlockItems to modifiers like exchanging at the cost of durability.
+ * Note this does not let the tool place blocks, it only exposes this capability. See {@link slimeknights.tconstruct.tools.modules.interaction.PlaceGlowModule PlaceGlowModule} for a custom module that lets the tool place blocks.
+ * @param item The BlockItem to provide
+ * @param damage The amount of damage it takes to provide one block (can be 0)
+ * @param condition Other conditions that you might want to condition the providing on, such as only happening on certain tool types.
+ */
 public record BlockItemProviderModule(BlockItem item, int damage, ModifierCondition<IToolStackView> condition) implements ModifierModule, ToolBlockItemProviderHook, ModifierCondition.ConditionalModule<IToolStackView> {
     private static final List<ModuleHook<?>> DEFAULT_HOOKS = List.of(ModifierHooks.BLOCK_ITEM_PROVIDER);
     public static final RecordLoadable<BlockItemProviderModule> LOADER = RecordLoadable.create(
