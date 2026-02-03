@@ -164,6 +164,11 @@
   "item.tconstruct.knightmetal_ingot": "Слиток рыцарского металла",
   "item.tconstruct.knightmetal_nugget": "Кусочек рыцарского металла",
 
+  "block.tconstruct.knightslime_block": "Блок рыцарской слизи",
+  "item.tconstruct.knightslime_ingot": "Слиток рыцарской слизи",
+  "item.tconstruct.knightslime_ingot.tooltip": "Может использоваться в основании для маяка.",
+  "item.tconstruct.knightslime_nugget": "Кусочек рыцарской слизи",
+
   "block.tconstruct.soulsteel_block": "Стальной блок душ",
   "block.tconstruct.soulsteel_block.tooltip": "Может использоваться в основании для маяка.",
   "item.tconstruct.soulsteel_ingot": "Стальной слиток душ",
@@ -175,11 +180,6 @@
 
 
   "__comment": "Литейное дело: Металлы (5 уровень)",
-
-  "block.tconstruct.knightslime_block": "Блок рыцарской слизи",
-  "item.tconstruct.knightslime_ingot": "Слиток рыцарской слизи",
-  "item.tconstruct.knightslime_ingot.tooltip": "Склизкая, металлическая, но в то же время каменная? Очаровательно!",
-  "item.tconstruct.knightslime_nugget": "Кусочек рыцарской слизи",
 
   "item.tconstruct.materials_and_you": "Литейное дело: Материалы и Вы",
   "item.tconstruct.materials_and_you.tooltip": "Вводная книга по инструментам и материалам.\nАвтор: §9Селена",
@@ -2035,7 +2035,7 @@
   "material.tconstruct.amethyst_bronze.flavor": "Не путать с бронзой.",
   "material.tconstruct.amethyst_bronze.encyclopedia": "Даёт +1 скорости добычи за уровень для блоков, не требующих инструментов, особенно для тех, где инструмент неэффективен.",
   "material.tconstruct.amethyst_bronze.ranged": "Добавляет +0.1 скорости за уровень за счёт ограничения углов стрел до 32, 16 или 8 направлений на первых 3 уровнях соответственно.",
-  "material.tconstruct.amethyst_bronze.armor": "Даёт +2.5% скорости атаки за уровень за счёт ограничения углов отбрасывания до 32, 16, 8 или 4 направлений.",
+  "material.tconstruct.amethyst_bronze.armor": "Даёт +5% к скорости атаки за каждый уровень ценой +5% к длительности негативных эффектов и ограничения углов отбрасывания до 32, 16, 8 или 4 направлений.",
 
   "material.tconstruct.pig_iron": "Свиное железо",
   "material.tconstruct.pig_iron.flavor": "Абсолютно лучший материал, без споров.",
@@ -2087,7 +2087,7 @@
 
   "material.tconstruct.ichorskin": "Ихоровая кожа",
   "material.tconstruct.ichorskin.flavor": "У ихора определённо нет кожи.",
-  "material.tconstruct.ichorskin.encyclopedia": "Потребляет до 5 сверхслизи, чтобы уменьшить урон на 1% за каждую потреблённую сверхслизь (до 5%).",
+  "material.tconstruct.ichorskin.encyclopedia": "Даёт +5% к скорости передвижения, +2.5% к скорости атаки и +7.5% к скорости добычи.",
 
   "material.tconstruct.cinderslime": "Зольная слизь",
   "material.tconstruct.cinderslime.flavor": "Бросьте её в огонь!",
@@ -2155,6 +2155,10 @@
   "material.tconstruct.end_rod.ammo": "Снаряд игнорирует гравитацию в течение первой секунды своего существования.",
 
   "material.tconstruct.knightslime": "Рыцарская слизь",
+  "material.tconstruct.knightslime.flavor": "Слизистая, металлическая, но в то же время каменная? Удивительно!",
+  "material.tconstruct.knightslime.encyclopedia": "Расходует 1 сверхслизь за уровень (или 5 за уровень в широких инструментах), что увеличивает скорость добычи на +8 за уровень.",
+  "material.tconstruct.knightslime.ranged": "Расходует 1 сверхслизь за уровень, что даёт +0.1 скорости за уровень.",
+  "material.tconstruct.knightslime.armor": "Расходует до 5 сверхслизи за уровень, снижая урон на 1% за каждое потребление свехслизи (до 5% за уровень).",
 
   "material.tconstruct.enderslime_vine": "Эндер-слизневые лианы",
   "material.tconstruct.enderslime_vine.slimeskin": "Эндер-слизневая кожа",
@@ -3102,10 +3106,9 @@
   "modifier.tconstruct.overcast": "Утолщение",
   "modifier.tconstruct.overcast.flavor": "Густое покрытие!",
   "modifier.tconstruct.overcast.description": "Утолщает слой покрытия сверхслизи на инструменте.",
-  "modifier.tconstruct.overshield": "Сверхщит",
-  "modifier.tconstruct.overshield.flavor": "Слизневый щит!",
-  "modifier.tconstruct.overshield.description": "Поглощает сверхслизь, чтобы уменьшить все источники урона.",
-  "modifier.tconstruct.overshield.resistance": "Сверхщит",
+  "modifier.tconstruct.godspeed": "Небесное падение",
+  "modifier.tconstruct.godspeed.flavor": "Нужно действовать быстро!",
+  "modifier.tconstruct.godspeed.description": "Увеличивает скорость передвижения, атаки и скорость добычи.",
   "modifier.tconstruct.lacerating": "Разрывающий",
   "modifier.tconstruct.lacerating.flavor": "Острые края!",
   "modifier.tconstruct.lacerating.description": "Вызывает кровотечение у цели, нанося дополнительный урон.",
@@ -3118,7 +3121,7 @@
   "modifier.tconstruct.crystalbound.description": "Луки получают бонус к скорости, но угол наклона стрелы ограничен.",
   "modifier.tconstruct.crystalstrike": "Кристаллический удар",
   "modifier.tconstruct.crystalstrike.flavor": "Скорость кристалла имеет свою цену!",
-  "modifier.tconstruct.crystalstrike.description": "Увеличивает скорость атаки, но также ограничивает угол отбрасывания.",
+  "modifier.tconstruct.crystalstrike.description": "Увеличивает скорость атаки, но негативные эффекты длятся дольше.",
   "modifier.tconstruct.lightweight": "Легковесный",
   "modifier.tconstruct.lightweight.flavor": "Как осколочный клинок!",
   "modifier.tconstruct.lightweight.description": "Инструмент невероятно лёгкий для своего размера, что позволяет вам атаковать, добывать ресурсы и запускать снаряды быстрее.",
@@ -3139,6 +3142,15 @@
   "modifier.tconstruct.overlord": "Повелитель",
   "modifier.tconstruct.overlord.flavor": "Величественный!",
   "modifier.tconstruct.overlord.description": "Инструмент забирает часть прочности у новых субъектов сверхслизи.",
+  "modifier.tconstruct.overshield": "Сверхщит",
+  "modifier.tconstruct.overshield.flavor": "Слизневый щит!",
+  "modifier.tconstruct.overshield.description": "Поглощает сверхслизь, чтобы уменьшить все источники урона.",
+  "modifier.tconstruct.overshield.resistance": "Сверхщит",
+  "modifier.tconstruct.overwield": "Ошеломлённый",
+  "modifier.tconstruct.overwield.flavor": "Слизневая бронза!",
+  "modifier.tconstruct.overwield.description": "Расходует сверхслизь, чтобы увеличить скорость добычи и скорость снаряда.",
+  "modifier.tconstruct.overwield.mining_speed": "Ошеломлённая скорость добычи",
+  "modifier.tconstruct.overwield.velocity": "Ошеломлённая скорость снаряда",
   "modifier.tconstruct.momentum": "Импульс",
   "modifier.tconstruct.momentum.flavor": "Недостаточно быстро, нужно двигаться быстрее!",
   "modifier.tconstruct.momentum.description": "Добыча блоков и стрельба стрелами увеличивают вашу скорость, пока вы продолжаете двигаться.",
