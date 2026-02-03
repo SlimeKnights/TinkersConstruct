@@ -41,17 +41,18 @@ public class EnchantmentTagProvider extends TagsProvider<Enchantment> {
     modifierTag(ModifierIds.revitalizing, "ensorcellation:vitality");
 
     // ability
-    modifierTag(TinkerModifiers.autosmelt.getId(), "cyclic:auto_smelt", "ensorcellation:smelting");
+    modifierTag(ModifierIds.autosmelt, "cyclic:auto_smelt", "ensorcellation:smelting");
     modifierTag(ModifierIds.doubleJump, "cyclic:launch", "walljump:doublejump");
-    modifierTag(TinkerModifiers.expanded.getId(), "cyclic:excavate", "ensorcellation:excavating", "ensorcellation:furrowing");
+    modifierTag(ModifierIds.expanded, "cyclic:excavate", "ensorcellation:excavating", "ensorcellation:furrowing");
     modifierTag(ModifierIds.luck, "ensorcellation:hunter");
-    modifierTag(TinkerModifiers.multishot.getId(), "cyclic:multishot", "ensorcellation:volley");
+    modifierTag(ModifierIds.multishot, "cyclic:multishot", "ensorcellation:volley");
     modifierTag(ModifierIds.reach, "cyclic:reach", "ensorcellation:reach");
     modifierTag(ModifierIds.tilling, "ensorcellation:tilling");
-    modifierTag(TinkerModifiers.reflecting.getId(), "parry:rebound");
+    modifierTag(ModifierIds.reflecting, "parry:rebound");
   }
 
   /** Creates a builder for a tag for the given modifier */
+  @SuppressWarnings("removal")
   private void modifierTag(ModifierId modifier, String... ids) {
     TagsProvider.TagAppender<Enchantment> appender = tag(TagKey.create(Registries.ENCHANTMENT, TConstruct.getResource("modifier_like/" + modifier.getPath())));
     for (String id : ids) {

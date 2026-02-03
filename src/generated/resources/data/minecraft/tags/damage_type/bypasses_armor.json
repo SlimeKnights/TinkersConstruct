@@ -4,6 +4,7 @@
     "tconstruct:self_destruct",
     "tconstruct:bleeding",
     "tconstruct:entangled",
+    "tconstruct:spiny",
     "tconstruct:water_melee",
     "tconstruct:water_ranged",
     "tconstruct:fluid_spike_melee",

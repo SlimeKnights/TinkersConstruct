@@ -4,13 +4,13 @@
   "check_trait_level": true,
   "inputs": [
     {
-      "tag": "forge:ingots/iron"
+      "item": "minecraft:weeping_vines"
     },
     {
       "item": "tconstruct:ichor_slime_crystal"
     },
     {
-      "tag": "forge:ingots/iron"
+      "item": "minecraft:weeping_vines"
     },
     {
       "item": "tconstruct:ichor_congealed_slime"

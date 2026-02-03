@@ -54,7 +54,7 @@ public class NecroticModifier extends Modifier implements ProjectileHitModifierH
         attacker.heal(percent * damage);
         attacker.level().playSound(null, attacker.getX(), attacker.getY(), attacker.getZ(), Sounds.NECROTIC_HEAL.getSound(), SoundSource.PLAYERS, 1.0f, 1.0f);
         // take a bit of extra damage to heal
-        ToolDamageUtil.damageAnimated(tool, modifier.getLevel(), attacker, context.getSlotType());
+        ToolDamageUtil.damageAnimated(tool, modifier.getLevel(), attacker, context.getSlotType(), true);
       }
     }
   }
@@ -98,7 +98,7 @@ public class NecroticModifier extends Modifier implements ProjectileHitModifierH
           defender.level().playSound(null, defender.getX(), defender.getY(), defender.getZ(), Sounds.NECROTIC_HEAL.getSound(), SoundSource.PLAYERS, 1.0f, 1.0f);
 
           // extra damage for running based on level
-          ToolDamageUtil.damageAnimated(tool, modifier.getLevel(), defender, slotType);
+          ToolDamageUtil.damageAnimated(tool, modifier.getLevel(), defender, slotType, true);
         }
       }
     }

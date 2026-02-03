@@ -1,6 +1,18 @@
 {
   "values": [
     "minecraft:mob_attack",
-    "minecraft:mob_attack_no_aggro"
+    "minecraft:mob_attack_no_aggro",
+    {
+      "id": "twilightforest:axing",
+      "required": false
+    },
+    {
+      "id": "twilightforest:slam",
+      "required": false
+    },
+    {
+      "id": "twilightforest:ant",
+      "required": false
+    }
   ]
 }

@@ -1,0 +1,17 @@
+{
+  "level_display": "tconstruct:no_levels",
+  "modules": [
+    {
+      "type": "tconstruct:tool_damage_range",
+      "apply_when": "primary",
+      "max": 1
+    },
+    {
+      "type": "tconstruct:tool_damage_range",
+      "apply_when": "secondary",
+      "max": 0
+    }
+  ],
+  "priority": 200,
+  "tooltip_display": "always"
+}

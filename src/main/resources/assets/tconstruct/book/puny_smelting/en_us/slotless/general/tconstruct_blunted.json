@@ -8,7 +8,8 @@
   "more_text_space": true,
   "effects": [
     "Prevents the tool from performing melee attacks",
-    "Ideal to combo with modifiers that run on attack",
-    "Single level"
+    "Combos with modifiers that run on attack",
+    "Single level",
+    "Slotless"
   ]
 }

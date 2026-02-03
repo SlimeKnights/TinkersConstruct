@@ -25,7 +25,7 @@ public interface ConditionalStatModifierHook {
 
   /** Gets the given stat from the tool, as modified by this hook */
   static float getModifiedStat(IToolStackView tool, @Nullable LivingEntity living, FloatToolStat stat, float value) {
-    if (living != null) {
+    if (living != null && stat.supports(tool.getItem())) {
       float multiplier = tool.getMultiplier(stat);
       for (ModifierEntry entry : tool.getModifierList()) {
         value = entry.getHook(ModifierHooks.CONDITIONAL_STAT).modifyStat(tool, entry, living, stat, value, multiplier);

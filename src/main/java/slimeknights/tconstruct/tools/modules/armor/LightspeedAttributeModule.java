@@ -20,6 +20,7 @@ import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
+import slimeknights.tconstruct.library.json.variable.entity.EntityLightVariable;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
@@ -67,10 +68,7 @@ public record LightspeedAttributeModule(String unique, UUID uuid, Attribute attr
 
   /** Gets the light at the given position */
   private int getLight(Level level, BlockPos pos) {
-    if (lightLayer == null) {
-      return Math.max(level.getBrightness(LightLayer.BLOCK, pos), level.getBrightness(LightLayer.SKY, pos));
-    }
-    return level.getBrightness(lightLayer, pos);
+    return EntityLightVariable.getLightLevel(level, lightLayer, pos);
   }
 
   @Override

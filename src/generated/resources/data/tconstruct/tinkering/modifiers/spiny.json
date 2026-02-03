@@ -1,0 +1,27 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:stat_boost",
+      "each_level": 0.1,
+      "operation": "add",
+      "stat": "tconstruct:velocity"
+    },
+    {
+      "type": "tconstruct:stat_boost",
+      "each_level": 0.5,
+      "operation": "add",
+      "stat": "tconstruct:projectile_damage",
+      "tool": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:modifiable/ammo/thrown"
+      }
+    },
+    {
+      "type": "tconstruct:damage_on_shoot",
+      "damage": 1.0,
+      "damage_type": "tconstruct:spiny"
+    }
+  ],
+  "tooltip_display": "always"
+}

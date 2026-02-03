@@ -49,7 +49,7 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
       // head
       MaterialIds.flint, MaterialIds.wool, MaterialIds.glass,
       // shaft
-      MaterialIds.wood, MaterialIds.bamboo, MaterialIds.bone,
+      MaterialIds.wood, MaterialIds.bamboo, MaterialIds.cactus,
       // fletching
       MaterialIds.feather, MaterialIds.paper, MaterialIds.leaves
     );
@@ -150,7 +150,7 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
       // tier 2
       MaterialIds.slimewood, MaterialIds.necroticBone, MaterialIds.skyslimeVine,
       // tier 3
-      MaterialIds.slimesteel, MaterialIds.roseGold, MaterialIds.darkthread, MaterialIds.cobalt,
+      MaterialIds.slimesteel, MaterialIds.darkthread, MaterialIds.cobalt, MaterialIds.pigIron,
       // tier 4
       MaterialIds.blazingBone, MaterialIds.ancientHide, MaterialIds.enderslimeVine
     ).addOptional(
@@ -167,7 +167,7 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
       // tier 2
       MaterialIds.venombone, MaterialIds.twistingVine,
       // tier 3
-      MaterialIds.nahuatl,
+      MaterialIds.nahuatl, MaterialIds.roseGold,
       // tier 4
       MaterialIds.hepatizon, MaterialIds.queensSlime, MaterialIds.knightmetal
     ).addOptional(
@@ -178,7 +178,7 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
     );
     tag(TinkerTags.Materials.HEAVY).add(
       // tier 1
-      MaterialIds.copper,
+      MaterialIds.copper, MaterialIds.cactus,
       // tier 2
       MaterialIds.iron, MaterialIds.weepingVine,
       // tier 3

@@ -39,7 +39,6 @@ import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.entity.ThrownTool;
-import slimeknights.tconstruct.tools.modifiers.ability.interaction.BlockingModifier;
 
 import java.util.function.Predicate;
 
@@ -90,7 +89,7 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
 
   @Override
   public UseAnim getUseAnimation(ItemStack stack) {
-    return BlockingModifier.blockWhileCharging(ToolStack.from(stack), UseAnim.BOW);
+    return ModifierUtil.blockWhileCharging(ToolStack.from(stack), UseAnim.BOW);
   }
 
 
@@ -181,7 +180,7 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
       default -> isBallista(tool) ? getSupportedBallistaAmmo() : getSupportedHeldProjectiles();
     };
     ItemStack foundAmmo = BowAmmoModifierHook.getAmmo(tool, bow, living, ammoPredicate);
-    boolean hasAmmo = creative || !foundAmmo.isEmpty();
+    boolean hasAmmo = !foundAmmo.isEmpty() || creative && !tool.getVolatileData().getBoolean(BowAmmoModifierHook.SKIP_INVENTORY_AMMO);
 
     // ask forge its thoughts on shooting
     int chargeTime = duration - timeLeft;

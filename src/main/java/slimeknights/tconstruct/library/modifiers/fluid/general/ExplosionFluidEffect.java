@@ -83,7 +83,7 @@ public record ExplosionFluidEffect(LevelingValue radius, LevelingValue damage, L
         // source is projectile, if null set no source to prevent the user from being immune to the explosion
         world, context.getLocation(), radius, projectile, null,
         damage.computeForScale(value), damageSource, knockback.computeForScale(value), null,
-        placeFire && !breakRestricted, breakRestricted ? Explosion.BlockInteraction.KEEP : blockInteraction
+        placeFire && !breakRestricted, breakRestricted ? Explosion.BlockInteraction.KEEP : blockInteraction, true
       ).handleServer();
     }
     return isFlat ? 1 : level.value();

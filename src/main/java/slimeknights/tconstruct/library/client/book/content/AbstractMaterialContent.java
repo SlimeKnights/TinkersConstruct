@@ -248,7 +248,8 @@ public abstract class AbstractMaterialContent extends PageContent {
 
     list.add(new TextComponentElement(x, y, w, BookScreen.PAGE_HEIGHT, lineData));
 
-    return y + (lineData.size() * 5) + 3;
+    // TODO: calculate actual height to properly wrap long lines?
+    return y + (lineData.size() * 10) + 3;
   }
 
   /** Gets all stat text data for the given stat instance */
@@ -265,9 +266,8 @@ public abstract class AbstractMaterialContent extends PageContent {
       } else {
         text.tooltips = new Component[]{tooltip};
       }
-
+      text.linebreak = true;
       lineData.add(text);
-      lineData.add(new TextComponentData("\n"));
     }
   }
 
@@ -283,9 +283,8 @@ public abstract class AbstractMaterialContent extends PageContent {
       List<Component> textComponents = mod.getDescriptionList(trait.getLevel());
       textComponentData.tooltips = textComponents.toArray(new Component[0]);
       textComponentData.text = textComponentData.text.copy().withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.UNDERLINE);
-
+      textComponentData.linebreak = true;
       lineData.add(textComponentData);
-      lineData.add(new TextComponentData("\n"));
     }
   }
 

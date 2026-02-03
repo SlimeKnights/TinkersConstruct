@@ -531,8 +531,9 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     // seared stone
     // stairs are here since the cheapest stair recipe is stone cutter, 1 to 1
     MeltingRecipeBuilder.melting(CompoundIngredient.of(Ingredient.of(TinkerTags.Items.SEARED_BLOCKS),
-                                                       Ingredient.of(TinkerSmeltery.searedLadder, TinkerSmeltery.searedCobble.getWall(), TinkerSmeltery.searedBricks.getWall(),
-                                                                     TinkerSmeltery.searedCobble.getStairs(), TinkerSmeltery.searedStone.getStairs(), TinkerSmeltery.searedBricks.getStairs(), TinkerSmeltery.searedPaver.getStairs())),
+                                                       Ingredient.of(TinkerSmeltery.searedLadder, TinkerSmeltery.searedLamp,
+                                                         TinkerSmeltery.searedCobble.getWall(), TinkerSmeltery.searedBricks.getWall(),
+                                                         TinkerSmeltery.searedCobble.getStairs(), TinkerSmeltery.searedStone.getStairs(), TinkerSmeltery.searedBricks.getStairs(), TinkerSmeltery.searedPaver.getStairs())),
 																 TinkerFluids.searedStone, FluidValues.BRICK_BLOCK, 2.0f)
                         .save(consumer, location(meltingFolder + "block"));
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.searedCobble.getSlab(), TinkerSmeltery.searedStone.getSlab(), TinkerSmeltery.searedBricks.getSlab(), TinkerSmeltery.searedPaver.getSlab()),
@@ -801,19 +802,21 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
 
     // casting
     ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TinkerSmeltery.scorchedBasin.get())
-                       .define('#', TinkerSmeltery.scorchedBrick)
-                       .pattern("# #")
-                       .pattern("# #")
-                       .pattern("###")
-                       .unlockedBy("has_item", has(TinkerSmeltery.scorchedBrick))
-                       .save(consumer, location(folder + "basin"));
+      .define('#', TinkerSmeltery.scorchedBrick)
+      .define('G', TinkerCommons.goldPlatform)
+      .pattern("# #")
+      .pattern("#G#")
+      .pattern("###")
+      .unlockedBy("has_item", has(TinkerSmeltery.scorchedBrick))
+      .save(consumer, location(folder + "basin"));
     ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TinkerSmeltery.scorchedTable.get())
-                       .define('#', TinkerSmeltery.scorchedBrick)
-                       .pattern("###")
-                       .pattern("# #")
-                       .pattern("# #")
-                       .unlockedBy("has_item", has(TinkerSmeltery.scorchedBrick))
-                       .save(consumer, location(folder + "table"));
+      .define('#', TinkerSmeltery.scorchedBrick)
+      .define('G', TinkerCommons.goldBars)
+      .pattern("###")
+      .pattern("#G#")
+      .pattern("# #")
+      .unlockedBy("has_item", has(TinkerSmeltery.scorchedBrick))
+      .save(consumer, location(folder + "table"));
     ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, TinkerSmeltery.scorchedProxyTank.get())
       .define('#', TinkerSmeltery.scorchedBrick)
       .define('G', Tags.Items.GEMS_QUARTZ)
@@ -959,7 +962,8 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     // scorched stone
     // stairs are here since the cheapest stair recipe is stone cutter, 1 to 1
     MeltingRecipeBuilder.melting(CompoundIngredient.of(Ingredient.of(TinkerTags.Items.SCORCHED_BLOCKS),
-                                                       Ingredient.of(TinkerSmeltery.scorchedLadder, TinkerSmeltery.scorchedBricks.getStairs(), TinkerSmeltery.scorchedRoad.getStairs())),
+                                                       Ingredient.of(TinkerSmeltery.scorchedLadder, TinkerSmeltery.scorchedLamp,
+                                                         TinkerSmeltery.scorchedBricks.getStairs(), TinkerSmeltery.scorchedRoad.getStairs())),
 																 TinkerFluids.scorchedStone, FluidValues.BRICK_BLOCK, 2.0f)
                         .save(consumer, location(meltingFolder + "block"));
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.scorchedBricks.getSlab(), TinkerSmeltery.scorchedBricks.getSlab(), TinkerSmeltery.scorchedRoad.getSlab()),
@@ -973,8 +977,12 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     // melt down foundry components
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.scorchedFaucet, TinkerSmeltery.scorchedChannel), TinkerFluids.scorchedStone, FluidValues.BRICK, 1.5f)
                         .save(consumer, location(meltingFolder + "faucet"));
-    MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.scorchedBasin, TinkerSmeltery.scorchedTable), TinkerFluids.scorchedStone, FluidValues.BRICK * 7, 2.5f)
-                        .save(consumer, location(meltingFolder + "casting"));
+    MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.scorchedBasin), TinkerFluids.scorchedStone, FluidValues.BRICK * 7, 2.5f)
+      .addByproduct(TinkerFluids.moltenGold.result(FluidValues.NUGGET * 10))
+      .save(consumer, location(meltingFolder + "casting_basin"));
+    MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.scorchedTable), TinkerFluids.scorchedStone, FluidValues.BRICK * 7, 2.5f)
+      .addByproduct(TinkerFluids.moltenGold.result(FluidValues.NUGGET * 4))
+      .save(consumer, location(meltingFolder + "casting_table"));
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.scorchedProxyTank), TinkerFluids.moltenObsidian, FluidValues.GLASS_PANE * 2, 2.5f)
       .addByproduct(TinkerFluids.scorchedStone.result(FluidValues.BRICK * 4))
       .addByproduct(TinkerFluids.moltenQuartz.result(FluidValues.GEM * 3))

@@ -111,7 +111,7 @@ public record KnockbackCounterModule(TinkerDataKey<SlotInCharge> slotInCharge, L
             }
             // all tools that contributed get damaged, consistency with other counter modules
             if (durabilityUsage > 0 && newBonus > 0) {
-              ToolDamageUtil.damageAnimated(tool, durabilityUsage, defender, bouncingSlot);
+              ToolDamageUtil.damageAnimated(bouncingTool, durabilityUsage, defender, bouncingSlot, true);
             }
           }
         }

@@ -1,6 +1,17 @@
 {
   "stats": {
-    "tconstruct:repair_kit": {},
+    "tconstruct:arrow_shaft": {},
+    "tconstruct:grip": {
+      "accuracy": -0.05,
+      "durability": -0.1,
+      "melee_damage": 1.5
+    },
+    "tconstruct:limb": {
+      "accuracy": -0.1,
+      "draw_speed": -0.05,
+      "durability": 110,
+      "velocity": 0.05
+    },
     "tconstruct:shield_core": {}
   }
 }

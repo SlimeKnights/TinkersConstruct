@@ -1,0 +1,12 @@
+{
+  "level_display": "tconstruct:no_levels",
+  "modules": [
+    {
+      "type": "tconstruct:sling_knockback",
+      "damage_multiplier": 1.5,
+      "drawtime_multiplier": 1.5,
+      "force_multiplier": 3.0
+    }
+  ],
+  "tooltip_display": "always"
+}

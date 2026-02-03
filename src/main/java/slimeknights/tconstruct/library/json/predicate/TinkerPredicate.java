@@ -3,11 +3,14 @@ package slimeknights.tconstruct.library.json.predicate;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArrowItem;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.MapItem;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour.BlockStateBase;
+import net.minecraft.world.phys.HitResult.Type;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.block.BlockPredicate;
@@ -17,6 +20,7 @@ import slimeknights.mantle.data.predicate.item.ItemPredicate;
 import slimeknights.tconstruct.library.modifiers.hook.armor.OnAttackedModifierHook;
 import slimeknights.tconstruct.library.recipe.casting.CastingRecipeLookup;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipeLookup;
+import slimeknights.tconstruct.library.tools.item.ModifiableItem;
 
 import javax.annotation.Nullable;
 
@@ -29,6 +33,13 @@ public class TinkerPredicate {
 
   /** Entities that are in the air, notably does not count you as airborne if swimming, riding, or climbing */
   public static LivingEntityPredicate AIRBORNE = LivingEntityPredicate.simple(entity -> !entity.onGround() && !entity.onClimbable() && !entity.isInWater() && !entity.isPassenger());
+  /** Players that are targeting a block */
+  public static LivingEntityPredicate TARGETING_BLOCK = LivingEntityPredicate.simple(living -> {
+    if (living instanceof Player player) {
+      return ModifiableItem.blockRayTrace(living.level(), player, ClipContext.Fluid.NONE).getType() == Type.BLOCK;
+    }
+    return false;
+  });
 
   /** Predicate matching any buckets */
   public static ItemPredicate BUCKET = ItemPredicate.simple(item -> item instanceof BucketItem);

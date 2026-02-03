@@ -7,6 +7,7 @@
   ],
   "effects": [
     "Adds an upgrade slot",
-    "Single level"
+    "Single level",
+    "Slotless"
   ]
 }

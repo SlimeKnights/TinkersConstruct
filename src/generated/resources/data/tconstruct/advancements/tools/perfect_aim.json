@@ -7,7 +7,7 @@
           {
             "type": "tconstruct:tool_stack",
             "predicate": {
-              "type": "mantle:or",
+              "type": "mantle:and",
               "predicates": [
                 {
                   "type": "mantle:tag",

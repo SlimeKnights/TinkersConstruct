@@ -39,6 +39,7 @@ import static slimeknights.tconstruct.common.TinkerTags.Modifiers.HELMET_ABILITI
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.HELMET_UPGRADES;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.INTERACTION_ABILITIES;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.INVISIBLE_INK_BLACKLIST;
+import static slimeknights.tconstruct.common.TinkerTags.Modifiers.KNOCKBACK_SLINGS;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.LEGGING_ABILITIES;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.LEGGING_UPGRADES;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.MELEE_ABILITIES;
@@ -48,10 +49,12 @@ import static slimeknights.tconstruct.common.TinkerTags.Modifiers.PROTECTION_DEF
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.RANGED_ABILITIES;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.RANGED_UPGRADES;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.REMOVE_MODIFIER_BLACKLIST;
+import static slimeknights.tconstruct.common.TinkerTags.Modifiers.SELF_KNOCKBACK_SLINGS;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.SHIELD_ABILITIES;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.SLIME_DEFENSE;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.SLOTLESS;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.SPECIAL_DEFENSE;
+import static slimeknights.tconstruct.common.TinkerTags.Modifiers.TARGET_KNOCKBACK_SLINGS;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.UPGRADES;
 
 public class ModifierTagProvider extends AbstractModifierTagProvider {
@@ -78,15 +81,16 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
 
     // modifiers in this tag support both left click and right click interaction
     tag(DUAL_INTERACTION).add(
-      TinkerModifiers.bucketing.getId(), TinkerModifiers.splashing.getId(),
-      ModifierIds.glowing, TinkerModifiers.firestarter.getId(),
+      ModifierIds.bucketing, ModifierIds.splashing,
+      ModifierIds.glowing, ModifierIds.firestarter,
       ModifierIds.stripping, ModifierIds.tilling, ModifierIds.pathing,
-      TinkerModifiers.shears.getId(), TinkerModifiers.harvest.getId(), ModifierIds.fishing,
+      ModifierIds.shears, ModifierIds.silkyShears,
+      ModifierIds.harvest, ModifierIds.fishing,
       ModifierIds.pockets
     );
     tag(BLOCK_WHILE_CHARGING).add(
-      TinkerModifiers.flinging.getId(), TinkerModifiers.springing.getId(), TinkerModifiers.bonking.getId(), TinkerModifiers.warping.getId(),
-      TinkerModifiers.spitting.getId(), ModifierIds.scope, ModifierIds.zoom, ModifierIds.brushing, ModifierIds.throwing
+      ModifierIds.flinging, ModifierIds.springing, ModifierIds.bonking, ModifierIds.warping,
+      ModifierIds.spitting, ModifierIds.scope, ModifierIds.zoom, ModifierIds.brushing, ModifierIds.throwing
     );
     tag(SLIME_DEFENSE).add(
       ModifierIds.meleeProtection, ModifierIds.projectileProtection,
@@ -97,10 +101,13 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
       ModifierIds.overgrowth, ModifierIds.overcast, ModifierIds.overshield, ModifierIds.overburn, ModifierIds.overlord,
       ModifierIds.overforced, ModifierIds.overslimeFriend, TinkerModifiers.overworked.getId()
     );
-    tag(AOE_INTERACTION).add(ModifierIds.pathing, ModifierIds.stripping, ModifierIds.tilling, ModifierIds.brushing, TinkerModifiers.splashing.getId(), TinkerModifiers.harvest.getId());
-    tag(CHARGE_EMPTY_BOW_WITH_DRAWTIME).add(TinkerModifiers.flinging.getId(), TinkerModifiers.springing.getId(), TinkerModifiers.bonking.getId(), TinkerModifiers.warping.getId(), ModifierIds.throwing);
-    tag(CHARGE_EMPTY_BOW_WITHOUT_DRAWTIME).add(TinkerModifiers.blocking.getId(), ModifierIds.scope, ModifierIds.zoom);
-    tag(DRILL_ATTACKS).add(TinkerModifiers.flinging.getId(), TinkerModifiers.springing.getId(), ModifierIds.grapple);
+    tag(AOE_INTERACTION).add(ModifierIds.pathing, ModifierIds.stripping, ModifierIds.tilling, ModifierIds.brushing, ModifierIds.splashing, ModifierIds.harvest);
+    tag(CHARGE_EMPTY_BOW_WITH_DRAWTIME).add(ModifierIds.flinging, ModifierIds.springing, ModifierIds.bonking, ModifierIds.warping, ModifierIds.throwing);
+    tag(CHARGE_EMPTY_BOW_WITHOUT_DRAWTIME).add(ModifierIds.blocking, ModifierIds.scope, ModifierIds.zoom, ModifierIds.slurping, ModifierIds.tasty);
+    tag(DRILL_ATTACKS).add(ModifierIds.flinging, ModifierIds.springing, ModifierIds.grapple);
+    tag(SELF_KNOCKBACK_SLINGS).add(ModifierIds.flinging, ModifierIds.springing);
+    tag(TARGET_KNOCKBACK_SLINGS).add(ModifierIds.bonking);
+    tag(KNOCKBACK_SLINGS).addTag(SELF_KNOCKBACK_SLINGS, TARGET_KNOCKBACK_SLINGS);
 
     // book tags
     this.tag(UPGRADES).addTag(GENERAL_UPGRADES, MELEE_UPGRADES, DAMAGE_UPGRADES, HARVEST_UPGRADES, ARMOR_UPGRADES, RANGED_UPGRADES);
@@ -115,12 +122,12 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
       ModifierIds.diamond, ModifierIds.emerald, ModifierIds.netherite,
       ModifierIds.reinforced, ModifierIds.overforced, ModifierIds.soulbound,
       ModifierIds.experienced, TinkerModifiers.magnetic.getId(), ModifierIds.scope, ModifierIds.zoom,
-      ModifierIds.tank, ModifierIds.smelting, TinkerModifiers.fireprimer.getId())
+      ModifierIds.tank, ModifierIds.smelting, ModifierIds.fireprimer)
         .addOptional(ModifierIds.theOneProbe);
 
     this.tag(MELEE_UPGRADES).add(
-      TinkerModifiers.knockback.getId(), TinkerModifiers.padded.getId(),
-      TinkerModifiers.severing.getId(), TinkerModifiers.necrotic.getId(), TinkerModifiers.sweeping.getId(),
+      ModifierIds.knockback, ModifierIds.padded,
+      TinkerModifiers.severing.getId(), TinkerModifiers.necrotic.getId(), ModifierIds.sweeping,
       ModifierIds.fiery, ModifierIds.freezing);
     this.tag(DAMAGE_UPGRADES).add(
       ModifierIds.sharpness, ModifierIds.pierce, ModifierIds.swiftstrike,
@@ -132,9 +139,9 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
       ModifierIds.fiery, ModifierIds.freezing, ModifierIds.thorns,
       ModifierIds.ricochet, ModifierIds.springy, ModifierIds.blockade);
     this.tag(HELMET_UPGRADES).add(TinkerModifiers.itemFrame.getId(), ModifierIds.respiration, ModifierIds.minimap).addOptional(ModifierIds.headlight);
-    this.tag(CHESTPLATE_UPGRADES).add(ModifierIds.haste, TinkerModifiers.knockback.getId(), TinkerModifiers.sleeves.getId());
+    this.tag(CHESTPLATE_UPGRADES).add(ModifierIds.haste, ModifierIds.knockback, TinkerModifiers.sleeves.getId());
     this.tag(LEGGING_UPGRADES).add(ModifierIds.leaping, TinkerModifiers.shieldStrap.getId(), ModifierIds.speedy, ModifierIds.swiftSneak, ModifierIds.stepUp);
-    this.tag(BOOT_UPGRADES).add(ModifierIds.depthStrider, ModifierIds.featherFalling, ModifierIds.longFall, ModifierIds.lightspeed, TinkerModifiers.soulspeed.getId());
+    this.tag(BOOT_UPGRADES).add(ModifierIds.depthStrider, ModifierIds.featherFalling, ModifierIds.longFall, ModifierIds.lightspeed, ModifierIds.soulspeed);
 
     this.tag(RANGED_UPGRADES).add(
       ModifierIds.pierce, ModifierIds.power, ModifierIds.punch, ModifierIds.quickCharge,
@@ -145,32 +152,32 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
 
     // abilities
     this.tag(GENERAL_ABILITIES).add(
-      TinkerModifiers.expanded.getId(), ModifierIds.gilded, TinkerModifiers.unbreakable.getId(),
+      ModifierIds.expanded, ModifierIds.gilded, ModifierIds.unbreakable,
       ModifierIds.luck, TinkerModifiers.melting.getId());
     this.tag(MELEE_ABILITIES).add(
-      TinkerModifiers.blocking.getId(), TinkerModifiers.parrying.getId(),
+      ModifierIds.blocking, TinkerModifiers.parrying.getId(),
       TinkerModifiers.dualWielding.getId(), ModifierIds.spilling);
-    this.tag(HARVEST_ABILITIES).add(TinkerModifiers.autosmelt.getId(), TinkerModifiers.exchanging.getId(), TinkerModifiers.silky.getId());
+    this.tag(HARVEST_ABILITIES).add(ModifierIds.autosmelt, TinkerModifiers.exchanging.getId(), ModifierIds.silky);
     this.tag(RANGED_ABILITIES).add(
       ModifierIds.bulkQuiver, ModifierIds.trickQuiver,
-      ModifierIds.crystalshot, TinkerModifiers.multishot.getId(), ModifierIds.ballista,
+      ModifierIds.crystalshot, ModifierIds.multishot, ModifierIds.ballista,
       ModifierIds.grapple,
       ModifierIds.channeling, ModifierIds.returning);
     this.tag(INTERACTION_ABILITIES).add(
-      TinkerModifiers.bucketing.getId(), TinkerModifiers.firestarter.getId(), ModifierIds.glowing,
+      ModifierIds.bucketing, ModifierIds.firestarter, ModifierIds.glowing,
       ModifierIds.pathing, ModifierIds.stripping, ModifierIds.tilling, ModifierIds.brushing,
-      TinkerModifiers.spitting.getId(), TinkerModifiers.splashing.getId(), TinkerModifiers.slurping.getId(),
-      TinkerModifiers.bonking.getId(), TinkerModifiers.flinging.getId(), TinkerModifiers.springing.getId(), TinkerModifiers.warping.getId(),
+      ModifierIds.spitting, ModifierIds.splashing, ModifierIds.slurping,
+      ModifierIds.bonking, ModifierIds.flinging, ModifierIds.springing, ModifierIds.warping,
       ModifierIds.throwing, ModifierIds.drillAttack);
     // armor
     this.tag(GENERAL_ARMOR_ABILITIES).add(ModifierIds.protection, TinkerModifiers.bursting.getId(), TinkerModifiers.wetting.getId());
-    this.tag(HELMET_ABILITIES).add(ModifierIds.aquaAffinity, TinkerModifiers.slurping.getId());
+    this.tag(HELMET_ABILITIES).add(ModifierIds.aquaAffinity, ModifierIds.slurping);
     this.tag(CHESTPLATE_ABILITIES).add(TinkerModifiers.ambidextrous.getId(), ModifierIds.reach, ModifierIds.strength, ModifierIds.wings);
     this.tag(LEGGING_ABILITIES).add(ModifierIds.pockets, ModifierIds.soulBelt, ModifierIds.toolBelt, ModifierIds.craftingTable);
     this.tag(BOOT_ABILITIES).add(
       ModifierIds.bouncy, ModifierIds.doubleJump,
-      TinkerModifiers.flamewake.getId(), ModifierIds.snowdrift, ModifierIds.tilling, ModifierIds.pathing, ModifierIds.frostWalker, ModifierIds.glowing);
-    this.tag(SHIELD_ABILITIES).add(ModifierIds.boundless, TinkerModifiers.reflecting.getId());
+      ModifierIds.flamewake, ModifierIds.snowdrift, ModifierIds.tilling, ModifierIds.pathing, ModifierIds.frostWalker, ModifierIds.glowing);
+    this.tag(SHIELD_ABILITIES).add(ModifierIds.boundless, ModifierIds.reflecting);
 
     // defense
     this.tag(PROTECTION_DEFENSE).add(
@@ -191,7 +198,7 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
     this.tag(COSMETIC_SLOTLESS).add(
       ModifierIds.shiny,
       TinkerModifiers.dyed.getId(), TinkerModifiers.embellishment.getId(), TinkerModifiers.trim.getId(),
-      TinkerModifiers.farsighted.getId(), TinkerModifiers.nearsighted.getId());
+      ModifierIds.farsighted, ModifierIds.nearsighted);
   }
 
   @Override

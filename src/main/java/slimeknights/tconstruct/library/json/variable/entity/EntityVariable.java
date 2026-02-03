@@ -57,6 +57,8 @@ public interface EntityVariable extends IHaveLoader {
     }
     return 0;
   });
+  /** Gets the percentage of the mob covered in armor. */
+  EntityVariable ARMOR_COVERAGE = simple(LivingEntity::getArmorCoverPercentage);
 
   /** Constant value instance for this object */
   record Constant(float value) implements VariableLoaderRegistry.ConstantFloat, EntityVariable {

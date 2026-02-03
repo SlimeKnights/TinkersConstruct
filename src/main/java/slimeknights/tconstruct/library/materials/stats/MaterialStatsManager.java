@@ -88,18 +88,47 @@ public class MaterialStatsManager extends MergingJsonDataLoader<Map<ResourceLoca
   }
 
   /**
-   * Gets the stats for the given material and stats ID
-   * @param materialId  Material
-   * @param statId      Stats
+   * Gets the stats for the given material and stats ID, or null if the pair has no stats.
+   * @param materialId  Material ID
+   * @param statId      Stat type
    * @param <T>  Stats type
-   * @return  Optional containing the stats, empty if no stats
+   * @return  Stats if present, null if this material lacks the stat type.
    */
+  @Nullable
   @SuppressWarnings("unchecked")
-  public <T extends IMaterialStats> Optional<T> getStats(MaterialId materialId, MaterialStatsId statId) {
+  public <T extends IMaterialStats> T getStatsOrNull(MaterialId materialId, MaterialStatsId statId) {
     Map<MaterialStatsId, IMaterialStats> materialStats = materialToStatsPerType.getOrDefault(materialId, Map.of());
     IMaterialStats stats = materialStats.get(statId);
     // class will always match, since it's only filled by deserialization, which only puts it in if it's the registered type
-    return Optional.ofNullable((T) stats);
+    return (T) stats;
+  }
+
+  /**
+   * Gets the stats for the given material and stats ID
+   * @param materialId  Material ID
+   * @param statId      Stat type
+   * @param <T>  Stats type
+   * @return  Optional containing the stats, empty if no stats.
+   */
+  public <T extends IMaterialStats> Optional<T> getStats(MaterialId materialId, MaterialStatsId statId) {
+    return Optional.ofNullable(getStatsOrNull(materialId, statId));
+  }
+
+  /**
+   * Gets the stats for the given material and stats ID, or the default stats if the material has no stats.
+   * @param materialId  Material ID
+   * @param statId      Stat type
+   * @param <T>  Stats type
+   * @return  Stats if present, default if the type is valid, or null if the type is invalid.
+   */
+  @Nullable
+  public <T extends IMaterialStats> T getStatsOrDefault(MaterialId materialId, MaterialStatsId statId) {
+    T stats = getStatsOrNull(materialId, statId);
+    if (stats != null) {
+      return stats;
+    }
+    MaterialStatType<T> type = getStatType(statId);
+    return type != null ? type.getDefaultStats() : null;
   }
 
   /**

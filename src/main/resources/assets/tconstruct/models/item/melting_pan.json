@@ -17,12 +17,12 @@
       "model": "tconstruct:item/tool/melting_pan/charged"
     },
     {
-      "predicate": { "tconstruct:charging": 2, "tconstruct:charge": 1.0 },
-      "model": "tconstruct:item/tool/melting_pan/blocking_charged"
-    },
-    {
       "predicate": { "tconstruct:charging": 2 },
       "model": "tconstruct:item/tool/melting_pan/blocking"
+    },
+    {
+      "predicate": { "tconstruct:charging": 2, "tconstruct:charge": 1.0 },
+      "model": "tconstruct:item/tool/melting_pan/blocking_charged"
     },
     {
       "predicate": { "tconstruct:broken": 1 },

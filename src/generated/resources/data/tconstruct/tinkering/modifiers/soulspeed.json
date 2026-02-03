@@ -1,0 +1,14 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:constant_enchantment",
+      "level": 1,
+      "name": "minecraft:soul_speed"
+    },
+    {
+      "type": "tconstruct:soulspeed_tooltip"
+    }
+  ],
+  "tooltip_display": "always"
+}

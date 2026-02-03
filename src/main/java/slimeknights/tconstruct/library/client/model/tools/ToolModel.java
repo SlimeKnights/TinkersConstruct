@@ -662,52 +662,48 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
       List<BakedQuad> largeAmmoQuads = List.of();
       List<BakedQuad> leftAmmoQuads = List.of();
       if (!ammo.isEmpty()) {
-        // find ammo model
+        // find ammo model, this automatically resolves ammo overrides
         BakedModel ammoModel = Minecraft.getInstance().getItemRenderer().getModel(ammo, null, null, seed);
         if (ammoModel != Minecraft.getInstance().getModelManager().getMissingModel()) {
-          // resolve ammo model (for materials and such)
-          ammoModel = ammoModel.getOverrides().resolve(ammoModel, ammo, null, null, seed);
-          if (ammoModel != null) {
-            // get all the quads for the ammo model
-            List<BakedQuad> ammoQuads = new ArrayList<>();
-            RandomSource rand = RandomSource.create();
-            for (Direction direction : Direction.values()) {
-              ammoQuads.addAll(ammoModel.getQuads(null, direction, rand, ModelData.EMPTY, null));
-            }
-            ammoQuads.addAll(ammoModel.getQuads(null, null, rand, ModelData.EMPTY, null));
+          // get all the quads for the ammo model
+          List<BakedQuad> ammoQuads = new ArrayList<>();
+          RandomSource rand = RandomSource.create();
+          for (Direction direction : Direction.values()) {
+            ammoQuads.addAll(ammoModel.getQuads(null, direction, rand, ModelData.EMPTY, null));
+          }
+          ammoQuads.addAll(ammoModel.getQuads(null, null, rand, ModelData.EMPTY, null));
 
-            // bake tints into static colors; saves us having to redirect item colors which is slow
-            Int2IntMap tints = new Int2IntArrayMap();
-            ItemColors colors = Minecraft.getInstance().getItemColors();
-            Int2IntFunction colorGetter = tint -> ColoredBlockModel.swapColorRedBlue(colors.getColor(ammo, tint));
-            ammoQuads = ammoQuads.stream().map(quad -> {
-              if (quad.isTinted() || (flipAmmo && quad.getDirection().getAxis() != Direction.Axis.Y)) {
-                int[] vertices = quad.getVertices();
-                if (quad.isTinted()) {
-                  int abgr = 0xFF000000 | tints.computeIfAbsent(quad.getTintIndex(), colorGetter);
-                  vertices = Arrays.copyOf(vertices, vertices.length);
-                  for (int i = 0; i < 4; i++) {
-                    vertices[i * IQuadTransformer.STRIDE + IQuadTransformer.COLOR] = abgr;
-                  }
+          // bake tints into static colors; saves us having to redirect item colors which is slow
+          Int2IntMap tints = new Int2IntArrayMap();
+          ItemColors colors = Minecraft.getInstance().getItemColors();
+          Int2IntFunction colorGetter = tint -> ColoredBlockModel.swapColorRedBlue(colors.getColor(ammo, tint));
+          ammoQuads = ammoQuads.stream().map(quad -> {
+            if (quad.isTinted() || (flipAmmo && quad.getDirection().getAxis() != Direction.Axis.Y)) {
+              int[] vertices = quad.getVertices();
+              if (quad.isTinted()) {
+                int abgr = 0xFF000000 | tints.computeIfAbsent(quad.getTintIndex(), colorGetter);
+                vertices = Arrays.copyOf(vertices, vertices.length);
+                for (int i = 0; i < 4; i++) {
+                  vertices[i * IQuadTransformer.STRIDE + IQuadTransformer.COLOR] = abgr;
                 }
-                Direction direction = quad.getDirection();
-                if (flipAmmo && direction.getAxis() != Direction.Axis.Y) {
-                  direction = direction.getOpposite();
-                }
-                return new BakedQuad(vertices, -1, direction, quad.getSprite(), quad.isShade(), quad.hasAmbientOcclusion());
               }
-              return quad;
-            }).toList();
-            // got our quads, now we need to offset them for the model
-            if (smallAmmoTransforms != null) {
-              smallAmmoQuads = QuadTransformers.applying(smallAmmoTransforms).process(ammoQuads);
+              Direction direction = quad.getDirection();
+              if (flipAmmo && direction.getAxis() != Direction.Axis.Y) {
+                direction = direction.getOpposite();
+              }
+              return new BakedQuad(vertices, -1, direction, quad.getSprite(), quad.isShade(), quad.hasAmbientOcclusion());
             }
-            if (largeAmmoTransforms != null) {
-              largeAmmoQuads = QuadTransformers.applying(largeAmmoTransforms).process(ammoQuads);
-            }
-            if (leftAmmoTransforms != null) {
-              leftAmmoQuads = QuadTransformers.applying(leftAmmoTransforms).process(ammoQuads);
-            }
+            return quad;
+          }).toList();
+          // got our quads, now we need to offset them for the model
+          if (smallAmmoTransforms != null) {
+            smallAmmoQuads = QuadTransformers.applying(smallAmmoTransforms).process(ammoQuads);
+          }
+          if (largeAmmoTransforms != null) {
+            largeAmmoQuads = QuadTransformers.applying(largeAmmoTransforms).process(ammoQuads);
+          }
+          if (leftAmmoTransforms != null) {
+            leftAmmoQuads = QuadTransformers.applying(leftAmmoTransforms).process(ammoQuads);
           }
         }
       }

@@ -6,8 +6,11 @@
   ],
   "generator": {
     "supported_stats": [
-      "tconstruct:shield_core",
+      "tconstruct:limb",
+      "tconstruct:grip",
       "tconstruct:repair_kit",
+      "tconstruct:arrow_shaft",
+      "tconstruct:shield_core",
       "tconstruct:wood"
     ],
     "transformer": {

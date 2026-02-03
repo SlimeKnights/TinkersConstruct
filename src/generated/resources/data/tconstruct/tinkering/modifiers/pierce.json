@@ -15,10 +15,10 @@
       },
       "effect": "tconstruct:pierce",
       "level": {
-        "per_level": 2.0
+        "per_level": 1.0
       },
       "time": {
-        "flat": 100.0
+        "flat": 80.0
       }
     }
   ],

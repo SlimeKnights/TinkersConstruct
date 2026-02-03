@@ -100,7 +100,7 @@ public record MobEffectModule(IJsonPredicate<LivingEntity> target, MobEffect eff
       float chance = this.chance.compute(scaledLevel);
       if (chance >= 1 || RANDOM.nextFloat() < chance) {
         applyEffect(living, scaledLevel);
-        ToolDamageUtil.damageAnimated(tool, 1, defender, slotType);
+        ToolDamageUtil.damageAnimated(tool, 1, defender, slotType, true);
       }
     }
   }

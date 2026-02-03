@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.common.data.loot;
 
+import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.advancements.critereon.EntityTypePredicate;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -7,9 +9,13 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.storage.loot.LootContext.EntityTarget;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyExplosionDecay;
+import net.minecraft.world.level.storage.loot.functions.LootingEnchantFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.minecraftforge.common.data.GlobalLootModifierProvider;
 import net.minecraftforge.common.loot.LootTableIdCondition;
@@ -24,6 +30,8 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.json.BlockOrEntityCondition;
 import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
+import slimeknights.tconstruct.library.json.loot.HasLootContextSetCondition;
+import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.smeltery.data.SmelteryCompat;
 import slimeknights.tconstruct.smeltery.data.SmelteryCompat.CompatType;
@@ -41,6 +49,7 @@ public class GlobalLootModifiersProvider extends GlobalLootModifierProvider {
     super(output, TConstruct.MOD_ID);
   }
 
+  @SuppressWarnings("removal")
   @Override
   protected void start() {
     add("wither_bone", ReplaceItemLootModifier.builder(Ingredient.of(Items.BONE), ItemOutput.fromItem(TinkerMaterials.necroticBone))
@@ -51,6 +60,18 @@ public class GlobalLootModifiersProvider extends GlobalLootModifierProvider {
     // generic modifier hook
     // TODO: look into migrating this fully to loot tables
     add("modifier_hook", ModifierLootModifier.builder().addCondition(BlockOrEntityCondition.INSTANCE).build());
+
+    // tasty drops more bacon
+    add("tasty_bacon", AddEntryLootModifier.builder(LootItem.lootTableItem(TinkerCommons.bacon))
+      // this target must be a bacon producer
+      .addCondition(new HasLootContextSetCondition(LootContextParamSets.ENTITY))
+      .addCondition(LootItemEntityPropertyCondition.hasProperties(EntityTarget.THIS, EntityPredicate.Builder.entity().entityType(EntityTypePredicate.of(TinkerTags.EntityTypes.BACON_PRODUCER))).build())
+      .addCondition(new HasModifierLootCondition(ModifierIds.tasty))
+      // 25% chance to drop
+      .addFunction(SetItemCountFunction.setCount(UniformGenerator.between(-2, 1)).build())
+      // each looting adds a chance of +1
+      .addFunction(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0, 1)).build())
+      .build());
 
     // chrysophilite modifier hook
     add("chrysophilite_modifier", AddEntryLootModifier.builder(LootItem.lootTableItem(Items.GOLD_NUGGET))

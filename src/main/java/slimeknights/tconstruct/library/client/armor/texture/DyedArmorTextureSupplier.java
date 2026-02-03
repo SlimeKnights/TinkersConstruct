@@ -9,6 +9,7 @@ import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
+import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
@@ -21,7 +22,7 @@ import static slimeknights.tconstruct.library.client.armor.texture.FixedArmorTex
 public class DyedArmorTextureSupplier implements ArmorTextureSupplier {
   public static final RecordLoadable<DyedArmorTextureSupplier> LOADER = RecordLoadable.create(
     Loadables.RESOURCE_LOCATION.requiredField("prefix", s -> s.prefix),
-    ModifierId.PARSER.requiredField("modifier", s -> s.modifier),
+    ModifierId.PARSER.defaultField("modifier", TinkerModifiers.dyed.getId(), s -> s.modifier),
     ColorLoadable.NO_ALPHA.nullableField("default_color", s -> s.alwaysRender ? s.defaultColor : null),
     IntLoadable.range(0, 15).defaultField("luminosity", 0, false, s -> s.luminosity),
     DyedArmorTextureSupplier::new);

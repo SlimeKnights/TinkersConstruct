@@ -111,6 +111,7 @@
   "item.tconstruct.cobalt_nugget": "Cobalt Nugget",
 
   "block.tconstruct.steel_block": "Block of Steel",
+  "block.tconstruct.steel_block.tooltip": "Can be used as beacon base",
   "item.tconstruct.steel_ingot": "Steel Ingot",
   "item.tconstruct.steel_nugget": "Steel Nugget",
 
@@ -118,6 +119,7 @@
   "__comment": "Tier 3 Metals",
 
   "block.tconstruct.slimesteel_block": "Block of Slimesteel",
+  "block.tconstruct.slimesteel_block.tooltip": "Can be used as beacon base",
   "item.tconstruct.slimesteel_ingot": "Slimesteel Ingot",
   "item.tconstruct.slimesteel_nugget": "Slimesteel Nugget",
 
@@ -147,6 +149,7 @@
   "item.tconstruct.hepatizon_nugget": "Hepatizon Nugget",
 
   "block.tconstruct.cinderslime_block": "Block of Cinderslime",
+  "block.tconstruct.cinderslime_block.tooltip": "Can be used as beacon base",
   "item.tconstruct.cinderslime_ingot": "Cinderslime Ingot",
   "item.tconstruct.cinderslime_nugget": "Cinderslime Nugget",
 
@@ -1160,6 +1163,7 @@
   "item.tconstruct.slime_chestplate": "Slimelytra",
   "item.tconstruct.slime_leggings": "Slimeshell",
   "item.tconstruct.slime_boots": "Slimeboots",
+  "item.tconstruct.slime_helmet.material.tconstruct.ui_render.head": "Any Slimeskull",
   "item.tconstruct.slime_helmet.material.tconstruct.glass":         "Creeper Slimeskull",
   "item.tconstruct.slime_helmet.material.tconstruct.ender_pearl":   "Enderman Slimeskull",
   "item.tconstruct.slime_helmet.material.tconstruct.bone":          "Skeleton Slimeskull",
@@ -1285,6 +1289,8 @@
   "death.attack.tconstruct.piercing.item": "%1$s was pierced by %2$s using %3$s",
   "death.attack.tconstruct.entangled": "%1$s could not let go of their tool",
   "death.attack.tconstruct.entangled.player": "%1$s could not let go of their tool whilst fighting %2$s",
+  "death.attack.tconstruct.spiny": "%1$s was killed by a splinter",
+  "death.attack.tconstruct.spiny.player": "%1$s was killed by a splinter whilst fighting %2$s",
   "death.attack.tconstruct.shock": "%1$s was shocked trying to hurt %2$s",
   "death.attack.tconstruct.shock.item": "%1$s was shocked by %3$s trying to hurt %2$s",
 
@@ -1783,6 +1789,8 @@
 
   "material.tconstruct.cactus": "Cactus",
   "material.tconstruct.cactus.flavor": "A spiky shield spikes serious stabbers.",
+  "material.tconstruct.cactus.ranged": "Adds +0.1 velocity per level at the cost of losing 1 health per level when firing arrows.",
+  "material.tconstruct.cactus.ammo": "Adds +0.1 velocity per level and +0.5 power to thrown ammo at the cost of losing 1 health per level when launched.",
   "material.tconstruct.cactus.armor": "Adds a 15% chance to deal 1-4 damage on counterattacks, or a 30% chance when blocking.",
 
   "material.tconstruct.rock": "Rock",
@@ -1804,9 +1812,9 @@
 
   "material.tconstruct.bone": "Bone",
   "material.tconstruct.bone.flavor": "I am the bone of my sword",
-  "material.tconstruct.bone.encyclopedia": "Increases melee damage by 0.5 and grants 2 armor pierce per level for 5 seconds",
-  "material.tconstruct.bone.ranged": "Arrows apply 2 armor pierce per level for 5 seconds",
-  "material.tconstruct.bone.armor": "Has a 15% chance when hit for attackers receive 2 armor pierce per level for 5 seconds (or 10 seconds if blocking).",
+  "material.tconstruct.bone.encyclopedia": "Increases melee damage by 0.5 and grants 1 armor pierce per level for 4 seconds",
+  "material.tconstruct.bone.ranged": "Arrows apply 1 armor pierce per level for 4 seconds",
+  "material.tconstruct.bone.armor": "Has a 15% chance when hit for attackers receive 1 armor pierce per level for 4 seconds (or 8 seconds if blocking).",
   "material.tconstruct.bone.ammo": "Causes the arrow to pierce through the first target it hits, while thrown projectiles disable shields.",
   "material.tconstruct.bone.skull_flavor": "Got Milk?",
   "material.tconstruct.bone.skull_encyclopedia": "Grants resistance for 1 minute after drinking milk",
@@ -1923,9 +1931,9 @@
 
   "material.tconstruct.twisting_vine": "Twisting Vine",
   "material.tconstruct.twisting_vine.flavor": "Eat the spores!",
-  "material.tconstruct.twisting_vine.encyclopedia": "Grants +6 mining speed at the cost of taking 1 damage when you put down the tool",
-  "material.tconstruct.twisting_vine.ranged": "Grants +15% draw speed at the cost of taking 1 damage when you put down the tool",
-  "material.tconstruct.twisting_vine.armor": "Grants +10% knockback resistance at the cost of taking 2 damage when you remove the armor",
+  "material.tconstruct.twisting_vine.encyclopedia": "Grants +6 mining speed at the cost of losing 1 health when you put down the tool",
+  "material.tconstruct.twisting_vine.ranged": "Grants +15% draw speed at the cost of losing 1 health when you put down the tool",
+  "material.tconstruct.twisting_vine.armor": "Grants +10% knockback resistance at the cost of losing 2 health when you remove the armor",
 
   "material.tconstruct.wool": "Wool",
   "material.tconstruct.wool.white": "White Wool",
@@ -1970,6 +1978,10 @@
   "material.tconstruct.gunpowder": "Gunpowder",
   "material.tconstruct.gunpowder.flavor": "Explosive!",
   "material.tconstruct.gunpowder.ammo": "Causes the arrow to explode at a radius of 1 plus 1 per level. Explosion damage is based on projectile power.",
+
+  "material.tconstruct.redstone": "Redstone",
+  "material.tconstruct.redstone.flavor": "Speedy!",
+  "material.tconstruct.redstone.ammo": "Grants +10% velocity per level to arrows, and +20% velocity per level to thrown projectiles.",
 
   "material.tconstruct.earthslime": "Earthslime",
   "material.tconstruct.earthslime.flavor": "To me!",
@@ -2026,8 +2038,8 @@
 
   "material.tconstruct.pig_iron": "Pig Iron",
   "material.tconstruct.pig_iron.flavor": "The absolute best material, no debates.",
-  "material.tconstruct.pig_iron.encyclopedia": "Can be eaten to restore 1 hunger per level at 0.6 saturation",
-  "material.tconstruct.pig_iron.armor": "Grants a 15% chance per level of eating the armor for 1 hunger per level at 0.6 saturation",
+  "material.tconstruct.pig_iron.encyclopedia": "Can be eaten to restore 1 hunger per level at 0.6 saturation at the cost of durability",
+  "material.tconstruct.pig_iron.armor": "Grants a 15% chance per level of eating the armor for 1 hunger per level at 0.6 saturation at the cost of durability",
   "material.tconstruct.pig_iron.skull_flavor": "You won't like me when I'm angry!",
   "material.tconstruct.pig_iron.skull_encyclopedia": "Grants 15 seconds of strength when damaged by another mob",
 
@@ -2043,7 +2055,7 @@
   "material.tconstruct.cobalt": "Cobalt",
   "material.tconstruct.cobalt.flavor": "Coblat. The material of the Red Army.",
   "material.tconstruct.cobalt.encyclopedia": "Boosts mining and attack speed by 8% per level",
-  "material.tconstruct.cobalt.ranged": "Boosts drawspeed and velocity by 3% per level",
+  "material.tconstruct.cobalt.ranged": "Boosts drawspeed and velocity by +0.03 per level",
   "material.tconstruct.cobalt.armor": "Reduces damage from melee attacks by 8% per level, and boosts movement speed when using items by 5% per max level",
 
   "material.tconstruct.quartz": "Quartz",
@@ -2129,8 +2141,8 @@
 
   "material.tconstruct.knightmetal": "Knightmetal",
   "material.tconstruct.knightmetal.flavor": "Metal of the traveling slime, also found from armored Twilight creatures.",
-  "material.tconstruct.knightmetal.encyclopedia": "Grants +0.5 damage per level per piece of armor worn by the target",
-  "material.tconstruct.knightmetal.ranged": "Grants +0.25 damage per level per piece of armor worn by the target (before velocity)",
+  "material.tconstruct.knightmetal.encyclopedia": "Grants +0.4 damage per level per piece of armor worn by the target",
+  "material.tconstruct.knightmetal.ranged": "Grants +0.2 damage per level per piece of armor worn by the target (before velocity)",
   "material.tconstruct.knightmetal.armor": "Increases protection by 4% per level per item in the attacker's arms",
 
   "material.tconstruct.knightly": "Knightly",
@@ -2171,7 +2183,7 @@
   "material.tconstruct.lead": "Lead",
   "material.tconstruct.lead.flavor": "Could try and make a sandwich out of this.",
   "material.tconstruct.lead.encyclopedia": "Grants +15% mining speed, +10% knockback resistance, -10% movement speed, and +5% gravity per level",
-  "material.tconstruct.lead.ranged": "Grants +10% accuracy, +10% knockback resistance, -10% movement speed, and +5% gravity per level",
+  "material.tconstruct.lead.ranged": "Grants +0.1 accuracy, +10% knockback resistance, -10% movement speed, and +5% gravity per level",
   "material.tconstruct.lead.armor": "Grants +15% knockback resistance, -10% movement speed, and +5% gravity per level",
 
   "material.tconstruct.silver": "Silver",
@@ -2190,7 +2202,7 @@
 
   "material.tconstruct.aluminum": "Aluminum",
   "material.tconstruct.aluminum.flavor": "Found most commonly in ashmounds.",
-  "material.tconstruct.aluminum.ranged": "Grants +7% drawspeed and accuracy at the cost of 5% loss of protection",
+  "material.tconstruct.aluminum.ranged": "Grants +0.07 drawspeed and accuracy at the cost of 5% loss of protection",
   "material.tconstruct.aluminum.armor": "Grants +5% use item speed at the cost of 5% loss of protection",
 
   "material.tconstruct.treated_wood": "Treated Wood",
@@ -2285,10 +2297,10 @@
   "modifier.tconstruct.shiny.description": "Tool glows with an enchanted glint",
   "modifier.tconstruct.farsighted": "Farsighted",
   "modifier.tconstruct.farsighted.flavor": "Shows great foresight",
-  "modifier.tconstruct.farsighted.description": "Decreases the field of vision while equipped",
+  "modifier.tconstruct.farsighted.description": "Decreases the field of vision while equipped, making far objects easier to see",
   "modifier.tconstruct.nearsighted": "Nearsighted",
   "modifier.tconstruct.nearsighted.flavor": "Not thinking of the future",
-  "modifier.tconstruct.nearsighted.description": "Increases the field of vision while equipped",
+  "modifier.tconstruct.nearsighted.description": "Increases the field of vision while equipped, letting you see more",
   "modifier.tconstruct.offhanded": "Offhanded",
   "modifier.tconstruct.offhanded.2": "Nohanded",
   "modifier.tconstruct.offhanded.flavor": "Don't think about it too hard",
@@ -2766,7 +2778,10 @@
   "modifier.tconstruct.spectral.description": "Causes the target of the projectile to glow, be it a block or entity",
   "modifier.tconstruct.explosive": "Explosive",
   "modifier.tconstruct.explosive.flavor": "Bomb!",
-  "modifier.tconstruct.explosive.description": "Causes the arrow to explode upon hitting the target",
+  "modifier.tconstruct.explosive.description": "Causes the projectile to explode upon hitting the target",
+  "modifier.tconstruct.supercharged": "Supercharged",
+  "modifier.tconstruct.supercharged.flavor": "Zooom!",
+  "modifier.tconstruct.supercharged.description": "Causes the projectile to move quicker, potentially dealing more damage",
   "modifier.tconstruct.exchanging": "Exchanging",
   "modifier.tconstruct.exchanging.flavor": "The Ole Switcheroo!",
   "modifier.tconstruct.exchanging.description": "Blocks broken by this tool are replaced by the block in the offhand if possible",
@@ -2782,7 +2797,7 @@
   "modifier.tconstruct.silky_shears": "Silky Shears",
   "modifier.tconstruct.silky_shears.flavor": "Snip snip!",
   "modifier.tconstruct.silky_shears.description": "Tool can shear mobs if the silky modifier is added",
-  "modifier.tconstruct.silky_aoe_shears": "Silky Shears",
+  "modifier.tconstruct.silky_aoe_shears": "Silky Shears+",
   "modifier.tconstruct.silky_aoe_shears.flavor": "Snip snip!",
   "modifier.tconstruct.silky_aoe_shears.description": "Tool can shear mobs if the silky modifier is added",
   "modifier.tconstruct.harvest": "Harvest",
@@ -2994,6 +3009,9 @@
   "modifier.tconstruct.woodwind": "Woodwind",
   "modifier.tconstruct.woodwind.flavor": "Song of air",
   "modifier.tconstruct.woodwind.description": "Moves more freely in the wind, granting a large accuracy bonus, plus a velocity bonus to thrown ammo. Some even claim to hear music as it flies.",
+  "modifier.tconstruct.spiny": "Spiny",
+  "modifier.tconstruct.spiny.flavor": "The pain makes you strong!",
+  "modifier.tconstruct.spiny.description": "Boosts the projectile's damage, but damages you when used.",
   "modifier.tconstruct.soft": "Soft",
   "modifier.tconstruct.soft.flavor": "Friendly weapon",
   "modifier.tconstruct.soft.description": "Reduces the projectile power to 0.",
@@ -3006,6 +3024,7 @@
   "modifier.tconstruct.solar_powered": "Solar Powered",
   "modifier.tconstruct.solar_powered.flavor": "Good for the environment",
   "modifier.tconstruct.solar_powered.description": "Tool resists damage in sunlight",
+  "modifier.tconstruct.solar_powered.reinforced": "Solar Reinforced",
 
   "__comment": "Tier 2 Traits",
   "modifier.tconstruct.sturdy": "Sturdy",

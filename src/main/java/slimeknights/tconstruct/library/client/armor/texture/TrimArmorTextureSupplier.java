@@ -18,20 +18,25 @@ import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.armortrim.TrimMaterial;
 import net.minecraft.world.item.armortrim.TrimPattern;
+import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.data.loadable.common.ColorLoadable;
-import slimeknights.mantle.data.loadable.record.SingletonLoader;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
-import slimeknights.tconstruct.tools.modifiers.slotless.TrimModifier;
+import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.tools.modules.cosmetic.TrimModule;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /** Handles fetching textures for armor trims */
-public enum TrimArmorTextureSupplier implements ArmorTextureSupplier {
-  INSTANCE;
+public record TrimArmorTextureSupplier(ModifierId modifier, ResourceLocation patternKey, ResourceLocation materialKey) implements ArmorTextureSupplier {
+  /** Default instant using the tinkers modifier */
+  public static TrimArmorTextureSupplier INSTANCE = new TrimArmorTextureSupplier(TinkerModifiers.trim.getId());
+  public static final RecordLoadable<TrimArmorTextureSupplier> LOADER = RecordLoadable.create(ModifierId.PARSER.defaultField("modifier", TinkerModifiers.trim.getId(), TrimArmorTextureSupplier::modifier), TrimArmorTextureSupplier::new);
 
-  private final SingletonLoader<TrimArmorTextureSupplier> LOADER = new SingletonLoader<>(this);
+  /* Caches */
   private static final Map<String,ArmorTexture> ARMOR_CACHE = new HashMap<>();
   private static final Map<String,ArmorTexture> LEGGING_CACHE = new HashMap<>();
   /** Listener to clear caches associated with trim textures */
@@ -41,11 +46,19 @@ public enum TrimArmorTextureSupplier implements ArmorTextureSupplier {
     TrimArmorTexture.armorTrimAtlas = null;
   };
 
+  /** @apiNote use {@link #TrimArmorTextureSupplier(ModifierId)} */
+  @Internal
+  public TrimArmorTextureSupplier {}
+
+  public TrimArmorTextureSupplier(ModifierId modifier) {
+    this(modifier, TrimModule.patternKey(modifier), TrimModule.materialKey(modifier));
+  }
+
   @Override
   public ArmorTexture getArmorTexture(ItemStack stack, TextureType textureType, RegistryAccess access) {
     if (textureType != TextureType.WINGS) {
-      String patternId = ModifierUtil.getPersistentString(stack, TrimModifier.TRIM_PATTERN);
-      String materialId = ModifierUtil.getPersistentString(stack, TrimModifier.TRIM_MATERIAL);
+      String patternId = ModifierUtil.getPersistentString(stack, patternKey);
+      String materialId = ModifierUtil.getPersistentString(stack, materialKey);
       if (!patternId.isEmpty() && !materialId.isEmpty()) {
         String key = patternId + '#' + materialId;
         Map<String,ArmorTexture> cache = textureType == TextureType.LEGGINGS ? LEGGING_CACHE : ARMOR_CACHE;
@@ -68,7 +81,7 @@ public enum TrimArmorTextureSupplier implements ArmorTextureSupplier {
   }
 
   @Override
-  public SingletonLoader<TrimArmorTextureSupplier> getLoader() {
+  public RecordLoadable<TrimArmorTextureSupplier> getLoader() {
     return LOADER;
   }
 

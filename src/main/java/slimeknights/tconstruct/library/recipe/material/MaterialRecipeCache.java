@@ -99,8 +99,8 @@ public class MaterialRecipeCache {
     getRecipes(variant).stream().flatMap(r -> {
       Stream<ItemStack> stacks = Arrays.stream(r.getIngredient().getItems());
       // if we need multiple, increase the stack size of the display stacks
-      if (r.needed > 1) {
-        int size = r.needed;
+      if (r.needed > r.value) {
+        int size = (r.needed + r.value - 1) / r.value;
         stacks = stacks.map(stack -> stack.copyWithCount(size));
       }
       return stacks;

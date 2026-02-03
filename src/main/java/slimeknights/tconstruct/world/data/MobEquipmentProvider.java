@@ -23,6 +23,7 @@ public class MobEquipmentProvider extends AbstractMobEquipmentProvider {
     super(output, TConstruct.MOD_ID);
   }
 
+  @SuppressWarnings("removal")
   @Override
   protected void addEquipment() {
     RandomMaterial random = RandomMaterial.ancient();

@@ -26,6 +26,10 @@
   ],
   "overrides": [
     {
+      "predicate": { "tconstruct:charging": 1.75 },
+      "model": "tconstruct:item/tool/cleaver/throwing"
+    },
+    {
       "predicate": { "tconstruct:charging": 2 },
       "model": "tconstruct:item/tool/cleaver/blocking"
     },

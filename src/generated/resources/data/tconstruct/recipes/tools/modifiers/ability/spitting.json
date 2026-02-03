@@ -1,6 +1,7 @@
 {
   "type": "tconstruct:modifier",
   "allow_crystal": true,
+  "check_trait_level": true,
   "inputs": [
     {
       "type": "tconstruct:material",
@@ -14,6 +15,9 @@
       "item": "tconstruct:bow_limb"
     }
   ],
+  "level": {
+    "max": 3
+  },
   "result": "tconstruct:spitting",
   "slots": {
     "abilities": 1

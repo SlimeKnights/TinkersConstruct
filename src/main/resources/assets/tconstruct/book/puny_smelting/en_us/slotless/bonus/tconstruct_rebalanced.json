@@ -13,6 +13,7 @@
     "Slot type is determined by the recipe",
     "Greedy are penalized",
     "Enderslime adds a trait",
-    "Single level"
+    "Single level",
+    "Slotless"
   ]
 }

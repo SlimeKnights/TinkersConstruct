@@ -91,17 +91,13 @@ public class FluidEffectContent extends PageContent {
       if (texts == null) {
         List<TextComponentData> effectData = new ArrayList<>();
         for (Component text : components) {
-          effectData.add(new TextComponentData("\u25CF "));
-          effectData.add(new TextComponentData(text));
-          effectData.add(new TextComponentData("\n"));
+          effectData.add(new TextComponentData(Component.literal("● ").append(text)).linebreak(true));
         }
         list.add(new TextComponentElement(x, y + 14, BookScreen.PAGE_WIDTH, height, effectData));
       } else if (texts.length > 0) {
         List<TextData> effectData = new ArrayList<>();
         for (String text : texts) {
-          effectData.add(new TextData("\u25CF "));
-          effectData.add(new TextData(text));
-          effectData.add(new TextData("\n"));
+          effectData.add(new TextData("● " + text).linebreak(true));
         }
         list.add(new TextElement(x, y + 14, BookScreen.PAGE_WIDTH, height, effectData));
       }

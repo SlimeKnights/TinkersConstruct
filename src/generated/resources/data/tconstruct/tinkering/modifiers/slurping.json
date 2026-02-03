@@ -1,0 +1,25 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:slurping",
+      "duration": {
+        "flat": 21
+      }
+    },
+    {
+      "type": "tconstruct:trait",
+      "fixed_level": true,
+      "level": 1,
+      "name": "tconstruct:tank_handler"
+    },
+    {
+      "type": "tconstruct:stat_boost",
+      "each_level": 1000.0,
+      "operation": "add",
+      "stat": "tconstruct:tank_capacity"
+    }
+  ],
+  "priority": 40,
+  "tooltip_display": "always"
+}

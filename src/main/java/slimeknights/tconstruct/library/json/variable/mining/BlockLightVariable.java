@@ -8,6 +8,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import slimeknights.mantle.data.loadable.primitive.FloatLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
+import slimeknights.tconstruct.library.json.variable.entity.EntityLightVariable;
 import slimeknights.tconstruct.library.modifiers.hook.mining.BreakSpeedContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
@@ -19,9 +20,9 @@ import java.util.Optional;
  * @param lightLayer   Block light layer to use
  * @param fallback     Fallback value if missing event and player
  */
-public record BlockLightVariable(LightLayer lightLayer, float fallback) implements MiningSpeedVariable {
+public record BlockLightVariable(@Nullable LightLayer lightLayer, float fallback) implements MiningSpeedVariable {
   public static final RecordLoadable<BlockLightVariable> LOADER = RecordLoadable.create(
-    TinkerLoadables.LIGHT_LAYER.requiredField("light_layer", BlockLightVariable::lightLayer),
+    TinkerLoadables.LIGHT_LAYER.nullableField("light_layer", BlockLightVariable::lightLayer),
     FloatLoadable.ANY.requiredField("fallback", BlockLightVariable::fallback),
     BlockLightVariable::new);
 
@@ -36,7 +37,7 @@ public record BlockLightVariable(LightLayer lightLayer, float fallback) implemen
           pos = eventPos.get().relative(sideHit);
         }
       }
-      return player.level().getBrightness(lightLayer, pos);
+      return EntityLightVariable.getLightLevel(player.level(), lightLayer, pos);
     }
     return fallback;
   }
@@ -52,7 +53,7 @@ public record BlockLightVariable(LightLayer lightLayer, float fallback) implemen
           pos = contextPos.relative(context.sideHit());
         }
       }
-      return player.level().getBrightness(lightLayer, pos);
+      return EntityLightVariable.getLightLevel(player.level(), lightLayer, pos);
     }
     return fallback;
   }

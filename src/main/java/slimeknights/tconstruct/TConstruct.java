@@ -227,6 +227,7 @@ public class TConstruct {
    * @param name  Resource path
    * @return  Location for tinkers
    */
+  @SuppressWarnings("removal")
   public static ResourceLocation getResource(String name) {
     return new ResourceLocation(MOD_ID, name);
   }

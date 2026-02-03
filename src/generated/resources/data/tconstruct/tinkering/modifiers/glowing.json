@@ -2,10 +2,6 @@
   "level_display": "tconstruct:single_level",
   "modules": [
     {
-      "type": "tconstruct:show_offhand",
-      "mode": "disallow_broken"
-    },
-    {
       "type": "tconstruct:place_glow",
       "tool_damage": 5
     },
@@ -25,13 +21,11 @@
       "tool_damage": 5
     },
     {
-      "type": "tconstruct:block_item_provider",
-      "item": "tconstruct:glow",
-      "tool": {
-        "type": "mantle:tag",
-        "tag": "tconstruct:modifiable/held"
-      },
-      "tool_damage": 5
+      "type": "tconstruct:show_offhand",
+      "mode": "disallow_broken"
+    },
+    {
+      "type": "tconstruct:show_interaction_source"
     }
   ],
   "tooltip_display": "always"

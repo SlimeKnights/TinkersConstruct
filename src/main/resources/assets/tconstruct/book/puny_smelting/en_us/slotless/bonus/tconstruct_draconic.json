@@ -10,6 +10,7 @@
   ],
   "effects": [
     "Adds another ability slot",
-    "Single level"
+    "Single level",
+    "Slotless"
   ]
 }

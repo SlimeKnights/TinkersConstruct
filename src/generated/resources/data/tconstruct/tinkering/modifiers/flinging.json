@@ -1,0 +1,21 @@
+{
+  "level_display": "tconstruct:no_levels",
+  "modules": [
+    {
+      "type": "tconstruct:sling_leap",
+      "bias_upwards": false,
+      "drawtime_multiplier": 1.5,
+      "force_multiplier": -4.0,
+      "height_reduction": 3.0,
+      "leave_ground": false,
+      "target": {
+        "type": "mantle:and",
+        "predicates": [
+          "mantle:on_ground",
+          "tconstruct:targeting_block"
+        ]
+      }
+    }
+  ],
+  "tooltip_display": "always"
+}

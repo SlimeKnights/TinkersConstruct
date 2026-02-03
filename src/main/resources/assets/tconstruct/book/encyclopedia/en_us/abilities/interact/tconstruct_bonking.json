@@ -2,10 +2,10 @@
   "modifier_id": "tconstruct:bonking",
   "text": [
     {
-      "text": "Charging up then release to knock the targeted mob away, consuming 1 durability."
+      "text": "Charge and release to knockback the targeted mob, consuming 1 durability. If used on a melee weapon, does a melee attack at 150% damage."
     },
     {
-      "text": " Effect is boosted by 25% per level of power or knockback, and halved by padded. Charge time is reduced by quick charge.", "paragraph": true
+      "text": "Strength is based on half of power times velocity, plus 0.25 per knockback level. Total effect halved by padded. Quick charge reduces charge time, and target's armor ricochet and knockback resistance apply.", "paragraph": true
     }
   ],
   "more_text_space": true,

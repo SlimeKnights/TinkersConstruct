@@ -59,6 +59,7 @@ public record DamageFluidEffect(float damage, @Nullable DamageTypePair damageTyp
     } else {
       source = context.createDamageSource();
     }
+    // FIXME: this would be nicer to use the BYPASS_COOLDOWN dmanage type tag instead. However, I don't think that would work with projectiles currently.
     return ToolAttackUtil.attackEntitySecondary(source, this.damage * value, context.getTarget(), context.getLivingTarget(), true) ? value : 0;
   }
 

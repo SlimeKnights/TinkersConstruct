@@ -30,7 +30,6 @@ import slimeknights.tconstruct.library.tools.item.ranged.ModifiableLauncherItem;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.entity.ThrownTool;
-import slimeknights.tconstruct.tools.modifiers.ability.interaction.BlockingModifier;
 
 import java.util.List;
 
@@ -63,7 +62,7 @@ public enum ThrowingModule implements ModifierModule, GeneralInteractionModifier
 
   @Override
   public UseAnim getUseAction(IToolStackView tool, ModifierEntry modifier) {
-    return BlockingModifier.blockWhileCharging(tool, UseAnim.SPEAR);
+    return ModifierUtil.blockWhileCharging(tool, UseAnim.SPEAR);
   }
 
   @Override

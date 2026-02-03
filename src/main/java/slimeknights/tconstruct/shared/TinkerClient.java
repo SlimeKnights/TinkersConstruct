@@ -79,7 +79,7 @@ public class TinkerClient {
     ArmorTextureSupplier.LOADER.register(getResource("first_present"), FirstArmorTextureSupplier.LOADER);
     ArmorTextureSupplier.LOADER.register(getResource("material"), MaterialArmorTextureSupplier.Material.LOADER);
     ArmorTextureSupplier.LOADER.register(getResource("persistent_data"), MaterialArmorTextureSupplier.PersistentData.LOADER);
-    ArmorTextureSupplier.LOADER.register(getResource("trim"), TrimArmorTextureSupplier.INSTANCE.getLoader());
+    ArmorTextureSupplier.LOADER.register(getResource("trim"), TrimArmorTextureSupplier.LOADER);
   }
 
   @SubscribeEvent

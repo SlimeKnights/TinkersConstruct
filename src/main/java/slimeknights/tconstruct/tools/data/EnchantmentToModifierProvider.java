@@ -29,22 +29,22 @@ public class EnchantmentToModifierProvider extends AbstractEnchantmentToModifier
     add(Enchantments.THORNS, ModifierIds.thorns);
     add(Enchantments.DEPTH_STRIDER, ModifierIds.depthStrider);
     add(Enchantments.FROST_WALKER, ModifierIds.frostWalker);
-    add(Enchantments.SOUL_SPEED, TinkerModifiers.soulspeed.getId());
+    add(Enchantments.SOUL_SPEED, ModifierIds.soulspeed);
     add(Enchantments.SWIFT_SNEAK, ModifierIds.swiftSneak);
 
     // melee
     add(Enchantments.SHARPNESS, ModifierIds.sharpness);
     add(Enchantments.SMITE, ModifierIds.smite);
     add(Enchantments.BANE_OF_ARTHROPODS, ModifierIds.baneOfSssss);
-    add(Enchantments.KNOCKBACK, TinkerModifiers.knockback.getId());
+    add(Enchantments.KNOCKBACK, ModifierIds.knockback);
     add(Enchantments.FIRE_ASPECT, ModifierIds.fiery);
     add(Enchantments.MOB_LOOTING, ModifierIds.luck);
-    add(Enchantments.SWEEPING_EDGE, TinkerModifiers.sweeping.getId());
+    add(Enchantments.SWEEPING_EDGE, ModifierIds.sweeping);
     add(Enchantments.IMPALING, ModifierIds.antiaquatic);
 
     // harvest
     add(Enchantments.BLOCK_EFFICIENCY, ModifierIds.haste);
-    add(Enchantments.SILK_TOUCH, TinkerModifiers.silky.getId());
+    add(Enchantments.SILK_TOUCH, ModifierIds.silky);
     add(Enchantments.BLOCK_FORTUNE, ModifierIds.luck);
 
     // ranged
@@ -52,7 +52,7 @@ public class EnchantmentToModifierProvider extends AbstractEnchantmentToModifier
     add(Enchantments.PUNCH_ARROWS, ModifierIds.punch);
     add(Enchantments.FLAMING_ARROWS, ModifierIds.fiery);
     add(Enchantments.INFINITY_ARROWS, ModifierIds.crystalshot);
-    add(Enchantments.MULTISHOT, TinkerModifiers.multishot.getId());
+    add(Enchantments.MULTISHOT, ModifierIds.multishot);
     add(Enchantments.QUICK_CHARGE, ModifierIds.quickCharge);
     add(Enchantments.PIERCING, ModifierIds.arrowPierce);
 
@@ -84,14 +84,14 @@ public class EnchantmentToModifierProvider extends AbstractEnchantmentToModifier
     addCompat(ModifierIds.revitalizing);
 
     // ability
-    addCompat(TinkerModifiers.autosmelt.getId());
+    addCompat(ModifierIds.autosmelt);
     addCompat(ModifierIds.doubleJump);
-    addCompat(TinkerModifiers.expanded.getId());
+    addCompat(ModifierIds.expanded);
     addCompat(ModifierIds.luck);
-    addCompat(TinkerModifiers.multishot.getId());
+    addCompat(ModifierIds.multishot);
     addCompat(ModifierIds.reach);
     addCompat(ModifierIds.tilling);
-    addCompat(TinkerModifiers.reflecting.getId());
+    addCompat(ModifierIds.reflecting);
   }
 
   /** Adds a compat enchantment */

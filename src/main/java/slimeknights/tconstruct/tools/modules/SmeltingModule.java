@@ -25,6 +25,7 @@ import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.field.LoadableField;
@@ -48,6 +49,7 @@ import slimeknights.tconstruct.library.modifiers.hook.ranged.LauncherHitModifier
 import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileLaunchModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.special.PlantHarvestModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.special.ShearsModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.special.sling.SlingLaunchModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.module.HookProvider;
 import slimeknights.tconstruct.library.module.ModuleHook;
@@ -70,7 +72,7 @@ import java.util.Objects;
 import static slimeknights.tconstruct.library.tools.capability.inventory.InventoryModule.TAG_SLOT;
 
 /** Module that cooks items inside a frypan */
-public record SmeltingModule(RecipeType<? extends AbstractCookingRecipe> recipeType, float multiplier, InventoryModule input, InventoryModule output) implements ModifierModule, MeleeHitModifierHook, MonsterMeleeHitModifierHook.RedirectAfter, LauncherHitModifierHook, BlockHarvestModifierHook, ProjectileLaunchModifierHook, OnAttackedModifierHook, PlantHarvestModifierHook, ShearsModifierHook {
+public record SmeltingModule(RecipeType<? extends AbstractCookingRecipe> recipeType, float multiplier, InventoryModule input, InventoryModule output) implements ModifierModule, MeleeHitModifierHook, MonsterMeleeHitModifierHook.RedirectAfter, LauncherHitModifierHook, BlockHarvestModifierHook, ProjectileLaunchModifierHook, OnAttackedModifierHook, PlantHarvestModifierHook, ShearsModifierHook, SlingLaunchModifierHook {
   /** NBT key to store the cooking time */
   private static final String TAG_TIME = "tic_remaining_time";
   /** Container instance for recipe lookups */
@@ -79,7 +81,7 @@ public record SmeltingModule(RecipeType<? extends AbstractCookingRecipe> recipeT
   private static AbstractCookingRecipe lastRecipe = null;
   /** Cooking time for when a slot has no available recipe */
   private static final int NO_RECIPE = -1;
-  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<SmeltingModule>defaultHooks(ModifierHooks.MELEE_HIT, ModifierHooks.MONSTER_MELEE_HIT, ModifierHooks.LAUNCHER_HIT, ModifierHooks.BLOCK_HARVEST, ModifierHooks.PROJECTILE_LAUNCH, ModifierHooks.ON_ATTACKED, ModifierHooks.PLANT_HARVEST, ModifierHooks.SHEAR_ENTITY);
+  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<SmeltingModule>defaultHooks(ModifierHooks.MELEE_HIT, ModifierHooks.MONSTER_MELEE_HIT, ModifierHooks.LAUNCHER_HIT, ModifierHooks.BLOCK_HARVEST, ModifierHooks.PROJECTILE_LAUNCH, ModifierHooks.ON_ATTACKED, ModifierHooks.PLANT_HARVEST, ModifierHooks.SHEAR_ENTITY, ModifierHooks.SLING_LAUNCH);
   @SuppressWarnings("unchecked")
   public static final RecordLoadable<SmeltingModule> LOADER = RecordLoadable.create(
     TinkerLoadables.RECIPE_TYPE.<RecipeType<? extends AbstractCookingRecipe>>flatXmap(t -> (RecipeType<? extends AbstractCookingRecipe>) t, t -> t)
@@ -289,7 +291,9 @@ public record SmeltingModule(RecipeType<? extends AbstractCookingRecipe> recipeT
 
   @Override
   public void finishHarvest(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context, int harvested) {
-    cookItems(tool, modifier, context.getLiving(), harvested);
+    if (tool.hasTag(TinkerTags.Items.HARVEST)) {
+      cookItems(tool, modifier, context.getLiving(), harvested);
+    }
   }
 
   @Override
@@ -312,6 +316,12 @@ public record SmeltingModule(RecipeType<? extends AbstractCookingRecipe> recipeT
     if (tool.hasTag(TinkerTags.Items.ARMOR)) {
       cookItems(tool, modifier, context.getEntity(), amount);
     }
+  }
+
+  @Override
+  public void afterSlingLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity holder, LivingEntity target, ModifierEntry slingSource, float force, float multiplier, Vec3 angle) {
+    // power becomes force, but is halved when applied, so double it. Divide by sling specific multipliers
+    cookItems(tool, modifier, holder, force * 2 / multiplier);
   }
 
   @Override

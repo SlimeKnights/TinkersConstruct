@@ -1,0 +1,32 @@
+{
+  "level_display": "tconstruct:no_levels",
+  "modules": [
+    {
+      "type": "tconstruct:trait",
+      "fixed_level": true,
+      "level": 1,
+      "name": "tconstruct:tank_handler"
+    },
+    {
+      "type": "tconstruct:stat_boost",
+      "flat": 1000.0,
+      "operation": "add",
+      "stat": "tconstruct:tank_capacity"
+    },
+    {
+      "type": "tconstruct:bucket"
+    },
+    {
+      "type": "tconstruct:tank_interaction",
+      "interaction_source": "armor"
+    },
+    {
+      "type": "tconstruct:show_offhand",
+      "mode": "allow_broken"
+    },
+    {
+      "type": "tconstruct:show_interaction_source"
+    }
+  ],
+  "tooltip_display": "always"
+}

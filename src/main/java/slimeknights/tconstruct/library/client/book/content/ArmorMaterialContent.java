@@ -155,7 +155,7 @@ public class ArmorMaterialContent extends AbstractMaterialContent {
       addStatLine(lineData, stats, ToolStats.ARMOR_TOUGHNESS, PlatingMaterialStats::toughness);
       addStatLine(lineData, stats, ToolStats.KNOCKBACK_RESISTANCE, stat -> stat.knockbackResistance() * 10);
       list.add(new TextComponentElement(x - 2, y, BookScreen.PAGE_WIDTH - 20, BookScreen.PAGE_HEIGHT, lineData));
-      y += lineData.size() * 5;
+      y += lineData.size() * 10;
     }
 
     // material traits
@@ -183,8 +183,8 @@ public class ArmorMaterialContent extends AbstractMaterialContent {
     String stats = allMatch ? values[0] : Strings.join(values, " / ");
     TextComponentData data = new TextComponentData(stat.getPrefix().append(Component.literal(stats).withStyle(style -> style.withColor(stat.getColor()))));
     data.tooltips = new Component[] { stat.getDescription() };
+    data.linebreak = true;
     lineData.add(data);
-    lineData.add(new TextComponentData("\n"));
   }
 
   /** Adds trait info to the listing */
@@ -203,6 +203,7 @@ public class ArmorMaterialContent extends AbstractMaterialContent {
     addTraitLines(lineData, registry.getTraits(material.getId(), statsId));
     list.add(new TextComponentElement(x, y, STAT_WIDTH, BookScreen.PAGE_HEIGHT, lineData));
 
-    return y + (lineData.size() * 5) + 3;
+    // TODO: calculate actual height to properly wrap long lines?
+    return y + (lineData.size() * 10) + 3;
   }
 }

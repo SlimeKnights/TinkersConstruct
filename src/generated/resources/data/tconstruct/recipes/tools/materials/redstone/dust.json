@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:material",
+  "ingredient": {
+    "tag": "forge:dusts/redstone"
+  },
+  "material": "tconstruct:redstone",
+  "needed": 4,
+  "value": 1
+}

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.tools.definition.module.weapon;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
@@ -10,13 +11,14 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import slimeknights.mantle.data.loadable.primitive.FloatLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.module.HookProvider;
 import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.definition.module.ToolHooks;
 import slimeknights.tconstruct.library.tools.definition.module.ToolModule;
+import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import java.util.List;
 
@@ -24,6 +26,8 @@ import java.util.List;
 public record SweepWeaponAttack(float range) implements MeleeHitToolHook, ToolModule {
   public static final RecordLoadable<SweepWeaponAttack> LOADER = RecordLoadable.create(FloatLoadable.FROM_ZERO.defaultField("range", 0f, true, SweepWeaponAttack::range), SweepWeaponAttack::new);
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<SweepWeaponAttack>defaultHooks(ToolHooks.MELEE_HIT);
+  /** Volatile data float for the percentage of sweep damage to deal */
+  public static final ResourceLocation SWEEP_PERCENT = TConstruct.getResource("sweep_percent");
 
   @Override
   public List<ModuleHook<?>> getDefaultHooks() {
@@ -35,6 +39,19 @@ public record SweepWeaponAttack(float range) implements MeleeHitToolHook, ToolMo
     return LOADER;
   }
 
+  /** Gets the damage dealt by this tool, boosted properly by sweeping */
+  public static float getSweepingDamage(IToolStackView tool, float baseDamage) {
+    float percent = tool.getVolatileData().getFloat(SWEEP_PERCENT);
+    float sweepingDamage = 1;
+    if (percent > 1) {
+      sweepingDamage = baseDamage;
+    } else if (percent > 0) {
+      // don't deal more damage to sweep than main target
+      sweepingDamage = Math.min(baseDamage, percent * baseDamage + 1);
+    }
+    return sweepingDamage;
+  }
+
   @Override
   public void afterMeleeHit(IToolStackView tool, ToolAttackContext context, float damage) {
     // sweep code from Player#attack(Entity)
@@ -42,11 +59,11 @@ public record SweepWeaponAttack(float range) implements MeleeHitToolHook, ToolMo
     LivingEntity attacker = context.getAttacker();
     if (context.isFullyCharged() && !attacker.isSprinting() && !context.isCritical() && !context.isProjectile() && attacker.onGround() && (attacker.walkDist - attacker.walkDistO) < attacker.getSpeed()) {
       // loop through all nearby entities
-      double range = this.range + tool.getModifierLevel(TinkerModifiers.expanded.getId());
+      double range = this.range + tool.getVolatileData().getInt(IModifiable.EXPANDED);
       double rangeSq = (2 + range); // TODO: why do we add 2 here? should that not be defined in the datagen?
       rangeSq *= rangeSq;
       // if the modifier is missing, sweeping damage will be 0, so easiest to let it fully control this
-      float sweepDamage = TinkerModifiers.sweeping.get().getSweepingDamage(tool, damage);
+      float sweepDamage = getSweepingDamage(tool, damage);
       Entity target = context.getTarget();
       Level level = attacker.level();
       DamageSource source = context.makeDamageSource();

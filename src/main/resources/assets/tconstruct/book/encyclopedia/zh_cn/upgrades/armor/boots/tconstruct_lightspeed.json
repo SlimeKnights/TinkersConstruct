@@ -13,7 +13,7 @@
   "tool_filter": "tconstruct:modifiable/armor/boots",
   "effects": [
     "可以逐级强化",
-    "最高5级",
+    "最高3级",
     "每级需要1个升级槽"
   ]
 }

@@ -2,10 +2,6 @@
   "level_display": "tconstruct:no_levels",
   "modules": [
     {
-      "type": "tconstruct:show_offhand",
-      "mode": "disallow_broken"
-    },
-    {
       "type": "tconstruct:tool_action_transform",
       "require_ground": false,
       "sound": "minecraft:item.hoe.till",
@@ -19,6 +15,13 @@
       },
       "sound": "minecraft:item.hoe.till",
       "tool_action": "till"
+    },
+    {
+      "type": "tconstruct:show_offhand",
+      "mode": "disallow_broken"
+    },
+    {
+      "type": "tconstruct:show_interaction_source"
     }
   ],
   "tooltip_display": "always"

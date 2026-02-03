@@ -29,6 +29,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoField;
+import java.util.List;
 
 public abstract class ArmoredSlimeEntity extends Slime {
   private static final EntityDataAccessor<Boolean> METAL = SynchedEntityData.defineId(ArmoredSlimeEntity.class, EntityDataSerializers.BOOLEAN);
@@ -99,6 +100,11 @@ public abstract class ArmoredSlimeEntity extends Slime {
   @Override
   protected void populateDefaultEquipmentEnchantments(RandomSource random, DifficultyInstance difficulty) {
     // no-op, unused
+  }
+
+  @Override
+  public Iterable<ItemStack> getArmorSlots() {
+    return List.of(getItemBySlot(EquipmentSlot.HEAD));
   }
 
   @Override

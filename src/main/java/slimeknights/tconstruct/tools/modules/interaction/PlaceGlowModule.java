@@ -2,8 +2,6 @@ package slimeknights.tconstruct.tools.modules.interaction;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -11,9 +9,9 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
-import slimeknights.tconstruct.library.modifiers.hook.display.DisplayNameModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.BlockInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.modifiers.hook.mining.RemoveBlockModifierHook;
@@ -30,16 +28,11 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 /** Module to place a glow on right click */
-public record PlaceGlowModule(int damage) implements ModifierModule, DisplayNameModifierHook, BlockInteractionModifierHook, RemoveBlockModifierHook {
-  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<PlaceGlowModule>defaultHooks(ModifierHooks.DISPLAY_NAME, ModifierHooks.BLOCK_INTERACT, ModifierHooks.REMOVE_BLOCK);
+public record PlaceGlowModule(int damage) implements ModifierModule, BlockInteractionModifierHook, RemoveBlockModifierHook {
+  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<PlaceGlowModule>defaultHooks(ModifierHooks.BLOCK_INTERACT, ModifierHooks.REMOVE_BLOCK);
   public static final RecordLoadable<PlaceGlowModule> LOADER = RecordLoadable.create(
     IntLoadable.FROM_ZERO.requiredField("tool_damage", PlaceGlowModule::damage),
     PlaceGlowModule::new);
-
-  @Override
-  public Integer getPriority() {
-    return 70;
-  }
 
   @Override
   public RecordLoadable<PlaceGlowModule> getLoader() {
@@ -49,11 +42,6 @@ public record PlaceGlowModule(int damage) implements ModifierModule, DisplayName
   @Override
   public List<ModuleHook<?>> getDefaultHooks() {
     return DEFAULT_HOOKS;
-  }
-
-  @Override
-  public Component getDisplayName(IToolStackView tool, ModifierEntry entry, Component name, @Nullable RegistryAccess access) {
-    return InteractionSource.formatModifierName(tool, entry.getModifier(), name);
   }
 
   @Override
@@ -80,7 +68,9 @@ public record PlaceGlowModule(int damage) implements ModifierModule, DisplayName
   @Nullable
   @Override
   public Boolean removeBlock(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context) {
-    if (context.getState().is(TinkerCommons.glowBlock.get()) && tool.getHook(ToolHooks.INTERACTION).canInteract(tool, modifier.getId(), InteractionSource.LEFT_CLICK)) {
+    // if we have left click modifiers active, ensure we don't break the block on left click
+    // otherwise our newly placed block is immediately removed
+    if (context.getState().is(TinkerCommons.glowBlock.get()) && tool.hasTag(TinkerTags.Items.INTERACTABLE_LEFT) && tool.getHook(ToolHooks.INTERACTION).canInteract(tool, modifier.getId(), InteractionSource.LEFT_CLICK)) {
       return false;
     }
     return null;

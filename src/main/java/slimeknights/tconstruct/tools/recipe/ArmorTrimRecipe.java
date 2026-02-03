@@ -32,7 +32,7 @@ import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
-import slimeknights.tconstruct.tools.modifiers.slotless.TrimModifier;
+import slimeknights.tconstruct.tools.modules.cosmetic.TrimModule;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -116,11 +116,11 @@ public class ArmorTrimRecipe implements ITinkerStationRecipe, IMultiRecipe<IDisp
     // store into tool NBT
     ToolStack tool = inv.getTinkerable().copy();
     ModDataNBT persistentData = tool.getPersistentData();
-    persistentData.putString(TrimModifier.TRIM_MATERIAL, material.get().key().location().toString());
-    persistentData.putString(TrimModifier.TRIM_PATTERN, pattern.get().key().location().toString());
+    ModifierId modifier = TinkerModifiers.trim.getId();
+    persistentData.putString(TrimModule.materialKey(modifier), material.get().key().location().toString());
+    persistentData.putString(TrimModule.patternKey(modifier), pattern.get().key().location().toString());
 
     // add the modifier if missing
-    ModifierId modifier = TinkerModifiers.trim.getId();
     if (tool.getModifierLevel(modifier) == 0) {
       tool.addModifier(modifier, 1);
     }
@@ -178,7 +178,8 @@ public class ArmorTrimRecipe implements ITinkerStationRecipe, IMultiRecipe<IDisp
 
       String materialName = holder.key().location().toString();
       List<ModifierEntry> results = List.of(RESULT);
-      toolWithModifier = tools.stream().map(stack -> IDisplayModifierRecipe.withModifiers(stack, results, data -> data.putString(TrimModifier.TRIM_MATERIAL, materialName))).toList();
+      ResourceLocation key = TrimModule.materialKey(TinkerModifiers.trim.getId());
+      toolWithModifier = tools.stream().map(stack -> IDisplayModifierRecipe.withModifiers(stack, results, data -> data.putString(key, materialName))).toList();
 
     }
 

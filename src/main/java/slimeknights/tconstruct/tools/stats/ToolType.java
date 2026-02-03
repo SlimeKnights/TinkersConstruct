@@ -15,9 +15,15 @@ import java.util.Locale;
 @RequiredArgsConstructor
 @Getter
 public enum ToolType implements StringRepresentable {
+  /** Held melee weapons such as swords, does not include unarmed. */
   MELEE(TinkerTags.Items.MELEE_WEAPON),
+  /** Block breaking tools such as pickaxes or swords */
   HARVEST(TinkerTags.Items.HARVEST),
+  /** Ranged tools that support velocity and drawspeed */
   RANGED(TinkerTags.Items.RANGED),
+  /** Ranged tools that support velocity, drawspeed, and power */
+  LAUNCHER(TinkerTags.Items.LAUNCHERS),
+  /** Defensive items, including held and worn armor */
   ARMOR(TinkerTags.Items.ARMOR);
 
   public static final ToolType[] NO_MELEE = {HARVEST, RANGED, ARMOR};

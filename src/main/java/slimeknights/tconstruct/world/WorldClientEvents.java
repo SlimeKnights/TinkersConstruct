@@ -98,6 +98,7 @@ public class WorldClientEvents extends ClientEventBase {
     event.registerEntityRenderer(TinkerWorld.terracubeEntity.get(), TerracubeRenderer::new);
   }
 
+  @SuppressWarnings("removal")
   @SubscribeEvent
   static void clientSetup(FMLClientSetupEvent event) {
     // skull textures
@@ -169,7 +170,7 @@ public class WorldClientEvents extends ClientEventBase {
   /**
    * Block colors for a slime type
    * @param pos   Block position
-   * @param type  Slime foilage color
+   * @param type  Slime foliage color
    * @param add   Offset position
    * @return  Color for the given position, or the default if position is null
    */

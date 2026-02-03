@@ -36,7 +36,8 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addTraits(MaterialIds.bone, AMMO, ModifierIds.spike);
     addDefaultTraits(MaterialIds.bamboo, ModifierIds.unburdened);
     addTraits(MaterialIds.bamboo, AMMO, ModifierIds.woodwind);
-    addDefaultTraits(MaterialIds.cactus, ModifierIds.thorns);
+    addDefaultTraits(MaterialIds.cactus, ModifierIds.spiny);
+    addTraits(MaterialIds.cactus, ARMOR, ModifierIds.thorns);
     addTraits(MaterialIds.wool, AMMO, ModifierIds.soft);
     noTraits(MaterialIds.feather);
     addTraits(MaterialIds.paper, AMMO, ModifierIds.weak);
@@ -46,8 +47,8 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addTraits(MaterialIds.chorus, ARMOR, ModifierIds.enderclearance);
     // tier 1 - binding
     addDefaultTraits(MaterialIds.string, ModifierIds.stringy);
-    addDefaultTraits(MaterialIds.leather, TinkerModifiers.tanned);
-    addDefaultTraits(MaterialIds.vine, TinkerModifiers.solarPowered);
+    addDefaultTraits(MaterialIds.leather, ModifierIds.tanned);
+    addDefaultTraits(MaterialIds.vine, ModifierIds.solarPowered);
     addTraits(MaterialIds.gold, ARMOR, TinkerModifiers.golden.getId(), ModifierIds.magicProtection);
     addTraits(MaterialIds.gold, PlatingMaterialStats.SHIELD.getId(), ModifierIds.magicProtection);
 
@@ -86,6 +87,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addTraits(MaterialIds.glass, AMMO, ModifierIds.amorphous, ModifierIds.smashingAmmo, ModifierIds.spillingRod);
     addTraits(MaterialIds.slimeball, AMMO, ModifierIds.erratic);
     addTraits(MaterialIds.gunpowder, AMMO, ModifierIds.explosive);
+    addTraits(MaterialIds.redstone, AMMO, ModifierIds.supercharged);
 
     // tier 3
     addDefaultTraits(MaterialIds.slimesteel, ModifierIds.overcast, TinkerModifiers.overslime.getId());
@@ -94,7 +96,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addTraits(MaterialIds.amethystBronze, ARMOR, ModifierIds.crystalstrike);
     addDefaultTraits(MaterialIds.nahuatl, TinkerModifiers.lacerating);
     addDefaultTraits(MaterialIds.roseGold, ModifierIds.enhanced);
-    addDefaultTraits(MaterialIds.pigIron, TinkerModifiers.tasty);
+    addDefaultTraits(MaterialIds.pigIron, ModifierIds.tasty);
     addTraits(MaterialIds.obsidian, ARMOR, ModifierIds.blastProtection);
     // tier 3 - nether
     addDefaultTraits(MaterialIds.cobalt, ModifierIds.lightweight);
@@ -163,7 +165,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.steeleaf, ModifierIds.experienced);
     addTraits(MaterialIds.steeleaf, AMMO, ModifierIds.looting);
     // tier 4 - mod compat
-    addDefaultTraits(MaterialIds.fiery, TinkerModifiers.autosmelt);
+    addDefaultTraits(MaterialIds.fiery, ModifierIds.autosmelt);
     addTraits(MaterialIds.fiery, ARMOR, ModifierIds.temperedProtection);
 
     // slimeskull

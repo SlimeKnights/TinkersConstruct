@@ -97,6 +97,12 @@ public class MaterialRegistryImpl implements IMaterialRegistry {
     return materialStatsManager.getStats(materialId, statsId);
   }
 
+  @Nullable
+  @Override
+  public <T extends IMaterialStats> T getStatsOrDefault(MaterialId materialId, MaterialStatsId statsId) {
+    return materialStatsManager.getStatsOrDefault(materialId, statsId);
+  }
+
   @Override
   public Collection<IMaterialStats> getAllStats(MaterialId materialId) {
     return materialStatsManager.getAllStats(materialId);

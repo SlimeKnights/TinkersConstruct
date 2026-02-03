@@ -2,7 +2,7 @@
   "title": "탐험",
   "subText": "많은 대장장이들이 유용한 수식어나 도구 재료를 언급하지만, 정작 그것들을 얻는 방법은 알려주지 않았지. 운 좋게도 내가 여행 중에 많은 곳을 발견했으니까, 내가 발견한 걸 너희에게 전할 수 있을 거야.",
   "operations": [
-    { "before": "grass_seeds", "action": "add_group", "data": "자원" },
+    { "before": "steel_shard", "action": "add_group", "data": "자원" },
     { "before": "skyslime_island", "action": "column_break" },
     { "before": "skyslime_island", "action": "add_group", "data": "섬" },
     { "before": "skyslime_geode", "action": "column_break" },

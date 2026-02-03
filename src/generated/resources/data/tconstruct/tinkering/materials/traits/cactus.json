@@ -2,7 +2,15 @@
   "default": [
     {
       "level": 1,
-      "name": "tconstruct:thorns"
+      "name": "tconstruct:spiny"
     }
-  ]
+  ],
+  "perStat": {
+    "tconstruct:armor": [
+      {
+        "level": 1,
+        "name": "tconstruct:thorns"
+      }
+    ]
+  }
 }

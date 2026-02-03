@@ -2,15 +2,7 @@
   "level_display": "tconstruct:no_levels",
   "modules": [
     {
-      "type": "tconstruct:show_offhand",
-      "mode": "disallow_broken"
-    },
-    {
-      "type": "tconstruct:campfire_extinguish",
-      "hooks": [
-        "tconstruct:block_interact",
-        "tconstruct:aoe_highlight"
-      ]
+      "type": "tconstruct:campfire_extinguish"
     },
     {
       "type": "tconstruct:tool_action_transform",
@@ -26,6 +18,13 @@
       },
       "sound": "minecraft:item.shovel.flatten",
       "tool_action": "shovel_flatten"
+    },
+    {
+      "type": "tconstruct:show_offhand",
+      "mode": "disallow_broken"
+    },
+    {
+      "type": "tconstruct:show_interaction_source"
     }
   ],
   "tooltip_display": "always"

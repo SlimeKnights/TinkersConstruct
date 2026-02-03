@@ -1,0 +1,11 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:fov",
+      "action": "decrease",
+      "each_level": 0.05
+    }
+  ],
+  "tooltip_display": "always"
+}

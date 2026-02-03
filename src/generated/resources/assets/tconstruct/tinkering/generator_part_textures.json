@@ -910,6 +910,10 @@
       "stat_type": "tconstruct:arrow_head"
     },
     {
+      "path": "tconstruct:item/tool/fishing_rod/hook_cast",
+      "stat_type": "tconstruct:arrow_head"
+    },
+    {
       "path": "tconstruct:item/tool/javelin/head",
       "stat_type": "tconstruct:head"
     },

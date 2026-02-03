@@ -2,10 +2,10 @@
   "modifier_id": "tconstruct:springing",
   "text": [
     {
-      "text": "Charging up then release to launch yourself in the targeted direction, consuming 1 durability."
+      "text": "Charge and release to launch yourself in the targeted direction for 1 durability."
     },
     {
-      "text": " Effect is boosted by 25% per level of power or knockback, and halved by padded. Charge time is reduced by quick charge.", "paragraph": true
+      "text": "Effect strength is based on half of power times velocity. Boosted by knockback multiplied by armor knockback such as ricochet and knockback resistance. Total effect halved by padded. Quick charge reduces charge time.", "paragraph": true
     }
   ],
   "more_text_space": true,

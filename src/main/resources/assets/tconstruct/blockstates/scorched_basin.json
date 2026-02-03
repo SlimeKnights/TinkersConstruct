@@ -1,8 +1,12 @@
 {
   "variants": {
-    "facing=north": { "model": "tconstruct:block/foundry/basin" },
-    "facing=south": { "model": "tconstruct:block/foundry/basin", "y": 180 },
-    "facing=west":  { "model": "tconstruct:block/foundry/basin", "y": 270 },
-    "facing=east":  { "model": "tconstruct:block/foundry/basin", "y":  90 }
+    "facing=north,has_item=true": { "model": "tconstruct:block/foundry/basin" },
+    "facing=south,has_item=true": { "model": "tconstruct:block/foundry/basin", "y": 180 },
+    "facing=west,has_item=true":  { "model": "tconstruct:block/foundry/basin", "y": 270 },
+    "facing=east,has_item=true":  { "model": "tconstruct:block/foundry/basin", "y":  90 },
+    "facing=north,has_item=false": { "model": "tconstruct:block/foundry/basin_covered" },
+    "facing=south,has_item=false": { "model": "tconstruct:block/foundry/basin_covered", "y": 180 },
+    "facing=west,has_item=false":  { "model": "tconstruct:block/foundry/basin_covered", "y": 270 },
+    "facing=east,has_item=false":  { "model": "tconstruct:block/foundry/basin_covered", "y":  90 }
   }
 }
