@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "tag": "forge:ingots/knightslime"
+  },
+  "result": {
+    "amount": 90,
+    "fluid": "tconstruct:molten_knightslime"
+  },
+  "temperature": 1125,
+  "time": 70
+}

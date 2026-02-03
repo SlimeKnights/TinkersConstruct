@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:alloy",
+  "inputs": [
+    {
+      "amount": 90,
+      "tag": "forge:molten_cobalt"
+    },
+    {
+      "amount": 250,
+      "tag": "tconstruct:ender_slime"
+    },
+    {
+      "amount": 250,
+      "tag": "tconstruct:molten_obsidian"
+    }
+  ],
+  "result": {
+    "amount": 180,
+    "fluid": "tconstruct:molten_knightslime"
+  },
+  "temperature": 1125
+}

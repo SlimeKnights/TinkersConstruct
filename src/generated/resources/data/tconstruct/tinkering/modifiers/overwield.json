@@ -1,0 +1,124 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:conditional_mining_speed",
+      "formula": [
+        "$overslime",
+        "$level",
+        "min",
+        8.0,
+        "*",
+        "$multiplier",
+        "*",
+        "$speed",
+        "+"
+      ],
+      "percent": false,
+      "require_effective": true,
+      "tool": {
+        "type": "mantle:inverted",
+        "inverted_type": "mantle:tag",
+        "tag": "tconstruct:modifiable/broad"
+      },
+      "variables": {
+        "overslime": {
+          "type": "tconstruct:mod_data",
+          "key": "tconstruct:overslime",
+          "source": "persistent"
+        }
+      }
+    },
+    {
+      "type": "tconstruct:mining_capacity",
+      "grant": {
+        "each_level": -1
+      },
+      "owner": "tconstruct:overslime",
+      "run_before": true,
+      "tool": {
+        "type": "mantle:inverted",
+        "inverted_type": "mantle:tag",
+        "tag": "tconstruct:modifiable/broad"
+      }
+    },
+    {
+      "type": "tconstruct:conditional_mining_speed",
+      "formula": [
+        "$overslime",
+        5.0,
+        "$level",
+        "*",
+        "min",
+        5.0,
+        "/",
+        8.0,
+        "*",
+        "$multiplier",
+        "*",
+        "$speed",
+        "+"
+      ],
+      "percent": false,
+      "require_effective": true,
+      "tool": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:modifiable/broad"
+      },
+      "variables": {
+        "overslime": {
+          "type": "tconstruct:mod_data",
+          "key": "tconstruct:overslime",
+          "source": "persistent"
+        }
+      }
+    },
+    {
+      "type": "tconstruct:mining_capacity",
+      "grant": {
+        "each_level": -5
+      },
+      "owner": "tconstruct:overslime",
+      "run_before": true,
+      "tool": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:modifiable/broad"
+      }
+    },
+    {
+      "type": "tconstruct:conditional_stat",
+      "formula": [
+        "$overslime",
+        "$level",
+        "min",
+        0.1,
+        "*",
+        "$multiplier",
+        "*",
+        "$value",
+        "+"
+      ],
+      "percent": false,
+      "stat": "tconstruct:velocity",
+      "variables": {
+        "overslime": {
+          "type": "tconstruct:mod_data",
+          "key": "tconstruct:overslime",
+          "source": "persistent"
+        }
+      }
+    },
+    {
+      "type": "tconstruct:launch_capacity",
+      "grant": {
+        "each_level": -1
+      },
+      "owner": "tconstruct:overslime",
+      "tool": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:modifiable/ranged"
+      }
+    }
+  ],
+  "tooltip_display": "always"
+}

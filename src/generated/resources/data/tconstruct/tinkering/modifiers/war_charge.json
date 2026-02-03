@@ -10,6 +10,7 @@
       "grant": {
         "flat": 1
       },
+      "run_before": false,
       "tool": {
         "type": "tconstruct:has_persistent_key",
         "key": "tconstruct:crossbow_ammo"

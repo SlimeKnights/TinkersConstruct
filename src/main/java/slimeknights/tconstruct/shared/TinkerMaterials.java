@@ -53,12 +53,14 @@ public final class TinkerMaterials extends TinkerModule {
   public static final MetalItemObject manyullyn   = BLOCKS.registerMetal("manyullyn", metalBuilder(MapColor.COLOR_PURPLE).sound(SoundType.NETHERITE_BLOCK), TOOLTIP_BLOCK_ITEM, ITEM_PROPS);
   public static final MetalItemObject hepatizon   = BLOCKS.registerMetal("hepatizon", metalBuilder(MapColor.TERRACOTTA_BLUE).sound(SoundType.NETHERITE_BLOCK), TOOLTIP_BLOCK_ITEM, ITEM_PROPS);
   public static final MetalItemObject knightmetal = BLOCKS.registerMetal("knightmetal", () -> new KnightMetalBlock(metalBuilder(MapColor.GRASS).sound(SoundType.NETHERITE_BLOCK).noOcclusion()), TOOLTIP_BLOCK_ITEM, ITEM_PROPS);
+  public static final MetalItemObject knightslime = BLOCKS.registerMetal("knightslime", () -> new SlimesteelBlock(metalBuilder(MapColor.COLOR_BLACK).noOcclusion()), BLOCK_ITEM, ITEM_PROPS);
+  // future
   public static final MetalItemObject soulsteel   = BLOCKS.registerMetal("soulsteel", metalBuilder(MapColor.COLOR_BROWN).noOcclusion(), BLOCK_ITEM, ITEM_PROPS);
+
+  // nuggets
   public static final ItemObject<Item> copperNugget = ITEMS.register("copper_nugget", ITEM_PROPS);
   public static final ItemObject<Item> netheriteNugget = ITEMS.register("netherite_nugget", ITEM_PROPS);
   public static final ItemObject<Item> debrisNugget = ITEMS.register("debris_nugget", TOOLTIP_ITEM);
-  // tier 5
-  public static final MetalItemObject knightslime = BLOCKS.registerMetal("knightslime", metalBuilder(MapColor.COLOR_MAGENTA), BLOCK_ITEM, ITEM_PROPS);
 
   // non-metal
   public static final ItemObject<Item> necroticBone = ITEMS.register("necrotic_bone", TOOLTIP_ITEM);
@@ -116,12 +118,12 @@ public final class TinkerMaterials extends TinkerModule {
     accept(output, hepatizon);
     output.accept(netheriteNugget);
     accept(output, knightmetal);
+    accept(output, knightslime);
     // fake storage items make more sense here than tool parts
     Consumer<ItemStack> consumer = output::accept;
     TinkerToolParts.fakeIngot.get().addVariants(consumer, "");
     TinkerToolParts.fakeStorageBlockItem.get().addVariants(consumer, "");
     // future: soulsteel
-    // future: knightslime
   }
 
   /** Adds a metal to the tab */

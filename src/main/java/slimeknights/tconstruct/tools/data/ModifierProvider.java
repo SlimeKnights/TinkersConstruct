@@ -973,6 +973,11 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
       .addModule(AttributeModule.builder(ForgeMod.ENTITY_GRAVITY.get(), Operation.MULTIPLY_TOTAL).tooltipStyle(TooltipStyle.PERCENT).flat(-0.2f))
       .addModule(AttributeModule.builder(TinkerAttributes.SAFE_FALL_DISTANCE.get(), Operation.ADDITION).flat(1));
+    buildModifier(ModifierIds.godspeed)
+      .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
+      .addModule(AttributeModule.builder(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL).tooltipStyle(TooltipStyle.PERCENT).flat(0.05f))
+      .addModule(AttributeModule.builder(Attributes.ATTACK_SPEED, Operation.MULTIPLY_TOTAL).tooltipStyle(TooltipStyle.PERCENT).flat(0.025f))
+      .addModule(AttributeModule.builder(TinkerAttributes.MINING_SPEED_MULTIPLIER, Operation.MULTIPLY_TOTAL).tooltipStyle(TooltipStyle.PERCENT).flat(0.075f));
 
     buildModifier(ModifierIds.flamestance)
       .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
@@ -1123,7 +1128,8 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(StatBoostModule.add(ToolStats.VELOCITY).toolTag(TinkerTags.Items.RANGED).eachLevel(0.1f))
       .addModule(StatBoostModule.add(ToolStats.PROJECTILE_DAMAGE).toolTag(TinkerTags.Items.AMMO).eachLevel(0.75f));
     buildModifier(ModifierIds.crystalstrike)
-      .addModule(AttributeModule.builder(Attributes.ATTACK_SPEED, Operation.MULTIPLY_TOTAL).eachLevel(0.025f))
+      .addModule(AttributeModule.builder(Attributes.ATTACK_SPEED, Operation.MULTIPLY_TOTAL).tooltipStyle(TooltipStyle.PERCENT).eachLevel(0.05f))
+      .addModule(AttributeModule.builder(TinkerAttributes.BAD_EFFECT_DURATION, Operation.MULTIPLY_TOTAL).tooltipStyle(TooltipStyle.PERCENT).eachLevel(0.05f))
       .addModule(new ArmorLevelModule(TinkerDataKeys.CRYSTALSTRIKE, false, TinkerTags.Items.HELD_ARMOR));
     buildModifier(ModifierIds.spectral).priority(60) // after explosive, before enderference
       .addModule(MobEffectModule.builder(MobEffects.GLOWING).chance(LevelingValue.flat(1)).time(RandomLevelingValue.perLevel(0, 200)).build())
@@ -1142,7 +1148,42 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(StatBoostModule.multiplyBase(ToolStats.ATTACK_DAMAGE).eachLevel(0.05f))
       .addModule(StatBoostModule.add(ToolStats.PROJECTILE_DAMAGE).eachLevel(0.25f))
       .addModule(StatBoostModule.add(ToolStats.ARMOR_TOUGHNESS).eachLevel(1));
-    buildModifier(ModifierIds.overshield).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(new OvershieldModule(1.25f, 5));
+    buildModifier(ModifierIds.overshield).addModule(new OvershieldModule(LevelingValue.eachLevel(1.25f), LevelingInt.eachLevel(5)));
+    ModifierId overslime = TinkerModifiers.overslime.getId();
+    buildModifier(ModifierIds.overwield)
+      // small tools consume 1 per mining operation
+      .addModule(ConditionalMiningSpeedModule.builder()
+        .toolItem(ItemPredicate.tag(TinkerTags.Items.BROAD_TOOLS).inverted())
+        .formula()
+        .customVariable("overslime", new ModDataVariable(overslime, ModDataSource.PERSISTENT))
+        .variable(LEVEL).min() // must have 1 overslime per level
+        .constant(8).multiply() // 8 per level
+        .variable(MULTIPLIER).multiply()
+        .variable(VALUE).add()
+        .build())
+      .addModule(MiningCapacityModule.builder().toolItem(ItemPredicate.tag(TinkerTags.Items.BROAD_TOOLS).inverted()).before(true).owner(overslime).eachLevel(-1))
+      // broad tools consume 5 per mining operation, same amount consumed with AOE
+      .addModule(ConditionalMiningSpeedModule.builder()
+        .toolTag(TinkerTags.Items.BROAD_TOOLS)
+        .formula()
+        .customVariable("overslime", new ModDataVariable(overslime, ModDataSource.PERSISTENT))
+        .constant(5).variable(LEVEL).multiply().min() // must have 5 overslime per level
+        .constant(5).divide() // scale between 0 and 5
+        .constant(8).multiply() // 8 per level
+        .variable(MULTIPLIER).multiply()
+        .variable(VALUE).add()
+        .build())
+      .addModule(MiningCapacityModule.builder().toolTag(TinkerTags.Items.BROAD_TOOLS).before(true).owner(overslime).eachLevel(-5))
+      .addModule(ConditionalStatModule.stat(ToolStats.VELOCITY)
+        .formula()
+        .customVariable("overslime", new ModDataVariable(overslime, ModDataSource.PERSISTENT))
+        .variable(LEVEL).min() // must have 1 overslime per level
+        .constant(0.1f).multiply() // +10% velocity per level
+        .variable(MULTIPLIER).multiply()
+        .variable(VALUE).add()
+        .build())
+      .addModule(LaunchCapacityModule.builder().toolTag(TinkerTags.Items.RANGED).owner(overslime).eachLevel(-1));
+
     // traits - tier 3 compat
     buildModifier(ModifierIds.maintained)
       .addModule(ConditionalMiningSpeedModule.builder()

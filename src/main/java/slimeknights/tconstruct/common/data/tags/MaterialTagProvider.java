@@ -60,7 +60,7 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
       // tiers 1-2
       MaterialIds.chorus, MaterialIds.whitestone,
       // tier 4
-      MaterialIds.knightmetal, MaterialIds.knightly, MaterialIds.enderslimeVine, MaterialIds.ancient,
+      MaterialIds.knightmetal, MaterialIds.knightly, MaterialIds.knightslime, MaterialIds.enderslimeVine, MaterialIds.ancient,
       // ammo and maille
       MaterialIds.shulker, MaterialIds.dragonScale, MaterialIds.enderslime, MaterialIds.endRod
     ).addOptional(MaterialIds.ironwood, MaterialIds.steeleaf, MaterialIds.fiery);
@@ -119,7 +119,7 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
       // tier 3
       MaterialIds.amethystBronze,
       // tier 4
-      MaterialIds.hepatizon, MaterialIds.ancientHide
+      MaterialIds.hepatizon, MaterialIds.ancientHide, MaterialIds.knightslime
     ).addOptional(
       // tier 2
       MaterialIds.lead,
@@ -184,7 +184,7 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
       // tier 3
       MaterialIds.amethystBronze, MaterialIds.steel,
       // tier 4
-      MaterialIds.manyullyn, MaterialIds.cinderslime
+      MaterialIds.manyullyn, MaterialIds.cinderslime, MaterialIds.knightslime
     ).addOptional(
       // tier 2
       MaterialIds.lead,

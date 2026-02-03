@@ -2,11 +2,7 @@
   "default": [
     {
       "level": 1,
-      "name": "tconstruct:overshield"
-    },
-    {
-      "level": 1,
-      "name": "tconstruct:overslime"
+      "name": "tconstruct:godspeed"
     }
   ]
 }

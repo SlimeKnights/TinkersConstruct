@@ -85,6 +85,7 @@ public final class MaterialIds {
   public static final MaterialId blazingBone = id("blazing_bone");
   public static final MaterialId blazewood = id("blazewood");
   public static final MaterialId knightmetal = id("knightmetal");
+  public static final MaterialId knightslime = id("knightslime");
   public static final MaterialId knightly = id("knightly");
   public static final MaterialId ancient = id("ancient");
   public static final MaterialId endRod = id("end_rod");
@@ -138,7 +139,8 @@ public final class MaterialIds {
   /** List of custom trim materials we support */
   public static final MaterialId[] TRIM_MATERIALS = {
     slimesteel, amethystBronze, pigIron, roseGold,
-    steel, cobalt, manyullyn, hepatizon, cinderslime, queensSlime, knightmetal,
+    steel, cobalt, manyullyn, hepatizon, cinderslime, queensSlime,
+    knightmetal, knightslime,
     earthslime, skyslime, ichor, enderslime
   };
 

@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.library.modifiers.modules.capacity;
 
-import lombok.Setter;
-import lombok.experimental.Accessors;
 import slimeknights.mantle.data.loadable.field.LoadableField;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
@@ -49,10 +47,14 @@ public interface CapacitySourceModule {
   }
 
   /** Builder handling the owner */
-  @Setter
-  @Accessors(fluent = true)
   class Builder<B extends Builder<B>> extends ModuleBuilder.Stack<B> {
     @Nullable
     protected ModifierId owner = null;
+
+    /** Sets the owner */
+    public B owner(ModifierId owner) {
+      this.owner = owner;
+      return self();
+    }
   }
 }

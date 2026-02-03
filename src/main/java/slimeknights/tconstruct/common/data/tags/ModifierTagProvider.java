@@ -98,7 +98,7 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
       ModifierIds.blastProtection
     );
     tag(OVERSLIME_FRIEND).add(
-      ModifierIds.overgrowth, ModifierIds.overcast, ModifierIds.overshield, ModifierIds.overburn, ModifierIds.overlord,
+      ModifierIds.overgrowth, ModifierIds.overcast, ModifierIds.overburn, ModifierIds.overlord, ModifierIds.overshield, ModifierIds.overwield,
       ModifierIds.overforced, ModifierIds.overslimeFriend, TinkerModifiers.overworked.getId()
     );
     tag(AOE_INTERACTION).add(ModifierIds.pathing, ModifierIds.stripping, ModifierIds.tilling, ModifierIds.brushing, ModifierIds.splashing, ModifierIds.harvest);

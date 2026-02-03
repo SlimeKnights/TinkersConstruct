@@ -135,7 +135,9 @@ public class FluidTagProvider extends FluidTagsProvider {
         // small gem
         TinkerFluids.moltenAmethyst.getLocalTag(), TinkerFluids.moltenQuartz.getLocalTag(),
         // large gem
-        TinkerFluids.moltenEmerald.getLocalTag(), TinkerFluids.moltenDiamond.getLocalTag(), TinkerFluids.moltenDebris.getLocalTag()
+        TinkerFluids.moltenEmerald.getLocalTag(), TinkerFluids.moltenDiamond.getLocalTag(), TinkerFluids.moltenDebris.getLocalTag(),
+        // twilight forest
+        TinkerFluids.fieryLiquid.getLocalTag()
       );
     // entity effects - most of these have block effects, but we don't want the clouds triggering mostly
     this.tag(TinkerTags.Fluids.CHEMTHROWER_ENTITY_EFFECTS)
@@ -173,7 +175,9 @@ public class FluidTagProvider extends FluidTagsProvider {
         // mekanism alloys
         TinkerFluids.moltenRefinedGlowstone.getLocalTag(), TinkerFluids.moltenRefinedObsidian.getLocalTag(),
         // cosmere alloys
-        TinkerFluids.moltenNicrosil.getLocalTag(), TinkerFluids.moltenDuralumin.getLocalTag(), TinkerFluids.moltenBendalloy.getLocalTag()
+        TinkerFluids.moltenNicrosil.getLocalTag(), TinkerFluids.moltenDuralumin.getLocalTag(), TinkerFluids.moltenBendalloy.getLocalTag(),
+        // twilight forest
+        TinkerFluids.moltenSteeleaf.getLocalTag()
       );
     // both effects - all the neat slimes
     this.tag(TinkerTags.Fluids.CHEMTHROWER_BOTH_EFFECTS)
@@ -217,14 +221,14 @@ public class FluidTagProvider extends FluidTagsProvider {
         TinkerFluids.moltenNicrosil.getTag(), TinkerFluids.moltenDuralumin.getTag(), TinkerFluids.moltenBendalloy.getTag(),
         // Twilight alloys
         TinkerFluids.moltenSteeleaf.getTag()
-    ).add(TinkerFluids.moltenCinderslime.get());
+    );
 
     this.tag(TinkerTags.Fluids.LARGE_GEM_TOOLTIPS).addTags(TinkerFluids.moltenEmerald.getTag(), TinkerFluids.moltenDiamond.getTag());
     this.tag(TinkerTags.Fluids.SMALL_GEM_TOOLTIPS).addTags(TinkerFluids.moltenQuartz.getTag(), TinkerFluids.moltenAmethyst.getTag());
     this.tag(MantleTags.Fluids.SOUP).addTag(TinkerFluids.meatSoup.getTag()).addOptionalTag(TinkerTags.Fluids.SOUP_TOOLTIPS.location());
 
     // hide upcoming fluids
-    tag(TinkerTags.Fluids.HIDDEN_IN_RECIPE_VIEWERS).add(TinkerFluids.moltenKnightslime.get(), TinkerFluids.moltenSoulsteel.get());
+    tag(TinkerTags.Fluids.HIDDEN_IN_RECIPE_VIEWERS).add(TinkerFluids.moltenSoulsteel.get());
     // hide upcoming fluids that require NBT. Can expand this list if other mods report problems
     tag(TinkerTags.Fluids.HIDE_IN_CREATIVE_TANKS).add(TinkerFluids.potion.get()).addTag(TinkerTags.Fluids.HIDDEN_IN_RECIPE_VIEWERS);
   }

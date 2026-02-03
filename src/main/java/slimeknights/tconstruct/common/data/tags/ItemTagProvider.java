@@ -221,7 +221,7 @@ public class ItemTagProvider extends ItemTagsProvider {
       // tier 4
       TinkerMaterials.cinderslime.getIngotTag(), TinkerMaterials.queensSlime.getIngotTag(),
       TinkerMaterials.manyullyn.getIngotTag(), TinkerMaterials.hepatizon.getIngotTag(),
-      TinkerMaterials.knightmetal.getIngotTag());
+      TinkerMaterials.knightmetal.getIngotTag(), TinkerMaterials.knightslime.getIngotTag());
 
     this.copy(TinkerTags.Blocks.COPPER_PLATFORMS, TinkerTags.Items.COPPER_PLATFORMS);
 
@@ -246,7 +246,6 @@ public class ItemTagProvider extends ItemTagsProvider {
     );
     // unused future material items
     TinkerMaterials.soulsteel.forEach(item -> hidden.add(item.asItem()));
-    TinkerMaterials.knightslime.forEach(item -> hidden.add(item.asItem()));
     // ichor foliage
     hidden.add(
       TinkerWorld.slimeLeaves.get(FoliageType.ICHOR).asItem(),

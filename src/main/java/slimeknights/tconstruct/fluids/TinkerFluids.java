@@ -449,8 +449,8 @@ public final class TinkerFluids extends TinkerModule {
     output.accept(moltenHepatizon);
     output.accept(moltenNetherite);
     output.accept(moltenKnightmetal);
+    output.accept(moltenKnightslime);
     // future: soulsteel
-    // future: knightslime
 
     // compat ores
     acceptMolten(output, moltenTin);

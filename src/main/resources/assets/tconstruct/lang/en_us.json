@@ -163,6 +163,11 @@
   "item.tconstruct.knightmetal_ingot": "Knightmetal Ingot",
   "item.tconstruct.knightmetal_nugget": "Knightmetal Nugget",
 
+  "block.tconstruct.knightslime_block": "Block of Knightslime",
+  "item.tconstruct.knightslime_ingot": "Knightslime Ingot",
+  "item.tconstruct.knightslime_ingot.tooltip": "Can be used as spiky beacon base",
+  "item.tconstruct.knightslime_nugget": "Knightslime Nugget",
+
   "block.tconstruct.soulsteel_block": "Block of Soulsteel",
   "block.tconstruct.soulsteel_block.tooltip": "Can be used as beacon base",
   "item.tconstruct.soulsteel_ingot": "Soulsteel Ingot",
@@ -174,11 +179,6 @@
 
 
   "__comment": "Tier 5 Metals",
-
-  "block.tconstruct.knightslime_block": "Block of Knightslime",
-  "item.tconstruct.knightslime_ingot": "Knightslime Ingot",
-  "item.tconstruct.knightslime_ingot.tooltip": "Slimy yet metallic but also stone? Fascinating!",
-  "item.tconstruct.knightslime_nugget": "Knightslime Nugget",
 
   "item.tconstruct.materials_and_you": "Materials and You",
   "item.tconstruct.materials_and_you.tooltip": "The introduction book into tools and materials\nby Selena",
@@ -2034,7 +2034,7 @@
   "material.tconstruct.amethyst_bronze.flavor": "Not to be confused with bronze.",
   "material.tconstruct.amethyst_bronze.encyclopedia": "Grants +1 mining speed per level to blocks that don't require tools, notably ones where the tool is not effective",
   "material.tconstruct.amethyst_bronze.ranged": "Adds +0.1 velocity per level at the cost of limiting arrow angles to 32, 16, or 8 directions at the first 3 levels respectively",
-  "material.tconstruct.amethyst_bronze.armor": "Grants +2.5% attack speed per level at the cost of limiting taken knockback angles to 32, 16, 8, or 4 directions",
+  "material.tconstruct.amethyst_bronze.armor": "Grants +5% attack speed per level at the cost of +5% duration on negative effects and limiting taken knockback angles to 32, 16, 8, or 4 directions",
 
   "material.tconstruct.pig_iron": "Pig Iron",
   "material.tconstruct.pig_iron.flavor": "The absolute best material, no debates.",
@@ -2086,7 +2086,7 @@
 
   "material.tconstruct.ichorskin": "Ichorskin",
   "material.tconstruct.ichorskin.flavor": "Ichor definately does not have skin",
-  "material.tconstruct.ichorskin.encyclopedia": "Consumes up to 5 overslime to reduce damage by 1% per overslime consumed (up to 5%).",
+  "material.tconstruct.ichorskin.encyclopedia": "Grants +5% movement speed, +2.5% attack speed, and +7.5% mining speed",
 
   "material.tconstruct.cinderslime": "Cinderslime",
   "material.tconstruct.cinderslime.flavor": "Cast it into the fire!",
@@ -2154,6 +2154,10 @@
   "material.tconstruct.end_rod.ammo": "Projectile ignores gravity for the first second of its life",
 
   "material.tconstruct.knightslime": "Knightslime",
+  "material.tconstruct.knightslime.flavor": "Slimy yet metallic but also stone? Fascinating!",
+  "material.tconstruct.knightslime.encyclopedia": "Consumes 1 overslime per level (or 5 per level on broad tools) to grant +8 mining speed per level.",
+  "material.tconstruct.knightslime.ranged": "Consumes 1 overslime per level to grant +0.1 velocity per level.",
+  "material.tconstruct.knightslime.armor": "Consumes up to 5 overslime per level to reduce damage by 1% per overslime consumed (up to 5% per level).",
 
   "material.tconstruct.enderslime_vine": "Slimy Vine",
   "material.tconstruct.enderslime_vine.slimeskin": "Slimeskin",
@@ -3104,10 +3108,9 @@
   "modifier.tconstruct.overcast": "Overcast",
   "modifier.tconstruct.overcast.flavor": "Thick Coverage!",
   "modifier.tconstruct.overcast.description": "Overslime can be made extra thick on this tool",
-  "modifier.tconstruct.overshield": "Overshield",
-  "modifier.tconstruct.overshield.flavor": "Slimeshield!",
-  "modifier.tconstruct.overshield.description": "Consumes overslime to reduce all sources of damage",
-  "modifier.tconstruct.overshield.resistance": "Overshield",
+  "modifier.tconstruct.godspeed": "Skyfall",
+  "modifier.tconstruct.godspeed.flavor": "Gotta go fast!",
+  "modifier.tconstruct.godspeed.description": "Increases movement, attack, and mining speed",
   "modifier.tconstruct.lacerating": "Lacerating",
   "modifier.tconstruct.lacerating.flavor": "Sharp Edges!",
   "modifier.tconstruct.lacerating.description": "Causes the target to bleed, dealing additional damage",
@@ -3120,7 +3123,7 @@
   "modifier.tconstruct.crystalbound.description": "Gains bonus damage potential, but arrow angle is restricted",
   "modifier.tconstruct.crystalstrike": "Crystalstrike",
   "modifier.tconstruct.crystalstrike.flavor": "Speed of the crystal comes at a cost",
-  "modifier.tconstruct.crystalstrike.description": "Increases attack speed but also restricts knockback angles",
+  "modifier.tconstruct.crystalstrike.description": "Increases attack speed but negative effects last longer",
   "modifier.tconstruct.lightweight": "Lightweight",
   "modifier.tconstruct.lightweight.flavor": "Like a Shardblade!",
   "modifier.tconstruct.lightweight.description": "Tool is incredibly light for its size, allowing you to attack, mine, and launch projectiles faster",
@@ -3141,6 +3144,15 @@
   "modifier.tconstruct.overlord": "Overlord",
   "modifier.tconstruct.overlord.flavor": "Regal!",
   "modifier.tconstruct.overlord.description": "Tool takes some of the durability as new overslime subjects",
+  "modifier.tconstruct.overshield": "Overshield",
+  "modifier.tconstruct.overshield.flavor": "Slimeshield!",
+  "modifier.tconstruct.overshield.description": "Consumes overslime to reduce all sources of damage",
+  "modifier.tconstruct.overshield.resistance": "Overshield",
+  "modifier.tconstruct.overwield": "Overwield",
+  "modifier.tconstruct.overwield.flavor": "Slimebronze!",
+  "modifier.tconstruct.overwield.description": "Consumes overslime to boost mining speed and projectile velocity",
+  "modifier.tconstruct.overwield.mining_speed": "Overwield Speed",
+  "modifier.tconstruct.overwield.velocity": "Overwield Velocity",
   "modifier.tconstruct.momentum": "Momentum",
   "modifier.tconstruct.momentum.flavor": "Not Fast Enough, Gotta Go Faster!",
   "modifier.tconstruct.momentum.description": "Mining blocks and firing arrows increases your speed, as long as you keep going",

@@ -37,6 +37,7 @@ public class TrimMaterialPaletteGenerator extends GenericTextureGenerator {
     return Objects.requireNonNull(materialProvider.getMaterialInfo(material), "Missing material provider " + material).getTransformer();
   }
 
+  @SuppressWarnings("removal")
   @Override
   public CompletableFuture<?> run(CachedOutput cache) {
     assert existingFileHelper != null;
