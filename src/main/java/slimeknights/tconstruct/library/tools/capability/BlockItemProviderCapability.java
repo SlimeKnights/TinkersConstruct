@@ -78,6 +78,13 @@ public interface BlockItemProviderCapability {
   void consume(ItemStack stack, BlockItem item, @Nullable LivingEntity entity);
 
   /**
+   * Get the stack backing the provided BlockItem. The returned stack will be not be modified as it is copied immediately.
+   * The returned stack is primarily used to determine placement state and placement permissions (for adventure mode players).
+   * @return {@link ItemStack#EMPTY} if there is no backing item, otherwise an {@link ItemStack} instance holding at least one of {@code item}.
+   */
+  ItemStack getBackingStack(ItemStack capStack, BlockItem item);
+
+  /**
    * A simple implementation of {@link BlockItemProviderCapability} that provides from an ItemStack holding a BlockItem
    */
   final class SimpleBlockItem implements BlockItemProviderCapability, ICapabilityProvider {
@@ -95,6 +102,11 @@ public interface BlockItemProviderCapability {
     @Override
     public void consume(ItemStack stack, BlockItem item, @Nullable LivingEntity entity) {
       stack.shrink(1);
+    }
+
+    @Override
+    public ItemStack getBackingStack(ItemStack capStack, BlockItem item) {
+      return capStack;
     }
 
     // Because this is an incredibly simple capability it acts as provider and as the actual capability implementation.

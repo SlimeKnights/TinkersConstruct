@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.modifiers.ability.tool;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -11,6 +12,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.pattern.BlockInWorld;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.common.network.UpdateNeighborsPacket;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -65,7 +67,17 @@ public class ExchangingModifier extends NoLevelsModifier implements RemoveBlockM
       // nothing could provide
       if (blockItem == null) return null;
     }
-    ItemStack fakeStack = new ItemStack(blockItem);
+
+    // immediately do a defensive copy of the stack.
+    ItemStack fakeStack = blockProvider.getBackingStack(item, blockItem).copyWithCount(1);
+    if (fakeStack.isEmpty()) fakeStack = new ItemStack(blockItem);
+
+    // if we are an adventure mode player, check if we are allowed to place it.
+    // Note that we check the mined position as the block we are placing 'against', which could be considered variance against vanilla but it is the block that make the most sense here.
+    // Note that we check the mined position as the block we are placing 'against', which could be considered variance against vanilla but it is the block that make the most sense here.
+    if (entity instanceof Player player && !player.mayBuild() && !fakeStack.hasAdventureModePlaceTagForBlock(BuiltInRegistries.BLOCK, new BlockInWorld(world, pos, false))) {
+      return null;
+    }
 
     // from this point on, we are in charge of breaking the block, start by harvesting it so piglins get mad and stuff
     Player player = context.getPlayer();

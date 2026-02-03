@@ -44,6 +44,11 @@ public interface ToolBlockItemProviderHook {
         public void consume(ItemStack stack, BlockItem item, @Nullable LivingEntity entity) {
             base.consume(tool, modifier, entity, stack);
         }
+
+        @Override
+        public ItemStack getBackingStack(ItemStack capStack, BlockItem item) {
+            return ItemStack.EMPTY;
+        }
     }
 
     class Provider implements ToolCapabilityProvider.IToolCapabilityProvider {

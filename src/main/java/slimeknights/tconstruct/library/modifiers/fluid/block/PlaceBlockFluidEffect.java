@@ -85,7 +85,7 @@ public record PlaceBlockFluidEffect(@Nullable Block block, @Nullable SoundEvent 
         }
       }
 
-      if (entity != null && !context.placeRestricted(context.getStack())) {
+      if (entity != null) {
         // either hand is fine, allows using the tool from offhand or mainhand
         // iterate in reverse order so that we prefer the offhand
         for (InteractionHand hand : new InteractionHand[]{InteractionHand.OFF_HAND, InteractionHand.MAIN_HAND}) {
@@ -95,7 +95,7 @@ public record PlaceBlockFluidEffect(@Nullable Block block, @Nullable SoundEvent 
           if (result != null) return result;
         }
 
-      } else {
+      } else if (!context.placeRestricted(context.getStack())) {
         // path 4: there is an item in the context that provides a block item
         ItemStack held = context.getStack();
         Integer result = maybePlaceFrom(context, action, held, useHand);
@@ -116,7 +116,10 @@ public record PlaceBlockFluidEffect(@Nullable Block block, @Nullable SoundEvent 
     BlockItem blockItem = cap.getBlockItem(held, entity);
     if (blockItem == null) return null;
 
-    ItemStack stack = new ItemStack(blockItem);
+    // immediately do a defensive copy of the stack.
+    ItemStack stack = cap.getBackingStack(held, blockItem).copyWithCount(1);
+    if (stack.isEmpty()) stack = new ItemStack(blockItem);
+
     BlockPlaceContext placeContext = new BlockPlaceContext(context.getLevel(), context.getPlayer(), useHand, stack, context.getHitResult());
 
     int result = placeBlockItem(blockItem, context, action, blockItem.getBlock(), placeContext);
@@ -130,6 +133,8 @@ public record PlaceBlockFluidEffect(@Nullable Block block, @Nullable SoundEvent 
     Level world = context.getLevel();
     BlockPos clicked = placeContext.getClickedPos();
     Player player = context.getPlayer();
+
+    if (context.placeRestricted(placeContext.getItemInHand())) return 0;
 
     if (action.execute()) {
       if (blockItem.place(placeContext).consumesAction()) {
