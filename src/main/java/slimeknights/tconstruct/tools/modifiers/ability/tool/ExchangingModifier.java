@@ -68,8 +68,9 @@ public class ExchangingModifier extends NoLevelsModifier implements RemoveBlockM
       if (blockItem == null) return null;
     }
 
+    ItemStack backingStack = blockProvider.getBackingStack(item, blockItem, entity);
     // immediately do a defensive copy of the stack.
-    ItemStack fakeStack = blockProvider.getBackingStack(item, blockItem).copyWithCount(1);
+    ItemStack fakeStack = backingStack.copyWithCount(1);
     if (fakeStack.isEmpty()) fakeStack = new ItemStack(blockItem);
 
     // if we are an adventure mode player, check if we are allowed to place it.
@@ -108,7 +109,7 @@ public class ExchangingModifier extends NoLevelsModifier implements RemoveBlockM
 
     // If our fake stack is now empty then it got placed (or otherwise consumed), so consume an item from the provider.
     if (fakeStack.isEmpty()) {
-      blockProvider.consume(item, blockItem, entity);
+      blockProvider.consume(item, blockItem, backingStack, entity);
     }
 
     if (success.consumesAction()) {

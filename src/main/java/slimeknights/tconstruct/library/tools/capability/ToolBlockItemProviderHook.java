@@ -17,12 +17,26 @@ public interface ToolBlockItemProviderHook {
      * @return the {@link BlockItem} that this provides, or {@code null} if this cannot provide more block items (for example if the stack has been depleted)
      */
     @Nullable
-    BlockItem getBlockItem(IToolStackView tool, ModifierEntry modifier, @Nullable LivingEntity entity, @Nullable ItemStack stack);
+    BlockItem getBlockItem(IToolStackView tool, ItemStack toolStack, ModifierEntry modifier, @Nullable LivingEntity entity);
 
     /**
      * Consume a block from this provider. For example may decrease a contained stacks size or remove fluid from the stack's tank.
+     * @param tool The tool that this hook is attached to, as a tool stack view
+     * @param toolStack The tool that this hook is attached to
+     * @param modifier The modifier that provided this hook
+     * @param entity The entity holding this tool. May be null if there is no entity
      */
-    void consume(IToolStackView tool, ModifierEntry modifier, @Nullable LivingEntity entity, @Nullable ItemStack stack);
+    void consumeBlockItem(IToolStackView tool, ItemStack toolStack, ModifierEntry modifier, ItemStack backingStack, @Nullable LivingEntity entity);
+
+    /**
+     * Get the stack backing the provided BlockItem. The returned stack will be not be modified as it is copied immediately.
+     * The returned stack is primarily used to determine placement state and placement permissions (for adventure mode players).
+     * @param tool The tool that this hook is attached to, as a tool stack view
+     * @param toolStack The tool that this hook is attached to
+     * @return {@link ItemStack#EMPTY} if there is no backing item, otherwise an {@link ItemStack} instance holding at least one of {@code item}.
+     */
+    ItemStack getBackingStack(IToolStackView tool, ItemStack toolStack, ModifierEntry modifier, BlockItem item, @Nullable LivingEntity entity);
+
 
     @Nullable
     static BlockItemProviderCapability getHookAsCapability(IToolStackView tool) {
@@ -36,18 +50,18 @@ public interface ToolBlockItemProviderHook {
     record CapabilityImpl(ToolBlockItemProviderHook base, IToolStackView tool, ModifierEntry modifier) implements BlockItemProviderCapability {
 
         @Override
-        public @Nullable BlockItem getBlockItem(ItemStack stack, @Nullable LivingEntity entity) {
-            return base.getBlockItem(tool, modifier, entity, stack);
+        public @Nullable BlockItem getBlockItem(ItemStack capStack, @Nullable LivingEntity entity) {
+            return base.getBlockItem(tool, capStack, modifier, entity);
         }
 
         @Override
-        public void consume(ItemStack stack, BlockItem item, @Nullable LivingEntity entity) {
-            base.consume(tool, modifier, entity, stack);
+        public void consume(ItemStack capStack, BlockItem item, ItemStack backingStack, @Nullable LivingEntity entity) {
+            base.consumeBlockItem(tool, capStack, modifier, backingStack, entity);
         }
 
         @Override
-        public ItemStack getBackingStack(ItemStack capStack, BlockItem item) {
-            return ItemStack.EMPTY;
+        public ItemStack getBackingStack(ItemStack capStack, BlockItem item, @Nullable LivingEntity entity) {
+            return base.getBackingStack(tool, capStack, modifier, item, entity);
         }
     }
 

@@ -4,7 +4,6 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
-import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
@@ -17,11 +16,12 @@ import slimeknights.tconstruct.library.tools.capability.ToolBlockItemProviderHoo
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
  * A module that uses {@link slimeknights.tconstruct.library.tools.capability.BlockItemProviderCapability BlockItemProviderCapability} via {@link ToolBlockItemProviderHook} to provide BlockItems to modifiers like exchanging at the cost of durability.
- * Note this does not let the tool place blocks, it only exposes this capability. See {@link slimeknights.tconstruct.tools.modules.interaction.PlaceGlowModule PlaceGlowModule} for a custom module that lets the tool place blocks.
+ * Note this does not let the tool place blocks, it only exposes this capability. See {@link slimeknights.tconstruct.tools.modules.interaction.PlaceGlowModule PlaceGlowModule} for an example of a custom module that lets the tool place blocks.
  * @param item The BlockItem to provide
  * @param damage The amount of damage it takes to provide one block (can be 0)
  * @param condition Other conditions that you might want to condition the providing on, such as only happening on certain tool types.
@@ -45,19 +45,24 @@ public record BlockItemProviderModule(BlockItem item, int damage, ModifierCondit
     }
 
     @Override
-    public @Nullable BlockItem getBlockItem(IToolStackView tool, ModifierEntry modifier, @Nullable LivingEntity entity, @Nullable ItemStack stack) {
+    public @Nullable BlockItem getBlockItem(IToolStackView tool, ItemStack stack, ModifierEntry modifier, @Nullable LivingEntity entity) {
         return !tool.isBroken() && condition.matches(tool, modifier) ? item : null;
     }
 
     @Override
-    public void consume(IToolStackView tool, ModifierEntry modifier, @Nullable LivingEntity entity, @Nullable ItemStack stack) {
-        if (ToolDamageUtil.damage(tool, damage, entity, stack) && entity != null && stack != null) {
+    public void consumeBlockItem(IToolStackView tool, ItemStack toolStack, ModifierEntry modifier, ItemStack backingStack, @Nullable LivingEntity entity) {
+        if (ToolDamageUtil.damage(tool, damage, entity, toolStack) && entity != null) {
             for (EquipmentSlot slot : EquipmentSlot.values()) {
-                if (entity.getItemBySlot(slot) == stack) {
+                if (entity.getItemBySlot(slot) == toolStack) {
                     entity.broadcastBreakEvent(slot);
                     return;
                 }
             }
         }
+    }
+
+    @Override
+    public ItemStack getBackingStack(IToolStackView tool, ItemStack toolStack, ModifierEntry modifierEntry, BlockItem item, @Nullable LivingEntity entity) {
+        return ItemStack.EMPTY;
     }
 }

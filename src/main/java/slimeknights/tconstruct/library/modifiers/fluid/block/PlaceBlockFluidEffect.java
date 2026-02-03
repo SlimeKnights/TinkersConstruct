@@ -116,15 +116,16 @@ public record PlaceBlockFluidEffect(@Nullable Block block, @Nullable SoundEvent 
     BlockItem blockItem = cap.getBlockItem(held, entity);
     if (blockItem == null) return null;
 
+    ItemStack backingStack = cap.getBackingStack(held, blockItem, entity);
     // immediately do a defensive copy of the stack.
-    ItemStack stack = cap.getBackingStack(held, blockItem).copyWithCount(1);
+    ItemStack stack = backingStack.copyWithCount(1);
     if (stack.isEmpty()) stack = new ItemStack(blockItem);
 
     BlockPlaceContext placeContext = new BlockPlaceContext(context.getLevel(), context.getPlayer(), useHand, stack, context.getHitResult());
 
     int result = placeBlockItem(blockItem, context, action, blockItem.getBlock(), placeContext);
     if (stack.isEmpty()) {
-      cap.consume(held, blockItem, entity);
+      cap.consume(held, blockItem, backingStack, entity);
     }
     return result;
   }

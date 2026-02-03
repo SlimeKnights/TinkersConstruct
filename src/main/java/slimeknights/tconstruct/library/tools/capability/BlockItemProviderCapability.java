@@ -54,7 +54,8 @@ public interface BlockItemProviderCapability {
   }
 
   /**
-   * @return The block provider for this stack, or null if this stack cannot provide blocks
+   * Utility to fetch a BlockProvider or null from a given stack.
+   * @return The block provider for this stack, or null if this stack cannot provide block items.
    */
   @Nullable
   static BlockItemProviderCapability getBlockProvider(ItemStack stack) {
@@ -62,6 +63,7 @@ public interface BlockItemProviderCapability {
   }
 
   /**
+   * Get a BlockItem that this capability provides. Can be randomised, or null if this cannot provide at the moment.
    * @param stack The {@link ItemStack} that this capability was attached to.
    * @param entity The {@link LivingEntity} (usually a {@link Player}) that is requesting a block.
    * @return the {@link BlockItem} that this provides, or {@code null} if this cannot provide more block items (for example if the stack has been depleted)
@@ -70,19 +72,21 @@ public interface BlockItemProviderCapability {
   BlockItem getBlockItem(ItemStack stack, @Nullable LivingEntity entity);
 
   /**
-   * @param stack The {@link ItemStack} that this capability was attached to.
-   * @param item The {@link BlockItem} that we want to consume. Should have been provided recently by {@link #getBlockItem}
-   * @param entity The {@link LivingEntity} (usually a {@link Player}) that has just consumed a block.
-   * Consume a block from this provider. For example may decrease a contained stacks size or remove fluid from the stack's tank.
-   */
-  void consume(ItemStack stack, BlockItem item, @Nullable LivingEntity entity);
-
-  /**
    * Get the stack backing the provided BlockItem. The returned stack will be not be modified as it is copied immediately.
    * The returned stack is primarily used to determine placement state and placement permissions (for adventure mode players).
    * @return {@link ItemStack#EMPTY} if there is no backing item, otherwise an {@link ItemStack} instance holding at least one of {@code item}.
    */
-  ItemStack getBackingStack(ItemStack capStack, BlockItem item);
+  ItemStack getBackingStack(ItemStack capStack, BlockItem item, @Nullable LivingEntity entity);
+
+  /**
+   * Consume one item from this provider.
+   * @param stack The {@link ItemStack} that this capability was attached to.
+   * @param item The {@link BlockItem} that we want to consume. Should have been provided recently by {@link #getBlockItem}
+   * @param backingStack The stack returned by {@link #getBackingStack} that was placed and is now being consumed. It is unmodified and the same instance so can use == for comparisons.
+   * @param entity The {@link LivingEntity} (usually a {@link Player}) that has just consumed a block.
+   * Consume a block from this provider. For example may decrease a contained stacks size or remove fluid from the stack's tank.
+   */
+  void consume(ItemStack stack, BlockItem item, ItemStack backingStack, @Nullable LivingEntity entity);
 
   /**
    * A simple implementation of {@link BlockItemProviderCapability} that provides from an ItemStack holding a BlockItem
@@ -95,17 +99,17 @@ public interface BlockItemProviderCapability {
 
     @Override
     @Nullable
-    public BlockItem getBlockItem(ItemStack stack, @Nullable LivingEntity entity) {
-      return stack.isEmpty() ? null : ((BlockItem) stack.getItem());
+    public BlockItem getBlockItem(ItemStack capStack, @Nullable LivingEntity entity) {
+      return capStack.isEmpty() ? null : ((BlockItem) capStack.getItem());
     }
 
     @Override
-    public void consume(ItemStack stack, BlockItem item, @Nullable LivingEntity entity) {
-      stack.shrink(1);
+    public void consume(ItemStack capStack, BlockItem item, ItemStack backingStack, @Nullable LivingEntity entity) {
+      capStack.shrink(1);
     }
 
     @Override
-    public ItemStack getBackingStack(ItemStack capStack, BlockItem item) {
+    public ItemStack getBackingStack(ItemStack capStack, BlockItem item, @Nullable LivingEntity entity) {
       return capStack;
     }
 
