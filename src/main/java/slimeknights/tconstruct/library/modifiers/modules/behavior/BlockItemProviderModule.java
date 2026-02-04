@@ -60,9 +60,4 @@ public record BlockItemProviderModule(BlockItem item, int damage, ModifierCondit
             }
         }
     }
-
-    @Override
-    public ItemStack getBackingStack(IToolStackView tool, ItemStack toolStack, ModifierEntry modifierEntry, BlockItem item, @Nullable LivingEntity entity) {
-        return ItemStack.EMPTY;
-    }
 }

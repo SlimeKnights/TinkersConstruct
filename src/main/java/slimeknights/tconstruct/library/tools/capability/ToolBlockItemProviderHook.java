@@ -35,7 +35,9 @@ public interface ToolBlockItemProviderHook {
      * @param toolStack The tool that this hook is attached to
      * @return {@link ItemStack#EMPTY} if there is no backing item, otherwise an {@link ItemStack} instance holding at least one of {@code item}.
      */
-    ItemStack getBackingStack(IToolStackView tool, ItemStack toolStack, ModifierEntry modifier, BlockItem item, @Nullable LivingEntity entity);
+    default ItemStack getBackingStack(IToolStackView tool, ItemStack toolStack, ModifierEntry modifier, BlockItem item, @Nullable LivingEntity entity) {
+        return ItemStack.EMPTY;
+    }
 
 
     @Nullable

@@ -139,11 +139,6 @@ public class ModifierHooks {
 
     @Override
     public void consumeBlockItem(IToolStackView tool, ItemStack toolStack, ModifierEntry modifier, ItemStack backingStack, @Nullable LivingEntity entity) {}
-
-    @Override
-    public ItemStack getBackingStack(IToolStackView tool, ItemStack toolStack, ModifierEntry modifier, BlockItem item, @Nullable LivingEntity entity) {
-      return ItemStack.EMPTY;
-    }
   });
   /* Technical */
 

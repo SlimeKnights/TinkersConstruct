@@ -76,7 +76,9 @@ public interface BlockItemProviderCapability {
    * The returned stack is primarily used to determine placement state and placement permissions (for adventure mode players).
    * @return {@link ItemStack#EMPTY} if there is no backing item, otherwise an {@link ItemStack} instance holding at least one of {@code item}.
    */
-  ItemStack getBackingStack(ItemStack capStack, BlockItem item, @Nullable LivingEntity entity);
+  default ItemStack getBackingStack(ItemStack capStack, BlockItem item, @Nullable LivingEntity entity) {
+    return ItemStack.EMPTY;
+  }
 
   /**
    * Consume one item from this provider.
