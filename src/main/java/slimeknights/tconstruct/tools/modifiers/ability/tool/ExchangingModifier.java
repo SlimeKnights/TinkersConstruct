@@ -59,9 +59,7 @@ public class ExchangingModifier extends NoLevelsModifier implements RemoveBlockM
     if (blockItem == null) {
       item = context.getLiving().getMainHandItem();
       // skip forges cap system and go to the tinkers hook because we know this is a tinkers tool
-      blockProvider = ToolBlockItemProviderHook.getHookAsCapability(tool);
-      if (blockProvider == null) return null;
-
+      blockProvider = new ToolBlockItemProviderHook.CapabilityImpl(tool);
       blockItem = blockProvider.getBlockItem(item, entity);
 
       // nothing could provide

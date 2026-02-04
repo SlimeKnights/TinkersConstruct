@@ -44,20 +44,26 @@ public record BlockItemProviderModule(BlockItem item, int damage, ModifierCondit
         return DEFAULT_HOOKS;
     }
 
+    @Nullable
     @Override
-    public @Nullable BlockItem getBlockItem(IToolStackView tool, ItemStack stack, ModifierEntry modifier, @Nullable LivingEntity entity) {
+    public BlockItem getBlockItem(IToolStackView tool, ModifierEntry modifier, @Nullable LivingEntity entity) {
         return !tool.isBroken() && condition.matches(tool, modifier) ? item : null;
     }
 
     @Override
-    public void consumeBlockItem(IToolStackView tool, ItemStack toolStack, ModifierEntry modifier, ItemStack backingStack, @Nullable LivingEntity entity) {
+    public boolean consumeBlockItem(IToolStackView tool, ItemStack toolStack, ModifierEntry modifier, BlockItem item, ItemStack backingStack, @Nullable LivingEntity entity) {
+        // if this is not our item, or if the backing stack isn't an empty stack (as we do not provide a specific stack) then we did not provide it so we should avoid consuming
+        if (this.item != item || !backingStack.isEmpty()) return false;
+
+        // we did provide it, so damage and show animation if possible
         if (ToolDamageUtil.damage(tool, damage, entity, toolStack) && entity != null) {
             for (EquipmentSlot slot : EquipmentSlot.values()) {
                 if (entity.getItemBySlot(slot) == toolStack) {
                     entity.broadcastBreakEvent(slot);
-                    return;
+                    break;
                 }
             }
         }
+        return true;
     }
 }
