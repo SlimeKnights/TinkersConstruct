@@ -7,7 +7,7 @@
   ],
   "tool_filter": "tconstruct:modifiable/melee",
   "effects": [
-    "击中目标时击退它们",
+    "击飞敌人",
     "多个等级，每级进一步增加击退力度",
     "每级需要1个升级槽"
   ]

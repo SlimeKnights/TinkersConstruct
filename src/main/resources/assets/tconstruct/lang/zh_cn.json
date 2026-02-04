@@ -1857,16 +1857,16 @@
   "material.tconstruct.iron": "铁",
   "material.tconstruct.iron.wrought": "熟铁",
   "material.tconstruct.iron.oxidized": "粗铁",
-  "material.tconstruct.iron.flavor": "他铁了心要保护别人不死，却不能保护他自己，多么讽刺。",
+  "material.tconstruct.iron.flavor": "真是讽刺。他能让别人起死回生，但却救不了他自己。",
   "material.tconstruct.iron.encyclopedia": "挖掘方块与攻击生物时吸引周围物品。",
-  "material.tconstruct.iron.ranged": "发射箭矢时，吸引周围物品到持有者。",
+  "material.tconstruct.iron.ranged": "箭矢射出时，吸引周围物品到持有者。",
   "material.tconstruct.iron.armor": "每级使受到的弹射物伤害-8%；按等级最高的盔甲，每级增加5%击退抗性。",
   "material.tconstruct.iron.skull_flavor": "违反隔离条例",
   "material.tconstruct.iron.skull_encyclopedia": "近战攻击将穿戴者携带的所有负面效果复制到攻击目标身上。",
 
   "material.tconstruct.seared_stone": "焦黑石",
   "material.tconstruct.seared_stone.flavor": "……赴汤蹈火在所不辞！",
-  "material.tconstruct.seared_stone.encyclopedia": "挖掘能在熔化炉中熔化的方块时，每级使挖掘速度+6。",
+  "material.tconstruct.seared_stone.encyclopedia": "挖掘的方块可以熔化时，每级使挖掘速度+6。",
   "material.tconstruct.seared_stone.armor": "每级使受到的火焰伤害10%；缩短自己的着火时间。",
 
   "material.tconstruct.scorched_stone": "焦褐石",
@@ -1894,7 +1894,7 @@
   "material.tconstruct.slimewood.skyroot": "天根木",
   "material.tconstruct.slimewood.bloodshroom": "血菌木",
   "material.tconstruct.slimewood.enderbark":  "末影皮木",
-  "material.tconstruct.slimewood.flavor": "这黏木到底是长了黏液的木头还是长了木头的黏液？",
+  "material.tconstruct.slimewood.flavor": "究竟是木头长出了黏液，还是黏液生出了木头？",
   "material.tconstruct.slimewood.encyclopedia": "每秒有等级×5%的概率回复黏液覆层。",
   "material.tconstruct.slimewood.ammo": "使弹射物飞行速度快到可以在方块上弹跳，最多3次。",
   "material.tconstruct.slimeskin": "黏液皮",
@@ -1902,7 +1902,7 @@
   "material.tconstruct.slimeskin.encyclopedia": "有概率每秒自行再生黏液覆层，每级 概率+5%。",
 
   "material.tconstruct.venombone": "毒之骨",
-  "material.tconstruct.venombone.flavor": "敌人的眼中钉",
+  "material.tconstruct.venombone.flavor": "成为你敌人的鸩毒。",
   "material.tconstruct.venombone.encyclopedia": "中毒时，近战伤害增加0.5+中毒等级。",
   "material.tconstruct.venombone.ranged": "中毒时，拉弓速度将增加0.05+0.1×中毒等级。",
   "material.tconstruct.venombone.armor": "受到攻击后，有15%概率使攻击者在接下来5至10秒内受到的魔法伤害增加到200% （成功格挡则最大值改为15秒）。",
@@ -2177,11 +2177,11 @@
 
   "__comment": "Tier 2 Integration Materials",
   "material.tconstruct.osmium": "锇",
-  "material.tconstruct.osmium.flavor": "这“锇”太“沉”了，不好笑吗？",
+  "material.tconstruct.osmium.flavor": "这个段子太“沉重”了，我笑不出来",
   "material.tconstruct.osmium.encyclopedia": "第1级时，有33%的概率不消耗耐久度；代价是修复所消耗的材料+25%。",
 
   "material.tconstruct.lead": "铅",
-  "material.tconstruct.lead.flavor": "可以试试用这东西做个三明治",
+  "material.tconstruct.lead.flavor": "有人想吃铅弹三明治了。",
   "material.tconstruct.lead.encyclopedia": "每级使工具的挖掘速度+15%，击退抗性 +10%；但移动速度-10%，重力+5%。",
   "material.tconstruct.lead.ranged": "每级使发射的弹射物精确度+10%，击退抗性+10%；但移动速度-10%，重力+5%。",
   "material.tconstruct.lead.armor": "每级使盔甲的击退抗性+15%；但移动速度-10%，重力+5%。",
@@ -2201,7 +2201,7 @@
   "material.tconstruct.whitestone.encyclopedia": "挖掘石头有等级×20%的概率使石盾+3。",
 
   "material.tconstruct.aluminum": "铝",
-  "material.tconstruct.aluminum.flavor": "前代奢侈品，现代寻常物。",
+  "material.tconstruct.aluminum.flavor": "最常出现在火山灰中。",
   "material.tconstruct.aluminum.ranged": "使工具的拉弓速度+7%，精确度+7%；但代价是保护-5%。",
   "material.tconstruct.aluminum.armor": "使用物品时移动速度+5%；代价是盔甲的保护-5%。",
 
