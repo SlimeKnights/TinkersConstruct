@@ -108,7 +108,7 @@ public final class TinkerCommons extends TinkerModule {
    * @deprecated Use {@link #glowBlock}
    */
   @Deprecated(forRemoval = true)
-  public static final RegistryObject<GlowBlock> glow = RegistryObject.create(TConstruct.getResource("glow"), ForgeRegistries.BLOCKS);
+  public static final RegistryObject<GlowBlock> glow = RegistryObject.create(glowBlock.getId(), ForgeRegistries.BLOCKS);
   // glass
   public static final ItemObject<GlassBlock> clearGlass = BLOCKS.register("clear_glass", () -> new GlassBlock(glassBuilder(MapColor.NONE)), BLOCK_ITEM);
   public static final ItemObject<TintedGlassBlock> clearTintedGlass = BLOCKS.register("clear_tinted_glass", () -> new TintedGlassBlock(glassBuilder(MapColor.COLOR_GRAY).noOcclusion().isValidSpawn(Blocks::never).isRedstoneConductor(Blocks::never).isSuffocating(Blocks::never).isViewBlocking(Blocks::never)), BLOCK_ITEM);
