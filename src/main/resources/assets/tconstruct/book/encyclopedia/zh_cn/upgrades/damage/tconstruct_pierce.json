@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:pierce",
   "text": [
     {
-      "text": "每级使近战伤害+0.5。近战攻击后，每级让目标减少2点护甲值，效果持续5秒。"
+      "text": "每级使近战伤害+0.5。近战攻击后，每级让目标减少1点护甲值，效果持续5秒。"
     }
   ],
   "more_text_space": true,

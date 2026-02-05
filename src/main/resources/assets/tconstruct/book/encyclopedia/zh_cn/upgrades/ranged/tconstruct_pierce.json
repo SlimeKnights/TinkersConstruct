@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:pierce",
   "text": [
     {
-      "text": "箭矢命中后，每级使目标减少2点护甲值，效果持续5秒。"
+      "text": "箭矢命中后，每级使目标减少1点护甲值，效果持续5秒。"
     }
   ],
   "more_text_space": true,

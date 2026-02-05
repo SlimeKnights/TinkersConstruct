@@ -10,7 +10,7 @@ tools.tconstruct.earth_staff=大地黏液手杖
 tools.tconstruct.sky_staff=碧空黏液手杖
 tools.tconstruct.ichor_staff=灵浆手杖
 tools.tconstruct.ender_staff=末影黏液手杖
-armor=盔甲
+armor=盔甲类型
 
 materials_harvest=通用材料
 materials_harvest.subtext=这些材料可用于制作近战武器或采掘工具。

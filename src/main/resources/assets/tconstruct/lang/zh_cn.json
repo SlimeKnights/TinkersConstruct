@@ -163,6 +163,11 @@
   "item.tconstruct.knightmetal_ingot": "骑士金属锭",
   "item.tconstruct.knightmetal_nugget": "骑士金属粒",
 
+  "block.tconstruct.knightslime_block": "骑士史莱姆块",
+  "item.tconstruct.knightslime_ingot": "骑士史莱姆锭",
+  "item.tconstruct.knightslime_ingot.tooltip": "可用于建造尖刺信标基座",
+  "item.tconstruct.knightslime_nugget": "骑士史莱姆粒",
+
   "block.tconstruct.soulsteel_block": "魂钢块",
   "block.tconstruct.soulsteel_block.tooltip": "可用于建造信标基座",
   "item.tconstruct.soulsteel_ingot": "魂钢锭",
@@ -174,11 +179,6 @@
 
 
   "__comment": "Tier 5 Metals",
-
-  "block.tconstruct.knightslime_block": "骑士史莱姆块",
-  "item.tconstruct.knightslime_ingot": "骑士史莱姆锭",
-  "item.tconstruct.knightslime_ingot.tooltip": "黏糊糊的，还有金属光泽，但却和石头似的？还真是魅力无限！",
-  "item.tconstruct.knightslime_nugget": "骑士史莱姆粒",
 
   "item.tconstruct.materials_and_you": "材料与你",
   "item.tconstruct.materials_and_you.tooltip": "深析工具与材料的指南手册\nSelena著",
@@ -724,7 +724,7 @@
   "fluid.tconstruct.molten_amethyst_bronze": "熔融紫水晶青铜",
   "fluid.tconstruct.flowing_molten_amethyst_bronze": "流动的熔融紫水晶青铜",
   "item.tconstruct.molten_amethyst_bronze_bucket": "熔融紫水晶青铜桶",
-  "fluid.tconstruct.molten_amethyst_bronze.fluid_effect": "有时候你真的只是想打几只幻翼，那么就喝下几口熔融紫水晶青铜；不久后奇迹就会发生。",
+  "fluid.tconstruct.molten_amethyst_bronze.fluid_effect": "有时候你真的想打几只幻翼，那就喝一点熔融紫水晶青铜；不久后奇迹就 会发生。",
 
   "block.tconstruct.molten_rose_gold_fluid": "熔融玫瑰金",
   "fluid.tconstruct.molten_rose_gold": "熔融玫瑰金",
@@ -1812,9 +1812,9 @@
 
   "material.tconstruct.bone": "骨头",
   "material.tconstruct.bone.flavor": "吾为所持剑之骨",
-  "material.tconstruct.bone.encyclopedia": "每级近战伤害+0.5，接下来的攻击无视目标2倍于等级的护甲值，持续5秒。",
-  "material.tconstruct.bone.ranged": "箭矢命中后， 接下来的攻击无视目标 2倍于等级的护甲值，持续5秒。",
-  "material.tconstruct.bone.armor": "受到攻击后，有15%概率使得接下来的攻击无视攻击者2倍于等级的护甲值，持续 5秒（成功格挡则改为10秒）。",
+  "material.tconstruct.bone.encyclopedia": "每级近战伤害+0.5，接下来的攻击无视目标等同于等级的护甲值，持续4秒。",
+  "material.tconstruct.bone.ranged": "箭矢命中后， 接下来的攻击无视目标 等同于等级的护甲值，持续4秒。",
+  "material.tconstruct.bone.armor": "受到攻击后，有15%概率使得接下来的攻击无视攻击者等同于等级的护甲值，持 续4秒（成功格挡则改为8秒）。",
   "material.tconstruct.bone.ammo": "箭矢能穿过命中的第一个目标；掷出的武器可以禁用目标盾牌。",
   "material.tconstruct.bone.skull_flavor": "来点奶么？",
   "material.tconstruct.bone.skull_encyclopedia": "饮用奶后获得1分钟抗性提升。",
@@ -1867,7 +1867,7 @@
   "material.tconstruct.seared_stone": "焦黑石",
   "material.tconstruct.seared_stone.flavor": "……赴汤蹈火在所不辞！",
   "material.tconstruct.seared_stone.encyclopedia": "挖掘的方块可以熔化时，每级使挖掘速度+6。",
-  "material.tconstruct.seared_stone.armor": "每级使受到的火焰伤害10%；缩短自己的着火时间。",
+  "material.tconstruct.seared_stone.armor": "每级使受到的火焰伤害-10%；缩短自己的着火时间。",
 
   "material.tconstruct.scorched_stone": "焦褐石",
   "material.tconstruct.scorched_stone.flavor": "焦黑石（创始人典藏版）",
@@ -1965,7 +1965,7 @@
 
   "material.tconstruct.leaves": "树叶",
   "material.tconstruct.leaves.flavor": "纯天然",
-  "material.tconstruct.leaves.ammo": "合成或部件替换时获得箭矢数量减半；由树叶部件换走时重新得到这部分箭矢。",
+  "material.tconstruct.leaves.ammo": "合成或部件替换时获得箭矢数量减半；由树叶部件换走时重新得到这些箭矢。",
 
   "material.tconstruct.amethyst": "紫水晶",
   "material.tconstruct.amethyst.flavor": "抛开只能向正前方发射不谈，确实不用担心瞄不准了",
@@ -2034,7 +2034,7 @@
   "material.tconstruct.amethyst_bronze.flavor": "别和青铜搞混了。",
   "material.tconstruct.amethyst_bronze.encyclopedia": "挖掘不需要工具采集的方块，尤其是与当前工具类型不匹配的方块时，每级使 工具的挖掘速度+1。",
   "material.tconstruct.amethyst_bronze.ranged": "每级使箭矢初速度+0.1；代价是箭矢只能以固定角度出射， 前三级分别使得 出射方向限定为32、16、8向。",
-  "material.tconstruct.amethyst_bronze.armor": "每级攻击速度+2.5%；代价是只能以固定角度被击退，前四级分别将方向限定为 32、16、8、4向。",
+  "material.tconstruct.amethyst_bronze.armor": "每级使攻击速度+5%；代价是负面效果持续时间延长5%，且只能以固定角度 被击退，前四级分别将方向限定为32、 16、8、4向。",
 
   "material.tconstruct.pig_iron": "生铁",
   "material.tconstruct.pig_iron.flavor": "这是最佳材料，不接受反驳。",
@@ -2074,9 +2074,9 @@
 
   "material.tconstruct.manyullyn": "玛玉灵",
   "material.tconstruct.manyullyn.flavor": "没几个工匠能叫对这材料的名字。他们说这个材料能够斩断星辰。",
-  "material.tconstruct.manyullyn.encyclopedia": "每次连续的攻击使攻击伤害+0.5×等级；5次连续攻击后，攻击伤害的加成达到 上限为+2.5×等级。",
-  "material.tconstruct.manyullyn.ranged": "每次箭矢命中后，令弹射物力量+0.25× 等级，5次连续的箭矢命中后，弹射物 力量加成上限为+1.25×等级。",
-  "material.tconstruct.manyullyn.armor": "受到伤害后，近战伤害临时+1点；加成最多不超过此特性在所有部位盔甲上的 等级总和。",
+  "material.tconstruct.manyullyn.encyclopedia": "自己的生命值为满时，每级使攻击伤害+1；目标的生命值为满时，每级使攻击伤害+0.6。",
+  "material.tconstruct.manyullyn.ranged": "自己的生命值为满时，每级使弹射物力量+0.5； 目标的生命值为满时，每级使 弹射物力量+0.25。",
+  "material.tconstruct.manyullyn.armor": "自己的生命值为满时，每级让受到的伤害在护甲值与魔咒结算后进一步减少1，最多降低到1点。",
 
   "material.tconstruct.hepatizon": "黑色科林斯青铜",
   "material.tconstruct.hepatizon.flavor": "-科什么斯啊？  -科林斯啊。\n-什么林斯啊？  -科林斯啊！\n-科林什么啊？  -行了你先歇着吧。",
@@ -2086,7 +2086,7 @@
 
   "material.tconstruct.ichorskin": "灵浆皮",
   "material.tconstruct.ichorskin.flavor": "灵浆显然没有外皮",
-  "material.tconstruct.ichorskin.encyclopedia": "消耗最多5点黏液覆层，每消耗1点，令受到的伤害减少1%（上限5%）。",
+  "material.tconstruct.ichorskin.encyclopedia": "移动速度+5%，攻击速度+2.5%，挖掘速度+7.5%。",
 
   "material.tconstruct.cinderslime": "余烬黏液",
   "material.tconstruct.cinderslime.flavor": "将其铸进烈火！",
@@ -2141,8 +2141,8 @@
 
   "material.tconstruct.knightmetal": "骑士金属",
   "material.tconstruct.knightmetal.flavor": "史莱姆们旅途中得到的金属，也能从暮色森林某一穿盔甲的生物那找到。",
-  "material.tconstruct.knightmetal.encyclopedia": "目标每穿戴一件盔甲，每级令工具伤害+0.5。",
-  "material.tconstruct.knightmetal.ranged": "目标每穿戴一件盔甲，每级令箭矢伤害+0.25（先于速度计算）。",
+  "material.tconstruct.knightmetal.encyclopedia": "目标每穿戴一件盔甲，每级令工具伤害+0.4。",
+  "material.tconstruct.knightmetal.ranged": "目标每穿戴一件盔甲，每级令箭矢伤害+0.2（先于速度计算）。",
   "material.tconstruct.knightmetal.armor": "攻击者每手持一件物品，每级令自身的保护+4%。",
 
   "material.tconstruct.knightly": "骑士金属碎片",
@@ -2154,6 +2154,10 @@
   "material.tconstruct.end_rod.ammo": "弹射物在最开始的一秒中无视重力。",
 
   "material.tconstruct.knightslime": "骑士史莱姆",
+  "material.tconstruct.knightslime.flavor": "黏液？金属？还是石头？何等奇妙的材料！",
+  "material.tconstruct.knightslime.encyclopedia": "每级消耗1点黏液覆层（用宽型工具挖掘时改为消耗5点），获得+20%挖掘速 度和+15%攻击速度。",
+  "material.tconstruct.knightslime.ranged": "每级消耗1点黏液覆层，获得+0.06点箭矢初速度和拉弓速度。",
+  "material.tconstruct.knightslime.armor": "消耗最多2点黏液覆层，每消耗1点，令受到的伤害减少2.5%（上限5%）。",
 
   "material.tconstruct.enderslime_vine": "黏液藤蔓",
   "material.tconstruct.enderslime_vine.slimeskin": "黏液皮",
@@ -2281,6 +2285,11 @@
   "material.tconstruct.fiery.ranged": "箭矢能自动烧炼所有掉落物。更高等级有概率额外掉落一个烧炼的产物，每一 额外等级使概率增加20%。",
   "material.tconstruct.fiery.armor": "每级增加5%对着火中敌人的抗性。",
 
+  "material.tconstruct.nicrosil": "镍铬合金",
+  "material.tconstruct.nicrosil.flavor": "可以存储神能。",
+  "material.tconstruct.nicrosil.encyclopedia": "每次连续的攻击使攻击伤害+0.5×等级；5次连续攻击后，攻击伤害的加成达到 上限为+2.5×等级。",
+  "material.tconstruct.nicrosil.ranged": "每次箭矢命中后，令弹射物力量+0.25× 等级，5次连续的箭矢命中后，弹射物 力量加成上限为+1.25×等级。",
+  "material.tconstruct.nicrosil.armor": "受到伤害后，近战伤害临时+1点；加成最多不超过此特性在所有部位盔甲上的 等级总和。",
 
   "_comment": "Modifiers",
 
@@ -3104,10 +3113,9 @@
   "modifier.tconstruct.overcast": "黏液蓄积",
   "modifier.tconstruct.overcast.flavor": "超厚覆层！",
   "modifier.tconstruct.overcast.description": "这个工具上的黏液覆层可以变得很厚",
-  "modifier.tconstruct.overshield": "黏液护盾",
-  "modifier.tconstruct.overshield.flavor": "史莱姆盾牌！",
-  "modifier.tconstruct.overshield.description": "消耗黏液覆层减少任意来源的伤害",
-  "modifier.tconstruct.overshield.resistance": "黏液护盾",
+  "modifier.tconstruct.godspeed": "神速",
+  "modifier.tconstruct.godspeed.flavor": "一往无前！",
+  "modifier.tconstruct.godspeed.description": "增加移动、攻击和挖掘的速度",
   "modifier.tconstruct.lacerating": "割裂",
   "modifier.tconstruct.lacerating.flavor": "小心割手！",
   "modifier.tconstruct.lacerating.description": "使攻击目标流血，造成更多伤害",
@@ -3141,6 +3149,15 @@
   "modifier.tconstruct.overlord": "黏液帝皇",
   "modifier.tconstruct.overlord.flavor": "九五至尊！",
   "modifier.tconstruct.overlord.description": "工具的部分耐久度会被视作黏液覆层",
+  "modifier.tconstruct.overshield": "黏液护盾",
+  "modifier.tconstruct.overshield.flavor": "史莱姆盾牌！",
+  "modifier.tconstruct.overshield.description": "消耗黏液覆层，减少任意来源的伤害",
+  "modifier.tconstruct.overshield.resistance": "黏液护盾",
+  "modifier.tconstruct.overwield": "黏液掌控",
+  "modifier.tconstruct.overwield.flavor": "史莱姆合金！",
+  "modifier.tconstruct.overwield.description": "消耗黏液覆层，提升挖掘速度和弹射物初速度",
+  "modifier.tconstruct.overwield.mining_speed": "黏液掌控速度",
+  "modifier.tconstruct.overwield.velocity": "黏液掌控初速度",
   "modifier.tconstruct.momentum": "动力",
   "modifier.tconstruct.momentum.flavor": "勇往直前，快上加快！",
   "modifier.tconstruct.momentum.description": "工具的挖掘速度和箭矢初速度会在一次无中断的采掘和射击过程中不断提升",
@@ -3150,21 +3167,30 @@
   "modifier.tconstruct.recurrent_protection.description": "受到伤害后短暂增强保护",
   "modifier.tconstruct.recurrent_protection.resistance": "重复抗性",
   "modifier.tconstruct.insatiable": "贪婪",
-  "modifier.tconstruct.insatiable.flavor": "初识真味，欲望无垠！",
+  "modifier.tconstruct.insatiable.flavor": "初识真味，欲壑难填！",
   "modifier.tconstruct.insatiable.description": "每次击中目标后，造成的伤害都会增加",
   "modifier.tconstruct.insatiable.attack_damage": "贪婪伤害",
   "modifier.tconstruct.insatiable.projectile_damage": "贪婪弹射物力量",
+  "modifier.tconstruct.ambush": "伏击",
+  "modifier.tconstruct.ambush.flavor": "攻其不备，出其不意！",
+  "modifier.tconstruct.ambush.description": "你或目标生命值为满时，造成的伤害增加。",
+  "modifier.tconstruct.ambush.attack_damage": "伏击伤害",
+  "modifier.tconstruct.ambush.projectile_damage": "伏击弹射物力量",
   "modifier.tconstruct.kinetic": "动能",
   "modifier.tconstruct.kinetic.flavor": "不经一事，不长一智！",
   "modifier.tconstruct.kinetic.description": "每次受到攻击后，造成的伤害都会增加",
   "modifier.tconstruct.kinetic.attack_damage": "动能伤害",
   "modifier.tconstruct.valiant": "勇烈",
-  "modifier.tconstruct.valiant.flavor": "骑士之矛！",
+  "modifier.tconstruct.valiant.flavor": "骑士之矛，无坚不摧！",
   "modifier.tconstruct.valiant.description": "增加对有盔甲的目标的伤害",
   "modifier.tconstruct.valiant.attack_damage": "勇烈伤害",
   "modifier.tconstruct.valiant.projectile_damage": "勇烈伤害",
+  "modifier.tconstruct.warded": "坚守",
+  "modifier.tconstruct.warded.flavor": "触不可及！",
+  "modifier.tconstruct.warded.description": "生命值为满时，每级让受到的伤害在护甲值结算后进一步减少0.5，最少为1点。",
+  "modifier.tconstruct.warded.damage_adjustment": "坚守伤害",
   "modifier.tconstruct.stalwart": "坚盾",
-  "modifier.tconstruct.stalwart.flavor": "骑士之盾！",
+  "modifier.tconstruct.stalwart.flavor": "骑士之盾，坚不可摧！",
   "modifier.tconstruct.stalwart.description": "减少来自有盔甲的目标的伤害",
   "modifier.tconstruct.stalwart.resistance": "坚盾抗性",
   "modifier.tconstruct.conducting": "传导",
@@ -3744,6 +3770,7 @@
   "subtitles.tconstruct.crystalshot": "箭：击中",
   "subtitles.tconstruct.bonk": "工具：重击",
   "subtitles.tconstruct.spit": "流体：泼洒",
+  "subtitles.tconstruct.toy_squeak": "工具：人畜无害的挥击声",
 
   "subtitles.tconstruct.necrotic_heal": "生命汲取",
   "subtitles.tconstruct.extra_jump": "实体：嗖",
