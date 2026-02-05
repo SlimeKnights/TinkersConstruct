@@ -16,6 +16,10 @@ import javax.annotation.Nullable;
 /** A hook used to provide BlockItems through the {@link BlockItemProviderCapability}, for modifiers such as exchanging */
 public interface ToolBlockItemProviderHook {
     /**
+     * Get a block item to provide. Can be randomised, but make sure to handle that properly in the other methods.
+     * @param tool The tool that this hook is attached to, as a tool stack view
+     * @param modifier The modifier that provided this hook
+     * @param entity The entity holding this tool. May be null if there is no entity
      * @return the {@link BlockItem} that this provides, or {@code null} if this cannot provide more block items (for example if the stack has been depleted)
      */
     @Nullable
@@ -35,6 +39,8 @@ public interface ToolBlockItemProviderHook {
      * Get the stack backing the provided BlockItem. The returned stack will be not be modified as it is copied immediately.
      * The returned stack is primarily used to determine placement state and placement permissions (for adventure mode players).
      * @param tool The tool that this hook is attached to, as a tool stack view
+     * @param modifier The modifier that provided this hook
+     * @param entity The entity holding this tool. May be null if there is no entity
      * @return {@link ItemStack#EMPTY} if there is no backing item, otherwise an {@link ItemStack} instance holding at least one of {@code item}.
      */
     default ItemStack getBackingStack(IToolStackView tool, ModifierEntry modifier, BlockItem item, @Nullable LivingEntity entity) {
