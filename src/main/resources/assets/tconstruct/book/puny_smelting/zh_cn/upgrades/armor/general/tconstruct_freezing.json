@@ -7,7 +7,7 @@
   ],
   "tool_filter": "tconstruct:modifiable/armor",
   "effects": [
-    "受击时概率冰冻敌人",
+    "受击时概率冰冻攻击者",
     "多个等级，每级提升冰冻概率",
     "每级需要1个升级槽"
   ]

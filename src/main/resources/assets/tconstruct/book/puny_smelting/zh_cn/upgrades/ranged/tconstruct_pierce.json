@@ -12,7 +12,7 @@
   "tool_filter": "tconstruct:modifiable/ranged",
   "effects": [
     "箭矢取消少量护甲值",
-    "多个等级，每个等级进一步提升作用效果",
+    "多个等级，每级进一步提升作用效果",
     "每级需要1个升级槽"
   ]
 }
