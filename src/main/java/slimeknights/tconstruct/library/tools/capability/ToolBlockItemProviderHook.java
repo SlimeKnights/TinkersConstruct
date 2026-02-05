@@ -53,12 +53,10 @@ public interface ToolBlockItemProviderHook {
         @Override
         public BlockItem getBlockItem(ItemStack capStack, @Nullable LivingEntity entity) {
             for (ModifierEntry entry : tool.getModifiers()) {
-                ToolBlockItemProviderHook provider = entry.getModifier().getHooks().getOrNull(ModifierHooks.BLOCK_ITEM_PROVIDER);
-                if (provider != null) {
-                    BlockItem item = provider.getBlockItem(tool, entry, entity);
-                    if (item != null) {
-                        return item;
-                    }
+                entry.getHook(ModifierHooks.BLOCK_ITEM_PROVIDER);
+                BlockItem item = entry.getHook(ModifierHooks.BLOCK_ITEM_PROVIDER).getBlockItem(tool, entry, entity);
+                if (item != null) {
+                    return item;
                 }
             }
             return null;
