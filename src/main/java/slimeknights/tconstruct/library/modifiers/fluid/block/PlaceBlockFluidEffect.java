@@ -109,14 +109,16 @@ public record PlaceBlockFluidEffect(@Nullable Block block, @Nullable SoundEvent 
    * Attempt to place from an item that may or may not provide a {@link BlockItem} via {@link BlockItemProviderCapability}
    * @return {@code null} if the item couldn't provide a {@link BlockItem} to place. {@code 0} if placement failed, {@code 1} if it succeeded.
    */
-  private @Nullable Integer maybePlaceFrom(FluidEffectContext.Block context, FluidAction action, ItemStack held, InteractionHand useHand) {
+  @Nullable
+  private Integer maybePlaceFrom(FluidEffectContext.Block context, FluidAction action, ItemStack held, InteractionHand useHand) {
     LivingEntity entity = context.getEntity();
     BlockItemProviderCapability cap = getBlockProvider(held);
     if (cap == null) return null;
-    BlockItem blockItem = cap.getBlockItem(held, entity);
-    if (blockItem == null) return null;
+    ItemStack backingStack = cap.getBlockItemStack(held, entity);
+    if (backingStack.isEmpty()) return null;
 
-    ItemStack backingStack = cap.getBackingStack(held, blockItem, entity);
+    BlockItem blockItem = BlockItemProviderCapability.verifyBlockItem(backingStack, cap);
+    if (blockItem == null) return null;
     // immediately do a defensive copy of the stack.
     ItemStack stack = backingStack.copyWithCount(1);
     if (stack.isEmpty()) stack = new ItemStack(blockItem);
@@ -125,7 +127,7 @@ public record PlaceBlockFluidEffect(@Nullable Block block, @Nullable SoundEvent 
 
     int result = placeBlockItem(blockItem, context, action, blockItem.getBlock(), placeContext);
     if (stack.isEmpty()) {
-      cap.consume(held, blockItem, backingStack, entity);
+      cap.consume(held, backingStack, entity);
     }
     return result;
   }

@@ -53,26 +53,31 @@ public class ExchangingModifier extends NoLevelsModifier implements RemoveBlockM
     if (item.isEmpty()) return null;
 
     BlockItemProviderCapability blockProvider = BlockItemProviderCapability.getBlockProvider(item);
-    BlockItem blockItem = blockProvider == null ? null : blockProvider.getBlockItem(item, entity);
+    ItemStack backingStack = blockProvider == null ? ItemStack.EMPTY : blockProvider.getBlockItemStack(item, entity);
+    BlockItem blockItem = null;
+
+    // blockProvider != null is technically always true, but this makes the static analysis happy as it doesn't know that ItemStack.EMPTY.getItem() instanceof BlockItem is always false.
+    if (blockProvider != null) {
+      blockItem = BlockItemProviderCapability.verifyBlockItem(backingStack, blockProvider);
+    }
+
     // if the thing in our offhand cannot provide at all or cannot currently provide then check
     // the mainhand next (this tool), in case we have glowing or a similar modifier to provide blocks.
     if (blockItem == null) {
       item = context.getLiving().getMainHandItem();
       // skip forges cap system and go to the tinkers hook because we know this is a tinkers tool
       blockProvider = new ToolBlockItemProviderHook.CapabilityImpl(tool);
-      blockItem = blockProvider.getBlockItem(item, entity);
+      backingStack = blockProvider.getBlockItemStack(item, entity);
+      blockItem = BlockItemProviderCapability.verifyBlockItem(backingStack, blockProvider);
 
       // nothing could provide
       if (blockItem == null) return null;
     }
 
-    ItemStack backingStack = blockProvider.getBackingStack(item, blockItem, entity);
     // immediately do a defensive copy of the stack.
     ItemStack fakeStack = backingStack.copyWithCount(1);
-    if (fakeStack.isEmpty()) fakeStack = new ItemStack(blockItem);
 
     // if we are an adventure mode player, check if we are allowed to place it.
-    // Note that we check the mined position as the block we are placing 'against', which could be considered variance against vanilla but it is the block that make the most sense here.
     // Note that we check the mined position as the block we are placing 'against', which could be considered variance against vanilla but it is the block that make the most sense here.
     if (entity instanceof Player player && !player.mayBuild() && !fakeStack.hasAdventureModePlaceTagForBlock(BuiltInRegistries.BLOCK, new BlockInWorld(world, pos, false))) {
       return null;
@@ -107,7 +112,7 @@ public class ExchangingModifier extends NoLevelsModifier implements RemoveBlockM
 
     // If our fake stack is now empty then it got placed (or otherwise consumed), so consume an item from the provider.
     if (fakeStack.isEmpty()) {
-      blockProvider.consume(item, blockItem, backingStack, entity);
+      blockProvider.consume(item, backingStack, entity);
     }
 
     if (success.consumesAction()) {
@@ -127,4 +132,5 @@ public class ExchangingModifier extends NoLevelsModifier implements RemoveBlockM
       return world.setBlock(pos, fluidState, 3);
     }
   }
+
 }

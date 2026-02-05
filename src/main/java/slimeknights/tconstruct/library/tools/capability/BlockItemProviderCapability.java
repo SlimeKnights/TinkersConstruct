@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.tools.capability;
 
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -63,32 +64,40 @@ public interface BlockItemProviderCapability {
   }
 
   /**
-   * Get a BlockItem that this capability provides. Can be randomised, or null if this cannot provide at the moment.
-   * @param stack The {@link ItemStack} that this capability was attached to.
-   * @param entity The {@link LivingEntity} (usually a {@link Player}) that is requesting a block.
-   * @return the {@link BlockItem} that this provides, or {@code null} if this cannot provide more block items (for example if the stack has been depleted)
+   * Utility to verify that a given stack does indeed contain a BlockItem
+   * @param stack The stack to check
+   * @param blockProvider The provider that provided this item, used in case it fails as debugging information
+   * @return the contained BlockItem, or null if it was not a BlockItem
    */
   @Nullable
-  BlockItem getBlockItem(ItemStack stack, @Nullable LivingEntity entity);
+  static BlockItem verifyBlockItem(ItemStack stack, BlockItemProviderCapability blockProvider) {
+    if (stack.getItem() instanceof BlockItem bItem) {
+      return bItem;
+    } else {
+      TConstruct.LOG.warn("BlockItemProviderCapability implementation tried to return a non-empty, non-blockitem stack! Cap: {}, Cap Class: {}, Provided Item: {}", blockProvider, blockProvider.getClass().getName(), BuiltInRegistries.ITEM.getId(stack.getItem()));
+      return null;
+    }
+  }
 
   /**
-   * Get the stack backing the provided BlockItem. The returned stack will be not be modified as it is copied immediately.
-   * The returned stack is primarily used to determine placement state and placement permissions (for adventure mode players).
-   * @return {@link ItemStack#EMPTY} if there is no backing item, otherwise an {@link ItemStack} instance holding at least one of {@code item}.
+   * Get a {@link BlockItem} to provide, wrapped as an ItemStack with any required placement NBT data. Can be randomised, if desired.
+   * <br>
+   * <br>
+   * <b>The returned stack must have {@link ItemStack#getItem} return an instance of {@link BlockItem}, or be {@link ItemStack#EMPTY}!</b>
+   * @param stack The {@link ItemStack} that this capability was attached to.
+   * @param entity The {@link LivingEntity} (usually a {@link Player}) that is requesting a block.
+   * @return the {@link ItemStack} that this provides, or {@link ItemStack#EMPTY} if this cannot provide more block items (for example if the stack has been depleted)
    */
-  default ItemStack getBackingStack(ItemStack capStack, BlockItem item, @Nullable LivingEntity entity) {
-    return ItemStack.EMPTY;
-  }
+  ItemStack getBlockItemStack(ItemStack stack, @Nullable LivingEntity entity);
 
   /**
    * Consume one item from this provider.
    * @param stack The {@link ItemStack} that this capability was attached to.
-   * @param item The {@link BlockItem} that we want to consume. Should have been provided recently by {@link #getBlockItem}
-   * @param backingStack The stack returned by {@link #getBackingStack} that was placed and is now being consumed. It is unmodified and the same instance so can use == for comparisons.
+   * @param backingStack The stack returned by {@link #getBlockItemStack} that was placed and is now being consumed. It is unmodified and the same instance so can use == for comparisons.
    * @param entity The {@link LivingEntity} (usually a {@link Player}) that has just consumed a block.
    * Consume a block from this provider. For example may decrease a contained stacks size or remove fluid from the stack's tank.
    */
-  void consume(ItemStack stack, BlockItem item, ItemStack backingStack, @Nullable LivingEntity entity);
+  void consume(ItemStack stack, ItemStack backingStack, @Nullable LivingEntity entity);
 
   /**
    * A simple implementation of {@link BlockItemProviderCapability} that provides from an ItemStack holding a BlockItem
@@ -100,19 +109,13 @@ public interface BlockItemProviderCapability {
     private final LazyOptional<BlockItemProviderCapability> lazy = LazyOptional.of(() -> this);
 
     @Override
-    @Nullable
-    public BlockItem getBlockItem(ItemStack capStack, @Nullable LivingEntity entity) {
-      return capStack.isEmpty() ? null : ((BlockItem) capStack.getItem());
+    public ItemStack getBlockItemStack(ItemStack capStack, @Nullable LivingEntity entity) {
+      return capStack.isEmpty() ? ItemStack.EMPTY : capStack;
     }
 
     @Override
-    public void consume(ItemStack capStack, BlockItem item, ItemStack backingStack, @Nullable LivingEntity entity) {
+    public void consume(ItemStack capStack, ItemStack backingStack, @Nullable LivingEntity entity) {
       capStack.shrink(1);
-    }
-
-    @Override
-    public ItemStack getBackingStack(ItemStack capStack, BlockItem item, @Nullable LivingEntity entity) {
-      return capStack;
     }
 
     // Because this is an incredibly simple capability it acts as provider and as the actual capability implementation.

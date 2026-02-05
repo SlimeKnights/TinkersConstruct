@@ -283,7 +283,7 @@ public final class TinkerTools extends TinkerModule {
     ToolCapabilityProvider.register(ToolFluidCapability.Provider::new);
     ToolCapabilityProvider.register(ToolInventoryCapability.Provider::new);
     ToolCapabilityProvider.register((stack, tool) -> new ToolEnergyCapability.Provider(tool));
-    ToolCapabilityProvider.register((stack, tool) -> new ToolBlockItemProviderHook.Provider());
+    ToolCapabilityProvider.register((stack, tool) -> new ToolBlockItemProviderHook.Provider(tool));
     for (ConfigurableAction action : Config.COMMON.toolTweaks) {
       event.enqueueWork(action);
     }

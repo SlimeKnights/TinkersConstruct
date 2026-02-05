@@ -133,12 +133,12 @@ public class ModifierHooks {
   public static final ModuleHook<ToolBlockItemProviderHook> BLOCK_ITEM_PROVIDER = register("block_item_provider", ToolBlockItemProviderHook.class, new ToolBlockItemProviderHook() {
     @Nullable
     @Override
-    public BlockItem getBlockItem(IToolStackView tool, ModifierEntry modifier, @Nullable LivingEntity entity) {
-      return null;
+    public ItemStack getBlockItemStack(IToolStackView tool, ModifierEntry modifier, @Nullable LivingEntity entity) {
+      return ItemStack.EMPTY;
     }
 
     @Override
-    public boolean consumeBlockItem(IToolStackView tool, ItemStack toolStack, ModifierEntry modifier, BlockItem item, ItemStack backingStack, @Nullable LivingEntity entity) {
+    public boolean consumeBlockItem(IToolStackView tool, ItemStack toolStack, ModifierEntry modifier, ItemStack backingStack, @Nullable LivingEntity entity) {
       return false;
     }
   });
