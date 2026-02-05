@@ -24,6 +24,10 @@
     {
       "id": "tconstruct:plated_slimewood",
       "required": false
+    },
+    {
+      "id": "tconstruct:nicrosil",
+      "required": false
     }
   ]
 }

@@ -119,8 +119,8 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.queensSlime, ModifierIds.overlord, TinkerModifiers.overslime.getId());
     addDefaultTraits(MaterialIds.hepatizon, TinkerModifiers.momentum);
     addTraits(MaterialIds.hepatizon, ARMOR, ModifierIds.recurrentProtection);
-    addDefaultTraits(MaterialIds.manyullyn, TinkerModifiers.insatiable);
-    addTraits(MaterialIds.manyullyn, ARMOR, ModifierIds.kinetic);
+    addDefaultTraits(MaterialIds.manyullyn, ModifierIds.ambush);
+    addTraits(MaterialIds.manyullyn, ARMOR, ModifierIds.warded);
     addDefaultTraits(MaterialIds.blazingBone, TinkerModifiers.conducting);
     addTraits(MaterialIds.blazingBone, AMMO, ModifierIds.conductive);
     addTraits(MaterialIds.blazingBone, ARMOR, ModifierIds.conductive);
@@ -169,6 +169,8 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     // tier 4 - mod compat
     addDefaultTraits(MaterialIds.fiery, ModifierIds.autosmelt);
     addTraits(MaterialIds.fiery, ARMOR, ModifierIds.temperedProtection);
+    addDefaultTraits(MaterialIds.nicrosil, TinkerModifiers.insatiable);
+    addTraits(MaterialIds.nicrosil, ARMOR, ModifierIds.kinetic);
 
     // slimeskull
     addTraits(MaterialIds.glass,        SkullStats.ID, TinkerModifiers.selfDestructive.getId(), ModifierIds.creeperDisguise);

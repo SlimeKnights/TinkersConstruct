@@ -20,7 +20,7 @@
     },
     "tconstruct:limb": {
       "accuracy": -0.05,
-      "draw_speed": -0.25,
+      "draw_speed": -0.1,
       "durability": 1024,
       "velocity": 0.2
     },

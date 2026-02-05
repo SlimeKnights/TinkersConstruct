@@ -7,14 +7,12 @@
         "$overslime",
         "$level",
         "min",
-        8.0,
-        "*",
-        "$multiplier",
+        0.2,
         "*",
         "$speed",
-        "+"
+        "*"
       ],
-      "percent": false,
+      "percent": true,
       "require_effective": true,
       "tool": {
         "type": "mantle:inverted",
@@ -37,9 +35,18 @@
       "owner": "tconstruct:overslime",
       "run_before": true,
       "tool": {
-        "type": "mantle:inverted",
-        "inverted_type": "mantle:tag",
-        "tag": "tconstruct:modifiable/broad"
+        "type": "mantle:and",
+        "predicates": [
+          {
+            "type": "mantle:tag",
+            "tag": "tconstruct:modifiable/harvest"
+          },
+          {
+            "type": "mantle:inverted",
+            "inverted_type": "mantle:tag",
+            "tag": "tconstruct:modifiable/broad"
+          }
+        ]
       }
     },
     {
@@ -52,14 +59,12 @@
         "min",
         5.0,
         "/",
-        8.0,
-        "*",
-        "$multiplier",
+        0.2,
         "*",
         "$speed",
-        "+"
+        "*"
       ],
-      "percent": false,
+      "percent": true,
       "require_effective": true,
       "tool": {
         "type": "mantle:tag",
@@ -86,12 +91,42 @@
       }
     },
     {
+      "type": "tconstruct:attribute",
+      "attribute": "minecraft:generic.attack_speed",
+      "formula": [
+        "$overslime",
+        "$level",
+        "min",
+        0.15,
+        "*"
+      ],
+      "operation": "multiply_total",
+      "slots": [
+        "mainhand"
+      ],
+      "variables": {
+        "overslime": {
+          "type": "tconstruct:mod_data",
+          "key": "tconstruct:overslime",
+          "source": "persistent"
+        }
+      }
+    },
+    {
+      "type": "tconstruct:melee_capacity",
+      "grant": {
+        "each_level": -1
+      },
+      "owner": "tconstruct:overslime",
+      "run_before": true
+    },
+    {
       "type": "tconstruct:conditional_stat",
       "formula": [
         "$overslime",
         "$level",
         "min",
-        0.1,
+        0.06,
         "*",
         "$multiplier",
         "*",
@@ -100,6 +135,29 @@
       ],
       "percent": false,
       "stat": "tconstruct:velocity",
+      "variables": {
+        "overslime": {
+          "type": "tconstruct:mod_data",
+          "key": "tconstruct:overslime",
+          "source": "persistent"
+        }
+      }
+    },
+    {
+      "type": "tconstruct:conditional_stat",
+      "formula": [
+        "$overslime",
+        "$level",
+        "min",
+        0.06,
+        "*",
+        "$multiplier",
+        "*",
+        "$value",
+        "+"
+      ],
+      "percent": false,
+      "stat": "tconstruct:draw_speed",
       "variables": {
         "overslime": {
           "type": "tconstruct:mod_data",

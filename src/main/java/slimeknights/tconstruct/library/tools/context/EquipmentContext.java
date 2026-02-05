@@ -76,7 +76,7 @@ public class EquipmentContext {
   /** Checks if any of the armor items are modifiable, limiting to the passed slots. Filters out holding armor to get its effects. */
   public boolean hasModifiableArmor(EquipmentSlot... slots) {
     for (EquipmentSlot slotType : slots) {
-      if (ModifierUtil.validArmorSlot(entity, slotType) && getToolInSlot(slotType) != null) {
+      if (getValidTool(slotType) != null) {
         return true;
       }
     }

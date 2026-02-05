@@ -55,7 +55,8 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
     );
 
     // tier 4 is split into several parts in different books
-    tag(TinkerTags.Materials.BLAZING_BLOOD).add(MaterialIds.manyullyn, MaterialIds.hepatizon, MaterialIds.queensSlime, MaterialIds.cinderslime, MaterialIds.blazingBone, MaterialIds.blazewood, MaterialIds.ancientHide);
+    tag(TinkerTags.Materials.BLAZING_BLOOD).add(MaterialIds.manyullyn, MaterialIds.hepatizon, MaterialIds.queensSlime, MaterialIds.cinderslime, MaterialIds.blazingBone, MaterialIds.blazewood, MaterialIds.ancientHide)
+      .addOptional(MaterialIds.nicrosil);
     tag(TinkerTags.Materials.DISTANT).add(
       // tiers 1-2
       MaterialIds.chorus, MaterialIds.whitestone,
@@ -88,7 +89,7 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
       MaterialIds.fiery
     ).addTag(TinkerTags.Materials.COMPATABILITY_BLOCKS);
     tag(TinkerTags.Materials.COMPATABILITY_BLOCKS).addTag(TinkerTags.Materials.COMPATABILITY_ALLOYS);
-    tag(TinkerTags.Materials.COMPATABILITY_ALLOYS).addOptional(MaterialIds.bronze, MaterialIds.constantan, MaterialIds.invar, MaterialIds.electrum, MaterialIds.pewter);
+    tag(TinkerTags.Materials.COMPATABILITY_ALLOYS).addOptional(MaterialIds.bronze, MaterialIds.constantan, MaterialIds.invar, MaterialIds.electrum, MaterialIds.pewter, MaterialIds.nicrosil);
 
     // material categories
     // melee harvest
@@ -139,7 +140,9 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
       // tier 2
       MaterialIds.silver,
       // tier 3
-      MaterialIds.invar, MaterialIds.pewter, MaterialIds.necronium
+      MaterialIds.invar, MaterialIds.pewter, MaterialIds.necronium,
+      // tier 4
+      MaterialIds.nicrosil
     );
 
     // ranged
@@ -174,7 +177,9 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
       // tier 2
       MaterialIds.aluminum,
       // tier 3
-      MaterialIds.necronium, MaterialIds.constantan, MaterialIds.platedSlimewood
+      MaterialIds.necronium, MaterialIds.constantan, MaterialIds.platedSlimewood,
+      // tier 4
+      MaterialIds.nicrosil
     );
     tag(TinkerTags.Materials.HEAVY).add(
       // tier 1

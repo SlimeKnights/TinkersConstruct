@@ -40,6 +40,8 @@ public class TinkerPredicate {
     }
     return false;
   });
+  /** Matches entities that have not lost any health. We use the ceiling of current health to match the health renderer. */
+  public static LivingEntityPredicate FULL_HEALTH = LivingEntityPredicate.simple(entity -> Math.ceil(entity.getHealth()) >= entity.getMaxHealth());
 
   /** Predicate matching any buckets */
   public static ItemPredicate BUCKET = ItemPredicate.simple(item -> item instanceof BucketItem);

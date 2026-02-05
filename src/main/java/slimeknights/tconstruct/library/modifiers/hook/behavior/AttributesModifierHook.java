@@ -54,7 +54,7 @@ public interface AttributesModifierHook {
     if (!tool.isBroken()) {
       // base melee stats - skip if not melee
       StatsNBT statsNBT = tool.getStats();
-      if (slot == EquipmentSlot.MAINHAND && tool.hasTag(TinkerTags.Items.MELEE_WEAPON) && !tool.getVolatileData().getBoolean(EntityInteractionModifierHook.NO_MELEE)) {
+      if (slot == EquipmentSlot.MAINHAND && EntityInteractionModifierHook.isMeleeWeapon(tool)) {
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(Item.BASE_ATTACK_DAMAGE_UUID, "tconstruct.tool.attack_damage", statsNBT.get(ToolStats.ATTACK_DAMAGE), AttributeModifier.Operation.ADDITION));
         // base attack speed is 4, but our numbers start from 4
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(Item.BASE_ATTACK_SPEED_UUID, "tconstruct.tool.attack_speed", statsNBT.get(ToolStats.ATTACK_SPEED) - 4d, AttributeModifier.Operation.ADDITION));

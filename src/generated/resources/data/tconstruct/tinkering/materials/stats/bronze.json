@@ -19,8 +19,8 @@
       "mining_tier": "minecraft:diamond"
     },
     "tconstruct:limb": {
-      "accuracy": -0.2,
-      "draw_speed": -0.2,
+      "accuracy": -0.1,
+      "draw_speed": -0.1,
       "durability": 760,
       "velocity": 0.15
     },

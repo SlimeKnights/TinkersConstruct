@@ -18,19 +18,24 @@ import java.util.List;
 import java.util.Map;
 
 /** Variable context for {@link ConditionalMeleeDamageModule} */
-public record ProtectionFormula(ModifierFormula formula, List<ProtectionVariable> variables, String[] variableNames) implements VariableFormula<ProtectionVariable> {
-  /** Variables for the modifier formula */
+public record ProtectionFormula(ModifierFormula formula, List<ProtectionVariable> variables, String[] variableNames, boolean percent) implements VariableFormula<ProtectionVariable> {
+  /** Variables for the modifier formula. TODO 1.21: replace "protection" with "value". */
   public static final String[] VARIABLES = { "level", "protection" };
-  /** Loader instance */
+  /** Loader instance for protection */
   public static final RecordLoadable<ProtectionFormula> LOADER = new VariableFormulaLoadable<>(ProtectionVariable.LOADER, VARIABLES, FallbackFormula.ADD, (formula, variables, percent) -> new ProtectionFormula(formula, variables, EMPTY_STRINGS));
+  /** Loader instance for damage adjustment */
+  public static final RecordLoadable<ProtectionFormula> DAMAGE_LOADER = new VariableFormulaLoadable<>(ProtectionVariable.LOADER, VARIABLES, FallbackFormula.ADD, FallbackFormula.PERCENT, (formula, variables, percent) -> new ProtectionFormula(formula, variables, EMPTY_STRINGS, percent));
 
-  public ProtectionFormula(ModifierFormula formula, Map<String,ProtectionVariable> variables) {
-    this(formula, List.copyOf(variables.values()), VariableFormula.getNames(variables));
+  public ProtectionFormula(ModifierFormula formula, List<ProtectionVariable> variables, String[] variableNames) {
+    this(formula, variables, variableNames, true);
   }
 
-  @Override
-  public boolean percent() {
-    return true;
+  public ProtectionFormula(ModifierFormula formula, Map<String,ProtectionVariable> variables, boolean percent) {
+    this(formula, List.copyOf(variables.values()), VariableFormula.getNames(variables), percent);
+  }
+
+  public ProtectionFormula(ModifierFormula formula, Map<String,ProtectionVariable> variables) {
+    this(formula, variables, true);
   }
 
   /** Builds the arguments from the context */

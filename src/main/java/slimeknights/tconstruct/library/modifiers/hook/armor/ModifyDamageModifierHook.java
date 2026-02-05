@@ -57,7 +57,7 @@ public interface ModifyDamageModifierHook {
    */
   static float modifyDamageTaken(ModuleHook<ModifyDamageModifierHook> hook, EquipmentContext context, DamageSource source, float amount, boolean isDirectDamage) {
     for (EquipmentSlot slotType : EquipmentSlot.values()) {
-      IToolStackView toolStack = context.getToolInSlot(slotType);
+      IToolStackView toolStack = context.getValidTool(slotType);
       if (toolStack != null && !toolStack.isBroken()) {
         for (ModifierEntry entry : toolStack.getModifierList()) {
           amount = entry.getHook(hook).modifyDamageTaken(toolStack, entry, context, slotType, source, amount, isDirectDamage);

@@ -28,6 +28,10 @@
     {
       "id": "tconstruct:necronium",
       "required": false
+    },
+    {
+      "id": "tconstruct:nicrosil",
+      "required": false
     }
   ]
 }

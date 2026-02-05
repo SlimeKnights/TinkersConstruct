@@ -27,9 +27,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.EntityInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.mining.BreakSpeedContext;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.ScheduledProjectileTaskModifierHook;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
@@ -219,31 +221,36 @@ public class ThrownTool extends ThrownTrident implements ToolProjectile {
 
       IToolStackView tool = getTool();
       if (ToolAttackUtil.canPerformAttack(tool) && ToolAttackUtil.isAttackable(owner, target)) {
-        // hack: swap the offhand for the tool so any relevant modifier hooks (notably looting) see the right thing
-        // does not actually matter which slot we use, just need the tool there to ensure hooks are properly run
-        // skip the hack if attacking ourself, as that might cause it to drop/duplicate. Its not like we need looting on ourself, why are you killing yourself?
-        ItemStack offhand = owner.getOffhandItem();
-        boolean notSelf = owner != target;
-        if (notSelf) {
-          owner.setItemInHand(InteractionHand.OFF_HAND, tridentItem);
-        }
-        // TODO: consider whether redundant sound is fine
-        if (ToolAttackUtil.performAttack(tool, ToolAttackContext.attacker(owner).target(target).hand(InteractionHand.OFF_HAND).baseDamage(tool.getStats().get(ToolStats.ATTACK_DAMAGE) * multiplier).cooldown(charge).projectile(this).build())) {
-          if (target.getType() == EntityType.ENDERMAN && tool.getModifiers().getLevel(TinkerModifiers.enderference.getId()) == 0) {
-            // restore held item
-            if (notSelf) {
-              owner.setItemInHand(InteractionHand.OFF_HAND, offhand);
+        // if the tool is blunted, don't deal damage and instead go squeak
+        if (EntityInteractionModifierHook.meleeDisabled(tool)) {
+          owner.playSound(Sounds.TOY_SQUEAK.getSound());
+        } else {
+          // hack: swap the offhand for the tool so any relevant modifier hooks (notably looting) see the right thing
+          // does not actually matter which slot we use, just need the tool there to ensure hooks are properly run
+          // skip the hack if attacking ourself, as that might cause it to drop/duplicate. Its not like we need looting on ourself, why are you killing yourself?
+          ItemStack offhand = owner.getOffhandItem();
+          boolean notSelf = owner != target;
+          if (notSelf) {
+            owner.setItemInHand(InteractionHand.OFF_HAND, tridentItem);
+          }
+          // TODO: consider whether redundant sound is fine
+          if (ToolAttackUtil.performAttack(tool, ToolAttackContext.attacker(owner).target(target).hand(InteractionHand.OFF_HAND).baseDamage(tool.getStats().get(ToolStats.ATTACK_DAMAGE) * multiplier).cooldown(charge).projectile(this).build())) {
+            if (target.getType() == EntityType.ENDERMAN && tool.getModifiers().getLevel(TinkerModifiers.enderference.getId()) == 0) {
+              // restore held item
+              if (notSelf) {
+                owner.setItemInHand(InteractionHand.OFF_HAND, offhand);
+              }
+              return;
             }
-            return;
+            if (target instanceof LivingEntity living) {
+              this.doPostHurtEffects(living);
+            }
           }
-          if (target instanceof LivingEntity living) {
-            this.doPostHurtEffects(living);
-          }
-        }
 
-        // restore held item
-        if (notSelf) {
-          owner.setItemInHand(InteractionHand.OFF_HAND, offhand);
+          // restore held item
+          if (notSelf) {
+            owner.setItemInHand(InteractionHand.OFF_HAND, offhand);
+          }
         }
       }
 

@@ -4,7 +4,7 @@
     {
       "type": "tconstruct:overshield",
       "consumed": {
-        "each_level": 5
+        "each_level": 2
       },
       "protection": {
         "each_level": 1.25

@@ -8,6 +8,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
@@ -82,11 +83,26 @@ public interface EntityInteractionModifierHook {
   }
 
 
+  /** Checks if the tool has melee attacks disabled. Note this tells you nothing about it being a melee tool in the first place. */
+  static boolean meleeDisabled(IToolStackView tool) {
+    return tool.getVolatileData().getBoolean(NO_MELEE);
+  }
+
+  /** Checks if the tool is able to perform melee attacks. */
+  static boolean isMelee(IToolStackView tool) {
+    return tool.hasTag(TinkerTags.Items.MELEE) && !meleeDisabled(tool);
+  }
+
+  /** Checks if the tool is able to perform melee attacks with attack speed. */
+  static boolean isMeleeWeapon(IToolStackView tool) {
+    return tool.hasTag(TinkerTags.Items.MELEE_WEAPON) && !meleeDisabled(tool);
+  }
+
   /** Logic to left click an entity using interaction modifiers */
   static boolean leftClickEntity(ItemStack stack, Player player, Entity target) {
     ToolStack tool = ToolStack.from(stack);
+    boolean noMelee = meleeDisabled(tool);
     if (stack.is(TinkerTags.Items.INTERACTABLE_LEFT)) {
-      boolean noMelee = tool.getVolatileData().getBoolean(NO_MELEE);
       if (!player.getCooldowns().isOnCooldown(stack.getItem())) {
         List<ModifierEntry> modifiers = tool.getModifierList();
         // TODO: should this be in the event?
@@ -112,11 +128,13 @@ public interface EntityInteractionModifierHook {
           }
         }
       }
-      // block vanilla left click when melee is disabled, not just our left click
-      // block even on cooldown
-      if (noMelee) {
-        return true;
-      }
+    }
+    // block vanilla left click when melee is disabled, not just our left click
+    // block even on cooldown
+    if (noMelee) {
+      // when you fail to damage a target, squeak
+      player.playSound(Sounds.TOY_SQUEAK.getSound());
+      return true;
     }
     // no left click modifiers? fallback to standard attack
     return ToolAttackUtil.attackEntity(tool, player, target);

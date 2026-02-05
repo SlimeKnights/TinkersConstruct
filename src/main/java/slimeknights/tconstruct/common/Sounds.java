@@ -40,6 +40,7 @@ public enum Sounds {
   CRYSTALSHOT,
   BONK,
   SPIT,
+  TOY_SQUEAK,
 
   // modifiers
   NECROTIC_HEAL,
@@ -56,7 +57,6 @@ public enum Sounds {
   EQUIP_PLATE("equip.plate"),
 
   // unused
-  TOY_SQUEAK,
   CROSSBOW_RELOAD,
   STONE_HIT,
   WOOD_HIT,

@@ -472,12 +472,12 @@ public final class TinkerFluids extends TinkerModule {
     acceptCompat(output, moltenInvar, MaterialIds.invar);
     acceptCompat(output, moltenConstantan, MaterialIds.constantan);
     acceptCompat(output, moltenPewter, MaterialIds.pewter);
+    acceptMolten(output, moltenNicrosil, MaterialIds.nicrosil);
     acceptMolten(output, moltenEnderium);
     acceptMolten(output, moltenLumium);
     acceptMolten(output, moltenSignalum);
     acceptMolten(output, moltenRefinedGlowstone);
     acceptMolten(output, moltenRefinedObsidian);
-    acceptMolten(output, moltenNicrosil);
     acceptMolten(output, moltenDuralumin);
     acceptMolten(output, moltenBendalloy);
     acceptCompat(output, moltenSteeleaf, MaterialIds.steeleaf);

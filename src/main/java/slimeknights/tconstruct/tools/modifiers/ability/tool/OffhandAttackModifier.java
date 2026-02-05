@@ -8,6 +8,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import slimeknights.mantle.util.OffhandCooldownTracker;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.build.VolatileDataModifierHook;
@@ -66,8 +67,14 @@ public class OffhandAttackModifier extends NoLevelsModifier implements EntityInt
   @Override
   public InteractionResult beforeEntityUse(IToolStackView tool, ModifierEntry modifier, Player player, Entity target, InteractionHand hand, InteractionSource source) {
     if (canAttack(tool, player, hand)) {
-      if (!player.level().isClientSide() && ToolAttackUtil.isAttackable(player, target)) {
-        ToolAttackUtil.performAttack(tool, ToolAttackContext.attacker(player).target(target).offhandCooldown().slot(source.getSlot(hand), hand).toolAttributes(tool).build());
+      if (ToolAttackUtil.isAttackable(player, target)) {
+        // if melee is disabled, squeak harmlessly
+        if (EntityInteractionModifierHook.meleeDisabled(tool)) {
+          player.playSound(Sounds.TOY_SQUEAK.getSound());
+        }
+        else if (!player.level().isClientSide()) {
+          ToolAttackUtil.performAttack(tool, ToolAttackContext.attacker(player).target(target).offhandCooldown().slot(source.getSlot(hand), hand).toolAttributes(tool).build());
+        }
       }
       applyCooldown(tool, player, source);
       // we handle swinging the arm, return consume to prevent resetting cooldown

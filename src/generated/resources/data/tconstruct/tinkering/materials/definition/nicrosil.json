@@ -1,0 +1,41 @@
+{
+  "condition": {
+    "type": "forge:or",
+    "values": [
+      {
+        "type": "tconstruct:config",
+        "prop": "force_integration_materials"
+      },
+      {
+        "type": "mantle:tag_filled",
+        "tag": "forge:ingots/nicrosil"
+      },
+      {
+        "type": "forge:and",
+        "values": [
+          {
+            "type": "tconstruct:config",
+            "prop": "allow_ingotless_alloys"
+          },
+          {
+            "type": "forge:or",
+            "values": [
+              {
+                "type": "mantle:tag_filled",
+                "tag": "forge:ingots/tin"
+              },
+              {
+                "type": "mantle:tag_filled",
+                "tag": "forge:ingots/chromium"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "craftable": false,
+  "hidden": false,
+  "sortOrder": 7,
+  "tier": 4
+}

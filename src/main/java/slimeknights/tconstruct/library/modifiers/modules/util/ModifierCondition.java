@@ -34,6 +34,16 @@ public record ModifierCondition<T extends IToolContext>(IJsonPredicate<T> tool, 
     return new ModifierCondition<>(this.tool, modifierLevel);
   }
 
+  /** Creates a context with the given min level */
+  public ModifierCondition<T> minLevel(int level) {
+    return with(ModifierEntry.VALID_LEVEL.min(level));
+  }
+
+  /** Creates a context with the given max level */
+  public ModifierCondition<T> maxLevel(int level) {
+    return with(ModifierEntry.VALID_LEVEL.max(level));
+  }
+
 
   /* Loadable */
 

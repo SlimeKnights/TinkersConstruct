@@ -49,7 +49,7 @@ public record ProtectionModule(IJsonPredicate<DamageSource> source, IJsonPredica
   public static final RecordLoadable<ProtectionModule> LOADER = RecordLoadable.create(
     DamageSourcePredicate.LOADER.defaultField("damage_source", ProtectionModule::source),
     LivingEntityPredicate.LOADER.defaultField("wearing_entity", ProtectionModule::entity),
-    LivingEntityPredicate.LOADER.defaultField("attacker", ProtectionModule::attacker),
+    LivingEntityPredicate.LOADER.defaultField("attacker", ProtectionModule::attacker), // TODO 1.21: remove as this is redundant to damage source predicate
     ProtectionFormula.LOADER.directField(ProtectionModule::formula),
     ModifierCondition.TOOL_FIELD,
     ProtectionModule::new);

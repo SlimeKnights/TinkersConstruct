@@ -131,7 +131,7 @@ public record SlingKnockbackModule(float forceMultiplier, float drawtimeMultipli
             if (mop.getType() != HitResult.Type.BLOCK || targetDist < mop.getBlockPos().distToCenterSqr(start)) {
               // melee tools also do damage as a treat
               boolean didBonk = false;
-              if (damageMultiplier > 0 && ToolAttackUtil.isAttackable(entity, target) && tool.hasTag(TinkerTags.Items.MELEE) && !tool.getVolatileData().getBoolean(EntityInteractionModifierHook.NO_MELEE)) {
+              if (damageMultiplier > 0 && ToolAttackUtil.isAttackable(entity, target) && EntityInteractionModifierHook.isMelee(tool)) {
                 didBonk = true;
                 ModDataNBT data = tool.getPersistentData();
                 data.putBoolean(IS_BONKING, true);

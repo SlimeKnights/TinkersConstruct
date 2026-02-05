@@ -1,17 +1,12 @@
 package slimeknights.tconstruct.library.modifiers.hook.armor;
 
 import net.minecraft.tags.DamageTypeTags;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
-import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import slimeknights.tconstruct.library.utils.Util;
 
 import java.util.Collection;
 
@@ -51,16 +46,6 @@ public interface OnAttackedModifierHook {
     return source.getEntity() != null && !source.isIndirect() && !source.is(DamageTypeTags.AVOIDS_GUARDIAN_THORNS);
   }
 
-  /** Internal logic for {@link #handleAttack(ModuleHook, EquipmentContext, DamageSource, float, boolean)} */
-  private static void handleAttack(ModuleHook<OnAttackedModifierHook> hook, EquipmentContext context, DamageSource source, float amount, boolean isDirectDamage, EquipmentSlot slotType) {
-    IToolStackView toolStack = context.getToolInSlot(slotType);
-    if (toolStack != null && !toolStack.isBroken()) {
-      for (ModifierEntry entry : toolStack.getModifierList()) {
-        entry.getHook(hook).onAttacked(toolStack, entry, context, slotType, source, amount, isDirectDamage);
-      }
-    }
-  }
-
   /**
    * Allows modifiers to respond to the entity being attacked
    * @param hook            Hook to use
@@ -70,15 +55,12 @@ public interface OnAttackedModifierHook {
    * @param isDirectDamage  If true, the damage source is applying directly
    */
   static void handleAttack(ModuleHook<OnAttackedModifierHook> hook, EquipmentContext context, DamageSource source, float amount, boolean isDirectDamage) {
-    // first we need to determine if any of the four slots want to cancel the event, then we need to determine if any want to respond assuming its not canceled
-    for (EquipmentSlot slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
-      handleAttack(hook, context, source, amount, isDirectDamage, slotType);
-    }
-    // run on both hands for shields, provided its a held tool (i.e. not armor)
-    LivingEntity holder = context.getEntity();
-    for (InteractionHand hand : InteractionHand.values()) {
-      if (holder.getItemInHand(hand).is(TinkerTags.Items.HELD)) {
-        handleAttack(hook, context, source, amount, isDirectDamage, Util.getSlotType(hand));
+    for (EquipmentSlot slotType : EquipmentSlot.values()) {
+      IToolStackView toolStack = context.getValidTool(slotType);
+      if (toolStack != null && !toolStack.isBroken()) {
+        for (ModifierEntry entry : toolStack.getModifierList()) {
+          entry.getHook(hook).onAttacked(toolStack, entry, context, slotType, source, amount, isDirectDamage);
+        }
       }
     }
   }

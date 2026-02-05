@@ -214,14 +214,12 @@ public class ToolEvents {
     if (context.hasModifiableArmor()) {
       // first we need to determine if any of the four slots want to cancel the event
       for (EquipmentSlot slotType : EquipmentSlot.values()) {
-        if (ModifierUtil.validArmorSlot(entity, slotType)) {
-          IToolStackView toolStack = context.getToolInSlot(slotType);
-          if (toolStack != null && !toolStack.isBroken()) {
-            for (ModifierEntry entry : toolStack.getModifierList()) {
-              if (entry.getHook(ModifierHooks.DAMAGE_BLOCK).isDamageBlocked(toolStack, entry, context, slotType, source, amount)) {
-                event.setCanceled(true);
-                return;
-              }
+        IToolStackView toolStack = context.getValidTool(slotType);
+        if (toolStack != null && !toolStack.isBroken()) {
+          for (ModifierEntry entry : toolStack.getModifierList()) {
+            if (entry.getHook(ModifierHooks.DAMAGE_BLOCK).isDamageBlocked(toolStack, entry, context, slotType, source, amount)) {
+              event.setCanceled(true);
+              return;
             }
           }
         }
@@ -337,12 +335,10 @@ public class ToolEvents {
       // next, determine how much tinkers armor wants to change it
       // note that armor modifiers can choose to block "absolute damage" if they wish, currently just starving damage I think
       for (EquipmentSlot slotType : EquipmentSlot.values()) {
-        if (ModifierUtil.validArmorSlot(entity, slotType)) {
-          IToolStackView tool = context.getToolInSlot(slotType);
-          if (tool != null && !tool.isBroken()) {
-            for (ModifierEntry entry : tool.getModifierList()) {
-              modifierValue = entry.getHook(ModifierHooks.PROTECTION).getProtectionModifier(tool, entry, context, slotType, source, modifierValue);
-            }
+        IToolStackView tool = context.getValidTool(slotType);
+        if (tool != null && !tool.isBroken()) {
+          for (ModifierEntry entry : tool.getModifierList()) {
+            modifierValue = entry.getHook(ModifierHooks.PROTECTION).getProtectionModifier(tool, entry, context, slotType, source, modifierValue);
           }
         }
       }
