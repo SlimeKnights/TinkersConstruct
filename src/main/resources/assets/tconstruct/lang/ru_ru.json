@@ -1802,13 +1802,13 @@
   "material.tconstruct.rock.blackstone": "Чернит",
   "material.tconstruct.rock.calcite":    "Кальцит",
   "material.tconstruct.rock.flavor": "Твёрдый, как скала!",
-  "material.tconstruct.rock.encyclopedia": "Ускоряет добычу с помощью инструмента на величину, равную половине квадратного корня из уровня характеристики, умноженного на потерянную прочность.",
+  "material.tconstruct.rock.encyclopedia": "Увеличивает скорость добычи инструмента на 1%, умноженную на квадратный корень из потерянной прочности на каждом уровне. Коэффициент прочности инструмента делится на потерянную прочность.",
 
   "material.tconstruct.flint": "Кремень",
   "material.tconstruct.flint.basalt": "Базальт",
   "material.tconstruct.flint.deepslate": "Глубинный сланец",
   "material.tconstruct.flint.flavor": "Это разожжёт пламя в сердце литейщика!",
-  "material.tconstruct.flint.encyclopedia": "Увеличивает урон на четверть квадратного корня из уровня особенности, умноженного на потерянную прочность.",
+  "material.tconstruct.flint.encyclopedia": "Увеличивает урон в ближнем бою на 0.5% за уровень, умноженный на квадратный корень из потерянной прочности. Коэффициент прочности инструмента делится на потерянную прочность.",
   "material.tconstruct.flint.ammo": "Позволяет использовать зелье на боеприпасах, чтобы опрокинуть их. Опрокинутые боеприпасы будут применять эффект зелья в дополнение к урону.",
 
   "material.tconstruct.bone": "Кость",
@@ -2207,7 +2207,7 @@
 
   "material.tconstruct.aluminum": "Алюминий",
   "material.tconstruct.aluminum.flavor": "Чаще всего встречается в пепельных кучах.",
-  "material.tconstruct.aluminum.ranged": "Увеличивает скорость натяжения и точность стрельбы на +0.07 ценой потери 5% защиты.",
+  "material.tconstruct.aluminum.ranged": "Увеличивает скорость натяжения и точность стрельбы на +0.05.",
   "material.tconstruct.aluminum.armor": "Даёт +5% скорости использования предметов за счёт потери 5% защиты.",
 
   "material.tconstruct.treated_wood": "Обработанное дерево",
