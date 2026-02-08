@@ -1167,6 +1167,7 @@
   "item.tconstruct.slime_helmet.material.tconstruct.ui_render.head": "Любой слизневый череп",
   "item.tconstruct.slime_helmet.material.tconstruct.glass":         "Слизневый череп крипера",
   "item.tconstruct.slime_helmet.material.tconstruct.ender_pearl":   "Слизневый череп эндермена",
+  "item.tconstruct.slime_helmet.material.tconstruct.dragon_scale":  "Слизневый череп дракона",
   "item.tconstruct.slime_helmet.material.tconstruct.bone":          "Слизневый череп скелета",
   "item.tconstruct.slime_helmet.material.tconstruct.venombone":     "Слизневый череп зимогора",
   "item.tconstruct.slime_helmet.material.tconstruct.necrotic_bone": "Слизневый череп визер-скелета",
@@ -2067,6 +2068,8 @@
   "material.tconstruct.dragon_scale.flavor": "С этим даже драконы будут бояться меня!",
   "material.tconstruct.dragon_scale.armor": "Даёт +10% сопротивления в воздухе и увеличивает урон от атаки на 5% за уровень в зависимости от самой высокой детали.",
   "material.tconstruct.dragon_scale.ammo": "Увеличивает урон от снаряда на 1 за уровень, если он запущен в воздухе.",
+  "material.tconstruct.dragon_scale.skull_flavor": "Никто не стреляет!",
+  "material.tconstruct.dragon_scale.skull_encyclopedia": "Не позволяет вам наносить больше урона, чем ваше макс. здоровье - 2 за один удар.",
 
   "material.tconstruct.shulker": "Панцирь шалкера",
   "material.tconstruct.shulker.flavor": "Нерушимый!",
@@ -3352,6 +3355,9 @@
   "modifier.tconstruct.revenge": "Месть",
   "modifier.tconstruct.revenge.flavor": "Идеально подходит для контратак!",
   "modifier.tconstruct.revenge.description": "Делает вас сильнее после нападения.",
+  "modifier.tconstruct.dragonheart": "Сердце дракона",
+  "modifier.tconstruct.dragonheart.flavor": "Душа дракона!",
+  "modifier.tconstruct.dragonheart.description": "Потенциально спасает вас от смертельного урона.",
 
   "modifier.tconstruct.creeper_disguise": "Маскировка крипера",
   "modifier.tconstruct.creeper_disguise.flavor": "Немного жутковато...",
