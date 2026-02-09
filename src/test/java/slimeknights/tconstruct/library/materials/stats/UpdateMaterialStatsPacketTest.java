@@ -10,10 +10,10 @@ import slimeknights.tconstruct.fixture.MaterialFixture;
 import slimeknights.tconstruct.fixture.MaterialStatTypesFixture;
 import slimeknights.tconstruct.fixture.MaterialStatsFixture;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
-import slimeknights.tconstruct.library.materials.stats.types.DynamicMaterialStat;
-import slimeknights.tconstruct.library.materials.stats.types.DynamicMaterialStatType;
-import slimeknights.tconstruct.library.materials.stats.types.FloatDynamicStatField;
-import slimeknights.tconstruct.library.materials.stats.types.TierDynamicStatField;
+import slimeknights.tconstruct.library.materials.stats.dynamic.DynamicMaterialStats;
+import slimeknights.tconstruct.library.materials.stats.dynamic.DynamicMaterialStatType;
+import slimeknights.tconstruct.library.materials.stats.dynamic.FloatDynamicStatField;
+import slimeknights.tconstruct.library.materials.stats.dynamic.TierDynamicStatField;
 import slimeknights.tconstruct.test.BaseMcTest;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
@@ -65,10 +65,10 @@ class UpdateMaterialStatsPacketTest extends BaseMcTest {
     assertThat(realStats.text()).isEqualTo("3");
 
     materialStats = iterator.next();
-    assertThat(materialStats).isExactlyInstanceOf(DynamicMaterialStat.class);
+    assertThat(materialStats).isExactlyInstanceOf(DynamicMaterialStats.class);
     // ensure the loadable is passed the context field for the proper type
     assertThat(materialStats.getType().getId()).isEqualTo(MaterialStatTypesFixture.STATS_TYPE);
-    DynamicMaterialStat realDynamicStats = (DynamicMaterialStat) materialStats;
+    DynamicMaterialStats realDynamicStats = (DynamicMaterialStats) materialStats;
     assertThat(realDynamicStats.getStat("test1")).isExactlyInstanceOf(FloatDynamicStatField.FloatDynamicStat.class);
     assertThat(((FloatDynamicStatField.FloatDynamicStat)realDynamicStats.getStat("test1")).getValue()).isEqualTo(1f);
     assertThat(realDynamicStats.getStat("test2")).isExactlyInstanceOf(FloatDynamicStatField.FloatDynamicStat.class);

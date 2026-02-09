@@ -2,20 +2,29 @@ package slimeknights.tconstruct.library.materials.stats;
 
 import org.assertj.core.data.Offset;
 import org.junit.jupiter.api.Test;
+
+import com.google.gson.JsonElement;
+
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
+import net.minecraft.util.profiling.InactiveProfiler;
 import net.minecraft.world.item.Tiers;
 import slimeknights.mantle.data.listener.MergingJsonFileLoader;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.fixture.MaterialStatTypesFixture;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
-import slimeknights.tconstruct.library.materials.stats.types.DynamicMaterialStat;
-import slimeknights.tconstruct.library.materials.stats.types.DynamicMaterialStatType;
-import slimeknights.tconstruct.library.materials.stats.types.DynamicStatField;
-import slimeknights.tconstruct.library.materials.stats.types.FloatDynamicStatField;
-import slimeknights.tconstruct.library.materials.stats.types.TierDynamicStatField;
+import slimeknights.tconstruct.library.materials.stats.dynamic.DynamicMaterialStats;
+import slimeknights.tconstruct.library.materials.stats.dynamic.DynamicMaterialStatType;
+import slimeknights.tconstruct.library.materials.stats.dynamic.DynamicStatField;
+import slimeknights.tconstruct.library.materials.stats.dynamic.FloatDynamicStatField;
+import slimeknights.tconstruct.library.materials.stats.dynamic.MaterialStatTypesLoader;
+import slimeknights.tconstruct.library.materials.stats.dynamic.TierDynamicStatField;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.test.BaseMcTest;
+import slimeknights.tconstruct.test.JsonFileLoader;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -27,7 +36,7 @@ class MaterialStatsManagerTest extends BaseMcTest {
 
   private final MaterialStatsManager materialStatsManager = new MaterialStatsManager(() -> {});
   private final MergingJsonFileLoader<?> fileLoader = new MergingJsonFileLoader<>(materialStatsManager);
-  private final MergingJsonFileLoader<?> anoFileLoader = new MergingJsonFileLoader<>(materialStatsManager.getStatTypesLoader());
+  private final MaterialStatTypesLoader anoFileLoader = new MaterialStatTypesLoader();
 
   @Test
   void testLoadFile_statsExist() {
@@ -170,14 +179,15 @@ class MaterialStatsManagerTest extends BaseMcTest {
       MaterialStatsId statId2 = new MaterialStatsId(TConstruct.getResource("testtype2"));
       MaterialId testStatType = new MaterialId(TConstruct.getResource("teststattype"));
 
-      
-      anoFileLoader.loadAndParseFiles(null, statId1, statId2);
+      JsonFileLoader testFileLoader = new JsonFileLoader(MaterialStatTypesLoader.GSON, MaterialStatTypesLoader.FOLDER);
+      Map<ResourceLocation, JsonElement> fakePrepareResult = testFileLoader.loadFilesAsSplashlist(statId1, statId2);
+      anoFileLoader.apply(fakePrepareResult);;
       fileLoader.loadAndParseFiles(null, testStatType);
 
       assertThat(materialStatsManager.getStatType(statId1)).isNotNull();
       assertThat(materialStatsManager.getStatType(statId1)).isExactlyInstanceOf(DynamicMaterialStatType.class);
-      assertThat(materialStatsManager.getStatType(statId1).getDefaultStats()).isExactlyInstanceOf(DynamicMaterialStat.class);
-      DynamicMaterialStat defaultStats = (DynamicMaterialStat)materialStatsManager.getStatType(statId1).getDefaultStats();
+      assertThat(materialStatsManager.getStatType(statId1).getDefaultStats()).isExactlyInstanceOf(DynamicMaterialStats.class);
+      DynamicMaterialStats defaultStats = (DynamicMaterialStats)materialStatsManager.getStatType(statId1).getDefaultStats();
       assertThat(defaultStats).isNotNull();
       assertThat(defaultStats.getStat("durability")).isExactlyInstanceOf(FloatDynamicStatField.FloatDynamicStat.class);
       FloatDynamicStatField.FloatDynamicStat durabilityStat = (FloatDynamicStatField.FloatDynamicStat)defaultStats.getStat("durability");
@@ -188,7 +198,7 @@ class MaterialStatsManagerTest extends BaseMcTest {
       assertThat(materialStatsManager.getStatType(statId2)).isNotNull();
       assertThat(materialStatsManager.getStatType(statId2)).isExactlyInstanceOf(DynamicMaterialStatType.class);
       assertThat(materialStatsManager.getStats(testStatType, statId1)).isPresent();
-      DynamicMaterialStat stats1 = (DynamicMaterialStat)materialStatsManager.getStats(testStatType, statId1).get();
+      DynamicMaterialStats stats1 = (DynamicMaterialStats)materialStatsManager.getStats(testStatType, statId1).get();
       assertThat(stats1.getStat("durability")).isExactlyInstanceOf(FloatDynamicStatField.FloatDynamicStat.class);
       FloatDynamicStatField.FloatDynamicStat durabilityStat1 = (FloatDynamicStatField.FloatDynamicStat)stats1.getStat("durability");
       assertThat(durabilityStat1.getValue()).isEqualTo(123f);
@@ -196,7 +206,7 @@ class MaterialStatsManagerTest extends BaseMcTest {
       TierDynamicStatField.TierDynamicStat miningTierStat1 = (TierDynamicStatField.TierDynamicStat)stats1.getStat("mining_tier");
       assertThat(miningTierStat1.getValue()).isEqualTo(Tiers.STONE);
       assertThat(materialStatsManager.getStats(testStatType, statId2)).isPresent();
-      DynamicMaterialStat stats2 = (DynamicMaterialStat)materialStatsManager.getStats(testStatType, statId2).get();
+      DynamicMaterialStats stats2 = (DynamicMaterialStats)materialStatsManager.getStats(testStatType, statId2).get();
       assertThat(stats2.getStat("mining_speed")).isExactlyInstanceOf(FloatDynamicStatField.FloatDynamicStat.class);
       FloatDynamicStatField.FloatDynamicStat miningSpeedStat2 = (FloatDynamicStatField.FloatDynamicStat)stats2.getStat("mining_speed");
       assertThat(miningSpeedStat2.getValue()).isEqualTo(45.67f);

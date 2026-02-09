@@ -1,7 +1,7 @@
-package slimeknights.tconstruct.library.materials.stats.types;
+package slimeknights.tconstruct.library.materials.stats.dynamic;
 
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
+
 
 import lombok.NonNull;
 import net.minecraft.network.FriendlyByteBuf;
@@ -11,27 +11,12 @@ import slimeknights.mantle.registration.object.IdAwareObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
 
 public interface DynamicStatField<S extends DynamicStatField.DynamicStat> {
 
     public static final IdAwareComponentRegistry<DynamicStatDecoder<?>> REGISTRY = new IdAwareComponentRegistry<>(
             "Unknown Dynamic Stat Field Type");
-
-    /**
-     * Gets the decoder for the given ID, or throws an JsonParseException if not
-     * found
-     * 
-     * @param id ID of the decoder
-     * @return Decoder for the ID
-     */
-    @NonNull
-    public static DynamicStatDecoder<?> getDecoderOrThrow(ResourceLocation id) {
-        DynamicStatDecoder<?> decoder = REGISTRY.getValue(id);
-        if (decoder == null) {
-            throw new JsonParseException("Unknown Dynamic Stat Field Type: " + id);
-        }
-        return decoder;
-    }
 
     /**
      * Decode the stat field from the network
@@ -42,7 +27,7 @@ public interface DynamicStatField<S extends DynamicStatField.DynamicStat> {
     @NonNull
     public static DynamicStatField<?> decodeSelf(FriendlyByteBuf buffer) {
         ResourceLocation id = new ResourceLocation(buffer.readUtf());
-        return getDecoderOrThrow(id).decode(buffer);
+        return REGISTRY.getValue(id).decode(buffer);
     }
 
     /**
@@ -53,8 +38,8 @@ public interface DynamicStatField<S extends DynamicStatField.DynamicStat> {
      */
     @NonNull
     public static DynamicStatField<?> deserializeSelf(JsonObject json, ResourceLocation path) {
-        String statType = json.get("type").getAsString();
-        return getDecoderOrThrow(new ResourceLocation(withDefaultNamespace(statType))).deserialize(json, path);
+        String statType = GsonHelper.getAsString(json, "type");
+        return REGISTRY.getValue(new ResourceLocation(withDefaultNamespace(statType))).deserialize(json, path);
     }
 
     public static String withDefaultNamespace(String path) {
@@ -152,7 +137,7 @@ public interface DynamicStatField<S extends DynamicStatField.DynamicStat> {
      */
     public void encode(FriendlyByteBuf buffer, S value);
 
-    default void encode(FriendlyByteBuf buffer, DynamicMaterialStat value) {
+    default void encode(FriendlyByteBuf buffer, DynamicMaterialStats value) {
         this.encode(buffer, (S) value.getStat(this.getName()));
     }
 
@@ -172,7 +157,7 @@ public interface DynamicStatField<S extends DynamicStatField.DynamicStat> {
      */
     public void serialize(S object, JsonObject json);
 
-    default void serialize(DynamicMaterialStat object, JsonObject json) {
+    default void serialize(DynamicMaterialStats object, JsonObject json) {
         this.serialize((S) object.getStat(this.getName()), json);
     }
 

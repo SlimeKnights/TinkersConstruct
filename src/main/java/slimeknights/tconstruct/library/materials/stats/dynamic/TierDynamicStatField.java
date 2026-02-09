@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.materials.stats.types;
+package slimeknights.tconstruct.library.materials.stats.dynamic;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
@@ -11,16 +11,16 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.Tiers;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.materials.stats.types.DynamicStatField.DynamicStat;
-import slimeknights.tconstruct.library.materials.stats.types.TierDynamicStatField.TierDynamicStat;
+import slimeknights.tconstruct.library.materials.stats.dynamic.DynamicStatField.DynamicStat;
+import slimeknights.tconstruct.library.materials.stats.dynamic.TierDynamicStatField.TierDynamicStat;
 import slimeknights.tconstruct.library.tools.stat.IToolStat;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.stat.ToolStatId;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.tools.stat.ToolTierStat;
 
-import static slimeknights.tconstruct.library.materials.stats.types.DynamicStatField.withDefaultNamespace;
 import static slimeknights.tconstruct.library.materials.stats.IMaterialStats.makeTooltipKey;
+import static slimeknights.tconstruct.library.materials.stats.dynamic.DynamicStatField.*;
 
 @AllArgsConstructor
 public class TierDynamicStatField implements DynamicStatField<TierDynamicStat> {

@@ -12,7 +12,7 @@ import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.mantle.util.typed.TypedMapBuilder;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
-import slimeknights.tconstruct.library.materials.stats.types.DynamicMaterialStatType;
+import slimeknights.tconstruct.library.materials.stats.dynamic.DynamicMaterialStatType;
 import slimeknights.tconstruct.library.utils.Util;
 
 import java.util.ArrayList;

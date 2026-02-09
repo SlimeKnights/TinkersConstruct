@@ -1,9 +1,10 @@
-package slimeknights.tconstruct.library.materials.stats.types;
+package slimeknights.tconstruct.library.materials.stats.dynamic;
 
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import lombok.Getter;
 import net.minecraft.network.FriendlyByteBuf;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatType;
@@ -12,22 +13,22 @@ import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 /**
  * A material stat type that has dynamic stat fields.
  */
-public class DynamicMaterialStatType extends MaterialStatType<DynamicMaterialStat> {
+public class DynamicMaterialStatType extends MaterialStatType<DynamicMaterialStats> {
 
     private final List<DynamicStatField<?>> statFields;
-    private final boolean canRepair;
+    @Getter
+    private final String durabilityField;
 
     /**
      * Constructs a dynamic material stat type.
      * 
      * @param id          The material stats ID.
-     * @param canRepair   Whether the tool with this material stat type can be repaired.
+     * @param durabilityField  The name of the repair amount field.
      * @param statFields  The dynamic stat fields.
      */
-    public DynamicMaterialStatType(MaterialStatsId id, boolean canRepair, List<DynamicStatField<?>> statFields) {
-        super(id, new DynamicMaterialStat(null, new LinkedHashMap<>()), new DynamicMaterialStatRecord(null, statFields));
-            // I have no way to make all these parameters nonnull.
-        this.canRepair = canRepair;
+    public DynamicMaterialStatType(MaterialStatsId id, String durabilityField, List<DynamicStatField<?>> statFields) {
+        super(id, (type) -> new DynamicMaterialStats(type, statFields.stream().collect(java.util.stream.Collectors.toMap(DynamicStatField::getName, field -> field.getDefaultStat()))), new DynamicMaterialStatLoader(null, statFields));
+        this.durabilityField = durabilityField;
         this.statFields = statFields;
     }
 
@@ -40,12 +41,12 @@ public class DynamicMaterialStatType extends MaterialStatType<DynamicMaterialSta
     public static DynamicMaterialStatType decode(FriendlyByteBuf buffer) {
         MaterialStatsId id = new MaterialStatsId(buffer.readUtf());
         int size = buffer.readInt();
-        boolean canRepair = buffer.readBoolean();
+        String durabilityField = buffer.readUtf();
         List<DynamicStatField<?>> statFields = new java.util.ArrayList<>(size);
         for (int i = 0; i < size; i++) {
             statFields.add(DynamicStatField.decodeSelf(buffer));
         }
-        return new DynamicMaterialStatType(id, canRepair, statFields);
+        return new DynamicMaterialStatType(id, durabilityField, statFields);
     }
 
     /**
@@ -56,7 +57,7 @@ public class DynamicMaterialStatType extends MaterialStatType<DynamicMaterialSta
     public void encode(FriendlyByteBuf buffer) {
         buffer.writeUtf(this.getId().toString());
         buffer.writeInt(statFields.size());
-        buffer.writeBoolean(canRepair);
+        buffer.writeUtf(durabilityField);
         statFields.forEach(field -> {
             field.encodeSelf(buffer);
         });
@@ -64,20 +65,23 @@ public class DynamicMaterialStatType extends MaterialStatType<DynamicMaterialSta
 
     @Override
     public boolean canRepair() {
-        return canRepair;
+        return !durabilityField.isEmpty();
     }
 
     @Override
-    public DynamicMaterialStat getDefaultStats() {
+    public DynamicMaterialStats getDefaultStats() {
         Map<String,DynamicStatField.DynamicStat> stats = new LinkedHashMap<>();
         statFields.forEach(field -> {
             stats.put(field.getName(), field.getDefaultStat());
         });
-        return new DynamicMaterialStat(this, stats);
+        if (canRepair()) {
+            return new RepairableDynamicMaterialStats(this, stats, (int)((FloatDynamicStatField.FloatDynamicStat)stats.get(durabilityField)).getValue());
+        }
+        return new DynamicMaterialStats(this, stats);
     }
 
     @Override
-    public RecordLoadable<DynamicMaterialStat> getLoadable() {
-        return new DynamicMaterialStatRecord(this, statFields);
+    public RecordLoadable<DynamicMaterialStats> getLoadable() {
+        return new DynamicMaterialStatLoader(this, statFields);
     }
 }

@@ -5,10 +5,10 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
-import slimeknights.tconstruct.library.materials.stats.types.DynamicMaterialStatType;
-import slimeknights.tconstruct.library.materials.stats.types.DynamicStatField;
-import slimeknights.tconstruct.library.materials.stats.types.FloatDynamicStatField;
-import slimeknights.tconstruct.library.materials.stats.types.TierDynamicStatField;
+import slimeknights.tconstruct.library.materials.stats.dynamic.DynamicMaterialStatType;
+import slimeknights.tconstruct.library.materials.stats.dynamic.DynamicStatField;
+import slimeknights.tconstruct.library.materials.stats.dynamic.FloatDynamicStatField;
+import slimeknights.tconstruct.library.materials.stats.dynamic.TierDynamicStatField;
 import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
 import slimeknights.tconstruct.library.tools.stat.ToolStatId;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
@@ -38,7 +38,7 @@ public final class MaterialStatTypesFixture {
     new FloatDynamicStatField("test2",TestFloatStat,2f,FloatDynamicStatField.Operation.UPDATE, "desc2", "info2"),
     new TierDynamicStatField("test3",TestTierStat,Tiers.STONE,"desc3")
   );
-  public static final DynamicMaterialStatType DYNAMIC_TYPE = new DynamicMaterialStatType(STATS_TYPE, false, statFields);
+  public static final DynamicMaterialStatType DYNAMIC_TYPE = new DynamicMaterialStatType(STATS_TYPE, "test2", statFields);
 
   public static final IMaterialStats MATERIAL_STATS = DYNAMIC_TYPE.getDefaultStats();
 

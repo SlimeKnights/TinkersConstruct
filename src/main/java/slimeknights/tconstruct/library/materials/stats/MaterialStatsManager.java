@@ -16,8 +16,8 @@ import slimeknights.mantle.util.JsonHelper;
 import slimeknights.mantle.util.typed.TypedMapBuilder;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.json.MaterialStatJson;
-import slimeknights.tconstruct.library.materials.stats.types.DynamicMaterialStatType;
-import slimeknights.tconstruct.library.materials.stats.types.MaterialStatTypesLoader;
+import slimeknights.tconstruct.library.materials.stats.dynamic.DynamicMaterialStatType;
+import slimeknights.tconstruct.library.materials.stats.dynamic.MaterialStatTypesLoader;
 import slimeknights.tconstruct.library.utils.Util;
 
 import javax.annotation.Nullable;
@@ -226,7 +226,7 @@ public class MaterialStatsManager extends MergingJsonDataLoader<Map<ResourceLoca
 
   @Override
   public void onResourceManagerReload(ResourceManager manager) {
-    statTypesLoader.onResourceManagerReload(manager);
+    statTypesLoader.loadResources(manager);
     long time = System.nanoTime();
     super.onResourceManagerReload(manager);
     log.info("{} stats loaded for {} materials in {} ms",
