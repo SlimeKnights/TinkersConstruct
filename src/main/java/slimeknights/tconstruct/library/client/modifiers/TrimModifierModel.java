@@ -29,6 +29,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 /** Modifier model adding trim overlays to an item */
+@SuppressWarnings("removal")
 public enum TrimModifierModel implements IBakedModifierModel {
   INSTANCE;
 

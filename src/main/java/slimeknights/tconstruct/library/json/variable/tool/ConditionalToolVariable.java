@@ -13,6 +13,10 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 public record ConditionalToolVariable(IJsonPredicate<IToolContext> condition, ToolVariable ifTrue, ToolVariable ifFalse) implements ToolVariable, ConditionalVariable<IJsonPredicate<IToolContext>,ToolVariable> {
   public static final RecordLoadable<ConditionalToolVariable> LOADER = ConditionalVariable.loadable(ToolContextPredicate.LOADER, ToolVariable.LOADER, ConditionalToolVariable::new);
 
+  public ConditionalToolVariable(IJsonPredicate<IToolContext> condition, float ifTrue, float ifFalse) {
+    this(condition, new ToolVariable.Constant(ifTrue), new ToolVariable.Constant(ifFalse));
+  }
+
   @Override
   public float getValue(IToolStackView tool) {
     return condition.matches(tool) ? ifTrue.getValue(tool) : ifFalse.getValue(tool);

@@ -14,7 +14,7 @@
   "entity_effects": [
     {
       "type": "tconstruct:damage",
-      "damage": 4.0,
+      "damage": 3.0,
       "damage_type": {
         "melee": "tconstruct:fluid_spike_melee",
         "ranged": "tconstruct:fluid_spike_ranged"

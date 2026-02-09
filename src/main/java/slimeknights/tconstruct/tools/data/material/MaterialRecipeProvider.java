@@ -192,6 +192,7 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     metalMaterialRecipe(consumer, MaterialIds.manyullyn, folder, "manyullyn", false);
     metalMaterialRecipe(consumer, MaterialIds.hepatizon, folder, "hepatizon", false);
     metalMaterialRecipe(consumer, MaterialIds.knightmetal, folder, "knightmetal", false);
+    metalMaterialRecipe(consumer, MaterialIds.knightslime, folder, "knightslime", false);
     materialRecipe(consumer, MaterialIds.blazewood, Ingredient.of(TinkerMaterials.blazewood), 1, 1, folder + "blazewood");
     materialRecipe(consumer, MaterialIds.blazingBone, Ingredient.of(TinkerMaterials.blazingBone), 1, 1, folder + "blazing_bone");
     //registerMetalMaterial(consumer, MaterialIds.soulsteel,   "soulsteel",    false);
@@ -227,6 +228,7 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     // no plated slimewood, use repair kits
     // tier 4 (mod integration)
     metalMaterialRecipe(consumer, MaterialIds.fiery, folder, "fiery", true);
+    metalMaterialRecipe(consumer, MaterialIds.nicrosil, folder, "nicrosil", true);
 
     // slimesuit
     materialRecipe(consumer, MaterialIds.enderslime, Ingredient.of(TinkerWorld.enderGeode), 1, 1, folder + "enderslime");
@@ -290,6 +292,7 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialMeltingCasting(consumer, MaterialIds.hepatizon,   TinkerFluids.moltenHepatizon,   folder);
     materialMeltingCasting(consumer, MaterialIds.manyullyn,   TinkerFluids.moltenManyullyn,   folder);
     materialMeltingCasting(consumer, MaterialIds.knightmetal, TinkerFluids.moltenKnightmetal, folder);
+    materialMeltingCasting(consumer, MaterialIds.knightslime, TinkerFluids.moltenKnightslime, folder);
     materialComposite(consumer, MaterialIds.bloodshroom,  MaterialIds.blazewood,   TinkerFluids.blazingBlood, FluidType.BUCKET_VOLUME / 5, folder);
     materialComposite(consumer, MaterialIds.necroticBone, MaterialIds.blazingBone, TinkerFluids.blazingBlood, FluidType.BUCKET_VOLUME / 5, folder);
     materialMeltingComposite(consumer, MaterialIds.leather, MaterialIds.ancientHide, TinkerFluids.moltenDebris, FluidValues.INGOT, folder);
@@ -326,7 +329,7 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     // pewter has two different ores that let it appear, tin and lead
     materialMeltingCasting(
       withCondition(consumer, new OrCondition(tagCondition("ingots/pewter"), tagCondition("ingots/tin"), tagCondition("ingots/lead"))),
-      MaterialIds.pewter,TinkerFluids.moltenPewter, folder);
+      MaterialIds.pewter, TinkerFluids.moltenPewter, folder);
     materialMeltingComposite(withCondition(consumer, tagCondition("ingots/uranium")), MaterialIds.necroticBone, MaterialIds.necronium, TinkerFluids.moltenUranium, FluidValues.INGOT, folder);
     materialMeltingComposite(withCondition(consumer, new OrCondition(tagCondition("ingots/brass"), tagCondition("ingots/zinc"))),
                              MaterialIds.slimewood, MaterialIds.platedSlimewood, TinkerFluids.moltenBrass, FluidValues.INGOT, folder);
@@ -336,6 +339,10 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     MaterialMeltingRecipeBuilder.material(MaterialIds.fiery, TinkerFluids.fieryLiquid, FluidValues.BOTTLE)
       .addByproduct(TinkerFluids.moltenIron.result(FluidValues.INGOT))
       .save(fieryConsumer, location(folder + "melting/fiery"));
+    // nicrosil has two different ores that let it appear, tin and chromium
+    materialMeltingCasting(
+      withCondition(consumer, new OrCondition(tagCondition("ingots/nicrosil"), tagCondition("ingots/tin"), tagCondition("ingots/chromium"))),
+      MaterialIds.nicrosil, TinkerFluids.moltenNicrosil, folder);
 
     // slimesuit
     materialMeltingCasting(consumer, MaterialIds.gold, TinkerFluids.moltenGold, folder);

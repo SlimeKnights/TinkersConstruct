@@ -16,6 +16,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingTickEvent;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
@@ -56,7 +57,7 @@ public class MagneticModifier extends Modifier implements PlantHarvestModifierHo
 
   @Override
   public void afterBlockBreak(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context) {
-    if (!context.isAOE() && !context.isProjectile()) {
+    if (!context.isAOE() && !context.isProjectile() && tool.hasTag(TinkerTags.Items.HARVEST)) {
       TinkerEffects.magnetic.get().apply(context.getLiving(), 30, modifier.getLevel() - 1);
     }
   }

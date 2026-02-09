@@ -1,0 +1,187 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:conditional_mining_speed",
+      "formula": [
+        "$overslime",
+        "$level",
+        "min",
+        0.2,
+        "*",
+        1.0,
+        "+",
+        "$speed",
+        "*"
+      ],
+      "percent": true,
+      "require_effective": true,
+      "tool": {
+        "type": "mantle:inverted",
+        "inverted_type": "mantle:tag",
+        "tag": "tconstruct:modifiable/broad"
+      },
+      "variables": {
+        "overslime": {
+          "type": "tconstruct:mod_data",
+          "key": "tconstruct:overslime",
+          "source": "persistent"
+        }
+      }
+    },
+    {
+      "type": "tconstruct:mining_capacity",
+      "grant": {
+        "each_level": -1
+      },
+      "owner": "tconstruct:overslime",
+      "run_before": true,
+      "tool": {
+        "type": "mantle:and",
+        "predicates": [
+          {
+            "type": "mantle:tag",
+            "tag": "tconstruct:modifiable/harvest"
+          },
+          {
+            "type": "mantle:inverted",
+            "inverted_type": "mantle:tag",
+            "tag": "tconstruct:modifiable/broad"
+          }
+        ]
+      }
+    },
+    {
+      "type": "tconstruct:conditional_mining_speed",
+      "formula": [
+        "$overslime",
+        5.0,
+        "$level",
+        "*",
+        "min",
+        5.0,
+        "/",
+        0.2,
+        "*",
+        1.0,
+        "+",
+        "$speed",
+        "*"
+      ],
+      "percent": true,
+      "require_effective": true,
+      "tool": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:modifiable/broad"
+      },
+      "variables": {
+        "overslime": {
+          "type": "tconstruct:mod_data",
+          "key": "tconstruct:overslime",
+          "source": "persistent"
+        }
+      }
+    },
+    {
+      "type": "tconstruct:mining_capacity",
+      "grant": {
+        "each_level": -5
+      },
+      "owner": "tconstruct:overslime",
+      "run_before": true,
+      "tool": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:modifiable/broad"
+      }
+    },
+    {
+      "type": "tconstruct:attribute",
+      "attribute": "minecraft:generic.attack_speed",
+      "formula": [
+        "$overslime",
+        "$level",
+        "min",
+        0.15,
+        "*"
+      ],
+      "operation": "multiply_total",
+      "slots": [
+        "mainhand"
+      ],
+      "variables": {
+        "overslime": {
+          "type": "tconstruct:mod_data",
+          "key": "tconstruct:overslime",
+          "source": "persistent"
+        }
+      }
+    },
+    {
+      "type": "tconstruct:melee_capacity",
+      "grant": {
+        "each_level": -1
+      },
+      "owner": "tconstruct:overslime",
+      "run_before": true
+    },
+    {
+      "type": "tconstruct:conditional_stat",
+      "formula": [
+        "$overslime",
+        "$level",
+        "min",
+        0.06,
+        "*",
+        "$multiplier",
+        "*",
+        "$value",
+        "+"
+      ],
+      "percent": false,
+      "stat": "tconstruct:velocity",
+      "variables": {
+        "overslime": {
+          "type": "tconstruct:mod_data",
+          "key": "tconstruct:overslime",
+          "source": "persistent"
+        }
+      }
+    },
+    {
+      "type": "tconstruct:conditional_stat",
+      "formula": [
+        "$overslime",
+        "$level",
+        "min",
+        0.06,
+        "*",
+        "$multiplier",
+        "*",
+        "$value",
+        "+"
+      ],
+      "percent": false,
+      "stat": "tconstruct:draw_speed",
+      "variables": {
+        "overslime": {
+          "type": "tconstruct:mod_data",
+          "key": "tconstruct:overslime",
+          "source": "persistent"
+        }
+      }
+    },
+    {
+      "type": "tconstruct:launch_capacity",
+      "grant": {
+        "each_level": -1
+      },
+      "owner": "tconstruct:overslime",
+      "tool": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:modifiable/ranged"
+      }
+    }
+  ],
+  "priority": 75,
+  "tooltip_display": "always"
+}

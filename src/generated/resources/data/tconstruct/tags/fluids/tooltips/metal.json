@@ -44,7 +44,6 @@
     "#forge:molten_nicrosil",
     "#forge:molten_duralumin",
     "#forge:molten_bendalloy",
-    "#tconstruct:molten_steeleaf",
-    "tconstruct:molten_cinderslime"
+    "#tconstruct:molten_steeleaf"
   ]
 }

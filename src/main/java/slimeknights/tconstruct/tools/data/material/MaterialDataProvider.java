@@ -103,6 +103,7 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addMaterial(MaterialIds.manyullyn,   4, ORDER_WEAPON,  false);
     addMaterial(MaterialIds.blazingBone, 4, ORDER_SPECIAL, true);
     addMaterial(MaterialIds.knightmetal, 4, ORDER_END,     false);
+    addMaterial(MaterialIds.knightslime, 4, ORDER_END,     false);
     //addMetalMaterial(MaterialIds.soulsteel, 4, ORDER_SPECIAL, false, 0x6a5244);
     // tier 4 - binding
     addMaterial(MaterialIds.ancientHide, 4, ORDER_BINDING, false);
@@ -140,6 +141,7 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addCompatMetalMaterial(MaterialIds.steeleaf, 3, ORDER_COMPAT + ORDER_SPECIAL);
     // tier 4 (mod integration)
     addCompatMetalMaterial(MaterialIds.fiery,           4, ORDER_COMPAT + ORDER_END);
+    addCompatAlloy(MaterialIds.nicrosil, 4, ORDER_COMPAT + ORDER_WEAPON,  new OrCondition(tagExistsCondition("ingots/tin"), tagExistsCondition("ingots/chromium")));
 
     // slimesuit - textures
     addMaterial(MaterialIds.blood, 2, ORDER_REPAIR, true);

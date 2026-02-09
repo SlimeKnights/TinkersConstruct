@@ -12,6 +12,5 @@
       "type": "tconstruct:show_interaction_source"
     }
   ],
-  "priority": 70,
   "tooltip_display": "always"
 }

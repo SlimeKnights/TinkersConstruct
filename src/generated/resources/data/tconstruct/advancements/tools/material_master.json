@@ -239,6 +239,20 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "knightslime": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_material",
+              "material": "tconstruct:knightslime"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "leather": {
       "conditions": {
         "items": [
@@ -643,6 +657,9 @@
     ],
     [
       "knightmetal"
+    ],
+    [
+      "knightslime"
     ],
     [
       "enderslime_vine"

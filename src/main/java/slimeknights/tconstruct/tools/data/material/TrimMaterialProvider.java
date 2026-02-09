@@ -37,9 +37,10 @@ public class TrimMaterialProvider {
     material(context, MaterialIds.steel,       TinkerMaterials.steel,       0x959595, 0.2F); // iron
     material(context, MaterialIds.manyullyn,   TinkerMaterials.manyullyn,   0x9261cc, 1.0f); // amethyst
     material(context, MaterialIds.hepatizon,   TinkerMaterials.hepatizon,   0x60496b, 0.3f); // netherite
-    material(context, MaterialIds.knightmetal, TinkerMaterials.knightmetal, 0xC4D6AE, 0.1f); // quartz
     material(context, MaterialIds.cinderslime, TinkerMaterials.cinderslime, 0xB80000, 0.4F); // redstone
     material(context, MaterialIds.queensSlime, TinkerMaterials.queensSlime, 0x236c45, 0.7f); // emerald
+    material(context, MaterialIds.knightmetal, TinkerMaterials.knightmetal, 0xC4D6AE, 0.1f); // quartz
+    material(context, MaterialIds.knightslime, TinkerMaterials.knightslime, 0xD17FE8, 0.3F); // netherite
     
     material(context, MaterialIds.earthslime, TinkerWorld.earthGeode, 0x01cd4e, 0.7f); // emerald
     material(context, MaterialIds.skyslime,   TinkerWorld.skyGeode,   0x01cbcd, 0.8f); // diamond

@@ -1,10 +1,15 @@
 package slimeknights.tconstruct.library.modifiers.modules.capacity;
 
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import slimeknights.mantle.data.loadable.common.ColorLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
+import slimeknights.mantle.data.predicate.IJsonPredicate;
+import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.json.predicate.modifier.ModifierPredicate;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.hook.behavior.ToolDamageModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.display.DurabilityDisplayModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.special.CapacityBarHook;
@@ -20,11 +25,17 @@ import java.util.List;
  * Module using a capacity bar to shield the tool from durability.
  * @param color  Color of the bar
  */
-public record DurabilityShieldModule(int color) implements ModifierModule, ToolDamageModifierHook, DurabilityDisplayModifierHook {
+public record DurabilityShieldModule(int color, IJsonPredicate<ModifierId> cause) implements ModifierModule, ToolDamageModifierHook, DurabilityDisplayModifierHook {
   private static final List<ModuleHook<?>> HOOKS = HookProvider.<DurabilityShieldModule>defaultHooks(ModifierHooks.TOOL_DAMAGE, ModifierHooks.DURABILITY_DISPLAY);
+  private static final IJsonPredicate<ModifierId> ALLOW = ModifierPredicate.tag(TinkerTags.Modifiers.BYPASS_EXTRA_DURABILITY).inverted();
   public static final RecordLoadable<DurabilityShieldModule> LOADER = RecordLoadable.create(
     ColorLoadable.NO_ALPHA.requiredField("color", DurabilityShieldModule::color),
+    ModifierPredicate.LOADER.defaultField("cause", ALLOW, false, DurabilityShieldModule::cause),
     DurabilityShieldModule::new);
+
+  public DurabilityShieldModule(int color) {
+    this(color, ALLOW);
+  }
 
   @Override
   public RecordLoadable<DurabilityShieldModule> getLoader() {
@@ -55,6 +66,14 @@ public record DurabilityShieldModule(int color) implements ModifierModule, ToolD
   @Override
   public int onDamageTool(IToolStackView tool, ModifierEntry modifier, int amount, @Nullable LivingEntity holder) {
     return onDamageTool(modifier.getHook(ModifierHooks.CAPACITY_BAR), tool, modifier, amount);
+  }
+
+  @Override
+  public int onDamageTool(IToolStackView tool, ModifierEntry modifier, int amount, @Nullable LivingEntity holder, @Nullable ItemStack stack, ModifierId cause) {
+    if (this.cause.matches(cause)) {
+      return onDamageTool(modifier.getHook(ModifierHooks.CAPACITY_BAR), tool, modifier, amount);
+    }
+    return amount;
   }
 
   @Override

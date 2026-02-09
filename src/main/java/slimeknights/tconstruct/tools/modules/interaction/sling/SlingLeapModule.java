@@ -89,7 +89,7 @@ public record SlingLeapModule(float forceMultiplier, boolean leaveGround, float 
 
           if (!level.isClientSide) {
             level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), Sounds.SLIME_SLING.getSound(), entity.getSoundSource(), 1, 1);
-            ToolDamageUtil.damageAnimated(tool, 1, entity);
+            ToolDamageUtil.damageAnimated(tool, 1, entity, entity.getUsedItemHand(), modifier.getId());
           }
           // only need player for exhaustion, cooldowns, and drill attack
           if (entity instanceof Player player) {

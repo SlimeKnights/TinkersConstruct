@@ -1,11 +1,15 @@
 package slimeknights.tconstruct.tools.logic;
 
+import com.google.common.collect.Lists;
+import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -20,6 +24,7 @@ import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
@@ -28,6 +33,7 @@ import net.minecraft.world.phys.HitResult.Type;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.util.FakePlayer;
+import net.minecraftforge.event.entity.EntityTeleportEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent.ImpactResult;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -40,13 +46,16 @@ import net.minecraftforge.event.entity.living.MobEffectEvent;
 import net.minecraftforge.event.entity.player.CriticalHitEvent;
 import net.minecraftforge.event.level.BlockEvent.BreakEvent;
 import net.minecraftforge.eventbus.api.Event.Result;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import slimeknights.mantle.MantleEvents;
+import slimeknights.mantle.util.CombatHelper;
 import slimeknights.mantle.util.RegistryHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.Sounds;
+import slimeknights.tconstruct.common.TinkerDamageTypes;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.json.predicate.TinkerPredicate;
@@ -75,6 +84,7 @@ import slimeknights.tconstruct.shared.TinkerEffects;
 import slimeknights.tconstruct.tools.data.ModifierIds;
 import slimeknights.tconstruct.tools.modules.ranged.RestrictAngleModule;
 
+import java.util.List;
 import java.util.Optional;
 
 /** Events to implement modifier specific behaviors, such as those defined by {@link TinkerDataKeys}. General hooks will typically be in {@link ToolEvents} */
@@ -346,20 +356,19 @@ public class ModifierEvents {
     }
   }
 
-  @SubscribeEvent
+  @SuppressWarnings("removal") // lets us work with Neo 1.20 for now
+  @SubscribeEvent(priority = EventPriority.LOW) // lower priority so general modifier hook runs first
   static void projectileImpact(ProjectileImpactEvent event) {
     Entity entity = event.getEntity();
-    // first, need a projectile that is hitting a living entity
     Level level = entity.level();
-    if (!level.isClientSide) {
-      Projectile projectile = event.getProjectile();
-
+    Projectile projectile = event.getProjectile();
+    HitResult hit = event.getRayTraceResult();
+    if (hit.getType() == Type.ENTITY && ((EntityHitResult) hit).getEntity() instanceof LivingEntity target) {
+      // reflecting //
       // handle blacklist for projectiles
-      // living entity must be using one of our shields
-      HitResult hit = event.getRayTraceResult();
-      if (!RegistryHelper.contains(TinkerTags.EntityTypes.REFLECTING_BLACKLIST, projectile.getType())
-        && hit.getType() == Type.ENTITY && ((EntityHitResult) hit).getEntity() instanceof LivingEntity living && living.isUsingItem() && living != projectile.getOwner()) {
-        ItemStack stack = living.getUseItem();
+      if (!level.isClientSide && !RegistryHelper.contains(TinkerTags.EntityTypes.REFLECTING_BLACKLIST, projectile.getType()) && target != projectile.getOwner() && target.isUsingItem()) {
+        ItemStack stack = target.getUseItem();
+        // living entity must be using one of our shields
         if (stack.is(TinkerTags.Items.SHIELDS)) {
           ToolStack tool = ToolStack.from(stack);
           // make sure we actually have the modifier
@@ -368,11 +377,11 @@ public class ModifierEvents {
             ModifierEntry activeModifier = GeneralInteractionModifierHook.getActiveModifier(tool);
             if (activeModifier != ModifierEntry.EMPTY) {
               GeneralInteractionModifierHook hook = activeModifier.getHook(ModifierHooks.GENERAL_INTERACT);
-              int time = hook.getUseDuration(tool, activeModifier) - living.getUseItemRemainingTicks();
+              int time = hook.getUseDuration(tool, activeModifier) - target.getUseItemRemainingTicks();
               // must be blocking, started blocking within the last 2*level seconds, and be within the block angle
               if (hook.getUseAction(tool, activeModifier) == UseAnim.BLOCK
                 && (time >= 5 && time < reflectingTime)
-                && InteractionHandler.canBlock(living, projectile.position(), tool)) {
+                && InteractionHandler.canBlock(target, projectile.position(), tool)) {
 
                 // time to actually reflect, this code is strongly based on code from the Parry mod
                 // take ownership of the projectile so it counts as a player kill, except in the case of fishing bobbers
@@ -380,31 +389,31 @@ public class ModifierEvents {
                   // arrows are dumb and mutate their pickup status when owner is set, so disagree and set it back
                   if (projectile instanceof AbstractArrow arrow) {
                     Pickup pickup = arrow.pickup;
-                    arrow.setOwner(living);
+                    arrow.setOwner(target);
                     arrow.pickup = pickup;
                   } else {
-                    projectile.setOwner(living);
+                    projectile.setOwner(target);
                   }
                   projectile.leftOwner = true;
                 }
 
-                Vec3 reboundAngle = living.getLookAngle();
+                Vec3 reboundAngle = target.getLookAngle();
                 // use the shield accuracy and velocity stats when reflecting
-                float velocity = ConditionalStatModifierHook.getModifiedStat(tool, living, ToolStats.VELOCITY) * 1.1f;
-                projectile.shoot(reboundAngle.x, reboundAngle.y, reboundAngle.z, velocity, ModifierUtil.getInaccuracy(tool, living));
+                float velocity = ConditionalStatModifierHook.getModifiedStat(tool, target, ToolStats.VELOCITY) * 1.1f;
+                projectile.shoot(reboundAngle.x, reboundAngle.y, reboundAngle.z, velocity, ModifierUtil.getInaccuracy(tool, target));
                 if (projectile instanceof AbstractHurtingProjectile hurting) {
                   hurting.xPower = reboundAngle.x * 0.1;
                   hurting.yPower = reboundAngle.y * 0.1;
                   hurting.zPower = reboundAngle.z * 0.1;
                 }
-                if (living.getType() == EntityType.PLAYER) {
-                  TinkerNetwork.getInstance().sendVanillaPacket(new ClientboundSetEntityMotionPacket(projectile), living);
+                if (target.getType() == EntityType.PLAYER) {
+                  TinkerNetwork.getInstance().sendVanillaPacket(new ClientboundSetEntityMotionPacket(projectile), target);
                 }
-                level.playSound(null, living.blockPosition(), SoundEvents.SHIELD_BLOCK, SoundSource.PLAYERS, 1.0F, 1.5F + level.random.nextFloat() * 0.4F);
+                level.playSound(null, target.blockPosition(), SoundEvents.SHIELD_BLOCK, SoundSource.PLAYERS, 1.0F, 1.5F + level.random.nextFloat() * 0.4F);
                 event.setImpactResult(ImpactResult.SKIP_ENTITY);
                 // damage the shield, and stop using it if needed
-                if (ToolDamageUtil.damageAnimated(tool, 3, living)) {
-                  living.stopUsingItem();
+                if (ToolDamageUtil.damageAnimated(tool, 3, target)) {
+                  target.stopUsingItem();
                   entity.playSound(SoundEvents.SHIELD_BREAK, 0.8F, 0.8F + entity.level().random.nextFloat() * 0.4F);
                 }
               }
@@ -412,6 +421,109 @@ public class ModifierEvents {
           }
         }
       }
+
+      // enderference //
+      // endermen are hardcoded to not take arrow damage, so disagree by reimplementing arrow damage right here
+      // blacklist lets us not run on tridents or thrown tools. Former does not work with enderference, latter does so internally
+      if (TinkerEffects.needsEnderferenceOverride(target) && !projectile.getType().is(TinkerTags.EntityTypes.ENDERFERENCE_ARROW_BLACKLIST) && projectile instanceof AbstractArrow arrow) {
+        // first, give up if we reached pierce capacity, and ensure list are created
+        if (arrow.getPierceLevel() > 0) {
+          if (arrow.piercingIgnoreEntityIds == null) {
+            arrow.piercingIgnoreEntityIds = new IntOpenHashSet(5);
+          }
+          if (arrow.piercedAndKilledEntities == null) {
+            arrow.piercedAndKilledEntities = Lists.newArrayListWithCapacity(5);
+          }
+          if (arrow.piercingIgnoreEntityIds.size() >= arrow.getPierceLevel() + 1) {
+            arrow.discard();
+            event.setCanceled(true);
+            return;
+          }
+          arrow.piercingIgnoreEntityIds.add(target.getId());
+        }
+
+        // calculate damage, bonus on crit
+        int damage = Mth.ceil(Mth.clamp(arrow.getDeltaMovement().length() * arrow.getBaseDamage(), 0.0D, Integer.MAX_VALUE));
+        if (arrow.isCritArrow()) {
+          damage = (int) Math.min(target.getRandom().nextInt(damage / 2 + 2) + (long) damage, Integer.MAX_VALUE);
+        }
+
+        // create damage source, don't use projectile sources as that makes endermen ignore it
+        Entity owner = arrow.getOwner();
+        DamageSource damageSource = CombatHelper.damageSource(TinkerDamageTypes.MELEE_ARROW, projectile, owner);
+        LivingEntity livingOwner = ModifierUtil.asLiving(owner);
+        if (livingOwner != null) {
+          livingOwner.setLastHurtMob(target);
+        }
+
+        // handle fire
+        int remainingFire = target.getRemainingFireTicks();
+        if (arrow.isOnFire()) {
+          target.setSecondsOnFire(5);
+        }
+
+        // hurt the enderman
+        if (target.hurt(damageSource, (float) damage)) {
+          if (!level.isClientSide && arrow.getPierceLevel() <= 0) {
+            target.setArrowCount(target.getArrowCount() + 1);
+          }
+
+          // knockback from punch
+          int knockback = arrow.getKnockback();
+          if (knockback > 0) {
+            Vec3 knockbackVec = arrow.getDeltaMovement().multiply(1.0D, 0.0D, 1.0D).normalize().scale(knockback * 0.6D);
+            if (knockbackVec.lengthSqr() > 0.0D) {
+              target.push(knockbackVec.x, 0.1D, knockbackVec.z);
+            }
+          }
+
+          if (!level.isClientSide && livingOwner != null) {
+            EnchantmentHelper.doPostHurtEffects(target, livingOwner);
+            EnchantmentHelper.doPostDamageEffects(livingOwner, target);
+          }
+
+          arrow.doPostHurtEffects(target);
+
+          if (!target.isAlive() && arrow.piercedAndKilledEntities != null) {
+            arrow.piercedAndKilledEntities.add(target);
+          }
+
+          if (!level.isClientSide && arrow.shotFromCrossbow() && owner instanceof ServerPlayer player) {
+            if (arrow.piercedAndKilledEntities != null) {
+              CriteriaTriggers.KILLED_BY_CROSSBOW.trigger(player, arrow.piercedAndKilledEntities);
+            } else if (!target.isAlive()) {
+              CriteriaTriggers.KILLED_BY_CROSSBOW.trigger(player, List.of(target));
+            }
+          }
+
+          arrow.playSound(arrow.soundEvent, 1.0F, 1.2F / (target.getRandom().nextFloat() * 0.2F + 0.9F));
+          if (arrow.getPierceLevel() <= 0) {
+            arrow.discard();
+          }
+        } else {
+          // reset fire and drop the arrow
+          target.setRemainingFireTicks(remainingFire);
+          arrow.setDeltaMovement(arrow.getDeltaMovement().scale(-0.1D));
+          arrow.setYRot(arrow.getYRot() + 180.0F);
+          arrow.yRotO += 180.0F;
+          if (!level.isClientSide && arrow.getDeltaMovement().lengthSqr() < 1.0E-7D) {
+            if (arrow.pickup == AbstractArrow.Pickup.ALLOWED) {
+              arrow.spawnAtLocation(arrow.getPickupItem(), 0.1F);
+            }
+
+            arrow.discard();
+          }
+        }
+        // cancel event so arrow does not bounce
+        event.setCanceled(true);
+      }
+    }
+  }
+
+  @SubscribeEvent
+  static void onTeleport(EntityTeleportEvent event) {
+    if (event.getEntity() instanceof LivingEntity living && living.hasEffect(TinkerEffects.enderference.get())) {
+      event.setCanceled(true);
     }
   }
 }

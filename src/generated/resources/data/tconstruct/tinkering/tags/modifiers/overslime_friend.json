@@ -2,9 +2,10 @@
   "values": [
     "tconstruct:overgrowth",
     "tconstruct:overcast",
-    "tconstruct:overshield",
     "tconstruct:overburn",
     "tconstruct:overlord",
+    "tconstruct:overshield",
+    "tconstruct:overwield",
     "tconstruct:overforced",
     "tconstruct:overslime_friend",
     "tconstruct:overworked"

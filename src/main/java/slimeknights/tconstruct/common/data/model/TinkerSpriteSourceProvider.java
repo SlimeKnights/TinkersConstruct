@@ -32,6 +32,7 @@ public class TinkerSpriteSourceProvider extends SpriteSourceProvider {
     super(output, fileHelper, TConstruct.MOD_ID);
   }
 
+  @SuppressWarnings("removal")
   @Override
   protected void addSources() {
     String paletteFolder = "trims/color_palettes/";

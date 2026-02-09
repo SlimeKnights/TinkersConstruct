@@ -6,6 +6,7 @@
       "chance": {
         "flat": 1.0
       },
+      "counter_durability_usage": 0,
       "effect": "minecraft:glowing",
       "level": {
         "flat": 1.0

@@ -95,7 +95,7 @@ public class EnderportingModifier extends NoLevelsModifier implements PlantHarve
         Vec3 oldPosition = attacker.position();
         if (tryTeleport(modifier, attacker, target.getX(), target.getY(), target.getZ())) {
           tryTeleport(modifier, target, oldPosition.x, oldPosition.y, oldPosition.z);
-          ToolDamageUtil.damageAnimated(tool, 2, attacker, context.getSlotType(), true);
+          ToolDamageUtil.damageAnimated(tool, 2, attacker, context.getSlotType(), modifier.getId());
         }
       }
     }
@@ -103,11 +103,11 @@ public class EnderportingModifier extends NoLevelsModifier implements PlantHarve
 
   @Override
   public void finishHarvest(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context, int harvested) {
-    if (harvested > 0 && context.canHarvest()) {
+    if (harvested > 0 && context.canHarvest() && tool.hasTag(TinkerTags.Items.HARVEST)) {
       BlockPos pos = context.getPos();
       LivingEntity living = context.getLiving();
       if (tryTeleport(modifier, living, pos.getX() + 0.5f, pos.getY(), pos.getZ() + 0.5f)) {
-        ToolDamageUtil.damageAnimated(tool, 2, living, EquipmentSlot.MAINHAND, true);
+        ToolDamageUtil.damageAnimated(tool, 2, living, EquipmentSlot.MAINHAND, modifier.getId());
       }
     }
   }
@@ -118,7 +118,7 @@ public class EnderportingModifier extends NoLevelsModifier implements PlantHarve
     if (context.getClickedPos().equals(pos)) {
       LivingEntity living = context.getPlayer();
       if (living != null && tryTeleport(modifier, living, pos.getX() + 0.5f, pos.getY(), pos.getZ() + 0.5f)) {
-        ToolDamageUtil.damageAnimated(tool, 2, living, context.getHand(), true);
+        ToolDamageUtil.damageAnimated(tool, 2, living, context.getHand(), modifier.getId());
       }
     }
   }
@@ -135,7 +135,7 @@ public class EnderportingModifier extends NoLevelsModifier implements PlantHarve
       Vec3 oldPosition = attacker.position();
       if (attacker.level() == projectile.level() && tryTeleport(modifier, attacker, hitEntity.getX(), hitEntity.getY(), hitEntity.getZ()) && target != null) {
         if (tryTeleport(modifier, target, oldPosition.x, oldPosition.y, oldPosition.z)) {
-          ModifierUtil.updateFishingRod(projectile, 10, false);
+          ModifierUtil.updateFishingRod(projectile, 10, false, modifier.getId());
         }
       }
     }
@@ -173,8 +173,8 @@ public class EnderportingModifier extends NoLevelsModifier implements PlantHarve
     if (primary) {
       // damage on shoot as we won't have tool context once the arrow lands
       // don't damage fishing hooks though, we will do that on hit
-      if (projectile.getType() != TinkerTools.fishingHook.get()){
-        ToolDamageUtil.damageAnimated(tool, 10, shooter, shooter.getUsedItemHand(), true);
+      if (projectile.getType() != TinkerTools.fishingHook.get()) {
+        ToolDamageUtil.damageAnimated(tool, 10, shooter, shooter.getUsedItemHand(), modifier.getId());
       }
     } else {
       persistentData.putBoolean(SECONDARY_ARROW, true);

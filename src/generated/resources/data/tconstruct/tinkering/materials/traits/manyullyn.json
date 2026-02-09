@@ -2,14 +2,14 @@
   "default": [
     {
       "level": 1,
-      "name": "tconstruct:insatiable"
+      "name": "tconstruct:ambush"
     }
   ],
   "perStat": {
     "tconstruct:armor": [
       {
         "level": 1,
-        "name": "tconstruct:kinetic"
+        "name": "tconstruct:warded"
       }
     ]
   }

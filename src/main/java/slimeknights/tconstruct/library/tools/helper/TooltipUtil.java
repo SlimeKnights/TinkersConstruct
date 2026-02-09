@@ -262,7 +262,7 @@ public class TooltipUtil {
     if (tool.hasTag(TinkerTags.Items.DURABILITY)) {
       builder.addDurability();
     }
-    boolean allowMelee = !tool.getVolatileData().getBoolean(EntityInteractionModifierHook.NO_MELEE);
+    boolean allowMelee = !EntityInteractionModifierHook.meleeDisabled(tool);
     boolean meleePrimary = allowMelee && tool.hasTag(TinkerTags.Items.MELEE_PRIMARY);
     if (meleePrimary) {
       builder.addWithAttribute(ToolStats.ATTACK_DAMAGE, Attributes.ATTACK_DAMAGE);

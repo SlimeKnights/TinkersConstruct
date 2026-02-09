@@ -77,7 +77,7 @@ public class ContentModifier extends PageContent {
   public String modifierID;
   /** Tag filter to limit tools that display on a page */
   @SerializedName("tool_filter")
-  public String toolFilter = null;
+  public ResourceLocation toolFilter = null;
 
   /** Default constructor for page loader */
   public ContentModifier() {}
@@ -109,7 +109,7 @@ public class ContentModifier extends PageContent {
       return null;
     }
     if (this.toolFilterTag == null) {
-      this.toolFilterTag = TagKey.create(Registries.ITEM, new ResourceLocation(toolFilter));
+      this.toolFilterTag = TagKey.create(Registries.ITEM, toolFilter);
     }
     return this.toolFilterTag;
   }

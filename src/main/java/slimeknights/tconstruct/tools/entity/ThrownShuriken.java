@@ -8,6 +8,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -24,6 +25,8 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.ForgeEventFactory;
+import slimeknights.mantle.util.CombatHelper;
+import slimeknights.tconstruct.common.TinkerDamageTypes;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.entity.ProjectileWithKnockback;
@@ -39,6 +42,7 @@ import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.Schedule;
+import slimeknights.tconstruct.shared.TinkerEffects;
 import slimeknights.tconstruct.tools.TinkerToolActions;
 import slimeknights.tconstruct.tools.TinkerTools;
 
@@ -207,7 +211,14 @@ public class ThrownShuriken extends Projectile implements ToolProjectile, Projec
   @Override
   protected void onHitEntity(EntityHitResult result) {
     Entity target = result.getEntity();
-    boolean hit = target.hurt(damageSources().thrown(this, this.getOwner()), power);
+    DamageSource source;
+    // use a melee damage type if its targeting enderman
+    if (TinkerEffects.needsEnderferenceOverride(target)) {
+      source = CombatHelper.damageSource(TinkerDamageTypes.MELEE_THROWN, this, this.getOwner());
+    } else {
+      source = damageSources().thrown(this, this.getOwner());
+    }
+    boolean hit = target.hurt(source, power);
 
     if (hit && knockback > 0 && target instanceof LivingEntity living) {
       // knockback logic based on arrows

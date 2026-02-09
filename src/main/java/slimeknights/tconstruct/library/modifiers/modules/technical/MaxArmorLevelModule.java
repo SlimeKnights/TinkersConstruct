@@ -88,6 +88,7 @@ public interface MaxArmorLevelModule extends HookProvider, EquipmentChangeModifi
   /* Helpers */
 
   /** Creates a new max level key for the given ID. Key should be unique instance per usage */
+  @SuppressWarnings("removal")
   static ComputableDataKey<ModifierMaxLevel> createKey(@Nullable ResourceLocation id) {
     if (id == null) {
       id = new ResourceLocation("missingno");

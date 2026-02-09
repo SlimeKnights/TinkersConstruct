@@ -53,6 +53,7 @@ import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.events.TinkerToolEvent.ToolHarvestEvent;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.hook.armor.ModifyDamageModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.armor.OnAttackedModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.armor.ProtectionModifierHook;
@@ -66,6 +67,7 @@ import slimeknights.tconstruct.library.tools.capability.PersistentDataCapability
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
+import slimeknights.tconstruct.library.tools.context.EquipmentIterator.EquipmentEntry;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
 import slimeknights.tconstruct.library.tools.definition.module.mining.IsEffectiveToolHook;
@@ -214,14 +216,12 @@ public class ToolEvents {
     if (context.hasModifiableArmor()) {
       // first we need to determine if any of the four slots want to cancel the event
       for (EquipmentSlot slotType : EquipmentSlot.values()) {
-        if (ModifierUtil.validArmorSlot(entity, slotType)) {
-          IToolStackView toolStack = context.getToolInSlot(slotType);
-          if (toolStack != null && !toolStack.isBroken()) {
-            for (ModifierEntry entry : toolStack.getModifierList()) {
-              if (entry.getHook(ModifierHooks.DAMAGE_BLOCK).isDamageBlocked(toolStack, entry, context, slotType, source, amount)) {
-                event.setCanceled(true);
-                return;
-              }
+        IToolStackView toolStack = context.getValidTool(slotType);
+        if (toolStack != null && !toolStack.isBroken()) {
+          for (ModifierEntry entry : toolStack.getModifierList()) {
+            if (entry.getHook(ModifierHooks.DAMAGE_BLOCK).isDamageBlocked(toolStack, entry, context, slotType, source, amount)) {
+              event.setCanceled(true);
+              return;
             }
           }
         }
@@ -260,6 +260,9 @@ public class ToolEvents {
     }
     return (int)damage;
   }
+
+  /** Modifier ID used for the extra correction damage on armor. Needs to be a "real modifier" for the tag so we use protection as a reasonable enough source. */
+  private static final ModifierId ARMOR_DAMAGE = new ModifierId(TConstruct.MOD_ID, "protection");
 
   // low priority to minimize conflict as we apply reduction as if we are the final change to damage before vanilla
   @SuppressWarnings("removal")
@@ -336,15 +339,9 @@ public class ToolEvents {
 
       // next, determine how much tinkers armor wants to change it
       // note that armor modifiers can choose to block "absolute damage" if they wish, currently just starving damage I think
-      for (EquipmentSlot slotType : EquipmentSlot.values()) {
-        if (ModifierUtil.validArmorSlot(entity, slotType)) {
-          IToolStackView tool = context.getToolInSlot(slotType);
-          if (tool != null && !tool.isBroken()) {
-            for (ModifierEntry entry : tool.getModifierList()) {
-              modifierValue = entry.getHook(ModifierHooks.PROTECTION).getProtectionModifier(tool, entry, context, slotType, source, modifierValue);
-            }
-          }
-        }
+      for (EquipmentEntry entry : context.iterateTools()) {
+        ModifierEntry modifier = entry.modifier();
+        modifierValue = modifier.getHook(ModifierHooks.PROTECTION).getProtectionModifier(entry.tool(), modifier, context, entry.slot(), source, modifierValue);
       }
 
       // give slimes a 4x armor boost
@@ -385,8 +382,8 @@ public class ToolEvents {
             // for our own armor, saves effort to damage directly with our utility
             IToolStackView tool = context.getToolInSlot(slotType);
             if (tool != null && (!source.is(DamageTypeTags.IS_FIRE) || !tool.getItem().isFireResistant())) {
-              // mark this as secondary damage so modifiers like tanned can avoid taking damage twice
-              ToolDamageUtil.damageAnimated(tool, damageMissed, entity, slotType, true);
+              // mark this as protection (any valid modifier really would do) so tanned can reduce it to not count it as separate damage
+              ToolDamageUtil.damageAnimated(tool, damageMissed, entity, slotType, ARMOR_DAMAGE);
             } else {
               // if not our armor, damage using vanilla like logic
               ItemStack armorStack = entity.getItemBySlot(slotType);
@@ -511,9 +508,9 @@ public class ToolEvents {
           // cancel all effects on endermen unless we have enderference, endermen like to teleport away
           // yes, hardcoded to enderference, if you need your own enderference for whatever reason, talk to us
           Entity entity = entityHit.getEntity();
-          if (entity.getType() != EntityType.ENDERMAN || modifiers.getLevel(TinkerModifiers.enderference.getId()) > 0) {
-            // extract a living target as that is the most common need
-            LivingEntity target = ToolAttackUtil.getLivingEntity(entity);
+          // extract a living target as that is the most common need
+          LivingEntity target = ToolAttackUtil.getLivingEntity(entity);
+          if (TinkerEffects.canHitWithProjectile(target) || nbt.getBoolean(TinkerEffects.ENDERFERENCE_KEY)) {
 
             // ensure we are not blocking, that means projectile shouldn't hit
             boolean notBlocked = true;

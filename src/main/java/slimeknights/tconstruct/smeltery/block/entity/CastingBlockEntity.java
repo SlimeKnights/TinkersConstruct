@@ -592,6 +592,7 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
     }
   }
 
+  @SuppressWarnings("removal")
   @Override
   public void load(CompoundTag tags) {
     super.load(tags);

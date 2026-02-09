@@ -124,7 +124,7 @@ public enum SplashingModule implements ModifierModule, EntityInteractionModifier
               }
 
               // damage the tool, we charge for the multiplier and for the number of targets hit
-              ToolDamageUtil.damageAnimated(tool, Mth.ceil(numTargets * level), player, hand);
+              ToolDamageUtil.damageAnimated(tool, Mth.ceil(numTargets * level), player, hand, modifier.getId());
             }
           }
 
@@ -196,7 +196,7 @@ public enum SplashingModule implements ModifierModule, EntityInteractionModifier
 
               // damage the tool, we charge for the multiplier and for the number of targets hit
               ItemStack stack = context.getItemInHand();
-              if (ToolDamageUtil.damage(tool, Mth.ceil(numTargets * level), player, stack) && player != null) {
+              if (ToolDamageUtil.damage(tool, Mth.ceil(numTargets * level), player, stack, modifier.getId()) && player != null) {
                 player.broadcastBreakEvent(source.getSlot(context.getHand()));
               }
             }

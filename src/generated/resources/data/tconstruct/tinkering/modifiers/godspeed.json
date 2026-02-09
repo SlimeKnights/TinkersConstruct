@@ -1,0 +1,51 @@
+{
+  "level_display": "tconstruct:no_levels",
+  "modules": [
+    {
+      "type": "tconstruct:attribute",
+      "attribute": "minecraft:generic.movement_speed",
+      "flat": 0.05,
+      "operation": "multiply_total",
+      "slots": [
+        "mainhand",
+        "offhand",
+        "feet",
+        "legs",
+        "chest",
+        "head"
+      ],
+      "tooltip_style": "percent"
+    },
+    {
+      "type": "tconstruct:attribute",
+      "attribute": "minecraft:generic.attack_speed",
+      "flat": 0.025,
+      "operation": "multiply_total",
+      "slots": [
+        "mainhand",
+        "offhand",
+        "feet",
+        "legs",
+        "chest",
+        "head"
+      ],
+      "tooltip_style": "percent"
+    },
+    {
+      "type": "tconstruct:attribute",
+      "attribute": "tconstruct:player.mining_speed_multiplier",
+      "flat": 0.075,
+      "operation": "multiply_total",
+      "slots": [
+        "mainhand",
+        "offhand",
+        "feet",
+        "legs",
+        "chest",
+        "head"
+      ],
+      "tooltip_style": "percent"
+    }
+  ],
+  "tooltip_display": "always"
+}

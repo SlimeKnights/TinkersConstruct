@@ -1,0 +1,28 @@
+{
+  "type": "tconstruct:material_fluid",
+  "conditions": [
+    {
+      "type": "forge:or",
+      "values": [
+        {
+          "type": "mantle:tag_filled",
+          "tag": "forge:ingots/nicrosil"
+        },
+        {
+          "type": "mantle:tag_filled",
+          "tag": "forge:ingots/tin"
+        },
+        {
+          "type": "mantle:tag_filled",
+          "tag": "forge:ingots/chromium"
+        }
+      ]
+    }
+  ],
+  "fluid": {
+    "amount": 90,
+    "tag": "forge:molten_nicrosil"
+  },
+  "output": "tconstruct:nicrosil",
+  "temperature": 1100
+}

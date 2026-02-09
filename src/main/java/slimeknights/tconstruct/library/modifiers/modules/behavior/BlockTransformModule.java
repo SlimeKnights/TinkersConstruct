@@ -72,7 +72,7 @@ public interface BlockTransformModule extends ModifierModule, BlockInteractionMo
       }
 
       // if the tool breaks or it was a campfire, we are done
-      if (ToolDamageUtil.damage(tool, 1, player, stack)) {
+      if (ToolDamageUtil.damage(tool, 1, player, stack, modifier.getId())) {
         if (player != null) {
           player.broadcastBreakEvent(slotType);
         }
@@ -108,7 +108,7 @@ public interface BlockTransformModule extends ModifierModule, BlockInteractionMo
             }
 
             // stop if the tool broke
-            if (ToolDamageUtil.damage(tool, 1, player, stack)) {
+            if (ToolDamageUtil.damage(tool, 1, player, stack, modifier.getId())) {
               if (player != null) {
                 player.broadcastBreakEvent(context.getHand());
               }

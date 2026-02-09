@@ -241,7 +241,7 @@ public class ModifierIds {
   public static final ModifierId holy = id("holy");
   // traits - tier 3
   public static final ModifierId overcast = id("overcast");
-  public static final ModifierId overshield = id("overshield");
+  public static final ModifierId godspeed = id("godspeed");
   public static final ModifierId crumbling = id("crumbling");
   public static final ModifierId enhanced = id("enhanced");
   public static final ModifierId tasty = id("tasty");
@@ -268,9 +268,13 @@ public class ModifierIds {
   // traits - tier 4
   public static final ModifierId overburn = id("overburn");
   public static final ModifierId overlord = id("overlord");
+  public static final ModifierId overshield = id("overshield");
+  public static final ModifierId overwield = id("overwield");
   public static final ModifierId recurrentProtection = id("recurrent_protection");
   public static final ModifierId fortified = id("fortified");
   public static final ModifierId kinetic = id("kinetic");
+  public static final ModifierId ambush = id("ambush");
+  public static final ModifierId warded = id("warded");
   public static final ModifierId conductive = id("conductive");
   public static final ModifierId flameBarrier = id("flame_barrier");
   public static final ModifierId vintage = id("vintage");
@@ -289,6 +293,7 @@ public class ModifierIds {
 
   // traits - slimeskull
   public static final ModifierId mithridatism = id("mithridatism");
+  public static final ModifierId dragonheart = id("dragonheart");
 
   // unused for now, will be reassigned later
 

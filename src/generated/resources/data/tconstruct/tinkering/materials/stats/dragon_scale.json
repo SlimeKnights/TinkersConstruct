@@ -1,6 +1,10 @@
 {
   "stats": {
     "tconstruct:arrow_head": {},
-    "tconstruct:maille": {}
+    "tconstruct:maille": {},
+    "tconstruct:skull": {
+      "armor": 0,
+      "durability": 120
+    }
   }
 }

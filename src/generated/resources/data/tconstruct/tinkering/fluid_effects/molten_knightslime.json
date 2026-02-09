@@ -1,0 +1,36 @@
+{
+  "block_effects": [
+    {
+      "type": "tconstruct:explosion",
+      "block_interaction": "keep",
+      "damage": {
+        "each_level": 4.0
+      },
+      "knockback": {},
+      "place_fire": false,
+      "radius": {
+        "each_level": 1.0,
+        "flat": 1.0
+      }
+    }
+  ],
+  "entity_effects": [
+    {
+      "type": "tconstruct:explosion",
+      "block_interaction": "keep",
+      "damage": {
+        "each_level": 4.0
+      },
+      "knockback": {},
+      "place_fire": false,
+      "radius": {
+        "each_level": 1.0,
+        "flat": 1.0
+      }
+    }
+  ],
+  "fluid": {
+    "amount": 20,
+    "tag": "tconstruct:molten_knightslime"
+  }
+}

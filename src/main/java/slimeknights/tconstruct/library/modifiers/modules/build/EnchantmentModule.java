@@ -202,7 +202,10 @@ public interface EnchantmentModule extends ModifierModule, IntLevelModule, Condi
     }
   }
 
-  /** Enchantment module that can condition on the block mined or the entity mining. */
+  /**
+   * Enchantment module that can condition on the block mined or the entity mining.
+   * Exists as {@link HarvestEnchantmentsModifierHook} does not currently run on the main hand. TODO 1.21: update it to run on mainhand.
+   */
   record MainHandHarvest(Enchantment enchantment, int level, ModifierCondition<IToolStackView> condition, ResourceLocation conditionFlag, IJsonPredicate<BlockState> block, IJsonPredicate<LivingEntity> holder) implements EnchantmentModule, EnchantmentModifierHook, BlockHarvestModifierHook {
     private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<MainHandHarvest>defaultHooks(ModifierHooks.ENCHANTMENTS, ModifierHooks.BLOCK_HARVEST);
     public static final RecordLoadable<MainHandHarvest> LOADER = RecordLoadable.create(ENCHANTMENT, IntLevelModule.FIELD, ModifierCondition.TOOL_FIELD, Loadables.RESOURCE_LOCATION.requiredField("condition_flag", MainHandHarvest::conditionFlag), BLOCK, HOLDER, MainHandHarvest::new);
@@ -246,7 +249,10 @@ public interface EnchantmentModule extends ModifierModule, IntLevelModule, Condi
     }
   }
 
-  /** Enchantment module that can condition on the block mined or the entity mining on armor. Requires the harvesting be done with a tinker tool. */
+  /**
+   * Enchantment module that can condition on the block mined or the entity mining on armor. Requires the harvesting be done with a tinker tool.
+   * TODO 1.21: rename to conditional harvest. The slot filter lets us avoid double applying to a constant enchantment harvest tool.
+   */
   record ArmorHarvest(Enchantment enchantment, int level, ModifierCondition<IToolStackView> condition, Set<EquipmentSlot> slots, IJsonPredicate<BlockState> block, IJsonPredicate<LivingEntity> holder) implements EnchantmentModule, HarvestEnchantmentsModifierHook {
     private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<ArmorHarvest>defaultHooks(ModifierHooks.HARVEST_ENCHANTMENTS);
     public static final RecordLoadable<ArmorHarvest> LOADER = RecordLoadable.create(ENCHANTMENT, IntLevelModule.FIELD, ModifierCondition.TOOL_FIELD, TinkerLoadables.EQUIPMENT_SLOT_SET.requiredField("slots", ArmorHarvest::slots), BLOCK, HOLDER, ArmorHarvest::new);

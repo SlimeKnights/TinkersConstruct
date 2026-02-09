@@ -26,6 +26,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraftforge.common.ToolAction;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.loadable.record.SingletonLoader;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.behavior.ToolActionModifierHook;
@@ -82,7 +83,7 @@ public enum PlaceFireModule implements ModifierModule, EntityInteractionModifier
       level.playSound(player, creeper.getX(), creeper.getY(), creeper.getZ(), SoundEvents.FLINTANDSTEEL_USE, creeper.getSoundSource(), 1.0F, level.random.nextFloat() * 0.4F + 0.8F);
       if (!level.isClientSide) {
         creeper.ignite();
-        ToolDamageUtil.damageAnimated(tool, 1, player, source.getSlot(hand));
+        ToolDamageUtil.damageAnimated(tool, 1, player, source.getSlot(hand), modifier.getId());
       }
       return InteractionResult.sidedSuccess(level.isClientSide);
     }
@@ -162,7 +163,7 @@ public enum PlaceFireModule implements ModifierModule, EntityInteractionModifier
     EquipmentSlot slotType = source.getSlot(context.getHand());
     if (!targetingFire) {
       didIgnite = ignite(world, pos, state, sideHit, horizontalFacing, player);
-      if (didIgnite && ToolDamageUtil.damage(tool, 1, player, stack)) {
+      if (didIgnite && ToolDamageUtil.damage(tool, 1, player, stack, modifier.getId())) {
         if (player != null) {
           player.broadcastBreakEvent(slotType);
         }
@@ -173,7 +174,7 @@ public enum PlaceFireModule implements ModifierModule, EntityInteractionModifier
     for (BlockPos target : targets) {
       if (ignite(world, target, world.getBlockState(target), sideHit, horizontalFacing, player)) {
         didIgnite = true;
-        if (ToolDamageUtil.damage(tool, 1, player, stack)) {
+        if (ToolDamageUtil.damage(tool, 1, player, stack, modifier.getId())) {
           if (player != null) {
             player.broadcastBreakEvent(slotType);
           }
@@ -188,7 +189,9 @@ public enum PlaceFireModule implements ModifierModule, EntityInteractionModifier
   @Nullable
   @Override
   public Boolean removeBlock(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context) {
-    if (context.getState().is(Blocks.FIRE) && tool.getHook(ToolHooks.INTERACTION).canInteract(tool, modifier.getId(), InteractionSource.LEFT_CLICK)) {
+    // if we have left click modifiers active, ensure we don't break the block on left click
+    // otherwise our newly placed block is immediately removed
+    if (context.getState().is(Blocks.FIRE) && tool.hasTag(TinkerTags.Items.INTERACTABLE_LEFT) && tool.getHook(ToolHooks.INTERACTION).canInteract(tool, modifier.getId(), InteractionSource.LEFT_CLICK)) {
       return false;
     }
     return null;

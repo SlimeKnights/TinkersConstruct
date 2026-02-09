@@ -156,7 +156,7 @@ public enum BrushModule implements ModifierModule, GeneralInteractionModifierHoo
           }
 
           // apply all tool damage, and stop using if needed
-          if (damage > 0 && !level.isClientSide && ToolDamageUtil.damageAnimated(tool, damage, entity, hand)) {
+          if (damage > 0 && !level.isClientSide && ToolDamageUtil.damageAnimated(tool, damage, entity, hand, modifier.getId())) {
             entity.stopUsingItem();
           }
         }

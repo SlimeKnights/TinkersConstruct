@@ -3,20 +3,24 @@
   "modules": [
     {
       "type": "tconstruct:stat_boost",
-      "each_level": 0.07,
+      "each_level": 0.05,
       "operation": "add",
       "stat": "tconstruct:draw_speed"
     },
     {
       "type": "tconstruct:stat_boost",
-      "each_level": 0.07,
+      "each_level": 0.05,
       "operation": "add",
       "stat": "tconstruct:accuracy"
     },
     {
       "type": "tconstruct:protection",
       "damage_source": "mantle:can_protect",
-      "each_level": -1.25
+      "each_level": -1.25,
+      "tool": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:modifiable/armor"
+      }
     },
     {
       "type": "tconstruct:attribute",

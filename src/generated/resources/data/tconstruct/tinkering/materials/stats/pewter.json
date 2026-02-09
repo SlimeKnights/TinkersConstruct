@@ -2,8 +2,8 @@
   "stats": {
     "tconstruct:binding": {},
     "tconstruct:grip": {
-      "accuracy": 0.15,
-      "durability": -0.2,
+      "accuracy": 0.0,
+      "durability": -0.25,
       "melee_damage": 3.0
     },
     "tconstruct:handle": {
@@ -22,7 +22,7 @@
       "accuracy": -0.2,
       "draw_speed": 0.1,
       "durability": 316,
-      "velocity": -0.05
+      "velocity": 0.05
     },
     "tconstruct:maille": {},
     "tconstruct:plating_boots": {

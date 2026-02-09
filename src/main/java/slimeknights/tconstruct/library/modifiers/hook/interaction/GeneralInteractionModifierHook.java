@@ -41,13 +41,13 @@ public interface GeneralInteractionModifierHook {
   /* Charged usage */
 
   /**
-   * Called every tick when the player is using an item.
-   * Only supported for {@link InteractionSource#RIGHT_CLICK}.
+   * Called every tick when the player is using this modifier. Only supported for {@link InteractionSource#RIGHT_CLICK}.
    * To setup, use {@link #startUsing(IToolStackView, ModifierId, LivingEntity, InteractionHand)} in {@link #onToolUse(IToolStackView, ModifierEntry, Player, InteractionHand, InteractionSource)}.
    * @param tool       Tool performing interaction
    * @param modifier   Modifier instance
    * @param entity     Interacting entity
-   * @param timeLeft   How many ticks of use duration was left
+   * @param timeLeft   How many ticks of use duration was left.
+   * @see UsingToolModifierHook#onUsingTick(IToolStackView, ModifierEntry, LivingEntity, int, int, ModifierEntry)
    */
   default void onUsingTick(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int timeLeft) {}
 
@@ -59,6 +59,7 @@ public interface GeneralInteractionModifierHook {
    * @param modifier   Modifier instance
    * @param entity     Interacting entity
    * @param timeLeft   How many ticks of use duration was left
+   * @see UsingToolModifierHook#beforeReleaseUsing(IToolStackView, ModifierEntry, LivingEntity, int, int, ModifierEntry)
    */
   default void onStoppedUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int timeLeft) {}
 
@@ -68,6 +69,7 @@ public interface GeneralInteractionModifierHook {
    * @param tool       Tool performing interaction
    * @param modifier   Modifier instance
    * @param entity     Interacting entity
+   * @see UsingToolModifierHook#beforeReleaseUsing(IToolStackView, ModifierEntry, LivingEntity, int, int, ModifierEntry)
    */
   default void onFinishUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity) {}
 

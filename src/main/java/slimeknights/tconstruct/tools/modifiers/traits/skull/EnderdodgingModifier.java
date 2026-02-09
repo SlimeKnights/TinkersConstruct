@@ -30,7 +30,7 @@ public class EnderdodgingModifier extends NoLevelsModifier implements DamageBloc
     if (!self.hasEffect(TinkerModifiers.teleportCooldownEffect.get()) && source.isIndirect()) {
       if (TeleportHelper.randomNearbyTeleport(context.getEntity(), (e, x, y, z) -> new EnderdodgingTeleportEvent(e, x, y, z, modifier))) {
         TinkerModifiers.teleportCooldownEffect.get().apply(self, 15 * 20, 0, true);
-        ToolDamageUtil.damageAnimated(tool, (int)amount, self, slotType);
+        ToolDamageUtil.damageAnimated(tool, (int)amount, self, slotType, modifier.getId());
         return true;
       }
       return false;

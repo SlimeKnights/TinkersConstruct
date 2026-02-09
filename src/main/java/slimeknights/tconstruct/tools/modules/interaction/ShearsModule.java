@@ -121,7 +121,7 @@ public record ShearsModule(float flatBonus, float perLevelBonus, float expandedB
     looting = ArmorLootingModifierHook.getLooting(tool, context, looting);
     Level world = player.getCommandSenderWorld();
     if (shearEntity(stack, tool, world, player, target, looting)) {
-      boolean broken = ToolDamageUtil.damageAnimated(tool, 1, player, slotType);
+      boolean broken = ToolDamageUtil.damageAnimated(tool, 1, player, slotType, modifier.getId());
       player.swing(hand);
       player.sweepAttack();
       runShearHook(tool, player, target, true);
@@ -134,7 +134,7 @@ public record ShearsModule(float flatBonus, float perLevelBonus, float expandedB
           for (LivingEntity aoeTarget : player.getCommandSenderWorld().getEntitiesOfClass(LivingEntity.class, target.getBoundingBox().inflate(expanded, 0.25D, expanded))) {
             if (aoeTarget != player && aoeTarget != target && (!(aoeTarget instanceof ArmorStand) || !((ArmorStand)aoeTarget).isMarker())) {
               if (shearEntity(stack, tool, world, player, aoeTarget, looting)) {
-                broken = ToolDamageUtil.damageAnimated(tool, 1, player, slotType);
+                broken = ToolDamageUtil.damageAnimated(tool, 1, player, slotType, modifier.getId());
                 runShearHook(tool, player, aoeTarget, false);
                 if (broken) {
                   break;

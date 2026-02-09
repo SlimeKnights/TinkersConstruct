@@ -178,7 +178,8 @@ public class ArmorTrimRecipe implements ITinkerStationRecipe, IMultiRecipe<IDisp
 
       String materialName = holder.key().location().toString();
       List<ModifierEntry> results = List.of(RESULT);
-      toolWithModifier = tools.stream().map(stack -> IDisplayModifierRecipe.withModifiers(stack, results, data -> data.putString(TrimModifier.TRIM_MATERIAL, materialName))).toList();
+      ResourceLocation key = TrimModule.materialKey(TinkerModifiers.trim.getId());
+      toolWithModifier = tools.stream().map(stack -> IDisplayModifierRecipe.withModifiers(stack, results, data -> data.putString(key, materialName))).toList();
 
     }
 

@@ -4,6 +4,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
+import slimeknights.tconstruct.library.tools.context.EquipmentIterator.EquipmentEntry;
 import slimeknights.tconstruct.library.tools.context.LootingContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
@@ -41,16 +42,10 @@ public interface ArmorLootingModifierHook {
       equipment = new EquipmentContext(context.getHolder());
     }
     // no extra setup work, so we can skip the pre-validation and go right to boosting
-    for (EquipmentSlot slot : EquipmentSlot.values()) {
-      // TODO: slot is null for bows, what if a bow has a modifier that implements both hooks? maybe bows should set looting slot and we ignore it?
-      if (slot != lootingSlot) {
-        IToolStackView armor = equipment.getValidTool(slot);
-        if (armor != null) {
-          for (ModifierEntry entry : armor.getModifierList()) {
-            looting = entry.getHook(ModifierHooks.ARMOR_LOOTING).updateArmorLooting(armor, entry, context, equipment, slot, looting);
-          }
-        }
-      }
+    // TODO: slot is null for bows, what if a bow has a modifier that implements both hooks? maybe bows should set looting slot and we ignore it?
+    for (EquipmentEntry entry : equipment.makeIterable(slot -> slot != lootingSlot ? equipment.getValidTool(slot) : null)) {
+      ModifierEntry modifier = entry.modifier();
+      looting = modifier.getHook(ModifierHooks.ARMOR_LOOTING).updateArmorLooting(entry.tool(), modifier, context, equipment, entry.slot(), looting);
     }
     return looting;
   }

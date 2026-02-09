@@ -42,7 +42,7 @@ public record GlowWalkerModule(LevelingValue radius, int minLight, int damage) i
     if (world.isEmptyBlock(target) && world.getBrightness(LightLayer.BLOCK, target) < minLight) {
       if (TinkerCommons.glow.get().addGlow(world, target, Direction.DOWN)) {
         world.playSound(null, target, world.getBlockState(target).getSoundType(world, target, living).getPlaceSound(), SoundSource.BLOCKS, 1.0f, 1.0f);
-        ToolDamageUtil.damageAnimated(tool, damage, living, EquipmentSlot.FEET);
+        ToolDamageUtil.damageAnimated(tool, damage, living, EquipmentSlot.FEET, entry.getId());
         // only run a single success, gives the lighting engine time to update before we place a ton of unneeded glows
         return true;
       }

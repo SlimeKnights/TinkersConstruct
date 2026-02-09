@@ -55,12 +55,13 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
     );
 
     // tier 4 is split into several parts in different books
-    tag(TinkerTags.Materials.BLAZING_BLOOD).add(MaterialIds.manyullyn, MaterialIds.hepatizon, MaterialIds.queensSlime, MaterialIds.cinderslime, MaterialIds.blazingBone, MaterialIds.blazewood, MaterialIds.ancientHide);
+    tag(TinkerTags.Materials.BLAZING_BLOOD).add(MaterialIds.manyullyn, MaterialIds.hepatizon, MaterialIds.queensSlime, MaterialIds.cinderslime, MaterialIds.blazingBone, MaterialIds.blazewood, MaterialIds.ancientHide)
+      .addOptional(MaterialIds.nicrosil);
     tag(TinkerTags.Materials.DISTANT).add(
       // tiers 1-2
       MaterialIds.chorus, MaterialIds.whitestone,
       // tier 4
-      MaterialIds.knightmetal, MaterialIds.knightly, MaterialIds.enderslimeVine, MaterialIds.ancient,
+      MaterialIds.knightmetal, MaterialIds.knightly, MaterialIds.knightslime, MaterialIds.enderslimeVine, MaterialIds.ancient,
       // ammo and maille
       MaterialIds.shulker, MaterialIds.dragonScale, MaterialIds.enderslime, MaterialIds.endRod
     ).addOptional(MaterialIds.ironwood, MaterialIds.steeleaf, MaterialIds.fiery);
@@ -88,7 +89,7 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
       MaterialIds.fiery
     ).addTag(TinkerTags.Materials.COMPATABILITY_BLOCKS);
     tag(TinkerTags.Materials.COMPATABILITY_BLOCKS).addTag(TinkerTags.Materials.COMPATABILITY_ALLOYS);
-    tag(TinkerTags.Materials.COMPATABILITY_ALLOYS).addOptional(MaterialIds.bronze, MaterialIds.constantan, MaterialIds.invar, MaterialIds.electrum, MaterialIds.pewter);
+    tag(TinkerTags.Materials.COMPATABILITY_ALLOYS).addOptional(MaterialIds.bronze, MaterialIds.constantan, MaterialIds.invar, MaterialIds.electrum, MaterialIds.pewter, MaterialIds.nicrosil);
 
     // material categories
     // melee harvest
@@ -119,7 +120,7 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
       // tier 3
       MaterialIds.amethystBronze,
       // tier 4
-      MaterialIds.hepatizon, MaterialIds.ancientHide
+      MaterialIds.hepatizon, MaterialIds.ancientHide, MaterialIds.knightslime
     ).addOptional(
       // tier 2
       MaterialIds.lead,
@@ -139,7 +140,9 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
       // tier 2
       MaterialIds.silver,
       // tier 3
-      MaterialIds.invar, MaterialIds.pewter, MaterialIds.necronium
+      MaterialIds.invar, MaterialIds.pewter, MaterialIds.necronium,
+      // tier 4
+      MaterialIds.nicrosil
     );
 
     // ranged
@@ -174,7 +177,9 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
       // tier 2
       MaterialIds.aluminum,
       // tier 3
-      MaterialIds.necronium, MaterialIds.constantan, MaterialIds.platedSlimewood
+      MaterialIds.necronium, MaterialIds.constantan, MaterialIds.platedSlimewood,
+      // tier 4
+      MaterialIds.nicrosil
     );
     tag(TinkerTags.Materials.HEAVY).add(
       // tier 1
@@ -184,7 +189,7 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
       // tier 3
       MaterialIds.amethystBronze, MaterialIds.steel,
       // tier 4
-      MaterialIds.manyullyn, MaterialIds.cinderslime
+      MaterialIds.manyullyn, MaterialIds.cinderslime, MaterialIds.knightslime
     ).addOptional(
       // tier 2
       MaterialIds.lead,
@@ -207,7 +212,7 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
       // piglins
       MaterialIds.gold, MaterialIds.roseGold, MaterialIds.pigIron,
       // misc
-      MaterialIds.blazingBone, MaterialIds.enderPearl
+      MaterialIds.blazingBone, MaterialIds.enderPearl, MaterialIds.dragonScale
     );
   }
 

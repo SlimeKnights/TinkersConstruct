@@ -315,7 +315,7 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
     buildMaterial(MaterialIds.cinderslime)
       .meleeHarvest().ranged().armor()
       .fallbacks("slime_metal", "metal")
-      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF4A0000).addARGB(102, 0xFF5D0000).addARGB(140, 0xFF820000).addARGB(178, 0xFFA00000).addARGB(216, 0xFFB80000).addARGB(255, 0xFFE82323).build());
+      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF4A0000).addARGB(102, 0xFF5D0000).addARGB(140, 0xFFA00000).addARGB(178, 0xFFB80000).addARGB(216, 0xFFE82323).addARGB(255, 0xFFFF5E28).build());
     buildMaterial(MaterialIds.hepatizon)
       .meleeHarvest().ranged().armor()
       .fallbacks("metal")
@@ -328,6 +328,11 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .meleeHarvest().ranged().armor().arrowHead()
       .fallbacks("slime_metal", "metal")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF333232).addARGB(102, 0xFF4D4C4B).addARGB(140, 0xFF808C72).addARGB(178, 0xFFA3B391).addARGB(216, 0xFFC4D6AE).addARGB(255, 0xFFE7FCCD).build());
+    ResourceLocation knightslime = getResource("generator/knightslime");
+    buildMaterial(MaterialIds.knightslime)
+      .meleeHarvest().ranged().armor()
+      .fallbacks("metal_contrast", "slime_metal", "metal")
+      .transformer(GreyToSpriteTransformer.builderFromBlack().addARGB(25, 0xFF191919).addTexture(26, knightslime).addTexture(102, knightslime).addARGB(140, 0xFF02040C).addARGB(178, 0xFF152237).addARGB(216, 0xFF243366).addARGB(255, 0xFF2C3E7B).build());
     ResourceLocation fiery = getResource("generator/fiery");
     buildMaterial(MaterialIds.fiery)
       .meleeHarvest().ranged().armor().statType(INGOT)
@@ -363,6 +368,10 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
     buildMaterial(MaterialIds.endRod)
       .arrowShaft()
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFFF6E2CD).addARGB(102, 0xFFF6EACD).addARGB(140, 0xFFFFF2D5).addARGB(178, 0xFFFFF6F6).addARGB(216, 0xFFFFF6F6).addARGB(255, 0xFFFFFFFF).build());
+    buildMaterial(MaterialIds.nicrosil)
+      .meleeHarvest().ranged().armor().statType(INGOT, STORAGE_BLOCK)
+      .fallbacks("metal")
+      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF8F998D).addARGB(102, 0xFF9FAB9F).addARGB(140, 0xFFD0DFD5).addARGB(178, 0xFFD9E6DC).addARGB(216, 0xFFE9EFEA).addARGB(255, 0xFFF6F9F7).build());
 
     // plate
     buildMaterial(MaterialIds.gold)

@@ -1578,16 +1578,17 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setSlots(SlotType.ABILITY, 1)
                          .saveSalvage(consumer, prefix(TinkerModifiers.parrying, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.parrying, abilityFolder));
-    ModifierRecipeBuilder.modifier(TinkerModifiers.reflecting)
-                         .setTools(TinkerTags.Items.SHIELDS)
-                         .addInput(TinkerWorld.congealedSlime.get(SlimeType.SKY),   4)
-                         .addInput(TinkerWorld.congealedSlime.get(SlimeType.ICHOR), 4)
-                         .addInput(TinkerWorld.congealedSlime.get(SlimeType.SKY),   4)
-                         .addInput(TinkerWorld.congealedSlime.get(SlimeType.EARTH), 4)
-                         .addInput(TinkerWorld.congealedSlime.get(SlimeType.EARTH), 4)
-                         .setSlots(SlotType.ABILITY, 1)
-                         .saveSalvage(consumer, prefix(TinkerModifiers.reflecting, abilitySalvage))
-                         .save(consumer, prefix(TinkerModifiers.reflecting, abilityFolder));
+    MultilevelModifierRecipeBuilder.modifier(ModifierIds.reflecting)
+      .setTools(TinkerTags.Items.SHIELDS)
+      .addInput(TinkerWorld.congealedSlime.get(SlimeType.SKY),   4)
+      .addInput(TinkerWorld.congealedSlime.get(SlimeType.ICHOR), 4)
+      .addInput(TinkerWorld.congealedSlime.get(SlimeType.SKY),   4)
+      .addInput(TinkerWorld.congealedSlime.get(SlimeType.EARTH), 4)
+      .addInput(TinkerWorld.congealedSlime.get(SlimeType.EARTH), 4)
+      .addLevel(SlotType.ABILITY, 1, 1)
+      .addLevelRange(SlotType.UPGRADE, 1, 2, 3)
+      .saveSalvage(consumer, prefix(ModifierIds.reflecting, abilitySalvage))
+      .save(consumer, prefix(ModifierIds.reflecting, abilityFolder));
 
     /*
      * extra modifiers

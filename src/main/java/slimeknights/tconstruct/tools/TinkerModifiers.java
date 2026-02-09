@@ -50,6 +50,7 @@ import slimeknights.tconstruct.library.json.variable.melee.MeleeVariable;
 import slimeknights.tconstruct.library.json.variable.mining.BlockLightVariable;
 import slimeknights.tconstruct.library.json.variable.mining.BlockMiningSpeedVariable;
 import slimeknights.tconstruct.library.json.variable.mining.BlockTemperatureVariable;
+import slimeknights.tconstruct.library.json.variable.mining.EffectiveMiningSpeedVariable;
 import slimeknights.tconstruct.library.json.variable.mining.MiningSpeedVariable;
 import slimeknights.tconstruct.library.json.variable.power.EntityPowerVariable;
 import slimeknights.tconstruct.library.json.variable.power.PersistentDataPowerVariable;
@@ -100,6 +101,7 @@ import slimeknights.tconstruct.library.modifiers.fluid.general.ScalingFluidEffec
 import slimeknights.tconstruct.library.modifiers.fluid.general.SequenceFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.general.SetBlockFluidEffect;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
+import slimeknights.tconstruct.library.modifiers.modules.armor.AdjustDamageModule;
 import slimeknights.tconstruct.library.modifiers.modules.armor.BlockDamageSourceModule;
 import slimeknights.tconstruct.library.modifiers.modules.armor.CoverGroundWalkerModule;
 import slimeknights.tconstruct.library.modifiers.modules.armor.EffectImmunityModule;
@@ -136,6 +138,7 @@ import slimeknights.tconstruct.library.modifiers.modules.capacity.DamageToCapaci
 import slimeknights.tconstruct.library.modifiers.modules.capacity.DurabilityShieldModule;
 import slimeknights.tconstruct.library.modifiers.modules.capacity.LaunchCapacityModule;
 import slimeknights.tconstruct.library.modifiers.modules.capacity.LootToCapacityModule;
+import slimeknights.tconstruct.library.modifiers.modules.capacity.MeleeCapacityModule;
 import slimeknights.tconstruct.library.modifiers.modules.capacity.MiningCapacityModule;
 import slimeknights.tconstruct.library.modifiers.modules.capacity.TimeToCapacityModule;
 import slimeknights.tconstruct.library.modifiers.modules.combat.ConditionalMeleeDamageModule;
@@ -451,6 +454,7 @@ public final class TinkerModifiers extends TinkerModule {
   /** Use API from {@link slimeknights.tconstruct.library.modifiers.modules.capacity.OverslimeModule} */
   public static final StaticModifier<OverslimeModifier> overslime = MODIFIERS.register("overslime", OverslimeModifier::new);
   /** @deprecated use {@link slimeknights.tconstruct.tools.data.ModifierIds#sweeping} */
+  @SuppressWarnings("removal")
   @Deprecated(forRemoval = true)
   public static final StaticModifier<SweepingEdgeModifier> sweeping = new FakeModifier<>(new ModifierId(TConstruct.MOD_ID, "sweeping_edge"), SweepingEdgeModifier::new);
   /** @deprecated use {@link slimeknights.tconstruct.tools.data.ModifierIds#expanded} (modifier) or {@link slimeknights.tconstruct.library.tools.item.IModifiable#EXPANDED} (querying) */
@@ -460,6 +464,7 @@ public final class TinkerModifiers extends TinkerModule {
 
   // modifiers pending removal - reimplement if you need them
   /** @deprecated Piercing now removes armor instead of ignoring armor. See {@link SpillingModule} for a similar effect. */
+  @SuppressWarnings("removal")
   @Deprecated(forRemoval = true)
   public static final StaticModifier<PiercingModifier> piercing = MODIFIERS.register("piercing", PiercingModifier::new);
   /** @deprecated Platinum was removed. */
@@ -796,6 +801,7 @@ public final class TinkerModifiers extends TinkerModule {
       ModifierModule.LOADER.register(getResource("block_damage"), BlockDamageSourceModule.LOADER);
       ModifierModule.LOADER.register(getResource("cover_ground"), CoverGroundWalkerModule.LOADER);
       ModifierModule.LOADER.register(getResource("protection"), ProtectionModule.LOADER);
+      ModifierModule.LOADER.register(getResource("adjust_damage"), AdjustDamageModule.LOADER);
       ModifierModule.LOADER.register(getResource("replace_fluid"), ReplaceBlockWalkerModule.LOADER);
       ModifierModule.LOADER.register(getResource("tool_action_walk_transform"), ToolActionWalkerTransformModule.LOADER);
       // behavior
@@ -855,6 +861,7 @@ public final class TinkerModifiers extends TinkerModule {
       ModifierModule.LOADER.register(getResource("time_to_capacity"), TimeToCapacityModule.LOADER);
       ModifierModule.LOADER.register(getResource("launch_capacity"), LaunchCapacityModule.LOADER);
       ModifierModule.LOADER.register(getResource("mining_capacity"), MiningCapacityModule.LOADER);
+      ModifierModule.LOADER.register(getResource("melee_capacity"), MeleeCapacityModule.LOADER);
       // technical
       ModifierModule.LOADER.register(getResource("armor_level"), ArmorLevelModule.LOADER);
       ModifierModule.LOADER.register(getResource("max_armor_stat"), MaxArmorStatModule.LOADER);
@@ -971,6 +978,7 @@ public final class TinkerModifiers extends TinkerModule {
       EntityVariable.LOADER.register(getResource("equipment_count"), EquipmentCountEntityVariable.LOADER);
       EntityVariable.LOADER.register(getResource("biome_temperature"), EntityVariable.BIOME_TEMPERATURE.getLoader());
       EntityVariable.LOADER.register(getResource("water"), EntityVariable.WATER.getLoader());
+      EntityVariable.LOADER.register(getResource("armor_coverage"), EntityVariable.ARMOR_COVERAGE.getLoader());
       // tool
       ToolVariable.LOADER.register(getResource("constant"), ToolVariable.Constant.LOADER);
       ToolVariable.register(getResource("tool_conditional"), ConditionalToolVariable.LOADER);
@@ -995,6 +1003,7 @@ public final class TinkerModifiers extends TinkerModule {
       MiningSpeedVariable.LOADER.register(getResource("block"), BlockMiningSpeedVariable.LOADER);
       MiningSpeedVariable.LOADER.register(getResource("block_light"), BlockLightVariable.LOADER);
       MiningSpeedVariable.LOADER.register(getResource("biome_temperature"), BlockTemperatureVariable.LOADER);
+      MiningSpeedVariable.LOADER.register(getResource("effective"), EffectiveMiningSpeedVariable.LOADER);
       // protection
       ProtectionVariable.LOADER.register(getResource("constant"), ProtectionVariable.Constant.LOADER);
       ProtectionVariable.LOADER.register(getResource("entity"), EntityProtectionVariable.LOADER);

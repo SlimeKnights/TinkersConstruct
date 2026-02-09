@@ -104,7 +104,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.steel, ModifierIds.ductile);
     // tier 3 - binding
     addDefaultTraits(MaterialIds.darkthread, ModifierIds.looting);
-    addDefaultTraits(MaterialIds.ichorskin, ModifierIds.overshield, TinkerModifiers.overslime.getId());
+    addDefaultTraits(MaterialIds.ichorskin, ModifierIds.godspeed);
     addDefaultTraits(MaterialIds.ice, ModifierIds.frostshield);
     addTraits(MaterialIds.ice, AMMO, ModifierIds.freezing);
     // tier 3 - ammo
@@ -119,8 +119,8 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.queensSlime, ModifierIds.overlord, TinkerModifiers.overslime.getId());
     addDefaultTraits(MaterialIds.hepatizon, TinkerModifiers.momentum);
     addTraits(MaterialIds.hepatizon, ARMOR, ModifierIds.recurrentProtection);
-    addDefaultTraits(MaterialIds.manyullyn, TinkerModifiers.insatiable);
-    addTraits(MaterialIds.manyullyn, ARMOR, ModifierIds.kinetic);
+    addDefaultTraits(MaterialIds.manyullyn, ModifierIds.ambush);
+    addTraits(MaterialIds.manyullyn, ARMOR, ModifierIds.warded);
     addDefaultTraits(MaterialIds.blazingBone, TinkerModifiers.conducting);
     addTraits(MaterialIds.blazingBone, AMMO, ModifierIds.conductive);
     addTraits(MaterialIds.blazingBone, ARMOR, ModifierIds.conductive);
@@ -139,6 +139,8 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     // tier 4 (end)
     addDefaultTraits(MaterialIds.knightmetal, ModifierIds.valiant);
     addTraits(MaterialIds.knightmetal, ARMOR, ModifierIds.stalwart);
+    addDefaultTraits(MaterialIds.knightslime, ModifierIds.overwield, TinkerModifiers.overslime.getId());
+    addTraits(MaterialIds.knightslime, ARMOR, ModifierIds.overshield, TinkerModifiers.overslime.getId());
     addDefaultTraits(MaterialIds.knightly, ModifierIds.valiant);
     addDefaultTraits(MaterialIds.enderslimeVine, TinkerModifiers.enderporting);
     addTraits(MaterialIds.enderslimeVine, ARMOR, ModifierIds.enderclearance);
@@ -167,10 +169,13 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     // tier 4 - mod compat
     addDefaultTraits(MaterialIds.fiery, ModifierIds.autosmelt);
     addTraits(MaterialIds.fiery, ARMOR, ModifierIds.temperedProtection);
+    addDefaultTraits(MaterialIds.nicrosil, TinkerModifiers.insatiable);
+    addTraits(MaterialIds.nicrosil, ARMOR, ModifierIds.kinetic);
 
     // slimeskull
     addTraits(MaterialIds.glass,        SkullStats.ID, TinkerModifiers.selfDestructive.getId(), ModifierIds.creeperDisguise);
     addTraits(MaterialIds.enderPearl,   SkullStats.ID, TinkerModifiers.enderdodging.getId(), ModifierIds.endermanDisguise);
+    addTraits(MaterialIds.dragonScale,  SkullStats.ID, ModifierIds.dragonheart);
     addTraits(MaterialIds.bone,         SkullStats.ID, TinkerModifiers.strongBones.getId(), ModifierIds.skeletonDisguise);
     addTraits(MaterialIds.venombone,    SkullStats.ID, TinkerModifiers.frosttouch.getId(), ModifierIds.strayDisguise);
     addTraits(MaterialIds.necroticBone, SkullStats.ID, TinkerModifiers.withered.getId(), ModifierIds.witherSkeletonDisguise);

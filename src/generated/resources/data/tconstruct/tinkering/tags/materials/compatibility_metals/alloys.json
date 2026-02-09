@@ -19,6 +19,10 @@
     {
       "id": "tconstruct:pewter",
       "required": false
+    },
+    {
+      "id": "tconstruct:nicrosil",
+      "required": false
     }
   ]
 }

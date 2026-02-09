@@ -96,7 +96,7 @@ public record ToolActionWalkerTransformModule(ToolAction action, SoundEvent soun
         world.setBlock(mutable, transformed, Block.UPDATE_ALL_IMMEDIATE);
         world.destroyBlock(target, true);
         world.playSound(null, mutable, sound, SoundSource.BLOCKS, 1.0F, 1.0F);
-        ToolDamageUtil.damageAnimated(tool, 1, living, EquipmentSlot.FEET);
+        ToolDamageUtil.damageAnimated(tool, 1, living, EquipmentSlot.FEET, entry.getId());
       }
     }
     return tool.isBroken();

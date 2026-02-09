@@ -150,7 +150,7 @@ public class ToolHarvestLogic {
 
     // remove the block
     boolean canHarvest = context.canHarvest();
-    BlockEntity te = canHarvest ? world.getBlockEntity(pos) : null; // ensures tile entity is fetched so its around for afterBlockBreak
+    BlockEntity te = canHarvest ? world.getBlockEntity(pos) : null; // ensures tile entity is fetched so it's around for afterBlockBreak
     boolean removed = removeBlock(tool, context);
 
     // harvest drops
@@ -166,14 +166,14 @@ public class ToolHarvestLogic {
 
     // handle modifiers if not broken
     // broken means we are using "empty hand"
-    if (!tool.isBroken() && removed) {
+    if (removed && !tool.isBroken()) {
       for (ModifierEntry entry : tool.getModifierList()) {
         entry.getHook(ModifierHooks.BLOCK_BREAK).afterBlockBreak(tool, entry, context);
       }
       ToolDamageUtil.damageAnimated(tool, damage, player);
     }
 
-    return true;
+    return removed;
   }
 
   /**
@@ -238,8 +238,7 @@ public class ToolHarvestLogic {
     }*/
 
     // client can run normal block breaking
-    // if its not harvest, skip our hooks as well
-    if (player.level().isClientSide || !stack.is(TinkerTags.Items.HARVEST) || !(player instanceof ServerPlayer serverPlayer)) {
+    if (player.level().isClientSide || !(player instanceof ServerPlayer serverPlayer)) {
       return false;
     }
 
@@ -295,8 +294,6 @@ public class ToolHarvestLogic {
     int harvested = 0;
     if (breakBlock(tool, stack, context, true)) {
       harvested += 1;
-    }
-    if (harvested > 0) {
       for (BlockPos extraPos : extraBlocks) {
         BlockState extraState = world.getBlockState(extraPos);
         // prevent calling that stuff for air blocks, could lead to unexpected behaviour since it fires events
@@ -313,7 +310,7 @@ public class ToolHarvestLogic {
     if (originalEnchantments != null) {
       HarvestEnchantmentsModifierHook.restoreEnchantments(stack, originalEnchantments);
     }
-    // alert modifiers we finished harvesting
+    // alert modifiers we finished harvesting. Always run even if we broke nothing as it's important for cleanup
     for (ModifierEntry entry : tool.getModifierList()) {
       entry.getHook(ModifierHooks.BLOCK_HARVEST).finishHarvest(tool, entry, context, harvested);
     }

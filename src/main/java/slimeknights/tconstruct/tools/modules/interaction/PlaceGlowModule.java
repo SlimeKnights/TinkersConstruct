@@ -9,6 +9,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.BlockInteractionModifierHook;
@@ -34,11 +35,6 @@ public record PlaceGlowModule(int damage) implements ModifierModule, BlockIntera
     PlaceGlowModule::new);
 
   @Override
-  public Integer getPriority() {
-    return 70;
-  }
-
-  @Override
   public RecordLoadable<PlaceGlowModule> getLoader() {
     return LOADER;
   }
@@ -58,7 +54,7 @@ public record PlaceGlowModule(int damage) implements ModifierModule, BlockIntera
         BlockPos pos = context.getClickedPos().relative(face);
         if (TinkerCommons.glow.get().addGlow(world, pos, face.getOpposite())) {
           // damage the tool, showing animation if relevant
-          if (ToolDamageUtil.damage(tool, damage, player, context.getItemInHand()) && player != null) {
+          if (damage > 0 && ToolDamageUtil.damage(tool, damage, player, context.getItemInHand(), modifier.getId()) && player != null) {
             player.broadcastBreakEvent(source.getSlot(context.getHand()));
           }
           world.playSound(null, pos, world.getBlockState(pos).getSoundType(world, pos, player).getPlaceSound(), SoundSource.BLOCKS, 1.0f, 1.0f);
@@ -72,7 +68,9 @@ public record PlaceGlowModule(int damage) implements ModifierModule, BlockIntera
   @Nullable
   @Override
   public Boolean removeBlock(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context) {
-    if (context.getState().is(TinkerCommons.glow.get()) && tool.getHook(ToolHooks.INTERACTION).canInteract(tool, modifier.getId(), InteractionSource.LEFT_CLICK)) {
+    // if we have left click modifiers active, ensure we don't break the block on left click
+    // otherwise our newly placed block is immediately removed
+    if (context.getState().is(TinkerCommons.glow.get()) && tool.hasTag(TinkerTags.Items.INTERACTABLE_LEFT) && tool.getHook(ToolHooks.INTERACTION).canInteract(tool, modifier.getId(), InteractionSource.LEFT_CLICK)) {
       return false;
     }
     return null;

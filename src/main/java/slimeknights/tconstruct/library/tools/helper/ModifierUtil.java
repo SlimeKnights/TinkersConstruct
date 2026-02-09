@@ -228,6 +228,20 @@ public final class ModifierUtil {
   @SuppressWarnings("UnusedReturnValue") // API
   @Nullable
   public static InteractionHand updateFishingRod(Projectile projectile, int damage, boolean applyCooldown) {
+    return updateFishingRod(projectile, damage, applyCooldown, ModifierId.EMPTY);
+  }
+
+  /**
+   * Called before you call {@link Projectile#discard()} to update the fishing rod stack on the player.
+   *
+   * @param projectile  Projectile, will check if its our fishing bobber.
+   * @param damage      Damage to deal to the rod.
+   * @param applyCooldown  If true, applies draw speed as an item cooldown.
+   * @param cause       Modifier causing the retraction.
+   * @return hand containing the fishing rod, or null if its in neither hand.
+   */
+  @Nullable
+  public static InteractionHand updateFishingRod(Projectile projectile, int damage, boolean applyCooldown, ModifierId cause) {
     if (projectile.getType() == TinkerTools.fishingHook.get() && projectile.getOwner() instanceof LivingEntity living) {
       ItemStack stack = living.getMainHandItem();
       InteractionHand hand = InteractionHand.MAIN_HAND;
@@ -252,7 +266,7 @@ public final class ModifierUtil {
           if (damage > 0) {
             // if we are applying cooldown, means this is a full retraction from block so this was primary damage
             // no cooldown is done on secondary effects like entity hitting
-            ToolDamageUtil.damageAnimated(tool, damage, living, hand, !applyCooldown);
+            ToolDamageUtil.damageAnimated(tool, damage, living, hand, cause);
           }
         }
         return hand;

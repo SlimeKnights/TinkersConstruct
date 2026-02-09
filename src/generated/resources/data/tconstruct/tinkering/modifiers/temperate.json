@@ -80,6 +80,11 @@
     },
     {
       "type": "tconstruct:reduce_tool_damage",
+      "cause": {
+        "type": "mantle:inverted",
+        "inverted_type": "tconstruct:tag",
+        "tag": "tconstruct:durability/bypass_reinforced"
+      },
       "formula": [
         "$temperature",
         0.75,

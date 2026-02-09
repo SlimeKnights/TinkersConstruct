@@ -291,7 +291,9 @@ public record SmeltingModule(RecipeType<? extends AbstractCookingRecipe> recipeT
 
   @Override
   public void finishHarvest(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context, int harvested) {
-    cookItems(tool, modifier, context.getLiving(), harvested);
+    if (tool.hasTag(TinkerTags.Items.HARVEST)) {
+      cookItems(tool, modifier, context.getLiving(), harvested);
+    }
   }
 
   @Override

@@ -7,6 +7,8 @@
   ],
   "more_text_space": true,
   "effects": [
-    "Requires 1 ability slot"
+    "First level requires 1 ability slot",
+    "Consecutive levels 1 ability slot",
+    "Maximum of 3 levels"
   ]
 }

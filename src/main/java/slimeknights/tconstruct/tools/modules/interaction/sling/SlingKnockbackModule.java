@@ -131,7 +131,7 @@ public record SlingKnockbackModule(float forceMultiplier, float drawtimeMultipli
             if (mop.getType() != HitResult.Type.BLOCK || targetDist < mop.getBlockPos().distToCenterSqr(start)) {
               // melee tools also do damage as a treat
               boolean didBonk = false;
-              if (damageMultiplier > 0 && ToolAttackUtil.isAttackable(entity, target) && tool.hasTag(TinkerTags.Items.MELEE) && !tool.getVolatileData().getBoolean(EntityInteractionModifierHook.NO_MELEE)) {
+              if (damageMultiplier > 0 && ToolAttackUtil.isAttackable(entity, target) && EntityInteractionModifierHook.isMelee(tool)) {
                 didBonk = true;
                 ModDataNBT data = tool.getPersistentData();
                 data.putBoolean(IS_BONKING, true);
@@ -178,7 +178,7 @@ public record SlingKnockbackModule(float forceMultiplier, float drawtimeMultipli
                 level.playSound(null, player.getX(), player.getY(), player.getZ(), Sounds.BONK.getSound(), player.getSoundSource(), 1, 0.5f);
                 player.causeFoodExhaustion(0.2F);
                 player.getCooldowns().addCooldown(tool.getItem(), 3);
-                ToolDamageUtil.damageAnimated(tool, 1, entity);
+                ToolDamageUtil.damageAnimated(tool, 1, entity, entity.getUsedItemHand(), modifier.getId());
                 return;
               }
             }

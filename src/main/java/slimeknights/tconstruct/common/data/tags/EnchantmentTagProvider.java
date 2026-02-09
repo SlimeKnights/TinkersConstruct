@@ -48,10 +48,11 @@ public class EnchantmentTagProvider extends TagsProvider<Enchantment> {
     modifierTag(ModifierIds.multishot, "cyclic:multishot", "ensorcellation:volley");
     modifierTag(ModifierIds.reach, "cyclic:reach", "ensorcellation:reach");
     modifierTag(ModifierIds.tilling, "ensorcellation:tilling");
-    modifierTag(TinkerModifiers.reflecting.getId(), "parry:rebound");
+    modifierTag(ModifierIds.reflecting, "parry:rebound");
   }
 
   /** Creates a builder for a tag for the given modifier */
+  @SuppressWarnings("removal")
   private void modifierTag(ModifierId modifier, String... ids) {
     TagsProvider.TagAppender<Enchantment> appender = tag(TagKey.create(Registries.ENCHANTMENT, TConstruct.getResource("modifier_like/" + modifier.getPath())));
     for (String id : ids) {

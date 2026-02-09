@@ -269,6 +269,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     slimeskullCasting(consumer, MaterialIds.necroticBone, Items.WITHER_SKELETON_SKULL, armorFolder);
     slimeskullCasting(consumer, MaterialIds.leather,      Items.ZOMBIE_HEAD,           armorFolder);
     slimeskullCasting(consumer, MaterialIds.gold,         Items.PIGLIN_HEAD,           armorFolder);
+    slimeskullCasting(consumer, MaterialIds.dragonScale,  Items.DRAGON_HEAD,           armorFolder);
     slimeskullCasting(consumer, MaterialIds.enderPearl,  TinkerWorld.heads.get(TinkerHeadType.ENDERMAN),         armorFolder);
     // TODO 1.20: switch this to bogged, perhaps use a new bone type for stray
     slimeskullCasting(consumer, MaterialIds.venombone,   TinkerWorld.heads.get(TinkerHeadType.STRAY),            armorFolder);

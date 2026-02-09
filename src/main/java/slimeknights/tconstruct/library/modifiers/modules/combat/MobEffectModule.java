@@ -15,6 +15,7 @@ import net.minecraft.world.phys.EntityHitResult;
 import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.primitive.BooleanLoadable;
+import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
@@ -50,7 +51,7 @@ import static slimeknights.tconstruct.TConstruct.RANDOM;
 /**
  * Module that applies a mob effect on melee attack, projectile hit, and counterattack
  */
-public record MobEffectModule(IJsonPredicate<LivingEntity> target, MobEffect effect, RandomLevelingValue level, RandomLevelingValue time, LevelingValue chance, boolean applyBeforeMelee, ModifierCondition<IToolStackView> condition) implements OnAttackedModifierHook, MeleeHitModifierHook, MonsterMeleeHitModifierHook, ProjectileHitModifierHook, ModifierModule, ConditionalModule<IToolStackView> {
+public record MobEffectModule(IJsonPredicate<LivingEntity> target, MobEffect effect, RandomLevelingValue level, RandomLevelingValue time, LevelingValue chance, boolean applyBeforeMelee, int counterDurabilityUsage, ModifierCondition<IToolStackView> condition) implements OnAttackedModifierHook, MeleeHitModifierHook, MonsterMeleeHitModifierHook, ProjectileHitModifierHook, ModifierModule, ConditionalModule<IToolStackView> {
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<MobEffectModule>defaultHooks(ModifierHooks.ON_ATTACKED, ModifierHooks.MELEE_HIT, ModifierHooks.MONSTER_MELEE_HIT, ModifierHooks.PROJECTILE_HIT);
   public static final RecordLoadable<MobEffectModule> LOADER = RecordLoadable.create(
     LivingEntityPredicate.LOADER.defaultField("target", MobEffectModule::target),
@@ -59,6 +60,7 @@ public record MobEffectModule(IJsonPredicate<LivingEntity> target, MobEffect eff
     RandomLevelingValue.LOADABLE.requiredField("time", MobEffectModule::time),
     LevelingValue.LOADABLE.defaultField("chance", LevelingValue.eachLevel(0.25f), false, MobEffectModule::chance),
     BooleanLoadable.INSTANCE.defaultField("apply_before_melee", false, false, MobEffectModule::applyBeforeMelee),
+    IntLoadable.FROM_ZERO.defaultField("counter_durability_usage", 1, MobEffectModule::counterDurabilityUsage),
     ModifierCondition.TOOL_FIELD,
     MobEffectModule::new);
 
@@ -100,7 +102,9 @@ public record MobEffectModule(IJsonPredicate<LivingEntity> target, MobEffect eff
       float chance = this.chance.compute(scaledLevel);
       if (chance >= 1 || RANDOM.nextFloat() < chance) {
         applyEffect(living, scaledLevel);
-        ToolDamageUtil.damageAnimated(tool, 1, defender, slotType, true);
+        if (counterDurabilityUsage > 0) {
+          ToolDamageUtil.damageAnimated(tool, counterDurabilityUsage, defender, slotType, modifier.getId());
+        }
       }
     }
   }
@@ -156,10 +160,12 @@ public record MobEffectModule(IJsonPredicate<LivingEntity> target, MobEffect eff
     private RandomLevelingValue time = RandomLevelingValue.flat(0);
     private LevelingValue chance = LevelingValue.eachLevel(0.25f);
     private boolean applyBeforeMelee = false;
+    /** Amount of durability spent applying this modifier to counter-attacks */
+    private int counterDurabilityUsage = 1;
 
     /** Builds the finished modifier */
     public MobEffectModule build() {
-      return new MobEffectModule(target, effect, level, time, chance, applyBeforeMelee, condition);
+      return new MobEffectModule(target, effect, level, time, chance, applyBeforeMelee, counterDurabilityUsage, condition);
     }
   }
 }

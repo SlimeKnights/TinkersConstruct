@@ -6,6 +6,10 @@
     "tconstruct:cinderslime",
     "tconstruct:blazing_bone",
     "tconstruct:blazewood",
-    "tconstruct:ancient_hide"
+    "tconstruct:ancient_hide",
+    {
+      "id": "tconstruct:nicrosil",
+      "required": false
+    }
   ]
 }

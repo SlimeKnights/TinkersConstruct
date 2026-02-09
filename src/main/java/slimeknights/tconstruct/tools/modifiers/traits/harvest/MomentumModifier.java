@@ -12,6 +12,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerEffect;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
@@ -78,7 +79,7 @@ public class MomentumModifier extends Modifier implements ProjectileLaunchModifi
 
   @Override
   public void afterBlockBreak(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context) {
-    if (context.canHarvest() && context.isEffective() && !context.isAOE()) {
+    if (context.canHarvest() && context.isEffective() && !context.isAOE() && tool.hasTag(TinkerTags.Items.HARVEST)) {
       // grant the effect for 5 seconds, though grant a longer effect if the blocks hardness is particularly high compared to our mining speed
       int duration = Math.max(5*20, (int) (2.5f * 20f * context.getState().getDestroySpeed(context.getWorld(), context.getPos()) / tool.getStats().get(ToolStats.MINING_SPEED)));
       // 10 blocks gets you to max, effect is stronger at higher levels

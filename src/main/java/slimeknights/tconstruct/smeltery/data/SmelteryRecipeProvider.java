@@ -1905,7 +1905,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                       .addInput(TinkerFluids.moltenQuartz.ingredient(FluidValues.GEM))
                       .save(consumer, prefix(TinkerFluids.moltenHepatizon, folder));
 
-    // netherrite: 4 debris + 4 gold = 1 (why is this so dense vanilla?)
+    // netherite: 4 debris + 4 gold = 1 (why is this so dense vanilla?)
     ConditionalRecipe.builder()
                      .addCondition(ConfigEnabledCondition.CHEAPER_NETHERITE_ALLOY)
                      .addRecipe(
@@ -1918,6 +1918,13 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                                          .addInput(TinkerFluids.moltenDebris.ingredient(FluidValues.NUGGET * 4))
                                          .addInput(TinkerFluids.moltenGold.ingredient(FluidValues.NUGGET * 4))::save)
                      .build(consumer, prefix(TinkerFluids.moltenNetherite, folder));
+
+    // knightslime: 1 cobalt + 1 enderslime + 1 obsidian = 2
+    AlloyRecipeBuilder.alloy(TinkerFluids.moltenKnightslime, FluidValues.INGOT * 2)
+      .addInput(TinkerFluids.moltenCobalt.ingredient(FluidValues.INGOT))
+      .addInput(TinkerFluids.enderSlime.ingredient(FluidValues.SLIMEBALL))
+      .addInput(TinkerFluids.moltenObsidian.ingredient(FluidValues.BRICK))
+      .save(consumer, prefix(TinkerFluids.moltenKnightslime, folder));
 
 
     // tier 3 compat
@@ -2020,7 +2027,6 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                       .save(wrapped, prefix(TinkerFluids.moltenRefinedObsidian, folder));
 
     // nicrosil
-    wrapped = withCondition(consumer, tagCondition("ingots/nicrosil"));
     ConditionalRecipe.builder()
       // if we have both chromium and nickel, can do the proper recipe
       .addCondition(new AndCondition(tagCondition("ingots/chromium"), tagCondition("ingots/nickel")))
@@ -2050,7 +2056,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
         .addInput(TinkerFluids.moltenIron.ingredient(FluidValues.INGOT))
         .addInput(TinkerFluids.moltenQuartz.ingredient(FluidValues.GEM))::save)
 
-      .build(wrapped, prefix(TinkerFluids.moltenNicrosil, folder));
+      .build(consumer, prefix(TinkerFluids.moltenNicrosil, folder));
 
     // duralumin
     wrapped = withCondition(consumer, tagCondition("ingots/duralumin"), tagCondition("ingots/aluminum"));
@@ -2251,6 +2257,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     metal(consumer, TinkerFluids.moltenHepatizon  ).metal();
     metal(consumer, TinkerFluids.moltenCinderslime).metal();
     metal(consumer, TinkerFluids.moltenQueensSlime).metal();
+    metal(consumer, TinkerFluids.moltenKnightslime).metal();
     String tf = "twilightforest";
     CommonRecipe tfHelmet     = new ToolItemMelting(5, tf, "helmet");
     CommonRecipe tfChestplate = new ToolItemMelting(8, tf, "chestplate");

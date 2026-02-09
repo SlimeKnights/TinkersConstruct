@@ -34,11 +34,12 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
-import slimeknights.tconstruct.library.tools.definition.module.weapon.MeleeHitToolHook;
+import slimeknights.tconstruct.library.tools.definition.module.ToolHooks;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.Util;
+import slimeknights.tconstruct.shared.TinkerEffects;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -251,25 +252,20 @@ public class ToolAttackUtil {
     ///////////////////
 
     // removed: sword special attack check and logic, replaced by this
-    boolean didHit;
-    Projectile projectile = context.getProjectile();
     Entity targetEntity = context.getTarget();
-    boolean isExtraAttack = context.isExtraAttack();
-    if (isExtraAttack) {
-      didHit = targetEntity.hurt(context.makeDamageSource(), damage);
-    } else {
-      didHit = MeleeHitToolHook.dealDamage(tool, context, damage);
-    }
+    boolean didHit = targetEntity.hurt(context.makeDamageSource(), damage);
 
     // reset hand to make sure we don't mess with vanilla tools
     ModifierLootingHandler.setLootingSlot(attackerLiving, EquipmentSlot.MAINHAND);
-
     // reset knockback if needed
     enableKnockback(knockbackModifier);
 
     // if we failed to hit, fire failure hooks
+    // alternatively, if we cannot hit this target, we are supposed to return true for the sake of special casing endermen,
     Level level = context.getLevel();
-    if (!didHit) {
+    boolean isExtraAttack = context.isExtraAttack();
+    Projectile projectile = context.getProjectile();
+    if (!didHit || projectile != null && !TinkerEffects.canHitWithProjectile(targetLiving)) {
       if (!isExtraAttack) {
         level.playSound(null, attackerLiving.getX(), attackerLiving.getY(), attackerLiving.getZ(), SoundEvents.PLAYER_ATTACK_NODAMAGE, attackerLiving.getSoundSource(), 1.0F, 1.0F);
       }
@@ -279,6 +275,9 @@ public class ToolAttackUtil {
       }
       return false;
     }
+
+    // post melee hook - TODO: should this be lower?
+    tool.getHook(ToolHooks.MELEE_HIT).afterMeleeHit(tool, context, damage);
 
     // determine damage actually dealt
     float damageDealt = damage;

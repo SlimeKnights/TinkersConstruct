@@ -411,11 +411,11 @@ public class JEIPlugin implements IModPlugin {
 
   /**
    * Removes a fluid from JEI
-   * @param manager  Manager
-   * @param fluid    Fluid to remove
+   * @param remove  List of ingredients to remove for batching
+   * @param fluid   Fluid to remove
    */
-  private static void removeFluid(IIngredientManager manager, Fluid fluid) {
-    manager.removeIngredientsAtRuntime(ForgeTypes.FLUID_STACK, Collections.singleton(new FluidStack(fluid, FluidType.BUCKET_VOLUME)));
+  private static void removeFluid(List<FluidStack> remove, Fluid fluid) {
+    remove.add(new FluidStack(fluid, FluidType.BUCKET_VOLUME));
   }
 
   /** Checks if the given tag exists */
@@ -517,15 +517,16 @@ public class JEIPlugin implements IModPlugin {
 
     // fluid hiding, buckets are hidden via the creative tab logic
     // hide compat that is not present
+    List<FluidStack> removeFluids = new ArrayList<>();
     compatLoop:
     for (SmelteryCompat compat : SmelteryCompat.values()) {
       // if none of the tags exist, remove the fluid
       if (!compat.isPresent()) {
-        removeFluid(manager, compat.getFluid().get());
+        removeFluid(removeFluids, compat.getFluid().get());
       }
     }
     if (!ModList.get().isLoaded("ceramics")) {
-      removeFluid(manager, TinkerFluids.moltenPorcelain.get());
+      removeFluid(removeFluids, TinkerFluids.moltenPorcelain.get());
     }
 
     // add potion fluids for each potion variant if requested
@@ -537,7 +538,10 @@ public class JEIPlugin implements IModPlugin {
                                       }).map(holder -> PotionFluidType.potionFluid(holder.key(), FluidType.BUCKET_VOLUME)).toList());
     }
     // remove variantless potion fluid
-    removeFluid(manager, TinkerFluids.potion.get());
+    removeFluid(removeFluids, TinkerFluids.potion.get());
+
+    // remove all the fluids
+    manager.removeIngredientsAtRuntime(ForgeTypes.FLUID_STACK, removeFluids);
 
     // hide easter egg recipes
     Level level = SafeClientAccess.getLevel();

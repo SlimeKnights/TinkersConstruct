@@ -449,8 +449,8 @@ public final class TinkerFluids extends TinkerModule {
     output.accept(moltenHepatizon);
     output.accept(moltenNetherite);
     output.accept(moltenKnightmetal);
+    output.accept(moltenKnightslime);
     // future: soulsteel
-    // future: knightslime
 
     // compat ores
     acceptMolten(output, moltenTin);
@@ -472,12 +472,12 @@ public final class TinkerFluids extends TinkerModule {
     acceptCompat(output, moltenInvar, MaterialIds.invar);
     acceptCompat(output, moltenConstantan, MaterialIds.constantan);
     acceptCompat(output, moltenPewter, MaterialIds.pewter);
+    acceptMolten(output, moltenNicrosil, MaterialIds.nicrosil);
     acceptMolten(output, moltenEnderium);
     acceptMolten(output, moltenLumium);
     acceptMolten(output, moltenSignalum);
     acceptMolten(output, moltenRefinedGlowstone);
     acceptMolten(output, moltenRefinedObsidian);
-    acceptMolten(output, moltenNicrosil);
     acceptMolten(output, moltenDuralumin);
     acceptMolten(output, moltenBendalloy);
     acceptCompat(output, moltenSteeleaf, MaterialIds.steeleaf);

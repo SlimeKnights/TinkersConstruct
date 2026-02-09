@@ -57,7 +57,7 @@ import static slimeknights.mantle.Mantle.commonResource;
 import static slimeknights.tconstruct.common.TinkerTags.Blocks.MINEABLE_MELTING_BLACKLIST;
 import static slimeknights.tconstruct.common.TinkerTags.Blocks.UNREPLACABLE_BY_LIQUID;
 
-@SuppressWarnings({"unchecked", "SameParameterValue"})
+@SuppressWarnings({"unchecked", "SameParameterValue", "removal"})
 public class BlockTagProvider extends BlockTagsProvider {
 
   public BlockTagProvider(PackOutput output, CompletableFuture<Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
@@ -163,8 +163,9 @@ public class BlockTagProvider extends BlockTagsProvider {
         .add(TinkerMaterials.blazewood.get(), TinkerMaterials.nahuatl.get());
     // things the platform connects to on the sides
     this.tag(TinkerTags.Blocks.PLATFORM_CONNECTIONS)
-        .add(Blocks.LEVER, Blocks.LADDER, Blocks.IRON_BARS, TinkerCommons.goldBars.get(), Blocks.TRIPWIRE_HOOK, Blocks.WALL_TORCH, Blocks.SOUL_WALL_TORCH, Blocks.REDSTONE_WALL_TORCH, Blocks.REDSTONE_WIRE)
-        .addTags(Tags.Blocks.GLASS_PANES, BlockTags.BUTTONS, Tags.Blocks.FENCES, BlockTags.WALLS, BlockTags.WALL_SIGNS);
+      .add(Blocks.LEVER, Blocks.LADDER, Blocks.IRON_BARS, TinkerCommons.goldBars.get(), Blocks.TRIPWIRE_HOOK, Blocks.WALL_TORCH, Blocks.SOUL_WALL_TORCH, Blocks.REDSTONE_WALL_TORCH, Blocks.REDSTONE_WIRE)
+      .addTags(Tags.Blocks.GLASS_PANES, BlockTags.BUTTONS, Tags.Blocks.FENCES, BlockTags.WALLS, BlockTags.WALL_SIGNS)
+      .addOptionalTag(new ResourceLocation("architects_palette:nubs"));
 
     // copper platforms
     IntrinsicTagAppender<Block> copperPlatforms = this.tag(TinkerTags.Blocks.COPPER_PLATFORMS);
@@ -445,7 +446,7 @@ public class BlockTagProvider extends BlockTagsProvider {
       for (FoliageType grass : FoliageType.values()) {
         Tiers dirtTier = dirt.getHarvestTier();
         Tiers grassTier = grass.getHarvestTier();
-        // cannot use tier sorting registry as its not init during datagen, stuck comparing levels and falling back to ordinal for gold
+        // cannot use tier sorting registry as it's not init during datagen, stuck comparing levels and falling back to ordinal for gold
         Tiers tier;
         if (dirtTier.getLevel() == grassTier.getLevel()) {
           tier = dirtTier.ordinal() > grassTier.ordinal() ? dirtTier : grassTier;
@@ -528,7 +529,7 @@ public class BlockTagProvider extends BlockTagsProvider {
     tagBlocks(MINEABLE_MELTING_BLACKLIST, TinkerSmeltery.searedMelter, TinkerSmeltery.smelteryController, TinkerSmeltery.foundryController, TinkerSmeltery.searedLantern, TinkerSmeltery.scorchedLantern, TinkerSmeltery.searedFluidCannon, TinkerSmeltery.scorchedFluidCannon, TinkerSmeltery.searedCastingTank);
     tagBlocks(MINEABLE_MELTING_BLACKLIST, TinkerSmeltery.searedTank, TinkerSmeltery.scorchedTank);
 
-    // copy of blocks list from FlowingFLuid#canHoldFLuid
+    // copy of blocks list from FlowingFluid#canHoldFLuid
     tag(UNREPLACABLE_BY_LIQUID).addTags(BlockTags.SIGNS, BlockTags.DOORS).add(Blocks.LADDER, Blocks.SUGAR_CANE, Blocks.BUBBLE_COLUMN, Blocks.NETHER_PORTAL, Blocks.END_PORTAL, Blocks.END_GATEWAY, Blocks.STRUCTURE_VOID);
   }
 
