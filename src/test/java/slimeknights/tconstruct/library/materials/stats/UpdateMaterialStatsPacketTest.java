@@ -10,9 +10,9 @@ import slimeknights.tconstruct.fixture.MaterialFixture;
 import slimeknights.tconstruct.fixture.MaterialStatTypesFixture;
 import slimeknights.tconstruct.fixture.MaterialStatsFixture;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
-import slimeknights.tconstruct.library.materials.stats.dynamic.DynamicMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.dynamic.DynamicMaterialStatType;
 import slimeknights.tconstruct.library.materials.stats.dynamic.FloatDynamicStatField;
+import slimeknights.tconstruct.library.materials.stats.dynamic.RepairableDynamicMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.dynamic.TierDynamicStatField;
 import slimeknights.tconstruct.test.BaseMcTest;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
@@ -65,16 +65,17 @@ class UpdateMaterialStatsPacketTest extends BaseMcTest {
     assertThat(realStats.text()).isEqualTo("3");
 
     materialStats = iterator.next();
-    assertThat(materialStats).isExactlyInstanceOf(DynamicMaterialStats.class);
+    assertThat(materialStats).isExactlyInstanceOf(RepairableDynamicMaterialStats.class);
     // ensure the loadable is passed the context field for the proper type
     assertThat(materialStats.getType().getId()).isEqualTo(MaterialStatTypesFixture.STATS_TYPE);
-    DynamicMaterialStats realDynamicStats = (DynamicMaterialStats) materialStats;
+    RepairableDynamicMaterialStats realDynamicStats = (RepairableDynamicMaterialStats) materialStats;
     assertThat(realDynamicStats.getStat("test1")).isExactlyInstanceOf(FloatDynamicStatField.FloatDynamicStat.class);
     assertThat(((FloatDynamicStatField.FloatDynamicStat)realDynamicStats.getStat("test1")).getValue()).isEqualTo(1f);
     assertThat(realDynamicStats.getStat("test2")).isExactlyInstanceOf(FloatDynamicStatField.FloatDynamicStat.class);
     assertThat(((FloatDynamicStatField.FloatDynamicStat)realDynamicStats.getStat("test2")).getValue()).isEqualTo(2f);
     assertThat(realDynamicStats.getStat("test3")).isExactlyInstanceOf(TierDynamicStatField.TierDynamicStat.class);
     assertThat(((TierDynamicStatField.TierDynamicStat)realDynamicStats.getStat("test3")).getValue()).isEqualTo(Tiers.STONE);
+    assertThat(realDynamicStats.durability()).isEqualTo(2);
 
   }
 

@@ -1,5 +1,5 @@
 {
-    "can_repair": true,
+    "durability_field": "durability",
     "stats": [
         {
             "type": "float",
