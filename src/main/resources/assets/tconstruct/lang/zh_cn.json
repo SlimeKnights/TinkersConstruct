@@ -3496,7 +3496,7 @@
   "stat.tconstruct.head": "顶端",
   "tool_stat.tconstruct.mining_speed": "挖掘速度：",
   "tool_stat.tconstruct.mining_speed.description": "若使用该材料制作顶端，此项决定工具在采掘方块时的挖掘速度\n可能受到工具其余部件的影响",
-  "tool_stat.tconstruct.harvest_tier": "挖掘等级: ",
+  "tool_stat.tconstruct.harvest_tier": "挖掘等级：",
   "tool_stat.tconstruct.harvest_tier.description": "若使用该材料制作顶端，此项决定工具可采掘方块的等级范围",
   "tool_stat.tconstruct.attack_damage": "近战伤害：",
   "tool_stat.tconstruct.attack_damage.description": "工具近战攻击伤害计算所依据的基准值。\n最终数值受工具本身及其它部件的影响",
