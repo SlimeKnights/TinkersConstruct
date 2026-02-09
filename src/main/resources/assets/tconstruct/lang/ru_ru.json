@@ -2400,6 +2400,10 @@
   "modifier.tconstruct.necrotic.flavor": "Вампирический!",
   "modifier.tconstruct.necrotic.description": "Критические удары по противникам высасывают из них жизнь, чтобы исцелить вас.",
   "modifier.tconstruct.necrotic.lifesteal": "Кража жизни",
+  "modifier.tconstruct.restore": "Восстановление",
+  "modifier.tconstruct.restore.flavor": "Перемотка!",
+  "modifier.tconstruct.restore.description": "Имеет шанс при получении урона восстановить часть потерянного здоровья.",
+  "modifier.tconstruct.restore.restore": "Восстановлено",
 
   "_comment": "Модификаторы: Усиление урона",
   "modifier.tconstruct.piercing": "Пронзание",
