@@ -120,7 +120,7 @@
   "__comment": "Литейное дело: Металлы (3 уровень)",
 
   "block.tconstruct.slimesteel_block": "Блок слизневой стали",
-  "block.tconstruct.slimesteel_block.tooltip": "Может использоваться в качестве бесцветного основания для маяка.",
+  "block.tconstruct.slimesteel_block.tooltip": "Может использоваться в качестве бесцветной основы для маяка.",
   "item.tconstruct.slimesteel_ingot": "Слиток слизневой стали",
   "item.tconstruct.slimesteel_nugget": "Кусочек слизневой стали",
 
@@ -150,7 +150,7 @@
   "item.tconstruct.hepatizon_nugget": "Кусочек гепатизона",
 
   "block.tconstruct.cinderslime_block": "Блок зольной слизи",
-  "block.tconstruct.cinderslime_block.tooltip": "Может использоваться в качестве бесцветного основания для маяка.",
+  "block.tconstruct.cinderslime_block.tooltip": "Может использоваться в качестве бесцветной основы для маяка.",
   "item.tconstruct.cinderslime_ingot": "Слиток зольной слизи",
   "item.tconstruct.cinderslime_nugget": "Кусочек зольной слизи",
 
@@ -165,7 +165,7 @@
   "item.tconstruct.knightmetal_nugget": "Кусочек рыцарского металла",
 
   "block.tconstruct.knightslime_block": "Блок рыцарской слизи",
-  "block.tconstruct.knightslime_block.tooltip": "Может использоваться в качестве бесцветного основания для маяка.",
+  "block.tconstruct.knightslime_block.tooltip": "Может использоваться в качестве бесцветной основы для маяка.",
   "item.tconstruct.knightslime_ingot": "Слиток рыцарской слизи",
   "item.tconstruct.knightslime_nugget": "Кусочек рыцарской слизи",
 
