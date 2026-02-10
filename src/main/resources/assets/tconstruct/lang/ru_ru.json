@@ -107,12 +107,12 @@
   "block.tconstruct.raw_cobalt_block": "Блок рудного кобальта",
   
   "block.tconstruct.cobalt_block": "Кобальтовый блок",
-  "block.tconstruct.cobalt_block.tooltip": "Может использоваться в основании для маяка.",
+  "block.tconstruct.cobalt_block.tooltip": "Может использоваться в качестве основы для маяка.",
   "item.tconstruct.cobalt_ingot": "Кобальтовый слиток",
   "item.tconstruct.cobalt_nugget": "Кусочек кобальта",
 
   "block.tconstruct.steel_block": "Стальной блок",
-  "block.tconstruct.steel_block.tooltip": "Может использоваться в основании для маяка.",
+  "block.tconstruct.steel_block.tooltip": "Может использоваться в качестве основы для маяка.",
   "item.tconstruct.steel_ingot": "Стальной слиток",
   "item.tconstruct.steel_nugget": "Кусочек стали",
 
@@ -120,7 +120,7 @@
   "__comment": "Литейное дело: Металлы (3 уровень)",
 
   "block.tconstruct.slimesteel_block": "Блок слизневой стали",
-  "block.tconstruct.slimesteel_block.tooltip": "Может использоваться в основании для маяка.",
+  "block.tconstruct.slimesteel_block.tooltip": "Может использоваться в качестве бесцветного основания для маяка.",
   "item.tconstruct.slimesteel_ingot": "Слиток слизневой стали",
   "item.tconstruct.slimesteel_nugget": "Кусочек слизневой стали",
 
@@ -140,37 +140,37 @@
   "__comment": "Литейное дело: Металлы (4 уровень)",
 
   "block.tconstruct.manyullyn_block": "Блок маньюллина",
-  "block.tconstruct.manyullyn_block.tooltip": "Может использоваться в основании для маяка.",
+  "block.tconstruct.manyullyn_block.tooltip": "Может использоваться в качестве основы для маяка.",
   "item.tconstruct.manyullyn_ingot": "Слиток маньюллина",
   "item.tconstruct.manyullyn_nugget": "Кусочек маньюллина",
 
   "block.tconstruct.hepatizon_block": "Блок гепатизона",
-  "block.tconstruct.hepatizon_block.tooltip": "Может использоваться в основании для маяка.",
+  "block.tconstruct.hepatizon_block.tooltip": "Может использоваться в качестве основы для маяка.",
   "item.tconstruct.hepatizon_ingot": "Слиток гепатизона",
   "item.tconstruct.hepatizon_nugget": "Кусочек гепатизона",
 
   "block.tconstruct.cinderslime_block": "Блок зольной слизи",
-  "block.tconstruct.cinderslime_block.tooltip": "Может использоваться в основании для маяка.",
+  "block.tconstruct.cinderslime_block.tooltip": "Может использоваться в качестве бесцветного основания для маяка.",
   "item.tconstruct.cinderslime_ingot": "Слиток зольной слизи",
   "item.tconstruct.cinderslime_nugget": "Кусочек зольной слизи",
 
   "block.tconstruct.queens_slime_block": "Блок королевской слизи",
-  "block.tconstruct.queens_slime_block.tooltip": "Может использоваться в основании для маяка.",
+  "block.tconstruct.queens_slime_block.tooltip": "Может использоваться в качестве основы для маяка.",
   "item.tconstruct.queens_slime_ingot": "Слиток королевской слизи",
   "item.tconstruct.queens_slime_nugget": "Кусочек королевской слизи",
 
   "block.tconstruct.knightmetal_block": "Блок рыцарского металла",
-  "block.tconstruct.knightmetal_block.tooltip": "Может использоваться в основании для маяка.",
+  "block.tconstruct.knightmetal_block.tooltip": "Может использоваться в качестве основы для маяка.",
   "item.tconstruct.knightmetal_ingot": "Слиток рыцарского металла",
   "item.tconstruct.knightmetal_nugget": "Кусочек рыцарского металла",
 
   "block.tconstruct.knightslime_block": "Блок рыцарской слизи",
+  "block.tconstruct.knightslime_block.tooltip": "Может использоваться в качестве бесцветного основания для маяка.",
   "item.tconstruct.knightslime_ingot": "Слиток рыцарской слизи",
-  "item.tconstruct.knightslime_ingot.tooltip": "Может использоваться в основании для маяка.",
   "item.tconstruct.knightslime_nugget": "Кусочек рыцарской слизи",
 
   "block.tconstruct.soulsteel_block": "Стальной блок душ",
-  "block.tconstruct.soulsteel_block.tooltip": "Может использоваться в основании для маяка.",
+  "block.tconstruct.soulsteel_block.tooltip": "Может использоваться в качестве основы для маяка.",
   "item.tconstruct.soulsteel_ingot": "Стальной слиток душ",
   "item.tconstruct.soulsteel_nugget": "Кусочек стали душ",
 
@@ -1825,7 +1825,7 @@
   "material.tconstruct.necrotic_bone.flavor": "У тебя есть ко мне претензии?",
   "material.tconstruct.necrotic_bone.encyclopedia": "Восстанавливает процент урона, нанесенного критическими попаданиями.",
   "material.tconstruct.necrotic_bone.ranged": "Восстанавливает процент урона, нанесенного успешными попаданиями стрел.",
-  "material.tconstruct.necrotic_bone.armor": "При попадании с вероятностью 15% восстанавливает 25% от полученного урона.",
+  "material.tconstruct.necrotic_bone.armor": "При попадании с вероятностью 25% восстанавливает 25% от полученного урона.",
   "material.tconstruct.necrotic_bone.ammo": "Восстанавливает 5% от уровня урона, нанесённого при удачном попадании.",
   "material.tconstruct.necrotic_bone.skull_flavor": "Жуткий, страшный скелет!",
   "material.tconstruct.necrotic_bone.skull_encyclopedia": "Удары ближнего боя вызывают иссушение. После употребления молока эффект усиливается.",
@@ -2151,7 +2151,7 @@
 
   "material.tconstruct.knightly": "Рыцарское",
   "material.tconstruct.knightly.flavor": "Осколок странствующей слизи, более острый в необработанном виде.",
-  "material.tconstruct.knightly.ammo": "Даёт +0.25 урона за уровень за каждый предмет брони, который носит цель (без учёта скорости).",
+  "material.tconstruct.knightly.ammo": "Даёт +0.2 урона за уровень за каждый предмет брони, который носит цель (без учёта скорости).",
 
   "material.tconstruct.end_rod": "Стержень Энда",
   "material.tconstruct.end_rod.flavor": "Стрела оправдывает свои средства.",
@@ -2746,7 +2746,7 @@
   "modifier.tconstruct.unbreakable.requirements": "Для применения неразрушаемости требуются незерит и «Укрепление V».",
   "modifier.tconstruct.dual_wielding": "Парное владение",
   "modifier.tconstruct.dual_wielding.flavor": "Двойное действие!",
-  "modifier.tconstruct.dual_wielding.description": "Можно атаковать из левой руки, при условии, что основная рука также будет задействована. Инструменты с парным владением имеют сниженные характеристики.",
+  "modifier.tconstruct.dual_wielding.description": "Можно атаковать из левой руки, инструменты с парным владением имеют пониженные характеристики.",
 
   "_comment": "Модификаторы: Добыча",
   "modifier.tconstruct.silky": "Шёлковый",
