@@ -159,7 +159,7 @@
   "item.tconstruct.queens_slime_nugget": "皇后史莱姆粒",
 
   "block.tconstruct.knightmetal_block": "骑士金属块",
-  "block.tconstruct.knightmetal_block.tooltip": "可用于建造尖刺信标基座",
+  "block.tconstruct.knightmetal_block.tooltip": "可用于建造带刺的信标基座",
   "item.tconstruct.knightmetal_ingot": "骑士金属锭",
   "item.tconstruct.knightmetal_nugget": "骑士金属粒",
 
@@ -1998,7 +1998,7 @@
   "material.tconstruct.ender_pearl": "末影珍珠",
   "material.tconstruct.ender_pearl.flavor": "安全使用末影珍珠",
   "material.tconstruct.ender_pearl.ammo": "落地时摧毁自身，并使你传送到弹射物的落点。命中怪物时，与它交换位置。",
-  "material.tconstruct.ender_pearl.skull_flavor": "末影人懂得如何回避危险，科学家也是。他们几个礼拜以来一直漠视我的采访邀请！",
+  "material.tconstruct.ender_pearl.skull_flavor": "末影人会回避危险，这帮搞科学的也是。他们几周都没接受我的采访邀请！",
   "material.tconstruct.ender_pearl.skull_encyclopedia": "受到弹射物攻击时自动传送，受到近战攻击时有一定概率随机传送。冷却时间 15秒。",
 
   "material.tconstruct.glass": "玻璃",
@@ -2102,7 +2102,7 @@
   "material.tconstruct.blazing_bone.ranged": "每剩余1秒着火时间，箭矢伤害+2%，上限为+20%（剩余着火时间不少于10秒）。加成会受抗火效果影响而减少。",
   "material.tconstruct.blazing_bone.armor": "受到攻击后，有15%概率使攻击者在接下来5至10秒内受到的火焰伤害增加到200% （成功格挡则最大值改为15秒）。",
   "material.tconstruct.blazing_bone.ammo": "使目标在接下来5至10秒内受到的火焰伤害增加到200%。",
-  "material.tconstruct.blazing_bone.skull_flavor": "我给他们说了，这东西从技术层面来说其实是吐火，不是喷火。但是很显然，我发明的东西我却没有命名权",
+  "material.tconstruct.blazing_bone.skull_flavor": "我给他们说过了，这东西技术上是嘴里吐火，不是鼻子里喷火。但很显然， 我发明的东西我却没有命名权",
   "material.tconstruct.blazing_bone.skull_encyclopedia": "能够以火球的形式从物品栏中发射火焰弹。冷却时间5秒，不能在水下使用。",
 
   "material.tconstruct.blazewood": "烈焰木",
@@ -2130,11 +2130,11 @@
   "material.tconstruct.ancient_hide.ranged": "增加1个额外的防御槽。",
   "material.tconstruct.ancient_hide.armor": "增加1个额外的防御槽。",
 
-  "material.tconstruct.ancient": "远古残骸",
+  "material.tconstruct.ancient": "远古",
   "material.tconstruct.ancient.flavor": "如今之物，不复旧时之质",
-  "material.tconstruct.ancient.encyclopedia": "通过战镐、喷流刃、战斗牌子或猪灵以物易物机制获得。每级能力槽+1，但攻击速度和挖掘速度分别-10%，重力+10%。",
+  "material.tconstruct.ancient.encyclopedia": "通过战镐、喷流刃、战斗牌子或猪灵以物易物机制获得。每级能力槽+1，但使 攻击速度和挖掘速度-10%，重力+10%。",
   "material.tconstruct.ancient.ranged": "通过熔炼锅、战镐或猪灵以物易物机制获得。每级能力槽+1，但拉弓速度-10%，重力+10%。",
-  "material.tconstruct.ancient.armor": "通过堡垒遗迹内的镶板盔甲、战斗牌子、熔炼锅或猪灵以物易物机制获得。每级能力槽+1，但重力+10%，移动速度-10%；对于盾牌，攻击速度-10%。",
+  "material.tconstruct.ancient.armor": "通过堡垒遗迹内镶板盔甲、战斗牌子、熔炼锅或猪灵以物易物机制获得。每级 能力槽+1，但重力+10%，移动速度-10%； 对于盾牌，攻击速度-10%。",
 
 
   "__comment": "Tier End Materials",
@@ -2150,7 +2150,7 @@
   "material.tconstruct.knightly.ammo": "目标每穿戴一件盔甲，每级令箭矢伤害+0.25（先于速度计算）。",
 
   "material.tconstruct.end_rod": "末地烛",
-  "material.tconstruct.end_rod.flavor": "没箭入羽，入石三分。",
+  "material.tconstruct.end_rod.flavor": "以末地为名，抹消重力。",
   "material.tconstruct.end_rod.ammo": "弹射物在最开始的一秒中无视重力。",
 
   "material.tconstruct.knightslime": "骑士史莱姆",
@@ -2261,7 +2261,7 @@
   "material.tconstruct.electrum.armor": "每级有20%概率对水中的攻击者造成2至5点伤害，攻击者处于雨中时概率改为10%。",
 
   "material.tconstruct.necronium": "辐射之骨",
-  "material.tconstruct.necronium.flavor": "这骨头“烂”的要在“半条命”上再打个“对折”了",
+  "material.tconstruct.necronium.flavor": "这根骨头“烂”的要在“半条命”上再打个“对折”",
   "material.tconstruct.necronium.encyclopedia": "对目标生物施加至少5秒的凋零效果；另有25%概率对自己施加凋零效果。",
   "material.tconstruct.necronium.armor": "受到攻击后，有50%概率对攻击者施加凋零效果，持续5秒（成功格挡则改为 100%概率）； 另有10%概率对自己施加 相同效果。",
 
