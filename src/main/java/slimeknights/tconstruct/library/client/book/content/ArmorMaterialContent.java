@@ -226,12 +226,7 @@ public class ArmorMaterialContent extends AbstractMaterialContent {
       addStatLine(lineData, stats, ToolStats.ARMOR, PlatingMaterialStats::armor);
       addStatLine(lineData, stats, ToolStats.ARMOR_TOUGHNESS, PlatingMaterialStats::toughness);
       addStatLine(lineData, stats, ToolStats.KNOCKBACK_RESISTANCE, stat -> stat.knockbackResistance() * 10);
-      builder.append(
-        lineData.stream()
-          .filter(data -> !data.text.equals(Component.literal("\n")))
-          .map(data -> HTMLUtils.p(data.text))
-          .collect(Collectors.joining("\n"))
-      ).append("</div>");
+      builder.append(TextComponentData.toHTML(lineData, book)).append("</div>");
     }
 
     builder.append("<div class=\"row-material-stats\">")
