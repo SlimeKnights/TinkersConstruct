@@ -119,7 +119,7 @@
   "__comment": "Tier 3 Metals",
 
   "block.tconstruct.slimesteel_block": "黏钢块",
-  "block.tconstruct.slimesteel_block.tooltip": "可用于建造信标基座",
+  "block.tconstruct.slimesteel_block.tooltip": "可用于建造透明的信标基座",
   "item.tconstruct.slimesteel_ingot": "黏钢锭",
   "item.tconstruct.slimesteel_nugget": "黏钢粒",
 
@@ -149,7 +149,7 @@
   "item.tconstruct.hepatizon_nugget": "黑色科林斯青铜粒",
 
   "block.tconstruct.cinderslime_block": "余烬黏液块",
-  "block.tconstruct.cinderslime_block.tooltip": "可用于建造信标基座",
+  "block.tconstruct.cinderslime_block.tooltip": "可用于建造透明的信标基座",
   "item.tconstruct.cinderslime_ingot": "余烬黏液锭",
   "item.tconstruct.cinderslime_nugget": "余烬黏液粒",
 
@@ -165,7 +165,7 @@
 
   "block.tconstruct.knightslime_block": "骑士史莱姆块",
   "item.tconstruct.knightslime_ingot": "骑士史莱姆锭",
-  "item.tconstruct.knightslime_ingot.tooltip": "可用于建造尖刺信标基座",
+  "item.tconstruct.knightslime_ingot.tooltip": "可用于建造透明的信标基座",
   "item.tconstruct.knightslime_nugget": "骑士史莱姆粒",
 
   "block.tconstruct.soulsteel_block": "魂钢块",
@@ -1166,6 +1166,7 @@
   "item.tconstruct.slime_helmet.material.tconstruct.ui_render.head": "任意黏液头颅",
   "item.tconstruct.slime_helmet.material.tconstruct.glass": "苦力怕黏液头颅",
   "item.tconstruct.slime_helmet.material.tconstruct.ender_pearl": "末影人黏液头颅",
+  "item.tconstruct.slime_helmet.material.tconstruct.dragon_scale":  "末影龙黏液头颅",
   "item.tconstruct.slime_helmet.material.tconstruct.bone": "骷髅黏液头颅",
   "item.tconstruct.slime_helmet.material.tconstruct.venombone": "流浪者黏液头颅",
   "item.tconstruct.slime_helmet.material.tconstruct.necrotic_bone": "凋灵骷髅黏液头颅",
@@ -1807,7 +1808,7 @@
   "material.tconstruct.flint.basalt": "玄武岩",
   "material.tconstruct.flint.deepslate": "深板岩",
   "material.tconstruct.flint.flavor": "点燃你滚烫的工匠之心！",
-  "material.tconstruct.flint.encyclopedia": "每级使近战伤害额外增加已损失耐久度与工具耐久系数之比的平方根的1%。",
+  "material.tconstruct.flint.encyclopedia": "每级使近战伤害额外增加已损失耐久度与工具耐久系数之比的平方根的0.5%。",
   "material.tconstruct.flint.ammo": "可向弹药类工具浇注药水。令其在造成伤害的同时施加药水效果。",
 
   "material.tconstruct.bone": "骨头",
@@ -1823,7 +1824,7 @@
   "material.tconstruct.necrotic_bone.flavor": "故意挑我骨头是不？",
   "material.tconstruct.necrotic_bone.encyclopedia": "暴击时，每级回复等于当次伤害5%比例的生命值。",
   "material.tconstruct.necrotic_bone.ranged": "箭矢命中时，每级回复等于当次伤害5%比例的生命值。",
-  "material.tconstruct.necrotic_bone.armor": "受到攻击后，15%概率逐渐回复当次受伤最多25%比例的生命值。",
+  "material.tconstruct.necrotic_bone.armor": "受到攻击后，25%概率逐渐回复当次受伤最多25%比例的生命值。",
   "material.tconstruct.necrotic_bone.ammo": "命中时，每级回复等于当次伤害5%比例的生命值。",
   "material.tconstruct.necrotic_bone.skull_flavor": "惊悚恐怖骷髅头！",
   "material.tconstruct.necrotic_bone.skull_encyclopedia": "普通攻击给予敌人凋零效果。饮用奶后伤害效果更快。",
@@ -2005,7 +2006,7 @@
   "material.tconstruct.glass.flavor": "一碰即碎！",
   "material.tconstruct.glass.ammo": "每级-0.75弹射物伤害，但为工具增加一个储罐。命中目标时，对它造成储罐内 流体所对应的效果。充填流体时，击中 方块就会碎裂。",
   "material.tconstruct.glass.skull_flavor": "现在是谁炸谁了，苦力怕？",
-  "material.tconstruct.glass.skull_encyclopedia": "潜行按住“头盔交互”键会使穿戴者爆炸。",
+  "material.tconstruct.glass.skull_encyclopedia": "潜行并按住“头盔交互”键一段时间，可以使穿戴者爆炸。",
 
   "material.tconstruct.slimeball": "黏液",
   "material.tconstruct.slimeball.earth": "大地黏液",
@@ -2066,6 +2067,8 @@
   "material.tconstruct.dragon_scale.flavor": "只要有了这个，龙看见了也得怕！",
   "material.tconstruct.dragon_scale.armor": "滞空时+10%抗性；每级令攻击伤害+5%，等级由强化等级最高的盔甲决定。",
   "material.tconstruct.dragon_scale.ammo": "每级使滞空时发射的弹射物伤害+1。",
+  "material.tconstruct.dragon_scale.skull_flavor": "脱离一击线！",
+  "material.tconstruct.dragon_scale.skull_encyclopedia": "单次受到伤害不会超过最大生命值-2。",
 
   "material.tconstruct.shulker": "潜影壳",
   "material.tconstruct.shulker.flavor": "牢不可破！",
@@ -2147,7 +2150,7 @@
 
   "material.tconstruct.knightly": "骑士金属碎片",
   "material.tconstruct.knightly.flavor": "史莱姆旅途中得到的碎片，未打磨时尤为尖锐。",
-  "material.tconstruct.knightly.ammo": "目标每穿戴一件盔甲，每级令箭矢伤害+0.25（先于速度计算）。",
+  "material.tconstruct.knightly.ammo": "目标每穿戴一件盔甲，每级令箭矢伤害+0.2（先于速度计算）。",
 
   "material.tconstruct.end_rod": "末地烛",
   "material.tconstruct.end_rod.flavor": "以末地为名，抹消重力。",
@@ -2206,7 +2209,7 @@
 
   "material.tconstruct.aluminum": "铝",
   "material.tconstruct.aluminum.flavor": "最常出现在火山灰中。",
-  "material.tconstruct.aluminum.ranged": "使工具的拉弓速度+7%，精确度+7%；但代价是保护-5%。",
+  "material.tconstruct.aluminum.ranged": "使工具的拉弓速度+7%，精确度+7%。",
   "material.tconstruct.aluminum.armor": "使用物品时移动速度+5%；代价是盔甲的保护-5%。",
 
   "material.tconstruct.treated_wood": "防腐木",
@@ -2394,7 +2397,11 @@
   "modifier.tconstruct.necrotic": "噬生",
   "modifier.tconstruct.necrotic.flavor": "吸血鬼！",
   "modifier.tconstruct.necrotic.description": "暴击敌人会榨取他们的生命来滋养你",
-  "modifier.tconstruct.necrotic.lifesteal": "生命汲取",
+  "modifier.tconstruct.necrotic.lifesteal": "吸血",
+  "modifier.tconstruct.restore": "回春",
+  "modifier.tconstruct.restore.flavor": "阴阳变转！",
+  "modifier.tconstruct.restore.description": "受到伤害后，有概率回复损失生命值的一部分",
+  "modifier.tconstruct.restore.restore": "回复",
 
   "_comment": "Damage boost",
   "modifier.tconstruct.piercing": "穿刺",
@@ -2737,7 +2744,7 @@
   "modifier.tconstruct.unbreakable.requirements": "“不毁”需要“下界合金”和“加固 V”作为前置",
   "modifier.tconstruct.dual_wielding": "双持",
   "modifier.tconstruct.dual_wielding.flavor": "二刀流！",
-  "modifier.tconstruct.dual_wielding.description": "主手可以双持的情况下，可从副手进行攻击；双持工具的属性将会降低",
+  "modifier.tconstruct.dual_wielding.description": "工具可从副手进行攻击；双持工具的属性将会降低",
 
   "_comment": "Loot",
   "modifier.tconstruct.silky": "丝触",
@@ -3154,10 +3161,11 @@
   "modifier.tconstruct.overshield.description": "消耗黏液覆层，减少任意来源的伤害",
   "modifier.tconstruct.overshield.resistance": "黏液护盾",
   "modifier.tconstruct.overwield": "黏液掌控",
-  "modifier.tconstruct.overwield.flavor": "史莱姆合金！",
+  "modifier.tconstruct.overwield.flavor": "像那切史莱姆的刀！",
   "modifier.tconstruct.overwield.description": "消耗黏液覆层，提升挖掘速度和弹射物初速度",
   "modifier.tconstruct.overwield.mining_speed": "黏液掌控速度",
   "modifier.tconstruct.overwield.velocity": "黏液掌控初速度",
+  "modifier.tconstruct.overwield.draw_speed": "黏液掌控拉弓速度",
   "modifier.tconstruct.momentum": "动力",
   "modifier.tconstruct.momentum.flavor": "勇往直前，快上加快！",
   "modifier.tconstruct.momentum.description": "工具的挖掘速度和箭矢初速度会在一次无中断的采掘和射击过程中不断提升",
@@ -3352,6 +3360,9 @@
   "modifier.tconstruct.revenge": "复仇",
   "modifier.tconstruct.revenge.flavor": "非常适合反击",
   "modifier.tconstruct.revenge.description": "在你受到攻击后变得更加强壮",
+  "modifier.tconstruct.dragonheart": "龙心",
+  "modifier.tconstruct.dragonheart.flavor": "龙之魂",
+  "modifier.tconstruct.dragonheart.description": "可以阻止单次致命伤害",
 
   "modifier.tconstruct.creeper_disguise": "苦力怕伪装",
   "modifier.tconstruct.creeper_disguise.flavor": "有点苦力怕那味了",
@@ -3770,7 +3781,7 @@
   "subtitles.tconstruct.crystalshot": "箭：击中",
   "subtitles.tconstruct.bonk": "工具：重击",
   "subtitles.tconstruct.spit": "流体：泼洒",
-  "subtitles.tconstruct.toy_squeak": "工具：人畜无害的挥击声",
+  "subtitles.tconstruct.toy_squeak": "工具：人畜无害地挥击",
 
   "subtitles.tconstruct.necrotic_heal": "生命汲取",
   "subtitles.tconstruct.extra_jump": "实体：嗖",
