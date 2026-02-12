@@ -1825,10 +1825,10 @@
   "material.tconstruct.necrotic_bone.flavor": "У тебя есть ко мне претензии?",
   "material.tconstruct.necrotic_bone.encyclopedia": "Восстанавливает процент урона, нанесенного критическими попаданиями.",
   "material.tconstruct.necrotic_bone.ranged": "Восстанавливает процент урона, нанесенного успешными попаданиями стрел.",
-  "material.tconstruct.necrotic_bone.armor": "При попадании с вероятностью 25% восстанавливает 25% от полученного урона.",
+  "material.tconstruct.necrotic_bone.armor": "Имеет шанс 15% при попадании восстановить 50% полученного урона со временем, включая броню.",
   "material.tconstruct.necrotic_bone.ammo": "Восстанавливает 5% от уровня урона, нанесённого при удачном попадании.",
   "material.tconstruct.necrotic_bone.skull_flavor": "Жуткий, страшный скелет!",
-  "material.tconstruct.necrotic_bone.skull_encyclopedia": "Удары ближнего боя вызывают иссушение. После употребления молока эффект усиливается.",
+  "material.tconstruct.necrotic_bone.skull_encyclopedia": "Имеет шанс 15% при попадании восстановить 100% полученного урона со временем, включая броню.",
 
   "material.tconstruct.chorus": "Хорус",
   "material.tconstruct.chorus.flavor": "Не только эндермужчины, но и эндерженщины, и эндердети.",
@@ -1846,8 +1846,8 @@
   "material.tconstruct.leather": "Кожа",
   "material.tconstruct.leather.flavor": "Убил корову, выделал из неё шкуру.",
   "material.tconstruct.leather.encyclopedia": "Предотвращает получение инструментом более 1 урона за одно действие.",
-  "material.tconstruct.leather.skull_flavor": "Это прекрасно!",
-  "material.tconstruct.leather.skull_encyclopedia": "Атаки в ближнем бою увеличивают время стрельбы по целям в зависимости от времени стрельбы пользователя.",
+  "material.tconstruct.leather.skull_flavor": "Как дела, товарищи зомби?",
+  "material.tconstruct.leather.skull_encyclopedia": "Снижает урон от нежити на 10%.",
 
 
   "material.tconstruct.vine": "Лианы",
@@ -1882,8 +1882,8 @@
   "material.tconstruct.copper.encyclopedia": "Даёт бонус к скорости добычи на меньшей глубине, +6 за каждые 64 блока ниже 64 высоты.",
   "material.tconstruct.copper.ranged": "Даёт бонус к скорости на меньшей глубине, +0.05 за каждые 64 блока ниже 64 высоты.",
   "material.tconstruct.copper.armor": "Даёт бонус к защите на меньшей глубине, +5% за каждые 64 блока ниже 64 высоты.",
-  "material.tconstruct.copper.skull_flavor": "Выбивает из них весь дух.",
-  "material.tconstruct.copper.skull_encyclopedia": "Во время атаки в ближнем бою у цели забирается воздух на 3 сек.",
+  "material.tconstruct.copper.skull_flavor": "Здесь не тонут!",
+  "material.tconstruct.copper.skull_encyclopedia": "Даёт доп. 30 сек. запаса воздуха под водой.",
 
   "material.tconstruct.gold": "Золото",
   "material.tconstruct.gold.flavor": "Пиглины его обожают!",
@@ -2050,7 +2050,7 @@
   "material.tconstruct.darkthread.encyclopedia": "Увеличивает шансы выпадения предметов из мобов, суммируясь с удачей.",
   "material.tconstruct.darkthread.ranged": "Увеличивает шансы выпадения предметов из мобов, убитых стрелами.",
   "material.tconstruct.darkthread.skull_flavor": "Идеально подходит для интеллектуальных состязаний, когда нужно решить и выпить, чтобы выяснить, кто прав.",
-  "material.tconstruct.darkthread.skull_encyclopedia": "Делает пользователя невосприимчивым к яду, хотя и не удаляет уже имеющийся яд.",
+  "material.tconstruct.darkthread.skull_encyclopedia": "Сокращает продолжительность действия негативных эффектов на 20%.",
 
 
   "__comment": "Литейное дело: Материалы Незера",
@@ -2205,8 +2205,8 @@
   "material.tconstruct.whitestone.aluminum": "Белый алюминиевый камень",
   "material.tconstruct.whitestone.tin": "Белый оловянный камень",
   "material.tconstruct.whitestone.zinc": "Белый цинковый камень",
-  "material.tconstruct.whitestone.flavor": "Возьмите свои бесполезные белые металлы или камни и сделайте полезный инструмент.",
-  "material.tconstruct.whitestone.encyclopedia": "Добыча камня даёт 20% за каждый уровень +3 к щиту из камня.",
+  "material.tconstruct.whitestone.flavor": "Возьмите свои бесполезные белые металлы и камни и сделайте полезный инструмент.",
+  "material.tconstruct.whitestone.encyclopedia": "Добыча камня имеет шанс 20% за каждый уровень, что при его использовании вы получите +3 к щиту из камня.",
 
   "material.tconstruct.aluminum": "Алюминий",
   "material.tconstruct.aluminum.flavor": "Чаще всего встречается в пепельных кучах.",
@@ -3332,8 +3332,11 @@
   "modifier.tconstruct.withered.flavor": "Секрет разложения!",
   "modifier.tconstruct.withered.description": "Иссушение целей, скорость иссушения увеличивается после употребления молока.",
   "modifier.tconstruct.boon_of_sssss": "Шипящий дар",
-  "modifier.tconstruct.boon_of_sssss.flavor": "С этим зелья становятся сильнее!",
+  "modifier.tconstruct.boon_of_sssss.flavor": "С этим зелья действуют сильнее!",
   "modifier.tconstruct.boon_of_sssss.description": "Увеличивает продолжительность положительных эффектов.",
+  "modifier.tconstruct.balm_of_sssss": "Шипящий бальзам",
+  "modifier.tconstruct.balm_of_sssss.flavor": "С этим зелья действуют слабее!",
+  "modifier.tconstruct.balm_of_sssss.description": "Уменьшает продолжительность негативных эффектов!",
   "modifier.tconstruct.mithridatism": "Митридатизм",
   "modifier.tconstruct.mithridatism.flavor": "Постепенный иммунитет",
   "modifier.tconstruct.mithridatism.description": "Иммунитет к отравлению, если бы только он действовал на уже имеющееся отравление...",
