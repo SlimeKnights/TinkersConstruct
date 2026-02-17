@@ -1,10 +1,14 @@
 package slimeknights.tconstruct.tools.modifiers.slotless;
 
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.TinkerTags.Items;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
+import slimeknights.tconstruct.library.modifiers.ModifierManager;
 import slimeknights.tconstruct.library.modifiers.hook.build.ToolStatsModifierHook;
 import slimeknights.tconstruct.library.modifiers.impl.DurabilityShieldModifier;
 import slimeknights.tconstruct.library.modifiers.modules.capacity.OverslimeModule;
@@ -86,6 +90,15 @@ public class OverslimeModifier extends DurabilityShieldModifier implements ToolS
 
 
   /* Shield implementation */
+
+  @Override
+  public int onDamageTool(IToolStackView tool, ModifierEntry modifier, int amount, @Nullable LivingEntity holder, @Nullable ItemStack stack, ModifierId cause) {
+    // allow overslime bypass
+    if (!ModifierManager.isInTag(cause, TinkerTags.Modifiers.BYPASS_OVERSLIME)) {
+      return super.onDamageTool(tool, modifier, amount, holder, stack, cause);
+    }
+    return amount;
+  }
 
   /** @deprecated use {@link OverslimeModule#getCapacity(IToolStackView)} */
   @Deprecated

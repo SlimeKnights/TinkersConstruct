@@ -9,6 +9,7 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.MobEffectEvent;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerEffect;
 import slimeknights.tconstruct.library.events.teleport.ReturningTeleportEvent;
 import slimeknights.tconstruct.library.tools.capability.PersistentDataCapability;
@@ -16,7 +17,7 @@ import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.utils.TeleportHelper;
 
 public class ReturningEffect extends TinkerEffect {
-  private static final ResourceLocation KEY = new ResourceLocation("tconstruct:returning");
+  private static final ResourceLocation KEY = TConstruct.getResource("returning");
   public ReturningEffect() {
     super(MobEffectCategory.NEUTRAL, 0xa92dff, true);
     MinecraftForge.EVENT_BUS.addListener(this::onEffectAdded);

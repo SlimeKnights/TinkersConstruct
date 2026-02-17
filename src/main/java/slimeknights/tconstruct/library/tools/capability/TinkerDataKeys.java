@@ -62,6 +62,8 @@ public interface TinkerDataKeys {
 
   /** Soul belt level for hotbar preservation */
   TinkerDataKey<Integer> SOUL_BELT = intKey("soul_belt");
+  /** Levels of magnetic on the tool */
+  TinkerDataKey<Integer> MAGNET = intKey("magnet");
 
 
   /** Creates and registers an integer key */

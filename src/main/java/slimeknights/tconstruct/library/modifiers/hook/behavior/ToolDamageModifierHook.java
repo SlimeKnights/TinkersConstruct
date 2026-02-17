@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.modifiers.hook.behavior;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nullable;
@@ -19,7 +20,7 @@ public interface ToolDamageModifierHook {
    * @param amount     Amount of damage to deal
    * @param holder     Entity holding the tool
    * @return  Replacement damage. Returning 0 cancels the damage and stops other modifiers from processing.
-   * @deprecated use {@link #onDamageTool(IToolStackView, ModifierEntry, int, LivingEntity, ItemStack, boolean)}. Overriding is okay.
+   * @deprecated use {@link #onDamageTool(IToolStackView, ModifierEntry, int, LivingEntity, ItemStack, ModifierId)}. Overriding is okay.
    */
   @Deprecated
   int onDamageTool(IToolStackView tool, ModifierEntry modifier, int amount, @Nullable LivingEntity holder);
@@ -32,7 +33,7 @@ public interface ToolDamageModifierHook {
    * @param holder     Entity holding the tool
    * @param stack      Stack instance being damaged. Useful for identifying the slot being damaged.
    * @return  Replacement damage. Returning 0 cancels the damage and stops other modifiers from processing.
-   * @deprecated use {@link #onDamageTool(IToolStackView, ModifierEntry, int, LivingEntity, ItemStack, boolean)}. Overriding is okay.
+   * @deprecated use {@link #onDamageTool(IToolStackView, ModifierEntry, int, LivingEntity, ItemStack, ModifierId)}. Overriding is okay.
    */
   @Deprecated
   default int onDamageTool(IToolStackView tool, ModifierEntry modifier, int amount, @Nullable LivingEntity holder, @Nullable ItemStack stack) {
@@ -46,10 +47,10 @@ public interface ToolDamageModifierHook {
    * @param amount     Amount of damage to deal
    * @param holder     Entity holding the tool
    * @param stack      Stack instance being damaged. Useful for identifying the slot being damaged.
-   * @param secondary  If true, this is not the primary source of damage for this action and the tool will be damaged another time.
+   * @param cause      Modifier causing the damage. Will be {@link ModifierId#EMPTY} for the tool itself.
    * @return  Replacement damage. Returning 0 cancels the damage and stops other modifiers from processing.
    */
-  default int onDamageTool(IToolStackView tool, ModifierEntry modifier, int amount, @Nullable LivingEntity holder, @Nullable ItemStack stack, boolean secondary) {
+  default int onDamageTool(IToolStackView tool, ModifierEntry modifier, int amount, @Nullable LivingEntity holder, @Nullable ItemStack stack, ModifierId cause) {
     return onDamageTool(tool, modifier, amount, holder, stack);
   }
 
@@ -66,10 +67,22 @@ public interface ToolDamageModifierHook {
       return amount;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public int onDamageTool(IToolStackView tool, ModifierEntry modifier, int amount, @Nullable LivingEntity holder, @Nullable ItemStack stack) {
       for (ToolDamageModifierHook module : modules) {
         amount = module.onDamageTool(tool, modifier, amount, holder, stack);
+        if (amount <= 0) {
+          break;
+        }
+      }
+      return amount;
+    }
+
+    @Override
+    public int onDamageTool(IToolStackView tool, ModifierEntry modifier, int amount, @Nullable LivingEntity holder, @Nullable ItemStack stack, ModifierId cause) {
+      for (ToolDamageModifierHook module : modules) {
+        amount = module.onDamageTool(tool, modifier, amount, holder, stack, cause);
         if (amount <= 0) {
           break;
         }

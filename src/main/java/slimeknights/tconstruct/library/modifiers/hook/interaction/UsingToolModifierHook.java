@@ -18,6 +18,7 @@ public interface UsingToolModifierHook {
    * @param entity          Interacting entity
    * @param timeLeft        How many ticks of use duration was left
    * @param activeModifier  Currently active modifier.
+   * @see GeneralInteractionModifierHook#onUsingTick(IToolStackView, ModifierEntry, LivingEntity, int) 
    */
   default void onUsingTick(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int useDuration, int timeLeft, ModifierEntry activeModifier) {}
 
@@ -29,6 +30,8 @@ public interface UsingToolModifierHook {
    * @param useDuration     Use duration for this tool.
    * @param timeLeft        How many ticks of use duration was left. Will be non-positive if finished being used.
    * @param activeModifier  Modifier that is currently active. Will be {@link ModifierEntry#EMPTY} for bows and other non-modifier usage.
+   * @see GeneralInteractionModifierHook#onFinishUsing(IToolStackView, ModifierEntry, LivingEntity) 
+   * @see GeneralInteractionModifierHook#onStoppedUsing(IToolStackView, ModifierEntry, LivingEntity, int) 
    */
   default void beforeReleaseUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int useDuration, int timeLeft, ModifierEntry activeModifier) {}
 

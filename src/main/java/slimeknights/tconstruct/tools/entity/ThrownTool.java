@@ -50,10 +50,10 @@ import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.Schedule;
-import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.shared.TinkerEffects;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.data.ModifierIds;
-import slimeknights.tconstruct.tools.modifiers.upgrades.general.MagneticModifier;
+import slimeknights.tconstruct.tools.modifiers.effect.MagneticEffect;
 
 import javax.annotation.Nullable;
 
@@ -65,6 +65,8 @@ public class ThrownTool extends ThrownTrident implements ToolProjectile {
   protected static final EntityDataAccessor<Float> WATER_INERTIA = SynchedEntityData.defineId(ThrownTool.class, EntityDataSerializers.FLOAT);
   /** Volatile integer key for the loyalty level */
   public static final ResourceLocation LOYALTY = TConstruct.getResource("loyalty");
+  /** Volatile integer key for the magnet level */
+  public static final ResourceLocation MAGNET = TConstruct.getResource("magnet");
 
   @Nullable
   private IToolStackView tool = null;
@@ -106,7 +108,7 @@ public class ThrownTool extends ThrownTrident implements ToolProjectile {
     this.entityData.set(ID_FOIL, ModifierUtil.checkVolatileFlag(tridentItem, ModifiableItem.SHINY));
     this.noDespawn = ModifierUtil.checkVolatileFlag(tridentItem, IndestructibleItemEntity.INDESTRUCTIBLE_ENTITY);
     if (!level().isClientSide) {
-      this.magnet = ModifierUtil.getModifierLevel(tridentItem, TinkerModifiers.magnetic.getId());
+      this.magnet = ModifierUtil.getVolatileInt(tridentItem, MAGNET);
     }
   }
 
@@ -202,7 +204,7 @@ public class ThrownTool extends ThrownTrident implements ToolProjectile {
 
     // magnet
     if (magnet > 0) {
-      MagneticModifier.applyVelocity(level(), position(), magnet - 1, ItemEntity.class, 3, 0.05f, 32);
+      MagneticEffect.applyVelocity(level(), position(), magnet - 1, ItemEntity.class, 3, 0.05f, 32);
     }
 
     // check if any tasks are ready
@@ -234,14 +236,8 @@ public class ThrownTool extends ThrownTrident implements ToolProjectile {
             owner.setItemInHand(InteractionHand.OFF_HAND, tridentItem);
           }
           // TODO: consider whether redundant sound is fine
-          if (ToolAttackUtil.performAttack(tool, ToolAttackContext.attacker(owner).target(target).hand(InteractionHand.OFF_HAND).baseDamage(tool.getStats().get(ToolStats.ATTACK_DAMAGE) * multiplier).cooldown(charge).projectile(this).build())) {
-            if (target.getType() == EntityType.ENDERMAN && tool.getModifiers().getLevel(TinkerModifiers.enderference.getId()) == 0) {
-              // restore held item
-              if (notSelf) {
-                owner.setItemInHand(InteractionHand.OFF_HAND, offhand);
-              }
-              return;
-            }
+          ToolAttackContext context = ToolAttackContext.attacker(owner).target(target).hand(InteractionHand.OFF_HAND).baseDamage(tool.getStats().get(ToolStats.ATTACK_DAMAGE) * multiplier).cooldown(charge).projectile(this).build();
+          if (ToolAttackUtil.performAttack(tool, context)) {
             if (target instanceof LivingEntity living) {
               this.doPostHurtEffects(living);
             }
@@ -250,6 +246,11 @@ public class ThrownTool extends ThrownTrident implements ToolProjectile {
           // restore held item
           if (notSelf) {
             owner.setItemInHand(InteractionHand.OFF_HAND, offhand);
+          }
+
+          // cancel post hit logic if it hit an enderman with no enderference
+          if (!TinkerEffects.canHitWithProjectile(context.getLivingTarget())) {
+            return;
           }
         }
       }

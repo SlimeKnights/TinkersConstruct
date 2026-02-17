@@ -20,7 +20,7 @@
       }
     },
     {
-      "type": "tconstruct:mob_effect",
+      "type": "tconstruct:weapon_mob_effect",
       "effect": "minecraft:slowness",
       "hooks": [
         "tconstruct:melee_hit",

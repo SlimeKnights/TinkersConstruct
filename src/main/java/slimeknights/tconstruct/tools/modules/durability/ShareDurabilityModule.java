@@ -52,7 +52,7 @@ public record ShareDurabilityModule(LazyModifier shield, LevelingInt grant, Leve
 
   @Override
   public int onDamageTool(IToolStackView tool, ModifierEntry modifier, int amount, @Nullable LivingEntity holder) {
-    return ToolDamageModifierHook.super.onDamageTool(tool, modifier, amount, holder, null);
+    return onDamageTool(tool, modifier, amount, holder, null);
   }
 
   /** Checks if the stack may be considered */

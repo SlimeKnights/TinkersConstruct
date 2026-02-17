@@ -542,6 +542,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.gold,         new SkullStats(125, 0));
     addMaterialStats(MaterialIds.roseGold,     new SkullStats(175, 1));
     addMaterialStats(MaterialIds.pigIron,      new SkullStats(150, 2));
+    addMaterialStats(MaterialIds.dragonScale,  new SkullStats(120, 0));
     // slimesuit
     addMaterialStats(MaterialIds.enderslime, StatlessMaterialStats.REPAIR_KIT);
     addMaterialStats(MaterialIds.phantom, StatlessMaterialStats.REPAIR_KIT);

@@ -440,6 +440,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(MaterialIds.gold);
       with.accept(MaterialIds.roseGold);
       with.accept(MaterialIds.pigIron);
+      with.accept(MaterialIds.dragonScale);
     });
     builder(TinkerTools.battlesign.get().getRenderTool(), resource("world/ancient_tools"), tinkersGadgetry, FrameType.CHALLENGE, builder -> {
       Consumer<ItemObject<?>> with = item -> builder.addCriterion(item.getId().getPath(), hasItem(item));

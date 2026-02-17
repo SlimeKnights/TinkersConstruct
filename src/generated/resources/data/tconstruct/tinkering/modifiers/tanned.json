@@ -3,12 +3,19 @@
   "modules": [
     {
       "type": "tconstruct:tool_damage_range",
-      "apply_when": "primary",
+      "cause": {
+        "type": "mantle:inverted",
+        "inverted_type": "tconstruct:tag",
+        "tag": "tconstruct:durability/bypass_tanned"
+      },
       "max": 1
     },
     {
       "type": "tconstruct:tool_damage_range",
-      "apply_when": "secondary",
+      "cause": {
+        "type": "tconstruct:tag",
+        "tag": "tconstruct:durability/secondary"
+      },
       "max": 0
     }
   ],

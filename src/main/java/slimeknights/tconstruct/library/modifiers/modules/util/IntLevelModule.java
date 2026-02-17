@@ -5,7 +5,7 @@ import slimeknights.mantle.data.loadable.field.LoadableField;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 
-/** Helper to handle effective levels in a usecase that requires int levels */
+/** Helper to handle effective levels in a usecase that requires int levels. TODO 1.21: switch to LevelingInt */
 public interface IntLevelModule {
   LoadableField<Integer,IntLevelModule> FIELD = IntLoadable.ANY_SHORT.defaultField("level", 1, true, IntLevelModule::level);
 

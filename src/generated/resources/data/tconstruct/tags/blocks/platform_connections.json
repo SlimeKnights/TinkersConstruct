@@ -13,6 +13,10 @@
     "#minecraft:buttons",
     "#forge:fences",
     "#minecraft:walls",
-    "#minecraft:wall_signs"
+    "#minecraft:wall_signs",
+    {
+      "id": "#architects_palette:nubs",
+      "required": false
+    }
   ]
 }

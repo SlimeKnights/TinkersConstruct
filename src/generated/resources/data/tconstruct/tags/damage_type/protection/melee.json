@@ -5,6 +5,8 @@
     "minecraft:mob_attack_no_aggro",
     "minecraft:cramming",
     "minecraft:sting",
+    "tconstruct:fluid_impact_melee",
+    "tconstruct:fluid_spike_melee",
     {
       "id": "twilightforest:ghast_tear",
       "required": false

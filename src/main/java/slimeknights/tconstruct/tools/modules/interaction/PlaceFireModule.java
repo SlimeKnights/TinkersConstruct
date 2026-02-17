@@ -83,7 +83,7 @@ public enum PlaceFireModule implements ModifierModule, EntityInteractionModifier
       level.playSound(player, creeper.getX(), creeper.getY(), creeper.getZ(), SoundEvents.FLINTANDSTEEL_USE, creeper.getSoundSource(), 1.0F, level.random.nextFloat() * 0.4F + 0.8F);
       if (!level.isClientSide) {
         creeper.ignite();
-        ToolDamageUtil.damageAnimated(tool, 1, player, source.getSlot(hand));
+        ToolDamageUtil.damageAnimated(tool, 1, player, source.getSlot(hand), modifier.getId());
       }
       return InteractionResult.sidedSuccess(level.isClientSide);
     }
@@ -163,7 +163,7 @@ public enum PlaceFireModule implements ModifierModule, EntityInteractionModifier
     EquipmentSlot slotType = source.getSlot(context.getHand());
     if (!targetingFire) {
       didIgnite = ignite(world, pos, state, sideHit, horizontalFacing, player);
-      if (didIgnite && ToolDamageUtil.damage(tool, 1, player, stack)) {
+      if (didIgnite && ToolDamageUtil.damage(tool, 1, player, stack, modifier.getId())) {
         if (player != null) {
           player.broadcastBreakEvent(slotType);
         }
@@ -174,7 +174,7 @@ public enum PlaceFireModule implements ModifierModule, EntityInteractionModifier
     for (BlockPos target : targets) {
       if (ignite(world, target, world.getBlockState(target), sideHit, horizontalFacing, player)) {
         didIgnite = true;
-        if (ToolDamageUtil.damage(tool, 1, player, stack)) {
+        if (ToolDamageUtil.damage(tool, 1, player, stack, modifier.getId())) {
           if (player != null) {
             player.broadcastBreakEvent(slotType);
           }

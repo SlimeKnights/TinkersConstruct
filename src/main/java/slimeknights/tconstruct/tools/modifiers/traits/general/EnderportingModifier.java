@@ -21,6 +21,7 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.events.teleport.EnderportingTeleportEvent;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
+import slimeknights.tconstruct.library.modifiers.entity.ReusableProjectile;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MonsterMeleeHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.mining.BlockHarvestModifierHook;
@@ -38,7 +39,6 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.utils.TeleportHelper;
-import slimeknights.tconstruct.tools.TinkerTools;
 
 import javax.annotation.Nullable;
 
@@ -95,7 +95,7 @@ public class EnderportingModifier extends NoLevelsModifier implements PlantHarve
         Vec3 oldPosition = attacker.position();
         if (tryTeleport(modifier, attacker, target.getX(), target.getY(), target.getZ())) {
           tryTeleport(modifier, target, oldPosition.x, oldPosition.y, oldPosition.z);
-          ToolDamageUtil.damageAnimated(tool, 2, attacker, context.getSlotType(), true);
+          ToolDamageUtil.damageAnimated(tool, 2, attacker, context.getSlotType(), modifier.getId());
         }
       }
     }
@@ -107,7 +107,7 @@ public class EnderportingModifier extends NoLevelsModifier implements PlantHarve
       BlockPos pos = context.getPos();
       LivingEntity living = context.getLiving();
       if (tryTeleport(modifier, living, pos.getX() + 0.5f, pos.getY(), pos.getZ() + 0.5f)) {
-        ToolDamageUtil.damageAnimated(tool, 2, living, EquipmentSlot.MAINHAND, true);
+        ToolDamageUtil.damageAnimated(tool, 2, living, EquipmentSlot.MAINHAND, modifier.getId());
       }
     }
   }
@@ -118,7 +118,7 @@ public class EnderportingModifier extends NoLevelsModifier implements PlantHarve
     if (context.getClickedPos().equals(pos)) {
       LivingEntity living = context.getPlayer();
       if (living != null && tryTeleport(modifier, living, pos.getX() + 0.5f, pos.getY(), pos.getZ() + 0.5f)) {
-        ToolDamageUtil.damageAnimated(tool, 2, living, context.getHand(), true);
+        ToolDamageUtil.damageAnimated(tool, 2, living, context.getHand(), modifier.getId());
       }
     }
   }
@@ -135,7 +135,7 @@ public class EnderportingModifier extends NoLevelsModifier implements PlantHarve
       Vec3 oldPosition = attacker.position();
       if (attacker.level() == projectile.level() && tryTeleport(modifier, attacker, hitEntity.getX(), hitEntity.getY(), hitEntity.getZ()) && target != null) {
         if (tryTeleport(modifier, target, oldPosition.x, oldPosition.y, oldPosition.z)) {
-          ModifierUtil.updateFishingRod(projectile, 10, false);
+          ModifierUtil.updateFishingRod(projectile, 10, false, modifier.getId());
         }
       }
     }
@@ -147,9 +147,9 @@ public class EnderportingModifier extends NoLevelsModifier implements PlantHarve
     if (attacker != null && canTeleport(persistentData)) {
       BlockPos target = hit.getBlockPos().relative(hit.getDirection());
       // attempt the teleport, if successful and the projectile is not reusable then discard it
-      if (attacker.level() == projectile.level() && tryTeleport(modifier, attacker, target.getX() + 0.5f, target.getY(), target.getZ() + 0.5f) && !projectile.getType().is(TinkerTags.EntityTypes.REUSABLE_AMMO)) {
+      if (attacker.level() == projectile.level() && tryTeleport(modifier, attacker, target.getX() + 0.5f, target.getY(), target.getZ() + 0.5f)) {
         ModifierUtil.updateFishingRod(projectile, 10, true);
-        projectile.discard();
+        ReusableProjectile.discard(projectile);
       }
     }
   }
@@ -171,11 +171,7 @@ public class EnderportingModifier extends NoLevelsModifier implements PlantHarve
   @Override
   public void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, Projectile projectile, @Nullable AbstractArrow arrow, ModDataNBT persistentData, boolean primary) {
     if (primary) {
-      // damage on shoot as we won't have tool context once the arrow lands
-      // don't damage fishing hooks though, we will do that on hit
-      if (projectile.getType() != TinkerTools.fishingHook.get()){
-        ToolDamageUtil.damageAnimated(tool, 10, shooter, shooter.getUsedItemHand(), true);
-      }
+      ToolDamageUtil.damageLauncher(tool, 10, shooter, projectile, modifier.getId());
     } else {
       persistentData.putBoolean(SECONDARY_ARROW, true);
     }

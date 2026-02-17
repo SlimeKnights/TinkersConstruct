@@ -1,5 +1,5 @@
 {
-  "type": "tconstruct:modifier",
+  "type": "tconstruct:multilevel_modifier",
   "allow_crystal": true,
   "inputs": [
     {
@@ -23,10 +23,24 @@
       "item": "tconstruct:earth_congealed_slime"
     }
   ],
+  "levels": [
+    {
+      "level": 1,
+      "slots": {
+        "abilities": 1
+      }
+    },
+    {
+      "level": {
+        "max": 3,
+        "min": 2
+      },
+      "slots": {
+        "upgrades": 1
+      }
+    }
+  ],
   "result": "tconstruct:reflecting",
-  "slots": {
-    "abilities": 1
-  },
   "tools": {
     "tag": "tconstruct:modifiable/shields"
   }

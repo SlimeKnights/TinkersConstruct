@@ -280,24 +280,24 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setTools(ingredientFromTags(TinkerTags.Items.MELEE, TinkerTags.Items.HARVEST, TinkerTags.Items.LAUNCHERS, TinkerTags.Items.LEGGINGS))
                          .saveSalvage(consumer, prefix(ModifierIds.experienced, upgradeSalvage))
                          .save(consumer, prefix(ModifierIds.experienced, upgradeFolder));
-    ModifierRecipeBuilder.modifier(TinkerModifiers.magnetic)
+    ModifierRecipeBuilder.modifier(ModifierIds.magnetic)
                          .addInput(Items.COMPASS)
                          .setMaxLevel(5)
                          .setSlots(SlotType.UPGRADE, 1)
                          .setTools(ingredientFromTags(TinkerTags.Items.MELEE_WEAPON, TinkerTags.Items.HARVEST))
-                         .save(consumer, prefix(TinkerModifiers.magnetic, upgradeFolder));
+                         .save(consumer, prefix(ModifierIds.magnetic, upgradeFolder));
     // armor has a max level of 1 per piece, so 4 total
-    ModifierRecipeBuilder.modifier(TinkerModifiers.magnetic)
+    ModifierRecipeBuilder.modifier(ModifierIds.magnetic)
                          .addInput(Items.COMPASS)
                          .setMaxLevel(1)
                          .setSlots(SlotType.UPGRADE, 1)
                          .setTools(TinkerTags.Items.WORN_ARMOR) // TODO: reconsider for shields
-                         .save(consumer, wrap(TinkerModifiers.magnetic, upgradeFolder, "_armor"));
+                         .save(consumer, wrap(ModifierIds.magnetic, upgradeFolder, "_armor"));
     // salvage supports either
-    ModifierRecipeBuilder.modifier(TinkerModifiers.magnetic)
+    ModifierRecipeBuilder.modifier(ModifierIds.magnetic)
                          .setSlots(SlotType.UPGRADE, 1)
                          .setTools(ingredientFromTags(TinkerTags.Items.MELEE_WEAPON, TinkerTags.Items.HARVEST, TinkerTags.Items.WORN_ARMOR))
-                         .saveSalvage(consumer, prefix(TinkerModifiers.magnetic, upgradeSalvage));
+                         .saveSalvage(consumer, prefix(ModifierIds.magnetic, upgradeSalvage));
     ModifierRecipeBuilder.modifier(ModifierIds.shiny)
                          .addInput(Ingredient.of(Items.ENCHANTED_GOLDEN_APPLE, Items.NETHER_STAR))
                          .setMaxLevel(1)
@@ -433,15 +433,15 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .setSlots(SlotType.UPGRADE, 1)
                                     .saveSalvage(consumer, prefix(ModifierIds.fiery, upgradeSalvage))
                                     .save(consumer, prefix(ModifierIds.fiery, upgradeFolder));
-    ModifierRecipeBuilder.modifier(TinkerModifiers.necrotic)
+    ModifierRecipeBuilder.modifier(ModifierIds.necrotic)
                          .addInput(TinkerMaterials.necroticBone)
                          .addInput(TinkerWorld.congealedSlime.get(SlimeType.ICHOR))
                          .addInput(Items.GHAST_TEAR)
                          .setMaxLevel(5) // +50% chance of heal, combine with +40% from traits for +90% total
                          .setSlots(SlotType.UPGRADE, 1)
                          .setTools(ingredientFromTags(TinkerTags.Items.MELEE, TinkerTags.Items.BOWS, TinkerTags.Items.FISHING_RODS))
-                         .saveSalvage(consumer, prefix(TinkerModifiers.necrotic, upgradeSalvage))
-                         .save(consumer, prefix(TinkerModifiers.necrotic, upgradeFolder));
+                         .saveSalvage(consumer, prefix(ModifierIds.necrotic, upgradeSalvage))
+                         .save(consumer, prefix(ModifierIds.necrotic, upgradeFolder));
 
     /*
      * damage boost
@@ -1578,16 +1578,17 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setSlots(SlotType.ABILITY, 1)
                          .saveSalvage(consumer, prefix(TinkerModifiers.parrying, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.parrying, abilityFolder));
-    ModifierRecipeBuilder.modifier(TinkerModifiers.reflecting)
-                         .setTools(TinkerTags.Items.SHIELDS)
-                         .addInput(TinkerWorld.congealedSlime.get(SlimeType.SKY),   4)
-                         .addInput(TinkerWorld.congealedSlime.get(SlimeType.ICHOR), 4)
-                         .addInput(TinkerWorld.congealedSlime.get(SlimeType.SKY),   4)
-                         .addInput(TinkerWorld.congealedSlime.get(SlimeType.EARTH), 4)
-                         .addInput(TinkerWorld.congealedSlime.get(SlimeType.EARTH), 4)
-                         .setSlots(SlotType.ABILITY, 1)
-                         .saveSalvage(consumer, prefix(TinkerModifiers.reflecting, abilitySalvage))
-                         .save(consumer, prefix(TinkerModifiers.reflecting, abilityFolder));
+    MultilevelModifierRecipeBuilder.modifier(ModifierIds.reflecting)
+      .setTools(TinkerTags.Items.SHIELDS)
+      .addInput(TinkerWorld.congealedSlime.get(SlimeType.SKY),   4)
+      .addInput(TinkerWorld.congealedSlime.get(SlimeType.ICHOR), 4)
+      .addInput(TinkerWorld.congealedSlime.get(SlimeType.SKY),   4)
+      .addInput(TinkerWorld.congealedSlime.get(SlimeType.EARTH), 4)
+      .addInput(TinkerWorld.congealedSlime.get(SlimeType.EARTH), 4)
+      .addLevel(SlotType.ABILITY, 1, 1)
+      .addLevelRange(SlotType.UPGRADE, 1, 2, 3)
+      .saveSalvage(consumer, prefix(ModifierIds.reflecting, abilitySalvage))
+      .save(consumer, prefix(ModifierIds.reflecting, abilityFolder));
 
     /*
      * extra modifiers

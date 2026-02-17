@@ -144,6 +144,7 @@ public class ModifierModelManager implements IEarlySafeManagerReloadListener {
    * @param modifierId    Specific modifier ID
    * @return  Path to the modifier
    */
+  @SuppressWarnings("removal")
   private static Material getModifierTexture(ResourceLocation modifierRoot, ResourceLocation modifierId, String suffix) {
     return new Material(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(modifierRoot.getNamespace(), modifierRoot.getPath() + modifierId.getNamespace() + "_" + modifierId.getPath() + suffix));
   }

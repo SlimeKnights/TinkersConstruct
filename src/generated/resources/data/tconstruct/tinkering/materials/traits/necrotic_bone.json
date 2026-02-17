@@ -6,10 +6,16 @@
     }
   ],
   "perStat": {
-    "tconstruct:skull": [
+    "tconstruct:armor": [
       {
         "level": 1,
-        "name": "tconstruct:withered"
+        "name": "tconstruct:restore"
+      }
+    ],
+    "tconstruct:skull": [
+      {
+        "level": 2,
+        "name": "tconstruct:restore"
       },
       {
         "level": 1,

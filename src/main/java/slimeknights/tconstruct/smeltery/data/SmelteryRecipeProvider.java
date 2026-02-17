@@ -1247,7 +1247,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     castingWithCast(consumer, TinkerFluids.blazingBlood, FluidType.BUCKET_VOLUME / 10, TinkerSmeltery.rodCast, Items.BLAZE_ROD, folder + "blaze/rod");
     ItemCastingRecipeBuilder.tableRecipe(Items.MAGMA_CREAM)
                             .setFluidAndTime(TinkerFluids.blazingBlood, FluidType.BUCKET_VOLUME / 20)
-                            .setCast(Tags.Items.SLIMEBALLS, true)
+                            .setCast(SlimeType.EARTH.getSlimeballTag(), true)
                             .save(consumer, location(folder + "blaze/cream"));
     ItemCastingRecipeBuilder.basinRecipe(Blocks.MAGMA_BLOCK)
                             .setFluidAndTime(TinkerFluids.blazingBlood, FluidType.BUCKET_VOLUME / 5)
@@ -2035,25 +2035,25 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
         .addInput(TinkerFluids.moltenChromium.ingredient(FluidValues.INGOT))
         .addInput(TinkerFluids.moltenQuartz.ingredient(FluidValues.GEM))::save)
 
-      // if chromium is missing, sub in tin per metalborn, can do the proper recipe
-      .addCondition(new AndCondition(tagCondition("ingots/tin"), tagCondition("ingots/nickel")))
+      // if chromium is missing, sub in emerald (trace chromium) per metalborn
+      .addCondition(new AndCondition(tagCondition("ingots/nickel")))
       .addRecipe(AlloyRecipeBuilder.alloy(TinkerFluids.moltenNicrosil, FluidValues.INGOT * 4)
         .addInput(TinkerFluids.moltenNickel.ingredient(FluidValues.INGOT * 2))
-        .addInput(TinkerFluids.moltenTin.ingredient(FluidValues.INGOT))
+        .addInput(TinkerFluids.moltenEmerald.ingredient(FluidValues.GEM))
         .addInput(TinkerFluids.moltenQuartz.ingredient(FluidValues.GEM))::save)
 
-      // nickel missing? use more chromium and sub in a bit of iron
+      // nickel missing? use more chromium and sub in a bit of iron per allomancy
       .addCondition(tagCondition("ingots/chromium"))
       .addRecipe(AlloyRecipeBuilder.alloy(TinkerFluids.moltenNicrosil, FluidValues.INGOT * 4)
         .addInput(TinkerFluids.moltenChromium.ingredient(FluidValues.INGOT * 2))
         .addInput(TinkerFluids.moltenIron.ingredient(FluidValues.INGOT))
         .addInput(TinkerFluids.moltenQuartz.ingredient(FluidValues.GEM))::save)
 
-      // no nickel or chromium? just use tin and iron per metalborn
+      // no nickel or chromium? just use tin and emerald per metalborn
       .addCondition(tagCondition("ingots/tin"))
       .addRecipe(AlloyRecipeBuilder.alloy(TinkerFluids.moltenNicrosil, FluidValues.INGOT * 4)
         .addInput(TinkerFluids.moltenTin.ingredient(FluidValues.INGOT * 2))
-        .addInput(TinkerFluids.moltenIron.ingredient(FluidValues.INGOT))
+        .addInput(TinkerFluids.moltenEmerald.ingredient(FluidValues.GEM))
         .addInput(TinkerFluids.moltenQuartz.ingredient(FluidValues.GEM))::save)
 
       .build(consumer, prefix(TinkerFluids.moltenNicrosil, folder));

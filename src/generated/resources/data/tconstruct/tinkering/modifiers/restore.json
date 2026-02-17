@@ -1,0 +1,55 @@
+{
+  "level_display": {
+    "type": "tconstruct:cap_level",
+    "apply": "tconstruct:single_level",
+    "cap": 3
+  },
+  "modules": [
+    {
+      "type": "tconstruct:restore_lost_health",
+      "chance": {
+        "flat": 0.15
+      },
+      "durability_usage": {
+        "each_level": 1
+      },
+      "effect_level": {
+        "each_level": 1
+      },
+      "modifier_level": {
+        "max": 2
+      },
+      "percentage": {
+        "flat": 0.5
+      },
+      "tool": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:modifiable/armor"
+      }
+    },
+    {
+      "type": "tconstruct:restore_lost_health",
+      "chance": {
+        "flat": 0.15
+      },
+      "durability_usage": {
+        "each_level": 1
+      },
+      "effect_level": {
+        "flat": 3
+      },
+      "modifier_level": {
+        "min": 3
+      },
+      "percentage": {
+        "flat": 0.5
+      },
+      "tool": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:modifiable/armor"
+      }
+    }
+  ],
+  "priority": 25,
+  "tooltip_display": "always"
+}

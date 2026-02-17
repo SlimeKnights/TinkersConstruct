@@ -1,0 +1,24 @@
+{
+  "level_display": "tconstruct:single_level",
+  "modules": [
+    {
+      "type": "tconstruct:effect_immunity",
+      "effect": "minecraft:slowness"
+    },
+    {
+      "type": "tconstruct:armor_attack_mob_effect",
+      "damage_source": {
+        "type": "mantle:tag",
+        "tag": "minecraft:is_projectile"
+      },
+      "effect": "minecraft:slowness",
+      "level": {
+        "per_level": 2.0
+      },
+      "time": {
+        "flat": 300.0
+      }
+    }
+  ],
+  "tooltip_display": "always"
+}

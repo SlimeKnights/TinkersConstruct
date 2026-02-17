@@ -321,6 +321,8 @@
     "frostshield":          "#AAFFFF",
     "tempered_protection":  "#893D14",
     "overshield":           "#B771FF",
+    "restore":              "#4D4D4D",
+    "piercing_guard":       "#E8E5D2",
 
     "__traits_slimeskull__": null,
     "boon_of_sssss":    "#605448",
@@ -328,7 +330,7 @@
     "chrysophilite":    "#E8A074",
     "enderdodging":     "#CC00FA",
     "firebreath":       "#FC9600",
-    "frosttouch":       "#C5D6D5",
+    "slow_bones":       "#C5D6D5",
     "gold_guard":       "#F5DA2A",
     "mithridatism":     "#153A34",
     "plague":           "#59503B",

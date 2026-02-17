@@ -47,13 +47,13 @@ public record SpillingModule(LevelingValue level, ModifierCondition<IToolStackVi
   }
 
   /** Applies the fluid to the target */
-  private void applyEffect(IToolStackView tool, ModifierEntry modifier, LivingEntity attacker, @Nullable Player playerAttacker, Entity target, @Nullable LivingEntity livingTarget) {
+  private void applyEffect(IToolStackView tool, ModifierEntry modifier, LivingEntity attacker, @Nullable Player playerAttacker, Entity target, @Nullable LivingEntity livingTarget, @Nullable Projectile projectile) {
     if (condition.matches(tool, modifier)) {
       FluidStack fluid = TANK_HELPER.getFluid(tool);
       if (!fluid.isEmpty()) {
         FluidEffects recipe = FluidEffectManager.INSTANCE.find(fluid.getFluid());
         if (recipe.hasEntityEffects()) {
-          int consumed = recipe.applyToEntity(fluid, this.level.compute(modifier.getEffectiveLevel()), FluidEffectContext.builder(attacker.level()).user(attacker, playerAttacker).target(target, livingTarget), FluidAction.EXECUTE);
+          int consumed = recipe.applyToEntity(fluid, this.level.compute(modifier.getEffectiveLevel()), FluidEffectContext.builder(attacker.level()).user(attacker, playerAttacker).projectile(projectile).target(target, livingTarget), FluidAction.EXECUTE);
           if (consumed > 0 && (playerAttacker == null || !playerAttacker.isCreative())) {
             spawnParticles(target, fluid);
             fluid.shrink(consumed);
@@ -67,14 +67,14 @@ public record SpillingModule(LevelingValue level, ModifierCondition<IToolStackVi
   @Override
   public void afterMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damageDealt) {
     if (damageDealt > 0 && context.isFullyCharged()) {
-      applyEffect(tool, modifier, context.getAttacker(), context.getPlayerAttacker(), context.getTarget(), context.getLivingTarget());
+      applyEffect(tool, modifier, context.getAttacker(), context.getPlayerAttacker(), context.getTarget(), context.getLivingTarget(), context.getProjectile());
     }
   }
 
   @Override
   public void onLauncherHitEntity(IToolStackView tool, ModifierEntry modifier, Projectile projectile, LivingEntity attacker, Entity target, @Nullable LivingEntity livingTarget, float damageDealt) {
     if (damageDealt > 0) {
-      applyEffect(tool, modifier, attacker, ModifierUtil.asPlayer(attacker), target, livingTarget);
+      applyEffect(tool, modifier, attacker, ModifierUtil.asPlayer(attacker), target, livingTarget, projectile);
     }
   }
 }

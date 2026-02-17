@@ -98,7 +98,7 @@ public record LightspeedAttributeModule(String unique, UUID uuid, Attribute attr
 
       // damage boots
       if (level.random.nextFloat() < (damageChance * scaledLight)) {
-        ToolDamageUtil.damageAnimated(tool, 1, living, EquipmentSlot.FEET);
+        ToolDamageUtil.damageAnimated(tool, 1, living, EquipmentSlot.FEET, modifier.getId());
       }
     }
   }

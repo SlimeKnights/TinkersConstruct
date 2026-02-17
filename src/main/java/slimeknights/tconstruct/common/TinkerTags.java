@@ -606,47 +606,68 @@ public class TinkerTags {
 
   public static class EntityTypes {
     private static void init() {}
+
+    // mob classes
     public static final TagKey<EntityType<?>> SLIMES = common("slimes");
-    public static final TagKey<EntityType<?>> BACON_PRODUCER = local("bacon_producer");
-
-    /**
-     * Entities in this tag either run proper hooks to use a melee weapon on left click or cause issues with our melee modifier logic.
-     * Anything not in this tag will attempt the fallback behavior which apply effects during damage events.
-     */
-    public static final TagKey<EntityType<?>> DAMAGE_MODIFIER_BLACKLIST = local("damage_modifier_blacklist");
-
-    public static final TagKey<EntityType<?>> MELTING_SHOW = local("melting/show_in_default");
-    public static final TagKey<EntityType<?>> MELTING_HIDE = local("melting/hide_in_default");
-    public static final TagKey<EntityType<?>> PIGGYBACKPACK_BLACKLIST = local("piggybackpack_blacklist");
-
     /** Entities in this tag take more damage from bane of sssss */
     public static final TagKey<EntityType<?>> CREEPERS = common("creepers");
     public static final TagKey<EntityType<?>> VILLAGERS = common("villagers");
     public static final TagKey<EntityType<?>> ILLAGERS = common("illagers");
     /** Entities in this tag may spawn with battle signs */
     public static final TagKey<EntityType<?>> PIGLINS = common("piglins");
-    /** Entities in this tag take more damage from killager */
-    public static final TagKey<EntityType<?>> KILLAGERS = local("killagers");
     /** @deprecated use the chance fields on the severing recipe to adjust rates. */
     @Deprecated(forRemoval = true)
     public static final TagKey<EntityType<?>> RARE_MOBS = local("rare_mobs");
+    /** Common tag of fishing bobbers. Note we don't use this so we don't bother adding vanilla to it. */
+    public static final TagKey<EntityType<?>> BOBBERS = common("bobber");
+
+    // tool logic
+    /**
+     * Entities in this tag either run proper hooks to use a melee weapon on left click or cause issues with our melee modifier logic.
+     * Anything not in this tag will attempt the fallback behavior which apply effects during damage events.
+     */
+    public static final TagKey<EntityType<?>> DAMAGE_MODIFIER_BLACKLIST = local("damage_modifier_blacklist");
+    /** Entities in this tag are unabled to be picked up by the piggybackpack */
+    public static final TagKey<EntityType<?>> PIGGYBACKPACK_BLACKLIST = local("piggybackpack_blacklist");
     /** Mobs that get the 4x protection boost due to only 1 armor piece */
     public static final TagKey<EntityType<?>> SMALL_ARMOR = common("small_armor");
 
-    /** Things that can be collected using {@link net.minecraft.world.entity.Entity#playerTouch(Player)} using a fishing rod. */
-    public static final TagKey<EntityType<?>> COLLECTABLES = common("collectables");
-    /** {@link #COLLECTABLES} that should be discarded when they fail to collect. For example, arrows due to creative only pickup. */
-    public static final TagKey<EntityType<?>> DISCARDABLE_COLLECTABLES = common("collectables/discardable");
-
+    // projectile logic
     /** Projectiles with this tag will not be discarded by any relevant modifiers. */
     public static final TagKey<EntityType<?>> REUSABLE_AMMO = common("reusable_ammo");
-    /** Projectiles with this tag cannot be reflected */
-    public static final TagKey<EntityType<?>> REFLECTING_BLACKLIST = common("reflecting/blacklist");
-    /** Projectiles with this tag cannot be reflected */
-    public static final TagKey<EntityType<?>> REFLECTING_PRESERVE_OWNER = common("reflecting/preserve_owner");
+    /** Trident like entities, to ensure they are preserved in the related hooks. */
+    public static final TagKey<EntityType<?>> TRIDENTS = common("tridents");
 
+
+    // modifiers
+
+    /** Entities in this tag take more damage from killager */
+    public static final TagKey<EntityType<?>> KILLAGERS = local("killagers");
+    /** Entities in this tag drop bacon from the tasty modifier */
+    public static final TagKey<EntityType<?>> BACON_PRODUCER = local("bacon_producer");
+    /** {@link net.minecraft.world.entity.projectile.AbstractArrow} with this tag will not run the enderference override. Ensures we run the proper damaging logic for weird arrows like tridents. */
+    public static final TagKey<EntityType<?>> ENDERFERENCE_ARROW_BLACKLIST = local("enderference_arrow_blacklist");
     /** Entities that will not heal you using necrotic */
-    public static final TagKey<EntityType<?>> NECROTIC_BLACKLIST = common("necrotic_blacklist");
+    public static final TagKey<EntityType<?>> NECROTIC_BLACKLIST = local("necrotic_blacklist");
+
+    // melting
+    /** Entities in this tag are forced to show in JEI even if not living */
+    public static final TagKey<EntityType<?>> MELTING_SHOW = local("melting/show_in_default");
+    /** Entities in this tag are hidden from JEI and blacklisted from melting in the smeltery */
+    public static final TagKey<EntityType<?>> MELTING_HIDE = local("melting/hide_in_default");
+
+    // collecting
+    /** Things that can be collected using {@link net.minecraft.world.entity.Entity#playerTouch(Player)} using a fishing rod. */
+    public static final TagKey<EntityType<?>> COLLECTABLES = local("collectables");
+    /** {@link #COLLECTABLES} that should be discarded when they fail to collect. For example, arrows due to creative only pickup. */
+    public static final TagKey<EntityType<?>> DISCARDABLE_COLLECTABLES = local("collectables/discardable");
+
+    // reflecting
+    /** Projectiles with this tag cannot be reflected */
+    public static final TagKey<EntityType<?>> REFLECTING_BLACKLIST = local("reflecting/blacklist");
+    /** Projectiles with this tag cannot be reflected */
+    public static final TagKey<EntityType<?>> REFLECTING_PRESERVE_OWNER = local("reflecting/preserve_owner");
+
 
     private static TagKey<EntityType<?>> local(String name) {
       return TagKey.create(Registries.ENTITY_TYPE, getResource(name));
@@ -728,6 +749,20 @@ public class TinkerTags {
     public static final TagKey<Modifier> SELF_KNOCKBACK_SLINGS = local("knockback_slings/self");
     /** Sling modifiers that get a bonus from knockback, targeting someone else (so attributes are automatically applied). */
     public static final TagKey<Modifier> TARGET_KNOCKBACK_SLINGS = local("knockback_slings/target");
+
+    // durability tags - used by modifiers to change behavior
+    /** Modifiers in this tag bypass the tanned modifier, which reduces durability costs to 1. */
+    public static final TagKey<Modifier> BYPASS_TANNED = local("durability/bypass_tanned");
+    /** Modifiers in this tag bypass reinforced and unbreakable, preventing cancelling of damage. Other variants of precentage durability reduction may not use this. */
+    public static final TagKey<Modifier> BYPASS_REINFORCED = local("durability/bypass_reinforced");
+    /** Modifiers in this tag have their durability cost reduced to 0 by tanned. Implication is they are an additional application part of the original. */
+    public static final TagKey<Modifier> SECONDARY_DURABILITY = local("durability/secondary");
+    /** Modifiers in this tag bypass all forms of extra durability bars, including overslime, stoneshield, frostshield, etc. */
+    public static final TagKey<Modifier> BYPASS_EXTRA_DURABILITY = local("durability/bypass_extra_bar");
+    /** Modifiers in this tag bypass overslime for durability consumption. */
+    public static final TagKey<Modifier> BYPASS_OVERSLIME = local("durability/bypass_overslime");
+    /** Modifiers in this tag bypass frostshield for durability consumption. */
+    public static final TagKey<Modifier> BYPASS_FROSTSHIELD = local("durability/bypass_frostshield");
 
     // book tags - these are used to determine pages to load in resource packs
     // upgrades

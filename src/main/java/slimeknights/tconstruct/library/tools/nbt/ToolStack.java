@@ -322,7 +322,15 @@ public class ToolStack implements IToolStackView {
     return restrictedNBT;
   }
 
-  /* Damaging */
+  @Override
+  public boolean isSameStack(ItemStack stack) {
+    // tool stacks share NBT with their stack instance unless copied so changes are mirrored
+    // item check allows empty as empty stacks change their item to air. This won't false positive with ItemStack#EMPTY as the NBT won't match.
+    return nbt == stack.getTag() && (stack.isEmpty() || stack.getItem() == item);
+  }
+
+
+  /* Durability */
 
   /**
    * Checks if this tool is currently broken

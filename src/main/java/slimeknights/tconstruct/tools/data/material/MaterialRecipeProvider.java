@@ -339,9 +339,9 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     MaterialMeltingRecipeBuilder.material(MaterialIds.fiery, TinkerFluids.fieryLiquid, FluidValues.BOTTLE)
       .addByproduct(TinkerFluids.moltenIron.result(FluidValues.INGOT))
       .save(fieryConsumer, location(folder + "melting/fiery"));
-    // nicrosil has two different ores that let it appear, tin and chromium
+    // nicrosil has three different ores that let it appear, tin, nickel, and chromium
     materialMeltingCasting(
-      withCondition(consumer, new OrCondition(tagCondition("ingots/nicrosil"), tagCondition("ingots/tin"), tagCondition("ingots/chromium"))),
+      withCondition(consumer, new OrCondition(tagCondition("ingots/nicrosil"), tagCondition("ingots/tin"), tagCondition("ingots/nickel"), tagCondition("ingots/chromium"))),
       MaterialIds.nicrosil, TinkerFluids.moltenNicrosil, folder);
 
     // slimesuit

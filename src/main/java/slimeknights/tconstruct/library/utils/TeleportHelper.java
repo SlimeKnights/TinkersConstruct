@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.utils;
 
-import com.google.common.collect.ImmutableSet;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -17,10 +16,11 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityTeleportEvent;
 import slimeknights.tconstruct.common.Sounds;
 
+import java.util.EnumSet;
 import java.util.Set;
 
 public class TeleportHelper {
-  private static final Set<RelativeMovement> PACKET_FLAGS = ImmutableSet.of(RelativeMovement.X, RelativeMovement.Y, RelativeMovement.Z);
+  private static final Set<RelativeMovement> PACKET_FLAGS = EnumSet.of(RelativeMovement.X, RelativeMovement.Y, RelativeMovement.Z, RelativeMovement.X_ROT, RelativeMovement.Y_ROT);
 
   /** Randomly teleports an entity, mostly copied from chorus fruit */
   @CanIgnoreReturnValue

@@ -105,6 +105,32 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "dragon_scale": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "mantle:and",
+              "predicates": [
+                {
+                  "type": "mantle:set",
+                  "items": [
+                    "tconstruct:slime_helmet"
+                  ]
+                },
+                {
+                  "type": "tconstruct:has_material",
+                  "index": 0,
+                  "material": "tconstruct:dragon_scale"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "ender_pearl": {
       "conditions": {
         "items": [
@@ -424,6 +450,9 @@
     ],
     [
       "pig_iron"
+    ],
+    [
+      "dragon_scale"
     ]
   ],
   "sends_telemetry_event": true

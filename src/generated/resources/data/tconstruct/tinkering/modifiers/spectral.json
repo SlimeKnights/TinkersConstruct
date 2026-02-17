@@ -2,10 +2,21 @@
   "level_display": "tconstruct:default",
   "modules": [
     {
-      "type": "tconstruct:mob_effect",
+      "type": "tconstruct:weapon_mob_effect",
+      "effect": "minecraft:glowing",
+      "level": {
+        "flat": 1.0
+      },
+      "time": {
+        "per_level": 200.0
+      }
+    },
+    {
+      "type": "tconstruct:counter_mob_effect",
       "chance": {
         "flat": 1.0
       },
+      "durability_usage": 0,
       "effect": "minecraft:glowing",
       "level": {
         "flat": 1.0

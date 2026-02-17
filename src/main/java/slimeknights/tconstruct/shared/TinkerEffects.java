@@ -1,7 +1,11 @@
 package slimeknights.tconstruct.shared;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Items;
@@ -30,6 +34,8 @@ import slimeknights.tconstruct.tools.modifiers.effect.RepulsiveEffect;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.SelfDestructiveModifier.SelfDestructiveEffect;
 import slimeknights.tconstruct.world.TinkerWorld;
 
+import javax.annotation.Nullable;
+
 /** Handles registration for all status effects and potions in the mod */
 public class TinkerEffects extends TinkerModule {
   private static final PotionDeferredRegister POTIONS = new PotionDeferredRegister(TConstruct.MOD_ID);
@@ -38,6 +44,8 @@ public class TinkerEffects extends TinkerModule {
   public static final RegistryObject<TinkerEffect> experienced = MOB_EFFECTS.register("experienced", () -> new TinkerEffect(MobEffectCategory.BENEFICIAL, 0x82c873, true).addAttributeModifier(TinkerAttributes.EXPERIENCE_MULTIPLIER.get(), "ccffb654-9988-451e-9539-f74934274df1", 0.25f, Operation.MULTIPLY_BASE));
   public static final RegistryObject<TinkerEffect> ricochet = MOB_EFFECTS.register("ricochet", () -> new TinkerEffect(MobEffectCategory.NEUTRAL, 0x01cbcd, true).addAttributeModifier(TinkerAttributes.KNOCKBACK_MULTIPLIER.get(), "58a4bc13-366f-4f76-82f5-705451498c24", 0.5f, Operation.MULTIPLY_BASE));
   public static final RegistryObject<TinkerEffect> enderference = MOB_EFFECTS.register("enderference", () -> new TinkerEffect(MobEffectCategory.HARMFUL, 0xD37CFF, true));
+  /** Projectile persistent data key to allow ranged modifiers to hit endermen. */
+  public static final ResourceLocation ENDERFERENCE_KEY = enderference.getId();
 
   // slimy cakes
   public static final RegistryObject<TinkerEffect> bouncy = MOB_EFFECTS.register("bouncy", () -> new TinkerEffect(MobEffectCategory.BENEFICIAL, 0x71AC63, true).addAttributeModifier(TinkerAttributes.BOUNCY.get(), "5de036ed-bc47-4965-9348-64c3ab5c8ae8", 1, Operation.ADDITION));
@@ -88,5 +96,20 @@ public class TinkerEffects extends TinkerModule {
     if (strong != null) {
       PotionBrewing.addMix(normal, Items.GLOWSTONE_DUST, strong);
     }
+  }
+
+  /** Checks if the given entity can be hit considering enderman enderference */
+  public static boolean canHitWithProjectile(@Nullable LivingEntity living) {
+    return living == null || living.getType() != EntityType.ENDERMAN || living.hasEffect(enderference.get());
+  }
+
+  /** Checks if the given entity needs special casing for enderference */
+  public static boolean needsEnderferenceOverride(@Nullable Entity entity) {
+    return entity != null && entity.getType() == EntityType.ENDERMAN && entity instanceof LivingEntity living && living.hasEffect(enderference.get());
+  }
+
+  /** Checks if the given entity needs special casing for enderference */
+  public static boolean needsEnderferenceOverride(@Nullable LivingEntity living) {
+    return living != null && living.getType() == EntityType.ENDERMAN && living.hasEffect(enderference.get());
   }
 }

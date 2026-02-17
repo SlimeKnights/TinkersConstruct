@@ -2,7 +2,10 @@
   "level_display": "tconstruct:default",
   "modules": [
     {
-      "type": "tconstruct:splashing"
+      "type": "tconstruct:splashing",
+      "strength": {
+        "each_level": 1.0
+      }
     },
     {
       "type": "tconstruct:trait",

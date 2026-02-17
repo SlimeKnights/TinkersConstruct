@@ -12,8 +12,8 @@ import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 
 /**
- * Predicate that checks a tool for the given modifier.
- * @param modifier  Modifier to check for
+ * Predicate that checks a tool for the given modifier within the level range.
+ * @param modifier  Modifier(s) to check for. If multiple modifiers match, their levels will be summed for the range check.
  * @param level     Range of levels to check for, use {@link ModifierEntry#VALID_LEVEL} for simply checking for any level on the tool, 0 means not on the tool.
  * @param check     Whether to check upgrades or all modifiers
  */
@@ -30,13 +30,22 @@ public record HasModifierPredicate(IJsonPredicate<ModifierId> modifier, IntRange
 
   @Override
   public boolean matches(IToolContext tool) {
-    for (ModifierEntry entry : check.getModifiers(tool).getModifiers()) {
-      // TODO: what if multiple modifiers match?
+    // can quickly exit if we only care about the modifier being absent or present
+    ModifierNBT modifiers = check.getModifiers(tool);
+    if (this.level.isExactly(0)) {
+      return !modifiers.has(modifier);
+    }
+    if (this.level.equals(ModifierEntry.VALID_LEVEL)) {
+      return modifiers.has(modifier);
+    }
+    // if we care about a range, check all modifiers that match that range
+    int level = 0;
+    for (ModifierEntry entry : modifiers.getModifiers()) {
       if (modifier.matches(entry.getId())) {
-        return level.test(entry.intEffectiveLevel());
+        level += entry.intEffectiveLevel();
       }
     }
-    return level.test(0);
+    return this.level.test(level);
   }
 
   @Override

@@ -259,13 +259,14 @@ public class FluidEffectProvider extends AbstractFluidEffectProvider {
     addFluid(TinkerFluids.moltenSlimesteel, slimeMetal).addEffect(ExplosionFluidEffect.radius(1, 0.5f).knockback(LevelingValue.eachLevel(1)).build());
     addFluid(TinkerFluids.moltenCinderslime, slimeMetal).addEffect(ExplosionFluidEffect.radius(1, 1).damage(LevelingValue.eachLevel(3)).knockback(LevelingValue.flat(-2)).build());
     addFluid(TinkerFluids.moltenQueensSlime, slimeMetal).addEffect(ExplosionFluidEffect.radius(1, 1).damage(LevelingValue.eachLevel(3)).placeFire().ignoreBlocks().build());
+    addFluid(TinkerFluids.moltenKnightslime, slimeMetal).addEffect(ExplosionFluidEffect.radius(1, 1).damage(LevelingValue.eachLevel(4)).knockback(LevelingValue.flat(0)).ignoreBlocks().build());
     // tinkers nether
     addMetal(TinkerFluids.moltenCobalt).fireDamage(3).addEffect(FluidMobEffect.builder().effect(MobEffects.DIG_SPEED, 20 * 7, 1).effect(MobEffects.MOVEMENT_SPEED, 20 * 7, 1), TimeAction.SET);
     addMetal(TinkerFluids.moltenManyullyn).fireDamage(4).addEffect(FluidMobEffect.builder().effect(TinkerEffects.bleeding.get(), 20 * 3, 1), TimeAction.SET);
     addMetal(TinkerFluids.moltenHepatizon).coldDamage(4).addEffect(FluidMobEffect.builder().effect(MobEffects.WITHER, 20 * 8, 1), TimeAction.SET);
     addMetal(TinkerFluids.moltenNetherite).impactDamage(5).addEffect(FluidMobEffect.builder().effect(MobEffects.BLINDNESS, 20 * 5, 1), TimeAction.SET);
     // tinkers end
-    addMetal(TinkerFluids.moltenKnightmetal).spikeDamage(4).addEffect(FluidMobEffect.builder().effect(TinkerEffects.pierce.get(), 20 * 5, 2), TimeAction.SET);
+    addMetal(TinkerFluids.moltenKnightmetal).spikeDamage(3).addEffect(FluidMobEffect.builder().effect(TinkerEffects.pierce.get(), 20 * 5, 2), TimeAction.SET);
     // thermal compat
     compatFluid("glowstone", FluidValues.GEM).addEffect(FluidMobEffect.builder().effect(MobEffects.GLOWING, 20 * 10), TimeAction.ADD).addBlockEffect(new PlaceBlockFluidEffect(TinkerCommons.glowBlock.get()));
     compatFluid("redstone", FluidValues.GEM).addEffect(ExplosionFluidEffect.radius(1, 0.5f).knockback(LevelingValue.eachLevel(-2)).ignoreBlocks().build());

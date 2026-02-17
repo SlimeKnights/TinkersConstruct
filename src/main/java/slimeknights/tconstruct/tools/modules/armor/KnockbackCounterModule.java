@@ -90,6 +90,7 @@ public record KnockbackCounterModule(TinkerDataKey<SlotInCharge> slotInCharge, L
       if (defender.isUsingItem()) {
         EquipmentSlot checkSlot = Util.getSlotType(defender.getUsedItemHand());
         IToolStackView blockingTool = context.getValidTool(checkSlot);
+        // TODO: CounterModule.isBlocking?
         if (blockingTool != null && ModifierUtil.canPerformAction(blockingTool, ToolActions.SHIELD_BLOCK) && defender.getItemBySlot(checkSlot).getUseDuration() - defender.getUseItemRemainingTicks() >= 5) {
           blockingSlot = checkSlot;
         }
@@ -111,7 +112,7 @@ public record KnockbackCounterModule(TinkerDataKey<SlotInCharge> slotInCharge, L
             }
             // all tools that contributed get damaged, consistency with other counter modules
             if (durabilityUsage > 0 && newBonus > 0) {
-              ToolDamageUtil.damageAnimated(bouncingTool, durabilityUsage, defender, bouncingSlot, true);
+              ToolDamageUtil.damageAnimated(bouncingTool, durabilityUsage, defender, bouncingSlot, modifier.getId());
             }
           }
         }

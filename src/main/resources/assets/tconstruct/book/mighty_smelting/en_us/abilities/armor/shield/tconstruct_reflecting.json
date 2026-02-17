@@ -6,8 +6,9 @@
     }
   ],
   "effects": [
-    "Bounce projectiles within a short time of blocking",
-    "Multiple levels, each level increases reflecting window",
-    "Requires 1 ability slot"
+    "Bounces projectiles for 2 seconds after blocking",
+    "Multiple levels, each adding 2 seconds",
+    "First level requires 1 ability slot",
+    "Consecutive levels 1 ability slot"
   ]
 }

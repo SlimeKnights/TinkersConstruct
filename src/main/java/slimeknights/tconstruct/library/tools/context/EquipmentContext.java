@@ -7,12 +7,17 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.util.LazyOptional;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
+import slimeknights.tconstruct.library.tools.context.EquipmentIterator.EquipmentEntry;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Function;
 
 import static slimeknights.tconstruct.common.TinkerTags.Items.MODIFIABLE;
 
@@ -94,5 +99,47 @@ public class EquipmentContext {
       tinkerData = entity.getCapability(TinkerDataCapability.CAPABILITY);
     }
     return tinkerData;
+  }
+
+
+  /* Iteration */
+  private Iterable<EquipmentEntry> toolIterable, armorIterable, wornArmorIterable;
+
+  /** Gets all tools from the given function */
+  public Iterable<EquipmentEntry> makeIterable(Function<EquipmentSlot,IToolStackView> getter) {
+    List<IToolStackView> tools = new ArrayList<>(6);
+    List<EquipmentSlot> slots = new ArrayList<>(6);
+    for (EquipmentSlot slot : EquipmentSlot.values()) {
+      IToolStackView tool = getter.apply(slot);
+      if (tool != null && !tool.isBroken() && !tool.getModifiers().isEmpty()) {
+        tools.add(tool);
+        slots.add(slot);
+      }
+    }
+    return EquipmentIterator.iterable(tools, slots);
+  }
+
+  /** Iterates all non-broken tools that are in a valid slot in this context. */
+  public Iterable<EquipmentEntry> iterateTools() {
+    if (toolIterable == null) {
+      toolIterable = makeIterable(this::getValidTool);
+    }
+    return toolIterable;
+  }
+
+  /** Iterates all non-broken armor in a valid slot in this context. */
+  public Iterable<EquipmentEntry> iterateArmor() {
+    if (armorIterable == null) {
+      armorIterable = makeIterable(slot -> entity.getItemBySlot(slot).is(TinkerTags.Items.ARMOR) ? getValidTool(slot) : null);
+    }
+    return armorIterable;
+  }
+
+  /** Iterates all non-broken armor in a valid slot in this context. */
+  public Iterable<EquipmentEntry> iterateWornArmor() {
+    if (wornArmorIterable == null) {
+      wornArmorIterable = makeIterable(slot -> slot.isArmor() ? getToolInSlot(slot) : null);
+    }
+    return wornArmorIterable;
   }
 }

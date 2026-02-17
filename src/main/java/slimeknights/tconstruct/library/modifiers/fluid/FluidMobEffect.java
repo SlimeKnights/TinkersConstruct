@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -66,6 +67,11 @@ public record FluidMobEffect(MobEffect effect, int time, int level, @Nullable Li
 
   /** Applies the effect to the target entity */
   public float apply(LivingEntity target, EffectLevel scale, TimeAction timeAction, FluidAction action) {
+    return apply(target, scale, timeAction, action, null);
+  }
+
+  /** Applies the effect to the target entity */
+  public float apply(LivingEntity target, EffectLevel scale, TimeAction timeAction, FluidAction action, @Nullable Entity source) {
     // infinite requires a full level
     if (isInfinite() && !scale.isFull()) {
       return 0;
@@ -118,7 +124,7 @@ public record FluidMobEffect(MobEffect effect, int time, int level, @Nullable Li
       if (action.simulate()) {
         return target.canBeAffected(newInstance) ? used : 0;
       }
-      return target.addEffect(newInstance) ? used : 0;
+      return target.addEffect(newInstance, source) ? used : 0;
     }
     return 0;
   }

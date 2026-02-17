@@ -212,7 +212,7 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
       // piglins
       MaterialIds.gold, MaterialIds.roseGold, MaterialIds.pigIron,
       // misc
-      MaterialIds.blazingBone, MaterialIds.enderPearl
+      MaterialIds.blazingBone, MaterialIds.enderPearl, MaterialIds.dragonScale
     );
   }
 

@@ -11,9 +11,11 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
+import slimeknights.tconstruct.library.modifiers.entity.ReusableProjectile;
 import slimeknights.tconstruct.library.modifiers.hook.build.ConditionalStatModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.ScheduledProjectileTaskModifierHook;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
@@ -30,7 +32,7 @@ import slimeknights.tconstruct.tools.TinkerTools;
 import javax.annotation.Nullable;
 
 /** Arrow with material variants */
-public class ModifiableArrow extends AbstractArrow implements ToolProjectile {
+public class ModifiableArrow extends AbstractArrow implements ToolProjectile, ReusableProjectile {
   /** Key to sync the stack to the client */
   protected static final EntityDataAccessor<ItemStack> STACK = SynchedEntityData.defineId(ModifiableArrow.class, EntityDataSerializers.ITEM_STACK);
   /** Movement speed in water */
@@ -151,6 +153,11 @@ public class ModifiableArrow extends AbstractArrow implements ToolProjectile {
   /* Despawn */
 
   @Override
+  public boolean isReusable() {
+    return reclaim;
+  }
+
+  @Override
   public void tickDespawn() {
     // if we can pick up the arrows, don't despawn with worldbound
     if (pickup != Pickup.ALLOWED || !reclaim) {
@@ -160,6 +167,11 @@ public class ModifiableArrow extends AbstractArrow implements ToolProjectile {
 
   private enum CaptureDiscard { NOT_CAPTURING,  CAPTURING,  DISCARDED }
   private CaptureDiscard captureDiscard = CaptureDiscard.NOT_CAPTURING;
+
+  @Override
+  protected void onHit(HitResult pResult) {
+    super.onHit(pResult);
+  }
 
   @Override
   protected void onHitEntity(EntityHitResult result) {

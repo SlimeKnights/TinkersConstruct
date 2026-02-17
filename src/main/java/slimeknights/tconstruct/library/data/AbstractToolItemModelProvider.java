@@ -54,9 +54,8 @@ public abstract class AbstractToolItemModelProvider extends GenericDataProvider 
       return CompletableFuture.failedFuture(e);
     }
     // no key comparator - I want them sorted in the same order as the input models for easier readability
-    return allOf(models.entrySet().stream().map((entry) -> saveJson(cache, new ResourceLocation(modId, entry.getKey()), entry.getValue(), null)));
+    return allOf(models.entrySet().stream().map((entry) -> saveJson(cache, resource(entry.getKey()), entry.getValue(), null)));
   }
-
 
 
   /* Model types */
@@ -278,6 +277,7 @@ public abstract class AbstractToolItemModelProvider extends GenericDataProvider 
   }
 
   /** Creates a resource location under this mod */
+  @SuppressWarnings("removal")
   protected ResourceLocation resource(String name) {
     return new ResourceLocation(modId, name);
   }

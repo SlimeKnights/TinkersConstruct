@@ -5,6 +5,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
+import slimeknights.tconstruct.library.tools.context.EquipmentIterator.EquipmentEntry;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import java.util.Collection;
@@ -56,15 +57,11 @@ public interface ModifyDamageModifierHook {
    * @param isDirectDamage  If true, the damage source is applying directly
    */
   static float modifyDamageTaken(ModuleHook<ModifyDamageModifierHook> hook, EquipmentContext context, DamageSource source, float amount, boolean isDirectDamage) {
-    for (EquipmentSlot slotType : EquipmentSlot.values()) {
-      IToolStackView toolStack = context.getValidTool(slotType);
-      if (toolStack != null && !toolStack.isBroken()) {
-        for (ModifierEntry entry : toolStack.getModifierList()) {
-          amount = entry.getHook(hook).modifyDamageTaken(toolStack, entry, context, slotType, source, amount, isDirectDamage);
-          if (amount < 0) {
-            return 0;
-          }
-        }
+    for (EquipmentEntry entry : context.iterateTools()) {
+      ModifierEntry modifier = entry.modifier();
+      amount = modifier.getHook(hook).modifyDamageTaken(entry.tool(), modifier, context, entry.slot(), source, amount, isDirectDamage);
+      if (amount < 0) {
+        return 0;
       }
     }
     return amount;

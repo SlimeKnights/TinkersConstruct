@@ -15,6 +15,11 @@ import static slimeknights.tconstruct.common.TinkerTags.Modifiers.BLOCK_WHILE_CH
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.BONUS_SLOTLESS;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.BOOT_ABILITIES;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.BOOT_UPGRADES;
+import static slimeknights.tconstruct.common.TinkerTags.Modifiers.BYPASS_EXTRA_DURABILITY;
+import static slimeknights.tconstruct.common.TinkerTags.Modifiers.BYPASS_FROSTSHIELD;
+import static slimeknights.tconstruct.common.TinkerTags.Modifiers.BYPASS_OVERSLIME;
+import static slimeknights.tconstruct.common.TinkerTags.Modifiers.BYPASS_REINFORCED;
+import static slimeknights.tconstruct.common.TinkerTags.Modifiers.BYPASS_TANNED;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.CHARGE_EMPTY_BOW_WITHOUT_DRAWTIME;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.CHARGE_EMPTY_BOW_WITH_DRAWTIME;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.CHESTPLATE_ABILITIES;
@@ -49,6 +54,7 @@ import static slimeknights.tconstruct.common.TinkerTags.Modifiers.PROTECTION_DEF
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.RANGED_ABILITIES;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.RANGED_UPGRADES;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.REMOVE_MODIFIER_BLACKLIST;
+import static slimeknights.tconstruct.common.TinkerTags.Modifiers.SECONDARY_DURABILITY;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.SELF_KNOCKBACK_SLINGS;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.SHIELD_ABILITIES;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.SLIME_DEFENSE;
@@ -109,6 +115,22 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
     tag(TARGET_KNOCKBACK_SLINGS).add(ModifierIds.bonking);
     tag(KNOCKBACK_SLINGS).addTag(SELF_KNOCKBACK_SLINGS, TARGET_KNOCKBACK_SLINGS);
 
+    // durability tags
+    tag(BYPASS_TANNED).addTag(SECONDARY_DURABILITY);
+    tag(SECONDARY_DURABILITY).add(
+      // protection is used for the damage correction on armor, which tanned should prevent
+      ModifierIds.protection,
+      // counter-attack
+      ModifierIds.thorns, ModifierIds.fiery, ModifierIds.freezing, ModifierIds.springy,
+      ModifierIds.pierce, ModifierIds.venom, ModifierIds.conductive, ModifierIds.shock,
+      // special effects
+      ModifierIds.necrotic, ModifierIds.restore, TinkerModifiers.enderporting.getId()
+    );
+    tag(BYPASS_REINFORCED).add(ModifierIds.glowing);
+    tag(BYPASS_EXTRA_DURABILITY);
+    tag(BYPASS_OVERSLIME).addTag(BYPASS_EXTRA_DURABILITY).add(ModifierIds.glowing);
+    tag(BYPASS_FROSTSHIELD).addTag(BYPASS_EXTRA_DURABILITY).add(ModifierIds.glowing);
+
     // book tags
     this.tag(UPGRADES).addTag(GENERAL_UPGRADES, MELEE_UPGRADES, DAMAGE_UPGRADES, HARVEST_UPGRADES, ARMOR_UPGRADES, RANGED_UPGRADES);
     this.tag(ARMOR_UPGRADES).addTag(GENERAL_ARMOR_UPGRADES, HELMET_UPGRADES, CHESTPLATE_UPGRADES, LEGGING_UPGRADES, BOOT_UPGRADES);
@@ -121,13 +143,13 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
     this.tag(GENERAL_UPGRADES).add(
       ModifierIds.diamond, ModifierIds.emerald, ModifierIds.netherite,
       ModifierIds.reinforced, ModifierIds.overforced, ModifierIds.soulbound,
-      ModifierIds.experienced, TinkerModifiers.magnetic.getId(), ModifierIds.scope, ModifierIds.zoom,
+      ModifierIds.experienced, ModifierIds.magnetic, ModifierIds.scope, ModifierIds.zoom,
       ModifierIds.tank, ModifierIds.smelting, ModifierIds.fireprimer)
         .addOptional(ModifierIds.theOneProbe);
 
     this.tag(MELEE_UPGRADES).add(
       ModifierIds.knockback, ModifierIds.padded,
-      TinkerModifiers.severing.getId(), TinkerModifiers.necrotic.getId(), ModifierIds.sweeping,
+      TinkerModifiers.severing.getId(), ModifierIds.necrotic, ModifierIds.sweeping,
       ModifierIds.fiery, ModifierIds.freezing);
     this.tag(DAMAGE_UPGRADES).add(
       ModifierIds.sharpness, ModifierIds.pierce, ModifierIds.swiftstrike,
@@ -147,7 +169,7 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
       ModifierIds.pierce, ModifierIds.power, ModifierIds.punch, ModifierIds.quickCharge,
       TinkerModifiers.sinistral.getId(), ModifierIds.trueshot,
       ModifierIds.fiery, ModifierIds.freezing,
-      ModifierIds.arrowPierce, ModifierIds.bounce, TinkerModifiers.necrotic.getId(),
+      ModifierIds.arrowPierce, ModifierIds.bounce, ModifierIds.necrotic,
       ModifierIds.lure, ModifierIds.collecting, ModifierIds.fins);
 
     // abilities

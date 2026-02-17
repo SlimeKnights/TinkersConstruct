@@ -1,0 +1,44 @@
+{
+  "level_display": "tconstruct:single_level",
+  "modules": [
+    {
+      "type": "tconstruct:adjust_damage",
+      "damage_source": "mantle:can_protect",
+      "formula": [
+        "$protection",
+        "$max_health",
+        "$level",
+        2.0,
+        "*",
+        "-",
+        1.0,
+        "max",
+        "min"
+      ],
+      "holder": {
+        "type": "tconstruct:variable_range",
+        "interval": "right_open",
+        "min": 2.0,
+        "variable": {
+          "type": "tconstruct:attribute",
+          "attribute": "minecraft:generic.max_health"
+        }
+      },
+      "hooks": [
+        "tconstruct:modify_damage"
+      ],
+      "percent": false,
+      "tooltip_value": 1.0,
+      "variables": {
+        "max_health": {
+          "type": "tconstruct:entity",
+          "attribute": "minecraft:generic.max_health",
+          "entity_type": "tconstruct:attribute",
+          "fallback": 20.0,
+          "which": "target"
+        }
+      }
+    }
+  ],
+  "tooltip_display": "always"
+}

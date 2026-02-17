@@ -8,6 +8,11 @@
     },
     {
       "type": "tconstruct:durability_shield",
+      "cause": {
+        "type": "mantle:inverted",
+        "inverted_type": "tconstruct:tag",
+        "tag": "tconstruct:durability/bypass_frostshield"
+      },
       "color": "AAFFFF"
     },
     {

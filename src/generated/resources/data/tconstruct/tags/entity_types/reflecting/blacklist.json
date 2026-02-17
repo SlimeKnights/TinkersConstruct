@@ -1,7 +1,7 @@
 {
   "values": [
     {
-      "id": "dummmmmmy:target_dummy",
+      "id": "#forge:reflecting/blacklist",
       "required": false
     }
   ]

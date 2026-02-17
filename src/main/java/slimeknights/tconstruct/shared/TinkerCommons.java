@@ -58,6 +58,8 @@ import slimeknights.tconstruct.library.json.condition.TagNotEmptyCondition;
 import slimeknights.tconstruct.library.json.loot.HasLootContextSetCondition;
 import slimeknights.tconstruct.library.json.loot.TagPreferenceLootEntry;
 import slimeknights.tconstruct.library.json.predicate.BlockAtFeetEntityPredicate;
+import slimeknights.tconstruct.library.json.predicate.BlockVariableRangePredicate;
+import slimeknights.tconstruct.library.json.predicate.EntityVariableRangePredicate;
 import slimeknights.tconstruct.library.json.predicate.HarvestTierPredicate;
 import slimeknights.tconstruct.library.json.predicate.HasMobEffectPredicate;
 import slimeknights.tconstruct.library.json.predicate.TinkerPredicate;
@@ -207,6 +209,7 @@ public final class TinkerCommons extends TinkerModule {
       LivingEntityPredicate.LOADER.register(getResource("airborne"), TinkerPredicate.AIRBORNE.getLoader());
       LivingEntityPredicate.LOADER.register(getResource("targeting_block"), TinkerPredicate.TARGETING_BLOCK.getLoader());
       LivingEntityPredicate.LOADER.register(getResource("full_health"), TinkerPredicate.FULL_HEALTH.getLoader());
+      LivingEntityPredicate.LOADER.register(getResource("variable_range"), EntityVariableRangePredicate.LOADER);
       LivingEntityPredicate.LOADER.register(getResource("has_effect"), HasMobEffectPredicate.LOADER);
       LivingEntityPredicate.LOADER.register(getResource("block_at_feet"), BlockAtFeetEntityPredicate.LOADER);
       // item
@@ -221,6 +224,7 @@ public final class TinkerCommons extends TinkerModule {
       BlockPredicate.LOADER.register(getResource("bush"), TinkerPredicate.BUSH.getLoader());
       BlockPredicate.LOADER.register(getResource("can_melt"), TinkerPredicate.CAN_MELT_BLOCK.getLoader());
       BlockPredicate.LOADER.register(getResource("harvest_tier"), HarvestTierPredicate.LOADER);
+      BlockPredicate.LOADER.register(getResource("variable_range"), BlockVariableRangePredicate.LOADER);
     }
   }
 

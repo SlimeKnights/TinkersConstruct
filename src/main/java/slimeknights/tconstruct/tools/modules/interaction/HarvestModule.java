@@ -256,7 +256,7 @@ public enum HarvestModule implements ModifierModule, BlockInteractionModifierHoo
         ItemStack stack = context.getItemInHand();
         if (harvest(context, tool, server, state, pos, source)) {
           didHarvest = true;
-          broken = survival && ToolDamageUtil.damage(tool, 1, player, stack);
+          broken = survival && ToolDamageUtil.damage(tool, 1, player, stack, modifier.getId());
         }
 
         // if we have harvest logic, try doing AOE harvest
@@ -265,7 +265,7 @@ public enum HarvestModule implements ModifierModule, BlockInteractionModifierHoo
             // try harvesting the crop, if successful and survival, damage the tool
             if (harvest(context, tool, server, world.getBlockState(newPos), newPos, source)) {
               didHarvest = true;
-              if (survival && ToolDamageUtil.damage(tool, 1, player, stack)) {
+              if (survival && ToolDamageUtil.damage(tool, 1, player, stack, modifier.getId())) {
                 broken = true;
                 break;
               }

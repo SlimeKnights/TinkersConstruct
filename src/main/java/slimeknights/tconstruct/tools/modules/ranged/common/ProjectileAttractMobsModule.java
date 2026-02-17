@@ -11,10 +11,10 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
-import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.json.LevelingValue;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
+import slimeknights.tconstruct.library.modifiers.entity.ReusableProjectile;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileFuseModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
@@ -76,8 +76,8 @@ public record ProjectileAttractMobsModule(LevelingValue radius, LevelingValue st
       }
     }
     // since we did something useful, toss the projectile even if unused
-    if (pulled > 0 && !projectile.getType().is(TinkerTags.EntityTypes.REUSABLE_AMMO)) {
-      projectile.discard();
+    if (pulled > 0) {
+      ReusableProjectile.discard(projectile);
     }
   }
 

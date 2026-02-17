@@ -1,18 +1,16 @@
 package slimeknights.tconstruct.tools.modifiers.upgrades.armor;
 
-import net.minecraft.world.item.enchantment.Enchantments;
+import slimeknights.tconstruct.library.json.LevelingInt;
 import slimeknights.tconstruct.library.modifiers.Modifier;
-import slimeknights.tconstruct.library.modifiers.modules.build.EnchantmentModule;
+import slimeknights.tconstruct.library.modifiers.modules.util.ModifierCondition;
 import slimeknights.tconstruct.library.module.ModuleHookMap.Builder;
-import slimeknights.tconstruct.tools.modules.armor.SoulSpeedTooltipModule;
+import slimeknights.tconstruct.tools.modules.armor.SoulSpeedModule;
 
-/** @deprecated use {@link SoulSpeedTooltipModule} and {@link EnchantmentModule} */
+/** @deprecated use {@link SoulSpeedModule} */
 @Deprecated(forRemoval = true)
 public class SoulSpeedModifier extends Modifier {
   @Override
   protected void registerHooks(Builder hookBuilder) {
-    super.registerHooks(hookBuilder);
-    hookBuilder.addModule(new EnchantmentModule.Constant(Enchantments.SOUL_SPEED, 1));
-    hookBuilder.addModule(SoulSpeedTooltipModule.INSTANCE);
+    hookBuilder.addModule(new SoulSpeedModule(LevelingInt.flat(1), ModifierCondition.ANY_TOOL));
   }
 }

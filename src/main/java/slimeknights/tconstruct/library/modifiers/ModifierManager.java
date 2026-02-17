@@ -79,8 +79,9 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
   /** GSON instance for loading dynamic modifiers */
   public static final Gson GSON = (new GsonBuilder()).setPrettyPrinting().disableHtmlEscaping().create();
 
-  /** ID of the default modifier */
-  public static final ModifierId EMPTY = new ModifierId(TConstruct.MOD_ID, "empty");
+  /** @deprecated use {@link ModifierId#EMPTY} */
+  @Deprecated
+  public static final ModifierId EMPTY = ModifierId.EMPTY;
 
   /** Singleton instance of the modifier manager */
   public static final ModifierManager INSTANCE = new ModifierManager();
@@ -142,6 +143,7 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
     conditionContext = event.getConditionContext();
   }
 
+  @SuppressWarnings("removal")
   @Override
   protected void apply(Map<ResourceLocation,JsonElement> splashList, ResourceManager pResourceManager, ProfilerFiller pProfiler) {
     long time = System.nanoTime();
@@ -192,7 +194,8 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
     // load modifier tags
     TagLoader<Modifier> tagLoader = new TagLoader<>(id -> {
       Modifier modifier = ModifierManager.getValue(new ModifierId(id));
-      if (modifier == defaultValue) {
+      // only allow the default modifier if it's explicitly set to empty
+      if (modifier == defaultValue && !id.equals(EMPTY)) {
         return Optional.empty();
       }
       return Optional.of(modifier);

@@ -169,6 +169,7 @@ public class InteractionHandler {
     Player player = event.getEntity();
     if (event.getItemStack().isEmpty() && !player.isSpectator()) {
       // item must be a chestplate
+      // TODO 1.21: add a modifier tag so we only perform the cancellation if a modifier needs it
       ItemStack chestplate = player.getItemBySlot(EquipmentSlot.CHEST);
       if (chestplate.is(TinkerTags.Items.INTERACTABLE_ARMOR) && !player.getCooldowns().isOnCooldown(chestplate.getItem())) {
         // no turning back, from this point we are fully in charge of interaction logic (since we need to ensure order of the hooks)

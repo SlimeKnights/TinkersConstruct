@@ -45,6 +45,13 @@ public class ModifierMaxLevel {
 
   /** Fetches the max stat level from the given living entity */
   public static float getStat(LivingEntity living, TinkerDataCapability.ComputableDataKey<ModifierMaxLevel> key) {
-    return living.getCapability(TinkerDataCapability.CAPABILITY).resolve().map(data -> data.get(key)).map(ModifierMaxLevel::getMax).orElse(0f);
+    TinkerDataCapability.Holder data = TinkerDataCapability.getData(living);
+    if (data != null) {
+      ModifierMaxLevel value = data.get(key);
+      if (value != null) {
+        return value.max;
+      }
+    }
+    return 0;
   }
 }

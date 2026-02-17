@@ -101,7 +101,7 @@ public enum TippedModule implements ModifierModule, ProjectileLaunchModifierHook
         for (MobEffectInstance instance : BuiltInRegistries.POTION.get(id).getEffects()) {
           MobEffect effect = instance.getEffect();
           if (effect.isInstantenous()) {
-            effect.applyInstantenousEffect(source, projectile, target, instance.getAmplifier(), 1f / (divisor * 0.75f));
+            effect.applyInstantenousEffect(projectile, projectile.getOwner(), target, instance.getAmplifier(), 1f / (divisor * 0.75f));
           } else {
             target.addEffect(new MobEffectInstance(instance.getEffect(), Math.max(instance.mapDuration(i -> i / divisor), 1), instance.getAmplifier(), instance.isAmbient(), instance.isVisible()), source);
           }

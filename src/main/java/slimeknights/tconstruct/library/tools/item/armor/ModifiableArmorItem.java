@@ -348,17 +348,14 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
 
   @Override
   public void inventoryTick(ItemStack stack, Level levelIn, Entity entityIn, int itemSlot, boolean isSelected) {
-    super.inventoryTick(stack, levelIn, entityIn, itemSlot, isSelected);
-
     // don't care about non-living, they skip most tool context
-    if (entityIn instanceof LivingEntity) {
+    if (entityIn instanceof LivingEntity living) {
       ToolStack tool = ToolStack.from(stack);
       if (!levelIn.isClientSide) {
         tool.ensureHasData();
       }
       List<ModifierEntry> modifiers = tool.getModifierList();
       if (!modifiers.isEmpty()) {
-        LivingEntity living = (LivingEntity) entityIn;
         boolean isCorrectSlot = living.getItemBySlot(getEquipmentSlot()) == stack;
         // we pass in the stack for most custom context, but for the sake of armor its easier to tell them that this is the correct slot for effects
         for (ModifierEntry entry : modifiers) {

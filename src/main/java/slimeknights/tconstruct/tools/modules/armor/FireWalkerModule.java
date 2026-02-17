@@ -37,7 +37,7 @@ public record FireWalkerModule(LevelingValue radius) implements ModifierModule, 
     if (BaseFireBlock.canBePlacedAt(world, target, living.getDirection())) {
       world.playSound(null, target, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, living.level().random.nextFloat() * 0.4F + 0.8F);
       world.setBlock(target, BaseFireBlock.getState(world, target), Block.UPDATE_ALL_IMMEDIATE);
-      ToolDamageUtil.damageAnimated(tool, 1, living, EquipmentSlot.FEET);
+      ToolDamageUtil.damageAnimated(tool, 1, living, EquipmentSlot.FEET, entry.getId());
     }
     return tool.isBroken();
   }

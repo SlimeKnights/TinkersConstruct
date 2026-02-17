@@ -18,6 +18,7 @@ import slimeknights.mantle.client.TooltipKey;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.json.LevelingInt;
+import slimeknights.tconstruct.library.json.LevelingValue;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffectContext;
@@ -45,10 +46,13 @@ import static slimeknights.tconstruct.library.tools.capability.fluid.ToolTankHel
 import static slimeknights.tconstruct.library.tools.helper.ModifierUtil.asPlayer;
 
 /** Modifier that after a short time applies a fluid effect to the holder. */
-public record SlurpingModule(LevelingInt duration) implements ModifierModule, GeneralInteractionModifierHook, UsingToolModifierHook, KeybindInteractModifierHook, InventoryTickModifierHook, EquipmentChangeModifierHook {
+public record SlurpingModule(LevelingValue strength, LevelingInt duration) implements ModifierModule, GeneralInteractionModifierHook, UsingToolModifierHook, KeybindInteractModifierHook, InventoryTickModifierHook, EquipmentChangeModifierHook {
   private static final float DEGREE_TO_RADIANS = (float)Math.PI / 180F;
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<SlurpingModule>defaultHooks(ModifierHooks.GENERAL_INTERACT, ModifierHooks.TOOL_USING, ModifierHooks.ARMOR_INTERACT, ModifierHooks.INVENTORY_TICK, ModifierHooks.EQUIPMENT_CHANGE);
-  public static final RecordLoadable<SlurpingModule> LOADER = RecordLoadable.create(LevelingInt.LOADABLE.requiredField("duration", SlurpingModule::duration), SlurpingModule::new);
+  public static final RecordLoadable<SlurpingModule> LOADER = RecordLoadable.create(
+    LevelingValue.LOADABLE.requiredField("strength", SlurpingModule::strength),
+    LevelingInt.LOADABLE.requiredField("duration", SlurpingModule::duration),
+    SlurpingModule::new);
 
   @Override
   public RecordLoadable<SlurpingModule> getLoader() {
@@ -63,16 +67,16 @@ public record SlurpingModule(LevelingInt duration) implements ModifierModule, Ge
   /* Helpers */
 
   /** Checks if we can slurp the given fluid */
-  private static int slurp(FluidStack fluid, float level, LivingEntity entity, @Nullable Player player, FluidAction action) {
+  private int slurp(FluidStack fluid, ModifierEntry entry, LivingEntity entity, @Nullable Player player, FluidAction action) {
     if (!fluid.isEmpty()) {
       FluidEffects recipe = FluidEffectManager.INSTANCE.find(fluid.getFluid());
-      return recipe.hasEntityEffects() ? recipe.applyToEntity(fluid, level, FluidEffectContext.builder(entity.level()).user(entity, player).target(entity), action) : 0;
+      return recipe.hasEntityEffects() ? recipe.applyToEntity(fluid, strength.compute(entry), FluidEffectContext.builder(entity.level()).user(entity, player).target(entity), action) : 0;
     }
     return 0;
   }
 
   /** Drinks some of the fluid in the tank, reducing its value and spawning particles and playing sounds */
-  private static void finishDrinking(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, boolean playSound) {
+  private void finishDrinking(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, boolean playSound) {
     FluidStack fluid = TANK_HELPER.getFluid(tool);
     if (!fluid.isEmpty()) {
       // sound and particles
@@ -83,7 +87,7 @@ public record SlurpingModule(LevelingInt duration) implements ModifierModule, Ge
       // apply effect
       if (!entity.level().isClientSide) {
         Player player = asPlayer(entity);
-        int consumed = slurp(fluid, modifier.getEffectiveLevel(), entity, player, FluidAction.EXECUTE);
+        int consumed = slurp(fluid, modifier, entity, player, FluidAction.EXECUTE);
         if (consumed > 0 && (player == null || !player.isCreative())) {
           fluid.shrink(consumed);
           TANK_HELPER.setFluid(tool, fluid);
@@ -119,7 +123,7 @@ public record SlurpingModule(LevelingInt duration) implements ModifierModule, Ge
   @Override
   public InteractionResult onToolUse(IToolStackView tool, ModifierEntry modifier, Player player, InteractionHand hand, InteractionSource source) {
     if (source == InteractionSource.RIGHT_CLICK) {
-      if (slurp(TANK_HELPER.getFluid(tool), modifier.getEffectiveLevel(), player, player, FluidAction.SIMULATE) > 0) {
+      if (slurp(TANK_HELPER.getFluid(tool), modifier, player, player, FluidAction.SIMULATE) > 0) {
         GeneralInteractionModifierHook.startUsing(tool, modifier.getId(), player, hand);
         return InteractionResult.CONSUME;
       }
@@ -144,7 +148,7 @@ public record SlurpingModule(LevelingInt duration) implements ModifierModule, Ge
     boolean notActive = modifier != activeModifier;
     if (notActive && useTime == 0) {
       FluidStack fluid = TANK_HELPER.getFluid(tool);
-      if (!fluid.isEmpty() && slurp(fluid, modifier.getEffectiveLevel(), entity, asPlayer(entity), FluidAction.SIMULATE) > 0) {
+      if (!fluid.isEmpty() && slurp(fluid, modifier, entity, asPlayer(entity), FluidAction.SIMULATE) > 0) {
         tool.getPersistentData().putBoolean(modifier.getId(), true);
       }
     }
@@ -182,7 +186,7 @@ public record SlurpingModule(LevelingInt duration) implements ModifierModule, Ge
   @Override
   public boolean startInteract(IToolStackView tool, ModifierEntry modifier, Player player, EquipmentSlot slot, TooltipKey keyModifier) {
     if (keyModifier == TooltipKey.NORMAL) {
-      if (slurp(TANK_HELPER.getFluid(tool), modifier.getEffectiveLevel(), player, player, FluidAction.SIMULATE) > 0) {
+      if (slurp(TANK_HELPER.getFluid(tool), modifier, player, player, FluidAction.SIMULATE) > 0) {
         tool.getPersistentData().putInt(modifier.getId(), player.tickCount + duration.compute(modifier.getEffectiveLevel()));
         return true;
       }
