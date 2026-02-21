@@ -2096,11 +2096,11 @@
   "material.tconstruct.cinderslime.encyclopedia": "消耗燃料回复黏液覆层，达到第4级时每秒回复1点。",
 
   "material.tconstruct.queens_slime": "皇后史莱姆",
-  "material.tconstruct.queens_slime.flavor": "公主都不是什么善茬，去找个皇后吧。",
+  "material.tconstruct.queens_slime.flavor": "公主不是什么善茬，去找个皇后吧。",
   "material.tconstruct.queens_slime.encyclopedia": "每级使耐久度-15%，其中的66%将被转化为黏液覆层。",
 
   "material.tconstruct.blazing_bone": "烈焰之骨",
-  "material.tconstruct.blazing_bone.flavor": "获取下界要塞的所有力量——烈焰之力与骨之力",
+  "material.tconstruct.blazing_bone.flavor": "统御下界要塞之力——噬骨与烈火。",
   "material.tconstruct.blazing_bone.encyclopedia": "每剩余1秒着火时间，攻击伤害+2%，上限为+20%（剩余着火时间不少于10秒）。加成会受抗火效果影响而减少。",
   "material.tconstruct.blazing_bone.ranged": "每剩余1秒着火时间，箭矢伤害+2%，上限为+20%（剩余着火时间不少于10秒）。加成会受抗火效果影响而减少。",
   "material.tconstruct.blazing_bone.armor": "受到攻击后，有15%概率使攻击者在接下来5至10秒内受到的火焰伤害增加到200% （成功格挡则最大值改为15秒）。",
@@ -2240,7 +2240,7 @@
   "material.tconstruct.bronze.armor": "满耐久度时，每级使得盔甲韧性+2； 耐久度低于50%后，加成衰减为0。",
 
   "material.tconstruct.constantan": "康铜",
-  "material.tconstruct.constantan.flavor": "让我康一康这好康的康铜……抱歉，用“康”造句太好玩了。",
+  "material.tconstruct.constantan.flavor": "让我康康这好康的康铜……抱歉，用“康”造句太好玩了。",
   "material.tconstruct.constantan.encyclopedia": "极冷环境下，工具挖掘速度+7.5；极热环境下，工具双倍减少耐久度消耗。",
   "material.tconstruct.constantan.ranged": "极冷环境下，初速度+0.15，极热环境下则双倍减少耐久度消耗。",
   "material.tconstruct.constantan.armor": "在极冷环境下保护+5%；极热环境下则双倍减少耐久度消耗。",

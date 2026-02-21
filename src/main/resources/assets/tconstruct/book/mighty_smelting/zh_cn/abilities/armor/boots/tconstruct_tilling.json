@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:tilling",
   "text": [
     {
-      "text": "有过建造大型农场的想法吗？真的很大的那种？现在那个想法可行了。"
+      "text": "有过建造大型农场的想法吗？真的很大的那种？现在这个想法可以付诸实“践”了。"
     }
   ],
   "tool_filter": "tconstruct:modifiable/armor/boots",
   "effects": [
-    "使走过的土壤变为耕地",
-    "“延展”可以扩大开垦范围",
+    "开垦脚下的泥土",
+    "“延展”可以扩大范围",
     "单个等级",
     "需要1个能力槽"
   ]
