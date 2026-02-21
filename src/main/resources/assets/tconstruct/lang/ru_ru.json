@@ -3736,7 +3736,9 @@
 
   "recipe.tconstruct.part_swapping.too_many_parts": "Стол слишком мал для замены деталей на этом инструменте.",
   "recipe.tconstruct.part_swapping.too_few_inputs": "Размер стопки инструмента слишком мал для выполнения этой замены детали.",
-
+  "recipe.tconstruct.part_swapping.invalid_material": "Этот материал не может быть использован для этой детали.",
+  "recipe.tconstruct.part_swapping.too_few_parts": "Предпринята попытка поменять местами слишком большой индекс материала в инструменте. Это указывает на неисправность пакета данных.",
+  
   "recipe.tconstruct.modifier.not_enough_slot": "Для добавления этого модификатора требуется как минимум 1 слот %s",
   "recipe.tconstruct.modifier.not_enough_slots": "Для добавления этого модификатора требуется как минимум %s слотов %s",
   "recipe.tconstruct.modifier.validate_slots": "Это изменение оставляет инструменту слишком мало слотов %s",
