@@ -1794,7 +1794,7 @@
   "material.tconstruct.ice.armor": "Преобразует полученный урон от холода в прочный щит.",
   "material.tconstruct.ice.ammo": "Замораживает цель на 4 сек. (+4 сек. за каждый уровень), замедляя действие и нанося урон с течением времени.",
   "material.tconstruct.ice.skull_flavor": "Пробирает до костей!",
-  "material.tconstruct.ice.skull_encyclopedia": "Делает вас невосприимчивым к замедлению. Снаряды замедляют попадание в цель на 15 сек.",
+  "material.tconstruct.ice.skull_encyclopedia": "Делает вас невосприимчивым к замедлению. Снаряды вызывают эффект «Замедление II» на 15 сек.",
 
   "material.tconstruct.cactus": "Кактус",
   "material.tconstruct.cactus.flavor": "Колючий щит защищает от серьёзных ударов ножом.",
