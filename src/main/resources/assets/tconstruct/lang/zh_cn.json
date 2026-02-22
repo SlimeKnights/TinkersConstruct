@@ -1982,7 +1982,7 @@
 
   "material.tconstruct.redstone": "红石",
   "material.tconstruct.redstone.flavor": "迅捷如风！",
-  "material.tconstruct.redstone.ammo": "每级让箭矢获得+10%初熟度；每级让掷出的武器获得+20%初速度。",
+  "material.tconstruct.redstone.ammo": "每级让箭矢获得+10%初速度；每级让掷出的武器获得+20%初速度。",
 
   "material.tconstruct.earthslime": "大地黏液",
   "material.tconstruct.earthslime.flavor": "给我过来！",
@@ -2056,7 +2056,7 @@
   "material.tconstruct.cobalt": "钴",
   "material.tconstruct.cobalt.flavor": "雄关漫道真如钴，而今回首从头迈。",
   "material.tconstruct.cobalt.encyclopedia": "每级使攻击速度和挖掘速度+8%。",
-  "material.tconstruct.cobalt.ranged": "每级使拉弓速度和初速度+3%。",
+  "material.tconstruct.cobalt.ranged": "每级使拉弓速度和初速度+0.03。",
   "material.tconstruct.cobalt.armor": "每级使受到的近战伤害-8%；使用物品的时候，按等级最高的盔甲，每级使移动 速度+5%。",
 
   "material.tconstruct.quartz": "石英",
@@ -2148,7 +2148,7 @@
   "material.tconstruct.knightmetal.ranged": "目标每穿戴一件盔甲，每级令箭矢伤害+0.2（先于速度计算）。",
   "material.tconstruct.knightmetal.armor": "攻击者每手持一件物品，每级令自身的保护+4%。",
 
-  "material.tconstruct.knightly": "骑士金属碎片",
+  "material.tconstruct.knightly": "骑士",
   "material.tconstruct.knightly.flavor": "史莱姆旅途中得到的碎片，未打磨时尤为尖锐。",
   "material.tconstruct.knightly.ammo": "目标每穿戴一件盔甲，每级令箭矢伤害+0.2（先于速度计算）。",
 
@@ -3520,8 +3520,8 @@
   "stat.tconstruct.plating_boots": "靴子镶板",
   "stat.tconstruct.plating_shield": "盾牌镶板",
   "stat.tconstruct.shield_core": "盾牌基底",
-  "stat.tconstruct.maille": "锁链基底",
-  "stat.tconstruct.cuirass": "皮革基底",
+  "stat.tconstruct.maille": "链甲基底",
+  "stat.tconstruct.cuirass": "软甲基底",
   "tool_stat.tconstruct.armor": "护甲值：",
   "tool_stat.tconstruct.armor.description": "当穿戴时能提供多少保护",
   "tool_stat.tconstruct.armor_toughness": "盔甲韧性：",
