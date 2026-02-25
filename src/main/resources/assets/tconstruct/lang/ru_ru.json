@@ -1438,6 +1438,8 @@
   "block.tconstruct.seared_fluid_cannon.tooltip": "Выстреливает базовым количеством жидкости при срабатывании от редстоуна.\nСохраняет жидкость при ломании.",
   "block.tconstruct.scorched_fluid_cannon": "Кобальтовая жидкостная пушка",
   "block.tconstruct.scorched_fluid_cannon.tooltip": "Выстреливает более мощными жидкими снарядами при срабатывании от редстоуна.\nСохраняет жидкость при ломании.",
+  "block.tconstruct.end_fluid_cannon": "Жидкостная пушка из рыцарского металла",
+  "block.tconstruct.end_fluid_cannon.tooltip": "При срабатывании редстоуна стреляет жидкими снарядами быстрее.\nСохраняет жидкость при ломании, увеличивая мощность.",
   "entity.tconstruct.fluid_spit": "Жидкий снаряд",
 
   "block.tconstruct.smeltery_controller": "Контроллер плавильни",
