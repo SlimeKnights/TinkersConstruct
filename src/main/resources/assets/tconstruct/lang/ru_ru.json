@@ -1185,6 +1185,7 @@
   "item.tconstruct.slime_helmet.material.tconstruct.venombone":     "Слизневый череп их ядовитой кости",
   "item.tconstruct.slime_helmet.material.tconstruct.blazing_bone":  "Слизневый череп из огненной кости",
   "item.tconstruct.slime_helmet.material.tconstruct.necronium":     "Слизневый череп из некрония",
+  "item.tconstruct.slime_helmet.material.tconstruct.knightmetal":   "Слизневый череп из из рыцарского металла",
 
   "item.tconstruct.crystalshot": "Аметистовый выстрел",
   "entity.tconstruct.crystalshot": "Аметистовый выстрел",
@@ -2005,8 +2006,8 @@
   "material.tconstruct.blaze": "Огненное",
   "material.tconstruct.blaze.flavor": "Сожгите всё!",
   "material.tconstruct.blaze.ammo": "Заставляет стрелы воспламеняться, поджигая цели на 5 сек. за каждый уровень.",
-  "material.tconstruct.blaze.skull_flavor": "Я им сказал, что это технически плевок огнём, а не огненное дыхание, но, видимо, я не имею права выбирать названия для изобретённых мною вещей!",
-  "material.tconstruct.blaze.skull_encyclopedia": "Позволяет использовать огненные заряды из инвентаря в виде огненных шаров. Время восстановления составляет 5 сек. и не работает под водой.",
+  "material.tconstruct.blaze.skull_flavor": "Чувствуете, что поджигаете слишком сильно? Или, возможно, недостаточно? В любом случае, это для вас.",
+  "material.tconstruct.blaze.skull_encyclopedia": "Атаки (как ближнего, так и дальнего боя) заставляют цель гореть в течение 5 сек. Делает пользователя неуязвимым к урону от огня.",
   
   "material.tconstruct.ender_pearl": "Эндер-жемчуг",
   "material.tconstruct.ender_pearl.flavor": "Безопасный способ добыть жемчуг.",
@@ -2159,7 +2160,9 @@
   "material.tconstruct.knightmetal.encyclopedia": "Даёт +0.4 урона за уровень за каждый предмет брони, который носит цель.",
   "material.tconstruct.knightmetal.ranged": "Даёт +0.2 урона за уровень за каждый предмет брони, который носит цель (без учёта скорости).",
   "material.tconstruct.knightmetal.armor": "Увеличивает защиту на 5% за уровень за каждый предмет в руках атакующего.",
-
+  "material.tconstruct.knightmetal.skull_flavor": "Правильная лама",
+  "material.tconstruct.knightmetal.skull_encyclopedia": "Позволяет стрелять жидкими снарядами из вашего шлема, удерживая и отпуская клавишу взаимодействия со шлемом. Для полной зарядки требуется около 2 сек.",
+  
   "material.tconstruct.knightly": "Рыцарское",
   "material.tconstruct.knightly.flavor": "Осколок странствующей слизи, более острый в необработанном виде.",
   "material.tconstruct.knightly.ammo": "Даёт +0.2 урона за уровень за каждый предмет брони, который носит цель (без учёта скорости).",
@@ -3354,6 +3357,9 @@
   "modifier.tconstruct.flaming_bones": "Пылающие кости",
   "modifier.tconstruct.flaming_bones.flavor": "Мастерство огня!",
   "modifier.tconstruct.flaming_bones.description": "Наносит проводящий урон в ближнем бою и делает вас невосприимчивым к проводимости.",
+  "modifier.tconstruct.fireborn": "Огнерождённый",
+  "modifier.tconstruct.fireborn.flavor": "Мастерство пламени!",
+  "modifier.tconstruct.fireborn.description": "Наносит урон в ближнем бою и от снарядов, вызывая воспламенение, и делает вас невосприимчивым к урону от нахождения в огне.",
   "modifier.tconstruct.decayed_bones": "Истлевшие кости",
   "modifier.tconstruct.decayed_bones.flavor": "Мастерство разложения!",
   "modifier.tconstruct.decayed_bones.description": "Уменьшает урон, наносимый в ближнем бою, и делает вас невосприимчивым к иссушению.",
