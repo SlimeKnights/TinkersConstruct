@@ -7,8 +7,8 @@
     ],
     "tool_filter": "tconstruct:modifiable/armor/boots",
     "effects": [
-      "行走时在周围的黑暗区域放置荧光球",
-      "放置荧光球会消耗耐久度",
+      "点亮走过的黑暗区域",
+      "消耗耐久度放置荧光球",
       "单个等级",
       "需要1个能力槽"
     ]

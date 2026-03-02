@@ -1918,7 +1918,7 @@
   "material.tconstruct.venombone.ranged": "中毒时，拉弓速度将增加0.05+0.1×中毒等级。",
   "material.tconstruct.venombone.armor": "受到攻击后，有15%概率对攻击者施加毒素效果，该效果会让它在接下来5至10秒内受到的魔法伤害增加到200%（成功格挡则最长持续时间改为15秒）。",
   "material.tconstruct.venombone.ammo": "对目标施加毒素效果，该效果会让它在接下来5至10秒内受到的魔法伤害增加到200%。",
-  "material.tconstruct.venombone.skull_flavor": "运用术法，攻其不备",
+  "material.tconstruct.venombone.skull_flavor": "植入魔抗缺陷",
   "material.tconstruct.venombone.skull_encyclopedia": "获得免疫毒素的能力。此外弹射物可对目标施加15秒毒素II效果。",
 
   "material.tconstruct.rose_gold": "玫瑰金",
@@ -2079,7 +2079,7 @@
   "material.tconstruct.dragon_scale.flavor": "只要有了这个，龙看见了也得怕！",
   "material.tconstruct.dragon_scale.armor": "滞空时+10%抗性；每级令攻击伤害+5%，等级由强化等级最高的盔甲决定。",
   "material.tconstruct.dragon_scale.ammo": "每级使滞空时发射的弹射物伤害+1。",
-  "material.tconstruct.dragon_scale.skull_flavor": "脱离一击线！",
+  "material.tconstruct.dragon_scale.skull_flavor": "你能秒我？你能秒杀我？",
   "material.tconstruct.dragon_scale.skull_encyclopedia": "单次受到伤害不会超过最大生命值-2。",
 
   "material.tconstruct.shulker": "潜影壳",
@@ -2100,11 +2100,11 @@
   "material.tconstruct.hepatizon.armor": "受到伤害后，令当次伤害的50%转换为临时的固定数值减伤。每级使得减伤 增益持续时间延长5秒。",
 
   "material.tconstruct.ichorskin": "灵浆皮",
-  "material.tconstruct.ichorskin.flavor": "灵浆显然没有外皮",
+  "material.tconstruct.ichorskin.flavor": "灵浆显然没有外皮。",
   "material.tconstruct.ichorskin.encyclopedia": "移动速度+5%，攻击速度+2.5%，挖掘速度+7.5%。",
 
   "material.tconstruct.cinderslime": "余烬黏液",
-  "material.tconstruct.cinderslime.flavor": "将其铸进烈火！",
+  "material.tconstruct.cinderslime.flavor": "把它丢进烈焰中！",
   "material.tconstruct.cinderslime.encyclopedia": "消耗燃料回复黏液覆层，达到第4级时每秒回复1点。",
 
   "material.tconstruct.queens_slime": "皇后史莱姆",
@@ -2236,7 +2236,7 @@
 
   "__comment": "Tier 3 Integration Materials",
   "material.tconstruct.steel": "钢",
-  "material.tconstruct.steel.flavor": "差不多90%的材料科学内容都是它",
+  "material.tconstruct.steel.flavor": "九成的材料科学与它有关。",
   "material.tconstruct.steel.encyclopedia": "每级使耐久度+10%，近战伤害+5%。",
   "material.tconstruct.steel.ranged": "每级使耐久度+10%，弹射物力量+0.25。",
   "material.tconstruct.steel.armor": "每级使耐久度+10%，盔甲韧性+1。",
@@ -2276,14 +2276,14 @@
   "material.tconstruct.electrum.armor": "每级有20%概率对水中的攻击者造成2至5点伤害，攻击者处于雨中时概率改为10%。",
 
   "material.tconstruct.necronium": "辐射之骨",
-  "material.tconstruct.necronium.flavor": "这根骨头“烂”的要在“半条命”上再打个“对折”",
+  "material.tconstruct.necronium.flavor": "这根骨头“烂”的要在“半条命”上再打个“对折”。",
   "material.tconstruct.necronium.encyclopedia": "对目标生物施加等同于特性等级的凋零效果，持续6秒；另有25%概率使自己获 得相同效果。",
   "material.tconstruct.necronium.armor": "受到攻击后，有50%概率对攻击者施加凋零效果，持续6秒（成功格挡则改为 100%概率）； 另有10%概率使自己获得 相同效果。",
   "material.tconstruct.necronium.skull_flavor": "成为恶灵骑士",
   "material.tconstruct.necronium.skull_encyclopedia": "获得免疫凋零的能力。此外近战攻击可对目标施加6秒凋零效果。",
 
   "material.tconstruct.plated_slimewood": "复合黏木",
-  "material.tconstruct.plated_slimewood.flavor": "黄铜的光泽感加上那黏液的啪叽啪叽声，多么美妙啊！",
+  "material.tconstruct.plated_slimewood.flavor": "黄铜的光泽加黏液的触感，棒极了！",
   "material.tconstruct.plated_slimewood.encyclopedia": "任意来源的黏液覆层回复量增加100%。",
 
   "material.tconstruct.steeleaf": "钢叶",

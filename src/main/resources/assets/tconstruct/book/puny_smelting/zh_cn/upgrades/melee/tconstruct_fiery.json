@@ -8,7 +8,7 @@
   "tool_filter": "tconstruct:modifiable/melee",
   "effects": [
     "攻击敌人时使其燃烧",
-    "多个等级，每级进一步延长燃烧时间",
+    "多个等级，每级进一步 延长燃烧时间",
     "每级需要1个升级槽"
   ]
 }

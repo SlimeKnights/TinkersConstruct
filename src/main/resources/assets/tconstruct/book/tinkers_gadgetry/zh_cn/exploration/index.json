@@ -4,7 +4,7 @@
   "operations": [
     { "before": "grass_seeds", "action": "add_group", "data": "资源" },
     { "before": "skyslime_island", "action": "column_break" },
-    { "before": "skyslime_island", "action": "add_group", "data": "岛屿" },
+    { "before": "skyslime_island", "action": "add_group", "data": "黏液岛" },
     { "before": "skyslime_geode", "action": "column_break" },
     { "before": "skyslime_geode", "action": "add_group", "data": "黏液晶洞" }
   ]
