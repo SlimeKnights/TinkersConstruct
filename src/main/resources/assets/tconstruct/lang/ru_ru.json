@@ -1111,7 +1111,8 @@
   "entity.tconstruct.thrown_shuriken": "Сюрикен",
   "entity.tconstruct.thrown_tool": "Метательный инструмент",
   "entity.tconstruct.fishing_bobber": "Поплавок",
-
+  "entity.tconstruct.fireball": "Огненный шар",
+  
   "item.tconstruct.pickaxe": "Кирка",
   "item.tconstruct.sledge_hammer": "Молот",
   "item.tconstruct.vein_hammer": "Жильный молот",
@@ -2527,8 +2528,8 @@
   "modifier.tconstruct.trick_quiver": "Хитрый колчан",
   "modifier.tconstruct.trick_quiver.flavor": "Будь крутым, как соколиный глаз.",
   "modifier.tconstruct.trick_quiver.description": "Даёт луку три переключаемых слота для стрел. Щёлкните [ЛКМ], чтобы выбрать слот или получите к слотам доступ, удерживая [Shift + ЛКМ].",
-  "modifier.tconstruct.trick_quiver.disabled": "Хитрый колчан: Отключен",
-  "modifier.tconstruct.trick_quiver.selected": "Хитрый колчан: Выбрана %s из %s слота",
+  "modifier.tconstruct.trick_quiver.disabled": "%s: Отключено",
+  "modifier.tconstruct.trick_quiver.select": "%s: Выбрана %s из %s слота",
   "modifier.tconstruct.crystalshot": "Кристаллический выстрел",
   "modifier.tconstruct.crystalshot.flavor": "Значение удержания стрел переоценено.",
   "modifier.tconstruct.crystalshot.description": "Вместо стрел стреляет кристаллами, выросшими из самого лука. Выращивание кристаллов требует дополнительной прочности.",
@@ -2841,6 +2842,8 @@
   "modifier.tconstruct.harvest": "Сбор урожая",
   "modifier.tconstruct.harvest.flavor": "Вжик!",
   "modifier.tconstruct.harvest.description": "Инструмент можно использовать на культурах для сбора урожая и повторной посадки.",
+
+  "_comment": "Взаимодействие",
   "modifier.tconstruct.blocking": "Блокирование",
   "modifier.tconstruct.blocking.flavor": "Некубический тип!",
   "modifier.tconstruct.blocking.description": "Взаимодействие с инструментом позволит блокировать входящий урон.",
@@ -2859,6 +2862,13 @@
   "modifier.tconstruct.warping": "Перемещение",
   "modifier.tconstruct.warping.flavor": "Эндер-перемещение!",
   "modifier.tconstruct.warping.description": "Зарядитесь, нацельтесь на стену и переместитесь!",
+  "modifier.tconstruct.slimeball": "Сгусток слизи",
+  "modifier.tconstruct.slimeball.flavor": "Классическое волшебство!",
+  "modifier.tconstruct.slimeball.description": "Инструмент запускает сгустки слизи в виде снаряда с уникальными эффектами в зависимости от типа.",
+  "modifier.tconstruct.sliver": "Осколок",
+  "modifier.tconstruct.sliver.flavor": "Слизневый колчан!",
+  "modifier.tconstruct.sliver.description": "Даёт вам 3 переключаемых слота для сгустков слизи. Выберите слот с помощью инструмента или получите доступ к инвентарю в приседе.",
+  "modifier.tconstruct.sliver.requirements": "Осколок требует сгустки слизи.",
 
   "modifier.tconstruct.drill_attack": "Атака дрелью",
   "modifier.tconstruct.drill_attack.flavor": "Головокружительно!",
