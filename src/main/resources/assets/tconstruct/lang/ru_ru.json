@@ -2004,6 +2004,10 @@
   "material.tconstruct.skyslime.flavor": "Прочь от меня!",
   "material.tconstruct.skyslime.ammo": "Увеличивает отбрасывание снаряда.",
 
+  "material.tconstruct.turtle": "Черепаха",
+  "material.tconstruct.turtle.flavor": "Маленькая черепашка, ду-ду-ду",
+  "material.tconstruct.turtle.armor": "Даёт +10% сопротивления под водой и увеличивает скорость плавания на 5% за каждый уровень в зависимости от самой высокой детали.",
+
   "material.tconstruct.blaze": "Огненное",
   "material.tconstruct.blaze.flavor": "Сожгите всё!",
   "material.tconstruct.blaze.ammo": "Заставляет стрелы воспламеняться, поджигая цели на 5 сек. за каждый уровень.",
