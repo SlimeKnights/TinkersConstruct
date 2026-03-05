@@ -46,10 +46,8 @@ public record DamageOnUnequipModule(float damage, ResourceKey<DamageType> damage
   @Override
   public void onUnequip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
     if (condition.matches(tool, modifier)) {
-      IToolStackView replacement = context.getReplacementTool();
-      // modifier list changing is a good heuristic for tool changing, avoids tool just taking damage
       Level level = context.getLevel();
-      if (!level.isClientSide && (replacement == null || replacement.getItem() != tool.getItem() || !replacement.getModifiers().equals(tool.getModifiers()))) {
+      if (!level.isClientSide && EquipmentChangeModifierHook.didUnequip(tool, context)) {
         context.getEntity().hurt(TinkerDamageTypes.source(level.registryAccess(), damageType), damage * modifier.getEffectiveLevel());
       }
     }

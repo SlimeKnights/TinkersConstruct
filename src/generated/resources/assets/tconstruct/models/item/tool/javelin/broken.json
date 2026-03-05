@@ -11,6 +11,10 @@
     "large_handle": "tconstruct:item/tool/javelin/large/handle",
     "large_grip": "tconstruct:item/tool/javelin/large/grip"
   },
+  "modifier_maps": [
+    "tconstruct:javelin_broken",
+    "tconstruct:javelin"
+  ],
   "modifier_roots": {
     "small": [
       "tconstruct:item/tool/javelin/modifiers/broken/",

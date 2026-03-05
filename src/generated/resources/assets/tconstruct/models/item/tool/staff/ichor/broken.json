@@ -6,6 +6,12 @@
     "large_tool": "tconstruct:item/tool/staff/ichor_large_broken"
   },
   "large": true,
+  "modifier_maps": [
+    "tconstruct:staff/ichor/broken",
+    "tconstruct:staff/ichor",
+    "tconstruct:staff/broken",
+    "tconstruct:staff"
+  ],
   "modifier_roots": {
     "small": [
       "tconstruct:item/tool/staff/modifiers/ichor/broken/",

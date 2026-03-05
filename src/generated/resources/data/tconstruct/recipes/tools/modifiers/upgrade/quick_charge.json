@@ -13,15 +13,7 @@
   "slots": {
     "upgrades": 1
   },
-  "tools": [
-    {
-      "tag": "tconstruct:modifiable/ranged/crossbows"
-    },
-    {
-      "tag": "tconstruct:modifiable/staffs"
-    },
-    {
-      "tag": "tconstruct:modifiable/fishing_rods"
-    }
-  ]
+  "tools": {
+    "tag": "tconstruct:modifiable/ranged/quick_charge"
+  }
 }

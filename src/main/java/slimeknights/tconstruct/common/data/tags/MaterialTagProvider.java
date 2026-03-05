@@ -208,12 +208,14 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
       // spider
       MaterialIds.string, MaterialIds.darkthread,
       // skeleton
-      MaterialIds.bone, MaterialIds.venombone, MaterialIds.necroticBone,
+      MaterialIds.bone, MaterialIds.ice, MaterialIds.necroticBone,
       // piglins
       MaterialIds.gold, MaterialIds.roseGold, MaterialIds.pigIron,
       // misc
-      MaterialIds.blazingBone, MaterialIds.enderPearl, MaterialIds.dragonScale
-    );
+      MaterialIds.blaze, MaterialIds.enderPearl, MaterialIds.dragonScale,
+      // crafted
+      MaterialIds.venombone, MaterialIds.blazingBone, MaterialIds.knightmetal
+    ).addOptional(MaterialIds.necronium);
   }
 
   @Override

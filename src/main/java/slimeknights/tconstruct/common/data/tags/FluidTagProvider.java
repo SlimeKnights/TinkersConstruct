@@ -187,7 +187,8 @@ public class FluidTagProvider extends FluidTagsProvider {
         TinkerFluids.earthSlime.getLocalTag(), TinkerFluids.skySlime.getLocalTag(), TinkerFluids.ichor.getTag(), TinkerFluids.enderSlime.getTag(),
         TinkerFluids.magma.getLocalTag(), TinkerFluids.moltenEnder.getLocalTag(),
         // slime metal
-        TinkerFluids.moltenSlimesteel.getLocalTag(), TinkerFluids.moltenQueensSlime.getLocalTag(), TinkerFluids.moltenCinderslime.getLocalTag(),
+        TinkerFluids.moltenSlimesteel.getLocalTag(), TinkerFluids.moltenQueensSlime.getLocalTag(),
+        TinkerFluids.moltenCinderslime.getLocalTag(), TinkerFluids.moltenKnightslime.getLocalTag(),
         // thermal alloys
         TinkerFluids.moltenSignalum.getLocalTag()
       );

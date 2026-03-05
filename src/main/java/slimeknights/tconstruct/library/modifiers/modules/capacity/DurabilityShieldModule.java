@@ -5,7 +5,9 @@ import net.minecraft.world.item.ItemStack;
 import slimeknights.mantle.data.loadable.common.ColorLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.json.LevelingInt;
 import slimeknights.tconstruct.library.json.predicate.modifier.ModifierPredicate;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
@@ -25,13 +27,18 @@ import java.util.List;
  * Module using a capacity bar to shield the tool from durability.
  * @param color  Color of the bar
  */
-public record DurabilityShieldModule(int color, IJsonPredicate<ModifierId> cause) implements ModifierModule, ToolDamageModifierHook, DurabilityDisplayModifierHook {
+public record DurabilityShieldModule(LevelingInt cost, int color, IJsonPredicate<ModifierId> cause) implements ModifierModule, ToolDamageModifierHook, DurabilityDisplayModifierHook {
   private static final List<ModuleHook<?>> HOOKS = HookProvider.<DurabilityShieldModule>defaultHooks(ModifierHooks.TOOL_DAMAGE, ModifierHooks.DURABILITY_DISPLAY);
   private static final IJsonPredicate<ModifierId> ALLOW = ModifierPredicate.tag(TinkerTags.Modifiers.BYPASS_EXTRA_DURABILITY).inverted();
   public static final RecordLoadable<DurabilityShieldModule> LOADER = RecordLoadable.create(
+    LevelingInt.LOADABLE.defaultField("cost", LevelingInt.ONE, false, DurabilityShieldModule::cost),
     ColorLoadable.NO_ALPHA.requiredField("color", DurabilityShieldModule::color),
     ModifierPredicate.LOADER.defaultField("cause", ALLOW, false, DurabilityShieldModule::cause),
     DurabilityShieldModule::new);
+
+  public DurabilityShieldModule(int color, IJsonPredicate<ModifierId> cause) {
+    this(LevelingInt.ONE, color, cause);
+  }
 
   public DurabilityShieldModule(int color) {
     this(color, ALLOW);
@@ -48,16 +55,30 @@ public record DurabilityShieldModule(int color, IJsonPredicate<ModifierId> cause
   }
 
   /** Logic for damaging a tool with the durability shield */
+  @Deprecated
   public static int onDamageTool(CapacityBarHook bar, IToolStackView tool, ModifierEntry modifier, int amount) {
+    return onDamageTool(bar, tool, modifier, amount, 1);
+  }
+
+  /** Logic for damaging a tool with the durability shield */
+  public static int onDamageTool(CapacityBarHook bar, IToolStackView tool, ModifierEntry modifier, int amount, int cost) {
     int shield = bar.getAmount(tool);
-    if (shield > 0) {
+    if (shield > 0 && cost > 0) {
+      int canReduce = shield / cost;
       // if we have more overslime than amount, remove some overslime
-      if (shield >= amount) {
-        bar.setAmount(tool, modifier, shield - amount);
+      if (canReduce >= amount) {
+        bar.setAmount(tool, modifier, shield - amount * cost);
         return 0;
       }
       // amount is more than overslime, reduce and clear overslime
-      amount -= shield;
+      amount -= canReduce;
+      // if we have a cost greater than 1, and a remainder, the remainder acts as a chance based reduction
+      if (cost > 1) {
+        int chance = shield % cost;
+        if (chance > 0 && chance > TConstruct.RANDOM.nextInt(cost)) {
+          amount -= 1;
+        }
+      }
       bar.setAmount(tool, modifier, 0);
     }
     return amount;
@@ -65,13 +86,13 @@ public record DurabilityShieldModule(int color, IJsonPredicate<ModifierId> cause
 
   @Override
   public int onDamageTool(IToolStackView tool, ModifierEntry modifier, int amount, @Nullable LivingEntity holder) {
-    return onDamageTool(modifier.getHook(ModifierHooks.CAPACITY_BAR), tool, modifier, amount);
+    return onDamageTool(modifier.getHook(ModifierHooks.CAPACITY_BAR), tool, modifier, amount, cost.compute(modifier));
   }
 
   @Override
   public int onDamageTool(IToolStackView tool, ModifierEntry modifier, int amount, @Nullable LivingEntity holder, @Nullable ItemStack stack, ModifierId cause) {
     if (this.cause.matches(cause)) {
-      return onDamageTool(modifier.getHook(ModifierHooks.CAPACITY_BAR), tool, modifier, amount);
+      return onDamageTool(modifier.getHook(ModifierHooks.CAPACITY_BAR), tool, modifier, amount, cost.compute(modifier));
     }
     return amount;
   }

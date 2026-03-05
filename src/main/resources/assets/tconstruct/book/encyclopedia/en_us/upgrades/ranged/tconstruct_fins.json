@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:fins",
   "text": [
     {
-      "text": "Allows the tool when thrown or fired from ballista to move at full speed underwater instead of 60% speed."
+      "text": "Allows the tool when thrown or fired from ballista, along with fluid spit from the tool to move at full speed underwater instead of 60% speed."
     },
     {
       "text": "When used on bows, does not affect fired arrows. Bows only benefit if they themselves are the projectile."

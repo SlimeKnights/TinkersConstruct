@@ -2,16 +2,12 @@
   "level_display": "tconstruct:default",
   "modules": [
     {
-      "type": "tconstruct:attribute",
+      "type": "tconstruct:max_armor_attribute",
+      "allow_broken": false,
       "attribute": "forge:swim_speed",
-      "each_level": 0.05,
-      "operation": "multiply_total",
-      "slots": [
-        "feet",
-        "legs",
-        "chest",
-        "head"
-      ]
+      "each_level": 0.1,
+      "held_tag": "tconstruct:modifiable/held",
+      "operation": "multiply_total"
     },
     {
       "type": "tconstruct:protection",

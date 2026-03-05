@@ -12,6 +12,7 @@
     "large_back":   "tconstruct:item/tool/sledge_hammer/large/back",
     "large_front":  "tconstruct:item/tool/sledge_hammer/large/front"
   },
+  "modifier_maps": ["tconstruct:sledge_hammer"],
   "modifier_roots": {
     "small": [ "tconstruct:item/tool/sledge_hammer/modifiers/" ],
     "large": [ "tconstruct:item/tool/sledge_hammer/large/modifiers/" ]

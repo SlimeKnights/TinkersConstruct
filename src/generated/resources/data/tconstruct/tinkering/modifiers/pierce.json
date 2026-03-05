@@ -8,11 +8,8 @@
       "stat": "tconstruct:attack_damage"
     },
     {
-      "type": "tconstruct:mob_effect",
+      "type": "tconstruct:weapon_mob_effect",
       "apply_before_melee": true,
-      "chance": {
-        "flat": 1.0
-      },
       "effect": "tconstruct:pierce",
       "level": {
         "per_level": 1.0

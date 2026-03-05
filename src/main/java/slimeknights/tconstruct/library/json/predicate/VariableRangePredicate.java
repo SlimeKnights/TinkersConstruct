@@ -7,7 +7,7 @@ import slimeknights.mantle.data.loadable.primitive.FloatLoadable;
 /** Common logic for variable range predicates. */
 public interface VariableRangePredicate {
   LoadableField<Float,VariableRangePredicate> MIN_FIELD = FloatLoadable.ANY.defaultField("min", Float.NEGATIVE_INFINITY, VariableRangePredicate::min);
-  LoadableField<Float,VariableRangePredicate> MAX_FIELD = FloatLoadable.ANY.defaultField("min", Float.POSITIVE_INFINITY, VariableRangePredicate::max);
+  LoadableField<Float,VariableRangePredicate> MAX_FIELD = FloatLoadable.ANY.defaultField("max", Float.POSITIVE_INFINITY, VariableRangePredicate::max);
   LoadableField<IntervalType,VariableRangePredicate> INTERVAL_FIELD = IntervalType.LOADABLE.defaultField("interval", IntervalType.CLOSED, true, VariableRangePredicate::interval);
 
   /** Min value for this range */

@@ -1,8 +1,10 @@
 package slimeknights.tconstruct.tools.modules.interaction;
 
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -12,8 +14,10 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.fluids.FluidStack;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
+import slimeknights.mantle.client.TooltipKey;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.common.Sounds;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.json.LevelingInt;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
@@ -22,6 +26,8 @@ import slimeknights.tconstruct.library.modifiers.fluid.FluidEffects;
 import slimeknights.tconstruct.library.modifiers.hook.build.ConditionalStatModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.InventoryTickModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.KeybindInteractModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.module.HookProvider;
 import slimeknights.tconstruct.library.module.ModuleHook;
@@ -43,8 +49,8 @@ import static slimeknights.tconstruct.library.tools.capability.fluid.ToolTankHel
  * Module allowing fluid to be fired by charging and releasing, similar to a bow.
  * @param shots  Number of shots to fire.
  */
-public record SpittingModule(LevelingInt shots) implements ModifierModule, GeneralInteractionModifierHook {
-  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<SpittingModule>defaultHooks(ModifierHooks.GENERAL_INTERACT);
+public record SpittingModule(LevelingInt shots) implements ModifierModule, GeneralInteractionModifierHook, KeybindInteractModifierHook, InventoryTickModifierHook {
+  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<SpittingModule>defaultHooks(ModifierHooks.GENERAL_INTERACT, ModifierHooks.ARMOR_INTERACT, ModifierHooks.INVENTORY_TICK);
   public static final RecordLoadable<SpittingModule> LOADER = RecordLoadable.create(LevelingInt.LOADABLE.requiredField("shots", SpittingModule::shots), SpittingModule::new);
 
   @Override
@@ -67,6 +73,71 @@ public record SpittingModule(LevelingInt shots) implements ModifierModule, Gener
     return ModifierUtil.blockWhileCharging(tool, UseAnim.BOW);
   }
 
+  /** Performs the actual spitting */
+  private void spit(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int chargeTime) {
+    // find the fluid to spit
+    FluidStack fluid = TANK_HELPER.getFluid(tool);
+    if (!fluid.isEmpty()) {
+      FluidEffects recipe = FluidEffectManager.INSTANCE.find(fluid.getFluid());
+      if (recipe.hasEffects()) {
+        // projectile stats
+        float charge = GeneralInteractionModifierHook.getToolCharge(tool, chargeTime);
+        // power - size of each individual projectile
+        float power = charge * ConditionalStatModifierHook.getModifiedStat(tool, entity, ToolStats.PROJECTILE_DAMAGE);
+        // level acts like multishot level, meaning higher produces more projectiles
+        int shots = this.shots.compute(modifier.getEffectiveLevel());
+        // amount is the amount per projectile, total cost is amount times level
+        // if its 0, that means we have only a couple mb left
+        int amount = Math.min(fluid.getAmount(), (int)(recipe.getAmount(fluid.getFluid()) * power) * shots) / shots;
+        if (amount > 0) {
+          // other stats now that we know we are shooting
+          // velocity determines how far it goes, does not impact damage unlike bows
+          float velocity = ConditionalStatModifierHook.getModifiedStat(tool, entity, ToolStats.VELOCITY) * charge * 3.0f;
+          float inaccuracy = ModifierUtil.getInaccuracy(tool, entity);
+
+          // multishot stuff
+          float startAngle = ModifiableLauncherItem.getAngleStart(shots);
+          int primaryIndex = shots / 2;
+          Level world = entity.level();
+          for (int shotIndex = 0; shotIndex < shots; shotIndex++) {
+            FluidEffectProjectile spit = new FluidEffectProjectile(world, entity, new FluidStack(fluid, amount), power);
+            // apply fins
+            spit.setWaterInertia(ConditionalStatModifierHook.getModifiedStat(tool, entity, ToolStats.WATER_INERTIA));
+
+            // setup projectile target
+            Vec3 upVector = entity.getUpVector(1.0f);
+            float angle = startAngle + (10 * shotIndex);
+            Vector3f targetVector = entity.getViewVector(1.0f).toVector3f().rotate((new Quaternionf()).setAngleAxis(angle * Math.PI / 180F, upVector.x, upVector.y, upVector.z));
+            spit.shoot(targetVector.x(), targetVector.y(), targetVector.z(), velocity, inaccuracy);
+
+            // store all modifiers on the spit
+            EntityModifierCapability.getCapability(spit).setModifiers(tool.getModifiers());
+
+            // fetch the persistent data for the arrow as modifiers may want to store data
+            ModDataNBT arrowData = PersistentDataCapability.getOrWarn(spit);
+            // let modifiers set properties
+            for (ModifierEntry entry : tool.getModifierList()) {
+              entry.getHook(ModifierHooks.PROJECTILE_LAUNCH).onProjectileLaunch(tool, entry, entity, ItemStack.EMPTY, spit, null, arrowData, shotIndex == primaryIndex);
+            }
+
+            // finally, fire the projectile
+            world.addFreshEntity(spit);
+            world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), Sounds.SPIT.getSound(), SoundSource.PLAYERS, 1.0F, 1.0F / (world.getRandom().nextFloat() * 0.4F + 1.2F) + charge * 0.5F + (angle / 10f));
+
+          }
+
+          // consume the fluid and durability
+          fluid.shrink(amount * shots);
+          TANK_HELPER.setFluid(tool, fluid);
+          // stop using doesn't know the slot, so just figure it out
+          ToolDamageUtil.damageAnimated(tool, shots, entity, modifier.getId());
+        }
+      }
+    }
+  }
+
+  // held
+
   @Override
   public InteractionResult onToolUse(IToolStackView tool, ModifierEntry modifier, Player player, InteractionHand hand, InteractionSource source) {
     if (!tool.isBroken() && source == InteractionSource.RIGHT_CLICK) {
@@ -82,64 +153,60 @@ public record SpittingModule(LevelingInt shots) implements ModifierModule, Gener
 
   @Override
   public void onStoppedUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int timeLeft) {
-    Level world = entity.level();
-    if (!world.isClientSide) {
+    if (!entity.level().isClientSide) {
       int chargeTime = getUseDuration(tool, modifier) - timeLeft;
       if (chargeTime > 0) {
-        // find the fluid to spit
-        FluidStack fluid = TANK_HELPER.getFluid(tool);
-        if (!fluid.isEmpty()) {
-          FluidEffects recipe = FluidEffectManager.INSTANCE.find(fluid.getFluid());
-          if (recipe.hasEffects()) {
-            // projectile stats
-            float charge = GeneralInteractionModifierHook.getToolCharge(tool, chargeTime);
-            // power - size of each individual projectile
-            float power = charge * ConditionalStatModifierHook.getModifiedStat(tool, entity, ToolStats.PROJECTILE_DAMAGE);
-            // level acts like multishot level, meaning higher produces more projectiles
-            int shots = this.shots.compute(modifier.getEffectiveLevel());
-            // amount is the amount per projectile, total cost is amount times level
-            // if its 0, that means we have only a couple mb left
-            int amount = Math.min(fluid.getAmount(), (int)(recipe.getAmount(fluid.getFluid()) * power) * shots) / shots;
-            if (amount > 0) {
-              // other stats now that we know we are shooting
-              // velocity determines how far it goes, does not impact damage unlike bows
-              float velocity = ConditionalStatModifierHook.getModifiedStat(tool, entity, ToolStats.VELOCITY) * charge * 3.0f;
-              float inaccuracy = ModifierUtil.getInaccuracy(tool, entity);
+        spit(tool, modifier, entity, chargeTime);
+      }
+    }
+  }
 
-              // multishot stuff
-              float startAngle = ModifiableLauncherItem.getAngleStart(shots);
-              int primaryIndex = shots / 2;
-              for (int shotIndex = 0; shotIndex < shots; shotIndex++) {
-                FluidEffectProjectile spit = new FluidEffectProjectile(world, entity, new FluidStack(fluid, amount), power);
+  // helmet
 
-                // setup projectile target
-                Vec3 upVector = entity.getUpVector(1.0f);
-                float angle = startAngle + (10 * shotIndex);
-                Vector3f targetVector = entity.getViewVector(1.0f).toVector3f().rotate((new Quaternionf()).setAngleAxis(angle * Math.PI / 180F, upVector.x, upVector.y, upVector.z));
-                spit.shoot(targetVector.x(), targetVector.y(), targetVector.z(), velocity, inaccuracy);
+  @Override
+  public boolean startInteract(IToolStackView tool, ModifierEntry modifier, Player player, EquipmentSlot slot, TooltipKey keyModifier) {
+    if (!tool.isBroken() && keyModifier == TooltipKey.NORMAL) {
+      // launch if the fluid has effects, cannot simulate as we don't know the target yet
+      FluidStack fluid = TANK_HELPER.getFluid(tool);
+      if (fluid.getAmount() >= modifier.getLevel() && FluidEffectManager.INSTANCE.find(fluid.getFluid()).hasEffects()) {
+        int time = GeneralInteractionModifierHook.startDrawing(tool, player, 1.5f);
+        // mark the stack with the end time so we know how long to run particles
+        tool.getPersistentData().putInt(modifier.getId(), player.tickCount + time);
+        return true;
+      }
+    }
+    return false;
+  }
 
-                // store all modifiers on the spit
-                EntityModifierCapability.getCapability(spit).setModifiers(tool.getModifiers());
+  @Override
+  public void stopInteract(IToolStackView tool, ModifierEntry modifier, Player player, EquipmentSlot slot, int chargeTime, ModifierEntry activeModifier) {
+    if (modifier == activeModifier) {
+      if (chargeTime > 0 && !player.level().isClientSide) {
+        spit(tool, modifier, player, chargeTime);
+      }
+      tool.getPersistentData().remove(modifier.getId());
+    }
+  }
 
-                // fetch the persistent data for the arrow as modifiers may want to store data
-                ModDataNBT arrowData = PersistentDataCapability.getOrWarn(spit);
-                // let modifiers set properties
-                for (ModifierEntry entry : tool.getModifierList()) {
-                  entry.getHook(ModifierHooks.PROJECTILE_LAUNCH).onProjectileLaunch(tool, entry, entity, ItemStack.EMPTY, spit, null, arrowData, shotIndex == primaryIndex);
-                }
-
-                // finally, fire the projectile
-                world.addFreshEntity(spit);
-                world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), Sounds.SPIT.getSound(), SoundSource.PLAYERS, 1.0F, 1.0F / (world.getRandom().nextFloat() * 0.4F + 1.2F) + charge * 0.5F + (angle / 10f));
-
-              }
-
-              // consume the fluid and durability
-              fluid.shrink(amount * shots);
-              TANK_HELPER.setFluid(tool, fluid);
-              ToolDamageUtil.damageAnimated(tool, shots, entity, entity.getUsedItemHand(), modifier.getId());
-            }
-          }
+  @Override
+  public void onInventoryTick(IToolStackView tool, ModifierEntry modifier, Level world, LivingEntity holder, int itemSlot, boolean isSelected, boolean isCorrectSlot, ItemStack stack) {
+    if (isCorrectSlot && tool.hasTag(TinkerTags.Items.WORN_ARMOR)) {
+      ModDataNBT persistentData = tool.getPersistentData();
+      int finishTime = persistentData.getInt(modifier.getId());
+      if (finishTime > 0) {
+        // how long we have left?
+        int timeLeft = finishTime - holder.tickCount;
+        if (timeLeft < 0) {
+          // particles a bit stronger
+          holder.playSound(SoundEvents.PLAYER_BREATH, 0.5F, holder.getRandom().nextFloat() * 0.1f + 0.9f);
+          SlurpingModule.addFluidParticles(holder, TANK_HELPER.getFluid(tool), 16);
+          // stop animation
+          persistentData.remove(modifier.getId());
+        }
+        // sound is only every 4 ticks
+        else if (timeLeft % 4 == 0) {
+          holder.playSound(SoundEvents.PLAYER_BREATH, 0.5F, holder.getRandom().nextFloat() * 0.1f + 0.9f);
+          SlurpingModule.addFluidParticles(holder, TANK_HELPER.getFluid(tool), 5);
         }
       }
     }

@@ -49,11 +49,11 @@ public class LaceratingModifier extends Modifier implements ProjectileHitModifie
     }
 
     // 81 ticks will do about 4 damage
-    applyEffect(target, level, looting);
+    applyEffect(target, level, looting, holder);
   }
 
   /** Applies the effect to the target */
-  private static void applyEffect(LivingEntity target, int level, int looting) {
+  private static void applyEffect(LivingEntity target, int level, int looting, @Nullable Entity cause) {
     int duration = level * 2 * 20;
     MobEffectInstance existing = target.getEffect(TinkerEffects.bleeding.get());
     if (existing != null && existing.getAmplifier() == looting) {
@@ -63,7 +63,7 @@ public class LaceratingModifier extends Modifier implements ProjectileHitModifie
       // skip when already present so we continue on the same clock and don't repeat a damage
       duration += 19;
     }
-    TinkerEffects.bleeding.get().apply(target, duration, looting, true);
+    target.addEffect(new MobEffectInstance(TinkerEffects.bleeding.get(), duration, looting), cause);
   }
 
 
@@ -94,7 +94,7 @@ public class LaceratingModifier extends Modifier implements ProjectileHitModifie
       if (attacker != null) {
         applyEffect(new DummyToolStack(Items.AIR, modifiers, persistentData), attacker, target, modifier.getLevel(), null);
       } else {
-        applyEffect(target, modifier.getLevel(), 0);
+        applyEffect(target, modifier.getLevel(), 0, projectile.getEffectSource());
       }
     }
     return false;

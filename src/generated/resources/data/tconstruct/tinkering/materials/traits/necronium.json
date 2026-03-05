@@ -11,6 +11,16 @@
         "level": 2,
         "name": "tconstruct:decay"
       }
+    ],
+    "tconstruct:skull": [
+      {
+        "level": 1,
+        "name": "tconstruct:decayed_bones"
+      },
+      {
+        "level": 1,
+        "name": "tconstruct:wither_skeleton_disguise"
+      }
     ]
   }
 }

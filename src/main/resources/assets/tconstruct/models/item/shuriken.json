@@ -5,8 +5,7 @@
     "top":    "tconstruct:item/tool/ammo/shuriken_top",
     "bottom": "tconstruct:item/tool/ammo/shuriken_bottom"
   },
-  "modifier_roots": [ "tconstruct:item/tool/ammo/shuriken_modifiers/" ],
-  "show_traits": true,
+  "modifier_maps": ["tconstruct:shuriken"],
   "parts": [
     { "name": "bottom", "index": 1 },
     { "name": "top",    "index": 0 }

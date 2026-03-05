@@ -2,6 +2,10 @@
   "stats": {
     "tconstruct:arrow_head": {},
     "tconstruct:repair_kit": {},
-    "tconstruct:shield_core": {}
+    "tconstruct:shield_core": {},
+    "tconstruct:skull": {
+      "armor": 0,
+      "durability": 75
+    }
   }
 }

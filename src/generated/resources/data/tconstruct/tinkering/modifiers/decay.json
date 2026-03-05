@@ -1,0 +1,65 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:weapon_mob_effect",
+      "effect": "minecraft:wither",
+      "level": {
+        "per_level": 1.0
+      },
+      "time": {
+        "flat": 120.0
+      }
+    },
+    {
+      "type": "tconstruct:tool_usage_mob_effect",
+      "chance": {
+        "flat": 0.25
+      },
+      "effect": "minecraft:wither",
+      "hooks": [
+        "tconstruct:melee_hit",
+        "tconstruct:monster_melee_hit",
+        "tconstruct:projectile_launch",
+        "tconstruct:projectile_shot",
+        "tconstruct:projectile_thrown",
+        "tconstruct:sling_launch"
+      ],
+      "level": {
+        "per_level": 1.0
+      },
+      "time": {
+        "flat": 120.0
+      }
+    },
+    {
+      "type": "tconstruct:counter_mob_effect",
+      "chance": {
+        "each_level": 0.5
+      },
+      "effect": "minecraft:wither",
+      "level": {
+        "flat": 2.0
+      },
+      "time": {
+        "flat": 120.0
+      }
+    },
+    {
+      "type": "tconstruct:counter_mob_effect",
+      "chance": {
+        "each_level": 0.1
+      },
+      "durability_usage": 0,
+      "effect": "minecraft:wither",
+      "level": {
+        "flat": 1.0
+      },
+      "target_self": true,
+      "time": {
+        "flat": 120.0
+      }
+    }
+  ],
+  "tooltip_display": "always"
+}

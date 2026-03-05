@@ -32,6 +32,7 @@ import slimeknights.tconstruct.library.client.armor.texture.DyedArmorTextureSupp
 import slimeknights.tconstruct.library.client.armor.texture.FirstArmorTextureSupplier;
 import slimeknights.tconstruct.library.client.armor.texture.FixedArmorTextureSupplier;
 import slimeknights.tconstruct.library.client.armor.texture.MaterialArmorTextureSupplier;
+import slimeknights.tconstruct.library.client.armor.texture.MaterialHasFallbackTextureSupplier;
 import slimeknights.tconstruct.library.client.armor.texture.TrimArmorTextureSupplier;
 import slimeknights.tconstruct.library.client.book.TinkerBook;
 import slimeknights.tconstruct.library.client.data.spritetransformer.FramesSpriteTransformer;
@@ -42,7 +43,19 @@ import slimeknights.tconstruct.library.client.data.spritetransformer.ISpriteTran
 import slimeknights.tconstruct.library.client.data.spritetransformer.OffsettingSpriteTransformer;
 import slimeknights.tconstruct.library.client.data.spritetransformer.RecolorSpriteTransformer;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
+import slimeknights.tconstruct.library.client.modifiers.DyedModifierModel;
+import slimeknights.tconstruct.library.client.modifiers.MaterialModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.ModifierIconManager;
+import slimeknights.tconstruct.library.client.modifiers.NormalModifierModel;
+import slimeknights.tconstruct.library.client.modifiers.PotionModifierModel;
+import slimeknights.tconstruct.library.client.modifiers.model.CompoundModifierModel;
+import slimeknights.tconstruct.library.client.modifiers.model.ConditionalModifierModel;
+import slimeknights.tconstruct.library.client.modifiers.model.FluidModifierModel;
+import slimeknights.tconstruct.library.client.modifiers.model.MaterialHasFallbackModifierModel;
+import slimeknights.tconstruct.library.client.modifiers.model.ModifierModel;
+import slimeknights.tconstruct.library.client.modifiers.model.TankModifierModel;
+import slimeknights.tconstruct.library.client.modifiers.model.TraitModel;
+import slimeknights.tconstruct.library.client.modifiers.model.TrimModifierModel;
 
 import java.util.function.Consumer;
 
@@ -80,6 +93,22 @@ public class TinkerClient {
     ArmorTextureSupplier.LOADER.register(getResource("material"), MaterialArmorTextureSupplier.Material.LOADER);
     ArmorTextureSupplier.LOADER.register(getResource("persistent_data"), MaterialArmorTextureSupplier.PersistentData.LOADER);
     ArmorTextureSupplier.LOADER.register(getResource("trim"), TrimArmorTextureSupplier.LOADER);
+    ArmorTextureSupplier.LOADER.register(getResource("material_has_fallback"), MaterialHasFallbackTextureSupplier.LOADER);
+
+    // modifier models
+    ModifierModel.LOADER.register(getResource("empty"), ModifierModel.EMPTY.getLoader());
+    ModifierModel.LOADER.register(getResource("compound"), CompoundModifierModel.LOADER);
+    ModifierModel.LOADER.register(getResource("conditional"), ConditionalModifierModel.LOADER);
+    ModifierModel.LOADER.register(getResource("trait"), TraitModel.LOADER);
+    ModifierModel.LOADER.register(getResource("basic"), NormalModifierModel.LOADER);
+    ModifierModel.LOADER.register(getResource("dyed"), DyedModifierModel.LOADER);
+    ModifierModel.LOADER.register(getResource("material"), MaterialModifierModel.LOADER);
+    ModifierModel.LOADER.register(getResource("potion"), PotionModifierModel.LOADER);
+    ModifierModel.LOADER.register(getResource("armor_trim"), TrimModifierModel.Armor.LOADER);
+    ModifierModel.LOADER.register(getResource("custom_trim"), TrimModifierModel.Custom.LOADER);
+    ModifierModel.LOADER.register(getResource("fluid"), FluidModifierModel.LOADER);
+    ModifierModel.LOADER.register(getResource("tank"), TankModifierModel.LOADER);
+    ModifierModel.LOADER.register(getResource("material_has_fallback"), MaterialHasFallbackModifierModel.LOADER);
   }
 
   @SubscribeEvent

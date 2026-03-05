@@ -6,9 +6,32 @@
       "prefix": "tconstruct:plate/plating_"
     },
     {
-      "type": "tconstruct:material",
-      "index": 1,
-      "prefix": "tconstruct:plate/maille_"
+      "type": "tconstruct:first_present",
+      "options": [
+        {
+          "type": "tconstruct:material_has_fallback",
+          "apply": {
+            "type": "tconstruct:dyed",
+            "prefix": "tconstruct:plate/maille_",
+            "suffix": "_metal"
+          },
+          "fallback": [
+            "metal",
+            "metal_contrast"
+          ],
+          "index": 1
+        },
+        {
+          "type": "tconstruct:dyed",
+          "prefix": "tconstruct:plate/maille_",
+          "suffix": "_cloth"
+        },
+        {
+          "type": "tconstruct:material",
+          "index": 1,
+          "prefix": "tconstruct:plate/maille_"
+        }
+      ]
     },
     "tconstruct:trim"
   ]

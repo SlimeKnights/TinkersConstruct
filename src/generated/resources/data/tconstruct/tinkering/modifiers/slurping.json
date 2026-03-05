@@ -5,6 +5,9 @@
       "type": "tconstruct:slurping",
       "duration": {
         "flat": 21
+      },
+      "strength": {
+        "each_level": 1.0
       }
     },
     {

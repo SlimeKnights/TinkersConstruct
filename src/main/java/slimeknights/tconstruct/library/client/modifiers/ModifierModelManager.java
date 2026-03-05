@@ -23,19 +23,23 @@ import slimeknights.tconstruct.library.client.model.DynamicTextureLoader;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 
 import javax.annotation.Nullable;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
- * Class handling the loading of modifier models
+ * Class handling the loading of modifier models.
+ * @deprecated use {@link ModifierModelMapManager}
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Log4j2
+@Deprecated
 public class ModifierModelManager implements IEarlySafeManagerReloadListener {
   /** Modifier file to load, has merging behavior but forge prevents multiple mods from loading the same file */
   private static final String VISIBLE_MODIFIERS = "tinkering/modifiers.json";
@@ -182,6 +186,19 @@ public class ModifierModelManager implements IEarlySafeManagerReloadListener {
    * @return  Map of models
    */
   public static Map<ModifierId,IBakedModifierModel> getModelsForTool(Function<Material,TextureAtlasSprite> spriteGetter, List<ResourceLocation> smallModifierRoots, List<ResourceLocation> largeModifierRoots) {
+    return getModelsForTool(spriteGetter, smallModifierRoots, largeModifierRoots, Set.of(), Set.of());
+  }
+
+  /**
+   * Gets a map of all models for the given tool
+   *
+   * @param smallModifierRoots List of modifier roots for small tools
+   * @param largeModifierRoots List of modifier roots for large tools, null if the tool is not large
+   * @param skip               Modifiers in the given collection will be skipped on parsing
+   * @param blacklist          Models in this blacklist are skipped when parsing. Used to suppress problematic models in legacy parsing.
+   * @return Map of models
+   */
+  public static Map<ModifierId,IBakedModifierModel> getModelsForTool(Function<Material,TextureAtlasSprite> spriteGetter, List<ResourceLocation> smallModifierRoots, List<ResourceLocation> largeModifierRoots, Collection<ModifierId> skip, Set<IUnbakedModifierModel> blacklist) {
     // if we have no modifier models, or both lists of modifier roots are empty, nothing to do
     if (modifierModels.isEmpty() || (smallModifierRoots.isEmpty() && largeModifierRoots.isEmpty())) {
       return Collections.emptyMap();
@@ -197,11 +214,13 @@ public class ModifierModelManager implements IEarlySafeManagerReloadListener {
     for (Entry<ModifierId, IUnbakedModifierModel> entry : modifierModels.entrySet()) {
       ModifierId id = entry.getKey();
       IUnbakedModifierModel model = entry.getValue();
-      IBakedModifierModel toolModel = model.forTool(
-        name -> getTexture(smallModifierRoots, validator, id, name),
-        name -> getTexture(largeModifierRoots, validator, id, name));
-      if (toolModel != null) {
-        modelMap.put(id, toolModel);
+      if (!skip.contains(id) && !blacklist.contains(model)) {
+        IBakedModifierModel toolModel = model.forTool(
+          name -> getTexture(smallModifierRoots, validator, id, name),
+          name -> getTexture(largeModifierRoots, validator, id, name));
+        if (toolModel != null) {
+          modelMap.put(id, toolModel);
+        }
       }
     }
 

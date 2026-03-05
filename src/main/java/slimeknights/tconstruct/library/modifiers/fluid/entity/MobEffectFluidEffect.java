@@ -34,7 +34,7 @@ public record MobEffectFluidEffect(FluidMobEffect effect, TimeAction action) imp
     // first, need a target
     LivingEntity target = context.getLivingTarget();
     if (target != null) {
-      return effect.apply(target, scale, this.action, action);
+      return effect.apply(target, scale, this.action, action, context.getEffectSource());
     }
     return 0;
   }

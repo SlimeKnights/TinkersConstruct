@@ -50,9 +50,9 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * This recipe is used for crafting a set of parts into a tool
+ * This recipe is used for crafting a set of parts into a tool.
+ * TODO 1.21: extend {@link MaterialSwappingRecipe} to automatically provide part swapping here.
  */
-
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class ToolBuildingRecipe implements ITinkerStationRecipe {
   // placement of recipes in JEI

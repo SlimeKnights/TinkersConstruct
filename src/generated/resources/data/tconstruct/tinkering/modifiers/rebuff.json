@@ -1,0 +1,26 @@
+{
+  "level_display": "tconstruct:single_level",
+  "modules": [
+    {
+      "type": "tconstruct:restore_lost_health",
+      "chance": {
+        "flat": 1.0
+      },
+      "durability_usage": {
+        "each_level": 1
+      },
+      "effect_level": {
+        "each_level": 1
+      },
+      "percentage": {
+        "flat": 0.5
+      },
+      "tool": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:modifiable/armor"
+      }
+    }
+  ],
+  "priority": 25,
+  "tooltip_display": "always"
+}

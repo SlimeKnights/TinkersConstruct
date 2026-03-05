@@ -5,9 +5,9 @@
     "cuirass": "tconstruct:item/tool/armor/travelers/boots/cuirass_broken",
     "metal": "tconstruct:item/tool/armor/travelers/boots/metal_broken"
   },
-  "modifier_roots": [
-    "tconstruct:item/tool/armor/travelers/boots/modifiers/broken/",
-    "tconstruct:item/tool/armor/travelers/boots/modifiers/"
+  "modifier_maps": [
+    "tconstruct:travelers/boots_broken",
+    "tconstruct:travelers/boots"
   ],
   "first_modifiers": [
     "tconstruct:dyed",

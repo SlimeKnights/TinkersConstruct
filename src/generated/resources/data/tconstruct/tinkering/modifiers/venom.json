@@ -2,7 +2,18 @@
   "level_display": "tconstruct:default",
   "modules": [
     {
-      "type": "tconstruct:mob_effect",
+      "type": "tconstruct:weapon_mob_effect",
+      "effect": "tconstruct:venom",
+      "level": {
+        "flat": 1.0
+      },
+      "time": {
+        "flat": 100.0,
+        "random": 100.0
+      }
+    },
+    {
+      "type": "tconstruct:counter_mob_effect",
       "chance": {
         "flat": 0.15
       },

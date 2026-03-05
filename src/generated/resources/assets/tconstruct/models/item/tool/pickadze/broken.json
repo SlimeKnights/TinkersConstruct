@@ -6,6 +6,10 @@
     "pick": "tconstruct:item/tool/pickadze/pick_broken",
     "handle": "tconstruct:item/tool/pickaxe/handle"
   },
+  "modifier_maps": [
+    "tconstruct:pickadze_broken",
+    "tconstruct:pickadze"
+  ],
   "modifier_roots": [
     "tconstruct:item/tool/pickadze/modifiers/broken/",
     "tconstruct:item/tool/pickadze/modifiers/"

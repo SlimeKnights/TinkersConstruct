@@ -5,8 +5,7 @@
     "head":  "tconstruct:item/tool/ammo/axe_head",
     "shaft": "tconstruct:item/tool/ammo/arrow_shaft"
   },
-  "modifier_roots": [ "tconstruct:item/tool/ammo/axe_modifiers/" ],
-  "show_traits": true,
+  "modifier_maps": ["tconstruct:throwing_axe"],
   "parts": [
     { "name": "shaft", "index": 1 },
     { "name": "head",  "index": 0 }

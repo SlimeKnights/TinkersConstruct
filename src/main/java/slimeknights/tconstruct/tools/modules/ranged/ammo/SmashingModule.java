@@ -88,6 +88,12 @@ public enum SmashingModule implements ModifierModule, FluidModifierHook, Project
     return DEFAULT_HOOKS;
   }
 
+  @Override
+  public Integer getPriority() {
+    // after bounce, before explosive
+    return 50;
+  }
+
 
   /* Tank helpers */
 
@@ -422,6 +428,7 @@ public enum SmashingModule implements ModifierModule, FluidModifierHook, Project
     // if the arrow is stopping, discard it to prevent a fluid dupe
     if (used || persistentData.getBoolean(KEY_USED)) {
       projectile.playSound(SoundEvents.SPLASH_POTION_BREAK);
+      projectile.discard(); // ensure discarded, smashing overrides reusable
     }
   }
 

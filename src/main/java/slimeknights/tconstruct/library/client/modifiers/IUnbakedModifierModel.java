@@ -2,13 +2,15 @@ package slimeknights.tconstruct.library.client.modifiers;
 
 import com.google.gson.JsonObject;
 import net.minecraft.client.resources.model.Material;
+import slimeknights.tconstruct.library.client.modifiers.model.ModifierModel;
 
 import javax.annotation.Nullable;
 import java.util.function.Function;
 
 /**
  * This interface converts from tool data to quads for a modifier. The default just loads a flat texture, but can be extended to dynamically load textures.
- * There is one copy of a class implementing this interface per modifier
+ * There is one copy of a class implementing this interface per modifier.
+ * @deprecated use {@link ModifierModel} with {@link slimeknights.mantle.data.loadable.record.RecordLoadable}.
  */
 public interface IUnbakedModifierModel {
   /**

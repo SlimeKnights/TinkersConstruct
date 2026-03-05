@@ -11,6 +11,10 @@
     "large_back": "tconstruct:item/tool/sledge_hammer/large/back_broken",
     "large_front": "tconstruct:item/tool/sledge_hammer/large/front_broken"
   },
+  "modifier_maps": [
+    "tconstruct:sledge_hammer_broken",
+    "tconstruct:sledge_hammer"
+  ],
   "modifier_roots": {
     "small": [
       "tconstruct:item/tool/sledge_hammer/modifiers/broken/",

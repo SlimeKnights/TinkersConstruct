@@ -6,7 +6,7 @@
     "cuirass": "tconstruct:item/tool/armor/travelers/goggles/cuirass",
     "metal":   "tconstruct:item/tool/armor/travelers/goggles/metal"
   },
-  "modifier_roots": [ "tconstruct:item/tool/armor/travelers/goggles/modifiers/" ],
+  "modifier_maps": ["tconstruct:travelers/goggles"],
   "first_modifiers": [ "tconstruct:dyed" ],
   "parts": [
     { "name": "base" },

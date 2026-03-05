@@ -6,6 +6,10 @@
     "handle": "tconstruct:item/tool/pickaxe/handle",
     "binding": "tconstruct:item/tool/pickaxe/binding"
   },
+  "modifier_maps": [
+    "tconstruct:pickaxe_broken",
+    "tconstruct:pickaxe"
+  ],
   "modifier_roots": [
     "tconstruct:item/tool/pickaxe/modifiers/broken/",
     "tconstruct:item/tool/pickaxe/modifiers/"

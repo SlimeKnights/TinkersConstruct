@@ -5,6 +5,10 @@
     "cuirass": "tconstruct:item/tool/armor/travelers/shield/cuirass_broken",
     "wood": "tconstruct:item/tool/armor/travelers/shield/wood_broken"
   },
+  "modifier_maps": [
+    "tconstruct:travelers/shield_broken",
+    "tconstruct:travelers/shield"
+  ],
   "modifier_roots": [
     "tconstruct:item/tool/armor/travelers/shield/modifiers/broken/",
     "tconstruct:item/tool/armor/travelers/shield/modifiers/"

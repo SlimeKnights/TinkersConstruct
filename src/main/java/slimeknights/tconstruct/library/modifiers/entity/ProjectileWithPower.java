@@ -17,6 +17,10 @@ public interface ProjectileWithPower {
   /** Sets the power to the new value */
   void setPower(float power);
 
+  /** Scales the given power by the current projectile velocity. */
+  static float velocityScale(Projectile projectile, double power) {
+    return Mth.ceil(Mth.clamp(power * projectile.getDeltaMovement().length(), 0, Integer.MAX_VALUE));
+  }
   
   /** Gets the power for the given projectile */
   static float getDamage(Projectile projectile) {
@@ -24,7 +28,7 @@ public interface ProjectileWithPower {
       return withPower.getDamage();
     }
     if (projectile instanceof AbstractArrow arrow) {
-      return (float) Mth.ceil(Mth.clamp(arrow.getBaseDamage() * projectile.getDeltaMovement().length(), 0, Integer.MAX_VALUE));
+      return velocityScale(projectile, arrow.getBaseDamage());
     }
     return 0;
   }

@@ -1,0 +1,6 @@
+{
+  "parent": "tconstruct:block/end_fluid_cannon/base",
+  "textures": {
+    "top": "tconstruct:block/end_fluid_cannon/top_nozzle"
+  }
+}

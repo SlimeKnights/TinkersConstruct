@@ -17,17 +17,18 @@ public record EntityLightVariable(@Nullable LightLayer lightLayer) implements En
   public static final RecordLoadable<EntityLightVariable> LOADER = RecordLoadable.create(TinkerLoadables.LIGHT_LAYER.nullableField("light_layer", EntityLightVariable::lightLayer), EntityLightVariable::new);
 
   /** Gets the skylight level, adjust for time of day */
-  public static int getSkyLight(Level level, BlockPos pos) {
+  private static int getSkyLight(Level level, BlockPos pos) {
     return level.getBrightness(LightLayer.SKY, pos) - level.getSkyDarken();
   }
 
   /** Gets the light level, adjusting skylight as needed */
   public static int getLightLevel(Level level, @Nullable LightLayer lightLayer, BlockPos pos) {
     if (lightLayer == null) {
+      // block light is at min 0, so we never go negative from no sky access
       return Math.max(getSkyLight(level, pos), level.getBrightness(LightLayer.BLOCK, pos));
     }
     if (lightLayer == LightLayer.SKY) {
-      return getSkyLight(level, pos);
+      return Math.max(0, getSkyLight(level, pos));
     }
     return level.getBrightness(lightLayer, pos);
   }

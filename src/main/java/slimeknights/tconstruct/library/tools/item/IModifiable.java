@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.tools.item;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.ItemLike;
 import slimeknights.tconstruct.TConstruct;
@@ -28,6 +29,14 @@ public interface IModifiable extends ItemLike {
 
   /** Gets the definition of this tool for building and applying modifiers */
   ToolDefinition getToolDefinition();
+
+  /** Gets the tool definition for the given item, or {@link ToolDefinition#EMPTY} if its not modifiable. */
+  static ToolDefinition getToolDefinition(Item item) {
+    if (item instanceof IModifiable modifiable) {
+      return modifiable.getToolDefinition();
+    }
+    return ToolDefinition.EMPTY;
+  }
 
   /**
    * Sets the rarity of the stack

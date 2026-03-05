@@ -52,6 +52,13 @@ public record ToolEnergyCapability(Supplier<? extends IToolStackView> tool) impl
     setEnergyRaw(tool, Mth.clamp(energy, 0, getMaxEnergy(tool)));
   }
 
+  /** Adds the given amount of energy to the tool. Can use negative to subtract energy. */
+  public static void addEnergy(IToolStackView tool, int energy) {
+    if (energy != 0) {
+      setEnergy(tool, getEnergy(tool) + energy);
+    }
+  }
+
   /** Ensures the tool's energy is within the cap. Generally not necessary to call this directly as it's called by {@link #ENERGY_HANDLER} on tool change. */
   public static void checkEnergy(IToolStackView tool) {
     int energy = ToolEnergyCapability.getEnergy(tool);

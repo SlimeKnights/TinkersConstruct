@@ -52,7 +52,7 @@ public record PlaceGlowModule(int damage) implements ModifierModule, BlockIntera
         Level world = context.getLevel();
         Direction face = context.getClickedFace();
         BlockPos pos = context.getClickedPos().relative(face);
-        if (TinkerCommons.glow.get().addGlow(world, pos, face.getOpposite())) {
+        if (TinkerCommons.glowBlock.get().addGlow(world, pos, face.getOpposite())) {
           // damage the tool, showing animation if relevant
           if (damage > 0 && ToolDamageUtil.damage(tool, damage, player, context.getItemInHand(), modifier.getId()) && player != null) {
             player.broadcastBreakEvent(source.getSlot(context.getHand()));
@@ -70,7 +70,7 @@ public record PlaceGlowModule(int damage) implements ModifierModule, BlockIntera
   public Boolean removeBlock(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context) {
     // if we have left click modifiers active, ensure we don't break the block on left click
     // otherwise our newly placed block is immediately removed
-    if (context.getState().is(TinkerCommons.glow.get()) && tool.hasTag(TinkerTags.Items.INTERACTABLE_LEFT) && tool.getHook(ToolHooks.INTERACTION).canInteract(tool, modifier.getId(), InteractionSource.LEFT_CLICK)) {
+    if (context.getState().is(TinkerCommons.glowBlock.get()) && tool.hasTag(TinkerTags.Items.INTERACTABLE_LEFT) && tool.getHook(ToolHooks.INTERACTION).canInteract(tool, modifier.getId(), InteractionSource.LEFT_CLICK)) {
       return false;
     }
     return null;

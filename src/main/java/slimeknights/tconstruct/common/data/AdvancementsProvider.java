@@ -299,6 +299,8 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(ModifierIds.crystalshot);
       with.accept(ModifierIds.multishot);
       with.accept(ModifierIds.ballista);
+      with.accept(ModifierIds.slimeball);
+      with.accept(ModifierIds.sliver);
       // fishing
       with.accept(ModifierIds.grapple);
       // throwing
@@ -427,20 +429,29 @@ public class AdvancementsProvider extends GenericDataProvider {
       Consumer<MaterialId> with = mat -> builder.addCriterion(mat.getPath(), InventoryChangeTrigger.TriggerInstance.hasItems(ToolStackItemPredicate.ofContext(
         ToolContextPredicate.and(ToolContextPredicate.set(helmet), new HasMaterialPredicate(mat, 0)))));
       with.accept(MaterialIds.glass);
-      with.accept(MaterialIds.bone);
-      with.accept(MaterialIds.necroticBone);
+      with.accept(MaterialIds.blaze);
+      // zombie
       with.accept(MaterialIds.leather);
-      with.accept(MaterialIds.enderPearl);
-      with.accept(MaterialIds.venombone);
-      with.accept(MaterialIds.string);
-      with.accept(MaterialIds.darkthread);
       with.accept(MaterialIds.iron);
       with.accept(MaterialIds.copper);
-      with.accept(MaterialIds.blazingBone);
+      // spider
+      with.accept(MaterialIds.string);
+      with.accept(MaterialIds.darkthread);
+      // skeleton
+      with.accept(MaterialIds.bone);
+      with.accept(MaterialIds.ice);
+      with.accept(MaterialIds.necroticBone);
+      // piglin
       with.accept(MaterialIds.gold);
       with.accept(MaterialIds.roseGold);
       with.accept(MaterialIds.pigIron);
+      // end
+      with.accept(MaterialIds.enderPearl);
       with.accept(MaterialIds.dragonScale);
+      // crafted
+      with.accept(MaterialIds.venombone);
+      with.accept(MaterialIds.blazingBone);
+      with.accept(MaterialIds.knightmetal);
     });
     builder(TinkerTools.battlesign.get().getRenderTool(), resource("world/ancient_tools"), tinkersGadgetry, FrameType.CHALLENGE, builder -> {
       Consumer<ItemObject<?>> with = item -> builder.addCriterion(item.getId().getPath(), hasItem(item));

@@ -4,15 +4,17 @@
   "textures": {
     "blade":  "tconstruct:item/tool/swasher/blade",
     "barrel": "tconstruct:item/tool/swasher/barrel",
-    "handle": "tconstruct:item/tool/swasher/handle"
+    "handle": "tconstruct:item/tool/swasher/handle",
+    "tank":   "tconstruct:item/tool/swasher/tank"
   },
+  "modifier_maps": ["tconstruct:swasher"],
   "modifier_roots": [ "tconstruct:item/tool/swasher/modifiers/" ],
   "parts": [
     { "name": "handle", "index": 1 },
     { "name": "blade",  "index": 0 },
-    { "name": "barrel", "index": 2 }
+    { "name": "barrel", "index": 2 },
+    { "name": "tank" }
   ],
-  "first_modifiers": [{ "name": "tconstruct:tank", "forced": true }],
   "overrides": [
     {
       "predicate": { "tconstruct:charging": 1 },

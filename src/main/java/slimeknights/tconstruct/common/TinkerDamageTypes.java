@@ -48,6 +48,8 @@ public class TinkerDamageTypes {
   public static final ResourceKey<DamageType> MELEE_THROWN = create("melee_thrown");
   /** Damage source for a "non-projectile" with {@link #THROWN_TOOL}. Used in enderference. */
   public static final ResourceKey<DamageType> MELEE_THROWN_TOOL = create("melee_thrown_tool");
+  /** Damage source for a "non-projectile" with {@link #FISHING_HOOK}. Used in enderference. */
+  public static final ResourceKey<DamageType> MELEE_FISHING_HOOK = create("melee_fishing_hook");
 
   /** Damage source for an explosion that does not scale with difficulty */
   public static final DamageTypePair EXPLOSION = createPair("explosion");

@@ -12,6 +12,7 @@
     "large_grip":    "tconstruct:item/tool/excavator/large/grip",
     "large_binding": "tconstruct:item/tool/excavator/large/binding"
   },
+  "modifier_maps": ["tconstruct:excavator"],
   "modifier_roots": {
     "small": [ "tconstruct:item/tool/excavator/modifiers/" ],
     "large": [ "tconstruct:item/tool/excavator/large/modifiers/" ]

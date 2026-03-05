@@ -6,6 +6,7 @@
     "pick":   "tconstruct:item/tool/mattock/pick",
     "handle": "tconstruct:item/tool/pickaxe/handle"
   },
+  "modifier_maps": ["tconstruct:mattock"],
   "modifier_roots": [ "tconstruct:item/tool/mattock/modifiers/" ],
   "parts": [
     { "name": "handle", "index": 1 },

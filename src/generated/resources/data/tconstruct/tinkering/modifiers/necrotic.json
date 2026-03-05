@@ -1,0 +1,15 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:lifesteal",
+      "durability_usage": {
+        "each_level": 1
+      },
+      "percentage": {
+        "each_level": 0.05
+      }
+    }
+  ],
+  "tooltip_display": "always"
+}

@@ -40,7 +40,29 @@
         "minecraft:trims/items/helmet_trim",
         "minecraft:trims/items/chestplate_trim",
         "minecraft:trims/items/leggings_trim",
-        "minecraft:trims/items/boots_trim"
+        "minecraft:trims/items/boots_trim",
+        "tconstruct:item/tool/armor/travelers/goggles/trim",
+        "tconstruct:item/tool/armor/slime/wings_trim"
+      ]
+    },
+    {
+      "type": "minecraft:paletted_permutations",
+      "palette_key": "minecraft:trims/color_palettes/trim_palette",
+      "permutations": {
+        "amethyst": "minecraft:trims/color_palettes/amethyst",
+        "copper": "minecraft:trims/color_palettes/copper",
+        "diamond": "minecraft:trims/color_palettes/diamond",
+        "emerald": "minecraft:trims/color_palettes/emerald",
+        "gold": "minecraft:trims/color_palettes/gold",
+        "iron": "minecraft:trims/color_palettes/iron",
+        "lapis": "minecraft:trims/color_palettes/lapis",
+        "netherite": "minecraft:trims/color_palettes/netherite",
+        "quartz": "minecraft:trims/color_palettes/quartz",
+        "redstone": "minecraft:trims/color_palettes/redstone"
+      },
+      "textures": [
+        "tconstruct:item/tool/armor/travelers/goggles/trim",
+        "tconstruct:item/tool/armor/slime/wings_trim"
       ]
     },
     {

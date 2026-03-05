@@ -7,6 +7,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -15,6 +16,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.tools.TinkerTools;
 
 import javax.annotation.Nullable;
 import java.util.function.Consumer;
@@ -79,12 +81,21 @@ public class ToolDamageUtil {
     if (amount > 0) {
       // criteria updates
       int newDamage = damage + amount;
-      // TODO: needed?
       if (entity instanceof ServerPlayer player) {
+        // if not given the stack, find it on the player
         if (stack == null) {
-          stack = entity.getMainHandItem();
+          stack = ItemStack.EMPTY;
+          for (EquipmentSlot slot : EquipmentSlot.values()) {
+            ItemStack slotStack = player.getItemBySlot(slot);
+            if (tool.isSameStack(slotStack)) {
+              stack = slotStack;
+            }
+          }
         }
-        CriteriaTriggers.ITEM_DURABILITY_CHANGED.trigger(player, stack, newDamage);
+        // if we have a stack, update the criteria
+        if (!stack.isEmpty()) {
+          CriteriaTriggers.ITEM_DURABILITY_CHANGED.trigger(player, stack, newDamage);
+        }
       }
 
       tool.setDamage(newDamage);
@@ -192,10 +203,54 @@ public class ToolDamageUtil {
    * Damages the tool in the main hand and sends the break animation if it broke
    * @param tool    Tool to damage
    * @param amount  Amount of damage
-   * @param entity  Entity for animation
+   * @param entity  Entity for animation. If null animation is skipped.
+   * @param cause   Modifier damaging the tool
+   * @return true if the tool broke when damaging
    */
-  public static boolean damageAnimated(IToolStackView tool, int amount, LivingEntity entity) {
-    return damageAnimated(tool, amount, entity, entity.isUsingItem() ? entity.getUsedItemHand() : InteractionHand.MAIN_HAND);
+  public static boolean damageAnimated(IToolStackView tool, int amount, @Nullable LivingEntity entity, ModifierId cause) {
+    // try to locate the passed stack among all equipment slots
+    if (entity != null) {
+      for (EquipmentSlot slot : EquipmentSlot.values()) {
+        ItemStack stack = entity.getItemBySlot(slot);
+        if (tool.isSameStack(stack)) {
+          if (damage(tool, amount, entity, stack, cause)) {
+            entity.broadcastBreakEvent(slot);
+            return true;
+          }
+          return false;
+        }
+      }
+    }
+    // did not find in any of the slots? just skip the animation/stack
+    return damage(tool, amount, entity, ItemStack.EMPTY);
+  }
+
+  /**
+   * Damages the tool in the main hand and sends the break animation if it broke
+   * @param tool    Tool to damage
+   * @param amount  Amount of damage
+   * @param entity  Entity for animation
+   * @return true if the tool broke when damaging
+   */
+  public static boolean damageAnimated(IToolStackView tool, int amount, @Nullable LivingEntity entity) {
+    return damageAnimated(tool, amount, entity, ModifierId.EMPTY);
+  }
+
+  /**
+   * Calls {@link #damageAnimated(IToolStackView, int, LivingEntity, InteractionHand, ModifierId)} for a projectile launcher in a launch hook.
+   * Avoids damaging fishing rods, which will be damaged in the on hit hook.
+   * @param tool        Tool to damage
+   * @param modifier    Modifier damaging the tool
+   * @param amount      Amount to damage the tool
+   * @param entity      Entity damaging the tool
+   * @param projectile  Projectile that was launched. If a fishing hook damage is canceled.
+   * @return True if the tool broke.
+   */
+  public static boolean damageLauncher(IToolStackView tool, int amount, LivingEntity entity, Projectile projectile, ModifierId modifier) {
+    if (projectile.getType() != TinkerTools.fishingHook.get()) {
+      return ToolDamageUtil.damageAnimated(tool, amount, entity, entity.getUsedItemHand(), modifier);
+    }
+    return false;
   }
 
   /** Implements {@link net.minecraft.world.item.Item#damageItem(ItemStack, int, LivingEntity, Consumer)} for a modifiable item */

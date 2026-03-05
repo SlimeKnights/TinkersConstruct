@@ -123,6 +123,8 @@ public class TinkerItemModelProvider extends ItemModelProvider {
     generated(TinkerWorld.steelCluster, "block/geode/steel_cluster");
     generated(TinkerWorld.cobaltCluster, "block/geode/cobalt_cluster");
     generated(TinkerWorld.knightmetalCluster, "block/geode/knightmetal_cluster");
+    // heads
+    TinkerWorld.headItems.forEach(head -> withExistingParent(id(head).getPath(), "item/template_skull"));
   }
 
   @SuppressWarnings("deprecation") // no its not

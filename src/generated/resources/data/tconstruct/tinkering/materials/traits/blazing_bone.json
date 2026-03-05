@@ -21,11 +21,11 @@
     "tconstruct:skull": [
       {
         "level": 1,
-        "name": "tconstruct:firebreath"
+        "name": "tconstruct:flaming_bones"
       },
       {
         "level": 1,
-        "name": "tconstruct:blaze_disguise"
+        "name": "tconstruct:wither_skeleton_disguise"
       }
     ]
   }

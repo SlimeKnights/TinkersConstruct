@@ -68,11 +68,14 @@ import slimeknights.tconstruct.common.registration.GeodeItemObject;
 import slimeknights.tconstruct.common.registration.GeodeItemObject.BudSize;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.json.loot.equipment.MobEquipmentManager;
+import slimeknights.tconstruct.library.materials.MaterialRegistry;
+import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.tools.data.material.MaterialIds;
 import slimeknights.tconstruct.world.block.CongealedSlimeBlock;
 import slimeknights.tconstruct.world.block.CrystalClusterBlock;
 import slimeknights.tconstruct.world.block.DirtType;
@@ -433,7 +436,12 @@ public final class TinkerWorld extends TinkerModule {
     // mob drops
     output.accept(TinkerMaterials.necroticBone);
     output.accept(TinkerModifiers.dragonScale);
-    accept(output, headItems);
+    // skip necronium head unless necronium is enabled
+    headItems.forEach((type, head) -> {
+      if (type != TinkerHeadType.NECRONIUM || MaterialRegistry.getMaterial(MaterialIds.necronium) != IMaterial.UNKNOWN) {
+        output.accept(head);
+      }
+    });
 
     // earth is not in the loop as we only add congealed
     output.accept(congealedSlime.get(SlimeType.EARTH));

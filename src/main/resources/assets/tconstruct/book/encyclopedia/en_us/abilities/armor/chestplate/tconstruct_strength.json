@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:strength",
   "text": [
     {
-      "text": "Grants +10% attack damage to all weapons per level."
+      "text": "Grants +10% melee damage per level to all melee weapons."
     }
   ],
   "more_text_space": true,

@@ -5,5 +5,5 @@
       "type": "tconstruct:trim"
     }
   ],
-  "tooltip_display": "always"
+  "tooltip_display": "tinker_station"
 }

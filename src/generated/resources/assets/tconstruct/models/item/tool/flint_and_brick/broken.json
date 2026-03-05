@@ -4,6 +4,10 @@
   "textures": {
     "tool": "tconstruct:item/tool/flint_and_brick/tool_broken"
   },
+  "modifier_maps": [
+    "tconstruct:flint_and_brick_broken",
+    "tconstruct:flint_and_brick"
+  ],
   "modifier_roots": [
     "tconstruct:item/tool/flint_and_bronze/modifiers/broken/",
     "tconstruct:item/tool/flint_and_bronze/modifiers/"

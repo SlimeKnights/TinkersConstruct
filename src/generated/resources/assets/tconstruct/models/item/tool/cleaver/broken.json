@@ -11,6 +11,10 @@
     "large_guard": "tconstruct:item/tool/cleaver/large/guard",
     "large_shield": "tconstruct:item/tool/cleaver/large/shield_broken"
   },
+  "modifier_maps": [
+    "tconstruct:cleaver_broken",
+    "tconstruct:cleaver"
+  ],
   "modifier_roots": {
     "small": [
       "tconstruct:item/tool/cleaver/modifiers/broken/",

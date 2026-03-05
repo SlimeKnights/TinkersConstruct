@@ -1,0 +1,8 @@
+{
+  "modifiers": {
+    "tconstruct:dyed": {
+      "type": "tconstruct:dyed",
+      "texture": "tconstruct:item/tool/armor/travelers/goggles/modifiers/dyed_broken"
+    }
+  }
+}

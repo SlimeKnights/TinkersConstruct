@@ -60,6 +60,7 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addMaterial(MaterialIds.skyslimeVine, 2, ORDER_BINDING, true);
     addMaterial(MaterialIds.weepingVine,  2, ORDER_BINDING, true);
     addMaterial(MaterialIds.twistingVine, 2, ORDER_BINDING, true);
+    addMaterial(MaterialIds.turtle,       2, ORDER_BINDING, true);
     // tier 2 - ammo
     addMaterial(MaterialIds.amethyst,   2, ORDER_REPAIR, false);
     addMaterial(MaterialIds.prismarine, 2, ORDER_REPAIR, true);
@@ -141,7 +142,7 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addCompatMetalMaterial(MaterialIds.steeleaf, 3, ORDER_COMPAT + ORDER_SPECIAL);
     // tier 4 (mod integration)
     addCompatMetalMaterial(MaterialIds.fiery,           4, ORDER_COMPAT + ORDER_END);
-    addCompatAlloy(MaterialIds.nicrosil, 4, ORDER_COMPAT + ORDER_WEAPON,  new OrCondition(tagExistsCondition("ingots/tin"), tagExistsCondition("ingots/chromium")));
+    addCompatAlloy(MaterialIds.nicrosil, 4, ORDER_COMPAT + ORDER_WEAPON,  new OrCondition(tagExistsCondition("ingots/tin"), tagExistsCondition("ingots/nickel"), tagExistsCondition("ingots/chromium")));
 
     // slimesuit - textures
     addMaterial(MaterialIds.blood, 2, ORDER_REPAIR, true);

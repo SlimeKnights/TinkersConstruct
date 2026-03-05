@@ -4,6 +4,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import slimeknights.mantle.util.LogicHelper;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
@@ -51,7 +52,8 @@ public interface MaxArmorLevelModule extends HookProvider, EquipmentChangeModifi
   /** Updates the level of this module, properly evaluating the condition and setting the max level */
   default void updateLevel(IToolStackView tool, ModifierEntry modifier, float effectiveLevel, EquipmentChangeContext context) {
     if (condition().matches(tool, modifier) && ArmorLevelModule.validSlot(tool, context.getChangedSlot(), heldTag()) && (!tool.isBroken() || allowBroken())) {
-      context.getTinkerData().ifPresent(data -> {
+      TinkerDataCapability.Holder data = LogicHelper.orElseNull(context.getTinkerData());
+      if (data != null) {
         ModifierMaxLevel maxLevel = data.computeIfAbsent(maxLevel());
         float oldLevel = maxLevel.getMax();
         maxLevel.set(context.getChangedSlot(), effectiveLevel);
@@ -59,7 +61,7 @@ public interface MaxArmorLevelModule extends HookProvider, EquipmentChangeModifi
         if (oldLevel != newLevel) {
           updateValue(tool, modifier, context, data, newLevel, oldLevel);
         }
-      });
+      }
     }
   }
 
@@ -79,7 +81,7 @@ public interface MaxArmorLevelModule extends HookProvider, EquipmentChangeModifi
     TagKey<Item> heldTag = module.heldTag();
     if (module.condition().matches(tool, modifier) && (tool.hasTag(TinkerTags.Items.WORN_ARMOR) || heldTag != null && tool.hasTag(heldTag)) && (!tool.isBroken() || module.allowBroken())) {
       // FIXME: this does not handle the case of multiple slots being equally max, would require slot/stack access to figure that out
-      return player == null || player.getCapability(TinkerDataCapability.CAPABILITY).filter(data -> data.computeIfAbsent(module.maxLevel()).getMax() <= modifier.getEffectiveLevel()).isPresent();
+      return player == null || ModifierMaxLevel.getStat(player, module.maxLevel()) <= modifier.getEffectiveLevel();
     }
     return false;
   }

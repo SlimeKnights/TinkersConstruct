@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "facing=west":  { "model": "tconstruct:block/end_fluid_cannon/front", "y": 270 },
+    "facing=south": { "model": "tconstruct:block/end_fluid_cannon/front", "y": 180 },
+    "facing=north": { "model": "tconstruct:block/end_fluid_cannon/front" },
+    "facing=east":  { "model": "tconstruct:block/end_fluid_cannon/front", "y":  90 },
+    "facing=up":    { "model": "tconstruct:block/end_fluid_cannon/up"   },
+    "facing=down":  { "model": "tconstruct:block/end_fluid_cannon/down" }
+  }
+}

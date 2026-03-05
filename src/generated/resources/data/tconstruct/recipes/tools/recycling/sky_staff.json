@@ -6,7 +6,7 @@
   "results": {
     "tconstruct:block": {
       "count": 2,
-      "item": "tconstruct:greenheart_log"
+      "item": "tconstruct:skyroot_log"
     },
     "tconstruct:crystal": {
       "count": 2,
@@ -14,7 +14,7 @@
     },
     "tconstruct:ingot": {
       "count": 1,
-      "tag": "forge:ingots/cobalt"
+      "tag": "forge:ingots/rose_gold"
     }
   },
   "tool": {

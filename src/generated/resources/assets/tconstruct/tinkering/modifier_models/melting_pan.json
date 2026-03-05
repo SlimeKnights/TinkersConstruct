@@ -1,0 +1,9 @@
+{
+  "constant": {
+    "fluid": {
+      "type": "tconstruct:tank",
+      "full": "tconstruct:item/tool/melting_pan/fluid_full",
+      "partial": "tconstruct:item/tool/melting_pan/fluid_partial"
+    }
+  }
+}

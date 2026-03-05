@@ -11,6 +11,7 @@ import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
@@ -52,7 +53,12 @@ import java.util.stream.Stream;
  */
 @Setter
 public class FluidEffectProjectile extends Projectile implements ProjectileWithKnockback, ProjectileWithPower {
+
   private static final EntityDataAccessor<FluidStack> FLUID = SynchedEntityData.defineId(FluidEffectProjectile.class, TinkerFluids.FLUID_DATA_SERIALIZER);
+  /** Movement speed in water */
+  private static final EntityDataAccessor<Float> WATER_INERTIA = SynchedEntityData.defineId(FluidEffectProjectile.class, EntityDataSerializers.FLOAT);
+
+
   /** Projectile power determining how much fluid is used at most */
   @Getter
   private float power = 1;
@@ -102,6 +108,11 @@ public class FluidEffectProjectile extends Projectile implements ProjectileWithK
    */
   public void setFluid(FluidStack fluid) {
     this.entityData.set(FLUID, fluid);
+  }
+
+  /** Sets the water inertia for the projectile */
+  public void setWaterInertia(float waterInertia) {
+    this.entityData.set(WATER_INERTIA, Math.min(waterInertia, 0.99f));
   }
 
   @Override
@@ -191,7 +202,8 @@ public class FluidEffectProjectile extends Projectile implements ProjectileWithK
       } else {
         newLocation = newLocation.add(velocity);
       }
-      velocity = velocity.scale(0.99f);
+      velocity = velocity.scale(this.isInWater() ? entityData.get(WATER_INERTIA) : 0.99f);
+      // TODO: reduce when underwater without fins
       if (!this.isNoGravity()) {
         FluidStack fluid = getFluid();
         velocity = velocity.add(0, fluid.getFluid().getFluidType().isLighterThanAir() ? 0.06 : -0.06, 0);
@@ -296,10 +308,16 @@ public class FluidEffectProjectile extends Projectile implements ProjectileWithK
   }
 
   /* Network */
+  private static final String KEY_FLUID = "fluid";
+  private static final String KEY_POWER = "power";
+  private static final String KEY_KNOCKBACK = "knockback";
+  private static final String KEY_CANNON = "cannon";
+  private static final String KEY_WATER_INERTIA = "water_inertia";
 
   @Override
   protected void defineSynchedData() {
     this.entityData.define(FLUID, FluidStack.EMPTY);
+    this.entityData.define(WATER_INERTIA, 0.6f);
   }
 
   @Override
@@ -319,27 +337,29 @@ public class FluidEffectProjectile extends Projectile implements ProjectileWithK
   @Override
   protected void addAdditionalSaveData(CompoundTag nbt) {
     super.addAdditionalSaveData(nbt);
-    nbt.putFloat("power", power);
-    nbt.putFloat("knockback", knockback);
+    nbt.putFloat(KEY_POWER, power);
+    nbt.putFloat(KEY_KNOCKBACK, knockback);
+    nbt.putFloat(KEY_WATER_INERTIA, this.entityData.get(WATER_INERTIA));
     if (cannon != null) {
-      nbt.put("cannon", NbtUtils.writeBlockPos(cannon));
+      nbt.put(KEY_CANNON, NbtUtils.writeBlockPos(cannon));
     }
     FluidStack fluid = getFluid();
     if (!fluid.isEmpty()) {
-      nbt.put("fluid", fluid.writeToNBT(new CompoundTag()));
+      nbt.put(KEY_FLUID, fluid.writeToNBT(new CompoundTag()));
     }
   }
 
   @Override
   protected void readAdditionalSaveData(CompoundTag nbt) {
     super.readAdditionalSaveData(nbt);
-    this.power = nbt.getFloat("power");
-    this.knockback = nbt.getFloat("knockback");
-    if (nbt.contains("cannon")) {
-      this.cannon = NbtUtils.readBlockPos(nbt.getCompound("cannon"));
+    this.power = nbt.getFloat(KEY_POWER);
+    this.knockback = nbt.getFloat(KEY_KNOCKBACK);
+    this.entityData.set(WATER_INERTIA, nbt.getFloat(KEY_WATER_INERTIA));
+    if (nbt.contains(KEY_CANNON)) {
+      this.cannon = NbtUtils.readBlockPos(nbt.getCompound(KEY_CANNON));
     } else {
       this.cannon = null;
     }
-    setFluid(FluidStack.loadFluidStackFromNBT(nbt.getCompound("fluid")));
+    setFluid(FluidStack.loadFluidStackFromNBT(nbt.getCompound(KEY_FLUID)));
   }
 }

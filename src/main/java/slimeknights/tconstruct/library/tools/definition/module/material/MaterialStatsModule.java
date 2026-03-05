@@ -35,7 +35,9 @@ import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.tools.modules.ArmorModuleBuilder;
 import slimeknights.tconstruct.tools.stats.PlatingMaterialStats;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.IntStream;
 
 /** Module for building tool stats using materials */
@@ -104,13 +106,24 @@ public class MaterialStatsModule implements ToolStatsHook, ToolTraitHook, ToolMa
 
   @Override
   public float getRepairAmount(IToolStackView tool, MaterialId material) {
-    ResourceLocation toolId = tool.getDefinition().getId();
+    // first, find all stat types we might try for this material
+    Set<MaterialStatsId> matchingStats = new HashSet<>();
     for (int i : getRepairIndices()) {
       if (tool.getMaterial(i).matches(material)) {
-        return MaterialRepairModule.getDurability(toolId, material, statTypes.get(i));
+        matchingStats.add(statTypes.get(i));
       }
     }
-    return 0;
+    // next, figure out which of the matches repairs the most
+    ResourceLocation toolId = tool.getDefinition().getId();
+    int max = 0;
+    for (MaterialStatsId stat : matchingStats) {
+      // its possible a later stat type will repair more with this material
+      int repair = MaterialRepairModule.getDurability(toolId, material, stat);
+      if (repair > max) {
+        max = repair;
+      }
+    }
+    return max;
   }
 
   @Override

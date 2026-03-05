@@ -349,8 +349,11 @@ public class TinkerTags {
 
     /** Stones that can be used for stoneshield */
     public static final TagKey<Item> STONESHIELDS = local("stoneshields");
-    /** Items that can be consumed for a blaze slimeskull to shoot a fireball */
+    /** @deprecated Modifier using this tag is planned for removal. See {@link slimeknights.tconstruct.tools.modules.interaction.FireballModule} for replacement. */
+    @Deprecated
     public static final TagKey<Item> FIREBALLS = local("fireballs");
+    /** Items that can be consumed for a blaze slimeskull to shoot a fireball */
+    public static final TagKey<Item> SLIMEBALL_AMMO = local("slimeball_ammo");
     /** Items in this tag cannot be placed inside tool inventories */
     public static final TagKey<Item> TOOL_INVENTORY_BLACKLIST = local("inventory_blacklist");
     /** List of blocks that should produce bonus gold nugget drops from the chrysophilite modifier. Will only drop bonus if the block does not drop itself */
@@ -457,6 +460,10 @@ public class TinkerTags {
     /** @deprecated After migrating travelers to have a material, doing away with golden armor on slimesuit. If you still want this on your armor, we recommend adding a new recipe */
     @Deprecated(forRemoval = true)
     public static final TagKey<Item> GOLDEN_ARMOR = local("modifiable/armor/golden");
+    /** Items in this tag use an alternative recipe for recapitated to prevent conflict with skull part swapping. */
+    public static final TagKey<Item> SKULLS = local("modifiable/skulls");
+    /** Items that support skull based part swapping on index 0, and thus disallow rebalanced using just a skull. */
+    public static final TagKey<Item> SWAPPABLE_SKULLS = local("modifiable/skulls/swappable");
 
     // armor book tags
     /** Full list of armor shown in the encyclopedia, can add to directly to show only in the encyclopedia */
@@ -476,18 +483,27 @@ public class TinkerTags {
     public static final TagKey<Item> RANGED = local("modifiable/ranged");
     /** Modifiable items that launch a projectile, as opposed to being the projectile. Additionally includes {@link ToolStats#PROJECTILE_DAMAGE} for its launch power. */
     public static final TagKey<Item> LAUNCHERS = local("modifiable/ranged/launcher");
+    // subclasses
     /** Any modifiable ranged items that are a bow, includes crosbows and longbows */
     public static final TagKey<Item> BOWS = local("modifiable/ranged/bows");
     /** Any modifiable bows that fire arrows on release */
     public static final TagKey<Item> LONGBOWS = local("modifiable/ranged/longbows");
-    /** Bows supporting the ballista modifier. In code, only {@link slimeknights.tconstruct.library.tools.item.ranged.ModifiableBowItem} implements this functionality. */
-    public static final TagKey<Item> BALLISTAS = local("modifiable/ranged/ballistas");
     /** Any modifiable bows that store an arrow then fire on next use */
     public static final TagKey<Item> CROSSBOWS = local("modifiable/ranged/crossbows");
     /** Modifiable items support special staff modifiers, is a subtag of ranged. */
     public static final TagKey<Item> STAFFS = local("modifiable/staffs");
     /** Modifiable items that support fishing modifiers. */
     public static final TagKey<Item> FISHING_RODS = local("modifiable/fishing_rods");
+    // specific modifiers
+    /** Ranged items supporting the power upgrade */
+    public static final TagKey<Item> RANGED_POWER = local("modifiable/ranged/power");
+    /** Ranged items supporting the quick charge upgrade */
+    public static final TagKey<Item> RANGED_QUICK_CHARGE = local("modifiable/ranged/quick_charge");
+    /** Ranged items supporting the bounce upgrade */
+    public static final TagKey<Item> RANGED_BOUNCE = local("modifiable/ranged/bounce");
+    /** Bows supporting the ballista modifier. In code, only {@link slimeknights.tconstruct.library.tools.item.ranged.ModifiableBowItem} implements this functionality. */
+    public static final TagKey<Item> BALLISTAS = local("modifiable/ranged/ballistas");
+    // book
     /** Ranged tools to show in materials and you and the encyclopedia. */
     public static final TagKey<Item> SMALL_RANGED = local("modifiable/ranged/small");
     /** Ranged tools to show in mighty smelting and the encyclopedia. */
@@ -606,49 +622,68 @@ public class TinkerTags {
 
   public static class EntityTypes {
     private static void init() {}
+
+    // mob classes
     public static final TagKey<EntityType<?>> SLIMES = common("slimes");
-    public static final TagKey<EntityType<?>> BACON_PRODUCER = local("bacon_producer");
-
-    /**
-     * Entities in this tag either run proper hooks to use a melee weapon on left click or cause issues with our melee modifier logic.
-     * Anything not in this tag will attempt the fallback behavior which apply effects during damage events.
-     */
-    public static final TagKey<EntityType<?>> DAMAGE_MODIFIER_BLACKLIST = local("damage_modifier_blacklist");
-
-    public static final TagKey<EntityType<?>> MELTING_SHOW = local("melting/show_in_default");
-    public static final TagKey<EntityType<?>> MELTING_HIDE = local("melting/hide_in_default");
-    public static final TagKey<EntityType<?>> PIGGYBACKPACK_BLACKLIST = local("piggybackpack_blacklist");
-
     /** Entities in this tag take more damage from bane of sssss */
     public static final TagKey<EntityType<?>> CREEPERS = common("creepers");
     public static final TagKey<EntityType<?>> VILLAGERS = common("villagers");
     public static final TagKey<EntityType<?>> ILLAGERS = common("illagers");
     /** Entities in this tag may spawn with battle signs */
     public static final TagKey<EntityType<?>> PIGLINS = common("piglins");
-    /** Entities in this tag take more damage from killager */
-    public static final TagKey<EntityType<?>> KILLAGERS = local("killagers");
     /** @deprecated use the chance fields on the severing recipe to adjust rates. */
     @Deprecated(forRemoval = true)
     public static final TagKey<EntityType<?>> RARE_MOBS = local("rare_mobs");
+    /** Common tag of fishing bobbers. Note we don't use this so we don't bother adding vanilla to it. */
+    public static final TagKey<EntityType<?>> BOBBERS = common("bobber");
+
+    // tool logic
+    /**
+     * Entities in this tag either run proper hooks to use a melee weapon on left click or cause issues with our melee modifier logic.
+     * Anything not in this tag will attempt the fallback behavior which apply effects during damage events.
+     */
+    public static final TagKey<EntityType<?>> DAMAGE_MODIFIER_BLACKLIST = local("damage_modifier_blacklist");
+    /** Entities in this tag are unabled to be picked up by the piggybackpack */
+    public static final TagKey<EntityType<?>> PIGGYBACKPACK_BLACKLIST = local("piggybackpack_blacklist");
     /** Mobs that get the 4x protection boost due to only 1 armor piece */
     public static final TagKey<EntityType<?>> SMALL_ARMOR = common("small_armor");
 
-    /** Things that can be collected using {@link net.minecraft.world.entity.Entity#playerTouch(Player)} using a fishing rod. */
-    public static final TagKey<EntityType<?>> COLLECTABLES = common("collectables");
-    /** {@link #COLLECTABLES} that should be discarded when they fail to collect. For example, arrows due to creative only pickup. */
-    public static final TagKey<EntityType<?>> DISCARDABLE_COLLECTABLES = common("collectables/discardable");
-
+    // projectile logic
     /** Projectiles with this tag will not be discarded by any relevant modifiers. */
     public static final TagKey<EntityType<?>> REUSABLE_AMMO = common("reusable_ammo");
-    /** {@link net.minecraft.world.entity.projectile.AbstractArrow} with this tag will not run the enderference override. Ensures we run the proper damaging logic for weird arrows like tridents. */
-    public static final TagKey<EntityType<?>> ENDERFERENCE_ARROW_BLACKLIST = common("enderference_arrow_blacklist");
-    /** Projectiles with this tag cannot be reflected */
-    public static final TagKey<EntityType<?>> REFLECTING_BLACKLIST = common("reflecting/blacklist");
-    /** Projectiles with this tag cannot be reflected */
-    public static final TagKey<EntityType<?>> REFLECTING_PRESERVE_OWNER = common("reflecting/preserve_owner");
+    /** Trident like entities, to ensure they are preserved in the related hooks. */
+    public static final TagKey<EntityType<?>> TRIDENTS = common("tridents");
 
+
+    // modifiers
+
+    /** Entities in this tag take more damage from killager */
+    public static final TagKey<EntityType<?>> KILLAGERS = local("killagers");
+    /** Entities in this tag drop bacon from the tasty modifier */
+    public static final TagKey<EntityType<?>> BACON_PRODUCER = local("bacon_producer");
+    /** {@link net.minecraft.world.entity.projectile.AbstractArrow} with this tag will not run the enderference override. Ensures we run the proper damaging logic for weird arrows like tridents. */
+    public static final TagKey<EntityType<?>> ENDERFERENCE_ARROW_BLACKLIST = local("enderference_arrow_blacklist");
     /** Entities that will not heal you using necrotic */
-    public static final TagKey<EntityType<?>> NECROTIC_BLACKLIST = common("necrotic_blacklist");
+    public static final TagKey<EntityType<?>> NECROTIC_BLACKLIST = local("necrotic_blacklist");
+
+    // melting
+    /** Entities in this tag are forced to show in JEI even if not living */
+    public static final TagKey<EntityType<?>> MELTING_SHOW = local("melting/show_in_default");
+    /** Entities in this tag are hidden from JEI and blacklisted from melting in the smeltery */
+    public static final TagKey<EntityType<?>> MELTING_HIDE = local("melting/hide_in_default");
+
+    // collecting
+    /** Things that can be collected using {@link net.minecraft.world.entity.Entity#playerTouch(Player)} using a fishing rod. */
+    public static final TagKey<EntityType<?>> COLLECTABLES = local("collectables");
+    /** {@link #COLLECTABLES} that should be discarded when they fail to collect. For example, arrows due to creative only pickup. */
+    public static final TagKey<EntityType<?>> DISCARDABLE_COLLECTABLES = local("collectables/discardable");
+
+    // reflecting
+    /** Projectiles with this tag cannot be reflected */
+    public static final TagKey<EntityType<?>> REFLECTING_BLACKLIST = local("reflecting/blacklist");
+    /** Projectiles with this tag cannot be reflected */
+    public static final TagKey<EntityType<?>> REFLECTING_PRESERVE_OWNER = local("reflecting/preserve_owner");
+
 
     private static TagKey<EntityType<?>> local(String name) {
       return TagKey.create(Registries.ENTITY_TYPE, getResource(name));

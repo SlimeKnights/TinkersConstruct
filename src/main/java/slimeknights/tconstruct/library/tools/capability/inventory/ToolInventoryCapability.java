@@ -78,6 +78,16 @@ public class ToolInventoryCapability extends InventoryModifierHookIterator<Modif
     public boolean isItemValid(IToolStackView tool, ModifierEntry modifier, int slot, ItemStack stack) {
       return false;
     }
+
+    @Override
+    public StackMatch findStack(IToolStackView tool, ModifierEntry modifier, Predicate<ItemStack> predicate) {
+      return StackMatch.EMPTY;
+    }
+
+    @Override
+    public List<ItemStack> getAllStacks(IToolStackView tool, ModifierEntry modifier, List<ItemStack> stackList) {
+      return List.of();
+    }
   });
 
   /** Supplier to the tool instance */

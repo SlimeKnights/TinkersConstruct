@@ -83,7 +83,7 @@ public class ToolStats {
   // TODO 1.21: rename to projectile power?
   public static final FloatToolStat PROJECTILE_DAMAGE = register(new FloatToolStat(name("projectile_damage"), 0xFFD76464, 2f, 0f, 1024f, or(tag(TinkerTags.Items.LAUNCHERS), tag(TinkerTags.Items.AMMO))));
   /** Projectile movement speed reduction while underwater */
-  public static final FloatToolStat WATER_INERTIA = register(new FloatToolStat(name("water_inertia"), 0xFF5A82F3, 0.6f, 0.01f, 0.99f, or(tag(TinkerTags.Items.MELEE_WEAPON), tag(TinkerTags.Items.AMMO))));
+  public static final FloatToolStat WATER_INERTIA = register(new FloatToolStat(name("water_inertia"), 0xFF5A82F3, 0.6f, 0.01f, 0.99f));
 
   // fishing
   /** Luck bonus applied to fishing rods */

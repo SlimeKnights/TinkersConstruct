@@ -1,0 +1,64 @@
+{
+  "modifiers": {
+    "tconstruct:bucketing": [
+      {
+        "type": "tconstruct:fluid",
+        "mask": "tconstruct:item/tool/staff/modifiers/tconstruct_bucketing_full",
+        "mask_large": "tconstruct:item/tool/staff/large_modifiers/tconstruct_bucketing_full"
+      },
+      {
+        "type": "tconstruct:basic",
+        "texture": "tconstruct:item/tool/staff/modifiers/tconstruct_bucketing",
+        "texture_large": "tconstruct:item/tool/staff/large_modifiers/tconstruct_bucketing"
+      }
+    ],
+    "tconstruct:diamond": {
+      "texture": "tconstruct:item/tool/staff/modifiers/tconstruct_diamond",
+      "texture_large": "tconstruct:item/tool/staff/large_modifiers/tconstruct_diamond"
+    },
+    "tconstruct:embellishment": {
+      "type": "tconstruct:material",
+      "texture": "tconstruct:item/tool/staff/modifiers/tconstruct_embellishment",
+      "texture_large": "tconstruct:item/tool/staff/large_modifiers/tconstruct_embellishment"
+    },
+    "tconstruct:emerald": {
+      "texture": "tconstruct:item/tool/staff/modifiers/tconstruct_emerald",
+      "texture_large": "tconstruct:item/tool/staff/large_modifiers/tconstruct_emerald"
+    },
+    "tconstruct:firestarter": {
+      "texture": "tconstruct:item/tool/staff/modifiers/tconstruct_firestarter",
+      "texture_large": "tconstruct:item/tool/staff/large_modifiers/tconstruct_firestarter"
+    },
+    "tconstruct:netherite": {
+      "texture": "tconstruct:item/tool/staff/modifiers/tconstruct_netherite",
+      "texture_large": "tconstruct:item/tool/staff/large_modifiers/tconstruct_netherite"
+    },
+    "tconstruct:overforced": {
+      "texture": "tconstruct:item/tool/staff/modifiers/tconstruct_overforced",
+      "texture_large": "tconstruct:item/tool/staff/large_modifiers/tconstruct_overforced"
+    },
+    "tconstruct:reinforced": {
+      "texture": "tconstruct:item/tool/staff/modifiers/tconstruct_reinforced",
+      "texture_large": "tconstruct:item/tool/staff/large_modifiers/tconstruct_reinforced"
+    },
+    "tconstruct:tank": [
+      {
+        "type": "tconstruct:tank",
+        "full": "tconstruct:item/tool/staff/modifiers/tconstruct_tank_full",
+        "full_large": "tconstruct:item/tool/staff/large_modifiers/tconstruct_tank_full",
+        "partial": "tconstruct:item/tool/staff/modifiers/tconstruct_tank_partial",
+        "partial_large": "tconstruct:item/tool/staff/large_modifiers/tconstruct_tank_partial"
+      },
+      {
+        "type": "tconstruct:basic",
+        "texture": "tconstruct:item/tool/staff/modifiers/tconstruct_tank",
+        "texture_large": "tconstruct:item/tool/staff/large_modifiers/tconstruct_tank"
+      }
+    ],
+    "tconstruct:unbreakable": {
+      "luminosity": 2,
+      "texture": "tconstruct:item/tool/staff/modifiers/tconstruct_unbreakable",
+      "texture_large": "tconstruct:item/tool/staff/large_modifiers/tconstruct_unbreakable"
+    }
+  }
+}

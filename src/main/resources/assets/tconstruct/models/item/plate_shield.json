@@ -7,6 +7,7 @@
     "large_plating": "tconstruct:item/tool/armor/plate/shield/plating_large",
     "large_core":    "tconstruct:item/tool/armor/plate/shield/core_large"
   },
+  "modifier_maps": ["tconstruct:plate/shield"],
   "modifier_roots": {
     "small": [ "tconstruct:item/tool/armor/plate/shield/modifiers/" ],
     "large": [ "tconstruct:item/tool/armor/plate/shield/large_modifiers/" ]

@@ -17,7 +17,7 @@
   {
     "name": "hidden",
     "type": "mantle:image_text",
-	"data": "gadgets/melvin.json"
+    "data": "gadgets/melvin.json"
   },
   {
     "name": "fancy_frames",
@@ -28,5 +28,10 @@
     "name": "fancy_frame_details",
     "type": "mantle:text",
     "data": "gadgets/fancy_frame_details.json"
+  },
+  {
+    "name": "fluid_cannon",
+    "type": "mantle:showcase",
+    "data": "gadgets/fluid_cannon.json"
   }
 ]

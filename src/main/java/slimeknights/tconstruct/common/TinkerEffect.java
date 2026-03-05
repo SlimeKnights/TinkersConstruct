@@ -55,7 +55,9 @@ public class TinkerEffect extends MobEffect {
    * @param entity    Entity
    * @param duration  Duration
    * @return  Applied instance
+   * @deprecated use {@link LivingEntity#addEffect(MobEffectInstance)}
    */
+  @Deprecated
   public MobEffectInstance apply(LivingEntity entity, int duration) {
     return this.apply(entity, duration, 0);
   }
@@ -66,7 +68,9 @@ public class TinkerEffect extends MobEffect {
    * @param duration  Duration
    * @param level     Effect level
    * @return  Applied instance
+   * @deprecated use {@link LivingEntity#addEffect(MobEffectInstance)}
    */
+  @Deprecated
   public MobEffectInstance apply(LivingEntity entity, int duration, int level) {
     return this.apply(entity, duration, level, false);
   }
@@ -78,7 +82,9 @@ public class TinkerEffect extends MobEffect {
    * @param amplifier Effect level
    * @param showIcon  If true, shows an icon in the HUD
    * @return  Applied instance
+   * @deprecated use {@link LivingEntity#addEffect(MobEffectInstance)}
    */
+  @Deprecated
   public MobEffectInstance apply(LivingEntity entity, int duration, int amplifier, boolean showIcon) {
     MobEffectInstance effect = new MobEffectInstance(this, duration, amplifier, false, false, showIcon);
     entity.addEffect(effect);

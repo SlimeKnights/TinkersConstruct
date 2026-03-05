@@ -127,7 +127,7 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
       }
       return InteractionResultHolder.fail(bow);
     }
-    GeneralInteractionModifierHook.startDrawtime(tool, player, 1);
+    GeneralInteractionModifierHook.startDrawing(tool, player, 1);
     // store either ammo or boolean as requested
     if (!ammo.isEmpty()) {
       if (storeDrawingItem) {

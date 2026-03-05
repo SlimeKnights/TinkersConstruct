@@ -12,6 +12,7 @@
     "large_back":    "tconstruct:item/tool/broad_axe/large/back",
     "large_binding": "tconstruct:item/tool/broad_axe/large/binding"
   },
+  "modifier_maps": ["tconstruct:broad_axe"],
   "modifier_roots": {
     "small": [ "tconstruct:item/tool/broad_axe/modifiers/" ],
     "large": [ "tconstruct:item/tool/broad_axe/large/modifiers/" ]

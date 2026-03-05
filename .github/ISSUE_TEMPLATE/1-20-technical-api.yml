@@ -1,0 +1,121 @@
+name: 1.20 Technical/API Request
+description: Suggest a change to the Tinkers' Construct API
+labels: ["1.20", Enhancement, "TiC Api", Unreviewed]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        If your idea requires discussion or is complicated, [join our discord](https://discord.gg/njGrvuh) before posting a new issue.
+        Please search the following links to make sure your request is not covered:
+        
+        * **[Roadmap](https://slimeknights.github.io/docs/roadmap/)**: Discusses unimplemented features and planned new changes
+        * **[FAQ](https://slimeknights.github.io/faq/)**: Answers to many frequently asked questions about the Tinkers' Construct 3 versions
+  
+  - type: markdown
+    attributes:
+      value: "## Versions"
+      
+  - type: markdown
+    attributes:
+      value: |
+        List the last version of the mod you have developed your addon or modpack against, to ensure you are not missing new features.
+  
+  - type: input
+    id: minecraft-version
+    attributes:
+      label: Minecraft Version
+      value: 1.20.1
+    validations:
+      required: true
+  - type: input
+    id: forge-version
+    attributes:
+      label: Forge Version
+      placeholder: "Ex: 36.1.0"
+    validations:
+      required: true
+  - type: input
+    id: mantle-version
+    attributes:
+      label: Mantle Version
+    validations:
+      required: true
+  - type: input
+    id: tinkers-version
+    attributes:
+      label: "Tinkers' Construct Version"
+      description: "'Latest' is not a valid answer, write an exact version number"
+    validations:
+      required: true
+  
+  
+  - type: markdown
+    attributes:
+      value: |
+        ## API Request Description
+      
+        For an API request to be accepted, it needs to meet one of the following criteria:
+      
+        * **Be useful to the base mod.** Suggest existing features or [roadmap plans](https://slimeknights.github.io/docs/roadmap/) that would use this. We do not like adding APIs we do not use.
+        * **Be useful to many addons.** This solves a common problem that many addons will encounter, or enables better compatability between addons.
+        * **Requires changes to the base mod.** This is not possible to be added in an addon without mixins. If this is the only criteria met, include alongside your suggest a minimal changes needed for an addon to do the rest.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem description
+      description: "What is the problem you are trying to solve?"
+    validations:
+      required: true
+  
+  - type: textarea
+    id: api
+    attributes:
+      label: Suggested API
+      description: "Describe the new API you wish to be included."
+    validations:
+      required: true
+  
+  - type: textarea
+    id: addon
+    attributes:
+      label: Why does the base mod need this?
+      description: "Justify why the API belongs in the base mod. Refer to the above guidelines."
+    validations:
+      required: true
+  
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives
+      description: "Describe other similar APIs and why they do not meet your needs."
+    validations:
+      required: true
+  
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: "If there is any additional context needed, such as screenshots or related mods, include here"
+    validations:
+      required: false
+        
+        
+  - type: markdown
+    attributes:
+      value: "## Confirm the following"
+      
+  - type: dropdown
+    id: searched
+    attributes:
+      label: "Searched for existing API requests?"
+      description: "Select all that apply. Please check the [search bar](/SlimeKnights/TinkersConstruct/issues), the [roadmap](https://slimeknights.github.io/docs/roadmap/), and [the FAQ](https://slimeknights.github.io/faq/) to see if your enhancement is covered."
+      multiple: true
+      options:
+        - 'Used the search bar'
+        - 'Checked the FAQ'
+        - 'Checked the Roadmap'
+        - 'Checked the in game books'
+        - 'I did not search'
+    validations:
+      required: true

@@ -10,6 +10,7 @@
     "tconstruct:conductive",
     "tconstruct:shock",
     "tconstruct:necrotic",
+    "tconstruct:restore",
     "tconstruct:enderporting"
   ]
 }

@@ -1,0 +1,9 @@
+{
+  "modifiers": {
+    "tconstruct:dyed": {
+      "type": "tconstruct:dyed",
+      "texture": "tconstruct:item/tool/staff/modifiers/sky/dyed_5",
+      "texture_large": "tconstruct:item/tool/staff/large_modifiers/sky/dyed_5"
+    }
+  }
+}

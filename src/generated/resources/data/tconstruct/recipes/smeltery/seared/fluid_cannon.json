@@ -5,6 +5,9 @@
     "C": {
       "tag": "forge:ingots/copper"
     },
+    "R": {
+      "tag": "forge:dusts/redstone"
+    },
     "T": {
       "type": "tconstruct:no_container",
       "match": [
@@ -18,6 +21,7 @@
     }
   },
   "pattern": [
+    " R ",
     "CTC",
     "CCC"
   ],

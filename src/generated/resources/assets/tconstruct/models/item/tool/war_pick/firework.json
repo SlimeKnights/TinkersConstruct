@@ -7,6 +7,9 @@
     "bowstring": "tconstruct:item/tool/war_pick/bowstring_3",
     "ammo": "tconstruct:item/tool/war_pick/firework"
   },
+  "modifier_maps": [
+    "tconstruct:war_pick"
+  ],
   "modifier_roots": [
     "tconstruct:item/tool/war_pick/modifiers/"
   ],

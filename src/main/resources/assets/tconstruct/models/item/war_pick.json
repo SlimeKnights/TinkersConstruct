@@ -6,6 +6,7 @@
     "body":      "tconstruct:item/tool/war_pick/body",
     "bowstring": "tconstruct:item/tool/war_pick/bowstring"
   },
+  "modifier_maps": ["tconstruct:war_pick"],
   "modifier_roots": [ "tconstruct:item/tool/war_pick/modifiers/" ],
   "parts": [
     { "name": "body",      "index": 1 },

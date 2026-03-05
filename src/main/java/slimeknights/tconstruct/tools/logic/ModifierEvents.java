@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.logic;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Multiset;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
@@ -11,6 +12,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -38,6 +40,7 @@ import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent.ImpactResult;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingTickEvent;
 import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.living.LivingGetProjectileEvent;
@@ -62,12 +65,14 @@ import slimeknights.tconstruct.library.json.predicate.TinkerPredicate;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
+import slimeknights.tconstruct.library.modifiers.entity.ReusableProjectile;
 import slimeknights.tconstruct.library.modifiers.hook.build.ConditionalStatModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.armor.EffectImmunityModule;
 import slimeknights.tconstruct.library.modifiers.modules.technical.ArmorLevelModule;
 import slimeknights.tconstruct.library.modifiers.modules.technical.ArmorStatModule;
 import slimeknights.tconstruct.library.tools.capability.EntityModifierCapability;
+import slimeknights.tconstruct.library.tools.capability.PersistentDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
@@ -75,6 +80,7 @@ import slimeknights.tconstruct.library.tools.helper.ModifierLootingHandler;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.item.ranged.ModifiableBowItem;
+import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
@@ -82,6 +88,7 @@ import slimeknights.tconstruct.library.utils.SlimeBounceHandler;
 import slimeknights.tconstruct.shared.TinkerAttributes;
 import slimeknights.tconstruct.shared.TinkerEffects;
 import slimeknights.tconstruct.tools.data.ModifierIds;
+import slimeknights.tconstruct.tools.modifiers.effect.MagneticEffect;
 import slimeknights.tconstruct.tools.modules.ranged.RestrictAngleModule;
 
 import java.util.List;
@@ -92,6 +99,9 @@ import java.util.Optional;
 public class ModifierEvents {
   /** Multiplier for experience drops from events */
   private static final TinkerDataKey<Float> PROJECTILE_EXPERIENCE = TConstruct.createKey("projectile_experience");
+  // TODO: move following to TinkerDataKeys?
+  /** Volatile data float for amount of experience granted per level. Used by both projectiles and held tools. */
+  public static final ResourceLocation EXPERIENCE = TConstruct.getResource("experience");
   /** Volatile data flag making a modifier grant the tool soulbound */
   public static final ResourceLocation SOULBOUND = TConstruct.getResource("soulbound");
   /** Volatile data int for making a modifier on a shield grant reflecting */
@@ -142,11 +152,17 @@ public class ModifierEvents {
   /** Prevents effects on the entity */
   @SubscribeEvent
   static void isPotionApplicable(MobEffectEvent.Applicable event) {
-    event.getEntity().getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
-      if (data.computeIfAbsent(EffectImmunityModule.EFFECT_IMMUNITY).contains(event.getEffectInstance().getEffect())) {
-        event.setResult(Result.DENY);
+    TinkerDataCapability.Holder data = TinkerDataCapability.getData(event.getEntity());
+    if (data != null) {
+      Multiset<MobEffect> multiset = data.get(EffectImmunityModule.EFFECT_IMMUNITY);
+      if (multiset != null) {
+        // only grant immunity if the amount is high enough
+        MobEffectInstance effectInstance = event.getEffectInstance();
+        if (multiset.count(effectInstance.getEffect()) > effectInstance.getAmplifier()) {
+          event.setResult(Result.DENY);
+        }
       }
-    });
+    };
   }
 
   /** Called when the player dies to store the item in the original inventory */
@@ -157,7 +173,11 @@ public class ModifierEvents {
     if (source != null && source.getDirectEntity() instanceof Projectile projectile) {
       ModifierNBT modifiers = EntityModifierCapability.getOrEmpty(projectile);
       if (!modifiers.isEmpty()) {
-        event.getEntity().getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.put(PROJECTILE_EXPERIENCE, modifiers.getEntry(ModifierIds.experienced).getEffectiveLevel()));
+        TinkerDataCapability.Holder data = TinkerDataCapability.getData(event.getEntity());
+        if (data != null) {
+          ModDataNBT projectileData = PersistentDataCapability.getOrWarn(projectile);
+          data.put(PROJECTILE_EXPERIENCE, projectileData.getFloat(EXPERIENCE));
+        }
       }
     }
     // this is the latest we can add slot markers to the items so we can return them to slots
@@ -206,24 +226,26 @@ public class ModifierEvents {
     // boost entity experience if they are under the effects of experienced
     LivingEntity entity = event.getEntity();
     MobEffectInstance instance = entity.getEffect(TinkerEffects.experienced.get());
-    double armorMultiplier = 1 + (instance != null ? instance.getAmplifier() : 0);
+    double multiplier = 1 + (instance != null ? instance.getAmplifier() : 0);
 
     // always add armor boost, unfortunately no good way to stop shield stuff here
     Player player = event.getAttackingPlayer();
     if (player != null) {
-      armorMultiplier *= player.getAttributeValue(TinkerAttributes.EXPERIENCE_MULTIPLIER.get()) + ArmorStatModule.getStat(player, TinkerDataKeys.EXPERIENCE);
+      multiplier += player.getAttributeValue(TinkerAttributes.EXPERIENCE_MULTIPLIER.get()) + ArmorStatModule.getStat(player, TinkerDataKeys.EXPERIENCE);
     }
     // if the target was killed by an experienced arrow, use that level
-    float projectileBoost = entity.getCapability(TinkerDataCapability.CAPABILITY).resolve().map(data -> data.get(PROJECTILE_EXPERIENCE)).orElse(-1f);
-    if (projectileBoost >= 0) {
-      event.setDroppedExperience((int) (event.getDroppedExperience() * armorMultiplier + projectileBoost * 0.5));
-      // experienced being zero means it was our arrow, but it was not modified with experienced. Being -1 means no projectile was involved, so boost by hand
+    TinkerDataCapability.Holder data = TinkerDataCapability.getData(entity);
+    Float projectileBoost = data != null ? data.get(PROJECTILE_EXPERIENCE) : null;
+    if (projectileBoost != null) {
+      multiplier += projectileBoost;
+    // being -1 means no projectile was involved, so boost by held tool
     } else if (player != null) {
-      // not an arrow, just use the player's experienced level
       ToolStack tool = Modifier.getHeldTool(player, ModifierLootingHandler.getLootingSlot(player));
-      double multiplier = armorMultiplier + (tool != null ? tool.getModifier(ModifierIds.experienced).getEffectiveLevel() : 0) * 0.5;
-      event.setDroppedExperience((int) (event.getDroppedExperience() * multiplier));
+      if (tool != null) {
+        multiplier += tool.getVolatileData().getFloat(EXPERIENCE);
+      }
     }
+    event.setDroppedExperience((int) (event.getDroppedExperience() * multiplier));
   }
 
   /** Boosts critical hit damage */
@@ -259,7 +281,7 @@ public class ModifierEvents {
   @SubscribeEvent
   static void onPotionStart(MobEffectEvent.Added event) {
     MobEffectInstance newEffect = event.getEffectInstance();
-    if (!newEffect.getCurativeItems().isEmpty()) {
+    if (!newEffect.isInfiniteDuration() && !newEffect.getCurativeItems().isEmpty()) {
       // use two different stats based on whether the effect is beneficial
       boolean beneficial = newEffect.getEffect().isBeneficial();
       LivingEntity entity = event.getEntity();
@@ -267,11 +289,7 @@ public class ModifierEvents {
                         + ArmorStatModule.getStat(entity, beneficial ? TinkerDataKeys.GOOD_EFFECT_DURATION : TinkerDataKeys.BAD_EFFECT_DURATION);
       if (multiplier != 1) {
         // adjust duration as requested
-        int duration = (int)(newEffect.getDuration() * multiplier);
-        if (duration < 0) {
-          duration = 0;
-        }
-        newEffect.duration = duration;
+        newEffect.duration = Math.max(1, (int)(newEffect.getDuration() * multiplier));
       }
     }
   }
@@ -412,7 +430,7 @@ public class ModifierEvents {
                 level.playSound(null, target.blockPosition(), SoundEvents.SHIELD_BLOCK, SoundSource.PLAYERS, 1.0F, 1.5F + level.random.nextFloat() * 0.4F);
                 event.setImpactResult(ImpactResult.SKIP_ENTITY);
                 // damage the shield, and stop using it if needed
-                if (ToolDamageUtil.damageAnimated(tool, 3, target)) {
+                if (ToolDamageUtil.damageAnimated(tool, 3, target, target.getUsedItemHand())) {
                   target.stopUsingItem();
                   entity.playSound(SoundEvents.SHIELD_BREAK, 0.8F, 0.8F + entity.level().random.nextFloat() * 0.4F);
                 }
@@ -423,9 +441,11 @@ public class ModifierEvents {
       }
 
       // enderference //
+      // TODO: this is a lot of code to make enderference work. A mixin would likely be better and provide better compatability
       // endermen are hardcoded to not take arrow damage, so disagree by reimplementing arrow damage right here
       // blacklist lets us not run on tridents or thrown tools. Former does not work with enderference, latter does so internally
-      if (TinkerEffects.needsEnderferenceOverride(target) && !projectile.getType().is(TinkerTags.EntityTypes.ENDERFERENCE_ARROW_BLACKLIST) && projectile instanceof AbstractArrow arrow) {
+      EntityType<?> projectileType = projectile.getType();
+      if (TinkerEffects.needsEnderferenceOverride(target) && !projectileType.is(TinkerTags.EntityTypes.ENDERFERENCE_ARROW_BLACKLIST) && projectile instanceof AbstractArrow arrow) {
         // first, give up if we reached pierce capacity, and ensure list are created
         if (arrow.getPierceLevel() > 0) {
           if (arrow.piercingIgnoreEntityIds == null) {
@@ -435,7 +455,7 @@ public class ModifierEvents {
             arrow.piercedAndKilledEntities = Lists.newArrayListWithCapacity(5);
           }
           if (arrow.piercingIgnoreEntityIds.size() >= arrow.getPierceLevel() + 1) {
-            arrow.discard();
+            ReusableProjectile.discard(projectile);
             event.setCanceled(true);
             return;
           }
@@ -498,7 +518,7 @@ public class ModifierEvents {
 
           arrow.playSound(arrow.soundEvent, 1.0F, 1.2F / (target.getRandom().nextFloat() * 0.2F + 0.9F));
           if (arrow.getPierceLevel() <= 0) {
-            arrow.discard();
+            ReusableProjectile.discard(projectile);
           }
         } else {
           // reset fire and drop the arrow
@@ -511,7 +531,7 @@ public class ModifierEvents {
               arrow.spawnAtLocation(arrow.getPickupItem(), 0.1F);
             }
 
-            arrow.discard();
+            ReusableProjectile.discard(projectile);
           }
         }
         // cancel event so arrow does not bounce
@@ -524,6 +544,18 @@ public class ModifierEvents {
   static void onTeleport(EntityTeleportEvent event) {
     if (event.getEntity() instanceof LivingEntity living && living.hasEffect(TinkerEffects.enderference.get())) {
       event.setCanceled(true);
+    }
+  }
+
+  /** Called to perform the magnet for armor */
+  @SubscribeEvent
+  static void onLivingTick(LivingTickEvent event) {
+    LivingEntity entity = event.getEntity();
+    if (!entity.isSpectator() && (entity.tickCount & 1) == 0) {
+      int level = ArmorLevelModule.getLevel(entity, TinkerDataKeys.MAGNET);
+      if (level > 0) {
+        MagneticEffect.applyMagnet(entity, level - 1);
+      }
     }
   }
 }

@@ -11,6 +11,10 @@
     "large_grip": "tconstruct:item/tool/vein_hammer/large/grip",
     "large_front": "tconstruct:item/tool/vein_hammer/large/front_broken"
   },
+  "modifier_maps": [
+    "tconstruct:vein_hammer_broken",
+    "tconstruct:vein_hammer"
+  ],
   "modifier_roots": {
     "small": [
       "tconstruct:item/tool/vein_hammer/modifiers/broken/",

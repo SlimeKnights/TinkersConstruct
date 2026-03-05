@@ -17,7 +17,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
-import slimeknights.mantle.data.loadable.record.SingletonLoader;
+import slimeknights.tconstruct.library.json.LevelingValue;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffectContext;
@@ -47,11 +47,9 @@ import java.util.List;
 import static slimeknights.tconstruct.library.tools.capability.fluid.ToolTankHelper.TANK_HELPER;
 
 /** Modifier performing fluid effects on the directly targeted block using AOE iteration. */
-public enum SplashingModule implements ModifierModule, EntityInteractionModifierHook, BlockInteractionModifierHook, AreaOfEffectHighlightModifierHook {
-  INSTANCE;
-
+public record SplashingModule(LevelingValue strength) implements ModifierModule, EntityInteractionModifierHook, BlockInteractionModifierHook, AreaOfEffectHighlightModifierHook {
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<SplashingModule>defaultHooks(ModifierHooks.ENTITY_INTERACT, ModifierHooks.BLOCK_INTERACT, ModifierHooks.AOE_HIGHLIGHT);
-  public static final RecordLoadable<SplashingModule> LOADER = new SingletonLoader<>(INSTANCE);
+  public static final RecordLoadable<SplashingModule> LOADER = RecordLoadable.create(LevelingValue.LOADABLE.requiredField("strength", SplashingModule::strength), SplashingModule::new);
 
   @Override
   public RecordLoadable<SplashingModule> getLoader() {
@@ -88,7 +86,7 @@ public enum SplashingModule implements ModifierModule, EntityInteractionModifier
 
           if (!world.isClientSide) {
             // for the main target, consume fluids
-            float level = modifier.getEffectiveLevel();
+            float level = this.strength.compute(modifier);
             int numTargets = 0;
             int consumed = recipe.applyToEntity(fluid, level, FluidEffectContext.builder(world).user(player).target(target), FluidAction.EXECUTE);
             if (consumed > 0) {
@@ -159,8 +157,8 @@ public enum SplashingModule implements ModifierModule, EntityInteractionModifier
             player.getCooldowns().addCooldown(tool.getItem(), (int)(20 / ConditionalStatModifierHook.getModifiedStat(tool, player, ToolStats.DRAW_SPEED)));
           }
 
-          if (!context.getLevel().isClientSide) {
-            float level = modifier.getEffectiveLevel();
+          if (!world.isClientSide) {
+            float level = strength.compute(modifier);
             int numTargets = 0;
             BlockHitResult hit = context.getHitResult();
             BlockState state = world.getBlockState(hit.getBlockPos());

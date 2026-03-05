@@ -1,0 +1,28 @@
+{
+  "level_display": "tconstruct:single_level",
+  "modules": [
+    {
+      "type": "tconstruct:effect_immunity",
+      "effect": "tconstruct:venom",
+      "max_level": {
+        "each_level": 1
+      }
+    },
+    {
+      "type": "tconstruct:armor_attack_mob_effect",
+      "damage_source": {
+        "type": "mantle:tag",
+        "tag": "minecraft:is_projectile"
+      },
+      "effect": "tconstruct:venom",
+      "level": {
+        "flat": 1.0
+      },
+      "time": {
+        "flat": 100.0,
+        "random": 100.0
+      }
+    }
+  ],
+  "tooltip_display": "always"
+}

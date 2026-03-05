@@ -53,6 +53,10 @@
       "durability": 360,
       "knockback_resistance": 0.05,
       "toughness": 2.0
+    },
+    "tconstruct:skull": {
+      "armor": 1,
+      "durability": 220
     }
   }
 }

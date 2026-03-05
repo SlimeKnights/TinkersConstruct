@@ -7,6 +7,9 @@
     "bowstring": "tconstruct:item/tool/crossbow/bowstring_3",
     "ammo": "tconstruct:item/tool/crossbow/firework"
   },
+  "modifier_maps": [
+    "tconstruct:crossbow"
+  ],
   "modifier_roots": [
     "tconstruct:item/tool/crossbow/modifiers/"
   ],

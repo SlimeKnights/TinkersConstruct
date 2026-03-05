@@ -59,7 +59,7 @@ public class GlowballEntity extends ThrowableItemProjectile implements IEntityAd
       }
 
       if (position != null) {
-        TinkerCommons.glow.get().addGlow(level, position, direction);
+        TinkerCommons.glowBlock.get().addGlow(level, position, direction);
       }
     }
 

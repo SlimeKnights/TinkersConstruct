@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tools.modules.cosmetic;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.loadable.record.SingletonLoader;
@@ -44,7 +45,9 @@ public enum DyeModule implements ModifierModule, DisplayNameModifierHook, Modifi
     if (persistentData.contains(key, Tag.TAG_INT)) {
       int color = persistentData.getInt(key);
       Modifier modifier = entry.getModifier();
-      return modifier.applyStyle(Component.translatable(modifier.getTranslationKey() + ".formatted", String.format("%06X", color)));
+      return modifier.applyStyle(Component.translatable(modifier.getTranslationKey() + ".formatted",
+        Component.literal(String.format("#%06X", color)).withStyle(Style.EMPTY.withColor(color))
+      ));
     }
     return name;
   }

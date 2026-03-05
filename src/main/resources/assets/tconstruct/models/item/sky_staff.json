@@ -6,6 +6,7 @@
     "large_tool": "tconstruct:item/tool/staff/sky_large"
   },
   "large": true,
+  "modifier_maps": ["tconstruct:staff/sky", "tconstruct:staff"],
   "modifier_roots": {
     "small": [ "tconstruct:item/tool/staff/modifiers/sky/", "tconstruct:item/tool/staff/modifiers/" ],
     "large": [ "tconstruct:item/tool/staff/large_modifiers/sky/", "tconstruct:item/tool/staff/large_modifiers/" ]

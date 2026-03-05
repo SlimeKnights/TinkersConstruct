@@ -685,6 +685,42 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "slimeball": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "check": "upgrades",
+              "modifier": {
+                "type": "tconstruct:single",
+                "modifier": "tconstruct:slimeball"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "sliver": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "check": "upgrades",
+              "modifier": {
+                "type": "tconstruct:single",
+                "modifier": "tconstruct:sliver"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "slurping": {
       "conditions": {
         "items": [
@@ -1058,6 +1094,12 @@
     ],
     [
       "ballista"
+    ],
+    [
+      "slimeball"
+    ],
+    [
+      "sliver"
     ],
     [
       "grapple"

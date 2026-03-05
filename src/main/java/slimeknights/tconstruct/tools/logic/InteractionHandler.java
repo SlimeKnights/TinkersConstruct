@@ -37,6 +37,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.hook.build.ConditionalStatModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.EntityInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
@@ -52,7 +53,9 @@ import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.Util;
 
 import javax.annotation.Nullable;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 
 /**
@@ -271,6 +274,11 @@ public class InteractionHandler {
     }
   }
 
+  /** Armor interaction data class */
+  private record ArmorInteractData(ModifierId modifier, int startTime) {}
+  /** Key for storing data related to armor interaction */
+  private static final ComputableDataKey<Map<EquipmentSlot,ArmorInteractData>> INTERACT_KEY = TConstruct.createKey("armor_interact_data", () -> new EnumMap<>(EquipmentSlot.class));
+
   /**
    * Handles interaction from a helmet
    * @param player  Player instance
@@ -283,6 +291,11 @@ public class InteractionHandler {
         ToolStack tool = ToolStack.from(helmet);
         for (ModifierEntry entry : tool.getModifierList()) {
           if (entry.getHook(ModifierHooks.ARMOR_INTERACT).startInteract(tool, entry, player, slotType, modifierKey)) {
+            // store data so we know when interaction started
+            TinkerDataCapability.Holder data = TinkerDataCapability.getData(player);
+            if (data != null) {
+              data.computeIfAbsent(INTERACT_KEY).put(slotType, new ArmorInteractData(entry.getId(), player.tickCount));
+            }
             break;
           }
         }
@@ -302,8 +315,24 @@ public class InteractionHandler {
       ItemStack helmet = player.getItemBySlot(slotType);
       if (helmet.is(TinkerTags.Items.ARMOR)) {
         ToolStack tool = ToolStack.from(helmet);
+        // fetch interaction data if present
+        int chargeTime = 0;
+        ModifierEntry activeModifier = ModifierEntry.EMPTY;
+        TinkerDataCapability.Holder data = TinkerDataCapability.getData(player);
+        if (data != null) {
+          Map<EquipmentSlot,ArmorInteractData> interactMap = data.get(INTERACT_KEY);
+          if (interactMap != null) {
+            ArmorInteractData interactData = interactMap.remove(slotType);
+            if (interactData != null) {
+              activeModifier = tool.getModifier(interactData.modifier);
+              chargeTime = player.tickCount - interactData.startTime;
+            }
+          }
+        }
+        // run modifier hook for stop interact
+        // TODO 1.21: consider only running hook on the active modifier
         for (ModifierEntry entry : tool.getModifierList()) {
-          entry.getHook(ModifierHooks.ARMOR_INTERACT).stopInteract(tool, entry, player, slotType);
+          entry.getHook(ModifierHooks.ARMOR_INTERACT).stopInteract(tool, entry, player, slotType, chargeTime, activeModifier);
         }
         return true;
       }

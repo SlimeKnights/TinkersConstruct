@@ -1,6 +1,32 @@
 {
   "parent": "tconstruct:world/slimesuit",
   "criteria": {
+    "blaze": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "mantle:and",
+              "predicates": [
+                {
+                  "type": "mantle:set",
+                  "items": [
+                    "tconstruct:slime_helmet"
+                  ]
+                },
+                {
+                  "type": "tconstruct:has_material",
+                  "index": 0,
+                  "material": "tconstruct:blaze"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "blazing_bone": {
       "conditions": {
         "items": [
@@ -209,6 +235,32 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "ice": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "mantle:and",
+              "predicates": [
+                {
+                  "type": "mantle:set",
+                  "items": [
+                    "tconstruct:slime_helmet"
+                  ]
+                },
+                {
+                  "type": "tconstruct:has_material",
+                  "index": 0,
+                  "material": "tconstruct:ice"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "iron": {
       "conditions": {
         "items": [
@@ -227,6 +279,32 @@
                   "type": "tconstruct:has_material",
                   "index": 0,
                   "material": "tconstruct:iron"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "knightmetal": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "mantle:and",
+              "predicates": [
+                {
+                  "type": "mantle:set",
+                  "items": [
+                    "tconstruct:slime_helmet"
+                  ]
+                },
+                {
+                  "type": "tconstruct:has_material",
+                  "index": 0,
+                  "material": "tconstruct:knightmetal"
                 }
               ]
             }
@@ -413,25 +491,10 @@
       "glass"
     ],
     [
-      "bone"
-    ],
-    [
-      "necrotic_bone"
+      "blaze"
     ],
     [
       "leather"
-    ],
-    [
-      "ender_pearl"
-    ],
-    [
-      "venombone"
-    ],
-    [
-      "string"
-    ],
-    [
-      "darkthread"
     ],
     [
       "iron"
@@ -440,7 +503,19 @@
       "copper"
     ],
     [
-      "blazing_bone"
+      "string"
+    ],
+    [
+      "darkthread"
+    ],
+    [
+      "bone"
+    ],
+    [
+      "ice"
+    ],
+    [
+      "necrotic_bone"
     ],
     [
       "gold"
@@ -452,7 +527,19 @@
       "pig_iron"
     ],
     [
+      "ender_pearl"
+    ],
+    [
       "dragon_scale"
+    ],
+    [
+      "venombone"
+    ],
+    [
+      "blazing_bone"
+    ],
+    [
+      "knightmetal"
     ]
   ],
   "sends_telemetry_event": true

@@ -5,12 +5,12 @@
     "head":    "tconstruct:item/tool/melting_pan/head",
     "handle":  "tconstruct:item/tool/melting_pan/handle"
   },
+  "modifier_maps": ["tconstruct:melting_pan"],
   "modifier_roots": [ "tconstruct:item/tool/melting_pan/modifiers/" ],
   "parts": [
     { "name": "handle",  "index": 1 },
     { "name": "head",    "index": 0 }
   ],
-  "first_modifiers": [{ "name": "tconstruct:tank", "forced": true }],
   "overrides": [
     {
       "predicate": { "tconstruct:charge": 1.0 },

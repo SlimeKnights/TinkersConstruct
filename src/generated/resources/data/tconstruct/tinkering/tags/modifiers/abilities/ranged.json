@@ -7,6 +7,8 @@
     "tconstruct:ballista",
     "tconstruct:grapple",
     "tconstruct:channeling",
-    "tconstruct:returning"
+    "tconstruct:returning",
+    "tconstruct:slimeball",
+    "tconstruct:sliver"
   ]
 }

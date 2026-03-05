@@ -93,8 +93,10 @@
   "tconstruct:ballista": "tconstruct:gui/modifiers/ranged/ballista",
   "tconstruct:bulk_quiver": "tconstruct:gui/modifiers/ranged/bulk_quiver",
   "tconstruct:crystalshot": "tconstruct:item/arrow/amethyst",
-  "tconstruct:multishot":    "tconstruct:gui/modifiers/ranged/multishot",
+  "tconstruct:multishot": "tconstruct:gui/modifiers/ranged/multishot",
   "tconstruct:trick_quiver": "tconstruct:gui/modifiers/ranged/trick_quiver",
+  "tconstruct:slimeball": "tconstruct:gui/modifiers/ranged/slimeball",
+  "tconstruct:sliver": "tconstruct:gui/modifiers/ranged/sliver",
 
   "tconstruct:blockade":              "tconstruct:gui/modifiers/armor/blockade",
   "tconstruct:boundless":             "tconstruct:gui/modifiers/armor/boundless",

@@ -26,6 +26,15 @@
     },
     {
       "type": "tconstruct:show_interaction_source"
+    },
+    {
+      "type": "tconstruct:block_item_provider",
+      "item": "tconstruct:glow",
+      "tool": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:modifiable/held"
+      },
+      "tool_damage": 5
     }
   ],
   "tooltip_display": "always"

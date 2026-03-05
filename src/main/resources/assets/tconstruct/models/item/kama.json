@@ -6,6 +6,7 @@
     "handle":  "tconstruct:item/tool/pickaxe/handle",
     "binding": "tconstruct:item/tool/kama/binding"
   },
+  "modifier_maps": ["tconstruct:kama"],
   "modifier_roots": [ "tconstruct:item/tool/kama/modifiers/" ],
   "parts": [
     { "name": "handle",  "index": 1 },

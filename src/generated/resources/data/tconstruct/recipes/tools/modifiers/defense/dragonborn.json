@@ -5,7 +5,7 @@
   "input": {
     "item": "tconstruct:dragon_scale"
   },
-  "needed_per_level": 10,
+  "needed_per_level": 5,
   "result": "tconstruct:dragonborn",
   "slots": {
     "defense": 1

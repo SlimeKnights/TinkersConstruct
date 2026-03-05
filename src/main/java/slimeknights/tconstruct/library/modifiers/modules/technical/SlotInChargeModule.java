@@ -1,9 +1,13 @@
 package slimeknights.tconstruct.library.modifiers.modules.technical;
 
 import lombok.Getter;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlot.Type;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.common.util.LazyOptional;
+import slimeknights.mantle.util.LogicHelper;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.armor.EquipmentChangeModifierHook;
@@ -13,7 +17,6 @@ import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
-import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.logic.InteractionHandler;
 
@@ -22,16 +25,17 @@ import java.util.List;
 import java.util.function.Function;
 
 /** Module for keeping track of a single slot to run all logic for the modifier */
-public record SlotInChargeModule(TinkerDataKey<SlotInCharge> key) implements HookProvider, EquipmentChangeModifierHook {
+public record SlotInChargeModule(TinkerDataKey<SlotInCharge> key, @Nullable TagKey<Item> heldTag) implements HookProvider, EquipmentChangeModifierHook {
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<SlotInChargeModule>defaultHooks(ModifierHooks.EQUIPMENT_CHANGE);
   private static final Function<TinkerDataKey<?>,SlotInCharge> CONSTRUCTOR = key -> new SlotInCharge();
 
+  public SlotInChargeModule(TinkerDataKey<SlotInCharge> key) {
+    this(key, TinkerTags.Items.HELD);
+  }
+
   /** Checks if the given tool cares about this modifier */
-  private static boolean toolValid(IToolStackView tool, EquipmentSlot slot, EquipmentChangeContext context) {
-    if (!tool.isBroken() && !context.getEntity().level().isClientSide) {
-      return ModifierUtil.validArmorSlot(tool, slot);
-    }
-    return false;
+  private boolean toolValid(IToolStackView tool, EquipmentSlot slot, EquipmentChangeContext context) {
+    return !tool.isBroken() && !context.getEntity().level().isClientSide && ArmorLevelModule.validSlot(tool, slot, heldTag);
   }
 
   @Override
@@ -62,19 +66,23 @@ public record SlotInChargeModule(TinkerDataKey<SlotInCharge> key) implements Hoo
   }
 
   /** Checks if the given slot is in charge */
-  public static boolean isInCharge(LazyOptional<TinkerDataCapability.Holder> data, TinkerDataKey<SlotInCharge> key, EquipmentSlot slot) {
-    return data.filter(d -> {
-      SlotInCharge inCharge = d.get(key);
+  public static boolean isInCharge(LazyOptional<TinkerDataCapability.Holder> capability, TinkerDataKey<SlotInCharge> key, EquipmentSlot slot) {
+    TinkerDataCapability.Holder data = LogicHelper.orElseNull(capability);
+    if (data != null) {
+      SlotInCharge inCharge = data.get(key);
       return inCharge != null && inCharge.inCharge == slot;
-    }).isPresent();
+    }
+    return false;
   }
 
-  /** Checks if the given slot is in charge */
-  public static int getLevel(LazyOptional<TinkerDataCapability.Holder> data, TinkerDataKey<SlotInCharge> key, EquipmentSlot slot) {
-    return data.map(d -> {
-      SlotInCharge inCharge = d.get(key);
+  /** Gets the total level if the passed slot is in charge. */
+  public static int getLevel(LazyOptional<TinkerDataCapability.Holder> capability, TinkerDataKey<SlotInCharge> key, EquipmentSlot slot) {
+    TinkerDataCapability.Holder data = LogicHelper.orElseNull(capability);
+    if (data != null) {
+      SlotInCharge inCharge = data.get(key);
       return inCharge != null && inCharge.inCharge == slot ? inCharge.totalLevel : 0;
-    }).orElse(0);
+    }
+    return 0;
   }
 
   /** Tracker to determine which slot should be in charge */

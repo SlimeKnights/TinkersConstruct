@@ -28,6 +28,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.entity.PartEntity;
 import net.minecraftforge.event.entity.player.CriticalHitEvent;
+import slimeknights.mantle.util.CombatHelper;
 import slimeknights.mantle.util.OffhandCooldownTracker;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -42,15 +43,13 @@ import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.shared.TinkerEffects;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.UUID;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.DoubleSupplier;
 
 public class ToolAttackUtil {
-  private static final UUID SLOT_MAINHAND_ATTRIBUTE = UUID.fromString("fd666e50-d2cc-11eb-b8bc-0242ac130003");
   private static final float DEGREE_TO_RADIANS = (float)Math.PI / 180F;
   private static final AttributeModifier ANTI_KNOCKBACK_MODIFIER = new AttributeModifier(TConstruct.MOD_ID + ".anti_knockback", 1f, Operation.ADDITION);
   /** @deprecated new default for {@link ToolAttackContext.Builder} */
@@ -74,49 +73,34 @@ public class ToolAttackUtil {
       return (float) holder.getAttributeBaseValue(attribute);
     }
 
-    // first, remove all main hand modifiers, but store them to add back
-    ItemStack mainStack = holder.getMainHandItem();
-    Collection<AttributeModifier> mainModifiers = List.of();
+    // Mantle optimizes this method by skipping if the mainhand and offhand have no attributes
+    // for our case though, we wish to merge in the tool value so always have something
+    // plus, its more efficient in the attribute builder if we can directly modify the final map
+
+    // start building our attributes list
+    Map<Operation, Set<AttributeModifier>> modifiers = CombatHelper.copyModifiers(instance);
+
+    // remove mainhand attributes
+    ItemStack mainStack = CombatHelper.getMainhandAttributeStack(holder);
     if (!mainStack.isEmpty()) {
-      mainModifiers = mainStack.getAttributeModifiers(EquipmentSlot.MAINHAND).get(attribute);
-      for (AttributeModifier modifier : mainModifiers) {
-        instance.removeModifier(modifier);
+      for (AttributeModifier modifier : mainStack.getAttributeModifiers(EquipmentSlot.MAINHAND).get(attribute)) {
+        modifiers.get(modifier.getOperation()).remove(modifier);
       }
-    // when a tool is thrown from the main hand at a close distance target, sometimes the game hasn't yet cleared its attributes
-    // so manually remove the base damage attribute. It shouldn't be around for empty stacks anyways so no need to restore it
-    } else if (attribute == Attributes.ATTACK_DAMAGE) {
-      instance.removeModifier(Item.BASE_ATTACK_DAMAGE_UUID);
     }
 
-    // next, build a list of damage modifiers from the offhand stack, handled directly as it saves parsing the tool twice and lets us simplify by filtering
-    List<AttributeModifier> slotAttributes = new ArrayList<>();
-    if (toolValue != 0) {
-      slotAttributes.add(new AttributeModifier(SLOT_MAINHAND_ATTRIBUTE, "tconstruct.tool.slot_mainhand_attribute", toolValue, AttributeModifier.Operation.ADDITION));
-    }
+    // start adding in "mainhand" attributes for the given slot and attribute
     BiConsumer<Attribute, AttributeModifier> attributeConsumer = (check, modifier) -> {
       if (check == attribute) {
-        slotAttributes.add(modifier);
+        // this will remove duplicates due to AttributeModifier equals only checking UUID
+        modifiers.get(modifier.getOperation()).add(modifier);
       }
     };
     for (ModifierEntry entry : tool.getModifierList()) {
       entry.getHook(ModifierHooks.ATTRIBUTES).addAttributes(tool, entry, EquipmentSlot.MAINHAND, attributeConsumer);
     }
-    for (AttributeModifier modifier : slotAttributes) {
-      instance.addTransientModifier(modifier);
-    }
 
-    // fetch damage using these temporary modifiers
-    float value = (float) instance.getValue();
-
-    // revert modifiers to the original state
-    for (AttributeModifier modifier : slotAttributes) {
-      instance.removeModifier(modifier);
-    }
-    for (AttributeModifier modifier : mainModifiers) {
-      instance.addTransientModifier(modifier);
-    }
-
-    return value;
+    // add in the tool value and build the stat
+    return (float) CombatHelper.computeAttribute(attribute, instance.getBaseValue() + toolValue, modifiers);
   }
 
   /** Gets the critical modifier to apply, returning 1.0 if not critical. */

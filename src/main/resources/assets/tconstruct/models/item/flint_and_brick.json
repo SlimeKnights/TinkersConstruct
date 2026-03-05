@@ -4,6 +4,7 @@
   "textures": {
     "tool": "tconstruct:item/tool/flint_and_brick/tool"
   },
+  "modifier_maps": ["tconstruct:flint_and_brick"],
   "modifier_roots": [ "tconstruct:item/tool/flint_and_bronze/modifiers/" ],
   "overrides": [
     {

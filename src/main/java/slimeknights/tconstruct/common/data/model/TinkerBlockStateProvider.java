@@ -107,6 +107,11 @@ public class TinkerBlockStateProvider extends BlockStateProvider {
     // smeltery
     basicBlock(TinkerSmeltery.searedLamp.get(), "block/smeltery/seared/lamp", blockTexture("smeltery/seared/lamp"));
     basicBlock(TinkerSmeltery.scorchedLamp.get(), "block/foundry/scorched/lamp", blockTexture("foundry/scorched/lamp"));
+
+    // heads
+    ModelFile skull = models().getExistingFile(new ResourceLocation("block/skull"));
+    TinkerWorld.heads.forEach(head -> simpleBlock(head, skull));
+    TinkerWorld.wallHeads.forEach(head -> simpleBlock(head, skull));
   }
 
 

@@ -16,6 +16,10 @@
     -7,
     9
   ],
+  "modifier_maps": [
+    "tconstruct:longbow/1",
+    "tconstruct:longbow"
+  ],
   "modifier_roots": {
     "small": [
       "tconstruct:item/tool/longbow/modifiers/1/",

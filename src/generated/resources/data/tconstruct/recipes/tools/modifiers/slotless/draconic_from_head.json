@@ -9,6 +9,12 @@
   "level": 1,
   "result": "tconstruct:draconic",
   "tools": {
-    "tag": "tconstruct:modifiable/bonus_slots"
+    "type": "forge:difference",
+    "base": {
+      "tag": "tconstruct:modifiable/bonus_slots"
+    },
+    "subtracted": {
+      "tag": "tconstruct:modifiable/skulls"
+    }
   }
 }

@@ -6,15 +6,12 @@
     "string": "tconstruct:item/tool/fishing_rod/string",
     "hook":   "tconstruct:item/tool/fishing_rod/hook"
   },
+  "modifier_maps": ["tconstruct:fishing_rod"],
   "modifier_roots": [ "tconstruct:item/tool/fishing_rod/modifiers/" ],
   "parts": [
     { "name": "rod",    "index": 0 },
     { "name": "string", "index": 1 },
     { "name": "hook",   "index": 2 }
-  ],
-  "first_modifiers": [
-    { "name": "tconstruct:tipped", "forced": true },
-    { "name": "tconstruct:tank_handler", "forced": true }
   ],
   "overrides": [
     {

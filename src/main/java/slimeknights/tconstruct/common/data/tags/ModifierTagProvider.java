@@ -79,7 +79,7 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
     tag(REMOVE_MODIFIER_BLACKLIST).add(TinkerModifiers.creativeSlot.getId(), TinkerModifiers.statOverride.getId());
     tag(EXTRACT_MODIFIER_BLACKLIST).add(
       TinkerModifiers.embellishment.getId(), TinkerModifiers.dyed.getId(), TinkerModifiers.trim.getId(),
-      ModifierIds.rebalanced, ModifierIds.redirected
+      ModifierIds.rebalanced, TinkerModifiers.overslime.getId()
     ).addTag(REMOVE_MODIFIER_BLACKLIST);
     // blacklist modifiers that are not really slotless, they just have a slotless recipe
     tag(EXTRACT_SLOTLESS_BLACKLIST).add(ModifierIds.luck, ModifierIds.toolBelt);
@@ -92,6 +92,7 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
       ModifierIds.stripping, ModifierIds.tilling, ModifierIds.pathing,
       ModifierIds.shears, ModifierIds.silkyShears,
       ModifierIds.harvest, ModifierIds.fishing,
+      ModifierIds.slimeball, ModifierIds.sliver,
       ModifierIds.pockets
     );
     tag(BLOCK_WHILE_CHARGING).add(
@@ -124,7 +125,7 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
       ModifierIds.thorns, ModifierIds.fiery, ModifierIds.freezing, ModifierIds.springy,
       ModifierIds.pierce, ModifierIds.venom, ModifierIds.conductive, ModifierIds.shock,
       // special effects
-      TinkerModifiers.necrotic.getId(), TinkerModifiers.enderporting.getId()
+      ModifierIds.necrotic, ModifierIds.restore, TinkerModifiers.enderporting.getId()
     );
     tag(BYPASS_REINFORCED).add(ModifierIds.glowing);
     tag(BYPASS_EXTRA_DURABILITY);
@@ -143,13 +144,13 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
     this.tag(GENERAL_UPGRADES).add(
       ModifierIds.diamond, ModifierIds.emerald, ModifierIds.netherite,
       ModifierIds.reinforced, ModifierIds.overforced, ModifierIds.soulbound,
-      ModifierIds.experienced, TinkerModifiers.magnetic.getId(), ModifierIds.scope, ModifierIds.zoom,
+      ModifierIds.experienced, ModifierIds.magnetic, ModifierIds.scope, ModifierIds.zoom,
       ModifierIds.tank, ModifierIds.smelting, ModifierIds.fireprimer)
         .addOptional(ModifierIds.theOneProbe);
 
     this.tag(MELEE_UPGRADES).add(
       ModifierIds.knockback, ModifierIds.padded,
-      TinkerModifiers.severing.getId(), TinkerModifiers.necrotic.getId(), ModifierIds.sweeping,
+      TinkerModifiers.severing.getId(), ModifierIds.necrotic, ModifierIds.sweeping,
       ModifierIds.fiery, ModifierIds.freezing);
     this.tag(DAMAGE_UPGRADES).add(
       ModifierIds.sharpness, ModifierIds.pierce, ModifierIds.swiftstrike,
@@ -169,7 +170,7 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
       ModifierIds.pierce, ModifierIds.power, ModifierIds.punch, ModifierIds.quickCharge,
       TinkerModifiers.sinistral.getId(), ModifierIds.trueshot,
       ModifierIds.fiery, ModifierIds.freezing,
-      ModifierIds.arrowPierce, ModifierIds.bounce, TinkerModifiers.necrotic.getId(),
+      ModifierIds.arrowPierce, ModifierIds.bounce, ModifierIds.necrotic,
       ModifierIds.lure, ModifierIds.collecting, ModifierIds.fins);
 
     // abilities
@@ -184,7 +185,8 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
       ModifierIds.bulkQuiver, ModifierIds.trickQuiver,
       ModifierIds.crystalshot, ModifierIds.multishot, ModifierIds.ballista,
       ModifierIds.grapple,
-      ModifierIds.channeling, ModifierIds.returning);
+      ModifierIds.channeling, ModifierIds.returning,
+      ModifierIds.slimeball, ModifierIds.sliver);
     this.tag(INTERACTION_ABILITIES).add(
       ModifierIds.bucketing, ModifierIds.firestarter, ModifierIds.glowing,
       ModifierIds.pathing, ModifierIds.stripping, ModifierIds.tilling, ModifierIds.brushing,

@@ -2,10 +2,10 @@
   "modifier_id": "tconstruct:glowing",
   "text": [
     {
-      "text": "Causes the side of the targeted block to glow, giving off light. Placing a glow consumes 5 durability."
+      "text": "Places glows at the cost of 5 durability, which give off light until broken. Glows can be placed on interaction or by launching a projectile, which will be consumed on hit."
     },
     {
-      "text": "On bows, will also place a glow at blocks targeted by the arrow, consuming the arrow in the process."
+      "text": "Can also be used in place of blocks for exchanging or fluid effects, which will place glows when this is in the offhand or the offhand is empty.", "paragraph": true
     }
   ],
   "more_text_space": true,

@@ -1,0 +1,43 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:volatile_flag",
+      "flag": "tconstruct:enderference",
+      "hooks": [
+        "tconstruct:projectile_launch",
+        "tconstruct:projectile_shot",
+        "tconstruct:projectile_thrown"
+      ]
+    },
+    {
+      "type": "tconstruct:weapon_mob_effect",
+      "apply_before_melee": true,
+      "effect": "tconstruct:enderference",
+      "level": {
+        "flat": 1.0
+      },
+      "time": {
+        "flat": 100.0
+      }
+    },
+    {
+      "type": "tconstruct:counter_mob_effect",
+      "chance": {
+        "each_level": 0.25
+      },
+      "effect": "tconstruct:enderference",
+      "level": {
+        "flat": 1.0
+      },
+      "time": {
+        "flat": 100.0
+      },
+      "tool": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:modifiable/armor"
+      }
+    }
+  ],
+  "tooltip_display": "always"
+}

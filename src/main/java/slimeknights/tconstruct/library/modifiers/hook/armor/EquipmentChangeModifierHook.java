@@ -52,6 +52,13 @@ public interface EquipmentChangeModifierHook {
    */
   default void onEquipmentChange(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context, EquipmentSlot slotType) {}
 
+  /** Checks if this tool was unequip, as {@link #onUnequip(IToolStackView, ModifierEntry, EquipmentChangeContext)} may be called on the tool itself changing NBT. */
+  static boolean didUnequip(IToolStackView tool, EquipmentChangeContext context) {
+    IToolStackView replacement = context.getReplacementTool();
+    // modifier list changing is a good heuristic for tool changing
+    return (replacement == null || replacement.getItem() != tool.getItem() || !replacement.getModifiers().equals(tool.getModifiers()));
+  }
+
   /** Record that runs all nested hooks */
   record AllMerger(Collection<EquipmentChangeModifierHook> modules) implements EquipmentChangeModifierHook {
     @Override

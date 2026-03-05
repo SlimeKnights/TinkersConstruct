@@ -96,11 +96,6 @@ public class WorldRecipeProvider extends BaseRecipeProvider implements ICommonRe
                        .pattern("  ~")
                        .unlockedBy("has_slime_ball", has(Tags.Items.SLIMEBALLS))
                        .save(slimeConsumer, location("common/slime/lead"));
-    ShapelessRecipeBuilder.shapeless(RecipeCategory.BREWING, Items.MAGMA_CREAM)
-                          .requires(Items.BLAZE_POWDER)
-                          .requires(Tags.Items.SLIMEBALLS)
-                          .unlockedBy("has_blaze_powder", has(Items.BLAZE_POWDER))
-                          .save(slimeConsumer, location("common/slime/magma_cream"));
 
     // wood
     String woodFolder = "world/wood/";

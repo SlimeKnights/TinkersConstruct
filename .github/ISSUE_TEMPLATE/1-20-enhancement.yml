@@ -1,11 +1,11 @@
-name: 1.20 Enhancement
-description: Suggest a change to existing 1.20 features
+name: 1.20 Simple Enhancement
+description: Suggest a small change to existing 1.20 gameplay
 labels: ["1.20", Enhancement, Unreviewed]
 body:
   - type: markdown
     attributes:
       value: |
-        If your idea requires discussion or is complicated, [join our discord](https://discord.gg/njGrvuh) instead of posting a new issue.
+        If your idea requires discussion or is complicated, [join our discord](https://discord.gg/njGrvuh) before posting a new issue.
         Please search the following links to make sure your enhancement is not covered:
         
         * **[Roadmap](https://slimeknights.github.io/docs/roadmap/)**: Discusses unimplemented features and planned new changes
@@ -66,15 +66,15 @@ body:
     id: solution
     attributes:
       label: Suggested solution
-      description: "Describe the solution you would suggest to the above problem"
+      description: "Describe the solution you would suggest to the above problem."
     validations:
       required: true
   
   - type: textarea
     id: alternatives
     attributes:
-      label: Alternatives considered
-      description: "Describe any alternatives you have considered to your suggested solution"
+      label: Alternatives
+      description: "Describe existing alternatives and why they do not solve your problem."
     validations:
       required: true
   
@@ -95,11 +95,12 @@ body:
     id: searched
     attributes:
       label: "Searched for existing enhancement?"
-      description: "Select all that apply. Please check the [search bar](/SlimeKnights/TinkersConstruct/issues), and [the FAQ](https://slimeknights.github.io/faq/) to see if your enhancement is covered."
+      description: "Select all that apply. Please check the [search bar](/SlimeKnights/TinkersConstruct/issues), the [roadmap](https://slimeknights.github.io/docs/roadmap/), and [the FAQ](https://slimeknights.github.io/faq/) to see if your enhancement is covered."
       multiple: true
       options:
         - 'Used the search bar'
         - 'Checked the FAQ'
+        - 'Checked the Roadmap'
         - 'Checked the in game books'
         - 'I did not search'
     validations:

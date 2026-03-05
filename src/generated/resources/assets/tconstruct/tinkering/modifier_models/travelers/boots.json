@@ -1,0 +1,12 @@
+{
+  "modifiers": {
+    "tconstruct:dyed": {
+      "type": "tconstruct:dyed",
+      "texture": "tconstruct:item/tool/armor/travelers/boots/modifiers/dyed"
+    },
+    "tconstruct:trim": {
+      "type": "tconstruct:armor_trim",
+      "slot": "boots"
+    }
+  }
+}

@@ -5,6 +5,7 @@
     "head":        "tconstruct:item/tool/dagger/blade",
     "crossguard":  "tconstruct:item/tool/dagger/crossguard"
   },
+  "modifier_maps": ["tconstruct:dagger"],
   "modifier_roots": [ "tconstruct:item/tool/dagger/modifiers/" ],
   "parts": [
     { "name": "head",       "index": 0 },

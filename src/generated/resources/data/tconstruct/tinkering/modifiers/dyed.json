@@ -5,5 +5,5 @@
       "type": "tconstruct:dye"
     }
   ],
-  "tooltip_display": "always"
+  "tooltip_display": "tinker_station"
 }

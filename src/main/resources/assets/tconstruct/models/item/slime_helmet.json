@@ -5,12 +5,12 @@
     "tool":  "tconstruct:item/tool/armor/slime/helmet",
     "skull": "tconstruct:item/tool/armor/slime/helmet_skull"
   },
-  "modifier_roots": [ "tconstruct:item/tool/armor/slime/skull_modifiers/" ],
+  "modifier_maps": ["tconstruct:slime/skull"],
   "parts": [
     { "name": "skull",  "index": 0 },
     { "name": "tool" }
   ],
-  "first_modifiers": [ "tconstruct:embellishment", "tconstruct:golden", "tconstruct:trim" ],
+  "first_modifiers": [ "tconstruct:embellishment", "tconstruct:trim" ],
   "overrides": [
     {
       "predicate": { "tconstruct:broken": 1 },

@@ -26,6 +26,10 @@
               },
               {
                 "type": "mantle:tag_filled",
+                "tag": "forge:ingots/nickel"
+              },
+              {
+                "type": "mantle:tag_filled",
                 "tag": "forge:ingots/chromium"
               }
             ]

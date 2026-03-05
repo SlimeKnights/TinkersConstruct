@@ -5,8 +5,8 @@
     "plating": "tconstruct:item/tool/armor/plate/boots/plating",
     "maille":  "tconstruct:item/tool/armor/plate/boots/maille"
   },
-  "modifier_roots": [ "tconstruct:item/tool/armor/plate/boots/modifiers/" ],
-  "first_modifiers": [ "tconstruct:trim" ],
+  "modifier_maps": ["tconstruct:plate/boots"],
+  "first_modifiers": [ "tconstruct:dyed", "tconstruct:trim" ],
   "parts": [
     { "name": "plating", "index": 0 },
     { "name": "maille",  "index": 1 }
