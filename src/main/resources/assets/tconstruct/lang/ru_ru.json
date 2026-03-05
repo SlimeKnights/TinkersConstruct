@@ -1288,6 +1288,8 @@
   "death.attack.tconstruct.smeltery_magic.player": "%1$s стал единым целым с плавильней, сражаясь с %2$s",
   "death.attack.tconstruct.knightmetal": "%1$s был насажен на рыцарский металл",
   "death.attack.tconstruct.knightmetal.player": "%1$s насажен на рыцарский металл, убегая от %2$s",
+  "death.attack.tconstruct.update_health": "%1$s снял с себя важную деталь брони",
+  "death.attack.tconstruct.update_health.player": "%1$s снял с себя важную деталь брони, сражаясь с %2$s",
   "death.attack.tconstruct.self_destruct": "%1$s самоуничтожился",
   "death.attack.tconstruct.self_destruct.player": "%1$s самоуничтожился, сражаясь с %2$s",
   "death.attack.tconstruct.thrown_tool": "%1$s был пронзён %2$s",
@@ -2145,6 +2147,12 @@
 
   "material.tconstruct.soulsteel": "Сталь душ",
 
+  "material.tconstruct.jeweled_hide": "Драгоценная кожа",
+  "material.tconstruct.jeweled_hide.flavor": "Кожа, выделанная с использованием чистых драгоценных камней!",
+  "material.tconstruct.jeweled_hide.encyclopedia": "Увеличивает шанс выпадения из блоков, суммируется с удачей.",
+  "material.tconstruct.jeweled_hide.ranged": "Увеличивает качество добычи при рыбалке, суммируется с удачей.",
+  "material.tconstruct.jeweled_hide.armor": "Увеличивает макс. здоровье на 1 сердце. При использовании щита сердце восстанавливается мгновенно, но при снятии щита вы получите урон, равный 1 сердцу.",
+
   "material.tconstruct.ancient_hide": "Древняя кожа",
   "material.tconstruct.ancient_hide.flavor": "Кожа, выделанная древнейшим камнем.",
   "material.tconstruct.ancient_hide.encyclopedia": "Увеличивает шансы выпадения из блоков, суммируясь с удачей.",
@@ -2790,7 +2798,7 @@
   "modifier.tconstruct.luck.description": "Даёт вам больше приятных вещей при добыче ресурсов или убийстве мобов!",
   "modifier.tconstruct.fortune": "Удача",
   "modifier.tconstruct.fortune.flavor": "Удача для руд!",
-  "modifier.tconstruct.fortune.description": "Даёт больше приятных бонусов при добыче ресурсов!",
+  "modifier.tconstruct.fortune.description": "Даёт больше приятных бонусов при добыче ресурсов и рыбалке!",
   "modifier.tconstruct.looting": "Добыча",
   "modifier.tconstruct.looting.flavor": "Удача для мобов!",
   "modifier.tconstruct.looting.description": "Даёт больше приятных бонусов при убийстве мобов!",
