@@ -11,6 +11,7 @@ import net.minecraft.util.profiling.InactiveProfiler;
 import net.minecraft.world.item.Tiers;
 import slimeknights.mantle.data.listener.MergingJsonFileLoader;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.fixture.MaterialStatTypesFixture;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.dynamic.DynamicMaterialStats;
@@ -20,7 +21,10 @@ import slimeknights.tconstruct.library.materials.stats.dynamic.FloatDynamicStatF
 import slimeknights.tconstruct.library.materials.stats.dynamic.MaterialStatTypesLoader;
 import slimeknights.tconstruct.library.materials.stats.dynamic.RepairableDynamicMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.dynamic.TierDynamicStatField;
+import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
+import slimeknights.tconstruct.library.tools.stat.ToolStatId;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.library.tools.stat.ToolTierStat;
 import slimeknights.tconstruct.test.BaseMcTest;
 import slimeknights.tconstruct.test.JsonFileLoader;
 
@@ -37,7 +41,7 @@ class MaterialStatsManagerTest extends BaseMcTest {
 
   private final MaterialStatsManager materialStatsManager = new MaterialStatsManager(() -> {});
   private final MergingJsonFileLoader<?> fileLoader = new MergingJsonFileLoader<>(materialStatsManager);
-  private final MaterialStatTypesLoader anoFileLoader = new MaterialStatTypesLoader();
+  private final MaterialStatTypesLoader anoFileLoader = materialStatsManager.getStatTypesLoader();
 
   @Test
   void testLoadFile_statsExist() {
@@ -168,8 +172,10 @@ class MaterialStatsManagerTest extends BaseMcTest {
     try{
       DynamicStatField.REGISTRY.register(TierDynamicStatField.TYPE, TierDynamicStatField.LOADER);
       DynamicStatField.REGISTRY.register(FloatDynamicStatField.TYPE, FloatDynamicStatField.LOADER);
-      ToolStats.register(MaterialStatTypesFixture.TestFloatStat);
-      ToolStats.register(MaterialStatTypesFixture.TestTierStat);
+      FloatToolStat TestFloatStat = new FloatToolStat(new ToolStatId(TConstruct.MOD_ID, "test_stat"), 0xFF47CC47, 1, 1, Integer.MAX_VALUE, TinkerTags.Items.DURABILITY);
+      ToolTierStat TestTierStat = new ToolTierStat(new ToolStatId(TConstruct.MOD_ID, "test_tier_stat"));
+      ToolStats.register(TestFloatStat);
+      ToolStats.register(TestTierStat);
     }
     catch(Exception t){
       //do nothing
@@ -185,6 +191,8 @@ class MaterialStatsManagerTest extends BaseMcTest {
       anoFileLoader.apply(fakePrepareResult);;
       fileLoader.loadAndParseFiles(null, testStatType);
 
+
+      
       assertThat(materialStatsManager.getStatType(statId1)).isNotNull();
       assertThat(materialStatsManager.getStatType(statId1)).isExactlyInstanceOf(DynamicMaterialStatType.class);
       assertThat(materialStatsManager.getStatType(statId1).getDefaultStats()).isExactlyInstanceOf(RepairableDynamicMaterialStats.class);
@@ -211,10 +219,10 @@ class MaterialStatsManagerTest extends BaseMcTest {
       assertThat(materialStatsManager.getStats(testStatType, statId2)).isPresent();
       DynamicMaterialStats stats2 = (DynamicMaterialStats)materialStatsManager.getStats(testStatType, statId2).get();
       assertThat(stats2.stats().get(0)).isExactlyInstanceOf(FloatDynamicStatField.FloatDynamicStat.class);
-      FloatDynamicStatField.FloatDynamicStat miningSpeedStat2 = (FloatDynamicStatField.FloatDynamicStat)stats2.stats().get(0);
+      FloatDynamicStatField.FloatDynamicStat miningSpeedStat2 = (FloatDynamicStatField.FloatDynamicStat)stats2.stats().get(1);//mining speed
       assertThat(miningSpeedStat2.value()).isEqualTo(45.67f);
       assertThat(stats2.stats().get(1)).isExactlyInstanceOf(FloatDynamicStatField.FloatDynamicStat.class);
-      FloatDynamicStatField.FloatDynamicStat durabilityStat2 = (FloatDynamicStatField.FloatDynamicStat)stats2.stats().get(1);
+      FloatDynamicStatField.FloatDynamicStat durabilityStat2 = (FloatDynamicStatField.FloatDynamicStat)stats2.stats().get(0);//durability
       assertThat(durabilityStat2.value()).isEqualTo(0f);
     }
   }
