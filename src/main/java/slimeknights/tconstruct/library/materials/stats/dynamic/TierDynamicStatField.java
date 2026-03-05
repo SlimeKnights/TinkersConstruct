@@ -1,138 +1,110 @@
 package slimeknights.tconstruct.library.materials.stats.dynamic;
 
+import static slimeknights.tconstruct.library.materials.stats.dynamic.DynamicStatField.withDefaultNamespace;
+
+import javax.annotation.Nonnull;
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
-import net.minecraft.world.item.Tiers;
+import net.minecraft.world.item.Tier;
+import net.minecraftforge.common.TierSortingRegistry;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
+import slimeknights.mantle.util.typed.TypedMap;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.materials.stats.dynamic.DynamicStatField.DynamicStat;
-import slimeknights.tconstruct.library.materials.stats.dynamic.TierDynamicStatField.TierDynamicStat;
-import slimeknights.tconstruct.library.tools.stat.IToolStat;
+import slimeknights.tconstruct.library.json.TinkerLoadables;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
-import slimeknights.tconstruct.library.tools.stat.ToolStatId;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.tools.stat.ToolTierStat;
+import slimeknights.tconstruct.library.utils.HarvestTiers;
 
-import static slimeknights.tconstruct.library.materials.stats.IMaterialStats.makeTooltipKey;
-import static slimeknights.tconstruct.library.materials.stats.dynamic.DynamicStatField.*;
-
-@AllArgsConstructor
-public class TierDynamicStatField implements DynamicStatField<TierDynamicStat> {
-
+public record TierDynamicStatField(
+        String name, String localizedDescription, String tooltipKey, String toolStat, Tier defaultValue) implements DynamicStatField<TierDynamicStatField.TierDynamicStat, ToolTierStat> {
+    
     public static final ResourceLocation TYPE = TConstruct.getResource("tier");
+    public static final RecordLoadable<TierDynamicStatField> LOADER = RecordLoadable.create(
+            NAME_FIELD,
+            DESC_FIELD,
+            TOOLTIP_FIELD,
+            TOOL_STAT_FIELD,
+            TinkerLoadables.TIER.requiredField(DynamicStatField.DEFAULT_VALUE, TierDynamicStatField::defaultValue),
+            TierDynamicStatField::new);
 
-    private final String name;
-    private final ToolTierStat stat;
-    private final Tiers defaultValue;
-    private final String localizedDescription;
-
-    @Override
-    public String getStatType() {
-        return TYPE.toString();
+    public TierDynamicStatField(String name, String localizedDescription, String tooltipKey, String toolStat, Tier defaultValue) {
+        this.name = name;
+        this.localizedDescription = localizedDescription;
+        this.tooltipKey = tooltipKey;
+        this.toolStat = toolStat;
+        this.defaultValue = defaultValue;
+        if(getToolStat() == null) {
+            throw new JsonParseException("Cannot Find Tier Tool Stat: " + toolStat);
+        }
     }
 
-    @Override
-    public String getName() {
-        return name;
-    }
+    public static record TierDynamicStat(Tier value, ToolTierStat toolStat, TierDynamicStatField loader) implements DynamicStatField.DynamicStat<TierDynamicStat> {
 
-    @Override
-    public void encodeSelf(FriendlyByteBuf buffer) {
-        buffer.writeUtf(TYPE.toString());
-        buffer.writeUtf(name);
-        buffer.writeUtf(stat.getName().toString());
-        buffer.writeEnum(defaultValue);
-        buffer.writeUtf(localizedDescription);
-    }
-
-    @Override
-    public void serializeSelf(JsonObject json) {
-        json.addProperty("type", TYPE.toString());
-        json.addProperty("name", name);
-        json.addProperty("stat", stat.getName().toString());
-        json.addProperty("default_value", defaultValue.toString().toLowerCase());
-        json.addProperty("desc", localizedDescription);
-    }
-
-    @Override
-    public TierDynamicStat decode(FriendlyByteBuf buffer) {
-        return new TierDynamicStat(stat, buffer.readEnum(Tiers.class), Component.translatable(localizedDescription));
-    }
-
-    @Override
-    public void encode(FriendlyByteBuf buffer, TierDynamicStat value) {
-        buffer.writeEnum(value.value);
-    }
-
-    @Override
-    public TierDynamicStat deserialize(JsonObject json) {
-        return new TierDynamicStat(stat,
-                Tiers.valueOf(GsonHelper.getAsString(json, name, defaultValue.toString()).toUpperCase()),
-                Component.translatable(localizedDescription));
-    }
-
-    @Override
-    public void serialize(TierDynamicStat object, JsonObject json) {
-        json.addProperty(name, object.value.toString().toLowerCase());
-    }
-
-    @AllArgsConstructor
-    public static class TierDynamicStat implements DynamicStat {
-
-        private final ToolTierStat stat;
-        @Getter
-        private final Tiers value;
-        @Getter
-        private final Component localizedDescription;
+        @Override
+        public RecordLoadable<TierDynamicStat> getLoader() {
+            return loader;
+        }
 
         @Override
         public void apply(ModifierStatsBuilder builder, float scale) {
-            stat.update(builder, value);
+            toolStat.update(builder, value);
         }
 
         @Override
         public Component getLocalizedInfo() {
-                return stat.formatValue(value);
+            return loader.getLocalizedInfo(this);
+        }
+
+        @Override
+        public Component getLocalizedDescription() {
+            return loader.getLocalizedDescription();
         }
     }
 
-    public static class TierDynamicStatDecoder implements DynamicStatDecoder<TierDynamicStatField> {
+    @Override
+    public TierDynamicStat deserialize(JsonObject json, TypedMap context) {
+        String str=GsonHelper.getAsString(json, name,null);
+        Tier value = str==null?defaultValue:TierSortingRegistry.byName(new ResourceLocation(str));
+        return new TierDynamicStat(value, getToolStat(), this);
+    }
 
-        @Override
-        public ResourceLocation getId() {
-            return TYPE;
-        }
+    @Override
+    public void serialize(TierDynamicStat object, JsonObject json) {
+        json.addProperty(name, TierSortingRegistry.getName(object.value).toString());
+    }
 
-        @Override
-        public TierDynamicStatField deserialize(JsonObject json, ResourceLocation path) {
-            String name = GsonHelper.getAsString(json, "name");
-            ToolStatId statId = new ToolStatId(withDefaultNamespace(GsonHelper.getAsString(json, "stat")));
-            Tiers defaultValue = Tiers.valueOf(GsonHelper.getAsString(json, "default_value").toUpperCase());
-            IToolStat<?> stat = ToolStats.getToolStat(statId);
-            String localizedDescription = GsonHelper.getAsString(json, "desc", makeTooltipKey( new ResourceLocation(path.getNamespace(), path.getPath()+"."+name+".description")));
-            if (stat != null && stat instanceof ToolTierStat tierStat) {
-                return new TierDynamicStatField(name, tierStat, defaultValue, localizedDescription);
-            }
-            throw new JsonParseException("Could not find tier stat: " + statId);
-        }
+    @Override
+    public TierDynamicStat decode(FriendlyByteBuf buffer, TypedMap context) {
+        Tier value = TierSortingRegistry.byName(buffer.readResourceLocation());
+        return new TierDynamicStat(value, getToolStat(), this);
+    }
 
-        @Override
-        public TierDynamicStatField decode(FriendlyByteBuf buffer) {
-            String name = buffer.readUtf();
-            ToolStatId statId = new ToolStatId(buffer.readUtf());
-            Tiers defaultValue = buffer.readEnum(Tiers.class);
-            IToolStat<?> stat = ToolStats.getToolStat(statId);
-            String localizedDescription = buffer.readUtf();
-            if (stat != null && stat instanceof ToolTierStat tierStat) {
-                return new TierDynamicStatField(name, tierStat, defaultValue, localizedDescription);
-            }
-            throw new JsonParseException("Could not find tier stat: " + statId);
-        }
+    @Override
+    public void encode(FriendlyByteBuf buffer, TierDynamicStat value) {
+        buffer.writeResourceLocation(TierSortingRegistry.getName(value.value));
+    }
+
+    @Override
+    public RecordLoadable<? extends IHaveLoader> getLoader() {
+        return LOADER;
+    }
+
+    @Override
+    public Component getLocalizedInfo(TierDynamicStat value) {
+        return tooltipKey==""?getToolStat().formatValue(value.value):Component.translatable(tooltipKey).append(HarvestTiers.getName(value.value));
+    }
+
+    @Override
+    @Nonnull
+    public ToolTierStat getToolStat() {
+        return (ToolTierStat) ToolStats.getToolStat(withDefaultNamespace(toolStat));
     }
 }

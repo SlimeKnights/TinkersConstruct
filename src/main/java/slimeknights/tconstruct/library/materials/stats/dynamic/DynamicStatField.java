@@ -1,89 +1,98 @@
 package slimeknights.tconstruct.library.materials.stats.dynamic;
 
-import com.google.gson.JsonObject;
+import javax.annotation.Nonnull;
 
-
-import lombok.NonNull;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import slimeknights.mantle.data.registry.IdAwareComponentRegistry;
-import slimeknights.mantle.registration.object.IdAwareObject;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.tools.stat.IToolStat;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
+import slimeknights.tconstruct.library.tools.stat.ToolStatId;
+import slimeknights.mantle.data.loadable.field.LoadableField;
+import slimeknights.mantle.data.loadable.primitive.StringLoadable;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 
-public interface DynamicStatField<S extends DynamicStatField.DynamicStat> {
+public interface DynamicStatField<S extends DynamicStatField.DynamicStat, T extends IToolStat<?>> extends RecordLoadable<S>, IHaveLoader {
 
-    public static final IdAwareComponentRegistry<DynamicStatDecoder<?>> REGISTRY = new IdAwareComponentRegistry<>(
-            "Unknown Dynamic Stat Field Type");
+    public static final GenericLoaderRegistry<DynamicStatField<?, ?>> REGISTRY = new GenericLoaderRegistry<>(
+            "Dynamic Stat Field", false);
 
-    /**
-     * Decode the stat field from the network
-     * 
-     * @param buffer Network buffer
-     * @return Decoded stat field
-     */
-    @NonNull
-    public static DynamicStatField<?> decodeSelf(FriendlyByteBuf buffer) {
-        ResourceLocation id = new ResourceLocation(buffer.readUtf());
-        return REGISTRY.getValue(id).decode(buffer);
-    }
-
-    /**
-     * Deserialize the stat field from JSON
-     * 
-     * @param json JSON object
-     * @return Deserialized stat field
-     */
-    @NonNull
-    public static DynamicStatField<?> deserializeSelf(JsonObject json, ResourceLocation path) {
-        String statType = GsonHelper.getAsString(json, "type");
-        return REGISTRY.getValue(new ResourceLocation(withDefaultNamespace(statType))).deserialize(json, path);
-    }
-
-    public static String withDefaultNamespace(String path) {
-        if (!path.contains(":")) {
-            return TConstruct.MOD_ID + ":" + path;
-        }
-        return path;
-    }
-
-    public static interface DynamicStatDecoder<F extends DynamicStatField<?>> extends IdAwareObject {
-        /**
-         * Decode the stat field from the network
-         * 
-         * @param buffer Network buffer
-         * @return Decoded stat field
-         */
-        public F decode(FriendlyByteBuf buffer);
-
-        /**
-         * Deserialize the stat field from JSON
-         * 
-         * @param json JSON object
-         * @param path Path of the stat type
-         * @return Deserialized stat field
-         */
-        public F deserialize(JsonObject json, ResourceLocation path);
-    }
-
-    /**
-     * Get the name of StatType
-     * 
-     * @return Stat type
-     */
-    public String getStatType();
-
+    public static final LoadableField<String, DynamicStatField<?, ?>> NAME_FIELD = StringLoadable.DEFAULT.requiredField("name", DynamicStatField::name);
+    public static final LoadableField<String, DynamicStatField<?, ?>> DESC_FIELD = StringLoadable.DEFAULT.defaultField("description", "", DynamicStatField::localizedDescription);
+    public static final LoadableField<String, DynamicStatField<?, ?>> TOOLTIP_FIELD = StringLoadable.DEFAULT.defaultField("tooltip", "", DynamicStatField::tooltipKey);
+    public static final LoadableField<String, DynamicStatField<?, ?>> TOOL_STAT_FIELD = StringLoadable.DEFAULT.requiredField("stat", DynamicStatField::toolStat);
+    public static final String DEFAULT_VALUE = "default_value";
     /**
      * Get the name of the stat field
      * 
      * @return Name of the stat field
      */
-    public String getName();
+    @Nonnull
+    String name();
 
-    public static interface DynamicStat {
+    /**
+     * Get the localized description of the stat field
+     * 
+     * @return Localized description of the stat field
+     */
+    @Nonnull
+    String localizedDescription();
 
+    /**
+     * Get the tooltip key of the stat field
+     * 
+     * @return Tooltip key of the stat field
+     */
+    @Nonnull
+    String tooltipKey();
+
+    /**
+     * Get the tool stat of the stat field
+     * 
+     * @return Tool stat of the stat field
+     */
+    @Nonnull
+    String toolStat();
+
+    /**
+     * Get the tool stat of the stat field
+     * 
+     * @return Tool stat of the stat field
+     */
+    @Nonnull
+    T getToolStat();
+
+    /**
+     * Formats the stat field into a component
+     * 
+     * @return Formatted component
+     */
+    Component getLocalizedInfo(S value);
+
+    /**
+     * Formats the stat field into a component
+     * 
+     * @return Formatted component
+     */
+    default Component getLocalizedDescription() {
+        return localizedDescription() != "" ? Component.translatable(localizedDescription())
+                : getToolStat().getDescription();
+    }
+
+    /**
+     * Formats the stat field into a resource location with default namespace "tconstruct"
+     * 
+     * @return Formatted resource location
+     */
+    public static ToolStatId withDefaultNamespace(String path) {
+        if (!path.contains(":")) {
+            return new ToolStatId(TConstruct.MOD_ID + ":" + path);
+        }
+        return new ToolStatId(path);
+    }
+
+    public static interface DynamicStat<D extends DynamicStat<D>> extends GenericLoaderRegistry.IHaveLoader {
         /**
          * Applies the stat field to the stats builder
          * 
@@ -97,77 +106,16 @@ public interface DynamicStatField<S extends DynamicStatField.DynamicStat> {
          * 
          * @return Formatted component
          */
-        public Component getLocalizedInfo();
+        Component getLocalizedInfo();
 
         /**
          * Formats the stat field into a component
          * 
          * @return Formatted component
          */
-        public Component getLocalizedDescription();
+        Component getLocalizedDescription();
+
+        @Override
+        public RecordLoadable<D> getLoader();
     }
-
-    /**
-     * Encode the stat field to the network
-     * 
-     * @param buffer Network buffer
-     */
-    public void encodeSelf(FriendlyByteBuf buffer);
-
-    /**
-     * Serialize the stat field to JSON
-     * 
-     * @param json JSON object
-     */
-    public void serializeSelf(JsonObject json);
-
-    /**
-     * Decode the stat from the network
-     * 
-     * @param buffer Network buffer
-     * @return Decoded stat
-     */
-    public S decode(FriendlyByteBuf buffer);
-
-    /**
-     * Encode the stat to the network
-     * 
-     * @param buffer Network buffer
-     * @param value  Dynamic Stat instance
-     */
-    public void encode(FriendlyByteBuf buffer, S value);
-
-    default void encode(FriendlyByteBuf buffer, DynamicMaterialStats value) {
-        this.encode(buffer, (S) value.getStat(this.getName()));
-    }
-
-    /**
-     * Deserialize the stat field from JSON
-     * 
-     * @param json JSON object
-     * @return Deserialized stat field
-     */
-    public S deserialize(JsonObject json);
-
-    /**
-     * Serialize the stat field to JSON
-     * 
-     * @param object Stat instance
-     * @param json   JSON object
-     */
-    public void serialize(S object, JsonObject json);
-
-    default void serialize(DynamicMaterialStats object, JsonObject json) {
-        this.serialize((S) object.getStat(this.getName()), json);
-    }
-
-    /**
-     * Get the default stat for this field
-     * 
-     * @return Default stat
-     */
-    default S getDefaultStat() {
-        return deserialize(new JsonObject());
-    }
-
 }

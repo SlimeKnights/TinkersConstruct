@@ -24,8 +24,8 @@ public final class MaterialStatTypesFixture {
   public static final ToolTierStat TestTierStat = new ToolTierStat(new ToolStatId(TConstruct.MOD_ID, "test_tier_stat"));
   static {
     try {
-      DynamicStatField.REGISTRY.register(new TierDynamicStatField.TierDynamicStatDecoder());
-      DynamicStatField.REGISTRY.register(new FloatDynamicStatField.FloatDynamicStatDecoder());
+      DynamicStatField.REGISTRY.register(TierDynamicStatField.TYPE, TierDynamicStatField.LOADER);
+      DynamicStatField.REGISTRY.register(FloatDynamicStatField.TYPE, FloatDynamicStatField.LOADER);
       ToolStats.register(TestFloatStat);
       ToolStats.register(TestTierStat);
     } catch (Exception e) {
@@ -33,10 +33,10 @@ public final class MaterialStatTypesFixture {
     }
   }
   
-  public static final List<DynamicStatField<?>> statFields = List.of(
-    new FloatDynamicStatField("test1",TestFloatStat,1f,FloatDynamicStatField.Operation.PERCENT, "desc1", "info1"),
-    new FloatDynamicStatField("test2",TestFloatStat,2f,FloatDynamicStatField.Operation.UPDATE, "desc2", "info2"),
-    new TierDynamicStatField("test3",TestTierStat,Tiers.STONE,"desc3")
+  public static final List<DynamicStatField<?,?>> statFields = List.of(
+    new FloatDynamicStatField("test1","desc1", "info1",TestFloatStat.getName().toString(),1f,FloatDynamicStatField.Operation.PERCENT),
+    new FloatDynamicStatField("test2","desc2", "info2",TestFloatStat.getName().toString(),2f,FloatDynamicStatField.Operation.UPDATE),
+    new TierDynamicStatField("test3","desc3","info3",TestTierStat.getName().toString(),Tiers.STONE)
   );
   public static final DynamicMaterialStatType DYNAMIC_TYPE = new DynamicMaterialStatType(STATS_TYPE, "test2", statFields);
 

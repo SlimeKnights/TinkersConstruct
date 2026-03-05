@@ -166,8 +166,8 @@ class MaterialStatsManagerTest extends BaseMcTest {
   @Test
   void testLoadFile_withDynamicStats() {
     try{
-      DynamicStatField.REGISTRY.register(new TierDynamicStatField.TierDynamicStatDecoder());
-      DynamicStatField.REGISTRY.register(new FloatDynamicStatField.FloatDynamicStatDecoder());
+      DynamicStatField.REGISTRY.register(TierDynamicStatField.TYPE, TierDynamicStatField.LOADER);
+      DynamicStatField.REGISTRY.register(FloatDynamicStatField.TYPE, FloatDynamicStatField.LOADER);
       ToolStats.register(MaterialStatTypesFixture.TestFloatStat);
       ToolStats.register(MaterialStatTypesFixture.TestTierStat);
     }
@@ -190,32 +190,32 @@ class MaterialStatsManagerTest extends BaseMcTest {
       assertThat(materialStatsManager.getStatType(statId1).getDefaultStats()).isExactlyInstanceOf(RepairableDynamicMaterialStats.class);
       RepairableDynamicMaterialStats defaultStats = (RepairableDynamicMaterialStats)materialStatsManager.getStatType(statId1).getDefaultStats();
       assertThat(defaultStats).isNotNull();
-      assertThat(defaultStats.getStat("durability")).isExactlyInstanceOf(FloatDynamicStatField.FloatDynamicStat.class);
-      FloatDynamicStatField.FloatDynamicStat durabilityStat = (FloatDynamicStatField.FloatDynamicStat)defaultStats.getStat("durability");
-      assertThat(durabilityStat.getValue()).isEqualTo(1.0f);
-      assertThat(defaultStats.getStat("mining_tier")).isExactlyInstanceOf(TierDynamicStatField.TierDynamicStat.class);
-      TierDynamicStatField.TierDynamicStat miningTierStat = (TierDynamicStatField.TierDynamicStat)defaultStats.getStat("mining_tier");
-      assertThat(miningTierStat.getValue()).isEqualTo(Tiers.DIAMOND);
+      assertThat(defaultStats.stats().stats().get(0)).isExactlyInstanceOf(FloatDynamicStatField.FloatDynamicStat.class);
+      FloatDynamicStatField.FloatDynamicStat durabilityStat = (FloatDynamicStatField.FloatDynamicStat)defaultStats.stats().stats().get(0);
+      assertThat(durabilityStat.value()).isEqualTo(1.0f);
+      assertThat(defaultStats.stats().stats().get(1)).isExactlyInstanceOf(TierDynamicStatField.TierDynamicStat.class);
+      TierDynamicStatField.TierDynamicStat miningTierStat = (TierDynamicStatField.TierDynamicStat)defaultStats.stats().stats().get(1);
+      assertThat(miningTierStat.value()).isEqualTo(Tiers.DIAMOND);
       assertThat(materialStatsManager.getStatType(statId2)).isNotNull();
       assertThat(materialStatsManager.getStatType(statId2)).isExactlyInstanceOf(DynamicMaterialStatType.class);
       assertThat(materialStatsManager.getStats(testStatType, statId1)).isPresent();
       RepairableDynamicMaterialStats stats1 = (RepairableDynamicMaterialStats)materialStatsManager.getStats(testStatType, statId1).get();
-      assertThat(stats1.getStat("durability")).isExactlyInstanceOf(FloatDynamicStatField.FloatDynamicStat.class);
-      FloatDynamicStatField.FloatDynamicStat durabilityStat1 = (FloatDynamicStatField.FloatDynamicStat)stats1.getStat("durability");
-      assertThat(durabilityStat1.getValue()).isEqualTo(123f);
-      assertThat(stats1.getStat("mining_tier")).isExactlyInstanceOf(TierDynamicStatField.TierDynamicStat.class);
-      TierDynamicStatField.TierDynamicStat miningTierStat1 = (TierDynamicStatField.TierDynamicStat)stats1.getStat("mining_tier");
-      assertThat(miningTierStat1.getValue()).isEqualTo(Tiers.STONE);
+      assertThat(stats1.stats().stats().get(0)).isExactlyInstanceOf(FloatDynamicStatField.FloatDynamicStat.class);
+      FloatDynamicStatField.FloatDynamicStat durabilityStat1 = (FloatDynamicStatField.FloatDynamicStat)stats1.stats().stats().get(0);
+      assertThat(durabilityStat1.value()).isEqualTo(123f);
+      assertThat(stats1.stats().stats().get(1)).isExactlyInstanceOf(TierDynamicStatField.TierDynamicStat.class);
+      TierDynamicStatField.TierDynamicStat miningTierStat1 = (TierDynamicStatField.TierDynamicStat)stats1.stats().stats().get(1);
+      assertThat(miningTierStat1.value()).isEqualTo(Tiers.STONE);
       assertThat(stats1.durability()).isEqualTo(123);
 
       assertThat(materialStatsManager.getStats(testStatType, statId2)).isPresent();
       DynamicMaterialStats stats2 = (DynamicMaterialStats)materialStatsManager.getStats(testStatType, statId2).get();
-      assertThat(stats2.getStat("mining_speed")).isExactlyInstanceOf(FloatDynamicStatField.FloatDynamicStat.class);
-      FloatDynamicStatField.FloatDynamicStat miningSpeedStat2 = (FloatDynamicStatField.FloatDynamicStat)stats2.getStat("mining_speed");
-      assertThat(miningSpeedStat2.getValue()).isEqualTo(45.67f);
-      assertThat(stats2.getStat("durability")).isExactlyInstanceOf(FloatDynamicStatField.FloatDynamicStat.class);
-      FloatDynamicStatField.FloatDynamicStat durabilityStat2 = (FloatDynamicStatField.FloatDynamicStat)stats2.getStat("durability");
-      assertThat(durabilityStat2.getValue()).isEqualTo(0f);
+      assertThat(stats2.stats().get(0)).isExactlyInstanceOf(FloatDynamicStatField.FloatDynamicStat.class);
+      FloatDynamicStatField.FloatDynamicStat miningSpeedStat2 = (FloatDynamicStatField.FloatDynamicStat)stats2.stats().get(0);
+      assertThat(miningSpeedStat2.value()).isEqualTo(45.67f);
+      assertThat(stats2.stats().get(1)).isExactlyInstanceOf(FloatDynamicStatField.FloatDynamicStat.class);
+      FloatDynamicStatField.FloatDynamicStat durabilityStat2 = (FloatDynamicStatField.FloatDynamicStat)stats2.stats().get(1);
+      assertThat(durabilityStat2.value()).isEqualTo(0f);
     }
   }
 }

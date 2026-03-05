@@ -139,8 +139,8 @@ public final class MaterialRegistry {
     registry.registerStatType(SkullStats.TYPE);
 
     // stat type fields
-    DynamicStatField.REGISTRY.register(new TierDynamicStatField.TierDynamicStatDecoder());
-    DynamicStatField.REGISTRY.register(new FloatDynamicStatField.FloatDynamicStatDecoder());
+    DynamicStatField.REGISTRY.register(TierDynamicStatField.TYPE, TierDynamicStatField.LOADER);
+    DynamicStatField.REGISTRY.register(FloatDynamicStatField.TYPE, FloatDynamicStatField.LOADER);
   }
 
   @VisibleForTesting

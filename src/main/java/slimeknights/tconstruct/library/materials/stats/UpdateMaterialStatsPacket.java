@@ -37,7 +37,7 @@ public class UpdateMaterialStatsPacket implements IThreadsafePacket {
     int statTypeCount = buffer.readInt();
     dynamicStatTypes = new HashMap<>(statTypeCount);
     for(int i = 0;i < statTypeCount;i++){
-      DynamicMaterialStatType statType = DynamicMaterialStatType.decode(buffer);
+      DynamicMaterialStatType statType = DynamicMaterialStatType.LOADER.decode(buffer);
       dynamicStatTypes.put(statType.getId(), statType);
     }
 
@@ -69,7 +69,7 @@ public class UpdateMaterialStatsPacket implements IThreadsafePacket {
   @Override
   public void encode(FriendlyByteBuf buffer) {
     buffer.writeInt(dynamicStatTypes.size());
-    dynamicStatTypes.forEach((id, statType) -> statType.encode(buffer));
+    dynamicStatTypes.forEach((id, statType) -> statType.getLoader().encode(buffer, statType));
     buffer.writeInt(materialToStats.size());
     materialToStats.forEach((materialId, stats) -> {
       buffer.writeResourceLocation(materialId);

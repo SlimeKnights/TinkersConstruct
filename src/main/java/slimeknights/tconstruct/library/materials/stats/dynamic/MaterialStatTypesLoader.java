@@ -73,18 +73,11 @@ public class MaterialStatTypesLoader extends SimpleJsonResourceReloadListener {
       .forEach(entry -> {
         MaterialStatsId id = new MaterialStatsId(entry.getKey());
         JsonObject obj = entry.getValue().getAsJsonObject();
-        MaterialStatTypeBuilder builder = MaterialStatTypeBuilder.name(id);
+        obj.addProperty("id", id.toString());
         try {
-          if (obj.has("durability_field")) {
-            String durabilityField = GsonHelper.getAsString(obj, "durability_field");
-            builder.setDurabilityField(durabilityField);
-          }
-          if (obj.has("stats")) {
-            obj.get("stats").getAsJsonArray().forEach(field -> builder.addField(DynamicStatField.deserializeSelf(field.getAsJsonObject(), id)));
-          }
-          newStatTypes.put(id, builder.build());
+          newStatTypes.put(id, DynamicMaterialStatType.LOADER.deserialize(obj));
         } catch (Exception e) {
-          log.error("Failed to parse material stat type {}: {}", id, e.getMessage());
+          log.error("Failed to parse material stat type {}: {}", id, e.toString());
         }
       });
 
@@ -100,18 +93,11 @@ public class MaterialStatTypesLoader extends SimpleJsonResourceReloadListener {
     splashList.entrySet().stream()
       .filter(entry -> entry.getValue().isJsonObject())
       .forEach(entry -> {
-        MaterialStatsId id = new MaterialStatsId(entry.getKey());
+                MaterialStatsId id = new MaterialStatsId(entry.getKey());
         JsonObject obj = entry.getValue().getAsJsonObject();
-        MaterialStatTypeBuilder builder = MaterialStatTypeBuilder.name(id);
+        obj.addProperty("id", id.toString());
         try {
-          if (obj.has("durability_field")) {
-            String durabilityField = GsonHelper.getAsString(obj, "durability_field");
-            builder.setDurabilityField(durabilityField);
-          }
-          if (obj.has("stats")) {
-            obj.get("stats").getAsJsonArray().forEach(field -> builder.addField(DynamicStatField.deserializeSelf(field.getAsJsonObject(), id)));
-          }
-          newStatTypes.put(id, builder.build());
+          newStatTypes.put(id, DynamicMaterialStatType.LOADER.deserialize(obj));
         } catch (Exception e) {
           log.error("Failed to parse material stat type {}: {}", id, e.getMessage());
         }

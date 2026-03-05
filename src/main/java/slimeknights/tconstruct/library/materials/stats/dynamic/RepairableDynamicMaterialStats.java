@@ -1,23 +1,34 @@
 package slimeknights.tconstruct.library.materials.stats.dynamic;
 
-import java.util.Map;
-import lombok.Getter;
-import lombok.experimental.Accessors;
+import java.util.List;
+import net.minecraft.network.chat.Component;
 import slimeknights.tconstruct.library.materials.stats.IRepairableMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatType;
-import slimeknights.tconstruct.library.materials.stats.dynamic.DynamicStatField.DynamicStat;
+import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 
 /**
  * A material stat that has dynamic stat fields.
  * This class is used to create material stats that can be repaired.
  */
-public class RepairableDynamicMaterialStats extends DynamicMaterialStats implements IRepairableMaterialStats {
-	@Getter
-	@Accessors(fluent = true)
-	private final int durability;
-	
-	public RepairableDynamicMaterialStats(MaterialStatType<?> type, Map<String, DynamicStat> stats, int durability) {
-		super(type, stats);
-		this.durability = durability;
+public record RepairableDynamicMaterialStats(DynamicMaterialStats stats, int durability) implements IRepairableMaterialStats {
+
+	@Override
+	public MaterialStatType<?> getType() {
+		return stats.getType();
+	}
+
+	@Override
+	public List<Component> getLocalizedInfo() {
+		return stats.getLocalizedInfo();
+	}
+
+	@Override
+	public List<Component> getLocalizedDescriptions() {
+		return stats.getLocalizedDescriptions();
+	}
+
+	@Override
+	public void apply(ModifierStatsBuilder builder, float scale) {
+		stats.apply(builder, scale);
 	}
 }

@@ -69,12 +69,12 @@ class UpdateMaterialStatsPacketTest extends BaseMcTest {
     // ensure the loadable is passed the context field for the proper type
     assertThat(materialStats.getType().getId()).isEqualTo(MaterialStatTypesFixture.STATS_TYPE);
     RepairableDynamicMaterialStats realDynamicStats = (RepairableDynamicMaterialStats) materialStats;
-    assertThat(realDynamicStats.getStat("test1")).isExactlyInstanceOf(FloatDynamicStatField.FloatDynamicStat.class);
-    assertThat(((FloatDynamicStatField.FloatDynamicStat)realDynamicStats.getStat("test1")).getValue()).isEqualTo(1f);
-    assertThat(realDynamicStats.getStat("test2")).isExactlyInstanceOf(FloatDynamicStatField.FloatDynamicStat.class);
-    assertThat(((FloatDynamicStatField.FloatDynamicStat)realDynamicStats.getStat("test2")).getValue()).isEqualTo(2f);
-    assertThat(realDynamicStats.getStat("test3")).isExactlyInstanceOf(TierDynamicStatField.TierDynamicStat.class);
-    assertThat(((TierDynamicStatField.TierDynamicStat)realDynamicStats.getStat("test3")).getValue()).isEqualTo(Tiers.STONE);
+    assertThat(realDynamicStats.stats().stats().get(0)).isExactlyInstanceOf(FloatDynamicStatField.FloatDynamicStat.class);
+    assertThat(((FloatDynamicStatField.FloatDynamicStat)realDynamicStats.stats().stats().get(0)).value()).isEqualTo(1f);
+    assertThat(realDynamicStats.stats().stats().get(1)).isExactlyInstanceOf(FloatDynamicStatField.FloatDynamicStat.class);
+    assertThat(((FloatDynamicStatField.FloatDynamicStat)realDynamicStats.stats().stats().get(1)).value()).isEqualTo(2f);
+    assertThat(realDynamicStats.stats().stats().get(2)).isExactlyInstanceOf(TierDynamicStatField.TierDynamicStat.class);
+    assertThat(((TierDynamicStatField.TierDynamicStat)realDynamicStats.stats().stats().get(2)).value()).isEqualTo(Tiers.STONE);
     assertThat(realDynamicStats.durability()).isEqualTo(2);
 
   }

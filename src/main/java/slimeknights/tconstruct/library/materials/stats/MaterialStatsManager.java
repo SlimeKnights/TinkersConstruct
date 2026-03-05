@@ -10,6 +10,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.GsonHelper;
 import org.apache.logging.log4j.Level;
+import org.jetbrains.annotations.ApiStatus.Internal;
+
 import slimeknights.mantle.data.listener.MergingJsonDataLoader;
 import slimeknights.mantle.data.registry.IdAwareComponentRegistry;
 import slimeknights.mantle.util.JsonHelper;
@@ -176,6 +178,7 @@ public class MaterialStatsManager extends MergingJsonDataLoader<Map<ResourceLoca
     onLoaded.run();
   }
 
+  @Internal
   public void setDynamicStatTypes(Map<MaterialStatsId, DynamicMaterialStatType> dynamicStatTypes) {
     this.statTypesLoader.setStatTypes(dynamicStatTypes);
   }

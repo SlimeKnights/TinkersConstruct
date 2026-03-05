@@ -2,19 +2,19 @@
     "durability_field": "durability",
     "stats": [
         {
-            "type": "float",
+            "type": "tconstruct:float",
             "name": "durability",
             "stat": "test_stat",
             "default_value": 1.0,
             "operation": "update",
-            "desc": "desc1"
+            "description": "desc1"
         },
         {
-            "type": "tier",
+            "type": "tconstruct:tier",
             "name": "mining_tier",
             "stat": "test_tier_stat",
             "default_value": "diamond",
-            "desc": "desc2"
+            "description": "desc2"
         }
     ]
 }

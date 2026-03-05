@@ -1,52 +1,79 @@
 package slimeknights.tconstruct.library.materials.stats.dynamic;
 
-import java.util.LinkedHashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
 import com.google.gson.JsonObject;
 
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.util.typed.TypedMap;
+import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.dynamic.DynamicStatField.DynamicStat;
+import slimeknights.tconstruct.library.materials.stats.dynamic.FloatDynamicStatField.FloatDynamicStat;
 
 /**
- * A record class that represents a dynamic material stat.
+ * Loader of {@link DynamicMaterialStats}
  */
-public record DynamicMaterialStatLoader(DynamicMaterialStatType type, List<DynamicStatField<?>> statFields) implements RecordLoadable<DynamicMaterialStats> {
+public record DynamicMaterialStatLoader(DynamicMaterialStatType type, List<DynamicStatField<?,?>> statFields) implements RecordLoadable<IMaterialStats> {
 
     @Override
-    public DynamicMaterialStats decode(FriendlyByteBuf buffer, TypedMap context) {
-        Map<String, DynamicStat> stats = new LinkedHashMap<>();
-        statFields.forEach(field -> stats.put(field.getName(), field.decode(buffer)));
-        if (type.canRepair()) {
-            return new RepairableDynamicMaterialStats(type, stats, (int)((FloatDynamicStatField.FloatDynamicStat)stats.get(type.getDurabilityField())).getValue());
+    public IMaterialStats decode(FriendlyByteBuf buffer, TypedMap context) {
+        List<DynamicStat<?>> statList = new ArrayList<>();
+        List<Component> localizedInfo = new ArrayList<>();
+        List<Component> localizedDescriptions = new ArrayList<>();
+        int durability = 0;
+        for(DynamicStatField<?,?> field : statFields) {
+            DynamicStat<?> stat = field.decode(buffer);
+            statList.add(stat);
+            localizedInfo.add(stat.getLocalizedInfo());
+            localizedDescriptions.add(stat.getLocalizedDescription());
+            if(field.name().equals(type.getDurabilityField())) {
+                durability = (int) ((FloatDynamicStat)stat).value();
+            }
         }
-        return new DynamicMaterialStats(type, stats);
+        DynamicMaterialStats stats=new DynamicMaterialStats(type, statList, localizedInfo, localizedDescriptions);
+        if(type.canRepair())
+            return new RepairableDynamicMaterialStats(stats, durability);
+        return stats;
+    }
+
+    @SuppressWarnings("rawtypes")
+    @Override
+    public void encode(FriendlyByteBuf buffer, IMaterialStats value) {
+        DynamicMaterialStats stats = value instanceof RepairableDynamicMaterialStats ? ((RepairableDynamicMaterialStats)value).stats() : (DynamicMaterialStats) value;
+        for(DynamicStat stat:stats.stats()) {
+            stat.getLoader().encode(buffer, stat);
+        }
     }
 
     @Override
-    public void encode(FriendlyByteBuf buffer, DynamicMaterialStats value) {
-        for (DynamicStatField<?> field : statFields) {
-            field.encode(buffer, value);
+    public IMaterialStats deserialize(JsonObject json, TypedMap context) {
+        List<DynamicStat<?>> statList = new ArrayList<>();
+        List<Component> localizedInfo = new ArrayList<>();
+        List<Component> localizedDescriptions = new ArrayList<>();
+        int durability = 0;
+        for(DynamicStatField<?,?> field : statFields) {
+            DynamicStat<?> stat = field.deserialize(json);
+            statList.add(stat);
+            localizedInfo.add(stat.getLocalizedInfo());
+            localizedDescriptions.add(stat.getLocalizedDescription());
+            if(field.name().equals(type.getDurabilityField())) {
+                durability = (int) ((FloatDynamicStat)stat).value();
+            }
         }
+        DynamicMaterialStats stats=new DynamicMaterialStats(type, statList, localizedInfo, localizedDescriptions);
+        if(type.canRepair())
+            return new RepairableDynamicMaterialStats(stats, durability);
+        return stats;
     }
 
+    @SuppressWarnings("rawtypes")
     @Override
-    public DynamicMaterialStats deserialize(JsonObject json, TypedMap context) {
-        Map<String, DynamicStat> stats = new LinkedHashMap<>();
-        statFields.forEach(field -> stats.put(field.getName(), field.deserialize(json)));
-        if (type.canRepair()) {
-            return new RepairableDynamicMaterialStats(type, stats, (int)((FloatDynamicStatField.FloatDynamicStat)stats.get(type.getDurabilityField())).getValue());
-        }
-        return new DynamicMaterialStats(type, stats);
-    }
-
-    @Override
-    public void serialize(DynamicMaterialStats object, JsonObject json) {
-        for (DynamicStatField<?> field : statFields) {
-            field.serialize(object, json);
+    public void serialize(IMaterialStats value, JsonObject json) {
+        DynamicMaterialStats stats = value instanceof RepairableDynamicMaterialStats ? ((RepairableDynamicMaterialStats)value).stats() : (DynamicMaterialStats) value;
+        for(DynamicStat stat:stats.stats()) {
+            stat.getLoader().serialize(stat, json);
         }
     }
 }

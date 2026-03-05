@@ -1,30 +1,81 @@
 package slimeknights.tconstruct.library.materials.stats.dynamic;
 
+import static slimeknights.tconstruct.library.materials.stats.dynamic.DynamicStatField.withDefaultNamespace;
+
+import javax.annotation.Nonnull;
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
+import slimeknights.mantle.data.loadable.primitive.EnumLoadable;
+import slimeknights.mantle.data.loadable.primitive.FloatLoadable;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
+import slimeknights.mantle.util.typed.TypedMap;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.materials.stats.dynamic.DynamicStatField.DynamicStat;
-import slimeknights.tconstruct.library.materials.stats.dynamic.FloatDynamicStatField.FloatDynamicStat;
 import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
 import slimeknights.tconstruct.library.tools.stat.IToolStat;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
-import slimeknights.tconstruct.library.tools.stat.ToolStatId;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
-import static slimeknights.tconstruct.library.materials.stats.IMaterialStats.makeTooltipKey;
-import static slimeknights.tconstruct.library.materials.stats.dynamic.DynamicStatField.*;
-
-@AllArgsConstructor
-public class FloatDynamicStatField implements DynamicStatField<FloatDynamicStat> {
-
+public record FloatDynamicStatField(
+        String name, String localizedDescription, String tooltipKey, String toolStat, float defaultValue, Operation operation) implements DynamicStatField<FloatDynamicStatField.FloatDynamicStat, FloatToolStat> {
+            
     public static final ResourceLocation TYPE = TConstruct.getResource("float");
+    public static final RecordLoadable<FloatDynamicStatField> LOADER = RecordLoadable.create(
+            NAME_FIELD,
+            DESC_FIELD,
+            TOOLTIP_FIELD,
+            TOOL_STAT_FIELD,
+            FloatLoadable.ANY.requiredField(DynamicStatField.DEFAULT_VALUE, FloatDynamicStatField::defaultValue),
+            EnumLoadable.of(Operation.UPDATE, Operation.ADD, Operation.PERCENT, Operation.MULTIPLY, Operation.MULTIPLY_ALL).requiredField("operation", FloatDynamicStatField::operation),
+            FloatDynamicStatField::new);
+
+    public FloatDynamicStatField(String name, String localizedDescription, String tooltipKey, String toolStat, float defaultValue, Operation operation) {
+            this.name = name;
+            this.localizedDescription = localizedDescription;
+            this.tooltipKey = tooltipKey;
+            this.toolStat = toolStat;
+            this.defaultValue = defaultValue;
+            this.operation = operation;
+        if(getToolStat() == null) {
+            throw new JsonParseException("Cannot Find Float Tool Stat: " + toolStat);
+        }
+    }
+
+    public static record FloatDynamicStat(float value, FloatToolStat toolStat, Operation operation,
+            FloatDynamicStatField loader) implements DynamicStatField.DynamicStat<FloatDynamicStat> {
+
+        @Override
+        public RecordLoadable<FloatDynamicStat> getLoader() {
+            return loader;
+        }
+
+        @Override
+        public void apply(ModifierStatsBuilder builder, float scale) {
+            switch (operation) {
+                case UPDATE -> toolStat.update(builder, value * scale);
+                case ADD -> toolStat.add(builder, value * scale);
+                case PERCENT -> toolStat.percent(builder, value * scale);
+                case MULTIPLY -> toolStat.multiply(builder, value * scale);
+                case MULTIPLY_ALL -> toolStat.multiplyAll(builder, value * scale);
+            }
+        }
+
+        @Override
+        public Component getLocalizedInfo() {
+            return loader.getLocalizedInfo(this);
+        }
+
+        @Override
+        public Component getLocalizedDescription() {
+            return loader.getLocalizedDescription();
+        }
+    }
 
     /**
      * Operation to perform on the stat.
@@ -37,48 +88,21 @@ public class FloatDynamicStatField implements DynamicStatField<FloatDynamicStat>
         MULTIPLY_ALL
     }
 
-    private final String name;
-    private final FloatToolStat stat;
-    private final float defaultValue;
-    private final Operation operation;
-    private final String localizedDescription;
-    private final String tooltipKey;
-
     @Override
-    public String getStatType() {
-        return TYPE.toString();
+    public FloatDynamicStat deserialize(JsonObject json, TypedMap context) {
+        float value = GsonHelper.getAsFloat(json, name, defaultValue);
+        return new FloatDynamicStat(value, getToolStat(), operation, this);
     }
 
     @Override
-    public String getName() {
-        return name;
+    public void serialize(FloatDynamicStat object, JsonObject json) {
+        json.addProperty(name, object.value);
     }
 
     @Override
-    public void encodeSelf(FriendlyByteBuf buffer) {
-        buffer.writeUtf(TYPE.toString());
-        buffer.writeUtf(name);
-        buffer.writeUtf(stat.getName().toString());
-        buffer.writeFloat(defaultValue);
-        buffer.writeEnum(operation);
-        buffer.writeUtf(localizedDescription);
-        buffer.writeUtf(tooltipKey);
-    }
-
-    @Override
-    public void serializeSelf(JsonObject json) {
-        json.addProperty("type", TYPE.toString());
-        json.addProperty("name", name);
-        json.addProperty("stat", stat.getName().toString());
-        json.addProperty("default_value", defaultValue);
-        json.addProperty("operation", operation.toString().toLowerCase());
-        json.addProperty("desc", localizedDescription);
-        json.addProperty("info", tooltipKey);
-    }
-
-    @Override
-    public FloatDynamicStat decode(FriendlyByteBuf buffer) {
-        return new FloatDynamicStat(stat, buffer.readFloat(), operation, Component.translatable(localizedDescription), tooltipKey);
+    public FloatDynamicStat decode(FriendlyByteBuf buffer, TypedMap context) {
+        float value = buffer.readFloat();
+        return new FloatDynamicStat(value, getToolStat(), operation, this);
     }
 
     @Override
@@ -87,83 +111,24 @@ public class FloatDynamicStatField implements DynamicStatField<FloatDynamicStat>
     }
 
     @Override
-    public FloatDynamicStat deserialize(JsonObject json) {
-        return new FloatDynamicStat(stat, GsonHelper.getAsFloat(json, name, defaultValue), operation, Component.translatable(localizedDescription), tooltipKey);
+    public RecordLoadable<? extends IHaveLoader> getLoader() {
+        return LOADER;
     }
 
     @Override
-    public void serialize(FloatDynamicStat object, JsonObject json) {
-        json.addProperty(name, object.value);
-    }
-
-    @AllArgsConstructor
-    public static class FloatDynamicStat implements DynamicStat {
-
-        private final FloatToolStat stat;
-        @Getter
-        private final float value;
-        private final Operation operation;
-        @Getter
-        private final Component localizedDescription;
-        private final String tooltipKey;
-
-        @Override
-        public void apply(ModifierStatsBuilder builder, float scale) {
+    public Component getLocalizedInfo(FloatDynamicStat value) {
+        return tooltipKey=="" ? getToolStat().formatValue(value.value):
             switch (operation) {
-                case UPDATE -> stat.update(builder, value * scale);
-                case ADD -> stat.add(builder, value * scale);
-                case PERCENT -> stat.percent(builder, value);
-                case MULTIPLY -> stat.multiply(builder, value);
-                case MULTIPLY_ALL -> stat.multiplyAll(builder, value);
-            }
-        }
-
-        @Override
-        public Component getLocalizedInfo() {
-            if(tooltipKey.isEmpty())
-                return stat.formatValue(value);
-            if (operation == Operation.PERCENT) {
-                return IToolStat.formatColoredPercentBoost(tooltipKey, value);
-            }
-            return IToolStat.formatNumber(tooltipKey, stat.getColor(), value);
-        }
+                case UPDATE -> IToolStat.formatNumber(tooltipKey, getToolStat().getColor(), value.value);
+                case PERCENT -> IToolStat.formatColoredPercentBoost(tooltipKey, value.value);
+                case ADD -> IToolStat.formatColoredBonus(tooltipKey, value.value);
+                case MULTIPLY, MULTIPLY_ALL -> IToolStat.formatColoredMultiplier(tooltipKey, value.value);
+            };
     }
 
-    public static class FloatDynamicStatDecoder implements DynamicStatDecoder<FloatDynamicStatField> {
-
-        @Override
-        public ResourceLocation getId() {
-            return TYPE;
-        }
-
-        @Override
-        public FloatDynamicStatField deserialize(JsonObject json, ResourceLocation path) {
-            String name = GsonHelper.getAsString(json, "name");
-            ToolStatId statId = new ToolStatId(withDefaultNamespace(GsonHelper.getAsString(json, "stat")));
-            float defaultValue = GsonHelper.getAsFloat(json, "default_value", 0.0f);
-            Operation operation = Operation.valueOf(GsonHelper.getAsString(json, "operation").toUpperCase());
-            IToolStat<?> stat = ToolStats.getToolStat(statId);
-            String localizedDescription = GsonHelper.getAsString(json, "description",makeTooltipKey(new ResourceLocation(path.getNamespace(), path.getPath()+"."+name+".description")));
-            String tooltipKey = GsonHelper.getAsString(json, "tooltip","");
-            if (stat != null && stat instanceof FloatToolStat floatStat) {
-                return new FloatDynamicStatField(name, floatStat, defaultValue, operation, localizedDescription, tooltipKey);
-            }
-            throw new JsonParseException("Could not find float stat: " + statId);
-        }
-
-        @Override
-        public FloatDynamicStatField decode(FriendlyByteBuf buffer) {
-            String name = buffer.readUtf();
-            ToolStatId statId = new ToolStatId(buffer.readUtf());
-            float defaultValue = buffer.readFloat();
-            Operation operation = buffer.readEnum(Operation.class);
-            IToolStat<?> stat = ToolStats.getToolStat(statId);
-            String localizedDescription = buffer.readUtf();
-            String tooltipKey = buffer.readUtf();
-            if (stat != null && stat instanceof FloatToolStat floatStat) {
-                return new FloatDynamicStatField(name, floatStat, defaultValue, operation, localizedDescription, tooltipKey);
-            }
-            throw new JsonParseException("Could not find float stat: " + statId);
-        }
+    @Override
+    @Nonnull
+    public FloatToolStat getToolStat() {
+        return (FloatToolStat) ToolStats.getToolStat(withDefaultNamespace(toolStat));
     }
 }
