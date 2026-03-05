@@ -3747,6 +3747,7 @@
   "recipe.tconstruct.tool_build.no_count": "Одна из особенностей помешала созданию этого инструмента.",
   "recipe.tconstruct.damaging.broken": "Инструмент уже сломан.",
   "recipe.tconstruct.overslime.at_capacity": "В инструменте больше нет места для слизи.",
+  "recipe.tconstruct.modifier.amount": "Кол-во: %s",
 
   "recipe.tconstruct.swappable.already_present": "Инструмент уже содержит %s с вариантом %s",
 
