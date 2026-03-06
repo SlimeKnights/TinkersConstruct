@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.library.materials.stats.dynamic;
 
+import static slimeknights.tconstruct.TConstruct.getResource;
+
 import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.JsonObject;
@@ -32,6 +34,9 @@ public record DynamicMaterialStatLoader(DynamicMaterialStatType type, List<Dynam
                 durability = (int) ((FloatDynamicStat)stat).value();
             }
         }
+        if(localizedInfo.isEmpty()) {
+            localizedInfo.add(IMaterialStats.makeTooltip(getResource("extra.no_stats")));
+        }
         DynamicMaterialStats stats=new DynamicMaterialStats(type, statList, localizedInfo, localizedDescriptions);
         if(type.canRepair())
             return new RepairableDynamicMaterialStats(stats, durability);
@@ -61,6 +66,9 @@ public record DynamicMaterialStatLoader(DynamicMaterialStatType type, List<Dynam
             if(field.name().equals(type.getDurabilityField())) {
                 durability = (int) ((FloatDynamicStat)stat).value();
             }
+        }
+        if(localizedInfo.isEmpty()) {
+            localizedInfo.add(IMaterialStats.makeTooltip(getResource("extra.no_stats")));
         }
         DynamicMaterialStats stats=new DynamicMaterialStats(type, statList, localizedInfo, localizedDescriptions);
         if(type.canRepair())

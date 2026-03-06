@@ -184,14 +184,17 @@ class MaterialStatsManagerTest extends BaseMcTest {
       materialStatsManager.getStatTypesLoader().setStatTypes(new HashMap<>());
       MaterialStatsId statId1 = new MaterialStatsId(TConstruct.getResource("testtype1"));
       MaterialStatsId statId2 = new MaterialStatsId(TConstruct.getResource("testtype2"));
+      MaterialStatsId emptyType = new MaterialStatsId(TConstruct.getResource("emptytype"));
       MaterialId testStatType = new MaterialId(TConstruct.getResource("teststattype"));
 
       JsonFileLoader testFileLoader = new JsonFileLoader(MaterialStatTypesLoader.GSON, MaterialStatTypesLoader.FOLDER);
-      Map<ResourceLocation, JsonElement> fakePrepareResult = testFileLoader.loadFilesAsSplashlist(statId1, statId2);
+      Map<ResourceLocation, JsonElement> fakePrepareResult = testFileLoader.loadFilesAsSplashlist(statId1, statId2, emptyType);
       anoFileLoader.apply(fakePrepareResult);;
       fileLoader.loadAndParseFiles(null, testStatType);
 
-
+      // empty type should have no stats
+      assertThat(materialStatsManager.getStatType(emptyType)).isNotNull();
+      assertThat(materialStatsManager.getStatType(emptyType)).isExactlyInstanceOf(DynamicMaterialStatType.class);
       
       assertThat(materialStatsManager.getStatType(statId1)).isNotNull();
       assertThat(materialStatsManager.getStatType(statId1)).isExactlyInstanceOf(DynamicMaterialStatType.class);
@@ -224,6 +227,10 @@ class MaterialStatsManagerTest extends BaseMcTest {
       assertThat(stats2.stats().get(1)).isExactlyInstanceOf(FloatDynamicStatField.FloatDynamicStat.class);
       FloatDynamicStatField.FloatDynamicStat durabilityStat2 = (FloatDynamicStatField.FloatDynamicStat)stats2.stats().get(0);//durability
       assertThat(durabilityStat2.value()).isEqualTo(0f);
+      
+      assertThat(materialStatsManager.getStats(testStatType, emptyType)).isPresent();
+      DynamicMaterialStats emptyStats2 = (DynamicMaterialStats)materialStatsManager.getStats(testStatType, emptyType).get();
+      assertThat(emptyStats2.stats()).isEmpty();
     }
   }
 }

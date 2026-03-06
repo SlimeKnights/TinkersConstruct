@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -12,11 +11,8 @@ import lombok.extern.log4j.Log4j2;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.util.profiling.InactiveProfiler;
 import net.minecraft.util.profiling.ProfilerFiller;
-import slimeknights.mantle.data.listener.MergingJsonDataLoader;
-import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 
 import java.util.HashMap;

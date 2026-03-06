@@ -6,6 +6,7 @@
         },
         "tconstruct:testtype2": {
             "mining_speed": 45.67
-        }
+        },
+        "tconstruct:emptytype": {}
     }
 }
