@@ -92,6 +92,7 @@ public final class MaterialIds {
   public static final MaterialId endRod = id("end_rod");
   //public static final MaterialId soulsteel = id("soulsteel");
   // tier 4 - bindings
+  public static final MaterialId jeweledHide = id("jeweled_hide");
   public static final MaterialId ancientHide = id("ancient_hide");
   public static final MaterialId enderslimeVine = id("enderslime_vine");
   // tier 4 - ammo

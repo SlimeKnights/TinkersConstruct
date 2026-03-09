@@ -4,6 +4,7 @@ import lombok.Getter;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ArmorItem;
@@ -109,6 +110,41 @@ public class TinkerStationContainerMenu extends TabbedContainerMenu<TinkerStatio
           slotToolPart.activate(layoutSlot);
         }
       }
+    }
+  }
+
+  @Override
+  public ItemStack quickMoveStack(Player player, int index) {
+    Slot slot = this.slots.get(index);
+    // fix issue on shift clicking from the result slot if the recipe result mismatches the displayed item
+    if (slot == resultSlot) {
+      if (tile != null && slot.hasItem()) {
+        // return the original result so shift click works
+        ItemStack original = slot.getItem().copy();
+        // but add the true result into the inventory
+        ItemStack result = original.copy();
+        // take the result before we put it in containers; lets events modify the stack
+        tile.onCraft(player, result, result.getCount());
+        boolean nothingDone = true;
+        if (!subContainers.isEmpty()) { // the sub container check does not do well with 0 sub containers
+          nothingDone = this.refillAnyContainer(result, this.subContainers);
+        }
+        nothingDone &= this.moveToPlayerInventory(result);
+        if (!subContainers.isEmpty()) {
+          nothingDone &= this.moveToAnyContainer(result, this.subContainers);
+        }
+        // if successfully added to an inventory, update
+        if (!nothingDone) {
+          if (!result.isEmpty()) {
+            player.drop(result, false);
+          }
+          tile.getCraftingResult().clearContent();
+          return original;
+        }
+      }
+      return ItemStack.EMPTY;
+    } else {
+      return super.quickMoveStack(player, index);
     }
   }
 }

@@ -9,9 +9,9 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import slimeknights.mantle.data.loadable.primitive.FloatLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.json.LevelingValue;
 import slimeknights.tconstruct.library.module.HookProvider;
 import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
@@ -23,11 +23,15 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import java.util.List;
 
 /** Attack logic for a sweep attack, similar to a sword */
-public record SweepWeaponAttack(float range) implements MeleeHitToolHook, ToolModule {
-  public static final RecordLoadable<SweepWeaponAttack> LOADER = RecordLoadable.create(FloatLoadable.FROM_ZERO.defaultField("range", 0f, true, SweepWeaponAttack::range), SweepWeaponAttack::new);
+public record SweepWeaponAttack(LevelingValue range) implements MeleeHitToolHook, ToolModule {
+  public static final RecordLoadable<SweepWeaponAttack> LOADER = RecordLoadable.create(LevelingValue.ADD_TO_LEVEL.defaultField("range", LevelingValue.LEVEL, true, SweepWeaponAttack::range), SweepWeaponAttack::new);
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<SweepWeaponAttack>defaultHooks(ToolHooks.MELEE_HIT);
   /** Volatile data float for the percentage of sweep damage to deal */
   public static final ResourceLocation SWEEP_PERCENT = TConstruct.getResource("sweep_percent");
+
+  public SweepWeaponAttack(float range) {
+    this(new LevelingValue(range, 1));
+  }
 
   @Override
   public List<ModuleHook<?>> getDefaultHooks() {
@@ -59,7 +63,7 @@ public record SweepWeaponAttack(float range) implements MeleeHitToolHook, ToolMo
     LivingEntity attacker = context.getAttacker();
     if (context.isFullyCharged() && !attacker.isSprinting() && !context.isCritical() && !context.isProjectile() && attacker.onGround() && (attacker.walkDist - attacker.walkDistO) < attacker.getSpeed()) {
       // loop through all nearby entities
-      double range = this.range + tool.getVolatileData().getInt(IModifiable.EXPANDED);
+      double range = this.range.compute(tool.getVolatileData().getInt(IModifiable.EXPANDED));
       double rangeSq = (2 + range); // TODO: why do we add 2 here? should that not be defined in the datagen?
       rangeSq *= rangeSq;
       // if the modifier is missing, sweeping damage will be 0, so easiest to let it fully control this

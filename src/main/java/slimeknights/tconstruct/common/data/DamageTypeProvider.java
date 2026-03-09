@@ -31,6 +31,7 @@ import static slimeknights.tconstruct.common.TinkerDamageTypes.SMELTERY_HEAT;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.SMELTERY_MAGIC;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.SPINY;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.THROWN_TOOL;
+import static slimeknights.tconstruct.common.TinkerDamageTypes.UPDATE_HEALTH;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.WATER;
 
 /** Datagen for damage types */
@@ -47,6 +48,7 @@ public class DamageTypeProvider implements RegistrySetBuilder.RegistryBootstrap<
     context.register(SMELTERY_HEAT, new DamageType(prefix("smeltery_heat"), DamageScaling.NEVER, 0.1f, DamageEffects.BURNING));
     context.register(SMELTERY_MAGIC, new DamageType(prefix("smeltery_magic"), DamageScaling.NEVER, 0.1f, DamageEffects.BURNING));
     context.register(KNIGHTMETAL, new DamageType(prefix("knightmetal"), DamageScaling.NEVER, 0.1f));
+    context.register(UPDATE_HEALTH, new DamageType(prefix("update_health"), DamageScaling.NEVER, 0f, DamageEffects.DROWNING));
     context.register(THROWN_TOOL, new DamageType(prefix("thrown_tool"), 0.1f));
     context.register(MELEE_THROWN_TOOL, new DamageType(prefix("thrown_tool"), 0.1f));
     context.register(FISHING_HOOK, new DamageType(prefix("fishing_hook"), 0.1f));

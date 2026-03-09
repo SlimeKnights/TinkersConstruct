@@ -103,6 +103,7 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.knightslime);
     buildRenderInfo(MaterialIds.blazingBone).color(0xF2D500).fallbacks("bone", "rock").luminosity(15);
     buildRenderInfo(MaterialIds.blazewood).fallbacks("wood", "stick").luminosity(7);
+    buildRenderInfo(MaterialIds.jeweledHide);
     buildRenderInfo(MaterialIds.ancientHide);
     buildRenderInfo(MaterialIds.ancient);
     buildRenderInfo(MaterialIds.enderslimeVine).color(0xa92dff).fallbacks("vine");

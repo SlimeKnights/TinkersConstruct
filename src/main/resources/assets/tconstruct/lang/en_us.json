@@ -1288,6 +1288,8 @@
   "death.attack.tconstruct.smeltery_magic.player": "%1$s has become one with the smeltery whilst fighting %2$s",
   "death.attack.tconstruct.knightmetal": "%1$s was skewered by Knightmetal",
   "death.attack.tconstruct.knightmetal.player": "%1$s was skewered by Knightmetal escaping %2$s",
+  "death.attack.tconstruct.update_health": "%1$s removed an essential piece of armor",
+  "death.attack.tconstruct.update_health.player": "%1$s removed an essential piece of armor whilst fighting %2$s",
   "death.attack.tconstruct.self_destruct": "%1$s self destructed",
   "death.attack.tconstruct.self_destruct.player": "%1$s self destructed whilst fighting %2$s",
   "death.attack.tconstruct.thrown_tool": "%1$s was impaled by %2$s",
@@ -2145,6 +2147,12 @@
 
   "material.tconstruct.soulsteel": "Soulsteel",
 
+  "material.tconstruct.jeweled_hide": "Jeweled Hide",
+  "material.tconstruct.jeweled_hide.flavor": "Leather tanned using pure gemstones",
+  "material.tconstruct.jeweled_hide.encyclopedia": "Increases drop chances from blocks, stacking with luck",
+  "material.tconstruct.jeweled_hide.ranged": "Increases the quality of loot from fishing, stacking with luck",
+  "material.tconstruct.jeweled_hide.armor": "Increases max health by 1 heart. On shields, the heart is immediately restored, but you will take 1 heart of damage on unequip.",
+
   "material.tconstruct.ancient_hide": "Ancient Hide",
   "material.tconstruct.ancient_hide.flavor": "Leather tanned by the oldest of stone",
   "material.tconstruct.ancient_hide.encyclopedia": "Increases drop chances from blocks, stacking with luck",
@@ -2790,7 +2798,7 @@
   "modifier.tconstruct.luck.description": "Gives you more nice things when mining, killing mobs, or fishing using this tool or wearing this armor!",
   "modifier.tconstruct.fortune": "Fortune",
   "modifier.tconstruct.fortune.flavor": "Luck of the Ores!",
-  "modifier.tconstruct.fortune.description": "Gives you more nice things when mining!",
+  "modifier.tconstruct.fortune.description": "Gives you more nice things when mining or fishing!",
   "modifier.tconstruct.looting": "Looting",
   "modifier.tconstruct.looting.flavor": "Luck of the Mobs!",
   "modifier.tconstruct.looting.description": "Gives you more nice things when killing mobs!",
@@ -3742,6 +3750,7 @@
   "recipe.tconstruct.tool_build.no_count": "One of the traits prevented this tool from being crafted.",
   "recipe.tconstruct.damaging.broken": "Tool is already broken",
   "recipe.tconstruct.overslime.at_capacity": "Tool has no more space for overslime",
+  "recipe.tconstruct.modifier.amount": "Amount: %s",
 
   "recipe.tconstruct.swappable.already_present": "Tool already contains %s with variant %s",
 

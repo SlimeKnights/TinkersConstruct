@@ -39,7 +39,7 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
       // tier 4
       MaterialIds.manyullyn, MaterialIds.hepatizon, MaterialIds.cinderslime,
       MaterialIds.queensSlime, MaterialIds.blazingBone, MaterialIds.blazewood,
-      MaterialIds.ancientHide,
+      MaterialIds.jeweledHide,
       // ammo
       MaterialIds.glowstone, MaterialIds.ichor, MaterialIds.quartz, MaterialIds.blaze, MaterialIds.magma
     ).addOptional(MaterialIds.necronium);
@@ -55,8 +55,12 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
     );
 
     // tier 4 is split into several parts in different books
-    tag(TinkerTags.Materials.BLAZING_BLOOD).add(MaterialIds.manyullyn, MaterialIds.hepatizon, MaterialIds.queensSlime, MaterialIds.cinderslime, MaterialIds.blazingBone, MaterialIds.blazewood, MaterialIds.ancientHide)
-      .addOptional(MaterialIds.nicrosil);
+    tag(TinkerTags.Materials.BLAZING_BLOOD).add(
+      MaterialIds.manyullyn, MaterialIds.hepatizon,
+        MaterialIds.queensSlime, MaterialIds.cinderslime,
+        MaterialIds.blazingBone, MaterialIds.blazewood,
+        MaterialIds.jeweledHide
+      ).addOptional(MaterialIds.nicrosil);
     tag(TinkerTags.Materials.DISTANT).add(
       // tiers 1-2
       MaterialIds.chorus, MaterialIds.whitestone,
@@ -75,7 +79,7 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
       MaterialIds.manyullyn, MaterialIds.hepatizon,
       MaterialIds.cinderslime, MaterialIds.queensSlime,
       MaterialIds.blazingBone, MaterialIds.blazewood,
-      MaterialIds.ancientHide, MaterialIds.ancient
+      MaterialIds.jeweledHide, MaterialIds.ancient
     ).addOptional(MaterialIds.necronium);
 
     // tag all compat materials
@@ -120,7 +124,7 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
       // tier 3
       MaterialIds.amethystBronze,
       // tier 4
-      MaterialIds.hepatizon, MaterialIds.ancientHide, MaterialIds.knightslime
+      MaterialIds.hepatizon, MaterialIds.jeweledHide, MaterialIds.knightslime
     ).addOptional(
       // tier 2
       MaterialIds.lead,
@@ -155,7 +159,7 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
       // tier 3
       MaterialIds.slimesteel, MaterialIds.darkthread, MaterialIds.cobalt, MaterialIds.pigIron,
       // tier 4
-      MaterialIds.blazingBone, MaterialIds.ancientHide, MaterialIds.enderslimeVine
+      MaterialIds.blazingBone, MaterialIds.jeweledHide, MaterialIds.enderslimeVine
     ).addOptional(
       // tier 1
       MaterialIds.treatedWood,

@@ -13,7 +13,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.util.ModifierCondition;
 import slimeknights.tconstruct.library.module.ModuleHook;
-import slimeknights.tconstruct.library.tools.capability.ToolBlockItemProviderHook;
+import slimeknights.tconstruct.library.tools.capability.BlockItemProviderModifierHook;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
@@ -21,13 +21,13 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 /**
- * A module that uses {@link slimeknights.tconstruct.library.tools.capability.BlockItemProviderCapability BlockItemProviderCapability} via {@link ToolBlockItemProviderHook} to provide BlockItems to modifiers like exchanging at the cost of durability.
+ * A module that uses {@link slimeknights.tconstruct.library.tools.capability.BlockItemProviderCapability BlockItemProviderCapability} via {@link BlockItemProviderModifierHook} to provide BlockItems to modifiers like exchanging at the cost of durability.
  * Note this does not let the tool place blocks, it only exposes this capability. See {@link slimeknights.tconstruct.tools.modules.interaction.PlaceGlowModule PlaceGlowModule} for an example of a custom module that lets the tool place blocks.
  * @param item The BlockItem to provide, wrapped in an ItemStack
  * @param damage The amount of damage it takes to provide one block (can be 0)
  * @param condition Other conditions that you might want to condition the providing on, such as only happening on certain tool types.
  */
-public record BlockItemProviderModule(ItemStack item, int damage, ModifierCondition<IToolStackView> condition) implements ModifierModule, ToolBlockItemProviderHook, ModifierCondition.ConditionalModule<IToolStackView> {
+public record BlockItemProviderModule(ItemStack item, int damage, ModifierCondition<IToolStackView> condition) implements ModifierModule, BlockItemProviderModifierHook, ModifierCondition.ConditionalModule<IToolStackView> {
     private static final List<ModuleHook<?>> DEFAULT_HOOKS = List.of(ModifierHooks.BLOCK_ITEM_PROVIDER);
     public static final RecordLoadable<BlockItemProviderModule> LOADER = RecordLoadable.create(
       ItemStackLoadable.REQUIRED_ITEM_NBT.validate((stack, error) -> {

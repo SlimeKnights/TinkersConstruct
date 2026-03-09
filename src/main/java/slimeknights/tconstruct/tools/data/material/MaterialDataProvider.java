@@ -107,7 +107,8 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addMaterial(MaterialIds.knightslime, 4, ORDER_END,     false);
     //addMetalMaterial(MaterialIds.soulsteel, 4, ORDER_SPECIAL, false, 0x6a5244);
     // tier 4 - binding
-    addMaterial(MaterialIds.ancientHide, 4, ORDER_BINDING, false);
+    addMaterial(MaterialIds.jeweledHide, 4, ORDER_BINDING, false);
+    addMaterial(MaterialIds.ancientHide, 4, ORDER_BINDING, false, true, null);
     addMaterial(MaterialIds.ancient,     4, ORDER_NETHER,  false, true, null);
     addMaterial(MaterialIds.blazewood,   4, ORDER_BINDING, true);
     // tier 4 - ammo

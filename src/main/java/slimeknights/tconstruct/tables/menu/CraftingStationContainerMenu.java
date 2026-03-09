@@ -64,21 +64,25 @@ public class CraftingStationContainerMenu extends TabbedContainerMenu<CraftingSt
     if (slot == resultSlot) {
       if (tile != null && slot.hasItem()) {
         // return the original result so shift click works
-        ItemStack original = slot.getItem().copy(); // TODO: are these copies really needed?
+        ItemStack original = slot.getItem().copy();
         // but add the true result into the inventory
         ItemStack result = tile.getResultForPlayer(player);
         if (!result.isEmpty()) {
+          // take the result before we put it in containers; lets events modify the stack
+          tile.takeResult(player, result, result.getCount());
           boolean nothingDone = true;
-          if (subContainers.size() > 0) { // the sub container check does not do well with 0 sub containers
+          if (!subContainers.isEmpty()) { // the sub container check does not do well with 0 sub containers
             nothingDone = this.refillAnyContainer(result, this.subContainers);
           }
           nothingDone &= this.moveToPlayerInventory(result);
-          if (subContainers.size() > 0) {
+          if (!subContainers.isEmpty()) {
             nothingDone &= this.moveToAnyContainer(result, this.subContainers);
           }
           // if successfully added to an inventory, update
           if (!nothingDone) {
-            tile.takeResult(player, result, result.getCount());
+            if (!result.isEmpty()) {
+              player.drop(result, false);
+            }
             tile.getCraftingResult().clearContent();
             return original;
           }

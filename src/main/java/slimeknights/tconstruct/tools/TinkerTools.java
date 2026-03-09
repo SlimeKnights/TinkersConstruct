@@ -59,7 +59,7 @@ import slimeknights.tconstruct.library.modifiers.modules.capacity.OverslimeModul
 import slimeknights.tconstruct.library.recipe.ingredient.ToolHookIngredient;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
 import slimeknights.tconstruct.library.tools.SlotType;
-import slimeknights.tconstruct.library.tools.capability.ToolBlockItemProviderHook;
+import slimeknights.tconstruct.library.tools.capability.BlockItemProviderModifierHook;
 import slimeknights.tconstruct.library.tools.capability.ToolCapabilityProvider;
 import slimeknights.tconstruct.library.tools.capability.ToolEnergyCapability;
 import slimeknights.tconstruct.library.tools.capability.fluid.ToolFluidCapability;
@@ -285,7 +285,7 @@ public final class TinkerTools extends TinkerModule {
     ToolCapabilityProvider.register(ToolFluidCapability.Provider::new);
     ToolCapabilityProvider.register(ToolInventoryCapability.Provider::new);
     ToolCapabilityProvider.register((stack, tool) -> new ToolEnergyCapability.Provider(tool));
-    ToolCapabilityProvider.register((stack, tool) -> new ToolBlockItemProviderHook.Provider(tool));
+    ToolCapabilityProvider.register((stack, tool) -> new BlockItemProviderModifierHook.Provider(tool));
     for (ConfigurableAction action : Config.COMMON.toolTweaks) {
       event.enqueueWork(action);
     }

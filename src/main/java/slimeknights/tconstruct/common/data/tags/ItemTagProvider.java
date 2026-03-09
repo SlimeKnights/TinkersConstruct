@@ -114,6 +114,7 @@ import static slimeknights.tconstruct.common.TinkerTags.Items.THROWN_AMMO;
 import static slimeknights.tconstruct.common.TinkerTags.Items.TOOL_PARTS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.TRADER_TOOLS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.TRIM;
+import static slimeknights.tconstruct.common.TinkerTags.Items.TRIM_NO_PATTERN;
 import static slimeknights.tconstruct.common.TinkerTags.Items.UNARMED;
 import static slimeknights.tconstruct.common.TinkerTags.Items.UNRECYCLABLE;
 import static slimeknights.tconstruct.common.TinkerTags.Items.UNSALVAGABLE;
@@ -416,6 +417,8 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.tag(WORN_ARMOR).addTags(BOOTS, LEGGINGS, CHESTPLATES, HELMETS);
     this.tag(HELD_ARMOR).addTag(SHIELDS);
     this.tag(ARMOR).addTags(WORN_ARMOR, HELD_ARMOR);
+    this.tag(TRIM).addTag(TRIM_NO_PATTERN);
+    this.tag(TRIM_NO_PATTERN);
     this.tag(SKULLS).addTag(SWAPPABLE_SKULLS);
     this.tag(AOE).addTag(BOOTS); // boot walk modifiers
     this.tag(LAUNCHERS).addTags(BOWS, STAFFS, FISHING_RODS);

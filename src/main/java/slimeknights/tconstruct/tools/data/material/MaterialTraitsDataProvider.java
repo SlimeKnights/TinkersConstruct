@@ -130,6 +130,8 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.blazewood, ModifierIds.spectral);
     addDefaultTraits(MaterialIds.ancient, ModifierIds.vintage, ModifierIds.worldbound);
     // tier 4 - binding
+    addDefaultTraits(MaterialIds.jeweledHide, ModifierIds.fortune);
+    addTraits(MaterialIds.jeweledHide, ARMOR, ModifierIds.revitalizing);
     addTraits(MaterialIds.ancientHide, MELEE_HARVEST, ModifierIds.fortune);
     addDefaultTraits(MaterialIds.ancientHide, ModifierIds.fortified);
     addTraits(MaterialIds.dragonScale, ARMOR, ModifierIds.dragonborn);

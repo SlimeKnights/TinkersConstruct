@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.recipe.modifiers.adding;
 
 import lombok.Getter;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -38,6 +39,7 @@ import static slimeknights.tconstruct.library.recipe.modifiers.adding.IDisplayMo
  */
 public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayModifierRecipe {
   private static final RecipeResult<LazyToolStack> AT_CAPACITY = RecipeResult.failure(TConstruct.makeTranslationKey("recipe", "overslime.at_capacity"));
+  private static final String KEY_AMOUNT = TConstruct.makeTranslationKey("recipe", "modifier.amount");
   public static final RecordLoadable<OverslimeModifierRecipe> LOADER = RecordLoadable.create(
     ContextKey.ID.requiredField(),
     IngredientLoadable.DISALLOW_EMPTY.defaultField("tools", Ingredient.of(TinkerTags.Items.DURABILITY), true, r -> r.tools),
@@ -127,6 +129,11 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
   @Override
   public ResourceLocation getRecipeId() {
     return getId();
+  }
+
+  @Override
+  public Component getVariant() {
+    return Component.translatable(TConstruct.makeTranslationKey("recipe", "modifier.amount"), restoreAmount);
   }
 
   @Override

@@ -22,6 +22,8 @@ public class TinkerDamageTypes {
   public static final ResourceKey<DamageType> SMELTERY_MAGIC = create("smeltery_magic");
   /** Damage from a knightmetal block */
   public static final ResourceKey<DamageType> KNIGHTMETAL = create("knightmetal");
+  /** Damage dealt when updating health decreases you below max health */
+  public static final ResourceKey<DamageType> UPDATE_HEALTH = create("update_health");
 
   /** Damage from throwing a tool */
   public static final ResourceKey<DamageType> THROWN_TOOL = create("thrown_tool");

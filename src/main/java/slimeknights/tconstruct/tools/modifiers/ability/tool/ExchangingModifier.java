@@ -21,7 +21,7 @@ import slimeknights.tconstruct.library.modifiers.hook.mining.RemoveBlockModifier
 import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
 import slimeknights.tconstruct.library.module.ModuleHookMap.Builder;
 import slimeknights.tconstruct.library.tools.capability.BlockItemProviderCapability;
-import slimeknights.tconstruct.library.tools.capability.ToolBlockItemProviderHook;
+import slimeknights.tconstruct.library.tools.capability.BlockItemProviderModifierHook;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.Util;
@@ -65,7 +65,7 @@ public class ExchangingModifier extends NoLevelsModifier implements RemoveBlockM
     if (blockItem == null) {
       item = entity.getMainHandItem();
       // skip forges cap system and go to the tinkers hook because we know this is a tinkers tool
-      blockProvider = new ToolBlockItemProviderHook.CapabilityImpl(tool);
+      blockProvider = new BlockItemProviderModifierHook.CapabilityImpl(tool);
       backingStack = blockProvider.getBlockItemStack(item, entity);
       blockItem = BlockItemProviderCapability.verifyBlockItem(backingStack, blockProvider);
 

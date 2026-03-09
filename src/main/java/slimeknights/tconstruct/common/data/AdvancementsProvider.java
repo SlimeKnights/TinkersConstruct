@@ -170,7 +170,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(MaterialIds.queensSlime);
       with.accept(MaterialIds.blazingBone);
       with.accept(MaterialIds.blazewood);
-      with.accept(MaterialIds.ancientHide);
+      with.accept(MaterialIds.jeweledHide);
       with.accept(MaterialIds.knightmetal);
       with.accept(MaterialIds.knightslime);
       with.accept(MaterialIds.enderslimeVine);

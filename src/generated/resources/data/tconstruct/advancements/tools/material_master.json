@@ -15,20 +15,6 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "ancient_hide": {
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool_stack",
-            "predicate": {
-              "type": "tconstruct:has_material",
-              "material": "tconstruct:ancient_hide"
-            }
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
     "bamboo": {
       "conditions": {
         "items": [
@@ -219,6 +205,20 @@
             "predicate": {
               "type": "tconstruct:has_material",
               "material": "tconstruct:iron"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "jeweled_hide": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_material",
+              "material": "tconstruct:jeweled_hide"
             }
           }
         ]
@@ -653,7 +653,7 @@
       "blazewood"
     ],
     [
-      "ancient_hide"
+      "jeweled_hide"
     ],
     [
       "knightmetal"

@@ -21,6 +21,9 @@
       "tconstruct:item/tool/armor/plate/shield/large_modifiers/"
     ]
   },
+  "first_modifiers": [
+    "tconstruct:trim"
+  ],
   "parts": [
     {
       "name": "core",

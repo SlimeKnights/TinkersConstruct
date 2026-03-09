@@ -104,7 +104,7 @@
     "scorch_protection":     "#5B4C43",
     "golden":                "#FFD83E",
     "knockback_resistance":  "#4A4A4A",
-    "revitalizing":          "#8cf4e2",
+    "revitalizing":          "#A1FBE8",
     "dragonborn":            "#474747",
     "shulking":              "#976997",
     "turtle_shell":          "#47BF4A",
@@ -114,6 +114,7 @@
     "barebow":       "#896727",
     "creative_slot": "#CCBA47",
     "dyed":          "#AAAAAA",
+    "trim":          "#83F8F8",
     "nearsighted":   "#796571",
     "farsighted":    "#796571",
     "overslime":     "#71DC85",
@@ -139,7 +140,7 @@
 
 
     "__upgrades__": null,
-    "diamond":       "#8cf4e2",
+    "diamond":       "#A1FBE8",
     "emerald":       "#41f384",
     "experienced":   "#59B057",
     "fireprimer":    "#4A281D",
@@ -161,7 +162,7 @@
 
     "__upgrade_harvest__": null,
     "blasting":   "#8A8A8A",
-    "fortune":    "#7E6059",
+    "fortune":    "#A1FBE8",
     "haste":      "#7F0901",
     "hydraulic":  "#7CB3A4",
     "lightspeed": "#FFBC5E",
@@ -463,6 +464,7 @@
     "knightslime":  "#B771FF",
     "blazing_bone": "#DBCC0B",
     "blazewood":    "#DBCC0B",
+    "jeweled_hide": "#A1FBE8",
     "ancient_hide": "#7E6059",
     "ancient":      "#654740",
     "dragon_scale": "#474747",
@@ -545,7 +547,7 @@
     "wood":      "#8E661B",
     "stone":     "#999999",
     "iron":      "#CACACA",
-    "diamond":   "#55FFFF",
+    "diamond":   "#A1FBE8",
     "netherite": "#555555",
     "gold":      "#FFAA00"
   },

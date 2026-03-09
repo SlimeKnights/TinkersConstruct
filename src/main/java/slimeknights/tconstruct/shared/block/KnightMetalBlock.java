@@ -27,8 +27,8 @@ import slimeknights.tconstruct.common.TinkerDamageTypes;
 public class KnightMetalBlock extends Block implements SimpleWaterloggedBlock {
   private static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
   // TODO: more accurate shape? would need to ensure hitbox is still this
-  private static final VoxelShape SHAPE = Block.box(1.0D, 1.0D, 1.0D, 15.0D, 15.0D, 15.0D);
-  private static final float BLOCK_DAMAGE = 4;
+  public static final VoxelShape SHAPE = Block.box(1.0D, 1.0D, 1.0D, 15.0D, 15.0D, 15.0D);
+  public static final float BLOCK_DAMAGE = 4;
   public KnightMetalBlock(Properties props) {
     super(props);
     this.registerDefaultState(this.getStateDefinition().any().setValue(WATERLOGGED, false));

@@ -12,6 +12,7 @@
     "small": [ "tconstruct:item/tool/armor/plate/shield/modifiers/" ],
     "large": [ "tconstruct:item/tool/armor/plate/shield/large_modifiers/" ]
   },
+  "first_modifiers": [ "tconstruct:trim" ],
   "parts": [
     { "name": "core",    "index": 0 },
     { "name": "plating", "index": 1 }

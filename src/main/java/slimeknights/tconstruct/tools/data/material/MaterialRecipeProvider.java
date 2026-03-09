@@ -296,7 +296,9 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialMeltingCasting(consumer, MaterialIds.knightslime, TinkerFluids.moltenKnightslime, folder);
     materialComposite(consumer, MaterialIds.bloodshroom,  MaterialIds.blazewood,   TinkerFluids.blazingBlood, FluidType.BUCKET_VOLUME / 5, folder);
     materialComposite(consumer, MaterialIds.necroticBone, MaterialIds.blazingBone, TinkerFluids.blazingBlood, FluidType.BUCKET_VOLUME / 5, folder);
-    materialMeltingComposite(consumer, MaterialIds.leather, MaterialIds.ancientHide, TinkerFluids.moltenDebris, FluidValues.INGOT, folder);
+    materialMeltingComposite(consumer, MaterialIds.leather, MaterialIds.jeweledHide, TinkerFluids.moltenDiamond, FluidValues.GEM, folder);
+    materialComposite(consumer, MaterialIds.jeweledHide, MaterialIds.leather, TinkerFluids.venom, FluidValues.SIP, folder, "jeweled_hide_cleaning");
+    materialMelting(consumer, MaterialIds.ancientHide, TinkerFluids.moltenDebris, FluidValues.INGOT, folder);
     materialComposite(consumer, MaterialIds.ancientHide, MaterialIds.leather, TinkerFluids.venom, FluidValues.SIP, folder, "ancient_hide_cleaning");
     // no casting ancient, only melting it. Smeltery Recipe Provider adds in a repair kit casting
     materialMelting(consumer, MaterialIds.ancient, TinkerFluids.moltenDebris, FluidValues.INGOT, folder);

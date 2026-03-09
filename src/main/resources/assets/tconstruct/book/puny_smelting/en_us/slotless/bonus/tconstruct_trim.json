@@ -6,6 +6,7 @@
     }
   ],
   "effects": [
+    "Adds a defense slot",
     "Adds decorative edges to your armor",
     "The combination of template and material chooses the design",
     "Swappable",

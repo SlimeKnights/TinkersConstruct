@@ -15,14 +15,19 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
  */
 public record LevelingValue(float flat, float eachLevel) {
   /** Leveling value with all zeros set */
-  public static final LevelingValue ZERO = new LevelingValue(0f, 0f);
+  public static final LevelingValue ZERO = flat(0f);
   /** Leveling value of 1 with no leveling */
-  public static final LevelingValue ONE = new LevelingValue(1f, 0f);
+  public static final LevelingValue ONE = flat(1f);
+  /** Leveling that just returns the level */
+  public static final LevelingValue LEVEL = eachLevel(1);
   /** Loadable instance for parsing */
   public static final RecordLoadable<LevelingValue> LOADABLE = RecordLoadable.create(
     FloatLoadable.ANY.defaultField("flat", 0f, LevelingValue::flat),
     FloatLoadable.ANY.defaultField("each_level", 0f, LevelingValue::eachLevel),
     LevelingValue::new);
+  /** Leveling value instance that maps a float value to a leveling value of that plus 1 per level */
+  public static final RecordLoadable<LevelingValue> ADD_TO_LEVEL = LevelingValue.LOADABLE.compact(FloatLoadable.ANY.flatXmap(flat -> new LevelingValue(flat, 1), LevelingValue::flat), value -> value.eachLevel() == 1);
+
 
   /** Computes the value for the given level */
   public float compute(float level) {

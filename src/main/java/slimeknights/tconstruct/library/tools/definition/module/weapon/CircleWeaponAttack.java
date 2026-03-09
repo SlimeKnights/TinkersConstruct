@@ -7,8 +7,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import slimeknights.mantle.data.loadable.primitive.FloatLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
+import slimeknights.tconstruct.library.json.LevelingValue;
 import slimeknights.tconstruct.library.module.HookProvider;
 import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
@@ -21,9 +21,13 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import java.util.List;
 
 /** Deals damage in a circle around the primary target */
-public record CircleWeaponAttack(float diameter) implements MeleeHitToolHook, ToolModule {
-  public static final RecordLoadable<CircleWeaponAttack> LOADER = RecordLoadable.create(FloatLoadable.ANY.defaultField("diameter", 0f, true, CircleWeaponAttack::diameter), CircleWeaponAttack::new);
+public record CircleWeaponAttack(LevelingValue diameter) implements MeleeHitToolHook, ToolModule {
+  public static final RecordLoadable<CircleWeaponAttack> LOADER = RecordLoadable.create(LevelingValue.ADD_TO_LEVEL.defaultField("diameter", LevelingValue.LEVEL, true, CircleWeaponAttack::diameter), CircleWeaponAttack::new);
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<CircleWeaponAttack>defaultHooks(ToolHooks.MELEE_HIT);
+
+  public CircleWeaponAttack(float diameter) {
+    this(new LevelingValue(diameter, 1));
+  }
 
   @Override
   public List<ModuleHook<?>> getDefaultHooks() {
@@ -40,7 +44,7 @@ public record CircleWeaponAttack(float diameter) implements MeleeHitToolHook, To
     // no need for fully charged for scythe sweep, easier than sword sweep
     // basically sword sweep logic, just deals full damage to all entities (and full effects)
     // but also takes more durability loss
-    double range = diameter + tool.getVolatileData().getInt(IModifiable.EXPANDED);
+    double range = diameter.compute(tool.getVolatileData().getInt(IModifiable.EXPANDED));
     // allow having no range until modified with range
     if (range > 0) {
       double rangeSq = range * range;

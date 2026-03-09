@@ -216,12 +216,12 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
       ModifierIds.offhanded, ModifierIds.blunted, ModifierIds.workbench,
       ModifierIds.blindshot, ModifierIds.barebow);
     this.tag(BONUS_SLOTLESS).add(
-      ModifierIds.draconic, ModifierIds.rebalanced, ModifierIds.redirected,
+      ModifierIds.draconic, ModifierIds.rebalanced, ModifierIds.redirected, TinkerModifiers.trim.getId(),
       ModifierIds.harmonious, ModifierIds.recapitated, ModifierIds.forecast, ModifierIds.writable)
       .addOptional(ModifierIds.embossed);
     this.tag(COSMETIC_SLOTLESS).add(
       ModifierIds.shiny,
-      TinkerModifiers.dyed.getId(), TinkerModifiers.embellishment.getId(), TinkerModifiers.trim.getId(),
+      TinkerModifiers.dyed.getId(), TinkerModifiers.embellishment.getId(),
       ModifierIds.farsighted, ModifierIds.nearsighted);
   }
 

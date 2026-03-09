@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
 /** A hook used to provide BlockItems through the {@link BlockItemProviderCapability}, for modifiers such as exchanging */
-public interface ToolBlockItemProviderHook {
+public interface BlockItemProviderModifierHook {
     /**
      * Get a {@link BlockItem} to provide, wrapped as an ItemStack with any required placement NBT data. Can be randomised, if desired.
      * <br>
@@ -44,7 +44,7 @@ public interface ToolBlockItemProviderHook {
         @Override
         public ItemStack getBlockItemStack(ItemStack capStack, @Nullable LivingEntity entity) {
             for (ModifierEntry entry : tool.getModifiers()) {
-                ToolBlockItemProviderHook hook = entry.getHook(ModifierHooks.BLOCK_ITEM_PROVIDER);
+                BlockItemProviderModifierHook hook = entry.getHook(ModifierHooks.BLOCK_ITEM_PROVIDER);
                 ItemStack stack = hook.getBlockItemStack(tool, entry, entity);
                 if (!stack.isEmpty()) {
                     Item item = stack.getItem();

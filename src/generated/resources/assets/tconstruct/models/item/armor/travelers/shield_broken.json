@@ -14,7 +14,8 @@
     "tconstruct:item/tool/armor/travelers/shield/modifiers/"
   ],
   "first_modifiers": [
-    "tconstruct:dyed"
+    "tconstruct:dyed",
+    "tconstruct:trim"
   ],
   "parts": [
     {

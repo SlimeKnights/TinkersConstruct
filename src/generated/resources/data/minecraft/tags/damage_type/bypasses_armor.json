@@ -5,6 +5,7 @@
     "tconstruct:bleeding",
     "tconstruct:entangled",
     "tconstruct:spiny",
+    "tconstruct:update_health",
     "tconstruct:water_melee",
     "tconstruct:water_ranged",
     "tconstruct:fluid_spike_melee",

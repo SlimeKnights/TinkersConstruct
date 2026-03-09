@@ -75,7 +75,7 @@ import slimeknights.tconstruct.library.modifiers.hook.special.sling.SlingAngleMo
 import slimeknights.tconstruct.library.modifiers.hook.special.sling.SlingForceModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.special.sling.SlingLaunchModifierHook;
 import slimeknights.tconstruct.library.module.ModuleHook;
-import slimeknights.tconstruct.library.tools.capability.ToolBlockItemProviderHook;
+import slimeknights.tconstruct.library.tools.capability.BlockItemProviderModifierHook;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.utils.RestrictedCompoundTag;
@@ -129,7 +129,7 @@ public class ModifierHooks {
   public static final ModuleHook<InventoryTickModifierHook> INVENTORY_TICK = register("inventory_tick", InventoryTickModifierHook.class, InventoryTickModifierHook.AllMerger::new, (tool, modifier, world, holder, itemSlot, isSelected, isCorrectSlot, stack) -> {});
 
   /** Hook for providing a BlockItem via the {@link slimeknights.tconstruct.library.tools.capability.BlockItemProviderCapability}*/
-  public static final ModuleHook<ToolBlockItemProviderHook> BLOCK_ITEM_PROVIDER = register("block_item_provider", ToolBlockItemProviderHook.class, new ToolBlockItemProviderHook() {
+  public static final ModuleHook<BlockItemProviderModifierHook> BLOCK_ITEM_PROVIDER = register("block_item_provider", BlockItemProviderModifierHook.class, new BlockItemProviderModifierHook() {
     @Nullable
     @Override
     public ItemStack getBlockItemStack(IToolStackView tool, ModifierEntry modifier, @Nullable LivingEntity entity) {

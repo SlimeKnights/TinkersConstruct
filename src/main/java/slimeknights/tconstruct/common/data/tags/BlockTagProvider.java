@@ -189,7 +189,7 @@ public class BlockTagProvider extends BlockTagsProvider {
         .addTag(BlockTags.CROPS)
         .addOptionalTag(commonResource("crops"));
     this.tag(TinkerTags.Blocks.HARVESTABLE_INTERACT)
-        .add(Blocks.SWEET_BERRY_BUSH);
+        .add(Blocks.SWEET_BERRY_BUSH, Blocks.CAVE_VINES, Blocks.CAVE_VINES_PLANT);
     this.tag(TinkerTags.Blocks.HARVESTABLE)
         .add(Blocks.PUMPKIN, Blocks.BEEHIVE, Blocks.BEE_NEST)
         .addTag(TinkerTags.Blocks.HARVESTABLE_CROPS)

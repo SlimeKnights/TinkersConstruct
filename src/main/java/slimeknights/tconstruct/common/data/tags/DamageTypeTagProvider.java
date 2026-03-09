@@ -15,6 +15,7 @@ import java.util.concurrent.CompletableFuture;
 
 import static net.minecraft.tags.DamageTypeTags.AVOIDS_GUARDIAN_THORNS;
 import static net.minecraft.tags.DamageTypeTags.BYPASSES_ARMOR;
+import static net.minecraft.tags.DamageTypeTags.BYPASSES_COOLDOWN;
 import static net.minecraft.tags.DamageTypeTags.BYPASSES_EFFECTS;
 import static net.minecraft.tags.DamageTypeTags.BYPASSES_ENCHANTMENTS;
 import static net.minecraft.tags.DamageTypeTags.IS_EXPLOSION;
@@ -53,6 +54,7 @@ import static slimeknights.tconstruct.common.TinkerDamageTypes.SMELTERY_HEAT;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.SMELTERY_MAGIC;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.SPINY;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.THROWN_TOOL;
+import static slimeknights.tconstruct.common.TinkerDamageTypes.UPDATE_HEALTH;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.WATER;
 import static slimeknights.tconstruct.common.TinkerTags.DamageTypes.BLAST_PROTECTION;
 import static slimeknights.tconstruct.common.TinkerTags.DamageTypes.FALL_PROTECTION;
@@ -75,9 +77,10 @@ public class DamageTypeTagProvider extends DamageTypeTagsProvider {
     tag(IS_EXPLOSION).add(SELF_DESTRUCT).add(EXPLOSION.values()).add(MOB_EXPLOSION.values());
     tag(IS_FREEZING).add(FLUID_COLD.values());
     tag(WITCH_RESISTANT_TO).add(SMELTERY_MAGIC).add(FLUID_MAGIC.values());
-    tag(BYPASSES_ARMOR).add(PIERCING, SELF_DESTRUCT, BLEEDING, ENTANGLED, SPINY).add(WATER.values()).add(FLUID_SPIKE.values());
+    tag(BYPASSES_ARMOR).add(PIERCING, SELF_DESTRUCT, BLEEDING, ENTANGLED, SPINY, UPDATE_HEALTH).add(WATER.values()).add(FLUID_SPIKE.values());
     tag(BYPASSES_ENCHANTMENTS).add(BLEEDING);
-    tag(BYPASSES_EFFECTS).add(ENTANGLED, SPINY);
+    tag(BYPASSES_COOLDOWN).add(UPDATE_HEALTH);
+    tag(BYPASSES_EFFECTS).add(ENTANGLED, SPINY, UPDATE_HEALTH);
     tag(AVOIDS_GUARDIAN_THORNS).add(BLEEDING, SHOCK);
     // whole reason these are a pair is so we can tag one as projectile
     tag(IS_PROJECTILE).add(THROWN_TOOL, FISHING_HOOK, FLUID_IMPACT.ranged(), FLUID_FIRE.ranged(), FLUID_COLD.ranged(), FLUID_MAGIC.ranged(), WATER.ranged(), FLUID_SPIKE.ranged(), EXPLOSION.ranged(), MOB_EXPLOSION.ranged());

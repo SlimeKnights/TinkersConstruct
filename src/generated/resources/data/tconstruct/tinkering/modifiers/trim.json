@@ -3,6 +3,11 @@
   "modules": [
     {
       "type": "tconstruct:trim"
+    },
+    {
+      "type": "tconstruct:modifier_slot",
+      "each_level": 1,
+      "name": "defense"
     }
   ],
   "tooltip_display": "tinker_station"

@@ -223,6 +223,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      new HeadMaterialStats(530, 6f, IRON, 3f),
                      HandleMaterialStats.multipliers().durability(0.85f).attackDamage(1.05f).attackSpeed(1.2f).build(),
                      StatlessMaterialStats.BINDING);
+    addMaterialStats(MaterialIds.jeweledHide, StatlessMaterialStats.BINDING);
     addMaterialStats(MaterialIds.ancientHide, StatlessMaterialStats.BINDING);
     addMaterialStats(MaterialIds.ancient, new HeadMaterialStats(745, 7f, NETHERITE, 2.5f));
 
@@ -382,6 +383,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      new LimbMaterialStats(1250, -0.20f, 0.25f, 0f),
                      new GripMaterialStats(0.1f, -0.20f, 3.5f));
     addMaterialStats(MaterialIds.ancient, new LimbMaterialStats(745, -0.05f, 0.1f, 0.1f));
+    addMaterialStats(MaterialIds.jeweledHide, StatlessMaterialStats.BOWSTRING);
     addMaterialStats(MaterialIds.ancientHide, StatlessMaterialStats.BOWSTRING);
 
     // tier 4 (end)
@@ -505,6 +507,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addArmorShieldStats(MaterialIds.hepatizon,   PlatingMaterialStats.builder().durabilityFactor(32).armor(2, 5, 7, 2).toughness(2).knockbackResistance(0.10f), StatlessMaterialStats.MAILLE);
     addArmorShieldStats(MaterialIds.manyullyn,   PlatingMaterialStats.builder().durabilityFactor(35).armor(2, 5, 7, 2).toughness(3).knockbackResistance(0.05f), StatlessMaterialStats.MAILLE);
     addArmorShieldStats(MaterialIds.ancient,     PlatingMaterialStats.builder().durabilityFactor(25).armor(2, 4, 6, 2).knockbackResistance(0.15f));
+    addMaterialStats(MaterialIds.jeweledHide, StatlessMaterialStats.MAILLE, StatlessMaterialStats.CUIRASS);
     addMaterialStats(MaterialIds.ancientHide, StatlessMaterialStats.MAILLE, StatlessMaterialStats.CUIRASS);
     // tier 4 (end)
     addArmorShieldStats(MaterialIds.knightmetal, PlatingMaterialStats.builder().durabilityFactor(20).armor(2, 5, 7, 2).toughness(2).knockbackResistance(0.05f), StatlessMaterialStats.MAILLE);
@@ -524,6 +527,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.skyslimeVine, StatlessMaterialStats.REPAIR_KIT);
     addMaterialStats(MaterialIds.ichorskin, StatlessMaterialStats.REPAIR_KIT);
     addMaterialStats(MaterialIds.enderslimeVine, StatlessMaterialStats.REPAIR_KIT);
+    addMaterialStats(MaterialIds.jeweledHide, StatlessMaterialStats.REPAIR_KIT);
     addMaterialStats(MaterialIds.ancientHide, StatlessMaterialStats.REPAIR_KIT);
     // travelers's shield
     addMaterialStats(MaterialIds.ice, StatlessMaterialStats.REPAIR_KIT);

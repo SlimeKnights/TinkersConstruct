@@ -53,7 +53,7 @@ public class TrimModule implements ModifierModule, DisplayNameModifierHook, Modi
     String trimPattern = modDataNBT.getString(patternKey(id));
     // get the unformatted name
     Component original = entry.getModifier().getDisplayName();
-    if (trimMaterial.isEmpty() || trimPattern.isEmpty()) {
+    if (trimMaterial.isEmpty()) {
       return original;
     }
     String key = trimMaterial + '#' + trimPattern;
@@ -64,10 +64,12 @@ public class TrimModule implements ModifierModule, DisplayNameModifierHook, Modi
       }
       formatted = original;
       TrimMaterial material = access.registryOrThrow(Registries.TRIM_MATERIAL).get(ResourceLocation.tryParse(trimMaterial));
-      TrimPattern pattern = access.registryOrThrow(Registries.TRIM_PATTERN).get(ResourceLocation.tryParse(trimPattern));
-      if (material != null && pattern != null) {
-        // format is "___ Armor Trim (___ Material)"
-        formatted = Component.translatable(FORMAT_KEY, pattern.description(), material.description()).withStyle(material.description().getStyle());
+      // if pattern is not passed, use the modifier name directly. Lets us trim items without patterns
+      TrimPattern pattern = trimPattern.isEmpty() ? null : access.registryOrThrow(Registries.TRIM_PATTERN).get(ResourceLocation.tryParse(trimPattern));
+      Component patternComponent = pattern != null ? pattern.description() : Component.translatable(entry.getModifier().getTranslationKey());
+      if (material != null) {
+          // format is "___ Armor Trim (___ Material)"
+          formatted = Component.translatable(FORMAT_KEY, patternComponent, material.description()).withStyle(material.description().getStyle());
       }
       formattedCache.put(trimMaterial, formatted);
     }
