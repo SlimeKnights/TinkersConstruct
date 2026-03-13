@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:banner",
   "text": [
     {
-      "text": "Allows making ominous shields"
+      "text": "Позволяет создавать зловещие щиты."
     }
   ],
   "effects": [
-    "Decorates shields with banners",
-    "Apply again to swap design",
-    "Slotless"
+    "Украшает щиты баннерами.",
+    "Примените повторно для замены дизайна.",
+    "Без слота"
   ]
 }
