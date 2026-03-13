@@ -2595,7 +2595,11 @@
   "modifier.tconstruct.trim.formatted": "%s [%s]",
   "modifier.tconstruct.trim.flavor": "Сложная детализация!",
   "modifier.tconstruct.trim.description": "Дополнительная детализация брони с использованием дорогостоящих шаблонов.",
-
+  "modifier.tconstruct.banner": "Баннер",
+  "modifier.tconstruct.banner.flavor": "Декоративный!",
+  "modifier.tconstruct.banner.description": "Показывает баннер на щите.",
+  "modifier.tconstruct.banner.hold_shift": "Удерживайте [Shift] для просмотра узоров.",
+  
   "_comment": "Модификаторы: Броня (Защита)",
   "modifier.tconstruct.protection": "Защита",
   "modifier.tconstruct.protection.flavor": "Мастер на все руки!",
