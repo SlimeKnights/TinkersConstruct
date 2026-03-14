@@ -750,7 +750,7 @@
   "fluid.tconstruct.molten_hepatizon": "熔融黑色科林斯青铜",
   "fluid.tconstruct.flowing_molten_hepatizon": "流动的熔融黑色科林斯青铜",
   "item.tconstruct.molten_hepatizon_bucket": "熔融黑色科林斯青铜桶",
-  "fluid.tconstruct.molten_hepatizon.fluid_effect": "熔融黑色柯林斯青铜是更适合防御，还是更适合进攻？两种选择都是风险 与机遇并举。",
+  "fluid.tconstruct.molten_hepatizon.fluid_effect": "熔融黑色科林斯青铜是更适合防御，还是更适合进攻？两种选择都是风险 与机遇并举。",
 
   "block.tconstruct.molten_knightmetal_fluid": "熔融骑士金属",
   "fluid.tconstruct.molten_knightmetal": "熔融骑士金属",
@@ -796,7 +796,7 @@
   "fluid.tconstruct.molten_aluminum": "熔融铝",
   "fluid.tconstruct.flowing_molten_aluminum": "流动的熔融铝",
   "item.tconstruct.molten_aluminum_bucket": "熔融铝桶",
-  "fluid.tconstruct.molten_aluminum.fluid_effect": "熔融铝像奶一样，但更有侵略性。适合应对那些有太多增益的对手。",
+  "fluid.tconstruct.molten_aluminum.fluid_effect": "熔融铝像奶一样，但更具刺激性。适合应对那些有太多增益的对手。",
 
   "block.tconstruct.molten_lead_fluid": "熔融铅",
   "fluid.tconstruct.molten_lead": "熔融铅",
@@ -1288,6 +1288,8 @@
   "death.attack.tconstruct.smeltery_magic.player": "%1$s在与%2$s战斗时与冶炼炉融为一体",
   "death.attack.tconstruct.knightmetal": "%1$s被骑士金属扎穿了",
   "death.attack.tconstruct.knightmetal.player": "%1$s在试图逃离%2$s时被骑士金属扎穿了",
+  "death.attack.tconstruct.update_health": "%1$s不小心卸下了至关重要的盔甲",
+  "death.attack.tconstruct.update_health.player": "%1$s在与%2$s战斗时不小心卸下了至关重要的盔甲",
   "death.attack.tconstruct.self_destruct": "%1$s自我毁灭了",
   "death.attack.tconstruct.self_destruct.player": "%1$s在与%2$s战斗时自我毁灭了",
   "death.attack.tconstruct.thrown_tool": "%1$s被%2$s刺死了",
@@ -1798,7 +1800,7 @@
   "material.tconstruct.ice.armor": "使受到的冰冻伤害转换为耐久屏障。",
   "material.tconstruct.ice.ammo": "使目标冰冻4秒（每级额外延长4秒），造成减速和持续伤害。",
   "material.tconstruct.ice.skull_flavor": "寒彻骨髓",
-  "material.tconstruct.ice.skull_encyclopedia": "获得免疫缓慢的能力。此外弹射物可对目标造成15秒缓慢II效果。",
+  "material.tconstruct.ice.skull_encyclopedia": "免疫1级的缓慢状态效果。此外弹射物可对目标造成15秒缓慢II效果。",
 
   "material.tconstruct.cactus": "仙人掌",
   "material.tconstruct.cactus.flavor": "刺背刺客被背刺",
@@ -1921,7 +1923,7 @@
   "material.tconstruct.venombone.armor": "受到攻击后，有15%概率对攻击者施加毒素效果，该效果会让它在接下来5至10秒内受到的魔法伤害增加到200%（成功格挡则最长持续时间改为15秒）。",
   "material.tconstruct.venombone.ammo": "对目标施加毒素效果，该效果会让它在接下来5至10秒内受到的魔法伤害增加到200%。",
   "material.tconstruct.venombone.skull_flavor": "植入魔抗缺陷",
-  "material.tconstruct.venombone.skull_encyclopedia": "获得免疫毒素的能力。此外弹射物可对目标施加15秒毒素II效果。",
+  "material.tconstruct.venombone.skull_encyclopedia": "免疫1级的毒素状态效果。此外弹射物可对目标施加15秒毒素II效果。",
 
   "material.tconstruct.rose_gold": "玫瑰金",
   "material.tconstruct.rose_gold.flavor": "免责声明：不是真的用玫瑰做的。",
@@ -1946,7 +1948,7 @@
   "material.tconstruct.twisting_vine.flavor": "吞食孢子！",
   "material.tconstruct.twisting_vine.encyclopedia": "工具获得+6挖掘速度；代价是每次放下工具时流失1点生命值。",
   "material.tconstruct.twisting_vine.ranged": "工具获得+15%拉弓速度；代价是每次放下工具时流失1点生命值。",
-  "material.tconstruct.twisting_vine.armor": "盔甲获得+10%击退抗性；代价是每次脱下盔甲时流失2点生命值。",
+  "material.tconstruct.twisting_vine.armor": "盔甲获得+10%击退抗性；代价是每次卸下盔甲时流失2点生命值。",
 
   "material.tconstruct.wool": "羊毛",
   "material.tconstruct.wool.white": "白色羊毛",
@@ -2005,7 +2007,7 @@
   "material.tconstruct.skyslime.ammo": "增强弹射物的击退效果。",
 
   "material.tconstruct.turtle": "海龟壳",
-  "material.tconstruct.turtle.flavor": "小海龟游啊游，游上了岸。",
+  "material.tconstruct.turtle.flavor": "小海龟游啊游。",
   "material.tconstruct.turtle.armor": "按等级最高的盔甲，每级使穿戴者在水下时获得+10%抗性，且每级使游泳速度 增加5%。",
 
   "material.tconstruct.blaze": "烈焰棒",
@@ -2124,7 +2126,7 @@
   "material.tconstruct.blazing_bone.armor": "受到攻击后，有15%概率使攻击者施加导热效果，该效果会让它在接下来5至10秒内受到的火焰伤害增加到200%（成功格挡则最长持续时间改为15秒）。",
   "material.tconstruct.blazing_bone.ammo": "对目标施加导热效果，该效果会让它在接下来5至10秒内受到的火焰伤害增加到200%。",
   "material.tconstruct.blazing_bone.skull_flavor": "成为恶灵骑士",
-  "material.tconstruct.blazing_bone.skull_encyclopedia": "获得免疫导热的能力。此外近战攻击可对目标施加导热效果，该效果会让它在 接下来5至10秒内受到的火焰伤害增加到 200%。",
+  "material.tconstruct.blazing_bone.skull_encyclopedia": "免疫1级的导热状态效果。此外近战攻击可对目标施加导热效果，该效果会让它在 接下来5至10秒内受到的火焰伤害增加到 200%。",
 
   "material.tconstruct.blazewood": "烈焰木",
   "material.tconstruct.blazewood.flavor": "薪火相传，生生不息",
@@ -2145,8 +2147,14 @@
 
   "material.tconstruct.soulsteel": "魂钢",
 
+  "material.tconstruct.jeweled_hide": "宝钻皮革",
+  "material.tconstruct.jeweled_hide.flavor": "用最纯粹的宝石鞣制的皮革。",
+  "material.tconstruct.jeweled_hide.encyclopedia": "增加方块掉落物的掉落概率，与“幸运”效果叠加。",
+  "material.tconstruct.jeweled_hide.ranged": "增加钓鱼的宝藏概率，与“幸运”效果叠加。",
+  "material.tconstruct.jeweled_hide.armor": "最大生命值增加1颗心。加持在盾牌上后，举盾时立即回复生命值，但卸下时会受到1颗心的伤害",
+
   "material.tconstruct.ancient_hide": "远古兽皮",
-  "material.tconstruct.ancient_hide.flavor": "用最古老的石头鞣制的皮革",
+  "material.tconstruct.ancient_hide.flavor": "用最古老的石头鞣制的皮革。",
   "material.tconstruct.ancient_hide.encyclopedia": "增加方块掉落物的掉落概率，与“幸运”效果叠加。",
   "material.tconstruct.ancient_hide.ranged": "增加1个额外的防御槽。",
   "material.tconstruct.ancient_hide.armor": "增加1个额外的防御槽。",
@@ -2288,7 +2296,7 @@
   "material.tconstruct.necronium.encyclopedia": "对目标生物施加等同于特性等级的凋零效果，持续6秒；另有25%概率使自己获 得相同效果。",
   "material.tconstruct.necronium.armor": "受到攻击后，有50%概率对攻击者施加凋零效果，持续6秒（成功格挡则改为 100%概率）； 另有10%概率使自己获得 相同效果。",
   "material.tconstruct.necronium.skull_flavor": "成为恶灵骑士",
-  "material.tconstruct.necronium.skull_encyclopedia": "获得免疫凋零的能力。此外近战攻击可对目标施加6秒凋零效果。",
+  "material.tconstruct.necronium.skull_encyclopedia": "免疫1级的凋零状态效果。此外近战攻击可对目标施加6秒凋零效果。",
 
   "material.tconstruct.plated_slimewood": "复合黏木",
   "material.tconstruct.plated_slimewood.flavor": "黄铜的光泽加黏液的触感，棒极了！",
@@ -2585,8 +2593,12 @@
   "modifier.tconstruct.dyed.description": "改变盔甲的外观，就好像换了一种制作材料",
   "modifier.tconstruct.trim": "盔甲纹饰",
   "modifier.tconstruct.trim.formatted": "%s（%s）",
-  "modifier.tconstruct.trim.flavor": "繁枝细节！",
+  "modifier.tconstruct.trim.flavor": "细节繁复！",
   "modifier.tconstruct.trim.description": "使用昂贵的锻造模板为盔甲增添细节",
+  "modifier.tconstruct.banner": "旗帜",
+  "modifier.tconstruct.banner.flavor": "装饰点缀！",
+  "modifier.tconstruct.banner.description": "在盾牌上展示旗帜",
+  "modifier.tconstruct.banner.hold_shift": "按住Shift查看图案",
 
   "_comment": "Armor - Protection",
   "modifier.tconstruct.protection": "保护",
@@ -2790,10 +2802,10 @@
   "modifier.tconstruct.luck.description": "挖掘方块、击杀生物、钓鱼或穿戴含此升级的盔甲时，能得到更多好东西！",
   "modifier.tconstruct.fortune": "时运",
   "modifier.tconstruct.fortune.flavor": "采矿幸运儿！",
-  "modifier.tconstruct.fortune.description": "挖掘矿石时获得更多掉落物！",
+  "modifier.tconstruct.fortune.description": "挖掘矿石或钓鱼时，能得到更多好东西！",
   "modifier.tconstruct.looting": "抢夺",
   "modifier.tconstruct.looting.flavor": "战利幸运儿！",
-  "modifier.tconstruct.looting.description": "击杀生物后获得更多战利品！",
+  "modifier.tconstruct.looting.description": "击杀生物时，能得到更多好东西！",
 
   "_comment": "Expanders",
   "modifier.tconstruct.expanded": "延展",
@@ -3367,16 +3379,16 @@
   "modifier.tconstruct.strong_bones.description": "饮用奶后能够暂时提升抗性",
   "modifier.tconstruct.slow_bones": "滞骨",
   "modifier.tconstruct.slow_bones.flavor": "掌控迟滞的力量",
-  "modifier.tconstruct.slow_bones.description": "弹射物伤害附加缓慢效果，同时自身免疫缓慢效果",
+  "modifier.tconstruct.slow_bones.description": "弹射物伤害附加缓慢效果，同时穿戴者自身对1级缓慢效果免疫",
   "modifier.tconstruct.magic_bones": "术骨",
   "modifier.tconstruct.magic_bones.flavor": "掌控术法的力量",
-  "modifier.tconstruct.magic_bones.description": "弹射物伤害附加毒素效果，同时自身免疫毒素效果",
+  "modifier.tconstruct.magic_bones.description": "弹射物伤害附加毒素效果，同时穿戴者自身对1级毒素效果免疫",
   "modifier.tconstruct.flaming_bones": "焰骨",
   "modifier.tconstruct.flaming_bones.flavor": "掌控烈焰的力量",
-  "modifier.tconstruct.flaming_bones.description": "近战伤害附加导热效果，同时自身免疫导热效果",
+  "modifier.tconstruct.flaming_bones.description": "近战伤害附加导热效果，同时穿戴者自身对1级导热效果免疫",
   "modifier.tconstruct.decayed_bones": "朽骨",
   "modifier.tconstruct.decayed_bones.flavor": "掌控衰朽的力量",
-  "modifier.tconstruct.decayed_bones.description": "近战伤害附加凋零效果，同时自身免疫凋零效果",
+  "modifier.tconstruct.decayed_bones.description": "近战伤害附加凋零效果，同时穿戴者自身对1级凋零效果免疫",
   "modifier.tconstruct.withered": "凋零",
   "modifier.tconstruct.withered.flavor": "衰变的秘密",
   "modifier.tconstruct.withered.description": "对目标施加凋零效果。饮用奶后凋零效果会更强",
@@ -3739,6 +3751,7 @@
   "recipe.tconstruct.tool_build.no_count": "工具因某个特性而无法制作。",
   "recipe.tconstruct.damaging.broken": "工具已损坏",
   "recipe.tconstruct.overslime.at_capacity": "工具已无更多空间来容纳黏液覆层",
+  "recipe.tconstruct.modifier.amount": "容量：%s",
 
   "recipe.tconstruct.swappable.already_present": "工具已经拥有了%2$s变种的%1$s",
 
