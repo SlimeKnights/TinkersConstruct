@@ -68,7 +68,7 @@ public interface DynamicStatField<S extends DynamicStatField.DynamicStat, T exte
      * 
      * @return Formatted component
      */
-    Component getLocalizedInfo(S value);
+    Component getLocalizedInfo(float scale, S value);
 
     /**
      * Formats the stat field into a component
@@ -106,7 +106,7 @@ public interface DynamicStatField<S extends DynamicStatField.DynamicStat, T exte
          * 
          * @return Formatted component
          */
-        Component getLocalizedInfo();
+        Component getLocalizedInfo(float scale);
 
         /**
          * Formats the stat field into a component

@@ -67,8 +67,8 @@ public record FloatDynamicStatField(
         }
 
         @Override
-        public Component getLocalizedInfo() {
-            return loader.getLocalizedInfo(this);
+        public Component getLocalizedInfo(float scale) {
+            return loader.getLocalizedInfo(scale, this);
         }
 
         @Override
@@ -116,13 +116,13 @@ public record FloatDynamicStatField(
     }
 
     @Override
-    public Component getLocalizedInfo(FloatDynamicStat value) {
-        return tooltipKey=="" ? getToolStat().formatValue(value.value):
+    public Component getLocalizedInfo(float scale, FloatDynamicStat value) {
+        return tooltipKey=="" ? getToolStat().formatValue(value.value * scale):
             switch (operation) {
-                case UPDATE -> IToolStat.formatNumber(tooltipKey, getToolStat().getColor(), value.value);
-                case PERCENT -> IToolStat.formatColoredPercentBoost(tooltipKey, value.value);
-                case ADD -> IToolStat.formatColoredBonus(tooltipKey, value.value);
-                case MULTIPLY, MULTIPLY_ALL -> IToolStat.formatColoredMultiplier(tooltipKey, value.value);
+                case UPDATE -> IToolStat.formatNumber(tooltipKey, getToolStat().getColor(), value.value * scale);
+                case PERCENT -> IToolStat.formatColoredPercentBoost(tooltipKey, value.value * scale);
+                case ADD -> IToolStat.formatColoredBonus(tooltipKey, value.value * scale);
+                case MULTIPLY, MULTIPLY_ALL -> IToolStat.formatColoredMultiplier(tooltipKey, value.value * scale);
             };
     }
 

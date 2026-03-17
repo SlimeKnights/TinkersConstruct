@@ -10,7 +10,7 @@ import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
  * A material stat that has dynamic stat fields.
  * This class is used to create material stats that can be repaired.
  */
-public record RepairableDynamicMaterialStats(DynamicMaterialStats stats, int durability) implements IRepairableMaterialStats {
+public record RepairableDynamicMaterialStats(DynamicMaterialStats stats, int durability) implements IRepairableMaterialStats.ScaledTooltip {
 
 	@Override
 	public MaterialStatType<?> getType() {
@@ -18,8 +18,8 @@ public record RepairableDynamicMaterialStats(DynamicMaterialStats stats, int dur
 	}
 
 	@Override
-	public List<Component> getLocalizedInfo() {
-		return stats.getLocalizedInfo();
+	public List<Component> getLocalizedInfo(float scale) {
+		return stats.getLocalizedInfo(scale);
 	}
 
 	@Override

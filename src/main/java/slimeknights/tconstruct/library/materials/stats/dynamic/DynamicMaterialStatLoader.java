@@ -4,6 +4,8 @@ import static slimeknights.tconstruct.TConstruct.getResource;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
+
 import com.google.gson.JsonObject;
 
 import net.minecraft.network.FriendlyByteBuf;
@@ -11,6 +13,7 @@ import net.minecraft.network.chat.Component;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.util.typed.TypedMap;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
+import slimeknights.tconstruct.library.materials.stats.IMaterialStats.ScaledTooltip;
 import slimeknights.tconstruct.library.materials.stats.dynamic.DynamicStatField.DynamicStat;
 import slimeknights.tconstruct.library.materials.stats.dynamic.FloatDynamicStatField.FloatDynamicStat;
 
@@ -22,20 +25,20 @@ public record DynamicMaterialStatLoader(DynamicMaterialStatType type, List<Dynam
     @Override
     public IMaterialStats decode(FriendlyByteBuf buffer, TypedMap context) {
         List<DynamicStat<?>> statList = new ArrayList<>();
-        List<Component> localizedInfo = new ArrayList<>();
+        List<Function<Float,Component>> localizedInfo = new ArrayList<>();
         List<Component> localizedDescriptions = new ArrayList<>();
         int durability = 0;
         for(DynamicStatField<?,?> field : statFields) {
             DynamicStat<?> stat = field.decode(buffer);
             statList.add(stat);
-            localizedInfo.add(stat.getLocalizedInfo());
+            localizedInfo.add(stat::getLocalizedInfo);
             localizedDescriptions.add(stat.getLocalizedDescription());
             if(field.name().equals(type.getDurabilityField())) {
                 durability = (int) ((FloatDynamicStat)stat).value();
             }
         }
         if(localizedInfo.isEmpty()) {
-            localizedInfo.add(IMaterialStats.makeTooltip(getResource("extra.no_stats")));
+            localizedInfo.add(scale->IMaterialStats.makeTooltip(getResource("extra.no_stats")));
         }
         DynamicMaterialStats stats=new DynamicMaterialStats(type, statList, localizedInfo, localizedDescriptions);
         if(type.canRepair())
@@ -55,20 +58,20 @@ public record DynamicMaterialStatLoader(DynamicMaterialStatType type, List<Dynam
     @Override
     public IMaterialStats deserialize(JsonObject json, TypedMap context) {
         List<DynamicStat<?>> statList = new ArrayList<>();
-        List<Component> localizedInfo = new ArrayList<>();
+        List<Function<Float,Component>> localizedInfo = new ArrayList<>();
         List<Component> localizedDescriptions = new ArrayList<>();
         int durability = 0;
         for(DynamicStatField<?,?> field : statFields) {
             DynamicStat<?> stat = field.deserialize(json);
             statList.add(stat);
-            localizedInfo.add(stat.getLocalizedInfo());
+            localizedInfo.add(stat::getLocalizedInfo);
             localizedDescriptions.add(stat.getLocalizedDescription());
             if(field.name().equals(type.getDurabilityField())) {
                 durability = (int) ((FloatDynamicStat)stat).value();
             }
         }
         if(localizedInfo.isEmpty()) {
-            localizedInfo.add(IMaterialStats.makeTooltip(getResource("extra.no_stats")));
+            localizedInfo.add(scale->IMaterialStats.makeTooltip(getResource("extra.no_stats")));
         }
         DynamicMaterialStats stats=new DynamicMaterialStats(type, statList, localizedInfo, localizedDescriptions);
         if(type.canRepair())

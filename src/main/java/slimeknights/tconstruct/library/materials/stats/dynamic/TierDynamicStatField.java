@@ -59,8 +59,8 @@ public record TierDynamicStatField(
         }
 
         @Override
-        public Component getLocalizedInfo() {
-            return loader.getLocalizedInfo(this);
+        public Component getLocalizedInfo(float scale) {
+            return loader.getLocalizedInfo(scale, this);
         }
 
         @Override
@@ -98,7 +98,7 @@ public record TierDynamicStatField(
     }
 
     @Override
-    public Component getLocalizedInfo(TierDynamicStat value) {
+    public Component getLocalizedInfo(float scale, TierDynamicStat value) {
         return tooltipKey==""?getToolStat().formatValue(value.value):Component.translatable(tooltipKey).append(HarvestTiers.getName(value.value));
     }
 

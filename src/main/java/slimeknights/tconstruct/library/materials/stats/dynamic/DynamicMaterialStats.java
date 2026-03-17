@@ -1,6 +1,8 @@
 package slimeknights.tconstruct.library.materials.stats.dynamic;
 
 import java.util.List;
+import java.util.function.Function;
+
 import javax.annotation.Nonnull;
 import net.minecraft.network.chat.Component;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
@@ -11,7 +13,7 @@ import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 /**
  * A material stat that has dynamic stat fields.
  */
-public record DynamicMaterialStats(MaterialStatType<?> type, List<DynamicStat<?>> stats, List<Component> localizedInfo, List<Component> localizedDescriptions) implements IMaterialStats {
+public record DynamicMaterialStats(MaterialStatType<?> type, List<DynamicStat<?>> stats, List<Function<Float, Component>> localizedInfo, List<Component> localizedDescriptions) implements IMaterialStats.ScaledTooltip {
 
 	@Override
 	public MaterialStatType<?> getType() {
@@ -24,8 +26,8 @@ public record DynamicMaterialStats(MaterialStatType<?> type, List<DynamicStat<?>
 	}
 
 	@Override
-	public List<Component> getLocalizedInfo() {
-		return localizedInfo;
+	public List<Component> getLocalizedInfo(float scale) {
+		return localizedInfo.stream().map(f -> f.apply(scale)).toList();
 	}
 
 	@Override
