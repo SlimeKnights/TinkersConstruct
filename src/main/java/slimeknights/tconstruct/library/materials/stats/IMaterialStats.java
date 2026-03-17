@@ -44,6 +44,19 @@ public interface IMaterialStats {
   List<Component> getLocalizedInfo();
 
   /**
+   * Returns a list containing a String for each player-relevant value.</br>
+   * Each line should consist of the name of the value followed by the value itself.</br>
+   * Example: "Durability: 25"</br>
+   * </br>
+   * This is used to display properties of materials to the user.
+   * @param scale  Scales the stats in the same way as {@link #apply(ModifierStatsBuilder, float)}
+   */
+  default List<Component> getLocalizedInfo(float scale) {
+    // TODO 1.21: make this the abstract method
+    return getLocalizedInfo();
+  }
+
+  /**
    * Returns a list containing a Text Component describing each player-relevant value.</br>
    * The indices of the lines must line up with the lines from getLocalizedInfo()!</br>
    * *
@@ -78,5 +91,16 @@ public interface IMaterialStats {
    */
   static Component makeTooltip(ResourceLocation name) {
     return Component.translatable(makeTooltipKey(name));
+  }
+
+  /** Helper for implementing the scaled version of localized info, until we migrate to make that default. */
+  interface ScaledTooltip extends IMaterialStats {
+    @Override
+    List<Component> getLocalizedInfo(float scale);
+
+    @Override
+    default List<Component> getLocalizedInfo() {
+      return getLocalizedInfo(1);
+    }
   }
 }

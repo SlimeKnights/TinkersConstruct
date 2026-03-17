@@ -40,6 +40,7 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.entity.FluidEffectProjectile;
+import slimeknights.tconstruct.tools.modifiers.effect.HelmetChargingEffect;
 
 import java.util.List;
 
@@ -169,7 +170,7 @@ public record SpittingModule(LevelingInt shots) implements ModifierModule, Gener
       // launch if the fluid has effects, cannot simulate as we don't know the target yet
       FluidStack fluid = TANK_HELPER.getFluid(tool);
       if (fluid.getAmount() >= modifier.getLevel() && FluidEffectManager.INSTANCE.find(fluid.getFluid()).hasEffects()) {
-        int time = GeneralInteractionModifierHook.startDrawing(tool, player, 1.5f);
+        int time = HelmetChargingEffect.startUsingHelmet(tool, player, 1.5f);
         // mark the stack with the end time so we know how long to run particles
         tool.getPersistentData().putInt(modifier.getId(), player.tickCount + time);
         return true;

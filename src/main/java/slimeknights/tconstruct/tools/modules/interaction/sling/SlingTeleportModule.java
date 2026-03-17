@@ -12,7 +12,9 @@ import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.events.teleport.SlingModifierTeleportEvent;
+import slimeknights.tconstruct.library.json.LevelingValue;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.special.sling.SlingAngleModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.special.sling.SlingForceModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.special.sling.SlingLaunchModifierHook;
@@ -26,7 +28,7 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
  * @param forceMultiplier     Base force multiplier to apply.
  * @param drawtimeMultiplier  Multiplier on the drawspeed to apply.
  */
-public record SlingTeleportModule(float forceMultiplier, float drawtimeMultiplier, IJsonPredicate<LivingEntity> target, ModifierCondition<IToolStackView> condition) implements SlingModule {
+public record SlingTeleportModule(LevelingValue forceMultiplier, float drawtimeMultiplier, IJsonPredicate<LivingEntity> target, ModifierCondition<IToolStackView> condition) implements SlingModule {
   public static final RecordLoadable<SlingTeleportModule> LOADER = RecordLoadable.create(FORCE_FIELD, DRAWTIME_FIELD, TARGET_FIELD, ModifierCondition.TOOL_FIELD, SlingTeleportModule::new);
 
   @Override
@@ -35,14 +37,14 @@ public record SlingTeleportModule(float forceMultiplier, float drawtimeMultiplie
   }
 
   @Override
-  public void beforeReleaseUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int useDuration, int timeLeft, ModifierEntry activeModifier) {
+  public void sling(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int chargeTime, ModifierEntry activeModifier) {
     Level level = entity.level();
-    if (!level.isClientSide && condition.matches(tool, modifier) && target.matches(entity) && entity instanceof ServerPlayer player) {
+    if (!level.isClientSide && entity instanceof ServerPlayer player) {
       // must have enough charge and force must not be zeroed by a modifier
       // don't care about multiplier here as no knockback to change it
-      float charge = getCharge(tool, modifier, timeLeft);
-      if (charge > 0) {
-        float multiplier = charge * forceMultiplier;
+      float charge = GeneralInteractionModifierHook.getToolCharge(tool, chargeTime);
+      if (charge > 0 && target.matches(entity)) {
+        float multiplier = charge * this.forceMultiplier.compute(modifier);
         float force = SlingForceModifierHook.modifySlingForce(tool, entity, entity, modifier, SlingModule.getPower(tool, entity) * multiplier, multiplier);
         if (force > 0) {
           Vec3 look = player.getLookAngle();

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.shared.command.subcommand;
 
+import com.mojang.brigadier.arguments.FloatArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
@@ -49,24 +50,32 @@ public class MaterialsCommand {
    */
   public static void register(LiteralArgumentBuilder<CommandSourceStack> subCommand) {
     subCommand.requires(sender -> sender.hasPermission(MantleCommand.PERMISSION_GAME_COMMANDS))
-              // materials set <target> <index> <material>
-              .then(Commands.literal("set")
-                            .then(Commands.argument("targets", EntityArgument.entities())
-                                          .then(Commands.argument("index", IntegerArgumentType.integer(0))
-                                                        .then(Commands.argument("material", MaterialVariantArgument.material())
-                                                                      .executes(MaterialsCommand::set)))))
-              // materials stats <stat_type> [material]
-              .then(Commands.literal("stats")
-                            .then(Commands.argument("stat_type", MaterialStatsArgument.stats())
-                                          .executes(MaterialsCommand::defaultStats)
-                                          .then(Commands.argument("material", MaterialArgument.material())
-                                                        .executes(MaterialsCommand::stats))))
-              // materials traits <material> [stat_type]
-              .then(Commands.literal("traits")
-                            .then(Commands.argument("material", MaterialArgument.material())
-                                          .executes(context -> traits(context, null))
-                                          .then(Commands.argument("stat_type", MaterialStatsArgument.stats())
-                                                        .executes(MaterialsCommand::traits))));
+      // materials set <target> <index> <material>
+      .then(Commands.literal("set")
+        .then(Commands.argument("targets", EntityArgument.entities())
+          .then(Commands.argument("index", IntegerArgumentType.integer(0))
+            .then(Commands.argument("material", MaterialVariantArgument.material())
+              .executes(MaterialsCommand::set)))))
+      // materials stats <stat_type> [material] [scale]
+      .then(Commands.literal("stats")
+        .then(Commands.argument("stat_type", MaterialStatsArgument.stats())
+          // default stats - scale 1
+          .executes(context -> defaultStats(context, 1))
+          // default stats - specified scale
+          .then(Commands.argument("scale", FloatArgumentType.floatArg(0))
+            .executes(context -> defaultStats(context, FloatArgumentType.getFloat(context, "scale"))))
+          .then(Commands.argument("material", MaterialArgument.material())
+            // material stats - scale 1
+            .executes(context -> stats(context, 1))
+            // material stats - specified scale
+            .then(Commands.argument("scale", FloatArgumentType.floatArg(0))
+              .executes(context -> stats(context, FloatArgumentType.getFloat(context, "scale")))))))
+      // materials traits <material> [stat_type]
+      .then(Commands.literal("traits")
+        .then(Commands.argument("material", MaterialArgument.material())
+          .executes(context -> traits(context, null))
+          .then(Commands.argument("stat_type", MaterialStatsArgument.stats())
+            .executes(MaterialsCommand::traits))));
   }
 
   /** Sets the material at the index */
@@ -111,11 +120,11 @@ public class MaterialsCommand {
   }
 
   /** Sets the material at the index */
-  private static int defaultStats(CommandContext<CommandSourceStack> context) {
+  private static int defaultStats(CommandContext<CommandSourceStack> context, float scale) {
     context.getSource().sendSuccess(() -> {
       MaterialStatType<?> statType = MaterialStatsArgument.getStat(context, "stat_type");
-      MutableComponent output = TConstruct.makeTranslation("command", "materials.success.stats.default", statType.getDefaultStats().getLocalizedName());
-      for (Component component : statType.getDefaultStats().getLocalizedInfo()) {
+      MutableComponent output = TConstruct.makeTranslation("command", "materials.success.stats.default", statType.getDefaultStats().getLocalizedName(), scale);
+      for (Component component : statType.getDefaultStats().getLocalizedInfo(scale)) {
         output.append("\n* ").append(component);
       }
       return output;
@@ -124,14 +133,14 @@ public class MaterialsCommand {
   }
 
   /** Sets the material at the index */
-  private static int stats(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
+  private static int stats(CommandContext<CommandSourceStack> context, float scale) throws CommandSyntaxException {
     MaterialId material = MaterialArgument.getMaterial(context, "material").getIdentifier();
     MaterialStatType<?> statType = MaterialStatsArgument.getStat(context, "stat_type");
     Optional<IMaterialStats> stats = MaterialRegistry.getInstance().getMaterialStats(material, statType.getId());
     if (stats.isPresent()) {
       context.getSource().sendSuccess(() -> {
-        MutableComponent output = TConstruct.makeTranslation("command", "materials.success.stats.material", stats.get().getLocalizedName(), MaterialTooltipCache.getDisplayName(material));
-        for (Component component : stats.get().getLocalizedInfo()) {
+        MutableComponent output = TConstruct.makeTranslation("command", "materials.success.stats.material", stats.get().getLocalizedName(), MaterialTooltipCache.getDisplayName(material), scale);
+        for (Component component : stats.get().getLocalizedInfo(scale)) {
           output.append("\n* ").append(component);
         }
         return output;

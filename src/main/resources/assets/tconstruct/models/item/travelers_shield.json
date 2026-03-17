@@ -7,7 +7,7 @@
   },
   "modifier_maps": ["tconstruct:travelers/shield"],
   "modifier_roots": [ "tconstruct:item/tool/armor/travelers/shield/modifiers/" ],
-  "first_modifiers": [ "tconstruct:dyed", "tconstruct:trim" ],
+  "first_modifiers": [ "tconstruct:dyed" ],
   "parts": [
     { "name": "wood", "index": 0 },
     { "name": "cuirass", "index": 1 }

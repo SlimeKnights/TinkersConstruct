@@ -76,6 +76,7 @@ import slimeknights.tconstruct.shared.TinkerEffects;
 import slimeknights.tconstruct.tools.client.CrystalshotRenderer;
 import slimeknights.tconstruct.tools.client.FluidEffectProjectileRenderer;
 import slimeknights.tconstruct.tools.client.OverslimeModifierModel;
+import slimeknights.tconstruct.tools.client.ShieldBannerModifierSpriteSource;
 import slimeknights.tconstruct.tools.client.SlimeskullArmorModel;
 import slimeknights.tconstruct.tools.client.ToolContainerScreen;
 import slimeknights.tconstruct.tools.client.material.CombatFishingHookRenderer;
@@ -116,6 +117,7 @@ public class ToolClientEvents extends ClientEventBase {
     manager.registerReloadListener(HarvestTiers.RELOAD_LISTENER);
     ArmorModelManager.init(manager);
     manager.registerReloadListener(TrimArmorTextureSupplier.CACHE_INVALIDATOR);
+    ShieldBannerModifierSpriteSource.register();
   }
 
   @SubscribeEvent

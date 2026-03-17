@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 
@@ -32,6 +33,12 @@ public class ModDataNBT implements IModDataView {
   @Override
   public <T> T get(ResourceLocation name, BiFunction<CompoundTag,String,T> function) {
     return function.apply(data, name.toString());
+  }
+
+  @Override
+  public ListTag getList(ResourceLocation name, int type) {
+    // save generation of the extra lambda object
+    return data.getList(name.toString(), type);
   }
 
   @Override

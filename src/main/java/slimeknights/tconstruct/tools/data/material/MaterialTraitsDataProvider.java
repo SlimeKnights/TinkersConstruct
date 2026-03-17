@@ -180,7 +180,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     // slimeskull
     material(MaterialIds.glass).addTraits(SkullStats.ID, TinkerModifiers.selfDestructive.getId(), ModifierIds.creeperDisguise);
     // end
-    material(MaterialIds.enderPearl).addTraits(SkullStats.ID, TinkerModifiers.enderdodging.getId(), ModifierIds.endermanDisguise);
+    material(MaterialIds.enderPearl).addTraits(SkullStats.ID, ModifierIds.warping, ModifierIds.endermanDisguise);
     material(MaterialIds.dragonScale).addTraits(SkullStats.ID, ModifierIds.dragonheart);
     // skeleton
     material(MaterialIds.bone).addTraits(SkullStats.ID, TinkerModifiers.strongBones.getId(), ModifierIds.skeletonDisguise);

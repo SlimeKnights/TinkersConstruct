@@ -18,7 +18,7 @@ import java.util.List;
 import static slimeknights.tconstruct.tools.stats.LimbMaterialStats.ACCURACY_PREFIX;
 
 /** Secondary stats for a bow */
-public record GripMaterialStats(float durability, float accuracy, float meleeDamage) implements IMaterialStats {
+public record GripMaterialStats(float durability, float accuracy, float meleeDamage) implements IMaterialStats.ScaledTooltip {
   public static final MaterialStatsId ID = new MaterialStatsId(TConstruct.getResource("grip"));
   public static final MaterialStatType<GripMaterialStats> TYPE = new MaterialStatType<>(ID, new GripMaterialStats(0f, 0f, 0f), RecordLoadable.create(
     FloatLoadable.ANY.defaultField("durability", 0f, true, GripMaterialStats::durability),
@@ -40,11 +40,11 @@ public record GripMaterialStats(float durability, float accuracy, float meleeDam
   }
 
   @Override
-  public List<Component> getLocalizedInfo() {
+  public List<Component> getLocalizedInfo(float scale) {
     List<Component> info = Lists.newArrayList();
-    info.add(IToolStat.formatColoredPercentBoost(DURABILITY_PREFIX, this.durability));
-    info.add(IToolStat.formatColoredBonus(ACCURACY_PREFIX, this.accuracy));
-    info.add(ToolStats.ATTACK_DAMAGE.formatValue(this.meleeDamage));
+    info.add(IToolStat.formatColoredPercentBoost(DURABILITY_PREFIX, this.durability * scale));
+    info.add(IToolStat.formatColoredBonus(ACCURACY_PREFIX, this.accuracy * scale));
+    info.add(ToolStats.ATTACK_DAMAGE.formatValue(this.meleeDamage * scale));
     return info;
   }
 

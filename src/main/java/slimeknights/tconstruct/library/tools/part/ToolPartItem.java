@@ -83,7 +83,7 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
             if (!text.isEmpty()) {
               tooltip.add(Component.empty());
               tooltip.add(stat.getLocalizedName().withStyle(ChatFormatting.WHITE, ChatFormatting.UNDERLINE));
-              tooltip.addAll(stat.getLocalizedInfo());
+              tooltip.addAll(text);
             }
           });
         } else if (key != TooltipKey.CONTROL) {
@@ -122,7 +122,7 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
       if (!text.isEmpty()) {
         tooltip.add(Component.empty());
         tooltip.add(stat.getLocalizedName().withStyle(ChatFormatting.WHITE, ChatFormatting.UNDERLINE));
-        tooltip.addAll(stat.getLocalizedInfo());
+        tooltip.addAll(text);
       }
     });
   }

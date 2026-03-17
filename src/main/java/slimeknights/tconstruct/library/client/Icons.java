@@ -22,7 +22,10 @@ public interface Icons {
   ElementScreen BUTTON_HOVERED = PATTERN.move(180 + 18 * 2, 216, 18, 18);
   ElementScreen BUTTON_PRESSED = PATTERN.move(180 - 18 * 2, 216, 18, 18);
 
+  @Deprecated(forRemoval = true)
   ElementScreen PIGGYBACK_1 = PATTERN.move(18 * 13, 0, 18, 18);
+  @Deprecated(forRemoval = true)
   ElementScreen PIGGYBACK_2 = PATTERN.move(18 * 13, 18, 18, 18);
+  @Deprecated(forRemoval = true)
   ElementScreen PIGGYBACK_3 = PATTERN.move(18 * 13, 18 * 2, 18, 18);
 }

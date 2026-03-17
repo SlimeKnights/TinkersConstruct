@@ -245,6 +245,8 @@ public class ModifierModelMapProvider extends AbstractModifierModelMapProvider {
         "metal"
       ));
     }
+    // we include both folders, but limited for small
+    tool("plate/shield").banner("armor/plate/shield/banner_small/", "armor/plate/shield/banner_large/");
 
     // travelers
     travelers("goggles", null);

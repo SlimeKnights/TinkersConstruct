@@ -54,6 +54,7 @@ import static slimeknights.tconstruct.common.TinkerTags.Items.AOE;
 import static slimeknights.tconstruct.common.TinkerTags.Items.ARMOR;
 import static slimeknights.tconstruct.common.TinkerTags.Items.BALLISTAS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.BALLISTA_AMMO;
+import static slimeknights.tconstruct.common.TinkerTags.Items.BANNER;
 import static slimeknights.tconstruct.common.TinkerTags.Items.BASIC_ARMOR;
 import static slimeknights.tconstruct.common.TinkerTags.Items.BONUS_SLOTS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.BOOK_ARMOR;
@@ -371,7 +372,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 
     // shields
     addToolTags(TinkerTools.travelersShield, DURABILITY, BONUS_SLOTS, SHIELDS, INTERACTABLE_LEFT, Tags.Items.TOOLS_SHIELDS, SINGLEPART_TOOL, UNRECYCLABLE, DYEABLE);
-    addToolTags(TinkerTools.plateShield,     DURABILITY, BONUS_SLOTS, SHIELDS, INTERACTABLE_LEFT, Tags.Items.TOOLS_SHIELDS, SINGLEPART_TOOL, UNRECYCLABLE);
+    addToolTags(TinkerTools.plateShield,     DURABILITY, BONUS_SLOTS, SHIELDS, INTERACTABLE_LEFT, Tags.Items.TOOLS_SHIELDS, SINGLEPART_TOOL, UNRECYCLABLE, BANNER);
 
     // care about order for armor in the book
     tag(BASIC_ARMOR);

@@ -17,7 +17,7 @@ import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import java.util.List;
 
 /** Primary stats for a bow */
-public record LimbMaterialStats(int durability, float drawSpeed, float velocity, float accuracy) implements IRepairableMaterialStats {
+public record LimbMaterialStats(int durability, float drawSpeed, float velocity, float accuracy) implements IRepairableMaterialStats.ScaledTooltip {
   public static final MaterialStatsId ID = new MaterialStatsId(TConstruct.getResource("limb"));
   public static final MaterialStatType<LimbMaterialStats> TYPE = new MaterialStatType<>(ID, new LimbMaterialStats(1, 0f, 0f, 0f), RecordLoadable.create(
     IRepairableMaterialStats.DURABILITY_FIELD,
@@ -38,12 +38,12 @@ public record LimbMaterialStats(int durability, float drawSpeed, float velocity,
   }
 
   @Override
-  public List<Component> getLocalizedInfo() {
+  public List<Component> getLocalizedInfo(float scale) {
     List<Component> info = Lists.newArrayList();
-    info.add(ToolStats.DURABILITY.formatValue(this.durability));
-    info.add(IToolStat.formatColoredBonus(DRAW_SPEED_PREFIX, this.drawSpeed));
-    info.add(IToolStat.formatColoredBonus(VELOCITY_PREFIX, this.velocity));
-    info.add(IToolStat.formatColoredBonus(ACCURACY_PREFIX, this.accuracy));
+    info.add(ToolStats.DURABILITY.formatValue(this.durability * scale));
+    info.add(IToolStat.formatColoredBonus(DRAW_SPEED_PREFIX, this.drawSpeed * scale));
+    info.add(IToolStat.formatColoredBonus(VELOCITY_PREFIX, this.velocity * scale));
+    info.add(IToolStat.formatColoredBonus(ACCURACY_PREFIX, this.accuracy * scale));
     return info;
   }
 

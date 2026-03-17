@@ -6,6 +6,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
+import slimeknights.tconstruct.library.json.LevelingValue;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeDamageModifierHook;
@@ -21,7 +22,7 @@ import slimeknights.tconstruct.tools.modules.interaction.sling.SlingKnockbackMod
 @SuppressWarnings("removal")
 @Deprecated(forRemoval = true)
 public class BonkingModifier extends SlingModifier implements MeleeHitModifierHook, MeleeDamageModifierHook {
-  private static final SlingKnockbackModule BONKING = new SlingKnockbackModule(3, 1.5f, 1.5f, LivingEntityPredicate.ANY, ModifierCondition.ANY_TOOL);
+  private static final SlingKnockbackModule BONKING = new SlingKnockbackModule(LevelingValue.flat(3), 1.5f, 1.5f, LivingEntityPredicate.ANY, ModifierCondition.ANY_TOOL);
   /** @deprecated use {@link SlingKnockbackModule#IS_BONKING}. */
   @Deprecated(forRemoval = true)
   public static final ResourceLocation IS_BONKING = SlingKnockbackModule.IS_BONKING;

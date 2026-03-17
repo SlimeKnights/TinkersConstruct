@@ -150,10 +150,14 @@ public class ArmorTrimRecipe implements ITinkerStationRecipe, IMultiRecipe<IDisp
                                             .map(ItemStack::new).toList();
       List<ItemStack> toolInputs = RegistryHelper.getTagValueStream(BuiltInRegistries.ITEM, TinkerTags.Items.TRIM)
                                                  .map(IModifiableDisplay::getDisplayStack).toList();
-      ResourceLocation id = getId();
-      displayRecipes = access.registryOrThrow(Registries.TRIM_MATERIAL).holders()
-                             .map(material -> new DisplayRecipe(id, toolInputs, trims, material))
-                             .collect(Collectors.toList());
+      if (!trims.isEmpty() && !toolInputs.isEmpty()) {
+        ResourceLocation id = getId();
+        displayRecipes = access.registryOrThrow(Registries.TRIM_MATERIAL).holders()
+          .map(material -> new DisplayRecipe(id, toolInputs, trims, material))
+          .collect(Collectors.toList());
+      } else {
+        displayRecipes = List.of();
+      }
     }
     return displayRecipes;
   }

@@ -23,6 +23,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
+import slimeknights.tconstruct.library.json.LevelingValue;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.build.ConditionalStatModifierHook;
@@ -55,9 +56,9 @@ import java.util.List;
  * @param drawtimeMultiplier  Multiplier on the drawspeed to apply.
  * @param damageMultiplier    Multiplier on damage dealt to entities if the tool is melee capable. If 0, melee is skipped.
  */
-public record SlingKnockbackModule(float forceMultiplier, float drawtimeMultiplier, float damageMultiplier, IJsonPredicate<LivingEntity> target, ModifierCondition<IToolStackView> condition) implements SlingModule, MeleeHitModifierHook, MeleeDamageModifierHook {
+public record SlingKnockbackModule(LevelingValue forceMultiplier, float drawtimeMultiplier, float damageMultiplier, IJsonPredicate<LivingEntity> target, ModifierCondition<IToolStackView> condition) implements SlingModule, MeleeHitModifierHook, MeleeDamageModifierHook {
   private static final float RANGE = 5F;
-  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<SlingKnockbackModule>defaultHooks(ModifierHooks.GENERAL_INTERACT, ModifierHooks.TOOL_USING, ModifierHooks.MELEE_HIT, ModifierHooks.MELEE_DAMAGE);
+  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<SlingKnockbackModule>defaultHooks(ModifierHooks.GENERAL_INTERACT, ModifierHooks.TOOL_USING, ModifierHooks.ARMOR_INTERACT, ModifierHooks.MELEE_HIT, ModifierHooks.MELEE_DAMAGE);
   public static final RecordLoadable<SlingKnockbackModule> LOADER = RecordLoadable.create(
     FORCE_FIELD, DRAWTIME_FIELD,
     FloatLoadable.FROM_ZERO.requiredField("damage_multiplier", SlingKnockbackModule::damageMultiplier),
@@ -110,10 +111,10 @@ public record SlingKnockbackModule(float forceMultiplier, float drawtimeMultipli
   }
 
   @Override
-  public void beforeReleaseUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int useDuration, int timeLeft, ModifierEntry activeModifier) {
+  public void sling(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int chargeTime, ModifierEntry activeModifier) {
     Level level = entity.level();
-    if (!level.isClientSide && condition.matches(tool, modifier) && entity instanceof Player player) {
-      float charge = getCharge(tool, modifier, timeLeft);
+    if (!level.isClientSide && entity instanceof Player player) {
+      float charge = GeneralInteractionModifierHook.getToolCharge(tool, chargeTime);
       if (charge > 0) {
         Vec3 start = player.getEyePosition(1F);
         Vec3 look = player.getLookAngle();
@@ -149,7 +150,7 @@ public record SlingKnockbackModule(float forceMultiplier, float drawtimeMultipli
               // send it flying
               float inaccuracy = ModifierUtil.getInaccuracy(tool, player) * 0.0075f;
               RandomSource random = player.getRandom();
-              float multiplier = charge * forceMultiplier;
+              float multiplier = charge * this.forceMultiplier.compute(modifier);
               float force = SlingForceModifierHook.modifySlingForce(tool, entity, target, modifier, SlingModule.getPower(tool, player) * multiplier, multiplier);
               Vec3 angle = Vec3.ZERO;
               if (force > 0) {

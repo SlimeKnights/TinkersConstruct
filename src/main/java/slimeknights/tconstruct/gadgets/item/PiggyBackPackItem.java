@@ -2,10 +2,12 @@ package slimeknights.tconstruct.gadgets.item;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.EffectRenderingInventoryScreen;
 import net.minecraft.network.protocol.game.ClientboundSetPassengersPacket;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -22,15 +24,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.client.extensions.common.IClientMobEffectExtensions;
 import net.minecraftforge.items.ItemHandlerHelper;
-import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.item.TooltipItem;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerEffect;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.gadgets.capability.PiggybackCapability;
 import slimeknights.tconstruct.gadgets.capability.PiggybackHandler;
-import slimeknights.tconstruct.library.client.Icons;
 
 import javax.annotation.Nonnull;
 import java.util.function.Consumer;
@@ -151,7 +152,7 @@ public class PiggyBackPackItem extends TooltipItem {
   public void inventoryTick(ItemStack stack, Level worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
     if (entityIn instanceof LivingEntity livingEntity && livingEntity.getItemBySlot(EquipmentSlot.CHEST) == stack && entityIn.isVehicle()) {
       int amplifier = this.getEntitiesCarriedCount(livingEntity) - 1;
-      livingEntity.addEffect(new MobEffectInstance(TinkerGadgets.carryEffect.get(), 2, amplifier, true, false));
+      livingEntity.addEffect(new MobEffectInstance(TinkerGadgets.carryEffect.get(), 2, amplifier, true, false, true));
     }
   }
 
@@ -188,29 +189,34 @@ public class PiggyBackPackItem extends TooltipItem {
       }
     }
 
-    // TODO: proper sprite sheet for effect icons?
     @Override
     public void initializeClient(Consumer<IClientMobEffectExtensions> consumer) {
       consumer.accept(new IClientMobEffectExtensions() {
-        private void renderIcon(MobEffectInstance effect, GuiGraphics graphics, int x, int y) {
-          ElementScreen element = switch (effect.getAmplifier()) {
-            case 0 -> Icons.PIGGYBACK_1;
-            case 1 -> Icons.PIGGYBACK_2;
-            default -> Icons.PIGGYBACK_3;
-          };
+        private final Minecraft mc = Minecraft.getInstance();
+        private static final ResourceLocation[] ICONS = {
+          TConstruct.getResource("carry"),
+          TConstruct.getResource("carry_2"),
+          TConstruct.getResource("carry_3")
+        };
 
-          element.draw(graphics, x + 6, y + 7);
+        /** Common logic to render the icon */
+        private void renderIcon(MobEffectInstance effect, GuiGraphics graphics, int x, int y) {
+          int amplifier = effect.getAmplifier();
+          if (amplifier > 2) {
+            amplifier = 2;
+          }
+          graphics.blit(x, y, 0, 18, 18, mc.getMobEffectTextures().getSprite(ICONS[amplifier]));
         }
 
         @Override
         public boolean renderInventoryIcon(MobEffectInstance effect, EffectRenderingInventoryScreen<?> gui, GuiGraphics graphics, int x, int y, int z) {
-          renderIcon(effect, graphics, x, y);
+          renderIcon(effect, graphics, x, y + 7);
           return true;
         }
 
         @Override
         public boolean renderGuiIcon(MobEffectInstance effect, Gui gui, GuiGraphics graphics, int x, int y, float z, float alpha) {
-          renderIcon(effect, graphics, x, y);
+          renderIcon(effect, graphics, x + 3, y + 3);
           return true;
         }
       });

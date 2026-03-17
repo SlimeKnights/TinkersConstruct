@@ -15,6 +15,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
@@ -63,8 +65,11 @@ import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.tools.modules.armor.CounterModule;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 import static java.util.Objects.requireNonNullElse;
 import static slimeknights.tconstruct.TConstruct.RANDOM;
@@ -137,6 +142,9 @@ public interface MobEffectModule extends ModifierModule, ConditionalModule<ITool
     /** Chance of applying the effect. */
     @Nullable
     private LevelingValue chance = null;
+    /** Curative items */
+    @Nullable
+    private List<Item> curativeItems = null;
 
     // weapon
     /** Applies the effect before melee hit instead of after. */
@@ -160,10 +168,19 @@ public interface MobEffectModule extends ModifierModule, ConditionalModule<ITool
     /** Predicate for whether to apply the effect to usages from projectiles, such as throwing or arrow hit */
     private BooleanPredicate isProjectile = BooleanPredicate.FALSE;
 
+    /** Sets curative items to the builder. May call with no arguments to force curative items to empty. */
+    public Builder curativeItem(Item... items) {
+      if (curativeItems == null) {
+        curativeItems = new ArrayList<>();
+      }
+      Collections.addAll(curativeItems, items);
+      return this;
+    }
+
 
     /** Builds the effect */
     private ModifierMobEffect buildEffect() {
-      return new ModifierMobEffect(effect, level, time, target);
+      return new ModifierMobEffect(effect, level, time, target, curativeItems);
     }
 
     /** Effect targets an entity hit with this weapon, melee or ranged */
@@ -194,14 +211,14 @@ public interface MobEffectModule extends ModifierModule, ConditionalModule<ITool
   }
 
   /** Represents a mob effect applied via a modifier. Meant to be nested inside a modifier module. */
-  record ModifierMobEffect(MobEffect effect, RandomLevelingValue level, RandomLevelingValue time, IJsonPredicate<LivingEntity> target) {
+  record ModifierMobEffect(MobEffect effect, RandomLevelingValue level, RandomLevelingValue time, IJsonPredicate<LivingEntity> target, @Nullable List<Item> curativeItems) {
     public static final RecordLoadable<ModifierMobEffect> LOADER = RecordLoadable.create(
       Loadables.MOB_EFFECT.requiredField("effect", ModifierMobEffect::effect),
       RandomLevelingValue.LOADABLE.requiredField("level", ModifierMobEffect::level),
       RandomLevelingValue.LOADABLE.requiredField("time", ModifierMobEffect::time),
       LivingEntityPredicate.LOADER.defaultField("target", ModifierMobEffect::target),
+      Loadables.ITEM.list(0).nullableField("curative_items", ModifierMobEffect::curativeItems),
       ModifierMobEffect::new);
-    // TODO: curative effects?
     // TODO: visibility?
 
     /** Applies the effect for the given level */
@@ -215,6 +232,10 @@ public interface MobEffectModule extends ModifierModule, ConditionalModule<ITool
       }
       float duration = this.time.computeValue(scaledLevel);
       if (duration > 0) {
+        MobEffectInstance instance = new MobEffectInstance(effect, (int)duration, level);
+        if (curativeItems != null) {
+          instance.setCurativeItems(curativeItems.stream().map(ItemStack::new).collect(Collectors.toList()));
+        }
         target.addEffect(new MobEffectInstance(effect, (int)duration, level), cause);
       }
     }

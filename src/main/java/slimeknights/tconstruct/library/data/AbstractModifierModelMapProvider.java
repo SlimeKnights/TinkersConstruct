@@ -19,6 +19,7 @@ import slimeknights.tconstruct.library.client.modifiers.MaterialModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.ModifierModelMapManager;
 import slimeknights.tconstruct.library.client.modifiers.NormalModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.PotionModifierModel;
+import slimeknights.tconstruct.library.client.modifiers.model.BannerModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.CompoundModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.FluidModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.ModifierModel;
@@ -312,6 +313,14 @@ public abstract class AbstractModifierModelMapProvider extends GenericDataProvid
     public Builder embellishment(char largeSeparator) {
       String path = id.getPath();
       return embellishment(path + "/modifiers", largeFolder(path, largeSeparator));
+    }
+
+    /** Adds the banner model to the tool */
+    public Builder banner(@Nullable String smallPrefix, @Nullable String largePrefix) {
+      return modifier(TinkerModifiers.banner.getId(), new BannerModifierModel(
+        smallPrefix != null ? toolMaterial(smallPrefix).texture() : null,
+        largePrefix != null ? toolMaterial(largePrefix).texture() : null
+      ));
     }
 
 

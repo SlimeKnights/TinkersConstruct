@@ -10,8 +10,10 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FastColor;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.BlockHitResult;
@@ -170,6 +172,36 @@ public class Util {
   /** Converts an ARGB color to a ABGR color or vice versa */
   public static int translateColorBGR(int color) {
     return (color & 0xFF00FF00) | (((color & 0x00FF0000) >> 16) & 0x000000FF) | (((color & 0x000000FF) << 16) & 0x00FF0000);
+  }
+
+  /** Calculates the given color */
+  private static int calcColor(DyeColor color) {
+    float[] diffuse = color.getTextureDiffuseColors();
+    return FastColor.ARGB32.color(255, Math.round(255 * diffuse[0]), Math.round(255 * diffuse[1]), Math.round(255 * diffuse[2]));
+  }
+
+  /** Array of tints for each dye color */
+  private static final int[] DYE_TINTS;
+  static {
+    DyeColor[] colors = DyeColor.values();
+    DYE_TINTS = new int[colors.length];
+    for (DyeColor color : colors) {
+      int id = color.getId();
+      // protect against dumb mods extending dye colors array
+      if (id >= 0 && id < DYE_TINTS.length) {
+        DYE_TINTS[color.getId()] = calcColor(color);
+      }
+    }
+  }
+
+  /** Gets the diffuse color for the given dye color */
+  public static int getColor(DyeColor color) {
+    int id = color.getId();
+    // protect against dumb mods extending dye colors array
+    if (id >= 0 && id < DYE_TINTS.length) {
+      return DYE_TINTS[id];
+    }
+    return calcColor(color);
   }
 
   /** Gets the slot type from a hand */

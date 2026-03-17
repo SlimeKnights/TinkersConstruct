@@ -1,11 +1,13 @@
 {
-  "level_display": "tconstruct:no_levels",
+  "level_display": "tconstruct:single_level",
   "modules": [
     {
       "type": "tconstruct:sling_leap",
       "bias_upwards": true,
       "drawtime_multiplier": 1.0,
-      "force_multiplier": 1.05,
+      "force_multiplier": {
+        "each_level": 1.05
+      },
       "height_reduction": 2.0,
       "leave_ground": true,
       "target": {

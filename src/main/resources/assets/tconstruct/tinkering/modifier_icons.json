@@ -169,6 +169,7 @@
   "tconstruct:dyed":          ["minecraft:item/green_dye", "tconstruct:gui/modifiers/book"],
   "tconstruct:embellishment": "tconstruct:gui/modifiers/armor/embellishment",
   "tconstruct:trim":          "tconstruct:gui/modifiers/armor/trim",
+  "tconstruct:banner":        "tconstruct:gui/modifiers/armor/banner",
   
   "tconstruct:nearsighted": "tconstruct:gui/modifiers/nearsighted",
   "tconstruct:farsighted":  "tconstruct:gui/modifiers/farsighted",

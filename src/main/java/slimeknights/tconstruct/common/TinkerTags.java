@@ -524,6 +524,8 @@ public class TinkerTags {
     public static final TagKey<Item> EMBELLISHMENT_SLIME = local("modifiable/embellishment/slime");
     /** Tools that can be dyed */
     public static final TagKey<Item> DYEABLE = local("modifiable/dyeable");
+    /** Tools that can have a banner applied */
+    public static final TagKey<Item> BANNER = local("modifiable/banner");
     /** Armor items that support trim */
     public static final TagKey<Item> TRIM = local("modifiable/armor/trim");
     /** Armor items that support trim materials but skip the pattern. Used for non-worn armor such as shields. */

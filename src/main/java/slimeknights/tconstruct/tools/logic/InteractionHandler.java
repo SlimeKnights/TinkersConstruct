@@ -334,6 +334,8 @@ public class InteractionHandler {
         for (ModifierEntry entry : tool.getModifierList()) {
           entry.getHook(ModifierHooks.ARMOR_INTERACT).stopInteract(tool, entry, player, slotType, chargeTime, activeModifier);
         }
+        // cleanup drawtime on the tool
+        GeneralInteractionModifierHook.finishUsing(tool);
         return true;
       }
     }

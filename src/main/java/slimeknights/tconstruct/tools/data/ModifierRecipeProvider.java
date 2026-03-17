@@ -1912,6 +1912,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     // cosmetics //
     consumer.accept(new SimpleFinishedRecipe(location(folder + "dyeing"), TinkerModifiers.armorDyeingSerializer.get()));
     consumer.accept(new SimpleFinishedRecipe(location(folder + "trim"), TinkerModifiers.armorTrimSerializer.get()));
+    consumer.accept(new SimpleFinishedRecipe(location(folder + "banner"), TinkerModifiers.bannerModifierSerializer.get()));
 
     // slimesuit //
     // basic slime

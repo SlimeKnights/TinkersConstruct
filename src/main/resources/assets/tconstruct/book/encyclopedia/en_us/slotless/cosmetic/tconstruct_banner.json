@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:banner",
+  "text": [
+    {
+      "text": "Adds the banner to the front of the shield."
+    },
+    {
+      "text": "Result may be a bit different from the original banner.", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Apply again to change the banner",
+    "Slotless"
+  ]
+}

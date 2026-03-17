@@ -244,7 +244,7 @@ public class StatOverrideModifier extends NoLevelsModifier implements ToolStatsM
     ModDataNBT data = tool.getPersistentData();
     boolean storeValue;
     if (stat instanceof INumericToolStat) {
-      storeValue = ((Number)value).intValue() != 0;
+      storeValue = ((Number)value).floatValue() != 0;
     } else {
       storeValue = value != stat.getDefaultValue();
     }
@@ -309,7 +309,6 @@ public class StatOverrideModifier extends NoLevelsModifier implements ToolStatsM
 
   /** Removes the given stat from the bonuses */
   public <T> boolean remove(IToolStackView tool, IToolStat<T> stat) {
-    // create tag if needed
     CompoundTag nbt = getTag(tool, KEY_BONUS, false);
     if (nbt == null) {
       return false;

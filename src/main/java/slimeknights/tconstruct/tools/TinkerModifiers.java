@@ -211,6 +211,7 @@ import slimeknights.tconstruct.tools.modifiers.ability.tool.ExchangingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.tool.OffhandAttackModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.tool.ParryingModifier;
 import slimeknights.tconstruct.tools.modifiers.effect.BleedingEffect;
+import slimeknights.tconstruct.tools.modifiers.effect.HelmetChargingEffect;
 import slimeknights.tconstruct.tools.modifiers.effect.MagneticEffect;
 import slimeknights.tconstruct.tools.modifiers.effect.NoMilkEffect;
 import slimeknights.tconstruct.tools.modifiers.effect.RepulsiveEffect;
@@ -284,6 +285,7 @@ import slimeknights.tconstruct.tools.modules.combat.LifestealModule;
 import slimeknights.tconstruct.tools.modules.combat.SeveringModule;
 import slimeknights.tconstruct.tools.modules.combat.SpillingModule;
 import slimeknights.tconstruct.tools.modules.combat.SweepingEdgeModule;
+import slimeknights.tconstruct.tools.modules.cosmetic.BannerModule;
 import slimeknights.tconstruct.tools.modules.cosmetic.DyeModule;
 import slimeknights.tconstruct.tools.modules.cosmetic.EmbellishmentModule;
 import slimeknights.tconstruct.tools.modules.cosmetic.TrimModule;
@@ -323,6 +325,7 @@ import slimeknights.tconstruct.tools.modules.ranged.common.PunchModule;
 import slimeknights.tconstruct.tools.modules.ranged.common.ReversePunchModule;
 import slimeknights.tconstruct.tools.recipe.ArmorDyeingRecipe;
 import slimeknights.tconstruct.tools.recipe.ArmorTrimRecipe;
+import slimeknights.tconstruct.tools.recipe.BannerModifierRecipe;
 import slimeknights.tconstruct.tools.recipe.EnchantmentConvertingRecipe;
 import slimeknights.tconstruct.tools.recipe.ExtractModifierRecipe;
 import slimeknights.tconstruct.tools.recipe.ModifierRemovalRecipe;
@@ -412,10 +415,11 @@ public final class TinkerModifiers extends TinkerModule {
   public static final StaticModifier<ChrysophiliteModifier> chrysophilite = MODIFIERS.register("chrysophilite", ChrysophiliteModifier::new);
   public static final StaticModifier<GoldGuardModifier> goldGuard = MODIFIERS.register("gold_guard", GoldGuardModifier::new);
 
-  // slotless - cosmetic - used as defaults for rendering modules
+  // slotless - cosmetic - used as defaults for rendering modules and recipes
   public static final StaticModifier<?> embellishment = MODIFIERS.registerDynamic("embellishment");
   public static final StaticModifier<?> dyed = MODIFIERS.registerDynamic("dyed");
   public static final StaticModifier<?> trim = MODIFIERS.registerDynamic("trim");
+  public static final StaticModifier<?> banner = MODIFIERS.registerDynamic("banner");
 
   // used in client renderer
   public static final DynamicModifier itemFrame = MODIFIERS.registerDynamic("item_frame");
@@ -696,6 +700,8 @@ public final class TinkerModifiers extends TinkerModule {
   @Deprecated(forRemoval = true)
   public static final RegistryObject<TinkerEffect> pierceEffect = TinkerEffects.pierce;
 
+  /** Effect for rendering the helmet charging icon in the GUI */
+  public static final RegistryObject<HelmetChargingEffect> helmetCharging = MOB_EFFECTS.register("helmet_charging", HelmetChargingEffect::new);
   // cooldown
   public static final RegistryObject<TinkerEffect> teleportCooldownEffect = MOB_EFFECTS.register("teleport_cooldown", () -> new NoMilkEffect(MobEffectCategory.HARMFUL, 0xCC00FA, true));
   public static final RegistryObject<TinkerEffect> fireballCooldownEffect = MOB_EFFECTS.register("fireball_cooldown", () -> new NoMilkEffect(MobEffectCategory.HARMFUL, 0xFC9600, true));
@@ -723,6 +729,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<RecipeSerializer<OverslimeCraftingTableRecipe>> craftingOverslimeSerializer = RECIPE_SERIALIZERS.register("crafting_overslime_modifier", () -> LoadableRecipeSerializer.of(OverslimeCraftingTableRecipe.LOADER));
   public static final RegistryObject<RecipeSerializer<ModifierSalvage>> modifierSalvageSerializer = RECIPE_SERIALIZERS.register("modifier_salvage", () -> LoadableRecipeSerializer.of(ModifierSalvage.LOADER));
   public static final RegistryObject<RecipeSerializer<ArmorDyeingRecipe>> armorDyeingSerializer = RECIPE_SERIALIZERS.register("armor_dyeing_modifier", () -> new SimpleRecipeSerializer<>(ArmorDyeingRecipe::new));
+  public static final RegistryObject<RecipeSerializer<BannerModifierRecipe>> bannerModifierSerializer = RECIPE_SERIALIZERS.register("banner_modifier", () -> new SimpleRecipeSerializer<>(BannerModifierRecipe::new));
   public static final RegistryObject<RecipeSerializer<ArmorTrimRecipe>> armorTrimSerializer = RECIPE_SERIALIZERS.register("armor_trim_modifier", () -> new SimpleRecipeSerializer<>(ArmorTrimRecipe::new));
   public static final RegistryObject<RecipeSerializer<TippedToolTransformRecipe>> tippedToolTransformRecipeSerializer = RECIPE_SERIALIZERS.register("tipped_tool_transform", () -> LoadableRecipeSerializer.of(TippedToolTransformRecipe.LOADER));
   // modifiers
@@ -994,6 +1001,7 @@ public final class TinkerModifiers extends TinkerModule {
       ModifierModule.LOADER.register(getResource("dye"), DyeModule.LOADER);
       ModifierModule.LOADER.register(getResource("embellishment"), EmbellishmentModule.LOADER);
       ModifierModule.LOADER.register(getResource("trim"), TrimModule.LOADER);
+      ModifierModule.LOADER.register(getResource("banner"), BannerModule.LOADER);
       // compat
       ModifierModule.LOADER.register(getResource("the_one_probe"), TheOneProbeModule.INSTANCE.getLoader());
       ModifierModule.LOADER.register(getResource("headlight"), HeadlightModule.LOADER);

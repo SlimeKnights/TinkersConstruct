@@ -66,6 +66,19 @@
       ]
     },
     {
+      "type": "tconstruct:shield_banner_to_modifier",
+      "value": {
+        "crop_height": 20,
+        "crop_width": 10,
+        "crop_x": 2,
+        "crop_y": 2,
+        "destination_prefix": "tconstruct:item/tool/armor/plate/shield/banner_large/",
+        "offset_x": 11,
+        "offset_y": 8,
+        "output_size": 32
+      }
+    },
+    {
       "type": "minecraft:single",
       "resource": "minecraft:trims/items/helmet_trim"
     },

@@ -85,6 +85,14 @@ public class MaterialStatsModule implements ToolStatsHook, ToolTraitHook, ToolMa
     return statTypes;
   }
 
+  @Override
+  public float scaleStats(ToolDefinition definition, int index) {
+    if (index < scales.length) {
+      return scales[index];
+    }
+    return 1;
+  }
+
   /** Gets the repair indices, calculating them if needed */
   private int[] getRepairIndices() {
     if (repairIndices == null) {

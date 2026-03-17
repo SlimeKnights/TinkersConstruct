@@ -13,6 +13,7 @@ import net.minecraftforge.common.data.SpriteSourceProvider;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.modifiers.model.TrimModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.TrimModifierModel.Armor;
+import slimeknights.tconstruct.tools.client.ShieldBannerModifierSpriteSource;
 import slimeknights.tconstruct.tools.data.material.MaterialIds;
 
 import java.util.Arrays;
@@ -71,7 +72,9 @@ public class TinkerSpriteSourceProvider extends SpriteSourceProvider {
         Stream.concat(Arrays.stream(Armor.values()).map(Armor::getRoot), customItemTrims.stream()).toList(),
         trimPalette, tinkerMaterials))
       // trim shield icons
-      .addSource(new PalettedPermutations(customItemTrims, trimPalette, vanillaMaterials));
+      .addSource(new PalettedPermutations(customItemTrims, trimPalette, vanillaMaterials))
+      // banner modifier icons
+      .addSource(new ShieldBannerModifierSpriteSource(2, 2, 10, 20, TConstruct.getResource("item/tool/armor/plate/shield/banner_large/"), 11, 8, 32));
     // add untinted trim textures, we use them as fallbacks
     for (Armor armor : TrimModifierModel.Armor.values()) {
       blocks.addSource(new SingleFile(armor.getRoot(), Optional.empty()));

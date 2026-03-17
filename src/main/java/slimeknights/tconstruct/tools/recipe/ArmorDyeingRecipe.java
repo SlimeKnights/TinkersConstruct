@@ -26,6 +26,7 @@ import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
@@ -152,34 +153,19 @@ public class ArmorDyeingRecipe implements ITinkerStationRecipe, IMultiRecipe<IDi
           }
           return stack;
         }).toList();
-      ResourceLocation id = getId();
-      displayRecipes = Arrays.stream(DyeColor.values()).map(dye -> new DisplayRecipe(id, toolInputs, dye)).collect(Collectors.toList());
+      if (!toolInputs.isEmpty()) {
+        ResourceLocation id = getId();
+        displayRecipes = Arrays.stream(DyeColor.values()).map(dye -> new DisplayRecipe(id, toolInputs, dye)).collect(Collectors.toList());
+      } else {
+        displayRecipes = List.of();
+      }
     }
     return displayRecipes;
   }
 
   private static class DisplayRecipe implements IDisplayModifierRecipe {
-    /** Cache of tint colors to save calculating it twice */
-    private static final int[] TINT_COLORS = new int[DyeColor.values().length];
     private static final IntRange LEVELS = new IntRange(1, 1);
     private final ModifierEntry RESULT = new ModifierEntry(TinkerModifiers.dyed, 1);
-
-    /** Gets the tint color for the given dye */
-    private static int getTintColor(DyeColor color) {
-      int id = color.getId();
-      // protect against the dye color being too large by bypassing cache
-      boolean illegal = id >= TINT_COLORS.length;
-      // taking advantage of the fact no color is pure black
-      if (illegal || TINT_COLORS[id] == 0) {
-        float[] colors = color.getTextureDiffuseColors();
-        int combinedColor = ((int)(colors[0] * 255) << 16) | ((int)(colors[1] * 255) << 8) | (int)(colors[2] * 255);
-        if (illegal) {
-          return combinedColor;
-        }
-        TINT_COLORS[id] = combinedColor;
-      }
-      return TINT_COLORS[id];
-    }
 
     @Getter
     private final ResourceLocation recipeId;
@@ -197,7 +183,7 @@ public class ArmorDyeingRecipe implements ITinkerStationRecipe, IMultiRecipe<IDi
       this.variant = Component.translatable("color.minecraft." + color.getSerializedName());
 
       ResourceLocation modID = RESULT.getId();
-      int tintColor = getTintColor(color);
+      int tintColor = Util.getColor(color);
       List<ModifierEntry> results = List.of(RESULT);
       toolWithModifier = tools.stream().map(stack -> IDisplayModifierRecipe.withModifiers(stack, DEFAULT_TOOL_STACK_SIZE, results, data -> data.putInt(modID, tintColor))).toList();
     }

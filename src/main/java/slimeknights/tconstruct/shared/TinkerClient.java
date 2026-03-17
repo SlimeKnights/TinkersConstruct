@@ -48,6 +48,7 @@ import slimeknights.tconstruct.library.client.modifiers.MaterialModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.ModifierIconManager;
 import slimeknights.tconstruct.library.client.modifiers.NormalModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.PotionModifierModel;
+import slimeknights.tconstruct.library.client.modifiers.model.BannerModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.CompoundModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.ConditionalModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.FluidModifierModel;
@@ -106,6 +107,7 @@ public class TinkerClient {
     ModifierModel.LOADER.register(getResource("potion"), PotionModifierModel.LOADER);
     ModifierModel.LOADER.register(getResource("armor_trim"), TrimModifierModel.Armor.LOADER);
     ModifierModel.LOADER.register(getResource("custom_trim"), TrimModifierModel.Custom.LOADER);
+    ModifierModel.LOADER.register(getResource("banner"), BannerModifierModel.LOADER);
     ModifierModel.LOADER.register(getResource("fluid"), FluidModifierModel.LOADER);
     ModifierModel.LOADER.register(getResource("tank"), TankModifierModel.LOADER);
     ModifierModel.LOADER.register(getResource("material_has_fallback"), MaterialHasFallbackModifierModel.LOADER);

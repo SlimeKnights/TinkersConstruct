@@ -223,6 +223,7 @@ import slimeknights.tconstruct.tools.modules.combat.LifestealModule;
 import slimeknights.tconstruct.tools.modules.combat.SeveringModule;
 import slimeknights.tconstruct.tools.modules.combat.SpillingModule;
 import slimeknights.tconstruct.tools.modules.combat.SweepingEdgeModule;
+import slimeknights.tconstruct.tools.modules.cosmetic.BannerModule;
 import slimeknights.tconstruct.tools.modules.cosmetic.DyeModule;
 import slimeknights.tconstruct.tools.modules.cosmetic.EmbellishmentModule;
 import slimeknights.tconstruct.tools.modules.cosmetic.TrimModule;
@@ -490,20 +491,21 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(EnchantmentModule.builder(Enchantments.SILK_TOUCH).toolItem(harvest).constant())
       .addModule(EnchantmentModule.builder(Enchantments.SILK_TOUCH).toolItem(armor).armorHarvest(ARMOR_SLOTS));
     buildModifier(TinkerModifiers.severing.getId()).addModule(SeveringModule.INSTANCE);
+    buildModifier(ModifierIds.experienced)
+      .addModule(new VolatileFloatModule(ModifierEvents.EXPERIENCE, LevelingValue.eachLevel(0.5f)), ModifierHooks.VOLATILE_DATA, ModifierHooks.PROJECTILE_LAUNCH)
+      .addModule(AttributeModule.builder(TinkerAttributes.EXPERIENCE_MULTIPLIER, Operation.MULTIPLY_BASE).toolItem(ItemPredicate.tag(ARMOR)).eachLevel(0.25f));
+    // lucky
     EnchantmentModule CONSTANT_FORTUNE = EnchantmentModule.builder(Enchantments.BLOCK_FORTUNE).toolItem(harvest).constant();
     StatBoostModule SEA_LUCK = StatBoostModule.add(ToolStats.SEA_LUCK).eachLevel(1);
+    AttributeModule ARMOR_LUCK = AttributeModule.builder(Attributes.LUCK, Operation.ADDITION).toolTag(TinkerTags.Items.ARMOR).eachLevel(1);
     EnchantmentModule ARMOR_FORTUNE = EnchantmentModule.builder(Enchantments.BLOCK_FORTUNE).toolItem(armor).armorHarvest(ARMOR_SLOTS);
     // note chestplates will have both modules, but will get ignored due to setting the looting slot
     // the air check on weapon looting is for projectiles which use an item of air in their tool context
     LootingModule WEAPON_LOOTING = LootingModule.builder().toolItem(ItemPredicate.or(ItemPredicate.set(Items.AIR), ItemPredicate.tag(MELEE))).weapon();
     LootingModule ARMOR_LOOTING = LootingModule.builder().toolItem(armor).armor(ARMOR_SLOTS);
-    buildModifier(ModifierIds.luck).levelDisplay(new UniqueForLevels(3))
-      .addModules(CONSTANT_FORTUNE, ARMOR_FORTUNE, WEAPON_LOOTING, ARMOR_LOOTING, SEA_LUCK);
-    buildModifier(ModifierIds.fortune).addModules(CONSTANT_FORTUNE, ARMOR_FORTUNE, SEA_LUCK);
+    buildModifier(ModifierIds.luck).levelDisplay(new UniqueForLevels(3)).addModules(CONSTANT_FORTUNE, ARMOR_FORTUNE, WEAPON_LOOTING, ARMOR_LOOTING, SEA_LUCK, ARMOR_LUCK);
+    buildModifier(ModifierIds.fortune).addModules(CONSTANT_FORTUNE, ARMOR_FORTUNE, SEA_LUCK, ARMOR_LUCK);
     buildModifier(ModifierIds.looting).addModules(WEAPON_LOOTING, ARMOR_LOOTING);
-    buildModifier(ModifierIds.experienced)
-      .addModule(new VolatileFloatModule(ModifierEvents.EXPERIENCE, LevelingValue.eachLevel(0.5f)), ModifierHooks.VOLATILE_DATA, ModifierHooks.PROJECTILE_LAUNCH)
-      .addModule(AttributeModule.builder(TinkerAttributes.EXPERIENCE_MULTIPLIER, Operation.MULTIPLY_BASE).toolItem(ItemPredicate.tag(ARMOR)).eachLevel(0.25f));
 
 
     /// attack
@@ -849,12 +851,12 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(ShowInteractionSourceModule.INSTANCE);
     buildModifier(TinkerModifiers.aoeSilkyShears.getId()).priority(70).addModule(new ShearsModule(1, 0, 1, silky));
     // slings
-    buildModifier(ModifierIds.flinging).levelDisplay(ModifierLevelDisplay.NO_LEVELS)
-      .addModule(new SlingLeapModule(-4, false, 1.5f, 3, false, LivingEntityPredicate.and(LivingEntityPredicate.ON_GROUND, TinkerPredicate.TARGETING_BLOCK), ModifierCondition.ANY_TOOL));
-    buildModifier(ModifierIds.springing).levelDisplay(ModifierLevelDisplay.NO_LEVELS)
-      .addModule(new SlingLeapModule(1.05f, true, 1.0f, 2, true, LivingEntityPredicate.ELYTRA_FLYING.inverted(), ModifierCondition.ANY_TOOL));
-    buildModifier(ModifierIds.bonking).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(new SlingKnockbackModule(3, 1.5f, 1.5f, LivingEntityPredicate.ANY, ModifierCondition.ANY_TOOL));
-    buildModifier(ModifierIds.warping).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(new SlingTeleportModule(6, 1.5f, LivingEntityPredicate.ANY, ModifierCondition.ANY_TOOL));
+    buildModifier(ModifierIds.flinging).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
+      .addModule(new SlingLeapModule(new LevelingValue(-2, -2), false, 1.5f, 3, false, LivingEntityPredicate.and(LivingEntityPredicate.ON_GROUND, TinkerPredicate.TARGETING_BLOCK), ModifierCondition.ANY_TOOL));
+    buildModifier(ModifierIds.springing).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
+      .addModule(new SlingLeapModule(LevelingValue.eachLevel(1.05f), true, 1.0f, 2, true, LivingEntityPredicate.ELYTRA_FLYING.inverted(), ModifierCondition.ANY_TOOL));
+    buildModifier(ModifierIds.bonking).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(new SlingKnockbackModule(new LevelingValue(1, 2), 1.5f, 1.5f, LivingEntityPredicate.ANY, ModifierCondition.ANY_TOOL));
+    buildModifier(ModifierIds.warping).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(new SlingTeleportModule(new LevelingValue(2, 4), 1.5f, LivingEntityPredicate.ANY, ModifierCondition.ANY_TOOL));
     // fluid interaction
     buildModifier(ModifierIds.spitting).priority(120) // want to run before sling modifiers so we can sling spit, and before throwing so we use our tank first
       .addModule(new SpittingModule(LevelingInt.eachLevel(1)))
@@ -1561,6 +1563,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(TinkerModifiers.dyed.getId()).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(DyeModule.INSTANCE);
     buildModifier(TinkerModifiers.embellishment.getId()).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(EmbellishmentModule.INSTANCE);
     buildModifier(TinkerModifiers.trim.getId()).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(new TrimModule()).addModule(ModifierSlotModule.slot(SlotType.DEFENSE).eachLevel(1));
+    buildModifier(TinkerModifiers.banner.getId()).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(BannerModule.INSTANCE).priority(25);
 
     // TODO 1.21: remove these redirects
     // iron now gives magnetic. Steel is also just has better than irons old trait

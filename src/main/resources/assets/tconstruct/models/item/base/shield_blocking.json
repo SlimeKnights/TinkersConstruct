@@ -9,17 +9,17 @@
       "scale": [ 1, 1, 1 ]
     },
     "thirdperson_lefthand": {
-      "rotation": [ 45, 315, 0 ],
+      "rotation": [ 45, 135, 0 ],
       "translation": [ 3.6, 0, 0 ],
       "scale": [ 1, 1, 1 ]
     },
     "firstperson_righthand": {
-      "rotation": [ 0, 0, 5 ],
+      "rotation": [ 0, 180, 5 ],
       "translation": [ -5, 0, -0.2 ],
       "scale": [ 1, 1, 1 ]
     },
     "firstperson_lefthand": {
-      "rotation": [ 0, 0, 5 ],
+      "rotation": [ 0, 180, 5 ],
       "translation": [ -5, 0, -0.2 ],
       "scale": [ 1, 1, 1 ]
     }
