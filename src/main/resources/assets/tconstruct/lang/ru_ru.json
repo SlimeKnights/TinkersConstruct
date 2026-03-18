@@ -3370,7 +3370,7 @@
   "modifier.tconstruct.self_destructive.description": "Может взорваться при взаимодействии со шлемом в приседе.",
   "modifier.tconstruct.enderdodging": "Эндер-уклонение",
   "modifier.tconstruct.enderdodging.flavor": "Ловкость эндермена!",
-  "modifier.tconstruct.enderdodging.description": "Позволяет уклоняться от снарядов, телепортируясь, и случайным образом избегать атак при телепортировании.",
+  "modifier.tconstruct.enderdodging.description": "Добавляет шанс уклоняться от атак с помощью телепортации, а также повышает вероятность попадания снарядов.",
   "modifier.tconstruct.strong_bones": "Крепкие кости",
   "modifier.tconstruct.strong_bones.flavor": "Есть молоко?",
   "modifier.tconstruct.strong_bones.description": "Употребление молока временно повышает сопротивление.",
