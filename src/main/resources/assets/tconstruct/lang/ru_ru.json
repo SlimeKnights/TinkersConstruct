@@ -3087,6 +3087,9 @@
   "modifier.tconstruct.tanned": "Дублённый",
   "modifier.tconstruct.tanned.flavor": "Станьте мастером кожевничества!",
   "modifier.tconstruct.tanned.description": "Инструмент больше не получает двойной или более урона от определённых действий.",
+  "modifier.tconstruct.snow_boots": "Снежный шаг",
+  "modifier.tconstruct.snow_boots.flavor": "Ходьба на снегоступах!",
+  "modifier.tconstruct.snow_boots.description": "Позволяет ходить по рыхлому снегу.",
   "modifier.tconstruct.solar_powered": "Питаемый от солнца",
   "modifier.tconstruct.solar_powered.flavor": "Полезно для окружающей среды!",
   "modifier.tconstruct.solar_powered.description": "Инструмент устойчив к повреждениям при солнечном свете.",
@@ -3486,7 +3489,6 @@
 
   "_comment": "Внутренние модификаторы",
   "modifier.tconstruct.overslime_friend": "Сверхслизневый друг",
-  "modifier.tconstruct.snow_boots": "Снежные ботинки",
 
   "modifier.tconstruct.reverted": "Возвращённый",
   "modifier.tconstruct.reverted.flavor": "Нам нужно вернуться!",
@@ -3572,6 +3574,8 @@
   "tool_stat.tconstruct.attack_speed.description": "Базовое значение для расчёта скорости атаки ближнего боя.\nПримерно равно количеству атак полной силы в секунду.",
   "tool_stat.tconstruct.durability": "§7Прочность: ",
   "tool_stat.tconstruct.durability.description": "Базовое значение для расчёта прочности.\nОбычно является неотъемлемой частью общей прочности инструмента.",
+  "tool_stat.tconstruct.durability.repair": "§7Стоимость ремонта: ",
+  "tool_stat.tconstruct.durability.repair.description": "Кол-во отремонтированного за единицу при ремонте с использованием этой детали.",
   "tool_stat.tconstruct.use_item_speed": "§7Скорость использ. предмета: ",
   "tool_stat.tconstruct.use_item_speed.description": "Множитель скорости передвижения при использовании предмета, такого как лук или щит.",
 
@@ -3601,6 +3605,8 @@
   "tool_stat.tconstruct.knockback_resistance.description": "Насколько эта броня снижает отбрасывание.",
   
   "stat.tconstruct.slime": "Слизь",
+  "stat.tconstruct.shell": "Панцирь",
+  "stat.tconstruct.laces": "Поводок",
 
   "stat.tconstruct.handle": "Рукоятка",
   "tool_stat.tconstruct.handle.durability.description": "Общая прочность инструмента будет умножена на это.",
