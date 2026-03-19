@@ -1936,7 +1936,7 @@
   "material.tconstruct.skyslime_vine.flavor": "Порхай как бабочка, жаль как пчела.",
   "material.tconstruct.skyslime_vine.encyclopedia": "Отменяет снижение скорости добычи, когда вы не на земле.",
   "material.tconstruct.skyslime_vine.ranged": "Даёт +0.5 точности, когда вы не на земле или не на лестнице.",
-  "material.tconstruct.skyslime_vine.armor": "Снижает гравитацию на 20% за каждую деталь.",
+  "material.tconstruct.skyslime_vine.armor": "Снижает гравитацию на 15% за каждую деталь.",
 
   "material.tconstruct.weeping_vine": "Плакучая лоза",
   "material.tconstruct.weeping_vine.flavor": "Направляет тепло.",
@@ -2204,8 +2204,10 @@
 
   "__comment": "Литейное дело: Слизневые материалы",
 
+  "material.tconstruct.clay": "Глина",
+  "material.tconstruct.clay.flavor": "Всё натуральное!",
+
   "material.tconstruct.blood":      "Кровь",
-  "material.tconstruct.clay":       "Глина",
   "material.tconstruct.honey":      "Мёд",
   "material.tconstruct.phantom":    "Мембрана фантома",
 
@@ -2593,8 +2595,8 @@
   "modifier.tconstruct.dyed.description": "Внешний вид брони изменяется в соответствии с другим материалом.",
   "modifier.tconstruct.trim": "Отделка брони",
   "modifier.tconstruct.trim.formatted": "%s [%s]",
-  "modifier.tconstruct.trim.flavor": "Сложная детализация!",
-  "modifier.tconstruct.trim.description": "Дополнительная детализация брони с использованием дорогостоящих шаблонов.",
+  "modifier.tconstruct.trim.flavor": "Дорогие шаблоны!",
+  "modifier.tconstruct.trim.description": "Дополнительная детализация брони обеспечивает улучшенные оборонительные возможности.",
   "modifier.tconstruct.banner": "Баннер",
   "modifier.tconstruct.banner.flavor": "Декоративный!",
   "modifier.tconstruct.banner.description": "Показывает баннер на щите.",
@@ -3154,6 +3156,9 @@
   "modifier.tconstruct.skyfall": "Небесное падение",
   "modifier.tconstruct.skyfall.flavor": "Падение со стилем!",
   "modifier.tconstruct.skyfall.description": "Снижает эффект гравитации.",
+  "modifier.tconstruct.forming": "Самоформирующийся",
+  "modifier.tconstruct.forming.flavor": "Атаки поглощаются!",
+  "modifier.tconstruct.forming.description": "Увеличивает броню и сопротивление отбрасыванию.",
   "modifier.tconstruct.flamestance": "Огненная стойка",
   "modifier.tconstruct.flamestance.flavor": "Сила огня!",
   "modifier.tconstruct.flamestance.description": "Увеличивает силу и защиту в жарких биомах, но снижает их в холодных биомах.",
@@ -3483,6 +3488,9 @@
   "modifier.tconstruct.overslime_friend": "Сверхслизневый друг",
   "modifier.tconstruct.snow_boots": "Снежные ботинки",
 
+  "modifier.tconstruct.reverted": "Возвращённый",
+  "modifier.tconstruct.reverted.flavor": "Нам нужно вернуться!",
+  "modifier.tconstruct.reverted.description": "Даёт +2 слота для улучшений и -1 слот для умений (или +1 улучшение на слизневые элитры), чтобы инструмент соответствовал историческому кол-ву слотов.",
 
   "_comment": "Эффекты зелья",
   "effect.tconstruct.experienced": "Опытный",
@@ -3591,6 +3599,8 @@
   "tool_stat.tconstruct.armor_toughness.description": "Насколько эта броня сопротивляется сильным ударам.",
   "tool_stat.tconstruct.knockback_resistance": "§7Сопротивление отбрасыванию: ",
   "tool_stat.tconstruct.knockback_resistance.description": "Насколько эта броня снижает отбрасывание.",
+  
+  "stat.tconstruct.slime": "Слизь",
 
   "stat.tconstruct.handle": "Рукоятка",
   "tool_stat.tconstruct.handle.durability.description": "Общая прочность инструмента будет умножена на это.",
