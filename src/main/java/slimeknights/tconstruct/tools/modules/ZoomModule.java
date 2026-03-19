@@ -25,12 +25,15 @@ import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
+import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import slimeknights.tconstruct.tools.modifiers.ability.interaction.BlockingModifier;
 
 import java.util.List;
 
-/** Shared logic for {@link slimeknights.tconstruct.tools.data.ModifierIds#scope} and {@link slimeknights.tconstruct.tools.data.ModifierIds#zoom} */
+/**
+ * Shared logic for {@link slimeknights.tconstruct.tools.data.ModifierIds#scope} and {@link slimeknights.tconstruct.tools.data.ModifierIds#zoom}.
+ * TODO 1.21: move to {@link slimeknights.tconstruct.tools.modules.interaction}
+ */
 public enum ZoomModule implements ModifierModule, GeneralInteractionModifierHook, KeybindInteractModifierHook, UsingToolModifierHook, EquipmentChangeModifierHook {
   SPYGLASS(ModifierHooks.GENERAL_INTERACT, ModifierHooks.TOOL_USING, ModifierHooks.EQUIPMENT_CHANGE, ModifierHooks.ARMOR_INTERACT) {
     @Override
@@ -127,7 +130,7 @@ public enum ZoomModule implements ModifierModule, GeneralInteractionModifierHook
 
   @Override
   public UseAnim getUseAction(IToolStackView tool, ModifierEntry modifier) {
-    return BlockingModifier.blockWhileCharging(tool, UseAnim.SPYGLASS);
+    return ModifierUtil.blockWhileCharging(tool, UseAnim.SPYGLASS);
   }
 
   @Override

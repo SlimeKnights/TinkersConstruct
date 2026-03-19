@@ -44,7 +44,7 @@ public class ModifierRequirementsModule implements ValidateModifierHook, Modifie
     ModifierEntry.LOADABLE.list(0).defaultField("display_modifiers", List.of(), m -> m.display),
     ModifierRequirementsModule::new);
 
-  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<ModifierRequirementsModule>defaultHooks(ModifierHooks.VALIDATE, ModifierHooks.REQUIREMENTS);
+  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<ModifierRequirementsModule>defaultHooks(ModifierHooks.VALIDATE_UPGRADE, ModifierHooks.REQUIREMENTS);
 
   /** Requirements to check, if they fail, the error will be displayed */
   private final IJsonPredicate<IToolContext> requirement;
@@ -158,7 +158,7 @@ public class ModifierRequirementsModule implements ValidateModifierHook, Modifie
 
     /** Adds an undisplayed modifier requirement to the builder */
     public Builder requireModifier(TagKey<Modifier> tag, int level) {
-      this.requirements.add(HasModifierPredicate.hasUpgrade(ModifierPredicate.tag(tag), level));
+      this.requirements.add(HasModifierPredicate.hasModifier(ModifierPredicate.tag(tag), level));
       return this;
     }
 

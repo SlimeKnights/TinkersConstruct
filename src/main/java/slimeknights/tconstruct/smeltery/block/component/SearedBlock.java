@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.smeltery.block.component;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.ItemStack;
@@ -20,6 +21,7 @@ import javax.annotation.Nullable;
 
 public class SearedBlock extends Block implements EntityBlock {
   public static final BooleanProperty IN_STRUCTURE = BooleanProperty.create("in_structure");
+  public static final StateArgumentPredicate<EntityType<?>> VALID_SPAWN = (s, r, p, e) -> !s.hasProperty(SearedBlock.IN_STRUCTURE) || !s.getValue(SearedBlock.IN_STRUCTURE);
 
   protected final boolean requiredBlockEntity;
   public SearedBlock(Properties properties, boolean requiredBlockEntity) {

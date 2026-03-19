@@ -14,6 +14,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
@@ -30,6 +31,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
@@ -44,23 +46,31 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import slimeknights.mantle.data.predicate.damage.DamageSourcePredicate;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.TinkerEffect;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
+import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.events.TinkerToolEvent.ToolHarvestEvent;
-import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.hook.armor.ModifyDamageModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.armor.OnAttackedModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.armor.ProtectionModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.mining.BreakSpeedContext;
+import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.armor.MobDisguiseModule;
 import slimeknights.tconstruct.library.modifiers.modules.technical.ArmorStatModule;
+import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.tools.capability.EntityModifierCapability;
 import slimeknights.tconstruct.library.tools.capability.PersistentDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
+import slimeknights.tconstruct.library.tools.context.EquipmentIterator.EquipmentEntry;
+import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
+import slimeknights.tconstruct.library.tools.definition.module.mining.IsEffectiveToolHook;
 import slimeknights.tconstruct.library.tools.helper.ArmorUtil;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
@@ -71,7 +81,9 @@ import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.BlockSideHitListener;
 import slimeknights.tconstruct.shared.TinkerAttributes;
+import slimeknights.tconstruct.shared.TinkerEffects;
 import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.tools.network.SyncProjectileModifiersPacket;
 
 import java.util.List;
 import java.util.Objects;
@@ -79,7 +91,6 @@ import java.util.Objects;
 /**
  * Event subscriber for tool events
  */
-@SuppressWarnings("unused")
 @EventBusSubscriber(modid = TConstruct.MOD_ID, bus = Bus.FORGE)
 public class ToolEvents {
   @SuppressWarnings("removal")
@@ -94,17 +105,25 @@ public class ToolEvents {
       if (!tool.isBroken()) {
         List<ModifierEntry> modifiers = tool.getModifierList();
         if (!modifiers.isEmpty()) {
-          // modifiers using additive boosts may want info on the original boosts provided
-          float miningSpeedModifier = Modifier.getMiningModifier(player);
-          boolean isEffective = stack.isCorrectToolForDrops(event.getState());
-          Direction direction = BlockSideHitListener.getSideHit(player);
+          // build context
+          BreakSpeedContext context = new BreakSpeedContext.Event(
+            event,
+            BlockSideHitListener.getSideHit(event.getEntity()),
+            IsEffectiveToolHook.isEffective(tool, event.getState()),
+            BreakSpeedContext.getMiningModifier(event.getEntity())
+          );
+
+          // run each modifier hook
+          float speed = event.getNewSpeed();
           for (ModifierEntry entry : tool.getModifierList()) {
-            entry.getHook(ModifierHooks.BREAK_SPEED).onBreakSpeed(tool, entry, event, direction, isEffective, miningSpeedModifier);
+            speed = entry.getHook(ModifierHooks.BREAK_SPEED).modifyBreakSpeed(tool, entry, context, speed);
             // if any modifier cancels mining, stop right here
-            if (event.isCanceled()) {
-              return;
+            if (speed < 0 || event.isCanceled()) {
+              break;
             }
           }
+          // update the speed
+          event.setNewSpeed(speed);
         }
       }
     }
@@ -197,14 +216,12 @@ public class ToolEvents {
     if (context.hasModifiableArmor()) {
       // first we need to determine if any of the four slots want to cancel the event
       for (EquipmentSlot slotType : EquipmentSlot.values()) {
-        if (ModifierUtil.validArmorSlot(entity, slotType)) {
-          IToolStackView toolStack = context.getToolInSlot(slotType);
-          if (toolStack != null && !toolStack.isBroken()) {
-            for (ModifierEntry entry : toolStack.getModifierList()) {
-              if (entry.getHook(ModifierHooks.DAMAGE_BLOCK).isDamageBlocked(toolStack, entry, context, slotType, source, amount)) {
-                event.setCanceled(true);
-                return;
-              }
+        IToolStackView toolStack = context.getValidTool(slotType);
+        if (toolStack != null && !toolStack.isBroken()) {
+          for (ModifierEntry entry : toolStack.getModifierList()) {
+            if (entry.getHook(ModifierHooks.DAMAGE_BLOCK).isDamageBlocked(toolStack, entry, context, slotType, source, amount)) {
+              event.setCanceled(true);
+              return;
             }
           }
         }
@@ -244,6 +261,9 @@ public class ToolEvents {
     return (int)damage;
   }
 
+  /** Modifier ID used for the extra correction damage on armor. Needs to be a "real modifier" for the tag so we use protection as a reasonable enough source. */
+  private static final ModifierId ARMOR_DAMAGE = new ModifierId(TConstruct.MOD_ID, "protection");
+
   // low priority to minimize conflict as we apply reduction as if we are the final change to damage before vanilla
   @SuppressWarnings("removal")
   @SubscribeEvent(priority = EventPriority.LOW)
@@ -257,15 +277,49 @@ public class ToolEvents {
     float modifierValue = 0;
     float originalDamage = event.getAmount();
 
-    // run shulking global damage "boost", its a bit hardcoded Java wise to make it softcoded in JSON
-    Entity attacker = event.getSource().getEntity();
-    if (attacker != null && attacker.isCrouching()) {
-      double crouchMultiplier = attacker instanceof LivingEntity living ? living.getAttributeValue(TinkerAttributes.CROUCH_DAMAGE_MULTIPLIER.get()) : 1;
-      crouchMultiplier += ArmorStatModule.getStat(attacker, TinkerDataKeys.CROUCH_DAMAGE);
-      if (crouchMultiplier != 0) {
-        originalDamage *= crouchMultiplier;
+    Entity attacker = source.getEntity();
+    if (attacker instanceof LivingEntity living) {
+      // boost damage based on monster's melee weapon
+      if (Config.COMMON.allowMonsterMeleeModifiers.get() && source.is(TinkerTags.DamageTypes.MODIFIER_WHITELIST) && !living.getType().is(TinkerTags.EntityTypes.DAMAGE_MODIFIER_BLACKLIST)) {
+        ItemStack weapon = living.getMainHandItem();
+        if (!weapon.isEmpty() && weapon.is(TinkerTags.Items.MELEE_WEAPON)) {
+          IToolStackView tool = ToolStack.from(weapon);
+          // already know the player is null
+          ToolAttackContext meleeContext = ToolAttackContext.attacker(living, null).target(entity).applyAttributes().build();
+          float baseDamage = originalDamage;
+          for (ModifierEntry entry : tool.getModifiers()) {
+            originalDamage = entry.getHook(ModifierHooks.MONSTER_MELEE_DAMAGE).getMeleeDamage(tool, entry, meleeContext, baseDamage, originalDamage);
+          }
+        }
+      }
+
+      // run shulking global damage "boost", its a bit hardcoded Java wise to make it softcoded in JSON
+      if (attacker.isCrouching()) {
+        double crouchMultiplier = living.getAttributeValue(TinkerAttributes.CROUCH_DAMAGE_MULTIPLIER.get());
+        crouchMultiplier += ArmorStatModule.getStat(attacker, TinkerDataKeys.CROUCH_DAMAGE);
+        if (crouchMultiplier != 0) {
+          originalDamage *= crouchMultiplier;
+        }
       }
     }
+
+    // conducting - boosts damage from fire
+    if (source.is(TinkerTags.DamageTypes.FIRE_PROTECTION)) {
+      int level = TinkerEffect.getLevel(entity, TinkerEffects.conductive);
+      if (level > 0) {
+        originalDamage *= Math.pow(2, level);
+      }
+    }
+    // venom - boosts damage from magic
+    if (source.is(TinkerTags.DamageTypes.MAGIC_PROTECTION)) {
+      int level = TinkerEffect.getLevel(entity, TinkerEffects.venom);
+      if (level > 0) {
+        originalDamage *= Math.pow(2, level);
+      }
+    }
+    
+    // ensure any changes made so far apply, though we may change it again
+    event.setAmount(originalDamage);
 
     // for our own armor, we have boosts from modifiers to consider
     if (context.hasModifiableArmor()) {
@@ -285,15 +339,9 @@ public class ToolEvents {
 
       // next, determine how much tinkers armor wants to change it
       // note that armor modifiers can choose to block "absolute damage" if they wish, currently just starving damage I think
-      for (EquipmentSlot slotType : EquipmentSlot.values()) {
-        if (ModifierUtil.validArmorSlot(entity, slotType)) {
-          IToolStackView tool = context.getToolInSlot(slotType);
-          if (tool != null && !tool.isBroken()) {
-            for (ModifierEntry entry : tool.getModifierList()) {
-              modifierValue = entry.getHook(ModifierHooks.PROTECTION).getProtectionModifier(tool, entry, context, slotType, source, modifierValue);
-            }
-          }
-        }
+      for (EquipmentEntry entry : context.iterateTools()) {
+        ModifierEntry modifier = entry.modifier();
+        modifierValue = modifier.getHook(ModifierHooks.PROTECTION).getProtectionModifier(entry.tool(), modifier, context, entry.slot(), source, modifierValue);
       }
 
       // give slimes a 4x armor boost
@@ -334,11 +382,8 @@ public class ToolEvents {
             // for our own armor, saves effort to damage directly with our utility
             IToolStackView tool = context.getToolInSlot(slotType);
             if (tool != null && (!source.is(DamageTypeTags.IS_FIRE) || !tool.getItem().isFireResistant())) {
-              // damaging the tool twice is generally not an issue, except for tanned where there is a difference between damaging by the sum and damaging twoce in pieces
-              // so work around this by hardcoding a tanned check. Not making this a hook as this whole chunk of code should hopefully be unneeded in 1.21
-              if (tool.getModifierLevel(TinkerModifiers.tanned.getId()) == 0) {
-                ToolDamageUtil.damageAnimated(tool, damageMissed, entity, slotType);
-              }
+              // mark this as protection (any valid modifier really would do) so tanned can reduce it to not count it as separate damage
+              ToolDamageUtil.damageAnimated(tool, damageMissed, entity, slotType, ARMOR_DAMAGE);
             } else {
               // if not our armor, damage using vanilla like logic
               ItemStack armorStack = entity.getItemBySlot(slotType);
@@ -358,18 +403,37 @@ public class ToolEvents {
     DamageSource source = event.getSource();
 
     // give modifiers a chance to respond to damage happening
+    float amount = event.getAmount();
     EquipmentContext context = new EquipmentContext(entity);
     if (context.hasModifiableArmor()) {
-      float amount = ModifyDamageModifierHook.modifyDamageTaken(ModifierHooks.MODIFY_DAMAGE, context, source, event.getAmount(), OnAttackedModifierHook.isDirectDamage(source));
+      amount = ModifyDamageModifierHook.modifyDamageTaken(ModifierHooks.MODIFY_DAMAGE, context, source, amount, OnAttackedModifierHook.isDirectDamage(source));
       event.setAmount(amount);
       if (amount <= 0) {
         event.setCanceled(true);
-        return;
+      }
+    }
+
+    // for remaining code, ensure amount is not more than they will take
+    amount = Math.min(amount, entity.getHealth());
+
+    // apply post hit modifier effects. Done regardless of damage dealt - don't care if absorption took it all
+    if (Config.COMMON.allowMonsterMeleeModifiers.get() && source.is(TinkerTags.DamageTypes.MODIFIER_WHITELIST)) {
+      Entity attacker = event.getSource().getEntity();
+      if (attacker != null && !attacker.getType().is(TinkerTags.EntityTypes.DAMAGE_MODIFIER_BLACKLIST) && attacker instanceof LivingEntity living) {
+        ItemStack weapon = living.getMainHandItem();
+        if (!weapon.isEmpty() && weapon.is(TinkerTags.Items.MELEE_WEAPON)) {
+          // already know we are not a player
+          ToolAttackContext meleeContext = ToolAttackContext.attacker(living, null).target(event.getEntity()).applyAttributes().build();
+          IToolStackView tool = ToolStack.from(weapon);
+          for (ModifierEntry entry : tool.getModifiers()) {
+            entry.getHook(ModifierHooks.MONSTER_MELEE_HIT).onMonsterMeleeHit(tool, entry, meleeContext, amount);
+          }
+        }
       }
     }
 
     // when damaging ender dragons, may drop scales - must be player caused explosion, end crystals and TNT are examples
-    if (Config.COMMON.dropDragonScales.get() && entity.getType() == EntityType.ENDER_DRAGON && event.getAmount() > 0
+    if (amount > 0 && Config.COMMON.dropDragonScales.get() && entity.getType() == EntityType.ENDER_DRAGON && event.getAmount() > 0
         && source.is(DamageTypeTags.IS_EXPLOSION) && source.getEntity() != null && source.getEntity().getType() == EntityType.PLAYER) {
       // drops 1 - 8 scales
       ModifierUtil.dropItem(entity, new ItemStack(TinkerModifiers.dragonScale, 1 + entity.level().random.nextInt(8)));
@@ -402,17 +466,27 @@ public class ToolEvents {
       return;
     }
     LivingEntity living = event.getEntity();
-    living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
+    TinkerDataCapability.Holder data = TinkerDataCapability.getData(living);
+    if (data != null) {
       // mob disguise
       Multiset<EntityType<?>> disguises = data.get(MobDisguiseModule.DISGUISES);
       if (disguises != null) {
-        int count = disguises.count(living.getType());
+        int count = disguises.count(lookingEntity.getType());
         if (count > 0) {
           // halves the range per level
           event.modifyVisibility(1 / Math.pow(2, count));
         }
       }
-    });
+    }
+  }
+
+  /** Syncs arrow modifier list to the client */
+  @SubscribeEvent
+  static void projectileSync(PlayerEvent.StartTracking event) {
+    Entity entity = event.getTarget();
+    if (entity instanceof Projectile) {
+      TinkerNetwork.getInstance().sendTo(new SyncProjectileModifiersPacket(entity), event.getEntity());
+    }
   }
 
   /** Implements projectile hit hook */
@@ -427,16 +501,28 @@ public class ToolEvents {
       HitResult.Type type = hit.getType();
       // extract a firing entity as that is a common need
       LivingEntity attacker = projectile.getOwner() instanceof LivingEntity l ? l : null;
+      ModuleHook<ProjectileHitModifierHook> hook = projectile.level().isClientSide ? ModifierHooks.PROJECTILE_HIT_CLIENT : ModifierHooks.PROJECTILE_HIT;
       switch(type) {
         case ENTITY -> {
           EntityHitResult entityHit = (EntityHitResult)hit;
           // cancel all effects on endermen unless we have enderference, endermen like to teleport away
           // yes, hardcoded to enderference, if you need your own enderference for whatever reason, talk to us
-          if (entityHit.getEntity().getType() != EntityType.ENDERMAN || modifiers.getLevel(TinkerModifiers.enderference.getId()) > 0) {
-            // extract a living target as that is the most common need
-            LivingEntity target = ToolAttackUtil.getLivingEntity(entityHit.getEntity());
+          Entity entity = entityHit.getEntity();
+          // extract a living target as that is the most common need
+          LivingEntity target = ToolAttackUtil.getLivingEntity(entity);
+          if (TinkerEffects.canHitWithProjectile(target) || nbt.getBoolean(TinkerEffects.ENDERFERENCE_KEY)) {
+
+            // ensure we are not blocking, that means projectile shouldn't hit
+            boolean notBlocked = true;
+            if (target != null && target.isBlocking() && (!(projectile instanceof AbstractArrow arrow) || arrow.getPierceLevel() == 0)) {
+              Vec3 direction = projectile.position().vectorTo(target.position()).normalize();
+              direction = new Vec3(direction.x, 0.0D, direction.z);
+              if (direction.dot(target.getViewVector(1.0F)) < 0.0D) {
+                notBlocked = false;
+              }
+            }
             for (ModifierEntry entry : modifiers.getModifiers()) {
-              if (entry.getHook(ModifierHooks.PROJECTILE_HIT).onProjectileHitEntity(modifiers, nbt, entry, projectile, entityHit, attacker, target)) {
+              if (entry.getHook(hook).onProjectileHitEntity(modifiers, nbt, entry, projectile, entityHit, attacker, target, notBlocked)) {
                 // on forge, this means the cancelled entity won't be hit again if its a piercing arrow
                 // on neo, they will get processed again next frame. Is this something we need to work around?
                 event.setCanceled(true);
@@ -448,10 +534,10 @@ public class ToolEvents {
         case BLOCK -> {
           BlockHitResult blockHit = (BlockHitResult)hit;
           for (ModifierEntry entry : modifiers.getModifiers()) {
-            // TODO 1.21: consider bringing back canceling to this hook
-            // we can't cancel the event as on Forge that does nothing while Neo will prevent the block hit
-            // Forge wants us to set the impact result to "cancel" it, but that will cause Neo to crash.
-            entry.getHook(ModifierHooks.PROJECTILE_HIT).onProjectileHitBlock(modifiers, nbt, entry, projectile, blockHit, attacker);
+            if (entry.getHook(hook).onProjectileHitsBlock(modifiers, nbt, entry, projectile, blockHit, attacker)) {
+              event.setCanceled(true);
+              break;
+            }
           }
         }
       }

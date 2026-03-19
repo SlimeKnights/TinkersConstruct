@@ -4,7 +4,7 @@
     {
       "type": "tconstruct:attribute",
       "attribute": "minecraft:generic.attack_speed",
-      "each_level": 0.025,
+      "each_level": 0.05,
       "operation": "multiply_total",
       "slots": [
         "mainhand",
@@ -13,7 +13,23 @@
         "legs",
         "chest",
         "head"
-      ]
+      ],
+      "tooltip_style": "percent"
+    },
+    {
+      "type": "tconstruct:attribute",
+      "attribute": "tconstruct:generic.bad_effect_duration_multiplier",
+      "each_level": 0.05,
+      "operation": "multiply_total",
+      "slots": [
+        "mainhand",
+        "offhand",
+        "feet",
+        "legs",
+        "chest",
+        "head"
+      ],
+      "tooltip_style": "percent"
     },
     {
       "type": "tconstruct:armor_level",

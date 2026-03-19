@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:modifier_salvage",
+  "level": 2,
+  "modifier": "tconstruct:leaping",
+  "slots": {
+    "abilities": 1
+  },
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/leggings"
+  }
+}

@@ -24,10 +24,12 @@ import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.utils.Util;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Loads the material render info from resource packs. Loaded independently of materials loaded in data packs, so a resource needs to exist in both lists to be used.
@@ -136,7 +138,23 @@ public class MaterialRenderInfoLoader implements IEarlySafeManagerReloadListener
 
     // store the list immediately, otherwise it is not in place in time for models to load
     this.renderInfos = Map.copyOf(map);
-    log.debug("Loaded material render infos: {}", Util.toIndentedStringList(map.keySet()));
+    log.debug("Loaded material render infos: {}", Util.toIndentedStringList(map.keySet().stream().sorted(Comparator.comparing(MaterialVariantId::getId).thenComparing(MaterialVariantId::getVariant)).toList()));
     log.info("{} material render infos loaded", map.size());
+  }
+
+
+  /* Helpers */
+
+  /** Checks if the given material has any of the given fallbacks. Used by {@link slimeknights.tconstruct.library.client.armor.texture.MaterialHasFallbackTextureSupplier} and {@link slimeknights.tconstruct.library.client.modifiers.model.MaterialHasFallbackModifierModel} */
+  public boolean hasFallback(MaterialVariantId material, Set<String> fallbacks) {
+    MaterialRenderInfo info = MaterialRenderInfoLoader.INSTANCE.getRenderInfo(material).orElse(null);
+    if (info != null) {
+      for (String fallback : info.fallbacks()) {
+        if (fallbacks.contains(fallback)) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 }

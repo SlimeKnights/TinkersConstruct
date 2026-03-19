@@ -5,6 +5,12 @@
     "upgrades": 1
   },
   "tools": {
-    "tag": "tconstruct:modifiable"
+    "type": "forge:difference",
+    "base": {
+      "tag": "tconstruct:modifiable"
+    },
+    "subtracted": {
+      "tag": "tconstruct:modifiable/single_use"
+    }
   }
 }

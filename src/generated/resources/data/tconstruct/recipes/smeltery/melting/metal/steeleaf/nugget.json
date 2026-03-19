@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "forge:nuggets/steeleaf"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:nuggets/steeleaf"
+  },
+  "result": {
+    "amount": 10,
+    "fluid": "tconstruct:molten_steeleaf"
+  },
+  "temperature": 934,
+  "time": 21
+}

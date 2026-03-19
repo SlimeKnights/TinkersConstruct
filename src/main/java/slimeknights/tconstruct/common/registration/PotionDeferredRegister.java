@@ -11,7 +11,8 @@ import slimeknights.mantle.registration.object.EnumObject;
 import java.util.Locale;
 import java.util.function.Supplier;
 
-/** Helper for registering potions */
+/** @deprecated use {@link slimeknights.mantle.registration.deferred.PotionDeferredRegister} */
+@Deprecated(forRemoval = true)
 public class PotionDeferredRegister extends DeferredRegisterWrapper<Potion> {
   public PotionDeferredRegister(String modID) {
     super(Registries.POTION, modID);

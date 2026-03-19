@@ -44,6 +44,8 @@ public class MaterialRecipeCache {
   private static final DuelSidedListener LISTENER = RecipeCacheInvalidator.addDuelSidedListener(() -> {
     RECIPES.clear();
     RECIPE_BY_ITEM.clear();
+    RECIPES_BY_MATERIAL.clear();
+    ITEMS_BY_MATERIAL.clear();
     KNOWN_VARIANTS.clear();
     SORTED_VARIANTS = null;
   });
@@ -94,7 +96,15 @@ public class MaterialRecipeCache {
 
   /** Cache lookup function for items by materials */
   private static final Function<MaterialVariantId,List<ItemStack>> GET_ITEMS_BY_MATERIAL = variant ->
-    getRecipes(variant).stream().flatMap(r -> Arrays.stream(r.getIngredient().getItems())).toList();
+    getRecipes(variant).stream().flatMap(r -> {
+      Stream<ItemStack> stacks = Arrays.stream(r.getIngredient().getItems());
+      // if we need multiple, increase the stack size of the display stacks
+      if (r.needed > r.value) {
+        int size = (r.needed + r.value - 1) / r.value;
+        stacks = stacks.map(stack -> stack.copyWithCount(size));
+      }
+      return stacks;
+    }).toList();
 
   /** Gets all recipes for the given material variant */
   public static List<ItemStack> getItems(MaterialVariantId variant) {

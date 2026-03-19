@@ -2,8 +2,17 @@
   "type": "tconstruct:material",
   "conditions": [
     {
-      "type": "mantle:tag_filled",
-      "tag": "forge:ingots/uranium"
+      "type": "forge:or",
+      "values": [
+        {
+          "type": "tconstruct:config",
+          "prop": "force_integration_materials"
+        },
+        {
+          "type": "mantle:tag_filled",
+          "tag": "forge:ingots/uranium"
+        }
+      ]
     }
   ],
   "ingredient": {

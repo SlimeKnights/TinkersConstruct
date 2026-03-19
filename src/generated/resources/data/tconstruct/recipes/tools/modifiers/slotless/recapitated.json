@@ -15,6 +15,12 @@
   "level": 1,
   "result": "tconstruct:recapitated",
   "tools": {
-    "tag": "tconstruct:modifiable/bonus_slots"
+    "type": "forge:difference",
+    "base": {
+      "tag": "tconstruct:modifiable/bonus_slots"
+    },
+    "subtracted": {
+      "tag": "tconstruct:modifiable/skulls"
+    }
   }
 }

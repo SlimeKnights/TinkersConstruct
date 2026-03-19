@@ -8,7 +8,7 @@
   "level": {
     "max": 5
   },
-  "needed_per_level": 20,
+  "needed_per_level": 5,
   "result": "tconstruct:antiaquatic",
   "slots": {
     "upgrades": 1

@@ -1,3 +1,9 @@
 {
-  "values": []
+  "values": [
+    "tconstruct:ancient_hide",
+    {
+      "id": "tconstruct:fiery",
+      "required": false
+    }
+  ]
 }

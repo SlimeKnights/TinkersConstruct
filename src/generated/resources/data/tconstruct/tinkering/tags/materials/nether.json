@@ -5,23 +5,14 @@
     "tconstruct:rock",
     "tconstruct:bone",
     "tconstruct:leather",
-    "tconstruct:vine",
     "tconstruct:string",
     "tconstruct:gold",
-    "tconstruct:scorched_stone",
     "tconstruct:slimewood",
-    "tconstruct:necrotic_bone",
     "tconstruct:nahuatl",
     "tconstruct:obsidian",
     "tconstruct:darkthread",
-    "tconstruct:cobalt",
     "tconstruct:steel",
-    "tconstruct:manyullyn",
-    "tconstruct:cinderslime",
-    "tconstruct:queens_slime",
-    "tconstruct:blazing_bone",
-    "tconstruct:blazewood",
-    "tconstruct:ancient_hide",
-    "tconstruct:ancient"
+    "tconstruct:ancient",
+    "#tconstruct:nether/gated"
   ]
 }

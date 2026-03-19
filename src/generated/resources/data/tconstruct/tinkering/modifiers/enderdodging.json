@@ -1,0 +1,42 @@
+{
+  "level_display": "tconstruct:single_level",
+  "modules": [
+    {
+      "type": "tconstruct:teleport_dodge",
+      "chance": {
+        "each_level": 0.1,
+        "flat": 0.1
+      },
+      "cooldown": {
+        "flat": 200
+      },
+      "damage_source": {
+        "type": "mantle:tag",
+        "tag": "minecraft:is_projectile"
+      }
+    },
+    {
+      "type": "tconstruct:teleport_dodge",
+      "chance": {
+        "each_level": 0.05,
+        "flat": 0.05
+      },
+      "cooldown": {
+        "flat": 200
+      },
+      "damage_source": {
+        "type": "mantle:and",
+        "predicates": [
+          "mantle:has_entity",
+          {
+            "type": "mantle:inverted",
+            "inverted_type": "mantle:tag",
+            "tag": "minecraft:is_projectile"
+          }
+        ]
+      }
+    }
+  ],
+  "priority": 50,
+  "tooltip_display": "always"
+}

@@ -1,0 +1,8 @@
+{
+  "modifiers": {
+    "tconstruct:embellishment": {
+      "type": "tconstruct:material",
+      "texture": "tconstruct:item/tool/armor/slime/shell_modifiers/broken/tconstruct_embellishment"
+    }
+  }
+}

@@ -78,11 +78,12 @@ public record ExplosionFluidEffect(LevelingValue radius, LevelingValue damage, L
         damageSource = TinkerDamageTypes.source(world.registryAccess(), damageType.melee(), cause, cause);
       }
       // create the explosion
+      boolean breakRestricted = context.breakRestricted();
       new CustomExplosion(
         // source is projectile, if null set no source to prevent the user from being immune to the explosion
         world, context.getLocation(), radius, projectile, null,
         damage.computeForScale(value), damageSource, knockback.computeForScale(value), null,
-        placeFire, blockInteraction
+        placeFire && !breakRestricted, breakRestricted ? Explosion.BlockInteraction.KEEP : blockInteraction, true
       ).handleServer();
     }
     return isFlat ? 1 : level.value();

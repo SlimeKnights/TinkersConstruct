@@ -1,0 +1,65 @@
+{
+  "modifiers": {
+    "tconstruct:antiaquatic": "tconstruct:item/tool/sword/modifiers/tconstruct_antiaquatic",
+    "tconstruct:bane_of_sssss": "tconstruct:item/tool/sword/modifiers/tconstruct_bane_of_sssss",
+    "tconstruct:blasting": "tconstruct:item/tool/sword/modifiers/tconstruct_blasting",
+    "tconstruct:bucketing": [
+      {
+        "type": "tconstruct:fluid",
+        "mask": "tconstruct:item/tool/sword/modifiers/tconstruct_bucketing_full"
+      },
+      {
+        "type": "tconstruct:basic",
+        "texture": "tconstruct:item/tool/sword/modifiers/tconstruct_bucketing"
+      }
+    ],
+    "tconstruct:cooling": "tconstruct:item/tool/sword/modifiers/tconstruct_cooling",
+    "tconstruct:diamond": "tconstruct:item/tool/sword/modifiers/tconstruct_diamond",
+    "tconstruct:emerald": "tconstruct:item/tool/sword/modifiers/tconstruct_emerald",
+    "tconstruct:experienced": "tconstruct:item/tool/sword/modifiers/tconstruct_experienced",
+    "tconstruct:fiery": {
+      "luminosity": 10,
+      "texture": "tconstruct:item/tool/sword/modifiers/tconstruct_fiery"
+    },
+    "tconstruct:glowing": {
+      "luminosity": 15,
+      "texture": "tconstruct:item/tool/sword/modifiers/tconstruct_glowing"
+    },
+    "tconstruct:haste": {
+      "luminosity": 7,
+      "texture": "tconstruct:item/tool/sword/modifiers/tconstruct_haste"
+    },
+    "tconstruct:hydraulic": "tconstruct:item/tool/sword/modifiers/tconstruct_hydraulic",
+    "tconstruct:knockback": "tconstruct:item/tool/sword/modifiers/tconstruct_knockback",
+    "tconstruct:lightspeed": {
+      "luminosity": 15,
+      "texture": "tconstruct:item/tool/sword/modifiers/tconstruct_lightspeed"
+    },
+    "tconstruct:luck": "tconstruct:item/tool/sword/modifiers/tconstruct_luck",
+    "tconstruct:magnetic": "tconstruct:item/tool/sword/modifiers/tconstruct_magnetic",
+    "tconstruct:necrotic": "tconstruct:item/tool/sword/modifiers/tconstruct_necrotic",
+    "tconstruct:netherite": "tconstruct:item/tool/sword/modifiers/tconstruct_netherite",
+    "tconstruct:overforced": "tconstruct:item/tool/sword/modifiers/tconstruct_overforced",
+    "tconstruct:reinforced": "tconstruct:item/tool/sword/modifiers/tconstruct_reinforced",
+    "tconstruct:severing": "tconstruct:item/tool/sword/modifiers/tconstruct_severing",
+    "tconstruct:sharpness": "tconstruct:item/tool/sword/modifiers/tconstruct_sharpness",
+    "tconstruct:silky": "tconstruct:item/tool/sword/modifiers/tconstruct_silky",
+    "tconstruct:smite": "tconstruct:item/tool/sword/modifiers/tconstruct_smite",
+    "tconstruct:soulbound": "tconstruct:item/tool/sword/modifiers/tconstruct_soulbound",
+    "tconstruct:tank": [
+      {
+        "type": "tconstruct:tank",
+        "full": "tconstruct:item/tool/sword/modifiers/tconstruct_tank_full",
+        "partial": "tconstruct:item/tool/sword/modifiers/tconstruct_tank_partial"
+      },
+      {
+        "type": "tconstruct:basic",
+        "texture": "tconstruct:item/tool/sword/modifiers/tconstruct_tank"
+      }
+    ],
+    "tconstruct:unbreakable": {
+      "luminosity": 2,
+      "texture": "tconstruct:item/tool/sword/modifiers/tconstruct_unbreakable"
+    }
+  }
+}

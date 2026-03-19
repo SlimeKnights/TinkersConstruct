@@ -1,0 +1,24 @@
+{
+  "level_display": "tconstruct:no_levels",
+  "modules": [
+    {
+      "type": "tconstruct:tool_actions",
+      "tool_actions": [
+        "drill_attack"
+      ]
+    },
+    {
+      "type": "tconstruct:requirements",
+      "requirement": {
+        "type": "tconstruct:has_modifier",
+        "check": "all",
+        "modifier": {
+          "type": "tconstruct:tag",
+          "tag": "tconstruct:drill_attacks"
+        }
+      },
+      "translation_key": "modifier.tconstruct.drill_attack.requirements"
+    }
+  ],
+  "tooltip_display": "always"
+}

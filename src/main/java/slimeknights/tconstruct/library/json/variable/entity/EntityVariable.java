@@ -1,7 +1,9 @@
 package slimeknights.tconstruct.library.json.variable.entity;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
+import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.tconstruct.library.json.variable.ToFloatFunction;
@@ -40,7 +42,23 @@ public interface EntityVariable extends IHaveLoader {
   EntityVariable HEALTH = simple(LivingEntity::getHealth);
   /** Gets the height of the entities feet */
   EntityVariable HEIGHT = simple(entity -> (float)entity.getY());
-
+  /** Gets the temperature of the biome containing the entity. */
+  EntityVariable BIOME_TEMPERATURE = simple(entity -> {
+    BlockPos pos = entity.blockPosition();
+    return entity.level().getBiome(pos).value().getTemperature(pos);
+  });
+  /** Returns 2 if entity is in water, or 1 if in rain */
+  EntityVariable WATER = simple(entity -> {
+    if (entity.isInWater() || entity.wasEyeInWater) {
+      return 2;
+    }
+    if (LivingEntityPredicate.RAINING.matches(entity)) {
+      return 1;
+    }
+    return 0;
+  });
+  /** Gets the percentage of the mob covered in armor. */
+  EntityVariable ARMOR_COVERAGE = simple(LivingEntity::getArmorCoverPercentage);
 
   /** Constant value instance for this object */
   record Constant(float value) implements VariableLoaderRegistry.ConstantFloat, EntityVariable {

@@ -74,10 +74,11 @@ public record MaterialRenderInfo(MaterialVariantId id, @Nullable ResourceLocatio
    */
   public static String getSuffix(ResourceLocation material) {
     // namespace will only be minecraft for a texture override, so this lets you select to always use an untinted base texture as the materials texture
-    if ("minecraft".equals(material.getNamespace())) {
+    String namespace = material.getNamespace();
+    if ("minecraft".equals(namespace)) {
       return material.getPath();
     }
-    return material.getNamespace() + "_" + material.getPath();
+    return namespace + "_" + material.getPath();
   }
 
   /**

@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.library.client.book.content;
 
-import com.google.common.collect.ImmutableList;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -25,6 +25,8 @@ import java.util.List;
 
 /** Extension of the material page to display skull stats for the slimeskull */
 public class ContentMaterialSkull extends AbstractMaterialContent {
+  /** Translation key for skull recipe */
+  private static final Component SKULL = TConstruct.makeTranslation("book", "material.skull");
   /** Translation key for skull recipe */
   private static final String SKULL_FROM = TConstruct.makeTranslationKey("book", "material.skull_from");
   /** Page ID for using this index directly */
@@ -117,7 +119,10 @@ public class ContentMaterialSkull extends AbstractMaterialContent {
       List<ItemStack> casts = skullRecipe.getCastItems();
       if (!casts.isEmpty()) {
         ItemElement elementItem = new TinkerItemElement(0, 0, 1, casts);
-        elementItem.tooltip = ImmutableList.of(Component.translatable(SKULL_FROM, casts.get(0).getHoverName()));
+        elementItem.tooltip = List.of(
+          SKULL,
+          Component.translatable(SKULL_FROM, casts.get(0).getHoverName()).withStyle(ChatFormatting.GRAY)
+        );
         displayTools.add(elementItem);
       }
     }

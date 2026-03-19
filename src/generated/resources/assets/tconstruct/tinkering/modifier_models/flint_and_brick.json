@@ -1,0 +1,17 @@
+{
+  "modifiers": {
+    "tconstruct:diamond": "tconstruct:item/tool/flint_and_brick/modifiers/tconstruct_diamond",
+    "tconstruct:emerald": "tconstruct:item/tool/flint_and_brick/modifiers/tconstruct_emerald",
+    "tconstruct:glowing": {
+      "luminosity": 15,
+      "texture": "tconstruct:item/tool/flint_and_brick/modifiers/tconstruct_glowing"
+    },
+    "tconstruct:netherite": "tconstruct:item/tool/flint_and_brick/modifiers/tconstruct_netherite",
+    "tconstruct:overforced": "tconstruct:item/tool/flint_and_brick/modifiers/tconstruct_overforced",
+    "tconstruct:reinforced": "tconstruct:item/tool/flint_and_brick/modifiers/tconstruct_reinforced",
+    "tconstruct:unbreakable": {
+      "luminosity": 2,
+      "texture": "tconstruct:item/tool/flint_and_brick/modifiers/tconstruct_unbreakable"
+    }
+  }
+}

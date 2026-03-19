@@ -150,6 +150,23 @@ public class PartBuilderBlockEntity extends RetexturedTableBlockEntity implement
     return inventoryWrapper.getMaterial();
   }
 
+  /** If true, hides the uncraftable error message on the screen */
+  public boolean allowUncraftable() {
+    // if a recipe is selected, its behavior dictates the message
+    IPartBuilderRecipe recipe = getPartRecipe();
+    if (recipe != null) {
+      return recipe.allowUncraftable();
+    }
+    // otherwise, if any button says its allowed then its allowed
+    for (IPartBuilderRecipe button : getCurrentRecipes().values()) {
+      if (button.allowUncraftable()) {
+        return true;
+      }
+    }
+    // no button says its allowed? then its not
+    return false;
+  }
+
   /**
    * Refreshes the current recipe
    * @param refreshRecipeList  If true, refreshes the full recipe list too

@@ -4,8 +4,8 @@
   "textures": {
     "tool": "tconstruct:item/tool/armor/slime/shell"
   },
-  "modifier_roots": [ "tconstruct:item/tool/armor/slime/shell_modifiers/" ],
-  "first_modifiers": [ "tconstruct:embellishment", "tconstruct:golden", "tconstruct:trim" ],
+  "modifier_maps": ["tconstruct:slime/shell"],
+  "first_modifiers": [ "tconstruct:embellishment", "tconstruct:trim" ],
   "overrides": [
     {
       "predicate": { "tconstruct:broken": 1 },

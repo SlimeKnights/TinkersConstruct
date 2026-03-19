@@ -2,6 +2,7 @@ package slimeknights.tconstruct.tools.data;
 
 import com.google.gson.JsonObject;
 import net.minecraft.data.PackOutput;
+import net.minecraft.world.item.ArmorItem.Type;
 import net.minecraft.world.phys.Vec2;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import slimeknights.tconstruct.TConstruct;
@@ -12,7 +13,10 @@ import java.io.IOException;
 
 import static slimeknights.tconstruct.TConstruct.getResource;
 
-/** Provider for tool models, mostly used for duplicating displays */
+/**
+ * Provider for tool models, mostly used for duplicating displays
+ * TODO 1.21: move to {@link slimeknights.tconstruct.tools.data.client}
+ */
 public class ToolItemModelProvider extends AbstractToolItemModelProvider {
   public ToolItemModelProvider(PackOutput packOutput, ExistingFileHelper existingFileHelper) {
     super(packOutput, existingFileHelper, TConstruct.MOD_ID);
@@ -22,6 +26,7 @@ public class ToolItemModelProvider extends AbstractToolItemModelProvider {
   protected void addModels() throws IOException {
     JsonObject toolBlocking = readJson(getResource("base/tool_blocking"));
     JsonObject shieldBlocking = readJson(getResource("base/shield_blocking"));
+    JsonObject flatBlocking = readJson(getResource("base/flat_blocking"));
 
     // blocking //
     // pickaxe
@@ -42,14 +47,17 @@ public class ToolItemModelProvider extends AbstractToolItemModelProvider {
     // scythe
     tool(TinkerTools.kama, toolBlocking, "head");
     tool(TinkerTools.scythe, toolBlocking, "head");
-    // shield
-    armor("travelers", TinkerTools.travelersGear, "base", "metal");
+    // armor
+    // travelers goggles use a base texture for the glass
+    armor("travelers", TinkerTools.travelersGear, new Type[] {Type.HELMET},"base", "cuirass", "metal");
+    armor("travelers", TinkerTools.travelersGear, new Type[] {Type.CHESTPLATE, Type.LEGGINGS, Type.BOOTS}, "cuirass", "metal");
     armor("plate", TinkerTools.plateArmor, "plating", "maille");
     armor("slime", TinkerTools.slimesuit, "tool");
-    shield("travelers", TinkerTools.travelersShield, shieldBlocking, "tool");
+    // shield
+    shield("travelers", TinkerTools.travelersShield, shieldBlocking, "cuirass", "wood");
     shield("plate", TinkerTools.plateShield, readJson(getResource("base/shield_large_blocking")), "plating", "core");
     // misc
-    tool(TinkerTools.flintAndBrick, shieldBlocking, "tool");
+    tool(TinkerTools.flintAndBrick, flatBlocking, "tool");
     // bow
     bow(TinkerTools.longbow, toolBlocking, new LongbowAmmo(new Vec2[] {
       new Vec2(-3, -4), new Vec2(-2, -3), new Vec2(-1, -2)
@@ -57,17 +65,20 @@ public class ToolItemModelProvider extends AbstractToolItemModelProvider {
       new Vec2(-2, -2), new Vec2(0, 0), new Vec2(1, 1)
     }, true, true), "limb_bottom", "limb_top", "bowstring");
     bow(TinkerTools.crossbow, toolBlocking, new CrossbowAmmo(new Vec2(-1, -1), true, false), "bowstring");
+    String[] rodParts = { "string", "hook" };
+    fishingRod(TinkerTools.fishingRod, readJson(getResource("tool/fishing_rod/blocking_display")), rodParts, rodParts);
+    tool(TinkerTools.javelin, toolBlocking, "head");
     // staff
     staff(TinkerTools.skyStaff, toolBlocking);
     staff(TinkerTools.earthStaff, toolBlocking);
     staff(TinkerTools.ichorStaff, toolBlocking);
     staff(TinkerTools.enderStaff, toolBlocking);
     // ancient
-    charged(TinkerTools.meltingPan, shieldBlocking, "head");
+    charged(TinkerTools.meltingPan, flatBlocking, "head");
     bow(TinkerTools.warPick, toolBlocking, new CrossbowAmmo(new Vec2(1, -1), false, true), "bowstring");
-    // battlesign has custom properties for blocking, so that is just written directly
-    transformTool("tool/battlesign/broken", readJson(TinkerTools.battlesign.getId()), "", false, "broken", "head");
-    pulling(TinkerTools.swasher, readJson(getResource("base/swasher_blocking")), AmmoType.NONE, "blade", 2, "barrel");
+    tool(TinkerTools.battlesign, null, "head");
+    pulling(TinkerTools.swasher, readJson(getResource("tool/swasher/blocking_display")), AmmoType.NONE, "blade", 2, "barrel");
+    tool(TinkerTools.minotaurAxe, toolBlocking, "front");
   }
 
   @Override

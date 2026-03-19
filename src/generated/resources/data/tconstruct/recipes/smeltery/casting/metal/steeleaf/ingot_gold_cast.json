@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/ingot"
+  },
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "forge:ingots/steeleaf"
+    }
+  ],
+  "cooling_time": 64,
+  "fluid": {
+    "amount": 90,
+    "tag": "tconstruct:molten_steeleaf"
+  },
+  "result": {
+    "tag": "forge:ingots/steeleaf"
+  }
+}

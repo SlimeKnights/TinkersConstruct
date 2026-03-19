@@ -6,10 +6,14 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -44,13 +48,18 @@ public class TinkerTags {
     Materials.init();
     DamageTypes.init();
     MenuTypes.init();
+    Potions.init();
     MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, TagsUpdatedEvent.class, event -> tagsLoaded = true);
   }
 
+  /** Resource location of the hidden from recipe tags used in JEI. */
+  @SuppressWarnings("removal")
+  public static final ResourceLocation HIDDEN_FROM_RECIPE_VIEWERS = new ResourceLocation("c", "hidden_from_recipe_viewers");
+
   /** Creates a tag that hides things from JEI */
-  @SuppressWarnings("SameParameterValue")
+  @SuppressWarnings("SameParameterValue") // there really is no benefit to migrating to new constructors early; just lose Neo compat
   private static <R> TagKey<R> hiddenFromRecipeViewers(ResourceKey<? extends Registry<R>> registry) {
-    return TagKey.create(registry, new ResourceLocation("c", "hidden_from_recipe_viewers"));
+    return TagKey.create(registry, HIDDEN_FROM_RECIPE_VIEWERS);
   }
 
   public static class Blocks {
@@ -199,6 +208,7 @@ public class TinkerTags {
     // misc compat
     public static final TagKey<Block> BUDDING = common("budding");
     // ceramics compat
+    @SuppressWarnings("removal")
     public static final TagKey<Block> CISTERN_CONNECTIONS = TagKey.create(Registries.BLOCK, new ResourceLocation("ceramics", "cistern_connections"));
 
     /** Makes a tag in the tinkers domain */
@@ -272,10 +282,17 @@ public class TinkerTags {
     public static final TagKey<Item> RAW_BLOCK_COBALT = common("storage_blocks/raw_cobalt");
     public static final TagKey<Item> RAW_COBALT = common("raw_materials/cobalt");
 
+    // non-standard prefix for items that smelt into 1 nugget but are not in fact nuggets
+    public static final TagKey<Item> STEEL_SHARD = common("raw_nuggets/steel");
+    public static final TagKey<Item> COBALT_SHARD = common("raw_nuggets/cobalt");
+    public static final TagKey<Item> KNIGHTMETAL_SHARD = common("raw_nuggets/knightmetal");
+
     public static final TagKey<Item> NUGGETS_NETHERITE = common("nuggets/netherite");
     public static final TagKey<Item> INGOTS_NETHERITE_SCRAP = common("ingots/netherite_scrap");
     public static final TagKey<Item> NUGGETS_NETHERITE_SCRAP = common("nuggets/netherite_scrap");
     public static final TagKey<Item> NUGGETS_COPPER = common("nuggets/copper");
+    /** Ingots in this tag will make the whitestone composite variant show in the books. */
+    public static final TagKey<Item> WHITESTONE_INGOTS = local("whitestone_ingots");
 
     public static final TagKey<Item> CASTS = local("casts");
     public static final TagKey<Item> GOLD_CASTS = local("casts/gold");
@@ -303,7 +320,12 @@ public class TinkerTags {
     public static final TagKey<Item> SCORCHED_TANKS = local("scorched_tanks");
     public static final TagKey<Item> TANKS = local("tanks");
 
+    /** Bones that drop from normal skeletons or some equivalent. Intentionally does not use {@link net.minecraftforge.common.Tags.Items#BONES} as that includes many weird bones. */
+    public static final TagKey<Item> BONES = local("bones");
+    /** Bones that drop from wither skeletons */
     public static final TagKey<Item> WITHER_BONES = common("wither_bones");
+    /** Weird inconsistent alternative tag for bones that drop from wither skeletons */
+    public static final TagKey<Item> WEIRD_WITHER_BONES_TAG = common("bones/wither");
     public static final TagKey<Item> BOOKS = common("books");
     public static final TagKey<Item> GUIDEBOOKS = common("books/guide");
     public static final TagKey<Item> TINKERS_GUIDES = local("guides");
@@ -318,8 +340,6 @@ public class TinkerTags {
     /** Containers that can be used in the duct */
     public static final TagKey<Item> DUCT_CONTAINERS = local("duct_containers");
 
-    /** Items that cannot be autosmelted */
-    public static final TagKey<Item> AUTOSMELT_BLACKLIST = local("autosmelt_blacklist");
 
     /** Items that are seeds for kama harvest */
     public static final TagKey<Item> SEEDS = local("seeds");
@@ -329,14 +349,23 @@ public class TinkerTags {
 
     /** Stones that can be used for stoneshield */
     public static final TagKey<Item> STONESHIELDS = local("stoneshields");
-    /** Items that can be consumed for a blaze slimeskull to shoot a fireball */
+    /** @deprecated Modifier using this tag is planned for removal. See {@link slimeknights.tconstruct.tools.modules.interaction.FireballModule} for replacement. */
+    @Deprecated
     public static final TagKey<Item> FIREBALLS = local("fireballs");
+    /** Items that can be consumed for a blaze slimeskull to shoot a fireball */
+    public static final TagKey<Item> SLIMEBALL_AMMO = local("slimeball_ammo");
     /** Items in this tag cannot be placed inside tool inventories */
     public static final TagKey<Item> TOOL_INVENTORY_BLACKLIST = local("inventory_blacklist");
     /** List of blocks that should produce bonus gold nugget drops from the chrysophilite modifier. Will only drop bonus if the block does not drop itself */
     public static final TagKey<Item> CHRYSOPHILITE_ORES = local("chrysophilite_ores");
     /** All ore rates that are not {@link net.minecraftforge.common.Tags.Items#ORE_RATES_SINGULAR}. Used for recipe conditioning. */
     public static final TagKey<Item> NON_SINGULAR_ORE_RATES = local("non_singular_ore_rates");
+    /** Items that cannot be autosmelted */
+    public static final TagKey<Item> AUTOSMELT_BLACKLIST = local("autosmelt_blacklist");
+    /** Items which should not be duplicated from higher levels of autosmelt */
+    public static final TagKey<Item> AUTOSMELT_PLUS_BLACKLIST = common("autosmelt_plus_blacklist");
+    /** Items that can be thrown from sleeves. Item must implement {@link Item#use(Level, Player, InteractionHand)} */
+    public static final TagKey<Item> THROWABLE = local("throwable");
 
     /*
      * Tool tags
@@ -383,6 +412,8 @@ public class TinkerTags {
     public static final TagKey<Item> INTERACTABLE_RIGHT = local("modifiable/interactable/right");
     /** Tools that can charge up interaction. Includes anything in {@link #INTERACTABLE_RIGHT}, {@link #BOWS}, or {@link #SHIELDS} */
     public static final TagKey<Item> INTERACTABLE_CHARGE = local("modifiable/interactable/charge");
+    /** Tools that can charge up interaction, using a modifier for their main action. Like {@link #INTERACTABLE_CHARGE} but excludes bows. */
+    public static final TagKey<Item> INTERACTABLE_CHARGE_MODIFIER = local("modifiable/interactable/charge/modifier");
     /** Tools that can interact on left click */
     public static final TagKey<Item> INTERACTABLE_LEFT = local("modifiable/interactable/left");
     /** Tools that can interact when worn as armor */
@@ -429,6 +460,10 @@ public class TinkerTags {
     /** @deprecated After migrating travelers to have a material, doing away with golden armor on slimesuit. If you still want this on your armor, we recommend adding a new recipe */
     @Deprecated(forRemoval = true)
     public static final TagKey<Item> GOLDEN_ARMOR = local("modifiable/armor/golden");
+    /** Items in this tag use an alternative recipe for recapitated to prevent conflict with skull part swapping. */
+    public static final TagKey<Item> SKULLS = local("modifiable/skulls");
+    /** Items that support skull based part swapping on index 0, and thus disallow rebalanced using just a skull. */
+    public static final TagKey<Item> SWAPPABLE_SKULLS = local("modifiable/skulls/swappable");
 
     // armor book tags
     /** Full list of armor shown in the encyclopedia, can add to directly to show only in the encyclopedia */
@@ -444,8 +479,11 @@ public class TinkerTags {
     /** Full list of armor shown in tinkers gadgetry, automatically added last to encyclopedia */
     public static final TagKey<Item> GADGETRY_ARMOR = local("modifiable/book_armor/tinkers_gadgetry");
 
-    /** Modifiable items that support ranged attacks. Items in this tag support {@link ToolStats#DRAW_SPEED}, {@link ToolStats#VELOCITY}, {@link ToolStats#PROJECTILE_DAMAGE} and {@link ToolStats#ACCURACY} */
+    /** Modifiable items that support ranged attacks. Items in this tag support {@link ToolStats#DRAW_SPEED}, {@link ToolStats#VELOCITY} and {@link ToolStats#ACCURACY} */
     public static final TagKey<Item> RANGED = local("modifiable/ranged");
+    /** Modifiable items that launch a projectile, as opposed to being the projectile. Additionally includes {@link ToolStats#PROJECTILE_DAMAGE} for its launch power. */
+    public static final TagKey<Item> LAUNCHERS = local("modifiable/ranged/launcher");
+    // subclasses
     /** Any modifiable ranged items that are a bow, includes crosbows and longbows */
     public static final TagKey<Item> BOWS = local("modifiable/ranged/bows");
     /** Any modifiable bows that fire arrows on release */
@@ -454,6 +492,31 @@ public class TinkerTags {
     public static final TagKey<Item> CROSSBOWS = local("modifiable/ranged/crossbows");
     /** Modifiable items support special staff modifiers, is a subtag of ranged. */
     public static final TagKey<Item> STAFFS = local("modifiable/staffs");
+    /** Modifiable items that support fishing modifiers. */
+    public static final TagKey<Item> FISHING_RODS = local("modifiable/fishing_rods");
+    // specific modifiers
+    /** Ranged items supporting the power upgrade */
+    public static final TagKey<Item> RANGED_POWER = local("modifiable/ranged/power");
+    /** Ranged items supporting the quick charge upgrade */
+    public static final TagKey<Item> RANGED_QUICK_CHARGE = local("modifiable/ranged/quick_charge");
+    /** Ranged items supporting the bounce upgrade */
+    public static final TagKey<Item> RANGED_BOUNCE = local("modifiable/ranged/bounce");
+    /** Bows supporting the ballista modifier. In code, only {@link slimeknights.tconstruct.library.tools.item.ranged.ModifiableBowItem} implements this functionality. */
+    public static final TagKey<Item> BALLISTAS = local("modifiable/ranged/ballistas");
+    // book
+    /** Ranged tools to show in materials and you and the encyclopedia. */
+    public static final TagKey<Item> SMALL_RANGED = local("modifiable/ranged/small");
+    /** Ranged tools to show in mighty smelting and the encyclopedia. */
+    public static final TagKey<Item> BROAD_RANGED = local("modifiable/ranged/broad");
+
+    /** Items in this tag have a primary purpose of being ammo */
+    public static final TagKey<Item> AMMO = local("modifiable/ammo");
+    /** Ammo that is thrown directly, instead of using a launcher. */
+    public static final TagKey<Item> THROWN_AMMO = local("modifiable/ammo/thrown");
+    /** Tools that support being fired using bows with the ballisa modifier. */
+    public static final TagKey<Item> BALLISTA_AMMO = local("modifiable/ballista_ammo");
+    /** Items in this tag have some cheaper modifier recipes since they are not reusable */
+    public static final TagKey<Item> SINGLE_USE = local("modifiable/single_use");
 
     /** Tools that can receive wood based embellishments */
     public static final TagKey<Item> EMBELLISHMENT_WOOD = local("modifiable/embellishment/wood");
@@ -461,10 +524,18 @@ public class TinkerTags {
     public static final TagKey<Item> EMBELLISHMENT_SLIME = local("modifiable/embellishment/slime");
     /** Tools that can be dyed */
     public static final TagKey<Item> DYEABLE = local("modifiable/dyeable");
+    /** Tools that can have a banner applied */
+    public static final TagKey<Item> BANNER = local("modifiable/banner");
     /** Armor items that support trim */
     public static final TagKey<Item> TRIM = local("modifiable/armor/trim");
+    /** Armor items that support trim materials but skip the pattern. Used for non-worn armor such as shields. */
+    public static final TagKey<Item> TRIM_NO_PATTERN = local("modifiable/armor/trim/no_pattern");
+    /** Tools to blacklist from default part recycling recipes. May still be recyclable in other recipes */
+    public static final TagKey<Item> UNRECYCLABLE = local("modifiable/unrecyclable");
     /** Tools to blacklist from default salvage recipes. May still be salvagable in other recipes */
     public static final TagKey<Item> UNSALVAGABLE = local("modifiable/unsalvageable");
+    /** Tools to blacklist from part swapping */
+    public static final TagKey<Item> UNSWAPPABLE = local("modifiable/unswappable");
 
     /** Tag so mods like thermal know our scyhtes can harvest */
     public static final TagKey<Item> SCYTHES = common("tools/scythe");
@@ -474,8 +545,14 @@ public class TinkerTags {
     public static final TagKey<Item> LINGERING_BOTTLE = common("bottles/lingering");
 
     // compat tags
-    /** Tag meaning necronium is available */
+    /** @deprecated necronium bones now show based on {@link slimeknights.tconstruct.tools.data.material.MaterialIds#necronium} */
+    @Deprecated(forRemoval = true)
     public static final TagKey<Item> URANIUM_INGOTS = common("ingots/uranium");
+    /** Tag of trophies from bosses, to grant an additional upgrade slot to tools. Meant for Twilight Forest boss trophies, but suppose you can add other bosses that are not easily farmed. */
+    public static final TagKey<Item> BOSS_TROPHIES = local("boss_trophies");
+
+    /** Fluids in this tag won't show in JEI */
+    public static final TagKey<Item> HIDDEN_IN_RECIPE_VIEWERS = hiddenFromRecipeViewers(Registries.ITEM);
 
     /** Makes a tag in the tinkers domain */
     private static TagKey<Item> local(String name) {
@@ -493,6 +570,8 @@ public class TinkerTags {
     public static final TagKey<Fluid> SLIME = local("slime");
     /** Causes the fluid to be formatted like a metal in tooltips */
     public static final TagKey<Fluid> SLIME_TOOLTIPS = local("tooltips/slime");
+    /** Causes the fluid to be formatted with buckets, bottles, and drops in the tooltip, like venom */
+    public static final TagKey<Fluid> BOTTLE_TOOLTIPS = local("tooltips/bottle");
     /** Causes the fluid to be formatted like a clay in tooltips */
     public static final TagKey<Fluid> CLAY_TOOLTIPS = local("tooltips/clay");
     /** Causes the fluid to be formatted like a metal in tooltips */
@@ -503,8 +582,14 @@ public class TinkerTags {
     public static final TagKey<Fluid> SMALL_GEM_TOOLTIPS = local("tooltips/gem_small");
     /** Causes the fluid to be formatted like glass in tooltips */
     public static final TagKey<Fluid> GLASS_TOOLTIPS = local("tooltips/glass");
-    /** Causes the fluid to be formatted like soup in tooltips, with bowls. Similar to slime, but no blocks */
+    /** @deprecated use {@link slimeknights.mantle.datagen.MantleTags.Fluids#SOUP} */
+    @Deprecated(forRemoval = true)
     public static final TagKey<Fluid> SOUP_TOOLTIPS = local("tooltips/soup");
+
+    /** Fluids found in swashers the hands of drowned */
+    public static final TagKey<Fluid> DROWNED_SWASHER = local("swasher/drowned");
+    /** Fluids found in swashers the hands of wither skeletons */
+    public static final TagKey<Fluid> WITHER_SKELETON_SWASHER = local("swasher/wither_skeleton");
 
     /** @deprecated Fluids have all been given unique effects, use {@link slimeknights.tconstruct.library.data.tinkering.AbstractFluidEffectProvider} */
     @Deprecated(forRemoval = true)
@@ -541,28 +626,68 @@ public class TinkerTags {
 
   public static class EntityTypes {
     private static void init() {}
+
+    // mob classes
     public static final TagKey<EntityType<?>> SLIMES = common("slimes");
-    public static final TagKey<EntityType<?>> BACON_PRODUCER = local("bacon_producer");
-
-    public static final TagKey<EntityType<?>> MELTING_SHOW = local("melting/show_in_default");
-    public static final TagKey<EntityType<?>> MELTING_HIDE = local("melting/hide_in_default");
-    public static final TagKey<EntityType<?>> PIGGYBACKPACK_BLACKLIST = local("piggybackpack_blacklist");
-
     /** Entities in this tag take more damage from bane of sssss */
     public static final TagKey<EntityType<?>> CREEPERS = common("creepers");
     public static final TagKey<EntityType<?>> VILLAGERS = common("villagers");
     public static final TagKey<EntityType<?>> ILLAGERS = common("illagers");
-    /** Entities in this tag take more damage from killager */
-    public static final TagKey<EntityType<?>> KILLAGERS = local("killagers");
-    /** Mobs that rarely spawn, boosts drop rate of severing */
+    /** Entities in this tag may spawn with battle signs */
+    public static final TagKey<EntityType<?>> PIGLINS = common("piglins");
+    /** @deprecated use the chance fields on the severing recipe to adjust rates. */
+    @Deprecated(forRemoval = true)
     public static final TagKey<EntityType<?>> RARE_MOBS = local("rare_mobs");
+    /** Common tag of fishing bobbers. Note we don't use this so we don't bother adding vanilla to it. */
+    public static final TagKey<EntityType<?>> BOBBERS = common("bobber");
+
+    // tool logic
+    /**
+     * Entities in this tag either run proper hooks to use a melee weapon on left click or cause issues with our melee modifier logic.
+     * Anything not in this tag will attempt the fallback behavior which apply effects during damage events.
+     */
+    public static final TagKey<EntityType<?>> DAMAGE_MODIFIER_BLACKLIST = local("damage_modifier_blacklist");
+    /** Entities in this tag are unabled to be picked up by the piggybackpack */
+    public static final TagKey<EntityType<?>> PIGGYBACKPACK_BLACKLIST = local("piggybackpack_blacklist");
     /** Mobs that get the 4x protection boost due to only 1 armor piece */
     public static final TagKey<EntityType<?>> SMALL_ARMOR = common("small_armor");
 
+    // projectile logic
+    /** Projectiles with this tag will not be discarded by any relevant modifiers. */
+    public static final TagKey<EntityType<?>> REUSABLE_AMMO = common("reusable_ammo");
+    /** Trident like entities, to ensure they are preserved in the related hooks. */
+    public static final TagKey<EntityType<?>> TRIDENTS = common("tridents");
+
+
+    // modifiers
+
+    /** Entities in this tag take more damage from killager */
+    public static final TagKey<EntityType<?>> KILLAGERS = local("killagers");
+    /** Entities in this tag drop bacon from the tasty modifier */
+    public static final TagKey<EntityType<?>> BACON_PRODUCER = local("bacon_producer");
+    /** {@link net.minecraft.world.entity.projectile.AbstractArrow} with this tag will not run the enderference override. Ensures we run the proper damaging logic for weird arrows like tridents. */
+    public static final TagKey<EntityType<?>> ENDERFERENCE_ARROW_BLACKLIST = local("enderference_arrow_blacklist");
+    /** Entities that will not heal you using necrotic */
+    public static final TagKey<EntityType<?>> NECROTIC_BLACKLIST = local("necrotic_blacklist");
+
+    // melting
+    /** Entities in this tag are forced to show in JEI even if not living */
+    public static final TagKey<EntityType<?>> MELTING_SHOW = local("melting/show_in_default");
+    /** Entities in this tag are hidden from JEI and blacklisted from melting in the smeltery */
+    public static final TagKey<EntityType<?>> MELTING_HIDE = local("melting/hide_in_default");
+
+    // collecting
+    /** Things that can be collected using {@link net.minecraft.world.entity.Entity#playerTouch(Player)} using a fishing rod. */
+    public static final TagKey<EntityType<?>> COLLECTABLES = local("collectables");
+    /** {@link #COLLECTABLES} that should be discarded when they fail to collect. For example, arrows due to creative only pickup. */
+    public static final TagKey<EntityType<?>> DISCARDABLE_COLLECTABLES = local("collectables/discardable");
+
+    // reflecting
     /** Projectiles with this tag cannot be reflected */
-    public static final TagKey<EntityType<?>> REFLECTING_BLACKLIST = common("reflecting/blacklist");
+    public static final TagKey<EntityType<?>> REFLECTING_BLACKLIST = local("reflecting/blacklist");
     /** Projectiles with this tag cannot be reflected */
-    public static final TagKey<EntityType<?>> REFLECTING_PRESERVE_OWNER = common("reflecting/preserve_owner");
+    public static final TagKey<EntityType<?>> REFLECTING_PRESERVE_OWNER = local("reflecting/preserve_owner");
+
 
     private static TagKey<EntityType<?>> local(String name) {
       return TagKey.create(Registries.ENTITY_TYPE, getResource(name));
@@ -599,6 +724,9 @@ public class TinkerTags {
     /** Biomes the enderslime island can spawn in, generally the outer end islands */
     public static final TagKey<Biome> ENDERSLIME_ISLANDS = local("islands/enderslime");
 
+    /** Common tag for biomes that do not spawn monsters, to exclude terracube spawns there. */
+    public static final TagKey<Biome> NO_DEFAULT_MONSTERS = TagKey.create(Registries.BIOME, commonResource("no_default_monsters"));
+
     private static TagKey<Biome> local(String name) {
       return TagKey.create(Registries.BIOME, getResource(name));
     }
@@ -610,10 +738,14 @@ public class TinkerTags {
     public static final TagKey<Modifier> GEMS = local("gems");
     /** Blacklist for modifiers that cannot be hidden with invisible ink */
     public static final TagKey<Modifier> INVISIBLE_INK_BLACKLIST = local("invisible_ink_blacklist");
+    /** Blacklist for modifiers that cannot be removed via the general recipe */
+    public static final TagKey<Modifier> REMOVE_MODIFIER_BLACKLIST = local("remove_blacklist");
     /** Blacklist for modifiers that cannot be extracted via the general recipe */
     public static final TagKey<Modifier> EXTRACT_MODIFIER_BLACKLIST = local("extract_blacklist/tools");
     /** Blacklist for modifiers that cannot be extracted via the slotless recipe */
     public static final TagKey<Modifier> EXTRACT_SLOTLESS_BLACKLIST = local("extract_blacklist/slotless");
+    /** Blacklist for modifiers that cannot be extracted via the upgrade recipe */
+    public static final TagKey<Modifier> EXTRACT_UPGRADE_BLACKLIST = local("extract_blacklist/upgrade");
     /** Modifiers that support blocking while charging, for the sake of shields */
     public static final TagKey<Modifier> BLOCK_WHILE_CHARGING = local("block_while_charging");
     /** Modifiers that can be used on both left and right click. Does not care about armor modifiers */
@@ -629,6 +761,28 @@ public class TinkerTags {
     public static final TagKey<Modifier> CHARGE_EMPTY_BOW_WITH_DRAWTIME = local("charge_empty_bow/with_drawtime");
     /** Modifiers in this tag will allow charging a bow that has no ammo, but won't charge the bow */
     public static final TagKey<Modifier> CHARGE_EMPTY_BOW_WITHOUT_DRAWTIME = local("charge_empty_bow/without_drawtime");
+    /** Movement modifiers that can activate the drill attack */
+    public static final TagKey<Modifier> DRILL_ATTACKS = local("drill_attacks");
+    /** Sling modifiers that get a bonus from knockback. */
+    public static final TagKey<Modifier> KNOCKBACK_SLINGS = local("knockback_slings");
+    /** Sling modifiers that get a bonus from knockback, targeting yourself (so should add in attributes). */
+    public static final TagKey<Modifier> SELF_KNOCKBACK_SLINGS = local("knockback_slings/self");
+    /** Sling modifiers that get a bonus from knockback, targeting someone else (so attributes are automatically applied). */
+    public static final TagKey<Modifier> TARGET_KNOCKBACK_SLINGS = local("knockback_slings/target");
+
+    // durability tags - used by modifiers to change behavior
+    /** Modifiers in this tag bypass the tanned modifier, which reduces durability costs to 1. */
+    public static final TagKey<Modifier> BYPASS_TANNED = local("durability/bypass_tanned");
+    /** Modifiers in this tag bypass reinforced and unbreakable, preventing cancelling of damage. Other variants of precentage durability reduction may not use this. */
+    public static final TagKey<Modifier> BYPASS_REINFORCED = local("durability/bypass_reinforced");
+    /** Modifiers in this tag have their durability cost reduced to 0 by tanned. Implication is they are an additional application part of the original. */
+    public static final TagKey<Modifier> SECONDARY_DURABILITY = local("durability/secondary");
+    /** Modifiers in this tag bypass all forms of extra durability bars, including overslime, stoneshield, frostshield, etc. */
+    public static final TagKey<Modifier> BYPASS_EXTRA_DURABILITY = local("durability/bypass_extra_bar");
+    /** Modifiers in this tag bypass overslime for durability consumption. */
+    public static final TagKey<Modifier> BYPASS_OVERSLIME = local("durability/bypass_overslime");
+    /** Modifiers in this tag bypass frostshield for durability consumption. */
+    public static final TagKey<Modifier> BYPASS_FROSTSHIELD = local("durability/bypass_frostshield");
 
     // book tags - these are used to determine pages to load in resource packs
     // upgrades
@@ -668,6 +822,7 @@ public class TinkerTags {
     public static final TagKey<Modifier> SLOTLESS = local("slotless");
     public static final TagKey<Modifier> GENERAL_SLOTLESS = local("slotless/general");
     public static final TagKey<Modifier> BONUS_SLOTLESS = local("slotless/bonus");
+    public static final TagKey<Modifier> COSMETIC_SLOTLESS = local("slotless/cosmetic");
 
     // JEI
     public static final TagKey<Modifier> HIDDEN_FROM_RECIPE_VIEWERS = hiddenFromRecipeViewers(ModifierManager.REGISTRY_KEY);
@@ -680,12 +835,51 @@ public class TinkerTags {
 
   public static class Materials {
     private static void init() {}
-    /** Materials available in nether */
+    /** Materials available in nether. */
     public static final TagKey<IMaterial> NETHER = local("nether");
+    /** Materials that cannot be obtained without going to the nether. */
+    public static final TagKey<IMaterial> NETHER_GATED = local("nether/gated");
+
     /** Materials bartered from piglins */
     public static final TagKey<IMaterial> BARTERED = local("bartered");
     /** Materials not found on ancient tools or other loot sources */
     public static final TagKey<IMaterial> EXCLUDE_FROM_LOOT = local("exclude_from_loot");
+
+    /** Materials acting as compatability metals. Will allow them to use {@link slimeknights.tconstruct.tools.TinkerToolParts#fakeIngot} assuming they lack an ingot. */
+    public static final TagKey<IMaterial> COMPATABILITY_METALS = local("compatibility_metals");
+    /** Materials acting as compatability metals with a block form. Will allow them to use {@link slimeknights.tconstruct.tools.TinkerToolParts#fakeStorageBlock}. */
+    public static final TagKey<IMaterial> COMPATABILITY_BLOCKS = local("compatibility_metals/blocks");
+    /** Materials acting as compatability alloys. Will allow them to use {@link slimeknights.tconstruct.tables.TinkerTables#tinkersAnvil}. Typically, the same as {@link #COMPATABILITY_BLOCKS}, though left separate for datapack flexibility. */
+    public static final TagKey<IMaterial> COMPATABILITY_ALLOYS = local("compatibility_metals/alloys");
+
+    // tags for book material lists
+    /** Ammo materials to show in materials and you. Used instead of tiers due to non-standard ammo behavior. */
+    public static final TagKey<IMaterial> BASIC_AMMO = local("book/basic_ammo");
+    /** Materials gated behind blazing blood, typically tier 4. Will show in Fantastic Foundry. */
+    public static final TagKey<IMaterial> BLAZING_BLOOD = local("book/blazing_blood");
+    /** Materials found from late game exploration such as the end. */
+    public static final TagKey<IMaterial> DISTANT = local("book/distant");
+
+    // material categories
+    // melee harvest
+    /** Materials that work well at both melee and harvest tasks, often durability focused or all around */
+    public static final TagKey<IMaterial> GENERAL = local("melee_harvest/general");
+    /** Materials that work best on melee tools */
+    public static final TagKey<IMaterial> MELEE = local("melee_harvest/melee");
+    /** Materials that work well on harvest tools */
+    public static final TagKey<IMaterial> HARVEST = local("melee_harvest/harvest");
+
+    // ranged
+    /** Ranged materials with average drawspeed and velocity */
+    public static final TagKey<IMaterial> BALANCED = local("ranged/balanced");
+    /** Ranged materials that prioritize high speed or DPS */
+    public static final TagKey<IMaterial> LIGHT = local("ranged/light");
+    /** Ranged materials that maximize damage */
+    public static final TagKey<IMaterial> HEAVY = local("ranged/heavy");
+
+    // slimeskull
+    /** Materials that are a slimeskull. Mostly used for a sort order in books rather than having gameplay function. */
+    public static final TagKey<IMaterial> SLIMESKULL = local("slimeskull");
 
     @SuppressWarnings("SameParameterValue")  // may want more tags later
     private static TagKey<IMaterial> local(String name) {
@@ -708,6 +902,9 @@ public class TinkerTags {
     /** Damage types reduced by the feather falling modifier */
     public static final TagKey<DamageType> FALL_PROTECTION = local("protection/fall");
 
+    /** Damage types that can use modifiers. */
+    public static final TagKey<DamageType> MODIFIER_WHITELIST = local("modifier_whitelist");
+
     private static TagKey<DamageType> local(String name) {
       return TagKey.create(Registries.DAMAGE_TYPE, getResource(name));
     }
@@ -718,5 +915,12 @@ public class TinkerTags {
 
     /** Any menus that support being closed in favor of the tool inventory */
     public static final TagKey<MenuType<?>> TOOL_INVENTORY_REPLACEMENTS = TagKey.create(Registries.MENU, getResource("tool_inventory_replacements"));
+  }
+
+  public static class Potions {
+    private static void init() {}
+
+    /** Any potion variants in this tag will be hidden from the variants of the potion fluid shown in JEI. */
+    public static final TagKey<Potion> HIDDEN_FLUID = TagKey.create(Registries.POTION, getResource("hide_in_fluid"));
   }
 }

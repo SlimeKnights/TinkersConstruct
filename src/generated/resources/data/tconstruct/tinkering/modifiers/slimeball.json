@@ -1,0 +1,98 @@
+{
+  "level_display": "tconstruct:no_levels",
+  "modules": [
+    {
+      "type": "tconstruct:fireball",
+      "ammo_modifiers": [
+        {
+          "level": 1,
+          "name": "tconstruct:bounce"
+        }
+      ],
+      "damage_multiplier": 1.5,
+      "damage_type": {
+        "melee": "tconstruct:fluid_impact_melee",
+        "ranged": "tconstruct:fluid_impact_ranged"
+      },
+      "durability": {
+        "flat": 1
+      },
+      "options": [
+        {
+          "ammo_modifiers": [
+            {
+              "level": 2,
+              "name": "tconstruct:drawback"
+            }
+          ],
+          "damage_multiplier": 0.67,
+          "match": {
+            "tag": "forge:slimeball/earth"
+          }
+        },
+        {
+          "ammo_modifiers": [
+            {
+              "level": 1,
+              "name": "tconstruct:freezing"
+            }
+          ],
+          "damage_type": {
+            "melee": "tconstruct:fluid_cold_melee",
+            "ranged": "tconstruct:fluid_cold_ranged"
+          },
+          "match": {
+            "tag": "forge:slimeball/sky"
+          }
+        },
+        {
+          "ammo_modifiers": [
+            {
+              "level": 1,
+              "name": "tconstruct:fiery"
+            }
+          ],
+          "damage_type": {
+            "melee": "tconstruct:fluid_fire_melee",
+            "ranged": "tconstruct:fluid_fire_ranged"
+          },
+          "match": {
+            "tag": "forge:slimeball/ichor"
+          }
+        },
+        {
+          "ammo_modifiers": [
+            {
+              "level": 1,
+              "name": "tconstruct:enderclearance"
+            }
+          ],
+          "damage_type": {
+            "melee": "tconstruct:fluid_magic_melee",
+            "ranged": "tconstruct:fluid_magic_ranged"
+          },
+          "match": {
+            "tag": "forge:slimeball/ender"
+          }
+        },
+        {
+          "ammo_modifiers": [
+            {
+              "level": 1,
+              "name": "tconstruct:explosive"
+            }
+          ],
+          "damage_type": {
+            "melee": "tconstruct:mob_explosion_melee",
+            "ranged": "tconstruct:mob_explosion_ranged"
+          },
+          "match": {
+            "item": "minecraft:magma_cream"
+          }
+        }
+      ],
+      "sound": "tconstruct:slimy_bounce"
+    }
+  ],
+  "tooltip_display": "always"
+}

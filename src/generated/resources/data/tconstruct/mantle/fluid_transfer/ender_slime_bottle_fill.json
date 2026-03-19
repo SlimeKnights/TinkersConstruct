@@ -1,11 +1,11 @@
 {
   "type": "mantle:fill_item",
-  "filled": "tconstruct:ender_slime_bottle",
   "fluid": {
     "amount": 250,
     "tag": "tconstruct:ender_slime"
   },
   "input": {
     "item": "minecraft:glass_bottle"
-  }
+  },
+  "result": "tconstruct:ender_slime_bottle"
 }

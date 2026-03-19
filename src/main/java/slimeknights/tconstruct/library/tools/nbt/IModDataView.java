@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.tools.nbt;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.library.tools.SlotType;
@@ -118,5 +119,15 @@ public interface IModDataView {
    */
   default CompoundTag getCompound(ResourceLocation name) {
     return get(name, CompoundTag::getCompound);
+  }
+
+  /**
+   * Reads a list from the mod data
+   * @param name  Name
+   * @param type  List type
+   * @return  List value
+   */
+  default ListTag getList(ResourceLocation name, int type) {
+    return get(name, (tag, key) -> tag.getList(key, type));
   }
 }

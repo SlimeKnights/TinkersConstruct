@@ -1,0 +1,46 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:inventory",
+      "filter": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:slimeball_ammo"
+      },
+      "limit": {
+        "flat": 32
+      },
+      "pattern": "tconstruct:slimeball",
+      "slots": {
+        "each_level": 3
+      }
+    },
+    {
+      "type": "tconstruct:trick_quiver"
+    },
+    {
+      "type": "tconstruct:inventory_menu",
+      "on_key": "any"
+    },
+    {
+      "type": "tconstruct:requirements",
+      "display_modifiers": [
+        {
+          "level": 1,
+          "name": "tconstruct:slimeball"
+        }
+      ],
+      "requirement": {
+        "type": "tconstruct:has_modifier",
+        "check": "all",
+        "modifier": {
+          "type": "tconstruct:single",
+          "modifier": "tconstruct:slimeball"
+        }
+      },
+      "translation_key": "modifier.tconstruct.sliver.requirements"
+    }
+  ],
+  "priority": 70,
+  "tooltip_display": "always"
+}

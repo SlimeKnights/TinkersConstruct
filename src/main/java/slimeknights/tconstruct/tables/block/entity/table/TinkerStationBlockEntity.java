@@ -2,6 +2,8 @@ package slimeknights.tconstruct.tables.block.entity.table;
 
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -10,15 +12,21 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.client.model.data.ModelData;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.items.ItemHandlerHelper;
 import org.apache.commons.lang3.StringUtils;
+import slimeknights.mantle.util.RetexturedHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.SoundUtils;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
+import slimeknights.tconstruct.library.client.model.ModelProperties;
+import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
@@ -34,6 +42,9 @@ import slimeknights.tconstruct.tables.menu.TinkerStationContainerMenu;
 import slimeknights.tconstruct.tables.network.UpdateTinkerStationRecipePacket;
 
 import javax.annotation.Nullable;
+import java.util.Objects;
+
+import static slimeknights.tconstruct.library.tools.part.IMaterialItem.MATERIAL_TAG;
 
 public class TinkerStationBlockEntity extends RetexturedTableBlockEntity implements ILazyCrafter {
   /** Slot index of the tool slot */
@@ -55,13 +66,17 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
   /** Current result, may be modified again later */
   @Nullable
   private LazyToolStack result = null;
-
+  /** Error from the last recipe */
   @Nullable
   @Getter
   private Component currentError = null;
-
+  /** Current text in the text field */
   @Getter
   private String itemName = "";
+
+  /** Material variant texture, alterantive to {@link #getTexture()} in the model. */
+  @Getter
+  private MaterialVariantId material = IMaterial.UNKNOWN_ID;
 
   public TinkerStationBlockEntity(BlockPos pos, BlockState state) {
     // if the block is the right type, use it for slot count
@@ -206,6 +221,10 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
     ForgeEventFactory.firePlayerCraftingEvent(player, resultItem, this.inventoryWrapper);
     this.playCraftSound(player);
 
+    // fetch this before updating inputs so they can do input sensitive shrinking
+    ItemStack tinkerable = this.getItem(TINKER_SLOT);
+    int shrinkToolSlot = tinkerable.isEmpty() ? 0 : lastRecipe.shrinkToolSlotBy(result, inventoryWrapper);
+
     // run the recipe, will shrink inputs
     // run both sides for the sake of shift clicking
     this.inventoryWrapper.setPlayer(player);
@@ -213,9 +232,7 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
     this.inventoryWrapper.setPlayer(null);
 
     // remove the center slot item, just clear it entirely (if you want shrinking you should use the outer slots or ask nicely for a shrink amount hook)
-    ItemStack tinkerable = this.getItem(TINKER_SLOT);
-    if (!tinkerable.isEmpty()) {
-      int shrinkToolSlot = lastRecipe.shrinkToolSlotBy();
+    if (shrinkToolSlot > 0) {
       if (tinkerable.getCount() <= shrinkToolSlot) {
         this.setItem(TINKER_SLOT, ItemStack.EMPTY);
       } else {
@@ -236,7 +253,11 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
   @Override
   protected void playCraftSound(Player player) {
     if (isSoundReady(player)) {
-      SoundUtils.playSoundForAll(player, this.getInputCount() > 4 ? SoundEvents.ANVIL_USE : Sounds.SAW.getSound(), 0.8f, 0.8f + 0.4f * player.getRandom().nextFloat());
+      if (this.getInputCount() > 4) {
+        SoundUtils.playSoundForAll(player, SoundEvents.ANVIL_USE, 0.4f, 0.9f + 0.1f * player.getRandom().nextFloat());
+      } else {
+        SoundUtils.playSoundForAll(player, Sounds.SAW.getSound(), 0.8f, 0.8f + 0.4f * player.getRandom().nextFloat());
+      }
     }
   }
 
@@ -284,5 +305,53 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
   public void updateRecipe(ITinkerStationRecipe recipe) {
     this.lastRecipe = recipe;
     this.craftingResult.clearContent();
+  }
+
+
+  /* Texture */
+
+  @Override
+  public ModelData getModelData() {
+    // include material and texture, practically only one of the two should do anything
+    return RetexturedHelper.getModelDataBuilder(texture).with(ModelProperties.MATERIAL, material).build();
+  }
+
+  @Override
+  public void updateTexture(String name) {
+    // reset material
+    if (!name.isEmpty()) {
+      this.material = IMaterial.UNKNOWN_ID;
+    }
+    super.updateTexture(name);
+  }
+
+  /** Called to update the material on the block. */
+  public void setMaterial(MaterialVariantId material) {
+    MaterialVariantId oldMaterial = this.material;
+    // TODO: resolve redirects?
+    this.material = material;
+    // reset other texture
+    this.texture = Blocks.AIR;
+    if (!oldMaterial.equals(material)) {
+      setChangedFast();
+      RetexturedHelper.onTextureUpdated(this);
+    }
+  }
+
+  @Override
+  public void saveSynced(CompoundTag tags) {
+    super.saveSynced(tags);
+    if (material != IMaterial.UNKNOWN_ID) {
+      tags.putString(MATERIAL_TAG, material.toString());
+    }
+  }
+
+  @Override
+  public void load(CompoundTag tags) {
+    super.load(tags);
+    if (tags.contains(MATERIAL_TAG, Tag.TAG_STRING)) {
+      material = Objects.requireNonNullElse(MaterialVariantId.tryParse(tags.getString(MATERIAL_TAG)), IMaterial.UNKNOWN_ID);
+      RetexturedHelper.onTextureUpdated(this);
+    }
   }
 }

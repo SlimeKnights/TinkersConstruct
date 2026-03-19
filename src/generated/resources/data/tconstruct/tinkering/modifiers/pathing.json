@@ -2,10 +2,6 @@
   "level_display": "tconstruct:no_levels",
   "modules": [
     {
-      "type": "tconstruct:show_offhand",
-      "mode": "disallow_broken"
-    },
-    {
       "type": "tconstruct:campfire_extinguish"
     },
     {
@@ -22,6 +18,13 @@
       },
       "sound": "minecraft:item.shovel.flatten",
       "tool_action": "shovel_flatten"
+    },
+    {
+      "type": "tconstruct:show_offhand",
+      "mode": "disallow_broken"
+    },
+    {
+      "type": "tconstruct:show_interaction_source"
     }
   ],
   "tooltip_display": "always"

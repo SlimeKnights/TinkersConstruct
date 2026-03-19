@@ -12,7 +12,8 @@
     {
       "type": "tconstruct:protection",
       "damage_source": "mantle:can_protect",
-      "each_level": 2.5
+      "each_level": 2.5,
+      "wearing_entity": "mantle:crouching"
     }
   ],
   "tooltip_display": "always"

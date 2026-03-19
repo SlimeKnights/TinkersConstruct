@@ -45,6 +45,11 @@
     },
     {
       "type": "tconstruct:reduce_tool_damage",
+      "cause": {
+        "type": "mantle:inverted",
+        "inverted_type": "tconstruct:tag",
+        "tag": "tconstruct:durability/bypass_reinforced"
+      },
       "flat": 1.0
     }
   ],

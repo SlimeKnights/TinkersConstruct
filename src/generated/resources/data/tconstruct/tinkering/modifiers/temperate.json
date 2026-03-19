@@ -1,0 +1,138 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:conditional_mining_speed",
+      "formula": [
+        "$temperature",
+        0.75,
+        "!-",
+        "non-negative",
+        "$level",
+        "*",
+        6.0,
+        "*",
+        "$multiplier",
+        "*",
+        "$speed",
+        "+"
+      ],
+      "percent": false,
+      "require_effective": true,
+      "variables": {
+        "temperature": {
+          "type": "tconstruct:biome_temperature",
+          "fallback": -0.5
+        }
+      }
+    },
+    {
+      "type": "tconstruct:conditional_stat",
+      "formula": [
+        "$temperature",
+        0.75,
+        "!-",
+        "non-negative",
+        "$level",
+        "*",
+        0.120000005,
+        "*",
+        "$multiplier",
+        "*",
+        "$value",
+        "+"
+      ],
+      "percent": false,
+      "stat": "tconstruct:draw_speed",
+      "variables": {
+        "temperature": {
+          "type": "tconstruct:entity",
+          "entity_type": "tconstruct:biome_temperature",
+          "fallback": -0.5
+        }
+      }
+    },
+    {
+      "type": "tconstruct:protection",
+      "damage_source": "mantle:can_protect",
+      "formula": [
+        "$temperature",
+        0.75,
+        "!-",
+        "non-negative",
+        "$level",
+        "*",
+        "$protection",
+        "+"
+      ],
+      "tool": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:modifiable/armor"
+      },
+      "variables": {
+        "temperature": {
+          "type": "tconstruct:entity",
+          "entity_type": "tconstruct:biome_temperature",
+          "fallback": 0.75,
+          "which": "target"
+        }
+      }
+    },
+    {
+      "type": "tconstruct:reduce_tool_damage",
+      "cause": {
+        "type": "mantle:inverted",
+        "inverted_type": "tconstruct:tag",
+        "tag": "tconstruct:durability/bypass_reinforced"
+      },
+      "formula": [
+        "$temperature",
+        0.75,
+        "-",
+        "non-negative",
+        "$level",
+        "*",
+        1.6,
+        "*",
+        "duplicate",
+        "duplicate",
+        11.0,
+        "!-",
+        "*",
+        0.025,
+        "*",
+        "swap",
+        "duplicate",
+        5.0,
+        ">=",
+        "swap",
+        5.0,
+        "-",
+        0.05,
+        "*",
+        0.75,
+        "+",
+        "*",
+        "max"
+      ],
+      "reinforced_tooltip": true,
+      "tool": {
+        "type": "tconstruct:has_modifier",
+        "check": "all",
+        "level": 0,
+        "modifier": {
+          "type": "tconstruct:single",
+          "modifier": "tconstruct:unbreakable"
+        }
+      },
+      "variables": {
+        "temperature": {
+          "type": "tconstruct:entity",
+          "entity_type": "tconstruct:biome_temperature",
+          "fallback": 2.0
+        }
+      }
+    }
+  ],
+  "tooltip_display": "always"
+}

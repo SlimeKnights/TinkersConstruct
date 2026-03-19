@@ -1,8 +1,12 @@
 package slimeknights.tconstruct.common.data.tags;
 
 import net.minecraft.core.HolderLookup.Provider;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.DamageTypeTagsProvider;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
 import slimeknights.tconstruct.TConstruct;
@@ -11,6 +15,8 @@ import java.util.concurrent.CompletableFuture;
 
 import static net.minecraft.tags.DamageTypeTags.AVOIDS_GUARDIAN_THORNS;
 import static net.minecraft.tags.DamageTypeTags.BYPASSES_ARMOR;
+import static net.minecraft.tags.DamageTypeTags.BYPASSES_COOLDOWN;
+import static net.minecraft.tags.DamageTypeTags.BYPASSES_EFFECTS;
 import static net.minecraft.tags.DamageTypeTags.BYPASSES_ENCHANTMENTS;
 import static net.minecraft.tags.DamageTypeTags.IS_EXPLOSION;
 import static net.minecraft.tags.DamageTypeTags.IS_FALL;
@@ -22,6 +28,7 @@ import static net.minecraft.tags.DamageTypeTags.WITCH_RESISTANT_TO;
 import static net.minecraft.world.damagesource.DamageTypes.CRAMMING;
 import static net.minecraft.world.damagesource.DamageTypes.DRAGON_BREATH;
 import static net.minecraft.world.damagesource.DamageTypes.FALLING_ANVIL;
+import static net.minecraft.world.damagesource.DamageTypes.FALLING_BLOCK;
 import static net.minecraft.world.damagesource.DamageTypes.FALLING_STALACTITE;
 import static net.minecraft.world.damagesource.DamageTypes.FLY_INTO_WALL;
 import static net.minecraft.world.damagesource.DamageTypes.MOB_ATTACK;
@@ -31,7 +38,9 @@ import static net.minecraft.world.damagesource.DamageTypes.STING;
 import static net.minecraft.world.damagesource.DamageTypes.WITHER;
 import static net.minecraft.world.damagesource.DamageTypes.WITHER_SKULL;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.BLEEDING;
+import static slimeknights.tconstruct.common.TinkerDamageTypes.ENTANGLED;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.EXPLOSION;
+import static slimeknights.tconstruct.common.TinkerDamageTypes.FISHING_HOOK;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.FLUID_COLD;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.FLUID_FIRE;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.FLUID_IMPACT;
@@ -40,16 +49,22 @@ import static slimeknights.tconstruct.common.TinkerDamageTypes.FLUID_SPIKE;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.MOB_EXPLOSION;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.PIERCING;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.SELF_DESTRUCT;
+import static slimeknights.tconstruct.common.TinkerDamageTypes.SHOCK;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.SMELTERY_HEAT;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.SMELTERY_MAGIC;
+import static slimeknights.tconstruct.common.TinkerDamageTypes.SPINY;
+import static slimeknights.tconstruct.common.TinkerDamageTypes.THROWN_TOOL;
+import static slimeknights.tconstruct.common.TinkerDamageTypes.UPDATE_HEALTH;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.WATER;
 import static slimeknights.tconstruct.common.TinkerTags.DamageTypes.BLAST_PROTECTION;
 import static slimeknights.tconstruct.common.TinkerTags.DamageTypes.FALL_PROTECTION;
 import static slimeknights.tconstruct.common.TinkerTags.DamageTypes.FIRE_PROTECTION;
 import static slimeknights.tconstruct.common.TinkerTags.DamageTypes.MAGIC_PROTECTION;
 import static slimeknights.tconstruct.common.TinkerTags.DamageTypes.MELEE_PROTECTION;
+import static slimeknights.tconstruct.common.TinkerTags.DamageTypes.MODIFIER_WHITELIST;
 import static slimeknights.tconstruct.common.TinkerTags.DamageTypes.PROJECTILE_PROTECTION;
 
+@SuppressWarnings("removal")
 public class DamageTypeTagProvider extends DamageTypeTagsProvider {
   public DamageTypeTagProvider(PackOutput packOutput, CompletableFuture<Provider> lookup, @Nullable ExistingFileHelper existingFileHelper) {
     super(packOutput, lookup, TConstruct.MOD_ID, existingFileHelper);
@@ -62,18 +77,40 @@ public class DamageTypeTagProvider extends DamageTypeTagsProvider {
     tag(IS_EXPLOSION).add(SELF_DESTRUCT).add(EXPLOSION.values()).add(MOB_EXPLOSION.values());
     tag(IS_FREEZING).add(FLUID_COLD.values());
     tag(WITCH_RESISTANT_TO).add(SMELTERY_MAGIC).add(FLUID_MAGIC.values());
-    tag(BYPASSES_ARMOR).add(PIERCING, SELF_DESTRUCT, BLEEDING).add(WATER.values()).add(FLUID_SPIKE.values());
+    tag(BYPASSES_ARMOR).add(PIERCING, SELF_DESTRUCT, BLEEDING, ENTANGLED, SPINY, UPDATE_HEALTH).add(WATER.values()).add(FLUID_SPIKE.values());
     tag(BYPASSES_ENCHANTMENTS).add(BLEEDING);
-    tag(AVOIDS_GUARDIAN_THORNS).add(BLEEDING);
+    tag(BYPASSES_COOLDOWN).add(UPDATE_HEALTH);
+    tag(BYPASSES_EFFECTS).add(ENTANGLED, SPINY, UPDATE_HEALTH);
+    tag(AVOIDS_GUARDIAN_THORNS).add(BLEEDING, SHOCK);
     // whole reason these are a pair is so we can tag one as projectile
-    tag(IS_PROJECTILE).add(FLUID_IMPACT.ranged(), FLUID_FIRE.ranged(), FLUID_COLD.ranged(), FLUID_MAGIC.ranged(), WATER.ranged(), FLUID_SPIKE.ranged(), EXPLOSION.ranged(), MOB_EXPLOSION.ranged());
+    tag(IS_PROJECTILE).add(THROWN_TOOL, FISHING_HOOK, FLUID_IMPACT.ranged(), FLUID_FIRE.ranged(), FLUID_COLD.ranged(), FLUID_MAGIC.ranged(), WATER.ranged(), FLUID_SPIKE.ranged(), EXPLOSION.ranged(), MOB_EXPLOSION.ranged());
+
+    // modifiers
+    tag(MODIFIER_WHITELIST).add(MOB_ATTACK, MOB_ATTACK_NO_AGGRO);
 
     // protection modifier tags
-    tag(MELEE_PROTECTION).add(PLAYER_ATTACK, MOB_ATTACK, MOB_ATTACK_NO_AGGRO, CRAMMING, STING);
-    tag(PROJECTILE_PROTECTION).addTag(IS_PROJECTILE).add(FALLING_ANVIL, FALLING_ANVIL, FALLING_STALACTITE);
-    tag(FIRE_PROTECTION).addTags(IS_FIRE, IS_LIGHTNING);
+    tag(MELEE_PROTECTION).add(PLAYER_ATTACK, MOB_ATTACK, MOB_ATTACK_NO_AGGRO, CRAMMING, STING, FLUID_IMPACT.melee(), FLUID_SPIKE.melee());
+    tag(PROJECTILE_PROTECTION).addTag(IS_PROJECTILE).add(FALLING_ANVIL, FALLING_BLOCK, FALLING_STALACTITE);
+    tag(FIRE_PROTECTION).addTags(IS_FIRE, IS_LIGHTNING).add(SHOCK);
     tag(BLAST_PROTECTION).addTag(IS_EXPLOSION);
     tag(MAGIC_PROTECTION).addTag(WITCH_RESISTANT_TO).add(WITHER, WITHER_SKULL, DRAGON_BREATH);
     tag(FALL_PROTECTION).addTag(IS_FALL).add(FLY_INTO_WALL);
+
+    // TF support
+    String tf = "twilightforest";
+    addOptional(MODIFIER_WHITELIST, tf, "axing", "slam", "ant");
+    addOptional(MELEE_PROTECTION, tf, "ghast_tear", "hydra_bite", "squish", "axing", "slam", "yeeted", "ant", "clamped", "spiked");
+    addOptional(MAGIC_PROTECTION, tf, "haunt", "ominous_fire", "twilight_scepter");
+    addOptional(PROJECTILE_PROTECTION, tf, "falling_ice");
+    // anything "magic" is good against lich shields, so tag our magic fluids
+    tag(TagKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(tf, "breaks_lich_shields"))).add(FLUID_MAGIC.values());
+  }
+
+  /** Adds the given IDs from the given domain to the tag as optional entries. */
+  private void addOptional(TagKey<DamageType> tag, String domain, String... names) {
+    TagAppender<DamageType> appender = tag(tag);
+    for (String name : names) {
+      appender.addOptional(new ResourceLocation(domain, name));
+    }
   }
 }

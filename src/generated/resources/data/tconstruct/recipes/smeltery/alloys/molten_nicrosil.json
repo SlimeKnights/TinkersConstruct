@@ -1,0 +1,139 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:and",
+          "values": [
+            {
+              "type": "mantle:tag_filled",
+              "tag": "forge:ingots/chromium"
+            },
+            {
+              "type": "mantle:tag_filled",
+              "tag": "forge:ingots/nickel"
+            }
+          ]
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:alloy",
+        "inputs": [
+          {
+            "amount": 180,
+            "tag": "forge:molten_nickel"
+          },
+          {
+            "amount": 90,
+            "tag": "forge:molten_chromium"
+          },
+          {
+            "amount": 100,
+            "tag": "tconstruct:molten_quartz"
+          }
+        ],
+        "result": {
+          "amount": 360,
+          "tag": "forge:molten_nicrosil"
+        },
+        "temperature": 1100
+      }
+    },
+    {
+      "conditions": [
+        {
+          "type": "forge:and",
+          "values": [
+            {
+              "type": "mantle:tag_filled",
+              "tag": "forge:ingots/nickel"
+            }
+          ]
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:alloy",
+        "inputs": [
+          {
+            "amount": 180,
+            "tag": "forge:molten_nickel"
+          },
+          {
+            "amount": 100,
+            "tag": "tconstruct:molten_emerald"
+          },
+          {
+            "amount": 100,
+            "tag": "tconstruct:molten_quartz"
+          }
+        ],
+        "result": {
+          "amount": 360,
+          "tag": "forge:molten_nicrosil"
+        },
+        "temperature": 1100
+      }
+    },
+    {
+      "conditions": [
+        {
+          "type": "mantle:tag_filled",
+          "tag": "forge:ingots/chromium"
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:alloy",
+        "inputs": [
+          {
+            "amount": 180,
+            "tag": "forge:molten_chromium"
+          },
+          {
+            "amount": 90,
+            "tag": "forge:molten_iron"
+          },
+          {
+            "amount": 100,
+            "tag": "tconstruct:molten_quartz"
+          }
+        ],
+        "result": {
+          "amount": 360,
+          "tag": "forge:molten_nicrosil"
+        },
+        "temperature": 1100
+      }
+    },
+    {
+      "conditions": [
+        {
+          "type": "mantle:tag_filled",
+          "tag": "forge:ingots/tin"
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:alloy",
+        "inputs": [
+          {
+            "amount": 180,
+            "tag": "forge:molten_tin"
+          },
+          {
+            "amount": 100,
+            "tag": "tconstruct:molten_emerald"
+          },
+          {
+            "amount": 100,
+            "tag": "tconstruct:molten_quartz"
+          }
+        ],
+        "result": {
+          "amount": 360,
+          "tag": "forge:molten_nicrosil"
+        },
+        "temperature": 1100
+      }
+    }
+  ]
+}

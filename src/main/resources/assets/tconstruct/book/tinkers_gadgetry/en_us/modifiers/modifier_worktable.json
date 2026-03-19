@@ -1,7 +1,0 @@
-{
-  "title": "Modifier Worktable",
-  "recipe": "tconstruct:tables/modifier_worktable",
-  "description": [
-    { "text": "Arranging seared stone like this makes it easier to target a specific modifier in the recipes." }
-  ]
-}

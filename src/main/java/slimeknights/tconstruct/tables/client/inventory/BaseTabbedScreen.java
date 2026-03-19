@@ -29,6 +29,7 @@ public class BaseTabbedScreen<TILE extends BlockEntity, CONTAINER extends Tabbed
   protected static final Component COMPONENT_ERROR = TConstruct.makeTranslation("gui", "error");
 
   public static final ResourceLocation BLANK_BACK = TConstruct.getResource("textures/gui/blank.png");
+  public static final ResourceLocation BLANK_BACK_PLUS_1 = TConstruct.getResource("textures/gui/blank_extra_row.png");
 
   @Nullable
   protected final TILE tile;

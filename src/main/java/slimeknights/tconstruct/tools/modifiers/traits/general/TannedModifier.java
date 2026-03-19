@@ -10,10 +10,11 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nullable;
 
+/** @deprecated use {@link slimeknights.tconstruct.tools.modules.durability.ToolDamageRangeModule} */
+@Deprecated(forRemoval = true)
 public class TannedModifier extends NoLevelsModifier implements ToolDamageModifierHook {
   @Override
   protected void registerHooks(Builder hookBuilder) {
-    super.registerHooks(hookBuilder);
     hookBuilder.addHook(this, ModifierHooks.TOOL_DAMAGE);
   }
 

@@ -1,0 +1,32 @@
+{
+  "color": "FFED8DAC",
+  "generator": {
+    "supported_stats": [
+      "tconstruct:arrow_head"
+    ],
+    "transformer": {
+      "type": "tconstruct:grey_to_sprite",
+      "palette": [
+        {
+          "color": "FF000000",
+          "grey": 0
+        },
+        {
+          "color": "FF404040",
+          "grey": 63,
+          "path": "minecraft:block/pink_wool"
+        },
+        {
+          "color": "FF808080",
+          "grey": 102,
+          "path": "minecraft:block/pink_wool"
+        },
+        {
+          "grey": 140,
+          "path": "minecraft:block/pink_wool"
+        }
+      ]
+    },
+    "variant": true
+  }
+}

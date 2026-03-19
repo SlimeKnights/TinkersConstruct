@@ -32,8 +32,10 @@ import java.util.UUID;
 import java.util.function.BiConsumer;
 
 /**
- * Shared logic for jagged and stonebound. Trait boosts attack damage as it lowers mining speed.
+ * Use {@link slimeknights.tconstruct.library.modifiers.modules.mining.ConditionalMiningSpeedModule} and {@link slimeknights.tconstruct.library.modifiers.modules.combat.ConditionalMeleeDamageModule}
+ * with {@link slimeknights.tconstruct.library.json.variable.tool.ToolVariable#CURRENT_DAMAGE} and {@link slimeknights.tconstruct.library.json.variable.tool.StatMultiplierVariable}
  */
+@Deprecated(forRemoval = true)
 public class DamageSpeedTradeModifier extends Modifier implements AttributesModifierHook, TooltipModifierHook, BreakSpeedModifierHook {
   private static final Component MINING_SPEED = TConstruct.makeTranslation("armor_stat", "mining_speed");
   private final float multiplier;

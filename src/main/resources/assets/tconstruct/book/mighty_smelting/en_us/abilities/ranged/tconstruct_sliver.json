@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:sliver",
+  "text": [
+    {
+      "text": "Outsmart your opponents with surprising damage types!"
+    }
+  ],
+  "effects": [
+    "Each level adds 3 toggleable slimeball slots",
+    "Switch slots on interact, configure with worktable",
+    "Requires 1 ability slot per level",
+    "Requires Slimeball"
+  ]
+}

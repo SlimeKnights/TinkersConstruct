@@ -1,0 +1,27 @@
+{
+  "type": "tconstruct:crafting_shaped_materials",
+  "category": "misc",
+  "key": {
+    "m": {
+      "type": "tconstruct:material",
+      "item": "tconstruct:fake_storage_block",
+      "material": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:compatibility_metals/alloys"
+      }
+    },
+    "s": {
+      "tag": "tconstruct:scorched_blocks"
+    }
+  },
+  "parts": "m",
+  "pattern": [
+    "mmm",
+    " s ",
+    "sss"
+  ],
+  "result": {
+    "item": "tconstruct:scorched_anvil"
+  },
+  "show_notification": true
+}

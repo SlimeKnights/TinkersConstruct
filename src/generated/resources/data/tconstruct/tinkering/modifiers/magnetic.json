@@ -1,0 +1,26 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:tool_usage_mob_effect",
+      "effect": "tconstruct:magnetic",
+      "level": {
+        "flat": 1.0
+      },
+      "time": {
+        "flat": 40.0
+      }
+    },
+    {
+      "type": "tconstruct:volatile_int",
+      "each_level": 1,
+      "flag": "tconstruct:magnet"
+    },
+    {
+      "type": "tconstruct:armor_level",
+      "allow_broken": false,
+      "key": "tconstruct:magnet"
+    }
+  ],
+  "tooltip_display": "always"
+}

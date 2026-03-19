@@ -23,6 +23,11 @@ public record IntRange(int min, int max) implements IntPredicate, Loadable<IntRa
     return min <= value && value <= max;
   }
 
+  /** Checks if the range is a single number exactly */
+  public boolean isExactly(int value) {
+    return min == value && max == value;
+  }
+
   /* Creating */
 
   /**

@@ -1,11 +1,11 @@
 {
   "type": "mantle:fill_item",
-  "filled": "tconstruct:magma_bottle",
   "fluid": {
     "amount": 250,
     "tag": "forge:magma"
   },
   "input": {
     "item": "minecraft:glass_bottle"
-  }
+  },
+  "result": "tconstruct:magma_bottle"
 }

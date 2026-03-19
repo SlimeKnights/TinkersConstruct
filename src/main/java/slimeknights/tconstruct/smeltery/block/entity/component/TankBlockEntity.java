@@ -8,7 +8,9 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.model.data.ModelData;
@@ -17,11 +19,14 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidType;
+import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import slimeknights.tconstruct.common.multiblock.IMasterLogic;
 import slimeknights.tconstruct.library.client.model.ModelProperties;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.library.utils.NBTTags;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock;
 import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock.TankType;
 import slimeknights.tconstruct.smeltery.block.entity.ITankBlockEntity;
 import slimeknights.tconstruct.smeltery.item.TankItem;
@@ -113,24 +118,38 @@ public class TankBlockEntity extends SmelteryComponentBlockEntity implements ITa
                     .with(ModelProperties.TANK_CAPACITY, tank.getCapacity()).build();
   }
 
+  /** Updates the light for this tank using {@link SearedTankBlock#LIGHT} */
+  public static void updateLight(BlockEntity be, IFluidTank tank) {
+    Level level = be.getLevel();
+    if (level != null && !level.isClientSide) {
+      FluidStack fluid = tank.getFluid();
+      int light = fluid.isEmpty() ? 0 : fluid.getFluid().getFluidType().getLightLevel(fluid);
+      BlockState state = be.getBlockState();
+      if (light != state.getValue(SearedTankBlock.LIGHT)) {
+        level.setBlock(be.getBlockPos(), state.setValue(SearedTankBlock.LIGHT, light), Block.UPDATE_CLIENTS);
+      }
+    }
+  }
+
   @Override
   public void onTankContentsChanged() {
     ITankBlockEntity.super.onTankContentsChanged();
     if (this.level != null) {
-      level.getLightEngine().checkBlock(this.worldPosition);
+      updateLight(this, tank);
       this.requestModelDataUpdate();
     }
   }
 
   @Override
-  public void updateFluidTo(FluidStack fluid) {
-    ITankBlockEntity.super.updateFluidTo(fluid);
-    // update light if the fluid changes
-    if (this.level != null) {
-      level.getLightEngine().checkBlock(this.worldPosition);
+  public void onLoad() {
+    super.onLoad();
+    if (level != null && !level.isClientSide) {
+      BlockPos masterPos = getMasterPos();
+      if (masterPos != null && level.getBlockEntity(masterPos) instanceof IMasterLogic master) {
+        master.onServantLoad(this);
+      }
     }
   }
-
 
   /*
    * NBT
@@ -153,9 +172,7 @@ public class TankBlockEntity extends SmelteryComponentBlockEntity implements ITa
       tank.setFluid(FluidStack.EMPTY);
     } else {
       tank.readFromNBT(nbt);
-      if (level != null) {
-        level.getLightEngine().checkBlock(worldPosition);
-      }
+      updateLight(this, tank);
     }
   }
 

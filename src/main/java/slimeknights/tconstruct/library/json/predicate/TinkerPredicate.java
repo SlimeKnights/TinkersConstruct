@@ -1,10 +1,16 @@
 package slimeknights.tconstruct.library.json.predicate;
 
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArrowItem;
+import net.minecraft.world.item.BucketItem;
+import net.minecraft.world.item.MapItem;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour.BlockStateBase;
+import net.minecraft.world.phys.HitResult.Type;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.block.BlockPredicate;
@@ -12,7 +18,9 @@ import slimeknights.mantle.data.predicate.damage.DamageSourcePredicate;
 import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
 import slimeknights.mantle.data.predicate.item.ItemPredicate;
 import slimeknights.tconstruct.library.modifiers.hook.armor.OnAttackedModifierHook;
+import slimeknights.tconstruct.library.recipe.casting.CastingRecipeLookup;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipeLookup;
+import slimeknights.tconstruct.library.tools.item.ModifiableItem;
 
 import javax.annotation.Nullable;
 
@@ -25,13 +33,30 @@ public class TinkerPredicate {
 
   /** Entities that are in the air, notably does not count you as airborne if swimming, riding, or climbing */
   public static LivingEntityPredicate AIRBORNE = LivingEntityPredicate.simple(entity -> !entity.onGround() && !entity.onClimbable() && !entity.isInWater() && !entity.isPassenger());
+  /** Players that are targeting a block */
+  public static LivingEntityPredicate TARGETING_BLOCK = LivingEntityPredicate.simple(living -> {
+    if (living instanceof Player player) {
+      return ModifiableItem.blockRayTrace(living.level(), player, ClipContext.Fluid.NONE).getType() == Type.BLOCK;
+    }
+    return false;
+  });
+  /** Matches entities that have not lost any health. We use the ceiling of current health to match the health renderer. */
+  public static LivingEntityPredicate FULL_HEALTH = LivingEntityPredicate.simple(entity -> Math.ceil(entity.getHealth()) >= entity.getMaxHealth());
 
+  /** Predicate matching any buckets */
+  public static ItemPredicate BUCKET = ItemPredicate.simple(item -> item instanceof BucketItem);
   /** Predicate matching any arrows */
   public static ItemPredicate ARROW = ItemPredicate.simple(item -> item instanceof ArrowItem);
+  /** Predicate matching any maps */
+  public static ItemPredicate MAP = ItemPredicate.simple(item -> item instanceof MapItem);
+  /** Predicate matching any items with a remainder after crafting. */
+  public static ItemPredicate CASTABLE = ItemPredicate.simple(CastingRecipeLookup::isCastable);
 
-  /** Predicate matching blocks that block motion */
+  /** @deprecated use {@link BlockPredicate#BLOCKS_MOTION} */
+  @Deprecated
   public static BlockPredicate BLOCKS_MOTION = BlockPredicate.simple(BlockStateBase::blocksMotion);
-  /** Predicate matching blocks that can be replaced when placing blocks */
+  /** @deprecated use {@link BlockPredicate#CAN_BE_REPLACED} */
+  @Deprecated
   public static BlockPredicate CAN_BE_REPLACED = BlockPredicate.simple(BlockStateBase::canBeReplaced);
   /** Predicate matching bush blocks */
   public static BlockPredicate BUSH = BlockPredicate.simple(state -> state.getBlock() instanceof BushBlock);
@@ -46,6 +71,11 @@ public class TinkerPredicate {
       return predicate == LivingEntityPredicate.ANY;
     }
     return predicate.matches(entity);
+  }
+
+  /** Helper for dealing with the common case of matching an entity with a living entity predicate. */
+  public static boolean matches(IJsonPredicate<LivingEntity> predicate, @Nullable Entity entity) {
+    return predicate == LivingEntityPredicate.ANY || entity instanceof LivingEntity living && predicate.matches(living);
   }
 
   /** Checks if the condition matches in a tooltip context */

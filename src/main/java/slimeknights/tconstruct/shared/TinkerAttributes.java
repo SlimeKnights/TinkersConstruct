@@ -3,12 +3,15 @@ package slimeknights.tconstruct.shared;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.RegistryObject;
+import slimeknights.mantle.registration.deferred.AttributeDeferredRegister;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.common.registration.AttributeDeferredRegister;
+import slimeknights.tconstruct.common.config.Config;
 
 public class TinkerAttributes {
   private static final AttributeDeferredRegister ATTRIBUTES = new AttributeDeferredRegister(TConstruct.MOD_ID);
@@ -32,6 +35,8 @@ public class TinkerAttributes {
   // stat bonuses
   /** Bonus jump height in blocks */
   public static final RegistryObject<Attribute> JUMP_BOOST = ATTRIBUTES.register("generic.jump_boost", 0, 0, 100, true);
+  /** Distance you can safely fall without damage */
+  public static final RegistryObject<Attribute> SAFE_FALL_DISTANCE = ATTRIBUTES.register("generic.safe_fall_distance", 0, -10, 100, true);
   /** Number of jumps the player may perform, used by the double jump modifier. */
   public static final RegistryObject<Attribute> JUMP_COUNT = ATTRIBUTES.register("player.jump_count", 1, 1, 100, true);
 
@@ -63,10 +68,21 @@ public class TinkerAttributes {
     addToAll(event, BOUNCY);
     addToAll(event, PROTECTION_CAP);
     addToAll(event, JUMP_BOOST);
+    addToAll(event, SAFE_FALL_DISTANCE);
     addToAll(event, CROUCH_DAMAGE_MULTIPLIER);
     addToAll(event, KNOCKBACK_MULTIPLIER);
     addToAll(event, GOOD_EFFECT_DURATION);
     addToAll(event, BAD_EFFECT_DURATION);
+  }
+
+  @SubscribeEvent
+  void commonSetup(FMLCommonSetupEvent event) {
+    event.enqueueWork(() -> {
+      // make knockback resistance syncable, as we need that info clientside
+      if (Config.COMMON.syncKnockbackResistance.get()) {
+        Attributes.KNOCKBACK_RESISTANCE.setSyncable(true);
+      }
+    });
   }
 
   /** Adds an attribute to all entities */

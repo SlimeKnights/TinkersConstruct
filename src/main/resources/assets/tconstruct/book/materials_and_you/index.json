@@ -9,17 +9,37 @@
   {
     "name": "melee_harvest_materials",
     "data": "no-load",
-    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:melee_harvest", "tier": 1 } },
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:melee_harvest", "tier": { "min": 0, "max": 1 }, "predicate": { "type": "mantle:inverted", "inverted_type": "mantle:tag", "tag": "tconstruct:book/distant" }}},
     "icon": {
-      "item": "minecraft:stone"
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:tool_binding",
+        "nbt": { "Material": "tconstruct:rock#stone" }
+      }
     }
   },
   {
     "name": "ranged_materials",
     "data": "no-load",
-    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:ranged", "tier": 1 } },
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:ranged", "tier": { "min": 0, "max": 1 }, "predicate": { "type": "mantle:inverted", "inverted_type": "mantle:tag", "tag": "tconstruct:book/distant" }}},
     "icon": {
-      "item": "minecraft:bamboo"
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:bowstring",
+        "nbt": { "Material": "tconstruct:string" }
+      }
+    }
+  },
+  {
+    "name": "ammo_materials",
+    "data": "no-load",
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:ammo", "tag": "tconstruct:book/basic_ammo" }},
+    "icon": {
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:arrow_shaft",
+        "nbt": { "Material": "tconstruct:bamboo" }
+      }
     }
   },
   {
@@ -40,9 +60,6 @@
           ]
         }
       }
-    },
-    "extraData": {
-      "tconstruct:load_tools": { "tag": "tconstruct:modifiable/small", "path": "tools" }
     }
   },
   {

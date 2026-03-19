@@ -23,11 +23,19 @@
           },
           {
             "color": "FF820000",
+            "grey": 127
+          },
+          {
+            "color": "FF930000",
             "grey": 140
           },
           {
             "color": "FFA00000",
             "grey": 178
+          },
+          {
+            "color": "FFAB0000",
+            "grey": 193
           },
           {
             "color": "FFB80000",

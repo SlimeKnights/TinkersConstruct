@@ -3,11 +3,12 @@
   "parent": "forge:item/default",
   "textures": {
     "base": "tconstruct:item/tool/armor/travelers/goggles/base_broken",
+    "cuirass": "tconstruct:item/tool/armor/travelers/goggles/cuirass_broken",
     "metal": "tconstruct:item/tool/armor/travelers/goggles/metal_broken"
   },
-  "modifier_roots": [
-    "tconstruct:item/tool/armor/travelers/goggles/modifiers/broken/",
-    "tconstruct:item/tool/armor/travelers/goggles/modifiers/"
+  "modifier_maps": [
+    "tconstruct:travelers/goggles_broken",
+    "tconstruct:travelers/goggles"
   ],
   "first_modifiers": [
     "tconstruct:dyed"
@@ -15,6 +16,10 @@
   "parts": [
     {
       "name": "base"
+    },
+    {
+      "name": "cuirass",
+      "index": 1
     },
     {
       "name": "metal",

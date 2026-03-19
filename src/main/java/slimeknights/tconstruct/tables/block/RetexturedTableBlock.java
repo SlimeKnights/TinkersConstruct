@@ -22,8 +22,8 @@ public abstract class RetexturedTableBlock extends TabbedTableBlock {
   }
 
   @Override
-  public void appendHoverText(ItemStack stack, @Nullable BlockGetter pLevel, List<Component> tooltip, TooltipFlag pFlag) {
-    RetexturedHelper.addTooltip(stack, tooltip);
+  public void appendHoverText(ItemStack stack, @Nullable BlockGetter pLevel, List<Component> tooltip, TooltipFlag flag) {
+    RetexturedHelper.addTooltip(stack, tooltip, flag);
   }
 
   @Override

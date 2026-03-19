@@ -1,0 +1,9 @@
+{
+  "values": [
+    "minecraft:golden_boots",
+    {
+      "id": "twilightforest:gold_minotaur_axe",
+      "required": false
+    }
+  ]
+}

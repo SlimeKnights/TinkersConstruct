@@ -1,0 +1,10 @@
+{
+    "variants": {
+        "facing=up":    { "model": "tconstruct:block/foundry/gauge", "x":  90 },
+        "facing=down":  { "model": "tconstruct:block/foundry/gauge", "x": 270 },
+        "facing=north": { "model": "tconstruct:block/foundry/gauge", "y": 180 },
+        "facing=south": { "model": "tconstruct:block/foundry/gauge" },
+        "facing=west":  { "model": "tconstruct:block/foundry/gauge", "y":  90 },
+        "facing=east":  { "model": "tconstruct:block/foundry/gauge", "y": 270 }
+    }
+}

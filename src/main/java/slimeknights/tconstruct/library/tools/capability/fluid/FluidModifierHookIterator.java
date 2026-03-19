@@ -63,6 +63,9 @@ abstract class FluidModifierHookIterator<I> extends CompoundIndexHookIterator<Fl
    * @return Drained resource
    */
   public FluidStack drain(IToolStackView tool, FluidStack resource, FluidAction action) {
+    if (resource.isEmpty()) {
+      return FluidStack.EMPTY;
+    }
     FluidStack drainedSoFar = FluidStack.EMPTY;
     Iterator<I> iterator = getIterator(tool);
     while(iterator.hasNext()) {
@@ -101,6 +104,9 @@ abstract class FluidModifierHookIterator<I> extends CompoundIndexHookIterator<Fl
    * @return Drained resource
    */
   public FluidStack drain(IToolStackView tool, int maxDrain, FluidAction action) {
+    if (maxDrain <= 0) {
+      return FluidStack.EMPTY;
+    }
     FluidStack drainedSoFar = FluidStack.EMPTY;
     FluidStack toDrain = FluidStack.EMPTY;
     Iterator<I> iterator = getIterator(tool);

@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:grapple",
+  "text": [
+    {
+      "text": "Turns the fishing rod into a grappling hook, letting you pull yourself towards the block where your fishing hook lands. Allows the fishing hook to land in the side of blocks."
+    },
+    {
+      "text": "Grapple speed will be greater the further away you are from the hook when you reel it in.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Single level",
+    "Requires 1 ability slot"
+  ]
+}

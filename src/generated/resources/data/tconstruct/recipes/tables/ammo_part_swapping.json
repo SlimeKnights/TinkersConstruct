@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:tinker_station_part_swapping",
+  "max_stack_size": 4,
+  "tools": [
+    {
+      "item": "tconstruct:arrow"
+    },
+    {
+      "item": "tconstruct:shuriken"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:modifier_salvage",
+  "level": {
+    "max": 3,
+    "min": 2
+  },
+  "modifier": "tconstruct:reflecting",
+  "slots": {
+    "upgrades": 1
+  },
+  "tools": {
+    "tag": "tconstruct:modifiable/shields"
+  }
+}

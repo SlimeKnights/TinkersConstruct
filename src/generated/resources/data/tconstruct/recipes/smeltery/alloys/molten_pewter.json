@@ -2,15 +2,55 @@
   "type": "forge:conditional",
   "conditions": [
     {
-      "type": "mantle:tag_filled",
-      "tag": "forge:ingots/pewter"
-    },
-    {
-      "type": "mantle:tag_filled",
-      "tag": "forge:ingots/lead"
+      "type": "forge:or",
+      "values": [
+        {
+          "type": "tconstruct:config",
+          "prop": "allow_ingotless_alloys"
+        },
+        {
+          "type": "mantle:tag_filled",
+          "tag": "forge:ingots/pewter"
+        }
+      ]
     }
   ],
   "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:and",
+          "values": [
+            {
+              "type": "mantle:tag_filled",
+              "tag": "forge:ingots/lead"
+            },
+            {
+              "type": "mantle:tag_filled",
+              "tag": "forge:ingots/tin"
+            }
+          ]
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:alloy",
+        "inputs": [
+          {
+            "amount": 270,
+            "tag": "forge:molten_tin"
+          },
+          {
+            "amount": 90,
+            "tag": "forge:molten_lead"
+          }
+        ],
+        "result": {
+          "amount": 360,
+          "tag": "forge:molten_pewter"
+        },
+        "temperature": 400
+      }
+    },
     {
       "conditions": [
         {
@@ -22,16 +62,16 @@
         "type": "tconstruct:alloy",
         "inputs": [
           {
-            "amount": 180,
+            "amount": 270,
             "tag": "forge:molten_tin"
           },
           {
             "amount": 90,
-            "tag": "forge:molten_lead"
+            "tag": "forge:molten_iron"
           }
         ],
         "result": {
-          "amount": 270,
+          "amount": 360,
           "tag": "forge:molten_pewter"
         },
         "temperature": 400
@@ -40,7 +80,8 @@
     {
       "conditions": [
         {
-          "type": "forge:true"
+          "type": "mantle:tag_filled",
+          "tag": "forge:ingots/lead"
         }
       ],
       "recipe": {

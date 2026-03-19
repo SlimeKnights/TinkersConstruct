@@ -1,0 +1,14 @@
+{
+  "title": "量计",
+  "item": "tconstruct:copper_gauge",
+  "text": [
+    {
+      "text": "想知道你的储罐里有多少流体吗？试试这个量计！只需交互，你便能从量计中读到方块里流体的量。",
+      "paragraph": true
+    },
+	{
+      "text": "黑曜石量计还会在视窗中展示流体的种类，尽管从储罐里直接观察也方便！",
+      "paragraph": true
+    }
+	]
+}

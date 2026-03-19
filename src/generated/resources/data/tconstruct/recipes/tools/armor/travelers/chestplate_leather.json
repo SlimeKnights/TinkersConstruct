@@ -1,0 +1,8 @@
+{
+  "type": "tconstruct:table_casting_part_swapping",
+  "index": 1,
+  "item_cost": 6,
+  "tools": {
+    "item": "tconstruct:travelers_chestplate"
+  }
+}

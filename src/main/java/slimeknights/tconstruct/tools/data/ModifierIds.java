@@ -12,8 +12,13 @@ public class ModifierIds {
   public static final ModifierId writable    = id("writable");
   public static final ModifierId recapitated = id("recapitated");
   public static final ModifierId harmonious  = id("harmonious");
+  public static final ModifierId forecast = id("forecast");
+  /** @deprecated use {@link #forecast} */
+  @Deprecated
   public static final ModifierId resurrected = id("resurrected");
+  public static final ModifierId embossed    = id("embossed");
   public static final ModifierId rebalanced  = id("rebalanced");
+  public static final ModifierId redirected  = id("redirected");
   public static final ModifierId gilded      = id("gilded");
   public static final ModifierId draconic    = id("draconic");
 
@@ -23,28 +28,51 @@ public class ModifierIds {
   public static final ModifierId netherite = id("netherite");
 
   // general
+  public static final ModifierId magnetic = id("magnetic");
   public static final ModifierId reinforced = id("reinforced");
+  public static final ModifierId unbreakable = id("unbreakable");
   public static final ModifierId overforced = id("overforced");
   public static final ModifierId worldbound = id("worldbound");
   public static final ModifierId shiny      = id("shiny");
-  public static final ModifierId sticky     = id("sticky");
   public static final ModifierId tank       = id("tank");
   public static final ModifierId offhanded  = id("offhanded");
+  public static final ModifierId blunted    = id("blunted");
   public static final ModifierId soulbound = id("soulbound");
   public static final ModifierId smelting = id("smelting");
+  public static final ModifierId fireprimer = id("fireprimer");
   // combat
+  public static final ModifierId necrotic = id("necrotic");
   public static final ModifierId fiery = id("fiery");
   public static final ModifierId freezing = id("freezing");
   public static final ModifierId springy = id("springy");
+  public static final ModifierId spilling = id("spilling");
+  public static final ModifierId spillingRod = id("spilling_rod");
+  public static final ModifierId fins = id("fins");
+  public static final ModifierId finsAmmo = id("fins_ammo");
+  public static final ModifierId channeling = id("channeling");
+  public static final ModifierId drillAttack = id("drill_attack");
+  public static final ModifierId knockback = id("knockback");
+  public static final ModifierId padded = id("padded");
+  public static final ModifierId sweeping = id("sweeping_edge");
+  /** @deprecated no longer used. Make a copy if you need it */
+  @Deprecated(forRemoval = true)
+  public static final ModifierId sticky     = id("sticky");
   // general abilities
   public static final ModifierId reach = id("reach");
   public static final ModifierId glowing = id("glowing");
+  public static final ModifierId firestarter = id("firestarter");
+  public static final ModifierId flamewake = id("flamewake"); // TODO: consider merging into firestarter, the rest do it
+  public static final ModifierId bucketing = id("bucketing");
+  public static final ModifierId autosmelt = id("autosmelt");
+  public static final ModifierId expanded = id("expanded");
   // compat
   public static final ModifierId theOneProbe = id("the_one_probe");
   public static final ModifierId headlight = id("headlight");
   // zoom
   public static final ModifierId scope = id("scope");
   public static final ModifierId zoom = id("zoom");
+  public static final ModifierId farsighted = id("farsighted");
+  public static final ModifierId nearsighted = id("nearsighted");
 
   // harvest
   public static final ModifierId haste = id("haste");
@@ -57,6 +85,7 @@ public class ModifierIds {
   public static final ModifierId looting = id("looting");
   public static final ModifierId fortune = id("fortune");
   public static final ModifierId experienced = id("experienced");
+  public static final ModifierId silky = id("silky");
 
   // damage boost
   public static final ModifierId sharpness   = id("sharpness");
@@ -67,9 +96,15 @@ public class ModifierIds {
   public static final ModifierId killager    = id("killager");
   public static final ModifierId cooling     = id("cooling");
   public static final ModifierId pierce      = id("pierce");
+  public static final ModifierId piercingGuard = id("piercing_guard");
+  public static final ModifierId chargeAttack = id("charge_attack");
 
   // ranged
   public static final ModifierId power = id("power");
+  public static final ModifierId punch = id("punch");
+  public static final ModifierId drawback = id("drawback");
+  // TODO 1.20 - change ID to arrow_pierce
+  public static final ModifierId arrowPierce = id("impaling");
   public static final ModifierId quickCharge = id("quick_charge");
   public static final ModifierId trueshot = id("trueshot");
   public static final ModifierId blindshot = id("blindshot");
@@ -77,6 +112,10 @@ public class ModifierIds {
   public static final ModifierId trickQuiver = id("trick_quiver");
   public static final ModifierId crystalshot = id("crystalshot");
   public static final ModifierId barebow = id("barebow");
+  public static final ModifierId warCharge = id("war_charge");
+  public static final ModifierId multishot = id("multishot");
+  public static final ModifierId slimeball = id("slimeball");
+  public static final ModifierId sliver = id("sliver");
 
   // armor
   public static final ModifierId protection = id("protection");
@@ -97,6 +136,7 @@ public class ModifierIds {
   public static final ModifierId revitalizing = id("revitalizing");
   // helmet
   public static final ModifierId respiration = id("respiration");
+  public static final ModifierId minimap = id("minimap");
   public static final ModifierId aquaAffinity = id("aqua_affinity");
   // chestplate
   public static final ModifierId strength = id("strength");
@@ -112,6 +152,7 @@ public class ModifierIds {
   public static final ModifierId craftingTable = id("crafting_table");
   // boots
   public static final ModifierId depthStrider = id("depth_strider");
+  public static final ModifierId soulspeed = id("soulspeed");
   public static final ModifierId featherFalling = id("feather_falling");
   public static final ModifierId longFall = id("long_fall");
   public static final ModifierId frostWalker = id("frost_walker");
@@ -119,7 +160,10 @@ public class ModifierIds {
   public static final ModifierId bouncy = id("bouncy");
   public static final ModifierId doubleJump = id("double_jump");
   // shield
+  public static final ModifierId blocking = id("blocking");
+  public static final ModifierId blockade = id("blockade");
   public static final ModifierId boundless = id("boundless");
+  public static final ModifierId reflecting = id("reflecting");
 
 
   // interaction
@@ -127,6 +171,29 @@ public class ModifierIds {
   public static final ModifierId stripping = id("stripping");
   public static final ModifierId tilling = id("tilling");
   public static final ModifierId brushing = id("brushing");
+  public static final ModifierId harvest = id("harvest");
+  public static final ModifierId shears = id("shears");
+  public static final ModifierId silkyShears = id("silky_shears");
+  public static final ModifierId splashing = id("splashing");
+  public static final ModifierId slurping = id("slurping");
+  // sling
+  public static final ModifierId flinging = id("flinging");
+  public static final ModifierId springing = id("springing");
+  public static final ModifierId bonking = id("bonking");
+  public static final ModifierId warping = id("warping");
+  public static final ModifierId spitting = id("spitting");
+
+  // throwing
+  public static final ModifierId throwing = id("throwing");
+  public static final ModifierId returning = id("returning");
+  public static final ModifierId ballista = id("ballista");
+
+  // fishing
+  public static final ModifierId fishing = id("fishing");
+  public static final ModifierId lure = id("lure");
+  public static final ModifierId lureRod = id("lure_rod");
+  public static final ModifierId grapple = id("grapple");
+  public static final ModifierId collecting = id("collecting");
 
   // internal
   public static final ModifierId overslimeFriend = id("overslime_friend");
@@ -134,49 +201,120 @@ public class ModifierIds {
 
   // traits - tier 1
   public static final ModifierId cultivated = id("cultivated");
+  public static final ModifierId economical = id("economical");
+  public static final ModifierId stonebound = id("stonebound");
+  public static final ModifierId jagged = id("jagged");
+  public static final ModifierId tipped = id("tipped");
   public static final ModifierId stringy = id("stringy");
+  public static final ModifierId tanned = id("tanned");
+  public static final ModifierId solarPowered = id("solar_powered");
   public static final ModifierId unburdened = id("unburdened");
   public static final ModifierId depthProtection = id("depth_protection");
   public static final ModifierId enderclearance = id("enderclearance");
+  public static final ModifierId frostshield = id("frostshield");
+  public static final ModifierId woodwind = id("woodwind");
+  public static final ModifierId soft = id("soft");
+  public static final ModifierId spike = id("spike");
+  public static final ModifierId spiny = id("spiny");
+  public static final ModifierId enderference = id("enderference");
   // traits - tier 2
   public static final ModifierId overgrowth = id("overgrowth");
   public static final ModifierId searing = id("searing");
   public static final ModifierId scorching = id("scorching");
+  public static final ModifierId scorchProtection = id("scorch_protection");
   public static final ModifierId antitoxin = id("antitoxin");
   public static final ModifierId airborne = id("airborne");
-  public static final ModifierId scorchProtection = id("scorch_protection");
+  public static final ModifierId skyfall = id("skyfall");
+  public static final ModifierId flamestance = id("flamestance");
+  public static final ModifierId entangled = id("entangled");
+  public static final ModifierId stoneshield = id("stoneshield");
+  public static final ModifierId amorphous = id("amorphous");
+  public static final ModifierId smashing = id("smashing");
+  public static final ModifierId smashingAmmo = id("smashing_ammo");
+  public static final ModifierId bounce = id("bounce");
+  public static final ModifierId venom = id("venom");
+  public static final ModifierId restore = id("restore");
+  public static final ModifierId rebuff = id("rebuff");
   // traits - tier 2 compat
+  public static final ModifierId deciduous = id("deciduous");
+  public static final ModifierId barkskin = id("barkskin");
   public static final ModifierId dense = id("dense");
   public static final ModifierId lustrous = id("lustrous");
+  /** @deprecated use {@link #heavy} */
+  @Deprecated(forRemoval = true)
   public static final ModifierId sharpweight = id("sharpweight");
   public static final ModifierId heavy = id("heavy");
   public static final ModifierId featherweight = id("featherweight");
   public static final ModifierId consecrated = id("consecrated");
   public static final ModifierId preserved = id("preserved");
+  public static final ModifierId holy = id("holy");
   // traits - tier 3
   public static final ModifierId overcast = id("overcast");
+  public static final ModifierId godspeed = id("godspeed");
   public static final ModifierId crumbling = id("crumbling");
   public static final ModifierId enhanced = id("enhanced");
+  public static final ModifierId tasty = id("tasty");
   public static final ModifierId lightweight = id("lightweight");
   public static final ModifierId crystalbound = id("crystalbound");
   public static final ModifierId crystalstrike = id("crystalstrike");
+  public static final ModifierId spectral = id("spectral");
+  public static final ModifierId keen = id("keen");
+  public static final ModifierId rebound = id("rebound");
+  public static final ModifierId ductile = id("ductile");
+  public static final ModifierId attractive = id("attractive");
+  public static final ModifierId explosive = id("explosive");
+  public static final ModifierId supercharged = id("supercharged");
   // traits - tier 3 compat
   public static final ModifierId maintained = id("maintained");
-  public static final ModifierId ductile = id("ductile");
+  public static final ModifierId temperate = id("temperate");
+  public static final ModifierId decay = id("decay");
+  /** @deprecated no longer used. Make a copy if you need it */
+  @Deprecated
+  public static final ModifierId invariant = id("invariant");
+  public static final ModifierId solid = id("solid");
+  public static final ModifierId shock = id("shock");
+  public static final ModifierId raging = id("raging");
+  public static final ModifierId vitalProtection = id("vital_protection");
   // traits - tier 4
   public static final ModifierId overburn = id("overburn");
   public static final ModifierId overlord = id("overlord");
+  public static final ModifierId overshield = id("overshield");
+  public static final ModifierId overwield = id("overwield");
   public static final ModifierId recurrentProtection = id("recurrent_protection");
   public static final ModifierId fortified = id("fortified");
   public static final ModifierId kinetic = id("kinetic");
+  public static final ModifierId ambush = id("ambush");
+  public static final ModifierId warded = id("warded");
+  public static final ModifierId conductive = id("conductive");
   public static final ModifierId flameBarrier = id("flame_barrier");
   public static final ModifierId vintage = id("vintage");
+  public static final ModifierId valiant = id("valiant");
+  public static final ModifierId stalwart = id("stalwart");
+  public static final ModifierId dragonshot = id("dragonshot");
+  public static final ModifierId reclaim = id("reclaim");
+  public static final ModifierId hover = id("hover");
+  public static final ModifierId enderdodging = id("enderdodging");
+  // traits - tier 4 compat
+  public static final ModifierId temperedProtection = id("tempered_protection");
+  // traits - fletching
+  public static final ModifierId cheap = id("cheap");
+  public static final ModifierId weak = id("weak");
+  public static final ModifierId erratic = id("erratic");
+  public static final ModifierId fuse = id("fuse");
 
   // traits - slimeskull
+  public static final ModifierId boonOfSssss = id("boon_of_sssss");
+  public static final ModifierId balmOfSssss = id("balm_of_sssss");
+  public static final ModifierId slowBones = id("slow_bones");
+  public static final ModifierId magicBones = id("magic_bones");
+  public static final ModifierId flamingBones = id("flaming_bones");
+  public static final ModifierId decayedBones = id("decayed_bones");
+  public static final ModifierId revenge = id("revenge");
+  public static final ModifierId fireborn = id("fireborn");
+  public static final ModifierId dragonheart = id("dragonheart");
+  /** @deprecated cave spider's trait was switched to {@link #balmOfSssss}. Reimplement if you need this functionality */
+  @Deprecated(forRemoval = true)
   public static final ModifierId mithridatism = id("mithridatism");
-
-  // unused for now, will be reassigned later
-  public static final ModifierId raging = id("raging");
 
   // mob disguises
   public static final ModifierId creeperDisguise         = id("creeper_disguise");

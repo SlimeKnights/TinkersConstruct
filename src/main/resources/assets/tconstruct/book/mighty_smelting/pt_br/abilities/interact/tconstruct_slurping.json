@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:slurping",
+  "text": [
+    {
+      "text": "Hmm, delicioso!"
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/interactable/charge",
+  "effects": [
+    "Bebe fluidos armazenados na ferramenta ao usar",
+    "Requer 1 slot de habilidade por nível",
+    "Níveis mais altos consomem mais fluido para efeitos mais fortes"
+  ]
+}

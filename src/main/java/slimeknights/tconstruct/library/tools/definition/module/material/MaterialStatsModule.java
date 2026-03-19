@@ -35,8 +35,9 @@ import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.tools.modules.ArmorModuleBuilder;
 import slimeknights.tconstruct.tools.stats.PlatingMaterialStats;
 
+import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 import java.util.stream.IntStream;
 
 /** Module for building tool stats using materials */
@@ -84,6 +85,14 @@ public class MaterialStatsModule implements ToolStatsHook, ToolTraitHook, ToolMa
     return statTypes;
   }
 
+  @Override
+  public float scaleStats(ToolDefinition definition, int index) {
+    if (index < scales.length) {
+      return scales[index];
+    }
+    return 1;
+  }
+
   /** Gets the repair indices, calculating them if needed */
   private int[] getRepairIndices() {
     if (repairIndices == null) {
@@ -105,32 +114,37 @@ public class MaterialStatsModule implements ToolStatsHook, ToolTraitHook, ToolMa
 
   @Override
   public float getRepairAmount(IToolStackView tool, MaterialId material) {
-    ResourceLocation toolId = tool.getDefinition().getId();
+    // first, find all stat types we might try for this material
+    Set<MaterialStatsId> matchingStats = new HashSet<>();
     for (int i : getRepairIndices()) {
       if (tool.getMaterial(i).matches(material)) {
-        return MaterialRepairModule.getDurability(toolId, material, statTypes.get(i));
+        matchingStats.add(statTypes.get(i));
       }
     }
-    return 0;
+    // next, figure out which of the matches repairs the most
+    ResourceLocation toolId = tool.getDefinition().getId();
+    int max = 0;
+    for (MaterialStatsId stat : matchingStats) {
+      // its possible a later stat type will repair more with this material
+      int repair = MaterialRepairModule.getDurability(toolId, material, stat);
+      if (repair > max) {
+        max = repair;
+      }
+    }
+    return max;
   }
 
   @Override
   public void addToolStats(IToolContext context, ModifierStatsBuilder builder) {
     MaterialNBT materials = context.getMaterials();
-    if (materials.size() > 0) {
+    if (!materials.isEmpty()) {
       IMaterialRegistry registry = MaterialRegistry.getInstance();
       for (int i = 0; i < statTypes.size(); i++) {
         MaterialStatsId statType = statTypes.get(i);
-        // apply the stats if they exist for the material
-        Optional<IMaterialStats> stats = registry.getMaterialStats(materials.get(i).getId(), statType);
-        if (stats.isPresent()) {
-          stats.get().apply(builder, scales[i]);
-        } else {
-          // fallback to the default stats if present
-          IMaterialStats defaultStats = registry.getDefaultStats(statType);
-          if (defaultStats != null) {
-            defaultStats.apply(builder, scales[i]);
-          }
+        // apply the stats for the material, assuming the stat ID is valid
+        IMaterialStats stats = registry.getStatsOrDefault(materials.get(i).getId(), statType);
+        if (stats != null) {
+          stats.apply(builder, scales[i]);
         }
       }
     }
@@ -175,7 +189,27 @@ public class MaterialStatsModule implements ToolStatsHook, ToolTraitHook, ToolMa
     }
 
     /** Adds a stat type */
+    public Builder stat(IMaterialStats stat, float scale) {
+      return stat(stat.getIdentifier(), scale);
+    }
+
+    /** Adds a stat type */
+    public Builder stat(MaterialStatType<?> stat, float scale) {
+      return stat(stat.getId(), scale);
+    }
+
+    /** Adds a stat type */
     public Builder stat(MaterialStatsId stat) {
+      return stat(stat, 1);
+    }
+
+    /** Adds a stat type */
+    public Builder stat(IMaterialStats stat) {
+      return stat(stat, 1);
+    }
+
+    /** Adds a stat type */
+    public Builder stat(MaterialStatType<?> stat) {
       return stat(stat, 1);
     }
 
@@ -231,6 +265,11 @@ public class MaterialStatsModule implements ToolStatsHook, ToolTraitHook, ToolMa
         getBuilder(slotType).stat(stat, scale);
       }
       return this;
+    }
+
+    /** Adds a stat to all slots */
+    public ArmorBuilder stat(IMaterialStats stat, float scale) {
+      return stat(stat.getIdentifier(), scale);
     }
 
     /** Adds a stat to all slots from the given stat type list */

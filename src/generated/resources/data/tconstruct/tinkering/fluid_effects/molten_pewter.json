@@ -22,6 +22,14 @@
         {
           "type": "mantle:tag_filled",
           "tag": "forge:ingots/pewter"
+        },
+        {
+          "type": "mantle:tag_filled",
+          "tag": "forge:ingots/tin"
+        },
+        {
+          "type": "mantle:tag_filled",
+          "tag": "forge:ingots/lead"
         }
       ]
     }

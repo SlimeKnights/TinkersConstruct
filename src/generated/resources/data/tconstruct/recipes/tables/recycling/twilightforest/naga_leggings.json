@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:part_builder_recycling",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "twilightforest"
+    }
+  ],
+  "pattern": {
+    "item": "tconstruct:venom_bottle"
+  },
+  "results": {
+    "tconstruct:scale": {
+      "count": 7,
+      "item": "twilightforest:naga_scale"
+    }
+  },
+  "tool": {
+    "item": "twilightforest:naga_leggings"
+  }
+}

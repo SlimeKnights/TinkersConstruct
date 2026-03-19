@@ -1,5 +1,6 @@
 {
   "stats": {
+    "tconstruct:arrow_shaft": {},
     "tconstruct:binding": {},
     "tconstruct:grip": {
       "accuracy": -0.1,
@@ -20,9 +21,9 @@
     },
     "tconstruct:limb": {
       "accuracy": 0.1,
-      "draw_speed": 0.1,
+      "draw_speed": -0.05,
       "durability": 180,
-      "velocity": 0.0
+      "velocity": -0.05
     },
     "tconstruct:shield_core": {}
   }

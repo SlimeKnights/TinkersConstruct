@@ -18,7 +18,5 @@
     "item": "tconstruct:crafting_station"
   },
   "show_notification": true,
-  "texture": {
-    "tag": "minecraft:logs"
-  }
+  "texture": "w"
 }

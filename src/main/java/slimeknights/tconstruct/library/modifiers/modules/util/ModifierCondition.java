@@ -24,14 +24,24 @@ public record ModifierCondition<T extends IToolContext>(IJsonPredicate<T> tool, 
     return this.modifierLevel.test(modifier.getLevel()) && this.tool.matches(tool);
   }
 
-  /** Swaps the modifier level condition for the passed condition */
+  /** Swaps the modifier tool condition for the passed condition */
   public ModifierCondition<T> with(IJsonPredicate<T> tool) {
     return new ModifierCondition<>(tool, modifierLevel);
   }
 
-  /** Swaps the modifier level condition for the passed condition */
+  /** Swaps the modifier level condition for the passed range */
   public ModifierCondition<T> with(IntRange modifierLevel) {
     return new ModifierCondition<>(this.tool, modifierLevel);
+  }
+
+  /** Creates a context with the given min level */
+  public ModifierCondition<T> minLevel(int level) {
+    return with(ModifierEntry.VALID_LEVEL.min(level));
+  }
+
+  /** Creates a context with the given max level */
+  public ModifierCondition<T> maxLevel(int level) {
+    return with(ModifierEntry.VALID_LEVEL.max(level));
   }
 
 

@@ -164,6 +164,11 @@ public record PostFixFormula(List<StackOperation> operations, int numArguments) 
       return operation(PostFixOperator.POWER);
     }
 
+    /** Pushes a square root operation into the builder */
+    public T sqrt() {
+      return operation(PostFixOperator.SQRT);
+    }
+
     /** Pushes a power flipped operation into the builder */
     public T powerFlipped() {
       return operation(PostFixOperator.POWER_FLIPPED);
@@ -212,6 +217,32 @@ public record PostFixFormula(List<StackOperation> operations, int numArguments) 
     /** Pushes a duplicate operation into the builder */
     public T duplicate() {
       return operation(PostFixOperator.DUPLICATE);
+    }
+
+    // logical operators
+    public T equal() {
+      return operation(PostFixOperator.EQUAL);
+    }
+    public T notEqual() {
+      return operation(PostFixOperator.NOT_EQUAL);
+    }
+    public T greaterThan() {
+      return operation(PostFixOperator.GREATER_THAN);
+    }
+    public T greaterThanOrEqual() {
+      return operation(PostFixOperator.GREATER_THAN_EQUAL);
+    }
+    public T lessThan() {
+      return operation(PostFixOperator.LESS_THAN);
+    }
+    public T lessThanOrEqual() {
+      return operation(PostFixOperator.LESS_THAN_EQUAL);
+    }
+    public T equalEpsilon() {
+      return operation(PostFixOperator.EQUAL_EPS);
+    }
+    public T notEqualEpsilon() {
+      return operation(PostFixOperator.EQUAL_EPS);
     }
 
     /** Validates and builds the formula */

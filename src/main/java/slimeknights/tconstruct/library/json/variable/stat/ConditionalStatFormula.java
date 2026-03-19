@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.json.variable.stat;
 import net.minecraft.world.entity.LivingEntity;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.library.json.math.ModifierFormula;
+import slimeknights.tconstruct.library.json.math.ModifierFormula.FallbackFormula;
 import slimeknights.tconstruct.library.json.variable.VariableFormula;
 import slimeknights.tconstruct.library.json.variable.VariableFormulaLoadable;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -22,6 +23,7 @@ public record ConditionalStatFormula(ModifierFormula formula, List<ConditionalSt
   public static final String[] VARIABLES = { "level", "value", "multiplier" };
   /** Loader instance */
   public static final RecordLoadable<ConditionalStatFormula> LOADER = new VariableFormulaLoadable<>(ConditionalStatVariable.LOADER, VARIABLES, (formula, variables, percent) -> new ConditionalStatFormula(formula, variables, EMPTY_STRINGS, percent));
+  public static final RecordLoadable<ConditionalStatFormula> IDENTITY_LOADER = new VariableFormulaLoadable<>(ConditionalStatVariable.LOADER, VARIABLES, FallbackFormula.IDENTITY, (formula, variables, percent) -> new ConditionalStatFormula(formula, variables, EMPTY_STRINGS, percent));
 
   public ConditionalStatFormula(ModifierFormula formula, Map<String,ConditionalStatVariable> variables, boolean percent) {
     this(formula, List.copyOf(variables.values()), VariableFormula.getNames(variables), percent);

@@ -4,7 +4,6 @@ import com.google.common.collect.Streams;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.PackOutput.Target;
@@ -17,11 +16,13 @@ import net.minecraft.world.phys.Vec2;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.ApiStatus.NonExtendable;
 import slimeknights.mantle.data.GenericDataProvider;
+import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.mantle.registration.object.IdAwareObject;
 import slimeknights.tconstruct.library.tools.item.ranged.ModifiableCrossbowItem;
 import slimeknights.tconstruct.library.tools.item.ranged.ModifiableLauncherItem;
 
+import javax.annotation.Nullable;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Arrays;
@@ -53,19 +54,20 @@ public abstract class AbstractToolItemModelProvider extends GenericDataProvider 
       return CompletableFuture.failedFuture(e);
     }
     // no key comparator - I want them sorted in the same order as the input models for easier readability
-    return allOf(models.entrySet().stream().map((entry) -> saveJson(cache, new ResourceLocation(modId, entry.getKey()), entry.getValue(), null)));
+    return allOf(models.entrySet().stream().map((entry) -> saveJson(cache, resource(entry.getKey()), entry.getValue(), null)));
   }
-
 
 
   /* Model types */
 
   /** Creates models for blocking and broken for the given tool */
-  protected void tool(IdAwareObject tool, JsonObject properties, String... brokenParts) throws IOException {
+  protected void tool(IdAwareObject tool, @Nullable JsonObject blocking, String... brokenParts) throws IOException {
     ResourceLocation id = tool.getId();
     String name = id.getPath();
-    withDisplay("tool/" + name + "/blocking", id, properties);
-    transformTool("tool/" + name + "/broken", readJson(id), "", false, "broken", brokenParts);
+    if (blocking != null) {
+      withDisplay("tool/" + name + "/blocking", id, blocking);
+    }
+    transformTool("tool/" + name + "/broken", readJson(id), "", false, '_', "broken", brokenParts);
   }
 
   /** Logic for creating models for the given ammo type */
@@ -74,7 +76,7 @@ public abstract class AbstractToolItemModelProvider extends GenericDataProvider 
     default void apply(AbstractToolItemModelProvider self, String name, JsonObject base, JsonObject properties, int pullingCount, String[] pullingParts) {
       for (int i = 1; i <= pullingCount; i++) {
         String pulling = "tool/" + name + "/pulling_" + i;
-        self.transformTool(pulling, base, "", false, Integer.toString(i), pullingParts);
+        self.transformTool(pulling, base, "", false, '/', Integer.toString(i), pullingParts);
         self.withDisplay("tool/" + name + "/blocking_" + i, self.resource(pulling), properties);
       }
     }
@@ -106,7 +108,7 @@ public abstract class AbstractToolItemModelProvider extends GenericDataProvider 
         JsonObject withArrow = self.addPart(base.deepCopy(), "arrow", name, "arrow");
         for (int i = 1; i <= pullingCount; i++) {
           String pulling = "tool/" + name + "/pulling_arrow_" + i;
-          self.transformTool(pulling, withArrow, "", false, Integer.toString(i), pullingWithArrow);
+          self.transformTool(pulling, withArrow, "", false, '/', Integer.toString(i), pullingWithArrow);
           self.withDisplay("tool/" + name + "/blocking_arrow_" + i, self.resource(pulling), properties);
         }
         // apply default blocking and pulling
@@ -137,11 +139,11 @@ public abstract class AbstractToolItemModelProvider extends GenericDataProvider 
       // apply default blocking and pulling
       for (int i = 1; i < pullingCount; i++) {
         String pulling = "tool/" + name + "/pulling_" + i;
-        self.transformTool(pulling, base, "", false, Integer.toString(i), pullingParts);
+        self.transformTool(pulling, base, "", false, '/', Integer.toString(i), pullingParts);
         self.withDisplay("tool/" + name + "/blocking_" + i, self.resource(pulling), properties);
       }
       String pulling = "tool/" + name + "/pulling_" + pullingCount;
-      JsonObject arrow = self.transformTool(pulling, base, "", false, Integer.toString(pullingCount), pullingParts);
+      JsonObject arrow = self.transformTool(pulling, base, "", false, '/', Integer.toString(pullingCount), pullingParts);
       self.withDisplay("tool/" + name + "/blocking_" + pullingCount, self.resource(pulling), properties);
       // add the arrow to pulling 3, ToolModel handles not showing it when it has no ammo
       {
@@ -162,7 +164,7 @@ public abstract class AbstractToolItemModelProvider extends GenericDataProvider 
       // bows have an arrow part that pulls back
       for (int i = 1; i <= pullingCount; i++) {
         String pulling = "tool/" + name + "/pulling_" + i;
-        JsonObject arrow = self.transformTool(pulling, base, "", false, Integer.toString(i), pullingParts);
+        JsonObject arrow = self.transformTool(pulling, base, "", false, '/', Integer.toString(i), pullingParts);
         {
           JsonObject ammo = new JsonObject();
           ammo.addProperty("key", ModifiableLauncherItem.KEY_DRAWBACK_AMMO.toString());
@@ -188,16 +190,16 @@ public abstract class AbstractToolItemModelProvider extends GenericDataProvider 
   }
 
   /** Creates a model in the blocking folder with the given copied display */
-  protected void pulling(IdAwareObject bow, JsonObject properties, AmmoHandler ammo, String brokenPart, int pullingCount, String... pullingParts) throws IOException {
+  protected void pulling(IdAwareObject bow, JsonObject blocking, AmmoHandler ammo, String brokenPart, int pullingCount, String... pullingParts) throws IOException {
     ResourceLocation id = bow.getId();
     String name = id.getPath();
     JsonObject base = readJson(id);
     base.remove("overrides"); // don't need them anywhere, notably ditching for the sake of ammo models
-    transformTool("tool/" + name + "/broken", base, "", false, "broken", brokenPart);
-    withDisplay("tool/" + name + "/blocking", id, properties);
+    transformTool("tool/" + name + "/broken", base, "", false, '/', "broken", brokenPart);
+    withDisplay("tool/" + name + "/blocking", id, blocking);
 
     // apply ammo specific code
-    ammo.apply(this, name, base, properties, pullingCount, pullingParts);
+    ammo.apply(this, name, base, blocking, pullingCount, pullingParts);
   }
 
   /** Creates models for blocking, broken and fully charged for the given tool */
@@ -207,12 +209,12 @@ public abstract class AbstractToolItemModelProvider extends GenericDataProvider 
     JsonObject base = readJson(id);
     base.remove("overrides");
     withDisplay("tool/" + name + "/blocking", id, properties);
-    transformTool("tool/" + name + "/broken", base, "", false, "broken", brokenParts);
+    transformTool("tool/" + name + "/broken", base, "", false, '/', "broken", brokenParts);
 
     addPart(base, "overlay", name, "overlay");
 
     String charged = "tool/" + name + "/charged";
-    transformTool(charged, base, "", false, "charged", "overlay");
+    transformTool(charged, base, "", false, '/', "charged", "overlay");
     withDisplay("tool/" + name + "/blocking_charged", resource(charged), properties);
   }
 
@@ -223,10 +225,10 @@ public abstract class AbstractToolItemModelProvider extends GenericDataProvider 
     String name = path.substring(0, path.length() - "_staff".length());
     JsonObject base = readJson(id);
     withDisplay("tool/staff/" + name + "/blocking", id, properties);
-    transformTool("tool/staff/" + name + "/broken", base, "", true, "broken", "tool");
+    transformTool("tool/staff/" + name + "/broken", base, "", true, '/', "broken", "tool");
     for (int i = 1; i <= 5; i++) {
       String charging = "tool/staff/" + name + "/charging_" + i;
-      transformTool(charging, base, "tconstruct:item/base/staff_charging", false, Integer.toString(i), "tool");
+      transformTool(charging, base, "tconstruct:item/base/staff_charging", false, '/', Integer.toString(i), "tool");
       withDisplay("tool/staff/" + name + "/blocking_" + i, resource(charging), properties);
     }
   }
@@ -235,14 +237,33 @@ public abstract class AbstractToolItemModelProvider extends GenericDataProvider 
   protected void shield(String setName, IdAwareObject shield, JsonObject properties, String... parts) throws IOException {
     ResourceLocation id = shield.getId();
     withDisplay("armor/" + setName + "/shield_blocking", id, Objects.requireNonNull(properties));
-    transformTool("armor/" + setName + "/shield_broken", readJson(id), "", false, "broken", parts);
+    transformTool("armor/" + setName + "/shield_broken", readJson(id), "", false, '_', "broken", parts);
   }
 
   /** Adds broken and blocking models for the armor set */
-  @SuppressWarnings("deprecation")  // no its not
+  protected void armor(String name, EnumObject<ArmorItem.Type,? extends Item> armor, ArmorItem.Type[] types, String... textures) throws IOException {
+    for (ArmorItem.Type slot : types) {
+      transformTool("armor/" + name + '/' + slot.getName() + "_broken", readJson(Loadables.ITEM.getKey(armor.get(slot))), "", false, '_', "broken", textures);
+    }
+  }
+
+  /** Adds broken and blocking models for the armor set */
   protected void armor(String name, EnumObject<ArmorItem.Type,? extends Item> armor, String... textures) throws IOException {
-    for (ArmorItem.Type slot : ArmorItem.Type.values()) {
-      transformTool("armor/" + name + '/' + slot.getName() + "_broken", readJson(BuiltInRegistries.ITEM.getKey(armor.get(slot))), "", false, "broken", textures);
+    armor(name, armor, ArmorItem.Type.values(), textures);
+  }
+
+  /** Creates models for fishing rods cast and broken */
+  @SuppressWarnings("SameParameterValue") // API
+  protected void fishingRod(IdAwareObject tool, @Nullable JsonObject blocking, String[] castParts, String[] brokenParts) throws IOException {
+    ResourceLocation id = tool.getId();
+    String name = id.getPath();
+    JsonObject base = readJson(id);
+    String cast = "tool/" + name + "/cast";
+    transformTool(cast,   base, "", false, '/', "cast", castParts);
+    transformTool("tool/" + name + "/broken", base, "", false, '/', "broken", brokenParts);
+    if (blocking != null) {
+      withDisplay("tool/" + name + "/blocking", id, blocking);
+      withDisplay("tool/" + name + "/blocking_cast", resource(cast), blocking);
     }
   }
 
@@ -256,6 +277,7 @@ public abstract class AbstractToolItemModelProvider extends GenericDataProvider 
   }
 
   /** Creates a resource location under this mod */
+  @SuppressWarnings("removal")
   protected ResourceLocation resource(String name) {
     return new ResourceLocation(modId, name);
   }
@@ -312,7 +334,13 @@ public abstract class AbstractToolItemModelProvider extends GenericDataProvider 
   }
 
   /** Transforms the given tool by adding suffixes to listed textures and the modifier roots */
+  @Deprecated
   protected JsonObject transformTool(String destination, JsonObject tool, String parent, boolean allRoots, String suffix, String... updateTextures) {
+    return transformTool(destination, tool, parent, allRoots, '_', suffix, updateTextures);
+  }
+
+  /** Transforms the given tool by adding suffixes to listed textures and the modifier roots */
+  protected JsonObject transformTool(String destination, JsonObject tool, String parent, boolean allRoots, char mapSeparator, String suffix, String... updateTextures) {
     JsonObject transformed = tool.deepCopy();
     // set parent if given
     if (!parent.isEmpty()) {
@@ -321,12 +349,17 @@ public abstract class AbstractToolItemModelProvider extends GenericDataProvider 
     // update parts that we were told to update
     suffixTextures(transformed, suffix, updateTextures);
     // add modifier roots
-    if (GsonHelper.getAsBoolean(transformed, "large", false)) {
-      JsonObject roots = transformed.getAsJsonObject("modifier_roots");
-      roots.add("small", copyAndSuffixRoot(roots.getAsJsonArray("small"), suffix + '/', allRoots));
-      roots.add("large", copyAndSuffixRoot(roots.getAsJsonArray("large"), suffix + '/', allRoots));
-    } else {
-      transformed.add("modifier_roots", copyAndSuffixRoot(transformed.getAsJsonArray("modifier_roots"), suffix + '/', allRoots));
+    if (transformed.has("modifier_roots")) {
+      if (GsonHelper.getAsBoolean(transformed, "large", false)) {
+        JsonObject roots = transformed.getAsJsonObject("modifier_roots");
+        roots.add("small", copyAndSuffixRoot(roots.getAsJsonArray("small"), suffix + '/', allRoots));
+        roots.add("large", copyAndSuffixRoot(roots.getAsJsonArray("large"), suffix + '/', allRoots));
+      } else {
+        transformed.add("modifier_roots", copyAndSuffixRoot(transformed.getAsJsonArray("modifier_roots"), suffix + '/', allRoots));
+      }
+    }
+    if (transformed.has("modifier_maps")) {
+      transformed.add("modifier_maps", copyAndSuffixRoot(transformed.getAsJsonArray("modifier_maps"), mapSeparator + suffix, allRoots));
     }
     // delete overrides, no need to nest them
     transformed.remove("overrides");

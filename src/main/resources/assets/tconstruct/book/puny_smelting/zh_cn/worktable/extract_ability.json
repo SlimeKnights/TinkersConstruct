@@ -1,0 +1,13 @@
+{
+  "title": "能力强化提取",
+  "image": {
+    "file": "tconstruct:book/images/worktable/extract_ability.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "从附魔工具上提取能力强化的过程相当耗费材料，不止需要灵浆水晶，还需要钻石来辅助提取。即便有灵浆的力量加持，工具也还是会消失的无影无踪。"
+    }
+  ]
+}

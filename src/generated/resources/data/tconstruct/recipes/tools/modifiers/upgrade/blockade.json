@@ -1,0 +1,27 @@
+{
+  "type": "tconstruct:incremental_modifier",
+  "allow_crystal": true,
+  "amount_per_item": 1,
+  "input": {
+    "item": "tconstruct:obsidian_pane"
+  },
+  "level": {
+    "max": 3
+  },
+  "needed_per_level": 10,
+  "result": "tconstruct:blockade",
+  "slots": {
+    "upgrades": 1
+  },
+  "tools": {
+    "type": "forge:intersection",
+    "children": [
+      {
+        "tag": "tconstruct:modifiable/interactable/charge"
+      },
+      {
+        "tag": "tconstruct:modifiable/durability"
+      }
+    ]
+  }
+}

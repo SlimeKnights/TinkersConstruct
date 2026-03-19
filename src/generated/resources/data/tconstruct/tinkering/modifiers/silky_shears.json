@@ -1,0 +1,23 @@
+{
+  "level_display": "tconstruct:pluses",
+  "modules": [
+    {
+      "type": "tconstruct:shears",
+      "expanded": 1.0,
+      "per_level": 1.0,
+      "tool": {
+        "type": "tconstruct:has_modifier",
+        "check": "all",
+        "modifier": {
+          "type": "tconstruct:single",
+          "modifier": "tconstruct:silky"
+        }
+      }
+    },
+    {
+      "type": "tconstruct:show_interaction_source"
+    }
+  ],
+  "priority": 70,
+  "tooltip_display": "always"
+}

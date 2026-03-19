@@ -1,0 +1,43 @@
+{
+  "values": [
+    "tconstruct:wood",
+    "tconstruct:chorus",
+    "tconstruct:string",
+    "tconstruct:vine",
+    "tconstruct:leather",
+    "tconstruct:slimewood",
+    "tconstruct:necrotic_bone",
+    "tconstruct:skyslime_vine",
+    "tconstruct:slimesteel",
+    "tconstruct:darkthread",
+    "tconstruct:cobalt",
+    "tconstruct:pig_iron",
+    "tconstruct:blazing_bone",
+    "tconstruct:jeweled_hide",
+    "tconstruct:enderslime_vine",
+    {
+      "id": "tconstruct:treated_wood",
+      "required": false
+    },
+    {
+      "id": "tconstruct:silver",
+      "required": false
+    },
+    {
+      "id": "tconstruct:ironwood",
+      "required": false
+    },
+    {
+      "id": "tconstruct:invar",
+      "required": false
+    },
+    {
+      "id": "tconstruct:pewter",
+      "required": false
+    },
+    {
+      "id": "tconstruct:steeleaf",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:stat_boost",
+      "each_level": 0.5,
+      "operation": "add",
+      "stat": "tconstruct:accuracy"
+    },
+    {
+      "type": "tconstruct:stat_boost",
+      "each_level": 0.25,
+      "operation": "add",
+      "stat": "tconstruct:velocity",
+      "tool": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:modifiable/ammo/thrown"
+      }
+    }
+  ],
+  "tooltip_display": "always"
+}

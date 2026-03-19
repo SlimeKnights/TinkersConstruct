@@ -35,6 +35,7 @@ import slimeknights.tconstruct.tables.network.UpdateTinkerStationRecipePacket;
 import slimeknights.tconstruct.tools.network.EntityMovementChangePacket;
 import slimeknights.tconstruct.tools.network.InteractWithAirPacket;
 import slimeknights.tconstruct.tools.network.PushBlockRowPacket;
+import slimeknights.tconstruct.tools.network.SyncProjectileModifiersPacket;
 import slimeknights.tconstruct.tools.network.TinkerControlPacket;
 import slimeknights.tconstruct.tools.network.ToolContainerFluidUpdatePacket;
 
@@ -48,8 +49,14 @@ import javax.annotation.Nullable;
 public class TinkerNetwork extends NetworkWrapper {
   private static TinkerNetwork instance = null;
 
+  /*
+   * Network versions:
+   * 1: 3.10.1 and before
+   * 2: 3.10.2 - new material stat type; item removal
+   * 3: 3.11.2+ - lost track of how much changed but its a lot
+   */
   private TinkerNetwork() {
-    super(TConstruct.getResource("network"));
+    super(TConstruct.getResource("network"), "3");
   }
 
   /** Gets the instance of the network */
@@ -93,12 +100,13 @@ public class TinkerNetwork extends NetworkWrapper {
     instance.registerPacket(UpdateMaterialTraitsPacket.class, UpdateMaterialTraitsPacket::new, NetworkDirection.PLAY_TO_CLIENT);
     instance.registerPacket(UpdateToolDefinitionDataPacket.class, UpdateToolDefinitionDataPacket::new, NetworkDirection.PLAY_TO_CLIENT);
     instance.registerPacket(ToolContainerFluidUpdatePacket.class, ToolContainerFluidUpdatePacket::new, NetworkDirection.PLAY_TO_CLIENT);
+    instance.registerPacket(SyncProjectileModifiersPacket.class, SyncProjectileModifiersPacket::new, NetworkDirection.PLAY_TO_CLIENT);
 
     // modifiers
     instance.registerPacket(TinkerControlPacket.class, TinkerControlPacket::read, NetworkDirection.PLAY_TO_SERVER);
     instance.registerPacket(InteractWithAirPacket.class, InteractWithAirPacket::read, NetworkDirection.PLAY_TO_SERVER);
     instance.registerPacket(UpdateModifiersPacket.class, UpdateModifiersPacket::new, NetworkDirection.PLAY_TO_CLIENT);
-    instance.registerPacket(UpdateFluidEffectsPacket.class, UpdateFluidEffectsPacket::new, NetworkDirection.PLAY_TO_CLIENT);
+    instance.registerPacket(UpdateFluidEffectsPacket.class, UpdateFluidEffectsPacket::decode, NetworkDirection.PLAY_TO_CLIENT);
     instance.registerPacket(PushBlockRowPacket.class, PushBlockRowPacket::new, NetworkDirection.PLAY_TO_CLIENT);
 
     // smeltery

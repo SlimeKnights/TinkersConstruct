@@ -18,7 +18,7 @@ import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import java.util.List;
 
 /** Stats for melee/harvest head stats */
-public record HeadMaterialStats(int durability, float miningSpeed, Tier tier, float attack) implements IRepairableMaterialStats {
+public record HeadMaterialStats(int durability, float miningSpeed, Tier tier, float attack) implements IRepairableMaterialStats.ScaledTooltip {
   public static final MaterialStatsId ID = new MaterialStatsId(TConstruct.getResource("head"));
   public static final MaterialStatType<HeadMaterialStats> TYPE = new MaterialStatType<>(ID, new HeadMaterialStats(1, 1f, Tiers.WOOD, 1f), RecordLoadable.create(
     IRepairableMaterialStats.DURABILITY_FIELD,
@@ -36,12 +36,12 @@ public record HeadMaterialStats(int durability, float miningSpeed, Tier tier, fl
   }
 
   @Override
-  public List<Component> getLocalizedInfo() {
+  public List<Component> getLocalizedInfo(float scale) {
     List<Component> info = Lists.newArrayList();
-    info.add(ToolStats.DURABILITY.formatValue(this.durability));
+    info.add(ToolStats.DURABILITY.formatValue(this.durability * scale));
     info.add(ToolStats.HARVEST_TIER.formatValue(this.tier));
-    info.add(ToolStats.MINING_SPEED.formatValue(this.miningSpeed));
-    info.add(ToolStats.ATTACK_DAMAGE.formatValue(this.attack));
+    info.add(ToolStats.MINING_SPEED.formatValue(this.miningSpeed * scale));
+    info.add(ToolStats.ATTACK_DAMAGE.formatValue(this.attack * scale));
     return info;
   }
 

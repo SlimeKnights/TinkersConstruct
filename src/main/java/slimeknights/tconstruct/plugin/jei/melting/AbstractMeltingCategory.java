@@ -5,7 +5,6 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
 import mezz.jei.api.gui.drawable.IDrawableAnimated.StartDirection;
@@ -28,7 +27,7 @@ import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuelLookup;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipe;
-import slimeknights.tconstruct.plugin.jei.util.IRecipeTooltipReplacement;
+import slimeknights.tconstruct.plugin.jei.util.FluidTooltipCallback;
 
 import java.awt.Color;
 import java.util.Collections;
@@ -43,14 +42,13 @@ public abstract class AbstractMeltingCategory implements IRecipeCategory<Melting
   protected static final Component TOOLTIP_ORE = Component.translatable(TConstruct.makeTranslationKey("jei", "melting.ore"));
 
   /** Tooltip for fuel display */
-  public static final IRecipeTooltipReplacement FUEL_TOOLTIP = (slot, tooltip) ->
-    slot.getDisplayedIngredient(ForgeTypes.FLUID_STACK).ifPresent(stack -> {
-      MeltingFuel fuel = MeltingFuelLookup.findFuel(stack.getFluid());
-      if (fuel != null) {
-        tooltip.add(Component.translatable(KEY_TEMPERATURE, fuel.getTemperature()).withStyle(ChatFormatting.GRAY));
-        tooltip.add(Component.translatable(KEY_MULTIPLIER, fuel.getRate() / 10f).withStyle(ChatFormatting.GRAY));
-      }
-    });
+  public static final FluidTooltipCallback FUEL_TOOLTIP = (fluid, slot, tooltip) -> {
+    MeltingFuel fuel = MeltingFuelLookup.findFuel(fluid.getFluid());
+    if (fuel != null) {
+      tooltip.add(Component.translatable(KEY_TEMPERATURE, fuel.getTemperature()).withStyle(ChatFormatting.GRAY));
+      tooltip.add(Component.translatable(KEY_MULTIPLIER, fuel.getRate() / 10f).withStyle(ChatFormatting.GRAY));
+    }
+  };
 
   @Getter
   private final IDrawable background;
@@ -102,7 +100,7 @@ public abstract class AbstractMeltingCategory implements IRecipeCategory<Melting
 
   /** Adds amounts to outputs and temperatures to fuels */
   @RequiredArgsConstructor
-  public static class MeltingFluidCallback implements IRecipeTooltipReplacement {
+  public static class MeltingFluidCallback implements FluidTooltipCallback {
     public static final MeltingFluidCallback INSTANCE = new MeltingFluidCallback();
 
     /**
@@ -117,12 +115,15 @@ public abstract class AbstractMeltingCategory implements IRecipeCategory<Melting
     }
 
     @Override
-    public void addMiddleLines(IRecipeSlotView slot, List<Component> list) {
-      slot.getDisplayedIngredient(ForgeTypes.FLUID_STACK).ifPresent(stack -> {
-        if (appendMaterial(stack, list)) {
-          FluidTooltipHandler.appendShift(list);
-        }
-      });
+    public void onFluidTooltip(FluidStack fluid, IRecipeSlotView recipeSlotView, List<Component> tooltip) {
+      if (appendMaterial(fluid, tooltip)) {
+        FluidTooltipHandler.appendShift(tooltip);
+      }
     }
+  }
+
+  @Override
+  public ResourceLocation getRegistryName(MeltingRecipe recipe) {
+    return recipe.getId();
   }
 }

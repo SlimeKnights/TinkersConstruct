@@ -15,8 +15,8 @@ import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.library.tools.definition.module.aoe.IBoxExpansion.ExpansionDirections;
+import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nonnull;
 import java.util.Collections;
@@ -82,8 +82,7 @@ public record BoxAOEIterator(BoxSize base, List<BoxSize> expansions, IBoxExpansi
   @Override
   public Iterable<BlockPos> getBlocks(IToolStackView tool, UseOnContext context, BlockState state, AOEMatchType matchType) {
     // expanded gives an extra width every odd level, and an extra height every even level
-    int expanded = tool.getModifierLevel(TinkerModifiers.expanded.getId());
-    return calculate(tool, context, sizeFor(expanded), direction, matchType);
+    return calculate(tool, context, sizeFor(tool.getVolatileData().getInt(IModifiable.EXPANDED)), direction, matchType);
   }
 
   /**

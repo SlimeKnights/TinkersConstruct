@@ -19,7 +19,5 @@
     "item": "tconstruct:modifier_worktable"
   },
   "show_notification": true,
-  "texture": {
-    "tag": "tconstruct:workstation_rock"
-  }
+  "texture": "r"
 }

@@ -1,0 +1,27 @@
+{
+  "name": "minecraft:gameplay/hero_of_the_village/armorer_gift",
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "tconstruct:add_tool_data",
+              "materials": [
+                {
+                  "type": "tconstruct:ancient"
+                },
+                {
+                  "type": "tconstruct:ancient"
+                }
+              ]
+            }
+          ],
+          "name": "tconstruct:melting_pan"
+        }
+      ],
+      "name": "main"
+    }
+  ]
+}

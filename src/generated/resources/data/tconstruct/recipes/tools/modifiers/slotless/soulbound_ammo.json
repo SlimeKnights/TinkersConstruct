@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:modifier",
+  "allow_crystal": true,
+  "inputs": [
+    {
+      "item": "minecraft:sculk_vein"
+    }
+  ],
+  "level": 1,
+  "result": "tconstruct:soulbound",
+  "tools": {
+    "tag": "tconstruct:modifiable/single_use"
+  }
+}

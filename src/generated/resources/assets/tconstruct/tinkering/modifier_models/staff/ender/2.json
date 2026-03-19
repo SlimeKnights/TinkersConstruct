@@ -1,0 +1,9 @@
+{
+  "modifiers": {
+    "tconstruct:dyed": {
+      "type": "tconstruct:dyed",
+      "texture": "tconstruct:item/tool/staff/modifiers/ender/dyed_2",
+      "texture_large": "tconstruct:item/tool/staff/large_modifiers/ender/dyed_2"
+    }
+  }
+}

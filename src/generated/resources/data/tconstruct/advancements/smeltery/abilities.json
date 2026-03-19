@@ -55,6 +55,24 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "ballista": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "check": "upgrades",
+              "modifier": {
+                "type": "tconstruct:single",
+                "modifier": "tconstruct:ballista"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "blocking": {
       "conditions": {
         "items": [
@@ -199,6 +217,24 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "channeling": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "check": "upgrades",
+              "modifier": {
+                "type": "tconstruct:single",
+                "modifier": "tconstruct:channeling"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "crafting_table": {
       "conditions": {
         "items": [
@@ -246,6 +282,24 @@
               "modifier": {
                 "type": "tconstruct:single",
                 "modifier": "tconstruct:double_jump"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "drill_attack": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "check": "upgrades",
+              "modifier": {
+                "type": "tconstruct:single",
+                "modifier": "tconstruct:drill_attack"
               }
             }
           }
@@ -415,7 +469,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "long_fall": {
+    "grapple": {
       "conditions": {
         "items": [
           {
@@ -425,7 +479,7 @@
               "check": "upgrades",
               "modifier": {
                 "type": "tconstruct:single",
-                "modifier": "tconstruct:long_fall"
+                "modifier": "tconstruct:grapple"
               }
             }
           }
@@ -595,6 +649,24 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "returning": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "check": "upgrades",
+              "modifier": {
+                "type": "tconstruct:single",
+                "modifier": "tconstruct:returning"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "silky": {
       "conditions": {
         "items": [
@@ -606,6 +678,42 @@
               "modifier": {
                 "type": "tconstruct:single",
                 "modifier": "tconstruct:silky"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "slimeball": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "check": "upgrades",
+              "modifier": {
+                "type": "tconstruct:single",
+                "modifier": "tconstruct:slimeball"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "sliver": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "check": "upgrades",
+              "modifier": {
+                "type": "tconstruct:single",
+                "modifier": "tconstruct:sliver"
               }
             }
           }
@@ -775,6 +883,24 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "throwing": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "check": "upgrades",
+              "modifier": {
+                "type": "tconstruct:single",
+                "modifier": "tconstruct:throwing"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "tilling": {
       "conditions": {
         "items": [
@@ -882,6 +1008,24 @@
         ]
       },
       "trigger": "minecraft:inventory_changed"
+    },
+    "wings": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "check": "upgrades",
+              "modifier": {
+                "type": "tconstruct:single",
+                "modifier": "tconstruct:wings"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
     }
   },
   "display": {
@@ -901,6 +1045,9 @@
   },
   "requirements": [
     [
+      "expanded"
+    ],
+    [
       "gilded"
     ],
     [
@@ -910,61 +1057,19 @@
       "unbreakable"
     ],
     [
-      "protection"
+      "melting"
     ],
     [
-      "aqua_affinity"
+      "blocking"
     ],
     [
-      "slurping"
+      "parrying"
     ],
     [
-      "ambidextrous"
+      "dual_wielding"
     ],
     [
-      "reach"
-    ],
-    [
-      "strength"
-    ],
-    [
-      "pockets"
-    ],
-    [
-      "tool_belt"
-    ],
-    [
-      "soul_belt"
-    ],
-    [
-      "crafting_table"
-    ],
-    [
-      "wetting"
-    ],
-    [
-      "bouncy"
-    ],
-    [
-      "double_jump"
-    ],
-    [
-      "flamewake"
-    ],
-    [
-      "frost_walker"
-    ],
-    [
-      "long_fall"
-    ],
-    [
-      "snowdrift"
-    ],
-    [
-      "boundless"
-    ],
-    [
-      "reflecting"
+      "spilling"
     ],
     [
       "autosmelt"
@@ -973,10 +1078,40 @@
       "exchanging"
     ],
     [
-      "expanded"
+      "silky"
     ],
     [
-      "silky"
+      "bulk_quiver"
+    ],
+    [
+      "trick_quiver"
+    ],
+    [
+      "crystalshot"
+    ],
+    [
+      "multishot"
+    ],
+    [
+      "ballista"
+    ],
+    [
+      "slimeball"
+    ],
+    [
+      "sliver"
+    ],
+    [
+      "grapple"
+    ],
+    [
+      "throwing"
+    ],
+    [
+      "returning"
+    ],
+    [
+      "channeling"
     ],
     [
       "bucketing"
@@ -1000,6 +1135,15 @@
       "brushing"
     ],
     [
+      "spitting"
+    ],
+    [
+      "splashing"
+    ],
+    [
+      "slurping"
+    ],
+    [
       "bonking"
     ],
     [
@@ -1012,40 +1156,64 @@
       "warping"
     ],
     [
-      "dual_wielding"
+      "drill_attack"
     ],
     [
-      "melting"
-    ],
-    [
-      "blocking"
-    ],
-    [
-      "parrying"
-    ],
-    [
-      "crystalshot"
-    ],
-    [
-      "multishot"
-    ],
-    [
-      "bulk_quiver"
-    ],
-    [
-      "trick_quiver"
-    ],
-    [
-      "spitting"
-    ],
-    [
-      "spilling"
-    ],
-    [
-      "splashing"
+      "protection"
     ],
     [
       "bursting"
+    ],
+    [
+      "wetting"
+    ],
+    [
+      "aqua_affinity"
+    ],
+    [
+      "ambidextrous"
+    ],
+    [
+      "reach"
+    ],
+    [
+      "strength"
+    ],
+    [
+      "wings"
+    ],
+    [
+      "pockets"
+    ],
+    [
+      "tool_belt"
+    ],
+    [
+      "soul_belt"
+    ],
+    [
+      "crafting_table"
+    ],
+    [
+      "bouncy"
+    ],
+    [
+      "double_jump"
+    ],
+    [
+      "flamewake"
+    ],
+    [
+      "frost_walker"
+    ],
+    [
+      "snowdrift"
+    ],
+    [
+      "boundless"
+    ],
+    [
+      "reflecting"
     ]
   ],
   "sends_telemetry_event": true

@@ -1,0 +1,6 @@
+{
+  "parent": "tconstruct:item/base/geode/cluster",
+  "textures": {
+    "layer0": "tconstruct:block/geode/ender/cluster"
+  }
+}

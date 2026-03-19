@@ -1,0 +1,13 @@
+{
+  "title": "升级强化提取",
+  "image": {
+    "file": "tconstruct:book/images/worktable/extract_upgrade.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "啥？你现在都还没能干掉末影龙？好吧，用碧空黏液水晶和青金石也能从附魔书或附魔工具上提取魔咒。这一操作只对升级强化有用，且在提取了魔咒后，工具或附魔书会损毁消失。"
+    }
+  ]
+}

@@ -43,31 +43,30 @@ import slimeknights.tconstruct.library.tools.part.IToolPart;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class ContentTool extends PageContent {
-  public static final transient ResourceLocation ID = TConstruct.getResource("tool");
-  private static final transient String KEY_PROPERTIES = TConstruct.makeTranslationKey("book", "tool.properties");
+  public static final ResourceLocation ID = TConstruct.getResource("tool");
+  private static final String KEY_PROPERTIES = TConstruct.makeTranslationKey("book", "tool.properties");
 
   /* Slot backgrounds */
-  private static final transient ImageData IMG_SLOT_1x1 = ContentModifier.IMG_SLOT_1;
-  private static final transient ImageData IMG_SLOT_1x2 = new ImageData(ContentModifier.BOOK_MODIFY, 40, 75, 22, 40, ContentModifier.TEX_SIZE, ContentModifier.TEX_SIZE);
-  private static final transient ImageData IMG_SLOT_1x3 = new ImageData(ContentModifier.BOOK_MODIFY, 62, 75, 22, 58, ContentModifier.TEX_SIZE, ContentModifier.TEX_SIZE);
-  private static final transient ImageData IMG_SLOT_2x1 = ContentModifier.IMG_SLOT_2;
-  private static final transient ImageData IMG_SLOT_2x2 = ContentModifier.IMG_SLOT_4;
-  private static final transient ImageData IMG_SLOT_2x3 = new ImageData(ContentModifier.BOOK_MODIFY, 84, 75, 40, 58, ContentModifier.TEX_SIZE, ContentModifier.TEX_SIZE);
-  private static final transient ImageData IMG_SLOT_3x1 = ContentModifier.IMG_SLOT_3;
-  private static final transient ImageData IMG_SLOT_3x2 = new ImageData(ContentModifier.BOOK_MODIFY, 58, 133, 58, 40, ContentModifier.TEX_SIZE, ContentModifier.TEX_SIZE);
-  private static final transient ImageData IMG_SLOT_3x3 = new ImageData(ContentModifier.BOOK_MODIFY, 58, 173, 58, 58, ContentModifier.TEX_SIZE, ContentModifier.TEX_SIZE);
-  private static final transient ImageData[] IMG_SLOTS_SHAPELESS = {
+  private static final ImageData IMG_SLOT_1x1 = ContentModifier.IMG_SLOT_1;
+  private static final ImageData IMG_SLOT_1x2 = new ImageData(ContentModifier.BOOK_MODIFY, 40, 75, 22, 40, ContentModifier.TEX_SIZE, ContentModifier.TEX_SIZE);
+  private static final ImageData IMG_SLOT_1x3 = new ImageData(ContentModifier.BOOK_MODIFY, 62, 75, 22, 58, ContentModifier.TEX_SIZE, ContentModifier.TEX_SIZE);
+  private static final ImageData IMG_SLOT_2x1 = ContentModifier.IMG_SLOT_2;
+  private static final ImageData IMG_SLOT_2x2 = ContentModifier.IMG_SLOT_4;
+  private static final ImageData IMG_SLOT_2x3 = new ImageData(ContentModifier.BOOK_MODIFY, 84, 75, 40, 58, ContentModifier.TEX_SIZE, ContentModifier.TEX_SIZE);
+  private static final ImageData IMG_SLOT_3x1 = ContentModifier.IMG_SLOT_3;
+  private static final ImageData IMG_SLOT_3x2 = new ImageData(ContentModifier.BOOK_MODIFY, 58, 133, 58, 40, ContentModifier.TEX_SIZE, ContentModifier.TEX_SIZE);
+  private static final ImageData IMG_SLOT_3x3 = new ImageData(ContentModifier.BOOK_MODIFY, 58, 173, 58, 58, ContentModifier.TEX_SIZE, ContentModifier.TEX_SIZE);
+  private static final ImageData[] IMG_SLOTS_SHAPELESS = {
     IMG_SLOT_1x1, IMG_SLOT_2x1, IMG_SLOT_3x1,
     IMG_SLOT_2x2, ContentModifier.IMG_SLOT_5, IMG_SLOT_3x2,
     IMG_SLOT_3x3, IMG_SLOT_3x3, IMG_SLOT_3x3
   };
-  private static final transient ImageData[][] IMG_SLOTS_SHAPED = {
+  private static final ImageData[][] IMG_SLOTS_SHAPED = {
     { IMG_SLOT_1x1, IMG_SLOT_2x1, IMG_SLOT_3x1, },
     { IMG_SLOT_1x2, IMG_SLOT_2x2, IMG_SLOT_3x2, },
     { IMG_SLOT_1x3, IMG_SLOT_2x3, IMG_SLOT_3x3, }
@@ -76,17 +75,17 @@ public class ContentTool extends PageContent {
 
   /* Slot positions */
   /** Locations for slots between 0 and 9 for a width of 3 */
-  private static final transient SlotPos[] SLOTS_WIDTH_3 = {new SlotPos(3,  3), new SlotPos(21,  3), new SlotPos(39,  3),
+  private static final SlotPos[] SLOTS_WIDTH_3 = {new SlotPos(3,  3), new SlotPos(21,  3), new SlotPos(39,  3),
                                                             new SlotPos(3, 22), new SlotPos(21, 22), new SlotPos(39, 22),
                                                             new SlotPos(3, 40), new SlotPos(21, 40), new SlotPos(39, 40)};
   /** Locations for slots between 0 and 6 in a 2x size grid */
-  private static final transient SlotPos[] SLOTS_WIDTH_2 = {SLOTS_WIDTH_3[0], SLOTS_WIDTH_3[1], SLOTS_WIDTH_3[3], SLOTS_WIDTH_3[4], SLOTS_WIDTH_3[6], SLOTS_WIDTH_3[7]};
+  private static final SlotPos[] SLOTS_WIDTH_2 = {SLOTS_WIDTH_3[0], SLOTS_WIDTH_3[1], SLOTS_WIDTH_3[3], SLOTS_WIDTH_3[4], SLOTS_WIDTH_3[6], SLOTS_WIDTH_3[7]};
   /** Locations for slots between 0 and 3 in a 1x size grid */
-  private static final transient SlotPos[] SLOTS_WIDTH_1 = {SLOTS_WIDTH_3[0], SLOTS_WIDTH_3[3], SLOTS_WIDTH_3[6]};
+  private static final SlotPos[] SLOTS_WIDTH_1 = {SLOTS_WIDTH_3[0], SLOTS_WIDTH_3[3], SLOTS_WIDTH_3[6]};
   /** Array of width to slot positions */
-  private static final transient SlotPos[][] SLOTS_WIDTH = {SLOTS_WIDTH_1, SLOTS_WIDTH_2, SLOTS_WIDTH_3};
+  private static final SlotPos[][] SLOTS_WIDTH = {SLOTS_WIDTH_1, SLOTS_WIDTH_2, SLOTS_WIDTH_3};
   /** Locations for slots between 0 and 5 in a 5 slot shapeless recipe */
-  private static final transient SlotPos[] SLOTS_5 = {SLOTS_WIDTH_3[0], SLOTS_WIDTH_3[1], SLOTS_WIDTH_3[2], new SlotPos(12, 22), new SlotPos(30, 22)};
+  private static final SlotPos[] SLOTS_5 = {SLOTS_WIDTH_3[0], SLOTS_WIDTH_3[1], SLOTS_WIDTH_3[2], new SlotPos(12, 22), new SlotPos(30, 22)};
 
   /* Page computed data */
   @Nullable
@@ -121,6 +120,7 @@ public class ContentTool extends PageContent {
     this.text = new TextData[] { new TextData(ForgeI18n.getPattern(tool.asItem().getDescriptionId() + ".description"))};
   }
 
+  @SuppressWarnings("removal")
   public IModifiableDisplay getTool() {
     if (this.tool == null) {
       if (this.toolName == null) {
@@ -151,29 +151,25 @@ public class ContentTool extends PageContent {
     if (this.parts == null || slotPos == null) {
       IModifiableDisplay tool = getTool();
       List<IToolPart> required = ToolPartsHook.parts(tool.getToolDefinition());
-      // if no required components, do a crafting recipe lookup
-      if (required.isEmpty()) {
-        // get the stacks for the first crafting table recipe
-        Recipe<CraftingContainer> recipe = Optional.ofNullable(Minecraft.getInstance().level)
-                                                   .flatMap(world -> {
-                                                     RegistryAccess access = world.registryAccess();
-                                                     return world.getRecipeManager().byType(RecipeType.CRAFTING).values().stream()
-                                                          .filter(r -> r.getResultItem(access).getItem() == tool.asItem())
-                                                          .findFirst();
-                                                   })
-                                                   .orElse(null);
-        if (recipe != null) {
-          // parts is just the items in the recipe
-          this.parts = recipe.getIngredients().stream().map(ingredient -> ItemStackList.of(ingredient.getItems())).collect(Collectors.toList());
 
-          // if we have a shaped recipe, display slots in order
-          if (recipe instanceof IShapedRecipe<?> shaped) {
-            int width = Mth.clamp(shaped.getRecipeWidth() - 1, 0, 2);
-            this.imgSlots = IMG_SLOTS_SHAPED[Mth.clamp(shaped.getRecipeHeight() - 1, 0, 2)][width];
-            this.slotPos = SLOTS_WIDTH[width];
-          }
-        } else {
-          this.parts = Collections.emptyList();
+      // get the stacks for the first crafting table recipe, prefer this option over parts as it may not be craftable with said parts
+      Recipe<CraftingContainer> recipe = Optional.ofNullable(Minecraft.getInstance().level)
+                                                 .flatMap(world -> {
+                                                   RegistryAccess access = world.registryAccess();
+                                                   return world.getRecipeManager().byType(RecipeType.CRAFTING).values().stream()
+                                                        .filter(r -> r.getResultItem(access).getItem() == tool.asItem())
+                                                        .findFirst();
+                                                 })
+                                                 .orElse(null);
+      if (recipe != null) {
+        // parts is just the items in the recipe
+        this.parts = recipe.getIngredients().stream().map(ingredient -> ItemStackList.of(ingredient.getItems())).collect(Collectors.toList());
+
+        // if we have a shaped recipe, display slots in order
+        if (recipe instanceof IShapedRecipe<?> shaped) {
+          int width = Mth.clamp(shaped.getRecipeWidth() - 1, 0, 2);
+          this.imgSlots = IMG_SLOTS_SHAPED[Mth.clamp(shaped.getRecipeHeight() - 1, 0, 2)][width];
+          this.slotPos = SLOTS_WIDTH[width];
         }
       } else {
         ImmutableList.Builder<ItemStackList> partBuilder = ImmutableList.builder();
@@ -242,9 +238,7 @@ public class ContentTool extends PageContent {
 
       List<TextData> effectData = Lists.newArrayList();
       for (String e : properties) {
-        effectData.add(new TextData("\u25CF "));
-        effectData.add(new TextData(e));
-        effectData.add(new TextData("\n"));
+        effectData.add(new TextData("● " + e).linebreak(true));
       }
 
       list.add(new TextElement(padding, 44 + h, BookScreen.PAGE_WIDTH / 2 + 5, BookScreen.PAGE_HEIGHT - h - 20, effectData));

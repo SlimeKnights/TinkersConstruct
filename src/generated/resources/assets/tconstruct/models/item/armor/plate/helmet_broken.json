@@ -5,11 +5,12 @@
     "plating": "tconstruct:item/tool/armor/plate/helmet/plating_broken",
     "maille": "tconstruct:item/tool/armor/plate/helmet/maille_broken"
   },
-  "modifier_roots": [
-    "tconstruct:item/tool/armor/plate/helmet/modifiers/broken/",
-    "tconstruct:item/tool/armor/plate/helmet/modifiers/"
+  "modifier_maps": [
+    "tconstruct:plate/helmet_broken",
+    "tconstruct:plate/helmet"
   ],
   "first_modifiers": [
+    "tconstruct:dyed",
     "tconstruct:trim"
   ],
   "parts": [

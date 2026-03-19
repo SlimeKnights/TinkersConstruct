@@ -110,40 +110,41 @@ public class AlloyerBlockEntity extends NameableBlockEntity implements ITankBloc
 
   /** Handles server tick */
   private void tick(Level level, BlockPos pos, BlockState state) {
-    if (!isFormed()) {
-      return;
-    }
-
-    switch (tick) {
-      // tick 0: find fuel
-      case 0 -> {
-        alloyTank.setTemperature(fuelModule.findFuel(false));
-        if (!fuelModule.hasFuel() && alloyingModule.canAlloy()) {
-          fuelModule.findFuel(true);
-        }
-      }
-      // tick 2: alloy alloys and consume fuel
-      case 2 -> {
-        boolean hasFuel = fuelModule.hasFuel();
-
-        // update state for new fuel state
-        if (state.getValue(ControllerBlock.ACTIVE) != hasFuel) {
-          level.setBlockAndUpdate(pos, state.setValue(ControllerBlock.ACTIVE, hasFuel));
-          // update the heater below
-          BlockPos down = pos.below();
-          BlockState downState = level.getBlockState(down);
-          if (downState.is(TinkerTags.Blocks.FUEL_TANKS) && downState.hasProperty(ControllerBlock.ACTIVE) && downState.getValue(ControllerBlock.ACTIVE) != hasFuel) {
-            level.setBlockAndUpdate(down, downState.setValue(ControllerBlock.ACTIVE, hasFuel));
+    if (isFormed()) {
+      switch (tick) {
+        // tick 0: find fuel
+        case 0 -> {
+          alloyTank.setTemperature(fuelModule.findFuel(false));
+          if (!fuelModule.hasFuel() && alloyingModule.canAlloy()) {
+            fuelModule.findFuel(true);
           }
         }
+        // tick 2: alloy alloys and consume fuel
+        case 2 -> {
+          boolean hasFuel = fuelModule.hasFuel();
 
-        // actual alloying
-        if (hasFuel) {
-          alloyTank.setTemperature(fuelModule.getTemperature());
-          alloyingModule.doAlloy();
-          fuelModule.decreaseFuel(1);
+          // update state for new fuel state
+          if (state.getValue(ControllerBlock.ACTIVE) != hasFuel) {
+            level.setBlockAndUpdate(pos, state.setValue(ControllerBlock.ACTIVE, hasFuel));
+            // update the heater below
+            BlockPos down = pos.below();
+            BlockState downState = level.getBlockState(down);
+            if (downState.is(TinkerTags.Blocks.FUEL_TANKS) && downState.hasProperty(ControllerBlock.ACTIVE) && downState.getValue(ControllerBlock.ACTIVE) != hasFuel) {
+              level.setBlockAndUpdate(down, downState.setValue(ControllerBlock.ACTIVE, hasFuel));
+            }
+          }
+
+          // actual alloying
+          if (hasFuel) {
+            alloyTank.setTemperature(fuelModule.getTemperature());
+            alloyingModule.doAlloy();
+            fuelModule.decreaseFuel(1);
+          }
         }
       }
+    // if no tank, drain the excess leftover fuel from the last operation
+    } else if (tick == 2 && fuelModule.hasFuel()) {
+      fuelModule.decreaseFuel(1);
     }
     tick = (tick + 1) % 4;
   }

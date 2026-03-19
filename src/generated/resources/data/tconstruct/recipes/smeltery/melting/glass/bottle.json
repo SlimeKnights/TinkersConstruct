@@ -1,8 +1,16 @@
 {
   "type": "tconstruct:melting",
-  "ingredient": {
-    "item": "minecraft:glass_bottle"
-  },
+  "ingredient": [
+    {
+      "item": "minecraft:glass_bottle"
+    },
+    {
+      "tag": "forge:bottles/splash"
+    },
+    {
+      "tag": "forge:bottles/lingering"
+    }
+  ],
   "result": {
     "amount": 1000,
     "fluid": "tconstruct:molten_glass"

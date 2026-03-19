@@ -1,0 +1,40 @@
+{
+  "color": "FF649832",
+  "fallbacks": [
+    "wood",
+    "stick"
+  ],
+  "generator": {
+    "supported_stats": [
+      "tconstruct:limb",
+      "tconstruct:grip",
+      "tconstruct:repair_kit",
+      "tconstruct:arrow_shaft",
+      "tconstruct:shield_core",
+      "tconstruct:wood"
+    ],
+    "transformer": {
+      "type": "tconstruct:grey_to_sprite",
+      "palette": [
+        {
+          "color": "FF000000",
+          "grey": 0
+        },
+        {
+          "color": "FF404040",
+          "grey": 63,
+          "path": "tconstruct:generator/cactus"
+        },
+        {
+          "color": "FF808080",
+          "grey": 102,
+          "path": "tconstruct:generator/cactus"
+        },
+        {
+          "grey": 140,
+          "path": "tconstruct:generator/cactus"
+        }
+      ]
+    }
+  }
+}

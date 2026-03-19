@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:channeling",
+  "text": [
+    {
+      "text": "Like Mjolnir!"
+    }
+  ],
+  "effects": [
+    "Adds a chance for lighting to strike projectiles based on weather",
+    "Single level",
+    "Requires 1 ability slot",
+    "Requires throwing, fishing, or a ballista bow"
+  ]
+}

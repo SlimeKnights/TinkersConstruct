@@ -1,0 +1,26 @@
+{
+  "level_display": "tconstruct:single_level",
+  "modules": [
+    {
+      "type": "tconstruct:stat_boost",
+      "flat": 0.5,
+      "operation": "add",
+      "stat": "tconstruct:water_inertia"
+    },
+    {
+      "type": "tconstruct:conditional_power",
+      "each_level": 1.0,
+      "percent": false,
+      "target": "mantle:underwater"
+    },
+    {
+      "type": "tconstruct:volatile_flag",
+      "flag": "tconstruct:efln",
+      "hooks": [
+        "tconstruct:projectile_launch",
+        "tconstruct:projectile_shot"
+      ]
+    }
+  ],
+  "tooltip_display": "always"
+}

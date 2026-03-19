@@ -1,0 +1,32 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:protection",
+      "damage_source": "mantle:can_protect",
+      "formula": [
+        11.0,
+        "$health",
+        "-",
+        10.0,
+        "/",
+        "percent_clamp",
+        "$level",
+        "*",
+        2.5,
+        "*",
+        "$protection",
+        "+"
+      ],
+      "variables": {
+        "health": {
+          "type": "tconstruct:entity",
+          "entity_type": "tconstruct:health",
+          "fallback": 0.0,
+          "which": "target"
+        }
+      }
+    }
+  ],
+  "tooltip_display": "always"
+}

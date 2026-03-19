@@ -2,7 +2,9 @@ package slimeknights.tconstruct.library.client.book.sectiontransformer.materials
 
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 
-// TODO: still needed? Not used in the mod currently
+/** @deprecated use {@link TierRangeMaterialSectionTransformer} */
+@SuppressWarnings("removal")
+@Deprecated(forRemoval = true)
 public class MaterialSectionTransformer extends AbstractMaterialSectionTransformer {
   public static final MaterialSectionTransformer INSTANCE = new MaterialSectionTransformer("materials", false);
 

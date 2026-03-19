@@ -1,0 +1,29 @@
+{
+  "values": [
+    "tconstruct:copper",
+    "tconstruct:cactus",
+    "tconstruct:iron",
+    "tconstruct:weeping_vine",
+    "tconstruct:amethyst_bronze",
+    "tconstruct:steel",
+    "tconstruct:manyullyn",
+    "tconstruct:cinderslime",
+    "tconstruct:knightslime",
+    {
+      "id": "tconstruct:lead",
+      "required": false
+    },
+    {
+      "id": "tconstruct:bronze",
+      "required": false
+    },
+    {
+      "id": "tconstruct:electrum",
+      "required": false
+    },
+    {
+      "id": "tconstruct:fiery",
+      "required": false
+    }
+  ]
+}

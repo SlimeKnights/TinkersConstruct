@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:slimeball",
+  "text": [
+    {
+      "text": "The classical weapon of a wizard. Well, at least it's close enough."
+    }
+  ],
+  "effects": [
+    "Interact to fire slimeballs as projectiles",
+    "Pulls ammo from inventory",
+    "Different effects on different slimeballs",
+    "Single level",
+    "Requires 1 ability"
+  ]
+}

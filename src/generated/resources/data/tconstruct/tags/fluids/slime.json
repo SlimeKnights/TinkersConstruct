@@ -2,7 +2,7 @@
   "values": [
     "#forge:slime",
     "#tconstruct:sky_slime",
-    "#tconstruct:ender_slime",
-    "tconstruct:ichor"
+    "#tconstruct:ichor",
+    "#tconstruct:ender_slime"
   ]
 }

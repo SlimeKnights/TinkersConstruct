@@ -88,6 +88,7 @@ public class ModifierUsageCommand {
                                              })
                                              .map(ModifierEntry::getModifier)
                                              .collect(Collectors.toSet());
+    // TODO: modifier traits
 
     // next, get our list of modifiers
     Stream<Modifier> modifierStream;

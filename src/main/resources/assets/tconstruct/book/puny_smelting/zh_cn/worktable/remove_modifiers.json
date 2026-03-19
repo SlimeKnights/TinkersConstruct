@@ -1,0 +1,13 @@
+{
+  "title": "移除强化",
+  "image": {
+    "file": "tconstruct:book/images/worktable/remove_modifier.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "在你尝试换上新材料后，一些强化就不是很有用了。这时你便可以使用湿海绵将其抹掉。还没有找到湿海绵？那你还可以试试蜘蛛的毒液。移除强化可以返还强化槽，用于强化的材料则不会被返还。返还的海绵可以用作其他事。"
+    }
+  ]
+}

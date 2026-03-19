@@ -1,0 +1,13 @@
+{
+  "camera": "tconstruct:fluid/molten/compat_alloy/duralumin/camera",
+  "camera_opacity": 0.1,
+  "color": "FFFFFFFF",
+  "flowing": "tconstruct:fluid/molten/compat_alloy/duralumin/flowing",
+  "fog": {
+    "calculate_color": true,
+    "end": 2.0,
+    "shape": "sphere",
+    "start": 0.25
+  },
+  "still": "tconstruct:fluid/molten/compat_alloy/duralumin/still"
+}

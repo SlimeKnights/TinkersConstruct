@@ -12,8 +12,8 @@ import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 
 /**
- * Predicate that checks a tool for the given modifier.
- * @param modifier  Modifier to check for
+ * Predicate that checks a tool for the given modifier within the level range.
+ * @param modifier  Modifier(s) to check for. If multiple modifiers match, their levels will be summed for the range check.
  * @param level     Range of levels to check for, use {@link ModifierEntry#VALID_LEVEL} for simply checking for any level on the tool, 0 means not on the tool.
  * @param check     Whether to check upgrades or all modifiers
  */
@@ -21,7 +21,7 @@ public record HasModifierPredicate(IJsonPredicate<ModifierId> modifier, IntRange
   public static final RecordLoadable<HasModifierPredicate> LOADER = RecordLoadable.create(
     ModifierPredicate.LOADER.requiredField("modifier", HasModifierPredicate::modifier),
     ModifierEntry.ANY_LEVEL.defaultField("level", ModifierEntry.VALID_LEVEL, HasModifierPredicate::level),
-    new EnumLoadable<>(ModifierCheck.class).requiredField("check", HasModifierPredicate::check),
+    ModifierCheck.LOADABLE.requiredField("check", HasModifierPredicate::check),
     HasModifierPredicate::new);
 
   public HasModifierPredicate(ModifierId modifier, IntRange level, ModifierCheck check) {
@@ -30,13 +30,22 @@ public record HasModifierPredicate(IJsonPredicate<ModifierId> modifier, IntRange
 
   @Override
   public boolean matches(IToolContext tool) {
-    for (ModifierEntry entry : check.getModifiers(tool).getModifiers()) {
-      // TODO: what if multiple modifiers match?
+    // can quickly exit if we only care about the modifier being absent or present
+    ModifierNBT modifiers = check.getModifiers(tool);
+    if (this.level.isExactly(0)) {
+      return !modifiers.has(modifier);
+    }
+    if (this.level.equals(ModifierEntry.VALID_LEVEL)) {
+      return modifiers.has(modifier);
+    }
+    // if we care about a range, check all modifiers that match that range
+    int level = 0;
+    for (ModifierEntry entry : modifiers.getModifiers()) {
       if (modifier.matches(entry.getId())) {
-        return level.test(entry.getLevel());
+        level += entry.intEffectiveLevel();
       }
     }
-    return level.test(0);
+    return this.level.test(level);
   }
 
   @Override
@@ -72,6 +81,8 @@ public record HasModifierPredicate(IJsonPredicate<ModifierId> modifier, IntRange
         return tool.getModifiers();
       }
     };
+
+    public static final EnumLoadable<ModifierCheck> LOADABLE = new EnumLoadable<>(ModifierCheck.class);
 
     public abstract ModifierNBT getModifiers(IToolContext tool);
   }

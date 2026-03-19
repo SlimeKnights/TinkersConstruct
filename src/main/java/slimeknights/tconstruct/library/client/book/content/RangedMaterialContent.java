@@ -1,16 +1,23 @@
 package slimeknights.tconstruct.library.client.book.content;
 
 import net.minecraft.resources.ResourceLocation;
+import slimeknights.mantle.client.screen.book.element.ItemElement;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.utils.Util;
+import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.stats.GripMaterialStats;
 import slimeknights.tconstruct.tools.stats.LimbMaterialStats;
 import slimeknights.tconstruct.tools.stats.StatlessMaterialStats;
 
 import javax.annotation.Nullable;
+import java.util.List;
+
+import static slimeknights.tconstruct.TConstruct.getResource;
 
 public class RangedMaterialContent extends AbstractMaterialContent {
   /** Page ID for using this index directly */
@@ -51,5 +58,19 @@ public class RangedMaterialContent extends AbstractMaterialContent {
   @Override
   protected boolean supportsStatType(MaterialStatsId statsId) {
     return statsId.equals(LimbMaterialStats.ID) || statsId.equals(GripMaterialStats.ID) || statsId.equals(StatlessMaterialStats.BOWSTRING.getIdentifier());
+  }
+
+
+  /* Categories */
+
+  @Override
+  protected void addCategory(List<ItemElement> displayTools, MaterialId material) {
+    if (MaterialRegistry.getInstance().isInTag(material, TinkerTags.Materials.BALANCED)) {
+      displayTools.add(makeCategoryIcon(TinkerTools.fishingRod.get().getRenderTool(), getResource("balanced")));
+    } else if (MaterialRegistry.getInstance().isInTag(material, TinkerTags.Materials.LIGHT)) {
+      displayTools.add(makeCategoryIcon(TinkerTools.crossbow.get().getRenderTool(), getResource("light")));
+    } else if (MaterialRegistry.getInstance().isInTag(material, TinkerTags.Materials.HEAVY)) {
+      displayTools.add(makeCategoryIcon(TinkerTools.longbow.get().getRenderTool(), getResource("heavy")));
+    }
   }
 }

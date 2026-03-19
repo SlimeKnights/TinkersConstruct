@@ -237,6 +237,14 @@ public record AttributeModule(String unique, Attribute attribute, Operation oper
       return unique(id.getNamespace() + ".modifier." + id.getPath());
     }
 
+    /** @deprecated use {@link #tooltipStyle(TooltipStyle)} */
+    @Deprecated
+    @Override
+    public Builder percent() {
+      tooltipStyle = TooltipStyle.PERCENT;
+      return this;
+    }
+
     @Override
     protected AttributeModule build(ModifierFormula formula) {
       return new AttributeModule(unique, attribute, operation, new ToolFormula(formula, variables), slotsToUUIDs(unique, List.of(slots)), tooltipStyle, condition);

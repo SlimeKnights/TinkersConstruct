@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:material_fluid",
+  "fluid": {
+    "amount": 90,
+    "tag": "tconstruct:molten_knightmetal"
+  },
+  "output": "tconstruct:knightmetal",
+  "temperature": 1300
+}

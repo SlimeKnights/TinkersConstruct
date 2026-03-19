@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.library.recipe.casting;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
@@ -9,6 +8,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
@@ -17,6 +17,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.common.IngredientLoadable;
 import slimeknights.mantle.data.loadable.field.ContextKey;
+import slimeknights.mantle.data.loadable.field.LoadableField;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.IMultiRecipe;
@@ -29,37 +30,47 @@ import java.util.List;
 /**
  * Recipe for casting a fluid onto an item, copying the fluid NBT to the item
  */
-@RequiredArgsConstructor
 public class PotionCastingRecipe implements ICastingRecipe, IMultiRecipe<DisplayCastingRecipe> {
+  protected static final LoadableField<FluidIngredient, PotionCastingRecipe> FLUID_FIELD = FluidIngredient.LOADABLE.requiredField("fluid", r -> r.fluid);
+  protected static final LoadableField<Integer, PotionCastingRecipe> COOLING_TIME_FIELD = IntLoadable.FROM_ONE.defaultField("cooling_time", 5, r -> r.coolingTime);
   public static final RecordLoadable<PotionCastingRecipe> LOADER = RecordLoadable.create(
     LoadableRecipeSerializer.TYPED_SERIALIZER.requiredField(), ContextKey.ID.requiredField(), LoadableRecipeSerializer.RECIPE_GROUP,
     IngredientLoadable.DISALLOW_EMPTY.requiredField("bottle", r -> r.bottle),
-    FluidIngredient.LOADABLE.requiredField("fluid", r -> r.fluid),
+    FLUID_FIELD,
     Loadables.ITEM.requiredField("result", r -> r.result),
-    IntLoadable.FROM_ONE.defaultField("cooling_time", 5, r -> r.coolingTime),
+    COOLING_TIME_FIELD,
     PotionCastingRecipe::new);
 
   @Getter
-  private final TypeAwareRecipeSerializer<?> serializer;
+  protected final TypeAwareRecipeSerializer<?> serializer;
   @Getter
-  private final ResourceLocation id;
+  protected final ResourceLocation id;
   @Getter
-  private final String group;
+  protected final String group;
   /** Input on the casting table, always consumed */
-  private final Ingredient bottle;
+  protected final Ingredient bottle;
   /** Potion ingredient, typically just the potion tag */
-  private final FluidIngredient fluid;
+  protected final FluidIngredient fluid;
   /** Potion item result, will be given the proper NBT */
-  private final Item result;
+  protected final Item result;
   /** Cooling time for this recipe, used for tipped arrows */
-  private final int coolingTime;
+  protected final int coolingTime;
+
+  public PotionCastingRecipe(TypeAwareRecipeSerializer<?> serializer, ResourceLocation id, String group, Ingredient bottle, FluidIngredient fluid, Item result, int coolingTime) {
+    this.serializer = serializer;
+    this.id = id;
+    this.group = group;
+    this.bottle = bottle;
+    this.fluid = fluid;
+    this.result = result;
+    this.coolingTime = coolingTime;
+    CastingRecipeLookup.registerCastable(result);
+  }
 
   @Override
   public RecipeType<?> getType() {
     return serializer.getType();
   }
-
-  private List<DisplayCastingRecipe> displayRecipes = null;
 
   @Override
   public boolean matches(ICastingContainer inv, Level level) {
@@ -93,15 +104,20 @@ public class PotionCastingRecipe implements ICastingRecipe, IMultiRecipe<Display
     return result;
   }
 
+
+  /* JEI */
+  protected List<DisplayCastingRecipe> displayRecipes = null;
+
   @Override
   public List<DisplayCastingRecipe> getRecipes(RegistryAccess access) {
     if (displayRecipes == null) {
       // create a subrecipe for every potion variant
       List<ItemStack> bottles = List.of(bottle.getItems());
       displayRecipes = ForgeRegistries.POTIONS.getValues().stream()
+        .filter(potion -> potion != Potions.EMPTY)
         .map(potion -> {
           ItemStack result = PotionUtils.setPotion(new ItemStack(this.result), potion);
-          return new DisplayCastingRecipe(getType(), bottles, fluid.getFluids().stream()
+          return new DisplayCastingRecipe(getId(), getType(), bottles, fluid.getFluids().stream()
                                                               .map(fluid -> new FluidStack(fluid.getFluid(), fluid.getAmount(), result.getTag()))
                                                               .toList(),
                                           result, coolingTime, true);

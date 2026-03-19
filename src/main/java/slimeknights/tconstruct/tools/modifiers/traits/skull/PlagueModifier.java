@@ -24,9 +24,10 @@ public class PlagueModifier extends NoLevelsModifier implements DamageDealtModif
   public void onDamageDealt(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, LivingEntity target, DamageSource source, float amount, boolean isDirectDamage) {
     if (isDirectDamage && !source.is(DamageTypeTags.IS_PROJECTILE)) {
       // copy all negative effects to target
+      LivingEntity attacker = context.getEntity();
       for (MobEffectInstance effect : context.getEntity().getActiveEffects()) {
         if (!effect.getEffect().isBeneficial() && !effect.getCurativeItems().isEmpty()) {
-          target.addEffect(new MobEffectInstance(effect));
+          target.addEffect(new MobEffectInstance(effect), attacker);
         }
       }
     }

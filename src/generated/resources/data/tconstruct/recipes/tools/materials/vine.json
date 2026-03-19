@@ -1,16 +1,8 @@
 {
   "type": "tconstruct:material",
-  "ingredient": [
-    {
-      "item": "minecraft:vine"
-    },
-    {
-      "item": "minecraft:twisting_vines"
-    },
-    {
-      "item": "minecraft:weeping_vines"
-    }
-  ],
+  "ingredient": {
+    "item": "minecraft:vine"
+  },
   "material": "tconstruct:vine",
   "needed": 1,
   "value": 1

@@ -1,0 +1,24 @@
+{
+  "level_display": "tconstruct:no_levels",
+  "modules": [
+    {
+      "type": "tconstruct:tool_damage_range",
+      "cause": {
+        "type": "mantle:inverted",
+        "inverted_type": "tconstruct:tag",
+        "tag": "tconstruct:durability/bypass_tanned"
+      },
+      "max": 1
+    },
+    {
+      "type": "tconstruct:tool_damage_range",
+      "cause": {
+        "type": "tconstruct:tag",
+        "tag": "tconstruct:durability/secondary"
+      },
+      "max": 0
+    }
+  ],
+  "priority": 200,
+  "tooltip_display": "always"
+}

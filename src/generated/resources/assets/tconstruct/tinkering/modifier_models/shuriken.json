@@ -1,0 +1,21 @@
+{
+  "constant": {
+    "smashing": {
+      "type": "tconstruct:trait",
+      "model": {
+        "type": "tconstruct:fluid",
+        "mask": "tconstruct:item/tool/ammo/shuriken_modifiers/smashing",
+        "tank_helper": "tconstruct:smashing"
+      },
+      "modifier": "tconstruct:smashing"
+    },
+    "tipped": {
+      "type": "tconstruct:trait",
+      "model": {
+        "type": "tconstruct:potion",
+        "texture": "tconstruct:item/tool/ammo/shuriken_modifiers/tipped"
+      },
+      "modifier": "tconstruct:tipped"
+    }
+  }
+}

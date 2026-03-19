@@ -1,0 +1,8 @@
+{
+  "type": "tconstruct:table_casting_material",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/ingot"
+  },
+  "item_cost": 1,
+  "result": "tconstruct:fake_ingot"
+}

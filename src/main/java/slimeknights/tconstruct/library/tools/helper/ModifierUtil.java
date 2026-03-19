@@ -7,27 +7,38 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ToolAction;
+import net.minecraftforge.common.ToolActions;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.hook.build.ConditionalStatModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
 import slimeknights.tconstruct.library.tools.definition.module.ToolHooks;
+import slimeknights.tconstruct.library.tools.item.ranged.ModifiableLauncherItem;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.tools.TinkerTools;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Consumer;
 
 /** Generic modifier hooks that don't quite fit elsewhere */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -183,9 +194,87 @@ public final class ModifierUtil {
     return false;
   }
 
+  /**
+   * Makes the tool use the blocking animation if the blocking modifier is installed, falling back to the given animation.
+   * Allows your tool to block while charging up.
+   */
+  public static UseAnim blockWhileCharging(IToolStackView tool, UseAnim fallback) {
+    return canPerformAction(tool, ToolActions.SHIELD_BLOCK) ? UseAnim.BLOCK : fallback;
+  }
+
   /** Calculates inaccuracy from the conditional tool stat. */
-  public static float getInaccuracy(IToolStackView tool, LivingEntity living) {
+  public static float getInaccuracy(IToolStackView tool, @Nullable LivingEntity living) {
     return 3 * (1 / ConditionalStatModifierHook.getModifiedStat(tool, living, ToolStats.ACCURACY) - 1);
+  }
+
+  /** @deprecated use {@link GeneralInteractionModifierHook#addCooldown(IToolStackView, Player, float)} */
+  @Deprecated(forRemoval = true)
+  public static void addCooldown(IToolStackView tool, Player player) {
+    GeneralInteractionModifierHook.addCooldown(tool, player, 1);
+  }
+
+  /** Checks if this modifier is the one actively being used. Used for failure sound effects. */
+  public static boolean isActiveModifier(IToolStackView tool, ModifierEntry modifier, ModifierEntry activeModifier) {
+    // active modifier being us, or a bow is firing and no drawback ammo
+    return modifier == activeModifier || (activeModifier.getLevel() == 0 && !tool.getPersistentData().contains(ModifiableLauncherItem.KEY_DRAWBACK_AMMO));
+  }
+
+  /**
+   * Called before you call {@link Projectile#discard()} to update the fishing rod stack on the player.
+   *
+   * @param projectile  Projectile, will check if its our fishing bobber.
+   * @param damage      Damage to deal to the rod.
+   * @param applyCooldown  If true, applies draw speed as an item cooldown.
+   * @return hand containing the fishing rod, or null if its in neither hand.
+   */
+  @SuppressWarnings("UnusedReturnValue") // API
+  @Nullable
+  public static InteractionHand updateFishingRod(Projectile projectile, int damage, boolean applyCooldown) {
+    return updateFishingRod(projectile, damage, applyCooldown, ModifierId.EMPTY);
+  }
+
+  /**
+   * Called before you call {@link Projectile#discard()} to update the fishing rod stack on the player.
+   *
+   * @param projectile  Projectile, will check if its our fishing bobber.
+   * @param damage      Damage to deal to the rod.
+   * @param applyCooldown  If true, applies draw speed as an item cooldown.
+   * @param cause       Modifier causing the retraction.
+   * @return hand containing the fishing rod, or null if its in neither hand.
+   */
+  @Nullable
+  public static InteractionHand updateFishingRod(Projectile projectile, int damage, boolean applyCooldown, ModifierId cause) {
+    if (projectile.getType() == TinkerTools.fishingHook.get() && projectile.getOwner() instanceof LivingEntity living) {
+      ItemStack stack = living.getMainHandItem();
+      InteractionHand hand = InteractionHand.MAIN_HAND;
+      // must be able to cast
+      if (!stack.canPerformAction(ToolActions.FISHING_ROD_CAST)) {
+        stack = living.getOffhandItem();
+        if (!stack.canPerformAction(ToolActions.FISHING_ROD_CAST)) {
+          return null;
+        }
+        hand = InteractionHand.OFF_HAND;
+      }
+      // must be modifiable
+      if (stack.is(TinkerTags.Items.MODIFIABLE)) {
+        // skip making the tool stack object if not needed, might be asking just for the hand.
+        if (applyCooldown || damage > 0) {
+          IToolStackView tool = ToolStack.from(stack);
+          // trigger cooldown on the item
+          if (applyCooldown && living instanceof Player player) {
+            addCooldown(tool, player);
+          }
+          // damage the rod
+          if (damage > 0) {
+            // if we are applying cooldown, means this is a full retraction from block so this was primary damage
+            // no cooldown is done on secondary effects like entity hitting
+            ToolDamageUtil.damageAnimated(tool, damage, living, hand, cause);
+          }
+        }
+        return hand;
+      }
+    }
+    return null;
   }
 
   /** Interface used for {@link #foodConsumer} */
@@ -197,4 +286,23 @@ public final class ModifierUtil {
   /** Instance of the current food consumer, will be either no-op or an implementation calling the Diet API, never null. */
   @Nonnull
   public static FoodConsumer foodConsumer = (player, stack, hunger, saturation) -> {};
+
+  /* Shield disabling */
+  /** Map of how to disable shields for different targets */
+  private static final Map<EntityType<?>, Consumer<Entity>> SHIELD_DISABLER = new HashMap<>();
+
+  /** Registers a method for shield disabling */
+  public static void registerShieldDisabler(Consumer<Entity> disabler, EntityType<?>... types) {
+    for (EntityType<?> type : types){
+      SHIELD_DISABLER.putIfAbsent(type, disabler);
+    }
+  }
+
+  /** Disables shield for the target entity */
+  public static void disableShield(Entity entity) {
+    Consumer<Entity> consumer = SHIELD_DISABLER.get(entity.getType());
+    if (consumer != null) {
+      consumer.accept(entity);
+    }
+  }
 }

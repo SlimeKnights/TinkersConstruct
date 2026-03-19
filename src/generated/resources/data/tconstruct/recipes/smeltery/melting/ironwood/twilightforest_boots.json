@@ -1,0 +1,26 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "byproducts": [
+    {
+      "amount": 40,
+      "tag": "forge:molten_gold",
+      "unit_size": 10
+    }
+  ],
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "twilightforest:ironwood_boots"
+    }
+  ],
+  "ingredient": {
+    "item": "twilightforest:ironwood_boots"
+  },
+  "result": {
+    "amount": 360,
+    "tag": "forge:molten_iron",
+    "unit_size": 10
+  },
+  "temperature": 800,
+  "time": 120
+}

@@ -66,6 +66,11 @@ public class MaterialIngredient extends NestedIngredient {
     return new MaterialIngredient(ingredient, material);
   }
 
+  /** Creates an ingredient matching the given materials */
+  public static MaterialIngredient of(ItemLike item, IJsonPredicate<MaterialVariantId> material) {
+    return of(Ingredient.of(item), material);
+  }
+
   /** Creates an ingredient matching a specific material */
   public static MaterialIngredient of(Ingredient ingredient) {
     return new MaterialIngredient(ingredient, MaterialPredicate.ANY);

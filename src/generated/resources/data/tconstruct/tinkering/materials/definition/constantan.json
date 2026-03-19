@@ -11,8 +11,17 @@
         "tag": "forge:ingots/constantan"
       },
       {
-        "type": "mantle:tag_filled",
-        "tag": "forge:ingots/nickel"
+        "type": "forge:and",
+        "values": [
+          {
+            "type": "tconstruct:config",
+            "prop": "allow_ingotless_alloys"
+          },
+          {
+            "type": "mantle:tag_filled",
+            "tag": "forge:ingots/nickel"
+          }
+        ]
       }
     ]
   },

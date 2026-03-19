@@ -28,6 +28,9 @@ import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import javax.annotation.Nullable;
 import java.util.List;
 
+/** @deprecated use {@link slimeknights.tconstruct.library.modifiers.modules.combat.ConditionalMeleeDamageModule},
+ * {@link slimeknights.tconstruct.library.modifiers.modules.behavior.ConditionalStatModule}, and {@link ProtectionModule} */
+@Deprecated(forRemoval = true)
 public class InvariantModifier extends Modifier implements ConditionalStatModifierHook, MeleeDamageModifierHook, TooltipModifierHook, ProtectionModifierHook {
   private static final float BASELINE_TEMPERATURE = 0.75f;
   private static final float MAX_TEMPERATURE = 1.25f;
@@ -44,7 +47,7 @@ public class InvariantModifier extends Modifier implements ConditionalStatModifi
   @Override
   protected void registerHooks(Builder hookBuilder) {
     super.registerHooks(hookBuilder);
-    hookBuilder.addHook(this, ModifierHooks.CONDITIONAL_STAT, ModifierHooks.MELEE_DAMAGE, ModifierHooks.TOOLTIP);
+    hookBuilder.addHook(this, ModifierHooks.CONDITIONAL_STAT, ModifierHooks.MELEE_DAMAGE, ModifierHooks.MONSTER_MELEE_DAMAGE, ModifierHooks.TOOLTIP);
   }
 
   @Override

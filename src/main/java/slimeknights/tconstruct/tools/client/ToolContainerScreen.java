@@ -257,6 +257,7 @@ public class ToolContainerScreen extends AbstractContainerScreen<ToolContainerMe
     return super.mouseClicked(mouseX, mouseY, button);
   }
 
+  @Nullable
   @Override
   public FluidLocation getFluidUnderMouse(int mouseX, int mouseY) {
     if (tank != null) {

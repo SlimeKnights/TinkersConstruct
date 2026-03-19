@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:slurping",
+  "text": [
+    {
+      "text": "允许饮用工具里储存的流体获得流体效果，例如点燃自己、清除药水效果或回复饥饿值等。"
+    },
+    {
+      "text": "更高等级可饮用更多流体获得更强效果", "paragraph": true
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/interactable/charge",
+  "more_text_space": true,
+  "effects": [
+      "无等级上限",
+      "每级需要1个能力槽",
+      "手持工具与流体储罐交互可以填充流体"
+  ]
+}

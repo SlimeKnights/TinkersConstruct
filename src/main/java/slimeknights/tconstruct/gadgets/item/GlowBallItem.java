@@ -17,6 +17,8 @@ import slimeknights.tconstruct.gadgets.entity.GlowballEntity;
 import javax.annotation.Nullable;
 import java.util.List;
 
+/** @deprecated use {@link slimeknights.tconstruct.library.tools.item.ModifiableShurikenItem} with {@link slimeknights.tconstruct.tools.modules.ranged.common.ProjectilePlaceGlowModule} */
+@Deprecated
 public class GlowBallItem extends SnowballItem {
 
   public GlowBallItem(Properties properties) {

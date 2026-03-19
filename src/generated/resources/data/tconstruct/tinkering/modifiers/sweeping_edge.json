@@ -1,0 +1,10 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:sweeping_edge",
+      "each_level": 0.25
+    }
+  ],
+  "tooltip_display": "always"
+}

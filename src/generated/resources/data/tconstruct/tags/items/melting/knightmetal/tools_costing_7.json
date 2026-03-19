@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "twilightforest:knightmetal_leggings",
+      "required": false
+    },
+    {
+      "id": "twilightforest:knightmetal_shield",
+      "required": false
+    }
+  ]
+}

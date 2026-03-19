@@ -9,6 +9,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraftforge.client.extensions.common.IClientMobEffectExtensions;
 
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 /** Effect extension with a few helpers */
 public class TinkerEffect extends MobEffect {
@@ -54,7 +55,9 @@ public class TinkerEffect extends MobEffect {
    * @param entity    Entity
    * @param duration  Duration
    * @return  Applied instance
+   * @deprecated use {@link LivingEntity#addEffect(MobEffectInstance)}
    */
+  @Deprecated
   public MobEffectInstance apply(LivingEntity entity, int duration) {
     return this.apply(entity, duration, 0);
   }
@@ -65,7 +68,9 @@ public class TinkerEffect extends MobEffect {
    * @param duration  Duration
    * @param level     Effect level
    * @return  Applied instance
+   * @deprecated use {@link LivingEntity#addEffect(MobEffectInstance)}
    */
+  @Deprecated
   public MobEffectInstance apply(LivingEntity entity, int duration, int level) {
     return this.apply(entity, duration, level, false);
   }
@@ -77,7 +82,9 @@ public class TinkerEffect extends MobEffect {
    * @param amplifier Effect level
    * @param showIcon  If true, shows an icon in the HUD
    * @return  Applied instance
+   * @deprecated use {@link LivingEntity#addEffect(MobEffectInstance)}
    */
+  @Deprecated
   public MobEffectInstance apply(LivingEntity entity, int duration, int amplifier, boolean showIcon) {
     MobEffectInstance effect = new MobEffectInstance(this, duration, amplifier, false, false, showIcon);
     entity.addEffect(effect);
@@ -91,6 +98,15 @@ public class TinkerEffect extends MobEffect {
    */
   public static int getLevel(LivingEntity entity, MobEffect effect) {
     return getAmplifier(entity, effect) + 1;
+  }
+
+  /**
+   * Gets the level of the effect on the entity starting from 1, or 0 if not active
+   * @param entity  Entity to check
+   * @return  Level, or 0 if inactive
+   */
+  public static int getLevel(LivingEntity entity, Supplier<? extends MobEffect> effect) {
+    return getAmplifier(entity, effect.get()) + 1;
   }
 
   /**

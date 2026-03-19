@@ -4,13 +4,12 @@
   "textures": {
     "tool": "tconstruct:item/tool/armor/slime/wings_broken"
   },
-  "modifier_roots": [
-    "tconstruct:item/tool/armor/slime/wings_modifiers/broken/",
-    "tconstruct:item/tool/armor/slime/wings_modifiers/"
+  "modifier_maps": [
+    "tconstruct:slime/wings_broken",
+    "tconstruct:slime/wings"
   ],
   "first_modifiers": [
     "tconstruct:embellishment",
-    "tconstruct:golden",
     "tconstruct:trim"
   ]
 }

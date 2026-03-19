@@ -50,7 +50,6 @@ import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.TinkerModifiers;
-import slimeknights.tconstruct.tools.modifiers.ability.interaction.BlockingModifier;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -101,7 +100,7 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
   @Override
   public UseAnim getUseAnimation(ItemStack stack) {
     // crossbow is superhardcoded to crossbows, so use none and rely on the model
-    return BlockingModifier.blockWhileCharging(ToolStack.from(stack), UseAnim.NONE);
+    return ModifierUtil.blockWhileCharging(ToolStack.from(stack), UseAnim.NONE);
   }
 
   @Override
@@ -144,7 +143,7 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
       // if we have ammo, start charging
       ItemStack ammo = BowAmmoModifierHook.getAmmo(tool, bow, player, getSupportedHeldProjectiles());
       if (!ammo.isEmpty() || tool.getModifiers().has(TinkerTags.Modifiers.CHARGE_EMPTY_BOW_WITH_DRAWTIME)) {
-        GeneralInteractionModifierHook.startDrawtime(tool, player, 1);
+        GeneralInteractionModifierHook.startDrawing(tool, player, 1);
         if (!ammo.isEmpty()) {
           if (storeDrawingItem) {
             persistentData.put(KEY_DRAWBACK_AMMO, ammo.save(new CompoundTag()));
@@ -262,7 +261,7 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
 
         // add modifiers to the projectile, will let us use them on impact
         ModifierNBT modifiers = tool.getModifiers();
-        projectile.getCapability(EntityModifierCapability.CAPABILITY).ifPresent(cap -> cap.setModifiers(modifiers));
+        EntityModifierCapability.getCapability(projectile).addModifiers(modifiers);
 
         // fetch the persistent data for the arrow as modifiers may want to store data
         ModDataNBT projectileData = PersistentDataCapability.getOrWarn(projectile);

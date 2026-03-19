@@ -93,8 +93,9 @@ public record DepthProtectionModule(IJsonPredicate<DamageSource> source, IJsonPr
       } else if (this.entity.matches(player)) {
         multiplier = getBonusMultiplier(player, baselineHeight, neutralRange);
       }
-      if (multiplier != 0) {
-        ProtectionModule.addResistanceTooltip(tool, modifier.getModifier(), multiplier * amount.compute(modifier.getEffectiveLevel()), player, tooltip);
+      float amount = multiplier * this.amount.compute(modifier);
+      if (Math.abs(amount) >= 0.25f) {
+        ProtectionModule.addResistanceTooltip(tool, modifier.getModifier(), amount, player, tooltip);
       }
     }
   }

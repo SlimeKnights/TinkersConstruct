@@ -36,8 +36,8 @@ public class AnimatedGreyToSpriteTransformer extends GreyToSpriteTransformer {
     return frames;
   }
 
-  /** Gets the color at the given location from its full color value */
-  private int getNewColor(int color, int x, int y, int frame) {
+  @Override
+  public int getNewColor(int color, int x, int y, int frame) {
     // if fully transparent, just return fully transparent
     // we do not do 0 alpha RGB values to save effort
     if (FastColor.ABGR32.alpha(color) == 0) {
@@ -50,9 +50,13 @@ public class AnimatedGreyToSpriteTransformer extends GreyToSpriteTransformer {
 
   @Override
   public void transform(NativeImage image, boolean allowAnimated) {
-    int width = image.getWidth();
     // if not animated, just act like we have just 1 frame, means frame data of later parts is ignored
-    int frames = allowAnimated ? this.frames : 1;
+    int frames = allowAnimated ? getFrames() : 1;
+    if (frames <= 1) {
+      super.transform(image, allowAnimated);
+      return;
+    }
+    int width = image.getWidth();
     int height = image.getHeight() / frames;
     // ensure we don't overwrite the first frame until we finished all other frames, its the only one with data
     for (int f = frames - 1; f >= 0; f--) {
@@ -67,10 +71,7 @@ public class AnimatedGreyToSpriteTransformer extends GreyToSpriteTransformer {
 
   @Override
   public NativeImage copyImage(NativeImage image, boolean allowAnimated) {
-    int frames = allowAnimated ? this.frames : 1;
-    NativeImage copy = new NativeImage(image.getWidth(), image.getHeight() * frames, true);
-    copy.copyFrom(image); // note this only fills in the first frame
-    return copy;
+    return ISpriteTransformer.copyImage(image, allowAnimated ? frames : 1);
   }
 
   @Nullable
@@ -83,7 +84,7 @@ public class AnimatedGreyToSpriteTransformer extends GreyToSpriteTransformer {
       try {
         meta = READER.readMetadata(metaPath);
       } catch (IOException ex) {
-        throw new IllegalStateException("Failed to load required image", ex);
+        throw new IllegalStateException("Failed to load required image metadata from " + metaPath, ex);
       }
     }
     return meta;

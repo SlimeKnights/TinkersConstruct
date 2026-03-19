@@ -8,6 +8,8 @@ import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import slimeknights.mantle.data.loadable.primitive.FloatLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
+import slimeknights.tconstruct.library.json.variable.entity.EntityLightVariable;
+import slimeknights.tconstruct.library.modifiers.hook.mining.BreakSpeedContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nullable;
@@ -18,28 +20,40 @@ import java.util.Optional;
  * @param lightLayer   Block light layer to use
  * @param fallback     Fallback value if missing event and player
  */
-public record BlockLightVariable(LightLayer lightLayer, float fallback) implements MiningSpeedVariable {
+public record BlockLightVariable(@Nullable LightLayer lightLayer, float fallback) implements MiningSpeedVariable {
   public static final RecordLoadable<BlockLightVariable> LOADER = RecordLoadable.create(
-    TinkerLoadables.LIGHT_LAYER.requiredField("light_layer", BlockLightVariable::lightLayer),
+    TinkerLoadables.LIGHT_LAYER.nullableField("light_layer", BlockLightVariable::lightLayer),
     FloatLoadable.ANY.requiredField("fallback", BlockLightVariable::fallback),
     BlockLightVariable::new);
-
-  /** Gets the block position relative to the arguments */
-  private BlockPos getPos(@Nullable BreakSpeed event, Player player, @Nullable Direction sideHit) {
-    // use block position if possible player position otherwise
-    if (event != null && sideHit != null) {
-      Optional<BlockPos> eventPos = event.getPosition();
-      if (eventPos.isPresent()) {
-        return eventPos.get().relative(sideHit);
-      }
-    }
-    return player.blockPosition();
-  }
 
   @Override
   public float getValue(IToolStackView tool, @Nullable BreakSpeed event, @Nullable Player player, @Nullable Direction sideHit) {
     if (player != null) {
-      return player.level().getBrightness(lightLayer, getPos(event, player, sideHit));
+      // use block position if possible player position otherwise
+      BlockPos pos = player.blockPosition();
+      if (event != null && sideHit != null) {
+        Optional<BlockPos> eventPos = event.getPosition();
+        if (eventPos.isPresent()) {
+          pos = eventPos.get().relative(sideHit);
+        }
+      }
+      return EntityLightVariable.getLightLevel(player.level(), lightLayer, pos);
+    }
+    return fallback;
+  }
+
+  @Override
+  public float getValue(IToolStackView tool, @Nullable BreakSpeedContext context, @Nullable Player player) {
+    if (player != null) {
+      // use block position if possible, player position otherwise
+      BlockPos pos = player.blockPosition();
+      if (context != null) {
+        BlockPos contextPos = context.pos();
+        if (contextPos != null) {
+          pos = contextPos.relative(context.sideHit());
+        }
+      }
+      return EntityLightVariable.getLightLevel(player.level(), lightLayer, pos);
     }
     return fallback;
   }

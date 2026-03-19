@@ -97,6 +97,8 @@ public class FoundryBlockEntity extends HeatingStructureBlockEntity {
           break;
         }
       }
+    } else {
+      cool();
     }
   }
 

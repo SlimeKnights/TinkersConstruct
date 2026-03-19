@@ -1,5 +1,6 @@
 {
   "stats": {
+    "tconstruct:arrow_shaft": {},
     "tconstruct:binding": {},
     "tconstruct:grip": {
       "accuracy": -0.15,
@@ -19,7 +20,7 @@
       "mining_tier": "minecraft:diamond"
     },
     "tconstruct:limb": {
-      "accuracy": 0.1,
+      "accuracy": 0.05,
       "draw_speed": 0.2,
       "durability": 350,
       "velocity": -0.15

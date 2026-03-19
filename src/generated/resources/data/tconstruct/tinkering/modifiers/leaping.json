@@ -14,6 +14,20 @@
         "chest",
         "head"
       ]
+    },
+    {
+      "type": "tconstruct:attribute",
+      "attribute": "tconstruct:generic.safe_fall_distance",
+      "each_level": 1.0,
+      "operation": "addition",
+      "slots": [
+        "mainhand",
+        "offhand",
+        "feet",
+        "legs",
+        "chest",
+        "head"
+      ]
     }
   ],
   "tooltip_display": "always"

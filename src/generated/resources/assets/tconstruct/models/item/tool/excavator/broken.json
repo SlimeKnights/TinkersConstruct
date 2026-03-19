@@ -1,6 +1,6 @@
 {
   "loader": "tconstruct:tool",
-  "parent": "forge:item/default-tool",
+  "parent": "tconstruct:item/base/tall",
   "textures": {
     "head": "tconstruct:item/tool/excavator/head_broken",
     "handle": "tconstruct:item/tool/excavator/handle",
@@ -11,6 +11,10 @@
     "large_grip": "tconstruct:item/tool/excavator/large/grip",
     "large_binding": "tconstruct:item/tool/excavator/large/binding"
   },
+  "modifier_maps": [
+    "tconstruct:excavator_broken",
+    "tconstruct:excavator"
+  ],
   "modifier_roots": {
     "small": [
       "tconstruct:item/tool/excavator/modifiers/broken/",

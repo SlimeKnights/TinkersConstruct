@@ -23,7 +23,7 @@ public class UpdateToolDefinitionDataPacket implements IThreadsafePacket {
     ImmutableMap.Builder<ResourceLocation, ToolDefinitionData> builder = ImmutableMap.builder();
     for (int i = 0; i < size; i++) {
       ResourceLocation name = buffer.readResourceLocation();
-      ToolDefinitionData data = ToolDefinitionData.LOADABLE.decode(buffer);
+      ToolDefinitionData data = ToolDefinitionData.LOADABLE.decode(buffer, ToolDefinitionLoader.contextBuilder(name).build());
       builder.put(name, data);
     }
     dataMap = builder.build();

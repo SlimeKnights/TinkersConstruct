@@ -116,6 +116,11 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   @Nullable
   protected List<SlotCount> resultSlots = null;
 
+  @Override
+  public ResourceLocation getRecipeId() {
+    return getId();
+  }
+
   /** Gets or builds the list of tool inputs */
   protected List<ItemStack> getToolInputs() {
     if (toolInputs == null) {
@@ -148,7 +153,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
       int min = level.min() - 1;
       ModifierEntry existing = min > 0 ? new ModifierEntry(result, min) : null;
       ModifierEntry displayResult = getDisplayResult();
-      displayInputs = getToolInputs().stream().map(stack -> withModifiers(stack, modifiersForResult(displayResult, existing))).collect(Collectors.toList());
+      displayInputs = getToolInputs().stream().map(stack -> withModifiers(stack, maxToolSize, modifiersForResult(displayResult, existing))).collect(Collectors.toList());
     }
     return displayInputs;
   }
@@ -157,7 +162,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   public List<ItemStack> getToolWithModifier() {
     if (toolWithModifier == null) {
       ModifierEntry result = getDisplayResult();
-      toolWithModifier = getToolInputs().stream().map(stack -> withModifiers(stack, modifiersForResult(result, result))).collect(Collectors.toList());
+      toolWithModifier = getToolInputs().stream().map(stack -> withModifiers(stack, maxToolSize, modifiersForResult(result, result))).collect(Collectors.toList());
     }
     return toolWithModifier;
   }
@@ -277,6 +282,11 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
     return checkSlots(tool, slots);
   }
 
+  /** Gets the new level after applying this recipe */
+  protected int getNewLevel(IToolStackView tool) {
+    return (checkTraitLevel ? tool.getModifiers() : tool.getUpgrades()).getLevel(result.getId()) + 1;
+  }
+
   /**
    * Validates that this tool has a resulting level in the range and has enough modifier slots
    * @param tool    Tool stack instance
@@ -284,7 +294,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
    */
   @Nullable
   protected Component validatePrerequisites(IToolStackView tool) {
-    return validatePrerequisites(tool, (checkTraitLevel ? tool.getModifiers() : tool.getUpgrades()).getLevel(result.getId()) + 1);
+    return validatePrerequisites(tool, getNewLevel(tool));
   }
 
   /** Creates a successful result for the given tool, size, and original stack */
@@ -296,7 +306,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   /** Creates a successful result for the given tool and original stack */
   @NonExtendable
   protected RecipeResult<LazyToolStack> success(ToolStack tool, ItemStack original) {
-    return LazyToolStack.successCopy(tool, original);
+    return success(tool, original.getCount(), original);
   }
 
   /** @deprecated use {@link #success(ToolStack, int, ItemStack)} or {@link #success(ToolStack, ItemStack)} to preserve capabilities. */

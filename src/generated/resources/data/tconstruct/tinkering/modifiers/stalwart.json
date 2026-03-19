@@ -1,0 +1,29 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:protection",
+      "damage_source": "mantle:can_protect",
+      "formula": [
+        "$equipment",
+        "$level",
+        "*",
+        "$protection",
+        "+"
+      ],
+      "variables": {
+        "equipment": {
+          "type": "tconstruct:entity",
+          "entity_type": "tconstruct:equipment_count",
+          "fallback": 2.0,
+          "slots": [
+            "mainhand",
+            "offhand"
+          ],
+          "which": "attacker"
+        }
+      }
+    }
+  ],
+  "tooltip_display": "always"
+}

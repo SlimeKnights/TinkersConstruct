@@ -4,5 +4,13 @@
       "level": 1,
       "name": "tconstruct:airborne"
     }
-  ]
+  ],
+  "perStat": {
+    "tconstruct:armor": [
+      {
+        "level": 1,
+        "name": "tconstruct:skyfall"
+      }
+    ]
+  }
 }

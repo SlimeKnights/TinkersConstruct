@@ -11,6 +11,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
+import slimeknights.mantle.data.loadable.field.ContextKey;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.mantle.recipe.ingredient.EntityIngredient;
 import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipe;
@@ -19,7 +21,7 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 import java.util.Map;
 
 public class SheepShearingRecipe extends SeveringRecipe {
-  private static final Map<DyeColor,ItemLike> WOOL_BY_COLOR = Util.make(Maps.newEnumMap(DyeColor.class), map -> {
+  public static final Map<DyeColor,ItemLike> WOOL_BY_COLOR = Util.make(Maps.newEnumMap(DyeColor.class), map -> {
     map.put(DyeColor.WHITE, Blocks.WHITE_WOOL);
     map.put(DyeColor.ORANGE, Blocks.ORANGE_WOOL);
     map.put(DyeColor.MAGENTA, Blocks.MAGENTA_WOOL);
@@ -37,9 +39,10 @@ public class SheepShearingRecipe extends SeveringRecipe {
     map.put(DyeColor.RED, Blocks.RED_WOOL);
     map.put(DyeColor.BLACK, Blocks.BLACK_WOOL);
   });
+  public static final RecordLoadable<SheepShearingRecipe> LOADER = RecordLoadable.create(ContextKey.ID.requiredField(), BASE_CHANCE_FIELD, LOOTING_BONUS_FIELD, SheepShearingRecipe::new);
 
-  public SheepShearingRecipe(ResourceLocation id) {
-    super(id, EntityIngredient.of(EntityType.SHEEP), ItemOutput.fromItem(Blocks.WHITE_WOOL, 2));
+  public SheepShearingRecipe(ResourceLocation id, float baseChance, float lootingBonus) {
+    super(id, EntityIngredient.of(EntityType.SHEEP), ItemOutput.fromItem(Blocks.WHITE_WOOL, 2), baseChance, lootingBonus);
   }
 
   @Override

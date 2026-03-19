@@ -1,0 +1,12 @@
+{
+  "modifiers": {
+    "tconstruct:dyed": {
+      "type": "tconstruct:dyed",
+      "texture": "tconstruct:item/tool/armor/travelers/goggles/modifiers/dyed"
+    },
+    "tconstruct:trim": {
+      "type": "tconstruct:custom_trim",
+      "root": "tconstruct:item/tool/armor/travelers/goggles/trim"
+    }
+  }
+}

@@ -2,7 +2,7 @@
   "parent": "tconstruct:block/template/table",
   "textures": {
     "side":   "tconstruct:block/foundry/casting/table_side",
-    "top":    "tconstruct:block/foundry/casting/table_top",
+    "top":    "tconstruct:block/foundry/casting/table_plate",
     "bottom": "tconstruct:block/foundry/casting/table_bottom"
   }
 }

@@ -2,7 +2,9 @@
   "color": "FFD37CFF",
   "generator": {
     "supported_stats": [
-      "tconstruct:repair_kit"
+      "tconstruct:repair_kit",
+      "tconstruct:arrow_head",
+      "tconstruct:fletching"
     ],
     "transformer": {
       "type": "tconstruct:recolor_sprite",
@@ -22,12 +24,20 @@
             "grey": 102
           },
           {
-            "color": "FFA936ED",
+            "color": "FF8819D3",
+            "grey": 127
+          },
+          {
+            "color": "FF9727DD",
             "grey": 140
           },
           {
-            "color": "FFBF58F7",
+            "color": "FFA936ED",
             "grey": 178
+          },
+          {
+            "color": "FFBF58F7",
+            "grey": 193
           },
           {
             "color": "FFD37CFF",

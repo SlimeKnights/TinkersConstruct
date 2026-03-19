@@ -1,0 +1,46 @@
+{
+  "color": "FF393738",
+  "generator": {
+    "supported_stats": [
+      "tconstruct:arrow_head",
+      "tconstruct:maille",
+      "tconstruct:armor_maille"
+    ],
+    "transformer": {
+      "type": "tconstruct:recolor_sprite",
+      "color_mapping": {
+        "type": "tconstruct:grey_to_color",
+        "palette": [
+          {
+            "color": "FF000000",
+            "grey": 0
+          },
+          {
+            "color": "FF0B090C",
+            "grey": 63
+          },
+          {
+            "color": "FF161417",
+            "grey": 102
+          },
+          {
+            "color": "FF221F22",
+            "grey": 140
+          },
+          {
+            "color": "FF2A282B",
+            "grey": 178
+          },
+          {
+            "color": "FF393738",
+            "grey": 216
+          },
+          {
+            "color": "FF474747",
+            "grey": 255
+          }
+        ]
+      }
+    }
+  }
+}

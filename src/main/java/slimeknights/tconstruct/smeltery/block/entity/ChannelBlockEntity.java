@@ -41,7 +41,7 @@ import java.util.Map;
  */
 public class ChannelBlockEntity extends MantleBlockEntity implements IFluidPacketReceiver {
 	/** Channel internal tank */
-	private final ChannelTank tank = new ChannelTank(FaucetBlockEntity.MB_PER_TICK * 3, this);
+	private final ChannelTank tank = new ChannelTank(FaucetBlockEntity.MB_PER_TICK * 4, this);
 	/** Handler to return from channel top */
 	private final LazyOptional<IFluidHandler> topHandler = LazyOptional.of(() -> new FillOnlyFluidHandler(tank));
 	/** Tanks for inserting on each side */

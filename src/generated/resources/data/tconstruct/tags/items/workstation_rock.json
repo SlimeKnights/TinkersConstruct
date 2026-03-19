@@ -6,6 +6,57 @@
     "#forge:diorite",
     "#forge:andesite",
     "#forge:deepslate",
-    "#forge:basalt"
+    "#forge:basalt",
+    "minecraft:tuff",
+    "minecraft:dripstone_block",
+    "minecraft:calcite",
+    {
+      "id": "create:asurine",
+      "required": false
+    },
+    {
+      "id": "create:crimsite",
+      "required": false
+    },
+    {
+      "id": "create:limestone",
+      "required": false
+    },
+    {
+      "id": "create:ochrum",
+      "required": false
+    },
+    {
+      "id": "create:scoria",
+      "required": false
+    },
+    {
+      "id": "create:scorchia",
+      "required": false
+    },
+    {
+      "id": "create:veridium",
+      "required": false
+    },
+    {
+      "id": "quark:jasper",
+      "required": false
+    },
+    {
+      "id": "quark:limestone",
+      "required": false
+    },
+    {
+      "id": "quark:permafrost",
+      "required": false
+    },
+    {
+      "id": "quark:shale",
+      "required": false
+    },
+    {
+      "id": "quark:myalite",
+      "required": false
+    }
   ]
 }

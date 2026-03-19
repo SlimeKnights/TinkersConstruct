@@ -2,7 +2,7 @@
   "title": "Exploração",
   "subText": "Muitos Tinkereiros mencionam recursos úteis em modificadores ou materiais de ferramentas, mas negligenciam dizer-lhe como obtê-los. Felizmente, em minhas viagens, localizei muitos deles, de modo que posso passar minhas descobertas para vocês.",
   "operations": [
-    { "before": "grass_seeds", "action": "add_group", "data": "Recursos" },
+    { "before": "steel_shard", "action": "add_group", "data": "Recursos" },
     { "before": "skyslime_island", "action": "column_break" },
     { "before": "skyslime_island", "action": "add_group", "data": "Ilhas" },
     { "before": "skyslime_geode", "action": "column_break" },

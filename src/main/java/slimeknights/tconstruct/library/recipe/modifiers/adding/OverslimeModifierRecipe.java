@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.recipe.modifiers.adding;
 
 import lombok.Getter;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -16,6 +17,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
+import slimeknights.tconstruct.library.modifiers.modules.capacity.OverslimeModule;
 import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationContainer;
@@ -24,8 +26,8 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe
 import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
-import slimeknights.tconstruct.tools.modifiers.slotless.OverslimeModifier;
 
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -37,6 +39,7 @@ import static slimeknights.tconstruct.library.recipe.modifiers.adding.IDisplayMo
  */
 public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayModifierRecipe {
   private static final RecipeResult<LazyToolStack> AT_CAPACITY = RecipeResult.failure(TConstruct.makeTranslationKey("recipe", "overslime.at_capacity"));
+  private static final String KEY_AMOUNT = TConstruct.makeTranslationKey("recipe", "modifier.amount");
   public static final RecordLoadable<OverslimeModifierRecipe> LOADER = RecordLoadable.create(
     ContextKey.ID.requiredField(),
     IngredientLoadable.DISALLOW_EMPTY.defaultField("tools", Ingredient.of(TinkerTags.Items.DURABILITY), true, r -> r.tools),
@@ -77,21 +80,19 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
   @Override
   public RecipeResult<LazyToolStack> getValidatedResult(ITinkerStationContainer inv, RegistryAccess access) {
     ToolStack tool = inv.getTinkerable();
-    OverslimeModifier overslime = TinkerModifiers.overslime.get();
-    ModifierId overslimeId = TinkerModifiers.overslime.getId();
-    ModifierEntry entry = tool.getModifier(overslimeId);
+    ModifierId overslime = TinkerModifiers.overslime.getId();
     // if the tool lacks true overslime, add overslime
-    if (tool.getUpgrades().getLevel(overslimeId) == 0) {
+    if (tool.getUpgrades().getLevel(overslime) == 0) {
       // however, if we have overslime though a trait and reached our cap, also do nothing
-      if (entry.getLevel() > 0 && overslime.getShield(tool) >= overslime.getShieldCapacity(tool, entry)) {
+      if (tool.getModifierLevel(overslime) > 0 && OverslimeModule.INSTANCE.getAmount(tool) >= OverslimeModule.getCapacity(tool)) {
         return AT_CAPACITY;
       }
       // truely add overslime, this will cost a slime crystal if full durability
       tool = tool.copy();
-      tool.addModifier(overslimeId, 1);
+      tool.addModifier(overslime, 1);
     } else {
       // ensure we are not at the cap already
-      if (overslime.getShield(tool) >= overslime.getShieldCapacity(tool, entry)) {
+      if (OverslimeModule.INSTANCE.getAmount(tool) >= OverslimeModule.getCapacity(tool)) {
         return AT_CAPACITY;
       }
       // copy the tool as we will change it later
@@ -100,23 +101,17 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
 
     // see how much value is available, update overslime to the max possible
     int available = IncrementalModifierRecipe.getAvailableAmount(inv, ingredient, restoreAmount);
-    overslime.addOverslime(tool, entry, available);
+    OverslimeModule.INSTANCE.addAmount(tool, available);
     return ITinkerStationRecipe.success(tool, inv);
   }
 
   @Override
   public void updateInputs(LazyToolStack result, IMutableTinkerStationContainer inv, boolean isServer) {
     ToolStack tool = inv.getTinkerable();
-    // if the original tool did not have overslime, its treated as having no slime
-    int current = 0;
-    OverslimeModifier overslime = TinkerModifiers.overslime.get();
-    if (tool.getModifierLevel(overslime) != 0) {
-      current = overslime.getShield(tool);
-    }
-
     // how much did we actually consume?
-    int maxNeeded = overslime.getShield(result.getTool()) - current;
-    IncrementalModifierRecipe.updateInputs(inv, ingredient, maxNeeded, restoreAmount * OverslimeModifier.getOverworkedBonus(tool), ItemStack.EMPTY);
+    // if the original tool did not have overslime, its treated as having no slime
+    int maxNeeded = OverslimeModule.INSTANCE.getAmount(result.getTool()) - OverslimeModule.INSTANCE.getAmount(tool);
+    IncrementalModifierRecipe.updateInputs(inv, ingredient, maxNeeded, restoreAmount * OverslimeModule.getOverworkedBonus(tool), ItemStack.EMPTY);
   }
 
   @Override
@@ -129,6 +124,17 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
   private static final ModifierEntry RESULT = new ModifierEntry(TinkerModifiers.overslime, 1);
   /** Cache of input and output tools for display */
   private List<ItemStack> toolWithoutModifier, toolWithModifier = null;
+
+  @Nullable
+  @Override
+  public ResourceLocation getRecipeId() {
+    return getId();
+  }
+
+  @Override
+  public Component getVariant() {
+    return Component.translatable(TConstruct.makeTranslationKey("recipe", "modifier.amount"), restoreAmount);
+  }
 
   @Override
   public int getInputCount() {
@@ -153,11 +159,11 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
   @Override
   public List<ItemStack> getToolWithModifier() {
     if (toolWithModifier == null) {
-      OverslimeModifier overslime = TinkerModifiers.overslime.get();
       List<ModifierEntry> result = List.of(RESULT);
+      int maxSize = shrinkToolSlotBy();
       toolWithModifier = Arrays.stream(this.tools.getItems())
         .map(MAP_TOOL_STACK_FOR_RENDERING)
-        .map(stack -> withModifiers(stack, result, data -> overslime.setShield(data, restoreAmount)))
+        .map(stack -> withModifiers(stack, maxSize, result, data -> OverslimeModule.INSTANCE.setAmountRaw(data, restoreAmount)))
         .toList();
     }
     return toolWithModifier;

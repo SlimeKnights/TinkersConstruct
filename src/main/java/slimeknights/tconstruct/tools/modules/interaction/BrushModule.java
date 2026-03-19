@@ -23,7 +23,6 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.common.ForgeMod;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.loadable.record.SingletonLoader;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.AreaOfEffectHighlightModifierHook;
@@ -35,10 +34,10 @@ import slimeknights.tconstruct.library.module.HookProvider;
 import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.tools.definition.module.ToolHooks;
 import slimeknights.tconstruct.library.tools.definition.module.aoe.AreaOfEffectIterator.AOEMatchType;
+import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.Util;
-import slimeknights.tconstruct.tools.modifiers.ability.interaction.BlockingModifier;
 
 import java.util.List;
 
@@ -50,7 +49,7 @@ public enum BrushModule implements ModifierModule, GeneralInteractionModifierHoo
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<BrushModule>defaultHooks(ModifierHooks.GENERAL_INTERACT, ModifierHooks.BLOCK_INTERACT, ModifierHooks.AOE_HIGHLIGHT);
 
   @Override
-  public RecordLoadable<? extends IHaveLoader> getLoader() {
+  public RecordLoadable<BrushModule> getLoader() {
     return LOADER;
   }
 
@@ -82,7 +81,7 @@ public enum BrushModule implements ModifierModule, GeneralInteractionModifierHoo
 
   @Override
   public UseAnim getUseAction(IToolStackView tool, ModifierEntry modifier) {
-    return BlockingModifier.blockWhileCharging(tool, UseAnim.BRUSH);
+    return ModifierUtil.blockWhileCharging(tool, UseAnim.BRUSH);
   }
 
   @Override
@@ -157,7 +156,7 @@ public enum BrushModule implements ModifierModule, GeneralInteractionModifierHoo
           }
 
           // apply all tool damage, and stop using if needed
-          if (damage > 0 && !level.isClientSide && ToolDamageUtil.damageAnimated(tool, damage, entity, hand)) {
+          if (damage > 0 && !level.isClientSide && ToolDamageUtil.damageAnimated(tool, damage, entity, hand, modifier.getId())) {
             entity.stopUsingItem();
           }
         }

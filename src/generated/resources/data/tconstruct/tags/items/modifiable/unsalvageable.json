@@ -1,7 +1,8 @@
 {
   "values": [
     "tconstruct:dagger",
-    "tconstruct:plate_shield",
-    "#tconstruct:modifiable/ancient"
+    "tconstruct:arrow",
+    "tconstruct:shuriken",
+    "tconstruct:throwing_axe"
   ]
 }

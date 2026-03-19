@@ -10,6 +10,8 @@ import slimeknights.mantle.client.book.data.PageData;
 import slimeknights.mantle.client.book.data.element.TextData;
 import slimeknights.mantle.client.screen.book.element.SizedBookElement;
 
+/** @deprecated use {@link slimeknights.mantle.client.screen.book.element.PageIconLinkElement} */
+@Deprecated(forRemoval = true)
 public class PageIconLinkElement extends SizedBookElement {
 
   public PageData pageData;

@@ -1,16 +1,20 @@
 package slimeknights.tconstruct.tools.modules.ranged;
 
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.entity.living.LivingKnockBackEvent;
 import slimeknights.mantle.data.loadable.record.SingletonLoader;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileLaunchModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.special.sling.SlingAngleModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.module.HookProvider;
 import slimeknights.tconstruct.library.module.ModuleHook;
@@ -20,11 +24,15 @@ import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import javax.annotation.Nullable;
 import java.util.List;
 
-/** Modifier to restrict a projectile angle, used also by an event for knockback angle */
-public enum RestrictAngleModule implements ModifierModule, ProjectileLaunchModifierHook {
+/**
+ * Modifier to restrict a projectile angle, used also by an event for knockback angle.
+ * TODO 1.21: move to {@link slimeknights.tconstruct.tools.modules.ranged.common}
+ */
+public enum RestrictAngleModule implements ModifierModule, ProjectileLaunchModifierHook.NoShooter, SlingAngleModifierHook {
   INSTANCE;
 
-  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<RestrictAngleModule>defaultHooks(ModifierHooks.PROJECTILE_LAUNCH);
+  private static final ResourceLocation TOTAL_LEVEL = TConstruct.getResource("restrict_angle_level");
+  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<RestrictAngleModule>defaultHooks(ModifierHooks.PROJECTILE_LAUNCH, ModifierHooks.PROJECTILE_SHOT, ModifierHooks.PROJECTILE_THROWN, ModifierHooks.SLING_ANGLE);
   public static final SingletonLoader<RestrictAngleModule> LOADER = new SingletonLoader<>(INSTANCE);
 
   @Override
@@ -38,8 +46,18 @@ public enum RestrictAngleModule implements ModifierModule, ProjectileLaunchModif
   }
 
   @Override
-  public void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, Projectile projectile, @Nullable AbstractArrow arrow, ModDataNBT persistentData, boolean primary) {
-    RestrictAngleModule.clampDirection(projectile.getDeltaMovement(), modifier.getLevel(), projectile);
+  public void onProjectileShoot(IToolStackView tool, ModifierEntry modifier, @Nullable LivingEntity shooter, ItemStack ammo, Projectile projectile, @Nullable AbstractArrow arrow, ModDataNBT persistentData, boolean primary) {
+    // store the level in persistent data, so we can have this module add from multiple sources
+    int level = persistentData.getInt(TOTAL_LEVEL) + modifier.intEffectiveLevel();
+    persistentData.putInt(TOTAL_LEVEL, level);
+    clampDirection(projectile.getDeltaMovement(), level, projectile);
+  }
+
+  @Override
+  public Vec3 modifySlingAngle(IToolStackView tool, ModifierEntry modifier, LivingEntity holder, LivingEntity target, ModifierEntry slingSource, float power, float multiplier, Vec3 angle) {
+    // no good volatile place to store the total level, so just means the largest level wins out for this one
+    // luckily not mixing arrows and bows here, so just multiple copies of this module to fight it out
+    return clampDirection(angle, modifier.intEffectiveLevel(), null);
   }
 
 

@@ -1,0 +1,37 @@
+{
+  "values": [
+    "tconstruct:flint",
+    "tconstruct:bone",
+    "tconstruct:chorus",
+    "tconstruct:scorched_stone",
+    "tconstruct:necrotic_bone",
+    "tconstruct:venombone",
+    "tconstruct:weeping_vine",
+    "tconstruct:nahuatl",
+    "tconstruct:steel",
+    "tconstruct:darkthread",
+    "tconstruct:manyullyn",
+    "tconstruct:blazing_bone",
+    "tconstruct:knightmetal",
+    {
+      "id": "tconstruct:silver",
+      "required": false
+    },
+    {
+      "id": "tconstruct:invar",
+      "required": false
+    },
+    {
+      "id": "tconstruct:pewter",
+      "required": false
+    },
+    {
+      "id": "tconstruct:necronium",
+      "required": false
+    },
+    {
+      "id": "tconstruct:nicrosil",
+      "required": false
+    }
+  ]
+}

@@ -15,15 +15,23 @@
     "tconstruct:cleaver",
     "tconstruct:crossbow",
     "tconstruct:longbow",
+    "tconstruct:fishing_rod",
+    "tconstruct:javelin",
+    "tconstruct:arrow",
+    "tconstruct:shuriken",
+    "tconstruct:throwing_axe",
     "tconstruct:melting_pan",
     "tconstruct:war_pick",
     "tconstruct:battlesign",
     "tconstruct:swasher",
+    {
+      "id": "tconstruct:minotaur_axe",
+      "required": false
+    },
     "tconstruct:plate_helmet",
     "tconstruct:plate_chestplate",
     "tconstruct:plate_leggings",
     "tconstruct:plate_boots",
-    "tconstruct:plate_shield",
     "#tconstruct:modifiable/multipart/single"
   ]
 }

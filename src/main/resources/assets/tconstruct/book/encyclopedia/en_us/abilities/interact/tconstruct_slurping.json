@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:slurping",
+  "text": [
+    {
+      "text": "Allows drinking fluid contained in the tool to perform effects, such as lighting yourself on fire, clearing status effects, or restoring hunger."
+    },
+    {
+      "text": "Higher levels consume more fluid to perform stronger effects", "paragraph": true
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/interactable/charge",
+  "more_text_space": true,
+  "effects": [
+    "No max level",
+    "Requires 1 ability slot per level",
+    "Fill by using tool on a fluid tank"
+  ]
+}

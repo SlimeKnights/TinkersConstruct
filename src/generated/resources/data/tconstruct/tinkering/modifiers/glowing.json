@@ -2,10 +2,6 @@
   "level_display": "tconstruct:single_level",
   "modules": [
     {
-      "type": "tconstruct:show_offhand",
-      "mode": "disallow_broken"
-    },
-    {
       "type": "tconstruct:place_glow",
       "tool_damage": 5
     },
@@ -15,6 +11,28 @@
       "radius": {
         "each_level": 1.0,
         "flat": 2.0
+      },
+      "tool_damage": 5
+    },
+    {
+      "type": "tconstruct:projectile_place_glow",
+      "blocks": true,
+      "entities": true,
+      "tool_damage": 5
+    },
+    {
+      "type": "tconstruct:show_offhand",
+      "mode": "disallow_broken"
+    },
+    {
+      "type": "tconstruct:show_interaction_source"
+    },
+    {
+      "type": "tconstruct:block_item_provider",
+      "item": "tconstruct:glow",
+      "tool": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:modifiable/held"
       },
       "tool_damage": 5
     }

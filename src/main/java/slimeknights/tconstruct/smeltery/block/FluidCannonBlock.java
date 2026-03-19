@@ -7,7 +7,9 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Equipable;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -29,7 +31,7 @@ import static net.minecraft.world.level.block.DirectionalBlock.FACING;
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.TRIGGERED;
 
 /** Tank block which also shoots a fluid */
-public class FluidCannonBlock extends SearedTankBlock implements IFluidCannon {
+public class FluidCannonBlock extends SearedTankBlock implements IFluidCannon, Equipable {
   @Getter
   private final float power;
   @Getter
@@ -42,6 +44,11 @@ public class FluidCannonBlock extends SearedTankBlock implements IFluidCannon {
     this.velocity = velocity;
     this.inaccuracy = inaccuracy;
     this.registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(TRIGGERED, false));
+  }
+
+  @Override
+  public EquipmentSlot getEquipmentSlot() {
+    return EquipmentSlot.HEAD;
   }
 
   @Override

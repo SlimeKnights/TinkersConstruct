@@ -26,9 +26,10 @@ public class Config {
    * Common specific configuration
    */
   public static class Common {
-
     public final BooleanValue shouldSpawnWithTinkersBook;
     public final List<ConfigurableAction> toolTweaks;
+    public final BooleanValue syncKnockbackResistance;
+    public final EnumValue<ToolSyncType> toolInventorySync;
 
     // recipes
     public final BooleanValue addGravelToFlintRecipe;
@@ -49,7 +50,9 @@ public class Config {
     public final OreRate foundryOreRate, foundryByproductRate;
 
     // compatability
+    public final BooleanValue allowIngotlessAlloys;
     public final DoubleValue chemthrowerShotValue;
+    public final BooleanValue allowMonsterMeleeModifiers;
 
     // debug
     public final BooleanValue forceIntegrationMaterials;
@@ -76,15 +79,22 @@ public class Config {
                                          () -> Enchantments.BLAST_PROTECTION.slots = EquipmentSlot.values()));
       toolTweaks = actions.build();
 
+      this.syncKnockbackResistance = builder
+        .comment("If true, makes the knockback resistance attribute sync its value to client side. This allows modifiers such as springing and flinging to work properly.",
+          "If false, knockback resistance will not sync so will hopefully be 0 client side. Can be disabled in case another mod relied on it not syncing.")
+        .define("syncKnockbackResistance", true);
+
       this.repairKitAmount = builder
         .comment("Amount of durability restored by a repair kit in terms of ingots. Does not affect the cost to create the kit, that is controlled by JSON.")
         .defineInRange("repairKitAmount", 2f, 0f, Short.MAX_VALUE);
 
-//      this.chestsKeepInventory = builder
-//        .comment("Pattern and Part chests keep their inventory when harvested.")
-//        .translation("tconstruct.configgui.chestsKeepInventory")
-//        .worldRestart()
-//        .define("chestsKeepInventory", true);
+      this.toolInventorySync = builder
+        .comment("Method of syncing on opening a tool inventory. Options:",
+          "FULL_STACK: syncs the entire tool item stack to client. May cause issues with packet size if too many tools are inside the tool, but best for laggy servers.",
+          "MINIMAL (default): syncs the minimal info to prevent an inventory desync if the client lost the stack.",
+          "DISABLED: syncs nothing. May cause inventory desync issues if the client lost the tool.")
+        .defineEnum("toolInventorySync", ToolSyncType.MINIMAL);
+
       builder.pop(); // gameplay
 
       builder.comment("Options related to recipes, limited options as a datapack allows most recipes to be modified").push("recipes");
@@ -132,7 +142,7 @@ public class Config {
         this.foundryOreRate = new OreRate(builder, 9, 4);
         builder.pop();
 
-        builder.comment("Byprouct rates when melting in the foundry").push("foundry_byproduct");
+        builder.comment("Byproduct rates when melting in the foundry").push("foundry_byproduct");
         this.foundryByproductRate = new OreRate(builder, 3, 4);
         builder.pop();
       }
@@ -167,12 +177,22 @@ public class Config {
 
       builder.comment("Configuration related to integration with other mods").push("compatability");
       {
+        this.allowIngotlessAlloys = builder
+          .comment("If true, integration alloy materials will be enabled if any of their components is present, allowing creating them from their molten liquid forms.",
+            "If false, they will only be only be present if another mod adds an ingot.",
+            "This config option is provided as while most players prefer the additional materials, some dislike having no proper ingot. Note we do have NBT ingots for these materials.")
+          .worldRestart()
+          .define("allowIngotlessAlloys", true);
         chemthrowerShotValue = builder
           .comment(
             "Amount of fluid each chemthrower shot projectile from Immersive Engineering is worth towards our fluid effect registry.",
             "IE launches 8 projectiles per tick while consuming the value in their config, so dividing it by 8 makes them comparable to our projectiles.",
             "However, keeping it as a separate config option gives pack makers more control over how strong TiC ends up in the chemthrower.")
           .defineInRange("immersive_engineering_chemthrower_shot_value", 1.25, 0, Integer.MAX_VALUE);
+        this.allowMonsterMeleeModifiers = builder
+          .comment("If true, monsters will run melee modifiers when attacking with a modifiable weapon. Provided to work around potential issues with addons allowing more monsters to use tools.",
+            "Note that if its just a specific mob or damage source that has an issue, there are tag blacklists.")
+          .define("allowMonsterMeleeModifiers", true);
       }
       builder.pop();
 
@@ -206,6 +226,7 @@ public class Config {
     public final ForgeConfigSpec.BooleanValue logMissingMaterialTextures;
     public final ForgeConfigSpec.BooleanValue logMissingModifierTextures;
     public final ForgeConfigSpec.BooleanValue renderShieldSlotItem;
+    public final ForgeConfigSpec.BooleanValue renderSleevesItem;
     public final ForgeConfigSpec.BooleanValue modifiersIDsInAdvancedTooltips;
     public final ForgeConfigSpec.IntValue maxSmelteryItemQuads;
 
@@ -225,6 +246,12 @@ public class Config {
     public final ForgeConfigSpec.IntValue itemFrameYOffset;
     public final ForgeConfigSpec.EnumValue<Orientation2D> itemFrameLocation;
     public final ForgeConfigSpec.IntValue itemsPerRow;
+
+    // map modifier
+    public final ForgeConfigSpec.IntValue mapXOffset;
+    public final ForgeConfigSpec.IntValue mapYOffset;
+    public final ForgeConfigSpec.DoubleValue mapScale;
+    public final ForgeConfigSpec.EnumValue<Orientation2D> mapLocation;
 
     Client(ForgeConfigSpec.Builder builder) {
       builder.comment("Client only settings").push("client");
@@ -314,6 +341,9 @@ public class Config {
         this.renderShieldSlotItem = builder
           .comment("If true, the shield slot legging modifier will render the next offhand item above the offhand slot.")
           .define("renderShieldSlotItem", true);
+        this.renderSleevesItem = builder
+          .comment("If true, the selected item from sleeves will render next to the offhand slit.")
+          .define("renderSleevesItem", true);
 
         builder.comment("Settings related to the frame helmet modifier").push("itemFrame");
         {
@@ -334,6 +364,24 @@ public class Config {
             .defineInRange("itemsPerRow", 5, 0, 100);
         }
         builder.pop();
+
+        builder.comment("Settings related to the minimap modifier").push("minimap");
+        {
+          this.mapXOffset = builder
+            .comment("Offset in the X direction for the minimap.")
+            .defineInRange("xOffset", 0, Short.MIN_VALUE, Short.MAX_VALUE);
+          this.mapYOffset = builder
+            .comment("Offset in the Y direction for the minimap.")
+            .defineInRange("yOffset", 0, Short.MIN_VALUE, Short.MAX_VALUE);
+          this.mapScale = builder
+            .comment("Size to render the minimap. Set to 0 to disable the renderer")
+            .defineInRange("scale", 0.75f, 0, 100);
+          this.mapLocation = builder
+            .comment("Location of the minimap on the screen.")
+            .defineEnum("location", Orientation2D.TOP_LEFT);
+        }
+        builder.pop();
+
       }
       builder.pop();
 
@@ -363,6 +411,13 @@ public class Config {
   public static void init() {
     ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.commonSpec);
     ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.clientSpec);
+  }
+
+  /** Method of syncing the tool inventory on open to prevent desyncs down the line. */
+  public enum ToolSyncType {
+    FULL_STACK,
+    MINIMAL,
+    DISABLED;
   }
 
   /** Configuration for an ore rate, such as melter or foundry */

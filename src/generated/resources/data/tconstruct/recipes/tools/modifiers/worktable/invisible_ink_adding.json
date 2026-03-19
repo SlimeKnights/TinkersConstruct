@@ -5,9 +5,12 @@
   "data_key": "tconstruct:invisible_modifiers",
   "inputs": [
     {
-      "type": "forge:partial_nbt",
-      "item": "minecraft:potion",
-      "nbt": "{Potion:\"minecraft:invisibility\"}"
+      "type": "mantle:fluid_container",
+      "amount": 250,
+      "display": {
+        "item": "tconstruct:sky_slime_bottle"
+      },
+      "tag": "tconstruct:sky_slime"
     }
   ],
   "modifier_predicate": {

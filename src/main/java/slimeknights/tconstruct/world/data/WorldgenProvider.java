@@ -24,6 +24,7 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.biome.MobSpawnSettings.SpawnerData;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.MangrovePropaguleBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -86,11 +87,13 @@ import slimeknights.tconstruct.world.worldgen.trees.LeaveVineDecorator;
 import slimeknights.tconstruct.world.worldgen.trees.config.SlimeFungusConfig;
 import slimeknights.tconstruct.world.worldgen.trees.config.SlimeTreeConfig;
 
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 import static net.minecraft.core.HolderSet.direct;
 import static slimeknights.tconstruct.TConstruct.getResource;
@@ -107,6 +110,7 @@ import static slimeknights.tconstruct.world.TinkerStructures.enderSlimeTree;
 import static slimeknights.tconstruct.world.TinkerStructures.enderSlimeTreeTall;
 import static slimeknights.tconstruct.world.TinkerStructures.ichorSlimeFungus;
 import static slimeknights.tconstruct.world.TinkerStructures.netherOceanIsland;
+import static slimeknights.tconstruct.world.TinkerStructures.oceanSkyslimeIsland;
 import static slimeknights.tconstruct.world.TinkerStructures.overworldOceanIsland;
 import static slimeknights.tconstruct.world.TinkerStructures.overworldSkyIsland;
 import static slimeknights.tconstruct.world.TinkerStructures.skySlimeIsland;
@@ -137,6 +141,7 @@ import static slimeknights.tconstruct.world.TinkerWorld.spawnEnderGeode;
 import static slimeknights.tconstruct.world.TinkerWorld.spawnIchorGeode;
 import static slimeknights.tconstruct.world.TinkerWorld.spawnOverworldSlime;
 import static slimeknights.tconstruct.world.TinkerWorld.spawnSkyGeode;
+import static slimeknights.tconstruct.world.TinkerWorld.spawnTerracube;
 
 /** Provider for all our worldgen datapack registry stuff */
 public class WorldgenProvider {
@@ -249,13 +254,13 @@ public class WorldgenProvider {
     register(context, configuredLargeCobaltOre, Feature.ORE, new OreConfiguration(netherrack, cobaltOre, 6));
 
     // geodes
-    configureGeode(context, configuredEarthGeode, earthGeode, BlockStateProvider.simple(Blocks.CALCITE), BlockStateProvider.simple(Blocks.CLAY),
+    configureGeode(context, configuredEarthGeode, earthGeode, BlockStateProvider.simple(Blocks.CALCITE), BlockStateProvider.simple(Blocks.CLAY), TinkerWorld.steelCluster,
                    new GeodeLayerSettings(1.7D, 2.2D, 3.2D, 5.2D), new GeodeCrackSettings(0.95D, 2.0D, 2), UniformInt.of(6, 9), UniformInt.of(3, 4), UniformInt.of(1, 2), 16, 1);
-    configureGeode(context, configuredSkyGeode, skyGeode, BlockStateProvider.simple(Blocks.CALCITE), BlockStateProvider.simple(Blocks.MOSSY_COBBLESTONE),
-                   new GeodeLayerSettings(1.5D, 2.0D, 3.0D, 4.5D), new GeodeCrackSettings(0.55D, 0.5D, 2), UniformInt.of(3, 4), ConstantInt.of(2), ConstantInt.of(1), 8, 3);
-    configureGeode(context, configuredIchorGeode, ichorGeode, BlockStateProvider.simple(Blocks.CALCITE), BlockStateProvider.simple(Blocks.NETHERRACK),
-                   new GeodeLayerSettings(1.7D, 2.2D, 3.2D, 4.2D), new GeodeCrackSettings(0.75D, 2.0D, 2), UniformInt.of(4, 6), UniformInt.of(3, 4), UniformInt.of(1, 2), 24, 20);
-    configureGeode(context, configuredEnderGeode, enderGeode, BlockStateProvider.simple(Blocks.CALCITE), BlockStateProvider.simple(Blocks.END_STONE),
+    configureGeode(context, configuredSkyGeode, skyGeode, BlockStateProvider.simple(Blocks.CALCITE), BlockStateProvider.simple(Blocks.MOSSY_COBBLESTONE), TinkerWorld.steelCluster,
+                   new GeodeLayerSettings(1.7D, 2.2D, 3.2D, 4.2D), new GeodeCrackSettings(0.95D, 2.0D, 2), UniformInt.of(4, 7), UniformInt.of(3, 4), UniformInt.of(1, 2), 16, 1);
+    configureGeode(context, configuredIchorGeode, ichorGeode, BlockStateProvider.simple(Blocks.CALCITE), BlockStateProvider.simple(Blocks.NETHERRACK), TinkerWorld.cobaltCluster,
+                   new GeodeLayerSettings(1.7D, 2.2D, 3.2D, 4.2D), new GeodeCrackSettings(0.75D, 2.0D, 2), UniformInt.of(4, 6), UniformInt.of(3, 4), UniformInt.of(1, 2), 24, 2);
+    configureGeode(context, configuredEnderGeode, enderGeode, BlockStateProvider.simple(Blocks.CALCITE), BlockStateProvider.simple(Blocks.END_STONE), TinkerWorld.knightmetalCluster,
                    new GeodeLayerSettings(1.7D, 2.2D, 3.2D, 5.2D), new GeodeCrackSettings(0.45, 1.0D, 2), UniformInt.of(4, 10), UniformInt.of(3, 4), UniformInt.of(1, 2), 16, 10000);
   }
 
@@ -266,8 +271,8 @@ public class WorldgenProvider {
     register(context, placedLargeCobaltOre, configuredLargeCobaltOre, CountPlacement.of(3), InSquarePlacement.spread(), HeightRangePlacement.triangle(VerticalAnchor.absolute(8), VerticalAnchor.absolute(32)), BiomeFilter.biome());
 
     // geodes
-    placeGeode(context, placedEarthGeode, configuredEarthGeode, RarityFilter.onAverageOnceEvery(128), HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(6),  VerticalAnchor.aboveBottom(54)));
-    placeGeode(context, placedSkyGeode,   configuredSkyGeode,   RarityFilter.onAverageOnceEvery(64),  HeightRangePlacement.uniform(VerticalAnchor.absolute(16),    VerticalAnchor.absolute(54)));
+    placeGeode(context, placedEarthGeode, configuredEarthGeode, RarityFilter.onAverageOnceEvery(256), HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(6),  VerticalAnchor.aboveBottom(54)));
+    placeGeode(context, placedSkyGeode,   configuredSkyGeode,   RarityFilter.onAverageOnceEvery(128), HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(24), VerticalAnchor.absolute(30)));
     placeGeode(context, placedIchorGeode, configuredIchorGeode, RarityFilter.onAverageOnceEvery(52),  HeightRangePlacement.uniform(VerticalAnchor.belowTop(48),    VerticalAnchor.belowTop(16)));
     placeGeode(context, placedEnderGeode, configuredEnderGeode, RarityFilter.onAverageOnceEvery(256), HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(16), VerticalAnchor.aboveBottom(64)));
   }
@@ -280,15 +285,24 @@ public class WorldgenProvider {
     context.register(earthSlimeIsland, IslandStructure.seaBuilder()
       .addDefaultTemplates(getResource("islands/earth/"))
       .addTree(configured.getOrThrow(earthSlimeIslandTree), 1)
+      .addTree(configured.getOrThrow(skySlimeIslandTree), 1)
       .addSlimyGrass(FoliageType.EARTH)
       .build(new StructureSettings(biomes.getOrThrow(TinkerTags.Biomes.EARTHSLIME_ISLANDS), monsterOverride(EntityType.SLIME, 4, 4), Decoration.SURFACE_STRUCTURES, TerrainAdjustment.NONE)));
     // skyslime island
     context.register(skySlimeIsland, IslandStructure.skyBuilder()
       .addDefaultTemplates(getResource("islands/sky/"))
-      .addTree(configured.getOrThrow(skySlimeIslandTree), 1)
+      .addTree(configured.getOrThrow(earthSlimeIslandTree), 1)
+      .addTree(configured.getOrThrow(skySlimeIslandTree), 3)
       .addSlimyGrass(FoliageType.SKY)
       .vines(TinkerWorld.skySlimeVine.get())
       .build(new StructureSettings(biomes.getOrThrow(TinkerTags.Biomes.SKYSLIME_ISLANDS), monsterOverride(TinkerWorld.skySlimeEntity.get(), 3, 4), Decoration.SURFACE_STRUCTURES, TerrainAdjustment.NONE)));
+    // skyslime ocean variant, for those who don't like the sky ones
+    context.register(oceanSkyslimeIsland, IslandStructure.seaBuilder()
+      .addDefaultTemplates(getResource("islands/sky/"))
+      .addTree(configured.getOrThrow(earthSlimeIslandTree), 1)
+      .addTree(configured.getOrThrow(skySlimeIslandTree), 1)
+      .addSlimyGrass(FoliageType.SKY)
+      .build(new StructureSettings(biomes.getOrThrow(TinkerTags.Biomes.EARTHSLIME_ISLANDS), monsterOverride(TinkerWorld.skySlimeEntity.get(), 3, 4), Decoration.SURFACE_STRUCTURES, TerrainAdjustment.NONE)));
     // clay island
     context.register(clayIsland, IslandStructure.skyBuilder().addDefaultTemplates(getResource("islands/dirt/"))
       .addTree(configured.getOrThrow(TreeFeatures.OAK), 4)
@@ -316,7 +330,7 @@ public class WorldgenProvider {
   /** Registers all structures */
   private static void registerStructureSets(BootstapContext<StructureSet> context) {
     HolderGetter<Structure> structures = context.lookup(Registries.STRUCTURE);
-    context.register(overworldOceanIsland, structureSet(30, 9, RandomSpreadType.LINEAR, 25988585,  0.5f, entry(structures, earthSlimeIsland, 1)));
+    context.register(overworldOceanIsland, structureSet(30, 9, RandomSpreadType.LINEAR, 25988585,  0.5f, entry(structures, earthSlimeIsland, 1), entry(structures, oceanSkyslimeIsland, 1)));
     context.register(overworldSkyIsland,   structureSet(35, 4, RandomSpreadType.LINEAR, 14357800,  0.5f,  entry(structures, skySlimeIsland, 4), entry(structures, clayIsland, 1)));
     context.register(netherOceanIsland,    structureSet(15, 7, RandomSpreadType.LINEAR, 65245622,  0.5f, entry(structures, bloodIsland, 1)));
     context.register(endSkyIsland,         structureSet(25, 6, RandomSpreadType.LINEAR, 368963602, 0.5f, entry(structures, endSlimeIsland, 1)));
@@ -338,6 +352,7 @@ public class WorldgenProvider {
     context.register(spawnEnderGeode, new AddFeaturesBiomeModifier(and(end, not(direct(biomes.getOrThrow(Biomes.THE_END)))), direct(placed.getOrThrow(TinkerWorld.placedEnderGeode)), Decoration.LOCAL_MODIFICATIONS));
     // spawns
     context.register(spawnOverworldSlime, new AddSpawnsBiomeModifier(overworld, List.of(new SpawnerData(TinkerWorld.skySlimeEntity.get(), 100, 2, 4))));
+    context.register(spawnTerracube,      new AddSpawnsBiomeModifier(and(overworld, not(biomes.getOrThrow(TinkerTags.Biomes.NO_DEFAULT_MONSTERS))), List.of(new SpawnerData(TinkerWorld.terracubeEntity.get(), 10, 2, 4))));
     context.register(spawnEndSlime,       new AddSpawnsBiomeModifier(end,       List.of(new SpawnerData(TinkerWorld.enderSlimeEntity.get(), 10, 2, 4))));
   }
 
@@ -388,14 +403,19 @@ public class WorldgenProvider {
 
   /** Configures a geode feature */
   private static void configureGeode(BootstapContext<ConfiguredFeature<?,?>> context, ResourceKey<ConfiguredFeature<?,?>> key, GeodeItemObject geode,
-                                     BlockStateProvider middleLayer, BlockStateProvider outerLayer, GeodeLayerSettings layerSettings, GeodeCrackSettings crackSettings,
+                                     BlockStateProvider middleLayer, BlockStateProvider outerLayer, @Nullable Supplier<? extends Block> extraCluster, GeodeLayerSettings layerSettings, GeodeCrackSettings crackSettings,
                                      IntProvider outerWall, IntProvider distributionPoints, IntProvider pointOffset, int genOffset, int invalidBlocks) {
+    // allow adding in an extra cluster type to the geode
+    Stream<BlockState> buds = Arrays.stream(BudSize.values()).map(type -> geode.getBud(type).defaultBlockState());
+    if (extraCluster != null) {
+      buds = Stream.concat(buds, Stream.of(extraCluster.get().defaultBlockState()));
+    }
     register(context, key, Feature.GEODE, new GeodeConfiguration(
       new GeodeBlockSettings(BlockStateProvider.simple(Blocks.AIR),
                              BlockStateProvider.simple(geode.getBlock()),
                              BlockStateProvider.simple(geode.getBudding()),
                              middleLayer, outerLayer,
-                             Arrays.stream(BudSize.values()).map(type -> geode.getBud(type).defaultBlockState()).toList(),
+                             buds.toList(),
                              BlockTags.FEATURES_CANNOT_REPLACE, BlockTags.GEODE_INVALID_BLOCKS),
       layerSettings, crackSettings, 0.335, 0.083, true, outerWall, distributionPoints, pointOffset, -genOffset, genOffset, 0.05D, invalidBlocks)
     );

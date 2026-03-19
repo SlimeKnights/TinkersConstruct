@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:trim",
+  "text": [
+    {
+      "text": "Combine armor trim templates with a trim material to add +1 defense slot and a colored variant of a unique texture to the armor."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Swappable",
+    "Slotless"
+  ]
+}

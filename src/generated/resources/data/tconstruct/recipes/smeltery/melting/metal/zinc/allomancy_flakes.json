@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "allomancy:zinc_flakes"
+    }
+  ],
+  "ingredient": {
+    "item": "allomancy:zinc_flakes"
+  },
+  "result": {
+    "amount": 30,
+    "tag": "forge:molten_zinc"
+  },
+  "temperature": 420,
+  "time": 27
+}

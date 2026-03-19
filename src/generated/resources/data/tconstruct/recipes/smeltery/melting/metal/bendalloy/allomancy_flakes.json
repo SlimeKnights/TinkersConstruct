@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "allomancy:bendalloy_flakes"
+    }
+  ],
+  "ingredient": {
+    "item": "allomancy:bendalloy_flakes"
+  },
+  "result": {
+    "amount": 30,
+    "tag": "forge:molten_bendalloy"
+  },
+  "temperature": 100,
+  "time": 19
+}

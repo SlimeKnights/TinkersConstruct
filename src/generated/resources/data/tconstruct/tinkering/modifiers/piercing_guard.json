@@ -1,0 +1,23 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:counter_mob_effect",
+      "chance": {
+        "flat": 1.0
+      },
+      "effect": "tconstruct:pierce",
+      "level": {
+        "per_level": 1.0
+      },
+      "time": {
+        "flat": 80.0
+      },
+      "tool": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:modifiable/armor"
+      }
+    }
+  ],
+  "tooltip_display": "always"
+}

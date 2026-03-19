@@ -1,7 +1,11 @@
 package slimeknights.tconstruct.shared;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Items;
@@ -14,21 +18,22 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import slimeknights.mantle.registration.deferred.PotionDeferredRegister;
+import slimeknights.mantle.registration.deferred.PotionDeferredRegister.PotionType;
 import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerEffect;
 import slimeknights.tconstruct.common.TinkerModule;
-import slimeknights.tconstruct.common.registration.PotionDeferredRegister;
-import slimeknights.tconstruct.common.registration.PotionDeferredRegister.PotionType;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.shared.effect.AntigravityEffect;
 import slimeknights.tconstruct.shared.effect.ReturningEffect;
 import slimeknights.tconstruct.tools.modifiers.effect.BleedingEffect;
 import slimeknights.tconstruct.tools.modifiers.effect.MagneticEffect;
-import slimeknights.tconstruct.tools.modifiers.effect.NoMilkEffect;
 import slimeknights.tconstruct.tools.modifiers.effect.RepulsiveEffect;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.SelfDestructiveModifier.SelfDestructiveEffect;
 import slimeknights.tconstruct.world.TinkerWorld;
+
+import javax.annotation.Nullable;
 
 /** Handles registration for all status effects and potions in the mod */
 public class TinkerEffects extends TinkerModule {
@@ -38,6 +43,8 @@ public class TinkerEffects extends TinkerModule {
   public static final RegistryObject<TinkerEffect> experienced = MOB_EFFECTS.register("experienced", () -> new TinkerEffect(MobEffectCategory.BENEFICIAL, 0x82c873, true).addAttributeModifier(TinkerAttributes.EXPERIENCE_MULTIPLIER.get(), "ccffb654-9988-451e-9539-f74934274df1", 0.25f, Operation.MULTIPLY_BASE));
   public static final RegistryObject<TinkerEffect> ricochet = MOB_EFFECTS.register("ricochet", () -> new TinkerEffect(MobEffectCategory.NEUTRAL, 0x01cbcd, true).addAttributeModifier(TinkerAttributes.KNOCKBACK_MULTIPLIER.get(), "58a4bc13-366f-4f76-82f5-705451498c24", 0.5f, Operation.MULTIPLY_BASE));
   public static final RegistryObject<TinkerEffect> enderference = MOB_EFFECTS.register("enderference", () -> new TinkerEffect(MobEffectCategory.HARMFUL, 0xD37CFF, true));
+  /** Projectile persistent data key to allow ranged modifiers to hit endermen. */
+  public static final ResourceLocation ENDERFERENCE_KEY = enderference.getId();
 
   // slimy cakes
   public static final RegistryObject<TinkerEffect> bouncy = MOB_EFFECTS.register("bouncy", () -> new TinkerEffect(MobEffectCategory.BENEFICIAL, 0x71AC63, true).addAttributeModifier(TinkerAttributes.BOUNCY.get(), "5de036ed-bc47-4965-9348-64c3ab5c8ae8", 1, Operation.ADDITION));
@@ -50,7 +57,10 @@ public class TinkerEffects extends TinkerModule {
   public static final RegistryObject<MagneticEffect> magnetic = MOB_EFFECTS.register("magnetic", MagneticEffect::new);
   public static final RegistryObject<TinkerEffect> selfDestructing = MOB_EFFECTS.register("self_destructing", SelfDestructiveEffect::new);
   public static final RegistryObject<RepulsiveEffect> repulsive = MOB_EFFECTS.register("repulsive", RepulsiveEffect::new);
-  public static final RegistryObject<TinkerEffect> pierce = MOB_EFFECTS.register("pierce", () -> new NoMilkEffect(MobEffectCategory.HARMFUL, 0xD1D37A, true).addAttributeModifier(Attributes.ARMOR, "cd45be7c-c86f-4a7e-813b-42a44a054f44", -1, Operation.ADDITION));
+  public static final RegistryObject<TinkerEffect> pierce = MOB_EFFECTS.register("pierce", () -> new TinkerEffect(MobEffectCategory.HARMFUL, 0xD1D37A, true).addAttributeModifier(Attributes.ARMOR, "cd45be7c-c86f-4a7e-813b-42a44a054f44", -1, Operation.ADDITION));
+  // damage boost
+  public static final RegistryObject<TinkerEffect> conductive = MOB_EFFECTS.register("conductive", () -> new TinkerEffect(MobEffectCategory.HARMFUL, 0xF2D500, true));
+  public static final RegistryObject<TinkerEffect> venom = MOB_EFFECTS.register("venom", () -> new TinkerEffect(MobEffectCategory.HARMFUL, 0xA2935E, true));
 
   // potions
   public static final EnumObject<PotionType,Potion> experiencedPotion = POTIONS.registerTypes(experienced).withStrong().withLong().build();
@@ -58,6 +68,7 @@ public class TinkerEffects extends TinkerModule {
   public static final EnumObject<PotionType,Potion> levitationPotion = POTIONS.registerTypes("levitation", () -> MobEffects.LEVITATION, 15 * 20, 0).withStrong().withLong(40 * 20, 0).build();
   public static final EnumObject<PotionType,Potion> enderferencePotion = POTIONS.registerTypes(enderference, 90 * 20, 0).withLong().build();
 
+  @SuppressWarnings("removal")
   public TinkerEffects() {
     POTIONS.register(FMLJavaModLoadingContext.get().getModEventBus());
   }
@@ -84,5 +95,20 @@ public class TinkerEffects extends TinkerModule {
     if (strong != null) {
       PotionBrewing.addMix(normal, Items.GLOWSTONE_DUST, strong);
     }
+  }
+
+  /** Checks if the given entity can be hit considering enderman enderference */
+  public static boolean canHitWithProjectile(@Nullable LivingEntity living) {
+    return living == null || living.getType() != EntityType.ENDERMAN || living.hasEffect(enderference.get());
+  }
+
+  /** Checks if the given entity needs special casing for enderference */
+  public static boolean needsEnderferenceOverride(@Nullable Entity entity) {
+    return entity != null && entity.getType() == EntityType.ENDERMAN && entity instanceof LivingEntity living && living.hasEffect(enderference.get());
+  }
+
+  /** Checks if the given entity needs special casing for enderference */
+  public static boolean needsEnderferenceOverride(@Nullable LivingEntity living) {
+    return living != null && living.getType() == EntityType.ENDERMAN && living.hasEffect(enderference.get());
   }
 }

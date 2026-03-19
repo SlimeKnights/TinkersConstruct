@@ -1,0 +1,13 @@
+{
+  "title": "Extract Upgrade",
+  "image": {
+    "file": "tconstruct:book/images/worktable/extract_upgrade.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "What, you haven't killed the ender dragon yet? Fine, you can use skyslime crystals and lapis lazuli to extract enchantments as well. This only works on upgrade modifiers and will destroy the tool or book after extracting the enchantment."
+    }
+  ]
+}

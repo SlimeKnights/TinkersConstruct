@@ -8,6 +8,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.primitive.BooleanLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
+import slimeknights.mantle.util.LogicHelper;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.armor.EquipmentChangeModifierHook;
@@ -67,14 +68,15 @@ public record ArmorLevelModule(TinkerDataKey<Integer> key, boolean allowBroken, 
    * @param amount   Amount to add
    */
   public static void addLevels(EquipmentChangeContext context, TinkerDataKey<Integer> key, int amount) {
-    context.getTinkerData().ifPresent(data -> {
+    TinkerDataCapability.Holder data = LogicHelper.orElseNull(context.getTinkerData());
+    if (data != null) {
       int totalLevels = data.get(key, 0) + amount;
       if (totalLevels <= 0) {
         data.remove(key);
       } else {
         data.put(key, totalLevels);
       }
-    });
+    }
   }
 
   /** Checks if the given slot is valid */
@@ -113,6 +115,7 @@ public record ArmorLevelModule(TinkerDataKey<Integer> key, boolean allowBroken, 
    * @return  Level from the key
    */
   public static int getLevel(LazyOptional<TinkerDataCapability.Holder> cap, TinkerDataKey<Integer> key) {
-    return cap.resolve().map(data -> data.get(key)).orElse(0);
+    TinkerDataCapability.Holder data = LogicHelper.orElseNull(cap);
+    return data != null ? data.get(key, 0) : 0;
   }
 }

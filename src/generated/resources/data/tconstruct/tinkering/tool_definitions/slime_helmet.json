@@ -42,6 +42,10 @@
           "name": "tconstruct:overslime_friend"
         }
       ]
+    },
+    {
+      "type": "tconstruct:unique_material_name",
+      "index": 0
     }
   ]
 }

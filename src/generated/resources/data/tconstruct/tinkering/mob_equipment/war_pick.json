@@ -1,0 +1,23 @@
+{
+  "entity": [
+    "minecraft:zombie_villager",
+    "minecraft:vindicator"
+  ],
+  "equip": {
+    "chance": 0.05,
+    "materials": [
+      {
+        "type": "tconstruct:ancient"
+      },
+      {
+        "type": "tconstruct:ancient"
+      },
+      {
+        "type": "tconstruct:ancient"
+      }
+    ],
+    "priority": 100,
+    "slot": "mainhand",
+    "tool": "tconstruct:war_pick"
+  }
+}

@@ -23,6 +23,20 @@
     {
       "type": "tconstruct:conditional",
       "effect": {
+        "type": "tconstruct:mob_effect",
+        "action": "add",
+        "effect": "tconstruct:returning",
+        "level": 1,
+        "time": 140
+      },
+      "target": {
+        "type": "mantle:has_effect",
+        "effect": "tconstruct:returning"
+      }
+    },
+    {
+      "type": "tconstruct:conditional",
+      "effect": {
         "type": "tconstruct:sequence",
         "effects": [
           {
@@ -33,28 +47,20 @@
             "time": 140
           },
           {
-            "type": "tconstruct:teleport"
+            "type": "tconstruct:teleport",
+            "chances": {
+              "flat": 16
+            },
+            "diameter": {
+              "each_level": 8
+            }
           }
         ]
       },
       "target": {
         "type": "mantle:inverted",
         "effect": "tconstruct:returning",
-        "inverted_type": "tconstruct:has_effect"
-      }
-    },
-    {
-      "type": "tconstruct:conditional",
-      "effect": {
-        "type": "tconstruct:mob_effect",
-        "action": "add",
-        "effect": "tconstruct:returning",
-        "level": 1,
-        "time": 140
-      },
-      "target": {
-        "type": "tconstruct:has_effect",
-        "effect": "tconstruct:returning"
+        "inverted_type": "mantle:has_effect"
       }
     }
   ],

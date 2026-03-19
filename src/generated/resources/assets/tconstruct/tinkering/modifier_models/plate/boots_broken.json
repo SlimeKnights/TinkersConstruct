@@ -1,0 +1,17 @@
+{
+  "modifiers": {
+    "tconstruct:dyed": {
+      "type": "tconstruct:material_has_fallback",
+      "fallback": "metal",
+      "if_false": {
+        "type": "tconstruct:dyed",
+        "texture": "tconstruct:item/tool/armor/plate/boots/maille_broken"
+      },
+      "if_true": {
+        "type": "tconstruct:dyed",
+        "texture": "tconstruct:item/tool/armor/plate/boots/maille_broken_metal"
+      },
+      "index": 1
+    }
+  }
+}

@@ -2,6 +2,15 @@
   "level_display": "tconstruct:default",
   "modules": [
     {
+      "type": "tconstruct:volatile_float",
+      "each_level": 0.5,
+      "flag": "tconstruct:experience",
+      "hooks": [
+        "tconstruct:volatile_data",
+        "tconstruct:projectile_launch"
+      ]
+    },
+    {
       "type": "tconstruct:attribute",
       "attribute": "tconstruct:player.experience_multiplier",
       "each_level": 0.25,

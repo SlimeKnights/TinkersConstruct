@@ -1,0 +1,52 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:conditional_melee_damage",
+      "formula": [
+        "$armor_coverage",
+        1.6,
+        "*",
+        "$level",
+        "*",
+        "$multiplier",
+        "*",
+        "$damage",
+        "+"
+      ],
+      "percent": false,
+      "variables": {
+        "armor_coverage": {
+          "type": "tconstruct:entity",
+          "entity_type": "tconstruct:armor_coverage",
+          "fallback": 1.0,
+          "which": "target"
+        }
+      }
+    },
+    {
+      "type": "tconstruct:conditional_power",
+      "formula": [
+        "$armor_coverage",
+        0.8,
+        "*",
+        "$level",
+        "*",
+        "$multiplier",
+        "*",
+        "$damage",
+        "+"
+      ],
+      "percent": false,
+      "variables": {
+        "armor_coverage": {
+          "type": "tconstruct:entity",
+          "entity_type": "tconstruct:armor_coverage",
+          "fallback": 1.0,
+          "which": "target"
+        }
+      }
+    }
+  ],
+  "tooltip_display": "always"
+}

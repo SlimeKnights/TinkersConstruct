@@ -1,0 +1,123 @@
+{
+  "parent": "block/block",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "particle": "tconstruct:block/foundry/casting/table_side",
+    "side":     "tconstruct:block/foundry/casting/table_side",
+    "bottom":   "tconstruct:block/foundry/casting/table_bottom",
+    "top":      "tconstruct:block/foundry/casting/table_plate"
+  },
+  "elements": [
+    {
+      "name": "Table outer",
+      "from": [ 0, 10, 0 ],
+      "to": [ 16, 16, 16 ],
+      "faces": {
+        "north": { "texture": "#side", "cullface": "north" },
+        "east":  { "texture": "#side", "cullface": "east"  },
+        "south": { "texture": "#side", "cullface": "south" },
+        "west":  { "texture": "#side", "cullface": "west"  },
+        "down":  { "texture": "#bottom" }
+      }
+    },
+    {
+      "name": "Table inner",
+      "from": [ 15, 16, 15 ],
+      "to": [ 1, 15, 1 ],
+      "faces": {
+        "north": { "texture": "#side", "cullface": "up" },
+        "east":  { "texture": "#side", "cullface": "up" },
+        "south": { "texture": "#side", "cullface": "up" },
+        "west":  { "texture": "#side", "cullface": "up" },
+        "up":    { "texture": "#top",  "cullface": "up" }
+      }
+    },
+
+    {
+      "name": "Northwest leg",
+      "from": [ 0, 0, 0] ,
+      "to": [ 4, 10, 4 ],
+      "faces": {
+        "north": { "texture": "#side",   "cullface": "north" },
+        "east":  { "texture": "#side" },
+        "south": { "texture": "#side" },
+        "west":  { "texture": "#side",   "cullface": "west"  },
+        "down":  { "texture": "#bottom", "cullface": "down"  }
+      }
+    },
+    {
+      "name": "Northeast leg",
+      "from": [ 12, 0, 0 ],
+      "to": [ 16, 10, 4 ],
+      "faces": {
+        "north": { "texture": "#side",   "cullface": "north" },
+        "east":  { "texture": "#side",   "cullface": "east"  },
+        "south": { "texture": "#side"},
+        "west":  { "texture": "#side"},
+        "down":  { "texture": "#bottom", "cullface": "down"  }
+      }
+    },
+    {
+      "name": "Southeast leg",
+      "from": [ 12, 0, 12 ],
+      "to": [ 16, 10, 16 ],
+      "faces": {
+        "north": { "texture": "#side" },
+        "east":  { "texture": "#side",   "cullface": "east"  },
+        "south": { "texture": "#side",   "cullface": "south" },
+        "west":  { "texture": "#side" },
+        "down":  { "texture": "#bottom", "cullface": "down"  }
+      }
+    },
+    {
+      "name": "Southwest leg",
+      "from": [ 0, 0, 12 ],
+      "to": [ 4, 10, 16 ],
+      "faces": {
+        "north": { "texture": "#side" },
+        "east":  { "texture": "#side" },
+        "south": { "texture": "#side",   "cullface": "south" },
+        "west":  { "texture": "#side",   "cullface": "west"  },
+        "down":  { "texture": "#bottom", "cullface": "down"  }
+      }
+    },
+
+    {
+      "name": "West top edge",
+      "from": [ 0, 16, 0 ],
+      "to": [ 1, 16, 16 ],
+      "faces": { "up": { "texture": "#top", "cullface": "up" }}
+    },
+    {
+      "name": "East top edge",
+      "from": [ 15, 16, 0 ],
+      "to": [ 16, 16, 16 ],
+      "faces": { "up": { "texture": "#top", "cullface": "up" }}
+    },
+    {
+      "name": "North top edge",
+      "from": [ 1, 16, 0 ],
+      "to": [ 15, 16, 1 ],
+      "faces": { "up": { "texture": "#top", "cullface": "up" }}
+    },
+    {
+      "name": "South top edge",
+      "from": [ 1, 16, 15 ],
+      "to": [ 15, 16, 16 ],
+      "faces": { "up": { "texture": "#top", "cullface": "up" }}
+    },
+
+    {
+      "name": "plate",
+      "from": [2, 15, 2],
+      "to": [14, 16, 14],
+      "faces": {
+        "north": {"uv": [ 2,  2, 14,  3], "texture": "#top", "rotation": 180},
+        "east":  {"uv": [13,  2, 14, 14], "texture": "#top", "rotation":  90},
+        "south": {"uv": [ 2, 13, 14, 14], "texture": "#top"},
+        "west":  {"uv": [ 2,  2,  3, 14], "texture": "#top", "rotation": 270},
+        "up":    {"uv": [ 2,  2, 14, 14], "texture": "#top"}
+      }
+    }
+  ]
+}

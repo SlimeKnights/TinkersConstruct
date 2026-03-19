@@ -23,7 +23,11 @@ public enum TinkerHeadType implements Type, StringRepresentable {
   CAVE_SPIDER(() -> EntityType.CAVE_SPIDER),
   // piglin
   PIGLIN_BRUTE(() -> EntityType.PIGLIN_BRUTE),
-  ZOMBIFIED_PIGLIN(() -> EntityType.ZOMBIFIED_PIGLIN);
+  ZOMBIFIED_PIGLIN(() -> EntityType.ZOMBIFIED_PIGLIN),
+  // crafted
+  VENOMBONE(() -> EntityType.SKELETON),
+  BLAZING_BONE(() -> EntityType.WITHER_SKELETON),
+  NECRONIUM(() -> EntityType.WITHER_SKELETON);
 
   private final Supplier<EntityType<?>> type;
 
@@ -42,6 +46,11 @@ public enum TinkerHeadType implements Type, StringRepresentable {
     return this == PIGLIN_BRUTE || this == ZOMBIFIED_PIGLIN;
   }
 
+  /** If true, this belongs to a natural mob */
+  public boolean isNatural() {
+    return this != VENOMBONE && this != BLAZING_BONE && this != NECRONIUM;
+  }
+
   /**
    * Gets the head type for the given entity type
    * @param type  Entity type
@@ -50,7 +59,7 @@ public enum TinkerHeadType implements Type, StringRepresentable {
   @Nullable
   public static TinkerHeadType fromEntityType(EntityType<?> type) {
     for (TinkerHeadType headType : values()) {
-      if (headType.getType() == type) {
+      if (headType.isNatural() && headType.getType() == type) {
         return headType;
       }
     }

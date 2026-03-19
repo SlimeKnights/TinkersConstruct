@@ -5,6 +5,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
+import javax.annotation.Nullable;
 import java.util.Collection;
 
 /** Hook used when a tool is added or removed from any of the six {@link EquipmentSlot}. */
@@ -51,6 +52,22 @@ public interface EquipmentChangeModifierHook {
    * @param slotType  Slot containing this tool, did not change
    */
   default void onEquipmentChange(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context, EquipmentSlot slotType) {}
+
+  /** Checks if this tool changed. */
+  static boolean didChange(IToolStackView tool, @Nullable IToolStackView other) {
+    // modifier list changing is a good heuristic for tool changing
+    return (other == null || other.getItem() != tool.getItem() || !other.getModifiers().equals(tool.getModifiers()));
+  }
+
+  /** Checks if this tool was equip, as {@link #onUnequip(IToolStackView, ModifierEntry, EquipmentChangeContext)} may be called on the tool itself changing NBT. */
+  static boolean didEquip(IToolStackView tool, EquipmentChangeContext context) {
+    return didChange(tool, context.getOriginalTool());
+  }
+
+  /** Checks if this tool was unequip, as {@link #onUnequip(IToolStackView, ModifierEntry, EquipmentChangeContext)} may be called on the tool itself changing NBT. */
+  static boolean didUnequip(IToolStackView tool, EquipmentChangeContext context) {
+    return didChange(tool, context.getReplacementTool());
+  }
 
   /** Record that runs all nested hooks */
   record AllMerger(Collection<EquipmentChangeModifierHook> modules) implements EquipmentChangeModifierHook {

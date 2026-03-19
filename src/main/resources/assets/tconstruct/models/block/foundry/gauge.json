@@ -1,0 +1,6 @@
+{
+  "parent": "tconstruct:block/template/gauge",
+  "textures": {
+    "gauge": "tconstruct:block/foundry/io/gauge"
+  }
+}

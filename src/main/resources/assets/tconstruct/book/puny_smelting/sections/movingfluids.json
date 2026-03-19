@@ -40,9 +40,9 @@
     "data": "movingfluids/copper_can_craft.json"
   },
   {
-    "name": "casting_tank",
+    "name": "gauge",
     "type": "mantle:showcase",
-    "data": "movingfluids/casting_tank.json"
+    "data": "movingfluids/gauge.json"
   },
   {
     "name": "fluid_cannon",

@@ -19,7 +19,5 @@
     "item": "tconstruct:scorched_chute"
   },
   "show_notification": true,
-  "texture": {
-    "tag": "tconstruct:foundry_bricks"
-  }
+  "texture": "#"
 }

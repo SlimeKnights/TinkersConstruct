@@ -1,0 +1,24 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:reduce_tool_damage",
+      "formula": [
+        "$light",
+        0.05,
+        "*"
+      ],
+      "reinforced_tooltip": true,
+      "variables": {
+        "light": {
+          "type": "tconstruct:entity",
+          "entity_type": "tconstruct:light",
+          "fallback": 15.0,
+          "light_layer": "sky"
+        }
+      }
+    }
+  ],
+  "priority": 185,
+  "tooltip_display": "always"
+}

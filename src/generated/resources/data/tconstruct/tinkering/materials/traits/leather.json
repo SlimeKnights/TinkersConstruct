@@ -4,5 +4,17 @@
       "level": 1,
       "name": "tconstruct:tanned"
     }
-  ]
+  ],
+  "perStat": {
+    "tconstruct:skull": [
+      {
+        "level": 2,
+        "name": "tconstruct:consecrated"
+      },
+      {
+        "level": 1,
+        "name": "tconstruct:zombie_disguise"
+      }
+    ]
+  }
 }

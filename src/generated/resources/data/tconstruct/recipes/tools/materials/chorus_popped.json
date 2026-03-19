@@ -4,6 +4,6 @@
     "item": "minecraft:popped_chorus_fruit"
   },
   "material": "tconstruct:chorus",
-  "needed": 4,
+  "needed": 1,
   "value": 1
 }

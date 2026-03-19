@@ -1,0 +1,41 @@
+{
+  "condition": {
+    "type": "forge:or",
+    "values": [
+      {
+        "type": "tconstruct:config",
+        "prop": "force_integration_materials"
+      },
+      {
+        "type": "mantle:tag_filled",
+        "tag": "forge:ingots/pewter"
+      },
+      {
+        "type": "forge:and",
+        "values": [
+          {
+            "type": "tconstruct:config",
+            "prop": "allow_ingotless_alloys"
+          },
+          {
+            "type": "forge:or",
+            "values": [
+              {
+                "type": "mantle:tag_filled",
+                "tag": "forge:ingots/tin"
+              },
+              {
+                "type": "mantle:tag_filled",
+                "tag": "forge:ingots/lead"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "craftable": false,
+  "hidden": false,
+  "sortOrder": 7,
+  "tier": 3
+}

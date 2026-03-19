@@ -10,6 +10,21 @@
         "^",
         "/"
       ]
+    },
+    {
+      "type": "tconstruct:sling_force",
+      "formula": [
+        "$value",
+        2.0,
+        "$level",
+        "^",
+        "/"
+      ],
+      "percent": false,
+      "sling": {
+        "type": "tconstruct:tag",
+        "tag": "tconstruct:knockback_slings"
+      }
     }
   ],
   "priority": 75,

@@ -41,13 +41,13 @@ public interface GeneralInteractionModifierHook {
   /* Charged usage */
 
   /**
-   * Called every tick when the player is using an item.
-   * Only supported for {@link InteractionSource#RIGHT_CLICK}.
+   * Called every tick when the player is using this modifier. Only supported for {@link InteractionSource#RIGHT_CLICK}.
    * To setup, use {@link #startUsing(IToolStackView, ModifierId, LivingEntity, InteractionHand)} in {@link #onToolUse(IToolStackView, ModifierEntry, Player, InteractionHand, InteractionSource)}.
    * @param tool       Tool performing interaction
    * @param modifier   Modifier instance
    * @param entity     Interacting entity
-   * @param timeLeft   How many ticks of use duration was left
+   * @param timeLeft   How many ticks of use duration was left.
+   * @see UsingToolModifierHook#onUsingTick(IToolStackView, ModifierEntry, LivingEntity, int, int, ModifierEntry)
    */
   default void onUsingTick(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int timeLeft) {}
 
@@ -59,6 +59,7 @@ public interface GeneralInteractionModifierHook {
    * @param modifier   Modifier instance
    * @param entity     Interacting entity
    * @param timeLeft   How many ticks of use duration was left
+   * @see UsingToolModifierHook#beforeReleaseUsing(IToolStackView, ModifierEntry, LivingEntity, int, int, ModifierEntry)
    */
   default void onStoppedUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int timeLeft) {}
 
@@ -68,6 +69,7 @@ public interface GeneralInteractionModifierHook {
    * @param tool       Tool performing interaction
    * @param modifier   Modifier instance
    * @param entity     Interacting entity
+   * @see UsingToolModifierHook#beforeReleaseUsing(IToolStackView, ModifierEntry, LivingEntity, int, int, ModifierEntry)
    */
   default void onFinishUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity) {}
 
@@ -111,14 +113,32 @@ public interface GeneralInteractionModifierHook {
     living.startUsingItem(hand);
   }
 
+  /** Gets the drawtime for the passed tool. */
+  static int getDrawtime(IToolStackView tool, LivingEntity living, float speedFactor) {
+    return (int)Math.ceil(20f * speedFactor / ConditionalStatModifierHook.getModifiedStat(tool, living, ToolStats.DRAW_SPEED));
+  }
+
+  /** Causes cooldown on the given tool based on its draw speed stat. */
+  static void addCooldown(IToolStackView tool, Player player, float speedFactor) {
+    player.getCooldowns().addCooldown(tool.getItem(), getDrawtime(tool, player, speedFactor));
+  }
+
   /**
    * Use in {@link net.minecraft.world.item.Item#use(Level, Player, InteractionHand)} or {@link #onToolUse(IToolStackView, ModifierEntry, Player, InteractionHand, InteractionSource)} to setup draw time for {@link slimeknights.tconstruct.library.client.model.TinkerItemProperties}.
    * @param tool      Tool being used
    * @param living    Entity using the tool, used for the vanilla hook
    * @param speedFactor  Additional factor to multiply drawtime by, after considering {@link ToolStats#DRAW_SPEED}
    */
+  static int startDrawing(IToolStackView tool, LivingEntity living, float speedFactor) {
+    int drawtime = getDrawtime(tool, living, speedFactor);
+    tool.getPersistentData().putInt(KEY_DRAWTIME, drawtime);
+    return drawtime;
+  }
+
+  /** @deprecated use {@link #startDrawing(IToolStackView, LivingEntity, float)} */
+  @Deprecated(forRemoval = true)
   static void startDrawtime(IToolStackView tool, LivingEntity living, float speedFactor) {
-    tool.getPersistentData().putInt(KEY_DRAWTIME, (int)Math.ceil(20f * speedFactor / ConditionalStatModifierHook.getModifiedStat(tool, living, ToolStats.DRAW_SPEED)));
+    startDrawing(tool, living, speedFactor);
   }
 
   /**
@@ -130,7 +150,7 @@ public interface GeneralInteractionModifierHook {
    * @param speedFactor  Additional factor to multiply drawtime by, after considering {@link ToolStats#DRAW_SPEED}
    */
   static void startUsingWithDrawtime(IToolStackView tool, ModifierId modifier, LivingEntity living, InteractionHand hand, float speedFactor) {
-    startDrawtime(tool, living, speedFactor);
+    startDrawing(tool, living, speedFactor);
     startUsing(tool, modifier, living, hand);
   }
 
@@ -140,6 +160,9 @@ public interface GeneralInteractionModifierHook {
    * @param chargeTime  Ticks the item has been used so far, typically from {@link #onStoppedUsing(IToolStackView, ModifierEntry, LivingEntity, int)}.
    */
   static float getToolCharge(IToolStackView tool, float chargeTime) {
+    if (chargeTime < 0) {
+      return 0;
+    }
     float charge = chargeTime / tool.getPersistentData().getInt(KEY_DRAWTIME);
     charge = (charge * charge + charge * 2) / 3;
     if (charge > 1) {

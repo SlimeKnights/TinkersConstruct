@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:fixed_material_swapping",
+  "index": 0,
+  "ingredient": {
+    "item": "tconstruct:cave_spider_head"
+  },
+  "material": "tconstruct:darkthread",
+  "max_stack_size": 16,
+  "repair_value": 6,
+  "tools": {
+    "tag": "tconstruct:modifiable/skulls/swappable"
+  }
+}

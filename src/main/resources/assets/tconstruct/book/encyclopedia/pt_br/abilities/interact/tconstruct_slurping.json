@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:slurping",
+  "text": [
+    {
+      "text": "Permite beber o fluido contido na ferramenta para ativar efeitos, como incendiar-se, remover efeitos de status ou restaurar a fome."
+    },
+    {
+      "text": "Níveis mais altos consomem mais fluido para realizar efeitos mais fortes", "paragraph": true
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/interactable/charge",
+  "more_text_space": true,
+  "effects": [
+    "Sem nível máximo",
+    "Requer 1 slot de habilidade por nível",
+    "Encha usando a ferramenta em um tanque de fluido"
+  ]
+}

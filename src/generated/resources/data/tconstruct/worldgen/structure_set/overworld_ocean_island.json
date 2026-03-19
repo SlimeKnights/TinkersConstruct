@@ -10,6 +10,10 @@
     {
       "structure": "tconstruct:earth_slime_island",
       "weight": 1
+    },
+    {
+      "structure": "tconstruct:ocean_skyslime_island",
+      "weight": 1
     }
   ]
 }

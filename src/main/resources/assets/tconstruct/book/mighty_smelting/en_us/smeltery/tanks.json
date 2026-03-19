@@ -5,11 +5,11 @@
   },
   "text": [
     {
-      "text": "Tanks are good for storing molten fluids or fuels. If you want to melt metals in your smeltery you'll need one! Tanks can be filled from buckets, potions, and can also be poured into from the smeltery if you want to store stuff for later or cast without a smeltery.",
+      "text": "Tanks are good for storing molten fluids or fuels. If you want to melt metals in your smeltery you'll need one! However, they cannot be placed in the smeltery floor.",
       "paragraph": true
     },
     {
-      "text": "Tanks cannot be used for the floor of the smeltery.",
+      "text": "Tanks can be filled from buckets, potions, and can also be poured into from faucets. They can also be used to cast without a smeltery. Pistons break them, and dispensers can place them.",
       "paragraph": true
     }
   ]

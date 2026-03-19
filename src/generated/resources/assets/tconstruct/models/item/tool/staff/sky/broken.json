@@ -6,6 +6,12 @@
     "large_tool": "tconstruct:item/tool/staff/sky_large_broken"
   },
   "large": true,
+  "modifier_maps": [
+    "tconstruct:staff/sky/broken",
+    "tconstruct:staff/sky",
+    "tconstruct:staff/broken",
+    "tconstruct:staff"
+  ],
   "modifier_roots": {
     "small": [
       "tconstruct:item/tool/staff/modifiers/sky/broken/",

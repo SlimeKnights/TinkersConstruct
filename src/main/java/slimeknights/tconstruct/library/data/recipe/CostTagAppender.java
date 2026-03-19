@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 /** Helper to generate tags for cost variants of items, typically used for melting */
+@SuppressWarnings("removal")
 @RequiredArgsConstructor
 @CanIgnoreReturnValue
 public class CostTagAppender {
@@ -30,7 +31,12 @@ public class CostTagAppender {
   public static CostTagAppender moltenToolMelting(FluidObject<?> fluid, Function<ResourceLocation,IntrinsicTagAppender<Item>> tag) {
     ResourceLocation id = fluid.getId();
     String metal = id.getPath().substring("molten_".length());
-    return new CostTagAppender(metal, id.withPath("melting/" + metal + "/tools_costing_"), "", tag);
+    return moltenToolMelting(id.getNamespace(), metal, tag);
+  }
+
+  /** Creates a builder for a molten gear */
+  public static CostTagAppender moltenToolMelting(String domain, String metal, Function<ResourceLocation,IntrinsicTagAppender<Item>> tag) {
+    return new CostTagAppender(metal, new ResourceLocation(domain, "melting/" + metal + "/tools_costing_"), "", tag);
   }
 
   /** Creates a tag for the given cost */
@@ -144,6 +150,11 @@ public class CostTagAppender {
   /** Creates a tag for the paxel and leggings. We currently have no paxels withot leggings, and leggings can be used directly without paxels */
   public CostTagAppender leggingsPaxel() {
     return armorTag(7, "leggings").toolTag(7, "paxels");
+  }
+
+  /** Adds the farmers delight knife to the tag. */
+  public CostTagAppender fdKnife() {
+    return optionalMetal(1, "farmersdelight", "knife");
   }
 
   /** Adds a railcraft crowbar */

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.client.book.sectiontransformer;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
@@ -44,6 +45,57 @@ public abstract class AbstractTagInjectingTransformer<T> extends BookTransformer
   /** Creates a fallback page for when data does not exist */
   protected abstract PageContent createFallback(T value);
 
+  /** Adds pages for the given config element. Allows either single object or array of objects to pull from multiple tags. */
+  private int addPages(SectionData section, JsonElement element, String key, int index) {
+    try {
+      // load the page and the folder to search
+      JsonObject load = GsonHelper.convertToJsonObject(element, key);
+      String path = GsonHelper.getAsString(load, "path");
+      boolean sort = GsonHelper.getAsBoolean(load, "sort", true);
+      // not using standard default as we only want the trailing dot when not empty
+      String prefix = "";
+      if (load.has("prefix")) {
+        prefix = GsonHelper.getAsString(load, "prefix") + ".";
+      }
+
+      // use a helper to allow changing how the tag is fetched for modifiers
+      List<PageData> newPages = new ArrayList<>();
+      Iterator<T> iterator = getTagEntries(TagKey.create(registry, JsonHelper.getResourceLocation(load, "tag")));
+      while (iterator.hasNext()) {
+        // create the page
+        T value = iterator.next();
+        PageData newPage = new PageData(true);
+        newPage.parent = section;
+        newPage.source = section.source;
+        newPage.type = pageType;
+
+        // the name and path are created from the ID directly
+        // use the book domain as the folder, the object domain as page name
+        ResourceLocation id = getId(value);
+        newPage.name = prefix + id.getNamespace() + "." + id.getPath();
+        String data = path + "/" + id.getNamespace() + "_" + id.getPath() + ".json";
+        // if the path exists load the page, otherwise use a fallback option
+        if (section.source.resourceExists(section.source.getResourceLocation(data))) {
+          newPage.data = data;
+        } else {
+          newPage.content = createFallback(value);
+        }
+        newPage.load();
+        newPages.add(newPage);
+      }
+      // sort new pages by title
+      if (sort) {
+        newPages.sort(COMPARATOR);
+      }
+
+      section.pages.addAll(index, newPages);
+      return newPages.size();
+    } catch (JsonParseException e) {
+      TConstruct.LOG.error("Failed to parse tag for book page injecting", e);
+      return 0;
+    }
+  }
+
   /**
    * Inserts generated pages into the section
    * @param section    Section to insert pages
@@ -54,51 +106,17 @@ public abstract class AbstractTagInjectingTransformer<T> extends BookTransformer
   protected int addPages(SectionData section, Map<ResourceLocation, JsonElement> extraData, int index) {
     JsonElement element = extraData.get(key);
     if (element != null) {
-      try {
-        // load the page and the folder to search
-        JsonObject load = GsonHelper.convertToJsonObject(element, key.toString());
-        String path = GsonHelper.getAsString(load, "path");
-        boolean sort = GsonHelper.getAsBoolean(load, "sort", true);
-        // not using standard default as we only want the trailing dot when not empty
-        String prefix = "";
-        if (load.has("prefix")) {
-          prefix = GsonHelper.getAsString(load, "prefix") + ".";
+      String key = this.key.toString();
+      // if we got an array, add pages from each entry
+      if (element.isJsonArray()) {
+        JsonArray array = element.getAsJsonArray();
+        int added = 0;
+        for (int i = 0; i < array.size(); i++) {
+          added += addPages(section, array.get(i), key, added + index);
         }
-
-        // use a helper to allow changing how the tag is fetched for modifiers
-        List<PageData> newPages = new ArrayList<>();
-        Iterator<T> iterator = getTagEntries(TagKey.create(registry, JsonHelper.getResourceLocation(load, "tag")));
-        while (iterator.hasNext()) {
-          // create the page
-          T value = iterator.next();
-          PageData newPage = new PageData(true);
-          newPage.parent = section;
-          newPage.source = section.source;
-          newPage.type = pageType;
-
-          // the name and path are created from the ID directly
-          // use the book domain as the folder, the object domain as page name
-          ResourceLocation id = getId(value);
-          newPage.name = prefix + id.getNamespace() + "." + id.getPath();
-          String data = path + "/" + id.getNamespace() + "_" + id.getPath() + ".json";
-          // if the path exists load the page, otherwise use a fallback option
-          if (section.source.resourceExists(section.source.getResourceLocation(data))) {
-            newPage.data = data;
-          } else {
-            newPage.content = createFallback(value);
-          }
-          newPage.load();
-          newPages.add(newPage);
-        }
-        // sort new pages by title
-        if (sort) {
-          newPages.sort(COMPARATOR);
-        }
-
-        section.pages.addAll(index, newPages);
-        return newPages.size();
-      } catch (JsonParseException e) {
-        TConstruct.LOG.error("Failed to parse tag for book page injecting", e);
+        return added;
+      } else {
+        return addPages(section, element, key, index);
       }
     }
     return 0;

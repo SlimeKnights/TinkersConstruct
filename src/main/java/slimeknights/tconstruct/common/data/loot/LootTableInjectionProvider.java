@@ -10,6 +10,8 @@ import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunct
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemDamageFunction;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import net.minecraftforge.common.crafting.conditions.ICondition;
+import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidType;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
@@ -18,6 +20,7 @@ import slimeknights.mantle.loot.LootTableInjection;
 import slimeknights.mantle.loot.function.SetFluidLootFunction;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.common.data.FakeRegistryEntry;
 import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.json.loot.AddToolDataFunction;
@@ -37,6 +40,7 @@ public class LootTableInjectionProvider extends AbstractLootTableInjectionProvid
     super(packOutput, TConstruct.MOD_ID);
   }
 
+  @SuppressWarnings("removal")
   @Override
   protected void addTables() {
     // slimy foliage injections
@@ -55,7 +59,7 @@ public class LootTableInjectionProvider extends AbstractLootTableInjectionProvid
 
     // bartering
     IJsonPredicate<MaterialVariantId> includeInLoot = MaterialPredicate.tag(TinkerTags.Materials.EXCLUDE_FROM_LOOT).inverted();
-    RandomMaterial random = RandomMaterial.random().allowHidden().material(includeInLoot).build();
+    RandomMaterial random = RandomMaterial.ancient();
     AddToolDataFunction.Builder ancientToolData2 = AddToolDataFunction.builder().addMaterial(random).addMaterial(random);
     injectGameplay("piglin_bartering")
       .addToPool("main", LootItem.lootTableItem(TinkerSmeltery.scorchedLantern).setWeight(20)
@@ -71,7 +75,7 @@ public class LootTableInjectionProvider extends AbstractLootTableInjectionProvid
                                  .build());
 
     // spawn chest
-    RandomMaterial randomTier1 = RandomMaterial.random().tier(1).material(includeInLoot).build();
+    RandomMaterial randomTier1 = RandomMaterial.random().tier(0, 1).material(includeInLoot).build();
     RandomMaterial firstWithStat = RandomMaterial.firstWithStat(); // should be wood
     injectChest("spawn_bonus_chest")
       .addToPool("main", LootItem.lootTableItem(TinkerTools.handAxe.get())
@@ -110,9 +114,9 @@ public class LootTableInjectionProvider extends AbstractLootTableInjectionProvid
                                  .setWeight(2) // common as a stone axe
                                  .apply(ancientToolData2)
                                  .build());
-    inject("hero_of_the_toolsmith", "gameplay/hero_of_the_village/toolsmith_gift")
+    inject("hero_of_the_armorer", "gameplay/hero_of_the_village/armorer_gift")
       .addToPool("main", LootItem.lootTableItem(TinkerTools.meltingPan.get())
-                                 .setWeight(2) // makes it a 40% chance of frypan as opposed to an axe variant
+                                 .setWeight(1) // 1 in 5 chance of a melting pan compared to the chainmail
                                  .apply(ancientToolData2)
                                  .build());
 
@@ -135,7 +139,7 @@ public class LootTableInjectionProvider extends AbstractLootTableInjectionProvid
                                  .build());
     inject("hero_of_the_weaponsmith", "gameplay/hero_of_the_village/weaponsmith_gift")
       .addToPool("main", LootItem.lootTableItem(TinkerTools.warPick.get())
-                                 .setWeight(2) // makes it a 33% chance of war pick as opposed to a stone tool
+                                 .setWeight(1) // makes it a 1 in 4 chance of a war pick
                                  .apply(ancientToolData3)
                                  .build());
 
@@ -181,6 +185,24 @@ public class LootTableInjectionProvider extends AbstractLootTableInjectionProvid
                                  .apply(ancientToolData3)
                                  .apply(setFluid)
                                  .build());
+
+    // fletchers give you some arrows
+    inject("hero_of_the_fletcher", "gameplay/hero_of_the_village/fletcher_gift")
+      .addToPool("main", LootItem.lootTableItem(TinkerTools.arrow.get())
+        .setWeight(10) // bit more rare than tipped arrows
+        .apply(ancientToolData2)
+        .build());
+
+    // twilight forest - minotaur axe
+    String tf = "twilightforest";
+    ICondition tfLoaded = new ModLoadedCondition(tf);
+    LootPoolEntryContainer minotaurAxe = LootItem.lootTableItem(FakeRegistryEntry.item(TinkerTools.minotaurAxe.getId()))
+      .setWeight(1) // TF tends to use 1 for its weight
+      .apply(ancientToolData3)
+      .build();
+    inject("labyrinth_room", new ResourceLocation(tf, "chests/labyrinth_room"), tfLoaded)
+      .addToPool("pool1", minotaurAxe)
+      .addToPool("pool2", minotaurAxe);
   }
 
   @Override

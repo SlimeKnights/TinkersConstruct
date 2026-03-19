@@ -58,7 +58,7 @@ public class CraftingTableRepairKitRecipe extends CustomRecipe {
         continue;
       }
       // repair kit - update material
-      if (stack.getItem() instanceof IRepairKitItem) {
+      if (stack.getItem() instanceof IRepairKitItem kit && kit.canRepairInCraftingTable()) {
         // already found repair kit
         if (repairKit != null) {
           return null;

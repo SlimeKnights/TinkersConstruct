@@ -13,7 +13,7 @@ import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import java.util.List;
 
 /** Stats for slimeskull skulls */
-public record SkullStats(int durability, int armor) implements IRepairableMaterialStats {
+public record SkullStats(int durability, int armor) implements IRepairableMaterialStats.ScaledTooltip {
   public static final MaterialStatsId ID = new MaterialStatsId(TConstruct.getResource("skull"));
   public static final MaterialStatType<SkullStats> TYPE = new MaterialStatType<>(ID, new SkullStats(1, 0), RecordLoadable.create(
     IRepairableMaterialStats.DURABILITY_FIELD,
@@ -28,10 +28,10 @@ public record SkullStats(int durability, int armor) implements IRepairableMateri
   }
 
   @Override
-  public List<Component> getLocalizedInfo() {
+  public List<Component> getLocalizedInfo(float scale) {
     return List.of(
-      ToolStats.DURABILITY.formatValue(this.durability),
-      ToolStats.ARMOR.formatValue(this.armor)
+      ToolStats.DURABILITY.formatValue(this.durability * scale),
+      ToolStats.ARMOR.formatValue(this.armor * scale)
     );
   }
 

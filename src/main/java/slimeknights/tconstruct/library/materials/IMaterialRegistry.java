@@ -76,6 +76,13 @@ public interface IMaterialRegistry {
    */
   <T extends IMaterialStats> Optional<T> getMaterialStats(MaterialId materialId, MaterialStatsId statsId);
 
+  /** Gets the material stats, or the default stats if absent. */
+  @Nullable
+  default <T extends IMaterialStats> T getStatsOrDefault(MaterialId materialId, MaterialStatsId statsId) {
+    Optional<T> stats = getMaterialStats(materialId, statsId);
+    return stats.orElseGet(() -> getDefaultStats(statsId));
+  }
+
   /**
    * Gets all stats for the given material
    * @param materialId  Material ID

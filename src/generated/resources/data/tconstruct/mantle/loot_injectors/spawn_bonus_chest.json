@@ -16,7 +16,9 @@
                     "inverted_type": "mantle:tag",
                     "tag": "tconstruct:exclude_from_loot"
                   },
-                  "tier": 1
+                  "tier": {
+                    "max": 1
+                  }
                 },
                 {
                   "type": "tconstruct:first"
@@ -28,7 +30,9 @@
                     "inverted_type": "mantle:tag",
                     "tag": "tconstruct:exclude_from_loot"
                   },
-                  "tier": 1
+                  "tier": {
+                    "max": 1
+                  }
                 }
               ]
             }
@@ -54,7 +58,9 @@
                     "inverted_type": "mantle:tag",
                     "tag": "tconstruct:exclude_from_loot"
                   },
-                  "tier": 1
+                  "tier": {
+                    "max": 1
+                  }
                 },
                 {
                   "type": "tconstruct:first"
@@ -66,7 +72,9 @@
                     "inverted_type": "mantle:tag",
                     "tag": "tconstruct:exclude_from_loot"
                   },
-                  "tier": 1
+                  "tier": {
+                    "max": 1
+                  }
                 }
               ]
             }

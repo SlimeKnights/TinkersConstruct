@@ -7,8 +7,8 @@
   ],
   "more_text_space": true,
   "effects": [
-    "Disables tool's interaction when offhand is occupied",
-    "Second level fully disables interactions",
-    "Maximum of 2 levels"
+    "Disables interaction when offhand is occupied",
+    "Level 2 fully disables interactions",
+    "Slotless"
   ]
 }

@@ -4,13 +4,12 @@
   "textures": {
     "tool": "tconstruct:item/tool/armor/slime/shell_broken"
   },
-  "modifier_roots": [
-    "tconstruct:item/tool/armor/slime/shell_modifiers/broken/",
-    "tconstruct:item/tool/armor/slime/shell_modifiers/"
+  "modifier_maps": [
+    "tconstruct:slime/shell_broken",
+    "tconstruct:slime/shell"
   ],
   "first_modifiers": [
     "tconstruct:embellishment",
-    "tconstruct:golden",
     "tconstruct:trim"
   ]
 }

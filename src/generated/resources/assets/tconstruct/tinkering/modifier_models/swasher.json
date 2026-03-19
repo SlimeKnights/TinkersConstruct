@@ -1,0 +1,9 @@
+{
+  "constant": {
+    "fluid": {
+      "type": "tconstruct:tank",
+      "full": "tconstruct:item/tool/swasher/fluid_full",
+      "partial": "tconstruct:item/tool/swasher/fluid_partial"
+    }
+  }
+}

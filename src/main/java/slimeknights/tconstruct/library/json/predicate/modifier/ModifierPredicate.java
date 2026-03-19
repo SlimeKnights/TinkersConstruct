@@ -9,23 +9,16 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 /** Predicate that checks against a modifier */
 public interface ModifierPredicate extends IJsonPredicate<ModifierId> {
   /** Instance that always returns true */
-  ModifierPredicate ANY = SingletonLoader.singleton(loader -> new ModifierPredicate() {
-    @Override
-    public boolean matches(ModifierId input) {
-      return true;
-    }
-
-    @Override
-    public RecordLoadable<? extends ModifierPredicate> getLoader() {
-      return loader;
-    }
-  });
+  ModifierPredicate ANY = simple(modifier -> true);
+  /** Instance that always returns false */
+  ModifierPredicate NONE = simple(modifier -> false);
   /** Loader for modifier predicates */
-  PredicateRegistry<ModifierId> LOADER = new PredicateRegistry<>("Modifier Predicate", ANY);
+  PredicateRegistry<ModifierId> LOADER = new PredicateRegistry<>("Modifier Predicate", ANY, NONE);
 
   /** Gets an inverted condition */
   @Override
@@ -38,6 +31,21 @@ public interface ModifierPredicate extends IJsonPredicate<ModifierId> {
 
 
   /* Helper methods */
+
+  /** Creates a new simple predicate */
+  static ModifierPredicate simple(Predicate<ModifierId> predicate) {
+    return SingletonLoader.singleton(loader -> new ModifierPredicate() {
+      @Override
+      public boolean matches(ModifierId modifier) {
+        return predicate.test(modifier);
+      }
+
+      @Override
+      public RecordLoadable<? extends ModifierPredicate> getLoader() {
+        return loader;
+      }
+    });
+  }
 
   /** Creates a tag predicate */
   @SuppressWarnings("removal")

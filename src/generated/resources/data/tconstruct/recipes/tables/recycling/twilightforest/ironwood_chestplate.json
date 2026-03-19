@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:part_builder_recycling",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "twilightforest"
+    }
+  ],
+  "pattern": {
+    "item": "tconstruct:venom_bottle"
+  },
+  "results": {
+    "tconstruct:ingot": {
+      "count": 8,
+      "tag": "forge:ingots/ironwood"
+    }
+  },
+  "tool": {
+    "item": "twilightforest:ironwood_chestplate"
+  }
+}

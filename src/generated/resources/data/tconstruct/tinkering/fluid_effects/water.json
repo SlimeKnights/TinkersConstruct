@@ -6,7 +6,7 @@
         "type": "mantle:inverted",
         "inverted_type": "mantle:or",
         "predicates": [
-          "tconstruct:blocks_motion",
+          "mantle:blocks_motion",
           {
             "type": "mantle:tag",
             "tag": "tconstruct:unreplacable_by_liquid"

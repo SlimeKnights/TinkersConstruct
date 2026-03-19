@@ -1,0 +1,10 @@
+{
+    "variants": {
+        "facing=up":    { "model": "tconstruct:block/smeltery/gauge", "x":  90 },
+        "facing=down":  { "model": "tconstruct:block/smeltery/gauge", "x": 270 },
+        "facing=north": { "model": "tconstruct:block/smeltery/gauge", "y": 180 },
+        "facing=south": { "model": "tconstruct:block/smeltery/gauge" },
+        "facing=west":  { "model": "tconstruct:block/smeltery/gauge", "y":  90 },
+        "facing=east":  { "model": "tconstruct:block/smeltery/gauge", "y": 270 }
+    }
+}

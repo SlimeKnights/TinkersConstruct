@@ -8,6 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.mantle.data.listener.ResourceValidator;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
 
@@ -18,8 +19,20 @@ public interface ArmorTextureSupplier extends IHaveLoader {
   /** Validator checking if armor textures exist */
   ResourceValidator TEXTURE_VALIDATOR = new ResourceValidator(FOLDER, FOLDER, ".png");
 
-  /** Registry for Json Things */
-  GenericLoaderRegistry<ArmorTextureSupplier> LOADER = new GenericLoaderRegistry<>("Armor texture type", true);
+  /** Empty module instance. Used as fallback for {@link ConditionalArmorTextureSupplier} modules. Not registered. */
+  ArmorTextureSupplier EMPTY = new ArmorTextureSupplier() {
+    @Override
+    public ArmorTexture getArmorTexture(ItemStack stack, TextureType leggings, RegistryAccess access) {
+      return ArmorTexture.EMPTY;
+    }
+
+    @Override
+    public RecordLoadable<? extends ArmorTextureSupplier> getLoader() {
+      throw new UnsupportedOperationException("Cannot datagen an empty texture supplier.");
+    }
+  };
+  /** Registry for resource packs */
+  GenericLoaderRegistry<ArmorTextureSupplier> LOADER = new GenericLoaderRegistry<>("Armor texture type", EMPTY, true);
 
   /** Gets the texture and color to display for the given stack. Use {@link ArmorTexture#EMPTY} to indicates this texture will not render */
   ArmorTexture getArmorTexture(ItemStack stack, TextureType leggings, RegistryAccess access);
@@ -27,10 +40,7 @@ public interface ArmorTextureSupplier extends IHaveLoader {
   /** Pair of texture and color */
   interface ArmorTexture {
     /** Empty instance since caches don't support caching null. */
-    ArmorTexture EMPTY = new ArmorTexture() {
-      @Override
-      public void renderTexture(Model model, PoseStack matrices, MultiBufferSource bufferSource, int packedLight, int packedOverlay, float red, float green, float blue, float alpha, boolean hasGlint) {}
-    };
+    ArmorTexture EMPTY = (model, matrices, bufferSource, packedLight, packedOverlay, red, green, blue, alpha, hasGlint) -> {};
 
     /** Renders this texture to the given model */
     void renderTexture(Model model, PoseStack matrices, MultiBufferSource bufferSource, int packedLight, int packedOverlay, float red, float green, float blue, float alpha, boolean hasGlint);

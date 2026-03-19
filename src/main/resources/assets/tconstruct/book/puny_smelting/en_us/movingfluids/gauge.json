@@ -1,0 +1,14 @@
+{
+  "title": "Gauge",
+  "item": "tconstruct:copper_gauge",
+  "text": [
+    {
+      "text": "Ever wish you knew how much fluid was in a tank? Try a gauge! Gauges will tell you the amount of fluid inside a block when you interact with them.",
+      "paragraph": true
+    },
+	{
+      "text": "Obsidian gauges will additionally show you the contained fluid in their window, though its not hard to look inside my tanks!",
+      "paragraph": true
+    }
+	]
+}

@@ -71,7 +71,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "tconstruct:seared_cobble"
+          "name": "tconstruct:seared_lamp"
         }
       ],
       "functions": [

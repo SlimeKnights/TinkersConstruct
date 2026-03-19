@@ -1,0 +1,24 @@
+{
+  "ignore": "mantle:any",
+  "inputs": "mantle:any",
+  "melt": {
+    "type": "mantle:inverted",
+    "inverted_type": "mantle:or",
+    "predicates": [
+      {
+        "type": "mantle:tag",
+        "tag": "tconstruct:modifiable"
+      },
+      {
+        "type": "mantle:tag",
+        "tag": "forge:books"
+      },
+      {
+        "type": "mantle:tag",
+        "tag": "forge:dyes"
+      },
+      "mantle:has_container"
+    ]
+  },
+  "skip_recipes": []
+}

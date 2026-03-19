@@ -6,6 +6,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.fluids.FluidStack;
+import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.recipe.helper.FluidOutput;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator.DuelSidedListener;
@@ -24,7 +25,7 @@ public class MeltingRecipeLookup {
   private MeltingRecipeLookup() {}
 
   /** Record holding data from the melting recipe */
-  private record MeltingFluid(Ingredient ingredient, FluidOutput result, int temperature) {
+  public record MeltingFluid(Ingredient ingredient, FluidOutput result, int temperature) {
     /** Empty instance, used to cache missing results */
     public static final MeltingFluid EMPTY = new MeltingFluid(Ingredient.EMPTY, FluidOutput.EMPTY, 0);
 
@@ -34,6 +35,8 @@ public class MeltingRecipeLookup {
     }
   }
 
+  /** If true, cache is currently frozen and will now allow changing {@link #FLUIDS} */
+  private static boolean meltingFrozen = false;
   /** List of fluid recipes stored from melting recipe constructors */
   private static final List<MeltingFluid> FLUIDS = new ArrayList<>();
   /** Cache of lookup by item, assumes no recipes vary by NBT. We mostly use this for blocks anyways */
@@ -46,6 +49,9 @@ public class MeltingRecipeLookup {
 
   /** Adds a fluid to the lookup */
   public static void addMeltingFluid(Ingredient ingredient, FluidOutput result, int temperature) {
+    if (meltingFrozen) {
+      return;
+    }
     CACHE.checkClear();
     FLUIDS.add(new MeltingFluid(ingredient, result, temperature));
   }
@@ -64,7 +70,7 @@ public class MeltingRecipeLookup {
   };
 
   /** Logic to find a fluid for a given item */
-  private static MeltingFluid findFluid(ItemLike item) {
+  public static MeltingFluid findFluid(ItemLike item) {
     return LOOKUP.computeIfAbsent(item.asItem(), LOOKUP_FUNCTION);
   }
 
@@ -80,5 +86,17 @@ public class MeltingRecipeLookup {
   /** Checks if the given item can melt */
   public static boolean canMelt(ItemLike input) {
     return !findFluid(input).isEmpty();
+  }
+
+  /** Freezes the fluid list in the cache. Used to allow command driven datagen. */
+  @Internal
+  public static void freeze() {
+    meltingFrozen = true;
+  }
+
+  /** Unfreezes the fluid list in the cache. Used to allow resuming the normal game without running reload. */
+  @Internal
+  public static void unfreeze() {
+    meltingFrozen = false;
   }
 }

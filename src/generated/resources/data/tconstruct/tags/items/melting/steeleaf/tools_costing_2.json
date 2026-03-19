@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "twilightforest:steeleaf_sword",
+      "required": false
+    },
+    {
+      "id": "twilightforest:steeleaf_hoe",
+      "required": false
+    }
+  ]
+}

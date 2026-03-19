@@ -1,6 +1,6 @@
 {
   "loader": "tconstruct:tool",
-  "parent": "forge:item/default-tool",
+  "parent": "tconstruct:item/tool/vein_hammer/display",
   "textures": {
     "head": "tconstruct:item/tool/vein_hammer/head_broken",
     "handle": "tconstruct:item/tool/vein_hammer/handle",
@@ -11,6 +11,10 @@
     "large_grip": "tconstruct:item/tool/vein_hammer/large/grip",
     "large_front": "tconstruct:item/tool/vein_hammer/large/front_broken"
   },
+  "modifier_maps": [
+    "tconstruct:vein_hammer_broken",
+    "tconstruct:vein_hammer"
+  ],
   "modifier_roots": {
     "small": [
       "tconstruct:item/tool/vein_hammer/modifiers/broken/",

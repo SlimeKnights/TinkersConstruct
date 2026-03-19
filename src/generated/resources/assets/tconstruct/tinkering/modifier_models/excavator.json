@@ -1,0 +1,125 @@
+{
+  "modifiers": {
+    "tconstruct:antiaquatic": {
+      "texture": "tconstruct:item/tool/excavator/modifiers/tconstruct_antiaquatic",
+      "texture_large": "tconstruct:item/tool/excavator/large/modifiers/tconstruct_antiaquatic"
+    },
+    "tconstruct:bane_of_sssss": {
+      "texture": "tconstruct:item/tool/excavator/modifiers/tconstruct_bane_of_sssss",
+      "texture_large": "tconstruct:item/tool/excavator/large/modifiers/tconstruct_bane_of_sssss"
+    },
+    "tconstruct:blasting": {
+      "texture": "tconstruct:item/tool/excavator/modifiers/tconstruct_blasting",
+      "texture_large": "tconstruct:item/tool/excavator/large/modifiers/tconstruct_blasting"
+    },
+    "tconstruct:bucketing": [
+      {
+        "type": "tconstruct:fluid",
+        "mask": "tconstruct:item/tool/excavator/modifiers/tconstruct_bucketing_full",
+        "mask_large": "tconstruct:item/tool/excavator/large/modifiers/tconstruct_bucketing_full"
+      },
+      {
+        "type": "tconstruct:basic",
+        "texture": "tconstruct:item/tool/excavator/modifiers/tconstruct_bucketing",
+        "texture_large": "tconstruct:item/tool/excavator/large/modifiers/tconstruct_bucketing"
+      }
+    ],
+    "tconstruct:cooling": {
+      "texture": "tconstruct:item/tool/excavator/modifiers/tconstruct_cooling",
+      "texture_large": "tconstruct:item/tool/excavator/large/modifiers/tconstruct_cooling"
+    },
+    "tconstruct:diamond": {
+      "texture": "tconstruct:item/tool/excavator/modifiers/tconstruct_diamond",
+      "texture_large": "tconstruct:item/tool/excavator/large/modifiers/tconstruct_diamond"
+    },
+    "tconstruct:emerald": {
+      "texture": "tconstruct:item/tool/excavator/modifiers/tconstruct_emerald",
+      "texture_large": "tconstruct:item/tool/excavator/large/modifiers/tconstruct_emerald"
+    },
+    "tconstruct:experienced": {
+      "texture": "tconstruct:item/tool/excavator/modifiers/tconstruct_experienced",
+      "texture_large": "tconstruct:item/tool/excavator/large/modifiers/tconstruct_experienced"
+    },
+    "tconstruct:fiery": {
+      "luminosity": 10,
+      "texture": "tconstruct:item/tool/excavator/modifiers/tconstruct_fiery",
+      "texture_large": "tconstruct:item/tool/excavator/large/modifiers/tconstruct_fiery"
+    },
+    "tconstruct:glowing": {
+      "luminosity": 15,
+      "texture": "tconstruct:item/tool/excavator/modifiers/tconstruct_glowing"
+    },
+    "tconstruct:haste": {
+      "luminosity": 7,
+      "texture": "tconstruct:item/tool/excavator/modifiers/tconstruct_haste",
+      "texture_large": "tconstruct:item/tool/excavator/large/modifiers/tconstruct_haste"
+    },
+    "tconstruct:hydraulic": {
+      "texture": "tconstruct:item/tool/excavator/modifiers/tconstruct_hydraulic",
+      "texture_large": "tconstruct:item/tool/excavator/large/modifiers/tconstruct_hydraulic"
+    },
+    "tconstruct:knockback": {
+      "texture": "tconstruct:item/tool/excavator/modifiers/tconstruct_knockback",
+      "texture_large": "tconstruct:item/tool/excavator/large/modifiers/tconstruct_knockback"
+    },
+    "tconstruct:lightspeed": {
+      "luminosity": 15,
+      "texture": "tconstruct:item/tool/excavator/modifiers/tconstruct_lightspeed",
+      "texture_large": "tconstruct:item/tool/excavator/large/modifiers/tconstruct_lightspeed"
+    },
+    "tconstruct:luck": {
+      "texture": "tconstruct:item/tool/excavator/modifiers/tconstruct_luck",
+      "texture_large": "tconstruct:item/tool/excavator/large/modifiers/tconstruct_luck"
+    },
+    "tconstruct:magnetic": {
+      "texture": "tconstruct:item/tool/excavator/modifiers/tconstruct_magnetic",
+      "texture_large": "tconstruct:item/tool/excavator/large/modifiers/tconstruct_magnetic"
+    },
+    "tconstruct:necrotic": "tconstruct:item/tool/excavator/modifiers/tconstruct_necrotic",
+    "tconstruct:netherite": {
+      "texture": "tconstruct:item/tool/excavator/modifiers/tconstruct_netherite",
+      "texture_large": "tconstruct:item/tool/excavator/large/modifiers/tconstruct_netherite"
+    },
+    "tconstruct:overforced": {
+      "texture": "tconstruct:item/tool/excavator/modifiers/tconstruct_overforced",
+      "texture_large": "tconstruct:item/tool/excavator/large/modifiers/tconstruct_overforced"
+    },
+    "tconstruct:reinforced": {
+      "texture": "tconstruct:item/tool/excavator/modifiers/tconstruct_reinforced",
+      "texture_large": "tconstruct:item/tool/excavator/large/modifiers/tconstruct_reinforced"
+    },
+    "tconstruct:severing": "tconstruct:item/tool/excavator/modifiers/tconstruct_severing",
+    "tconstruct:sharpness": {
+      "texture": "tconstruct:item/tool/excavator/modifiers/tconstruct_sharpness",
+      "texture_large": "tconstruct:item/tool/excavator/large/modifiers/tconstruct_sharpness"
+    },
+    "tconstruct:silky": {
+      "texture": "tconstruct:item/tool/excavator/modifiers/tconstruct_silky",
+      "texture_large": "tconstruct:item/tool/excavator/large/modifiers/tconstruct_silky"
+    },
+    "tconstruct:smite": {
+      "texture": "tconstruct:item/tool/excavator/modifiers/tconstruct_smite",
+      "texture_large": "tconstruct:item/tool/excavator/large/modifiers/tconstruct_smite"
+    },
+    "tconstruct:soulbound": "tconstruct:item/tool/excavator/modifiers/tconstruct_soulbound",
+    "tconstruct:tank": [
+      {
+        "type": "tconstruct:tank",
+        "full": "tconstruct:item/tool/excavator/modifiers/tconstruct_tank_full",
+        "full_large": "tconstruct:item/tool/excavator/large/modifiers/tconstruct_tank_full",
+        "partial": "tconstruct:item/tool/excavator/modifiers/tconstruct_tank_partial",
+        "partial_large": "tconstruct:item/tool/excavator/large/modifiers/tconstruct_tank_partial"
+      },
+      {
+        "type": "tconstruct:basic",
+        "texture": "tconstruct:item/tool/excavator/modifiers/tconstruct_tank",
+        "texture_large": "tconstruct:item/tool/excavator/large/modifiers/tconstruct_tank"
+      }
+    ],
+    "tconstruct:unbreakable": {
+      "luminosity": 2,
+      "texture": "tconstruct:item/tool/excavator/modifiers/tconstruct_unbreakable",
+      "texture_large": "tconstruct:item/tool/excavator/large/modifiers/tconstruct_unbreakable"
+    }
+  }
+}

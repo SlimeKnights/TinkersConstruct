@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:fiery",
   "text": [
     {
-      "text": "Causes fired arrows to be ignited, burning targets they hit."
+      "text": "Causes fired arrows to be ignited, burning targets they hit for 5 seconds per level."
     }
   ],
   "more_text_space": true,

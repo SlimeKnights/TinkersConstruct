@@ -62,6 +62,7 @@ public abstract class HeatingStructureMultiblock<T extends MantleBlockEntity & I
     return new StructureData(min, max, Collections.emptySet(), hasFloor, hasFrame, hasCeiling, tanks);
   }
 
+  @Nullable
   @Override
   public StructureData detectMultiblock(Level world, BlockPos master, Direction facing) {
     // clear tanks from last check before calling

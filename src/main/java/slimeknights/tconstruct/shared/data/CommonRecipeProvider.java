@@ -8,7 +8,6 @@ import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
@@ -276,17 +275,31 @@ public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonR
     metalCrafting(consumer, TinkerMaterials.queensSlime, folder);
     metalCrafting(consumer, TinkerMaterials.manyullyn, folder);
     metalCrafting(consumer, TinkerMaterials.hepatizon, folder);
-    //registerMineralRecipes(consumer, TinkerMaterials.soulsteel,   folder);
-    packingRecipe(consumer, RecipeCategory.MISC, "ingot", Items.COPPER_INGOT,    "nugget", TinkerMaterials.copperNugget,    TinkerTags.Items.NUGGETS_COPPER,    folder);
+    metalCrafting(consumer, TinkerMaterials.knightmetal, folder);
+    // custom nuggets
+    packingRecipe(consumer, RecipeCategory.MISC, "ingot", Items.COPPER_INGOT,    "nugget", TinkerMaterials.copperNugget,    TinkerTags.Items.NUGGETS_COPPER, folder);
+    packingRecipe(consumer, RecipeCategory.MISC, "ingot", Items.NETHERITE_SCRAP, "nugget", TinkerMaterials.debrisNugget,    TinkerTags.Items.NUGGETS_NETHERITE_SCRAP, folder);
     packingRecipe(consumer, RecipeCategory.MISC, "ingot", Items.NETHERITE_INGOT, "nugget", TinkerMaterials.netheriteNugget, TinkerTags.Items.NUGGETS_NETHERITE, folder);
-    // tier 5
-    //registerMineralRecipes(consumer, TinkerMaterials.knightslime, folder);
 
     // smelt ore into ingots, must use a blast furnace for nether ores
-    Item cobaltIngot = TinkerMaterials.cobalt.getIngot();
-    SimpleCookingRecipeBuilder.blasting(Ingredient.of(TinkerWorld.rawCobalt, TinkerWorld.cobaltOre), RecipeCategory.MISC, cobaltIngot, 1.5f, 200)
-                              .unlockedBy("has_item", has(TinkerWorld.rawCobalt))
-                              .save(consumer, wrap(id(cobaltIngot), folder, "_smelting"));
+    SimpleCookingRecipeBuilder.blasting(Ingredient.of(TinkerWorld.rawCobalt, TinkerWorld.cobaltOre), RecipeCategory.MISC, TinkerMaterials.cobalt.getIngot(), 1.5f, 200)
+      .unlockedBy("has_item", has(TinkerWorld.rawCobalt))
+      .save(consumer, location(folder + "cobalt_ingot_blasting"));
+    SimpleCookingRecipeBuilder.blasting(Ingredient.of(TinkerWorld.cobaltShard), RecipeCategory.MISC, TinkerMaterials.cobalt.getNugget(), 0.2f, 50)
+      .unlockedBy("has_item", has(TinkerWorld.cobaltShard))
+      .save(consumer, location(folder + "cobalt_nugget_blasting"));
+    // steel can use either furnace
+    SimpleCookingRecipeBuilder.smelting(Ingredient.of(TinkerWorld.steelShard), RecipeCategory.MISC, TinkerMaterials.steel.getNugget(), 0.2f, 50)
+      .unlockedBy("has_item", has(TinkerWorld.steelShard))
+      .save(consumer, location(folder + "steel_nugget_smelting"));
+    SimpleCookingRecipeBuilder.blasting(Ingredient.of(TinkerWorld.steelShard), RecipeCategory.MISC, TinkerMaterials.steel.getNugget(), 0.2f, 25)
+      .unlockedBy("has_item", has(TinkerWorld.steelShard))
+      .save(consumer, location(folder + "steel_nugget_blasting"));
+    // knightmetal - normally would not use the tag, but we know TF does not provide nuggets for armor shards
+    SimpleCookingRecipeBuilder.blasting(Ingredient.of(TinkerTags.Items.KNIGHTMETAL_SHARD), RecipeCategory.MISC, TinkerMaterials.knightmetal.getNugget(), 0.2f, 50)
+      .unlockedBy("has_item", has(TinkerWorld.knightmetalShard))
+      .save(consumer, location(folder + "knightmetal_nugget_smelting"));
+
     // pack raw cobalt
     packingRecipe(consumer, RecipeCategory.MISC, "raw_block", TinkerWorld.rawCobaltBlock, "raw", TinkerWorld.rawCobalt, TinkerTags.Items.RAW_COBALT, folder);
   }

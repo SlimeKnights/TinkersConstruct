@@ -6,7 +6,10 @@
   "generator": {
     "supported_stats": [
       "tconstruct:binding",
-      "tconstruct:bowstring"
+      "tconstruct:bowstring",
+      "tconstruct:maille",
+      "tconstruct:armor_maille",
+      "tconstruct:fletching"
     ],
     "transformer": {
       "type": "tconstruct:recolor_sprite",

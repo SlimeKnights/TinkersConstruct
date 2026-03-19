@@ -5,11 +5,11 @@
   },
   "text": [
      {
-      "text": "Tanks are good for storing molten fluids or fuels. If you want to melt metals in your foundry you'll need one! Tanks can also be poured into from the foundry if you want to store stuff for later.",
+      "text": "Tanks are good for storing molten fluids or fuels. If you want to melt metals in your foundry you'll need one! Tanks cannot be used for the floor of the foundry.",
       "paragraph": true
     },
     {
-      "text": "Tanks cannot be used for the floor of the foundry.",
+      "text": "Tanks can be filled from buckets, potions, and can also be poured into from faucets. They can also be used to cast without a foundry. Pistons break them, and dispensers can place them.",
       "paragraph": true
     }
   ]

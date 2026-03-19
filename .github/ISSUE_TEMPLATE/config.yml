@@ -1,8 +1,5 @@
 blank_issues_enabled: false
 contact_links:
- - name: 1.19 Typo or Language bug
-   url: https://github.com/SlimeKnights/TinkersConstruct/issues/5201
-   about: Use the typo collection issue instead of reporting 1.19 typos as separate issues.
  - name: 1.20 Typo or Language bug
    url: https://github.com/SlimeKnights/TinkersConstruct/issues/5287
    about: Use the typo collection issue instead of reporting 1.20 typos as separate issues.
@@ -11,7 +8,7 @@ contact_links:
    about: Join our discord to discuss new features or to discuss behavior that may not be a bug.
  - name: FAQ
    url: https://slimeknights.github.io/faq/
-   about: Answers to frequently asked questions about 1.16+
+   about: Answers to frequently asked questions about our mods
  - name: Roadmap
    url: https://slimeknights.github.io/docs/roadmap/
    about: Read about plans for later 1.20 versions

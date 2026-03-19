@@ -7,13 +7,17 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.pattern.BlockInWorld;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
@@ -65,6 +69,40 @@ public abstract class FluidEffectContext {
     }
     // we should never reach here, but just in case
     return level.damageSources().generic();
+  }
+
+  /** Gets the direct source of damage for this context. This prefers the projectile over the entity. */
+  @Nullable
+  public net.minecraft.world.entity.Entity getDirectSource() {
+    if (projectile != null) {
+      return projectile;
+    }
+    return entity;
+  }
+
+  /**
+   * Gets the cause of effects caused by this context.
+   * @see Projectile#getEffectSource()
+   */
+  @Nullable
+  public net.minecraft.world.entity.Entity getEffectSource() {
+    // effects prefer the mob, but accept the projectile if nothing else
+    if (entity != null) {
+      return entity;
+    }
+    return projectile;
+  }
+
+  /** If true, this context is not allowed to break blocks at the given position */
+  public boolean breakRestricted() {
+    // TODO: consider whether its worth fetching break tags from the player's held item. Problem is context doesn't know which hand triggered this, and via projectiles it may change
+    // TODO: do we need to check the client game mode?
+    return player != null && !player.mayBuild() && player instanceof ServerPlayer serverPlayer && serverPlayer.gameMode.getGameModeForPlayer() == GameType.ADVENTURE;
+  }
+
+  /** If true, this context is not allowed to place blocks at the given position */
+  public boolean placeRestricted(ItemStack stack) {
+    return player != null && !player.mayBuild() && !stack.hasAdventureModePlaceTagForBlock(level.registryAccess().registryOrThrow(Registries.BLOCK), new BlockInWorld(level, getBlockPos(), false));
   }
 
   /** Context for fluid effects targeting an entity */

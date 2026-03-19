@@ -32,11 +32,10 @@ import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
-import slimeknights.tconstruct.tools.modifiers.slotless.TrimModifier;
+import slimeknights.tconstruct.tools.modules.cosmetic.TrimModule;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class ArmorTrimRecipe implements ITinkerStationRecipe, IMultiRecipe<IDisplayModifierRecipe> {
@@ -104,23 +103,29 @@ public class ArmorTrimRecipe implements ITinkerStationRecipe, IMultiRecipe<IDisp
       return RecipeResult.pass();
     }
     // validate the material nad pattern items
-    Optional<Reference<TrimMaterial>> material = TrimMaterials.getFromIngredient(access, trimItems.material);
-    if (material.isEmpty()) {
+    Reference<TrimMaterial> material = TrimMaterials.getFromIngredient(access, trimItems.material).orElse(null);
+    if (material == null) {
       return RecipeResult.failure(KEY_INVALID_MATERIAL, trimItems.material.getDisplayName());
     }
-    Optional<Reference<TrimPattern>> pattern = TrimPatterns.getFromTemplate(access, trimItems.template);
-    if (pattern.isEmpty()) {
-      return RecipeResult.failure(KEY_INVALID_PATTERN, trimItems.template.getDisplayName());
+    ToolStack original = inv.getTinkerable();
+    Reference<TrimPattern> pattern = null;
+    if (!original.hasTag(TinkerTags.Items.TRIM_NO_PATTERN)) {
+      pattern = TrimPatterns.getFromTemplate(access, trimItems.template).orElse(null);
+      if (pattern == null) {
+        return RecipeResult.failure(KEY_INVALID_PATTERN, trimItems.template.getDisplayName());
+      }
     }
 
     // store into tool NBT
     ToolStack tool = inv.getTinkerable().copy();
     ModDataNBT persistentData = tool.getPersistentData();
-    persistentData.putString(TrimModifier.TRIM_MATERIAL, material.get().key().location().toString());
-    persistentData.putString(TrimModifier.TRIM_PATTERN, pattern.get().key().location().toString());
+    ModifierId modifier = TinkerModifiers.trim.getId();
+    persistentData.putString(TrimModule.materialKey(modifier), material.key().location().toString());
+    if (pattern != null) {
+      persistentData.putString(TrimModule.patternKey(modifier), pattern.key().location().toString());
+    }
 
     // add the modifier if missing
-    ModifierId modifier = TinkerModifiers.trim.getId();
     if (tool.getModifierLevel(modifier) == 0) {
       tool.addModifier(modifier, 1);
     }
@@ -145,9 +150,14 @@ public class ArmorTrimRecipe implements ITinkerStationRecipe, IMultiRecipe<IDisp
                                             .map(ItemStack::new).toList();
       List<ItemStack> toolInputs = RegistryHelper.getTagValueStream(BuiltInRegistries.ITEM, TinkerTags.Items.TRIM)
                                                  .map(IModifiableDisplay::getDisplayStack).toList();
-      displayRecipes = access.registryOrThrow(Registries.TRIM_MATERIAL).holders()
-                             .map(material -> new DisplayRecipe(toolInputs, trims, material))
-                             .collect(Collectors.toList());
+      if (!trims.isEmpty() && !toolInputs.isEmpty()) {
+        ResourceLocation id = getId();
+        displayRecipes = access.registryOrThrow(Registries.TRIM_MATERIAL).holders()
+          .map(material -> new DisplayRecipe(id, toolInputs, trims, material))
+          .collect(Collectors.toList());
+      } else {
+        displayRecipes = List.of();
+      }
     }
     return displayRecipes;
   }
@@ -157,6 +167,8 @@ public class ArmorTrimRecipe implements ITinkerStationRecipe, IMultiRecipe<IDisp
     private final ModifierEntry RESULT = new ModifierEntry(TinkerModifiers.trim, 1);
 
     @Getter
+    private final ResourceLocation recipeId;
+    @Getter
     private final List<ItemStack> toolWithoutModifier;
     @Getter
     private final List<ItemStack> toolWithModifier;
@@ -165,7 +177,8 @@ public class ArmorTrimRecipe implements ITinkerStationRecipe, IMultiRecipe<IDisp
     @Getter
     private final Component variant;
 
-    public DisplayRecipe(List<ItemStack> tools, List<ItemStack> trim, Reference<TrimMaterial> holder) {
+    public DisplayRecipe(ResourceLocation id, List<ItemStack> tools, List<ItemStack> trim, Reference<TrimMaterial> holder) {
+      this.recipeId = id;
       TrimMaterial material = holder.get();
       toolWithoutModifier = tools;
       this.trim = trim;
@@ -174,7 +187,8 @@ public class ArmorTrimRecipe implements ITinkerStationRecipe, IMultiRecipe<IDisp
 
       String materialName = holder.key().location().toString();
       List<ModifierEntry> results = List.of(RESULT);
-      toolWithModifier = tools.stream().map(stack -> IDisplayModifierRecipe.withModifiers(stack, results, data -> data.putString(TrimModifier.TRIM_MATERIAL, materialName))).toList();
+      ResourceLocation key = TrimModule.materialKey(TinkerModifiers.trim.getId());
+      toolWithModifier = tools.stream().map(stack -> IDisplayModifierRecipe.withModifiers(stack, results, data -> data.putString(key, materialName))).toList();
 
     }
 

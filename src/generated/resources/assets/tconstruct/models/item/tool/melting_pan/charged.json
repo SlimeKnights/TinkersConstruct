@@ -6,6 +6,10 @@
     "handle": "tconstruct:item/tool/melting_pan/handle",
     "overlay": "tconstruct:item/tool/melting_pan/overlay_charged"
   },
+  "modifier_maps": [
+    "tconstruct:melting_pan/charged",
+    "tconstruct:melting_pan"
+  ],
   "modifier_roots": [
     "tconstruct:item/tool/melting_pan/modifiers/charged/",
     "tconstruct:item/tool/melting_pan/modifiers/"
@@ -21,12 +25,6 @@
     },
     {
       "name": "overlay"
-    }
-  ],
-  "first_modifiers": [
-    {
-      "name": "tconstruct:tank",
-      "forced": true
     }
   ]
 }

@@ -3,6 +3,7 @@ package slimeknights.tconstruct.common.data.render;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.PackOutput.Target;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import slimeknights.mantle.client.render.FluidCuboid;
 import slimeknights.mantle.data.datamap.BlockStateDataMapProvider;
 import slimeknights.tconstruct.TConstruct;
@@ -60,6 +61,9 @@ public class RenderFluidProvider extends BlockStateDataMapProvider<List<FluidCub
     // fluid cannon
     block(TinkerSmeltery.searedFluidCannon.get()).variant(halfTank);
     block(TinkerSmeltery.scorchedFluidCannon.get()).variant(halfTank);
+    block(TinkerSmeltery.endFluidCannon.get()).variant(List.of(FluidCuboid.builder()
+      .from(1.08f, 5.08f, 1.08f)
+      .to(14.92f, 14.92f, 14.92f).build()));
 
     // tanks
     String tank = "templates/tank";
@@ -113,6 +117,15 @@ public class RenderFluidProvider extends BlockStateDataMapProvider<List<FluidCub
       FluidCuboid.builder().from( 0.08f, 4, 11.08f).to( 4.92f, 15.92f, 15.92f).build(),
       FluidCuboid.builder().from(11.08f, 4, 11.08f).to(15.92f, 15.92f, 15.92f).build()
     ));
+
+    // gauge
+    block(TinkerSmeltery.obsidianGauge)
+      .variant(List.of(FluidCuboid.builder().from( 5,   15.5f,  6   ).to(11,    15.5f,  11   ).face(Direction.DOWN ).build())).when(BlockStateProperties.FACING, Direction.DOWN).end()
+      .variant(List.of(FluidCuboid.builder().from( 5,    0.5f,  5   ).to(11,     0.5f,  10   ).face(Direction.UP   ).build())).when(BlockStateProperties.FACING, Direction.UP).end()
+      .variant(List.of(FluidCuboid.builder().from( 5,    6,    15.5f).to(11,    11,     15.5f).face(Direction.NORTH).build())).when(BlockStateProperties.FACING, Direction.NORTH).end()
+      .variant(List.of(FluidCuboid.builder().from( 5,    6,     0.5f).to(11,    11,      0.5f).face(Direction.SOUTH).build())).when(BlockStateProperties.FACING, Direction.SOUTH).end()
+      .variant(List.of(FluidCuboid.builder().from(15.5f, 6,     5   ).to(15.5f, 11,     11   ).face(Direction.WEST ).build())).when(BlockStateProperties.FACING, Direction.WEST).end()
+      .variant(List.of(FluidCuboid.builder().from( 0.5f, 6,     5   ).to( 0.5f, 11,     11   ).face(Direction.EAST ).build())).when(BlockStateProperties.FACING, Direction.EAST).end();
   }
 
   @Override

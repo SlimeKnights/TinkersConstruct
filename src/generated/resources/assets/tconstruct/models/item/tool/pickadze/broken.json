@@ -1,11 +1,15 @@
 {
   "loader": "tconstruct:tool",
-  "parent": "forge:item/default-tool",
+  "parent": "tconstruct:item/base/axe",
   "textures": {
     "adze": "tconstruct:item/tool/pickadze/adze",
     "pick": "tconstruct:item/tool/pickadze/pick_broken",
     "handle": "tconstruct:item/tool/pickaxe/handle"
   },
+  "modifier_maps": [
+    "tconstruct:pickadze_broken",
+    "tconstruct:pickadze"
+  ],
   "modifier_roots": [
     "tconstruct:item/tool/pickadze/modifiers/broken/",
     "tconstruct:item/tool/pickadze/modifiers/"

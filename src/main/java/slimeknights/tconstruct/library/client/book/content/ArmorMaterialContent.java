@@ -22,6 +22,7 @@ import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
+import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatType;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
@@ -55,7 +56,7 @@ public class ArmorMaterialContent extends AbstractMaterialContent {
   /** Supported stat type set */
   private static final Set<MaterialStatsId> SUPPORTED = Stream.concat(
     PlatingMaterialStats.TYPES.stream().map(MaterialStatType::getId),
-    Stream.of(StatlessMaterialStats.MAILLE.getIdentifier(), StatlessMaterialStats.SHIELD_CORE.getIdentifier())
+    Stream.of(StatlessMaterialStats.MAILLE, StatlessMaterialStats.SHIELD_CORE, StatlessMaterialStats.CUIRASS).map(IMaterialStats::getIdentifier)
   ).collect(Collectors.toSet());
   /** Plating stat types in top down order */
   private static final List<MaterialStatsId> TOP_DOWN_STATS = List.of(HELMET.getId(), CHESTPLATE.getId(), LEGGINGS.getId(), BOOTS.getId(), SHIELD.getId());
@@ -79,7 +80,8 @@ public class ArmorMaterialContent extends AbstractMaterialContent {
   protected MaterialStatsId getStatType(int index) {
     return switch (index) {
       case 0 -> StatlessMaterialStats.MAILLE.getIdentifier();
-      case 1 -> StatlessMaterialStats.SHIELD_CORE.getIdentifier();
+      case 1 -> StatlessMaterialStats.CUIRASS.getIdentifier();
+      case 2 -> StatlessMaterialStats.SHIELD_CORE.getIdentifier();
       default -> null;
     };
   }
@@ -153,7 +155,7 @@ public class ArmorMaterialContent extends AbstractMaterialContent {
       addStatLine(lineData, stats, ToolStats.ARMOR_TOUGHNESS, PlatingMaterialStats::toughness);
       addStatLine(lineData, stats, ToolStats.KNOCKBACK_RESISTANCE, stat -> stat.knockbackResistance() * 10);
       list.add(new TextComponentElement(x - 2, y, BookScreen.PAGE_WIDTH - 20, BookScreen.PAGE_HEIGHT, lineData));
-      y += lineData.size() * 5;
+      y += lineData.size() * 10;
     }
 
     // material traits
@@ -162,7 +164,7 @@ public class ArmorMaterialContent extends AbstractMaterialContent {
     y = Math.max(
       this.addTraits(x - 3,          y, list, ARMOR_PLATING_LABEL, HELMET.getId()),
       this.addTraits(x + STAT_WIDTH, y, list, SHIELD_LABEL,        SHIELD.getId()));
-    y = addAllMaterialStats(x, y, list, 1, false);
+    y = addAllMaterialStats(x, y, list, 2, false);
 
     // material description
     addDescription(x, y, list);
@@ -181,8 +183,8 @@ public class ArmorMaterialContent extends AbstractMaterialContent {
     String stats = allMatch ? values[0] : Strings.join(values, " / ");
     TextComponentData data = new TextComponentData(stat.getPrefix().append(Component.literal(stats).withStyle(style -> style.withColor(stat.getColor()))));
     data.tooltips = new Component[] { stat.getDescription() };
+    data.linebreak = true;
     lineData.add(data);
-    lineData.add(new TextComponentData("\n"));
   }
 
   /** Adds trait info to the listing */
@@ -201,6 +203,7 @@ public class ArmorMaterialContent extends AbstractMaterialContent {
     addTraitLines(lineData, registry.getTraits(material.getId(), statsId));
     list.add(new TextComponentElement(x, y, STAT_WIDTH, BookScreen.PAGE_HEIGHT, lineData));
 
-    return y + (lineData.size() * 5) + 3;
+    // TODO: calculate actual height to properly wrap long lines?
+    return y + (lineData.size() * 10) + 3;
   }
 }

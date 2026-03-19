@@ -5,10 +5,13 @@ import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.ItemLike;
+import net.minecraftforge.common.ToolActions;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
@@ -49,14 +52,17 @@ public class TinkerItemProperties {
   /** Boolean indicating the bow is pulling */
   private static final ItemPropertyFunction CHARGING = (stack, level, holder, seed) -> {
     if (holder != null && holder.isUsingItem() && holder.getUseItem() == stack) {
-      // if boolean is set, change the numbers to remove the arrow
-      boolean arrow = ModifierUtil.checkPersistentPresent(stack, ModifiableLauncherItem.KEY_DRAWBACK_AMMO);
       UseAnim anim = stack.getUseAnimation();
       if (anim == UseAnim.BLOCK) {
-        return arrow ? 2.5f : 2;
+        return ModifierUtil.checkPersistentPresent(stack, ModifiableLauncherItem.KEY_DRAWBACK_AMMO) ? 2.5f : 2;
+      }
+      // TODO 1.21: space this out a bit more
+      if (anim == UseAnim.SPEAR) {
+        // shouldn't need to worry about arrows on spearing, everything supporting arrows uses just bow or block
+        return 1.75f;
       }
       if (anim != UseAnim.EAT && anim != UseAnim.DRINK) {
-        return arrow ? 1.5f : 1;
+        return ModifierUtil.checkPersistentPresent(stack, ModifiableLauncherItem.KEY_DRAWBACK_AMMO) ? 1.5f : 1;
       }
     }
     return 0;
@@ -71,6 +77,21 @@ public class TinkerItemProperties {
     int drawtime = ModifierUtil.getPersistentInt(stack, GeneralInteractionModifierHook.KEY_DRAWTIME, -1);
     return drawtime == -1 ? 0 : (float)(stack.getUseDuration() - holder.getUseItemRemainingTicks()) / drawtime;
   };
+  /** ID for the cast fishing rods */
+  private static final ResourceLocation CAST_ID = TConstruct.getResource("cast");
+  /** Property for casting a fishing rod */
+  private static final ItemPropertyFunction CAST = (stack, level, holder, seed) -> {
+    // must be a fishing rod, and the player must be fishing
+    // does player check first since its the fastest, avoids NBT parsing
+    if (holder instanceof Player player && player.fishing != null && stack.canPerformAction(ToolActions.FISHING_ROD_CAST)) {
+      // must be in a hand, but if both hands have fishing rods, must be the one in the main hand
+      ItemStack mainhand = holder.getMainHandItem();
+      if (mainhand == stack || holder.getOffhandItem() == stack && !mainhand.canPerformAction(ToolActions.FISHING_ROD_CAST)) {
+        return 1;
+      }
+    }
+    return 0;
+  };
 
   /** Registers properties for a tool, including the option to have charge/block animations */
   public static void registerBrokenProperty(Item item) {
@@ -83,6 +104,7 @@ public class TinkerItemProperties {
     registerBrokenProperty(item);
     ItemProperties.register(item, CHARGING_ID, CHARGING);
     ItemProperties.register(item, CHARGE_ID, CHARGE);
+    ItemProperties.register(item, CAST_ID, CAST);
   }
 
   /** Registers properties for a bow */

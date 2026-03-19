@@ -3,12 +3,8 @@
   "modules": [
     {
       "type": "tconstruct:knockback",
-      "each_level": 0.5,
-      "tool": {
-        "type": "mantle:inverted",
-        "inverted_type": "mantle:tag",
-        "tag": "tconstruct:modifiable/armor/chestplate"
-      }
+      "allow": "projectile",
+      "each_level": 0.5
     },
     {
       "type": "tconstruct:attribute",
@@ -16,11 +12,66 @@
       "each_level": 1.0,
       "operation": "addition",
       "slots": [
+        "mainhand",
         "feet",
         "legs",
         "chest",
         "head"
       ]
+    },
+    {
+      "type": "tconstruct:sling_force",
+      "formula": [
+        0.25,
+        "$level",
+        "*",
+        "$multiplier",
+        "*",
+        1.0,
+        "$knockback_resistance",
+        "-",
+        "*",
+        "$knockback_multiplier",
+        "*",
+        "$value",
+        "+"
+      ],
+      "percent": false,
+      "sling": {
+        "type": "tconstruct:tag",
+        "tag": "tconstruct:knockback_slings/self"
+      },
+      "variables": {
+        "knockback_multiplier": {
+          "type": "tconstruct:entity",
+          "attribute": "tconstruct:generic.knockback_multiplier",
+          "entity_type": "tconstruct:attribute",
+          "fallback": 1.0
+        },
+        "knockback_resistance": {
+          "type": "tconstruct:entity",
+          "attribute": "minecraft:generic.knockback_resistance",
+          "entity_type": "tconstruct:attribute",
+          "fallback": 0.0
+        }
+      }
+    },
+    {
+      "type": "tconstruct:sling_force",
+      "formula": [
+        0.25,
+        "$level",
+        "*",
+        "$multiplier",
+        "*",
+        "$value",
+        "+"
+      ],
+      "percent": false,
+      "sling": {
+        "type": "tconstruct:tag",
+        "tag": "tconstruct:knockback_slings/target"
+      }
     }
   ],
   "tooltip_display": "always"

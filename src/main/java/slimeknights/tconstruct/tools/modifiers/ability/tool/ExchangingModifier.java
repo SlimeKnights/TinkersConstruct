@@ -1,9 +1,10 @@
 package slimeknights.tconstruct.tools.modifiers.ability.tool;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
@@ -11,6 +12,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.pattern.BlockInWorld;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.common.network.UpdateNeighborsPacket;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -18,9 +20,13 @@ import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.mining.RemoveBlockModifierHook;
 import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
 import slimeknights.tconstruct.library.module.ModuleHookMap.Builder;
+import slimeknights.tconstruct.library.tools.capability.BlockItemProviderCapability;
+import slimeknights.tconstruct.library.tools.capability.BlockItemProviderModifierHook;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.Util;
+
+import javax.annotation.Nullable;
 
 public class ExchangingModifier extends NoLevelsModifier implements RemoveBlockModifierHook {
   @Override
@@ -35,24 +41,57 @@ public class ExchangingModifier extends NoLevelsModifier implements RemoveBlockM
     return Short.MIN_VALUE - 20;
   }
 
+  @Nullable
   @Override
   public Boolean removeBlock(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context) {
-    // must have blocks in the offhand
-    ItemStack offhand = context.getLiving().getOffhandItem();
-    BlockState state = context.getState();
+    // We check the offhand first for a block provider
+    LivingEntity entity = context.getLiving();
+    ItemStack item = entity.getOffhandItem();
+
+    // if empty, skip trying to fetch the capability
+    BlockItemProviderCapability blockProvider = null;
+    ItemStack backingStack = ItemStack.EMPTY;
+    BlockItem blockItem = null;
+    if (!item.isEmpty()) {
+      blockProvider = BlockItemProviderCapability.getBlockProvider(item);
+      if (blockProvider != null) {
+        backingStack = blockProvider.getBlockItemStack(item, entity);
+        blockItem = BlockItemProviderCapability.verifyBlockItem(backingStack, blockProvider);
+      }
+    }
+
+    // if the thing in our offhand cannot provide at all or cannot currently provide then check
+    // the mainhand next (this tool), in case we have glowing or a similar modifier to provide blocks.
+    if (blockItem == null) {
+      item = entity.getMainHandItem();
+      // skip forges cap system and go to the tinkers hook because we know this is a tinkers tool
+      blockProvider = new BlockItemProviderModifierHook.CapabilityImpl(tool);
+      backingStack = blockProvider.getBlockItemStack(item, entity);
+      blockItem = BlockItemProviderCapability.verifyBlockItem(backingStack, blockProvider);
+
+      // nothing could provide, no replacing
+      if (blockItem == null) return null;
+    }
+
+    // immediately do a defensive copy of the stack, modifiers notably rely on the same instance existing later
+    ItemStack fakeStack = backingStack.copyWithCount(1);
+
+    // if we are an adventure mode player, check if we are allowed to place it.
+    // Note that we check the mined position as the block we are placing 'against', which could be considered variance against vanilla but it is the block that make the most sense here.
     Level world = context.getWorld();
     BlockPos pos = context.getPos();
-    if (offhand.isEmpty() || !(offhand.getItem() instanceof BlockItem blockItem)) {
+    if (entity instanceof Player player && !player.mayBuild() && !fakeStack.hasAdventureModePlaceTagForBlock(BuiltInRegistries.BLOCK, new BlockInWorld(world, pos, false))) {
       return null;
     }
 
     // from this point on, we are in charge of breaking the block, start by harvesting it so piglins get mad and stuff
     Player player = context.getPlayer();
+    BlockState state = context.getState();
     if (player != null) {
       state.getBlock().playerWillDestroy(world, pos, state, player);
     }
 
-    // block is unchanged, stuck setting it to a temporary block before replacing, as otherwise we risk duplication with the TE and tryPlace will likely fail
+    // block is unchanged? stuck setting it to a temporary block before replacing, as otherwise we risk duplication with the TE and tryPlace will likely fail
     BlockState fluidState = world.getFluidState(pos).createLegacyBlock();
     boolean placedBlock = false;
     if (state.getBlock() == blockItem.getBlock()) {
@@ -66,13 +105,18 @@ public class ExchangingModifier extends NoLevelsModifier implements RemoveBlockM
     }
 
     // generate placing context
-    Direction sideHit = context.getSideHit();
-    // subtract the offsets instead of adding as the position is empty, want to "hit" a realistic location
-    BlockPlaceContext blockUseContext = new BlockPlaceContext(world, player, InteractionHand.OFF_HAND, offhand, Util.createTraceResult(pos, sideHit, true));
+    // use opposite side for hit as that produces better slab placement
+    BlockPlaceContext blockUseContext = new BlockPlaceContext(world, player, InteractionHand.OFF_HAND, fakeStack, Util.createTraceResult(pos, context.getSideHit().getOpposite(), true));
     blockUseContext.replaceClicked = true; // force replacement, even if the position is not replacable (as it most always will be)
 
     // swap the block, it never goes to air so things like torches will remain
     InteractionResult success = blockItem.place(blockUseContext);
+
+    // If our fake stack is now empty then it got placed (or otherwise consumed), so consume an item from the provider.
+    if (fakeStack.isEmpty()) {
+      blockProvider.consume(item, backingStack, entity);
+    }
+
     if (success.consumesAction()) {
       if (!context.isAOE() && player != null) {
         TinkerNetwork.getInstance().sendTo(new UpdateNeighborsPacket(state, pos), player);
@@ -90,4 +134,5 @@ public class ExchangingModifier extends NoLevelsModifier implements RemoveBlockM
       return world.setBlock(pos, fluidState, 3);
     }
   }
+
 }

@@ -15,6 +15,8 @@ import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
+/** @deprecated use {@link slimeknights.tconstruct.library.modifiers.modules.combat.MobEffectModule.ArmorAttack} */
+@Deprecated(forRemoval = true)
 public class FrosttouchModifier extends NoLevelsModifier implements DamageDealtModifierHook {
   @Override
   protected void registerHooks(Builder hookBuilder) {
@@ -29,7 +31,7 @@ public class FrosttouchModifier extends NoLevelsModifier implements DamageDealtM
     if (isDirectDamage) {
       boolean isCalcified = context.getEntity().hasEffect(TinkerModifiers.calcifiedEffect.get());
       if (isCalcified || source.is(DamageTypeTags.IS_PROJECTILE)) {
-        target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 300, isCalcified ? 1 : 0));
+        target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 300, isCalcified ? 1 : 0), context.getEntity());
       }
     }
   }

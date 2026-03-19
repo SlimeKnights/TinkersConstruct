@@ -6,6 +6,10 @@
       "required": false
     },
     "minecraft:flint_and_steel",
-    "minecraft:shield"
+    "minecraft:shield",
+    {
+      "id": "farmersdelight:iron_knife",
+      "required": false
+    }
   ]
 }

@@ -7,10 +7,32 @@
       "each_level": 2.0,
       "operation": "addition",
       "slots": [
+        "mainhand",
+        "offhand",
         "feet",
         "legs",
         "chest",
         "head"
+      ],
+      "tooltip_style": "boost"
+    },
+    {
+      "type": "tconstruct:update_health",
+      "slots": [
+        "feet",
+        "legs",
+        "chest",
+        "head"
+      ]
+    },
+    {
+      "type": "tconstruct:update_health",
+      "bonus": {
+        "each_level": 2.0
+      },
+      "slots": [
+        "mainhand",
+        "offhand"
       ]
     }
   ],

@@ -8,7 +8,7 @@
     {
       "type": "tconstruct:attribute",
       "attribute": "tconstruct:player.jump_count",
-      "flat": 1.0,
+      "each_level": 1.0,
       "operation": "addition",
       "slots": [
         "feet",

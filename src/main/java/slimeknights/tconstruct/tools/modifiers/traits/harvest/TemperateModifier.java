@@ -35,6 +35,10 @@ import java.util.Optional;
 
 import static slimeknights.tconstruct.library.modifiers.modules.behavior.ReduceToolDamageModule.reduceDamage;
 
+/** @deprecated use {@link slimeknights.tconstruct.library.modifiers.modules.mining.ConditionalMiningSpeedModule},
+ * {@link slimeknights.tconstruct.library.modifiers.modules.behavior.ConditionalStatModule},
+ * and {@link ProtectionModule}, and {@link slimeknights.tconstruct.library.modifiers.modules.behavior.ReduceToolDamageModule} */
+@Deprecated(forRemoval = true)
 public class TemperateModifier extends Modifier implements ConditionalStatModifierHook, ToolDamageModifierHook, BreakSpeedModifierHook, TooltipModifierHook, ProtectionModifierHook {
   private static final float MAX_TEMPERATURE = 1.25f;
   private static final float BASELINE_TEMPERATURE = 0.75f;
@@ -60,6 +64,7 @@ public class TemperateModifier extends Modifier implements ConditionalStatModifi
     // in default config we never go past level 5, but nice for datapacks to allow
     return 0.75f + (level - 5) * 0.05f;
   }
+
   /** Gets the bonus for the given position */
   private static float getBonus(LivingEntity living, BlockPos pos) {
     // temperature ranges from -1.25 to 1.25, so make it go -1 to 1

@@ -1,0 +1,19 @@
+{
+  "level_display": "tconstruct:single_level",
+  "modules": [
+    {
+      "type": "tconstruct:block_damage",
+      "damage_source": {
+        "type": "mantle:damage_type",
+        "name": "minecraft:on_fire"
+      }
+    },
+    {
+      "type": "tconstruct:fiery_armor_attack",
+      "seconds": {
+        "each_level": 5
+      }
+    }
+  ],
+  "tooltip_display": "always"
+}

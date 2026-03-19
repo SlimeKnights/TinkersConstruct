@@ -26,6 +26,7 @@ import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
@@ -145,35 +146,29 @@ public class ArmorDyeingRecipe implements ITinkerStationRecipe, IMultiRecipe<IDi
   public List<IDisplayModifierRecipe> getRecipes(RegistryAccess access) {
     if (displayRecipes == null) {
       List<ItemStack> toolInputs = RegistryHelper.getTagValueStream(BuiltInRegistries.ITEM, TinkerTags.Items.DYEABLE)
-                                                 .map(IModifiableDisplay::getDisplayStack).toList();
-      displayRecipes = Arrays.stream(DyeColor.values()).map(dye -> new DisplayRecipe(toolInputs, dye)).collect(Collectors.toList());
+        .map(item -> {
+          ItemStack stack = IModifiableDisplay.getDisplayStack(item);
+          if (stack.getMaxStackSize() > 1) {
+            stack = stack.copyWithCount(Math.min(stack.getMaxStackSize(), DEFAULT_TOOL_STACK_SIZE));
+          }
+          return stack;
+        }).toList();
+      if (!toolInputs.isEmpty()) {
+        ResourceLocation id = getId();
+        displayRecipes = Arrays.stream(DyeColor.values()).map(dye -> new DisplayRecipe(id, toolInputs, dye)).collect(Collectors.toList());
+      } else {
+        displayRecipes = List.of();
+      }
     }
     return displayRecipes;
   }
 
   private static class DisplayRecipe implements IDisplayModifierRecipe {
-    /** Cache of tint colors to save calculating it twice */
-    private static final int[] TINT_COLORS = new int[DyeColor.values().length];
     private static final IntRange LEVELS = new IntRange(1, 1);
     private final ModifierEntry RESULT = new ModifierEntry(TinkerModifiers.dyed, 1);
 
-    /** Gets the tint color for the given dye */
-    private static int getTintColor(DyeColor color) {
-      int id = color.getId();
-      // protect against the dye color being too large by bypassing cache
-      boolean illegal = id >= TINT_COLORS.length;
-      // taking advantage of the fact no color is pure black
-      if (illegal || TINT_COLORS[id] == 0) {
-        float[] colors = color.getTextureDiffuseColors();
-        int combinedColor = ((int)(colors[0] * 255) << 16) | ((int)(colors[1] * 255) << 8) | (int)(colors[2] * 255);
-        if (illegal) {
-          return combinedColor;
-        }
-        TINT_COLORS[id] = combinedColor;
-      }
-      return TINT_COLORS[id];
-    }
-
+    @Getter
+    private final ResourceLocation recipeId;
     private final List<ItemStack> dyes;
     @Getter
     private final List<ItemStack> toolWithoutModifier;
@@ -181,15 +176,16 @@ public class ArmorDyeingRecipe implements ITinkerStationRecipe, IMultiRecipe<IDi
     private final List<ItemStack> toolWithModifier;
     @Getter
     private final Component variant;
-    public DisplayRecipe(List<ItemStack> tools, DyeColor color) {
+    public DisplayRecipe(ResourceLocation recipeId, List<ItemStack> tools, DyeColor color) {
+      this.recipeId = recipeId;
       this.toolWithoutModifier = tools;
       this.dyes = RegistryHelper.getTagValueStream(BuiltInRegistries.ITEM, color.getTag()).map(ItemStack::new).toList();
       this.variant = Component.translatable("color.minecraft." + color.getSerializedName());
 
-      ResourceLocation id = RESULT.getId();
-      int tintColor = getTintColor(color);
+      ResourceLocation modID = RESULT.getId();
+      int tintColor = Util.getColor(color);
       List<ModifierEntry> results = List.of(RESULT);
-      toolWithModifier = tools.stream().map(stack -> IDisplayModifierRecipe.withModifiers(stack, results, data -> data.putInt(id, tintColor))).toList();
+      toolWithModifier = tools.stream().map(stack -> IDisplayModifierRecipe.withModifiers(stack, DEFAULT_TOOL_STACK_SIZE, results, data -> data.putInt(modID, tintColor))).toList();
     }
 
     @Override

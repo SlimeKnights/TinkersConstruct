@@ -10,16 +10,24 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.mantle.recipe.helper.TypeAwareRecipeSerializer;
+import slimeknights.tconstruct.library.json.predicate.material.MaterialPredicate;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
+import slimeknights.tconstruct.library.recipe.casting.material.ToolCastingRecipe.CastPurpose;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.function.Consumer;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
+@Accessors(chain = true)
 @RequiredArgsConstructor(staticName = "castingRecipe")
 public class MaterialCastingRecipeBuilder extends AbstractRecipeBuilder<MaterialCastingRecipeBuilder> {
   @Nullable
@@ -28,10 +36,14 @@ public class MaterialCastingRecipeBuilder extends AbstractRecipeBuilder<Material
   private final IModifiable resultTool;
   private final TypeAwareRecipeSerializer<? extends AbstractMaterialCastingRecipe> recipeSerializer;
   private Ingredient cast = Ingredient.EMPTY;
-  @Setter @Accessors(chain = true)
+  @Setter
   private int itemCost = 0;
-  private boolean consumed = false;
+  private CastPurpose castPurpose = CastPurpose.CATALYST;
   private boolean switchSlots = false;
+  @Setter
+  private IJsonPredicate<MaterialVariantId> allowedMaterials = MaterialPredicate.ANY;
+  /** Extra materials for tool casting. Has no impact on part casting. */
+  private final List<MaterialVariantId> extraMaterials = new ArrayList<>();
 
   /**
    * Creates a new material casting recipe for an basin recipe
@@ -70,19 +82,42 @@ public class MaterialCastingRecipeBuilder extends AbstractRecipeBuilder<Material
   }
 
   /**
-   * Sets the cast to the given tag
-   * @param tag       Cast tag
-   * @param consumed  If true, cast is consumed
+   * Set the cast to the given ingredient
+   * @param cast      Ingredient
+   * @param purpose   Function the cast performs. For tool casting, see {@link #setCast(Ingredient, boolean)}.
    * @return  Builder instance
    */
-  public MaterialCastingRecipeBuilder setCast(TagKey<Item> tag, boolean consumed) {
-    return this.setCast(Ingredient.of(tag), consumed);
+  public MaterialCastingRecipeBuilder setCast(Ingredient cast, CastPurpose purpose) {
+    this.cast = cast;
+    this.castPurpose = purpose;
+    return this;
+  }
+
+  /**
+   * Set the cast to the given ingredient
+   * @param cast      Ingredient
+   * @param consumed  If true, cast is consumed. For tool casting, see {@link #setCast(Ingredient, CastPurpose)}.
+   * @return  Builder instance
+   */
+  public MaterialCastingRecipeBuilder setCast(Ingredient cast, boolean consumed) {
+    // TODO 1.21: switch MAYBE_MATERIAL to CONSUMED
+    return setCast(cast, consumed ? CastPurpose.MAYBE_MATERIAL : CastPurpose.CATALYST);
+  }
+
+  /**
+   * Sets the cast to the given item.
+   * @param item      Cast item
+   * @param purpose   Function the cast performs. For part casting, see {@link #setCast(ItemLike, boolean)}.
+   * @return  Builder instance
+   */
+  public MaterialCastingRecipeBuilder setCast(ItemLike item, CastPurpose purpose) {
+    return this.setCast(Ingredient.of(item), purpose);
   }
 
   /**
    * Sets the cast to the given item
    * @param item      Cast item
-   * @param consumed  If true, cast is consumed
+   * @param consumed  If true, cast is consumed. For tool casting, see {@link #setCast(ItemLike, CastPurpose)}.
    * @return  Builder instance
    */
   public MaterialCastingRecipeBuilder setCast(ItemLike item, boolean consumed) {
@@ -90,15 +125,13 @@ public class MaterialCastingRecipeBuilder extends AbstractRecipeBuilder<Material
   }
 
   /**
-   * Set the cast to the given ingredient
-   * @param cast      Ingredient
-   * @param consumed  If true, cast is consumed
+   * Sets the cast to the given tag
+   * @param tag       Cast tag
+   * @param consumed  If true, cast is consumed. For tool casting, see {@link #setCast(Ingredient, CastPurpose)}.
    * @return  Builder instance
    */
-  public MaterialCastingRecipeBuilder setCast(Ingredient cast, boolean consumed) {
-    this.cast = cast;
-    this.consumed = consumed;
-    return this;
+  public MaterialCastingRecipeBuilder setCast(TagKey<Item> tag, boolean consumed) {
+    return this.setCast(Ingredient.of(tag), consumed);
   }
 
   /**
@@ -110,9 +143,15 @@ public class MaterialCastingRecipeBuilder extends AbstractRecipeBuilder<Material
     return this;
   }
 
+  /** Adds a material to set after the end of the parts list */
+  public MaterialCastingRecipeBuilder addExtraMaterial(MaterialVariantId material) {
+    extraMaterials.add(material);
+    return this;
+  }
+
   @Override
   public void save(Consumer<FinishedRecipe> consumer) {
-    this.save(consumer, BuiltInRegistries.ITEM.getKey(this.result.asItem()));
+    this.save(consumer, BuiltInRegistries.ITEM.getKey(Objects.requireNonNull(this.result).asItem()));
   }
 
   @Override
@@ -122,9 +161,9 @@ public class MaterialCastingRecipeBuilder extends AbstractRecipeBuilder<Material
     }
     ResourceLocation advancementId = this.buildOptionalAdvancement(id, "casting");
     if (result != null) {
-      consumer.accept(new LoadableFinishedRecipe<>(new MaterialCastingRecipe(recipeSerializer, id, group, cast, itemCost, result, consumed, switchSlots), MaterialCastingRecipe.LOADER, advancementId));
+      consumer.accept(new LoadableFinishedRecipe<>(new MaterialCastingRecipe(recipeSerializer, id, group, cast, itemCost, result, allowedMaterials, castPurpose != CastPurpose.CATALYST, switchSlots), MaterialCastingRecipe.LOADER, advancementId));
     } else if (resultTool != null) {
-      consumer.accept(new LoadableFinishedRecipe<>(new ToolCastingRecipe(recipeSerializer, id, group, cast, itemCost, resultTool), ToolCastingRecipe.LOADER, advancementId));
+      consumer.accept(new LoadableFinishedRecipe<>(new ToolCastingRecipe(recipeSerializer, id, group, cast, itemCost, castPurpose, resultTool, allowedMaterials, extraMaterials), ToolCastingRecipe.LOADER, advancementId));
     } else {
       throw new IllegalArgumentException("Must have either result or result tool");
     }

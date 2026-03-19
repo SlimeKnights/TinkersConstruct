@@ -1,8 +1,13 @@
 {
   "type": "tconstruct:material",
-  "ingredient": {
-    "tag": "forge:storage_blocks/copper"
-  },
+  "ingredient": [
+    {
+      "tag": "forge:storage_blocks/copper"
+    },
+    {
+      "item": "minecraft:waxed_copper_block"
+    }
+  ],
   "leftover": {
     "count": 1,
     "tag": "forge:ingots/copper"

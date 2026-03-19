@@ -1,0 +1,45 @@
+{
+  "values": [
+    "tconstruct:wood",
+    "tconstruct:string",
+    "tconstruct:vine",
+    "tconstruct:leather",
+    "tconstruct:iron",
+    "tconstruct:slimewood",
+    "tconstruct:slimesteel",
+    "tconstruct:pig_iron",
+    "tconstruct:rose_gold",
+    "tconstruct:cobalt",
+    "tconstruct:cinderslime",
+    "tconstruct:queens_slime",
+    "tconstruct:enderslime_vine",
+    {
+      "id": "tconstruct:treated_wood",
+      "required": false
+    },
+    {
+      "id": "tconstruct:osmium",
+      "required": false
+    },
+    {
+      "id": "tconstruct:ironwood",
+      "required": false
+    },
+    {
+      "id": "tconstruct:plated_slimewood",
+      "required": false
+    },
+    {
+      "id": "tconstruct:electrum",
+      "required": false
+    },
+    {
+      "id": "tconstruct:steeleaf",
+      "required": false
+    },
+    {
+      "id": "tconstruct:fiery",
+      "required": false
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 {
-  "craftable": true,
-  "hidden": false,
-  "sortOrder": 25,
-  "tier": 1
+  "redirect": [
+    {
+      "id": "tconstruct:leather"
+    }
+  ]
 }

@@ -10,9 +10,14 @@
       {
         "tag": "tconstruct:modifiable/durability"
       },
-      {
-        "tag": "tconstruct:modifiable/interactable"
-      }
+      [
+        {
+          "tag": "tconstruct:modifiable/interactable"
+        },
+        {
+          "tag": "tconstruct:modifiable/armor/boots"
+        }
+      ]
     ]
   }
 }

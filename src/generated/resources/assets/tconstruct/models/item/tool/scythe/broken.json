@@ -1,6 +1,6 @@
 {
   "loader": "tconstruct:tool",
-  "parent": "forge:item/default-tool",
+  "parent": "tconstruct:item/tool/scythe/display",
   "textures": {
     "head": "tconstruct:item/tool/scythe/head_broken",
     "handle": "tconstruct:item/tool/scythe/handle",
@@ -11,6 +11,10 @@
     "large_binding": "tconstruct:item/tool/scythe/large/binding",
     "large_accessory": "tconstruct:item/tool/scythe/large/accessory"
   },
+  "modifier_maps": [
+    "tconstruct:scythe_broken",
+    "tconstruct:scythe"
+  ],
   "modifier_roots": {
     "small": [
       "tconstruct:item/tool/scythe/modifiers/broken/",

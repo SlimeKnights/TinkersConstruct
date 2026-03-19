@@ -6,7 +6,8 @@ import net.minecraft.network.chat.Component;
 
 import java.util.List;
 
-/** Implementation of tooltips that preserves the name and mod ID, but replaces the contents between, which basically all of TiC's tooltips use */
+/** @deprecated use {@link FluidTooltipCallback} for better handling of advanced tooltip information */
+@Deprecated(forRemoval = true)
 @FunctionalInterface
 public interface IRecipeTooltipReplacement extends IRecipeSlotTooltipCallback {
   /** Tooltip replacement that keeps just the name and mod ID */

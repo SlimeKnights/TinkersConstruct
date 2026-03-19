@@ -44,7 +44,7 @@ public record SetBlockFluidEffect(BlockState block) implements FluidEffect<Fluid
     Level world = context.getLevel();
     BlockPos target = context.getBlockPos();
     BlockState original = world.getBlockState(target);
-    if (original != this.block) {
+    if (original != this.block && !context.breakRestricted()) {
       if (action.execute() && !world.isClientSide) {
         if (world.setBlockAndUpdate(target, this.block) && !original.isAir()) {
           world.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, target, Block.getId(original));

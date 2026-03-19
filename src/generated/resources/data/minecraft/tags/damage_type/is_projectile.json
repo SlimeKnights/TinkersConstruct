@@ -1,5 +1,7 @@
 {
   "values": [
+    "tconstruct:thrown_tool",
+    "tconstruct:fishing_hook",
     "tconstruct:fluid_impact_ranged",
     "tconstruct:fluid_fire_ranged",
     "tconstruct:fluid_cold_ranged",

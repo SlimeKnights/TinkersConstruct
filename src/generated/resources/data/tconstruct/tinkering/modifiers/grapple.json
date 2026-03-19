@@ -1,0 +1,30 @@
+{
+  "level_display": "tconstruct:no_levels",
+  "modules": [
+    {
+      "type": "tconstruct:tool_actions",
+      "tool_actions": [
+        "grapple_hook"
+      ]
+    },
+    {
+      "type": "tconstruct:requirements",
+      "display_modifiers": [
+        {
+          "level": 1,
+          "name": "tconstruct:fishing"
+        }
+      ],
+      "requirement": {
+        "type": "tconstruct:has_modifier",
+        "check": "all",
+        "modifier": {
+          "type": "tconstruct:single",
+          "modifier": "tconstruct:fishing"
+        }
+      },
+      "translation_key": "modifier.tconstruct.grapple.requirements"
+    }
+  ],
+  "tooltip_display": "always"
+}

@@ -14,15 +14,18 @@
   },
   "match_all": true,
   "pattern": [
-    "mmm",
-    "sts",
-    "s s"
+    "sss",
+    "mtm",
+    "m m"
   ],
   "result": {
-    "item": "tconstruct:scorched_anvil"
+    "item": "tconstruct:scorched_anvil",
+    "nbt": {
+      "display": {
+        "Name": "{\"translate\":\"block.tconstruct.tool_forge\"}"
+      }
+    }
   },
   "show_notification": true,
-  "texture": {
-    "tag": "tconstruct:anvil_metal"
-  }
+  "texture": "m"
 }

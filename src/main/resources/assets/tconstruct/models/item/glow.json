@@ -1,3 +1,6 @@
 {
-    "parent": "tconstruct:block/glow"
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "tconstruct:item/gadgets/glowball"
+    }
 }

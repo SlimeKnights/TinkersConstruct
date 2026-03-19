@@ -121,7 +121,7 @@ public class ContainerFillingRecipe implements ICastingRecipe, IMultiRecipe<Disp
                                                  handler.fill(fluidStack, FluidAction.EXECUTE);
                                                  return handler.getContainer();
                                                }).orElse(stack);
-                                               return new DisplayCastingRecipe(getType(), casts, Collections.singletonList(fluidStack), stack, 5, true);
+                                               return new DisplayCastingRecipe(getId(), getType(), casts, Collections.singletonList(fluidStack), stack, 5, true);
                                              })
                                              .toList();
     }

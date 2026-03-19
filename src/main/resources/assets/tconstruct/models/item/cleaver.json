@@ -1,6 +1,6 @@
 {
   "loader": "tconstruct:tool",
-  "parent": "forge:item/default-tool",
+  "parent": "tconstruct:item/base/tall",
   "textures": {
     "head":   "tconstruct:item/tool/cleaver/head",
     "handle": "tconstruct:item/tool/cleaver/handle",
@@ -12,6 +12,7 @@
     "large_guard":  "tconstruct:item/tool/cleaver/large/guard",
     "large_shield": "tconstruct:item/tool/cleaver/large/shield"
   },
+  "modifier_maps": ["tconstruct:cleaver"],
   "modifier_roots": {
     "small": [ "tconstruct:item/tool/cleaver/modifiers/" ],
     "large": [ "tconstruct:item/tool/cleaver/large/modifiers/" ]
@@ -25,6 +26,10 @@
     { "name": "guard",  "index": 2 }
   ],
   "overrides": [
+    {
+      "predicate": { "tconstruct:charging": 1.75 },
+      "model": "tconstruct:item/tool/cleaver/throwing"
+    },
     {
       "predicate": { "tconstruct:charging": 2 },
       "model": "tconstruct:item/tool/cleaver/blocking"

@@ -1,6 +1,29 @@
 {
   "modules": [
     {
+      "type": "tconstruct:material_stats",
+      "primary_part": 0,
+      "stat_types": [
+        "tconstruct:shield_core",
+        "tconstruct:cuirass"
+      ]
+    },
+    {
+      "type": "tconstruct:tool_parts",
+      "parts": [
+        "tconstruct:shield_core"
+      ]
+    },
+    {
+      "type": "tconstruct:default_materials",
+      "materials": [
+        {
+          "type": "tconstruct:fixed",
+          "material": "tconstruct:wood"
+        }
+      ]
+    },
+    {
       "type": "tconstruct:base_stats",
       "stats": {
         "tconstruct:block_amount": 10.0,
@@ -14,18 +37,18 @@
       "slots": {
         "abilities": 1,
         "defense": 2,
-        "upgrades": 3
+        "upgrades": 2
       }
     },
     {
-      "type": "tconstruct:material_repair",
-      "durability": 200,
-      "material": "tconstruct:leather"
+      "type": "tconstruct:statless_part_repair",
+      "part_index": 0,
+      "repair_amount": 100
     },
     {
-      "type": "tconstruct:material_repair",
-      "durability": 100,
-      "material": "tconstruct:wood"
+      "type": "tconstruct:statless_part_repair",
+      "part_index": 1,
+      "repair_amount": 200
     },
     {
       "type": "tconstruct:traits",
@@ -33,29 +56,15 @@
         {
           "level": 1,
           "name": "tconstruct:blocking"
-        },
-        {
-          "level": 1,
-          "name": "tconstruct:tanned"
         }
       ]
     },
     {
-      "type": "tconstruct:preference_set_interaction",
-      "preferred_modifiers": {
-        "type": "mantle:or",
-        "predicates": [
-          {
-            "type": "tconstruct:single",
-            "modifier": "tconstruct:blocking"
-          },
-          {
-            "type": "tconstruct:tag",
-            "tag": "tconstruct:block_while_charging"
-          }
-        ]
-      },
-      "preferred_source": "right_click"
+      "type": "tconstruct:attack_interaction"
+    },
+    {
+      "type": "tconstruct:fixed_material_name",
+      "index": 0
     }
   ]
 }

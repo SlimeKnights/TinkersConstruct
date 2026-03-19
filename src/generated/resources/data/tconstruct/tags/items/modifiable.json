@@ -4,6 +4,8 @@
     "#tconstruct:modifiable/durability",
     "#tconstruct:modifiable/melee",
     "#tconstruct:modifiable/harvest",
+    "#tconstruct:modifiable/ranged",
+    "#tconstruct:modifiable/ammo",
     "#tconstruct:modifiable/aoe",
     "#tconstruct:modifiable/held",
     "#tconstruct:modifiable/bonus_slots"

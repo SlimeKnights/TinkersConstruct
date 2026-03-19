@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.client.book.content;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.gson.annotations.SerializedName;
 import net.minecraft.ChatFormatting;
@@ -48,7 +47,9 @@ import slimeknights.tconstruct.library.tools.definition.module.material.ToolMate
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
+import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.library.tools.part.IToolPart;
+import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.TinkerToolParts;
 
@@ -57,15 +58,25 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Optional;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /** Base class for material content pages */
 public abstract class AbstractMaterialContent extends PageContent {
-  private static final Component PART_BUILDER = TConstruct.makeTranslation("book", "material.part_builder");
+  /** List of fallback items for the icon if no material recipes. */
+  private static final List<Supplier<? extends IMaterialItem>> FALLBACKS = new ArrayList<>();
+  /** Tooltip components for the part builder craftable icon */
+  public static final List<Component> PART_BUILDER = List.of(
+    TConstruct.makeTranslation("book", "material.craftable"),
+    TConstruct.makeTranslation("book", "material.part_builder").withStyle(ChatFormatting.GRAY)
+  );
+  private static final Component CASTABLE = TConstruct.makeTranslation("book", "material.castable");
   private static final String CAST_FROM = TConstruct.makeTranslationKey("book", "material.cast_from");
+  private static final Component COMPOSITE = TConstruct.makeTranslation("book", "material.composite");
   private static final String COMPOSITE_FROM = TConstruct.makeTranslationKey("book", "material.composite_from");
 
   static final int COLUMN_MARGIN = 22;
@@ -76,9 +87,12 @@ public abstract class AbstractMaterialContent extends PageContent {
   private transient List<ItemStack> repairStacks;
   private transient IMaterial material;
 
+  public String title = "";
   @SerializedName("material")
-  public String materialName;
-  public boolean detailed;
+  public String materialName = "";
+  public boolean detailed = false;
+  @SerializedName("show_all_tools")
+  public boolean showAllTools = false;
 
   public AbstractMaterialContent(MaterialVariantId materialVariant, boolean detailed) {
     this.materialName = materialVariant.toString();
@@ -92,6 +106,11 @@ public abstract class AbstractMaterialContent extends PageContent {
   /** Given an index 0-3, return the stat type to show at that index */
   @Nullable
   protected abstract MaterialStatsId getStatType(int index);
+
+  /** Gets the number of rows to display for the stats section */
+  protected int getStatRows() {
+    return 2;
+  }
 
   /** Gets the text to display, empty if no text */
   protected abstract String getTextKey(MaterialId material);
@@ -125,14 +144,24 @@ public abstract class AbstractMaterialContent extends PageContent {
       // simply combine all items from all recipes
       MaterialVariantId material = getMaterialVariant();
       repairStacks = RecipeHelper.getUIRecipes(world.getRecipeManager(), TinkerRecipeTypes.MATERIAL.get(), MaterialRecipe.class, recipe -> material.matchesVariant(recipe.getMaterial()))
-                                 .stream()
-                                 .flatMap(recipe -> Arrays.stream(recipe.getIngredient().getItems()))
-                                 .collect(Collectors.toList());
-      // no repair items? use the repair kit
+        .stream()
+        // prefer 1 value 1 needed (ingots), then 1 value with higher needed (nuggets), then higher value (blocks)
+        .sorted(Comparator.comparing(MaterialRecipe::getValue).thenComparing(MaterialRecipe::getNeeded))
+        .flatMap(recipe -> Arrays.stream(recipe.getIngredient().getItems()))
+        .collect(Collectors.toList());
+      // no repair items? use the fallbacks
       if (repairStacks.isEmpty()) {
-        TConstruct.LOG.debug("Material with id " + material + " has no representation items associated with it, using repair kit");
-        // bypass the valid check, because we need to show something
-        repairStacks = Collections.singletonList(TinkerToolParts.repairKit.get().withMaterialForDisplay(material));
+        // use the fallback stacks
+        repairStacks = FALLBACKS.stream().map(Supplier::get)
+          .filter(part -> part.canUseMaterial(material.getId()))
+          .map(part -> part.withMaterialForDisplay(material)).toList();
+
+        // no matching fallback? just use a repair kit
+        if (repairStacks.isEmpty()) {
+          TConstruct.LOG.debug("Material with id " + material + " has no representation items associated with it, using repair kit");
+          // bypass the valid check, because we need to show something
+          repairStacks = Collections.singletonList(TinkerToolParts.repairKit.get().withMaterialForDisplay(material));
+        }
       }
     }
     return repairStacks;
@@ -146,7 +175,10 @@ public abstract class AbstractMaterialContent extends PageContent {
   @Nonnull
   @Override
   public String getTitle() {
-    return getTitleComponent().getString();
+    if (title.isEmpty()) {
+      return getTitleComponent().getString();
+    }
+    return title;
   }
 
   /** Gets the title of this page to display in the index */
@@ -166,7 +198,7 @@ public abstract class AbstractMaterialContent extends PageContent {
     int x = (rightSide ? 0 : COLUMN_MARGIN) + 2;
 
     // material stats
-    y = addAllMaterialStats(x, y, list, 2, true);
+    y = addAllMaterialStats(x, y, list, getStatRows(), true);
     // material description
     addDescription(x, y, list);
   }
@@ -216,7 +248,8 @@ public abstract class AbstractMaterialContent extends PageContent {
 
     list.add(new TextComponentElement(x, y, w, BookScreen.PAGE_HEIGHT, lineData));
 
-    return y + (lineData.size() * 5) + 3;
+    // TODO: calculate actual height to properly wrap long lines?
+    return y + (lineData.size() * 10) + 3;
   }
 
   /** Gets all stat text data for the given stat instance */
@@ -233,26 +266,42 @@ public abstract class AbstractMaterialContent extends PageContent {
       } else {
         text.tooltips = new Component[]{tooltip};
       }
-
+      text.linebreak = true;
       lineData.add(text);
-      lineData.add(new TextComponentData("\n"));
     }
   }
 
   /** Gets all trait text data for the given stat instance */
   protected static void addTraitLines(List<TextComponentData> lineData, List<ModifierEntry> traits) {
     for (ModifierEntry trait : traits) {
+      if (!trait.isBound()) {
+        continue;
+      }
       Modifier mod = trait.getModifier();
       TextComponentData textComponentData = new TextComponentData(mod.getDisplayName());
 
       List<Component> textComponents = mod.getDescriptionList(trait.getLevel());
       textComponentData.tooltips = textComponents.toArray(new Component[0]);
       textComponentData.text = textComponentData.text.copy().withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.UNDERLINE);
-
+      textComponentData.linebreak = true;
       lineData.add(textComponentData);
-      lineData.add(new TextComponentData("\n"));
     }
   }
+
+
+  /** Gets the tooltip for a material category */
+  protected static TinkerItemElement makeCategoryIcon(ItemStack item, ResourceLocation name) {
+    TinkerItemElement element = new TinkerItemElement(item);
+    name = name.withPrefix("material.category.");
+    element.tooltip = List.of(
+      Component.translatable(Util.makeTranslationKey("book", name)),
+      Component.translatable(Util.makeTranslationKey("book", name.withSuffix(".description"))).withStyle(ChatFormatting.GRAY)
+    );
+    return element;
+  }
+
+  /** Adds the material category icon */
+  protected void addCategory(List<ItemElement> displayTools, MaterialId material) {}
 
   /** Adds items to the display tools list for all relevant recipes */
   protected void addPrimaryDisplayItems(List<ItemElement> displayTools, MaterialVariantId materialId) {
@@ -260,7 +309,7 @@ public abstract class AbstractMaterialContent extends PageContent {
     if (getMaterial().isCraftable()) {
       ItemStack partBuilder = new ItemStack(TinkerTables.partBuilder.asItem());
       ItemElement elementItem = new TinkerItemElement(partBuilder);
-      elementItem.tooltip = ImmutableList.of(PART_BUILDER);
+      elementItem.tooltip = PART_BUILDER;
       displayTools.add(elementItem);
     }
 
@@ -273,7 +322,10 @@ public abstract class AbstractMaterialContent extends PageContent {
       FluidStack firstFluid = fluids.stream()
                                     .flatMap(recipe -> recipe.getFluids().stream())
                                     .findFirst().orElse(FluidStack.EMPTY);
-      elementItem.tooltip = ImmutableList.of(Component.translatable(CAST_FROM, firstFluid.getDisplayName()));
+      elementItem.tooltip = List.of(
+        CASTABLE,
+        Component.translatable(CAST_FROM, firstFluid.getDisplayName()).withStyle(ChatFormatting.GRAY)
+      );
       displayTools.add(elementItem);
     }
 
@@ -283,14 +335,21 @@ public abstract class AbstractMaterialContent extends PageContent {
       MaterialVariant input = composite.getInput();
       if (input != null && !materialVariant.matchesVariant(input.getVariant())) {
         MaterialVariantId inputId = input.getVariant();
-        ItemElement elementItem = new TinkerItemElement(0, 0, 1, MaterialCastingLookup.getAllItemCosts().stream()
-                                                                                      .map(Entry::getKey)
-                                                                                      .filter(part -> part.canUseMaterial(inputId.getId()) && part.canUseMaterial(material))
-                                                                                      .map(part -> part.withMaterial(inputId))
-                                                                                      .collect(Collectors.toList()));
-        FluidStack firstFluid = composite.getFluids().stream().findFirst().orElse(FluidStack.EMPTY);
-        elementItem.tooltip = ImmutableList.of(Component.translatable(COMPOSITE_FROM, firstFluid.getDisplayName(), MaterialTooltipCache.getDisplayName(inputId)));
-        displayTools.add(elementItem);
+        // TODO: filter out tool parts that cannot be casted due to a composite cast conflict
+        List<ItemStack> compositeParts = MaterialCastingLookup.getAllItemCosts().stream()
+          .map(Entry::getKey)
+          .filter(part -> part.canUseMaterial(inputId.getId()) && part.canUseMaterial(material) && (!(part instanceof IToolPart toolPart) || supportsStatType(toolPart.getStatType())))
+          .map(part -> part.withMaterial(inputId))
+          .toList();
+        if (!compositeParts.isEmpty()) {
+          ItemElement elementItem = new TinkerItemElement(0, 0, 1, compositeParts);
+          FluidStack firstFluid = composite.getFluids().stream().findFirst().orElse(FluidStack.EMPTY);
+          elementItem.tooltip = List.of(
+            COMPOSITE,
+            Component.translatable(COMPOSITE_FROM, firstFluid.getDisplayName(), MaterialTooltipCache.getDisplayName(inputId)).withStyle(ChatFormatting.GRAY)
+          );
+          displayTools.add(elementItem);
+        }
       }
     }
   }
@@ -299,6 +358,8 @@ public abstract class AbstractMaterialContent extends PageContent {
   @SuppressWarnings("deprecation")  // its the best tag lookup
   protected void addDisplayItems(ArrayList<BookElement> list, int x, MaterialVariantId materialVariant) {
     List<ItemElement> displayTools = Lists.newArrayList();
+
+    addCategory(displayTools, materialVariant.getId());
 
     // add display items
     displayTools.add(new TinkerItemElement(0, 0, 1f, getRepairStacks()));
@@ -309,20 +370,21 @@ public abstract class AbstractMaterialContent extends PageContent {
       MaterialId materialId = materialVariant.getId();
       toolLoop:
       for (Holder<Item> item : BuiltInRegistries.ITEM.getTagOrEmpty(TinkerTags.Items.MULTIPART_TOOL)) {
-        if (item.value() instanceof IModifiable tool) {
+        if (item.value() instanceof IModifiable tool && (showAllTools || !item.is(TinkerTags.Items.ANCIENT_TOOLS))) {
           List<MaterialStatsId> requirements = ToolMaterialHook.stats(tool.getToolDefinition());
           // start building the tool with the given material
           MaterialNBT.Builder materials = MaterialNBT.builder();
           boolean usedMaterial = false;
           for (MaterialStatsId part : requirements) {
-            // if any stat type of the tool is not supported by this page, skip the whole tool
-            if (!supportsStatType(part)) {
-              continue toolLoop;
-            }
+            // by default, give up if the tool contains any parts of another stat type. Mostly filters out ancient tools
+            // but by request we can keep those visible
+            boolean supported = supportsStatType(part);
             // if the stat type is not supported by the material, substitute
             if (part.canUseMaterial(materialId)) {
               materials.add(materialVariant);
-              usedMaterial = true;
+              if (supported) {
+                usedMaterial = true;
+              }
             } else {
               materials.add(MaterialRegistry.firstWithStatType(part));
             }
@@ -392,5 +454,10 @@ public abstract class AbstractMaterialContent extends PageContent {
                          .filter(part -> part.getStatType().equals(statType))
                          .map(part -> part.withMaterialForDisplay(material))
                          .toList();
+  }
+
+  /** Registers a part to use for display of materials with no material recipes. If none of these parts match, the repair kit will be used. */
+  public static void registerFallbackPart(Supplier<? extends IMaterialItem> part) {
+    FALLBACKS.add(part);
   }
 }

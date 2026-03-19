@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.modifiers.fluid.entity;
 
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraftforge.fluids.FluidStack;
@@ -11,7 +12,6 @@ import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.library.modifiers.fluid.EffectLevel;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffectContext;
-import slimeknights.tconstruct.library.modifiers.fluid.FluidEffectContext.Entity;
 import slimeknights.tconstruct.library.recipe.TagPredicate;
 
 import java.util.List;
@@ -29,13 +29,15 @@ public record PotionFluidEffect(float scale, TagPredicate predicate) implements 
   }
 
   @Override
-  public float apply(FluidStack fluid, EffectLevel level, Entity context, FluidAction action) {
+  public float apply(FluidStack fluid, EffectLevel level, FluidEffectContext.Entity context, FluidAction action) {
     LivingEntity target = context.getLivingTarget();
-    LivingEntity attacker = context.getEntity();
     // must match the tag predicate
     if (target != null && predicate.test(fluid.getTag())) {
       List<MobEffectInstance> effects = PotionUtils.getPotion(fluid.getTag()).getEffects();
       if (!effects.isEmpty()) {
+        LivingEntity attacker = context.getEntity();
+        Entity directSource = context.getDirectSource();
+        Entity effectSource = context.getEffectSource();
         // prevent effects like instant damage from hitting hurt resistance
         int oldInvulnerableTime = target.invulnerableTime;
         // report whichever effect used the most
@@ -47,7 +49,7 @@ public record PotionFluidEffect(float scale, TagPredicate predicate) implements 
             used = level.value();
             if (action.execute()) {
               target.invulnerableTime = 0;
-              effect.applyInstantenousEffect(attacker, attacker, target, instance.getAmplifier(), used * scale);
+              effect.applyInstantenousEffect(directSource, attacker, target, instance.getAmplifier(), used * scale);
             }
           } else {
             // if the potion already exists, we scale up the existing time
@@ -74,7 +76,7 @@ public record PotionFluidEffect(float scale, TagPredicate predicate) implements 
               duration = (int) (instance.getDuration() * scale * used);
             }
             if (action.execute()) {
-              target.addEffect(new MobEffectInstance(effect, duration, instance.getAmplifier(), instance.isAmbient(), instance.isVisible(), instance.showIcon()));
+              target.addEffect(new MobEffectInstance(effect, duration, instance.getAmplifier(), instance.isAmbient(), instance.isVisible(), instance.showIcon()), effectSource);
             }
           }
         }

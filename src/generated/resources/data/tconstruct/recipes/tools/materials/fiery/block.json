@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:material",
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "forge:storage_blocks/fiery"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:storage_blocks/fiery"
+  },
+  "leftover": {
+    "count": 1,
+    "tag": "forge:ingots/fiery"
+  },
+  "material": "tconstruct:fiery",
+  "needed": 1,
+  "value": 9
+}

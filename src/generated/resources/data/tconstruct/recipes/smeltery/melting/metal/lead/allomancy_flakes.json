@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "allomancy:lead_flakes"
+    }
+  ],
+  "ingredient": {
+    "item": "allomancy:lead_flakes"
+  },
+  "result": {
+    "amount": 30,
+    "tag": "forge:molten_lead"
+  },
+  "temperature": 330,
+  "time": 25
+}

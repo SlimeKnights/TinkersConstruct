@@ -6,6 +6,7 @@
     "handle": "tconstruct:item/tool/sword/handle",
     "guard":  "tconstruct:item/tool/sword/guard"
   },
+  "modifier_maps": ["tconstruct:sword"],
   "modifier_roots": [ "tconstruct:item/tool/sword/modifiers/" ],
   "parts": [
     { "name": "handle", "index": 1 },
@@ -13,6 +14,10 @@
     { "name": "guard",  "index": 2 }
   ],
   "overrides": [
+    {
+      "predicate": { "tconstruct:charging": 1.75 },
+      "model": "tconstruct:item/tool/sword/throwing"
+    },
     {
       "predicate": { "tconstruct:charging": 2 },
       "model": "tconstruct:item/tool/sword/blocking"

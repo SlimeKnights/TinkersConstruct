@@ -18,6 +18,7 @@ import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.armor.texture.ArmorTextureSupplier;
+import slimeknights.tconstruct.tools.client.material.CombatFishingHookRenderer;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -65,6 +66,8 @@ public class ArmorModelManager extends SimpleJsonResourceReloadListener {
 
     // first, load in all fluid textures, means we are allowed to reference them in fluid texture supplier constructors
     ArmorTextureSupplier.TEXTURE_VALIDATOR.onReloadSafe(manager);
+    // reuses armor model logic for simplicity
+    CombatFishingHookRenderer.clearCache();
 
     // load all models
     ImmutableMap.Builder<ResourceLocation,ArmorModel> builder = ImmutableMap.builder();

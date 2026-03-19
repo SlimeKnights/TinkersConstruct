@@ -1,0 +1,13 @@
+{
+  "title": "隐形墨水",
+  "image": {
+    "file": "tconstruct:book/images/worktable/invisible_ink.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "嫌工具上的强化不好看？只要泼上一瓶碧空黏液即可解决！因为一些科学道理，黏液可与强化反应，从而在不影响功能的前提下，使其不可见。"
+    }
+  ]
+}

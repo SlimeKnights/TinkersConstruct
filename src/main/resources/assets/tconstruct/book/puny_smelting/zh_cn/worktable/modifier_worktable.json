@@ -1,0 +1,7 @@
+{
+  "title": "强化调配台",
+  "recipe": "tconstruct:tables/modifier_worktable",
+  "description": [
+    { "text": "在调整工具强化前，你需要使用最好的石头合成这个强化调配台。" }
+  ]
+}

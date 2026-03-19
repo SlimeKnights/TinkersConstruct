@@ -1,0 +1,54 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:conditional_stat",
+      "each_level": 0.5,
+      "entity": "tconstruct:full_health",
+      "percent": false,
+      "stat": "tconstruct:projectile_damage"
+    },
+    {
+      "type": "tconstruct:conditional_power",
+      "each_level": 0.25,
+      "percent": false,
+      "target": "tconstruct:full_health"
+    },
+    {
+      "type": "tconstruct:conditional_melee_damage",
+      "formula": [
+        "$attacker_full",
+        "$target_full",
+        "+",
+        "$level",
+        "*",
+        "$multiplier",
+        "*",
+        "$damage",
+        "+"
+      ],
+      "percent": false,
+      "variables": {
+        "attacker_full": {
+          "type": "tconstruct:entity",
+          "condition_type": "tconstruct:full_health",
+          "entity_type": "tconstruct:conditional",
+          "fallback": 1.0,
+          "if_false": 0.0,
+          "if_true": 1.0,
+          "which": "attacker"
+        },
+        "target_full": {
+          "type": "tconstruct:entity",
+          "condition_type": "tconstruct:full_health",
+          "entity_type": "tconstruct:conditional",
+          "fallback": 0.6,
+          "if_false": 0.0,
+          "if_true": 0.6,
+          "which": "target"
+        }
+      }
+    }
+  ],
+  "tooltip_display": "always"
+}

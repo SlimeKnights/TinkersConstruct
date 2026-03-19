@@ -28,9 +28,15 @@ public final class ToolDefinitions {
   public static final ToolDefinition SWORD = ToolDefinition.create(TinkerTools.sword);
   public static final ToolDefinition CLEAVER = ToolDefinition.create(TinkerTools.cleaver);
 
-  // bows
+  // ranged
   public static final ToolDefinition CROSSBOW = ToolDefinition.create(TinkerTools.crossbow);
   public static final ToolDefinition LONGBOW = ToolDefinition.create(TinkerTools.longbow);
+  public static final ToolDefinition FISHING_ROD = ToolDefinition.create(TinkerTools.fishingRod);
+  public static final ToolDefinition JAVELIN = ToolDefinition.create(TinkerTools.javelin);
+  // ammo
+  public static final ToolDefinition ARROW = ToolDefinition.create(TinkerTools.arrow);
+  public static final ToolDefinition SHURIKEN = ToolDefinition.create(TinkerTools.shuriken);
+  public static final ToolDefinition THROWING_AXE = ToolDefinition.create(TinkerTools.throwingAxe);
 
   // special
   public static final ToolDefinition FLINT_AND_BRICK = ToolDefinition.create(TinkerTools.flintAndBrick);
@@ -44,4 +50,5 @@ public final class ToolDefinitions {
   public static final ToolDefinition WAR_PICK = ToolDefinition.create(TinkerTools.warPick);
   public static final ToolDefinition BATTLESIGN = ToolDefinition.create(TinkerTools.battlesign);
   public static final ToolDefinition SWASHER = ToolDefinition.create(TinkerTools.swasher);
+  public static final ToolDefinition MINOTAUR_AXE = ToolDefinition.create(TinkerTools.minotaurAxe);
 }

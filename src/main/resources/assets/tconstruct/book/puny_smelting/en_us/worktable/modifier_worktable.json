@@ -1,0 +1,7 @@
+{
+  "title": "Modifier Worktable",
+  "recipe": "tconstruct:tables/modifier_worktable",
+  "description": [
+    { "text": "To get started in modifier modification, craft a worktable using the best natural stone." }
+  ]
+}

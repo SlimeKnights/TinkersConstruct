@@ -1,5 +1,13 @@
 {
+  "camera": "tconstruct:fluid/molten/stone/camera",
+  "camera_opacity": 0.1,
   "color": "FF9B6045",
   "flowing": "tconstruct:fluid/molten/stone/flowing",
+  "fog": {
+    "calculate_color": true,
+    "end": 2.0,
+    "shape": "sphere",
+    "start": 0.25
+  },
   "still": "tconstruct:fluid/molten/stone/still"
 }

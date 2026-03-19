@@ -6,6 +6,11 @@
     "large_tool": "tconstruct:item/tool/staff/earth_large_5"
   },
   "large": true,
+  "modifier_maps": [
+    "tconstruct:staff/earth/5",
+    "tconstruct:staff/earth",
+    "tconstruct:staff"
+  ],
   "modifier_roots": {
     "small": [
       "tconstruct:item/tool/staff/modifiers/earth/5/",

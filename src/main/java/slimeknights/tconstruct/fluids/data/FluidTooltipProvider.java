@@ -2,24 +2,20 @@ package slimeknights.tconstruct.fluids.data;
 
 import net.minecraft.data.PackOutput;
 import net.minecraftforge.fluids.FluidType;
-import slimeknights.mantle.datagen.MantleTags;
 import slimeknights.mantle.fluid.tooltip.AbstractFluidTooltipProvider;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.menu.AlloyerContainerMenu;
 import slimeknights.tconstruct.smeltery.menu.MelterContainerMenu;
 
-import java.util.Objects;
-
+import static slimeknights.tconstruct.common.TinkerTags.Fluids.BOTTLE_TOOLTIPS;
 import static slimeknights.tconstruct.common.TinkerTags.Fluids.CLAY_TOOLTIPS;
 import static slimeknights.tconstruct.common.TinkerTags.Fluids.GLASS_TOOLTIPS;
 import static slimeknights.tconstruct.common.TinkerTags.Fluids.LARGE_GEM_TOOLTIPS;
 import static slimeknights.tconstruct.common.TinkerTags.Fluids.METAL_TOOLTIPS;
 import static slimeknights.tconstruct.common.TinkerTags.Fluids.SLIME_TOOLTIPS;
 import static slimeknights.tconstruct.common.TinkerTags.Fluids.SMALL_GEM_TOOLTIPS;
-import static slimeknights.tconstruct.common.TinkerTags.Fluids.SOUP_TOOLTIPS;
 
 public class FluidTooltipProvider extends AbstractFluidTooltipProvider {
   public FluidTooltipProvider(PackOutput packOutput) {
@@ -55,31 +51,15 @@ public class FluidTooltipProvider extends AbstractFluidTooltipProvider {
     add("slime", SLIME_TOOLTIPS)
       .addUnit("block", FluidValues.SLIME_BLOCK)
       .addUnit("slimeball", FluidValues.SLIMEBALL)
-      .addUnit("drop", FluidValues.SLIME_DROP);
+      .addUnit("drop", "mantle", FluidValues.SLIME_DROP);
     add("glass", GLASS_TOOLTIPS)
       .addUnit("block", FluidValues.GLASS_BLOCK)
       .addUnit("pane", FluidValues.GLASS_PANE);
 
-    add("water", MantleTags.Fluids.WATER)
-      .addUnit("kilobucket", "mantle", FluidType.BUCKET_VOLUME * 1000)
-      .addUnit("bucket",     "mantle", FluidType.BUCKET_VOLUME)
-      .addUnit("bottle", FluidValues.BOTTLE)
-      .addUnit("drop", FluidValues.SIP);
-    add("venom", TinkerFluids.venom.getTag())
-      .addUnit("kilobucket", "mantle", FluidType.BUCKET_VOLUME * 1000)
-      .addUnit("bucket",     "mantle", FluidType.BUCKET_VOLUME)
-      .addUnit("bottle", FluidValues.BOTTLE)
-      .addUnit("drop", FluidValues.SIP);
-    add("honey", TinkerFluids.honey.getTag())
-      .addUnit("block", FluidValues.BOTTLE * 4)
-      .addUnit("bottle", FluidValues.BOTTLE);
-    add("soup", SOUP_TOOLTIPS)
-      .addUnit("bowl", FluidValues.BOWL)
-      .addUnit("sip", FluidValues.SIP);
-
-    add("potion", Objects.requireNonNull(TinkerFluids.potion.getCommonTag()))
-      .addUnit("bottle", FluidValues.BOTTLE)
-      .addUnit("sip", FluidValues.SIP);
+    add("bottle", BOTTLE_TOOLTIPS)
+      .addUnit("bucket", "mantle", FluidType.BUCKET_VOLUME)
+      .addUnit("bottle", "mantle", FluidValues.BOTTLE)
+      .addUnit("drop",   "mantle", FluidValues.SIP);
   }
 
   @Override

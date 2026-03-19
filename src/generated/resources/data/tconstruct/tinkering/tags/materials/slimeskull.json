@@ -1,0 +1,26 @@
+{
+  "values": [
+    "tconstruct:glass",
+    "tconstruct:leather",
+    "tconstruct:iron",
+    "tconstruct:copper",
+    "tconstruct:string",
+    "tconstruct:darkthread",
+    "tconstruct:bone",
+    "tconstruct:ice",
+    "tconstruct:necrotic_bone",
+    "tconstruct:gold",
+    "tconstruct:rose_gold",
+    "tconstruct:pig_iron",
+    "tconstruct:blaze",
+    "tconstruct:ender_pearl",
+    "tconstruct:dragon_scale",
+    "tconstruct:venombone",
+    "tconstruct:blazing_bone",
+    "tconstruct:knightmetal",
+    {
+      "id": "tconstruct:necronium",
+      "required": false
+    }
+  ]
+}

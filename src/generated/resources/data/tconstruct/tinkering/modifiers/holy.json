@@ -1,0 +1,15 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:conditional_power",
+      "each_level": 0.75,
+      "percent": false,
+      "target": {
+        "type": "mantle:mob_type",
+        "mobs": "minecraft:undead"
+      }
+    }
+  ],
+  "tooltip_display": "always"
+}

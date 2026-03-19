@@ -1,0 +1,15 @@
+{
+  "type": "tconstruct:material",
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "forge:ingots/pewter"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:ingots/pewter"
+  },
+  "material": "tconstruct:pewter",
+  "needed": 1,
+  "value": 1
+}

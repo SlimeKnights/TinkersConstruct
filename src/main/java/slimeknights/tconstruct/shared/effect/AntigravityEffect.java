@@ -5,7 +5,6 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import lombok.ToString;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
@@ -72,10 +71,9 @@ public class AntigravityEffect extends TinkerEffect {
         if (lastVelocity.twoTicks > 0.1f) {
           Vec3 velocity = living.getDeltaMovement();
           living.setDeltaMovement(velocity.x, lastVelocity.twoTicks, velocity.z);
-          MobEffectInstance jumpBoost = living.getEffect(MobEffects.JUMP);
           BlockPos above = BlockPos.containing(living.getX(), living.getBoundingBox().maxY + 0.1, living.getZ());
           BlockState hit = level.getBlockState(above);
-          float height = (float)(lastVelocity.twoTicks * 10 - 3 - living.getAttributeValue(TinkerAttributes.JUMP_BOOST.get()) - (jumpBoost != null ? jumpBoost.getAmplifier() + 1 : 0));
+          float height = (float)(lastVelocity.twoTicks * 10 - 3 - living.getAttributeValue(TinkerAttributes.SAFE_FALL_DISTANCE.get()) - TinkerEffect.getLevel(living, MobEffects.JUMP));
           if (height > 0.0F) {
             hit.getBlock().fallOn(level, hit, above, living, height);
           }

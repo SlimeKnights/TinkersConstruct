@@ -1,14 +1,11 @@
 package slimeknights.tconstruct.plugin.jei.entity;
 
-import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import lombok.Getter;
 import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IIngredientAcceptor;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated.StartDirection;
-import mezz.jei.api.gui.ingredient.IRecipeSlotTooltipCallback;
 import mezz.jei.api.gui.ingredient.IRecipeSlotView;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
@@ -22,6 +19,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.fluid.tooltip.FluidTooltipHandler;
 import slimeknights.mantle.plugin.jei.MantleJEIConstants;
 import slimeknights.mantle.plugin.jei.entity.EntityIngredientRenderer;
@@ -31,7 +29,7 @@ import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
 import slimeknights.tconstruct.plugin.jei.TConstructJEIConstants;
 import slimeknights.tconstruct.plugin.jei.melting.MeltingFuelHandler;
-import slimeknights.tconstruct.plugin.jei.util.IRecipeTooltipReplacement;
+import slimeknights.tconstruct.plugin.jei.util.FluidTooltipCallback;
 
 import java.awt.Color;
 import java.util.List;
@@ -44,9 +42,6 @@ public class EntityMeltingRecipeCategory implements IRecipeCategory<EntityMeltin
   private static final Component TITLE = TConstruct.makeTranslation("jei", "entity_melting.title");
   private static final String KEY_PER_HEARTS = TConstruct.makeTranslationKey("jei", "entity_melting.per_hearts");
   private static final Component TOOLTIP_PER_HEART = Component.translatable(TConstruct.makeTranslationKey("jei", "entity_melting.per_heart")).withStyle(ChatFormatting.GRAY);
-
-  /** Map of damage value to tooltip callbacks */
-  private static final Int2ObjectMap<IRecipeSlotTooltipCallback> TOOLTIP_MAP = new Int2ObjectOpenHashMap<>();
 
   /** Renderer instance to use in this category */
   private final EntityIngredientRenderer entityRenderer = new EntityIngredientRenderer(32);
@@ -100,23 +95,28 @@ public class EntityMeltingRecipeCategory implements IRecipeCategory<EntityMeltin
     // output
     builder.addSlot(RecipeIngredientRole.OUTPUT, 115, 11)
            .setFluidRenderer(FluidValues.INGOT * 2, false, 16, 32)
-           .addTooltipCallback(TOOLTIP_MAP.computeIfAbsent(recipe.getDamage(), FluidTooltip::new))
+           .addTooltipCallback(new FluidTooltip(recipe.getDamage())) // object is cheap, no need to cache
            .addIngredient(ForgeTypes.FLUID_STACK, recipe.getOutput());
 
     // show fuels that are valid for this recipe
     builder.addSlot(RecipeIngredientRole.CATALYST, 75, 43)
            .setFluidRenderer(1, false, 16, 16)
            .setOverlay(tank, 0, 0)
-           .addTooltipCallback(IRecipeTooltipReplacement.EMPTY)
+           .addTooltipCallback(FluidTooltipCallback.NO_AMOUNT)
            .addIngredients(ForgeTypes.FLUID_STACK, MeltingFuelHandler.getUsableFuels(1));
   }
 
+  @Override
+  public ResourceLocation getRegistryName(EntityMeltingRecipe recipe) {
+    return recipe.getId();
+  }
+
   /** Tooltip for relevant damage on the fluid */
-  private record FluidTooltip(int damage) implements IRecipeTooltipReplacement {
+  private record FluidTooltip(int damage) implements FluidTooltipCallback {
     @Override
-    public void addMiddleLines(IRecipeSlotView recipeSlotView, List<Component> list) {
+    public void onFluidTooltip(FluidStack fluid, IRecipeSlotView recipeSlotView, List<Component> list) {
       // add fluid units
-      recipeSlotView.getDisplayedIngredient(ForgeTypes.FLUID_STACK).ifPresent(fluid -> FluidTooltipHandler.appendMaterial(fluid, list));
+      FluidTooltipHandler.appendMaterial(fluid, list);
       // output rate
       if (damage == 2) {
         list.add(TOOLTIP_PER_HEART);

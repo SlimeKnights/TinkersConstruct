@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.tags.TagKey;
+import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifierEntry;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -79,6 +80,21 @@ public class ModifierNBT implements Iterable<ModifierEntry> {
   public boolean has(TagKey<Modifier> tag) {
     for (ModifierEntry entry : modifiers) {
       if (ModifierManager.isInTag(entry.getId(), tag)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Checks if the listing has a modifier matching the given predicate.
+   * To check if it has a specific modifier, use {@link #getLevel(ModifierId)}.
+   * @param predicate  Predicate to test
+   * @return  True if any modifier in the tag is present
+   */
+  public boolean has(IJsonPredicate<ModifierId> predicate) {
+    for (ModifierEntry entry : modifiers) {
+      if (predicate.matches(entry.getId())) {
         return true;
       }
     }
@@ -258,7 +274,7 @@ public class ModifierNBT implements Iterable<ModifierEntry> {
 
     @Override
     public Builder add(ModifierEntry entry) {
-      if (entry != ModifierEntry.EMPTY) {
+      if (entry != ModifierEntry.EMPTY && entry.isBound()) {
         ModifierId id = entry.getId();
         ModifierEntry current = modifiers.get(id);
         if (current != null) {

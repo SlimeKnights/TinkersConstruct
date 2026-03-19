@@ -20,7 +20,7 @@ import static slimeknights.tconstruct.library.materials.stats.IMaterialStats.mak
 import static slimeknights.tconstruct.library.materials.stats.IMaterialStats.makeTooltipKey;
 
 /** Stats for melee harvest handles */
-public record HandleMaterialStats(float durability, float miningSpeed, float meleeSpeed, float attackDamage) implements IMaterialStats {
+public record HandleMaterialStats(float durability, float miningSpeed, float meleeSpeed, float attackDamage) implements IMaterialStats.ScaledTooltip {
   public static final MaterialStatsId ID = new MaterialStatsId(TConstruct.getResource("handle"));
   public static final MaterialStatType<HandleMaterialStats> TYPE = new MaterialStatType<>(ID, new HandleMaterialStats(0f, 0f, 0f, 0f), RecordLoadable.create(
     FloatLoadable.ANY.defaultField("durability", 0f, true, HandleMaterialStats::durability),
@@ -49,9 +49,9 @@ public record HandleMaterialStats(float durability, float miningSpeed, float mel
   }
 
   @Override
-  public List<Component> getLocalizedInfo() {
+  public List<Component> getLocalizedInfo(float scale) {
     List<Component> list = new ArrayList<>();
-    list.add(formatDurability(this.durability));
+    list.add(formatDurability(this.durability * scale));
     list.add(formatAttackDamage(this.attackDamage));
     list.add(formatAttackSpeed(this.meleeSpeed));
     list.add(formatMiningSpeed(this.miningSpeed));

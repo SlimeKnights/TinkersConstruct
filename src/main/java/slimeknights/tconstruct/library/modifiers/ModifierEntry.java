@@ -7,10 +7,12 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.tags.TagKey;
+import slimeknights.mantle.data.loadable.primitive.BooleanLoadable;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.library.json.IntRange;
 import slimeknights.tconstruct.library.modifiers.util.LazyModifier;
+import slimeknights.tconstruct.library.modifiers.util.OptionalModifier;
 import slimeknights.tconstruct.library.module.ModuleHook;
 
 import javax.annotation.Nullable;
@@ -39,6 +41,17 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
     ModifierId.PARSER.requiredField(TAG_MODIFIER, ModifierEntry::getId),
     IntLoadable.FROM_ONE.defaultField(TAG_LEVEL, 1, true, ModifierEntry::getLevel),
     ModifierEntry::new);
+  /** Loadable instance for parsing with optional modifiers. If the boolean is set, modifier does not error when missing. */
+  public static final RecordLoadable<ModifierEntry> OPTIONAL_LOADABLE = RecordLoadable.create(
+    ModifierId.PARSER.requiredField(TAG_MODIFIER, ModifierEntry::getId),
+    IntLoadable.FROM_ONE.defaultField(TAG_LEVEL, 1, true, ModifierEntry::getLevel),
+    BooleanLoadable.INSTANCE.defaultField("optional", false, false, e -> e.getLazyModifier() instanceof OptionalModifier),
+    (id, level, optional) -> {
+      if (optional) {
+        return new ModifierEntry(new OptionalModifier(id), level);
+      }
+      return new ModifierEntry(id, level);
+    });
   /** Range of levels for a modifier including 0 (not on the tool) */
   public static final IntRange ANY_LEVEL = new IntRange(0, Short.MAX_VALUE);
   /** Range of levels for a modifier on a tool */

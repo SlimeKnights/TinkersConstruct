@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:material",
+  "ingredient": {
+    "tag": "forge:nuggets/knightslime"
+  },
+  "material": "tconstruct:knightslime",
+  "needed": 9,
+  "value": 1
+}

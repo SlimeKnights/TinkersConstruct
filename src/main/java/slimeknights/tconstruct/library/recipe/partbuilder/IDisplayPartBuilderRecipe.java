@@ -24,7 +24,11 @@ public interface IDisplayPartBuilderRecipe extends IPartBuilderRecipe {
 
   /** Gets a list of input material items for display in the material slot. */
   default List<ItemStack> getMaterialItems() {
-    return MaterialRecipeCache.getItems(getMaterial().getVariant());
+    MaterialVariant material = getMaterial();
+    if (material.isUnknown()) {
+      return List.of();
+    }
+    return MaterialRecipeCache.getItems(material.getVariant());
   }
 
   /** Gets a list of results. Should either be size 1, or size matching {@link #getMaterialItems()} */

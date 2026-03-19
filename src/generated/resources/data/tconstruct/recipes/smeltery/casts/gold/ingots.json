@@ -1,8 +1,20 @@
 {
   "type": "tconstruct:casting_table",
-  "cast": {
-    "tag": "forge:ingots"
-  },
+  "cast": [
+    {
+      "type": "forge:difference",
+      "base": {
+        "tag": "forge:ingots"
+      },
+      "subtracted": {
+        "item": "tconstruct:fake_ingot"
+      }
+    },
+    {
+      "type": "tconstruct:material",
+      "item": "tconstruct:fake_ingot"
+    }
+  ],
   "cast_consumed": true,
   "cooling_time": 57,
   "fluid": {

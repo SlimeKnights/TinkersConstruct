@@ -28,7 +28,7 @@ import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipe;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuelLookup;
 import slimeknights.tconstruct.plugin.jei.melting.MeltingFuelHandler;
-import slimeknights.tconstruct.plugin.jei.util.IRecipeTooltipReplacement;
+import slimeknights.tconstruct.plugin.jei.util.FluidTooltipCallback;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import java.awt.Color;
@@ -45,23 +45,17 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe> {
   private static final String KEY_TEMPERATURE = TConstruct.makeTranslationKey("jei", "temperature");
 
   /** Tooltip for fluid inputs */
-  private static final IRecipeTooltipReplacement FLUID_TOOLTIP = (slot, list) ->
-    slot.getDisplayedIngredient(ForgeTypes.FLUID_STACK).ifPresent(stack -> FluidTooltipHandler.appendMaterial(stack, list));
-  /** Tooltip for fluid inputs */
-  private static final IRecipeTooltipReplacement CATALYST_TOOLTIP = (slot, list) -> {
-    list.add(CATALYST);
-    slot.getDisplayedIngredient(ForgeTypes.FLUID_STACK).ifPresent(stack -> FluidTooltipHandler.appendMaterial(stack, list));
+  private static final FluidTooltipCallback CATALYST_TOOLTIP = (fluid, slot, tooltip) -> {
+    tooltip.add(CATALYST);
+    FluidTooltipHandler.appendMaterial(fluid, tooltip);
   };
 
   /** Tooltip for fuel display */
-  public static final IRecipeTooltipReplacement FUEL_TOOLTIP = (slot, tooltip) -> {
-    slot.getDisplayedIngredient(ForgeTypes.FLUID_STACK)
-        .ifPresent(stack -> {
-          MeltingFuel fuel = MeltingFuelLookup.findFuel(stack.getFluid());
-          if (fuel != null) {
-            tooltip.add(Component.translatable(KEY_TEMPERATURE, fuel.getTemperature()).withStyle(ChatFormatting.GRAY));
-          }
-        });
+  public static final FluidTooltipCallback FUEL_TOOLTIP = (fluid, slot, tooltip) -> {
+    MeltingFuel fuel = MeltingFuelLookup.findFuel(fluid.getFluid());
+    if (fuel != null) {
+      tooltip.add(Component.translatable(KEY_TEMPERATURE, fuel.getTemperature()).withStyle(ChatFormatting.GRAY));
+    }
   };
 
   @Getter
@@ -152,11 +146,11 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe> {
     // inputs
     int maxAmount = drawVariableFluids(builder, RecipeIngredientRole.INPUT, 19, 11, 48, 32, recipe.getInputs(),recipe.getOutput().getAmount(),
                                        ingredient -> ingredient.fluid().getFluids(),
-                                       ingredient -> ingredient.catalyst() ? CATALYST_TOOLTIP : FLUID_TOOLTIP);
+                                       ingredient -> ingredient.catalyst() ? CATALYST_TOOLTIP : FluidTooltipCallback.UNITS);
 
     // output
     builder.addSlot(RecipeIngredientRole.OUTPUT, 137, 11)
-           .addTooltipCallback(FLUID_TOOLTIP)
+           .addTooltipCallback(FluidTooltipCallback.UNITS)
            .setFluidRenderer(maxAmount, false, 16, 32)
            .addIngredient(ForgeTypes.FLUID_STACK, recipe.getOutput());
 
@@ -166,5 +160,10 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe> {
            .setFluidRenderer(1, false, 16, 16)
            .setOverlay(tank, 0, 0)
            .addIngredients(ForgeTypes.FLUID_STACK, MeltingFuelHandler.getUsableFuels(recipe.getTemperature()));
+  }
+
+  @Override
+  public ResourceLocation getRegistryName(AlloyRecipe recipe) {
+    return recipe.getId();
   }
 }

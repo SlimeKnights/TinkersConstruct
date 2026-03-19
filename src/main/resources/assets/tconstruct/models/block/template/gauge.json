@@ -1,0 +1,31 @@
+{
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "particle": "#gauge"
+  },
+	"elements": [
+		{
+			"from": [4, 4, 0],
+			"to": [12, 12, 1],
+			"faces": {
+				"north": { "texture": "#gauge", "cullface": "north" },
+				"south": { "texture": "#gauge" },
+				"east":  { "texture": "#gauge", "uv": [ 11,  4, 12, 12 ] },
+				"west":  { "texture": "#gauge", "uv": [  4,  4,  5, 12 ] },
+				"up":    { "texture": "#gauge", "uv": [  4,  4, 12,  5 ] },
+				"down":  { "texture": "#gauge", "uv": [  4, 11, 12, 12 ] }
+			}
+		},
+		{
+			"name": "inside",
+			"from": [11, 11, 1.01],
+			"to": [5, 6, 0],
+			"faces": {
+				"east": { "texture": "#gauge", "uv": [  5, 10,  4,  5 ] },
+				"west": { "texture": "#gauge", "uv": [ 12, 10, 11,  5 ] },
+				"up":   { "texture": "#gauge", "uv": [ 11, 11,  5, 10 ] },
+				"down": { "texture": "#gauge", "uv": [ 11,  5,  5,  4 ] }
+			}
+		}
+	]
+}

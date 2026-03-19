@@ -31,9 +31,12 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import slimeknights.mantle.client.SafeClientAccess;
+import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.client.item.ModifiableItemClientExtension;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.behavior.AttributesModifierHook;
@@ -48,8 +51,8 @@ import slimeknights.tconstruct.library.modifiers.hook.interaction.UsingToolModif
 import slimeknights.tconstruct.library.modifiers.modules.build.RarityModule;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
 import slimeknights.tconstruct.library.tools.capability.ToolCapabilityProvider;
-import slimeknights.tconstruct.library.tools.capability.inventory.ToolInventoryCapability;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
+import slimeknights.tconstruct.library.tools.definition.module.display.ToolNameHook;
 import slimeknights.tconstruct.library.tools.definition.module.mining.IsEffectiveToolHook;
 import slimeknights.tconstruct.library.tools.definition.module.mining.MiningSpeedToolHook;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
@@ -60,7 +63,6 @@ import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModDataView;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
-import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tools.TinkerToolActions;
 
 import javax.annotation.Nullable;
@@ -78,6 +80,7 @@ public class ModifiableItem extends TieredItem implements IModifiableDisplay {
   @Getter
   private final ToolDefinition toolDefinition;
 
+  /** Max stack size override */
   private final int maxStackSize;
 
   /** Cached tool for rendering on UIs */
@@ -105,6 +108,14 @@ public class ModifiableItem extends TieredItem implements IModifiableDisplay {
     return true;
   }
 
+  @Nullable
+  @Override
+  public EquipmentSlot getEquipmentSlot(ItemStack stack) {
+    if (stack.is(TinkerTags.Items.HELD_ARMOR)) {
+      return EquipmentSlot.OFFHAND;
+    }
+    return null;
+  }
 
   /* Enchanting */
 
@@ -393,7 +404,7 @@ public class ModifiableItem extends TieredItem implements IModifiableDisplay {
         }
       }
     }
-    return new InteractionResultHolder<>(ToolInventoryCapability.tryOpenContainer(stack, tool, playerIn, Util.getSlotType(hand)), stack);
+    return InteractionResultHolder.pass(stack);
   }
 
   @Override
@@ -483,7 +494,7 @@ public class ModifiableItem extends TieredItem implements IModifiableDisplay {
 
   @Override
   public Component getName(ItemStack stack) {
-    return TooltipUtil.getDisplayName(stack, getToolDefinition());
+    return ToolNameHook.getName(getToolDefinition(), stack);
   }
 
   @Override
@@ -497,7 +508,7 @@ public class ModifiableItem extends TieredItem implements IModifiableDisplay {
   }
   
 
-  /* Display items */
+  /* Display */
 
   @Override
   public ItemStack getRenderTool() {
@@ -505,6 +516,11 @@ public class ModifiableItem extends TieredItem implements IModifiableDisplay {
       toolForRendering = ToolBuildHandler.buildToolForRendering(this, this.getToolDefinition());
     }
     return toolForRendering;
+  }
+
+  @Override
+  public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+    consumer.accept(ModifiableItemClientExtension.INSTANCE);
   }
 
 

@@ -13,7 +13,6 @@ import slimeknights.tconstruct.library.tools.capability.ToolCapabilityProvider.I
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.CapacityStat;
 import slimeknights.tconstruct.library.tools.stat.ToolStatId;
-import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import java.util.function.Supplier;
@@ -23,7 +22,7 @@ public record ToolEnergyCapability(Supplier<? extends IToolStackView> tool) impl
   /** Format string to display energy amounts, used internally by the stat */
   public static final String ENERGY_FORMAT = TConstruct.makeDescriptionId("tool_stat", "energy");
   /** Stat marking the max capacity */
-  public static final CapacityStat MAX_STAT = ToolStats.register(new CapacityStat(new ToolStatId(TConstruct.MOD_ID, "max_energy"), 0xa00000, ENERGY_FORMAT));
+  public static final CapacityStat MAX_STAT = new CapacityStat(new ToolStatId(TConstruct.MOD_ID, "max_energy"), 0xa00000, ENERGY_FORMAT);
   /** Persistent data key for fetching the current energy */
   public static final ResourceLocation ENERGY_KEY = TConstruct.getResource("energy");
   /** Include this module in a modifier adding energy capacity or functionality to ensure capacity changes are properly cleaned up */
@@ -51,6 +50,13 @@ public record ToolEnergyCapability(Supplier<? extends IToolStackView> tool) impl
   /** Sets the energy on the tool */
   public static void setEnergy(IToolStackView tool, int energy) {
     setEnergyRaw(tool, Mth.clamp(energy, 0, getMaxEnergy(tool)));
+  }
+
+  /** Adds the given amount of energy to the tool. Can use negative to subtract energy. */
+  public static void addEnergy(IToolStackView tool, int energy) {
+    if (energy != 0) {
+      setEnergy(tool, getEnergy(tool) + energy);
+    }
   }
 
   /** Ensures the tool's energy is within the cap. Generally not necessary to call this directly as it's called by {@link #ENERGY_HANDLER} on tool change. */

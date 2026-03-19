@@ -1,0 +1,17 @@
+{
+  "__comment": "this file is not actually used directly, its mostly for reference as it was simplier to copy transforms than the whole tool model",
+  "parent": "forge:item/default",
+  "gui_light": "front",
+  "display": {
+    "firstperson_righthand": {
+      "rotation": [ 0, 0, 5 ],
+      "translation": [ -5, 0, -0.2 ],
+      "scale": [ 1, 1, 1 ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [ 0, 0, 5 ],
+      "translation": [ -5, 0, -0.2 ],
+      "scale": [ 1, 1, 1 ]
+    }
+  }
+}

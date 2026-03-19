@@ -1,0 +1,20 @@
+{
+  "default": [
+    {
+      "level": 1,
+      "name": "tconstruct:fiery"
+    }
+  ],
+  "perStat": {
+    "tconstruct:skull": [
+      {
+        "level": 1,
+        "name": "tconstruct:fireborn"
+      },
+      {
+        "level": 1,
+        "name": "tconstruct:blaze_disguise"
+      }
+    ]
+  }
+}

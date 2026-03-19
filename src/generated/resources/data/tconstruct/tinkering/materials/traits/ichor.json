@@ -1,1 +1,14 @@
-{}
+{
+  "perStat": {
+    "tconstruct:ammo": [
+      {
+        "level": 1,
+        "name": "tconstruct:rebound"
+      },
+      {
+        "level": 1,
+        "name": "tconstruct:bounce"
+      }
+    ]
+  }
+}

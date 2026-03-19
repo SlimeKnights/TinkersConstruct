@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:channeling",
+  "text": [
+    {
+      "text": "Adds a chance for lightning to strike thrown tools and fishing hooks based on the weather. In clear skies, has a 15% chance; 65% chance in the rain; and 100% chance in thunder storms."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "No max level",
+    "Requires 1 ability slot per level",
+    "Requires throwing, fishing, or a ballista bow"
+  ]
+}

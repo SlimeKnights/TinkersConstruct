@@ -15,7 +15,11 @@ import slimeknights.mantle.recipe.helper.FluidOutput;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.tconstruct.TConstruct;
 
-/** Fluid transfer info that empties a fluid from an item, copying the fluid's NBT to the stack */
+/**
+ * Fluid transfer info that empties a fluid from an item, copying the fluid's NBT to the stack
+ * @deprecated use {@link slimeknights.mantle.fluid.transfer.EmptyPotionTransfer}
+ */
+@Deprecated(forRemoval = true)
 public class EmptyPotionTransfer extends EmptyFluidWithNBTTransfer {
   public static final ResourceLocation ID = TConstruct.getResource("empty_potion");
   public EmptyPotionTransfer(Ingredient input, ItemOutput filled, FluidOutput fluid) {

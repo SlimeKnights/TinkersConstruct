@@ -8,6 +8,7 @@ import slimeknights.tconstruct.fixture.MaterialStatsFixture;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierFixture;
+import slimeknights.tconstruct.library.modifiers.util.OptionalModifier;
 import slimeknights.tconstruct.test.BaseMcTest;
 
 import java.util.List;
@@ -21,6 +22,8 @@ class MaterialTraitsManagerTest extends BaseMcTest {
   private static final MaterialId PER_STAT_TRAITS = new MaterialId(TConstruct.getResource("per_stat"));
   // file containing both, and lists
   private static final MaterialId MULTIPLE_TRAITS = new MaterialId(TConstruct.getResource("multiple"));
+  // file containing optionals
+  private static final MaterialId OPTIONAL_TRAITS = new MaterialId(TConstruct.getResource("optional"));
 
   private final MaterialTraitsManager traitsManager = new MaterialTraitsManager();
   private final MergingJsonFileLoader<MaterialTraits.Builder> fileLoader = new MergingJsonFileLoader<>(traitsManager);
@@ -132,6 +135,40 @@ class MaterialTraitsManagerTest extends BaseMcTest {
     // ensure a stat type can override default traits to an empty list
     traitsForStatType = traitsManager.getTraits(MULTIPLE_TRAITS, MaterialStatsFixture.STATS_TYPE_2);
     assertThat(traitsForStatType).isEmpty();
+  }
+
+  @Test
+  void optionalTraits() {
+    fileLoader.loadAndParseFiles(null, OPTIONAL_TRAITS);
+
+    // ensure the default trait list is correct
+    List<ModifierEntry> defaultTraits = traitsManager.getDefaultTraits(OPTIONAL_TRAITS);
+    assertThat(defaultTraits).hasSize(2);
+    ModifierEntry trait = defaultTraits.get(0);
+    assertThat(trait.getLazyModifier() instanceof OptionalModifier).isTrue();
+    assertThat(trait.getId()).isEqualTo(ModifierFixture.TEST_MODIFIER_1.getId());
+    assertThat(trait.getLevel()).isEqualTo(3);
+    trait = defaultTraits.get(1);
+    assertThat(trait.getLazyModifier() instanceof OptionalModifier).isFalse();
+    assertThat(trait.getId()).isEqualTo(ModifierFixture.TEST_MODIFIER_2.getId());
+    assertThat(trait.getLevel()).isEqualTo(4);
+
+    // ensure an unused stat type returns the default list
+    List<ModifierEntry> traitsForStatType = traitsManager.getTraits(OPTIONAL_TRAITS, MaterialStatsFixture.STATS_TYPE_4);
+    assertThat(traitsForStatType).isEqualTo(defaultTraits);
+
+    // ensure optionals work in a per stat as well
+    // also ensures that setting to false works
+    traitsForStatType = traitsManager.getTraits(OPTIONAL_TRAITS, MaterialStatsFixture.STATS_TYPE);
+    assertThat(traitsForStatType).hasSize(2);
+    trait = traitsForStatType.get(0);
+    assertThat(trait.getLazyModifier() instanceof OptionalModifier).isFalse();
+    assertThat(trait.getId()).isEqualTo(ModifierFixture.TEST_MODIFIER_1.getId());
+    assertThat(trait.getLevel()).isEqualTo(1);
+    trait = traitsForStatType.get(1);
+    assertThat(trait.getLazyModifier() instanceof OptionalModifier).isTrue();
+    assertThat(trait.getId()).isEqualTo(ModifierFixture.TEST_MODIFIER_2.getId());
+    assertThat(trait.getLevel()).isEqualTo(2);
   }
 
   @Test

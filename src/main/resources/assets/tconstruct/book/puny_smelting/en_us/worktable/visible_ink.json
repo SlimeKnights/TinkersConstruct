@@ -1,0 +1,13 @@
+{
+  "title": "Visible Ink",
+  "image": {
+    "file": "tconstruct:book/images/worktable/visible_ink.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "Oh, changed your mind and want to see the ugly modifier again? Luckily for indecisive you, a bucket of milk is enough to make the modifier visible again."
+    }
+  ]
+}

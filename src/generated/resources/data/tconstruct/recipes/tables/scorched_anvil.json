@@ -16,15 +16,8 @@
     "sss"
   ],
   "result": {
-    "item": "tconstruct:scorched_anvil",
-    "nbt": {
-      "display": {
-        "Name": "{\"translate\":\"block.tconstruct.tool_forge\"}"
-      }
-    }
+    "item": "tconstruct:scorched_anvil"
   },
   "show_notification": true,
-  "texture": {
-    "tag": "tconstruct:anvil_metal"
-  }
+  "texture": "m"
 }

@@ -16,6 +16,8 @@ import slimeknights.tconstruct.gadgets.TinkerGadgets;
 
 import javax.annotation.Nonnull;
 
+/** @deprecated use {@link slimeknights.tconstruct.tools.entity.ThrownShuriken} */
+@Deprecated
 public class EFLNEntity extends ThrowableItemProjectile implements IEntityAdditionalSpawnData {
   public EFLNEntity(EntityType<? extends EFLNEntity> type, Level level) {
     super(type, level);
@@ -38,7 +40,7 @@ public class EFLNEntity extends ThrowableItemProjectile implements IEntityAdditi
   protected void onHit(HitResult result) {
     Level level = level();
     if (!level.isClientSide) {
-      new EFLNExplosion(level, position(), 4f, this, 8f, null, false, BlockInteraction.DESTROY).handleServer();
+      new EFLNExplosion(level, position(), 4f, this, 8f, null, 1, false, BlockInteraction.DESTROY).handleServer();
       this.discard();
     }
   }

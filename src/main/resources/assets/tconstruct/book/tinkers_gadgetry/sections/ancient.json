@@ -1,0 +1,17 @@
+[
+  {
+    "name": "melee_harvest",
+    "type": "tconstruct:melee_harvest_material",
+    "data": "ancient/material/melee_harvest.json"
+  },
+  {
+    "name": "ranged",
+    "type": "tconstruct:ranged_material",
+    "data": "ancient/material/ranged.json"
+  },
+  {
+    "name": "armor",
+    "type": "tconstruct:armor_material",
+    "data": "ancient/material/armor.json"
+  }
+]

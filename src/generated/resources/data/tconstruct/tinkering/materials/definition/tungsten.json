@@ -1,19 +1,30 @@
 {
-  "condition": {
-    "type": "forge:or",
-    "values": [
-      {
-        "type": "tconstruct:config",
-        "prop": "force_integration_materials"
-      },
-      {
+  "redirect": [
+    {
+      "condition": {
         "type": "mantle:tag_filled",
-        "tag": "forge:ingots/tungsten"
-      }
-    ]
-  },
-  "craftable": false,
-  "hidden": false,
-  "sortOrder": 6,
-  "tier": 2
+        "tag": "forge:ingots/lead"
+      },
+      "id": "tconstruct:lead"
+    },
+    {
+      "condition": {
+        "type": "forge:or",
+        "values": [
+          {
+            "type": "mantle:tag_filled",
+            "tag": "forge:ingots/invar"
+          },
+          {
+            "type": "mantle:tag_filled",
+            "tag": "forge:ingots/nickel"
+          }
+        ]
+      },
+      "id": "tconstruct:invar"
+    },
+    {
+      "id": "tconstruct:iron"
+    }
+  ]
 }

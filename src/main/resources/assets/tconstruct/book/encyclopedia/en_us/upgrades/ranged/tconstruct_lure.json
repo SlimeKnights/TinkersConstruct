@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:lure",
+  "text": [
+    {
+      "text": "Reduces the time it takes to catch fish by 5 seconds per level."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum of 3 levels",
+    "Requires 1 upgrade slot per level"
+  ]
+}

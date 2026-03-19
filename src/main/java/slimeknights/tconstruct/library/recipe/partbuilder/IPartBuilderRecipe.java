@@ -6,6 +6,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeType;
 import slimeknights.mantle.recipe.ICommonRecipe;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.library.recipe.material.IMaterialValue;
@@ -17,9 +18,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+/** Common interface for part builder recipes */
 public interface IPartBuilderRecipe extends ICommonRecipe<IPartBuilderContainer> {
   /** Default patterns in a part builder recipe, Forge has cache invalidation for vanilla, so this is fine as long as that persists */
   Ingredient DEFAULT_PATTERNS = Ingredient.of(TinkerTags.Items.DEFAULT_PATTERNS);
+  /** Pattern to use for recipes that don't implement the standard pattern behavior */
+  Pattern MISSING = new Pattern(TConstruct.MOD_ID, "missingno");
 
   /** Gets the pattern needed for this recipe,
    * if there are multiple recipes with the same pattern, they are effectively merged */
@@ -35,6 +39,11 @@ public interface IPartBuilderRecipe extends ICommonRecipe<IPartBuilderContainer>
    * @return  Material amount
    */
   int getCost();
+
+  /** If true, allows crafting despite the material being uncraftable. */
+  default boolean allowUncraftable() {
+    return false;
+  }
 
   /**
    * Checks if the recipe can possibly match. Should treat empty input as a match, and does not need to check sizes
@@ -77,13 +86,16 @@ public interface IPartBuilderRecipe extends ICommonRecipe<IPartBuilderContainer>
     if (recipe != null) {
       int value = recipe.getValue();
       if (value > 1) {
-        int remainder = (value - getCost()) % value;
+        int needed = recipe.getNeeded();
+        int remainder = (value - getCost() * needed) % value;
         if (remainder < 0) {
           remainder += value;
         }
-        if (remainder != 0) {
+        if (remainder > 0) {
           ItemStack leftover = recipe.getLeftover();
-          leftover.setCount(leftover.getCount() * remainder);
+          if (!leftover.isEmpty()) {
+            leftover.setCount(leftover.getCount() * remainder / needed);
+          }
           return leftover;
         }
       }

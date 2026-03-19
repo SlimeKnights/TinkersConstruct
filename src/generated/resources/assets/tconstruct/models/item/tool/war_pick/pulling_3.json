@@ -1,11 +1,15 @@
 {
   "loader": "tconstruct:tool",
-  "parent": "forge:item/default-tool",
+  "parent": "tconstruct:item/tool/war_pick/display",
   "textures": {
     "limb": "tconstruct:item/tool/war_pick/limb",
     "body": "tconstruct:item/tool/war_pick/body",
     "bowstring": "tconstruct:item/tool/war_pick/bowstring_3"
   },
+  "modifier_maps": [
+    "tconstruct:war_pick/3",
+    "tconstruct:war_pick"
+  ],
   "modifier_roots": [
     "tconstruct:item/tool/war_pick/modifiers/3/",
     "tconstruct:item/tool/war_pick/modifiers/"

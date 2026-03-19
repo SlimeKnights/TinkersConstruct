@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.json;
 
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 
 /**
  * Represents an int value that has a part that scales with level and a part that does not scale.
@@ -10,6 +11,12 @@ import slimeknights.mantle.data.loadable.record.RecordLoadable;
  * @see RandomLevelingValue
  */
 public record LevelingInt(int flat, int eachLevel) {
+  /** Instance that returns zero regardless */
+  public static final LevelingInt ZERO = new LevelingInt(0, 0);
+  /** Instance that returns one regardless */
+  public static final LevelingInt ONE = new LevelingInt(1, 0);
+  /** Instance that returns the passed level */
+  public static final LevelingInt LEVEL = new LevelingInt(0, 1);
   /** Loadable instance for parsing */
   public static final RecordLoadable<LevelingInt> LOADABLE = RecordLoadable.create(
       IntLoadable.ANY_SHORT.defaultField("flat", 0, LevelingInt::flat),
@@ -24,6 +31,11 @@ public record LevelingInt(int flat, int eachLevel) {
   /** Computes the value for the given float level */
   public int compute(float level) {
     return (int)(this.flat + this.eachLevel * level);
+  }
+
+  /** Computes for the given modifier entry */
+  public int compute(ModifierEntry entry) {
+    return compute(entry.getEffectiveLevel());
   }
 
   /** Computes the value for the given level but returns 0 if level is 0 */

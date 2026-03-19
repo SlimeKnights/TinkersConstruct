@@ -1,0 +1,35 @@
+package slimeknights.tconstruct.library.modifiers.entity;
+
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.Projectile;
+
+/** Interface for a projectile with a power getter and setter, used by {@link slimeknights.tconstruct.library.modifiers.modules.combat.ConditionalPowerModule} */
+public interface ProjectileWithPower {
+  /** Gets the current power */
+  float getPower();
+
+  /** Gets the amount of damage this projectile will deal. Used by {@link #getDamage(Projectile)} */
+  default float getDamage() {
+    return getPower();
+  }
+
+  /** Sets the power to the new value */
+  void setPower(float power);
+
+  /** Scales the given power by the current projectile velocity. */
+  static float velocityScale(Projectile projectile, double power) {
+    return Mth.ceil(Mth.clamp(power * projectile.getDeltaMovement().length(), 0, Integer.MAX_VALUE));
+  }
+  
+  /** Gets the power for the given projectile */
+  static float getDamage(Projectile projectile) {
+    if (projectile instanceof ProjectileWithPower withPower) {
+      return withPower.getDamage();
+    }
+    if (projectile instanceof AbstractArrow arrow) {
+      return velocityScale(projectile, arrow.getBaseDamage());
+    }
+    return 0;
+  }
+}

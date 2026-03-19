@@ -16,6 +16,8 @@ import slimeknights.tconstruct.library.utils.Util;
 import javax.annotation.Nullable;
 import java.util.List;
 
+/** @deprecated use {@link slimeknights.tconstruct.tools.modules.combat.SweepingEdgeModule} */
+@Deprecated(forRemoval = true)
 public class SweepingEdgeModifier extends Modifier implements TooltipModifierHook {
   private static final Component SWEEPING_BONUS = TConstruct.makeTranslation("modifier", "sweeping_edge.attack_damage");
 
@@ -25,7 +27,8 @@ public class SweepingEdgeModifier extends Modifier implements TooltipModifierHoo
     hookBuilder.addHook(this, ModifierHooks.TOOLTIP);
   }
 
-  /** Gets the damage dealt by this tool, boosted properly by sweeping */
+  /** @deprecated use {@link slimeknights.tconstruct.library.tools.definition.module.weapon.SweepWeaponAttack#getSweepingDamage(IToolStackView, float)} */
+  @Deprecated(forRemoval = true)
   public float getSweepingDamage(IToolStackView toolStack, float baseDamage) {
     float level = toolStack.getModifier(this).getEffectiveLevel();
     float sweepingDamage = 1;

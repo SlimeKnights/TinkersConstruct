@@ -18,7 +18,7 @@ public record ConditionalAOEIterator(IJsonPredicate<BlockState> condition, AreaO
   public static final RecordLoadable<ConditionalAOEIterator> LOADER = RecordLoadable.create(
     BlockPredicate.LOADER.requiredField("condition", ConditionalAOEIterator::condition),
     AreaOfEffectIterator.LOADER.requiredField("if_true", ConditionalAOEIterator::ifTrue),
-    AreaOfEffectIterator.LOADER.requiredField("if_false", ConditionalAOEIterator::ifFalse),
+    AreaOfEffectIterator.LOADER.defaultField("if_false", AreaOfEffectIterator.EMPTY, ConditionalAOEIterator::ifFalse),
     ConditionalAOEIterator::new);
 
   @Override

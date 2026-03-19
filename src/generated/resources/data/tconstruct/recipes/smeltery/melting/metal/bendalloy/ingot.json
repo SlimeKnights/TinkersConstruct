@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "forge:ingots/bendalloy"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:ingots/bendalloy"
+  },
+  "result": {
+    "amount": 90,
+    "tag": "forge:molten_bendalloy"
+  },
+  "temperature": 100,
+  "time": 33
+}

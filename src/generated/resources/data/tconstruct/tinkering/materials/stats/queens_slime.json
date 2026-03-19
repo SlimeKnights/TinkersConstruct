@@ -19,7 +19,7 @@
       "mining_tier": "minecraft:netherite"
     },
     "tconstruct:limb": {
-      "accuracy": 0.2,
+      "accuracy": 0.25,
       "draw_speed": 0.0,
       "durability": 1650,
       "velocity": -0.15

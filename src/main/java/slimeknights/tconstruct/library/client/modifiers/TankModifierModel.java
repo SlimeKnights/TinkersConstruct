@@ -12,8 +12,10 @@ import javax.annotation.Nullable;
 import java.util.function.Function;
 
 /**
- * Model for tank modifiers, also displays the fluid
+ * Model for tank modifiers, also displays the fluid.
+ * @deprecated use {@link slimeknights.tconstruct.library.client.modifiers.model.TankModifierModel}
  */
+@Deprecated
 public class TankModifierModel extends FluidModifierModel {
   /** Constant unbaked model instance, as they are all the same */
   public static final IUnbakedModifierModel UNBAKED_INSTANCE = new Unbaked(ToolTankHelper.TANK_HELPER);

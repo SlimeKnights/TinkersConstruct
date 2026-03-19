@@ -1,7 +1,0 @@
-{
-  "title": "强化调配台",
-  "recipe": "tconstruct:tables/modifier_worktable",
-  "description": [
-    { "text": "按此方式排列焦黑石以简化选取特定强化的过程。" }
-  ]
-}

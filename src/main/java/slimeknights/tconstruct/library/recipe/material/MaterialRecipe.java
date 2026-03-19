@@ -31,6 +31,7 @@ import java.util.stream.Collectors;
  */
 public class MaterialRecipe implements ICustomOutputRecipe<ISingleStackContainer>, IMaterialValue {
   /** Empty material instance for the cache */
+  @SuppressWarnings("removal")
   public static final MaterialRecipe EMPTY = new MaterialRecipe(new ResourceLocation("missingno"), "", Ingredient.EMPTY, 0, 0, IMaterial.UNKNOWN_ID, ItemOutput.EMPTY);
   public static final RecordLoadable<MaterialRecipe> LOADER = RecordLoadable.create(
     ContextKey.ID.requiredField(),
@@ -96,6 +97,11 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleStackContainer
   @Override
   public RecipeSerializer<?> getSerializer() {
     return TinkerTables.materialRecipeSerializer.get();
+  }
+
+  @Override
+  public boolean hasLeftover() {
+    return !this.leftover.isEmpty();
   }
 
   @Override

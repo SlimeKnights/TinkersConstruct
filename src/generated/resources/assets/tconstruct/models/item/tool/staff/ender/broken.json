@@ -6,6 +6,12 @@
     "large_tool": "tconstruct:item/tool/staff/ender_large_broken"
   },
   "large": true,
+  "modifier_maps": [
+    "tconstruct:staff/ender/broken",
+    "tconstruct:staff/ender",
+    "tconstruct:staff/broken",
+    "tconstruct:staff"
+  ],
   "modifier_roots": {
     "small": [
       "tconstruct:item/tool/staff/modifiers/ender/broken/",

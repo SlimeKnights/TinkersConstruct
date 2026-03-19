@@ -37,12 +37,12 @@ public class ModifierWorktableContainerMenu extends TabbedContainerMenu<Modifier
       // slots
       // inputs
       inputSlots = new ArrayList<>();
-      inputSlots.add(this.addSlot(new WorktableSlot(this, tile, ModifierWorktableBlockEntity.TINKER_SLOT, 8, 15)));
+      inputSlots.add(this.addSlot(new WorktableSlot(this, tile, ModifierWorktableBlockEntity.TINKER_SLOT, 8, 21)));
       for (int index = 0; index < tile.getContainerSize() - 1; index++) {
-        inputSlots.add(this.addSlot(new WorktableSlot(this, tile, index + ModifierWorktableBlockEntity.INPUT_START, 8, 35 + 18*index)));
+        inputSlots.add(this.addSlot(new WorktableSlot(this, tile, index + ModifierWorktableBlockEntity.INPUT_START, 8, 45 + 22*index)));
       }
       // result
-      this.addSlot(this.outputSlot = new LazyResultSlot(tile.getCraftingResult(), 125, 33));
+      this.addSlot(this.outputSlot = new LazyResultSlot(tile.getCraftingResult(), 125, 42));
 
       // listen for the button to change in the tile
       this.addDataSlot(new LambdaDataSlot(-1, tile::getSelectedIndex, i -> {
@@ -58,9 +58,9 @@ public class ModifierWorktableContainerMenu extends TabbedContainerMenu<Modifier
 
     // add armor and offhand slots, for convenience
     for (ArmorItem.Type slotType : ArmorItem.Type.values()) {
-      this.addSlot(new ArmorSlot(inv, slotType.getSlot(), 152, 8 + slotType.ordinal() * 18));
+      this.addSlot(new ArmorSlot(inv, slotType.getSlot(), 152, 16 + slotType.ordinal() * 18));
     }
-    this.addSlot(new Slot(inv, 40, 132, 62).setBackground(InventoryMenu.BLOCK_ATLAS, InventoryMenu.EMPTY_ARMOR_SLOT_SHIELD));
+    this.addSlot(new Slot(inv, 40, 132, 70).setBackground(InventoryMenu.BLOCK_ATLAS, InventoryMenu.EMPTY_ARMOR_SLOT_SHIELD));
 
     // other inventories
     this.addChestSideInventory();
@@ -69,6 +69,11 @@ public class ModifierWorktableContainerMenu extends TabbedContainerMenu<Modifier
 
   public ModifierWorktableContainerMenu(int id, Inventory inv, FriendlyByteBuf buf) {
     this(id, inv, getTileEntityFromBuf(buf, ModifierWorktableBlockEntity.class));
+  }
+
+  @Override
+  protected int getInventoryYOffset() {
+    return 102;
   }
 
   @Override

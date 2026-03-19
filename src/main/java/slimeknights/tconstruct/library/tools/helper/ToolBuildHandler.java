@@ -33,11 +33,12 @@ public final class ToolBuildHandler {
 
   private static final MaterialId RENDER_MATERIAL = new MaterialId(TConstruct.MOD_ID, "ui_render");
 
-  /** Fully random material instance, used for ancient tools mainly */
+  /** Fully random material instance. */
   public static final RandomMaterial RANDOM = RandomMaterial.random().allowHidden().build();
   static {
     RecipeCacheInvalidator.addReloadListener(client -> {
       RANDOM.clearCache();
+      RandomMaterial.ancient().clearCache();
     });
   }
 
@@ -60,10 +61,15 @@ public final class ToolBuildHandler {
   }
 
   /** Method to build an ancient tool with random materials */
-  public static ToolStack buildToolRandomMaterials(IModifiable tool, RandomSource randomSource) {
+  public static ToolStack buildToolRandomMaterials(IModifiable tool, RandomMaterial material, RandomSource randomSource) {
     ToolDefinition definition = tool.getToolDefinition();
     List<MaterialStatsId> stats = ToolMaterialHook.stats(definition);
-    return ToolStack.createTool(tool.asItem(), definition, RandomMaterial.build(stats, Collections.nCopies(stats.size(), RANDOM), randomSource));
+    return ToolStack.createTool(tool.asItem(), definition, RandomMaterial.build(stats, Collections.nCopies(stats.size(), material), randomSource));
+  }
+
+  /** Method to build an ancient tool with random materials */
+  public static ToolStack buildToolRandomMaterials(IModifiable tool, RandomSource randomSource) {
+    return buildToolRandomMaterials(tool, RANDOM, randomSource);
   }
 
   /** Method to build an ancient tool with random materials */

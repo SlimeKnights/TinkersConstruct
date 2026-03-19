@@ -1,0 +1,13 @@
+{
+  "values": [
+    "tconstruct:flint",
+    "tconstruct:wool",
+    "tconstruct:glass",
+    "tconstruct:wood",
+    "tconstruct:bamboo",
+    "tconstruct:cactus",
+    "tconstruct:feather",
+    "tconstruct:paper",
+    "tconstruct:leaves"
+  ]
+}

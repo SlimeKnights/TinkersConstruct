@@ -21,6 +21,8 @@ public class SkullModelHelper {
   /** Map of head type to model layer location for each head type */
   public static final Map<TinkerHeadType,ModelLayerLocation> HEAD_LAYERS = Arrays.stream(TinkerHeadType.values()).collect(
     Collectors.toMap(Function.identity(), type -> new ModelLayerLocation(TConstruct.getResource(type.getSerializedName() + "_head"), "main"), (a, b) -> a, () -> new EnumMap<>(TinkerHeadType.class)));
+  /** Model layer for the fluid cannon */
+  public static final ModelLayerLocation FLUID_CANNON = new ModelLayerLocation(TConstruct.getResource("fluid_cannon_skull"), "main");
 
   private SkullModelHelper() {}
 

@@ -2,7 +2,9 @@
   "color": "FFFFB97C",
   "generator": {
     "supported_stats": [
-      "tconstruct:slimesuit"
+      "tconstruct:slimesuit",
+      "tconstruct:arrow_head",
+      "tconstruct:fletching"
     ],
     "transformer": {
       "type": "tconstruct:recolor_sprite",
@@ -23,6 +25,10 @@
           },
           {
             "color": "FFEC5E00",
+            "grey": 127
+          },
+          {
+            "color": "FFFF6E05",
             "grey": 140
           },
           {
@@ -30,15 +36,20 @@
             "grey": 178
           },
           {
+            "color": "FFFF9F50",
+            "grey": 193
+          },
+          {
             "color": "FFFFB97C",
             "grey": 216
           },
           {
-            "color": "FFFFFFFF",
+            "color": "FFFFE1BF",
             "grey": 255
           }
         ]
       }
     }
-  }
+  },
+  "luminosity": 10
 }

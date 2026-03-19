@@ -1,0 +1,9 @@
+{
+  "modifiers": {
+    "tconstruct:banner": {
+      "type": "tconstruct:banner",
+      "prefix": "tconstruct:item/tool/armor/plate/shield/banner_small/",
+      "prefix_large": "tconstruct:item/tool/armor/plate/shield/banner_large/"
+    }
+  }
+}

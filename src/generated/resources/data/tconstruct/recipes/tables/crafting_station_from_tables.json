@@ -1,0 +1,28 @@
+{
+  "type": "mantle:crafting_shaped_retextured",
+  "category": "misc",
+  "key": {
+    "p": {
+      "item": "tconstruct:pattern"
+    },
+    "w": {
+      "type": "forge:difference",
+      "base": {
+        "tag": "tconstruct:tables"
+      },
+      "subtracted": {
+        "item": "tconstruct:crafting_station"
+      }
+    }
+  },
+  "match_all": false,
+  "pattern": [
+    "p",
+    "w"
+  ],
+  "result": {
+    "item": "tconstruct:crafting_station"
+  },
+  "show_notification": true,
+  "texture": "w"
+}

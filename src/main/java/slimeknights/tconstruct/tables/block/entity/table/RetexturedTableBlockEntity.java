@@ -21,7 +21,7 @@ public abstract class RetexturedTableBlockEntity extends TableBlockEntity implem
   private static final String TAG_TEXTURE = "texture";
 
   @Nonnull @Getter
-  private Block texture = Blocks.AIR;
+  protected Block texture = Blocks.AIR;
   public RetexturedTableBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, Component name, int size) {
     super(type, pos, state, name, size);
   }

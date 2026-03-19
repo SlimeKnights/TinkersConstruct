@@ -36,7 +36,8 @@
       "type": "tconstruct:base_stats",
       "stats": {
         "tconstruct:attack_damage": 3.0,
-        "tconstruct:attack_speed": 1.6
+        "tconstruct:attack_speed": 1.6,
+        "tconstruct:block_amount": 10.0
       }
     },
     {
@@ -84,6 +85,10 @@
     {
       "type": "tconstruct:sweep_melee",
       "range": 1.0
+    },
+    {
+      "type": "tconstruct:fixed_material_name",
+      "index": 0
     }
   ]
 }

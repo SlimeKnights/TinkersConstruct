@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:slimeball",
+  "text": [
+    {
+      "text": "Makes the staff more wizardly, allowing you to shoot slimeballs as projectiles. Slimeballs use ranged stats for damage and cooldown."
+    },
+    {
+      "text": "Earthslime does less physical damage with drawback. Skyslime does cold damage. Ichor does fire damage. Enderslime does magic damage and teleports. Magma explodes.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Single level",
+    "Requires 1 ability slot"
+  ]
+}

@@ -7,7 +7,7 @@ import slimeknights.tconstruct.tables.client.inventory.TinkerStationScreen;
 
 import java.util.List;
 
-public class TinkerStationButtonsWidget extends SideButtonsWidget<SlotButtonItem> {
+public class TinkerStationButtonsWidget extends SideButtonsWidgetPaged<SlotButtonItem> {
 
   public static final int WOOD_STYLE = 2;
   public static final int METAL_STYLE = 1;

@@ -66,6 +66,12 @@ public record BreakBlockFluidEffect(float hardness, Map<Enchantment,Integer> enc
     if (requirement < 0) {
       return 0;
     }
+
+    // disallow acting if adventure mode and no proper item stack tags
+    if (context.breakRestricted()) {
+      return 0;
+    }
+
     // 0 hardness means break any block, ignoring hardness
     if (hardness == 0) {
       requirement = 1;
@@ -74,7 +80,6 @@ public record BreakBlockFluidEffect(float hardness, Map<Enchantment,Integer> enc
     }
     // if we had enough level to destroy it, return how much fluid we used
     if (requirement <= level.value()) {
-
       if (action.execute() && world instanceof ServerLevel server) {
         // handle enchantments by making a fake items stack
         // actual item identity doesn't matter, we are past the point of asking if we can break it

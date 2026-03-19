@@ -16,8 +16,8 @@
   ],
   "result": {
     "amount": 500,
-    "fluid": "tconstruct:molten_clay"
+    "fluid": "tconstruct:molten_porcelain"
   },
-  "temperature": 450,
-  "time": 31
+  "temperature": 700,
+  "time": 37
 }

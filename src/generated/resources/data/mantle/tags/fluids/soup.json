@@ -1,0 +1,9 @@
+{
+  "values": [
+    "#tconstruct:meat_soup",
+    {
+      "id": "#tconstruct:tooltips/soup",
+      "required": false
+    }
+  ]
+}

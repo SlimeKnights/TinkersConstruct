@@ -18,7 +18,9 @@ import slimeknights.tconstruct.library.client.armor.texture.ArmorTextureSupplier
 import slimeknights.tconstruct.library.json.TinkerLoadables;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
+import slimeknights.tconstruct.library.tools.item.ModifiableArrowItem;
 import slimeknights.tconstruct.library.tools.item.ModifiableItem;
+import slimeknights.tconstruct.library.tools.item.ModifiableShurikenItem;
 import slimeknights.tconstruct.library.tools.item.armor.DummyArmorMaterial;
 import slimeknights.tconstruct.library.tools.item.armor.ModifiableArmorItem;
 import slimeknights.tconstruct.library.tools.item.armor.MultilayerArmorItem;
@@ -86,6 +88,12 @@ public class FlexItemTypes {
       boolean storeDrawingItem = GsonHelper.getAsBoolean(data, "store_drawing_item", false);
       return (IToolItemFactory<ModifiableCrossbowItem>)(props, builder) -> add(CROSSBOW_ITEMS, new ModifiableCrossbowItem(props, ToolDefinition.create(builder.getRegistryName()), allowFireworks ? ProjectileWeaponItem.ARROW_OR_FIREWORK : ProjectileWeaponItem.ARROW_ONLY, storeDrawingItem));
     });
+
+    /* Register a modifiable arrow item */
+    register("arrow", data -> (IToolItemFactory<ModifiableArrowItem>)(props, builder) -> new ModifiableArrowItem(props, ToolDefinition.create(builder.getRegistryName())));
+
+    /* Register a modifiable shuriken item */
+    register("shuriken", data -> (IToolItemFactory<ModifiableShurikenItem>)(props, builder) -> new ModifiableShurikenItem(props, ToolDefinition.create(builder.getRegistryName())));
 
     /* Registries a cast item that shows a part cost in the tooltip */
     register("part_cast", data -> {

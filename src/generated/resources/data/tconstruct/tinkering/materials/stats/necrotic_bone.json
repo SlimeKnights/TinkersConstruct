@@ -1,5 +1,6 @@
 {
   "stats": {
+    "tconstruct:arrow_shaft": {},
     "tconstruct:binding": {},
     "tconstruct:grip": {
       "accuracy": 0.1,
@@ -24,6 +25,7 @@
       "durability": 125,
       "velocity": 0.05
     },
+    "tconstruct:shield_core": {},
     "tconstruct:skull": {
       "armor": 0,
       "durability": 125

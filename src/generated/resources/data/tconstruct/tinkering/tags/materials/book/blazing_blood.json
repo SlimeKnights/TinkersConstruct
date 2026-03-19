@@ -1,0 +1,15 @@
+{
+  "values": [
+    "tconstruct:manyullyn",
+    "tconstruct:hepatizon",
+    "tconstruct:queens_slime",
+    "tconstruct:cinderslime",
+    "tconstruct:blazing_bone",
+    "tconstruct:blazewood",
+    "tconstruct:jeweled_hide",
+    {
+      "id": "tconstruct:nicrosil",
+      "required": false
+    }
+  ]
+}

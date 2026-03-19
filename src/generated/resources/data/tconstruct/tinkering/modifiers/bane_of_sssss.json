@@ -20,10 +20,11 @@
       }
     },
     {
-      "type": "tconstruct:mob_effect",
+      "type": "tconstruct:weapon_mob_effect",
       "effect": "minecraft:slowness",
       "hooks": [
-        "tconstruct:melee_hit"
+        "tconstruct:melee_hit",
+        "tconstruct:monster_melee_hit"
       ],
       "level": {
         "flat": 4.0

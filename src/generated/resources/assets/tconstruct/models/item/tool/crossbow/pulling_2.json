@@ -6,6 +6,10 @@
     "body": "tconstruct:item/tool/crossbow/body",
     "bowstring": "tconstruct:item/tool/crossbow/bowstring_2"
   },
+  "modifier_maps": [
+    "tconstruct:crossbow/2",
+    "tconstruct:crossbow"
+  ],
   "modifier_roots": [
     "tconstruct:item/tool/crossbow/modifiers/2/",
     "tconstruct:item/tool/crossbow/modifiers/"

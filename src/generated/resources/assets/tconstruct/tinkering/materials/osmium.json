@@ -5,6 +5,7 @@
   ],
   "generator": {
     "supported_stats": [
+      "tconstruct:ingot",
       "tconstruct:head",
       "tconstruct:handle",
       "tconstruct:binding",

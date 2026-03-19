@@ -96,4 +96,26 @@ public interface ModifierLevelDisplay extends IHaveLoader {
       return LOADER;
     }
   }
+
+  /** Caps the displayed modifier level to at most the given value. Used for effects that stop scaling after a point. */
+  record LevelCap(int cap, ModifierLevelDisplay apply) implements ModifierLevelDisplay {
+    public static final RecordLoadable<LevelCap> LOADER = RecordLoadable.create(
+      IntLoadable.FROM_ONE.requiredField("cap", LevelCap::cap),
+      ModifierLevelDisplay.LOADER.defaultField("apply", LevelCap::apply),
+      LevelCap::new);
+
+    public LevelCap(int cap) {
+      this(cap, DEFAULT);
+    }
+
+    @Override
+    public RecordLoadable<? extends ModifierLevelDisplay> getLoader() {
+      return LOADER;
+    }
+
+    @Override
+    public Component nameForLevel(Modifier modifier, int level) {
+      return apply.nameForLevel(modifier, Math.min(level, cap));
+    }
+  }
 }

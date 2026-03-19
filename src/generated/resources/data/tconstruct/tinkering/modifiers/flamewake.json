@@ -1,0 +1,13 @@
+{
+  "level_display": "tconstruct:single_level",
+  "modules": [
+    {
+      "type": "tconstruct:fire_walker",
+      "radius": {
+        "each_level": 1.0,
+        "flat": 1.5
+      }
+    }
+  ],
+  "tooltip_display": "always"
+}

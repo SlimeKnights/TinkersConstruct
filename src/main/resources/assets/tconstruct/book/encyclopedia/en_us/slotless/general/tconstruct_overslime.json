@@ -11,8 +11,8 @@
   ],
   "more_text_space": true,
   "effects": [
-    "Multi-use",
-    "Slotless",
-    "Non-slimy tools: -10% mining speed and attack damage, -0.5 armor"
+    "Non-slimy tools: -10% mining speed and attack damage, -0.5 armor",
+    "No max level",
+    "Slotless"
   ]
 }

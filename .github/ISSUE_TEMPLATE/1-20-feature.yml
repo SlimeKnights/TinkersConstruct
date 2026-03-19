@@ -1,0 +1,118 @@
+name: 1.20 Feature Suggestion
+description: Suggest a larger gameplay feature for 1.20
+labels: ["1.20", Feature, Unreviewed]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        If your idea requires discussion or is complicated, [join our discord](https://discord.gg/njGrvuh) before posting a new issue.
+        Please search the following links to make sure your request is not covered:
+        
+        * **[Roadmap](https://slimeknights.github.io/docs/roadmap/)**: Discusses unimplemented features and planned new changes
+        * **[What's New](https://slimeknights.github.io/docs/whats-new/)**: Discusses many of the major changes in Tinkers' Construct 3
+        * **[FAQ](https://slimeknights.github.io/faq/)**: Answers to many frequently asked questions about the Tinkers' Construct 3 versions
+  
+  - type: markdown
+    attributes:
+      value: "## Versions"
+      
+  - type: markdown
+    attributes:
+      value: |
+        List the last version of the mod you played before making this suggestion, to ensure you are not missing new features.
+  
+  - type: input
+    id: minecraft-version
+    attributes:
+      label: Minecraft Version
+      value: 1.20.1
+    validations:
+      required: true
+  - type: input
+    id: forge-version
+    attributes:
+      label: Forge Version
+      placeholder: "Ex: 36.1.0"
+    validations:
+      required: true
+  - type: input
+    id: mantle-version
+    attributes:
+      label: Mantle Version
+    validations:
+      required: true
+  - type: input
+    id: tinkers-version
+    attributes:
+      label: "Tinkers' Construct Version"
+      description: "'Latest' is not a valid answer, write an exact version number"
+    validations:
+      required: true
+  
+  
+  - type: markdown
+    attributes:
+      value: |
+        ## Feature Description
+      
+        To fully develop your suggestion, remember you are trying to convince us to stop working on our future plans in order to work on your suggestion.
+  
+  - type: textarea
+    id: feature
+    attributes:
+      label: Feature description
+      description: "Describe the feature you are proposing in detail. Include how you obtain it, how you use it, and why it makes sense in the mod."
+    validations:
+      required: true
+  
+  - type: textarea
+    id: advantages
+    attributes:
+      label: Advantages
+      description: "Explain the advantages of your idea over other similar features. New features should be useful to players."
+    validations:
+      required: true
+  
+  - type: textarea
+    id: disadvantages
+    attributes:
+      label: Disadvantages
+      description: "Explain where other similar features are better than your proposed feature. New features should not be better than everything else."
+    validations:
+      required: true
+  
+  - type: textarea
+    id: addon
+    attributes:
+      label: Why not an addon?
+      description: "Explain why this feature belongs in the base mod rather than an addon."
+    validations:
+      required: true
+  
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: "If there is any additional context needed, such as screenshots or related mods, include here"
+    validations:
+      required: false
+        
+        
+  - type: markdown
+    attributes:
+      value: "## Confirm the following"
+      
+  - type: dropdown
+    id: searched
+    attributes:
+      label: "Searched for existing feature suggestions?"
+      description: "Select all that apply. Please check the [search bar](/SlimeKnights/TinkersConstruct/issues), the [roadmap](https://slimeknights.github.io/docs/roadmap/), and [the common suggestions](https://slimeknights.github.io/faq/common-suggestions/) to see if your feature is covered."
+      multiple: true
+      options:
+        - 'Used the search bar'
+        - 'Checked the FAQ'
+        - 'Checked the Roadmap'
+        - 'Checked the in game books'
+        - 'I did not search'
+    validations:
+      required: true

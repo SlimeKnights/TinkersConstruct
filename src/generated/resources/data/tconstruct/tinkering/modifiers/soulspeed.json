@@ -1,0 +1,10 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:soulspeed",
+      "flat": 1
+    }
+  ],
+  "tooltip_display": "always"
+}

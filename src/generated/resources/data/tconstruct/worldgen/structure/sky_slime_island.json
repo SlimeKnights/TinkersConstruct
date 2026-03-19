@@ -50,8 +50,12 @@
   ],
   "trees": [
     {
-      "data": "tconstruct:sky_slime_island_tree",
+      "data": "tconstruct:earth_slime_island_tree",
       "weight": 1
+    },
+    {
+      "data": "tconstruct:sky_slime_island_tree",
+      "weight": 3
     }
   ],
   "vines": "tconstruct:sky_slime_vine"

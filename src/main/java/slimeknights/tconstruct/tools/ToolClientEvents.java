@@ -8,6 +8,7 @@ import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.client.player.Input;
 import net.minecraft.client.renderer.entity.ItemEntityRenderer;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.util.Mth;
@@ -29,6 +30,7 @@ import net.minecraftforge.event.TickEvent.Phase;
 import net.minecraftforge.event.TickEvent.PlayerTickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -43,9 +45,11 @@ import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.client.armor.AbstractArmorModel;
 import slimeknights.tconstruct.library.client.armor.ArmorModelManager;
 import slimeknights.tconstruct.library.client.armor.texture.TrimArmorTextureSupplier;
+import slimeknights.tconstruct.library.client.book.content.AbstractMaterialContent;
 import slimeknights.tconstruct.library.client.materials.MaterialTooltipCache;
 import slimeknights.tconstruct.library.client.model.DynamicTextureLoader;
 import slimeknights.tconstruct.library.client.model.TinkerItemProperties;
+import slimeknights.tconstruct.library.client.model.tools.MaterialBlockModel;
 import slimeknights.tconstruct.library.client.model.tools.MaterialModel;
 import slimeknights.tconstruct.library.client.model.tools.ToolModel;
 import slimeknights.tconstruct.library.client.modifiers.DyedModifierModel;
@@ -53,7 +57,9 @@ import slimeknights.tconstruct.library.client.modifiers.FluidModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.MaterialModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.ModifierModelManager;
 import slimeknights.tconstruct.library.client.modifiers.ModifierModelManager.ModifierModelRegistrationEvent;
+import slimeknights.tconstruct.library.client.modifiers.ModifierModelMapManager;
 import slimeknights.tconstruct.library.client.modifiers.NormalModifierModel;
+import slimeknights.tconstruct.library.client.modifiers.PotionModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.TankModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.TrimModifierModel;
 import slimeknights.tconstruct.library.client.particle.AttackParticle;
@@ -70,11 +76,16 @@ import slimeknights.tconstruct.shared.TinkerEffects;
 import slimeknights.tconstruct.tools.client.CrystalshotRenderer;
 import slimeknights.tconstruct.tools.client.FluidEffectProjectileRenderer;
 import slimeknights.tconstruct.tools.client.OverslimeModifierModel;
+import slimeknights.tconstruct.tools.client.ShieldBannerModifierSpriteSource;
 import slimeknights.tconstruct.tools.client.SlimeskullArmorModel;
 import slimeknights.tconstruct.tools.client.ToolContainerScreen;
+import slimeknights.tconstruct.tools.client.material.CombatFishingHookRenderer;
+import slimeknights.tconstruct.tools.client.material.ThrownShurikenRenderer;
+import slimeknights.tconstruct.tools.client.material.ThrownToolRenderer;
 import slimeknights.tconstruct.tools.item.ModifierCrystalItem;
 import slimeknights.tconstruct.tools.logic.DoubleJumpHandler;
 import slimeknights.tconstruct.tools.logic.InteractionHandler;
+import slimeknights.tconstruct.tools.modules.ranged.ammo.SmashingModule;
 import slimeknights.tconstruct.tools.network.TinkerControlPacket;
 
 import java.util.function.Consumer;
@@ -98,6 +109,7 @@ public class ToolClientEvents extends ClientEventBase {
   @SubscribeEvent
   static void addResourceListener(RegisterClientReloadListenersEvent manager) {
     ModifierModelManager.init(manager);
+    manager.registerReloadListener(ModifierModelMapManager.INSTANCE);
     MaterialTooltipCache.init(manager);
     DynamicTextureLoader.init(manager);
     manager.registerReloadListener(MODIFIER_RELOAD_LISTENER);
@@ -105,12 +117,14 @@ public class ToolClientEvents extends ClientEventBase {
     manager.registerReloadListener(HarvestTiers.RELOAD_LISTENER);
     ArmorModelManager.init(manager);
     manager.registerReloadListener(TrimArmorTextureSupplier.CACHE_INVALIDATOR);
+    ShieldBannerModifierSpriteSource.register();
   }
 
   @SubscribeEvent
   static void registerModelLoaders(RegisterGeometryLoaders event) {
     event.register("material", MaterialModel.LOADER);
     event.register("tool", ToolModel.LOADER);
+    event.register("material_block", MaterialBlockModel.LOADER);
   }
 
   @SubscribeEvent
@@ -121,14 +135,24 @@ public class ToolClientEvents extends ClientEventBase {
     event.registerModel(getResource("tank"), TankModifierModel.UNBAKED_INSTANCE);
     event.registerModel(getResource("material"), MaterialModifierModel.UNBAKED_INSTANCE);
     event.registerModel(getResource("dyed"), DyedModifierModel.UNBAKED_INSTANCE);
+    // trim shows up as valid on every tool, skip to reduce memory overhead on tools using the new system - add it using the new system if you want it
     event.registerModel(getResource("trim"), TrimModifierModel.UNBAKED_INSTANCE);
+    ModifierModelMapManager.legacyBlacklist(TrimModifierModel.UNBAKED_INSTANCE);
+    event.registerModel(getResource("potion"), PotionModifierModel.UNBAKED_INSTANCE);
+    event.registerModel(getResource("smashing_fluid"), new FluidModifierModel.Unbaked(SmashingModule.TANK_HELPER));
   }
 
   @SubscribeEvent
   static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
     event.registerEntityRenderer(TinkerTools.indestructibleItem.get(), ItemEntityRenderer::new);
     event.registerEntityRenderer(TinkerTools.crystalshotEntity.get(), CrystalshotRenderer::new);
+    event.registerEntityRenderer(TinkerTools.fishingHook.get(), CombatFishingHookRenderer::new);
+    // TODO: config option for vanilla style renderer?
+    event.registerEntityRenderer(TinkerTools.materialArrow.get(), ThrownToolRenderer::new);
+    event.registerEntityRenderer(TinkerTools.thrownShuriken.get(), ThrownShurikenRenderer::new);
+    event.registerEntityRenderer(TinkerTools.thrownTool.get(), ThrownToolRenderer::new);
     event.registerEntityRenderer(TinkerModifiers.fluidSpitEntity.get(), FluidEffectProjectileRenderer::new);
+    event.registerEntityRenderer(TinkerModifiers.fireball.get(), context -> new ThrownItemRenderer<>(context, 0.75f, true));
   }
 
   @SubscribeEvent
@@ -145,6 +169,9 @@ public class ToolClientEvents extends ClientEventBase {
 
     // keybinds
     event.enqueueWork(() -> {
+      // fake ingot showing in the book is a little nicer than the repair kits
+      AbstractMaterialContent.registerFallbackPart(TinkerToolParts.fakeIngot);
+      AbstractMaterialContent.registerFallbackPart(TinkerToolParts.fakeStorageBlockItem);
       // screens
       MenuScreens.register(TinkerTools.toolContainer.get(), ToolContainerScreen::new);
 
@@ -170,6 +197,8 @@ public class ToolClientEvents extends ClientEventBase {
       // bow
       TinkerItemProperties.registerCrossbowProperties(TinkerTools.crossbow);
       TinkerItemProperties.registerToolProperties(TinkerTools.longbow);
+      TinkerItemProperties.registerToolProperties(TinkerTools.fishingRod);
+      TinkerItemProperties.registerToolProperties(TinkerTools.javelin);
       // misc
       TinkerItemProperties.registerToolProperties(TinkerTools.flintAndBrick);
       TinkerItemProperties.registerToolProperties(TinkerTools.skyStaff);
@@ -181,6 +210,9 @@ public class ToolClientEvents extends ClientEventBase {
       TinkerItemProperties.registerCrossbowProperties(TinkerTools.warPick);
       TinkerItemProperties.registerToolProperties(TinkerTools.battlesign);
       TinkerItemProperties.registerToolProperties(TinkerTools.swasher);
+      if (ModList.get().isLoaded("twilightforest")) {
+        TinkerItemProperties.registerToolProperties(TinkerTools.minotaurAxe);
+      }
       // armor
       TinkerItemProperties.registerToolProperties(TinkerTools.travelersShield);
       TinkerItemProperties.registerToolProperties(TinkerTools.plateShield);
@@ -225,11 +257,19 @@ public class ToolClientEvents extends ClientEventBase {
     // bow
     registerItemColors(colors, TinkerTools.crossbow);
     registerItemColors(colors, TinkerTools.longbow);
+    registerItemColors(colors, TinkerTools.fishingRod);
+    registerItemColors(colors, TinkerTools.javelin);
+    registerItemColors(colors, TinkerTools.arrow);
+    registerItemColors(colors, TinkerTools.shuriken);
+    registerItemColors(colors, TinkerTools.throwingAxe);
     // ancient
     registerItemColors(colors, TinkerTools.meltingPan);
     registerItemColors(colors, TinkerTools.warPick);
     registerItemColors(colors, TinkerTools.battlesign);
     registerItemColors(colors, TinkerTools.swasher);
+    if (ModList.get().isLoaded("twilightforest")) {
+      registerItemColors(colors, TinkerTools.minotaurAxe);
+    }
     // armor
     registerItemColors(colors, TinkerTools.travelersShield);
     registerItemColors(colors, TinkerTools.plateShield);

@@ -33,5 +33,10 @@
     "name": "piglin_bartering",
     "type": "mantle:image_text",
     "data": "blazing_blood/piglin_bartering.json"
+  },
+  {
+    "name": "ichor",
+    "type": "mantle:showcase",
+    "data": "blazing_blood/ichor.json"
   }
 ]

@@ -6,14 +6,26 @@
     }
   ],
   "perStat": {
+    "tconstruct:ammo": [
+      {
+        "level": 1,
+        "name": "tconstruct:venom"
+      }
+    ],
+    "tconstruct:armor": [
+      {
+        "level": 1,
+        "name": "tconstruct:venom"
+      }
+    ],
     "tconstruct:skull": [
       {
         "level": 1,
-        "name": "tconstruct:frosttouch"
+        "name": "tconstruct:magic_bones"
       },
       {
         "level": 1,
-        "name": "tconstruct:stray_disguise"
+        "name": "tconstruct:skeleton_disguise"
       }
     ]
   }

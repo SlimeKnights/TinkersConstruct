@@ -4,13 +4,12 @@
   "textures": {
     "tool": "tconstruct:item/tool/armor/slime/boots_broken"
   },
-  "modifier_roots": [
-    "tconstruct:item/tool/armor/slime/boot_modifiers/broken/",
-    "tconstruct:item/tool/armor/slime/boot_modifiers/"
+  "modifier_maps": [
+    "tconstruct:slime/boot_broken",
+    "tconstruct:slime/boot"
   ],
   "first_modifiers": [
     "tconstruct:embellishment",
-    "tconstruct:golden",
     "tconstruct:trim"
   ]
 }

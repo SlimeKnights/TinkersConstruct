@@ -31,7 +31,6 @@ import slimeknights.tconstruct.library.modifiers.modules.behavior.AttributeModul
 import slimeknights.tconstruct.library.modifiers.modules.behavior.AttributeModule.TooltipStyle;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.AttributeUniqueField;
 import slimeknights.tconstruct.library.modifiers.modules.technical.MaxArmorLevelModule;
-import slimeknights.tconstruct.library.modifiers.modules.technical.MaxArmorStatModule;
 import slimeknights.tconstruct.library.modifiers.modules.util.ModifierCondition;
 import slimeknights.tconstruct.library.modifiers.modules.util.ModuleBuilder;
 import slimeknights.tconstruct.library.module.ModuleHook;
@@ -113,7 +112,7 @@ public record MaxArmorAttributeModule(String unique, Attribute attribute, Operat
   @Setter
   @Accessors(fluent = true)
   @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-  public static class Builder extends ModuleBuilder.Stack<MaxArmorStatModule.Builder> implements LevelingValue.Builder<MaxArmorAttributeModule> {
+  public static class Builder extends ModuleBuilder.Stack<Builder> implements LevelingValue.Builder<MaxArmorAttributeModule> {
     private final Attribute attribute;
     private final Operation operation;
     protected String unique = "";

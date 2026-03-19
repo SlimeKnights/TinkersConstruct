@@ -4,9 +4,9 @@
       "type": "tconstruct:mob_effect_cloud",
       "effects": [
         {
-          "effect": "minecraft:resistance",
+          "effect": "minecraft:wither",
           "level": 1,
-          "time": 300
+          "time": 160
         }
       ]
     }
@@ -18,21 +18,18 @@
         "type": "tconstruct:damage",
         "damage": 4.0,
         "damage_type": {
-          "melee": "tconstruct:fluid_fire_melee",
-          "ranged": "tconstruct:fluid_fire_ranged"
+          "melee": "tconstruct:fluid_cold_melee",
+          "ranged": "tconstruct:fluid_cold_ranged"
         }
       },
-      "target": {
-        "type": "mantle:inverted",
-        "inverted_type": "mantle:fire_immune"
-      }
+      "target": "mantle:can_freeze"
     },
     {
       "type": "tconstruct:mob_effect",
       "action": "set",
-      "effect": "minecraft:resistance",
+      "effect": "minecraft:wither",
       "level": 1,
-      "time": 300
+      "time": 160
     }
   ],
   "fluid": {

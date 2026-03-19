@@ -1,0 +1,26 @@
+{
+  "type": "tconstruct:ore_melting",
+  "byproducts": [
+    {
+      "amount": 810,
+      "rate": "metal",
+      "tag": "forge:molten_copper"
+    }
+  ],
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "forge:storage_blocks/raw_bronze"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:storage_blocks/raw_bronze"
+  },
+  "rate": "metal",
+  "result": {
+    "amount": 810,
+    "tag": "forge:molten_bronze"
+  },
+  "temperature": 700,
+  "time": 341
+}

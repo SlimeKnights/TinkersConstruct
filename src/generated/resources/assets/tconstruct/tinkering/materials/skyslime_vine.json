@@ -6,7 +6,12 @@
   "generator": {
     "supported_stats": [
       "tconstruct:binding",
-      "tconstruct:bowstring"
+      "tconstruct:bowstring",
+      "tconstruct:cuirass",
+      "tconstruct:armor_cuirass",
+      "tconstruct:repair_kit",
+      "tconstruct:maille",
+      "tconstruct:armor_maille"
     ],
     "transformer": {
       "type": "tconstruct:recolor_sprite",
@@ -22,8 +27,12 @@
             "grey": 63
           },
           {
-            "color": "FF3C6A68",
+            "color": "FF3B6D6D",
             "grey": 102
+          },
+          {
+            "color": "FF49807E",
+            "grey": 127
           },
           {
             "color": "FF4F918F",
@@ -35,10 +44,14 @@
           },
           {
             "color": "FF6DBEBD",
-            "grey": 216
+            "grey": 193
           },
           {
             "color": "FF82D7D5",
+            "grey": 216
+          },
+          {
+            "color": "FFC9F4FE",
             "grey": 255
           }
         ]

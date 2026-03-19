@@ -10,17 +10,9 @@
       {
         "tag": "tconstruct:modifiable/durability"
       },
-      [
-        {
-          "tag": "tconstruct:modifiable/interactable/right"
-        },
-        {
-          "tag": "tconstruct:modifiable/shields"
-        },
-        {
-          "item": "tconstruct:swasher"
-        }
-      ]
+      {
+        "tag": "tconstruct:modifiable/interactable/charge/modifier"
+      }
     ]
   }
 }

@@ -66,8 +66,8 @@
           "name": "tconstruct:tilling"
         },
         {
-          "level": 1,
-          "name": "tconstruct:silky_aoe_shears"
+          "level": 2,
+          "name": "tconstruct:silky_shears"
         },
         {
           "level": 1,
@@ -116,6 +116,10 @@
     {
       "type": "tconstruct:circle_melee",
       "diameter": 2.0
+    },
+    {
+      "type": "tconstruct:fixed_material_name",
+      "index": 0
     }
   ]
 }

@@ -3,6 +3,8 @@
   "entity": {
     "type": "minecraft:blaze"
   },
+  "looting_bonus": 0.01,
+  "per_level_chance": 0.05,
   "result": {
     "count": 2,
     "item": "minecraft:blaze_rod"

@@ -99,4 +99,9 @@ public class MoldingRecipeCategory implements IRecipeCategory<MoldingRecipe> {
       }
     }
   }
+
+  @Override
+  public ResourceLocation getRegistryName(MoldingRecipe recipe) {
+    return recipe.getId();
+  }
 }

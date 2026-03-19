@@ -7,10 +7,8 @@
     },
     {
       "type": "tconstruct:smelting",
-      "limit": {
-        "flat": 1
-      },
       "multiplier": 10.0,
+      "output_pattern": "tconstruct:result",
       "pattern": "tconstruct:fire",
       "recipe_type": "minecraft:smelting",
       "slots": {

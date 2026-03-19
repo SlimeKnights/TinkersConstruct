@@ -1,0 +1,43 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:stat_boost",
+      "each_level": 1.0,
+      "operation": "multiply_base",
+      "stat": "tconstruct:block_amount"
+    },
+    {
+      "type": "tconstruct:requirements",
+      "display_modifiers": [
+        {
+          "level": 1,
+          "name": "tconstruct:blocking"
+        }
+      ],
+      "requirement": {
+        "type": "mantle:or",
+        "predicates": [
+          {
+            "type": "tconstruct:has_modifier",
+            "check": "all",
+            "modifier": {
+              "type": "tconstruct:single",
+              "modifier": "tconstruct:blocking"
+            }
+          },
+          {
+            "type": "tconstruct:has_modifier",
+            "check": "all",
+            "modifier": {
+              "type": "tconstruct:single",
+              "modifier": "tconstruct:parrying"
+            }
+          }
+        ]
+      },
+      "translation_key": "modifier.tconstruct.blockade.requirements"
+    }
+  ],
+  "tooltip_display": "always"
+}

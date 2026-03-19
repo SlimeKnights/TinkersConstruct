@@ -19,10 +19,10 @@
       "mining_tier": "minecraft:netherite"
     },
     "tconstruct:limb": {
-      "accuracy": 0.1,
-      "draw_speed": 0.1,
+      "accuracy": 0.25,
+      "draw_speed": -0.2,
       "durability": 1221,
-      "velocity": -0.1
+      "velocity": 0.0
     },
     "tconstruct:maille": {},
     "tconstruct:plating_boots": {

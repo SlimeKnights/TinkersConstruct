@@ -1,6 +1,6 @@
 {
   "loader": "tconstruct:tool",
-  "parent": "forge:item/default-tool",
+  "parent": "tconstruct:item/base/tall_axe",
   "textures": {
     "head": "tconstruct:item/tool/broad_axe/blade_broken",
     "handle": "tconstruct:item/tool/broad_axe/handle",
@@ -11,6 +11,10 @@
     "large_back": "tconstruct:item/tool/broad_axe/large/back_broken",
     "large_binding": "tconstruct:item/tool/broad_axe/large/binding"
   },
+  "modifier_maps": [
+    "tconstruct:broad_axe_broken",
+    "tconstruct:broad_axe"
+  ],
   "modifier_roots": {
     "small": [
       "tconstruct:item/tool/broad_axe/modifiers/broken/",

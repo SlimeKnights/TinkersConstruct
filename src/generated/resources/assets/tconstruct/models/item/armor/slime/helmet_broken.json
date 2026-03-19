@@ -5,9 +5,9 @@
     "tool": "tconstruct:item/tool/armor/slime/helmet_broken",
     "skull": "tconstruct:item/tool/armor/slime/helmet_skull"
   },
-  "modifier_roots": [
-    "tconstruct:item/tool/armor/slime/skull_modifiers/broken/",
-    "tconstruct:item/tool/armor/slime/skull_modifiers/"
+  "modifier_maps": [
+    "tconstruct:slime/skull_broken",
+    "tconstruct:slime/skull"
   ],
   "parts": [
     {
@@ -20,7 +20,6 @@
   ],
   "first_modifiers": [
     "tconstruct:embellishment",
-    "tconstruct:golden",
     "tconstruct:trim"
   ]
 }

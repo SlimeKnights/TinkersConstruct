@@ -1,0 +1,13 @@
+{
+  "title": "Invisible Ink",
+  "image": {
+    "file": "tconstruct:book/images/worktable/invisible_ink.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "Are the modifiers on your tool ugly? Just pour a bottle of skyslime on it! For some sciency reason, the slime interacts with the modifier to make it invisible while still performing its effect."
+    }
+  ]
+}

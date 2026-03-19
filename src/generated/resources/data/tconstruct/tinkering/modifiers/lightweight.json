@@ -3,26 +3,26 @@
   "modules": [
     {
       "type": "tconstruct:stat_boost",
-      "each_level": 0.07,
+      "each_level": 0.08,
       "operation": "multiply_base",
       "stat": "tconstruct:attack_speed"
     },
     {
       "type": "tconstruct:stat_boost",
-      "each_level": 0.07,
+      "each_level": 0.08,
       "operation": "multiply_base",
       "stat": "tconstruct:mining_speed"
     },
     {
       "type": "tconstruct:stat_boost",
       "each_level": 0.03,
-      "operation": "multiply_base",
+      "operation": "add",
       "stat": "tconstruct:draw_speed"
     },
     {
       "type": "tconstruct:stat_boost",
       "each_level": 0.03,
-      "operation": "multiply_base",
+      "operation": "add",
       "stat": "tconstruct:velocity"
     }
   ],

@@ -13,8 +13,10 @@
     "#forge:molten_manyullyn",
     "#forge:molten_hepatizon",
     "#tconstruct:molten_queens_slime",
+    "#tconstruct:molten_cinderslime",
     "#forge:molten_netherite",
     "#tconstruct:molten_soulsteel",
+    "#tconstruct:molten_knightmetal",
     "#tconstruct:molten_knightslime",
     "#forge:molten_tin",
     "#forge:molten_aluminum",
@@ -26,6 +28,8 @@
     "#forge:molten_tungsten",
     "#forge:molten_osmium",
     "#forge:molten_uranium",
+    "#forge:molten_chromium",
+    "#forge:molten_cadmium",
     "#forge:molten_bronze",
     "#forge:molten_brass",
     "#forge:molten_electrum",
@@ -37,6 +41,9 @@
     "#forge:molten_signalum",
     "#forge:molten_refined_glowstone",
     "#forge:molten_refined_obsidian",
-    "tconstruct:molten_cinderslime"
+    "#forge:molten_nicrosil",
+    "#forge:molten_duralumin",
+    "#forge:molten_bendalloy",
+    "#tconstruct:molten_steeleaf"
   ]
 }

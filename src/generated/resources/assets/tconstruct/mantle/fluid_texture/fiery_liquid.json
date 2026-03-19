@@ -1,0 +1,13 @@
+{
+  "camera": "tconstruct:fluid/slime/fiery/camera",
+  "camera_opacity": 0.1,
+  "color": "FFFFFFFF",
+  "flowing": "tconstruct:fluid/slime/fiery/flowing",
+  "fog": {
+    "calculate_color": true,
+    "end": 2.0,
+    "shape": "sphere",
+    "start": 0.25
+  },
+  "still": "tconstruct:fluid/slime/fiery/still"
+}

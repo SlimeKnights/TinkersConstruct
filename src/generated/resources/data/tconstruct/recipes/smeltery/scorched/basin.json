@@ -4,11 +4,14 @@
   "key": {
     "#": {
       "item": "tconstruct:scorched_brick"
+    },
+    "G": {
+      "item": "tconstruct:gold_platform"
     }
   },
   "pattern": [
     "# #",
-    "# #",
+    "#G#",
     "###"
   ],
   "result": {

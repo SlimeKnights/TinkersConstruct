@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:slurping",
+  "text": [
+    {
+      "text": "Mmm, delicious!"
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/interactable/charge",
+  "effects": [
+    "Drink fluids stored in the tool on usage",
+    "Requires 1 ability slot per level",
+    "Higher levels drink more fluid for stronger effects"
+  ]
+}

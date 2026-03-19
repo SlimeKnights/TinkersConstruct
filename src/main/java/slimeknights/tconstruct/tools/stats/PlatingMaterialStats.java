@@ -19,7 +19,7 @@ import slimeknights.tconstruct.tools.modules.ArmorModuleBuilder.ArmorShieldModul
 import java.util.List;
 
 /** Material stat class handling all four plating types */
-public record PlatingMaterialStats(MaterialStatType<?> getType, int durability, float armor, float toughness, float knockbackResistance) implements IRepairableMaterialStats {
+public record PlatingMaterialStats(MaterialStatType<?> getType, int durability, float armor, float toughness, float knockbackResistance) implements IRepairableMaterialStats.ScaledTooltip {
   private static final LoadableField<Float,PlatingMaterialStats> TOUGHNESS = FloatLoadable.FROM_ZERO.defaultField("toughness", 0f, PlatingMaterialStats::toughness);
   private static final LoadableField<Float,PlatingMaterialStats> KNOCKBACK_RESISTANCE = FloatLoadable.FROM_ZERO.defaultField("knockback_resistance", 0f, PlatingMaterialStats::knockbackResistance);
   private static final RecordLoadable<PlatingMaterialStats> LOADABLE = RecordLoadable.create(
@@ -51,14 +51,14 @@ public record PlatingMaterialStats(MaterialStatType<?> getType, int durability, 
   public static final List<MaterialStatType<PlatingMaterialStats>> TYPES = List.of(HELMET, CHESTPLATE, LEGGINGS, BOOTS, SHIELD);
 
   @Override
-  public List<Component> getLocalizedInfo() {
-    Component durability = ToolStats.DURABILITY.formatValue(this.durability);
-    Component toughness = ToolStats.ARMOR_TOUGHNESS.formatValue(this.toughness);
-    Component knockbackResistance = ToolStats.KNOCKBACK_RESISTANCE.formatValue(this.knockbackResistance * 10); // multiply by 10 as vanilla multiplies toughness by 10 for display
+  public List<Component> getLocalizedInfo(float scale) {
+    Component durability = ToolStats.DURABILITY.formatValue(this.durability * scale);
+    Component toughness = ToolStats.ARMOR_TOUGHNESS.formatValue(this.toughness * scale);
+    Component knockbackResistance = ToolStats.KNOCKBACK_RESISTANCE.formatValue(this.knockbackResistance * 10 * scale); // multiply by 10 as vanilla multiplies toughness by 10 for display
     if (getType == SHIELD) {
       return List.of(durability, toughness, knockbackResistance);
     }
-    return List.of(durability, ToolStats.ARMOR.formatValue(this.armor), toughness, knockbackResistance);
+    return List.of(durability, ToolStats.ARMOR.formatValue(this.armor * scale), toughness, knockbackResistance);
   }
 
   @Override

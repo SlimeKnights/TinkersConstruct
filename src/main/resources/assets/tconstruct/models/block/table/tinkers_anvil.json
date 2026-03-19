@@ -1,9 +1,9 @@
 {
-  "loader": "mantle:retextured",
+  "loader": "tconstruct:material_block",
   "parent": "block/block",
   "textures": {
-    "particle": "tconstruct:block/chest/cast/side",
-    "top": "tconstruct:block/chest/cast/side",
+    "particle": "tconstruct:block/storage/fallback",
+    "top": "tconstruct:block/storage/fallback",
     "base": "tconstruct:block/table/anvil_base",
     "upper": "tconstruct:block/table/anvil_base_upper"
   },

@@ -30,6 +30,7 @@ import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.data.AdvancementsProvider;
+import slimeknights.tconstruct.common.data.ConfigurationDataProvider;
 import slimeknights.tconstruct.common.data.DamageTypeProvider;
 import slimeknights.tconstruct.common.data.loot.GlobalLootModifiersProvider;
 import slimeknights.tconstruct.common.data.loot.LootTableInjectionProvider;
@@ -43,6 +44,7 @@ import slimeknights.tconstruct.common.data.tags.EntityTypeTagProvider;
 import slimeknights.tconstruct.common.data.tags.FluidTagProvider;
 import slimeknights.tconstruct.common.data.tags.ItemTagProvider;
 import slimeknights.tconstruct.common.data.tags.MenuTypeTagProvider;
+import slimeknights.tconstruct.common.data.tags.PotionTagProvider;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
@@ -54,6 +56,7 @@ import slimeknights.tconstruct.library.tools.definition.ToolDefinitionLoader;
 import slimeknights.tconstruct.library.tools.layout.StationSlotLayoutLoader;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.plugin.DietPlugin;
+import slimeknights.tconstruct.plugin.DummmmmmyPlugin;
 import slimeknights.tconstruct.plugin.ImmersiveEngineeringPlugin;
 import slimeknights.tconstruct.plugin.craftingtweaks.CraftingTweaksPlugin;
 import slimeknights.tconstruct.plugin.jsonthings.JsonThingsPlugin;
@@ -100,6 +103,7 @@ public class TConstruct {
 
     Config.init();
     TinkerItemDisplays.init();
+    MaterialRegistry.init();
 
     // initialize modules, done this way rather than with annotations to give us control over the order
     MinecraftForge.EVENT_BUS.addListener(TConstruct::missingMappings);
@@ -108,7 +112,6 @@ public class TConstruct {
     bus.register(new TinkerCommons());
     bus.register(new TinkerMaterials());
     bus.register(new TinkerEffects());
-    bus.register(new TinkerFluids());
     bus.register(new TinkerGadgets());
     bus.register(new TinkerAttributes());
     // world
@@ -121,6 +124,7 @@ public class TConstruct {
     bus.register(new TinkerTools());
     // smeltery
     bus.register(new TinkerSmeltery());
+    bus.register(new TinkerFluids());
 
     // init deferred registers
     TinkerModule.initRegisters();
@@ -143,11 +147,13 @@ public class TConstruct {
     if (modList.isLoaded("craftingtweaks")) {
       CraftingTweaksPlugin.onConstruct();
     }
+    if (modList.isLoaded("dummmmmmy")) {
+      bus.register(new DummmmmmyPlugin());
+    }
   }
 
   @SubscribeEvent
   static void commonSetup(final FMLCommonSetupEvent event) {
-    MaterialRegistry.init();
     ToolDefinitionLoader.init();
     StationSlotLayoutLoader.init();
   }
@@ -178,6 +184,7 @@ public class TConstruct {
     generator.addProvider(server, new BiomeTagProvider(packOutput, lookupProvider, existingFileHelper));
     generator.addProvider(server, new EnchantmentTagProvider(packOutput, lookupProvider, existingFileHelper));
     generator.addProvider(server, new MenuTypeTagProvider(packOutput, lookupProvider, existingFileHelper));
+    generator.addProvider(server, new PotionTagProvider(packOutput, lookupProvider, existingFileHelper));
     generator.addProvider(server, new DamageTypeTagProvider(packOutput, datapackRegistryProvider.getRegistryProvider(), existingFileHelper));
 
     // other datagen
@@ -185,24 +192,31 @@ public class TConstruct {
     generator.addProvider(server, new AdvancementsProvider(packOutput));
     generator.addProvider(server, new GlobalLootModifiersProvider(packOutput));
     generator.addProvider(server, new LootTableInjectionProvider(packOutput));
+    generator.addProvider(server, new ConfigurationDataProvider(packOutput));
   }
 
   /** Handles missing mappings of all types */
   private static void missingMappings(MissingMappingsEvent event) {
     RegistrationHelper.handleMissingMappings(event, MOD_ID, Registries.BLOCK, name -> switch (name) {
+      // silky jewel removal
+      case "silky_jewel_block" -> Blocks.EMERALD_BLOCK;
+      // piglin heads are vanilla
       case "piglin_head" -> Blocks.PIGLIN_HEAD;
       case "piglin_wall_head" -> Blocks.PIGLIN_WALL_HEAD;
       default -> null;
     });
-    RegistrationHelper.handleMissingMappings(event, MOD_ID, Registries.ITEM, name -> {
-      return switch (name) {
-        case "piglin_head" -> Items.PIGLIN_HEAD;
-        case "round_plate" -> TinkerToolParts.adzeHead.get();
-        case "round_plate_cast" -> TinkerSmeltery.adzeHeadCast.get();
-        case "round_plate_sand_cast" -> TinkerSmeltery.adzeHeadCast.getSand();
-        case "round_plate_red_sand_cast" -> TinkerSmeltery.adzeHeadCast.getRedSand();
-        default -> null;
-      };
+    RegistrationHelper.handleMissingMappings(event, MOD_ID, Registries.ITEM, name -> switch (name) {
+      // silky jewel removal
+      case "silky_jewel" -> Items.EMERALD;
+      case "silky_jewel_block" -> Items.EMERALD_BLOCK;
+      // piglin heads are vanilla
+      case "piglin_head" -> Items.PIGLIN_HEAD;
+      // round plate rename
+      case "round_plate" -> TinkerToolParts.adzeHead.get();
+      case "round_plate_cast" -> TinkerSmeltery.adzeHeadCast.get();
+      case "round_plate_sand_cast" -> TinkerSmeltery.adzeHeadCast.getSand();
+      case "round_plate_red_sand_cast" -> TinkerSmeltery.adzeHeadCast.getRedSand();
+      default -> null;
     });
   }
 
@@ -213,6 +227,7 @@ public class TConstruct {
    * @param name  Resource path
    * @return  Location for tinkers
    */
+  @SuppressWarnings("removal")
   public static ResourceLocation getResource(String name) {
     return new ResourceLocation(MOD_ID, name);
   }

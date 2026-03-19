@@ -1,0 +1,40 @@
+{
+  "values": [
+    {
+      "id": "twilightforest:naga_trophy",
+      "required": false
+    },
+    {
+      "id": "twilightforest:lich_trophy",
+      "required": false
+    },
+    {
+      "id": "twilightforest:minoshroom_trophy",
+      "required": false
+    },
+    {
+      "id": "twilightforest:hydra_trophy",
+      "required": false
+    },
+    {
+      "id": "twilightforest:knight_phantom_trophy",
+      "required": false
+    },
+    {
+      "id": "twilightforest:ur_ghast_trophy",
+      "required": false
+    },
+    {
+      "id": "twilightforest:alpha_yeti_trophy",
+      "required": false
+    },
+    {
+      "id": "twilightforest:snow_queen_trophy",
+      "required": false
+    },
+    {
+      "id": "twilightforest:quest_ram_trophy",
+      "required": false
+    }
+  ]
+}

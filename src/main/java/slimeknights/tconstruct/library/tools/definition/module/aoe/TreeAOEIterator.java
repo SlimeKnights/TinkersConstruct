@@ -11,8 +11,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
+import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
 import java.util.ArrayDeque;
@@ -41,7 +41,7 @@ public record TreeAOEIterator(int width, int depth) implements AreaOfEffectItera
 
   @Override
   public Iterable<BlockPos> getBlocks(IToolStackView tool, UseOnContext context, BlockState state, AOEMatchType matchType) {
-    int expanded = tool.getModifierLevel(TinkerModifiers.expanded.getId());
+    int expanded = tool.getVolatileData().getInt(IModifiable.EXPANDED);
     return calculate(context.getLevel(), context.getPlayer(), context.getClickedPos(), context.getClickedFace(), state, width + (expanded + 1) / 2, depth + expanded / 2);
   }
 

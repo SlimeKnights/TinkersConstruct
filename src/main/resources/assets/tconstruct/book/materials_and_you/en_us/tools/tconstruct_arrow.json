@@ -1,0 +1,13 @@
+{
+  "tool": "tconstruct:arrow",
+  "text": [
+    {
+      "text": "Arrows are your basic projectile for most bows. While you can use the basic arrows dropped from skeletons, these are better."
+    }
+  ],
+  "properties": [
+    "Requires a bow or crossbow",
+    "Improvement over skeleton arrows",
+	  "Has different effects based on materials"
+  ]
+}

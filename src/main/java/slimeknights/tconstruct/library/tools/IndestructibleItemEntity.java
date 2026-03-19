@@ -1,11 +1,10 @@
 package slimeknights.tconstruct.library.tools;
 
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -45,20 +44,10 @@ public class IndestructibleItemEntity extends ItemEntity {
 
   /** Copies the pickup delay from another entity */
   public void setPickupDelayFrom(Entity reference) {
-    if (reference instanceof ItemEntity) {
-      short pickupDelay = this.getPickupDelay((ItemEntity) reference);
-      this.setPickUpDelay(pickupDelay);
+    if (reference instanceof ItemEntity itemEntity) {
+      this.setPickUpDelay(itemEntity.pickupDelay);
     }
     setDeltaMovement(reference.getDeltaMovement());
-  }
-
-  /**
-   * workaround for private access on pickup delay. We simply read it from the items NBT representation ;)
-   */
-  private short getPickupDelay(ItemEntity reference) {
-    CompoundTag tag = new CompoundTag();
-    reference.addAdditionalSaveData(tag);
-    return tag.getShort("PickupDelay");
   }
 
   @Override
@@ -67,9 +56,9 @@ public class IndestructibleItemEntity extends ItemEntity {
   }
 
   @Override
-  public boolean hurt(DamageSource source, float amount) {
+  public boolean isInvulnerableTo(DamageSource pSource) {
     // prevent any damage besides out of world
-    return source.is(DamageTypes.FELL_OUT_OF_WORLD);
+    return !pSource.is(DamageTypeTags.BYPASSES_INVULNERABILITY);
   }
 
   /** Checks if the given stack has a custom entity */

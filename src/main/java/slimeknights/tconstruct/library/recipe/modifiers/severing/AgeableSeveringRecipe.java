@@ -17,12 +17,19 @@ public class AgeableSeveringRecipe extends SeveringRecipe {
     ContextKey.ID.requiredField(), ENTITY_FIELD,
     ItemOutput.Loadable.REQUIRED_STACK.requiredField("adult_result", r -> r.output),
     ItemOutput.Loadable.OPTIONAL_STACK.emptyField("child_result", r -> r.childOutput),
+    BASE_CHANCE_FIELD, LOOTING_BONUS_FIELD,
     AgeableSeveringRecipe::new);
 
   private final ItemOutput childOutput;
-  public AgeableSeveringRecipe(ResourceLocation id, EntityIngredient ingredient, ItemOutput adultOutput, ItemOutput childOutput) {
-    super(id, ingredient, adultOutput);
+  public AgeableSeveringRecipe(ResourceLocation id, EntityIngredient ingredient, ItemOutput adultOutput, ItemOutput childOutput, float baseChance, float lootingBonus) {
+    super(id, ingredient, adultOutput, baseChance, lootingBonus);
     this.childOutput = childOutput;
+  }
+
+  /** @deprecated use {@link #AgeableSeveringRecipe(ResourceLocation, EntityIngredient, ItemOutput, ItemOutput, float, float)} */
+  @Deprecated(forRemoval = true)
+  public AgeableSeveringRecipe(ResourceLocation id, EntityIngredient ingredient, ItemOutput adultOutput, ItemOutput childOutput) {
+    this(id, ingredient, adultOutput, childOutput, 0.05f, 0.01f);
   }
 
   @Override

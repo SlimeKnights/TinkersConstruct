@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "forge:storage_blocks/duralumin"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:storage_blocks/duralumin"
+  },
+  "result": {
+    "amount": 810,
+    "tag": "forge:molten_duralumin"
+  },
+  "temperature": 625,
+  "time": 163
+}

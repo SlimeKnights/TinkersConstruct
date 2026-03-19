@@ -5,9 +5,10 @@
       "text": "Allows drinking fluid contained in the helmet to perform effects using the helmet keybind, such as lighting yourself on fire, clearing status effects, or restoring hunger."
     },
     {
-      "text": "Tool can be filled with fluid by interacting with a tank or drain while holding it.", "paragraph": true
+      "text": "Higher levels consume more fluid to perform stronger effects", "paragraph": true
     }
   ],
+  "tool_filter": "tconstruct:modifiable/armor",
   "more_text_space": true,
   "effects": [
     "No max level",

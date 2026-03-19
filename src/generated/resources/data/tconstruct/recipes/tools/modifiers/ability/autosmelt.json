@@ -1,7 +1,6 @@
 {
   "type": "tconstruct:modifier",
   "allow_crystal": true,
-  "check_trait_level": true,
   "inputs": [
     {
       "tag": "forge:raw_materials"
@@ -24,7 +23,12 @@
   "slots": {
     "abilities": 1
   },
-  "tools": {
-    "tag": "tconstruct:modifiable/harvest"
-  }
+  "tools": [
+    {
+      "tag": "tconstruct:modifiable/harvest"
+    },
+    {
+      "tag": "tconstruct:modifiable/fishing_rods"
+    }
+  ]
 }

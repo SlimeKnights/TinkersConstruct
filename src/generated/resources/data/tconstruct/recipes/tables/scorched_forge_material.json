@@ -1,0 +1,35 @@
+{
+  "type": "tconstruct:crafting_shaped_materials",
+  "category": "misc",
+  "key": {
+    "m": {
+      "type": "tconstruct:material",
+      "item": "tconstruct:fake_storage_block",
+      "material": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:compatibility_metals/alloys"
+      }
+    },
+    "s": {
+      "tag": "tconstruct:scorched_blocks"
+    },
+    "t": {
+      "item": "tconstruct:tinker_station"
+    }
+  },
+  "parts": "m",
+  "pattern": [
+    "sss",
+    "mtm",
+    "m m"
+  ],
+  "result": {
+    "item": "tconstruct:scorched_anvil",
+    "nbt": {
+      "display": {
+        "Name": "{\"translate\":\"block.tconstruct.tool_forge\"}"
+      }
+    }
+  },
+  "show_notification": true
+}

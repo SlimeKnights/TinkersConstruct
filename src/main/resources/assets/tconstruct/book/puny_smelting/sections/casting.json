@@ -38,5 +38,10 @@
     "name": "automation",
     "type": "mantle:image_text",
     "data": "casting/automation.json"
+  },
+  {
+    "name": "casting_tank",
+    "type": "mantle:showcase",
+    "data": "casting/casting_tank.json"
   }
 ]

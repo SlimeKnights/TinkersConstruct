@@ -8,6 +8,7 @@
   "effects": [
     "Increases jump height and safe fall height",
     "Multiple levels, each level increases jump and fall damage height further",
-    "Requires 1 upgrade slot per level"
+    "First level requires 1 upgrade slot",
+    "Second level requires 1 ability slot"
   ]
 }

@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.Material;
 import slimeknights.mantle.util.ItemLayerPixels;
+import slimeknights.tconstruct.library.client.modifiers.model.ModifierModel;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
@@ -14,7 +15,8 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 /**
- * Modifier model for a particular tool. One copy of a class with this interface exists per modifier per tool
+ * Modifier model for a particular tool. One copy of a class with this interface exists per modifier per tool.
+ * @see ModifierModel
  */
 public interface IBakedModifierModel {
   /**

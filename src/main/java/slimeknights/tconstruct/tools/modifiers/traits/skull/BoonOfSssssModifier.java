@@ -1,55 +1,21 @@
 package slimeknights.tconstruct.tools.modifiers.traits.skull;
 
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.living.MobEffectEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.modifiers.ModifierHooks;
-import slimeknights.tconstruct.library.modifiers.hook.armor.EquipmentChangeModifierHook;
+import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
+import slimeknights.tconstruct.library.json.LevelingValue;
 import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
+import slimeknights.tconstruct.library.modifiers.modules.behavior.AttributeModule;
+import slimeknights.tconstruct.library.modifiers.modules.util.ModifierCondition;
 import slimeknights.tconstruct.library.module.ModuleHookMap.Builder;
-import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
-import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
-import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
+import slimeknights.tconstruct.shared.TinkerAttributes;
+import slimeknights.tconstruct.tools.modules.ReduceEffectOnUnequipModule;
 
-public class BoonOfSssssModifier extends NoLevelsModifier implements EquipmentChangeModifierHook {
-  public BoonOfSssssModifier() {
-    MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, MobEffectEvent.Added.class, this::onPotionStart);
-  }
-
+/** @deprecated use {@link TinkerAttributes#GOOD_EFFECT_DURATION} and {@link ReduceEffectOnUnequipModule} */
+@Deprecated(forRemoval = true)
+public class BoonOfSssssModifier extends NoLevelsModifier {
   @Override
   protected void registerHooks(Builder hookBuilder) {
-    super.registerHooks(hookBuilder);
-    hookBuilder.addHook(this, ModifierHooks.EQUIPMENT_CHANGE);
-  }
-
-  @Override
-  public void onUnequip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
-    if (context.getChangedSlot() == EquipmentSlot.HEAD) {
-      IToolStackView replacement = context.getReplacementTool();
-      if (replacement == null || replacement.getModifierLevel(this) == 0 || replacement.getItem() != tool.getItem()) {
-        // cure effects using the helmet
-        context.getEntity().curePotionEffects(new ItemStack(tool.getItem()));
-      }
-    }
-  }
-
-  /** Called when the potion effects start to apply this effect */
-  private void onPotionStart(MobEffectEvent.Added event) {
-    MobEffectInstance newEffect = event.getEffectInstance();
-    if (newEffect.getEffect().isBeneficial() && !newEffect.getCurativeItems().isEmpty()) {
-      LivingEntity living = event.getEntity();
-      // strong bones has to be the helmet as we use it for curing
-      // TODO 1.20: can use the new cure effects to make this work in any slot
-      ItemStack helmet = living.getItemBySlot(EquipmentSlot.HEAD);
-      if (ModifierUtil.getModifierLevel(helmet, this.getId()) > 0) {
-        newEffect.duration *= 1.25f;
-        newEffect.getCurativeItems().add(new ItemStack(helmet.getItem()));
-      }
-    }
+    hookBuilder.addModule(AttributeModule.builder(TinkerAttributes.GOOD_EFFECT_DURATION, Operation.MULTIPLY_BASE).eachLevel(0.25f));
+    hookBuilder.addModule(new ReduceEffectOnUnequipModule(MobEffectCategory.BENEFICIAL, LevelingValue.eachLevel(0.2f), ModifierCondition.ANY_TOOL));
   }
 }

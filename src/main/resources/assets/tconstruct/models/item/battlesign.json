@@ -5,6 +5,7 @@
     "head":   "tconstruct:item/tool/battlesign/head",
     "handle": "tconstruct:item/tool/battlesign/handle"
   },
+  "modifier_maps": ["tconstruct:battlesign"],
   "modifier_roots": [ "tconstruct:item/tool/battlesign/modifiers/" ],
   "parts": [
     { "name": "head",   "index": 0 },

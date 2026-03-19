@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "forge:storage_blocks/chromium"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:storage_blocks/chromium"
+  },
+  "result": {
+    "amount": 810,
+    "tag": "forge:molten_chromium"
+  },
+  "temperature": 900,
+  "time": 190
+}

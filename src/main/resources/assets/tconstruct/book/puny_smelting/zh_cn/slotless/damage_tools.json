@@ -1,0 +1,13 @@
+{
+  "title": "损坏工具",
+  "image": {
+    "file": "tconstruct:book/images/damage_tools.png",
+    "width": 121,
+    "height": 65
+  },
+  "text": [
+    {
+      "text": "曾有过“想更快损坏工具”的想法吗？熔融岩浆能够些微损耗一些耐久，毒液则消耗的多一点。还想更快的话，你可以试试用熔岩或烈焰血来彻底摧毁工具。"
+    }
+  ]
+}

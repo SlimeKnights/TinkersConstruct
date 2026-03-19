@@ -92,4 +92,10 @@ public class MaterialFluidRecipe implements ICustomOutputRecipe<ICastingContaine
   public RecipeType<?> getType() {
     return TinkerRecipeTypes.DATA.get();
   }
+
+  /** Checks that all materials in this recipe are known */
+  public boolean isVisible() {
+    return !output.isUnknown() && !output.get().isHidden()
+      && (input == null || !input.isUnknown() && !input.get().isHidden());
+  }
 }

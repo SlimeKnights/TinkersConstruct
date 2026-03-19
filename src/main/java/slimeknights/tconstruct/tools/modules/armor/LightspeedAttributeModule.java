@@ -18,7 +18,9 @@ import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.primitive.FloatLoadable;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
+import slimeknights.tconstruct.library.json.variable.entity.EntityLightVariable;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
@@ -66,10 +68,7 @@ public record LightspeedAttributeModule(String unique, UUID uuid, Attribute attr
 
   /** Gets the light at the given position */
   private int getLight(Level level, BlockPos pos) {
-    if (lightLayer == null) {
-      return Math.max(level.getBrightness(LightLayer.BLOCK, pos), level.getBrightness(LightLayer.SKY, pos));
-    }
-    return level.getBrightness(lightLayer, pos);
+    return EntityLightVariable.getLightLevel(level, lightLayer, pos);
   }
 
   @Override
@@ -99,7 +98,7 @@ public record LightspeedAttributeModule(String unique, UUID uuid, Attribute attr
 
       // damage boots
       if (level.random.nextFloat() < (damageChance * scaledLight)) {
-        ToolDamageUtil.damageAnimated(tool, 1, living, EquipmentSlot.FEET);
+        ToolDamageUtil.damageAnimated(tool, 1, living, EquipmentSlot.FEET, modifier.getId());
       }
     }
   }
@@ -122,6 +121,9 @@ public record LightspeedAttributeModule(String unique, UUID uuid, Attribute attr
 
   @Override
   public void addTooltip(IToolStackView tool, ModifierEntry entry, @Nullable Player player, List<Component> tooltip, TooltipKey key, TooltipFlag tooltipFlag) {
+    if (!tool.hasTag(TinkerTags.Items.BOOTS)) {
+      return;
+    }
     int light = 15;
     if (player != null && key == TooltipKey.SHIFT) {
       light = getLight(player.level(), player.blockPosition());

@@ -3,11 +3,13 @@ package slimeknights.tconstruct.tools.data.material;
 import net.minecraft.data.PackOutput;
 import slimeknights.tconstruct.library.data.material.AbstractMaterialDataProvider;
 import slimeknights.tconstruct.library.data.material.AbstractMaterialTraitDataProvider;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.data.ModifierIds;
 import slimeknights.tconstruct.tools.stats.PlatingMaterialStats;
 import slimeknights.tconstruct.tools.stats.SkullStats;
 
+import static slimeknights.tconstruct.library.materials.MaterialRegistry.AMMO;
 import static slimeknights.tconstruct.library.materials.MaterialRegistry.ARMOR;
 import static slimeknights.tconstruct.library.materials.MaterialRegistry.MELEE_HARVEST;
 import static slimeknights.tconstruct.library.materials.MaterialRegistry.RANGED;
@@ -26,39 +28,69 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
   protected void addMaterialTraits() {
     // tier 1
     addDefaultTraits(MaterialIds.wood, ModifierIds.cultivated);
-    addDefaultTraits(MaterialIds.rock, TinkerModifiers.stonebound);
-    addDefaultTraits(MaterialIds.flint, TinkerModifiers.jagged);
+    addTraits(MaterialIds.wood, AMMO, ModifierIds.economical);
+    addDefaultTraits(MaterialIds.rock, ModifierIds.stonebound);
+    addDefaultTraits(MaterialIds.flint, ModifierIds.jagged);
+    addTraits(MaterialIds.flint, AMMO, ModifierIds.tipped);
     addDefaultTraits(MaterialIds.bone, ModifierIds.pierce);
+    addTraits(MaterialIds.bone, ARMOR, ModifierIds.piercingGuard);
+    addTraits(MaterialIds.bone, AMMO, ModifierIds.spike);
     addDefaultTraits(MaterialIds.bamboo, ModifierIds.unburdened);
+    addTraits(MaterialIds.bamboo, AMMO, ModifierIds.woodwind);
+    addDefaultTraits(MaterialIds.cactus, ModifierIds.spiny);
+    addTraits(MaterialIds.cactus, ARMOR, ModifierIds.thorns);
+    addTraits(MaterialIds.wool, AMMO, ModifierIds.soft);
+    noTraits(MaterialIds.feather);
+    addTraits(MaterialIds.paper, AMMO, ModifierIds.weak);
+    addTraits(MaterialIds.leaves, AMMO, ModifierIds.cheap);
     // tier 1 - end
-    addDefaultTraits(MaterialIds.chorus, TinkerModifiers.enderference);
+    addDefaultTraits(MaterialIds.chorus, ModifierIds.enderference);
     addTraits(MaterialIds.chorus, ARMOR, ModifierIds.enderclearance);
     // tier 1 - binding
     addDefaultTraits(MaterialIds.string, ModifierIds.stringy);
-    addDefaultTraits(MaterialIds.leather, TinkerModifiers.tanned);
-    addDefaultTraits(MaterialIds.vine, TinkerModifiers.solarPowered);
+    addDefaultTraits(MaterialIds.leather, ModifierIds.tanned);
+    addDefaultTraits(MaterialIds.vine, ModifierIds.solarPowered);
     addTraits(MaterialIds.gold, ARMOR, TinkerModifiers.golden.getId(), ModifierIds.magicProtection);
     addTraits(MaterialIds.gold, PlatingMaterialStats.SHIELD.getId(), ModifierIds.magicProtection);
 
     // tier 2
-    addDefaultTraits(MaterialIds.iron, TinkerModifiers.magnetic);
+    addDefaultTraits(MaterialIds.iron, ModifierIds.magnetic);
     addTraits(MaterialIds.iron, ARMOR, ModifierIds.projectileProtection);
     addDefaultTraits(MaterialIds.copper, TinkerModifiers.dwarven);
     addTraits(MaterialIds.copper, ARMOR, ModifierIds.depthProtection);
     addDefaultTraits(MaterialIds.searedStone, ModifierIds.searing);
     addTraits(MaterialIds.searedStone, ARMOR, ModifierIds.fireProtection);
     addDefaultTraits(MaterialIds.slimewood, ModifierIds.overgrowth, TinkerModifiers.overslime.getId());
+    addTraits(MaterialIds.slimewood, AMMO, new ModifierEntry(ModifierIds.bounce, 2));
     addDefaultTraits(MaterialIds.slimeskin, ModifierIds.overgrowth, TinkerModifiers.overslime.getId());
     addDefaultTraits(MaterialIds.venombone, ModifierIds.antitoxin);
+    addTraits(MaterialIds.venombone, AMMO, ModifierIds.venom);
+    addTraits(MaterialIds.venombone, ARMOR, ModifierIds.venom);
     addDefaultTraits(MaterialIds.aluminum, ModifierIds.featherweight);
     // tier 2 - nether
-    addDefaultTraits(MaterialIds.necroticBone, TinkerModifiers.necrotic);
+    addDefaultTraits(MaterialIds.necroticBone, ModifierIds.necrotic);
+    addTraits(MaterialIds.necroticBone, ARMOR, ModifierIds.restore);
     addDefaultTraits(MaterialIds.scorchedStone, ModifierIds.scorching);
     addTraits(MaterialIds.scorchedStone, ARMOR, ModifierIds.scorchProtection);
     // tier 2 - end
-    addDefaultTraits(MaterialIds.whitestone, TinkerModifiers.stoneshield);
+    addDefaultTraits(MaterialIds.whitestone, ModifierIds.stoneshield);
     // tier 2 - binding
     addDefaultTraits(MaterialIds.skyslimeVine, ModifierIds.airborne);
+    addTraits(MaterialIds.skyslimeVine, ARMOR, ModifierIds.skyfall);
+    addDefaultTraits(MaterialIds.weepingVine, ModifierIds.flamestance);
+    addDefaultTraits(MaterialIds.twistingVine, ModifierIds.entangled);
+    addDefaultTraits(MaterialIds.turtle, ModifierIds.turtleShell);
+    // tier 2 - ammo
+    addTraits(MaterialIds.amethyst, AMMO, ModifierIds.crystalbound);
+    addTraits(MaterialIds.prismarine, AMMO, ModifierIds.finsAmmo, ModifierIds.lureRod);
+    addTraits(MaterialIds.earthslime, AMMO, ModifierIds.drawback);
+    addTraits(MaterialIds.skyslime, AMMO, ModifierIds.punch);
+    addDefaultTraits(MaterialIds.blaze, ModifierIds.fiery);
+    addTraits(MaterialIds.enderPearl, AMMO, TinkerModifiers.enderporting);
+    addTraits(MaterialIds.glass, AMMO, ModifierIds.amorphous, ModifierIds.smashingAmmo, ModifierIds.spillingRod);
+    addTraits(MaterialIds.slimeball, AMMO, ModifierIds.erratic);
+    addTraits(MaterialIds.gunpowder, AMMO, ModifierIds.explosive);
+    addTraits(MaterialIds.redstone, AMMO, ModifierIds.supercharged);
 
     // tier 3
     addDefaultTraits(MaterialIds.slimesteel, ModifierIds.overcast, TinkerModifiers.overslime.getId());
@@ -67,72 +99,112 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addTraits(MaterialIds.amethystBronze, ARMOR, ModifierIds.crystalstrike);
     addDefaultTraits(MaterialIds.nahuatl, TinkerModifiers.lacerating);
     addDefaultTraits(MaterialIds.roseGold, ModifierIds.enhanced);
-    addDefaultTraits(MaterialIds.pigIron, TinkerModifiers.tasty);
+    addDefaultTraits(MaterialIds.pigIron, ModifierIds.tasty);
     addTraits(MaterialIds.obsidian, ARMOR, ModifierIds.blastProtection);
     // tier 3 - nether
     addDefaultTraits(MaterialIds.cobalt, ModifierIds.lightweight);
     addTraits(MaterialIds.cobalt, ARMOR, ModifierIds.meleeProtection);
+    addDefaultTraits(MaterialIds.steel, ModifierIds.ductile);
     // tier 3 - binding
     addDefaultTraits(MaterialIds.darkthread, ModifierIds.looting);
+    addDefaultTraits(MaterialIds.ichorskin, ModifierIds.godspeed);
+    addDefaultTraits(MaterialIds.ice, ModifierIds.frostshield);
+    addTraits(MaterialIds.ice, AMMO, ModifierIds.freezing);
+    // tier 3 - ammo
+    addTraits(MaterialIds.quartz, AMMO, ModifierIds.keen);
+    addTraits(MaterialIds.ichor, AMMO, ModifierIds.rebound, ModifierIds.bounce);
+    addTraits(MaterialIds.glowstone, AMMO, ModifierIds.spectral);
+    addDefaultTraits(MaterialIds.magnetite, ModifierIds.attractive);
+    addTraits(MaterialIds.magma, AMMO, ModifierIds.fuse);
 
     // tier 4
     addDefaultTraits(MaterialIds.cinderslime, ModifierIds.overburn, TinkerModifiers.overslime.getId());
     addDefaultTraits(MaterialIds.queensSlime, ModifierIds.overlord, TinkerModifiers.overslime.getId());
     addDefaultTraits(MaterialIds.hepatizon, TinkerModifiers.momentum);
     addTraits(MaterialIds.hepatizon, ARMOR, ModifierIds.recurrentProtection);
-    addDefaultTraits(MaterialIds.manyullyn, TinkerModifiers.insatiable);
-    addTraits(MaterialIds.manyullyn, ARMOR, ModifierIds.kinetic);
+    addDefaultTraits(MaterialIds.manyullyn, ModifierIds.ambush);
+    addTraits(MaterialIds.manyullyn, ARMOR, ModifierIds.warded);
     addDefaultTraits(MaterialIds.blazingBone, TinkerModifiers.conducting);
-    addDefaultTraits(MaterialIds.blazewood, ModifierIds.flameBarrier);
+    addTraits(MaterialIds.blazingBone, AMMO, ModifierIds.conductive);
+    addTraits(MaterialIds.blazingBone, ARMOR, ModifierIds.conductive);
+    addDefaultTraits(MaterialIds.blazewood, ModifierIds.spectral);
     addDefaultTraits(MaterialIds.ancient, ModifierIds.vintage, ModifierIds.worldbound);
     // tier 4 - binding
-    addDefaultTraits(MaterialIds.ancientHide, ModifierIds.fortune);
-    addTraits(MaterialIds.ancientHide, ARMOR, ModifierIds.fortified);
+    addDefaultTraits(MaterialIds.jeweledHide, ModifierIds.fortune);
+    addTraits(MaterialIds.jeweledHide, ARMOR, ModifierIds.revitalizing);
+    addTraits(MaterialIds.ancientHide, MELEE_HARVEST, ModifierIds.fortune);
+    addDefaultTraits(MaterialIds.ancientHide, ModifierIds.fortified);
+    addTraits(MaterialIds.dragonScale, ARMOR, ModifierIds.dragonborn);
+    addTraits(MaterialIds.dragonScale, AMMO, ModifierIds.dragonshot);
+    addTraits(MaterialIds.shulker, ARMOR, ModifierIds.shulking);
+    addTraits(MaterialIds.shulker, AMMO, ModifierIds.reclaim);
+    // tier 4 - ammo
+    addTraits(MaterialIds.enderslime, AMMO, ModifierIds.enderclearance);
 
-    // tier 5
+    // tier 4 (end)
+    addDefaultTraits(MaterialIds.knightmetal, ModifierIds.valiant);
+    addTraits(MaterialIds.knightmetal, ARMOR, ModifierIds.stalwart);
+    addDefaultTraits(MaterialIds.knightslime, ModifierIds.overwield, TinkerModifiers.overslime.getId());
+    addTraits(MaterialIds.knightslime, ARMOR, ModifierIds.overshield, TinkerModifiers.overslime.getId());
+    addDefaultTraits(MaterialIds.knightly, ModifierIds.valiant);
     addDefaultTraits(MaterialIds.enderslimeVine, TinkerModifiers.enderporting);
+    addTraits(MaterialIds.enderslimeVine, ARMOR, ModifierIds.enderclearance);
+    addDefaultTraits(MaterialIds.endRod, ModifierIds.hover);
 
     // tier 2 - mod compat
     addDefaultTraits(MaterialIds.osmium, ModifierIds.dense);
-    addDefaultTraits(MaterialIds.tungsten, ModifierIds.sharpweight);
-    addTraits(MaterialIds.platinum, MELEE_HARVEST, ModifierIds.lustrous);
-    addTraits(MaterialIds.platinum, RANGED,        TinkerModifiers.olympic);
     addDefaultTraits(MaterialIds.lead, ModifierIds.heavy);
     addTraits(MaterialIds.silver, MELEE_HARVEST, ModifierIds.smite);
-    addTraits(MaterialIds.silver, RANGED, TinkerModifiers.holy);
+    addTraits(MaterialIds.silver, RANGED, ModifierIds.holy);
     addTraits(MaterialIds.silver, ARMOR, ModifierIds.consecrated);
     addDefaultTraits(MaterialIds.treatedWood, ModifierIds.preserved);
+    addDefaultTraits(MaterialIds.ironwood, ModifierIds.deciduous);
     // tier 3 - mod compat
-    addDefaultTraits(MaterialIds.steel, ModifierIds.ductile);
     addDefaultTraits(MaterialIds.bronze, ModifierIds.maintained);
-    addDefaultTraits(MaterialIds.constantan, TinkerModifiers.temperate);
-    addDefaultTraits(MaterialIds.invar, TinkerModifiers.invariant);
-    addDefaultTraits(MaterialIds.necronium, TinkerModifiers.decay);
-    addDefaultTraits(MaterialIds.electrum, ModifierIds.experienced);
+    addDefaultTraits(MaterialIds.constantan, ModifierIds.temperate);
+    addDefaultTraits(MaterialIds.invar, ModifierIds.solid);
+    addDefaultTraits(MaterialIds.pewter, ModifierIds.raging);
+    addTraits(MaterialIds.pewter, ARMOR, ModifierIds.vitalProtection);
+    addDefaultTraits(MaterialIds.necronium, ModifierIds.decay);
+    addTraits(MaterialIds.necronium, AMMO, new ModifierEntry(ModifierIds.decay, 2));
+    addDefaultTraits(MaterialIds.electrum, ModifierIds.shock);
     addDefaultTraits(MaterialIds.platedSlimewood, TinkerModifiers.overworked, TinkerModifiers.overslime);
+    addDefaultTraits(MaterialIds.steeleaf, ModifierIds.experienced);
+    addTraits(MaterialIds.steeleaf, AMMO, ModifierIds.looting);
+    // tier 4 - mod compat
+    addDefaultTraits(MaterialIds.fiery, ModifierIds.autosmelt);
+    addTraits(MaterialIds.fiery, ARMOR, ModifierIds.temperedProtection);
+    addDefaultTraits(MaterialIds.nicrosil, TinkerModifiers.insatiable);
+    addTraits(MaterialIds.nicrosil, ARMOR, ModifierIds.kinetic);
 
     // slimeskull
-    addTraits(MaterialIds.glass,        SkullStats.ID, TinkerModifiers.selfDestructive.getId(), ModifierIds.creeperDisguise);
-    addTraits(MaterialIds.enderPearl,   SkullStats.ID, TinkerModifiers.enderdodging.getId(), ModifierIds.endermanDisguise);
-    addTraits(MaterialIds.bone,         SkullStats.ID, TinkerModifiers.strongBones.getId(), ModifierIds.skeletonDisguise);
-    addTraits(MaterialIds.venombone,    SkullStats.ID, TinkerModifiers.frosttouch.getId(), ModifierIds.strayDisguise);
-    addTraits(MaterialIds.necroticBone, SkullStats.ID, TinkerModifiers.withered.getId(), ModifierIds.witherSkeletonDisguise);
-    addTraits(MaterialIds.string,       SkullStats.ID, TinkerModifiers.boonOfSssss.getId(), ModifierIds.spiderDisguise);
-    addTraits(MaterialIds.darkthread,   SkullStats.ID, ModifierIds.mithridatism, ModifierIds.caveSpiderDisguise);
-    addTraits(MaterialIds.rottenFlesh,  SkullStats.ID, TinkerModifiers.wildfire.getId(), ModifierIds.zombieDisguise);
-    addTraits(MaterialIds.iron,         SkullStats.ID, TinkerModifiers.plague.getId(), ModifierIds.huskDisguise);
-    addTraits(MaterialIds.copper,       SkullStats.ID, TinkerModifiers.breathtaking.getId(), ModifierIds.drownedDisguise);
-    addTraits(MaterialIds.blazingBone,  SkullStats.ID, TinkerModifiers.firebreath.getId(), ModifierIds.blazeDisguise);
-    addTraits(MaterialIds.gold,         SkullStats.ID, TinkerModifiers.chrysophilite.getId(), ModifierIds.piglinDisguise, TinkerModifiers.golden.getId());
-    addTraits(MaterialIds.roseGold,     SkullStats.ID, TinkerModifiers.goldGuard.getId(), ModifierIds.piglinBruteDisguise, TinkerModifiers.golden.getId());
-    addTraits(MaterialIds.pigIron,      SkullStats.ID, TinkerModifiers.revenge.getId(), ModifierIds.zombifiedPiglinDisguise);
+    material(MaterialIds.glass).addTraits(SkullStats.ID, TinkerModifiers.selfDestructive.getId(), ModifierIds.creeperDisguise);
+    // end
+    material(MaterialIds.enderPearl).addTraits(SkullStats.ID, ModifierIds.warping, ModifierIds.endermanDisguise);
+    material(MaterialIds.dragonScale).addTraits(SkullStats.ID, ModifierIds.dragonheart);
+    // skeleton
+    material(MaterialIds.bone).addTraits(SkullStats.ID, TinkerModifiers.strongBones.getId(), ModifierIds.skeletonDisguise);
+    material(MaterialIds.ice).addTraits(SkullStats.ID, ModifierIds.slowBones, ModifierIds.strayDisguise);
+    material(MaterialIds.necroticBone).addTraits(SkullStats.ID, ModifierIds.rebuff, ModifierIds.witherSkeletonDisguise);
+    // spider
+    material(MaterialIds.string).addTraits(SkullStats.ID, ModifierIds.boonOfSssss, ModifierIds.spiderDisguise);
+    material(MaterialIds.darkthread).addTraits(SkullStats.ID, ModifierIds.balmOfSssss, ModifierIds.caveSpiderDisguise);
+    // zombie
+    material(MaterialIds.leather).addTraits(SkullStats.ID, new ModifierEntry(ModifierIds.consecrated, 2)).addTraits(SkullStats.ID, ModifierIds.zombieDisguise);
+    material(MaterialIds.iron).addTraits(SkullStats.ID, TinkerModifiers.plague.getId(), ModifierIds.huskDisguise);
+    material(MaterialIds.copper).addTraits(SkullStats.ID, new ModifierEntry(ModifierIds.respiration, 2)).addTraits(SkullStats.ID, ModifierIds.drownedDisguise);
+    // nether
+    material(MaterialIds.blaze).addTraits(SkullStats.ID, ModifierIds.fireborn, ModifierIds.blazeDisguise);
+    material(MaterialIds.gold).addTraits(SkullStats.ID, TinkerModifiers.chrysophilite.getId(), ModifierIds.piglinDisguise, TinkerModifiers.golden.getId());
+    material(MaterialIds.roseGold).addTraits(SkullStats.ID, TinkerModifiers.goldGuard.getId(), ModifierIds.piglinBruteDisguise, TinkerModifiers.golden.getId());
+    material(MaterialIds.pigIron).addTraits(SkullStats.ID, ModifierIds.revenge, ModifierIds.zombifiedPiglinDisguise);
+    // crafted
+    material(MaterialIds.venombone).addTraits(SkullStats.ID, ModifierIds.magicBones, ModifierIds.skeletonDisguise);
+    material(MaterialIds.blazingBone).addTraits(SkullStats.ID, ModifierIds.flamingBones, ModifierIds.witherSkeletonDisguise);
+    material(MaterialIds.necronium).addTraits(SkullStats.ID, ModifierIds.decayedBones, ModifierIds.witherSkeletonDisguise);
+    material(MaterialIds.knightmetal).addTraits(SkullStats.ID, ModifierIds.spitting);
     // slimesuit
-    noTraits(MaterialIds.earthslime);
-    noTraits(MaterialIds.skyslime);
     noTraits(MaterialIds.blood);
-    noTraits(MaterialIds.magma);
-    noTraits(MaterialIds.ichor);
-    noTraits(MaterialIds.enderslime);
     noTraits(MaterialIds.clay);
     noTraits(MaterialIds.honey);
     noTraits(MaterialIds.phantom);

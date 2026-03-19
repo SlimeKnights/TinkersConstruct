@@ -1,0 +1,13 @@
+{
+  "title": "Extract Enchantment",
+  "image": {
+    "file": "tconstruct:book/images/worktable/extract_enchantment.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "Did your friend give you a tool using inferior \"enchanting\"? Not a total waste of space. You can use enderslime crystals and dragon's breath to turn an enchantment on a tool or book into an upgrade modifier crystal. You can do this multiple times until you pulled each enchantment off that item."
+    }
+  ]
+}

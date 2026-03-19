@@ -18,13 +18,9 @@ public class StaticModifier<T extends Modifier> extends LazyModifier {
     return result;
   }
 
-  /** Returns true if this static modifier has a value. A return of true here means its safe to call {@link #get()} */
   @Override
   public boolean isBound() {
-    if (!ModifierManager.INSTANCE.isModifiersRegistered()) {
-      return false;
-    }
-    return getUnchecked() != ModifierManager.INSTANCE.getDefaultValue();
+    return ModifierManager.INSTANCE.isModifiersRegistered() && getUnchecked() != ModifierManager.INSTANCE.getDefaultValue();
   }
 
   /**
@@ -36,7 +32,7 @@ public class StaticModifier<T extends Modifier> extends LazyModifier {
   @Override
   public T get() {
     if (!ModifierManager.INSTANCE.isModifiersRegistered()) {
-      throw new IllegalStateException("Cannot fetch a static modifiers before modifiers are registered");
+      throw new IllegalStateException("Cannot fetch a static modifier before modifiers are registered");
     }
     Modifier result = getUnchecked();
     if (result == ModifierManager.INSTANCE.getDefaultValue()) {

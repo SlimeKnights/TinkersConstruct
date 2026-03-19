@@ -7,7 +7,12 @@
     "tconstruct:dagger",
     "tconstruct:sword",
     "tconstruct:cleaver",
+    "tconstruct:javelin",
     "tconstruct:battlesign",
-    "tconstruct:swasher"
+    "tconstruct:swasher",
+    {
+      "id": "tconstruct:minotaur_axe",
+      "required": false
+    }
   ]
 }

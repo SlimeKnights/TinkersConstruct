@@ -36,26 +36,25 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ContentModifier extends PageContent {
-  public static final transient ResourceLocation ID = TConstruct.getResource("modifier");
-  public static final transient int TEX_SIZE = 256;
+  public static final ResourceLocation ID = TConstruct.getResource("modifier");
+  public static final int TEX_SIZE = 256;
   public static final ResourceLocation BOOK_MODIFY = TConstruct.getResource("textures/gui/book/modify.png");
-  private static final transient String KEY_EFFECTS = TConstruct.makeTranslationKey("book", "modifiers.effect");
+  private static final String KEY_EFFECTS = TConstruct.makeTranslationKey("book", "modifiers.effect");
 
-  public static final transient ImageData IMG_SLOT_1 = new ImageData(BOOK_MODIFY, 0, 75, 22, 22, TEX_SIZE, TEX_SIZE);
-  public static final transient ImageData IMG_SLOT_2 = new ImageData(BOOK_MODIFY, 0, 97, 40, 22, TEX_SIZE, TEX_SIZE);
-  public static final transient ImageData IMG_SLOT_3 = new ImageData(BOOK_MODIFY, 0, 119, 58, 22, TEX_SIZE, TEX_SIZE);
-  public static final transient ImageData IMG_SLOT_4 = new ImageData(BOOK_MODIFY, 0, 141, 40, 40, TEX_SIZE, TEX_SIZE);
-  public static final transient ImageData IMG_SLOT_5 = new ImageData(BOOK_MODIFY, 0, 181, 58, 41, TEX_SIZE, TEX_SIZE);
-  public static final transient ImageData IMG_TABLE = new ImageData(BOOK_MODIFY, 214, 0, 42, 46, TEX_SIZE, TEX_SIZE);
-  public static final transient ImageData[] IMG_SLOTS = new ImageData[]{IMG_SLOT_1, IMG_SLOT_2, IMG_SLOT_3, IMG_SLOT_4, IMG_SLOT_5};
+  public static final ImageData IMG_SLOT_1 = new ImageData(BOOK_MODIFY, 0, 75, 22, 22, TEX_SIZE, TEX_SIZE);
+  public static final ImageData IMG_SLOT_2 = new ImageData(BOOK_MODIFY, 0, 97, 40, 22, TEX_SIZE, TEX_SIZE);
+  public static final ImageData IMG_SLOT_3 = new ImageData(BOOK_MODIFY, 0, 119, 58, 22, TEX_SIZE, TEX_SIZE);
+  public static final ImageData IMG_SLOT_4 = new ImageData(BOOK_MODIFY, 0, 141, 40, 40, TEX_SIZE, TEX_SIZE);
+  public static final ImageData IMG_SLOT_5 = new ImageData(BOOK_MODIFY, 0, 181, 58, 41, TEX_SIZE, TEX_SIZE);
+  public static final ImageData IMG_TABLE = new ImageData(BOOK_MODIFY, 214, 0, 42, 46, TEX_SIZE, TEX_SIZE);
+  public static final ImageData[] IMG_SLOTS = new ImageData[]{IMG_SLOT_1, IMG_SLOT_2, IMG_SLOT_3, IMG_SLOT_4, IMG_SLOT_5};
 
-  public static final transient int[] SLOTS_X = new int[]{3, 21, 39, 12, 30};
-  public static final transient int[] SLOTS_Y = new int[]{3, 3, 3, 22, 22};
-  public static final transient int[] SLOTS_X_4 = new int[]{3, 21, 3, 21};
-  public static final transient int[] SLOTS_Y_4 = new int[]{3, 3, 22, 22};
+  public static final int[] SLOTS_X = new int[]{3, 21, 39, 12, 30};
+  public static final int[] SLOTS_Y = new int[]{3, 3, 3, 22, 22};
+  public static final int[] SLOTS_X_4 = new int[]{3, 21, 3, 21};
+  public static final int[] SLOTS_Y_4 = new int[]{3, 3, 22, 22};
 
   @Nullable
   private transient Modifier modifier;
@@ -78,7 +77,7 @@ public class ContentModifier extends PageContent {
   public String modifierID;
   /** Tag filter to limit tools that display on a page */
   @SerializedName("tool_filter")
-  public String toolFilter = null;
+  public ResourceLocation toolFilter = null;
 
   /** Default constructor for page loader */
   public ContentModifier() {}
@@ -110,7 +109,7 @@ public class ContentModifier extends PageContent {
       return null;
     }
     if (this.toolFilterTag == null) {
-      this.toolFilterTag = TagKey.create(Registries.ITEM, new ResourceLocation(toolFilter));
+      this.toolFilterTag = TagKey.create(Registries.ITEM, toolFilter);
     }
     return this.toolFilterTag;
   }
@@ -130,7 +129,12 @@ public class ContentModifier extends PageContent {
       } else {
         Level level = Minecraft.getInstance().level;
         assert level != null;
-        this.recipes = RecipeHelper.getJEIRecipes(level.registryAccess(), level.getRecipeManager(), TinkerRecipeTypes.TINKER_STATION.get(), IDisplayModifierRecipe.class).stream().filter(recipe -> recipe.getDisplayResult().matches(modifier)).collect(Collectors.toList());
+        TagKey<Item> filter = getToolFilterTag();
+        // TODO: feel we can speed this up by not fetching the whole recipes list for every page
+        this.recipes = RecipeHelper.getJEIRecipes(level.registryAccess(), level.getRecipeManager(), TinkerRecipeTypes.TINKER_STATION.get(), IDisplayModifierRecipe.class).stream()
+          // must output this modifier, and must have at least 1 tool that matches the filter
+          .filter(recipe -> recipe.getDisplayResult().matches(modifier) && (filter == null || recipe.getToolWithoutModifier().stream().anyMatch(tool -> tool.is(filter))))
+          .toList();
       }
     }
   }
@@ -147,7 +151,7 @@ public class ContentModifier extends PageContent {
 
     // description
     int y = getTitleHeight();
-    int h = more_text_space ? BookScreen.PAGE_HEIGHT * 2 / 5 : BookScreen.PAGE_HEIGHT * 2 / 7;
+    int h = more_text_space ? BookScreen.PAGE_HEIGHT / 2 - 5 : BookScreen.PAGE_HEIGHT * 2 / 7;
     list.add(new TextElement(5, y, BookScreen.PAGE_WIDTH - 10, h, text));
 
     if (this.effects.length > 0) {
@@ -159,12 +163,10 @@ public class ContentModifier extends PageContent {
       List<TextData> effectData = Lists.newArrayList();
 
       for (String e : this.effects) {
-        effectData.add(new TextData("\u25CF "));
-        effectData.add(new TextData(e));
-        effectData.add(new TextData("\n"));
+        effectData.add(new TextData("● " + e).linebreak(true));
       }
 
-      list.add(new TextElement(5, y + 14 + h, BookScreen.PAGE_WIDTH / 2 + 5, BookScreen.PAGE_HEIGHT - h - 20, effectData));
+      list.add(new TextElement(5, y + 14 + h, BookScreen.PAGE_WIDTH / 2 + 7, BookScreen.PAGE_HEIGHT - h - 20, effectData));
     }
 
     int size = recipes.size();
