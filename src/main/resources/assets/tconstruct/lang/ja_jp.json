@@ -1774,7 +1774,7 @@
   "material.tconstruct.ice": "氷",
   "material.tconstruct.ice.flavor": "凍結！",
   "material.tconstruct.ice.armor": "受けた氷結ダメージを耐久力に変換する",
-  "material.tconstruct.ice.ammo": "対象をレベル✕4秒間凍結させ、移動速度の低下と継続ダメージを与える",
+  "material.tconstruct.ice.ammo": "対象をレベル×4秒間凍結させ、移動速度の低下と継続ダメージを与える",
   "material.tconstruct.ice.skull_flavor": "骨の髄まで凍りつく",
   "material.tconstruct.ice.skull_encyclopedia": "移動速度低下Iを無効化する。投射物は、対象に15秒間の移動速度低下IIの効果を与える",
 
@@ -1792,13 +1792,13 @@
   "material.tconstruct.rock.blackstone": "ブラックストーン",
   "material.tconstruct.rock.calcite": "方解石",
   "material.tconstruct.rock.flavor": "堅実",
-  "material.tconstruct.rock.encyclopedia": "失った耐久度の平方根✕レベル%採掘速度が増加する。耐久力補正は失った耐久度の量分の1になる",
+  "material.tconstruct.rock.encyclopedia": "失った耐久度の平方根×レベル%採掘速度が増加する。耐久力補正は失った耐久度の量分の1になる",
 
   "material.tconstruct.flint": "火打石",
   "material.tconstruct.flint.basalt": "玄武岩",
   "material.tconstruct.flint.deepslate": "深層岩",
   "material.tconstruct.flint.flavor": "ティンカーの心が燃え上がる！",
-  "material.tconstruct.flint.encyclopedia": "失った耐久度の平方根✕レベル÷2%だけ攻撃力が増加する。耐久力補正は失った耐久度の量分の1になる",
+  "material.tconstruct.flint.encyclopedia": "失った耐久度の平方根×レベル÷2%だけ攻撃力が増加する。耐久力補正は失った耐久度の量分の1になる",
   "material.tconstruct.flint.ammo": "ポーションに浸すことができる。そうしたなら、ダメージに加えてポーションの効果を与える",
 
   "material.tconstruct.bone": "骨",
@@ -1812,8 +1812,8 @@
 
   "material.tconstruct.necrotic_bone": "ネクロボーン",
   "material.tconstruct.necrotic_bone.flavor": "骨は拾ってやる",
-  "material.tconstruct.necrotic_bone.encyclopedia": "クリティカル攻撃で与えたダメージのレベル✕5%だけ回復する",
-  "material.tconstruct.necrotic_bone.ranged": "矢がヒットした場合、レベル✕5%だけクリティカル攻撃で与えたダメージ回復する",
+  "material.tconstruct.necrotic_bone.encyclopedia": "クリティカル攻撃で与えたダメージのレベル×5%だけ回復する",
+  "material.tconstruct.necrotic_bone.ranged": "矢がヒットした場合、レベル×5%だけクリティカル攻撃で与えたダメージ回復する",
   "material.tconstruct.necrotic_bone.skull_flavor": "不気味で怖いスケルトン！",
   "material.tconstruct.necrotic_bone.skull_encyclopedia": "ダメージを受けた時、防具で軽減された後のダメージの50%分が、時間経過で回復する",
 
@@ -1891,7 +1891,7 @@
   "material.tconstruct.venombone": "ヴェノムボーン",
   "material.tconstruct.venombone.flavor": "敵の悩みの種になれ。",
   "material.tconstruct.venombone.encyclopedia": "毒状態時に近接攻撃ダメージが0.5+毒レベル増加する",
-  "material.tconstruct.venombone.ranged": "毒状態時に弓引き速度補正が0.5+0.1✕毒レベル増加する",
+  "material.tconstruct.venombone.ranged": "毒状態時に弓引き速度補正が0.5+0.1×毒レベル増加する",
   "material.tconstruct.venombone.armor": "命中した際、15%の確率で攻撃者に毒を付与する。また5～10秒間（ブロックした場合は最大15秒間）、魔法ダメージが2倍になる",
   "material.tconstruct.venombone.ammo": "対象に毒を付与する。5～10秒間、魔法ダメージが2倍になる",
   "material.tconstruct.venombone.skull_flavor": "魔法の弱点を突く",
@@ -1986,7 +1986,7 @@
   "material.tconstruct.blaze.flavor": "全部燃やしてしまえ",
   "material.tconstruct.blaze.ammo": "矢に火をつけ、レベルごとに5秒間、標的を燃やし続ける",
   "material.tconstruct.blaze.skull_flavor": "「燃えすぎている」と感じている？それとも、逆に「燃え足りない」と感じている？どちらにしても、これはぴったりのものだ",
-  "material.tconstruct.blaze.skull_encyclopedia": "攻撃（近接攻撃と遠距離攻撃の両方）を受けると、対象は5秒間炎上する。また、炎上によるダメージを受けなくなる",
+  "material.tconstruct.blaze.skull_encyclopedia": "攻撃（近接攻撃と遠距離攻撃のどちらでも）を受けると、対象は5秒間炎上する。また、炎上によるダメージを受けなくなる",
 
   "material.tconstruct.ender_pearl": "エンダーパール",
   "material.tconstruct.ender_pearl.flavor": "パールを得る安全な方法",
@@ -2015,7 +2015,7 @@
 
   "material.tconstruct.nahuatl": "ナワトル",
   "material.tconstruct.nahuatl.flavor": "これは黒曜石の部品ではない、もしそうなら「黒曜石」と表現する。",
-  "material.tconstruct.nahuatl.encyclopedia": "レベル✕2秒間、毎秒1ダメージを与える。連続してヒットした場合、このダメージは蓄積される",
+  "material.tconstruct.nahuatl.encyclopedia": "レベル×2秒間、毎秒1ダメージを与える。連続してヒットした場合、このダメージは蓄積される",
   "material.tconstruct.nahuatl.armor": "25%の確率（ブロック時は50%）で、攻撃してきた相手に持続ダメージ効果を付与し、ダメージはレベルが上がると最大5まで上がる",
 
   "material.tconstruct.obsidian": "黒曜石",
@@ -2104,7 +2104,7 @@
 
   "material.tconstruct.ichor": "イコル",
   "material.tconstruct.ichor.flavor": "水切り",
-  "material.tconstruct.ichor.ammo": "弾はブロックに当たるとレベル✕2+1回まで跳ね返る。ターゲットに当たるまでの間、跳ね返るたびにレベルごとに威力が0.5ずつ上昇する",
+  "material.tconstruct.ichor.ammo": "弾はブロックに当たるとレベル×2+1回まで跳ね返る。ターゲットに当たるまでの間、跳ね返るたびにレベルごとに威力が0.5ずつ上昇する",
 
   "material.tconstruct.magma": "マグマ",
   "material.tconstruct.magma.flavor": "炎上！",
@@ -2156,7 +2156,7 @@
   "material.tconstruct.knightslime.flavor": "ぬめりがあるのに金属的で、しかも石のよう？実に興味深い！",
   "material.tconstruct.knightslime.encyclopedia": "レベルごとにオーバースライムを1（または広範囲の採掘の場合はレベルごとに5）消費し、レベルごとに採掘速度+20%および攻撃速度+15%の効果が得る",
   "material.tconstruct.knightslime.ranged": "レベルごとにオーバースライムを1消費し、速度補正と弓引き速度が+0.06される",
-  "material.tconstruct.knightslime.armor": "レベル✕2までのオーバースライムを消費し、消費したオーバースライムにつきダメージを2.5%軽減する（最大はレベル✕5%）",
+  "material.tconstruct.knightslime.armor": "レベル×2までのオーバースライムを消費し、消費したオーバースライムにつきダメージを2.5%軽減する（最大はレベル×5%）",
 
   "material.tconstruct.enderslime_vine": "べとつくツタ",
   "material.tconstruct.enderslime_vine.slimeskin": "スライムスキン",
@@ -2226,7 +2226,7 @@
 
   "material.tconstruct.magnetite": "マグネタイト",
   "material.tconstruct.magnetite.flavor": "天然の磁気",
-  "material.tconstruct.magnetite.ammo": "半径レベル✕3ブロック以内のモブを、飛翔体が命中した場所へと引き寄せる",
+  "material.tconstruct.magnetite.ammo": "半径レベル×3ブロック以内のモブを、飛翔体が命中した場所へと引き寄せる",
 
   "material.tconstruct.bronze": "青銅",
   "material.tconstruct.bronze.flavor": "アメジスト青銅と混同しないように。",
@@ -2256,7 +2256,7 @@
   "material.tconstruct.electrum.flavor": "電子部品に良い。",
   "material.tconstruct.electrum.encyclopedia": "水中の対象に対してはレベルごとに+2のダメージを与え、雨の中の対象に対してはレベルごとに+1のダメージを与える",
   "material.tconstruct.electrum.ranged": "飛翔体攻撃力補正は、水中の対象に対して+1、雨の中の対象に対して+0.5増加する",
-  "material.tconstruct.electrum.armor": "水中の攻撃してきた相手にはレベル✕20%の確率で、雨の中の攻撃してきた相手にはレベル✕10%の確率で、2～5のダメージを与える",
+  "material.tconstruct.electrum.armor": "水中の攻撃してきた相手にはレベル×20%の確率で、雨の中の攻撃してきた相手にはレベル×10%の確率で、2～5のダメージを与える",
 
   "material.tconstruct.necronium": "ネクロニウム",
   "material.tconstruct.necronium.flavor": "この大量の崩壊は恐らく自身の寿命の1/4を犠牲にする",

@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:fiery",
   "text": [
     {
-      "text": "放たれた矢に火が付き、命中した相手を炎上させます。"
+      "text": "(5×レベル)秒間、放たれた矢に火が付き、命中した相手を炎上させます。"
     }
   ],
   "more_text_space": true,

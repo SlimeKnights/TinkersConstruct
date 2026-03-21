@@ -6,8 +6,5 @@
     }
   ],
   "more_text_space": true,
-  "effects": [
-    "1回のみ",
-    "スロット不要"
-  ]
+  "effects": ["最大1レベル", "スロット不要"]
 }

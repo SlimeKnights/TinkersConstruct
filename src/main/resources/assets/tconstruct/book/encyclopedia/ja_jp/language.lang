@@ -1,9 +1,10 @@
 intro=はじめに
 
 tools=道具
-tools.small_tools=小型道具
-tools.large_tools=大型道具
-tools.group_ancient=古代の道具
+tools.small_tools=小型
+tools.large_tools=大型
+tools.group_ranged=遠距離
+tools.group_ancient=古代
 tools.group_staff=杖
 tools.tconstruct.earth_staff=アーススライム
 tools.tconstruct.sky_staff=スカイスライム
@@ -11,10 +12,12 @@ tools.tconstruct.ichor_staff=イコル
 tools.tconstruct.ender_staff=エンダースライム
 armor=防具
 
-materials_harvest=近接/収穫用素材
+materials_harvest=汎用素材
 materials_harvest.subtext=近接武器、収穫用道具を作成するために使用する素材です。
 materials_ranged=遠距離用素材
 materials_ranged.subtext=遠距離武器を作成するために使用する素材です。
+materials_ammo=発射物用素材
+materials_ammo.subtext=矢や手裏剣のような武器を作成するために使用する素材です。
 materials_armor=防具用素材
 materials_armor.subtext=防具を作成するために使用する素材です。
 materials_skull=スライムスカル
@@ -46,6 +49,7 @@ slotless=スロット不要
 slotless.subtext=スロット不要の改造は、適用にスロットを必要としません。
 slotless.group_general=一般
 slotless.group_bonus=ボーナス
+slotless.group_cosmetic=装飾
 
 abilities=アビリティ
 abilities.subtext=アビリティの改造は、アップグレードよりスロットが少ないですが、1スロットあたりの効果は大きいです。
