@@ -1,0 +1,9 @@
+{
+  "modifier_id": "tconstruct:redirected",
+  "text": [
+    {
+      "text": "矢の進行方向を、元の方向に戻しましょう。"
+    }
+  ],
+  "effects": ["矢じりの特性をコピーする", "単一レベル", "スロット不要"]
+}
