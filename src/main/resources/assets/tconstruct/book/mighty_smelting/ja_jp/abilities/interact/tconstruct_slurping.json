@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:slurping",
+  "text": [
+    {
+      "text": "んん～、デリシャス！"
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/interactable/charge",
+  "effects": [
+    "使用することで、道具内のタンクの液体を飲むことができる",
+    "レベルごとにアビリティスロットが1つ必要",
+    "レベルが上がると効果も強くなる"
+  ]
+}
