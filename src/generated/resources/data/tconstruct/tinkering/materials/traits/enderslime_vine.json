@@ -3,6 +3,10 @@
     {
       "level": 1,
       "name": "tconstruct:enderporting"
+    },
+    {
+      "level": 1,
+      "name": "tconstruct:overslime_friend"
     }
   ],
   "perStat": {
@@ -10,6 +14,10 @@
       {
         "level": 1,
         "name": "tconstruct:enderclearance"
+      },
+      {
+        "level": 1,
+        "name": "tconstruct:overslime_friend"
       }
     ]
   }

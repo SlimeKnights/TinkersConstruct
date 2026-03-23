@@ -42,7 +42,7 @@
         "minecraft:trims/items/leggings_trim",
         "minecraft:trims/items/boots_trim",
         "tconstruct:item/tool/armor/travelers/goggles/trim",
-        "tconstruct:item/tool/armor/slime/wings_trim"
+        "tconstruct:item/tool/armor/slime/wings/trim"
       ]
     },
     {
@@ -62,7 +62,7 @@
       },
       "textures": [
         "tconstruct:item/tool/armor/travelers/goggles/trim",
-        "tconstruct:item/tool/armor/slime/wings_trim"
+        "tconstruct:item/tool/armor/slime/wings/trim"
       ]
     },
     {

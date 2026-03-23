@@ -1,13 +1,9 @@
 {
-  "type": "tconstruct:casting_basin",
+  "type": "tconstruct:basin_tool_casting",
   "cast": {
     "item": "minecraft:elytra"
   },
-  "cast_consumed": true,
-  "cooling_time": 300,
-  "fluid": {
-    "amount": 8000,
-    "tag": "tconstruct:ender_slime"
-  },
+  "cast_purpose": "consumed",
+  "item_cost": 8,
   "result": "tconstruct:slime_chestplate"
 }

@@ -1,0 +1,25 @@
+{
+  "level_display": "tconstruct:single_level",
+  "modules": [
+    {
+      "type": "tconstruct:attribute",
+      "attribute": "forge:swim_speed",
+      "each_level": 0.1,
+      "operation": "multiply_total",
+      "slots": [
+        "mainhand",
+        "offhand",
+        "feet",
+        "legs",
+        "chest",
+        "head"
+      ]
+    },
+    {
+      "type": "tconstruct:constant_enchantment",
+      "level": 1,
+      "name": "minecraft:respiration"
+    }
+  ],
+  "tooltip_display": "always"
+}

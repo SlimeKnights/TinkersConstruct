@@ -6,6 +6,12 @@
     }
   ],
   "perStat": {
+    "tconstruct:laces": [
+      {
+        "level": 1,
+        "name": "tconstruct:looter"
+      }
+    ],
     "tconstruct:skull": [
       {
         "level": 1,

@@ -141,6 +141,14 @@ public abstract class AbstractToolDefinitionDataProvider extends GenericDataProv
       return this;
     }
 
+    /** Adds a module to the definition for the given slots */
+    public ArmorDataBuilder module(ToolModule module, ArmorItem.Type... slotTypes) {
+      for (ArmorItem.Type slot : slotTypes) {
+        getBuilder(slot).module(module);
+      }
+      return this;
+    }
+
 
     /** Adds a module to the definition with the given hooks */
     @SafeVarargs

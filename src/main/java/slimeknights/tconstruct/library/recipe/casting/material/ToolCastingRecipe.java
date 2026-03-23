@@ -15,6 +15,7 @@ import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.recipe.IMultiRecipe;
 import slimeknights.mantle.recipe.helper.LoadableRecipeSerializer;
 import slimeknights.mantle.recipe.helper.TypeAwareRecipeSerializer;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
 import slimeknights.tconstruct.library.json.predicate.material.MaterialPredicate;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
@@ -59,9 +60,14 @@ public class ToolCastingRecipe extends PartSwapCastingRecipe implements IMultiRe
   protected ToolCastingRecipe(TypeAwareRecipeSerializer<?> serializer, ResourceLocation id, String group, Ingredient cast, int itemCost, CastPurpose castPurpose, IModifiable result, IJsonPredicate<MaterialVariantId> allowedMaterials, List<MaterialVariantId> extraMaterials) {
     super(serializer, id, group, cast, itemCost, castPurpose.swapIndex, allowedMaterials);
     this.result = result;
-    this.castPurpose = castPurpose;
     this.extraMaterials = extraMaterials;
     CastingRecipeLookup.registerCastable(result);
+    if (castPurpose == CastPurpose.CONSUMED_OFFSET && extraMaterials.isEmpty()) {
+      TConstruct.LOG.error("Error creating recipe {}: Cannot use cast purpose of consume offset for a tool casting recipe with no extra materials, subbing in consumed.", id);
+      this.castPurpose = CastPurpose.CONSUMED;
+    } else {
+      this.castPurpose = castPurpose;
+    }
   }
 
   /** @deprecated use {@link #ToolCastingRecipe(TypeAwareRecipeSerializer, ResourceLocation, String, Ingredient, int, CastPurpose, IModifiable, IJsonPredicate, List)} */
@@ -112,6 +118,11 @@ public class ToolCastingRecipe extends PartSwapCastingRecipe implements IMultiRe
       // figure out how to apply our materials
       MaterialVariant fluidMaterial = getFluidRecipe(inv).getOutput();
       MaterialNBT.Builder materials = MaterialNBT.builder();
+      // in offset mode, the first extra material goes before the fluid material
+      boolean offset = castPurpose == CastPurpose.CONSUMED_OFFSET && !extraMaterials.isEmpty();
+      if (offset) {
+        materials.add(extraMaterials.get(0));
+      }
 
       // if the cast material goes second, need our material now
       if (castPurpose == CastPurpose.SECOND_MATERIAL) {
@@ -127,7 +138,13 @@ public class ToolCastingRecipe extends PartSwapCastingRecipe implements IMultiRe
         materials.add(fluidMaterial);
       }
       // add extra materials
-      materials.add(extraMaterials);
+      if (offset) {
+        for (int i = 1; i < extraMaterials.size(); i++) {
+          materials.add(extraMaterials.get(i));
+        }
+      } else {
+        materials.add(extraMaterials);
+      }
       return ToolBuildHandler.buildItemFromMaterials(result, materials.build());
     }
   }
@@ -160,7 +177,7 @@ public class ToolCastingRecipe extends PartSwapCastingRecipe implements IMultiRe
           castPurpose = requirements.size() > 1 ? CastPurpose.FIRST_MATERIAL : CastPurpose.CONSUMED;
           requirement = requirements.get(requirements.size() - 1);
           // if the cast is the first material, use index 1 for the output requirement, though skip if invalid tool definition
-        } else if (castPurpose == CastPurpose.FIRST_MATERIAL && requirements.size() > 1) {
+        } else if ((castPurpose == CastPurpose.FIRST_MATERIAL || castPurpose == CastPurpose.CONSUMED_OFFSET) && requirements.size() > 1) {
           requirement = requirements.get(1);
         } else {
           requirement = requirements.get(0);
@@ -168,6 +185,7 @@ public class ToolCastingRecipe extends PartSwapCastingRecipe implements IMultiRe
 
         // if we have a cast material, add it to display stacks
         boolean first = castPurpose == CastPurpose.FIRST_MATERIAL;
+        boolean offset = castPurpose == CastPurpose.CONSUMED_OFFSET && !extraMaterials.isEmpty();
         if (first || castPurpose == CastPurpose.SECOND_MATERIAL) {
           MaterialVariant castMaterial = MaterialVariant.of(MaterialRegistry.firstWithStatType(requirements.get(1 - castPurpose.swapIndex)));
           materials = (mat, casts) -> casts.stream().map(cast -> {
@@ -191,14 +209,30 @@ public class ToolCastingRecipe extends PartSwapCastingRecipe implements IMultiRe
           } else {
             partSwapMaterials.add(dummyRequirement).add(castMaterial);
           }
+        } else if (offset) {
+          materials = (mat, casts) -> {
+            MaterialNBT.Builder builder = MaterialNBT.builder();
+            builder.add(extraMaterials.get(0)).add(mat);
+            for (int i = 1; i < extraMaterials.size(); i++) {
+              builder.add(extraMaterials.get(i));
+            }
+            return List.of(ToolBuildHandler.buildItemFromMaterials(result, builder.build()));
+          };
+          partSwapMaterials.add(extraMaterials.get(0)).add(dummyRequirement);
+          for (int i = 1; i < extraMaterials.size(); i++) {
+            partSwapMaterials.add(extraMaterials.get(i));
+          }
         } else {
           // no cast material? just show the fluid material
           materials = (mat, casts) -> List.of(ToolBuildHandler.buildItemFromMaterials(result, MaterialNBT.builder().add(mat).add(extraMaterials).build()));
           partSwapMaterials.add(dummyRequirement);
         }
-
+        // consumed offset already handled extra materials
+        if (!offset) {
+          partSwapMaterials.add(extraMaterials);
+        }
         // build part swap tool, mark as display so tooltip does not show useless stats
-        ItemStack partSwapDisplay = ToolBuildHandler.buildItemFromMaterials(result, partSwapMaterials.add(extraMaterials).build());
+        ItemStack partSwapDisplay = ToolBuildHandler.buildItemFromMaterials(result, partSwapMaterials.build());
         partSwapDisplay.getOrCreateTag().putBoolean(TooltipUtil.KEY_DISPLAY, true);
 
         List<ItemStack> casts = List.of(getCast().getItems());
@@ -257,6 +291,8 @@ public class ToolCastingRecipe extends PartSwapCastingRecipe implements IMultiRe
     CATALYST(0),
     /** Cast is consumed, but has no material purpose */
     CONSUMED(0),
+    /** Cast is consumed, but has no material purpose. However, an extra material will set material 1 on the tool */
+    CONSUMED_OFFSET(1),
     /** Cast is consumed, and becomes the first material with the fluid the second. */
     FIRST_MATERIAL(1),
     /** Cast is consumed, and becomes the second material with the fluid the first. */

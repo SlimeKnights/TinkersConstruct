@@ -2,6 +2,7 @@
   "color": "FFA1A7B1",
   "generator": {
     "supported_stats": [
+      "tconstruct:slime",
       "tconstruct:slimesuit"
     ],
     "transformer": {

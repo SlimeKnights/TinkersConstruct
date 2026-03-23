@@ -3,6 +3,9 @@
   "text": [
     {
       "text": "Combine armor trim templates with a trim material to add +1 defense slot and a colored variant of a unique texture to the armor."
+    },
+    {
+      "text": "On the slimesuit, grants an extra copy of the slime trait instead of a defense slot.", "paragraph": true
     }
   ],
   "more_text_space": true,

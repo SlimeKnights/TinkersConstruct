@@ -5,6 +5,7 @@
   ],
   "generator": {
     "supported_stats": [
+      "tconstruct:slime",
       "tconstruct:slimesuit",
       "tconstruct:fletching"
     ],

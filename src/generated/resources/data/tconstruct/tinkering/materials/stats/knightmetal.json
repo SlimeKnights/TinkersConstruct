@@ -55,7 +55,6 @@
       "toughness": 2.0
     },
     "tconstruct:skull": {
-      "armor": 1,
       "durability": 220
     }
   }

@@ -1,0 +1,18 @@
+{
+  "level_display": "tconstruct:single_level",
+  "modules": [
+    {
+      "type": "tconstruct:trait",
+      "fixed_level": true,
+      "level": 1,
+      "name": "tconstruct:pocket"
+    },
+    {
+      "type": "tconstruct:trait",
+      "fixed_level": false,
+      "level": 1,
+      "name": "tconstruct:pocket"
+    }
+  ],
+  "tooltip_display": "always"
+}

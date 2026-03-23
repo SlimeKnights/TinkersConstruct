@@ -1,8 +1,16 @@
 {
-  "default": [
-    {
-      "level": 1,
-      "name": "tconstruct:attractive"
-    }
-  ]
+  "perStat": {
+    "tconstruct:ammo": [
+      {
+        "level": 1,
+        "name": "tconstruct:attractive"
+      }
+    ],
+    "tconstruct:shell": [
+      {
+        "level": 1,
+        "name": "tconstruct:magnetic"
+      }
+    ]
+  }
 }

@@ -14,11 +14,11 @@ import slimeknights.tconstruct.tools.data.material.MaterialIds;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 import slimeknights.tconstruct.tools.stats.LimbMaterialStats;
 import slimeknights.tconstruct.tools.stats.PlatingMaterialStats;
+import slimeknights.tconstruct.tools.stats.SlimeStats;
 import slimeknights.tconstruct.tools.stats.StatlessMaterialStats;
 
 import static slimeknights.tconstruct.TConstruct.getResource;
 import static slimeknights.tconstruct.tools.data.sprite.TinkerPartSpriteProvider.INGOT;
-import static slimeknights.tconstruct.tools.data.sprite.TinkerPartSpriteProvider.SLIMESUIT;
 import static slimeknights.tconstruct.tools.data.sprite.TinkerPartSpriteProvider.STORAGE_BLOCK;
 import static slimeknights.tconstruct.tools.data.sprite.TinkerPartSpriteProvider.WOOD;
 
@@ -42,6 +42,7 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       // not using the helper to avoid catching armor models
       .statType(PlatingMaterialStats.TYPES)
       .statType(StatlessMaterialStats.SHIELD_CORE, StatlessMaterialStats.MAILLE, StatlessMaterialStats.CUIRASS)
+      .statType(SlimeStats.ID)
       .colorMapper(GreyToColorMapping.builder().addARGB(63, 0xFF000000).addARGB(102, 0xFF222222).addARGB(103, 0x00000000).build());
 
     // tier 1
@@ -415,7 +416,7 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .repairKit().arrowHead().fallbacks("crystal")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF7BAEB7).addARGB(102, 0xFFA8D0D9).addARGB(140, 0x00000000).addARGB(216, 0x00000000).addARGB(255, 0xFFD0EAE9).build());
     buildMaterial(MaterialIds.enderPearl)
-      .repairKit().arrowHead().fallbacks("rock")
+      .repairKit().arrowHead().fallbacks("rock").slime()
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF032620).addARGB(102, 0xFF0C3730).addARGB(140, 0xFF0B4D42).addARGB(178, 0xFF105E51).addARGB(216, 0xFF349988).addARGB(255, 0xFF8CF4E2).build());
     // slimesuit
     buildMaterial(MaterialIds.phantom)
@@ -426,31 +427,27 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
     IColorMapping skyslime   = GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF2F5351).addARGB(102, 0xFF3B6D6D).addARGB(127, 0xFF49807E).addARGB(140, 0xFF4F918F).addARGB(178, 0xFF63ACAB).addARGB(193, 0xFF6DBEBD).addARGB(216, 0xFF82D7D5).addARGB(255, 0xFFC9F4FE).build();
     IColorMapping ichor      = GreyToColorMapping.builderFromBlack().addARGB(63, 0xFFB04000).addARGB(102, 0xFFD35200).addARGB(127, 0xFFEC5E00).addARGB(140, 0xFFFF6E05).addARGB(178, 0xFFFF8324).addARGB(193, 0xFFFF9F50).addARGB(216, 0xFFFFB97C).addARGB(255, 0xFFFFE1BF).build();
     IColorMapping enderslime = GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF6300B0).addARGB(102, 0xFF790DC6).addARGB(127, 0xFF8819D3).addARGB(140, 0xFF9727DD).addARGB(178, 0xFFA936ED).addARGB(193, 0xFFBF58F7).addARGB(216, 0xFFD37CFF).addARGB(255, 0xFFEEBFFF).build();
-    buildMaterial(MaterialIds.earthslime).statType(SLIMESUIT).arrowHead().fletching().colorMapper(earthslime);
+    buildMaterial(MaterialIds.earthslime).slime().arrowHead().fletching().colorMapper(earthslime);
     buildMaterial(MaterialIds.slimeskin).fallbacks("cloth").statType(StatlessMaterialStats.BOWSTRING).cuirass().maille().colorMapper(earthslime);
-    buildMaterial(MaterialIds.skyslime).statType(SLIMESUIT).arrowHead().fletching().colorMapper(skyslime);
+    buildMaterial(MaterialIds.skyslime).slime().arrowHead().fletching().colorMapper(skyslime);
     buildMaterial(MaterialIds.skyslimeVine).statType(StatlessMaterialStats.BINDING, StatlessMaterialStats.BOWSTRING).cuirass().maille().fallbacks("primitive", "cloth").colorMapper(skyslime);
-    buildMaterial(MaterialIds.ichor).statType(SLIMESUIT).arrowHead().fletching().colorMapper(ichor);
+    buildMaterial(MaterialIds.ichor).slime().arrowHead().fletching().colorMapper(ichor);
     buildMaterial(MaterialIds.ichorskin).fallbacks("cloth").cuirass().maille().colorMapper(ichor);
     buildMaterial(MaterialIds.enderslime).repairKit().arrowHead().fletching().colorMapper(enderslime);
     buildMaterial(MaterialIds.enderslimeVine).statType(StatlessMaterialStats.BINDING, StatlessMaterialStats.BOWSTRING).cuirass().maille().fallbacks("primitive", "cloth").colorMapper(enderslime);
     buildMaterial(MaterialIds.magma)
-      .fallbacks("contrast").statType(SLIMESUIT).fletching()
+      .fallbacks("contrast").slime().fletching()
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFFCA4E06).addARGB(102, 0xFFE66410).addARGB(126, 0xFFF48522).addARGB(127, 0xFF411616).addARGB(170, 0xFF501B1B).addARGB(216, 0xFF652828).addARGB(255, 0xFF723232).build());
     // pseudoslime
     buildMaterial(MaterialIds.blood)
-      .statType(SLIMESUIT)
+      .slime()
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF5D0000).addARGB(102, 0xFF750000).addARGB(127, 0xFF820000).addARGB(140, 0xFF930000).addARGB(178, 0xFFA00000).addARGB(193, 0xFFAB0000).addARGB(216, 0xFFB80000).addARGB(255, 0xFFE82323).build());
     buildMaterial(MaterialIds.clay)
-      .statType(SLIMESUIT)
+      .slime()
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF55627F).addARGB(102, 0xFF5E6C8D).addARGB(140, 0xFF757D90).addARGB(178, 0xFF9499A4).addARGB(216, 0xFFA1A7B1).addARGB(255, 0xFFAFB9D6).build());
     buildMaterial(MaterialIds.honey)
-      .statType(SLIMESUIT)
+      .slime()
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFFC86A08).addARGB(102, 0xFFD87803).addARGB(140, 0xFFE88C08).addARGB(178, 0xFFFAAB1C).addARGB(216, 0xFFFFCE5D).addARGB(255, 0xFFFFE47F).build());
-    // TODO: bring this back after giving slimeskulls a chance to migrate as a slimesuit variant?
-//    buildMaterial(MaterialIds.venom)
-//      .statType(TinkerPartSpriteProvider.SLIMESUIT)
-//      .colorMapper(GreyToColorMapping.builder().addARGB(0, 0xE07F7F7F).addARGB(63, 0xE59B9B9B).addARGB(102, 0xE6A1A1A1).addARGB(140, 0xE9A7A7A7).addARGB(178, 0xEDBBBBBB).addARGB(216, 0xF3D4D4D4).addARGB(255, 0xF8EFEFEF).build());
   }
 
   /** Creates a palette for a sprite that tints it for borders */

@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:material_fluid",
+  "fluid": {
+    "amount": 250,
+    "tag": "forge:slime"
+  },
+  "output": "tconstruct:earthslime",
+  "temperature": 50
+}

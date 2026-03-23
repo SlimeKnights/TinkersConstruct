@@ -6,7 +6,9 @@
   "generator": {
     "supported_stats": [
       "tconstruct:repair_kit",
-      "tconstruct:arrow_head"
+      "tconstruct:arrow_head",
+      "tconstruct:slime",
+      "tconstruct:slimesuit"
     ],
     "transformer": {
       "type": "tconstruct:recolor_sprite",

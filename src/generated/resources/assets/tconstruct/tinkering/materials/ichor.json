@@ -2,6 +2,7 @@
   "color": "FFFFB97C",
   "generator": {
     "supported_stats": [
+      "tconstruct:slime",
       "tconstruct:slimesuit",
       "tconstruct:arrow_head",
       "tconstruct:fletching"

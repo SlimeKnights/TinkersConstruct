@@ -1,56 +1,60 @@
 {
   "modules": [
     {
-      "type": "tconstruct:base_stats",
-      "stats": {
-        "tconstruct:durability": 630.0
-      }
+      "type": "tconstruct:material_stats",
+      "primary_part": 0,
+      "stat_types": [
+        "tconstruct:shell",
+        {
+          "scale": 1.5,
+          "stat": "tconstruct:slime"
+        }
+      ]
+    },
+    {
+      "type": "tconstruct:default_materials",
+      "materials": [
+        {
+          "type": "tconstruct:fixed",
+          "material": "tconstruct:shulker"
+        },
+        {
+          "type": "tconstruct:fixed",
+          "material": "tconstruct:blood"
+        }
+      ]
     },
     {
       "type": "tconstruct:modifier_slots",
       "slots": {
-        "abilities": 1,
-        "upgrades": 5
+        "abilities": 2,
+        "upgrades": 3
       }
     },
     {
-      "type": "tconstruct:material_repair",
-      "durability": 62,
-      "material": "tconstruct:enderslime"
-    },
-    {
-      "type": "tconstruct:material_repair",
-      "durability": 630,
-      "material": "tconstruct:chorus"
-    },
-    {
       "type": "tconstruct:traits",
       "traits": [
         {
           "level": 1,
-          "name": "tconstruct:overslime_friend"
-        },
-        {
-          "level": 1,
-          "name": "tconstruct:pockets"
-        },
-        {
-          "level": 1,
-          "name": "tconstruct:shulking"
+          "name": "tconstruct:shell_storage"
         }
       ]
     },
     {
-      "type": "tconstruct:traits",
+      "type": "tconstruct:material_traits",
       "hooks": [
-        "tconstruct:rebalanced_trait"
+        "tconstruct:trim_trait"
       ],
-      "traits": [
-        {
-          "level": 1,
-          "name": "tconstruct:shulking"
-        }
-      ]
+      "material_index": 1,
+      "stat_type": "tconstruct:slime"
+    },
+    {
+      "type": "tconstruct:unique_material_name",
+      "index": 1
+    },
+    {
+      "type": "tconstruct:fixed_material_name",
+      "index": 0
     }
   ]
 }

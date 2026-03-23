@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:basin_tool_casting",
+  "cast": {
+    "item": "tconstruct:dragon_scale"
+  },
+  "cast_purpose": "consumed_offset",
+  "extra_materials": [
+    "tconstruct:dragon_scale"
+  ],
+  "item_cost": 7,
+  "result": "tconstruct:slime_leggings"
+}

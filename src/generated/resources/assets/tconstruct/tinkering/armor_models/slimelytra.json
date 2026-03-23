@@ -1,0 +1,10 @@
+{
+  "layers": [
+    {
+      "type": "tconstruct:material",
+      "index": 0,
+      "prefix": "tconstruct:slime/"
+    },
+    "tconstruct:trim"
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "level_display": {
+    "type": "tconstruct:unique",
+    "first_unique": false,
+    "unique_until": 2
+  },
+  "modules": [
+    {
+      "type": "tconstruct:constant_enchantment",
+      "level": {
+        "flat": 1
+      },
+      "name": "minecraft:fortune",
+      "tool": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:modifiable/harvest"
+      }
+    },
+    {
+      "type": "tconstruct:attribute",
+      "attribute": "minecraft:generic.luck",
+      "flat": 1.0,
+      "operation": "addition",
+      "slots": [
+        "mainhand",
+        "offhand",
+        "feet",
+        "legs",
+        "chest",
+        "head"
+      ],
+      "tool": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:modifiable/armor"
+      }
+    },
+    {
+      "type": "tconstruct:armor_looting",
+      "level": {
+        "flat": 1
+      },
+      "modifier_level": {
+        "min": 2
+      },
+      "slots": [
+        "feet",
+        "legs",
+        "chest",
+        "head"
+      ]
+    }
+  ],
+  "tooltip_display": "always"
+}

@@ -2,14 +2,10 @@
   "level_display": "tconstruct:default",
   "modules": [
     {
-      "type": "tconstruct:inventory",
-      "slots": {
-        "each_level": 18
-      }
-    },
-    {
-      "type": "tconstruct:inventory_menu",
-      "on_key": "any"
+      "type": "tconstruct:trait",
+      "fixed_level": false,
+      "level": 6,
+      "name": "tconstruct:pocket"
     }
   ],
   "tooltip_display": "always"

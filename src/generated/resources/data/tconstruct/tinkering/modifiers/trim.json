@@ -7,7 +7,16 @@
     {
       "type": "tconstruct:modifier_slot",
       "each_level": 1,
-      "name": "defense"
+      "name": "defense",
+      "tool": {
+        "type": "mantle:inverted",
+        "hook": "tconstruct:trim_trait",
+        "inverted_type": "tconstruct:has_hook"
+      }
+    },
+    {
+      "type": "tconstruct:swappable_tool_traits",
+      "hook": "tconstruct:trim_trait"
     }
   ],
   "tooltip_display": "tinker_station"

@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:basin_tool_casting",
+  "cast": {
+    "item": "tconstruct:sky_slime_vine"
+  },
+  "cast_purpose": "consumed_offset",
+  "extra_materials": [
+    "tconstruct:skyslime_vine"
+  ],
+  "item_cost": 4,
+  "result": "tconstruct:slime_boots"
+}

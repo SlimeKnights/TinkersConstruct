@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:basin_tool_casting",
+  "cast": {
+    "item": "minecraft:turtle_helmet"
+  },
+  "cast_purpose": "consumed_offset",
+  "extra_materials": [
+    "tconstruct:turtle"
+  ],
+  "item_cost": 7,
+  "result": "tconstruct:slime_leggings"
+}

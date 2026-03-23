@@ -66,7 +66,6 @@ import static slimeknights.tconstruct.common.TinkerTags.Items.CHESTPLATES;
 import static slimeknights.tconstruct.common.TinkerTags.Items.CROSSBOWS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.DURABILITY;
 import static slimeknights.tconstruct.common.TinkerTags.Items.DYEABLE;
-import static slimeknights.tconstruct.common.TinkerTags.Items.EMBELLISHMENT_SLIME;
 import static slimeknights.tconstruct.common.TinkerTags.Items.EMBELLISHMENT_WOOD;
 import static slimeknights.tconstruct.common.TinkerTags.Items.FANTASTIC_ARMOR;
 import static slimeknights.tconstruct.common.TinkerTags.Items.FISHING_RODS;
@@ -367,8 +366,8 @@ public class ItemTagProvider extends ItemTagsProvider {
     // armor
     addArmorTags(TinkerTools.travelersGear, SINGLEPART_TOOL, DURABILITY, BONUS_SLOTS, DYEABLE, TRIM, ItemTags.FREEZE_IMMUNE_WEARABLES);
     addArmorTags(TinkerTools.plateArmor,    MULTIPART_TOOL, DURABILITY, BONUS_SLOTS, DYEABLE, TRIM);
-    addArmorTags(TinkerTools.slimesuit,     DURABILITY, BONUS_SLOTS, TRIM, EMBELLISHMENT_SLIME);
-    addToolTags(TinkerTools.slimesuit.get(ArmorItem.Type.HELMET), SINGLEPART_TOOL, SWAPPABLE_SKULLS);
+    addArmorTags(TinkerTools.slimesuit,     DURABILITY, BONUS_SLOTS, TRIM, SINGLEPART_TOOL);
+    addToolTags(TinkerTools.slimesuit.get(ArmorItem.Type.HELMET), SWAPPABLE_SKULLS);
 
     // shields
     addToolTags(TinkerTools.travelersShield, DURABILITY, BONUS_SLOTS, SHIELDS, INTERACTABLE_LEFT, Tags.Items.TOOLS_SHIELDS, SINGLEPART_TOOL, UNRECYCLABLE, DYEABLE);

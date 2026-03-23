@@ -27,7 +27,6 @@
     },
     "tconstruct:shield_core": {},
     "tconstruct:skull": {
-      "armor": 0,
       "durability": 125
     }
   }

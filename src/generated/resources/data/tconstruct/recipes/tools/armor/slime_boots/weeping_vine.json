@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:basin_tool_casting",
+  "cast": {
+    "item": "minecraft:weeping_vines"
+  },
+  "cast_purpose": "consumed_offset",
+  "extra_materials": [
+    "tconstruct:weeping_vine"
+  ],
+  "item_cost": 4,
+  "result": "tconstruct:slime_boots"
+}

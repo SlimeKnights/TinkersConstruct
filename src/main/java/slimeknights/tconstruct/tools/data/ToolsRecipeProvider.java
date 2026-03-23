@@ -8,16 +8,15 @@ import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.CompoundIngredient;
 import net.minecraftforge.common.crafting.DifferenceIngredient;
 import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
 import slimeknights.mantle.recipe.data.ItemNameIngredient;
-import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.mantle.recipe.ingredient.PotionDisplayIngredient;
 import slimeknights.mantle.recipe.ingredient.SizedIngredient;
 import slimeknights.tconstruct.TConstruct;
@@ -48,10 +47,10 @@ import slimeknights.tconstruct.library.recipe.partbuilder.recycle.PartBuilderToo
 import slimeknights.tconstruct.library.recipe.tinkerstation.building.MaterialSwappingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipeBuilder;
 import slimeknights.tconstruct.library.tools.layout.Patterns;
-import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tables.TinkerTables;
+import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.data.material.MaterialIds;
@@ -60,7 +59,6 @@ import slimeknights.tconstruct.tools.stats.StatlessMaterialStats;
 import slimeknights.tconstruct.world.TinkerHeadType;
 import slimeknights.tconstruct.world.TinkerWorld;
 
-import java.util.Collections;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -292,22 +290,27 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     slimeskull(consumer, MaterialIds.knightmetal, TinkerSmeltery.endFluidCannon.get(),                    armorFolder);
 
     // slimelytra
-    ItemCastingRecipeBuilder.basinRecipe(TinkerTools.slimesuit.get(ArmorItem.Type.CHESTPLATE))
-                            .setCast(Items.ELYTRA, true)
-                            .setFluidAndTime(TinkerFluids.enderSlime, FluidValues.SLIME_CONGEALED * 8)
-                            .save(consumer, location(armorFolder + "slimelytra"));
+    MaterialCastingRecipeBuilder.basinRecipe(TinkerTools.slimesuit.get(ArmorItem.Type.CHESTPLATE))
+      .setCast(Items.ELYTRA, CastPurpose.CONSUMED)
+      .setItemCost(8)
+      .save(consumer, location(armorFolder + "slimelytra"));
 
+    // TODO: tool part for shell?
     // slimeshell
-    ItemCastingRecipeBuilder.basinRecipe(TinkerTools.slimesuit.get(ArmorItem.Type.LEGGINGS))
-                            .setCast(Items.SHULKER_SHELL, true)
-                            .setFluidAndTime(TinkerFluids.enderSlime, FluidValues.SLIME_CONGEALED * 7)
-                            .save(consumer, location(armorFolder + "slimeshell"));
+    slimeshell(consumer, MaterialIds.turtle, Items.TURTLE_HELMET, armorFolder);
+    slimeshell(consumer, MaterialIds.shulker, Items.SHULKER_SHELL, armorFolder);
+    slimeshell(consumer, MaterialIds.dragonScale, TinkerModifiers.dragonScale, armorFolder);
 
-    // boots
-    ItemCastingRecipeBuilder.basinRecipe(TinkerTools.slimesuit.get(ArmorItem.Type.BOOTS))
-                            .setCast(Items.RABBIT_FOOT, true)
-                            .setFluidAndTime(TinkerFluids.enderSlime, FluidValues.SLIME_CONGEALED * 4)
-                            .save(consumer, location(armorFolder + "slime_boots"));
+    // TODO: tool part for laces?
+    // slime boots
+    slimeboots(consumer, MaterialIds.leather, Items.LEATHER, armorFolder);
+    slimeboots(consumer, MaterialIds.vine, Blocks.VINE, armorFolder);
+    slimeboots(consumer, MaterialIds.skyslimeVine, TinkerWorld.skySlimeVine, armorFolder);
+    // TODO: darkthread
+    // TODO: twisting vine
+    slimeboots(consumer, MaterialIds.weepingVine, Items.WEEPING_VINES, armorFolder);
+    // TODO: jeweled hide
+    slimeboots(consumer, MaterialIds.enderslimeVine, TinkerWorld.enderSlimeVine, armorFolder);
   }
 
   private void addRecycleRecipes(Consumer<FinishedRecipe> consumer) {
@@ -479,13 +482,31 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
 
   /** Helper to create a casting recipe for a slimeskull variant */
   private void slimeskull(Consumer<FinishedRecipe> consumer, MaterialId material, ItemLike skull, String folder) {
-    MaterialIdNBT nbt = new MaterialIdNBT(Collections.singletonList(material));
-    ItemCastingRecipeBuilder.basinRecipe(ItemOutput.fromStack(nbt.updateStack(new ItemStack(TinkerTools.slimesuit.get(ArmorItem.Type.HELMET)))))
-                            .setCast(skull, true)
-                            .setFluidAndTime(TinkerFluids.enderSlime, FluidValues.SLIME_CONGEALED * 5)
-                            .save(consumer, location(folder + "slime_skull/" + material.getPath()));
+    MaterialCastingRecipeBuilder.basinRecipe(TinkerTools.slimesuit.get(ArmorItem.Type.HELMET))
+      .setCast(skull, CastPurpose.CONSUMED_OFFSET)
+      .addExtraMaterial(material)
+      .setItemCost(5)
+      .save(consumer, location(folder + "slime_skull/" + material.getPath()));
     MaterialSwappingRecipeBuilder.tools(TinkerTags.Items.SWAPPABLE_SKULLS)
       .index(0).material(material, skull).repairValue((int) (MaterialRecipe.INGOTS_PER_REPAIR * 2))
       .save(consumer, location(folder + "slime_skull/swapping/" + material.getPath()));
+  }
+
+  /** Helper to create a casting recipe for a slime shell variant */
+  private void slimeshell(Consumer<FinishedRecipe> consumer, MaterialId material, ItemLike shell, String folder) {
+    MaterialCastingRecipeBuilder.basinRecipe(TinkerTools.slimesuit.get(ArmorItem.Type.LEGGINGS))
+      .setCast(shell, CastPurpose.CONSUMED_OFFSET)
+      .addExtraMaterial(material)
+      .setItemCost(7)
+      .save(consumer, location(folder + "slimeshell/" + material.getPath()));
+  }
+
+  /** Helper to create a casting recipe for a slime boots variant */
+  private void slimeboots(Consumer<FinishedRecipe> consumer, MaterialId material, ItemLike laces, String folder) {
+    MaterialCastingRecipeBuilder.basinRecipe(TinkerTools.slimesuit.get(ArmorItem.Type.BOOTS))
+      .setCast(laces, CastPurpose.CONSUMED_OFFSET)
+      .addExtraMaterial(material)
+      .setItemCost(4)
+      .save(consumer, location(folder + "slime_boots/" + material.getPath()));
   }
 }

@@ -17,7 +17,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 /** Tool name that always shows the same material */
-public record FixedMaterialToolName(int index) implements ToolNameHook, ToolModule {
+public record FixedMaterialToolName(int index) implements ToolNameHook.FromDefault, ToolModule {
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<FixedMaterialToolName>defaultHooks(ToolHooks.DISPLAY_NAME);
   /** Instance for an index of 0 */
   public static final FixedMaterialToolName FIRST = new FixedMaterialToolName(0);
@@ -44,8 +44,7 @@ public record FixedMaterialToolName(int index) implements ToolNameHook, ToolModu
   }
 
   @Override
-  public Component getDisplayName(ToolDefinition definition, ItemStack stack, @Nullable IToolStackView tool) {
-    Component itemName = Component.translatable(stack.getItem().getDescriptionId());
+  public Component getDisplayName(ToolDefinition definition, ItemStack stack, @Nullable IToolStackView tool, Component itemName) {
     MaterialVariantId material = ToolNameHook.getTool(stack, tool).getMaterials().get(index).getVariant();
     if (IMaterial.UNKNOWN_ID.equals(material)) {
       return itemName;

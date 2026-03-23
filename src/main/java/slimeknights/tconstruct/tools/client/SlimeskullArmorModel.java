@@ -28,18 +28,14 @@ import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
-import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.library.utils.SimpleCache;
-import slimeknights.tconstruct.tools.TinkerModifiers;
-import slimeknights.tconstruct.tools.data.material.MaterialIds;
 import slimeknights.tconstruct.world.client.BlockModelSkullRenderer;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Optional;
 import java.util.function.Function;
 
 /** Model to render a slimeskull helmet with both the helmet and skull */
@@ -47,9 +43,8 @@ public class SlimeskullArmorModel extends MultilayerArmorModel {
   /** Singleton model instance, all data is passed in via setters */
   public static final SlimeskullArmorModel INSTANCE = new SlimeskullArmorModel();
   /** Cache of colors for materials */
-  private static final SimpleCache<String,Integer> MATERIAL_COLOR_CACHE = new SimpleCache<>(mat ->
-    Optional.ofNullable(MaterialVariantId.tryParse(mat))
-            .flatMap(MaterialRenderInfoLoader.INSTANCE::getRenderInfo)
+  private static final SimpleCache<MaterialVariantId,Integer> MATERIAL_COLOR_CACHE = new SimpleCache<>(mat ->
+    MaterialRenderInfoLoader.INSTANCE.getRenderInfo(mat)
             .map(MaterialRenderInfo::vertexColor)
             .orElse(-1));
   /** Listener to clear caches */
@@ -81,12 +76,13 @@ public class SlimeskullArmorModel extends MultilayerArmorModel {
       if (skull != null && texture != null) {
         headModel = skull;
         headTexture = texture;
-        // determine the color to tint the helmet, fallback to enderslime if missing
-        String embellishmentMaterial = ModifierUtil.getPersistentString(stack, TinkerModifiers.embellishment.getId());
-        if (embellishmentMaterial.isEmpty()) {
-          embellishmentMaterial = MaterialIds.enderslime.toString();
+        // determine the color to tint the helmet, fallback to no tint if missing
+        MaterialVariantId material = MaterialIdNBT.from(stack).getMaterial(1);
+        if (IMaterial.UNKNOWN_ID.equals(material)) {
+          headColor = -1;
+        } else {
+          headColor = MATERIAL_COLOR_CACHE.apply(material);
         }
-        headColor = MATERIAL_COLOR_CACHE.apply(embellishmentMaterial);
 
         // setup walk animation
         WalkAnimationState walkState = living.getVehicle() instanceof LivingEntity vehicle ? vehicle.walkAnimation : living.walkAnimation;

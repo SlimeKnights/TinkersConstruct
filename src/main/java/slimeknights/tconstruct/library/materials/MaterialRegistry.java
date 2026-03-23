@@ -29,7 +29,9 @@ import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 import slimeknights.tconstruct.tools.stats.LimbMaterialStats;
 import slimeknights.tconstruct.tools.stats.PlatingMaterialStats;
+import slimeknights.tconstruct.tools.stats.RepairStats;
 import slimeknights.tconstruct.tools.stats.SkullStats;
+import slimeknights.tconstruct.tools.stats.SlimeStats;
 import slimeknights.tconstruct.tools.stats.StatlessMaterialStats;
 
 import java.util.Collection;
@@ -126,13 +128,17 @@ public final class MaterialRegistry {
     registry.registerStatType(StatlessMaterialStats.CUIRASS.getType(), ARMOR);
     registry.registerStatType(StatlessMaterialStats.MAILLE.getType(), ARMOR);
     registry.registerStatType(StatlessMaterialStats.SHIELD_CORE.getType(), ARMOR);
+    // slimesuit
+    registry.registerStatType(SlimeStats.TYPE, ARMOR);
+    registry.registerStatType(SkullStats.TYPE, ARMOR);
+    registry.registerStatType(RepairStats.SHELL, ARMOR);
+    registry.registerStatType(RepairStats.LACES, ARMOR);
     // ammo
     registry.registerStatType(StatlessMaterialStats.ARROW_HEAD.getType(), AMMO);
     registry.registerStatType(StatlessMaterialStats.ARROW_SHAFT.getType(), AMMO);
     registry.registerStatType(StatlessMaterialStats.FLETCHING.getType(), AMMO);
     // misc
     registry.registerStatType(StatlessMaterialStats.REPAIR_KIT.getType());
-    registry.registerStatType(SkullStats.TYPE);
   }
 
   @VisibleForTesting

@@ -11,6 +11,7 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.GsonHelper;
 import org.apache.logging.log4j.Level;
 import slimeknights.mantle.data.listener.MergingJsonDataLoader;
+import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.registry.IdAwareComponentRegistry;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.mantle.util.typed.TypedMapBuilder;
@@ -242,7 +243,11 @@ public class MaterialStatsManager extends MergingJsonDataLoader<Map<ResourceLoca
         }
         continue;
       }
-      builder.put(statType, type.getLoadable().deserialize(json, TypedMapBuilder.builder().put(MaterialStatType.CONTEXT_KEY, type).build()));
+      builder.put(statType, type.getLoadable().deserialize(json, TypedMapBuilder.builder()
+        .put(ContextKey.ID, id)
+        .put(ContextKey.DEBUG, "Material Stats for " + id)
+        .put(MaterialStatType.CONTEXT_KEY, type)
+        .build()));
     }
     return builder.build();
   }

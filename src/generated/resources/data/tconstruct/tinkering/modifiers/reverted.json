@@ -1,0 +1,47 @@
+{
+  "level_display": "tconstruct:no_levels",
+  "modules": [
+    {
+      "type": "tconstruct:modifier_slot",
+      "flat": 1,
+      "name": "upgrades"
+    },
+    {
+      "type": "tconstruct:modifier_slot",
+      "flat": 1,
+      "name": "upgrades",
+      "tool": {
+        "type": "mantle:inverted",
+        "inverted_type": "mantle:set",
+        "items": [
+          "tconstruct:slime_chestplate"
+        ]
+      }
+    },
+    {
+      "type": "tconstruct:modifier_slot",
+      "flat": -1,
+      "name": "abilities",
+      "tool": {
+        "type": "mantle:inverted",
+        "inverted_type": "mantle:set",
+        "items": [
+          "tconstruct:slime_chestplate"
+        ]
+      }
+    },
+    {
+      "type": "tconstruct:trait",
+      "fixed_level": true,
+      "level": 1,
+      "name": "tconstruct:pocket",
+      "tool": {
+        "type": "mantle:set",
+        "items": [
+          "tconstruct:slime_leggings"
+        ]
+      }
+    }
+  ],
+  "tooltip_display": "always"
+}

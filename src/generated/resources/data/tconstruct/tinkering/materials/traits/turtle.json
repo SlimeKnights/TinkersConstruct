@@ -4,5 +4,13 @@
       "level": 1,
       "name": "tconstruct:turtle_shell"
     }
-  ]
+  ],
+  "perStat": {
+    "tconstruct:shell": [
+      {
+        "level": 1,
+        "name": "tconstruct:turtles_grace"
+      }
+    ]
+  }
 }

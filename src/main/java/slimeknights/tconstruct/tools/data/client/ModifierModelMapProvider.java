@@ -4,7 +4,6 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.ArmorItem;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.modifiers.DyedModifierModel;
-import slimeknights.tconstruct.library.client.modifiers.MaterialModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.MaterialHasFallbackModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.ModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.TrimModifierModel;
@@ -257,11 +256,12 @@ public class ModifierModelMapProvider extends AbstractModifierModelMapProvider {
     tool("travelers/goggles").customTrim("armor/travelers/goggles", null);
 
     // slimesuit
-    slime("skull", ArmorItem.Type.HELMET);
-    slime("wings", null);
-    slime("shell", ArmorItem.Type.LEGGINGS);
-    slime("boot",  ArmorItem.Type.BOOTS);
-    tool("slime/wings").modifier(TinkerModifiers.trim.getId(), new TrimModifierModel.Custom(toolMaterial("armor/slime/wings_trim").texture(), null));
+    for (ArmorItem.Type type : ArmorItem.Type.values()) {
+      if (type != ArmorItem.Type.CHESTPLATE) {
+        tool("slime/" + type.getName()).trim(type);
+      }
+    }
+    tool("slime/wings").modifier(TinkerModifiers.trim.getId(), new TrimModifierModel.Custom(toolMaterial("armor/slime/wings/trim").texture(), null));
 
     // ammo
     tool(TinkerTools.arrow).tipped("ammo/arrow_modifiers/tipped").smashing("ammo/arrow_modifiers/smashing")
@@ -305,18 +305,6 @@ public class ModifierModelMapProvider extends AbstractModifierModelMapProvider {
       b.trim(type);
     }
     tool(item + "_broken").modifier(dyed, new DyedModifierModel(toolMaterial(root + "dyed_broken"), null));
-  }
-
-  /** Adds dyed textures for travelers gear */
-  private void slime(String name, @Nullable ArmorItem.Type type) {
-    String root = "armor/slime/" + name + "_modifiers/";
-    ModifierId embellishment = TinkerModifiers.embellishment.getId();
-    String item = "slime/" + name;
-    Builder b = tool(item).modifier(embellishment, new MaterialModifierModel(toolMaterial(root + "tconstruct_embellishment"), null));
-    if (type != null) {
-      b.trim(type);
-    }
-    tool(item + "_broken").modifier(embellishment, new MaterialModifierModel(toolMaterial(root + "broken/tconstruct_embellishment"), null));
   }
 
   /** Adds dyed textures to a staff */

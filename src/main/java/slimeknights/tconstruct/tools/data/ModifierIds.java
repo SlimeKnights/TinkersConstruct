@@ -86,6 +86,9 @@ public class ModifierIds {
   public static final ModifierId fortune = id("fortune");
   public static final ModifierId experienced = id("experienced");
   public static final ModifierId silky = id("silky");
+  // boot traits
+  public static final ModifierId looter = id("looter");
+  public static final ModifierId fortunate = id("fortunate");
 
   // damage boost
   public static final ModifierId sharpness   = id("sharpness");
@@ -125,10 +128,13 @@ public class ModifierIds {
   public static final ModifierId blastProtection = id("blast_protection");
   public static final ModifierId magicProtection = id("magic_protection");
   public static final ModifierId turtleShell = id("turtle_shell");
+  public static final ModifierId turtlesGrace = id("turtles_grace");
   public static final ModifierId shulking = id("shulking");
   public static final ModifierId dragonborn = id("dragonborn");
+  public static final ModifierId dragonfall = id("dragonfall");
   public static final ModifierId wings = id("wings");
   public static final ModifierId knockbackResistance = id("knockback_resistance");
+  public static final ModifierId cobalamin = id("cobalamin");
   // counter
   public static final ModifierId thorns = id("thorns");
   public static final ModifierId ricochet = id("ricochet");
@@ -141,7 +147,11 @@ public class ModifierIds {
   // chestplate
   public static final ModifierId strength = id("strength");
   // leggings
+  /** Internal modifier that grants +3 slots. TODO 1.21: replace this with calls to the inventory module directly; this is just here for free NBT migration */
+  public static final ModifierId pocket = id("pocket");
   public static final ModifierId pockets = id("pockets");
+  public static final ModifierId shellStorage = id("shell_storage");
+  public static final ModifierId shulkerBox = id("shulker_box");
   public static final ModifierId stepUp = id("step_up");
   public static final ModifierId speedy = id("speedy");
   public static final ModifierId swiftSneak = id("swift_sneak");
@@ -227,6 +237,7 @@ public class ModifierIds {
   public static final ModifierId skyfall = id("skyfall");
   public static final ModifierId flamestance = id("flamestance");
   public static final ModifierId entangled = id("entangled");
+  public static final ModifierId entwined = id("entwined");
   public static final ModifierId stoneshield = id("stoneshield");
   public static final ModifierId amorphous = id("amorphous");
   public static final ModifierId smashing = id("smashing");
@@ -235,6 +246,7 @@ public class ModifierIds {
   public static final ModifierId venom = id("venom");
   public static final ModifierId restore = id("restore");
   public static final ModifierId rebuff = id("rebuff");
+  public static final ModifierId forming = id("forming");
   // traits - tier 2 compat
   public static final ModifierId deciduous = id("deciduous");
   public static final ModifierId barkskin = id("barkskin");
@@ -290,6 +302,7 @@ public class ModifierIds {
   public static final ModifierId vintage = id("vintage");
   public static final ModifierId valiant = id("valiant");
   public static final ModifierId stalwart = id("stalwart");
+  public static final ModifierId loyal = id("loyal");
   public static final ModifierId dragonshot = id("dragonshot");
   public static final ModifierId reclaim = id("reclaim");
   public static final ModifierId hover = id("hover");
@@ -302,6 +315,8 @@ public class ModifierIds {
   public static final ModifierId erratic = id("erratic");
   public static final ModifierId fuse = id("fuse");
 
+  // traits - slimesuit
+  public static final ModifierId reverted = id("reverted");
   // traits - slimeskull
   public static final ModifierId boonOfSssss = id("boon_of_sssss");
   public static final ModifierId balmOfSssss = id("balm_of_sssss");

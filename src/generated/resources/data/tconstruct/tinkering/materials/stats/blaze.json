@@ -1,9 +1,7 @@
 {
   "stats": {
     "tconstruct:arrow_shaft": {},
-    "tconstruct:repair_kit": {},
     "tconstruct:skull": {
-      "armor": 0,
       "durability": 150
     }
   }
