@@ -1168,7 +1168,7 @@
   "item.tconstruct.slime_helmet.material.tconstruct.magma": "岩浆头颅",
   "item.tconstruct.slime_helmet.material.tconstruct.clay": "黏土头颅",
   "item.tconstruct.slime_helmet.material.tconstruct.honey": "蜂蜜头颅",
-  "item.tconstruct.slime_helmet.material.tconstruct.ender_pearl": "末影黏液头颅",
+  "item.tconstruct.slime_helmet.material.tconstruct.ender_pearl": "末影头颅",
 
   "__comment": "We are really just mashing up the material name with elytra here, do whatever works for your language, if needed 'Material Elytra' works",
   "item.tconstruct.slime_chestplate": "黏液鞘翅",
@@ -1177,21 +1177,21 @@
   "item.tconstruct.slime_chestplate.material.tconstruct.magma": "岩浆鞘翅",
   "item.tconstruct.slime_chestplate.material.tconstruct.clay": "黏土鞘翅",
   "item.tconstruct.slime_chestplate.material.tconstruct.honey": "蜂蜜鞘翅",
-  "item.tconstruct.slime_chestplate.material.tconstruct.ender_pearl": "末影黏液鞘翅",
+  "item.tconstruct.slime_chestplate.material.tconstruct.ender_pearl": "末影鞘翅",
 
   "item.tconstruct.slime_leggings": "黏液壳",
   "item.tconstruct.slime_leggings.material.tconstruct.ichor": "灵浆壳",
   "item.tconstruct.slime_leggings.material.tconstruct.magma": "岩浆壳",
   "item.tconstruct.slime_leggings.material.tconstruct.clay": "黏土壳",
   "item.tconstruct.slime_leggings.material.tconstruct.honey": "蜂蜜壳",
-  "item.tconstruct.slime_leggings.material.tconstruct.ender_pearl": "末影黏液壳",
+  "item.tconstruct.slime_leggings.material.tconstruct.ender_pearl": "末影壳",
 
   "item.tconstruct.slime_boots": "黏液靴子",
   "item.tconstruct.slime_boots.material.tconstruct.ichor": "灵浆靴子",
   "item.tconstruct.slime_boots.material.tconstruct.magma": "岩浆靴子",
   "item.tconstruct.slime_boots.material.tconstruct.clay": "黏土靴子",
   "item.tconstruct.slime_boots.material.tconstruct.honey": "蜂蜜靴子",
-  "item.tconstruct.slime_boots.material.tconstruct.ender_pearl": "末影黏液靴子",
+  "item.tconstruct.slime_boots.material.tconstruct.ender_pearl": "末影靴子",
 
   "item.tconstruct.crystalshot": "水晶镞",
   "entity.tconstruct.crystalshot": "水晶镞",
@@ -1933,7 +1933,7 @@
   "material.tconstruct.venombone.flavor": "成为你敌人的鸩毒。",
   "material.tconstruct.venombone.encyclopedia": "中毒时，近战伤害增加0.5+中毒等级。",
   "material.tconstruct.venombone.ranged": "中毒时，拉弓速度将增加0.05+0.1×中毒等级。",
-  "material.tconstruct.venombone.armor": "受到攻击后，有15%概率对攻击者施加毒素效果，该效果会让它在接下来5至10秒内受到的魔法伤害增加到200%（成功格挡则最长持续时间改为15秒）。",
+  "material.tconstruct.venombone.armor": "受到攻击后，有15%概率对攻击者施加毒素效果，该效果会让它在接下来5至10秒 内受到的魔法伤害增加到200%（成功格挡则最长持续时间改为15秒）。",
   "material.tconstruct.venombone.ammo": "对目标施加毒素效果，该效果会让它在接下来5至10秒内受到的魔法伤害增加到200%。",
   "material.tconstruct.venombone.skull_flavor": "植入魔抗缺陷",
   "material.tconstruct.venombone.skull_encyclopedia": "免疫1级的毒素状态效果。此外弹射物可对目标施加15秒毒素II效果。",
@@ -2020,7 +2020,7 @@
   "material.tconstruct.skyslime.flavor": "离我远点！",
   "material.tconstruct.skyslime.ammo": "增强弹射物的击退效果。",
 
-  "material.tconstruct.turtle": "海龟壳",
+  "material.tconstruct.turtle": "海龟",
   "material.tconstruct.turtle.flavor": "小海龟游啊游。",
   "material.tconstruct.turtle.armor": "按等级最高的盔甲，每级使穿戴者在水下时获得+10%抗性，且每级使游泳速度 增加5%。",
 
@@ -2029,7 +2029,7 @@
   "material.tconstruct.blaze.ammo": "箭矢会燃烧且会点燃目标，每级使目标的燃烧时间+5秒。",
   "material.tconstruct.blaze.skull": "烈焰人",
   "material.tconstruct.blaze.skull_flavor": "你是不是动不动就头上冒火？\n又或者觉得自己还不够燃？\n不管怎样，这都是为你量身定制的。",
-  "material.tconstruct.blaze.skull_encyclopedia": "近战或远程攻击使目标着火，持续5秒。穿戴者免疫火焰伤害。",
+  "material.tconstruct.blaze.skull_encyclopedia": "近战攻击或远程攻击使目标着火，持续5秒。穿戴者免疫火焰伤害。",
 
   "material.tconstruct.ender_pearl": "末影珍珠",
   "material.tconstruct.ender_pearl.flavor": "安全使用末影珍珠",
@@ -2110,7 +2110,7 @@
   "material.tconstruct.dragon_scale.skull_flavor": "你能秒我？你能秒杀我？",
   "material.tconstruct.dragon_scale.skull_encyclopedia": "单次受到伤害不会超过最大生命值-2。",
 
-  "material.tconstruct.shulker": "潜影壳",
+  "material.tconstruct.shulker": "潜影",
   "material.tconstruct.shulker.flavor": "牢不可破！",
   "material.tconstruct.shulker.armor": "潜行时抗性+10%，代价是减少10%×等级攻击伤害。",
   "material.tconstruct.shulker.ammo": "现在除了击中方块的弹射物以外，命中实体的弹射物也可以回收，由此使弹药 几乎无限回收。此外，带有此强化的物 品不会自然消失。",
@@ -2143,10 +2143,10 @@
   "material.tconstruct.blazing_bone.flavor": "统御下界要塞之力——噬骨与烈火。",
   "material.tconstruct.blazing_bone.encyclopedia": "每剩余1秒着火时间，攻击伤害+2%，上限为+20%（剩余着火时间不少于10秒）。加成会受抗火效果影响而减少。",
   "material.tconstruct.blazing_bone.ranged": "每剩余1秒着火时间，箭矢伤害+2%，上限为+20%（剩余着火时间不少于10秒）。加成会受抗火效果影响而减少。",
-  "material.tconstruct.blazing_bone.armor": "受到攻击后，有15%概率使攻击者施加导热效果，该效果会让它在接下来5至10秒内受到的火焰伤害增加到200%（成功格挡则最长持续时间改为15秒）。",
+  "material.tconstruct.blazing_bone.armor": "受到攻击后，有15%概率使攻击者施加导热效果，该效果会让它在接下来5至10秒 内受到的火焰伤害增加到200%（成功格挡 则最长持续时间改为15秒）。",
   "material.tconstruct.blazing_bone.ammo": "对目标施加导热效果，该效果会让它在接下来5至10秒内受到的火焰伤害增加到200%。",
   "material.tconstruct.blazing_bone.skull_flavor": "成为恶灵骑士",
-  "material.tconstruct.blazing_bone.skull_encyclopedia": "免疫1级的导热状态效果。此外近战攻击可对目标施加导热效果，该效果会让它在 接下来5至10秒内受到的火焰伤害增加到 200%。",
+  "material.tconstruct.blazing_bone.skull_encyclopedia": "免疫1级的导热状态效果。此外近战攻 击可对目标施加导热效果，该效果会 让它在接下来5至10秒内受到的火焰伤 害增加到200%。",
 
   "material.tconstruct.blazewood": "烈焰木",
   "material.tconstruct.blazewood.flavor": "薪火相传，生生不息",
@@ -2295,7 +2295,7 @@
   "material.tconstruct.constantan": "康铜",
   "material.tconstruct.constantan.flavor": "让我康康这好康的康铜……抱歉，用“康”造句太好玩了。",
   "material.tconstruct.constantan.encyclopedia": "极冷环境下，工具挖掘速度+7.5；极热环境下，工具双倍减少耐久度消耗。",
-  "material.tconstruct.constantan.ranged": "极冷环境下，初速度+0.15，极热环境下则双倍减少耐久度消耗。",
+  "material.tconstruct.constantan.ranged": "极冷环境下，初速度+0.15；极热环境下则双倍减少耐久度消耗。",
   "material.tconstruct.constantan.armor": "在极冷环境下保护+5%；极热环境下则双倍减少耐久度消耗。",
 
   "material.tconstruct.invar": "殷钢",
@@ -3662,10 +3662,10 @@
   "tool_stat.tconstruct.knockback_resistance": "击退抗性：",
   "tool_stat.tconstruct.knockback_resistance.description": "这件盔甲能抵消多少击退效果",
 
-  "stat.tconstruct.slime": "黏液",
+  "stat.tconstruct.slime": "覆层",
   "stat.tconstruct.skull": "头颅",
   "stat.tconstruct.shell": "甲壳",
-  "stat.tconstruct.laces": "衬布",
+  "stat.tconstruct.laces": "绑带",
 
   "stat.tconstruct.handle": "手柄",
   "tool_stat.tconstruct.handle.durability.description": "工具的最终耐久度会被这一数值修正",
