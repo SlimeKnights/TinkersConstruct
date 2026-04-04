@@ -7,6 +7,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.UseAnim;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
@@ -32,7 +33,8 @@ public class ModifiableItemClientExtension implements IClientItemExtensions {
     // to avoid redundant operations, we copied even methods that are unmodified, changes are noted below
     int sideOffset = arm == HumanoidArm.RIGHT ? 1 : -1;
     if (player.isUsingItem() && player.getUseItemRemainingTicks() > 0 && player.getUsedItemHand() == hand) {
-      switch (stack.getUseAnimation()) {
+      UseAnim anim = stack.getUseAnimation();
+      switch (anim) {
         // merged BLOCK and NONE - same code
         case NONE, BLOCK:
           applyItemArmTransform(poseStack, equipProgress, sideOffset);
@@ -57,16 +59,30 @@ public class ModifiableItemClientExtension implements IClientItemExtensions {
           applyItemArmTransform(poseStack, equipProgress, sideOffset);
           break;
 
+        // crossbow is moved from the vanilla special case to a general animation
         case BOW:
+        case CROSSBOW: {
+          boolean isBow = anim == UseAnim.BOW;
           applyItemArmTransform(poseStack, equipProgress, sideOffset);
-          poseStack.translate(sideOffset * -0.2785682f, 0.18344387f, 0.15731531f);
-          poseStack.mulPose(Axis.XP.rotationDegrees(-13.935f));
-          poseStack.mulPose(Axis.YP.rotationDegrees(sideOffset * 35.3f));
+          // change: merged in crossbow
+          if (isBow) {
+            poseStack.translate(sideOffset * -0.2785682f, 0.18344387f, 0.15731531f);
+            poseStack.mulPose(Axis.XP.rotationDegrees(-13.935f));
+            poseStack.mulPose(Axis.YP.rotationDegrees(sideOffset * 35.3f));
+          } else {
+            poseStack.translate(sideOffset * -0.4785682f, -0.094387f, 0.05731531f);
+            poseStack.mulPose(Axis.XP.rotationDegrees(-11.935f));
+            poseStack.mulPose(Axis.YP.rotationDegrees(sideOffset * 65.3f));
+          }
           poseStack.mulPose(Axis.ZP.rotationDegrees(sideOffset * -9.785f));
+
           float remainingTime = (float) stack.getUseDuration() - ((float) player.getUseItemRemainingTicks() - partialTicks + 1);
-          // change: scale charge by drawtime instead of a flat 20f
+          // change: scale charge by drawtime instead of a flat 20f or the crossbow enchantment
           float charge = remainingTime / ModifierUtil.getPersistentInt(stack, GeneralInteractionModifierHook.KEY_DRAWTIME, 20);
-          charge = (charge * charge + charge * 2) / 3;
+          // only bows do this weird charge formula
+          if (isBow) {
+            charge = (charge * charge + charge * 2) / 3;
+          }
           if (charge > 1) {
             charge = 1;
           }
@@ -80,10 +96,11 @@ public class ModifiableItemClientExtension implements IClientItemExtensions {
           poseStack.scale(1, 1, 1 + charge * 0.2f);
           poseStack.mulPose(Axis.YN.rotationDegrees(sideOffset * 45));
           break;
+        }
 
         case SPEAR:
           applyItemArmTransform(poseStack, equipProgress, sideOffset);
-          poseStack.translate((float) sideOffset * -0.5f, 0.7f, 0.1f);
+          poseStack.translate(sideOffset * -0.5f, 0.7f, 0.1f);
           // change: added 45 degrees to take into account tools being diagonal
           poseStack.mulPose(Axis.XP.rotationDegrees(-90));
           poseStack.mulPose(Axis.YP.rotationDegrees(sideOffset * 35.3f));

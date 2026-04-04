@@ -80,6 +80,7 @@ public class SwappableToolTraitsModule implements ModifierModule, ModifierTraitH
 
   @Override
   public void addTraits(IToolContext context, ModifierEntry modifier, TraitBuilder builder, boolean firstEncounter) {
+    // TODO: switch to using module conditions, move the match to a custom predicate
     if (match.isEmpty() || match.equals(context.getPersistentData().getString(getKey(modifier.getModifier())))) {
       ToolDefinition definition = context.getDefinition();
       definition.getHook(hook).addTraits(definition, context.getMaterials(), builder);

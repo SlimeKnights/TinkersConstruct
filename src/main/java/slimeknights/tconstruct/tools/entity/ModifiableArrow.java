@@ -11,7 +11,6 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
@@ -167,11 +166,6 @@ public class ModifiableArrow extends AbstractArrow implements ToolProjectile, Re
 
   private enum CaptureDiscard { NOT_CAPTURING,  CAPTURING,  DISCARDED }
   private CaptureDiscard captureDiscard = CaptureDiscard.NOT_CAPTURING;
-
-  @Override
-  protected void onHit(HitResult pResult) {
-    super.onHit(pResult);
-  }
 
   @Override
   protected void onHitEntity(EntityHitResult result) {

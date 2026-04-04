@@ -96,11 +96,14 @@ public class ToolHooks {
   public static final ModuleHook<ToolTraitHook> TOOL_TRAITS;
   /** Hook for fetching traits for the rebalanced modifier */
   public static final ModuleHook<ToolTraitHook> REBALANCED_TRAIT;
+  /** Hook for fetching traits for the trim modifier */
+  public static final ModuleHook<ToolTraitHook> TRIM_TRAIT;
   static {
     Function<Collection<ToolTraitHook>,ToolTraitHook> merger = ToolTraitHook.AllMerger::new;
     ToolTraitHook defaultInstance = (definition, materials, builder) -> {};
     TOOL_TRAITS = register("tool_traits", ToolTraitHook.class, merger, defaultInstance);
     REBALANCED_TRAIT = register("rebalanced_trait", ToolTraitHook.class, merger, defaultInstance);
+    TRIM_TRAIT = register("trim_trait", ToolTraitHook.class, merger, defaultInstance);
   }
   /** Hook for checking if a tool can perform a given action. */
   public static final ModuleHook<ToolActionToolHook> TOOL_ACTION = register("tool_actions", ToolActionToolHook.class, ToolActionToolHook.AnyMerger::new, (tool, action) -> false);
@@ -128,7 +131,7 @@ public class ToolHooks {
 
   /* Display */
   /** Hook for setting the display name on a tool */ // TODO 1.21: make the default show no materials?
-  public static final ModuleHook<ToolNameHook> DISPLAY_NAME = register("display_name", ToolNameHook.class, (MaterialToolName) (index, statType, material) -> MaterialRegistry.getInstance().canRepair(statType));
+  public static final ModuleHook<ToolNameHook> DISPLAY_NAME = register("display_name", ToolNameHook.class, ToolNameHook.ComposeMerger::new, (MaterialToolName) (index, statType, material) -> MaterialRegistry.getInstance().canRepair(statType));
 
 
   /* Registration */

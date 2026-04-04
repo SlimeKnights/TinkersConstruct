@@ -1,56 +1,60 @@
 {
   "modules": [
     {
-      "type": "tconstruct:base_stats",
-      "stats": {
-        "tconstruct:durability": 546.0
-      }
+      "type": "tconstruct:material_stats",
+      "primary_part": 0,
+      "stat_types": [
+        "tconstruct:laces",
+        {
+          "scale": 1.3,
+          "stat": "tconstruct:slime"
+        }
+      ]
+    },
+    {
+      "type": "tconstruct:default_materials",
+      "materials": [
+        {
+          "type": "tconstruct:fixed",
+          "material": "tconstruct:skyslime_vine"
+        },
+        {
+          "type": "tconstruct:fixed",
+          "material": "tconstruct:blood"
+        }
+      ]
     },
     {
       "type": "tconstruct:modifier_slots",
       "slots": {
-        "abilities": 1,
-        "upgrades": 5
+        "abilities": 2,
+        "upgrades": 3
       }
     },
     {
-      "type": "tconstruct:material_repair",
-      "durability": 54,
-      "material": "tconstruct:enderslime"
-    },
-    {
-      "type": "tconstruct:material_repair",
-      "durability": 546,
-      "material": "tconstruct:leather"
-    },
-    {
       "type": "tconstruct:traits",
       "traits": [
-        {
-          "level": 1,
-          "name": "tconstruct:overslime_friend"
-        },
         {
           "level": 1,
           "name": "tconstruct:bouncy"
-        },
-        {
-          "level": 1,
-          "name": "tconstruct:leaping"
         }
       ]
     },
     {
-      "type": "tconstruct:traits",
+      "type": "tconstruct:material_traits",
       "hooks": [
-        "tconstruct:rebalanced_trait"
+        "tconstruct:trim_trait"
       ],
-      "traits": [
-        {
-          "level": 1,
-          "name": "tconstruct:leaping"
-        }
-      ]
+      "material_index": 1,
+      "stat_type": "tconstruct:slime"
+    },
+    {
+      "type": "tconstruct:unique_material_name",
+      "index": 1
+    },
+    {
+      "type": "tconstruct:fixed_material_name",
+      "index": 0
     }
   ]
 }

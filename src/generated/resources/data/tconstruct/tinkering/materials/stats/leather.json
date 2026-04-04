@@ -3,11 +3,13 @@
     "tconstruct:binding": {},
     "tconstruct:bowstring": {},
     "tconstruct:cuirass": {},
+    "tconstruct:laces": {
+      "repair_amount": 97
+    },
     "tconstruct:maille": {},
     "tconstruct:repair_kit": {},
     "tconstruct:skull": {
-      "armor": 2,
-      "durability": 150
+      "durability": 97
     }
   }
 }

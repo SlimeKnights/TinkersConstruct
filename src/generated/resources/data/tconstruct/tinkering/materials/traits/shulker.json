@@ -11,6 +11,12 @@
         "level": 1,
         "name": "tconstruct:shulking"
       }
+    ],
+    "tconstruct:shell": [
+      {
+        "level": 1,
+        "name": "tconstruct:shulker_box"
+      }
     ]
   }
 }

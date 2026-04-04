@@ -1,6 +1,9 @@
 {
   "stats": {
     "tconstruct:arrow_head": {},
-    "tconstruct:maille": {}
+    "tconstruct:maille": {},
+    "tconstruct:shell": {
+      "repair_amount": 250
+    }
   }
 }

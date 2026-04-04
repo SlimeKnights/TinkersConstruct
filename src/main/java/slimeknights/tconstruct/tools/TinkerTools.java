@@ -82,8 +82,10 @@ import slimeknights.tconstruct.library.tools.definition.module.build.ToolSlotsMo
 import slimeknights.tconstruct.library.tools.definition.module.build.ToolTraitsModule;
 import slimeknights.tconstruct.library.tools.definition.module.build.VolatileFlagModule;
 import slimeknights.tconstruct.library.tools.definition.module.build.VolatileIntModule;
+import slimeknights.tconstruct.library.tools.definition.module.display.CustomMaterialName;
 import slimeknights.tconstruct.library.tools.definition.module.display.FixedMaterialToolName;
 import slimeknights.tconstruct.library.tools.definition.module.display.MaterialToolNameModule;
+import slimeknights.tconstruct.library.tools.definition.module.display.SimpleToolName;
 import slimeknights.tconstruct.library.tools.definition.module.display.StatTypesToolNameModule;
 import slimeknights.tconstruct.library.tools.definition.module.display.UniqueMaterialToolName;
 import slimeknights.tconstruct.library.tools.definition.module.interaction.AttackInteraction;
@@ -235,8 +237,9 @@ public final class TinkerTools extends TinkerModule {
   public static final EnumObject<ArmorItem.Type,ModifiableArmorItem> travelersGear = ITEMS.registerEnum("travelers", ArmorItem.Type.values(), type -> new MultilayerArmorItem(ArmorDefinitions.TRAVELERS, type, UNSTACKABLE_PROPS));
   public static final EnumObject<ArmorItem.Type,ModifiableArmorItem> plateArmor = ITEMS.registerEnum("plate", ArmorItem.Type.values(), type -> new MultilayerArmorItem(ArmorDefinitions.PLATE, type, UNSTACKABLE_PROPS));
   public static final EnumObject<ArmorItem.Type,ModifiableArmorItem> slimesuit = new EnumObject.Builder<ArmorItem.Type,ModifiableArmorItem>(ArmorItem.Type.class)
-    .putAll(ITEMS.registerEnum("slime", new ArmorItem.Type[] {ArmorItem.Type.BOOTS, ArmorItem.Type.LEGGINGS, ArmorItem.Type.CHESTPLATE}, type -> new MultilayerArmorItem(ArmorDefinitions.SLIMESUIT, type, UNSTACKABLE_PROPS)))
     .put(ArmorItem.Type.HELMET, ITEMS.register("slime_helmet", () -> new SlimeskullItem(ArmorDefinitions.SLIMESUIT, UNSTACKABLE_PROPS)))
+    .put(ArmorItem.Type.CHESTPLATE, ITEMS.register("slime_chestplate", () -> new MultilayerArmorItem(ArmorDefinitions.SLIMESUIT, ArmorItem.Type.CHESTPLATE, UNSTACKABLE_PROPS, TConstruct.getResource("slimelytra"))))
+    .putAll(ITEMS.registerEnum("slime", new ArmorItem.Type[] {ArmorItem.Type.LEGGINGS, ArmorItem.Type.BOOTS}, type -> new MultilayerArmorItem(ArmorDefinitions.SLIMESUIT, type, UNSTACKABLE_PROPS)))
     .build();
 
 
@@ -358,10 +361,12 @@ public final class TinkerTools extends TinkerModule {
       // special tool modules
       ToolModule.LOADER.register(getResource("melting_fluid_effective"), MeltingFluidEffectiveModule.LOADER);
       // display name
+      ToolModule.LOADER.register(getResource("item_name"), SimpleToolName.ITEM.getLoader());
       ToolModule.LOADER.register(getResource("material_name"), MaterialToolNameModule.LOADER);
       ToolModule.LOADER.register(getResource("stat_types_name"), StatTypesToolNameModule.LOADER);
       ToolModule.LOADER.register(getResource("fixed_material_name"), FixedMaterialToolName.LOADER);
       ToolModule.LOADER.register(getResource("unique_material_name"), UniqueMaterialToolName.LOADER);
+      ToolModule.LOADER.register(getResource("custom_material_name"), CustomMaterialName.LOADER);
       // tool predicates
       ToolContextPredicate.LOADER.register(getResource("has_upgrades"), ToolContextPredicate.HAS_UPGRADES.getLoader());
       ToolContextPredicate.LOADER.register(getResource("has_modifier"), HasModifierPredicate.LOADER);

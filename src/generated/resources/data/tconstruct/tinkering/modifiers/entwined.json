@@ -1,0 +1,24 @@
+{
+  "level_display": "tconstruct:single_level",
+  "modules": [
+    {
+      "type": "tconstruct:attribute",
+      "attribute": "minecraft:generic.movement_speed",
+      "each_level": 0.15,
+      "operation": "multiply_total",
+      "slots": [
+        "mainhand",
+        "feet",
+        "legs",
+        "chest",
+        "head"
+      ]
+    },
+    {
+      "type": "tconstruct:damage_on_unequip",
+      "damage": 2.0,
+      "damage_type": "tconstruct:entangled"
+    }
+  ],
+  "tooltip_display": "always"
+}

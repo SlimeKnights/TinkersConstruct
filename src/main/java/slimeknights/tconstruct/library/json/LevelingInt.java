@@ -22,6 +22,9 @@ public record LevelingInt(int flat, int eachLevel) {
       IntLoadable.ANY_SHORT.defaultField("flat", 0, LevelingInt::flat),
       IntLoadable.ANY_SHORT.defaultField("each_level", 0, LevelingInt::eachLevel),
       LevelingInt::new);
+  /** Loadable mapping a flat integer to the per level value, with a flat value of 0 */
+  public static final RecordLoadable<LevelingInt> EACH_LEVEL = LevelingInt.LOADABLE.compact(IntLoadable.ANY_SHORT.flatXmap(LevelingInt::eachLevel, LevelingInt::eachLevel), value -> value.flat == 0);
+
 
   /** Computes the value for the given level */
   public int compute(int level) {

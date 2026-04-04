@@ -2,7 +2,6 @@
   "stats": {
     "tconstruct:arrow_head": {},
     "tconstruct:skull": {
-      "armor": 0,
       "durability": 90
     }
   }

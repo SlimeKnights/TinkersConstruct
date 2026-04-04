@@ -25,6 +25,7 @@ import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 import slimeknights.tconstruct.tools.stats.LimbMaterialStats;
 import slimeknights.tconstruct.tools.stats.PlatingMaterialStats;
+import slimeknights.tconstruct.tools.stats.SlimeStats;
 import slimeknights.tconstruct.tools.stats.StatlessMaterialStats;
 
 import javax.annotation.Nullable;
@@ -239,6 +240,11 @@ public abstract class AbstractMaterialSpriteProvider {
       plating();
       maille();
       return this;
+    }
+
+    /** Adds slime textures for the given material. */
+    public MaterialSpriteInfoBuilder slime() {
+      return statType(SlimeStats.ID, TinkerPartSpriteProvider.SLIMESUIT);
     }
 
     /** Makes this work as the wood part for a shield */

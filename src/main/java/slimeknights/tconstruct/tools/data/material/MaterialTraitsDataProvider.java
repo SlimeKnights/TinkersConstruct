@@ -3,11 +3,14 @@ package slimeknights.tconstruct.tools.data.material;
 import net.minecraft.data.PackOutput;
 import slimeknights.tconstruct.library.data.material.AbstractMaterialDataProvider;
 import slimeknights.tconstruct.library.data.material.AbstractMaterialTraitDataProvider;
+import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.data.ModifierIds;
 import slimeknights.tconstruct.tools.stats.PlatingMaterialStats;
+import slimeknights.tconstruct.tools.stats.RepairStats;
 import slimeknights.tconstruct.tools.stats.SkullStats;
+import slimeknights.tconstruct.tools.stats.SlimeStats;
 
 import static slimeknights.tconstruct.library.materials.MaterialRegistry.AMMO;
 import static slimeknights.tconstruct.library.materials.MaterialRegistry.ARMOR;
@@ -75,8 +78,8 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     // tier 2 - end
     addDefaultTraits(MaterialIds.whitestone, ModifierIds.stoneshield);
     // tier 2 - binding
-    addDefaultTraits(MaterialIds.skyslimeVine, ModifierIds.airborne);
-    addTraits(MaterialIds.skyslimeVine, ARMOR, ModifierIds.skyfall);
+    addDefaultTraits(MaterialIds.skyslimeVine, ModifierIds.airborne, ModifierIds.overslimeFriend);
+    addTraits(MaterialIds.skyslimeVine, ARMOR, ModifierIds.skyfall, ModifierIds.overslimeFriend);
     addDefaultTraits(MaterialIds.weepingVine, ModifierIds.flamestance);
     addDefaultTraits(MaterialIds.twistingVine, ModifierIds.entangled);
     addDefaultTraits(MaterialIds.turtle, ModifierIds.turtleShell);
@@ -107,14 +110,14 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.steel, ModifierIds.ductile);
     // tier 3 - binding
     addDefaultTraits(MaterialIds.darkthread, ModifierIds.looting);
-    addDefaultTraits(MaterialIds.ichorskin, ModifierIds.godspeed);
+    addDefaultTraits(MaterialIds.ichorskin, ModifierIds.godspeed, ModifierIds.overslimeFriend);
     addDefaultTraits(MaterialIds.ice, ModifierIds.frostshield);
     addTraits(MaterialIds.ice, AMMO, ModifierIds.freezing);
     // tier 3 - ammo
     addTraits(MaterialIds.quartz, AMMO, ModifierIds.keen);
     addTraits(MaterialIds.ichor, AMMO, ModifierIds.rebound, ModifierIds.bounce);
     addTraits(MaterialIds.glowstone, AMMO, ModifierIds.spectral);
-    addDefaultTraits(MaterialIds.magnetite, ModifierIds.attractive);
+    addTraits(MaterialIds.magnetite, AMMO, ModifierIds.attractive);
     addTraits(MaterialIds.magma, AMMO, ModifierIds.fuse);
 
     // tier 4
@@ -146,9 +149,9 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addTraits(MaterialIds.knightmetal, ARMOR, ModifierIds.stalwart);
     addDefaultTraits(MaterialIds.knightslime, ModifierIds.overwield, TinkerModifiers.overslime.getId());
     addTraits(MaterialIds.knightslime, ARMOR, ModifierIds.overshield, TinkerModifiers.overslime.getId());
-    addDefaultTraits(MaterialIds.knightly, ModifierIds.valiant);
-    addDefaultTraits(MaterialIds.enderslimeVine, TinkerModifiers.enderporting);
-    addTraits(MaterialIds.enderslimeVine, ARMOR, ModifierIds.enderclearance);
+    addTraits(MaterialIds.knightly, AMMO, ModifierIds.valiant);
+    addDefaultTraits(MaterialIds.enderslimeVine, TinkerModifiers.enderporting.getId(), ModifierIds.overslimeFriend);
+    addTraits(MaterialIds.enderslimeVine, ARMOR, ModifierIds.enderclearance, ModifierIds.overslimeFriend);
     addDefaultTraits(MaterialIds.endRod, ModifierIds.hover);
 
     // tier 2 - mod compat
@@ -177,6 +180,17 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.nicrosil, TinkerModifiers.insatiable);
     addTraits(MaterialIds.nicrosil, ARMOR, ModifierIds.kinetic);
 
+    // slimesuit slime
+    addTraits(MaterialIds.earthslime, SlimeStats.ID, ModifierIds.overgrowth, TinkerModifiers.overslime.getId());
+    addTraits(MaterialIds.skyslime, SlimeStats.ID, ModifierIds.skyfall, TinkerModifiers.overslime.getId(), ModifierIds.overslimeFriend);
+    addTraits(MaterialIds.ichor, SlimeStats.ID, ModifierIds.godspeed, TinkerModifiers.overslime.getId(), ModifierIds.overslimeFriend);
+    addTraits(MaterialIds.enderslime, SlimeStats.ID, ModifierIds.enderdodging, TinkerModifiers.overslime.getId());
+    addTraits(MaterialIds.magma, SlimeStats.ID, ModifierIds.fireProtection, TinkerModifiers.overslime.getId(), ModifierIds.overslimeFriend);
+    addTraits(MaterialIds.blood, SlimeStats.ID, ModifierIds.reverted, TinkerModifiers.overslime.getId(), ModifierIds.overslimeFriend);
+    // pseudoslime
+    addTraits(MaterialIds.clay, SlimeStats.ID, ModifierIds.forming);
+    addTraits(MaterialIds.enderPearl, SlimeStats.ID, ModifierIds.magicProtection);
+
     // slimeskull
     material(MaterialIds.glass).addTraits(SkullStats.ID, TinkerModifiers.selfDestructive.getId(), ModifierIds.creeperDisguise);
     // end
@@ -203,9 +217,30 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     material(MaterialIds.blazingBone).addTraits(SkullStats.ID, ModifierIds.flamingBones, ModifierIds.witherSkeletonDisguise);
     material(MaterialIds.necronium).addTraits(SkullStats.ID, ModifierIds.decayedBones, ModifierIds.witherSkeletonDisguise);
     material(MaterialIds.knightmetal).addTraits(SkullStats.ID, ModifierIds.spitting);
-    // slimesuit
-    noTraits(MaterialIds.blood);
-    noTraits(MaterialIds.clay);
+
+    // slimeshell
+    MaterialStatsId shell = RepairStats.SHELL.getId();
+    // shells
+    addTraits(MaterialIds.turtle, shell, ModifierIds.turtlesGrace);
+    addTraits(MaterialIds.shulker, shell, ModifierIds.shulkerBox);
+    addTraits(MaterialIds.dragonScale, shell, ModifierIds.dragonfall);
+    // shards
+    addTraits(MaterialIds.magnetite, shell, ModifierIds.magnetic);
+    addTraits(MaterialIds.kobold, shell, ModifierIds.cobalamin);
+    addTraits(MaterialIds.knightly, shell, ModifierIds.loyal);
+
+    // slimeboots
+    MaterialStatsId laces = RepairStats.LACES.getId();
+    addTraits(MaterialIds.leather, laces, ModifierIds.snowBoots);
+    // vine uses default
+    addTraits(MaterialIds.skyslimeVine, laces, ModifierIds.leaping);
+    addTraits(MaterialIds.darkthread, laces, ModifierIds.looter);
+    addTraits(MaterialIds.twistingVine, laces, ModifierIds.entwined);
+    addTraits(MaterialIds.weepingVine, laces, ModifierIds.soulspeed);
+    addTraits(MaterialIds.jeweledHide, laces, ModifierIds.fortunate);
+    // enderslime vine uses standard armor
+
+    // slimesuit - repair
     noTraits(MaterialIds.honey);
     noTraits(MaterialIds.phantom);
   }

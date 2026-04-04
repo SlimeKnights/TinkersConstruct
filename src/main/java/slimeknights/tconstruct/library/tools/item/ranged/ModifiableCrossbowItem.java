@@ -28,12 +28,14 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.common.ToolActions;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.client.item.ModifiableCrossbowClientExtension;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.build.ConditionalStatModifierHook;
@@ -54,6 +56,7 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 import static slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook.KEY_DRAWTIME;
@@ -100,12 +103,17 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
   @Override
   public UseAnim getUseAnimation(ItemStack stack) {
     // crossbow is superhardcoded to crossbows, so use none and rely on the model
-    return ModifierUtil.blockWhileCharging(ToolStack.from(stack), UseAnim.NONE);
+    return ModifierUtil.blockWhileCharging(ToolStack.from(stack), UseAnim.CROSSBOW);
   }
 
   @Override
   public boolean useOnRelease(ItemStack stack) {
     return true;
+  }
+
+  @Override
+  public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+    consumer.accept(ModifiableCrossbowClientExtension.INSTANCE);
   }
 
 

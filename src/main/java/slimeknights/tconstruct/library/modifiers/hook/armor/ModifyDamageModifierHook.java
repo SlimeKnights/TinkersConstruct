@@ -57,10 +57,13 @@ public interface ModifyDamageModifierHook {
    * @param isDirectDamage  If true, the damage source is applying directly
    */
   static float modifyDamageTaken(ModuleHook<ModifyDamageModifierHook> hook, EquipmentContext context, DamageSource source, float amount, boolean isDirectDamage) {
+    if (amount <= 0) {
+      return 0;
+    }
     for (EquipmentEntry entry : context.iterateTools()) {
       ModifierEntry modifier = entry.modifier();
       amount = modifier.getHook(hook).modifyDamageTaken(entry.tool(), modifier, context, entry.slot(), source, amount, isDirectDamage);
-      if (amount < 0) {
+      if (amount <= 0) {
         return 0;
       }
     }

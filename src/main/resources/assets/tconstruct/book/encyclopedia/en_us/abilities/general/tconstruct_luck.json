@@ -2,11 +2,7 @@
   "modifier_id": "tconstruct:luck",
   "text": [
     {
-      "text": "Increases drop rates from both blocks (harvest tools only) and monsters. Luck requires a different recipe for each level, applied in order."
-    },
-    {
-      "text": "Leggings can receive a single level of luck, which boosts drops from mobs and drops from blocks when using tinker tools.",
-      "paragraph": true
+      "text": "Increases drop rates from blocks (on harvest tools) monsters (on melee weapons), and when fishing (on fishing rods). Luck requires a different recipe for each level, applied in order."
     }
   ],
   "more_text_space": true,

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "tconstruct:knightslime_block",
+  "key": {
+    "#": {
+      "tag": "forge:ingots/knightslime"
+    },
+    "*": {
+      "item": "tconstruct:knightslime_ingot"
+    }
+  },
+  "pattern": [
+    "###",
+    "#*#",
+    "###"
+  ],
+  "result": {
+    "item": "tconstruct:knightslime_block"
+  },
+  "show_notification": true
+}

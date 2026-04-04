@@ -5,7 +5,7 @@
   "input": {
     "item": "minecraft:shulker_shell"
   },
-  "needed_per_level": 5,
+  "needed_per_level": 3,
   "result": "tconstruct:shulking",
   "slots": {
     "defense": 1

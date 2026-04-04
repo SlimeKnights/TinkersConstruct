@@ -19,14 +19,22 @@ import java.util.function.Consumer;
 public class MultilayerArmorItem extends ModifiableArmorItem {
   private final ResourceLocation name;
   public MultilayerArmorItem(ModifiableArmorMaterial material, ArmorItem.Type slot, Properties properties) {
+    this(material, slot, properties, material.getId());
+  }
+
+  public MultilayerArmorItem(ModifiableArmorMaterial material, ArmorItem.Type slot, Properties properties, ResourceLocation name) {
     super(material, slot, properties);
-    this.name = material.getId();
+    this.name = name;
   }
 
   @SuppressWarnings("removal")
   public MultilayerArmorItem(ArmorMaterial material, ArmorItem.Type slot, Properties properties, ToolDefinition toolDefinition) {
+    this(material, slot, properties, toolDefinition, new ResourceLocation(material.getName()));
+  }
+
+  public MultilayerArmorItem(ArmorMaterial material, ArmorItem.Type slot, Properties properties, ToolDefinition toolDefinition, ResourceLocation name) {
     super(material, slot, properties, toolDefinition);
-    this.name = new ResourceLocation(material.getName());
+    this.name = name;
   }
 
   @Nullable

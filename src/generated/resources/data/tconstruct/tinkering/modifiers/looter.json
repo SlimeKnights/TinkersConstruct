@@ -1,0 +1,39 @@
+{
+  "level_display": {
+    "type": "tconstruct:unique",
+    "first_unique": false,
+    "unique_until": 2
+  },
+  "modules": [
+    {
+      "type": "tconstruct:armor_looting",
+      "level": {
+        "flat": 1
+      },
+      "slots": [
+        "feet",
+        "legs",
+        "chest",
+        "head"
+      ]
+    },
+    {
+      "type": "tconstruct:attribute",
+      "attribute": "tconstruct:player.experience_multiplier",
+      "flat": 0.25,
+      "modifier_level": {
+        "min": 2
+      },
+      "operation": "multiply_base",
+      "slots": [
+        "mainhand",
+        "offhand",
+        "feet",
+        "legs",
+        "chest",
+        "head"
+      ]
+    }
+  ],
+  "tooltip_display": "always"
+}

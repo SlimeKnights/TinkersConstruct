@@ -2,8 +2,11 @@
   "stats": {
     "tconstruct:arrow_head": {},
     "tconstruct:skull": {
-      "armor": 0,
-      "durability": 180
+      "durability": 250
+    },
+    "tconstruct:slime": {
+      "durability": 250,
+      "overslime_capacity": 0
     }
   }
 }

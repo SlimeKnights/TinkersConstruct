@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "tconstruct:knightslime_nugget",
+  "ingredients": [
+    {
+      "item": "tconstruct:knightslime_ingot"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "item": "tconstruct:knightslime_nugget"
+  }
+}

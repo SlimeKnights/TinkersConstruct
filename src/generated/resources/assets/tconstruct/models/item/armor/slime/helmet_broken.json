@@ -2,12 +2,12 @@
   "loader": "tconstruct:tool",
   "parent": "forge:item/default",
   "textures": {
-    "tool": "tconstruct:item/tool/armor/slime/helmet_broken",
-    "skull": "tconstruct:item/tool/armor/slime/helmet_skull"
+    "slime": "tconstruct:item/tool/armor/slime/helmet/slime_broken",
+    "skull": "tconstruct:item/tool/armor/slime/helmet/skull"
   },
   "modifier_maps": [
-    "tconstruct:slime/skull_broken",
-    "tconstruct:slime/skull"
+    "tconstruct:slime/helmet_broken",
+    "tconstruct:slime/helmet"
   ],
   "parts": [
     {
@@ -15,11 +15,11 @@
       "index": 0
     },
     {
-      "name": "tool"
+      "name": "slime",
+      "index": 1
     }
   ],
   "first_modifiers": [
-    "tconstruct:embellishment",
     "tconstruct:trim"
   ]
 }

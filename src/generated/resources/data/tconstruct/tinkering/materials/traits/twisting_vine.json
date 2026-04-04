@@ -4,5 +4,13 @@
       "level": 1,
       "name": "tconstruct:entangled"
     }
-  ]
+  ],
+  "perStat": {
+    "tconstruct:laces": [
+      {
+        "level": 1,
+        "name": "tconstruct:entwined"
+      }
+    ]
+  }
 }

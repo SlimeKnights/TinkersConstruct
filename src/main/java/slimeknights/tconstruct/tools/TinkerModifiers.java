@@ -231,7 +231,6 @@ import slimeknights.tconstruct.tools.modifiers.traits.melee.LaceratingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.ranged.OlympicModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.BreathtakingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.ChrysophiliteModifier;
-import slimeknights.tconstruct.tools.modifiers.traits.skull.EnderdodgingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.FirebreathModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.GoldGuardModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.PlagueModifier;
@@ -272,6 +271,7 @@ import slimeknights.tconstruct.tools.modules.armor.RestoreLostHealthModule;
 import slimeknights.tconstruct.tools.modules.armor.ShieldStrapModule;
 import slimeknights.tconstruct.tools.modules.armor.SleevesModule;
 import slimeknights.tconstruct.tools.modules.armor.SoulSpeedModule;
+import slimeknights.tconstruct.tools.modules.armor.TeleportDodgeModule;
 import slimeknights.tconstruct.tools.modules.armor.ThornsModule;
 import slimeknights.tconstruct.tools.modules.armor.ToolBeltModule;
 import slimeknights.tconstruct.tools.modules.armor.UpdateHealthModule;
@@ -409,7 +409,6 @@ public final class TinkerModifiers extends TinkerModule {
   public static final StaticModifier<EnderportingModifier> enderporting = MODIFIERS.register("enderporting", EnderportingModifier::new);
   // traits - slimeskull
   public static final StaticModifier<SelfDestructiveModifier> selfDestructive = MODIFIERS.register("self_destructive", SelfDestructiveModifier::new);
-  public static final StaticModifier<EnderdodgingModifier> enderdodging = MODIFIERS.register("enderdodging", EnderdodgingModifier::new);
   public static final StaticModifier<StrongBonesModifier> strongBones = MODIFIERS.register("strong_bones", StrongBonesModifier::new);
   public static final StaticModifier<PlagueModifier> plague = MODIFIERS.register("plague", PlagueModifier::new);
   public static final StaticModifier<ChrysophiliteModifier> chrysophilite = MODIFIERS.register("chrysophilite", ChrysophiliteModifier::new);
@@ -676,6 +675,9 @@ public final class TinkerModifiers extends TinkerModule {
   /** @deprecated use {@link slimeknights.tconstruct.tools.data.ModifierIds#revenge} */
   @Deprecated(forRemoval = true)
   public static final StaticModifier<?> revenge = MODIFIERS.registerDynamic("revenge");
+  /** @deprecated use {@link slimeknights.tconstruct.tools.data.ModifierIds#revenge} */
+  @Deprecated(forRemoval = true)
+  public static final StaticModifier<?> enderdodging = MODIFIERS.registerDynamic("enderdodging");
 
 
   /*
@@ -703,6 +705,8 @@ public final class TinkerModifiers extends TinkerModule {
   /** Effect for rendering the helmet charging icon in the GUI */
   public static final RegistryObject<HelmetChargingEffect> helmetCharging = MOB_EFFECTS.register("helmet_charging", HelmetChargingEffect::new);
   // cooldown
+  /** @deprecated use {@link TinkerEffects#enderference} */
+  @Deprecated(forRemoval = true)
   public static final RegistryObject<TinkerEffect> teleportCooldownEffect = MOB_EFFECTS.register("teleport_cooldown", () -> new NoMilkEffect(MobEffectCategory.HARMFUL, 0xCC00FA, true));
   public static final RegistryObject<TinkerEffect> fireballCooldownEffect = MOB_EFFECTS.register("fireball_cooldown", () -> new NoMilkEffect(MobEffectCategory.HARMFUL, 0xFC9600, true));
   // internal
@@ -980,6 +984,7 @@ public final class TinkerModifiers extends TinkerModule {
       ModifierModule.LOADER.register(getResource("soulspeed"), SoulSpeedModule.LOADER);
       ModifierModule.LOADER.register(getResource("restore_lost_health"), RestoreLostHealthModule.LOADER);
       ModifierModule.LOADER.register(getResource("update_health"), UpdateHealthModule.LOADER);
+      ModifierModule.LOADER.register(getResource("teleport_dodge"), TeleportDodgeModule.LOADER);
       // counterattack
       ModifierModule.LOADER.register(getResource("thorns"), ThornsModule.LOADER);
       ModifierModule.LOADER.register(getResource("fiery_counter"), FieryCounterModule.LOADER);

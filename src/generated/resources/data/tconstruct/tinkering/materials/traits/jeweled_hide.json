@@ -11,6 +11,12 @@
         "level": 1,
         "name": "tconstruct:revitalizing"
       }
+    ],
+    "tconstruct:laces": [
+      {
+        "level": 1,
+        "name": "tconstruct:fortunate"
+      }
     ]
   }
 }

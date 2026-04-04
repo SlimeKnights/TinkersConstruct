@@ -230,7 +230,7 @@ public class ModifierClientEvents {
   public static void renderHotbar(RenderGuiOverlayEvent.Post event) {
     Minecraft mc = Minecraft.getInstance();
     Player player = mc.player;
-    if (mc.options.hideGui || (mc.screen != null && mc.screen.isPauseScreen()) && event.getOverlay() != VanillaGuiOverlay.HOTBAR.type() || player == null || player != mc.getCameraEntity()) {
+    if (mc.options.hideGui || event.getOverlay() != VanillaGuiOverlay.HOTBAR.type() || player == null || player != mc.getCameraEntity()) {
       return;
     }
     boolean renderShield = Config.CLIENT.renderShieldSlotItem.get() && !nextOffhand.isEmpty();
@@ -274,6 +274,12 @@ public class ModifierClientEvents {
         graphics.blit(Icons.ICONS, x - 3, y - 3, emptyOffhand ? 211 : rightHanded ? 145 : 123, 0, SLOT_BACKGROUND_SIZE, SLOT_BACKGROUND_SIZE, 256, 256);
         mc.gui.renderSlot(graphics, x, y, partialTicks, player, currentSleeve, 11);
       }
+
+      // TODO: cannot remember why this was needed before. Reconfirm if bug still exists.
+      // skip the non-hotbar renderers when the pause screen is open, as they can sometimes show up above elements they shouldn't
+      // if (mc.screen != null && mc.screen.isPauseScreen()) {
+      //   return;
+      // }
 
       // render map
       Orientation2D mapLocation = null;
@@ -383,8 +389,6 @@ public class ModifierClientEvents {
           i++;
         }
       }
-
-      RenderSystem.disableBlend();
     }
   }
 }

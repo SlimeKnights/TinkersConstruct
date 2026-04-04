@@ -2,6 +2,7 @@
   "color": "FF243366",
   "fallbacks": [
     "metal_contrast",
+    "contrast",
     "slime_metal",
     "metal"
   ],

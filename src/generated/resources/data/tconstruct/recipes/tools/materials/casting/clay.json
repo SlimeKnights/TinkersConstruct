@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:material_fluid",
+  "fluid": {
+    "amount": 250,
+    "tag": "tconstruct:molten_clay"
+  },
+  "output": "tconstruct:clay",
+  "temperature": 450
+}

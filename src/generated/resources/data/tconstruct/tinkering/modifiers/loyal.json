@@ -1,0 +1,29 @@
+{
+  "level_display": "tconstruct:single_level",
+  "modules": [
+    {
+      "type": "tconstruct:protection",
+      "damage_source": "mantle:can_protect",
+      "formula": [
+        1.0,
+        "$equipment",
+        "-",
+        10.0,
+        "*",
+        "$level",
+        "*",
+        "$protection",
+        "+"
+      ],
+      "variables": {
+        "equipment": {
+          "type": "tconstruct:entity",
+          "entity_type": "tconstruct:armor_coverage",
+          "fallback": 0.25,
+          "which": "target"
+        }
+      }
+    }
+  ],
+  "tooltip_display": "always"
+}

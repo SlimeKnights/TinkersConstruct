@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:material_fluid",
+  "fluid": {
+    "amount": 250,
+    "tag": "forge:magma"
+  },
+  "output": "tconstruct:magma",
+  "temperature": 300
+}

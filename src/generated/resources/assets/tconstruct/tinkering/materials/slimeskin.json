@@ -1,5 +1,5 @@
 {
-  "color": "FF56CF4C",
+  "color": "FF8CD782",
   "fallbacks": [
     "cloth"
   ],
@@ -22,31 +22,35 @@
             "grey": 0
           },
           {
-            "color": "FF229630",
+            "color": "FF34532F",
             "grey": 63
           },
           {
-            "color": "FF24A033",
+            "color": "FF477A42",
             "grey": 102
           },
           {
-            "color": "FF27AB37",
+            "color": "FF508049",
+            "grey": 127
+          },
+          {
+            "color": "FF57914F",
             "grey": 140
           },
           {
-            "color": "FF3EBD42",
+            "color": "FF71AC63",
             "grey": 178
           },
           {
-            "color": "FF56CF4C",
+            "color": "FF76BE6D",
+            "grey": 193
+          },
+          {
+            "color": "FF8CD782",
             "grey": 216
           },
           {
-            "color": "FF6FEA60",
-            "grey": 234
-          },
-          {
-            "color": "FF82F86D",
+            "color": "FFC9FECE",
             "grey": 255
           }
         ]

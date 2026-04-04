@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import slimeknights.mantle.data.predicate.block.BlockPredicate;
 import slimeknights.tconstruct.fixture.MaterialItemFixture;
 import slimeknights.tconstruct.fixture.RegistrationFixture;
+import slimeknights.tconstruct.library.json.LevelingValue;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierFixture;
 import slimeknights.tconstruct.library.tools.SlotType;
@@ -182,6 +183,8 @@ class UpdateToolDefinitionDataPacketTest extends BaseMcTest {
     // weapon
     MeleeHitToolHook attack = parsed.getHook(ToolHooks.MELEE_HIT);
     assertThat(attack).isInstanceOf(SweepWeaponAttack.class);
-    assertThat(((SweepWeaponAttack)attack).range()).isEqualTo(4);
+    LevelingValue range = ((SweepWeaponAttack)attack).range();
+    assertThat(range.flat()).isEqualTo(4);
+    assertThat(range.eachLevel()).isEqualTo(1);
   }
 }

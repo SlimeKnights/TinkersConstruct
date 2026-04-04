@@ -13,6 +13,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.field.LoadableField;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
@@ -20,6 +21,7 @@ import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.block.BlockPredicate;
 import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
 import slimeknights.mantle.util.LogicHelper;
+import slimeknights.tconstruct.library.json.LevelingInt;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
@@ -28,7 +30,7 @@ import slimeknights.tconstruct.library.modifiers.hook.behavior.EnchantmentModifi
 import slimeknights.tconstruct.library.modifiers.hook.mining.BlockHarvestModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.mining.HarvestEnchantmentsModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
-import slimeknights.tconstruct.library.modifiers.modules.util.IntLevelModule;
+import slimeknights.tconstruct.library.modifiers.modules.util.LevelingIntModule;
 import slimeknights.tconstruct.library.modifiers.modules.util.ModifierCondition;
 import slimeknights.tconstruct.library.modifiers.modules.util.ModifierCondition.ConditionalModule;
 import slimeknights.tconstruct.library.modifiers.modules.util.ModuleBuilder;
@@ -43,7 +45,7 @@ import java.util.Map;
 import java.util.Set;
 
 /** Modules that add enchantments to a tool. */
-public interface EnchantmentModule extends ModifierModule, IntLevelModule, ConditionalModule<IToolStackView> {
+public interface EnchantmentModule extends ModifierModule, LevelingIntModule, ConditionalModule<IToolStackView> {
   /* Common fields */
   LoadableField<Enchantment,EnchantmentModule> ENCHANTMENT = Loadables.ENCHANTMENT.requiredField("name", EnchantmentModule::enchantment);
   LoadableField<IJsonPredicate<BlockState>,EnchantmentModule> BLOCK = BlockPredicate.LOADER.defaultField("block", EnchantmentModule::block);
@@ -78,16 +80,22 @@ public interface EnchantmentModule extends ModifierModule, IntLevelModule, Condi
   @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
   class Builder extends ModuleBuilder.Stack<Builder> {
     private final Enchantment enchantment;
-    private int level = 1;
+    private LevelingInt lootingLevel = LevelingInt.LEVEL;
     private IJsonPredicate<BlockState> block = BlockPredicate.ANY;
     private IJsonPredicate<LivingEntity> holder = LivingEntityPredicate.ANY;
+
+    /** @deprecated use {@link #lootingLevel(LevelingInt)} */
+    @Deprecated(forRemoval = true)
+    public Builder level(int level) {
+      return lootingLevel(LevelingInt.eachLevel(level));
+    }
 
     /** Builds a module for a constant enchantment */
     public Constant constant() {
       if (block != BlockPredicate.ANY || holder != LivingEntityPredicate.ANY) {
         throw new IllegalStateException("Cannot build a constant enchantment module with block or holder conditions");
       }
-      return new Constant(enchantment, level, condition);
+      return new Constant(enchantment, lootingLevel, condition);
     }
 
     /** Builds a module for a constant enchantment which ignores its protection value */
@@ -95,7 +103,7 @@ public interface EnchantmentModule extends ModifierModule, IntLevelModule, Condi
       if (block != BlockPredicate.ANY || holder != LivingEntityPredicate.ANY) {
         throw new IllegalStateException("Cannot build a constant enchantment module with block or holder conditions");
       }
-      return new Protection(enchantment, level, condition);
+      return new Protection(enchantment, lootingLevel, condition);
     }
 
     /**
@@ -104,7 +112,7 @@ public interface EnchantmentModule extends ModifierModule, IntLevelModule, Condi
      * @return  Module instance
      */
     public MainHandHarvest mainHandHarvest(ResourceLocation key) {
-      return new MainHandHarvest(enchantment, level, condition, key, block, holder);
+      return new MainHandHarvest(enchantment, lootingLevel, condition, key, block, holder);
     }
 
     /**
@@ -121,7 +129,7 @@ public interface EnchantmentModule extends ModifierModule, IntLevelModule, Condi
       if (set.contains(EquipmentSlot.MAINHAND)) {
         throw new IllegalArgumentException("Cannot create armor harvest for the main hand slot");
       }
-      return new ArmorHarvest(enchantment, level, condition, set, block, holder);
+      return new ArmorHarvest(enchantment, lootingLevel, condition, set, block, holder);
     }
 
     /** Creates a new armor harvest module with the default slots */
@@ -133,14 +141,22 @@ public interface EnchantmentModule extends ModifierModule, IntLevelModule, Condi
   /** Implementation of a simple constant enchantment for the current tool */
   @Accessors(fluent = true)
   @Getter
-  @RequiredArgsConstructor
+  @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
   class Constant implements EnchantmentModule, EnchantmentModifierHook {
     private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<Constant>defaultHooks(ModifierHooks.ENCHANTMENTS);
-    public static final RecordLoadable<Constant> LOADER = RecordLoadable.create(ENCHANTMENT, IntLevelModule.FIELD, ModifierCondition.TOOL_FIELD, Constant::new);
+    public static final RecordLoadable<Constant> LOADER = RecordLoadable.create(ENCHANTMENT, LevelingIntModule.FIELD, ModifierCondition.TOOL_FIELD, Constant::new);
     private final Enchantment enchantment;
-    private final int level;
+    private final LevelingInt level;
     private final ModifierCondition<IToolStackView> condition;
 
+    /** @deprecated use {@link Builder#constant()} */
+    @Deprecated(forRemoval = true)
+    public Constant(Enchantment enchantment, int level, ModifierCondition<IToolStackView> condition) {
+      this(enchantment, LevelingInt.eachLevel(level), condition);
+    }
+
+    /** @deprecated use {@link Builder#constant()} */
+    @Deprecated(forRemoval = true)
     public Constant(Enchantment enchantment, int level) {
       this(enchantment, level, ModifierCondition.ANY_TOOL);
     }
@@ -174,7 +190,13 @@ public interface EnchantmentModule extends ModifierModule, IntLevelModule, Condi
   /** Constant enchantment which cancels out the protection value */
   class Protection extends Constant implements ProtectionModifierHook {
     private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<Protection>defaultHooks(ModifierHooks.ENCHANTMENTS, ModifierHooks.PROTECTION);
-    public static final RecordLoadable<Constant> LOADER = RecordLoadable.create(ENCHANTMENT, IntLevelModule.FIELD, ModifierCondition.TOOL_FIELD, Protection::new);
+    public static final RecordLoadable<Constant> LOADER = RecordLoadable.create(ENCHANTMENT, LevelingIntModule.FIELD, ModifierCondition.TOOL_FIELD, Protection::new);
+    protected Protection(Enchantment enchantment, LevelingInt level, ModifierCondition<IToolStackView> condition) {
+      super(enchantment, level, condition);
+    }
+
+    /** @deprecated use {@link Builder#protection()} */
+    @Deprecated(forRemoval = true)
     public Protection(Enchantment enchantment, int level, ModifierCondition<IToolStackView> condition) {
       super(enchantment, level, condition);
     }
@@ -206,9 +228,19 @@ public interface EnchantmentModule extends ModifierModule, IntLevelModule, Condi
    * Enchantment module that can condition on the block mined or the entity mining.
    * Exists as {@link HarvestEnchantmentsModifierHook} does not currently run on the main hand. TODO 1.21: update it to run on mainhand.
    */
-  record MainHandHarvest(Enchantment enchantment, int level, ModifierCondition<IToolStackView> condition, ResourceLocation conditionFlag, IJsonPredicate<BlockState> block, IJsonPredicate<LivingEntity> holder) implements EnchantmentModule, EnchantmentModifierHook, BlockHarvestModifierHook {
+  record MainHandHarvest(Enchantment enchantment, LevelingInt level, ModifierCondition<IToolStackView> condition, ResourceLocation conditionFlag, IJsonPredicate<BlockState> block, IJsonPredicate<LivingEntity> holder) implements EnchantmentModule, EnchantmentModifierHook, BlockHarvestModifierHook {
     private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<MainHandHarvest>defaultHooks(ModifierHooks.ENCHANTMENTS, ModifierHooks.BLOCK_HARVEST);
-    public static final RecordLoadable<MainHandHarvest> LOADER = RecordLoadable.create(ENCHANTMENT, IntLevelModule.FIELD, ModifierCondition.TOOL_FIELD, Loadables.RESOURCE_LOCATION.requiredField("condition_flag", MainHandHarvest::conditionFlag), BLOCK, HOLDER, MainHandHarvest::new);
+    public static final RecordLoadable<MainHandHarvest> LOADER = RecordLoadable.create(ENCHANTMENT, LevelingIntModule.FIELD, ModifierCondition.TOOL_FIELD, Loadables.RESOURCE_LOCATION.requiredField("condition_flag", MainHandHarvest::conditionFlag), BLOCK, HOLDER, MainHandHarvest::new);
+
+    /** @apiNote use {@link Builder#mainHandHarvest(ResourceLocation)} */
+    @Internal
+    public MainHandHarvest {}
+
+    /** @deprecated use {@link Builder#mainHandHarvest(ResourceLocation)} */
+    @Deprecated(forRemoval = true)
+    public MainHandHarvest(Enchantment enchantment, int level, ModifierCondition<IToolStackView> condition, ResourceLocation conditionFlag, IJsonPredicate<BlockState> block, IJsonPredicate<LivingEntity> holder) {
+      this(enchantment, LevelingInt.eachLevel(level), condition, conditionFlag, block, holder);
+    }
 
     @Override
     public void startHarvest(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context) {
@@ -253,9 +285,19 @@ public interface EnchantmentModule extends ModifierModule, IntLevelModule, Condi
    * Enchantment module that can condition on the block mined or the entity mining on armor. Requires the harvesting be done with a tinker tool.
    * TODO 1.21: rename to conditional harvest. The slot filter lets us avoid double applying to a constant enchantment harvest tool.
    */
-  record ArmorHarvest(Enchantment enchantment, int level, ModifierCondition<IToolStackView> condition, Set<EquipmentSlot> slots, IJsonPredicate<BlockState> block, IJsonPredicate<LivingEntity> holder) implements EnchantmentModule, HarvestEnchantmentsModifierHook {
+  record ArmorHarvest(Enchantment enchantment, LevelingInt level, ModifierCondition<IToolStackView> condition, Set<EquipmentSlot> slots, IJsonPredicate<BlockState> block, IJsonPredicate<LivingEntity> holder) implements EnchantmentModule, HarvestEnchantmentsModifierHook {
     private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<ArmorHarvest>defaultHooks(ModifierHooks.HARVEST_ENCHANTMENTS);
-    public static final RecordLoadable<ArmorHarvest> LOADER = RecordLoadable.create(ENCHANTMENT, IntLevelModule.FIELD, ModifierCondition.TOOL_FIELD, TinkerLoadables.EQUIPMENT_SLOT_SET.requiredField("slots", ArmorHarvest::slots), BLOCK, HOLDER, ArmorHarvest::new);
+    public static final RecordLoadable<ArmorHarvest> LOADER = RecordLoadable.create(ENCHANTMENT, LevelingIntModule.FIELD, ModifierCondition.TOOL_FIELD, TinkerLoadables.EQUIPMENT_SLOT_SET.requiredField("slots", ArmorHarvest::slots), BLOCK, HOLDER, ArmorHarvest::new);
+
+    /** @apiNote use {@link Builder#armorHarvest(EquipmentSlot...)} */
+    @Internal
+    public ArmorHarvest {}
+
+    /** @deprecated use {@link Builder#armorHarvest(EquipmentSlot...)} */
+    @Deprecated(forRemoval = true)
+    public ArmorHarvest(Enchantment enchantment, int level, ModifierCondition<IToolStackView> condition, Set<EquipmentSlot> slots, IJsonPredicate<BlockState> block, IJsonPredicate<LivingEntity> holder) {
+      this(enchantment, LevelingInt.eachLevel(level), condition, slots, block, holder);
+    }
 
     @Override
     public void updateHarvestEnchantments(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context, EquipmentContext equipment, EquipmentSlot slot, Map<Enchantment,Integer> map) {

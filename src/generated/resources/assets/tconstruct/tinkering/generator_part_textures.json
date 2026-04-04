@@ -108,43 +108,43 @@
     },
     {
       "allow_animated": false,
-      "path": "tconstruct:item/tool/armor/slime/skull_modifiers/tconstruct_embellishment",
-      "stat_type": "tconstruct:slimesuit"
+      "path": "tconstruct:item/tool/armor/slime/helmet/slime",
+      "stat_type": "tconstruct:slime"
     },
     {
       "allow_animated": false,
-      "path": "tconstruct:item/tool/armor/slime/skull_modifiers/broken/tconstruct_embellishment",
-      "stat_type": "tconstruct:slimesuit"
+      "path": "tconstruct:item/tool/armor/slime/helmet/slime_broken",
+      "stat_type": "tconstruct:slime"
     },
     {
       "allow_animated": false,
-      "path": "tconstruct:item/tool/armor/slime/wings_modifiers/tconstruct_embellishment",
-      "stat_type": "tconstruct:slimesuit"
+      "path": "tconstruct:item/tool/armor/slime/wings/slime",
+      "stat_type": "tconstruct:slime"
     },
     {
       "allow_animated": false,
-      "path": "tconstruct:item/tool/armor/slime/wings_modifiers/broken/tconstruct_embellishment",
-      "stat_type": "tconstruct:slimesuit"
+      "path": "tconstruct:item/tool/armor/slime/wings/slime_broken",
+      "stat_type": "tconstruct:slime"
     },
     {
       "allow_animated": false,
-      "path": "tconstruct:item/tool/armor/slime/shell_modifiers/tconstruct_embellishment",
-      "stat_type": "tconstruct:slimesuit"
+      "path": "tconstruct:item/tool/armor/slime/leggings/slime",
+      "stat_type": "tconstruct:slime"
     },
     {
       "allow_animated": false,
-      "path": "tconstruct:item/tool/armor/slime/shell_modifiers/broken/tconstruct_embellishment",
-      "stat_type": "tconstruct:slimesuit"
+      "path": "tconstruct:item/tool/armor/slime/leggings/slime_broken",
+      "stat_type": "tconstruct:slime"
     },
     {
       "allow_animated": false,
-      "path": "tconstruct:item/tool/armor/slime/boot_modifiers/tconstruct_embellishment",
-      "stat_type": "tconstruct:slimesuit"
+      "path": "tconstruct:item/tool/armor/slime/boots/slime",
+      "stat_type": "tconstruct:slime"
     },
     {
       "allow_animated": false,
-      "path": "tconstruct:item/tool/armor/slime/boot_modifiers/broken/tconstruct_embellishment",
-      "stat_type": "tconstruct:slimesuit"
+      "path": "tconstruct:item/tool/armor/slime/boots/slime_broken",
+      "stat_type": "tconstruct:slime"
     },
     {
       "allow_animated": false,

@@ -857,7 +857,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .saveSalvage(consumer, prefix(ModifierIds.turtleShell, defenseSalvage))
                                     .save(consumer, prefix(ModifierIds.turtleShell, defenseFolder));
     IncrementalModifierRecipeBuilder.modifier(ModifierIds.shulking)
-                                    .setInput(Items.SHULKER_SHELL, 1, 5)
+                                    .setInput(Items.SHULKER_SHELL, 1, 3)
                                     .setSlots(SlotType.DEFENSE, 1)
                                     .setTools(TinkerTags.Items.ARMOR)
                                     .saveSalvage(consumer, prefix(ModifierIds.shulking, defenseSalvage))
@@ -1259,16 +1259,10 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     // pants have just one level
     ModifierRecipeBuilder.modifier(ModifierIds.luck)
                          .setTools(TinkerTags.Items.LEGGINGS)
-                         .addInput(SizedIngredient.fromItems(Items.CORNFLOWER, Items.BLUE_ORCHID))
-                         .addInput(Items.RABBIT_FOOT)
-                         .addInput(Items.GOLDEN_CARROT)
-                         .addInput(Tags.Items.GEMS_DIAMOND)
-                         .addInput(Items.NAME_TAG)
                          .setMaxLevel(1)
                          .setSlots(SlotType.ABILITY, 1)
                          .disallowCrystal() // prevents cheesing cost using luck 1
-                         .saveSalvage(consumer, wrap(ModifierIds.luck, abilitySalvage, "_pants"))
-                         .save(consumer, wrap(ModifierIds.luck, abilityFolder, "_pants"));
+                         .saveSalvage(consumer, wrap(ModifierIds.luck, abilitySalvage, "_pants"));
     ModifierRecipeBuilder.modifier(ModifierIds.luck)
                          .setTools(ingredientFromTags(TinkerTags.Items.MELEE, TinkerTags.Items.HARVEST, TinkerTags.Items.LAUNCHERS))
                          .exactLevel(1)

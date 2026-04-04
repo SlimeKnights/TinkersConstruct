@@ -2,14 +2,19 @@
   "loader": "tconstruct:tool",
   "parent": "forge:item/default",
   "textures": {
-    "tool": "tconstruct:item/tool/armor/slime/wings_broken"
+    "slime": "tconstruct:item/tool/armor/slime/wings/slime_broken"
   },
   "modifier_maps": [
     "tconstruct:slime/wings_broken",
     "tconstruct:slime/wings"
   ],
+  "parts": [
+    {
+      "name": "slime",
+      "index": 0
+    }
+  ],
   "first_modifiers": [
-    "tconstruct:embellishment",
     "tconstruct:trim"
   ]
 }

@@ -94,13 +94,16 @@ public class CompositeCastingRecipe extends MaterialCastingRecipe {
             MaterialVariantId inputId = input.getVariant();
             List<ItemStack> inputs;
             if (inputId.getVariant().isEmpty()) {
-              inputs = MaterialRecipeCache.getVariants(input.getId()).stream().map(result::withMaterial).toList();
+              // skip outputs that are the same variant as the input; those are not valid recipes
+              inputs = MaterialRecipeCache.getVariants(input.getId()).stream().filter(material -> !output.sameVariant(material)).map(result::withMaterial).toList();
             } else {
               inputs = List.of(result.withMaterial(inputId));
             }
-            recipes.add(new DisplayCastingRecipe(getId(), type, inputs, fluids, result.withMaterial(output.getVariant()),
-                                                 ICastingRecipe.calcCoolingTime(recipe.getTemperature(), itemCost * fluids.stream().mapToInt(FluidStack::getAmount).max().orElse(0)),
-                                                 isConsumed()));
+            if (!inputs.isEmpty()) {
+              recipes.add(new DisplayCastingRecipe(getId(), type, inputs, fluids, result.withMaterial(output.getVariant()),
+                ICastingRecipe.calcCoolingTime(recipe.getTemperature(), itemCost * fluids.stream().mapToInt(FluidStack::getAmount).max().orElse(0)),
+                isConsumed()));
+            }
           }
         }
       }

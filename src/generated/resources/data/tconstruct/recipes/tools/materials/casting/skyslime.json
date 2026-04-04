@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:material_fluid",
+  "fluid": {
+    "amount": 250,
+    "tag": "tconstruct:sky_slime"
+  },
+  "output": "tconstruct:skyslime",
+  "temperature": 10
+}

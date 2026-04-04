@@ -1,28 +1,14 @@
 {
   "modules": [
     {
-      "type": "tconstruct:base_stats",
-      "stats": {
-        "tconstruct:durability": 362.0
-      }
-    },
-    {
-      "type": "tconstruct:modifier_slots",
-      "slots": {
-        "abilities": 1,
-        "upgrades": 5
-      }
-    },
-    {
-      "type": "tconstruct:material_repair",
-      "durability": 46,
-      "material": "tconstruct:enderslime"
-    },
-    {
       "type": "tconstruct:material_stats",
       "primary_part": 0,
       "stat_types": [
-        "tconstruct:skull"
+        "tconstruct:skull",
+        {
+          "scale": 1.1,
+          "stat": "tconstruct:slime"
+        }
       ]
     },
     {
@@ -31,21 +17,36 @@
         {
           "type": "tconstruct:random",
           "allow_hidden": true
+        },
+        {
+          "type": "tconstruct:fixed",
+          "material": "tconstruct:blood"
         }
       ]
     },
     {
-      "type": "tconstruct:traits",
-      "traits": [
-        {
-          "level": 1,
-          "name": "tconstruct:overslime_friend"
-        }
-      ]
+      "type": "tconstruct:modifier_slots",
+      "slots": {
+        "abilities": 2,
+        "upgrades": 3
+      }
+    },
+    {
+      "type": "tconstruct:material_traits",
+      "hooks": [
+        "tconstruct:trim_trait"
+      ],
+      "material_index": 1,
+      "stat_type": "tconstruct:slime"
     },
     {
       "type": "tconstruct:unique_material_name",
-      "index": 0
+      "index": 1
+    },
+    {
+      "type": "tconstruct:custom_material_name",
+      "index": 0,
+      "suffix": "skull"
     }
   ]
 }

@@ -15,6 +15,12 @@
         "level": 1,
         "name": "tconstruct:enderman_disguise"
       }
+    ],
+    "tconstruct:slime": [
+      {
+        "level": 1,
+        "name": "tconstruct:magic_protection"
+      }
     ]
   }
 }
