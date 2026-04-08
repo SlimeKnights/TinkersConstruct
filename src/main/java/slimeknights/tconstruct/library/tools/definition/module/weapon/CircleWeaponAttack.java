@@ -37,6 +37,7 @@ public record CircleWeaponAttack(float diameter) implements MeleeHitToolHook, To
 
   @Override
   public void afterMeleeHit(IToolStackView tool, ToolAttackContext context, float damage) {
+    if (context.isExtraAttack()) return;
     // no need for fully charged for scythe sweep, easier than sword sweep
     // basically sword sweep logic, just deals full damage to all entities (and full effects)
     // but also takes more durability loss
