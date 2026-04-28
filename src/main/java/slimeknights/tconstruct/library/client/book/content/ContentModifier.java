@@ -313,7 +313,7 @@ public class ContentModifier extends PageContent {
           .add(TextData.toHtml(text, book)),
         HtmlElement.div().style("width", 210)
           .add(HtmlElement.p().classes("underline").add(I18n.get(KEY_EFFECTS)))
-          .add(HtmlElement.ul().classes("prop-list")
+          .add(HtmlElement.ul().style("margin-top", 8).classes("prop-list")
             .add(Arrays.stream(effects).map(effect -> HtmlElement.li().add(HTMLUtils.parse(effect)))))
       )
     );
