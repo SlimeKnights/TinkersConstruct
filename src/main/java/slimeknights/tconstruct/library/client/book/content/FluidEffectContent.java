@@ -151,7 +151,7 @@ public class FluidEffectContent extends PageContent {
     } else {
       // append generated text
       for (Component component : components) {
-        list.add(HtmlElement.li().add(HTMLUtils.toHtml(component)));
+        list.add(HtmlElement.li().add(HtmlElement.p().add(HTMLUtils.toHtml(component))));
       }
     }
 

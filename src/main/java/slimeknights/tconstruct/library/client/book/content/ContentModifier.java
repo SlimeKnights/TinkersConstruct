@@ -314,7 +314,7 @@ public class ContentModifier extends PageContent {
         HtmlElement.div().style("width", 210)
           .add(HtmlElement.p().classes("underline").add(I18n.get(KEY_EFFECTS)))
           .add(HtmlElement.ul().style("margin-top", 8).classes("prop-list")
-            .add(Arrays.stream(effects).map(effect -> HtmlElement.li().add(HTMLUtils.parse(effect)))))
+            .add(Arrays.stream(effects).map(effect -> HtmlElement.li().add(HtmlElement.p().add(HTMLUtils.parse(effect))))))
       )
     );
   }
