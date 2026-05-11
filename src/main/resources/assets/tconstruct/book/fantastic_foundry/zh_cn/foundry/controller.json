@@ -1,7 +1,9 @@
 {
   "title": "熔铸炉控制器",
   "image": {
-    "file": "tconstruct:book/images/fcontroller.png"
+    "file": "tconstruct:book/images/zh_cn/fcontroller.png",
+    "width": 160,
+    "height": 76
   },
   "text": [
     {

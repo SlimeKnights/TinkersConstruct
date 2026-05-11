@@ -2171,7 +2171,7 @@
   "material.tconstruct.jeweled_hide.flavor": "用最纯粹的宝石鞣制的皮革。",
   "material.tconstruct.jeweled_hide.encyclopedia": "增加方块掉落物的掉落概率，与“幸运”效果叠加。",
   "material.tconstruct.jeweled_hide.ranged": "增加钓鱼的宝藏概率，与“幸运”效果叠加。",
-  "material.tconstruct.jeweled_hide.armor": "最大生命值增加1颗心。加持在盾牌上后，举盾时立即回复生命值，但卸下时会受到1颗心的伤害",
+  "material.tconstruct.jeweled_hide.armor": "最大生命值增加一颗心。加持在盾牌上后，举盾时立即回复生命值，但卸下时 会受到一颗心的伤害",
 
   "material.tconstruct.ancient_hide": "远古兽皮",
   "material.tconstruct.ancient_hide.flavor": "用最古老的石头鞣制的皮革。",
@@ -2372,13 +2372,13 @@
   "modifier.tconstruct.offhanded": "副手持握",
   "modifier.tconstruct.offhanded.2": "无持握",
   "modifier.tconstruct.offhanded.flavor": "不要多想",
-  "modifier.tconstruct.offhanded.description": "副手占用时，禁用工具的交互功能。第2级完全禁用工具的交互功能",
+  "modifier.tconstruct.offhanded.description": "副手占用时，禁用工具的交互能力。第2级完全禁用工具的交互能力",
   "modifier.tconstruct.blunted": "钝兵",
   "modifier.tconstruct.blunted.flavor": "安全对练",
-  "modifier.tconstruct.blunted.description": "防止工具对生物造成近战伤害，使其能更方便应用交互功能",
+  "modifier.tconstruct.blunted.description": "防止工具对生物造成近战伤害，从而更方便地运用工具交互能力",
   "modifier.tconstruct.barebow": "空放",
   "modifier.tconstruct.barebow.flavor": "古时弓箭手的训练方式",
-  "modifier.tconstruct.barebow.description": "弓不会使用物品栏中的箭矢，而会使用箭袋或晶镞代替箭矢射击。",
+  "modifier.tconstruct.barebow.description": "弓不再使用物品栏中的箭矢。由箭袋类强化与“晶射”强化提供的箭矢不受影响。",
 
 
   "_comment": "Durability",
@@ -3546,6 +3546,9 @@
 
   "_comment": "Internal modifiers",
   "modifier.tconstruct.overslime_friend": "黏液之友",
+  "modifier.tconstruct.overslime_friend.flavor": "史莱姆的好伙伴",
+  "modifier.tconstruct.overslime_friend.description": "使部件的材料也算作黏液材料，防止工具受“黏液覆层”影响而数值下降",
+
 
   "modifier.tconstruct.reverted": "还原",
   "modifier.tconstruct.reverted.flavor": "我们得回到过去才行！",
@@ -3870,7 +3873,8 @@
   "recipe.tconstruct.part_swapping.too_many_parts": "功能台槽位不足，无法替换工具部件",
   "recipe.tconstruct.part_swapping.too_few_inputs": "工具堆叠数太少，无法完成部件替换操作",
   "recipe.tconstruct.part_swapping.invalid_material": "此部件不能用给定的材料制作",
-  "recipe.tconstruct.part_swapping.too_few_parts": "尝试替换的材料超出了工具的材料索引范围。最可能的原因是数据包损坏。",
+  "recipe.tconstruct.part_swapping.too_few_parts": "尝试替换的材料超出了工具的材料索引范围。推测为数据包损坏。",
+  "recipe.tconstruct.part_swapping.no_modifiers": "装有强化或能力升级的工具不能用来进行交换材料工作，需要先在强化调配台上移除这些升级。",
 
   "recipe.tconstruct.modifier.not_enough_slot": "至少需要1个%s槽来加持该强化",
   "recipe.tconstruct.modifier.not_enough_slots": "至少需要%s个%s槽来加持该强化",
@@ -3993,18 +3997,24 @@
   "command.tconstruct.materials.success.set.single": "将%3$s的物品的%1$s材料设置为%2$s",
   "command.tconstruct.materials.success.set.multiple": "将%3$s个实体的%1$s材料设置为%2$s",
   "command.tconstruct.materials.failure.invalid_index": "索引%1$s对%2$s的物品来说太大了",
-  "command.tconstruct.materials.success.stats.default": "%s的默认数据（倍数为%s）：",
-  "command.tconstruct.materials.success.stats.material": "%2$s的%1$s数据（倍数为%s）：",
+  "command.tconstruct.materials.success.stats.default": "%s的默认数据（倍增为%s）：",
+  "command.tconstruct.materials.success.stats.material": "%2$s的%1$s数据（倍增为%s）：",
   "command.tconstruct.materials.failure.invalid_stats": "%2$s并未注册%1$s的数据",
   "command.tconstruct.materials.success.traits.default": "%s的默认数据：",
   "command.tconstruct.materials.success.traits.stat": "%2$s的%1$s材料特性：",
   "command.tconstruct.materials.failure.no_traits": "无材料特性",
 
   "command.tconstruct.slots.success.add.single": "为%3$s的物品增加%1$s个%2$s槽",
-  "command.tconstruct.slots.success.add.multiple": "为%3$s个实体增加%1$s个%2$s槽",
+  "command.tconstruct.slots.success.add.multiple": "为%3$s个实体的物品增加%1$s个%2$s槽",
   "command.tconstruct.slots.success.set.single": "将%3$s的物品的%1$s槽位设置为%2$s",
-  "command.tconstruct.slots.success.set.multiple": "将%3$s个实体的%1$s槽位设置为%2$s",
+  "command.tconstruct.slots.success.set.multiple": "将%3$s个实体的物品的%1$s槽位设置为%2$s",
   "command.tconstruct.slots.failure.invalid_count": "无法增加0个槽位，必须是正数或者负数",
+
+  "command.tconstruct.durability.success.add.single": "为%2$s的物品的耐久度增加了%1$s点",
+  "command.tconstruct.durability.success.add.multiple": "为%2$s个实体的物品的耐久度增加了%1$s点",
+  "command.tconstruct.durability.success.set.single": "将%2$s的物品的耐久度设置为%1$s点",
+  "command.tconstruct.durability.success.set.multiple": "将%2$s个实体的物品的耐久度设置为%1$s点",
+  "command.tconstruct.durability.failure.invalid_amount": "无法增加0点耐久度，必须是正数或者负数",
 
   "command.tconstruct.stats.success.bonus.modify.single": "%1$s%3$s的物品的该属性增加了%2$s点",
   "command.tconstruct.stats.success.bonus.modify.multiple": "%1$s%3$s个实体的该属性增加了%2$s点",
@@ -4017,9 +4027,9 @@
   "command.tconstruct.stats.success.multiply.set.single": "%1$s%3$s的物品的该属性倍增设置为%2$s倍",
   "command.tconstruct.stats.success.multiply.set.multiple": "%1$s%3$s个实体的该属性倍增设置为%2$s倍",
 
-  "command.tconstruct.stats.success.reset.all.single": "将%s的物品的工具数据中的增益和倍增全部重置",
-  "command.tconstruct.stats.success.reset.all.multiple": "将%s个实体的工具数据中的增益和倍增全部重置",
-  "command.tconstruct.stats.success.reset.stat.single": "%s将%s的物品的该属性增益和倍增全部重置",
+  "command.tconstruct.stats.success.reset.all.single": "重置了%s的物品的工具数据中的全部增益和倍增",
+  "command.tconstruct.stats.success.reset.all.multiple": "重置了%s个实体的工具数据中的全部增益和倍增",
+  "command.tconstruct.stats.success.reset.stat.single": "%s重置了%s的物品的该属性增益和倍增",
   "command.tconstruct.stats.success.reset.stat.multiple": "%s将%s个实体的该属性增益和倍增全部重置",
 
   "command.tconstruct.stats.failure.invalid_add": "无法对数据加0，必须是正数或者负数",

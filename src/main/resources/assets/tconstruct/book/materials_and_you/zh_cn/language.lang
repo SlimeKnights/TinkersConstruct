@@ -17,3 +17,6 @@ armor.subtext=基础盔甲无需通过猎杀获取资源或是建造任何机械
 
 modifiers=强化
 further_reading=延伸阅读
+
+tools.material_swapping=替换材料
+tools.part_swapping=替换部件
