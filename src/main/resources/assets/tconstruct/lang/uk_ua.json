@@ -94,7 +94,7 @@
   "block.tconstruct.soul_glass_pane.tooltip": "Тверда, але дозволяє пройти наскрізь",
 
   "block.tconstruct.glow": "Сяйво",
-  "block.tconstruct.silky_jewel_block": "Шовковий блок самоцвітів",
+  "block.tconstruct.silky_jewel_block": "Блок шовкових самоцвітів",
 
 
   "__comment": "Ore Metals",
@@ -327,7 +327,7 @@
   "pattern.tconstruct.small_axe_head": "Наконечник малої сокири",
   "pattern.tconstruct.small_blade": "Мале лезо",
   "pattern.tconstruct.adze_head": "Лезо тесла",
-  "pattern.tconstruct.bow_limb": "Тятива лука",
+  "pattern.tconstruct.bow_limb": "Плече лука",
   "pattern.tconstruct.arrow_head": "Головка стріли",
 
   "_comment": "Large Head Patterns",
@@ -1230,7 +1230,7 @@
   "item.tconstruct.adze_head": "Лезо тесла",
   "item.tconstruct.large_plate": "Велика пластина",
   
-  "item.tconstruct.bow_limb": "Тятива лука",
+  "item.tconstruct.bow_limb": "Плече лука",
   "item.tconstruct.bow_grip": "Руків'я лука",
   "item.tconstruct.bowstring": "Тятива",
   "item.tconstruct.arrow_head": "Головка стріли",
@@ -3385,7 +3385,7 @@
   "modifier.tconstruct.consecrated": "Освячений",
   "modifier.tconstruct.consecrated.flavor": "Помри, пташине створіння!",
   "modifier.tconstruct.consecrated.description": "Отримуйте менше шкоди від нежиті",
-  "modifier.tconstruct.consecrated.resistance": "Стійеість до нежиті",
+  "modifier.tconstruct.consecrated.resistance": "Стійкість до нежиті",
   "modifier.tconstruct.preserved": "Запобіжник",
   "modifier.tconstruct.preserved.flavor": "Гарне олійне покриття",
   "modifier.tconstruct.preserved.description": "Робить інструмент більш довговічним та легшим у ремонті",
