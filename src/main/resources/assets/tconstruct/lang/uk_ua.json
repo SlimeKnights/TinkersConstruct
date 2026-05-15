@@ -3812,7 +3812,7 @@
   "gui.tconstruct.part_builder.cost": "Вартість шаблону: %s",
   "gui.tconstruct.part_builder.trait": "Риса",
   "gui.tconstruct.part_builder.uncraftable": "Не можна сформувати",
-  "gui.tconstruct.part_builder.uncraftable.tooltip": "Матеріал не може бути скований у збирачі деталей. Потрібні инші методи, як-от лиття.",
+  "gui.tconstruct.part_builder.uncraftable.tooltip": "Матеріал не може бути скований у збирачі деталей. Потрібні інші методи, як-от лиття.",
 
   "gui.tconstruct.tinkers_chest": "Інженерна скриня",
   "gui.tconstruct.cast_chest": "Скриня для форм",
