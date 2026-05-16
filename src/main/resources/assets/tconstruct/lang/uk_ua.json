@@ -278,7 +278,7 @@
   "item.tconstruct.dragon_scale.tooltip": "Відлущується від дракона Енду вибухом",
 
   "item.tconstruct.modifier_crystal": "Модифікатор кристала",
-  "item.tconstruct.modifier_crystal.format": "%s кристала",
+  "item.tconstruct.modifier_crystal.format": "Кристал (%s)",
   "item.tconstruct.modifier_crystal.missing": "Відсутній або недійсний NBT, що визначає тип модифікатора",
   "item.tconstruct.modifier_crystal.tooltip": "Застосуйте до інструмента, щоб отримати 1 рівень модифікатора, займаючи відповідні слоти.",
   "item.tconstruct.modifier_crystal.modifier_id": "ID модифікатора: %s",
@@ -1673,16 +1673,16 @@
   "block.tconstruct.ender_slime_tall_grass": "Висока слизувата трава",
 
   "block.tconstruct.earth_slime_fern": "Слизувата папороть",
-  "block.tconstruct.sky_slime_fern": "Слизувата папороть",
-  "block.tconstruct.blood_slime_fern": "Слизувате коріння",
-  "block.tconstruct.ichor_slime_fern": "Слизувате коріння",
-  "block.tconstruct.ender_slime_fern": "Слизувата папороть",
+  "block.tconstruct.sky_slime_fern": "Небесна слизувата папороть",
+  "block.tconstruct.blood_slime_fern": "Криваве слизувате коріння",
+  "block.tconstruct.ichor_slime_fern": "Іхорове слизувате коріння",
+  "block.tconstruct.ender_slime_fern": "Ендерова слизувата папороть",
 
   "block.tconstruct.potted_earth_slime_fern": "Слизувата папороть в горщику",
-  "block.tconstruct.potted_sky_slime_fern": "Слизувата папороть в горщику",
-  "block.tconstruct.potted_blood_slime_fern": "Слизувате коріння в горщику",
-  "block.tconstruct.potted_ichor_slime_fern": "Слизувате коріння в горщику",
-  "block.tconstruct.potted_ender_slime_fern": "Слизувата папороть в горщику",
+  "block.tconstruct.potted_sky_slime_fern": "Небесна слизувата папороть в горщику",
+  "block.tconstruct.potted_blood_slime_fern": "Криваве слизувате коріння в горщику",
+  "block.tconstruct.potted_ichor_slime_fern": "Іхорове слизувате коріння в горщику",
+  "block.tconstruct.potted_ender_slime_fern": "Ендерова слизувата папороть в горщику",
 
   "block.tconstruct.earth_slime_sapling": "Зеленосердечний паросток",
   "block.tconstruct.earth_slime_sapling.tooltip": "Росте лише на слизуватих ґрунті або траві",
@@ -3812,7 +3812,7 @@
   "gui.tconstruct.part_builder.cost": "Вартість шаблону: %s",
   "gui.tconstruct.part_builder.trait": "Риса",
   "gui.tconstruct.part_builder.uncraftable": "Не можна сформувати",
-  "gui.tconstruct.part_builder.uncraftable.tooltip": "Матеріал не може бути скований у збирачі деталей. Потрібні інші методи, як-от лиття.",
+  "gui.tconstruct.part_builder.uncraftable.tooltip": "Матеріал не може бути скований у збирачі деталей. Потрібні инші методи, як-от лиття.",
 
   "gui.tconstruct.tinkers_chest": "Інженерна скриня",
   "gui.tconstruct.cast_chest": "Скриня для форм",
