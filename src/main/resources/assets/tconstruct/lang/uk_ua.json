@@ -33,7 +33,7 @@
 
   "block.tconstruct.clear_glass": "Чисте скло",
   "block.tconstruct.clear_glass_pane": "Чиста шибка",
-  "block.tconstruct.clear_tinted_glass": "Чисте тонована шибка",
+  "block.tconstruct.clear_tinted_glass": "Чиста тонована шибка",
 
   "block.tconstruct.obsidian_pane": "Обсидіанова панель",
   "block.tconstruct.gold_bars": "Золоті ґрати",
@@ -153,10 +153,10 @@
   "item.tconstruct.cinderslime_ingot": "Жарослизовий злиток",
   "item.tconstruct.cinderslime_nugget": "Жарослизовий самородок",
 
-  "block.tconstruct.queens_slime_block": "Блок королівського слизу",
+  "block.tconstruct.queens_slime_block": "Блок королевиного слизу",
   "block.tconstruct.queens_slime_block.tooltip": "Можна використати як основу для маяка",
-  "item.tconstruct.queens_slime_ingot": "Злиток королівського слизу",
-  "item.tconstruct.queens_slime_nugget": "Самородок королівського слизу",
+  "item.tconstruct.queens_slime_ingot": "Злиток королевиного слизу",
+  "item.tconstruct.queens_slime_nugget": "Самородок королевиного слизу",
 
   "block.tconstruct.knightmetal_block": "Блок лицарського металу",
   "block.tconstruct.knightmetal_block.tooltip": "Можна використати як колючу основу для маяка",
@@ -763,10 +763,10 @@
   "fluid.tconstruct.flowing_molten_cinderslime": "Зріджений розтоплений жарослиз",
   "item.tconstruct.molten_cinderslime_bucket": "Відро розтопленого жарослизу",
 
-  "block.tconstruct.molten_queens_slime_fluid": "Розтоплений королівський слиз",
-  "fluid.tconstruct.molten_queens_slime": "Розтоплений королівський слиз",
-  "fluid.tconstruct.flowing_molten_queens_slime": "Зріджений розтоплений королівський слиз",
-  "item.tconstruct.molten_queens_slime_bucket": "Відро розтопленого королівського слизу",
+  "block.tconstruct.molten_queens_slime_fluid": "Розтоплений королевиний слиз",
+  "fluid.tconstruct.molten_queens_slime": "Розтоплений королевиний слиз",
+  "fluid.tconstruct.flowing_molten_queens_slime": "Зріджений розтоплений королевиний слиз",
+  "item.tconstruct.molten_queens_slime_bucket": "Відро розтопленого королевиного слизу",
 
   "block.tconstruct.molten_soulsteel_fluid": "Розтоплена сталь душ",
   "fluid.tconstruct.molten_soulsteel": "Розтоплена сталь душ",
@@ -2144,7 +2144,7 @@
   "material.tconstruct.cinderslime.flavor": "Кинь його у вогонь!",
   "material.tconstruct.cinderslime.encyclopedia": "Використовує паливо для відновлення переслизу, відновлюючи 1 одиницю за секунду до 4 рівня.",
 
-  "material.tconstruct.queens_slime": "Королівський слиз",
+  "material.tconstruct.queens_slime": "Королевиний слиз",
   "material.tconstruct.queens_slime.flavor": "Принцеси злі, знайди собі королеву.",
   "material.tconstruct.queens_slime.encyclopedia": "Зменшує міцність на 15% на рівень, 66% від неї йде на переслиз",
 
@@ -2219,7 +2219,7 @@
   "material.tconstruct.knightslime.ranged": "Витрачає 1 переслиз на кожен рівень, надаючи +0.06 до швидкості руху та швидкості наближення на кожен рівень.",
   "material.tconstruct.knightslime.armor": "Витрачає до 2 переслизу на рівень, щоб зменшити отримувану шкоду на 2,5% за кожен витрачений переслиз (до 5% на рівень).",
 
-  "material.tconstruct.enderslime_vine": "Слизуваті лози",
+  "material.tconstruct.enderslime_vine": "Ендерові слизуваті лози",
   "material.tconstruct.enderslime_vine.slimeskin": "Слизошкіра",
   "material.tconstruct.enderslime_vine.flavor": "Кінець?",
   "material.tconstruct.enderslime_vine.encyclopedia": "Телепортує власника до місця добутих блоків чи вбитих монстрів",
@@ -2258,7 +2258,7 @@
   "material.tconstruct.silver.ranged": "Дає +0,5 шкоди від снарядів проти нежиті на рівень",
   "material.tconstruct.silver.armor": "Зменшує шкоду від нежиті на 5% на рівень",
 
-  "material.tconstruct.whitestone": "Камінь Енду",
+  "material.tconstruct.whitestone": "Білокамінь",
   "material.tconstruct.whitestone.composite": "Білокамінь",
   "material.tconstruct.whitestone.aluminum": "Білокамінь",
   "material.tconstruct.whitestone.tin": "Білокамінь",
