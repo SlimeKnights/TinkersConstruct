@@ -1,7 +1,7 @@
 {
-  "tool": "tconstruct:slime_chestplate",
+  "tool": "tconstruct:slime_wings",
   "text": [
-    { "text": "不想走路？试试用这对看起来未来感十足的翅膀飞行吧！" },
+    { "text": "成为顶级拳击手！" },
     { "text": "想要制作这对看起来未来感十足的翅膀，你只需要在鞘翅上浇注末影黏液。之后，你可 以用幻翼膜来修复耐久度。", "paragraph": true }
   ],
   "properties": [

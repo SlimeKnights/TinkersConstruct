@@ -354,6 +354,11 @@
   "pattern.tconstruct.fletching": "箭羽",
   "pattern.tconstruct.arrow_part": "箭头或箭杆",
 
+  "_comment": "Slimesuit Patterns",
+
+  "pattern.tconstruct.ribcage": "胸廓",
+  "pattern.tconstruct.shell": "甲壳",
+  "pattern.tconstruct.laces": "绑带",
 
   "_comment": "Tinkers Gold Casts",
 
@@ -993,12 +998,16 @@
   "fluid_effect.tconstruct.fire.set": "%d 秒着火时间",
   "fluid_effect.tconstruct.freeze.add": "+%d 秒冰冻时间",
   "fluid_effect.tconstruct.freeze.set": "%d 秒冰冻时间",
-  "fluid_effect.tconstruct.award_stat.add": "+%s %s",
-  "fluid_effect.tconstruct.award_stat.subtract": "-%s %s",
   "fluid_effect.tconstruct.add_breath.add": "+%s 氧气值",
   "fluid_effect.tconstruct.add_breath.subtract": "-%s 氧气值",
   "fluid_effect.tconstruct.push_entity.push": "推动目标",
   "fluid_effect.tconstruct.push_entity.pull": "拉动目标",
+
+  "fluid_effect.tconstruct.award_stat.add": "+%s %s",
+  "fluid_effect.tconstruct.award_stat.subtract": "-%s %s",
+  "stat.tconstruct.stat_value": "%s %s",
+  "stat_type.tconstruct.killed": "%s杀死",
+  "stat_type.tconstruct.killed_by": "被%s杀死",
 
   "fluid_effect.tconstruct.damage": "%s 伤害",
   "fluid_effect.tconstruct.damage.tconstruct.fluid.impact": "%s 伤害",
@@ -1170,14 +1179,14 @@
   "item.tconstruct.slime_helmet.material.tconstruct.honey": "蜂蜜头颅",
   "item.tconstruct.slime_helmet.material.tconstruct.ender_pearl": "末影头颅",
 
-  "__comment": "We are really just mashing up the material name with elytra here, do whatever works for your language, if needed 'Material Elytra' works",
-  "item.tconstruct.slime_chestplate": "黏液鞘翅",
-  "item.tconstruct.slime_chestplate.material.tconstruct.ui_render": "任意黏液鞘翅",
-  "item.tconstruct.slime_chestplate.material.tconstruct.ichor": "灵浆鞘翅",
-  "item.tconstruct.slime_chestplate.material.tconstruct.magma": "岩浆鞘翅",
-  "item.tconstruct.slime_chestplate.material.tconstruct.clay": "黏土鞘翅",
-  "item.tconstruct.slime_chestplate.material.tconstruct.honey": "蜂蜜鞘翅",
-  "item.tconstruct.slime_chestplate.material.tconstruct.ender_pearl": "末影鞘翅",
+  "__comment": "Name is like ribcage, meant to invoke bones",
+  "item.tconstruct.slimy_chestplate": "黏液胸廓",
+  "item.tconstruct.slimy_chestplate.material.tconstruct.ui_render": "任意黏液胸廓",
+  "item.tconstruct.slimy_chestplate.material.tconstruct.ichor": "灵浆胸廓",
+  "item.tconstruct.slimy_chestplate.material.tconstruct.magma": "岩浆胸廓",
+  "item.tconstruct.slimy_chestplate.material.tconstruct.clay": "黏土胸廓",
+  "item.tconstruct.slimy_chestplate.material.tconstruct.honey": "蜂蜜胸廓",
+  "item.tconstruct.slimy_chestplate.material.tconstruct.ender_pearl": "末影胸廓",
 
   "item.tconstruct.slime_leggings": "黏液壳",
   "item.tconstruct.slime_leggings.material.tconstruct.ichor": "灵浆壳",
@@ -1192,6 +1201,15 @@
   "item.tconstruct.slime_boots.material.tconstruct.clay": "黏土靴子",
   "item.tconstruct.slime_boots.material.tconstruct.honey": "蜂蜜靴子",
   "item.tconstruct.slime_boots.material.tconstruct.ender_pearl": "末影靴子",
+
+  "__comment": "We are really just mashing up the material name with elytra here, do whatever works for your language, if needed 'Material Elytra' works",
+  "item.tconstruct.slime_wings": "黏液鞘翅",
+  "item.tconstruct.slime_wings.material.tconstruct.ui_render": "任意黏液鞘翅",
+  "item.tconstruct.slime_wings.material.tconstruct.ichor": "灵浆鞘翅",
+  "item.tconstruct.slime_wings.material.tconstruct.magma": "岩浆鞘翅",
+  "item.tconstruct.slime_wings.material.tconstruct.clay": "黏土鞘翅",
+  "item.tconstruct.slime_wings.material.tconstruct.honey": "蜂蜜鞘翅",
+  "item.tconstruct.slime_wings.material.tconstruct.ender_pearl": "末影鞘翅",
 
   "item.tconstruct.crystalshot": "水晶镞",
   "entity.tconstruct.crystalshot": "水晶镞",
@@ -1238,7 +1256,9 @@
   "item.tconstruct.boots_plating_dummy": "石质靴子镶板",
   "item.tconstruct.maille": "链甲基底",
   "item.tconstruct.shield_core": "盾牌基底",
-
+  "item.tconstruct.ribcage": "胸廓",
+  "item.tconstruct.shell": "甲壳",
+  "item.tconstruct.laces": "绑带",
 
   "_conment": "Tool Descriptions",
 
