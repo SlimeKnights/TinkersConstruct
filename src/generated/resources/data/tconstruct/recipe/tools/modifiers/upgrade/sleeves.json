@@ -1,0 +1,26 @@
+{
+  "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/upgrade/sleeves",
+  "allow_crystal": true,
+  "inputs": [
+    {
+      "item": "tconstruct:silky_cloth"
+    },
+    {
+      "tag": "c:ingots/cinderslime"
+    },
+    {
+      "item": "tconstruct:silky_cloth"
+    }
+  ],
+  "level": {
+    "max": 3
+  },
+  "result": "tconstruct:sleeves",
+  "slots": {
+    "upgrades": 1
+  },
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/chestplate"
+  }
+}

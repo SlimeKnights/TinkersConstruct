@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/clay/plate_gold_cast",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/plate"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:plates/brick"
+    }
+  ],
+  "cooling_time": 80,
+  "fluid": {
+    "amount": 250,
+    "tag": "tconstruct:molten_clay"
+  },
+  "result": {
+    "tag": "c:plates/brick"
+  }
+}

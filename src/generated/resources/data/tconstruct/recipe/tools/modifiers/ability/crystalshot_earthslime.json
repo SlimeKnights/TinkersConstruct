@@ -1,0 +1,32 @@
+{
+  "type": "tconstruct:swappable_modifier",
+  "id": "tconstruct:tools/modifiers/ability/crystalshot_earthslime",
+  "allow_crystal": false,
+  "inputs": [
+    {
+      "item": "tconstruct:earth_slime_crystal_cluster"
+    },
+    {
+      "item": "minecraft:blaze_rod"
+    },
+    {
+      "item": "tconstruct:earth_slime_crystal_cluster"
+    },
+    {
+      "tag": "c:ingots/manyullyn"
+    },
+    {
+      "tag": "c:ingots/manyullyn"
+    }
+  ],
+  "result": {
+    "name": "tconstruct:crystalshot",
+    "value": "earthslime"
+  },
+  "slots": {
+    "abilities": 1
+  },
+  "tools": {
+    "tag": "tconstruct:modifiable/ranged/bows"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/leaves",
+  "ingredient": {
+    "tag": "minecraft:leaves"
+  },
+  "material": "tconstruct:leaves",
+  "needed": 1,
+  "value": 1
+}

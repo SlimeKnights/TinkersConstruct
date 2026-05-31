@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:entity_melting",
+  "id": "tconstruct:smeltery/entity_melting/strength",
+  "damage": 4,
+  "entity": {
+    "types": [
+      "minecraft:polar_bear",
+      "minecraft:panda",
+      "minecraft:ravager",
+      "minecraft:zoglin"
+    ]
+  },
+  "result": {
+    "amount": 50,
+    "nbt": {
+      "Potion": "minecraft:strength"
+    },
+    "tag": "c:potion"
+  }
+}

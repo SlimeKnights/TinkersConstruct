@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:item_part_builder",
+  "id": "tconstruct:smeltery/casts/red_sand/builder_cast/large_plate",
+  "pattern": "tconstruct:large_plate",
+  "pattern_item": {
+    "tag": "tconstruct:casts/red_sand"
+  },
+  "result": "tconstruct:large_plate_red_sand_cast"
+}

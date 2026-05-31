@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/knightmetal/nugget",
+  "ingredient": {
+    "tag": "c:nuggets/knightmetal"
+  },
+  "material": "tconstruct:knightmetal",
+  "needed": 9,
+  "value": 1
+}

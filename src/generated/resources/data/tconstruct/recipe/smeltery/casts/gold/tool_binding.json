@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casts/gold/tool_binding",
+  "cast": {
+    "type": "tconstruct:material",
+    "item": "tconstruct:tool_binding"
+  },
+  "cast_consumed": true,
+  "cooling_time": 57,
+  "fluid": {
+    "amount": 90,
+    "tag": "c:molten_gold"
+  },
+  "result": "tconstruct:tool_binding_cast",
+  "switch_slots": true
+}

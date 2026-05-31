@@ -1,0 +1,27 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "id": "tconstruct:smeltery/melting/ironwood/twilightforest_leggings",
+  "byproducts": [
+    {
+      "amount": 70,
+      "tag": "c:molten_gold",
+      "unit_size": 10
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:item_exists",
+      "item": "twilightforest:ironwood_leggings"
+    }
+  ],
+  "ingredient": {
+    "item": "twilightforest:ironwood_leggings"
+  },
+  "result": {
+    "amount": 630,
+    "tag": "c:molten_iron",
+    "unit_size": 10
+  },
+  "temperature": 800,
+  "time": 159
+}

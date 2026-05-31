@@ -1,0 +1,27 @@
+{
+  "type": "tconstruct:ore_melting",
+  "id": "tconstruct:smeltery/melting/emerald/geore/bud_large",
+  "byproducts": [
+    {
+      "amount": 300,
+      "fluid": "tconstruct:molten_diamond",
+      "rate": "gem"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:geore_large_buds/emerald"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:geore_large_buds/emerald"
+  },
+  "rate": "gem",
+  "result": {
+    "amount": 300,
+    "fluid": "tconstruct:molten_emerald"
+  },
+  "temperature": 934,
+  "time": 129
+}

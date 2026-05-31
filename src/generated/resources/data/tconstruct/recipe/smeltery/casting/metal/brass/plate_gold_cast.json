@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/brass/plate_gold_cast",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/plate"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:plates/brass"
+    }
+  ],
+  "cooling_time": 54,
+  "fluid": {
+    "amount": 90,
+    "tag": "c:molten_brass"
+  },
+  "result": {
+    "tag": "c:plates/brass"
+  }
+}

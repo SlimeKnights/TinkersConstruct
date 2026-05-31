@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/slime/venom/bone",
+  "cast": {
+    "tag": "c:bones"
+  },
+  "cast_consumed": true,
+  "cooling_time": 48,
+  "fluid": {
+    "amount": 250,
+    "tag": "tconstruct:venom"
+  },
+  "result": "tconstruct:venombone"
+}

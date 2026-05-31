@@ -1,0 +1,43 @@
+{
+  "type": "minecraft:block",
+  "functions": [
+    {
+      "function": "minecraft:copy_custom_data",
+      "ops": [
+        {
+          "op": "replace",
+          "source": "Material",
+          "target": "Material"
+        }
+      ],
+      "source": "block_entity"
+    }
+  ],
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:copy_name",
+              "source": "block_entity"
+            },
+            {
+              "function": "mantle:fill_retextured_block"
+            }
+          ],
+          "name": "tconstruct:scorched_anvil"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "tconstruct:blocks/scorched_anvil"
+}

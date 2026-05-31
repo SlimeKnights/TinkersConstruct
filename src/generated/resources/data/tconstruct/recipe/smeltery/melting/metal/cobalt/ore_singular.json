@@ -1,0 +1,34 @@
+{
+  "type": "tconstruct:ore_melting",
+  "id": "tconstruct:smeltery/melting/metal/cobalt/ore_singular",
+  "byproducts": [
+    {
+      "amount": 50,
+      "fluid": "tconstruct:molten_diamond",
+      "rate": "gem"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_combination_filled",
+      "ignore": "tconstruct:non_singular_ore_rates",
+      "match": "c:ores/cobalt"
+    }
+  ],
+  "ingredient": {
+    "type": "neoforge:difference",
+    "base": {
+      "tag": "c:ores/cobalt"
+    },
+    "subtracted": {
+      "tag": "tconstruct:non_singular_ore_rates"
+    }
+  },
+  "rate": "metal",
+  "result": {
+    "amount": 180,
+    "tag": "c:molten_cobalt"
+  },
+  "temperature": 950,
+  "time": 162
+}

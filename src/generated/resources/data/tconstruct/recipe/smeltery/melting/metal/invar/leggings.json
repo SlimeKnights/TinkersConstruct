@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "id": "tconstruct:smeltery/melting/metal/invar/leggings",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:armors/leggings/invar"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:armors/leggings/invar"
+  },
+  "result": {
+    "amount": 630,
+    "tag": "c:molten_invar",
+    "unit_size": 10
+  },
+  "temperature": 900,
+  "time": 167
+}

@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/iron/tripwire",
+  "ingredient": {
+    "item": "minecraft:tripwire_hook"
+  },
+  "result": {
+    "amount": 40,
+    "tag": "c:molten_iron"
+  },
+  "temperature": 800,
+  "time": 40
+}

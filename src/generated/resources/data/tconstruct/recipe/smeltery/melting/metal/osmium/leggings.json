@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "id": "tconstruct:smeltery/melting/metal/osmium/leggings",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "tconstruct:melting/osmium/tools_costing_7"
+    }
+  ],
+  "ingredient": {
+    "tag": "tconstruct:melting/osmium/tools_costing_7"
+  },
+  "result": {
+    "amount": 630,
+    "tag": "c:molten_osmium",
+    "unit_size": 10
+  },
+  "temperature": 975,
+  "time": 173
+}

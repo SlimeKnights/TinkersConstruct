@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/rock/granite",
+  "ingredient": {
+    "tag": "c:granite"
+  },
+  "material": "tconstruct:rock#granite",
+  "needed": 1,
+  "value": 1
+}

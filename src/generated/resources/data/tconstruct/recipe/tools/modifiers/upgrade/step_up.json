@@ -1,0 +1,32 @@
+{
+  "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/upgrade/step_up",
+  "allow_crystal": true,
+  "inputs": [
+    {
+      "item": "minecraft:leather"
+    },
+    {
+      "item": "minecraft:golden_carrot"
+    },
+    {
+      "item": "minecraft:leather"
+    },
+    {
+      "item": "minecraft:scaffolding"
+    },
+    {
+      "item": "minecraft:scaffolding"
+    }
+  ],
+  "level": {
+    "max": 2
+  },
+  "result": "tconstruct:step_up",
+  "slots": {
+    "upgrades": 1
+  },
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/leggings"
+  }
+}

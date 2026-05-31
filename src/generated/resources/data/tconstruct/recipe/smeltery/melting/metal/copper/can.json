@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/copper/can",
+  "ingredient": {
+    "type": "tconstruct:no_container",
+    "item": "tconstruct:copper_can"
+  },
+  "result": {
+    "amount": 90,
+    "tag": "c:molten_copper"
+  },
+  "temperature": 500,
+  "time": 50
+}

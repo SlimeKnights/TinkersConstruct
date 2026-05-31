@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/nicrosil/ingot",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:ingots/nicrosil"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:ingots/nicrosil"
+  },
+  "material": "tconstruct:nicrosil",
+  "needed": 1,
+  "value": 1
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "#": {
+      "item": "tconstruct:seared_brick"
+    },
+    "B": {
+      "tag": "c:glass"
+    }
+  },
+  "pattern": [
+    "B#B",
+    "#B#",
+    "B#B"
+  ],
+  "result": {
+    "id": "tconstruct:seared_ingot_gauge"
+  },
+  "show_notification": true
+}

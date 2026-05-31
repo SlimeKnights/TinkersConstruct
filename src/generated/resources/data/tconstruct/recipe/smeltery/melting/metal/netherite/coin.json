@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/netherite/coin",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:coins/netherite"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:coins/netherite"
+  },
+  "result": {
+    "amount": 30,
+    "tag": "c:molten_netherite"
+  },
+  "temperature": 1250,
+  "time": 49
+}

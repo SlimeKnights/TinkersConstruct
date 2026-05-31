@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:casting_basin",
+  "id": "tconstruct:smeltery/casting/water/wet_sponge",
+  "cast": {
+    "item": "minecraft:sponge"
+  },
+  "cast_consumed": true,
+  "cooling_time": 1,
+  "fluid": {
+    "amount": 250,
+    "fluid": "minecraft:water"
+  },
+  "result": "minecraft:wet_sponge"
+}

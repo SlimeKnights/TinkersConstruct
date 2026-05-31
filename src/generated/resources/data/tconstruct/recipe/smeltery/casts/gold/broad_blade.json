@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casts/gold/broad_blade",
+  "cast": {
+    "type": "tconstruct:material",
+    "item": "tconstruct:broad_blade"
+  },
+  "cast_consumed": true,
+  "cooling_time": 57,
+  "fluid": {
+    "amount": 90,
+    "tag": "c:molten_gold"
+  },
+  "result": "tconstruct:broad_blade_cast",
+  "switch_slots": true
+}

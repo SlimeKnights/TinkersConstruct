@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/copper/ingot",
+  "ingredient": {
+    "tag": "c:ingots/copper"
+  },
+  "result": {
+    "amount": 90,
+    "tag": "c:molten_copper"
+  },
+  "temperature": 500,
+  "time": 50
+}

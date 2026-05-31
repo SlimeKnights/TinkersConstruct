@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:ore_melting",
+  "id": "tconstruct:smeltery/melting/metal/zinc/geore/bud_large",
+  "byproducts": [
+    {
+      "amount": 270,
+      "rate": "metal",
+      "tag": "c:molten_copper"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:geore_large_buds/zinc"
+  },
+  "rate": "metal",
+  "result": {
+    "amount": 270,
+    "tag": "c:molten_zinc"
+  },
+  "temperature": 420,
+  "time": 94
+}

@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:item_part_builder",
+  "id": "tconstruct:smeltery/casts/sand/builder_block/tough_handle",
+  "pattern": "tconstruct:tough_handle",
+  "pattern_item": {
+    "tag": "c:sand/colorless"
+  },
+  "result": {
+    "count": 4,
+    "item": "tconstruct:tough_handle_sand_cast"
+  }
+}

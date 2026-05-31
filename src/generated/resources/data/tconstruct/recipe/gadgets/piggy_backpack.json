@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:gadgets/piggy_backpack",
+  "cast": {
+    "item": "minecraft:saddle"
+  },
+  "cast_consumed": true,
+  "cooling_time": 96,
+  "fluid": {
+    "amount": 1000,
+    "tag": "tconstruct:sky_slime"
+  },
+  "result": "tconstruct:piggy_backpack"
+}

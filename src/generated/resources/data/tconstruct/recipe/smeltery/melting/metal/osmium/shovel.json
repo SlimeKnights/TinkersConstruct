@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "id": "tconstruct:smeltery/melting/metal/osmium/shovel",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:tools/shovels/osmium"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:tools/shovels/osmium"
+  },
+  "result": {
+    "amount": 90,
+    "tag": "c:molten_osmium",
+    "unit_size": 10
+  },
+  "temperature": 975,
+  "time": 66
+}

@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:entity_melting",
+  "id": "tconstruct:smeltery/entity_melting/zombie",
+  "damage": 4,
+  "entity": {
+    "types": [
+      "minecraft:zombie",
+      "minecraft:husk",
+      "minecraft:zombie_horse"
+    ]
+  },
+  "result": {
+    "amount": 10,
+    "tag": "c:molten_iron"
+  }
+}

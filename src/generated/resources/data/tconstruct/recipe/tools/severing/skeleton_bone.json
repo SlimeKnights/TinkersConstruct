@@ -1,0 +1,17 @@
+{
+  "type": "tconstruct:severing",
+  "id": "tconstruct:tools/severing/skeleton_bone",
+  "entity": {
+    "types": [
+      "minecraft:skeleton",
+      "minecraft:skeleton_horse",
+      "minecraft:stray"
+    ]
+  },
+  "looting_bonus": 0.01,
+  "per_level_chance": 0.05,
+  "result": {
+    "count": 2,
+    "item": "minecraft:bone"
+  }
+}

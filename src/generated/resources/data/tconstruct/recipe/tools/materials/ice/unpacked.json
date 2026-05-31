@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/ice/unpacked",
+  "ingredient": {
+    "item": "minecraft:ice"
+  },
+  "material": "tconstruct:ice",
+  "needed": 9,
+  "value": 1
+}

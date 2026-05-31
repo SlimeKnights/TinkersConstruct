@@ -1,0 +1,23 @@
+{
+  "type": "tconstruct:alloy",
+  "id": "tconstruct:smeltery/alloys/molten_hepatizon",
+  "inputs": [
+    {
+      "amount": 180,
+      "tag": "c:molten_copper"
+    },
+    {
+      "amount": 90,
+      "tag": "c:molten_cobalt"
+    },
+    {
+      "amount": 100,
+      "tag": "tconstruct:molten_quartz"
+    }
+  ],
+  "result": {
+    "amount": 180,
+    "tag": "c:molten_hepatizon"
+  },
+  "temperature": 1400
+}

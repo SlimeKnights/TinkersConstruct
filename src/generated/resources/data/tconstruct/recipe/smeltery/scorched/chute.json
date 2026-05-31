@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "#": {
+      "item": "tconstruct:scorched_brick"
+    },
+    "C": {
+      "item": "tconstruct:obsidian_pane"
+    }
+  },
+  "pattern": [
+    "#C#",
+    "   ",
+    "#C#"
+  ],
+  "result": {
+    "id": "tconstruct:scorched_chute"
+  },
+  "show_notification": true
+}

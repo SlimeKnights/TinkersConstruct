@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casts/gold/maille",
+  "cast": {
+    "type": "tconstruct:material",
+    "item": "tconstruct:maille"
+  },
+  "cast_consumed": true,
+  "cooling_time": 57,
+  "fluid": {
+    "amount": 90,
+    "tag": "c:molten_gold"
+  },
+  "result": "tconstruct:maille_cast",
+  "switch_slots": true
+}

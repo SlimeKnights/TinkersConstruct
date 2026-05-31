@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/emerald/block",
+  "ingredient": {
+    "tag": "c:storage_blocks/emerald"
+  },
+  "result": {
+    "amount": 900,
+    "fluid": "tconstruct:molten_emerald"
+  },
+  "temperature": 934,
+  "time": 193
+}

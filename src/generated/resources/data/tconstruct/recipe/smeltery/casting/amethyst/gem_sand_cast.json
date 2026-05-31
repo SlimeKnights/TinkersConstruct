@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/amethyst/gem_sand_cast",
+  "cast": {
+    "tag": "tconstruct:casts/single_use/gem"
+  },
+  "cast_consumed": true,
+  "cooling_time": 68,
+  "fluid": {
+    "amount": 100,
+    "tag": "tconstruct:molten_amethyst"
+  },
+  "result": {
+    "tag": "c:gems/amethyst"
+  }
+}

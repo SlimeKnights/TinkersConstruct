@@ -1,0 +1,14 @@
+{
+  "values": [
+    "minecraft:iron_pickaxe",
+    "minecraft:iron_axe",
+    {
+      "id": "tools_complement:iron_sickle",
+      "required": false
+    },
+    {
+      "id": "railcraft:iron_crowbar",
+      "required": false
+    }
+  ]
+}

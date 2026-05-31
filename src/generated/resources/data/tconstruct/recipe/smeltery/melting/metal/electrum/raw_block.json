@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:ore_melting",
+  "id": "tconstruct:smeltery/melting/metal/electrum/raw_block",
+  "byproducts": [
+    {
+      "amount": 810,
+      "rate": "metal",
+      "tag": "c:molten_gold"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:storage_blocks/raw_electrum"
+  },
+  "rate": "metal",
+  "result": {
+    "amount": 810,
+    "tag": "c:molten_electrum"
+  },
+  "temperature": 760,
+  "time": 353
+}

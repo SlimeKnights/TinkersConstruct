@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:casting_basin",
+  "id": "tconstruct:smeltery/casting/metal/nicrosil/block",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:storage_blocks/nicrosil"
+    }
+  ],
+  "cooling_time": 208,
+  "fluid": {
+    "amount": 810,
+    "tag": "c:molten_nicrosil"
+  },
+  "result": {
+    "tag": "c:storage_blocks/nicrosil"
+  }
+}

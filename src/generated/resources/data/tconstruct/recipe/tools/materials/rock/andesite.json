@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/rock/andesite",
+  "ingredient": {
+    "tag": "c:andesite"
+  },
+  "material": "tconstruct:rock#andesite",
+  "needed": 1,
+  "value": 1
+}

@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:enchantment_converting",
+  "id": "tconstruct:tools/modifiers/worktable/enchantment_converting/ability_book",
+  "inputs": [
+    {
+      "item": "tconstruct:ichor_slime_crystal"
+    },
+    {
+      "tag": "c:gems/diamond"
+    }
+  ],
+  "match_book": true,
+  "modifier_predicate": {
+    "type": "tconstruct:slot_type",
+    "slot": "abilities"
+  },
+  "name": "abilities",
+  "return_unenchanted": false
+}

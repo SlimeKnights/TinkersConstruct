@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "b": {
+      "item": "tconstruct:scorched_stone"
+    }
+  },
+  "pattern": [
+    "bb",
+    "bb"
+  ],
+  "result": {
+    "count": 4,
+    "id": "tconstruct:polished_scorched_stone"
+  },
+  "show_notification": true
+}

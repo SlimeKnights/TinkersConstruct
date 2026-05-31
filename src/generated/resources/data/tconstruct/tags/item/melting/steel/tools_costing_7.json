@@ -1,0 +1,16 @@
+{
+  "values": [
+    {
+      "id": "#c:armors/leggings/steel",
+      "required": false
+    },
+    {
+      "id": "#c:tools/paxels/steel",
+      "required": false
+    },
+    {
+      "id": "immersiveengineering:armor_steel_leggings",
+      "required": false
+    }
+  ]
+}

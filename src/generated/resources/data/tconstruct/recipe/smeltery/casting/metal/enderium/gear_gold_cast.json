@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/enderium/gear_gold_cast",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/gear"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:gears/enderium"
+    }
+  ],
+  "cooling_time": 152,
+  "fluid": {
+    "amount": 360,
+    "tag": "c:molten_enderium"
+  },
+  "result": {
+    "tag": "c:gears/enderium"
+  }
+}

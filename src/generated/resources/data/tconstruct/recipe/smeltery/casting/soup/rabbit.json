@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/soup/rabbit",
+  "cast": {
+    "item": "minecraft:bowl"
+  },
+  "cast_consumed": true,
+  "cooling_time": 1,
+  "fluid": {
+    "amount": 250,
+    "tag": "c:rabbit_stew"
+  },
+  "result": "minecraft:rabbit_stew"
+}

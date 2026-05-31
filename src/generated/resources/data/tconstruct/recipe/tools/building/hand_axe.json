@@ -1,0 +1,6 @@
+{
+  "type": "tconstruct:tool_building",
+  "id": "tconstruct:tools/building/hand_axe",
+  "result": "tconstruct:hand_axe",
+  "result_count": 1
+}

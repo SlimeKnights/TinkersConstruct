@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/cadmium/dust",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:dusts/cadmium"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:dusts/cadmium"
+  },
+  "result": {
+    "amount": 90,
+    "tag": "c:molten_cadmium"
+  },
+  "temperature": 294,
+  "time": 31
+}

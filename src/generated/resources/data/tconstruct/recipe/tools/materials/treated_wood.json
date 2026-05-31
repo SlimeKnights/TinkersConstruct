@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/treated_wood",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:treated_wood"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:treated_wood"
+  },
+  "material": "tconstruct:treated_wood",
+  "needed": 1,
+  "value": 1
+}

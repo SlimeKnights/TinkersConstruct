@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/gold/block",
+  "ingredient": {
+    "tag": "c:storage_blocks/gold"
+  },
+  "leftover": {
+    "count": 1,
+    "tag": "c:ingots/gold"
+  },
+  "material": "tconstruct:gold",
+  "needed": 1,
+  "value": 9
+}

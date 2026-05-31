@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#minecraft:is_nether",
+  "features": "tconstruct:ichor_geode",
+  "step": "local_modifications"
+}

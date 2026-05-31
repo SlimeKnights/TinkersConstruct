@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:material_fluid",
+  "id": "tconstruct:tools/materials/slimeskin/composite/ichor_cleaning",
+  "fluid": {
+    "amount": 50,
+    "tag": "tconstruct:venom"
+  },
+  "input": "tconstruct:ichorskin",
+  "output": "tconstruct:leather",
+  "temperature": 10
+}

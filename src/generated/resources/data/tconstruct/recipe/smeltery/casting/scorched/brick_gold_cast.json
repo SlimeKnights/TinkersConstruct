@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/scorched/brick_gold_cast",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/ingot"
+  },
+  "cooling_time": 83,
+  "fluid": {
+    "amount": 250,
+    "tag": "tconstruct:scorched_stone"
+  },
+  "result": "tconstruct:scorched_brick"
+}

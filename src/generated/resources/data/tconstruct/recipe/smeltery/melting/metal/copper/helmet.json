@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "id": "tconstruct:smeltery/melting/metal/copper/helmet",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:armors/helmets/copper"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:armors/helmets/copper"
+  },
+  "result": {
+    "amount": 450,
+    "tag": "c:molten_copper",
+    "unit_size": 10
+  },
+  "temperature": 500,
+  "time": 112
+}

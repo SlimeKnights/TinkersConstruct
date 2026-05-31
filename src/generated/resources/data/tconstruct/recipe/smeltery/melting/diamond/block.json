@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/diamond/block",
+  "ingredient": {
+    "tag": "c:storage_blocks/diamond"
+  },
+  "result": {
+    "amount": 900,
+    "fluid": "tconstruct:molten_diamond"
+  },
+  "temperature": 1450,
+  "time": 237
+}

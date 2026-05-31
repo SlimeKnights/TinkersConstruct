@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:common/mighty_smelting",
+  "cast": {
+    "item": "minecraft:book"
+  },
+  "cast_consumed": true,
+  "cooling_time": 89,
+  "fluid": {
+    "amount": 250,
+    "tag": "tconstruct:seared_stone"
+  },
+  "result": "tconstruct:mighty_smelting"
+}

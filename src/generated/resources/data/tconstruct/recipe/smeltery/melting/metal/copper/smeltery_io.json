@@ -1,0 +1,24 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/copper/smeltery_io",
+  "byproducts": [
+    {
+      "amount": 1000,
+      "fluid": "tconstruct:seared_stone"
+    }
+  ],
+  "ingredient": [
+    {
+      "item": "tconstruct:seared_drain"
+    },
+    {
+      "item": "tconstruct:seared_chute"
+    }
+  ],
+  "result": {
+    "amount": 180,
+    "tag": "c:molten_copper"
+  },
+  "temperature": 500,
+  "time": 125
+}

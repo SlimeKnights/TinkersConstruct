@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:item_part_builder",
+  "id": "tconstruct:smeltery/casts/sand/builder_cast/bow_limb",
+  "pattern": "tconstruct:bow_limb",
+  "pattern_item": {
+    "tag": "tconstruct:casts/sand"
+  },
+  "result": "tconstruct:bow_limb_sand_cast"
+}

@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/signalum/ingot_sand_cast",
+  "cast": {
+    "tag": "tconstruct:casts/single_use/ingot"
+  },
+  "cast_consumed": true,
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:ingots/signalum"
+    }
+  ],
+  "cooling_time": 66,
+  "fluid": {
+    "amount": 90,
+    "tag": "c:molten_signalum"
+  },
+  "result": {
+    "tag": "c:ingots/signalum"
+  }
+}

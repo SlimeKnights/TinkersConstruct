@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:casting_basin",
+  "id": "tconstruct:smeltery/casting/water/lime_concrete",
+  "cast": {
+    "item": "minecraft:lime_concrete_powder"
+  },
+  "cast_consumed": true,
+  "cooling_time": 30,
+  "fluid": {
+    "amount": 100,
+    "fluid": "minecraft:water"
+  },
+  "result": "minecraft:lime_concrete"
+}

@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "id": "tconstruct:smeltery/melting/metal/refined_obsidian/chestplate",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:armors/chestplates/refined_obsidian"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:armors/chestplates/refined_obsidian"
+  },
+  "result": {
+    "amount": 720,
+    "tag": "c:molten_refined_obsidian",
+    "unit_size": 10
+  },
+  "temperature": 1475,
+  "time": 225
+}

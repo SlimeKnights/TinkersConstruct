@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/invar/plate_gold_cast",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/plate"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:plates/invar"
+    }
+  ],
+  "cooling_time": 63,
+  "fluid": {
+    "amount": 90,
+    "tag": "c:molten_invar"
+  },
+  "result": {
+    "tag": "c:plates/invar"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/iron/cauldron",
+  "ingredient": {
+    "item": "minecraft:cauldron"
+  },
+  "result": {
+    "amount": 630,
+    "tag": "c:molten_iron"
+  },
+  "temperature": 800,
+  "time": 159
+}

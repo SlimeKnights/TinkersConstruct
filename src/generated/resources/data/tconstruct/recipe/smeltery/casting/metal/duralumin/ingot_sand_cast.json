@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/duralumin/ingot_sand_cast",
+  "cast": {
+    "tag": "tconstruct:casts/single_use/ingot"
+  },
+  "cast_consumed": true,
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:ingots/duralumin"
+    }
+  ],
+  "cooling_time": 54,
+  "fluid": {
+    "amount": 90,
+    "tag": "c:molten_duralumin"
+  },
+  "result": {
+    "tag": "c:ingots/duralumin"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/zinc/dust",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:dusts/zinc"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:dusts/zinc"
+  },
+  "result": {
+    "amount": 90,
+    "tag": "c:molten_zinc"
+  },
+  "temperature": 420,
+  "time": 35
+}

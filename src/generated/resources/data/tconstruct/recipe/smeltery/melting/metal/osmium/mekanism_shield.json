@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "id": "tconstruct:smeltery/melting/metal/osmium/mekanism_shield",
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:item_exists",
+      "item": "mekanism:osmium_shield"
+    }
+  ],
+  "ingredient": {
+    "item": "mekanism:osmium_shield"
+  },
+  "result": {
+    "amount": 540,
+    "tag": "c:molten_osmium",
+    "unit_size": 10
+  },
+  "temperature": 975,
+  "time": 161
+}

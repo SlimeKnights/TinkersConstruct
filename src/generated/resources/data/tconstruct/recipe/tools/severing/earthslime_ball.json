@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:severing",
+  "id": "tconstruct:tools/severing/earthslime_ball",
+  "entity": {
+    "type": "minecraft:slime"
+  },
+  "looting_bonus": 0.01,
+  "per_level_chance": 0.05,
+  "result": "minecraft:slime_ball"
+}

@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:casting_basin",
+  "id": "tconstruct:smeltery/casting/metal/invar/block",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:storage_blocks/invar"
+    }
+  ],
+  "cooling_time": 190,
+  "fluid": {
+    "amount": 810,
+    "tag": "c:molten_invar"
+  },
+  "result": {
+    "tag": "c:storage_blocks/invar"
+  }
+}

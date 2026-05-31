@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/iron/coin",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:coins/iron"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:coins/iron"
+  },
+  "result": {
+    "amount": 30,
+    "tag": "c:molten_iron"
+  },
+  "temperature": 800,
+  "time": 40
+}

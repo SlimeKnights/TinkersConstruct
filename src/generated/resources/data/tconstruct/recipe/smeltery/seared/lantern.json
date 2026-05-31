@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "tconstruct:seared_brick"
+    },
+    "C": {
+      "tag": "c:ingots/iron"
+    },
+    "P": {
+      "item": "tconstruct:seared_glass_pane"
+    }
+  },
+  "pattern": [
+    " C ",
+    "PPP",
+    "BBB"
+  ],
+  "result": {
+    "count": 3,
+    "id": "tconstruct:seared_lantern"
+  },
+  "show_notification": true
+}

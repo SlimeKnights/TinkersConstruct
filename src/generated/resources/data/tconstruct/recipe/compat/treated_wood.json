@@ -1,0 +1,27 @@
+{
+  "type": "tconstruct:casting_basin",
+  "id": "tconstruct:compat/treated_wood",
+  "cast": {
+    "tag": "minecraft:planks"
+  },
+  "cast_consumed": true,
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:treated_wood"
+    },
+    {
+      "type": "mantle:tag_filled",
+      "registry": "minecraft:fluid",
+      "tag": "c:creosote"
+    }
+  ],
+  "cooling_time": 100,
+  "fluid": {
+    "amount": 125,
+    "tag": "c:creosote"
+  },
+  "result": {
+    "tag": "c:treated_wood"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/ability/stripping",
+  "allow_crystal": true,
+  "check_trait_level": true,
+  "inputs": [
+    {
+      "type": "tconstruct:material",
+      "item": "tconstruct:small_axe_head"
+    },
+    {
+      "tag": "c:ingots/steel"
+    },
+    {
+      "type": "tconstruct:material",
+      "item": "tconstruct:tool_binding"
+    }
+  ],
+  "level": 1,
+  "result": "tconstruct:stripping",
+  "slots": {
+    "abilities": 1
+  },
+  "tools": {
+    "type": "neoforge:intersection",
+    "children": [
+      {
+        "tag": "tconstruct:modifiable/durability"
+      },
+      {
+        "tag": "tconstruct:modifiable/interactable"
+      }
+    ]
+  }
+}

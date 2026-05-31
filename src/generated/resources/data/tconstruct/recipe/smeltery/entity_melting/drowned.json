@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:entity_melting",
+  "id": "tconstruct:smeltery/entity_melting/drowned",
+  "damage": 4,
+  "entity": {
+    "type": "minecraft:drowned"
+  },
+  "result": {
+    "amount": 10,
+    "tag": "c:molten_copper"
+  }
+}

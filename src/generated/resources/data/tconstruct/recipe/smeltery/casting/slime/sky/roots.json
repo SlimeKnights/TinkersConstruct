@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:casting_basin",
+  "id": "tconstruct:smeltery/casting/slime/sky/roots",
+  "cast": {
+    "item": "tconstruct:enderbark_roots"
+  },
+  "cast_consumed": true,
+  "cooling_time": 96,
+  "fluid": {
+    "amount": 1000,
+    "tag": "tconstruct:sky_slime"
+  },
+  "result": "tconstruct:sky_enderbark_roots"
+}

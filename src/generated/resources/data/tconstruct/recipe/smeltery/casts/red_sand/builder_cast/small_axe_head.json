@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:item_part_builder",
+  "id": "tconstruct:smeltery/casts/red_sand/builder_cast/small_axe_head",
+  "pattern": "tconstruct:small_axe_head",
+  "pattern_item": {
+    "tag": "tconstruct:casts/red_sand"
+  },
+  "result": "tconstruct:small_axe_head_red_sand_cast"
+}

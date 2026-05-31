@@ -1,0 +1,34 @@
+{
+  "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/upgrade/severing",
+  "allow_crystal": true,
+  "inputs": [
+    {
+      "tag": "c:wither_bones"
+    },
+    {
+      "item": "minecraft:lightning_rod"
+    },
+    {
+      "tag": "c:wither_bones"
+    },
+    {
+      "item": "minecraft:tnt"
+    }
+  ],
+  "level": {
+    "max": 3
+  },
+  "result": "tconstruct:severing",
+  "slots": {
+    "upgrades": 1
+  },
+  "tools": [
+    {
+      "tag": "tconstruct:modifiable/melee"
+    },
+    {
+      "tag": "tconstruct:modifiable/ranged/launcher"
+    }
+  ]
+}

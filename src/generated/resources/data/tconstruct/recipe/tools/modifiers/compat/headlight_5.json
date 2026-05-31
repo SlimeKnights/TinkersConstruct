@@ -1,0 +1,33 @@
+{
+  "type": "tconstruct:swappable_modifier",
+  "id": "tconstruct:tools/modifiers/compat/headlight_5",
+  "allow_crystal": false,
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "headlight"
+    }
+  ],
+  "inputs": [
+    {
+      "item": "minecraft:leather"
+    },
+    {
+      "tag": "minecraft:candles"
+    },
+    {
+      "item": "minecraft:leather"
+    }
+  ],
+  "result": {
+    "name": "tconstruct:headlight",
+    "value": "5"
+  },
+  "slots": {
+    "upgrades": 1
+  },
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/helmets"
+  },
+  "variant_formatter": "tconstruct:parameter"
+}

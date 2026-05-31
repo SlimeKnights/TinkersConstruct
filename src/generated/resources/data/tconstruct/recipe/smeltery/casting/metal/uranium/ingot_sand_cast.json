@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/uranium/ingot_sand_cast",
+  "cast": {
+    "tag": "tconstruct:casts/single_use/ingot"
+  },
+  "cast_consumed": true,
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:ingots/uranium"
+    }
+  ],
+  "cooling_time": 61,
+  "fluid": {
+    "amount": 90,
+    "tag": "c:molten_uranium"
+  },
+  "result": {
+    "tag": "c:ingots/uranium"
+  }
+}

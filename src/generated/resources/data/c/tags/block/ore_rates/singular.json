@@ -1,0 +1,14 @@
+{
+  "values": [
+    "tconstruct:cobalt_ore",
+    "#c:ores/coal",
+    "#c:ores/copper",
+    "#c:ores/diamond",
+    "#c:ores/emerald",
+    "#c:ores/gold",
+    "#c:ores/iron",
+    "#c:ores/lapis",
+    "#c:ores/quartz",
+    "#c:ores/redstone"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "values": [
+    "minecraft:diamond_shovel",
+    {
+      "id": "tools_complement:diamond_knife",
+      "required": false
+    },
+    {
+      "id": "farmersdelight:diamond_knife",
+      "required": false
+    }
+  ]
+}

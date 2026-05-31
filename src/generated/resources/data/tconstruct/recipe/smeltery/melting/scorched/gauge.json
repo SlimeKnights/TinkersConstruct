@@ -1,0 +1,27 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/scorched/gauge",
+  "byproducts": [
+    {
+      "amount": 500,
+      "fluid": "tconstruct:molten_quartz"
+    }
+  ],
+  "ingredient": {
+    "type": "tconstruct:no_container",
+    "match": [
+      {
+        "item": "tconstruct:scorched_fuel_gauge"
+      },
+      {
+        "item": "tconstruct:scorched_ingot_gauge"
+      }
+    ]
+  },
+  "result": {
+    "amount": 1000,
+    "fluid": "tconstruct:scorched_stone"
+  },
+  "temperature": 500,
+  "time": 100
+}

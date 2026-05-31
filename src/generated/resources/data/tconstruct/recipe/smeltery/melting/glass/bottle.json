@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/glass/bottle",
+  "ingredient": [
+    {
+      "item": "minecraft:glass_bottle"
+    },
+    {
+      "tag": "c:bottles/splash"
+    },
+    {
+      "tag": "c:bottles/lingering"
+    }
+  ],
+  "result": {
+    "amount": 1000,
+    "fluid": "tconstruct:molten_glass"
+  },
+  "temperature": 750,
+  "time": 73
+}

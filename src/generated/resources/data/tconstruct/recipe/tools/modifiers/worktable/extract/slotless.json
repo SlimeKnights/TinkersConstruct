@@ -1,0 +1,41 @@
+{
+  "type": "tconstruct:extract_modifier",
+  "id": "tconstruct:tools/modifiers/worktable/extract/slotless",
+  "inputs": [
+    {
+      "item": "minecraft:amethyst_shard"
+    },
+    {
+      "item": "minecraft:wet_sponge"
+    }
+  ],
+  "leftovers": [
+    "minecraft:sponge"
+  ],
+  "modifier_predicate": {
+    "type": "mantle:and",
+    "predicates": [
+      {
+        "type": "mantle:inverted",
+        "inverted_type": "tconstruct:tag",
+        "tag": "tconstruct:extract_blacklist/tools"
+      },
+      "tconstruct:slot_type",
+      {
+        "type": "mantle:inverted",
+        "inverted_type": "tconstruct:tag",
+        "tag": "tconstruct:extract_blacklist/slotless"
+      }
+    ]
+  },
+  "name": "slotless",
+  "tools": {
+    "type": "neoforge:difference",
+    "base": {
+      "tag": "tconstruct:modifiable"
+    },
+    "subtracted": {
+      "tag": "tconstruct:modifiable/unsalvageable"
+    }
+  }
+}

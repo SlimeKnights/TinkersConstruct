@@ -1,0 +1,25 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/necronium",
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:or",
+      "values": [
+        {
+          "type": "tconstruct:config",
+          "prop": "force_integration_materials"
+        },
+        {
+          "type": "mantle:tag_filled",
+          "tag": "c:ingots/uranium"
+        }
+      ]
+    }
+  ],
+  "ingredient": {
+    "item": "tconstruct:necronium_bone"
+  },
+  "material": "tconstruct:necronium",
+  "needed": 1,
+  "value": 1
+}

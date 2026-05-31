@@ -1,0 +1,24 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/scorched/lantern",
+  "byproducts": [
+    {
+      "amount": 25,
+      "fluid": "tconstruct:molten_quartz"
+    },
+    {
+      "amount": 30,
+      "tag": "c:molten_iron"
+    }
+  ],
+  "ingredient": {
+    "type": "tconstruct:no_container",
+    "item": "tconstruct:scorched_lantern"
+  },
+  "result": {
+    "amount": 500,
+    "fluid": "tconstruct:scorched_stone"
+  },
+  "temperature": 500,
+  "time": 50
+}

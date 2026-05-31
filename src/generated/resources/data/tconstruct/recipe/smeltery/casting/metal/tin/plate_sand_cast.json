@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/tin/plate_sand_cast",
+  "cast": {
+    "tag": "tconstruct:casts/single_use/plate"
+  },
+  "cast_consumed": true,
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:plates/tin"
+    }
+  ],
+  "cooling_time": 39,
+  "fluid": {
+    "amount": 90,
+    "tag": "c:molten_tin"
+  },
+  "result": {
+    "tag": "c:plates/tin"
+  }
+}

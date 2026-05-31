@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:casting_basin",
+  "id": "tconstruct:smeltery/casting/scorched/stone_from_magma",
+  "cast": [
+    {
+      "item": "minecraft:basalt"
+    },
+    {
+      "item": "minecraft:gravel"
+    }
+  ],
+  "cast_consumed": true,
+  "cooling_time": 99,
+  "fluid": {
+    "amount": 500,
+    "tag": "c:magma"
+  },
+  "result": "tconstruct:scorched_stone"
+}

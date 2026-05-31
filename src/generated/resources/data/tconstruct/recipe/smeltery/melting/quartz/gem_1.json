@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/quartz/gem_1",
+  "ingredient": [
+    {
+      "item": "minecraft:observer"
+    },
+    {
+      "item": "minecraft:comparator"
+    },
+    {
+      "item": "tconstruct:quartz_shuriken"
+    }
+  ],
+  "result": {
+    "amount": 100,
+    "fluid": "tconstruct:molten_quartz"
+  },
+  "temperature": 637,
+  "time": 58
+}

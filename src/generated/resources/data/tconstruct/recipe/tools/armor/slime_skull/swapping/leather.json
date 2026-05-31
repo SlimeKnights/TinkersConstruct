@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:fixed_material_swapping",
+  "id": "tconstruct:tools/armor/slime_skull/swapping/leather",
+  "index": 0,
+  "ingredient": {
+    "item": "minecraft:zombie_head"
+  },
+  "material": "tconstruct:leather",
+  "max_stack_size": 16,
+  "repair_value": 6,
+  "tools": {
+    "tag": "tconstruct:modifiable/skulls/swappable"
+  }
+}

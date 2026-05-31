@@ -1,0 +1,45 @@
+{
+  "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/ability/luck_level_1",
+  "allow_crystal": true,
+  "inputs": [
+    {
+      "tag": "c:ingots/copper"
+    },
+    {
+      "ingredient": [
+        {
+          "item": "minecraft:cornflower"
+        },
+        {
+          "item": "minecraft:blue_orchid"
+        }
+      ]
+    },
+    {
+      "tag": "c:ingots/copper"
+    },
+    {
+      "tag": "c:storage_blocks/lapis"
+    },
+    {
+      "tag": "c:storage_blocks/lapis"
+    }
+  ],
+  "level": 1,
+  "result": "tconstruct:luck",
+  "slots": {
+    "abilities": 1
+  },
+  "tools": [
+    {
+      "tag": "tconstruct:modifiable/melee/weapon"
+    },
+    {
+      "tag": "tconstruct:modifiable/harvest"
+    },
+    {
+      "tag": "tconstruct:modifiable/ranged/launcher"
+    }
+  ]
+}

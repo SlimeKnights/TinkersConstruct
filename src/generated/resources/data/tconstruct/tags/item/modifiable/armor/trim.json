@@ -1,0 +1,18 @@
+{
+  "values": [
+    "tconstruct:travelers_helmet",
+    "tconstruct:travelers_chestplate",
+    "tconstruct:travelers_leggings",
+    "tconstruct:travelers_boots",
+    "tconstruct:plate_helmet",
+    "tconstruct:plate_chestplate",
+    "tconstruct:plate_leggings",
+    "tconstruct:plate_boots",
+    "tconstruct:slime_helmet",
+    "tconstruct:slimy_chestplate",
+    "tconstruct:slime_leggings",
+    "tconstruct:slime_boots",
+    "tconstruct:slime_wings",
+    "#tconstruct:modifiable/armor/trim/no_pattern"
+  ]
+}

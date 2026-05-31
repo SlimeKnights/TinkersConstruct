@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:part_builder_tool_recycling",
+  "id": "tconstruct:tools/recycling/melting_pan",
+  "parts": [
+    "tconstruct:repair_kit",
+    "tconstruct:bow_limb"
+  ],
+  "pattern": {
+    "item": "tconstruct:venom_bottle"
+  },
+  "tools": {
+    "item": "tconstruct:melting_pan"
+  }
+}

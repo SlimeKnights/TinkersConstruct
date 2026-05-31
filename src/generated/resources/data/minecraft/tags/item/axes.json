@@ -1,0 +1,11 @@
+{
+  "values": [
+    "tconstruct:mattock",
+    "tconstruct:hand_axe",
+    "tconstruct:broad_axe",
+    {
+      "id": "tconstruct:minotaur_axe",
+      "required": false
+    }
+  ]
+}

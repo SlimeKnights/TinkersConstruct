@@ -1,0 +1,34 @@
+{
+  "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/ability/boundless",
+  "allow_crystal": true,
+  "inputs": [
+    {
+      "amount_needed": 4,
+      "item": "tconstruct:obsidian_pane"
+    },
+    {
+      "item": "minecraft:writable_book"
+    },
+    {
+      "amount_needed": 4,
+      "item": "tconstruct:obsidian_pane"
+    },
+    {
+      "amount_needed": 2,
+      "item": "tconstruct:ichor_slime_crystal"
+    },
+    {
+      "amount_needed": 2,
+      "item": "tconstruct:ichor_slime_crystal"
+    }
+  ],
+  "level": 1,
+  "result": "tconstruct:boundless",
+  "slots": {
+    "abilities": 1
+  },
+  "tools": {
+    "tag": "tconstruct:modifiable/shields"
+  }
+}

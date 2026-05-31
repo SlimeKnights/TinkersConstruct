@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:item_part_builder",
+  "id": "tconstruct:smeltery/casts/sand/builder_cast/helmet_plating",
+  "pattern": "tconstruct:helmet_plating",
+  "pattern_item": {
+    "tag": "tconstruct:casts/sand"
+  },
+  "result": "tconstruct:helmet_plating_sand_cast"
+}

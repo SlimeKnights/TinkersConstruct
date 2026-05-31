@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:table_casting_material",
+  "id": "tconstruct:tools/parts/casting/tough_binding_sand_cast",
+  "cast": {
+    "tag": "tconstruct:casts/single_use/tough_binding"
+  },
+  "cast_consumed": true,
+  "item_cost": 3,
+  "result": "tconstruct:tough_binding"
+}

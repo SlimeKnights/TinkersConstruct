@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/paper",
+  "ingredient": {
+    "item": "minecraft:paper"
+  },
+  "material": "tconstruct:paper",
+  "needed": 1,
+  "value": 1
+}

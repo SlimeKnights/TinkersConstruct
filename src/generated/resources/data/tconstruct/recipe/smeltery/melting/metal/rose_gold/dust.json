@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/rose_gold/dust",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:dusts/rose_gold"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:dusts/rose_gold"
+  },
+  "result": {
+    "amount": 90,
+    "tag": "c:molten_rose_gold"
+  },
+  "temperature": 550,
+  "time": 39
+}

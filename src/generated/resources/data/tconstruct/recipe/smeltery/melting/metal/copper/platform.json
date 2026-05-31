@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/copper/platform",
+  "ingredient": {
+    "tag": "tconstruct:copper_platforms"
+  },
+  "result": {
+    "amount": 100,
+    "tag": "c:molten_copper"
+  },
+  "temperature": 500,
+  "time": 53
+}

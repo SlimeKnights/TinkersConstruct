@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/lumium/plate_gold_cast",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/plate"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:plates/lumium"
+    }
+  ],
+  "cooling_time": 68,
+  "fluid": {
+    "amount": 90,
+    "tag": "c:molten_lumium"
+  },
+  "result": {
+    "tag": "c:plates/lumium"
+  }
+}

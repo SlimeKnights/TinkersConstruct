@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:entity_melting",
+  "id": "tconstruct:smeltery/entity_melting/bee",
+  "damage": 2,
+  "entity": {
+    "type": "minecraft:bee"
+  },
+  "result": {
+    "amount": 25,
+    "tag": "c:honey"
+  }
+}

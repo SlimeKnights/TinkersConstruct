@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:incremental_modifier",
+  "id": "tconstruct:tools/modifiers/upgrade/antiaquatic",
+  "allow_crystal": true,
+  "amount_per_item": 1,
+  "input": {
+    "item": "minecraft:pufferfish"
+  },
+  "level": {
+    "max": 5
+  },
+  "needed_per_level": 5,
+  "result": "tconstruct:antiaquatic",
+  "slots": {
+    "upgrades": 1
+  },
+  "tools": {
+    "tag": "tconstruct:modifiable/melee"
+  }
+}

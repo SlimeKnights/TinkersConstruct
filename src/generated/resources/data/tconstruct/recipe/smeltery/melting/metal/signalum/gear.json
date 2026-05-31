@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/signalum/gear",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:gears/signalum"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:gears/signalum"
+  },
+  "result": {
+    "amount": 360,
+    "tag": "c:molten_signalum"
+  },
+  "temperature": 999,
+  "time": 133
+}

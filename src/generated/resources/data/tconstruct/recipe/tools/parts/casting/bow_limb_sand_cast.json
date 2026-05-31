@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:table_casting_material",
+  "id": "tconstruct:tools/parts/casting/bow_limb_sand_cast",
+  "cast": {
+    "tag": "tconstruct:casts/single_use/bow_limb"
+  },
+  "cast_consumed": true,
+  "item_cost": 2,
+  "result": "tconstruct:bow_limb"
+}

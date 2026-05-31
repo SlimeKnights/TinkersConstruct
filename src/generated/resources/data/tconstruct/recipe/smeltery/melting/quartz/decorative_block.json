@@ -1,0 +1,30 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/quartz/decorative_block",
+  "ingredient": [
+    {
+      "item": "minecraft:smooth_quartz"
+    },
+    {
+      "item": "minecraft:quartz_pillar"
+    },
+    {
+      "item": "minecraft:quartz_bricks"
+    },
+    {
+      "item": "minecraft:chiseled_quartz_block"
+    },
+    {
+      "item": "minecraft:quartz_stairs"
+    },
+    {
+      "item": "minecraft:smooth_quartz_stairs"
+    }
+  ],
+  "result": {
+    "amount": 400,
+    "fluid": "tconstruct:molten_quartz"
+  },
+  "temperature": 637,
+  "time": 110
+}

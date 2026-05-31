@@ -1,0 +1,6 @@
+{
+  "type": "tconstruct:table_filling",
+  "id": "tconstruct:smeltery/casting/filling/copper_can",
+  "container": "tconstruct:copper_can",
+  "fluid_amount": 90
+}

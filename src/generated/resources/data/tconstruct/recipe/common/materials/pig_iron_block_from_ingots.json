@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "tconstruct:pig_iron_block",
+  "key": {
+    "#": {
+      "tag": "c:ingots/pig_iron"
+    },
+    "*": {
+      "item": "tconstruct:pig_iron_ingot"
+    }
+  },
+  "pattern": [
+    "###",
+    "#*#",
+    "###"
+  ],
+  "result": {
+    "id": "tconstruct:pig_iron_block"
+  },
+  "show_notification": true
+}

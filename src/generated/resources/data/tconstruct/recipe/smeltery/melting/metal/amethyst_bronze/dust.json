@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/amethyst_bronze/dust",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:dusts/amethyst_bronze"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:dusts/amethyst_bronze"
+  },
+  "result": {
+    "amount": 90,
+    "tag": "c:molten_amethyst_bronze"
+  },
+  "temperature": 820,
+  "time": 46
+}

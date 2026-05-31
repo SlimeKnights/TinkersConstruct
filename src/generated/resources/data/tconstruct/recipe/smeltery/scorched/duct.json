@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "#": {
+      "item": "tconstruct:scorched_brick"
+    },
+    "C": {
+      "tag": "c:ingots/gold"
+    }
+  },
+  "pattern": [
+    "# #",
+    "C C",
+    "# #"
+  ],
+  "result": {
+    "id": "tconstruct:scorched_duct"
+  },
+  "show_notification": true
+}

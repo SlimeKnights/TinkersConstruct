@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/clay/brick_gold_cast",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/ingot"
+  },
+  "cooling_time": 80,
+  "fluid": {
+    "amount": 250,
+    "tag": "tconstruct:molten_clay"
+  },
+  "result": "minecraft:brick"
+}

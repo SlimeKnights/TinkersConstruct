@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/obsidian/reinforcement",
+  "ingredient": {
+    "item": "tconstruct:obsidian_reinforcement"
+  },
+  "result": {
+    "amount": 1000,
+    "fluid": "tconstruct:molten_obsidian"
+  },
+  "temperature": 1000,
+  "time": 221
+}

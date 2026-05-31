@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:tools/modifiers/cobalt_reinforcement",
+  "cast": {
+    "item": "tconstruct:pattern"
+  },
+  "cast_consumed": true,
+  "cooling_time": 65,
+  "fluid": {
+    "amount": 90,
+    "tag": "c:molten_cobalt"
+  },
+  "result": "tconstruct:cobalt_reinforcement"
+}

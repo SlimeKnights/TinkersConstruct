@@ -1,0 +1,25 @@
+{
+  "type": "tconstruct:incremental_modifier",
+  "id": "tconstruct:tools/modifiers/upgrade/haste_from_dust",
+  "allow_crystal": true,
+  "amount_per_item": 1,
+  "input": {
+    "tag": "c:dusts/redstone"
+  },
+  "level": {
+    "max": 5
+  },
+  "needed_per_level": 45,
+  "result": "tconstruct:haste",
+  "slots": {
+    "upgrades": 1
+  },
+  "tools": [
+    {
+      "tag": "tconstruct:modifiable/harvest"
+    },
+    {
+      "tag": "tconstruct:modifiable/armor/chestplate"
+    }
+  ]
+}

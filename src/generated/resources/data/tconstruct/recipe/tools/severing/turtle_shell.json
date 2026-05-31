@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:ageable_severing",
+  "id": "tconstruct:tools/severing/turtle_shell",
+  "adult_result": "minecraft:turtle_helmet",
+  "child_result": "minecraft:turtle_scute",
+  "entity": {
+    "type": "minecraft:turtle"
+  },
+  "looting_bonus": 0.01,
+  "per_level_chance": 0.05
+}

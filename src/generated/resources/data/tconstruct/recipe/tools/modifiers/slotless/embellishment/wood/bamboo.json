@@ -1,0 +1,24 @@
+{
+  "type": "tconstruct:swappable_modifier",
+  "id": "tconstruct:tools/modifiers/slotless/embellishment/wood/bamboo",
+  "allow_crystal": false,
+  "inputs": [
+    {
+      "item": "minecraft:bamboo"
+    },
+    {
+      "item": "tconstruct:pattern"
+    },
+    {
+      "item": "minecraft:bamboo"
+    }
+  ],
+  "result": {
+    "name": "tconstruct:embellishment",
+    "value": "tconstruct:bamboo"
+  },
+  "tools": {
+    "tag": "tconstruct:modifiable/embellishment/wood"
+  },
+  "variant_formatter": "tconstruct:material"
+}

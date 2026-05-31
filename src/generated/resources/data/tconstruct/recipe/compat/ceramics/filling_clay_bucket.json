@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:table_filling",
+  "id": "tconstruct:compat/ceramics/filling_clay_bucket",
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "ceramics"
+    }
+  ],
+  "container": "ceramics:empty_clay_bucket",
+  "fluid_amount": 1000
+}

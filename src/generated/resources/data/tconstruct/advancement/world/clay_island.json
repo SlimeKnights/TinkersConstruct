@@ -1,0 +1,42 @@
+{
+  "parent": "tconstruct:world/tinkers_gadgetry",
+  "criteria": {
+    "found_island": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "structure": "tconstruct:clay_island"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.tconstruct.world.clay_island.description"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "item": "minecraft:clay_ball"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.tconstruct.world.clay_island.title"
+    }
+  },
+  "requirements": [
+    [
+      "found_island"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

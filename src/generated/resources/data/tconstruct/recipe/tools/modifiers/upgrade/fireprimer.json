@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/upgrade/fireprimer",
+  "allow_crystal": true,
+  "inputs": [
+    {
+      "tag": "c:ingots/steel"
+    },
+    {
+      "item": "minecraft:flint"
+    }
+  ],
+  "level": 1,
+  "result": "tconstruct:fireprimer",
+  "slots": {
+    "upgrades": 1
+  },
+  "tools": {
+    "item": "tconstruct:flint_and_brick"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "tconstruct:incremental_modifier",
+  "id": "tconstruct:tools/modifiers/defense/revitalizing",
+  "allow_crystal": true,
+  "amount_per_item": 1,
+  "input": {
+    "item": "tconstruct:jeweled_apple"
+  },
+  "needed_per_level": 2,
+  "result": "tconstruct:revitalizing",
+  "slots": {
+    "defense": 1
+  },
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/worn"
+  }
+}

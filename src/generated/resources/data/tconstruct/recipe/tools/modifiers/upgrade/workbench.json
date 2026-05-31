@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/upgrade/workbench",
+  "allow_crystal": true,
+  "check_trait_level": true,
+  "inputs": [
+    {
+      "item": "minecraft:leather"
+    },
+    {
+      "item": "minecraft:crafting_table"
+    },
+    {
+      "item": "minecraft:leather"
+    }
+  ],
+  "level": 1,
+  "result": "tconstruct:workbench",
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/leggings"
+  }
+}

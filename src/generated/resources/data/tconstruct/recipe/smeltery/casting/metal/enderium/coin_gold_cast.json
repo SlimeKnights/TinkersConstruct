@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/enderium/coin_gold_cast",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/coin"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:coins/enderium"
+    }
+  ],
+  "cooling_time": 44,
+  "fluid": {
+    "amount": 30,
+    "tag": "c:molten_enderium"
+  },
+  "result": {
+    "tag": "c:coins/enderium"
+  }
+}

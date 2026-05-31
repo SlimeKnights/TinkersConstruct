@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/slotless/embossed",
+  "allow_crystal": true,
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "tconstruct:boss_trophies"
+    }
+  ],
+  "inputs": [
+    {
+      "tag": "tconstruct:boss_trophies"
+    }
+  ],
+  "level": 1,
+  "result": "tconstruct:embossed",
+  "tools": {
+    "tag": "tconstruct:modifiable/bonus_slots"
+  }
+}

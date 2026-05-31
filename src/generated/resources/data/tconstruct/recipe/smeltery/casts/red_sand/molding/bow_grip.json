@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:molding_table",
+  "id": "tconstruct:smeltery/casts/red_sand/molding/bow_grip",
+  "material": {
+    "tag": "tconstruct:casts/red_sand"
+  },
+  "pattern": {
+    "type": "tconstruct:material",
+    "item": "tconstruct:bow_grip"
+  },
+  "result": "tconstruct:bow_grip_red_sand_cast"
+}

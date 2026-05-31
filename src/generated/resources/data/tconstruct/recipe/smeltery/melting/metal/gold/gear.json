@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/gold/gear",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:gears/gold"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:gears/gold"
+  },
+  "result": {
+    "amount": 360,
+    "tag": "c:molten_gold"
+  },
+  "temperature": 700,
+  "time": 114
+}

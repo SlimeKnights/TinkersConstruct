@@ -1,0 +1,26 @@
+{
+  "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/upgrade/soulspeed",
+  "allow_crystal": true,
+  "inputs": [
+    {
+      "item": "minecraft:magma_block"
+    },
+    {
+      "item": "minecraft:crying_obsidian"
+    },
+    {
+      "item": "minecraft:magma_block"
+    }
+  ],
+  "level": {
+    "max": 3
+  },
+  "result": "tconstruct:soulspeed",
+  "slots": {
+    "upgrades": 1
+  },
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/boots"
+  }
+}

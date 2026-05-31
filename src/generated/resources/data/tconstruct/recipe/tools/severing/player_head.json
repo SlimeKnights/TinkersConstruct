@@ -1,0 +1,6 @@
+{
+  "type": "tconstruct:player_beheading",
+  "id": "tconstruct:tools/severing/player_head",
+  "looting_bonus": 0.02,
+  "per_level_chance": 0.1
+}

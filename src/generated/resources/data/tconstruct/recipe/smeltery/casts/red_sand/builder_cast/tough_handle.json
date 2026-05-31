@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:item_part_builder",
+  "id": "tconstruct:smeltery/casts/red_sand/builder_cast/tough_handle",
+  "pattern": "tconstruct:tough_handle",
+  "pattern_item": {
+    "tag": "tconstruct:casts/red_sand"
+  },
+  "result": "tconstruct:tough_handle_red_sand_cast"
+}

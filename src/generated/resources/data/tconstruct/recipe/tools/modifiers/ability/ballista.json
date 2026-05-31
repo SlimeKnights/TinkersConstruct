@@ -1,0 +1,25 @@
+{
+  "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/ability/ballista",
+  "allow_crystal": true,
+  "check_trait_level": true,
+  "inputs": [
+    {
+      "tag": "c:ingots/hepatizon"
+    },
+    {
+      "item": "minecraft:chain"
+    },
+    {
+      "tag": "c:ingots/hepatizon"
+    }
+  ],
+  "level": 1,
+  "result": "tconstruct:ballista",
+  "slots": {
+    "abilities": 1
+  },
+  "tools": {
+    "tag": "tconstruct:modifiable/ranged/ballistas"
+  }
+}

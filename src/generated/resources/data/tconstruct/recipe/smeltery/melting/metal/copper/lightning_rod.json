@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/copper/lightning_rod",
+  "ingredient": {
+    "item": "minecraft:lightning_rod"
+  },
+  "result": {
+    "amount": 270,
+    "tag": "c:molten_copper"
+  },
+  "temperature": 500,
+  "time": 86
+}

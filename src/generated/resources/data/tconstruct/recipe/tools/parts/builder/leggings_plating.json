@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:item_part_builder",
+  "id": "tconstruct:tools/parts/builder/leggings_plating",
+  "cost": 5,
+  "material": "tconstruct:rock",
+  "pattern": "tconstruct:leggings_plating",
+  "pattern_item": [
+    {
+      "tag": "tconstruct:patterns/default"
+    },
+    {
+      "item": "tconstruct:leggings_plating_cast"
+    }
+  ],
+  "result": "tconstruct:leggings_plating_dummy"
+}

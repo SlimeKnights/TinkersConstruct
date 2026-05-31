@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/cadmium/ingot_gold_cast",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/ingot"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:ingots/cadmium"
+    }
+  ],
+  "cooling_time": 42,
+  "fluid": {
+    "amount": 90,
+    "tag": "c:molten_cadmium"
+  },
+  "result": {
+    "tag": "c:ingots/cadmium"
+  }
+}

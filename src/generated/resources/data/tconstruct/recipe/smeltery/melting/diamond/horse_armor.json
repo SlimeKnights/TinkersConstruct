@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/diamond/horse_armor",
+  "ingredient": {
+    "item": "minecraft:diamond_horse_armor"
+  },
+  "result": {
+    "amount": 700,
+    "fluid": "tconstruct:molten_diamond"
+  },
+  "temperature": 1450,
+  "time": 220
+}

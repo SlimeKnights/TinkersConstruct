@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/iron/soul_lantern",
+  "cast": {
+    "item": "minecraft:soul_torch"
+  },
+  "cast_consumed": true,
+  "cooling_time": 57,
+  "fluid": {
+    "amount": 80,
+    "tag": "c:molten_iron"
+  },
+  "result": "minecraft:soul_lantern"
+}

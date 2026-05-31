@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/duralumin/nugget_sand_cast",
+  "cast": {
+    "tag": "tconstruct:casts/single_use/nugget"
+  },
+  "cast_consumed": true,
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:nuggets/duralumin"
+    }
+  ],
+  "cooling_time": 18,
+  "fluid": {
+    "amount": 10,
+    "tag": "c:molten_duralumin"
+  },
+  "result": {
+    "tag": "c:nuggets/duralumin"
+  }
+}

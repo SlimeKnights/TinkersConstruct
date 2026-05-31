@@ -1,0 +1,17 @@
+{
+  "type": "tconstruct:material_fluid",
+  "id": "tconstruct:tools/materials/composite/fiery",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:ingots/fiery"
+    }
+  ],
+  "fluid": {
+    "amount": 250,
+    "tag": "tconstruct:fiery_liquid"
+  },
+  "input": "tconstruct:iron",
+  "output": "tconstruct:fiery",
+  "temperature": 1500
+}

@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/iron/nugget",
+  "ingredient": {
+    "tag": "c:nuggets/iron"
+  },
+  "material": "tconstruct:iron",
+  "needed": 9,
+  "value": 1
+}

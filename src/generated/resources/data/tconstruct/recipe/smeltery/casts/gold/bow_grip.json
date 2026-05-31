@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casts/gold/bow_grip",
+  "cast": {
+    "type": "tconstruct:material",
+    "item": "tconstruct:bow_grip"
+  },
+  "cast_consumed": true,
+  "cooling_time": 57,
+  "fluid": {
+    "amount": 90,
+    "tag": "c:molten_gold"
+  },
+  "result": "tconstruct:bow_grip_cast",
+  "switch_slots": true
+}

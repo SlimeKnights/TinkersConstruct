@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/upgrade/diamond",
+  "allow_crystal": true,
+  "inputs": [
+    {
+      "tag": "c:gems/diamond"
+    }
+  ],
+  "level": 1,
+  "result": "tconstruct:diamond",
+  "slots": {
+    "upgrades": 1
+  },
+  "tools": {
+    "tag": "tconstruct:modifiable/durability"
+  }
+}

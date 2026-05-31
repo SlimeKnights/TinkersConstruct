@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:item_part_builder",
+  "id": "tconstruct:smeltery/casts/sand/builder_block/boots_plating",
+  "pattern": "tconstruct:boots_plating",
+  "pattern_item": {
+    "tag": "c:sand/colorless"
+  },
+  "result": {
+    "count": 4,
+    "item": "tconstruct:boots_plating_sand_cast"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/steel/wire",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:wires/steel"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:wires/steel"
+  },
+  "result": {
+    "amount": 45,
+    "tag": "c:molten_steel"
+  },
+  "temperature": 950,
+  "time": 13
+}

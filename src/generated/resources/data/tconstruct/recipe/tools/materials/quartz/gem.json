@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/quartz/gem",
+  "ingredient": {
+    "tag": "c:gems/quartz"
+  },
+  "material": "tconstruct:quartz",
+  "needed": 1,
+  "value": 1
+}

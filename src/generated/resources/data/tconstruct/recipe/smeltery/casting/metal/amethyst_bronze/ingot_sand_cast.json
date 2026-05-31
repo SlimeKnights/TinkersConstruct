@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/amethyst_bronze/ingot_sand_cast",
+  "cast": {
+    "tag": "tconstruct:casts/single_use/ingot"
+  },
+  "cast_consumed": true,
+  "cooling_time": 61,
+  "fluid": {
+    "amount": 90,
+    "tag": "c:molten_amethyst_bronze"
+  },
+  "result": {
+    "tag": "c:ingots/amethyst_bronze"
+  }
+}

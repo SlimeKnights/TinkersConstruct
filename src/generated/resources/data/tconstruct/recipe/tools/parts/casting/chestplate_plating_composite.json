@@ -1,0 +1,6 @@
+{
+  "type": "tconstruct:table_casting_composite",
+  "id": "tconstruct:tools/parts/casting/chestplate_plating_composite",
+  "item_cost": 6,
+  "result": "tconstruct:chestplate_plating"
+}

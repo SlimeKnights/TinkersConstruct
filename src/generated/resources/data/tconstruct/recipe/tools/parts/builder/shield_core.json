@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:part_builder",
+  "id": "tconstruct:tools/parts/builder/shield_core",
+  "cost": 4,
+  "pattern": "tconstruct:shield_core",
+  "pattern_item": {
+    "tag": "tconstruct:patterns/default"
+  },
+  "result": {
+    "item": "tconstruct:shield_core"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:molding_table",
+  "id": "tconstruct:smeltery/casts/sand/molding/bow_limb",
+  "material": {
+    "tag": "tconstruct:casts/sand"
+  },
+  "pattern": {
+    "type": "tconstruct:material",
+    "item": "tconstruct:bow_limb"
+  },
+  "result": "tconstruct:bow_limb_sand_cast"
+}

@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/osmium/ingot_gold_cast",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/ingot"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:ingots/osmium"
+    }
+  ],
+  "cooling_time": 66,
+  "fluid": {
+    "amount": 90,
+    "tag": "c:molten_osmium"
+  },
+  "result": {
+    "tag": "c:ingots/osmium"
+  }
+}

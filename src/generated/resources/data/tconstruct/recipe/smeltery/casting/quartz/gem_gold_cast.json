@@ -1,0 +1,15 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/quartz/gem_gold_cast",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/gem"
+  },
+  "cooling_time": 58,
+  "fluid": {
+    "amount": 100,
+    "tag": "tconstruct:molten_quartz"
+  },
+  "result": {
+    "tag": "c:gems/quartz"
+  }
+}

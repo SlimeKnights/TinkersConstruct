@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/scorched/glass_soul",
+  "byproducts": [
+    {
+      "amount": 1000,
+      "fluid": "tconstruct:liquid_soul"
+    }
+  ],
+  "ingredient": {
+    "item": "tconstruct:scorched_soul_glass"
+  },
+  "result": {
+    "amount": 1000,
+    "fluid": "tconstruct:scorched_stone"
+  },
+  "temperature": 500,
+  "time": 100
+}

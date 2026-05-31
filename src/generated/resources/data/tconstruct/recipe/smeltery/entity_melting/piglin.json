@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:entity_melting",
+  "id": "tconstruct:smeltery/entity_melting/piglin",
+  "damage": 4,
+  "entity": {
+    "types": [
+      "minecraft:piglin",
+      "minecraft:piglin_brute",
+      "minecraft:zombified_piglin"
+    ]
+  },
+  "result": {
+    "amount": 10,
+    "tag": "c:molten_gold"
+  }
+}

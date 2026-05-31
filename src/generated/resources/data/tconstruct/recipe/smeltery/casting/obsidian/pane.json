@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/obsidian/pane",
+  "cooling_time": 111,
+  "fluid": {
+    "amount": 250,
+    "tag": "tconstruct:molten_obsidian"
+  },
+  "result": "tconstruct:obsidian_pane"
+}

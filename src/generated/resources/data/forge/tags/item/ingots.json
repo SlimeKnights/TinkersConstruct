@@ -1,0 +1,21 @@
+{
+  "values": [
+    "tconstruct:seared_brick",
+    "tconstruct:scorched_brick",
+    "tconstruct:fake_ingot",
+    "#c:ingots/netherite_scrap",
+    "#c:ingots/steel",
+    "#c:ingots/cobalt",
+    "#c:ingots/slimesteel",
+    "#c:ingots/amethyst_bronze",
+    "#c:ingots/rose_gold",
+    "#c:ingots/pig_iron",
+    "#c:ingots/cinderslime",
+    "#c:ingots/queens_slime",
+    "#c:ingots/manyullyn",
+    "#c:ingots/hepatizon",
+    "#c:ingots/soulsteel",
+    "#c:ingots/knightmetal",
+    "#c:ingots/knightslime"
+  ]
+}

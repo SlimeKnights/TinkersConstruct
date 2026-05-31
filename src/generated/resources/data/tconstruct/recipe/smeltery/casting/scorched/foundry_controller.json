@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:retextured_casting_basin",
+  "id": "tconstruct:smeltery/casting/scorched/foundry_controller",
+  "cast": {
+    "tag": "tconstruct:foundry_bricks"
+  },
+  "cast_consumed": true,
+  "cooling_time": 221,
+  "fluid": {
+    "amount": 1000,
+    "tag": "tconstruct:molten_obsidian"
+  },
+  "result": "tconstruct:foundry_controller"
+}

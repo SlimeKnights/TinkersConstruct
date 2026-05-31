@@ -1,0 +1,6 @@
+{
+  "type": "tconstruct:table_casting_composite",
+  "id": "tconstruct:tools/parts/casting/helmet_plating_composite",
+  "item_cost": 3,
+  "result": "tconstruct:helmet_plating"
+}

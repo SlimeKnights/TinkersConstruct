@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "id": "tconstruct:smeltery/melting/metal/refined_glowstone/chestplate",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:armors/chestplates/refined_glowstone"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:armors/chestplates/refined_glowstone"
+  },
+  "result": {
+    "amount": 720,
+    "tag": "c:molten_refined_glowstone",
+    "unit_size": 10
+  },
+  "temperature": 825,
+  "time": 172
+}

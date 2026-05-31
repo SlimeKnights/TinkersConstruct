@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/obsidian/foundry_controller",
+  "byproducts": [
+    {
+      "amount": 1000,
+      "fluid": "tconstruct:scorched_stone"
+    }
+  ],
+  "ingredient": {
+    "item": "tconstruct:foundry_controller"
+  },
+  "result": {
+    "amount": 1000,
+    "fluid": "tconstruct:molten_obsidian"
+  },
+  "temperature": 1000,
+  "time": 232
+}

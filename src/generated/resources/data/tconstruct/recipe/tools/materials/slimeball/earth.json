@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/slimeball/earth",
+  "ingredient": {
+    "tag": "c:slimeball/earth"
+  },
+  "material": "tconstruct:slimeball#earth",
+  "needed": 1,
+  "value": 1
+}

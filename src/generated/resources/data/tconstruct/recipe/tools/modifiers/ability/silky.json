@@ -1,0 +1,31 @@
+{
+  "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/ability/silky",
+  "allow_crystal": true,
+  "check_trait_level": true,
+  "inputs": [
+    {
+      "item": "tconstruct:silky_cloth"
+    },
+    {
+      "item": "tconstruct:silky_cloth"
+    },
+    {
+      "item": "tconstruct:silky_cloth"
+    },
+    {
+      "item": "tconstruct:silky_cloth"
+    },
+    {
+      "item": "tconstruct:silky_cloth"
+    }
+  ],
+  "level": 1,
+  "result": "tconstruct:silky",
+  "slots": {
+    "abilities": 1
+  },
+  "tools": {
+    "tag": "tconstruct:modifiable/harvest"
+  }
+}

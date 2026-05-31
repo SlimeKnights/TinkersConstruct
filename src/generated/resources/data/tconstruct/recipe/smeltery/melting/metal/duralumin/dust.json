@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/duralumin/dust",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:dusts/duralumin"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:dusts/duralumin"
+  },
+  "result": {
+    "amount": 90,
+    "tag": "c:molten_duralumin"
+  },
+  "temperature": 625,
+  "time": 41
+}

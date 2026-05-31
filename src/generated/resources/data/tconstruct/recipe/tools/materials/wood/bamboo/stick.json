@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/wood/bamboo/stick",
+  "ingredient": {
+    "item": "minecraft:bamboo"
+  },
+  "material": "tconstruct:bamboo",
+  "needed": 9,
+  "value": 1
+}

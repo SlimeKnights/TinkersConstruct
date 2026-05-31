@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": {
+      "item": "minecraft:egg"
+    },
+    "M": {
+      "item": "tconstruct:ender_slime_bucket"
+    },
+    "S": {
+      "tag": "c:dusts/redstone"
+    },
+    "W": {
+      "item": "tconstruct:ender_slime_tall_grass"
+    }
+  },
+  "pattern": [
+    "MMM",
+    "SES",
+    "WWW"
+  ],
+  "result": {
+    "id": "tconstruct:ender_cake"
+  },
+  "show_notification": true
+}

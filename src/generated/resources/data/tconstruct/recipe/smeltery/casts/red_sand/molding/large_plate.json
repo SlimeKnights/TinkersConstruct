@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:molding_table",
+  "id": "tconstruct:smeltery/casts/red_sand/molding/large_plate",
+  "material": {
+    "tag": "tconstruct:casts/red_sand"
+  },
+  "pattern": {
+    "type": "tconstruct:material",
+    "item": "tconstruct:large_plate"
+  },
+  "result": "tconstruct:large_plate_red_sand_cast"
+}

@@ -1,0 +1,15 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/netherite/nugget_gold_cast",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/nugget"
+  },
+  "cooling_time": 25,
+  "fluid": {
+    "amount": 10,
+    "tag": "c:molten_netherite"
+  },
+  "result": {
+    "tag": "c:nuggets/netherite"
+  }
+}

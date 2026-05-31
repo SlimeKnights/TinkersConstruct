@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:severing",
+  "id": "tconstruct:tools/severing/wither_skeleton_bone",
+  "entity": {
+    "type": "minecraft:wither_skeleton"
+  },
+  "looting_bonus": 0.01,
+  "per_level_chance": 0.05,
+  "result": {
+    "count": 2,
+    "item": "tconstruct:necrotic_bone"
+  }
+}

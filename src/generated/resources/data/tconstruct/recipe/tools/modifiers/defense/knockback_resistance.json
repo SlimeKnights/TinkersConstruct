@@ -1,0 +1,28 @@
+{
+  "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/defense/knockback_resistance",
+  "allow_crystal": true,
+  "inputs": [
+    {
+      "ingredient": [
+        {
+          "item": "minecraft:anvil"
+        },
+        {
+          "item": "minecraft:chipped_anvil"
+        },
+        {
+          "item": "minecraft:damaged_anvil"
+        }
+      ]
+    }
+  ],
+  "level": 1,
+  "result": "tconstruct:knockback_resistance",
+  "slots": {
+    "defense": 1
+  },
+  "tools": {
+    "tag": "tconstruct:modifiable/armor"
+  }
+}

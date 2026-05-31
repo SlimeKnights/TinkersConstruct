@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/slime/sky/slimeball",
+  "cooling_time": 48,
+  "fluid": {
+    "amount": 250,
+    "tag": "tconstruct:sky_slime"
+  },
+  "result": "tconstruct:sky_slime_ball"
+}

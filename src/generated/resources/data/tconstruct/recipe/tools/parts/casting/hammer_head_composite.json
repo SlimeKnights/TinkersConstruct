@@ -1,0 +1,6 @@
+{
+  "type": "tconstruct:table_casting_composite",
+  "id": "tconstruct:tools/parts/casting/hammer_head_composite",
+  "item_cost": 8,
+  "result": "tconstruct:hammer_head"
+}

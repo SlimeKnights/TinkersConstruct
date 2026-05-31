@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/queens_slime/nugget",
+  "ingredient": {
+    "tag": "c:nuggets/queens_slime"
+  },
+  "material": "tconstruct:queens_slime",
+  "needed": 9,
+  "value": 1
+}

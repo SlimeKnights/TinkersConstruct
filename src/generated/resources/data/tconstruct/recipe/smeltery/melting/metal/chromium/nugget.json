@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/chromium/nugget",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:nuggets/chromium"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:nuggets/chromium"
+  },
+  "result": {
+    "amount": 10,
+    "tag": "c:molten_chromium"
+  },
+  "temperature": 900,
+  "time": 21
+}

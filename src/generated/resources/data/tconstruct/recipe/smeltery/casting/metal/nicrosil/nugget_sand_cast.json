@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/nicrosil/nugget_sand_cast",
+  "cast": {
+    "tag": "tconstruct:casts/single_use/nugget"
+  },
+  "cast_consumed": true,
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:nuggets/nicrosil"
+    }
+  ],
+  "cooling_time": 23,
+  "fluid": {
+    "amount": 10,
+    "tag": "c:molten_nicrosil"
+  },
+  "result": {
+    "tag": "c:nuggets/nicrosil"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": {
+    "type": "neoforge:and",
+    "values": [
+      {
+        "type": "neoforge:or",
+        "values": [
+          "#minecraft:is_overworld"
+        ]
+      },
+      {
+        "type": "neoforge:not",
+        "value": {
+          "type": "neoforge:or",
+          "values": [
+            "#minecraft:is_ocean",
+            "#minecraft:is_deep_ocean",
+            "#minecraft:is_beach",
+            "#minecraft:is_river"
+          ]
+        }
+      }
+    ]
+  },
+  "features": "tconstruct:sky_geode",
+  "step": "local_modifications"
+}

@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:casting_basin",
+  "id": "tconstruct:smeltery/casting/water/blue_concrete",
+  "cast": {
+    "item": "minecraft:blue_concrete_powder"
+  },
+  "cast_consumed": true,
+  "cooling_time": 30,
+  "fluid": {
+    "amount": 100,
+    "fluid": "minecraft:water"
+  },
+  "result": "minecraft:blue_concrete"
+}

@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/slime/ender/sapling",
+  "ingredient": {
+    "item": "tconstruct:ender_slime_sapling"
+  },
+  "result": {
+    "amount": 250,
+    "fluid": "tconstruct:ender_slime"
+  },
+  "temperature": 70,
+  "time": 53
+}

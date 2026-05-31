@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/aluminum/coin",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:coins/aluminum"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:coins/aluminum"
+  },
+  "result": {
+    "amount": 30,
+    "tag": "c:molten_aluminum"
+  },
+  "temperature": 425,
+  "time": 31
+}

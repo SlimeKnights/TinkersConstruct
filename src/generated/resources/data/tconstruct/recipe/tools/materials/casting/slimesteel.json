@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material_fluid",
+  "id": "tconstruct:tools/materials/casting/slimesteel",
+  "fluid": {
+    "amount": 90,
+    "tag": "tconstruct:molten_slimesteel"
+  },
+  "output": "tconstruct:slimesteel",
+  "temperature": 900
+}

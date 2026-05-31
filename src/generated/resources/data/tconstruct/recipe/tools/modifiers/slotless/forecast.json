@@ -1,0 +1,25 @@
+{
+  "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/slotless/forecast",
+  "allow_crystal": true,
+  "inputs": [
+    {
+      "ingredient": [
+        {
+          "tag": "c:ores/diamond"
+        },
+        {
+          "tag": "c:ores/emerald"
+        },
+        {
+          "tag": "c:ores/cobalt"
+        }
+      ]
+    }
+  ],
+  "level": 1,
+  "result": "tconstruct:forecast",
+  "tools": {
+    "tag": "tconstruct:modifiable/bonus_slots"
+  }
+}

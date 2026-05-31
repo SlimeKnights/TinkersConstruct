@@ -1,0 +1,9 @@
+{
+  "values": [
+    "minecraft:golden_leggings",
+    {
+      "id": "#c:tools/paxels/gold",
+      "required": false
+    }
+  ]
+}

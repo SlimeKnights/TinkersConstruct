@@ -1,0 +1,24 @@
+{
+  "type": "tconstruct:part_builder_recycling",
+  "id": "tconstruct:tables/recycling/crossbow",
+  "pattern": {
+    "item": "tconstruct:venom_bottle"
+  },
+  "results": {
+    "tconstruct:bowstring": {
+      "count": 2,
+      "item": "minecraft:string"
+    },
+    "tconstruct:ingot": {
+      "count": 1,
+      "tag": "c:ingots/iron"
+    },
+    "tconstruct:rod": {
+      "count": 3,
+      "item": "minecraft:stick"
+    }
+  },
+  "tool": {
+    "item": "minecraft:crossbow"
+  }
+}

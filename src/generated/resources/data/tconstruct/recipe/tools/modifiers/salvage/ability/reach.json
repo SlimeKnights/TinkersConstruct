@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:modifier_salvage",
+  "id": "tconstruct:tools/modifiers/salvage/ability/reach",
+  "modifier": "tconstruct:reach",
+  "slots": {
+    "abilities": 1
+  },
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/chestplate"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/queens_slime/ingot_gold_cast",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/ingot"
+  },
+  "cooling_time": 71,
+  "fluid": {
+    "amount": 90,
+    "tag": "tconstruct:molten_queens_slime"
+  },
+  "result": {
+    "tag": "c:ingots/queens_slime"
+  }
+}

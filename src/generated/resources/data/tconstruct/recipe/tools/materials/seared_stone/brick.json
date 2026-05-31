@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/seared_stone/brick",
+  "ingredient": {
+    "item": "tconstruct:seared_brick"
+  },
+  "material": "tconstruct:seared_stone",
+  "needed": 1,
+  "value": 1
+}

@@ -1,0 +1,28 @@
+{
+  "values": [
+    {
+      "id": "#c:ingots/aluminum",
+      "required": false
+    },
+    {
+      "id": "#c:ingots/tin",
+      "required": false
+    },
+    {
+      "id": "#c:ingots/zinc",
+      "required": false
+    },
+    {
+      "id": "#c:ingots/nickel",
+      "required": false
+    },
+    {
+      "id": "#c:ingots/chromium",
+      "required": false
+    },
+    {
+      "id": "#c:ingots/cadmium",
+      "required": false
+    }
+  ]
+}

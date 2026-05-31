@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:ore_melting",
+  "id": "tconstruct:smeltery/melting/slime/ender/bud_large",
+  "ingredient": {
+    "item": "tconstruct:large_ender_slime_crystal_bud"
+  },
+  "rate": "gem",
+  "result": {
+    "amount": 750,
+    "fluid": "tconstruct:ender_slime"
+  },
+  "temperature": 70,
+  "time": 64
+}

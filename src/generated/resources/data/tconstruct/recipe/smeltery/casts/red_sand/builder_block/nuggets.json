@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:item_part_builder",
+  "id": "tconstruct:smeltery/casts/red_sand/builder_block/nuggets",
+  "pattern": "tconstruct:nugget",
+  "pattern_item": {
+    "tag": "c:sand/red"
+  },
+  "result": {
+    "count": 4,
+    "item": "tconstruct:nugget_red_sand_cast"
+  }
+}

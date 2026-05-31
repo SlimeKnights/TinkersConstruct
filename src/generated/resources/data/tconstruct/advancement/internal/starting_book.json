@@ -1,0 +1,25 @@
+{
+  "criteria": {
+    "tick": {
+      "conditions": {},
+      "trigger": "minecraft:tick"
+    }
+  },
+  "requirements": [
+    [
+      "tick"
+    ]
+  ],
+  "rewards": {
+    "loot": [
+      "tconstruct:gameplay/starting_book"
+    ]
+  },
+  "sends_telemetry_event": true,
+  "neoforge:conditions": [
+    {
+      "type": "tconstruct:config",
+      "prop": "spawn_with_book"
+    }
+  ]
+}

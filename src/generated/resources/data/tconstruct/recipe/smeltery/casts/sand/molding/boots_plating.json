@@ -1,0 +1,17 @@
+{
+  "type": "tconstruct:molding_table",
+  "id": "tconstruct:smeltery/casts/sand/molding/boots_plating",
+  "material": {
+    "tag": "tconstruct:casts/sand"
+  },
+  "pattern": [
+    {
+      "type": "tconstruct:material",
+      "item": "tconstruct:boots_plating"
+    },
+    {
+      "item": "tconstruct:boots_plating_dummy"
+    }
+  ],
+  "result": "tconstruct:boots_plating_sand_cast"
+}

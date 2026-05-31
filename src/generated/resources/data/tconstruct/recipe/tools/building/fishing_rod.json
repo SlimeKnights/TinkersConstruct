@@ -1,0 +1,6 @@
+{
+  "type": "tconstruct:tool_building",
+  "id": "tconstruct:tools/building/fishing_rod",
+  "result": "tconstruct:fishing_rod",
+  "result_count": 1
+}

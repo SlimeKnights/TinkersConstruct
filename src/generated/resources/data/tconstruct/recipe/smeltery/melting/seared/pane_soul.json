@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/seared/pane_soul",
+  "byproducts": [
+    {
+      "amount": 250,
+      "fluid": "tconstruct:liquid_soul"
+    }
+  ],
+  "ingredient": {
+    "item": "tconstruct:seared_soul_glass_pane"
+  },
+  "result": {
+    "amount": 250,
+    "fluid": "tconstruct:seared_stone"
+  },
+  "temperature": 600,
+  "time": 53
+}

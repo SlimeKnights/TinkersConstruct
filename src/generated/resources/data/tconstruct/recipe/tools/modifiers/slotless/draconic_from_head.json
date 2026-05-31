@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/slotless/draconic_from_head",
+  "allow_crystal": true,
+  "inputs": [
+    {
+      "item": "minecraft:dragon_head"
+    }
+  ],
+  "level": 1,
+  "result": "tconstruct:draconic",
+  "tools": {
+    "type": "neoforge:difference",
+    "base": {
+      "tag": "tconstruct:modifiable/bonus_slots"
+    },
+    "subtracted": {
+      "tag": "tconstruct:modifiable/skulls"
+    }
+  }
+}

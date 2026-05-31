@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material_fluid",
+  "id": "tconstruct:tools/materials/casting/enderslime",
+  "fluid": {
+    "amount": 250,
+    "tag": "tconstruct:ender_slime"
+  },
+  "output": "tconstruct:enderslime",
+  "temperature": 70
+}

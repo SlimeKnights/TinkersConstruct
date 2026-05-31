@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/slime/earth/ball",
+  "ingredient": {
+    "tag": "c:slimeball/earth"
+  },
+  "result": {
+    "amount": 250,
+    "tag": "c:slime"
+  },
+  "temperature": 50,
+  "time": 31
+}

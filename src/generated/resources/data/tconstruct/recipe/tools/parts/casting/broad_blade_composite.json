@@ -1,0 +1,6 @@
+{
+  "type": "tconstruct:table_casting_composite",
+  "id": "tconstruct:tools/parts/casting/broad_blade_composite",
+  "item_cost": 8,
+  "result": "tconstruct:broad_blade"
+}

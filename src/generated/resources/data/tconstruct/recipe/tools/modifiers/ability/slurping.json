@@ -1,0 +1,35 @@
+{
+  "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/ability/slurping",
+  "allow_crystal": true,
+  "inputs": [
+    {
+      "item": "minecraft:glass_bottle"
+    },
+    {
+      "type": "tconstruct:no_container",
+      "tag": "tconstruct:tanks"
+    },
+    {
+      "item": "minecraft:glass_bottle"
+    },
+    {
+      "tag": "c:ingots/copper"
+    },
+    {
+      "tag": "c:ingots/copper"
+    }
+  ],
+  "result": "tconstruct:slurping",
+  "slots": {
+    "abilities": 1
+  },
+  "tools": [
+    {
+      "tag": "tconstruct:modifiable/armor/helmets"
+    },
+    {
+      "tag": "tconstruct:modifiable/interactable/charge"
+    }
+  ]
+}

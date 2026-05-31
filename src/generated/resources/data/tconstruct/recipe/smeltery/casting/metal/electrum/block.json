@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:casting_basin",
+  "id": "tconstruct:smeltery/casting/metal/electrum/block",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:storage_blocks/electrum"
+    }
+  ],
+  "cooling_time": 177,
+  "fluid": {
+    "amount": 810,
+    "tag": "c:molten_electrum"
+  },
+  "result": {
+    "tag": "c:storage_blocks/electrum"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "type": "tconstruct:table_casting_composite",
+  "id": "tconstruct:tools/parts/casting/bow_limb_composite",
+  "item_cost": 2,
+  "result": "tconstruct:bow_limb"
+}

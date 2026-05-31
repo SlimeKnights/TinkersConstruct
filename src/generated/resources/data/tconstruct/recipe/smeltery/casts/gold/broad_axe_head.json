@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casts/gold/broad_axe_head",
+  "cast": {
+    "type": "tconstruct:material",
+    "item": "tconstruct:broad_axe_head"
+  },
+  "cast_consumed": true,
+  "cooling_time": 57,
+  "fluid": {
+    "amount": 90,
+    "tag": "c:molten_gold"
+  },
+  "result": "tconstruct:broad_axe_head_cast",
+  "switch_slots": true
+}

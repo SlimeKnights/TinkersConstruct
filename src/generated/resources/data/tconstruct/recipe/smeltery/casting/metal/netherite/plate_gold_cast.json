@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/netherite/plate_gold_cast",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/plate"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:plates/netherite"
+    }
+  ],
+  "cooling_time": 74,
+  "fluid": {
+    "amount": 90,
+    "tag": "c:molten_netherite"
+  },
+  "result": {
+    "tag": "c:plates/netherite"
+  }
+}

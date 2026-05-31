@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/diamond/geore/block",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:geore_blocks/diamond"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:geore_blocks/diamond"
+  },
+  "result": {
+    "amount": 400,
+    "fluid": "tconstruct:molten_diamond"
+  },
+  "temperature": 1450,
+  "time": 158
+}

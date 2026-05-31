@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:item_part_builder",
+  "id": "tconstruct:smeltery/casts/sand/builder_block/broad_axe_head",
+  "pattern": "tconstruct:broad_axe_head",
+  "pattern_item": {
+    "tag": "c:sand/colorless"
+  },
+  "result": {
+    "count": 4,
+    "item": "tconstruct:broad_axe_head_sand_cast"
+  }
+}

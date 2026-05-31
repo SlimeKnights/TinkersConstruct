@@ -1,0 +1,17 @@
+{
+  "type": "tconstruct:part_builder",
+  "id": "tconstruct:tools/parts/builder/bow_limb",
+  "cost": 2,
+  "pattern": "tconstruct:bow_limb",
+  "pattern_item": [
+    {
+      "tag": "tconstruct:patterns/default"
+    },
+    {
+      "item": "tconstruct:bow_limb_cast"
+    }
+  ],
+  "result": {
+    "item": "tconstruct:bow_limb"
+  }
+}

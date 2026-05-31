@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:severing",
+  "id": "tconstruct:tools/severing/magma_cream",
+  "entity": {
+    "type": "minecraft:magma_cube"
+  },
+  "looting_bonus": 0.01,
+  "per_level_chance": 0.05,
+  "result": "minecraft:magma_cream"
+}

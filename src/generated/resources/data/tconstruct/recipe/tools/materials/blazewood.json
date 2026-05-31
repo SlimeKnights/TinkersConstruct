@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/blazewood",
+  "ingredient": {
+    "item": "tconstruct:blazewood"
+  },
+  "material": "tconstruct:blazewood",
+  "needed": 1,
+  "value": 1
+}

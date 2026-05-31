@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:casting_basin",
+  "id": "tconstruct:smeltery/casting/diamond/block",
+  "cooling_time": 250,
+  "fluid": {
+    "amount": 900,
+    "tag": "tconstruct:molten_diamond"
+  },
+  "result": {
+    "tag": "c:storage_blocks/diamond"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/clay_block",
+  "ingredient": {
+    "item": "minecraft:clay"
+  },
+  "material": "tconstruct:clay",
+  "needed": 1,
+  "value": 4
+}

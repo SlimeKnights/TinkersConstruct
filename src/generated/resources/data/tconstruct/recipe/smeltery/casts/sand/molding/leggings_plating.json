@@ -1,0 +1,17 @@
+{
+  "type": "tconstruct:molding_table",
+  "id": "tconstruct:smeltery/casts/sand/molding/leggings_plating",
+  "material": {
+    "tag": "tconstruct:casts/sand"
+  },
+  "pattern": [
+    {
+      "type": "tconstruct:material",
+      "item": "tconstruct:leggings_plating"
+    },
+    {
+      "item": "tconstruct:leggings_plating_dummy"
+    }
+  ],
+  "result": "tconstruct:leggings_plating_sand_cast"
+}

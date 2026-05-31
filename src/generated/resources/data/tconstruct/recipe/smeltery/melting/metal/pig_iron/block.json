@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/pig_iron/block",
+  "ingredient": {
+    "tag": "c:storage_blocks/pig_iron"
+  },
+  "result": {
+    "amount": 810,
+    "fluid": "tconstruct:molten_pig_iron"
+  },
+  "temperature": 811,
+  "time": 181
+}

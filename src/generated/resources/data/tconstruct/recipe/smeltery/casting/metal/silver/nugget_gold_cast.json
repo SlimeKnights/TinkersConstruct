@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/silver/nugget_gold_cast",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/nugget"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:nuggets/silver"
+    }
+  ],
+  "cooling_time": 20,
+  "fluid": {
+    "amount": 10,
+    "tag": "c:molten_silver"
+  },
+  "result": {
+    "tag": "c:nuggets/silver"
+  }
+}

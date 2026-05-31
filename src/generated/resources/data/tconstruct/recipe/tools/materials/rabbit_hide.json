@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/rabbit_hide",
+  "ingredient": {
+    "item": "minecraft:rabbit_hide"
+  },
+  "material": "tconstruct:leather",
+  "needed": 2,
+  "value": 1
+}

@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:incremental_modifier",
+  "id": "tconstruct:tools/modifiers/defense/projectile_protection",
+  "allow_crystal": true,
+  "amount_per_item": 1,
+  "input": {
+    "item": "tconstruct:iron_reinforcement"
+  },
+  "needed_per_level": 5,
+  "result": "tconstruct:projectile_protection",
+  "slots": {
+    "defense": 1
+  },
+  "tools": [
+    {
+      "tag": "tconstruct:modifiable/armor"
+    },
+    {
+      "tag": "tconstruct:modifiable/held"
+    }
+  ]
+}

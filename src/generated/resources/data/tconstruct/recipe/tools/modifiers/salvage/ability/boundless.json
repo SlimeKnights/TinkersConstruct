@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:modifier_salvage",
+  "id": "tconstruct:tools/modifiers/salvage/ability/boundless",
+  "modifier": "tconstruct:boundless",
+  "slots": {
+    "abilities": 1
+  },
+  "tools": {
+    "tag": "tconstruct:modifiable/shields"
+  }
+}

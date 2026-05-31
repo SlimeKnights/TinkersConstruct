@@ -1,0 +1,29 @@
+{
+  "type": "tconstruct:swappable_modifier",
+  "id": "tconstruct:tools/modifiers/slotless/rebalanced_abilities",
+  "allow_crystal": false,
+  "inputs": [
+    {
+      "tag": "c:nuggets/queens_slime"
+    },
+    {
+      "item": "minecraft:end_crystal"
+    },
+    {
+      "tag": "c:nuggets/queens_slime"
+    },
+    {
+      "item": "tconstruct:ichor_slime_crystal_block"
+    },
+    {
+      "item": "tconstruct:ichor_slime_crystal_block"
+    }
+  ],
+  "result": {
+    "name": "tconstruct:rebalanced",
+    "value": "abilities"
+  },
+  "tools": {
+    "tag": "tconstruct:modifiable/bonus_slots"
+  }
+}

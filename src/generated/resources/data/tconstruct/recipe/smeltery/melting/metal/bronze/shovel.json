@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "id": "tconstruct:smeltery/melting/metal/bronze/shovel",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "tconstruct:melting/bronze/tools_costing_1"
+    }
+  ],
+  "ingredient": {
+    "tag": "tconstruct:melting/bronze/tools_costing_1"
+  },
+  "result": {
+    "amount": 90,
+    "tag": "c:molten_bronze",
+    "unit_size": 10
+  },
+  "temperature": 700,
+  "time": 57
+}

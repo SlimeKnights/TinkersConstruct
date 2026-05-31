@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:enchantment_converting",
+  "id": "tconstruct:tools/modifiers/worktable/enchantment_converting/unenchant_book",
+  "inputs": [
+    {
+      "item": "tconstruct:ender_slime_crystal"
+    },
+    {
+      "amount_needed": 5,
+      "item": "minecraft:dragon_breath"
+    }
+  ],
+  "match_book": true,
+  "name": "modifiers",
+  "return_unenchanted": true
+}

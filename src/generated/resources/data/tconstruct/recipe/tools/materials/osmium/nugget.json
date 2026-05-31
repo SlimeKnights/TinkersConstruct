@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/osmium/nugget",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:nuggets/osmium"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:nuggets/osmium"
+  },
+  "material": "tconstruct:osmium",
+  "needed": 9,
+  "value": 1
+}

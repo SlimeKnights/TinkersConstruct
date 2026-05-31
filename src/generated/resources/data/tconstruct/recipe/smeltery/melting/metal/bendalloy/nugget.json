@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/bendalloy/nugget",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:nuggets/bendalloy"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:nuggets/bendalloy"
+  },
+  "result": {
+    "amount": 10,
+    "tag": "c:molten_bendalloy"
+  },
+  "temperature": 100,
+  "time": 11
+}

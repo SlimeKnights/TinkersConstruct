@@ -1,0 +1,38 @@
+{
+  "parent": "tconstruct:tools/materials_and_you",
+  "criteria": {
+    "crafted_book": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:tinkers_gadgetry"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.tconstruct.world.tinkers_gadgetry.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "tconstruct:tinkers_gadgetry"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.tconstruct.world.tinkers_gadgetry.title"
+    }
+  },
+  "requirements": [
+    [
+      "crafted_book"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

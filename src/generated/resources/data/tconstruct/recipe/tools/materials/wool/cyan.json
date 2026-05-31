@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/wool/cyan",
+  "ingredient": {
+    "item": "minecraft:cyan_wool"
+  },
+  "material": "tconstruct:wool#cyan",
+  "needed": 1,
+  "value": 1
+}

@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:part_builder_recycling",
+  "id": "tconstruct:tables/recycling/twilightforest/arctic_boots",
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "twilightforest"
+    }
+  ],
+  "pattern": {
+    "item": "tconstruct:venom_bottle"
+  },
+  "results": {
+    "tconstruct:maille": {
+      "count": 4,
+      "item": "twilightforest:arctic_fur"
+    }
+  },
+  "tool": {
+    "item": "twilightforest:arctic_boots"
+  }
+}

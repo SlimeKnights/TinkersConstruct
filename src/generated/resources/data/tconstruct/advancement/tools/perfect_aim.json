@@ -1,0 +1,51 @@
+{
+  "parent": "tconstruct:tools/tinker_tool",
+  "criteria": {
+    "accuracy": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "mantle:and",
+              "predicates": [
+                {
+                  "type": "mantle:tag",
+                  "tag": "tconstruct:modifiable/ranged/bows"
+                },
+                {
+                  "type": "tconstruct:stat_in_range",
+                  "max": 1.0,
+                  "min": 1.0,
+                  "stat": "tconstruct:accuracy"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.tconstruct.tools.perfect_aim.description"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "item": "minecraft:target"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.tconstruct.tools.perfect_aim.title"
+    }
+  },
+  "requirements": [
+    [
+      "accuracy"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/rose_gold/block",
+  "ingredient": {
+    "tag": "c:storage_blocks/rose_gold"
+  },
+  "leftover": {
+    "count": 1,
+    "tag": "c:ingots/rose_gold"
+  },
+  "material": "tconstruct:rose_gold",
+  "needed": 1,
+  "value": 9
+}

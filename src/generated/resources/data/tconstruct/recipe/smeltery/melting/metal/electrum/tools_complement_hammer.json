@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "id": "tconstruct:smeltery/melting/metal/electrum/tools_complement_hammer",
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:item_exists",
+      "item": "tools_complement:electrum_hammer"
+    }
+  ],
+  "ingredient": {
+    "item": "tools_complement:electrum_hammer"
+  },
+  "result": {
+    "amount": 1170,
+    "tag": "c:molten_electrum",
+    "unit_size": 10
+  },
+  "temperature": 760,
+  "time": 212
+}

@@ -1,0 +1,36 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:compat/ceramics/porcelain/bricks_2",
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "ceramics"
+    }
+  ],
+  "ingredient": [
+    {
+      "item": "ceramics:porcelain_bricks_slab"
+    },
+    {
+      "item": "ceramics:monochrome_bricks_slab"
+    },
+    {
+      "item": "ceramics:marine_bricks_slab"
+    },
+    {
+      "item": "ceramics:rainbow_bricks_slab"
+    },
+    {
+      "item": "ceramics:porcelain_faucet"
+    },
+    {
+      "item": "ceramics:porcelain_channel"
+    }
+  ],
+  "result": {
+    "amount": 500,
+    "fluid": "tconstruct:molten_porcelain"
+  },
+  "temperature": 700,
+  "time": 76
+}

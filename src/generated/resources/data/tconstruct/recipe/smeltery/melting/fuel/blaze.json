@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:melting_fuel",
+  "id": "tconstruct:smeltery/melting/fuel/blaze",
+  "duration": 150,
+  "fluid": {
+    "amount": 50,
+    "fluid": "tconstruct:blazing_blood"
+  },
+  "rate": 15,
+  "temperature": 1500
+}

@@ -1,0 +1,17 @@
+{
+  "type": "tconstruct:part_builder",
+  "id": "tconstruct:tools/parts/builder/large_plate",
+  "cost": 4,
+  "pattern": "tconstruct:large_plate",
+  "pattern_item": [
+    {
+      "tag": "tconstruct:patterns/default"
+    },
+    {
+      "item": "tconstruct:large_plate_cast"
+    }
+  ],
+  "result": {
+    "item": "tconstruct:large_plate"
+  }
+}

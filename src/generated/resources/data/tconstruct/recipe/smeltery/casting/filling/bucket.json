@@ -1,0 +1,6 @@
+{
+  "type": "tconstruct:table_filling",
+  "id": "tconstruct:smeltery/casting/filling/bucket",
+  "container": "minecraft:bucket",
+  "fluid_amount": 1000
+}

@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "tconstruct:scorched_road"
+  },
+  "result": {
+    "id": "tconstruct:scorched_road_stairs"
+  }
+}

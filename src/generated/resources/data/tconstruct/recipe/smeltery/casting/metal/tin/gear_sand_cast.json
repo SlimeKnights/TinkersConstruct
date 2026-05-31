@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/tin/gear_sand_cast",
+  "cast": {
+    "tag": "tconstruct:casts/single_use/gear"
+  },
+  "cast_consumed": true,
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:gears/tin"
+    }
+  ],
+  "cooling_time": 78,
+  "fluid": {
+    "amount": 360,
+    "tag": "c:molten_tin"
+  },
+  "result": {
+    "tag": "c:gears/tin"
+  }
+}

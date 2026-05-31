@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "id": "tconstruct:compat/ceramics/clay/clay_chestplate",
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "ceramics"
+    }
+  ],
+  "ingredient": {
+    "item": "ceramics:clay_chestplate"
+  },
+  "result": {
+    "amount": 2000,
+    "fluid": "tconstruct:molten_clay",
+    "unit_size": 50
+  },
+  "temperature": 450,
+  "time": 144
+}

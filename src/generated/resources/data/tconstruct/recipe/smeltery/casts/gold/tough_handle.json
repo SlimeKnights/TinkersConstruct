@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casts/gold/tough_handle",
+  "cast": {
+    "type": "tconstruct:material",
+    "item": "tconstruct:tough_handle"
+  },
+  "cast_consumed": true,
+  "cooling_time": 57,
+  "fluid": {
+    "amount": 90,
+    "tag": "c:molten_gold"
+  },
+  "result": "tconstruct:tough_handle_cast",
+  "switch_slots": true
+}

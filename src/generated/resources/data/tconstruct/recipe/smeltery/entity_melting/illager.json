@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:entity_melting",
+  "id": "tconstruct:smeltery/entity_melting/illager",
+  "damage": 2,
+  "entity": {
+    "tag": "c:illagers"
+  },
+  "result": {
+    "amount": 25,
+    "fluid": "tconstruct:molten_emerald"
+  }
+}

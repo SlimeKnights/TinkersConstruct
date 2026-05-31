@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/bronze/ingot",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:ingots/bronze"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:ingots/bronze"
+  },
+  "material": "tconstruct:bronze",
+  "needed": 1,
+  "value": 1
+}

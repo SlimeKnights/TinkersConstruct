@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/slime/ender/crystal_block",
+  "ingredient": {
+    "item": "tconstruct:ender_slime_crystal_block"
+  },
+  "result": {
+    "amount": 1000,
+    "fluid": "tconstruct:ender_slime"
+  },
+  "temperature": 70,
+  "time": 64
+}

@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/entity_melting/heads/ender_dragon",
+  "ingredient": {
+    "item": "minecraft:dragon_head"
+  },
+  "result": {
+    "amount": 1000,
+    "tag": "c:ender"
+  },
+  "temperature": 477,
+  "time": 164
+}

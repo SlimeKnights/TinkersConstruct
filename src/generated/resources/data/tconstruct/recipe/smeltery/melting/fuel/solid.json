@@ -1,0 +1,6 @@
+{
+  "type": "tconstruct:melting_fuel",
+  "id": "tconstruct:smeltery/melting/fuel/solid",
+  "rate": 8,
+  "temperature": 800
+}

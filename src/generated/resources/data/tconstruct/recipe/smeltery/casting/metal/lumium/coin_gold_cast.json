@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/lumium/coin_gold_cast",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/coin"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:coins/lumium"
+    }
+  ],
+  "cooling_time": 39,
+  "fluid": {
+    "amount": 30,
+    "tag": "c:molten_lumium"
+  },
+  "result": {
+    "tag": "c:coins/lumium"
+  }
+}

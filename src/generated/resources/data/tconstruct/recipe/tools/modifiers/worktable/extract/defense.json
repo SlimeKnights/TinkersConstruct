@@ -1,0 +1,39 @@
+{
+  "type": "tconstruct:extract_modifier",
+  "id": "tconstruct:tools/modifiers/worktable/extract/defense",
+  "inputs": [
+    {
+      "item": "tconstruct:earth_slime_crystal"
+    },
+    {
+      "item": "minecraft:wet_sponge"
+    }
+  ],
+  "leftovers": [
+    "minecraft:sponge"
+  ],
+  "modifier_predicate": {
+    "type": "mantle:and",
+    "predicates": [
+      {
+        "type": "mantle:inverted",
+        "inverted_type": "tconstruct:tag",
+        "tag": "tconstruct:extract_blacklist/tools"
+      },
+      {
+        "type": "tconstruct:slot_type",
+        "slot": "defense"
+      }
+    ]
+  },
+  "name": "defense",
+  "tools": {
+    "type": "neoforge:difference",
+    "base": {
+      "tag": "tconstruct:modifiable"
+    },
+    "subtracted": {
+      "tag": "tconstruct:modifiable/unsalvageable"
+    }
+  }
+}

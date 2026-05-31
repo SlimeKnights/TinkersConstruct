@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "tconstruct:nahuatl_slab",
+  "key": {
+    "B": {
+      "item": "tconstruct:nahuatl"
+    }
+  },
+  "pattern": [
+    "BBB"
+  ],
+  "result": {
+    "count": 6,
+    "id": "tconstruct:nahuatl_slab"
+  },
+  "show_notification": true
+}

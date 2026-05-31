@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "tconstruct:cinderslime_ingot",
+  "key": {
+    "#": {
+      "tag": "c:nuggets/cinderslime"
+    },
+    "*": {
+      "item": "tconstruct:cinderslime_nugget"
+    }
+  },
+  "pattern": [
+    "###",
+    "#*#",
+    "###"
+  ],
+  "result": {
+    "id": "tconstruct:cinderslime_ingot"
+  },
+  "show_notification": true
+}

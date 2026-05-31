@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:molding_table",
+  "id": "tconstruct:smeltery/casts/red_sand/molding/tool_handle",
+  "material": {
+    "tag": "tconstruct:casts/red_sand"
+  },
+  "pattern": {
+    "type": "tconstruct:material",
+    "item": "tconstruct:tool_handle"
+  },
+  "result": "tconstruct:tool_handle_red_sand_cast"
+}

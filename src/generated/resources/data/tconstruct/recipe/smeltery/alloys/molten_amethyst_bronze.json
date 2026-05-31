@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:alloy",
+  "id": "tconstruct:smeltery/alloys/molten_amethyst_bronze",
+  "inputs": [
+    {
+      "amount": 90,
+      "tag": "c:molten_copper"
+    },
+    {
+      "amount": 100,
+      "tag": "tconstruct:molten_amethyst"
+    }
+  ],
+  "result": {
+    "amount": 90,
+    "tag": "c:molten_amethyst_bronze"
+  },
+  "temperature": 820
+}

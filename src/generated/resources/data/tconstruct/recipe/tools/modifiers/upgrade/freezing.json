@@ -1,0 +1,34 @@
+{
+  "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/upgrade/freezing",
+  "allow_crystal": true,
+  "inputs": [
+    {
+      "item": "minecraft:powder_snow_bucket"
+    }
+  ],
+  "level": {
+    "max": 3
+  },
+  "result": "tconstruct:freezing",
+  "slots": {
+    "upgrades": 1
+  },
+  "tools": [
+    {
+      "tag": "tconstruct:modifiable/melee"
+    },
+    {
+      "tag": "tconstruct:modifiable/ranged/bows"
+    },
+    {
+      "tag": "tconstruct:modifiable/fishing_rods"
+    },
+    {
+      "tag": "tconstruct:modifiable/armor/worn"
+    },
+    {
+      "tag": "tconstruct:modifiable/shields"
+    }
+  ]
+}

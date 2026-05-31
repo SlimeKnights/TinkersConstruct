@@ -1,0 +1,25 @@
+{
+  "type": "tconstruct:modifier_set_worktable",
+  "id": "tconstruct:tools/modifiers/worktable/invisible_ink_removing",
+  "add_to_set": false,
+  "allow_traits": false,
+  "data_key": "tconstruct:invisible_modifiers",
+  "inputs": [
+    {
+      "type": "mantle:fluid_container",
+      "amount": 1000,
+      "display": {
+        "item": "minecraft:milk_bucket"
+      },
+      "tag": "c:milk"
+    }
+  ],
+  "modifier_predicate": {
+    "type": "mantle:inverted",
+    "inverted_type": "tconstruct:tag",
+    "tag": "tconstruct:invisible_ink_blacklist"
+  },
+  "tools": {
+    "tag": "tconstruct:modifiable"
+  }
+}

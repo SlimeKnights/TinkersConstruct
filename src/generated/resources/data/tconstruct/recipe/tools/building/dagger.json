@@ -1,0 +1,6 @@
+{
+  "type": "tconstruct:tool_building",
+  "id": "tconstruct:tools/building/dagger",
+  "result": "tconstruct:dagger",
+  "result_count": 2
+}

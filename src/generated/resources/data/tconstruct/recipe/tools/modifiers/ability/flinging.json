@@ -1,0 +1,39 @@
+{
+  "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/ability/flinging",
+  "allow_crystal": true,
+  "check_trait_level": true,
+  "inputs": [
+    {
+      "item": "minecraft:vine"
+    },
+    {
+      "item": "tconstruct:earth_slime_crystal"
+    },
+    {
+      "item": "minecraft:vine"
+    },
+    {
+      "item": "tconstruct:earth_congealed_slime"
+    },
+    {
+      "item": "tconstruct:earth_congealed_slime"
+    }
+  ],
+  "level": 1,
+  "result": "tconstruct:flinging",
+  "slots": {
+    "abilities": 1
+  },
+  "tools": {
+    "type": "neoforge:intersection",
+    "children": [
+      {
+        "tag": "tconstruct:modifiable/durability"
+      },
+      {
+        "tag": "tconstruct:modifiable/interactable/charge"
+      }
+    ]
+  }
+}

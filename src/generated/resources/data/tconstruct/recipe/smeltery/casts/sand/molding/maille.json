@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:molding_table",
+  "id": "tconstruct:smeltery/casts/sand/molding/maille",
+  "material": {
+    "tag": "tconstruct:casts/sand"
+  },
+  "pattern": {
+    "type": "tconstruct:material",
+    "item": "tconstruct:maille"
+  },
+  "result": "tconstruct:maille_sand_cast"
+}

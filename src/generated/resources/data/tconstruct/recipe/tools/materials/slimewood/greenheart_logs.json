@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/slimewood/greenheart_logs",
+  "ingredient": {
+    "tag": "tconstruct:greenheart_logs"
+  },
+  "leftover": "tconstruct:greenheart_planks",
+  "material": "tconstruct:slimewood#greenheart",
+  "needed": 1,
+  "value": 4
+}

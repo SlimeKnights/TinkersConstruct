@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/gold/carrot",
+  "cast": {
+    "item": "minecraft:carrot"
+  },
+  "cast_consumed": true,
+  "cooling_time": 54,
+  "fluid": {
+    "amount": 80,
+    "tag": "c:molten_gold"
+  },
+  "result": "minecraft:golden_carrot"
+}

@@ -1,0 +1,6 @@
+{
+  "type": "tconstruct:table_casting_composite",
+  "id": "tconstruct:tools/parts/casting/leggings_plating_composite",
+  "item_cost": 5,
+  "result": "tconstruct:leggings_plating"
+}

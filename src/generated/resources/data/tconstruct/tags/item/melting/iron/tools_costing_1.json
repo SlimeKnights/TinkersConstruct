@@ -1,0 +1,15 @@
+{
+  "values": [
+    "minecraft:iron_shovel",
+    {
+      "id": "tools_complement:iron_knife",
+      "required": false
+    },
+    "minecraft:flint_and_steel",
+    "minecraft:shield",
+    {
+      "id": "farmersdelight:iron_knife",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/diamond/geore/shard",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:geore_shards/diamond"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:geore_shards/diamond"
+  },
+  "result": {
+    "amount": 100,
+    "fluid": "tconstruct:molten_diamond"
+  },
+  "temperature": 1450,
+  "time": 79
+}

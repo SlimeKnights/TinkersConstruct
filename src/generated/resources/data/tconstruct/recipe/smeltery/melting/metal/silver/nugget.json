@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/silver/nugget",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:nuggets/silver"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:nuggets/silver"
+  },
+  "result": {
+    "amount": 10,
+    "tag": "c:molten_silver"
+  },
+  "temperature": 790,
+  "time": 20
+}

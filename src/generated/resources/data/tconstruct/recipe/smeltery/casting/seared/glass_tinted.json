@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:casting_basin",
+  "id": "tconstruct:smeltery/casting/seared/glass_tinted",
+  "cast": {
+    "tag": "c:glass/tinted"
+  },
+  "cast_consumed": true,
+  "cooling_time": 178,
+  "fluid": {
+    "amount": 1000,
+    "tag": "tconstruct:seared_stone"
+  },
+  "result": "tconstruct:seared_tinted_glass"
+}

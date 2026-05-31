@@ -1,0 +1,11 @@
+{
+  "text": "Иногда вам просто хочется взорвать своих врагов, не разрушая при этом свой мир.",
+  "entity": [
+    "Power 2 explosion",
+    "Up to 3 Explosion Damage"
+  ],
+  "block": [
+    "Explosion ignores blocks",
+    "Explosion causes fires"
+  ]
+}

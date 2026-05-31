@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/tungsten/block",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:storage_blocks/tungsten"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:storage_blocks/tungsten"
+  },
+  "result": {
+    "amount": 810,
+    "tag": "c:molten_tungsten"
+  },
+  "temperature": 950,
+  "time": 194
+}

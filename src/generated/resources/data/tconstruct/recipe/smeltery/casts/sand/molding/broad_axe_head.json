@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:molding_table",
+  "id": "tconstruct:smeltery/casts/sand/molding/broad_axe_head",
+  "material": {
+    "tag": "tconstruct:casts/sand"
+  },
+  "pattern": {
+    "type": "tconstruct:material",
+    "item": "tconstruct:broad_axe_head"
+  },
+  "result": "tconstruct:broad_axe_head_sand_cast"
+}

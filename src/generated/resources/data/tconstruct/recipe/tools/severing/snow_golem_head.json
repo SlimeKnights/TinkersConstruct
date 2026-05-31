@@ -1,0 +1,6 @@
+{
+  "type": "tconstruct:snow_golem_beheading",
+  "id": "tconstruct:tools/severing/snow_golem_head",
+  "looting_bonus": 0.01,
+  "per_level_chance": 0.05
+}

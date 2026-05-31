@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/tin/dust",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:dusts/tin"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:dusts/tin"
+  },
+  "result": {
+    "amount": 90,
+    "tag": "c:molten_tin"
+  },
+  "temperature": 225,
+  "time": 29
+}

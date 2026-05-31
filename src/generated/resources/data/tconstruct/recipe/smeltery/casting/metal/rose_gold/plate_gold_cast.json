@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/rose_gold/plate_gold_cast",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/plate"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:plates/rose_gold"
+    }
+  ],
+  "cooling_time": 52,
+  "fluid": {
+    "amount": 90,
+    "tag": "c:molten_rose_gold"
+  },
+  "result": {
+    "tag": "c:plates/rose_gold"
+  }
+}

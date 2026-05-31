@@ -1,0 +1,6 @@
+{
+  "type": "tconstruct:tool_building",
+  "id": "tconstruct:tools/building/longbow",
+  "result": "tconstruct:longbow",
+  "result_count": 1
+}

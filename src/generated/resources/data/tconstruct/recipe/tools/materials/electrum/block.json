@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/electrum/block",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:storage_blocks/electrum"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:storage_blocks/electrum"
+  },
+  "leftover": {
+    "count": 1,
+    "tag": "c:ingots/electrum"
+  },
+  "material": "tconstruct:electrum",
+  "needed": 1,
+  "value": 9
+}

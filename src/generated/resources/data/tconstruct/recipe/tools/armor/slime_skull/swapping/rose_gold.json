@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:fixed_material_swapping",
+  "id": "tconstruct:tools/armor/slime_skull/swapping/rose_gold",
+  "index": 0,
+  "ingredient": {
+    "item": "tconstruct:piglin_brute_head"
+  },
+  "material": "tconstruct:rose_gold",
+  "max_stack_size": 16,
+  "repair_value": 6,
+  "tools": {
+    "tag": "tconstruct:modifiable/skulls/swappable"
+  }
+}

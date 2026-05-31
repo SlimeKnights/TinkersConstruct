@@ -1,0 +1,6 @@
+{
+  "type": "tconstruct:table_casting_composite",
+  "id": "tconstruct:tools/parts/casting/fake_ingot_composite",
+  "item_cost": 1,
+  "result": "tconstruct:fake_ingot"
+}

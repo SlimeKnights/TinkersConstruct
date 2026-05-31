@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:molding_table",
+  "id": "tconstruct:smeltery/casts/sand/molding/rods",
+  "material": {
+    "tag": "tconstruct:casts/sand"
+  },
+  "pattern": {
+    "tag": "c:rods"
+  },
+  "result": "tconstruct:rod_sand_cast"
+}

@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/enderium/block",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:storage_blocks/enderium"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:storage_blocks/enderium"
+  },
+  "result": {
+    "amount": 810,
+    "tag": "c:molten_enderium"
+  },
+  "temperature": 1350,
+  "time": 229
+}

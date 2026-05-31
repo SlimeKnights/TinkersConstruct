@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/scorched/brick_composite",
+  "cast": {
+    "item": "minecraft:flint"
+  },
+  "cast_consumed": true,
+  "cooling_time": 50,
+  "fluid": {
+    "amount": 125,
+    "tag": "c:magma"
+  },
+  "result": "tconstruct:scorched_brick"
+}

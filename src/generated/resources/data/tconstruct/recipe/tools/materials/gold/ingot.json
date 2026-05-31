@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/gold/ingot",
+  "ingredient": {
+    "tag": "c:ingots/gold"
+  },
+  "material": "tconstruct:gold",
+  "needed": 1,
+  "value": 1
+}

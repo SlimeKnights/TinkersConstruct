@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/netherite/scrap_gold_cast",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/ingot"
+  },
+  "cooling_time": 71,
+  "fluid": {
+    "amount": 90,
+    "tag": "tconstruct:molten_debris"
+  },
+  "result": "minecraft:netherite_scrap"
+}

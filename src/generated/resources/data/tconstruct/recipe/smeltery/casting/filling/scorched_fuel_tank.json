@@ -1,0 +1,6 @@
+{
+  "type": "tconstruct:basin_filling",
+  "id": "tconstruct:smeltery/casting/filling/scorched_fuel_tank",
+  "container": "tconstruct:scorched_fuel_tank",
+  "fluid_amount": 250
+}

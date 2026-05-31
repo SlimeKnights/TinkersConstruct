@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material_fluid",
+  "id": "tconstruct:tools/materials/casting/hepatizon",
+  "fluid": {
+    "amount": 90,
+    "tag": "c:molten_hepatizon"
+  },
+  "output": "tconstruct:hepatizon",
+  "temperature": 1400
+}

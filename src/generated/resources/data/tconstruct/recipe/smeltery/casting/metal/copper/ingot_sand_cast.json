@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/copper/ingot_sand_cast",
+  "cast": {
+    "tag": "tconstruct:casts/single_use/ingot"
+  },
+  "cast_consumed": true,
+  "cooling_time": 50,
+  "fluid": {
+    "amount": 90,
+    "tag": "c:molten_copper"
+  },
+  "result": {
+    "tag": "c:ingots/copper"
+  }
+}

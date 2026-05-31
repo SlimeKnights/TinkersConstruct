@@ -1,0 +1,24 @@
+{
+  "type": "tconstruct:swappable_modifier",
+  "id": "tconstruct:tools/modifiers/slotless/embellishment/slime/sky",
+  "allow_crystal": false,
+  "inputs": [
+    {
+      "item": "tconstruct:sky_congealed_slime"
+    },
+    {
+      "item": "tconstruct:sky_slime_ball"
+    },
+    {
+      "item": "tconstruct:sky_congealed_slime"
+    }
+  ],
+  "result": {
+    "name": "tconstruct:embellishment",
+    "value": "tconstruct:skyslime"
+  },
+  "tools": {
+    "tag": "tconstruct:modifiable/embellishment/slime"
+  },
+  "variant_formatter": "tconstruct:material"
+}

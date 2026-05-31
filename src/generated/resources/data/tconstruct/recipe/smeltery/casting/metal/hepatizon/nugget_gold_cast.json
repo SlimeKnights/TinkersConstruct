@@ -1,0 +1,15 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/hepatizon/nugget_gold_cast",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/nugget"
+  },
+  "cooling_time": 26,
+  "fluid": {
+    "amount": 10,
+    "tag": "c:molten_hepatizon"
+  },
+  "result": {
+    "tag": "c:nuggets/hepatizon"
+  }
+}

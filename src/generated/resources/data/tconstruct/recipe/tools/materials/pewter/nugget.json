@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/pewter/nugget",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:nuggets/pewter"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:nuggets/pewter"
+  },
+  "material": "tconstruct:pewter",
+  "needed": 9,
+  "value": 1
+}

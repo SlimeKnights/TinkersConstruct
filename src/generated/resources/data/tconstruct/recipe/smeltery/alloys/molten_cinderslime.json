@@ -1,0 +1,23 @@
+{
+  "type": "tconstruct:alloy",
+  "id": "tconstruct:smeltery/alloys/molten_cinderslime",
+  "inputs": [
+    {
+      "amount": 90,
+      "tag": "c:molten_gold"
+    },
+    {
+      "amount": 250,
+      "tag": "tconstruct:ichor"
+    },
+    {
+      "amount": 250,
+      "tag": "tconstruct:scorched_stone"
+    }
+  ],
+  "result": {
+    "amount": 180,
+    "fluid": "tconstruct:molten_cinderslime"
+  },
+  "temperature": 1050
+}

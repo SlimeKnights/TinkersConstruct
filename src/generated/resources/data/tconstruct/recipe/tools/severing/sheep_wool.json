@@ -1,0 +1,6 @@
+{
+  "type": "tconstruct:sheep_shearing",
+  "id": "tconstruct:tools/severing/sheep_wool",
+  "looting_bonus": 0.01,
+  "per_level_chance": 0.05
+}

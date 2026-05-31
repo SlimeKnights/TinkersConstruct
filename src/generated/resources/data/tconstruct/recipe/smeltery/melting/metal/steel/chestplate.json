@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "id": "tconstruct:smeltery/melting/metal/steel/chestplate",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "tconstruct:melting/steel/tools_costing_8"
+    }
+  ],
+  "ingredient": {
+    "tag": "tconstruct:melting/steel/tools_costing_8"
+  },
+  "result": {
+    "amount": 720,
+    "tag": "c:molten_steel",
+    "unit_size": 10
+  },
+  "temperature": 950,
+  "time": 183
+}

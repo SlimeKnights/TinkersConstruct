@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:enchantment_converting",
+  "id": "tconstruct:tools/modifiers/worktable/enchantment_converting/defense_book",
+  "inputs": [
+    {
+      "item": "tconstruct:earth_slime_crystal"
+    },
+    {
+      "tag": "c:ingots/gold"
+    }
+  ],
+  "match_book": true,
+  "modifier_predicate": {
+    "type": "tconstruct:slot_type",
+    "slot": "defense"
+  },
+  "name": "defense",
+  "return_unenchanted": false
+}

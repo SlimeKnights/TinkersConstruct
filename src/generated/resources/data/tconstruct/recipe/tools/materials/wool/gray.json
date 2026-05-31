@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/wool/gray",
+  "ingredient": {
+    "item": "minecraft:gray_wool"
+  },
+  "material": "tconstruct:wool#gray",
+  "needed": 1,
+  "value": 1
+}

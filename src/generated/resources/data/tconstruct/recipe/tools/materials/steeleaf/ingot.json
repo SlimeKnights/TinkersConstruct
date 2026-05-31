@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/steeleaf/ingot",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:ingots/steeleaf"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:ingots/steeleaf"
+  },
+  "material": "tconstruct:steeleaf",
+  "needed": 1,
+  "value": 1
+}

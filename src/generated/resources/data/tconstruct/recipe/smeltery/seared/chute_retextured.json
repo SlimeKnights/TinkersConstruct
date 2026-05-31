@@ -1,0 +1,23 @@
+{
+  "type": "mantle:crafting_shaped_retextured",
+  "category": "redstone",
+  "key": {
+    "#": {
+      "tag": "tconstruct:smeltery_bricks"
+    },
+    "C": {
+      "tag": "c:ingots/copper"
+    }
+  },
+  "match_all": false,
+  "pattern": [
+    "C",
+    "#",
+    "C"
+  ],
+  "result": {
+    "id": "tconstruct:seared_chute"
+  },
+  "show_notification": true,
+  "texture": "#"
+}

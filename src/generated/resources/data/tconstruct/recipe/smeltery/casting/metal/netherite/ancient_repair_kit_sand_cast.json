@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/netherite/ancient_repair_kit_sand_cast",
+  "cast": {
+    "tag": "tconstruct:casts/single_use/repair_kit"
+  },
+  "cast_consumed": true,
+  "cooling_time": 101,
+  "fluid": {
+    "amount": 180,
+    "tag": "tconstruct:molten_debris"
+  },
+  "result": {
+    "item": "tconstruct:repair_kit",
+    "nbt": {
+      "Material": "tconstruct:ancient"
+    }
+  }
+}

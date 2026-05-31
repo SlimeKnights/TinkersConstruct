@@ -1,0 +1,32 @@
+{
+  "type": "tconstruct:swappable_modifier",
+  "id": "tconstruct:tools/modifiers/ability/crystalshot_skyslime",
+  "allow_crystal": false,
+  "inputs": [
+    {
+      "item": "tconstruct:sky_slime_crystal_cluster"
+    },
+    {
+      "item": "minecraft:blaze_rod"
+    },
+    {
+      "item": "tconstruct:sky_slime_crystal_cluster"
+    },
+    {
+      "tag": "c:ingots/manyullyn"
+    },
+    {
+      "tag": "c:ingots/manyullyn"
+    }
+  ],
+  "result": {
+    "name": "tconstruct:crystalshot",
+    "value": "skyslime"
+  },
+  "slots": {
+    "abilities": 1
+  },
+  "tools": {
+    "tag": "tconstruct:modifiable/ranged/bows"
+  }
+}

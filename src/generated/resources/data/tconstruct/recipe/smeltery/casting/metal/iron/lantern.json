@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/iron/lantern",
+  "cast": {
+    "item": "minecraft:torch"
+  },
+  "cast_consumed": true,
+  "cooling_time": 57,
+  "fluid": {
+    "amount": 80,
+    "tag": "c:molten_iron"
+  },
+  "result": "minecraft:lantern"
+}

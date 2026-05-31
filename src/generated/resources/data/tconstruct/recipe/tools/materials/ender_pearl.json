@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/ender_pearl",
+  "ingredient": {
+    "tag": "c:ender_pearls"
+  },
+  "material": "tconstruct:ender_pearl",
+  "needed": 1,
+  "value": 1
+}

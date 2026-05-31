@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/electrum/block",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:storage_blocks/electrum"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:storage_blocks/electrum"
+  },
+  "result": {
+    "amount": 810,
+    "tag": "c:molten_electrum"
+  },
+  "temperature": 760,
+  "time": 177
+}

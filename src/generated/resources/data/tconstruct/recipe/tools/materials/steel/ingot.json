@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/steel/ingot",
+  "ingredient": {
+    "tag": "c:ingots/steel"
+  },
+  "material": "tconstruct:steel",
+  "needed": 1,
+  "value": 1
+}

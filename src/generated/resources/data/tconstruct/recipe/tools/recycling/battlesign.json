@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:part_builder_tool_recycling",
+  "id": "tconstruct:tools/recycling/battlesign",
+  "parts": [
+    "tconstruct:large_plate",
+    "tconstruct:repair_kit"
+  ],
+  "pattern": {
+    "item": "tconstruct:venom_bottle"
+  },
+  "tools": {
+    "item": "tconstruct:battlesign"
+  }
+}

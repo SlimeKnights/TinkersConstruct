@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/slime/ichor/slimeball",
+  "cooling_time": 95,
+  "fluid": {
+    "amount": 250,
+    "tag": "tconstruct:ichor"
+  },
+  "result": "tconstruct:ichor_slime_ball"
+}

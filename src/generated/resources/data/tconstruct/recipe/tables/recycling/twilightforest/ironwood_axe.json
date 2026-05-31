@@ -1,0 +1,27 @@
+{
+  "type": "tconstruct:part_builder_recycling",
+  "id": "tconstruct:tables/recycling/twilightforest/ironwood_axe",
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "twilightforest"
+    }
+  ],
+  "pattern": {
+    "item": "tconstruct:venom_bottle"
+  },
+  "results": {
+    "tconstruct:ingot": {
+      "count": 3,
+      "tag": "c:ingots/ironwood"
+    }
+  },
+  "tool": [
+    {
+      "item": "twilightforest:ironwood_pickaxe"
+    },
+    {
+      "item": "twilightforest:ironwood_axe"
+    }
+  ]
+}

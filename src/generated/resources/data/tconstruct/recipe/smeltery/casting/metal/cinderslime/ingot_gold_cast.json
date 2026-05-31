@@ -1,0 +1,15 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/cinderslime/ingot_gold_cast",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/ingot"
+  },
+  "cooling_time": 68,
+  "fluid": {
+    "amount": 90,
+    "tag": "tconstruct:molten_cinderslime"
+  },
+  "result": {
+    "tag": "c:ingots/cinderslime"
+  }
+}

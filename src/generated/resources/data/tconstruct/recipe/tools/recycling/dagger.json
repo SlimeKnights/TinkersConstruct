@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:part_builder_tool_recycling",
+  "id": "tconstruct:tools/recycling/dagger",
+  "pattern": {
+    "item": "tconstruct:venom_bottle"
+  },
+  "tools": {
+    "amount_needed": 2,
+    "item": "tconstruct:dagger"
+  }
+}

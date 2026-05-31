@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/soul/sand",
+  "ingredient": [
+    {
+      "item": "minecraft:soul_sand"
+    },
+    {
+      "item": "minecraft:soul_soil"
+    }
+  ],
+  "result": {
+    "amount": 1000,
+    "fluid": "tconstruct:liquid_soul"
+  },
+  "temperature": 400,
+  "time": 69
+}

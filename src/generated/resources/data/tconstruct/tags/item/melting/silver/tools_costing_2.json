@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#c:tools/swords/silver",
+      "required": false
+    },
+    {
+      "id": "#c:tools/hoes/silver",
+      "required": false
+    }
+  ]
+}

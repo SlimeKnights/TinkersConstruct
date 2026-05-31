@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/iron/gear_gold_cast",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/gear"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:gears/iron"
+    }
+  ],
+  "cooling_time": 120,
+  "fluid": {
+    "amount": 360,
+    "tag": "c:molten_iron"
+  },
+  "result": {
+    "tag": "c:gears/iron"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/cinderslime/nugget_sand_cast",
+  "cast": {
+    "tag": "tconstruct:casts/single_use/nugget"
+  },
+  "cast_consumed": true,
+  "cooling_time": 23,
+  "fluid": {
+    "amount": 10,
+    "tag": "tconstruct:molten_cinderslime"
+  },
+  "result": {
+    "tag": "c:nuggets/cinderslime"
+  }
+}

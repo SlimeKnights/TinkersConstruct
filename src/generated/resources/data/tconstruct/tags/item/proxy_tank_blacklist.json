@@ -1,0 +1,9 @@
+{
+  "values": [
+    "minecraft:bucket",
+    "minecraft:glass_bottle",
+    "minecraft:bowl",
+    "tconstruct:copper_can",
+    "#tconstruct:modifiable/ammo"
+  ]
+}

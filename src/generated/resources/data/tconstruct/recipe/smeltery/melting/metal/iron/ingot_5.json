@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/iron/ingot_5",
+  "ingredient": [
+    {
+      "item": "minecraft:blast_furnace"
+    },
+    {
+      "item": "minecraft:hopper"
+    },
+    {
+      "item": "minecraft:minecart"
+    }
+  ],
+  "result": {
+    "amount": 450,
+    "tag": "c:molten_iron"
+  },
+  "temperature": 800,
+  "time": 134
+}

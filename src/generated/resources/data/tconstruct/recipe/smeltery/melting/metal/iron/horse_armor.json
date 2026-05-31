@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/iron/horse_armor",
+  "ingredient": {
+    "item": "minecraft:iron_horse_armor"
+  },
+  "result": {
+    "amount": 630,
+    "tag": "c:molten_iron"
+  },
+  "temperature": 800,
+  "time": 159
+}

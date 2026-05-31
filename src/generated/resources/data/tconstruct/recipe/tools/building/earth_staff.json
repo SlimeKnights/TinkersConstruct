@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "C": {
+      "item": "tconstruct:earth_slime_crystal"
+    },
+    "I": {
+      "tag": "c:ingots/cobalt"
+    },
+    "W": {
+      "tag": "tconstruct:greenheart_logs"
+    }
+  },
+  "pattern": [
+    "CWC",
+    " I ",
+    " W "
+  ],
+  "result": {
+    "id": "tconstruct:earth_staff"
+  },
+  "show_notification": true
+}

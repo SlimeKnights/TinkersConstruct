@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/manyullyn/nugget_sand_cast",
+  "cast": {
+    "tag": "tconstruct:casts/single_use/nugget"
+  },
+  "cast_consumed": true,
+  "cooling_time": 24,
+  "fluid": {
+    "amount": 10,
+    "tag": "c:molten_manyullyn"
+  },
+  "result": {
+    "tag": "c:nuggets/manyullyn"
+  }
+}

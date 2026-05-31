@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:overslime_modifier",
+  "id": "tconstruct:tools/modifiers/slotless/overslime/earth_block",
+  "ingredient": {
+    "item": "minecraft:slime_block"
+  },
+  "restore_amount": 180,
+  "tools": {
+    "tag": "tconstruct:modifiable/durability"
+  }
+}

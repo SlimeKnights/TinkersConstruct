@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casts/gold/large_plate",
+  "cast": {
+    "type": "tconstruct:material",
+    "item": "tconstruct:large_plate"
+  },
+  "cast_consumed": true,
+  "cooling_time": 57,
+  "fluid": {
+    "amount": 90,
+    "tag": "c:molten_gold"
+  },
+  "result": "tconstruct:large_plate_cast",
+  "switch_slots": true
+}

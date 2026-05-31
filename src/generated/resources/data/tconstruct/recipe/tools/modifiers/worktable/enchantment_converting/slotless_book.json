@@ -1,0 +1,23 @@
+{
+  "type": "tconstruct:enchantment_converting",
+  "id": "tconstruct:tools/modifiers/worktable/enchantment_converting/slotless_book",
+  "inputs": [
+    {
+      "item": "minecraft:amethyst_shard"
+    }
+  ],
+  "match_book": true,
+  "modifier_predicate": {
+    "type": "mantle:and",
+    "predicates": [
+      "tconstruct:slot_type",
+      {
+        "type": "mantle:inverted",
+        "inverted_type": "tconstruct:tag",
+        "tag": "tconstruct:extract_blacklist/slotless"
+      }
+    ]
+  },
+  "name": "slotless",
+  "return_unenchanted": false
+}

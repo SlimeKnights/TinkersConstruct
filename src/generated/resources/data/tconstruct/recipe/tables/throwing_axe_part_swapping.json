@@ -1,0 +1,8 @@
+{
+  "type": "tconstruct:tinker_station_part_swapping",
+  "id": "tconstruct:tables/throwing_axe_part_swapping",
+  "max_stack_size": 2,
+  "tools": {
+    "item": "tconstruct:throwing_axe"
+  }
+}

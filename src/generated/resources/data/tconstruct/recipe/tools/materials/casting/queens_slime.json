@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material_fluid",
+  "id": "tconstruct:tools/materials/casting/queens_slime",
+  "fluid": {
+    "amount": 90,
+    "tag": "tconstruct:molten_queens_slime"
+  },
+  "output": "tconstruct:queens_slime",
+  "temperature": 1150
+}

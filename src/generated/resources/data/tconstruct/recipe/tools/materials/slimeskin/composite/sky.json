@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:material_fluid",
+  "id": "tconstruct:tools/materials/slimeskin/composite/sky",
+  "fluid": {
+    "amount": 250,
+    "tag": "tconstruct:sky_slime"
+  },
+  "input": "tconstruct:leather",
+  "output": "tconstruct:skyslime_vine#slimeskin",
+  "temperature": 10
+}

@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/silver/plate_gold_cast",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/plate"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:plates/silver"
+    }
+  ],
+  "cooling_time": 60,
+  "fluid": {
+    "amount": 90,
+    "tag": "c:molten_silver"
+  },
+  "result": {
+    "tag": "c:plates/silver"
+  }
+}

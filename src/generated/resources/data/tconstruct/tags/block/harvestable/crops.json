@@ -1,0 +1,11 @@
+{
+  "values": [
+    "minecraft:nether_wart",
+    "minecraft:sweet_berry_bush",
+    "#minecraft:crops",
+    {
+      "id": "#c:crops",
+      "required": false
+    }
+  ]
+}

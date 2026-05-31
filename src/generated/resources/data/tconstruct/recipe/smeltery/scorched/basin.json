@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "tconstruct:scorched_brick"
+    },
+    "G": {
+      "item": "tconstruct:gold_platform"
+    }
+  },
+  "pattern": [
+    "# #",
+    "#G#",
+    "###"
+  ],
+  "result": {
+    "id": "tconstruct:scorched_basin"
+  },
+  "show_notification": true
+}

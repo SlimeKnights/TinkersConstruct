@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/slime/beetroot_soup",
+  "ingredient": {
+    "item": "minecraft:beetroot"
+  },
+  "result": {
+    "amount": 50,
+    "tag": "c:beetroot_soup"
+  },
+  "temperature": 100,
+  "time": 33
+}

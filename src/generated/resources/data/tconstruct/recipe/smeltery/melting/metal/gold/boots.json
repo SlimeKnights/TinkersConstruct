@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "id": "tconstruct:smeltery/melting/metal/gold/boots",
+  "ingredient": {
+    "tag": "tconstruct:melting/gold/tools_costing_4"
+  },
+  "result": {
+    "amount": 360,
+    "tag": "c:molten_gold",
+    "unit_size": 10
+  },
+  "temperature": 700,
+  "time": 114
+}

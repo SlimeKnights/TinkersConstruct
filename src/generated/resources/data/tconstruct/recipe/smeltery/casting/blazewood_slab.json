@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:casting_basin",
+  "id": "tconstruct:smeltery/casting/blazewood_slab",
+  "cast": {
+    "item": "tconstruct:bloodshroom_planks_slab"
+  },
+  "cast_consumed": true,
+  "cooling_time": 85,
+  "fluid": {
+    "amount": 100,
+    "tag": "tconstruct:blazing_blood"
+  },
+  "result": "tconstruct:blazewood_slab"
+}

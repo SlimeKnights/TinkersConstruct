@@ -1,0 +1,25 @@
+{
+  "type": "tconstruct:material_melting",
+  "id": "tconstruct:tools/materials/melting/plated_slimewood",
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:or",
+      "values": [
+        {
+          "type": "mantle:tag_filled",
+          "tag": "c:ingots/brass"
+        },
+        {
+          "type": "mantle:tag_filled",
+          "tag": "c:ingots/zinc"
+        }
+      ]
+    }
+  ],
+  "input": "tconstruct:plated_slimewood",
+  "result": {
+    "amount": 90,
+    "tag": "c:molten_brass"
+  },
+  "temperature": 605
+}

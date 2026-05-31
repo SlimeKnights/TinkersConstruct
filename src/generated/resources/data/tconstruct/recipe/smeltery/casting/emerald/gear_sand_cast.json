@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/emerald/gear_sand_cast",
+  "cast": {
+    "tag": "tconstruct:casts/single_use/gear"
+  },
+  "cast_consumed": true,
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:gears/emerald"
+    }
+  ],
+  "cooling_time": 136,
+  "fluid": {
+    "amount": 400,
+    "tag": "tconstruct:molten_emerald"
+  },
+  "result": {
+    "tag": "c:gears/emerald"
+  }
+}

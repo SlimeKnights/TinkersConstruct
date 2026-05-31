@@ -1,0 +1,13 @@
+{
+  "values": [
+    "minecraft:netherite_shovel",
+    {
+      "id": "tools_complement:netherite_knife",
+      "required": false
+    },
+    {
+      "id": "farmersdelight:netherite_knife",
+      "required": false
+    }
+  ]
+}

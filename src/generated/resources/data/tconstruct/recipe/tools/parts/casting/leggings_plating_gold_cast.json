@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:table_casting_material",
+  "id": "tconstruct:tools/parts/casting/leggings_plating_gold_cast",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/leggings_plating"
+  },
+  "item_cost": 5,
+  "result": "tconstruct:leggings_plating"
+}

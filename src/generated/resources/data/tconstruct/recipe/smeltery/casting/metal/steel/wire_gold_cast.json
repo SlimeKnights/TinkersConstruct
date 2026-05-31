@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/steel/wire_gold_cast",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/wire"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:wires/steel"
+    }
+  ],
+  "cooling_time": 46,
+  "fluid": {
+    "amount": 45,
+    "tag": "c:molten_steel"
+  },
+  "result": {
+    "tag": "c:wires/steel"
+  }
+}

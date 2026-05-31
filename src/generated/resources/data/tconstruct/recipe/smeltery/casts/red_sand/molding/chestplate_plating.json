@@ -1,0 +1,17 @@
+{
+  "type": "tconstruct:molding_table",
+  "id": "tconstruct:smeltery/casts/red_sand/molding/chestplate_plating",
+  "material": {
+    "tag": "tconstruct:casts/red_sand"
+  },
+  "pattern": [
+    {
+      "type": "tconstruct:material",
+      "item": "tconstruct:chestplate_plating"
+    },
+    {
+      "item": "tconstruct:chestplate_plating_dummy"
+    }
+  ],
+  "result": "tconstruct:chestplate_plating_red_sand_cast"
+}

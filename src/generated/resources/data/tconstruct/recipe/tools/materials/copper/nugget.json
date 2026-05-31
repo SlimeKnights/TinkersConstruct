@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/copper/nugget",
+  "ingredient": {
+    "tag": "c:nuggets/copper"
+  },
+  "material": "tconstruct:copper",
+  "needed": 9,
+  "value": 1
+}

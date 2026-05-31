@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:table_casting_part_swapping",
+  "id": "tconstruct:tools/armor/travelers/shield_leather",
+  "index": 1,
+  "item_cost": 2,
+  "tools": {
+    "item": "tconstruct:travelers_shield"
+  }
+}

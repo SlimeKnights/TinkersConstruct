@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/scorched/glass_pane",
+  "cast": {
+    "item": "tconstruct:scorched_brick"
+  },
+  "cast_consumed": true,
+  "cooling_time": 29,
+  "fluid": {
+    "amount": 25,
+    "tag": "tconstruct:molten_quartz"
+  },
+  "result": "tconstruct:scorched_glass_pane"
+}

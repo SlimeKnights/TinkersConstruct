@@ -1,0 +1,36 @@
+{
+  "parent": "tconstruct:smeltery/melter",
+  "criteria": {
+    "crafted_cast": {
+      "conditions": {
+        "items": [
+          {
+            "tag": "tconstruct:casts/gold"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.tconstruct.smeltery.gold_casting.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "tconstruct:pick_head_cast"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.tconstruct.smeltery.gold_casting.title"
+    }
+  },
+  "requirements": [
+    [
+      "crafted_cast"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

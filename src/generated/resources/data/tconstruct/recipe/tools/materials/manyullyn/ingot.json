@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/manyullyn/ingot",
+  "ingredient": {
+    "tag": "c:ingots/manyullyn"
+  },
+  "material": "tconstruct:manyullyn",
+  "needed": 1,
+  "value": 1
+}

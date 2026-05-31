@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#c:tools/swords/refined_glowstone",
+      "required": false
+    },
+    {
+      "id": "#c:tools/hoes/refined_glowstone",
+      "required": false
+    }
+  ]
+}

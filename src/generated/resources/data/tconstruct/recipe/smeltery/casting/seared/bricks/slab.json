@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:casting_basin",
+  "id": "tconstruct:smeltery/casting/seared/bricks/slab",
+  "cast": {
+    "item": "minecraft:stone_brick_slab"
+  },
+  "cast_consumed": true,
+  "cooling_time": 80,
+  "fluid": {
+    "amount": 250,
+    "tag": "tconstruct:molten_clay"
+  },
+  "result": "tconstruct:seared_bricks_slab"
+}

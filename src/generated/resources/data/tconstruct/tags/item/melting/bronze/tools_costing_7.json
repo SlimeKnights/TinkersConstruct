@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#c:armors/leggings/bronze",
+      "required": false
+    },
+    {
+      "id": "#c:tools/paxels/bronze",
+      "required": false
+    }
+  ]
+}

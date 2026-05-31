@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/blaze/rod_sand_cast",
+  "cast": {
+    "tag": "tconstruct:casts/single_use/rod"
+  },
+  "cast_consumed": true,
+  "cooling_time": 85,
+  "fluid": {
+    "amount": 100,
+    "tag": "tconstruct:blazing_blood"
+  },
+  "result": "minecraft:blaze_rod"
+}

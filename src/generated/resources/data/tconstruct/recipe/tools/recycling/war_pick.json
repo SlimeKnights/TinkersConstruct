@@ -1,0 +1,15 @@
+{
+  "type": "tconstruct:part_builder_tool_recycling",
+  "id": "tconstruct:tools/recycling/war_pick",
+  "parts": [
+    "tconstruct:pick_head",
+    "tconstruct:bow_limb",
+    "tconstruct:bowstring"
+  ],
+  "pattern": {
+    "item": "tconstruct:venom_bottle"
+  },
+  "tools": {
+    "item": "tconstruct:war_pick"
+  }
+}

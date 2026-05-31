@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#c:tools/swords/tin",
+      "required": false
+    },
+    {
+      "id": "#c:tools/hoes/tin",
+      "required": false
+    }
+  ]
+}

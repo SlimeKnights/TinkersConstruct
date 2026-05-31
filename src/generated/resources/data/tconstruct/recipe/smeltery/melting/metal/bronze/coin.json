@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/bronze/coin",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:coins/bronze"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:coins/bronze"
+  },
+  "result": {
+    "amount": 30,
+    "tag": "c:molten_bronze"
+  },
+  "temperature": 700,
+  "time": 38
+}

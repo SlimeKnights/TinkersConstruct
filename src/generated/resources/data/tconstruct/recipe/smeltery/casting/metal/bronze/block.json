@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:casting_basin",
+  "id": "tconstruct:smeltery/casting/metal/bronze/block",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:storage_blocks/bronze"
+    }
+  ],
+  "cooling_time": 171,
+  "fluid": {
+    "amount": 810,
+    "tag": "c:molten_bronze"
+  },
+  "result": {
+    "tag": "c:storage_blocks/bronze"
+  }
+}

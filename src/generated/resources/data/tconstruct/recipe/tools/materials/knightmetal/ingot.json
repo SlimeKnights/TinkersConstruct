@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/knightmetal/ingot",
+  "ingredient": {
+    "tag": "c:ingots/knightmetal"
+  },
+  "material": "tconstruct:knightmetal",
+  "needed": 1,
+  "value": 1
+}

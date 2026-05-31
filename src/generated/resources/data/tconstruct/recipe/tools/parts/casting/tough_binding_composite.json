@@ -1,0 +1,6 @@
+{
+  "type": "tconstruct:table_casting_composite",
+  "id": "tconstruct:tools/parts/casting/tough_binding_composite",
+  "item_cost": 3,
+  "result": "tconstruct:tough_binding"
+}

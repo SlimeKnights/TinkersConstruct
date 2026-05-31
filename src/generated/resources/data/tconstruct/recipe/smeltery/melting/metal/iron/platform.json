@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/iron/platform",
+  "ingredient": {
+    "item": "tconstruct:iron_platform"
+  },
+  "result": {
+    "amount": 100,
+    "tag": "c:molten_iron"
+  },
+  "temperature": 800,
+  "time": 63
+}

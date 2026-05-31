@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:item_part_builder",
+  "id": "tconstruct:smeltery/casts/red_sand/builder_block/pick_head",
+  "pattern": "tconstruct:pick_head",
+  "pattern_item": {
+    "tag": "c:sand/red"
+  },
+  "result": {
+    "count": 4,
+    "item": "tconstruct:pick_head_red_sand_cast"
+  }
+}

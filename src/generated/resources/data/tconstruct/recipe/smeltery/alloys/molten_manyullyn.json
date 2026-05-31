@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:alloy",
+  "id": "tconstruct:smeltery/alloys/molten_manyullyn",
+  "inputs": [
+    {
+      "amount": 270,
+      "tag": "c:molten_cobalt"
+    },
+    {
+      "amount": 90,
+      "tag": "tconstruct:molten_debris"
+    }
+  ],
+  "result": {
+    "amount": 360,
+    "tag": "c:molten_manyullyn"
+  },
+  "temperature": 1200
+}

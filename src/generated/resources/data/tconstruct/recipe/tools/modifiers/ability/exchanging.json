@@ -1,0 +1,31 @@
+{
+  "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/ability/exchanging",
+  "allow_crystal": true,
+  "check_trait_level": true,
+  "inputs": [
+    {
+      "item": "minecraft:sticky_piston"
+    },
+    {
+      "tag": "c:ingots/hepatizon"
+    },
+    {
+      "item": "minecraft:sticky_piston"
+    },
+    {
+      "tag": "c:ender_pearls"
+    },
+    {
+      "tag": "c:ender_pearls"
+    }
+  ],
+  "level": 1,
+  "result": "tconstruct:exchanging",
+  "slots": {
+    "abilities": 1
+  },
+  "tools": {
+    "tag": "tconstruct:modifiable/harvest"
+  }
+}

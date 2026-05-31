@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/dragon_scale",
+  "ingredient": {
+    "item": "tconstruct:dragon_scale"
+  },
+  "material": "tconstruct:dragon_scale",
+  "needed": 1,
+  "value": 1
+}

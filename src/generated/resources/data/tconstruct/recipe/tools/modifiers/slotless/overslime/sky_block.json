@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:overslime_modifier",
+  "id": "tconstruct:tools/modifiers/slotless/overslime/sky_block",
+  "ingredient": {
+    "item": "tconstruct:sky_slime"
+  },
+  "restore_amount": 450,
+  "tools": {
+    "tag": "tconstruct:modifiable/durability"
+  }
+}

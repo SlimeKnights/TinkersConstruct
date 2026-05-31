@@ -1,0 +1,9 @@
+{
+  "values": [
+    "minecraft:iron_leggings",
+    {
+      "id": "#c:tools/paxels/iron",
+      "required": false
+    }
+  ]
+}

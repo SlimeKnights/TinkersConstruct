@@ -1,0 +1,33 @@
+{
+  "type": "tconstruct:alloy",
+  "id": "tconstruct:smeltery/alloys/molten_refined_obsidian",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:ingots/refined_obsidian"
+    },
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:ingots/osmium"
+    }
+  ],
+  "inputs": [
+    {
+      "amount": 250,
+      "tag": "tconstruct:molten_obsidian"
+    },
+    {
+      "amount": 100,
+      "tag": "tconstruct:molten_diamond"
+    },
+    {
+      "amount": 90,
+      "tag": "c:molten_osmium"
+    }
+  ],
+  "result": {
+    "amount": 90,
+    "tag": "c:molten_refined_obsidian"
+  },
+  "temperature": 1475
+}

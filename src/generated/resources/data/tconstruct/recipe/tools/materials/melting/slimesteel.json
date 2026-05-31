@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material_melting",
+  "id": "tconstruct:tools/materials/melting/slimesteel",
+  "input": "tconstruct:slimesteel",
+  "result": {
+    "amount": 90,
+    "fluid": "tconstruct:molten_slimesteel"
+  },
+  "temperature": 900
+}

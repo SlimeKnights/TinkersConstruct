@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/hepatizon/block",
+  "ingredient": {
+    "tag": "c:storage_blocks/hepatizon"
+  },
+  "leftover": {
+    "count": 1,
+    "tag": "c:ingots/hepatizon"
+  },
+  "material": "tconstruct:hepatizon",
+  "needed": 1,
+  "value": 9
+}

@@ -1,0 +1,40 @@
+{
+  "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/ability/tilling",
+  "allow_crystal": true,
+  "check_trait_level": true,
+  "inputs": [
+    {
+      "type": "tconstruct:material",
+      "item": "tconstruct:small_blade"
+    },
+    {
+      "tag": "c:ingots/steel"
+    },
+    {
+      "type": "tconstruct:material",
+      "item": "tconstruct:tool_binding"
+    }
+  ],
+  "level": 1,
+  "result": "tconstruct:tilling",
+  "slots": {
+    "abilities": 1
+  },
+  "tools": {
+    "type": "neoforge:intersection",
+    "children": [
+      {
+        "tag": "tconstruct:modifiable/durability"
+      },
+      [
+        {
+          "tag": "tconstruct:modifiable/interactable"
+        },
+        {
+          "tag": "tconstruct:modifiable/armor/boots"
+        }
+      ]
+    ]
+  }
+}

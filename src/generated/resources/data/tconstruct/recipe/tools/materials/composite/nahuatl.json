@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:material_fluid",
+  "id": "tconstruct:tools/materials/composite/nahuatl",
+  "fluid": {
+    "amount": 250,
+    "tag": "tconstruct:molten_obsidian"
+  },
+  "input": "tconstruct:wood",
+  "output": "tconstruct:nahuatl",
+  "temperature": 1000
+}

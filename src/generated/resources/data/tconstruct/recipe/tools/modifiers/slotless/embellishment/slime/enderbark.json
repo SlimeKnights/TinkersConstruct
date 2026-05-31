@@ -1,0 +1,24 @@
+{
+  "type": "tconstruct:swappable_modifier",
+  "id": "tconstruct:tools/modifiers/slotless/embellishment/slime/enderbark",
+  "allow_crystal": false,
+  "inputs": [
+    {
+      "item": "tconstruct:enderbark_planks"
+    },
+    {
+      "item": "tconstruct:ender_slime_sapling"
+    },
+    {
+      "item": "tconstruct:enderbark_planks"
+    }
+  ],
+  "result": {
+    "name": "tconstruct:embellishment",
+    "value": "tconstruct:enderslime"
+  },
+  "tools": {
+    "tag": "tconstruct:modifiable/embellishment/slime"
+  },
+  "variant_formatter": "tconstruct:material"
+}

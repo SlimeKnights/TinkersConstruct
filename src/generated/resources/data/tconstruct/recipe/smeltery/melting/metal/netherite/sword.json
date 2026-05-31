@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "id": "tconstruct:smeltery/melting/metal/netherite/sword",
+  "byproducts": [
+    {
+      "amount": 200,
+      "fluid": "tconstruct:molten_diamond",
+      "unit_size": 25
+    }
+  ],
+  "ingredient": {
+    "tag": "tconstruct:melting/netherite/tools_costing_2"
+  },
+  "result": {
+    "amount": 90,
+    "tag": "c:molten_netherite",
+    "unit_size": 10
+  },
+  "temperature": 1250,
+  "time": 74
+}

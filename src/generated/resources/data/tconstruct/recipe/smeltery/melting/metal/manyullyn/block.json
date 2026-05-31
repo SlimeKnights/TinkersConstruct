@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/manyullyn/block",
+  "ingredient": {
+    "tag": "c:storage_blocks/manyullyn"
+  },
+  "result": {
+    "amount": 810,
+    "tag": "c:molten_manyullyn"
+  },
+  "temperature": 1200,
+  "time": 216
+}

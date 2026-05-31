@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:casting_basin",
+  "id": "tconstruct:smeltery/casting/slime/magma_block",
+  "cooling_time": 141,
+  "fluid": {
+    "amount": 1000,
+    "tag": "c:magma"
+  },
+  "result": "minecraft:magma_block"
+}

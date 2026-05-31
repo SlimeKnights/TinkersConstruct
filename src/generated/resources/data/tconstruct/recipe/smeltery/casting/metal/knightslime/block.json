@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:casting_basin",
+  "id": "tconstruct:smeltery/casting/metal/knightslime/block",
+  "cooling_time": 210,
+  "fluid": {
+    "amount": 810,
+    "tag": "tconstruct:molten_knightslime"
+  },
+  "result": {
+    "tag": "c:storage_blocks/knightslime"
+  }
+}

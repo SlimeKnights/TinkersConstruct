@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/netherite/coin_sand_cast",
+  "cast": {
+    "tag": "tconstruct:casts/single_use/coin"
+  },
+  "cast_consumed": true,
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:coins/netherite"
+    }
+  ],
+  "cooling_time": 42,
+  "fluid": {
+    "amount": 30,
+    "tag": "c:molten_netherite"
+  },
+  "result": {
+    "tag": "c:coins/netherite"
+  }
+}

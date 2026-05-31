@@ -1,0 +1,6 @@
+{
+  "type": "tconstruct:tool_building",
+  "id": "tconstruct:tools/building/excavator",
+  "result": "tconstruct:excavator",
+  "result_count": 1
+}

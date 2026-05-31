@@ -1,0 +1,11 @@
+{
+  "title": "Вода",
+  "text": "Вода — не самая полезная жидкость, но она может защитить вас от пожара в жарких условиях.",
+  "entity": [
+    "2 Water Damage",
+    "Extinguishes Fire"
+  ],
+  "block": [
+    "Breaks blocks broken by water"
+  ]
+}

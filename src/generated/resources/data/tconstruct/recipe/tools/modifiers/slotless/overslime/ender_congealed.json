@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:overslime_modifier",
+  "id": "tconstruct:tools/modifiers/slotless/overslime/ender_congealed",
+  "ingredient": {
+    "item": "tconstruct:ender_congealed_slime"
+  },
+  "restore_amount": 320,
+  "tools": {
+    "tag": "tconstruct:modifiable/durability"
+  }
+}

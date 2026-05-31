@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/bendalloy/nugget_sand_cast",
+  "cast": {
+    "tag": "tconstruct:casts/single_use/nugget"
+  },
+  "cast_consumed": true,
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:nuggets/bendalloy"
+    }
+  ],
+  "cooling_time": 11,
+  "fluid": {
+    "amount": 10,
+    "tag": "c:molten_bendalloy"
+  },
+  "result": {
+    "tag": "c:nuggets/bendalloy"
+  }
+}

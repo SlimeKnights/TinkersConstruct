@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casts/gold/pick_head",
+  "cast": {
+    "type": "tconstruct:material",
+    "item": "tconstruct:pick_head"
+  },
+  "cast_consumed": true,
+  "cooling_time": 57,
+  "fluid": {
+    "amount": 90,
+    "tag": "c:molten_gold"
+  },
+  "result": "tconstruct:pick_head_cast",
+  "switch_slots": true
+}

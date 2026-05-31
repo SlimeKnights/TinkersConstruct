@@ -1,0 +1,46 @@
+{
+  "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/ability/melting",
+  "allow_crystal": true,
+  "check_trait_level": true,
+  "inputs": [
+    {
+      "item": "minecraft:blaze_rod"
+    },
+    {
+      "ingredient": [
+        {
+          "item": "tconstruct:seared_melter"
+        },
+        {
+          "item": "tconstruct:smeltery_controller"
+        },
+        {
+          "item": "tconstruct:foundry_controller"
+        }
+      ]
+    },
+    {
+      "item": "minecraft:blaze_rod"
+    },
+    {
+      "item": "minecraft:lava_bucket"
+    },
+    {
+      "item": "minecraft:lava_bucket"
+    }
+  ],
+  "level": 1,
+  "result": "tconstruct:melting",
+  "slots": {
+    "abilities": 1
+  },
+  "tools": [
+    {
+      "tag": "tconstruct:modifiable/melee"
+    },
+    {
+      "tag": "tconstruct:modifiable/harvest"
+    }
+  ]
+}

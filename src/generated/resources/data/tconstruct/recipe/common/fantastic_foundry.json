@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:book"
+    },
+    {
+      "item": "tconstruct:nether_grout"
+    }
+  ],
+  "result": {
+    "id": "tconstruct:fantastic_foundry"
+  }
+}

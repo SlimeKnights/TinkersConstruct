@@ -1,0 +1,42 @@
+{
+  "type": "tconstruct:alloy",
+  "id": "tconstruct:smeltery/alloys/molten_signalum",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:ingots/signalum"
+    },
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:ingots/copper"
+    },
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:ingots/silver"
+    },
+    {
+      "type": "mantle:tag_filled",
+      "registry": "minecraft:fluid",
+      "tag": "c:redstone"
+    }
+  ],
+  "inputs": [
+    {
+      "amount": 270,
+      "tag": "c:molten_copper"
+    },
+    {
+      "amount": 90,
+      "tag": "c:molten_silver"
+    },
+    {
+      "amount": 400,
+      "tag": "c:redstone"
+    }
+  ],
+  "result": {
+    "amount": 360,
+    "tag": "c:molten_signalum"
+  },
+  "temperature": 999
+}

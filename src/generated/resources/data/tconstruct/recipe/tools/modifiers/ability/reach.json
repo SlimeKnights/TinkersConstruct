@@ -1,0 +1,32 @@
+{
+  "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/ability/reach",
+  "allow_crystal": true,
+  "inputs": [
+    {
+      "item": "minecraft:piston"
+    },
+    {
+      "tag": "c:ingots/queens_slime"
+    },
+    {
+      "item": "minecraft:piston"
+    },
+    {
+      "tag": "c:slimeball/ender"
+    },
+    {
+      "tag": "c:slimeball/ender"
+    }
+  ],
+  "level": {
+    "max": 2
+  },
+  "result": "tconstruct:reach",
+  "slots": {
+    "abilities": 1
+  },
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/chestplate"
+  }
+}

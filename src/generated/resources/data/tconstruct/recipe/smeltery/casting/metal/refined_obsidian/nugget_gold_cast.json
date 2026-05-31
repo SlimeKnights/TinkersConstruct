@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/refined_obsidian/nugget_gold_cast",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/nugget"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:nuggets/refined_obsidian"
+    }
+  ],
+  "cooling_time": 27,
+  "fluid": {
+    "amount": 10,
+    "tag": "c:molten_refined_obsidian"
+  },
+  "result": {
+    "tag": "c:nuggets/refined_obsidian"
+  }
+}

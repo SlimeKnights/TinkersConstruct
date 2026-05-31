@@ -1,0 +1,24 @@
+{
+  "type": "tconstruct:swappable_modifier",
+  "id": "tconstruct:tools/modifiers/slotless/embellishment/wood/blazewood",
+  "allow_crystal": false,
+  "inputs": [
+    {
+      "item": "tconstruct:blazewood"
+    },
+    {
+      "item": "tconstruct:pattern"
+    },
+    {
+      "item": "tconstruct:blazewood"
+    }
+  ],
+  "result": {
+    "name": "tconstruct:embellishment",
+    "value": "tconstruct:blazewood"
+  },
+  "tools": {
+    "tag": "tconstruct:modifiable/embellishment/wood"
+  },
+  "variant_formatter": "tconstruct:material"
+}

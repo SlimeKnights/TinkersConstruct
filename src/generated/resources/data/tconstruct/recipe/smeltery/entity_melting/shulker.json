@@ -1,0 +1,15 @@
+{
+  "type": "tconstruct:entity_melting",
+  "id": "tconstruct:smeltery/entity_melting/shulker",
+  "damage": 3,
+  "entity": {
+    "type": "minecraft:shulker"
+  },
+  "result": {
+    "amount": 25,
+    "nbt": {
+      "Potion": "minecraft:leaping"
+    },
+    "tag": "c:potion"
+  }
+}

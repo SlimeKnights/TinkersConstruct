@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/constantan/plate_sand_cast",
+  "cast": {
+    "tag": "tconstruct:casts/single_use/plate"
+  },
+  "cast_consumed": true,
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:plates/constantan"
+    }
+  ],
+  "cooling_time": 64,
+  "fluid": {
+    "amount": 90,
+    "tag": "c:molten_constantan"
+  },
+  "result": {
+    "tag": "c:plates/constantan"
+  }
+}

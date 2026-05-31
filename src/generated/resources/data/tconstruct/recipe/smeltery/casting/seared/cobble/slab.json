@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:casting_basin",
+  "id": "tconstruct:smeltery/casting/seared/cobble/slab",
+  "cast": {
+    "item": "minecraft:cobblestone_slab"
+  },
+  "cast_consumed": true,
+  "cooling_time": 80,
+  "fluid": {
+    "amount": 250,
+    "tag": "tconstruct:molten_clay"
+  },
+  "result": "tconstruct:seared_cobble_slab"
+}

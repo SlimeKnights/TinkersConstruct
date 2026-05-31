@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#c:tools/swords/constantan",
+      "required": false
+    },
+    {
+      "id": "#c:tools/hoes/constantan",
+      "required": false
+    }
+  ]
+}

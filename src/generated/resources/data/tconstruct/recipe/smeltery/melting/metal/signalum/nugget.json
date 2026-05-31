@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/signalum/nugget",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:nuggets/signalum"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:nuggets/signalum"
+  },
+  "result": {
+    "amount": 10,
+    "tag": "c:molten_signalum"
+  },
+  "temperature": 999,
+  "time": 22
+}

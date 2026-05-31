@@ -1,0 +1,6 @@
+{
+  "type": "tconstruct:table_filling",
+  "id": "tconstruct:smeltery/casting/filling/scorched_lantern_pixel",
+  "container": "tconstruct:scorched_lantern",
+  "fluid_amount": 10
+}

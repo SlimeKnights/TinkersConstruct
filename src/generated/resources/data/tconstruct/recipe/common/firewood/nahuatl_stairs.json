@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "tconstruct:nahuatl_stairs",
+  "key": {
+    "B": {
+      "item": "tconstruct:nahuatl"
+    }
+  },
+  "pattern": [
+    "B  ",
+    "BB ",
+    "BBB"
+  ],
+  "result": {
+    "count": 4,
+    "id": "tconstruct:nahuatl_stairs"
+  },
+  "show_notification": true
+}

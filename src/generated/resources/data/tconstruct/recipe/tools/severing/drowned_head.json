@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:severing",
+  "id": "tconstruct:tools/severing/drowned_head",
+  "entity": {
+    "type": "minecraft:drowned"
+  },
+  "looting_bonus": 0.01,
+  "per_level_chance": 0.05,
+  "result": "tconstruct:drowned_head"
+}

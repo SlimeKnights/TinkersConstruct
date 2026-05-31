@@ -1,0 +1,18 @@
+{
+  "values": [
+    "tconstruct:pickaxe",
+    "tconstruct:vein_hammer",
+    "tconstruct:mattock",
+    "tconstruct:pickadze",
+    "tconstruct:excavator",
+    "tconstruct:kama",
+    "tconstruct:crossbow",
+    "tconstruct:longbow",
+    "tconstruct:fishing_rod",
+    "tconstruct:flint_and_brick",
+    "tconstruct:war_pick",
+    "#tconstruct:modifiable/melee/primary",
+    "#tconstruct:modifiable/melee/sword",
+    "#tconstruct:modifiable/melee/parry"
+  ]
+}

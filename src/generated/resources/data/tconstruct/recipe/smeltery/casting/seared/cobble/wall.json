@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:casting_basin",
+  "id": "tconstruct:smeltery/casting/seared/cobble/wall",
+  "cast": {
+    "item": "minecraft:cobblestone_wall"
+  },
+  "cast_consumed": true,
+  "cooling_time": 113,
+  "fluid": {
+    "amount": 500,
+    "tag": "tconstruct:molten_clay"
+  },
+  "result": "tconstruct:seared_cobble_wall"
+}

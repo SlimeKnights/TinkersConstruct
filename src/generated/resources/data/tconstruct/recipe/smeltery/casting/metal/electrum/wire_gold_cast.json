@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/electrum/wire_gold_cast",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/wire"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:wires/electrum"
+    }
+  ],
+  "cooling_time": 42,
+  "fluid": {
+    "amount": 45,
+    "tag": "c:molten_electrum"
+  },
+  "result": {
+    "tag": "c:wires/electrum"
+  }
+}

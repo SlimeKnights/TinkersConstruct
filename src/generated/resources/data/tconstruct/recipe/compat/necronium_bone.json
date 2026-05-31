@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:compat/necronium_bone",
+  "cast": {
+    "tag": "c:wither_bones"
+  },
+  "cast_consumed": true,
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:ingots/uranium"
+    }
+  ],
+  "cooling_time": 61,
+  "fluid": {
+    "amount": 90,
+    "tag": "c:molten_uranium"
+  },
+  "result": "tconstruct:necronium_bone"
+}

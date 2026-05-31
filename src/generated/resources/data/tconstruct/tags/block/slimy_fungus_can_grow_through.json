@@ -1,0 +1,32 @@
+{
+  "values": [
+    "#minecraft:saplings",
+    "#minecraft:flowers",
+    "#minecraft:crops",
+    "#minecraft:cave_vines",
+    "minecraft:brown_mushroom",
+    "minecraft:red_mushroom",
+    "minecraft:sugar_cane",
+    "minecraft:lily_pad",
+    "minecraft:nether_wart",
+    "minecraft:cocoa",
+    "minecraft:chorus_plant",
+    "minecraft:chorus_flower",
+    "minecraft:sweet_berry_bush",
+    "minecraft:warped_fungus",
+    "minecraft:crimson_fungus",
+    "minecraft:weeping_vines",
+    "minecraft:weeping_vines_plant",
+    "minecraft:twisting_vines",
+    "minecraft:twisting_vines_plant",
+    "minecraft:spore_blossom",
+    "minecraft:moss_carpet",
+    "minecraft:big_dripleaf",
+    "minecraft:big_dripleaf_stem",
+    "minecraft:small_dripleaf",
+    "tconstruct:ichor_slime_tall_grass",
+    "tconstruct:blood_slime_tall_grass",
+    "tconstruct:ichor_slime_fern",
+    "tconstruct:blood_slime_fern"
+  ]
+}

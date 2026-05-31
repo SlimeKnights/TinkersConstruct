@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/vine",
+  "ingredient": {
+    "item": "minecraft:vine"
+  },
+  "material": "tconstruct:vine",
+  "needed": 1,
+  "value": 1
+}

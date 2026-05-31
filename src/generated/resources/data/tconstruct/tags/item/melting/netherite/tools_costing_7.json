@@ -1,0 +1,9 @@
+{
+  "values": [
+    "minecraft:netherite_leggings",
+    {
+      "id": "#c:tools/paxels/netherite",
+      "required": false
+    }
+  ]
+}

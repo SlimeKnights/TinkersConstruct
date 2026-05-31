@@ -1,0 +1,27 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/scorched/block",
+  "ingredient": [
+    {
+      "tag": "tconstruct:scorched_blocks"
+    },
+    {
+      "item": "tconstruct:scorched_ladder"
+    },
+    {
+      "item": "tconstruct:scorched_lamp"
+    },
+    {
+      "item": "tconstruct:scorched_bricks_stairs"
+    },
+    {
+      "item": "tconstruct:scorched_road_stairs"
+    }
+  ],
+  "result": {
+    "amount": 1000,
+    "fluid": "tconstruct:scorched_stone"
+  },
+  "temperature": 500,
+  "time": 100
+}

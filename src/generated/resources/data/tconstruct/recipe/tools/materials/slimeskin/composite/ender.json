@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:material_fluid",
+  "id": "tconstruct:tools/materials/slimeskin/composite/ender",
+  "fluid": {
+    "amount": 250,
+    "tag": "tconstruct:ender_slime"
+  },
+  "input": "tconstruct:leather",
+  "output": "tconstruct:enderslime_vine#slimeskin",
+  "temperature": 70
+}

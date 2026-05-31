@@ -1,0 +1,24 @@
+{
+  "type": "tconstruct:swappable_modifier",
+  "id": "tconstruct:tools/modifiers/slotless/embellishment/wood/wood_warped",
+  "allow_crystal": false,
+  "inputs": [
+    {
+      "item": "minecraft:warped_planks"
+    },
+    {
+      "item": "tconstruct:pattern"
+    },
+    {
+      "item": "minecraft:warped_planks"
+    }
+  ],
+  "result": {
+    "name": "tconstruct:embellishment",
+    "value": "tconstruct:wood#warped"
+  },
+  "tools": {
+    "tag": "tconstruct:modifiable/embellishment/wood"
+  },
+  "variant_formatter": "tconstruct:material"
+}

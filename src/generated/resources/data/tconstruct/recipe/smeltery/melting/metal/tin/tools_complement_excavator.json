@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "id": "tconstruct:smeltery/melting/metal/tin/tools_complement_excavator",
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:item_exists",
+      "item": "tools_complement:tin_excavator"
+    }
+  ],
+  "ingredient": {
+    "item": "tools_complement:tin_excavator"
+  },
+  "result": {
+    "amount": 990,
+    "tag": "c:molten_tin",
+    "unit_size": 10
+  },
+  "temperature": 225,
+  "time": 129
+}

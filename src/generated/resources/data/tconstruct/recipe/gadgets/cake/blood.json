@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": {
+      "item": "minecraft:egg"
+    },
+    "M": {
+      "item": "tconstruct:honey_bucket"
+    },
+    "S": {
+      "tag": "c:dusts/glowstone"
+    },
+    "W": {
+      "item": "tconstruct:blood_slime_tall_grass"
+    }
+  },
+  "pattern": [
+    "MMM",
+    "SES",
+    "WWW"
+  ],
+  "result": {
+    "id": "tconstruct:blood_cake"
+  },
+  "show_notification": true
+}

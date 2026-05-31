@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/rose_gold/ingot",
+  "ingredient": {
+    "tag": "c:ingots/rose_gold"
+  },
+  "material": "tconstruct:rose_gold",
+  "needed": 1,
+  "value": 1
+}

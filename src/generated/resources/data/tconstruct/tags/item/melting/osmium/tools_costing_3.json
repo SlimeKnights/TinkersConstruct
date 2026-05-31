@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#c:tools/pickaxes/osmium",
+      "required": false
+    },
+    {
+      "id": "#c:tools/axes/osmium",
+      "required": false
+    }
+  ]
+}

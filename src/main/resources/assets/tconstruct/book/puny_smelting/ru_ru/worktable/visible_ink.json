@@ -1,0 +1,13 @@
+{
+  "title": "Видимые чернила",
+  "image": {
+    "file": "tconstruct:book/images/worktable/visible_ink.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "Передумали скрывать модификатор? Ведро молока снова сделает его видимым."
+    }
+  ]
+}

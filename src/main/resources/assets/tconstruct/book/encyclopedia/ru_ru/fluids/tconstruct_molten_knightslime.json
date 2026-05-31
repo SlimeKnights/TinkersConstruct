@@ -1,0 +1,11 @@
+{
+  "text": "Весь бум без каких-либо последствий.",
+  "entity": [
+    "Power 2 explosion",
+    "Up to 4 Explosion Damage",
+    "No explosion knockback"
+  ],
+  "block": [
+    "Explosion ignores blocks"
+  ]
+}

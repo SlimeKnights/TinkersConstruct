@@ -1,0 +1,131 @@
+{
+  "parent": "tconstruct:foundry/fantastic_foundry",
+  "criteria": {
+    "scorched_alloyer": {
+      "conditions": {
+        "location": [
+          {
+            "block": "tconstruct:scorched_alloyer",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    },
+    "scorched_basin": {
+      "conditions": {
+        "location": [
+          {
+            "block": "tconstruct:scorched_basin",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    },
+    "scorched_faucet": {
+      "conditions": {
+        "location": [
+          {
+            "block": "tconstruct:scorched_faucet",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    },
+    "scorched_fuel_gauge": {
+      "conditions": {
+        "location": [
+          {
+            "block": "tconstruct:scorched_fuel_gauge",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    },
+    "scorched_fuel_tank": {
+      "conditions": {
+        "location": [
+          {
+            "block": "tconstruct:scorched_fuel_tank",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    },
+    "scorched_ingot_gauge": {
+      "conditions": {
+        "location": [
+          {
+            "block": "tconstruct:scorched_ingot_gauge",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    },
+    "scorched_ingot_tank": {
+      "conditions": {
+        "location": [
+          {
+            "block": "tconstruct:scorched_ingot_tank",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    },
+    "scorched_table": {
+      "conditions": {
+        "location": [
+          {
+            "block": "tconstruct:scorched_table",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.tconstruct.foundry.alloyer.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "tconstruct:scorched_alloyer"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.tconstruct.foundry.alloyer.title"
+    }
+  },
+  "requirements": [
+    [
+      "scorched_alloyer"
+    ],
+    [
+      "scorched_faucet"
+    ],
+    [
+      "scorched_table"
+    ],
+    [
+      "scorched_basin"
+    ],
+    [
+      "scorched_fuel_tank",
+      "scorched_fuel_gauge"
+    ],
+    [
+      "scorched_ingot_tank",
+      "scorched_ingot_gauge"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

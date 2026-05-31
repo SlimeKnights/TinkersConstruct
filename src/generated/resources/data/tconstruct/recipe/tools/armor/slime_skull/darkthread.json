@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:basin_tool_casting",
+  "id": "tconstruct:tools/armor/slime_skull/darkthread",
+  "cast": {
+    "item": "tconstruct:cave_spider_head"
+  },
+  "cast_purpose": "consumed_offset",
+  "extra_materials": [
+    "tconstruct:darkthread"
+  ],
+  "item_cost": 5,
+  "result": "tconstruct:slime_helmet"
+}

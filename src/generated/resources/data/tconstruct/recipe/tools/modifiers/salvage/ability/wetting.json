@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:modifier_salvage",
+  "id": "tconstruct:tools/modifiers/salvage/ability/wetting",
+  "modifier": "tconstruct:wetting",
+  "slots": {
+    "abilities": 1
+  },
+  "tools": [
+    {
+      "tag": "tconstruct:modifiable/armor/leggings"
+    },
+    {
+      "tag": "tconstruct:modifiable/shields"
+    }
+  ]
+}

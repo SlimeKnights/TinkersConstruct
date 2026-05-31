@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/copper/geore/block",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:geore_blocks/copper"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:geore_blocks/copper"
+  },
+  "result": {
+    "amount": 360,
+    "tag": "c:molten_copper"
+  },
+  "temperature": 500,
+  "time": 100
+}

@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:table_casting_part_swapping",
+  "id": "tconstruct:tools/armor/travelers/swapping_metal",
+  "index": 0,
+  "item_cost": 2,
+  "tools": [
+    {
+      "item": "tconstruct:travelers_helmet"
+    },
+    {
+      "item": "tconstruct:travelers_chestplate"
+    },
+    {
+      "item": "tconstruct:travelers_leggings"
+    },
+    {
+      "item": "tconstruct:travelers_boots"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/iron/ingot_2",
+  "ingredient": [
+    {
+      "item": "minecraft:heavy_weighted_pressure_plate"
+    },
+    {
+      "item": "minecraft:iron_door"
+    },
+    {
+      "item": "minecraft:smithing_table"
+    }
+  ],
+  "result": {
+    "amount": 180,
+    "tag": "c:molten_iron"
+  },
+  "temperature": 800,
+  "time": 85
+}

@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/silver/ingot_gold_cast",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/ingot"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:ingots/silver"
+    }
+  ],
+  "cooling_time": 60,
+  "fluid": {
+    "amount": 90,
+    "tag": "c:molten_silver"
+  },
+  "result": {
+    "tag": "c:ingots/silver"
+  }
+}

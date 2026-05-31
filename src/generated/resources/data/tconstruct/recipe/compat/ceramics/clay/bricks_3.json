@@ -1,0 +1,27 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:compat/ceramics/clay/bricks_3",
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "ceramics"
+    }
+  ],
+  "ingredient": [
+    {
+      "tag": "ceramics:terracotta_cisterns"
+    },
+    {
+      "item": "ceramics:empty_clay_bucket"
+    },
+    {
+      "item": "ceramics:cracked_empty_clay_bucket"
+    }
+  ],
+  "result": {
+    "amount": 750,
+    "fluid": "tconstruct:molten_clay"
+  },
+  "temperature": 450,
+  "time": 80
+}

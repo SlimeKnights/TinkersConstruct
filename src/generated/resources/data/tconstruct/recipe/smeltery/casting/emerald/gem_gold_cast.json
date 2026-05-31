@@ -1,0 +1,15 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/emerald/gem_gold_cast",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/gem"
+  },
+  "cooling_time": 68,
+  "fluid": {
+    "amount": 100,
+    "tag": "tconstruct:molten_emerald"
+  },
+  "result": {
+    "tag": "c:gems/emerald"
+  }
+}

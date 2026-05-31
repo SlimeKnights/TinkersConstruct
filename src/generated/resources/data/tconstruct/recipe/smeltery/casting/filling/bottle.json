@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:casting_table_potion",
+  "id": "tconstruct:smeltery/casting/filling/bottle",
+  "bottle": {
+    "item": "minecraft:glass_bottle"
+  },
+  "fluid": {
+    "amount": 250,
+    "tag": "c:potion"
+  },
+  "result": "minecraft:potion"
+}

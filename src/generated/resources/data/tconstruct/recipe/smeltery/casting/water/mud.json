@@ -1,0 +1,15 @@
+{
+  "type": "tconstruct:casting_basin",
+  "id": "tconstruct:smeltery/casting/water/mud",
+  "cast": {
+    "type": "tconstruct:block_tag",
+    "tag": "minecraft:convertable_to_mud"
+  },
+  "cast_consumed": true,
+  "cooling_time": 47,
+  "fluid": {
+    "amount": 250,
+    "fluid": "minecraft:water"
+  },
+  "result": "minecraft:mud"
+}

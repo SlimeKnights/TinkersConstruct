@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/ancient/nugget",
+  "ingredient": {
+    "tag": "c:nuggets/netherite_scrap"
+  },
+  "material": "tconstruct:ancient",
+  "needed": 9,
+  "value": 1
+}

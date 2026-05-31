@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "tconstruct:blazewood_stairs",
+  "key": {
+    "B": {
+      "item": "tconstruct:blazewood"
+    }
+  },
+  "pattern": [
+    "B  ",
+    "BB ",
+    "BBB"
+  ],
+  "result": {
+    "count": 4,
+    "id": "tconstruct:blazewood_stairs"
+  },
+  "show_notification": true
+}

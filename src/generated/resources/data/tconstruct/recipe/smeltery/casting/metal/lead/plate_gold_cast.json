@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/lead/plate_gold_cast",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/plate"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:plates/lead"
+    }
+  ],
+  "cooling_time": 43,
+  "fluid": {
+    "amount": 90,
+    "tag": "c:molten_lead"
+  },
+  "result": {
+    "tag": "c:plates/lead"
+  }
+}

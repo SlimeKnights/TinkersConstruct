@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:part_builder",
+  "id": "tconstruct:tools/parts/builder/laces",
+  "cost": 2,
+  "pattern": "tconstruct:laces",
+  "pattern_item": {
+    "tag": "tconstruct:patterns/default"
+  },
+  "result": {
+    "item": "tconstruct:laces"
+  }
+}

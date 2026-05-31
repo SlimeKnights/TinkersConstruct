@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:incremental_modifier",
+  "id": "tconstruct:tools/modifiers/slotless/blindshot",
+  "allow_crystal": true,
+  "amount_per_item": 1,
+  "input": {
+    "item": "minecraft:dirt"
+  },
+  "needed_per_level": 10,
+  "result": "tconstruct:blindshot",
+  "tools": {
+    "tag": "tconstruct:modifiable/ranged"
+  }
+}

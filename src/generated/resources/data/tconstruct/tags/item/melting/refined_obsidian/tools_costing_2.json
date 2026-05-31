@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#c:tools/swords/refined_obsidian",
+      "required": false
+    },
+    {
+      "id": "#c:tools/hoes/refined_obsidian",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:material_fluid",
+  "id": "tconstruct:tools/materials/composite/iron_oxidized",
+  "fluid": {
+    "amount": 250,
+    "tag": "mantle:water"
+  },
+  "input": "tconstruct:iron",
+  "output": "tconstruct:iron#oxidized",
+  "temperature": 1
+}

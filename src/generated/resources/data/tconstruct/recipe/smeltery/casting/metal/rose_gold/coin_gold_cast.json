@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/rose_gold/coin_gold_cast",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/coin"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:coins/rose_gold"
+    }
+  ],
+  "cooling_time": 30,
+  "fluid": {
+    "amount": 30,
+    "tag": "c:molten_rose_gold"
+  },
+  "result": {
+    "tag": "c:coins/rose_gold"
+  }
+}

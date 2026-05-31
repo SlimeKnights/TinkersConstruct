@@ -1,0 +1,25 @@
+{
+  "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/ability/parrying",
+  "allow_crystal": true,
+  "check_trait_level": true,
+  "inputs": [
+    {
+      "tag": "minecraft:planks"
+    },
+    {
+      "tag": "c:ingots/steel"
+    },
+    {
+      "tag": "minecraft:planks"
+    }
+  ],
+  "level": 1,
+  "result": "tconstruct:parrying",
+  "slots": {
+    "abilities": 1
+  },
+  "tools": {
+    "tag": "tconstruct:modifiable/melee/parry"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "text": "Вам когда-нибудь хотелось стать призраком? Это поможет вам достичь цели.",
+  "entity": [
+    "Power 1 explosion",
+    "Up to 2 Explosion Damage"
+  ],
+  "block": [
+    "Explosion breaks blocks",
+    "Explosion causes fires"
+  ]
+}

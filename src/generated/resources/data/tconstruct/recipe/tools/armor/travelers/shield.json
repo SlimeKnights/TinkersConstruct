@@ -1,0 +1,30 @@
+{
+  "type": "tconstruct:crafting_shaped_materials",
+  "id": "tconstruct:tools/armor/travelers/shield",
+  "category": "equipment",
+  "extra_materials": [
+    "tconstruct:leather"
+  ],
+  "key": {
+    "c": {
+      "type": "tconstruct:material_value",
+      "material": {
+        "type": "tconstruct:stat_type",
+        "stat_type": "tconstruct:shield_core"
+      },
+      "value": 1
+    },
+    "l": {
+      "tag": "c:leather"
+    }
+  },
+  "parts": "c",
+  "pattern": [
+    "cl",
+    "lc"
+  ],
+  "result": {
+    "item": "tconstruct:travelers_shield"
+  },
+  "show_notification": true
+}

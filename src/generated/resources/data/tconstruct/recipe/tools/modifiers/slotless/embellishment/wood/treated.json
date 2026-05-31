@@ -1,0 +1,30 @@
+{
+  "type": "tconstruct:swappable_modifier",
+  "id": "tconstruct:tools/modifiers/slotless/embellishment/wood/treated",
+  "allow_crystal": false,
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:treated_wood"
+    }
+  ],
+  "inputs": [
+    {
+      "tag": "c:treated_wood"
+    },
+    {
+      "item": "tconstruct:pattern"
+    },
+    {
+      "tag": "c:treated_wood"
+    }
+  ],
+  "result": {
+    "name": "tconstruct:embellishment",
+    "value": "tconstruct:treated_wood"
+  },
+  "tools": {
+    "tag": "tconstruct:modifiable/embellishment/wood"
+  },
+  "variant_formatter": "tconstruct:material"
+}

@@ -1,0 +1,17 @@
+{
+  "type": "tconstruct:part_builder",
+  "id": "tconstruct:tools/parts/builder/adze_head",
+  "cost": 2,
+  "pattern": "tconstruct:adze_head",
+  "pattern_item": [
+    {
+      "tag": "tconstruct:patterns/default"
+    },
+    {
+      "item": "tconstruct:adze_head_cast"
+    }
+  ],
+  "result": {
+    "item": "tconstruct:adze_head"
+  }
+}

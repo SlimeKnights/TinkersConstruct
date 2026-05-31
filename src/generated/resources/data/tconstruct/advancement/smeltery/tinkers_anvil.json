@@ -1,0 +1,51 @@
+{
+  "parent": "tconstruct:smeltery/structure",
+  "criteria": {
+    "crafted_nether": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:scorched_anvil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "crafted_overworld": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:tinkers_anvil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.tconstruct.smeltery.tinkers_anvil.description"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "item": "tconstruct:tinkers_anvil"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.tconstruct.smeltery.tinkers_anvil.title"
+    }
+  },
+  "requirements": [
+    [
+      "crafted_overworld",
+      "crafted_nether"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

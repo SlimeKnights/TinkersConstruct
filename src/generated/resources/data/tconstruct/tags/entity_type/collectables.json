@@ -1,0 +1,13 @@
+{
+  "values": [
+    "minecraft:item",
+    "tconstruct:indestructible_item",
+    "minecraft:experience_orb",
+    "#c:tridents",
+    "#tconstruct:collectables/discardable",
+    {
+      "id": "#c:collectables",
+      "required": false
+    }
+  ]
+}

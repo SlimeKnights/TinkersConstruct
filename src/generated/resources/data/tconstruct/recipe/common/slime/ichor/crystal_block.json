@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "tconstruct:slime_crystal_block",
+  "key": {
+    "#": {
+      "item": "tconstruct:ichor_slime_crystal"
+    }
+  },
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "result": {
+    "id": "tconstruct:ichor_slime_crystal_block"
+  },
+  "show_notification": true
+}

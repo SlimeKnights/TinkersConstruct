@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/refined_obsidian/nugget_sand_cast",
+  "cast": {
+    "tag": "tconstruct:casts/single_use/nugget"
+  },
+  "cast_consumed": true,
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:nuggets/refined_obsidian"
+    }
+  ],
+  "cooling_time": 27,
+  "fluid": {
+    "amount": 10,
+    "tag": "c:molten_refined_obsidian"
+  },
+  "result": {
+    "tag": "c:nuggets/refined_obsidian"
+  }
+}

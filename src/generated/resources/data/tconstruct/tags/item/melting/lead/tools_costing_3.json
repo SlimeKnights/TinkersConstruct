@@ -1,0 +1,16 @@
+{
+  "values": [
+    {
+      "id": "#c:tools/pickaxes/lead",
+      "required": false
+    },
+    {
+      "id": "#c:tools/axes/lead",
+      "required": false
+    },
+    {
+      "id": "tools_complement:lead_sickle",
+      "required": false
+    }
+  ]
+}

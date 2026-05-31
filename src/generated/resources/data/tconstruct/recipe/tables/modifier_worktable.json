@@ -1,0 +1,23 @@
+{
+  "type": "mantle:crafting_shaped_retextured",
+  "category": "misc",
+  "key": {
+    "r": {
+      "tag": "tconstruct:workstation_rock"
+    },
+    "s": {
+      "tag": "tconstruct:seared_blocks"
+    }
+  },
+  "match_all": true,
+  "pattern": [
+    "sss",
+    "r r",
+    "r r"
+  ],
+  "result": {
+    "id": "tconstruct:modifier_worktable"
+  },
+  "show_notification": true,
+  "texture": "r"
+}

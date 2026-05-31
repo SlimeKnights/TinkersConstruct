@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/aluminum/wire_gold_cast",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/wire"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:wires/aluminum"
+    }
+  ],
+  "cooling_time": 33,
+  "fluid": {
+    "amount": 45,
+    "tag": "c:molten_aluminum"
+  },
+  "result": {
+    "tag": "c:wires/aluminum"
+  }
+}

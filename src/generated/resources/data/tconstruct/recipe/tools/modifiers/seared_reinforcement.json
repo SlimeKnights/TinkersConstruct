@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:tools/modifiers/seared_reinforcement",
+  "cast": {
+    "item": "tconstruct:pattern"
+  },
+  "cast_consumed": true,
+  "cooling_time": 89,
+  "fluid": [
+    {
+      "amount": 250,
+      "tag": "tconstruct:seared_stone"
+    },
+    {
+      "amount": 250,
+      "tag": "tconstruct:scorched_stone"
+    }
+  ],
+  "result": "tconstruct:seared_reinforcement"
+}

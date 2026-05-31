@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#c:armors/leggings/osmium",
+      "required": false
+    },
+    {
+      "id": "#c:tools/paxels/osmium",
+      "required": false
+    }
+  ]
+}

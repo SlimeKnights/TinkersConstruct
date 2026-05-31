@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material_melting",
+  "id": "tconstruct:tools/materials/melting/ancient_hide",
+  "input": "tconstruct:ancient_hide",
+  "result": {
+    "amount": 90,
+    "fluid": "tconstruct:molten_debris"
+  },
+  "temperature": 1175
+}

@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:table_tool_casting",
+  "id": "tconstruct:tools/armor/plate/plate_shield",
+  "cast": {
+    "type": "tconstruct:material",
+    "item": "tconstruct:shield_core"
+  },
+  "cast_purpose": "first_material",
+  "item_cost": 3,
+  "result": "tconstruct:plate_shield"
+}

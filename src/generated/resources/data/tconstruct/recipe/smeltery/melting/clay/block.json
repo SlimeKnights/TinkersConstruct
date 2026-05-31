@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/clay/block",
+  "ingredient": {
+    "item": "minecraft:clay"
+  },
+  "result": {
+    "amount": 1000,
+    "fluid": "tconstruct:molten_clay"
+  },
+  "temperature": 450,
+  "time": 48
+}

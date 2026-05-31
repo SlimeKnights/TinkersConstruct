@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/iron/anvil",
+  "ingredient": [
+    {
+      "item": "minecraft:anvil"
+    },
+    {
+      "item": "minecraft:chipped_anvil"
+    },
+    {
+      "item": "minecraft:damaged_anvil"
+    }
+  ],
+  "result": {
+    "amount": 2790,
+    "tag": "c:molten_iron"
+  },
+  "temperature": 800,
+  "time": 335
+}

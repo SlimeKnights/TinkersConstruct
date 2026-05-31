@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/scorched_stone/block",
+  "ingredient": {
+    "tag": "tconstruct:scorched_blocks"
+  },
+  "leftover": "tconstruct:scorched_brick",
+  "material": "tconstruct:scorched_stone",
+  "needed": 1,
+  "value": 4
+}

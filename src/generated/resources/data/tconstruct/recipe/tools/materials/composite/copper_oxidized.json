@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:material_fluid",
+  "id": "tconstruct:tools/materials/composite/copper_oxidized",
+  "fluid": {
+    "amount": 250,
+    "tag": "mantle:water"
+  },
+  "input": "tconstruct:copper",
+  "output": "tconstruct:copper#oxidized",
+  "temperature": 1
+}

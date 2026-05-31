@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:part_builder_tool_recycling",
+  "id": "tconstruct:tools/recycling/plate_shield",
+  "parts": [
+    "tconstruct:shield_core",
+    "tconstruct:repair_kit"
+  ],
+  "pattern": {
+    "item": "tconstruct:venom_bottle"
+  },
+  "tools": {
+    "item": "tconstruct:plate_shield"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/nicrosil/ingot_gold_cast",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/ingot"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:ingots/nicrosil"
+    }
+  ],
+  "cooling_time": 69,
+  "fluid": {
+    "amount": 90,
+    "tag": "c:molten_nicrosil"
+  },
+  "result": {
+    "tag": "c:ingots/nicrosil"
+  }
+}

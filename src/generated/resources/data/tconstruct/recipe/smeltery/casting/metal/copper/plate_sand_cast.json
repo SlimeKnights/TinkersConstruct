@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/copper/plate_sand_cast",
+  "cast": {
+    "tag": "tconstruct:casts/single_use/plate"
+  },
+  "cast_consumed": true,
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:plates/copper"
+    }
+  ],
+  "cooling_time": 50,
+  "fluid": {
+    "amount": 90,
+    "tag": "c:molten_copper"
+  },
+  "result": {
+    "tag": "c:plates/copper"
+  }
+}

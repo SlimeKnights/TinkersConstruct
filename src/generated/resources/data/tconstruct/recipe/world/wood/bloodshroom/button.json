@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "group": "wooden_button",
+  "ingredients": [
+    {
+      "item": "tconstruct:bloodshroom_planks"
+    }
+  ],
+  "result": {
+    "id": "tconstruct:bloodshroom_button"
+  }
+}

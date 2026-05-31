@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:part_builder",
+  "id": "tconstruct:tools/parts/builder/fletching",
+  "allow_uncraftable": true,
+  "cost": 1,
+  "pattern": "tconstruct:fletching",
+  "pattern_item": [
+    {
+      "tag": "tconstruct:patterns/default"
+    },
+    {
+      "item": "tconstruct:arrow_cast"
+    }
+  ],
+  "result": {
+    "item": "tconstruct:fletching"
+  }
+}

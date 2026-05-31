@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.3,
+  "ingredient": {
+    "item": "tconstruct:grout"
+  },
+  "result": {
+    "id": "tconstruct:seared_brick"
+  }
+}

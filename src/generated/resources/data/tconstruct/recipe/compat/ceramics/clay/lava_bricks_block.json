@@ -1,0 +1,33 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:compat/ceramics/clay/lava_bricks_block",
+  "byproducts": [
+    {
+      "amount": 100,
+      "fluid": "minecraft:lava"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "ceramics"
+    }
+  ],
+  "ingredient": [
+    {
+      "item": "ceramics:lava_bricks"
+    },
+    {
+      "item": "ceramics:lava_bricks_stairs"
+    },
+    {
+      "item": "ceramics:lava_bricks_wall"
+    }
+  ],
+  "result": {
+    "amount": 1000,
+    "fluid": "tconstruct:molten_clay"
+  },
+  "temperature": 450,
+  "time": 96
+}

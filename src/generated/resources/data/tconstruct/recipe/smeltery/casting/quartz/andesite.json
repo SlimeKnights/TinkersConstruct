@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:casting_basin",
+  "id": "tconstruct:smeltery/casting/quartz/andesite",
+  "cast": {
+    "tag": "c:cobblestone"
+  },
+  "cast_consumed": true,
+  "cooling_time": 41,
+  "fluid": {
+    "amount": 50,
+    "tag": "tconstruct:molten_quartz"
+  },
+  "result": "minecraft:andesite"
+}

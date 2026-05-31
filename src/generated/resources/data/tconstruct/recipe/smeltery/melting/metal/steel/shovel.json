@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "id": "tconstruct:smeltery/melting/metal/steel/shovel",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "tconstruct:melting/steel/tools_costing_1"
+    }
+  ],
+  "ingredient": {
+    "tag": "tconstruct:melting/steel/tools_costing_1"
+  },
+  "result": {
+    "amount": 90,
+    "tag": "c:molten_steel",
+    "unit_size": 10
+  },
+  "temperature": 950,
+  "time": 65
+}

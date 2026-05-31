@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/gold/platform",
+  "ingredient": {
+    "item": "tconstruct:gold_platform"
+  },
+  "result": {
+    "amount": 100,
+    "tag": "c:molten_gold"
+  },
+  "temperature": 700,
+  "time": 60
+}

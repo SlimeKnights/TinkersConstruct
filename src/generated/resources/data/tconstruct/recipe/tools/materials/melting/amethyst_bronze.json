@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material_melting",
+  "id": "tconstruct:tools/materials/melting/amethyst_bronze",
+  "input": "tconstruct:amethyst_bronze",
+  "result": {
+    "amount": 90,
+    "tag": "c:molten_amethyst_bronze"
+  },
+  "temperature": 820
+}

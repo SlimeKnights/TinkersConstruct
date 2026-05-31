@@ -1,0 +1,7 @@
+{
+  "values": [
+    "#tconstruct:modifiable/interactable/left",
+    "#tconstruct:modifiable/interactable/right",
+    "#tconstruct:modifiable/interactable/armor"
+  ]
+}

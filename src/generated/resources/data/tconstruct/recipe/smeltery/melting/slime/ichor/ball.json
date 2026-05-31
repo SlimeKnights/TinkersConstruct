@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/slime/ichor/ball",
+  "byproducts": [
+    {
+      "amount": 200,
+      "fluid": "tconstruct:ichor"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:slimeball/ichor"
+  },
+  "result": {
+    "amount": 10,
+    "fluid": "tconstruct:blazing_blood"
+  },
+  "temperature": 1500,
+  "time": 80
+}

@@ -1,0 +1,35 @@
+{
+  "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/ability/wetting",
+  "allow_crystal": true,
+  "inputs": [
+    {
+      "tag": "c:dusts/redstone"
+    },
+    {
+      "type": "tconstruct:no_container",
+      "tag": "tconstruct:tanks"
+    },
+    {
+      "tag": "c:dusts/redstone"
+    },
+    {
+      "tag": "c:ingots/copper"
+    },
+    {
+      "tag": "c:ingots/copper"
+    }
+  ],
+  "result": "tconstruct:wetting",
+  "slots": {
+    "abilities": 1
+  },
+  "tools": [
+    {
+      "tag": "tconstruct:modifiable/armor/leggings"
+    },
+    {
+      "tag": "tconstruct:modifiable/shields"
+    }
+  ]
+}

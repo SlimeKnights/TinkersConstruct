@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/cadmium/nugget_gold_cast",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/nugget"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:nuggets/cadmium"
+    }
+  ],
+  "cooling_time": 14,
+  "fluid": {
+    "amount": 10,
+    "tag": "c:molten_cadmium"
+  },
+  "result": {
+    "tag": "c:nuggets/cadmium"
+  }
+}

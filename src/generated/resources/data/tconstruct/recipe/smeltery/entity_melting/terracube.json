@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:entity_melting",
+  "id": "tconstruct:smeltery/entity_melting/terracube",
+  "damage": 2,
+  "entity": {
+    "type": "tconstruct:terracube"
+  },
+  "result": {
+    "amount": 25,
+    "fluid": "tconstruct:molten_clay"
+  }
+}

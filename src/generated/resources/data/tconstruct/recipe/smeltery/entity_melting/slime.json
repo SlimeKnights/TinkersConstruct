@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:entity_melting",
+  "id": "tconstruct:smeltery/entity_melting/slime",
+  "damage": 2,
+  "entity": {
+    "type": "minecraft:slime"
+  },
+  "result": {
+    "amount": 25,
+    "tag": "c:slime"
+  }
+}

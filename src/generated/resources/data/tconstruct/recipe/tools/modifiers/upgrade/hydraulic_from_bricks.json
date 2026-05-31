@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:incremental_modifier",
+  "id": "tconstruct:tools/modifiers/upgrade/hydraulic_from_bricks",
+  "allow_crystal": false,
+  "amount_per_item": 9,
+  "input": {
+    "item": "minecraft:prismarine_bricks"
+  },
+  "leftover": "minecraft:prismarine_shard",
+  "level": {
+    "max": 5
+  },
+  "needed_per_level": 36,
+  "result": "tconstruct:hydraulic",
+  "slots": {
+    "upgrades": 1
+  },
+  "tools": {
+    "tag": "tconstruct:modifiable/harvest"
+  }
+}

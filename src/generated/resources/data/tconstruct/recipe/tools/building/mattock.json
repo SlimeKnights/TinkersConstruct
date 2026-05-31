@@ -1,0 +1,6 @@
+{
+  "type": "tconstruct:tool_building",
+  "id": "tconstruct:tools/building/mattock",
+  "result": "tconstruct:mattock",
+  "result_count": 1
+}

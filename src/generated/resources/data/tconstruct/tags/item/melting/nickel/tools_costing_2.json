@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#c:tools/swords/nickel",
+      "required": false
+    },
+    {
+      "id": "#c:tools/hoes/nickel",
+      "required": false
+    }
+  ]
+}

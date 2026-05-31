@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:item_part_builder",
+  "id": "tconstruct:smeltery/casts/red_sand/builder_block/broad_blade",
+  "pattern": "tconstruct:broad_blade",
+  "pattern_item": {
+    "tag": "c:sand/red"
+  },
+  "result": {
+    "count": 4,
+    "item": "tconstruct:broad_blade_red_sand_cast"
+  }
+}

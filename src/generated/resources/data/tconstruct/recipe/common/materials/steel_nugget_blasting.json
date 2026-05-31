@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 25,
+  "experience": 0.2,
+  "ingredient": {
+    "item": "tconstruct:steel_shard"
+  },
+  "result": {
+    "id": "tconstruct:steel_nugget"
+  }
+}

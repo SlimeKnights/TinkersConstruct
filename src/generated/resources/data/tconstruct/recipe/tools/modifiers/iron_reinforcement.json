@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:tools/modifiers/iron_reinforcement",
+  "cast": {
+    "item": "tconstruct:pattern"
+  },
+  "cast_consumed": true,
+  "cooling_time": 60,
+  "fluid": {
+    "amount": 90,
+    "tag": "c:molten_iron"
+  },
+  "result": "tconstruct:iron_reinforcement"
+}

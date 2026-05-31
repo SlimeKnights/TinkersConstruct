@@ -1,0 +1,20 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": {
+    "type": "neoforge:and",
+    "values": [
+      {
+        "type": "neoforge:or",
+        "values": [
+          "#minecraft:is_end"
+        ]
+      },
+      {
+        "type": "neoforge:not",
+        "value": "minecraft:the_end"
+      }
+    ]
+  },
+  "features": "tconstruct:ender_geode",
+  "step": "local_modifications"
+}

@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/venom/fermented_eye",
+  "ingredient": {
+    "item": "minecraft:fermented_spider_eye"
+  },
+  "result": {
+    "amount": 500,
+    "fluid": "tconstruct:venom"
+  },
+  "temperature": 10,
+  "time": 29
+}

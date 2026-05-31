@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/knightmetal/block",
+  "ingredient": {
+    "tag": "c:storage_blocks/knightmetal"
+  },
+  "leftover": {
+    "count": 1,
+    "tag": "c:ingots/knightmetal"
+  },
+  "material": "tconstruct:knightmetal",
+  "needed": 1,
+  "value": 9
+}

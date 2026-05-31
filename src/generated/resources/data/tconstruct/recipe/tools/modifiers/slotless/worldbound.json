@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/slotless/worldbound",
+  "allow_crystal": true,
+  "inputs": [
+    {
+      "tag": "c:ingots/netherite_scrap"
+    }
+  ],
+  "level": 1,
+  "result": "tconstruct:worldbound",
+  "tools": {
+    "type": "neoforge:difference",
+    "base": {
+      "tag": "tconstruct:modifiable"
+    },
+    "subtracted": {
+      "tag": "tconstruct:modifiable/single_use"
+    }
+  }
+}

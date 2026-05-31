@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:material_fluid",
+  "id": "tconstruct:tools/materials/composite/scorched_stone",
+  "fluid": {
+    "amount": 125,
+    "tag": "c:magma"
+  },
+  "input": "tconstruct:flint",
+  "output": "tconstruct:scorched_stone",
+  "temperature": 300
+}

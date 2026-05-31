@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/knightslime/nugget",
+  "ingredient": {
+    "tag": "c:nuggets/knightslime"
+  },
+  "result": {
+    "amount": 10,
+    "fluid": "tconstruct:molten_knightslime"
+  },
+  "temperature": 1125,
+  "time": 23
+}

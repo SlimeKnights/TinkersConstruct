@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/wood/planks/warped",
+  "ingredient": {
+    "item": "minecraft:warped_planks"
+  },
+  "material": "tconstruct:wood#warped",
+  "needed": 1,
+  "value": 1
+}

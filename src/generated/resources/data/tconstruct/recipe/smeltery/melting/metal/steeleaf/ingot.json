@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/steeleaf/ingot",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:ingots/steeleaf"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:ingots/steeleaf"
+  },
+  "result": {
+    "amount": 90,
+    "fluid": "tconstruct:molten_steeleaf"
+  },
+  "temperature": 934,
+  "time": 64
+}

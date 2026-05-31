@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/water/snow_layer",
+  "ingredient": {
+    "item": "minecraft:snow"
+  },
+  "result": {
+    "amount": 125,
+    "fluid": "minecraft:water"
+  },
+  "temperature": 0,
+  "time": 14
+}

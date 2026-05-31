@@ -1,0 +1,383 @@
+{
+  "parent": "tconstruct:smeltery/gold_casting",
+  "criteria": {
+    "adze_head": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:adze_head_cast"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "boots_plating": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:boots_plating_cast"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "bow_grip": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:bow_grip_cast"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "bow_limb": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:bow_limb_cast"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "broad_axe_head": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:broad_axe_head_cast"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "broad_blade": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:broad_blade_cast"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "chestplate_plating": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:chestplate_plating_cast"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "gem": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:gem_cast"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "hammer_head": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:hammer_head_cast"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "helmet_plating": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:helmet_plating_cast"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "ingot": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:ingot_cast"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "large_plate": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:large_plate_cast"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "leggings_plating": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:leggings_plating_cast"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "maille": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:maille_cast"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "nugget": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:nugget_cast"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "pick_head": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:pick_head_cast"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "repair_kit": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:repair_kit_cast"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "rod": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:rod_cast"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "small_axe_head": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:small_axe_head_cast"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "small_blade": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:small_blade_cast"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "tool_binding": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:tool_binding_cast"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "tool_handle": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:tool_handle_cast"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "tough_binding": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:tough_binding_cast"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "tough_handle": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:tough_handle_cast"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.tconstruct.smeltery.cast_collector.description"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "item": "tconstruct:hammer_head_cast"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.tconstruct.smeltery.cast_collector.title"
+    }
+  },
+  "requirements": [
+    [
+      "ingot"
+    ],
+    [
+      "nugget"
+    ],
+    [
+      "gem"
+    ],
+    [
+      "rod"
+    ],
+    [
+      "repair_kit"
+    ],
+    [
+      "pick_head"
+    ],
+    [
+      "small_axe_head"
+    ],
+    [
+      "small_blade"
+    ],
+    [
+      "adze_head"
+    ],
+    [
+      "hammer_head"
+    ],
+    [
+      "broad_blade"
+    ],
+    [
+      "broad_axe_head"
+    ],
+    [
+      "large_plate"
+    ],
+    [
+      "tool_binding"
+    ],
+    [
+      "tough_binding"
+    ],
+    [
+      "tool_handle"
+    ],
+    [
+      "tough_handle"
+    ],
+    [
+      "bow_limb"
+    ],
+    [
+      "bow_grip"
+    ],
+    [
+      "helmet_plating"
+    ],
+    [
+      "chestplate_plating"
+    ],
+    [
+      "leggings_plating"
+    ],
+    [
+      "boots_plating"
+    ],
+    [
+      "maille"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

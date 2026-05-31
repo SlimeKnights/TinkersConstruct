@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:table_casting_material",
+  "id": "tconstruct:tools/parts/casting/large_plate_gold_cast",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/large_plate"
+  },
+  "item_cost": 4,
+  "result": "tconstruct:large_plate"
+}

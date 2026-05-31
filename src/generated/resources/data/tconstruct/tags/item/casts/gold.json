@@ -1,0 +1,33 @@
+{
+  "values": [
+    "tconstruct:ingot_cast",
+    "tconstruct:nugget_cast",
+    "tconstruct:gem_cast",
+    "tconstruct:rod_cast",
+    "tconstruct:repair_kit_cast",
+    "tconstruct:plate_cast",
+    "tconstruct:gear_cast",
+    "tconstruct:coin_cast",
+    "tconstruct:wire_cast",
+    "tconstruct:pick_head_cast",
+    "tconstruct:small_axe_head_cast",
+    "tconstruct:small_blade_cast",
+    "tconstruct:adze_head_cast",
+    "tconstruct:hammer_head_cast",
+    "tconstruct:broad_axe_head_cast",
+    "tconstruct:broad_blade_cast",
+    "tconstruct:large_plate_cast",
+    "tconstruct:tool_binding_cast",
+    "tconstruct:tough_binding_cast",
+    "tconstruct:tool_handle_cast",
+    "tconstruct:tough_handle_cast",
+    "tconstruct:bow_limb_cast",
+    "tconstruct:bow_grip_cast",
+    "tconstruct:helmet_plating_cast",
+    "tconstruct:chestplate_plating_cast",
+    "tconstruct:leggings_plating_cast",
+    "tconstruct:boots_plating_cast",
+    "tconstruct:maille_cast",
+    "tconstruct:arrow_cast"
+  ]
+}

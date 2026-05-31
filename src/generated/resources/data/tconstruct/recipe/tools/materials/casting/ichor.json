@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material_fluid",
+  "id": "tconstruct:tools/materials/casting/ichor",
+  "fluid": {
+    "amount": 250,
+    "tag": "tconstruct:ichor"
+  },
+  "output": "tconstruct:ichor",
+  "temperature": 700
+}

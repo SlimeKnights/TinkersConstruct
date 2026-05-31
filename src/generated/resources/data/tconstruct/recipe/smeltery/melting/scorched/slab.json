@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/scorched/slab",
+  "ingredient": [
+    {
+      "item": "tconstruct:scorched_bricks_slab"
+    },
+    {
+      "item": "tconstruct:scorched_bricks_slab"
+    },
+    {
+      "item": "tconstruct:scorched_road_slab"
+    }
+  ],
+  "result": {
+    "amount": 500,
+    "fluid": "tconstruct:scorched_stone"
+  },
+  "temperature": 500,
+  "time": 75
+}

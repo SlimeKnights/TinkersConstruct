@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material_fluid",
+  "id": "tconstruct:tools/materials/casting/knightslime",
+  "fluid": {
+    "amount": 90,
+    "tag": "tconstruct:molten_knightslime"
+  },
+  "output": "tconstruct:knightslime",
+  "temperature": 1125
+}

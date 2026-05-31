@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material_fluid",
+  "id": "tconstruct:tools/materials/casting/glass",
+  "fluid": {
+    "amount": 250,
+    "tag": "tconstruct:molten_glass"
+  },
+  "output": "tconstruct:glass",
+  "temperature": 750
+}

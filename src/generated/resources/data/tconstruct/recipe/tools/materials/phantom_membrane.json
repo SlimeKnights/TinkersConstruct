@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/phantom_membrane",
+  "ingredient": {
+    "item": "minecraft:phantom_membrane"
+  },
+  "material": "tconstruct:phantom",
+  "needed": 1,
+  "value": 1
+}

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "tag": "c:chests/wooden"
+    },
+    "p": {
+      "item": "tconstruct:pattern"
+    },
+    "s": {
+      "tag": "c:rods/wooden"
+    },
+    "w": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "pattern": [
+    " p ",
+    "sCs",
+    "sws"
+  ],
+  "result": {
+    "id": "tconstruct:part_chest"
+  },
+  "show_notification": true
+}

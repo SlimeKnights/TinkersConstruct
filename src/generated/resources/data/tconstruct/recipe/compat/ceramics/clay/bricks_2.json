@@ -1,0 +1,30 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:compat/ceramics/clay/bricks_2",
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "ceramics"
+    }
+  ],
+  "ingredient": [
+    {
+      "item": "ceramics:dark_bricks_slab"
+    },
+    {
+      "item": "ceramics:dragon_bricks_slab"
+    },
+    {
+      "item": "ceramics:terracotta_faucet"
+    },
+    {
+      "item": "ceramics:terracotta_channel"
+    }
+  ],
+  "result": {
+    "amount": 500,
+    "fluid": "tconstruct:molten_clay"
+  },
+  "temperature": 450,
+  "time": 64
+}

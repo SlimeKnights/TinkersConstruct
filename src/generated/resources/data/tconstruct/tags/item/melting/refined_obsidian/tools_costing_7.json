@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#c:armors/leggings/refined_obsidian",
+      "required": false
+    },
+    {
+      "id": "#c:tools/paxels/refined_obsidian",
+      "required": false
+    }
+  ]
+}

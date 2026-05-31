@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:severing",
+  "id": "tconstruct:tools/severing/ender_dragon_head",
+  "entity": {
+    "type": "minecraft:ender_dragon"
+  },
+  "looting_bonus": 0.02,
+  "per_level_chance": 0.1,
+  "result": "minecraft:dragon_head"
+}

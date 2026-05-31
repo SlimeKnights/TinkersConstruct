@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/slimeball/ichor",
+  "ingredient": {
+    "tag": "c:slimeball/ichor"
+  },
+  "material": "tconstruct:slimeball#ichor",
+  "needed": 1,
+  "value": 1
+}

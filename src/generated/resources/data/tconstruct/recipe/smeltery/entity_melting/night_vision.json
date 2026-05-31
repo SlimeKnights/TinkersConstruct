@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:entity_melting",
+  "id": "tconstruct:smeltery/entity_melting/night_vision",
+  "damage": 2,
+  "entity": {
+    "types": [
+      "minecraft:bat",
+      "minecraft:glow_squid"
+    ]
+  },
+  "result": {
+    "amount": 50,
+    "nbt": {
+      "Potion": "minecraft:night_vision"
+    },
+    "tag": "c:potion"
+  }
+}

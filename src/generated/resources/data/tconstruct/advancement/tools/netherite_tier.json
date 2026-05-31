@@ -1,0 +1,43 @@
+{
+  "parent": "tconstruct:tools/tinker_tool",
+  "criteria": {
+    "harvest_level": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:stat_in_set",
+              "stat": "tconstruct:harvest_tier",
+              "values": [
+                "minecraft:netherite"
+              ]
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.tconstruct.tools.netherite_tier.description"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.tconstruct.tools.netherite_tier.title"
+    }
+  },
+  "requirements": [
+    [
+      "harvest_level"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

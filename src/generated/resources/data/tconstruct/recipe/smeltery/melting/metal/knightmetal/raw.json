@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/knightmetal/raw",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:raw_materials/knightmetal"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:raw_materials/knightmetal"
+  },
+  "result": {
+    "amount": 90,
+    "fluid": "tconstruct:molten_knightmetal"
+  },
+  "temperature": 1300,
+  "time": 75
+}

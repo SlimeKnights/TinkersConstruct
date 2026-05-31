@@ -1,0 +1,27 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "id": "tconstruct:smeltery/melting/fiery/twilightforest_leggings",
+  "byproducts": [
+    {
+      "amount": 630,
+      "tag": "c:molten_iron",
+      "unit_size": 10
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:item_exists",
+      "item": "twilightforest:fiery_leggings"
+    }
+  ],
+  "ingredient": {
+    "item": "twilightforest:fiery_leggings"
+  },
+  "result": {
+    "amount": 1750,
+    "fluid": "tconstruct:fiery_liquid",
+    "unit_size": 50
+  },
+  "temperature": 1500,
+  "time": 212
+}

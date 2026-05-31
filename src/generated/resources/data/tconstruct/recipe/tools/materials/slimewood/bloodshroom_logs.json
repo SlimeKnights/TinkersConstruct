@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/slimewood/bloodshroom_logs",
+  "ingredient": {
+    "tag": "tconstruct:bloodshroom_logs"
+  },
+  "leftover": "tconstruct:bloodshroom_planks",
+  "material": "tconstruct:slimewood#bloodshroom",
+  "needed": 1,
+  "value": 4
+}

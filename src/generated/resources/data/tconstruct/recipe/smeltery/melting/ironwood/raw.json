@@ -1,0 +1,25 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/ironwood/raw",
+  "byproducts": [
+    {
+      "amount": 10,
+      "tag": "c:molten_gold"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:raw_materials/ironwood"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:raw_materials/ironwood"
+  },
+  "result": {
+    "amount": 90,
+    "tag": "c:molten_iron"
+  },
+  "temperature": 800,
+  "time": 60
+}

@@ -1,0 +1,15 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/filling/tipped_arrow_clean",
+  "cast": {
+    "type": "mantle:potion_display",
+    "item": "minecraft:tipped_arrow"
+  },
+  "cast_consumed": true,
+  "cooling_time": 1,
+  "fluid": {
+    "amount": 50,
+    "tag": "mantle:water"
+  },
+  "result": "minecraft:arrow"
+}

@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/slimewood/skyroot_planks",
+  "ingredient": {
+    "item": "tconstruct:skyroot_planks"
+  },
+  "material": "tconstruct:slimewood#skyroot",
+  "needed": 1,
+  "value": 1
+}

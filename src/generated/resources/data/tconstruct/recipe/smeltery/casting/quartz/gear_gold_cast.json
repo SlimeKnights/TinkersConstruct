@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/quartz/gear_gold_cast",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/gear"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:gears/quartz"
+    }
+  ],
+  "cooling_time": 115,
+  "fluid": {
+    "amount": 400,
+    "tag": "tconstruct:molten_quartz"
+  },
+  "result": {
+    "tag": "c:gears/quartz"
+  }
+}

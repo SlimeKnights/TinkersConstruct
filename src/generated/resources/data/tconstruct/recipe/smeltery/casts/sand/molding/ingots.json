@@ -1,0 +1,23 @@
+{
+  "type": "tconstruct:molding_table",
+  "id": "tconstruct:smeltery/casts/sand/molding/ingots",
+  "material": {
+    "tag": "tconstruct:casts/sand"
+  },
+  "pattern": [
+    {
+      "type": "neoforge:difference",
+      "base": {
+        "tag": "c:ingots"
+      },
+      "subtracted": {
+        "item": "tconstruct:fake_ingot"
+      }
+    },
+    {
+      "type": "tconstruct:material",
+      "item": "tconstruct:fake_ingot"
+    }
+  ],
+  "result": "tconstruct:ingot_sand_cast"
+}

@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:material_fluid",
+  "id": "tconstruct:tools/materials/composite/blazing_bone",
+  "fluid": {
+    "amount": 200,
+    "tag": "tconstruct:blazing_blood"
+  },
+  "input": "tconstruct:necrotic_bone",
+  "output": "tconstruct:blazing_bone",
+  "temperature": 1500
+}

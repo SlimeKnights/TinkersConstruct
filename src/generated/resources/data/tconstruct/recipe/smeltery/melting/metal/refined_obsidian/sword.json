@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "id": "tconstruct:smeltery/melting/metal/refined_obsidian/sword",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "tconstruct:melting/refined_obsidian/tools_costing_2"
+    }
+  ],
+  "ingredient": {
+    "tag": "tconstruct:melting/refined_obsidian/tools_costing_2"
+  },
+  "result": {
+    "amount": 180,
+    "tag": "c:molten_refined_obsidian",
+    "unit_size": 10
+  },
+  "temperature": 1475,
+  "time": 113
+}

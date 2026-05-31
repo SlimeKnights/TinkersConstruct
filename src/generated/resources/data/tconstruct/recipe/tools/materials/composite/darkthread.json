@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:material_fluid",
+  "id": "tconstruct:tools/materials/composite/darkthread",
+  "fluid": {
+    "amount": 250,
+    "tag": "tconstruct:molten_obsidian"
+  },
+  "input": "tconstruct:string",
+  "output": "tconstruct:darkthread",
+  "temperature": 1000
+}

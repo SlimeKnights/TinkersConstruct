@@ -1,0 +1,6 @@
+{
+  "type": "tconstruct:tool_building",
+  "id": "tconstruct:tools/building/vein_hammer",
+  "result": "tconstruct:vein_hammer",
+  "result_count": 1
+}

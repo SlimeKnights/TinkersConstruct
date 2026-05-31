@@ -1,0 +1,15 @@
+{
+  "type": "tconstruct:entity_melting",
+  "id": "tconstruct:smeltery/entity_melting/frog",
+  "damage": 2,
+  "entity": {
+    "type": "minecraft:frog"
+  },
+  "result": {
+    "amount": 50,
+    "nbt": {
+      "Potion": "minecraft:leaping"
+    },
+    "tag": "c:potion"
+  }
+}

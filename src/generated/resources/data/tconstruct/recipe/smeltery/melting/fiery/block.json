@@ -1,0 +1,25 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/fiery/block",
+  "byproducts": [
+    {
+      "amount": 810,
+      "tag": "c:molten_iron"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:storage_blocks/fiery"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:storage_blocks/fiery"
+  },
+  "result": {
+    "amount": 2250,
+    "fluid": "tconstruct:fiery_liquid"
+  },
+  "temperature": 1500,
+  "time": 241
+}

@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/zinc/nugget_gold_cast",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/nugget"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:nuggets/zinc"
+    }
+  ],
+  "cooling_time": 16,
+  "fluid": {
+    "amount": 10,
+    "tag": "c:molten_zinc"
+  },
+  "result": {
+    "tag": "c:nuggets/zinc"
+  }
+}

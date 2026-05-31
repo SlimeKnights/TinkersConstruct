@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "id": "tconstruct:smeltery/melting/metal/osmium/chestplate",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:armors/chestplates/osmium"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:armors/chestplates/osmium"
+  },
+  "result": {
+    "amount": 720,
+    "tag": "c:molten_osmium",
+    "unit_size": 10
+  },
+  "temperature": 975,
+  "time": 185
+}

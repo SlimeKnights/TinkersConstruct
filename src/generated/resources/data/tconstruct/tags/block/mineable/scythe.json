@@ -1,0 +1,18 @@
+{
+  "remove": [
+    "minecraft:pumpkin",
+    "minecraft:carved_pumpkin",
+    "minecraft:melon"
+  ],
+  "values": [
+    "minecraft:kelp",
+    "minecraft:kelp_plant",
+    "minecraft:nether_wart",
+    "minecraft:small_dripleaf",
+    "minecraft:sugar_cane",
+    "#minecraft:mineable/hoe",
+    "#c:mineable/shears",
+    "#c:mineable/sword",
+    "#minecraft:crops"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "type": "tconstruct:part_builder",
+  "id": "tconstruct:tools/parts/builder/tool_binding",
+  "cost": 1,
+  "pattern": "tconstruct:tool_binding",
+  "pattern_item": [
+    {
+      "tag": "tconstruct:patterns/default"
+    },
+    {
+      "item": "tconstruct:tool_binding_cast"
+    }
+  ],
+  "result": {
+    "item": "tconstruct:tool_binding"
+  }
+}

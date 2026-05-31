@@ -1,0 +1,6 @@
+{
+  "type": "tconstruct:basin_filling",
+  "id": "tconstruct:smeltery/casting/filling/seared_ingot_gauge",
+  "container": "tconstruct:seared_ingot_gauge",
+  "fluid_amount": 90
+}

@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/lead/wire",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:wires/lead"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:wires/lead"
+  },
+  "result": {
+    "amount": 45,
+    "tag": "c:molten_lead"
+  },
+  "temperature": 330,
+  "time": 9
+}

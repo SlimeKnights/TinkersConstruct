@@ -1,0 +1,23 @@
+{
+  "values": [
+    "minecraft:azalea",
+    "minecraft:cobweb",
+    "minecraft:dried_kelp_block",
+    "minecraft:glow_lichen",
+    "minecraft:lily_pad",
+    "minecraft:redstone_wire",
+    "minecraft:hanging_roots",
+    "minecraft:tripwire",
+    "minecraft:twisting_vines_plant",
+    "minecraft:twisting_vines",
+    "minecraft:vine",
+    "minecraft:weeping_vines_plant",
+    "minecraft:weeping_vines",
+    "#minecraft:cave_vines",
+    "#minecraft:leaves",
+    "#minecraft:wool",
+    "#minecraft:saplings",
+    "#minecraft:flowers",
+    "#minecraft:coral_plants"
+  ]
+}

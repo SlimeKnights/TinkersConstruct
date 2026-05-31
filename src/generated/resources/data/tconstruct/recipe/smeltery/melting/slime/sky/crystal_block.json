@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/slime/sky/crystal_block",
+  "ingredient": {
+    "item": "tconstruct:sky_slime_crystal_block"
+  },
+  "result": {
+    "amount": 1000,
+    "fluid": "tconstruct:sky_slime"
+  },
+  "temperature": 10,
+  "time": 57
+}

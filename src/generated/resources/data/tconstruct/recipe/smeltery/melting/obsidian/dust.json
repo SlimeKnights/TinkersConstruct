@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/obsidian/dust",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:dusts/obsidian"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:dusts/obsidian"
+  },
+  "result": {
+    "amount": 250,
+    "fluid": "tconstruct:molten_obsidian"
+  },
+  "temperature": 1000,
+  "time": 66
+}

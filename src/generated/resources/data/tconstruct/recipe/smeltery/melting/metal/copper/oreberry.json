@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/copper/oreberry",
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:item_exists",
+      "item": "oreberriesreplanted:copper_oreberry"
+    }
+  ],
+  "ingredient": {
+    "item": "oreberriesreplanted:copper_oreberry"
+  },
+  "result": {
+    "amount": 10,
+    "tag": "c:molten_copper"
+  },
+  "temperature": 500,
+  "time": 17
+}

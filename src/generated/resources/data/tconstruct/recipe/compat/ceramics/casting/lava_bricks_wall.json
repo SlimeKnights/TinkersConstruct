@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:casting_basin",
+  "id": "tconstruct:compat/ceramics/casting/lava_bricks_wall",
+  "cast": {
+    "item": "minecraft:brick_wall"
+  },
+  "cast_consumed": true,
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "ceramics"
+    }
+  ],
+  "cooling_time": 70,
+  "fluid": {
+    "amount": 100,
+    "fluid": "minecraft:lava"
+  },
+  "result": "ceramics:lava_bricks_wall"
+}

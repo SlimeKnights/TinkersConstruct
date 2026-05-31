@@ -1,0 +1,22 @@
+{
+  "type": "mantle:crafting_shaped_retextured",
+  "category": "misc",
+  "key": {
+    "p": {
+      "item": "tconstruct:pattern"
+    },
+    "w": {
+      "tag": "tconstruct:planklike"
+    }
+  },
+  "match_all": true,
+  "pattern": [
+    "pp",
+    "ww"
+  ],
+  "result": {
+    "id": "tconstruct:part_builder"
+  },
+  "show_notification": true,
+  "texture": "w"
+}

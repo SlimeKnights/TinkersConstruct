@@ -1,0 +1,17 @@
+{
+  "type": "tconstruct:part_builder",
+  "id": "tconstruct:tools/parts/builder/tough_handle",
+  "cost": 3,
+  "pattern": "tconstruct:tough_handle",
+  "pattern_item": [
+    {
+      "tag": "tconstruct:patterns/default"
+    },
+    {
+      "item": "tconstruct:tough_handle_cast"
+    }
+  ],
+  "result": {
+    "item": "tconstruct:tough_handle"
+  }
+}

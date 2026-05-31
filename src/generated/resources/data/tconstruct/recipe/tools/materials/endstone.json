@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/endstone",
+  "ingredient": {
+    "tag": "c:end_stones"
+  },
+  "material": "tconstruct:whitestone#end",
+  "needed": 1,
+  "value": 1
+}

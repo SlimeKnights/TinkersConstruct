@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#c:tools/swords/invar",
+      "required": false
+    },
+    {
+      "id": "#c:tools/hoes/invar",
+      "required": false
+    }
+  ]
+}

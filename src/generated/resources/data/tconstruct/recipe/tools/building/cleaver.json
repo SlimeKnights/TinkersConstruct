@@ -1,0 +1,6 @@
+{
+  "type": "tconstruct:tool_building",
+  "id": "tconstruct:tools/building/cleaver",
+  "result": "tconstruct:cleaver",
+  "result_count": 1
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "ability": "shears_dig",
+          "condition": "neoforge:can_item_perform_ability"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "tconstruct:ender_slime_vine"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "tconstruct:blocks/ender_slime_vine"
+}

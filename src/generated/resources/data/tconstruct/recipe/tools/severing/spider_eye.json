@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:severing",
+  "id": "tconstruct:tools/severing/spider_eye",
+  "entity": {
+    "types": [
+      "minecraft:spider",
+      "minecraft:cave_spider"
+    ]
+  },
+  "looting_bonus": 0.01,
+  "per_level_chance": 0.05,
+  "result": "minecraft:spider_eye"
+}

@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/invar/dust",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:dusts/invar"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:dusts/invar"
+  },
+  "result": {
+    "amount": 90,
+    "tag": "c:molten_invar"
+  },
+  "temperature": 900,
+  "time": 47
+}

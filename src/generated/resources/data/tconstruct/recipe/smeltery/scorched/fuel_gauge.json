@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "#": {
+      "item": "tconstruct:scorched_brick"
+    },
+    "B": {
+      "tag": "c:gems/quartz"
+    }
+  },
+  "pattern": [
+    "#B#",
+    "BBB",
+    "#B#"
+  ],
+  "result": {
+    "id": "tconstruct:scorched_fuel_gauge"
+  },
+  "show_notification": true
+}

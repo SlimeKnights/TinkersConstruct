@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/lumium/gear_gold_cast",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/gear"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:gears/lumium"
+    }
+  ],
+  "cooling_time": 136,
+  "fluid": {
+    "amount": 360,
+    "tag": "c:molten_lumium"
+  },
+  "result": {
+    "tag": "c:gears/lumium"
+  }
+}

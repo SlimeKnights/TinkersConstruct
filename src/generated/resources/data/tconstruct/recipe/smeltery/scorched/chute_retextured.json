@@ -1,0 +1,23 @@
+{
+  "type": "mantle:crafting_shaped_retextured",
+  "category": "redstone",
+  "key": {
+    "#": {
+      "tag": "tconstruct:foundry_bricks"
+    },
+    "C": {
+      "item": "tconstruct:obsidian_pane"
+    }
+  },
+  "match_all": false,
+  "pattern": [
+    "C",
+    "#",
+    "C"
+  ],
+  "result": {
+    "id": "tconstruct:scorched_chute"
+  },
+  "show_notification": true,
+  "texture": "#"
+}

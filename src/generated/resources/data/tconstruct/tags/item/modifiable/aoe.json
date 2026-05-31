@@ -1,0 +1,28 @@
+{
+  "values": [
+    "tconstruct:pickaxe",
+    "tconstruct:sledge_hammer",
+    "tconstruct:vein_hammer",
+    "tconstruct:mattock",
+    "tconstruct:pickadze",
+    "tconstruct:excavator",
+    "tconstruct:hand_axe",
+    "tconstruct:broad_axe",
+    "tconstruct:kama",
+    "tconstruct:scythe",
+    "tconstruct:sword",
+    "tconstruct:cleaver",
+    "tconstruct:flint_and_brick",
+    "tconstruct:sky_staff",
+    "tconstruct:earth_staff",
+    "tconstruct:ichor_staff",
+    "tconstruct:ender_staff",
+    "tconstruct:melting_pan",
+    "tconstruct:war_pick",
+    {
+      "id": "tconstruct:minotaur_axe",
+      "required": false
+    },
+    "#tconstruct:modifiable/armor/boots"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "type": "tconstruct:molding_table",
+  "id": "tconstruct:smeltery/casts/sand/molding/helmet_plating",
+  "material": {
+    "tag": "tconstruct:casts/sand"
+  },
+  "pattern": [
+    {
+      "type": "tconstruct:material",
+      "item": "tconstruct:helmet_plating"
+    },
+    {
+      "item": "tconstruct:helmet_plating_dummy"
+    }
+  ],
+  "result": "tconstruct:helmet_plating_sand_cast"
+}

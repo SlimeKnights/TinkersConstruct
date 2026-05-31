@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "id": "tconstruct:smeltery/melting/metal/nickel/tools_complement_hammer",
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:item_exists",
+      "item": "tools_complement:nickel_hammer"
+    }
+  ],
+  "ingredient": {
+    "item": "tools_complement:nickel_hammer"
+  },
+  "result": {
+    "amount": 1170,
+    "tag": "c:molten_nickel",
+    "unit_size": 10
+  },
+  "temperature": 950,
+  "time": 234
+}

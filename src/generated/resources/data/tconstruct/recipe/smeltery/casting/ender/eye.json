@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/ender/eye",
+  "cast": {
+    "item": "minecraft:blaze_powder"
+  },
+  "cast_consumed": true,
+  "cooling_time": 82,
+  "fluid": {
+    "amount": 250,
+    "tag": "c:ender"
+  },
+  "result": "minecraft:ender_eye"
+}

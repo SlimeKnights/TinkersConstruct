@@ -1,0 +1,27 @@
+{
+  "type": "tconstruct:ore_melting",
+  "id": "tconstruct:smeltery/melting/quartz/geore/bud_medium",
+  "byproducts": [
+    {
+      "amount": 180,
+      "rate": "metal",
+      "tag": "c:molten_iron"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:geore_medium_buds/quartz"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:geore_medium_buds/quartz"
+  },
+  "rate": "gem",
+  "result": {
+    "amount": 200,
+    "fluid": "tconstruct:molten_quartz"
+  },
+  "temperature": 637,
+  "time": 82
+}

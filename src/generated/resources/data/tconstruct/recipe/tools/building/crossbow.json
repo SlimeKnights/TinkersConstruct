@@ -1,0 +1,6 @@
+{
+  "type": "tconstruct:tool_building",
+  "id": "tconstruct:tools/building/crossbow",
+  "result": "tconstruct:crossbow",
+  "result_count": 1
+}

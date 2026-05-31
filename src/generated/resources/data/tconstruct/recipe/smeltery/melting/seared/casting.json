@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/seared/casting",
+  "ingredient": [
+    {
+      "item": "tconstruct:seared_basin"
+    },
+    {
+      "item": "tconstruct:seared_table"
+    }
+  ],
+  "result": {
+    "amount": 1750,
+    "fluid": "tconstruct:seared_stone"
+  },
+  "temperature": 600,
+  "time": 134
+}

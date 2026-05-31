@@ -1,0 +1,8 @@
+{
+  "type": "tconstruct:molding_table",
+  "id": "tconstruct:smeltery/sand_cast_pickup",
+  "material": {
+    "tag": "tconstruct:casts/sand"
+  },
+  "result": "tconstruct:blank_sand_cast"
+}

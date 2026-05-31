@@ -1,0 +1,32 @@
+{
+  "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/slotless/recapitated_for_skull",
+  "allow_crystal": true,
+  "inputs": [
+    {
+      "type": "neoforge:difference",
+      "base": {
+        "tag": "c:heads"
+      },
+      "subtracted": {
+        "item": "minecraft:dragon_head"
+      }
+    },
+    {
+      "tag": "c:slimeballs"
+    }
+  ],
+  "level": 1,
+  "result": "tconstruct:recapitated",
+  "tools": {
+    "type": "neoforge:intersection",
+    "children": [
+      {
+        "tag": "tconstruct:modifiable/bonus_slots"
+      },
+      {
+        "tag": "tconstruct:modifiable/skulls"
+      }
+    ]
+  }
+}

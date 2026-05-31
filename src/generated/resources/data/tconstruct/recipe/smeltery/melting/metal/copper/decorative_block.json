@@ -1,0 +1,33 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/copper/decorative_block",
+  "ingredient": [
+    {
+      "item": "minecraft:exposed_copper"
+    },
+    {
+      "item": "minecraft:weathered_copper"
+    },
+    {
+      "item": "minecraft:oxidized_copper"
+    },
+    {
+      "item": "minecraft:waxed_copper_block"
+    },
+    {
+      "item": "minecraft:waxed_exposed_copper"
+    },
+    {
+      "item": "minecraft:waxed_weathered_copper"
+    },
+    {
+      "item": "minecraft:waxed_oxidized_copper"
+    }
+  ],
+  "result": {
+    "amount": 810,
+    "tag": "c:molten_copper"
+  },
+  "temperature": 500,
+  "time": 150
+}

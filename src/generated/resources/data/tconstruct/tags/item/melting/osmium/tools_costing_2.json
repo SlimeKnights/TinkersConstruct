@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#c:tools/swords/osmium",
+      "required": false
+    },
+    {
+      "id": "#c:tools/hoes/osmium",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "values": [
+    "tconstruct:javelin",
+    "#tconstruct:modifiable/ranged/launcher",
+    "#tconstruct:modifiable/ranged/small",
+    "#tconstruct:modifiable/ranged/broad"
+  ]
+}

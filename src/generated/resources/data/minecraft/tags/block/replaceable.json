@@ -1,0 +1,14 @@
+{
+  "values": [
+    "tconstruct:earth_slime_tall_grass",
+    "tconstruct:sky_slime_tall_grass",
+    "tconstruct:ichor_slime_tall_grass",
+    "tconstruct:ender_slime_tall_grass",
+    "tconstruct:blood_slime_tall_grass",
+    "tconstruct:earth_slime_fern",
+    "tconstruct:sky_slime_fern",
+    "tconstruct:ichor_slime_fern",
+    "tconstruct:ender_slime_fern",
+    "tconstruct:blood_slime_fern"
+  ]
+}

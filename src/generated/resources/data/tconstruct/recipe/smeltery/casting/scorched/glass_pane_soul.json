@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/scorched/glass_pane_soul",
+  "cast": {
+    "item": "tconstruct:soul_glass_pane"
+  },
+  "cast_consumed": true,
+  "cooling_time": 83,
+  "fluid": {
+    "amount": 250,
+    "tag": "tconstruct:scorched_stone"
+  },
+  "result": "tconstruct:scorched_soul_glass_pane"
+}

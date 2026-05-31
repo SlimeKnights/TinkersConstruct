@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/osmium/nugget_gold_cast",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/nugget"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:nuggets/osmium"
+    }
+  ],
+  "cooling_time": 22,
+  "fluid": {
+    "amount": 10,
+    "tag": "c:molten_osmium"
+  },
+  "result": {
+    "tag": "c:nuggets/osmium"
+  }
+}

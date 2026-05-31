@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "tconstruct:seared_cobble_wall",
+  "key": {
+    "B": {
+      "item": "tconstruct:seared_cobble"
+    }
+  },
+  "pattern": [
+    "BBB",
+    "BBB"
+  ],
+  "result": {
+    "count": 6,
+    "id": "tconstruct:seared_cobble_wall"
+  },
+  "show_notification": true
+}

@@ -1,0 +1,27 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casts/gold/ingots",
+  "cast": [
+    {
+      "type": "neoforge:difference",
+      "base": {
+        "tag": "c:ingots"
+      },
+      "subtracted": {
+        "item": "tconstruct:fake_ingot"
+      }
+    },
+    {
+      "type": "tconstruct:material",
+      "item": "tconstruct:fake_ingot"
+    }
+  ],
+  "cast_consumed": true,
+  "cooling_time": 57,
+  "fluid": {
+    "amount": 90,
+    "tag": "c:molten_gold"
+  },
+  "result": "tconstruct:ingot_cast",
+  "switch_slots": true
+}

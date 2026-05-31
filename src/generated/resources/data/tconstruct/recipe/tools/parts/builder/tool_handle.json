@@ -1,0 +1,17 @@
+{
+  "type": "tconstruct:part_builder",
+  "id": "tconstruct:tools/parts/builder/tool_handle",
+  "cost": 1,
+  "pattern": "tconstruct:tool_handle",
+  "pattern_item": [
+    {
+      "tag": "tconstruct:patterns/default"
+    },
+    {
+      "item": "tconstruct:tool_handle_cast"
+    }
+  ],
+  "result": {
+    "item": "tconstruct:tool_handle"
+  }
+}

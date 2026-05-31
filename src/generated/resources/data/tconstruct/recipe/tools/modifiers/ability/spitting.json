@@ -1,0 +1,37 @@
+{
+  "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/ability/spitting",
+  "allow_crystal": true,
+  "check_trait_level": true,
+  "inputs": [
+    {
+      "type": "tconstruct:material",
+      "item": "tconstruct:bow_limb"
+    },
+    {
+      "item": "tconstruct:seared_fluid_cannon"
+    },
+    {
+      "type": "tconstruct:material",
+      "item": "tconstruct:bow_limb"
+    }
+  ],
+  "level": {
+    "max": 3
+  },
+  "result": "tconstruct:spitting",
+  "slots": {
+    "abilities": 1
+  },
+  "tools": {
+    "type": "neoforge:intersection",
+    "children": [
+      {
+        "tag": "tconstruct:modifiable/durability"
+      },
+      {
+        "tag": "tconstruct:modifiable/interactable/charge/modifier"
+      }
+    ]
+  }
+}

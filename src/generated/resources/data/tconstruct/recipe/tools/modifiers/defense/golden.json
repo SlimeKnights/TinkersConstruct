@@ -1,0 +1,31 @@
+{
+  "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/defense/golden",
+  "allow_crystal": true,
+  "check_trait_level": true,
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "tconstruct:modifiable/armor/golden"
+    }
+  ],
+  "inputs": [
+    {
+      "tag": "c:ingots/gold"
+    },
+    {
+      "tag": "c:ingots/gold"
+    },
+    {
+      "tag": "c:ingots/gold"
+    }
+  ],
+  "level": 1,
+  "result": "tconstruct:golden",
+  "slots": {
+    "defense": 1
+  },
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/golden"
+  }
+}

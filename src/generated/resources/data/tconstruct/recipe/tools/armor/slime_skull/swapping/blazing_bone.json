@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:fixed_material_swapping",
+  "id": "tconstruct:tools/armor/slime_skull/swapping/blazing_bone",
+  "index": 0,
+  "ingredient": {
+    "item": "tconstruct:blazing_bone_head"
+  },
+  "material": "tconstruct:blazing_bone",
+  "max_stack_size": 16,
+  "repair_value": 6,
+  "tools": {
+    "tag": "tconstruct:modifiable/skulls/swappable"
+  }
+}

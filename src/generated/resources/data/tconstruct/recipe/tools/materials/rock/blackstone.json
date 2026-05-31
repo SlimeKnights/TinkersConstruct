@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/rock/blackstone",
+  "ingredient": {
+    "tag": "c:blackstone"
+  },
+  "material": "tconstruct:rock#blackstone",
+  "needed": 1,
+  "value": 1
+}

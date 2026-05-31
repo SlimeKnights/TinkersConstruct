@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:overslime_modifier",
+  "id": "tconstruct:tools/modifiers/slotless/overslime/sky_bottle",
+  "ingredient": {
+    "item": "tconstruct:sky_slime_bottle"
+  },
+  "restore_amount": 50,
+  "tools": {
+    "tag": "tconstruct:modifiable/durability"
+  }
+}

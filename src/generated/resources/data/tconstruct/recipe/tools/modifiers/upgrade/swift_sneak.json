@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/upgrade/swift_sneak",
+  "allow_crystal": true,
+  "inputs": [
+    {
+      "item": "minecraft:sculk_sensor"
+    }
+  ],
+  "level": {
+    "max": 5
+  },
+  "result": "tconstruct:swift_sneak",
+  "slots": {
+    "upgrades": 1
+  },
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/leggings"
+  }
+}

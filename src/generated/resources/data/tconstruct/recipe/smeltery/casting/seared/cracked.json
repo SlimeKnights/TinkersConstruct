@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:casting_basin",
+  "id": "tconstruct:smeltery/casting/seared/cracked",
+  "cast": {
+    "item": "minecraft:cracked_stone_bricks"
+  },
+  "cast_consumed": true,
+  "cooling_time": 113,
+  "fluid": {
+    "amount": 500,
+    "tag": "tconstruct:molten_clay"
+  },
+  "result": "tconstruct:seared_cracked_bricks"
+}

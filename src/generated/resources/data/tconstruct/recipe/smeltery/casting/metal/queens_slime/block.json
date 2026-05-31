@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:casting_basin",
+  "id": "tconstruct:smeltery/casting/metal/queens_slime/block",
+  "cooling_time": 212,
+  "fluid": {
+    "amount": 810,
+    "tag": "tconstruct:molten_queens_slime"
+  },
+  "result": {
+    "tag": "c:storage_blocks/queens_slime"
+  }
+}

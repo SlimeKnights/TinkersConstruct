@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/bronze/nugget_gold_cast",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/nugget"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:nuggets/bronze"
+    }
+  ],
+  "cooling_time": 19,
+  "fluid": {
+    "amount": 10,
+    "tag": "c:molten_bronze"
+  },
+  "result": {
+    "tag": "c:nuggets/bronze"
+  }
+}

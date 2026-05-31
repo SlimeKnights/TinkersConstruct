@@ -1,0 +1,10 @@
+{
+  "values": [
+    "minecraft:golden_pickaxe",
+    "minecraft:golden_axe",
+    {
+      "id": "tools_complement:gold_sickle",
+      "required": false
+    }
+  ]
+}

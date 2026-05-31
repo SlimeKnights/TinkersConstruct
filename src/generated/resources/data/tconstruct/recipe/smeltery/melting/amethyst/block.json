@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/amethyst/block",
+  "ingredient": {
+    "tag": "c:storage_blocks/amethyst"
+  },
+  "result": {
+    "amount": 400,
+    "fluid": "tconstruct:molten_amethyst"
+  },
+  "temperature": 950,
+  "time": 130
+}

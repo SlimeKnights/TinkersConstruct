@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#c:tools/shovels/bronze",
+      "required": false
+    },
+    {
+      "id": "tools_complement:bronze_knife",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/wood/logs/acacia",
+  "ingredient": {
+    "tag": "minecraft:acacia_logs"
+  },
+  "leftover": "minecraft:acacia_planks",
+  "material": "tconstruct:wood",
+  "needed": 1,
+  "value": 4
+}

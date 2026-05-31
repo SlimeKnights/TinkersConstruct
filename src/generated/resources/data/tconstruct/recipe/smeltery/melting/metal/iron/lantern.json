@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/iron/lantern",
+  "ingredient": [
+    {
+      "item": "minecraft:lantern"
+    },
+    {
+      "item": "minecraft:soul_lantern"
+    }
+  ],
+  "result": {
+    "amount": 80,
+    "tag": "c:molten_iron"
+  },
+  "temperature": 800,
+  "time": 57
+}

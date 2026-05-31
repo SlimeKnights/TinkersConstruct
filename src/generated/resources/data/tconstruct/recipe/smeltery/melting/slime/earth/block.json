@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/slime/earth/block",
+  "ingredient": {
+    "item": "minecraft:slime_block"
+  },
+  "result": {
+    "amount": 2250,
+    "tag": "c:slime"
+  },
+  "temperature": 50,
+  "time": 92
+}

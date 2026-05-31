@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/nahuatl",
+  "ingredient": {
+    "item": "tconstruct:nahuatl"
+  },
+  "material": "tconstruct:nahuatl",
+  "needed": 1,
+  "value": 1
+}

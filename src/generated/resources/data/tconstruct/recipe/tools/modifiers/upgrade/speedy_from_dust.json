@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:incremental_modifier",
+  "id": "tconstruct:tools/modifiers/upgrade/speedy_from_dust",
+  "allow_crystal": true,
+  "amount_per_item": 1,
+  "input": {
+    "tag": "c:dusts/redstone"
+  },
+  "level": {
+    "max": 3
+  },
+  "needed_per_level": 45,
+  "result": "tconstruct:speedy",
+  "slots": {
+    "upgrades": 1
+  },
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/leggings"
+  }
+}

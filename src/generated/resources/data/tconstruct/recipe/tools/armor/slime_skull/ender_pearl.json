@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:basin_tool_casting",
+  "id": "tconstruct:tools/armor/slime_skull/ender_pearl",
+  "cast": {
+    "item": "tconstruct:enderman_head"
+  },
+  "cast_purpose": "consumed_offset",
+  "extra_materials": [
+    "tconstruct:ender_pearl"
+  ],
+  "item_cost": 5,
+  "result": "tconstruct:slime_helmet"
+}

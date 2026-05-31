@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:tools/modifiers/silky_cloth",
+  "cast": {
+    "item": "minecraft:cobweb"
+  },
+  "cast_consumed": true,
+  "cooling_time": 52,
+  "fluid": {
+    "amount": 90,
+    "tag": "c:molten_rose_gold"
+  },
+  "result": "tconstruct:silky_cloth"
+}

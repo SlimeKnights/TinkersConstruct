@@ -1,0 +1,7 @@
+{
+  "type": "tconstruct:tool_building",
+  "id": "tconstruct:tools/armor/plate/plate_leggings",
+  "result": "tconstruct:plate_leggings",
+  "result_count": 1,
+  "slot_layout": "tconstruct:plate_armor"
+}

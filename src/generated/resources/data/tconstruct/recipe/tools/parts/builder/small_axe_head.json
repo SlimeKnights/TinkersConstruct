@@ -1,0 +1,17 @@
+{
+  "type": "tconstruct:part_builder",
+  "id": "tconstruct:tools/parts/builder/small_axe_head",
+  "cost": 2,
+  "pattern": "tconstruct:small_axe_head",
+  "pattern_item": [
+    {
+      "tag": "tconstruct:patterns/default"
+    },
+    {
+      "item": "tconstruct:small_axe_head_cast"
+    }
+  ],
+  "result": {
+    "item": "tconstruct:small_axe_head"
+  }
+}

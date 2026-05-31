@@ -1,0 +1,6 @@
+{
+  "type": "tconstruct:table_casting_composite",
+  "id": "tconstruct:tools/parts/casting/tough_handle_composite",
+  "item_cost": 3,
+  "result": "tconstruct:tough_handle"
+}

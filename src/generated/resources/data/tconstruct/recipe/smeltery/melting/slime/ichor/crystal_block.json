@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/slime/ichor/crystal_block",
+  "byproducts": [
+    {
+      "amount": 800,
+      "fluid": "tconstruct:ichor"
+    }
+  ],
+  "ingredient": {
+    "item": "tconstruct:ichor_slime_crystal_block"
+  },
+  "result": {
+    "amount": 40,
+    "fluid": "tconstruct:blazing_blood"
+  },
+  "temperature": 1500,
+  "time": 160
+}

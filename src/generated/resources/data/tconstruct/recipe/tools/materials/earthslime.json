@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/earthslime",
+  "ingredient": {
+    "item": "tconstruct:earth_slime_crystal"
+  },
+  "material": "tconstruct:earthslime",
+  "needed": 1,
+  "value": 1
+}

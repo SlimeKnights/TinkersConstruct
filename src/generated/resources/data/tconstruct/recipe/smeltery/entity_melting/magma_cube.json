@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:entity_melting",
+  "id": "tconstruct:smeltery/entity_melting/magma_cube",
+  "damage": 2,
+  "entity": {
+    "type": "minecraft:magma_cube"
+  },
+  "result": {
+    "amount": 25,
+    "tag": "c:magma"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "type": "tconstruct:alloy",
+  "id": "tconstruct:smeltery/alloys/molten_nicrosil",
+  "inputs": [
+    {
+      "amount": 180,
+      "tag": "c:molten_tin"
+    },
+    {
+      "amount": 100,
+      "tag": "tconstruct:molten_emerald"
+    },
+    {
+      "amount": 100,
+      "tag": "tconstruct:molten_quartz"
+    }
+  ],
+  "result": {
+    "amount": 360,
+    "tag": "c:molten_nicrosil"
+  },
+  "temperature": 1100
+}

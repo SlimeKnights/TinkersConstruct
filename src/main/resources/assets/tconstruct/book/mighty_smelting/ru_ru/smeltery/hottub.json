@@ -1,0 +1,13 @@
+{
+  "title": "Гидромассажная ванна",
+  "image": {
+    "file": "tconstruct:book/images/hottub.png",
+    "width": 120,
+    "height": 120
+  },
+  "text": [
+    {
+      "text": "Хотите присоединиться ко мне?"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "type": "tconstruct:tool_building",
+  "id": "tconstruct:tools/building/pickaxe",
+  "result": "tconstruct:pickaxe",
+  "result_count": 1
+}

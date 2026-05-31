@@ -1,0 +1,15 @@
+{
+  "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/hepatizon/ingot_gold_cast",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/ingot"
+  },
+  "cooling_time": 78,
+  "fluid": {
+    "amount": 90,
+    "tag": "c:molten_hepatizon"
+  },
+  "result": {
+    "tag": "c:ingots/hepatizon"
+  }
+}

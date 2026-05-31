@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "id": "tconstruct:smeltery/melting/metal/copper/chestplate",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:armors/chestplates/copper"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:armors/chestplates/copper"
+  },
+  "result": {
+    "amount": 720,
+    "tag": "c:molten_copper",
+    "unit_size": 10
+  },
+  "temperature": 500,
+  "time": 141
+}

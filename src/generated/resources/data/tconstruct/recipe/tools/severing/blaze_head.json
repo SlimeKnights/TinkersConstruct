@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:severing",
+  "id": "tconstruct:tools/severing/blaze_head",
+  "entity": {
+    "type": "minecraft:blaze"
+  },
+  "looting_bonus": 0.01,
+  "per_level_chance": 0.05,
+  "result": "tconstruct:blaze_head"
+}

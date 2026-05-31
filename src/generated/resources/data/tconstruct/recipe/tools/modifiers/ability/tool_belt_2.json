@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/ability/tool_belt_2",
+  "allow_crystal": false,
+  "inputs": [
+    {
+      "item": "minecraft:leather"
+    },
+    {
+      "tag": "c:ingots/gold"
+    },
+    {
+      "item": "minecraft:leather"
+    }
+  ],
+  "level": 2,
+  "result": "tconstruct:tool_belt",
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/leggings"
+  }
+}

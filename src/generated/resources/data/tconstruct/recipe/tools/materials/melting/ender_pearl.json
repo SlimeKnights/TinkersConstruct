@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material_melting",
+  "id": "tconstruct:tools/materials/melting/ender_pearl",
+  "input": "tconstruct:ender_pearl",
+  "result": {
+    "amount": 250,
+    "tag": "c:ender"
+  },
+  "temperature": 477
+}

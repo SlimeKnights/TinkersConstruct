@@ -1,0 +1,7 @@
+{
+  "type": "tconstruct:table_casting_composite",
+  "id": "tconstruct:tools/parts/casting/ribcage_composite",
+  "casting_stat_conflict": "tconstruct:plating_shield",
+  "item_cost": 2,
+  "result": "tconstruct:ribcage"
+}

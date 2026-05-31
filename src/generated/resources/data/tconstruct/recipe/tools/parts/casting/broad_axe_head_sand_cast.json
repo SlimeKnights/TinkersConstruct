@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:table_casting_material",
+  "id": "tconstruct:tools/parts/casting/broad_axe_head_sand_cast",
+  "cast": {
+    "tag": "tconstruct:casts/single_use/broad_axe_head"
+  },
+  "cast_consumed": true,
+  "item_cost": 8,
+  "result": "tconstruct:broad_axe_head"
+}

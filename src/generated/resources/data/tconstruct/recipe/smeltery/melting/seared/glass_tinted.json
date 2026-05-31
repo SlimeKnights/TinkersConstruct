@@ -1,0 +1,23 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/seared/glass_tinted",
+  "byproducts": [
+    {
+      "amount": 1000,
+      "fluid": "tconstruct:molten_glass"
+    },
+    {
+      "amount": 200,
+      "fluid": "tconstruct:molten_amethyst"
+    }
+  ],
+  "ingredient": {
+    "item": "tconstruct:seared_tinted_glass"
+  },
+  "result": {
+    "amount": 1000,
+    "fluid": "tconstruct:seared_stone"
+  },
+  "temperature": 600,
+  "time": 107
+}

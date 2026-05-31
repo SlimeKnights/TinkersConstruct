@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/slimewood/enderbark_logs",
+  "ingredient": {
+    "tag": "tconstruct:enderbark_logs"
+  },
+  "leftover": "tconstruct:enderbark_planks",
+  "material": "tconstruct:slimewood#enderbark",
+  "needed": 1,
+  "value": 4
+}

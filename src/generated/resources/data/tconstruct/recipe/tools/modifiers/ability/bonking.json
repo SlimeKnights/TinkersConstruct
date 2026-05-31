@@ -1,0 +1,39 @@
+{
+  "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/ability/bonking",
+  "allow_crystal": true,
+  "check_trait_level": true,
+  "inputs": [
+    {
+      "item": "minecraft:weeping_vines"
+    },
+    {
+      "item": "tconstruct:ichor_slime_crystal"
+    },
+    {
+      "item": "minecraft:weeping_vines"
+    },
+    {
+      "item": "tconstruct:ichor_congealed_slime"
+    },
+    {
+      "item": "tconstruct:ichor_congealed_slime"
+    }
+  ],
+  "level": 1,
+  "result": "tconstruct:bonking",
+  "slots": {
+    "abilities": 1
+  },
+  "tools": {
+    "type": "neoforge:intersection",
+    "children": [
+      {
+        "tag": "tconstruct:modifiable/durability"
+      },
+      {
+        "tag": "tconstruct:modifiable/interactable/charge"
+      }
+    ]
+  }
+}

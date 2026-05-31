@@ -1,0 +1,25 @@
+{
+  "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/ironwood/ingot",
+  "byproducts": [
+    {
+      "amount": 10,
+      "tag": "c:molten_gold"
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:ingots/ironwood"
+    }
+  ],
+  "ingredient": {
+    "tag": "c:ingots/ironwood"
+  },
+  "result": {
+    "amount": 90,
+    "tag": "c:molten_iron"
+  },
+  "temperature": 800,
+  "time": 60
+}

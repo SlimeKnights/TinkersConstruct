@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:table_casting_material",
+  "id": "tconstruct:tools/parts/casting/small_axe_head_sand_cast",
+  "cast": {
+    "tag": "tconstruct:casts/single_use/small_axe_head"
+  },
+  "cast_consumed": true,
+  "item_cost": 2,
+  "result": "tconstruct:small_axe_head"
+}

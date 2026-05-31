@@ -1,0 +1,17 @@
+{
+  "type": "tconstruct:material_fluid",
+  "id": "tconstruct:tools/materials/composite/whitestone_from_zinc",
+  "neoforge:conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "c:ingots/zinc"
+    }
+  ],
+  "fluid": {
+    "amount": 90,
+    "tag": "c:molten_zinc"
+  },
+  "input": "tconstruct:rock",
+  "output": "tconstruct:whitestone#composite",
+  "temperature": 420
+}

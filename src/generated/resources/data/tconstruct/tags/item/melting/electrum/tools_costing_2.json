@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#c:tools/swords/electrum",
+      "required": false
+    },
+    {
+      "id": "#c:tools/hoes/electrum",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "tconstruct:scorched_road_stairs",
+  "key": {
+    "B": {
+      "item": "tconstruct:scorched_road"
+    }
+  },
+  "pattern": [
+    "B  ",
+    "BB ",
+    "BBB"
+  ],
+  "result": {
+    "count": 4,
+    "id": "tconstruct:scorched_road_stairs"
+  },
+  "show_notification": true
+}

@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:table_casting_material",
+  "id": "tconstruct:tools/parts/casting/helmet_plating_gold_cast",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/helmet_plating"
+  },
+  "item_cost": 3,
+  "result": "tconstruct:helmet_plating"
+}
