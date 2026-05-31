@@ -1,6 +1,7 @@
 {
   "type": "tconstruct:damagable_melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/copper/sword",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
       "tag": "tconstruct:melting/copper/tools_costing_2"
@@ -11,7 +12,7 @@
   },
   "result": {
     "amount": 180,
-    "tag": "forge:molten_copper",
+    "tag": "c:molten_copper",
     "unit_size": 10
   },
   "temperature": 500,

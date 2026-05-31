@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/cinderslime/nugget",
   "ingredient": {
-    "tag": "forge:nuggets/cinderslime"
+    "tag": "c:nuggets/cinderslime"
   },
   "material": "tconstruct:cinderslime",
   "needed": 9,

@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/entity_melting/heads/zombie",
   "ingredient": [
     {
       "item": "minecraft:zombie_head"
@@ -10,7 +11,7 @@
   ],
   "result": {
     "amount": 90,
-    "tag": "forge:molten_iron"
+    "tag": "c:molten_iron"
   },
   "temperature": 800,
   "time": 60

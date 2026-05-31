@@ -1,20 +1,21 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/electrum/ingot_gold_cast",
   "cast": {
     "tag": "tconstruct:casts/multi_use/ingot"
   },
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:ingots/electrum"
+      "tag": "c:ingots/electrum"
     }
   ],
   "cooling_time": 59,
   "fluid": {
     "amount": 90,
-    "tag": "forge:molten_electrum"
+    "tag": "c:molten_electrum"
   },
   "result": {
-    "tag": "forge:ingots/electrum"
+    "tag": "c:ingots/electrum"
   }
 }

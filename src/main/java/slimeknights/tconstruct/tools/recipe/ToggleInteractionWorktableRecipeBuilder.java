@@ -3,7 +3,7 @@ package slimeknights.tconstruct.tools.recipe;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.minecraft.data.recipes.FinishedRecipe;
+import slimeknights.mantle.compat.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
 import slimeknights.mantle.data.loadable.Loadables;

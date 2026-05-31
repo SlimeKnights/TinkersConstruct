@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:crafting_shapeless_materials",
+  "id": "tconstruct:tools/parts/fake_block_to_ingots",
   "category": "misc",
   "ingredients": [
     {

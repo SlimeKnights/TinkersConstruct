@@ -2,8 +2,8 @@ package slimeknights.tconstruct.smeltery.block.entity.inventory;
 
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntList;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import slimeknights.tconstruct.library.fluid.IMultitankListChange;
 
 import java.util.function.Consumer;
@@ -104,7 +104,7 @@ public class DuctTankWrapper implements IFluidHandler {
     if (fluid.isEmpty()) {
       return FluidStack.EMPTY;
     }
-    return parent.drain(new FluidStack(fluid, maxDrain), action);
+    return parent.drain(fluid.copyWithAmount(maxDrain), action);
   }
 
   @Override

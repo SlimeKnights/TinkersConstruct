@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/nicrosil/nugget",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:nuggets/nicrosil"
+      "tag": "c:nuggets/nicrosil"
     }
   ],
   "ingredient": {
-    "tag": "forge:nuggets/nicrosil"
+    "tag": "c:nuggets/nicrosil"
   },
   "result": {
     "amount": 10,
-    "tag": "forge:molten_nicrosil"
+    "tag": "c:molten_nicrosil"
   },
   "temperature": 1100,
   "time": 23

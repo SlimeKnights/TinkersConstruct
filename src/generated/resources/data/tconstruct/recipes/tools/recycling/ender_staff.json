@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:part_builder_recycling",
+  "id": "tconstruct:tools/recycling/ender_staff",
   "pattern": {
     "item": "tconstruct:venom_bottle"
   },
@@ -14,7 +15,7 @@
     },
     "tconstruct:ingot": {
       "count": 1,
-      "tag": "forge:ingots/netherite"
+      "tag": "c:ingots/netherite"
     }
   },
   "tool": {

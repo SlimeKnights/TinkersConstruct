@@ -11,7 +11,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
-import net.minecraft.world.item.alchemy.PotionUtils;
+import slimeknights.tconstruct.compat.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.ItemLike;

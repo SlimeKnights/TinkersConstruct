@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/seared/brick_sand_cast",
   "cast": {
     "tag": "tconstruct:casts/single_use/ingot"
   },

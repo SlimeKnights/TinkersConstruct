@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/iron/nugget_3",
   "ingredient": [
     {
       "item": "minecraft:iron_bars"
@@ -10,7 +11,7 @@
   ],
   "result": {
     "amount": 30,
-    "tag": "forge:molten_iron"
+    "tag": "c:molten_iron"
   },
   "temperature": 800,
   "time": 35

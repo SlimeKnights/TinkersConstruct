@@ -6,10 +6,11 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.templates.EmptyFluidHandler;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import slimeknights.tconstruct.compat.neoforged.neoforge.capabilities.ForgeCapabilities;
+import slimeknights.mantle.compat.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.fluids.capability.templates.EmptyFluidHandler;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 /** This class exists simply to allow us to have a block entity renderer for obsidian gauges. Though it is useful as a cache for the capability to render. */
@@ -31,9 +32,10 @@ public class GaugeBlockEntity extends BlockEntity {
     // if we have not fetched the neighbor, fetch it
     if (neighbor == null) {
       Direction side = getBlockState().getValue(BlockStateProperties.FACING);
-      BlockEntity te = level.getBlockEntity(getBlockPos().relative(side.getOpposite()));
+      BlockPos pos = getBlockPos().relative(side.getOpposite());
+      BlockEntity te = level.getBlockEntity(pos);
       if (te != null) {
-        neighbor = te.getCapability(ForgeCapabilities.FLUID_HANDLER, side);
+        neighbor = LazyOptional.ofNullable(level.getCapability(Capabilities.FluidHandler.BLOCK, pos, level.getBlockState(pos), te, side));
       } else {
         neighbor = LazyOptional.empty();
       }

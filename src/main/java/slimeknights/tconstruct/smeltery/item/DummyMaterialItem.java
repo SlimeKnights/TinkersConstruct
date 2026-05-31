@@ -3,12 +3,11 @@ package slimeknights.tconstruct.smeltery.item;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Item.TooltipContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.TConstruct;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 /** Item for creating casts that looks like a tool part */
@@ -19,7 +18,7 @@ public class DummyMaterialItem extends Item {
   }
 
   @Override
-  public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> tooltip, TooltipFlag pIsAdvanced) {
+  public void appendHoverText(ItemStack pStack, TooltipContext context, List<Component> tooltip, TooltipFlag pIsAdvanced) {
     tooltip.add(DUMMY_TOOL_PART);
   }
 }

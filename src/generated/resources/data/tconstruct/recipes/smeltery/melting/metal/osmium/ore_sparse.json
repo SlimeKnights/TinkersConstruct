@@ -1,36 +1,37 @@
 {
   "type": "tconstruct:ore_melting",
+  "id": "tconstruct:smeltery/melting/metal/osmium/ore_sparse",
   "byproducts": [
     {
       "amount": 90,
       "rate": "metal",
-      "tag": "forge:molten_iron"
+      "tag": "c:molten_iron"
     }
   ],
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_combination_filled",
       "match": [
-        "forge:ores/osmium",
-        "forge:ore_rates/sparse"
+        "c:ores/osmium",
+        "c:ore_rates/sparse"
       ]
     }
   ],
   "ingredient": {
-    "type": "forge:intersection",
+    "type": "neoforge:intersection",
     "children": [
       {
-        "tag": "forge:ores/osmium"
+        "tag": "c:ores/osmium"
       },
       {
-        "tag": "forge:ore_rates/sparse"
+        "tag": "c:ore_rates/sparse"
       }
     ]
   },
   "rate": "metal",
   "result": {
     "amount": 90,
-    "tag": "forge:molten_osmium"
+    "tag": "c:molten_osmium"
   },
   "temperature": 975,
   "time": 98

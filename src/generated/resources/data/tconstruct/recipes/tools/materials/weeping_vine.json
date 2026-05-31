@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/weeping_vine",
   "ingredient": {
     "item": "minecraft:weeping_vines"
   },

@@ -1,6 +1,6 @@
 {
   "loader": "tconstruct:tool",
-  "parent": "forge:item/default",
+  "parent": "neoforge:item/default",
   "textures": {
     "plating": "tconstruct:item/tool/armor/plate/helmet/plating",
     "maille":  "tconstruct:item/tool/armor/plate/helmet/maille"

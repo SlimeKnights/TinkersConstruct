@@ -13,7 +13,7 @@
   ],
   "result": {
     "count": 3,
-    "item": "tconstruct:bloodshroom_wood"
+    "id": "tconstruct:bloodshroom_wood"
   },
   "show_notification": true
 }

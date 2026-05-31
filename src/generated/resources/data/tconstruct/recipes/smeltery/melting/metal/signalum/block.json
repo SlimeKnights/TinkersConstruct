@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/signalum/block",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:storage_blocks/signalum"
+      "tag": "c:storage_blocks/signalum"
     }
   ],
   "ingredient": {
-    "tag": "forge:storage_blocks/signalum"
+    "tag": "c:storage_blocks/signalum"
   },
   "result": {
     "amount": 810,
-    "tag": "forge:molten_signalum"
+    "tag": "c:molten_signalum"
   },
   "temperature": 999,
   "time": 199

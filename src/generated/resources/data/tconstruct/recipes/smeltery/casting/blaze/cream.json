@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/blaze/cream",
   "cast": {
-    "tag": "forge:slimeball/earth"
+    "tag": "c:slimeball/earth"
   },
   "cast_consumed": true,
   "cooling_time": 60,

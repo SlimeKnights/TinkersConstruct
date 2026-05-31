@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/uranium/gear",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:gears/uranium"
+      "tag": "c:gears/uranium"
     }
   ],
   "ingredient": {
-    "tag": "forge:gears/uranium"
+    "tag": "c:gears/uranium"
   },
   "result": {
     "amount": 360,
-    "tag": "forge:molten_uranium"
+    "tag": "c:molten_uranium"
   },
   "temperature": 830,
   "time": 122

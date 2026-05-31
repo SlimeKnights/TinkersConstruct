@@ -1,11 +1,12 @@
 {
   "type": "tconstruct:casting_table_potion",
+  "id": "tconstruct:smeltery/casting/filling/splash_bottle",
   "bottle": {
-    "tag": "forge:bottles/lingering"
+    "tag": "c:bottles/lingering"
   },
   "fluid": {
     "amount": 250,
-    "tag": "forge:potion"
+    "tag": "c:potion"
   },
   "result": "minecraft:lingering_potion"
 }

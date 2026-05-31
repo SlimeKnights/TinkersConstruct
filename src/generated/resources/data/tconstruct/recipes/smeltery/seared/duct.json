@@ -6,7 +6,7 @@
       "item": "tconstruct:seared_brick"
     },
     "C": {
-      "tag": "forge:ingots/gold"
+      "tag": "c:ingots/gold"
     }
   },
   "pattern": [
@@ -15,7 +15,7 @@
     "# #"
   ],
   "result": {
-    "item": "tconstruct:seared_duct"
+    "id": "tconstruct:seared_duct"
   },
   "show_notification": true
 }

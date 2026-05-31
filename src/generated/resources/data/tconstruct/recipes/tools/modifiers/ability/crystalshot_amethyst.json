@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:swappable_modifier",
+  "id": "tconstruct:tools/modifiers/ability/crystalshot_amethyst",
   "allow_crystal": false,
   "inputs": [
     {
@@ -12,10 +13,10 @@
       "item": "minecraft:amethyst_cluster"
     },
     {
-      "tag": "forge:ingots/manyullyn"
+      "tag": "c:ingots/manyullyn"
     },
     {
-      "tag": "forge:ingots/manyullyn"
+      "tag": "c:ingots/manyullyn"
     }
   ],
   "result": {

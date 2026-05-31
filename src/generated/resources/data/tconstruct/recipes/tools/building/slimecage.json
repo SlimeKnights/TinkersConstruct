@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:basin_tool_casting",
+  "id": "tconstruct:tools/building/slimecage",
   "cast": {
     "item": "tconstruct:ribcage"
   },

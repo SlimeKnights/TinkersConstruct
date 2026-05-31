@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/emerald/gem_gold_cast",
   "cast": {
     "tag": "tconstruct:casts/multi_use/gem"
   },
@@ -9,6 +10,6 @@
     "tag": "tconstruct:molten_emerald"
   },
   "result": {
-    "tag": "forge:gems/emerald"
+    "tag": "c:gems/emerald"
   }
 }

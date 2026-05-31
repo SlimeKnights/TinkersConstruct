@@ -40,11 +40,6 @@ public class SlotButtonItem extends Button {
   }
 
   @Override
-  public void render(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
-    super.render(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
-  }
-
-  @Override
   public void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
       int x = getX();
       int y = getY();

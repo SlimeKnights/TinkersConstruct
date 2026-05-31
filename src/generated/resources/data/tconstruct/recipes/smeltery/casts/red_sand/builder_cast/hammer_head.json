@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:item_part_builder",
+  "id": "tconstruct:smeltery/casts/red_sand/builder_cast/hammer_head",
   "pattern": "tconstruct:hammer_head",
   "pattern_item": {
     "tag": "tconstruct:casts/red_sand"

@@ -11,6 +11,7 @@ import mezz.jei.api.recipe.category.extensions.vanilla.crafting.ICraftingCategor
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.Ingredient;
 import slimeknights.mantle.Mantle;
 import slimeknights.mantle.client.SafeClientAccess;
@@ -26,10 +27,26 @@ import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 /** Common logic for {@link ShapedMaterialsExtension} and {@link ShapelessMaterialsExtension} */
-public class MaterialsCraftingExtension<T extends CraftingRecipe & MaterialsCraftingTableRecipe> implements ICraftingCategoryExtension {
+public class MaterialsCraftingExtension<T extends CraftingRecipe & MaterialsCraftingTableRecipe> implements ICraftingCategoryExtension<T> {
+  public static final ICraftingCategoryExtension<ShapelessMaterialsRecipe> SHAPELESS = new ICraftingCategoryExtension<>() {
+    @Override
+    public void setRecipe(RecipeHolder<ShapelessMaterialsRecipe> holder, IRecipeLayoutBuilder builder, ICraftingGridHelper craftingGridHelper, IFocusGroup focuses) {
+      MaterialsCraftingExtension<ShapelessMaterialsRecipe> extension = MaterialsCraftingExtension.shapeless(holder.value());
+      if (extension != null) {
+        extension.setRecipe(builder, craftingGridHelper, focuses);
+      }
+    }
+
+    @Override
+    public Optional<ResourceLocation> getRegistryName(RecipeHolder<ShapelessMaterialsRecipe> holder) {
+      return Optional.of(holder.id());
+    }
+  };
+
   protected final T recipe;
   private final ItemStack plainResult;
   private final List<ItemStack> result;
@@ -102,7 +119,8 @@ public class MaterialsCraftingExtension<T extends CraftingRecipe & MaterialsCraf
     List<IRecipeSlotBuilder> inputs = craftingGridHelper.createAndSetInputs(builder, VanillaTypes.ITEM_STACK, inputStacks, width, height);
     IRecipeSlotBuilder output = craftingGridHelper.createAndSetOutputs(builder, result);
     if (inputs.size() != 9) {
-      Mantle.logger.error("Failed to create focus link for {} as the layout {} is not 3x3", recipe.getId(), builder.getClass().getName());
+      ResourceLocation id = recipe instanceof MaterialsCraftingTableRecipe materialRecipe ? materialRecipe.getId() : null;
+      Mantle.logger.error("Failed to create focus link for {} as the layout {} is not 3x3", id, builder.getClass().getName());
     } else if (materialSlots != null) {
       // apply focus links
       int finalWidth = width;

@@ -3,9 +3,9 @@ package slimeknights.tconstruct.library.recipe;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.bus.api.IEventBus;
+import slimeknights.mantle.compat.neoforged.neoforge.registries.RegistryObject;
+import slimeknights.mantle.registration.deferred.SynchronizedDeferredRegister;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipe;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
@@ -24,7 +24,7 @@ import slimeknights.tconstruct.library.recipe.worktable.IModifierWorktableRecipe
  */
 public class TinkerRecipeTypes {
   /** Deferred instance */
-  private static final DeferredRegister<RecipeType<?>> TYPES = DeferredRegister.create(Registries.RECIPE_TYPE, TConstruct.MOD_ID);
+  private static final SynchronizedDeferredRegister<RecipeType<?>> TYPES = SynchronizedDeferredRegister.create(Registries.RECIPE_TYPE, TConstruct.MOD_ID);
 
   public static final RegistryObject<RecipeType<IPartBuilderRecipe>> PART_BUILDER = register("part_builder");
   public static final RegistryObject<RecipeType<MaterialRecipe>> MATERIAL = register("material");

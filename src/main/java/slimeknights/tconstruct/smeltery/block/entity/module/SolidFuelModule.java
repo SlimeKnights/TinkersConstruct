@@ -5,14 +5,15 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.common.util.NonNullConsumer;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.templates.EmptyFluidHandler;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import slimeknights.tconstruct.compat.neoforged.neoforge.common.ForgeHooks;
+import slimeknights.tconstruct.compat.neoforged.neoforge.capabilities.ForgeCapabilities;
+import slimeknights.mantle.compat.neoforged.neoforge.common.util.LazyOptional;
+import slimeknights.mantle.compat.neoforged.neoforge.common.util.NonNullConsumer;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.fluids.capability.templates.EmptyFluidHandler;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
 import slimeknights.mantle.block.entity.MantleBlockEntity;
 import slimeknights.mantle.inventory.EmptyItemHandler;
 import slimeknights.mantle.util.WeakConsumerWrapper;
@@ -115,11 +116,13 @@ public class SolidFuelModule extends FuelModule {
     if (te != null) {
       // first, identify a capability that has what we need
       // on the chance both are present, we prioritize fluid; we don't expect that to change
-      fluidHandler = te.getCapability(ForgeCapabilities.FLUID_HANDLER);
+      IFluidHandler fluidCapability = getLevel().getCapability(Capabilities.FluidHandler.BLOCK, fuelPos, null, te, null);
+      fluidHandler = LazyOptional.ofNullable(fluidCapability);
       if (fluidHandler.isPresent()) {
         fluidHandler.addListener(fluidListener);
       }
-      itemHandler = te.getCapability(ForgeCapabilities.ITEM_HANDLER);
+      IItemHandler itemCapability = getLevel().getCapability(Capabilities.ItemHandler.BLOCK, fuelPos, null, te, null);
+      itemHandler = LazyOptional.ofNullable(itemCapability);
       if (itemHandler.isPresent()) {
         itemHandler.addListener(itemListener);
       }

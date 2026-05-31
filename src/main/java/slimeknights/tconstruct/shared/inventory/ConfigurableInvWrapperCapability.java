@@ -2,7 +2,7 @@ package slimeknights.tconstruct.shared.inventory;
 
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.items.wrapper.InvWrapper;
+import net.neoforged.neoforge.items.wrapper.InvWrapper;
 
 import javax.annotation.Nonnull;
 

@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/gold/nugget",
   "ingredient": {
-    "tag": "forge:nuggets/gold"
+    "tag": "c:nuggets/gold"
   },
   "material": "tconstruct:gold",
   "needed": 9,

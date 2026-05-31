@@ -1,6 +1,6 @@
 {
   "loader": "tconstruct:tool",
-  "parent": "forge:item/default",
+  "parent": "neoforge:item/default",
   "textures": {
     "base": "tconstruct:item/tool/armor/travelers/goggles/base_broken",
     "cuirass": "tconstruct:item/tool/armor/travelers/goggles/cuirass_broken",

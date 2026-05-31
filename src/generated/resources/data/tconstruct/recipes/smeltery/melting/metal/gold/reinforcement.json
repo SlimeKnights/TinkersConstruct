@@ -1,11 +1,12 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/gold/reinforcement",
   "ingredient": {
     "item": "tconstruct:gold_reinforcement"
   },
   "result": {
     "amount": 90,
-    "tag": "forge:molten_gold"
+    "tag": "c:molten_gold"
   },
   "temperature": 700,
   "time": 57

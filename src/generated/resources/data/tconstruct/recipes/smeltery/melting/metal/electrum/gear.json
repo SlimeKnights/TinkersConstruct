@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/electrum/gear",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:gears/electrum"
+      "tag": "c:gears/electrum"
     }
   ],
   "ingredient": {
-    "tag": "forge:gears/electrum"
+    "tag": "c:gears/electrum"
   },
   "result": {
     "amount": 360,
-    "tag": "forge:molten_electrum"
+    "tag": "c:molten_electrum"
   },
   "temperature": 760,
   "time": 118

@@ -1,7 +1,10 @@
 package slimeknights.tconstruct.tools.modules.armor;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -18,6 +21,7 @@ import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.primitive.FloatLoadable;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
 import slimeknights.tconstruct.library.json.variable.entity.EntityLightVariable;
@@ -71,6 +75,16 @@ public record LightspeedAttributeModule(String unique, UUID uuid, Attribute attr
     return EntityLightVariable.getLightLevel(level, lightLayer, pos);
   }
 
+  /** Gets a holder for the configured attribute. */
+  private Holder<Attribute> attributeHolder() {
+    return BuiltInRegistries.ATTRIBUTE.wrapAsHolder(attribute);
+  }
+
+  /** Gets the stable modifier ID used by 1.21 attributes. */
+  private ResourceLocation modifierId() {
+    return TConstruct.getResource(unique.replace(':', '_').replace('/', '_'));
+  }
+
   @Override
   public void onWalk(IToolStackView tool, ModifierEntry modifier, LivingEntity living, BlockPos prevPos, BlockPos newPos) {
     // no point trying if not on the ground
@@ -79,13 +93,14 @@ public record LightspeedAttributeModule(String unique, UUID uuid, Attribute attr
       return;
     }
     // must have speed
-    AttributeInstance attribute = living.getAttribute(this.attribute);
+    ResourceLocation modifierId = modifierId();
+    AttributeInstance attribute = living.getAttribute(attributeHolder());
     if (attribute == null) {
       return;
     }
     // start by removing the attribute, we are likely going to give it a new number
-    if (attribute.getModifier(uuid) != null) {
-      attribute.removeModifier(uuid);
+    if (attribute.getModifier(modifierId) != null) {
+      attribute.removeModifier(modifierId);
     }
 
     // not above air
@@ -94,7 +109,7 @@ public record LightspeedAttributeModule(String unique, UUID uuid, Attribute attr
     int light = getLight(level, pos);
     if (light > minLight) {
       int scaledLight = light - minLight;
-      attribute.addTransientModifier(new AttributeModifier(uuid, unique, scaledLight * amount * modifier.getEffectiveLevel(), operation));
+      attribute.addTransientModifier(new AttributeModifier(modifierId, scaledLight * amount * modifier.getEffectiveLevel(), operation));
 
       // damage boots
       if (level.random.nextFloat() < (damageChance * scaledLight)) {
@@ -111,9 +126,10 @@ public record LightspeedAttributeModule(String unique, UUID uuid, Attribute attr
       IToolStackView newTool = context.getReplacementTool();
       // damaging the tool will trigger this hook, so ensure the new tool has the same level
       if (newTool == null || newTool.isBroken() || newTool.getModifier(modifier.getId()).getEffectiveLevel() != modifier.getEffectiveLevel()) {
-        AttributeInstance attribute = livingEntity.getAttribute(this.attribute);
-        if (attribute != null && attribute.getModifier(uuid) != null) {
-          attribute.removeModifier(uuid);
+        ResourceLocation modifierId = modifierId();
+        AttributeInstance attribute = livingEntity.getAttribute(attributeHolder());
+        if (attribute != null && attribute.getModifier(modifierId) != null) {
+          attribute.removeModifier(modifierId);
         }
       }
     }
@@ -130,7 +146,7 @@ public record LightspeedAttributeModule(String unique, UUID uuid, Attribute attr
     }
     float boost = amount * (light - minLight) * entry.getEffectiveLevel();
     if (boost > 0) {
-      if (operation == Operation.ADDITION) {
+      if (operation == Operation.ADD_VALUE) {
         // multiplies addition boost by 10 and displays as a percent as the players base movement speed is 0.1 and is in unknown units
         // percentages make sense
         boost *= 10;

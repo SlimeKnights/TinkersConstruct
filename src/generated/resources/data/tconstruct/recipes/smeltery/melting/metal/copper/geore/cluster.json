@@ -1,25 +1,26 @@
 {
   "type": "tconstruct:ore_melting",
+  "id": "tconstruct:smeltery/melting/metal/copper/geore/cluster",
   "byproducts": [
     {
       "amount": 120,
       "rate": "metal",
-      "tag": "forge:molten_gold"
+      "tag": "c:molten_gold"
     }
   ],
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:geore_clusters/copper"
+      "tag": "c:geore_clusters/copper"
     }
   ],
   "ingredient": {
-    "tag": "forge:geore_clusters/copper"
+    "tag": "c:geore_clusters/copper"
   },
   "rate": "metal",
   "result": {
     "amount": 360,
-    "tag": "forge:molten_copper"
+    "tag": "c:molten_copper"
   },
   "temperature": 500,
   "time": 125

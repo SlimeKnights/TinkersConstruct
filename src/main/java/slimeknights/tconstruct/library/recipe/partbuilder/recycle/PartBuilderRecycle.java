@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.recipe.partbuilder.recycle;
 
 import lombok.Getter;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -102,7 +103,7 @@ public class PartBuilderRecycle implements IPartBuilderRecipe, IMultiRecipe<Disp
   }
 
   @Override
-  public ItemStack assemble(IPartBuilderContainer inv, RegistryAccess access, Pattern pattern) {
+  public ItemStack assemble(IPartBuilderContainer inv, HolderLookup.Provider access, Pattern pattern) {
     int maxCount = getAmount(inv.getStack(), resultCount);
     ItemOutput result = results.get(pattern);
     // should never happen
@@ -144,10 +145,10 @@ public class PartBuilderRecycle implements IPartBuilderRecipe, IMultiRecipe<Disp
     return 0;
   }
 
-  /** @deprecated use {@link #assemble(IPartBuilderContainer, RegistryAccess, Pattern)} */
+  /** @deprecated use {@link #assemble(IPartBuilderContainer, HolderLookup.Provider, Pattern)} */
   @Deprecated
   @Override
-  public ItemStack getResultItem(RegistryAccess access) {
+  public ItemStack getResultItem(HolderLookup.Provider access) {
     return ItemStack.EMPTY;
   }
 

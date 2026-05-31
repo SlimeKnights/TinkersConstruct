@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:modifier_salvage",
+  "id": "tconstruct:tools/modifiers/salvage/ability/reflecting_level_2",
   "level": {
     "max": 3,
     "min": 2

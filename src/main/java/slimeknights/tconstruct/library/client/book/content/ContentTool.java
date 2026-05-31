@@ -17,9 +17,9 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ItemLike;
-import net.minecraftforge.common.ForgeI18n;
-import net.minecraftforge.common.crafting.IShapedRecipe;
-import net.minecraftforge.registries.ForgeRegistries;
+import slimeknights.tconstruct.compat.neoforged.neoforge.common.ForgeI18n;
+import slimeknights.tconstruct.compat.neoforged.neoforge.common.crafting.IShapedRecipe;
+import slimeknights.mantle.compat.neoforged.neoforge.registries.ForgeRegistries;
 import slimeknights.mantle.client.book.HTMLUtils;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.content.PageContent;
@@ -30,6 +30,7 @@ import slimeknights.mantle.client.screen.book.element.BookElement;
 import slimeknights.mantle.client.screen.book.element.ImageElement;
 import slimeknights.mantle.client.screen.book.element.TextElement;
 import slimeknights.mantle.data.loadable.Loadables;
+import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.mantle.util.ItemStackList;
 import slimeknights.mantle.util.html.HtmlElement;
 import slimeknights.mantle.util.html.HtmlGroup;
@@ -131,7 +132,7 @@ public class ContentTool extends PageContent {
       if (this.toolName == null) {
         this.toolName = this.parent.name;
       }
-      Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(this.toolName));
+      Item item = ForgeRegistries.ITEMS.getValue(ResourceLocation.tryParse(this.toolName));
       if (item instanceof IModifiableDisplay tool) {
         this.tool = tool;
       } else {
@@ -158,14 +159,14 @@ public class ContentTool extends PageContent {
       List<IToolPart> required = ToolPartsHook.parts(tool.getToolDefinition());
 
       // get the stacks for the first crafting table recipe, prefer this option over parts as it may not be craftable with said parts
-      Recipe<CraftingContainer> recipe = Optional.ofNullable(Minecraft.getInstance().level)
-                                                 .flatMap(world -> {
-                                                   RegistryAccess access = world.registryAccess();
-                                                   return world.getRecipeManager().byType(RecipeType.CRAFTING).values().stream()
-                                                        .filter(r -> r.getResultItem(access).getItem() == tool.asItem())
-                                                        .findFirst();
-                                                 })
-                                                 .orElse(null);
+      Recipe<?> recipe = Optional.ofNullable(Minecraft.getInstance().level)
+                                 .flatMap(world -> {
+                                   RegistryAccess access = world.registryAccess();
+                                   return RecipeHelper.getRecipes(world.getRecipeManager(), RecipeType.CRAFTING).stream()
+                                               .filter(r -> r.getResultItem(access).getItem() == tool.asItem())
+                                               .findFirst();
+                                 })
+                                 .orElse(null);
       if (recipe != null) {
         // parts is just the items in the recipe
         this.parts = recipe.getIngredients().stream().map(ingredient -> ItemStackList.of(ingredient.getItems())).collect(Collectors.toList());
@@ -183,7 +184,7 @@ public class ContentTool extends PageContent {
         }
         // fetch the tool building recipe for extra ingredients
         List<Ingredient> extraRequirements = Optional.ofNullable(Minecraft.getInstance().level)
-                                                     .flatMap(world -> world.getRecipeManager().byType(TinkerRecipeTypes.TINKER_STATION.get()).values().stream()
+                                                     .flatMap(world -> RecipeHelper.getRecipes(world.getRecipeManager(), TinkerRecipeTypes.TINKER_STATION.get()).stream()
                                                                             .filter(r -> r instanceof ToolBuildingRecipe toolRecipe && toolRecipe.getOutput() == tool)
                                                                             .map(r -> ((ToolBuildingRecipe)r).getExtraRequirements())
                                                                             .findFirst()).orElse(List.of());

@@ -5,7 +5,7 @@
       "required": false
     },
     {
-      "id": "#forge:necrotic_blacklist",
+      "id": "#c:necrotic_blacklist",
       "required": false
     }
   ]

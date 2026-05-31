@@ -6,13 +6,17 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.state.BlockState;
+import org.apache.commons.lang3.mutable.MutableFloat;
 import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.field.LoadableField;
@@ -162,8 +166,8 @@ public interface EnchantmentModule extends ModifierModule, LevelingIntModule, Co
     }
 
     @Override
-    public int updateEnchantmentLevel(IToolStackView tool, ModifierEntry modifier, Enchantment enchantment, int level) {
-      if (enchantment == this.enchantment() && condition().matches(tool, modifier)) {
+    public int updateEnchantmentLevel(IToolStackView tool, ModifierEntry modifier, Holder<Enchantment> enchantment, int level) {
+      if (enchantment.value() == this.enchantment() && condition().matches(tool, modifier)) {
         level += getLevel(modifier);
       }
       return level;
@@ -216,8 +220,11 @@ public interface EnchantmentModule extends ModifierModule, LevelingIntModule, Co
       if (condition().matches(tool, modifier)) {
         int subtractLevel = getLevel(modifier);
         Enchantment enchantment = enchantment();
-        if (subtractLevel > 0 && LogicHelper.isInList(enchantment.slots, slotType) && !source.is(DamageTypeTags.BYPASSES_ENCHANTMENTS)) {
-          modifierValue -= enchantment.getDamageProtection(subtractLevel, source);
+        LivingEntity entity = context.getEntity();
+        if (subtractLevel > 0 && enchantment.matchingSlot(slotType) && !source.is(DamageTypeTags.BYPASSES_ENCHANTMENTS) && entity.level() instanceof ServerLevel serverLevel) {
+          MutableFloat protection = new MutableFloat(0);
+          enchantment.modifyDamageProtection(serverLevel, subtractLevel, new ItemStack(tool.getItem()), entity, source, protection);
+          modifierValue -= protection.floatValue();
         }
       }
       return modifierValue;
@@ -256,8 +263,8 @@ public interface EnchantmentModule extends ModifierModule, LevelingIntModule, Co
     }
 
     @Override
-    public int updateEnchantmentLevel(IToolStackView tool, ModifierEntry modifier, Enchantment enchantment, int level) {
-      if (enchantment == this.enchantment() && tool.getPersistentData().getBoolean(conditionFlag)) {
+    public int updateEnchantmentLevel(IToolStackView tool, ModifierEntry modifier, Holder<Enchantment> enchantment, int level) {
+      if (enchantment.value() == this.enchantment() && tool.getPersistentData().getBoolean(conditionFlag)) {
         level += getLevel(modifier);
       }
       return level;

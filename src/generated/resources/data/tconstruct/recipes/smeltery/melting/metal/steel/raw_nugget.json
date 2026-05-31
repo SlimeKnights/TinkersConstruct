@@ -1,11 +1,12 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/steel/raw_nugget",
   "ingredient": {
-    "tag": "forge:raw_nuggets/steel"
+    "tag": "c:raw_nuggets/steel"
   },
   "result": {
     "amount": 10,
-    "tag": "forge:molten_steel"
+    "tag": "c:molten_steel"
   },
   "temperature": 950,
   "time": 32

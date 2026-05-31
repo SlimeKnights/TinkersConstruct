@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:casting_basin",
-  "conditions": [
+  "id": "tconstruct:smeltery/casting/metal/pewter/block",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:storage_blocks/pewter"
+      "tag": "c:storage_blocks/pewter"
     }
   ],
   "cooling_time": 139,
   "fluid": {
     "amount": 810,
-    "tag": "forge:molten_pewter"
+    "tag": "c:molten_pewter"
   },
   "result": {
-    "tag": "forge:storage_blocks/pewter"
+    "tag": "c:storage_blocks/pewter"
   }
 }

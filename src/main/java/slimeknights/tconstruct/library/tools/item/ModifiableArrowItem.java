@@ -15,11 +15,12 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ArrowItem;
+import net.minecraft.world.item.Item.TooltipContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import slimeknights.tconstruct.compat.neoforged.neoforge.capabilities.ICapabilityProvider;
 import slimeknights.mantle.client.SafeClientAccess;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.tconstruct.common.Sounds;
@@ -60,14 +61,14 @@ public class ModifiableArrowItem extends ArrowItem implements IModifiableDisplay
   /* Arrowing */
 
   @Override
-  public AbstractArrow createArrow(Level level, ItemStack stack, LivingEntity shooter) {
+  public AbstractArrow createArrow(Level level, ItemStack stack, LivingEntity shooter, @Nullable ItemStack weapon) {
     ModifiableArrow arrow = new ModifiableArrow(level, shooter);
     arrow.onCreate(stack, shooter);
     return arrow;
   }
 
   @Override
-  public boolean isInfinite(ItemStack stack, ItemStack bow, Player player) {
+  public boolean isInfinite(ItemStack stack, ItemStack bow, LivingEntity player) {
     return false;
   }
 
@@ -103,12 +104,10 @@ public class ModifiableArrowItem extends ArrowItem implements IModifiableDisplay
   /* Loading */
 
   @Nullable
-  @Override
   public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
     return new ToolCapabilityProvider(stack);
   }
 
-  @Override
   public void verifyTagAfterLoad(CompoundTag nbt) {
     ToolStack.verifyTag(this, nbt, getToolDefinition());
   }
@@ -128,7 +127,6 @@ public class ModifiableArrowItem extends ArrowItem implements IModifiableDisplay
     return ModifierUtil.checkVolatileFlag(stack, SHINY);
   }
 
-  @Override
   public Rarity getRarity(ItemStack stack) {
     return RarityModule.getRarity(stack);
   }
@@ -174,11 +172,10 @@ public class ModifiableArrowItem extends ArrowItem implements IModifiableDisplay
   }
 
   @Override
-  public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
-    TooltipUtil.addInformation(this, stack, level, tooltip, SafeClientAccess.getTooltipKey(), flag);
+  public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+    TooltipUtil.addInformation(this, stack, context.level(), tooltip, SafeClientAccess.getTooltipKey(), flag);
   }
 
-  @Override
   public int getDefaultTooltipHideFlags(ItemStack stack) {
     return TooltipUtil.getModifierHideFlags(getToolDefinition());
   }

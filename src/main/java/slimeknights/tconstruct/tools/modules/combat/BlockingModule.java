@@ -4,8 +4,8 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.UseAnim;
-import net.minecraftforge.common.ToolAction;
-import net.minecraftforge.common.ToolActions;
+import net.neoforged.neoforge.common.ItemAbility;
+import net.neoforged.neoforge.common.ItemAbilities;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.loadable.record.SingletonLoader;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -44,8 +44,8 @@ public enum BlockingModule implements ModifierModule, GeneralInteractionModifier
   }
 
   @Override
-  public boolean canPerformAction(IToolStackView tool, ModifierEntry entry, ToolAction toolAction) {
-    return toolAction == ToolActions.SHIELD_BLOCK;
+  public boolean canPerformAction(IToolStackView tool, ModifierEntry entry, ItemAbility toolAction) {
+    return toolAction == ItemAbilities.SHIELD_BLOCK;
   }
 
   @Override

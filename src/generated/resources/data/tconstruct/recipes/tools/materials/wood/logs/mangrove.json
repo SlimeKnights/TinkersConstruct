@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/wood/logs/mangrove",
   "ingredient": {
     "tag": "minecraft:mangrove_logs"
   },

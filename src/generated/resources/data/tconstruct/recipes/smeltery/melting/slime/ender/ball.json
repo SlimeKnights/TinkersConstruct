@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/slime/ender/ball",
   "ingredient": {
-    "tag": "forge:slimeball/ender"
+    "tag": "c:slimeball/ender"
   },
   "result": {
     "amount": 250,

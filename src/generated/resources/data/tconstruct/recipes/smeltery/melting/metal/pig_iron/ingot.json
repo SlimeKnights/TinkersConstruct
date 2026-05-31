@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/pig_iron/ingot",
   "ingredient": {
-    "tag": "forge:ingots/pig_iron"
+    "tag": "c:ingots/pig_iron"
   },
   "result": {
     "amount": 90,

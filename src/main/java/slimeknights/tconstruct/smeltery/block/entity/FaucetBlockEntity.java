@@ -11,17 +11,19 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.common.util.NonNullConsumer;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
-import net.minecraftforge.fluids.capability.templates.EmptyFluidHandler;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import slimeknights.tconstruct.compat.neoforged.neoforge.capabilities.ForgeCapabilities;
+import slimeknights.mantle.compat.neoforged.neoforge.common.util.LazyOptional;
+import slimeknights.mantle.compat.neoforged.neoforge.common.util.NonNullConsumer;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction;
+import net.neoforged.neoforge.fluids.capability.templates.EmptyFluidHandler;
 import slimeknights.mantle.block.entity.MantleBlockEntity;
 import slimeknights.mantle.util.WeakConsumerWrapper;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.recipe.FluidValues;
+import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.network.FaucetActivationPacket;
 
@@ -81,12 +83,11 @@ public class FaucetBlockEntity extends MantleBlockEntity {
    */
   private LazyOptional<IFluidHandler> findFluidHandler(Direction side) {
     assert level != null;
-    BlockEntity te = level.getBlockEntity(worldPosition.relative(side));
+    BlockPos pos = worldPosition.relative(side);
+    BlockEntity te = level.getBlockEntity(pos);
     if (te != null) {
-      LazyOptional<IFluidHandler> handler = te.getCapability(ForgeCapabilities.FLUID_HANDLER, side.getOpposite());
-      if (handler.isPresent()) {
-        return handler;
-      }
+      IFluidHandler handler = level.getCapability(Capabilities.FluidHandler.BLOCK, pos, level.getBlockState(pos), te, side.getOpposite());
+      return LazyOptional.ofNullable(handler);
     }
     return LazyOptional.empty();
   }
@@ -317,7 +318,6 @@ public class FaucetBlockEntity extends MantleBlockEntity {
     }
   }
 
-  @Override
   public AABB getRenderBoundingBox() {
     return new AABB(worldPosition.getX(), worldPosition.getY() - 1, worldPosition.getZ(), worldPosition.getX() + 1, worldPosition.getY() + 1, worldPosition.getZ() + 1);
   }
@@ -357,7 +357,7 @@ public class FaucetBlockEntity extends MantleBlockEntity {
     super.saveSynced(compound);
     compound.putByte(TAG_STATE, (byte)faucetState.ordinal());
     if (!renderFluid.isEmpty()) {
-      compound.put(TAG_RENDER_FLUID, renderFluid.writeToNBT(new CompoundTag()));
+      compound.put(TAG_RENDER_FLUID, renderFluid.save(TagUtil.BUILTIN_LOOKUP));
     }
   }
 
@@ -367,7 +367,7 @@ public class FaucetBlockEntity extends MantleBlockEntity {
     compound.putBoolean(TAG_STOP, stopPouring);
     compound.putBoolean(TAG_LAST_REDSTONE, lastRedstoneState);
     if (!drained.isEmpty()) {
-      compound.put(TAG_DRAINED, drained.writeToNBT(new CompoundTag()));
+      compound.put(TAG_DRAINED, drained.save(TagUtil.BUILTIN_LOOKUP));
     }
   }
 
@@ -380,12 +380,12 @@ public class FaucetBlockEntity extends MantleBlockEntity {
     lastRedstoneState = compound.getBoolean(TAG_LAST_REDSTONE);
     // fluids
     if (compound.contains(TAG_DRAINED, Tag.TAG_COMPOUND)) {
-      drained = FluidStack.loadFluidStackFromNBT(compound.getCompound(TAG_DRAINED));
+      drained = FluidStack.parseOptional(TagUtil.BUILTIN_LOOKUP, compound.getCompound(TAG_DRAINED));
     } else {
       drained = FluidStack.EMPTY;
     }
     if (compound.contains(TAG_RENDER_FLUID, Tag.TAG_COMPOUND)) {
-      renderFluid = FluidStack.loadFluidStackFromNBT(compound.getCompound(TAG_RENDER_FLUID));
+      renderFluid = FluidStack.parseOptional(TagUtil.BUILTIN_LOOKUP, compound.getCompound(TAG_RENDER_FLUID));
     } else {
       renderFluid = FluidStack.EMPTY;
     }

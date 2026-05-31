@@ -1,12 +1,13 @@
 {
   "type": "tconstruct:part_builder_recycling",
+  "id": "tconstruct:tables/recycling/turtle_helmet",
   "pattern": {
     "item": "tconstruct:venom_bottle"
   },
   "results": {
     "tconstruct:scale": {
       "count": 5,
-      "item": "minecraft:scute"
+      "item": "minecraft:turtle_scute"
     }
   },
   "tool": {

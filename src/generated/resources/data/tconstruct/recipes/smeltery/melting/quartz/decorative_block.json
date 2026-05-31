@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/quartz/decorative_block",
   "ingredient": [
     {
       "item": "minecraft:smooth_quartz"

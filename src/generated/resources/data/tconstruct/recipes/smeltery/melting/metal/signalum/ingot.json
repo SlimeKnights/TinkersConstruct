@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/signalum/ingot",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:ingots/signalum"
+      "tag": "c:ingots/signalum"
     }
   ],
   "ingredient": {
-    "tag": "forge:ingots/signalum"
+    "tag": "c:ingots/signalum"
   },
   "result": {
     "amount": 90,
-    "tag": "forge:molten_signalum"
+    "tag": "c:molten_signalum"
   },
   "temperature": 999,
   "time": 66

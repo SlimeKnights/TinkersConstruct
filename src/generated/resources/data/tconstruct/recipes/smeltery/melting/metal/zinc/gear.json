@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/zinc/gear",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:gears/zinc"
+      "tag": "c:gears/zinc"
     }
   ],
   "ingredient": {
-    "tag": "forge:gears/zinc"
+    "tag": "c:gears/zinc"
   },
   "result": {
     "amount": 360,
-    "tag": "forge:molten_zinc"
+    "tag": "c:molten_zinc"
   },
   "temperature": 420,
   "time": 94

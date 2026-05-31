@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraftforge.network.NetworkEvent.Context;
+import slimeknights.mantle.compat.neoforged.neoforge.network.NetworkEvent.Context;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.tconstruct.shared.TinkerEffects;

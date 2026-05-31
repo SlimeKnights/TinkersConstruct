@@ -6,7 +6,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
 import slimeknights.mantle.data.loadable.common.ItemStackLoadable;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.field.LoadableField;
@@ -175,7 +175,7 @@ public class ModifierRemovalRecipe extends AbstractWorktableRecipe {
       tools = sizedTool.getMatchingStacks().stream().map(stack -> {
         ItemStack tool = IModifiableDisplay.getDisplayStack(stack.getItem());
         if (stack.getCount() > 1) {
-          tool = ItemHandlerHelper.copyStackWithSize(tool, stack.getCount());
+          tool = tool.copyWithCount(stack.getCount());
         }
         return tool;
       }).toList();

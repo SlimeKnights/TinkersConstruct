@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/water/blue_ice",
   "ingredient": {
     "item": "minecraft:blue_ice"
   },

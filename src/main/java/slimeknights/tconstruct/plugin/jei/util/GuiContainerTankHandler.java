@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.plugin.jei.util;
 
-import mezz.jei.api.forge.ForgeTypes;
+import mezz.jei.api.neoforge.NeoForgeTypes;
 import mezz.jei.api.gui.handlers.IGuiContainerHandler;
 import mezz.jei.api.runtime.IClickableIngredient;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -18,7 +18,7 @@ public class GuiContainerTankHandler<C extends AbstractContainerMenu, T extends 
   public Optional<IClickableIngredient<?>> getClickableIngredientUnderMouse(T containerScreen, double mouseX, double mouseY) {
     FluidLocation fluid = containerScreen.getFluidUnderMouse((int)mouseX, (int)mouseY);
     if (fluid != null) {
-      return Optional.of(new ClickableIngredient<>(ForgeTypes.FLUID_STACK, fluid.fluid(), fluid.location()));
+      return Optional.of(new ClickableIngredient<>(NeoForgeTypes.FLUID_STACK, fluid.fluid(), fluid.location()));
     }
     return Optional.empty();
   }

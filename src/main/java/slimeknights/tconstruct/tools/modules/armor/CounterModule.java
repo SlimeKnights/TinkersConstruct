@@ -10,7 +10,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlot.Type;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraftforge.common.ToolActions;
+import net.neoforged.neoforge.common.ItemAbilities;
 import slimeknights.mantle.data.loadable.field.LoadableField;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
@@ -126,9 +126,9 @@ public interface CounterModule extends ModifierModule, OnAttackedModifierHook, C
     // holder must be using an item with shield block in the same hand as the slot
     return slotType.getType() == Type.HAND && holder.isUsingItem()
       && Util.getSlotType(holder.getUsedItemHand()) == slotType
-      && ModifierUtil.canPerformAction(tool, ToolActions.SHIELD_BLOCK)
+      && ModifierUtil.canPerformAction(tool, ItemAbilities.SHIELD_BLOCK)
       // not sure whether its a modifier or a bow blocking, so we do end up creating a second tool stack to check use duration; luckily needs no modifier list parse
-      && holder.getItemBySlot(slotType).getUseDuration() - holder.getUseItemRemainingTicks() >= 5;
+      && holder.getItemBySlot(slotType).getUseDuration(holder) - holder.getUseItemRemainingTicks() >= 5;
   }
 
   /** Gets the scaled level of the modifier, doubling for shields that are blocking */

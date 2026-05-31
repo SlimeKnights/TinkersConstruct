@@ -3,11 +3,11 @@
   "conditions": [
     {
       "condition": "mantle:block_tag",
-      "tag": "forge:ores/silver"
+      "tag": "c:ores/silver"
     },
     {
       "condition": "mantle:tag_filled",
-      "tag": "forge:nuggets/silver"
+      "tag": "c:nuggets/silver"
     },
     {
       "condition": "tconstruct:has_modifier",
@@ -16,7 +16,7 @@
   ],
   "entry": {
     "type": "mantle:tag_preference",
-    "tag": "forge:nuggets/silver"
+    "tag": "c:nuggets/silver"
   },
   "functions": [
     {
@@ -44,7 +44,7 @@
       "condition": {
         "type": "mantle:contains_item",
         "ingredient": {
-          "tag": "forge:ores/silver"
+          "tag": "c:ores/silver"
         }
       }
     }

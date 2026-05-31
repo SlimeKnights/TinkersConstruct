@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.library.data.recipe;
 
-import net.minecraft.data.recipes.FinishedRecipe;
+import slimeknights.mantle.compat.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;

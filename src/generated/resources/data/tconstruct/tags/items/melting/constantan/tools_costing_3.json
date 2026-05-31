@@ -1,11 +1,11 @@
 {
   "values": [
     {
-      "id": "#forge:tools/pickaxes/constantan",
+      "id": "#c:tools/pickaxes/constantan",
       "required": false
     },
     {
-      "id": "#forge:tools/axes/constantan",
+      "id": "#c:tools/axes/constantan",
       "required": false
     },
     {

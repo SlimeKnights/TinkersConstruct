@@ -13,12 +13,12 @@ public class SearedSoulGlassBlock extends SearedGlassBlock {
   }
 
   @Override
-  public VoxelShape getBlockSupportShape(BlockState pState, BlockGetter pReader, BlockPos pPos) {
+  protected VoxelShape getBlockSupportShape(BlockState pState, BlockGetter pReader, BlockPos pPos) {
     return Shapes.block();
   }
 
   @Override
-  public boolean isPathfindable(BlockState pState, BlockGetter pLevel, BlockPos pPos, PathComputationType pType) {
+  protected boolean isPathfindable(BlockState pState, PathComputationType pType) {
     return false;
   }
 }

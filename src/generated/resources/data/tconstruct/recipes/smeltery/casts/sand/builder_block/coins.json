@@ -1,14 +1,15 @@
 {
   "type": "tconstruct:item_part_builder",
-  "conditions": [
+  "id": "tconstruct:smeltery/casts/sand/builder_block/coins",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:coins"
+      "tag": "c:coins"
     }
   ],
   "pattern": "tconstruct:coin",
   "pattern_item": {
-    "tag": "forge:sand/colorless"
+    "tag": "c:sand/colorless"
   },
   "result": {
     "count": 4,

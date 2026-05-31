@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casts/gold/small_blade",
   "cast": {
     "type": "tconstruct:material",
     "item": "tconstruct:small_blade"
@@ -8,7 +9,7 @@
   "cooling_time": 57,
   "fluid": {
     "amount": 90,
-    "tag": "forge:molten_gold"
+    "tag": "c:molten_gold"
   },
   "result": "tconstruct:small_blade_cast",
   "switch_slots": true

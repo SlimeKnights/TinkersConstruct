@@ -18,7 +18,7 @@ public class MutableUseOnContext extends UseOnContext {
   @Getter
   private Vec3 clickedLocation;
   public MutableUseOnContext(UseOnContext base) {
-    this(base.getLevel(), base.getPlayer(), base.getHand(), base.getItemInHand(), base.getHitResult());
+    this(base.getLevel(), base.getPlayer(), base.getHand(), base.getItemInHand(), new BlockHitResult(base.getClickLocation(), base.getClickedFace(), base.getClickedPos(), base.isInside()));
   }
 
   public MutableUseOnContext(Level pLevel, @Nullable Player pPlayer, InteractionHand pHand, ItemStack pItemStack, BlockHitResult pHitResult) {

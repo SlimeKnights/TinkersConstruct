@@ -1,14 +1,15 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/steel/ingot_gold_cast",
   "cast": {
     "tag": "tconstruct:casts/multi_use/ingot"
   },
   "cooling_time": 65,
   "fluid": {
     "amount": 90,
-    "tag": "forge:molten_steel"
+    "tag": "c:molten_steel"
   },
   "result": {
-    "tag": "forge:ingots/steel"
+    "tag": "c:ingots/steel"
   }
 }

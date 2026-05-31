@@ -13,7 +13,7 @@
   ],
   "result": {
     "count": 3,
-    "item": "tconstruct:stripped_enderbark_wood"
+    "id": "tconstruct:stripped_enderbark_wood"
   },
   "show_notification": true
 }

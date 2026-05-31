@@ -1,20 +1,21 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/iron/plate_gold_cast",
   "cast": {
     "tag": "tconstruct:casts/multi_use/plate"
   },
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:plates/iron"
+      "tag": "c:plates/iron"
     }
   ],
   "cooling_time": 60,
   "fluid": {
     "amount": 90,
-    "tag": "forge:molten_iron"
+    "tag": "c:molten_iron"
   },
   "result": {
-    "tag": "forge:plates/iron"
+    "tag": "c:plates/iron"
   }
 }

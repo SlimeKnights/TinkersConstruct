@@ -3,7 +3,7 @@ package slimeknights.tconstruct.library.tools.definition.module.aoe;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.crafting.conditions.ICondition;
+import net.neoforged.neoforge.common.conditions.ICondition;
 import slimeknights.mantle.data.loadable.mapping.ConditionalLoadable.ConditionalObject;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.library.client.armor.texture.ArmorTextureSupplier;

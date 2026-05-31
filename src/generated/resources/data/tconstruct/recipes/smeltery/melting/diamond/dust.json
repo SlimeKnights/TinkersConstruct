@@ -1,13 +1,14 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/diamond/dust",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:dusts/diamond"
+      "tag": "c:dusts/diamond"
     }
   ],
   "ingredient": {
-    "tag": "forge:dusts/diamond"
+    "tag": "c:dusts/diamond"
   },
   "result": {
     "amount": 100,

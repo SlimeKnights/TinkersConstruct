@@ -6,7 +6,7 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.common.util.TablePrinter;
+import net.neoforged.neoforge.common.util.TablePrinter;
 import slimeknights.mantle.command.MantleCommand;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;

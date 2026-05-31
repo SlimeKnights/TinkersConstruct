@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:material_melting",
+  "id": "tconstruct:tools/materials/melting/pig_iron",
   "input": "tconstruct:pig_iron",
   "result": {
     "amount": 90,

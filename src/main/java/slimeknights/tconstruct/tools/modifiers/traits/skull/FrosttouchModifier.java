@@ -13,6 +13,7 @@ import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
 import slimeknights.tconstruct.library.module.ModuleHookMap.Builder;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
+import slimeknights.tconstruct.shared.TinkerEffects;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.modules.combat.MobEffectModule.ArmorAttack} */
@@ -29,7 +30,7 @@ public class FrosttouchModifier extends NoLevelsModifier implements DamageDealtM
   public void onDamageDealt(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, LivingEntity target, DamageSource source, float amount, boolean isDirectDamage) {
     // must drink milk to melee slowness. Always can range slowness
     if (isDirectDamage) {
-      boolean isCalcified = context.getEntity().hasEffect(TinkerModifiers.calcifiedEffect.get());
+      boolean isCalcified = context.getEntity().hasEffect(TinkerEffects.holder(TinkerModifiers.calcifiedEffect));
       if (isCalcified || source.is(DamageTypeTags.IS_PROJECTILE)) {
         target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 300, isCalcified ? 1 : 0), context.getEntity());
       }

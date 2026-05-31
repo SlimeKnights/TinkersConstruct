@@ -1,21 +1,22 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/brass/ingot_sand_cast",
   "cast": {
     "tag": "tconstruct:casts/single_use/ingot"
   },
   "cast_consumed": true,
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:ingots/brass"
+      "tag": "c:ingots/brass"
     }
   ],
   "cooling_time": 54,
   "fluid": {
     "amount": 90,
-    "tag": "forge:molten_brass"
+    "tag": "c:molten_brass"
   },
   "result": {
-    "tag": "forge:ingots/brass"
+    "tag": "c:ingots/brass"
   }
 }

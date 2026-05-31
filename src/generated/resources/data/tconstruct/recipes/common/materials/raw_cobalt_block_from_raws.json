@@ -4,7 +4,7 @@
   "group": "tconstruct:raw_cobalt_block",
   "key": {
     "#": {
-      "tag": "forge:raw_materials/cobalt"
+      "tag": "c:raw_materials/cobalt"
     },
     "*": {
       "item": "tconstruct:raw_cobalt"
@@ -16,7 +16,7 @@
     "###"
   ],
   "result": {
-    "item": "tconstruct:raw_cobalt_block"
+    "id": "tconstruct:raw_cobalt_block"
   },
   "show_notification": true
 }

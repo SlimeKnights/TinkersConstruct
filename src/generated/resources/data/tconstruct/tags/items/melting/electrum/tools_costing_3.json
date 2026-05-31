@@ -1,11 +1,11 @@
 {
   "values": [
     {
-      "id": "#forge:tools/pickaxes/electrum",
+      "id": "#c:tools/pickaxes/electrum",
       "required": false
     },
     {
-      "id": "#forge:tools/axes/electrum",
+      "id": "#c:tools/axes/electrum",
       "required": false
     },
     {

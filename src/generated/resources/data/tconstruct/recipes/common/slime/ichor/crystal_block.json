@@ -12,7 +12,7 @@
     "##"
   ],
   "result": {
-    "item": "tconstruct:ichor_slime_crystal_block"
+    "id": "tconstruct:ichor_slime_crystal_block"
   },
   "show_notification": true
 }

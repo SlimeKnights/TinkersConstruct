@@ -1,25 +1,26 @@
 {
   "type": "tconstruct:ore_melting",
+  "id": "tconstruct:smeltery/melting/metal/gold/geore/bud_medium",
   "byproducts": [
     {
       "amount": 180,
       "rate": "metal",
-      "tag": "forge:molten_cobalt"
+      "tag": "c:molten_cobalt"
     }
   ],
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:geore_medium_buds/gold"
+      "tag": "c:geore_medium_buds/gold"
     }
   ],
   "ingredient": {
-    "tag": "forge:geore_medium_buds/gold"
+    "tag": "c:geore_medium_buds/gold"
   },
   "rate": "metal",
   "result": {
     "amount": 180,
-    "tag": "forge:molten_gold"
+    "tag": "c:molten_gold"
   },
   "temperature": 700,
   "time": 85

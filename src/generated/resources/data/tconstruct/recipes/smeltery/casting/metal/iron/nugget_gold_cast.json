@@ -1,14 +1,15 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/iron/nugget_gold_cast",
   "cast": {
     "tag": "tconstruct:casts/multi_use/nugget"
   },
   "cooling_time": 20,
   "fluid": {
     "amount": 10,
-    "tag": "forge:molten_iron"
+    "tag": "c:molten_iron"
   },
   "result": {
-    "tag": "forge:nuggets/iron"
+    "tag": "c:nuggets/iron"
   }
 }

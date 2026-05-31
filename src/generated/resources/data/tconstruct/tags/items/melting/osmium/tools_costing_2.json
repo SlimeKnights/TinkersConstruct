@@ -1,11 +1,11 @@
 {
   "values": [
     {
-      "id": "#forge:tools/swords/osmium",
+      "id": "#c:tools/swords/osmium",
       "required": false
     },
     {
-      "id": "#forge:tools/hoes/osmium",
+      "id": "#c:tools/hoes/osmium",
       "required": false
     }
   ]

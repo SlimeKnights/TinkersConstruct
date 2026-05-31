@@ -1,7 +1,9 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation;
 
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
@@ -18,6 +20,9 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 public interface ITinkerStationRecipe extends ICommonRecipe<ITinkerStationContainer> {
   /** Max number of tools in the tinker station slot, if the stack size is larger than this, only some of the tool is consumed */
   int DEFAULT_TOOL_STACK_SIZE = 16;
+
+  /** Gets the recipe ID. */
+  ResourceLocation getId();
 
   /* Recipe data */
 
@@ -65,14 +70,14 @@ public interface ITinkerStationRecipe extends ICommonRecipe<ITinkerStationContai
   /** @deprecated use {@link #getValidatedResult(ITinkerStationContainer, RegistryAccess)}*/
   @Deprecated
   @Override
-  default ItemStack getResultItem(RegistryAccess pRegistryAccess) {
+  default ItemStack getResultItem(HolderLookup.Provider pRegistryAccess) {
     return ItemStack.EMPTY;
   }
 
   /** @deprecated use {@link #getValidatedResult(ITinkerStationContainer, RegistryAccess)}*/
   @Deprecated
   @Override
-  default ItemStack assemble(ITinkerStationContainer inv, RegistryAccess access) {
+  default ItemStack assemble(ITinkerStationContainer inv, HolderLookup.Provider access) {
     return getResultItem(access).copy();
   }
 

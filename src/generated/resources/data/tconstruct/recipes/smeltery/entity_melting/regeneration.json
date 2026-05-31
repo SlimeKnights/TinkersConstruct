@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:entity_melting",
+  "id": "tconstruct:smeltery/entity_melting/regeneration",
   "damage": 2,
   "entity": {
     "types": [
@@ -12,6 +13,6 @@
     "nbt": {
       "Potion": "minecraft:regeneration"
     },
-    "tag": "forge:potion"
+    "tag": "c:potion"
   }
 }

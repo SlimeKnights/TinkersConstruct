@@ -1,11 +1,12 @@
 {
   "type": "tconstruct:damagable_melting",
+  "id": "tconstruct:smeltery/melting/metal/gold/chestplate",
   "ingredient": {
     "item": "minecraft:golden_chestplate"
   },
   "result": {
     "amount": 720,
-    "tag": "forge:molten_gold",
+    "tag": "c:molten_gold",
     "unit_size": 10
   },
   "temperature": 700,

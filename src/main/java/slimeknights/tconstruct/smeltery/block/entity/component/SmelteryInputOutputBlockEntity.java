@@ -10,14 +10,15 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.client.model.data.ModelData;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.common.util.NonNullConsumer;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.templates.EmptyFluidHandler;
-import net.minecraftforge.items.IItemHandler;
+import net.neoforged.neoforge.client.model.data.ModelData;
+import slimeknights.mantle.compat.neoforged.neoforge.capabilities.Capability;
+import slimeknights.tconstruct.compat.neoforged.neoforge.capabilities.ForgeCapabilities;
+import slimeknights.mantle.compat.neoforged.neoforge.common.util.LazyOptional;
+import slimeknights.mantle.compat.neoforged.neoforge.common.util.NonNullConsumer;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.fluids.capability.templates.EmptyFluidHandler;
+import net.neoforged.neoforge.items.IItemHandler;
+import slimeknights.mantle.block.entity.MantleBlockEntity;
 import slimeknights.mantle.block.entity.IRetexturedBlockEntity;
 import slimeknights.mantle.inventory.EmptyItemHandler;
 import slimeknights.mantle.util.RetexturedHelper;
@@ -98,7 +99,7 @@ public abstract class SmelteryInputOutputBlockEntity<T> extends SmelteryComponen
    * @return  Capability from parent, or empty if absent
    */
   protected LazyOptional<T> getCapability(BlockEntity parent) {
-    LazyOptional<T> handler = parent.getCapability(capability);
+    LazyOptional<T> handler = parent instanceof MantleBlockEntity mantle ? mantle.getCapability(capability) : LazyOptional.empty();
     if (handler.isPresent()) {
       handler.addListener(listener);
 

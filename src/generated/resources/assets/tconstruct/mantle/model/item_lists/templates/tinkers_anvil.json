@@ -6,7 +6,7 @@
       9.0
     ],
     "size": 7.5,
-    "transform": "tconstruct:table",
+    "transform": "minecraft:none",
     "x": 270
   },
   {
@@ -16,7 +16,7 @@
       10.5
     ],
     "size": 3.0,
-    "transform": "tconstruct:table"
+    "transform": "minecraft:none"
   },
   {
     "center": [
@@ -25,7 +25,7 @@
       5.5
     ],
     "size": 3.0,
-    "transform": "tconstruct:table"
+    "transform": "minecraft:none"
   },
   {
     "center": [
@@ -34,7 +34,7 @@
       4.5
     ],
     "size": 3.0,
-    "transform": "tconstruct:table"
+    "transform": "minecraft:none"
   },
   {
     "center": [
@@ -43,7 +43,7 @@
       5.5
     ],
     "size": 3.0,
-    "transform": "tconstruct:table"
+    "transform": "minecraft:none"
   },
   {
     "center": [
@@ -52,6 +52,6 @@
       10.5
     ],
     "size": 3.0,
-    "transform": "tconstruct:table"
+    "transform": "minecraft:none"
   }
 ]

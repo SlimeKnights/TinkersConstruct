@@ -13,7 +13,7 @@
   ],
   "conditions": [
     {
-      "type": "forge:or",
+      "type": "neoforge:or",
       "values": [
         {
           "type": "tconstruct:config",
@@ -21,15 +21,15 @@
         },
         {
           "type": "mantle:tag_filled",
-          "tag": "forge:ingots/pewter"
+          "tag": "c:ingots/pewter"
         },
         {
           "type": "mantle:tag_filled",
-          "tag": "forge:ingots/tin"
+          "tag": "c:ingots/tin"
         },
         {
           "type": "mantle:tag_filled",
-          "tag": "forge:ingots/lead"
+          "tag": "c:ingots/lead"
         }
       ]
     }
@@ -60,6 +60,6 @@
   ],
   "fluid": {
     "amount": 10,
-    "tag": "forge:molten_pewter"
+    "tag": "c:molten_pewter"
   }
 }

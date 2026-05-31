@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/constantan/nugget",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:nuggets/constantan"
+      "tag": "c:nuggets/constantan"
     }
   ],
   "ingredient": {
-    "tag": "forge:nuggets/constantan"
+    "tag": "c:nuggets/constantan"
   },
   "result": {
     "amount": 10,
-    "tag": "forge:molten_constantan"
+    "tag": "c:molten_constantan"
   },
   "temperature": 920,
   "time": 21

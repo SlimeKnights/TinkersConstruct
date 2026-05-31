@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/copper/gear",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:gears/copper"
+      "tag": "c:gears/copper"
     }
   ],
   "ingredient": {
-    "tag": "forge:gears/copper"
+    "tag": "c:gears/copper"
   },
   "result": {
     "amount": 360,
-    "tag": "forge:molten_copper"
+    "tag": "c:molten_copper"
   },
   "temperature": 500,
   "time": 100

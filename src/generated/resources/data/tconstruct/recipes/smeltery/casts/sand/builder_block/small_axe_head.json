@@ -1,8 +1,9 @@
 {
   "type": "tconstruct:item_part_builder",
+  "id": "tconstruct:smeltery/casts/sand/builder_block/small_axe_head",
   "pattern": "tconstruct:small_axe_head",
   "pattern_item": {
-    "tag": "forge:sand/colorless"
+    "tag": "c:sand/colorless"
   },
   "result": {
     "count": 4,

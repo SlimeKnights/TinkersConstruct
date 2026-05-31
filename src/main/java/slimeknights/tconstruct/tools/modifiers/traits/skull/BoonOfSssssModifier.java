@@ -15,7 +15,7 @@ import slimeknights.tconstruct.tools.modules.ReduceEffectOnUnequipModule;
 public class BoonOfSssssModifier extends NoLevelsModifier {
   @Override
   protected void registerHooks(Builder hookBuilder) {
-    hookBuilder.addModule(AttributeModule.builder(TinkerAttributes.GOOD_EFFECT_DURATION, Operation.MULTIPLY_BASE).eachLevel(0.25f));
+    hookBuilder.addModule(AttributeModule.builder(TinkerAttributes.GOOD_EFFECT_DURATION, Operation.ADD_MULTIPLIED_BASE).eachLevel(0.25f));
     hookBuilder.addModule(new ReduceEffectOnUnequipModule(MobEffectCategory.BENEFICIAL, LevelingValue.eachLevel(0.2f), ModifierCondition.ANY_TOOL));
   }
 }

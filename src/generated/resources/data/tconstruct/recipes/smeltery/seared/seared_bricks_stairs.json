@@ -14,7 +14,7 @@
   ],
   "result": {
     "count": 4,
-    "item": "tconstruct:seared_bricks_stairs"
+    "id": "tconstruct:seared_bricks_stairs"
   },
   "show_notification": true
 }

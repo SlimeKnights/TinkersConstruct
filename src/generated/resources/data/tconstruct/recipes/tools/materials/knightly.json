@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/knightly",
   "ingredient": {
-    "tag": "forge:raw_nuggets/knightmetal"
+    "tag": "c:raw_nuggets/knightmetal"
   },
   "material": "tconstruct:knightly",
   "needed": 1,

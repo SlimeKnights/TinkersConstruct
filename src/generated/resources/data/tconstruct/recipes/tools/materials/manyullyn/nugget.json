@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/manyullyn/nugget",
   "ingredient": {
-    "tag": "forge:nuggets/manyullyn"
+    "tag": "c:nuggets/manyullyn"
   },
   "material": "tconstruct:manyullyn",
   "needed": 9,

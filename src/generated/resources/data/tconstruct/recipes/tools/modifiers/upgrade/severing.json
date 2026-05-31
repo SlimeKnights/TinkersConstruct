@@ -1,15 +1,16 @@
 {
   "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/upgrade/severing",
   "allow_crystal": true,
   "inputs": [
     {
-      "tag": "forge:wither_bones"
+      "tag": "c:wither_bones"
     },
     {
       "item": "minecraft:lightning_rod"
     },
     {
-      "tag": "forge:wither_bones"
+      "tag": "c:wither_bones"
     },
     {
       "item": "minecraft:tnt"

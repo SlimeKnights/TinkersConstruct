@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:overslime_modifier",
+  "id": "tconstruct:tools/modifiers/slotless/overslime/ender_ball",
   "ingredient": {
     "item": "tconstruct:ender_slime_ball"
   },

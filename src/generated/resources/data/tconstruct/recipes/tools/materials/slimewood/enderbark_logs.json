@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/slimewood/enderbark_logs",
   "ingredient": {
     "tag": "tconstruct:enderbark_logs"
   },

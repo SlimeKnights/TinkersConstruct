@@ -3,7 +3,7 @@
   "category": "building",
   "key": {
     "G": {
-      "tag": "forge:glass/tinted"
+      "tag": "c:glass/tinted"
     },
     "b": {
       "item": "tconstruct:seared_brick"
@@ -15,7 +15,7 @@
     " b "
   ],
   "result": {
-    "item": "tconstruct:seared_tinted_glass"
+    "id": "tconstruct:seared_tinted_glass"
   },
   "show_notification": true
 }

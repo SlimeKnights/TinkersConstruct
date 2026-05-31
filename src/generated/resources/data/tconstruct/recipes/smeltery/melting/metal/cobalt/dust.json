@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/cobalt/dust",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:dusts/cobalt"
+      "tag": "c:dusts/cobalt"
     }
   ],
   "ingredient": {
-    "tag": "forge:dusts/cobalt"
+    "tag": "c:dusts/cobalt"
   },
   "result": {
     "amount": 90,
-    "tag": "forge:molten_cobalt"
+    "tag": "c:molten_cobalt"
   },
   "temperature": 950,
   "time": 49

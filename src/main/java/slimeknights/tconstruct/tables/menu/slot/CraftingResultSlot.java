@@ -4,7 +4,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ResultSlot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.event.ForgeEventFactory;
+import slimeknights.tconstruct.compat.neoforged.neoforge.event.ForgeEventFactory;
 import slimeknights.mantle.inventory.CustomResultSlot;
 import slimeknights.mantle.inventory.IContainerCraftingCustom;
 

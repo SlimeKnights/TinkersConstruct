@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:part_builder_recycling",
+  "id": "tconstruct:tables/recycling/crossbow",
   "pattern": {
     "item": "tconstruct:venom_bottle"
   },
@@ -10,7 +11,7 @@
     },
     "tconstruct:ingot": {
       "count": 1,
-      "tag": "forge:ingots/iron"
+      "tag": "c:ingots/iron"
     },
     "tconstruct:rod": {
       "count": 3,

@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casts/gold/repair_kit",
   "cast": {
     "type": "tconstruct:material",
     "item": "tconstruct:repair_kit"
@@ -8,7 +9,7 @@
   "cooling_time": 57,
   "fluid": {
     "amount": 90,
-    "tag": "forge:molten_gold"
+    "tag": "c:molten_gold"
   },
   "result": "tconstruct:repair_kit_cast",
   "switch_slots": true

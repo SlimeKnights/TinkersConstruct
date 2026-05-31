@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/quartz/block",
   "ingredient": {
-    "tag": "forge:storage_blocks/quartz"
+    "tag": "c:storage_blocks/quartz"
   },
   "result": {
     "amount": 400,

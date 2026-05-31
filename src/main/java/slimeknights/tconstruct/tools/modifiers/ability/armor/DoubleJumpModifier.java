@@ -21,7 +21,7 @@ public class DoubleJumpModifier extends Modifier {
   @Override
   protected void registerHooks(Builder hookBuilder) {
     super.registerHooks(hookBuilder);
-    hookBuilder.addModule(AttributeModule.builder(TinkerAttributes.JUMP_COUNT.get(), Operation.ADDITION).slots(ARMOR_SLOTS).tooltipStyle(TooltipStyle.NONE).flat(1));
+    hookBuilder.addModule(AttributeModule.builder(TinkerAttributes.JUMP_COUNT.get(), Operation.ADD_VALUE).slots(ARMOR_SLOTS).tooltipStyle(TooltipStyle.NONE).flat(1));
   }
 
   @Override

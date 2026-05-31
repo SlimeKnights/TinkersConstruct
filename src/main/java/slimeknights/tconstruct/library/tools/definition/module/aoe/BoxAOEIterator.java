@@ -10,7 +10,6 @@ import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
@@ -98,10 +97,9 @@ public record BoxAOEIterator(BoxSize base, List<BoxSize> expansions, IBoxExpansi
     if (extraSize.isZero()) {
       return Collections.emptyList();
     }
-    BlockHitResult hit = context.getHitResult();
-    ExpansionDirections expansion = expansionDirection.getDirections(context.getPlayer(), hit.getDirection());
+    ExpansionDirections expansion = expansionDirection.getDirections(context.getPlayer(), context.getClickedFace());
     Predicate<BlockPos> posPredicate = AreaOfEffectIterator.defaultBlockPredicate(tool, context, matchType);
-    return () -> new RectangleIterator(hit.getBlockPos(), expansion.width(), extraSize.width, expansion.height(), extraSize.height, expansion.traverseDown(), expansion.depth(), extraSize.depth, posPredicate);
+    return () -> new RectangleIterator(context.getClickedPos(), expansion.width(), extraSize.width, expansion.height(), extraSize.height, expansion.traverseDown(), expansion.depth(), extraSize.depth, posPredicate);
   }
 
   /** Iterator used for getting the blocks */

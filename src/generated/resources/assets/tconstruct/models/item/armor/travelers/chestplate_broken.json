@@ -1,6 +1,6 @@
 {
   "loader": "tconstruct:tool",
-  "parent": "forge:item/default",
+  "parent": "neoforge:item/default",
   "textures": {
     "cuirass": "tconstruct:item/tool/armor/travelers/vest/cuirass_broken",
     "metal": "tconstruct:item/tool/armor/travelers/vest/metal_broken"

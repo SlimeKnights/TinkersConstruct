@@ -7,7 +7,7 @@
       "item": "tconstruct:clear_glass"
     },
     "X": {
-      "tag": "forge:dyes/yellow"
+      "tag": "c:dyes/yellow"
     }
   },
   "pattern": [
@@ -17,7 +17,7 @@
   ],
   "result": {
     "count": 8,
-    "item": "tconstruct:yellow_clear_stained_glass"
+    "id": "tconstruct:yellow_clear_stained_glass"
   },
   "show_notification": true
 }

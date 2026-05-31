@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.Model;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.util.FastColor;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -37,8 +38,12 @@ public class MultilayerArmorModel extends AbstractArmorModel {
   }
 
   @Override
-  public void renderToBuffer(PoseStack matrices, VertexConsumer bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
+  public void renderToBuffer(PoseStack matrices, VertexConsumer bufferIn, int packedLightIn, int packedOverlayIn, int color) {
     if (this.base != null && buffer != null) {
+      float red = FastColor.ARGB32.red(color) / 255.0f;
+      float green = FastColor.ARGB32.green(color) / 255.0f;
+      float blue = FastColor.ARGB32.blue(color) / 255.0f;
+      float alpha = FastColor.ARGB32.alpha(color) / 255.0f;
       boolean armorGlint = hasGlint;
       boolean wingGlint = hasGlint;
       for (ArmorTextureSupplier textureSupplier : model.layers()) {

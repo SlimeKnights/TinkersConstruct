@@ -1,7 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "misc",
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "tconstruct:config",
       "prop": "glass_recipe_fix"
@@ -9,7 +9,7 @@
   ],
   "key": {
     "#": {
-      "tag": "forge:glass/colorless"
+      "tag": "c:glass/colorless"
     }
   },
   "pattern": [
@@ -18,7 +18,7 @@
   ],
   "result": {
     "count": 3,
-    "item": "minecraft:glass_bottle"
+    "id": "minecraft:glass_bottle"
   },
   "show_notification": true
 }

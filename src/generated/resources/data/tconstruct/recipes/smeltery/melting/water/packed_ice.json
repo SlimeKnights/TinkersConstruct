@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/water/packed_ice",
   "ingredient": {
     "item": "minecraft:packed_ice"
   },

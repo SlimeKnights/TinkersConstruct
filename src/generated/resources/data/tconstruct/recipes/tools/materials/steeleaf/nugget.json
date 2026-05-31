@@ -1,13 +1,14 @@
 {
   "type": "tconstruct:material",
-  "conditions": [
+  "id": "tconstruct:tools/materials/steeleaf/nugget",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:nuggets/steeleaf"
+      "tag": "c:nuggets/steeleaf"
     }
   ],
   "ingredient": {
-    "tag": "forge:nuggets/steeleaf"
+    "tag": "c:nuggets/steeleaf"
   },
   "material": "tconstruct:steeleaf",
   "needed": 9,

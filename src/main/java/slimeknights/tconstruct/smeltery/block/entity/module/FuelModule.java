@@ -9,11 +9,11 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.common.util.NonNullConsumer;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+import slimeknights.mantle.compat.neoforged.neoforge.common.util.LazyOptional;
+import slimeknights.mantle.compat.neoforged.neoforge.common.util.NonNullConsumer;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.mantle.block.entity.MantleBlockEntity;
 import slimeknights.mantle.util.WeakConsumerWrapper;
 import slimeknights.tconstruct.TConstruct;
@@ -130,7 +130,7 @@ public abstract class FuelModule implements ContainerData {
       int amount = recipe.getAmount(fluid.getFluid());
       if (fluid.getAmount() >= amount) {
         if (consume) {
-          FluidStack drained = handler.drain(new FluidStack(fluid, amount), FluidAction.EXECUTE);
+          FluidStack drained = handler.drain(fluid.copyWithAmount(amount), FluidAction.EXECUTE);
           if (drained.getAmount() != amount) {
             TConstruct.LOG.error("Invalid amount of fuel drained from tank");
           }

@@ -7,7 +7,7 @@
       "item": "tconstruct:bloodshroom_planks"
     },
     "X": {
-      "tag": "forge:rods/wooden"
+      "tag": "c:rods/wooden"
     }
   },
   "pattern": [
@@ -17,7 +17,7 @@
   ],
   "result": {
     "count": 3,
-    "item": "tconstruct:bloodshroom_sign"
+    "id": "tconstruct:bloodshroom_sign"
   },
   "show_notification": true
 }

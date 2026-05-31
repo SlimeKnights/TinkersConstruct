@@ -2,7 +2,7 @@ package slimeknights.tconstruct.library.recipe.material;
 
 import com.google.gson.JsonObject;
 import lombok.NoArgsConstructor;
-import net.minecraft.data.recipes.FinishedRecipe;
+import slimeknights.mantle.compat.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import slimeknights.mantle.recipe.data.ConsumerWrapperBuilder;

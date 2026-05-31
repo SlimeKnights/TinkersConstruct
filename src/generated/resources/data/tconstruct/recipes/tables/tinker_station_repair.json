@@ -1,3 +1,4 @@
 {
-  "type": "tconstruct:tinker_station_repair"
+  "type": "tconstruct:tinker_station_repair",
+  "id": "tconstruct:tables/tinker_station_repair"
 }

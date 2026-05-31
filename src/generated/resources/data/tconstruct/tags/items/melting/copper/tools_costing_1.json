@@ -2,7 +2,7 @@
   "values": [
     "minecraft:brush",
     {
-      "id": "#forge:tools/shovels/copper",
+      "id": "#c:tools/shovels/copper",
       "required": false
     },
     {

@@ -16,9 +16,9 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
-import net.minecraftforge.fluids.FluidType;
+import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.conditions.ModLoadedCondition;
+import net.neoforged.neoforge.fluids.FluidType;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.block.BlockPredicate;
 import slimeknights.mantle.data.predicate.entity.BlockAtEntityPredicate;
@@ -297,21 +297,21 @@ public class FluidEffectProvider extends AbstractFluidEffectProvider {
       .addEntityEffects(FluidMobEffect.builder().effect(MobEffects.CONFUSION, 5 * 20, 1).buildEntity(TimeAction.ADD));
     {
       String ie = "immersiveengineering";
-      MobEffect flammable = FakeRegistryEntry.effect(new ResourceLocation(ie, "flammable"));
+      MobEffect flammable = FakeRegistryEntry.effect(ResourceLocation.fromNamespaceAndPath(ie, "flammable"));
       compatFluid(ie, "creosote",  50)
         .addEffect(FluidMobEffect.builder().effect(flammable, 8 * 20, 1), TimeAction.ADD)
         .addEntityEffect(new FireFluidEffect(TimeAction.ADD, 8));
       compatFluid(ie, "biodiesel", 50)
         .addEffect(FluidMobEffect.builder().effect(flammable, 8 * 20, 2), TimeAction.ADD)
         .addEntityEffect(new FireFluidEffect(TimeAction.ADD, 8));
-      FluidMobEffect conductive = new FluidMobEffect(FakeRegistryEntry.effect(new ResourceLocation(ie, "conductive")), 8 * 20, 2);
+      FluidMobEffect conductive = new FluidMobEffect(FakeRegistryEntry.effect(ResourceLocation.fromNamespaceAndPath(ie, "conductive")), 8 * 20, 2);
       compatFluid(ie, "redstone_acid",  50)
         .addEntityEffect(new MobEffectFluidEffect(conductive, TimeAction.ADD))
         .addBlockEffect(new MobEffectCloudFluidEffect(conductive))
         .addBlockEffect(FluidEffect.WEATHER);
-      compatFluid(ie, "phenolic_resin", 50).addEffect(FluidMobEffect.builder().effect(FakeRegistryEntry.effect(new ResourceLocation(ie, "sticky")), 8 * 20, 2), TimeAction.ADD);
-      Block concreteSprayed = FakeRegistryEntry.block(new ResourceLocation(ie, "concrete_sprayed"));
-      AreaMobEffectFluidEffect concreteFeet = new AreaMobEffectFluidEffect(new FluidMobEffect(FakeRegistryEntry.effect(new ResourceLocation(ie, "concrete_feet")), MobEffectInstance.INFINITE_DURATION, 1), TimeAction.SET, GroupCost.MAX);
+      compatFluid(ie, "phenolic_resin", 50).addEffect(FluidMobEffect.builder().effect(FakeRegistryEntry.effect(ResourceLocation.fromNamespaceAndPath(ie, "sticky")), 8 * 20, 2), TimeAction.ADD);
+      Block concreteSprayed = FakeRegistryEntry.block(ResourceLocation.fromNamespaceAndPath(ie, "concrete_sprayed"));
+      AreaMobEffectFluidEffect concreteFeet = new AreaMobEffectFluidEffect(new FluidMobEffect(FakeRegistryEntry.effect(ResourceLocation.fromNamespaceAndPath(ie, "concrete_feet")), MobEffectInstance.INFINITE_DURATION, 1), TimeAction.SET, GroupCost.MAX);
       compatFluid(ie, "concrete", 100)
         .addEntityEffect(new BlockAtEntityPredicate(BlockPredicate.CAN_BE_REPLACED, 0), new SetBlockFluidEffect(concreteSprayed))
         .offsetBlockEffect(BlockPredicate.CAN_BE_REPLACED, new SetBlockFluidEffect(concreteSprayed))
@@ -336,7 +336,7 @@ public class FluidEffectProvider extends AbstractFluidEffectProvider {
       return new TagPredicate(compound);
     };
     String create = "create";
-    addFluid("potion_create", FluidNameIngredient.of(new ResourceLocation(create, "potion"), FluidValues.SIP))
+    addFluid("potion_create", FluidNameIngredient.of(ResourceLocation.fromNamespaceAndPath(create, "potion"), FluidValues.SIP))
       .hidden() // we have the regular potion type showing, the create one in addition is a bit confusing
       .addCondition(new ModLoadedCondition(create))
       .addEntityEffect(new PotionFluidEffect(0.25f, createBottle.apply("REGULAR")))

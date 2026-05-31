@@ -75,11 +75,11 @@
     {
       "type": "mantle:tag_filled",
       "registry": "minecraft:fluid",
-      "tag": "forge:herbicide"
+      "tag": "c:herbicide"
     }
   ],
   "fluid": {
     "amount": 10,
-    "tag": "forge:herbicide"
+    "tag": "c:herbicide"
   }
 }

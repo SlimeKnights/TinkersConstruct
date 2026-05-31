@@ -1,20 +1,21 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/aluminum/ingot_gold_cast",
   "cast": {
     "tag": "tconstruct:casts/multi_use/ingot"
   },
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:ingots/aluminum"
+      "tag": "c:ingots/aluminum"
     }
   ],
   "cooling_time": 47,
   "fluid": {
     "amount": 90,
-    "tag": "forge:molten_aluminum"
+    "tag": "c:molten_aluminum"
   },
   "result": {
-    "tag": "forge:ingots/aluminum"
+    "tag": "c:ingots/aluminum"
   }
 }

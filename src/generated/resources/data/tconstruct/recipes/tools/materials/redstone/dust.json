@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/redstone/dust",
   "ingredient": {
-    "tag": "forge:dusts/redstone"
+    "tag": "c:dusts/redstone"
   },
   "material": "tconstruct:redstone",
   "needed": 4,

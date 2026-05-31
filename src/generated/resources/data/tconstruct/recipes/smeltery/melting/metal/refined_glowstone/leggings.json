@@ -1,6 +1,7 @@
 {
   "type": "tconstruct:damagable_melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/refined_glowstone/leggings",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
       "tag": "tconstruct:melting/refined_glowstone/tools_costing_7"
@@ -11,7 +12,7 @@
   },
   "result": {
     "amount": 630,
-    "tag": "forge:molten_refined_glowstone",
+    "tag": "c:molten_refined_glowstone",
     "unit_size": 10
   },
   "temperature": 825,

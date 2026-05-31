@@ -2,11 +2,11 @@ package slimeknights.tconstruct.smeltery.block.entity.tank;
 
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
-import net.minecraftforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidStack;
 import slimeknights.tconstruct.library.fluid.FillOnlyFluidHandler;
 import slimeknights.tconstruct.smeltery.block.entity.ChannelBlockEntity;
 
-import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction;
 
 /** Tank for each side connection, for the sake of rendering */
 public class ChannelSideTank extends FillOnlyFluidHandler {

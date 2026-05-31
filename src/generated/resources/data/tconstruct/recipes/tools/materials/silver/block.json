@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:material",
-  "conditions": [
+  "id": "tconstruct:tools/materials/silver/block",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:storage_blocks/silver"
+      "tag": "c:storage_blocks/silver"
     }
   ],
   "ingredient": {
-    "tag": "forge:storage_blocks/silver"
+    "tag": "c:storage_blocks/silver"
   },
   "leftover": {
     "count": 1,
-    "tag": "forge:ingots/silver"
+    "tag": "c:ingots/silver"
   },
   "material": "tconstruct:silver",
   "needed": 1,

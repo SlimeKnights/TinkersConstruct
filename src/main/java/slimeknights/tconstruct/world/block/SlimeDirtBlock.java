@@ -5,8 +5,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraftforge.common.PlantType;
-import slimeknights.tconstruct.world.TinkerWorld;
+import net.neoforged.neoforge.common.util.TriState;
 
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
@@ -17,8 +16,7 @@ public class SlimeDirtBlock extends Block {
   }
 
   @Override
-  public boolean canSustainPlant(BlockState state, BlockGetter world, BlockPos pos, Direction facing, net.minecraftforge.common.IPlantable plantable) {
-    // can sustain both slimeplants and normal plants
-    return plantable.getPlantType(world, pos) == TinkerWorld.SLIME_PLANT_TYPE || plantable.getPlantType(world, pos) == PlantType.PLAINS;
+  public TriState canSustainPlant(BlockState state, BlockGetter world, BlockPos pos, Direction facing, BlockState plant) {
+    return plant.getBlock() instanceof SlimeSaplingBlock || plant.getBlock() instanceof SlimeTallGrassBlock ? TriState.TRUE : TriState.DEFAULT;
   }
 }

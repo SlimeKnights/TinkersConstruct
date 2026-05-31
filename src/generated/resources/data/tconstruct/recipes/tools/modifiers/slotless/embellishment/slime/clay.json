@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:swappable_modifier",
+  "id": "tconstruct:tools/modifiers/slotless/embellishment/slime/clay",
   "allow_crystal": false,
   "inputs": [
     {

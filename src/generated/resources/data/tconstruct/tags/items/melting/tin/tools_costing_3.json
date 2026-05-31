@@ -1,11 +1,11 @@
 {
   "values": [
     {
-      "id": "#forge:tools/pickaxes/tin",
+      "id": "#c:tools/pickaxes/tin",
       "required": false
     },
     {
-      "id": "#forge:tools/axes/tin",
+      "id": "#c:tools/axes/tin",
       "required": false
     },
     {

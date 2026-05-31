@@ -1,14 +1,16 @@
 package slimeknights.tconstruct.tables.recipe;
 
 import com.google.gson.JsonObject;
+import com.mojang.serialization.JsonOps;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntList;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.data.recipes.FinishedRecipe;
+import slimeknights.mantle.compat.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -42,6 +44,7 @@ import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.tables.TinkerTables;
 
 import java.util.ArrayList;
@@ -128,7 +131,7 @@ public class PartBuilderToolRecycle implements IPartBuilderRecipe, IMultiRecipe<
   }
 
   @Override
-  public ItemStack assemble(IPartBuilderContainer inv, RegistryAccess access, Pattern pattern) {
+  public ItemStack assemble(IPartBuilderContainer inv, HolderLookup.Provider access, Pattern pattern) {
     ToolStack tool = ToolStack.from(inv.getStack());
     // find our parts list, either set or override
     ToolDefinition definition = tool.getDefinition();
@@ -202,10 +205,10 @@ public class PartBuilderToolRecycle implements IPartBuilderRecipe, IMultiRecipe<
     return parts.get(index).withMaterial(tool.getMaterial(indices.getInt(index)).getVariant());
   }
 
-  /** @deprecated use {@link IPartBuilderRecipe#assemble(IPartBuilderContainer, RegistryAccess, Pattern)} */
+  /** @deprecated use {@link IPartBuilderRecipe#assemble(IPartBuilderContainer, HolderLookup.Provider, Pattern)} */
   @Deprecated
   @Override
-  public ItemStack getResultItem(RegistryAccess access) {
+  public ItemStack getResultItem(HolderLookup.Provider access) {
     return ItemStack.EMPTY;
   }
 
@@ -236,7 +239,9 @@ public class PartBuilderToolRecycle implements IPartBuilderRecipe, IMultiRecipe<
     Collection<PartIndex> displayParts = IntStream.range(0, parts.size()).mapToObj(i -> new PartIndex(parts.get(i), i)).collect(Collectors.toMap(PartIndex::part, Function.identity(), (a, b) -> a)).values();
     return displayParts.stream().map(pi -> {
       ItemStack part = pi.part.withMaterialForDisplay(ToolBuildHandler.getRenderMaterial(pi.index));
-      part.getOrCreateTag().putBoolean(TooltipUtil.KEY_DISPLAY, true);
+      var tag = TagUtil.getOrCreateTag(part);
+      tag.putBoolean(TooltipUtil.KEY_DISPLAY, true);
+      TagUtil.setTag(part, tag);
       return new DisplayPartRecipe(id, MaterialVariant.UNKNOWN, new Pattern(Loadables.ITEM.getKey(pi.part.asItem())), patternItems, 0, tool, List.of(part));
     });
   }
@@ -268,7 +273,7 @@ public class PartBuilderToolRecycle implements IPartBuilderRecipe, IMultiRecipe<
     @Override
     public void serializeRecipeData(JsonObject json) {
       json.add("tools", SizedIngredient.LOADABLE.serialize(tools));
-      json.add("pattern", pattern.toJson());
+      json.add("pattern", Ingredient.CODEC_NONEMPTY.encodeStart(JsonOps.INSTANCE, pattern).getOrThrow(IllegalArgumentException::new));
     }
 
     @Override

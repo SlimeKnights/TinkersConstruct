@@ -3,6 +3,7 @@ package slimeknights.tconstruct.smeltery.block.entity.controller;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
@@ -22,14 +23,14 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
-import net.minecraftforge.client.model.data.ModelData;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.client.model.data.ModelData;
+import slimeknights.mantle.compat.neoforged.neoforge.capabilities.Capability;
+import slimeknights.tconstruct.compat.neoforged.neoforge.capabilities.ForgeCapabilities;
+import slimeknights.mantle.compat.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
 import slimeknights.mantle.block.entity.IRetexturedBlockEntity;
 import slimeknights.mantle.block.entity.NameableBlockEntity;
 import slimeknights.mantle.util.BlockEntityHelper;
@@ -255,8 +256,6 @@ public abstract class HeatingStructureBlockEntity extends NameableBlockEntity im
           // instead of rechecking the whole structure, just recheck the layer above and queue an update if its usable
           if (multiblock.canExpand(structure, level)) {
             updateStructure();
-          } else {
-            updateErrorPos();
           }
         }
       } else if (tick % 4 == 0) {
@@ -318,6 +317,9 @@ public abstract class HeatingStructureBlockEntity extends NameableBlockEntity im
           servant.onMasterLoad(this);
         }
       });
+      if (!structure.hasTanks()) {
+        updateStructure();
+      }
     }
   }
 
@@ -505,12 +507,11 @@ public abstract class HeatingStructureBlockEntity extends NameableBlockEntity im
     this.setChangedFast();
   }
 
-  @Override
   public AABB getRenderBoundingBox() {
     if (structure != null) {
       return structure.getBounds();
     } else if (defaultBounds == null) {
-      defaultBounds = new AABB(worldPosition, worldPosition.offset(1, 1, 1));
+      defaultBounds = new AABB(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), worldPosition.getX() + 1, worldPosition.getY() + 1, worldPosition.getZ() + 1);
     }
     return defaultBounds;
   }
@@ -607,14 +608,7 @@ public abstract class HeatingStructureBlockEntity extends NameableBlockEntity im
 
   /* Tag */
 
-  @Override
-  protected boolean shouldSyncOnUpdate() {
-    return true;
-  }
-
-  @Override
-  public void load(CompoundTag nbt) {
-    super.load(nbt);
+  private void loadFromTag(CompoundTag nbt) {
     if (nbt.contains(TAG_TANK, Tag.TAG_COMPOUND)) {
       tank.read(nbt.getCompound(TAG_TANK));
       FluidStack first = tank.getFluidInTank(0);
@@ -633,7 +627,7 @@ public abstract class HeatingStructureBlockEntity extends NameableBlockEntity im
     }
     // only exists to be sent server to client in update packets
     if (nbt.contains(TAG_ERROR_POS, Tag.TAG_COMPOUND)) {
-      this.errorPos = NbtUtils.readBlockPos(nbt.getCompound(TAG_ERROR_POS)).offset(this.worldPosition);
+      this.errorPos = NbtUtils.readBlockPos(nbt.getCompound(TAG_ERROR_POS), "pos").map(pos -> pos.offset(this.worldPosition)).orElse(null);
     }
     fuelModule.readFromTag(nbt);
     if (nbt.contains(TAG_TEXTURE, Tag.TAG_STRING)) {
@@ -642,20 +636,14 @@ public abstract class HeatingStructureBlockEntity extends NameableBlockEntity im
     }
   }
 
-  @Override
-  public void saveAdditional(CompoundTag compound) {
-    // Tag that just writes to disk
-    super.saveAdditional(compound);
+  private void saveAdditionalData(CompoundTag compound) {
     if (structure != null) {
       compound.put(TAG_STRUCTURE, structure.writeToTag(this.worldPosition));
     }
     fuelModule.writeToTag(compound);
   }
 
-  @Override
-  public void saveSynced(CompoundTag compound) {
-    // Tag that writes to disk and syncs to client
-    super.saveSynced(compound);
+  private void saveSyncedData(CompoundTag compound) {
     compound.put(TAG_TANK, tank.write(new CompoundTag()));
     compound.put(TAG_INVENTORY, meltingInventory.writeToTag());
     if (texture != Blocks.AIR) {
@@ -663,17 +651,75 @@ public abstract class HeatingStructureBlockEntity extends NameableBlockEntity im
     }
   }
 
-  @Override
-  public CompoundTag getUpdateTag() {
-    // Tag that just syncs to client
-    CompoundTag nbt = super.getUpdateTag();
+  private void saveUpdateData(CompoundTag nbt) {
     if (structure != null) {
       nbt.put(TAG_STRUCTURE, structure.writeClientTag(this.worldPosition));
     }
     // sync error position, not actually saved in Tag
     if (errorPos != null) {
-      nbt.put(TAG_ERROR_POS, NbtUtils.writeBlockPos(errorPos.subtract(this.worldPosition)));
+      CompoundTag posTag = new CompoundTag();
+      posTag.put("pos", NbtUtils.writeBlockPos(errorPos.subtract(this.worldPosition)));
+      nbt.put(TAG_ERROR_POS, posTag);
     }
+  }
+
+  @Override
+  protected boolean shouldSyncOnUpdate() {
+    return true;
+  }
+
+  @Override
+  public void loadAdditional(CompoundTag nbt, HolderLookup.Provider registries) {
+    super.loadAdditional(nbt, registries);
+    loadFromTag(nbt);
+  }
+
+  @Override
+  public void load(CompoundTag nbt) {
+    super.loadAdditional(nbt, BUILTIN_LOOKUP);
+    loadFromTag(nbt);
+  }
+
+  @Override
+  public void saveAdditional(CompoundTag compound, HolderLookup.Provider registries) {
+    super.saveAdditional(compound, registries);
+    saveAdditionalData(compound);
+  }
+
+  @Override
+  public void saveAdditional(CompoundTag compound) {
+    // Tag that just writes to disk
+    super.saveAdditional(compound, BUILTIN_LOOKUP);
+    saveAdditionalData(compound);
+  }
+
+  @Override
+  public void saveSynced(CompoundTag compound, HolderLookup.Provider registries) {
+    // Tag that writes to disk and syncs to client
+    super.saveSynced(compound, registries);
+    saveSyncedData(compound);
+  }
+
+  @Override
+  public void saveSynced(CompoundTag compound) {
+    // Tag that writes to disk and syncs to client
+    super.saveSynced(compound, BUILTIN_LOOKUP);
+    saveSyncedData(compound);
+  }
+
+  @Override
+  public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+    // Tag that just syncs to client
+    CompoundTag nbt = super.getUpdateTag(registries);
+    saveUpdateData(nbt);
+    return nbt;
+  }
+
+  @Override
+  public CompoundTag getUpdateTag() {
+    // Tag that just syncs to client
+    CompoundTag nbt = super.getUpdateTag(BUILTIN_LOOKUP);
+    saveUpdateData(nbt);
     return nbt;
   }
 

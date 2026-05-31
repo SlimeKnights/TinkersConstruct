@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/seared/fluid_cannon",
   "byproducts": [
     {
       "amount": 1000,
@@ -15,7 +16,7 @@
   },
   "result": {
     "amount": 450,
-    "tag": "forge:molten_copper"
+    "tag": "c:molten_copper"
   },
   "temperature": 500,
   "time": 125

@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/iron/ingot",
   "ingredient": {
-    "tag": "forge:ingots/iron"
+    "tag": "c:ingots/iron"
   },
   "material": "tconstruct:iron",
   "needed": 1,

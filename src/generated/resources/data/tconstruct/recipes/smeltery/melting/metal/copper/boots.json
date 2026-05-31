@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:damagable_melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/copper/boots",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:armors/boots/copper"
+      "tag": "c:armors/boots/copper"
     }
   ],
   "ingredient": {
-    "tag": "forge:armors/boots/copper"
+    "tag": "c:armors/boots/copper"
   },
   "result": {
     "amount": 360,
-    "tag": "forge:molten_copper",
+    "tag": "c:molten_copper",
     "unit_size": 10
   },
   "temperature": 500,

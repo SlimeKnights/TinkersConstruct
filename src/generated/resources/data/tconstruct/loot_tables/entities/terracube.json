@@ -2,7 +2,7 @@
   "type": "minecraft:entity",
   "pools": [
     {
-      "bonus_rolls": 0.0,
+      "bonus_rolls": 0,
       "entries": [
         {
           "type": "minecraft:item",
@@ -36,18 +36,19 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 1.0,
-                "min": -2.0
+                "max": 1,
+                "min": -2
               },
               "function": "minecraft:set_count"
             },
             {
               "count": {
                 "type": "minecraft:uniform",
-                "max": 1.0,
-                "min": 0.0
+                "max": 1,
+                "min": 0
               },
-              "function": "minecraft:looting_enchant"
+              "function": "minecraft:enchanted_count_increase",
+              "enchantment": "minecraft:looting"
             }
           ],
           "name": "minecraft:clay_ball"
@@ -67,7 +68,7 @@
           "functions": [
             {
               "add": false,
-              "count": 1.0,
+              "count": 1,
               "function": "minecraft:set_count"
             }
           ],
@@ -90,7 +91,7 @@
           "function": "minecraft:furnace_smelt"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ],
   "random_sequence": "tconstruct:entities/terracube"

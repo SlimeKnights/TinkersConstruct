@@ -4,7 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -19,15 +21,16 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.client.model.data.ModelData;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidType;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.items.ItemHandlerHelper;
-import net.minecraftforge.items.wrapper.SidedInvWrapper;
+import net.neoforged.neoforge.client.model.data.ModelData;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import slimeknights.mantle.compat.neoforged.neoforge.capabilities.Capability;
+import slimeknights.tconstruct.compat.neoforged.neoforge.capabilities.ForgeCapabilities;
+import slimeknights.mantle.compat.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidType;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.items.wrapper.SidedInvWrapper;
 import slimeknights.mantle.fluid.FluidTransferHelper;
 import slimeknights.mantle.fluid.transfer.FluidContainerTransferManager;
 import slimeknights.mantle.fluid.transfer.IFluidContainerTransfer;
@@ -37,6 +40,7 @@ import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.client.model.ModelProperties;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.library.utils.NBTTags;
+import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.shared.block.entity.TableBlockEntity;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.CastingTankBlock;
@@ -159,7 +163,7 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
       return getItem(INPUT).isEmpty() && getItem(OUTPUT).isEmpty() && !pStack.isEmpty() && (
         // check the various options for some sort of fluid-containing stack
         FluidContainerTransferManager.INSTANCE.mayHaveTransfer(pStack)
-          || pStack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).isPresent()
+          || pStack.getCapability(Capabilities.FluidHandler.ITEM) != null
       );
     }
     return false;
@@ -287,34 +291,42 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
    * @param nbt  tank NBT
    */
   public void updateTank(CompoundTag nbt) {
+    updateTank(nbt, level == null ? TagUtil.BUILTIN_LOOKUP : level.registryAccess());
+  }
+
+  /** Updates the tank from an NBT tag using the current registry lookup. */
+  private void updateTank(CompoundTag nbt, HolderLookup.Provider registries) {
     if (nbt.isEmpty()) {
       tank.setFluid(FluidStack.EMPTY);
+    } else if (nbt.contains("FluidName", Tag.TAG_STRING)) {
+      tank.setFluid(TankItem.readFluid(nbt));
+      TankBlockEntity.updateLight(this, tank);
     } else {
-      tank.readFromNBT(nbt);
+      tank.readFromNBT(registries, nbt);
       TankBlockEntity.updateLight(this, tank);
     }
   }
 
   @Override
-  public void load(CompoundTag tag) {
+  public void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
     tank.setCapacity(getCapacity(getBlockState().getBlock()));
-    updateTank(tag.getCompound(NBTTags.TANK));
+    updateTank(tag.getCompound(NBTTags.TANK), registries);
     lastRedstone = tag.getBoolean(TAG_REDSTONE);
-    super.load(tag);
+    super.loadAdditional(tag, registries);
   }
 
   @Override
-  public void saveAdditional(CompoundTag tags) {
-    super.saveAdditional(tags);
+  public void saveAdditional(CompoundTag tags, HolderLookup.Provider registries) {
+    super.saveAdditional(tags, registries);
     tags.putBoolean(TAG_REDSTONE, lastRedstone);
   }
 
   @Override
-  public void saveSynced(CompoundTag tag) {
-    super.saveSynced(tag);
+  public void saveSynced(CompoundTag tag, HolderLookup.Provider registries) {
+    super.saveSynced(tag, registries);
     // want tank on the client on world load
     if (!tank.isEmpty()) {
-      tag.put(NBTTags.TANK, tank.writeToNBT(new CompoundTag()));
+      tag.put(NBTTags.TANK, tank.writeToNBT(registries, new CompoundTag()));
     }
   }
 

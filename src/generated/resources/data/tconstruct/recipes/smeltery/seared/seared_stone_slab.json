@@ -12,7 +12,7 @@
   ],
   "result": {
     "count": 6,
-    "item": "tconstruct:seared_stone_slab"
+    "id": "tconstruct:seared_stone_slab"
   },
   "show_notification": true
 }

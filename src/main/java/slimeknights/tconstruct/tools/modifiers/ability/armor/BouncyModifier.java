@@ -13,6 +13,6 @@ public class BouncyModifier extends NoLevelsModifier {
   @Override
   protected void registerHooks(Builder hookBuilder) {
     super.registerHooks(hookBuilder);
-    hookBuilder.addModule(AttributeModule.builder(TinkerAttributes.BOUNCY, Operation.ADDITION).uniqueFrom(getId()).tooltipStyle(TooltipStyle.NONE).flat(1));
+    hookBuilder.addModule(AttributeModule.builder(TinkerAttributes.BOUNCY, Operation.ADD_VALUE).uniqueFrom(getId()).tooltipStyle(TooltipStyle.NONE).flat(1));
   }
 }

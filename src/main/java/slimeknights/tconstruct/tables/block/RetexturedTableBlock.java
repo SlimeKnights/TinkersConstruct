@@ -4,10 +4,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.HitResult;
 import slimeknights.mantle.block.RetexturedBlock;
@@ -22,7 +24,7 @@ public abstract class RetexturedTableBlock extends TabbedTableBlock {
   }
 
   @Override
-  public void appendHoverText(ItemStack stack, @Nullable BlockGetter pLevel, List<Component> tooltip, TooltipFlag flag) {
+  public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
     RetexturedHelper.addTooltip(stack, tooltip, flag);
   }
 
@@ -33,7 +35,7 @@ public abstract class RetexturedTableBlock extends TabbedTableBlock {
   }
 
   @Override
-  public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter world, BlockPos pos, Player player) {
+  public ItemStack getCloneItemStack(BlockState state, HitResult target, LevelReader world, BlockPos pos, Player player) {
     return RetexturedBlock.getPickBlock(world, pos, state);
   }
 }

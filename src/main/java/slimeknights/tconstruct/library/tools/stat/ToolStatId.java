@@ -24,19 +24,15 @@ public class ToolStatId extends ResourceId {
     super(value);
   }
 
-  private ToolStatId(String namespace, String path, @Nullable Dummy pDummy) {
-    super(namespace, path, pDummy);
-  }
-
   /** {@return Tool stat ID, or null if invalid} */
   @Nullable
   public static ToolStatId tryParse(String string) {
-    return tryParse(string, (namespace, path) -> new ToolStatId(namespace, path, null));
+    return tryParse(string, ToolStatId::new);
   }
 
   /** {@return Tool stat ID, or null if invalid} */
   @Nullable
   public static ToolStatId tryBuild(String namespace, String path) {
-    return tryBuild(namespace, path, (n, p) -> new ToolStatId(namespace, path, null));
+    return tryBuild(namespace, path, ToolStatId::new);
   }
 }

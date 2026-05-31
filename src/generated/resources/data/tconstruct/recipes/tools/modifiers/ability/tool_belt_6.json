@@ -1,12 +1,13 @@
 {
   "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/ability/tool_belt_6",
   "allow_crystal": false,
   "inputs": [
     {
       "item": "minecraft:leather"
     },
     {
-      "tag": "forge:ingots/manyullyn"
+      "tag": "c:ingots/manyullyn"
     },
     {
       "item": "minecraft:leather"

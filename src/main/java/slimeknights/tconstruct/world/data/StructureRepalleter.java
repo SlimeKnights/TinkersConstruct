@@ -2,7 +2,7 @@ package slimeknights.tconstruct.world.data;
 
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.data.AbstractStructureRepalleter;

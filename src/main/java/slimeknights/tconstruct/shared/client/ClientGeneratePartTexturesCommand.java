@@ -207,7 +207,7 @@ public class ClientGeneratePartTexturesCommand {
 
     // each namespace loads separately
     for (String namespace : manager.getNamespaces()) {
-      ResourceLocation location = new ResourceLocation(namespace, GENERATOR_PART_TEXTURES);
+      ResourceLocation location = ResourceLocation.fromNamespaceAndPath(namespace, GENERATOR_PART_TEXTURES);
       List<Resource> resources = manager.getResourceStack(location);
       if (!resources.isEmpty()) {
         // if the namespace has the file, we will start building

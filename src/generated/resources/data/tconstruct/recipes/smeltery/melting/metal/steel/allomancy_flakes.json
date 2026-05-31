@@ -1,8 +1,9 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/steel/allomancy_flakes",
+  "neoforge:conditions": [
     {
-      "type": "forge:item_exists",
+      "type": "neoforge:item_exists",
       "item": "allomancy:steel_flakes"
     }
   ],
@@ -11,7 +12,7 @@
   },
   "result": {
     "amount": 30,
-    "tag": "forge:molten_steel"
+    "tag": "c:molten_steel"
   },
   "temperature": 950,
   "time": 37

@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/emerald/reinforcement",
   "byproducts": [
     {
       "amount": 250,

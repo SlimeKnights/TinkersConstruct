@@ -1,21 +1,22 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/lead/wire_sand_cast",
   "cast": {
     "tag": "tconstruct:casts/single_use/wire"
   },
   "cast_consumed": true,
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:wires/lead"
+      "tag": "c:wires/lead"
     }
   ],
   "cooling_time": 31,
   "fluid": {
     "amount": 45,
-    "tag": "forge:molten_lead"
+    "tag": "c:molten_lead"
   },
   "result": {
-    "tag": "forge:wires/lead"
+    "tag": "c:wires/lead"
   }
 }

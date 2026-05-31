@@ -1,21 +1,22 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/netherite/gear_sand_cast",
   "cast": {
     "tag": "tconstruct:casts/single_use/gear"
   },
   "cast_consumed": true,
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:gears/netherite"
+      "tag": "c:gears/netherite"
     }
   ],
   "cooling_time": 147,
   "fluid": {
     "amount": 360,
-    "tag": "forge:molten_netherite"
+    "tag": "c:molten_netherite"
   },
   "result": {
-    "tag": "forge:gears/netherite"
+    "tag": "c:gears/netherite"
   }
 }

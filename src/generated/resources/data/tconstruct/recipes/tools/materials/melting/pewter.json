@@ -1,20 +1,21 @@
 {
   "type": "tconstruct:material_melting",
-  "conditions": [
+  "id": "tconstruct:tools/materials/melting/pewter",
+  "neoforge:conditions": [
     {
-      "type": "forge:or",
+      "type": "neoforge:or",
       "values": [
         {
           "type": "mantle:tag_filled",
-          "tag": "forge:ingots/pewter"
+          "tag": "c:ingots/pewter"
         },
         {
           "type": "mantle:tag_filled",
-          "tag": "forge:ingots/tin"
+          "tag": "c:ingots/tin"
         },
         {
           "type": "mantle:tag_filled",
-          "tag": "forge:ingots/lead"
+          "tag": "c:ingots/lead"
         }
       ]
     }
@@ -22,7 +23,7 @@
   "input": "tconstruct:pewter",
   "result": {
     "amount": 90,
-    "tag": "forge:molten_pewter"
+    "tag": "c:molten_pewter"
   },
   "temperature": 400
 }

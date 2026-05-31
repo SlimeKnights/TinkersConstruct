@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/rose_gold/nugget_sand_cast",
   "cast": {
     "tag": "tconstruct:casts/single_use/nugget"
   },
@@ -7,9 +8,9 @@
   "cooling_time": 17,
   "fluid": {
     "amount": 10,
-    "tag": "forge:molten_rose_gold"
+    "tag": "c:molten_rose_gold"
   },
   "result": {
-    "tag": "forge:nuggets/rose_gold"
+    "tag": "c:nuggets/rose_gold"
   }
 }

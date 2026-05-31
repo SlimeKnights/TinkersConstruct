@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:part_builder",
+  "id": "tconstruct:tools/parts/builder/tough_binding",
   "cost": 3,
   "pattern": "tconstruct:tough_binding",
   "pattern_item": [

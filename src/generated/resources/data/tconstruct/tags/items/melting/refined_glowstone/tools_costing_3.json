@@ -1,11 +1,11 @@
 {
   "values": [
     {
-      "id": "#forge:tools/pickaxes/refined_glowstone",
+      "id": "#c:tools/pickaxes/refined_glowstone",
       "required": false
     },
     {
-      "id": "#forge:tools/axes/refined_glowstone",
+      "id": "#c:tools/axes/refined_glowstone",
       "required": false
     }
   ]

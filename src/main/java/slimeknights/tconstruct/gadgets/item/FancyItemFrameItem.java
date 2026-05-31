@@ -2,7 +2,7 @@ package slimeknights.tconstruct.gadgets.item;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.decoration.HangingEntity;
@@ -40,9 +40,9 @@ public class FancyItemFrameItem extends Item {
 
     Level world = context.getLevel();
     HangingEntity frame = this.entityProvider.apply(world, placeLocation, facing);
-    CompoundTag tag = stack.getTag();
-    if (tag != null) {
-      EntityType.updateCustomEntityTag(world, player, frame, tag);
+    var entityData = stack.get(DataComponents.ENTITY_DATA);
+    if (entityData != null) {
+      EntityType.updateCustomEntityTag(world, player, frame, entityData);
     }
 
     if (frame.survives()) {

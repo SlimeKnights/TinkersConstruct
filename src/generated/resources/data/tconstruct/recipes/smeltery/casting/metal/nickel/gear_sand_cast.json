@@ -1,21 +1,22 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/nickel/gear_sand_cast",
   "cast": {
     "tag": "tconstruct:casts/single_use/gear"
   },
   "cast_consumed": true,
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:gears/nickel"
+      "tag": "c:gears/nickel"
     }
   ],
   "cooling_time": 130,
   "fluid": {
     "amount": 360,
-    "tag": "forge:molten_nickel"
+    "tag": "c:molten_nickel"
   },
   "result": {
-    "tag": "forge:gears/nickel"
+    "tag": "c:gears/nickel"
   }
 }

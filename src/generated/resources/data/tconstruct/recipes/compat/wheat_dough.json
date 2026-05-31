@@ -1,12 +1,13 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:compat/wheat_dough",
   "cast": {
     "item": "minecraft:wheat"
   },
   "cast_consumed": true,
-  "conditions": [
+  "neoforge:conditions": [
     {
-      "type": "forge:item_exists",
+      "type": "neoforge:item_exists",
       "item": "farmersdelight:wheat_dough"
     }
   ],

@@ -7,11 +7,11 @@
  */
 
 plugins {
+    id 'java-library'
     id 'eclipse'
     id 'idea'
     id 'maven-publish'
-    id 'net.minecraftforge.gradle' version '[6.0,6.0.37]'
-    id 'org.parchmentmc.librarian.forgegradle' version '1.+'
+    id 'net.neoforged.gradle.userdev' version '7.1.36'
     id 'io.freefair.lombok' version '8.6'
 }
 //apply plugin: 'maven'
@@ -20,6 +20,10 @@ plugins {
 
 repositories {
     mavenCentral()
+    maven {
+        name 'NeoForge'
+        url 'https://maven.neoforged.net/releases'
+    }
     maven { // Mantle
         name 'DVS1 Maven FS'
         url 'https://dvs1.progwml6.com/files/maven'
@@ -42,17 +46,16 @@ repositories {
             includeGroup "curse.maven"
         }
     }
-    // If you have mod jar dependencies in ./libs, you can declare them as a repository like so:
-     flatDir {
-         dir '../Mantle/build/libs'
-     }
 }
 
 group = 'slimeknights.tconstruct'
 base {
     archivesName = 'TinkersConstruct'
 }                                                          
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+tasks.named('compileJava', JavaCompile).configure {
+    options.compilerArgs += ['-processor', 'lombok.launch.AnnotationProcessorHider$AnnotationProcessor']
+}
 
 // sets version to the slimeKnights version format
 task buildInfo {
@@ -88,12 +91,54 @@ println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty '
 
 sourceSets {
     main {
+        java {
+            exclude 'slimeknights/tconstruct/plugin/craftingtweaks/**'
+            exclude 'slimeknights/tconstruct/plugin/jsonthings/**'
+            exclude 'slimeknights/tconstruct/plugin/DietPlugin.java'
+            exclude 'slimeknights/tconstruct/plugin/DummmmmmyPlugin.java'
+            exclude 'slimeknights/tconstruct/plugin/ImmersiveEngineeringPlugin.java'
+            exclude 'slimeknights/tconstruct/common/data/**'
+            exclude 'slimeknights/tconstruct/fluids/data/**'
+            exclude 'slimeknights/tconstruct/gadgets/data/**'
+            exclude 'slimeknights/tconstruct/library/data/**'
+            exclude 'slimeknights/tconstruct/shared/data/**'
+            exclude 'slimeknights/tconstruct/world/data/**'
+            exclude 'slimeknights/tconstruct/smeltery/data/Byproduct.java'
+            exclude 'slimeknights/tconstruct/smeltery/data/FluidContainerTransferProvider.java'
+            exclude 'slimeknights/tconstruct/smeltery/data/SmelteryRecipeProvider.java'
+            exclude 'slimeknights/tconstruct/tables/data/**'
+            exclude 'slimeknights/tconstruct/tools/data/ArmorModelProvider.java'
+            exclude 'slimeknights/tconstruct/tools/data/EnchantmentToModifierProvider.java'
+            exclude 'slimeknights/tconstruct/tools/data/FluidEffectProvider.java'
+            exclude 'slimeknights/tconstruct/tools/data/ModifierProvider.java'
+            exclude 'slimeknights/tconstruct/tools/data/ModifierRecipeProvider.java'
+            exclude 'slimeknights/tconstruct/tools/data/StationSlotLayoutProvider.java'
+            exclude 'slimeknights/tconstruct/tools/data/ToolDefinitionDataProvider.java'
+            exclude 'slimeknights/tconstruct/tools/data/ToolItemModelProvider.java'
+            exclude 'slimeknights/tconstruct/tools/data/ToolsRecipeProvider.java'
+            exclude 'slimeknights/tconstruct/tools/data/client/**'
+            exclude 'slimeknights/tconstruct/tools/data/material/MaterialDataProvider.java'
+            exclude 'slimeknights/tconstruct/tools/data/material/MaterialRecipeProvider.java'
+            exclude 'slimeknights/tconstruct/tools/data/material/MaterialRenderInfoProvider.java'
+            exclude 'slimeknights/tconstruct/tools/data/material/MaterialStatsDataProvider.java'
+            exclude 'slimeknights/tconstruct/tools/data/material/MaterialTraitsDataProvider.java'
+            exclude 'slimeknights/tconstruct/tools/data/material/TrimMaterialProvider.java'
+        }
         resources {
             srcDirs "src/generated/resources"
             //But exclude the cache of the generated data from what gets built
             exclude '.cache'
             // exclude debug resources, they are for helping us make the mod, not for the actual mod
             exclude 'assets/tconstruct/debug'
+            // NeoForge 1.21 uses singular data pack directories. Keep the old
+            // generated 1.20-style paths out of the runtime jar to avoid duplicates.
+            exclude 'data/**/recipes/**'
+            exclude 'data/**/advancements/**'
+            exclude 'data/**/loot_tables/**'
+            exclude 'data/**/tags/blocks/**'
+            exclude 'data/**/tags/entity_types/**'
+            exclude 'data/**/tags/fluids/**'
+            exclude 'data/**/tags/items/**'
         }
     }
 }
@@ -105,72 +150,54 @@ idea {
     }
 }
 
-minecraft {
-    mappings channel: 'parchment', version: "${parchment_version}-${minecraft_version}"
+minecraft.accessTransformers.file rootProject.file('src/main/resources/META-INF/accesstransformer.cfg')
 
-    // enableIdeaPrepareRuns = true
-    copyIdeResources = true
+runs {
+    // applies to all the run configs below
+    configureEach {
+        workingDirectory project.file('run')
 
-    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+        // Recommended logging data for a userdev environment
+        systemProperty 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP,CORE'
 
-    runs {
-        // applies to all the run configs below
-        configureEach {
-            workingDirectory project.file('run')
+        // Recommended logging level for the console
+        systemProperty 'forge.logging.console.level', 'debug'
 
-            // Recommended logging data for a userdev environment
-            // The markers can be added/remove as needed separated by commas.
-            // "SCAN": For mods scan.
-            // "REGISTRIES": For firing of registry events.
-            // "REGISTRYDUMP": For getting the contents of all registries.
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP,CORE'
+        // IE uses mixins, remap their mixins to work in dev
+        systemProperty 'mixin.env.remapRefMap', 'true'
 
-            // Recommended logging level for the console
-            // You can set various levels here.
-            // Please read: https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
-            property 'forge.logging.console.level', 'debug'
-            
-            // IE uses mixins, remap their mixins to work in dev
-            property 'mixin.env.remapRefMap', 'true'
-            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+        modSource project.sourceSets.main
+    }
 
-            mods {
-                tconstruct {
-                    source sourceSets.main
-                }
-            }
+    client {
+        //The below if statements are to add args to your gradle.properties file in user home
+        // (DO NOT add them directly to the gradle.properties file for this project)
+        // Setting the below properties allows use of your normal Minecraft account in the
+        // dev environment including having your skin load. Each property also has a comment
+        // explaining what information to set the value to/format it expects
+        // One thing to note is because of the caching that goes on, after changing these
+        // variables, you need to refresh the project and rerun genIntellijRuns/genEclipseRuns
+        if (project.hasProperty('mc_uuid')) {
+            //Your uuid without any dashes in the middle
+            arguments.addAll '--uuid', project.getProperty('mc_uuid')
         }
-    
-        client {
-            //The below if statements are to add args to your gradle.properties file in user home
-            // (DO NOT add them directly to the gradle.properties file for this project)
-            // Setting the below properties allows use of your normal Minecraft account in the
-            // dev environment including having your skin load. Each property also has a comment
-            // explaining what information to set the value to/format it expects
-            // One thing to note is because of the caching that goes on, after changing these
-            // variables, you need to refresh the project and rerun genIntellijRuns/genEclipseRuns
-            if (project.hasProperty('mc_uuid')) {
-                //Your uuid without any dashes in the middle
-                args '--uuid', project.getProperty('mc_uuid')
-            }
-            if (project.hasProperty('mc_username')) {
-                //Your username/display name, this is the name that shows up in chat
-                // Note: This is not your email, even if you have a Mojang account
-                args '--username', project.getProperty('mc_username')
-            }
-            if (project.hasProperty('mc_accessToken')) {
-                //Your access token, you can find it in your '.minecraft/launcher_profiles.json' file
-                args '--accessToken', project.getProperty('mc_accessToken')
-            }
+        if (project.hasProperty('mc_username')) {
+            //Your username/display name, this is the name that shows up in chat
+            // Note: This is not your email, even if you have a Mojang account
+            arguments.addAll '--username', project.getProperty('mc_username')
         }
+        if (project.hasProperty('mc_accessToken')) {
+            //Your access token, you can find it in your '.minecraft/launcher_profiles.json' file
+            arguments.addAll '--accessToken', project.getProperty('mc_accessToken')
+        }
+    }
 
-        server {
-            args '--nogui'
-        }
+    server {
+        argument '--nogui'
+    }
 
-        data {
-            args '--mod', 'tconstruct', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/'), '--existing-mod', 'mantle'
-        }
+    data {
+        arguments.addAll '--mod', 'tconstruct', '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath(), '--existing-mod', 'mantle'
     }
 }
 
@@ -179,41 +206,45 @@ configurations {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:' + minecraft_version + '-' + forge_version
+    implementation "net.neoforged:neoforge:${neo_version}"
+    compileOnly 'org.projectlombok:lombok:1.18.42'
+    annotationProcessor 'org.projectlombok:lombok:1.18.42'
 
     // would ideally use API for this, but that does not work well with fg.deobf in my understanding
-    implementation fg.deobf("slimeknights.mantle:Mantle:${minecraft_version}-${mantle_version}")
+    implementation "slimeknights.mantle:Mantle:${minecraft_version}-${mantle_version}"
 
     // compile against the JEI API but do not include it at runtime
-    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
-    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}")
+    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
+    compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
     // at runtime, use the full JEI jar
-    runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
+    runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
 
     // implementation fg.deobf("mcjty.theoneprobe:TheOneProbe-${minecraft_base_version}:${minecraft_base_version}-${probe_version}")
 
-    compileOnly fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${minecraft_version}-${ie_version}")
-    runtimeOnly fg.deobf("curse.maven:MoonlightLib-499980:6000197")
-    implementation fg.deobf("curse.maven:MmmMmmMmmMmm-225738:5737040")
+    // compileOnly "blusunrize.immersiveengineering:ImmersiveEngineering:${minecraft_version}-${ie_version}"
+    // runtimeOnly "curse.maven:MoonlightLib-499980:6000197"
+    // implementation "curse.maven:MmmMmmMmmMmm-225738:5737040"
 //    runtimeOnly fg.deobf("curse.maven:the-twilight-forest-227639:5468648")
 
-    compileOnly fg.deobf("curse.maven:diet-443570:4813904")
+    // compileOnly "curse.maven:diet-443570:4813904"
 
-    compileOnly fg.deobf("dev.gigaherz.jsonthings:JsonThings-${minecraft_version}:${json_things_version}")
+    // compileOnly "dev.gigaherz.jsonthings:JsonThings-${minecraft_version}:${json_things_version}"
 
-    compileOnly fg.deobf("curse.maven:balm-531761:5999476")
-    compileOnly fg.deobf("curse.maven:crafting-tweaks-233071:5623639")
+    // compileOnly "curse.maven:balm-531761:5999476"
+    // compileOnly "curse.maven:crafting-tweaks-233071:5623639"
 
     deployerJars 'org.apache.maven.wagon:wagon-ssh:2.2'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.8.2'
     testImplementation 'org.mockito:mockito-inline:4.2.0'
     testImplementation 'org.assertj:assertj-core:3.21.0'
 }
 
 test {
     useJUnitPlatform()
+    jvmArgs '-Dnet.bytebuddy.experimental=true'
 }
 
 tasks.named('processResources', ProcessResources).configure {
@@ -221,19 +252,21 @@ tasks.named('processResources', ProcessResources).configure {
         'version': artifact_version,
         'loader_range': loader_range,
         'minecraft_range': minecraft_range,
-        'forge_range': forge_range,
+        'neo_range': neo_range,
         'mantle_range': mantle_range,
         'jei_range': jei_range,
         'json_things_range': json_things_range
     ]
     inputs.properties replaceProperties
 
-    filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
+    filesMatching(['META-INF/neoforge.mods.toml', 'pack.mcmeta']) {
         expand replaceProperties + [project: project]
     }
 }
 
 tasks.named('jar', Jar).configure {
+    exclude 'net/**'
+
     manifest {
         attributes([
                 "Specification-Title"     : "Tinkers Construct",
@@ -247,18 +280,16 @@ tasks.named('jar', Jar).configure {
     }
 }
 
-jar.finalizedBy('reobfJar')
-
 java {
     withSourcesJar()
 }
 
 sourcesJar {
     exclude 'assets/**'
-    exclude 'data/**'
-    exclude 'pack.png'
-    exclude 'pack.mcmeta'
-    exclude 'META-INF/mods.toml'
+exclude 'data/**'
+exclude 'pack.png'
+exclude 'pack.mcmeta'
+exclude 'META-INF/neoforge.mods.toml'
 }
 
 artifacts {

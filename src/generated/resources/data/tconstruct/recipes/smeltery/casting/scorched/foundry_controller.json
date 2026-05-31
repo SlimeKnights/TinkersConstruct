@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:retextured_casting_basin",
+  "id": "tconstruct:smeltery/casting/scorched/foundry_controller",
   "cast": {
     "tag": "tconstruct:foundry_bricks"
   },

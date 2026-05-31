@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:overslime_modifier",
+  "id": "tconstruct:tools/modifiers/slotless/overslime/sky_ball",
   "ingredient": {
     "item": "tconstruct:sky_slime_ball"
   },

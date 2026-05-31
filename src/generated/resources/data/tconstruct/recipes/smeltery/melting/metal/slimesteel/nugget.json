@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/slimesteel/nugget",
   "ingredient": {
-    "tag": "forge:nuggets/slimesteel"
+    "tag": "c:nuggets/slimesteel"
   },
   "result": {
     "amount": 10,

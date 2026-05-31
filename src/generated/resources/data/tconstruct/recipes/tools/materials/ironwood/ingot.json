@@ -1,13 +1,14 @@
 {
   "type": "tconstruct:material",
-  "conditions": [
+  "id": "tconstruct:tools/materials/ironwood/ingot",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:ingots/ironwood"
+      "tag": "c:ingots/ironwood"
     }
   ],
   "ingredient": {
-    "tag": "forge:ingots/ironwood"
+    "tag": "c:ingots/ironwood"
   },
   "material": "tconstruct:ironwood",
   "needed": 1,

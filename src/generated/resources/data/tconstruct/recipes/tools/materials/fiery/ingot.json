@@ -1,13 +1,14 @@
 {
   "type": "tconstruct:material",
-  "conditions": [
+  "id": "tconstruct:tools/materials/fiery/ingot",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:ingots/fiery"
+      "tag": "c:ingots/fiery"
     }
   ],
   "ingredient": {
-    "tag": "forge:ingots/fiery"
+    "tag": "c:ingots/fiery"
   },
   "material": "tconstruct:fiery",
   "needed": 1,

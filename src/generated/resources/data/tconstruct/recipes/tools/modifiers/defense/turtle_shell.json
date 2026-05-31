@@ -1,9 +1,10 @@
 {
   "type": "tconstruct:incremental_modifier",
+  "id": "tconstruct:tools/modifiers/defense/turtle_shell",
   "allow_crystal": true,
   "amount_per_item": 1,
   "input": {
-    "item": "minecraft:scute"
+    "item": "minecraft:turtle_scute"
   },
   "needed_per_level": 5,
   "result": "tconstruct:turtle_shell",

@@ -7,7 +7,7 @@ import net.minecraft.data.CachedOutput;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FastColor;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.data.GenericTextureGenerator;
 import slimeknights.tconstruct.library.client.data.spritetransformer.GreyToColorMapping;

@@ -11,7 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.ItemLike;
-import net.minecraftforge.common.ToolActions;
+import net.neoforged.neoforge.common.ItemAbilities;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
@@ -19,6 +19,7 @@ import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.item.ranged.ModifiableCrossbowItem;
 import slimeknights.tconstruct.library.tools.item.ranged.ModifiableLauncherItem;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.utils.TagUtil;
 
 /** Properties for tinker tools */
 public class TinkerItemProperties {
@@ -33,7 +34,7 @@ public class TinkerItemProperties {
   private static final ResourceLocation AMMO_ID = TConstruct.getResource("ammo");
   /** Int declaring ammo type */
   private static final ItemPropertyFunction AMMO = (stack, level, entity, seed) -> {
-    CompoundTag nbt = stack.getTag();
+    CompoundTag nbt = TagUtil.getTag(stack);
     if (nbt != null) {
       CompoundTag persistentData = nbt.getCompound(ToolStack.TAG_PERSISTENT_MOD_DATA);
       if (!persistentData.isEmpty()) {
@@ -75,7 +76,7 @@ public class TinkerItemProperties {
       return 0.0F;
     }
     int drawtime = ModifierUtil.getPersistentInt(stack, GeneralInteractionModifierHook.KEY_DRAWTIME, -1);
-    return drawtime == -1 ? 0 : (float)(stack.getUseDuration() - holder.getUseItemRemainingTicks()) / drawtime;
+    return drawtime == -1 ? 0 : (float)(stack.getUseDuration(holder) - holder.getUseItemRemainingTicks()) / drawtime;
   };
   /** ID for the cast fishing rods */
   private static final ResourceLocation CAST_ID = TConstruct.getResource("cast");
@@ -83,10 +84,10 @@ public class TinkerItemProperties {
   private static final ItemPropertyFunction CAST = (stack, level, holder, seed) -> {
     // must be a fishing rod, and the player must be fishing
     // does player check first since its the fastest, avoids NBT parsing
-    if (holder instanceof Player player && player.fishing != null && stack.canPerformAction(ToolActions.FISHING_ROD_CAST)) {
+    if (holder instanceof Player player && player.fishing != null && stack.canPerformAction(ItemAbilities.FISHING_ROD_CAST)) {
       // must be in a hand, but if both hands have fishing rods, must be the one in the main hand
       ItemStack mainhand = holder.getMainHandItem();
-      if (mainhand == stack || holder.getOffhandItem() == stack && !mainhand.canPerformAction(ToolActions.FISHING_ROD_CAST)) {
+      if (mainhand == stack || holder.getOffhandItem() == stack && !mainhand.canPerformAction(ItemAbilities.FISHING_ROD_CAST)) {
         return 1;
       }
     }

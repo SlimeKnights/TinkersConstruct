@@ -24,6 +24,7 @@ import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
+import slimeknights.tconstruct.library.utils.TagUtil;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -66,7 +67,7 @@ public record InfinityModule(ItemStack ammo, String variantTag, int durabilityUs
     // our available count is based on how many arrows we can create from the remaining durability, though round up to be nice
     int count = durabilityUsage <= 0 ? 64 : Math.min(64, (tool.getCurrentDurability() + durabilityUsage - 1) / durabilityUsage);
     ItemStack ammo = this.ammo.copyWithCount(count);
-    CompoundTag tag = ammo.getOrCreateTag();
+    CompoundTag tag = TagUtil.getOrCreateTag(ammo);
     // mark the arrow as infinity for the projectile launch hook
     tag.putBoolean(INFINITY, true);
     // if a variant is requested, set that on the stack
@@ -76,6 +77,7 @@ public record InfinityModule(ItemStack ammo, String variantTag, int durabilityUs
         tag.putString(variantTag, variant);
       }
     }
+    TagUtil.setTag(ammo, tag);
     return ammo;
   }
 
@@ -84,7 +86,7 @@ public record InfinityModule(ItemStack ammo, String variantTag, int durabilityUs
     // for arrows fired by this module, set them to creative only pickup
     // not an issue if you have multiple types of infinity, they all agree on the goal here
     if (arrow != null && arrow.pickup != Pickup.CREATIVE_ONLY) {
-      CompoundTag tag = ammo.getTag();
+      CompoundTag tag = TagUtil.getTag(ammo);
       if (tag != null && tag.getBoolean(INFINITY)) {
         arrow.pickup = Pickup.CREATIVE_ONLY;
       }

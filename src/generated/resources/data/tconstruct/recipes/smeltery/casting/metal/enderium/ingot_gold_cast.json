@@ -1,20 +1,21 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/enderium/ingot_gold_cast",
   "cast": {
     "tag": "tconstruct:casts/multi_use/ingot"
   },
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:ingots/enderium"
+      "tag": "c:ingots/enderium"
     }
   ],
   "cooling_time": 76,
   "fluid": {
     "amount": 90,
-    "tag": "forge:molten_enderium"
+    "tag": "c:molten_enderium"
   },
   "result": {
-    "tag": "forge:ingots/enderium"
+    "tag": "c:ingots/enderium"
   }
 }

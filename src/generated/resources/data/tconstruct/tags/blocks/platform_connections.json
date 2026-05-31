@@ -9,9 +9,9 @@
     "minecraft:soul_wall_torch",
     "minecraft:redstone_wall_torch",
     "minecraft:redstone_wire",
-    "#forge:glass_panes",
+    "#c:glass_panes",
     "#minecraft:buttons",
-    "#forge:fences",
+    "#c:fences",
     "#minecraft:walls",
     "#minecraft:wall_signs",
     {

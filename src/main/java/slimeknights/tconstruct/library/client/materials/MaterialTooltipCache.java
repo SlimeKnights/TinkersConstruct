@@ -3,7 +3,7 @@ package slimeknights.tconstruct.library.client.materials;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextColor;
-import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
+import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
 import slimeknights.mantle.client.ResourceColorManager;
 import slimeknights.mantle.data.listener.ISafeManagerReloadListener;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;

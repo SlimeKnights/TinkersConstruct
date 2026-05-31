@@ -2,7 +2,7 @@ package slimeknights.tconstruct.tools.data.material;
 
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.DyeColor;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import slimeknights.tconstruct.library.client.data.material.AbstractMaterialRenderInfoProvider;
 import slimeknights.tconstruct.library.client.data.material.AbstractMaterialSpriteProvider;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;

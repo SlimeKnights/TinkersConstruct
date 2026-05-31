@@ -15,7 +15,7 @@
     "###"
   ],
   "result": {
-    "item": "tconstruct:scorched_basin"
+    "id": "tconstruct:scorched_basin"
   },
   "show_notification": true
 }

@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:entity_melting",
+  "id": "tconstruct:smeltery/entity_melting/strider",
   "damage": 4,
   "entity": {
     "type": "minecraft:strider"
@@ -9,6 +10,6 @@
     "nbt": {
       "Potion": "minecraft:fire_resistance"
     },
-    "tag": "forge:potion"
+    "tag": "c:potion"
   }
 }

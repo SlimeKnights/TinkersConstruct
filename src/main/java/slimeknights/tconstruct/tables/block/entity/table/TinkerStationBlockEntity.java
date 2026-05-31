@@ -11,13 +11,13 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.client.model.data.ModelData;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.event.ForgeEventFactory;
-import net.minecraftforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.client.model.data.ModelData;
+import slimeknights.mantle.compat.neoforged.neoforge.common.util.LazyOptional;
+import slimeknights.tconstruct.compat.neoforged.neoforge.event.ForgeEventFactory;
 import org.apache.commons.lang3.StringUtils;
 import slimeknights.mantle.util.RetexturedHelper;
 import slimeknights.tconstruct.TConstruct;
@@ -160,7 +160,7 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
       ITinkerStationRecipe recipe = lastRecipe;
       // if it does not match, find a new recipe
       if (recipe == null || !recipe.matches(this.inventoryWrapper, this.level)) {
-        recipe = manager.getRecipeFor(TinkerRecipeTypes.TINKER_STATION.get(), this.inventoryWrapper, this.level).orElse(null);
+        recipe = manager.getRecipeFor(TinkerRecipeTypes.TINKER_STATION.get(), this.inventoryWrapper, this.level).map(RecipeHolder::value).orElse(null);
       }
 
       // if we have a recipe, fetch its result
@@ -236,7 +236,7 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
       if (tinkerable.getCount() <= shrinkToolSlot) {
         this.setItem(TINKER_SLOT, ItemStack.EMPTY);
       } else {
-        this.setItem(TINKER_SLOT, ItemHandlerHelper.copyStackWithSize(tinkerable, tinkerable.getCount() - shrinkToolSlot));
+        this.setItem(TINKER_SLOT, tinkerable.copyWithCount(tinkerable.getCount() - shrinkToolSlot));
       }
     }
     this.itemName = "";

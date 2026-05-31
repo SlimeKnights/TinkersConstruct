@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:casting_basin",
+  "id": "tconstruct:smeltery/casting/water/black_concrete",
   "cast": {
     "item": "minecraft:black_concrete_powder"
   },

@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation.repairing;
 
 import lombok.RequiredArgsConstructor;
-import net.minecraft.data.recipes.FinishedRecipe;
+import slimeknights.mantle.compat.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;

@@ -2,36 +2,26 @@ package slimeknights.tconstruct.fluids.util;
 
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.alchemy.PotionBrewing;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraftforge.common.brewing.BrewingRecipe;
+import net.neoforged.neoforge.common.brewing.BrewingRecipe;
 
 /** Recipe for transforming a bottle, depending on a vanilla brewing recipe to get the ingredient */
 public class BottleBrewingRecipe extends BrewingRecipe {
   private final Item from;
   private final Item to;
   public BottleBrewingRecipe(Ingredient input, Item from, Item to, ItemStack output) {
-    super(input, Ingredient.EMPTY, output);
+    super(input, getIngredient(from, to), output);
     this.from = from;
     this.to = to;
   }
 
-  @Override
-  public boolean isIngredient(ItemStack stack) {
-    for (PotionBrewing.Mix<Item> recipe : PotionBrewing.CONTAINER_MIXES) {
-      if (recipe.from.get() == from && recipe.to.get() == to) {
-        return recipe.ingredient.test(stack);
-      }
+  private static Ingredient getIngredient(Item from, Item to) {
+    if (from == Items.POTION && to == Items.SPLASH_POTION) {
+      return Ingredient.of(Items.GUNPOWDER);
     }
-    return false;
-  }
-
-  @Override
-  public Ingredient getIngredient() {
-    for (PotionBrewing.Mix<Item> recipe : PotionBrewing.CONTAINER_MIXES) {
-      if (recipe.from.get() == from && recipe.to.get() == to) {
-        return recipe.ingredient;
-      }
+    if (from == Items.SPLASH_POTION && to == Items.LINGERING_POTION) {
+      return Ingredient.of(Items.DRAGON_BREATH);
     }
     return Ingredient.EMPTY;
   }

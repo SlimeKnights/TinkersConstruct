@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/duralumin/nugget",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:nuggets/duralumin"
+      "tag": "c:nuggets/duralumin"
     }
   ],
   "ingredient": {
-    "tag": "forge:nuggets/duralumin"
+    "tag": "c:nuggets/duralumin"
   },
   "result": {
     "amount": 10,
-    "tag": "forge:molten_duralumin"
+    "tag": "c:molten_duralumin"
   },
   "temperature": 625,
   "time": 18

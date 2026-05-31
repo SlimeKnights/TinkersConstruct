@@ -1,11 +1,12 @@
 {
   "type": "tconstruct:casting_basin",
+  "id": "tconstruct:smeltery/casting/metal/amethyst_bronze/block",
   "cooling_time": 182,
   "fluid": {
     "amount": 810,
-    "tag": "forge:molten_amethyst_bronze"
+    "tag": "c:molten_amethyst_bronze"
   },
   "result": {
-    "tag": "forge:storage_blocks/amethyst_bronze"
+    "tag": "c:storage_blocks/amethyst_bronze"
   }
 }

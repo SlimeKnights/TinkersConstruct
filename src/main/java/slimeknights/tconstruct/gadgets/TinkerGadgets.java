@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.gadgets;
 
-import net.minecraft.data.DataGenerator;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.CreativeModeTab.ItemDisplayParameters;
@@ -13,10 +12,9 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import slimeknights.mantle.compat.neoforged.neoforge.registries.RegistryObject;
 import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.common.TinkerModule;
@@ -25,7 +23,6 @@ import slimeknights.tconstruct.gadgets.block.FoodCakeBlock.EffectCombination;
 import slimeknights.tconstruct.gadgets.block.InvertedCakeBlock;
 import slimeknights.tconstruct.gadgets.block.PunjiBlock;
 import slimeknights.tconstruct.gadgets.capability.PiggybackCapability;
-import slimeknights.tconstruct.gadgets.data.GadgetRecipeProvider;
 import slimeknights.tconstruct.gadgets.entity.EFLNEntity;
 import slimeknights.tconstruct.gadgets.entity.FancyItemFrameEntity;
 import slimeknights.tconstruct.gadgets.entity.FrameType;
@@ -102,7 +99,6 @@ public final class TinkerGadgets extends TinkerModule {
       .sized(0.5F, 0.5F)
       .setTrackingRange(10)
       .setUpdateInterval(Integer.MAX_VALUE)
-      .setCustomClientFactory((spawnEntity, world) -> new FancyItemFrameEntity(TinkerGadgets.itemFrameEntity.get(), world))
       .setShouldReceiveVelocityUpdates(false)
   );
   @Deprecated
@@ -111,7 +107,6 @@ public final class TinkerGadgets extends TinkerModule {
       .sized(0.25F, 0.25F)
       .setTrackingRange(4)
       .setUpdateInterval(10)
-      .setCustomClientFactory((spawnEntity, world) -> new GlowballEntity(TinkerGadgets.glowBallEntity.get(), world))
       .setShouldReceiveVelocityUpdates(true)
   );
   @Deprecated
@@ -120,7 +115,6 @@ public final class TinkerGadgets extends TinkerModule {
       .sized(0.25F, 0.25F)
       .setTrackingRange(4)
       .setUpdateInterval(10)
-      .setCustomClientFactory((spawnEntity, world) -> new EFLNEntity(TinkerGadgets.eflnEntity.get(), world))
       .setShouldReceiveVelocityUpdates(true));
   @Deprecated
   public static final RegistryObject<EntityType<QuartzShurikenEntity>> quartzShurikenEntity = ENTITIES.register("quartz_shuriken", () ->
@@ -128,7 +122,6 @@ public final class TinkerGadgets extends TinkerModule {
       .sized(0.25F, 0.25F)
       .setTrackingRange(4)
       .setUpdateInterval(10)
-      .setCustomClientFactory((spawnEntity, world) -> new QuartzShurikenEntity(TinkerGadgets.quartzShurikenEntity.get(), world))
       .setShouldReceiveVelocityUpdates(true)
   );
   @Deprecated
@@ -137,7 +130,6 @@ public final class TinkerGadgets extends TinkerModule {
       .sized(0.25F, 0.25F)
       .setTrackingRange(4)
       .setUpdateInterval(10)
-      .setCustomClientFactory((spawnEntity, world) -> new FlintShurikenEntity(TinkerGadgets.flintShurikenEntity.get(), world))
       .setShouldReceiveVelocityUpdates(true)
   );
 
@@ -153,20 +145,14 @@ public final class TinkerGadgets extends TinkerModule {
   void commonSetup(final FMLCommonSetupEvent event) {
     PiggybackCapability.register();
     event.enqueueWork(() -> {
-      cake.forEach(block -> ComposterBlock.add(1.0f, block));
-      ComposterBlock.add(1.0f, magmaCake.get());
+      cake.forEach(block -> ComposterBlock.COMPOSTABLES.put(block.asItem(), 1.0f));
+      ComposterBlock.COMPOSTABLES.put(magmaCake.get().asItem(), 1.0f);
 
       DispenserBlock.registerBehavior(glowBall, new ShootProjectileDispenserBehavior(glowBallEntity.get()));
       DispenserBlock.registerBehavior(efln, new ShootProjectileDispenserBehavior(eflnEntity.get()));
       DispenserBlock.registerBehavior(flintShuriken, new ShootProjectileDispenserBehavior(flintShurikenEntity.get()));
       DispenserBlock.registerBehavior(quartzShuriken, new ShootProjectileDispenserBehavior(quartzShurikenEntity.get()));
     });
-  }
-
-  @SubscribeEvent
-  void gatherData(final GatherDataEvent event) {
-    DataGenerator generator = event.getGenerator();
-    generator.addProvider(event.includeServer(), new GadgetRecipeProvider(generator.getPackOutput()));
   }
 
   /** Adds all relevant items to the creative tab, called by general tab */

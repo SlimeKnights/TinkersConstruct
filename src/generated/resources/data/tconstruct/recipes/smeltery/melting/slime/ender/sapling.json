@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/slime/ender/sapling",
   "ingredient": {
     "item": "tconstruct:ender_slime_sapling"
   },

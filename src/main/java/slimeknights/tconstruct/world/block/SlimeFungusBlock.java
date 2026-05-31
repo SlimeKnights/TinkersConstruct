@@ -13,7 +13,7 @@ import slimeknights.tconstruct.world.TinkerWorld;
 /** Update of fungus that grows on slime soil instead */
 public class SlimeFungusBlock extends FungusBlock {
   public SlimeFungusBlock(Properties properties, ResourceKey<ConfiguredFeature<?,?>> fungusFeature) {
-    super(properties, fungusFeature, TinkerWorld.slimeDirt.get(DirtType.ICHOR));
+    super(fungusFeature, TinkerWorld.slimeDirt.get(DirtType.ICHOR), properties);
   }
 
   @Override
@@ -22,7 +22,7 @@ public class SlimeFungusBlock extends FungusBlock {
   }
 
   @Override
-  public boolean isValidBonemealTarget(LevelReader worldIn, BlockPos pos, BlockState state, boolean isClient) {
+  public boolean isValidBonemealTarget(LevelReader worldIn, BlockPos pos, BlockState state) {
     return worldIn.getBlockState(pos.below()).is(TinkerTags.Blocks.SLIMY_SOIL);
   }
 }

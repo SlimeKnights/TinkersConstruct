@@ -1,12 +1,13 @@
 {
   "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/ability/tool_belt_5",
   "allow_crystal": false,
   "inputs": [
     {
       "item": "minecraft:leather"
     },
     {
-      "tag": "forge:ingots/hepatizon"
+      "tag": "c:ingots/hepatizon"
     },
     {
       "item": "minecraft:leather"

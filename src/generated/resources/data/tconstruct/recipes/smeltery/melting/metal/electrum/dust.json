@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/electrum/dust",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:dusts/electrum"
+      "tag": "c:dusts/electrum"
     }
   ],
   "ingredient": {
-    "tag": "forge:dusts/electrum"
+    "tag": "c:dusts/electrum"
   },
   "result": {
     "amount": 90,
-    "tag": "forge:molten_electrum"
+    "tag": "c:molten_electrum"
   },
   "temperature": 760,
   "time": 44

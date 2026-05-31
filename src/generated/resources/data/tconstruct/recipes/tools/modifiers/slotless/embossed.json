@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/slotless/embossed",
   "allow_crystal": true,
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
       "tag": "tconstruct:boss_trophies"

@@ -18,13 +18,14 @@ public class MagneticEffect extends TinkerEffect {
   }
 
   @Override
-  public boolean isDurationEffectTick(int duration, int amplifier) {
+  public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
     return (duration & 1) == 0;
   }
 
   @Override
-  public void applyEffectTick(LivingEntity entity, int amplifier) {
+  public boolean applyEffectTick(LivingEntity entity, int amplifier) {
     applyMagnet(entity, amplifier);
+    return true;
   }
 
   /** Performs the magnetic effect. */

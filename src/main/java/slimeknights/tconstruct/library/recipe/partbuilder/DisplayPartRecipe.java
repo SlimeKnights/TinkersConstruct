@@ -2,7 +2,7 @@ package slimeknights.tconstruct.library.recipe.partbuilder;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -48,7 +48,7 @@ public class DisplayPartRecipe implements IDisplayPartBuilderRecipe {
   }
 
   @Override
-  public ItemStack getResultItem(RegistryAccess pRegistryAccess) {
+  public ItemStack getResultItem(HolderLookup.Provider pRegistryAccess) {
     throw new UnsupportedOperationException();
   }
 

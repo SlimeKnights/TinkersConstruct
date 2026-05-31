@@ -1,21 +1,22 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/nickel/nugget_sand_cast",
   "cast": {
     "tag": "tconstruct:casts/single_use/nugget"
   },
   "cast_consumed": true,
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:nuggets/nickel"
+      "tag": "c:nuggets/nickel"
     }
   ],
   "cooling_time": 22,
   "fluid": {
     "amount": 10,
-    "tag": "forge:molten_nickel"
+    "tag": "c:molten_nickel"
   },
   "result": {
-    "tag": "forge:nuggets/nickel"
+    "tag": "c:nuggets/nickel"
   }
 }

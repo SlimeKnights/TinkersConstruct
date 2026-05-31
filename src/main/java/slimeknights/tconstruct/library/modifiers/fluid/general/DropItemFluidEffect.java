@@ -3,9 +3,8 @@ package slimeknights.tconstruct.library.modifiers.fluid.general;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.ItemLike;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
-import net.minecraftforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.tconstruct.library.modifiers.fluid.EffectLevel;
@@ -31,7 +30,7 @@ public record DropItemFluidEffect(ItemOutput item) implements FluidEffect<FluidE
     int count = (int)(level.value() * item.getCount());
     if (count > 0) {
       if (action.execute()) {
-        ModifierUtil.dropItem(context.getLevel(), context.getLocation(), ItemHandlerHelper.copyStackWithSize(item.get(), count * item.getCount()));
+        ModifierUtil.dropItem(context.getLevel(), context.getLocation(), item.get().copyWithCount(count * item.getCount()));
       }
       return (float) count / item.getCount();
     }

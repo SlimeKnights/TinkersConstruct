@@ -61,7 +61,7 @@ public enum InteractionSource {
    */
   public static InteractionSource fromEquipmentSlot(EquipmentSlot slot) {
     return switch (slot.getType()) {
-      case ARMOR -> ARMOR;
+      case HUMANOID_ARMOR, ANIMAL_ARMOR -> ARMOR;
       case HAND -> RIGHT_CLICK;
     };
   }

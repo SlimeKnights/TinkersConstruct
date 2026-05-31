@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/lead/nugget",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:nuggets/lead"
+      "tag": "c:nuggets/lead"
     }
   ],
   "ingredient": {
-    "tag": "forge:nuggets/lead"
+    "tag": "c:nuggets/lead"
   },
   "result": {
     "amount": 10,
-    "tag": "forge:molten_lead"
+    "tag": "c:molten_lead"
   },
   "temperature": 330,
   "time": 14

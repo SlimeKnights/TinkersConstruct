@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/netherite/debris_nugget_gold_cast",
   "cast": {
     "tag": "tconstruct:casts/multi_use/nugget"
   },
@@ -9,6 +10,6 @@
     "tag": "tconstruct:molten_debris"
   },
   "result": {
-    "tag": "forge:nuggets/netherite_scrap"
+    "tag": "c:nuggets/netherite_scrap"
   }
 }

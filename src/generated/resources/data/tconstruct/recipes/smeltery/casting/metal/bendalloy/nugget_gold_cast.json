@@ -1,20 +1,21 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/bendalloy/nugget_gold_cast",
   "cast": {
     "tag": "tconstruct:casts/multi_use/nugget"
   },
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:nuggets/bendalloy"
+      "tag": "c:nuggets/bendalloy"
     }
   ],
   "cooling_time": 11,
   "fluid": {
     "amount": 10,
-    "tag": "forge:molten_bendalloy"
+    "tag": "c:molten_bendalloy"
   },
   "result": {
-    "tag": "forge:nuggets/bendalloy"
+    "tag": "c:nuggets/bendalloy"
   }
 }

@@ -2,16 +2,17 @@ package slimeknights.tconstruct.library.recipe.material;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
+import net.minecraft.world.item.crafting.ShapedRecipePattern;
 import net.minecraft.world.level.Level;
 import slimeknights.mantle.data.loadable.Loadable;
 import slimeknights.mantle.data.loadable.field.LoadableField;
@@ -23,6 +24,7 @@ import slimeknights.tconstruct.tables.TinkerTables;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Shaped recipe with a number of {@link slimeknights.tconstruct.library.recipe.ingredient.MaterialValueIngredient} to set the material of the result.
@@ -30,15 +32,17 @@ import java.util.List;
  */
 @Deprecated
 public class ShapedMaterialRecipe extends ShapedRecipe {
+  private final ResourceLocation id;
   private MaterialValueIngredient material;
   private final List<MaterialVariantId> extraMaterials;
   public ShapedMaterialRecipe(ResourceLocation id, String group, CraftingBookCategory category, int width, int height, NonNullList<Ingredient> ingredients, ItemStack result, boolean showNotification, List<MaterialVariantId> extraMaterials) {
-    super(id, group, category, width, height, ingredients, result, showNotification);
+    super(group, category, new ShapedRecipePattern(width, height, ingredients, Optional.empty()), result, showNotification);
+    this.id = id;
     this.extraMaterials = extraMaterials;
   }
 
   public ShapedMaterialRecipe(ShapedRecipe recipe, List<MaterialVariantId> extraMaterials) {
-    this(recipe.getId(), recipe.getGroup(), recipe.category(), recipe.getRecipeWidth(), recipe.getRecipeHeight(), recipe.getIngredients(), recipe.result, recipe.showNotification(), extraMaterials);
+    this(LoggingRecipeSerializer.UNKNOWN_ID, recipe.getGroup(), recipe.category(), recipe.getWidth(), recipe.getHeight(), recipe.getIngredients(), recipe.getResultItem(null), recipe.showNotification(), extraMaterials);
   }
 
   /** @deprecated use {@link #ShapedMaterialRecipe(ResourceLocation,String,CraftingBookCategory,int,int,NonNullList,ItemStack,boolean,List)} */
@@ -53,6 +57,10 @@ public class ShapedMaterialRecipe extends ShapedRecipe {
     this(recipe, List.of());
   }
 
+  public ResourceLocation getId() {
+    return id;
+  }
+
   /** Gets the material to match */
   @Nullable
   public MaterialValueIngredient getMaterial() {
@@ -60,7 +68,7 @@ public class ShapedMaterialRecipe extends ShapedRecipe {
       // assume all material ingredients match the same stat type
       for (Ingredient ingredient : getIngredients()) {
         // collect all ingredients that match
-        if (ingredient instanceof MaterialValueIngredient materialValue) {
+        if (ingredient.getCustomIngredient() instanceof MaterialValueIngredient materialValue) {
           if (material == null) {
             material = materialValue;
           } else {
@@ -78,14 +86,14 @@ public class ShapedMaterialRecipe extends ShapedRecipe {
   }
 
   @Nullable
-  private MaterialVariantId findMaterial(CraftingContainer inventory) {
+  private MaterialVariantId findMaterial(CraftingInput inventory) {
     MaterialValueIngredient material = getMaterial();
     if (material == null) {
       return null;
     }
     // ensure same material in all slots
     MaterialVariantId firstMaterial = null;
-    for (int i = 0; i < inventory.getContainerSize(); i++) {
+    for (int i = 0; i < inventory.size(); i++) {
       ItemStack stack = inventory.getItem(i);
       if (!stack.isEmpty()) {
         // ignore anything that does not meet our requirements
@@ -110,7 +118,7 @@ public class ShapedMaterialRecipe extends ShapedRecipe {
   }
 
   @Override
-  public boolean matches(CraftingContainer inventory, Level level) {
+  public boolean matches(CraftingInput inventory, Level level) {
     if (!super.matches(inventory, level)) {
       return false;
     }
@@ -125,7 +133,7 @@ public class ShapedMaterialRecipe extends ShapedRecipe {
   }
 
   @Override
-  public ItemStack assemble(CraftingContainer inventory, RegistryAccess registryAccess) {
+  public ItemStack assemble(CraftingInput inventory, HolderLookup.Provider registryAccess) {
     ItemStack stack = super.assemble(inventory, registryAccess);
     MaterialVariantId material = findMaterial(inventory);
     if (material != null) {

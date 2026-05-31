@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/signalum/dust",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:dusts/signalum"
+      "tag": "c:dusts/signalum"
     }
   ],
   "ingredient": {
-    "tag": "forge:dusts/signalum"
+    "tag": "c:dusts/signalum"
   },
   "result": {
     "amount": 90,
-    "tag": "forge:molten_signalum"
+    "tag": "c:molten_signalum"
   },
   "temperature": 999,
   "time": 50

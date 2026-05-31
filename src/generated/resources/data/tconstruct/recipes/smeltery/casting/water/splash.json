@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/water/splash",
   "cast": {
-    "tag": "forge:bottles/splash"
+    "tag": "c:bottles/splash"
   },
   "cast_consumed": true,
   "cooling_time": 1,

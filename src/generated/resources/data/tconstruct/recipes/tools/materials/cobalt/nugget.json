@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/cobalt/nugget",
   "ingredient": {
-    "tag": "forge:nuggets/cobalt"
+    "tag": "c:nuggets/cobalt"
   },
   "material": "tconstruct:cobalt",
   "needed": 9,

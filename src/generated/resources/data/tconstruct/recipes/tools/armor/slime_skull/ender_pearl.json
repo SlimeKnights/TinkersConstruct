@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:basin_tool_casting",
+  "id": "tconstruct:tools/armor/slime_skull/ender_pearl",
   "cast": {
     "item": "tconstruct:enderman_head"
   },

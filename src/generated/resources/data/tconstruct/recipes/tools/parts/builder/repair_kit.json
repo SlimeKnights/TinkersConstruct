@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:part_builder",
+  "id": "tconstruct:tools/parts/builder/repair_kit",
   "cost": 2,
   "pattern": "tconstruct:repair_kit",
   "pattern_item": [

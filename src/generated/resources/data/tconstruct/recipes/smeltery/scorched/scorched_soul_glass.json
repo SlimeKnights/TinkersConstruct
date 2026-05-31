@@ -15,7 +15,7 @@
     " b "
   ],
   "result": {
-    "item": "tconstruct:scorched_soul_glass"
+    "id": "tconstruct:scorched_soul_glass"
   },
   "show_notification": true
 }

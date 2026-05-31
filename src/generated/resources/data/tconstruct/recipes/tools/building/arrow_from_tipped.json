@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:tipped_tool_transform",
+  "id": "tconstruct:tools/building/arrow_from_tipped",
   "input": {
     "type": "mantle:potion_display",
     "item": "minecraft:tipped_arrow"

@@ -2,7 +2,7 @@ package slimeknights.tconstruct.library.json.predicate;
 
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.TierSortingRegistry;
+import slimeknights.tconstruct.compat.neoforged.neoforge.common.TierSortingRegistry;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.block.BlockPredicate;

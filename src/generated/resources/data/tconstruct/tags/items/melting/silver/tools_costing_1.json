@@ -1,7 +1,7 @@
 {
   "values": [
     {
-      "id": "#forge:tools/shovels/silver",
+      "id": "#c:tools/shovels/silver",
       "required": false
     },
     {

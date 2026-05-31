@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/shulker",
   "ingredient": {
     "item": "minecraft:shulker_shell"
   },

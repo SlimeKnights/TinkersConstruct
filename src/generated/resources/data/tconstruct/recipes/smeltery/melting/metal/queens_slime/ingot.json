@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/queens_slime/ingot",
   "ingredient": {
-    "tag": "forge:ingots/queens_slime"
+    "tag": "c:ingots/queens_slime"
   },
   "result": {
     "amount": 90,

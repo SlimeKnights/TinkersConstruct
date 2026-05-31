@@ -1,16 +1,17 @@
 {
   "type": "tconstruct:molding_table",
-  "conditions": [
+  "id": "tconstruct:smeltery/casts/red_sand/molding/gears",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:gears"
+      "tag": "c:gears"
     }
   ],
   "material": {
     "tag": "tconstruct:casts/red_sand"
   },
   "pattern": {
-    "tag": "forge:gears"
+    "tag": "c:gears"
   },
   "result": "tconstruct:gear_red_sand_cast"
 }

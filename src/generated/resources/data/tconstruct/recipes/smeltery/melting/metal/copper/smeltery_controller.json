@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/copper/smeltery_controller",
   "byproducts": [
     {
       "amount": 1000,
@@ -11,7 +12,7 @@
   },
   "result": {
     "amount": 360,
-    "tag": "forge:molten_copper"
+    "tag": "c:molten_copper"
   },
   "temperature": 500,
   "time": 175

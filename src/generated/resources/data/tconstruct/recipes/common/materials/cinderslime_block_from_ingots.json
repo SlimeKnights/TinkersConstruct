@@ -4,7 +4,7 @@
   "group": "tconstruct:cinderslime_block",
   "key": {
     "#": {
-      "tag": "forge:ingots/cinderslime"
+      "tag": "c:ingots/cinderslime"
     },
     "*": {
       "item": "tconstruct:cinderslime_ingot"
@@ -16,7 +16,7 @@
     "###"
   ],
   "result": {
-    "item": "tconstruct:cinderslime_block"
+    "id": "tconstruct:cinderslime_block"
   },
   "show_notification": true
 }

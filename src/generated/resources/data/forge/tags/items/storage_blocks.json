@@ -1,19 +1,19 @@
 {
   "values": [
-    "#forge:storage_blocks/cobalt",
-    "#forge:storage_blocks/steel",
-    "#forge:storage_blocks/slimesteel",
-    "#forge:storage_blocks/amethyst_bronze",
-    "#forge:storage_blocks/rose_gold",
-    "#forge:storage_blocks/pig_iron",
-    "#forge:storage_blocks/cinderslime",
-    "#forge:storage_blocks/queens_slime",
-    "#forge:storage_blocks/manyullyn",
-    "#forge:storage_blocks/hepatizon",
-    "#forge:storage_blocks/soulsteel",
-    "#forge:storage_blocks/knightmetal",
-    "#forge:storage_blocks/knightslime",
-    "#forge:storage_blocks/raw_cobalt",
+    "#c:storage_blocks/cobalt",
+    "#c:storage_blocks/steel",
+    "#c:storage_blocks/slimesteel",
+    "#c:storage_blocks/amethyst_bronze",
+    "#c:storage_blocks/rose_gold",
+    "#c:storage_blocks/pig_iron",
+    "#c:storage_blocks/cinderslime",
+    "#c:storage_blocks/queens_slime",
+    "#c:storage_blocks/manyullyn",
+    "#c:storage_blocks/hepatizon",
+    "#c:storage_blocks/soulsteel",
+    "#c:storage_blocks/knightmetal",
+    "#c:storage_blocks/knightslime",
+    "#c:storage_blocks/raw_cobalt",
     "tconstruct:fake_storage_block"
   ]
 }

@@ -21,7 +21,7 @@ public class TinkerChestScreen extends BaseTabbedScreen<AbstractChestBlockEntity
     if (chestContainer != null) {
       this.scalingChestScreen = new ScalingChestScreen<>(this, chestContainer, playerInventory, title);
       // add one extra row to the height
-      this.scalingChestScreen.imageHeight += 18;
+      this.scalingChestScreen.adjustBounds(0, 0, 0, 18);
       this.addModule(scalingChestScreen);
     }
   }

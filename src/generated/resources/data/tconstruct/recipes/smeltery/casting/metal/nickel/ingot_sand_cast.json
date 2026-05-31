@@ -1,21 +1,22 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/nickel/ingot_sand_cast",
   "cast": {
     "tag": "tconstruct:casts/single_use/ingot"
   },
   "cast_consumed": true,
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:ingots/nickel"
+      "tag": "c:ingots/nickel"
     }
   ],
   "cooling_time": 65,
   "fluid": {
     "amount": 90,
-    "tag": "forge:molten_nickel"
+    "tag": "c:molten_nickel"
   },
   "result": {
-    "tag": "forge:ingots/nickel"
+    "tag": "c:ingots/nickel"
   }
 }

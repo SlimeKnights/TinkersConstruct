@@ -1,16 +1,16 @@
 package slimeknights.tconstruct.tables;
 
-import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.world.item.DyeableLeatherItem;
+import slimeknights.tconstruct.compat.minecraft.world.item.DyeableLeatherItem;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.client.event.RegisterColorHandlersEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.common.EventBusSubscriber.Bus;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import slimeknights.mantle.client.render.InventoryBlockEntityRenderer;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
@@ -35,12 +35,15 @@ public class TableClientEvents extends ClientEventBase {
   }
 
   @SubscribeEvent
-  static void setupClient(final FMLClientSetupEvent event) {
-    MenuScreens.register(TinkerTables.craftingStationContainer.get(), CraftingStationScreen::new);
-    MenuScreens.register(TinkerTables.tinkerStationContainer.get(), TinkerStationScreen::new);
-    MenuScreens.register(TinkerTables.partBuilderContainer.get(), PartBuilderScreen::new);
-    MenuScreens.register(TinkerTables.modifierWorktableContainer.get(), ModifierWorktableScreen::new);
-    MenuScreens.register(TinkerTables.tinkerChestContainer.get(), TinkerChestScreen::new);
+  static void setupClient(final FMLClientSetupEvent event) {}
+
+  @SubscribeEvent
+  static void registerMenuScreens(RegisterMenuScreensEvent event) {
+    event.register(TinkerTables.craftingStationContainer.get(), CraftingStationScreen::new);
+    event.register(TinkerTables.tinkerStationContainer.get(), TinkerStationScreen::new);
+    event.register(TinkerTables.partBuilderContainer.get(), PartBuilderScreen::new);
+    event.register(TinkerTables.modifierWorktableContainer.get(), ModifierWorktableScreen::new);
+    event.register(TinkerTables.tinkerChestContainer.get(), TinkerChestScreen::new);
   }
 
   @SubscribeEvent

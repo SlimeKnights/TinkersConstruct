@@ -2,11 +2,9 @@ package slimeknights.tconstruct.library.materials;
 
 import com.google.common.annotations.VisibleForTesting;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.AddReloadListenerEvent;
-import net.minecraftforge.event.OnDatapackSyncEvent;
-import net.minecraftforge.network.PacketDistributor;
-import net.minecraftforge.network.PacketDistributor.PacketTarget;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.AddReloadListenerEvent;
+import net.neoforged.neoforge.event.OnDatapackSyncEvent;
 import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.command.argument.TagSource;
 import slimeknights.mantle.network.packet.ISimplePacket;
@@ -82,12 +80,12 @@ public final class MaterialRegistry {
     // create registry instance
     INSTANCE = new MaterialRegistry();
     // add event listeners
-    MinecraftForge.EVENT_BUS.addListener(INSTANCE::addDataPackListeners);
-    MinecraftForge.EVENT_BUS.addListener(INSTANCE::onDatapackSync);
+    NeoForge.EVENT_BUS.addListener(INSTANCE::addDataPackListeners);
+    NeoForge.EVENT_BUS.addListener(INSTANCE::onDatapackSync);
     // on the client, mark materials not fully loaded when the client logs out.
     // this also runs when starting a world in SP, but its early enough that the player login event will correct the state later (see handleLogin method)
     // TODO: is this still needed? disabled as it runs before the world finishes unloading in SP
-    // DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, LoggedOutEvent.class, e -> fullyLoaded = false));
+    // DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> NeoForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, LoggedOutEvent.class, e -> fullyLoaded = false));
   }
 
   /**
@@ -233,7 +231,7 @@ public final class MaterialRegistry {
       traitsLoaded = false;
       fullyLoaded = true;
       FIRST_MATERIALS.clear();
-      MinecraftForge.EVENT_BUS.post(new MaterialsLoadedEvent());
+      NeoForge.EVENT_BUS.post(new MaterialsLoadedEvent());
     } else {
       fullyLoaded = false;
     }
@@ -257,16 +255,15 @@ public final class MaterialRegistry {
 
     // on a dedicated server, the client is running a separate game instance, this is where we send packets, plus fully loaded should already be true
     // this event is not fired when connecting to a server
-    if (player.connection.connection.isMemoryConnection()) {
+    if (player.connection.getConnection().isMemoryConnection()) {
       // if the packet is being sent to ourself, skip sending, prevents recreating all material instances in the registry a second time on dedicated servers
       // note it will still send the packet if another client connects in LAN
       fullyLoaded = true;
-      MinecraftForge.EVENT_BUS.post(new MaterialsLoadedEvent());
+      NeoForge.EVENT_BUS.post(new MaterialsLoadedEvent());
     } else {
       TinkerNetwork network = TinkerNetwork.getInstance();
-      PacketTarget target = PacketDistributor.PLAYER.with(() -> player);
       for (ISimplePacket packet : packets) {
-        network.send(target, packet);
+        network.sendTo(packet, player);
       }
     }
   }

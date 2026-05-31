@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:severing",
+  "id": "tconstruct:tools/severing/cobweb",
   "entity": {
     "types": [
       "minecraft:spider",

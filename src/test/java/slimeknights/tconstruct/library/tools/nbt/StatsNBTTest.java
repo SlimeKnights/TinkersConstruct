@@ -5,7 +5,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.Tiers;
-import net.minecraftforge.common.TierSortingRegistry;
+import slimeknights.tconstruct.compat.neoforged.neoforge.common.TierSortingRegistry;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

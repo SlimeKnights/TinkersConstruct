@@ -7,7 +7,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.crafting.CraftingRecipe;
-import net.minecraftforge.common.crafting.IShapedRecipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import slimeknights.tconstruct.compat.neoforged.neoforge.common.crafting.IShapedRecipe;
 import slimeknights.mantle.client.SafeClientAccess;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.menu.CraftingStationContainerMenu;
@@ -19,7 +20,7 @@ import java.util.Optional;
 /**
  * Class to dynamically provide the right slot count to JEI
  */
-public class CraftingStationTransferInfo implements IRecipeTransferInfo<CraftingStationContainerMenu, CraftingRecipe> {
+public class CraftingStationTransferInfo implements IRecipeTransferInfo<CraftingStationContainerMenu, RecipeHolder<CraftingRecipe>> {
   @Override
   public Class<? extends CraftingStationContainerMenu> getContainerClass() {
     return CraftingStationContainerMenu.class;
@@ -31,12 +32,12 @@ public class CraftingStationTransferInfo implements IRecipeTransferInfo<Crafting
   }
 
   @Override
-  public RecipeType<CraftingRecipe> getRecipeType() {
+  public RecipeType<RecipeHolder<CraftingRecipe>> getRecipeType() {
     return RecipeTypes.CRAFTING;
   }
 
   @Override
-  public List<Slot> getInventorySlots(CraftingStationContainerMenu container, CraftingRecipe recipe) {
+  public List<Slot> getInventorySlots(CraftingStationContainerMenu container, RecipeHolder<CraftingRecipe> recipe) {
     List<Slot> slots = new ArrayList<>();
 
     // 36 for player inventory
@@ -64,7 +65,7 @@ public class CraftingStationTransferInfo implements IRecipeTransferInfo<Crafting
   }
 
   @Override
-  public List<Slot> getRecipeSlots(CraftingStationContainerMenu container, CraftingRecipe recipe) {
+  public List<Slot> getRecipeSlots(CraftingStationContainerMenu container, RecipeHolder<CraftingRecipe> recipe) {
     List<Slot> slots = new ArrayList<>();
     for (int i = 0; i < 9; i++) {
       slots.add(container.getSlot(i));
@@ -73,10 +74,10 @@ public class CraftingStationTransferInfo implements IRecipeTransferInfo<Crafting
   }
 
   @Override
-  public boolean canHandle(CraftingStationContainerMenu container, CraftingRecipe recipe) {
-    if (recipe instanceof IShapedRecipe<?> shaped) {
+  public boolean canHandle(CraftingStationContainerMenu container, RecipeHolder<CraftingRecipe> recipe) {
+    if (recipe.value() instanceof IShapedRecipe<?> shaped) {
       return shaped.getRecipeWidth() <= 3 && shaped.getRecipeHeight() <= 3;
     }
-    return recipe.getIngredients().size() <= 9;
+    return recipe.value().getIngredients().size() <= 9;
   }
 }

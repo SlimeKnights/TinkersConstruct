@@ -1,66 +1,21 @@
 {
-  "type": "forge:conditional",
-  "conditions": [
+  "type": "tconstruct:ore_melting",
+  "id": "tconstruct:smeltery/melting/metal/tungsten/raw",
+  "byproducts": [
     {
-      "type": "mantle:tag_filled",
-      "tag": "forge:raw_materials/tungsten"
+      "amount": 90,
+      "rate": "metal",
+      "tag": "c:molten_gold"
     }
   ],
-  "recipes": [
-    {
-      "conditions": [
-        {
-          "type": "mantle:tag_filled",
-          "tag": "forge:ingots/platinum"
-        }
-      ],
-      "recipe": {
-        "type": "tconstruct:ore_melting",
-        "byproducts": [
-          {
-            "amount": 90,
-            "rate": "metal",
-            "tag": "forge:molten_platinum"
-          }
-        ],
-        "ingredient": {
-          "tag": "forge:raw_materials/tungsten"
-        },
-        "rate": "metal",
-        "result": {
-          "amount": 90,
-          "tag": "forge:molten_tungsten"
-        },
-        "temperature": 950,
-        "time": 97
-      }
-    },
-    {
-      "conditions": [
-        {
-          "type": "forge:true"
-        }
-      ],
-      "recipe": {
-        "type": "tconstruct:ore_melting",
-        "byproducts": [
-          {
-            "amount": 90,
-            "rate": "metal",
-            "tag": "forge:molten_gold"
-          }
-        ],
-        "ingredient": {
-          "tag": "forge:raw_materials/tungsten"
-        },
-        "rate": "metal",
-        "result": {
-          "amount": 90,
-          "tag": "forge:molten_tungsten"
-        },
-        "temperature": 950,
-        "time": 97
-      }
-    }
-  ]
+  "ingredient": {
+    "tag": "c:raw_materials/tungsten"
+  },
+  "rate": "metal",
+  "result": {
+    "amount": 90,
+    "tag": "c:molten_tungsten"
+  },
+  "temperature": 950,
+  "time": 97
 }

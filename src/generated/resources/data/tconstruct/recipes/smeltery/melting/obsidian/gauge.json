@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/obsidian/gauge",
   "byproducts": [
     {
       "amount": 50,

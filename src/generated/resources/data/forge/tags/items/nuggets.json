@@ -1,20 +1,20 @@
 {
   "values": [
-    "#forge:nuggets/copper",
-    "#forge:nuggets/netherite",
-    "#forge:nuggets/netherite_scrap",
-    "#forge:nuggets/steel",
-    "#forge:nuggets/cobalt",
-    "#forge:nuggets/slimesteel",
-    "#forge:nuggets/amethyst_bronze",
-    "#forge:nuggets/rose_gold",
-    "#forge:nuggets/pig_iron",
-    "#forge:nuggets/cinderslime",
-    "#forge:nuggets/queens_slime",
-    "#forge:nuggets/manyullyn",
-    "#forge:nuggets/hepatizon",
-    "#forge:nuggets/soulsteel",
-    "#forge:nuggets/knightmetal",
-    "#forge:nuggets/knightslime"
+    "#c:nuggets/copper",
+    "#c:nuggets/netherite",
+    "#c:nuggets/netherite_scrap",
+    "#c:nuggets/steel",
+    "#c:nuggets/cobalt",
+    "#c:nuggets/slimesteel",
+    "#c:nuggets/amethyst_bronze",
+    "#c:nuggets/rose_gold",
+    "#c:nuggets/pig_iron",
+    "#c:nuggets/cinderslime",
+    "#c:nuggets/queens_slime",
+    "#c:nuggets/manyullyn",
+    "#c:nuggets/hepatizon",
+    "#c:nuggets/soulsteel",
+    "#c:nuggets/knightmetal",
+    "#c:nuggets/knightslime"
   ]
 }

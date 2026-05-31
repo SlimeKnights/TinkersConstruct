@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.library.modifiers.modules;
 
-import net.minecraftforge.common.crafting.conditions.ICondition;
+import net.neoforged.neoforge.common.conditions.ICondition;
 import slimeknights.mantle.data.loadable.mapping.ConditionalLoadable.ConditionalObject;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.library.module.ModuleHook;

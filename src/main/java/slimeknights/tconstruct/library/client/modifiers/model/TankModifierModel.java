@@ -7,13 +7,14 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraftforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidStack;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.util.ItemLayerPixels;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.capability.fluid.ToolTankHelper;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
+import slimeknights.tconstruct.library.utils.TagUtil;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
@@ -66,7 +67,7 @@ public class TankModifierModel implements ModifierModel {
     ToolTankHelper helper = tankHelper();
     FluidStack fluid = helper.getFluid(tool);
     if (!fluid.isEmpty()) {
-      return new CacheKey(fluid.getFluid(), fluid.getTag(), fluid.getAmount() + tolerance < helper.getCapacity(tool));
+      return new CacheKey(fluid.getFluid(), TagUtil.getTag(fluid), fluid.getAmount() + tolerance < helper.getCapacity(tool));
     }
     return null;
   }

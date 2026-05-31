@@ -17,6 +17,7 @@ import slimeknights.tconstruct.library.module.HookProvider;
 import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
+import slimeknights.tconstruct.tools.entity.ModifiableArrow;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -41,8 +42,8 @@ public record PunchModule(LevelingValue amount, ModifierCondition<IToolStackView
     if (condition.matches(tool, modifier)) {
       float amount = this.amount.compute(modifier.getEffectiveLevel());
       if (amount > 0) {
-        if (arrow != null) {
-          arrow.setKnockback((int) amount);
+        if (arrow instanceof ModifiableArrow modifiableArrow) {
+          modifiableArrow.setKnockback((int) amount);
         } else if (projectile instanceof ProjectileWithKnockback withKnockback) {
           withKnockback.addKnockback(amount);
         }

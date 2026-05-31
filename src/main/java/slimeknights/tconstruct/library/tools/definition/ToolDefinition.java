@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ItemLike;
-import net.minecraftforge.registries.RegistryObject;
+import slimeknights.mantle.compat.neoforged.neoforge.registries.RegistryObject;
 import slimeknights.mantle.registration.object.IdAwareObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.module.ModuleHook;

@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/slimesteel/reinforcement",
   "byproducts": [
     {
       "amount": 250,

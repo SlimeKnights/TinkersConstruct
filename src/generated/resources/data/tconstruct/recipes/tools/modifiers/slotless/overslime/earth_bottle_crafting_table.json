@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:crafting_overslime_modifier",
+  "id": "tconstruct:tools/modifiers/slotless/overslime/earth_bottle_crafting_table",
   "ingredient": {
     "item": "tconstruct:earth_slime_bottle"
   },

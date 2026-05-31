@@ -1,21 +1,22 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/refined_glowstone/ingot_sand_cast",
   "cast": {
     "tag": "tconstruct:casts/single_use/ingot"
   },
   "cast_consumed": true,
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:ingots/refined_glowstone"
+      "tag": "c:ingots/refined_glowstone"
     }
   ],
   "cooling_time": 61,
   "fluid": {
     "amount": 90,
-    "tag": "forge:molten_refined_glowstone"
+    "tag": "c:molten_refined_glowstone"
   },
   "result": {
-    "tag": "forge:ingots/refined_glowstone"
+    "tag": "c:ingots/refined_glowstone"
   }
 }

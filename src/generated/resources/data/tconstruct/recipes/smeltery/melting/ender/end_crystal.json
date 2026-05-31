@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/ender/end_crystal",
   "byproducts": [
     {
       "amount": 7000,
@@ -11,7 +12,7 @@
   },
   "result": {
     "amount": 250,
-    "tag": "forge:ender"
+    "tag": "c:ender"
   },
   "temperature": 477,
   "time": 82

@@ -184,7 +184,7 @@ public class TinkerTabsWidget implements Renderable, GuiEventListener, Narratabl
       }
 
       // TODO: renderComponentTooltip->renderTooltip
-      graphics.renderComponentTooltip(parent.font, Lists.newArrayList(title), mouseX, mouseY);
+      graphics.renderComponentTooltip(parent.getMinecraft().font, Lists.newArrayList(title), mouseX, mouseY);
     }
   }
 

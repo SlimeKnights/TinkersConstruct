@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:severing",
+  "id": "tconstruct:tools/severing/guardian_shard",
   "entity": {
     "types": [
       "minecraft:guardian",

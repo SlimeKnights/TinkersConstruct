@@ -7,7 +7,7 @@
       "item": "tconstruct:obsidian_pane"
     },
     "e": {
-      "tag": "forge:nuggets/gold"
+      "tag": "c:nuggets/gold"
     }
   },
   "pattern": [
@@ -16,7 +16,7 @@
     " e "
   ],
   "result": {
-    "item": "tconstruct:gold_item_frame"
+    "id": "tconstruct:gold_item_frame"
   },
   "show_notification": true
 }

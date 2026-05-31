@@ -13,7 +13,7 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.phys.Vec2;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.ApiStatus.NonExtendable;
 import slimeknights.mantle.data.GenericDataProvider;
 import slimeknights.mantle.data.loadable.Loadables;
@@ -264,7 +264,7 @@ public abstract class AbstractToolItemModelProvider extends GenericDataProvider 
 
   /** Adds broken and blocking models for the armor set */
   protected void armor(String name, EnumObject<ArmorItem.Type,? extends Item> armor, String... textures) throws IOException {
-    armor(name, armor, ArmorItem.Type.values(), textures);
+    armor(name, armor, slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial.ARMOR_TYPES, textures);
   }
 
   /** Creates models for fishing rods cast and broken */
@@ -294,7 +294,7 @@ public abstract class AbstractToolItemModelProvider extends GenericDataProvider 
   /** Creates a resource location under this mod */
   @SuppressWarnings("removal")
   protected ResourceLocation resource(String name) {
-    return new ResourceLocation(modId, name);
+    return ResourceLocation.fromNamespaceAndPath(modId, name);
   }
 
   /** Creates a model with display from the given target */

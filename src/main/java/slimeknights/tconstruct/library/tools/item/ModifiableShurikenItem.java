@@ -13,11 +13,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Item.TooltipContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import slimeknights.tconstruct.compat.neoforged.neoforge.capabilities.ICapabilityProvider;
 import slimeknights.mantle.client.SafeClientAccess;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.tconstruct.common.Sounds;
@@ -81,12 +82,10 @@ public class ModifiableShurikenItem extends Item implements IModifiableDisplay {
   /* Loading */
 
   @Nullable
-  @Override
   public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
     return new ToolCapabilityProvider(stack);
   }
 
-  @Override
   public void verifyTagAfterLoad(CompoundTag nbt) {
     ToolStack.verifyTag(this, nbt, getToolDefinition());
   }
@@ -106,7 +105,6 @@ public class ModifiableShurikenItem extends Item implements IModifiableDisplay {
     return ModifierUtil.checkVolatileFlag(stack, SHINY);
   }
 
-  @Override
   public Rarity getRarity(ItemStack stack) {
     return RarityModule.getRarity(stack);
   }
@@ -152,11 +150,10 @@ public class ModifiableShurikenItem extends Item implements IModifiableDisplay {
   }
 
   @Override
-  public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
-    TooltipUtil.addInformation(this, stack, level, tooltip, SafeClientAccess.getTooltipKey(), flag);
+  public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+    TooltipUtil.addInformation(this, stack, context.level(), tooltip, SafeClientAccess.getTooltipKey(), flag);
   }
 
-  @Override
   public int getDefaultTooltipHideFlags(ItemStack stack) {
     return TooltipUtil.getModifierHideFlags(getToolDefinition());
   }

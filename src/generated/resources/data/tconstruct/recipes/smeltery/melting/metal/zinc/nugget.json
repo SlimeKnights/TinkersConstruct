@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/zinc/nugget",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:nuggets/zinc"
+      "tag": "c:nuggets/zinc"
     }
   ],
   "ingredient": {
-    "tag": "forge:nuggets/zinc"
+    "tag": "c:nuggets/zinc"
   },
   "result": {
     "amount": 10,
-    "tag": "forge:molten_zinc"
+    "tag": "c:molten_zinc"
   },
   "temperature": 420,
   "time": 16

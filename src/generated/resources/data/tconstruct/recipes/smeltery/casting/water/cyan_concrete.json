@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:casting_basin",
+  "id": "tconstruct:smeltery/casting/water/cyan_concrete",
   "cast": {
     "item": "minecraft:cyan_concrete_powder"
   },

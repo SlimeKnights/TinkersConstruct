@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:casting_basin",
+  "id": "tconstruct:smeltery/casting/slime/sky/roots",
   "cast": {
     "item": "tconstruct:enderbark_roots"
   },

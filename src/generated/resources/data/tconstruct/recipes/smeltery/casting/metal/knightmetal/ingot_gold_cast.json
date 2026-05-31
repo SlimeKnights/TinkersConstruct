@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/knightmetal/ingot_gold_cast",
   "cast": {
     "tag": "tconstruct:casts/multi_use/ingot"
   },
@@ -9,6 +10,6 @@
     "tag": "tconstruct:molten_knightmetal"
   },
   "result": {
-    "tag": "forge:ingots/knightmetal"
+    "tag": "c:ingots/knightmetal"
   }
 }

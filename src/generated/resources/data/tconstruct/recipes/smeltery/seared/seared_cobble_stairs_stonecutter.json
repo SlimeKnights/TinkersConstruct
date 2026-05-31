@@ -4,5 +4,7 @@
   "ingredient": {
     "item": "tconstruct:seared_cobble"
   },
-  "result": "tconstruct:seared_cobble_stairs"
+  "result": {
+    "id": "tconstruct:seared_cobble_stairs"
+  }
 }

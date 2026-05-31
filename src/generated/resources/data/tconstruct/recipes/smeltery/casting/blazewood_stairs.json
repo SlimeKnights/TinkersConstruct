@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:casting_basin",
+  "id": "tconstruct:smeltery/casting/blazewood_stairs",
   "cast": {
     "item": "tconstruct:bloodshroom_planks_stairs"
   },

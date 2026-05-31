@@ -1,36 +1,37 @@
 {
   "type": "tconstruct:ore_melting",
+  "id": "tconstruct:smeltery/melting/metal/iron/ore_sparse",
   "byproducts": [
     {
       "amount": 90,
       "rate": "metal",
-      "tag": "forge:molten_steel"
+      "tag": "c:molten_steel"
     }
   ],
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_combination_filled",
       "match": [
-        "forge:ores/iron",
-        "forge:ore_rates/sparse"
+        "c:ores/iron",
+        "c:ore_rates/sparse"
       ]
     }
   ],
   "ingredient": {
-    "type": "forge:intersection",
+    "type": "neoforge:intersection",
     "children": [
       {
-        "tag": "forge:ores/iron"
+        "tag": "c:ores/iron"
       },
       {
-        "tag": "forge:ore_rates/sparse"
+        "tag": "c:ore_rates/sparse"
       }
     ]
   },
   "rate": "metal",
   "result": {
     "amount": 90,
-    "tag": "forge:molten_iron"
+    "tag": "c:molten_iron"
   },
   "temperature": 800,
   "time": 90

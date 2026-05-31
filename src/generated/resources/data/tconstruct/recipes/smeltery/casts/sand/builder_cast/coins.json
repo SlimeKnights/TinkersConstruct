@@ -1,9 +1,10 @@
 {
   "type": "tconstruct:item_part_builder",
-  "conditions": [
+  "id": "tconstruct:smeltery/casts/sand/builder_cast/coins",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:coins"
+      "tag": "c:coins"
     }
   ],
   "pattern": "tconstruct:coin",

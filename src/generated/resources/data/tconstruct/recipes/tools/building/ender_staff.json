@@ -6,7 +6,7 @@
       "item": "tconstruct:ender_slime_crystal"
     },
     "I": {
-      "tag": "forge:ingots/netherite"
+      "tag": "c:ingots/netherite"
     },
     "W": {
       "tag": "tconstruct:enderbark_logs"
@@ -18,7 +18,7 @@
     " W "
   ],
   "result": {
-    "item": "tconstruct:ender_staff"
+    "id": "tconstruct:ender_staff"
   },
   "show_notification": true
 }

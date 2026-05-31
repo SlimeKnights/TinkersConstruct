@@ -1,36 +1,37 @@
 {
   "type": "tconstruct:ore_melting",
+  "id": "tconstruct:smeltery/melting/metal/aluminum/ore_dense",
   "byproducts": [
     {
       "amount": 540,
       "rate": "metal",
-      "tag": "forge:molten_iron"
+      "tag": "c:molten_iron"
     }
   ],
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_combination_filled",
       "match": [
-        "forge:ores/aluminum",
-        "forge:ore_rates/dense"
+        "c:ores/aluminum",
+        "c:ore_rates/dense"
       ]
     }
   ],
   "ingredient": {
-    "type": "forge:intersection",
+    "type": "neoforge:intersection",
     "children": [
       {
-        "tag": "forge:ores/aluminum"
+        "tag": "c:ores/aluminum"
       },
       {
-        "tag": "forge:ore_rates/dense"
+        "tag": "c:ore_rates/dense"
       }
     ]
   },
   "rate": "metal",
   "result": {
     "amount": 540,
-    "tag": "forge:molten_aluminum"
+    "tag": "c:molten_aluminum"
   },
   "temperature": 425,
   "time": 212

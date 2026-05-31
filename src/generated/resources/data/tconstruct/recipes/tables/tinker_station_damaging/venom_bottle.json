@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:tinker_station_damaging",
+  "id": "tconstruct:tables/tinker_station_damaging/venom_bottle",
   "damage_amount": 200,
   "ingredient": {
     "item": "tconstruct:venom_bottle"

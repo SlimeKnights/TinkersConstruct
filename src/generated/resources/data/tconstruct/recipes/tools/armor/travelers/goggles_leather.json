@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:table_casting_part_swapping",
+  "id": "tconstruct:tools/armor/travelers/goggles_leather",
   "index": 1,
   "item_cost": 3,
   "tools": {

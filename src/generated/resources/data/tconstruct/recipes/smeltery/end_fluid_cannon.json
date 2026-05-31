@@ -3,10 +3,10 @@
   "category": "redstone",
   "key": {
     "C": {
-      "tag": "forge:ingots/knightmetal"
+      "tag": "c:ingots/knightmetal"
     },
     "R": {
-      "tag": "forge:dusts/redstone"
+      "tag": "c:dusts/redstone"
     },
     "T": {
       "item": "minecraft:shulker_shell"
@@ -18,7 +18,7 @@
     "CCC"
   ],
   "result": {
-    "item": "tconstruct:end_fluid_cannon"
+    "id": "tconstruct:end_fluid_cannon"
   },
   "show_notification": true
 }

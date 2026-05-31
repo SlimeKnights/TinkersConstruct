@@ -1,29 +1,30 @@
 {
   "type": "tconstruct:ore_melting",
+  "id": "tconstruct:smeltery/melting/quartz/ore_sparse",
   "byproducts": [
     {
       "amount": 45,
       "rate": "metal",
-      "tag": "forge:molten_iron"
+      "tag": "c:molten_iron"
     }
   ],
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_combination_filled",
       "match": [
-        "forge:ores/quartz",
-        "forge:ore_rates/sparse"
+        "c:ores/quartz",
+        "c:ore_rates/sparse"
       ]
     }
   ],
   "ingredient": {
-    "type": "forge:intersection",
+    "type": "neoforge:intersection",
     "children": [
       {
-        "tag": "forge:ores/quartz"
+        "tag": "c:ores/quartz"
       },
       {
-        "tag": "forge:ore_rates/sparse"
+        "tag": "c:ore_rates/sparse"
       }
     ]
   },

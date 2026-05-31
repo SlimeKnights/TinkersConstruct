@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:incremental_modifier",
+  "id": "tconstruct:tools/modifiers/upgrade/swiftstrike_from_block",
   "allow_crystal": false,
   "amount_per_item": 4,
   "input": {

@@ -3,7 +3,7 @@ package slimeknights.tconstruct.library.materials.stats;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.network.NetworkEvent.Context;
+import slimeknights.mantle.compat.neoforged.neoforge.network.NetworkEvent.Context;
 import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.data.loadable.Loadable;
 import slimeknights.mantle.network.packet.IThreadsafePacket;

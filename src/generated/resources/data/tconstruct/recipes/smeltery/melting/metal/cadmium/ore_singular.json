@@ -1,79 +1,27 @@
 {
-  "type": "forge:conditional",
-  "conditions": [
+  "type": "tconstruct:ore_melting",
+  "id": "tconstruct:smeltery/melting/metal/cadmium/ore_singular",
+  "byproducts": [
     {
-      "type": "mantle:tag_combination_filled",
-      "ignore": "tconstruct:non_singular_ore_rates",
-      "match": "forge:ores/cadmium"
+      "amount": 180,
+      "rate": "metal",
+      "tag": "c:molten_copper"
     }
   ],
-  "recipes": [
-    {
-      "conditions": [
-        {
-          "type": "mantle:tag_filled",
-          "tag": "forge:ingots/lead"
-        }
-      ],
-      "recipe": {
-        "type": "tconstruct:ore_melting",
-        "byproducts": [
-          {
-            "amount": 180,
-            "rate": "metal",
-            "tag": "forge:molten_lead"
-          }
-        ],
-        "ingredient": {
-          "type": "forge:difference",
-          "base": {
-            "tag": "forge:ores/cadmium"
-          },
-          "subtracted": {
-            "tag": "tconstruct:non_singular_ore_rates"
-          }
-        },
-        "rate": "metal",
-        "result": {
-          "amount": 180,
-          "tag": "forge:molten_cadmium"
-        },
-        "temperature": 294,
-        "time": 105
-      }
+  "ingredient": {
+    "type": "neoforge:difference",
+    "base": {
+      "tag": "c:ores/cadmium"
     },
-    {
-      "conditions": [
-        {
-          "type": "forge:true"
-        }
-      ],
-      "recipe": {
-        "type": "tconstruct:ore_melting",
-        "byproducts": [
-          {
-            "amount": 180,
-            "rate": "metal",
-            "tag": "forge:molten_copper"
-          }
-        ],
-        "ingredient": {
-          "type": "forge:difference",
-          "base": {
-            "tag": "forge:ores/cadmium"
-          },
-          "subtracted": {
-            "tag": "tconstruct:non_singular_ore_rates"
-          }
-        },
-        "rate": "metal",
-        "result": {
-          "amount": 180,
-          "tag": "forge:molten_cadmium"
-        },
-        "temperature": 294,
-        "time": 105
-      }
+    "subtracted": {
+      "tag": "tconstruct:non_singular_ore_rates"
     }
-  ]
+  },
+  "rate": "metal",
+  "result": {
+    "amount": 180,
+    "tag": "c:molten_cadmium"
+  },
+  "temperature": 294,
+  "time": 105
 }

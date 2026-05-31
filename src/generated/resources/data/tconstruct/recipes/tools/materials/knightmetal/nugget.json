@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/knightmetal/nugget",
   "ingredient": {
-    "tag": "forge:nuggets/knightmetal"
+    "tag": "c:nuggets/knightmetal"
   },
   "material": "tconstruct:knightmetal",
   "needed": 9,

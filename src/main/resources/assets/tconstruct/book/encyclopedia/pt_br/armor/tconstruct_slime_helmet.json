@@ -1,7 +1,7 @@
 {
   "tool": "tconstruct:slime_helmet",
   "text": [
-    { "text": "O Crânio de Slime é um capacete que copia as habilidades dos monstros. Ele é criado a partir do despejo do Slime-do-Ender em uma cabeça de mob, com o tipo de cabeça determinando os efeitos." }
+    { "text": "O Crânio de Slime é um capacete que copia as habilidades dos monstros. Ele é criado a partir do despejo do Slime-do-Ender em uma cabeça de mob, com o tipo de cabeça determinando os efeitos." },
     { "text": "Na seção do Crânio de Slime no livro tem mais informações sobre as variantes.", "paragraph": true }
   ],
   "properties": [

@@ -4,7 +4,7 @@
   "group": "tconstruct:rose_gold_ingot",
   "key": {
     "#": {
-      "tag": "forge:nuggets/rose_gold"
+      "tag": "c:nuggets/rose_gold"
     },
     "*": {
       "item": "tconstruct:rose_gold_nugget"
@@ -16,7 +16,7 @@
     "###"
   ],
   "result": {
-    "item": "tconstruct:rose_gold_ingot"
+    "id": "tconstruct:rose_gold_ingot"
   },
   "show_notification": true
 }

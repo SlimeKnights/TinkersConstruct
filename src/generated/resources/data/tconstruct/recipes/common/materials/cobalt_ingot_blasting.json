@@ -11,5 +11,7 @@
       "item": "tconstruct:cobalt_ore"
     }
   ],
-  "result": "tconstruct:cobalt_ingot"
+  "result": {
+    "id": "tconstruct:cobalt_ingot"
+  }
 }

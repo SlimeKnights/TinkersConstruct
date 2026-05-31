@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/brass/dust",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:dusts/brass"
+      "tag": "c:dusts/brass"
     }
   ],
   "ingredient": {
-    "tag": "forge:dusts/brass"
+    "tag": "c:dusts/brass"
   },
   "result": {
     "amount": 90,
-    "tag": "forge:molten_brass"
+    "tag": "c:molten_brass"
   },
   "temperature": 605,
   "time": 40

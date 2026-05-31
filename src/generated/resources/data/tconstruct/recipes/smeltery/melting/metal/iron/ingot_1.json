@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/iron/ingot_1",
   "ingredient": [
     {
       "item": "minecraft:activator_rail"
@@ -19,7 +20,7 @@
   ],
   "result": {
     "amount": 90,
-    "tag": "forge:molten_iron"
+    "tag": "c:molten_iron"
   },
   "temperature": 800,
   "time": 60

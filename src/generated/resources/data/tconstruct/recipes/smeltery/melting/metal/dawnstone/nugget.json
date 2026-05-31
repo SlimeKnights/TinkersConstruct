@@ -1,22 +1,23 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/dawnstone/nugget",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:nuggets/dawnstone"
+      "tag": "c:nuggets/dawnstone"
     },
     {
       "type": "mantle:tag_filled",
       "registry": "minecraft:fluid",
-      "tag": "forge:molten_dawnstone"
+      "tag": "c:molten_dawnstone"
     }
   ],
   "ingredient": {
-    "tag": "forge:nuggets/dawnstone"
+    "tag": "c:nuggets/dawnstone"
   },
   "result": {
     "amount": 10,
-    "tag": "forge:molten_dawnstone"
+    "tag": "c:molten_dawnstone"
   },
   "temperature": 900,
   "time": 21

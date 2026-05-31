@@ -1,20 +1,21 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/silver/gear_gold_cast",
   "cast": {
     "tag": "tconstruct:casts/multi_use/gear"
   },
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:gears/silver"
+      "tag": "c:gears/silver"
     }
   ],
   "cooling_time": 120,
   "fluid": {
     "amount": 360,
-    "tag": "forge:molten_silver"
+    "tag": "c:molten_silver"
   },
   "result": {
-    "tag": "forge:gears/silver"
+    "tag": "c:gears/silver"
   }
 }

@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:table_duplication",
+  "id": "tconstruct:smeltery/casting/diamond/smithing_template",
   "cast": [
     {
       "item": "minecraft:netherite_upgrade_smithing_template"

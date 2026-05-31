@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/scorched/block",
   "ingredient": [
     {
       "tag": "tconstruct:scorched_blocks"

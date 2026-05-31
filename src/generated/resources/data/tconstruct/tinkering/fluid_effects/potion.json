@@ -13,6 +13,6 @@
   ],
   "fluid": {
     "amount": 50,
-    "tag": "forge:potion"
+    "tag": "c:potion"
   }
 }

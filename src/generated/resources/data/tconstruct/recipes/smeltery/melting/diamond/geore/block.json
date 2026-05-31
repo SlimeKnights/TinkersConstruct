@@ -1,13 +1,14 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/diamond/geore/block",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:geore_blocks/diamond"
+      "tag": "c:geore_blocks/diamond"
     }
   ],
   "ingredient": {
-    "tag": "forge:geore_blocks/diamond"
+    "tag": "c:geore_blocks/diamond"
   },
   "result": {
     "amount": 400,

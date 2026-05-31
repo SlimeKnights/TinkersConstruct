@@ -1,8 +1,9 @@
 {
   "type": "tconstruct:damagable_melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/refined_glowstone/mekanism_shield",
+  "neoforge:conditions": [
     {
-      "type": "forge:item_exists",
+      "type": "neoforge:item_exists",
       "item": "mekanism:refined_glowstone_shield"
     }
   ],
@@ -11,7 +12,7 @@
   },
   "result": {
     "amount": 540,
-    "tag": "forge:molten_refined_glowstone",
+    "tag": "c:molten_refined_glowstone",
     "unit_size": 10
   },
   "temperature": 825,

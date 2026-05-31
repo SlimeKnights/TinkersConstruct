@@ -5,7 +5,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlot.Type;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.common.util.LazyOptional;
+import slimeknights.mantle.compat.neoforged.neoforge.common.util.LazyOptional;
 import slimeknights.mantle.util.LogicHelper;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -87,7 +87,8 @@ public record SlotInChargeModule(TinkerDataKey<SlotInCharge> key, @Nullable TagK
 
   /** Tracker to determine which slot should be in charge */
   public static class SlotInCharge {
-    private final int[] levels = new int[6];
+    private static final int SLOT_COUNT = EquipmentSlot.values().length;
+    private final int[] levels = new int[SLOT_COUNT];
     @Getter
     private int totalLevel = 0;
     @Getter

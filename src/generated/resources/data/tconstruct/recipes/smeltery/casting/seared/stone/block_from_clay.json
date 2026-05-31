@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:casting_basin",
+  "id": "tconstruct:smeltery/casting/seared/stone/block_from_clay",
   "cast": {
-    "tag": "forge:stone"
+    "tag": "c:stone"
   },
   "cast_consumed": true,
   "cooling_time": 113,

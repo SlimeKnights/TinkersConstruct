@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.tables.data;
 
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.FinishedRecipe;
+import slimeknights.mantle.compat.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
@@ -14,9 +14,9 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.crafting.DifferenceIngredient;
-import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
+import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.crafting.DifferenceIngredient;
+import net.neoforged.neoforge.common.conditions.ModLoadedCondition;
 import slimeknights.mantle.Mantle;
 import slimeknights.mantle.recipe.crafting.ShapedRetexturedRecipeBuilder;
 import slimeknights.mantle.recipe.data.ItemNameIngredient;
@@ -380,12 +380,12 @@ public class TableRecipeProvider extends BaseRecipeProvider {
     // turtle shell
     Pattern scale = new Pattern(TConstruct.MOD_ID, "scale");
     PartBuilderRecycleBuilder.tool(Items.TURTLE_HELMET)
-      .result(scale, Items.SCUTE, 5)
+      .result(scale, Items.TURTLE_SCUTE, 5)
       .save(consumer, location(folder + "turtle_helmet"));
 
     // twilight forest
     String tfId = "twilightforest";
-    Function<String,ResourceLocation> tf = name -> new ResourceLocation(tfId, name);
+    Function<String,ResourceLocation> tf = name -> ResourceLocation.fromNamespaceAndPath(tfId, name);
     Consumer<FinishedRecipe> tfConsumer = withCondition(consumer, new ModLoadedCondition(tfId));
     // naga scale armor
     ResourceLocation nagaScale = tf.apply("naga_scale");

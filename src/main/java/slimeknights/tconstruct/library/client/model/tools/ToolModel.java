@@ -27,6 +27,7 @@ import net.minecraft.client.resources.model.Material;
 import net.minecraft.client.resources.model.ModelBaker;
 import net.minecraft.client.resources.model.ModelState;
 import net.minecraft.core.Direction;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
@@ -37,14 +38,14 @@ import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec2;
-import net.minecraftforge.client.model.BakedModelWrapper;
-import net.minecraftforge.client.model.IModelBuilder;
-import net.minecraftforge.client.model.IQuadTransformer;
-import net.minecraftforge.client.model.QuadTransformers;
-import net.minecraftforge.client.model.data.ModelData;
-import net.minecraftforge.client.model.geometry.IGeometryBakingContext;
-import net.minecraftforge.client.model.geometry.IGeometryLoader;
-import net.minecraftforge.client.model.geometry.IUnbakedGeometry;
+import net.neoforged.neoforge.client.model.BakedModelWrapper;
+import net.neoforged.neoforge.client.model.IModelBuilder;
+import net.neoforged.neoforge.client.model.IQuadTransformer;
+import net.neoforged.neoforge.client.model.QuadTransformers;
+import net.neoforged.neoforge.client.model.data.ModelData;
+import net.neoforged.neoforge.client.model.geometry.IGeometryBakingContext;
+import net.neoforged.neoforge.client.model.geometry.IGeometryLoader;
+import net.neoforged.neoforge.client.model.geometry.IUnbakedGeometry;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 import slimeknights.mantle.client.model.util.ColoredBlockModel;
@@ -76,6 +77,7 @@ import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.utils.TagUtil;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -506,7 +508,11 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
   }
 
   @Override
-  public BakedModel bake(IGeometryBakingContext owner, ModelBaker baker, Function<Material,TextureAtlasSprite> spriteGetter, ModelState modelTransform, ItemOverrides overrides, ResourceLocation modelLocation) {
+  public BakedModel bake(IGeometryBakingContext owner, ModelBaker baker, Function<Material,TextureAtlasSprite> spriteGetter, ModelState modelTransform, ItemOverrides overrides) {
+    ResourceLocation modelLocation = ResourceLocation.tryParse(owner.getModelName());
+    if (modelLocation == null) {
+      modelLocation = TConstruct.getResource("tool_dynamic");
+    }
     // warn on deprecated keys
     if (showTraits) {
       TConstruct.LOG.warn("Using deprecated key 'show_traits' in tool model {}, use 'constant' in modifier model maps with TraitModel instead", modelLocation);
@@ -823,9 +829,10 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
       ItemStack ammo;
       ModDataNBT persistentData = tool.getPersistentData();
       if (ammoKey != null && persistentData.contains(ammoKey, Tag.TAG_COMPOUND)) {
-        ammo = ItemStack.of(persistentData.getCompound(ammoKey));
+        RegistryAccess access = world != null ? world.registryAccess() : Minecraft.getInstance().level != null ? Minecraft.getInstance().level.registryAccess() : RegistryAccess.EMPTY;
+        ammo = ItemStack.parse(access, persistentData.getCompound(ammoKey)).orElse(ItemStack.EMPTY);
         builder.add(ammo.getItem());
-        CompoundTag tag = ammo.getTag();
+        CompoundTag tag = TagUtil.getTag(ammo);
         if (tag != null) {
           builder.add(tag);
         }

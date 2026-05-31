@@ -1,20 +1,21 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/signalum/plate_gold_cast",
   "cast": {
     "tag": "tconstruct:casts/multi_use/plate"
   },
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:plates/signalum"
+      "tag": "c:plates/signalum"
     }
   ],
   "cooling_time": 66,
   "fluid": {
     "amount": 90,
-    "tag": "forge:molten_signalum"
+    "tag": "c:molten_signalum"
   },
   "result": {
-    "tag": "forge:plates/signalum"
+    "tag": "c:plates/signalum"
   }
 }

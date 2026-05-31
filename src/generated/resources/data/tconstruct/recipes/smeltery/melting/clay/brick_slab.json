@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/clay/brick_slab",
   "ingredient": {
     "item": "minecraft:brick_slab"
   },

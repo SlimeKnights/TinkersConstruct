@@ -1,20 +1,21 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/copper/plate_gold_cast",
   "cast": {
     "tag": "tconstruct:casts/multi_use/plate"
   },
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:plates/copper"
+      "tag": "c:plates/copper"
     }
   ],
   "cooling_time": 50,
   "fluid": {
     "amount": 90,
-    "tag": "forge:molten_copper"
+    "tag": "c:molten_copper"
   },
   "result": {
-    "tag": "forge:plates/copper"
+    "tag": "c:plates/copper"
   }
 }

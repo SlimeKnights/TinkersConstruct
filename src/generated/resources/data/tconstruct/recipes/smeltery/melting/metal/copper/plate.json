@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/copper/plate",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:plates/copper"
+      "tag": "c:plates/copper"
     }
   ],
   "ingredient": {
-    "tag": "forge:plates/copper"
+    "tag": "c:plates/copper"
   },
   "result": {
     "amount": 90,
-    "tag": "forge:molten_copper"
+    "tag": "c:molten_copper"
   },
   "temperature": 500,
   "time": 50

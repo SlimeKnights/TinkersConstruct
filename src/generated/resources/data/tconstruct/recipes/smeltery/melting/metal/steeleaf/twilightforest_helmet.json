@@ -1,8 +1,9 @@
 {
   "type": "tconstruct:damagable_melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/steeleaf/twilightforest_helmet",
+  "neoforge:conditions": [
     {
-      "type": "forge:item_exists",
+      "type": "neoforge:item_exists",
       "item": "twilightforest:steeleaf_helmet"
     }
   ],

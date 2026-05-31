@@ -14,7 +14,7 @@
   ],
   "result": {
     "count": 3,
-    "item": "tconstruct:enderbark_door"
+    "id": "tconstruct:enderbark_door"
   },
   "show_notification": true
 }

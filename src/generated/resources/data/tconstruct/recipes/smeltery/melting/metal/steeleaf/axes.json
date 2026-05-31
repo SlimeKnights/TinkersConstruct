@@ -1,6 +1,7 @@
 {
   "type": "tconstruct:damagable_melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/steeleaf/axes",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
       "tag": "tconstruct:melting/steeleaf/tools_costing_3"

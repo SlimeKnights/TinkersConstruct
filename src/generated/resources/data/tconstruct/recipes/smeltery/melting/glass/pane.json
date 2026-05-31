@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/glass/pane",
   "ingredient": {
-    "tag": "forge:glass_panes/silica"
+    "tag": "c:glass_panes/silica"
   },
   "result": {
     "amount": 250,

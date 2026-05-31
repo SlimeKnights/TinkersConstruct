@@ -1,13 +1,14 @@
 {
   "type": "tconstruct:material",
-  "conditions": [
+  "id": "tconstruct:tools/materials/invar/nugget",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:nuggets/invar"
+      "tag": "c:nuggets/invar"
     }
   ],
   "ingredient": {
-    "tag": "forge:nuggets/invar"
+    "tag": "c:nuggets/invar"
   },
   "material": "tconstruct:invar",
   "needed": 9,

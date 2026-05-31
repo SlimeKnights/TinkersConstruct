@@ -1,11 +1,11 @@
 package slimeknights.tconstruct.plugin.jei.util;
 
-import mezz.jei.api.forge.ForgeTypes;
+import mezz.jei.api.neoforge.NeoForgeTypes;
 import mezz.jei.api.gui.ingredient.IRecipeSlotTooltipCallback;
 import mezz.jei.api.gui.ingredient.IRecipeSlotView;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.contents.TranslatableContents;
-import net.minecraftforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidStack;
 import slimeknights.mantle.fluid.tooltip.FluidTooltipHandler;
 
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public interface FluidTooltipCallback extends IRecipeSlotTooltipCallback {
       Component component = listIterator.next();
       if (component.getContents() instanceof TranslatableContents translatable && AMOUNT_KEY.equals(translatable.getKey())) {
         listIterator.remove();
-        FluidStack fluid = recipeSlotView.getDisplayedIngredient(ForgeTypes.FLUID_STACK).orElse(FluidStack.EMPTY);
+        FluidStack fluid = recipeSlotView.getDisplayedIngredient(NeoForgeTypes.FLUID_STACK).orElse(FluidStack.EMPTY);
         List<Component> newTooltip = new ArrayList<>();
         onFluidTooltip(fluid, recipeSlotView, newTooltip);
         tooltip.addAll(listIterator.nextIndex(), newTooltip);
@@ -38,7 +38,7 @@ public interface FluidTooltipCallback extends IRecipeSlotTooltipCallback {
       }
     }
     // failed to find the tooltip to replace, so just append our stuff at the end
-    FluidStack fluid = recipeSlotView.getDisplayedIngredient(ForgeTypes.FLUID_STACK).orElse(FluidStack.EMPTY);
+    FluidStack fluid = recipeSlotView.getDisplayedIngredient(NeoForgeTypes.FLUID_STACK).orElse(FluidStack.EMPTY);
     onFluidTooltip(fluid, recipeSlotView, tooltip);
   }
 

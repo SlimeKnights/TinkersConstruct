@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/copper/dust",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:dusts/copper"
+      "tag": "c:dusts/copper"
     }
   ],
   "ingredient": {
-    "tag": "forge:dusts/copper"
+    "tag": "c:dusts/copper"
   },
   "result": {
     "amount": 90,
-    "tag": "forge:molten_copper"
+    "tag": "c:molten_copper"
   },
   "temperature": 500,
   "time": 37

@@ -1,19 +1,20 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:compat/necronium_skull",
   "cast": {
     "item": "minecraft:wither_skeleton_skull"
   },
   "cast_consumed": true,
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:ingots/uranium"
+      "tag": "c:ingots/uranium"
     }
   ],
   "cooling_time": 106,
   "fluid": {
     "amount": 270,
-    "tag": "forge:molten_uranium"
+    "tag": "c:molten_uranium"
   },
   "result": "tconstruct:necronium_head"
 }

@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:damagable_melting",
+  "id": "tconstruct:smeltery/melting/diamond/axes",
   "ingredient": {
     "tag": "tconstruct:melting/diamond/tools_costing_3"
   },

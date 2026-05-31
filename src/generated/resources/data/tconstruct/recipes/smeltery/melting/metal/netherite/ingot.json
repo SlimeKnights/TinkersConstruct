@@ -1,11 +1,12 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/netherite/ingot",
   "ingredient": {
-    "tag": "forge:ingots/netherite"
+    "tag": "c:ingots/netherite"
   },
   "result": {
     "amount": 90,
-    "tag": "forge:molten_netherite"
+    "tag": "c:molten_netherite"
   },
   "temperature": 1250,
   "time": 74

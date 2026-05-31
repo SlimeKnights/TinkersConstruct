@@ -1,13 +1,14 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/diamond/geore/shard",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:geore_shards/diamond"
+      "tag": "c:geore_shards/diamond"
     }
   ],
   "ingredient": {
-    "tag": "forge:geore_shards/diamond"
+    "tag": "c:geore_shards/diamond"
   },
   "result": {
     "amount": 100,

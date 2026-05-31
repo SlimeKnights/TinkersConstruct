@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:entity_melting",
+  "id": "tconstruct:smeltery/entity_melting/turtle",
   "damage": 3,
   "entity": {
     "type": "minecraft:turtle"
@@ -9,6 +10,6 @@
     "nbt": {
       "Potion": "minecraft:turtle_master"
     },
-    "tag": "forge:potion"
+    "tag": "c:potion"
   }
 }

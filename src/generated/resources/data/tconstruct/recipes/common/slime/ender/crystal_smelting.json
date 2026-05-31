@@ -7,5 +7,7 @@
   "ingredient": {
     "item": "tconstruct:ender_slime_crystal"
   },
-  "result": "tconstruct:ender_slime_ball"
+  "result": {
+    "id": "tconstruct:ender_slime_ball"
+  }
 }

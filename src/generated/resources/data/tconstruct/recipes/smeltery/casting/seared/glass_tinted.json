@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:casting_basin",
+  "id": "tconstruct:smeltery/casting/seared/glass_tinted",
   "cast": {
-    "tag": "forge:glass/tinted"
+    "tag": "c:glass/tinted"
   },
   "cast_consumed": true,
   "cooling_time": 178,

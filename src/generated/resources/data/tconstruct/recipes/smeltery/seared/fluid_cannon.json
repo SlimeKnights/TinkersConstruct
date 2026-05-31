@@ -3,10 +3,10 @@
   "category": "redstone",
   "key": {
     "C": {
-      "tag": "forge:ingots/copper"
+      "tag": "c:ingots/copper"
     },
     "R": {
-      "tag": "forge:dusts/redstone"
+      "tag": "c:dusts/redstone"
     },
     "T": {
       "type": "tconstruct:no_container",
@@ -26,7 +26,7 @@
     "CCC"
   ],
   "result": {
-    "item": "tconstruct:seared_fluid_cannon"
+    "id": "tconstruct:seared_fluid_cannon"
   },
   "show_notification": true
 }

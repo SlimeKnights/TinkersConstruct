@@ -5,7 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.network.NetworkEvent.Context;
+import slimeknights.mantle.compat.neoforged.neoforge.network.NetworkEvent.Context;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.tconstruct.library.tools.capability.PersistentDataCapability;
 
@@ -33,7 +33,7 @@ public class SyncPersistentDataPacket implements IThreadsafePacket {
     private static void handle(SyncPersistentDataPacket packet) {
       Player player = Minecraft.getInstance().player;
       if (player != null) {
-        player.getCapability(PersistentDataCapability.CAPABILITY).ifPresent(data -> data.copyFrom(packet.data));
+        PersistentDataCapability.getCapability(player).ifPresent(data -> data.copyFrom(packet.data));
       }
     }
   }

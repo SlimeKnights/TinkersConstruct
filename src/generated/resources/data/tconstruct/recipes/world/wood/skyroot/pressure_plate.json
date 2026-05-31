@@ -11,7 +11,7 @@
     "##"
   ],
   "result": {
-    "item": "tconstruct:skyroot_pressure_plate"
+    "id": "tconstruct:skyroot_pressure_plate"
   },
   "show_notification": true
 }

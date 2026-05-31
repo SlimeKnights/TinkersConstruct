@@ -14,7 +14,7 @@
   ],
   "result": {
     "count": 4,
-    "item": "tconstruct:seared_paver_stairs"
+    "id": "tconstruct:seared_paver_stairs"
   },
   "show_notification": true
 }

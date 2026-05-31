@@ -7,7 +7,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.MinecraftForge;
+import net.neoforged.neoforge.common.NeoForge;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.tconstruct.common.Sounds;
@@ -84,7 +84,7 @@ public record SlingTeleportModule(LevelingValue forceMultiplier, float drawtimeM
           // get furthest teleportable block
           if (furthestPos != null) {
             SlingModifierTeleportEvent event = new SlingModifierTeleportEvent(player, furthestPos.getX() + 0.5f, furthestPos.getY(), furthestPos.getZ() + 0.5f, tool, modifier);
-            MinecraftForge.EVENT_BUS.post(event);
+            NeoForge.EVENT_BUS.post(event);
             if (!event.isCanceled()) {
               player.teleportTo(event.getTargetX(), event.getTargetY(), event.getTargetZ());
 

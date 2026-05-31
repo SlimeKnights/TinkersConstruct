@@ -12,7 +12,7 @@
   ],
   "result": {
     "count": 6,
-    "item": "tconstruct:scorched_road_slab"
+    "id": "tconstruct:scorched_road_slab"
   },
   "show_notification": true
 }

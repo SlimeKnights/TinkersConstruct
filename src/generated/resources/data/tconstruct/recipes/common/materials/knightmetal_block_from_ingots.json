@@ -4,7 +4,7 @@
   "group": "tconstruct:knightmetal_block",
   "key": {
     "#": {
-      "tag": "forge:ingots/knightmetal"
+      "tag": "c:ingots/knightmetal"
     },
     "*": {
       "item": "tconstruct:knightmetal_ingot"
@@ -16,7 +16,7 @@
     "###"
   ],
   "result": {
-    "item": "tconstruct:knightmetal_block"
+    "id": "tconstruct:knightmetal_block"
   },
   "show_notification": true
 }

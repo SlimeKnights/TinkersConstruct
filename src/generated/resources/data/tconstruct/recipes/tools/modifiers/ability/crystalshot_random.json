@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:swappable_modifier",
+  "id": "tconstruct:tools/modifiers/ability/crystalshot_random",
   "allow_crystal": true,
   "inputs": [
     {
@@ -33,10 +34,10 @@
       ]
     },
     {
-      "tag": "forge:ingots/manyullyn"
+      "tag": "c:ingots/manyullyn"
     },
     {
-      "tag": "forge:ingots/manyullyn"
+      "tag": "c:ingots/manyullyn"
     }
   ],
   "result": {

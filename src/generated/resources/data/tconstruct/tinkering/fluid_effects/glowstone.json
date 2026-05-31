@@ -19,7 +19,7 @@
     {
       "type": "mantle:tag_filled",
       "registry": "minecraft:fluid",
-      "tag": "forge:glowstone"
+      "tag": "c:glowstone"
     }
   ],
   "entity_effects": [
@@ -33,6 +33,6 @@
   ],
   "fluid": {
     "amount": 100,
-    "tag": "forge:glowstone"
+    "tag": "c:glowstone"
   }
 }

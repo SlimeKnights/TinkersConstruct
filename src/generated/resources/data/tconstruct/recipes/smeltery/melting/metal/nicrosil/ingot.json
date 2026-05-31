@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/nicrosil/ingot",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:ingots/nicrosil"
+      "tag": "c:ingots/nicrosil"
     }
   ],
   "ingredient": {
-    "tag": "forge:ingots/nicrosil"
+    "tag": "c:ingots/nicrosil"
   },
   "result": {
     "amount": 90,
-    "tag": "forge:molten_nicrosil"
+    "tag": "c:molten_nicrosil"
   },
   "temperature": 1100,
   "time": 69

@@ -1,17 +1,18 @@
 package slimeknights.tconstruct.library.recipe.casting;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.alchemy.PotionUtils;
+import slimeknights.tconstruct.compat.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.fluids.FluidStack;
+import slimeknights.mantle.compat.neoforged.neoforge.registries.ForgeRegistries;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.common.IngredientLoadable;
 import slimeknights.mantle.data.loadable.field.ContextKey;
@@ -26,6 +27,7 @@ import slimeknights.tconstruct.library.recipe.modifiers.adding.IDisplayModifierR
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.utils.TagUtil;
 
 import java.util.Arrays;
 import java.util.List;
@@ -60,7 +62,7 @@ public class TippingCastingRecipe extends PotionCastingRecipe {
   }
 
   @Override
-  public ItemStack assemble(ICastingContainer inv, RegistryAccess access) {
+  public ItemStack assemble(ICastingContainer inv, HolderLookup.Provider access) {
     ItemStack result = inv.getStack().copy();
     CompoundTag tag = inv.getFluidTag();
     if (tag != null) {
@@ -80,7 +82,7 @@ public class TippingCastingRecipe extends PotionCastingRecipe {
         .map(stack -> IDisplayModifierRecipe.withModifiers(IModifiableDisplay.getDisplayStack(stack), List.of(new ModifierEntry(modifier, 1))))
         .toList();
       displayRecipes = ForgeRegistries.POTIONS.getValues().stream()
-        .filter(potion -> potion != Potions.EMPTY)
+        .filter(potion -> potion != Potions.WATER.value())
         .map(potion -> {
           // add the potion to the tool list
           String id = Loadables.POTION.getString(potion);
@@ -94,7 +96,7 @@ public class TippingCastingRecipe extends PotionCastingRecipe {
           fluidNBT.putString(PotionUtils.TAG_POTION, id);
           // create the recipe
           return new DisplayCastingRecipe(getId(), getType(), tools, fluid.getFluids().stream()
-            .map(fluid -> new FluidStack(fluid.getFluid(), fluid.getAmount(), fluidNBT))
+            .map(fluid -> TagUtil.createFluidStack(fluid.getFluid(), fluid.getAmount(), fluidNBT))
             .toList(),
             results, coolingTime, true);
         }).toList();

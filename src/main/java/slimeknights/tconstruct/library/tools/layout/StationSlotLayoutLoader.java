@@ -10,6 +10,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
+import com.mojang.serialization.JsonOps;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import net.minecraft.resources.ResourceLocation;
@@ -18,11 +19,11 @@ import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.common.crafting.conditions.ICondition.IContext;
-import net.minecraftforge.event.AddReloadListenerEvent;
-import net.minecraftforge.event.OnDatapackSyncEvent;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.common.conditions.ICondition.IContext;
+import net.neoforged.neoforge.event.AddReloadListenerEvent;
+import net.neoforged.neoforge.event.OnDatapackSyncEvent;
+import slimeknights.mantle.recipe.condition.ConditionHelper;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 
@@ -92,7 +93,7 @@ public class StationSlotLayoutLoader extends SimpleJsonResourceReloadListener {
       try {
         // skip empty objects, allows disabling a slot at a lower datapack
         JsonObject object = GsonHelper.convertToJsonObject(value, "station_layout");
-        if (!object.entrySet().isEmpty() && CraftingHelper.processConditions(object, "conditions", conditionContext)) {
+        if (!object.entrySet().isEmpty() && ConditionHelper.processConditions(object, "conditions", conditionContext)) {
           // just need a valid slot information
           StationSlotLayout layout = GSON.fromJson(object, StationSlotLayout.class);
           int size = layout.getInputSlots().size() + (layout.getToolSlot().isHidden() ? 0 : 1);
@@ -149,20 +150,20 @@ public class StationSlotLayoutLoader extends SimpleJsonResourceReloadListener {
 
   /** Initializes the tool definition loader */
   public static void init() {
-    MinecraftForge.EVENT_BUS.addListener(INSTANCE::addDataPackListeners);
-    MinecraftForge.EVENT_BUS.addListener(INSTANCE::onDatapackSync);
+    NeoForge.EVENT_BUS.addListener(INSTANCE::addDataPackListeners);
+    NeoForge.EVENT_BUS.addListener(INSTANCE::onDatapackSync);
   }
 
   /** GSON serializer for ingredients */
   private static class IngredientSerializer implements JsonSerializer<Ingredient>, JsonDeserializer<Ingredient> {
     @Override
     public Ingredient deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-      return Ingredient.fromJson(json);
+      return Ingredient.CODEC_NONEMPTY.parse(JsonOps.INSTANCE, json).getOrThrow(JsonParseException::new);
     }
 
     @Override
     public JsonElement serialize(Ingredient ingredient, Type typeOfSrc, JsonSerializationContext context) {
-      return ingredient.toJson();
+      return Ingredient.CODEC_NONEMPTY.encodeStart(JsonOps.INSTANCE, ingredient).getOrThrow(JsonParseException::new);
     }
   }
 }

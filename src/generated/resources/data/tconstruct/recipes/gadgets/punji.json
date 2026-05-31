@@ -11,7 +11,7 @@
     "bbb"
   ],
   "result": {
-    "item": "tconstruct:punji"
+    "id": "tconstruct:punji"
   },
   "show_notification": true
 }

@@ -39,7 +39,7 @@ public record FieryArmorAttackModule(LevelingInt time, IJsonPredicate<DamageSour
   @Override
   public void onDamageDealt(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, LivingEntity target, DamageSource source, float amount, boolean isDirectDamage) {
     if (this.damageSource.matches(source)) {
-      target.setSecondsOnFire(time.compute(modifier));
+      target.igniteForSeconds(time.compute(modifier));
     }
   }
 }

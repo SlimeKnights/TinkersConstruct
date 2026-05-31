@@ -11,8 +11,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.Event;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.bus.api.Event;
+import slimeknights.tconstruct.compat.neoforged.bus.api.HasResult;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -24,9 +25,30 @@ import javax.annotation.Nullable;
 public abstract class TinkerToolEvent extends Event {
   private final ItemStack stack;
   private final IToolStackView tool;
+  private Result result = Result.DEFAULT;
+
+  public enum Result {
+    DENY,
+    DEFAULT,
+    ALLOW
+  }
+
   public TinkerToolEvent(ItemStack stack) {
     this.stack = stack;
     this.tool = ToolStack.from(stack);
+  }
+
+  protected TinkerToolEvent(ItemStack stack, IToolStackView tool) {
+    this.stack = stack;
+    this.tool = tool;
+  }
+
+  public Result getResult() {
+    return result;
+  }
+
+  public void setResult(Result result) {
+    this.result = result;
   }
 
   /**
@@ -76,7 +98,7 @@ public abstract class TinkerToolEvent extends Event {
 
     /** Fires this event and posts the result */
     public Result fire() {
-      MinecraftForge.EVENT_BUS.post(this);
+      NeoForge.EVENT_BUS.post(this);
       return this.getResult();
     }
   }
@@ -101,7 +123,7 @@ public abstract class TinkerToolEvent extends Event {
 
     /** Fires this event and posts the result */
     public Result fire() {
-      MinecraftForge.EVENT_BUS.post(this);
+      NeoForge.EVENT_BUS.post(this);
       return this.getResult();
     }
   }

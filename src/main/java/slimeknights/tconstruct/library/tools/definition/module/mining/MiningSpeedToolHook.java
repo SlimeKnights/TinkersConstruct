@@ -6,6 +6,7 @@ import slimeknights.tconstruct.library.tools.definition.module.ToolHooks;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.library.utils.TagUtil;
 
 import java.util.Collection;
 
@@ -16,7 +17,7 @@ public interface MiningSpeedToolHook {
 
   /** Gets the mining speed for the tool against the given state */
   static float getDestroySpeed(ItemStack tool, BlockState state) {
-    if (!tool.hasTag()) {
+    if (!TagUtil.hasTag(tool)) {
       return 1;
     }
     return getDestroySpeed(ToolStack.from(tool), state);

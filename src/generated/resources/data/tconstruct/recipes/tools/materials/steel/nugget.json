@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/steel/nugget",
   "ingredient": {
-    "tag": "forge:nuggets/steel"
+    "tag": "c:nuggets/steel"
   },
   "material": "tconstruct:steel",
   "needed": 9,

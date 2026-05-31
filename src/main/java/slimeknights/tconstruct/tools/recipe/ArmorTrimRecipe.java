@@ -179,10 +179,10 @@ public class ArmorTrimRecipe implements ITinkerStationRecipe, IMultiRecipe<IDisp
 
     public DisplayRecipe(ResourceLocation id, List<ItemStack> tools, List<ItemStack> trim, Reference<TrimMaterial> holder) {
       this.recipeId = id;
-      TrimMaterial material = holder.get();
+      TrimMaterial material = holder.value();
       toolWithoutModifier = tools;
       this.trim = trim;
-      this.material = List.of(new ItemStack(material.ingredient().get()));
+      this.material = List.of(new ItemStack(material.ingredient().value()));
       this.variant = material.description().plainCopy();
 
       String materialName = holder.key().location().toString();

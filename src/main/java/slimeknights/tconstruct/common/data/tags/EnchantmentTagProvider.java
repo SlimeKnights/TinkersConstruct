@@ -7,7 +7,7 @@ import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
@@ -56,7 +56,7 @@ public class EnchantmentTagProvider extends TagsProvider<Enchantment> {
   private void modifierTag(ModifierId modifier, String... ids) {
     TagsProvider.TagAppender<Enchantment> appender = tag(TagKey.create(Registries.ENCHANTMENT, TConstruct.getResource("modifier_like/" + modifier.getPath())));
     for (String id : ids) {
-      appender.addOptional(new ResourceLocation(id));
+      appender.addOptional(ResourceLocation.parse(id));
     }
   }
 

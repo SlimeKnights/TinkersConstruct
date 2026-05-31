@@ -11,6 +11,6 @@
     }
   ],
   "result": {
-    "item": "tconstruct:gold_item_frame"
+    "id": "tconstruct:gold_item_frame"
   }
 }

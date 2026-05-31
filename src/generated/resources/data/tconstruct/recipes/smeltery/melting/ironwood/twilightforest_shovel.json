@@ -1,15 +1,16 @@
 {
   "type": "tconstruct:damagable_melting",
+  "id": "tconstruct:smeltery/melting/ironwood/twilightforest_shovel",
   "byproducts": [
     {
       "amount": 10,
-      "tag": "forge:molten_gold",
+      "tag": "c:molten_gold",
       "unit_size": 10
     }
   ],
-  "conditions": [
+  "neoforge:conditions": [
     {
-      "type": "forge:item_exists",
+      "type": "neoforge:item_exists",
       "item": "twilightforest:ironwood_shovel"
     }
   ],
@@ -18,7 +19,7 @@
   },
   "result": {
     "amount": 90,
-    "tag": "forge:molten_iron",
+    "tag": "c:molten_iron",
     "unit_size": 10
   },
   "temperature": 800,

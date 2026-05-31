@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/ability/glowing",
   "allow_crystal": true,
   "check_trait_level": true,
   "inputs": [
@@ -19,7 +20,7 @@
     "abilities": 1
   },
   "tools": {
-    "type": "forge:intersection",
+    "type": "neoforge:intersection",
     "children": [
       {
         "tag": "tconstruct:modifiable/durability"

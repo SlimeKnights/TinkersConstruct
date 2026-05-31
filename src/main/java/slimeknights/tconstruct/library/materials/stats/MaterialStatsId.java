@@ -26,10 +26,6 @@ public class MaterialStatsId extends ResourceId {
     super(location);
   }
 
-  private MaterialStatsId(String namespace, String path, @Nullable Dummy pDummy) {
-    super(namespace, path, pDummy);
-  }
-
   /** Checks if the given material can be used */
   public boolean canUseMaterial(MaterialId material) {
     return MaterialRegistry.getInstance().getMaterialStats(material.getId(), this).isPresent();
@@ -39,12 +35,12 @@ public class MaterialStatsId extends ResourceId {
   /** {@return Material Stats ID, or null if invalid} */
   @Nullable
   public static MaterialStatsId tryParse(String string) {
-    return tryParse(string, (namespace, path) -> new MaterialStatsId(namespace, path, null));
+    return tryParse(string, MaterialStatsId::new);
   }
 
   /** {@return Material Stats ID, or null if invalid} */
   @Nullable
   public static MaterialStatsId tryBuild(String namespace, String path) {
-    return tryBuild(namespace, path, (n, p) -> new MaterialStatsId(namespace, path, null));
+    return tryBuild(namespace, path, MaterialStatsId::new);
   }
 }

@@ -3,7 +3,7 @@
     "minecraft:crafting_table",
     "tconstruct:crafting_station",
     {
-      "id": "#forge:workbench",
+      "id": "#c:workbench",
       "required": false
     }
   ]

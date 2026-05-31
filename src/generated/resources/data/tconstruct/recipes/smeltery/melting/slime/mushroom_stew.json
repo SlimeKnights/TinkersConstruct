@@ -1,11 +1,12 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/slime/mushroom_stew",
   "ingredient": {
-    "tag": "forge:mushrooms"
+    "tag": "c:mushrooms"
   },
   "result": {
     "amount": 125,
-    "tag": "forge:mushroom_stew"
+    "tag": "c:mushroom_stew"
   },
   "temperature": 100,
   "time": 33

@@ -1,7 +1,7 @@
 {
   "values": [
     {
-      "id": "#forge:reflecting/blacklist",
+      "id": "#c:reflecting/blacklist",
       "required": false
     }
   ]

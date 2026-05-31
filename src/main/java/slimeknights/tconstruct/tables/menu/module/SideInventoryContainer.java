@@ -6,11 +6,11 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.wrapper.EmptyHandler;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import slimeknights.mantle.compat.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.items.IItemHandler;
 import slimeknights.mantle.inventory.BaseContainerMenu;
+import slimeknights.mantle.inventory.EmptyItemHandler;
 import slimeknights.mantle.inventory.SmartItemHandlerSlot;
 
 import javax.annotation.Nullable;
@@ -32,17 +32,19 @@ public class SideInventoryContainer<TILE extends BlockEntity> extends BaseContai
 
     // must have a TE
     if (tile == null) {
-      this.itemHandler = LazyOptional.of(() -> EmptyHandler.INSTANCE);
+      this.itemHandler = LazyOptional.of(() -> EmptyItemHandler.INSTANCE);
     } else {
-      this.itemHandler = tile.getCapability(ForgeCapabilities.ITEM_HANDLER, inventoryDirection);
+      var level = tile.getLevel();
+      IItemHandler handler = level == null ? null : level.getCapability(Capabilities.ItemHandler.BLOCK, tile.getBlockPos(), tile.getBlockState(), tile, inventoryDirection);
+      this.itemHandler = LazyOptional.ofNullable(handler);
     }
 
     // slot properties
-    IItemHandler handler = itemHandler.orElse(EmptyHandler.INSTANCE);
+    IItemHandler handler = itemHandler.orElse(EmptyItemHandler.INSTANCE);
     this.slotCount = handler.getSlots();
-    this.columns = columns;
-    int rows = this.slotCount / columns;
-    if (this.slotCount % columns != 0) {
+    this.columns = Math.max(1, columns);
+    int rows = this.slotCount / this.columns;
+    if (this.slotCount % this.columns != 0) {
       rows++;
     }
 

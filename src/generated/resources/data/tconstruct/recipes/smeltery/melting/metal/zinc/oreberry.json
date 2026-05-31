@@ -1,8 +1,9 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/zinc/oreberry",
+  "neoforge:conditions": [
     {
-      "type": "forge:item_exists",
+      "type": "neoforge:item_exists",
       "item": "oreberriesreplanted:zinc_oreberry"
     }
   ],
@@ -11,7 +12,7 @@
   },
   "result": {
     "amount": 10,
-    "tag": "forge:molten_zinc"
+    "tag": "c:molten_zinc"
   },
   "temperature": 420,
   "time": 16

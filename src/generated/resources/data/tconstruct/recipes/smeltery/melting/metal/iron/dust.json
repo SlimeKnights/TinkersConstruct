@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/iron/dust",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:dusts/iron"
+      "tag": "c:dusts/iron"
     }
   ],
   "ingredient": {
-    "tag": "forge:dusts/iron"
+    "tag": "c:dusts/iron"
   },
   "result": {
     "amount": 90,
-    "tag": "forge:molten_iron"
+    "tag": "c:molten_iron"
   },
   "temperature": 800,
   "time": 45

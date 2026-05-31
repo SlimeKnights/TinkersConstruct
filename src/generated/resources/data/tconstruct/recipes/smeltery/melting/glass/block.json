@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/glass/block",
   "ingredient": {
-    "tag": "forge:glass/silica"
+    "tag": "c:glass/silica"
   },
   "result": {
     "amount": 1000,

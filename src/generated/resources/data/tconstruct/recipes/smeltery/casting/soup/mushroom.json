@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/soup/mushroom",
   "cast": {
     "item": "minecraft:bowl"
   },
@@ -7,7 +8,7 @@
   "cooling_time": 1,
   "fluid": {
     "amount": 250,
-    "tag": "forge:mushroom_stew"
+    "tag": "c:mushroom_stew"
   },
   "result": "minecraft:mushroom_stew"
 }

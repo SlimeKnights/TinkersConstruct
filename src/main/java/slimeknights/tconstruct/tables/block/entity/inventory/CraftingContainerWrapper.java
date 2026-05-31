@@ -7,6 +7,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingInput;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,5 +91,10 @@ public class CraftingContainerWrapper implements CraftingContainer {
       stacks.add(getItem(i));
     }
     return stacks;
+  }
+
+  /** Converts this live container wrapper to the immutable recipe input used by 1.21 recipes. */
+  public CraftingInput asCraftingInput() {
+    return CraftingInput.of(width, height, getItems());
   }
 }

@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/hepatizon/nugget_sand_cast",
   "cast": {
     "tag": "tconstruct:casts/single_use/nugget"
   },
@@ -7,9 +8,9 @@
   "cooling_time": 26,
   "fluid": {
     "amount": 10,
-    "tag": "forge:molten_hepatizon"
+    "tag": "c:molten_hepatizon"
   },
   "result": {
-    "tag": "forge:nuggets/hepatizon"
+    "tag": "c:nuggets/hepatizon"
   }
 }

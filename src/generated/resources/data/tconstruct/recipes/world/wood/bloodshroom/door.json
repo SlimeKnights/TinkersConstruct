@@ -14,7 +14,7 @@
   ],
   "result": {
     "count": 3,
-    "item": "tconstruct:bloodshroom_door"
+    "id": "tconstruct:bloodshroom_door"
   },
   "show_notification": true
 }

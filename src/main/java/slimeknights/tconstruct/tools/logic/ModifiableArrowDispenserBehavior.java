@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.tools.logic;
 
 import net.minecraft.core.Position;
-import net.minecraft.core.dispenser.AbstractProjectileDispenseBehavior;
+import slimeknights.tconstruct.compat.minecraft.core.dispenser.AbstractProjectileDispenseBehavior;
 import net.minecraft.world.entity.projectile.AbstractArrow.Pickup;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;

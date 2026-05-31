@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casts/gold/leggings_plating",
   "cast": [
     {
       "type": "tconstruct:material",
@@ -13,7 +14,7 @@
   "cooling_time": 57,
   "fluid": {
     "amount": 90,
-    "tag": "forge:molten_gold"
+    "tag": "c:molten_gold"
   },
   "result": "tconstruct:leggings_plating_cast",
   "switch_slots": true

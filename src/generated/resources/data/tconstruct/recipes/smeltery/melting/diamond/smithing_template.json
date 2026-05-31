@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/diamond/smithing_template",
   "ingredient": [
     {
       "item": "minecraft:netherite_upgrade_smithing_template"

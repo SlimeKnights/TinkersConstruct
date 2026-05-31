@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/lumium/dust",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:dusts/lumium"
+      "tag": "c:dusts/lumium"
     }
   ],
   "ingredient": {
-    "tag": "forge:dusts/lumium"
+    "tag": "c:dusts/lumium"
   },
   "result": {
     "amount": 90,
-    "tag": "forge:molten_lumium"
+    "tag": "c:molten_lumium"
   },
   "temperature": 1050,
   "time": 51

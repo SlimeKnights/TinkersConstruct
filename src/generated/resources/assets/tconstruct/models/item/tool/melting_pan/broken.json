@@ -1,6 +1,6 @@
 {
   "loader": "tconstruct:tool",
-  "parent": "forge:item/default-tool",
+  "parent": "neoforge:item/default-tool",
   "textures": {
     "head": "tconstruct:item/tool/melting_pan/head_broken",
     "handle": "tconstruct:item/tool/melting_pan/handle"

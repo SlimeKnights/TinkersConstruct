@@ -12,7 +12,7 @@
   ],
   "result": {
     "count": 5,
-    "item": "tconstruct:seared_channel"
+    "id": "tconstruct:seared_channel"
   },
   "show_notification": true
 }

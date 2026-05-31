@@ -10,9 +10,9 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Tiers;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.data.BlockTagsProvider;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.data.BlockTagsProvider;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import slimeknights.mantle.datagen.MantleTags;
 import slimeknights.mantle.registration.object.BuildingBlockObject;
 import slimeknights.mantle.registration.object.EnumObject;
@@ -51,8 +51,8 @@ import static net.minecraft.tags.BlockTags.MINEABLE_WITH_SHOVEL;
 import static net.minecraft.tags.BlockTags.NEEDS_DIAMOND_TOOL;
 import static net.minecraft.tags.BlockTags.NEEDS_IRON_TOOL;
 import static net.minecraft.tags.BlockTags.NEEDS_STONE_TOOL;
-import static net.minecraftforge.common.Tags.Blocks.NEEDS_GOLD_TOOL;
-import static net.minecraftforge.common.Tags.Blocks.NEEDS_NETHERITE_TOOL;
+import static net.neoforged.neoforge.common.Tags.Blocks.NEEDS_GOLD_TOOL;
+import static net.neoforged.neoforge.common.Tags.Blocks.NEEDS_NETHERITE_TOOL;
 import static slimeknights.mantle.Mantle.commonResource;
 import static slimeknights.tconstruct.common.TinkerTags.Blocks.MINEABLE_MELTING_BLACKLIST;
 import static slimeknights.tconstruct.common.TinkerTags.Blocks.UNREPLACABLE_BY_LIQUID;
@@ -93,6 +93,10 @@ public class BlockTagProvider extends BlockTagsProvider {
     addMetalTags(TinkerMaterials.knightmetal, true);
     addMetalTags(TinkerMaterials.knightslime, true);
 
+    TagKey<Block> amethystStorageBlocks = BlockTags.create(commonResource("storage_blocks/amethyst"));
+    this.tag(amethystStorageBlocks).add(Blocks.AMETHYST_BLOCK);
+    this.tag(Tags.Blocks.STORAGE_BLOCKS).addTag(amethystStorageBlocks);
+
     // glass
     IntrinsicTagAppender<Block> silicaPanes = tag(TinkerTags.Blocks.GLASS_PANES_SILICA);
     silicaPanes.add(
@@ -126,8 +130,8 @@ public class BlockTagProvider extends BlockTagsProvider {
     this.tag(TinkerTags.Blocks.TRANSPARENT_OVERLAY).add(TinkerCommons.soulGlass.get(), TinkerCommons.soulGlassPane.get(),
                                                         TinkerSmeltery.searedSoulGlass.get(), TinkerSmeltery.searedSoulGlassPane.get(),
                                                         TinkerSmeltery.scorchedSoulGlass.get(), TinkerSmeltery.scorchedSoulGlassPane.get());
-    Function<String,ResourceLocation> createId = name -> new ResourceLocation("create", name);
-    Function<String,ResourceLocation> quarkId = name -> new ResourceLocation("quark", name);
+    Function<String,ResourceLocation> createId = name -> ResourceLocation.fromNamespaceAndPath("create", name);
+    Function<String,ResourceLocation> quarkId = name -> ResourceLocation.fromNamespaceAndPath("quark", name);
     this.tag(TinkerTags.Blocks.WORKSTATION_ROCK)
       .addTags(TinkerTags.Blocks.STONE, TinkerTags.Blocks.BLACKSTONE, TinkerTags.Blocks.GRANITE, TinkerTags.Blocks.DIORITE, TinkerTags.Blocks.ANDESITE, TinkerTags.Blocks.DEEPSLATE, TinkerTags.Blocks.BASALT)
       .add(Blocks.TUFF, Blocks.DRIPSTONE_BLOCK, Blocks.CALCITE)
@@ -166,7 +170,7 @@ public class BlockTagProvider extends BlockTagsProvider {
     this.tag(TinkerTags.Blocks.PLATFORM_CONNECTIONS)
       .add(Blocks.LEVER, Blocks.LADDER, Blocks.IRON_BARS, TinkerCommons.goldBars.get(), Blocks.TRIPWIRE_HOOK, Blocks.WALL_TORCH, Blocks.SOUL_WALL_TORCH, Blocks.REDSTONE_WALL_TORCH, Blocks.REDSTONE_WIRE)
       .addTags(Tags.Blocks.GLASS_PANES, BlockTags.BUTTONS, Tags.Blocks.FENCES, BlockTags.WALLS, BlockTags.WALL_SIGNS)
-      .addOptionalTag(new ResourceLocation("architects_palette:nubs"));
+      .addOptionalTag(ResourceLocation.parse("architects_palette:nubs"));
 
     // copper platforms
     IntrinsicTagAppender<Block> copperPlatforms = this.tag(TinkerTags.Blocks.COPPER_PLATFORMS);
@@ -178,7 +182,7 @@ public class BlockTagProvider extends BlockTagsProvider {
     // vanilla is not tagged, so tag it
     this.tag(TinkerTags.Blocks.WORKBENCHES)
         .add(Blocks.CRAFTING_TABLE, TinkerTables.craftingStation.get())
-        .addOptionalTag(new ResourceLocation("forge:workbench")); // some mods use a non-standard name here, so support it I guess
+        .addOptionalTag(ResourceLocation.parse("forge:workbench")); // some mods use a non-standard name here, so support it I guess
     this.tag(TinkerTags.Blocks.TABLES)
         .add(TinkerTables.craftingStation.get(), TinkerTables.partBuilder.get(), TinkerTables.tinkerStation.get());
 

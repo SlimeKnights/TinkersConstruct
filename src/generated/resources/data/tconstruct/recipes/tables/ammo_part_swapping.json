@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:tinker_station_part_swapping",
+  "id": "tconstruct:tables/ammo_part_swapping",
   "max_stack_size": 4,
   "tools": [
     {

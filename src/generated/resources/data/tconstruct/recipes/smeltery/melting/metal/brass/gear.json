@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/brass/gear",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:gears/brass"
+      "tag": "c:gears/brass"
     }
   ],
   "ingredient": {
-    "tag": "forge:gears/brass"
+    "tag": "c:gears/brass"
   },
   "result": {
     "amount": 360,
-    "tag": "forge:molten_brass"
+    "tag": "c:molten_brass"
   },
   "temperature": 605,
   "time": 107

@@ -1,10 +1,11 @@
 {
   "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/compat/the_one_probe",
   "allow_crystal": true,
   "check_trait_level": true,
-  "conditions": [
+  "neoforge:conditions": [
     {
-      "type": "forge:mod_loaded",
+      "type": "neoforge:mod_loaded",
       "modid": "theoneprobe"
     }
   ],

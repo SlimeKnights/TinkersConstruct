@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:item_part_builder",
+  "id": "tconstruct:tools/parts/builder/boots_plating",
   "cost": 2,
   "material": "tconstruct:rock",
   "pattern": "tconstruct:boots_plating",

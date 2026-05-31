@@ -8,7 +8,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent.BreakSpeed;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;

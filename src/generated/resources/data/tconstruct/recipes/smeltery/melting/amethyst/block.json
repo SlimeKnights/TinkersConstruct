@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/amethyst/block",
   "ingredient": {
-    "tag": "forge:storage_blocks/amethyst"
+    "tag": "c:storage_blocks/amethyst"
   },
   "result": {
     "amount": 400,

@@ -1,15 +1,16 @@
 {
   "type": "tconstruct:swappable_modifier",
+  "id": "tconstruct:tools/modifiers/slotless/rebalanced_upgrades",
   "allow_crystal": false,
   "inputs": [
     {
-      "tag": "forge:nuggets/rose_gold"
+      "tag": "c:nuggets/rose_gold"
     },
     {
       "item": "minecraft:end_crystal"
     },
     {
-      "tag": "forge:nuggets/rose_gold"
+      "tag": "c:nuggets/rose_gold"
     },
     {
       "item": "tconstruct:sky_slime_crystal_block"

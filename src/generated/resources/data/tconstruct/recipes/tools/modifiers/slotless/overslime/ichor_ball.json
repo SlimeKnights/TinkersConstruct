@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:overslime_modifier",
+  "id": "tconstruct:tools/modifiers/slotless/overslime/ichor_ball",
   "ingredient": {
     "item": "tconstruct:ichor_slime_ball"
   },

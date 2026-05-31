@@ -1,7 +1,7 @@
 {
   "values": [
     {
-      "id": "#forge:armors/chestplates/steel",
+      "id": "#c:armors/chestplates/steel",
       "required": false
     },
     {

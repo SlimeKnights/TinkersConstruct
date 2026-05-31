@@ -1,9 +1,10 @@
 {
   "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/ability/luck_level_1",
   "allow_crystal": true,
   "inputs": [
     {
-      "tag": "forge:ingots/copper"
+      "tag": "c:ingots/copper"
     },
     {
       "ingredient": [
@@ -16,13 +17,13 @@
       ]
     },
     {
-      "tag": "forge:ingots/copper"
+      "tag": "c:ingots/copper"
     },
     {
-      "tag": "forge:storage_blocks/lapis"
+      "tag": "c:storage_blocks/lapis"
     },
     {
-      "tag": "forge:storage_blocks/lapis"
+      "tag": "c:storage_blocks/lapis"
     }
   ],
   "level": 1,

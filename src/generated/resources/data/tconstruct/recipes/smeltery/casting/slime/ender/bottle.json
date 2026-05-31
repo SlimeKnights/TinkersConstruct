@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/slime/ender/bottle",
   "cast": {
     "item": "minecraft:glass_bottle"
   },

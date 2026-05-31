@@ -9,7 +9,7 @@ import net.minecraft.data.CachedOutput;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.PackOutput.Target;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import slimeknights.mantle.data.GenericDataProvider;
 import slimeknights.tconstruct.library.client.data.material.AbstractMaterialSpriteProvider.MaterialSpriteInfo;
 import slimeknights.tconstruct.library.client.materials.MaterialGeneratorInfo;

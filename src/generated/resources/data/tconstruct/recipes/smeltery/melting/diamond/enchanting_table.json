@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/diamond/enchanting_table",
   "byproducts": [
     {
       "amount": 4000,

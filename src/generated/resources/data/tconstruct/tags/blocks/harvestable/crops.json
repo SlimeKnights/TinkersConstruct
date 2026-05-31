@@ -4,7 +4,7 @@
     "minecraft:sweet_berry_bush",
     "#minecraft:crops",
     {
-      "id": "#forge:crops",
+      "id": "#c:crops",
       "required": false
     }
   ]

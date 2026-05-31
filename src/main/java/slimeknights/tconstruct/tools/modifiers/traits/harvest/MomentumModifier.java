@@ -8,7 +8,7 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent.BreakSpeed;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerEffect;

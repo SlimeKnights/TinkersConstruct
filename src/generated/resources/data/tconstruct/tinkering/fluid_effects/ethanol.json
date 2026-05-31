@@ -10,7 +10,7 @@
     {
       "type": "mantle:tag_filled",
       "registry": "minecraft:fluid",
-      "tag": "forge:ethanol"
+      "tag": "c:ethanol"
     }
   ],
   "entity_effects": [
@@ -37,6 +37,6 @@
   ],
   "fluid": {
     "amount": 50,
-    "tag": "forge:ethanol"
+    "tag": "c:ethanol"
   }
 }

@@ -6,7 +6,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.ForgeHooks;
+import slimeknights.tconstruct.compat.neoforged.neoforge.common.ForgeHooks;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.tools.data.material.MaterialIds;

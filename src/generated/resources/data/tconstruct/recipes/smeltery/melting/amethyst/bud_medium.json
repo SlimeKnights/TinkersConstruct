@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:ore_melting",
+  "id": "tconstruct:smeltery/melting/amethyst/bud_medium",
   "byproducts": [
     {
       "amount": 200,

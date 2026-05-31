@@ -54,6 +54,7 @@ import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.Util;
+import slimeknights.tconstruct.shared.TinkerEffects;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.entity.CustomFireball;
 
@@ -153,10 +154,8 @@ public record FireballModule(List<FireballType> options, DamageTypePair damageTy
         // prepare projectile
         Vec3 lookVec = entity.getLookAngle().scale(2);
         RandomSource random = entity.getRandom();
-        CustomFireball projectile = new CustomFireball(level, entity, lookVec.x + random.nextGaussian() * inaccuracy, lookVec.y, lookVec.z + random.nextGaussian() * inaccuracy);
-        projectile.xPower *= velocity;
-        projectile.yPower *= velocity;
-        projectile.zPower *= velocity;
+        Vec3 acceleration = new Vec3(lookVec.x + random.nextGaussian() * inaccuracy, lookVec.y, lookVec.z + random.nextGaussian() * inaccuracy).scale(velocity);
+        CustomFireball projectile = new CustomFireball(level, entity, acceleration.x, acceleration.y, acceleration.z);
         projectile.setPower(power);
         projectile.setPos(projectile.getX(), entity.getY(0.5D) + 0.5D, projectile.getZ());
 
@@ -212,10 +211,10 @@ public record FireballModule(List<FireballType> options, DamageTypePair damageTy
 
   @Override
   public boolean startInteract(IToolStackView tool, ModifierEntry modifier, Player player, EquipmentSlot slot, TooltipKey keyModifier) {
-    if (keyModifier == TooltipKey.NORMAL && condition.matches(tool, modifier) && !tool.isBroken() && !player.hasEffect(TinkerModifiers.fireballCooldownEffect.get())) {
+    if (keyModifier == TooltipKey.NORMAL && condition.matches(tool, modifier) && !tool.isBroken() && !player.hasEffect(TinkerEffects.holder(TinkerModifiers.fireballCooldownEffect))) {
       if (shoot(tool, modifier, player, player, slot)) {
         if (!player.level().isClientSide) {
-          player.addEffect(new MobEffectInstance(TinkerModifiers.fireballCooldownEffect.get(), GeneralInteractionModifierHook.getDrawtime(tool, player, 1)));
+          player.addEffect(new MobEffectInstance(TinkerEffects.holder(TinkerModifiers.fireballCooldownEffect), GeneralInteractionModifierHook.getDrawtime(tool, player, 1)));
         }
         return true;
       }

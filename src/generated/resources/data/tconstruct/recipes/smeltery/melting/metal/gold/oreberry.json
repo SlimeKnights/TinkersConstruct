@@ -1,8 +1,9 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/gold/oreberry",
+  "neoforge:conditions": [
     {
-      "type": "forge:item_exists",
+      "type": "neoforge:item_exists",
       "item": "oreberriesreplanted:gold_oreberry"
     }
   ],
@@ -11,7 +12,7 @@
   },
   "result": {
     "amount": 10,
-    "tag": "forge:molten_gold"
+    "tag": "c:molten_gold"
   },
   "temperature": 700,
   "time": 19

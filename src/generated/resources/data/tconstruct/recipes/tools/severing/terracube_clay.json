@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:severing",
+  "id": "tconstruct:tools/severing/terracube_clay",
   "entity": {
     "type": "tconstruct:terracube"
   },

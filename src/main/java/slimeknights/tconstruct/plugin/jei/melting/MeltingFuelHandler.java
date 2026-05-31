@@ -4,8 +4,8 @@ import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.common.util.Lazy;
-import net.minecraftforge.fluids.FluidStack;
+import net.neoforged.neoforge.common.util.Lazy;
+import net.neoforged.neoforge.fluids.FluidStack;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 
 import java.util.Arrays;

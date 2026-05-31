@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/refined_obsidian/ingot",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:ingots/refined_obsidian"
+      "tag": "c:ingots/refined_obsidian"
     }
   ],
   "ingredient": {
-    "tag": "forge:ingots/refined_obsidian"
+    "tag": "c:ingots/refined_obsidian"
   },
   "result": {
     "amount": 90,
-    "tag": "forge:molten_refined_obsidian"
+    "tag": "c:molten_refined_obsidian"
   },
   "temperature": 1475,
   "time": 80

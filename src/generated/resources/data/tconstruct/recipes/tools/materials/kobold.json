@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/kobold",
   "ingredient": {
-    "tag": "forge:raw_nuggets/cobalt"
+    "tag": "c:raw_nuggets/cobalt"
   },
   "material": "tconstruct:kobold",
   "needed": 1,

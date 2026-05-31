@@ -1,14 +1,15 @@
 {
   "type": "tconstruct:item_part_builder",
-  "conditions": [
+  "id": "tconstruct:smeltery/casts/sand/builder_block/plates",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:plates"
+      "tag": "c:plates"
     }
   ],
   "pattern": "tconstruct:plate",
   "pattern_item": {
-    "tag": "forge:sand/colorless"
+    "tag": "c:sand/colorless"
   },
   "result": {
     "count": 4,

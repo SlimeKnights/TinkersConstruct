@@ -1,20 +1,21 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/constantan/plate_gold_cast",
   "cast": {
     "tag": "tconstruct:casts/multi_use/plate"
   },
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:plates/constantan"
+      "tag": "c:plates/constantan"
     }
   ],
   "cooling_time": 64,
   "fluid": {
     "amount": 90,
-    "tag": "forge:molten_constantan"
+    "tag": "c:molten_constantan"
   },
   "result": {
-    "tag": "forge:plates/constantan"
+    "tag": "c:plates/constantan"
   }
 }

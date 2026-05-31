@@ -1,5 +1,5 @@
 {
-  "parent": "forge:item/bucket_drip",
+  "parent": "neoforge:item/bucket_drip",
   "flip_gas": false,
   "fluid": "tconstruct:venom",
   "loader": "tconstruct:fluid_container"

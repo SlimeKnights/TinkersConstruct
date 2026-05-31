@@ -1,8 +1,9 @@
 package slimeknights.tconstruct.smeltery.block.entity.tank;
 
 import net.minecraft.nbt.CompoundTag;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.templates.FluidTank;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
+import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.smeltery.block.entity.ChannelBlockEntity;
 
 import javax.annotation.Nonnull;
@@ -67,16 +68,14 @@ public class ChannelTank extends FluidTank {
 		return stack;
 	}
 
-	@Override
 	public FluidTank readFromNBT(CompoundTag nbt) {
 		this.locked = nbt.getInt(TAG_LOCKED);
-		super.readFromNBT(nbt);
+		super.readFromNBT(TagUtil.BUILTIN_LOOKUP, nbt);
 		return this;
 	}
 
-	@Override
 	public CompoundTag writeToNBT(CompoundTag nbt) {
-		nbt = super.writeToNBT(nbt);
+		nbt = super.writeToNBT(TagUtil.BUILTIN_LOOKUP, nbt);
 		nbt.putInt(TAG_LOCKED, locked);
 		return nbt;
 	}

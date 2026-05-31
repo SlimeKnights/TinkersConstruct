@@ -4,5 +4,7 @@
   "ingredient": {
     "item": "tconstruct:seared_bricks"
   },
-  "result": "tconstruct:seared_bricks_wall"
+  "result": {
+    "id": "tconstruct:seared_bricks_wall"
+  }
 }

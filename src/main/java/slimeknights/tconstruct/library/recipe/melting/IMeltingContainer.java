@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.library.recipe.melting;
 
-import net.minecraftforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.container.ISingleStackContainer;
 
 /** Interface for melting inventories */
@@ -21,7 +21,7 @@ public interface IMeltingContainer extends ISingleStackContainer {
       if (rate == OreRateType.DEFAULT || rate == OreRateType.NONE) {
         return forceCopy ? fluid.copy() : fluid;
       }
-      return new FluidStack(fluid, applyOreBoost(rate, fluid.getAmount()));
+      return fluid.copyWithAmount(applyOreBoost(rate, fluid.getAmount()));
     }
   }
 

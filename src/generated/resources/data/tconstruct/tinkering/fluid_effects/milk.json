@@ -10,6 +10,6 @@
   ],
   "fluid": {
     "amount": 100,
-    "tag": "forge:milk"
+    "tag": "c:milk"
   }
 }

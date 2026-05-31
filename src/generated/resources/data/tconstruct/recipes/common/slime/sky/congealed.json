@@ -4,7 +4,7 @@
   "group": "tconstruct:congealed_slime",
   "key": {
     "#": {
-      "tag": "forge:slimeball/sky"
+      "tag": "c:slimeball/sky"
     }
   },
   "pattern": [
@@ -12,7 +12,7 @@
     "##"
   ],
   "result": {
-    "item": "tconstruct:sky_congealed_slime"
+    "id": "tconstruct:sky_congealed_slime"
   },
   "show_notification": true
 }

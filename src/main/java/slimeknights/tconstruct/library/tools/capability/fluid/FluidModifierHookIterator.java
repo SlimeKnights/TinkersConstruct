@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.tools.capability.fluid;
 
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.capability.CompoundIndexHookIterator;
 import slimeknights.tconstruct.library.tools.capability.fluid.ToolFluidCapability.FluidModifierHook;
@@ -81,7 +81,7 @@ abstract class FluidModifierHookIterator<I> extends CompoundIndexHookIterator<Fl
           if (drained.getAmount() >= resource.getAmount()) {
             break;
           }
-          resource = new FluidStack(resource, resource.getAmount() - drained.getAmount());
+          resource = resource.copyWithAmount(resource.getAmount() - drained.getAmount());
         } else {
           // resource is guaranteed a copy, and drainedSoFar is a newly created stack, both safe to mutate
           drainedSoFar.grow(drained.getAmount());
@@ -123,7 +123,7 @@ abstract class FluidModifierHookIterator<I> extends CompoundIndexHookIterator<Fl
           if (drained.getAmount() >= maxDrain) {
             break;
           }
-          toDrain = new FluidStack(drained, maxDrain - drained.getAmount());
+          toDrain = drained.copyWithAmount(maxDrain - drained.getAmount());
         }
       } else {
         // if we already drained some fluid, type sensitive and increase our results

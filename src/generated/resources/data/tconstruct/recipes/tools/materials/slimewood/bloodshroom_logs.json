@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/slimewood/bloodshroom_logs",
   "ingredient": {
     "tag": "tconstruct:bloodshroom_logs"
   },

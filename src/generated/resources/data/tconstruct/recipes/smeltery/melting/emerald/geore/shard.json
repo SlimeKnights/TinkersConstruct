@@ -1,13 +1,14 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/emerald/geore/shard",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:geore_shards/emerald"
+      "tag": "c:geore_shards/emerald"
     }
   ],
   "ingredient": {
-    "tag": "forge:geore_shards/emerald"
+    "tag": "c:geore_shards/emerald"
   },
   "result": {
     "amount": 100,

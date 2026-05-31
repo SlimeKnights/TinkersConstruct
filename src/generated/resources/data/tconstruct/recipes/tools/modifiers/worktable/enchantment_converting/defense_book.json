@@ -1,11 +1,12 @@
 {
   "type": "tconstruct:enchantment_converting",
+  "id": "tconstruct:tools/modifiers/worktable/enchantment_converting/defense_book",
   "inputs": [
     {
       "item": "tconstruct:earth_slime_crystal"
     },
     {
-      "tag": "forge:ingots/gold"
+      "tag": "c:ingots/gold"
     }
   ],
   "match_book": true,

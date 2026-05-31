@@ -11,12 +11,13 @@ public class RepulsiveEffect extends TinkerEffect {
   }
 
   @Override
-  public boolean isDurationEffectTick(int duration, int amplifier) {
+  public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
     return (duration & 1) == 0;
   }
 
   @Override
-  public void applyEffectTick(LivingEntity entity, int amplifier) {
+  public boolean applyEffectTick(LivingEntity entity, int amplifier) {
     MagneticEffect.applyVelocity(entity, amplifier, LivingEntity.class, 2, -0.1f, 10);
+    return true;
   }
 }

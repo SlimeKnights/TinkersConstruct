@@ -1,7 +1,7 @@
 {
   "values": [
     {
-      "id": "#forge:armors/helmets/steel",
+      "id": "#c:armors/helmets/steel",
       "required": false
     },
     {

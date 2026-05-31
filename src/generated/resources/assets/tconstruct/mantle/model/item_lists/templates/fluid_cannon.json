@@ -5,5 +5,5 @@
     16.0
   ],
   "size": 7.5,
-  "transform": "tconstruct:fluid_cannon"
+  "transform": "minecraft:fixed"
 }

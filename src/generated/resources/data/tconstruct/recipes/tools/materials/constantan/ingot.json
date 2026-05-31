@@ -1,13 +1,14 @@
 {
   "type": "tconstruct:material",
-  "conditions": [
+  "id": "tconstruct:tools/materials/constantan/ingot",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:ingots/constantan"
+      "tag": "c:ingots/constantan"
     }
   ],
   "ingredient": {
-    "tag": "forge:ingots/constantan"
+    "tag": "c:ingots/constantan"
   },
   "material": "tconstruct:constantan",
   "needed": 1,

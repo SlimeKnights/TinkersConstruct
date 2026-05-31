@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/emerald/gem",
   "ingredient": {
-    "tag": "forge:gems/emerald"
+    "tag": "c:gems/emerald"
   },
   "result": {
     "amount": 100,

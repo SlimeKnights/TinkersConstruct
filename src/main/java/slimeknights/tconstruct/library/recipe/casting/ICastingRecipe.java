@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.recipe.casting;
 
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.ICommonRecipe;
 import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe;

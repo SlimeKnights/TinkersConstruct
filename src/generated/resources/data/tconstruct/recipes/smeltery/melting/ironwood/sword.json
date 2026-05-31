@@ -1,13 +1,14 @@
 {
   "type": "tconstruct:damagable_melting",
+  "id": "tconstruct:smeltery/melting/ironwood/sword",
   "byproducts": [
     {
       "amount": 20,
-      "tag": "forge:molten_gold",
+      "tag": "c:molten_gold",
       "unit_size": 10
     }
   ],
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
       "tag": "tconstruct:melting/ironwood/tools_costing_2"
@@ -18,7 +19,7 @@
   },
   "result": {
     "amount": 180,
-    "tag": "forge:molten_iron",
+    "tag": "c:molten_iron",
     "unit_size": 10
   },
   "temperature": 800,

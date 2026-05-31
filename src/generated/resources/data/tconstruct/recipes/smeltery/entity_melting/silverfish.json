@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:entity_melting",
+  "id": "tconstruct:smeltery/entity_melting/silverfish",
   "damage": 2,
   "entity": {
     "type": "minecraft:silverfish"

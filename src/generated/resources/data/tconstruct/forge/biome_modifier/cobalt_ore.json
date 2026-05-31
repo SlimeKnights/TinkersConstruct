@@ -1,9 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "#minecraft:is_nether",
-  "features": [
-    "tconstruct:cobalt_ore_small",
-    "tconstruct:cobalt_ore_large"
-  ],
-  "step": "underground_decoration"
-}

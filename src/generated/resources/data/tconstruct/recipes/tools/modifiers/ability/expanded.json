@@ -1,21 +1,22 @@
 {
   "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/ability/expanded",
   "allow_crystal": true,
   "inputs": [
     {
       "item": "minecraft:piston"
     },
     {
-      "tag": "forge:ingots/amethyst_bronze"
+      "tag": "c:ingots/amethyst_bronze"
     },
     {
       "item": "minecraft:piston"
     },
     {
-      "tag": "forge:slimeball/ichor"
+      "tag": "c:slimeball/ichor"
     },
     {
-      "tag": "forge:slimeball/ichor"
+      "tag": "c:slimeball/ichor"
     }
   ],
   "result": "tconstruct:expanded",

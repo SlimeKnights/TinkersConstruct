@@ -1,11 +1,12 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/iron/bucket",
   "ingredient": {
     "item": "minecraft:bucket"
   },
   "result": {
     "amount": 270,
-    "tag": "forge:molten_iron"
+    "tag": "c:molten_iron"
   },
   "temperature": 800,
   "time": 104

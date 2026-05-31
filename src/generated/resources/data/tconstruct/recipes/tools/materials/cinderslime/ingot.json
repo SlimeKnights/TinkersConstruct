@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/cinderslime/ingot",
   "ingredient": {
-    "tag": "forge:ingots/cinderslime"
+    "tag": "c:ingots/cinderslime"
   },
   "material": "tconstruct:cinderslime",
   "needed": 1,

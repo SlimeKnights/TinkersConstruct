@@ -1,12 +1,13 @@
 {
   "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/ability/pockets",
   "allow_crystal": true,
   "inputs": [
     {
       "item": "minecraft:shulker_shell"
     },
     {
-      "tag": "forge:ingots/iron"
+      "tag": "c:ingots/iron"
     },
     {
       "item": "minecraft:shulker_shell"

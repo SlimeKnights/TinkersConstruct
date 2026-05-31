@@ -3,12 +3,12 @@ package slimeknights.tconstruct.fluids.util;
 import lombok.Getter;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandlerItem;
+import slimeknights.mantle.compat.neoforged.neoforge.capabilities.Capability;
+import slimeknights.tconstruct.compat.neoforged.neoforge.capabilities.ForgeCapabilities;
+import slimeknights.tconstruct.compat.neoforged.neoforge.capabilities.ICapabilityProvider;
+import slimeknights.mantle.compat.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

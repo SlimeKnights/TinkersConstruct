@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/cinderslime/nugget_gold_cast",
   "cast": {
     "tag": "tconstruct:casts/multi_use/nugget"
   },
@@ -9,6 +10,6 @@
     "tag": "tconstruct:molten_cinderslime"
   },
   "result": {
-    "tag": "forge:nuggets/cinderslime"
+    "tag": "c:nuggets/cinderslime"
   }
 }

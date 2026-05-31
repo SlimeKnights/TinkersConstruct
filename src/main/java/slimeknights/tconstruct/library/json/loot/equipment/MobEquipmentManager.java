@@ -3,7 +3,10 @@ package slimeknights.tconstruct.library.json.loot.equipment;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
+import com.mojang.serialization.JsonOps;
 import net.minecraft.core.Holder;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.resources.RegistryOps;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
@@ -12,12 +15,13 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.common.crafting.conditions.ICondition.IContext;
-import net.minecraftforge.event.AddReloadListenerEvent;
-import net.minecraftforge.event.entity.living.MobSpawnEvent.FinalizeSpawn;
-import net.minecraftforge.eventbus.api.EventPriority;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.common.conditions.ConditionalOps;
+import net.neoforged.neoforge.common.conditions.ICondition;
+import net.neoforged.neoforge.common.conditions.ICondition.IContext;
+import net.neoforged.neoforge.event.AddReloadListenerEvent;
+import net.neoforged.neoforge.event.entity.living.FinalizeSpawnEvent;
+import net.neoforged.bus.api.EventPriority;
 import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.data.loadable.Loadable;
 import slimeknights.mantle.data.loadable.Loadables;
@@ -46,6 +50,7 @@ public class MobEquipmentManager extends SimpleJsonResourceReloadListener {
   /** Map of active replacements */
   private Map<EntityType<?>,List<MobEquipment>> replacements = Map.of();
   private IContext context = IContext.EMPTY;
+  private RegistryAccess registryAccess = RegistryAccess.EMPTY;
 
   private MobEquipmentManager() {
     super(JsonHelper.DEFAULT_GSON, FOLDER);
@@ -54,8 +59,8 @@ public class MobEquipmentManager extends SimpleJsonResourceReloadListener {
   /** @apiNote no need for addons to call this */
   @Internal
   public static void init() {
-    MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, AddReloadListenerEvent.class, INSTANCE::addDataPackListeners);
-    MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, FinalizeSpawn.class, INSTANCE::finalizeSpawn);
+    NeoForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, AddReloadListenerEvent.class, INSTANCE::addDataPackListeners);
+    NeoForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, FinalizeSpawnEvent.class, INSTANCE::finalizeSpawn);
   }
 
   @Override
@@ -71,7 +76,7 @@ public class MobEquipmentManager extends SimpleJsonResourceReloadListener {
       try {
         JsonObject json = GsonHelper.convertToJsonObject(entry.getValue(), key.toString());
         // skip if conditions fail
-        if (!CraftingHelper.processConditions(json, "conditions", context)) {
+        if (!conditionsMatch(json)) {
           continue;
         }
         // parse the object
@@ -87,7 +92,7 @@ public class MobEquipmentManager extends SimpleJsonResourceReloadListener {
             // need to use the condition context to fetch tag values as they are not yet in the mananger
             TagKey<EntityType<?>> tag = Loadables.ENTITY_TYPE_TAG.parseString(type.substring(1), "entity");
             for (Holder<EntityType<?>> holder : context.getTag(tag)) {
-              parsed.computeIfAbsent(holder.get(), ifAbsent).addAll(equipment);
+              parsed.computeIfAbsent(holder.value(), ifAbsent).addAll(equipment);
             }
           } else {
             parsed.computeIfAbsent(Loadables.ENTITY_TYPE.parseString(type, "entity"), ifAbsent).addAll(equipment);
@@ -127,10 +132,21 @@ public class MobEquipmentManager extends SimpleJsonResourceReloadListener {
   private void addDataPackListeners(AddReloadListenerEvent event) {
     event.addListener(this);
     context = event.getConditionContext();
+    registryAccess = event.getRegistryAccess();
+  }
+
+  /** Checks both legacy "conditions" and modern "neoforge:conditions" blocks. */
+  private boolean conditionsMatch(JsonObject json) {
+    ConditionalOps<JsonElement> ops = new ConditionalOps<>(RegistryOps.create(JsonOps.INSTANCE, registryAccess), context);
+    if (json.has("conditions")) {
+      List<ICondition> conditions = ICondition.LIST_CODEC.parse(ops, json.get("conditions")).getOrThrow(JsonSyntaxException::new);
+      return conditions.stream().allMatch(condition -> condition.test(context));
+    }
+    return ICondition.conditionsMatched(ops, json);
   }
 
   /** Handler for the finalize spawn event */
-  private void finalizeSpawn(FinalizeSpawn event) {
+  private void finalizeSpawn(FinalizeSpawnEvent event) {
     Mob mob = event.getEntity();
     List<MobEquipment> equipment = get(mob.getType());
     if (!equipment.isEmpty() && MobEquipment.apply(equipment, mob, event)) {

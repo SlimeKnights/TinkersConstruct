@@ -11,14 +11,15 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.common.util.NonNullConsumer;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
-import net.minecraftforge.fluids.capability.templates.EmptyFluidHandler;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import slimeknights.mantle.compat.neoforged.neoforge.capabilities.Capability;
+import slimeknights.tconstruct.compat.neoforged.neoforge.capabilities.ForgeCapabilities;
+import slimeknights.mantle.compat.neoforged.neoforge.common.util.LazyOptional;
+import slimeknights.mantle.compat.neoforged.neoforge.common.util.NonNullConsumer;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction;
+import net.neoforged.neoforge.fluids.capability.templates.EmptyFluidHandler;
 import slimeknights.mantle.block.entity.MantleBlockEntity;
 import slimeknights.mantle.util.WeakConsumerWrapper;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
@@ -82,7 +83,6 @@ public class ChannelBlockEntity extends MantleBlockEntity implements IFluidPacke
 		return this.tank.getFluid();
 	}
 
-	@Override
 	public AABB getRenderBoundingBox() {
 		return new AABB(worldPosition.getX(), worldPosition.getY() - 1, worldPosition.getZ(), worldPosition.getX() + 1, worldPosition.getY() + 1, worldPosition.getZ() + 1);
 	}
@@ -133,10 +133,9 @@ public class ChannelBlockEntity extends MantleBlockEntity implements IFluidPacke
 		// must have a TE with a fluid handler
 		BlockEntity te = level.getBlockEntity(worldPosition.relative(side));
 		if (te != null) {
-			LazyOptional<IFluidHandler> handler = te.getCapability(ForgeCapabilities.FLUID_HANDLER, side.getOpposite());
-			if (handler.isPresent()) {
-				handler.addListener(neighborConsumers.computeIfAbsent(side, s -> new WeakConsumerWrapper<>(this, (self, lazy) -> self.invalidateSide(s, lazy))));
-				return handler;
+			IFluidHandler handler = level.getCapability(Capabilities.FluidHandler.BLOCK, worldPosition.relative(side), null, te, side.getOpposite());
+			if (handler != null) {
+				return LazyOptional.of(() -> handler);
 			}
 		}
 		return LazyOptional.empty();

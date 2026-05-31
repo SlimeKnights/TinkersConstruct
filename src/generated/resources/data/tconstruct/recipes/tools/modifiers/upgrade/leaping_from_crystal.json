@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:multilevel_incremental_modifier",
+  "id": "tconstruct:tools/modifiers/upgrade/leaping_from_crystal",
   "allow_crystal": true,
   "amount_per_item": 1,
   "input": {

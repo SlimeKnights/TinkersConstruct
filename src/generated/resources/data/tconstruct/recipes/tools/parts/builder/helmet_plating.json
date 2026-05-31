@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:item_part_builder",
+  "id": "tconstruct:tools/parts/builder/helmet_plating",
   "cost": 3,
   "material": "tconstruct:rock",
   "pattern": "tconstruct:helmet_plating",

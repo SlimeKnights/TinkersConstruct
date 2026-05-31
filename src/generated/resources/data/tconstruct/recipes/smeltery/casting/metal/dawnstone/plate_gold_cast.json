@@ -1,25 +1,26 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/dawnstone/plate_gold_cast",
   "cast": {
     "tag": "tconstruct:casts/multi_use/plate"
   },
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:plates/dawnstone"
+      "tag": "c:plates/dawnstone"
     },
     {
       "type": "mantle:tag_filled",
       "registry": "minecraft:fluid",
-      "tag": "forge:molten_dawnstone"
+      "tag": "c:molten_dawnstone"
     }
   ],
   "cooling_time": 63,
   "fluid": {
     "amount": 90,
-    "tag": "forge:molten_dawnstone"
+    "tag": "c:molten_dawnstone"
   },
   "result": {
-    "tag": "forge:plates/dawnstone"
+    "tag": "c:plates/dawnstone"
   }
 }

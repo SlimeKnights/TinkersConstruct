@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/slimewood/greenheart_planks",
   "ingredient": {
     "item": "tconstruct:greenheart_planks"
   },

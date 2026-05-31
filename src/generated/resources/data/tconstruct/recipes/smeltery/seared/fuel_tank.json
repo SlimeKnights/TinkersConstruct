@@ -6,7 +6,7 @@
       "item": "tconstruct:seared_brick"
     },
     "B": {
-      "tag": "forge:glass"
+      "tag": "c:glass"
     }
   },
   "pattern": [
@@ -15,7 +15,7 @@
     "###"
   ],
   "result": {
-    "item": "tconstruct:seared_fuel_tank"
+    "id": "tconstruct:seared_fuel_tank"
   },
   "show_notification": true
 }

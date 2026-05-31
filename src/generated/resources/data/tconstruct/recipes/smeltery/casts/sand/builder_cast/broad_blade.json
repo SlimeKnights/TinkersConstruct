@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:item_part_builder",
+  "id": "tconstruct:smeltery/casts/sand/builder_cast/broad_blade",
   "pattern": "tconstruct:broad_blade",
   "pattern_item": {
     "tag": "tconstruct:casts/sand"

@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:material_melting",
+  "id": "tconstruct:tools/materials/melting/cinderslime",
   "input": "tconstruct:cinderslime",
   "result": {
     "amount": 90,

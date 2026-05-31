@@ -12,11 +12,12 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.IItemHandler;
+import slimeknights.mantle.compat.neoforged.neoforge.capabilities.Capability;
+import slimeknights.tconstruct.compat.neoforged.neoforge.capabilities.ForgeCapabilities;
+import slimeknights.mantle.compat.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.items.IItemHandler;
 import slimeknights.mantle.block.entity.NameableBlockEntity;
+import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.tables.block.entity.inventory.IChestItemHandler;
 import slimeknights.tconstruct.tables.menu.TinkerChestContainerMenu;
 
@@ -73,7 +74,7 @@ public abstract class AbstractChestBlockEntity extends NameableBlockEntity {
     super.saveAdditional(tags);
     // move the items from the serialized result
     // we don't care about the size and need it here for compat with old worlds
-    CompoundTag handlerNBT = itemHandler.serializeNBT();
+    CompoundTag handlerNBT = itemHandler.serializeNBT(TagUtil.BUILTIN_LOOKUP);
     tags.put(KEY_ITEMS, handlerNBT.getList(KEY_ITEMS, Tag.TAG_COMPOUND));
   }
 
@@ -82,7 +83,7 @@ public abstract class AbstractChestBlockEntity extends NameableBlockEntity {
     // copy in just the items key for deserializing, don't want to change the size
     CompoundTag handlerNBT = new CompoundTag();
     handlerNBT.put(KEY_ITEMS, tags.getList(KEY_ITEMS, Tag.TAG_COMPOUND));
-    itemHandler.deserializeNBT(handlerNBT);
+    itemHandler.deserializeNBT(TagUtil.BUILTIN_LOOKUP, handlerNBT);
   }
 
   @Override

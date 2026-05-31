@@ -1,11 +1,12 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/entity_melting/heads/drowned",
   "ingredient": {
     "item": "tconstruct:drowned_head"
   },
   "result": {
     "amount": 90,
-    "tag": "forge:molten_copper"
+    "tag": "c:molten_copper"
   },
   "temperature": 500,
   "time": 50

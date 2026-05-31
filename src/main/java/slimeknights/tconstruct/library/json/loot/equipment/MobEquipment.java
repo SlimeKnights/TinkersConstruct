@@ -16,8 +16,8 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.event.entity.living.MobSpawnEvent.FinalizeSpawn;
-import net.minecraftforge.fluids.FluidStack;
+import net.neoforged.neoforge.event.entity.living.FinalizeSpawnEvent;
+import net.neoforged.neoforge.fluids.FluidStack;
 import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.data.loadable.Loadable;
 import slimeknights.mantle.data.loadable.Loadables;
@@ -66,7 +66,7 @@ public record MobEquipment(EquipmentSlot slot, IJsonPredicate<Item> match, ItemO
 
   /** Applies this replacement to the target mob */
   @SuppressWarnings({"deprecation", "OverrideOnly"})  // in that event, I can't call the event method, or I'll get a stack overflow
-  public static boolean apply(List<MobEquipment> replace, Mob mob, FinalizeSpawn event) {
+  public static boolean apply(List<MobEquipment> replace, Mob mob, FinalizeSpawnEvent event) {
     // first, figure out which slots are going to apply. This is because we take over mob finalizing only if at least one applies
     RandomSource random = mob.getRandom();
     List<MobEquipment> apply = new ArrayList<>(replace.size());
@@ -80,7 +80,7 @@ public record MobEquipment(EquipmentSlot slot, IJsonPredicate<Item> match, ItemO
     // since this is risky, only do this if we know we want our equipment there
     if (!apply.isEmpty()) {
       ServerLevelAccessor level = event.getLevel();
-      mob.finalizeSpawn(level, level.getCurrentDifficultyAt(mob.blockPosition()), event.getSpawnType(), event.getSpawnData(), event.getSpawnTag());
+      mob.finalizeSpawn(level, event.getDifficulty(), event.getSpawnType(), event.getSpawnData());
 
       // apply any replacements
       for (MobEquipment slot : apply) {
@@ -115,7 +115,7 @@ public record MobEquipment(EquipmentSlot slot, IJsonPredicate<Item> match, ItemO
             // select fluid from tag
             Fluid fluid = BuiltInRegistries.FLUID.getTag(this.fluid)
               .flatMap(tag -> tag.getRandomElement(random))
-              .map(Holder::get)
+              .map(Holder::value)
               .orElse(Fluids.EMPTY);
             if (fluid != Fluids.EMPTY) {
               ToolTankHelper.TANK_HELPER.setFluid(tool, new FluidStack(fluid, amount));

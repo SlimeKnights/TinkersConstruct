@@ -3,11 +3,11 @@
   "conditions": [
     {
       "condition": "mantle:block_tag",
-      "tag": "forge:ores/uranium"
+      "tag": "c:ores/uranium"
     },
     {
       "condition": "mantle:tag_filled",
-      "tag": "forge:nuggets/uranium"
+      "tag": "c:nuggets/uranium"
     },
     {
       "condition": "tconstruct:has_modifier",
@@ -16,7 +16,7 @@
   ],
   "entry": {
     "type": "mantle:tag_preference",
-    "tag": "forge:nuggets/uranium"
+    "tag": "c:nuggets/uranium"
   },
   "functions": [
     {
@@ -44,7 +44,7 @@
       "condition": {
         "type": "mantle:contains_item",
         "ingredient": {
-          "tag": "forge:ores/uranium"
+          "tag": "c:ores/uranium"
         }
       }
     }

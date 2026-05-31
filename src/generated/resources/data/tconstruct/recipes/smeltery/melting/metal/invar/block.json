@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/invar/block",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:storage_blocks/invar"
+      "tag": "c:storage_blocks/invar"
     }
   ],
   "ingredient": {
-    "tag": "forge:storage_blocks/invar"
+    "tag": "c:storage_blocks/invar"
   },
   "result": {
     "amount": 810,
-    "tag": "forge:molten_invar"
+    "tag": "c:molten_invar"
   },
   "temperature": 900,
   "time": 190

@@ -90,7 +90,7 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
 
     this.infoPanelScreen = new PartInfoPanelScreen(this, container, playerInventory, title);
     this.infoPanelScreen.setTextScale(7/9f);
-    this.infoPanelScreen.imageHeight = this.imageHeight;
+    this.infoPanelScreen.setImageHeight(this.imageHeight);
     this.addModule(this.infoPanelScreen);
     addChestSideInventory(playerInventory);
   }

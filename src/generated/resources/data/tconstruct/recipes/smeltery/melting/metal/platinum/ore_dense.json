@@ -1,36 +1,37 @@
 {
   "type": "tconstruct:ore_melting",
+  "id": "tconstruct:smeltery/melting/metal/platinum/ore_dense",
   "byproducts": [
     {
       "amount": 540,
       "rate": "metal",
-      "tag": "forge:molten_gold"
+      "tag": "c:molten_gold"
     }
   ],
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_combination_filled",
       "match": [
-        "forge:ores/platinum",
-        "forge:ore_rates/dense"
+        "c:ores/platinum",
+        "c:ore_rates/dense"
       ]
     }
   ],
   "ingredient": {
-    "type": "forge:intersection",
+    "type": "neoforge:intersection",
     "children": [
       {
-        "tag": "forge:ores/platinum"
+        "tag": "c:ores/platinum"
       },
       {
-        "tag": "forge:ore_rates/dense"
+        "tag": "c:ore_rates/dense"
       }
     ]
   },
   "rate": "metal",
   "result": {
     "amount": 540,
-    "tag": "forge:molten_platinum"
+    "tag": "c:molten_platinum"
   },
   "temperature": 970,
   "time": 294

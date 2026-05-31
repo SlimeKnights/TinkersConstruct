@@ -1,21 +1,22 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/aluminum/coin_sand_cast",
   "cast": {
     "tag": "tconstruct:casts/single_use/coin"
   },
   "cast_consumed": true,
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:coins/aluminum"
+      "tag": "c:coins/aluminum"
     }
   ],
   "cooling_time": 27,
   "fluid": {
     "amount": 30,
-    "tag": "forge:molten_aluminum"
+    "tag": "c:molten_aluminum"
   },
   "result": {
-    "tag": "forge:coins/aluminum"
+    "tag": "c:coins/aluminum"
   }
 }

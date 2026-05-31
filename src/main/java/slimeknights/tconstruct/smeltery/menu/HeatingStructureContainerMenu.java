@@ -9,9 +9,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.DataSlot;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler;
+import slimeknights.tconstruct.compat.neoforged.neoforge.capabilities.ForgeCapabilities;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import slimeknights.mantle.fluid.FluidTransferHelper;
 import slimeknights.mantle.fluid.transfer.FluidContainerTransferManager;
 import slimeknights.mantle.fluid.transfer.IFluidContainerTransfer.TransferDirection;
@@ -69,7 +69,19 @@ public class HeatingStructureContainerMenu extends TriggeringMultiModuleContaine
   }
 
   public HeatingStructureContainerMenu(int id, Inventory inv, FriendlyByteBuf buf) {
-    this(id, inv, getTileEntityFromBuf(buf, HeatingStructureBlockEntity.class));
+    this(id, inv, getStructureFromBuf(buf));
+  }
+
+  @Nullable
+  private static HeatingStructureBlockEntity getStructureFromBuf(FriendlyByteBuf buf) {
+    HeatingStructureBlockEntity structure = getTileEntityFromBuf(buf, HeatingStructureBlockEntity.class);
+    if (structure != null && buf.readableBytes() > 0) {
+      int slots = buf.readVarInt();
+      if (slots >= 0 && slots != structure.getMeltingInventory().getSlots()) {
+        structure.getMeltingInventory().resize(slots, stack -> {});
+      }
+    }
+    return structure;
   }
 
   @Override
@@ -186,7 +198,7 @@ public class HeatingStructureContainerMenu extends TriggeringMultiModuleContaine
 
     @Override
     public boolean mayPlace(ItemStack stack) {
-      return FluidContainerTransferManager.INSTANCE.mayHaveTransfer(stack) || stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).isPresent();
+      return FluidContainerTransferManager.INSTANCE.mayHaveTransfer(stack) || stack.getCapability(net.neoforged.neoforge.capabilities.Capabilities.FluidHandler.ITEM) != null;
     }
   }
 

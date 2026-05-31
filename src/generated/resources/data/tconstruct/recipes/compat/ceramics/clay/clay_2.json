@@ -1,8 +1,9 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:compat/ceramics/clay/clay_2",
+  "neoforge:conditions": [
     {
-      "type": "forge:mod_loaded",
+      "type": "neoforge:mod_loaded",
       "modid": "ceramics"
     }
   ],

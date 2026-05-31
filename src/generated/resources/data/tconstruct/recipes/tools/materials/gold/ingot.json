@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/gold/ingot",
   "ingredient": {
-    "tag": "forge:ingots/gold"
+    "tag": "c:ingots/gold"
   },
   "material": "tconstruct:gold",
   "needed": 1,

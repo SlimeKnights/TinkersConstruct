@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/emerald/block",
   "ingredient": {
-    "tag": "forge:storage_blocks/emerald"
+    "tag": "c:storage_blocks/emerald"
   },
   "result": {
     "amount": 900,

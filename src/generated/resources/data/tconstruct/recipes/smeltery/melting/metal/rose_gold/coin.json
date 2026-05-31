@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/rose_gold/coin",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:coins/rose_gold"
+      "tag": "c:coins/rose_gold"
     }
   ],
   "ingredient": {
-    "tag": "forge:coins/rose_gold"
+    "tag": "c:coins/rose_gold"
   },
   "result": {
     "amount": 30,
-    "tag": "forge:molten_rose_gold"
+    "tag": "c:molten_rose_gold"
   },
   "temperature": 550,
   "time": 34

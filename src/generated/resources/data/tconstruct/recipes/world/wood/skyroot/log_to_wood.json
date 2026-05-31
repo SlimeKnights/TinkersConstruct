@@ -13,7 +13,7 @@
   ],
   "result": {
     "count": 3,
-    "item": "tconstruct:skyroot_wood"
+    "id": "tconstruct:skyroot_wood"
   },
   "show_notification": true
 }

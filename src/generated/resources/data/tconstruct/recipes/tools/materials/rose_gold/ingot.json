@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/rose_gold/ingot",
   "ingredient": {
-    "tag": "forge:ingots/rose_gold"
+    "tag": "c:ingots/rose_gold"
   },
   "material": "tconstruct:rose_gold",
   "needed": 1,

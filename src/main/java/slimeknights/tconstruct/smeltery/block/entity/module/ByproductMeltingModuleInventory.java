@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.smeltery.block.entity.module;
 
-import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import slimeknights.mantle.block.entity.MantleBlockEntity;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingContainer.IOreRate;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe;

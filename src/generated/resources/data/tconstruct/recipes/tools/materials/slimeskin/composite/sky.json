@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:material_fluid",
+  "id": "tconstruct:tools/materials/slimeskin/composite/sky",
   "fluid": {
     "amount": 250,
     "tag": "tconstruct:sky_slime"

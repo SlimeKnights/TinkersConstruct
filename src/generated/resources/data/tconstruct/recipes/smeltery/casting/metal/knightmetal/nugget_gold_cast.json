@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/knightmetal/nugget_gold_cast",
   "cast": {
     "tag": "tconstruct:casts/multi_use/nugget"
   },
@@ -9,6 +10,6 @@
     "tag": "tconstruct:molten_knightmetal"
   },
   "result": {
-    "tag": "forge:nuggets/knightmetal"
+    "tag": "c:nuggets/knightmetal"
   }
 }

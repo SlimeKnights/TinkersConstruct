@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:casting_basin",
+  "id": "tconstruct:smeltery/casting/water/magenta_concrete",
   "cast": {
     "item": "minecraft:magenta_concrete_powder"
   },

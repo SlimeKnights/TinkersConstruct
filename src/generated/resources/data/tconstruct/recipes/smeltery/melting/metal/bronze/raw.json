@@ -1,25 +1,26 @@
 {
   "type": "tconstruct:ore_melting",
+  "id": "tconstruct:smeltery/melting/metal/bronze/raw",
   "byproducts": [
     {
       "amount": 90,
       "rate": "metal",
-      "tag": "forge:molten_copper"
+      "tag": "c:molten_copper"
     }
   ],
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:raw_materials/bronze"
+      "tag": "c:raw_materials/bronze"
     }
   ],
   "ingredient": {
-    "tag": "forge:raw_materials/bronze"
+    "tag": "c:raw_materials/bronze"
   },
   "rate": "metal",
   "result": {
     "amount": 90,
-    "tag": "forge:molten_bronze"
+    "tag": "c:molten_bronze"
   },
   "temperature": 700,
   "time": 85

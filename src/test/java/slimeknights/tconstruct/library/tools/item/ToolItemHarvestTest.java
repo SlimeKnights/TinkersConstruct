@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.tools.item;
 
 import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.common.ToolActions;
+import net.neoforged.neoforge.common.ItemAbilities;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -14,7 +14,7 @@ public class ToolItemHarvestTest extends ToolItemTest {
   @Test
   void getToolTypes_notBroken_ok() {
     assertThat(IsTestItemBroken()).isFalse();
-    assertThat(testItemStack.canPerformAction(ToolActions.PICKAXE_DIG)).isTrue();
+    assertThat(testItemStack.canPerformAction(ItemAbilities.PICKAXE_DIG)).isTrue();
   }
 
   @Test
@@ -23,7 +23,7 @@ public class ToolItemHarvestTest extends ToolItemTest {
     breakTool(testItemStack);
 
     assertThat(IsTestItemBroken()).isTrue();
-    assertThat(testItemStack.canPerformAction(ToolActions.PICKAXE_DIG)).isFalse();
+    assertThat(testItemStack.canPerformAction(ItemAbilities.PICKAXE_DIG)).isFalse();
   }
 
   @Test

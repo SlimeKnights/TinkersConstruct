@@ -4,7 +4,7 @@
   "group": "tconstruct:slimesteel_block",
   "key": {
     "#": {
-      "tag": "forge:ingots/slimesteel"
+      "tag": "c:ingots/slimesteel"
     },
     "*": {
       "item": "tconstruct:slimesteel_ingot"
@@ -16,7 +16,7 @@
     "###"
   ],
   "result": {
-    "item": "tconstruct:slimesteel_block"
+    "id": "tconstruct:slimesteel_block"
   },
   "show_notification": true
 }

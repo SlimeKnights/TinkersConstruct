@@ -1,13 +1,14 @@
 {
   "type": "tconstruct:material",
-  "conditions": [
+  "id": "tconstruct:tools/materials/steeleaf/ingot",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:ingots/steeleaf"
+      "tag": "c:ingots/steeleaf"
     }
   ],
   "ingredient": {
-    "tag": "forge:ingots/steeleaf"
+    "tag": "c:ingots/steeleaf"
   },
   "material": "tconstruct:steeleaf",
   "needed": 1,

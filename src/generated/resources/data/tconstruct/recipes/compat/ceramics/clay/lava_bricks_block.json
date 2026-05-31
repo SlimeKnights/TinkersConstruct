@@ -1,14 +1,15 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:compat/ceramics/clay/lava_bricks_block",
   "byproducts": [
     {
       "amount": 100,
       "fluid": "minecraft:lava"
     }
   ],
-  "conditions": [
+  "neoforge:conditions": [
     {
-      "type": "forge:mod_loaded",
+      "type": "neoforge:mod_loaded",
       "modid": "ceramics"
     }
   ],

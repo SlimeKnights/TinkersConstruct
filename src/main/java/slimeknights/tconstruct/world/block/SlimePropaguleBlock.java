@@ -11,7 +11,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.grower.AbstractTreeGrower;
+import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.material.FluidState;
@@ -25,13 +25,20 @@ import javax.annotation.Nullable;
 import java.util.Objects;
 
 import static net.minecraft.world.level.block.MangrovePropaguleBlock.AGE;
-import static net.minecraft.world.level.block.MangrovePropaguleBlock.SHAPE_PER_AGE;
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.HANGING;
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.WATERLOGGED;
 
 /** Recreation of {@link net.minecraft.world.level.block.MangrovePropaguleBlock} to swap out the tree grower. */
 public class SlimePropaguleBlock extends SlimeSaplingBlock {
-  public SlimePropaguleBlock(AbstractTreeGrower treeIn, FoliageType foliageType, Properties properties) {
+  private static final VoxelShape[] SHAPE_PER_AGE = new VoxelShape[]{
+    Block.box(7.0, 13.0, 7.0, 9.0, 16.0, 9.0),
+    Block.box(7.0, 10.0, 7.0, 9.0, 16.0, 9.0),
+    Block.box(7.0, 7.0, 7.0, 9.0, 16.0, 9.0),
+    Block.box(7.0, 3.0, 7.0, 9.0, 16.0, 9.0),
+    Block.box(7.0, 0.0, 7.0, 9.0, 16.0, 9.0)
+  };
+
+  public SlimePropaguleBlock(TreeGrower treeIn, FoliageType foliageType, Properties properties) {
     super(treeIn, foliageType, properties);
     this.registerDefaultState(this.stateDefinition.any().setValue(STAGE, 0).setValue(AGE, 0).setValue(WATERLOGGED, false).setValue(HANGING, false));
   }
@@ -104,7 +111,7 @@ public class SlimePropaguleBlock extends SlimeSaplingBlock {
   }
 
   @Override
-  public boolean isValidBonemealTarget(LevelReader pLevel, BlockPos pPos, BlockState state, boolean pIsClient) {
+  public boolean isValidBonemealTarget(LevelReader pLevel, BlockPos pPos, BlockState state) {
     return !state.getValue(HANGING) || state.getValue(AGE) != 4;
   }
 

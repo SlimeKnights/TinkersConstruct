@@ -1,14 +1,15 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/glass/bottle",
   "ingredient": [
     {
       "item": "minecraft:glass_bottle"
     },
     {
-      "tag": "forge:bottles/splash"
+      "tag": "c:bottles/splash"
     },
     {
-      "tag": "forge:bottles/lingering"
+      "tag": "c:bottles/lingering"
     }
   ],
   "result": {

@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/copper/sheetmetal",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:sheetmetals/copper"
+      "tag": "c:sheetmetals/copper"
     }
   ],
   "ingredient": {
-    "tag": "forge:sheetmetals/copper"
+    "tag": "c:sheetmetals/copper"
   },
   "result": {
     "amount": 90,
-    "tag": "forge:molten_copper"
+    "tag": "c:molten_copper"
   },
   "temperature": 500,
   "time": 50

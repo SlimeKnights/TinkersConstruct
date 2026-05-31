@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/leather",
   "ingredient": {
-    "tag": "forge:leather"
+    "tag": "c:leather"
   },
   "material": "tconstruct:leather",
   "needed": 1,

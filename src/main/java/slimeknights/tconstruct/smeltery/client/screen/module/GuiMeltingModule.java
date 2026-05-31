@@ -79,8 +79,8 @@ public class GuiMeltingModule {
    * @param mouseY  Mouse Y position
    */
   public void drawHeatTooltips(GuiGraphics graphics, int mouseX, int mouseY) {
-    int checkX = mouseX - screen.leftPos;
-    int checkY = mouseY - screen.topPos;
+    int checkX = mouseX - screen.getGuiLeft();
+    int checkY = mouseY - screen.getGuiTop();
     int temperature = this.temperature.getAsInt();
     AbstractContainerMenu menu = screen.getMenu();
     for (int i = 0; i < inventory.getSlots(); i++) {
@@ -107,7 +107,7 @@ public class GuiMeltingModule {
 
           // draw tooltip if relevant
           if (tooltip != null) {
-            graphics.renderTooltip(screen.font, tooltip, mouseX, mouseY);
+            graphics.renderTooltip(screen.getMinecraft().font, tooltip, mouseX, mouseY);
           }
 
           // cannot hover two slots, so done

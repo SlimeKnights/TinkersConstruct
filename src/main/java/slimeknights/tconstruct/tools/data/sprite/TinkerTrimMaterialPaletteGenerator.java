@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.tools.data.sprite;
 
 import net.minecraft.data.PackOutput;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.data.material.AbstractMaterialSpriteProvider;
 import slimeknights.tconstruct.library.client.data.material.TrimMaterialPaletteGenerator;

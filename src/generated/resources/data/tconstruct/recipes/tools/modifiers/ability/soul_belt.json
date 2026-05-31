@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/ability/soul_belt",
   "allow_crystal": true,
   "inputs": [
     {

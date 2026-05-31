@@ -1,7 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "misc",
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "tconstruct:config",
       "prop": "glass_recipe_fix"
@@ -12,7 +12,7 @@
       "item": "minecraft:ender_eye"
     },
     "G": {
-      "tag": "forge:glass/colorless"
+      "tag": "c:glass/colorless"
     },
     "T": {
       "item": "minecraft:ghast_tear"
@@ -24,7 +24,7 @@
     "GTG"
   ],
   "result": {
-    "item": "minecraft:end_crystal"
+    "id": "minecraft:end_crystal"
   },
   "show_notification": true
 }

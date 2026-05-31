@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:modifier_salvage",
+  "id": "tconstruct:tools/modifiers/salvage/upgrade/lure",
   "modifier": "tconstruct:lure",
   "slots": {
     "upgrades": 1

@@ -1,41 +1,42 @@
 {
   "type": "tconstruct:alloy",
-  "conditions": [
+  "id": "tconstruct:smeltery/alloys/molten_lumium",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:ingots/lumium"
+      "tag": "c:ingots/lumium"
     },
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:ingots/tin"
+      "tag": "c:ingots/tin"
     },
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:ingots/silver"
+      "tag": "c:ingots/silver"
     },
     {
       "type": "mantle:tag_filled",
       "registry": "minecraft:fluid",
-      "tag": "forge:glowstone"
+      "tag": "c:glowstone"
     }
   ],
   "inputs": [
     {
       "amount": 270,
-      "tag": "forge:molten_tin"
+      "tag": "c:molten_tin"
     },
     {
       "amount": 90,
-      "tag": "forge:molten_silver"
+      "tag": "c:molten_silver"
     },
     {
       "amount": 500,
-      "tag": "forge:glowstone"
+      "tag": "c:glowstone"
     }
   ],
   "result": {
     "amount": 360,
-    "tag": "forge:molten_lumium"
+    "tag": "c:molten_lumium"
   },
   "temperature": 1050
 }

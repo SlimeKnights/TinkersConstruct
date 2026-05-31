@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/water/snow_layer",
   "ingredient": {
     "item": "minecraft:snow"
   },

@@ -1,15 +1,15 @@
 package slimeknights.tconstruct.library.fluid;
 
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.IFluidTank;
-import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.IFluidTank;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 
 import javax.annotation.Nonnull;
 
 /**
  * Simple implementation of {@link IFluidTank} and {@link IFluidHandler} for a single tank.
  *
- * Similar to {@link net.minecraftforge.fluids.capability.templates.FluidTank} except with more control over the fluid storage.
+ * Similar to {@link net.neoforged.neoforge.fluids.capability.templates.FluidTank} except with more control over the fluid storage.
  */
 public interface SimpleFluidTank extends IFluidTank, IFluidHandler {
   @Override
@@ -76,7 +76,7 @@ public interface SimpleFluidTank extends IFluidTank, IFluidHandler {
     if (fluid.isEmpty()) {
       int amount = Math.min(getCapacity(), resource.getAmount());
       if (action.execute()) {
-        updateFluid(new FluidStack(resource, amount), amount);
+        updateFluid(resource.copyWithAmount(amount), amount);
       }
       return amount;
     }
@@ -104,7 +104,7 @@ public interface SimpleFluidTank extends IFluidTank, IFluidHandler {
       drained = fluid.getAmount();
     }
     // build the result
-    FluidStack result = new FluidStack(fluid, drained);
+    FluidStack result = fluid.copyWithAmount(drained);
     if (action.execute()) {
       fluid.shrink(drained);
       updateFluid(fluid, -drained);

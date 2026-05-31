@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:glass/colorless"
+            "tag": "c:glass/colorless"
           }
         ]
       },

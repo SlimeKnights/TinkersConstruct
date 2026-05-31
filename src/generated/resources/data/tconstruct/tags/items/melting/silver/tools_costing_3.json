@@ -1,11 +1,11 @@
 {
   "values": [
     {
-      "id": "#forge:tools/pickaxes/silver",
+      "id": "#c:tools/pickaxes/silver",
       "required": false
     },
     {
-      "id": "#forge:tools/axes/silver",
+      "id": "#c:tools/axes/silver",
       "required": false
     },
     {

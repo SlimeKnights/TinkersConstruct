@@ -6,7 +6,7 @@
       "item": "tconstruct:seared_brick"
     },
     "C": {
-      "tag": "forge:ingots/copper"
+      "tag": "c:ingots/copper"
     }
   },
   "pattern": [
@@ -15,7 +15,7 @@
     "#C#"
   ],
   "result": {
-    "item": "tconstruct:seared_chute"
+    "id": "tconstruct:seared_chute"
   },
   "show_notification": true
 }

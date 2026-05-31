@@ -49,7 +49,7 @@ public abstract class MultiblockCuboid<T extends MultiblockStructureData> {
   /** Error if a block is invalid in the floor */
   protected static final Component INVALID_FLOOR_BLOCK = TConstruct.makeTranslation("multiblock", "generic.invalid_floor_block");
   /** Error if a block is invalid in the ceiling */
-  protected static final Component INVALID_CEILING_BLOCK = TConstruct.makeTranslation("multiblock", "generic.invalid_floor_block");
+  protected static final Component INVALID_CEILING_BLOCK = TConstruct.makeTranslation("multiblock", "generic.invalid_ceiling_block");
   /** Error if a block is invalid in the walls */
   protected static final Component INVALID_WALL_BLOCK = TConstruct.makeTranslation("multiblock", "generic.invalid_wall_block");
   /** Error if the structure floor has no frame */
@@ -221,6 +221,7 @@ public abstract class MultiblockCuboid<T extends MultiblockStructureData> {
     // max is at height, 1 below is the last successful layer if no ceiling
     BlockPos minPos = from.above(minLayer);
     BlockPos maxPos = to.above(maxLayer);
+    setLastResult(MultiblockResult.SUCCESS);
     return create(minPos, maxPos, extraBlocks.build());
   }
 
@@ -445,10 +446,7 @@ public abstract class MultiblockCuboid<T extends MultiblockStructureData> {
     ListTag list = rootTag.getList(key, Tag.TAG_COMPOUND);
     List<BlockPos> collection = new ArrayList<>(list.size());
     for (int i = 0; i < list.size(); i++) {
-      BlockPos pos = NbtUtils.readBlockPos(list.getCompound(i));
-      if (!pos.equals(BlockPos.ZERO)) {
-        collection.add(pos.offset(offset));
-      }
+      NbtUtils.readBlockPos(list.getCompound(i), "pos").filter(pos -> !pos.equals(BlockPos.ZERO)).ifPresent(pos -> collection.add(pos.offset(offset)));
     }
     return collection;
   }

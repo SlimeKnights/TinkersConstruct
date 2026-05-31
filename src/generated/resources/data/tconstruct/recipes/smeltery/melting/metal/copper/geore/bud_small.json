@@ -1,25 +1,26 @@
 {
   "type": "tconstruct:ore_melting",
+  "id": "tconstruct:smeltery/melting/metal/copper/geore/bud_small",
   "byproducts": [
     {
       "amount": 30,
       "rate": "metal",
-      "tag": "forge:molten_gold"
+      "tag": "c:molten_gold"
     }
   ],
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:geore_small_buds/copper"
+      "tag": "c:geore_small_buds/copper"
     }
   ],
   "ingredient": {
-    "tag": "forge:geore_small_buds/copper"
+    "tag": "c:geore_small_buds/copper"
   },
   "rate": "metal",
   "result": {
     "amount": 90,
-    "tag": "forge:molten_copper"
+    "tag": "c:molten_copper"
   },
   "temperature": 500,
   "time": 50

@@ -1,10 +1,10 @@
 {
   "values": [
-    "#forge:stone",
-    "#forge:cobblestone",
-    "#forge:sandstone",
-    "#forge:end_stones",
-    "#forge:gravel",
+    "#c:stone",
+    "#c:cobblestone",
+    "#c:sandstone",
+    "#c:end_stones",
+    "#c:gravel",
     "minecraft:netherrack",
     "minecraft:basalt",
     "minecraft:polished_basalt",

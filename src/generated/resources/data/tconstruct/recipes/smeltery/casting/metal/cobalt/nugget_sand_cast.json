@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/cobalt/nugget_sand_cast",
   "cast": {
     "tag": "tconstruct:casts/single_use/nugget"
   },
@@ -7,9 +8,9 @@
   "cooling_time": 22,
   "fluid": {
     "amount": 10,
-    "tag": "forge:molten_cobalt"
+    "tag": "c:molten_cobalt"
   },
   "result": {
-    "tag": "forge:nuggets/cobalt"
+    "tag": "c:nuggets/cobalt"
   }
 }

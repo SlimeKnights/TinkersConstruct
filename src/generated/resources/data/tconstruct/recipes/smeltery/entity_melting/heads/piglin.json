@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/entity_melting/heads/piglin",
   "ingredient": [
     {
       "item": "minecraft:piglin_head"
@@ -13,7 +14,7 @@
   ],
   "result": {
     "amount": 90,
-    "tag": "forge:molten_gold"
+    "tag": "c:molten_gold"
   },
   "temperature": 700,
   "time": 57

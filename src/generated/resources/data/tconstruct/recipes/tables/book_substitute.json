@@ -12,7 +12,7 @@
       "item": "minecraft:paper"
     },
     {
-      "tag": "forge:slimeballs"
+      "tag": "c:slimeballs"
     },
     {
       "item": "tconstruct:pattern"
@@ -22,6 +22,6 @@
     }
   ],
   "result": {
-    "item": "minecraft:book"
+    "id": "minecraft:book"
   }
 }

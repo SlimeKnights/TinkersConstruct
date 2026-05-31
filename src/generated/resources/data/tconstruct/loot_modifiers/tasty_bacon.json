@@ -37,7 +37,8 @@
         "max": 1,
         "min": 0
       },
-      "function": "minecraft:looting_enchant"
+      "function": "minecraft:enchanted_count_increase",
+      "enchantment": "minecraft:looting"
     }
   ],
   "post_conditions": []

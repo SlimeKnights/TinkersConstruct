@@ -2,7 +2,7 @@
   "type": "mantle:fill_item",
   "fluid": {
     "amount": 250,
-    "tag": "forge:slime"
+    "tag": "c:slime"
   },
   "input": {
     "item": "minecraft:glass_bottle"

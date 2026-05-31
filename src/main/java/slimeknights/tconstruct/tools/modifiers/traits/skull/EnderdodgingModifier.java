@@ -30,7 +30,7 @@ public class EnderdodgingModifier extends NoLevelsModifier implements OnAttacked
   public void onAttacked(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
     // teleport randomly from other damage
     LivingEntity self = context.getEntity();
-    if (!self.hasEffect(TinkerEffects.enderference.get()) && source.getEntity() instanceof LivingEntity && RANDOM.nextInt(10) == 0) {
+    if (!self.hasEffect(TinkerEffects.holder(TinkerEffects.enderference)) && source.getEntity() instanceof LivingEntity && RANDOM.nextInt(10) == 0) {
       if (TeleportHelper.randomNearbyTeleport(context.getEntity(), (e, x, y, z) -> new EnderdodgingTeleportEvent(e, x, y, z, modifier))) {
         TinkerEffects.enderference.get().apply(self, 15 * 20, 1, true);
       }

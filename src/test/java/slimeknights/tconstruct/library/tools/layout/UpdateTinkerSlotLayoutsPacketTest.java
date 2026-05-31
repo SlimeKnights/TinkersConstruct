@@ -25,7 +25,7 @@ class UpdateTinkerSlotLayoutsPacketTest extends BaseMcTest {
       .addInputSlot(null, 3, 4)
       .addInputSlot(null, 5, 6)
       .build();
-    layout.setName(new ResourceLocation("test:main_layout"));
+    layout.setName(ResourceLocation.parse("test:main_layout"));
     UpdateTinkerSlotLayoutsPacket packetToEncode = new UpdateTinkerSlotLayoutsPacket(Arrays.asList(StationSlotLayout.EMPTY, layout));
     FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer());
     packetToEncode.encode(buffer);

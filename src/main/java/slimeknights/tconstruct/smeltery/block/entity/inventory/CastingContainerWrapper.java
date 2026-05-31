@@ -5,8 +5,10 @@ import lombok.Setter;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraftforge.fluids.FluidStack;
+import net.minecraft.world.level.material.Fluids;
+import net.neoforged.neoforge.fluids.FluidStack;
 import slimeknights.tconstruct.library.recipe.casting.ICastingContainer;
+import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.smeltery.block.entity.CastingBlockEntity;
 
 import javax.annotation.Nullable;
@@ -31,14 +33,19 @@ public class CastingContainerWrapper implements ICastingContainer {
   }
 
   @Override
+  public boolean isEmpty() {
+    return getStack().isEmpty() && (fluid == null || fluid.isEmpty());
+  }
+
+  @Override
   public Fluid getFluid() {
-    return fluid.getFluid();
+    return fluid == null ? Fluids.EMPTY : fluid.getFluid();
   }
 
   @Nullable
   @Override
   public CompoundTag getFluidTag() {
-    return fluid.getTag();
+    return fluid == null ? null : TagUtil.getTag(fluid);
   }
 
   /** Uses the input for input (default) */

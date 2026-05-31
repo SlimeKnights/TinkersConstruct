@@ -1,6 +1,7 @@
 {
   "type": "tconstruct:material",
-  "conditions": [
+  "id": "tconstruct:tools/materials/wood/planks/default",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_combination_filled",
       "ignore": "tconstruct:wood_variants/planks",
@@ -8,7 +9,7 @@
     }
   ],
   "ingredient": {
-    "type": "forge:difference",
+    "type": "neoforge:difference",
     "base": {
       "tag": "minecraft:planks"
     },

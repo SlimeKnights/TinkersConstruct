@@ -4,6 +4,8 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -32,19 +34,17 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.UUID;
-import java.util.function.Supplier;
 
 /**
  * Adds an attribute modifier to the mob before hitting, then removes the modifier after hitting.
  * @param unique     Unique string used to generate the UUID and as the attribute name
  * @param attribute  Attribute to apply
- * @param uuid       UUID generated via {@link UUID#nameUUIDFromBytes(byte[])}
+ * @param id         Modifier ID generated from {@code unique}
  * @param operation  Attribute operation
  * @param amount     Amount of the attribute to apply
  * @param condition  Standard modifier conditions
  */
-public record MeleeAttributeModule(String unique, Attribute attribute, UUID uuid, Operation operation, LevelingValue amount, IJsonPredicate<LivingEntity> target, ModifierCondition<IToolStackView> condition) implements ModifierModule, MeleeHitModifierHook, ConditionalModule<IToolStackView> {
+public record MeleeAttributeModule(String unique, Attribute attribute, ResourceLocation id, Operation operation, LevelingValue amount, IJsonPredicate<LivingEntity> target, ModifierCondition<IToolStackView> condition) implements ModifierModule, MeleeHitModifierHook, ConditionalModule<IToolStackView> {
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<MeleeAttributeModule>defaultHooks(ModifierHooks.MELEE_HIT);
   public static final RecordLoadable<MeleeAttributeModule> LOADER = RecordLoadable.create(
     new AttributeUniqueField<>(MeleeAttributeModule::unique),
@@ -60,7 +60,11 @@ public record MeleeAttributeModule(String unique, Attribute attribute, UUID uuid
   public MeleeAttributeModule {}
 
   private MeleeAttributeModule(String unique, Attribute attribute, Operation operation, LevelingValue amount, IJsonPredicate<LivingEntity> target, ModifierCondition<IToolStackView> condition) {
-    this(unique, attribute, UUID.nameUUIDFromBytes(unique.getBytes()), operation, amount, target, condition);
+    this(unique, attribute, ResourceLocation.fromNamespaceAndPath("tconstruct", unique.isEmpty() ? "melee_attribute" : unique.replace(':', '.')), operation, amount, target, condition);
+  }
+
+  private Holder<Attribute> holder() {
+    return BuiltInRegistries.ATTRIBUTE.wrapAsHolder(attribute);
   }
 
   @Override
@@ -73,11 +77,11 @@ public record MeleeAttributeModule(String unique, Attribute attribute, UUID uuid
     if (condition.matches(tool, modifier)) {
       LivingEntity target = context.getLivingTarget();
       if (target != null) {
-        AttributeInstance instance = target.getAttribute(attribute);
+        AttributeInstance instance = target.getAttribute(holder());
         if (instance != null) {
           // ensure we don't already have the modifier from someone misusing melee hooks or simultaneous attacks
-          instance.removeModifier(uuid);
-          instance.addTransientModifier(new AttributeModifier(uuid, unique, amount.compute(modifier.getEffectiveLevel()), operation));
+          instance.removeModifier(id);
+          instance.addTransientModifier(new AttributeModifier(id, amount.compute(modifier.getEffectiveLevel()), operation));
         }
       }
     }
@@ -86,9 +90,9 @@ public record MeleeAttributeModule(String unique, Attribute attribute, UUID uuid
 
   private void removeAttribute(@Nullable LivingEntity target) {
     if (target != null) {
-      AttributeInstance instance = target.getAttribute(attribute);
+      AttributeInstance instance = target.getAttribute(holder());
       if (instance != null) {
-        instance.removeModifier(uuid);
+        instance.removeModifier(id);
       }
     }
   }
@@ -114,8 +118,8 @@ public record MeleeAttributeModule(String unique, Attribute attribute, UUID uuid
     return new Builder(attribute, operation);
   }
 
-  public static Builder builder(Supplier<Attribute> attribute, Operation operation) {
-    return new Builder(attribute.get(), operation);
+  public static Builder builder(Holder<Attribute> attribute, Operation operation) {
+    return new Builder(attribute.value(), operation);
   }
 
   @Setter

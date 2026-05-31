@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/aluminum/dust",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:dusts/aluminum"
+      "tag": "c:dusts/aluminum"
     }
   ],
   "ingredient": {
-    "tag": "forge:dusts/aluminum"
+    "tag": "c:dusts/aluminum"
   },
   "result": {
     "amount": 90,
-    "tag": "forge:molten_aluminum"
+    "tag": "c:molten_aluminum"
   },
   "temperature": 425,
   "time": 35

@@ -1,8 +1,9 @@
 {
   "type": "tconstruct:damagable_melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/invar/tools_complement_excavator",
+  "neoforge:conditions": [
     {
-      "type": "forge:item_exists",
+      "type": "neoforge:item_exists",
       "item": "tools_complement:invar_excavator"
     }
   ],
@@ -11,7 +12,7 @@
   },
   "result": {
     "amount": 990,
-    "tag": "forge:molten_invar",
+    "tag": "c:molten_invar",
     "unit_size": 10
   },
   "temperature": 900,

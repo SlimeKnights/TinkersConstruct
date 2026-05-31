@@ -44,6 +44,7 @@ import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolDataNBT;
+import slimeknights.tconstruct.library.utils.TagUtil;
 
 import javax.annotation.Nullable;
 import java.util.BitSet;
@@ -145,7 +146,7 @@ public class InventoryModule implements ModifierModule, InventoryModifierHook, V
       for (int i = 0; i < list.size(); i++) {
         CompoundTag compound = list.getCompound(i);
         if (compound.getInt(TAG_SLOT) == slot) {
-          return ItemStack.of(compound);
+          return TagUtil.readItem(compound);
         }
       }
     }
@@ -266,7 +267,7 @@ public class InventoryModule implements ModifierModule, InventoryModifierHook, V
    * @return Tag written to, same as {@code compound}.
    */
   public static CompoundTag writeStack(ItemStack stack, int slot, CompoundTag compound) {
-    stack.save(compound);
+    TagUtil.saveItem(stack, compound);
     compound.putInt(TAG_SLOT, slot);
     return compound;
   }
@@ -286,7 +287,7 @@ public class InventoryModule implements ModifierModule, InventoryModifierHook, V
           // slot must be valid
           int slot = compound.getInt(TAG_SLOT);
           if (slot < max) {
-            ItemStack stack = ItemStack.of(compound);
+            ItemStack stack = TagUtil.readItem(compound);
             if (!stack.isEmpty() && predicate.test(stack)) {
               return new StackMatch(stack, slot);
             }
@@ -314,7 +315,7 @@ public class InventoryModule implements ModifierModule, InventoryModifierHook, V
           // slot must be valid
           int slot = compound.getInt(TAG_SLOT);
           if (slot < max) {
-            parsed[slot] = ItemStack.of(compound);
+            parsed[slot] = TagUtil.readItem(compound);
           }
         }
         // add stacks into the list

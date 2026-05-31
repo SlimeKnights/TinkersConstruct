@@ -8,7 +8,7 @@
           5.0
         ],
         "size": 2.0,
-        "transform": "tconstruct:table"
+        "transform": "minecraft:none"
       },
       {
         "center": [
@@ -17,7 +17,7 @@
           5.0
         ],
         "size": 2.0,
-        "transform": "tconstruct:table"
+        "transform": "minecraft:none"
       },
       {
         "center": [
@@ -26,7 +26,7 @@
           5.0
         ],
         "size": 2.0,
-        "transform": "tconstruct:table"
+        "transform": "minecraft:none"
       },
       {
         "center": [
@@ -35,7 +35,7 @@
           8.0
         ],
         "size": 2.0,
-        "transform": "tconstruct:table"
+        "transform": "minecraft:none"
       },
       {
         "center": [
@@ -44,7 +44,7 @@
           8.0
         ],
         "size": 2.0,
-        "transform": "tconstruct:table"
+        "transform": "minecraft:none"
       },
       {
         "center": [
@@ -53,7 +53,7 @@
           8.0
         ],
         "size": 2.0,
-        "transform": "tconstruct:table"
+        "transform": "minecraft:none"
       },
       {
         "center": [
@@ -62,7 +62,7 @@
           11.0
         ],
         "size": 2.0,
-        "transform": "tconstruct:table"
+        "transform": "minecraft:none"
       },
       {
         "center": [
@@ -71,7 +71,7 @@
           11.0
         ],
         "size": 2.0,
-        "transform": "tconstruct:table"
+        "transform": "minecraft:none"
       },
       {
         "center": [
@@ -80,7 +80,7 @@
           11.0
         ],
         "size": 2.0,
-        "transform": "tconstruct:table"
+        "transform": "minecraft:none"
       }
     ]
   }

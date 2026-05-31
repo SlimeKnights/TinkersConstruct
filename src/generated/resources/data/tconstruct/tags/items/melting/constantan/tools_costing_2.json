@@ -1,11 +1,11 @@
 {
   "values": [
     {
-      "id": "#forge:tools/swords/constantan",
+      "id": "#c:tools/swords/constantan",
       "required": false
     },
     {
-      "id": "#forge:tools/hoes/constantan",
+      "id": "#c:tools/hoes/constantan",
       "required": false
     }
   ]

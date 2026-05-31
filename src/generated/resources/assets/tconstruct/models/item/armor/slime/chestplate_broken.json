@@ -1,6 +1,6 @@
 {
   "loader": "tconstruct:tool",
-  "parent": "forge:item/default",
+  "parent": "neoforge:item/default",
   "textures": {
     "slime": "tconstruct:item/tool/armor/slime/chestplate/slime_broken",
     "ribcage": "tconstruct:item/tool/armor/slime/chestplate/ribcage_broken"

@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/wool/white",
   "ingredient": {
     "item": "minecraft:white_wool"
   },

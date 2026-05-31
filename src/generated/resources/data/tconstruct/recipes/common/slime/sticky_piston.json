@@ -1,7 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "redstone",
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "tconstruct:config",
       "prop": "slime_recipe_fix"
@@ -9,7 +9,7 @@
   ],
   "key": {
     "#": {
-      "tag": "forge:slimeballs"
+      "tag": "c:slimeballs"
     },
     "P": {
       "item": "minecraft:piston"
@@ -20,7 +20,7 @@
     "P"
   ],
   "result": {
-    "item": "minecraft:sticky_piston"
+    "id": "minecraft:sticky_piston"
   },
   "show_notification": true
 }

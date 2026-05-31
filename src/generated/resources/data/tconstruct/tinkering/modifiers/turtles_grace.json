@@ -3,7 +3,7 @@
   "modules": [
     {
       "type": "tconstruct:attribute",
-      "attribute": "forge:swim_speed",
+      "attribute": "neoforge:swim_speed",
       "each_level": 0.1,
       "operation": "multiply_total",
       "slots": [

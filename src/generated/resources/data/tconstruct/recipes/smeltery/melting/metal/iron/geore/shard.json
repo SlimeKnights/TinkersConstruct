@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/iron/geore/shard",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:geore_shards/iron"
+      "tag": "c:geore_shards/iron"
     }
   ],
   "ingredient": {
-    "tag": "forge:geore_shards/iron"
+    "tag": "c:geore_shards/iron"
   },
   "result": {
     "amount": 90,
-    "tag": "forge:molten_iron"
+    "tag": "c:molten_iron"
   },
   "temperature": 800,
   "time": 60

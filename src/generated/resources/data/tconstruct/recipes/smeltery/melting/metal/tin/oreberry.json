@@ -1,8 +1,9 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/tin/oreberry",
+  "neoforge:conditions": [
     {
-      "type": "forge:item_exists",
+      "type": "neoforge:item_exists",
       "item": "oreberriesreplanted:tin_oreberry"
     }
   ],
@@ -11,7 +12,7 @@
   },
   "result": {
     "amount": 10,
-    "tag": "forge:molten_tin"
+    "tag": "c:molten_tin"
   },
   "temperature": 225,
   "time": 13

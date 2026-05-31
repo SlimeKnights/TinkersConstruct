@@ -109,7 +109,7 @@ public class ArmorMaterialContent extends AbstractMaterialContent {
 
   /** Gets the tool to display for the given stat type, just hardcoding to plate armor for simplicity */
   private static void addPlatingItem(MaterialStatsId statType, List<ItemStack> stacks, MaterialVariantId variant) {
-    for (ArmorItem.Type slotType : ArmorItem.Type.values()) {
+    for (ArmorItem.Type slotType : slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial.ARMOR_TYPES) {
       if (statType.equals(PlatingMaterialStats.TYPES.get(slotType.ordinal()).getId())) {
         stacks.add(TinkerToolParts.plating.get(slotType).withMaterialForDisplay(variant));
         return;

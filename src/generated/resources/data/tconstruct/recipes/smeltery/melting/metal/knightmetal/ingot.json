@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/knightmetal/ingot",
   "ingredient": {
-    "tag": "forge:ingots/knightmetal"
+    "tag": "c:ingots/knightmetal"
   },
   "result": {
     "amount": 90,

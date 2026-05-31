@@ -1,9 +1,10 @@
 {
   "type": "tconstruct:incremental_modifier",
+  "id": "tconstruct:tools/modifiers/upgrade/lightspeed_boots_from_dust",
   "allow_crystal": true,
   "amount_per_item": 1,
   "input": {
-    "tag": "forge:dusts/glowstone"
+    "tag": "c:dusts/glowstone"
   },
   "level": {
     "max": 3

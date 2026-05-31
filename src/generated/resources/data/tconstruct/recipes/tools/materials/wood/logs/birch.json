@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/wood/logs/birch",
   "ingredient": {
     "tag": "minecraft:birch_logs"
   },

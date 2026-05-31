@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.shared.data;
 
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.FinishedRecipe;
+import slimeknights.mantle.compat.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
@@ -13,7 +13,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.WeatheringCopper.WeatherState;
-import net.minecraftforge.common.Tags;
+import net.neoforged.neoforge.common.Tags;
 import slimeknights.mantle.recipe.data.ConsumerWrapperBuilder;
 import slimeknights.mantle.recipe.data.ICommonRecipeHelper;
 import slimeknights.tconstruct.common.TinkerTags;

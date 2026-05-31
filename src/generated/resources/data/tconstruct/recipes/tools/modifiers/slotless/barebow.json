@@ -1,15 +1,16 @@
 {
   "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/slotless/barebow",
   "allow_crystal": true,
   "inputs": [
     {
-      "tag": "forge:string"
+      "tag": "c:strings"
     },
     {
-      "tag": "forge:rods/wooden"
+      "tag": "c:rods/wooden"
     },
     {
-      "tag": "forge:string"
+      "tag": "c:strings"
     }
   ],
   "level": 1,

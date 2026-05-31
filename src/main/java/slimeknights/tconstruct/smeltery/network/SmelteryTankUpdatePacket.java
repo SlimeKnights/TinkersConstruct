@@ -4,8 +4,9 @@ import lombok.AllArgsConstructor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.network.NetworkEvent.Context;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.neoforged.neoforge.fluids.FluidStack;
+import slimeknights.mantle.compat.neoforged.neoforge.network.NetworkEvent.Context;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.smeltery.block.entity.tank.ISmelteryTankHandler;
@@ -26,7 +27,10 @@ public class SmelteryTankUpdatePacket implements IThreadsafePacket {
     int size = buffer.readVarInt();
     fluids = new ArrayList<>(size);
     for (int i = 0; i < size; i++) {
-      fluids.add(buffer.readFluidStack());
+      FluidStack fluid = FluidStack.OPTIONAL_STREAM_CODEC.decode((RegistryFriendlyByteBuf)buffer);
+      if (!fluid.isEmpty()) {
+        fluids.add(fluid);
+      }
     }
   }
 
@@ -35,7 +39,7 @@ public class SmelteryTankUpdatePacket implements IThreadsafePacket {
     buffer.writeBlockPos(pos);
     buffer.writeVarInt(fluids.size());
     for (FluidStack fluid : fluids) {
-      buffer.writeFluidStack(fluid);
+      FluidStack.OPTIONAL_STREAM_CODEC.encode((RegistryFriendlyByteBuf)buffer, fluid);
     }
   }
 

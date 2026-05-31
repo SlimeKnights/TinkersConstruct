@@ -5,15 +5,16 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.alchemy.PotionUtils;
+import slimeknights.tconstruct.compat.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidStack;
 import slimeknights.mantle.fluid.transfer.EmptyFluidWithNBTTransfer;
 import slimeknights.mantle.recipe.helper.FluidOutput;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.utils.TagUtil;
 
 /**
  * Fluid transfer info that empties a fluid from an item, copying the fluid's NBT to the stack
@@ -28,10 +29,12 @@ public class EmptyPotionTransfer extends EmptyFluidWithNBTTransfer {
 
   @Override
   protected FluidStack getFluid(ItemStack stack) {
-    if (PotionUtils.getPotion(stack) == Potions.WATER) {
+    if (PotionUtils.getPotion(stack).is(Potions.WATER)) {
       return new FluidStack(Fluids.WATER, fluid.getAmount());
     }
-    return new FluidStack(fluid.get().getFluid(), fluid.getAmount(), stack.getTag());
+    FluidStack result = new FluidStack(fluid.get().getFluid(), fluid.getAmount());
+    TagUtil.setTag(result, TagUtil.getTag(stack));
+    return result;
   }
 
   @Override

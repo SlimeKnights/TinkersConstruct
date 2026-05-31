@@ -1,28 +1,29 @@
 {
   "type": "tconstruct:alloy",
-  "conditions": [
+  "id": "tconstruct:smeltery/alloys/molten_duralumin",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:ingots/duralumin"
+      "tag": "c:ingots/duralumin"
     },
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:ingots/aluminum"
+      "tag": "c:ingots/aluminum"
     }
   ],
   "inputs": [
     {
       "amount": 270,
-      "tag": "forge:molten_aluminum"
+      "tag": "c:molten_aluminum"
     },
     {
       "amount": 90,
-      "tag": "forge:molten_copper"
+      "tag": "c:molten_copper"
     }
   ],
   "result": {
     "amount": 360,
-    "tag": "forge:molten_duralumin"
+    "tag": "c:molten_duralumin"
   },
   "temperature": 625
 }

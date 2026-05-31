@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/nickel/block",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:storage_blocks/nickel"
+      "tag": "c:storage_blocks/nickel"
     }
   ],
   "ingredient": {
-    "tag": "forge:storage_blocks/nickel"
+    "tag": "c:storage_blocks/nickel"
   },
   "result": {
     "amount": 810,
-    "tag": "forge:molten_nickel"
+    "tag": "c:molten_nickel"
   },
   "temperature": 950,
   "time": 194

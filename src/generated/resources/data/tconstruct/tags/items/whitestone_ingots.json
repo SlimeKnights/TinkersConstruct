@@ -1,27 +1,27 @@
 {
   "values": [
     {
-      "id": "#forge:ingots/aluminum",
+      "id": "#c:ingots/aluminum",
       "required": false
     },
     {
-      "id": "#forge:ingots/tin",
+      "id": "#c:ingots/tin",
       "required": false
     },
     {
-      "id": "#forge:ingots/zinc",
+      "id": "#c:ingots/zinc",
       "required": false
     },
     {
-      "id": "#forge:ingots/nickel",
+      "id": "#c:ingots/nickel",
       "required": false
     },
     {
-      "id": "#forge:ingots/chromium",
+      "id": "#c:ingots/chromium",
       "required": false
     },
     {
-      "id": "#forge:ingots/cadmium",
+      "id": "#c:ingots/cadmium",
       "required": false
     }
   ]

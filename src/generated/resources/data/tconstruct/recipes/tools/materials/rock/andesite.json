@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/rock/andesite",
   "ingredient": {
-    "tag": "forge:andesite"
+    "tag": "c:andesite"
   },
   "material": "tconstruct:rock#andesite",
   "needed": 1,

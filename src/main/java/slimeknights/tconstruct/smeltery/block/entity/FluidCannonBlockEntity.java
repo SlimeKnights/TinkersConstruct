@@ -19,12 +19,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
-import net.minecraftforge.items.IItemHandler;
+import slimeknights.mantle.compat.neoforged.neoforge.capabilities.Capability;
+import slimeknights.tconstruct.compat.neoforged.neoforge.capabilities.ForgeCapabilities;
+import slimeknights.mantle.compat.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction;
+import net.neoforged.neoforge.items.IItemHandler;
 import slimeknights.mantle.fluid.FluidTransferHelper;
 import slimeknights.mantle.inventory.SingleItemHandler;
 import slimeknights.tconstruct.common.network.InventorySlotSyncPacket;
@@ -33,6 +33,7 @@ import slimeknights.tconstruct.library.modifiers.fluid.FluidEffectContext;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffectManager;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffects;
 import slimeknights.tconstruct.library.utils.NBTTags;
+import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.particle.FluidParticleData;
@@ -129,7 +130,7 @@ public class FluidCannonBlockEntity extends TankBlockEntity implements ITankInve
             tank.setFluid(fluid);
             tank.onContentsChanged();
             itemHandler.setStack(stack);
-            level.levelEvent(LevelEvent.PARTICLES_SHOOT, worldPosition, facing.get3DDataValue());
+            level.levelEvent(LevelEvent.PARTICLES_SHOOT_SMOKE, worldPosition, facing.get3DDataValue());
             return;
           }
         }
@@ -139,7 +140,7 @@ public class FluidCannonBlockEntity extends TankBlockEntity implements ITankInve
         if (!targetState.isFaceSturdy(level, target, facing.getOpposite())) {
           // setup projectile
           int amount = Math.min(fluid.getAmount(), (int)(recipe.getAmount(fluid.getFluid()) * power));
-          FluidEffectProjectile projectile = new FluidEffectProjectile(level, worldPosition, facing, new FluidStack(fluid, amount), power);
+          FluidEffectProjectile projectile = new FluidEffectProjectile(level, worldPosition, facing, fluid.copyWithAmount(amount), power);
 
           // setup projectile target - numbers based on arrow dispenser behavior
           projectile.shoot(facing.getStepX(), facing.getStepY() + 0.1f, facing.getStepZ(), block.getVelocity(), block.getInaccuracy());
@@ -151,7 +152,7 @@ public class FluidCannonBlockEntity extends TankBlockEntity implements ITankInve
           fluid.shrink(amount);
           tank.setFluid(fluid);
           tank.onContentsChanged();
-          level.levelEvent(LevelEvent.PARTICLES_SHOOT, worldPosition, facing.get3DDataValue());
+          level.levelEvent(LevelEvent.PARTICLES_SHOOT_SMOKE, worldPosition, facing.get3DDataValue());
           return;
         }
       }
@@ -184,7 +185,7 @@ public class FluidCannonBlockEntity extends TankBlockEntity implements ITankInve
   @Override
   public void load(CompoundTag tag) {
     super.load(tag);
-    tank.readFromNBT(tag.getCompound(NBTTags.TANK));
+    tank.readFromNBT(TagUtil.BUILTIN_LOOKUP, tag.getCompound(NBTTags.TANK));
     if (tag.contains(TAG_ITEM, Tag.TAG_COMPOUND)) {
       itemHandler.readFromNBT(tag.getCompound(TAG_ITEM));
     }

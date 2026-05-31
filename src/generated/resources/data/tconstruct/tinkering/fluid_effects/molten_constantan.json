@@ -13,7 +13,7 @@
   ],
   "conditions": [
     {
-      "type": "forge:or",
+      "type": "neoforge:or",
       "values": [
         {
           "type": "tconstruct:config",
@@ -21,11 +21,11 @@
         },
         {
           "type": "mantle:tag_filled",
-          "tag": "forge:ingots/constantan"
+          "tag": "c:ingots/constantan"
         },
         {
           "type": "mantle:tag_filled",
-          "tag": "forge:ingots/nickel"
+          "tag": "c:ingots/nickel"
         }
       ]
     }
@@ -56,6 +56,6 @@
   ],
   "fluid": {
     "amount": 10,
-    "tag": "forge:molten_constantan"
+    "tag": "c:molten_constantan"
   }
 }

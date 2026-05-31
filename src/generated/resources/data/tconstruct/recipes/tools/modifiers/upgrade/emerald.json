@@ -1,9 +1,10 @@
 {
   "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/upgrade/emerald",
   "allow_crystal": true,
   "inputs": [
     {
-      "tag": "forge:gems/emerald"
+      "tag": "c:gems/emerald"
     }
   ],
   "level": 1,

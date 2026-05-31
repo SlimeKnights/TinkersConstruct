@@ -9,7 +9,7 @@
       "item": "tconstruct:honey_bucket"
     },
     "S": {
-      "tag": "forge:dusts/glowstone"
+      "tag": "c:dusts/glowstone"
     },
     "W": {
       "item": "tconstruct:blood_slime_tall_grass"
@@ -21,7 +21,7 @@
     "WWW"
   ],
   "result": {
-    "item": "tconstruct:blood_cake"
+    "id": "tconstruct:blood_cake"
   },
   "show_notification": true
 }

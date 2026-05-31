@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:table_casting_material",
+  "id": "tconstruct:tools/parts/casting/broad_axe_head_gold_cast",
   "cast": {
     "tag": "tconstruct:casts/multi_use/broad_axe_head"
   },

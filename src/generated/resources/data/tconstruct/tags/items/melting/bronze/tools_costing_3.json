@@ -1,11 +1,11 @@
 {
   "values": [
     {
-      "id": "#forge:tools/pickaxes/bronze",
+      "id": "#c:tools/pickaxes/bronze",
       "required": false
     },
     {
-      "id": "#forge:tools/axes/bronze",
+      "id": "#c:tools/axes/bronze",
       "required": false
     },
     {

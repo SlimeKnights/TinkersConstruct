@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/copper/oxidized",
   "ingredient": [
     {
       "item": "minecraft:exposed_copper"
@@ -22,7 +23,7 @@
   ],
   "leftover": {
     "count": 1,
-    "tag": "forge:ingots/copper"
+    "tag": "c:ingots/copper"
   },
   "material": "tconstruct:copper#oxidized",
   "needed": 1,

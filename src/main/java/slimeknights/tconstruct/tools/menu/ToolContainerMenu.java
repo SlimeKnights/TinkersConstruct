@@ -2,23 +2,30 @@ package slimeknights.tconstruct.tools.menu;
 
 import lombok.Getter;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.protocol.game.ClientboundContainerSetSlotPacket;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.CraftingContainer;
-import net.minecraft.world.inventory.CraftingMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.ResultContainer;
 import net.minecraft.world.inventory.ResultSlot;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.inventory.TransientCraftingContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.IItemHandlerModifiable;
-import net.minecraftforge.items.ItemStackHandler;
+import net.minecraft.world.item.crafting.CraftingInput;
+import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.IItemHandlerModifiable;
+import net.neoforged.neoforge.items.ItemStackHandler;
 import slimeknights.mantle.fluid.FluidTransferHelper;
 import slimeknights.mantle.fluid.transfer.IFluidContainerTransfer.TransferDirection;
 import slimeknights.mantle.fluid.transfer.IFluidContainerTransfer.TransferResult;
@@ -34,6 +41,7 @@ import slimeknights.tconstruct.library.tools.capability.inventory.ToolInventoryC
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.network.ToolContainerFluidUpdatePacket;
 
@@ -96,7 +104,7 @@ public class ToolContainerMenu extends AbstractContainerMenu {
     // when syncing the full stack, overwrite the spot in the inventory
     ItemStack stack;
     if (syncType == ToolSyncType.FULL_STACK) {
-      stack = buffer.readItem();
+      stack = ItemStack.STREAM_CODEC.decode((RegistryFriendlyByteBuf)buffer);
       inventory.setItem(slotIndex, stack);
     } else {
       stack = inventory.getItem(slotIndex);
@@ -117,8 +125,9 @@ public class ToolContainerMenu extends AbstractContainerMenu {
     }
     // if the stack looks like it could be our tool, fetch the handler from it
     IItemHandler handler;
-    if (stack.hasTag() && stack.is(TinkerTags.Items.MODIFIABLE)) {
-      handler = stack.getCapability(ForgeCapabilities.ITEM_HANDLER).filter(cap -> cap instanceof IItemHandlerModifiable).orElse(EmptyItemHandler.INSTANCE);
+    if (TagUtil.hasTag(stack) && stack.is(TinkerTags.Items.MODIFIABLE)) {
+      IItemHandler capability = stack.getCapability(Capabilities.ItemHandler.ITEM);
+      handler = capability instanceof IItemHandlerModifiable ? capability : EmptyItemHandler.INSTANCE;
       // wrong number of slots means something went wrong, use a dummy
       if (handler.getSlots() != size) {
         handler = new ItemStackHandler(size);
@@ -272,7 +281,29 @@ public class ToolContainerMenu extends AbstractContainerMenu {
   public void slotsChanged(Container pContainer) {
     super.slotsChanged(pContainer);
     if (craftingContainer != null && resultContainer != null) {
-      CraftingMenu.slotChangedCraftingGrid(this, player.level(), player, craftingContainer, resultContainer);
+      updateCraftingResult(this, player.level(), player, craftingContainer, resultContainer);
+    }
+  }
+
+  /** Updates the result slot for the embedded crafting grid. */
+  private static void updateCraftingResult(ToolContainerMenu menu, Level level, Player player, CraftingContainer craftSlots, ResultContainer resultSlots) {
+    if (!level.isClientSide) {
+      CraftingInput input = craftSlots.asCraftInput();
+      ServerPlayer serverPlayer = (ServerPlayer)player;
+      ItemStack result = ItemStack.EMPTY;
+      java.util.Optional<RecipeHolder<CraftingRecipe>> recipe = level.getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, input, level);
+      if (recipe.isPresent()) {
+        RecipeHolder<CraftingRecipe> holder = recipe.get();
+        if (resultSlots.setRecipeUsed(level, serverPlayer, holder)) {
+          ItemStack assembled = holder.value().assemble(input, level.registryAccess());
+          if (assembled.isItemEnabled(level.enabledFeatures())) {
+            result = assembled;
+          }
+        }
+      }
+      resultSlots.setItem(0, result);
+      menu.setRemoteSlot(0, result);
+      serverPlayer.connection.send(new ClientboundContainerSetSlotPacket(menu.containerId, menu.incrementStateId(), 0, result));
     }
   }
 

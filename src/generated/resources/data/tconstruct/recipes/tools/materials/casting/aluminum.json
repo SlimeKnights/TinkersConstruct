@@ -1,14 +1,15 @@
 {
   "type": "tconstruct:material_fluid",
-  "conditions": [
+  "id": "tconstruct:tools/materials/casting/aluminum",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:ingots/aluminum"
+      "tag": "c:ingots/aluminum"
     }
   ],
   "fluid": {
     "amount": 90,
-    "tag": "forge:molten_aluminum"
+    "tag": "c:molten_aluminum"
   },
   "output": "tconstruct:aluminum",
   "temperature": 425

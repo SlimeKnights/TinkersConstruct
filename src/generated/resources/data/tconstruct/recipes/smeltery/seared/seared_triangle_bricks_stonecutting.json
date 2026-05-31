@@ -3,7 +3,7 @@
   "count": 1,
   "ingredient": [
     {
-      "type": "forge:difference",
+      "type": "neoforge:difference",
       "base": {
         "tag": "tconstruct:seared_bricks"
       },
@@ -15,5 +15,7 @@
       "item": "tconstruct:seared_stone"
     }
   ],
-  "result": "tconstruct:seared_triangle_bricks"
+  "result": {
+    "id": "tconstruct:seared_triangle_bricks"
+  }
 }

@@ -4,7 +4,7 @@
   "group": "tconstruct:netherite_ingot",
   "key": {
     "#": {
-      "tag": "forge:nuggets/netherite"
+      "tag": "c:nuggets/netherite"
     },
     "*": {
       "item": "tconstruct:netherite_nugget"
@@ -16,7 +16,7 @@
     "###"
   ],
   "result": {
-    "item": "minecraft:netherite_ingot"
+    "id": "minecraft:netherite_ingot"
   },
   "show_notification": true
 }

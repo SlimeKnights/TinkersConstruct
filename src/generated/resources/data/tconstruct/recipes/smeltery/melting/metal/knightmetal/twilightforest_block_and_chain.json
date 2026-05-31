@@ -1,8 +1,9 @@
 {
   "type": "tconstruct:damagable_melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/knightmetal/twilightforest_block_and_chain",
+  "neoforge:conditions": [
     {
-      "type": "forge:item_exists",
+      "type": "neoforge:item_exists",
       "item": "twilightforest:block_and_chain"
     }
   ],

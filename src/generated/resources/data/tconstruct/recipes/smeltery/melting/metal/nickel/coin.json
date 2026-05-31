@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/nickel/coin",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:coins/nickel"
+      "tag": "c:coins/nickel"
     }
   ],
   "ingredient": {
-    "tag": "forge:coins/nickel"
+    "tag": "c:coins/nickel"
   },
   "result": {
     "amount": 30,
-    "tag": "forge:molten_nickel"
+    "tag": "c:molten_nickel"
   },
   "temperature": 950,
   "time": 43

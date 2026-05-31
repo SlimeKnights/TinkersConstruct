@@ -1,13 +1,14 @@
 {
   "type": "tconstruct:material",
-  "conditions": [
+  "id": "tconstruct:tools/materials/bronze/nugget",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:nuggets/bronze"
+      "tag": "c:nuggets/bronze"
     }
   ],
   "ingredient": {
-    "tag": "forge:nuggets/bronze"
+    "tag": "c:nuggets/bronze"
   },
   "material": "tconstruct:bronze",
   "needed": 9,

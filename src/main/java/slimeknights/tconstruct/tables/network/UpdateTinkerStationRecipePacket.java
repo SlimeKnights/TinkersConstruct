@@ -5,7 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.network.NetworkEvent.Context;
+import slimeknights.mantle.compat.neoforged.neoforge.network.NetworkEvent.Context;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.mantle.util.BlockEntityHelper;

@@ -1,20 +1,21 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/enderium/nugget_gold_cast",
   "cast": {
     "tag": "tconstruct:casts/multi_use/nugget"
   },
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:nuggets/enderium"
+      "tag": "c:nuggets/enderium"
     }
   ],
   "cooling_time": 25,
   "fluid": {
     "amount": 10,
-    "tag": "forge:molten_enderium"
+    "tag": "c:molten_enderium"
   },
   "result": {
-    "tag": "forge:nuggets/enderium"
+    "tag": "c:nuggets/enderium"
   }
 }

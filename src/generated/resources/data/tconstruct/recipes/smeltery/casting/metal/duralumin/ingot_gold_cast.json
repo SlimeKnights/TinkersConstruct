@@ -1,20 +1,21 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/duralumin/ingot_gold_cast",
   "cast": {
     "tag": "tconstruct:casts/multi_use/ingot"
   },
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:ingots/duralumin"
+      "tag": "c:ingots/duralumin"
     }
   ],
   "cooling_time": 54,
   "fluid": {
     "amount": 90,
-    "tag": "forge:molten_duralumin"
+    "tag": "c:molten_duralumin"
   },
   "result": {
-    "tag": "forge:ingots/duralumin"
+    "tag": "c:ingots/duralumin"
   }
 }

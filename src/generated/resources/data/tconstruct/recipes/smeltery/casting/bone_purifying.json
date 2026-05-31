@@ -1,13 +1,14 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/bone_purifying",
   "cast": {
-    "tag": "forge:wither_bones"
+    "tag": "c:wither_bones"
   },
   "cast_consumed": true,
   "cooling_time": 50,
   "fluid": {
     "amount": 200,
-    "tag": "forge:milk"
+    "tag": "c:milk"
   },
   "result": "minecraft:bone"
 }

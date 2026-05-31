@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.common.multiblock;
 
-import lombok.Getter;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
@@ -10,10 +10,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.registries.ForgeRegistries;
+import slimeknights.mantle.compat.neoforged.neoforge.registries.ForgeRegistries;
 import slimeknights.mantle.block.entity.MantleBlockEntity;
 import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.library.utils.TagUtil;
+import slimeknights.tconstruct.smeltery.block.component.SearedBlock;
 
 import javax.annotation.Nullable;
 
@@ -21,7 +22,6 @@ public class ServantTileEntity extends MantleBlockEntity implements IServantLogi
   private static final String TAG_MASTER_POS = "masterOffset";
   private static final String TAG_MASTER_BLOCK = "masterBlock";
 
-  @Getter
   @Nullable
   private BlockPos masterPos;
   @Nullable
@@ -34,6 +34,12 @@ public class ServantTileEntity extends MantleBlockEntity implements IServantLogi
   /** Checks if this servant has a master */
   public boolean hasMaster() {
     return masterPos != null;
+  }
+
+  @Nullable
+  @Override
+  public BlockPos getMasterPos() {
+    return masterPos;
   }
 
   /**
@@ -58,7 +64,12 @@ public class ServantTileEntity extends MantleBlockEntity implements IServantLogi
 
     // ensure the master block is correct
     assert level != null;
-    if (level.getBlockState(masterPos).getBlock() == masterBlock) {
+    BlockState masterState = level.getBlockState(masterPos);
+    if (masterState.getBlock() == masterBlock) {
+      if (masterState.hasProperty(SearedBlock.IN_STRUCTURE) && !masterState.getValue(SearedBlock.IN_STRUCTURE)) {
+        setMaster(null, null);
+        return false;
+      }
       return true;
     }
     // master invalid, so clear
@@ -129,8 +140,8 @@ public class ServantTileEntity extends MantleBlockEntity implements IServantLogi
   }
 
   @Override
-  public void load(CompoundTag tags) {
-    super.load(tags);
+  public void loadAdditional(CompoundTag tags, HolderLookup.Provider registries) {
+    super.loadAdditional(tags, registries);
     readMaster(tags);
   }
 
@@ -147,8 +158,8 @@ public class ServantTileEntity extends MantleBlockEntity implements IServantLogi
   }
 
   @Override
-  public void saveAdditional(CompoundTag tags) {
-    super.saveAdditional(tags);
+  public void saveAdditional(CompoundTag tags, HolderLookup.Provider registries) {
+    super.saveAdditional(tags, registries);
     writeMaster(tags);
   }
 }

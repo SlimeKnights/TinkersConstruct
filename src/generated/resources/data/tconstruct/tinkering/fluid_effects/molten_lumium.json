@@ -23,7 +23,7 @@
   ],
   "conditions": [
     {
-      "type": "forge:or",
+      "type": "neoforge:or",
       "values": [
         {
           "type": "tconstruct:config",
@@ -31,7 +31,7 @@
         },
         {
           "type": "mantle:tag_filled",
-          "tag": "forge:ingots/lumium"
+          "tag": "c:ingots/lumium"
         }
       ]
     }
@@ -69,6 +69,6 @@
   ],
   "fluid": {
     "amount": 10,
-    "tag": "forge:molten_lumium"
+    "tag": "c:molten_lumium"
   }
 }

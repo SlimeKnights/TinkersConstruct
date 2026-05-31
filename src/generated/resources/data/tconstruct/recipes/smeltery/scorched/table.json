@@ -15,7 +15,7 @@
     "# #"
   ],
   "result": {
-    "item": "tconstruct:scorched_table"
+    "id": "tconstruct:scorched_table"
   },
   "show_notification": true
 }

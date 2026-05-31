@@ -1,9 +1,7 @@
 package slimeknights.tconstruct.tools;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.PackOutput;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -18,12 +16,10 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.RegisterEvent;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.registries.RegisterEvent;
+import slimeknights.mantle.compat.neoforged.neoforge.registries.RegistryObject;
 import slimeknights.mantle.recipe.helper.LoadableRecipeSerializer;
 import slimeknights.mantle.recipe.helper.SimpleRecipeSerializer;
 import slimeknights.mantle.registration.object.EnumObject;
@@ -31,7 +27,6 @@ import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerEffect;
 import slimeknights.tconstruct.common.TinkerModule;
-import slimeknights.tconstruct.common.data.tags.ModifierTagProvider;
 import slimeknights.tconstruct.library.json.predicate.modifier.ModifierPredicate;
 import slimeknights.tconstruct.library.json.predicate.modifier.SingleModifierPredicate;
 import slimeknights.tconstruct.library.json.predicate.modifier.SlotTypeModifierPredicate;
@@ -193,10 +188,6 @@ import slimeknights.tconstruct.library.tools.capability.inventory.InventoryModul
 import slimeknights.tconstruct.library.tools.capability.inventory.InventorySlotMenuModule;
 import slimeknights.tconstruct.shared.TinkerEffects;
 import slimeknights.tconstruct.tables.TinkerTables;
-import slimeknights.tconstruct.tools.data.EnchantmentToModifierProvider;
-import slimeknights.tconstruct.tools.data.FluidEffectProvider;
-import slimeknights.tconstruct.tools.data.ModifierProvider;
-import slimeknights.tconstruct.tools.data.ModifierRecipeProvider;
 import slimeknights.tconstruct.tools.entity.CustomFireball;
 import slimeknights.tconstruct.tools.entity.FluidEffectProjectile;
 import slimeknights.tconstruct.tools.item.CreativeSlotItem;
@@ -352,7 +343,7 @@ public final class TinkerModifiers extends TinkerModule {
     ModifierManager.INSTANCE.init();
     DynamicModifier.init();
     FluidEffectManager.INSTANCE.init();
-    MODIFIERS.register(FMLJavaModLoadingContext.get().getModEventBus());
+    MODIFIERS.register(slimeknights.tconstruct.TConstruct.getModBus());
     TinkerDataKeys.init();
   }
 
@@ -717,7 +708,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final EnumObject<ToolType,TinkerEffect> insatiableEffect = MOB_EFFECTS.registerEnum("insatiable", new ToolType[] {ToolType.MELEE, ToolType.RANGED, ToolType.ARMOR}, type -> {
     TinkerEffect effect = new NoMilkEffect(MobEffectCategory.BENEFICIAL, 0x9261cc, true);
     if (type == ToolType.ARMOR) {
-      effect.addAttributeModifier(Attributes.ATTACK_DAMAGE, "cc6904f7-674a-4e6a-b992-4f3cb8edfef4", 1, AttributeModifier.Operation.ADDITION);
+      effect.addAttributeModifier(Attributes.ATTACK_DAMAGE, "cc6904f7-674a-4e6a-b992-4f3cb8edfef4", 1, AttributeModifier.Operation.ADD_VALUE);
     }
     return effect;
   });
@@ -768,11 +759,11 @@ public final class TinkerModifiers extends TinkerModule {
   /**
    * Loot
    */
-  public static final RegistryObject<Codec<ModifierLootModifier>> modifierLootModifier = GLOBAL_LOOT_MODIFIERS.register("modifier_hook", () -> ModifierLootModifier.CODEC);
-  public static final RegistryObject<LootItemConditionType> hasModifierLootCondition = LOOT_CONDITIONS.register("has_modifier", () -> new LootItemConditionType(new HasModifierLootCondition.ConditionSerializer()));
-  public static final RegistryObject<LootItemFunctionType> modifierBonusFunction = LOOT_FUNCTIONS.register("modifier_bonus", () -> new LootItemFunctionType(new ModifierBonusLootFunction.Serializer()));
-  public static final RegistryObject<LootItemConditionType> chrysophiliteLootCondition = LOOT_CONDITIONS.register("has_chrysophilite", () -> new LootItemConditionType(ChrysophiliteLootCondition.SERIALIZER));
-  public static final RegistryObject<LootItemFunctionType> chrysophiliteBonusFunction = LOOT_FUNCTIONS.register("chrysophilite_bonus", () -> new LootItemFunctionType(ChrysophiliteBonusFunction.SERIALIZER));
+  public static final RegistryObject<MapCodec<ModifierLootModifier>> modifierLootModifier = GLOBAL_LOOT_MODIFIERS.register("modifier_hook", () -> ModifierLootModifier.CODEC);
+  public static final RegistryObject<LootItemConditionType> hasModifierLootCondition = LOOT_CONDITIONS.register("has_modifier", () -> new LootItemConditionType(HasModifierLootCondition.CODEC));
+  public static final RegistryObject<LootItemFunctionType> modifierBonusFunction = LOOT_FUNCTIONS.register("modifier_bonus", () -> new LootItemFunctionType(ModifierBonusLootFunction.CODEC));
+  public static final RegistryObject<LootItemConditionType> chrysophiliteLootCondition = LOOT_CONDITIONS.register("has_chrysophilite", () -> new LootItemConditionType(ChrysophiliteLootCondition.CODEC));
+  public static final RegistryObject<LootItemFunctionType> chrysophiliteBonusFunction = LOOT_FUNCTIONS.register("chrysophilite_bonus", () -> new LootItemFunctionType(ChrysophiliteBonusFunction.CODEC));
 
   /*
    * Events
@@ -1081,18 +1072,6 @@ public final class TinkerModifiers extends TinkerModule {
     BlockItemProviderCapability.register();
     // by default, we support modifying projectiles (arrows or fireworks mainly, but maybe other stuff). other entities may come in the future
     EntityModifierCapability.registerEntityPredicate(entity -> entity instanceof Projectile);
-  }
-
-  @SubscribeEvent
-  void gatherData(final GatherDataEvent event) {
-    DataGenerator generator = event.getGenerator();
-    PackOutput packOutput = generator.getPackOutput();
-    boolean server = event.includeServer();
-    generator.addProvider(server, new ModifierProvider(packOutput));
-    generator.addProvider(server, new ModifierRecipeProvider(packOutput));
-    generator.addProvider(server, new FluidEffectProvider(packOutput));
-    generator.addProvider(server, new ModifierTagProvider(packOutput, event.getExistingFileHelper()));
-    generator.addProvider(server, new EnchantmentToModifierProvider(packOutput));
   }
 
   /** Adds all relevant items to the creative tab, called by general */

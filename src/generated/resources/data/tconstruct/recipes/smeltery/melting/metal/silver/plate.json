@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/silver/plate",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:plates/silver"
+      "tag": "c:plates/silver"
     }
   ],
   "ingredient": {
-    "tag": "forge:plates/silver"
+    "tag": "c:plates/silver"
   },
   "result": {
     "amount": 90,
-    "tag": "forge:molten_silver"
+    "tag": "c:molten_silver"
   },
   "temperature": 790,
   "time": 60

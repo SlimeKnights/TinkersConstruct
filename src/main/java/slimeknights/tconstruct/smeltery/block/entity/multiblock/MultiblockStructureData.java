@@ -75,7 +75,7 @@ public class MultiblockStructureData {
     innerX = maxInside.getX() - minInside.getX() + 1;
     innerY = maxInside.getY() - minInside.getY() + 1;
     innerZ = maxInside.getZ() - minInside.getZ() + 1;
-    bounds = new AABB(minInside, maxInside.offset(1, 1, 1));
+    bounds = new AABB(minInside.getX(), minInside.getY(), minInside.getZ(), maxInside.getX() + 1, maxInside.getY() + 1, maxInside.getZ() + 1);
   }
 
   /**
@@ -136,7 +136,7 @@ public class MultiblockStructureData {
       if (pos.getX() == minPos.getX() || pos.getX() == maxPos.getX()) edges++;
       if (pos.getZ() == minPos.getZ() || pos.getZ() == maxPos.getZ()) edges++;
       if ((hasFloor && pos.getY() == minPos.getY()) ||
-          (hasCeiling && pos.getX() == maxPos.getX())) edges++;
+          (hasCeiling && pos.getY() == maxPos.getY())) edges++;
       if (edges < 2) {
         return true;
       }
@@ -270,7 +270,9 @@ public class MultiblockStructureData {
   protected static ListTag writePosList(Collection<BlockPos> collection, BlockPos basePos) {
     ListTag list = new ListTag();
     for (BlockPos pos : collection) {
-      list.add(NbtUtils.writeBlockPos(pos.subtract(basePos)));
+      CompoundTag tag = new CompoundTag();
+      tag.put("pos", NbtUtils.writeBlockPos(pos.subtract(basePos)));
+      list.add(tag);
     }
     return list;
   }

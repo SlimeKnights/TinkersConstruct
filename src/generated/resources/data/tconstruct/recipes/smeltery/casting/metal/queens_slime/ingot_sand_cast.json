@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/queens_slime/ingot_sand_cast",
   "cast": {
     "tag": "tconstruct:casts/single_use/ingot"
   },
@@ -10,6 +11,6 @@
     "tag": "tconstruct:molten_queens_slime"
   },
   "result": {
-    "tag": "forge:ingots/queens_slime"
+    "tag": "c:ingots/queens_slime"
   }
 }

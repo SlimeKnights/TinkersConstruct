@@ -8,6 +8,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.BrushItem;
@@ -20,7 +21,6 @@ import net.minecraft.world.level.block.entity.BrushableBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.minecraftforge.common.ForgeMod;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.loadable.record.SingletonLoader;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -66,7 +66,7 @@ public enum BrushModule implements ModifierModule, GeneralInteractionModifierHoo
 
   /** Runs an entity raytrace for brushing. See same method on {@link BrushItem} */
   private static HitResult calculateHitResult(LivingEntity living) {
-    return ProjectileUtil.getHitResultOnViewVector(living, entity -> !entity.isSpectator() && entity.isPickable(), living.getAttributeValue(ForgeMod.BLOCK_REACH.get()));
+    return ProjectileUtil.getHitResultOnViewVector(living, entity -> !entity.isSpectator() && entity.isPickable(), living.getAttributeValue(Attributes.BLOCK_INTERACTION_RANGE));
   }
 
   @Override

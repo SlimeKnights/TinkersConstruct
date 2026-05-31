@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/dragon_scale",
   "ingredient": {
     "item": "tconstruct:dragon_scale"
   },

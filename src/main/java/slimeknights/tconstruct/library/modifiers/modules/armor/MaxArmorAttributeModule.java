@@ -41,11 +41,9 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.UUID;
-import java.util.function.Supplier;
 
 /** Module that sets an attribute value on the entity based on the largest level equipped. TODO: tooltip value on max piece. */
-public record MaxArmorAttributeModule(String unique, Attribute attribute, Operation operation, LevelingValue amount, UUID uuid, ComputableDataKey<ModifierMaxLevel> maxLevel, boolean allowBroken, @Nullable TagKey<Item> heldTag, TooltipStyle tooltipStyle, ModifierCondition<IToolStackView> condition) implements EquipmentChangeModifierHook, ModifierModule, MaxArmorLevelModule, TooltipModifierHook {
+public record MaxArmorAttributeModule(String unique, Attribute attribute, Operation operation, LevelingValue amount, ResourceLocation id, ComputableDataKey<ModifierMaxLevel> maxLevel, boolean allowBroken, @Nullable TagKey<Item> heldTag, TooltipStyle tooltipStyle, ModifierCondition<IToolStackView> condition) implements EquipmentChangeModifierHook, ModifierModule, MaxArmorLevelModule, TooltipModifierHook {
   public static final RecordLoadable<MaxArmorAttributeModule> LOADER = RecordLoadable.create(
     new AttributeUniqueField<>(MaxArmorAttributeModule::unique),
     Loadables.ATTRIBUTE.requiredField("attribute", MaxArmorAttributeModule::attribute),
@@ -62,7 +60,7 @@ public record MaxArmorAttributeModule(String unique, Attribute attribute, Operat
   public MaxArmorAttributeModule {}
 
   private MaxArmorAttributeModule(String unique, Attribute attribute, Operation operation, LevelingValue amount, boolean allowBroken, @Nullable TagKey<Item> heldTag, TooltipStyle tooltipStyle, ModifierCondition<IToolStackView> condition) {
-    this(unique, attribute, operation, amount, UUID.nameUUIDFromBytes(unique.getBytes()), MaxArmorLevelModule.createKey(BuiltInRegistries.ATTRIBUTE.getKey(attribute)), allowBroken, heldTag, tooltipStyle, condition);
+    this(unique, attribute, operation, amount, ResourceLocation.fromNamespaceAndPath("tconstruct", unique.isEmpty() ? "max_armor_attribute" : unique.replace(':', '.')), MaxArmorLevelModule.createKey(BuiltInRegistries.ATTRIBUTE.getKey(attribute)), allowBroken, heldTag, tooltipStyle, condition);
   }
 
   @Override
@@ -77,12 +75,12 @@ public record MaxArmorAttributeModule(String unique, Attribute attribute, Operat
 
   @Override
   public void updateValue(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context, Holder data, float newLevel, float oldLevel) {
-    AttributeInstance instance = context.getEntity().getAttribute(attribute);
+    AttributeInstance instance = context.getEntity().getAttribute(BuiltInRegistries.ATTRIBUTE.wrapAsHolder(attribute));
     if (instance != null) {
-      instance.removeModifier(uuid);
+      instance.removeModifier(id);
       float attributeValue = amount.computeForLevel(newLevel);
       if (attributeValue != 0) {
-        instance.addTransientModifier(new AttributeModifier(uuid, unique, attributeValue, operation));
+        instance.addTransientModifier(new AttributeModifier(id, attributeValue, operation));
       }
     }
   }
@@ -92,7 +90,7 @@ public record MaxArmorAttributeModule(String unique, Attribute attribute, Operat
     if (MaxArmorLevelModule.shouldAddTooltip(this, tool, modifier, player)) {
       float value = amount.computeForLevel(modifier.getEffectiveLevel());
       if (value != 0) {
-        AttributeModule.addTooltip(modifier.getModifier(), attribute, operation, tooltipStyle, value, uuid, player, tooltip);
+        AttributeModule.addTooltip(modifier.getModifier(), attribute, operation, tooltipStyle, value, id, player, tooltip);
       }
     }
   }
@@ -104,10 +102,9 @@ public record MaxArmorAttributeModule(String unique, Attribute attribute, Operat
     return new Builder(attribute, operation);
   }
 
-  public static Builder builder(Supplier<Attribute> attribute, Operation operation) {
-    return new Builder(attribute.get(), operation);
+  public static Builder builder(net.minecraft.core.Holder<Attribute> attribute, Operation operation) {
+    return new Builder(attribute.value(), operation);
   }
-
 
   @Setter
   @Accessors(fluent = true)

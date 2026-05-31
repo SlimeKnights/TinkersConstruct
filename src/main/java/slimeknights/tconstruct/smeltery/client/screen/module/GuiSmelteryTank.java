@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.smeltery.client.screen.module;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -8,7 +7,7 @@ import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidStack;
 import slimeknights.mantle.fluid.tooltip.FluidTooltipHandler;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
@@ -75,16 +74,16 @@ public class GuiSmelteryTank implements IScreenWithFluidTank {
    * Renders the smeltery tank
    * @param matrices  Matrix stack instance
    */
-  public void renderFluids(PoseStack matrices) {
+  public void renderFluids(GuiGraphics graphics) {
     // draw liquids
     if (tank.getContained() > 0) {
       int[] heights = calcLiquidHeights(true);
 
-      int bottom = y + width;
+      int bottom = y + height;
       for (int i = 0; i < heights.length; i++) {
         int fluidH = heights[i];
         FluidStack liquid = tank.getFluids().get(i);
-        GuiUtil.renderTiledFluid(matrices, parent, liquid, x, bottom - fluidH, width, fluidH, 100);
+        GuiUtil.renderTiledFluid(graphics, parent, liquid, x, bottom - fluidH, width, fluidH, 100);
         bottom -= fluidH;
       }
     } else if (liquidHeights != null && liquidHeights.length > 0) {
@@ -126,8 +125,8 @@ public class GuiSmelteryTank implements IScreenWithFluidTank {
    * @param mouseY    Mouse Y
    */
   public void renderHighlight(GuiGraphics graphics, int mouseX, int mouseY) {
-    int checkX = mouseX - parent.leftPos;
-    int checkY = mouseY - parent.topPos;
+    int checkX = mouseX - parent.getGuiLeft();
+    int checkY = mouseY - parent.getGuiTop();
     if (withinTank(checkX, checkY)) {
       if (tank.getContained() == 0) {
         GuiUtil.renderHighlight(graphics, x, y, width, height);
@@ -154,8 +153,8 @@ public class GuiSmelteryTank implements IScreenWithFluidTank {
    */
   public void drawTooltip(GuiGraphics graphics, int mouseX, int mouseY) {
     // Liquids
-    int checkX = mouseX - parent.leftPos;
-    int checkY = mouseY - parent.topPos;
+    int checkX = mouseX - parent.getGuiLeft();
+    int checkY = mouseY - parent.getGuiTop();
     if (withinTank(checkX, checkY)) {
       int hovered = tank.getContained() == 0 ? -1 : getFluidFromMouse(calcLiquidHeights(false), checkY);
       List<Component> tooltip;
@@ -181,7 +180,7 @@ public class GuiSmelteryTank implements IScreenWithFluidTank {
       else {
         tooltip = FluidTooltipHandler.getFluidTooltip(tank.getFluidInTank(hovered));
       }
-      graphics.renderComponentTooltip(parent.font, tooltip, mouseX, mouseY);
+      graphics.renderComponentTooltip(parent.getMinecraft().font, tooltip, mouseX, mouseY);
     }
   }
 

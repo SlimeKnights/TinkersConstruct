@@ -13,7 +13,7 @@
   ],
   "conditions": [
     {
-      "type": "forge:or",
+      "type": "neoforge:or",
       "values": [
         {
           "type": "tconstruct:config",
@@ -21,7 +21,7 @@
         },
         {
           "type": "mantle:tag_filled",
-          "tag": "forge:ingots/refined_glowstone"
+          "tag": "c:ingots/refined_glowstone"
         }
       ]
     }
@@ -45,6 +45,6 @@
   ],
   "fluid": {
     "amount": 10,
-    "tag": "forge:molten_refined_glowstone"
+    "tag": "c:molten_refined_glowstone"
   }
 }

@@ -1,18 +1,19 @@
 {
   "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/slotless/draconic_for_skull",
   "allow_crystal": true,
   "inputs": [
     {
       "item": "minecraft:dragon_head"
     },
     {
-      "tag": "forge:slimeballs"
+      "tag": "c:slimeballs"
     }
   ],
   "level": 1,
   "result": "tconstruct:draconic",
   "tools": {
-    "type": "forge:intersection",
+    "type": "neoforge:intersection",
     "children": [
       {
         "tag": "tconstruct:modifiable/bonus_slots"

@@ -6,18 +6,17 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.common.capabilities.CapabilityToken;
-import net.minecraftforge.common.capabilities.ICapabilitySerializable;
-import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
-import net.minecraftforge.common.util.Lazy;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.neoforge.common.NeoForge;
+import slimeknights.mantle.compat.neoforged.neoforge.capabilities.Capability;
+import slimeknights.tconstruct.compat.neoforged.neoforge.capabilities.CapabilityManager;
+import slimeknights.tconstruct.compat.neoforged.neoforge.capabilities.CapabilityToken;
+import slimeknights.tconstruct.compat.neoforged.neoforge.capabilities.ICapabilitySerializable;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.common.util.Lazy;
+import slimeknights.mantle.compat.neoforged.neoforge.common.util.LazyOptional;
+import slimeknights.tconstruct.compat.neoforged.neoforge.event.AttachCapabilitiesEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.bus.api.EventPriority;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.network.SyncPersistentDataPacket;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
@@ -36,32 +35,40 @@ public class PersistentDataCapability {
 
   /** Capability ID */
   private static final ResourceLocation ID = TConstruct.getResource("persistent_data");
+  private static final String DATA_KEY = ID.toString();
   /** Capability type */
   public static final Capability<ModDataNBT> CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {});
 
   /** Gets the data or warns if its missing */
   public static ModDataNBT getOrWarn(Entity entity) {
-    Optional<ModDataNBT> data = entity.getCapability(CAPABILITY).resolve();
-    if (data.isEmpty()) {
-      TConstruct.LOG.warn("Missing Tinkers NBT on entity {}, this should not happen", entity.getType());
-      return new ModDataNBT();
-    }
-    return data.get();
+    return getData(entity);
+  }
+
+  /** Gets the persistent data for an entity. */
+  public static ModDataNBT getData(Entity entity) {
+    CompoundTag persistentData = entity.getPersistentData();
+    CompoundTag data = persistentData.getCompound(DATA_KEY);
+    persistentData.put(DATA_KEY, data);
+    return ModDataNBT.readFromNBT(data);
+  }
+
+  /** Gets the persistent data as a lazy optional for old call sites. */
+  public static LazyOptional<ModDataNBT> getCapability(Entity entity) {
+    return LazyOptional.of(() -> getData(entity));
   }
 
   /** Registers this capability */
   public static void register() {
-    FMLJavaModLoadingContext.get().getModEventBus().addListener(EventPriority.NORMAL, false, RegisterCapabilitiesEvent.class, PersistentDataCapability::register);
-    MinecraftForge.EVENT_BUS.addGenericListener(Entity.class, PersistentDataCapability::attachCapability);
-    MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, PlayerEvent.Clone.class, PersistentDataCapability::playerClone);
-    MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, PlayerEvent.PlayerRespawnEvent.class, PersistentDataCapability::playerRespawn);
-    MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, PlayerEvent.PlayerChangedDimensionEvent.class, PersistentDataCapability::playerChangeDimension);
-    MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, PlayerEvent.PlayerLoggedInEvent.class, PersistentDataCapability::playerLoggedIn);
+    slimeknights.tconstruct.TConstruct.getModBus().addListener(EventPriority.NORMAL, false, RegisterCapabilitiesEvent.class, PersistentDataCapability::register);
+    NeoForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, PlayerEvent.Clone.class, PersistentDataCapability::playerClone);
+    NeoForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, PlayerEvent.PlayerRespawnEvent.class, PersistentDataCapability::playerRespawn);
+    NeoForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, PlayerEvent.PlayerChangedDimensionEvent.class, PersistentDataCapability::playerChangeDimension);
+    NeoForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, PlayerEvent.PlayerLoggedInEvent.class, PersistentDataCapability::playerLoggedIn);
   }
 
   /** Registers the capability with the event bus */
   private static void register(RegisterCapabilitiesEvent event) {
-    event.register(ModDataNBT.class);
+    // Entity data is stored in NeoForge persistent entity data for the 1.21 port.
   }
 
   /** Event listener to attach the capability */
@@ -77,20 +84,16 @@ public class PersistentDataCapability {
 
   /** Syncs the data to the given player */
   private static void sync(Player player) {
-    player.getCapability(CAPABILITY).ifPresent(data -> TinkerNetwork.getInstance().sendTo(new SyncPersistentDataPacket(data.getCopy()), player));
+    TinkerNetwork.getInstance().sendTo(new SyncPersistentDataPacket(getData(player).getCopy()), player);
   }
 
   /** copy caps when the player respawns/returns from the end */
   private static void playerClone(PlayerEvent.Clone event) {
     Player original = event.getOriginal();
-    original.reviveCaps();
-    original.getCapability(CAPABILITY).ifPresent(oldData -> {
-      CompoundTag nbt = oldData.getCopy();
-      if (!nbt.isEmpty()) {
-        event.getEntity().getCapability(CAPABILITY).ifPresent(newData -> newData.copyFrom(nbt));
-      }
-    });
-    original.invalidateCaps();
+    CompoundTag nbt = getData(original).getCopy();
+    if (!nbt.isEmpty()) {
+      getData(event.getEntity()).copyFrom(nbt);
+    }
   }
 
   /** sync caps when the player respawns/returns from the end */

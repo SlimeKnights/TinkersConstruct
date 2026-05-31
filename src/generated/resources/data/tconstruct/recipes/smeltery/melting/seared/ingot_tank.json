@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/seared/ingot_tank",
   "byproducts": [
     {
       "amount": 3000,

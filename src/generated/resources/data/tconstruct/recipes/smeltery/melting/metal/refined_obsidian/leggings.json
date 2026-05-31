@@ -1,6 +1,7 @@
 {
   "type": "tconstruct:damagable_melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/refined_obsidian/leggings",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
       "tag": "tconstruct:melting/refined_obsidian/tools_costing_7"
@@ -11,7 +12,7 @@
   },
   "result": {
     "amount": 630,
-    "tag": "forge:molten_refined_obsidian",
+    "tag": "c:molten_refined_obsidian",
     "unit_size": 10
   },
   "temperature": 1475,

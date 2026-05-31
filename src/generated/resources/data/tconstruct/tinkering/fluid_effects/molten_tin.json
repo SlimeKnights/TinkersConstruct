@@ -13,7 +13,7 @@
   ],
   "conditions": [
     {
-      "type": "forge:or",
+      "type": "neoforge:or",
       "values": [
         {
           "type": "tconstruct:config",
@@ -21,7 +21,7 @@
         },
         {
           "type": "mantle:tag_filled",
-          "tag": "forge:ingots/tin"
+          "tag": "c:ingots/tin"
         }
       ]
     }
@@ -52,6 +52,6 @@
   ],
   "fluid": {
     "amount": 10,
-    "tag": "forge:molten_tin"
+    "tag": "c:molten_tin"
   }
 }

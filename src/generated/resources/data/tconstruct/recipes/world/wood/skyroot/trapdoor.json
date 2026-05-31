@@ -13,7 +13,7 @@
   ],
   "result": {
     "count": 2,
-    "item": "tconstruct:skyroot_trapdoor"
+    "id": "tconstruct:skyroot_trapdoor"
   },
   "show_notification": true
 }

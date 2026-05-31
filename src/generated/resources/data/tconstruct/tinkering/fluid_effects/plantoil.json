@@ -3,7 +3,7 @@
     {
       "type": "mantle:tag_filled",
       "registry": "minecraft:fluid",
-      "tag": "forge:plantoil"
+      "tag": "c:plantoil"
     }
   ],
   "entity_effects": [
@@ -24,6 +24,6 @@
   ],
   "fluid": {
     "amount": 50,
-    "tag": "forge:plantoil"
+    "tag": "c:plantoil"
   }
 }

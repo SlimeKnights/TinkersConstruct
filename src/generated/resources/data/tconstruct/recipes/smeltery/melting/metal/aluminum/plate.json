@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/aluminum/plate",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:plates/aluminum"
+      "tag": "c:plates/aluminum"
     }
   ],
   "ingredient": {
-    "tag": "forge:plates/aluminum"
+    "tag": "c:plates/aluminum"
   },
   "result": {
     "amount": 90,
-    "tag": "forge:molten_aluminum"
+    "tag": "c:molten_aluminum"
   },
   "temperature": 425,
   "time": 47

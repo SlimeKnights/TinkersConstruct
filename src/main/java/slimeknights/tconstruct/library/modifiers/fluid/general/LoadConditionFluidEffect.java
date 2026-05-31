@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.library.modifiers.fluid.general;
 
-import net.minecraftforge.common.crafting.conditions.ICondition;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+import net.neoforged.neoforge.common.conditions.ICondition;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry;
 import slimeknights.tconstruct.library.modifiers.fluid.EffectLevel;

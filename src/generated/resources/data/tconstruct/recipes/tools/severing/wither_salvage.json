@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:severing",
+  "id": "tconstruct:tools/severing/wither_salvage",
   "entity": {
     "type": "minecraft:wither"
   },

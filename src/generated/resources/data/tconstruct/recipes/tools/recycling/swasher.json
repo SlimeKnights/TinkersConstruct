@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:part_builder_tool_recycling",
+  "id": "tconstruct:tools/recycling/swasher",
   "parts": [
     "tconstruct:small_blade",
     "tconstruct:tool_handle",

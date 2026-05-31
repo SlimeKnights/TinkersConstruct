@@ -3,7 +3,7 @@ package slimeknights.tconstruct.library.json.variable.mining;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent.BreakSpeed;
 import slimeknights.mantle.data.loadable.primitive.FloatLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.library.modifiers.hook.mining.BreakSpeedContext;
@@ -29,7 +29,7 @@ public record BlockTemperatureVariable(float fallback) implements MiningSpeedVar
           pos = eventPos.get();
         }
       }
-      return player.level().getBiome(pos).value().getTemperature(pos);
+      return player.level().getBiome(pos).value().getBaseTemperature();
     }
     return fallback;
   }
@@ -45,7 +45,7 @@ public record BlockTemperatureVariable(float fallback) implements MiningSpeedVar
           pos = contextPos;
         }
       }
-      return player.level().getBiome(pos).value().getTemperature(pos);
+      return player.level().getBiome(pos).value().getBaseTemperature();
     }
     return fallback;
   }

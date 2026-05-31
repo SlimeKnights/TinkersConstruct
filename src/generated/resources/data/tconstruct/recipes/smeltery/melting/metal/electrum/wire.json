@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/electrum/wire",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:wires/electrum"
+      "tag": "c:wires/electrum"
     }
   ],
   "ingredient": {
-    "tag": "forge:wires/electrum"
+    "tag": "c:wires/electrum"
   },
   "result": {
     "amount": 45,
-    "tag": "forge:molten_electrum"
+    "tag": "c:molten_electrum"
   },
   "temperature": 760,
   "time": 12

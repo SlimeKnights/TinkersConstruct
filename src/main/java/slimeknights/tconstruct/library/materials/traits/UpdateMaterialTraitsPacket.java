@@ -3,7 +3,7 @@ package slimeknights.tconstruct.library.materials.traits;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.network.NetworkEvent.Context;
+import slimeknights.mantle.compat.neoforged.neoforge.network.NetworkEvent.Context;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;

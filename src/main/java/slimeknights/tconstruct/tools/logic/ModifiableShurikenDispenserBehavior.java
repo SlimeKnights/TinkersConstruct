@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.tools.logic;
 
-import net.minecraft.core.BlockSource;
+import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Position;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
@@ -19,9 +19,9 @@ public class ModifiableShurikenDispenserBehavior extends DefaultDispenseItemBeha
 
   @Override
   public ItemStack execute(BlockSource source, ItemStack stack) {
-    Level level = source.getLevel();
+    Level level = source.level();
     Position position = DispenserBlock.getDispensePosition(source);
-    Direction direction = source.getBlockState().getValue(DispenserBlock.FACING);
+    Direction direction = source.state().getValue(DispenserBlock.FACING);
     ThrownShuriken shuriken = new ThrownShuriken(level, position.x(), position.y(), position.z());
     IToolStackView tool = shuriken.onCreate(stack, null);
     shuriken.shoot(direction.getStepX(), direction.getStepY() + 0.1F, direction.getStepZ(), tool.getStats().get(ToolStats.VELOCITY), 6);

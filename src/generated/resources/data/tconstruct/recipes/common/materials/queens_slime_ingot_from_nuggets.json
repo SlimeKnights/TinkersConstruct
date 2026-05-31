@@ -4,7 +4,7 @@
   "group": "tconstruct:queens_slime_ingot",
   "key": {
     "#": {
-      "tag": "forge:nuggets/queens_slime"
+      "tag": "c:nuggets/queens_slime"
     },
     "*": {
       "item": "tconstruct:queens_slime_nugget"
@@ -16,7 +16,7 @@
     "###"
   ],
   "result": {
-    "item": "tconstruct:queens_slime_ingot"
+    "id": "tconstruct:queens_slime_ingot"
   },
   "show_notification": true
 }

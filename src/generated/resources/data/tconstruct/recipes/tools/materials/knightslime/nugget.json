@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/knightslime/nugget",
   "ingredient": {
-    "tag": "forge:nuggets/knightslime"
+    "tag": "c:nuggets/knightslime"
   },
   "material": "tconstruct:knightslime",
   "needed": 9,

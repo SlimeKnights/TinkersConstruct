@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.json.variable.melee;
 
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraftforge.common.crafting.conditions.ICondition;
+import net.neoforged.neoforge.common.conditions.ICondition;
 import slimeknights.mantle.data.loadable.mapping.ConditionalLoadable.ConditionalObject;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;

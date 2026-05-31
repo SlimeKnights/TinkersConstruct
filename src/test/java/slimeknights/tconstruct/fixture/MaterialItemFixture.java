@@ -4,7 +4,7 @@ import net.minecraft.core.MappedRegistry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.registries.ForgeRegistries;
+import slimeknights.mantle.compat.neoforged.neoforge.registries.ForgeRegistries;
 import slimeknights.tconstruct.library.tools.part.ToolPartItem;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;

@@ -1,11 +1,11 @@
 {
   "values": [
     {
-      "id": "#forge:tools/swords/refined_obsidian",
+      "id": "#c:tools/swords/refined_obsidian",
       "required": false
     },
     {
-      "id": "#forge:tools/hoes/refined_obsidian",
+      "id": "#c:tools/hoes/refined_obsidian",
       "required": false
     }
   ]

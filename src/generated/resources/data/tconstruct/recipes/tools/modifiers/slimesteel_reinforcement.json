@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:tools/modifiers/slimesteel_reinforcement",
   "cast": {
     "item": "tconstruct:obsidian_pane"
   },

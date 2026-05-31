@@ -26,6 +26,6 @@
   ],
   "fluid": {
     "amount": 100,
-    "tag": "forge:powdered_snow"
+    "tag": "c:powdered_snow"
   }
 }

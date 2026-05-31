@@ -15,7 +15,7 @@
   ],
   "result": {
     "count": 6,
-    "item": "tconstruct:scorched_bricks_fence"
+    "id": "tconstruct:scorched_bricks_fence"
   },
   "show_notification": true
 }

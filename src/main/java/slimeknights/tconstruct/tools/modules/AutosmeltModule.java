@@ -6,7 +6,9 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.loot.LootContext;
 import org.jetbrains.annotations.ApiStatus.Internal;
@@ -21,8 +23,8 @@ import slimeknights.tconstruct.library.modifiers.hook.behavior.ProcessLootModifi
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.module.HookProvider;
 import slimeknights.tconstruct.library.module.ModuleHook;
-import slimeknights.tconstruct.library.recipe.SingleItemContainer;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
+import slimeknights.tconstruct.library.utils.TagUtil;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -40,9 +42,6 @@ public class AutosmeltModule implements ModifierModule, ProcessLootModifierHook 
       .list(ArrayLoadable.COMPACT).requiredField("recipe_types", m -> m.recipeTypes),
     FloatLoadable.PERCENT.requiredField("extra_drop_chance", m -> m.extraDropChance),
     AutosmeltModule::new);
-  /** Inventory instance to use for recipe search */
-  private static final SingleItemContainer INVENTORY = new SingleItemContainer();
-
   private final List<RecipeType<? extends AbstractCookingRecipe>> recipeTypes;
   private final float extraDropChance;
   /** Cache of relevant smelting recipes */
@@ -82,17 +81,18 @@ public class AutosmeltModule implements ModifierModule, ProcessLootModifierHook 
    * @param world  World instance
    * @return  Furnace recipe
    */
+  @SuppressWarnings({"rawtypes", "unchecked"})
   private Optional<? extends AbstractCookingRecipe> findRecipe(ItemStack stack, Level world) {
-    INVENTORY.setStack(stack);
+    SingleRecipeInput input = new SingleRecipeInput(stack);
     // try each recipe type to see if we have a recipe for any of them
     Optional<? extends AbstractCookingRecipe> recipe = Optional.empty();
     for (RecipeType<? extends AbstractCookingRecipe> recipeType : recipeTypes) {
-      recipe = world.getRecipeManager().getRecipeFor(recipeType, INVENTORY, world);
-      if (recipe.isPresent()) {
+      Optional<? extends RecipeHolder<? extends AbstractCookingRecipe>> holder = world.getRecipeManager().getRecipeFor((RecipeType)recipeType, input, world);
+      if (holder.isPresent()) {
+        recipe = holder.map(RecipeHolder::value);
         break;
       }
     }
-    INVENTORY.setStack(ItemStack.EMPTY);
     return recipe;
   }
 
@@ -105,7 +105,7 @@ public class AutosmeltModule implements ModifierModule, ProcessLootModifierHook 
   @Nullable
   private AbstractCookingRecipe findCachedRecipe(ItemStack stack, Level world) {
     // don't use the cache if there is a tag, prevent breaking NBT sensitive recipes
-    if (stack.hasTag()) {
+    if (TagUtil.hasTag(stack)) {
       return findRecipe(stack, world).orElse(null);
     }
     try {
@@ -129,9 +129,7 @@ public class AutosmeltModule implements ModifierModule, ProcessLootModifierHook 
     AbstractCookingRecipe recipe = findCachedRecipe(stack, world);
     if (recipe != null) {
       // fetch recipe result, may be input sensitive
-      INVENTORY.setStack(stack);
-      ItemStack output = recipe.assemble(INVENTORY, world.registryAccess());
-      INVENTORY.setStack(ItemStack.EMPTY);
+      ItemStack output = recipe.assemble(new SingleRecipeInput(stack), world.registryAccess());
       // scale the stack size based on the input size
       if (stack.getCount() > 1) {
         // recipe output is a copy, safe to modify

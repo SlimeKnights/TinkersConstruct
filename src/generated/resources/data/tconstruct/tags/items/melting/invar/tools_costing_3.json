@@ -1,11 +1,11 @@
 {
   "values": [
     {
-      "id": "#forge:tools/pickaxes/invar",
+      "id": "#c:tools/pickaxes/invar",
       "required": false
     },
     {
-      "id": "#forge:tools/axes/invar",
+      "id": "#c:tools/axes/invar",
       "required": false
     },
     {

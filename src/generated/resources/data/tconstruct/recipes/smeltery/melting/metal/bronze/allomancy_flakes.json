@@ -1,8 +1,9 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/bronze/allomancy_flakes",
+  "neoforge:conditions": [
     {
-      "type": "forge:item_exists",
+      "type": "neoforge:item_exists",
       "item": "allomancy:bronze_flakes"
     }
   ],
@@ -11,7 +12,7 @@
   },
   "result": {
     "amount": 30,
-    "tag": "forge:molten_bronze"
+    "tag": "c:molten_bronze"
   },
   "temperature": 700,
   "time": 33

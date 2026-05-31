@@ -1,12 +1,13 @@
 {
   "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/upgrade/netherite",
   "allow_crystal": true,
   "inputs": [
     {
       "item": "minecraft:netherite_upgrade_smithing_template"
     },
     {
-      "tag": "forge:ingots/netherite"
+      "tag": "c:ingots/netherite"
     }
   ],
   "level": 1,

@@ -4,7 +4,7 @@
   "group": "wooden_fence",
   "key": {
     "#": {
-      "tag": "forge:rods/wooden"
+      "tag": "c:rods/wooden"
     },
     "W": {
       "item": "tconstruct:skyroot_planks"
@@ -16,7 +16,7 @@
   ],
   "result": {
     "count": 3,
-    "item": "tconstruct:skyroot_fence"
+    "id": "tconstruct:skyroot_fence"
   },
   "show_notification": true
 }

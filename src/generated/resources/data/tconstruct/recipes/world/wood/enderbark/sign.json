@@ -7,7 +7,7 @@
       "item": "tconstruct:enderbark_planks"
     },
     "X": {
-      "tag": "forge:rods/wooden"
+      "tag": "c:rods/wooden"
     }
   },
   "pattern": [
@@ -17,7 +17,7 @@
   ],
   "result": {
     "count": 3,
-    "item": "tconstruct:enderbark_sign"
+    "id": "tconstruct:enderbark_sign"
   },
   "show_notification": true
 }

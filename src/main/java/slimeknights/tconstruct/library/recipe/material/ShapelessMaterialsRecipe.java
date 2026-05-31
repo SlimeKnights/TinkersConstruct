@@ -3,13 +3,13 @@ package slimeknights.tconstruct.library.recipe.material;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import lombok.Getter;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
-import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -28,6 +28,7 @@ import java.util.List;
  * {@link slimeknights.tconstruct.library.recipe.ingredient.MaterialValueIngredient} to set the materials of the result.
  */
 public class ShapelessMaterialsRecipe extends ShapelessRecipe implements MaterialsCraftingTableRecipe {
+  private final ResourceLocation id;
   /** Number of parts to match */
   @Getter
   private final int partCount;
@@ -36,13 +37,18 @@ public class ShapelessMaterialsRecipe extends ShapelessRecipe implements Materia
   private final List<MaterialVariantId> extraMaterials;
 
   public ShapelessMaterialsRecipe(ResourceLocation id, String group, CraftingBookCategory category, ItemStack result, NonNullList<Ingredient> ingredients, int partCount, List<MaterialVariantId> extraMaterials) {
-    super(id, group, category, result, ingredients);
+    super(group, category, result, ingredients);
+    this.id = id;
     this.partCount = partCount;
     this.extraMaterials = extraMaterials;
   }
 
   public ShapelessMaterialsRecipe(ShapelessRecipe recipe, int partCount, List<MaterialVariantId> extraMaterials) {
-    this(recipe.getId(), recipe.getGroup(), recipe.category(), recipe.result, recipe.getIngredients(), partCount, extraMaterials);
+    this(LoggingRecipeSerializer.UNKNOWN_ID, recipe.getGroup(), recipe.category(), recipe.getResultItem(null), recipe.getIngredients(), partCount, extraMaterials);
+  }
+
+  public ResourceLocation getId() {
+    return id;
   }
 
   @Override
@@ -57,7 +63,7 @@ public class ShapelessMaterialsRecipe extends ShapelessRecipe implements Materia
   }
 
   @Override
-  public ItemStack assemble(CraftingContainer inventory, RegistryAccess registryAccess) {
+  public ItemStack assemble(CraftingInput inventory, HolderLookup.Provider registryAccess) {
     return ShapedMaterialsRecipe.assemble(super.assemble(inventory, registryAccess), inventory, getIngredients(), partCount, false, extraMaterials);
   }
 
@@ -77,7 +83,7 @@ public class ShapelessMaterialsRecipe extends ShapelessRecipe implements Materia
       if (parts < 1 || parts > vanilla.getIngredients().size()) {
         throw new JsonSyntaxException("Parts must be between 1 and the number of ingredients " + vanilla.getIngredients().size());
       }
-      return new ShapelessMaterialsRecipe(vanilla, parts, MATERIAL_FIELD.get(json));
+      return new ShapelessMaterialsRecipe(recipeId, vanilla.getGroup(), vanilla.category(), vanilla.getResultItem(null), vanilla.getIngredients(), parts, MATERIAL_FIELD.get(json));
     }
 
     @Override

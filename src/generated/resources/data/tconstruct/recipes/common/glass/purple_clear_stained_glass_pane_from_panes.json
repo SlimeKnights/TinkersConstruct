@@ -7,7 +7,7 @@
       "item": "tconstruct:clear_glass_pane"
     },
     "X": {
-      "tag": "forge:dyes/purple"
+      "tag": "c:dyes/purple"
     }
   },
   "pattern": [
@@ -17,7 +17,7 @@
   ],
   "result": {
     "count": 8,
-    "item": "tconstruct:purple_clear_stained_glass_pane"
+    "id": "tconstruct:purple_clear_stained_glass_pane"
   },
   "show_notification": true
 }

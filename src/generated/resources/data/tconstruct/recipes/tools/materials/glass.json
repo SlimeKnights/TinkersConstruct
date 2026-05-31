@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/glass",
   "ingredient": {
-    "tag": "forge:glass"
+    "tag": "c:glass"
   },
   "material": "tconstruct:glass",
   "needed": 1,

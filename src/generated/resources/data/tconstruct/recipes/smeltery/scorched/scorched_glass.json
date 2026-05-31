@@ -3,7 +3,7 @@
   "category": "building",
   "key": {
     "G": {
-      "tag": "forge:gems/quartz"
+      "tag": "c:gems/quartz"
     },
     "b": {
       "item": "tconstruct:scorched_brick"
@@ -15,7 +15,7 @@
     " b "
   ],
   "result": {
-    "item": "tconstruct:scorched_glass"
+    "id": "tconstruct:scorched_glass"
   },
   "show_notification": true
 }

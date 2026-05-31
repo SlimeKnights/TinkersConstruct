@@ -1,6 +1,7 @@
 {
   "type": "tconstruct:damagable_melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/steel/leggings",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
       "tag": "tconstruct:melting/steel/tools_costing_7"
@@ -11,7 +12,7 @@
   },
   "result": {
     "amount": 630,
-    "tag": "forge:molten_steel",
+    "tag": "c:molten_steel",
     "unit_size": 10
   },
   "temperature": 950,

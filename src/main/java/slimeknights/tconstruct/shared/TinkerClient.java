@@ -16,13 +16,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RecipesUpdatedEvent;
-import net.minecraftforge.client.event.RenderBlockScreenEffectEvent;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.neoforge.client.event.RecipesUpdatedEvent;
+import net.neoforged.neoforge.client.event.RenderBlockScreenEffectEvent;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.common.EventBusSubscriber.Bus;
 import org.joml.Matrix4f;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -65,7 +65,7 @@ import static slimeknights.tconstruct.TConstruct.getResource;
 /**
  * This class should only be referenced on the client side
  */
-@EventBusSubscriber(modid = TConstruct.MOD_ID, value = Dist.CLIENT, bus = Bus.FORGE)
+@EventBusSubscriber(modid = TConstruct.MOD_ID, value = Dist.CLIENT, bus = Bus.GAME)
 public class TinkerClient {
   /**
    * Called by TConstruct to handle any client side logic that needs to run during the constructor
@@ -78,7 +78,7 @@ public class TinkerClient {
 
     // add the recipe cache invalidator to the client
     Consumer<RecipesUpdatedEvent> recipesUpdated = event -> RecipeCacheInvalidator.reload(true);
-    MinecraftForge.EVENT_BUS.addListener(recipesUpdated);
+    NeoForge.EVENT_BUS.addListener(recipesUpdated);
 
     // register datagen serializers
     ISpriteTransformer.SERIALIZER.registerDeserializer(RecolorSpriteTransformer.NAME, RecolorSpriteTransformer.DESERIALIZER);
@@ -130,8 +130,6 @@ public class TinkerClient {
         RenderSystem.setShaderTexture(0, texture.atlasLocation());
         // changed: shader using pos tex
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        BufferBuilder bufferbuilder = Tesselator.getInstance().getBuilder();
-
         // change: handle brightness based on renderWater, and enable blend
         Player player = minecraft.player;
         BlockPos blockpos = BlockPos.containing(player.getX(), player.getEyeY(), player.getZ());
@@ -146,13 +144,13 @@ public class TinkerClient {
         float v0 = texture.getV0();
         float v1 = texture.getV1();
         Matrix4f matrix4f = event.getPoseStack().last().pose();
-        bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+        BufferBuilder bufferbuilder = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
         // change: dropped color, see above
-        bufferbuilder.vertex(matrix4f, -1, -1, -0.5f).uv(u1, v1).endVertex();
-        bufferbuilder.vertex(matrix4f, 1, -1, -0.5f).uv(u0, v1).endVertex();
-        bufferbuilder.vertex(matrix4f, 1, 1, -0.5f).uv(u0, v0).endVertex();
-        bufferbuilder.vertex(matrix4f, -1, 1, -0.5f).uv(u1, v0).endVertex();
-        BufferUploader.drawWithShader(bufferbuilder.end());
+        bufferbuilder.addVertex(matrix4f, -1, -1, -0.5f).setUv(u1, v1);
+        bufferbuilder.addVertex(matrix4f, 1, -1, -0.5f).setUv(u0, v1);
+        bufferbuilder.addVertex(matrix4f, 1, 1, -0.5f).setUv(u0, v0);
+        bufferbuilder.addVertex(matrix4f, -1, 1, -0.5f).setUv(u1, v0);
+        BufferUploader.drawWithShader(bufferbuilder.buildOrThrow());
         // changed: disable blend
         RenderSystem.disableBlend();
       }

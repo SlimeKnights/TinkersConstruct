@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:item_part_builder",
+  "id": "tconstruct:tools/parts/builder/chestplate_plating",
   "cost": 6,
   "material": "tconstruct:rock",
   "pattern": "tconstruct:chestplate_plating",

@@ -1,11 +1,12 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/slime/earth/sapling",
   "ingredient": {
     "item": "tconstruct:earth_slime_sapling"
   },
   "result": {
     "amount": 250,
-    "tag": "forge:slime"
+    "tag": "c:slime"
   },
   "temperature": 50,
   "time": 51

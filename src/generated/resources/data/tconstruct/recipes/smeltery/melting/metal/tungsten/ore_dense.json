@@ -1,85 +1,29 @@
 {
-  "type": "forge:conditional",
-  "conditions": [
+  "type": "tconstruct:ore_melting",
+  "id": "tconstruct:smeltery/melting/metal/tungsten/ore_dense",
+  "byproducts": [
     {
-      "type": "mantle:tag_combination_filled",
-      "match": [
-        "forge:ores/tungsten",
-        "forge:ore_rates/dense"
-      ]
+      "amount": 540,
+      "rate": "metal",
+      "tag": "c:molten_gold"
     }
   ],
-  "recipes": [
-    {
-      "conditions": [
-        {
-          "type": "mantle:tag_filled",
-          "tag": "forge:ingots/platinum"
-        }
-      ],
-      "recipe": {
-        "type": "tconstruct:ore_melting",
-        "byproducts": [
-          {
-            "amount": 540,
-            "rate": "metal",
-            "tag": "forge:molten_platinum"
-          }
-        ],
-        "ingredient": {
-          "type": "forge:intersection",
-          "children": [
-            {
-              "tag": "forge:ores/tungsten"
-            },
-            {
-              "tag": "forge:ore_rates/dense"
-            }
-          ]
-        },
-        "rate": "metal",
-        "result": {
-          "amount": 540,
-          "tag": "forge:molten_tungsten"
-        },
-        "temperature": 950,
-        "time": 292
+  "ingredient": {
+    "type": "neoforge:intersection",
+    "children": [
+      {
+        "tag": "c:ores/tungsten"
+      },
+      {
+        "tag": "c:ore_rates/dense"
       }
-    },
-    {
-      "conditions": [
-        {
-          "type": "forge:true"
-        }
-      ],
-      "recipe": {
-        "type": "tconstruct:ore_melting",
-        "byproducts": [
-          {
-            "amount": 540,
-            "rate": "metal",
-            "tag": "forge:molten_gold"
-          }
-        ],
-        "ingredient": {
-          "type": "forge:intersection",
-          "children": [
-            {
-              "tag": "forge:ores/tungsten"
-            },
-            {
-              "tag": "forge:ore_rates/dense"
-            }
-          ]
-        },
-        "rate": "metal",
-        "result": {
-          "amount": 540,
-          "tag": "forge:molten_tungsten"
-        },
-        "temperature": 950,
-        "time": 292
-      }
-    }
-  ]
+    ]
+  },
+  "rate": "metal",
+  "result": {
+    "amount": 540,
+    "tag": "c:molten_tungsten"
+  },
+  "temperature": 950,
+  "time": 292
 }

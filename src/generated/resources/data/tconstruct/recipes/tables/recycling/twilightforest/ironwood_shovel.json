@@ -1,8 +1,9 @@
 {
   "type": "tconstruct:part_builder_recycling",
-  "conditions": [
+  "id": "tconstruct:tables/recycling/twilightforest/ironwood_shovel",
+  "neoforge:conditions": [
     {
-      "type": "forge:mod_loaded",
+      "type": "neoforge:mod_loaded",
       "modid": "twilightforest"
     }
   ],
@@ -12,7 +13,7 @@
   "results": {
     "tconstruct:ingot": {
       "count": 1,
-      "tag": "forge:ingots/ironwood"
+      "tag": "c:ingots/ironwood"
     }
   },
   "tool": {

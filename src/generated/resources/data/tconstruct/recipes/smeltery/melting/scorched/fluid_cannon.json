@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/scorched/fluid_cannon",
   "byproducts": [
     {
       "amount": 1000,
@@ -15,7 +16,7 @@
   },
   "result": {
     "amount": 450,
-    "tag": "forge:molten_cobalt"
+    "tag": "c:molten_cobalt"
   },
   "temperature": 950,
   "time": 227

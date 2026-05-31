@@ -1,12 +1,13 @@
 {
   "type": "tconstruct:alloy",
-  "conditions": [
+  "id": "tconstruct:smeltery/alloys/molten_invar",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:ingots/nickel"
+      "tag": "c:ingots/nickel"
     },
     {
-      "type": "forge:or",
+      "type": "neoforge:or",
       "values": [
         {
           "type": "tconstruct:config",
@@ -14,7 +15,7 @@
         },
         {
           "type": "mantle:tag_filled",
-          "tag": "forge:ingots/invar"
+          "tag": "c:ingots/invar"
         }
       ]
     }
@@ -22,16 +23,16 @@
   "inputs": [
     {
       "amount": 180,
-      "tag": "forge:molten_iron"
+      "tag": "c:molten_iron"
     },
     {
       "amount": 90,
-      "tag": "forge:molten_nickel"
+      "tag": "c:molten_nickel"
     }
   ],
   "result": {
     "amount": 270,
-    "tag": "forge:molten_invar"
+    "tag": "c:molten_invar"
   },
   "temperature": 900
 }

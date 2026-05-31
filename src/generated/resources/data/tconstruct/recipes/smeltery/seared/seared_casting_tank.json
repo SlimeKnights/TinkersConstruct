@@ -6,10 +6,10 @@
       "item": "tconstruct:seared_brick"
     },
     "C": {
-      "tag": "forge:ingots/copper"
+      "tag": "c:ingots/copper"
     },
     "G": {
-      "tag": "forge:glass"
+      "tag": "c:glass"
     }
   },
   "pattern": [
@@ -18,7 +18,7 @@
     "BGB"
   ],
   "result": {
-    "item": "tconstruct:seared_casting_tank"
+    "id": "tconstruct:seared_casting_tank"
   },
   "show_notification": true
 }

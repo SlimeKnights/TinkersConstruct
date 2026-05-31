@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:part_builder_recycling",
+  "id": "tconstruct:tables/recycling/flint_and_steel",
   "pattern": {
     "item": "tconstruct:venom_bottle"
   },

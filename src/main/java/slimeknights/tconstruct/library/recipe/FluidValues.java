@@ -2,7 +2,7 @@ package slimeknights.tconstruct.library.recipe;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import net.minecraftforge.fluids.FluidType;
+import net.neoforged.neoforge.fluids.FluidType;
 
 /**
  * These values define common amounts of fluids used in recipes.

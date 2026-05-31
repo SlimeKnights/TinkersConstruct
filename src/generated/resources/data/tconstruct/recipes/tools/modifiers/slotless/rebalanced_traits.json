@@ -1,15 +1,16 @@
 {
   "type": "tconstruct:swappable_modifier",
+  "id": "tconstruct:tools/modifiers/slotless/rebalanced_traits",
   "allow_crystal": false,
   "inputs": [
     {
-      "tag": "forge:nuggets/manyullyn"
+      "tag": "c:nuggets/manyullyn"
     },
     {
       "item": "minecraft:end_crystal"
     },
     {
-      "tag": "forge:nuggets/manyullyn"
+      "tag": "c:nuggets/manyullyn"
     },
     {
       "item": "tconstruct:ender_slime_crystal_block"

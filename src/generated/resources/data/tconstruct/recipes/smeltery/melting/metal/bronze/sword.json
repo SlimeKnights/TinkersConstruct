@@ -1,6 +1,7 @@
 {
   "type": "tconstruct:damagable_melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/bronze/sword",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
       "tag": "tconstruct:melting/bronze/tools_costing_2"
@@ -11,7 +12,7 @@
   },
   "result": {
     "amount": 180,
-    "tag": "forge:molten_bronze",
+    "tag": "c:molten_bronze",
     "unit_size": 10
   },
   "temperature": 700,

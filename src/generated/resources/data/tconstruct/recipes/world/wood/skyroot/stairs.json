@@ -14,7 +14,7 @@
   ],
   "result": {
     "count": 4,
-    "item": "tconstruct:skyroot_planks_stairs"
+    "id": "tconstruct:skyroot_planks_stairs"
   },
   "show_notification": true
 }

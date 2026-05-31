@@ -1,21 +1,22 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/aluminum/rod_sand_cast",
   "cast": {
     "tag": "tconstruct:casts/single_use/rod"
   },
   "cast_consumed": true,
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:rods/aluminum"
+      "tag": "c:rods/aluminum"
     }
   ],
   "cooling_time": 33,
   "fluid": {
     "amount": 45,
-    "tag": "forge:molten_aluminum"
+    "tag": "c:molten_aluminum"
   },
   "result": {
-    "tag": "forge:rods/aluminum"
+    "tag": "c:rods/aluminum"
   }
 }

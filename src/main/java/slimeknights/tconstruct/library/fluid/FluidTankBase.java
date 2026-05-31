@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.library.fluid;
 
 import net.minecraft.world.level.Level;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.templates.FluidTank;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import slimeknights.mantle.block.entity.MantleBlockEntity;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
@@ -35,7 +35,7 @@ public class FluidTankBase<T extends MantleBlockEntity> extends FluidTank {
       // FIX: the Forge implementation returns fluid.getAmount() here, which may be wrong if the fluid gets changed during onContentsChanged()
       // we instead use a local variable for the amount filled to guarantee its accurate
       int filled = Math.min(capacity, resource.getAmount());
-      fluid = new FluidStack(resource, filled);
+      fluid = resource.copyWithAmount(filled);
       onContentsChanged();
       return filled;
     }

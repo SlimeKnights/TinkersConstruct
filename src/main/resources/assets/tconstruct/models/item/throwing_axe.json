@@ -1,6 +1,6 @@
 {
   "loader": "tconstruct:tool",
-  "parent": "forge:item/default-tool",
+  "parent": "neoforge:item/default-tool",
   "textures": {
     "head":  "tconstruct:item/tool/ammo/axe_head",
     "shaft": "tconstruct:item/tool/ammo/arrow_shaft"

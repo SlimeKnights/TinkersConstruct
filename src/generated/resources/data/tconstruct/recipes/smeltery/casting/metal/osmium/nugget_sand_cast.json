@@ -1,21 +1,22 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/osmium/nugget_sand_cast",
   "cast": {
     "tag": "tconstruct:casts/single_use/nugget"
   },
   "cast_consumed": true,
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:nuggets/osmium"
+      "tag": "c:nuggets/osmium"
     }
   ],
   "cooling_time": 22,
   "fluid": {
     "amount": 10,
-    "tag": "forge:molten_osmium"
+    "tag": "c:molten_osmium"
   },
   "result": {
-    "tag": "forge:nuggets/osmium"
+    "tag": "c:nuggets/osmium"
   }
 }

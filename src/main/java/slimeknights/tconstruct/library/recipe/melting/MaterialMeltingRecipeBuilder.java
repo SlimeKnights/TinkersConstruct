@@ -2,10 +2,10 @@ package slimeknights.tconstruct.library.recipe.melting;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.data.recipes.FinishedRecipe;
+import slimeknights.mantle.compat.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraftforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.mantle.recipe.helper.FluidOutput;
 import slimeknights.mantle.registration.object.FluidObject;

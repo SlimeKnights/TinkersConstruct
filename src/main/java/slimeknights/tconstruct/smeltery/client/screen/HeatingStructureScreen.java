@@ -98,11 +98,11 @@ public class HeatingStructureScreen extends MultiModuleScreen<HeatingStructureCo
       fuel.draw(graphics);
     }
 
+    // Draw the main tank before submodules; module screens mutate layout state while drawing.
+    if (tank != null) tank.renderFluids(graphics);
+
     // draw other components
     super.renderBg(graphics, partialTicks, mouseX, mouseY);
-
-    // render fluids
-    if (tank != null) tank.renderFluids(graphics.pose());
   }
 
   /** Checks if the bucket button is hovered */

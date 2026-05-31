@@ -19,8 +19,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.ToolAction;
-import net.minecraftforge.common.ToolActions;
+import net.neoforged.neoforge.common.ItemAbility;
+import net.neoforged.neoforge.common.ItemAbilities;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
@@ -32,6 +32,7 @@ import slimeknights.tconstruct.library.tools.item.ranged.ModifiableLauncherItem;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 import javax.annotation.Nonnull;
@@ -92,7 +93,7 @@ public final class ModifierUtil {
    */
   public static int getModifierLevel(ItemStack stack, ModifierId modifier) {
     if (!stack.isEmpty() && stack.is(TinkerTags.Items.MODIFIABLE)) {
-      CompoundTag nbt = stack.getTag();
+      CompoundTag nbt = TagUtil.getTag(stack);
       if (nbt != null && nbt.contains(ToolStack.TAG_MODIFIERS, Tag.TAG_LIST)) {
         ListTag list = nbt.getList(ToolStack.TAG_MODIFIERS, Tag.TAG_COMPOUND);
         int size = list.size();
@@ -113,7 +114,7 @@ public final class ModifierUtil {
   /** Checks if the given stack has upgrades */
   public static boolean hasUpgrades(ItemStack stack) {
     if (!stack.isEmpty() && stack.is(TinkerTags.Items.MODIFIABLE)) {
-      CompoundTag nbt = stack.getTag();
+      CompoundTag nbt = TagUtil.getTag(stack);
       return nbt != null && !nbt.getList(ToolStack.TAG_UPGRADES, Tag.TAG_COMPOUND).isEmpty();
     }
     return false;
@@ -131,7 +132,7 @@ public final class ModifierUtil {
 
   /** Shortcut to get a volatile flag when the tool stack is not needed otherwise */
   public static boolean checkVolatileFlag(ItemStack stack, ResourceLocation flag) {
-    CompoundTag nbt = stack.getTag();
+    CompoundTag nbt = TagUtil.getTag(stack);
     if (nbt != null && nbt.contains(ToolStack.TAG_VOLATILE_MOD_DATA, Tag.TAG_COMPOUND)) {
       return nbt.getCompound(ToolStack.TAG_VOLATILE_MOD_DATA).getBoolean(flag.toString());
     }
@@ -140,7 +141,7 @@ public final class ModifierUtil {
 
   /** Shortcut to get a persistent flag when the tool stack is not needed otherwise */
   public static boolean checkPersistentPresent(ItemStack stack, ResourceLocation key) {
-    CompoundTag nbt = stack.getTag();
+    CompoundTag nbt = TagUtil.getTag(stack);
     if (nbt != null && nbt.contains(ToolStack.TAG_VOLATILE_MOD_DATA, Tag.TAG_COMPOUND)) {
       return nbt.getCompound(ToolStack.TAG_VOLATILE_MOD_DATA).contains(key.toString());
     }
@@ -149,7 +150,7 @@ public final class ModifierUtil {
 
   /** Shortcut to get a volatile int value when the tool stack is not needed otherwise */
   public static int getVolatileInt(ItemStack stack, ResourceLocation flag) {
-    CompoundTag nbt = stack.getTag();
+    CompoundTag nbt = TagUtil.getTag(stack);
     if (nbt != null && nbt.contains(ToolStack.TAG_VOLATILE_MOD_DATA, Tag.TAG_COMPOUND)) {
       return nbt.getCompound(ToolStack.TAG_VOLATILE_MOD_DATA).getInt(flag.toString());
     }
@@ -158,7 +159,7 @@ public final class ModifierUtil {
 
   /** Shortcut to get a volatile int value when the tool stack is not needed otherwise */
   public static int getPersistentInt(ItemStack stack, ResourceLocation flag, int defealtValue) {
-    CompoundTag nbt = stack.getTag();
+    CompoundTag nbt = TagUtil.getTag(stack);
     if (nbt != null && nbt.contains(ToolStack.TAG_PERSISTENT_MOD_DATA, Tag.TAG_COMPOUND)) {
       CompoundTag persistent = nbt.getCompound(ToolStack.TAG_PERSISTENT_MOD_DATA);
       String flagString = flag.toString();
@@ -171,7 +172,7 @@ public final class ModifierUtil {
 
   /** Shortcut to get a persistent string value when the tool stack is not needed otherwise */
   public static String getPersistentString(ItemStack stack, ResourceLocation flag) {
-    CompoundTag nbt = stack.getTag();
+    CompoundTag nbt = TagUtil.getTag(stack);
     if (nbt != null && nbt.contains(ToolStack.TAG_PERSISTENT_MOD_DATA, Tag.TAG_COMPOUND)) {
       return nbt.getCompound(ToolStack.TAG_PERSISTENT_MOD_DATA).getString(flag.toString());
     }
@@ -179,7 +180,7 @@ public final class ModifierUtil {
   }
 
   /** Checks if a tool can perform the given action */
-  public static boolean canPerformAction(IToolStackView tool, ToolAction action) {
+  public static boolean canPerformAction(IToolStackView tool, ItemAbility action) {
     if (!tool.isBroken()) {
       // can the tool do this action inherently?
       if (tool.getHook(ToolHooks.TOOL_ACTION).canPerformAction(tool, action)) {
@@ -199,7 +200,7 @@ public final class ModifierUtil {
    * Allows your tool to block while charging up.
    */
   public static UseAnim blockWhileCharging(IToolStackView tool, UseAnim fallback) {
-    return canPerformAction(tool, ToolActions.SHIELD_BLOCK) ? UseAnim.BLOCK : fallback;
+    return canPerformAction(tool, ItemAbilities.SHIELD_BLOCK) ? UseAnim.BLOCK : fallback;
   }
 
   /** Calculates inaccuracy from the conditional tool stat. */
@@ -248,9 +249,9 @@ public final class ModifierUtil {
       ItemStack stack = living.getMainHandItem();
       InteractionHand hand = InteractionHand.MAIN_HAND;
       // must be able to cast
-      if (!stack.canPerformAction(ToolActions.FISHING_ROD_CAST)) {
+      if (!stack.canPerformAction(ItemAbilities.FISHING_ROD_CAST)) {
         stack = living.getOffhandItem();
-        if (!stack.canPerformAction(ToolActions.FISHING_ROD_CAST)) {
+        if (!stack.canPerformAction(ItemAbilities.FISHING_ROD_CAST)) {
           return null;
         }
         hand = InteractionHand.OFF_HAND;

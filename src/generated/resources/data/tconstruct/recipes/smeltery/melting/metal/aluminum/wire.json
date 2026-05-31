@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/aluminum/wire",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:wires/aluminum"
+      "tag": "c:wires/aluminum"
     }
   ],
   "ingredient": {
-    "tag": "forge:wires/aluminum"
+    "tag": "c:wires/aluminum"
   },
   "result": {
     "amount": 45,
-    "tag": "forge:molten_aluminum"
+    "tag": "c:molten_aluminum"
   },
   "temperature": 425,
   "time": 9

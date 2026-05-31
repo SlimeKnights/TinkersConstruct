@@ -13,7 +13,7 @@
   ],
   "conditions": [
     {
-      "type": "forge:or",
+      "type": "neoforge:or",
       "values": [
         {
           "type": "tconstruct:config",
@@ -21,7 +21,7 @@
         },
         {
           "type": "mantle:tag_filled",
-          "tag": "forge:ingots/uranium"
+          "tag": "c:ingots/uranium"
         }
       ]
     }
@@ -52,6 +52,6 @@
   ],
   "fluid": {
     "amount": 10,
-    "tag": "forge:molten_uranium"
+    "tag": "c:molten_uranium"
   }
 }

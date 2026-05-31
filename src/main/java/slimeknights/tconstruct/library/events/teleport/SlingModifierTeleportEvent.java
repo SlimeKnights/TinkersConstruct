@@ -2,7 +2,7 @@ package slimeknights.tconstruct.library.events.teleport;
 
 import lombok.Getter;
 import net.minecraft.world.entity.Entity;
-import net.minecraftforge.eventbus.api.Cancelable;
+import slimeknights.tconstruct.compat.neoforged.bus.api.Cancelable;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 

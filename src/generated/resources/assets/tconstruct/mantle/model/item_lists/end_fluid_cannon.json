@@ -8,7 +8,7 @@
         8.0
       ],
       "size": 7.5,
-      "transform": "tconstruct:fluid_cannon",
+      "transform": "minecraft:fixed",
       "x": 90
     },
     "facing=up": {
@@ -18,7 +18,7 @@
         8.0
       ],
       "size": 7.5,
-      "transform": "tconstruct:fluid_cannon",
+      "transform": "minecraft:fixed",
       "x": 270
     }
   }

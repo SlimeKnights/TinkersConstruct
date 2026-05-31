@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:crafting_overslime_modifier",
+  "id": "tconstruct:tools/modifiers/slotless/overslime/sky_bottle_crafting_table",
   "ingredient": {
     "item": "tconstruct:sky_slime_bottle"
   },

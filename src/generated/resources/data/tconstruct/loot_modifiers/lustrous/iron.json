@@ -3,7 +3,7 @@
   "conditions": [
     {
       "condition": "mantle:block_tag",
-      "tag": "forge:ores/iron"
+      "tag": "c:ores/iron"
     },
     {
       "condition": "tconstruct:has_modifier",
@@ -12,7 +12,7 @@
   ],
   "entry": {
     "type": "mantle:tag_preference",
-    "tag": "forge:nuggets/iron"
+    "tag": "c:nuggets/iron"
   },
   "functions": [
     {
@@ -40,7 +40,7 @@
       "condition": {
         "type": "mantle:contains_item",
         "ingredient": {
-          "tag": "forge:ores/iron"
+          "tag": "c:ores/iron"
         }
       }
     }

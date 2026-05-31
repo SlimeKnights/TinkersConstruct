@@ -10,7 +10,7 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.Tags.Items;
+import net.neoforged.neoforge.common.Tags.Items;
 import slimeknights.mantle.recipe.IMultiRecipe;
 import slimeknights.mantle.util.RegistryHelper;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -94,10 +94,10 @@ public class ArmorDyeingRecipe implements ITinkerStationRecipe, IMultiRecipe<IDi
       if (!stack.isEmpty()) {
         DyeColor dye = DyeColor.getColor(stack);
         if (dye != null) {
-          float[] color = dye.getTextureDiffuseColors();
-          int r = (int)(color[0] * 255);
-          int g = (int)(color[1] * 255);
-          int b = (int)(color[2] * 255);
+          int color = dye.getTextureDiffuseColor();
+          int r = color >> 16 & 255;
+          int g = color >>  8 & 255;
+          int b = color       & 255;
           brightness += Math.max(r, Math.max(g, b));
           nr += r;
           ng += g;

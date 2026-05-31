@@ -2,12 +2,11 @@ package slimeknights.tconstruct.library.recipe.ingredient;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import it.unimi.dsi.fastutil.ints.IntArrayList;
-import it.unimi.dsi.fastutil.ints.IntComparators;
-import it.unimi.dsi.fastutil.ints.IntList;
 import lombok.RequiredArgsConstructor;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -15,29 +14,33 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.common.crafting.AbstractIngredient;
-import net.minecraftforge.common.crafting.IIngredientSerializer;
+import net.minecraft.world.level.block.Blocks;
+import net.neoforged.neoforge.common.crafting.ICustomIngredient;
+import slimeknights.mantle.compat.neoforged.neoforge.common.crafting.IIngredientSerializer;
+import net.neoforged.neoforge.common.crafting.IngredientType;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.util.RegistryHelper;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.shared.TinkerCommons;
 
 import javax.annotation.Nullable;
-import java.util.Arrays;
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /** Item ingredient matching items with a block form in the given tag */
 @RequiredArgsConstructor
-public class BlockTagIngredient extends AbstractIngredient {
+public class BlockTagIngredient implements ICustomIngredient {
   private final TagKey<Block> tag;
   @Nullable
   private Set<Item> matchingItems;
   @Nullable
   private ItemStack[] items;
-  @Nullable
-  private IntList stackingIds;
+
+  public static Ingredient of(TagKey<Block> tag) {
+    return new BlockTagIngredient(tag).toVanilla();
+  }
 
   @Override
   public boolean test(@Nullable ItemStack stack) {
@@ -49,54 +52,35 @@ public class BlockTagIngredient extends AbstractIngredient {
     return true;
   }
 
-  @Override
-  protected void invalidate() {
-    this.matchingItems = null;
-    this.items = null;
-    this.stackingIds = null;
-  }
-
   /** Gets the ordered matching items set */
   private Set<Item> getMatchingItems() {
-    if (matchingItems == null || checkInvalidation()) {
-      markValid();
+    if (matchingItems == null) {
       matchingItems = RegistryHelper.getTagValueStream(BuiltInRegistries.BLOCK, tag)
                                     .map(Block::asItem)
                                     .filter(item -> item != Items.AIR)
-                                    .collect(Collectors.toCollection(LinkedHashSet::new));
+                                    .collect(java.util.stream.Collectors.toCollection(LinkedHashSet::new));
     }
     return matchingItems;
   }
 
   @Override
-  public ItemStack[] getItems() {
-    if (items == null || checkInvalidation()) {
-      markValid();
+  public Stream<ItemStack> getItems() {
+    if (items == null) {
       items = getMatchingItems().stream().map(ItemStack::new).toArray(ItemStack[]::new);
-    }
-    return items;
-  }
-
-  @Override
-  public IntList getStackingIds() {
-    if (stackingIds == null || checkInvalidation()) {
-      markValid();
-      Set<Item> items = getMatchingItems();
-      stackingIds = new IntArrayList(items.size());
-      for (Item item : items) {
-        stackingIds.add(BuiltInRegistries.ITEM.getId(item));
+      if (items.length == 0) {
+        ItemStack barrier = new ItemStack(Blocks.BARRIER);
+        barrier.set(DataComponents.CUSTOM_NAME, Component.literal("Empty Tag: " + tag.location()));
+        items = new ItemStack[] { barrier };
       }
-      stackingIds.sort(IntComparators.NATURAL_COMPARATOR);
     }
-    return stackingIds;
+    return Stream.of(items);
   }
 
   @Override
-  public IIngredientSerializer<? extends Ingredient> getSerializer() {
-    return Serializer.INSTANCE;
+  public IngredientType<?> getType() {
+    return TinkerCommons.blockTagIngredient.get();
   }
 
-  @Override
   public JsonElement toJson() {
     JsonObject json = new JsonObject();
     json.addProperty("type", Serializer.ID.toString());
@@ -104,27 +88,35 @@ public class BlockTagIngredient extends AbstractIngredient {
     return json;
   }
 
+  @Override
+  public boolean equals(Object object) {
+    return this == object || object instanceof BlockTagIngredient that && tag.equals(that.tag);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(tag);
+  }
+
   /** Serializer instance */
-  public enum Serializer implements IIngredientSerializer<Ingredient> {
+  public enum Serializer implements IIngredientSerializer<BlockTagIngredient> {
     INSTANCE;
 
     public static final ResourceLocation ID = TConstruct.getResource("block_tag");
 
     @Override
-    public Ingredient parse(JsonObject json) {
+    public BlockTagIngredient parse(JsonObject json) {
       return new BlockTagIngredient(Loadables.BLOCK_TAG.getIfPresent(json, "tag"));
     }
 
     @Override
-    public void write(FriendlyByteBuf buffer, Ingredient ingredient) {
-      // just write the item list, will become a vanilla ingredient client side
-      buffer.writeCollection(Arrays.asList(ingredient.getItems()), FriendlyByteBuf::writeItem);
+    public void write(FriendlyByteBuf buffer, BlockTagIngredient ingredient) {
+      Loadables.BLOCK_TAG.encode(buffer, ingredient.tag);
     }
 
     @Override
-    public Ingredient parse(FriendlyByteBuf buffer) {
-      int size = buffer.readVarInt();
-      return Ingredient.fromValues(Stream.generate(() -> new Ingredient.ItemValue(buffer.readItem())).limit(size));
+    public BlockTagIngredient parse(FriendlyByteBuf buffer) {
+      return new BlockTagIngredient(Loadables.BLOCK_TAG.decode(buffer));
     }
   }
 }

@@ -4,7 +4,7 @@
   "group": "tconstruct:fancy_item_frame",
   "key": {
     "M": {
-      "tag": "forge:gems/diamond"
+      "tag": "c:gems/diamond"
     },
     "e": {
       "item": "tconstruct:obsidian_pane"
@@ -16,7 +16,7 @@
     " e "
   ],
   "result": {
-    "item": "tconstruct:diamond_item_frame"
+    "id": "tconstruct:diamond_item_frame"
   },
   "show_notification": true
 }

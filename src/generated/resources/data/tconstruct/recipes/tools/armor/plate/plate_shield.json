@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:table_tool_casting",
+  "id": "tconstruct:tools/armor/plate/plate_shield",
   "cast": {
     "type": "tconstruct:material",
     "item": "tconstruct:shield_core"

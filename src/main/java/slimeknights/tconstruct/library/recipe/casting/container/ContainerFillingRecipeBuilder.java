@@ -3,7 +3,7 @@ package slimeknights.tconstruct.library.recipe.casting.container;
 import com.google.gson.JsonObject;
 import lombok.AllArgsConstructor;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.data.recipes.FinishedRecipe;
+import slimeknights.mantle.compat.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
@@ -15,7 +15,7 @@ import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
 /**
- * Builder for a container filling recipe. Takes an arbitrary fluid for a specific amount to fill a Forge {@link net.minecraftforge.fluids.capability.IFluidHandlerItem}
+ * Builder for a container filling recipe. Takes an arbitrary fluid for a specific amount to fill a Forge {@link net.neoforged.neoforge.fluids.capability.IFluidHandlerItem}
  */
 @AllArgsConstructor(staticName = "castingRecipe")
 @SuppressWarnings({"WeakerAccess", "unused"})

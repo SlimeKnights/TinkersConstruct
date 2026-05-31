@@ -2,7 +2,7 @@ package slimeknights.tconstruct.tools.data.material;
 
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.FluidTags;
-import net.minecraftforge.common.crafting.conditions.OrCondition;
+import net.neoforged.neoforge.common.conditions.OrCondition;
 import slimeknights.mantle.recipe.condition.TagFilledCondition;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.json.ConfigEnabledCondition;

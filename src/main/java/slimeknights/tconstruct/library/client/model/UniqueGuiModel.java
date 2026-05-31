@@ -14,10 +14,10 @@ import net.minecraft.client.resources.model.UnbakedModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraftforge.client.model.BakedModelWrapper;
-import net.minecraftforge.client.model.geometry.IGeometryBakingContext;
-import net.minecraftforge.client.model.geometry.IGeometryLoader;
-import net.minecraftforge.client.model.geometry.IUnbakedGeometry;
+import net.neoforged.neoforge.client.model.BakedModelWrapper;
+import net.neoforged.neoforge.client.model.geometry.IGeometryBakingContext;
+import net.neoforged.neoforge.client.model.geometry.IGeometryLoader;
+import net.neoforged.neoforge.client.model.geometry.IUnbakedGeometry;
 import slimeknights.mantle.client.model.util.SimpleBlockModel;
 
 import java.util.function.Function;
@@ -38,10 +38,10 @@ public class UniqueGuiModel implements IUnbakedGeometry<UniqueGuiModel> {
   }
 
   @Override
-  public BakedModel bake(IGeometryBakingContext owner, ModelBaker baker, Function<Material,TextureAtlasSprite> spriteGetter, ModelState transform, ItemOverrides overrides, ResourceLocation location) {
+  public BakedModel bake(IGeometryBakingContext owner, ModelBaker baker, Function<Material,TextureAtlasSprite> spriteGetter, ModelState transform, ItemOverrides overrides) {
     return new Baked(
-      model.bake(owner, baker, spriteGetter, transform, overrides, location),
-      gui.bake(owner, baker, spriteGetter, transform, overrides, location)
+      model.bake(owner, baker, spriteGetter, transform, overrides),
+      gui.bake(owner, baker, spriteGetter, transform, overrides)
     );
   }
 

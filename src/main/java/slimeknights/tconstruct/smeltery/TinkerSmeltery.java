@@ -1,8 +1,6 @@
 package slimeknights.tconstruct.smeltery;
 
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.PackOutput;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ArmorItem;
@@ -26,12 +24,16 @@ import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fluids.FluidType;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.registries.RegisterEvent;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.fluids.FluidType;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.registries.RegisterEvent;
+import slimeknights.mantle.block.entity.MantleBlockEntity;
+import slimeknights.mantle.compat.neoforged.neoforge.registries.RegistryObject;
 import slimeknights.mantle.block.GaugeBlock;
 import slimeknights.mantle.fluid.transfer.FluidContainerTransferManager;
 import slimeknights.mantle.recipe.helper.LoadableRecipeSerializer;
@@ -46,6 +48,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.registration.CastItemObject;
+import slimeknights.tconstruct.compat.neoforged.neoforge.capabilities.ForgeCapabilities;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.fluids.item.EmptyPotionTransfer;
 import slimeknights.tconstruct.library.recipe.FluidValues;
@@ -70,6 +73,7 @@ import slimeknights.tconstruct.library.recipe.melting.MaterialMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipe;
 import slimeknights.tconstruct.library.recipe.melting.OreMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.molding.MoldingRecipe;
+import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
 import slimeknights.tconstruct.library.tools.part.PartCastItem;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.ClearGlassPaneBlock;
@@ -121,11 +125,11 @@ import slimeknights.tconstruct.smeltery.block.entity.controller.AlloyerBlockEnti
 import slimeknights.tconstruct.smeltery.block.entity.controller.FoundryBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.controller.MelterBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.controller.SmelteryBlockEntity;
-import slimeknights.tconstruct.smeltery.data.FluidContainerTransferProvider;
-import slimeknights.tconstruct.smeltery.data.SmelteryRecipeProvider;
 import slimeknights.tconstruct.smeltery.item.CopperCanItem;
+import slimeknights.tconstruct.smeltery.item.CopperCanFluidHandler;
 import slimeknights.tconstruct.smeltery.item.DummyMaterialItem;
 import slimeknights.tconstruct.smeltery.item.TankItem;
+import slimeknights.tconstruct.smeltery.item.TankItemFluidHandler;
 import slimeknights.tconstruct.smeltery.menu.AlloyerContainerMenu;
 import slimeknights.tconstruct.smeltery.menu.HeatingStructureContainerMenu;
 import slimeknights.tconstruct.smeltery.menu.MelterContainerMenu;
@@ -145,7 +149,7 @@ import static slimeknights.mantle.Mantle.commonResource;
 @SuppressWarnings("unused")
 public final class TinkerSmeltery extends TinkerModule {
   /** Predicate for something that never happens */
-  private static final StatePredicate NEVER = Blocks::never;
+  private static final StatePredicate NEVER = (state, getter, pos) -> false;
   /** Creative tab for smeltery, all contents related to the multiblocks */
   public static final RegistryObject<CreativeModeTab> tabSmeltery = CREATIVE_TABS.register(
     "smeltery", () -> CreativeModeTab.builder().title(TConstruct.makeTranslation("itemGroup", "smeltery"))
@@ -398,7 +402,7 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final CastItemObject bootsPlatingCast = ITEMS.registerCast("boots_plating", () -> new PartCastItem(ITEM_PROPS, () -> TinkerToolParts.plating.get(ArmorItem.Type.BOOTS)));
   public static final CastItemObject mailleCast = ITEMS.registerCast(TinkerToolParts.maille, ITEM_PROPS);
   // dummy cast creation items
-  public static final EnumObject<ArmorItem.Type,DummyMaterialItem> dummyPlating = ITEMS.registerEnum(ArmorItem.Type.values(), "plating_dummy", type -> new DummyMaterialItem(ITEM_PROPS));
+  public static final EnumObject<ArmorItem.Type,DummyMaterialItem> dummyPlating = ITEMS.registerEnum(ModifiableArmorMaterial.ARMOR_TYPES, "plating_dummy", type -> new DummyMaterialItem(ITEM_PROPS));
 
 
   /*
@@ -460,21 +464,64 @@ public final class TinkerSmeltery extends TinkerModule {
     });
   }
 
+  @SubscribeEvent
+  void registerCapabilities(RegisterCapabilitiesEvent event) {
+    registerFluid(event, tank.get());
+    registerFluid(event, drain.get());
+    registerFluid(event, channel.get());
+    registerFluid(event, fluidCannon.get());
+    registerFluid(event, lantern.get());
+    registerFluid(event, basin.get());
+    registerFluid(event, table.get());
+    registerFluid(event, proxyTank.get());
+    event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, castingTank.get(), (be, side) -> be.getTank());
+    registerFluid(event, melter.get());
+    registerFluid(event, alloyer.get());
+
+    registerItem(event, chute.get());
+    registerItem(event, duct.get());
+    registerItem(event, heater.get());
+    event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, basin.get(), (be, side) -> be.getItemHandler());
+    event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, table.get(), (be, side) -> be.getItemHandler());
+    event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, castingTank.get(), (be, side) -> be.getItemHandler());
+    registerItem(event, fluidCannon.get());
+    registerItem(event, proxyTank.get());
+    registerItem(event, melter.get());
+    registerItem(event, smeltery.get());
+    registerItem(event, foundry.get());
+
+    event.registerItem(Capabilities.FluidHandler.ITEM, (stack, context) -> new CopperCanFluidHandler(stack), copperCan);
+    registerTankItem(event, searedCastingTank);
+    registerTankItem(event, searedFluidCannon);
+    registerTankItem(event, scorchedFluidCannon);
+    registerTankItem(event, endFluidCannon);
+    registerTankItem(event, searedLantern);
+    registerTankItem(event, scorchedLantern);
+    searedTank.forEach(block -> registerTankItem(event, block));
+    scorchedTank.forEach(block -> registerTankItem(event, block));
+  }
+
+  private static <BE extends MantleBlockEntity> void registerFluid(RegisterCapabilitiesEvent event, BlockEntityType<BE> type) {
+    event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, type, (be, side) -> be.getCapability(ForgeCapabilities.FLUID_HANDLER, side).orElse(null));
+  }
+
+  private static <BE extends MantleBlockEntity> void registerItem(RegisterCapabilitiesEvent event, BlockEntityType<BE> type) {
+    event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, type, (be, side) -> be.getCapability(ForgeCapabilities.ITEM_HANDLER, side).orElse(null));
+  }
+
+  private static void registerTankItem(RegisterCapabilitiesEvent event, ItemLike item) {
+    event.registerItem(
+      Capabilities.FluidHandler.ITEM,
+      (stack, context) -> stack.getItem() instanceof TankItem tankItem ? new TankItemFluidHandler(tankItem, stack) : null,
+      item);
+  }
+
   @SuppressWarnings("removal")
   @SubscribeEvent
   void registerSerializers(RegisterEvent event) {
     if (event.getRegistryKey() == Registries.RECIPE_SERIALIZER) {
       FluidContainerTransferManager.TRANSFER_LOADERS.registerDeserializer(EmptyPotionTransfer.ID, EmptyPotionTransfer.DESERIALIZER);
     }
-  }
-
-  @SubscribeEvent
-  void gatherData(final GatherDataEvent event) {
-    boolean server = event.includeServer();
-    DataGenerator generator = event.getGenerator();
-    PackOutput packOutput = generator.getPackOutput();
-    generator.addProvider(server, new SmelteryRecipeProvider(packOutput));
-    generator.addProvider(server, new FluidContainerTransferProvider(packOutput));
   }
 
   /** Adds all relevant items to the creative tab */

@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.shared.block.entity;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -54,10 +55,14 @@ public abstract class TableBlockEntity extends InventoryBlockEntity {
   }
 
   @Override
-  public CompoundTag getUpdateTag() {
-    CompoundTag nbt = super.getUpdateTag();
-    // inventory is already in main NBT, include it in update tag
-    writeInventoryToNBT(nbt);
+  public void saveSynced(CompoundTag nbt, HolderLookup.Provider registries) {
+    super.saveSynced(nbt, registries);
+    writeInventoryToNBT(nbt, registries);
+  }
+
+  @Override
+  public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+    CompoundTag nbt = super.getUpdateTag(registries);
     return nbt;
   }
 

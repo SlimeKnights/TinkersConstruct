@@ -1,7 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "redstone",
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "tconstruct:config",
       "prop": "glass_recipe_fix"
@@ -9,7 +9,7 @@
   ],
   "key": {
     "G": {
-      "tag": "forge:glass/colorless"
+      "tag": "c:glass/colorless"
     },
     "Q": {
       "item": "minecraft:quartz"
@@ -24,7 +24,7 @@
     "WWW"
   ],
   "result": {
-    "item": "minecraft:daylight_detector"
+    "id": "minecraft:daylight_detector"
   },
   "show_notification": true
 }

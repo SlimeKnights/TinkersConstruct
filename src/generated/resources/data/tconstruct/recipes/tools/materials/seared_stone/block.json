@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/seared_stone/block",
   "ingredient": {
     "tag": "tconstruct:seared_blocks"
   },

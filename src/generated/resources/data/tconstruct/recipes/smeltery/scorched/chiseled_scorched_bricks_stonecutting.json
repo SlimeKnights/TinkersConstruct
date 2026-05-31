@@ -2,7 +2,7 @@
   "type": "minecraft:stonecutting",
   "count": 1,
   "ingredient": {
-    "type": "forge:difference",
+    "type": "neoforge:difference",
     "base": {
       "tag": "tconstruct:scorched_blocks"
     },
@@ -10,5 +10,7 @@
       "item": "tconstruct:chiseled_scorched_bricks"
     }
   },
-  "result": "tconstruct:chiseled_scorched_bricks"
+  "result": {
+    "id": "tconstruct:chiseled_scorched_bricks"
+  }
 }

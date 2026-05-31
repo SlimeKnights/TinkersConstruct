@@ -89,7 +89,7 @@ public class ModifierWorktableScreen extends ToolTableScreen<ModifierWorktableBl
     this.imageHeight = 184;
 
     this.tinkerInfo.yOffset = 0;
-    this.modifierInfo.yOffset = this.tinkerInfo.imageHeight + 4;
+    this.modifierInfo.yOffset = this.tinkerInfo.getYSize() + 4;
 
     if (addChestSideInventory(playerInventory)) {
       enableArmorStandPreview = false;

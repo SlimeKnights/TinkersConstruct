@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.library.recipe.alloying;
 
-import net.minecraftforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.container.IEmptyContainer;
 
 /**

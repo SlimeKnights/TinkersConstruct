@@ -1,20 +1,21 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/brass/gear_gold_cast",
   "cast": {
     "tag": "tconstruct:casts/multi_use/gear"
   },
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:gears/brass"
+      "tag": "c:gears/brass"
     }
   ],
   "cooling_time": 107,
   "fluid": {
     "amount": 360,
-    "tag": "forge:molten_brass"
+    "tag": "c:molten_brass"
   },
   "result": {
-    "tag": "forge:gears/brass"
+    "tag": "c:gears/brass"
   }
 }

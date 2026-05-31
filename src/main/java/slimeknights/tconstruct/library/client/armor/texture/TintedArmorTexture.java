@@ -47,7 +47,7 @@ public class TintedArmorTexture implements ArmorTexture {
 
   @Override
   public void renderTexture(Model model, PoseStack matrices, MultiBufferSource bufferSource, int packedLight, int packedOverlay, float red, float green, float blue, float alpha, boolean hasGlint) {
-    VertexConsumer buffer = ItemRenderer.getArmorFoilBuffer(bufferSource, RenderType.armorCutoutNoCull(texture), false, hasGlint);
+    VertexConsumer buffer = ItemRenderer.getArmorFoilBuffer(bufferSource, RenderType.armorCutoutNoCull(texture), hasGlint);
     if (luminosity > 0) {
       packedLight = applyLuminosity(packedLight, luminosity);
     }

@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/uranium/ingot",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:ingots/uranium"
+      "tag": "c:ingots/uranium"
     }
   ],
   "ingredient": {
-    "tag": "forge:ingots/uranium"
+    "tag": "c:ingots/uranium"
   },
   "result": {
     "amount": 90,
-    "tag": "forge:molten_uranium"
+    "tag": "c:molten_uranium"
   },
   "temperature": 830,
   "time": 61

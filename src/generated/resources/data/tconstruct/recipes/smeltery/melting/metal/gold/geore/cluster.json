@@ -1,25 +1,26 @@
 {
   "type": "tconstruct:ore_melting",
+  "id": "tconstruct:smeltery/melting/metal/gold/geore/cluster",
   "byproducts": [
     {
       "amount": 360,
       "rate": "metal",
-      "tag": "forge:molten_cobalt"
+      "tag": "c:molten_cobalt"
     }
   ],
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:geore_clusters/gold"
+      "tag": "c:geore_clusters/gold"
     }
   ],
   "ingredient": {
-    "tag": "forge:geore_clusters/gold"
+    "tag": "c:geore_clusters/gold"
   },
   "rate": "metal",
   "result": {
     "amount": 360,
-    "tag": "forge:molten_gold"
+    "tag": "c:molten_gold"
   },
   "temperature": 700,
   "time": 142

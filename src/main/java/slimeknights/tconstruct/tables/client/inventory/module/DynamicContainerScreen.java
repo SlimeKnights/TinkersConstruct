@@ -10,6 +10,7 @@ import slimeknights.mantle.client.screen.ModuleScreen;
 import slimeknights.mantle.client.screen.MultiModuleScreen;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
 import slimeknights.mantle.client.screen.SliderWidget;
+import slimeknights.tconstruct.tables.client.inventory.SlotPositionHelper;
 
 public class DynamicContainerScreen<P extends MultiModuleScreen<?>, C extends AbstractContainerMenu> extends ModuleScreen<P,C> {
 
@@ -163,11 +164,9 @@ public class DynamicContainerScreen<P extends MultiModuleScreen<?>, C extends Ab
           int x = (offset % this.columns) * DynamicContainerScreen.slot.w;
           int y = (offset / this.columns) * DynamicContainerScreen.slot.h;
 
-          slot.x = xOffset + x + 1;
-          slot.y = yOffset + y + 1;
+          SlotPositionHelper.move(slot, xOffset + x + 1, yOffset + y + 1);
         } else {
-          slot.x = 0;
-          slot.y = 0;
+          SlotPositionHelper.move(slot, 0, 0);
         }
       }
     }

@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:material_fluid",
+  "id": "tconstruct:tools/materials/composite/blazewood",
   "fluid": {
     "amount": 200,
     "tag": "tconstruct:blazing_blood"

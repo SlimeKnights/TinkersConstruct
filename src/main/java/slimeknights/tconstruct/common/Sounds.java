@@ -5,10 +5,11 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.block.SoundType;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegisterEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.EventBusSubscriber;
+import slimeknights.mantle.compat.neoforged.neoforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.registries.RegisterEvent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.registration.GeodeItemObject.BudSize;
 
@@ -17,7 +18,7 @@ import java.util.Locale;
 import java.util.Map;
 
 /** All sounds registered by Tinkers, should be used instead of vanilla events when subtitles need to be distinguished */
-@Mod.EventBusSubscriber(modid = TConstruct.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = TConstruct.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 public enum Sounds {
   // blocks
   SAW("little_saw"),

@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/copper/geore/shard",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:geore_shards/copper"
+      "tag": "c:geore_shards/copper"
     }
   ],
   "ingredient": {
-    "tag": "forge:geore_shards/copper"
+    "tag": "c:geore_shards/copper"
   },
   "result": {
     "amount": 90,
-    "tag": "forge:molten_copper"
+    "tag": "c:molten_copper"
   },
   "temperature": 500,
   "time": 50

@@ -1,9 +1,10 @@
 {
   "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/upgrade/diamond",
   "allow_crystal": true,
   "inputs": [
     {
-      "tag": "forge:gems/diamond"
+      "tag": "c:gems/diamond"
     }
   ],
   "level": 1,

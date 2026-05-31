@@ -21,6 +21,6 @@
   ],
   "fluid": {
     "amount": 50,
-    "tag": "forge:slime"
+    "tag": "c:slime"
   }
 }

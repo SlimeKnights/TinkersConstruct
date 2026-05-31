@@ -1,11 +1,12 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/gold/pressure_plate",
   "ingredient": {
     "item": "minecraft:light_weighted_pressure_plate"
   },
   "result": {
     "amount": 180,
-    "tag": "forge:molten_gold"
+    "tag": "c:molten_gold"
   },
   "temperature": 700,
   "time": 80

@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:entity_melting",
+  "id": "tconstruct:smeltery/entity_melting/water_breathing",
   "damage": 2,
   "entity": {
     "types": [
@@ -12,6 +13,6 @@
     "nbt": {
       "Potion": "minecraft:water_breathing"
     },
-    "tag": "forge:potion"
+    "tag": "c:potion"
   }
 }

@@ -30,6 +30,6 @@
   ],
   "fluid": {
     "amount": 10,
-    "tag": "forge:molten_netherite"
+    "tag": "c:molten_netherite"
   }
 }

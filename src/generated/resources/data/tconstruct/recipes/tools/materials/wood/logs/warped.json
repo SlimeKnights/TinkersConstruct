@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/wood/logs/warped",
   "ingredient": {
     "tag": "minecraft:warped_stems"
   },

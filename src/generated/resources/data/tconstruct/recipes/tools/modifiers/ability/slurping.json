@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/ability/slurping",
   "allow_crystal": true,
   "inputs": [
     {
@@ -13,10 +14,10 @@
       "item": "minecraft:glass_bottle"
     },
     {
-      "tag": "forge:ingots/copper"
+      "tag": "c:ingots/copper"
     },
     {
-      "tag": "forge:ingots/copper"
+      "tag": "c:ingots/copper"
     }
   ],
   "result": "tconstruct:slurping",

@@ -1,14 +1,15 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:compat/ceramics/porcelain/golden_bricks_block",
   "byproducts": [
     {
       "amount": 10,
-      "tag": "forge:molten_gold"
+      "tag": "c:molten_gold"
     }
   ],
-  "conditions": [
+  "neoforge:conditions": [
     {
-      "type": "forge:mod_loaded",
+      "type": "neoforge:mod_loaded",
       "modid": "ceramics"
     }
   ],

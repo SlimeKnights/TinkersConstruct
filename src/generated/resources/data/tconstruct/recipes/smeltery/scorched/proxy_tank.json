@@ -9,7 +9,7 @@
       "item": "tconstruct:obsidian_pane"
     },
     "G": {
-      "tag": "forge:gems/quartz"
+      "tag": "c:gems/quartz"
     }
   },
   "pattern": [
@@ -18,7 +18,7 @@
     "#G#"
   ],
   "result": {
-    "item": "tconstruct:scorched_proxy_tank"
+    "id": "tconstruct:scorched_proxy_tank"
   },
   "show_notification": true
 }

@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/wood/bamboo/block",
   "ingredient": {
     "tag": "minecraft:bamboo_blocks"
   },

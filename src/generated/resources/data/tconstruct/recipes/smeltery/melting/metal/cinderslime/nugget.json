@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/cinderslime/nugget",
   "ingredient": {
-    "tag": "forge:nuggets/cinderslime"
+    "tag": "c:nuggets/cinderslime"
   },
   "result": {
     "amount": 10,

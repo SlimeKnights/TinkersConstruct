@@ -6,5 +6,7 @@
   "ingredient": {
     "item": "tconstruct:cobalt_shard"
   },
-  "result": "tconstruct:cobalt_nugget"
+  "result": {
+    "id": "tconstruct:cobalt_nugget"
+  }
 }

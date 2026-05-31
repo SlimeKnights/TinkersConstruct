@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.modules.armor;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
@@ -47,8 +48,8 @@ public record SoulSpeedModule(LevelingInt level, ModifierCondition<IToolStackVie
   }
 
   @Override
-  public int updateEnchantmentLevel(IToolStackView tool, ModifierEntry modifier, Enchantment enchantment, int level) {
-    if (enchantment == Enchantments.SOUL_SPEED && condition.matches(tool, modifier)) {
+  public int updateEnchantmentLevel(IToolStackView tool, ModifierEntry modifier, Holder<Enchantment> enchantment, int level) {
+    if (enchantment.is(Enchantments.SOUL_SPEED) && condition.matches(tool, modifier)) {
       level += this.level.compute(modifier);
     }
     return level;
@@ -56,9 +57,7 @@ public record SoulSpeedModule(LevelingInt level, ModifierCondition<IToolStackVie
 
   @Override
   public void updateEnchantments(IToolStackView tool, ModifierEntry modifier, Map<Enchantment, Integer> map) {
-    if (condition.matches(tool, modifier)) {
-      EnchantmentModifierHook.addEnchantment(map, Enchantments.SOUL_SPEED, this.level.compute(modifier));
-    }
+    // 1.21 enchantments are registry holders; this module is exposed through getEnchantmentLevel.
   }
 
   /** Gets the position this entity is standing on, cloned from protected living entity method */

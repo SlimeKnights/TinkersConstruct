@@ -10,7 +10,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import slimeknights.tconstruct.shared.TinkerCommons;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class CheeseBlockItem extends BlockItem {
@@ -39,7 +38,7 @@ public class CheeseBlockItem extends BlockItem {
   }
 
   @Override
-  public void appendHoverText(ItemStack stack, @Nullable Level pLevel, List<Component> tooltip, TooltipFlag pIsAdvanced) {
+  public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag pIsAdvanced) {
     tooltip.add(CheeseItem.TOOLTIP);
   }
 }

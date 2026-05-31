@@ -1,12 +1,13 @@
 {
   "type": "tconstruct:alloy",
-  "conditions": [
+  "id": "tconstruct:smeltery/alloys/molten_brass",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:ingots/zinc"
+      "tag": "c:ingots/zinc"
     },
     {
-      "type": "forge:or",
+      "type": "neoforge:or",
       "values": [
         {
           "type": "tconstruct:config",
@@ -14,7 +15,7 @@
         },
         {
           "type": "mantle:tag_filled",
-          "tag": "forge:ingots/brass"
+          "tag": "c:ingots/brass"
         }
       ]
     }
@@ -22,16 +23,16 @@
   "inputs": [
     {
       "amount": 90,
-      "tag": "forge:molten_copper"
+      "tag": "c:molten_copper"
     },
     {
       "amount": 90,
-      "tag": "forge:molten_zinc"
+      "tag": "c:molten_zinc"
     }
   ],
   "result": {
     "amount": 180,
-    "tag": "forge:molten_brass"
+    "tag": "c:molten_brass"
   },
   "temperature": 605
 }

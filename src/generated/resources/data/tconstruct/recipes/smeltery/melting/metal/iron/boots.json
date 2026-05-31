@@ -1,11 +1,12 @@
 {
   "type": "tconstruct:damagable_melting",
+  "id": "tconstruct:smeltery/melting/metal/iron/boots",
   "ingredient": {
     "item": "minecraft:iron_boots"
   },
   "result": {
     "amount": 360,
-    "tag": "forge:molten_iron",
+    "tag": "c:molten_iron",
     "unit_size": 10
   },
   "temperature": 800,

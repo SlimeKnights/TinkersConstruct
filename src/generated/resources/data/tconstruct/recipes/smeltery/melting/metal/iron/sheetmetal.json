@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/iron/sheetmetal",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:sheetmetals/iron"
+      "tag": "c:sheetmetals/iron"
     }
   ],
   "ingredient": {
-    "tag": "forge:sheetmetals/iron"
+    "tag": "c:sheetmetals/iron"
   },
   "result": {
     "amount": 90,
-    "tag": "forge:molten_iron"
+    "tag": "c:molten_iron"
   },
   "temperature": 800,
   "time": 60

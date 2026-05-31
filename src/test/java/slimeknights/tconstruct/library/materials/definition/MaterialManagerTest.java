@@ -6,10 +6,6 @@ import com.google.gson.JsonObject;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.profiling.ProfilerFiller;
-import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.common.crafting.conditions.FalseCondition;
-import net.minecraftforge.common.crafting.conditions.IConditionSerializer;
-import net.minecraftforge.common.crafting.conditions.TrueCondition;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.TConstruct;
@@ -27,20 +23,9 @@ class MaterialManagerTest extends BaseMcTest {
   private static MaterialManager materialManager;
   private final JsonFileLoader fileLoader = new JsonFileLoader(MaterialManager.GSON, MaterialManager.FOLDER);
 
-  /** Ensures the given condition serializer is registered */
-  private static void ensureSerializerRegistered(IConditionSerializer<?> serializer) {
-    try {
-      CraftingHelper.register(serializer);
-    } catch (Exception e) {
-      // NO-OP
-    }
-  }
-
   @BeforeAll
   static void setUp() {
     materialManager = new MaterialManager();
-    ensureSerializerRegistered(FalseCondition.Serializer.INSTANCE);
-    ensureSerializerRegistered(TrueCondition.Serializer.INSTANCE);
   }
 
   @Test

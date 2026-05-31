@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/rose_gold/nugget",
   "ingredient": {
-    "tag": "forge:nuggets/rose_gold"
+    "tag": "c:nuggets/rose_gold"
   },
   "material": "tconstruct:rose_gold",
   "needed": 9,

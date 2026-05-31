@@ -1,12 +1,13 @@
 {
   "type": "tconstruct:enchantment_converting",
+  "id": "tconstruct:tools/modifiers/worktable/enchantment_converting/upgrade_book",
   "inputs": [
     {
       "item": "tconstruct:sky_slime_crystal"
     },
     {
       "amount_needed": 3,
-      "tag": "forge:gems/lapis"
+      "tag": "c:gems/lapis"
     }
   ],
   "match_book": true,

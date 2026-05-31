@@ -1,22 +1,23 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/dawnstone/ingot",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:ingots/dawnstone"
+      "tag": "c:ingots/dawnstone"
     },
     {
       "type": "mantle:tag_filled",
       "registry": "minecraft:fluid",
-      "tag": "forge:molten_dawnstone"
+      "tag": "c:molten_dawnstone"
     }
   ],
   "ingredient": {
-    "tag": "forge:ingots/dawnstone"
+    "tag": "c:ingots/dawnstone"
   },
   "result": {
     "amount": 90,
-    "tag": "forge:molten_dawnstone"
+    "tag": "c:molten_dawnstone"
   },
   "temperature": 900,
   "time": 63

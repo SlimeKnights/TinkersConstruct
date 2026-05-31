@@ -1,8 +1,9 @@
 {
   "type": "tconstruct:damagable_melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/tin/tools_complement_hammer",
+  "neoforge:conditions": [
     {
-      "type": "forge:item_exists",
+      "type": "neoforge:item_exists",
       "item": "tools_complement:tin_hammer"
     }
   ],
@@ -11,7 +12,7 @@
   },
   "result": {
     "amount": 1170,
-    "tag": "forge:molten_tin",
+    "tag": "c:molten_tin",
     "unit_size": 10
   },
   "temperature": 225,

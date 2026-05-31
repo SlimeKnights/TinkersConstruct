@@ -2,9 +2,10 @@ package slimeknights.tconstruct.tables.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.DyeableLeatherItem;
+import slimeknights.tconstruct.compat.minecraft.world.item.DyeableLeatherItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType.BlockEntitySupplier;
 import net.minecraft.world.level.block.state.BlockState;
@@ -18,7 +19,7 @@ public class TinkersChestBlock extends ChestBlock {
   }
 
   @Override
-  public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter world, BlockPos pos, Player player) {
+  public ItemStack getCloneItemStack(BlockState state, HitResult target, LevelReader world, BlockPos pos, Player player) {
     ItemStack stack = new ItemStack(this);
     BlockEntityHelper.get(TinkersChestBlockEntity.class, world, pos).ifPresent(te -> {
       if (te.hasColor()) {

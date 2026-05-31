@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/netherite/scrap_sand_cast",
   "cast": {
     "tag": "tconstruct:casts/single_use/ingot"
   },

@@ -16,7 +16,7 @@
     "C"
   ],
   "result": {
-    "item": "tconstruct:scorched_chute"
+    "id": "tconstruct:scorched_chute"
   },
   "show_notification": true,
   "texture": "#"

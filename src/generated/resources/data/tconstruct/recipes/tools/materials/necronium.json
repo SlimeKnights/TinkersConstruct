@@ -1,8 +1,9 @@
 {
   "type": "tconstruct:material",
-  "conditions": [
+  "id": "tconstruct:tools/materials/necronium",
+  "neoforge:conditions": [
     {
-      "type": "forge:or",
+      "type": "neoforge:or",
       "values": [
         {
           "type": "tconstruct:config",
@@ -10,7 +11,7 @@
         },
         {
           "type": "mantle:tag_filled",
-          "tag": "forge:ingots/uranium"
+          "tag": "c:ingots/uranium"
         }
       ]
     }

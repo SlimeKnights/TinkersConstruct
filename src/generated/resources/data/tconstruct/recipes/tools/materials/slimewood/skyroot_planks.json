@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/slimewood/skyroot_planks",
   "ingredient": {
     "item": "tconstruct:skyroot_planks"
   },

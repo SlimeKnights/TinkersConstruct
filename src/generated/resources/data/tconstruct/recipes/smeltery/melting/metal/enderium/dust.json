@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/enderium/dust",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:dusts/enderium"
+      "tag": "c:dusts/enderium"
     }
   ],
   "ingredient": {
-    "tag": "forge:dusts/enderium"
+    "tag": "c:dusts/enderium"
   },
   "result": {
     "amount": 90,
-    "tag": "forge:molten_enderium"
+    "tag": "c:molten_enderium"
   },
   "temperature": 1350,
   "time": 57

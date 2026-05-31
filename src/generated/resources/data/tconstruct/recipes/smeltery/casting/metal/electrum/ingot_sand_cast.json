@@ -1,21 +1,22 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/electrum/ingot_sand_cast",
   "cast": {
     "tag": "tconstruct:casts/single_use/ingot"
   },
   "cast_consumed": true,
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:ingots/electrum"
+      "tag": "c:ingots/electrum"
     }
   ],
   "cooling_time": 59,
   "fluid": {
     "amount": 90,
-    "tag": "forge:molten_electrum"
+    "tag": "c:molten_electrum"
   },
   "result": {
-    "tag": "forge:ingots/electrum"
+    "tag": "c:ingots/electrum"
   }
 }

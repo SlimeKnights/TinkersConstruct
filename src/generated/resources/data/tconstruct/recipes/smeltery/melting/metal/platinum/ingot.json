@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/platinum/ingot",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:ingots/platinum"
+      "tag": "c:ingots/platinum"
     }
   ],
   "ingredient": {
-    "tag": "forge:ingots/platinum"
+    "tag": "c:ingots/platinum"
   },
   "result": {
     "amount": 90,
-    "tag": "forge:molten_platinum"
+    "tag": "c:molten_platinum"
   },
   "temperature": 970,
   "time": 65

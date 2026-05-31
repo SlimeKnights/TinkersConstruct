@@ -1,9 +1,10 @@
 {
   "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/upgrade/fireprimer",
   "allow_crystal": true,
   "inputs": [
     {
-      "tag": "forge:ingots/steel"
+      "tag": "c:ingots/steel"
     },
     {
       "item": "minecraft:flint"

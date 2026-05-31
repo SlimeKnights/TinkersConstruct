@@ -1,9 +1,10 @@
 {
   "type": "tconstruct:item_part_builder",
-  "conditions": [
+  "id": "tconstruct:smeltery/casts/red_sand/builder_cast/plates",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:plates"
+      "tag": "c:plates"
     }
   ],
   "pattern": "tconstruct:plate",

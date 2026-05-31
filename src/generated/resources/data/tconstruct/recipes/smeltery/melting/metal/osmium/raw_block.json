@@ -1,25 +1,26 @@
 {
   "type": "tconstruct:ore_melting",
+  "id": "tconstruct:smeltery/melting/metal/osmium/raw_block",
   "byproducts": [
     {
       "amount": 810,
       "rate": "metal",
-      "tag": "forge:molten_iron"
+      "tag": "c:molten_iron"
     }
   ],
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:storage_blocks/raw_osmium"
+      "tag": "c:storage_blocks/raw_osmium"
     }
   ],
   "ingredient": {
-    "tag": "forge:storage_blocks/raw_osmium"
+    "tag": "c:storage_blocks/raw_osmium"
   },
   "rate": "metal",
   "result": {
     "amount": 810,
-    "tag": "forge:molten_osmium"
+    "tag": "c:molten_osmium"
   },
   "temperature": 975,
   "time": 393

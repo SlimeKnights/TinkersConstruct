@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.tools.data.material;
 
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.FinishedRecipe;
+import slimeknights.mantle.compat.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.DyeColor;
@@ -10,11 +10,11 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.crafting.CompoundIngredient;
-import net.minecraftforge.common.crafting.DifferenceIngredient;
-import net.minecraftforge.common.crafting.conditions.OrCondition;
-import net.minecraftforge.fluids.FluidType;
+import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.crafting.CompoundIngredient;
+import net.neoforged.neoforge.common.crafting.DifferenceIngredient;
+import net.neoforged.neoforge.common.conditions.OrCondition;
+import net.neoforged.neoforge.fluids.FluidType;
 import slimeknights.mantle.datagen.MantleTags;
 import slimeknights.mantle.recipe.condition.TagCombinationCondition;
 import slimeknights.mantle.recipe.condition.TagFilledCondition;
@@ -108,7 +108,7 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialRecipe(consumer, MaterialIds.bone,         Ingredient.of(TinkerTags.Items.BONES),    1, 1, folder + "bone");
     materialRecipe(consumer, MaterialIds.chorus,       Ingredient.of(Items.POPPED_CHORUS_FRUIT), 1, 1, folder + "chorus_popped");
     // tier 1 binding
-    materialRecipe(consumer, MaterialIds.string,  Ingredient.of(Tags.Items.STRING),  1, 4, folder + "string");
+    materialRecipe(consumer, MaterialIds.string,  Ingredient.of(Tags.Items.STRINGS),  1, 4, folder + "string");
     materialRecipe(consumer, MaterialIds.leather, Ingredient.of(Tags.Items.LEATHER), 1, 1, folder + "leather");
     materialRecipe(consumer, MaterialIds.leather, Ingredient.of(Items.RABBIT_HIDE),  1, 2, folder + "rabbit_hide");
     materialRecipe(consumer, MaterialIds.vine,    Ingredient.of(Items.VINE),         1, 1, folder + "vine");
@@ -134,13 +134,13 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialRecipe(consumer, MaterialIds.necroticBone, Ingredient.of(TinkerTags.Items.WITHER_BONES), 1, 1, folder + "necrotic_bone");
     materialRecipe(consumer, MaterialIds.endstone, Ingredient.of(Tags.Items.END_STONES), 1, 1, folder + "endstone");
     // ammo
-    materialRecipe(consumer, MaterialIds.turtle,     Ingredient.of(Items.SCUTE),                 1, 1, folder + "turtle_scute");
+    materialRecipe(consumer, MaterialIds.turtle,     Ingredient.of(Items.TURTLE_SCUTE),          1, 1, folder + "turtle_scute");
     materialRecipe(consumer, MaterialIds.earthslime, Ingredient.of(TinkerWorld.earthGeode),      1, 1, folder + "earthslime");
     materialRecipe(consumer, MaterialIds.skyslime,   Ingredient.of(TinkerWorld.skyGeode),        1, 1, folder + "skyslime");
     materialRecipe(consumer, MaterialIds.blaze,      Ingredient.of(Tags.Items.RODS_BLAZE),       1, 1, folder + "blaze");
     materialRecipe(consumer, MaterialIds.enderPearl, Ingredient.of(Tags.Items.ENDER_PEARLS),     1, 1, folder + "ender_pearl");
     materialRecipe(consumer, MaterialIds.amethyst,   Ingredient.of(Tags.Items.GEMS_AMETHYST),    1, 1, folder + "amethyst");
-    materialRecipe(consumer, MaterialIds.prismarine, Ingredient.of(Tags.Items.DUSTS_PRISMARINE), 1, 1, folder + "prismarine");
+    materialRecipe(consumer, MaterialIds.prismarine, Ingredient.of(Tags.Items.GEMS_PRISMARINE), 1, 1, folder + "prismarine");
     materialRecipe(consumer, MaterialIds.glass,      Ingredient.of(Tags.Items.GLASS),            4, 1, folder + "glass");
     materialRecipe(consumer, MaterialIds.glass,      Ingredient.of(Tags.Items.GLASS_PANES),      1, 1, folder + "glass_pane");
 
@@ -183,7 +183,7 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialRecipe(consumer, MaterialIds.glowstone, Ingredient.of(Blocks.GLOWSTONE), 1, 1, ItemOutput.fromItem(Items.GLOWSTONE_DUST),folder + "glowstone/block");
     materialRecipe(consumer, MaterialIds.magnetite, Ingredient.of(TinkerTags.Items.STEEL_SHARD), 1, 1, folder + "magnetite");
     materialRecipe(consumer, MaterialIds.kobold, Ingredient.of(TinkerTags.Items.COBALT_SHARD), 1, 1, folder + "kobold");
-    materialRecipe(consumer, MaterialIds.gunpowder, Ingredient.of(Tags.Items.GUNPOWDER), 1, 4, folder + "gunpowder");
+    materialRecipe(consumer, MaterialIds.gunpowder, Ingredient.of(Tags.Items.GUNPOWDERS), 1, 4, folder + "gunpowder");
     materialRecipe(consumer, MaterialIds.redstone, Ingredient.of(Tags.Items.DUSTS_REDSTONE), 1, 4, folder + "redstone/dust");
     materialRecipe(consumer, MaterialIds.redstone, Ingredient.of(Tags.Items.STORAGE_BLOCKS_REDSTONE), 9, 4, ItemOutput.fromItem(Items.REDSTONE, 4), folder + "redstone/block");
 

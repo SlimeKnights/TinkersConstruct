@@ -3,7 +3,7 @@ package slimeknights.tconstruct.tables.network;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.network.NetworkEvent.Context;
+import slimeknights.mantle.compat.neoforged.neoforge.network.NetworkEvent.Context;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.tconstruct.tables.client.inventory.BaseTabbedScreen;
 

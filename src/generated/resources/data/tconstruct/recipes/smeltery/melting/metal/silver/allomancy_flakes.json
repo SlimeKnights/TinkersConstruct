@@ -1,8 +1,9 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/silver/allomancy_flakes",
+  "neoforge:conditions": [
     {
-      "type": "forge:item_exists",
+      "type": "neoforge:item_exists",
       "item": "allomancy:silver_flakes"
     }
   ],
@@ -11,7 +12,7 @@
   },
   "result": {
     "amount": 30,
-    "tag": "forge:molten_silver"
+    "tag": "c:molten_silver"
   },
   "temperature": 790,
   "time": 35

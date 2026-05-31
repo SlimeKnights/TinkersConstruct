@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:ore_melting",
+  "id": "tconstruct:smeltery/melting/emerald/ore_dense",
   "byproducts": [
     {
       "amount": 300,
@@ -7,23 +8,23 @@
       "rate": "gem"
     }
   ],
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_combination_filled",
       "match": [
-        "forge:ores/emerald",
-        "forge:ore_rates/dense"
+        "c:ores/emerald",
+        "c:ore_rates/dense"
       ]
     }
   ],
   "ingredient": {
-    "type": "forge:intersection",
+    "type": "neoforge:intersection",
     "children": [
       {
-        "tag": "forge:ores/emerald"
+        "tag": "c:ores/emerald"
       },
       {
-        "tag": "forge:ore_rates/dense"
+        "tag": "c:ore_rates/dense"
       }
     ]
   },

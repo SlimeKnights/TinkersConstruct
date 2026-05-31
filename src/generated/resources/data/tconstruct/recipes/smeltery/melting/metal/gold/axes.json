@@ -1,11 +1,12 @@
 {
   "type": "tconstruct:damagable_melting",
+  "id": "tconstruct:smeltery/melting/metal/gold/axes",
   "ingredient": {
     "tag": "tconstruct:melting/gold/tools_costing_3"
   },
   "result": {
     "amount": 270,
-    "tag": "forge:molten_gold",
+    "tag": "c:molten_gold",
     "unit_size": 10
   },
   "temperature": 700,

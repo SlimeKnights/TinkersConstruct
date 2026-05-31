@@ -19,8 +19,8 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer.Builder;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
+import net.minecraft.world.level.storage.loot.functions.CopyCustomDataFunction;
 import net.minecraft.world.level.storage.loot.functions.CopyNameFunction;
-import net.minecraft.world.level.storage.loot.functions.CopyNbtFunction;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
@@ -30,8 +30,8 @@ import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraft.world.level.storage.loot.providers.nbt.ContextNbtProvider;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
-import net.minecraftforge.common.ToolActions;
-import net.minecraftforge.common.loot.CanToolPerformAction;
+import net.neoforged.neoforge.common.ItemAbilities;
+import slimeknights.tconstruct.compat.neoforged.neoforge.common.loot.CanToolPerformAction;
 import slimeknights.mantle.loot.function.RetexturedLootFunction;
 import slimeknights.mantle.registration.object.BuildingBlockObject;
 import slimeknights.mantle.registration.object.FenceBuildingBlockObject;
@@ -131,14 +131,14 @@ public class BlockLootTableProvider extends BlockLootSubProvider {
     // chests
     // tinker chest - name and color
     this.add(TinkerTables.tinkersChest.get(), block -> droppingWithFunctions(block, builder ->
-      builder.apply(COPY_NAME).apply(CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY).copy(TinkersChestBlockEntity.TAG_CHEST_COLOR, "display.color"))));
+      builder.apply(COPY_NAME).apply(CopyCustomDataFunction.copyData(ContextNbtProvider.BLOCK_ENTITY).copy(TinkersChestBlockEntity.TAG_CHEST_COLOR, "display.color"))));
     // part chest - just name
     this.add(TinkerTables.partChest.get(), block ->
       droppingWithFunctions(block, builder ->
         builder.apply(COPY_NAME)));
     // cast chest - name and inventory
     this.add(TinkerTables.castChest.get(), block -> droppingWithFunctions(block, builder ->
-      builder.apply(COPY_NAME).apply(CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY).copy("Items", "TinkerData.Items"))));
+      builder.apply(COPY_NAME).apply(CopyCustomDataFunction.copyData(ContextNbtProvider.BLOCK_ENTITY).copy("Items", "TinkerData.Items"))));
 
     // tables with legs
     this.dropTable(TinkerTables.craftingStation.get());
@@ -261,7 +261,7 @@ public class BlockLootTableProvider extends BlockLootSubProvider {
     this.dropTable(TinkerSmeltery.searedDuct.get());
 
     Function<Block, LootTable.Builder> dropTank = block -> droppingWithFunctions(block, builder ->
-      builder.apply(COPY_NAME).apply(CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY).copy(NBTTags.TANK, NBTTags.TANK)));
+      builder.apply(COPY_NAME).apply(CopyCustomDataFunction.copyData(ContextNbtProvider.BLOCK_ENTITY).copy(NBTTags.TANK, NBTTags.TANK)));
     TinkerSmeltery.searedTank.forEach(block -> this.add(block, dropTank));
     this.add(TinkerSmeltery.searedFluidCannon.get(), dropTank);
     this.add(TinkerSmeltery.scorchedFluidCannon.get(), dropTank);
@@ -307,7 +307,7 @@ public class BlockLootTableProvider extends BlockLootSubProvider {
 
     Function<Block, LootTable.Builder> dropTank = block -> droppingWithFunctions(block, builder ->
       builder.apply(COPY_NAME)
-             .apply(CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY).copy(NBTTags.TANK, NBTTags.TANK)));
+             .apply(CopyCustomDataFunction.copyData(ContextNbtProvider.BLOCK_ENTITY).copy(NBTTags.TANK, NBTTags.TANK)));
     TinkerSmeltery.scorchedTank.forEach(block -> this.add(block, dropTank));
     this.add(TinkerSmeltery.scorchedLantern.get(), dropTank);
 
@@ -327,7 +327,7 @@ public class BlockLootTableProvider extends BlockLootSubProvider {
    */
 
   private static final LootItemCondition.Builder SILK_TOUCH = MatchTool.toolMatches(ItemPredicate.Builder.item().hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(1))));
-  private static final LootItemCondition.Builder SHEARS = CanToolPerformAction.canToolPerformAction(ToolActions.SHEARS_DIG);
+  private static final LootItemCondition.Builder SHEARS = CanToolPerformAction.canToolPerformAction(ItemAbilities.SHEARS_DIG);
   private static final LootItemCondition.Builder SILK_TOUCH_OR_SHEARS = SHEARS.or(SILK_TOUCH);
 
   protected static LootTable.Builder onlyShears(ItemLike item) {
@@ -413,7 +413,7 @@ public class BlockLootTableProvider extends BlockLootSubProvider {
   /** Copies a material block texture */
   private final LootItemFunction.Builder COPY_NAME = CopyNameFunction.copyName(CopyNameFunction.NameSource.BLOCK_ENTITY);
   /** Copies a material block texture */
-  private final LootItemFunction.Builder COPY_MATERIAL = CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY).copy(IMaterialItem.MATERIAL_TAG, IMaterialItem.MATERIAL_TAG);
+  private final LootItemFunction.Builder COPY_MATERIAL = CopyCustomDataFunction.copyData(ContextNbtProvider.BLOCK_ENTITY).copy(IMaterialItem.MATERIAL_TAG, IMaterialItem.MATERIAL_TAG);
   /** Properties for a standard table */
   private final Function<Block, LootTable.Builder> ADD_TABLE = block -> droppingWithFunctions(block, (builder) ->
     builder.apply(COPY_NAME).apply(RetexturedLootFunction::new));

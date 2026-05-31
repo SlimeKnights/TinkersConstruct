@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:material_fluid",
+  "id": "tconstruct:tools/materials/composite/ancient_hide_cleaning",
   "fluid": {
     "amount": 50,
     "tag": "tconstruct:venom"

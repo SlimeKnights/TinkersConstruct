@@ -6,7 +6,7 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.Tiers;
-import net.minecraftforge.common.TierSortingRegistry;
+import slimeknights.tconstruct.compat.neoforged.neoforge.common.TierSortingRegistry;
 import slimeknights.mantle.client.ResourceColorManager;
 import slimeknights.mantle.data.listener.ISafeManagerReloadListener;
 import slimeknights.tconstruct.TConstruct;

@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:alloy",
+  "id": "tconstruct:smeltery/alloys/molten_obsidian",
   "inputs": [
     {
       "amount": 250,

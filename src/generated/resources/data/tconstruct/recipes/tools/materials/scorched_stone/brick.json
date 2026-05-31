@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/scorched_stone/brick",
   "ingredient": {
     "item": "tconstruct:scorched_brick"
   },

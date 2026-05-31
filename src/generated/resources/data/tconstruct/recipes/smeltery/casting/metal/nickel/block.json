@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:casting_basin",
-  "conditions": [
+  "id": "tconstruct:smeltery/casting/metal/nickel/block",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:storage_blocks/nickel"
+      "tag": "c:storage_blocks/nickel"
     }
   ],
   "cooling_time": 194,
   "fluid": {
     "amount": 810,
-    "tag": "forge:molten_nickel"
+    "tag": "c:molten_nickel"
   },
   "result": {
-    "tag": "forge:storage_blocks/nickel"
+    "tag": "c:storage_blocks/nickel"
   }
 }

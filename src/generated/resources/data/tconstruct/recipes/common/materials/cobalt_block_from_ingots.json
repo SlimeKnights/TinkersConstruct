@@ -4,7 +4,7 @@
   "group": "tconstruct:cobalt_block",
   "key": {
     "#": {
-      "tag": "forge:ingots/cobalt"
+      "tag": "c:ingots/cobalt"
     },
     "*": {
       "item": "tconstruct:cobalt_ingot"
@@ -16,7 +16,7 @@
     "###"
   ],
   "result": {
-    "item": "tconstruct:cobalt_block"
+    "id": "tconstruct:cobalt_block"
   },
   "show_notification": true
 }

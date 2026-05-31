@@ -1,6 +1,7 @@
 {
   "type": "tconstruct:damagable_melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/osmium/axes",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
       "tag": "tconstruct:melting/osmium/tools_costing_3"
@@ -11,7 +12,7 @@
   },
   "result": {
     "amount": 270,
-    "tag": "forge:molten_osmium",
+    "tag": "c:molten_osmium",
     "unit_size": 10
   },
   "temperature": 975,

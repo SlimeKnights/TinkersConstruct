@@ -15,7 +15,7 @@
     " b "
   ],
   "result": {
-    "item": "tconstruct:seared_lamp"
+    "id": "tconstruct:seared_lamp"
   },
   "show_notification": true
 }

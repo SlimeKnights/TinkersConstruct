@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.library.modifiers.util;
 
 import lombok.RequiredArgsConstructor;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.IEventBus;
+import net.neoforged.bus.api.EventPriority;
+import net.neoforged.bus.api.IEventBus;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.ModifierManager.ModifierRegistrationEvent;
@@ -14,7 +14,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.function.Supplier;
 
-/** Utility similar to {@link net.minecraftforge.registries.DeferredRegister} but for modifiers, as they no longer use a forge registry */
+/** Utility similar to {@link net.neoforged.neoforge.registries.DeferredRegister} but for modifiers, as they no longer use a forge registry */
 @RequiredArgsConstructor(staticName = "create")
 public class ModifierDeferredRegister {
   /** All modifiers will be registered under this domain */

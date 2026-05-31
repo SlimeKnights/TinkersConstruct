@@ -1,21 +1,22 @@
 {
   "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/ability/reach",
   "allow_crystal": true,
   "inputs": [
     {
       "item": "minecraft:piston"
     },
     {
-      "tag": "forge:ingots/queens_slime"
+      "tag": "c:ingots/queens_slime"
     },
     {
       "item": "minecraft:piston"
     },
     {
-      "tag": "forge:slimeball/ender"
+      "tag": "c:slimeball/ender"
     },
     {
-      "tag": "forge:slimeball/ender"
+      "tag": "c:slimeball/ender"
     }
   ],
   "level": {

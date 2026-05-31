@@ -275,6 +275,7 @@ public abstract class HeatingStructureMultiblock<T extends MantleBlockEntity & I
     @Override
     public CompoundTag writeToTag(BlockPos controllerPos) {
       CompoundTag nbt = super.writeToTag(controllerPos);
+      nbt.put(TAG_TANKS, writePosList(tanks, controllerPos));
       if (insideCheck != null) {
         nbt.put(TAG_INSIDE_CHECK, NbtUtils.writeBlockPos(insideCheck.subtract(controllerPos)));
       }

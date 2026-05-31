@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/obsidian/foundry_io",
   "byproducts": [
     {
       "amount": 1000,

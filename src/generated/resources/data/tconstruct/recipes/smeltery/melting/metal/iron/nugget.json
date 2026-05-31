@@ -1,11 +1,12 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/iron/nugget",
   "ingredient": {
-    "tag": "forge:nuggets/iron"
+    "tag": "c:nuggets/iron"
   },
   "result": {
     "amount": 10,
-    "tag": "forge:molten_iron"
+    "tag": "c:molten_iron"
   },
   "temperature": 800,
   "time": 20

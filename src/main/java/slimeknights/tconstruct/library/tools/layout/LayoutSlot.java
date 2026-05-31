@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
@@ -64,7 +65,7 @@ public class LayoutSlot {
     int y = buffer.readVarInt();
     Ingredient ingredient = null;
     if (buffer.readBoolean()) {
-      ingredient = Ingredient.fromNetwork(buffer);
+      ingredient = Ingredient.CONTENTS_STREAM_CODEC.decode((RegistryFriendlyByteBuf)buffer);
     }
     return new LayoutSlot(pattern, name, x, y, ingredient);
   }
@@ -82,7 +83,7 @@ public class LayoutSlot {
     buffer.writeVarInt(y);
     if (filter != null) {
       buffer.writeBoolean(true);
-      filter.toNetwork(buffer);
+      Ingredient.CONTENTS_STREAM_CODEC.encode((RegistryFriendlyByteBuf)buffer, filter);
     } else {
       buffer.writeBoolean(false);
     }

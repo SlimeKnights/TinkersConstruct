@@ -1,11 +1,12 @@
 {
   "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/slotless/recapitated",
   "allow_crystal": true,
   "inputs": [
     {
-      "type": "forge:difference",
+      "type": "neoforge:difference",
       "base": {
-        "tag": "forge:heads"
+        "tag": "c:heads"
       },
       "subtracted": {
         "item": "minecraft:dragon_head"
@@ -15,7 +16,7 @@
   "level": 1,
   "result": "tconstruct:recapitated",
   "tools": {
-    "type": "forge:difference",
+    "type": "neoforge:difference",
     "base": {
       "tag": "tconstruct:modifiable/bonus_slots"
     },

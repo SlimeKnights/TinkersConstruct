@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/electrum/nugget",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:nuggets/electrum"
+      "tag": "c:nuggets/electrum"
     }
   ],
   "ingredient": {
-    "tag": "forge:nuggets/electrum"
+    "tag": "c:nuggets/electrum"
   },
   "result": {
     "amount": 10,
-    "tag": "forge:molten_electrum"
+    "tag": "c:molten_electrum"
   },
   "temperature": 760,
   "time": 20

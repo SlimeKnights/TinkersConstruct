@@ -1,12 +1,13 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:compat/ceramics/casting/porcelain_brick_sand_cast",
   "cast": {
     "tag": "tconstruct:casts/single_use/ingot"
   },
   "cast_consumed": true,
-  "conditions": [
+  "neoforge:conditions": [
     {
-      "type": "forge:mod_loaded",
+      "type": "neoforge:mod_loaded",
       "modid": "ceramics"
     }
   ],

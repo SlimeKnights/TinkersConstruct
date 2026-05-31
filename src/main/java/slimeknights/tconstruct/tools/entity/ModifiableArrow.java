@@ -26,9 +26,11 @@ import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.Schedule;
+import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 import javax.annotation.Nullable;
+import java.lang.reflect.Method;
 
 /** Arrow with material variants */
 public class ModifiableArrow extends AbstractArrow implements ToolProjectile, ReusableProjectile {
@@ -39,6 +41,7 @@ public class ModifiableArrow extends AbstractArrow implements ToolProjectile, Re
 
   private ItemStack stack = ItemStack.EMPTY;
   private IToolStackView tool = null;
+  private int knockback = 0;
   private boolean reclaim = false;
   private boolean dealtDamage = false;
   /** Tasks queued by modifiers */
@@ -49,11 +52,11 @@ public class ModifiableArrow extends AbstractArrow implements ToolProjectile, Re
   }
 
   public ModifiableArrow(Level level, double pX, double pY, double pZ) {
-    super(TinkerTools.materialArrow.get(), pX, pY, pZ, level);
+    super(TinkerTools.materialArrow.get(), pX, pY, pZ, level, ItemStack.EMPTY, null);
   }
 
   public ModifiableArrow(Level level, LivingEntity shooter) {
-    super(TinkerTools.materialArrow.get(), shooter, level);
+    super(TinkerTools.materialArrow.get(), shooter, level, ItemStack.EMPTY, null);
   }
 
 
@@ -62,6 +65,11 @@ public class ModifiableArrow extends AbstractArrow implements ToolProjectile, Re
   @Override
   public ItemStack getPickupItem() {
     return stack.copy();
+  }
+
+  @Override
+  protected ItemStack getDefaultPickupItem() {
+    return ItemStack.EMPTY;
   }
 
   /** Updates the stack on the arrow */
@@ -138,14 +146,16 @@ public class ModifiableArrow extends AbstractArrow implements ToolProjectile, Re
 
   // need to replace some setters with adders so vanilla bows work with our logic
 
-  @Override
-  public void setKnockback(int knockback) {
-    super.setKnockback(getKnockback() + knockback);
+  public int getKnockback() {
+    return knockback;
   }
 
-  @Override
+  public void setKnockback(int knockback) {
+    this.knockback += knockback;
+  }
+
   public void setPierceLevel(byte pierceLevel) {
-    super.setPierceLevel((byte) (getPierceLevel() + pierceLevel));
+    AbstractArrowAccess.setPierceLevel(this, (byte)(getPierceLevel() + pierceLevel));
   }
 
 
@@ -205,10 +215,10 @@ public class ModifiableArrow extends AbstractArrow implements ToolProjectile, Re
   /* Client */
 
   @Override
-  protected void defineSynchedData() {
-    super.defineSynchedData();
-    this.entityData.define(STACK, ItemStack.EMPTY);
-    this.entityData.define(WATER_INERTIA, 0.6f);
+  protected void defineSynchedData(SynchedEntityData.Builder builder) {
+    super.defineSynchedData(builder);
+    builder.define(STACK, ItemStack.EMPTY);
+    builder.define(WATER_INERTIA, 0.6f);
   }
 
   @Override
@@ -231,7 +241,7 @@ public class ModifiableArrow extends AbstractArrow implements ToolProjectile, Re
   @Override
   public void addAdditionalSaveData(CompoundTag tag) {
     super.addAdditionalSaveData(tag);
-    tag.put(KEY_STACK, this.stack.save(new CompoundTag()));
+    tag.put(KEY_STACK, TagUtil.saveItem(this.stack, new CompoundTag()));
     tag.putFloat(KEY_WATER_INERTIA, this.entityData.get(WATER_INERTIA));
     tag.putBoolean(KEY_DEALT_DAMAGE, dealtDamage);
     if (!this.tasks.isEmpty()) {
@@ -243,12 +253,34 @@ public class ModifiableArrow extends AbstractArrow implements ToolProjectile, Re
   public void readAdditionalSaveData(CompoundTag tag) {
     super.readAdditionalSaveData(tag);
     if (tag.contains(KEY_STACK, CompoundTag.TAG_COMPOUND)) {
-      setStack(ItemStack.of(tag.getCompound(KEY_STACK)));
+      setStack(TagUtil.readItem(tag.getCompound(KEY_STACK)));
     }
     this.entityData.set(WATER_INERTIA, tag.getFloat(KEY_WATER_INERTIA));
     this.dealtDamage = tag.getBoolean(KEY_DEALT_DAMAGE);
     if (tag.contains(KEY_TASKS, CompoundTag.TAG_LIST)) {
       this.tasks = Schedule.deserialize(tag.getList(KEY_TASKS, CompoundTag.TAG_COMPOUND));
+    }
+  }
+
+  private static class AbstractArrowAccess {
+    private static final Method SET_PIERCE_LEVEL = findSetPierceLevel();
+
+    private static Method findSetPierceLevel() {
+      try {
+        Method method = AbstractArrow.class.getDeclaredMethod("setPierceLevel", byte.class);
+        method.setAccessible(true);
+        return method;
+      } catch (ReflectiveOperationException e) {
+        throw new IllegalStateException("Failed to access AbstractArrow#setPierceLevel", e);
+      }
+    }
+
+    private static void setPierceLevel(AbstractArrow arrow, byte level) {
+      try {
+        SET_PIERCE_LEVEL.invoke(arrow, level);
+      } catch (ReflectiveOperationException e) {
+        throw new IllegalStateException("Failed to set arrow pierce level", e);
+      }
     }
   }
 }

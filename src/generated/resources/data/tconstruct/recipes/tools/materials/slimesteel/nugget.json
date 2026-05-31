@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/slimesteel/nugget",
   "ingredient": {
-    "tag": "forge:nuggets/slimesteel"
+    "tag": "c:nuggets/slimesteel"
   },
   "material": "tconstruct:slimesteel",
   "needed": 9,

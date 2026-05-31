@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/seared/glass_pane",
   "cast": {
-    "tag": "forge:glass_panes/colorless"
+    "tag": "c:glass_panes/colorless"
   },
   "cast_consumed": true,
   "cooling_time": 89,

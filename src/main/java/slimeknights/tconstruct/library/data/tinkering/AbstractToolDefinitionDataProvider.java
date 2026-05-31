@@ -100,7 +100,7 @@ public abstract class AbstractToolDefinitionDataProvider extends GenericDataProv
       this.name = armorMaterial.getId();
       this.builders = new ToolDefinitionDataBuilder[4];
       ImmutableList.Builder<ArmorItem.Type> slotTypes = ImmutableList.builder();
-      for (ArmorItem.Type slotType : ArmorItem.Type.values()) {
+      for (ArmorItem.Type slotType : ModifiableArmorMaterial.ARMOR_TYPES) {
         ToolDefinition definition = armorMaterial.getArmorDefinition(slotType);
         if (definition != null) {
           this.builders[slotType.ordinal()] = define(definition);

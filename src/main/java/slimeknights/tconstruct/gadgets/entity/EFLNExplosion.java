@@ -48,7 +48,7 @@ public class EFLNExplosion extends CustomExplosion {
           int distance = x * x + y * y + z * z;
           // inside the sphere?
           if (distance <= radius) {
-            BlockPos blockpos = new BlockPos(x, y, z).offset(Mth.floor(this.x), Mth.floor(this.y), Mth.floor(this.z));
+            BlockPos blockpos = BlockPos.containing(this.x + x, this.y + y, this.z + z);
             // no air blocks
             if (this.level.isEmptyBlock(blockpos)) {
               continue;
@@ -73,6 +73,6 @@ public class EFLNExplosion extends CustomExplosion {
         }
       }
     }
-    this.toBlow.addAll(set);
+    getToBlow().addAll(set);
   }
 }

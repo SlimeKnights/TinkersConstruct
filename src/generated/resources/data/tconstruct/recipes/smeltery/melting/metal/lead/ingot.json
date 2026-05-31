@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/lead/ingot",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:ingots/lead"
+      "tag": "c:ingots/lead"
     }
   ],
   "ingredient": {
-    "tag": "forge:ingots/lead"
+    "tag": "c:ingots/lead"
   },
   "result": {
     "amount": 90,
-    "tag": "forge:molten_lead"
+    "tag": "c:molten_lead"
   },
   "temperature": 330,
   "time": 43

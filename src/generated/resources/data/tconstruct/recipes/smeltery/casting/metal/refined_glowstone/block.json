@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:casting_basin",
-  "conditions": [
+  "id": "tconstruct:smeltery/casting/metal/refined_glowstone/block",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:storage_blocks/refined_glowstone"
+      "tag": "c:storage_blocks/refined_glowstone"
     }
   ],
   "cooling_time": 183,
   "fluid": {
     "amount": 810,
-    "tag": "forge:molten_refined_glowstone"
+    "tag": "c:molten_refined_glowstone"
   },
   "result": {
-    "tag": "forge:storage_blocks/refined_glowstone"
+    "tag": "c:storage_blocks/refined_glowstone"
   }
 }

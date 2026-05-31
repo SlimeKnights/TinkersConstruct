@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.shared;
 
-import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
@@ -10,18 +10,19 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.common.util.FakePlayer;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.common.util.FakePlayer;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.EventBusSubscriber;
 import slimeknights.tconstruct.TConstruct;
 //import slimeknights.tconstruct.library.utils.TagUtil;
 //import slimeknights.tconstruct.tools.common.entity.EntityArrow;
 //import slimeknights.tconstruct.tools.tools.Pickaxe;
 
 // TODO: reevaluate
-@Mod.EventBusSubscriber(modid = TConstruct.MOD_ID)
+@EventBusSubscriber(modid = TConstruct.MOD_ID)
 public final class AchievementEvents {
 
   private static final String ADVANCEMENT_STORY_ROOT = "minecraft:story/root";
@@ -51,7 +52,7 @@ public final class AchievementEvents {
   }
 
   @SubscribeEvent
-  public static void onDamageEntity(LivingHurtEvent event) {
+  public static void onDamageEntity(LivingDamageEvent.Pre event) {
     DamageSource source = event.getSource();
     if (source.is(DamageTypeTags.IS_PROJECTILE) && source.getEntity() instanceof ServerPlayer player && !(source.getEntity() instanceof FakePlayer)) {// && source.getImmediateSource() instanceof EntityArrow) {
       grantAdvancement(player, ADVANCEMENT_SHOOT_ARROW);
@@ -61,7 +62,7 @@ public final class AchievementEvents {
   private static void grantAdvancement(ServerPlayer playerMP, String advancementResource) {
     MinecraftServer server = playerMP.getServer();
     if (server != null) {
-      Advancement advancement = server.getAdvancements().getAdvancement(new ResourceLocation(advancementResource));
+      AdvancementHolder advancement = server.getAdvancements().get(ResourceLocation.parse(advancementResource));
       if (advancement != null) {
         AdvancementProgress advancementProgress = playerMP.getAdvancements().getOrStartProgress(advancement);
         if (!advancementProgress.isDone()) {

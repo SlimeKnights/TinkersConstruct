@@ -8,7 +8,7 @@
           12.0
         ],
         "size": 7.5,
-        "transform": "tconstruct:melter"
+        "transform": "minecraft:none"
       },
       {
         "center": [
@@ -17,7 +17,7 @@
           4.0
         ],
         "size": 7.5,
-        "transform": "tconstruct:melter"
+        "transform": "minecraft:none"
       },
       {
         "center": [
@@ -26,7 +26,7 @@
           4.0
         ],
         "size": 7.5,
-        "transform": "tconstruct:melter"
+        "transform": "minecraft:none"
       }
     ]
   }

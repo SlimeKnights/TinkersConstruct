@@ -5,12 +5,13 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.LazyOptional;
+import slimeknights.mantle.compat.neoforged.neoforge.capabilities.Capability;
+import slimeknights.mantle.compat.neoforged.neoforge.common.util.LazyOptional;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
+import slimeknights.tconstruct.library.utils.TagUtil;
 
 import javax.annotation.Nullable;
 import java.util.function.Supplier;
@@ -65,7 +66,7 @@ public interface BlockItemProviderModifierHook {
                     return;
                 }
             }
-            TConstruct.LOG.warn("Could not find a modifier to consume {} from after providing it from ToolBlockItemProviderHook. This is likely causing a duplication glitch! Stack nbt: {}", BuiltInRegistries.ITEM.getKey(backingStack.getItem()), backingStack.getTag());
+            TConstruct.LOG.warn("Could not find a modifier to consume {} from after providing it from ToolBlockItemProviderHook. This is likely causing a duplication glitch! Stack nbt: {}", BuiltInRegistries.ITEM.getKey(backingStack.getItem()), TagUtil.getTag(backingStack));
         }
     }
 

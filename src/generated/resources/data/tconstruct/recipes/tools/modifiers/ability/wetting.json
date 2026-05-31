@@ -1,22 +1,23 @@
 {
   "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/ability/wetting",
   "allow_crystal": true,
   "inputs": [
     {
-      "tag": "forge:dusts/redstone"
+      "tag": "c:dusts/redstone"
     },
     {
       "type": "tconstruct:no_container",
       "tag": "tconstruct:tanks"
     },
     {
-      "tag": "forge:dusts/redstone"
+      "tag": "c:dusts/redstone"
     },
     {
-      "tag": "forge:ingots/copper"
+      "tag": "c:ingots/copper"
     },
     {
-      "tag": "forge:ingots/copper"
+      "tag": "c:ingots/copper"
     }
   ],
   "result": "tconstruct:wetting",

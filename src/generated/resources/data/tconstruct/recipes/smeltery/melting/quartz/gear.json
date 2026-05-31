@@ -1,13 +1,14 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/quartz/gear",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:gears/quartz"
+      "tag": "c:gears/quartz"
     }
   ],
   "ingredient": {
-    "tag": "forge:gears/quartz"
+    "tag": "c:gears/quartz"
   },
   "result": {
     "amount": 400,

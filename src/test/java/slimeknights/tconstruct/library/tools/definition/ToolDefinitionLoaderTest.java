@@ -5,8 +5,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.common.ToolAction;
-import net.minecraftforge.common.ToolActions;
+import net.neoforged.neoforge.common.ItemAbilities;
+import net.neoforged.neoforge.common.ItemAbility;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import slimeknights.mantle.util.JsonHelper;
@@ -114,8 +114,8 @@ class ToolDefinitionLoaderTest extends BaseMcTest {
     assertThat(actions).isInstanceOf(ToolActionsModule.class);
     assertThat(((ToolActionsModule) actions).actions()).hasSize(2);
     IToolStackView tool = mock(IToolStackView.class);
-    assertThat(data.getHook(ToolHooks.TOOL_ACTION).canPerformAction(tool, ToolActions.AXE_DIG)).isTrue();
-    assertThat(data.getHook(ToolHooks.TOOL_ACTION).canPerformAction(tool, ToolAction.get("custom_action"))).isTrue();
+    assertThat(data.getHook(ToolHooks.TOOL_ACTION).canPerformAction(tool, ItemAbilities.AXE_DIG)).isTrue();
+    assertThat(data.getHook(ToolHooks.TOOL_ACTION).canPerformAction(tool, ItemAbility.get("custom_action"))).isTrue();
     // harvest
     IsEffectiveToolHook harvestLogic = data.getHook(ToolHooks.IS_EFFECTIVE);
     assertThat(harvestLogic).isInstanceOf(IsEffectiveModule.class);

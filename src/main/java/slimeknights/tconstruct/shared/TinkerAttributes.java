@@ -3,21 +3,17 @@ package slimeknights.tconstruct.shared;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import slimeknights.mantle.compat.neoforged.neoforge.registries.RegistryObject;
 import slimeknights.mantle.registration.deferred.AttributeDeferredRegister;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.common.config.Config;
 
 public class TinkerAttributes {
   private static final AttributeDeferredRegister ATTRIBUTES = new AttributeDeferredRegister(TConstruct.MOD_ID);
 
   public TinkerAttributes() {
-    ATTRIBUTES.register(FMLJavaModLoadingContext.get().getModEventBus());
+    ATTRIBUTES.register(slimeknights.tconstruct.TConstruct.getModBus());
   }
 
   // booleans
@@ -59,11 +55,11 @@ public class TinkerAttributes {
   @SubscribeEvent
   void addAttributes(EntityAttributeModificationEvent event) {
     // player attributes
-    event.add(EntityType.PLAYER, USE_ITEM_SPEED.get());
-    event.add(EntityType.PLAYER, CRITICAL_DAMAGE.get());
-    event.add(EntityType.PLAYER, MINING_SPEED_MULTIPLIER.get());
-    event.add(EntityType.PLAYER, EXPERIENCE_MULTIPLIER.get());
-    event.add(EntityType.PLAYER, JUMP_COUNT.get());
+    event.add(EntityType.PLAYER, USE_ITEM_SPEED);
+    event.add(EntityType.PLAYER, CRITICAL_DAMAGE);
+    event.add(EntityType.PLAYER, MINING_SPEED_MULTIPLIER);
+    event.add(EntityType.PLAYER, EXPERIENCE_MULTIPLIER);
+    event.add(EntityType.PLAYER, JUMP_COUNT);
     // general attributes
     addToAll(event, BOUNCY);
     addToAll(event, PROTECTION_CAP);
@@ -75,26 +71,15 @@ public class TinkerAttributes {
     addToAll(event, BAD_EFFECT_DURATION);
   }
 
-  @SubscribeEvent
-  void commonSetup(FMLCommonSetupEvent event) {
-    event.enqueueWork(() -> {
-      // make knockback resistance syncable, as we need that info clientside
-      if (Config.COMMON.syncKnockbackResistance.get()) {
-        Attributes.KNOCKBACK_RESISTANCE.setSyncable(true);
-      }
-    });
-  }
-
   /** Adds an attribute to all entities */
   private static void addToAll(EntityAttributeModificationEvent event, RegistryObject<Attribute> attribute, double defaultValue) {
-    Attribute attr = attribute.get();
     for (EntityType<? extends LivingEntity> entity : event.getTypes()) {
-      event.add(entity, attr, defaultValue);
+      event.add(entity, attribute, defaultValue);
     }
   }
 
   /** Adds an attribute to all entities */
   private static void addToAll(EntityAttributeModificationEvent event, RegistryObject<Attribute> attribute) {
-    addToAll(event, attribute, attribute.get().getDefaultValue());
+    addToAll(event, attribute, attribute.value().getDefaultValue());
   }
 }

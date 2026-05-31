@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/knightmetal/fluid_cannon",
   "ingredient": {
     "item": "tconstruct:end_fluid_cannon"
   },

@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:ore_melting",
+  "id": "tconstruct:smeltery/melting/diamond/ore_dense",
   "byproducts": [
     {
       "amount": 270,
@@ -7,23 +8,23 @@
       "rate": "metal"
     }
   ],
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_combination_filled",
       "match": [
-        "forge:ores/diamond",
-        "forge:ore_rates/dense"
+        "c:ores/diamond",
+        "c:ore_rates/dense"
       ]
     }
   ],
   "ingredient": {
-    "type": "forge:intersection",
+    "type": "neoforge:intersection",
     "children": [
       {
-        "tag": "forge:ores/diamond"
+        "tag": "c:ores/diamond"
       },
       {
-        "tag": "forge:ore_rates/dense"
+        "tag": "c:ore_rates/dense"
       }
     ]
   },

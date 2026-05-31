@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:ore_melting",
+  "id": "tconstruct:smeltery/melting/emerald/ore_singular",
   "byproducts": [
     {
       "amount": 100,
@@ -7,17 +8,17 @@
       "rate": "gem"
     }
   ],
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_combination_filled",
       "ignore": "tconstruct:non_singular_ore_rates",
-      "match": "forge:ores/emerald"
+      "match": "c:ores/emerald"
     }
   ],
   "ingredient": {
-    "type": "forge:difference",
+    "type": "neoforge:difference",
     "base": {
-      "tag": "forge:ores/emerald"
+      "tag": "c:ores/emerald"
     },
     "subtracted": {
       "tag": "tconstruct:non_singular_ore_rates"

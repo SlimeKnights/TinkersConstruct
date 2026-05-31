@@ -7,13 +7,14 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.common.util.NonNullConsumer;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
-import net.minecraftforge.fluids.capability.templates.EmptyFluidHandler;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import slimeknights.tconstruct.compat.neoforged.neoforge.capabilities.ForgeCapabilities;
+import slimeknights.mantle.compat.neoforged.neoforge.common.util.LazyOptional;
+import slimeknights.mantle.compat.neoforged.neoforge.common.util.NonNullConsumer;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction;
+import net.neoforged.neoforge.fluids.capability.templates.EmptyFluidHandler;
 import slimeknights.mantle.block.entity.MantleBlockEntity;
 import slimeknights.mantle.util.WeakConsumerWrapper;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -143,15 +144,10 @@ public class MixerAlloyTank implements IMutableAlloyTank {
             BlockEntity te = world.getBlockEntity(target);
             if (te != null) {
               // if we found a tank, increment the number of tanks
-              LazyOptional<IFluidHandler> capability = te.getCapability(ForgeCapabilities.FLUID_HANDLER, direction.getOpposite());
-              if (capability.isPresent()) {
+              IFluidHandler capability = world.getCapability(Capabilities.FluidHandler.BLOCK, target, null, te, direction.getOpposite());
+              if (capability != null) {
                 // attach a listener so we know when the side invalidates
-                capability.addListener(listeners.computeIfAbsent(direction, dir -> new WeakConsumerWrapper<>(this, (self, handler) -> {
-                  if (handler == self.inputs.get(dir)) {
-                    refresh(dir, false);
-                  }
-                })));
-                inputs.put(direction, capability);
+                inputs.put(direction, LazyOptional.of(() -> capability));
                 currentTanks++;
               } else {
                 inputs.put(direction, LazyOptional.empty());

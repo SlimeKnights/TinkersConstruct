@@ -52,7 +52,7 @@
   "minecraft:silk_touch": "tconstruct:silky",
   "minecraft:smite": "tconstruct:smite",
   "minecraft:soul_speed": "tconstruct:soulspeed",
-  "minecraft:sweeping": "tconstruct:sweeping_edge",
+  "minecraft:sweeping_edge": "tconstruct:sweeping_edge",
   "minecraft:swift_sneak": "tconstruct:swift_sneak",
   "minecraft:thorns": "tconstruct:thorns",
   "minecraft:unbreaking": "tconstruct:reinforced"

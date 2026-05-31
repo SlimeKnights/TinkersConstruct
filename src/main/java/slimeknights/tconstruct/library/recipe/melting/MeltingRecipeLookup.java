@@ -5,7 +5,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
-import net.minecraftforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidStack;
 import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.recipe.helper.FluidOutput;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;

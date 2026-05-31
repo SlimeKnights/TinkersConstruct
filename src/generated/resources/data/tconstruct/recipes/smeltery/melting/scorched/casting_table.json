@@ -1,9 +1,10 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/scorched/casting_table",
   "byproducts": [
     {
       "amount": 40,
-      "tag": "forge:molten_gold"
+      "tag": "c:molten_gold"
     }
   ],
   "ingredient": {

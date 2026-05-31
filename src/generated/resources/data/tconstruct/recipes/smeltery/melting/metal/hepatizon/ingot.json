@@ -1,11 +1,12 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/hepatizon/ingot",
   "ingredient": {
-    "tag": "forge:ingots/hepatizon"
+    "tag": "c:ingots/hepatizon"
   },
   "result": {
     "amount": 90,
-    "tag": "forge:molten_hepatizon"
+    "tag": "c:molten_hepatizon"
   },
   "temperature": 1400,
   "time": 78

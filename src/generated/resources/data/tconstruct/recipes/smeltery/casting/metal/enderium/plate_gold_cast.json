@@ -1,20 +1,21 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/enderium/plate_gold_cast",
   "cast": {
     "tag": "tconstruct:casts/multi_use/plate"
   },
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:plates/enderium"
+      "tag": "c:plates/enderium"
     }
   ],
   "cooling_time": 76,
   "fluid": {
     "amount": 90,
-    "tag": "forge:molten_enderium"
+    "tag": "c:molten_enderium"
   },
   "result": {
-    "tag": "forge:plates/enderium"
+    "tag": "c:plates/enderium"
   }
 }

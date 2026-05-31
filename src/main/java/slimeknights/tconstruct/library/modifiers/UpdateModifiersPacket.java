@@ -3,13 +3,18 @@ package slimeknights.tconstruct.library.modifiers;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import io.netty.handler.codec.DecoderException;
+import io.netty.handler.codec.EncoderException;
 import lombok.RequiredArgsConstructor;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraftforge.network.NetworkEvent.Context;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.common.CommonHooks;
+import slimeknights.mantle.compat.neoforged.neoforge.network.NetworkEvent.Context;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.impl.ComposableModifier;
@@ -74,6 +79,29 @@ public class UpdateModifiersPacket implements IThreadsafePacket {
     return modifier;
   }
 
+  /** Gets the active enchantment registry lookup for packet encoding or decoding. */
+  private static HolderLookup.RegistryLookup<Enchantment> enchantmentLookup() {
+    HolderLookup.RegistryLookup<Enchantment> lookup = CommonHooks.resolveLookup(Registries.ENCHANTMENT);
+    if (lookup == null) {
+      throw new DecoderException("Enchantment registry is unavailable");
+    }
+    return lookup;
+  }
+
+  /** Looks up an enchantment by ID. */
+  private static Enchantment getEnchantment(ResourceLocation id) {
+    return enchantmentLookup().get(ResourceKey.create(Registries.ENCHANTMENT, id)).map(Holder::value).orElseThrow(() -> new DecoderException("Unknown enchantment " + id));
+  }
+
+  /** Gets the ID for the given enchantment. */
+  private static ResourceLocation getEnchantmentId(Enchantment enchantment) {
+    return enchantmentLookup().listElements()
+      .filter(holder -> holder.value() == enchantment)
+      .findFirst()
+      .map(holder -> holder.key().location())
+      .orElseThrow(() -> new EncoderException("Unknown enchantment " + enchantment.description().getString()));
+  }
+
   public UpdateModifiersPacket(FriendlyByteBuf buffer) {
     // read in modifiers
     int size = buffer.readVarInt();
@@ -99,7 +127,7 @@ public class UpdateModifiersPacket implements IThreadsafePacket {
     size = buffer.readVarInt();
     for (int i = 0; i < size; i++) {
       enchantmentBuilder.put(
-        buffer.readRegistryIdUnsafe(ForgeRegistries.ENCHANTMENTS),
+        getEnchantment(buffer.readResourceLocation()),
         getModifier(modifiers, new ModifierId(buffer.readResourceLocation())));
     }
     enchantmentMap = enchantmentBuilder.build();
@@ -133,7 +161,7 @@ public class UpdateModifiersPacket implements IThreadsafePacket {
     // enchantment mapping
     buffer.writeVarInt(enchantmentMap.size());
     for (Entry<Enchantment,Modifier> entry : enchantmentMap.entrySet()) {
-      buffer.writeRegistryIdUnsafe(ForgeRegistries.ENCHANTMENTS, entry.getKey());
+      buffer.writeResourceLocation(getEnchantmentId(entry.getKey()));
       buffer.writeResourceLocation(entry.getValue().getId());
     }
     buffer.writeVarInt(enchantmentTagMappings.size());

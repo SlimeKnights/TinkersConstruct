@@ -1,11 +1,11 @@
 {
   "values": [
     {
-      "id": "#forge:tools/pickaxes/lead",
+      "id": "#c:tools/pickaxes/lead",
       "required": false
     },
     {
-      "id": "#forge:tools/axes/lead",
+      "id": "#c:tools/axes/lead",
       "required": false
     },
     {

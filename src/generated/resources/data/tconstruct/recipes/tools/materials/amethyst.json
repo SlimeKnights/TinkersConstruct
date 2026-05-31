@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/amethyst",
   "ingredient": {
-    "tag": "forge:gems/amethyst"
+    "tag": "c:gems/amethyst"
   },
   "material": "tconstruct:amethyst",
   "needed": 1,

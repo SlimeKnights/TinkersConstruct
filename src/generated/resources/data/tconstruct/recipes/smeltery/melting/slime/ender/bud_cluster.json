@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:ore_melting",
+  "id": "tconstruct:smeltery/melting/slime/ender/bud_cluster",
   "ingredient": {
     "item": "tconstruct:ender_slime_crystal_cluster"
   },

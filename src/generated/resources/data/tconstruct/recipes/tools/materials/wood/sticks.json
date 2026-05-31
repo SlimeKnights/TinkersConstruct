@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/wood/sticks",
   "ingredient": {
-    "tag": "forge:rods/wooden"
+    "tag": "c:rods/wooden"
   },
   "material": "tconstruct:wood",
   "needed": 2,

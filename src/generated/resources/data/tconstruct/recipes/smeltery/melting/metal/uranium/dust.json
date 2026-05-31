@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/uranium/dust",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:dusts/uranium"
+      "tag": "c:dusts/uranium"
     }
   ],
   "ingredient": {
-    "tag": "forge:dusts/uranium"
+    "tag": "c:dusts/uranium"
   },
   "result": {
     "amount": 90,
-    "tag": "forge:molten_uranium"
+    "tag": "c:molten_uranium"
   },
   "temperature": 830,
   "time": 46

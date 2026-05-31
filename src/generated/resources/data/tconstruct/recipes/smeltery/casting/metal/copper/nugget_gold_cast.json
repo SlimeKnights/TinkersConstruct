@@ -1,14 +1,15 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/copper/nugget_gold_cast",
   "cast": {
     "tag": "tconstruct:casts/multi_use/nugget"
   },
   "cooling_time": 17,
   "fluid": {
     "amount": 10,
-    "tag": "forge:molten_copper"
+    "tag": "c:molten_copper"
   },
   "result": {
-    "tag": "forge:nuggets/copper"
+    "tag": "c:nuggets/copper"
   }
 }

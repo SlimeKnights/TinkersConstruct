@@ -13,8 +13,7 @@ import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
-import net.minecraftforge.common.TierSortingRegistry;
-import net.minecraftforge.common.loot.LootModifierManager;
+import slimeknights.tconstruct.compat.neoforged.neoforge.common.TierSortingRegistry;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.mantle.data.loadable.Loadable;
 import slimeknights.mantle.data.loadable.Loadables;
@@ -30,14 +29,19 @@ import slimeknights.tconstruct.library.recipe.melting.IMeltingContainer.OreRateT
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.library.tools.part.IToolPart;
-import slimeknights.tconstruct.library.utils.GsonLoadable;
 
 import java.util.Set;
 
 @SuppressWarnings("deprecation")
 public class TinkerLoadables {
   /* Enums */
-  public static final StringLoadable<Operation> OPERATION = new EnumLoadable<>(Operation.class);
+  private static final StringLoadable<Operation> OPERATION_ENUM = new EnumLoadable<>(Operation.class);
+  public static final StringLoadable<Operation> OPERATION = StringLoadable.DEFAULT.xmap((name, error) -> switch (name) {
+    case "addition" -> Operation.ADD_VALUE;
+    case "multiply_base" -> Operation.ADD_MULTIPLIED_BASE;
+    case "multiply_total" -> Operation.ADD_MULTIPLIED_TOTAL;
+    default -> OPERATION_ENUM.parseString(name, "operation");
+  }, (operation, error) -> OPERATION_ENUM.getString(operation));
   public static final StringLoadable<EquipmentSlot> EQUIPMENT_SLOT = new EnumLoadable<>(EquipmentSlot.class);
   public static final Loadable<Set<EquipmentSlot>> EQUIPMENT_SLOT_SET = EQUIPMENT_SLOT.set();
   public static final StringLoadable<ArmorItem.Type> ARMOR_SLOT = new EnumLoadable<>(ArmorItem.Type.class);
@@ -79,7 +83,7 @@ public class TinkerLoadables {
 
   /* Loot tables */
   /** Loadable for a loot entry instance */
-  public static final Loadable<LootPoolEntryContainer> LOOT_ENTRY = new GsonLoadable<>(LootModifierManager.GSON_INSTANCE, LootPoolEntryContainer.class);
+  public static final Loadable<LootPoolEntryContainer> LOOT_ENTRY = Loadables.LOOT_ENTRY;
 
   /** Loadble requiring the argument to be an instance of the passed class */
   @SuppressWarnings("unchecked")  // The type works when deserializing, so it works when serializing

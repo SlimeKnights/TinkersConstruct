@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:tool_building",
+  "id": "tconstruct:tools/building/arrow_from_vanilla",
   "extra_materials": [
     "tconstruct:flint",
     "tconstruct:wood",

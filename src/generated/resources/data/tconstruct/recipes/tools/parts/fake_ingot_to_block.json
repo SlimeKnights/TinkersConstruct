@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:crafting_shaped_materials",
+  "id": "tconstruct:tools/parts/fake_ingot_to_block",
   "category": "misc",
   "key": {
     "#": {

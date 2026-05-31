@@ -7,7 +7,7 @@
       "item": "tconstruct:obsidian_pane"
     },
     "e": {
-      "tag": "forge:nuggets/manyullyn"
+      "tag": "c:nuggets/manyullyn"
     }
   },
   "pattern": [
@@ -16,7 +16,7 @@
     " e "
   ],
   "result": {
-    "item": "tconstruct:manyullyn_item_frame"
+    "id": "tconstruct:manyullyn_item_frame"
   },
   "show_notification": true
 }

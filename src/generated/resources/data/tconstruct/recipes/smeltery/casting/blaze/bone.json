@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/blaze/bone",
   "cast": {
-    "tag": "forge:wither_bones"
+    "tag": "c:wither_bones"
   },
   "cast_consumed": true,
   "cooling_time": 120,

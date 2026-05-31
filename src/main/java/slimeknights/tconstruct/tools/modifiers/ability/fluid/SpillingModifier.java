@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers.ability.fluid;
 
-import net.minecraftforge.fluids.FluidType;
+import net.neoforged.neoforge.fluids.FluidType;
 import slimeknights.tconstruct.library.json.LevelingValue;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.modules.build.StatBoostModule;

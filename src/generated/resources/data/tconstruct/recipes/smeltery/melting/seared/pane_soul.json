@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/seared/pane_soul",
   "byproducts": [
     {
       "amount": 250,

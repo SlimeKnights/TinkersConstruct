@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:entity_melting",
+  "id": "tconstruct:smeltery/entity_melting/ender_slime",
   "damage": 2,
   "entity": {
     "type": "tconstruct:ender_slime"

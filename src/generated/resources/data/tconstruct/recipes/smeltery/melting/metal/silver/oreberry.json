@@ -1,8 +1,9 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/silver/oreberry",
+  "neoforge:conditions": [
     {
-      "type": "forge:item_exists",
+      "type": "neoforge:item_exists",
       "item": "oreberriesreplanted:silver_oreberry"
     }
   ],
@@ -11,7 +12,7 @@
   },
   "result": {
     "amount": 10,
-    "tag": "forge:molten_silver"
+    "tag": "c:molten_silver"
   },
   "temperature": 790,
   "time": 20

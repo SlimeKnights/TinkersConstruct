@@ -1,12 +1,13 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/steeleaf/ingot_gold_cast",
   "cast": {
     "tag": "tconstruct:casts/multi_use/ingot"
   },
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:ingots/steeleaf"
+      "tag": "c:ingots/steeleaf"
     }
   ],
   "cooling_time": 64,
@@ -15,6 +16,6 @@
     "tag": "tconstruct:molten_steeleaf"
   },
   "result": {
-    "tag": "forge:ingots/steeleaf"
+    "tag": "c:ingots/steeleaf"
   }
 }

@@ -1,9 +1,10 @@
 {
   "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/slotless/harmonious",
   "allow_crystal": true,
   "inputs": [
     {
-      "tag": "minecraft:music_discs"
+      "tag": "c:music_discs"
     }
   ],
   "level": 1,

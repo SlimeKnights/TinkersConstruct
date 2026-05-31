@@ -1,8 +1,9 @@
 {
   "type": "tconstruct:damagable_melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/electrum/tools_complement_excavator",
+  "neoforge:conditions": [
     {
-      "type": "forge:item_exists",
+      "type": "neoforge:item_exists",
       "item": "tools_complement:electrum_excavator"
     }
   ],
@@ -11,7 +12,7 @@
   },
   "result": {
     "amount": 990,
-    "tag": "forge:molten_electrum",
+    "tag": "c:molten_electrum",
     "unit_size": 10
   },
   "temperature": 760,

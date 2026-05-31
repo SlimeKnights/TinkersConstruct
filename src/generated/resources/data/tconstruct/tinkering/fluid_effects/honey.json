@@ -14,6 +14,6 @@
   ],
   "fluid": {
     "amount": 50,
-    "tag": "forge:honey"
+    "tag": "c:honey"
   }
 }

@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/cinderslime/block",
   "ingredient": {
-    "tag": "forge:storage_blocks/cinderslime"
+    "tag": "c:storage_blocks/cinderslime"
   },
   "result": {
     "amount": 810,

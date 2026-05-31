@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:swappable_modifier",
+  "id": "tconstruct:tools/modifiers/slotless/embellishment/slime/ichor",
   "allow_crystal": false,
   "inputs": [
     {

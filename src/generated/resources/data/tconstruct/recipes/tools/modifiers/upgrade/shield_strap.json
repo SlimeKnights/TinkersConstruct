@@ -1,12 +1,13 @@
 {
   "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/upgrade/shield_strap",
   "allow_crystal": true,
   "inputs": [
     {
       "item": "tconstruct:sky_slime_vine"
     },
     {
-      "tag": "forge:ingots/slimesteel"
+      "tag": "c:ingots/slimesteel"
     },
     {
       "item": "tconstruct:sky_slime_vine"

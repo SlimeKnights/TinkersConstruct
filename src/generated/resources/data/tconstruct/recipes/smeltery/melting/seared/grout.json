@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/seared/grout",
   "ingredient": {
     "item": "tconstruct:grout"
   },

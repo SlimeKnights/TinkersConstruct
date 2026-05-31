@@ -101,7 +101,7 @@ public record SlingLeapModule(LevelingValue forceMultiplier, boolean leaveGround
           }
           // if supported, perform drill attack if the modifier is available
           if (ModifierManager.isInTag(modifier.getId(), TinkerTags.Modifiers.DRILL_ATTACKS) && ModifierUtil.canPerformAction(tool, TinkerToolActions.DRILL_ATTACK)) {
-            player.startAutoSpinAttack(20);
+            player.startAutoSpinAttack(20, 8.0F, player.getMainHandItem());
           }
         }
         return;

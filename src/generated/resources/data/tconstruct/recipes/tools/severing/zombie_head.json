@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:severing",
+  "id": "tconstruct:tools/severing/zombie_head",
   "entity": {
     "type": "minecraft:zombie"
   },

@@ -4,9 +4,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.fluids.capability.templates.FluidTank;
-import net.minecraftforge.fml.loading.FMLEnvironment;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
+import net.neoforged.fml.loading.FMLEnvironment;
 
 /**
  * This class contains various methods that are safe to call on both sides, which internally call client only code.

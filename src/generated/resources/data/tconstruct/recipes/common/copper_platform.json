@@ -3,10 +3,10 @@
   "category": "misc",
   "key": {
     "#": {
-      "tag": "forge:ingots/copper"
+      "tag": "c:ingots/copper"
     },
     ".": {
-      "tag": "forge:nuggets/copper"
+      "tag": "c:nuggets/copper"
     }
   },
   "pattern": [
@@ -16,7 +16,7 @@
   ],
   "result": {
     "count": 4,
-    "item": "tconstruct:copper_platform"
+    "id": "tconstruct:copper_platform"
   },
   "show_notification": true
 }

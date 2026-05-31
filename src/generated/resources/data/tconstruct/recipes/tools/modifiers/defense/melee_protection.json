@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:incremental_modifier",
+  "id": "tconstruct:tools/modifiers/defense/melee_protection",
   "allow_crystal": true,
   "amount_per_item": 1,
   "input": {

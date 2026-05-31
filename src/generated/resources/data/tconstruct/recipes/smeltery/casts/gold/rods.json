@@ -1,13 +1,14 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casts/gold/rods",
   "cast": {
-    "tag": "forge:rods"
+    "tag": "c:rods"
   },
   "cast_consumed": true,
   "cooling_time": 57,
   "fluid": {
     "amount": 90,
-    "tag": "forge:molten_gold"
+    "tag": "c:molten_gold"
   },
   "result": "tconstruct:rod_cast",
   "switch_slots": true

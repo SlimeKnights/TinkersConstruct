@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/soul/pane",
   "cooling_time": 77,
   "fluid": {
     "amount": 250,

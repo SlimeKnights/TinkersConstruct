@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:damagable_melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/copper/leggings",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:armors/leggings/copper"
+      "tag": "c:armors/leggings/copper"
     }
   ],
   "ingredient": {
-    "tag": "forge:armors/leggings/copper"
+    "tag": "c:armors/leggings/copper"
   },
   "result": {
     "amount": 630,
-    "tag": "forge:molten_copper",
+    "tag": "c:molten_copper",
     "unit_size": 10
   },
   "temperature": 500,

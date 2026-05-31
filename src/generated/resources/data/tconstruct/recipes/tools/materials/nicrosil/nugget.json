@@ -1,13 +1,14 @@
 {
   "type": "tconstruct:material",
-  "conditions": [
+  "id": "tconstruct:tools/materials/nicrosil/nugget",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:nuggets/nicrosil"
+      "tag": "c:nuggets/nicrosil"
     }
   ],
   "ingredient": {
-    "tag": "forge:nuggets/nicrosil"
+    "tag": "c:nuggets/nicrosil"
   },
   "material": "tconstruct:nicrosil",
   "needed": 9,

@@ -1,6 +1,7 @@
 {
   "type": "tconstruct:damagable_melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/iron/tools_costing_11",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
       "tag": "tconstruct:melting/iron/tools_costing_11"
@@ -11,7 +12,7 @@
   },
   "result": {
     "amount": 990,
-    "tag": "forge:molten_iron",
+    "tag": "c:molten_iron",
     "unit_size": 10
   },
   "temperature": 800,

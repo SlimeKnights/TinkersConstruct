@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/manyullyn/ingot",
   "ingredient": {
-    "tag": "forge:ingots/manyullyn"
+    "tag": "c:ingots/manyullyn"
   },
   "material": "tconstruct:manyullyn",
   "needed": 1,

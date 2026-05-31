@@ -1,20 +1,21 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/invar/ingot_gold_cast",
   "cast": {
     "tag": "tconstruct:casts/multi_use/ingot"
   },
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:ingots/invar"
+      "tag": "c:ingots/invar"
     }
   ],
   "cooling_time": 63,
   "fluid": {
     "amount": 90,
-    "tag": "forge:molten_invar"
+    "tag": "c:molten_invar"
   },
   "result": {
-    "tag": "forge:ingots/invar"
+    "tag": "c:ingots/invar"
   }
 }

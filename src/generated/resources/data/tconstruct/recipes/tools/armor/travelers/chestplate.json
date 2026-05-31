@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:crafting_shaped_materials",
+  "id": "tconstruct:tools/armor/travelers/chestplate",
   "category": "equipment",
   "extra_materials": [
     "tconstruct:leather"
@@ -24,7 +25,7 @@
             }
           ]
         },
-        "value": 1.0
+        "value": 1
       },
       {
         "type": "tconstruct:material",
@@ -36,7 +37,7 @@
       }
     ],
     "l": {
-      "tag": "forge:leather"
+      "tag": "c:leather"
     }
   },
   "parts": "c",

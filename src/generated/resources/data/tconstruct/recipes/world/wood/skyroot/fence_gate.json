@@ -15,7 +15,7 @@
     "#W#"
   ],
   "result": {
-    "item": "tconstruct:skyroot_fence_gate"
+    "id": "tconstruct:skyroot_fence_gate"
   },
   "show_notification": true
 }

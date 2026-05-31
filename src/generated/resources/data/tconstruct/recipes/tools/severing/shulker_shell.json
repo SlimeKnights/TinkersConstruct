@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:severing",
+  "id": "tconstruct:tools/severing/shulker_shell",
   "entity": {
     "type": "minecraft:shulker"
   },

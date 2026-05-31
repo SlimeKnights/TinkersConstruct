@@ -4,7 +4,7 @@
   "group": "tconstruct:manyullyn_block",
   "key": {
     "#": {
-      "tag": "forge:ingots/manyullyn"
+      "tag": "c:ingots/manyullyn"
     },
     "*": {
       "item": "tconstruct:manyullyn_ingot"
@@ -16,7 +16,7 @@
     "###"
   ],
   "result": {
-    "item": "tconstruct:manyullyn_block"
+    "id": "tconstruct:manyullyn_block"
   },
   "show_notification": true
 }

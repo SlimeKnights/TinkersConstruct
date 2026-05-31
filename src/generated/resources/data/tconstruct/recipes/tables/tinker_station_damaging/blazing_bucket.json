@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:tinker_station_damaging",
+  "id": "tconstruct:tables/tinker_station_damaging/blazing_bucket",
   "damage_amount": 2500,
   "ingredient": {
     "item": "tconstruct:blazing_blood_bucket"

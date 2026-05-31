@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/aluminum/rod",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:rods/aluminum"
+      "tag": "c:rods/aluminum"
     }
   ],
   "ingredient": {
-    "tag": "forge:rods/aluminum"
+    "tag": "c:rods/aluminum"
   },
   "result": {
     "amount": 45,
-    "tag": "forge:molten_aluminum"
+    "tag": "c:molten_aluminum"
   },
   "temperature": 425,
   "time": 9

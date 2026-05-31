@@ -1,9 +1,10 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/amethyst/spyglass",
   "byproducts": [
     {
       "amount": 180,
-      "tag": "forge:molten_copper"
+      "tag": "c:molten_copper"
     }
   ],
   "ingredient": {

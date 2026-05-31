@@ -30,6 +30,6 @@
   ],
   "fluid": {
     "amount": 10,
-    "tag": "forge:molten_gold"
+    "tag": "c:molten_gold"
   }
 }

@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:entity_melting",
+  "id": "tconstruct:smeltery/entity_melting/strength",
   "damage": 4,
   "entity": {
     "types": [
@@ -14,6 +15,6 @@
     "nbt": {
       "Potion": "minecraft:strength"
     },
-    "tag": "forge:potion"
+    "tag": "c:potion"
   }
 }

@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/chromium/block",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:storage_blocks/chromium"
+      "tag": "c:storage_blocks/chromium"
     }
   ],
   "ingredient": {
-    "tag": "forge:storage_blocks/chromium"
+    "tag": "c:storage_blocks/chromium"
   },
   "result": {
     "amount": 810,
-    "tag": "forge:molten_chromium"
+    "tag": "c:molten_chromium"
   },
   "temperature": 900,
   "time": 190

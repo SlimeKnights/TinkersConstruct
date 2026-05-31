@@ -2,7 +2,7 @@
   "type": "minecraft:entity",
   "pools": [
     {
-      "bonus_rolls": 0.0,
+      "bonus_rolls": 0,
       "conditions": [
         {
           "condition": "minecraft:inverted",
@@ -46,18 +46,19 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 2.0,
-                "min": 0.0
+                "max": 2,
+                "min": 0
               },
               "function": "minecraft:set_count"
             },
             {
               "count": {
                 "type": "minecraft:uniform",
-                "max": 1.0,
-                "min": 0.0
+                "max": 1,
+                "min": 0
               },
-              "function": "minecraft:looting_enchant"
+              "function": "minecraft:enchanted_count_increase",
+              "enchantment": "minecraft:looting"
             }
           ],
           "name": "tconstruct:sky_slime_ball"
@@ -78,27 +79,28 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 2.0,
-                "min": 0.0
+                "max": 2,
+                "min": 0
               },
               "function": "minecraft:set_count"
             },
             {
               "count": {
                 "type": "minecraft:uniform",
-                "max": 1.0,
-                "min": 0.0
+                "max": 1,
+                "min": 0
               },
-              "function": "minecraft:looting_enchant"
+              "function": "minecraft:enchanted_count_increase",
+              "enchantment": "minecraft:looting"
             }
           ],
           "name": "tconstruct:steel_shard"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     },
     {
-      "bonus_rolls": 0.0,
+      "bonus_rolls": 0,
       "conditions": [
         {
           "condition": "minecraft:damage_source_properties",
@@ -137,7 +139,7 @@
           "functions": [
             {
               "add": false,
-              "count": 1.0,
+              "count": 1,
               "function": "minecraft:set_count"
             }
           ],
@@ -157,14 +159,14 @@
           "functions": [
             {
               "add": false,
-              "count": 1.0,
+              "count": 1,
               "function": "minecraft:set_count"
             }
           ],
           "name": "tconstruct:steel_shard"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ],
   "random_sequence": "tconstruct:entities/sky_slime"

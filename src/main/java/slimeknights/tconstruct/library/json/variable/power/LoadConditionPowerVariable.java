@@ -3,7 +3,7 @@ package slimeknights.tconstruct.library.json.variable.power;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.phys.EntityHitResult;
-import net.minecraftforge.common.crafting.conditions.ICondition;
+import net.neoforged.neoforge.common.conditions.ICondition;
 import slimeknights.mantle.data.loadable.mapping.ConditionalLoadable.ConditionalObject;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;

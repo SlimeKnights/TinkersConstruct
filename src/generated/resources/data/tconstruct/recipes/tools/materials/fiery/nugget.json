@@ -1,13 +1,14 @@
 {
   "type": "tconstruct:material",
-  "conditions": [
+  "id": "tconstruct:tools/materials/fiery/nugget",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:nuggets/fiery"
+      "tag": "c:nuggets/fiery"
     }
   ],
   "ingredient": {
-    "tag": "forge:nuggets/fiery"
+    "tag": "c:nuggets/fiery"
   },
   "material": "tconstruct:fiery",
   "needed": 9,

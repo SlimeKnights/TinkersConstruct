@@ -16,7 +16,7 @@
     "sss"
   ],
   "result": {
-    "item": "tconstruct:tinkers_anvil"
+    "id": "tconstruct:tinkers_anvil"
   },
   "show_notification": true,
   "texture": "m"

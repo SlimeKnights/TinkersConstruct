@@ -1,6 +1,6 @@
 {
   "loader": "tconstruct:tool",
-  "parent": "forge:item/default-tool",
+  "parent": "neoforge:item/default-tool",
   "textures": {
     "head": "tconstruct:item/tool/sword/blade_broken",
     "handle": "tconstruct:item/tool/sword/handle",

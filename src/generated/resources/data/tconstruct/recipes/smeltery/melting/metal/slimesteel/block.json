@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/slimesteel/block",
   "ingredient": {
-    "tag": "forge:storage_blocks/slimesteel"
+    "tag": "c:storage_blocks/slimesteel"
   },
   "result": {
     "amount": 810,

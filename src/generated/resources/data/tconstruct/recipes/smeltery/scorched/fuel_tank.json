@@ -6,7 +6,7 @@
       "item": "tconstruct:scorched_brick"
     },
     "B": {
-      "tag": "forge:gems/quartz"
+      "tag": "c:gems/quartz"
     }
   },
   "pattern": [
@@ -15,7 +15,7 @@
     "###"
   ],
   "result": {
-    "item": "tconstruct:scorched_fuel_tank"
+    "id": "tconstruct:scorched_fuel_tank"
   },
   "show_notification": true
 }

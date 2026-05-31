@@ -1,20 +1,21 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/tungsten/ingot_gold_cast",
   "cast": {
     "tag": "tconstruct:casts/multi_use/ingot"
   },
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:ingots/tungsten"
+      "tag": "c:ingots/tungsten"
     }
   ],
   "cooling_time": 65,
   "fluid": {
     "amount": 90,
-    "tag": "forge:molten_tungsten"
+    "tag": "c:molten_tungsten"
   },
   "result": {
-    "tag": "forge:ingots/tungsten"
+    "tag": "c:ingots/tungsten"
   }
 }

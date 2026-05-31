@@ -3,10 +3,10 @@
   "category": "misc",
   "key": {
     "#": {
-      "tag": "forge:ingots/cobalt"
+      "tag": "c:ingots/cobalt"
     },
     ".": {
-      "tag": "forge:nuggets/cobalt"
+      "tag": "c:nuggets/cobalt"
     }
   },
   "pattern": [
@@ -16,7 +16,7 @@
   ],
   "result": {
     "count": 4,
-    "item": "tconstruct:cobalt_platform"
+    "id": "tconstruct:cobalt_platform"
   },
   "show_notification": true
 }

@@ -1,11 +1,12 @@
 package slimeknights.tconstruct.library.modifiers.fluid.entity;
 
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.library.modifiers.fluid.EffectLevel;
@@ -27,9 +28,9 @@ public record RemoveEffectFluidEffect(MobEffect effect) implements FluidEffect<F
     LivingEntity living = context.getLivingTarget();
     if (living != null && level.isFull()) {
       if (action.simulate()) {
-        return living.hasEffect(effect) ? 1 : 0;
+        return living.hasEffect(BuiltInRegistries.MOB_EFFECT.wrapAsHolder(effect)) ? 1 : 0;
       }
-      return living.removeEffect(effect) ? 1 : 0;
+      return living.removeEffect(BuiltInRegistries.MOB_EFFECT.wrapAsHolder(effect)) ? 1 : 0;
     }
     return 0;
   }

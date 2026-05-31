@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/ability/bucketing",
   "allow_crystal": true,
   "inputs": [
     {
@@ -26,10 +27,10 @@
       ]
     },
     {
-      "tag": "forge:ingots/steel"
+      "tag": "c:ingots/steel"
     },
     {
-      "tag": "forge:ingots/steel"
+      "tag": "c:ingots/steel"
     }
   ],
   "level": 1,

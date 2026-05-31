@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/soul/glass",
   "ingredient": {
     "item": "tconstruct:soul_glass"
   },

@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
-import net.minecraftforge.registries.RegistryObject;
+import slimeknights.mantle.compat.neoforged.neoforge.registries.RegistryObject;
 import slimeknights.mantle.registration.deferred.BlockDeferredRegister;
 import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.world.block.BuddingCrystalBlock;

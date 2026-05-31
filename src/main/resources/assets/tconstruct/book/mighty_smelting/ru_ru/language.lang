@@ -34,3 +34,22 @@ defense=Защита
 defense.subtext=Защитные модификаторы можно применять только к броне, используя защитные слоты.
 defense.group_protection=Защитные
 defense.group_special=Специальные
+
+# Missing 1.21 book section translations
+melee_harvest_materials=Общие материалы уровня 3
+melee_harvest_materials.subtext=Эти материалы можно создавать путем легирования, а затем отливать в детали инструментов для холодного оружия или инструментов для сбора урожая.
+ranged_materials=Материалы дальнего боя 3-го уровня
+ranged_materials.subtext=Эти материалы можно создавать путем легирования, а затем отливать в детали инструментов для оружия дальнего боя, например луков.
+armor_materials=Материалы брони 3-го уровня
+armor_materials.subtext=Эти материалы можно использовать для изготовления брони и щитов.
+tools.group_general=Общий
+tools.group_ranged=Дальний бой
+tools.group_info=Информация
+armor=Могучая броня
+armor.subtext=Сплавы открывают более широкий спектр материалов для создания брони. Они могут предоставлять дополнительные способности помимо базовых наборов, например снаряжение путешественника.
+abilities.group_ranged=Дальний бой
+abilities.group_armor.helmet=Шлем
+abilities.group_armor.chestplate=Нагрудник
+abilities.group_armor.leggings=Леггинсы
+abilities.group_armor.boots=Сапоги
+abilities.group_armor.shield=Щит

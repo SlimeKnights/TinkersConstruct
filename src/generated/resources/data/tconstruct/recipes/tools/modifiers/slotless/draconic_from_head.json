@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/slotless/draconic_from_head",
   "allow_crystal": true,
   "inputs": [
     {
@@ -9,7 +10,7 @@
   "level": 1,
   "result": "tconstruct:draconic",
   "tools": {
-    "type": "forge:difference",
+    "type": "neoforge:difference",
     "base": {
       "tag": "tconstruct:modifiable/bonus_slots"
     },

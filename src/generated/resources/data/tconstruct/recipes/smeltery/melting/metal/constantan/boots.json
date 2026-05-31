@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:damagable_melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/constantan/boots",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:armors/boots/constantan"
+      "tag": "c:armors/boots/constantan"
     }
   ],
   "ingredient": {
-    "tag": "forge:armors/boots/constantan"
+    "tag": "c:armors/boots/constantan"
   },
   "result": {
     "amount": 360,
-    "tag": "forge:molten_constantan",
+    "tag": "c:molten_constantan",
     "unit_size": 10
   },
   "temperature": 920,

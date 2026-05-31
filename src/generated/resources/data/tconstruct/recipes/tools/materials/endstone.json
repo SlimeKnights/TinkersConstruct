@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/endstone",
   "ingredient": {
-    "tag": "forge:end_stones"
+    "tag": "c:end_stones"
   },
   "material": "tconstruct:whitestone#end",
   "needed": 1,

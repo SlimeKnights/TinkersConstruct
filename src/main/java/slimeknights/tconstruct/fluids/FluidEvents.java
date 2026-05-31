@@ -1,14 +1,14 @@
 package slimeknights.tconstruct.fluids;
 
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidType;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.event.furnace.FurnaceFuelBurnTimeEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidType;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.common.EventBusSubscriber.Bus;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.fluids.util.ConstantFluidContainerWrapper;
 
@@ -17,7 +17,7 @@ import slimeknights.tconstruct.fluids.util.ConstantFluidContainerWrapper;
  * Note the way the subscribers are set up, technically works on anything that has the tic_modifiers tag
  */
 @SuppressWarnings("unused")
-@EventBusSubscriber(modid = TConstruct.MOD_ID, bus = Bus.FORGE)
+@EventBusSubscriber(modid = TConstruct.MOD_ID, bus = Bus.GAME)
 public class FluidEvents {
   @SubscribeEvent
   static void onFurnaceFuel(FurnaceFuelBurnTimeEvent event) {
@@ -27,13 +27,10 @@ public class FluidEvents {
     }
   }
 
-  @SubscribeEvent
-  static void attachCapabilities(AttachCapabilitiesEvent<ItemStack> event) {
-    ItemStack stack = event.getObject();
-    if (event.getObject().is(Items.POWDER_SNOW_BUCKET)) {
-      event.addCapability(
-        TConstruct.getResource("powdered_snow"),
-        new ConstantFluidContainerWrapper(new FluidStack(TinkerFluids.powderedSnow.get(), FluidType.BUCKET_VOLUME), stack, Items.BUCKET.getDefaultInstance()));
-    }
+  static void registerCapabilities(RegisterCapabilitiesEvent event) {
+    event.registerItem(
+      Capabilities.FluidHandler.ITEM,
+      (stack, context) -> new ConstantFluidContainerWrapper(new FluidStack(TinkerFluids.powderedSnow.get(), FluidType.BUCKET_VOLUME), stack, Items.BUCKET.getDefaultInstance()),
+      Items.POWDER_SNOW_BUCKET);
   }
 }

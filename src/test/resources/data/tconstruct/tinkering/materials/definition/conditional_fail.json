@@ -1,5 +1,5 @@
 {
   "condition": {
-    "type": "forge:false"
+    "type": "neoforge:false"
   }
 }

@@ -18,7 +18,7 @@
   ],
   "conditions": [
     {
-      "type": "forge:or",
+      "type": "neoforge:or",
       "values": [
         {
           "type": "tconstruct:config",
@@ -26,7 +26,7 @@
         },
         {
           "type": "mantle:tag_filled",
-          "tag": "forge:ingots/signalum"
+          "tag": "c:ingots/signalum"
         }
       ]
     }
@@ -50,6 +50,6 @@
   ],
   "fluid": {
     "amount": 10,
-    "tag": "forge:molten_signalum"
+    "tag": "c:molten_signalum"
   }
 }

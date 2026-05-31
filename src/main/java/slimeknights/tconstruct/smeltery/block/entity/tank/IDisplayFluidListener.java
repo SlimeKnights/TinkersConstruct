@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.smeltery.block.entity.tank;
 
-import net.minecraftforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidStack;
 
 /**
  * Interface for blocks to be notified when the smeltery has a new bottommost fluid

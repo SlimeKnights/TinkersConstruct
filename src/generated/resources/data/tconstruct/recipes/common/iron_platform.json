@@ -3,10 +3,10 @@
   "category": "misc",
   "key": {
     "#": {
-      "tag": "forge:ingots/iron"
+      "tag": "c:ingots/iron"
     },
     ".": {
-      "tag": "forge:nuggets/iron"
+      "tag": "c:nuggets/iron"
     }
   },
   "pattern": [
@@ -16,7 +16,7 @@
   ],
   "result": {
     "count": 4,
-    "item": "tconstruct:iron_platform"
+    "id": "tconstruct:iron_platform"
   },
   "show_notification": true
 }

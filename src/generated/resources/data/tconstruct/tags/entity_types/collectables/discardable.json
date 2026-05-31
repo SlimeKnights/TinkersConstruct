@@ -4,7 +4,7 @@
     "minecraft:spectral_arrow",
     "tconstruct:arrow",
     {
-      "id": "#forge:collectables/discardable",
+      "id": "#c:collectables/discardable",
       "required": false
     }
   ]

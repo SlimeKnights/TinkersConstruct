@@ -1,9 +1,10 @@
 {
   "type": "tconstruct:incremental_modifier",
+  "id": "tconstruct:tools/modifiers/upgrade/haste_from_dust",
   "allow_crystal": true,
   "amount_per_item": 1,
   "input": {
-    "tag": "forge:dusts/redstone"
+    "tag": "c:dusts/redstone"
   },
   "level": {
     "max": 5

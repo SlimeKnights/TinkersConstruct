@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:material",
-  "conditions": [
+  "id": "tconstruct:tools/materials/ironwood/block",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:storage_blocks/ironwood"
+      "tag": "c:storage_blocks/ironwood"
     }
   ],
   "ingredient": {
-    "tag": "forge:storage_blocks/ironwood"
+    "tag": "c:storage_blocks/ironwood"
   },
   "leftover": {
     "count": 1,
-    "tag": "forge:ingots/ironwood"
+    "tag": "c:ingots/ironwood"
   },
   "material": "tconstruct:ironwood",
   "needed": 1,

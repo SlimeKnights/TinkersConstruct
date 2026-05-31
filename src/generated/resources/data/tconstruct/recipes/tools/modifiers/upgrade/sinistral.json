@@ -1,16 +1,17 @@
 {
   "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/upgrade/sinistral",
   "allow_crystal": true,
   "check_trait_level": true,
   "inputs": [
     {
-      "tag": "forge:ingots/slimesteel"
+      "tag": "c:ingots/slimesteel"
     },
     {
       "item": "minecraft:nautilus_shell"
     },
     {
-      "tag": "forge:ingots/slimesteel"
+      "tag": "c:ingots/slimesteel"
     }
   ],
   "level": 1,
@@ -19,7 +20,7 @@
     "upgrades": 1
   },
   "tools": {
-    "type": "forge:intersection",
+    "type": "neoforge:intersection",
     "children": [
       {
         "tag": "tconstruct:modifiable/ranged/crossbows"

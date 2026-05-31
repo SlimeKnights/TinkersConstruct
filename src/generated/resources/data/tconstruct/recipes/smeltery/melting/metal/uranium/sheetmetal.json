@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/uranium/sheetmetal",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:sheetmetals/uranium"
+      "tag": "c:sheetmetals/uranium"
     }
   ],
   "ingredient": {
-    "tag": "forge:sheetmetals/uranium"
+    "tag": "c:sheetmetals/uranium"
   },
   "result": {
     "amount": 90,
-    "tag": "forge:molten_uranium"
+    "tag": "c:molten_uranium"
   },
   "temperature": 830,
   "time": 61

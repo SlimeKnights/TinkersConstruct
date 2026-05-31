@@ -1,15 +1,13 @@
 package slimeknights.tconstruct.library.json.condition;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
-import net.minecraftforge.common.crafting.conditions.ICondition;
-import net.minecraftforge.common.crafting.conditions.IConditionSerializer;
-import slimeknights.mantle.util.JsonHelper;
+import net.neoforged.neoforge.common.conditions.ICondition;
 import slimeknights.tconstruct.TConstruct;
 
 import java.util.Arrays;
@@ -20,7 +18,13 @@ import java.util.List;
 @Deprecated(forRemoval = true)
 public class TagDifferencePresentCondition<T> implements ICondition {
   private static final ResourceLocation NAME = TConstruct.getResource("tag_difference_present");
-  public static final Serializer SERIALIZER = new Serializer();
+  public static final MapCodec<TagDifferencePresentCondition<?>> CODEC = RecordCodecBuilder.mapCodec(
+    instance -> instance.group(
+      ResourceLocation.CODEC.fieldOf("registry").forGetter(condition -> condition.base.registry().location()),
+      ResourceLocation.CODEC.fieldOf("base").forGetter(condition -> condition.base.location()),
+      ResourceLocation.CODEC.listOf().fieldOf("subtracted").forGetter(condition -> condition.subtracted.stream().map(TagKey::location).toList())
+    ).apply(instance, TagDifferencePresentCondition::create)
+  );
 
   private final TagKey<T> base;
   private final List<TagKey<T>> subtracted;
@@ -45,9 +49,13 @@ public class TagDifferencePresentCondition<T> implements ICondition {
     return new TagDifferencePresentCondition<>(baseKey, Arrays.stream(subtracted).map(name -> TagKey.create(registry, name)).toList());
   }
 
-  @Override
   public ResourceLocation getID() {
     return NAME;
+  }
+
+  @Override
+  public MapCodec<? extends ICondition> codec() {
+    return CODEC;
   }
 
   @Override
@@ -78,34 +86,10 @@ public class TagDifferencePresentCondition<T> implements ICondition {
     return false;
   }
 
-  private static class Serializer implements IConditionSerializer<TagDifferencePresentCondition<?>> {
-    @Override
-    public void write(JsonObject json, TagDifferencePresentCondition<?> value) {
-      json.addProperty("registry", value.base.registry().location().toString());
-      json.addProperty("base", value.base.location().toString());
-      JsonArray names = new JsonArray();
-      for (TagKey<?> name : value.subtracted) {
-        names.add(name.location().toString());
-      }
-      json.add("subtracted", names);
-    }
-
-    private static <T> TagDifferencePresentCondition<T> readGeneric(JsonObject json) {
-      ResourceKey<Registry<T>> registry = ResourceKey.createRegistryKey(JsonHelper.getResourceLocation(json, "registry"));
-      return new TagDifferencePresentCondition<>(
-        TagKey.create(registry, JsonHelper.getResourceLocation(json, "base")),
-        JsonHelper.parseList(json, "subtracted", (e, s) -> TagKey.create(registry, JsonHelper.convertToResourceLocation(e, s))));
-    }
-
-    @Override
-    public TagDifferencePresentCondition<?> read(JsonObject json) {
-      return readGeneric(json);
-    }
-
-    @Override
-    public ResourceLocation getID()
-    {
-      return NAME;
-    }
+  private static TagDifferencePresentCondition<?> create(ResourceLocation registryName, ResourceLocation baseName, List<ResourceLocation> subtractedNames) {
+    ResourceKey<Registry<Object>> registry = ResourceKey.createRegistryKey(registryName);
+    return new TagDifferencePresentCondition<>(
+      TagKey.create(registry, baseName),
+      subtractedNames.stream().map(name -> TagKey.create(registry, name)).toList());
   }
 }

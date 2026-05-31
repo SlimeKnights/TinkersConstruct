@@ -8,7 +8,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.common.ToolAction;
+import net.neoforged.neoforge.common.ItemAbility;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.behavior.ToolActionModifierHook;
@@ -64,7 +64,7 @@ public class ShearsAbilityModifier extends NoLevelsModifier implements EntityInt
   }
 
   @Override
-  public boolean canPerformAction(IToolStackView tool, ModifierEntry modifier, ToolAction toolAction) {
+  public boolean canPerformAction(IToolStackView tool, ModifierEntry modifier, ItemAbility toolAction) {
     return isShears(tool) && shears.canPerformAction(tool, modifier, toolAction);
   }
 

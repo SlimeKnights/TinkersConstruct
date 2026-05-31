@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.library.modifiers.modules.behavior;
 
+import net.minecraft.core.particles.ItemParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
@@ -13,6 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import slimeknights.mantle.data.loadable.common.ItemStackLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.predicate.item.ItemPredicate;
@@ -107,7 +110,7 @@ public record EdibleModule(ItemStack representativeItem, LevelingInt duration, L
       // 15 damage for a bite per level, does not process reinforced/overslime, your teeth are tough
       int damage = this.durabilityUsage.compute(modifier.getEffectiveLevel());
       if (damage > 0 && ToolDamageUtil.directDamage(tool, damage, player, player.getUseItem())) {
-        player.broadcastBreakEvent(player.getUsedItemHand());
+        player.onEquippedItemBroken(player.getUseItem().getItem(), LivingEntity.getSlotForHand(player.getUsedItemHand()));
       }
     }
   }
@@ -119,8 +122,18 @@ public record EdibleModule(ItemStack representativeItem, LevelingInt duration, L
 
   /** Plays effects for eating */
   private static void eatEffects(LivingEntity entity, ItemStack representativeItem, int amount) {
-    entity.spawnItemParticles(representativeItem, amount);
     RandomSource random = entity.getRandom();
+    for (int i = 0; i < amount; i++) {
+      Vec3 speed = new Vec3(((double)random.nextFloat() - 0.5) * 0.1, Math.random() * 0.1 + 0.1, 0.0);
+      speed = speed.xRot(-entity.getXRot() * ((float)Math.PI / 180.0f));
+      speed = speed.yRot(-entity.getYRot() * ((float)Math.PI / 180.0f));
+      double ySpeed = (double)(-random.nextFloat()) * 0.6 - 0.3;
+      Vec3 position = new Vec3(((double)random.nextFloat() - 0.5) * 0.3, ySpeed, 0.6);
+      position = position.xRot(-entity.getXRot() * ((float)Math.PI / 180.0f));
+      position = position.yRot(-entity.getYRot() * ((float)Math.PI / 180.0f));
+      position = position.add(entity.getX(), entity.getEyeY(), entity.getZ());
+      entity.level().addParticle(new ItemParticleOption(ParticleTypes.ITEM, representativeItem), position.x, position.y, position.z, speed.x, speed.y + 0.05, speed.z);
+    }
     entity.playSound(SoundEvents.GENERIC_EAT, 0.5f + 0.5f * random.nextInt(2), (random.nextFloat() - random.nextFloat()) * 0.2f + 1.0f);
   }
 

@@ -1,8 +1,9 @@
 {
   "type": "tconstruct:material_fluid",
+  "id": "tconstruct:tools/materials/casting/iron",
   "fluid": {
     "amount": 90,
-    "tag": "forge:molten_iron"
+    "tag": "c:molten_iron"
   },
   "output": "tconstruct:iron",
   "temperature": 800

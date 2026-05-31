@@ -15,7 +15,7 @@
     "ww"
   ],
   "result": {
-    "item": "tconstruct:part_builder"
+    "id": "tconstruct:part_builder"
   },
   "show_notification": true,
   "texture": "w"

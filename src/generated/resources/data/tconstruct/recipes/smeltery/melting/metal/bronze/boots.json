@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:damagable_melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/bronze/boots",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:armors/boots/bronze"
+      "tag": "c:armors/boots/bronze"
     }
   ],
   "ingredient": {
-    "tag": "forge:armors/boots/bronze"
+    "tag": "c:armors/boots/bronze"
   },
   "result": {
     "amount": 360,
-    "tag": "forge:molten_bronze",
+    "tag": "c:molten_bronze",
     "unit_size": 10
   },
   "temperature": 700,

@@ -1,8 +1,9 @@
 {
   "type": "tconstruct:material_fluid",
+  "id": "tconstruct:tools/materials/casting/rose_gold",
   "fluid": {
     "amount": 90,
-    "tag": "forge:molten_rose_gold"
+    "tag": "c:molten_rose_gold"
   },
   "output": "tconstruct:rose_gold",
   "temperature": 550

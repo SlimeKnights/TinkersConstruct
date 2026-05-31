@@ -37,6 +37,6 @@ public record FieryCounterModule(LevelingValue chance, LevelingValue constant, L
 
   @Override
   public void applyEffect(IToolStackView tool, ModifierEntry modifier, float value, EquipmentContext context, Entity attacker, DamageSource source, float damageDealt) {
-    attacker.setSecondsOnFire(Math.round(value));
+    attacker.igniteForSeconds(Math.round(value));
   }
 }

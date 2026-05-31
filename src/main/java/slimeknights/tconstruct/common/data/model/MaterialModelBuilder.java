@@ -2,9 +2,9 @@ package slimeknights.tconstruct.common.data.model;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import net.minecraftforge.client.model.generators.CustomLoaderBuilder;
-import net.minecraftforge.client.model.generators.ModelBuilder;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.client.model.generators.CustomLoaderBuilder;
+import net.neoforged.neoforge.client.model.generators.ModelBuilder;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import slimeknights.tconstruct.TConstruct;
 
 public class MaterialModelBuilder<T extends ModelBuilder<T>> extends CustomLoaderBuilder<T> {

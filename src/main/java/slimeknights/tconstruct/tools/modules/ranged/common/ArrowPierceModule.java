@@ -16,6 +16,7 @@ import slimeknights.tconstruct.library.module.HookProvider;
 import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
+import slimeknights.tconstruct.tools.entity.ModifiableArrow;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -37,10 +38,10 @@ public record ArrowPierceModule(LevelingInt amount, ModifierCondition<IToolStack
 
   @Override
   public void onProjectileShoot(IToolStackView tool, ModifierEntry modifier, @Nullable LivingEntity shooter, ItemStack ammo, Projectile projectile, @Nullable AbstractArrow arrow, ModDataNBT persistentData, boolean primary) {
-    if (condition.matches(tool, modifier) && arrow != null) {
+    if (condition.matches(tool, modifier) && arrow instanceof ModifiableArrow modifiableArrow) {
       int amount = this.amount.compute(modifier.getEffectiveLevel());
       if (amount > 0) {
-        arrow.setPierceLevel((byte) amount);
+        modifiableArrow.setPierceLevel((byte) amount);
       }
     }
   }

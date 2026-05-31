@@ -37,6 +37,6 @@
   ],
   "fluid": {
     "amount": 10,
-    "tag": "forge:molten_steel"
+    "tag": "c:molten_steel"
   }
 }

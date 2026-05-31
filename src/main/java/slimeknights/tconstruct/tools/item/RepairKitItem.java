@@ -6,8 +6,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
 import slimeknights.mantle.util.TranslationHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.Sounds;
@@ -26,7 +26,6 @@ import slimeknights.tconstruct.library.tools.part.IRepairKitItem;
 import slimeknights.tconstruct.library.tools.part.MaterialItem;
 import slimeknights.tconstruct.tools.stats.StatlessMaterialStats;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class RepairKitItem extends MaterialItem implements IRepairKitItem {
@@ -51,8 +50,8 @@ public class RepairKitItem extends MaterialItem implements IRepairKitItem {
   }
 
   @Override
-  public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
-    super.appendHoverText(stack, world, tooltip, flag);
+  public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+    super.appendHoverText(stack, context, tooltip, flag);
     // tooltip is about inventory repair
     if (canRepairInCraftingTable()) {
       tooltip.add(Component.translatable(TOOLTIP_KEY, TranslationHelper.COMMA_FORMAT.format(getRepairAmount())).withStyle(ChatFormatting.GRAY));

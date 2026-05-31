@@ -1,11 +1,11 @@
 {
   "values": [
     {
-      "id": "#forge:tools/pickaxes/nickel",
+      "id": "#c:tools/pickaxes/nickel",
       "required": false
     },
     {
-      "id": "#forge:tools/axes/nickel",
+      "id": "#c:tools/axes/nickel",
       "required": false
     },
     {

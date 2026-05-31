@@ -1,11 +1,11 @@
 {
   "values": [
     {
-      "id": "#forge:tools/pickaxes/copper",
+      "id": "#c:tools/pickaxes/copper",
       "required": false
     },
     {
-      "id": "#forge:tools/axes/copper",
+      "id": "#c:tools/axes/copper",
       "required": false
     },
     {

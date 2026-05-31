@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:molding_table",
+  "id": "tconstruct:smeltery/casts/red_sand/molding/leggings_plating",
   "material": {
     "tag": "tconstruct:casts/red_sand"
   },

@@ -1,9 +1,10 @@
 {
   "type": "tconstruct:alloy",
+  "id": "tconstruct:smeltery/alloys/molten_slimesteel",
   "inputs": [
     {
       "amount": 90,
-      "tag": "forge:molten_iron"
+      "tag": "c:molten_iron"
     },
     {
       "amount": 250,

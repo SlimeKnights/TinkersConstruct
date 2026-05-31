@@ -1,8 +1,9 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/ender/pearl",
   "ingredient": [
     {
-      "tag": "forge:ender_pearls"
+      "tag": "c:ender_pearls"
     },
     {
       "item": "minecraft:ender_eye"
@@ -10,7 +11,7 @@
   ],
   "result": {
     "amount": 250,
-    "tag": "forge:ender"
+    "tag": "c:ender"
   },
   "temperature": 477,
   "time": 49

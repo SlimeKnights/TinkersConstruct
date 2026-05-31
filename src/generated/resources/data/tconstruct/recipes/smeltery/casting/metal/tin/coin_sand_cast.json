@@ -1,21 +1,22 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/tin/coin_sand_cast",
   "cast": {
     "tag": "tconstruct:casts/single_use/coin"
   },
   "cast_consumed": true,
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:coins/tin"
+      "tag": "c:coins/tin"
     }
   ],
   "cooling_time": 23,
   "fluid": {
     "amount": 30,
-    "tag": "forge:molten_tin"
+    "tag": "c:molten_tin"
   },
   "result": {
-    "tag": "forge:coins/tin"
+    "tag": "c:coins/tin"
   }
 }

@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/rock/granite",
   "ingredient": {
-    "tag": "forge:granite"
+    "tag": "c:granite"
   },
   "material": "tconstruct:rock#granite",
   "needed": 1,

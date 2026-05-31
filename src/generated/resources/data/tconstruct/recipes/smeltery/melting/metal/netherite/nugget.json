@@ -1,11 +1,12 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/netherite/nugget",
   "ingredient": {
-    "tag": "forge:nuggets/netherite"
+    "tag": "c:nuggets/netherite"
   },
   "result": {
     "amount": 10,
-    "tag": "forge:molten_netherite"
+    "tag": "c:molten_netherite"
   },
   "temperature": 1250,
   "time": 25

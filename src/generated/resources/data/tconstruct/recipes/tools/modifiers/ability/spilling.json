@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/ability/spilling",
   "allow_crystal": true,
   "inputs": [
     {
@@ -27,10 +28,10 @@
       ]
     },
     {
-      "tag": "forge:ingots/copper"
+      "tag": "c:ingots/copper"
     },
     {
-      "tag": "forge:ingots/copper"
+      "tag": "c:ingots/copper"
     }
   ],
   "result": "tconstruct:spilling",

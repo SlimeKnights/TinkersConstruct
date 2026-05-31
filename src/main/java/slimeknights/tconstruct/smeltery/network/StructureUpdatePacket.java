@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.network.NetworkEvent.Context;
+import slimeknights.mantle.compat.neoforged.neoforge.network.NetworkEvent.Context;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.smeltery.block.entity.controller.HeatingStructureBlockEntity;

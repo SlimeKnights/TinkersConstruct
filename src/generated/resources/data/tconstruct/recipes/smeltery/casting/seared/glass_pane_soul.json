@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/seared/glass_pane_soul",
   "cast": {
     "item": "tconstruct:soul_glass_pane"
   },

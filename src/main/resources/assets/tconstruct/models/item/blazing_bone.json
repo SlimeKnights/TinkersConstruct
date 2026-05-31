@@ -1,6 +1,6 @@
 {
   "loader": "mantle:item_layer",
-  "parent": "forge:item/default-tool",
+  "parent": "neoforge:item/default-tool",
   "display": {
     "head": {
       "rotation": [ 0, 0, -45 ],

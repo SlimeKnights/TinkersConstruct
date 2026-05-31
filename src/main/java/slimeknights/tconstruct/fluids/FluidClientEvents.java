@@ -2,14 +2,15 @@ package slimeknights.tconstruct.fluids;
 
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.world.item.alchemy.PotionUtils;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.ModelEvent.RegisterGeometryLoaders;
-import net.minecraftforge.client.event.RegisterColorHandlersEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraft.resources.ResourceLocation;
+import slimeknights.tconstruct.compat.minecraft.world.item.alchemy.PotionUtils;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.neoforge.client.event.ModelEvent.RegisterGeometryLoaders;
+import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.common.EventBusSubscriber.Bus;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import slimeknights.mantle.registration.object.FlowingFluidObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
@@ -41,7 +42,7 @@ public class FluidClientEvents extends ClientEventBase {
 
   @SubscribeEvent
   static void registerModelLoaders(RegisterGeometryLoaders event) {
-    event.register("fluid_container", FluidContainerModel.LOADER);
+    event.register(ResourceLocation.fromNamespaceAndPath(TConstruct.MOD_ID, "fluid_container"), FluidContainerModel.LOADER);
   }
 
   private static void setTranslucent(FlowingFluidObject<?> fluid) {

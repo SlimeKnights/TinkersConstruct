@@ -1,13 +1,14 @@
 {
   "type": "tconstruct:material",
-  "conditions": [
+  "id": "tconstruct:tools/materials/constantan/nugget",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:nuggets/constantan"
+      "tag": "c:nuggets/constantan"
     }
   ],
   "ingredient": {
-    "tag": "forge:nuggets/constantan"
+    "tag": "c:nuggets/constantan"
   },
   "material": "tconstruct:constantan",
   "needed": 9,

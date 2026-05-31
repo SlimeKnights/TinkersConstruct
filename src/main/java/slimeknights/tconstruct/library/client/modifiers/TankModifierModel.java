@@ -2,7 +2,7 @@ package slimeknights.tconstruct.library.client.modifiers;
 
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraftforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidStack;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.capability.fluid.ToolTankHelper;

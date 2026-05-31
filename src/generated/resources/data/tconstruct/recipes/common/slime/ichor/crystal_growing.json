@@ -7,5 +7,7 @@
   "ingredient": {
     "item": "tconstruct:ichor_slime_dirt"
   },
-  "result": "tconstruct:ichor_slime_crystal"
+  "result": {
+    "id": "tconstruct:ichor_slime_crystal"
+  }
 }

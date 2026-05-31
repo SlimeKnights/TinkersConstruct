@@ -1,11 +1,11 @@
 {
   "values": [
     {
-      "id": "#forge:tools/swords/nickel",
+      "id": "#c:tools/swords/nickel",
       "required": false
     },
     {
-      "id": "#forge:tools/hoes/nickel",
+      "id": "#c:tools/hoes/nickel",
       "required": false
     }
   ]

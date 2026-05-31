@@ -14,7 +14,7 @@
           },
           {
             "type": "mantle:tag",
-            "tag": "forge:creepers"
+            "tag": "c:creepers"
           }
         ]
       }
@@ -38,7 +38,7 @@
           },
           {
             "type": "mantle:tag",
-            "tag": "forge:creepers"
+            "tag": "c:creepers"
           }
         ]
       },

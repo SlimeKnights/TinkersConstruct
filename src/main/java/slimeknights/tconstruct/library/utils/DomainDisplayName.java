@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.library.utils;
 
-import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
-import net.minecraftforge.common.ForgeI18n;
-import net.minecraftforge.fml.ModList;
+import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
+import slimeknights.tconstruct.compat.neoforged.neoforge.common.ForgeI18n;
+import net.neoforged.fml.ModList;
 import org.apache.commons.lang3.text.WordUtils;
 import slimeknights.mantle.data.listener.ISafeManagerReloadListener;
 

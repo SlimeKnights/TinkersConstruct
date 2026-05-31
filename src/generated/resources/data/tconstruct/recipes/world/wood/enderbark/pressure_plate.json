@@ -11,7 +11,7 @@
     "##"
   ],
   "result": {
-    "item": "tconstruct:enderbark_pressure_plate"
+    "id": "tconstruct:enderbark_pressure_plate"
   },
   "show_notification": true
 }

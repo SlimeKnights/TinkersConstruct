@@ -1,66 +1,21 @@
 {
-  "type": "forge:conditional",
-  "conditions": [
+  "type": "tconstruct:ore_melting",
+  "id": "tconstruct:smeltery/melting/metal/electrum/raw",
+  "byproducts": [
     {
-      "type": "mantle:tag_filled",
-      "tag": "forge:raw_materials/electrum"
+      "amount": 90,
+      "rate": "metal",
+      "tag": "c:molten_gold"
     }
   ],
-  "recipes": [
-    {
-      "conditions": [
-        {
-          "type": "mantle:tag_filled",
-          "tag": "forge:ingots/silver"
-        }
-      ],
-      "recipe": {
-        "type": "tconstruct:ore_melting",
-        "byproducts": [
-          {
-            "amount": 90,
-            "rate": "metal",
-            "tag": "forge:molten_silver"
-          }
-        ],
-        "ingredient": {
-          "tag": "forge:raw_materials/electrum"
-        },
-        "rate": "metal",
-        "result": {
-          "amount": 90,
-          "tag": "forge:molten_electrum"
-        },
-        "temperature": 760,
-        "time": 88
-      }
-    },
-    {
-      "conditions": [
-        {
-          "type": "forge:true"
-        }
-      ],
-      "recipe": {
-        "type": "tconstruct:ore_melting",
-        "byproducts": [
-          {
-            "amount": 90,
-            "rate": "metal",
-            "tag": "forge:molten_gold"
-          }
-        ],
-        "ingredient": {
-          "tag": "forge:raw_materials/electrum"
-        },
-        "rate": "metal",
-        "result": {
-          "amount": 90,
-          "tag": "forge:molten_electrum"
-        },
-        "temperature": 760,
-        "time": 88
-      }
-    }
-  ]
+  "ingredient": {
+    "tag": "c:raw_materials/electrum"
+  },
+  "rate": "metal",
+  "result": {
+    "amount": 90,
+    "tag": "c:molten_electrum"
+  },
+  "temperature": 760,
+  "time": 88
 }

@@ -1,36 +1,37 @@
 {
   "type": "tconstruct:ore_melting",
+  "id": "tconstruct:smeltery/melting/metal/copper/ore_dense",
   "byproducts": [
     {
       "amount": 180,
       "rate": "metal",
-      "tag": "forge:molten_gold"
+      "tag": "c:molten_gold"
     }
   ],
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_combination_filled",
       "match": [
-        "forge:ores/copper",
-        "forge:ore_rates/dense"
+        "c:ores/copper",
+        "c:ore_rates/dense"
       ]
     }
   ],
   "ingredient": {
-    "type": "forge:intersection",
+    "type": "neoforge:intersection",
     "children": [
       {
-        "tag": "forge:ores/copper"
+        "tag": "c:ores/copper"
       },
       {
-        "tag": "forge:ore_rates/dense"
+        "tag": "c:ore_rates/dense"
       }
     ]
   },
   "rate": "metal",
   "result": {
     "amount": 540,
-    "tag": "forge:molten_copper"
+    "tag": "c:molten_copper"
   },
   "temperature": 500,
   "time": 225

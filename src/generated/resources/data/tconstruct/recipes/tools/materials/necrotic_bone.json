@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/necrotic_bone",
   "ingredient": {
-    "tag": "forge:wither_bones"
+    "tag": "c:wither_bones"
   },
   "material": "tconstruct:necrotic_bone",
   "needed": 1,

@@ -6,7 +6,7 @@
       "tag": "tconstruct:smeltery_bricks"
     },
     "C": {
-      "tag": "forge:ingots/gold"
+      "tag": "c:ingots/gold"
     }
   },
   "match_all": false,
@@ -14,7 +14,7 @@
     "C#C"
   ],
   "result": {
-    "item": "tconstruct:seared_duct"
+    "id": "tconstruct:seared_duct"
   },
   "show_notification": true,
   "texture": "#"

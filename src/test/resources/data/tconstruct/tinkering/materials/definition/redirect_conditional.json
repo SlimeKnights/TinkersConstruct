@@ -3,13 +3,13 @@
     {
       "id": "tconstruct:full",
       "condition": {
-        "type": "forge:false"
+        "type": "neoforge:false"
       }
     },
     {
       "id": "tconstruct:minimal",
       "condition": {
-        "type": "forge:true"
+        "type": "neoforge:true"
       }
     }
   ]

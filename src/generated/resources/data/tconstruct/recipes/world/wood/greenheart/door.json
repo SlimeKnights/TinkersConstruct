@@ -14,7 +14,7 @@
   ],
   "result": {
     "count": 3,
-    "item": "tconstruct:greenheart_door"
+    "id": "tconstruct:greenheart_door"
   },
   "show_notification": true
 }

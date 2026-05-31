@@ -1,9 +1,10 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/obsidian/chest",
   "byproducts": [
     {
       "amount": 250,
-      "tag": "forge:ender"
+      "tag": "c:ender"
     }
   ],
   "ingredient": {

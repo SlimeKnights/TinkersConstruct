@@ -17,7 +17,7 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.FastColor;
 import net.minecraft.util.FastColor.ABGR32;
 import net.minecraft.util.GsonHelper;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import slimeknights.mantle.data.loadable.common.ColorLoadable;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;

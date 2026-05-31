@@ -10,7 +10,9 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -76,9 +78,8 @@ public class FaucetBlock extends Block implements EntityBlock {
     return SHAPES.get(state.getValue(FACING));
   }
 
-  @SuppressWarnings("deprecation")
   @Override
-  public boolean isPathfindable(BlockState state, BlockGetter worldIn, BlockPos pos, PathComputationType type) {
+  protected boolean isPathfindable(BlockState state, PathComputationType type) {
     return false;
   }
 
@@ -97,9 +98,17 @@ public class FaucetBlock extends Block implements EntityBlock {
     return BlockEntityHelper.serverTicker(pLevel, type, TinkerSmeltery.faucet.get(), FaucetBlockEntity.SERVER_TICKER);
   }
 
-  @SuppressWarnings("deprecation")
   @Override
-  public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
+  protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
+    if (player.isShiftKeyDown()) {
+      return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+    }
+    getFaucet(worldIn, pos).ifPresent(FaucetBlockEntity::activate);
+    return ItemInteractionResult.SUCCESS;
+  }
+
+  @Override
+  protected InteractionResult useWithoutItem(BlockState state, Level worldIn, BlockPos pos, Player player, BlockHitResult hit) {
     if (player.isShiftKeyDown()) {
       return InteractionResult.PASS;
     }

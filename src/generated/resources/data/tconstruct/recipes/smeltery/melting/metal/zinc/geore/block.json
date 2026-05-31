@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/zinc/geore/block",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:geore_blocks/zinc"
+      "tag": "c:geore_blocks/zinc"
     }
   ],
   "ingredient": {
-    "tag": "forge:geore_blocks/zinc"
+    "tag": "c:geore_blocks/zinc"
   },
   "result": {
     "amount": 360,
-    "tag": "forge:molten_zinc"
+    "tag": "c:molten_zinc"
   },
   "temperature": 420,
   "time": 94

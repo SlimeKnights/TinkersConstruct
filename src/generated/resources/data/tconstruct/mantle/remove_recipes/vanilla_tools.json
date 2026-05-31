@@ -29,23 +29,23 @@
           },
           {
             "type": "mantle:tag",
-            "tag": "forge:tools/shields"
+            "tag": "c:tools/shields"
           },
           {
             "type": "mantle:tag",
-            "tag": "forge:tools/bows"
+            "tag": "c:tools/bows"
           },
           {
             "type": "mantle:tag",
-            "tag": "forge:tools/crossbows"
+            "tag": "c:tools/crossbows"
           },
           {
             "type": "mantle:tag",
-            "tag": "forge:tools/fishing_rods"
+            "tag": "c:tools/fishing_rods"
           },
           {
             "type": "mantle:tag",
-            "tag": "forge:armors"
+            "tag": "c:armors"
           },
           {
             "type": "mantle:set",

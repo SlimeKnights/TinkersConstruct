@@ -1,8 +1,9 @@
 {
   "type": "tconstruct:part_builder_recycling",
-  "conditions": [
+  "id": "tconstruct:tables/recycling/twilightforest/arctic_leggings",
+  "neoforge:conditions": [
     {
-      "type": "forge:mod_loaded",
+      "type": "neoforge:mod_loaded",
       "modid": "twilightforest"
     }
   ],

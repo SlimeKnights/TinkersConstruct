@@ -3,7 +3,7 @@ package slimeknights.tconstruct.library.recipe.modifiers.adding;
 import com.google.gson.JsonSyntaxException;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.data.recipes.FinishedRecipe;
+import slimeknights.mantle.compat.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;

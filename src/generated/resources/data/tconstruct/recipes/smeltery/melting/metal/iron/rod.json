@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/iron/rod",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:rods/iron"
+      "tag": "c:rods/iron"
     }
   ],
   "ingredient": {
-    "tag": "forge:rods/iron"
+    "tag": "c:rods/iron"
   },
   "result": {
     "amount": 45,
-    "tag": "forge:molten_iron"
+    "tag": "c:molten_iron"
   },
   "temperature": 800,
   "time": 12

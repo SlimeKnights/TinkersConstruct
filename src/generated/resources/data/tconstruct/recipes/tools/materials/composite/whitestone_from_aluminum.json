@@ -1,14 +1,15 @@
 {
   "type": "tconstruct:material_fluid",
-  "conditions": [
+  "id": "tconstruct:tools/materials/composite/whitestone_from_aluminum",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:ingots/aluminum"
+      "tag": "c:ingots/aluminum"
     }
   ],
   "fluid": {
     "amount": 90,
-    "tag": "forge:molten_aluminum"
+    "tag": "c:molten_aluminum"
   },
   "input": "tconstruct:rock",
   "output": "tconstruct:whitestone#composite",

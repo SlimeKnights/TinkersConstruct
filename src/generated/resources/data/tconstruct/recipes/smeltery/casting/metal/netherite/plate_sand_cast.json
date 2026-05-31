@@ -1,21 +1,22 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/netherite/plate_sand_cast",
   "cast": {
     "tag": "tconstruct:casts/single_use/plate"
   },
   "cast_consumed": true,
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:plates/netherite"
+      "tag": "c:plates/netherite"
     }
   ],
   "cooling_time": 74,
   "fluid": {
     "amount": 90,
-    "tag": "forge:molten_netherite"
+    "tag": "c:molten_netherite"
   },
   "result": {
-    "tag": "forge:plates/netherite"
+    "tag": "c:plates/netherite"
   }
 }

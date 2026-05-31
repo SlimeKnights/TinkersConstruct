@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:entity_melting",
+  "id": "tconstruct:smeltery/entity_melting/phantom",
   "damage": 4,
   "entity": {
     "type": "minecraft:phantom"
@@ -9,6 +10,6 @@
     "nbt": {
       "Potion": "minecraft:slow_falling"
     },
-    "tag": "forge:potion"
+    "tag": "c:potion"
   }
 }

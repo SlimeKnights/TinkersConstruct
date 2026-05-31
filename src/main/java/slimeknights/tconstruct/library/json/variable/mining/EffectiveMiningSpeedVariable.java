@@ -3,7 +3,7 @@ package slimeknights.tconstruct.library.json.variable.mining;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent.BreakSpeed;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.tconstruct.library.modifiers.hook.mining.BreakSpeedContext;

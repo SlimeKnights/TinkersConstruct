@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:ageable_severing",
+  "id": "tconstruct:tools/severing/chicken_feather",
   "adult_result": {
     "count": 2,
     "item": "minecraft:feather"

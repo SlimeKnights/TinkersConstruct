@@ -33,19 +33,15 @@ public class ModifierId extends ResourceId {
     super(location);
   }
 
-  private ModifierId(String namespace, String path, @Nullable Dummy pDummy) {
-    super(namespace, path, pDummy);
-  }
-
   /** {@return Modifier ID, or null if invalid} */
   @Nullable
   public static ModifierId tryParse(String string) {
-    return tryParse(string, (namespace, path) -> new ModifierId(namespace, path, null));
+    return tryParse(string, ModifierId::new);
   }
 
   /** {@return Modifier ID, or null if invalid} */
   @Nullable
   public static ModifierId tryBuild(String namespace, String path) {
-    return tryBuild(namespace, path, (n, p) -> new ModifierId(namespace, path, null));
+    return tryBuild(namespace, path, ModifierId::new);
   }
 }

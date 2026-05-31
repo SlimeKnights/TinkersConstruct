@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:ore_melting",
+  "id": "tconstruct:smeltery/melting/metal/cobalt/raw",
   "byproducts": [
     {
       "amount": 25,
@@ -8,12 +9,12 @@
     }
   ],
   "ingredient": {
-    "tag": "forge:raw_materials/cobalt"
+    "tag": "c:raw_materials/cobalt"
   },
   "rate": "metal",
   "result": {
     "amount": 90,
-    "tag": "forge:molten_cobalt"
+    "tag": "c:molten_cobalt"
   },
   "temperature": 950,
   "time": 97

@@ -6,7 +6,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.util.LazyOptional;
+import slimeknights.mantle.compat.neoforged.neoforge.common.util.LazyOptional;
 import slimeknights.mantle.util.LogicHelper;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
@@ -25,13 +25,15 @@ import static slimeknights.tconstruct.common.TinkerTags.Items.MODIFIABLE;
 /** Context for a modifier hook that runs on multiple equipment slots */
 @RequiredArgsConstructor
 public class EquipmentContext {
+  /** Number of vanilla equipment filter slots, including the 1.21 body slot. */
+  private static final int SLOT_COUNT = EquipmentSlot.values().length;
   /** Entity who changed equipment */
   @Getter
   private final LivingEntity entity;
   /** Determines if the tool in the given slot was fetched */
-  protected final boolean[] fetchedTool = new boolean[6];
+  protected final boolean[] fetchedTool = new boolean[SLOT_COUNT];
   /** Array of tools currently on the entity */
-  protected final IToolStackView[] toolsInSlots = new IToolStackView[6];
+  protected final IToolStackView[] toolsInSlots = new IToolStackView[SLOT_COUNT];
   /** Cached tinker data capability, saves capability lookup times slightly */
   private LazyOptional<TinkerDataCapability.Holder> tinkerData = null;
 
@@ -97,7 +99,7 @@ public class EquipmentContext {
   /** Gets the tinker data capability */
   public LazyOptional<TinkerDataCapability.Holder> getTinkerData() {
     if (tinkerData == null) {
-      tinkerData = entity.getCapability(TinkerDataCapability.CAPABILITY);
+      tinkerData = TinkerDataCapability.getCapability(entity);
     }
     return tinkerData;
   }
@@ -114,8 +116,8 @@ public class EquipmentContext {
 
   /** Gets all tools from the given function */
   public Iterable<EquipmentEntry> makeIterable(Function<EquipmentSlot,IToolStackView> getter) {
-    List<IToolStackView> tools = new ArrayList<>(6);
-    List<EquipmentSlot> slots = new ArrayList<>(6);
+    List<IToolStackView> tools = new ArrayList<>(SLOT_COUNT);
+    List<EquipmentSlot> slots = new ArrayList<>(SLOT_COUNT);
     for (EquipmentSlot slot : EquipmentSlot.values()) {
       IToolStackView tool = getter.apply(slot);
       if (tool != null && !tool.isBroken() && !tool.getModifiers().isEmpty()) {

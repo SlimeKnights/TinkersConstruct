@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:damagable_melting",
+  "id": "tconstruct:smeltery/melting/metal/netherite/axes",
   "byproducts": [
     {
       "amount": 300,
@@ -12,7 +13,7 @@
   },
   "result": {
     "amount": 90,
-    "tag": "forge:molten_netherite",
+    "tag": "c:molten_netherite",
     "unit_size": 10
   },
   "temperature": 1250,

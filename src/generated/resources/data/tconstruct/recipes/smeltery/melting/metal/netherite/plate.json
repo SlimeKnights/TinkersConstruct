@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/netherite/plate",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:plates/netherite"
+      "tag": "c:plates/netherite"
     }
   ],
   "ingredient": {
-    "tag": "forge:plates/netherite"
+    "tag": "c:plates/netherite"
   },
   "result": {
     "amount": 90,
-    "tag": "forge:molten_netherite"
+    "tag": "c:molten_netherite"
   },
   "temperature": 1250,
   "time": 74

@@ -10,8 +10,8 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraftforge.common.util.Lazy;
-import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
+import net.neoforged.neoforge.common.util.Lazy;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent.BreakSpeed;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -28,7 +28,6 @@ import slimeknights.tconstruct.library.utils.Util;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.UUID;
 import java.util.function.BiConsumer;
 
 /**
@@ -39,11 +38,7 @@ import java.util.function.BiConsumer;
 public class DamageSpeedTradeModifier extends Modifier implements AttributesModifierHook, TooltipModifierHook, BreakSpeedModifierHook {
   private static final Component MINING_SPEED = TConstruct.makeTranslation("armor_stat", "mining_speed");
   private final float multiplier;
-  private final Lazy<UUID> uuid = Lazy.of(() -> UUID.nameUUIDFromBytes(getId().toString().getBytes()));
-  private final Lazy<String> attributeName = Lazy.of(() -> {
-    ResourceLocation id = getId();
-    return id.getPath() + "." + id.getNamespace() + ".attack_damage";
-  });
+  private final Lazy<ResourceLocation> attributeId = Lazy.of(() -> getId().withSuffix("/attack_damage"));
 
   @Override
   protected void registerHooks(Builder hookBuilder) {
@@ -78,7 +73,7 @@ public class DamageSpeedTradeModifier extends Modifier implements AttributesModi
       double boost = getMultiplier(tool, modifier.getLevel());
       if (boost != 0) {
         // half boost for attack speed, its
-        consumer.accept(Attributes.ATTACK_DAMAGE, new AttributeModifier(uuid.get(), attributeName.get(), boost / 2, Operation.MULTIPLY_TOTAL));
+        consumer.accept(Attributes.ATTACK_DAMAGE.value(), new AttributeModifier(attributeId.get(), boost / 2, Operation.ADD_MULTIPLIED_TOTAL));
       }
     }
   }

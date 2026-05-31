@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.client.ForgeHooksClient;
+import slimeknights.tconstruct.compat.neoforged.neoforge.client.ForgeHooksClient;
 import org.joml.Quaternionf;
 import slimeknights.tconstruct.smeltery.client.util.TintedVertexBuilder;
 
@@ -36,7 +36,7 @@ public class BlockModelSkullRenderer extends SkullModelBase {
   }
 
   @Override
-  public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int light, int overlay, float red, float green, float blue, float alpha) {
+  public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int light, int overlay, int color) {
     poseStack.pushPose();
 
     // from CustomHeadLayer#translateToHead, with final scale adjusted
@@ -52,8 +52,8 @@ public class BlockModelSkullRenderer extends SkullModelBase {
       poseStack.mulPose((new Quaternionf()).rotationZYX(0, yRot, xRot));
     }
     // applying tint is a pain with these, sop hope we don't need it
-    if (red != 1 || green != 1 || blue != 1 || alpha != 1) {
-      buffer = new TintedVertexBuilder(buffer, (int) (red * 255), (int) (green * 255), (int) (blue * 255), (int) (alpha * 255));
+    if (color != -1) {
+      buffer = new TintedVertexBuilder(buffer, color >> 16 & 255, color >> 8 & 255, color & 255, color >>> 24);
     }
     itemRenderer.renderModelLists(model, stack, light, overlay, poseStack, buffer);
 

@@ -8,10 +8,12 @@ import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
 
 import javax.annotation.Nullable;
 
-/** Helper class to keep track the max modifier level in a modifier, floats, keeps track of max slot, and tracks all 6 slots */
+/** Helper class to keep track the max modifier level in a modifier, floats, keeps track of max slot, and tracks all equipment slots */
 public class ModifierMaxLevel {
+  /** Number of vanilla equipment filter slots, including the 1.21 body slot. */
+  private static final int SLOT_COUNT = EquipmentSlot.values().length;
   /** Level for each slot */
-  private final float[] levels = new float[6];
+  private final float[] levels = new float[SLOT_COUNT];
   /** Max level across all slots */
   @Getter
   private float max = 0;

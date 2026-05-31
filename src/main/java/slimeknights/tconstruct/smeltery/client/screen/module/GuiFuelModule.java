@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraftforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidStack;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
 import slimeknights.mantle.fluid.tooltip.FluidTooltipHandler;
 import slimeknights.tconstruct.TConstruct;
@@ -95,7 +95,7 @@ public class GuiFuelModule implements IScreenWithFluidTank, ClickableTankModule 
     int fuel = fuelModule.getFuel();
     int fuelQuality = fuelModule.getFuelQuality();
     if (fuel > 0 && fuelQuality > 0) {
-      fire.drawScaledYUp(graphics, fireX + screen.leftPos, fireY + screen.topPos, 14 * fuel / fuelQuality);
+      fire.drawScaledYUp(graphics, fireX + screen.getGuiLeft(), fireY + screen.getGuiTop(), 14 * fuel / fuelQuality);
     }
 
     // draw tank second, it changes the image
@@ -103,7 +103,7 @@ public class GuiFuelModule implements IScreenWithFluidTank, ClickableTankModule 
     if (!hasFuelSlot) {
       fuelInfo = fuelModule.getFuelInfo();
       if (!fuelInfo.isEmpty()) {
-        GuiUtil.renderFluidTank(graphics.pose(), screen, fuelInfo.getFluid(), fuelInfo.getTotalAmount(), fuelInfo.getCapacity(), x, y, width, height, 100);
+        GuiUtil.renderFluidTank(graphics, screen, fuelInfo.getFluid(), fuelInfo.getTotalAmount(), fuelInfo.getCapacity(), x, y, width, height, 100);
       }
     }
   }
@@ -135,8 +135,8 @@ public class GuiFuelModule implements IScreenWithFluidTank, ClickableTankModule 
    * @param mouseY    Mouse Y position
    */
   public void addTooltip(GuiGraphics graphics, int mouseX, int mouseY, boolean hasTank) {
-    int checkX = mouseX - screen.leftPos;
-    int checkY = mouseY - screen.topPos;
+    int checkX = mouseX - screen.getGuiLeft();
+    int checkY = mouseY - screen.getGuiTop();
 
     if (isHovered(checkX, checkY)) {
       List<Component> tooltip;
@@ -171,7 +171,7 @@ public class GuiFuelModule implements IScreenWithFluidTank, ClickableTankModule 
         tooltip = hasTank ? TOOLTIP_NO_FUEL : TOOLTIP_NO_TANK;
       }
 
-      graphics.renderComponentTooltip(screen.font, tooltip, mouseX, mouseY);
+      graphics.renderComponentTooltip(screen.getMinecraft().font, tooltip, mouseX, mouseY);
     }
   }
 

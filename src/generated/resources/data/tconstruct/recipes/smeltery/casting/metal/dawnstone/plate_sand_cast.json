@@ -1,26 +1,27 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/dawnstone/plate_sand_cast",
   "cast": {
     "tag": "tconstruct:casts/single_use/plate"
   },
   "cast_consumed": true,
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:plates/dawnstone"
+      "tag": "c:plates/dawnstone"
     },
     {
       "type": "mantle:tag_filled",
       "registry": "minecraft:fluid",
-      "tag": "forge:molten_dawnstone"
+      "tag": "c:molten_dawnstone"
     }
   ],
   "cooling_time": 63,
   "fluid": {
     "amount": 90,
-    "tag": "forge:molten_dawnstone"
+    "tag": "c:molten_dawnstone"
   },
   "result": {
-    "tag": "forge:plates/dawnstone"
+    "tag": "c:plates/dawnstone"
   }
 }

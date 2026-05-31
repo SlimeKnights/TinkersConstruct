@@ -1,22 +1,23 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/dawnstone/block",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:storage_blocks/dawnstone"
+      "tag": "c:storage_blocks/dawnstone"
     },
     {
       "type": "mantle:tag_filled",
       "registry": "minecraft:fluid",
-      "tag": "forge:molten_dawnstone"
+      "tag": "c:molten_dawnstone"
     }
   ],
   "ingredient": {
-    "tag": "forge:storage_blocks/dawnstone"
+    "tag": "c:storage_blocks/dawnstone"
   },
   "result": {
     "amount": 810,
-    "tag": "forge:molten_dawnstone"
+    "tag": "c:molten_dawnstone"
   },
   "temperature": 900,
   "time": 190

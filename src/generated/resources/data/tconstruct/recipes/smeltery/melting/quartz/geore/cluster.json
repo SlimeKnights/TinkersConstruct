@@ -1,20 +1,21 @@
 {
   "type": "tconstruct:ore_melting",
+  "id": "tconstruct:smeltery/melting/quartz/geore/cluster",
   "byproducts": [
     {
       "amount": 360,
       "rate": "metal",
-      "tag": "forge:molten_iron"
+      "tag": "c:molten_iron"
     }
   ],
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:geore_clusters/quartz"
+      "tag": "c:geore_clusters/quartz"
     }
   ],
   "ingredient": {
-    "tag": "forge:geore_clusters/quartz"
+    "tag": "c:geore_clusters/quartz"
   },
   "rate": "gem",
   "result": {

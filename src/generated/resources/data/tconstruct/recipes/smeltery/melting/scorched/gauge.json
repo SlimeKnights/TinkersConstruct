@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/scorched/gauge",
   "byproducts": [
     {
       "amount": 500,

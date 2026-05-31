@@ -3,11 +3,11 @@
   "category": "misc",
   "ingredients": [
     {
-      "tag": "forge:sand/red"
+      "tag": "c:sand/red"
     }
   ],
   "result": {
     "count": 4,
-    "item": "tconstruct:blank_red_sand_cast"
+    "id": "tconstruct:blank_red_sand_cast"
   }
 }

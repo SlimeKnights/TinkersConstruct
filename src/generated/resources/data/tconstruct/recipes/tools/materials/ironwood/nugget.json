@@ -1,13 +1,14 @@
 {
   "type": "tconstruct:material",
-  "conditions": [
+  "id": "tconstruct:tools/materials/ironwood/nugget",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:nuggets/ironwood"
+      "tag": "c:nuggets/ironwood"
     }
   ],
   "ingredient": {
-    "tag": "forge:nuggets/ironwood"
+    "tag": "c:nuggets/ironwood"
   },
   "material": "tconstruct:ironwood",
   "needed": 9,

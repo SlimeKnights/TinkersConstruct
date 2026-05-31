@@ -1,7 +1,7 @@
 {
   "values": [
     {
-      "id": "#forge:armors/boots/steel",
+      "id": "#c:armors/boots/steel",
       "required": false
     },
     {

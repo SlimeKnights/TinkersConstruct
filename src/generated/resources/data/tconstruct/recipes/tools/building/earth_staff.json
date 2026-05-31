@@ -6,7 +6,7 @@
       "item": "tconstruct:earth_slime_crystal"
     },
     "I": {
-      "tag": "forge:ingots/cobalt"
+      "tag": "c:ingots/cobalt"
     },
     "W": {
       "tag": "tconstruct:greenheart_logs"
@@ -18,7 +18,7 @@
     " W "
   ],
   "result": {
-    "item": "tconstruct:earth_staff"
+    "id": "tconstruct:earth_staff"
   },
   "show_notification": true
 }

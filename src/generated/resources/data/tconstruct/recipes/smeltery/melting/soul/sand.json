@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/soul/sand",
   "ingredient": [
     {
       "item": "minecraft:soul_sand"

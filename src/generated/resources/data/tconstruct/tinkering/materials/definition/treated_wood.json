@@ -1,6 +1,6 @@
 {
   "condition": {
-    "type": "forge:or",
+    "type": "neoforge:or",
     "values": [
       {
         "type": "tconstruct:config",
@@ -8,12 +8,12 @@
       },
       {
         "type": "mantle:tag_filled",
-        "tag": "forge:treated_wood"
+        "tag": "c:treated_wood"
       },
       {
         "type": "mantle:tag_filled",
         "registry": "minecraft:fluid",
-        "tag": "forge:creosote"
+        "tag": "c:creosote"
       }
     ]
   },

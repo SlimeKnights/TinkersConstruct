@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:crafting_shaped_materials",
+  "id": "tconstruct:tools/armor/travelers/shield",
   "category": "equipment",
   "extra_materials": [
     "tconstruct:leather"
@@ -11,10 +12,10 @@
         "type": "tconstruct:stat_type",
         "stat_type": "tconstruct:shield_core"
       },
-      "value": 1.0
+      "value": 1
     },
     "l": {
-      "tag": "forge:leather"
+      "tag": "c:leather"
     }
   },
   "parts": "c",

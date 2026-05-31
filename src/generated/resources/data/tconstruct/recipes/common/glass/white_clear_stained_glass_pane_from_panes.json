@@ -7,7 +7,7 @@
       "item": "tconstruct:clear_glass_pane"
     },
     "X": {
-      "tag": "forge:dyes/white"
+      "tag": "c:dyes/white"
     }
   },
   "pattern": [
@@ -17,7 +17,7 @@
   ],
   "result": {
     "count": 8,
-    "item": "tconstruct:white_clear_stained_glass_pane"
+    "id": "tconstruct:white_clear_stained_glass_pane"
   },
   "show_notification": true
 }

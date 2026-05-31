@@ -1,11 +1,12 @@
 {
   "type": "tconstruct:casting_basin",
+  "id": "tconstruct:smeltery/casting/quartz/block",
   "cooling_time": 115,
   "fluid": {
     "amount": 400,
     "tag": "tconstruct:molten_quartz"
   },
   "result": {
-    "tag": "forge:storage_blocks/quartz"
+    "tag": "c:storage_blocks/quartz"
   }
 }

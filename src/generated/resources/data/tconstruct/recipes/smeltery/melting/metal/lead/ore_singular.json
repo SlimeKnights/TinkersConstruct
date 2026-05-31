@@ -1,79 +1,27 @@
 {
-  "type": "forge:conditional",
-  "conditions": [
+  "type": "tconstruct:ore_melting",
+  "id": "tconstruct:smeltery/melting/metal/lead/ore_singular",
+  "byproducts": [
     {
-      "type": "mantle:tag_combination_filled",
-      "ignore": "tconstruct:non_singular_ore_rates",
-      "match": "forge:ores/lead"
+      "amount": 180,
+      "rate": "metal",
+      "tag": "c:molten_gold"
     }
   ],
-  "recipes": [
-    {
-      "conditions": [
-        {
-          "type": "mantle:tag_filled",
-          "tag": "forge:ingots/silver"
-        }
-      ],
-      "recipe": {
-        "type": "tconstruct:ore_melting",
-        "byproducts": [
-          {
-            "amount": 180,
-            "rate": "metal",
-            "tag": "forge:molten_silver"
-          }
-        ],
-        "ingredient": {
-          "type": "forge:difference",
-          "base": {
-            "tag": "forge:ores/lead"
-          },
-          "subtracted": {
-            "tag": "tconstruct:non_singular_ore_rates"
-          }
-        },
-        "rate": "metal",
-        "result": {
-          "amount": 180,
-          "tag": "forge:molten_lead"
-        },
-        "temperature": 330,
-        "time": 109
-      }
+  "ingredient": {
+    "type": "neoforge:difference",
+    "base": {
+      "tag": "c:ores/lead"
     },
-    {
-      "conditions": [
-        {
-          "type": "forge:true"
-        }
-      ],
-      "recipe": {
-        "type": "tconstruct:ore_melting",
-        "byproducts": [
-          {
-            "amount": 180,
-            "rate": "metal",
-            "tag": "forge:molten_gold"
-          }
-        ],
-        "ingredient": {
-          "type": "forge:difference",
-          "base": {
-            "tag": "forge:ores/lead"
-          },
-          "subtracted": {
-            "tag": "tconstruct:non_singular_ore_rates"
-          }
-        },
-        "rate": "metal",
-        "result": {
-          "amount": 180,
-          "tag": "forge:molten_lead"
-        },
-        "temperature": 330,
-        "time": 109
-      }
+    "subtracted": {
+      "tag": "tconstruct:non_singular_ore_rates"
     }
-  ]
+  },
+  "rate": "metal",
+  "result": {
+    "amount": 180,
+    "tag": "c:molten_lead"
+  },
+  "temperature": 330,
+  "time": 109
 }

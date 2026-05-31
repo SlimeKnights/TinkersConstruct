@@ -15,7 +15,7 @@
     "#W#"
   ],
   "result": {
-    "item": "tconstruct:greenheart_fence_gate"
+    "id": "tconstruct:greenheart_fence_gate"
   },
   "show_notification": true
 }

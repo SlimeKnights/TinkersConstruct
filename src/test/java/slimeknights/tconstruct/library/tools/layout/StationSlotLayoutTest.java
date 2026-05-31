@@ -1,21 +1,29 @@
 package slimeknights.tconstruct.library.tools.layout;
 
 import io.netty.buffer.Unpooled;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
+import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.test.BaseMcTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class StationSlotLayoutTest extends BaseMcTest {
+  private static FriendlyByteBuf registryBuffer() {
+    return new RegistryFriendlyByteBuf(Unpooled.buffer(), RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY));
+  }
+
   @Test
   void layoutSlot_bufferReadWrite() {
     LayoutSlot slot = new LayoutSlot(new Pattern("test:pattern"), "name", 5, 6, Ingredient.of(Items.BOOK));
-    FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer());
+    FriendlyByteBuf buffer = registryBuffer();
     slot.write(buffer);
 
     LayoutSlot decoded = LayoutSlot.read(buffer);
@@ -30,7 +38,7 @@ class StationSlotLayoutTest extends BaseMcTest {
     ItemStack[] stacks = ingredient.getItems();
     assertThat(stacks).hasSize(1);
     assertThat(stacks[0].getItem()).isEqualTo(Items.BOOK);
-    assertThat(stacks[0].getTag()).isNull();
+    assertThat(TagUtil.getTag(stacks[0])).isNull();
   }
 
   @Test

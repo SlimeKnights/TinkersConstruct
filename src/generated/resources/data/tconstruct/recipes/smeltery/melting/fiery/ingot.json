@@ -1,19 +1,20 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/fiery/ingot",
   "byproducts": [
     {
       "amount": 90,
-      "tag": "forge:molten_iron"
+      "tag": "c:molten_iron"
     }
   ],
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:ingots/fiery"
+      "tag": "c:ingots/fiery"
     }
   ],
   "ingredient": {
-    "tag": "forge:ingots/fiery"
+    "tag": "c:ingots/fiery"
   },
   "result": {
     "amount": 250,

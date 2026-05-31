@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:severing",
+  "id": "tconstruct:tools/severing/phantom_membrane",
   "entity": {
     "type": "minecraft:phantom"
   },

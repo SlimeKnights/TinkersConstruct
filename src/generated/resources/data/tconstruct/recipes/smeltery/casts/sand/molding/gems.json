@@ -1,10 +1,11 @@
 {
   "type": "tconstruct:molding_table",
+  "id": "tconstruct:smeltery/casts/sand/molding/gems",
   "material": {
     "tag": "tconstruct:casts/sand"
   },
   "pattern": {
-    "tag": "forge:gems"
+    "tag": "c:gems"
   },
   "result": "tconstruct:gem_sand_cast"
 }

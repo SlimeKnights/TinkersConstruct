@@ -16,7 +16,11 @@ import slimeknights.mantle.inventory.BaseContainerMenu;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.tables.client.inventory.widget.BorderWidget;
 
+import java.lang.reflect.Field;
+
 public class SideInventoryScreen<P extends MultiModuleScreen<?>, C extends AbstractContainerMenu> extends ModuleScreen<P,C> {
+  private static final Field SLOT_X = slotField("x");
+  private static final Field SLOT_Y = slotField("y");
 
   protected ScalableElementScreen overlap = GenericScreen.overlap;
   protected ElementScreen overlapTopLeft = GenericScreen.overlapTopLeft;
@@ -103,11 +107,6 @@ public class SideInventoryScreen<P extends MultiModuleScreen<?>, C extends Abstr
     }
 
     return this.firstSlotId <= slot.getSlotIndex() && this.lastSlotId > slot.getSlotIndex();
-  }
-
-  @Override
-  public boolean isHovering(Slot slotIn, double mouseX, double mouseY) {
-    return super.isHovering(slotIn, mouseX, mouseY) && this.shouldDrawSlot(slotIn);
   }
 
   public void updateSlotCount(int newSlotCount) {
@@ -228,20 +227,37 @@ public class SideInventoryScreen<P extends MultiModuleScreen<?>, C extends Abstr
         int x = (offset % this.columns) * this.slot.w;
         int y = (offset / this.columns) * this.slot.h;
 
-        slot.x = xd + x + 1;
-        slot.y = yd + y + 1;
+        moveSlot(slot, xd + x + 1, yd + y + 1);
 
         if (this.right) {
-          slot.x += this.parent.realWidth;
+          moveSlot(slot, slot.x + this.parent.realWidth, slot.y);
         }
         else {
-          slot.x -= this.imageWidth;
+          moveSlot(slot, slot.x - this.imageWidth, slot.y);
         }
       }
       else {
-        slot.x = 0;
-        slot.y = 0;
+        moveSlot(slot, 0, 0);
       }
+    }
+  }
+
+  private static Field slotField(String name) {
+    try {
+      Field field = Slot.class.getField(name);
+      field.setAccessible(true);
+      return field;
+    } catch (ReflectiveOperationException e) {
+      throw new IllegalStateException("Failed to access slot field " + name, e);
+    }
+  }
+
+  private static void moveSlot(Slot slot, int x, int y) {
+    try {
+      SLOT_X.setInt(slot, x);
+      SLOT_Y.setInt(slot, y);
+    } catch (ReflectiveOperationException e) {
+      throw new IllegalStateException("Failed to move slot", e);
     }
   }
 

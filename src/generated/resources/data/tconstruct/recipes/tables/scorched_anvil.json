@@ -16,7 +16,7 @@
     "sss"
   ],
   "result": {
-    "item": "tconstruct:scorched_anvil"
+    "id": "tconstruct:scorched_anvil"
   },
   "show_notification": true,
   "texture": "m"

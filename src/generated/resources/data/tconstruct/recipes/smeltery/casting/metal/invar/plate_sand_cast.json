@@ -1,21 +1,22 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/invar/plate_sand_cast",
   "cast": {
     "tag": "tconstruct:casts/single_use/plate"
   },
   "cast_consumed": true,
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:plates/invar"
+      "tag": "c:plates/invar"
     }
   ],
   "cooling_time": 63,
   "fluid": {
     "amount": 90,
-    "tag": "forge:molten_invar"
+    "tag": "c:molten_invar"
   },
   "result": {
-    "tag": "forge:plates/invar"
+    "tag": "c:plates/invar"
   }
 }

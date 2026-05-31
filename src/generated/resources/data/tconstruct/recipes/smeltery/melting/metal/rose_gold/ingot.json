@@ -1,11 +1,12 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/rose_gold/ingot",
   "ingredient": {
-    "tag": "forge:ingots/rose_gold"
+    "tag": "c:ingots/rose_gold"
   },
   "result": {
     "amount": 90,
-    "tag": "forge:molten_rose_gold"
+    "tag": "c:molten_rose_gold"
   },
   "temperature": 550,
   "time": 52

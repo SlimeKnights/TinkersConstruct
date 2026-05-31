@@ -4,11 +4,11 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandlerItem;
+import slimeknights.mantle.compat.neoforged.neoforge.capabilities.Capability;
+import slimeknights.tconstruct.compat.neoforged.neoforge.capabilities.ForgeCapabilities;
+import slimeknights.mantle.compat.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
@@ -134,7 +134,7 @@ public class ToolFluidCapability extends FluidModifierHookIterator<ModifierEntry
     }
     int size = container.getCount();
     if (size > 1) {
-      resource = new FluidStack(resource, resource.getAmount() / size);
+      resource = resource.copyWithAmount(resource.getAmount() / size);
     }
     return scaleResult(drain(tool.get(), resource, action), size);
   }

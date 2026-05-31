@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:tools/modifiers/seared_reinforcement",
   "cast": {
     "item": "tconstruct:pattern"
   },

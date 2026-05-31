@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:molding_table",
+  "id": "tconstruct:smeltery/casts/red_sand/molding/repair_kit",
   "material": {
     "tag": "tconstruct:casts/red_sand"
   },

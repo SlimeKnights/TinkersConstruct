@@ -1,9 +1,10 @@
 {
   "type": "tconstruct:material_fluid",
-  "conditions": [
+  "id": "tconstruct:tools/materials/composite/fiery",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:ingots/fiery"
+      "tag": "c:ingots/fiery"
     }
   ],
   "fluid": {

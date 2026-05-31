@@ -1,16 +1,17 @@
 {
   "type": "tconstruct:material_melting",
-  "conditions": [
+  "id": "tconstruct:tools/materials/melting/electrum",
+  "neoforge:conditions": [
     {
-      "type": "forge:or",
+      "type": "neoforge:or",
       "values": [
         {
           "type": "mantle:tag_filled",
-          "tag": "forge:ingots/electrum"
+          "tag": "c:ingots/electrum"
         },
         {
           "type": "mantle:tag_filled",
-          "tag": "forge:ingots/silver"
+          "tag": "c:ingots/silver"
         }
       ]
     }
@@ -18,7 +19,7 @@
   "input": "tconstruct:electrum",
   "result": {
     "amount": 90,
-    "tag": "forge:molten_electrum"
+    "tag": "c:molten_electrum"
   },
   "temperature": 760
 }

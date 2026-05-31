@@ -1,20 +1,21 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/constantan/coin_gold_cast",
   "cast": {
     "tag": "tconstruct:casts/multi_use/coin"
   },
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:coins/constantan"
+      "tag": "c:coins/constantan"
     }
   ],
   "cooling_time": 37,
   "fluid": {
     "amount": 30,
-    "tag": "forge:molten_constantan"
+    "tag": "c:molten_constantan"
   },
   "result": {
-    "tag": "forge:coins/constantan"
+    "tag": "c:coins/constantan"
   }
 }

@@ -63,3 +63,9 @@ abilities.group_armor.shield=Щиты
 
 fluid_effects=Эффекты жидкости
 fluid_effects.subtext=Эффекты жидкости определяют поведение при попадании жидкости на блок или сущность с помощью различных модификаторов, таких как выплёвывание, разливание и разбрызгивание.
+
+# Missing 1.21 book section translations
+tools.group_ranged=Дальний бой
+materials_ammo=Материалы для боеприпасов
+materials_ammo.subtext=Материалы, используемые для создания стрел и сюрикенов.
+slotless.group_cosmetic=Косметический

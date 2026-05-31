@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.common.data.tags;
 
 import net.minecraft.data.PackOutput;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.data.tinkering.AbstractMaterialTagProvider;

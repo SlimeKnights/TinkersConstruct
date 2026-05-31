@@ -1,11 +1,11 @@
 {
   "values": [
     {
-      "id": "#forge:armors/leggings/osmium",
+      "id": "#c:armors/leggings/osmium",
       "required": false
     },
     {
-      "id": "#forge:tools/paxels/osmium",
+      "id": "#c:tools/paxels/osmium",
       "required": false
     }
   ]

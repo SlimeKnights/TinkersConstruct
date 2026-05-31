@@ -1,12 +1,13 @@
 {
   "type": "tconstruct:alloy",
-  "conditions": [
+  "id": "tconstruct:smeltery/alloys/molten_bronze",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:ingots/tin"
+      "tag": "c:ingots/tin"
     },
     {
-      "type": "forge:or",
+      "type": "neoforge:or",
       "values": [
         {
           "type": "tconstruct:config",
@@ -14,7 +15,7 @@
         },
         {
           "type": "mantle:tag_filled",
-          "tag": "forge:ingots/bronze"
+          "tag": "c:ingots/bronze"
         }
       ]
     }
@@ -22,16 +23,16 @@
   "inputs": [
     {
       "amount": 270,
-      "tag": "forge:molten_copper"
+      "tag": "c:molten_copper"
     },
     {
       "amount": 90,
-      "tag": "forge:molten_tin"
+      "tag": "c:molten_tin"
     }
   ],
   "result": {
     "amount": 360,
-    "tag": "forge:molten_bronze"
+    "tag": "c:molten_bronze"
   },
   "temperature": 700
 }

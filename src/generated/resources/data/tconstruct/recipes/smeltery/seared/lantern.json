@@ -6,7 +6,7 @@
       "item": "tconstruct:seared_brick"
     },
     "C": {
-      "tag": "forge:ingots/iron"
+      "tag": "c:ingots/iron"
     },
     "P": {
       "item": "tconstruct:seared_glass_pane"
@@ -19,7 +19,7 @@
   ],
   "result": {
     "count": 3,
-    "item": "tconstruct:seared_lantern"
+    "id": "tconstruct:seared_lantern"
   },
   "show_notification": true
 }

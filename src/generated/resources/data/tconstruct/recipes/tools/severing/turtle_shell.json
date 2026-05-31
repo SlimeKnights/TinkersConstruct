@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:ageable_severing",
+  "id": "tconstruct:tools/severing/turtle_shell",
   "adult_result": "minecraft:turtle_helmet",
-  "child_result": "minecraft:scute",
+  "child_result": "minecraft:turtle_scute",
   "entity": {
     "type": "minecraft:turtle"
   },

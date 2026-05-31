@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:extract_modifier",
+  "id": "tconstruct:tools/modifiers/worktable/extract/defense",
   "inputs": [
     {
       "item": "tconstruct:earth_slime_crystal"
@@ -27,7 +28,7 @@
   },
   "name": "defense",
   "tools": {
-    "type": "forge:difference",
+    "type": "neoforge:difference",
     "base": {
       "tag": "tconstruct:modifiable"
     },

@@ -12,7 +12,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.ToolAction;
+import net.neoforged.neoforge.common.ItemAbility;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.primitive.BooleanLoadable;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
@@ -34,7 +34,7 @@ import java.util.List;
 /**
  * Module which transforms a block using a tool action
  */
-public record ToolActionTransformModule(ToolAction action, SoundEvent sound, boolean requireGround, int eventId, ModifierCondition<IToolStackView> condition) implements BlockTransformModule, ToolActionModifierHook, ConditionalModule<IToolStackView> {
+public record ToolActionTransformModule(ItemAbility action, SoundEvent sound, boolean requireGround, int eventId, ModifierCondition<IToolStackView> condition) implements BlockTransformModule, ToolActionModifierHook, ConditionalModule<IToolStackView> {
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<ToolActionTransformModule>defaultHooks(ModifierHooks.BLOCK_INTERACT, ModifierHooks.TOOL_ACTION, ModifierHooks.AOE_HIGHLIGHT);
   public static final RecordLoadable<ToolActionTransformModule> LOADER = RecordLoadable.create(
     Loadables.TOOL_ACTION.requiredField("tool_action", ToolActionTransformModule::action),
@@ -50,7 +50,7 @@ public record ToolActionTransformModule(ToolAction action, SoundEvent sound, boo
   }
 
   @Override
-  public boolean canPerformAction(IToolStackView tool, ModifierEntry modifier, ToolAction toolAction) {
+  public boolean canPerformAction(IToolStackView tool, ModifierEntry modifier, ItemAbility toolAction) {
     return condition.matches(tool, modifier) && this.action == toolAction;
   }
 
@@ -104,13 +104,13 @@ public record ToolActionTransformModule(ToolAction action, SoundEvent sound, boo
 
   /* Builder */
 
-  public static Builder builder(ToolAction action, SoundEvent sound) {
+  public static Builder builder(ItemAbility action, SoundEvent sound) {
     return new Builder(action, sound);
   }
 
   @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
   public static class Builder extends ModuleBuilder.Stack<Builder> {
-    private final ToolAction action;
+    private final ItemAbility action;
     private final SoundEvent sound;
     private boolean requireGround;
     /**

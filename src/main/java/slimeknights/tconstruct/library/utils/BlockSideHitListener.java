@@ -5,12 +5,12 @@ import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import lombok.Getter;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedOutEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent.LeftClickBlock;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent.LeftClickBlock.Action;
-import net.minecraftforge.event.level.BlockEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent.PlayerLoggedOutEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.LeftClickBlock;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.LeftClickBlock.Action;
+import net.neoforged.neoforge.event.level.BlockEvent;
+import net.neoforged.bus.api.EventPriority;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,9 +32,9 @@ public class BlockSideHitListener {
       return;
     }
     init = true;
-    MinecraftForge.EVENT_BUS.addListener(BlockSideHitListener::onLeftClickBlock);
-    MinecraftForge.EVENT_BUS.addListener(EventPriority.LOWEST, BlockSideHitListener::breakBlock);
-    MinecraftForge.EVENT_BUS.addListener(BlockSideHitListener::onLeaveServer);
+    NeoForge.EVENT_BUS.addListener(BlockSideHitListener::onLeftClickBlock);
+    NeoForge.EVENT_BUS.addListener(EventPriority.LOWEST, BlockSideHitListener::breakBlock);
+    NeoForge.EVENT_BUS.addListener(BlockSideHitListener::onLeaveServer);
   }
 
   /** Called when the player left-clicks a block to store the face */
@@ -51,7 +51,9 @@ public class BlockSideHitListener {
 
   /** Called on block break to store the last break XP */
   private static void breakBlock(BlockEvent.BreakEvent event) {
-    LAST_XP.put(event.getPlayer().getUUID(), event.getExpToDrop());
+    LAST_XP.put(event.getPlayer().getUUID(), event.getState().getExpDrop(
+      event.getLevel(), event.getPos(), event.getLevel().getBlockEntity(event.getPos()), event.getPlayer(), event.getPlayer().getMainHandItem()
+    ));
   }
 
   /** Called when a player leaves the server to clear the face */

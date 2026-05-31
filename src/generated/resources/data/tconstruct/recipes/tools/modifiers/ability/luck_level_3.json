@@ -1,18 +1,19 @@
 {
   "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/ability/luck_level_3",
   "allow_crystal": false,
   "inputs": [
     {
-      "tag": "forge:ingots/rose_gold"
+      "tag": "c:ingots/rose_gold"
     },
     {
       "item": "minecraft:rabbit_foot"
     },
     {
-      "tag": "forge:ingots/rose_gold"
+      "tag": "c:ingots/rose_gold"
     },
     {
-      "tag": "forge:gems/diamond"
+      "tag": "c:gems/diamond"
     },
     {
       "item": "minecraft:name_tag"

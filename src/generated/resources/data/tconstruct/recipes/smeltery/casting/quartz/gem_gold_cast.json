@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/quartz/gem_gold_cast",
   "cast": {
     "tag": "tconstruct:casts/multi_use/gem"
   },
@@ -9,6 +10,6 @@
     "tag": "tconstruct:molten_quartz"
   },
   "result": {
-    "tag": "forge:gems/quartz"
+    "tag": "c:gems/quartz"
   }
 }

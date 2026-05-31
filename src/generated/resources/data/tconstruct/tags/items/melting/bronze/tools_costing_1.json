@@ -1,7 +1,7 @@
 {
   "values": [
     {
-      "id": "#forge:tools/shovels/bronze",
+      "id": "#c:tools/shovels/bronze",
       "required": false
     },
     {

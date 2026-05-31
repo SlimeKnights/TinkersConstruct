@@ -1,19 +1,20 @@
 {
   "type": "tconstruct:ore_melting",
+  "id": "tconstruct:smeltery/melting/metal/steel/raw_block",
   "byproducts": [
     {
       "amount": 810,
       "rate": "metal",
-      "tag": "forge:molten_iron"
+      "tag": "c:molten_iron"
     }
   ],
   "ingredient": {
-    "tag": "forge:storage_blocks/raw_steel"
+    "tag": "c:storage_blocks/raw_steel"
   },
   "rate": "metal",
   "result": {
     "amount": 810,
-    "tag": "forge:molten_steel"
+    "tag": "c:molten_steel"
   },
   "temperature": 950,
   "time": 389

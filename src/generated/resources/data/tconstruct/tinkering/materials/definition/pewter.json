@@ -1,6 +1,6 @@
 {
   "condition": {
-    "type": "forge:or",
+    "type": "neoforge:or",
     "values": [
       {
         "type": "tconstruct:config",
@@ -8,25 +8,25 @@
       },
       {
         "type": "mantle:tag_filled",
-        "tag": "forge:ingots/pewter"
+        "tag": "c:ingots/pewter"
       },
       {
-        "type": "forge:and",
+        "type": "neoforge:and",
         "values": [
           {
             "type": "tconstruct:config",
             "prop": "allow_ingotless_alloys"
           },
           {
-            "type": "forge:or",
+            "type": "neoforge:or",
             "values": [
               {
                 "type": "mantle:tag_filled",
-                "tag": "forge:ingots/tin"
+                "tag": "c:ingots/tin"
               },
               {
                 "type": "mantle:tag_filled",
-                "tag": "forge:ingots/lead"
+                "tag": "c:ingots/lead"
               }
             ]
           }

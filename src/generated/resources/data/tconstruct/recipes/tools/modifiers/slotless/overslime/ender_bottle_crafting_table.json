@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:crafting_overslime_modifier",
+  "id": "tconstruct:tools/modifiers/slotless/overslime/ender_bottle_crafting_table",
   "ingredient": {
     "item": "tconstruct:ender_slime_bottle"
   },

@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:casting_basin",
+  "id": "tconstruct:smeltery/casting/seared/stone/block_from_seared",
   "cooling_time": 178,
   "fluid": {
     "amount": 1000,

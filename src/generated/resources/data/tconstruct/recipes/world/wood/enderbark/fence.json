@@ -4,7 +4,7 @@
   "group": "wooden_fence",
   "key": {
     "#": {
-      "tag": "forge:rods/wooden"
+      "tag": "c:rods/wooden"
     },
     "W": {
       "item": "tconstruct:enderbark_planks"
@@ -16,7 +16,7 @@
   ],
   "result": {
     "count": 3,
-    "item": "tconstruct:enderbark_fence"
+    "id": "tconstruct:enderbark_fence"
   },
   "show_notification": true
 }

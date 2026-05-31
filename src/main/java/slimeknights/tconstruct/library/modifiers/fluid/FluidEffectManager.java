@@ -3,6 +3,9 @@ package slimeknights.tconstruct.library.modifiers.fluid;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
+import com.mojang.serialization.JsonOps;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.resources.RegistryOps;
 import lombok.Getter;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -10,12 +13,13 @@ import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.common.crafting.conditions.ICondition.IContext;
-import net.minecraftforge.event.AddReloadListenerEvent;
-import net.minecraftforge.event.OnDatapackSyncEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.common.conditions.ConditionalOps;
+import net.neoforged.neoforge.common.conditions.ICondition;
+import net.neoforged.neoforge.common.conditions.ICondition.IContext;
+import net.neoforged.neoforge.event.AddReloadListenerEvent;
+import net.neoforged.neoforge.event.OnDatapackSyncEvent;
+import net.neoforged.bus.api.EventPriority;
 import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
@@ -50,6 +54,8 @@ public class FluidEffectManager extends SimpleJsonResourceReloadListener {
 
   /** Condition context for recipe loading */
   private IContext conditionContext = IContext.EMPTY;
+  /** Registry access for condition parsing */
+  private RegistryAccess registryAccess = RegistryAccess.EMPTY;
 
   private FluidEffectManager() {
     super(JsonHelper.DEFAULT_GSON, FOLDER);
@@ -57,14 +63,15 @@ public class FluidEffectManager extends SimpleJsonResourceReloadListener {
 
   /** For internal use only */
   public void init() {
-    MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, AddReloadListenerEvent.class, this::addDataPackListeners);
-    MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, OnDatapackSyncEvent.class, e -> JsonUtils.syncPackets(e, new UpdateFluidEffectsPacket(this.fluids)));
+    NeoForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, AddReloadListenerEvent.class, this::addDataPackListeners);
+    NeoForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, OnDatapackSyncEvent.class, e -> JsonUtils.syncPackets(e, new UpdateFluidEffectsPacket(this.fluids)));
   }
 
   /** Adds the managers as datapack listeners */
   private void addDataPackListeners(final AddReloadListenerEvent event) {
     event.addListener(this);
     conditionContext = event.getConditionContext();
+    registryAccess = event.getRegistryAccess();
   }
 
   /** Creates context for modifier parsing */
@@ -84,10 +91,13 @@ public class FluidEffectManager extends SimpleJsonResourceReloadListener {
         JsonObject json = GsonHelper.convertToJsonObject(entry.getValue(), "fluid_effect");
 
         // want to parse condition without parsing effects, as the effect serializer may be missing
-        if (!CraftingHelper.processConditions(json, "conditions", conditionContext)) {
+        if (!conditionsMatch(json)) {
           continue;
         }
-        fluids.add(new FluidEffects.Entry(key, FluidEffects.LOADABLE.deserialize(json, contextBuilder(key).put(ContextKey.CONDITION_CONTEXT, conditionContext).build())));
+        fluids.add(new FluidEffects.Entry(key, FluidEffects.LOADABLE.deserialize(json, contextBuilder(key)
+          .put(ContextKey.CONDITION_CONTEXT, conditionContext)
+          .put(ContextKey.REGISTRY_ACCESS, registryAccess)
+          .build())));
       } catch (JsonSyntaxException e) {
         TConstruct.LOG.error("Failed to load fluid effect {}", key, e);
       }
@@ -124,5 +134,15 @@ public class FluidEffectManager extends SimpleJsonResourceReloadListener {
    */
   public FluidEffects find(Fluid fluid) {
     return cache.computeIfAbsent(fluid, FIND_UNCACHED);
+  }
+
+  /** Checks both legacy "conditions" and modern "neoforge:conditions" blocks. */
+  private boolean conditionsMatch(JsonObject json) {
+    ConditionalOps<JsonElement> ops = new ConditionalOps<>(RegistryOps.create(JsonOps.INSTANCE, registryAccess), conditionContext);
+    if (json.has("conditions")) {
+      List<ICondition> conditions = ICondition.LIST_CODEC.parse(ops, json.get("conditions")).getOrThrow(JsonSyntaxException::new);
+      return conditions.stream().allMatch(condition -> condition.test(conditionContext));
+    }
+    return ICondition.conditionsMatched(ops, json);
   }
 }

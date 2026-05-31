@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:ore_melting",
+  "id": "tconstruct:smeltery/melting/diamond/geore/bud_medium",
   "byproducts": [
     {
       "amount": 180,
@@ -7,14 +8,14 @@
       "rate": "metal"
     }
   ],
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:geore_medium_buds/diamond"
+      "tag": "c:geore_medium_buds/diamond"
     }
   ],
   "ingredient": {
-    "tag": "forge:geore_medium_buds/diamond"
+    "tag": "c:geore_medium_buds/diamond"
   },
   "rate": "gem",
   "result": {

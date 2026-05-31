@@ -9,8 +9,8 @@ import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import slimeknights.mantle.Mantle;
 import slimeknights.mantle.fluid.tooltip.FluidTooltipHandler;
 import slimeknights.tconstruct.library.client.GuiUtil;
@@ -93,10 +93,10 @@ public class GuiTankModule implements IScreenWithFluidTank, ClickableTankModule 
     if (horizontal) {
       if(!stack.isEmpty() && capacity > 0) {
         int fluidWidth = Math.min(width * stack.getAmount() / capacity, width);
-        GuiUtil.renderTiledFluid(graphics.pose(), screen, stack, x, y, fluidWidth, height, 100);
+        GuiUtil.renderTiledFluid(graphics, screen, stack, x, y, fluidWidth, height, 100);
       }
     } else {
-      GuiUtil.renderFluidTank(graphics.pose(), screen, stack, capacity, x, y, width, height, 100);
+      GuiUtil.renderFluidTank(graphics, screen, stack, capacity, x, y, width, height, 100);
     }
   }
 
@@ -142,8 +142,8 @@ public class GuiTankModule implements IScreenWithFluidTank, ClickableTankModule 
    * @param mouseY    Global mouse Y position
    */
   public void renderTooltip(GuiGraphics graphics, int mouseX, int mouseY) {
-    int checkX = mouseX - screen.leftPos;
-    int checkY = mouseY - screen.topPos;
+    int checkX = mouseX - screen.getGuiLeft();
+    int checkY = mouseY - screen.getGuiTop();
 
     if (isHovered(checkX, checkY)) {
       FluidStack fluid = tank.getFluidInTank(TANK_INDEX);
@@ -179,7 +179,7 @@ public class GuiTankModule implements IScreenWithFluidTank, ClickableTankModule 
       }
 
       // TODO: renderComponentTooltip->renderTooltip
-      graphics.renderComponentTooltip(screen.font, tooltip, mouseX, mouseY);
+      graphics.renderComponentTooltip(screen.getMinecraft().font, tooltip, mouseX, mouseY);
     }
   }
 

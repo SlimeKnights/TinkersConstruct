@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/lead/plate",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:plates/lead"
+      "tag": "c:plates/lead"
     }
   ],
   "ingredient": {
-    "tag": "forge:plates/lead"
+    "tag": "c:plates/lead"
   },
   "result": {
     "amount": 90,
-    "tag": "forge:molten_lead"
+    "tag": "c:molten_lead"
   },
   "temperature": 330,
   "time": 43

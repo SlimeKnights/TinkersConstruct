@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:incremental_modifier",
+  "id": "tconstruct:tools/modifiers/upgrade/hydraulic_from_bricks",
   "allow_crystal": false,
   "amount_per_item": 9,
   "input": {

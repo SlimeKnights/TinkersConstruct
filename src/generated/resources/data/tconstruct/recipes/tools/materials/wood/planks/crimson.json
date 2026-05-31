@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/wood/planks/crimson",
   "ingredient": {
     "item": "minecraft:crimson_planks"
   },

@@ -14,27 +14,27 @@ import net.minecraft.commands.arguments.ResourceArgument;
 import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.recipes.FinishedRecipe;
+import slimeknights.mantle.compat.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidType;
-import net.minecraftforge.fluids.capability.IFluidHandlerItem;
-import net.minecraftforge.fluids.capability.templates.FluidTank;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidType;
+import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
+import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import org.apache.commons.lang3.mutable.MutableInt;
 import slimeknights.mantle.command.GeneratePackHelper;
 import slimeknights.mantle.command.MantleCommand;
@@ -53,6 +53,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipeLookup;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipeLookup.MeltingFluid;
+import slimeknights.tconstruct.library.utils.TagUtil;
 
 import javax.annotation.Nullable;
 import java.nio.file.Path;
@@ -93,8 +94,8 @@ public class GenerateMeltingRecipesCommand {
   }
 
   /** Runs the command */
-  @SuppressWarnings("unchecked")  // not like we are using the generics at all
-  private static <C extends Container, T extends Recipe<C>> int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
+  @SuppressWarnings({"unchecked", "rawtypes"})  // not like we are using the generics at all
+  private static int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
     long startTime = System.nanoTime();
     Holder<RecipeType<?>> recipeType = ResourceArgument.getResource(context, "recipe_type", Registries.RECIPE_TYPE);
 
@@ -147,16 +148,18 @@ public class GenerateMeltingRecipesCommand {
 
     // iterate all recipes and try adding a melting recipe
     MeltingCache cache = new MeltingCache();
-    for (Recipe<?> recipe : level.getRecipeManager().getAllRecipesFor((RecipeType<T>) recipeType.get())) {
+    List<RecipeHolder<?>> recipes = (List)level.getRecipeManager().getAllRecipesFor((RecipeType)recipeType.value());
+    for (RecipeHolder<?> recipeHolder : recipes) {
+      Recipe<?> recipe = recipeHolder.value();
       // skip any recipes that are specifically blacklisted
-      if (skipRecipes.contains(recipe.getId())) {
+      if (skipRecipes.contains(recipeHolder.id())) {
         continue;
       }
       ItemStack resultStack = recipe.getResultItem(access);
       // don't bother with results that have NBT unless its a damagable item, in which case we ignore NBT and hope for the best
       // also skip anything already meltable
       Item result = resultStack.getItem();
-      if (resultStack.isEmpty() || (resultStack.hasTag() && !result.canBeDepleted()) || !melt.matches(result) || MeltingRecipeLookup.canMelt(result)) {
+      if (resultStack.isEmpty() || (TagUtil.hasTag(resultStack) && !resultStack.isDamageableItem()) || !melt.matches(result) || MeltingRecipeLookup.canMelt(result)) {
         continue;
       }
       List<MeltingResult> fluids = new ArrayList<>();
@@ -174,7 +177,7 @@ public class GenerateMeltingRecipesCommand {
           for (ItemStack stack : ingredient.getItems()) {
             // if the ingredient has NBT, nothing we can do here
             // also skip if the item is disallowed as an input
-            if (stack.isEmpty() || stack.hasTag() || !inputs.matches(stack.getItem())) {
+            if (stack.isEmpty() || TagUtil.hasTag(stack) || !inputs.matches(stack.getItem())) {
               break ingredientSearch;
             }
             // first, try getting its fluid
@@ -266,7 +269,7 @@ public class GenerateMeltingRecipesCommand {
           builder.addByproduct(fluids.get(i).toOutput());
         }
         // mark it damagable if its true
-        if (result.canBeDepleted()) {
+        if (result.getDefaultInstance().isDamageableItem()) {
           // we don't know the proper unit size, but 10mb is pretty likely
           builder.setDamagable(10);
         }
@@ -317,7 +320,7 @@ public class GenerateMeltingRecipesCommand {
     /** Creates a fluid output for this object */
     public FluidOutput toOutput() {
       if (tag != null) {
-        return FluidOutput.fromTag(tag, fluid.getAmount(), fluid.getTag());
+        return FluidOutput.fromTag(tag, fluid.getAmount(), TagUtil.getTag(fluid));
       }
       return FluidOutput.fromStack(fluid);
     }
@@ -430,14 +433,14 @@ public class GenerateMeltingRecipesCommand {
       }
       // handle buckets directly as its faster
       if (item instanceof BucketItem bucket) {
-        Fluid fluid = bucket.getFluid();
+        Fluid fluid = bucket.content;
         if (fluid != Fluids.EMPTY) {
           return MeltingResult.from(new FluidStack(fluid, FluidType.BUCKET_VOLUME));
         }
       }
       // fluid capability check
       try {
-        IFluidHandlerItem capability = LogicHelper.orElseNull(stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM));
+        IFluidHandlerItem capability = stack.getCapability(Capabilities.FluidHandler.ITEM);
         if (capability != null) {
           FluidStack contained = capability.getFluidInTank(0);
           if (!contained.isEmpty()) {

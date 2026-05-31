@@ -1,11 +1,12 @@
 {
   "type": "tconstruct:entity_melting",
+  "id": "tconstruct:smeltery/entity_melting/iron_golem",
   "damage": 4,
   "entity": {
     "type": "minecraft:iron_golem"
   },
   "result": {
     "amount": 10,
-    "tag": "forge:molten_iron"
+    "tag": "c:molten_iron"
   }
 }

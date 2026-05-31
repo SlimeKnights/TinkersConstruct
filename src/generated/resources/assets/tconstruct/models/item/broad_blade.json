@@ -1,5 +1,5 @@
 {
-  "parent": "forge:item/default",
+  "parent": "neoforge:item/default",
   "loader": "tconstruct:material",
   "offset": [
     -1,

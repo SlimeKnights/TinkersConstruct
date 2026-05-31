@@ -3,11 +3,11 @@
   "conditions": [
     {
       "condition": "mantle:block_tag",
-      "tag": "forge:ores/nickel"
+      "tag": "c:ores/nickel"
     },
     {
       "condition": "mantle:tag_filled",
-      "tag": "forge:nuggets/nickel"
+      "tag": "c:nuggets/nickel"
     },
     {
       "condition": "tconstruct:has_modifier",
@@ -16,7 +16,7 @@
   ],
   "entry": {
     "type": "mantle:tag_preference",
-    "tag": "forge:nuggets/nickel"
+    "tag": "c:nuggets/nickel"
   },
   "functions": [
     {
@@ -44,7 +44,7 @@
       "condition": {
         "type": "mantle:contains_item",
         "ingredient": {
-          "tag": "forge:ores/nickel"
+          "tag": "c:ores/nickel"
         }
       }
     }

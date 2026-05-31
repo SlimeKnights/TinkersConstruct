@@ -1,15 +1,16 @@
 {
   "type": "tconstruct:material_fluid",
-  "conditions": [
+  "id": "tconstruct:tools/materials/composite/treated_wood",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
       "registry": "minecraft:fluid",
-      "tag": "forge:creosote"
+      "tag": "c:creosote"
     }
   ],
   "fluid": {
     "amount": 125,
-    "tag": "forge:creosote"
+    "tag": "c:creosote"
   },
   "input": "tconstruct:wood",
   "output": "tconstruct:treated_wood",

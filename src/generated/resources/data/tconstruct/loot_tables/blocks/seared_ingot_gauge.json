@@ -17,7 +17,7 @@
               "source": "block_entity"
             },
             {
-              "function": "minecraft:copy_nbt",
+              "function": "minecraft:copy_custom_data",
               "ops": [
                 {
                   "op": "replace",

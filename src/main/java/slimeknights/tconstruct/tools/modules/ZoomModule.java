@@ -8,7 +8,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.UseAnim;
-import net.minecraftforge.common.util.LazyOptional;
+import slimeknights.mantle.compat.neoforged.neoforge.common.util.LazyOptional;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.mantle.data.loadable.mapping.SimpleRecordLoadable;
 import slimeknights.mantle.data.loadable.primitive.EnumLoadable;
@@ -90,7 +90,7 @@ public enum ZoomModule implements ModifierModule, GeneralInteractionModifierHook
 
   /** Starts spyglass style zooming */
   private static void setZoom(ModifierEntry modifier, LivingEntity living, float amount) {
-    living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.computeIfAbsent(TinkerDataKeys.FOV_MODIFIER).set(modifier.getId(), amount));
+    TinkerDataCapability.getCapability(living).ifPresent(data -> data.computeIfAbsent(TinkerDataKeys.FOV_MODIFIER).set(modifier.getId(), amount));
   }
 
   /** Stops zooming */
@@ -100,7 +100,7 @@ public enum ZoomModule implements ModifierModule, GeneralInteractionModifierHook
 
   /** Stops zooming */
   private static void stopZoom(ModifierEntry modifier, LivingEntity entity) {
-    stopZoom(modifier, entity.getCapability(TinkerDataCapability.CAPABILITY));
+    stopZoom(modifier, TinkerDataCapability.getCapability(entity));
   }
 
 

@@ -1,16 +1,17 @@
 {
   "type": "tconstruct:material_melting",
-  "conditions": [
+  "id": "tconstruct:tools/materials/melting/bronze",
+  "neoforge:conditions": [
     {
-      "type": "forge:or",
+      "type": "neoforge:or",
       "values": [
         {
           "type": "mantle:tag_filled",
-          "tag": "forge:ingots/bronze"
+          "tag": "c:ingots/bronze"
         },
         {
           "type": "mantle:tag_filled",
-          "tag": "forge:ingots/tin"
+          "tag": "c:ingots/tin"
         }
       ]
     }
@@ -18,7 +19,7 @@
   "input": "tconstruct:bronze",
   "result": {
     "amount": 90,
-    "tag": "forge:molten_bronze"
+    "tag": "c:molten_bronze"
   },
   "temperature": 700
 }

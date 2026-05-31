@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/scorched/glass_tinted",
   "byproducts": [
     {
       "amount": 1000,

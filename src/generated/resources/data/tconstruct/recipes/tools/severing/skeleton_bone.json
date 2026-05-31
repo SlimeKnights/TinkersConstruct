@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:severing",
+  "id": "tconstruct:tools/severing/skeleton_bone",
   "entity": {
     "types": [
       "minecraft:skeleton",

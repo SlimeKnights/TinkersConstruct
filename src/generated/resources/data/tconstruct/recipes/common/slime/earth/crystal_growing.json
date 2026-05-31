@@ -7,5 +7,7 @@
   "ingredient": {
     "item": "tconstruct:earth_slime_dirt"
   },
-  "result": "tconstruct:earth_slime_crystal"
+  "result": {
+    "id": "tconstruct:earth_slime_crystal"
+  }
 }

@@ -1,11 +1,12 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/slime/honey_block",
   "ingredient": {
     "item": "minecraft:honey_block"
   },
   "result": {
     "amount": 1000,
-    "tag": "forge:honey"
+    "tag": "c:honey"
   },
   "temperature": 1,
   "time": 94

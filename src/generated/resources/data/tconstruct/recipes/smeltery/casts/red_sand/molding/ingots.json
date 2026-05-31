@@ -1,13 +1,14 @@
 {
   "type": "tconstruct:molding_table",
+  "id": "tconstruct:smeltery/casts/red_sand/molding/ingots",
   "material": {
     "tag": "tconstruct:casts/red_sand"
   },
   "pattern": [
     {
-      "type": "forge:difference",
+      "type": "neoforge:difference",
       "base": {
-        "tag": "forge:ingots"
+        "tag": "c:ingots"
       },
       "subtracted": {
         "item": "tconstruct:fake_ingot"

@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:extract_modifier",
+  "id": "tconstruct:tools/modifiers/worktable/extract/slotless_dagger",
   "inputs": [
     {
       "item": "minecraft:amethyst_shard"

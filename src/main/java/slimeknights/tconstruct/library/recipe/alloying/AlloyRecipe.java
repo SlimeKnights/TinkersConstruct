@@ -6,7 +6,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidStack;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.primitive.BooleanLoadable;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
@@ -166,7 +166,7 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
         fluid = inv.getFluidInTank(index);
         int amount = ingredient.fluid.getAmount(fluid.getFluid());
         drainAmount += amount;
-        drainFluids[index] = new FluidStack(fluid, amount);
+          drainFluids[index] = fluid.copyWithAmount(amount);
       }
     }
 

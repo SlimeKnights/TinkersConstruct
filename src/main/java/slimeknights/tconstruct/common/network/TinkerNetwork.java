@@ -7,8 +7,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.PlayerList;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.PacketDistributor;
+import slimeknights.mantle.compat.neoforged.neoforge.network.NetworkDirection;
 import slimeknights.mantle.network.NetworkWrapper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.definition.UpdateMaterialsPacket;
@@ -149,7 +148,7 @@ public class TinkerNetwork extends NetworkWrapper {
    */
   @Override
   public void sendToTrackingAndSelf(Object msg, Entity entity) {
-    this.network.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> entity), msg);
+    super.sendToTrackingAndSelf(msg, entity);
   }
 
   /**
@@ -159,7 +158,7 @@ public class TinkerNetwork extends NetworkWrapper {
    */
   @Override
   public void sendToTracking(Object msg, Entity entity) {
-    this.network.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), msg);
+    super.sendToTracking(msg, entity);
   }
 
   /**

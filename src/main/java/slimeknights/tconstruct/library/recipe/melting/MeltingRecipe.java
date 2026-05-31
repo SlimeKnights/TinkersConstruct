@@ -6,9 +6,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.mantle.data.loadable.common.IngredientLoadable;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.field.LoadableField;
@@ -125,7 +125,7 @@ public class MeltingRecipe implements IMeltingRecipe {
       // boost for foundry rate, this method is used for the foundry only
       OreRateType rate = getOreType();
       if (rate != null) {
-        return new FluidStack(output.get(), Config.COMMON.foundryOreRate.applyOreBoost(rate, output.getAmount()));
+        return output.get().copyWithAmount(Config.COMMON.foundryOreRate.applyOreBoost(rate, output.getAmount()));
       }
       return output.get();
     });

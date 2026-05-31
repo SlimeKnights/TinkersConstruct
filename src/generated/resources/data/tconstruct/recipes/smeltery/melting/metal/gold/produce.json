@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/gold/produce",
   "ingredient": [
     {
       "item": "minecraft:glistering_melon_slice"
@@ -10,7 +11,7 @@
   ],
   "result": {
     "amount": 80,
-    "tag": "forge:molten_gold"
+    "tag": "c:molten_gold"
   },
   "temperature": 700,
   "time": 54

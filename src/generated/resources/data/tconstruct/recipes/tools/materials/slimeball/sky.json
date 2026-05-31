@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/slimeball/sky",
   "ingredient": {
-    "tag": "forge:slimeball/sky"
+    "tag": "c:slimeball/sky"
   },
   "material": "tconstruct:slimeball#sky",
   "needed": 1,

@@ -1,7 +1,8 @@
 package slimeknights.tconstruct.library.recipe.partbuilder;
 
-import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -24,6 +25,9 @@ public interface IPartBuilderRecipe extends ICommonRecipe<IPartBuilderContainer>
   Ingredient DEFAULT_PATTERNS = Ingredient.of(TinkerTags.Items.DEFAULT_PATTERNS);
   /** Pattern to use for recipes that don't implement the standard pattern behavior */
   Pattern MISSING = new Pattern(TConstruct.MOD_ID, "missingno");
+
+  /** Gets the recipe ID. */
+  ResourceLocation getId();
 
   /** Gets the pattern needed for this recipe,
    * if there are multiple recipes with the same pattern, they are effectively merged */
@@ -64,7 +68,7 @@ public interface IPartBuilderRecipe extends ICommonRecipe<IPartBuilderContainer>
   }
 
   /** Assembles the result with the given pattern */
-  default ItemStack assemble(IPartBuilderContainer inv, RegistryAccess access, Pattern pattern) {
+  default ItemStack assemble(IPartBuilderContainer inv, HolderLookup.Provider access, Pattern pattern) {
     return assemble(inv, access);
   }
 

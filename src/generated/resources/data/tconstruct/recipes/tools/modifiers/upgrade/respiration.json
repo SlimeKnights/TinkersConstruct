@@ -1,12 +1,13 @@
 {
   "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/upgrade/respiration",
   "allow_crystal": true,
   "inputs": [
     {
       "tag": "minecraft:fishes"
     },
     {
-      "tag": "forge:glass/colorless"
+      "tag": "c:glass/colorless"
     },
     {
       "tag": "minecraft:fishes"

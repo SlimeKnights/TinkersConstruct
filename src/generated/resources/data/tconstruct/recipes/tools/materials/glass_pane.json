@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/glass_pane",
   "ingredient": {
-    "tag": "forge:glass_panes"
+    "tag": "c:glass_panes"
   },
   "material": "tconstruct:glass",
   "needed": 1,

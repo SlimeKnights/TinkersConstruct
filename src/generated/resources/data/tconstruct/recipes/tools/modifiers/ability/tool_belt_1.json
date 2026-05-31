@@ -1,12 +1,13 @@
 {
   "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/ability/tool_belt_1",
   "allow_crystal": true,
   "inputs": [
     {
       "item": "minecraft:leather"
     },
     {
-      "tag": "forge:ingots/iron"
+      "tag": "c:ingots/iron"
     },
     {
       "item": "minecraft:leather"

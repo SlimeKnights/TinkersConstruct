@@ -1,13 +1,14 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/obsidian/dust",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:dusts/obsidian"
+      "tag": "c:dusts/obsidian"
     }
   ],
   "ingredient": {
-    "tag": "forge:dusts/obsidian"
+    "tag": "c:dusts/obsidian"
   },
   "result": {
     "amount": 250,

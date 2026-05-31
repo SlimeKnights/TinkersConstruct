@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.recipe.tinkerstation.building;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -42,6 +43,7 @@ import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.library.tools.part.IToolPart;
+import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.tables.TinkerTables;
 
 import javax.annotation.Nullable;
@@ -211,7 +213,7 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
     if (error != null) {
       return RecipeResult.failure(error);
     }
-    return LazyToolStack.success(tool, Math.min(output.asItem().getMaxStackSize(), count));
+    return LazyToolStack.success(tool, Math.min(output.asItem().getDefaultInstance().getMaxStackSize(), count));
   }
 
 
@@ -294,7 +296,9 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
           } else {
             // not a full list? mark it for display with just the materials on the end
             result = new MaterialIdNBT(list).updateStack(new ItemStack(output, outputCount));
-            result.getOrCreateTag().putBoolean(TooltipUtil.KEY_DISPLAY, true);
+            var tag = TagUtil.getOrCreateTag(result);
+            tag.putBoolean(TooltipUtil.KEY_DISPLAY, true);
+            TagUtil.setTag(result, tag);
           }
         }
       }
@@ -316,13 +320,13 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
 
   @Deprecated
   @Override
-  public ItemStack getResultItem(RegistryAccess access) {
+  public ItemStack getResultItem(HolderLookup.Provider access) {
     return new ItemStack(this.output);
   }
 
   @Deprecated
   @Override
-  public ItemStack assemble(ITinkerStationContainer inv, RegistryAccess access) {
-    return getValidatedResult(inv, access).getResult().getStack();
+  public ItemStack assemble(ITinkerStationContainer inv, HolderLookup.Provider access) {
+    return getValidatedResult(inv, (RegistryAccess)access).getResult().getStack();
   }
 }

@@ -1,9 +1,10 @@
 {
   "type": "tconstruct:casting_basin",
+  "id": "tconstruct:smeltery/casting/cheese_block",
   "cooling_time": 6000,
   "fluid": {
     "amount": 1000,
-    "tag": "forge:milk"
+    "tag": "c:milk"
   },
   "result": "tconstruct:cheese_block"
 }

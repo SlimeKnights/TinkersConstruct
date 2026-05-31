@@ -1,15 +1,16 @@
 {
   "type": "tconstruct:swappable_modifier",
+  "id": "tconstruct:tools/modifiers/slotless/rebalanced_abilities",
   "allow_crystal": false,
   "inputs": [
     {
-      "tag": "forge:nuggets/queens_slime"
+      "tag": "c:nuggets/queens_slime"
     },
     {
       "item": "minecraft:end_crystal"
     },
     {
-      "tag": "forge:nuggets/queens_slime"
+      "tag": "c:nuggets/queens_slime"
     },
     {
       "item": "tconstruct:ichor_slime_crystal_block"

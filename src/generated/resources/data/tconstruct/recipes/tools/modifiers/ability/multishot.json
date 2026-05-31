@@ -1,21 +1,22 @@
 {
   "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/ability/multishot",
   "allow_crystal": true,
   "inputs": [
     {
       "item": "minecraft:piston"
     },
     {
-      "tag": "forge:ingots/steel"
+      "tag": "c:ingots/steel"
     },
     {
       "item": "minecraft:piston"
     },
     {
-      "tag": "forge:slimeball/ichor"
+      "tag": "c:slimeball/ichor"
     },
     {
-      "tag": "forge:slimeball/ichor"
+      "tag": "c:slimeball/ichor"
     }
   ],
   "result": "tconstruct:multishot",

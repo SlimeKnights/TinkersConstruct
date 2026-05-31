@@ -1,11 +1,12 @@
 {
   "type": "tconstruct:damagable_melting",
+  "id": "tconstruct:smeltery/melting/metal/iron/shovel",
   "ingredient": {
     "tag": "tconstruct:melting/iron/tools_costing_1"
   },
   "result": {
     "amount": 90,
-    "tag": "forge:molten_iron",
+    "tag": "c:molten_iron",
     "unit_size": 10
   },
   "temperature": 800,

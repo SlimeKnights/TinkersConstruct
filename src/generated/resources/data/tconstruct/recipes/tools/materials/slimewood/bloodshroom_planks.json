@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/slimewood/bloodshroom_planks",
   "ingredient": {
     "item": "tconstruct:bloodshroom_planks"
   },

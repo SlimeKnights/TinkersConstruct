@@ -1,11 +1,11 @@
 {
   "values": [
     {
-      "id": "#forge:tools/swords/tin",
+      "id": "#c:tools/swords/tin",
       "required": false
     },
     {
-      "id": "#forge:tools/hoes/tin",
+      "id": "#c:tools/hoes/tin",
       "required": false
     }
   ]

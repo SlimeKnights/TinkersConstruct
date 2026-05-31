@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.material.FlowingFluid;
-import net.minecraftforge.common.util.Lazy;
+import net.neoforged.neoforge.common.util.Lazy;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.plugin.jsonthings.block.FlexBurningLiquidBlock;

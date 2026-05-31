@@ -1,13 +1,14 @@
 {
   "type": "tconstruct:material",
-  "conditions": [
+  "id": "tconstruct:tools/materials/osmium/ingot",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:ingots/osmium"
+      "tag": "c:ingots/osmium"
     }
   ],
   "ingredient": {
-    "tag": "forge:ingots/osmium"
+    "tag": "c:ingots/osmium"
   },
   "material": "tconstruct:osmium",
   "needed": 1,

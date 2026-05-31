@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:casting_basin",
+  "id": "tconstruct:smeltery/casting/slime/ender/block",
   "cast": {
     "item": "tconstruct:ender_congealed_slime"
   },

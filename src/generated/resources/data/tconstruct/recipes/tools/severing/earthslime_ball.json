@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:severing",
+  "id": "tconstruct:tools/severing/earthslime_ball",
   "entity": {
     "type": "minecraft:slime"
   },

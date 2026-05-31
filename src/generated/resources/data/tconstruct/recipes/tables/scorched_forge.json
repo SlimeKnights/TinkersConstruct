@@ -19,12 +19,12 @@
     "m m"
   ],
   "result": {
-    "item": "tconstruct:scorched_anvil",
     "nbt": {
       "display": {
         "Name": "{\"translate\":\"block.tconstruct.tool_forge\"}"
       }
-    }
+    },
+    "id": "tconstruct:scorched_anvil"
   },
   "show_notification": true,
   "texture": "m"

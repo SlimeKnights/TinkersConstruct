@@ -9,7 +9,7 @@
     "predicates": [
       {
         "type": "mantle:tag",
-        "tag": "forge:ingots"
+        "tag": "c:ingots"
       },
       {
         "type": "mantle:inverted",

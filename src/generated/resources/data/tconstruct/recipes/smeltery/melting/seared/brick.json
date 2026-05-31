@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/seared/brick",
   "ingredient": {
     "item": "tconstruct:seared_brick"
   },

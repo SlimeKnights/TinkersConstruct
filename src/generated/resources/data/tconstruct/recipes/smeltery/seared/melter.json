@@ -22,7 +22,7 @@
     "BBB"
   ],
   "result": {
-    "item": "tconstruct:seared_melter"
+    "id": "tconstruct:seared_melter"
   },
   "show_notification": true
 }

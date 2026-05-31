@@ -7,7 +7,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import slimeknights.mantle.datagen.MantleTags;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -28,10 +28,10 @@ public class BlockEntityTypeTagProvider extends IntrinsicHolderTagsProvider<Bloc
 
   /** Creates a RL for iron chests */
   private static void ironchest(IntrinsicTagAppender<BlockEntityType<?>> appender, String name) {
-    ResourceLocation chest = new ResourceLocation("ironchest", name + "_chest");
+    ResourceLocation chest = ResourceLocation.fromNamespaceAndPath("ironchest", name + "_chest");
     appender.addOptional(chest).addOptional(chest.withPrefix("trapped_"));
     if (!"dirt".equals(name)) {
-      appender.addOptional(new ResourceLocation("ironshulkerbox", name + "_shulker_box"));
+      appender.addOptional(ResourceLocation.fromNamespaceAndPath("ironshulkerbox", name + "_shulker_box"));
     }
   }
 
@@ -42,7 +42,7 @@ public class BlockEntityTypeTagProvider extends IntrinsicHolderTagsProvider<Bloc
       BlockEntityType.CHEST, BlockEntityType.TRAPPED_CHEST, BlockEntityType.BARREL, BlockEntityType.SHULKER_BOX,
       BlockEntityType.DISPENSER, BlockEntityType.DROPPER, BlockEntityType.HOPPER);
     // TODO 1.21: verify if BlockEntityType.CHISELED_BOOKSHELF has fixed the bug where setItem(ItemStack.EMPTY) doesn't work so it can be whitelisted.
-    sideInventories.addOptional(new ResourceLocation("immersiveengineering", "woodencrate"));
+    sideInventories.addOptional(ResourceLocation.fromNamespaceAndPath("immersiveengineering", "woodencrate"));
     ironchest(sideInventories, "iron");
     ironchest(sideInventories, "gold");
     ironchest(sideInventories, "diamond");

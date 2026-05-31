@@ -19,3 +19,19 @@ slotless=Бесслотовые модификаторы
 slotless.subtext=Эти модификаторы не требуют слотов для применения, Вы можете иметь их все, если хотите.
 slotless.group_slotless=Бесслотовые
 slotless.group_bonus_upgrades=Улучшения++
+
+# Missing 1.21 book section translations
+worktable=Рабочий стол модификатора
+melee_harvest_materials=Общие материалы уровня 2
+melee_harvest_materials.subtext=Эти материалы можно использовать в деталях для холодного оружия или инструментов для сбора урожая.
+ranged_materials=Материалы дальнего боя 2-го уровня
+ranged_materials.subtext=Эти материалы можно использовать в деталях инструментов для оружия дальнего боя, например луков.
+armor_materials=Материалы брони 2-го уровня
+armor_materials.subtext=Эти материалы можно использовать для изготовления брони и щитов.
+further_reading=Дальнейшее чтение
+upgrades.group_ranged=Дальний бой
+upgrades.group_armor.helmet=Шлем
+upgrades.group_armor.chestplate=Нагрудник
+upgrades.group_armor.leggings=Леггинсы
+upgrades.group_armor.boots=Сапоги
+slotless.group_cosmetic=Косметический

@@ -1,9 +1,10 @@
 {
   "type": "tconstruct:material_fluid",
-  "conditions": [
+  "id": "tconstruct:tools/materials/casting/steeleaf",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:ingots/steeleaf"
+      "tag": "c:ingots/steeleaf"
     }
   ],
   "fluid": {

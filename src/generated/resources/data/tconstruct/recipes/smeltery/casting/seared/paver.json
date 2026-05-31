@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:casting_basin",
+  "id": "tconstruct:smeltery/casting/seared/paver",
   "cast": {
     "item": "minecraft:smooth_stone"
   },

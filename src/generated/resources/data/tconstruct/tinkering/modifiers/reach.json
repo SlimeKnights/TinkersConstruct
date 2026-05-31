@@ -3,7 +3,7 @@
   "modules": [
     {
       "type": "tconstruct:attribute",
-      "attribute": "forge:block_reach",
+      "attribute": "minecraft:player.block_interaction_range",
       "each_level": 1.0,
       "operation": "addition",
       "slots": [
@@ -17,7 +17,7 @@
     },
     {
       "type": "tconstruct:attribute",
-      "attribute": "forge:entity_reach",
+      "attribute": "minecraft:player.entity_interaction_range",
       "each_level": 1.0,
       "operation": "addition",
       "slots": [

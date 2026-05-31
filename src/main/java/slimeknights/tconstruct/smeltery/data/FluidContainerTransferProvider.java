@@ -5,7 +5,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
-import net.minecraftforge.common.crafting.conditions.ItemExistsCondition;
+import net.neoforged.neoforge.common.conditions.ItemExistsCondition;
 import slimeknights.mantle.fluid.transfer.AbstractFluidContainerTransferProvider;
 import slimeknights.mantle.fluid.transfer.EmptyFluidContainerTransfer;
 import slimeknights.mantle.fluid.transfer.FillFluidContainerTransfer;
@@ -49,7 +49,7 @@ public class FluidContainerTransferProvider extends AbstractFluidContainerTransf
   /** Adds a recipe to empty an item, returning no container */
   @SuppressWarnings("removal")
   protected void addContainerlessEmpty(String name, String domain, FluidOutput fluid) {
-    ResourceLocation id = new ResourceLocation(domain, name);
+    ResourceLocation id = ResourceLocation.fromNamespaceAndPath(domain, name);
     addTransfer(domain + '_' + name, new EmptyFluidContainerTransfer(ItemNameIngredient.from(id), ItemOutput.EMPTY, fluid), new ItemExistsCondition(id));
   }
 

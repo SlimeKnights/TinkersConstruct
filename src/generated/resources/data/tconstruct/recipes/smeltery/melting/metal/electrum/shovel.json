@@ -1,6 +1,7 @@
 {
   "type": "tconstruct:damagable_melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/electrum/shovel",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
       "tag": "tconstruct:melting/electrum/tools_costing_1"
@@ -11,7 +12,7 @@
   },
   "result": {
     "amount": 90,
-    "tag": "forge:molten_electrum",
+    "tag": "c:molten_electrum",
     "unit_size": 10
   },
   "temperature": 760,

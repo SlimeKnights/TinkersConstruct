@@ -1,11 +1,12 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/manyullyn/block",
   "ingredient": {
-    "tag": "forge:storage_blocks/manyullyn"
+    "tag": "c:storage_blocks/manyullyn"
   },
   "leftover": {
     "count": 1,
-    "tag": "forge:ingots/manyullyn"
+    "tag": "c:ingots/manyullyn"
   },
   "material": "tconstruct:manyullyn",
   "needed": 1,

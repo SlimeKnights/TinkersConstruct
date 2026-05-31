@@ -14,6 +14,7 @@ import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
+import slimeknights.tconstruct.library.utils.TagUtil;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -110,7 +111,7 @@ public class MaterialIdNBT {
    * @return  MaterialNBT instance
    */
   public static MaterialIdNBT from(ItemStack stack) {
-    CompoundTag nbt = stack.getTag();
+    CompoundTag nbt = TagUtil.getTag(stack);
     if (nbt != null) {
       return readFromNBT(nbt.getList(ToolStack.TAG_MATERIALS, Tag.TAG_STRING));
     }
@@ -119,7 +120,9 @@ public class MaterialIdNBT {
 
   /** Writes this material list to the given stack */
   public ItemStack updateStack(ItemStack stack) {
-    stack.getOrCreateTag().put(ToolStack.TAG_MATERIALS, serializeToNBT());
+    CompoundTag nbt = TagUtil.getOrCreateTag(stack);
+    nbt.put(ToolStack.TAG_MATERIALS, serializeToNBT());
+    TagUtil.setTag(stack, nbt);
     return stack;
   }
 

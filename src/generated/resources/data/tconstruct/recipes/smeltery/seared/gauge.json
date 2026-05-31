@@ -3,10 +3,10 @@
   "category": "redstone",
   "key": {
     "C": {
-      "tag": "forge:ingots/copper"
+      "tag": "c:ingots/copper"
     },
     "G": {
-      "tag": "forge:glass_panes/colorless"
+      "tag": "c:glass_panes/colorless"
     }
   },
   "pattern": [
@@ -16,7 +16,7 @@
   ],
   "result": {
     "count": 4,
-    "item": "tconstruct:copper_gauge"
+    "id": "tconstruct:copper_gauge"
   },
   "show_notification": true
 }

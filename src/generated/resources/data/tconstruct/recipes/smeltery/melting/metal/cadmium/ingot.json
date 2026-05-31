@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/cadmium/ingot",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:ingots/cadmium"
+      "tag": "c:ingots/cadmium"
     }
   ],
   "ingredient": {
-    "tag": "forge:ingots/cadmium"
+    "tag": "c:ingots/cadmium"
   },
   "result": {
     "amount": 90,
-    "tag": "forge:molten_cadmium"
+    "tag": "c:molten_cadmium"
   },
   "temperature": 294,
   "time": 42

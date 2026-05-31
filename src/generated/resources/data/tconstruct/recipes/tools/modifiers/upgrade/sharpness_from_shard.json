@@ -1,9 +1,10 @@
 {
   "type": "tconstruct:incremental_modifier",
+  "id": "tconstruct:tools/modifiers/upgrade/sharpness_from_shard",
   "allow_crystal": true,
   "amount_per_item": 1,
   "input": {
-    "tag": "forge:gems/quartz"
+    "tag": "c:gems/quartz"
   },
   "level": {
     "max": 5

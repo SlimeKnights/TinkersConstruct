@@ -1,12 +1,13 @@
 {
   "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/ability/tool_belt_3",
   "allow_crystal": false,
   "inputs": [
     {
       "item": "minecraft:leather"
     },
     {
-      "tag": "forge:ingots/rose_gold"
+      "tag": "c:ingots/rose_gold"
     },
     {
       "item": "minecraft:leather"

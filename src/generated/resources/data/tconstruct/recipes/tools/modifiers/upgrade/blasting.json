@@ -1,9 +1,10 @@
 {
   "type": "tconstruct:incremental_modifier",
+  "id": "tconstruct:tools/modifiers/upgrade/blasting",
   "allow_crystal": true,
   "amount_per_item": 1,
   "input": {
-    "tag": "forge:gunpowder"
+    "tag": "c:gunpowders"
   },
   "level": {
     "max": 5

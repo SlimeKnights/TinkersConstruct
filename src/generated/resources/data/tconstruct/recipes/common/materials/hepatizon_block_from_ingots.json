@@ -4,7 +4,7 @@
   "group": "tconstruct:hepatizon_block",
   "key": {
     "#": {
-      "tag": "forge:ingots/hepatizon"
+      "tag": "c:ingots/hepatizon"
     },
     "*": {
       "item": "tconstruct:hepatizon_ingot"
@@ -16,7 +16,7 @@
     "###"
   ],
   "result": {
-    "item": "tconstruct:hepatizon_block"
+    "id": "tconstruct:hepatizon_block"
   },
   "show_notification": true
 }

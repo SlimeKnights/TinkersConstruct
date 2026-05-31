@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:crafting_shaped_materials",
+  "id": "tconstruct:tables/tinkers_anvil_material",
   "category": "misc",
   "key": {
     "m": {

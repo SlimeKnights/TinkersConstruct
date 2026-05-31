@@ -1,11 +1,12 @@
 {
   "type": "tconstruct:damagable_melting",
+  "id": "tconstruct:smeltery/melting/metal/iron/axes",
   "ingredient": {
     "tag": "tconstruct:melting/iron/tools_costing_3"
   },
   "result": {
     "amount": 270,
-    "tag": "forge:molten_iron",
+    "tag": "c:molten_iron",
     "unit_size": 10
   },
   "temperature": 800,

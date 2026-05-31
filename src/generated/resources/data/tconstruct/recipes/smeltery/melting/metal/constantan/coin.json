@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/constantan/coin",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:coins/constantan"
+      "tag": "c:coins/constantan"
     }
   ],
   "ingredient": {
-    "tag": "forge:coins/constantan"
+    "tag": "c:coins/constantan"
   },
   "result": {
     "amount": 30,
-    "tag": "forge:molten_constantan"
+    "tag": "c:molten_constantan"
   },
   "temperature": 920,
   "time": 43

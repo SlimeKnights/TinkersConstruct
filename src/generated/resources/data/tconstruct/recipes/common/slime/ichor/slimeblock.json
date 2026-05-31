@@ -4,7 +4,7 @@
   "group": "slime_blocks",
   "key": {
     "#": {
-      "tag": "forge:slimeball/ichor"
+      "tag": "c:slimeball/ichor"
     }
   },
   "pattern": [
@@ -13,7 +13,7 @@
     "###"
   ],
   "result": {
-    "item": "tconstruct:ichor_slime"
+    "id": "tconstruct:ichor_slime"
   },
   "show_notification": true
 }

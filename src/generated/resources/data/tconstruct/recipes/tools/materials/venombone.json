@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/venombone",
   "ingredient": {
     "item": "tconstruct:venombone"
   },

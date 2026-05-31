@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:part_builder",
+  "id": "tconstruct:tools/parts/builder/arrow_head",
   "allow_uncraftable": true,
   "cost": 1,
   "pattern": "tconstruct:arrow_head",

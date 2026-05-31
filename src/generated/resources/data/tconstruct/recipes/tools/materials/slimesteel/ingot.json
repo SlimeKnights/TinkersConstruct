@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/slimesteel/ingot",
   "ingredient": {
-    "tag": "forge:ingots/slimesteel"
+    "tag": "c:ingots/slimesteel"
   },
   "material": "tconstruct:slimesteel",
   "needed": 1,

@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/slimesteel/nugget_gold_cast",
   "cast": {
     "tag": "tconstruct:casts/multi_use/nugget"
   },
@@ -9,6 +10,6 @@
     "tag": "tconstruct:molten_slimesteel"
   },
   "result": {
-    "tag": "forge:nuggets/slimesteel"
+    "tag": "c:nuggets/slimesteel"
   }
 }

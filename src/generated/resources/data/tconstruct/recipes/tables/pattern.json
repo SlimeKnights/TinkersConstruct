@@ -6,7 +6,7 @@
       "tag": "minecraft:planks"
     },
     "s": {
-      "tag": "forge:rods/wooden"
+      "tag": "c:rods/wooden"
     }
   },
   "pattern": [
@@ -15,7 +15,7 @@
   ],
   "result": {
     "count": 6,
-    "item": "tconstruct:pattern"
+    "id": "tconstruct:pattern"
   },
   "show_notification": true
 }

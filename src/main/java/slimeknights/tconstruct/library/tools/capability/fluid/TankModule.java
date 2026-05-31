@@ -7,9 +7,9 @@ import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
-import net.minecraftforge.fluids.capability.templates.FluidTank;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction;
+import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import slimeknights.mantle.fluid.FluidTransferHelper;
 import slimeknights.mantle.fluid.transfer.IFluidContainerTransfer.TransferDirection;
 import slimeknights.mantle.fluid.transfer.IFluidContainerTransfer.TransferResult;
@@ -143,7 +143,7 @@ public class TankModule implements HookProvider, FluidModifierHook, VolatileData
       FluidStack current = helper.getFluid(tool);
       if (!current.isEmpty() && current.isFluidEqual(resource)) {
         // create the drained stack
-        FluidStack drained = new FluidStack(current, Math.min(current.getAmount(), resource.getAmount()));
+        FluidStack drained = current.copyWithAmount(Math.min(current.getAmount(), resource.getAmount()));
         // if executing, removing it
         if (action.execute()) {
           if (drained.getAmount() == current.getAmount()) {
@@ -167,7 +167,7 @@ public class TankModule implements HookProvider, FluidModifierHook, VolatileData
       FluidStack current = helper.getFluid(tool);
       if (!current.isEmpty()) {
         // create the drained stack
-        FluidStack drained = new FluidStack(current, Math.min(current.getAmount(), maxDrain));
+        FluidStack drained = current.copyWithAmount(Math.min(current.getAmount(), maxDrain));
         // if executing, removing it
         if (action.execute()) {
           if (drained.getAmount() == current.getAmount()) {

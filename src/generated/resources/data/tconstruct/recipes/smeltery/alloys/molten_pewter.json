@@ -1,107 +1,19 @@
 {
-  "type": "forge:conditional",
-  "conditions": [
+  "type": "tconstruct:alloy",
+  "id": "tconstruct:smeltery/alloys/molten_pewter",
+  "inputs": [
     {
-      "type": "forge:or",
-      "values": [
-        {
-          "type": "tconstruct:config",
-          "prop": "allow_ingotless_alloys"
-        },
-        {
-          "type": "mantle:tag_filled",
-          "tag": "forge:ingots/pewter"
-        }
-      ]
+      "amount": 90,
+      "tag": "c:molten_iron"
+    },
+    {
+      "amount": 90,
+      "tag": "c:molten_lead"
     }
   ],
-  "recipes": [
-    {
-      "conditions": [
-        {
-          "type": "forge:and",
-          "values": [
-            {
-              "type": "mantle:tag_filled",
-              "tag": "forge:ingots/lead"
-            },
-            {
-              "type": "mantle:tag_filled",
-              "tag": "forge:ingots/tin"
-            }
-          ]
-        }
-      ],
-      "recipe": {
-        "type": "tconstruct:alloy",
-        "inputs": [
-          {
-            "amount": 270,
-            "tag": "forge:molten_tin"
-          },
-          {
-            "amount": 90,
-            "tag": "forge:molten_lead"
-          }
-        ],
-        "result": {
-          "amount": 360,
-          "tag": "forge:molten_pewter"
-        },
-        "temperature": 400
-      }
-    },
-    {
-      "conditions": [
-        {
-          "type": "mantle:tag_filled",
-          "tag": "forge:ingots/tin"
-        }
-      ],
-      "recipe": {
-        "type": "tconstruct:alloy",
-        "inputs": [
-          {
-            "amount": 270,
-            "tag": "forge:molten_tin"
-          },
-          {
-            "amount": 90,
-            "tag": "forge:molten_iron"
-          }
-        ],
-        "result": {
-          "amount": 360,
-          "tag": "forge:molten_pewter"
-        },
-        "temperature": 400
-      }
-    },
-    {
-      "conditions": [
-        {
-          "type": "mantle:tag_filled",
-          "tag": "forge:ingots/lead"
-        }
-      ],
-      "recipe": {
-        "type": "tconstruct:alloy",
-        "inputs": [
-          {
-            "amount": 90,
-            "tag": "forge:molten_iron"
-          },
-          {
-            "amount": 90,
-            "tag": "forge:molten_lead"
-          }
-        ],
-        "result": {
-          "amount": 180,
-          "tag": "forge:molten_pewter"
-        },
-        "temperature": 400
-      }
-    }
-  ]
+  "result": {
+    "amount": 180,
+    "tag": "c:molten_pewter"
+  },
+  "temperature": 400
 }

@@ -1,85 +1,29 @@
 {
-  "type": "forge:conditional",
-  "conditions": [
+  "type": "tconstruct:ore_melting",
+  "id": "tconstruct:smeltery/melting/metal/tin/ore_dense",
+  "byproducts": [
     {
-      "type": "mantle:tag_combination_filled",
-      "match": [
-        "forge:ores/tin",
-        "forge:ore_rates/dense"
-      ]
+      "amount": 540,
+      "rate": "metal",
+      "tag": "c:molten_copper"
     }
   ],
-  "recipes": [
-    {
-      "conditions": [
-        {
-          "type": "mantle:tag_filled",
-          "tag": "forge:ingots/nickel"
-        }
-      ],
-      "recipe": {
-        "type": "tconstruct:ore_melting",
-        "byproducts": [
-          {
-            "amount": 540,
-            "rate": "metal",
-            "tag": "forge:molten_nickel"
-          }
-        ],
-        "ingredient": {
-          "type": "forge:intersection",
-          "children": [
-            {
-              "tag": "forge:ores/tin"
-            },
-            {
-              "tag": "forge:ore_rates/dense"
-            }
-          ]
-        },
-        "rate": "metal",
-        "result": {
-          "amount": 540,
-          "tag": "forge:molten_tin"
-        },
-        "temperature": 225,
-        "time": 176
+  "ingredient": {
+    "type": "neoforge:intersection",
+    "children": [
+      {
+        "tag": "c:ores/tin"
+      },
+      {
+        "tag": "c:ore_rates/dense"
       }
-    },
-    {
-      "conditions": [
-        {
-          "type": "forge:true"
-        }
-      ],
-      "recipe": {
-        "type": "tconstruct:ore_melting",
-        "byproducts": [
-          {
-            "amount": 540,
-            "rate": "metal",
-            "tag": "forge:molten_copper"
-          }
-        ],
-        "ingredient": {
-          "type": "forge:intersection",
-          "children": [
-            {
-              "tag": "forge:ores/tin"
-            },
-            {
-              "tag": "forge:ore_rates/dense"
-            }
-          ]
-        },
-        "rate": "metal",
-        "result": {
-          "amount": 540,
-          "tag": "forge:molten_tin"
-        },
-        "temperature": 225,
-        "time": 176
-      }
-    }
-  ]
+    ]
+  },
+  "rate": "metal",
+  "result": {
+    "amount": 540,
+    "tag": "c:molten_tin"
+  },
+  "temperature": 225,
+  "time": 176
 }

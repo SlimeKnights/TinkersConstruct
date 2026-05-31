@@ -4,7 +4,7 @@
   "group": "tconstruct:netherite_scrap",
   "key": {
     "#": {
-      "tag": "forge:nuggets/netherite_scrap"
+      "tag": "c:nuggets/netherite_scrap"
     },
     "*": {
       "item": "tconstruct:debris_nugget"
@@ -16,7 +16,7 @@
     "###"
   ],
   "result": {
-    "item": "minecraft:netherite_scrap"
+    "id": "minecraft:netherite_scrap"
   },
   "show_notification": true
 }

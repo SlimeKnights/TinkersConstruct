@@ -74,6 +74,7 @@ public class ThrownTool extends ThrownTrident implements ToolProjectile {
   private float multiplier = 1;
   private boolean noDespawn = false;
   private int magnet = 0;
+  private ItemStack tridentItem = ItemStack.EMPTY;
   @Setter
   private int originalSlot = -1;
   private boolean hitBlock = false;
@@ -95,6 +96,7 @@ public class ThrownTool extends ThrownTrident implements ToolProjectile {
     }
     // trident - stack constructor
     this.tridentItem = stack.copyWithCount(1);
+    this.setPickupItemStack(this.tridentItem);
     this.charge = charge;
     this.multiplier = multiplier;
     this.entityData.set(WATER_INERTIA, waterInertia);
@@ -103,6 +105,7 @@ public class ThrownTool extends ThrownTrident implements ToolProjectile {
 
   /** Sets any relevant properties from the stack */
   private void updateFromStack() {
+    this.setPickupItemStack(tridentItem);
     this.entityData.set(STACK, tridentItem);
     this.entityData.set(ID_LOYALTY, (byte) ModifierUtil.getVolatileInt(tridentItem, LOYALTY));
     this.entityData.set(ID_FOIL, ModifierUtil.checkVolatileFlag(tridentItem, ModifiableItem.SHINY));
@@ -126,7 +129,6 @@ public class ThrownTool extends ThrownTrident implements ToolProjectile {
     return entityData.get(WATER_INERTIA);
   }
 
-  @Override
   public boolean isChanneling() {
     return !tridentItem.isEmpty() && getTool().getModifiers().getLevel(ModifierIds.channeling) > 0;
   }
@@ -355,7 +357,7 @@ public class ThrownTool extends ThrownTrident implements ToolProjectile {
       if (current.isEmpty()) {
         inventory.setItem(originalSlot, pickup);
         return true;
-      } else if (current.getCount() < current.getMaxStackSize() && ItemStack.isSameItemSameTags(current, pickup)) {
+      } else if (current.getCount() < current.getMaxStackSize() && ItemStack.isSameItemSameComponents(current, pickup)) {
         current.grow(1);
         return true;
       }
@@ -376,10 +378,10 @@ public class ThrownTool extends ThrownTrident implements ToolProjectile {
   /* Client */
 
   @Override
-  protected void defineSynchedData() {
-    super.defineSynchedData();
-    this.entityData.define(STACK, ItemStack.EMPTY);
-    this.entityData.define(WATER_INERTIA, 0.6f);
+  protected void defineSynchedData(SynchedEntityData.Builder builder) {
+    super.defineSynchedData(builder);
+    builder.define(STACK, ItemStack.EMPTY);
+    builder.define(WATER_INERTIA, 0.6f);
   }
 
   @Override
@@ -415,7 +417,8 @@ public class ThrownTool extends ThrownTrident implements ToolProjectile {
   public void readAdditionalSaveData(CompoundTag tag) {
     super.readAdditionalSaveData(tag);
     // update the tool to sync to client, if its set
-    if (tag.contains("Trident", CompoundTag.TAG_COMPOUND)) {
+    this.tridentItem = this.getPickupItemStackOrigin().copy();
+    if (!this.tridentItem.isEmpty()) {
       updateFromStack();
     }
     this.charge = tag.getFloat(KEY_CHARGE);

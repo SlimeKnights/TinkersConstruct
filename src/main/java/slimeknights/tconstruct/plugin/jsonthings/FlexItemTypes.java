@@ -9,7 +9,7 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ProjectileWeaponItem;
-import net.minecraftforge.common.util.Lazy;
+import net.neoforged.neoforge.common.util.Lazy;
 import slimeknights.mantle.data.loadable.Loadable;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.util.JsonHelper;

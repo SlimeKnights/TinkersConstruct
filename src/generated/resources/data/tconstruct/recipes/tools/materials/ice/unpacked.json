@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/ice/unpacked",
   "ingredient": {
     "item": "minecraft:ice"
   },

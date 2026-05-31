@@ -2,9 +2,12 @@ package slimeknights.tconstruct.library.tools.capability.fluid;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidStack;
 import slimeknights.mantle.Mantle;
 import slimeknights.mantle.data.registry.NamedComponentRegistry;
 import slimeknights.tconstruct.TConstruct;
@@ -24,7 +27,8 @@ import java.util.function.BiFunction;
 @RequiredArgsConstructor
 public class ToolTankHelper {
   /** Helper function to parse a fluid from NBT */
-  public static final BiFunction<CompoundTag, String, FluidStack> PARSE_FLUID = (nbt, key) -> FluidStack.loadFluidStackFromNBT(nbt.getCompound(key));
+  public static final RegistryAccess.Frozen STATIC_REGISTRIES = RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY);
+  public static final BiFunction<CompoundTag, String, FluidStack> PARSE_FLUID = (nbt, key) -> FluidStack.parseOptional(STATIC_REGISTRIES, nbt.getCompound(key));
 
   /** Format key for the stat */
   public static final String MB_FORMAT = Mantle.makeDescriptionId("gui", "fluid.millibucket");
@@ -68,7 +72,10 @@ public class ToolTankHelper {
     if (fluid.getAmount() > capacity) {
       fluid.setAmount(capacity);
     }
-    tool.getPersistentData().put(fluidKey, fluid.writeToNBT(new CompoundTag()));
+    Tag tag = fluid.saveOptional(STATIC_REGISTRIES);
+    if (tag instanceof CompoundTag compound) {
+      tool.getPersistentData().put(fluidKey, compound);
+    }
     return fluid;
   }
 }

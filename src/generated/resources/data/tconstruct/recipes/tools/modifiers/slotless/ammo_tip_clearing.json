@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:casting_table_tipped_clearing",
+  "id": "tconstruct:tools/modifiers/slotless/ammo_tip_clearing",
   "cooling_time": 20,
   "fluid": {
     "amount": 50,

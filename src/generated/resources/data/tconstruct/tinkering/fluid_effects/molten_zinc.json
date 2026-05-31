@@ -13,7 +13,7 @@
   ],
   "conditions": [
     {
-      "type": "forge:or",
+      "type": "neoforge:or",
       "values": [
         {
           "type": "tconstruct:config",
@@ -21,7 +21,7 @@
         },
         {
           "type": "mantle:tag_filled",
-          "tag": "forge:ingots/zinc"
+          "tag": "c:ingots/zinc"
         }
       ]
     }
@@ -52,6 +52,6 @@
   ],
   "fluid": {
     "amount": 10,
-    "tag": "forge:molten_zinc"
+    "tag": "c:molten_zinc"
   }
 }

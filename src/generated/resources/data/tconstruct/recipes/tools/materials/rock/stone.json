@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/rock/stone",
   "ingredient": {
-    "tag": "forge:normal_stone"
+    "tag": "c:normal_stone"
   },
   "material": "tconstruct:rock#stone",
   "needed": 1,

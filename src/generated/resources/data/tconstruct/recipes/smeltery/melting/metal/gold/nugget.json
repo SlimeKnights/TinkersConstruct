@@ -1,11 +1,12 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/gold/nugget",
   "ingredient": {
-    "tag": "forge:nuggets/gold"
+    "tag": "c:nuggets/gold"
   },
   "result": {
     "amount": 10,
-    "tag": "forge:molten_gold"
+    "tag": "c:molten_gold"
   },
   "temperature": 700,
   "time": 19

@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:extract_modifier",
+  "id": "tconstruct:tools/modifiers/worktable/extract/slotless",
   "inputs": [
     {
       "item": "minecraft:amethyst_shard"
@@ -29,7 +30,7 @@
   },
   "name": "slotless",
   "tools": {
-    "type": "forge:difference",
+    "type": "neoforge:difference",
     "base": {
       "tag": "tconstruct:modifiable"
     },

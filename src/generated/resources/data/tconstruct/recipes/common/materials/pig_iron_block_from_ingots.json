@@ -4,7 +4,7 @@
   "group": "tconstruct:pig_iron_block",
   "key": {
     "#": {
-      "tag": "forge:ingots/pig_iron"
+      "tag": "c:ingots/pig_iron"
     },
     "*": {
       "item": "tconstruct:pig_iron_ingot"
@@ -16,7 +16,7 @@
     "###"
   ],
   "result": {
-    "item": "tconstruct:pig_iron_block"
+    "id": "tconstruct:pig_iron_block"
   },
   "show_notification": true
 }

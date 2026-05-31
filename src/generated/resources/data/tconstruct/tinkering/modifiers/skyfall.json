@@ -3,7 +3,7 @@
   "modules": [
     {
       "type": "tconstruct:attribute",
-      "attribute": "forge:entity_gravity",
+      "attribute": "minecraft:generic.gravity",
       "each_level": -0.1,
       "flat": -0.05,
       "operation": "multiply_total",

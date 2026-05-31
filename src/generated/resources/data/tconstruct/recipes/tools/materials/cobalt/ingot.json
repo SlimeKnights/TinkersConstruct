@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/cobalt/ingot",
   "ingredient": {
-    "tag": "forge:ingots/cobalt"
+    "tag": "c:ingots/cobalt"
   },
   "material": "tconstruct:cobalt",
   "needed": 1,

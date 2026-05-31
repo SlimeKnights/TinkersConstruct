@@ -12,12 +12,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.inventory.InventoryMenu;
-import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
-import net.minecraftforge.eventbus.api.Event;
-import net.minecraftforge.fml.ModLoader;
-import net.minecraftforge.fml.event.IModBusEvent;
+import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
+import net.neoforged.bus.api.Event;
+import net.neoforged.fml.event.IModBusEvent;
 import slimeknights.mantle.data.listener.IEarlySafeManagerReloadListener;
 import slimeknights.mantle.util.JsonHelper;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.model.DynamicTextureLoader;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
@@ -91,7 +91,7 @@ public class ModifierModelManager implements IEarlySafeManagerReloadListener {
   public void onReloadSafe(ResourceManager manager) {
     // fire an event so people can register loaders, was the easiest way to do so after modifiers are registered but before models load
     if (!eventFired) {
-      ModLoader.get().postEvent(new ModifierModelRegistrationEvent());
+      TConstruct.getModBus().post(new ModifierModelRegistrationEvent());
       eventFired = true;
     }
 
@@ -150,7 +150,7 @@ public class ModifierModelManager implements IEarlySafeManagerReloadListener {
    */
   @SuppressWarnings("removal")
   private static Material getModifierTexture(ResourceLocation modifierRoot, ResourceLocation modifierId, String suffix) {
-    return new Material(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(modifierRoot.getNamespace(), modifierRoot.getPath() + modifierId.getNamespace() + "_" + modifierId.getPath() + suffix));
+    return new Material(InventoryMenu.BLOCK_ATLAS, ResourceLocation.fromNamespaceAndPath(modifierRoot.getNamespace(), modifierRoot.getPath() + modifierId.getNamespace() + "_" + modifierId.getPath() + suffix));
   }
 
   /**

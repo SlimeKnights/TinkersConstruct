@@ -6,7 +6,7 @@
       "item": "tconstruct:pattern"
     },
     "w": {
-      "type": "forge:difference",
+      "type": "neoforge:difference",
       "base": {
         "tag": "tconstruct:tables"
       },
@@ -21,7 +21,7 @@
     "w"
   ],
   "result": {
-    "item": "tconstruct:crafting_station"
+    "id": "tconstruct:crafting_station"
   },
   "show_notification": true,
   "texture": "w"

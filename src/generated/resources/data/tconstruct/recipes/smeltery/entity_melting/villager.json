@@ -1,8 +1,9 @@
 {
   "type": "tconstruct:entity_melting",
+  "id": "tconstruct:smeltery/entity_melting/villager",
   "damage": 5,
   "entity": {
-    "tag": "forge:villagers"
+    "tag": "c:villagers"
   },
   "result": {
     "amount": 25,

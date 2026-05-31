@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/blazing_bone",
   "ingredient": {
     "item": "tconstruct:blazing_bone"
   },

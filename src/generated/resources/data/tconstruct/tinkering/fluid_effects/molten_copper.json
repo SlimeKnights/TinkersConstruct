@@ -22,6 +22,6 @@
   ],
   "fluid": {
     "amount": 10,
-    "tag": "forge:molten_copper"
+    "tag": "c:molten_copper"
   }
 }

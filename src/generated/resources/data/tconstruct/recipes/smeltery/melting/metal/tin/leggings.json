@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:damagable_melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/tin/leggings",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:armors/leggings/tin"
+      "tag": "c:armors/leggings/tin"
     }
   ],
   "ingredient": {
-    "tag": "forge:armors/leggings/tin"
+    "tag": "c:armors/leggings/tin"
   },
   "result": {
     "amount": 630,
-    "tag": "forge:molten_tin",
+    "tag": "c:molten_tin",
     "unit_size": 10
   },
   "temperature": 225,

@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/ability/blocking",
   "allow_crystal": true,
   "check_trait_level": true,
   "inputs": [
@@ -7,7 +8,7 @@
       "tag": "minecraft:planks"
     },
     {
-      "tag": "forge:ingots/steel"
+      "tag": "c:ingots/steel"
     },
     {
       "tag": "minecraft:planks"
@@ -25,9 +26,9 @@
     "abilities": 1
   },
   "tools": {
-    "type": "forge:difference",
+    "type": "neoforge:difference",
     "base": {
-      "type": "forge:intersection",
+      "type": "neoforge:intersection",
       "children": [
         {
           "tag": "tconstruct:modifiable/interactable/charge"

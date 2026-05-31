@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/clay/pot",
   "ingredient": {
     "item": "minecraft:flower_pot"
   },

@@ -15,7 +15,7 @@
     "# #"
   ],
   "result": {
-    "item": "tconstruct:scorched_drain"
+    "id": "tconstruct:scorched_drain"
   },
   "show_notification": true
 }

@@ -27,15 +27,15 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
-import net.minecraftforge.client.model.IQuadTransformer;
-import net.minecraftforge.client.model.data.ModelData;
-import net.minecraftforge.client.model.geometry.IGeometryBakingContext;
-import net.minecraftforge.client.model.geometry.IGeometryLoader;
-import net.minecraftforge.client.model.geometry.IUnbakedGeometry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidType;
-import net.minecraftforge.fluids.capability.templates.FluidTank;
+import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
+import net.neoforged.neoforge.client.model.IQuadTransformer;
+import net.neoforged.neoforge.client.model.data.ModelData;
+import net.neoforged.neoforge.client.model.geometry.IGeometryBakingContext;
+import net.neoforged.neoforge.client.model.geometry.IGeometryLoader;
+import net.neoforged.neoforge.client.model.geometry.IUnbakedGeometry;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidType;
+import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import slimeknights.mantle.client.model.util.ColoredBlockModel;
 import slimeknights.mantle.client.model.util.ExtraTextureContext;
 import slimeknights.mantle.client.model.util.SimpleBlockModel;
@@ -43,6 +43,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.model.ModelProperties;
 import slimeknights.tconstruct.library.client.model.UniqueGuiModel;
+import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.smeltery.item.TankItem;
 
 import javax.annotation.Nonnull;
@@ -78,12 +79,12 @@ public class TankModel implements IUnbakedGeometry<TankModel> {
   }
 
   @Override
-  public BakedModel bake(IGeometryBakingContext owner, ModelBaker baker, Function<Material,TextureAtlasSprite> spriteGetter, ModelState transform, ItemOverrides overrides, ResourceLocation location) {
-    BakedModel baked = model.bake(owner, baker, spriteGetter, transform, overrides, location);
+  public BakedModel bake(IGeometryBakingContext owner, ModelBaker baker, Function<Material,TextureAtlasSprite> spriteGetter, ModelState transform, ItemOverrides overrides) {
+    BakedModel baked = model.bake(owner, baker, spriteGetter, transform, overrides);
     // bake the GUI model if present
     BakedModel bakedGui = baked;
     if (gui != null) {
-      bakedGui = gui.bake(owner, baker, spriteGetter, transform, overrides, location);
+      bakedGui = gui.bake(owner, baker, spriteGetter, transform, overrides);
     }
     return new Baked(owner, transform, baked, bakedGui, this);
   }
@@ -218,7 +219,7 @@ public class TankModel implements IUnbakedGeometry<TankModel> {
       @Override
       public BakedModel resolve(BakedModel model, ItemStack stack, @Nullable ClientLevel world, @Nullable LivingEntity entity, int seed) {
         // ensure we have a fluid
-        if (stack.isEmpty() || !stack.hasTag()) {
+        if (stack.isEmpty() || !TagUtil.hasTag(stack)) {
           return model;
         }
         // determine fluid

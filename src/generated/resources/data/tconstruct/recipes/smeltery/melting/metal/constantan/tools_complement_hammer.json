@@ -1,8 +1,9 @@
 {
   "type": "tconstruct:damagable_melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/constantan/tools_complement_hammer",
+  "neoforge:conditions": [
     {
-      "type": "forge:item_exists",
+      "type": "neoforge:item_exists",
       "item": "tools_complement:constantan_hammer"
     }
   ],
@@ -11,7 +12,7 @@
   },
   "result": {
     "amount": 1170,
-    "tag": "forge:molten_constantan",
+    "tag": "c:molten_constantan",
     "unit_size": 10
   },
   "temperature": 920,

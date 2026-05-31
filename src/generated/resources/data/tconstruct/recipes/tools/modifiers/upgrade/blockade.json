@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:incremental_modifier",
+  "id": "tconstruct:tools/modifiers/upgrade/blockade",
   "allow_crystal": true,
   "amount_per_item": 1,
   "input": {
@@ -14,7 +15,7 @@
     "upgrades": 1
   },
   "tools": {
-    "type": "forge:intersection",
+    "type": "neoforge:intersection",
     "children": [
       {
         "tag": "tconstruct:modifiable/interactable/charge"

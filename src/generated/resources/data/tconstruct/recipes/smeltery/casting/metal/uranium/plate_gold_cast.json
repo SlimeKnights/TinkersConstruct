@@ -1,20 +1,21 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/uranium/plate_gold_cast",
   "cast": {
     "tag": "tconstruct:casts/multi_use/plate"
   },
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:plates/uranium"
+      "tag": "c:plates/uranium"
     }
   ],
   "cooling_time": 61,
   "fluid": {
     "amount": 90,
-    "tag": "forge:molten_uranium"
+    "tag": "c:molten_uranium"
   },
   "result": {
-    "tag": "forge:plates/uranium"
+    "tag": "c:plates/uranium"
   }
 }

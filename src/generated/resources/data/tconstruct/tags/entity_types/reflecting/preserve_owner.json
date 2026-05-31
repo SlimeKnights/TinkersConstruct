@@ -3,7 +3,7 @@
     "minecraft:fishing_bobber",
     "tconstruct:fishing_bobber",
     {
-      "id": "#forge:reflecting/preserve_owner",
+      "id": "#c:reflecting/preserve_owner",
       "required": false
     }
   ]

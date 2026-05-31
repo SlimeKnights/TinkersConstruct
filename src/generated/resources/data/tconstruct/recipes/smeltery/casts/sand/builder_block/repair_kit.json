@@ -1,8 +1,9 @@
 {
   "type": "tconstruct:item_part_builder",
+  "id": "tconstruct:smeltery/casts/sand/builder_block/repair_kit",
   "pattern": "tconstruct:repair_kit",
   "pattern_item": {
-    "tag": "forge:sand/colorless"
+    "tag": "c:sand/colorless"
   },
   "result": {
     "count": 4,

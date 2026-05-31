@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/gold/melon",
   "cast": {
     "item": "minecraft:melon_slice"
   },
@@ -7,7 +8,7 @@
   "cooling_time": 54,
   "fluid": {
     "amount": 80,
-    "tag": "forge:molten_gold"
+    "tag": "c:molten_gold"
   },
   "result": "minecraft:glistering_melon_slice"
 }

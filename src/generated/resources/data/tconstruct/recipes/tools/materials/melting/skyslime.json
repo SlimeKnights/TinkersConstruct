@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:material_melting",
+  "id": "tconstruct:tools/materials/melting/skyslime",
   "input": "tconstruct:skyslime",
   "result": {
     "amount": 250,

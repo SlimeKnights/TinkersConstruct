@@ -10,14 +10,15 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
-import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.event.ForgeEventFactory;
-import net.minecraftforge.items.ItemHandlerHelper;
+import slimeknights.tconstruct.compat.neoforged.neoforge.common.ForgeHooks;
+import slimeknights.mantle.compat.neoforged.neoforge.common.util.LazyOptional;
+import slimeknights.tconstruct.compat.neoforged.neoforge.event.ForgeEventFactory;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.shared.inventory.ConfigurableInvWrapperCapability;
@@ -37,7 +38,7 @@ public class CraftingStationBlockEntity extends RetexturedTableBlockEntity imple
 
   /** Last crafted crafting recipe */
   @Nullable
-  private CraftingRecipe lastRecipe;
+  private RecipeHolder<CraftingRecipe> lastRecipe;
   /** Result inventory, lazy loads results */
   @Getter
   private final LazyResultContainer craftingResult;
@@ -58,9 +59,8 @@ public class CraftingStationBlockEntity extends RetexturedTableBlockEntity imple
     return new CraftingStationContainerMenu(menuId, playerInventory, this);
   }
 
-  @Override
   public AABB getRenderBoundingBox() {
-    return new AABB(worldPosition, worldPosition.offset(1, 2, 1));
+    return new AABB(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), worldPosition.getX() + 1, worldPosition.getY() + 2, worldPosition.getZ() + 1);
   }
 
   /* Crafting */
@@ -77,16 +77,17 @@ public class CraftingStationBlockEntity extends RetexturedTableBlockEntity imple
 
       // first, try the cached recipe
       ForgeHooks.setCraftingPlayer(player);
-      CraftingRecipe recipe = lastRecipe;
+      CraftingInput input = this.craftingInventory.asCraftingInput();
+      RecipeHolder<CraftingRecipe> recipe = lastRecipe;
       // if it does not match, find a new recipe
       // note we intentionally have no player access during matches, that could lead to an unstable recipe
-      if (recipe == null || !recipe.matches(this.craftingInventory, this.level)) {
-        recipe = manager.getRecipeFor(RecipeType.CRAFTING, this.craftingInventory, this.level).orElse(null);
+      if (recipe == null || !recipe.value().matches(input, this.level)) {
+        recipe = manager.getRecipeFor(RecipeType.CRAFTING, input, this.level).orElse(null);
       }
 
       // if we have a recipe, fetch its result
       if (recipe != null) {
-        result = recipe.assemble(this.craftingInventory, level.registryAccess());
+        result = recipe.value().assemble(input, level.registryAccess());
 
         // sync if the recipe is different
         if (recipe != lastRecipe) {
@@ -96,9 +97,9 @@ public class CraftingStationBlockEntity extends RetexturedTableBlockEntity imple
       }
       ForgeHooks.setCraftingPlayer(null);
     }
-    else if (this.lastRecipe != null && this.lastRecipe.matches(this.craftingInventory, this.level)) {
+    else if (this.lastRecipe != null && this.lastRecipe.value().matches(this.craftingInventory.asCraftingInput(), this.level)) {
       ForgeHooks.setCraftingPlayer(player);
-      result = this.lastRecipe.assemble(this.craftingInventory, level.registryAccess());
+      result = this.lastRecipe.value().assemble(this.craftingInventory.asCraftingInput(), level.registryAccess());
       ForgeHooks.setCraftingPlayer(null);
     }
     return result;
@@ -111,10 +112,11 @@ public class CraftingStationBlockEntity extends RetexturedTableBlockEntity imple
    */
   public ItemStack getResultForPlayer(Player player) {
     ForgeHooks.setCraftingPlayer(player);
-    CraftingRecipe recipe = this.lastRecipe; // local variable just to prevent race conditions if the field changes, though that is unlikely
+    RecipeHolder<CraftingRecipe> recipe = this.lastRecipe; // local variable just to prevent race conditions if the field changes, though that is unlikely
 
     // try matches again now that we have player access
-    if (recipe == null || this.level == null || !recipe.matches(craftingInventory, level)) {
+    CraftingInput input = craftingInventory.asCraftingInput();
+    if (recipe == null || this.level == null || !recipe.value().matches(input, level)) {
       ForgeHooks.setCraftingPlayer(null);
       return ItemStack.EMPTY;
     }
@@ -138,7 +140,7 @@ public class CraftingStationBlockEntity extends RetexturedTableBlockEntity imple
 //      }
 //    }
 
-    ItemStack result = recipe.assemble(craftingInventory, level.registryAccess());
+    ItemStack result = recipe.value().assemble(input, level.registryAccess());
     ForgeHooks.setCraftingPlayer(null);
     return result;
   }
@@ -150,13 +152,13 @@ public class CraftingStationBlockEntity extends RetexturedTableBlockEntity imple
    * @param amount  Number of times crafted
    */
   public void takeResult(Player player, ItemStack result, int amount) {
-    CraftingRecipe recipe = this.lastRecipe; // local variable just to prevent race conditions if the field changes, though that is unlikely
+    RecipeHolder<CraftingRecipe> recipe = this.lastRecipe; // local variable just to prevent race conditions if the field changes, though that is unlikely
     if (recipe == null || this.level == null) {
       return;
     }
 
     // fire crafting events
-    if (!recipe.isSpecial()) {
+    if (!recipe.value().isSpecial()) {
       // unlock the recipe if it was not unlocked, so it shows in the recipe book
       player.awardRecipes(Collections.singleton(recipe));
     }
@@ -166,7 +168,8 @@ public class CraftingStationBlockEntity extends RetexturedTableBlockEntity imple
     // update all slots in the inventory
     // remove remaining items
     ForgeHooks.setCraftingPlayer(player);
-    NonNullList<ItemStack> remaining = recipe.getRemainingItems(craftingInventory);
+    CraftingInput input = craftingInventory.asCraftingInput();
+    NonNullList<ItemStack> remaining = recipe.value().getRemainingItems(input);
     ForgeHooks.setCraftingPlayer(null);
     for (int i = 0; i < remaining.size(); ++i) {
       ItemStack original = this.getItem(i);
@@ -176,14 +179,14 @@ public class CraftingStationBlockEntity extends RetexturedTableBlockEntity imple
       if (original.isEmpty() || original.getCount() == 1) {
         this.setItem(i, newStack);
       }
-      else if (ItemStack.isSameItemSameTags(original, newStack)) {
+      else if (ItemStack.isSameItemSameComponents(original, newStack)) {
         // if matching, merge (decreasing by 1
         newStack.grow(original.getCount() - 1);
         this.setItem(i, newStack);
       }
       else {
         // directly update the slot
-        this.setItem(i, ItemHandlerHelper.copyStackWithSize(original, original.getCount() - 1));
+        this.setItem(i, original.copyWithCount(original.getCount() - 1));
         // otherwise, drop the item as the player
         if (!newStack.isEmpty() && !player.getInventory().add(newStack)) {
           player.drop(newStack, false);
@@ -234,7 +237,7 @@ public class CraftingStationBlockEntity extends RetexturedTableBlockEntity imple
    * Updates the recipe from the server
    * @param recipe  New recipe
    */
-  public void updateRecipe(CraftingRecipe recipe) {
+  public void updateRecipe(RecipeHolder<CraftingRecipe> recipe) {
     this.lastRecipe = recipe;
     this.craftingResult.clearContent();
   }

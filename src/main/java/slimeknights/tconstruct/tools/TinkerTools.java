@@ -1,10 +1,8 @@
 package slimeknights.tconstruct.tools;
 
-import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.PackOutput;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.player.Player;
@@ -17,25 +15,19 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
-import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegisterEvent;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.common.crafting.IngredientType;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModList;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import slimeknights.mantle.compat.neoforged.neoforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.registries.RegisterEvent;
+import slimeknights.mantle.compat.neoforged.neoforge.registries.RegistryObject;
 import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.config.ConfigurableAction;
-import slimeknights.tconstruct.common.data.tags.MaterialTagProvider;
-import slimeknights.tconstruct.library.client.data.material.GeneratorPartTextureJsonGenerator;
-import slimeknights.tconstruct.library.client.data.material.MaterialPaletteDebugGenerator;
-import slimeknights.tconstruct.library.client.data.material.MaterialPartTextureGenerator;
 import slimeknights.tconstruct.library.json.loot.AddToolDataFunction;
 import slimeknights.tconstruct.library.json.predicate.tool.HasMaterialPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.HasModifierPredicate;
@@ -45,7 +37,6 @@ import slimeknights.tconstruct.library.json.predicate.tool.PersistentDataPredica
 import slimeknights.tconstruct.library.json.predicate.tool.StatInRangePredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.StatInSetPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.ToolContextPredicate;
-import slimeknights.tconstruct.library.json.predicate.tool.ToolStackItemPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.ToolStackPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.ToolVariableRangePredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.VolatileDataPredicate;
@@ -66,6 +57,7 @@ import slimeknights.tconstruct.library.tools.capability.ToolEnergyCapability;
 import slimeknights.tconstruct.library.tools.capability.fluid.ToolFluidCapability;
 import slimeknights.tconstruct.library.tools.capability.fluid.ToolTankHelper;
 import slimeknights.tconstruct.library.tools.capability.inventory.ToolInventoryCapability;
+import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.definition.module.ToolHooks;
 import slimeknights.tconstruct.library.tools.definition.module.ToolModule;
@@ -123,22 +115,8 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.BlockSideHitListener;
 import slimeknights.tconstruct.tables.TinkerTables;
-import slimeknights.tconstruct.tools.data.ArmorModelProvider;
 import slimeknights.tconstruct.tools.data.ModifierIds;
-import slimeknights.tconstruct.tools.data.StationSlotLayoutProvider;
-import slimeknights.tconstruct.tools.data.ToolDefinitionDataProvider;
-import slimeknights.tconstruct.tools.data.ToolItemModelProvider;
-import slimeknights.tconstruct.tools.data.ToolsRecipeProvider;
-import slimeknights.tconstruct.tools.data.client.ModifierModelMapProvider;
-import slimeknights.tconstruct.tools.data.material.MaterialDataProvider;
 import slimeknights.tconstruct.tools.data.material.MaterialIds;
-import slimeknights.tconstruct.tools.data.material.MaterialRecipeProvider;
-import slimeknights.tconstruct.tools.data.material.MaterialRenderInfoProvider;
-import slimeknights.tconstruct.tools.data.material.MaterialStatsDataProvider;
-import slimeknights.tconstruct.tools.data.material.MaterialTraitsDataProvider;
-import slimeknights.tconstruct.tools.data.sprite.TinkerMaterialSpriteProvider;
-import slimeknights.tconstruct.tools.data.sprite.TinkerPartSpriteProvider;
-import slimeknights.tconstruct.tools.data.sprite.TinkerTrimMaterialPaletteGenerator;
 import slimeknights.tconstruct.tools.entity.CombatFishingHook;
 import slimeknights.tconstruct.tools.entity.ModifiableArrow;
 import slimeknights.tconstruct.tools.entity.ThrownShuriken;
@@ -179,7 +157,8 @@ public final class TinkerTools extends TinkerModule {
                                   .build());
 
   /** Loot function type for tool add data */
-  public static final RegistryObject<LootItemFunctionType> lootAddToolData = LOOT_FUNCTIONS.register("add_tool_data", () -> new LootItemFunctionType(AddToolDataFunction.SERIALIZER));
+  public static final RegistryObject<LootItemFunctionType> lootAddToolData = LOOT_FUNCTIONS.register("add_tool_data", () -> new LootItemFunctionType(AddToolDataFunction.CODEC));
+  public static final RegistryObject<IngredientType<ToolHookIngredient>> toolHookIngredient = INGREDIENT_TYPES.register("tool_hook", () -> new IngredientType<>(ToolHookIngredient.Serializer.INSTANCE.codec(), ToolHookIngredient.Serializer.INSTANCE.streamCodec()));
 
   /*
    * Items
@@ -229,13 +208,15 @@ public final class TinkerTools extends TinkerModule {
     if (ModList.get().isLoaded("twilightforest")) {
       minotaurAxe = ITEMS.register("minotaur_axe", () -> new ModifiableItem(UNSTACKABLE_PROPS, ToolDefinitions.MINOTAUR_AXE));
     } else {
-      minotaurAxe = new ItemObject<>(RegistryObject.create(getResource("minotaur_axe"), ForgeRegistries.ITEMS));
+      @SuppressWarnings({"rawtypes", "unchecked"})
+      RegistryObject<ModifiableItem> fallback = (RegistryObject)RegistryObject.create(getResource("minotaur_axe"), ForgeRegistries.ITEMS);
+      minotaurAxe = new ItemObject<>(fallback);
     }
   }
 
   // armor
-  public static final EnumObject<ArmorItem.Type,ModifiableArmorItem> travelersGear = ITEMS.registerEnum("travelers", ArmorItem.Type.values(), type -> new MultilayerArmorItem(ArmorDefinitions.TRAVELERS, type, UNSTACKABLE_PROPS));
-  public static final EnumObject<ArmorItem.Type,ModifiableArmorItem> plateArmor = ITEMS.registerEnum("plate", ArmorItem.Type.values(), type -> new MultilayerArmorItem(ArmorDefinitions.PLATE, type, UNSTACKABLE_PROPS));
+  public static final EnumObject<ArmorItem.Type,ModifiableArmorItem> travelersGear = ITEMS.registerEnum("travelers", ModifiableArmorMaterial.ARMOR_TYPES, type -> new MultilayerArmorItem(ArmorDefinitions.TRAVELERS, type, UNSTACKABLE_PROPS));
+  public static final EnumObject<ArmorItem.Type,ModifiableArmorItem> plateArmor = ITEMS.registerEnum("plate", ModifiableArmorMaterial.ARMOR_TYPES, type -> new MultilayerArmorItem(ArmorDefinitions.PLATE, type, UNSTACKABLE_PROPS));
   public static final EnumObject<ArmorItem.Type,ModifiableArmorItem> slimesuit = new EnumObject.Builder<ArmorItem.Type,ModifiableArmorItem>(ArmorItem.Type.class)
     .put(ArmorItem.Type.HELMET, ITEMS.register("slime_helmet", () -> new SlimeskullItem(ArmorDefinitions.SLIMESUIT, SlimeskullItem.MODEL_LOCATION, UNSTACKABLE_PROPS)))
     // TODO 1.21: rename to slime chestplate as we no longer need the migration
@@ -300,7 +281,7 @@ public final class TinkerTools extends TinkerModule {
       DispenserBlock.registerBehavior(TinkerTools.throwingAxe.get(), ModifiableShurikenDispenserBehavior.INSTANCE);
       ModifierUtil.registerShieldDisabler(entity -> {
         if (entity instanceof Player player && player.isBlocking()) {
-          player.disableShield(true);
+          player.disableShield();
         }
       }, EntityType.PLAYER);
     });
@@ -311,9 +292,6 @@ public final class TinkerTools extends TinkerModule {
   @SubscribeEvent
   void registerRecipeSerializers(RegisterEvent event) {
     if (event.getRegistryKey() == Registries.RECIPE_SERIALIZER) {
-      ItemPredicate.register(ToolStackItemPredicate.ID, ToolStackItemPredicate::deserialize);
-      CraftingHelper.register(ToolHookIngredient.Serializer.ID, ToolHookIngredient.Serializer.INSTANCE);
-
       // register tool stats that are not defined directly in the class; safer than static init registration
       ToolStats.register(OverslimeModule.OVERSLIME_STAT);
       ToolStats.register(ToolTankHelper.CAPACITY_STAT);
@@ -381,34 +359,6 @@ public final class TinkerTools extends TinkerModule {
       ToolStackPredicate.LOADER.register(getResource("has_volatile_key"), VolatileDataPredicate.LOADER);
       ToolStackPredicate.LOADER.register(getResource("variable_range"), ToolVariableRangePredicate.LOADER);
     }
-  }
-
-  @SubscribeEvent
-  void gatherData(final GatherDataEvent event) {
-    DataGenerator generator = event.getGenerator();
-    PackOutput packOutput = generator.getPackOutput();
-    ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
-    boolean server = event.includeServer();
-    boolean client = event.includeClient();
-    generator.addProvider(server, new ToolsRecipeProvider(packOutput));
-    generator.addProvider(server, new MaterialRecipeProvider(packOutput));
-    MaterialDataProvider materials = new MaterialDataProvider(packOutput);
-    generator.addProvider(server, materials);
-    generator.addProvider(server, new MaterialStatsDataProvider(packOutput, materials));
-    generator.addProvider(server, new MaterialTraitsDataProvider(packOutput, materials));
-    generator.addProvider(server, new ToolDefinitionDataProvider(packOutput));
-    generator.addProvider(server, new StationSlotLayoutProvider(packOutput));
-    generator.addProvider(server, new MaterialTagProvider(packOutput, existingFileHelper));
-    generator.addProvider(client, new ToolItemModelProvider(packOutput, existingFileHelper));
-    TinkerMaterialSpriteProvider materialSprites = new TinkerMaterialSpriteProvider();
-    TinkerPartSpriteProvider partSprites = new TinkerPartSpriteProvider();
-    generator.addProvider(client, new MaterialRenderInfoProvider(packOutput, materialSprites, existingFileHelper));
-    generator.addProvider(client, new GeneratorPartTextureJsonGenerator(packOutput, TConstruct.MOD_ID, partSprites));
-    generator.addProvider(client, new MaterialPartTextureGenerator(packOutput, existingFileHelper, partSprites, materialSprites));
-    generator.addProvider(client, new MaterialPaletteDebugGenerator(packOutput, TConstruct.MOD_ID, materialSprites));
-    generator.addProvider(client, new ArmorModelProvider(packOutput));
-    generator.addProvider(client, new TinkerTrimMaterialPaletteGenerator(packOutput, existingFileHelper, materialSprites));
-    generator.addProvider(client, new ModifierModelMapProvider(packOutput));
   }
 
   /** Adds all relevant items to the creative tab */
@@ -492,7 +442,7 @@ public final class TinkerTools extends TinkerModule {
           efln.addModifier(ModifierIds.redirected, 1);
         }
         ItemStack stack = efln.createStack();
-        stack.setHoverName(TConstruct.makeTranslation("item", "efln_ball"));
+        stack.set(DataComponents.CUSTOM_NAME, TConstruct.makeTranslation("item", "efln_ball"));
         tab.accept(stack);
       }
     }

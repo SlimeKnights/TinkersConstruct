@@ -20,7 +20,7 @@ public class BurningLiquidBlock extends LiquidBlock {
   /** Damage from being in the fluid, lava uses 4 */
   private final float damage;
   public BurningLiquidBlock(Supplier<? extends FlowingFluid> supplier, Properties properties, int burnTime, float damage) {
-    super(supplier, properties);
+    super(supplier.get(), properties);
     this.burnTime = burnTime;
     this.damage = damage;
   }
@@ -28,8 +28,8 @@ public class BurningLiquidBlock extends LiquidBlock {
   @SuppressWarnings("deprecation")  // useless annotation on block methods
   @Override
   public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
-    if (!entity.fireImmune() && entity.getFluidTypeHeight(getFluid().getFluidType()) > 0) {
-      entity.setSecondsOnFire(burnTime);
+    if (!entity.fireImmune() && entity.getFluidTypeHeight(fluid.getFluidType()) > 0) {
+      entity.igniteForSeconds(burnTime);
       if (entity.hurt(entity.damageSources().lava(), damage)) {
         entity.playSound(SoundEvents.GENERIC_BURN, 0.4F, 2.0F + level.random.nextFloat() * 0.4F);
       }

@@ -3,7 +3,7 @@
   "conditions": [
     {
       "condition": "mantle:block_tag",
-      "tag": "forge:ores/netherite_scrap"
+      "tag": "c:ores/netherite_scrap"
     },
     {
       "condition": "tconstruct:has_modifier",
@@ -12,7 +12,7 @@
   ],
   "entry": {
     "type": "mantle:tag_preference",
-    "tag": "forge:nuggets/netherite_scrap"
+    "tag": "c:nuggets/netherite_scrap"
   },
   "functions": [
     {
@@ -40,7 +40,7 @@
       "condition": {
         "type": "mantle:contains_item",
         "ingredient": {
-          "tag": "forge:ores/netherite_scrap"
+          "tag": "c:ores/netherite_scrap"
         }
       }
     }

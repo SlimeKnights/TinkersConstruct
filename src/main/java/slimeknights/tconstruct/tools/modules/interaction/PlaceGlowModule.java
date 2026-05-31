@@ -55,7 +55,7 @@ public record PlaceGlowModule(int damage) implements ModifierModule, BlockIntera
         if (TinkerCommons.glowBlock.get().addGlow(world, pos, face.getOpposite())) {
           // damage the tool, showing animation if relevant
           if (damage > 0 && ToolDamageUtil.damage(tool, damage, player, context.getItemInHand(), modifier.getId()) && player != null) {
-            player.broadcastBreakEvent(source.getSlot(context.getHand()));
+            player.onEquippedItemBroken(context.getItemInHand().getItem(), source.getSlot(context.getHand()));
           }
           world.playSound(null, pos, world.getBlockState(pos).getSoundType(world, pos, player).getPlaceSound(), SoundSource.BLOCKS, 1.0f, 1.0f);
         }

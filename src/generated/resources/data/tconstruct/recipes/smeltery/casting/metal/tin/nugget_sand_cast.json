@@ -1,21 +1,22 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/tin/nugget_sand_cast",
   "cast": {
     "tag": "tconstruct:casts/single_use/nugget"
   },
   "cast_consumed": true,
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:nuggets/tin"
+      "tag": "c:nuggets/tin"
     }
   ],
   "cooling_time": 13,
   "fluid": {
     "amount": 10,
-    "tag": "forge:molten_tin"
+    "tag": "c:molten_tin"
   },
   "result": {
-    "tag": "forge:nuggets/tin"
+    "tag": "c:nuggets/tin"
   }
 }

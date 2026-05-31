@@ -1,13 +1,14 @@
 {
   "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/ability/brushing",
   "allow_crystal": true,
   "check_trait_level": true,
   "inputs": [
     {
-      "tag": "forge:feathers"
+      "tag": "c:feathers"
     },
     {
-      "tag": "forge:ingots/copper"
+      "tag": "c:ingots/copper"
     }
   ],
   "level": 1,
@@ -16,7 +17,7 @@
     "abilities": 1
   },
   "tools": {
-    "type": "forge:intersection",
+    "type": "neoforge:intersection",
     "children": [
       {
         "tag": "tconstruct:modifiable/durability"

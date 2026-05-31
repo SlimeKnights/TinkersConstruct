@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/knightslime/block",
   "ingredient": {
-    "tag": "forge:storage_blocks/knightslime"
+    "tag": "c:storage_blocks/knightslime"
   },
   "result": {
     "amount": 810,

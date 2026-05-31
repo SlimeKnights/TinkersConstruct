@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/quartz/gem_1",
   "ingredient": [
     {
       "item": "minecraft:observer"

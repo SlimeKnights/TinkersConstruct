@@ -11,8 +11,8 @@
     "minecraft:small_dripleaf",
     "minecraft:sugar_cane",
     "#minecraft:mineable/hoe",
-    "#forge:mineable/shears",
-    "#forge:mineable/sword",
+    "#c:mineable/shears",
+    "#c:mineable/sword",
     "#minecraft:crops"
   ]
 }

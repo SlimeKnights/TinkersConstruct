@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:multilevel_modifier",
+  "id": "tconstruct:tools/modifiers/ability/reflecting",
   "allow_crystal": true,
   "inputs": [
     {

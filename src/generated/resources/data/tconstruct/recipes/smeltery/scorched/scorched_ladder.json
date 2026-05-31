@@ -16,7 +16,7 @@
   ],
   "result": {
     "count": 4,
-    "item": "tconstruct:scorched_ladder"
+    "id": "tconstruct:scorched_ladder"
   },
   "show_notification": true
 }

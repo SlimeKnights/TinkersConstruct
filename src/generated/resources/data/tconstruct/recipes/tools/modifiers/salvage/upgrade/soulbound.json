@@ -1,11 +1,12 @@
 {
   "type": "tconstruct:modifier_salvage",
+  "id": "tconstruct:tools/modifiers/salvage/upgrade/soulbound",
   "modifier": "tconstruct:soulbound",
   "slots": {
     "upgrades": 1
   },
   "tools": {
-    "type": "forge:difference",
+    "type": "neoforge:difference",
     "base": {
       "tag": "tconstruct:modifiable"
     },

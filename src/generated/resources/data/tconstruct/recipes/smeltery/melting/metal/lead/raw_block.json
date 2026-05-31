@@ -1,66 +1,21 @@
 {
-  "type": "forge:conditional",
-  "conditions": [
+  "type": "tconstruct:ore_melting",
+  "id": "tconstruct:smeltery/melting/metal/lead/raw_block",
+  "byproducts": [
     {
-      "type": "mantle:tag_filled",
-      "tag": "forge:storage_blocks/raw_lead"
+      "amount": 810,
+      "rate": "metal",
+      "tag": "c:molten_gold"
     }
   ],
-  "recipes": [
-    {
-      "conditions": [
-        {
-          "type": "mantle:tag_filled",
-          "tag": "forge:ingots/silver"
-        }
-      ],
-      "recipe": {
-        "type": "tconstruct:ore_melting",
-        "byproducts": [
-          {
-            "amount": 810,
-            "rate": "metal",
-            "tag": "forge:molten_silver"
-          }
-        ],
-        "ingredient": {
-          "tag": "forge:storage_blocks/raw_lead"
-        },
-        "rate": "metal",
-        "result": {
-          "amount": 810,
-          "tag": "forge:molten_lead"
-        },
-        "temperature": 330,
-        "time": 260
-      }
-    },
-    {
-      "conditions": [
-        {
-          "type": "forge:true"
-        }
-      ],
-      "recipe": {
-        "type": "tconstruct:ore_melting",
-        "byproducts": [
-          {
-            "amount": 810,
-            "rate": "metal",
-            "tag": "forge:molten_gold"
-          }
-        ],
-        "ingredient": {
-          "tag": "forge:storage_blocks/raw_lead"
-        },
-        "rate": "metal",
-        "result": {
-          "amount": 810,
-          "tag": "forge:molten_lead"
-        },
-        "temperature": 330,
-        "time": 260
-      }
-    }
-  ]
+  "ingredient": {
+    "tag": "c:storage_blocks/raw_lead"
+  },
+  "rate": "metal",
+  "result": {
+    "amount": 810,
+    "tag": "c:molten_lead"
+  },
+  "temperature": 330,
+  "time": 260
 }

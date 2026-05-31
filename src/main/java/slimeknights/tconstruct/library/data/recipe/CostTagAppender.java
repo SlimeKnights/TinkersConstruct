@@ -36,7 +36,7 @@ public class CostTagAppender {
 
   /** Creates a builder for a molten gear */
   public static CostTagAppender moltenToolMelting(String domain, String metal, Function<ResourceLocation,IntrinsicTagAppender<Item>> tag) {
-    return new CostTagAppender(metal, new ResourceLocation(domain, "melting/" + metal + "/tools_costing_"), "", tag);
+    return new CostTagAppender(metal, ResourceLocation.fromNamespaceAndPath(domain, "melting/" + metal + "/tools_costing_"), "", tag);
   }
 
   /** Creates a tag for the given cost */
@@ -77,14 +77,14 @@ public class CostTagAppender {
 
   /** Adds the passed items by ID with the metal as the prefix */
   public CostTagAppender optionalMetal(int cost, String domain, String... suffixes) {
-    return add(cost, true, new ResourceLocation(domain, metal), suffixes);
+    return add(cost, true, ResourceLocation.fromNamespaceAndPath(domain, metal), suffixes);
   }
 
   /** Adds the given optional tag to the builder with the given prefix using our metal */
   public CostTagAppender metalTag(int cost, String prefix, String... names) {
     IntrinsicTagAppender<Item> tag = tag(cost);
     for (String name : names) {
-      tag.addOptionalTag(new ResourceLocation(Mantle.COMMON, prefix + name + '/' + metal));
+      tag.addOptionalTag(ResourceLocation.fromNamespaceAndPath(Mantle.COMMON, prefix + name + '/' + metal));
     }
     return this;
   }
@@ -105,7 +105,7 @@ public class CostTagAppender {
   /** Adds common gear items from tags */
   @Internal // we cover everything from the base game that makes sense to melt, you probably want something more specialized if you wish to do stone/wood
   public CostTagAppender minecraft(String metal) {
-    ResourceLocation prefix = new ResourceLocation(metal);
+    ResourceLocation prefix = ResourceLocation.parse(metal);
     // we use costs 1 and 3 for compat with tools complement
     // cost 2 isn't needed for any compat for vanilla, but we wish for a combined tag for non-vanilla so we do it for simplicity
     add(1, false, prefix, "shovel");

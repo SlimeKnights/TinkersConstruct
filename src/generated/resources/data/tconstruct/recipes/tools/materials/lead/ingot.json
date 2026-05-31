@@ -1,13 +1,14 @@
 {
   "type": "tconstruct:material",
-  "conditions": [
+  "id": "tconstruct:tools/materials/lead/ingot",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:ingots/lead"
+      "tag": "c:ingots/lead"
     }
   ],
   "ingredient": {
-    "tag": "forge:ingots/lead"
+    "tag": "c:ingots/lead"
   },
   "material": "tconstruct:lead",
   "needed": 1,

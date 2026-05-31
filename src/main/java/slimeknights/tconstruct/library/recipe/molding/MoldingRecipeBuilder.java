@@ -1,9 +1,10 @@
 package slimeknights.tconstruct.library.recipe.molding;
 
 import com.google.gson.JsonObject;
+import com.mojang.serialization.JsonOps;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.data.recipes.FinishedRecipe;
+import slimeknights.mantle.compat.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -104,9 +105,9 @@ public class MoldingRecipeBuilder extends AbstractRecipeBuilder<MoldingRecipeBui
 
     @Override
     public void serializeRecipeData(JsonObject json) {
-      json.add("material", material.toJson());
+      json.add("material", Ingredient.CODEC_NONEMPTY.encodeStart(JsonOps.INSTANCE, material).getOrThrow(IllegalArgumentException::new));
       if (pattern != Ingredient.EMPTY) {
-        json.add("pattern", pattern.toJson());
+        json.add("pattern", Ingredient.CODEC_NONEMPTY.encodeStart(JsonOps.INSTANCE, pattern).getOrThrow(IllegalArgumentException::new));
         if (patternConsumed) {
           json.addProperty("pattern_consumed", true);
         }

@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/bendalloy/block",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:storage_blocks/bendalloy"
+      "tag": "c:storage_blocks/bendalloy"
     }
   ],
   "ingredient": {
-    "tag": "forge:storage_blocks/bendalloy"
+    "tag": "c:storage_blocks/bendalloy"
   },
   "result": {
     "amount": 810,
-    "tag": "forge:molten_bendalloy"
+    "tag": "c:molten_bendalloy"
   },
   "temperature": 100,
   "time": 100

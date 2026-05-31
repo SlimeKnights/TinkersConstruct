@@ -1,21 +1,22 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/electrum/coin_sand_cast",
   "cast": {
     "tag": "tconstruct:casts/single_use/coin"
   },
   "cast_consumed": true,
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:coins/electrum"
+      "tag": "c:coins/electrum"
     }
   ],
   "cooling_time": 34,
   "fluid": {
     "amount": 30,
-    "tag": "forge:molten_electrum"
+    "tag": "c:molten_electrum"
   },
   "result": {
-    "tag": "forge:coins/electrum"
+    "tag": "c:coins/electrum"
   }
 }

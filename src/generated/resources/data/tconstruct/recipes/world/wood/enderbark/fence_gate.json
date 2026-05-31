@@ -15,7 +15,7 @@
     "#W#"
   ],
   "result": {
-    "item": "tconstruct:enderbark_fence_gate"
+    "id": "tconstruct:enderbark_fence_gate"
   },
   "show_notification": true
 }

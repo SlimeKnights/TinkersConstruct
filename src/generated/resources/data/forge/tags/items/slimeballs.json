@@ -1,8 +1,8 @@
 {
   "values": [
-    "#forge:slimeball/earth",
-    "#forge:slimeball/sky",
-    "#forge:slimeball/ichor",
-    "#forge:slimeball/ender"
+    "#c:slimeball/earth",
+    "#c:slimeball/sky",
+    "#c:slimeball/ichor",
+    "#c:slimeball/ender"
   ]
 }

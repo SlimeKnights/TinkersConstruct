@@ -1,11 +1,12 @@
 {
   "type": "tconstruct:damagable_melting",
+  "id": "tconstruct:smeltery/melting/metal/copper/shovel",
   "ingredient": {
     "tag": "tconstruct:melting/copper/tools_costing_1"
   },
   "result": {
     "amount": 90,
-    "tag": "forge:molten_copper",
+    "tag": "c:molten_copper",
     "unit_size": 10
   },
   "temperature": 500,

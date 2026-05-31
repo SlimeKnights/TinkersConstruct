@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.smeltery.client.screen;
 
 import net.minecraft.client.renderer.Rect2i;
-import net.minecraftforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidStack;
 
 import javax.annotation.Nullable;
 

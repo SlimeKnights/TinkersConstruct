@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:damagable_melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/refined_obsidian/helmet",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:armors/helmets/refined_obsidian"
+      "tag": "c:armors/helmets/refined_obsidian"
     }
   ],
   "ingredient": {
-    "tag": "forge:armors/helmets/refined_obsidian"
+    "tag": "c:armors/helmets/refined_obsidian"
   },
   "result": {
     "amount": 450,
-    "tag": "forge:molten_refined_obsidian",
+    "tag": "c:molten_refined_obsidian",
     "unit_size": 10
   },
   "temperature": 1475,

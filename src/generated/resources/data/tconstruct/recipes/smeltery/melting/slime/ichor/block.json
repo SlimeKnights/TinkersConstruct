@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/slime/ichor/block",
   "byproducts": [
     {
       "amount": 1800,

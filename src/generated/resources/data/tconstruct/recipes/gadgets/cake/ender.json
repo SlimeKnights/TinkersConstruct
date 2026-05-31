@@ -9,7 +9,7 @@
       "item": "tconstruct:ender_slime_bucket"
     },
     "S": {
-      "tag": "forge:dusts/redstone"
+      "tag": "c:dusts/redstone"
     },
     "W": {
       "item": "tconstruct:ender_slime_tall_grass"
@@ -21,7 +21,7 @@
     "WWW"
   ],
   "result": {
-    "item": "tconstruct:ender_cake"
+    "id": "tconstruct:ender_cake"
   },
   "show_notification": true
 }

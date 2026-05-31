@@ -1,13 +1,14 @@
 {
   "type": "tconstruct:material",
-  "conditions": [
+  "id": "tconstruct:tools/materials/pewter/ingot",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:ingots/pewter"
+      "tag": "c:ingots/pewter"
     }
   ],
   "ingredient": {
-    "tag": "forge:ingots/pewter"
+    "tag": "c:ingots/pewter"
   },
   "material": "tconstruct:pewter",
   "needed": 1,

@@ -1,11 +1,12 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/manyullyn/nugget",
   "ingredient": {
-    "tag": "forge:nuggets/manyullyn"
+    "tag": "c:nuggets/manyullyn"
   },
   "result": {
     "amount": 10,
-    "tag": "forge:molten_manyullyn"
+    "tag": "c:molten_manyullyn"
   },
   "temperature": 1200,
   "time": 24

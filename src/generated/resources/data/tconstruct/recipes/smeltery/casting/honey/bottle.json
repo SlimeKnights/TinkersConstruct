@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/honey/bottle",
   "cast": {
     "item": "minecraft:glass_bottle"
   },
@@ -7,7 +8,7 @@
   "cooling_time": 1,
   "fluid": {
     "amount": 250,
-    "tag": "forge:honey"
+    "tag": "c:honey"
   },
   "result": "minecraft:honey_bottle"
 }

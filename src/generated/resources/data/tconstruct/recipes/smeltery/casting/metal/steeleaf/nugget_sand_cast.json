@@ -1,13 +1,14 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/steeleaf/nugget_sand_cast",
   "cast": {
     "tag": "tconstruct:casts/single_use/nugget"
   },
   "cast_consumed": true,
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:nuggets/steeleaf"
+      "tag": "c:nuggets/steeleaf"
     }
   ],
   "cooling_time": 21,
@@ -16,6 +17,6 @@
     "tag": "tconstruct:molten_steeleaf"
   },
   "result": {
-    "tag": "forge:nuggets/steeleaf"
+    "tag": "c:nuggets/steeleaf"
   }
 }

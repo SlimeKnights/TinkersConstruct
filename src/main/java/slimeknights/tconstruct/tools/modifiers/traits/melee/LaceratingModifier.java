@@ -55,7 +55,7 @@ public class LaceratingModifier extends Modifier implements ProjectileHitModifie
   /** Applies the effect to the target */
   private static void applyEffect(LivingEntity target, int level, int looting, @Nullable Entity cause) {
     int duration = level * 2 * 20;
-    MobEffectInstance existing = target.getEffect(TinkerEffects.bleeding.get());
+    MobEffectInstance existing = target.getEffect(TinkerEffects.holder(TinkerEffects.bleeding));
     if (existing != null && existing.getAmplifier() == looting) {
       duration += existing.getDuration();
     } else {
@@ -63,7 +63,7 @@ public class LaceratingModifier extends Modifier implements ProjectileHitModifie
       // skip when already present so we continue on the same clock and don't repeat a damage
       duration += 19;
     }
-    target.addEffect(new MobEffectInstance(TinkerEffects.bleeding.get(), duration, looting), cause);
+    target.addEffect(new MobEffectInstance(TinkerEffects.holder(TinkerEffects.bleeding), duration, looting), cause);
   }
 
 

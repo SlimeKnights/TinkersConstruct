@@ -1,5 +1,5 @@
 {
-  "parent": "forge:item/default-tool",
+  "parent": "neoforge:item/default-tool",
   "gui_light": "front",
   "display": {
     "tconstruct:thrown": {

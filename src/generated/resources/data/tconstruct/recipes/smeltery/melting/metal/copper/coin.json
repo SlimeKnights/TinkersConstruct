@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/copper/coin",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:coins/copper"
+      "tag": "c:coins/copper"
     }
   ],
   "ingredient": {
-    "tag": "forge:coins/copper"
+    "tag": "c:coins/copper"
   },
   "result": {
     "amount": 30,
-    "tag": "forge:molten_copper"
+    "tag": "c:molten_copper"
   },
   "temperature": 500,
   "time": 33

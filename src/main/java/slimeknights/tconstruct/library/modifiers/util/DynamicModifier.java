@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.modifiers.util;
 
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.EventPriority;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.bus.api.EventPriority;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.ModifierManager;
@@ -67,6 +67,6 @@ public class DynamicModifier extends StaticModifier<Modifier> {
 
   /** Registers event listeners with the forge event bus */
   public static void init() {
-    MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, ModifiersLoadedEvent.class, e -> INVALIDATION_COUNTER.incrementAndGet());
+    NeoForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, ModifiersLoadedEvent.class, e -> INVALIDATION_COUNTER.incrementAndGet());
   }
 }

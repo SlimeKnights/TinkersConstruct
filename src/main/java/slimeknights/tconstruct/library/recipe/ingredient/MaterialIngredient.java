@@ -2,16 +2,17 @@ package slimeknights.tconstruct.library.recipe.ingredient;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.mojang.serialization.JsonOps;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
-import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.common.crafting.IIngredientSerializer;
-import net.minecraftforge.common.crafting.VanillaIngredientSerializer;
+import slimeknights.mantle.compat.neoforged.neoforge.common.crafting.IIngredientSerializer;
+import net.neoforged.neoforge.common.crafting.IngredientType;
 import slimeknights.mantle.data.loadable.field.LoadableField;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.tconstruct.TConstruct;
@@ -23,9 +24,12 @@ import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipeCache;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
+import slimeknights.tconstruct.library.utils.TagUtil;
+import slimeknights.tconstruct.shared.TinkerMaterials;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 /**
@@ -62,27 +66,27 @@ public class MaterialIngredient extends NestedIngredient {
   }
 
   /** Creates an ingredient matching the given materials */
-  public static MaterialIngredient of(Ingredient ingredient, IJsonPredicate<MaterialVariantId> material) {
-    return new MaterialIngredient(ingredient, material);
+  public static Ingredient of(Ingredient ingredient, IJsonPredicate<MaterialVariantId> material) {
+    return new MaterialIngredient(ingredient, material).toVanilla();
   }
 
   /** Creates an ingredient matching the given materials */
-  public static MaterialIngredient of(ItemLike item, IJsonPredicate<MaterialVariantId> material) {
+  public static Ingredient of(ItemLike item, IJsonPredicate<MaterialVariantId> material) {
     return of(Ingredient.of(item), material);
   }
 
   /** Creates an ingredient matching a specific material */
-  public static MaterialIngredient of(Ingredient ingredient) {
-    return new MaterialIngredient(ingredient, MaterialPredicate.ANY);
+  public static Ingredient of(Ingredient ingredient) {
+    return new MaterialIngredient(ingredient, MaterialPredicate.ANY).toVanilla();
   }
 
   /** Creates an ingredient matching a single material */
-  public static MaterialIngredient of(Ingredient ingredient, MaterialVariantId material) {
+  public static Ingredient of(Ingredient ingredient, MaterialVariantId material) {
     return of(ingredient, MaterialPredicate.variant(material));
   }
 
   /** Creates an ingredient matching a material tag */
-  public static MaterialIngredient of(Ingredient ingredient, TagKey<IMaterial> tag) {
+  public static Ingredient of(Ingredient ingredient, TagKey<IMaterial> tag) {
     return of(ingredient, MaterialPredicate.tag(tag));
   }
 
@@ -92,7 +96,7 @@ public class MaterialIngredient extends NestedIngredient {
    * @param material  Material ID
    * @return  Material ingredient instance
    */
-  public static MaterialIngredient of(ItemLike item, MaterialVariantId material) {
+  public static Ingredient of(ItemLike item, MaterialVariantId material) {
     return of(Ingredient.of(item), material);
   }
 
@@ -102,7 +106,7 @@ public class MaterialIngredient extends NestedIngredient {
    * @param tag   Material tag
    * @return  Material ingredient instance
    */
-  public static MaterialIngredient of(ItemLike item, TagKey<IMaterial> tag) {
+  public static Ingredient of(ItemLike item, TagKey<IMaterial> tag) {
     return of(Ingredient.of(item), tag);
   }
 
@@ -111,7 +115,7 @@ public class MaterialIngredient extends NestedIngredient {
    * @param item  Material item
    * @return  Material ingredient instance
    */
-  public static MaterialIngredient of(ItemLike item) {
+  public static Ingredient of(ItemLike item) {
     return of(Ingredient.of(item));
   }
 
@@ -121,7 +125,7 @@ public class MaterialIngredient extends NestedIngredient {
    * @param material  Material value
    * @return  Material with tag
    */
-  public static MaterialIngredient of(TagKey<Item> tag, MaterialVariantId material) {
+  public static Ingredient of(TagKey<Item> tag, MaterialVariantId material) {
     return of(Ingredient.of(tag), material);
   }
 
@@ -130,7 +134,7 @@ public class MaterialIngredient extends NestedIngredient {
    * @param tag       Tag instance
    * @return  Material with tag
    */
-  public static MaterialIngredient of(TagKey<Item> tag) {
+  public static Ingredient of(TagKey<Item> tag) {
     return of(Ingredient.of(tag));
   }
 
@@ -148,10 +152,10 @@ public class MaterialIngredient extends NestedIngredient {
   }
 
   @Override
-  public ItemStack[] getItems() {
+  public Stream<ItemStack> getItems() {
     if (materialStacks == null) {
       if (!MaterialRegistry.isFullyLoaded()) {
-        return nested.getItems();
+        return Arrays.stream(nested.getItems());
       }
       // no material? apply all materials for variants
       Stream<ItemStack> items = Arrays.stream(nested.getItems());
@@ -159,17 +163,16 @@ public class MaterialIngredient extends NestedIngredient {
       items = items.flatMap(stack -> MaterialRecipeCache.getAllVariants().stream()
         .filter(material::matches)
         .map(mat -> IMaterialItem.withMaterial(stack, mat))
-        .filter(ItemStack::hasTag));
+        .filter(TagUtil::hasTag));
       materialStacks = items.distinct().toArray(ItemStack[]::new);
     }
-    return materialStacks;
+    return Arrays.stream(materialStacks);
   }
 
-  @Override
   public JsonElement toJson() {
-    JsonElement parent = nested.toJson();
+    JsonElement parent = Ingredient.CODEC_NONEMPTY.encodeStart(JsonOps.INSTANCE, nested).getOrThrow(IllegalArgumentException::new);
     JsonObject result;
-    if (nested.isVanilla() && parent.isJsonObject()) {
+    if (!nested.isCustom() && parent.isJsonObject()) {
       result = parent.getAsJsonObject();
     } else {
       result = new JsonObject();
@@ -181,19 +184,23 @@ public class MaterialIngredient extends NestedIngredient {
   }
 
   @Override
-  protected void invalidate() {
-    super.invalidate();
-    this.materialStacks = null;
-  }
-
-  @Override
   public boolean isSimple() {
     return material == MaterialPredicate.ANY;
   }
 
   @Override
-  public IIngredientSerializer<? extends Ingredient> getSerializer() {
-    return Serializer.INSTANCE;
+  public IngredientType<?> getType() {
+    return TinkerMaterials.materialIngredient.get();
+  }
+
+  @Override
+  public boolean equals(Object object) {
+    return this == object || object instanceof MaterialIngredient that && nested.equals(that.nested) && material.equals(that.material);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(nested, material);
   }
 
   /** Serializer instance */
@@ -207,9 +214,11 @@ public class MaterialIngredient extends NestedIngredient {
       // if we have match, parse as a nested object. Without match, just parse the object as vanilla
       Ingredient ingredient;
       if (json.has("match")) {
-        ingredient = CraftingHelper.getIngredient(json.get("match"), false);
+        ingredient = Ingredient.CODEC_NONEMPTY.parse(JsonOps.INSTANCE, json.get("match")).getOrThrow(IllegalArgumentException::new);
       } else {
-        ingredient = VanillaIngredientSerializer.INSTANCE.parse(json);
+        JsonObject copy = json.deepCopy();
+        copy.remove("type");
+        ingredient = Ingredient.CODEC_NONEMPTY.parse(JsonOps.INSTANCE, copy).getOrThrow(IllegalArgumentException::new);
       }
       IJsonPredicate<MaterialVariantId> material = MATERIAL_FIELD.get(json);
       // deprecated tag field
@@ -228,14 +237,14 @@ public class MaterialIngredient extends NestedIngredient {
     @Override
     public MaterialIngredient parse(FriendlyByteBuf buffer) {
       return new MaterialIngredient(
-        Ingredient.fromNetwork(buffer),
+        Ingredient.CONTENTS_STREAM_CODEC.decode((RegistryFriendlyByteBuf)buffer),
         MATERIAL_FIELD.decode(buffer)
       );
     }
 
     @Override
     public void write(FriendlyByteBuf buffer, MaterialIngredient ingredient) {
-      ingredient.nested.toNetwork(buffer);
+      Ingredient.CONTENTS_STREAM_CODEC.encode((RegistryFriendlyByteBuf)buffer, ingredient.nested);
       MATERIAL_FIELD.encode(buffer, ingredient);
     }
   }

@@ -1,20 +1,21 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/invar/nugget_gold_cast",
   "cast": {
     "tag": "tconstruct:casts/multi_use/nugget"
   },
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:nuggets/invar"
+      "tag": "c:nuggets/invar"
     }
   ],
   "cooling_time": 21,
   "fluid": {
     "amount": 10,
-    "tag": "forge:molten_invar"
+    "tag": "c:molten_invar"
   },
   "result": {
-    "tag": "forge:nuggets/invar"
+    "tag": "c:nuggets/invar"
   }
 }

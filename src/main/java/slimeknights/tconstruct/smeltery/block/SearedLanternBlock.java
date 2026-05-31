@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.phys.HitResult;
 import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.library.utils.NBTTags;
+import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock;
 import slimeknights.tconstruct.smeltery.block.entity.ITankBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.LanternBlockEntity;
@@ -61,7 +62,7 @@ public class SearedLanternBlock extends LanternBlock implements ITankBlock, Enti
 
   @Override
   public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-    CompoundTag nbt = stack.getTag();
+    CompoundTag nbt = TagUtil.getTag(stack);
     if (nbt != null && world.getBlockEntity(pos) instanceof TankBlockEntity tank) {
       tank.updateTank(nbt.getCompound(NBTTags.TANK));
     }
@@ -82,7 +83,7 @@ public class SearedLanternBlock extends LanternBlock implements ITankBlock, Enti
   }
 
   @Override
-  public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter world, BlockPos pos, Player player) {
+  public ItemStack getCloneItemStack(BlockState state, HitResult target, net.minecraft.world.level.LevelReader world, BlockPos pos, Player player) {
     ItemStack stack = new ItemStack(this);
     BlockEntityHelper.get(TankBlockEntity.class, world, pos).ifPresent(te -> te.setTankTag(stack));
     return stack;

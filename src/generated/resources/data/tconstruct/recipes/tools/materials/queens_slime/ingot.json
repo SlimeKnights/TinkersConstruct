@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/queens_slime/ingot",
   "ingredient": {
-    "tag": "forge:ingots/queens_slime"
+    "tag": "c:ingots/queens_slime"
   },
   "material": "tconstruct:queens_slime",
   "needed": 1,

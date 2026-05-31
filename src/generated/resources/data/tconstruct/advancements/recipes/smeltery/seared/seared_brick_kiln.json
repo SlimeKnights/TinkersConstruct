@@ -1,89 +1,35 @@
 {
-  "advancements": [
-    {
-      "advancement": {
-        "parent": "minecraft:recipes/root",
-        "criteria": {
-          "has_item": {
-            "conditions": {
-              "items": [
-                {
-                  "items": [
-                    "tconstruct:grout"
-                  ]
-                }
-              ]
-            },
-            "trigger": "minecraft:inventory_changed"
-          },
-          "has_the_recipe": {
-            "conditions": {
-              "recipe": "tconstruct:seared_brick"
-            },
-            "trigger": "minecraft:recipe_unlocked"
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:grout"
+            ]
           }
-        },
-        "requirements": [
-          [
-            "has_item",
-            "has_the_recipe"
-          ]
-        ],
-        "rewards": {
-          "recipes": [
-            "tconstruct:seared_brick"
-          ]
-        },
-        "sends_telemetry_event": false
+        ]
       },
-      "conditions": [
-        {
-          "type": "forge:mod_loaded",
-          "modid": "ceramics"
-        }
-      ]
+      "trigger": "minecraft:inventory_changed"
     },
-    {
-      "advancement": {
-        "parent": "minecraft:recipes/root",
-        "criteria": {
-          "has_item": {
-            "conditions": {
-              "items": [
-                {
-                  "items": [
-                    "tconstruct:grout"
-                  ]
-                }
-              ]
-            },
-            "trigger": "minecraft:inventory_changed"
-          },
-          "has_the_recipe": {
-            "conditions": {
-              "recipe": "tconstruct:seared_brick"
-            },
-            "trigger": "minecraft:recipe_unlocked"
-          }
-        },
-        "requirements": [
-          [
-            "has_item",
-            "has_the_recipe"
-          ]
-        ],
-        "rewards": {
-          "recipes": [
-            "tconstruct:seared_brick"
-          ]
-        },
-        "sends_telemetry_event": false
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "tconstruct:seared_brick"
       },
-      "conditions": [
-        {
-          "type": "forge:true"
-        }
-      ]
+      "trigger": "minecraft:recipe_unlocked"
     }
-  ]
+  },
+  "requirements": [
+    [
+      "has_item",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "tconstruct:seared_brick"
+    ]
+  },
+  "sends_telemetry_event": false
 }

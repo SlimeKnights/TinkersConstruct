@@ -1,11 +1,12 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/cobalt/block",
   "ingredient": {
-    "tag": "forge:storage_blocks/cobalt"
+    "tag": "c:storage_blocks/cobalt"
   },
   "result": {
     "amount": 810,
-    "tag": "forge:molten_cobalt"
+    "tag": "c:molten_cobalt"
   },
   "temperature": 950,
   "time": 194

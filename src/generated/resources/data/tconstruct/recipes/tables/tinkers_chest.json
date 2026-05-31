@@ -3,10 +3,10 @@
   "category": "misc",
   "key": {
     "C": {
-      "tag": "forge:chests/wooden"
+      "tag": "c:chests/wooden"
     },
     "l": {
-      "tag": "forge:gems/lapis"
+      "tag": "c:gems/lapis"
     },
     "p": {
       "item": "tconstruct:pattern"
@@ -21,7 +21,7 @@
     "lwl"
   ],
   "result": {
-    "item": "tconstruct:tinkers_chest"
+    "id": "tconstruct:tinkers_chest"
   },
   "show_notification": true
 }

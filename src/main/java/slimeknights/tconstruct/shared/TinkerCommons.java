@@ -1,10 +1,9 @@
 package slimeknights.tconstruct.shared;
 
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.advancements.critereon.ItemSubPredicate;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTab.ItemDisplayParameters;
 import net.minecraft.world.item.Item;
@@ -13,7 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.GlassBlock;
+import slimeknights.tconstruct.compat.minecraft.world.level.block.GlassBlock;
 import net.minecraft.world.level.block.HalfTransparentBlock;
 import net.minecraft.world.level.block.IronBarsBlock;
 import net.minecraft.world.level.block.SoundType;
@@ -24,15 +23,14 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryType;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegisterEvent;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.common.conditions.ICondition;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.common.crafting.IngredientType;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import slimeknights.mantle.compat.neoforged.neoforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.registries.RegisterEvent;
+import slimeknights.mantle.compat.neoforged.neoforge.registries.RegistryObject;
 import slimeknights.mantle.data.predicate.block.BlockPredicate;
 import slimeknights.mantle.data.predicate.damage.DamageSourcePredicate;
 import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
@@ -42,12 +40,6 @@ import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
-import slimeknights.tconstruct.common.data.model.ModelSpriteProvider;
-import slimeknights.tconstruct.common.data.model.TinkerBlockStateProvider;
-import slimeknights.tconstruct.common.data.model.TinkerItemModelProvider;
-import slimeknights.tconstruct.common.data.model.TinkerSpriteSourceProvider;
-import slimeknights.tconstruct.common.data.render.RenderFluidProvider;
-import slimeknights.tconstruct.common.data.render.RenderItemProvider;
 import slimeknights.tconstruct.common.json.BlockOrEntityCondition;
 import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
@@ -57,6 +49,7 @@ import slimeknights.tconstruct.library.json.condition.TagIntersectionPresentCond
 import slimeknights.tconstruct.library.json.condition.TagNotEmptyCondition;
 import slimeknights.tconstruct.library.json.loot.HasLootContextSetCondition;
 import slimeknights.tconstruct.library.json.loot.TagPreferenceLootEntry;
+import slimeknights.tconstruct.library.json.predicate.tool.ToolStackItemPredicate;
 import slimeknights.tconstruct.library.json.predicate.BlockAtFeetEntityPredicate;
 import slimeknights.tconstruct.library.json.predicate.BlockVariableRangePredicate;
 import slimeknights.tconstruct.library.json.predicate.EntityVariableRangePredicate;
@@ -79,7 +72,6 @@ import slimeknights.tconstruct.shared.block.SoulGlassPaneBlock;
 import slimeknights.tconstruct.shared.block.WaxedPlatformBlock;
 import slimeknights.tconstruct.shared.block.WeatheringPlatformBlock;
 import slimeknights.tconstruct.shared.command.TConstructCommand;
-import slimeknights.tconstruct.shared.data.CommonRecipeProvider;
 import slimeknights.tconstruct.shared.inventory.BlockContainerOpenedTrigger;
 import slimeknights.tconstruct.shared.item.CheeseBlockItem;
 import slimeknights.tconstruct.shared.item.CheeseItem;
@@ -109,11 +101,12 @@ public final class TinkerCommons extends TinkerModule {
   /**
    * @deprecated Use {@link #glowBlock}
    */
+  @SuppressWarnings({"unchecked", "rawtypes"})
   @Deprecated(forRemoval = true)
-  public static final RegistryObject<GlowBlock> glow = RegistryObject.create(glowBlock.getId(), ForgeRegistries.BLOCKS);
+  public static final RegistryObject<GlowBlock> glow = (RegistryObject)RegistryObject.create(glowBlock.getId(), ForgeRegistries.BLOCKS);
   // glass
   public static final ItemObject<GlassBlock> clearGlass = BLOCKS.register("clear_glass", () -> new GlassBlock(glassBuilder(MapColor.NONE)), BLOCK_ITEM);
-  public static final ItemObject<TintedGlassBlock> clearTintedGlass = BLOCKS.register("clear_tinted_glass", () -> new TintedGlassBlock(glassBuilder(MapColor.COLOR_GRAY).noOcclusion().isValidSpawn(Blocks::never).isRedstoneConductor(Blocks::never).isSuffocating(Blocks::never).isViewBlocking(Blocks::never)), BLOCK_ITEM);
+  public static final ItemObject<TintedGlassBlock> clearTintedGlass = BLOCKS.register("clear_tinted_glass", () -> new TintedGlassBlock(glassBuilder(MapColor.COLOR_GRAY).noOcclusion().isValidSpawn((state, level, pos, entity) -> false).isRedstoneConductor((state, level, pos) -> false).isSuffocating((state, level, pos) -> false).isViewBlocking((state, level, pos) -> false)), BLOCK_ITEM);
   public static final ItemObject<ClearGlassPaneBlock> clearGlassPane = BLOCKS.register("clear_glass_pane", () -> new ClearGlassPaneBlock(glassBuilder(MapColor.NONE)), BLOCK_ITEM);
   public static final EnumObject<GlassColor,ClearStainedGlassBlock> clearStainedGlass = BLOCKS.registerEnum(GlassColor.values(), "clear_stained_glass", (color) -> new ClearStainedGlassBlock(glassBuilder(color.getDye().getMapColor()), color), BLOCK_ITEM);
   public static final EnumObject<GlassColor,ClearStainedGlassPaneBlock> clearStainedGlassPane = BLOCKS.registerEnum(GlassColor.values(), "clear_stained_glass_pane", (color) -> new ClearStainedGlassPaneBlock(glassBuilder(color.getDye().getMapColor()), color), BLOCK_ITEM);
@@ -156,19 +149,31 @@ public final class TinkerCommons extends TinkerModule {
   public static final ItemObject<TinkerBookItem> encyclopedia     = ITEMS.register("encyclopedia",      () -> new TinkerBookItem(UNSTACKABLE_PROPS, BookType.ENCYCLOPEDIA));
 
   public static final RegistryObject<ParticleType<FluidParticleData>> fluidParticle = PARTICLE_TYPES.register("fluid", FluidParticleData.Type::new);
+  public static final RegistryObject<ItemSubPredicate.Type<ToolStackItemPredicate>> toolStackItemPredicate = ITEM_SUB_PREDICATES.register("tool_stack", () -> new ItemSubPredicate.Type<>(ToolStackItemPredicate.CODEC));
 
   /* Loot conditions */
-  public static final RegistryObject<LootItemConditionType> lootConfig = LOOT_CONDITIONS.register(ConfigEnabledCondition.ID.getPath(), () -> new LootItemConditionType(ConfigEnabledCondition.SERIALIZER));
-  public static final RegistryObject<LootItemConditionType> lootBlockOrEntity = LOOT_CONDITIONS.register("block_or_entity", () -> new LootItemConditionType(new BlockOrEntityCondition.ConditionSerializer()));
-  public static final RegistryObject<LootItemConditionType> hasLootContextSet = LOOT_CONDITIONS.register("has_context_set", () -> new LootItemConditionType(new HasLootContextSetCondition.Serializer()));
+  public static final RegistryObject<LootItemConditionType> lootConfig = LOOT_CONDITIONS.register(ConfigEnabledCondition.ID.getPath(), () -> new LootItemConditionType(ConfigEnabledCondition.CODEC));
+  public static final RegistryObject<LootItemConditionType> lootBlockOrEntity = LOOT_CONDITIONS.register("block_or_entity", () -> new LootItemConditionType(BlockOrEntityCondition.CODEC));
+  public static final RegistryObject<LootItemConditionType> hasLootContextSet = LOOT_CONDITIONS.register("has_context_set", () -> new LootItemConditionType(HasLootContextSetCondition.CODEC));
   /** @deprecated use {@link slimeknights.mantle.loot.MantleLoot#TAG_FILLED} */
   @SuppressWarnings("removal")
   @Deprecated(forRemoval = true)
-  public static final RegistryObject<LootItemConditionType> lootTagNotEmptyCondition = LOOT_CONDITIONS.register("tag_not_empty", () -> new LootItemConditionType(new TagNotEmptyCondition.ConditionSerializer()));
+  public static final RegistryObject<LootItemConditionType> lootTagNotEmptyCondition = LOOT_CONDITIONS.register("tag_not_empty", () -> new LootItemConditionType(TagNotEmptyCondition.CODEC));
   /** @deprecated use {@link slimeknights.mantle.loot.MantleLoot#TAG_PREFERENCE} */
   @SuppressWarnings("removal")
   @Deprecated(forRemoval = true)
-  public static final RegistryObject<LootPoolEntryType> lootTagPreference = LOOT_ENTRIES.register("tag_preference", () -> new LootPoolEntryType(new TagPreferenceLootEntry.Serializer()));
+  public static final RegistryObject<LootPoolEntryType> lootTagPreference = LOOT_ENTRIES.register("tag_preference", () -> new LootPoolEntryType(TagPreferenceLootEntry.CODEC));
+  public static final RegistryObject<IngredientType<NoContainerIngredient>> noContainerIngredient = INGREDIENT_TYPES.register("no_container", () -> new IngredientType<>(NoContainerIngredient.Serializer.INSTANCE.codec(), NoContainerIngredient.Serializer.INSTANCE.streamCodec()));
+  public static final RegistryObject<IngredientType<BlockTagIngredient>> blockTagIngredient = INGREDIENT_TYPES.register("block_tag", () -> new IngredientType<>(BlockTagIngredient.Serializer.INSTANCE.codec(), BlockTagIngredient.Serializer.INSTANCE.streamCodec()));
+
+  /* Recipe conditions */
+  public static final RegistryObject<com.mojang.serialization.MapCodec<? extends ICondition>> configCondition = CONDITION_CODECS.register(ConfigEnabledCondition.ID.getPath(), () -> ConfigEnabledCondition.CODEC);
+  @SuppressWarnings("removal")
+  public static final RegistryObject<com.mojang.serialization.MapCodec<? extends ICondition>> tagIntersectionPresentCondition = CONDITION_CODECS.register("tag_intersection_present", () -> TagIntersectionPresentCondition.CODEC);
+  @SuppressWarnings("removal")
+  public static final RegistryObject<com.mojang.serialization.MapCodec<? extends ICondition>> tagDifferencePresentCondition = CONDITION_CODECS.register("tag_difference_present", () -> TagDifferencePresentCondition.CODEC);
+  @SuppressWarnings("removal")
+  public static final RegistryObject<com.mojang.serialization.MapCodec<? extends ICondition>> tagNotEmptyCondition = CONDITION_CODECS.register("tag_not_empty", () -> TagNotEmptyCondition.CODEC);
 
   /* Slime Balls are edible, believe it or not */
   public static final EnumObject<SlimeType, Item> slimeball = new EnumObject.Builder<SlimeType, Item>(SlimeType.class)
@@ -180,7 +185,7 @@ public final class TinkerCommons extends TinkerModule {
 
   public TinkerCommons() {
     TConstructCommand.init();
-    MinecraftForge.EVENT_BUS.addListener(RecipeCacheInvalidator::onReloadListenerReload);
+    NeoForge.EVENT_BUS.addListener(RecipeCacheInvalidator::onReloadListenerReload);
   }
 
   @SubscribeEvent
@@ -192,17 +197,7 @@ public final class TinkerCommons extends TinkerModule {
   @SubscribeEvent
   void registerRecipeSerializers(RegisterEvent event) {
     if (event.getRegistryKey() == Registries.RECIPE_SERIALIZER) {
-      CraftingHelper.register(NoContainerIngredient.ID, NoContainerIngredient.Serializer.INSTANCE);
-      CraftingHelper.register(BlockTagIngredient.Serializer.ID, BlockTagIngredient.Serializer.INSTANCE);
-      CraftingHelper.register(ConfigEnabledCondition.SERIALIZER);
-      CriteriaTriggers.register(CONTAINER_OPENED_TRIGGER);
-
-      //noinspection removal
-      CraftingHelper.register(TagIntersectionPresentCondition.SERIALIZER);
-      //noinspection removal
-      CraftingHelper.register(TagDifferencePresentCondition.SERIALIZER);
-      //noinspection removal
-      CraftingHelper.register(new TagNotEmptyCondition.ConditionSerializer());
+      CriteriaTriggers.register(TConstruct.getResource("block_container_opened").toString(), CONTAINER_OPENED_TRIGGER);
       // mantle
       DamageSourcePredicate.LOADER.register(getResource("direct"), TinkerPredicate.DIRECT_DAMAGE.getLoader());
       // entity
@@ -226,21 +221,6 @@ public final class TinkerCommons extends TinkerModule {
       BlockPredicate.LOADER.register(getResource("harvest_tier"), HarvestTierPredicate.LOADER);
       BlockPredicate.LOADER.register(getResource("variable_range"), BlockVariableRangePredicate.LOADER);
     }
-  }
-
-  @SubscribeEvent
-  void gatherData(final GatherDataEvent event) {
-    DataGenerator generator = event.getGenerator();
-    PackOutput output = generator.getPackOutput();
-    ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
-    boolean client = event.includeClient();
-    generator.addProvider(client, new ModelSpriteProvider(output, existingFileHelper));
-    generator.addProvider(client, new TinkerSpriteSourceProvider(output, existingFileHelper));
-    generator.addProvider(client, new TinkerItemModelProvider(output, existingFileHelper));
-    generator.addProvider(client, new TinkerBlockStateProvider(output, existingFileHelper));
-    generator.addProvider(client, new RenderFluidProvider(output));
-    generator.addProvider(client, new RenderItemProvider(output));
-    generator.addProvider(event.includeServer(), new CommonRecipeProvider(output));
   }
 
   /** Adds all relevant items to the creative tab */

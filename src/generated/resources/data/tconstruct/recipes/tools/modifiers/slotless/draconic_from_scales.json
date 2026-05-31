@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/slotless/draconic_from_scales",
   "allow_crystal": false,
   "inputs": [
     {

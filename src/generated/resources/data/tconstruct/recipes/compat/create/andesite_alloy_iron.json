@@ -1,19 +1,20 @@
 {
   "type": "tconstruct:casting_basin",
+  "id": "tconstruct:compat/create/andesite_alloy_iron",
   "cast": {
     "item": "minecraft:andesite"
   },
   "cast_consumed": true,
-  "conditions": [
+  "neoforge:conditions": [
     {
-      "type": "forge:mod_loaded",
+      "type": "neoforge:mod_loaded",
       "modid": "create"
     }
   ],
   "cooling_time": 20,
   "fluid": {
     "amount": 10,
-    "tag": "forge:molten_iron"
+    "tag": "c:molten_iron"
   },
   "result": "create:andesite_alloy"
 }

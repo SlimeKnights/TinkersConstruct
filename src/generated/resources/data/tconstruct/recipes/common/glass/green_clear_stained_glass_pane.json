@@ -13,7 +13,7 @@
   ],
   "result": {
     "count": 16,
-    "item": "tconstruct:green_clear_stained_glass_pane"
+    "id": "tconstruct:green_clear_stained_glass_pane"
   },
   "show_notification": true
 }

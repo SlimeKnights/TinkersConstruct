@@ -6,5 +6,7 @@
   "ingredient": {
     "item": "tconstruct:scorched_stone"
   },
-  "result": "tconstruct:scorched_road"
+  "result": {
+    "id": "tconstruct:scorched_road"
+  }
 }

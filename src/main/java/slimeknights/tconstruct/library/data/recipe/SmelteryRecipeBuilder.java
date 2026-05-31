@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.data.recipes.FinishedRecipe;
+import slimeknights.mantle.compat.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
@@ -15,13 +15,13 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.crafting.ConditionalRecipe;
-import net.minecraftforge.common.crafting.DifferenceIngredient;
-import net.minecraftforge.common.crafting.IntersectionIngredient;
-import net.minecraftforge.common.crafting.conditions.ICondition;
-import net.minecraftforge.common.crafting.conditions.ItemExistsCondition;
-import net.minecraftforge.common.crafting.conditions.TrueCondition;
+import net.neoforged.neoforge.common.Tags;
+import slimeknights.tconstruct.compat.neoforged.neoforge.common.crafting.ConditionalRecipe;
+import net.neoforged.neoforge.common.crafting.DifferenceIngredient;
+import net.neoforged.neoforge.common.crafting.IntersectionIngredient;
+import net.neoforged.neoforge.common.conditions.ICondition;
+import net.neoforged.neoforge.common.conditions.ItemExistsCondition;
+import net.neoforged.neoforge.common.conditions.TrueCondition;
 import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.recipe.condition.TagCombinationCondition;
 import slimeknights.mantle.recipe.condition.TagFilledCondition;
@@ -245,7 +245,7 @@ public class SmelteryRecipeBuilder {
   /** Adds a recipe for melting a list of items. Never optional */
   @SuppressWarnings("removal")
   private void minecraftArmorMelting(int cost, String prefix, String name) {
-    Item item = BuiltInRegistries.ITEM.get(new ResourceLocation(prefix + '_' + name));
+    Item item = BuiltInRegistries.ITEM.get(ResourceLocation.parse(prefix + '_' + name));
     if (item == Items.AIR) {
       throw new IllegalArgumentException("Unknown item name minecraft:" + name);
     }
@@ -433,7 +433,7 @@ public class SmelteryRecipeBuilder {
   /** Adds a recipe for melting a tool from the given mod */
   @SuppressWarnings("removal")
   public SmelteryRecipeBuilder itemMelting(float scale, String domain, String path, boolean damagable) {
-    itemMelting(scale, domain + '_' + path, (float)Math.sqrt(scale), new ResourceLocation(domain, path), damagable);
+    itemMelting(scale, domain + '_' + path, (float)Math.sqrt(scale), ResourceLocation.fromNamespaceAndPath(domain, path), damagable);
     return this;
   }
 

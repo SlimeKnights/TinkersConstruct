@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.fluids.data;
 
 import net.minecraft.data.PackOutput;
-import net.minecraftforge.fluids.FluidType;
+import net.neoforged.neoforge.fluids.FluidType;
 import slimeknights.mantle.fluid.tooltip.AbstractFluidTooltipProvider;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.recipe.FluidValues;

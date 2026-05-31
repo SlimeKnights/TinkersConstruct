@@ -13,7 +13,7 @@
   ],
   "conditions": [
     {
-      "type": "forge:or",
+      "type": "neoforge:or",
       "values": [
         {
           "type": "tconstruct:config",
@@ -21,7 +21,7 @@
         },
         {
           "type": "mantle:tag_filled",
-          "tag": "forge:ingots/chromium"
+          "tag": "c:ingots/chromium"
         }
       ]
     }
@@ -45,6 +45,6 @@
   ],
   "fluid": {
     "amount": 10,
-    "tag": "forge:molten_chromium"
+    "tag": "c:molten_chromium"
   }
 }

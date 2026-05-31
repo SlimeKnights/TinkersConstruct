@@ -1,13 +1,14 @@
 {
   "type": "tconstruct:material",
-  "conditions": [
+  "id": "tconstruct:tools/materials/electrum/nugget",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:nuggets/electrum"
+      "tag": "c:nuggets/electrum"
     }
   ],
   "ingredient": {
-    "tag": "forge:nuggets/electrum"
+    "tag": "c:nuggets/electrum"
   },
   "material": "tconstruct:electrum",
   "needed": 9,

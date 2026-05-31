@@ -1,12 +1,13 @@
 {
   "type": "tconstruct:ore_melting",
+  "id": "tconstruct:smeltery/melting/slime/earth/bud_small",
   "ingredient": {
     "item": "tconstruct:small_earth_slime_crystal_bud"
   },
   "rate": "gem",
   "result": {
     "amount": 250,
-    "tag": "forge:slime"
+    "tag": "c:slime"
   },
   "temperature": 50,
   "time": 31

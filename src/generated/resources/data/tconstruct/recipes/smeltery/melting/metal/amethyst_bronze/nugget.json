@@ -1,11 +1,12 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/amethyst_bronze/nugget",
   "ingredient": {
-    "tag": "forge:nuggets/amethyst_bronze"
+    "tag": "c:nuggets/amethyst_bronze"
   },
   "result": {
     "amount": 10,
-    "tag": "forge:molten_amethyst_bronze"
+    "tag": "c:molten_amethyst_bronze"
   },
   "temperature": 820,
   "time": 20

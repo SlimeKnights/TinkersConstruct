@@ -74,7 +74,7 @@
     {
       "type": "tconstruct:is_effective",
       "predicate_type": "mantle:tag",
-      "tag": "forge:mineable/sword"
+      "tag": "c:mineable/sword"
     },
     {
       "type": "tconstruct:mining_speed_modifier",

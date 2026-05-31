@@ -11,8 +11,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.mantle.Mantle;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.loadable.record.SingletonLoader;
@@ -74,7 +74,7 @@ public interface FluidEffect<C extends FluidEffectContext> extends IHaveLoader, 
     BlockState state = context.getBlockState();
     if (level.isFull() && state.getBlock() instanceof WeatheringCopper copper) {
       if (action.execute() && context.getLevel() instanceof ServerLevel world) {
-        copper.applyChangeOverTime(state, world, context.getBlockPos(), world.getRandom());
+        copper.getNext(state).ifPresent(next -> world.setBlockAndUpdate(context.getBlockPos(), next));
       }
       return 1;
     }
@@ -146,7 +146,7 @@ public interface FluidEffect<C extends FluidEffectContext> extends IHaveLoader, 
       return loaderId;
     }
     Mantle.logger.error("Failed to get default description for unregistered fluid effect loader {}", loader);
-    return new ResourceLocation("missingno");
+    return ResourceLocation.withDefaultNamespace("missingno");
   }
 
   /** Gets the string key for the given loader */

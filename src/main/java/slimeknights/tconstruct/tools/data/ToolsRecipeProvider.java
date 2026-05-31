@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.tools.data;
 
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.FinishedRecipe;
+import slimeknights.mantle.compat.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
@@ -11,10 +11,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.crafting.CompoundIngredient;
-import net.minecraftforge.common.crafting.DifferenceIngredient;
-import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
+import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.crafting.CompoundIngredient;
+import net.neoforged.neoforge.common.crafting.DifferenceIngredient;
+import net.neoforged.neoforge.common.conditions.ModLoadedCondition;
 import slimeknights.mantle.recipe.data.ItemNameIngredient;
 import slimeknights.mantle.recipe.ingredient.PotionDisplayIngredient;
 import slimeknights.mantle.recipe.ingredient.SizedIngredient;

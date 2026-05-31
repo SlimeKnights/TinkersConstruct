@@ -11,6 +11,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.stats.IRepairableMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatType;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
+import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.modules.ArmorModuleBuilder;
@@ -98,7 +99,7 @@ public record PlatingMaterialStats(MaterialStatType<?> getType, int durability, 
 
     /** Sets the durability for the piece based on the given factor */
     public Builder durabilityFactor(float maxDamageFactor) {
-      for (ArmorItem.Type slotType : ArmorItem.Type.values()) {
+      for (ArmorItem.Type slotType : ModifiableArmorMaterial.ARMOR_TYPES) {
         int index = slotType.ordinal();
         durability[index] = (int)(ArmorModuleBuilder.MAX_DAMAGE_ARRAY[index] * maxDamageFactor);
       }

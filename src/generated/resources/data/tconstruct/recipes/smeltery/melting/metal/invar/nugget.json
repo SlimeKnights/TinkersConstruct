@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/invar/nugget",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:nuggets/invar"
+      "tag": "c:nuggets/invar"
     }
   ],
   "ingredient": {
-    "tag": "forge:nuggets/invar"
+    "tag": "c:nuggets/invar"
   },
   "result": {
     "amount": 10,
-    "tag": "forge:molten_invar"
+    "tag": "c:molten_invar"
   },
   "temperature": 900,
   "time": 21

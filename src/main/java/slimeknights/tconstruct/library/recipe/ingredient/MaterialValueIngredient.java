@@ -9,8 +9,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraftforge.common.crafting.AbstractIngredient;
-import net.minecraftforge.common.crafting.IIngredientSerializer;
+import net.neoforged.neoforge.common.crafting.ICustomIngredient;
+import slimeknights.mantle.compat.neoforged.neoforge.common.crafting.IIngredientSerializer;
+import net.neoforged.neoforge.common.crafting.IngredientType;
 import slimeknights.mantle.data.loadable.field.LoadableField;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.tconstruct.TConstruct;
@@ -19,28 +20,31 @@ import slimeknights.tconstruct.library.json.predicate.material.MaterialPredicate
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipeCache;
+import slimeknights.tconstruct.shared.TinkerMaterials;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
+import java.util.Objects;
+import java.util.stream.Stream;
 
 /**
  * Ingredient matching material items with the given value. Typically, matches ingots or blocks
  */
 @Getter
 @RequiredArgsConstructor
-public class MaterialValueIngredient extends AbstractIngredient {
+public class MaterialValueIngredient implements ICustomIngredient {
   private final IJsonPredicate<MaterialVariantId> material;
   private final float minValue;
   private final float maxValue;
   private ItemStack[] items;
 
   /** Creates an ingredient matching a range of values */
-  public static MaterialValueIngredient of(IJsonPredicate<MaterialVariantId> materials, float minValue, float maxValue) {
-    return new MaterialValueIngredient(materials, minValue, maxValue);
+  public static Ingredient of(IJsonPredicate<MaterialVariantId> materials, float minValue, float maxValue) {
+    return new MaterialValueIngredient(materials, minValue, maxValue).toVanilla();
   }
 
   /** Creates an ingredient matching an exact value */
-  public static MaterialValueIngredient of(IJsonPredicate<MaterialVariantId> materials, float value) {
+  public static Ingredient of(IJsonPredicate<MaterialVariantId> materials, float value) {
     return of(materials, value, value);
   }
 
@@ -60,20 +64,14 @@ public class MaterialValueIngredient extends AbstractIngredient {
   }
 
   @Override
-  public ItemStack[] getItems() {
+  public Stream<ItemStack> getItems() {
     if (items == null) {
       items = MaterialRecipeCache.getAllRecipes().stream()
         .filter(this::test)
         .flatMap(material -> Arrays.stream(material.getIngredient().getItems()))
         .toArray(ItemStack[]::new);
     }
-    return items;
-  }
-
-  @Override
-  protected void invalidate() {
-    super.invalidate();
-    this.items = null;
+    return Arrays.stream(items);
   }
 
   @Override
@@ -118,7 +116,6 @@ public class MaterialValueIngredient extends AbstractIngredient {
 
   /* JSON */
 
-  @Override
   public JsonElement toJson() {
     JsonObject json = new JsonObject();
     json.addProperty("type", Serializer.ID.toString());
@@ -139,8 +136,18 @@ public class MaterialValueIngredient extends AbstractIngredient {
   }
 
   @Override
-  public IIngredientSerializer<? extends Ingredient> getSerializer() {
-    return Serializer.INSTANCE;
+  public IngredientType<?> getType() {
+    return TinkerMaterials.materialValueIngredient.get();
+  }
+
+  @Override
+  public boolean equals(Object object) {
+    return this == object || object instanceof MaterialValueIngredient that && Float.compare(minValue, that.minValue) == 0 && Float.compare(maxValue, that.maxValue) == 0 && material.equals(that.material);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(material, minValue, maxValue);
   }
 
 

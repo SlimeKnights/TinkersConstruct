@@ -3,13 +3,13 @@
   "category": "misc",
   "key": {
     "C": {
-      "tag": "forge:chests/wooden"
+      "tag": "c:chests/wooden"
     },
     "p": {
       "item": "tconstruct:pattern"
     },
     "s": {
-      "tag": "forge:rods/wooden"
+      "tag": "c:rods/wooden"
     },
     "w": {
       "tag": "minecraft:planks"
@@ -21,7 +21,7 @@
     "sws"
   ],
   "result": {
-    "item": "tconstruct:part_chest"
+    "id": "tconstruct:part_chest"
   },
   "show_notification": true
 }

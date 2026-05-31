@@ -1,3 +1,4 @@
 {
-  "type": "tconstruct:armor_dyeing_modifier"
+  "type": "tconstruct:armor_dyeing_modifier",
+  "id": "tconstruct:tools/modifiers/slotless/dyeing"
 }

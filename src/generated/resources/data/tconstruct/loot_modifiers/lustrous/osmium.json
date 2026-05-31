@@ -3,11 +3,11 @@
   "conditions": [
     {
       "condition": "mantle:block_tag",
-      "tag": "forge:ores/osmium"
+      "tag": "c:ores/osmium"
     },
     {
       "condition": "mantle:tag_filled",
-      "tag": "forge:nuggets/osmium"
+      "tag": "c:nuggets/osmium"
     },
     {
       "condition": "tconstruct:has_modifier",
@@ -16,7 +16,7 @@
   ],
   "entry": {
     "type": "mantle:tag_preference",
-    "tag": "forge:nuggets/osmium"
+    "tag": "c:nuggets/osmium"
   },
   "functions": [
     {
@@ -44,7 +44,7 @@
       "condition": {
         "type": "mantle:contains_item",
         "ingredient": {
-          "tag": "forge:ores/osmium"
+          "tag": "c:ores/osmium"
         }
       }
     }

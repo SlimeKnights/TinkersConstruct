@@ -3,10 +3,10 @@
   "category": "misc",
   "key": {
     "#": {
-      "tag": "forge:ingots/gold"
+      "tag": "c:ingots/gold"
     },
     ".": {
-      "tag": "forge:nuggets/gold"
+      "tag": "c:nuggets/gold"
     }
   },
   "pattern": [
@@ -16,7 +16,7 @@
   ],
   "result": {
     "count": 4,
-    "item": "tconstruct:gold_platform"
+    "id": "tconstruct:gold_platform"
   },
   "show_notification": true
 }

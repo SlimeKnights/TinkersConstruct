@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.fluids.item;
 
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -10,23 +11,25 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.PotionItem;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.PotionUtils;
+import slimeknights.tconstruct.compat.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidType;
-import net.minecraftforge.fluids.capability.wrappers.FluidBucketWrapper;
+import slimeknights.tconstruct.compat.neoforged.neoforge.capabilities.ICapabilityProvider;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidType;
+import net.neoforged.neoforge.fluids.capability.wrappers.FluidBucketWrapper;
+import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.Util;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 /** Implements filling a bucket with an NBT fluid */
@@ -43,7 +46,8 @@ public class PotionBucketItem extends PotionItem {
 
   @Override
   public String getDescriptionId(ItemStack stack) {
-    String bucketKey = PotionUtils.getPotion(stack.getTag()).getName(getDescriptionId() + ".effect.");
+    Holder<Potion> potion = PotionUtils.getPotion(TagUtil.getTag(stack));
+    String bucketKey = Potion.getName(Optional.of(potion), getDescriptionId() + ".effect.");
     if (Util.canTranslate(bucketKey)) {
       return bucketKey;
     }
@@ -52,13 +56,13 @@ public class PotionBucketItem extends PotionItem {
 
   @Override
   public Component getName(ItemStack stack) {
-    Potion potion = PotionUtils.getPotion(stack.getTag());
-    String bucketKey = potion.getName(getDescriptionId() + ".effect.");
+    Holder<Potion> potion = PotionUtils.getPotion(TagUtil.getTag(stack));
+    String bucketKey = Potion.getName(Optional.of(potion), getDescriptionId() + ".effect.");
     if (Util.canTranslate(bucketKey)) {
       return Component.translatable(bucketKey);
     }
     // default to filling with the contents
-    return Component.translatable(getDescriptionId() + ".contents", Component.translatable(potion.getName("item.minecraft.potion.effect.")));
+    return Component.translatable(getDescriptionId() + ".contents", Component.translatable(Potion.getName(Optional.of(potion), "item.minecraft.potion.effect.")));
   }
 
   @Override
@@ -76,11 +80,10 @@ public class PotionBucketItem extends PotionItem {
     // effects are 2x duration
     if (!level.isClientSide) {
       for (MobEffectInstance effect : PotionUtils.getMobEffects(stack)) {
-        if (effect.getEffect().isInstantenous()) {
-          effect.getEffect().applyInstantenousEffect(player, player, living, effect.getAmplifier(), 2.5D);
+        if (effect.getEffect().value().isInstantenous()) {
+          effect.getEffect().value().applyInstantenousEffect(player, player, living, effect.getAmplifier(), 2.5D);
         } else {
-          MobEffectInstance newEffect = new MobEffectInstance(effect);
-          newEffect.duration = newEffect.duration * 5 / 2;
+          MobEffectInstance newEffect = new MobEffectInstance(effect.getEffect(), effect.getDuration() * 5 / 2, effect.getAmplifier(), effect.isAmbient(), effect.isVisible(), effect.showIcon());
           living.addEffect(newEffect);
         }
       }
@@ -106,18 +109,13 @@ public class PotionBucketItem extends PotionItem {
   }
 
   @Override
-  public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
+  public void appendHoverText(ItemStack pStack, Item.TooltipContext pContext, List<Component> pTooltip, TooltipFlag pFlag) {
     PotionUtils.addPotionTooltip(pStack, pTooltip, 2.5f);
   }
 
   @Override
-  public int getUseDuration(ItemStack pStack) {
+  public int getUseDuration(ItemStack pStack, LivingEntity entity) {
     return 96; // 3x duration of potion bottles
-  }
-
-  @Override
-  public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
-    return new PotionBucketWrapper(stack);
   }
 
   public static class PotionBucketWrapper extends FluidBucketWrapper {
@@ -128,8 +126,9 @@ public class PotionBucketItem extends PotionItem {
     @Nonnull
     @Override
     public FluidStack getFluid() {
-      return new FluidStack(((PotionBucketItem)container.getItem()).getFluid(),
-                            FluidType.BUCKET_VOLUME, container.getTag());
+      FluidStack stack = new FluidStack(((PotionBucketItem)container.getItem()).getFluid(), FluidType.BUCKET_VOLUME);
+      TagUtil.setTag(stack, TagUtil.getTag(container));
+      return stack;
     }
   }
 }

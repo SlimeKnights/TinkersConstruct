@@ -12,7 +12,7 @@
   ],
   "result": {
     "count": 16,
-    "item": "tconstruct:clear_glass_pane"
+    "id": "tconstruct:clear_glass_pane"
   },
   "show_notification": true
 }

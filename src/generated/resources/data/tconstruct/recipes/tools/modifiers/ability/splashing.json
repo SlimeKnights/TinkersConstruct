@@ -1,22 +1,23 @@
 {
   "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/ability/splashing",
   "allow_crystal": true,
   "inputs": [
     {
-      "tag": "forge:bottles/splash"
+      "tag": "c:bottles/splash"
     },
     {
       "type": "tconstruct:no_container",
       "tag": "tconstruct:tanks"
     },
     {
-      "tag": "forge:bottles/splash"
+      "tag": "c:bottles/splash"
     },
     {
-      "tag": "forge:ingots/copper"
+      "tag": "c:ingots/copper"
     },
     {
-      "tag": "forge:ingots/copper"
+      "tag": "c:ingots/copper"
     }
   ],
   "result": "tconstruct:splashing",
@@ -24,7 +25,7 @@
     "abilities": 1
   },
   "tools": {
-    "type": "forge:intersection",
+    "type": "neoforge:intersection",
     "children": [
       {
         "tag": "tconstruct:modifiable/durability"

@@ -1,9 +1,10 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/ender/pearl",
   "cooling_time": 82,
   "fluid": {
     "amount": 250,
-    "tag": "forge:ender"
+    "tag": "c:ender"
   },
   "result": "minecraft:ender_pearl"
 }

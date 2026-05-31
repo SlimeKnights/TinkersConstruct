@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:casting_basin",
+  "id": "tconstruct:smeltery/casting/obsidian/nahuatl_slab",
   "cast": {
     "tag": "minecraft:wooden_slabs"
   },

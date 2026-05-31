@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/constantan/dust",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:dusts/constantan"
+      "tag": "c:dusts/constantan"
     }
   ],
   "ingredient": {
-    "tag": "forge:dusts/constantan"
+    "tag": "c:dusts/constantan"
   },
   "result": {
     "amount": 90,
-    "tag": "forge:molten_constantan"
+    "tag": "c:molten_constantan"
   },
   "temperature": 920,
   "time": 48

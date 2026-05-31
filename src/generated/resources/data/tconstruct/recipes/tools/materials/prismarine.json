@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/prismarine",
   "ingredient": {
-    "tag": "forge:dusts/prismarine"
+    "tag": "c:gems/prismarine"
   },
   "material": "tconstruct:prismarine",
   "needed": 1,

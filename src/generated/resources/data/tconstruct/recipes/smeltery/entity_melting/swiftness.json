@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:entity_melting",
+  "id": "tconstruct:smeltery/entity_melting/swiftness",
   "damage": 2,
   "entity": {
     "types": [
@@ -18,6 +19,6 @@
     "nbt": {
       "Potion": "minecraft:swiftness"
     },
-    "tag": "forge:potion"
+    "tag": "c:potion"
   }
 }

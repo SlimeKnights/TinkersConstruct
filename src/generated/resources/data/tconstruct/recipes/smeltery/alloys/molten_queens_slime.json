@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:alloy",
+  "id": "tconstruct:smeltery/alloys/molten_queens_slime",
   "inputs": [
     {
       "amount": 90,
-      "tag": "forge:molten_cobalt"
+      "tag": "c:molten_cobalt"
     },
     {
       "amount": 90,
-      "tag": "forge:molten_gold"
+      "tag": "c:molten_gold"
     },
     {
       "amount": 250,
-      "tag": "forge:magma"
+      "tag": "c:magma"
     }
   ],
   "result": {

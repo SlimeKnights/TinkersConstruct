@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:fixed_material_swapping",
+  "id": "tconstruct:tools/armor/slime_skull/swapping/glass",
   "index": 0,
   "ingredient": {
     "item": "minecraft:creeper_head"

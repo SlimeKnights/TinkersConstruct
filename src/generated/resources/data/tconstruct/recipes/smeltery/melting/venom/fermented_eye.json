@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/venom/fermented_eye",
   "ingredient": {
     "item": "minecraft:fermented_spider_eye"
   },

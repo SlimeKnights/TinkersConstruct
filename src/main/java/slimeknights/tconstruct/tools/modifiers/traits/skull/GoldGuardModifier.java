@@ -26,10 +26,9 @@ import slimeknights.tconstruct.library.utils.Util;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.UUID;
 
 public class GoldGuardModifier extends NoLevelsModifier implements EquipmentChangeModifierHook, TooltipModifierHook {
-  private static final UUID GOLD_GUARD_UUID = UUID.fromString("fbae11f1-b547-47e8-ae0c-f2cf24a46d93");
+  private static final net.minecraft.resources.ResourceLocation GOLD_GUARD_ID = TConstruct.getResource("gold_guard");
   private static final ComputableDataKey<GoldGuardGold> TOTAL_GOLD = TConstruct.createKey("gold_guard", GoldGuardGold::new);
 
   @Override
@@ -62,7 +61,7 @@ public class GoldGuardModifier extends NoLevelsModifier implements EquipmentChan
         context.getTinkerData().ifPresent(data -> data.remove(TOTAL_GOLD));
         AttributeInstance instance = context.getEntity().getAttribute(Attributes.MAX_HEALTH);
         if (instance != null) {
-          instance.removeModifier(GOLD_GUARD_UUID);
+          instance.removeModifier(GOLD_GUARD_ID);
         }
       }
     }
@@ -72,7 +71,7 @@ public class GoldGuardModifier extends NoLevelsModifier implements EquipmentChan
   public void onEquipmentChange(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context, EquipmentSlot slotType) {
     // adding a helmet? activate bonus
     EquipmentSlot changed = context.getChangedSlot();
-    if (slotType == EquipmentSlot.HEAD && changed.getType() == Type.ARMOR) {
+    if (slotType == EquipmentSlot.HEAD && changed.getType() == Type.HUMANOID_ARMOR) {
       LivingEntity living = context.getEntity();
       boolean hasGold = ChrysophiliteModifier.hasGold(context, changed);
       context.getTinkerData().ifPresent(data -> data.computeIfAbsent(TOTAL_GOLD).setGold(changed, hasGold, living));
@@ -84,9 +83,9 @@ public class GoldGuardModifier extends NoLevelsModifier implements EquipmentChan
     if (player != null && tooltipKey == TooltipKey.SHIFT) {
       AttributeInstance instance = player.getAttribute(Attributes.MAX_HEALTH);
       if (instance != null) {
-        AttributeModifier modifier = instance.getModifier(GOLD_GUARD_UUID);
+        AttributeModifier modifier = instance.getModifier(GOLD_GUARD_ID);
         if (modifier != null) {
-          tooltip.add(applyStyle(Component.literal(Util.BONUS_FORMAT.format(modifier.getAmount()) + " ")
+          tooltip.add(applyStyle(Component.literal(Util.BONUS_FORMAT.format(modifier.amount()) + " ")
                                    .append(Component.translatable(getTranslationKey() + "." + "health"))));
         }
       }
@@ -100,11 +99,11 @@ public class GoldGuardModifier extends NoLevelsModifier implements EquipmentChan
       // update attribute
       AttributeInstance instance = living.getAttribute(Attributes.MAX_HEALTH);
       if (instance != null) {
-        if (instance.getModifier(GOLD_GUARD_UUID) != null) {
-          instance.removeModifier(GOLD_GUARD_UUID);
+        if (instance.getModifier(GOLD_GUARD_ID) != null) {
+          instance.removeModifier(GOLD_GUARD_ID);
         }
         // +2 hearts per level, and a bonus of 2 for having the modifier
-        instance.addTransientModifier(new AttributeModifier(GOLD_GUARD_UUID, "tconstruct.gold_guard", getTotalGold() * 4, Operation.ADDITION));
+        instance.addTransientModifier(new AttributeModifier(GOLD_GUARD_ID, getTotalGold() * 4, Operation.ADD_VALUE));
       }
     }
 

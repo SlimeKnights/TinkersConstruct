@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
-import net.minecraftforge.client.model.data.ModelData;
+import net.neoforged.neoforge.client.model.data.ModelData;
 import slimeknights.mantle.block.entity.IRetexturedBlockEntity;
 import slimeknights.mantle.util.RetexturedHelper;
 import slimeknights.tconstruct.shared.block.entity.TableBlockEntity;
@@ -25,9 +25,8 @@ public abstract class RetexturedTableBlockEntity extends TableBlockEntity implem
   public RetexturedTableBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, Component name, int size) {
     super(type, pos, state, name, size);
   }
-  @Override
   public AABB getRenderBoundingBox() {
-    return new AABB(worldPosition, worldPosition.offset(1, 2, 1));
+    return new AABB(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), worldPosition.getX() + 1, worldPosition.getY() + 2, worldPosition.getZ() + 1);
   }
 
 

@@ -3,7 +3,7 @@ package slimeknights.tconstruct.tools.data.material;
 import net.minecraft.Util;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.armortrim.TrimMaterial;
@@ -26,7 +26,7 @@ public class TrimMaterialProvider {
   }
 
   /** Registers all trim materials with the context */
-  private static void registerTrimMaterials(BootstapContext<TrimMaterial> context) {
+  private static void registerTrimMaterials(BootstrapContext<TrimMaterial> context) {
     // we set model indexes as fallbacks for when trimmed is not installed so you have at least something on vanilla models
     material(context, MaterialIds.slimesteel,     TinkerMaterials.slimesteel,     0x27C6C6, 0.8f); // diamond
     material(context, MaterialIds.amethystBronze, TinkerMaterials.amethystBronze, 0xC687BD, 1.0f); // amethyst
@@ -49,12 +49,12 @@ public class TrimMaterialProvider {
   }
 
   /** Registers a trim materials using the ingot with the context */
-  private static void material(BootstapContext<TrimMaterial> context, MaterialId material, MetalItemObject ingredient, int color, float modelIndex) {
+  private static void material(BootstrapContext<TrimMaterial> context, MaterialId material, MetalItemObject ingredient, int color, float modelIndex) {
     material(context, material, ingredient.getIngot(), color, modelIndex);
   }
 
   /** Registers a trim materials with the context */
-  private static void material(BootstapContext<TrimMaterial> context, MaterialId material, ItemLike ingredient, int color, float modelIndex) {
+  private static void material(BootstrapContext<TrimMaterial> context, MaterialId material, ItemLike ingredient, int color, float modelIndex) {
     context.register(
       ResourceKey.create(Registries.TRIM_MATERIAL, material),
       TrimMaterial.create(material.getSuffix(), ingredient.asItem(), modelIndex,

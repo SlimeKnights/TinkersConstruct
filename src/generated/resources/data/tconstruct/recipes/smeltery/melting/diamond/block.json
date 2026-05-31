@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/diamond/block",
   "ingredient": {
-    "tag": "forge:storage_blocks/diamond"
+    "tag": "c:storage_blocks/diamond"
   },
   "result": {
     "amount": 900,

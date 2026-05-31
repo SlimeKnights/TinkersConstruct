@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/platinum/dust",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:dusts/platinum"
+      "tag": "c:dusts/platinum"
     }
   ],
   "ingredient": {
-    "tag": "forge:dusts/platinum"
+    "tag": "c:dusts/platinum"
   },
   "result": {
     "amount": 90,
-    "tag": "forge:molten_platinum"
+    "tag": "c:molten_platinum"
   },
   "temperature": 970,
   "time": 49

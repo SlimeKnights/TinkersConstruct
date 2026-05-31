@@ -26,7 +26,7 @@ public record GsonLoadable<T>(Gson gson, Class<T> classType) implements Loadable
 
   @Override
   public T decode(FriendlyByteBuf buffer, TypedMap context) {
-    CompoundTag tag = buffer.readAnySizeNbt();
+    CompoundTag tag = buffer.readNbt();
     if (tag != null) {
       return gson.fromJson(NbtOps.INSTANCE.convertTo(JsonOps.INSTANCE, tag), classType);
     }

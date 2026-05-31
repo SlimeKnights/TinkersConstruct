@@ -13,7 +13,7 @@
   ],
   "conditions": [
     {
-      "type": "forge:mod_loaded",
+      "type": "neoforge:mod_loaded",
       "modid": "immersiveengineering"
     }
   ],
@@ -33,6 +33,6 @@
   ],
   "fluid": {
     "amount": 50,
-    "tag": "forge:biodiesel"
+    "tag": "c:biodiesel"
   }
 }

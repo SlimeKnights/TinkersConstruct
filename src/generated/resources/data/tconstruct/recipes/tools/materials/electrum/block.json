@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:material",
-  "conditions": [
+  "id": "tconstruct:tools/materials/electrum/block",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:storage_blocks/electrum"
+      "tag": "c:storage_blocks/electrum"
     }
   ],
   "ingredient": {
-    "tag": "forge:storage_blocks/electrum"
+    "tag": "c:storage_blocks/electrum"
   },
   "leftover": {
     "count": 1,
-    "tag": "forge:ingots/electrum"
+    "tag": "c:ingots/electrum"
   },
   "material": "tconstruct:electrum",
   "needed": 1,

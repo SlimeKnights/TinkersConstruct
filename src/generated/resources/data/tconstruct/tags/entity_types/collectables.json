@@ -3,10 +3,10 @@
     "minecraft:item",
     "tconstruct:indestructible_item",
     "minecraft:experience_orb",
-    "#forge:tridents",
+    "#c:tridents",
     "#tconstruct:collectables/discardable",
     {
-      "id": "#forge:collectables",
+      "id": "#c:collectables",
       "required": false
     }
   ]

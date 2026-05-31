@@ -1,25 +1,26 @@
 {
   "type": "tconstruct:ore_melting",
+  "id": "tconstruct:smeltery/melting/metal/iron/geore/cluster",
   "byproducts": [
     {
       "amount": 360,
       "rate": "metal",
-      "tag": "forge:molten_steel"
+      "tag": "c:molten_steel"
     }
   ],
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:geore_clusters/iron"
+      "tag": "c:geore_clusters/iron"
     }
   ],
   "ingredient": {
-    "tag": "forge:geore_clusters/iron"
+    "tag": "c:geore_clusters/iron"
   },
   "rate": "metal",
   "result": {
     "amount": 360,
-    "tag": "forge:molten_iron"
+    "tag": "c:molten_iron"
   },
   "temperature": 800,
   "time": 150

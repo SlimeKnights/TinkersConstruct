@@ -7,10 +7,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.crafting.conditions.ICondition.IContext;
-import net.minecraftforge.event.AddReloadListenerEvent;
-import net.minecraftforge.event.OnDatapackSyncEvent;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.common.conditions.ICondition.IContext;
+import net.neoforged.neoforge.event.AddReloadListenerEvent;
+import net.neoforged.neoforge.event.OnDatapackSyncEvent;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.mantle.util.typed.TypedMapBuilder;
@@ -48,8 +48,8 @@ public class ToolDefinitionLoader extends SimpleJsonResourceReloadListener {
 
   /** Initializes the tool definition loader */
   public static void init() {
-    MinecraftForge.EVENT_BUS.addListener(INSTANCE::addDataPackListeners);
-    MinecraftForge.EVENT_BUS.addListener(INSTANCE::onDatapackSync);
+    NeoForge.EVENT_BUS.addListener(INSTANCE::addDataPackListeners);
+    NeoForge.EVENT_BUS.addListener(INSTANCE::onDatapackSync);
   }
 
   /**

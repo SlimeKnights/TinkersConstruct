@@ -1,15 +1,16 @@
 {
   "type": "tconstruct:material_melting",
-  "conditions": [
+  "id": "tconstruct:tools/materials/melting/osmium",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:ingots/osmium"
+      "tag": "c:ingots/osmium"
     }
   ],
   "input": "tconstruct:osmium",
   "result": {
     "amount": 90,
-    "tag": "forge:molten_osmium"
+    "tag": "c:molten_osmium"
   },
   "temperature": 975
 }

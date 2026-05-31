@@ -1,5 +1,5 @@
 {
-  "entity": "#forge:piglins",
+  "entity": "#c:piglins",
   "equip": {
     "chance": 0.05,
     "match": {

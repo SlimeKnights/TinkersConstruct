@@ -5,7 +5,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.server.packs.resources.ResourceManager;
-import net.minecraftforge.event.AddReloadListenerEvent;
+import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import slimeknights.mantle.data.listener.IEarlySafeManagerReloadListener;
 
 import java.util.ArrayList;

@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:basin_filling",
+  "id": "tconstruct:smeltery/casting/filling/seared_fuel_gauge",
   "container": "tconstruct:seared_fuel_gauge",
   "fluid_amount": 250
 }

@@ -7,5 +7,7 @@
   "ingredient": {
     "item": "tconstruct:sky_slime_crystal"
   },
-  "result": "tconstruct:sky_slime_ball"
+  "result": {
+    "id": "tconstruct:sky_slime_ball"
+  }
 }

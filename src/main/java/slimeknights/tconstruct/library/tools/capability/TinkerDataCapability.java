@@ -6,16 +6,15 @@ import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.common.capabilities.CapabilityToken;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.neoforge.common.NeoForge;
+import slimeknights.mantle.compat.neoforged.neoforge.capabilities.Capability;
+import slimeknights.tconstruct.compat.neoforged.neoforge.capabilities.CapabilityManager;
+import slimeknights.tconstruct.compat.neoforged.neoforge.capabilities.CapabilityToken;
+import slimeknights.tconstruct.compat.neoforged.neoforge.capabilities.ICapabilityProvider;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import slimeknights.mantle.compat.neoforged.neoforge.common.util.LazyOptional;
+import slimeknights.tconstruct.compat.neoforged.neoforge.event.AttachCapabilitiesEvent;
+import net.neoforged.bus.api.EventPriority;
 import slimeknights.mantle.registration.object.IdAwareObject;
 import slimeknights.tconstruct.TConstruct;
 
@@ -23,6 +22,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.IdentityHashMap;
 import java.util.Map;
+import java.util.WeakHashMap;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -37,16 +37,17 @@ public class TinkerDataCapability {
   private static final ResourceLocation ID = TConstruct.getResource("modifier_data");
   /** Capability type */
   public static final Capability<Holder> CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {});
+  /** 1.21 replacement for the old transient entity capability. */
+  private static final Map<Entity, Holder> DATA = new WeakHashMap<>();
 
   /** Registers this capability */
   public static void register() {
-    FMLJavaModLoadingContext.get().getModEventBus().addListener(EventPriority.NORMAL, false, RegisterCapabilitiesEvent.class, TinkerDataCapability::register);
-    MinecraftForge.EVENT_BUS.addGenericListener(Entity.class, TinkerDataCapability::attachCapability);
+    slimeknights.tconstruct.TConstruct.getModBus().addListener(EventPriority.NORMAL, false, RegisterCapabilitiesEvent.class, TinkerDataCapability::register);
   }
 
   /** Registers the capability with the event bus */
   private static void register(RegisterCapabilitiesEvent event) {
-    event.register(Holder.class);
+    // Entity data moved to a transient map in the 1.21 port.
   }
 
   /** Event listener to attach the capability */
@@ -62,7 +63,20 @@ public class TinkerDataCapability {
   @SuppressWarnings("DataFlowIssue")
   @Nullable
   public static TinkerDataCapability.Holder getData(LivingEntity entity) {
-    return entity.getCapability(CAPABILITY).orElse(null);
+    return DATA.computeIfAbsent(entity, ignored -> new Holder());
+  }
+
+  /** Gets the data as a lazy optional for old call sites. */
+  public static LazyOptional<Holder> getCapability(LivingEntity entity) {
+    return LazyOptional.of(() -> getData(entity));
+  }
+
+  /** Gets the data as a lazy optional if the entity can hold it. */
+  public static LazyOptional<Holder> getCapability(Entity entity) {
+    if (entity instanceof LivingEntity living) {
+      return getCapability(living);
+    }
+    return LazyOptional.empty();
   }
 
 

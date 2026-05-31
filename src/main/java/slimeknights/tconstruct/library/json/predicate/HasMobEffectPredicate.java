@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.json.predicate;
 
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.LivingEntity;
 import slimeknights.mantle.data.loadable.Loadables;
@@ -17,7 +18,7 @@ public record HasMobEffectPredicate(MobEffect effect) implements LivingEntityPre
 
   @Override
   public boolean matches(LivingEntity living) {
-    return living.hasEffect(effect);
+    return living.hasEffect(BuiltInRegistries.MOB_EFFECT.wrapAsHolder(effect));
   }
 
   @Override

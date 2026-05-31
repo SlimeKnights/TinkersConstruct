@@ -1,23 +1,24 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/ironwood/block",
   "byproducts": [
     {
       "amount": 90,
-      "tag": "forge:molten_gold"
+      "tag": "c:molten_gold"
     }
   ],
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:storage_blocks/ironwood"
+      "tag": "c:storage_blocks/ironwood"
     }
   ],
   "ingredient": {
-    "tag": "forge:storage_blocks/ironwood"
+    "tag": "c:storage_blocks/ironwood"
   },
   "result": {
     "amount": 810,
-    "tag": "forge:molten_iron"
+    "tag": "c:molten_iron"
   },
   "temperature": 800,
   "time": 180

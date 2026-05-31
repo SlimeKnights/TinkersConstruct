@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/slimesteel/ingot",
   "ingredient": {
-    "tag": "forge:ingots/slimesteel"
+    "tag": "c:ingots/slimesteel"
   },
   "result": {
     "amount": 90,

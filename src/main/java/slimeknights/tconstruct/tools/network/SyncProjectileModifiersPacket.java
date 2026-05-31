@@ -4,7 +4,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.network.NetworkEvent.Context;
+import slimeknights.mantle.compat.neoforged.neoforge.network.NetworkEvent.Context;
 import slimeknights.mantle.client.SafeClientAccess;
 import slimeknights.mantle.data.loadable.Streamable;
 import slimeknights.mantle.network.packet.IThreadsafePacket;

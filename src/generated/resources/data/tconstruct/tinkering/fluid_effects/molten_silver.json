@@ -1,7 +1,7 @@
 {
   "conditions": [
     {
-      "type": "forge:or",
+      "type": "neoforge:or",
       "values": [
         {
           "type": "tconstruct:config",
@@ -9,7 +9,7 @@
         },
         {
           "type": "mantle:tag_filled",
-          "tag": "forge:ingots/silver"
+          "tag": "c:ingots/silver"
         }
       ]
     }
@@ -30,6 +30,6 @@
   ],
   "fluid": {
     "amount": 10,
-    "tag": "forge:molten_silver"
+    "tag": "c:molten_silver"
   }
 }

@@ -1,9 +1,10 @@
 {
   "type": "tconstruct:incremental_modifier",
+  "id": "tconstruct:tools/modifiers/upgrade/sharpness_from_block",
   "allow_crystal": false,
   "amount_per_item": 4,
   "input": {
-    "tag": "forge:storage_blocks/quartz"
+    "tag": "c:storage_blocks/quartz"
   },
   "leftover": "minecraft:quartz",
   "level": {

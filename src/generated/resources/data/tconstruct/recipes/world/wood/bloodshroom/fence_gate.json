@@ -15,7 +15,7 @@
     "#W#"
   ],
   "result": {
-    "item": "tconstruct:bloodshroom_fence_gate"
+    "id": "tconstruct:bloodshroom_fence_gate"
   },
   "show_notification": true
 }

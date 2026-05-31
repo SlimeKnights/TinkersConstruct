@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/skyslime_vine",
   "ingredient": {
     "item": "tconstruct:sky_slime_vine"
   },

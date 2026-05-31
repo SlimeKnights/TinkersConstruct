@@ -1,11 +1,12 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/slime/magma/ball",
   "ingredient": {
     "item": "minecraft:magma_cream"
   },
   "result": {
     "amount": 250,
-    "tag": "forge:magma"
+    "tag": "c:magma"
   },
   "temperature": 300,
   "time": 42

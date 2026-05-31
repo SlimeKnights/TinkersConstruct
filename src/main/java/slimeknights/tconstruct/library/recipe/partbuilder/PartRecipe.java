@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -126,7 +127,7 @@ public class PartRecipe implements IPartBuilderRecipe, IMultiRecipe<IDisplayPart
   /** @deprecated use {@link #getRecipeOutput(MaterialVariantId)} */
   @Deprecated
   @Override
-  public ItemStack getResultItem(RegistryAccess access) {
+  public ItemStack getResultItem(HolderLookup.Provider access) {
     return new ItemStack(output);
   }
 
@@ -149,7 +150,7 @@ public class PartRecipe implements IPartBuilderRecipe, IMultiRecipe<IDisplayPart
   }
 
   @Override
-  public ItemStack assemble(IPartBuilderContainer inv, RegistryAccess access) {
+  public ItemStack assemble(IPartBuilderContainer inv, HolderLookup.Provider access) {
     MaterialVariant material = MaterialVariant.UNKNOWN;
     int count = outputCount;
     IMaterialValue materialRecipe = inv.getMaterial();

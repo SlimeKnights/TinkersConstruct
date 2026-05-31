@@ -1,9 +1,10 @@
 {
   "type": "tconstruct:incremental_modifier",
+  "id": "tconstruct:tools/modifiers/upgrade/speedy_from_block",
   "allow_crystal": false,
   "amount_per_item": 9,
   "input": {
-    "tag": "forge:storage_blocks/redstone"
+    "tag": "c:storage_blocks/redstone"
   },
   "leftover": "minecraft:redstone",
   "level": {

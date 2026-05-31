@@ -1,14 +1,15 @@
 {
   "type": "tconstruct:item_part_builder",
-  "conditions": [
+  "id": "tconstruct:smeltery/casts/red_sand/builder_block/wires",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:wires"
+      "tag": "c:wires"
     }
   ],
   "pattern": "tconstruct:wire",
   "pattern_item": {
-    "tag": "forge:sand/red"
+    "tag": "c:sand/red"
   },
   "result": {
     "count": 4,

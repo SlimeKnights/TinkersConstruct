@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:overslime_modifier",
+  "id": "tconstruct:tools/modifiers/slotless/overslime/earth_congealed",
   "ingredient": {
     "item": "tconstruct:earth_congealed_slime"
   },

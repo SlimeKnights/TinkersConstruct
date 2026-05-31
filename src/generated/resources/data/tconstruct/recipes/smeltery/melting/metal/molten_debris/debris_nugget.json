@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/molten_debris/debris_nugget",
   "ingredient": {
-    "tag": "forge:nuggets/netherite_scrap"
+    "tag": "c:nuggets/netherite_scrap"
   },
   "result": {
     "amount": 10,

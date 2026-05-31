@@ -2,7 +2,7 @@
   "values": [
     "minecraft:netherite_leggings",
     {
-      "id": "#forge:tools/paxels/netherite",
+      "id": "#c:tools/paxels/netherite",
       "required": false
     }
   ]

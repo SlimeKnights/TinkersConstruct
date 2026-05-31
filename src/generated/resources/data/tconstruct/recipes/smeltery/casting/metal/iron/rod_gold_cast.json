@@ -1,20 +1,21 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/iron/rod_gold_cast",
   "cast": {
     "tag": "tconstruct:casts/multi_use/rod"
   },
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:rods/iron"
+      "tag": "c:rods/iron"
     }
   ],
   "cooling_time": 43,
   "fluid": {
     "amount": 45,
-    "tag": "forge:molten_iron"
+    "tag": "c:molten_iron"
   },
   "result": {
-    "tag": "forge:rods/iron"
+    "tag": "c:rods/iron"
   }
 }

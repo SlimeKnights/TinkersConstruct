@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/netherite/ancient_repair_kit_gold_cast",
   "cast": {
     "tag": "tconstruct:casts/multi_use/repair_kit"
   },

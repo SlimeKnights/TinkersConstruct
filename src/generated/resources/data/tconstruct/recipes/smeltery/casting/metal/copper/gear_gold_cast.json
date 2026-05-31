@@ -1,20 +1,21 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/copper/gear_gold_cast",
   "cast": {
     "tag": "tconstruct:casts/multi_use/gear"
   },
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:gears/copper"
+      "tag": "c:gears/copper"
     }
   ],
   "cooling_time": 100,
   "fluid": {
     "amount": 360,
-    "tag": "forge:molten_copper"
+    "tag": "c:molten_copper"
   },
   "result": {
-    "tag": "forge:gears/copper"
+    "tag": "c:gears/copper"
   }
 }

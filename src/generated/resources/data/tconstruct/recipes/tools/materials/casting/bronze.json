@@ -1,23 +1,24 @@
 {
   "type": "tconstruct:material_fluid",
-  "conditions": [
+  "id": "tconstruct:tools/materials/casting/bronze",
+  "neoforge:conditions": [
     {
-      "type": "forge:or",
+      "type": "neoforge:or",
       "values": [
         {
           "type": "mantle:tag_filled",
-          "tag": "forge:ingots/bronze"
+          "tag": "c:ingots/bronze"
         },
         {
           "type": "mantle:tag_filled",
-          "tag": "forge:ingots/tin"
+          "tag": "c:ingots/tin"
         }
       ]
     }
   ],
   "fluid": {
     "amount": 90,
-    "tag": "forge:molten_bronze"
+    "tag": "c:molten_bronze"
   },
   "output": "tconstruct:bronze",
   "temperature": 700

@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/invar/plate",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:plates/invar"
+      "tag": "c:plates/invar"
     }
   ],
   "ingredient": {
-    "tag": "forge:plates/invar"
+    "tag": "c:plates/invar"
   },
   "result": {
     "amount": 90,
-    "tag": "forge:molten_invar"
+    "tag": "c:molten_invar"
   },
   "temperature": 900,
   "time": 63

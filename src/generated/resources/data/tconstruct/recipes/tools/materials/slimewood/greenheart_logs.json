@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/slimewood/greenheart_logs",
   "ingredient": {
     "tag": "tconstruct:greenheart_logs"
   },

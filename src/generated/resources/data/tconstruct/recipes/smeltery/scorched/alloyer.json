@@ -22,7 +22,7 @@
     "BBB"
   ],
   "result": {
-    "item": "tconstruct:scorched_alloyer"
+    "id": "tconstruct:scorched_alloyer"
   },
   "show_notification": true
 }

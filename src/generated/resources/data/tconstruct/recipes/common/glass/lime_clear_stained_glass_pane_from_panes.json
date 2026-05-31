@@ -7,7 +7,7 @@
       "item": "tconstruct:clear_glass_pane"
     },
     "X": {
-      "tag": "forge:dyes/lime"
+      "tag": "c:dyes/lime"
     }
   },
   "pattern": [
@@ -17,7 +17,7 @@
   ],
   "result": {
     "count": 8,
-    "item": "tconstruct:lime_clear_stained_glass_pane"
+    "id": "tconstruct:lime_clear_stained_glass_pane"
   },
   "show_notification": true
 }

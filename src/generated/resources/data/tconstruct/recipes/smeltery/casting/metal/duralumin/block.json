@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:casting_basin",
-  "conditions": [
+  "id": "tconstruct:smeltery/casting/metal/duralumin/block",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:storage_blocks/duralumin"
+      "tag": "c:storage_blocks/duralumin"
     }
   ],
   "cooling_time": 163,
   "fluid": {
     "amount": 810,
-    "tag": "forge:molten_duralumin"
+    "tag": "c:molten_duralumin"
   },
   "result": {
-    "tag": "forge:storage_blocks/duralumin"
+    "tag": "c:storage_blocks/duralumin"
   }
 }

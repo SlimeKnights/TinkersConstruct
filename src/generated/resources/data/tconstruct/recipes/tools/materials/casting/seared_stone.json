@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:material_fluid",
+  "id": "tconstruct:tools/materials/casting/seared_stone",
   "fluid": {
     "amount": 250,
     "tag": "tconstruct:seared_stone"

@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/silver/ingot",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:ingots/silver"
+      "tag": "c:ingots/silver"
     }
   ],
   "ingredient": {
-    "tag": "forge:ingots/silver"
+    "tag": "c:ingots/silver"
   },
   "result": {
     "amount": 90,
-    "tag": "forge:molten_silver"
+    "tag": "c:molten_silver"
   },
   "temperature": 790,
   "time": 60

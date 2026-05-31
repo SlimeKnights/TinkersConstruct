@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/silver/gear",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:gears/silver"
+      "tag": "c:gears/silver"
     }
   ],
   "ingredient": {
-    "tag": "forge:gears/silver"
+    "tag": "c:gears/silver"
   },
   "result": {
     "amount": 360,
-    "tag": "forge:molten_silver"
+    "tag": "c:molten_silver"
   },
   "temperature": 790,
   "time": 120

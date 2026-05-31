@@ -1,11 +1,11 @@
 {
   "values": [
     {
-      "id": "#forge:tools/swords/steel",
+      "id": "#c:tools/swords/steel",
       "required": false
     },
     {
-      "id": "#forge:tools/hoes/steel",
+      "id": "#c:tools/hoes/steel",
       "required": false
     },
     {

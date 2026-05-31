@@ -1,8 +1,9 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/cadmium/allomancy_flakes",
+  "neoforge:conditions": [
     {
-      "type": "forge:item_exists",
+      "type": "neoforge:item_exists",
       "item": "allomancy:cadmium_flakes"
     }
   ],
@@ -11,7 +12,7 @@
   },
   "result": {
     "amount": 30,
-    "tag": "forge:molten_cadmium"
+    "tag": "c:molten_cadmium"
   },
   "temperature": 294,
   "time": 24

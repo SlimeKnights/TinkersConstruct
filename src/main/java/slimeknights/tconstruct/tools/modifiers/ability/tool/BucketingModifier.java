@@ -2,7 +2,7 @@ package slimeknights.tconstruct.tools.modifiers.ability.tool;
 
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
-import net.minecraftforge.fluids.FluidType;
+import net.neoforged.neoforge.fluids.FluidType;
 import slimeknights.mantle.data.predicate.fluid.FluidPredicate;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;

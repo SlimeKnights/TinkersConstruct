@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:tinker_station_damaging",
+  "id": "tconstruct:tables/tinker_station_damaging/magma_bucket",
   "damage_amount": 100,
   "ingredient": {
     "item": "tconstruct:magma_bucket"

@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/knightmetal/block",
   "ingredient": {
-    "tag": "forge:storage_blocks/knightmetal"
+    "tag": "c:storage_blocks/knightmetal"
   },
   "result": {
     "amount": 810,

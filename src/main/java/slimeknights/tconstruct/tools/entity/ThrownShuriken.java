@@ -17,14 +17,13 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.TheEndGatewayBlockEntity;
+import net.minecraft.world.level.block.Portal;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.event.EventHooks;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.event.ForgeEventFactory;
 import slimeknights.mantle.util.CombatHelper;
 import slimeknights.tconstruct.common.TinkerDamageTypes;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -42,6 +41,7 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.Schedule;
 import slimeknights.tconstruct.shared.TinkerEffects;
 import slimeknights.tconstruct.tools.TinkerToolActions;
@@ -159,13 +159,8 @@ public class ThrownShuriken extends Projectile implements ToolProjectile, Projec
     if (hit.getType() == HitResult.Type.BLOCK) {
       BlockPos pos = ((BlockHitResult)hit).getBlockPos();
       BlockState state = this.level().getBlockState(pos);
-      if (state.is(Blocks.NETHER_PORTAL)) {
-        this.handleInsidePortal(pos);
-        teleported = true;
-      } else if (state.is(Blocks.END_GATEWAY)) {
-        if (this.level().getBlockEntity(pos) instanceof TheEndGatewayBlockEntity gateway && TheEndGatewayBlockEntity.canEntityTeleport(this)) {
-          TheEndGatewayBlockEntity.teleportEntity(this.level(), pos, state, this, gateway);
-        }
+      if (state.getBlock() instanceof Portal portal) {
+        this.setAsInsidePortal(portal, pos);
         teleported = true;
       }
     }
@@ -175,7 +170,7 @@ public class ThrownShuriken extends Projectile implements ToolProjectile, Projec
       if (!stack.isEmpty() && type == HitResult.Type.ENTITY && ModifierUtil.canPerformAction(getTool(), TinkerToolActions.SHIELD_DISABLE)) {
         ModifierUtil.disableShield(((EntityHitResult)hit).getEntity());
       }
-      if (!ForgeEventFactory.onProjectileImpact(this, hit)) {
+      if (!EventHooks.onProjectileImpact(this, hit)) {
         this.onHit(hit);
       }
     }
@@ -274,9 +269,9 @@ public class ThrownShuriken extends Projectile implements ToolProjectile, Projec
   /* Client */
 
   @Override
-  protected void defineSynchedData() {
-    this.entityData.define(STACK, ItemStack.EMPTY);
-    this.entityData.define(WATER_INERTIA, 0.8f);
+  protected void defineSynchedData(SynchedEntityData.Builder builder) {
+    builder.define(STACK, ItemStack.EMPTY);
+    builder.define(WATER_INERTIA, 0.8f);
   }
 
   @Override
@@ -309,7 +304,7 @@ public class ThrownShuriken extends Projectile implements ToolProjectile, Projec
   @Override
   public void addAdditionalSaveData(CompoundTag tag) {
     super.addAdditionalSaveData(tag);
-    tag.put(KEY_STACK, this.stack.save(new CompoundTag()));
+    tag.put(KEY_STACK, TagUtil.saveItem(this.stack, new CompoundTag()));
     tag.putFloat(KEY_WATER_INERTIA, this.entityData.get(WATER_INERTIA));
     if (!this.tasks.isEmpty()) {
       tag.put(KEY_TASKS, this.tasks.serialize());
@@ -320,7 +315,7 @@ public class ThrownShuriken extends Projectile implements ToolProjectile, Projec
   public void readAdditionalSaveData(CompoundTag tag) {
     super.readAdditionalSaveData(tag);
     if (tag.contains(KEY_STACK, CompoundTag.TAG_COMPOUND)) {
-      setStack(ItemStack.of(tag.getCompound(KEY_STACK)));
+      setStack(TagUtil.readItem(tag.getCompound(KEY_STACK)));
     }
     this.entityData.set(WATER_INERTIA, tag.getFloat(KEY_WATER_INERTIA));
     if (tag.contains(KEY_TASKS, CompoundTag.TAG_LIST)) {

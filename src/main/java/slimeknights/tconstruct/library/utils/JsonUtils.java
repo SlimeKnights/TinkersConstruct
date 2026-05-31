@@ -2,7 +2,7 @@ package slimeknights.tconstruct.library.utils;
 
 import com.google.gson.JsonObject;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.event.OnDatapackSyncEvent;
+import net.neoforged.neoforge.event.OnDatapackSyncEvent;
 import slimeknights.mantle.network.packet.ISimplePacket;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.common.network.TinkerNetwork;

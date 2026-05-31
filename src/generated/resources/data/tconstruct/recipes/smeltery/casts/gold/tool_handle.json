@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casts/gold/tool_handle",
   "cast": {
     "type": "tconstruct:material",
     "item": "tconstruct:tool_handle"
@@ -8,7 +9,7 @@
   "cooling_time": 57,
   "fluid": {
     "amount": 90,
-    "tag": "forge:molten_gold"
+    "tag": "c:molten_gold"
   },
   "result": "tconstruct:tool_handle_cast",
   "switch_slots": true

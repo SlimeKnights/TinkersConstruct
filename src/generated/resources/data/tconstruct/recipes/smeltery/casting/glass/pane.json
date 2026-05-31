@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/glass/pane",
   "cooling_time": 98,
   "fluid": {
     "amount": 250,

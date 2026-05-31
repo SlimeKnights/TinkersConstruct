@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:ore_melting",
+  "id": "tconstruct:smeltery/melting/emerald/geore/cluster",
   "byproducts": [
     {
       "amount": 400,
@@ -7,14 +8,14 @@
       "rate": "gem"
     }
   ],
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:geore_clusters/emerald"
+      "tag": "c:geore_clusters/emerald"
     }
   ],
   "ingredient": {
-    "tag": "forge:geore_clusters/emerald"
+    "tag": "c:geore_clusters/emerald"
   },
   "rate": "gem",
   "result": {

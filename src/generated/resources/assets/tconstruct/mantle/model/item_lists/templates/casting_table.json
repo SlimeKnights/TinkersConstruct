@@ -6,7 +6,7 @@
       8.0
     ],
     "size": 14.0,
-    "transform": "tconstruct:casting_table",
+    "transform": "minecraft:fixed",
     "x": 270,
     "y": 180
   },
@@ -17,7 +17,7 @@
       8.0
     ],
     "size": 14.1,
-    "transform": "tconstruct:casting_table",
+    "transform": "minecraft:fixed",
     "x": 270,
     "y": 180
   }

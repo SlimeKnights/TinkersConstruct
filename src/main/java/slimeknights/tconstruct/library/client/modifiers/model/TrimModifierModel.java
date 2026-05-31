@@ -125,7 +125,7 @@ public interface TrimModifierModel extends ModifierModel {
     private final ResourceLocation root;
     private final Map<String, TrimTexture> cache;
     Armor(ArmorItem.Type type) {
-      root = new ResourceLocation("trims/items/" + type.getName() + "_trim");
+      root = ResourceLocation.withDefaultNamespace("trims/items/" + type.getName() + "_trim");
       cache = new HashMap<>();
     }
 

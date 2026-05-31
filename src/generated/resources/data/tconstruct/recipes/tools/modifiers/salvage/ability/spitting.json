@@ -1,11 +1,12 @@
 {
   "type": "tconstruct:modifier_salvage",
+  "id": "tconstruct:tools/modifiers/salvage/ability/spitting",
   "modifier": "tconstruct:spitting",
   "slots": {
     "abilities": 1
   },
   "tools": {
-    "type": "forge:intersection",
+    "type": "neoforge:intersection",
     "children": [
       {
         "tag": "tconstruct:modifiable/durability"

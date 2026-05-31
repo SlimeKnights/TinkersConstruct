@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/osmium/nugget",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:nuggets/osmium"
+      "tag": "c:nuggets/osmium"
     }
   ],
   "ingredient": {
-    "tag": "forge:nuggets/osmium"
+    "tag": "c:nuggets/osmium"
   },
   "result": {
     "amount": 10,
-    "tag": "forge:molten_osmium"
+    "tag": "c:molten_osmium"
   },
   "temperature": 975,
   "time": 22

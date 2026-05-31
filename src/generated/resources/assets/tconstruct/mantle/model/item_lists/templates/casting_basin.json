@@ -6,7 +6,7 @@
       8.0
     ],
     "size": 11.95,
-    "transform": "tconstruct:casting_basin"
+    "transform": "minecraft:none"
   },
   {
     "center": [
@@ -15,6 +15,6 @@
       8.0
     ],
     "size": 12.0,
-    "transform": "tconstruct:casting_basin"
+    "transform": "minecraft:none"
   }
 ]

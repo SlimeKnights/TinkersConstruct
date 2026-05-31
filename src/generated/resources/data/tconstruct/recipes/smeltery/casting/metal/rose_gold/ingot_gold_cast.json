@@ -1,14 +1,15 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/rose_gold/ingot_gold_cast",
   "cast": {
     "tag": "tconstruct:casts/multi_use/ingot"
   },
   "cooling_time": 52,
   "fluid": {
     "amount": 90,
-    "tag": "forge:molten_rose_gold"
+    "tag": "c:molten_rose_gold"
   },
   "result": {
-    "tag": "forge:ingots/rose_gold"
+    "tag": "c:ingots/rose_gold"
   }
 }

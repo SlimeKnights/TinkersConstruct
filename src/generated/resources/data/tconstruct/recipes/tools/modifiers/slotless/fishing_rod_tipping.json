@@ -1,9 +1,10 @@
 {
   "type": "tconstruct:casting_table_tipping",
+  "id": "tconstruct:tools/modifiers/slotless/fishing_rod_tipping",
   "cooling_time": 20,
   "fluid": {
     "amount": 250,
-    "tag": "forge:potion"
+    "tag": "c:potion"
   },
   "modifier": "tconstruct:tipped",
   "tools": {

@@ -1,20 +1,21 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/invar/coin_gold_cast",
   "cast": {
     "tag": "tconstruct:casts/multi_use/coin"
   },
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:coins/invar"
+      "tag": "c:coins/invar"
     }
   ],
   "cooling_time": 37,
   "fluid": {
     "amount": 30,
-    "tag": "forge:molten_invar"
+    "tag": "c:molten_invar"
   },
   "result": {
-    "tag": "forge:coins/invar"
+    "tag": "c:coins/invar"
   }
 }

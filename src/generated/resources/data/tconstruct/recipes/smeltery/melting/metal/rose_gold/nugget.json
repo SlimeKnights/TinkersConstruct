@@ -1,11 +1,12 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/rose_gold/nugget",
   "ingredient": {
-    "tag": "forge:nuggets/rose_gold"
+    "tag": "c:nuggets/rose_gold"
   },
   "result": {
     "amount": 10,
-    "tag": "forge:molten_rose_gold"
+    "tag": "c:molten_rose_gold"
   },
   "temperature": 550,
   "time": 17

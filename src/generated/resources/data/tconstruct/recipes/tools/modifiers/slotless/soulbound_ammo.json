@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:modifier",
+  "id": "tconstruct:tools/modifiers/slotless/soulbound_ammo",
   "allow_crystal": true,
   "inputs": [
     {

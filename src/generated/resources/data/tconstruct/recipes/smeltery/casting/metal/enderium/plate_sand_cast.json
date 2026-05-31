@@ -1,21 +1,22 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/enderium/plate_sand_cast",
   "cast": {
     "tag": "tconstruct:casts/single_use/plate"
   },
   "cast_consumed": true,
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:plates/enderium"
+      "tag": "c:plates/enderium"
     }
   ],
   "cooling_time": 76,
   "fluid": {
     "amount": 90,
-    "tag": "forge:molten_enderium"
+    "tag": "c:molten_enderium"
   },
   "result": {
-    "tag": "forge:plates/enderium"
+    "tag": "c:plates/enderium"
   }
 }

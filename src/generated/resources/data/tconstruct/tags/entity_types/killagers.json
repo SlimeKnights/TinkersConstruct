@@ -1,7 +1,7 @@
 {
   "values": [
-    "#forge:villagers",
-    "#forge:illagers",
+    "#c:villagers",
+    "#c:illagers",
     "minecraft:iron_golem",
     "minecraft:ravager"
   ]

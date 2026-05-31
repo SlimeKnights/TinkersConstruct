@@ -16,6 +16,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import org.jetbrains.annotations.ApiStatus.Internal;
 import org.jetbrains.annotations.Nullable;
 import slimeknights.tconstruct.tools.TinkerTools;
@@ -28,12 +29,12 @@ import java.util.Optional;
 
 /** Implements transfer info for crafting from a tool inventory. Based partially on {@code mezz.jei.library.transfer.PlayerRecipeTransferHandler} */
 @Internal
-public class ToolInventoryTransferInfo implements IRecipeTransferHandler<ToolContainerMenu, CraftingRecipe>, IRecipeTransferInfo<ToolContainerMenu, CraftingRecipe> {
+public class ToolInventoryTransferInfo implements IRecipeTransferHandler<ToolContainerMenu, RecipeHolder<CraftingRecipe>>, IRecipeTransferInfo<ToolContainerMenu, RecipeHolder<CraftingRecipe>> {
   /** Indexes from the crafting recipe inputs that fit into the player crafting grid when we trim the right and bottom edges. */
   private static final IntSet PLAYER_INV_INDEXES = IntArraySet.of(0, 1, 3, 4);
 
   private final IRecipeTransferHandlerHelper handlerHelper;
-  private final IRecipeTransferHandler<ToolContainerMenu, CraftingRecipe> handler;
+  private final IRecipeTransferHandler<ToolContainerMenu, RecipeHolder<CraftingRecipe>> handler;
   public ToolInventoryTransferInfo(IRecipeTransferHandlerHelper handlerHelper) {
     this.handlerHelper = handlerHelper;
     this.handler = handlerHelper.createUnregisteredRecipeTransferHandler(this);
@@ -50,13 +51,13 @@ public class ToolInventoryTransferInfo implements IRecipeTransferHandler<ToolCon
   }
 
   @Override
-  public RecipeType<CraftingRecipe> getRecipeType() {
+  public RecipeType<RecipeHolder<CraftingRecipe>> getRecipeType() {
     return RecipeTypes.CRAFTING;
   }
 
   @Nullable
   @Override
-  public IRecipeTransferError transferRecipe(ToolContainerMenu container, CraftingRecipe recipe, IRecipeSlotsView recipeSlotsView, Player player, boolean maxTransfer, boolean doTransfer) {
+  public IRecipeTransferError transferRecipe(ToolContainerMenu container, RecipeHolder<CraftingRecipe> recipe, IRecipeSlotsView recipeSlotsView, Player player, boolean maxTransfer, boolean doTransfer) {
     // if we have no crafting slots, nothing to do
     int slots = container.getToolInventoryStart() - 1;
     if (slots <= 0) {
@@ -89,12 +90,12 @@ public class ToolInventoryTransferInfo implements IRecipeTransferHandler<ToolCon
   }
 
   @Override
-  public boolean canHandle(ToolContainerMenu container, CraftingRecipe recipe) {
+  public boolean canHandle(ToolContainerMenu container, RecipeHolder<CraftingRecipe> recipe) {
     return true;
   }
 
   @Override
-  public List<Slot> getInventorySlots(ToolContainerMenu container, CraftingRecipe recipe) {
+  public List<Slot> getInventorySlots(ToolContainerMenu container, RecipeHolder<CraftingRecipe> recipe) {
     List<Slot> slots = new ArrayList<>();
     int playerStart = container.getPlayerInventoryStart();
     for (int i = container.getToolInventoryStart(); i < container.slots.size(); i++) {
@@ -107,7 +108,7 @@ public class ToolInventoryTransferInfo implements IRecipeTransferHandler<ToolCon
   }
 
   @Override
-  public List<Slot> getRecipeSlots(ToolContainerMenu container, CraftingRecipe recipe) {
+  public List<Slot> getRecipeSlots(ToolContainerMenu container, RecipeHolder<CraftingRecipe> recipe) {
     // if crafting is enabled, first slot is the result. Next 4 or 9 is the grid
     // on the chance there is no grid, tool inventory start will be 0 so no slots are added
     List<Slot> slots = new ArrayList<>();

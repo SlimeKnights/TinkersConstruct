@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:severing",
+  "id": "tconstruct:tools/severing/enderslime_ball",
   "entity": {
     "type": "tconstruct:ender_slime"
   },

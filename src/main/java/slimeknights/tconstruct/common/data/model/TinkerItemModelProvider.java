@@ -6,10 +6,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
-import net.minecraftforge.client.model.generators.ItemModelBuilder;
-import net.minecraftforge.client.model.generators.ItemModelProvider;
-import net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
+import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
+import net.neoforged.neoforge.client.model.generators.ModelFile.UncheckedModelFile;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.registration.CastItemObject;
@@ -167,7 +167,7 @@ public class TinkerItemModelProvider extends ItemModelProvider {
 
   /** Creates a part model with the given texture */
   private MaterialModelBuilder<ItemModelBuilder> part(ResourceLocation part, String texture) {
-    return withExistingParent(part.getPath(), "forge:item/default")
+    return withExistingParent(part.getPath(), "neoforge:item/default")
       .texture("texture", getResource("item/tool/" + texture))
       .customLoader(MaterialModelBuilder::new);
   }

@@ -67,12 +67,12 @@ public abstract class AbstractPartSpriteProvider {
 
   /** Adds a given sprite to the list to generate, for the local namespace */
   protected PartSpriteInfo.Builder addTexture(String name, MaterialStatsId... requiredStats) {
-    return addTexture(new ResourceLocation(modID, name), requiredStats);
+    return addTexture(ResourceLocation.fromNamespaceAndPath(modID, name), requiredStats);
   }
 
   /** Adds a given sprite to the list to generated, located in the tools folder */
   protected PartSpriteInfo.Builder addSprite(String name, MaterialStatsId... requiredStats) {
-    return addTexture(new ResourceLocation(modID, "item/tool/" + name), requiredStats);
+    return addTexture(ResourceLocation.fromNamespaceAndPath(modID, "item/tool/" + name), requiredStats);
   }
 
   /** Adds a sprite for a generic tool part from the parts folder */
@@ -114,7 +114,7 @@ public abstract class AbstractPartSpriteProvider {
 
   /** Create a builder for tool sprites relative to the default mod ID */
   protected ToolSpriteBuilder buildTool(String name) {
-    return buildTool(new ResourceLocation(modID, name));
+    return buildTool(ResourceLocation.fromNamespaceAndPath(modID, name));
   }
 
 

@@ -1,14 +1,15 @@
 {
   "type": "tconstruct:material_fluid",
-  "conditions": [
+  "id": "tconstruct:tools/materials/casting/lead",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:ingots/lead"
+      "tag": "c:ingots/lead"
     }
   ],
   "fluid": {
     "amount": 90,
-    "tag": "forge:molten_lead"
+    "tag": "c:molten_lead"
   },
   "output": "tconstruct:lead",
   "temperature": 330

@@ -19,6 +19,7 @@ import slimeknights.tconstruct.library.materials.stats.IRepairableMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.module.HookProvider;
 import slimeknights.tconstruct.library.module.ModuleHook;
+import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
 import slimeknights.tconstruct.library.tools.definition.module.ToolHooks;
 import slimeknights.tconstruct.library.tools.definition.module.ToolModule;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -144,7 +145,7 @@ public class MaterialRepairModule implements MaterialRepairToolHook, ToolModule,
 
     /** Sets the durability for the piece based on the given factor */
     public ArmorBuilder durabilityFactor(float maxDamageFactor) {
-      for (ArmorItem.Type slotType : ArmorItem.Type.values()) {
+      for (ArmorItem.Type slotType : ModifiableArmorMaterial.ARMOR_TYPES) {
         int index = slotType.ordinal();
         durability[index] = (int)(ArmorModuleBuilder.MAX_DAMAGE_ARRAY[index] * maxDamageFactor);
       }

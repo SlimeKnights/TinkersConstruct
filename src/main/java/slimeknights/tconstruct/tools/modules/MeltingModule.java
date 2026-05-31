@@ -11,7 +11,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
-import net.minecraftforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidStack;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.json.LevelingInt;
@@ -116,7 +116,7 @@ public record MeltingModule(LevelingInt temperature, LevelingInt nuggetsPerMetal
     // first, update inventory
     IMeltingRecipe recipe = lastRecipe;
     if (recipe == null || !recipe.matches(this, world)) {
-      recipe = world.getRecipeManager().getRecipeFor(TinkerRecipeTypes.MELTING.get(), this, world).orElse(null);
+      recipe = world.getRecipeManager().getRecipeFor(TinkerRecipeTypes.MELTING.get(), this, world).map(holder -> holder.value()).orElse(null);
       if (recipe == null) {
         MeltingModule.stack = ItemStack.EMPTY;
         return FluidStack.EMPTY;

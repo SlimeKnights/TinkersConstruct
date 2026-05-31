@@ -16,7 +16,7 @@
     "w w"
   ],
   "result": {
-    "item": "tconstruct:tinker_station"
+    "id": "tconstruct:tinker_station"
   },
   "show_notification": true,
   "texture": "w"

@@ -1,21 +1,22 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/zinc/plate_sand_cast",
   "cast": {
     "tag": "tconstruct:casts/single_use/plate"
   },
   "cast_consumed": true,
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:plates/zinc"
+      "tag": "c:plates/zinc"
     }
   ],
   "cooling_time": 47,
   "fluid": {
     "amount": 90,
-    "tag": "forge:molten_zinc"
+    "tag": "c:molten_zinc"
   },
   "result": {
-    "tag": "forge:plates/zinc"
+    "tag": "c:plates/zinc"
   }
 }

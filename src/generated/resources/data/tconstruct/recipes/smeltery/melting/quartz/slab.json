@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/quartz/slab",
   "ingredient": [
     {
       "item": "minecraft:quartz_slab"

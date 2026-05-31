@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/entity_melting/heads/skeleton",
   "ingredient": [
     {
       "item": "minecraft:skeleton_skull"

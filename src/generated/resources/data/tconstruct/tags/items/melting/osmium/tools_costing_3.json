@@ -1,11 +1,11 @@
 {
   "values": [
     {
-      "id": "#forge:tools/pickaxes/osmium",
+      "id": "#c:tools/pickaxes/osmium",
       "required": false
     },
     {
-      "id": "#forge:tools/axes/osmium",
+      "id": "#c:tools/axes/osmium",
       "required": false
     }
   ]

@@ -2,7 +2,7 @@ package slimeknights.tconstruct.shared.network;
 
 import lombok.RequiredArgsConstructor;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.network.NetworkEvent.Context;
+import slimeknights.mantle.compat.neoforged.neoforge.network.NetworkEvent.Context;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.tconstruct.shared.client.ClientGeneratePartTexturesCommand;
 

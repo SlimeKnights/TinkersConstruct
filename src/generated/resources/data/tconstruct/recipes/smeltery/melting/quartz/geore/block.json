@@ -1,13 +1,14 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/quartz/geore/block",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:geore_blocks/quartz"
+      "tag": "c:geore_blocks/quartz"
     }
   ],
   "ingredient": {
-    "tag": "forge:geore_blocks/quartz"
+    "tag": "c:geore_blocks/quartz"
   },
   "result": {
     "amount": 400,

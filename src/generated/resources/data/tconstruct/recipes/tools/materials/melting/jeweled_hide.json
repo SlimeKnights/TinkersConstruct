@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:material_melting",
+  "id": "tconstruct:tools/materials/melting/jeweled_hide",
   "input": "tconstruct:jeweled_hide",
   "result": {
     "amount": 100,

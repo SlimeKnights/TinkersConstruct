@@ -1,12 +1,11 @@
 package slimeknights.tconstruct.tables.item;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.DyeableLeatherItem;
+import slimeknights.tconstruct.compat.minecraft.world.item.DyeableLeatherItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.DyedItemColor;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -23,8 +22,7 @@ public class TinkersChestBlockItem extends BlockItem implements DyeableLeatherIt
 
   @Override
   public int getColor(ItemStack stack) {
-    CompoundTag tag = stack.getTagElement("display");
-    return tag != null && tag.contains("color", Tag.TAG_ANY_NUMERIC) ? tag.getInt("color") : TinkersChestBlockEntity.DEFAULT_COLOR;
+    return DyedItemColor.getOrDefault(stack, TinkersChestBlockEntity.DEFAULT_COLOR);
   }
 
   @Override

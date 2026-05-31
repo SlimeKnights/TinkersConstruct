@@ -1,3 +1,4 @@
 {
-  "type": "tconstruct:banner_modifier"
+  "type": "tconstruct:banner_modifier",
+  "id": "tconstruct:tools/modifiers/slotless/banner"
 }

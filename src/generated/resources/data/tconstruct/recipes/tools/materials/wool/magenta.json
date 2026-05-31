@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/wool/magenta",
   "ingredient": {
     "item": "minecraft:magenta_wool"
   },

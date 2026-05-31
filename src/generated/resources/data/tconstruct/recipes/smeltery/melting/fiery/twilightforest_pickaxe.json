@@ -1,15 +1,16 @@
 {
   "type": "tconstruct:damagable_melting",
+  "id": "tconstruct:smeltery/melting/fiery/twilightforest_pickaxe",
   "byproducts": [
     {
       "amount": 270,
-      "tag": "forge:molten_iron",
+      "tag": "c:molten_iron",
       "unit_size": 10
     }
   ],
-  "conditions": [
+  "neoforge:conditions": [
     {
-      "type": "forge:item_exists",
+      "type": "neoforge:item_exists",
       "item": "twilightforest:fiery_pickaxe"
     }
   ],

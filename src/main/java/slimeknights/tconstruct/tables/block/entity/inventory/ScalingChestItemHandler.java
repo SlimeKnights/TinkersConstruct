@@ -3,7 +3,7 @@ package slimeknights.tconstruct.tables.block.entity.inventory;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.items.ItemStackHandler;
+import net.neoforged.neoforge.items.ItemStackHandler;
 import slimeknights.mantle.block.entity.MantleBlockEntity;
 
 import javax.annotation.Nonnull;

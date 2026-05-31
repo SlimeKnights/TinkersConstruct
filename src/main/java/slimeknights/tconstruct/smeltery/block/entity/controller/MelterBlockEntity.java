@@ -14,12 +14,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.client.model.data.ModelData;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.items.IItemHandler;
+import net.neoforged.neoforge.client.model.data.ModelData;
+import slimeknights.mantle.compat.neoforged.neoforge.capabilities.Capability;
+import slimeknights.tconstruct.compat.neoforged.neoforge.capabilities.ForgeCapabilities;
+import slimeknights.mantle.compat.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.items.IItemHandler;
 import org.jetbrains.annotations.NotNull;
 import slimeknights.mantle.block.entity.NameableBlockEntity;
 import slimeknights.tconstruct.TConstruct;
@@ -29,6 +29,7 @@ import slimeknights.tconstruct.library.client.model.ModelProperties;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.utils.NBTTags;
+import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.controller.ControllerBlock;
 import slimeknights.tconstruct.smeltery.block.controller.MelterBlock;
@@ -195,7 +196,7 @@ public class MelterBlockEntity extends NameableBlockEntity implements ITankInven
   @Override
   public void load(CompoundTag tag) {
     super.load(tag);
-    tank.readFromNBT(tag.getCompound(NBTTags.TANK));
+    tank.readFromNBT(TagUtil.BUILTIN_LOOKUP, tag.getCompound(NBTTags.TANK));
     fuelModule.readFromTag(tag);
     if (tag.contains(TAG_INVENTORY, Tag.TAG_COMPOUND)) {
       meltingInventory.readFromTag(tag.getCompound(TAG_INVENTORY));
@@ -205,7 +206,7 @@ public class MelterBlockEntity extends NameableBlockEntity implements ITankInven
   @Override
   public void saveSynced(CompoundTag tag) {
     super.saveSynced(tag);
-    tag.put(NBTTags.TANK, tank.writeToNBT(new CompoundTag()));
+    tag.put(NBTTags.TANK, tank.writeToNBT(TagUtil.BUILTIN_LOOKUP, new CompoundTag()));
     tag.put(TAG_INVENTORY, meltingInventory.writeToTag());
   }
 

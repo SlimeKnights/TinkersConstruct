@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/brass/plate",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:plates/brass"
+      "tag": "c:plates/brass"
     }
   ],
   "ingredient": {
-    "tag": "forge:plates/brass"
+    "tag": "c:plates/brass"
   },
   "result": {
     "amount": 90,
-    "tag": "forge:molten_brass"
+    "tag": "c:molten_brass"
   },
   "temperature": 605,
   "time": 54

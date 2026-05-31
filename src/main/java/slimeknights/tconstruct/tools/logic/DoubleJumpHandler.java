@@ -5,13 +5,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.common.ForgeMod;
-import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
-import net.minecraftforge.event.entity.living.LivingFallEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
+import net.neoforged.neoforge.event.entity.living.LivingEvent.LivingJumpEvent;
+import net.neoforged.neoforge.event.entity.living.LivingFallEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.common.EventBusSubscriber.Bus;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.tools.capability.PersistentDataCapability;
@@ -19,7 +19,7 @@ import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.shared.TinkerAttributes;
 
 /** Logic to run the double jump attribute */
-@EventBusSubscriber(modid = TConstruct.MOD_ID, bus = Bus.FORGE)
+@EventBusSubscriber(modid = TConstruct.MOD_ID, bus = Bus.GAME)
 public class DoubleJumpHandler {
   private static final ResourceLocation JUMPS = TConstruct.getResource("jumps");
 
@@ -29,15 +29,15 @@ public class DoubleJumpHandler {
   @SubscribeEvent
   static void onJump(LivingJumpEvent event) {
     LivingEntity living = event.getEntity();
-    if (living.onGround() || (living.verticalCollision && !living.verticalCollisionBelow && living.getAttributeValue(ForgeMod.ENTITY_GRAVITY.get()) < 0)) {
-      living.getCapability(PersistentDataCapability.CAPABILITY).ifPresent(data -> data.remove(JUMPS));
+    if (living.onGround() || (living.verticalCollision && !living.verticalCollisionBelow && living.getAttributeValue(Attributes.GRAVITY) < 0)) {
+      PersistentDataCapability.getCapability(living).ifPresent(data -> data.remove(JUMPS));
     }
   }
 
   /** Event handler to reset the number of times we have jumped in mid air */
   @SubscribeEvent
   static void onLand(LivingFallEvent event) {
-    event.getEntity().getCapability(PersistentDataCapability.CAPABILITY).ifPresent(data -> data.remove(JUMPS));
+    PersistentDataCapability.getCapability(event.getEntity()).ifPresent(data -> data.remove(JUMPS));
   }
 
   /**
@@ -49,7 +49,7 @@ public class DoubleJumpHandler {
     // validate preconditions, no using when swimming, elytra, or on the ground
     if (!entity.onGround() && !entity.onClimbable() && !entity.isInWaterOrBubble()) {
       // determine max jumps
-      int extraJumps = Mth.floor(entity.getAttributeValue(TinkerAttributes.JUMP_COUNT.get())) - 1;
+      int extraJumps = Mth.floor(entity.getAttributeValue(TinkerAttributes.JUMP_COUNT)) - 1;
       if (extraJumps > 0) {
         // check that we can take more jumps
         ModDataNBT data = PersistentDataCapability.getOrWarn(entity);

@@ -1,9 +1,10 @@
 {
   "type": "tconstruct:item_part_builder",
-  "conditions": [
+  "id": "tconstruct:smeltery/casts/sand/builder_cast/wires",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:wires"
+      "tag": "c:wires"
     }
   ],
   "pattern": "tconstruct:wire",

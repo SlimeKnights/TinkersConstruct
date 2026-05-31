@@ -1,21 +1,22 @@
 {
   "type": "tconstruct:swappable_modifier",
+  "id": "tconstruct:tools/modifiers/slotless/embellishment/wood/ironwood",
   "allow_crystal": false,
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:ingots/ironwood"
+      "tag": "c:ingots/ironwood"
     }
   ],
   "inputs": [
     {
-      "tag": "forge:ingots/ironwood"
+      "tag": "c:ingots/ironwood"
     },
     {
       "item": "tconstruct:pattern"
     },
     {
-      "tag": "forge:ingots/ironwood"
+      "tag": "c:ingots/ironwood"
     }
   ],
   "result": {

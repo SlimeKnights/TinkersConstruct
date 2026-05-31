@@ -6,9 +6,9 @@
       "item": "tconstruct:pattern"
     },
     "w": {
-      "type": "forge:difference",
+      "type": "neoforge:difference",
       "base": {
-        "tag": "forge:workbenches"
+        "tag": "c:workbenches"
       },
       "subtracted": {
         "item": "tconstruct:crafting_station"
@@ -20,7 +20,7 @@
     "w"
   ],
   "result": {
-    "item": "tconstruct:crafting_station"
+    "id": "tconstruct:crafting_station"
   },
   "show_notification": true
 }

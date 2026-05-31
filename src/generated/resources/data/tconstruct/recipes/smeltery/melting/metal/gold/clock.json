@@ -1,11 +1,12 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/metal/gold/clock",
   "ingredient": {
     "item": "minecraft:clock"
   },
   "result": {
     "amount": 360,
-    "tag": "forge:molten_gold"
+    "tag": "c:molten_gold"
   },
   "temperature": 700,
   "time": 114

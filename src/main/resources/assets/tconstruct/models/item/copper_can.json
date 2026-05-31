@@ -1,5 +1,5 @@
 {
-  "parent": "forge:item/default",
+  "parent": "neoforge:item/default",
   "loader": "tconstruct:fluid_container",
   "textures": {
     "base": "tconstruct:item/copper_can",

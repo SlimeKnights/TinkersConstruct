@@ -16,10 +16,10 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.fml.loading.FMLEnvironment;
-import net.minecraftforge.items.IItemHandlerModifiable;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.fml.loading.FMLEnvironment;
+import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import org.apache.commons.lang3.tuple.Pair;
 import slimeknights.mantle.inventory.EmptyItemHandler;
 import slimeknights.mantle.util.RegistryHelper;
@@ -146,7 +146,8 @@ public class TabbedContainerMenu<TILE extends BlockEntity> extends TriggeringMul
 
       // if we found something, add the side inventory
       if (inventoryTE != null) {
-        int invSlots = inventoryTE.getCapability(ForgeCapabilities.ITEM_HANDLER, accessDir).orElse(EmptyItemHandler.INSTANCE).getSlots();
+        IItemHandlerModifiable handler = getItemHandler(inventoryTE, accessDir);
+        int invSlots = (handler == null ? EmptyItemHandler.INSTANCE : handler).getSlots();
         int columns = Mth.clamp((invSlots - 1) / 9 + 1, 3, 6);
         this.addSubContainer(new SideInventoryContainer<>(TinkerTables.craftingStationContainer.get(), containerId, inv, inventoryTE, accessDir, -6 - 18 * 6, 8, columns), false);
       }
@@ -173,7 +174,17 @@ public class TabbedContainerMenu<TILE extends BlockEntity> extends TriggeringMul
    * @return True if compatible.
    */
   private static boolean hasItemHandler(BlockEntity tileEntity, @Nullable Direction direction) {
-    return tileEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, direction).filter(cap -> cap instanceof IItemHandlerModifiable).isPresent();
+    return getItemHandler(tileEntity, direction) != null;
+  }
+
+  @Nullable
+  private static IItemHandlerModifiable getItemHandler(BlockEntity tileEntity, @Nullable Direction direction) {
+    Level level = tileEntity.getLevel();
+    if (level == null) {
+      return null;
+    }
+    Object cap = level.getCapability(Capabilities.ItemHandler.BLOCK, tileEntity.getBlockPos(), tileEntity.getBlockState(), tileEntity, direction);
+    return cap instanceof IItemHandlerModifiable modifiable ? modifiable : null;
   }
 
 

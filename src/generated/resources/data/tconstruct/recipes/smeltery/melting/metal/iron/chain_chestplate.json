@@ -1,9 +1,10 @@
 {
   "type": "tconstruct:damagable_melting",
+  "id": "tconstruct:smeltery/melting/metal/iron/chain_chestplate",
   "byproducts": [
     {
       "amount": 240,
-      "tag": "forge:molten_steel",
+      "tag": "c:molten_steel",
       "unit_size": 10
     }
   ],
@@ -12,7 +13,7 @@
   },
   "result": {
     "amount": 480,
-    "tag": "forge:molten_iron",
+    "tag": "c:molten_iron",
     "unit_size": 10
   },
   "temperature": 800,

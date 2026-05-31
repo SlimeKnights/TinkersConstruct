@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:severing",
+  "id": "tconstruct:tools/severing/skyslime_ball",
   "entity": {
     "type": "tconstruct:sky_slime"
   },

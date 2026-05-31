@@ -1,25 +1,26 @@
 {
   "type": "tconstruct:ore_melting",
+  "id": "tconstruct:smeltery/melting/metal/gold/geore/bud_large",
   "byproducts": [
     {
       "amount": 270,
       "rate": "metal",
-      "tag": "forge:molten_cobalt"
+      "tag": "c:molten_cobalt"
     }
   ],
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:geore_large_buds/gold"
+      "tag": "c:geore_large_buds/gold"
     }
   ],
   "ingredient": {
-    "tag": "forge:geore_large_buds/gold"
+    "tag": "c:geore_large_buds/gold"
   },
   "rate": "metal",
   "result": {
     "amount": 270,
-    "tag": "forge:molten_gold"
+    "tag": "c:molten_gold"
   },
   "temperature": 700,
   "time": 114

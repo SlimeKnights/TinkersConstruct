@@ -6,6 +6,7 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.category.extensions.vanilla.crafting.ICraftingCategoryExtension;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.Ingredient;
 import slimeknights.mantle.client.SafeClientAccess;
 import slimeknights.tconstruct.library.recipe.ingredient.MaterialValueIngredient;
@@ -16,6 +17,7 @@ import slimeknights.tconstruct.plugin.jei.material.ShapedMaterialsExtension;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.IntStream;
 
 /**
@@ -23,7 +25,29 @@ import java.util.stream.IntStream;
  * @deprecated use {@link ShapedMaterialsExtension}
  */
 @Deprecated
-public class ShapedMaterialExtension implements ICraftingCategoryExtension {
+public class ShapedMaterialExtension implements ICraftingCategoryExtension<ShapedMaterialRecipe> {
+  public static final ICraftingCategoryExtension<ShapedMaterialRecipe> INSTANCE = new ICraftingCategoryExtension<>() {
+    @Override
+    public void setRecipe(RecipeHolder<ShapedMaterialRecipe> holder, IRecipeLayoutBuilder builder, ICraftingGridHelper craftingGridHelper, IFocusGroup focuses) {
+      new ShapedMaterialExtension(holder.value()).setRecipe(builder, craftingGridHelper, focuses);
+    }
+
+    @Override
+    public Optional<ResourceLocation> getRegistryName(RecipeHolder<ShapedMaterialRecipe> holder) {
+      return Optional.of(holder.id());
+    }
+
+    @Override
+    public int getWidth(RecipeHolder<ShapedMaterialRecipe> holder) {
+      return holder.value().getWidth();
+    }
+
+    @Override
+    public int getHeight(RecipeHolder<ShapedMaterialRecipe> holder) {
+      return holder.value().getHeight();
+    }
+  };
+
   private final ShapedMaterialRecipe recipe;
   private final ItemStack plainResult;
   private final List<ItemStack> result;
@@ -43,7 +67,7 @@ public class ShapedMaterialExtension implements ICraftingCategoryExtension {
       this.result = List.of(plainResult);
     }
     List<Ingredient> inputs = recipe.getIngredients();
-    this.materialSlots = IntStream.range(0, inputs.size()).filter(i -> inputs.get(i) instanceof MaterialValueIngredient).toArray();
+    this.materialSlots = IntStream.range(0, inputs.size()).filter(i -> inputs.get(i).getCustomIngredient() instanceof MaterialValueIngredient).toArray();
   }
 
   @Override

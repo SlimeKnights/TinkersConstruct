@@ -3,23 +3,25 @@ package slimeknights.tconstruct.test;
 import cpw.mods.jarhandling.SecureJar;
 import cpw.mods.jarhandling.SecureJar.Status;
 import lombok.Getter;
-import net.minecraftforge.forgespi.language.IConfigurable;
-import net.minecraftforge.forgespi.language.IModFileInfo;
-import net.minecraftforge.forgespi.language.IModInfo;
-import net.minecraftforge.forgespi.language.IModLanguageProvider;
-import net.minecraftforge.forgespi.language.ModFileScanData;
-import net.minecraftforge.forgespi.locating.ForgeFeature.Bound;
-import net.minecraftforge.forgespi.locating.IModFile;
-import net.minecraftforge.forgespi.locating.IModProvider;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.ModLoadingException;
+import net.neoforged.neoforgespi.language.IConfigurable;
+import net.neoforged.neoforgespi.language.IModFileInfo;
+import net.neoforged.neoforgespi.language.IModInfo;
+import net.neoforged.neoforgespi.language.IModLanguageLoader;
+import net.neoforged.neoforgespi.language.ModFileScanData;
+import net.neoforged.neoforgespi.locating.ForgeFeature.Bound;
+import net.neoforged.neoforgespi.locating.IModFile;
+import net.neoforged.neoforgespi.locating.ModFileDiscoveryAttributes;
 import org.apache.maven.artifact.versioning.ArtifactVersion;
 import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
 
 import java.net.URL;
 import java.nio.file.Path;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 /** Mod info for running tests, a prime example of putting too many things in an interface */
@@ -32,6 +34,11 @@ public enum TestModInfo implements IModInfo {
   @Override
   public IModFileInfo getOwningFile() {
     return ModFileInfo.INSTANCE;
+  }
+
+  @Override
+  public IModLanguageLoader getLoader() {
+    return ModLanguageLoader.INSTANCE;
   }
 
   @Override
@@ -127,6 +134,11 @@ public enum TestModInfo implements IModInfo {
     }
 
     @Override
+    public boolean showAsDataPack() {
+      return false;
+    }
+
+    @Override
     public Map<String,Object> getFileProperties() {
       return Map.of();
     }
@@ -164,11 +176,6 @@ public enum TestModInfo implements IModInfo {
 
   private enum ModFile implements IModFile {
     INSTANCE;
-
-    @Override
-    public List<IModLanguageProvider> getLoaders() {
-      return List.of();
-    }
 
     @Override
     public Path findResource(String... pathName) {
@@ -215,28 +222,37 @@ public enum TestModInfo implements IModInfo {
     }
 
     @Override
-    public IModProvider getProvider() {
-      return ModProvider.INSTANCE;
-    }
-
-    @Override
     public IModFileInfo getModFileInfo() {
       return ModFileInfo.INSTANCE;
     }
+
+    @Override
+    public ModFileDiscoveryAttributes getDiscoveryAttributes() {
+      return ModFileDiscoveryAttributes.DEFAULT;
+    }
   }
 
-  private enum ModProvider implements IModProvider {
-    INSTANCE;
+  private static class ModLanguageLoader implements IModLanguageLoader {
+    private static final ModLanguageLoader INSTANCE = new ModLanguageLoader();
+
+    private ModLanguageLoader() {}
 
     @Override
-    public void scanFile(IModFile modFile, Consumer<Path> pathConsumer) {}
-
-    @Override
-    public void initArguments(Map<String,?> arguments) {}
-
-    @Override
-    public boolean isValid(IModFile modFile) {
-      return false;
+    public String name() {
+      return "test";
     }
+
+    @Override
+    public String version() {
+      return "0.0.0";
+    }
+
+    @Override
+    public ModContainer loadMod(IModInfo info, ModFileScanData modFileScanResults, ModuleLayer gameLayer) throws ModLoadingException {
+      return new TestModContainer(info);
+    }
+
+    @Override
+    public void validate(IModFile file, Collection<ModContainer> loadedContainers, net.neoforged.neoforgespi.IIssueReporting issueReporting) {}
   }
 }

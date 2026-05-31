@@ -1,21 +1,22 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/metal/iron/gear_sand_cast",
   "cast": {
     "tag": "tconstruct:casts/single_use/gear"
   },
   "cast_consumed": true,
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:gears/iron"
+      "tag": "c:gears/iron"
     }
   ],
   "cooling_time": 120,
   "fluid": {
     "amount": 360,
-    "tag": "forge:molten_iron"
+    "tag": "c:molten_iron"
   },
   "result": {
-    "tag": "forge:gears/iron"
+    "tag": "c:gears/iron"
   }
 }

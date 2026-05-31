@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/seared/faucet",
   "ingredient": [
     {
       "item": "tconstruct:seared_faucet"

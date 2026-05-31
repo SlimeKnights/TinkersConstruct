@@ -1,9 +1,10 @@
 {
   "type": "tconstruct:incremental_modifier",
+  "id": "tconstruct:tools/modifiers/upgrade/hydraulic_from_shard",
   "allow_crystal": true,
   "amount_per_item": 1,
   "input": {
-    "tag": "forge:dusts/prismarine"
+    "tag": "c:gems/prismarine"
   },
   "level": {
     "max": 5

@@ -2,7 +2,7 @@ package slimeknights.tconstruct.plugin.jei.melting;
 
 import lombok.Getter;
 import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.forge.ForgeTypes;
+import mezz.jei.api.neoforge.NeoForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
@@ -54,6 +54,6 @@ public class FoundryCategory extends AbstractMeltingCategory {
     builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 4, 4)
            .addTooltipCallback(FUEL_TOOLTIP)
            .setFluidRenderer(1, false, 12, 32)
-           .addIngredients(ForgeTypes.FLUID_STACK, MeltingFuelHandler.getUsableFuels(recipe.getTemperature()));
+           .addIngredients(NeoForgeTypes.FLUID_STACK, MeltingFuelHandler.getUsableFuels(recipe.getTemperature()));
   }
 }

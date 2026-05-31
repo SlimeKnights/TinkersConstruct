@@ -2,7 +2,7 @@
   "type": "minecraft:block",
   "functions": [
     {
-      "function": "minecraft:copy_nbt",
+      "function": "minecraft:copy_custom_data",
       "ops": [
         {
           "op": "replace",

@@ -9,6 +9,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -18,11 +19,11 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.Event.Result;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+import slimeknights.tconstruct.compat.neoforged.neoforge.common.ForgeHooks;
+import net.neoforged.neoforge.common.util.TriState;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.mantle.data.loadable.record.SingletonLoader;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.fluid.EffectLevel;
@@ -45,7 +46,7 @@ public enum BlockInteractFluidEffect implements FluidEffect<FluidEffectContext.B
     // our tools we know work so ignore them
     if (!level.isClientSide && context.getPlayer() == null && stack.isDamageableItem() && !stack.is(TinkerTags.Items.MODIFIABLE)) {
       // unable to call Forge damageItem as that needs entity access, but its just vanilla broken anyways, right?
-      stack.hurt(1, level.getRandom(), null);
+      stack.setDamageValue(stack.getDamageValue() + 1);
       // calling methods again instead of using return as return may be incorrect for custom broken stacks
       if (stack.getDamageValue() >= stack.getMaxDamage()) {
         // but that won't happen, right? will need to consider another workaround in that case.
@@ -100,8 +101,8 @@ public enum BlockInteractFluidEffect implements FluidEffect<FluidEffectContext.B
       }
 
       // try the event
-      Result useItem = Result.DEFAULT;
-      Result useBlock = Result.DEFAULT;
+      TriState useItem = TriState.DEFAULT;
+      TriState useBlock = TriState.DEFAULT;
       if (player != null) {
         PlayerInteractEvent.RightClickBlock event = ForgeHooks.onRightClickBlock(player, hand, pos, hitResult);
         if (event.isCanceled()) {
@@ -121,7 +122,7 @@ public enum BlockInteractFluidEffect implements FluidEffect<FluidEffectContext.B
 
       // use the item
       UseOnContext useContext = new UseOnContext(world, player, hand, heldItem, hitResult);
-      if (useItem != Result.DENY && !heldItem.isEmpty()) {
+      if (useItem != TriState.FALSE && !heldItem.isEmpty()) {
         InteractionResult result = heldItem.onItemUseFirst(useContext);
         if (result != InteractionResult.PASS) {
           if (result.consumesAction()) {
@@ -137,19 +138,29 @@ public enum BlockInteractFluidEffect implements FluidEffect<FluidEffectContext.B
 
       // click the block
       ItemStack original = heldItem.copy();
-      if (player != null && (useBlock == Result.ALLOW || (useItem == Result.DEFAULT && !skipBlock))) {
-        InteractionResult result = state.use(world, player, hand, hitResult);
-        if (result.consumesAction()) {
+      if (player != null && (useBlock == TriState.TRUE || (useItem == TriState.DEFAULT && !skipBlock))) {
+        ItemInteractionResult blockResult = state.useItemOn(heldItem, world, player, hand, hitResult);
+        if (blockResult.consumesAction()) {
           if (player instanceof ServerPlayer serverPlayer) {
             CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger(serverPlayer, pos, original);
           }
           player.swing(hand, true);
           return 1;
         }
+        if (blockResult == ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION && hand == InteractionHand.MAIN_HAND) {
+          InteractionResult result = state.useWithoutItem(world, player, hitResult);
+          if (result.consumesAction()) {
+            if (player instanceof ServerPlayer serverPlayer) {
+              CriteriaTriggers.DEFAULT_BLOCK_USE.trigger(serverPlayer, pos);
+            }
+            player.swing(hand, true);
+            return 1;
+          }
+        }
       }
 
       // post block item usage
-      if (useItem == Result.ALLOW || (useItem == Result.DEFAULT && !heldItem.isEmpty() && (player == null || !player.getCooldowns().isOnCooldown(heldItem.getItem())))) {
+      if (useItem == TriState.TRUE || (useItem == TriState.DEFAULT && !heldItem.isEmpty() && (player == null || !player.getCooldowns().isOnCooldown(heldItem.getItem())))) {
         InteractionResult result;
         if (player != null && player.isCreative()) {
           int oldCount = heldItem.getCount();

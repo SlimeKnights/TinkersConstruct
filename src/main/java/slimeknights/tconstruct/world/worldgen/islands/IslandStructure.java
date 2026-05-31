@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.world.worldgen.islands;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -21,7 +22,7 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePiecesBuilder;
-import net.minecraftforge.registries.RegistryObject;
+import slimeknights.mantle.compat.neoforged.neoforge.registries.RegistryObject;
 import slimeknights.tconstruct.world.TinkerStructures;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.FoliageType;
@@ -31,7 +32,7 @@ import java.util.Optional;
 
 /** Base logic for all island variants */
 public class IslandStructure extends Structure {
-  public static final Codec<IslandStructure> CODEC = RecordCodecBuilder.create(inst ->
+  public static final MapCodec<IslandStructure> CODEC = RecordCodecBuilder.mapCodec(inst ->
     inst.group(settingsCodec(inst)).and(inst.group(
           IslandPlacement.CODEC.fieldOf("placement").forGetter(s -> s.placement),
           SimpleWeightedRandomList.wrappedCodec(ResourceLocation.CODEC).fieldOf("templates").forGetter(s -> s.templates),

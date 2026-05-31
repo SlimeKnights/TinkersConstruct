@@ -1,13 +1,14 @@
 {
   "type": "tconstruct:material",
-  "conditions": [
+  "id": "tconstruct:tools/materials/silver/nugget",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:nuggets/silver"
+      "tag": "c:nuggets/silver"
     }
   ],
   "ingredient": {
-    "tag": "forge:nuggets/silver"
+    "tag": "c:nuggets/silver"
   },
   "material": "tconstruct:silver",
   "needed": 9,

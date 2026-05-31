@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.modifiers.hook.mining;
 
 import net.minecraft.core.Direction;
-import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent.BreakSpeed;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.hook.display.TooltipModifierHook;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;

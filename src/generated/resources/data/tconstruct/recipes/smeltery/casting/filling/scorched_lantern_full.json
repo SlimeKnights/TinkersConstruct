@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:basin_filling",
+  "id": "tconstruct:smeltery/casting/filling/scorched_lantern_full",
   "container": "tconstruct:scorched_lantern",
   "fluid_amount": 50
 }

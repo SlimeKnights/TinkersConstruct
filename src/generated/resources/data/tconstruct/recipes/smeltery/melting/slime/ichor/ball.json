@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/slime/ichor/ball",
   "byproducts": [
     {
       "amount": 200,
@@ -7,7 +8,7 @@
     }
   ],
   "ingredient": {
-    "tag": "forge:slimeball/ichor"
+    "tag": "c:slimeball/ichor"
   },
   "result": {
     "amount": 10,

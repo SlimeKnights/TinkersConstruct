@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:severing",
+  "id": "tconstruct:tools/severing/wither_skeleton_bone",
   "entity": {
     "type": "minecraft:wither_skeleton"
   },

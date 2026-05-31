@@ -1,36 +1,37 @@
 {
   "type": "tconstruct:ore_melting",
+  "id": "tconstruct:smeltery/melting/metal/gold/ore_dense",
   "byproducts": [
     {
       "amount": 540,
       "rate": "metal",
-      "tag": "forge:molten_cobalt"
+      "tag": "c:molten_cobalt"
     }
   ],
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_combination_filled",
       "match": [
-        "forge:ores/gold",
-        "forge:ore_rates/dense"
+        "c:ores/gold",
+        "c:ore_rates/dense"
       ]
     }
   ],
   "ingredient": {
-    "type": "forge:intersection",
+    "type": "neoforge:intersection",
     "children": [
       {
-        "tag": "forge:ores/gold"
+        "tag": "c:ores/gold"
       },
       {
-        "tag": "forge:ore_rates/dense"
+        "tag": "c:ore_rates/dense"
       }
     ]
   },
   "rate": "metal",
   "result": {
     "amount": 540,
-    "tag": "forge:molten_gold"
+    "tag": "c:molten_gold"
   },
   "temperature": 700,
   "time": 256

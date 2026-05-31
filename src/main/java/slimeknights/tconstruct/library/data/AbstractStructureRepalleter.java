@@ -17,7 +17,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import slimeknights.mantle.data.GenericDataProvider;
 import slimeknights.tconstruct.TConstruct;
 
@@ -92,7 +92,7 @@ public abstract class AbstractStructureRepalleter extends GenericNBTProvider {
             template.load(BuiltInRegistries.BLOCK.asLookup(), newStructure);
             newStructure = template.save(new CompoundTag());
           }
-          tasks.add(saveNBT(cache, new ResourceLocation(modId, task.location), newStructure));
+          tasks.add(saveNBT(cache, ResourceLocation.fromNamespaceAndPath(modId, task.location), newStructure));
         }
       }
       catch (IOException e) {

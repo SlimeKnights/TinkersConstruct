@@ -4,8 +4,10 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Multiset;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -18,6 +20,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -33,26 +36,23 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.HitResult.Type;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.ForgeMod;
-import net.minecraftforge.common.util.FakePlayer;
-import net.minecraftforge.event.entity.EntityTeleportEvent;
-import net.minecraftforge.event.entity.ProjectileImpactEvent;
-import net.minecraftforge.event.entity.ProjectileImpactEvent.ImpactResult;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
-import net.minecraftforge.event.entity.living.LivingEvent.LivingTickEvent;
-import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
-import net.minecraftforge.event.entity.living.LivingFallEvent;
-import net.minecraftforge.event.entity.living.LivingGetProjectileEvent;
-import net.minecraftforge.event.entity.living.LivingKnockBackEvent;
-import net.minecraftforge.event.entity.living.MobEffectEvent;
-import net.minecraftforge.event.entity.player.CriticalHitEvent;
-import net.minecraftforge.event.level.BlockEvent.BreakEvent;
-import net.minecraftforge.eventbus.api.Event.Result;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
+import net.neoforged.neoforge.common.util.FakePlayer;
+import net.neoforged.neoforge.event.entity.EntityTeleportEvent;
+import net.neoforged.neoforge.event.entity.ProjectileImpactEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.neoforged.neoforge.event.entity.living.LivingEvent.LivingJumpEvent;
+import net.neoforged.neoforge.event.entity.living.LivingExperienceDropEvent;
+import net.neoforged.neoforge.event.entity.living.LivingFallEvent;
+import net.neoforged.neoforge.event.entity.living.LivingGetProjectileEvent;
+import net.neoforged.neoforge.event.entity.living.LivingKnockBackEvent;
+import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
+import net.neoforged.neoforge.event.entity.player.CriticalHitEvent;
+import net.neoforged.neoforge.event.level.BlockDropsEvent;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import net.neoforged.bus.api.EventPriority;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.common.EventBusSubscriber.Bus;
 import slimeknights.mantle.MantleEvents;
 import slimeknights.mantle.util.CombatHelper;
 import slimeknights.mantle.util.RegistryHelper;
@@ -84,18 +84,20 @@ import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
-import slimeknights.tconstruct.library.utils.SlimeBounceHandler;
 import slimeknights.tconstruct.shared.TinkerAttributes;
 import slimeknights.tconstruct.shared.TinkerEffects;
 import slimeknights.tconstruct.tools.data.ModifierIds;
+import slimeknights.tconstruct.tools.entity.ModifiableArrow;
 import slimeknights.tconstruct.tools.modifiers.effect.MagneticEffect;
 import slimeknights.tconstruct.tools.modules.ranged.RestrictAngleModule;
+import slimeknights.tconstruct.library.utils.SlimeBounceHandler;
+import slimeknights.tconstruct.library.utils.TagUtil;
 
 import java.util.List;
 import java.util.Optional;
 
 /** Events to implement modifier specific behaviors, such as those defined by {@link TinkerDataKeys}. General hooks will typically be in {@link ToolEvents} */
-@EventBusSubscriber(modid = TConstruct.MOD_ID, bus = Bus.FORGE)
+@EventBusSubscriber(modid = TConstruct.MOD_ID, bus = Bus.GAME)
 public class ModifierEvents {
   /** Multiplier for experience drops from events */
   private static final TinkerDataKey<Float> PROJECTILE_EXPERIENCE = TConstruct.createKey("projectile_experience");
@@ -111,8 +113,8 @@ public class ModifierEvents {
   @SubscribeEvent
   static void onKnockback(LivingKnockBackEvent event) {
     LivingEntity entity = event.getEntity();
-    Optional<TinkerDataCapability.Holder> dataCap = entity.getCapability(TinkerDataCapability.CAPABILITY).resolve();
-    double knockback = entity.getAttributeValue(TinkerAttributes.KNOCKBACK_MULTIPLIER.get())
+    Optional<TinkerDataCapability.Holder> dataCap = TinkerDataCapability.getCapability(entity).resolve();
+    double knockback = entity.getAttributeValue(TinkerAttributes.KNOCKBACK_MULTIPLIER)
                      + dataCap.map(data -> data.get(TinkerDataKeys.KNOCKBACK)).orElse(0f);
     if (knockback != 1) {
       event.setStrength((float) (event.getStrength() * knockback));
@@ -132,7 +134,7 @@ public class ModifierEvents {
   @SubscribeEvent
   static void onLivingFall(LivingFallEvent event) {
     LivingEntity entity = event.getEntity();
-    double boost = entity.getAttributeValue(TinkerAttributes.SAFE_FALL_DISTANCE.get()) + ArmorStatModule.getStat(entity, TinkerDataKeys.JUMP_BOOST);
+    double boost = entity.getAttributeValue(TinkerAttributes.SAFE_FALL_DISTANCE) + ArmorStatModule.getStat(entity, TinkerDataKeys.JUMP_BOOST);
     if (boost != 0) {
       event.setDistance((float) Math.max(event.getDistance() - boost, 0));
     }
@@ -143,7 +145,7 @@ public class ModifierEvents {
   @SubscribeEvent
   public static void onLivingJump(LivingJumpEvent event) {
     LivingEntity entity = event.getEntity();
-    double boost = entity.getAttributeValue(TinkerAttributes.JUMP_BOOST.get()) + ArmorStatModule.getStat(entity, TinkerDataKeys.JUMP_BOOST);
+    double boost = entity.getAttributeValue(TinkerAttributes.JUMP_BOOST) + ArmorStatModule.getStat(entity, TinkerDataKeys.JUMP_BOOST);
     if (boost > 0) {
       entity.setDeltaMovement(entity.getDeltaMovement().add(0, boost * 0.1, 0));
     }
@@ -159,7 +161,7 @@ public class ModifierEvents {
         // only grant immunity if the amount is high enough
         MobEffectInstance effectInstance = event.getEffectInstance();
         if (multiset.count(effectInstance.getEffect()) > effectInstance.getAmplifier()) {
-          event.setResult(Result.DENY);
+          event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
         }
       }
     };
@@ -190,7 +192,9 @@ public class ModifierEvents {
       for (int i = 0; i < hotbarSize; i++) {
         ItemStack stack = inventory.getItem(i);
         if (!stack.isEmpty() && (soulBelt || ModifierUtil.checkVolatileFlag(stack, SOULBOUND))) {
-          stack.getOrCreateTag().putInt(MantleEvents.SOULBOUND_SLOT, i);
+          CompoundTag tag = TagUtil.getOrCreateTag(stack);
+          tag.putInt(MantleEvents.SOULBOUND_SLOT, i);
+          TagUtil.setTag(stack, tag);
         }
       }
       // rest of the inventory, only check soulbound (no modifier that moves non-soulbound currently)
@@ -199,7 +203,9 @@ public class ModifierEvents {
       for (int i = hotbarSize; i < totalSize; i++) {
         ItemStack stack = inventory.getItem(i);
         if (!stack.isEmpty() && ModifierUtil.checkVolatileFlag(stack, SOULBOUND)) {
-          stack.getOrCreateTag().putInt(MantleEvents.SOULBOUND_SLOT, i);
+          CompoundTag tag = TagUtil.getOrCreateTag(stack);
+          tag.putInt(MantleEvents.SOULBOUND_SLOT, i);
+          TagUtil.setTag(stack, tag);
         }
       }
     }
@@ -210,14 +216,16 @@ public class ModifierEvents {
 
   @SuppressWarnings("removal")
   @SubscribeEvent
-  static void beforeBlockBreak(BreakEvent event) {
-    Player player = event.getPlayer();
+  static void beforeBlockBreak(BlockDropsEvent event) {
+    if (!(event.getBreaker() instanceof Player player)) {
+      return;
+    }
     // directly use modifier for held to ensure the correct hand applies
     // TODO: can we make that datapack configurable?
-    double bonus = player.getAttributeValue(TinkerAttributes.EXPERIENCE_MULTIPLIER.get())
+    double bonus = player.getAttributeValue(TinkerAttributes.EXPERIENCE_MULTIPLIER)
                  + ModifierUtil.getModifierLevel(player.getMainHandItem(), ModifierIds.experienced) * 0.5f
                  + ArmorStatModule.getStat(player, TinkerDataKeys.EXPERIENCE);
-    event.setExpToDrop((int)(event.getExpToDrop() * bonus));
+    event.setDroppedExperience((int)(event.getDroppedExperience() * bonus));
   }
 
   @SuppressWarnings("removal")
@@ -225,13 +233,13 @@ public class ModifierEvents {
   static void onExperienceDrop(LivingExperienceDropEvent event) {
     // boost entity experience if they are under the effects of experienced
     LivingEntity entity = event.getEntity();
-    MobEffectInstance instance = entity.getEffect(TinkerEffects.experienced.get());
+    MobEffectInstance instance = entity.getEffect(TinkerEffects.holder(TinkerEffects.experienced));
     double multiplier = 1 + (instance != null ? instance.getAmplifier() : 0);
 
     // always add armor boost, unfortunately no good way to stop shield stuff here
     Player player = event.getAttackingPlayer();
     if (player != null) {
-      multiplier += player.getAttributeValue(TinkerAttributes.EXPERIENCE_MULTIPLIER.get()) + ArmorStatModule.getStat(player, TinkerDataKeys.EXPERIENCE);
+      multiplier += player.getAttributeValue(TinkerAttributes.EXPERIENCE_MULTIPLIER) + ArmorStatModule.getStat(player, TinkerDataKeys.EXPERIENCE);
     }
     // if the target was killed by an experienced arrow, use that level
     TinkerDataCapability.Holder data = TinkerDataCapability.getData(entity);
@@ -252,27 +260,20 @@ public class ModifierEvents {
   @SuppressWarnings("removal")
   @SubscribeEvent
   static void onCritical(CriticalHitEvent event) {
-    if (event.getResult() != Result.DENY) {
-      // force critical if not already critical and in the air
-      LivingEntity living = event.getEntity();
+    LivingEntity living = event.getEntity();
 
-      // critical boost is defined where the base value is 150%, setting smaller amounts can reduce the critical damage
-      // this event however is defined in terms of adding or subtracting critical, so just treat it as additive
-      Attribute attribute = TinkerAttributes.CRITICAL_DAMAGE.get();
-      double criticalBoost = living.getAttributeValue(attribute) - attribute.getDefaultValue() + ArmorStatModule.getStat(living, TinkerDataKeys.CRITICAL_DAMAGE);
-      if (criticalBoost > 0) {
-        // make it critical if we meet our simpler conditions, note this does not boost attack damage
-        boolean isCritical = event.isVanillaCritical() || event.getResult() == Result.ALLOW;
-        if (!isCritical && TinkerPredicate.AIRBORNE.matches(living)) {
-          isCritical = true;
-          event.setResult(Result.ALLOW);
-        }
+    // critical boost is defined where the base value is 150%, setting smaller amounts can reduce the critical damage
+    Attribute attribute = TinkerAttributes.CRITICAL_DAMAGE.value();
+    double criticalBoost = living.getAttributeValue(TinkerAttributes.CRITICAL_DAMAGE) - attribute.getDefaultValue() + ArmorStatModule.getStat(living, TinkerDataKeys.CRITICAL_DAMAGE);
+    if (criticalBoost > 0) {
+      boolean isCritical = event.isCriticalHit();
+      if (!isCritical && TinkerPredicate.AIRBORNE.matches(living)) {
+        isCritical = true;
+        event.setCriticalHit(true);
+      }
 
-        // if we either were or became critical, time to boost
-        if (isCritical) {
-          // adds +5% critical hit per level
-          event.setDamageModifier((float) (event.getDamageModifier() + criticalBoost));
-        }
+      if (isCritical) {
+        event.setDamageMultiplier((float) (event.getDamageMultiplier() + criticalBoost));
       }
     }
   }
@@ -281,11 +282,11 @@ public class ModifierEvents {
   @SubscribeEvent
   static void onPotionStart(MobEffectEvent.Added event) {
     MobEffectInstance newEffect = event.getEffectInstance();
-    if (!newEffect.isInfiniteDuration() && !newEffect.getCurativeItems().isEmpty()) {
+    if (!newEffect.isInfiniteDuration()) {
       // use two different stats based on whether the effect is beneficial
-      boolean beneficial = newEffect.getEffect().isBeneficial();
+      boolean beneficial = newEffect.getEffect().value().isBeneficial();
       LivingEntity entity = event.getEntity();
-      double multiplier = entity.getAttributeValue(beneficial ? TinkerAttributes.GOOD_EFFECT_DURATION.get() : TinkerAttributes.BAD_EFFECT_DURATION.get())
+      double multiplier = entity.getAttributeValue(beneficial ? TinkerAttributes.GOOD_EFFECT_DURATION : TinkerAttributes.BAD_EFFECT_DURATION)
                         + ArmorStatModule.getStat(entity, beneficial ? TinkerDataKeys.GOOD_EFFECT_DURATION : TinkerDataKeys.BAD_EFFECT_DURATION);
       if (multiplier != 1) {
         // adjust duration as requested
@@ -303,7 +304,7 @@ public class ModifierEvents {
       return;
     }
     // can the entity bounce?
-    if (living.getAttributeValue(TinkerAttributes.BOUNCY.get()) < 1) {
+    if (living.getAttributeValue(TinkerAttributes.BOUNCY) < 1) {
       return;
     }
 
@@ -319,7 +320,7 @@ public class ModifierEvents {
     Vec3 motion = living.getDeltaMovement();
     if (living instanceof ServerPlayer) {
       // velocity is lost on server players, but we dont have to defer the bounce
-      double gravity = living.getAttributeValue(ForgeMod.ENTITY_GRAVITY.get());
+      double gravity = living.getAttributeValue(Attributes.GRAVITY);
       double time = Math.sqrt(living.fallDistance / gravity);
       double velocity = gravity * time;
       living.setDeltaMovement(motion.x / 0.975f, velocity, motion.z / 0.975f);
@@ -420,15 +421,13 @@ public class ModifierEvents {
                 float velocity = ConditionalStatModifierHook.getModifiedStat(tool, target, ToolStats.VELOCITY) * 1.1f;
                 projectile.shoot(reboundAngle.x, reboundAngle.y, reboundAngle.z, velocity, ModifierUtil.getInaccuracy(tool, target));
                 if (projectile instanceof AbstractHurtingProjectile hurting) {
-                  hurting.xPower = reboundAngle.x * 0.1;
-                  hurting.yPower = reboundAngle.y * 0.1;
-                  hurting.zPower = reboundAngle.z * 0.1;
+                  hurting.accelerationPower = 0.1;
                 }
                 if (target.getType() == EntityType.PLAYER) {
                   TinkerNetwork.getInstance().sendVanillaPacket(new ClientboundSetEntityMotionPacket(projectile), target);
                 }
                 level.playSound(null, target.blockPosition(), SoundEvents.SHIELD_BLOCK, SoundSource.PLAYERS, 1.0F, 1.5F + level.random.nextFloat() * 0.4F);
-                event.setImpactResult(ImpactResult.SKIP_ENTITY);
+                event.setCanceled(true);
                 // damage the shield, and stop using it if needed
                 if (ToolDamageUtil.damageAnimated(tool, 3, target, target.getUsedItemHand())) {
                   target.stopUsingItem();
@@ -479,7 +478,7 @@ public class ModifierEvents {
         // handle fire
         int remainingFire = target.getRemainingFireTicks();
         if (arrow.isOnFire()) {
-          target.setSecondsOnFire(5);
+          target.igniteForSeconds(5);
         }
 
         // hurt the enderman
@@ -489,7 +488,7 @@ public class ModifierEvents {
           }
 
           // knockback from punch
-          int knockback = arrow.getKnockback();
+          int knockback = arrow instanceof ModifiableArrow modifiableArrow ? modifiableArrow.getKnockback() : 0;
           if (knockback > 0) {
             Vec3 knockbackVec = arrow.getDeltaMovement().multiply(1.0D, 0.0D, 1.0D).normalize().scale(knockback * 0.6D);
             if (knockbackVec.lengthSqr() > 0.0D) {
@@ -497,9 +496,8 @@ public class ModifierEvents {
             }
           }
 
-          if (!level.isClientSide && livingOwner != null) {
-            EnchantmentHelper.doPostHurtEffects(target, livingOwner);
-            EnchantmentHelper.doPostDamageEffects(livingOwner, target);
+          if (level instanceof ServerLevel serverLevel && livingOwner != null) {
+            EnchantmentHelper.doPostAttackEffects(serverLevel, target, damageSource);
           }
 
           arrow.doPostHurtEffects(target);
@@ -542,15 +540,17 @@ public class ModifierEvents {
 
   @SubscribeEvent
   static void onTeleport(EntityTeleportEvent event) {
-    if (event.getEntity() instanceof LivingEntity living && living.hasEffect(TinkerEffects.enderference.get())) {
+    if (event.getEntity() instanceof LivingEntity living && living.hasEffect(TinkerEffects.holder(TinkerEffects.enderference))) {
       event.setCanceled(true);
     }
   }
 
   /** Called to perform the magnet for armor */
   @SubscribeEvent
-  static void onLivingTick(LivingTickEvent event) {
-    LivingEntity entity = event.getEntity();
+  static void onLivingTick(EntityTickEvent.Post event) {
+    if (!(event.getEntity() instanceof LivingEntity entity)) {
+      return;
+    }
     if (!entity.isSpectator() && (entity.tickCount & 1) == 0) {
       int level = ArmorLevelModule.getLevel(entity, TinkerDataKeys.MAGNET);
       if (level > 0) {

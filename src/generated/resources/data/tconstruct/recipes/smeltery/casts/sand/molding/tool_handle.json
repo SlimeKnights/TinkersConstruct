@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:molding_table",
+  "id": "tconstruct:smeltery/casts/sand/molding/tool_handle",
   "material": {
     "tag": "tconstruct:casts/sand"
   },

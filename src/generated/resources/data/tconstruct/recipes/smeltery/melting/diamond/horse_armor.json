@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:melting",
+  "id": "tconstruct:smeltery/melting/diamond/horse_armor",
   "ingredient": {
     "item": "minecraft:diamond_horse_armor"
   },

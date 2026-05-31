@@ -1,7 +1,7 @@
 {
   "values": [
     {
-      "id": "#forge:tools/shovels/electrum",
+      "id": "#c:tools/shovels/electrum",
       "required": false
     },
     {

@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/lumium/block",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:storage_blocks/lumium"
+      "tag": "c:storage_blocks/lumium"
     }
   ],
   "ingredient": {
-    "tag": "forge:storage_blocks/lumium"
+    "tag": "c:storage_blocks/lumium"
   },
   "result": {
     "amount": 810,
-    "tag": "forge:molten_lumium"
+    "tag": "c:molten_lumium"
   },
   "temperature": 1050,
   "time": 203

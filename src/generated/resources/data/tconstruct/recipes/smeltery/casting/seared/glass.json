@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:casting_basin",
+  "id": "tconstruct:smeltery/casting/seared/glass",
   "cast": {
-    "tag": "forge:glass/colorless"
+    "tag": "c:glass/colorless"
   },
   "cast_consumed": true,
   "cooling_time": 178,

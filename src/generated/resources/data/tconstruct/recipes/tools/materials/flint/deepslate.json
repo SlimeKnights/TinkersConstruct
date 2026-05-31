@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/flint/deepslate",
   "ingredient": {
-    "tag": "forge:deepslate"
+    "tag": "c:deepslate"
   },
   "material": "tconstruct:flint#deepslate",
   "needed": 1,

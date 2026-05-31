@@ -2,15 +2,14 @@ package slimeknights.tconstruct.shared;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.font.FontManager;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.ModelEvent.RegisterGeometryLoaders;
-import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
-import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.neoforge.client.event.ModelEvent.RegisterGeometryLoaders;
+import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
+import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.common.EventBusSubscriber.Bus;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.library.client.book.TinkerBook;
@@ -27,7 +26,7 @@ public class CommonsClientEvents extends ClientEventBase {
 
   @SubscribeEvent
   static void registerModelLoaders(RegisterGeometryLoaders event) {
-    event.register("gui", UniqueGuiModel.LOADER);
+    event.register(TConstruct.getResource("gui"), UniqueGuiModel.LOADER);
   }
 
   @SubscribeEvent
@@ -51,10 +50,7 @@ public class CommonsClientEvents extends ClientEventBase {
   /** Gets the unicode font renderer */
   public static Font unicodeFontRender() {
     if (unicodeRenderer == null)
-      unicodeRenderer = new Font(rl -> {
-        FontManager resourceManager = Minecraft.getInstance().fontManager;
-        return resourceManager.fontSets.get(Minecraft.UNIFORM_FONT);
-      }, false);
+      unicodeRenderer = Minecraft.getInstance().font;
 
     return unicodeRenderer;
   }

@@ -10,7 +10,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraftforge.common.Tags;
+import net.neoforged.neoforge.common.Tags;
 import slimeknights.mantle.command.RemoveRecipesCommand;
 import slimeknights.mantle.data.GenericDataProvider;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
@@ -75,10 +75,10 @@ public class ConfigurationDataProvider extends GenericDataProvider {
         ItemPredicate.tag(ItemTags.SHOVELS),
         ItemPredicate.tag(ItemTags.SWORDS),
         ItemPredicate.tag(ItemTags.HOES),
-        ItemPredicate.tag(Tags.Items.TOOLS_SHIELDS),
-        ItemPredicate.tag(Tags.Items.TOOLS_BOWS),
-        ItemPredicate.tag(Tags.Items.TOOLS_CROSSBOWS),
-        ItemPredicate.tag(Tags.Items.TOOLS_FISHING_RODS),
+        ItemPredicate.tag(Tags.Items.TOOLS_SHIELD),
+        ItemPredicate.tag(Tags.Items.TOOLS_BOW),
+        ItemPredicate.tag(Tags.Items.TOOLS_CROSSBOW),
+        ItemPredicate.tag(Tags.Items.TOOLS_FISHING_ROD),
         ItemPredicate.tag(Tags.Items.ARMORS),
         ItemPredicate.set(Items.FLINT_AND_STEEL, Items.SHEARS, Items.BRUSH)
       ),

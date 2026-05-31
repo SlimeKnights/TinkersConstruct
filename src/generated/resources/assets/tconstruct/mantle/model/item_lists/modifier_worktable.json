@@ -8,7 +8,7 @@
           8.0
         ],
         "size": 7.5,
-        "transform": "tconstruct:table",
+        "transform": "minecraft:none",
         "x": 270
       },
       {
@@ -18,7 +18,7 @@
           3.5
         ],
         "size": 3.0,
-        "transform": "tconstruct:table"
+        "transform": "minecraft:none"
       },
       {
         "center": [
@@ -27,7 +27,7 @@
           12.5
         ],
         "size": 3.0,
-        "transform": "tconstruct:table"
+        "transform": "minecraft:none"
       }
     ]
   }

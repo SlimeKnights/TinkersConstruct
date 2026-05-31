@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:damagable_melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/lead/boots",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:armors/boots/lead"
+      "tag": "c:armors/boots/lead"
     }
   ],
   "ingredient": {
-    "tag": "forge:armors/boots/lead"
+    "tag": "c:armors/boots/lead"
   },
   "result": {
     "amount": 360,
-    "tag": "forge:molten_lead",
+    "tag": "c:molten_lead",
     "unit_size": 10
   },
   "temperature": 330,

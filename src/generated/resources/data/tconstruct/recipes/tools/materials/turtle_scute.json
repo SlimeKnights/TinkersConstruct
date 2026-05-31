@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/turtle_scute",
   "ingredient": {
-    "item": "minecraft:scute"
+    "item": "minecraft:turtle_scute"
   },
   "material": "tconstruct:turtle",
   "needed": 1,

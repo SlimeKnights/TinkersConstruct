@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:casting_basin",
+  "id": "tconstruct:smeltery/casting/quartz/andesite",
   "cast": {
-    "tag": "forge:cobblestone"
+    "tag": "c:cobblestone"
   },
   "cast_consumed": true,
   "cooling_time": 41,

@@ -12,7 +12,7 @@
   ],
   "result": {
     "count": 16,
-    "item": "tconstruct:scorched_soul_glass_pane"
+    "id": "tconstruct:scorched_soul_glass_pane"
   },
   "show_notification": true
 }

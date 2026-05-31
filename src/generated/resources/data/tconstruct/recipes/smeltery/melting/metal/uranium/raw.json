@@ -1,66 +1,21 @@
 {
-  "type": "forge:conditional",
-  "conditions": [
+  "type": "tconstruct:ore_melting",
+  "id": "tconstruct:smeltery/melting/metal/uranium/raw",
+  "byproducts": [
     {
-      "type": "mantle:tag_filled",
-      "tag": "forge:raw_materials/uranium"
+      "amount": 90,
+      "rate": "metal",
+      "tag": "c:molten_copper"
     }
   ],
-  "recipes": [
-    {
-      "conditions": [
-        {
-          "type": "mantle:tag_filled",
-          "tag": "forge:ingots/lead"
-        }
-      ],
-      "recipe": {
-        "type": "tconstruct:ore_melting",
-        "byproducts": [
-          {
-            "amount": 90,
-            "rate": "metal",
-            "tag": "forge:molten_lead"
-          }
-        ],
-        "ingredient": {
-          "tag": "forge:raw_materials/uranium"
-        },
-        "rate": "metal",
-        "result": {
-          "amount": 90,
-          "tag": "forge:molten_uranium"
-        },
-        "temperature": 830,
-        "time": 92
-      }
-    },
-    {
-      "conditions": [
-        {
-          "type": "forge:true"
-        }
-      ],
-      "recipe": {
-        "type": "tconstruct:ore_melting",
-        "byproducts": [
-          {
-            "amount": 90,
-            "rate": "metal",
-            "tag": "forge:molten_copper"
-          }
-        ],
-        "ingredient": {
-          "tag": "forge:raw_materials/uranium"
-        },
-        "rate": "metal",
-        "result": {
-          "amount": 90,
-          "tag": "forge:molten_uranium"
-        },
-        "temperature": 830,
-        "time": 92
-      }
-    }
-  ]
+  "ingredient": {
+    "tag": "c:raw_materials/uranium"
+  },
+  "rate": "metal",
+  "result": {
+    "amount": 90,
+    "tag": "c:molten_uranium"
+  },
+  "temperature": 830,
+  "time": 92
 }

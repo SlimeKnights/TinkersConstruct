@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "#": {
-      "tag": "forge:ingots/gold"
+      "tag": "c:ingots/gold"
     }
   },
   "pattern": [
@@ -12,7 +12,7 @@
   ],
   "result": {
     "count": 16,
-    "item": "tconstruct:gold_bars"
+    "id": "tconstruct:gold_bars"
   },
   "show_notification": true
 }

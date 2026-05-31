@@ -1,7 +1,7 @@
 {
   "values": [
     {
-      "id": "#forge:tools/shovels/nickel",
+      "id": "#c:tools/shovels/nickel",
       "required": false
     },
     {

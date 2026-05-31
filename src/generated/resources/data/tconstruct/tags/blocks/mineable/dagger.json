@@ -1,6 +1,6 @@
 {
   "values": [
     "#minecraft:mineable/hoe",
-    "#forge:mineable/sword"
+    "#c:mineable/sword"
   ]
 }

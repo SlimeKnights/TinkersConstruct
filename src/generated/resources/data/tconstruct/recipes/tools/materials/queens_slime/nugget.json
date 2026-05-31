@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:material",
+  "id": "tconstruct:tools/materials/queens_slime/nugget",
   "ingredient": {
-    "tag": "forge:nuggets/queens_slime"
+    "tag": "c:nuggets/queens_slime"
   },
   "material": "tconstruct:queens_slime",
   "needed": 9,

@@ -1,19 +1,20 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casts/gold/gears",
   "cast": {
-    "tag": "forge:gears"
+    "tag": "c:gears"
   },
   "cast_consumed": true,
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:gears"
+      "tag": "c:gears"
     }
   ],
   "cooling_time": 57,
   "fluid": {
     "amount": 90,
-    "tag": "forge:molten_gold"
+    "tag": "c:molten_gold"
   },
   "result": "tconstruct:gear_cast",
   "switch_slots": true

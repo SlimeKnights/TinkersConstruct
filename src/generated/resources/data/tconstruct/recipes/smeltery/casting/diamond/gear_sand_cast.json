@@ -1,13 +1,14 @@
 {
   "type": "tconstruct:casting_table",
+  "id": "tconstruct:smeltery/casting/diamond/gear_sand_cast",
   "cast": {
     "tag": "tconstruct:casts/single_use/gear"
   },
   "cast_consumed": true,
-  "conditions": [
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:gears/diamond"
+      "tag": "c:gears/diamond"
     }
   ],
   "cooling_time": 166,
@@ -16,6 +17,6 @@
     "tag": "tconstruct:molten_diamond"
   },
   "result": {
-    "tag": "forge:gears/diamond"
+    "tag": "c:gears/diamond"
   }
 }

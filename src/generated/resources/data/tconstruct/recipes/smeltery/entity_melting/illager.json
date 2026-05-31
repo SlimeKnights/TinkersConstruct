@@ -1,8 +1,9 @@
 {
   "type": "tconstruct:entity_melting",
+  "id": "tconstruct:smeltery/entity_melting/illager",
   "damage": 2,
   "entity": {
-    "tag": "forge:illagers"
+    "tag": "c:illagers"
   },
   "result": {
     "amount": 25,

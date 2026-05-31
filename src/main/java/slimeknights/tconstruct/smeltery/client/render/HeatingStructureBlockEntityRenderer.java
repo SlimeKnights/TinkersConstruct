@@ -18,8 +18,8 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.shapes.Shapes;
-import net.minecraftforge.client.model.data.ModelData;
+import net.minecraft.world.phys.AABB;
+import net.neoforged.neoforge.client.model.data.ModelData;
 import org.joml.Quaternionf;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.TinkerRenderTypes;
@@ -56,7 +56,10 @@ public class HeatingStructureBlockEntityRenderer implements BlockEntityRenderer<
         if ((dx * dx + dz * dz) < 512) {
           // color will be yellow if the structure is valid (expanding), red if invalid
           VertexConsumer vertexBuilder = buffer.getBuffer(highlightError ? TinkerRenderTypes.ERROR_BLOCK : RenderType.LINES);
-          LevelRenderer.renderShape(matrices, vertexBuilder, Shapes.block(), errorPos.getX() - pos.getX(), errorPos.getY() - pos.getY(), errorPos.getZ() - pos.getZ(), 1f, structureValid ? 1f : 0f, 0f, 0.5f);
+          LevelRenderer.renderLineBox(matrices, vertexBuilder, new AABB(
+            errorPos.getX() - pos.getX(), errorPos.getY() - pos.getY(), errorPos.getZ() - pos.getZ(),
+            errorPos.getX() - pos.getX() + 1, errorPos.getY() - pos.getY() + 1, errorPos.getZ() - pos.getZ() + 1),
+            1f, structureValid ? 1f : 0f, 0f, 0.5f);
         }
       }
     }

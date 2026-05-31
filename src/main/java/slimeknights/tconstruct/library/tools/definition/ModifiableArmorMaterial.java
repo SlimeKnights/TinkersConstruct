@@ -10,6 +10,8 @@ import javax.annotation.Nullable;
 
 /** Armor material that doubles as a container for tool definitions for each armor slot */
 public class ModifiableArmorMaterial extends DummyArmorMaterial {
+  /** Array of all four player armor item types. */
+  public static final ArmorItem.Type[] ARMOR_TYPES = {ArmorItem.Type.HELMET, ArmorItem.Type.CHESTPLATE, ArmorItem.Type.LEGGINGS, ArmorItem.Type.BOOTS};
   /** Array of all four armor slot types */
   public static final EquipmentSlot[] ARMOR_SLOTS = {EquipmentSlot.FEET, EquipmentSlot.LEGS, EquipmentSlot.CHEST, EquipmentSlot.HEAD};
 
@@ -28,6 +30,9 @@ public class ModifiableArmorMaterial extends DummyArmorMaterial {
   public static ModifiableArmorMaterial create(ResourceLocation id, SoundEvent equipSound, ArmorItem.Type... slots) {
     ToolDefinition[] definitions = new ToolDefinition[4];
     for (ArmorItem.Type slot : slots) {
+      if (!slot.hasTrims()) {
+        throw new IllegalArgumentException("Unsupported armor slot " + slot.getName());
+      }
       definitions[slot.ordinal()] = ToolDefinition.create(id.withSuffix("_" + slot.getName()));
     }
     return new ModifiableArmorMaterial(id, equipSound, definitions);
@@ -35,7 +40,7 @@ public class ModifiableArmorMaterial extends DummyArmorMaterial {
 
   /** Creates a modifiable armor material, creates tool definition for all four armor slots */
   public static ModifiableArmorMaterial create(ResourceLocation id, SoundEvent equipSound) {
-    return create(id, equipSound, ArmorItem.Type.values());
+    return create(id, equipSound, ARMOR_TYPES);
   }
 
   /**
@@ -45,6 +50,9 @@ public class ModifiableArmorMaterial extends DummyArmorMaterial {
    */
   @Nullable
   public ToolDefinition getArmorDefinition(ArmorItem.Type slotType) {
+    if (!slotType.hasTrims()) {
+      return null;
+    }
     return armorDefinitions[slotType.ordinal()];
   }
 }

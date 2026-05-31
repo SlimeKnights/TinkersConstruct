@@ -1,17 +1,18 @@
 {
   "type": "tconstruct:damagable_melting",
-  "conditions": [
+  "id": "tconstruct:smeltery/melting/metal/constantan/helmet",
+  "neoforge:conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:armors/helmets/constantan"
+      "tag": "c:armors/helmets/constantan"
     }
   ],
   "ingredient": {
-    "tag": "forge:armors/helmets/constantan"
+    "tag": "c:armors/helmets/constantan"
   },
   "result": {
     "amount": 450,
-    "tag": "forge:molten_constantan",
+    "tag": "c:molten_constantan",
     "unit_size": 10
   },
   "temperature": 920,

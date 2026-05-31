@@ -6,7 +6,7 @@
       "item": "tconstruct:seared_brick"
     },
     "B": {
-      "tag": "forge:glass"
+      "tag": "c:glass"
     }
   },
   "pattern": [
@@ -15,7 +15,7 @@
     "B#B"
   ],
   "result": {
-    "item": "tconstruct:seared_ingot_gauge"
+    "id": "tconstruct:seared_ingot_gauge"
   },
   "show_notification": true
 }

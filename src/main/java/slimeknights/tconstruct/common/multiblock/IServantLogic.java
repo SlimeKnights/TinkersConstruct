@@ -2,7 +2,7 @@ package slimeknights.tconstruct.common.multiblock;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.extensions.IForgeBlockEntity;
+import slimeknights.tconstruct.compat.neoforged.neoforge.common.extensions.IForgeBlockEntity;
 
 import javax.annotation.Nullable;
 

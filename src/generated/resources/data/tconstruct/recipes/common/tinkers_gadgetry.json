@@ -6,10 +6,10 @@
       "item": "minecraft:book"
     },
     {
-      "tag": "forge:slimeball/sky"
+      "tag": "c:slimeball/sky"
     }
   ],
   "result": {
-    "item": "tconstruct:tinkers_gadgetry"
+    "id": "tconstruct:tinkers_gadgetry"
   }
 }

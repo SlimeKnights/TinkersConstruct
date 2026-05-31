@@ -1,11 +1,11 @@
 {
   "values": [
     {
-      "id": "#forge:tools/swords/invar",
+      "id": "#c:tools/swords/invar",
       "required": false
     },
     {
-      "id": "#forge:tools/hoes/invar",
+      "id": "#c:tools/hoes/invar",
       "required": false
     }
   ]

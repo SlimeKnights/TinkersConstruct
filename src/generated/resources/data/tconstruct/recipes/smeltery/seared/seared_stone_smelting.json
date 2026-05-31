@@ -6,5 +6,7 @@
   "ingredient": {
     "item": "tconstruct:seared_cobble"
   },
-  "result": "tconstruct:seared_stone"
+  "result": {
+    "id": "tconstruct:seared_stone"
+  }
 }

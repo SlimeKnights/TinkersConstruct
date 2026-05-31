@@ -9,7 +9,7 @@ import net.minecraft.tags.TagBuilder;
 import net.minecraft.tags.TagEntry;
 import net.minecraft.tags.TagFile;
 import net.minecraft.tags.TagKey;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import slimeknights.mantle.data.GenericDataProvider;
 
 import java.util.List;
