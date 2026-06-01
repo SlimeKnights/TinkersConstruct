@@ -17,6 +17,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import slimeknights.mantle.datagen.MantleTags;
 import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.mantle.registration.object.FluidObject;
 import slimeknights.mantle.registration.object.IdAwareObject;
@@ -236,8 +237,8 @@ public class ItemTagProvider extends ItemTagsProvider {
 
     this.copy(TinkerTags.Blocks.COPPER_PLATFORMS, TinkerTags.Items.COPPER_PLATFORMS);
 
-    this.tag(TinkerTags.Items.SPLASH_BOTTLE).add(TinkerFluids.splashBottle.get());
-    this.tag(TinkerTags.Items.LINGERING_BOTTLE).add(TinkerFluids.lingeringBottle.get());
+    this.tag(MantleTags.Items.SPLASH_BOTTLE).add(TinkerFluids.splashBottle.get());
+    this.tag(MantleTags.Items.LINGERING_BOTTLE).add(TinkerFluids.lingeringBottle.get());
 
     // trim materials
     this.tag(ItemTags.TRIM_MATERIALS).add(

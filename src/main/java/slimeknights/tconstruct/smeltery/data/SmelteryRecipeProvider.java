@@ -1072,11 +1072,11 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                               .setFluid(potionBottle)
                               .save(consumer, location(folder + "filling/bottle"));
     PotionCastingRecipeBuilder.tableRecipe(Items.SPLASH_POTION)
-                              .setBottle(TinkerTags.Items.SPLASH_BOTTLE)
+                              .setBottle(MantleTags.Items.SPLASH_BOTTLE)
                               .setFluid(potionBottle)
                               .save(consumer, location(folder + "filling/lingering_bottle"));
     PotionCastingRecipeBuilder.tableRecipe(Items.LINGERING_POTION)
-                              .setBottle(TinkerTags.Items.LINGERING_BOTTLE)
+                              .setBottle(MantleTags.Items.LINGERING_BOTTLE)
                               .setFluid(potionBottle)
                               .save(consumer, location(folder + "filling/splash_bottle"));
     PotionCastingRecipeBuilder.tableRecipe(Items.TIPPED_ARROW)
@@ -1203,12 +1203,12 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     ItemCastingRecipeBuilder.tableRecipe(ItemOutput.fromStack(PotionUtils.setPotion(new ItemStack(Items.SPLASH_POTION), Potions.WATER)))
                             .setFluid(MantleTags.Fluids.WATER, FluidValues.BOTTLE * 2)
                             .setCoolingTime(1)
-                            .setCast(TinkerTags.Items.SPLASH_BOTTLE, true)
+                            .setCast(MantleTags.Items.SPLASH_BOTTLE, true)
                             .save(consumer, location(waterFolder + "splash"));
     ItemCastingRecipeBuilder.tableRecipe(ItemOutput.fromStack(PotionUtils.setPotion(new ItemStack(Items.LINGERING_POTION), Potions.WATER)))
                             .setFluid(MantleTags.Fluids.WATER, FluidValues.BOTTLE * 2)
                             .setCoolingTime(1)
-                            .setCast(TinkerTags.Items.LINGERING_BOTTLE, true)
+                            .setCast(MantleTags.Items.LINGERING_BOTTLE, true)
                             .save(consumer, location(waterFolder + "lingering"));
     ItemCastingRecipeBuilder.basinRecipe(Blocks.WET_SPONGE)
       .setFluid(Fluids.WATER, FluidValues.BOTTLE)
@@ -1473,7 +1473,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                         .save(consumer, location(folder + "glass/block"));
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerTags.Items.GLASS_PANES_SILICA), TinkerFluids.moltenGlass, FluidValues.GLASS_PANE, 0.5f)
                         .save(consumer, location(folder + "glass/pane"));
-    MeltingRecipeBuilder.melting(CompoundIngredient.of(Ingredient.of(Items.GLASS_BOTTLE), Ingredient.of(TinkerTags.Items.SPLASH_BOTTLE), Ingredient.of(TinkerTags.Items.LINGERING_BOTTLE)),
+    MeltingRecipeBuilder.melting(CompoundIngredient.of(Ingredient.of(Items.GLASS_BOTTLE), Ingredient.of(MantleTags.Items.SPLASH_BOTTLE), Ingredient.of(MantleTags.Items.LINGERING_BOTTLE)),
       TinkerFluids.moltenGlass, FluidValues.GLASS_BLOCK, 1.25f).save(consumer, location(folder + "glass/bottle"));
     // melt extra sand casts back
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.blankSandCast, TinkerSmeltery.blankRedSandCast),

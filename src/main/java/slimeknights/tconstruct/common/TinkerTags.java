@@ -21,6 +21,7 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TagsUpdatedEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
+import slimeknights.mantle.datagen.MantleTags;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialManager;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -544,9 +545,12 @@ public class TinkerTags {
     /** Tag so mods like thermal know our scyhtes can harvest */
     public static final TagKey<Item> SCYTHES = common("tools/scythe");
 
-    /** Tag for others adding empty potion bottles */
-    public static final TagKey<Item> SPLASH_BOTTLE = common("bottles/splash");
-    public static final TagKey<Item> LINGERING_BOTTLE = common("bottles/lingering");
+    /** @deprecated use {@link MantleTags.Items#SPLASH_BOTTLE} */
+    @Deprecated(forRemoval = true)
+    public static final TagKey<Item> SPLASH_BOTTLE = MantleTags.Items.SPLASH_BOTTLE;
+    /** @deprecated use {@link MantleTags.Items#LINGERING_BOTTLE} */
+    @Deprecated(forRemoval = true)
+    public static final TagKey<Item> LINGERING_BOTTLE = MantleTags.Items.LINGERING_BOTTLE;
 
     // compat tags
     /** @deprecated necronium bones now show based on {@link slimeknights.tconstruct.tools.data.material.MaterialIds#necronium} */
