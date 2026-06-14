@@ -1,8 +1,16 @@
 {
-  "default": [
-    {
-      "level": 1,
-      "name": "tconstruct:hover"
-    }
-  ]
+  "perStat": {
+    "tconstruct:ammo": [
+      {
+        "level": 1,
+        "name": "tconstruct:hover"
+      }
+    ],
+    "tconstruct:ribcage": [
+      {
+        "level": 1,
+        "name": "tconstruct:float"
+      }
+    ]
+  }
 }

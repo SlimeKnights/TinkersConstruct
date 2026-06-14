@@ -3361,6 +3361,9 @@
   "modifier.tconstruct.hover": "Hover",
   "modifier.tconstruct.hover.flavor": "Free like the wind!",
   "modifier.tconstruct.hover.description": "Projectile briefly ignores gravity after firing.",
+  "modifier.tconstruct.float": "Float",
+  "modifier.tconstruct.float.flavor": "Release!",
+  "modifier.tconstruct.float.description": "Causes the target to temporarily float.",
 
   "__comment": "Tier 5 Traits",
   "modifier.tconstruct.enderporting": "Enderporting",

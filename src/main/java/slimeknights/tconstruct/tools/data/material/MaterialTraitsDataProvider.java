@@ -152,7 +152,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addTraits(MaterialIds.knightly, AMMO, ModifierIds.valiant);
     addDefaultTraits(MaterialIds.enderslimeVine, TinkerModifiers.enderporting.getId(), ModifierIds.overslimeFriend);
     addTraits(MaterialIds.enderslimeVine, ARMOR, ModifierIds.enderclearance, ModifierIds.overslimeFriend);
-    addDefaultTraits(MaterialIds.endRod, ModifierIds.hover);
+    addTraits(MaterialIds.endRod, AMMO, ModifierIds.hover);
 
     // tier 2 - mod compat
     addDefaultTraits(MaterialIds.osmium, ModifierIds.dense);
@@ -222,6 +222,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     MaterialStatsId cage = RepairStats.RIBCAGE.getId();
     addTraits(MaterialIds.blaze, cage, ModifierIds.scorching);
     addTraits(MaterialIds.blazingBone, cage, ModifierIds.conductive);
+    addTraits(MaterialIds.endRod, cage, ModifierIds.floaty);
 
     // slimeshell
     MaterialStatsId shell = RepairStats.SHELL.getId();
