@@ -19,7 +19,8 @@
       "tconstruct:shield_core",
       "tconstruct:maille",
       "tconstruct:cuirass",
-      "tconstruct:slime"
+      "tconstruct:slime",
+      "tconstruct:shell"
     ],
     "transformer": {
       "type": "tconstruct:recolor_sprite",
