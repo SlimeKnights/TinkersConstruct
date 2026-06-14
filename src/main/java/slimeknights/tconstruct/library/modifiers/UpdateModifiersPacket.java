@@ -6,6 +6,7 @@ import io.netty.handler.codec.DecoderException;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraftforge.network.NetworkEvent.Context;
@@ -80,10 +81,14 @@ public class UpdateModifiersPacket implements IThreadsafePacket {
     Map<ModifierId,Modifier> modifiers = new HashMap<>();
     for (int i = 0; i < size; i++) {
       ModifierId id = new ModifierId(buffer.readUtf(Short.MAX_VALUE));
-      Modifier modifier = ComposableModifier.LOADER.decode(buffer, ModifierManager.contextBuilder(id).build());
-      // need cast to call package private method
-      modifier.setId(id);
-      modifiers.put(id, modifier);
+      try {
+        Modifier modifier = ComposableModifier.LOADER.decode(buffer, ModifierManager.contextBuilder(id).build());
+        modifier.setId(id);
+        modifiers.put(id, modifier);
+      } catch (RuntimeException e) {
+        TConstruct.LOG.error("Failed to decode modifier with ID {}", id, e);
+        throw e;
+      }
     }
     // read in redirects
     size = buffer.readVarInt();
@@ -119,8 +124,15 @@ public class UpdateModifiersPacket implements IThreadsafePacket {
     // write modifiers
     buffer.writeVarInt(modifiers.size());
     for (ComposableModifier modifier : modifiers) {
-      buffer.writeResourceLocation(modifier.getId());
-      ComposableModifier.LOADER.encode(buffer, modifier);
+      ResourceLocation id = modifier.getId();
+      buffer.writeResourceLocation(id);
+      try {
+        ComposableModifier.LOADER.encode(buffer, modifier);
+      } catch (RuntimeException e) {
+        // improve error logging
+        TConstruct.LOG.error("Failed to encode modifier with ID {}", id, e);
+        throw e;
+      }
     }
     // write redirects
     buffer.writeVarInt(redirects.size());
