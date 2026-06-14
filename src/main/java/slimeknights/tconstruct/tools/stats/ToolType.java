@@ -24,7 +24,9 @@ public enum ToolType implements StringRepresentable {
   /** Ranged tools that support velocity, drawspeed, and power */
   LAUNCHER(TinkerTags.Items.LAUNCHERS),
   /** Defensive items, including held and worn armor */
-  ARMOR(TinkerTags.Items.ARMOR);
+  ARMOR(TinkerTags.Items.ARMOR),
+  /** Held melee weapons including unarmed. TODO 1.21: merge back into MELEE? */
+  MELEE_UNARMED(TinkerTags.Items.MELEE);
 
   public static final ToolType[] NO_MELEE = {HARVEST, RANGED, ARMOR};
 
