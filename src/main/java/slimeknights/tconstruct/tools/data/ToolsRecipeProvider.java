@@ -249,7 +249,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     String plateFolder = armorFolder + "plate/";
     TinkerTools.plateArmor.forEach(item -> toolBuilding(consumer, item, plateFolder, Patterns.PLATE_ARMOR));
     MaterialCastingRecipeBuilder.tableRecipe(TinkerTools.plateShield.get())
-                                .setCast(MaterialIngredient.of(TinkerToolParts.shieldCore), CastPurpose.FIRST_MATERIAL)
+                                .setPart(TinkerToolParts.shieldCore, true)
                                 .setItemCost(3)
                                 .save(consumer, location(plateFolder + "plate_shield"));
     PartSwapCastingRecipeBuilder.tableRecipe(Ingredient.of(TinkerTools.plateArmor.get(ArmorItem.Type.HELMET)), 3)
@@ -295,17 +295,17 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
 
     // slimecage
     MaterialCastingRecipeBuilder.basinRecipe(TinkerTools.slimesuit.get(ArmorItem.Type.CHESTPLATE))
-      .setCast(TinkerToolParts.ribcage, CastPurpose.FIRST_MATERIAL)
+      .setPart(TinkerToolParts.ribcage, true)
       .setItemCost(8)
       .save(consumer, location(folder + "slimecage"));
     // slimeshell
     MaterialCastingRecipeBuilder.basinRecipe(TinkerTools.slimesuit.get(ArmorItem.Type.LEGGINGS))
-      .setCast(TinkerToolParts.shell, CastPurpose.FIRST_MATERIAL)
+      .setPart(TinkerToolParts.shell, true)
       .setItemCost(7)
       .save(consumer, location(folder + "slimeshell"));
     // slime boots
     MaterialCastingRecipeBuilder.basinRecipe(TinkerTools.slimesuit.get(ArmorItem.Type.BOOTS))
-      .setCast(TinkerToolParts.laces, CastPurpose.FIRST_MATERIAL)
+      .setPart(TinkerToolParts.laces, true)
       .setItemCost(4)
       .save(consumer, location(folder + "slime_boots"));
   }
@@ -493,14 +493,5 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     MaterialSwappingRecipeBuilder.tools(TinkerTags.Items.SWAPPABLE_SKULLS)
       .index(0).material(material, skull).repairValue((int) (MaterialRecipe.INGOTS_PER_REPAIR * 2))
       .save(consumer, location(folder + "slime_skull/swapping/" + material.getPath()));
-  }
-
-  /** Helper to create a casting recipe for a slime shell variant */
-  private void slimecage(Consumer<FinishedRecipe> consumer, MaterialId material, Ingredient bone, String folder) {
-    MaterialCastingRecipeBuilder.basinRecipe(TinkerTools.slimesuit.get(ArmorItem.Type.CHESTPLATE))
-      .setCast(bone, CastPurpose.CONSUMED_OFFSET)
-      .addExtraMaterial(material)
-      .setItemCost(8)
-      .save(consumer, location(folder + "slimecage/" + material.getPath()));
   }
 }

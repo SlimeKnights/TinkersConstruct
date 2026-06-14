@@ -1,6 +1,7 @@
 {
   "type": "tconstruct:basin_tool_casting",
   "cast": {
+    "type": "tconstruct:material",
     "item": "tconstruct:laces"
   },
   "cast_purpose": "first_material",
