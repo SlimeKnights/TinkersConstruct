@@ -570,6 +570,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.blazingBone,  RepairStats.ribcage(205));
     addMaterialStats(MaterialIds.necronium,    RepairStats.ribcage(357));
     addMaterialStats(MaterialIds.blaze,        RepairStats.ribcage(150));
+    addMaterialStats(MaterialIds.jadeite,      RepairStats.ribcage(616));
     addMaterialStats(MaterialIds.endRod,       RepairStats.ribcage(250));
 
     // slimeshell

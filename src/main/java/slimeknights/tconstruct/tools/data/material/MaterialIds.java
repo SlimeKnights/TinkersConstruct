@@ -72,13 +72,14 @@ public final class MaterialIds {
   // tier 3 - bindings
   public static final MaterialId darkthread = id("darkthread");
   public static final MaterialId ichorskin = id("ichorskin");
-  // tier 3 - shield cores
-  public static final MaterialId ice = id("ice");
   // tier 3 - ammo
   public static final MaterialId quartz = id("quartz");
   public static final MaterialId glowstone = id("glowstone");
   public static final MaterialId ichor = id("ichor");
   public static final MaterialId magma = id("magma");
+  // tier 3 - misc
+  public static final MaterialId ice = id("ice");
+  public static final MaterialId jadeite = id("jadeite");
   // tier 4
   public static final MaterialId manyullyn = id("manyullyn");
   public static final MaterialId hepatizon = id("hepatizon");

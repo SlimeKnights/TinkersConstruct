@@ -2187,7 +2187,8 @@
   "material.tconstruct.glowstone.flavor": "Brightest day, blackest night, no cave will escape my light!",
   "material.tconstruct.glowstone.ammo": "Causes the target to glow for 10 seconds per level. If it hits a block, places a permanent light source at the cost of the projectile.",
 
-  "material.tconstruct.soulsteel": "Soulsteel",
+  "material.tconstruct.jadeite": "Jadeite",
+  "material.tconstruct.jadeite.flavor": "Crystalized Gemstones",
 
   "material.tconstruct.jeweled_hide": "Jeweled Hide",
   "material.tconstruct.jeweled_hide.flavor": "Leather tanned using pure gemstones",

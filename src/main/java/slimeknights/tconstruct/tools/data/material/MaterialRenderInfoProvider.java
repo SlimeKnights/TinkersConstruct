@@ -93,6 +93,7 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.steel).color(0x959595).fallbacks("metal");
     buildRenderInfo(MaterialIds.darkthread);
     buildRenderInfo(MaterialIds.ichorskin);
+    buildRenderInfo(MaterialIds.jadeite);
 
     // tier 4
     buildRenderInfo(MaterialIds.cinderslime).luminosity(SlimeType.ICHOR.getLightLevel());
