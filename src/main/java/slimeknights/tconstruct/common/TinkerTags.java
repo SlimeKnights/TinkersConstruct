@@ -552,6 +552,10 @@ public class TinkerTags {
     @Deprecated(forRemoval = true)
     public static final TagKey<Item> LINGERING_BOTTLE = MantleTags.Items.LINGERING_BOTTLE;
 
+
+    /** Items in this tag will render the arm when held. */
+    public static final TagKey<Item> SHOW_HAND = local("show_hand");
+
     // compat tags
     /** @deprecated necronium bones now show based on {@link slimeknights.tconstruct.tools.data.material.MaterialIds#necronium} */
     @Deprecated(forRemoval = true)

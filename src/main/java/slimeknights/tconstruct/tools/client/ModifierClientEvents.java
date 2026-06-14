@@ -92,13 +92,29 @@ public class ModifierClientEvents {
       return;
     }
 
-    // if the data is set, render the empty offhand
-    if (hand == InteractionHand.OFF_HAND && held.isEmpty()) {
-      if (!player.isInvisible() && player.getMainHandItem().getItem() != Items.FILLED_MAP && ArmorLevelModule.getLevel(player, TinkerDataKeys.SHOW_EMPTY_OFFHAND) > 0) {
-        PoseStack matrices = event.getPoseStack();
-        matrices.pushPose();
-        Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer().renderPlayerArm(matrices, event.getMultiBufferSource(), event.getPackedLight(), event.getEquipProgress(), event.getSwingProgress(), player.getMainArm().getOpposite());
-        matrices.popPose();
+    // the remainder of this listener renders the hand when it wouldn't normally, so skip if invisible
+    if (player.isInvisible()) {
+      return;
+    }
+
+    boolean showHand;
+    if (held.isEmpty()) {
+      // if empty, we show the empty offhand when chestplate modifiers use it
+      showHand = hand == InteractionHand.OFF_HAND && !player.isInvisible() && player.getMainHandItem().getItem() != Items.FILLED_MAP && ArmorLevelModule.getLevel(player, TinkerDataKeys.SHOW_EMPTY_OFFHAND) > 0;
+    } else {
+      // if filled, some items prefer to render your arm with them, like gloves
+      showHand = held.is(TinkerTags.Items.SHOW_HAND);
+    }
+    if (showHand) {
+      PoseStack matrices = event.getPoseStack();
+      matrices.pushPose();
+      HumanoidArm side = player.getMainArm();
+      if (hand == InteractionHand.OFF_HAND) {
+        side = side.getOpposite();
+      }
+      Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer().renderPlayerArm(matrices, event.getMultiBufferSource(), event.getPackedLight(), event.getEquipProgress(), event.getSwingProgress(), side);
+      matrices.popPose();
+      if (held.isEmpty()) {
         event.setCanceled(true);
       }
     }
