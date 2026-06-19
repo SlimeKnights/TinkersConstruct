@@ -21,6 +21,7 @@ import slimeknights.tconstruct.shared.command.argument.ModifierHookArgument;
 import slimeknights.tconstruct.shared.command.argument.ModifierTagSource;
 import slimeknights.tconstruct.shared.command.argument.SlotTypeArgument;
 import slimeknights.tconstruct.shared.command.argument.ToolStatArgument;
+import slimeknights.tconstruct.shared.command.subcommand.DurabilityCommand;
 import slimeknights.tconstruct.shared.command.subcommand.GenerateHiddenFluidsCommand;
 import slimeknights.tconstruct.shared.command.subcommand.GenerateMeltingRecipesCommand;
 import slimeknights.tconstruct.shared.command.subcommand.GeneratePartTexturesCommand;
@@ -72,6 +73,7 @@ public class TConstructCommand {
     register(builder, "materials", MaterialsCommand::register);
     register(builder, "tool_stats", StatsCommand::register);
     register(builder, "slots", SlotsCommand::register);
+    register(builder, "durability", DurabilityCommand::register);
     register(builder, "report", b -> {
       register(b, "modifier_usage", ModifierUsageCommand::register);
       register(b, "modifier_priority", ModifierPriorityCommand::register);

@@ -46,7 +46,7 @@
       ],
       "tool": {
         "type": "mantle:tag",
-        "tag": "tconstruct:modifiable/armor"
+        "tag": "tconstruct:modifiable/armor/worn"
       }
     }
   ],

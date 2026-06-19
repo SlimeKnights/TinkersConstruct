@@ -49,6 +49,7 @@ import slimeknights.tconstruct.library.tools.definition.module.mining.MiningSpee
 import slimeknights.tconstruct.library.tools.definition.module.weapon.CircleWeaponAttack;
 import slimeknights.tconstruct.library.tools.definition.module.weapon.ParticleWeaponAttack;
 import slimeknights.tconstruct.library.tools.definition.module.weapon.SweepWeaponAttack;
+import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.nbt.MultiplierNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
@@ -733,52 +734,58 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
 
     // slime suit
     RandomMaterial blood = RandomMaterial.fixed(MaterialIds.blood);
-    MaterialTraitsModule slimeTraitAt1 = new MaterialTraitsModule(SlimeStats.ID, 1);
     defineArmor(ArmorDefinitions.SLIMESUIT)
       // materials
       // helmet - slime and skull
       .module(ArmorItem.Type.HELMET, MaterialStatsModule.stats().stat(SkullStats.ID).stat(SlimeStats.ID, 1.1f).build())
       .module(ArmorItem.Type.HELMET, DefaultMaterialsModule.builder().material(anyMaterial, blood).build())
-      // chestplate - slime, bone TODO
-      .module(ArmorItem.Type.CHESTPLATE, MaterialStatsModule.stats().stat(SlimeStats.ID, 1.6f).primaryPart(-1).build())
-      .module(ArmorItem.Type.CHESTPLATE, DefaultMaterialsModule.builder().material(blood).build())
-      .module(ArmorItem.Type.CHESTPLATE, new MultiplyStatsModule(MultiplierNBT.builder().set(ToolStats.ATTACK_DAMAGE, 0.4f).build()))
+      // chestplate - slime
+      .module(ArmorItem.Type.CHESTPLATE, MaterialStatsModule.stats().stat(RepairStats.RIBCAGE.getId()).stat(SlimeStats.ID, 1.6f).build())
+      .module(ArmorItem.Type.CHESTPLATE, DefaultMaterialsModule.builder().material(ToolBuildHandler.RANDOM, blood).build())
+      .module(ArmorItem.Type.CHESTPLATE, new MultiplyStatsModule(MultiplierNBT.builder().set(ToolStats.ATTACK_DAMAGE, 0.6f).build()))
+      .module(ArmorItem.Type.CHESTPLATE, new PartsModule(List.of(TinkerToolParts.ribcage.get())))
       // leggings - shell and slime
       .module(ArmorItem.Type.LEGGINGS, MaterialStatsModule.stats().stat(RepairStats.SHELL.getId()).stat(SlimeStats.ID, 1.5f).build())
       .module(ArmorItem.Type.LEGGINGS, DefaultMaterialsModule.builder().material(RandomMaterial.fixed(MaterialIds.shulker), blood).build())
+      .module(ArmorItem.Type.LEGGINGS, new PartsModule(List.of(TinkerToolParts.shell.get())))
       // boots - laces and slime
       .module(ArmorItem.Type.BOOTS, MaterialStatsModule.stats().stat(RepairStats.LACES.getId()).stat(SlimeStats.ID, 1.3f).build())
       .module(ArmorItem.Type.BOOTS, DefaultMaterialsModule.builder().material(RandomMaterial.fixed(MaterialIds.skyslimeVine), blood).build())
+      .module(ArmorItem.Type.BOOTS, new PartsModule(List.of(TinkerToolParts.laces.get())))
       // slots
       .module(ToolSlotsModule.builder()
         .slots(SlotType.UPGRADE, 3)
-        .slots(SlotType.ABILITY, 2).build(),
-        ArmorItem.Type.HELMET, ArmorItem.Type.LEGGINGS, ArmorItem.Type.BOOTS)
-      // slimelyra has fewer ability slots
-      .module(ToolSlotsModule.builder()
-        .slots(SlotType.UPGRADE, 4)
-        .slots(SlotType.ABILITY, 1).build(),
-        ArmorItem.Type.CHESTPLATE)
-      // repair
-      .module(ArmorItem.Type.CHESTPLATE, MaterialRepairModule.of(MaterialIds.phantom, ArmorItem.Type.CHESTPLATE, 42))
+        .slots(SlotType.ABILITY, 2).build())
       // traits
-      .module(ArmorItem.Type.CHESTPLATE, ToolTraitsModule.builder().trait(ModifierIds.wings).build())
+      .module(ArmorItem.Type.CHESTPLATE, ToolTraitsModule.builder().trait(TinkerModifiers.ambidextrous).trait(ModifierIds.reach).build())
       .module(ArmorItem.Type.LEGGINGS, ToolTraitsModule.builder().trait(ModifierIds.shellStorage, 1).build())
       .module(ArmorItem.Type.BOOTS, ToolTraitsModule.builder().trait(ModifierIds.bouncy).build())
       // armor trim
-      .module(ArmorItem.Type.HELMET, slimeTraitAt1, ToolHooks.TRIM_TRAIT)
-      .module(ArmorItem.Type.CHESTPLATE, new MaterialTraitsModule(SlimeStats.ID, 0), ToolHooks.REBALANCED_TRAIT, ToolHooks.TRIM_TRAIT)
-      .module(ArmorItem.Type.LEGGINGS, slimeTraitAt1, ToolHooks.TRIM_TRAIT)
-      .module(ArmorItem.Type.BOOTS, slimeTraitAt1, ToolHooks.TRIM_TRAIT)
+      .module(new MaterialTraitsModule(SlimeStats.ID, 1), ToolHooks.TRIM_TRAIT)
       // display name
       // start with a variant of the base based on the tool type - Slimeskull, Magmaskull, etc.
-      .module(UniqueMaterialToolName.SECOND, ArmorItem.Type.HELMET, ArmorItem.Type.LEGGINGS, ArmorItem.Type.BOOTS)
+      .module(UniqueMaterialToolName.SECOND)
       // for helmets, we want mob names for the material
       .module(ArmorItem.Type.HELMET, new CustomMaterialName(0, "skull"))
       // for non-helmets, we want the direct mateiral name
-      .module(FixedMaterialToolName.FIRST, ArmorItem.Type.LEGGINGS, ArmorItem.Type.BOOTS)
-      // chestplates just do unique on the first, nothing else
-      .module(ArmorItem.Type.CHESTPLATE, UniqueMaterialToolName.FIRST);
+      .module(FixedMaterialToolName.FIRST, ArmorItem.Type.CHESTPLATE, ArmorItem.Type.LEGGINGS, ArmorItem.Type.BOOTS);
+    define(ArmorDefinitions.SLIME_WINGS)
+      // materials
+      .module(MaterialStatsModule.stats().stat(SlimeStats.ID, 1.6f).primaryPart(-1).build())
+      .module(DefaultMaterialsModule.builder().material(blood).build())
+      // stats
+      .module(new MultiplyStatsModule(MultiplierNBT.builder().set(ToolStats.ATTACK_DAMAGE, 0.4f).build()))
+      // slots
+      .module(ToolSlotsModule.builder()
+          .slots(SlotType.UPGRADE, 4)
+          .slots(SlotType.ABILITY, 1).build())
+      .module(MaterialRepairModule.of(MaterialIds.phantom, ArmorItem.Type.CHESTPLATE, 42))
+      // traits
+      .module(ToolTraitsModule.builder().trait(ModifierIds.wings).build())
+      // armor trim/rebalanced
+      .module(new MaterialTraitsModule(SlimeStats.ID, 0), ToolHooks.REBALANCED_TRAIT, ToolHooks.TRIM_TRAIT)
+      // display name
+      .module(UniqueMaterialToolName.FIRST);
 
     // ancient
     // melting pan

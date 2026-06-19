@@ -96,6 +96,7 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
   // JEI cache
   protected List<LayoutSlot> layoutSlots;
   protected List<List<ItemStack>> allToolParts;
+  protected List<ItemStack> hiddenInputs;
   protected List<ItemStack> displayOutput;
 
   @Deprecated(forRemoval = true)
@@ -243,6 +244,20 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
         .toList();
     }
     return allToolParts;
+  }
+
+  /**
+   * Gets all hidden inputs, such as parts with hidden materials. Helps the recipe lookup.
+   */
+  public List<ItemStack> getHiddenInputs() {
+    if (hiddenInputs == null) {
+      hiddenInputs = getToolParts().stream()
+        .flatMap(part -> MaterialRecipeCache.getHiddenVariants().stream()
+          .filter(mat -> part.canUseMaterial(mat.getId()))
+          .map(part::withMaterial))
+        .toList();
+    }
+    return hiddenInputs;
   }
 
   /** Gets the layout slots so we know where go position item slots for guis */

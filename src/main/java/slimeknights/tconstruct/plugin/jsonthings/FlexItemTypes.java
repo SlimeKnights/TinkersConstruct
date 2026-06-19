@@ -71,6 +71,7 @@ public class FlexItemTypes {
       boolean breakBlocksInCreative = GsonHelper.getAsBoolean(data, "break_blocks_in_creative", true);
       int stackSize = GsonHelper.getAsInt(data, "max_stack_size", 1);
       return (IToolItemFactory<ModifiableItem>)(props, builder) -> {
+        props.durability(-1).stacksTo(stackSize);
         ToolDefinition definition = ToolDefinition.create(builder.getRegistryName());
         return add(TOOL_ITEMS, breakBlocksInCreative ? new ModifiableItem(props, definition, stackSize) : new ModifiableSwordItem(props, definition, stackSize));
       };

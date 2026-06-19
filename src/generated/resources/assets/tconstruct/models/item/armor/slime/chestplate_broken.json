@@ -2,15 +2,20 @@
   "loader": "tconstruct:tool",
   "parent": "forge:item/default",
   "textures": {
-    "slime": "tconstruct:item/tool/armor/slime/wings/slime_broken"
+    "slime": "tconstruct:item/tool/armor/slime/chestplate/slime_broken",
+    "ribcage": "tconstruct:item/tool/armor/slime/chestplate/ribcage_broken"
   },
   "modifier_maps": [
-    "tconstruct:slime/wings_broken",
-    "tconstruct:slime/wings"
+    "tconstruct:slime/chestplate_broken",
+    "tconstruct:slime/chestplate"
   ],
   "parts": [
     {
       "name": "slime",
+      "index": 1
+    },
+    {
+      "name": "ribcage",
       "index": 0
     }
   ],

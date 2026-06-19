@@ -7,7 +7,7 @@
       "tag": "tconstruct:modifiable/multipart"
     },
     "subtracted": {
-      "tag": "tconstruct:modifiable/unswappable"
+      "tag": "tconstruct:modifiable/unswappable/parts"
     }
   }
 }

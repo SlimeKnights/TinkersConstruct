@@ -1,5 +1,8 @@
 {
   "stats": {
-    "tconstruct:arrow_shaft": {}
+    "tconstruct:arrow_shaft": {},
+    "tconstruct:ribcage": {
+      "repair_amount": 250
+    }
   }
 }

@@ -6,5 +6,6 @@
   "slotColor": 0xFDF500,
   "drawSectionListText": true,
   "centerPageTitles": true,
-  "drawFourColumnIndex": true
+  "drawFourColumnIndex": true,
+  "exportTitle": "Encyclopedia of Tinkering"
 }

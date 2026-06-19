@@ -280,8 +280,10 @@ public class TableRecipeProvider extends BaseRecipeProvider {
       .save(materialConsumer, location(folder + "scorched_forge_material"));
 
     // part swapping
-    TinkerStationPartSwappingBuilder.tools(DifferenceIngredient.of(Ingredient.of(TinkerTags.Items.MULTIPART_TOOL), Ingredient.of(TinkerTags.Items.UNSWAPPABLE)))
+    TinkerStationPartSwappingBuilder.tools(DifferenceIngredient.of(Ingredient.of(TinkerTags.Items.MULTIPART_TOOL), Ingredient.of(TinkerTags.Items.UNSWAPPABLE_PARTS)))
       .save(consumer, location(folder + "tinker_station_part_swapping"));
+    TinkerStationPartSwappingBuilder.tools(DifferenceIngredient.of(Ingredient.of(TinkerTags.Items.MULTIPART_TOOL), Ingredient.of(TinkerTags.Items.UNSWAPPABLE_TOOLS)))
+      .fromTool().save(consumer, location(folder + "tool_material_swapping"));
     TinkerStationPartSwappingBuilder.tools(Ingredient.of(TinkerTools.arrow.get(), TinkerTools.shuriken.get()))
       .maxStackSize(4)
       .save(consumer, location(folder + "ammo_part_swapping"));

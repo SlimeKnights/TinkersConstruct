@@ -216,6 +216,8 @@ public class TConstruct {
       case "round_plate_cast" -> TinkerSmeltery.adzeHeadCast.get();
       case "round_plate_sand_cast" -> TinkerSmeltery.adzeHeadCast.getSand();
       case "round_plate_red_sand_cast" -> TinkerSmeltery.adzeHeadCast.getRedSand();
+      // slimesuit rework
+      case "slime_chestplate" -> TinkerTools.slimeWings.get();
       default -> null;
     });
   }

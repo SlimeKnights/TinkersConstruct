@@ -42,6 +42,12 @@ public abstract class AbstractArmorModelProvider extends GenericDataProvider {
   }
 
   /** Adds a model to the generator */
+  @SuppressWarnings("SameParameterValue") // API
+  protected void addModel(ResourceLocation name, Function<ResourceLocation,ArmorTextureSupplier[]> layers) {
+    addModel(name, layers.apply(name));
+  }
+
+  /** Adds a model to the generator */
   protected void addModel(IdAwareObject name, ArmorTextureSupplier... layers) {
     addModel(name.getId(), layers);
   }

@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:basin_tool_casting",
+  "cast": {
+    "type": "tconstruct:material",
+    "item": "tconstruct:ribcage"
+  },
+  "cast_purpose": "first_material",
+  "item_cost": 8,
+  "result": "tconstruct:slimy_chestplate"
+}

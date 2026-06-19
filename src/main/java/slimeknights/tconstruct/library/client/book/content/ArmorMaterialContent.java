@@ -7,12 +7,16 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
+import slimeknights.mantle.client.book.HTMLUtils;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.element.TextComponentData;
 import slimeknights.mantle.client.screen.book.BookScreen;
 import slimeknights.mantle.client.screen.book.element.BookElement;
 import slimeknights.mantle.client.screen.book.element.TextComponentElement;
 import slimeknights.mantle.client.screen.book.element.TextElement;
+import slimeknights.mantle.util.html.HtmlElement;
+import slimeknights.mantle.util.html.HtmlGroup;
+import slimeknights.mantle.util.html.HtmlSerializable;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.book.elements.TinkerItemElement;
 import slimeknights.tconstruct.library.client.materials.MaterialTooltipCache;
@@ -205,5 +209,43 @@ public class ArmorMaterialContent extends AbstractMaterialContent {
 
     // TODO: calculate actual height to properly wrap long lines?
     return y + (lineData.size() * 10) + 3;
+  }
+
+  @Override
+  public HtmlSerializable makeStatsHtml(BookData book) {
+    HtmlGroup group = HtmlGroup.indent();
+
+    // add stats
+    List<PlatingMaterialStats> stats = TOP_DOWN_STATS.stream()
+      .flatMap(id -> MaterialRegistry.getInstance().<PlatingMaterialStats>getMaterialStats(getMaterial().getIdentifier(), id).stream())
+      .toList();
+    if (!stats.isEmpty()) {
+      HtmlElement divider = HtmlElement.div().classes("row").style("gap", 32)
+        .add(HtmlElement.p()
+          .add(HTMLUtils.toHtml(PLATING_LABEL))
+          .style("font-weight", "bold")
+          .style("padding-right", 16));
+      HtmlElement slash = HtmlElement.p().add("/");
+      for (int i = 1; i < stats.size(); i++) {
+        divider.add(slash);
+      }
+      List<TextComponentData> lineData = new ArrayList<>();
+      addStatLine(lineData, stats, ToolStats.DURABILITY, PlatingMaterialStats::durability);
+      addStatLine(lineData, stats, ToolStats.ARMOR, PlatingMaterialStats::armor);
+      addStatLine(lineData, stats, ToolStats.ARMOR_TOUGHNESS, PlatingMaterialStats::toughness);
+      addStatLine(lineData, stats, ToolStats.KNOCKBACK_RESISTANCE, stat -> stat.knockbackResistance() * 10);
+      group.add(HtmlElement.div()
+        .add(divider)
+        .add(TextComponentData.toHTML(lineData, book)));
+    }
+
+    // add traits
+    group.add(HtmlElement.div().classes("row-material-stats")
+      .add(HtmlElement.div().classes("column").style("gap", 12)
+        .add(makeStatHtml(HELMET.getId(), ARMOR_PLATING_LABEL.getString(), false, false))
+        .add(makeStatHtml(StatlessMaterialStats.MAILLE.getIdentifier(), false, true))
+        .add(makeStatHtml(StatlessMaterialStats.SHIELD_CORE.getIdentifier(), false, true)))
+      .add(makeStatHtml(SHIELD.getId(), SHIELD_LABEL.getString(), false, false)));
+    return group;
   }
 }

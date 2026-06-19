@@ -8,6 +8,7 @@ import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator.DuelSidedListener;
 import slimeknights.tconstruct.library.materials.IMaterialRegistry;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
+import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 
@@ -39,6 +40,9 @@ public class MaterialRecipeCache {
   /** List of all material variants in sorted order. See also {@link IMaterialRegistry#getVisibleMaterials()} */
   @Nullable
   private static List<MaterialVariantId> SORTED_VARIANTS = null;
+  /** List of all hidden material variants in sorted order. See also {@link IMaterialRegistry#getVisibleMaterials()} */
+  @Nullable
+  private static List<MaterialVariantId> HIDDEN_VARIANTS = null;
 
   /** Listener for clearing the cache */
   private static final DuelSidedListener LISTENER = RecipeCacheInvalidator.addDuelSidedListener(() -> {
@@ -48,6 +52,7 @@ public class MaterialRecipeCache {
     ITEMS_BY_MATERIAL.clear();
     KNOWN_VARIANTS.clear();
     SORTED_VARIANTS = null;
+    HIDDEN_VARIANTS = null;
   });
 
   /** Registers a recipe with the cache */
@@ -120,6 +125,7 @@ public class MaterialRecipeCache {
     KNOWN_VARIANTS.put(variant.getId(), variant);
     // null cache of sorted variants as its outdated now
     SORTED_VARIANTS = null;
+    HIDDEN_VARIANTS = null;
   }
 
   /** Gets a list of known material variants for the given material ID */
@@ -131,7 +137,7 @@ public class MaterialRecipeCache {
     return Collections.unmodifiableCollection(variants);
   }
 
-  /** Gets a sorted list of all known material variants */
+  /** Gets a sorted list of all known non-hidden material variants */
   public static List<MaterialVariantId> getAllVariants() {
     if (SORTED_VARIANTS == null) {
       Comparator<MaterialVariantId> variantSorter = Comparator.comparing(MaterialVariantId::getVariant);
@@ -147,5 +153,24 @@ public class MaterialRecipeCache {
         }).toList();
     }
     return SORTED_VARIANTS;
+  }
+
+  /** Gets a sorted list of all known hidden material variants. Should not be directly displayed in recipes, rather added as a hidden input. */
+  public static List<MaterialVariantId> getHiddenVariants() {
+    if (HIDDEN_VARIANTS == null) {
+      Comparator<MaterialVariantId> variantSorter = Comparator.comparing(MaterialVariantId::getVariant);
+      HIDDEN_VARIANTS = MaterialRegistry.getInstance().getAllMaterials().stream()
+        .filter(IMaterial::isHidden).sorted()
+        .flatMap(material -> {
+          // if no variants are registered, just list the material itself; useful for uncraftable materials
+          MaterialId id = material.getIdentifier();
+          Collection<MaterialVariantId> variants = KNOWN_VARIANTS.get(id);
+          if (variants.isEmpty()) {
+            return Stream.of(id);
+          }
+          return variants.stream().sorted(variantSorter);
+        }).toList();
+    }
+    return HIDDEN_VARIANTS;
   }
 }

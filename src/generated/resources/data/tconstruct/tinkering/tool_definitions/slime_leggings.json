@@ -25,6 +25,12 @@
       ]
     },
     {
+      "type": "tconstruct:tool_parts",
+      "parts": [
+        "tconstruct:shell"
+      ]
+    },
+    {
       "type": "tconstruct:modifier_slots",
       "slots": {
         "abilities": 2,

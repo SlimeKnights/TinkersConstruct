@@ -53,7 +53,7 @@ public class ModifierRecipe extends AbstractModifierRecipe {
      * @param inv  Alloy tank
      * @return  Bitset
      */
-  protected static BitSet makeBitset(ITinkerableContainer inv) {
+  public static BitSet makeBitset(ITinkerableContainer inv) {
     int inputs = inv.getInputCount();
     BitSet used = new BitSet(inputs);
     // mark empty as used to save a bit of effort
@@ -97,7 +97,17 @@ public class ModifierRecipe extends AbstractModifierRecipe {
     if (inputs.isEmpty()) {
       return false;
     }
-    BitSet used = makeBitset(inv);
+    return checkMatch(inv, inputs, makeBitset(inv));
+  }
+
+  /**
+   * Tries to match the given list of ingredients to the inventory
+   * @param inv     Inventory to check
+   * @param inputs  List of inputs to check
+   * @param used    Partially filled bitset to mark ingredients used by other parts of the recipe. Use {@link #checkMatch(ITinkerableContainer, List)} if no other logic.
+   * @return True if a match
+   */
+  public static boolean checkMatch(ITinkerableContainer inv, List<SizedIngredient> inputs, BitSet used) {
     for (SizedIngredient ingredient : inputs) {
       int index = findMatch(ingredient, inv, used);
       if (index == -1) {
@@ -160,8 +170,11 @@ public class ModifierRecipe extends AbstractModifierRecipe {
 
   /** Updates all inputs in the given container */
   public static void updateInputs(ITinkerableContainer.Mutable inv, List<SizedIngredient> inputs) {
-    // bit corresponding to items that are already found
-    BitSet used = makeBitset(inv);
+    updateInputs(inv, inputs, makeBitset(inv));
+  }
+
+  /** Updates all inputs in the given container, ignoring any slots already present in the bitset */
+  public static void updateInputs(ITinkerableContainer.Mutable inv, List<SizedIngredient> inputs, BitSet used) {
     // just shrink each input
     for (SizedIngredient ingredient : inputs) {
       // care about size, if too small just skip the recipe

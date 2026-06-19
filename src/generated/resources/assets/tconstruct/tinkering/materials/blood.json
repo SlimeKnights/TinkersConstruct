@@ -3,7 +3,8 @@
   "generator": {
     "supported_stats": [
       "tconstruct:slime",
-      "tconstruct:slimesuit"
+      "tconstruct:slimesuit",
+      "tconstruct:repair_kit"
     ],
     "transformer": {
       "type": "tconstruct:recolor_sprite",

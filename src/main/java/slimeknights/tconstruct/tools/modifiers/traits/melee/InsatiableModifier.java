@@ -34,13 +34,15 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class InsatiableModifier extends Modifier implements ProjectileHitModifierHook, ConditionalStatModifierHook, MeleeDamageModifierHook, MonsterMeleeHitModifierHook.RedirectAfter, MeleeHitModifierHook, SlingLaunchModifierHook, TooltipModifierHook {
-  public static final ToolType[] TYPES = {ToolType.LAUNCHER, ToolType.MELEE};
+  public static final ToolType[] TYPES = {ToolType.LAUNCHER, ToolType.MELEE_UNARMED};
 
   /** Gets the current bonus for the entity */
   private static float getEffect(LivingEntity attacker, ToolType type) {
     // TODO 1.21: switch values in enum for the effect
     if (type == ToolType.LAUNCHER) {
       type = ToolType.RANGED;
+    } else if (type == ToolType.MELEE_UNARMED) {
+      type = ToolType.MELEE;
     }
     return TinkerEffect.getLevel(attacker, TinkerModifiers.insatiableEffect.get(type));
   }
@@ -105,7 +107,7 @@ public class InsatiableModifier extends Modifier implements ProjectileHitModifie
           bonus = getEffect(player, type) * level / 2;
         }
         if (bonus > 0) {
-          INumericToolStat<?> stat = type == ToolType.MELEE ? ToolStats.ATTACK_DAMAGE : ToolStats.PROJECTILE_DAMAGE;
+          INumericToolStat<?> stat = type == ToolType.MELEE_UNARMED ? ToolStats.ATTACK_DAMAGE : ToolStats.PROJECTILE_DAMAGE;
           bonus *= tool.getMultiplier(stat);
           // ranged gets half the bonus of melee
           if (type == ToolType.LAUNCHER) {

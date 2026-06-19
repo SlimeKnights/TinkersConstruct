@@ -1,0 +1,45 @@
+{
+  "color": "FF82F6AD",
+  "generator": {
+    "supported_stats": [
+      "tconstruct:ribcage",
+      "tconstruct:repair_kit"
+    ],
+    "transformer": {
+      "type": "tconstruct:recolor_sprite",
+      "color_mapping": {
+        "type": "tconstruct:grey_to_color",
+        "palette": [
+          {
+            "color": "FF000000",
+            "grey": 0
+          },
+          {
+            "color": "FF009529",
+            "grey": 63
+          },
+          {
+            "color": "FF00AA2C",
+            "grey": 102
+          },
+          {
+            "color": "FF17DD62",
+            "grey": 140
+          },
+          {
+            "color": "FF41F384",
+            "grey": 178
+          },
+          {
+            "color": "FF82F6AD",
+            "grey": 216
+          },
+          {
+            "color": "FFDBFFEB",
+            "grey": 255
+          }
+        ]
+      }
+    }
+  }
+}

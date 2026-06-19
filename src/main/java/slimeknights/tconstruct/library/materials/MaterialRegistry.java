@@ -135,6 +135,7 @@ public final class MaterialRegistry {
     // slimesuit
     registry.registerStatType(SlimeStats.TYPE, ARMOR);
     registry.registerStatType(SkullStats.TYPE, ARMOR);
+    registry.registerStatType(RepairStats.RIBCAGE); // not registered as armor as we want melee/harvest traits to win out
     registry.registerStatType(RepairStats.SHELL, ARMOR);
     registry.registerStatType(RepairStats.LACES, ARMOR);
     // ammo

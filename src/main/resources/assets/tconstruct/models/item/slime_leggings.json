@@ -2,11 +2,13 @@
   "loader": "tconstruct:tool",
   "parent": "forge:item/default",
   "textures": {
-    "slime": "tconstruct:item/tool/armor/slime/leggings/slime"
+    "slime": "tconstruct:item/tool/armor/slime/leggings/slime",
+    "shell": "tconstruct:item/tool/armor/slime/leggings/shell"
   },
   "modifier_maps": ["tconstruct:slime/leggings"],
   "parts": [
-    { "name": "slime", "index": 1 }
+    { "name": "slime", "index": 1 },
+    { "name": "shell", "index": 0 }
   ],
   "first_modifiers": [ "tconstruct:trim" ],
   "overrides": [

@@ -49,12 +49,18 @@ public record PostFixFormula(List<StackOperation> operations, int numArguments) 
   /** Deserializes a formula from JSON */
   public static PostFixFormula deserialize(JsonObject json, String[] variableNames) {
     // TODO: string formulas using Shunting yard algorithm
-    return new PostFixFormula(JsonHelper.parseList(json, "formula", (element, key) -> {
+    PostFixFormula formula = new PostFixFormula(JsonHelper.parseList(json, "formula", (element, key) -> {
       if (element.isJsonPrimitive()) {
         return StackOperation.deserialize(element.getAsJsonPrimitive(), variableNames);
       }
       throw new JsonSyntaxException("Expected " + key + " to be a string or number, was " + GsonHelper.getType(element));
     }), variableNames.length);
+    try {
+      formula.validateFormula();
+    } catch (RuntimeException e) {
+      throw new JsonSyntaxException("Caught error while validating formula, this usually indicates the wrong number of operands to operators.", e);
+    }
+    return formula;
   }
 
   /** Serializes this object to JSON */

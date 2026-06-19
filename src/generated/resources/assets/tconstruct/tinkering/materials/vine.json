@@ -9,7 +9,9 @@
       "tconstruct:bowstring",
       "tconstruct:maille",
       "tconstruct:armor_maille",
-      "tconstruct:fletching"
+      "tconstruct:fletching",
+      "tconstruct:laces",
+      "tconstruct:repair_kit"
     ],
     "transformer": {
       "type": "tconstruct:recolor_sprite",

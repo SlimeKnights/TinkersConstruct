@@ -42,6 +42,7 @@ import net.minecraftforge.fluids.ForgeFlowingFluid;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.registries.RegistryObject;
+import slimeknights.mantle.datagen.MantleTags;
 import slimeknights.mantle.fluid.InvertedFluid;
 import slimeknights.mantle.fluid.UnplaceableFluid;
 import slimeknights.mantle.fluid.texture.FluidTextureCameraProvider;
@@ -52,7 +53,6 @@ import slimeknights.mantle.registration.object.FluidObject;
 import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
-import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.fluids.data.FluidBlockstateModelProvider;
 import slimeknights.tconstruct.fluids.data.FluidBucketModelProvider;
 import slimeknights.tconstruct.fluids.data.FluidTextureProvider;
@@ -280,7 +280,7 @@ public final class TinkerFluids extends TinkerModule {
       CauldronInteraction.EMPTY.put(Items.LINGERING_POTION, new EmptyBottleIntoEmpty(lingeringBottle, CauldronInteraction.EMPTY.get(Items.LINGERING_POTION)));
       // brew bottles into each other, bit weird but feels better than shapeless
       BrewingRecipeRegistry.addRecipe(new BottleBrewingRecipe(Ingredient.of(Items.GLASS_BOTTLE), Items.POTION, Items.SPLASH_POTION, new ItemStack(splashBottle)));
-      BrewingRecipeRegistry.addRecipe(new BottleBrewingRecipe(Ingredient.of(TinkerTags.Items.SPLASH_BOTTLE), Items.SPLASH_POTION, Items.LINGERING_POTION, new ItemStack(lingeringBottle)));
+      BrewingRecipeRegistry.addRecipe(new BottleBrewingRecipe(Ingredient.of(MantleTags.Items.SPLASH_BOTTLE), Items.SPLASH_POTION, Items.LINGERING_POTION, new ItemStack(lingeringBottle)));
     });
 
     // dispense buckets

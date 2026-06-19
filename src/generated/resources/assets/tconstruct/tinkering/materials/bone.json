@@ -13,7 +13,8 @@
       "tconstruct:limb",
       "tconstruct:grip",
       "tconstruct:arrow_shaft",
-      "tconstruct:shield_core"
+      "tconstruct:shield_core",
+      "tconstruct:ribcage"
     ],
     "transformer": {
       "type": "tconstruct:recolor_sprite",

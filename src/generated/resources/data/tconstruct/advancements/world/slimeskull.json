@@ -479,7 +479,7 @@
     "hidden": false,
     "icon": {
       "item": "tconstruct:slime_helmet",
-      "nbt": "{Damage:0,tic_broken:0b,tic_materials:[\"tconstruct:glass\"]}"
+      "nbt": "{Damage:0,tic_broken:0b,tic_materials:[\"tconstruct:glass\",\"tconstruct:enderslime\"]}"
     },
     "show_toast": true,
     "title": {

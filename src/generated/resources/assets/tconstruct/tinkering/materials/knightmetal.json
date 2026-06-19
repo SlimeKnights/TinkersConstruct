@@ -19,7 +19,8 @@
       "tconstruct:plating_shield",
       "tconstruct:maille",
       "tconstruct:armor_maille",
-      "tconstruct:arrow_head"
+      "tconstruct:arrow_head",
+      "tconstruct:shell"
     ],
     "transformer": {
       "type": "tconstruct:recolor_sprite",

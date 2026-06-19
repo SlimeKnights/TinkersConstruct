@@ -16,6 +16,7 @@ import slimeknights.mantle.recipe.helper.TypeAwareRecipeSerializer;
 import slimeknights.tconstruct.library.json.predicate.material.MaterialPredicate;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.recipe.casting.material.ToolCastingRecipe.CastPurpose;
+import slimeknights.tconstruct.library.recipe.ingredient.MaterialIngredient;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -132,6 +133,16 @@ public class MaterialCastingRecipeBuilder extends AbstractRecipeBuilder<Material
    */
   public MaterialCastingRecipeBuilder setCast(TagKey<Item> tag, boolean consumed) {
     return this.setCast(Ingredient.of(tag), consumed);
+  }
+
+  /**
+   * Sets the cast to the given tool part with the proper ingredient type
+   * @param part      Cast part item
+   * @param first     If true, the part is the first material. If false it is the second
+   * @return  Builder instance
+   */
+  public MaterialCastingRecipeBuilder setPart(ItemLike part, boolean first) {
+    return this.setCast(MaterialIngredient.of(part), first ? CastPurpose.FIRST_MATERIAL : CastPurpose.SECOND_MATERIAL);
   }
 
   /**

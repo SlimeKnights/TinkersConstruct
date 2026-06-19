@@ -1,6 +1,9 @@
 {
   "stats": {
     "tconstruct:arrow_shaft": {},
+    "tconstruct:ribcage": {
+      "repair_amount": 150
+    },
     "tconstruct:skull": {
       "durability": 150
     }

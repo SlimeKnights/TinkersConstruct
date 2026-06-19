@@ -257,9 +257,7 @@ public class ModifierModelMapProvider extends AbstractModifierModelMapProvider {
 
     // slimesuit
     for (ArmorItem.Type type : ArmorItem.Type.values()) {
-      if (type != ArmorItem.Type.CHESTPLATE) {
-        tool("slime/" + type.getName()).trim(type);
-      }
+      tool("slime/" + type.getName()).trim(type);
     }
     tool("slime/wings").modifier(TinkerModifiers.trim.getId(), new TrimModifierModel.Custom(toolMaterial("armor/slime/wings/trim").texture(), null));
 

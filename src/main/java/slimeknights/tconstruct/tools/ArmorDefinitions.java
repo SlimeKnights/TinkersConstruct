@@ -17,4 +17,5 @@ public class ArmorDefinitions {
 
   /** High modifiers armor set */
   public static final ModifiableArmorMaterial SLIMESUIT = ModifiableArmorMaterial.create(getResource("slime"), Sounds.EQUIP_SLIME.getSound());
+  public static final ToolDefinition SLIME_WINGS = ToolDefinition.create(TinkerTools.slimeWings);
 }

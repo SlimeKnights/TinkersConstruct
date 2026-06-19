@@ -563,6 +563,16 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.necronium,    new SkullStats(157));
     addMaterialStats(MaterialIds.knightmetal,  new SkullStats(220));
 
+    // slimecage
+    addMaterialStats(MaterialIds.bone,         RepairStats.ribcage(100));
+    addMaterialStats(MaterialIds.venombone,    RepairStats.ribcage(175));
+    addMaterialStats(MaterialIds.necroticBone, RepairStats.ribcage(125));
+    addMaterialStats(MaterialIds.blazingBone,  RepairStats.ribcage(205));
+    addMaterialStats(MaterialIds.necronium,    RepairStats.ribcage(357));
+    addMaterialStats(MaterialIds.blaze,        RepairStats.ribcage(150));
+    addMaterialStats(MaterialIds.jadeite,      RepairStats.ribcage(616));
+    addMaterialStats(MaterialIds.endRod,       RepairStats.ribcage(250));
+
     // slimeshell
     addMaterialStats(MaterialIds.turtle, RepairStats.shell(150));
     addMaterialStats(MaterialIds.shulker, RepairStats.shell(250));
@@ -573,6 +583,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.knightly, RepairStats.shell(300));
 
     // slime boots
+    addMaterialStats(MaterialIds.string, RepairStats.laces(140));
     addMaterialStats(MaterialIds.leather, RepairStats.laces(97));
     addMaterialStats(MaterialIds.vine, RepairStats.laces(75));
     addMaterialStats(MaterialIds.skyslimeVine, RepairStats.laces(150));

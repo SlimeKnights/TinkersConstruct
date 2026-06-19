@@ -10,7 +10,8 @@
       "tconstruct:armor_cuirass",
       "tconstruct:repair_kit",
       "tconstruct:maille",
-      "tconstruct:armor_maille"
+      "tconstruct:armor_maille",
+      "tconstruct:laces"
     ],
     "transformer": {
       "type": "tconstruct:recolor_sprite",

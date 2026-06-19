@@ -1,5 +1,5 @@
 {
-  "parent": "tconstruct:world/ender_island",
+  "parent": "tconstruct:world/sky_island",
   "criteria": {
     "crafted_boots": {
       "conditions": {
@@ -18,7 +18,7 @@
         "items": [
           {
             "items": [
-              "tconstruct:slime_chestplate"
+              "tconstruct:slimy_chestplate"
             ]
           }
         ]
@@ -58,8 +58,8 @@
     "frame": "goal",
     "hidden": false,
     "icon": {
-      "item": "tconstruct:slime_chestplate",
-      "nbt": "{Damage:0,tic_broken:0b,tic_display:1b,tic_materials:[\"tconstruct:ui_render#head\",\"tconstruct:ui_render#handle\",\"tconstruct:ui_render#extra\",\"tconstruct:ui_render#large\",\"tconstruct:ui_render#extra_large\"]}"
+      "item": "tconstruct:slimy_chestplate",
+      "nbt": "{Damage:0,tic_broken:0b,tic_materials:[\"tconstruct:bone\",\"tconstruct:skyslime\"]}"
     },
     "show_toast": true,
     "title": {

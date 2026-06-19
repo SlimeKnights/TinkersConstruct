@@ -11,6 +11,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeI18n;
+import slimeknights.mantle.client.book.HTMLUtils;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.content.PageContent;
 import slimeknights.mantle.client.book.data.element.ImageData;
@@ -22,6 +23,9 @@ import slimeknights.mantle.client.screen.book.element.ImageElement;
 import slimeknights.mantle.client.screen.book.element.TextElement;
 import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.mantle.util.ItemStackList;
+import slimeknights.mantle.util.html.HtmlElement;
+import slimeknights.mantle.util.html.HtmlGroup;
+import slimeknights.mantle.util.html.HtmlSerializable;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.book.elements.CycleRecipeElement;
 import slimeknights.tconstruct.library.client.book.elements.TinkerItemElement;
@@ -34,6 +38,7 @@ import slimeknights.tconstruct.library.recipe.modifiers.adding.IDisplayModifierR
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -295,5 +300,22 @@ public class ContentModifier extends PageContent {
 
       this.buildAndAddRecipeDisplay(book, list, this.recipes.get(this.currentRecipe), parent);
     }
+  }
+
+  @Override
+  public HtmlSerializable toHTML(BookData book) {
+    int rgb = modifier == null ? 0 : modifier.getColor();
+    int h = more_text_space ? BookScreen.PAGE_HEIGHT * 2 / 5 : BookScreen.PAGE_HEIGHT * 2 / 7;
+    return HtmlGroup.indent().add(
+      makeTitleHTML().classes("format-custom").color(rgb),
+      HtmlElement.div().style("padding-left", 10).add(
+        HtmlElement.div().classes("column").style("height", h * 2)
+          .add(TextData.toHtml(text, book)),
+        HtmlElement.div().style("width", 210)
+          .add(HtmlElement.p().classes("underline").add(I18n.get(KEY_EFFECTS)))
+          .add(HtmlElement.ul().classes("prop-list")
+            .add(Arrays.stream(effects).map(effect -> HtmlElement.li().add(HTMLUtils.parse(effect)))))
+      )
+    );
   }
 }

@@ -2,8 +2,9 @@
   "modules": [
     {
       "type": "tconstruct:material_stats",
-      "primary_part": -1,
+      "primary_part": 0,
       "stat_types": [
+        "tconstruct:ribcage",
         {
           "scale": 1.6,
           "stat": "tconstruct:slime"
@@ -14,6 +15,10 @@
       "type": "tconstruct:default_materials",
       "materials": [
         {
+          "type": "tconstruct:random",
+          "allow_hidden": true
+        },
+        {
           "type": "tconstruct:fixed",
           "material": "tconstruct:blood"
         }
@@ -22,41 +27,49 @@
     {
       "type": "tconstruct:multiply_stats",
       "multipliers": {
-        "tconstruct:attack_damage": 0.4
+        "tconstruct:attack_damage": 0.6
       }
+    },
+    {
+      "type": "tconstruct:tool_parts",
+      "parts": [
+        "tconstruct:ribcage"
+      ]
     },
     {
       "type": "tconstruct:modifier_slots",
       "slots": {
-        "abilities": 1,
-        "upgrades": 4
+        "abilities": 2,
+        "upgrades": 3
       }
-    },
-    {
-      "type": "tconstruct:material_repair",
-      "durability": 672,
-      "material": "tconstruct:phantom"
     },
     {
       "type": "tconstruct:traits",
       "traits": [
         {
           "level": 1,
-          "name": "tconstruct:wings"
+          "name": "tconstruct:ambidextrous"
+        },
+        {
+          "level": 1,
+          "name": "tconstruct:reach"
         }
       ]
     },
     {
       "type": "tconstruct:material_traits",
       "hooks": [
-        "tconstruct:rebalanced_trait",
         "tconstruct:trim_trait"
       ],
-      "material_index": 0,
+      "material_index": 1,
       "stat_type": "tconstruct:slime"
     },
     {
       "type": "tconstruct:unique_material_name",
+      "index": 1
+    },
+    {
+      "type": "tconstruct:fixed_material_name",
       "index": 0
     }
   ]

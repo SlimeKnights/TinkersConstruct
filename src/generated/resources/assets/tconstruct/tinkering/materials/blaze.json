@@ -2,7 +2,9 @@
   "color": "FFFFC100",
   "generator": {
     "supported_stats": [
-      "tconstruct:arrow_shaft"
+      "tconstruct:arrow_shaft",
+      "tconstruct:ribcage",
+      "tconstruct:repair_kit"
     ],
     "transformer": {
       "type": "tconstruct:recolor_sprite",

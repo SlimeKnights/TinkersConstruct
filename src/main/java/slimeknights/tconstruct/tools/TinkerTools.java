@@ -237,11 +237,12 @@ public final class TinkerTools extends TinkerModule {
   public static final EnumObject<ArmorItem.Type,ModifiableArmorItem> travelersGear = ITEMS.registerEnum("travelers", ArmorItem.Type.values(), type -> new MultilayerArmorItem(ArmorDefinitions.TRAVELERS, type, UNSTACKABLE_PROPS));
   public static final EnumObject<ArmorItem.Type,ModifiableArmorItem> plateArmor = ITEMS.registerEnum("plate", ArmorItem.Type.values(), type -> new MultilayerArmorItem(ArmorDefinitions.PLATE, type, UNSTACKABLE_PROPS));
   public static final EnumObject<ArmorItem.Type,ModifiableArmorItem> slimesuit = new EnumObject.Builder<ArmorItem.Type,ModifiableArmorItem>(ArmorItem.Type.class)
-    .put(ArmorItem.Type.HELMET, ITEMS.register("slime_helmet", () -> new SlimeskullItem(ArmorDefinitions.SLIMESUIT, UNSTACKABLE_PROPS)))
-    .put(ArmorItem.Type.CHESTPLATE, ITEMS.register("slime_chestplate", () -> new MultilayerArmorItem(ArmorDefinitions.SLIMESUIT, ArmorItem.Type.CHESTPLATE, UNSTACKABLE_PROPS, TConstruct.getResource("slimelytra"))))
+    .put(ArmorItem.Type.HELMET, ITEMS.register("slime_helmet", () -> new SlimeskullItem(ArmorDefinitions.SLIMESUIT, SlimeskullItem.MODEL_LOCATION, UNSTACKABLE_PROPS)))
+    // TODO 1.21: rename to slime chestplate as we no longer need the migration
+    .put(ArmorItem.Type.CHESTPLATE, ITEMS.register("slimy_chestplate", () -> new MultilayerArmorItem(ArmorDefinitions.SLIMESUIT, ArmorItem.Type.CHESTPLATE, UNSTACKABLE_PROPS)))
     .putAll(ITEMS.registerEnum("slime", new ArmorItem.Type[] {ArmorItem.Type.LEGGINGS, ArmorItem.Type.BOOTS}, type -> new MultilayerArmorItem(ArmorDefinitions.SLIMESUIT, type, UNSTACKABLE_PROPS)))
     .build();
-
+  public static final ItemObject<MultilayerArmorItem> slimeWings = ITEMS.register("slime_wings", () -> new MultilayerArmorItem(ArmorDefinitions.SLIMESUIT, ArmorItem.Type.CHESTPLATE, UNSTACKABLE_PROPS, ArmorDefinitions.SLIME_WINGS, TinkerTools.slimeWings.getId()));
 
   // shields
   public static final ItemObject<ModifiableItem> travelersShield = ITEMS.register("travelers_shield", () -> new ModifiableItem(UNSTACKABLE_PROPS, ArmorDefinitions.TRAVELERS_SHIELD));
@@ -462,6 +463,7 @@ public final class TinkerTools extends TinkerModule {
     acceptTools(output, plateArmor);
     acceptTool(output, plateShield);
     acceptTools(output, slimesuit);
+    acceptTool(output, slimeWings);
   }
 
   /** Adds a tool to the tab */

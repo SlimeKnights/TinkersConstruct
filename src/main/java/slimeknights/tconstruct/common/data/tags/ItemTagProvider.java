@@ -17,6 +17,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import slimeknights.mantle.datagen.MantleTags;
 import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.mantle.registration.object.FluidObject;
 import slimeknights.mantle.registration.object.IdAwareObject;
@@ -119,6 +120,8 @@ import static slimeknights.tconstruct.common.TinkerTags.Items.UNARMED;
 import static slimeknights.tconstruct.common.TinkerTags.Items.UNRECYCLABLE;
 import static slimeknights.tconstruct.common.TinkerTags.Items.UNSALVAGABLE;
 import static slimeknights.tconstruct.common.TinkerTags.Items.UNSWAPPABLE;
+import static slimeknights.tconstruct.common.TinkerTags.Items.UNSWAPPABLE_PARTS;
+import static slimeknights.tconstruct.common.TinkerTags.Items.UNSWAPPABLE_TOOLS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.WORN_ARMOR;
 
 @SuppressWarnings({"unchecked", "removal"})
@@ -234,8 +237,8 @@ public class ItemTagProvider extends ItemTagsProvider {
 
     this.copy(TinkerTags.Blocks.COPPER_PLATFORMS, TinkerTags.Items.COPPER_PLATFORMS);
 
-    this.tag(TinkerTags.Items.SPLASH_BOTTLE).add(TinkerFluids.splashBottle.get());
-    this.tag(TinkerTags.Items.LINGERING_BOTTLE).add(TinkerFluids.lingeringBottle.get());
+    this.tag(MantleTags.Items.SPLASH_BOTTLE).add(TinkerFluids.splashBottle.get());
+    this.tag(MantleTags.Items.LINGERING_BOTTLE).add(TinkerFluids.lingeringBottle.get());
 
     // trim materials
     this.tag(ItemTags.TRIM_MATERIALS).add(
@@ -366,7 +369,8 @@ public class ItemTagProvider extends ItemTagsProvider {
     // armor
     addArmorTags(TinkerTools.travelersGear, SINGLEPART_TOOL, DURABILITY, BONUS_SLOTS, DYEABLE, TRIM, ItemTags.FREEZE_IMMUNE_WEARABLES);
     addArmorTags(TinkerTools.plateArmor,    MULTIPART_TOOL, DURABILITY, BONUS_SLOTS, DYEABLE, TRIM);
-    addArmorTags(TinkerTools.slimesuit,     DURABILITY, BONUS_SLOTS, TRIM, SINGLEPART_TOOL);
+    addArmorTags(TinkerTools.slimesuit,     DURABILITY, BONUS_SLOTS, TRIM, SINGLEPART_TOOL, UNRECYCLABLE);
+    addToolTags(TinkerTools.slimeWings, DURABILITY, BONUS_SLOTS, TRIM, SINGLEPART_TOOL, CHESTPLATES, Tags.Items.ARMORS_CHESTPLATES);
     addToolTags(TinkerTools.slimesuit.get(ArmorItem.Type.HELMET), SWAPPABLE_SKULLS);
 
     // shields
@@ -390,6 +394,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     for (ArmorItem.Type slotType : ArmorItem.Type.values()) {
       bookArmor.add(TinkerTools.slimesuit.get(slotType));
     }
+    bookArmor.add(TinkerTools.slimeWings.asItem());
     tag(BOOK_ARMOR).addTags(BASIC_ARMOR, PUNY_ARMOR, MIGHTY_ARMOR, FANTASTIC_ARMOR, GADGETRY_ARMOR);
 
 
@@ -429,6 +434,8 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.tag(RANGED_BOUNCE).addTags(LONGBOWS, STAFFS);
     // TODO 1.21: consider dropping unsalvagable from this tag
     this.tag(UNRECYCLABLE).addTags(UNSALVAGABLE, ANCIENT_TOOLS); // ancient tools lack tool parts, but may have special override recipes to salvage
+    this.tag(UNSWAPPABLE_TOOLS).addTag(UNSWAPPABLE);
+    this.tag(UNSWAPPABLE_PARTS).addTag(UNSWAPPABLE);
     // headlight support
     this.tag(ItemTags.create(new ResourceLocation("headlight", "headlight_helmets"))).addTag(HELMETS);
 
@@ -458,6 +465,8 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.tag(TinkerTags.Items.TOOL_PARTS).add(
       // arrow part bartering is weird as they have such low tiers
       TinkerToolParts.arrowHead.get(), TinkerToolParts.arrowShaft.get(), TinkerToolParts.fletching.get(),
+      // slimesuit parts are pretty niche, not much you can do with them
+      TinkerToolParts.ribcage.get(), TinkerToolParts.shell.get(), TinkerToolParts.laces.get(),
       // repair kit is not strictly a tool part, but this list just helps out JEI
       TinkerToolParts.repairKit.get(), TinkerToolParts.fakeIngot.get(), TinkerToolParts.fakeStorageBlock.asItem()
     ).addTag(TinkerTags.Items.BARTERED_PARTS); // all bartered parts must be tool parts

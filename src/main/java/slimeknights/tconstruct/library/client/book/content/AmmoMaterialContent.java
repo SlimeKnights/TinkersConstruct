@@ -2,7 +2,10 @@ package slimeknights.tconstruct.library.client.book.content;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.screen.book.element.ItemElement;
+import slimeknights.mantle.util.html.HtmlElement;
+import slimeknights.mantle.util.html.HtmlSerializable;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.book.elements.TinkerItemElement;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
@@ -65,5 +68,14 @@ public class AmmoMaterialContent extends AbstractMaterialContent {
     ItemElement elementItem = new TinkerItemElement(new ItemStack(TinkerTables.partBuilder));
     elementItem.tooltip = PART_BUILDER;
     displayTools.add(elementItem);
+  }
+
+  @Override
+  protected HtmlSerializable makeStatsHtml(BookData data) {
+    return HtmlElement.div().classes("row-material-stats")
+      .add(HtmlElement.div().classes("column")
+          .add(makeStatHtml(StatlessMaterialStats.ARROW_HEAD.getIdentifier(), false, true))
+          .add(makeStatHtml(StatlessMaterialStats.FLETCHING.getIdentifier(), false, true)))
+      .add(makeStatHtml(StatlessMaterialStats.ARROW_SHAFT.getIdentifier(), false, true));
   }
 }

@@ -2,11 +2,13 @@
   "loader": "tconstruct:tool",
   "parent": "forge:item/default",
   "textures": {
-    "slime": "tconstruct:item/tool/armor/slime/boots/slime"
+    "slime": "tconstruct:item/tool/armor/slime/boots/slime",
+    "laces": "tconstruct:item/tool/armor/slime/boots/laces"
   },
   "modifier_maps": ["tconstruct:slime/boots"],
   "parts": [
-    { "name": "slime", "index": 1 }
+    { "name": "slime", "index": 1 },
+    { "name": "laces", "index": 0 }
   ],
   "first_modifiers": [ "tconstruct:trim" ],
   "overrides": [

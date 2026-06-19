@@ -6,8 +6,10 @@ import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.arguments.EntityArgument;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -25,18 +27,28 @@ public class HeldModifiableItemIterator {
 
   /** Applies for the given context */
   public static List<LivingEntity> apply(CommandContext<CommandSourceStack> context, HeldModifiableBehavior behavior) throws CommandSyntaxException {
-    return apply(EntityArgument.getEntities(context, "targets"), behavior);
+    return apply(context, TinkerTags.Items.MODIFIABLE, behavior);
+  }
+
+  /** Applies for the given context with the specified tag */
+  public static List<LivingEntity> apply(CommandContext<CommandSourceStack> context, TagKey<Item> tag, HeldModifiableBehavior behavior) throws CommandSyntaxException {
+    return apply(EntityArgument.getEntities(context, "targets"), tag, behavior);
   }
 
   /** Applies the iterator to the given entities */
   public static List<LivingEntity> apply(Collection<? extends Entity> targets, HeldModifiableBehavior behavior) throws CommandSyntaxException {
+    return apply(targets, TinkerTags.Items.MODIFIABLE, behavior);
+  }
+
+  /** Applies the iterator to the given entities with the specified tag */
+  public static List<LivingEntity> apply(Collection<? extends Entity> targets, TagKey<Item> tag, HeldModifiableBehavior behavior) throws CommandSyntaxException {
     // apply to all entities
     List<LivingEntity> successes = new ArrayList<>();
     for (Entity entity : targets) {
       if (entity instanceof LivingEntity living) {
         ItemStack stack = living.getMainHandItem();
         if (!stack.isEmpty()) {
-          if (stack.is(TinkerTags.Items.MODIFIABLE)) {
+          if (stack.is(tag)) {
             if (behavior.accept(living, stack)) {
               successes.add(living);
             }

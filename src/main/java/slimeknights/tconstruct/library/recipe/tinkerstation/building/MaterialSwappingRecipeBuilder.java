@@ -16,7 +16,9 @@ import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.tools.part.IToolPart;
 
+import java.util.ArrayList;
 import java.util.BitSet;
+import java.util.List;
 import java.util.function.Consumer;
 
 /** Builder for {@link FixedMaterialSwappingRecipe} and {@link PartSwappingOverrideRecipe}. */
@@ -29,6 +31,8 @@ public class MaterialSwappingRecipeBuilder extends AbstractRecipeBuilder<Materia
   private int maxStackSize = 16;
   /** List of indices swapped by this recipe */
   private final BitSet indices = new BitSet();
+  /** Additional requirements beyond the "part" */
+  private final List<SizedIngredient> extraRequirements = new ArrayList<>();
 
   /** Part to swap, used by part override */
   @Setter
@@ -70,6 +74,22 @@ public class MaterialSwappingRecipeBuilder extends AbstractRecipeBuilder<Materia
     return material(material, SizedIngredient.fromItems(item));
   }
 
+  /** Adds an extra ingredient requirement */
+  public MaterialSwappingRecipeBuilder addExtraRequirement(SizedIngredient ingredient) {
+    extraRequirements.add(ingredient);
+    return this;
+  }
+
+  /** Adds an extra ingredient requirement */
+  public MaterialSwappingRecipeBuilder addExtraRequirement(Ingredient ingredient) {
+    return addExtraRequirement(SizedIngredient.of(ingredient));
+  }
+
+  /** Adds an extra ingredient requirement */
+  public MaterialSwappingRecipeBuilder addExtraRequirement(ItemLike... items) {
+    return addExtraRequirement(SizedIngredient.fromItems(items));
+  }
+
   @Override
   public void save(Consumer<FinishedRecipe> consumer) {
     save(consumer, Loadables.ITEM.getKey(tools.getItems()[0].getItem()));
@@ -85,9 +105,9 @@ public class MaterialSwappingRecipeBuilder extends AbstractRecipeBuilder<Materia
       if (ingredient != SizedIngredient.EMPTY) {
         throw new IllegalStateException("Cannot set both part and ingredient");
       }
-      consumer.accept(new LoadableFinishedRecipe<>(new PartSwappingOverrideRecipe(id, tools, maxStackSize, part, indices), PartSwappingOverrideRecipe.LOADER, null));
+      consumer.accept(new LoadableFinishedRecipe<>(new PartSwappingOverrideRecipe(id, tools, maxStackSize, part, indices, extraRequirements), PartSwappingOverrideRecipe.LOADER, null));
     } else {
-      consumer.accept(new LoadableFinishedRecipe<>(new FixedMaterialSwappingRecipe(id, tools, maxStackSize, ingredient, material, indices, repairValue), FixedMaterialSwappingRecipe.LOADER, null));
+      consumer.accept(new LoadableFinishedRecipe<>(new FixedMaterialSwappingRecipe(id, tools, maxStackSize, ingredient, material, indices, repairValue, extraRequirements), FixedMaterialSwappingRecipe.LOADER, null));
     }
   }
 }

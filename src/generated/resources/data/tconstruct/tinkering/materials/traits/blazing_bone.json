@@ -18,6 +18,12 @@
         "name": "tconstruct:conductive"
       }
     ],
+    "tconstruct:ribcage": [
+      {
+        "level": 1,
+        "name": "tconstruct:conductive"
+      }
+    ],
     "tconstruct:skull": [
       {
         "level": 1,

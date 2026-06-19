@@ -405,11 +405,11 @@ public class AdvancementsProvider extends GenericDataProvider {
       builder.addCriterion("crafted_book", hasItem(TinkerCommons.tinkersGadgetry)));
     builder(TinkerWorld.slimeSapling.get(FoliageType.EARTH), resource("world/earth_island"), tinkersGadgetry, FrameType.GOAL, builder ->
       builder.addCriterion("found_island", PlayerTrigger.TriggerInstance.located(LocationPredicate.inStructure(Objects.requireNonNull(TinkerStructures.earthSlimeIsland)))));
-    builder(TinkerWorld.slimeSapling.get(FoliageType.SKY), resource("world/sky_island"), tinkersGadgetry, FrameType.GOAL, builder ->
+    Advancement skyslimeIsland = builder(TinkerWorld.slimeSapling.get(FoliageType.SKY), resource("world/sky_island"), tinkersGadgetry, FrameType.GOAL, builder ->
       builder.addCriterion("found_island", PlayerTrigger.TriggerInstance.located(LocationPredicate.inStructure(Objects.requireNonNull(TinkerStructures.skySlimeIsland)))));
     builder(TinkerWorld.slimeSapling.get(FoliageType.BLOOD), resource("world/blood_island"), tinkersGadgetry, FrameType.GOAL, builder ->
       builder.addCriterion("found_island", PlayerTrigger.TriggerInstance.located(LocationPredicate.inStructure(Objects.requireNonNull(TinkerStructures.bloodIsland)))));
-    Advancement enderslimeIsland = builder(TinkerWorld.slimeSapling.get(FoliageType.ENDER), resource("world/ender_island"), tinkersGadgetry, FrameType.GOAL, builder ->
+    builder(TinkerWorld.slimeSapling.get(FoliageType.ENDER), resource("world/ender_island"), tinkersGadgetry, FrameType.GOAL, builder ->
       builder.addCriterion("found_island", PlayerTrigger.TriggerInstance.located(LocationPredicate.inStructure(Objects.requireNonNull(TinkerStructures.endSlimeIsland)))));
     builder(Items.CLAY_BALL, resource("world/clay_island"), tinkersGadgetry, FrameType.GOAL, builder ->
       builder.addCriterion("found_island", PlayerTrigger.TriggerInstance.located(LocationPredicate.inStructure(Objects.requireNonNull(TinkerStructures.clayIsland)))));
@@ -421,9 +421,9 @@ public class AdvancementsProvider extends GenericDataProvider {
     });
     builder(TinkerGadgets.piggyBackpack, resource("world/piggybackpack"), tinkersGadgetry, FrameType.GOAL, builder ->
       builder.addCriterion("used_pack", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ContextAwarePredicate.ANY, ItemPredicate.Builder.item().of(TinkerGadgets.piggyBackpack), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(EntityType.PIG).build()))));
-    Advancement slimesuit = builder(TinkerTools.slimesuit.get(ArmorItem.Type.CHESTPLATE).getRenderTool(), resource("world/slimesuit"), enderslimeIsland, FrameType.GOAL, builder ->
+    Advancement slimesuit = builder(new MaterialIdNBT(List.of(MaterialIds.bone, MaterialIds.skyslime)).updateStack(new ItemStack(TinkerTools.slimesuit.get(ArmorItem.Type.CHESTPLATE))), resource("world/slimesuit"), skyslimeIsland, FrameType.GOAL, builder ->
       TinkerTools.slimesuit.forEach((type, armor) -> builder.addCriterion("crafted_" + type.getName(), hasItem(armor))));
-    builder(new MaterialIdNBT(Collections.singletonList(MaterialIds.glass)).updateStack(new ItemStack(TinkerTools.slimesuit.get(ArmorItem.Type.HELMET))),
+    builder(new MaterialIdNBT(List.of(MaterialIds.glass, MaterialIds.enderslime)).updateStack(new ItemStack(TinkerTools.slimesuit.get(ArmorItem.Type.HELMET))),
             resource("world/slimeskull"), slimesuit, FrameType.CHALLENGE, builder -> {
       Item helmet = TinkerTools.slimesuit.get(ArmorItem.Type.HELMET);
       Consumer<MaterialId> with = mat -> builder.addCriterion(mat.getPath(), InventoryChangeTrigger.TriggerInstance.hasItems(ToolStackItemPredicate.ofContext(

@@ -45,6 +45,7 @@ import slimeknights.tconstruct.library.json.variable.entity.EntityEffectLevelVar
 import slimeknights.tconstruct.library.json.variable.entity.EntityLightVariable;
 import slimeknights.tconstruct.library.json.variable.entity.EntityVariable;
 import slimeknights.tconstruct.library.json.variable.entity.EquipmentCountEntityVariable;
+import slimeknights.tconstruct.library.json.variable.entity.PlayerStatVariable;
 import slimeknights.tconstruct.library.json.variable.melee.EntityMeleeVariable;
 import slimeknights.tconstruct.library.json.variable.melee.MeleeVariable;
 import slimeknights.tconstruct.library.json.variable.mining.BlockLightVariable;
@@ -1036,6 +1037,7 @@ public final class TinkerModifiers extends TinkerModule {
       EntityVariable.LOADER.register(getResource("biome_temperature"), EntityVariable.BIOME_TEMPERATURE.getLoader());
       EntityVariable.LOADER.register(getResource("water"), EntityVariable.WATER.getLoader());
       EntityVariable.LOADER.register(getResource("armor_coverage"), EntityVariable.ARMOR_COVERAGE.getLoader());
+      EntityVariable.LOADER.register(getResource("player_stat"), PlayerStatVariable.LOADER);
       // tool
       ToolVariable.LOADER.register(getResource("constant"), ToolVariable.Constant.LOADER);
       ToolVariable.register(getResource("tool_conditional"), ConditionalToolVariable.LOADER);

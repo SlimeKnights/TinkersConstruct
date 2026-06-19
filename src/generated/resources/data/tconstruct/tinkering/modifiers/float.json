@@ -1,0 +1,17 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:weapon_mob_effect",
+      "effect": "minecraft:levitation",
+      "level": {
+        "flat": 1.0
+      },
+      "time": {
+        "flat": 40.0,
+        "random": 100.0
+      }
+    }
+  ],
+  "tooltip_display": "always"
+}

@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:blasting",
+  "type": "minecraft:smelting",
   "category": "misc",
   "cookingtime": 50,
   "experience": 0.2,

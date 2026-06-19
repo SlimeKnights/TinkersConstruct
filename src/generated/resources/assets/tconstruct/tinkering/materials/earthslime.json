@@ -4,6 +4,7 @@
     "supported_stats": [
       "tconstruct:slime",
       "tconstruct:slimesuit",
+      "tconstruct:repair_kit",
       "tconstruct:arrow_head",
       "tconstruct:fletching"
     ],

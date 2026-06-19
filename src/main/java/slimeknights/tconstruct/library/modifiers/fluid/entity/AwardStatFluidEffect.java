@@ -1,16 +1,16 @@
 package slimeknights.tconstruct.library.modifiers.fluid.entity;
 
-import net.minecraft.Util;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.stats.Stat;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
-import slimeknights.tconstruct.library.json.TinkerLoadables;
+import slimeknights.tconstruct.library.json.variable.StatLoadable;
 import slimeknights.tconstruct.library.modifiers.fluid.EffectLevel;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffectContext;
@@ -21,11 +21,15 @@ import slimeknights.tconstruct.library.modifiers.fluid.FluidEffectContext.Entity
  * @param stat    Stat to award
  * @param amount  Amount to reward, can be negative
  */
-public record AwardStatFluidEffect(ResourceLocation stat, int amount) implements FluidEffect<FluidEffectContext.Entity> {
+public record AwardStatFluidEffect(Stat<?> stat, int amount) implements FluidEffect<FluidEffectContext.Entity> {
   public static final RecordLoadable<AwardStatFluidEffect> LOADER = RecordLoadable.create(
-    TinkerLoadables.CUSTOM_STAT.requiredField("stat", e -> e.stat),
-    IntLoadable.ANY_SHORT.requiredField("amount", e -> e.amount),
+    StatLoadable.INSTANCE.requiredField("stat", AwardStatFluidEffect::stat),
+    IntLoadable.ANY_SHORT.requiredField("amount", AwardStatFluidEffect::amount),
     AwardStatFluidEffect::new);
+
+  public AwardStatFluidEffect(ResourceLocation stat, int amount) {
+    this(Stats.CUSTOM.get(stat), amount);
+  }
 
   @Override
   public RecordLoadable<AwardStatFluidEffect> getLoader() {
@@ -37,7 +41,7 @@ public record AwardStatFluidEffect(ResourceLocation stat, int amount) implements
     if (context.getLivingTarget() instanceof Player player) {
       float value = level.value();
       if (action.execute()) {
-        player.awardStat(Stats.CUSTOM.get(stat), Math.round(amount * value));
+        player.awardStat(stat, Math.round(amount * value));
       }
       return value;
     }
@@ -47,6 +51,6 @@ public record AwardStatFluidEffect(ResourceLocation stat, int amount) implements
   @Override
   public Component getDescription(RegistryAccess registryAccess) {
     String prefix = FluidEffect.getTranslationKey(getLoader()) + (amount >= 0 ? ".add" : ".subtract");
-    return Component.translatable(prefix, Stats.CUSTOM.get(this.stat).format(Math.abs(amount)), Component.translatable(Util.makeDescriptionId("stat", stat)));
+    return Component.translatable(prefix, this.stat.format(Math.abs(amount)), StatLoadable.statName(stat));
   }
 }

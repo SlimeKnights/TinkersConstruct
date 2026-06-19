@@ -6,6 +6,12 @@
     }
   ],
   "perStat": {
+    "tconstruct:ribcage": [
+      {
+        "level": 1,
+        "name": "tconstruct:scorching"
+      }
+    ],
     "tconstruct:skull": [
       {
         "level": 1,

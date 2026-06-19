@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material_fluid",
+  "fluid": {
+    "amount": 100,
+    "tag": "tconstruct:molten_emerald"
+  },
+  "input": "tconstruct:blaze",
+  "output": "tconstruct:jadeite",
+  "temperature": 934
+}

@@ -88,8 +88,6 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     // tier 3 - binding
     addMaterial(MaterialIds.darkthread, 3, ORDER_BINDING, false);
     addMaterial(MaterialIds.ichorskin,  3, ORDER_BINDING, false);
-    // tier 3 - shield cores
-    addMaterial(MaterialIds.ice, 3, ORDER_BINDING, true);
     // tier 3 - ammo
     addMaterial(MaterialIds.quartz,    3, ORDER_REPAIR, false);
     addMaterial(MaterialIds.ichor,     3, ORDER_REPAIR, true);
@@ -97,6 +95,9 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addMaterial(MaterialIds.magnetite, 3, ORDER_REPAIR, true);
     addMaterial(MaterialIds.kobold,    3, ORDER_REPAIR, true);
     addMaterial(MaterialIds.magma,     3, ORDER_REPAIR, true);
+    // tier 3 - misc
+    addMaterial(MaterialIds.ice,     3, ORDER_BINDING, true);
+    addMaterial(MaterialIds.jadeite, 3, ORDER_BINDING, true);
 
     // tier 4
     addMaterial(MaterialIds.queensSlime, 4, ORDER_GENERAL, false);

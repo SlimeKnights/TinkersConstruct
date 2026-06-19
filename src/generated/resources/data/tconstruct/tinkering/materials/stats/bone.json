@@ -25,6 +25,9 @@
       "durability": 100,
       "velocity": -0.05
     },
+    "tconstruct:ribcage": {
+      "repair_amount": 100
+    },
     "tconstruct:shield_core": {},
     "tconstruct:skull": {
       "durability": 100

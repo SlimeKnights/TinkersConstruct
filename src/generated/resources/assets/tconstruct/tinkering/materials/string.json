@@ -6,6 +6,7 @@
     "supported_stats": [
       "tconstruct:binding",
       "tconstruct:bowstring",
+      "tconstruct:laces",
       "tconstruct:repair_kit"
     ],
     "transformer": {

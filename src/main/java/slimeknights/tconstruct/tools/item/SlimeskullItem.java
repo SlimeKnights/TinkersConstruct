@@ -9,6 +9,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.armor.ArmorModelManager.ArmorModelDispatcher;
 import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
 import slimeknights.tconstruct.library.tools.helper.ArmorUtil;
@@ -21,10 +22,18 @@ import java.util.function.Consumer;
 
 /** This item is mainly to return the proper model for a slimeskull */
 public class SlimeskullItem extends ModifiableArmorItem {
+  /** Model ID for our slimeskull. You may want your own for a custom slimeskull */
+  public static final ResourceLocation MODEL_LOCATION = TConstruct.getResource("slimeskull");
+
   private final ResourceLocation name;
-  public SlimeskullItem(ModifiableArmorMaterial material, Properties properties) {
+
+  public SlimeskullItem(ModifiableArmorMaterial material, ResourceLocation name, Properties properties) {
     super(material, ArmorItem.Type.HELMET, properties);
-    this.name = material.getId();
+    this.name = name;
+  }
+
+  public SlimeskullItem(ModifiableArmorMaterial material, Properties properties) {
+    this(material, material.getId(), properties);
   }
 
   @Nullable

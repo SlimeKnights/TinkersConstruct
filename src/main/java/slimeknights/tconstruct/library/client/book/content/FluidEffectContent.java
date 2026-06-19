@@ -11,6 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeI18n;
 import net.minecraftforge.fluids.FluidStack;
+import slimeknights.mantle.client.book.HTMLUtils;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.content.PageContent;
 import slimeknights.mantle.client.book.data.element.TextComponentData;
@@ -19,6 +20,9 @@ import slimeknights.mantle.client.screen.book.BookScreen;
 import slimeknights.mantle.client.screen.book.element.BookElement;
 import slimeknights.mantle.client.screen.book.element.TextComponentElement;
 import slimeknights.mantle.client.screen.book.element.TextElement;
+import slimeknights.mantle.util.html.HtmlElement;
+import slimeknights.mantle.util.html.HtmlGroup;
+import slimeknights.mantle.util.html.HtmlSerializable;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.book.elements.FluidItemElement;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffects;
@@ -121,5 +125,39 @@ public class FluidEffectContent extends PageContent {
     int group = (BookScreen.PAGE_HEIGHT - y) / 2;
     addList(list, 0, y,         group, KEY_ENTITY_EFFECTS, entity, entityComponents);
     addList(list, 0, y + group, group, KEY_BLOCK_EFFECTS,  block,  blockComponents);
+  }
+
+  @Override
+  public HtmlSerializable toHTML(BookData book) {
+    HtmlElement div = HtmlElement.div()
+      .add(HtmlElement.p().add(text).style("height", 64).style("padding-left", 64));
+
+    addHtmlList(div, KEY_ENTITY_EFFECTS, entity, entityComponents);
+    addHtmlList(div, KEY_BLOCK_EFFECTS, block, blockComponents);
+
+    return HtmlGroup.indent().add(makeTitleHTML()).add(div);
+  }
+
+  /** Adds an effect list to the HTML */
+  private void addHtmlList(HtmlElement div, String key, @Nullable String[] strings, List<Component> components) {
+    if (components.isEmpty() && strings == null) return;
+
+    // append hardcoded text
+    HtmlElement list = HtmlElement.ul().classes("prop-list");
+    if (strings != null) {
+      for (String string : strings) {
+        list.add(HtmlElement.li().add(string));
+      }
+    } else {
+      // append generated text
+      for (Component component : components) {
+        list.add(HtmlElement.li().add(HTMLUtils.toHtml(component)));
+      }
+    }
+
+    // add elements to final div
+    div.add(HtmlElement.div().style("height", 128).add(
+      HtmlElement.p().add(I18n.get(key)).classes("underline"), list
+    ));
   }
 }

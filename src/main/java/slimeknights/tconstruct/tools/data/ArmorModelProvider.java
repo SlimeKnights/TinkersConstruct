@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.tools.data;
 
 import net.minecraft.data.PackOutput;
-import slimeknights.tconstruct.TConstruct;
+import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.library.client.armor.texture.ArmorTextureSupplier;
 import slimeknights.tconstruct.library.client.armor.texture.DyedArmorTextureSupplier;
 import slimeknights.tconstruct.library.client.armor.texture.FirstArmorTextureSupplier;
@@ -13,6 +13,8 @@ import slimeknights.tconstruct.library.client.data.AbstractArmorModelProvider;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.tools.ArmorDefinitions;
 import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.tools.item.SlimeskullItem;
 
 public class ArmorModelProvider extends AbstractArmorModelProvider {
   public ArmorModelProvider(PackOutput packOutput) {
@@ -40,12 +42,17 @@ public class ArmorModelProvider extends AbstractArmorModelProvider {
       ),
       TrimArmorTextureSupplier.INSTANCE
     });
-    addModel(ArmorDefinitions.SLIMESUIT, name -> new ArmorTextureSupplier[] {
-      new MaterialArmorTextureSupplier.Material(name, "/", 1),
+    ResourceLocation slime = ArmorDefinitions.SLIMESUIT.getId();
+    addModel(slime,
+      new MaterialArmorTextureSupplier.Material(slime, "/", 1),
       TrimArmorTextureSupplier.INSTANCE
-    });
-    addModel(TConstruct.getResource("slimelytra"),
-      new MaterialArmorTextureSupplier.Material(TConstruct.getResource("slime"), "/", 0),
+    );
+    addModel(SlimeskullItem.MODEL_LOCATION,
+      new MaterialArmorTextureSupplier.Material(slime, "/", 1),
+      TrimArmorTextureSupplier.INSTANCE
+    );
+    addModel(TinkerTools.slimeWings,
+      new MaterialArmorTextureSupplier.Material(slime, "/", 0),
       TrimArmorTextureSupplier.INSTANCE
     );
   }

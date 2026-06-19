@@ -297,9 +297,12 @@ public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonR
       .unlockedBy("has_item", has(TinkerWorld.steelShard))
       .save(consumer, location(folder + "steel_nugget_blasting"));
     // knightmetal - normally would not use the tag, but we know TF does not provide nuggets for armor shards
-    SimpleCookingRecipeBuilder.blasting(Ingredient.of(TinkerTags.Items.KNIGHTMETAL_SHARD), RecipeCategory.MISC, TinkerMaterials.knightmetal.getNugget(), 0.2f, 50)
+    SimpleCookingRecipeBuilder.smelting(Ingredient.of(TinkerTags.Items.KNIGHTMETAL_SHARD), RecipeCategory.MISC, TinkerMaterials.knightmetal.getNugget(), 0.2f, 50)
       .unlockedBy("has_item", has(TinkerWorld.knightmetalShard))
       .save(consumer, location(folder + "knightmetal_nugget_smelting"));
+    SimpleCookingRecipeBuilder.blasting(Ingredient.of(TinkerTags.Items.KNIGHTMETAL_SHARD), RecipeCategory.MISC, TinkerMaterials.knightmetal.getNugget(), 0.2f, 25)
+      .unlockedBy("has_item", has(TinkerWorld.knightmetalShard))
+      .save(consumer, location(folder + "knightmetal_nugget_blasting"));
 
     // pack raw cobalt
     packingRecipe(consumer, RecipeCategory.MISC, "raw_block", TinkerWorld.rawCobaltBlock, "raw", TinkerWorld.rawCobalt, TinkerTags.Items.RAW_COBALT, folder);

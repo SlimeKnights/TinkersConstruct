@@ -446,7 +446,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.haste)
       .levelDisplay(new UniqueForLevels(5))
       .addModule(StatBoostModule.add(ToolStats.MINING_SPEED).eachLevel(4))
-      .addModule(AttributeModule.builder(TinkerAttributes.MINING_SPEED_MULTIPLIER, Operation.MULTIPLY_TOTAL).toolItem(ItemPredicate.tag(ARMOR)).eachLevel(0.1f));
+      .addModule(AttributeModule.builder(TinkerAttributes.MINING_SPEED_MULTIPLIER, Operation.MULTIPLY_TOTAL).toolItem(ItemPredicate.tag(HARVEST).inverted()).eachLevel(0.1f));
     buildModifier(ModifierIds.blasting).addModule(
       ConditionalMiningSpeedModule.builder()
         .customVariable("resistance", new BlockMiningSpeedVariable(BlockVariable.BLAST_RESISTANCE, 3))
@@ -501,7 +501,8 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     // lucky
     EnchantmentModule CONSTANT_FORTUNE = EnchantmentModule.builder(Enchantments.BLOCK_FORTUNE).toolItem(harvest).constant();
     StatBoostModule SEA_LUCK = StatBoostModule.add(ToolStats.SEA_LUCK).eachLevel(1);
-    AttributeModule ARMOR_LUCK = AttributeModule.builder(Attributes.LUCK, Operation.ADDITION).toolTag(TinkerTags.Items.ARMOR).eachLevel(1);
+    // applies to worn armor to keep off melting pans
+    AttributeModule ARMOR_LUCK = AttributeModule.builder(Attributes.LUCK, Operation.ADDITION).toolTag(WORN_ARMOR).eachLevel(1);
     EnchantmentModule ARMOR_FORTUNE = EnchantmentModule.builder(Enchantments.BLOCK_FORTUNE).toolItem(armor).armorHarvest(ARMOR_SLOTS);
     // note chestplates will have both modules, but will get ignored due to setting the looting slot
     // the air check on weapon looting is for projectiles which use an item of air in their tool context
@@ -1487,6 +1488,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.recurrentProtection).addModule(new RecurrentProtectionModule(LevelingValue.flat(0.5f), LevelingInt.eachLevel(5 * 20)));
     MobEffectModule.Builder conductiveBuilder = MobEffectModule.builder(TinkerEffects.conductive).time(RandomLevelingValue.random(5 * 20, 5 * 20));
     buildModifier(ModifierIds.conductive).priority(150)
+      // TODO: might want to separate out this trait from slimecage vs shield for the sake of shield cores not giving melee/scaling duration
       .addModule(conductiveBuilder.buildWeapon())
       .addModule(conductiveBuilder.chance(LevelingValue.flat(0.15f)).buildCounter());
     buildModifier(ModifierIds.flameBarrier).addModule(new FlameBarrierModule(LevelingValue.eachLevel(1.875f)));
@@ -1606,8 +1608,11 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       // all attacks now cause fire. Bit niche
       .addModule(new FieryArmorAttackModule(LevelingInt.eachLevel(5), DamageSourcePredicate.ANY));
 
+    // ribcages
+    buildModifier(ModifierIds.floaty).addModule(MobEffectModule.builder(MobEffects.LEVITATION).time(RandomLevelingValue.random(20*2, 20*5)).buildWeapon());
+
     // internal modifier to restore older slots to slimesuit
-    IJsonPredicate<IToolContext> notSlimelytra = ToolContextPredicate.set(TinkerTools.slimesuit.get(ArmorItem.Type.CHESTPLATE)).inverted();
+    IJsonPredicate<IToolContext> notSlimelytra = ToolContextPredicate.set(TinkerTools.slimeWings.get()).inverted();
     buildModifier(ModifierIds.reverted)
       .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
       // slimelytra just lost an upgrade slot

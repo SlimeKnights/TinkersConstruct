@@ -1,0 +1,14 @@
+{
+  "title": "Tool Material Swapping",
+  "image": {
+    "file": "tconstruct:book/images/material_swapping.png",
+    "width": 136,
+    "height": 72
+  },
+  "text": [
+    {
+      "text": "You can also swap parts by sacrificing another tool of the same type, provided that tool has no modifiers. Based on which slot the tool is placed in is which material is swapped. This is useful for changing the materials on tools that are otherwise uncraftable.",
+      "paragraph": false
+    }
+  ]
+}

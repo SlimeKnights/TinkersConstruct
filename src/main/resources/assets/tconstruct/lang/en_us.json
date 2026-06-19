@@ -354,6 +354,12 @@
   "pattern.tconstruct.fletching": "Arrow Fletching",
   "pattern.tconstruct.arrow_part": "Arrow Head or Shaft",
 
+  "_comment": "Slimesuit Patterns",
+
+  "pattern.tconstruct.ribcage": "Ribcage",
+  "pattern.tconstruct.shell": "Shell",
+  "pattern.tconstruct.laces": "Laces",
+
 
   "_comment": "Tinkers Gold Casts",
 
@@ -993,12 +999,16 @@
   "fluid_effect.tconstruct.fire.set": "%d seconds fire",
   "fluid_effect.tconstruct.freeze.add": "+%d seconds freeze",
   "fluid_effect.tconstruct.freeze.set": "%d seconds freeze",
-  "fluid_effect.tconstruct.award_stat.add": "+%s %s",
-  "fluid_effect.tconstruct.award_stat.subtract": "-%s %s",
   "fluid_effect.tconstruct.add_breath.add": "+%s Breath Bubbles",
   "fluid_effect.tconstruct.add_breath.subtract": "-%s Breath Bubbles",
   "fluid_effect.tconstruct.push_entity.push": "Pushes target",
   "fluid_effect.tconstruct.push_entity.pull": "Pulls target",
+
+  "fluid_effect.tconstruct.award_stat.add": "+%s %s",
+  "fluid_effect.tconstruct.award_stat.subtract": "-%s %s",
+  "stat.tconstruct.stat_value": "%s %s",
+  "stat_type.tconstruct.killed": "%s kills",
+  "stat_type.tconstruct.killed_by": "Killed by %s",
 
   "fluid_effect.tconstruct.damage": "%s Damage",
   "fluid_effect.tconstruct.damage.tconstruct.fluid.impact": "%s Damage",
@@ -1170,14 +1180,14 @@
   "item.tconstruct.slime_helmet.material.tconstruct.honey": "Honeyskull",
   "item.tconstruct.slime_helmet.material.tconstruct.ender_pearl": "Enderskull",
 
-  "__comment": "We are really just mashing up the material name with elytra here, do whatever works for your language, if needed 'Material Elytra' works",
-  "item.tconstruct.slime_chestplate": "Slimelytra",
-  "item.tconstruct.slime_chestplate.material.tconstruct.ui_render": "Any Slimelytra",
-  "item.tconstruct.slime_chestplate.material.tconstruct.ichor": "Ichor Elytra",
-  "item.tconstruct.slime_chestplate.material.tconstruct.magma": "Magma Elytra",
-  "item.tconstruct.slime_chestplate.material.tconstruct.clay": "Claytra",
-  "item.tconstruct.slime_chestplate.material.tconstruct.honey": "Beelytra",
-  "item.tconstruct.slime_chestplate.material.tconstruct.ender_pearl": "Ender Elytra",
+  "__comment": "Name is like ribcage, meant to invoke bones",
+  "item.tconstruct.slimy_chestplate": "Slimecage",
+  "item.tconstruct.slimy_chestplate.material.tconstruct.ui_render": "Any Slimecage",
+  "item.tconstruct.slimy_chestplate.material.tconstruct.ichor": "Ichorcage",
+  "item.tconstruct.slimy_chestplate.material.tconstruct.magma": "Magmacage",
+  "item.tconstruct.slimy_chestplate.material.tconstruct.clay": "Claycage",
+  "item.tconstruct.slimy_chestplate.material.tconstruct.honey": "Honeycage",
+  "item.tconstruct.slimy_chestplate.material.tconstruct.ender_pearl": "Endercage",
 
   "item.tconstruct.slime_leggings": "Slimeshell",
   "item.tconstruct.slime_leggings.material.tconstruct.ichor": "Ichorshell",
@@ -1192,6 +1202,15 @@
   "item.tconstruct.slime_boots.material.tconstruct.clay": "Clayboots",
   "item.tconstruct.slime_boots.material.tconstruct.honey": "Honeyboots",
   "item.tconstruct.slime_boots.material.tconstruct.ender_pearl": "Enderboots",
+
+  "__comment": "We are really just mashing up the material name with elytra here, do whatever works for your language, if needed 'Material Elytra' works",
+  "item.tconstruct.slime_wings": "Slimelytra",
+  "item.tconstruct.slime_wings.material.tconstruct.ui_render": "Any Slimelytra",
+  "item.tconstruct.slime_wings.material.tconstruct.ichor": "Ichor Elytra",
+  "item.tconstruct.slime_wings.material.tconstruct.magma": "Magma Elytra",
+  "item.tconstruct.slime_wings.material.tconstruct.clay": "Claytra",
+  "item.tconstruct.slime_wings.material.tconstruct.honey": "Beelytra",
+  "item.tconstruct.slime_wings.material.tconstruct.ender_pearl": "Ender Elytra",
 
   "item.tconstruct.crystalshot": "Crystalshot",
   "entity.tconstruct.crystalshot": "Crystalshot",
@@ -1238,6 +1257,9 @@
   "item.tconstruct.boots_plating_dummy": "Stone Boot Plating",
   "item.tconstruct.maille": "Maille",
   "item.tconstruct.shield_core": "Shield Core",
+  "item.tconstruct.ribcage": "Ribcage",
+  "item.tconstruct.shell": "Shell",
+  "item.tconstruct.laces": "Laces",
 
 
   "_conment": "Tool Descriptions",
@@ -2165,7 +2187,8 @@
   "material.tconstruct.glowstone.flavor": "Brightest day, blackest night, no cave will escape my light!",
   "material.tconstruct.glowstone.ammo": "Causes the target to glow for 10 seconds per level. If it hits a block, places a permanent light source at the cost of the projectile.",
 
-  "material.tconstruct.soulsteel": "Soulsteel",
+  "material.tconstruct.jadeite": "Jadeite",
+  "material.tconstruct.jadeite.flavor": "Crystalized Gemstones",
 
   "material.tconstruct.jeweled_hide": "Jeweled Hide",
   "material.tconstruct.jeweled_hide.flavor": "Leather tanned using pure gemstones",
@@ -3339,6 +3362,9 @@
   "modifier.tconstruct.hover": "Hover",
   "modifier.tconstruct.hover.flavor": "Free like the wind!",
   "modifier.tconstruct.hover.description": "Projectile briefly ignores gravity after firing.",
+  "modifier.tconstruct.float": "Float",
+  "modifier.tconstruct.float.flavor": "Release!",
+  "modifier.tconstruct.float.description": "Causes the target to temporarily float.",
 
   "__comment": "Tier 5 Traits",
   "modifier.tconstruct.enderporting": "Enderporting",
@@ -3546,6 +3572,8 @@
 
   "_comment": "Internal modifiers",
   "modifier.tconstruct.overslime_friend": "Overslime Friend",
+  "modifier.tconstruct.overslime_friend.flavor": "Friend of the slime",
+  "modifier.tconstruct.overslime_friend.description": "Counts as a slimy material, preventing overslime from debuffing the tool",
 
   "modifier.tconstruct.reverted": "Reverted",
   "modifier.tconstruct.reverted.flavor": "We need to go back!",
@@ -3664,6 +3692,7 @@
 
   "stat.tconstruct.slime": "Slime",
   "stat.tconstruct.skull": "Skull",
+  "stat.tconstruct.ribcage": "Ribcage",
   "stat.tconstruct.shell": "Shell",
   "stat.tconstruct.laces": "Laces",
 
@@ -3871,6 +3900,7 @@
   "recipe.tconstruct.part_swapping.too_few_inputs": "Tool stack size is too small to perform this part swap",
   "recipe.tconstruct.part_swapping.invalid_material": "This material cannot be used for this part",
   "recipe.tconstruct.part_swapping.too_few_parts": "Attempted to swap too large material index on tool. This indicates a broken datapack.",
+  "recipe.tconstruct.part_swapping.no_modifiers": "Cannot use a tool with upgrades or abilities to swap materials, those must be removed first using a modifier worktable.",
 
   "recipe.tconstruct.modifier.not_enough_slot": "Need at least 1 %s slot to add this modifier",
   "recipe.tconstruct.modifier.not_enough_slots": "Need at least %s %s slots to add this modifier",
@@ -4005,6 +4035,12 @@
   "command.tconstruct.slots.success.set.single": "Set %s slots to %s on %s's item",
   "command.tconstruct.slots.success.set.multiple": "Set %s slots to %s on %s entities",
   "command.tconstruct.slots.failure.invalid_count": "Cannot add zero slots, must add a positive or a negative value",
+
+  "command.tconstruct.durability.success.add.single": "Added %s durability to %s's item",
+  "command.tconstruct.durability.success.add.multiple": "Added %s durability to %s entities",
+  "command.tconstruct.durability.success.set.single": "Set remaining durability to %s on %s's item",
+  "command.tconstruct.durability.success.set.multiple": "Set remaining durability to %s on %s entities",
+  "command.tconstruct.durability.failure.invalid_amount": "Cannot add zero durability, must add a positive or a negative value",
 
   "command.tconstruct.stats.success.bonus.modify.single": "%sIncreased by %s on %s's item",
   "command.tconstruct.stats.success.bonus.modify.multiple": "%sIncreased by %s on %s entities",

@@ -150,6 +150,7 @@ public class BlockTagProvider extends BlockTagsProvider {
         .addTag(TinkerMaterials.manyullyn.getBlockTag())
         .addTag(TinkerMaterials.hepatizon.getBlockTag())
         .addTag(TinkerMaterials.knightmetal.getBlockTag())
+        .addTag(TinkerMaterials.knightslime.getBlockTag())
         .addTag(Tags.Blocks.STORAGE_BLOCKS_NETHERITE);
     for (SmelteryCompat compat : SmelteryCompat.values()) {
       if (compat.getType() == CompatType.ALLOY) {

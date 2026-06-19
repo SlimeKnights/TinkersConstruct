@@ -11,6 +11,7 @@ import slimeknights.mantle.data.loadable.array.IntArrayLoadable;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
+import slimeknights.mantle.recipe.ingredient.SizedIngredient;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
@@ -18,6 +19,8 @@ import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.casting.material.MaterialCastingLookup;
+import slimeknights.tconstruct.library.recipe.modifiers.adding.ModifierRecipe;
+import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.tools.definition.module.material.ToolMaterialHook;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
@@ -25,6 +28,7 @@ import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
 import slimeknights.tconstruct.library.tools.part.IToolPart;
 import slimeknights.tconstruct.tables.TinkerTables;
 
+import java.util.BitSet;
 import java.util.List;
 
 /** Recipe for swapping a single material on a tool given a specific tool part. Notably allows swapping a part into a tool on an index other than the first. */
@@ -33,6 +37,7 @@ public class PartSwappingOverrideRecipe extends MaterialSwappingRecipe {
     ContextKey.ID.requiredField(), TOOLS_FIELD, STACK_SIZE_FIELD,
     TinkerLoadables.TOOL_PART_ITEM.requiredField("part", r -> r.part),
     new IntArrayLoadable(IntLoadable.FROM_ZERO, ArrayLoadable.COMPACT, 10).requiredField("index", r -> r.indices),
+    EXTRA_REQUIREMENTS_FIELD,
     PartSwappingOverrideRecipe::new);
 
   /** Part to match allowing the swap */
@@ -40,8 +45,8 @@ public class PartSwappingOverrideRecipe extends MaterialSwappingRecipe {
   /** Options of indexes to set the material */
   private final int[] indices;
 
-  protected PartSwappingOverrideRecipe(ResourceLocation id, Ingredient tools, int maxStackSize, IToolPart part, int[] indices) {
-    super(id, tools, maxStackSize);
+  protected PartSwappingOverrideRecipe(ResourceLocation id, Ingredient tools, int maxStackSize, IToolPart part, int[] indices, List<SizedIngredient> extraRequirements) {
+    super(id, tools, maxStackSize, extraRequirements);
     this.part = part;
     this.indices = indices;
   }
@@ -57,19 +62,19 @@ public class PartSwappingOverrideRecipe extends MaterialSwappingRecipe {
     if (indices[0] >= materials.size()) {
       return false;
     }
-    // find the ingredient and nothing else
+    // find the part and mark it as used
+    BitSet used = ModifierRecipe.makeBitset(inv);
     boolean found = false;
     for (int i = 0; i < inv.getInputCount(); i++) {
       ItemStack input = inv.getInput(i);
-      if (!input.isEmpty()) {
-        // must match, but don't want multiple matches
-        if (found || input.getItem() != part) {
-          return false;
-        }
+      if (!input.isEmpty() && input.getItem() == part) {
         found = true;
+        used.set(i);
+        break;
       }
     }
-    return found;
+    // if we found the part and all extra requirements, we match
+    return found && ModifierRecipe.checkMatch(inv, extraRequirements, used);
   }
 
   @Override
@@ -86,7 +91,7 @@ public class PartSwappingOverrideRecipe extends MaterialSwappingRecipe {
     // actual part swap logic
     for (int i = 0; i < inv.getInputCount(); i++) {
       ItemStack stack = inv.getInput(i);
-      if (!stack.isEmpty()) {
+      if (!stack.isEmpty() && stack.getItem() == part) {
         // ensure the part is valid
         MaterialVariantId partVariant = part.getMaterial(stack);
         if (partVariant.equals(IMaterial.UNKNOWN_ID)) {
@@ -117,6 +122,15 @@ public class PartSwappingOverrideRecipe extends MaterialSwappingRecipe {
 
     // no item found, should never happen
     return RecipeResult.pass();
+  }
+
+  @Override
+  protected boolean shrinkPart(IMutableTinkerStationContainer inv, int index, ItemStack stack) {
+    if (stack.getItem() == part) {
+      inv.shrinkInput(index, 1);
+      return true;
+    }
+    return false;
   }
 
   @Override

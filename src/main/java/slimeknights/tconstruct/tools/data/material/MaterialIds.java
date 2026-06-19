@@ -72,13 +72,14 @@ public final class MaterialIds {
   // tier 3 - bindings
   public static final MaterialId darkthread = id("darkthread");
   public static final MaterialId ichorskin = id("ichorskin");
-  // tier 3 - shield cores
-  public static final MaterialId ice = id("ice");
   // tier 3 - ammo
   public static final MaterialId quartz = id("quartz");
   public static final MaterialId glowstone = id("glowstone");
   public static final MaterialId ichor = id("ichor");
   public static final MaterialId magma = id("magma");
+  // tier 3 - misc
+  public static final MaterialId ice = id("ice");
+  public static final MaterialId jadeite = id("jadeite");
   // tier 4
   public static final MaterialId manyullyn = id("manyullyn");
   public static final MaterialId hepatizon = id("hepatizon");
@@ -90,8 +91,6 @@ public final class MaterialIds {
   public static final MaterialId knightslime = id("knightslime");
   public static final MaterialId knightly = id("knightly");
   public static final MaterialId ancient = id("ancient");
-  public static final MaterialId endRod = id("end_rod");
-  //public static final MaterialId soulsteel = id("soulsteel");
   // tier 4 - bindings
   public static final MaterialId jeweledHide = id("jeweled_hide");
   public static final MaterialId ancientHide = id("ancient_hide");
@@ -100,6 +99,7 @@ public final class MaterialIds {
   public static final MaterialId shulker = id("shulker");
   public static final MaterialId enderslime = id("enderslime");
   public static final MaterialId dragonScale = id("dragon_scale");
+  public static final MaterialId endRod = id("end_rod");
 
   // tier 2 (mod integration)
   public static final MaterialId treatedWood = id("treated_wood");

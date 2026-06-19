@@ -16,6 +16,7 @@ import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.recipe.RecipeResult;
+import slimeknights.tconstruct.library.recipe.modifiers.adding.ModifierRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.tools.definition.module.material.ToolMaterialHook;
@@ -23,6 +24,7 @@ import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
 import slimeknights.tconstruct.tables.TinkerTables;
 
+import java.util.BitSet;
 import java.util.List;
 
 /** Recipe for swapping a single material on a tool given a specific input ingredient. */
@@ -33,6 +35,7 @@ public class FixedMaterialSwappingRecipe extends MaterialSwappingRecipe {
     MaterialVariantId.LOADABLE.requiredField("material", r -> r.material),
     new IntArrayLoadable(IntLoadable.FROM_ZERO, ArrayLoadable.COMPACT, 10).requiredField("index", r -> r.indices),
     IntLoadable.FROM_ZERO.defaultField("repair_value", 0, false, r -> r.repairValue),
+    EXTRA_REQUIREMENTS_FIELD,
     FixedMaterialSwappingRecipe::new);
 
   /** Ingredient matching the input item */
@@ -44,8 +47,8 @@ public class FixedMaterialSwappingRecipe extends MaterialSwappingRecipe {
   /** Amount this swapping repairs the tool */
   private final int repairValue;
 
-  protected FixedMaterialSwappingRecipe(ResourceLocation id, Ingredient tools, int maxStackSize, SizedIngredient ingredient, MaterialVariantId material, int[] indices, int repairValue) {
-    super(id, tools, maxStackSize);
+  protected FixedMaterialSwappingRecipe(ResourceLocation id, Ingredient tools, int maxStackSize, SizedIngredient ingredient, MaterialVariantId material, int[] indices, int repairValue, List<SizedIngredient> extraRequirements) {
+    super(id, tools, maxStackSize, extraRequirements);
     this.ingredient = ingredient;
     this.material = material;
     this.indices = indices;
@@ -63,19 +66,18 @@ public class FixedMaterialSwappingRecipe extends MaterialSwappingRecipe {
     if (indices[0] >= materials.size()) {
       return false;
     }
-    // find the ingredient and nothing else
+    // find the part and mark it as used
+    BitSet used = ModifierRecipe.makeBitset(inv);
     boolean found = false;
     for (int i = 0; i < inv.getInputCount(); i++) {
       ItemStack input = inv.getInput(i);
-      if (!input.isEmpty()) {
-        // must match, but don't want multiple matches
-        if (found || !ingredient.test(input)) {
-          return false;
-        }
+      if (!input.isEmpty() && ingredient.test(input)) {
         found = true;
+        used.set(i);
+        break;
       }
     }
-    return found;
+    return found && ModifierRecipe.checkMatch(inv, extraRequirements, used);
   }
 
   @Override
@@ -92,7 +94,7 @@ public class FixedMaterialSwappingRecipe extends MaterialSwappingRecipe {
     // actual part swap logic
     for (int i = 0; i < inv.getInputCount(); i++) {
       ItemStack stack = inv.getInput(i);
-      if (!stack.isEmpty()) {
+      if (!stack.isEmpty() && ingredient.test(stack)) {
         // we already know the item is valid, no need to check again - we just wanted its index
         // though if the index is not in our indices list, use the first one
         int index = indices[0];
@@ -117,15 +119,12 @@ public class FixedMaterialSwappingRecipe extends MaterialSwappingRecipe {
   }
 
   @Override
-  public void updateInputs(LazyToolStack result, IMutableTinkerStationContainer inv, boolean isServer) {
-    // want to shrink the input by more
-    for (int i = 0; i < inv.getInputCount(); i++) {
-      ItemStack stack = inv.getInput(i);
-      if (!stack.isEmpty()) {
-        inv.shrinkInput(i, ingredient.getAmountNeeded());
-        break;
-      }
+  protected boolean shrinkPart(IMutableTinkerStationContainer inv, int index, ItemStack stack) {
+    if (ingredient.test(stack)) {
+      inv.shrinkInput(index, ingredient.getAmountNeeded());
+      return true;
     }
+    return false;
   }
 
   @Override

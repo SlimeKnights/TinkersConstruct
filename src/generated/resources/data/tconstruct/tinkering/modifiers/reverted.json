@@ -14,7 +14,7 @@
         "type": "mantle:inverted",
         "inverted_type": "mantle:set",
         "items": [
-          "tconstruct:slime_chestplate"
+          "tconstruct:slime_wings"
         ]
       }
     },
@@ -26,7 +26,7 @@
         "type": "mantle:inverted",
         "inverted_type": "mantle:set",
         "items": [
-          "tconstruct:slime_chestplate"
+          "tconstruct:slime_wings"
         ]
       }
     },

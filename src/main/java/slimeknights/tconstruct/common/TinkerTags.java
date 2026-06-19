@@ -21,6 +21,7 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TagsUpdatedEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
+import slimeknights.mantle.datagen.MantleTags;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialManager;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -534,15 +535,26 @@ public class TinkerTags {
     public static final TagKey<Item> UNRECYCLABLE = local("modifiable/unrecyclable");
     /** Tools to blacklist from default salvage recipes. May still be salvagable in other recipes */
     public static final TagKey<Item> UNSALVAGABLE = local("modifiable/unsalvageable");
-    /** Tools to blacklist from part swapping */
+    /** Tools to blacklist from all material swapping. Does not contain subtags, rather is added to the subtags. */
     public static final TagKey<Item> UNSWAPPABLE = local("modifiable/unswappable");
+    /** Tools to blacklist from part swapping. Also contains anything in {@link #UNSWAPPABLE} */
+    public static final TagKey<Item> UNSWAPPABLE_PARTS = local("modifiable/unswappable/parts");
+    /** Tools to blacklist from tool consuming material swapping. Also contains anything in {@link #UNSWAPPABLE}. */
+    public static final TagKey<Item> UNSWAPPABLE_TOOLS = local("modifiable/unswappable/tools");
 
     /** Tag so mods like thermal know our scyhtes can harvest */
     public static final TagKey<Item> SCYTHES = common("tools/scythe");
 
-    /** Tag for others adding empty potion bottles */
-    public static final TagKey<Item> SPLASH_BOTTLE = common("bottles/splash");
-    public static final TagKey<Item> LINGERING_BOTTLE = common("bottles/lingering");
+    /** @deprecated use {@link MantleTags.Items#SPLASH_BOTTLE} */
+    @Deprecated(forRemoval = true)
+    public static final TagKey<Item> SPLASH_BOTTLE = MantleTags.Items.SPLASH_BOTTLE;
+    /** @deprecated use {@link MantleTags.Items#LINGERING_BOTTLE} */
+    @Deprecated(forRemoval = true)
+    public static final TagKey<Item> LINGERING_BOTTLE = MantleTags.Items.LINGERING_BOTTLE;
+
+
+    /** Items in this tag will render the arm when held. */
+    public static final TagKey<Item> SHOW_HAND = local("show_hand");
 
     // compat tags
     /** @deprecated necronium bones now show based on {@link slimeknights.tconstruct.tools.data.material.MaterialIds#necronium} */

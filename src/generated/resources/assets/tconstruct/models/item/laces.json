@@ -1,0 +1,11 @@
+{
+  "parent": "forge:item/default",
+  "loader": "tconstruct:material",
+  "offset": [
+    0,
+    1
+  ],
+  "textures": {
+    "texture": "tconstruct:item/tool/armor/slime/boots/laces"
+  }
+}

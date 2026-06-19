@@ -38,7 +38,9 @@ public class ModifierDeferredRegister {
    * @param supplier  Supplier to modifier instance
    * @param <T>       Type of modifier
    * @return StaticModifier instance that will resolve to the modifier once static modifiers are registered
+   * @deprecated Use {@link slimeknights.tconstruct.tools.data.ModifierProvider} with {@link slimeknights.tconstruct.library.modifiers.modules.ModifierModule} for any custom modifier logic.
    */
+  @Deprecated
   public <T extends Modifier> StaticModifier<T> register(String name, Supplier<? extends T> supplier) {
     if (seenRegisterEvent) {
       throw new IllegalStateException("Cannot register new entries to DeferredRegister after ModifierRegistrationEvent has been fired.");

@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.json;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.stats.StatType;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
@@ -46,6 +47,7 @@ public class TinkerLoadables {
   public static final StringLoadable<TooltipKey> TOOLTIP_KEY = new EnumLoadable<>(TooltipKey.class);
 
   /* Registries */
+  public static final StringLoadable<StatType<?>> STAT_TYPE = new RegistryLoadable<>(BuiltInRegistries.STAT_TYPE);
   public static final StringLoadable<ResourceLocation> CUSTOM_STAT = new RegistryLoadable<>(BuiltInRegistries.CUSTOM_STAT);
   public static final StringLoadable<RecipeType<?>> RECIPE_TYPE = new RegistryLoadable<>(BuiltInRegistries.RECIPE_TYPE);
 

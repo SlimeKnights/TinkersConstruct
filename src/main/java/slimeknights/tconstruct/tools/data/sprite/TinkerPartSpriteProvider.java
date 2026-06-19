@@ -5,6 +5,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.data.material.AbstractPartSpriteProvider;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.tools.stats.PlatingMaterialStats;
+import slimeknights.tconstruct.tools.stats.RepairStats;
 import slimeknights.tconstruct.tools.stats.SlimeStats;
 import slimeknights.tconstruct.tools.stats.StatlessMaterialStats;
 
@@ -96,14 +97,15 @@ public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
     addSprite("staff/large_modifiers/tconstruct_embellishment", WOOD);
 
     // slimesuit textures - the armor model won't be animated, so don't animate the item
-    addSprite("armor/slime/helmet/slime", SlimeStats.ID).disallowAnimated();
-    addSprite("armor/slime/helmet/slime_broken", SlimeStats.ID).disallowAnimated();
-    addSprite("armor/slime/wings/slime", SlimeStats.ID).disallowAnimated();
-    addSprite("armor/slime/wings/slime_broken", SlimeStats.ID).disallowAnimated();
-    addSprite("armor/slime/leggings/slime", SlimeStats.ID).disallowAnimated();
-    addSprite("armor/slime/leggings/slime_broken", SlimeStats.ID).disallowAnimated();
-    addSprite("armor/slime/boots/slime", SlimeStats.ID).disallowAnimated();
-    addSprite("armor/slime/boots/slime_broken", SlimeStats.ID).disallowAnimated();
+    buildTool("armor/slime").disallowAnimated()
+      .addBreakablePart("helmet/slime",       SlimeStats.ID)
+      .addBreakablePart("chestplate/slime",   SlimeStats.ID)
+      .addBreakablePart("chestplate/ribcage", RepairStats.RIBCAGE.getId())
+      .addBreakablePart("leggings/slime",     SlimeStats.ID)
+      .addBreakablePart("leggings/shell",     RepairStats.SHELL.getId())
+      .addBreakablePart("boots/slime",        SlimeStats.ID)
+      .addBreakablePart("boots/laces",        RepairStats.LACES.getId())
+      .addBreakablePart("wings/slime",        SlimeStats.ID);
     addTexture("tinker_armor/slime/armor", SLIMESUIT).disallowAnimated();
     addTexture("tinker_armor/slime/leggings", SLIMESUIT).disallowAnimated();
     addTexture("tinker_armor/slime/wings", SLIMESUIT).disallowAnimated();

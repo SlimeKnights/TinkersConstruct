@@ -10,6 +10,7 @@ import slimeknights.mantle.data.loadable.Loadable;
 import slimeknights.mantle.data.registry.AbstractNamedComponentRegistry;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.mantle.util.typed.TypedMapBuilder;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.dynamic.DynamicMaterialStatType;
@@ -48,6 +49,7 @@ public class UpdateMaterialStatsPacket implements IThreadsafePacket {
       int statCount = buffer.readInt();
       List<IMaterialStats> statList = new ArrayList<>();
       for (int j = 0; j < statCount; j++) {
+        ResourceLocation statId = null;
         try {
           ResourceLocation statTypeId = buffer.readResourceLocation();
           MaterialStatType<?> statType = null;
@@ -74,19 +76,28 @@ public class UpdateMaterialStatsPacket implements IThreadsafePacket {
     materialToStats.forEach((materialId, stats) -> {
       buffer.writeResourceLocation(materialId);
       buffer.writeInt(stats.size());
-      stats.forEach(stat -> encodeStat(buffer, stat, stat.getType()));
+      for (IMaterialStats stat : stats) {
+        encodeStat(buffer, stat, stat.getType(), materialId);
+      }
     });
   }
 
   /**
    * Encodes a single material stat
-   * @param buffer  Buffer instance
-   * @param stat    Stat to encode
+   *
+   * @param buffer     Buffer instance
+   * @param stat       Stat to encode
+   * @param material   Material being encoded
    */
   @SuppressWarnings("unchecked")
-  private <T extends IMaterialStats> void encodeStat(FriendlyByteBuf buffer, IMaterialStats stat, MaterialStatType<T> type) {
-    MaterialStatsId.PARSER.encode(buffer, type.getId());
-    type.getLoadable().encode(buffer, (T) stat);
+  private <T extends IMaterialStats> void encodeStat(FriendlyByteBuf buffer, IMaterialStats stat, MaterialStatType<T> type, MaterialId material) {
+    try {
+      MaterialStatsId.PARSER.encode(buffer, type.getId());
+      type.getLoadable().encode(buffer, (T) stat);
+    } catch (RuntimeException e) {
+      TConstruct.LOG.error("Could not encode stat {} for material {}", stat.getIdentifier(), material, e);
+      throw e;
+    }
   }
 
   @Override

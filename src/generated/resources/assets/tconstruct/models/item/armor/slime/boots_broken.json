@@ -2,7 +2,8 @@
   "loader": "tconstruct:tool",
   "parent": "forge:item/default",
   "textures": {
-    "slime": "tconstruct:item/tool/armor/slime/boots/slime_broken"
+    "slime": "tconstruct:item/tool/armor/slime/boots/slime_broken",
+    "laces": "tconstruct:item/tool/armor/slime/boots/laces_broken"
   },
   "modifier_maps": [
     "tconstruct:slime/boots_broken",
@@ -12,6 +13,10 @@
     {
       "name": "slime",
       "index": 1
+    },
+    {
+      "name": "laces",
+      "index": 0
     }
   ],
   "first_modifiers": [

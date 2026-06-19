@@ -25,6 +25,7 @@ import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 import slimeknights.tconstruct.tools.stats.LimbMaterialStats;
 import slimeknights.tconstruct.tools.stats.PlatingMaterialStats;
+import slimeknights.tconstruct.tools.stats.RepairStats;
 import slimeknights.tconstruct.tools.stats.SlimeStats;
 import slimeknights.tconstruct.tools.stats.StatlessMaterialStats;
 
@@ -244,7 +245,22 @@ public abstract class AbstractMaterialSpriteProvider {
 
     /** Adds slime textures for the given material. */
     public MaterialSpriteInfoBuilder slime() {
-      return statType(SlimeStats.ID, TinkerPartSpriteProvider.SLIMESUIT);
+      return statType(SlimeStats.ID, TinkerPartSpriteProvider.SLIMESUIT).repairKit();
+    }
+
+    /** Adds a slimesuit ribcage part for the given material. */
+    public MaterialSpriteInfoBuilder ribcage() {
+      return statType(RepairStats.RIBCAGE).repairKit();
+    }
+
+    /** Adds a slimesuit shell part for the given material. */
+    public MaterialSpriteInfoBuilder shell() {
+      return statType(RepairStats.SHELL).repairKit();
+    }
+
+    /** Adds a slimesuit laces part for the given material. */
+    public MaterialSpriteInfoBuilder laces() {
+      return statType(RepairStats.LACES).repairKit();
     }
 
     /** Makes this work as the wood part for a shield */
