@@ -211,6 +211,8 @@ public class TinkerTags {
     // ceramics compat
     @SuppressWarnings("removal")
     public static final TagKey<Block> CISTERN_CONNECTIONS = TagKey.create(Registries.BLOCK, new ResourceLocation("ceramics", "cistern_connections"));
+    // create compat
+    public static final TagKey<Block> CREATE_ROOTS = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("create", "roots"));
 
     /** Makes a tag in the tinkers domain */
     private static TagKey<Block> local(String name) {
