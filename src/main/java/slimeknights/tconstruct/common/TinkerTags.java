@@ -212,7 +212,8 @@ public class TinkerTags {
     @SuppressWarnings("removal")
     public static final TagKey<Block> CISTERN_CONNECTIONS = TagKey.create(Registries.BLOCK, new ResourceLocation("ceramics", "cistern_connections"));
     // create compat
-    public static final TagKey<Block> CREATE_ROOTS = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("create", "roots"));
+    @SuppressWarnings("removal")
+    public static final TagKey<Block> CREATE_ROOTS = TagKey.create(Registries.BLOCK, new ResourceLocation("create", "roots"));
 
     /** Makes a tag in the tinkers domain */
     private static TagKey<Block> local(String name) {
@@ -564,6 +565,9 @@ public class TinkerTags {
     public static final TagKey<Item> URANIUM_INGOTS = common("ingots/uranium");
     /** Tag of trophies from bosses, to grant an additional upgrade slot to tools. Meant for Twilight Forest boss trophies, but suppose you can add other bosses that are not easily farmed. */
     public static final TagKey<Item> BOSS_TROPHIES = local("boss_trophies");
+    /** Create tree attachments */
+    @SuppressWarnings("removal")
+    public static final TagKey<Item> TREE_ATTACHMENTS = TagKey.create(Registries.ITEM, new ResourceLocation("create", "tree_attachments"));
 
     /** Fluids in this tag won't show in JEI */
     public static final TagKey<Item> HIDDEN_IN_RECIPE_VIEWERS = hiddenFromRecipeViewers(Registries.ITEM);
