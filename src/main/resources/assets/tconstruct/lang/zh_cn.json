@@ -2185,7 +2185,8 @@
   "material.tconstruct.glowstone.flavor": "白昼朗朗，黑夜茫茫。深窟草莽，无所遁藏！",
   "material.tconstruct.glowstone.ammo": "使目标发光，每级增加持续时间10秒。若击中方块，则消耗箭矢在目标位置 放置一个永久的光源。",
 
-  "material.tconstruct.soulsteel": "魂钢",
+  "material.tconstruct.jadeite": "硬玉",
+  "material.tconstruct.jadeite.flavor": "结晶化的宝石",
 
   "material.tconstruct.jeweled_hide": "宝钻皮革",
   "material.tconstruct.jeweled_hide.flavor": "用最纯粹的宝石鞣制的皮革。",
@@ -3359,6 +3360,9 @@
   "modifier.tconstruct.hover": "悬浮",
   "modifier.tconstruct.hover.flavor": "自由飞翔！",
   "modifier.tconstruct.hover.description": "弹射物刚发射的短时间里无视重力",
+  "modifier.tconstruct.float": "漂浮",
+  "modifier.tconstruct.float.flavor": "释放天性！",
+  "modifier.tconstruct.float.description": "使目标短暂漂浮。",
 
   "__comment": "Tier 5 Traits",
   "modifier.tconstruct.enderporting": "末影传送",
