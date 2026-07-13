@@ -113,17 +113,28 @@ public class ContainerFillingRecipe implements ICastingRecipe, IMultiRecipe<Disp
     if (displayRecipes == null) {
       List<ItemStack> casts = Collections.singletonList(new ItemStack(container));
       displayRecipes = ForgeRegistries.FLUIDS.getValues().stream()
-                                             .filter(fluid -> fluid.getBucket() != Items.AIR && fluid.isSource(fluid.defaultFluidState()))
-                                             .map(fluid -> {
-                                               FluidStack fluidStack = new FluidStack(fluid, fluidAmount);
-                                               ItemStack stack = new ItemStack(container);
-                                               stack = FluidUtil.getFluidHandler(stack).map(handler -> {
-                                                 handler.fill(fluidStack, FluidAction.EXECUTE);
-                                                 return handler.getContainer();
-                                               }).orElse(stack);
-                                               return new DisplayCastingRecipe(getId(), getType(), casts, Collections.singletonList(fluidStack), stack, 5, true);
-                                             })
-                                             .toList();
+        .filter(fluid -> {
+          // skip flowing fluids (redundant to source) and fluids with no bucket (probably internal)
+          if (fluid.isSource(fluid.defaultFluidState())) {
+            try {
+              return fluid.getBucket() != Items.AIR;
+            } catch (Exception e) {
+              // Registrate (popular dependency for making registration easier) is broken and throws in getBucket for fluids with no bucket
+              // we could just skip the bucket check, but its just going to throw when we try to fill an empty bucket in map below
+            }
+          }
+          return false;
+        })
+        .map(fluid -> {
+          FluidStack fluidStack = new FluidStack(fluid, fluidAmount);
+          ItemStack stack = new ItemStack(container);
+          stack = FluidUtil.getFluidHandler(stack).map(handler -> {
+            handler.fill(fluidStack, FluidAction.EXECUTE);
+            return handler.getContainer();
+          }).orElse(stack);
+          return new DisplayCastingRecipe(getId(), getType(), casts, Collections.singletonList(fluidStack), stack, 5, true);
+        })
+        .toList();
     }
     return displayRecipes;
   }
