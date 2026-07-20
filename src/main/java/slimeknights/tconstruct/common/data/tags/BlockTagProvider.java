@@ -172,6 +172,9 @@ public class BlockTagProvider extends BlockTagsProvider {
     IntrinsicTagAppender<Block> copperPlatforms = this.tag(TinkerTags.Blocks.COPPER_PLATFORMS);
     TinkerCommons.copperPlatform.forEach(block -> copperPlatforms.add(block));
     TinkerCommons.waxedCopperPlatform.forEach(block -> copperPlatforms.add(block));
+
+    this.tag(TinkerTags.Blocks.CREATE_ROOTS)
+      .addTag(TinkerTags.Blocks.ENDERBARK_ROOTS);
   }
 
   private void addTools() {
