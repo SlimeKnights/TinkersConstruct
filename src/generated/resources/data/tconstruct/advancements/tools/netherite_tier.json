@@ -7,10 +7,19 @@
           {
             "type": "tconstruct:tool_stack",
             "predicate": {
-              "type": "tconstruct:stat_in_set",
-              "stat": "tconstruct:harvest_tier",
-              "values": [
-                "minecraft:netherite"
+              "type": "mantle:and",
+              "predicates": [
+                {
+                  "type": "mantle:tag",
+                  "tag": "tconstruct:modifiable/harvest"
+                },
+                {
+                  "type": "tconstruct:stat_in_set",
+                  "stat": "tconstruct:harvest_tier",
+                  "values": [
+                    "minecraft:netherite"
+                  ]
+                }
               ]
             }
           }
