@@ -3,7 +3,7 @@
   "allow_crystal": true,
   "inputs": [
     {
-      "item": "tconstruct:necrotic_bone"
+      "tag": "forge:wither_bones"
     },
     {
       "item": "tconstruct:ichor_congealed_slime"

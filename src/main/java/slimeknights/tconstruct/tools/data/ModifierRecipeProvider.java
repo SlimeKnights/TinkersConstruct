@@ -434,7 +434,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .saveSalvage(consumer, prefix(ModifierIds.fiery, upgradeSalvage))
                                     .save(consumer, prefix(ModifierIds.fiery, upgradeFolder));
     ModifierRecipeBuilder.modifier(ModifierIds.necrotic)
-                         .addInput(TinkerMaterials.necroticBone)
+                         .addInput(TinkerTags.Items.WITHER_BONES)
                          .addInput(TinkerWorld.congealedSlime.get(SlimeType.ICHOR))
                          .addInput(Items.GHAST_TEAR)
                          .setMaxLevel(5) // +50% chance of heal, combine with +40% from traits for +90% total
