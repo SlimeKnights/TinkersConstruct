@@ -1,6 +1,8 @@
 package slimeknights.tconstruct.common.registration;
 
+import net.minecraftforge.fluids.FluidType;
 import slimeknights.mantle.registration.deferred.FluidDeferredRegister;
+import slimeknights.tconstruct.fluids.fluids.SlimeFluidType;
 
 /** Extension of the fluid register to add a few common tinkers fluid behaviors. */
 public class FluidDeferredRegisterExtension extends FluidDeferredRegister {
@@ -11,6 +13,11 @@ public class FluidDeferredRegisterExtension extends FluidDeferredRegister {
   /** Registers a slime fluid with slime-like behavior. Slows down the flow rate but doesn't reduce flow speed. */
   public Builder registerSlime(String name) {
     return register(name).tickRate(50);
+  }
+
+  /** Registers a slime fluid with slime-like behavior. Same as {@link #registerSlime(String)} but also sets the fluid type. */
+  public Builder registerSlime(String name, FluidType.Properties properties) {
+    return registerSlime(name).type(() -> new SlimeFluidType(properties));
   }
 
   /** Registers a fluid with stone-like behavior. Has even less flow distance than lava but flows a bit faster */

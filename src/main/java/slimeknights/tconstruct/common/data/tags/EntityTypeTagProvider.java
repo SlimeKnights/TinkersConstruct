@@ -33,8 +33,10 @@ public class EntityTypeTagProvider extends EntityTypeTagsProvider {
   @Override
   protected void addTags(Provider provider) {
     // mob classes
-    this.tag(TinkerTags.EntityTypes.SLIMES)
-        .add(EntityType.SLIME, TinkerWorld.skySlimeEntity.get(), TinkerWorld.enderSlimeEntity.get(), TinkerWorld.terracubeEntity.get());
+    this.tag(TinkerTags.EntityTypes.SLIMES).add(
+      EntityType.SLIME, EntityType.MAGMA_CUBE,
+      TinkerWorld.skySlimeEntity.get(), TinkerWorld.enderSlimeEntity.get(), TinkerWorld.terracubeEntity.get()
+    );
     this.tag(TinkerTags.EntityTypes.CREEPERS).add(EntityType.CREEPER);
     this.tag(TinkerTags.EntityTypes.VILLAGERS).add(EntityType.VILLAGER, EntityType.WANDERING_TRADER, EntityType.ZOMBIE_VILLAGER);
     this.tag(TinkerTags.EntityTypes.ILLAGERS).add(EntityType.EVOKER, EntityType.ILLUSIONER, EntityType.PILLAGER, EntityType.VINDICATOR, EntityType.WITCH);
