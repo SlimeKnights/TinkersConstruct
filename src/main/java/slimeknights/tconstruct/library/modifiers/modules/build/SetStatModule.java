@@ -37,7 +37,7 @@ public record SetStatModule<T>(IToolStat<T> stat, T value, ModifierCondition<ITo
 
   @Override
   public void addToolStats(IToolContext context, ModifierEntry modifier, ModifierStatsBuilder builder) {
-    if (condition.matches(context, modifier)) {
+    if (condition.matches(context, modifier) && stat.supports(context.getItem())) {
       stat.update(builder, value);
     }
   }
