@@ -3,7 +3,7 @@
   "damage": 2,
   "entity": [
     {
-      "tag": "tconstruct:melting/endermen"
+      "tag": "tconstruct:melting/meltable_endermen"
     },
     {
       "types": [

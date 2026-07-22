@@ -2,7 +2,7 @@
   "type": "tconstruct:entity_melting",
   "damage": 2,
   "entity": {
-    "tag": "tconstruct:melting/frogs"
+    "tag": "tconstruct:melting/meltable_frogs"
   },
   "result": {
     "amount": 50,

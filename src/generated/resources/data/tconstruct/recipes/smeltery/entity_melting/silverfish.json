@@ -2,7 +2,7 @@
   "type": "tconstruct:entity_melting",
   "damage": 2,
   "entity": {
-    "tag": "tconstruct:melting/silverfish"
+    "tag": "tconstruct:melting/meltable_silverfish"
   },
   "result": {
     "amount": 50,

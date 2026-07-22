@@ -2,7 +2,7 @@
   "type": "tconstruct:entity_melting",
   "damage": 2,
   "entity": {
-    "tag": "tconstruct:melting/bees"
+    "tag": "tconstruct:melting/meltable_bees"
   },
   "result": {
     "amount": 25,
