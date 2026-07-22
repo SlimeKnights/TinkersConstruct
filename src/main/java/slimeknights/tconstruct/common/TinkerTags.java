@@ -719,6 +719,7 @@ public class TinkerTags {
     public static final TagKey<EntityType<?>> MELTABLE_STRIDERS = local("melting/meltable_striders");
     public static final TagKey<EntityType<?>> MELTABLE_TURTLES = local("melting/meltable_turtles");
     public static final TagKey<EntityType<?>> MELTABLE_ZOMBIES = local("melting/meltable_zombies");
+    public static final TagKey<EntityType<?>> MELTABLE_SKELETONS = local("melting/meltable_skeletons");
 
     // collecting
     /** Things that can be collected using {@link net.minecraft.world.entity.Entity#playerTouch(Player)} using a fishing rod. */
