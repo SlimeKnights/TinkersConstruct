@@ -19,6 +19,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelAccessor;
 import slimeknights.mantle.block.InventoryBlock;
 
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
@@ -54,6 +55,16 @@ public abstract class TableBlock extends InventoryBlock implements SimpleWaterlo
   public BlockState getStateForPlacement(BlockPlaceContext context) {
     boolean flag = context.getLevel().getFluidState(context.getClickedPos()).getType() == Fluids.WATER;
     return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite()).setValue(WATERLOGGED, flag);
+  }
+
+  @SuppressWarnings("deprecation")
+  @Deprecated
+  @Override
+  public BlockState updateShape(BlockState state, Direction direction, BlockState neighbor, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
+    if (state.getValue(WATERLOGGED)) {
+      level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
+    }
+    return super.updateShape(state, direction, neighbor, level, pos, neighborPos);
   }
 
   @Deprecated
