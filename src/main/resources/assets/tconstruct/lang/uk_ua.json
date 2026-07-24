@@ -22,9 +22,9 @@
   "block.tconstruct.mud_bricks_stairs": "Сходи з лимпача",
 
   "block.tconstruct.blazewood": "Пломенедерево",
-  "block.tconstruct.blazewood_slab": "Пломенедерев’яна плита",
-  "block.tconstruct.blazewood_stairs": "Пломенедерев’яні сходи",
-  "block.tconstruct.blazewood_fence": "Пломенедерев’яний паркан",
+  "block.tconstruct.blazewood_slab": "Пломенедерев'яна плита",
+  "block.tconstruct.blazewood_stairs": "Пломенедерев'яні сходи",
+  "block.tconstruct.blazewood_fence": "Пломенедерев'яний паркан",
 
   "block.tconstruct.nahuatl": "Ацтекські дошки",
   "block.tconstruct.nahuatl_slab": "Ацтекська плита",
@@ -545,7 +545,7 @@
   "item.tconstruct.rabbit_stew_bucket": "Відро тушкованого кролика",
   "fluid.tconstruct.rabbit_stew.fluid_effect": "Тушкований кролик – найкраща зріджена їжа, ідеальна для сьорбання.",
 
-  "block.tconstruct.meat_soup_fluid": "М’ясний суп",
+  "block.tconstruct.meat_soup_fluid": "М'ясний суп",
   "fluid.tconstruct.meat_soup": "М’ясний суп",
   "fluid.tconstruct.flowing_meat_soup": "Зріджений м’ясний суп",
   "item.tconstruct.meat_soup_bucket": "Відро м’ясного супу",
@@ -705,7 +705,7 @@
   "fluid.tconstruct.molten_cobalt": "Розтоплений кобальт",
   "fluid.tconstruct.flowing_molten_cobalt": "Зріджений розтоплений кобальт",
   "item.tconstruct.molten_cobalt_bucket": "Відро розтопленого кобальту",
-  "fluid.tconstruct.molten_cobalt.fluid_effect": "Вдихання осідальної хмари — найбезпечніший спосіб використовувати розтоплений кобальт для прискорення... або просто використовуйте його як зброю.",
+  "fluid.tconstruct.molten_cobalt.fluid_effect": "Вдихання осідальної хмари — найбезпечніший спосіб використовувати розтоплений кобальт для прискорення… або просто використовуйте його як зброю.",
 
   "block.tconstruct.molten_debris_fluid": "Розтоплені залишки",
   "fluid.tconstruct.molten_debris": "Розтоплені залишки",
@@ -736,7 +736,7 @@
   "fluid.tconstruct.molten_pig_iron": "Розтоплене свинозалізо",
   "fluid.tconstruct.flowing_molten_pig_iron": "Зріджене розтоплене свинозалізо",
   "item.tconstruct.molten_pig_iron_bucket": "Відро розтопленого свинозаліза",
-  "fluid.tconstruct.molten_pig_iron.fluid_effect": "Розтоплене свинозалізо — найсмачніше з розтоплених металів. І не те щоб з ним хтось конкурував...",
+  "fluid.tconstruct.molten_pig_iron.fluid_effect": "Розтоплене свинозалізо — найсмачніше з розтоплених металів. І не те щоб з ним хтось конкурував…",
 
   "_comment": "Tier 4 Alloys",
 
@@ -891,7 +891,7 @@
   "item.tconstruct.molten_constantan_bucket": "Відро розтопленого константану",
   "fluid.tconstruct.molten_constantan.fluid_effect": "Розтоплений константан, можливо, корисний проти людей, але не так сильно проти монстрів.",
 
-  "block.tconstruct.molten_pewter_fluid": "Розтоплений п’ютер",
+  "block.tconstruct.molten_pewter_fluid": "Розтоплений п'ютер",
   "fluid.tconstruct.molten_pewter": "Розтоплений п’ютер",
   "fluid.tconstruct.flowing_molten_pewter": "Зріджений розтоплений п’ютер",
   "item.tconstruct.molten_pewter_bucket": "Відро розтопленого п’ютеру",
@@ -1041,9 +1041,9 @@
   "item.tconstruct.glow_ball": "Світлом’ячик",
   "item.tconstruct.glow_ball.tooltip": "Не їстівний.",
   "entity.tconstruct.glow_ball": "Світлом’ячик",
-  "item.tconstruct.efln_ball": "EFLN",
+  "item.tconstruct.efln_ball": "ВКРМ",
   "item.tconstruct.efln_ball.tooltip": "Вибухає! Безпечно для рудокопства",
-  "entity.tconstruct.efln_ball": "EFLN",
+  "entity.tconstruct.efln_ball": "ВКРМ",
 
   "item.tconstruct.quartz_shuriken": "Кварцовий шюрикен",
   "item.tconstruct.quartz_shuriken.tooltip": "Метальна зброя з більшою шкодою",
@@ -1056,7 +1056,7 @@
   "block.tconstruct.sky_cake": "Небослизовий торт",
   "block.tconstruct.ichor_cake": "Іхоровий торт",
   "block.tconstruct.ender_cake": "Ендерслизовий торт",
-  "block.tconstruct.blood_cake": "Кров’яний торт",
+  "block.tconstruct.blood_cake": "Кров'яний торт",
   "block.tconstruct.magma_cake": "Магматичний торт",
 
   "item.tconstruct.piggy_backpack": "Свиноранець",
@@ -1750,8 +1750,8 @@
   "block.tconstruct.bloodshroom_planks_stairs": "Кровогрибні сходи",
   "block.tconstruct.bloodshroom_log": "Кровогрибне стебло",
   "block.tconstruct.stripped_bloodshroom_log": "Обтесане кровогрибне стебло",
-  "block.tconstruct.bloodshroom_wood": "Кровогрибні гіфи",
-  "block.tconstruct.stripped_bloodshroom_wood": "Обтесані кровогрибні гіфи",
+  "block.tconstruct.bloodshroom_wood": "Кровогрибна ніжка",
+  "block.tconstruct.stripped_bloodshroom_wood": "Обтесана кровогрибна ніжка",
 
   "block.tconstruct.bloodshroom_fence": "Кровогрибний паркан",
   "block.tconstruct.bloodshroom_fence_gate": "Кровогрибна хвіртка",
@@ -1796,8 +1796,8 @@
 
   "__comment": "Tier 1 Materials",
   "material.tconstruct.wood": "Дерево",
-  "material.tconstruct.wood.crimson": "Багряні гіфи",
-  "material.tconstruct.wood.warped": "Химерні гіфи",
+  "material.tconstruct.wood.crimson": "Багряна ніжка",
+  "material.tconstruct.wood.warped": "Химерна ніжка",
   "material.tconstruct.wood.format": "%s з дерева",
   "material.tconstruct.wood.flavor": "Скільки б дерева точив деревоточець, якби точити дерево деревоточець міг?",
   "material.tconstruct.wood.encyclopedia": "Робить ремонт на 50% більш ефективним на деталь",
@@ -1871,7 +1871,7 @@
   "material.tconstruct.string.flavor": "Теоретично кращий матеріал.",
   "material.tconstruct.string.encyclopedia": "Дозволяє ремонтувати інструмент ниткою на інженерній станції чи верстаку",
   "material.tconstruct.string.skull": "Павук",
-  "material.tconstruct.string.skull_flavor": "Павуки є майстрами зіллєваріння, можливо, їхній секрет може допомогти мені посилити зілля...",
+  "material.tconstruct.string.skull_flavor": "Павуки є майстрами зіллєваріння, можливо, їхній секрет може допомогти мені посилити зілля…",
   "material.tconstruct.string.skull_encyclopedia": "Змушує позитивні ефекти тривати на 25% довше",
 
   "material.tconstruct.leather": "Шкіра",
@@ -1891,7 +1891,7 @@
   "material.tconstruct.iron": "Залізо",
   "material.tconstruct.iron.wrought": "Коване залізо",
   "material.tconstruct.iron.oxidized": "Іржаве залізо",
-  "material.tconstruct.iron.flavor": "Залізне як Залізняк, але не як Залізниця...",
+  "material.tconstruct.iron.flavor": "Залізне як Залізняк, але не як Залізниця…",
   "material.tconstruct.iron.encyclopedia": "Надає 10% додаткової міцності на деталь",
   "material.tconstruct.iron.ranged": "Змушує випущені стріли притягувати предмети поблизу до власника.",
   "material.tconstruct.iron.armor": "Зменшує отримувану шкоду від снарядів на 10% на рівень та надає 5% стійкості до відкидання на максимальному.",
@@ -2302,7 +2302,7 @@
   "material.tconstruct.bronze.armor": "Збільшує витривалість на 2 на рівень при повній міцності, але підвищення падає до 0 нижче 50% міцності",
 
   "material.tconstruct.constantan": "Константан",
-  "material.tconstruct.constantan.flavor": "Шіканоко-ноконоко-константан... вибачте",
+  "material.tconstruct.constantan.flavor": "Шіканоко-ноконоко-константан… вибачте",
   "material.tconstruct.constantan.encyclopedia": "Надає +7.5 швидкости добування в екстремальному теплі чи холоді",
   "material.tconstruct.constantan.ranged": "Дає +0,15 швидкости в екстремальному холоді та вдвічі посилюється в екстремальній спеці",
   "material.tconstruct.constantan.armor": "Забезпечує 5% захисту від сильного холоду та подвійне посилення від сильної спеки",
@@ -2744,7 +2744,7 @@
 
   "_comment": "Armor - leggings",
   "modifier.tconstruct.speedy": "Швиденькість",
-  "modifier.tconstruct.speedy.flavor": "Іди далі й далі й далі...",
+  "modifier.tconstruct.speedy.flavor": "Іди далі й далі й далі…",
   "modifier.tconstruct.speedy.description": "Сягни швидкостей кроликів",
   "modifier.tconstruct.step_up": "Крок угору",
   "modifier.tconstruct.step_up.flavor": "Не забувай тренувати ноги",
@@ -3474,7 +3474,7 @@
   "modifier.tconstruct.balm_of_sssss.description": "Скорочує тривалість негативних ефектів",
   "modifier.tconstruct.mithridatism": "Мітридатизм",
   "modifier.tconstruct.mithridatism.flavor": "Набутий імунітет",
-  "modifier.tconstruct.mithridatism.description": "Імунітет до отруєння, якби ж він працював і з існуючою отрутою...",
+  "modifier.tconstruct.mithridatism.description": "Імунітет до отруєння, якби ж він працював і з існуючою отрутою…",
   "modifier.tconstruct.wildfire": "Пожежа",
   "modifier.tconstruct.wildfire.flavor": "Вогонь і далі поширюється!",
   "modifier.tconstruct.wildfire.description": "Збільшує час горіння цілей, якщо ви горите",
