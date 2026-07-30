@@ -1,7 +1,11 @@
 package slimeknights.tconstruct.library.json;
 
+import net.minecraft.client.renderer.block.model.BlockElement;
+import net.minecraft.client.renderer.block.model.BlockElementFace;
+import net.minecraft.client.renderer.block.model.BlockFaceUV;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.stats.StatType;
 import net.minecraft.tags.TagKey;
@@ -18,9 +22,11 @@ import net.minecraftforge.common.loot.LootModifierManager;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.mantle.data.loadable.Loadable;
 import slimeknights.mantle.data.loadable.Loadables;
+import slimeknights.mantle.data.loadable.common.CodecLoadable;
 import slimeknights.mantle.data.loadable.common.RegistryLoadable;
 import slimeknights.mantle.data.loadable.primitive.EnumLoadable;
 import slimeknights.mantle.data.loadable.primitive.StringLoadable;
+import slimeknights.mantle.util.typed.TypedMap;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialManager;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -33,6 +39,12 @@ import slimeknights.tconstruct.library.tools.part.IToolPart;
 import slimeknights.tconstruct.library.utils.GsonLoadable;
 
 import java.util.Set;
+
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonSyntaxException;
+import com.mojang.datafixers.util.Either;
+import com.mojang.math.Transformation;
 
 @SuppressWarnings("deprecation")
 public class TinkerLoadables {
@@ -90,5 +102,58 @@ public class TinkerLoadables {
       }
       throw error.create(errorMsg);
     }, t -> (B)t);
+  }
+
+  
+  /** Models */
+  public static final Loadable<BlockElement> BLOCK_ELEMENT = new GsonLoadable<>(new GsonBuilder().registerTypeAdapter(BlockElement.class, new BlockElement.Deserializer()).registerTypeAdapter(BlockElementFace.class, new BlockElementFace.Deserializer()).registerTypeAdapter(BlockFaceUV.class, new BlockFaceUV.Deserializer()).create(), BlockElement.class);
+  public static final Loadable<Transformation> TRANSFORMATION = new CodecLoadable(Transformation.CODEC);
+
+  /** Generic */
+  public abstract static class EitherLoadable<A, B> implements Loadable<Either<A, B>> {
+    public static final <A, B> EitherLoadable<A, B> create(Loadable<A> leftLoader, Loadable<B> rightLoader) {
+      return new EitherLoadable<A, B>() {
+        @Override
+        public Either<A, B> convert(JsonElement element, String key, TypedMap context) {
+          try {
+            return Either.left(leftLoader.convert(element, key, context));
+          } catch (JsonSyntaxException e1) {
+            try {
+              return Either.right(rightLoader.convert(element, key, context));
+            } catch (JsonSyntaxException e2) {
+              throw new JsonSyntaxException(
+                  "Cannot parse '%s': First error: %s, Second error: %s".formatted(key, e1.toString(), e2.toString()),
+                  e1);
+            }
+          }
+        }
+
+        @Override
+        public JsonElement serialize(Either<A, B> object) {
+          if (object.left().isPresent())
+            return leftLoader.serialize(object.left().get());
+          else
+            return rightLoader.serialize(object.right().get());
+        }
+
+        @Override
+        public Either<A, B> decode(FriendlyByteBuf buffer, TypedMap context) {
+          if (buffer.readBoolean())
+            return Either.left(leftLoader.decode(buffer, context));
+          return Either.right(rightLoader.decode(buffer, context));
+        }
+
+        @Override
+        public void encode(FriendlyByteBuf buffer, Either<A, B> value) {
+          if (value.left().isPresent()) {
+            buffer.writeBoolean(true);
+            leftLoader.encode(buffer, value.left().get());
+          } else {
+            buffer.writeBoolean(false);
+            rightLoader.encode(buffer, value.right().get());
+          }
+        }
+      };
+    }
   }
 }
