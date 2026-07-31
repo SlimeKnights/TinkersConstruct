@@ -40,7 +40,7 @@ import java.util.function.Predicate;
  */
 public class ModifierModelMapManager extends MergingJsonDataLoader<Builder> {
   /** Folder for the modifier models */
-  public static final String FOLDER = "tinkering/modifier_models";
+  public static final String FOLDER = "tinkering/modifiers/sprites";
   /** Instance of this manager */
   public static final ModifierModelMapManager INSTANCE = new ModifierModelMapManager();
 
