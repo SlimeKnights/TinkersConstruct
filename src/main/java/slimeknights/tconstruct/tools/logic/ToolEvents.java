@@ -290,6 +290,18 @@ public class ToolEvents {
           for (ModifierEntry entry : tool.getModifiers()) {
             originalDamage = entry.getHook(ModifierHooks.MONSTER_MELEE_DAMAGE).getMeleeDamage(tool, entry, meleeContext, baseDamage, originalDamage);
           }
+        } else if (weapon.isEmpty()) {// unarmed
+          // don't consider adding non-chest armor to the unarmed tag
+          ItemStack chestplate = living.getItemBySlot(EquipmentSlot.CHEST);
+          if (!chestplate.isEmpty() && chestplate.is(TinkerTags.Items.UNARMED)) {
+            IToolStackView tool = ToolStack.from(chestplate);
+            // already know the player is null
+            ToolAttackContext meleeContext = ToolAttackContext.attacker(living, null).target(entity).applyAttributes().build();
+            float baseDamage = originalDamage;
+            for (ModifierEntry entry : tool.getModifiers()) {
+              originalDamage = entry.getHook(ModifierHooks.MONSTER_MELEE_DAMAGE).getMeleeDamage(tool, entry, meleeContext, baseDamage, originalDamage);
+            }
+          }
         }
       }
 
@@ -427,6 +439,17 @@ public class ToolEvents {
           IToolStackView tool = ToolStack.from(weapon);
           for (ModifierEntry entry : tool.getModifiers()) {
             entry.getHook(ModifierHooks.MONSTER_MELEE_HIT).onMonsterMeleeHit(tool, entry, meleeContext, amount);
+          }
+        } else if (weapon.isEmpty()) {// unarmed
+          // don't consider adding non-chest armor to the unarmed tag
+          ItemStack chestplate = living.getItemBySlot(EquipmentSlot.CHEST);
+          if (!chestplate.isEmpty() && chestplate.is(TinkerTags.Items.UNARMED)) {
+            // already know we are not a player
+            ToolAttackContext meleeContext = ToolAttackContext.attacker(living, null).target(event.getEntity()).applyAttributes().build();
+            IToolStackView tool = ToolStack.from(chestplate);
+            for (ModifierEntry entry : tool.getModifiers()) {
+              entry.getHook(ModifierHooks.MONSTER_MELEE_HIT).onMonsterMeleeHit(tool, entry, meleeContext, amount);
+            }
           }
         }
       }
