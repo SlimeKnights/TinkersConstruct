@@ -160,15 +160,16 @@ public class BlockToolModel implements IUnbakedGeometry<BlockToolModel> {
 
   private static class BakedBlockTool extends DynamicBakedWrapper<BakedModel> {
     /** Dynamic overrides that rebake the model with material and modifier data from the ItemStack */
-    private static class ToolOverrides extends ItemOverrides {
+    // extends NestedOverrides so an override hit (e.g. placed model switching) also re-resolves the target model's
+    // own overrides (guarded by ignoreNested), applying its material/modifier baking instead of dropping it
+    private static class ToolOverrides extends NestedOverrides {
       private final BakedBlockTool baked;
-      private final ItemOverrides nested;
       private final boolean showTraits;
       private final ModifierModelMap modifierModels;
 
       public ToolOverrides(BakedBlockTool baked, ItemOverrides nested, boolean showTraits, ModifierModelMap modifierModels) {
+        super(nested);
         this.baked = baked;
-        this.nested = nested;
         this.showTraits = showTraits;
         this.modifierModels = modifierModels;
       }
@@ -176,7 +177,7 @@ public class BlockToolModel implements IUnbakedGeometry<BlockToolModel> {
       @Nullable
       @Override
       public BakedModel resolve(BakedModel originalModel, ItemStack stack, @Nullable ClientLevel world, @Nullable LivingEntity entity, int seed) {
-        BakedModel resolved = nested.resolve(originalModel, stack, world, entity, seed);
+        BakedModel resolved = super.resolve(originalModel, stack, world, entity, seed);
         if (resolved != originalModel) {
           return resolved;
         }
