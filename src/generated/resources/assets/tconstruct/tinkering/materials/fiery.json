@@ -1,6 +1,8 @@
 {
   "color": "FF893D14",
   "fallbacks": [
+    "metal_contrast",
+    "contrast",
     "metal"
   ],
   "generator": {
