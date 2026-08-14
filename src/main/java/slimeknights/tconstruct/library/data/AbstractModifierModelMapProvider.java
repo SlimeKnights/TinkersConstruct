@@ -167,6 +167,20 @@ public abstract class AbstractModifierModelMapProvider extends GenericDataProvid
       return this;
     }
 
+    public Builder empty(ModifierId id) {
+      ModifierModel existing = modifiers.putIfAbsent(id, merge(ModifierModel.EMPTY));
+      if (existing != null) {
+        throw new IllegalArgumentException("Duplicate modifier: " + id + ", previous " + existing);
+      }
+      return this;
+    }
+
+    public Builder empty(ModifierId... ids) {
+      for (ModifierId id : ids) {
+        empty(id);
+      }
+      return this;
+    }
 
     /* Common models */
 
@@ -190,10 +204,25 @@ public abstract class AbstractModifierModelMapProvider extends GenericDataProvid
       return this;
     }
 
+    /** Adds a basic modifier in the given folder with texture suffix */
+    public Builder luminosity(int light, String folder, @Nullable String largeFolder, String textureSuffix, ModifierId... modifiers) {
+      for (ModifierId modifier : modifiers) {
+        String suffix = '/' + suffix(modifier) + textureSuffix;
+        luminosity(light, modifier, folder + suffix, largeFolder != null ? largeFolder + suffix : null);
+      }
+      return this;
+    }
+
     /** Adds a basic modifier in the default folder */
     public Builder luminosity(int light, char largeSeparator, ModifierId... modifiers) {
       String path = id.getPath();
       return luminosity(light, path + "/modifiers", largeFolder(path, largeSeparator), modifiers);
+    }
+
+    /** Adds a basic modifier in the default folder with texture suffix*/
+    public Builder luminosity(int light, char largeSeparator, String textureSuffix, ModifierId... modifiers) {
+      String path = id.getPath();
+      return luminosity(light, path + "/modifiers", largeFolder(path, largeSeparator), textureSuffix, modifiers);
     }
 
     /** Adds a basic modifier in the given folder */
@@ -209,6 +238,11 @@ public abstract class AbstractModifierModelMapProvider extends GenericDataProvid
     /** Adds a basic modifier in the default folder */
     public Builder basic(char largeSeparator, ModifierId... modifiers) {
       return luminosity(0, largeSeparator, modifiers);
+    }
+
+    /** Adds a basic modifier in the default folder with texture suffix*/
+    public Builder basic(char largeSeparator, String textureSuffix, ModifierId... modifiers) {
+      return luminosity(0, largeSeparator, textureSuffix, modifiers);
     }
 
     /** Adds a basic modifier in the given folder using just the modifier path as the name */

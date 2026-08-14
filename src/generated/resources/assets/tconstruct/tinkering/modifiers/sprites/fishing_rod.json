@@ -15,6 +15,29 @@
     }
   },
   "modifiers": {
-    "tconstruct:tank": "tconstruct:item/tool/fishing_rod/modifiers/tank"
+    "tconstruct:bounce": "tconstruct:item/tool/fishing_rod/modifiers/tconstruct_bounce",
+    "tconstruct:collecting": "tconstruct:item/tool/fishing_rod/modifiers/tconstruct_collecting",
+    "tconstruct:diamond": "tconstruct:item/tool/fishing_rod/modifiers/tconstruct_diamond",
+    "tconstruct:emerald": "tconstruct:item/tool/fishing_rod/modifiers/tconstruct_emerald",
+    "tconstruct:experienced": "tconstruct:item/tool/fishing_rod/modifiers/tconstruct_experienced",
+    "tconstruct:fiery": {
+      "luminosity": 10,
+      "texture": "tconstruct:item/tool/fishing_rod/modifiers/tconstruct_fiery"
+    },
+    "tconstruct:lure": "tconstruct:item/tool/fishing_rod/modifiers/tconstruct_lure",
+    "tconstruct:netherite": "tconstruct:item/tool/fishing_rod/modifiers/tconstruct_netherite",
+    "tconstruct:overforced": "tconstruct:item/tool/fishing_rod/modifiers/tconstruct_overforced",
+    "tconstruct:punch": "tconstruct:item/tool/fishing_rod/modifiers/tconstruct_punch",
+    "tconstruct:quick_charge": {
+      "luminosity": 7,
+      "texture": "tconstruct:item/tool/fishing_rod/modifiers/tconstruct_quick_charge"
+    },
+    "tconstruct:reinforced": "tconstruct:item/tool/fishing_rod/modifiers/tconstruct_reinforced",
+    "tconstruct:tank": "tconstruct:item/tool/fishing_rod/modifiers/tank",
+    "tconstruct:trueshot": "tconstruct:item/tool/fishing_rod/modifiers/tconstruct_trueshot",
+    "tconstruct:unbreakable": {
+      "luminosity": 2,
+      "texture": "tconstruct:item/tool/fishing_rod/modifiers/tconstruct_unbreakable"
+    }
   }
 }

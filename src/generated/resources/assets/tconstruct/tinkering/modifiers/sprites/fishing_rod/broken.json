@@ -3,5 +3,11 @@
     "tipped": {
       "type": "tconstruct:empty"
     }
+  },
+  "modifiers": {
+    "tconstruct:emerald": "tconstruct:item/tool/fishing_rod/modifiers/tconstruct_emerald_broken",
+    "tconstruct:netherite": "tconstruct:item/tool/fishing_rod/modifiers/tconstruct_netherite_broken",
+    "tconstruct:overforced": "tconstruct:item/tool/fishing_rod/modifiers/tconstruct_overforced_broken",
+    "tconstruct:reinforced": "tconstruct:item/tool/fishing_rod/modifiers/tconstruct_reinforced_broken"
   }
 }

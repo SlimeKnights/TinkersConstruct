@@ -1,5 +1,7 @@
 {
   "modifiers": {
+    "tconstruct:aqua_affinity": "tconstruct:item/tool/armor/plate/helmet/modifiers/tconstruct_aqua_affinity",
+    "tconstruct:diamond": "tconstruct:item/tool/armor/plate/helmet/modifiers/tconstruct_diamond",
     "tconstruct:dyed": {
       "type": "tconstruct:material_has_fallback",
       "fallback": "metal",
@@ -13,9 +15,27 @@
       },
       "index": 1
     },
+    "tconstruct:emerald": "tconstruct:item/tool/armor/plate/helmet/modifiers/tconstruct_emerald",
+    "tconstruct:fiery": {
+      "luminosity": 10,
+      "texture": "tconstruct:item/tool/armor/plate/helmet/modifiers/tconstruct_fiery"
+    },
+    "tconstruct:freezing": "tconstruct:item/tool/armor/plate/helmet/modifiers/tconstruct_freezing",
+    "tconstruct:item_frame": "tconstruct:item/tool/armor/plate/helmet/modifiers/tconstruct_item_frame",
+    "tconstruct:netherite": "tconstruct:item/tool/armor/plate/helmet/modifiers/tconstruct_netherite",
+    "tconstruct:overforced": "tconstruct:item/tool/armor/plate/helmet/modifiers/tconstruct_overforced",
+    "tconstruct:reinforced": "tconstruct:item/tool/armor/plate/helmet/modifiers/tconstruct_reinforced",
+    "tconstruct:respiration": "tconstruct:item/tool/armor/plate/helmet/modifiers/tconstruct_respiration",
+    "tconstruct:ricochet": "tconstruct:item/tool/armor/plate/helmet/modifiers/tconstruct_ricochet",
+    "tconstruct:springy": "tconstruct:item/tool/armor/plate/helmet/modifiers/tconstruct_springy",
+    "tconstruct:thorns": "tconstruct:item/tool/armor/plate/helmet/modifiers/tconstruct_thorns",
     "tconstruct:trim": {
       "type": "tconstruct:armor_trim",
       "slot": "helmet"
+    },
+    "tconstruct:unbreakable": {
+      "luminosity": 2,
+      "texture": "tconstruct:item/tool/armor/plate/helmet/modifiers/tconstruct_unbreakable"
     }
   }
 }

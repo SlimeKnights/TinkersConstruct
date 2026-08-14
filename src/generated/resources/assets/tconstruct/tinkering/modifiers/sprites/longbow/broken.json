@@ -1,0 +1,12 @@
+{
+  "modifiers": {
+    "tconstruct:overforced": {
+      "texture": "tconstruct:item/tool/longbow/modifiers/tconstruct_overforced_broken",
+      "texture_large": "tconstruct:item/tool/longbow/large/modifiers/tconstruct_overforced_broken"
+    },
+    "tconstruct:reinforced": {
+      "texture": "tconstruct:item/tool/longbow/modifiers/tconstruct_reinforced_broken",
+      "texture_large": "tconstruct:item/tool/longbow/large/modifiers/tconstruct_reinforced_broken"
+    }
+  }
+}
