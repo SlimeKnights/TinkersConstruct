@@ -54,7 +54,7 @@ public record SpillingModule(LevelingValue level, ModifierCondition<IToolStackVi
         FluidEffects recipe = FluidEffectManager.INSTANCE.find(fluid.getFluid());
         if (recipe.hasEntityEffects()) {
           int consumed = recipe.applyToEntity(fluid, this.level.compute(modifier.getEffectiveLevel()), FluidEffectContext.builder(attacker.level()).user(attacker, playerAttacker).projectile(projectile).target(target, livingTarget), FluidAction.EXECUTE);
-          if (consumed > 0 && (playerAttacker == null || !playerAttacker.isCreative())) {
+          if (consumed > 0 && ModifierUtil.consumesResources(playerAttacker)) {
             spawnParticles(target, fluid);
             fluid.shrink(consumed);
             TANK_HELPER.setFluid(tool, fluid);
