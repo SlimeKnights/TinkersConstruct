@@ -1,0 +1,10 @@
+{
+  "values": [
+    "#tconstruct:protection/melee",
+    "tconstruct:piercing",
+    "tconstruct:fluid_fire_melee",
+    "tconstruct:fluid_cold_melee",
+    "tconstruct:fluid_magic_melee",
+    "tconstruct:water_melee"
+  ]
+}

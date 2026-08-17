@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tools.modifiers;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
@@ -66,7 +67,9 @@ public class ModifierLootModifier extends LootModifier {
       }
 
       // not a projectile causing it, fetch the killer entity directly from loot context
-      if (context.getParamOrNull(LootContextParams.KILLER_ENTITY) instanceof LivingEntity living) {
+      // requires a melee damage source, the held tool is not responsible for kills it did not make such as explosions
+      DamageSource damageSource = context.getParamOrNull(LootContextParams.DAMAGE_SOURCE);
+      if (damageSource != null && damageSource.is(TinkerTags.DamageTypes.LOOT_MODIFIER_WHITELIST) && context.getParamOrNull(LootContextParams.KILLER_ENTITY) instanceof LivingEntity living) {
         stack = living.getItemBySlot(ModifierLootingHandler.getLootingSlot(living));
       }
     }

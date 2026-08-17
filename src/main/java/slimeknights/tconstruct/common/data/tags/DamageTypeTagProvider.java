@@ -59,6 +59,7 @@ import static slimeknights.tconstruct.common.TinkerDamageTypes.WATER;
 import static slimeknights.tconstruct.common.TinkerTags.DamageTypes.BLAST_PROTECTION;
 import static slimeknights.tconstruct.common.TinkerTags.DamageTypes.FALL_PROTECTION;
 import static slimeknights.tconstruct.common.TinkerTags.DamageTypes.FIRE_PROTECTION;
+import static slimeknights.tconstruct.common.TinkerTags.DamageTypes.LOOT_MODIFIER_WHITELIST;
 import static slimeknights.tconstruct.common.TinkerTags.DamageTypes.MAGIC_PROTECTION;
 import static slimeknights.tconstruct.common.TinkerTags.DamageTypes.MELEE_PROTECTION;
 import static slimeknights.tconstruct.common.TinkerTags.DamageTypes.MODIFIER_WHITELIST;
@@ -87,6 +88,9 @@ public class DamageTypeTagProvider extends DamageTypeTagsProvider {
 
     // modifiers
     tag(MODIFIER_WHITELIST).add(MOB_ATTACK, MOB_ATTACK_NO_AGGRO);
+    // loot modifiers come from the held tool, so limit them to melee damage the tool is responsible for
+    // projectiles are not needed here, they use the modifiers stored on the projectile instead
+    tag(LOOT_MODIFIER_WHITELIST).addTag(MELEE_PROTECTION).add(PIERCING, FLUID_FIRE.melee(), FLUID_COLD.melee(), FLUID_MAGIC.melee(), WATER.melee());
 
     // protection modifier tags
     tag(MELEE_PROTECTION).add(PLAYER_ATTACK, MOB_ATTACK, MOB_ATTACK_NO_AGGRO, CRAMMING, STING, FLUID_IMPACT.melee(), FLUID_SPIKE.melee());

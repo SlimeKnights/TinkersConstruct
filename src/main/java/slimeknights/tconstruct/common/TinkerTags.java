@@ -922,6 +922,8 @@ public class TinkerTags {
 
     /** Damage types that can use modifiers. */
     public static final TagKey<DamageType> MODIFIER_WHITELIST = local("modifier_whitelist");
+    /** Damage types where the held tool is responsible for the kill, allowing it to apply loot modifiers such as severing. Projectiles instead use the modifiers stored on the projectile. */
+    public static final TagKey<DamageType> LOOT_MODIFIER_WHITELIST = local("loot_modifier_whitelist");
 
     private static TagKey<DamageType> local(String name) {
       return TagKey.create(Registries.DAMAGE_TYPE, getResource(name));
