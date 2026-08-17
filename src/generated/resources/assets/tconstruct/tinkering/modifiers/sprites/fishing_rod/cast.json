@@ -17,6 +17,9 @@
     "tconstruct:freezing": {
       "type": "tconstruct:empty"
     },
+    "tconstruct:grapple": {
+      "type": "tconstruct:empty"
+    },
     "tconstruct:lure": {
       "type": "tconstruct:empty"
     },

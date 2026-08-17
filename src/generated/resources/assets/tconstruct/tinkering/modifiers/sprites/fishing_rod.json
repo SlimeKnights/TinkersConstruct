@@ -16,6 +16,7 @@
   },
   "modifiers": {
     "tconstruct:bounce": "tconstruct:item/tool/fishing_rod/modifiers/tconstruct_bounce",
+    "tconstruct:channeling": "tconstruct:item/tool/fishing_rod/modifiers/tconstruct_channeling",
     "tconstruct:collecting": "tconstruct:item/tool/fishing_rod/modifiers/tconstruct_collecting",
     "tconstruct:diamond": "tconstruct:item/tool/fishing_rod/modifiers/tconstruct_diamond",
     "tconstruct:emerald": "tconstruct:item/tool/fishing_rod/modifiers/tconstruct_emerald",
@@ -24,6 +25,7 @@
       "luminosity": 10,
       "texture": "tconstruct:item/tool/fishing_rod/modifiers/tconstruct_fiery"
     },
+    "tconstruct:grapple": "tconstruct:item/tool/fishing_rod/modifiers/tconstruct_grapple",
     "tconstruct:lure": "tconstruct:item/tool/fishing_rod/modifiers/tconstruct_lure",
     "tconstruct:netherite": "tconstruct:item/tool/fishing_rod/modifiers/tconstruct_netherite",
     "tconstruct:overforced": "tconstruct:item/tool/fishing_rod/modifiers/tconstruct_overforced",

@@ -319,8 +319,8 @@ public class ModifierModelMapProvider extends AbstractModifierModelMapProvider {
     tool(TinkerTools.fishingRod).basic(SMALL,
       ModifierIds.diamond, ModifierIds.emerald, ModifierIds.netherite,
       ModifierIds.reinforced, ModifierIds.overforced, ModifierIds.experienced, ModifierIds.lure,
-      ModifierIds.punch, ModifierIds.trueshot, ModifierIds.bounce, ModifierIds.collecting
-      ).luminosity(7, SMALL,ModifierIds.quickCharge)
+      ModifierIds.punch, ModifierIds.trueshot, ModifierIds.bounce, ModifierIds.collecting,
+      ModifierIds.grapple, ModifierIds.channeling).luminosity(7, SMALL,ModifierIds.quickCharge)
       .luminosity(10, SMALL,ModifierIds.fiery)
       .luminosity(2, SMALL, ModifierIds.unbreakable)
       .tipped("fishing_rod/modifiers/tipped").fluid().compact(ModifierIds.tank);
@@ -331,8 +331,8 @@ public class ModifierModelMapProvider extends AbstractModifierModelMapProvider {
     // some modifier should not show while rod casting
     tool(TinkerTools.fishingRod, "/cast").basic(SMALL, "_broken", ModifierIds.netherite).empty(
       ModifierIds.bounce, ModifierIds.collecting, ModifierIds.fiery, ModifierIds.freezing,
-      ModifierIds.lure, ModifierIds.unbreakable, ModifierIds.quickCharge, ModifierIds.trueshot
-    ).constant("tipped", ModifierModel.EMPTY);
+      ModifierIds.lure, ModifierIds.unbreakable, ModifierIds.quickCharge, ModifierIds.trueshot,
+      ModifierIds.grapple).constant("tipped", ModifierModel.EMPTY);
 
     // tanks
     tool(TinkerTools.meltingPan).fluid();
