@@ -61,9 +61,11 @@ import slimeknights.tconstruct.library.json.variable.protection.ProtectionVariab
 import slimeknights.tconstruct.library.json.variable.stat.ConditionalStatVariable;
 import slimeknights.tconstruct.library.json.variable.stat.EntityConditionalStatVariable;
 import slimeknights.tconstruct.library.json.variable.tool.ConditionalToolVariable;
+import slimeknights.tconstruct.library.json.variable.tool.FluidAmountVariable;
 import slimeknights.tconstruct.library.json.variable.tool.ModDataVariable;
 import slimeknights.tconstruct.library.json.variable.tool.ModifierLevelVariable;
 import slimeknights.tconstruct.library.json.variable.tool.StatMultiplierVariable;
+import slimeknights.tconstruct.library.json.variable.tool.TankCapacityVariable;
 import slimeknights.tconstruct.library.json.variable.tool.ToolStatVariable;
 import slimeknights.tconstruct.library.json.variable.tool.ToolVariable;
 import slimeknights.tconstruct.library.modifiers.FakeModifier;
@@ -1047,6 +1049,8 @@ public final class TinkerModifiers extends TinkerModule {
       ToolVariable.register(getResource("stat_multiplier"), StatMultiplierVariable.LOADER);
       ToolVariable.register(getResource("mod_data"), ModDataVariable.LOADER);
       ToolVariable.register(getResource("modifier_level"), ModifierLevelVariable.LOADER);
+      ToolVariable.register(getResource("fluid_amount"), FluidAmountVariable.LOADER);
+      ToolVariable.register(getResource("tank_capacity"), TankCapacityVariable.LOADER);
       // stat
       ConditionalStatVariable.LOADER.register(getResource("constant"), ConditionalStatVariable.Constant.LOADER);
       ConditionalStatVariable.register(getResource("entity"), EntityConditionalStatVariable.LOADER);
