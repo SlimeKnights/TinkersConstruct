@@ -4,7 +4,7 @@
     { "text": "The plate shield is a highly defensive shield, granting high blocking power at the cost of speed while blocking." }
   ],
   "properties": [
-    "Material controlled stats",
+    "Full defense stats",
     "Blocks 100 damage",
     "180° block angle",
     "20% block speed",

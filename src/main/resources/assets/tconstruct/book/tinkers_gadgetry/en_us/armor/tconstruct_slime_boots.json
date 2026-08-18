@@ -1,14 +1,14 @@
 {
   "tool": "tconstruct:slime_boots",
   "text": [
-    { "text": "These boots combine the power of the rabbit with slime to allow you to jump around with ease." },
-    { "text": "To create these fantastic boots, pour enderslime on a rabbits foot. The boots can later be repaired using rabbit hide.", "paragraph": true }
+    { "text": "These boots take the bounciness of slime to enhance your jumping and movement." },
+    { "text": "To create these fantastic boots, pour slime on laces in a basin.", "paragraph": true }
   ],
   "properties": [
-    "High Durability",
-    "No Armor or Defense Slots",
-    "5 Upgrade Slots",
-    "1 Ability Slot",
-    "Bouncy and Leaping"
+    "Low Armor",
+    "0 Defense Slots",
+    "3 Upgrade Slots",
+    "2 Ability Slots",
+    "Bouncy"
   ]
 }
