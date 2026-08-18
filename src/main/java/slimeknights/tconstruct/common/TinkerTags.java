@@ -907,6 +907,9 @@ public class TinkerTags {
 
   public static class DamageTypes {
     private static void init() {}
+    /** Damage types dealt by a melee attack, notably excluding damage that is merely in melee range such as cramming. Shared by the melee protection modifier and the loot modifier whitelist. */
+    public static final TagKey<DamageType> IS_MELEE = local("is_melee");
+
     /** Damage types reduced by the melee protection modifier */
     public static final TagKey<DamageType> MELEE_PROTECTION = local("protection/melee");
     /** Damage types reduced by the projectile protection modifier */

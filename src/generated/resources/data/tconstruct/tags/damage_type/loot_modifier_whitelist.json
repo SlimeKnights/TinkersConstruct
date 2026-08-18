@@ -1,6 +1,6 @@
 {
   "values": [
-    "#tconstruct:protection/melee",
+    "#tconstruct:is_melee",
     "tconstruct:piercing",
     "tconstruct:fluid_fire_melee",
     "tconstruct:fluid_cold_melee",

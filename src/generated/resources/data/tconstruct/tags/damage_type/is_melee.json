@@ -1,0 +1,10 @@
+{
+  "values": [
+    "minecraft:player_attack",
+    "minecraft:mob_attack",
+    "minecraft:mob_attack_no_aggro",
+    "minecraft:sting",
+    "tconstruct:fluid_impact_melee",
+    "tconstruct:fluid_spike_melee"
+  ]
+}

@@ -1,12 +1,7 @@
 {
   "values": [
-    "minecraft:player_attack",
-    "minecraft:mob_attack",
-    "minecraft:mob_attack_no_aggro",
+    "#tconstruct:is_melee",
     "minecraft:cramming",
-    "minecraft:sting",
-    "tconstruct:fluid_impact_melee",
-    "tconstruct:fluid_spike_melee",
     {
       "id": "twilightforest:ghast_tear",
       "required": false
