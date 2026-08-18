@@ -123,9 +123,10 @@ public class ContentMaterialSkull extends SingleMaterialStatContent {
 
   @Override
   protected void addPrimaryDisplayItems(List<ItemElement> displayTools, MaterialVariantId materialId) {
-    displayTools.add(new TinkerItemElement(TinkerToolParts.repairKit.get().withMaterialForDisplay(materialId)));
-
-    super.addPrimaryDisplayItems(displayTools, materialId);
+    List<ItemStack> repairStacks = getRepairStacks();
+    if (!repairStacks.isEmpty() && repairStacks.get(0).getItem() != TinkerToolParts.repairKit.asItem()) {
+      displayTools.add(new TinkerItemElement(TinkerToolParts.repairKit.get().withMaterialForDisplay(materialId)));
+    }
 
     // add skull recipe to display items
     IDisplayableCastingRecipe skullRecipe = getSkullRecipe();
@@ -141,5 +142,7 @@ public class ContentMaterialSkull extends SingleMaterialStatContent {
         displayTools.add(elementItem);
       }
     }
+
+    super.addPrimaryDisplayItems(displayTools, materialId);
   }
 }
