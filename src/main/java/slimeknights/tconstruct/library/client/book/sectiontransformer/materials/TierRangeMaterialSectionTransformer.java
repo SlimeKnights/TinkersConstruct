@@ -5,6 +5,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
@@ -151,7 +152,7 @@ public class TierRangeMaterialSectionTransformer extends BookTransformer {
    * @param pageCreator     Logic to create a page.
    * @param sortComparator  Comparator for ordering pages. If null, uses natural material order.
    */
-  public record MaterialTier(String name, Predicate<IMaterial> validMaterial, Function<MaterialVariantId,AbstractMaterialContent> pageCreator, @Nullable Comparator<IMaterial> sortComparator) {
+  public record MaterialTier(String name, Predicate<IMaterial> validMaterial, Function<MaterialVariantId,AbstractMaterialContent> pageCreator, @Nullable Comparator<IMaterial> sortComparator, @Nullable Component titleSuffix) {
     /** Deserializes the tier info from JSON */
     public static MaterialTier deserialize(JsonObject json) throws JsonSyntaxException {
       // we handle tier range outside of predicate for efficiency, since the predicates have to refetch materials otherwise
@@ -181,8 +182,13 @@ public class TierRangeMaterialSectionTransformer extends BookTransformer {
         name = type.getPath();
       }
 
+      Component titleSuffix = null;
+      if (json.has("suffix")) {
+        titleSuffix = Component.translatable(GsonHelper.getAsString(json, "suffix"));
+      }
+
       // create final pages
-      return new MaterialTier(name, new ValidMaterial(typeData.visibleStats(), tier, predicate), pageBuilder, typeData.sortComparator);
+      return new MaterialTier(name, new ValidMaterial(typeData.visibleStats(), tier, predicate), pageBuilder, typeData.sortComparator, titleSuffix);
     }
 
     /** Gets the material list for this tier */
@@ -220,11 +226,13 @@ public class TierRangeMaterialSectionTransformer extends BookTransformer {
       for (IMaterial material : materials) {
         MaterialId materialId = material.getIdentifier();
         AbstractMaterialContent contentMaterial = pageCreator.apply(materialId);
+        contentMaterial.titleSuffix = titleSuffix;
         PageData page = createPage(sectionData, prefix + materialId, contentMaterial.getId(), contentMaterial);
         newPages.add(page);
 
         SizedBookElement icon = new ItemElement(0, 0, 1f, contentMaterial.getDisplayStacks());
-        while (!overview.addLink(icon, contentMaterial.getTitleComponent(), page)) {
+        Component title = contentMaterial.getTitleComponent();
+        while (!overview.addLink(icon, title, page)) {
           overview = iter.next();
         }
       }
@@ -326,6 +334,6 @@ public class TierRangeMaterialSectionTransformer extends BookTransformer {
   /** @deprecated use {@link MaterialTier#createPages(BookData, SectionData)} */
   @Deprecated(forRemoval = true)
   public static void createPages(BookData book, SectionData sectionData, Predicate<IMaterial> validMaterial, Function<MaterialVariantId,AbstractMaterialContent> pageCreator, @Nullable Comparator<IMaterial> sortComparator) {
-    new MaterialTier("", validMaterial, pageCreator, sortComparator).createPages(book, sectionData);
+    new MaterialTier("", validMaterial, pageCreator, sortComparator, null).createPages(book, sectionData);
   }
 }

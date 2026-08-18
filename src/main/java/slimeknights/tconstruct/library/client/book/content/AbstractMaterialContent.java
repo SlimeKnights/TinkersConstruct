@@ -49,6 +49,7 @@ import slimeknights.tconstruct.library.recipe.casting.material.MaterialFluidReci
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.tools.definition.module.material.ToolMaterialHook;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
+import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
@@ -101,6 +102,8 @@ public abstract class AbstractMaterialContent extends PageContent {
   public boolean detailed = false;
   @SerializedName("show_all_tools")
   public boolean showAllTools = false;
+  /** Additional suffix on the title from the section */
+  public transient Component titleSuffix = null;
 
   public AbstractMaterialContent(MaterialVariantId materialVariant, boolean detailed) {
     this.materialName = materialVariant.toString();
@@ -191,7 +194,11 @@ public abstract class AbstractMaterialContent extends PageContent {
 
   /** Gets the title of this page to display in the index */
   public Component getTitleComponent() {
-    return MaterialTooltipCache.getDisplayName(getMaterialVariant());
+    Component material = MaterialTooltipCache.getDisplayName(getMaterialVariant());
+    if (titleSuffix != null) {
+      return Component.translatable(TooltipUtil.KEY_FORMAT, material, titleSuffix);
+    }
+    return material;
   }
 
   @Override

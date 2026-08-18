@@ -7,7 +7,7 @@ import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.tools.stats.RepairStats;
 
 /** Content page for slimesuit laces, showing stats and traits. */
-public class LacesMaterialContent extends SingleMaterialStatContent {  /** Page ID for using this index directly */
+public class LacesMaterialContent extends SingleMaterialStatContent {
   public static final ResourceLocation ID = TConstruct.getResource("laces_material");
 
   public LacesMaterialContent(MaterialVariantId materialVariant, boolean detailed) {

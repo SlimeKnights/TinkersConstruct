@@ -32,8 +32,6 @@ import java.util.List;
  * TODO 1.21: move to {@link slimeknights.tconstruct.library.client.book.content.material}.
  */
 public class ContentMaterialSkull extends SingleMaterialStatContent {
-  /** Translation key for skull icon */
-  private static final Component SKULL_ITEM = TConstruct.makeTranslation("book", "material.skull_item");
   /** Translation key for skull recipe */
   private static final Component SKULL_CRAFTING = TConstruct.makeTranslation("book", "material.skull");
   /** Translation key for skull recipe */
@@ -97,8 +95,11 @@ public class ContentMaterialSkull extends SingleMaterialStatContent {
 
   @Override
   public Component getTitleComponent() {
-    // format names as <mob> Skull
-    return Component.translatable(TooltipUtil.KEY_FORMAT, CustomMaterialName.getMaterialName(getMaterialVariant(), "skull"), SKULL_ITEM);
+    Component material = CustomMaterialName.getMaterialName(getMaterialVariant(), "skull");
+    if (titleSuffix != null) {
+      return Component.translatable(TooltipUtil.KEY_FORMAT, material, titleSuffix);
+    }
+    return material;
   }
 
   @Override
