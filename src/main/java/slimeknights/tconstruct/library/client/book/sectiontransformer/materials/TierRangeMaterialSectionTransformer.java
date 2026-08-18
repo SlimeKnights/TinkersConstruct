@@ -72,6 +72,11 @@ public class TierRangeMaterialSectionTransformer extends BookTransformer {
     registerMaterialType(id, constructor, null, stats);
   }
 
+  /** Registers a new single stat type page, using the stat type ID as the ID */
+  public static void registerMaterialType(MaterialStatsId id, BiFunction<MaterialVariantId,Boolean,AbstractMaterialContent> constructor) {
+    registerMaterialType(id, constructor, id);
+  }
+
   @Override
   public void transform(BookData book) {
     for (SectionData section : book.sections) {

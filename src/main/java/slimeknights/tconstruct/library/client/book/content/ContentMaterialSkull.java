@@ -7,10 +7,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.screen.book.element.ItemElement;
-import slimeknights.mantle.util.html.HtmlSerializable;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.client.book.content.material.SingleMaterialStatContent;
 import slimeknights.tconstruct.library.client.book.elements.TinkerItemElement;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
@@ -25,8 +24,11 @@ import slimeknights.tconstruct.tools.stats.SkullStats;
 import javax.annotation.Nullable;
 import java.util.List;
 
-/** Extension of the material page to display skull stats for the slimeskull */
-public class ContentMaterialSkull extends AbstractMaterialContent {
+/**
+ * Extension of the material page to display skull stats for the slimeskull
+ * TODO 1.21: move to {@link slimeknights.tconstruct.library.client.book.content.material}.
+ */
+public class ContentMaterialSkull extends SingleMaterialStatContent {
   /** Translation key for skull recipe */
   private static final Component SKULL = TConstruct.makeTranslation("book", "material.skull");
   /** Translation key for skull recipe */
@@ -50,14 +52,24 @@ public class ContentMaterialSkull extends AbstractMaterialContent {
     return ID;
   }
 
-  @Nullable
   @Override
-  protected MaterialStatsId getStatType(int index) {
-    return index == 0 ? SkullStats.ID : null;
+  protected MaterialStatsId getStatType() {
+    return SkullStats.ID;
+  }
+
+  @Override
+  protected boolean hasPart() {
+    return false;
+  }
+
+  @Override
+  protected String translationSuffix() {
+    return "skull";
   }
 
   @Override
   protected String getTextKey(MaterialId material) {
+    // TODO 1.21: switch key format to encyclopedia.skull and encyclopedia.flavor
     return String.format(detailed ? "material.%s.%s.skull_encyclopedia" : "material.%s.%s.skull_flavor", material.getNamespace(), material.getPath());
   }
 
@@ -104,11 +116,6 @@ public class ContentMaterialSkull extends AbstractMaterialContent {
   }
 
   @Override
-  protected boolean supportsStatType(MaterialStatsId statsId) {
-    return statsId.equals(SkullStats.ID); // support only skulls
-  }
-
-  @Override
   protected void addPrimaryDisplayItems(List<ItemElement> displayTools, MaterialVariantId materialId) {
     displayTools.add(new TinkerItemElement(TinkerToolParts.repairKit.get().withMaterialForDisplay(materialId)));
 
@@ -128,10 +135,5 @@ public class ContentMaterialSkull extends AbstractMaterialContent {
         displayTools.add(elementItem);
       }
     }
-  }
-
-  @Override
-  protected HtmlSerializable makeStatsHtml(BookData data) {
-    return makeStatHtml(SkullStats.ID, true, false);
   }
 }
