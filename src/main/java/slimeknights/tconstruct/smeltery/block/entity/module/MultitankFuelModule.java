@@ -14,6 +14,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.EmptyFluidHandler;
 import slimeknights.mantle.block.entity.MantleBlockEntity;
 import slimeknights.mantle.util.WeakConsumerWrapper;
+import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.library.utils.Util;
 
 import javax.annotation.Nonnull;
@@ -258,9 +259,25 @@ public class MultitankFuelModule extends FuelModule implements IFluidHandler {
 
     // determine what fluid we have and hpw many other fluids we have
     FuelInfo info = super.getFuelInfo();
+    // the main tank may have been drained dry while we are still burning the fuel we pulled out of it,
+    // which leaves nothing to display despite the other tanks being full. promote the first tank with fluid instead
+    if (info.isEmpty()) {
+      for (Entry<BlockPos,LazyOptional<IFluidHandler>> entry : getTankHandlers().entrySet()) {
+        IFluidHandler handler = entry.getValue().orElse(EmptyFluidHandler.INSTANCE);
+        FluidStack fluid = handler.getFluidInTank(0);
+        if (!fluid.isEmpty()) {
+          // FuelInfo.of returns a new instance for a non-empty fluid, needed as the loop below mutates the info
+          MeltingFuel recipe = findRecipe(fluid.getFluid());
+          info = FuelInfo.of(fluid, handler.getTankCapacity(0), recipe == null ? 0 : recipe.getTemperature());
+          mainTank = entry.getKey();
+          break;
+        }
+      }
+    }
     // add extra fluid display
     if (!info.isEmpty()) {
       // add display info from each handler
+      FuelInfo mainInfo = info;
       FluidStack currentFuel = info.getFluid();
       for (Entry<BlockPos,LazyOptional<IFluidHandler>> entry : getTankHandlers().entrySet()) {
         if (!mainTank.equals(entry.getKey())) {
@@ -268,9 +285,9 @@ public class MultitankFuelModule extends FuelModule implements IFluidHandler {
             // sum if empty (more capacity) or the same fluid (more amount and capacity)
             FluidStack fluid = handler.getFluidInTank(0);
             if (fluid.isEmpty()) {
-              info.add(0, handler.getTankCapacity(0));
+              mainInfo.add(0, handler.getTankCapacity(0));
             } else if (currentFuel.isFluidEqual(fluid)) {
-              info.add(fluid.getAmount(), handler.getTankCapacity(0));
+              mainInfo.add(fluid.getAmount(), handler.getTankCapacity(0));
             }
           });
         }
