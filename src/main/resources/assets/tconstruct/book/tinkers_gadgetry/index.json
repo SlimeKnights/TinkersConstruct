@@ -114,7 +114,13 @@
   {
     "name": "materials",
     "data": "no-load",
-    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:skull" } },
+    "extraData": { "tconstruct:material_tier": [
+      { "type": "tconstruct:slime" },
+      { "type": "tconstruct:skull",   "suffix": "item.tconstruct.skull" },
+      { "type": "tconstruct:ribcage", "suffix": "item.tconstruct.ribcage" },
+      { "type": "tconstruct:shell",   "suffix": "item.tconstruct.shell" },
+      { "type": "tconstruct:laces",   "suffix": "item.tconstruct.laces" }
+    ]},
     "icon": {
       "item": "minecraft:skeleton_skull"
     }
