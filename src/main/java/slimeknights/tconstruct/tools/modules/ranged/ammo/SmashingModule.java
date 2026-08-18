@@ -11,6 +11,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.AbstractArrow.Pickup;
+import net.minecraft.world.entity.projectile.Arrow;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -340,8 +341,14 @@ public enum SmashingModule implements ModifierModule, FluidModifierHook, Project
               clearFluid(persistentData);
             }
             projectile.playSound(SoundEvents.SPLASH_POTION_BREAK);
-            // mark as used to prevent it from dropping later
-            persistentData.putBoolean(KEY_USED, true);
+            // does not need to check if we exceeded our piercing count; the arrow will deal with removing in that case
+            if (projectile instanceof Arrow arrow && arrow.getPierceLevel() > 0) {
+              // mark as used to prevent it from dropping later
+              persistentData.putBoolean(KEY_USED, true);
+            } else {
+              projectile.playSound(SoundEvents.SPLASH_POTION_BREAK);
+              projectile.discard();
+            }
           }
         }
       } else {
