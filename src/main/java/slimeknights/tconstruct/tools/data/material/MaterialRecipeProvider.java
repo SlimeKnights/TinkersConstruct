@@ -42,6 +42,7 @@ import slimeknights.tconstruct.world.TinkerWorld;
 import java.util.function.Consumer;
 
 import static slimeknights.mantle.Mantle.COMMON;
+import static slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe.getTemperature;
 
 public class MaterialRecipeProvider extends BaseRecipeProvider implements IMaterialRecipeHelper {
   public MaterialRecipeProvider(PackOutput packOutput) {
@@ -271,10 +272,10 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialComposite(consumer, MaterialIds.leather,   MaterialIds.skySlimeskin,   TinkerFluids.skySlime,   FluidValues.SLIMEBALL, slimeskinFolder, "sky");
     materialComposite(consumer, MaterialIds.leather,   MaterialIds.ichorskin,      TinkerFluids.ichor,      FluidValues.SLIMEBALL, slimeskinFolder, "ichor");
     materialComposite(consumer, MaterialIds.leather,   MaterialIds.enderSlimeskin, TinkerFluids.enderSlime, FluidValues.SLIMEBALL, slimeskinFolder, "ender");
-    materialComposite(consumer, MaterialIds.slimeskin,      MaterialIds.leather, TinkerFluids.venom, FluidValues.SIP, slimeskinFolder, "earth_cleaning");
-    materialComposite(consumer, MaterialIds.skySlimeskin,   MaterialIds.leather, TinkerFluids.venom, FluidValues.SIP, slimeskinFolder, "sky_cleaning");
-    materialComposite(consumer, MaterialIds.ichorskin,      MaterialIds.leather, TinkerFluids.venom, FluidValues.SIP, slimeskinFolder, "ichor_cleaning");
-    materialComposite(consumer, MaterialIds.enderSlimeskin, MaterialIds.leather, TinkerFluids.venom, FluidValues.SIP, slimeskinFolder, "ender_cleaning");
+    venomCleaning(consumer, MaterialIds.slimeskin,      MaterialIds.leather, slimeskinFolder, "earth_cleaning");
+    venomCleaning(consumer, MaterialIds.skySlimeskin,   MaterialIds.leather, slimeskinFolder, "sky_cleaning");
+    venomCleaning(consumer, MaterialIds.ichorskin,      MaterialIds.leather, slimeskinFolder, "ichor_cleaning");
+    venomCleaning(consumer, MaterialIds.enderSlimeskin, MaterialIds.leather, slimeskinFolder, "ender_cleaning");
 
     // tier 3
     materialMeltingCasting(consumer, MaterialIds.slimesteel,     TinkerFluids.moltenSlimesteel, folder);
@@ -302,9 +303,9 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialComposite(consumer, MaterialIds.bloodshroom,  MaterialIds.blazewood,   TinkerFluids.blazingBlood, FluidType.BUCKET_VOLUME / 5, folder);
     materialComposite(consumer, MaterialIds.necroticBone, MaterialIds.blazingBone, TinkerFluids.blazingBlood, FluidType.BUCKET_VOLUME / 5, folder);
     materialMeltingComposite(consumer, MaterialIds.leather, MaterialIds.jeweledHide, TinkerFluids.moltenDiamond, FluidValues.GEM, folder);
-    materialComposite(consumer, MaterialIds.jeweledHide, MaterialIds.leather, TinkerFluids.venom, FluidValues.SIP, folder, "jeweled_hide_cleaning");
+    venomCleaning(consumer, MaterialIds.jeweledHide, MaterialIds.leather, folder, "jeweled_hide_cleaning");
     materialMelting(consumer, MaterialIds.ancientHide, TinkerFluids.moltenDebris, FluidValues.INGOT, folder);
-    materialComposite(consumer, MaterialIds.ancientHide, MaterialIds.leather, TinkerFluids.venom, FluidValues.SIP, folder, "ancient_hide_cleaning");
+    venomCleaning(consumer, MaterialIds.ancientHide, MaterialIds.leather, folder, "ancient_hide_cleaning");
 
     // tier 2 compat
     compatMeltingCasting(consumer, MaterialIds.osmium,   TinkerFluids.moltenOsmium,   folder);
@@ -363,9 +364,19 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialMeltingCasting(consumer, MaterialIds.glass, TinkerFluids.moltenGlass, FluidValues.GLASS_PANE, folder);
   }
 
-  /** Adds a  */
+  /** Adds a recipe casting whitestone from the given fluid */
   private void whitestoneCasting(Consumer<FinishedRecipe> consumer, FluidObject<?> fluid, String folder) {
     String name = TinkerFluids.withoutMolten(fluid);
     materialComposite(withCondition(consumer, tagCondition("ingots/" + name)), MaterialIds.rock, MaterialIds.whitestoneComposite, fluid, FluidValues.INGOT, folder, "whitestone_from_" + name);
+  }
+
+  /** Adds recipes to clean leather with venom */
+  private void venomCleaning(Consumer<FinishedRecipe> consumer, MaterialVariantId input, MaterialVariantId output, String folder, String name) {
+    MaterialFluidRecipeBuilder.material(output)
+      .setInputId(input)
+      .setFluid(TinkerFluids.venom.ingredient(FluidValues.SIP))
+      .setTemperature(getTemperature(TinkerFluids.venom))
+      .setHideInBook(true)
+      .save(consumer, location(folder + "composite/" + name));
   }
 }

@@ -8,6 +8,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.data.loadable.field.ContextKey;
+import slimeknights.mantle.data.loadable.primitive.BooleanLoadable;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
@@ -31,6 +32,7 @@ public class MaterialFluidRecipe implements ICustomOutputRecipe<ICastingContaine
     IntLoadable.FROM_ZERO.requiredField("temperature", r -> r.temperature),
     MaterialVariantId.LOADABLE.nullableField("input", r -> r.input != null ? r.input.getVariant() : null),
     MaterialVariantId.LOADABLE.nullableField("output", r -> r.output.getVariant()),
+    BooleanLoadable.INSTANCE.defaultField("hide_in_book", false, false, r -> r.hideInBook),
     MaterialFluidRecipe::new);
   /** Empty recipe instance, used as a fallback */
   public static final MaterialFluidRecipe EMPTY = new MaterialFluidRecipe(TConstruct.getResource("missingno"), FluidIngredient.EMPTY, 0, null, IMaterial.UNKNOWN_ID);
@@ -46,13 +48,22 @@ public class MaterialFluidRecipe implements ICustomOutputRecipe<ICastingContaine
   /** Output material ID */
   @Getter
   private final MaterialVariant output;
+  @Getter
+  private final boolean hideInBook;
 
+  /** @deprecated use {@link #MaterialFluidRecipe(ResourceLocation, FluidIngredient, int, MaterialVariantId, MaterialVariantId, boolean)} */
+  @Deprecated(forRemoval = true)
   public MaterialFluidRecipe(ResourceLocation id, FluidIngredient fluid, int temperature, @Nullable MaterialVariantId inputId, MaterialVariantId outputId) {
+    this(id, fluid, temperature, inputId, outputId, false);
+  }
+
+  protected MaterialFluidRecipe(ResourceLocation id, FluidIngredient fluid, int temperature, @Nullable MaterialVariantId inputId, MaterialVariantId outputId, boolean hideInBook) {
     this.id = id;
     this.fluid = fluid;
     this.temperature = temperature;
     this.input = inputId == null ? null : MaterialVariant.of(inputId);
     this.output = MaterialVariant.of(outputId);
+    this.hideInBook = hideInBook;
     MaterialCastingLookup.registerFluid(this);
   }
 

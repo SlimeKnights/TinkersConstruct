@@ -331,24 +331,23 @@ public abstract class AbstractMaterialContent extends PageContent {
     // regular casting recipes
     List<MaterialFluidRecipe> fluids = MaterialCastingLookup.getCastingFluids(materialId);
     if (!fluids.isEmpty()) {
-      ItemElement elementItem = new TinkerItemElement(0, 0, 1, fluids.stream().flatMap(recipe -> recipe.getFluids().stream())
-                                                                     .map(fluid -> new ItemStack(fluid.getFluid().getBucket()))
-                                                                     .collect(Collectors.toList()));
-      FluidStack firstFluid = fluids.stream()
-                                    .flatMap(recipe -> recipe.getFluids().stream())
-                                    .findFirst().orElse(FluidStack.EMPTY);
-      elementItem.tooltip = List.of(
-        CASTABLE,
-        Component.translatable(CAST_FROM, firstFluid.getDisplayName()).withStyle(ChatFormatting.GRAY)
-      );
-      displayTools.add(elementItem);
+      // get a list of all fluids from just visible recipes
+      List<FluidStack> filtered = fluids.stream().filter(r -> !r.isHideInBook()).flatMap(recipe -> recipe.getFluids().stream()).toList();
+      if (!filtered.isEmpty()) {
+        ItemElement elementItem = new TinkerItemElement(0, 0, 1, filtered.stream().map(fluid -> new ItemStack(fluid.getFluid().getBucket())).toList());
+        elementItem.tooltip = List.of(
+          CASTABLE,
+          Component.translatable(CAST_FROM, filtered.get(0).getDisplayName()).withStyle(ChatFormatting.GRAY)
+        );
+        displayTools.add(elementItem);
+      }
     }
 
     // composite casting
     List<MaterialFluidRecipe> composites = MaterialCastingLookup.getCompositeFluids(materialId);
     for (MaterialFluidRecipe composite : composites) {
       MaterialVariant input = composite.getInput();
-      if (input != null && !materialVariant.matchesVariant(input.getVariant())) {
+      if (!composite.isHideInBook() && input != null && !materialVariant.matchesVariant(input.getVariant())) {
         MaterialVariantId inputId = input.getVariant();
         // TODO: filter out tool parts that cannot be casted due to a composite cast conflict
         List<ItemStack> compositeParts = MaterialCastingLookup.getAllItemCosts().stream()

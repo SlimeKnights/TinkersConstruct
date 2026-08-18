@@ -4,6 +4,7 @@
     "amount": 50,
     "tag": "tconstruct:venom"
   },
+  "hide_in_book": true,
   "input": "tconstruct:slimeskin",
   "output": "tconstruct:leather",
   "temperature": 10

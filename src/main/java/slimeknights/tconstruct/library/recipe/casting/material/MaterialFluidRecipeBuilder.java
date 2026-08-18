@@ -34,6 +34,9 @@ public class MaterialFluidRecipeBuilder extends AbstractRecipeBuilder<MaterialFl
   /** Material base for composite */
   @Setter @Nullable
   private MaterialVariantId inputId;
+  /** If true, this recipe will not show in book pages. */
+  @Setter
+  private boolean hideInBook = false;
 
   /**
    * Sets the fluid for this recipe, and cooling time if unset.
@@ -72,6 +75,6 @@ public class MaterialFluidRecipeBuilder extends AbstractRecipeBuilder<MaterialFl
       throw new IllegalStateException("Temperature is too low, must be at least 0");
     }
     ResourceLocation advancementId = this.buildOptionalAdvancement(id, "materials");
-    consumer.accept(new LoadableFinishedRecipe<>(new MaterialFluidRecipe(id, fluid, temperature, inputId, outputId), MaterialFluidRecipe.LOADER, advancementId));
+    consumer.accept(new LoadableFinishedRecipe<>(new MaterialFluidRecipe(id, fluid, temperature, inputId, outputId, hideInBook), MaterialFluidRecipe.LOADER, advancementId));
   }
 }
