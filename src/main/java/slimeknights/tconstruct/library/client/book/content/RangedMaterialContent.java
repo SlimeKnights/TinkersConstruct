@@ -22,6 +22,10 @@ import java.util.List;
 
 import static slimeknights.tconstruct.TConstruct.getResource;
 
+/**
+ * Content page for ranged materials, showing limb, grip, and bowstrings.
+ * TODO 1.21: move to {@link slimeknights.tconstruct.library.client.book.content.material}.
+ */
 public class RangedMaterialContent extends AbstractMaterialContent {
   /** Page ID for using this index directly */
   public static final ResourceLocation ID = TConstruct.getResource("ranged_material");

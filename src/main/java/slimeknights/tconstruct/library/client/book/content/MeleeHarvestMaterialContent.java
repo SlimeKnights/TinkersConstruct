@@ -21,7 +21,8 @@ import java.util.List;
 import static slimeknights.tconstruct.TConstruct.getResource;
 
 /**
- * Content page for melee/harvest materials
+ * Content page for melee/harvest materials, showing head, handle, and binding.
+ * TODO 1.21: move to {@link slimeknights.tconstruct.library.client.book.content.material}.
  */
 public class MeleeHarvestMaterialContent extends AbstractMaterialContent {
   /** Page ID for using this index directly */

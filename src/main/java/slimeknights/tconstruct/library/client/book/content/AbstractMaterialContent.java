@@ -70,7 +70,10 @@ import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-/** Base class for material content pages */
+/**
+ * Base class for material content pages.
+ * TODO 1.21: move to {@link slimeknights.tconstruct.library.client.book.content.material}.
+ */
 public abstract class AbstractMaterialContent extends PageContent {
   /** List of fallback items for the icon if no material recipes. */
   private static final List<Supplier<? extends IMaterialItem>> FALLBACKS = new ArrayList<>();
