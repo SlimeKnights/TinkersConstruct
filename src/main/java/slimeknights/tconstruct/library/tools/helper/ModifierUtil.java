@@ -91,7 +91,17 @@ public final class ModifierUtil {
    * @return  True if resources should be consumed.
    */
   public static boolean consumesResources(@Nullable LivingEntity entity) {
-    return !(entity instanceof Player player && player.isCreative());
+    return !(entity instanceof Player player) || consumesResources(player);
+  }
+
+  /**
+   * Checks if the given player pays the resource costs of using a tool, such as draining the tank or consuming ammo.
+   * Creative players get their resources for free, matching {@link ToolDamageUtil#directDamage(IToolStackView, int, LivingEntity, ItemStack)} skipping durability for them.
+   * @param player  Player using the tool. Null consumes, as only creative players get their resources for free.
+   * @return  True if resources should be consumed.
+   */
+  public static boolean consumesResources(@Nullable Player player) {
+    return player == null || !player.isCreative();
   }
 
   /**
