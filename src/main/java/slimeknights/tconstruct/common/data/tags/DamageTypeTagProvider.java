@@ -94,7 +94,7 @@ public class DamageTypeTagProvider extends DamageTypeTagsProvider {
     tag(MODIFIER_WHITELIST).add(MOB_ATTACK, MOB_ATTACK_NO_AGGRO);
     // loot modifiers come from the held tool, so limit them to melee damage the tool is responsible for
     // projectiles are not needed here, they use the modifiers stored on the projectile instead
-    tag(LOOT_MODIFIER_WHITELIST).addTag(IS_MELEE).add(PIERCING, FLUID_FIRE.melee(), FLUID_COLD.melee(), FLUID_MAGIC.melee(), WATER.melee());
+    tag(LOOT_MODIFIER_WHITELIST).addTag(IS_MELEE).add(PIERCING, FLUID_FIRE.melee(), FLUID_COLD.melee(), FLUID_MAGIC.melee(), WATER.melee(), EXPLOSION.melee(), MOB_EXPLOSION.melee());
 
     // protection modifier tags
     // cramming is not an attack, so it gets protection without making the held tool responsible for the kill
