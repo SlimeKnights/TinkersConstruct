@@ -2,7 +2,7 @@
   "modules": [
     {
       "type": "tconstruct:material_stats",
-      "primary_part": 0,
+      "primary_part": -1,
       "stat_types": [
         "tconstruct:ribcage",
         {
@@ -10,6 +10,15 @@
           "stat": "tconstruct:slime"
         }
       ]
+    },
+    {
+      "type": "tconstruct:material_traits",
+      "hooks": [
+        "tconstruct:tool_traits",
+        "tconstruct:rebalanced_trait"
+      ],
+      "material_index": 0,
+      "stat_type": "tconstruct:ribcage"
     },
     {
       "type": "tconstruct:default_materials",
@@ -27,7 +36,7 @@
     {
       "type": "tconstruct:multiply_stats",
       "multipliers": {
-        "tconstruct:attack_damage": 0.6
+        "tconstruct:attack_damage": 0.75
       }
     },
     {
@@ -46,10 +55,6 @@
     {
       "type": "tconstruct:traits",
       "traits": [
-        {
-          "level": 1,
-          "name": "tconstruct:ambidextrous"
-        },
         {
           "level": 1,
           "name": "tconstruct:reach"

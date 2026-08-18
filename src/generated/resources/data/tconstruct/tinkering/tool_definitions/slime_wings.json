@@ -20,9 +20,15 @@
       ]
     },
     {
+      "type": "tconstruct:base_stats",
+      "stats": {
+        "tconstruct:durability": 222.0
+      }
+    },
+    {
       "type": "tconstruct:multiply_stats",
       "multipliers": {
-        "tconstruct:attack_damage": 0.4
+        "tconstruct:attack_damage": 0.5
       }
     },
     {
