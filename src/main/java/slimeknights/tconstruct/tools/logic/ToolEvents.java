@@ -512,9 +512,21 @@ public class ToolEvents {
           LivingEntity target = ToolAttackUtil.getLivingEntity(entity);
           if (TinkerEffects.canHitWithProjectile(target) || nbt.getBoolean(TinkerEffects.ENDERFERENCE_KEY)) {
 
+            // if its a piercing arrow, skip modifier effects when at the piercing limit, arrow is going to skip the hit
+            boolean canBlock = true;
+            if (projectile instanceof AbstractArrow arrow) {
+              int pierce = arrow.getPierceLevel();
+              if (pierce > 0) {
+                if (arrow.piercingIgnoreEntityIds != null && arrow.piercingIgnoreEntityIds.size() >= pierce + 1) {
+                  return;
+                }
+                canBlock = false;
+              }
+            }
+
             // ensure we are not blocking, that means projectile shouldn't hit
             boolean notBlocked = true;
-            if (target != null && target.isBlocking() && (!(projectile instanceof AbstractArrow arrow) || arrow.getPierceLevel() == 0)) {
+            if (canBlock && target != null && target.isBlocking()) {
               Vec3 direction = projectile.position().vectorTo(target.position()).normalize();
               direction = new Vec3(direction.x, 0.0D, direction.z);
               if (direction.dot(target.getViewVector(1.0F)) < 0.0D) {
@@ -522,6 +534,7 @@ public class ToolEvents {
               }
             }
             for (ModifierEntry entry : modifiers.getModifiers()) {
+              // TODO 1.21: pass in arrow with projectile to save some instance of checks
               if (entry.getHook(hook).onProjectileHitEntity(modifiers, nbt, entry, projectile, entityHit, attacker, target, notBlocked)) {
                 // on forge, this means the cancelled entity won't be hit again if its a piercing arrow
                 // on neo, they will get processed again next frame. Is this something we need to work around?
