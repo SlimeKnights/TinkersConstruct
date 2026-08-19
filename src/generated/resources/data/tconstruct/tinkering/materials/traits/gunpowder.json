@@ -5,6 +5,16 @@
         "level": 1,
         "name": "tconstruct:explosive"
       }
+    ],
+    "tconstruct:skull": [
+      {
+        "level": 1,
+        "name": "tconstruct:self_destructive"
+      },
+      {
+        "level": 1,
+        "name": "tconstruct:creeper_disguise"
+      }
     ]
   }
 }

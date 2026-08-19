@@ -1959,12 +1959,9 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .save(consumer, location(folder + "iron_golem_head"));
     SeveringRecipeBuilder.severing(EntityIngredient.of(EntityType.ENDER_DRAGON), Items.DRAGON_HEAD).rareMob()
                          .save(consumer, location(folder + "ender_dragon_head"));
-    TinkerWorld.headItems.forEach((type, head) -> {
-      if (type.isNatural()) {
-        SeveringRecipeBuilder.severing(EntityIngredient.of(type.getType()), head)
-          .save(consumer, location(folder + type.getSerializedName() + "_head"));
-      }
-    });
+    TinkerWorld.headItems.forEach((type, head) ->
+      SeveringRecipeBuilder.severing(EntityIngredient.of(type.getType()), head)
+        .save(consumer, location(folder + type.getSerializedName() + "_head")));
 
     // other body parts
     // hostile

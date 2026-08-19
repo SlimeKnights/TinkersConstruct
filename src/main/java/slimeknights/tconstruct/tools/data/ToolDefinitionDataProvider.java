@@ -42,6 +42,7 @@ import slimeknights.tconstruct.library.tools.definition.module.material.Material
 import slimeknights.tconstruct.library.tools.definition.module.material.MaterialTraitsModule;
 import slimeknights.tconstruct.library.tools.definition.module.material.PartStatsModule;
 import slimeknights.tconstruct.library.tools.definition.module.material.PartsModule;
+import slimeknights.tconstruct.library.tools.definition.module.material.RemappingMaterialsModule;
 import slimeknights.tconstruct.library.tools.definition.module.material.StatlessPartRepairModule;
 import slimeknights.tconstruct.library.tools.definition.module.mining.IsEffectiveModule;
 import slimeknights.tconstruct.library.tools.definition.module.mining.MaxTierModule;
@@ -738,7 +739,12 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       // materials
       // helmet - slime and skull
       .module(ArmorItem.Type.HELMET, MaterialStatsModule.stats().stat(SkullStats.ID).stat(SlimeStats.ID, 1.1f).build())
-      .module(ArmorItem.Type.HELMET, DefaultMaterialsModule.builder().material(anyMaterial, blood).build())
+      .module(ArmorItem.Type.HELMET, RemappingMaterialsModule.builder()
+        .material(anyMaterial, blood).remap()
+          .add(MaterialIds.glass, MaterialIds.gunpowder)
+          .add(MaterialIds.venombone, MaterialIds.ice)
+          .add(MaterialIds.blazingBone, MaterialIds.blaze)
+        .end().build())
       // chestplate - slime
       .module(ArmorItem.Type.CHESTPLATE, MaterialStatsModule.stats().stat(RepairStats.RIBCAGE.getId()).stat(SlimeStats.ID, 1.6f).primaryPart(-1).build())
       // add an extra copy of the material trait, plus add that when rebalanced

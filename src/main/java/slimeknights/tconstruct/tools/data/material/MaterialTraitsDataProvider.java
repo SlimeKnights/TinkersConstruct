@@ -192,7 +192,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addTraits(MaterialIds.enderPearl, SlimeStats.ID, ModifierIds.magicProtection);
 
     // slimeskull
-    material(MaterialIds.glass).addTraits(SkullStats.ID, TinkerModifiers.selfDestructive.getId(), ModifierIds.creeperDisguise);
+    material(MaterialIds.gunpowder).addTraits(SkullStats.ID, TinkerModifiers.selfDestructive.getId(), ModifierIds.creeperDisguise);
     // end
     material(MaterialIds.enderPearl).addTraits(SkullStats.ID, ModifierIds.warping, ModifierIds.endermanDisguise);
     material(MaterialIds.dragonScale).addTraits(SkullStats.ID, ModifierIds.dragonheart);
@@ -213,9 +213,6 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     material(MaterialIds.roseGold).addTraits(SkullStats.ID, TinkerModifiers.goldGuard.getId(), ModifierIds.piglinBruteDisguise, TinkerModifiers.golden.getId());
     material(MaterialIds.pigIron).addTraits(SkullStats.ID, ModifierIds.revenge, ModifierIds.zombifiedPiglinDisguise);
     // crafted
-    material(MaterialIds.venombone).addTraits(SkullStats.ID, ModifierIds.magicBones, ModifierIds.skeletonDisguise);
-    material(MaterialIds.blazingBone).addTraits(SkullStats.ID, ModifierIds.flamingBones, ModifierIds.witherSkeletonDisguise);
-    material(MaterialIds.necronium).addTraits(SkullStats.ID, ModifierIds.decayedBones, ModifierIds.witherSkeletonDisguise);
     material(MaterialIds.knightmetal).addTraits(SkullStats.ID, ModifierIds.spitting);
 
     // slimecage

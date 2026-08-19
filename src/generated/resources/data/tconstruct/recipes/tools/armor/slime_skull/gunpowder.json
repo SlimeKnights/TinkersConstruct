@@ -1,11 +1,11 @@
 {
   "type": "tconstruct:basin_tool_casting",
   "cast": {
-    "item": "tconstruct:necronium_head"
+    "item": "minecraft:creeper_head"
   },
   "cast_purpose": "consumed_offset",
   "extra_materials": [
-    "tconstruct:necronium"
+    "tconstruct:gunpowder"
   ],
   "item_cost": 5,
   "result": "tconstruct:slime_helmet"

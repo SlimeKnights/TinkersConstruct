@@ -198,7 +198,7 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .fallbacks("crystal", "rock")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF5A391C).addARGB(102, 0xFF7E4821).addARGB(140, 0xFFB47140).addARGB(178, 0xFFEBAA4E).addARGB(216, 0xFFFFBC5E).addARGB(255, 0xFFF9D49C).build());
     buildMaterial(MaterialIds.gunpowder)
-      .arrowHead()
+      .arrowHead().repairKit()
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF2D2D2D).addARGB(102, 0xFF3E3E3E).addARGB(140, 0xFF494949).addARGB(178, 0xFF545454).addARGB(216, 0xFF727272).addARGB(255, 0xFF8A8A8A).build());
     buildMaterial(MaterialIds.redstone)
       .arrowHead()
@@ -417,7 +417,7 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
 
     // slimeskull
     buildMaterial(MaterialIds.glass)
-      .repairKit().arrowHead().fallbacks("crystal")
+      .arrowHead().fallbacks("crystal")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF7BAEB7).addARGB(102, 0xFFA8D0D9).addARGB(140, 0x00000000).addARGB(216, 0x00000000).addARGB(255, 0xFFD0EAE9).build());
     buildMaterial(MaterialIds.enderPearl)
       .repairKit().arrowHead().fallbacks("rock").slime()

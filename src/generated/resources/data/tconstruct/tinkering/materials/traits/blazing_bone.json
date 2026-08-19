@@ -23,16 +23,6 @@
         "level": 1,
         "name": "tconstruct:conductive"
       }
-    ],
-    "tconstruct:skull": [
-      {
-        "level": 1,
-        "name": "tconstruct:flaming_bones"
-      },
-      {
-        "level": 1,
-        "name": "tconstruct:wither_skeleton_disguise"
-      }
     ]
   }
 }

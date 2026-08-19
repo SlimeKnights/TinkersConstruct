@@ -82,9 +82,6 @@ public class WorldClientEvents extends ClientEventBase {
     registerLayerDefinition(event, TinkerHeadType.ZOMBIFIED_PIGLIN, piglinHead);
 
     // crafted
-    registerLayerDefinition(event, TinkerHeadType.VENOMBONE, customHead);
-    registerLayerDefinition(event, TinkerHeadType.BLAZING_BONE, customHead);
-    registerLayerDefinition(event, TinkerHeadType.NECRONIUM, customHead);
     event.registerLayerDefinition(SkullModelHelper.FLUID_CANNON, headOverlayCustom);
   }
 
@@ -115,7 +112,7 @@ public class WorldClientEvents extends ClientEventBase {
       registerHeadModel(TinkerHeadType.BLAZE, MaterialIds.blaze, new ResourceLocation("textures/entity/blaze.png"));
       registerHeadModel(TinkerHeadType.ENDERMAN, MaterialIds.enderPearl, TConstruct.getResource("textures/entity/skull/enderman.png"));
       SlimeskullArmorModel.registerHeadModel(MaterialIds.dragonScale, modelSet -> new DragonSkullModel(modelSet.bakeLayer(ModelLayers.DRAGON_SKULL)), new ResourceLocation("textures/entity/enderdragon/dragon.png"));
-      SlimeskullArmorModel.registerHeadModel(MaterialIds.glass, ModelLayers.CREEPER_HEAD, new ResourceLocation("textures/entity/creeper/creeper.png"));
+      SlimeskullArmorModel.registerHeadModel(MaterialIds.gunpowder, ModelLayers.CREEPER_HEAD, new ResourceLocation("textures/entity/creeper/creeper.png"));
       // skeleton
       SlimeskullArmorModel.registerHeadModel(MaterialIds.bone, ModelLayers.SKELETON_SKULL, new ResourceLocation("textures/entity/skeleton/skeleton.png"));
       SlimeskullArmorModel.registerHeadModel(MaterialIds.necroticBone, ModelLayers.WITHER_SKELETON_SKULL, new ResourceLocation("textures/entity/skeleton/wither_skeleton.png"));
@@ -132,9 +129,6 @@ public class WorldClientEvents extends ClientEventBase {
       registerPiglinHeadModel(TinkerHeadType.PIGLIN_BRUTE, MaterialIds.roseGold, new ResourceLocation("textures/entity/piglin/piglin_brute.png"));
       registerPiglinHeadModel(TinkerHeadType.ZOMBIFIED_PIGLIN, MaterialIds.pigIron, new ResourceLocation("textures/entity/piglin/zombified_piglin.png"));
       // crafted
-      registerHeadModel(TinkerHeadType.VENOMBONE,    MaterialIds.venombone,   TConstruct.getResource("textures/entity/skull/venombone.png"));
-      registerHeadModel(TinkerHeadType.BLAZING_BONE, MaterialIds.blazingBone, TConstruct.getResource("textures/entity/skull/blazing_bone.png"));
-      registerHeadModel(TinkerHeadType.NECRONIUM,    MaterialIds.necronium,   TConstruct.getResource("textures/entity/skull/necronium.png"));
       SlimeskullArmorModel.registerHeadModel(MaterialIds.knightmetal, SkullModelHelper.FLUID_CANNON, TConstruct.getResource("textures/entity/skull/fluid_cannon.png"));
     });
   }

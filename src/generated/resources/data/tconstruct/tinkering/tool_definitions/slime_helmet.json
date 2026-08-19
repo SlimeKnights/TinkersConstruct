@@ -12,8 +12,8 @@
       ]
     },
     {
-      "type": "tconstruct:default_materials",
-      "materials": [
+      "type": "tconstruct:remapping_materials",
+      "missing": [
         {
           "type": "tconstruct:random",
           "allow_hidden": true
@@ -21,6 +21,13 @@
         {
           "type": "tconstruct:fixed",
           "material": "tconstruct:blood"
+        }
+      ],
+      "remap": [
+        {
+          "tconstruct:blazing_bone": "tconstruct:blaze",
+          "tconstruct:glass": "tconstruct:gunpowder",
+          "tconstruct:venombone": "tconstruct:ice"
         }
       ]
     },

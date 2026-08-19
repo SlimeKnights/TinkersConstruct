@@ -1,5 +1,8 @@
 {
   "stats": {
-    "tconstruct:arrow_head": {}
+    "tconstruct:arrow_head": {},
+    "tconstruct:skull": {
+      "durability": 90
+    }
   }
 }

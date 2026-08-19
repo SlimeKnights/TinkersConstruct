@@ -537,7 +537,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.enderPearl, new SlimeStats(250, 0));
 
     // slimeskull
-    addMaterialStats(MaterialIds.glass,        new SkullStats( 90));
+    addMaterialStats(MaterialIds.gunpowder,    new SkullStats( 90));
     addMaterialStats(MaterialIds.blaze,        new SkullStats(150));
     // end
     addMaterialStats(MaterialIds.enderPearl,   new SkullStats(250));
@@ -558,9 +558,6 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.roseGold,     new SkullStats(175));
     addMaterialStats(MaterialIds.pigIron,      new SkullStats(150));
     // crafted
-    addMaterialStats(MaterialIds.venombone,    new SkullStats(175));
-    addMaterialStats(MaterialIds.blazingBone,  new SkullStats(205));
-    addMaterialStats(MaterialIds.necronium,    new SkullStats(157));
     addMaterialStats(MaterialIds.knightmetal,  new SkullStats(220));
 
     // slimecage
@@ -597,7 +594,6 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.phantom, StatlessMaterialStats.REPAIR_KIT);
 
     // embellishments - TODO migrate to slimesuit slime materials
-    addMaterialStats(MaterialIds.clay);
     addMaterialStats(MaterialIds.honey);
   }
 

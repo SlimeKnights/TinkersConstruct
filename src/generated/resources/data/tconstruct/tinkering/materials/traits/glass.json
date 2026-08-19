@@ -13,16 +13,6 @@
         "level": 1,
         "name": "tconstruct:spilling_rod"
       }
-    ],
-    "tconstruct:skull": [
-      {
-        "level": 1,
-        "name": "tconstruct:self_destructive"
-      },
-      {
-        "level": 1,
-        "name": "tconstruct:creeper_disguise"
-      }
     ]
   }
 }
