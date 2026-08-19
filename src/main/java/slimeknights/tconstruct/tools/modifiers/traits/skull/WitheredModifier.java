@@ -15,7 +15,8 @@ import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
-@Deprecated
+/** Use {@link slimeknights.tconstruct.library.modifiers.modules.combat.MobEffectModule} */
+@Deprecated(forRemoval = true)
 public class WitheredModifier extends NoLevelsModifier implements DamageDealtModifierHook {
   @Override
   protected void registerHooks(Builder hookBuilder) {
