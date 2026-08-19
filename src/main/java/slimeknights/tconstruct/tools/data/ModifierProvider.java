@@ -514,12 +514,12 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     // boot traits
     UniqueForLevels twoLevels = new UniqueForLevels(2, false);
     buildModifier(ModifierIds.looter).levelDisplay(twoLevels)
-      .addModule(LootingModule.builder().lootingLevel(LevelingInt.ONE).armor(ARMOR_SLOTS))
+      .addModule(LootingModule.builder().level(LevelingInt.ONE).armor(ARMOR_SLOTS))
       .addModule(AttributeModule.builder(TinkerAttributes.EXPERIENCE_MULTIPLIER, Operation.MULTIPLY_BASE).minLevel(2).flat(0.25f));
     buildModifier(ModifierIds.fortunate).levelDisplay(twoLevels)
-      .addModule(EnchantmentModule.builder(Enchantments.BLOCK_FORTUNE).lootingLevel(LevelingInt.ONE).toolItem(harvest).constant())
+      .addModule(EnchantmentModule.builder(Enchantments.BLOCK_FORTUNE).level(LevelingInt.ONE).toolItem(harvest).constant())
       .addModule(AttributeModule.builder(Attributes.LUCK, Operation.ADDITION).toolTag(TinkerTags.Items.ARMOR).flat(1))
-      .addModule(LootingModule.builder().minLevel(2).lootingLevel(LevelingInt.ONE).armor(ARMOR_SLOTS));
+      .addModule(LootingModule.builder().minLevel(2).level(LevelingInt.ONE).armor(ARMOR_SLOTS));
 
 
     /// attack

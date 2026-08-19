@@ -80,14 +80,20 @@ public interface EnchantmentModule extends ModifierModule, LevelingIntModule, Co
   @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
   class Builder extends ModuleBuilder.Stack<Builder> {
     private final Enchantment enchantment;
-    private LevelingInt lootingLevel = LevelingInt.LEVEL;
+    private LevelingInt level = LevelingInt.LEVEL;
     private IJsonPredicate<BlockState> block = BlockPredicate.ANY;
     private IJsonPredicate<LivingEntity> holder = LivingEntityPredicate.ANY;
 
-    /** @deprecated use {@link #lootingLevel(LevelingInt)} */
+    /** Sets the level in the builder */
+    public Builder level(LevelingInt level) {
+      this.level = level;
+      return this;
+    }
+
+    /** @deprecated use {@link #level(LevelingInt)} */
     @Deprecated(forRemoval = true)
     public Builder level(int level) {
-      return lootingLevel(LevelingInt.eachLevel(level));
+      return level(LevelingInt.eachLevel(level));
     }
 
     /** Builds a module for a constant enchantment */
@@ -95,7 +101,7 @@ public interface EnchantmentModule extends ModifierModule, LevelingIntModule, Co
       if (block != BlockPredicate.ANY || holder != LivingEntityPredicate.ANY) {
         throw new IllegalStateException("Cannot build a constant enchantment module with block or holder conditions");
       }
-      return new Constant(enchantment, lootingLevel, condition);
+      return new Constant(enchantment, level, condition);
     }
 
     /** Builds a module for a constant enchantment which ignores its protection value */
@@ -103,7 +109,7 @@ public interface EnchantmentModule extends ModifierModule, LevelingIntModule, Co
       if (block != BlockPredicate.ANY || holder != LivingEntityPredicate.ANY) {
         throw new IllegalStateException("Cannot build a constant enchantment module with block or holder conditions");
       }
-      return new Protection(enchantment, lootingLevel, condition);
+      return new Protection(enchantment, level, condition);
     }
 
     /**
@@ -112,7 +118,7 @@ public interface EnchantmentModule extends ModifierModule, LevelingIntModule, Co
      * @return  Module instance
      */
     public MainHandHarvest mainHandHarvest(ResourceLocation key) {
-      return new MainHandHarvest(enchantment, lootingLevel, condition, key, block, holder);
+      return new MainHandHarvest(enchantment, level, condition, key, block, holder);
     }
 
     /**
@@ -129,7 +135,7 @@ public interface EnchantmentModule extends ModifierModule, LevelingIntModule, Co
       if (set.contains(EquipmentSlot.MAINHAND)) {
         throw new IllegalArgumentException("Cannot create armor harvest for the main hand slot");
       }
-      return new ArmorHarvest(enchantment, lootingLevel, condition, set, block, holder);
+      return new ArmorHarvest(enchantment, level, condition, set, block, holder);
     }
 
     /** Creates a new armor harvest module with the default slots */
