@@ -295,6 +295,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      new GripMaterialStats(-0.3f, 0.1f, 2.25f));
     // tier 2 - bowstring
     addMaterialStats(MaterialIds.skyslimeVine, StatlessMaterialStats.BOWSTRING);
+    addMaterialStats(MaterialIds.cheese, StatlessMaterialStats.BOWSTRING);
     addMaterialStats(MaterialIds.weepingVine, StatlessMaterialStats.BOWSTRING);
     addMaterialStats(MaterialIds.twistingVine, StatlessMaterialStats.BOWSTRING);
     addMaterialStats(MaterialIds.slimeskin, StatlessMaterialStats.BOWSTRING);

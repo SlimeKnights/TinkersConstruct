@@ -2300,6 +2300,7 @@
 
   "material.tconstruct.cheese": "Cheese",
   "material.tconstruct.cheese.flavor": "Well Aged!",
+  "material.tconstruct.cheese.ranged": "Can be eaten (consuming some durability) to restore 1 hunger at 0.4 saturation and to remove a random effect.",
   "material.tconstruct.cheese.encyclopedia.slime": "Grants a 15% chance per level of eating the armor (consuming some durability) for 1 hunger per level at 0.4 saturation and to removes a random effect.",
 
   "material.tconstruct.blood": "Blood",
