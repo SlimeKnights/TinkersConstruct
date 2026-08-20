@@ -2,7 +2,7 @@
 
 Modify all the things, then do it again!   
 Melt down any metals you find. 	 
-Power the world with spinning wind!
+Forge the souls of materials into the tools themselves!
 
 ## Documentation
 
