@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.tools.stat;
 import com.google.gson.JsonSyntaxException;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import slimeknights.mantle.data.loadable.ErrorFactory;
 import slimeknights.mantle.data.loadable.primitive.StringLoadable;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -46,22 +47,32 @@ public class ToolStats {
   /** Set of stats supporting {@link slimeknights.tconstruct.library.modifiers.hook.build.ConditionalStatModifierHook} */
   private static final Set<INumericToolStat<?>> CONDITIONAL = new HashSet<>();
 
+  /** Logs an error message for unsupported stats */
+  private static void logUnsupportedConditional(INumericToolStat<?> stat) {
+    // TODO 1.21: make this error instead of log
+    ResourceLocation id = stat.getName();
+    if (TConstruct.MOD_ID.equals(id.getNamespace())) {
+      TConstruct.LOG.error("Tool stat {} does not support conditional stats but is used in a conditional stat loader.", id);
+    } else {
+      TConstruct.LOG.warn("Tool stat {} is not marked as supporting conditional stats but is used in a conditional stat loader. This may be a bug with the mod adding the stat having not marked it using the new API.", id);
+    }
+  }
+
   /** Loader that filters to only numeric tool stats */
-  public static final StringLoadable<INumericToolStat<?>> CONDITIONAL_LOADER = LOADER.comapFlatMap((stat, error) -> {
+  public static final StringLoadable<INumericToolStat<?>> CONDITIONAL_LOADER = LOADER.xmap((stat, error) -> {
     if (stat instanceof INumericToolStat<?> numeric) {
-      if (!CONDITIONAL.contains(numeric)) {
-        // TODO 1.21: make this error instead of log
-        ResourceLocation id = stat.getName();
-        if (TConstruct.MOD_ID.equals(id.getNamespace())) {
-          TConstruct.LOG.error("Tool stat {} does not support conditional stats but is used in a conditional stat loader.", id);
-        } else {
-          TConstruct.LOG.warn("Tool stat {} is not marked as supporting conditional stats but is used in a conditional stat loader. This may be a bug with the mod adding the stat having not marked it using the new API.", id);
-        }
+      if (error == ErrorFactory.JSON_SYNTAX_ERROR && !CONDITIONAL.contains(numeric)) {
+        logUnsupportedConditional(numeric);
       }
       return numeric;
     }
     throw error.create("Invalid tool stat " + stat.getName() + ", must be a numeric stat");
-  }, stat -> stat);
+  }, (stat, error) -> {
+    if (error == ErrorFactory.RUNTIME && !CONDITIONAL.contains(stat)) {
+      throw error.create("Tool stat " + stat.getName() + " does not support conditional stats but is used in a conditional stat loader.");
+    }
+    return stat;
+  });
 
   /** Tools durability, determines how long it lasts */
   public static final FloatToolStat DURABILITY = register(new FloatToolStat(name("durability"), 0xFF47CC47, 1, 1, Integer.MAX_VALUE, TinkerTags.Items.DURABILITY));
