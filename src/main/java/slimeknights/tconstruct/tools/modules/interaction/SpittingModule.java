@@ -128,8 +128,10 @@ public record SpittingModule(LevelingInt shots) implements ModifierModule, Gener
           }
 
           // consume the fluid and durability
-          fluid.shrink(amount * shots);
-          TANK_HELPER.setFluid(tool, fluid);
+          if (ModifierUtil.consumesResources(entity)) {
+            fluid.shrink(amount * shots);
+            TANK_HELPER.setFluid(tool, fluid);
+          }
           // stop using doesn't know the slot, so just figure it out
           ToolDamageUtil.damageAnimated(tool, shots, entity, modifier.getId());
         }

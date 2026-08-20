@@ -33,6 +33,7 @@ import slimeknights.tconstruct.library.module.HookProvider;
 import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.tools.definition.module.ToolHooks;
 import slimeknights.tconstruct.library.tools.definition.module.aoe.AreaOfEffectIterator.AOEMatchType;
+import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -116,7 +117,7 @@ public record SplashingModule(LevelingValue strength) implements ModifierModule,
             }
 
             // consume the fluid last, if any target used fluid
-            if (!player.isCreative() ) {
+            if (ModifierUtil.consumesResources(player)) {
               if (numTargets > 0) {
                 TANK_HELPER.setFluid(tool, fluid);
               }
@@ -187,7 +188,7 @@ public record SplashingModule(LevelingValue strength) implements ModifierModule,
             }
 
             // update fluid in tool and damage tool
-            if (player == null || !player.isCreative() ) {
+            if (ModifierUtil.consumesResources(player)) {
               if (numTargets > 0) {
                 TANK_HELPER.setFluid(tool, fluid);
               }

@@ -18,6 +18,7 @@ import slimeknights.tconstruct.library.modifiers.modules.build.StatBoostModule;
 import slimeknights.tconstruct.library.module.ModuleHookMap.Builder;
 import slimeknights.tconstruct.library.tools.capability.fluid.ToolTankHelper;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
+import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.particle.FluidParticleData;
@@ -62,7 +63,7 @@ public abstract class UseFluidOnHitModifier extends Modifier {
           int consumed = recipe.applyToEntity(fluid, 1, fluidContext, FluidAction.EXECUTE);
           if (consumed > 0) {
             spawnParticles(fluidContext.getTarget(), fluid);
-            if (player == null || !player.isCreative()) {
+            if (ModifierUtil.consumesResources(player)) {
               fluid.shrink(consumed);
               TANK_HELPER.setFluid(tool, fluid);
             }

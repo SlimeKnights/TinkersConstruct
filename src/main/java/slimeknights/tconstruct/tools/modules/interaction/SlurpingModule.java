@@ -44,6 +44,7 @@ import java.util.List;
 
 import static slimeknights.tconstruct.library.tools.capability.fluid.ToolTankHelper.TANK_HELPER;
 import static slimeknights.tconstruct.library.tools.helper.ModifierUtil.asPlayer;
+import static slimeknights.tconstruct.library.tools.helper.ModifierUtil.consumesResources;
 
 /** Modifier that after a short time applies a fluid effect to the holder. */
 public record SlurpingModule(LevelingValue strength, LevelingInt duration) implements ModifierModule, GeneralInteractionModifierHook, UsingToolModifierHook, KeybindInteractModifierHook, InventoryTickModifierHook, EquipmentChangeModifierHook {
@@ -88,7 +89,7 @@ public record SlurpingModule(LevelingValue strength, LevelingInt duration) imple
       if (!entity.level().isClientSide) {
         Player player = asPlayer(entity);
         int consumed = slurp(fluid, modifier, entity, player, FluidAction.EXECUTE);
-        if (consumed > 0 && (player == null || !player.isCreative())) {
+        if (consumed > 0 && consumesResources(player)) {
           fluid.shrink(consumed);
           TANK_HELPER.setFluid(tool, fluid);
         }
