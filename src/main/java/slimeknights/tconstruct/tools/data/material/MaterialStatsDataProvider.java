@@ -571,7 +571,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.endRod,       RepairStats.ribcage(250));
 
     // slimeshell
-    addMaterialStats(MaterialIds.turtle, RepairStats.shell(150));
+    addMaterialStats(MaterialIds.turtle, RepairStats.shell(275));
     addMaterialStats(MaterialIds.phantom, RepairStats.shell(432));
     addMaterialStats(MaterialIds.prismarine, RepairStats.shell(175));
     addMaterialStats(MaterialIds.shulker, RepairStats.shell(250));
