@@ -1,8 +1,8 @@
 {
   "tool": "tconstruct:slimy_chestplate",
   "text": [
-    { "text": "The slimecage is the ultimate unarmed combat weapon." },
-    { "text": " Created by pouring slime on a ribcage, this chestplate enhances your unarmed melee attacks." }
+    { "text": "The slimecage is the ultimate unarmed combat weapon with its ribcage traits boosting unarmed attacks." },
+    { "text": " Created by pouring slime on a ribcage." }
   ],
   "properties": [
     "Low defense",
