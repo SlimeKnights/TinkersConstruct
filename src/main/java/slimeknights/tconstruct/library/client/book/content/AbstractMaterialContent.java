@@ -318,10 +318,20 @@ public abstract class AbstractMaterialContent extends PageContent {
   /** Adds the material category icon */
   protected void addCategory(List<ItemElement> displayTools, MaterialId material) {}
 
+  /** If true, this section will display the part builder crafting icon. */
+  protected boolean allowPartBuilder() {
+    return true;
+  }
+
+  /** If true, this section will display casting and composite recipes. */
+  protected boolean allowCasting() {
+    return true;
+  }
+
   /** Adds items to the display tools list for all relevant recipes */
   protected void addPrimaryDisplayItems(List<ItemElement> displayTools, MaterialVariantId materialId) {
     // part builder
-    if (getMaterial().isCraftable()) {
+    if (allowPartBuilder() && getMaterial().isCraftable()) {
       ItemStack partBuilder = new ItemStack(TinkerTables.partBuilder.asItem());
       ItemElement elementItem = new TinkerItemElement(partBuilder);
       elementItem.tooltip = PART_BUILDER;
@@ -329,40 +339,42 @@ public abstract class AbstractMaterialContent extends PageContent {
     }
 
     // regular casting recipes
-    List<MaterialFluidRecipe> fluids = MaterialCastingLookup.getCastingFluids(materialId);
-    if (!fluids.isEmpty()) {
-      // get a list of all fluids from just visible recipes
-      List<FluidStack> filtered = fluids.stream().filter(r -> !r.isHideInBook()).flatMap(recipe -> recipe.getFluids().stream()).toList();
-      if (!filtered.isEmpty()) {
-        ItemElement elementItem = new TinkerItemElement(0, 0, 1, filtered.stream().map(fluid -> new ItemStack(fluid.getFluid().getBucket())).toList());
-        elementItem.tooltip = List.of(
-          CASTABLE,
-          Component.translatable(CAST_FROM, filtered.get(0).getDisplayName()).withStyle(ChatFormatting.GRAY)
-        );
-        displayTools.add(elementItem);
-      }
-    }
-
-    // composite casting
-    List<MaterialFluidRecipe> composites = MaterialCastingLookup.getCompositeFluids(materialId);
-    for (MaterialFluidRecipe composite : composites) {
-      MaterialVariant input = composite.getInput();
-      if (!composite.isHideInBook() && input != null && !materialVariant.matchesVariant(input.getVariant())) {
-        MaterialVariantId inputId = input.getVariant();
-        // TODO: filter out tool parts that cannot be casted due to a composite cast conflict
-        List<ItemStack> compositeParts = MaterialCastingLookup.getAllItemCosts().stream()
-          .map(Entry::getKey)
-          .filter(part -> part.canUseMaterial(inputId.getId()) && part.canUseMaterial(material) && (!(part instanceof IToolPart toolPart) || supportsStatType(toolPart.getStatType())))
-          .map(part -> part.withMaterial(inputId))
-          .toList();
-        if (!compositeParts.isEmpty()) {
-          ItemElement elementItem = new TinkerItemElement(0, 0, 1, compositeParts);
-          FluidStack firstFluid = composite.getFluids().stream().findFirst().orElse(FluidStack.EMPTY);
+    if (allowCasting()) {
+      List<MaterialFluidRecipe> fluids = MaterialCastingLookup.getCastingFluids(materialId);
+      if (!fluids.isEmpty()) {
+        // get a list of all fluids from just visible recipes
+        List<FluidStack> filtered = fluids.stream().filter(r -> !r.isHideInBook()).flatMap(recipe -> recipe.getFluids().stream()).toList();
+        if (!filtered.isEmpty()) {
+          ItemElement elementItem = new TinkerItemElement(0, 0, 1, filtered.stream().map(fluid -> new ItemStack(fluid.getFluid().getBucket())).toList());
           elementItem.tooltip = List.of(
-            COMPOSITE,
-            Component.translatable(COMPOSITE_FROM, firstFluid.getDisplayName(), MaterialTooltipCache.getDisplayName(inputId)).withStyle(ChatFormatting.GRAY)
+            CASTABLE,
+            Component.translatable(CAST_FROM, filtered.get(0).getDisplayName()).withStyle(ChatFormatting.GRAY)
           );
           displayTools.add(elementItem);
+        }
+      }
+
+      // composite casting
+      List<MaterialFluidRecipe> composites = MaterialCastingLookup.getCompositeFluids(materialId);
+      for (MaterialFluidRecipe composite : composites) {
+        MaterialVariant input = composite.getInput();
+        if (!composite.isHideInBook() && input != null && !materialVariant.matchesVariant(input.getVariant())) {
+          MaterialVariantId inputId = input.getVariant();
+          // TODO: filter out tool parts that cannot be casted due to a composite cast conflict
+          List<ItemStack> compositeParts = MaterialCastingLookup.getAllItemCosts().stream()
+            .map(Entry::getKey)
+            .filter(part -> part.canUseMaterial(inputId.getId()) && part.canUseMaterial(material) && (!(part instanceof IToolPart toolPart) || supportsStatType(toolPart.getStatType())))
+            .map(part -> part.withMaterial(inputId))
+            .toList();
+          if (!compositeParts.isEmpty()) {
+            ItemElement elementItem = new TinkerItemElement(0, 0, 1, compositeParts);
+            FluidStack firstFluid = composite.getFluids().stream().findFirst().orElse(FluidStack.EMPTY);
+            elementItem.tooltip = List.of(
+              COMPOSITE,
+              Component.translatable(COMPOSITE_FROM, firstFluid.getDisplayName(), MaterialTooltipCache.getDisplayName(inputId)).withStyle(ChatFormatting.GRAY)
+            );
+            displayTools.add(elementItem);
+          }
         }
       }
     }

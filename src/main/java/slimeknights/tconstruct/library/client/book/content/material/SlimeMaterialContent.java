@@ -33,4 +33,9 @@ public class SlimeMaterialContent extends SingleMaterialStatContent {
   protected String translationSuffix() {
     return "slime";
   }
+
+  @Override
+  protected boolean allowPartBuilder() {
+    return false;
+  }
 }
