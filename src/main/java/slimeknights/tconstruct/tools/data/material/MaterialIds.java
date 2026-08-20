@@ -138,6 +138,7 @@ public final class MaterialIds {
   public static final MaterialId blood = id("blood");
   public static final MaterialId clay = id("clay");
   public static final MaterialId honey = id("honey");
+  public static final MaterialId horn = id("horn");
 
   /** List of custom trim materials we support */
   public static final MaterialId[] TRIM_MATERIALS = {

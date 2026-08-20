@@ -152,6 +152,7 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addMaterial(MaterialIds.honey, 2, ORDER_REPAIR + 5, true);
     addMaterial(MaterialIds.blood, 5, ORDER_REPAIR, false, true, null);
     // slimesuit
+    addMaterial(MaterialIds.horn, 1, ORDER_REPAIR, true);
     addMaterial(MaterialIds.phantom, 2, ORDER_REPAIR + 5, true);
 
     // rose gold is most comparable to chain as you can use the extra slot for reinforced

@@ -135,6 +135,7 @@ public class ModifierIds {
   public static final ModifierId wings = id("wings");
   public static final ModifierId knockbackResistance = id("knockback_resistance");
   public static final ModifierId cobalamin = id("cobalamin");
+  public static final ModifierId ramAttack = id("ram_attack");
   // counter
   public static final ModifierId thorns = id("thorns");
   public static final ModifierId ricochet = id("ricochet");

@@ -2,9 +2,14 @@ package slimeknights.tconstruct.tools.data.material;
 
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.InstrumentTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Instrument;
+import net.minecraft.world.item.Instruments;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;
@@ -30,6 +35,7 @@ import slimeknights.tconstruct.library.data.recipe.IMaterialRecipeHelper;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.casting.material.MaterialFluidRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.ingredient.InstrumentIngredient;
 import slimeknights.tconstruct.library.recipe.melting.MaterialMeltingRecipeBuilder;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
@@ -39,6 +45,7 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.recipe.severing.SheepShearingRecipe;
 import slimeknights.tconstruct.world.TinkerWorld;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 import static slimeknights.mantle.Mantle.COMMON;
@@ -238,6 +245,18 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     // slimesuit
     materialRecipe(consumer, MaterialIds.enderslime, Ingredient.of(TinkerWorld.enderGeode), 1, 1, folder + "enderslime");
     materialRecipe(consumer, MaterialIds.phantom,    Ingredient.of(Items.PHANTOM_MEMBRANE), 1, 1, folder + "phantom_membrane");
+    // goat horns
+    // fallback recipe if mods add a new goat horn variant
+    materialRecipe(withCondition(consumer, new TagCombinationCondition<>(List.of(InstrumentTags.GOAT_HORNS), TinkerTags.Instruments.VARIANT_HORNS)),
+      MaterialIds.horn, InstrumentIngredient.of(Items.GOAT_HORN, TinkerTags.Instruments.VARIANT_HORNS), 2, 1, folder + "horn/default");
+    hornMaterial(consumer, Instruments.PONDER_GOAT_HORN, folder);
+    hornMaterial(consumer, Instruments.SING_GOAT_HORN,   folder);
+    hornMaterial(consumer, Instruments.SEEK_GOAT_HORN,   folder);
+    hornMaterial(consumer, Instruments.FEEL_GOAT_HORN,   folder);
+    hornMaterial(consumer, Instruments.ADMIRE_GOAT_HORN, folder);
+    hornMaterial(consumer, Instruments.CALL_GOAT_HORN,   folder);
+    hornMaterial(consumer, Instruments.YEARN_GOAT_HORN,  folder);
+    hornMaterial(consumer, Instruments.DREAM_GOAT_HORN,  folder);
   }
 
   private void addMaterialSmeltery(Consumer<FinishedRecipe> consumer) {
@@ -378,5 +397,11 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
       .setTemperature(getTemperature(TinkerFluids.venom))
       .setHideInBook(true)
       .save(consumer, location(folder + "composite/" + name));
+  }
+
+  /** Adds a recipe for crafting a goat horn material */
+  private void hornMaterial(Consumer<FinishedRecipe> consumer, ResourceKey<Instrument> instrument, String folder) {
+    ResourceLocation key = instrument.location();
+    materialRecipe(consumer, MaterialVariantId.create(MaterialIds.horn, key.toLanguageKey()), InstrumentIngredient.of(Items.GOAT_HORN, instrument), 2, 1, folder + "horn/" + key.getPath());
   }
 }

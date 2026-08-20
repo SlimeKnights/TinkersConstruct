@@ -221,6 +221,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addTraits(MaterialIds.blazingBone, cage, ModifierIds.conductive);
     addDefaultTraits(MaterialIds.jadeite, TinkerModifiers.insatiable);
     addTraits(MaterialIds.endRod, cage, ModifierIds.floaty);
+    addTraits(MaterialIds.horn, cage, ModifierIds.ramAttack);
 
     // slimeshell
     MaterialStatsId shell = RepairStats.SHELL.getId();

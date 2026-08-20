@@ -2282,6 +2282,18 @@
   "material.tconstruct.phantom.flavor.shell": "Float like a phantom",
   "material.tconstruct.phantom.encyclopedia.shell": "Reduces gravity by 5% plus 10% per level per piece.",
 
+  "material.tconstruct.horn": "Horn",
+  "material.tconstruct.horn.minecraft.ponder_goat_horn": "Ponder Horn",
+  "material.tconstruct.horn.minecraft.sing_goat_horn":   "Sing Horn",
+  "material.tconstruct.horn.minecraft.seek_goat_horn":   "Seek Horn",
+  "material.tconstruct.horn.minecraft.feel_goat_horn":   "Feel Horn",
+  "material.tconstruct.horn.minecraft.admire_goat_horn": "Admire Horn",
+  "material.tconstruct.horn.minecraft.call_goat_horn":   "Call Horn",
+  "material.tconstruct.horn.minecraft.yearn_goat_horn":  "Yearn Horn",
+  "material.tconstruct.horn.minecraft.dream_goat_horn":  "Dream Horn",
+  "material.tconstruct.horn.flavor.shell": "Charge like a ram",
+  "material.tconstruct.horn.encyclopedia.shell": "Unarmed attacks deal +4 damage per level while sprinting.",
+
   "material.tconstruct.blood":   "Blood",
   "material.tconstruct.honey":   "Honey",
 
@@ -2573,6 +2585,10 @@
   "modifier.tconstruct.charge_attack.flavor": "Zoomies",
   "modifier.tconstruct.charge_attack.description": "Deals bonus damage while sprinting",
   "modifier.tconstruct.charge_attack.attack_damage": "Charging Damage",
+  "modifier.tconstruct.ram_attack": "Ram Attack",
+  "modifier.tconstruct.ram_attack.flavor": "Zoomies",
+  "modifier.tconstruct.ram_attack.description": "Deals bonus damage while sprinting",
+  "modifier.tconstruct.ram_attack.attack_damage": "Charging Damage",
 
 
   "_comment": "Ranged",

@@ -426,6 +426,8 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
     buildMaterial(MaterialIds.phantom)
       .shell().fallbacks("wood")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF6F516C).addARGB(102, 0xFF7E627B).addARGB(140, 0xFF958C79).addARGB(178, 0xFFA99B87).addARGB(216, 0xFFC3B9A1).addARGB(255, 0xFFDCD9C0).build());
+    buildMaterial(MaterialIds.horn).ribcage()
+      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF433E3D).addARGB(102, 0xFF494845).addARGB(140, 0xFF595959).addARGB(178, 0xFF666460).addARGB(216, 0xFF817E76).addARGB(255, 0xFFA3A393).build());
     // slimesuit
     IColorMapping earthslime = GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF34532F).addARGB(102, 0xFF477A42).addARGB(127, 0xFF508049).addARGB(140, 0xFF57914F).addARGB(178, 0xFF71AC63).addARGB(193, 0xFF76BE6D).addARGB(216, 0xFF8CD782).addARGB(255, 0xFFC9FECE).build();
     IColorMapping skyslime   = GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF2F5351).addARGB(102, 0xFF3B6D6D).addARGB(127, 0xFF49807E).addARGB(140, 0xFF4F918F).addARGB(178, 0xFF63ACAB).addARGB(193, 0xFF6DBEBD).addARGB(216, 0xFF82D7D5).addARGB(255, 0xFFC9F4FE).build();

@@ -11,6 +11,7 @@ import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.Instrument;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.level.Level;
@@ -50,6 +51,7 @@ public class TinkerTags {
     DamageTypes.init();
     MenuTypes.init();
     Potions.init();
+    Instruments.init();
     MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, TagsUpdatedEvent.class, event -> tagsLoaded = true);
   }
 
@@ -944,5 +946,12 @@ public class TinkerTags {
 
     /** Any potion variants in this tag will be hidden from the variants of the potion fluid shown in JEI. */
     public static final TagKey<Potion> HIDDEN_FLUID = TagKey.create(Registries.POTION, getResource("hide_in_fluid"));
+  }
+
+  public static class Instruments {
+    private static void init() {}
+
+    /** Any goat horns that have a material variant recipe. */
+    public static final TagKey<Instrument> VARIANT_HORNS = TagKey.create(Registries.INSTRUMENT, getResource("variant_horns"));
   }
 }

@@ -333,6 +333,7 @@
     "enderdodging":  "#CC00FA",
     "reverted":      "#b50101",
     "float":         "#FFF6F6",
+    "ram_attack":    "#817E76",
     "turtles_grace": "#47BF4A",
     "shulker_box":   "#8F648F",
     "dragonfall":    "#474747",
@@ -556,9 +557,8 @@
     "clay":       "#AFB9D6",
     "honey":      "#FABF29",
     "venom":      "#EDEDED",
-
-    "__repair_kit__": null,
-    "phantom": "#C3B9A1"
+    "phantom":    "#C3B9A1",
+    "horn":       "#817E76"
   },
 
   "harvest_tier.minecraft": {

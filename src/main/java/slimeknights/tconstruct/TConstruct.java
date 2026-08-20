@@ -42,6 +42,7 @@ import slimeknights.tconstruct.common.data.tags.DamageTypeTagProvider;
 import slimeknights.tconstruct.common.data.tags.EnchantmentTagProvider;
 import slimeknights.tconstruct.common.data.tags.EntityTypeTagProvider;
 import slimeknights.tconstruct.common.data.tags.FluidTagProvider;
+import slimeknights.tconstruct.common.data.tags.InstrumentTagProvider;
 import slimeknights.tconstruct.common.data.tags.ItemTagProvider;
 import slimeknights.tconstruct.common.data.tags.MenuTypeTagProvider;
 import slimeknights.tconstruct.common.data.tags.PotionTagProvider;
@@ -185,6 +186,7 @@ public class TConstruct {
     generator.addProvider(server, new EnchantmentTagProvider(packOutput, lookupProvider, existingFileHelper));
     generator.addProvider(server, new MenuTypeTagProvider(packOutput, lookupProvider, existingFileHelper));
     generator.addProvider(server, new PotionTagProvider(packOutput, lookupProvider, existingFileHelper));
+    generator.addProvider(server, new InstrumentTagProvider(packOutput, lookupProvider, existingFileHelper));
     generator.addProvider(server, new DamageTypeTagProvider(packOutput, datapackRegistryProvider.getRegistryProvider(), existingFileHelper));
 
     // other datagen
