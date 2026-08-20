@@ -145,7 +145,7 @@ public record EdibleModule(LevelingValue chance) implements ModifierModule, Gene
     if (!tool.isBroken() && tool.hasTag(TinkerTags.Items.ARMOR) && tool.getStats().getInt(HUNGER) > 0) {
       LivingEntity entity = context.getEntity();
       float level = CounterModule.getLevel(tool, modifier, slotType, entity);
-      if (context.getLevel().random.nextFloat() < chance.compute(level) && entity instanceof Player player && player.canEat(false)) {
+      if (context.getLevel().random.nextFloat() < chance.compute(level) && entity instanceof Player player && player.canEat(true)) {
         eat(tool, player, slotType);
       }
     }
