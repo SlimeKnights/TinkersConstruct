@@ -16,11 +16,11 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
+import slimeknights.mantle.data.loadable.record.SingletonLoader;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.item.ItemPredicate;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.json.LevelingValue;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.armor.OnAttackedModifierHook;
@@ -41,7 +41,6 @@ import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
 import slimeknights.tconstruct.library.tools.stat.ToolStatId;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tools.TinkerModifiers;
-import slimeknights.tconstruct.tools.modules.armor.CounterModule;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -52,9 +51,11 @@ import java.util.List;
  * Note tools generally should not have multiple copies of this module, or it will cause all food stats to apply multiple times.
  * Use {@link #EDIBLE_TRAIT} as a module to prevent this issue.
  */
-public record EdibleModule(LevelingValue chance) implements ModifierModule, GeneralInteractionModifierHook, UsingToolModifierHook, OnAttackedModifierHook, TooltipModifierHook {
+public enum EdibleModule implements ModifierModule, GeneralInteractionModifierHook, UsingToolModifierHook, OnAttackedModifierHook, TooltipModifierHook {
+  INSTANCE;
+
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<EdibleModule>defaultHooks(ModifierHooks.GENERAL_INTERACT, ModifierHooks.TOOL_USING, ModifierHooks.ON_ATTACKED);
-  public static final RecordLoadable<EdibleModule> LOADER = RecordLoadable.create(LevelingValue.LOADABLE.requiredField("counter_chance", EdibleModule::chance), EdibleModule::new);
+  public static final RecordLoadable<EdibleModule> LOADER = new SingletonLoader<>(INSTANCE);
 
   /** Predicate for valid tools using the stats */
   private static final IJsonPredicate<Item> VALID_TOOLS = ItemPredicate.or(ItemPredicate.tag(TinkerTags.Items.INTERACTABLE_CHARGE), ItemPredicate.tag(TinkerTags.Items.ARMOR));
@@ -64,6 +65,9 @@ public record EdibleModule(LevelingValue chance) implements ModifierModule, Gene
   public static final FloatToolStat SATURATION = new FloatToolStat(new ToolStatId(TConstruct.MOD_ID, "saturation"), 0xFFF0A8A4, 0, 0, 200, VALID_TOOLS);
   /** Tool stat for the time it takes to eat the food. Does not support conditional stats. */
   public static final FloatToolStat EAT_DURATION = new FloatToolStat(new ToolStatId(TConstruct.MOD_ID, "eat_duration"), 0xFFF0A8A4, 16, 0, 100, VALID_TOOLS);
+  /** Tool stat for chance of edible triggering when attacked. */
+  public static final FloatToolStat COUNTER_CHANCE = new FloatToolStat(new ToolStatId(TConstruct.MOD_ID, "edible_counter_chance"), 0xFFF0A8A4, 0, 0, 1, VALID_TOOLS);
+
   /** Module for adding a modifier with this module to the tool */
   public static final ModifierModule EDIBLE_TRAIT = new ModifierTraitModule(TinkerModifiers.edible.getId(), 1, false);
 
@@ -155,11 +159,13 @@ public record EdibleModule(LevelingValue chance) implements ModifierModule, Gene
 
   @Override
   public void onAttacked(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
-    if (!tool.isBroken() && tool.hasTag(TinkerTags.Items.ARMOR) && tool.getStats().getInt(HUNGER) > 0) {
-      LivingEntity entity = context.getEntity();
-      float level = CounterModule.getLevel(tool, modifier, slotType, entity);
-      if (context.getLevel().random.nextFloat() < chance.compute(level) && entity instanceof Player player && player.canEat(true)) {
-        eat(tool, player, slotType);
+    if (!tool.isBroken() && tool.hasTag(TinkerTags.Items.ARMOR)) {
+      StatsNBT stats = tool.getStats();
+      if (stats.getInt(HUNGER) > 0) {
+        LivingEntity entity = context.getEntity();
+        if (context.getLevel().random.nextFloat() < ConditionalStatModifierHook.getModifiedStat(tool, entity, COUNTER_CHANCE) && entity instanceof Player player && player.canEat(true)) {
+          eat(tool, player, slotType);
+        }
       }
     }
   }

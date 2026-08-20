@@ -2,10 +2,7 @@
   "level_display": "tconstruct:default",
   "modules": [
     {
-      "type": "tconstruct:edible",
-      "counter_chance": {
-        "each_level": 0.15
-      }
+      "type": "tconstruct:edible"
     }
   ],
   "priority": 40,

@@ -938,7 +938,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     // internal
     buildModifier(ModifierIds.overslimeFriend).tooltipDisplay(TooltipDisplay.NEVER);
     buildModifier(ModifierIds.snowBoots).addModule(new VolatileFlagModule(ModifiableArmorItem.SNOW_BOOTS)).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
-    buildModifier(TinkerModifiers.edible).priority(40).tooltipDisplay(TooltipDisplay.NEVER).addModule(new EdibleModule(LevelingValue.eachLevel(0.15f)));
+    buildModifier(TinkerModifiers.edible).priority(40).tooltipDisplay(TooltipDisplay.NEVER).addModule(EdibleModule.INSTANCE);
 
     // traits - tier 1
     buildModifier(ModifierIds.cultivated).addModule(RepairModule.builder().eachLevel(0.5f));
@@ -1248,21 +1248,24 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(new EdibleRepresentativeItemModule(TinkerCommons.bacon))
       .addModule(new EdibleConsumeDurabilityModule(new LevelingInt(5, 5)))
       .addModule(StatBoostModule.add(EdibleModule.HUNGER).eachLevel(1))
-      .addModule(StatBoostModule.add(EdibleModule.SATURATION).flat(0.6f));
+      .addModule(StatBoostModule.add(EdibleModule.SATURATION).flat(0.6f))
+      .addModule(StatBoostModule.add(EdibleModule.COUNTER_CHANCE).eachLevel(0.15f));
     buildModifier(ModifierIds.scrumptious).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
       .addModule(EdibleModule.EDIBLE_TRAIT)
       .addModule(new EdibleRepresentativeItemModule(Items.HONEY_BOTTLE))
       .addModule(new EdibleConsumeDurabilityModule(new LevelingInt(5, 3)))
       .addModule(new EdibleRemoveEffectModule(MobEffects.POISON))
       .addModule(StatBoostModule.add(EdibleModule.HUNGER).eachLevel(1))
-      .addModule(StatBoostModule.add(EdibleModule.SATURATION).flat(0.1f));
+      .addModule(StatBoostModule.add(EdibleModule.SATURATION).flat(0.1f))
+      .addModule(StatBoostModule.add(EdibleModule.COUNTER_CHANCE).eachLevel(0.15f));
     buildModifier(ModifierIds.savory).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
       .addModule(EdibleModule.EDIBLE_TRAIT)
       .addModule(new EdibleRepresentativeItemModule(TinkerCommons.cheeseIngot))
       .addModule(new EdibleConsumeDurabilityModule(new LevelingInt(4, 4)))
       .addModule(new EdibleCureRandomEffectModule())
       .addModule(StatBoostModule.add(EdibleModule.HUNGER).eachLevel(1))
-      .addModule(StatBoostModule.add(EdibleModule.SATURATION).flat(0.4f));
+      .addModule(StatBoostModule.add(EdibleModule.SATURATION).flat(0.4f))
+      .addModule(StatBoostModule.add(EdibleModule.COUNTER_CHANCE).eachLevel(0.15f));
     buildModifier(ModifierIds.crystalbound)
       .addModule(RestrictAngleModule.INSTANCE)
       .addModule(StatBoostModule.add(ToolStats.VELOCITY).toolTag(TinkerTags.Items.RANGED).eachLevel(0.1f))

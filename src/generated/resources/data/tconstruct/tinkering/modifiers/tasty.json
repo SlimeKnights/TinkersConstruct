@@ -29,6 +29,12 @@
       "flat": 0.6,
       "operation": "add",
       "stat": "tconstruct:saturation"
+    },
+    {
+      "type": "tconstruct:stat_boost",
+      "each_level": 0.15,
+      "operation": "add",
+      "stat": "tconstruct:edible_counter_chance"
     }
   ],
   "tooltip_display": "always"

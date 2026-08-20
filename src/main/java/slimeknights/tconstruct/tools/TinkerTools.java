@@ -322,6 +322,7 @@ public final class TinkerTools extends TinkerModule {
       ToolStats.registerConditional(EdibleModule.HUNGER);
       ToolStats.registerConditional(EdibleModule.SATURATION);
       ToolStats.register(EdibleModule.EAT_DURATION);
+      ToolStats.registerConditional(EdibleModule.COUNTER_CHANCE);
 
       ToolModule.LOADER.register(getResource("empty"), ToolModule.EMPTY.getLoader());
       // tool definition components
