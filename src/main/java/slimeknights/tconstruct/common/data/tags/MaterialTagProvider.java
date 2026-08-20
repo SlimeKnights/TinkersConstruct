@@ -158,7 +158,8 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
       MaterialIds.wood, MaterialIds.chorus,
       MaterialIds.string, MaterialIds.vine, MaterialIds.leather,
       // tier 2
-      MaterialIds.slimewood, MaterialIds.necroticBone, MaterialIds.skyslimeVine,
+      MaterialIds.slimewood, MaterialIds.necroticBone,
+      MaterialIds.skyslimeVine, MaterialIds.cheese,
       // tier 3
       MaterialIds.slimesteel, MaterialIds.darkthread, MaterialIds.cobalt, MaterialIds.pigIron,
       // tier 4
