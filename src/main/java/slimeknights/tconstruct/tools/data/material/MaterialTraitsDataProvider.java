@@ -184,7 +184,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addTraits(MaterialIds.earthslime, SlimeStats.ID, ModifierIds.overgrowth, TinkerModifiers.overslime.getId());
     addTraits(MaterialIds.skyslime, SlimeStats.ID, ModifierIds.skyfall, TinkerModifiers.overslime.getId(), ModifierIds.overslimeFriend);
     addTraits(MaterialIds.ichor, SlimeStats.ID, ModifierIds.godspeed, TinkerModifiers.overslime.getId(), ModifierIds.overslimeFriend);
-    addTraits(MaterialIds.enderslime, SlimeStats.ID, ModifierIds.enderdodging, TinkerModifiers.overslime.getId());
+    addTraits(MaterialIds.enderslime, SlimeStats.ID, ModifierIds.enderdodging, TinkerModifiers.overslime.getId(), ModifierIds.overslimeFriend);
     addTraits(MaterialIds.magma, SlimeStats.ID, ModifierIds.fireProtection, TinkerModifiers.overslime.getId(), ModifierIds.overslimeFriend);
     addTraits(MaterialIds.blood, SlimeStats.ID, ModifierIds.reverted, TinkerModifiers.overslime.getId(), ModifierIds.overslimeFriend);
     // pseudoslime
