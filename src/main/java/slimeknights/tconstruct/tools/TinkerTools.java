@@ -319,8 +319,8 @@ public final class TinkerTools extends TinkerModule {
       ToolStats.register(OverslimeModule.OVERSLIME_STAT);
       ToolStats.register(ToolTankHelper.CAPACITY_STAT);
       ToolStats.register(ToolEnergyCapability.MAX_STAT);
-      ToolStats.register(EdibleModule.HUNGER);
-      ToolStats.register(EdibleModule.SATURATION);
+      ToolStats.registerConditional(EdibleModule.HUNGER);
+      ToolStats.registerConditional(EdibleModule.SATURATION);
       ToolStats.register(EdibleModule.EAT_DURATION);
 
       ToolModule.LOADER.register(getResource("empty"), ToolModule.EMPTY.getLoader());

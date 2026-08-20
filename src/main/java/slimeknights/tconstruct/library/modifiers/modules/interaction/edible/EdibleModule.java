@@ -21,6 +21,7 @@ import slimeknights.tconstruct.library.json.LevelingValue;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.armor.OnAttackedModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.build.ConditionalStatModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.UsingToolModifierHook;
@@ -52,11 +53,11 @@ public record EdibleModule(LevelingValue chance) implements ModifierModule, Gene
 
   /** Predicate for valid tools using the stats */
   private static final IJsonPredicate<Item> VALID_TOOLS = ItemPredicate.or(ItemPredicate.tag(TinkerTags.Items.INTERACTABLE_CHARGE), ItemPredicate.tag(TinkerTags.Items.ARMOR));
-  /** Tool stat for the amount of hunger restored upon eating this. */
+  /** Tool stat for the amount of hunger restored upon eating this. Supports conditional stats, but it's important to have at least a flat 1 to allow the tool to be eaten. */
   public static final FloatToolStat HUNGER = new FloatToolStat(new ToolStatId(TConstruct.MOD_ID, "hunger"), 0xFFF0A8A4, 0, 0, 200, VALID_TOOLS);
-  /** Tool stat for the amount of saturation restored upon eating this. */
+  /** Tool stat for the amount of saturation restored upon eating this. Supports conditional stats. */
   public static final FloatToolStat SATURATION = new FloatToolStat(new ToolStatId(TConstruct.MOD_ID, "saturation"), 0xFFF0A8A4, 0, 0, 200, VALID_TOOLS);
-  /** Tool stat for the time it takes to eat the food. */
+  /** Tool stat for the time it takes to eat the food. Does not support conditional stats. */
   public static final FloatToolStat EAT_DURATION = new FloatToolStat(new ToolStatId(TConstruct.MOD_ID, "eat_duration"), 0xFFF0A8A4, 16, 0, 100, VALID_TOOLS);
   /** Module for adding a modifier with this module to the tool */
   public static final ModifierModule EDIBLE_TRAIT = new ModifierTraitModule(TinkerModifiers.edible.getId(), 1, false);
@@ -93,10 +94,10 @@ public record EdibleModule(LevelingValue chance) implements ModifierModule, Gene
   /** Takes a nibble of the tool */
   private void eat(IToolStackView tool, Player player, EquipmentSlot eatenSlot) {
     StatsNBT stats = tool.getStats();
-    int hunger = stats.getInt(HUNGER);
+    int hunger = Math.round(ConditionalStatModifierHook.getModifiedStat(tool, player, HUNGER));
     if (hunger > 0) {
       // eat
-      float saturation = stats.get(SATURATION);
+      float saturation = ConditionalStatModifierHook.getModifiedStat(tool, player, SATURATION);
       player.getFoodData().eat(hunger, saturation);
 
       // sounds
