@@ -1260,7 +1260,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(EdibleModule.EDIBLE_TRAIT)
       .addModule(new EdibleRepresentativeItemModule(TinkerCommons.cheeseIngot))
       .addModule(new EdibleConsumeDurabilityModule(new LevelingInt(4, 4)))
-      .addModule(new EdibleCureRandomEffectModule(ModifierCondition.ANY_TOOL))
+      .addModule(new EdibleCureRandomEffectModule())
       .addModule(StatBoostModule.add(EdibleModule.HUNGER).eachLevel(1))
       .addModule(StatBoostModule.add(EdibleModule.SATURATION).flat(0.4f));
     buildModifier(ModifierIds.crystalbound)

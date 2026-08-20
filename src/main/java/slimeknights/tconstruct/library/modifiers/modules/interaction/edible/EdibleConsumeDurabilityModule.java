@@ -1,9 +1,12 @@
 package slimeknights.tconstruct.library.modifiers.modules.interaction.edible;
 
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
+import slimeknights.mantle.data.predicate.IJsonPredicate;
+import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
 import slimeknights.tconstruct.library.json.LevelingInt;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
@@ -19,14 +22,15 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import java.util.List;
 
 /** Module for making eating a tool consume durability. */
-public record EdibleConsumeDurabilityModule(LevelingInt durabilityUsage, ModifierCondition<IToolStackView> condition) implements ModifierModule, EdibleEffectHook, ConditionalModule<IToolStackView> {
+public record EdibleConsumeDurabilityModule(LevelingInt durabilityUsage, IJsonPredicate<LivingEntity> holder, ModifierCondition<IToolStackView> condition) implements ModifierModule, EdibleEffectHook, ConditionalModule<IToolStackView> {
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<EdibleConsumeDurabilityModule>defaultHooks(ModifierHooks.EDIBLE_EFFECT);
   public static final RecordLoadable<EdibleConsumeDurabilityModule> LOADER = RecordLoadable.create(
     LevelingInt.LOADABLE.requiredField("durability_usage", EdibleConsumeDurabilityModule::durabilityUsage),
+    LivingEntityPredicate.LOADER.defaultField("holder", EdibleConsumeDurabilityModule::holder),
     ModifierCondition.TOOL_FIELD, EdibleConsumeDurabilityModule::new);
 
   public EdibleConsumeDurabilityModule(LevelingInt durabilityUsage) {
-    this(durabilityUsage, ModifierCondition.ANY_TOOL);
+    this(durabilityUsage, LivingEntityPredicate.ANY, ModifierCondition.ANY_TOOL);
   }
 
   @Override
@@ -41,7 +45,7 @@ public record EdibleConsumeDurabilityModule(LevelingInt durabilityUsage, Modifie
 
   @Override
   public void onToolEaten(IToolStackView tool, ModifierEntry modifier, Player player, EquipmentSlot eatenSlot, int hunger, float saturation, List<ItemStack> representativeItems) {
-    if (condition.matches(tool, modifier)) {
+    if (condition.matches(tool, modifier) && holder.matches(player)) {
       int damage = this.durabilityUsage.compute(modifier.getEffectiveLevel());
       if (damage > 0 && ToolDamageUtil.directDamage(tool, damage, player, player.getItemBySlot(eatenSlot))) {
         player.broadcastBreakEvent(player.getUsedItemHand());
