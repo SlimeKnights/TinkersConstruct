@@ -110,7 +110,7 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
     );
     tag(AOE_INTERACTION).add(ModifierIds.pathing, ModifierIds.stripping, ModifierIds.tilling, ModifierIds.brushing, ModifierIds.splashing, ModifierIds.harvest);
     tag(CHARGE_EMPTY_BOW_WITH_DRAWTIME).add(ModifierIds.flinging, ModifierIds.springing, ModifierIds.bonking, ModifierIds.warping, ModifierIds.throwing);
-    tag(CHARGE_EMPTY_BOW_WITHOUT_DRAWTIME).add(ModifierIds.blocking, ModifierIds.scope, ModifierIds.zoom, ModifierIds.slurping, ModifierIds.tasty);
+    tag(CHARGE_EMPTY_BOW_WITHOUT_DRAWTIME).add(ModifierIds.blocking, ModifierIds.scope, ModifierIds.zoom, ModifierIds.slurping, ModifierIds.tasty, ModifierIds.savory, ModifierIds.scrumptious);
     tag(DRILL_ATTACKS).add(ModifierIds.flinging, ModifierIds.springing, ModifierIds.grapple);
     tag(SELF_KNOCKBACK_SLINGS).add(ModifierIds.flinging, ModifierIds.springing);
     tag(TARGET_KNOCKBACK_SLINGS).add(ModifierIds.bonking);
