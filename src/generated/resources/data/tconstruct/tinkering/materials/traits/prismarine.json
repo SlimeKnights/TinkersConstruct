@@ -9,6 +9,12 @@
         "level": 1,
         "name": "tconstruct:lure_rod"
       }
+    ],
+    "tconstruct:shell": [
+      {
+        "level": 2,
+        "name": "tconstruct:thorns"
+      }
     ]
   }
 }

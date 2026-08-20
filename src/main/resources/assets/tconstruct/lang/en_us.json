@@ -2026,6 +2026,8 @@
   "material.tconstruct.prismarine": "Prismarine",
   "material.tconstruct.prismarine.flavor": "Weapon of the sea",
   "material.tconstruct.prismarine.ammo": "Lets the ammo move freely underwater and grants +1 projectile damage per level to underwater targets. Fishing rods instead gain a level of lure.",
+  "material.tconstruct.prismarine.flavor.shell": "Guarded by the guardian",
+  "material.tconstruct.prismarine.encyclopedia.shell": "Adds a 15% chance per level to deal 1-4 damage on counterattacks, or a 30% chance when blocking.",
 
   "material.tconstruct.gunpowder": "Gunpowder",
   "material.tconstruct.gunpowder.flavor": "Explosive!",
@@ -2272,9 +2274,12 @@
   "material.tconstruct.clay.flavor": "All natural!",
   "material.tconstruct.clay.encyclopedia.slime": "Grants +1 armor per level.",
 
+  "material.tconstruct.phantom": "Phantom Membrane",
+  "material.tconstruct.phantom.flavor.shell": "Float like a phantom",
+  "material.tconstruct.phantom.encyclopedia.shell": "Reduces gravity by 5% plus 10% per level per piece.",
+
   "material.tconstruct.blood":   "Blood",
   "material.tconstruct.honey":   "Honey",
-  "material.tconstruct.phantom": "Phantom Membrane",
 
 
   "__comment": "Tier 2 Integration Materials",

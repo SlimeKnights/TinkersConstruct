@@ -1,5 +1,8 @@
 {
   "stats": {
-    "tconstruct:repair_kit": {}
+    "tconstruct:repair_kit": {},
+    "tconstruct:shell": {
+      "repair_amount": 432
+    }
   }
 }

@@ -151,8 +151,8 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addMaterial(MaterialIds.clay,  2, ORDER_REPAIR + 5, true);
     addMaterial(MaterialIds.honey, 2, ORDER_REPAIR + 5, true);
     addMaterial(MaterialIds.blood, 5, ORDER_REPAIR, false, true, null);
-    // slimesuit - repair
-    addMaterial(MaterialIds.phantom, 1, ORDER_REPAIR, true);
+    // slimesuit
+    addMaterial(MaterialIds.phantom, 2, ORDER_REPAIR + 5, true);
 
     // rose gold is most comparable to chain as you can use the extra slot for reinforced
     addRedirect(id("chain"), redirect(MaterialIds.roseGold));
