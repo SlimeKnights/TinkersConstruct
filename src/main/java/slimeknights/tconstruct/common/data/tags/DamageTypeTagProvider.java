@@ -108,7 +108,8 @@ public class DamageTypeTagProvider extends DamageTypeTagsProvider {
     // TF support
     String tf = "twilightforest";
     addOptional(MODIFIER_WHITELIST, tf, "axing", "slam", "ant");
-    addOptional(MELEE_PROTECTION, tf, "ghast_tear", "hydra_bite", "squish", "axing", "slam", "yeeted", "ant", "clamped", "spiked");
+    // all of these are attacks made by a TF mob, and mobs can use looting, so they belong on the shared melee tag
+    addOptional(IS_MELEE, tf, "ghast_tear", "hydra_bite", "squish", "axing", "slam", "yeeted", "ant", "clamped", "spiked");
     addOptional(MAGIC_PROTECTION, tf, "haunt", "ominous_fire", "twilight_scepter");
     addOptional(PROJECTILE_PROTECTION, tf, "falling_ice");
     // anything "magic" is good against lich shields, so tag our magic fluids
