@@ -116,7 +116,6 @@ import slimeknights.tconstruct.library.modifiers.modules.armor.ToolActionWalkerT
 import slimeknights.tconstruct.library.modifiers.modules.behavior.AttributeModule;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.BlockItemProviderModule;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.ConditionalStatModule;
-import slimeknights.tconstruct.library.modifiers.modules.behavior.EdibleModule;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.InfinityModule;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.MaterialRepairModule;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.ReduceToolDamageModule;
@@ -162,6 +161,12 @@ import slimeknights.tconstruct.library.modifiers.modules.display.MeleeInstrument
 import slimeknights.tconstruct.library.modifiers.modules.display.ModifierVariantColorModule;
 import slimeknights.tconstruct.library.modifiers.modules.display.ModifierVariantNameModule;
 import slimeknights.tconstruct.library.modifiers.modules.display.ShowInteractionSourceModule;
+import slimeknights.tconstruct.library.modifiers.modules.interaction.edible.EdibleConsumeDurabilityModule;
+import slimeknights.tconstruct.library.modifiers.modules.interaction.edible.EdibleCureEffectsModule;
+import slimeknights.tconstruct.library.modifiers.modules.interaction.edible.EdibleCureRandomEffectModule;
+import slimeknights.tconstruct.library.modifiers.modules.interaction.edible.EdibleModule;
+import slimeknights.tconstruct.library.modifiers.modules.interaction.edible.EdibleRemoveEffectModule;
+import slimeknights.tconstruct.library.modifiers.modules.interaction.edible.EdibleRepresentativeItemModule;
 import slimeknights.tconstruct.library.modifiers.modules.mining.ConditionalMiningSpeedModule;
 import slimeknights.tconstruct.library.modifiers.modules.technical.ArmorLevelModule;
 import slimeknights.tconstruct.library.modifiers.modules.technical.ArmorStatModule;
@@ -441,6 +446,8 @@ public final class TinkerModifiers extends TinkerModule {
   public static final StaticModifier<Modifier> tankHandler = MODIFIERS.register("tank_handler", () -> ModuleHookMap.builder().addModule(new TankModule(ToolTankHelper.TANK_HELPER)).modifier().levelDisplay(ModifierLevelDisplay.NO_LEVELS).priority(300).build());
   /** Handles the energy bar for Forge Energy using modifiers. */
   public static final StaticModifier<Modifier> energyHandler = MODIFIERS.register("energy_handler", EnergyHandlerModifier::new);
+  /** Handles the logic for eating tools. */
+  public static final DynamicModifier edible = MODIFIERS.registerDynamic("edible");
 
   // creative
   /** Handles adding extra modifier slots to a tool in creative */
@@ -859,7 +866,13 @@ public final class TinkerModifiers extends TinkerModule {
       ModifierModule.LOADER.register(getResource("show_offhand"), ShowOffhandModule.LOADER);
       ModifierModule.LOADER.register(getResource("tool_actions"), ToolActionsModule.LOADER);
       ModifierModule.LOADER.register(getResource("tool_action_transform"), ToolActionTransformModule.LOADER);
+      // edible
       ModifierModule.LOADER.register(getResource("edible"), EdibleModule.LOADER);
+      ModifierModule.LOADER.register(getResource("edible_consume_durability"), EdibleConsumeDurabilityModule.LOADER);
+      ModifierModule.LOADER.register(getResource("edible_representative_item"), EdibleRepresentativeItemModule.LOADER);
+      ModifierModule.LOADER.register(getResource("edible_cure_effects"), EdibleCureEffectsModule.LOADER);
+      ModifierModule.LOADER.register(getResource("edible_cure_random_effect"), EdibleCureRandomEffectModule.LOADER);
+      ModifierModule.LOADER.register(getResource("edible_remove_effect"), EdibleRemoveEffectModule.LOADER);
       // build
       ModifierModule.LOADER.register(getResource("conditional_stat"), ConditionalStatModule.LOADER);
       ModifierModule.LOADER.register(getResource("modifier_slot"), ModifierSlotModule.LOADER);

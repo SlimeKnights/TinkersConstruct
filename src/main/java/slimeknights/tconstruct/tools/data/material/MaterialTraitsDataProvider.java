@@ -79,6 +79,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.whitestone, ModifierIds.stoneshield);
     // tier 2 - binding
     addDefaultTraits(MaterialIds.skyslimeVine, ModifierIds.airborne, ModifierIds.overslimeFriend);
+    addDefaultTraits(MaterialIds.cheese, ModifierIds.savory);
     addTraits(MaterialIds.skyslimeVine, ARMOR, ModifierIds.skyfall, ModifierIds.overslimeFriend);
     addDefaultTraits(MaterialIds.weepingVine, ModifierIds.flamestance);
     addDefaultTraits(MaterialIds.twistingVine, ModifierIds.entangled);
@@ -189,6 +190,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addTraits(MaterialIds.blood, SlimeStats.ID, ModifierIds.reverted, TinkerModifiers.overslime.getId(), ModifierIds.overslimeFriend);
     // pseudoslime
     addTraits(MaterialIds.clay, SlimeStats.ID, ModifierIds.forming);
+    addTraits(MaterialIds.honey, SlimeStats.ID, ModifierIds.scrumptious);
     addTraits(MaterialIds.enderPearl, SlimeStats.ID, ModifierIds.magicProtection);
 
     // slimeskull
@@ -247,9 +249,5 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addTraits(MaterialIds.weepingVine, laces, ModifierIds.soulspeed);
     addTraits(MaterialIds.jeweledHide, laces, ModifierIds.fortunate);
     // enderslime vine uses standard armor
-
-    // slimesuit - repair
-    noTraits(MaterialIds.honey);
-    noTraits(MaterialIds.phantom);
   }
 }

@@ -319,6 +319,8 @@ public class ModifierIds {
 
   // traits - slimesuit
   public static final ModifierId reverted = id("reverted");
+  public static final ModifierId savory = id("savory");
+  public static final ModifierId scrumptious = id("scrumptious");
   // traits - slimeskull
   public static final ModifierId boonOfSssss = id("boon_of_sssss");
   public static final ModifierId balmOfSssss = id("balm_of_sssss");

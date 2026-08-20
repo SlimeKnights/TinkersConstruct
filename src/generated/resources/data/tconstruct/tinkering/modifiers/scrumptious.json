@@ -1,5 +1,5 @@
 {
-  "level_display": "tconstruct:default",
+  "level_display": "tconstruct:single_level",
   "modules": [
     {
       "type": "tconstruct:trait",
@@ -9,14 +9,18 @@
     },
     {
       "type": "tconstruct:edible_representative_item",
-      "representative_item": "tconstruct:bacon"
+      "representative_item": "minecraft:honey_bottle"
     },
     {
       "type": "tconstruct:edible_consume_durability",
       "durability_usage": {
-        "each_level": 5,
+        "each_level": 3,
         "flat": 5
       }
+    },
+    {
+      "type": "tconstruct:edible_remove_effect",
+      "effect": "minecraft:poison"
     },
     {
       "type": "tconstruct:stat_boost",
@@ -26,7 +30,7 @@
     },
     {
       "type": "tconstruct:stat_boost",
-      "flat": 0.6,
+      "flat": 0.1,
       "operation": "add",
       "stat": "tconstruct:saturation"
     }

@@ -331,6 +331,7 @@
 
     "__traits_slimesuit_": null,
     "enderdodging":  "#CC00FA",
+    "scrumptious":   "#FABF29",
     "reverted":      "#b50101",
     "float":         "#FFF6F6",
     "ram_attack":    "#817E76",
@@ -340,6 +341,7 @@
     "cobalamin":     "#2376DD",
     "loyal":         "#C4D6AE",
     "snow_boots":    "#C65C35",
+    "savory":        "#FFDD59",
     "entwined":      "#14B485",
     "looter":        "#503572",
     "fortunate":     "#A1FBE8",
@@ -558,7 +560,8 @@
     "honey":      "#FABF29",
     "venom":      "#EDEDED",
     "phantom":    "#C3B9A1",
-    "horn":       "#817E76"
+    "horn":       "#817E76",
+    "cheese":     "#FFDD59"
   },
 
   "harvest_tier.minecraft": {

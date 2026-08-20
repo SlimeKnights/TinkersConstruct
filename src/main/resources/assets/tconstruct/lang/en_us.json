@@ -2112,11 +2112,11 @@
 
   "material.tconstruct.pig_iron": "Pig Iron",
   "material.tconstruct.pig_iron.flavor": "The absolute best material, no debates.",
-  "material.tconstruct.pig_iron.encyclopedia": "Can be eaten to restore 1 hunger per level at 0.6 saturation at the cost of durability",
-  "material.tconstruct.pig_iron.armor": "Grants a 15% chance per level of eating the armor for 1 hunger per level at 0.6 saturation at the cost of durability",
+  "material.tconstruct.pig_iron.encyclopedia": "Can be eaten to restore 1 hunger per level at 0.6 saturation at the cost of durability.",
+  "material.tconstruct.pig_iron.armor": "Grants a 15% chance per level of eating the armor (consuming some durability) for 1 hunger per level at 0.6 saturation.",
   "material.tconstruct.pig_iron.skull": "Zombified Piglin",
   "material.tconstruct.pig_iron.skull_flavor": "You won't like me when I'm angry!",
-  "material.tconstruct.pig_iron.skull_encyclopedia": "Grants 2% protection per health lost below 11",
+  "material.tconstruct.pig_iron.skull_encyclopedia": "Grants 2% protection per health lost below 11.",
 
   "material.tconstruct.darkthread": "Darkthread",
   "material.tconstruct.darkthread.flavor": "Come to the dark side, we have sowing",
@@ -2275,8 +2275,12 @@
   "__comment": "Slimesuit materials",
 
   "material.tconstruct.clay": "Clay",
-  "material.tconstruct.clay.flavor": "All natural!",
+  "material.tconstruct.clay.flavor.slime": "All natural!",
   "material.tconstruct.clay.encyclopedia.slime": "Grants +1 armor per level.",
+
+  "material.tconstruct.honey": "Honey",
+  "material.tconstruct.honey.flavor.slime": "Super Sweet!",
+  "material.tconstruct.honey.encyclopedia.slime": "Grants a 15% chance per level of eating the armor (consuming some durability) for 1 hunger per level at 0.1 saturation that also cures poison.",
 
   "material.tconstruct.phantom": "Phantom Membrane",
   "material.tconstruct.phantom.flavor.shell": "Float like a phantom",
@@ -2294,8 +2298,11 @@
   "material.tconstruct.horn.flavor.shell": "Charge like a ram",
   "material.tconstruct.horn.encyclopedia.shell": "Unarmed attacks deal +4 damage per level while sprinting.",
 
-  "material.tconstruct.blood":   "Blood",
-  "material.tconstruct.honey":   "Honey",
+  "material.tconstruct.cheese": "Cheese",
+  "material.tconstruct.cheese.flavor": "Well Aged!",
+  "material.tconstruct.cheese.encyclopedia.slime": "Grants a 15% chance per level of eating the armor (consuming some durability) for 1 hunger per level at 0.4 saturation and to removes a random effect.",
+
+  "material.tconstruct.blood": "Blood",
 
 
   "__comment": "Tier 2 Integration Materials",
@@ -3322,6 +3329,12 @@
   "modifier.tconstruct.tasty": "Tasty",
   "modifier.tconstruct.tasty.flavor": "Om Nom Nom",
   "modifier.tconstruct.tasty.description": "Smells so good, you cannot resist taking a few bites of your tool",
+  "modifier.tconstruct.scrumptious": "Scrumptious",
+  "modifier.tconstruct.scrumptious.flavor": "Nom Om Nom",
+  "modifier.tconstruct.scrumptious.description": "Smells so good, you cannot resist taking a few bites of your armor",
+  "modifier.tconstruct.savory": "Savory",
+  "modifier.tconstruct.savory.flavor": "Nom Nom Om",
+  "modifier.tconstruct.savory.description": "Smells so good, you cannot resist taking a few bites of your shoes",
   "modifier.tconstruct.attractive": "Attractive",
   "modifier.tconstruct.attractive.flavor": "That's a really nice arrow",
   "modifier.tconstruct.attractive.description": "Draws in mobs near where the projectile hits.",

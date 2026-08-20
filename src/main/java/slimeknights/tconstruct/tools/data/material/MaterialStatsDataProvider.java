@@ -534,6 +534,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.blood,      new SlimeStats(150, 125)); // 275
     // pseudo-slime
     addMaterialStats(MaterialIds.clay,       new SlimeStats(150, 0));
+    addMaterialStats(MaterialIds.honey,      new SlimeStats(200, 0));
     addMaterialStats(MaterialIds.enderPearl, new SlimeStats(250, 0));
 
     // slimeskull
@@ -587,6 +588,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.leather, RepairStats.laces(97));
     addMaterialStats(MaterialIds.vine, RepairStats.laces(75));
     addMaterialStats(MaterialIds.skyslimeVine, RepairStats.laces(150));
+    addMaterialStats(MaterialIds.cheese, RepairStats.laces(111));
     addMaterialStats(MaterialIds.darkthread, RepairStats.laces(200));
     addMaterialStats(MaterialIds.twistingVine, RepairStats.laces(87));
     addMaterialStats(MaterialIds.weepingVine, RepairStats.laces(90));
@@ -595,9 +597,6 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
 
     // slimelytra - repair
     addMaterialStats(MaterialIds.phantom, StatlessMaterialStats.REPAIR_KIT);
-
-    // embellishments - TODO migrate to slimesuit slime materials
-    addMaterialStats(MaterialIds.honey);
   }
 
   private void addMisc() {

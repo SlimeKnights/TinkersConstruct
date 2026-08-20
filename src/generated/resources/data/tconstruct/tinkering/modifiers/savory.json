@@ -1,5 +1,5 @@
 {
-  "level_display": "tconstruct:default",
+  "level_display": "tconstruct:single_level",
   "modules": [
     {
       "type": "tconstruct:trait",
@@ -9,14 +9,17 @@
     },
     {
       "type": "tconstruct:edible_representative_item",
-      "representative_item": "tconstruct:bacon"
+      "representative_item": "tconstruct:cheese_ingot"
     },
     {
       "type": "tconstruct:edible_consume_durability",
       "durability_usage": {
-        "each_level": 5,
-        "flat": 5
+        "each_level": 4,
+        "flat": 4
       }
+    },
+    {
+      "type": "tconstruct:edible_cure_random_effect"
     },
     {
       "type": "tconstruct:stat_boost",
@@ -26,7 +29,7 @@
     },
     {
       "type": "tconstruct:stat_boost",
-      "flat": 0.6,
+      "flat": 0.4,
       "operation": "add",
       "stat": "tconstruct:saturation"
     }

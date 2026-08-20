@@ -243,8 +243,11 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     metalMaterialRecipe(consumer, MaterialIds.nicrosil, folder, "nicrosil", true);
 
     // slimesuit
-    materialRecipe(consumer, MaterialIds.enderslime, Ingredient.of(TinkerWorld.enderGeode), 1, 1, folder + "enderslime");
-    materialRecipe(consumer, MaterialIds.phantom,    Ingredient.of(Items.PHANTOM_MEMBRANE), 1, 1, folder + "phantom_membrane");
+    materialRecipe(consumer, MaterialIds.enderslime, Ingredient.of(TinkerWorld.enderGeode), 1, 1,    folder + "enderslime");
+    materialRecipe(consumer, MaterialIds.honey,      Ingredient.of(Items.HONEY_BOTTLE),     1, 1,    folder + "honey");
+    materialRecipe(consumer, MaterialIds.phantom,    Ingredient.of(Items.PHANTOM_MEMBRANE), 1, 1,    folder + "phantom_membrane");
+    materialRecipe(consumer, MaterialIds.cheese,     Ingredient.of(TinkerCommons.cheeseIngot), 1, 1, folder + "cheese_ingot");
+    materialRecipe(consumer, MaterialIds.cheese,     Ingredient.of(TinkerCommons.cheeseBlock), 4, 1, folder + "cheese_block");
     // goat horns
     // fallback recipe if mods add a new goat horn variant
     materialRecipe(withCondition(consumer, new TagCombinationCondition<>(List.of(InstrumentTags.GOAT_HORNS), TinkerTags.Instruments.VARIANT_HORNS)),
@@ -377,8 +380,9 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialMeltingCasting(consumer, MaterialIds.enderslime, TinkerFluids.enderSlime, FluidValues.SLIMEBALL, folder);
     materialMeltingCasting(consumer, MaterialIds.magma,      TinkerFluids.magma,      FluidValues.SLIMEBALL, folder);
     // slimesuit - pseudoslime
-    materialMeltingCasting(consumer, MaterialIds.clay,       TinkerFluids.moltenClay,  FluidValues.BRICK,    folder);
+    materialMeltingCasting(consumer, MaterialIds.clay,       TinkerFluids.moltenClay,  FluidValues.BRICK,     folder);
     materialMeltingCasting(consumer, MaterialIds.enderPearl, TinkerFluids.moltenEnder, FluidValues.SLIMEBALL, folder);
+    materialMeltingCasting(consumer, MaterialIds.honey,      TinkerFluids.honey,       FluidValues.BOTTLE,    folder);
     // slimesuit - repair kits
     materialMeltingCasting(consumer, MaterialIds.glass, TinkerFluids.moltenGlass, FluidValues.GLASS_PANE, folder);
   }

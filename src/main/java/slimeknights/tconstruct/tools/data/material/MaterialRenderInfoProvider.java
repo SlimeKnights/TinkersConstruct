@@ -152,7 +152,6 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.gunpowder);
     buildRenderInfo(MaterialIds.redstone);
     buildRenderInfo(MaterialIds.turtle);
-    buildRenderInfo(MaterialIds.horn);
     buildRenderInfo(MaterialIds.dragonScale);
     buildRenderInfo(MaterialIds.endRod);
     redirect(MaterialIds.magnetite, MaterialIds.steel);
@@ -168,6 +167,8 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.clay);
     buildRenderInfo(MaterialIds.honey);
     buildRenderInfo(MaterialIds.phantom);
+    buildRenderInfo(MaterialIds.horn);
+    buildRenderInfo(MaterialIds.cheese);
 
     // UI internal
     redirect(ToolBuildHandler.getRenderMaterial(0), MaterialIds.iron);
