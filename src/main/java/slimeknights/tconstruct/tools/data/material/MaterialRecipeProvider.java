@@ -251,7 +251,7 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     // goat horns
     // fallback recipe if mods add a new goat horn variant
     materialRecipe(withCondition(consumer, new TagCombinationCondition<>(List.of(InstrumentTags.GOAT_HORNS), TinkerTags.Instruments.VARIANT_HORNS)),
-      MaterialIds.horn, InstrumentIngredient.of(Items.GOAT_HORN, TinkerTags.Instruments.VARIANT_HORNS), 2, 1, folder + "horn/default");
+      MaterialIds.horn, InstrumentIngredient.of(Items.GOAT_HORN, TinkerTags.Instruments.VARIANT_HORNS), 4, 1, folder + "horn/default");
     hornMaterial(consumer, Instruments.PONDER_GOAT_HORN, folder);
     hornMaterial(consumer, Instruments.SING_GOAT_HORN,   folder);
     hornMaterial(consumer, Instruments.SEEK_GOAT_HORN,   folder);
@@ -294,10 +294,10 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialComposite(consumer, MaterialIds.leather,   MaterialIds.skySlimeskin,   TinkerFluids.skySlime,   FluidValues.SLIMEBALL, slimeskinFolder, "sky");
     materialComposite(consumer, MaterialIds.leather,   MaterialIds.ichorskin,      TinkerFluids.ichor,      FluidValues.SLIMEBALL, slimeskinFolder, "ichor");
     materialComposite(consumer, MaterialIds.leather,   MaterialIds.enderSlimeskin, TinkerFluids.enderSlime, FluidValues.SLIMEBALL, slimeskinFolder, "ender");
-    venomCleaning(consumer, MaterialIds.slimeskin,      MaterialIds.leather, slimeskinFolder, "earth_cleaning");
-    venomCleaning(consumer, MaterialIds.skySlimeskin,   MaterialIds.leather, slimeskinFolder, "sky_cleaning");
-    venomCleaning(consumer, MaterialIds.ichorskin,      MaterialIds.leather, slimeskinFolder, "ichor_cleaning");
-    venomCleaning(consumer, MaterialIds.enderSlimeskin, MaterialIds.leather, slimeskinFolder, "ender_cleaning");
+    venomCleaning(consumer, MaterialIds.slimeskin,      slimeskinFolder, "earth_cleaning");
+    venomCleaning(consumer, MaterialIds.skySlimeskin,   slimeskinFolder, "sky_cleaning");
+    venomCleaning(consumer, MaterialIds.ichorskin,      slimeskinFolder, "ichor_cleaning");
+    venomCleaning(consumer, MaterialIds.enderSlimeskin, slimeskinFolder, "ender_cleaning");
 
     // tier 3
     materialMeltingCasting(consumer, MaterialIds.slimesteel,     TinkerFluids.moltenSlimesteel, folder);
@@ -325,9 +325,9 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialComposite(consumer, MaterialIds.bloodshroom,  MaterialIds.blazewood,   TinkerFluids.blazingBlood, FluidType.BUCKET_VOLUME / 5, folder);
     materialComposite(consumer, MaterialIds.necroticBone, MaterialIds.blazingBone, TinkerFluids.blazingBlood, FluidType.BUCKET_VOLUME / 5, folder);
     materialMeltingComposite(consumer, MaterialIds.leather, MaterialIds.jeweledHide, TinkerFluids.moltenDiamond, FluidValues.GEM, folder);
-    venomCleaning(consumer, MaterialIds.jeweledHide, MaterialIds.leather, folder, "jeweled_hide_cleaning");
+    venomCleaning(consumer, MaterialIds.jeweledHide, folder, "jeweled_hide_cleaning");
     materialMelting(consumer, MaterialIds.ancientHide, TinkerFluids.moltenDebris, FluidValues.INGOT, folder);
-    venomCleaning(consumer, MaterialIds.ancientHide, MaterialIds.leather, folder, "ancient_hide_cleaning");
+    venomCleaning(consumer, MaterialIds.ancientHide, folder, "ancient_hide_cleaning");
 
     // tier 2 compat
     compatMeltingCasting(consumer, MaterialIds.osmium,   TinkerFluids.moltenOsmium,   folder);
@@ -394,8 +394,8 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
   }
 
   /** Adds recipes to clean leather with venom */
-  private void venomCleaning(Consumer<FinishedRecipe> consumer, MaterialVariantId input, MaterialVariantId output, String folder, String name) {
-    MaterialFluidRecipeBuilder.material(output)
+  private void venomCleaning(Consumer<FinishedRecipe> consumer, MaterialVariantId input, String folder, String name) {
+    MaterialFluidRecipeBuilder.material(MaterialIds.leather)
       .setInputId(input)
       .setFluid(TinkerFluids.venom.ingredient(FluidValues.SIP))
       .setTemperature(getTemperature(TinkerFluids.venom))
@@ -406,6 +406,6 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
   /** Adds a recipe for crafting a goat horn material */
   private void hornMaterial(Consumer<FinishedRecipe> consumer, ResourceKey<Instrument> instrument, String folder) {
     ResourceLocation key = instrument.location();
-    materialRecipe(consumer, MaterialVariantId.create(MaterialIds.horn, key.toLanguageKey()), InstrumentIngredient.of(Items.GOAT_HORN, instrument), 2, 1, folder + "horn/" + key.getPath());
+    materialRecipe(consumer, MaterialVariantId.create(MaterialIds.horn, key.toLanguageKey()), InstrumentIngredient.of(Items.GOAT_HORN, instrument), 4, 1, folder + "horn/" + key.getPath());
   }
 }
