@@ -1,0 +1,10 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:edible"
+    }
+  ],
+  "priority": 40,
+  "tooltip_display": "never"
+}

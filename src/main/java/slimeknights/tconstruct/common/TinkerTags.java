@@ -11,6 +11,7 @@ import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.Instrument;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.level.Level;
@@ -50,6 +51,7 @@ public class TinkerTags {
     DamageTypes.init();
     MenuTypes.init();
     Potions.init();
+    Instruments.init();
     MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, TagsUpdatedEvent.class, event -> tagsLoaded = true);
   }
 
@@ -524,7 +526,11 @@ public class TinkerTags {
 
     /** Tools that can receive wood based embellishments */
     public static final TagKey<Item> EMBELLISHMENT_WOOD = local("modifiable/embellishment/wood");
-    /** Tools that can receive slime based embellishments */
+    /**
+     * Tools that can receive slime based embellishments.
+     * @deprecated Will be removed in 1.21 due to slimesuit rework. Plan to reimplement if needed.
+     */
+    @Deprecated
     public static final TagKey<Item> EMBELLISHMENT_SLIME = local("modifiable/embellishment/slime");
     /** Tools that can be dyed */
     public static final TagKey<Item> DYEABLE = local("modifiable/dyeable");
@@ -940,5 +946,12 @@ public class TinkerTags {
 
     /** Any potion variants in this tag will be hidden from the variants of the potion fluid shown in JEI. */
     public static final TagKey<Potion> HIDDEN_FLUID = TagKey.create(Registries.POTION, getResource("hide_in_fluid"));
+  }
+
+  public static class Instruments {
+    private static void init() {}
+
+    /** Any goat horns that have a material variant recipe. */
+    public static final TagKey<Instrument> VARIANT_HORNS = TagKey.create(Registries.INSTRUMENT, getResource("variant_horns"));
   }
 }

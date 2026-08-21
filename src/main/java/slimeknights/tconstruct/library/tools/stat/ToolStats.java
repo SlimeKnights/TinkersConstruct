@@ -3,14 +3,18 @@ package slimeknights.tconstruct.library.tools.stat;
 import com.google.gson.JsonSyntaxException;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import slimeknights.mantle.data.loadable.ErrorFactory;
 import slimeknights.mantle.data.loadable.primitive.StringLoadable;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import static slimeknights.mantle.data.predicate.item.ItemPredicate.or;
 import static slimeknights.mantle.data.predicate.item.ItemPredicate.tag;
@@ -40,6 +44,35 @@ public class ToolStats {
 
   /** Map of ID to stat */
   private static final Map<ToolStatId,IToolStat<?>> ALL_STATS = new HashMap<>();
+  /** Set of stats supporting {@link slimeknights.tconstruct.library.modifiers.hook.build.ConditionalStatModifierHook} */
+  private static final Set<INumericToolStat<?>> CONDITIONAL = new HashSet<>();
+
+  /** Logs an error message for unsupported stats */
+  private static void logUnsupportedConditional(INumericToolStat<?> stat) {
+    // TODO 1.21: make this error instead of log
+    ResourceLocation id = stat.getName();
+    if (TConstruct.MOD_ID.equals(id.getNamespace())) {
+      TConstruct.LOG.error("Tool stat {} does not support conditional stats but is used in a conditional stat loader.", id);
+    } else {
+      TConstruct.LOG.warn("Tool stat {} is not marked as supporting conditional stats but is used in a conditional stat loader. This may be a bug with the mod adding the stat having not marked it using the new API.", id);
+    }
+  }
+
+  /** Loader that filters to only numeric tool stats */
+  public static final StringLoadable<INumericToolStat<?>> CONDITIONAL_LOADER = LOADER.xmap((stat, error) -> {
+    if (stat instanceof INumericToolStat<?> numeric) {
+      if (error == ErrorFactory.JSON_SYNTAX_ERROR && !CONDITIONAL.contains(numeric)) {
+        logUnsupportedConditional(numeric);
+      }
+      return numeric;
+    }
+    throw error.create("Invalid tool stat " + stat.getName() + ", must be a numeric stat");
+  }, (stat, error) -> {
+    if (error == ErrorFactory.RUNTIME && !CONDITIONAL.contains(stat)) {
+      throw error.create("Tool stat " + stat.getName() + " does not support conditional stats but is used in a conditional stat loader.");
+    }
+    return stat;
+  });
 
   /** Tools durability, determines how long it lasts */
   public static final FloatToolStat DURABILITY = register(new FloatToolStat(name("durability"), 0xFF47CC47, 1, 1, Integer.MAX_VALUE, TinkerTags.Items.DURABILITY));
@@ -70,26 +103,26 @@ public class ToolStats {
   /** Maximum damage blocked by the shield. If more than this number is dealt, the damage is reduced by this number */
   public static final FloatToolStat BLOCK_AMOUNT = register(new FloatToolStat(name("block_amount"), 0xFF78A0CD, 5, 0, 2048, TinkerTags.Items.HELD));
   /** Maximum angle of blocking in degrees. 180 is vanilla (90 degrees either direction). */
-  public static final FloatToolStat BLOCK_ANGLE = register(new FloatToolStat(name("block_angle"), 0xFF78A0CD, 120, 0, 180, TinkerTags.Items.HELD));
+  public static final FloatToolStat BLOCK_ANGLE = registerConditional(new FloatToolStat(name("block_angle"), 0xFF78A0CD, 120, 0, 180, TinkerTags.Items.HELD));
 
   // ranged
   /** Number of times per second a tool can be used */
-  public static final FloatToolStat DRAW_SPEED = register(new FloatToolStat(name("draw_speed"), 0xFF8547CC, 1, 0, 1024f, TinkerTags.Items.RANGED));
+  public static final FloatToolStat DRAW_SPEED = registerConditional(new FloatToolStat(name("draw_speed"), 0xFF8547CC, 1, 0, 1024f, TinkerTags.Items.RANGED));
   /** Starting velocity of the projectile launched from a ranged weapon */
-  public static final FloatToolStat VELOCITY = register(new FloatToolStat(name("velocity"), 0xFF78A0CD, 1, 0, 1024f, or(tag(TinkerTags.Items.RANGED), tag(TinkerTags.Items.AMMO))));
+  public static final FloatToolStat VELOCITY = registerConditional(new FloatToolStat(name("velocity"), 0xFF78A0CD, 1, 0, 1024f, or(tag(TinkerTags.Items.RANGED), tag(TinkerTags.Items.AMMO))));
   /** Starting velocity of the projectile launched from a ranged weapon */
-  public static final FloatToolStat ACCURACY = register(new FloatToolStat(name("accuracy"), 0xFF8547CC, 0.75f, 0.1f, 1f, or(tag(TinkerTags.Items.RANGED), tag(TinkerTags.Items.AMMO))));
+  public static final FloatToolStat ACCURACY = registerConditional(new FloatToolStat(name("accuracy"), 0xFF8547CC, 0.75f, 0.1f, 1f, or(tag(TinkerTags.Items.RANGED), tag(TinkerTags.Items.AMMO))));
   /** Base damage of the projectile, boosted by enchantments such as power. Assumes the arrow itself does 2 damage, so we boost on top of that */
   // TODO 1.21: rename to projectile power?
-  public static final FloatToolStat PROJECTILE_DAMAGE = register(new FloatToolStat(name("projectile_damage"), 0xFFD76464, 2f, 0f, 1024f, or(tag(TinkerTags.Items.LAUNCHERS), tag(TinkerTags.Items.AMMO))));
+  public static final FloatToolStat PROJECTILE_DAMAGE = registerConditional(new FloatToolStat(name("projectile_damage"), 0xFFD76464, 2f, 0f, 1024f, or(tag(TinkerTags.Items.LAUNCHERS), tag(TinkerTags.Items.AMMO))));
   /** Projectile movement speed reduction while underwater */
-  public static final FloatToolStat WATER_INERTIA = register(new FloatToolStat(name("water_inertia"), 0xFF5A82F3, 0.6f, 0.01f, 0.99f));
+  public static final FloatToolStat WATER_INERTIA = registerConditional(new FloatToolStat(name("water_inertia"), 0xFF5A82F3, 0.6f, 0.01f, 0.99f));
 
   // fishing
   /** Luck bonus applied to fishing rods */
-  public static final FloatToolStat SEA_LUCK = register(new FloatToolStat(name("sea_luck"), 0xFF345EC3, 0, 0, 1024f, TinkerTags.Items.FISHING_RODS));
+  public static final FloatToolStat SEA_LUCK = registerConditional(new FloatToolStat(name("sea_luck"), 0xFF345EC3, 0, 0, 1024f, TinkerTags.Items.FISHING_RODS));
   /** Floored value will reduce fishing time by 5 seconds */
-  public static final FloatToolStat LURE = register(new FloatToolStat(name("lure"), 0xFFCBCC18, 0, 0, 5, TinkerTags.Items.FISHING_RODS));
+  public static final FloatToolStat LURE = registerConditional(new FloatToolStat(name("lure"), 0xFFCBCC18, 0, 0, 5, TinkerTags.Items.FISHING_RODS));
 
   /**
    * Gets the tool stat for the given name
@@ -123,18 +156,6 @@ public class ToolStats {
     throw new JsonSyntaxException("Invalid tool stat " + key + ", must be a numeric stat");
   }
 
-  /** @deprecated use {@link #LOADER} with {@link slimeknights.mantle.data.loadable.Loadable#decode(FriendlyByteBuf)} */
-  @Deprecated(forRemoval = true)
-  public static IToolStat<?> fromNetwork(FriendlyByteBuf buffer) {
-    return LOADER.decode(buffer);
-  }
-
-  /** @deprecated use {@link #NUMERIC_LOADER} with {@link slimeknights.mantle.data.loadable.Loadable#decode(FriendlyByteBuf)} */
-  @Deprecated(forRemoval = true)
-  public static INumericToolStat<?> numericFromNetwork(FriendlyByteBuf buffer) {
-    return NUMERIC_LOADER.decode(buffer);
-  }
-
   /**
    * Registers a new tool stat
    * @param toolStat  Stat to register
@@ -158,5 +179,43 @@ public class ToolStats {
   /** Creates a resource location for a Tinkers stat */
   private static ToolStatId name(String name) {
     return new ToolStatId(TConstruct.MOD_ID, name);
+  }
+
+
+  /* Conditional */
+
+  /** Marks a tool stat as supporting {@link slimeknights.tconstruct.library.modifiers.hook.build.ConditionalStatModifierHook} */
+  @SuppressWarnings("unused") // API
+  public static void markConditional(INumericToolStat<?>... toolStat) {
+    Collections.addAll(CONDITIONAL, toolStat);
+  }
+
+  /** Combination of {@link #register(IToolStat)} and {@link #markConditional(INumericToolStat[])} */
+  public static <T extends INumericToolStat<?>> T registerConditional(T toolStat) {
+    CONDITIONAL.add(toolStat);
+    return register(toolStat);
+  }
+
+  /**
+   * Checks if the given stat supports the condition stat hook.
+   * Note that some stats support conditional stats via a dedicated hook instead of using the generic one.
+   */
+  public static boolean supportsConditional(INumericToolStat<?> toolStat) {
+    return CONDITIONAL.contains(toolStat);
+  }
+
+
+  /* Deprecated */
+
+  /** @deprecated use {@link #LOADER} with {@link slimeknights.mantle.data.loadable.Loadable#decode(FriendlyByteBuf)} */
+  @Deprecated(forRemoval = true)
+  public static IToolStat<?> fromNetwork(FriendlyByteBuf buffer) {
+    return LOADER.decode(buffer);
+  }
+
+  /** @deprecated use {@link #NUMERIC_LOADER} with {@link slimeknights.mantle.data.loadable.Loadable#decode(FriendlyByteBuf)} */
+  @Deprecated(forRemoval = true)
+  public static INumericToolStat<?> numericFromNetwork(FriendlyByteBuf buffer) {
+    return NUMERIC_LOADER.decode(buffer);
   }
 }

@@ -5,7 +5,6 @@
   ],
   "generator": {
     "supported_stats": [
-      "tconstruct:repair_kit",
       "tconstruct:arrow_head"
     ],
     "transformer": {

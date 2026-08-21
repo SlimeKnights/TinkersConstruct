@@ -295,6 +295,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      new GripMaterialStats(-0.3f, 0.1f, 2.25f));
     // tier 2 - bowstring
     addMaterialStats(MaterialIds.skyslimeVine, StatlessMaterialStats.BOWSTRING);
+    addMaterialStats(MaterialIds.cheese, StatlessMaterialStats.BOWSTRING);
     addMaterialStats(MaterialIds.weepingVine, StatlessMaterialStats.BOWSTRING);
     addMaterialStats(MaterialIds.twistingVine, StatlessMaterialStats.BOWSTRING);
     addMaterialStats(MaterialIds.slimeskin, StatlessMaterialStats.BOWSTRING);
@@ -534,10 +535,11 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.blood,      new SlimeStats(150, 125)); // 275
     // pseudo-slime
     addMaterialStats(MaterialIds.clay,       new SlimeStats(150, 0));
+    addMaterialStats(MaterialIds.honey,      new SlimeStats(200, 0));
     addMaterialStats(MaterialIds.enderPearl, new SlimeStats(250, 0));
 
     // slimeskull
-    addMaterialStats(MaterialIds.glass,        new SkullStats( 90));
+    addMaterialStats(MaterialIds.gunpowder,    new SkullStats( 90));
     addMaterialStats(MaterialIds.blaze,        new SkullStats(150));
     // end
     addMaterialStats(MaterialIds.enderPearl,   new SkullStats(250));
@@ -558,14 +560,12 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.roseGold,     new SkullStats(175));
     addMaterialStats(MaterialIds.pigIron,      new SkullStats(150));
     // crafted
-    addMaterialStats(MaterialIds.venombone,    new SkullStats(175));
-    addMaterialStats(MaterialIds.blazingBone,  new SkullStats(205));
-    addMaterialStats(MaterialIds.necronium,    new SkullStats(157));
     addMaterialStats(MaterialIds.knightmetal,  new SkullStats(220));
 
     // slimecage
     addMaterialStats(MaterialIds.bone,         RepairStats.ribcage(100));
     addMaterialStats(MaterialIds.venombone,    RepairStats.ribcage(175));
+    addMaterialStats(MaterialIds.horn,         RepairStats.ribcage(275));
     addMaterialStats(MaterialIds.necroticBone, RepairStats.ribcage(125));
     addMaterialStats(MaterialIds.blazingBone,  RepairStats.ribcage(205));
     addMaterialStats(MaterialIds.necronium,    RepairStats.ribcage(357));
@@ -574,7 +574,9 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.endRod,       RepairStats.ribcage(250));
 
     // slimeshell
-    addMaterialStats(MaterialIds.turtle, RepairStats.shell(150));
+    addMaterialStats(MaterialIds.turtle, RepairStats.shell(275));
+    addMaterialStats(MaterialIds.phantom, RepairStats.shell(432));
+    addMaterialStats(MaterialIds.prismarine, RepairStats.shell(175));
     addMaterialStats(MaterialIds.shulker, RepairStats.shell(250));
     addMaterialStats(MaterialIds.dragonScale, RepairStats.shell(100));
     // shards
@@ -587,6 +589,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.leather, RepairStats.laces(97));
     addMaterialStats(MaterialIds.vine, RepairStats.laces(75));
     addMaterialStats(MaterialIds.skyslimeVine, RepairStats.laces(150));
+    addMaterialStats(MaterialIds.cheese, RepairStats.laces(111));
     addMaterialStats(MaterialIds.darkthread, RepairStats.laces(200));
     addMaterialStats(MaterialIds.twistingVine, RepairStats.laces(87));
     addMaterialStats(MaterialIds.weepingVine, RepairStats.laces(90));
@@ -595,10 +598,6 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
 
     // slimelytra - repair
     addMaterialStats(MaterialIds.phantom, StatlessMaterialStats.REPAIR_KIT);
-
-    // embellishments - TODO migrate to slimesuit slime materials
-    addMaterialStats(MaterialIds.clay);
-    addMaterialStats(MaterialIds.honey);
   }
 
   private void addMisc() {

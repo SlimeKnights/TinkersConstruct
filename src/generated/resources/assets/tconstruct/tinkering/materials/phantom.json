@@ -5,6 +5,7 @@
   ],
   "generator": {
     "supported_stats": [
+      "tconstruct:shell",
       "tconstruct:repair_kit"
     ],
     "transformer": {

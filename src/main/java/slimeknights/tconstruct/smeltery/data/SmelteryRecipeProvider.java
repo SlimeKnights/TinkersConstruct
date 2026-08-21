@@ -1271,10 +1271,6 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                             .setFluidAndTime(TinkerFluids.blazingBlood, FluidType.BUCKET_VOLUME / 5)
                             .setCast(TinkerTags.Items.WITHER_BONES, true)
                             .save(consumer, location(folder + "blaze/bone"));
-    ItemCastingRecipeBuilder.basinRecipe(TinkerWorld.headItems.get(TinkerHeadType.BLAZING_BONE))
-      .setFluidAndTime(TinkerFluids.blazingBlood, FluidType.BUCKET_VOLUME / 2)
-      .setCast(Items.WITHER_SKELETON_SKULL, true)
-      .save(consumer, location(folder + "blaze/skull"));
 
     // honey
     ItemCastingRecipeBuilder.tableRecipe(Items.HONEY_BOTTLE)
@@ -1316,10 +1312,6 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                             .setFluidAndTime(TinkerFluids.venom, FluidValues.SLIMEBALL)
                             .setCast(Tags.Items.BONES, true)
                             .save(consumer, location(slimeFolder + "venom/bone"));
-    ItemCastingRecipeBuilder.basinRecipe(TinkerWorld.headItems.get(TinkerHeadType.VENOMBONE))
-      .setFluidAndTime(TinkerFluids.venom, FluidValues.SLIMEBALL * 4)
-      .setCast(Items.SKELETON_SKULL, true)
-      .save(consumer, location(slimeFolder + "venom/skull"));
 
     // cheese
     ItemCastingRecipeBuilder.tableRecipe(TinkerCommons.cheeseIngot)
@@ -2588,10 +2580,6 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                             .setFluidAndTime(TinkerFluids.moltenUranium, FluidValues.INGOT)
                             .setCast(TinkerTags.Items.WITHER_BONES, true)
                             .save(withCondition(consumer, tagCondition("ingots/uranium")), location(folder + "necronium_bone"));
-    ItemCastingRecipeBuilder.tableRecipe(TinkerWorld.headItems.get(TinkerHeadType.NECRONIUM))
-      .setFluidAndTime(TinkerFluids.moltenUranium, FluidValues.INGOT * 3)
-      .setCast(Items.WITHER_SKELETON_SKULL, true)
-      .save(withCondition(consumer, tagCondition("ingots/uranium")), location(folder + "necronium_skull"));
   }
 
 

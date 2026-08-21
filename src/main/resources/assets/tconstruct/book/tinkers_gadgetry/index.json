@@ -99,7 +99,18 @@
   {
     "name": "armor",
     "icon": {
-      "item": "tconstruct:slime_boots"
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:slime_boots",
+        "nbt": {
+          "tic_broken": false,
+          "tic_display": true,
+          "tic_materials": [
+            "tconstruct:string",
+            "tconstruct:skyslime"
+          ]
+        }
+      }
     },
     "condition": {
       "type": "tconstruct:tag_not_empty",
@@ -114,7 +125,13 @@
   {
     "name": "materials",
     "data": "no-load",
-    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:skull" } },
+    "extraData": { "tconstruct:material_tier": [
+      { "type": "tconstruct:slime" },
+      { "type": "tconstruct:skull",   "suffix": "item.tconstruct.skull" },
+      { "type": "tconstruct:ribcage", "suffix": "item.tconstruct.ribcage" },
+      { "type": "tconstruct:shell",   "suffix": "item.tconstruct.shell" },
+      { "type": "tconstruct:laces",   "suffix": "item.tconstruct.laces" }
+    ]},
     "icon": {
       "item": "minecraft:skeleton_skull"
     }

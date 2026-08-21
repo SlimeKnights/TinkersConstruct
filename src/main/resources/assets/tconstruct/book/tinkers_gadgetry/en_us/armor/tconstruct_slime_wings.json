@@ -1,13 +1,14 @@
 {
   "tool": "tconstruct:slime_wings",
   "text": [
-    { "text": "Become the ultimate boxer!" },
-    { "text": "To create these futuristic wings, you simply need to pour enderslime on an elytra. The slimelytra can later be repaired using phantom membranes.", "paragraph": true }
+    { "text": "Fall with style!" },
+    { "text": "To create these futuristic wings, you simply need to pour slime on an elytra in a basin. The slimelytra can later be repaired using phantom membranes in addition to it's slime type.", "paragraph": true }
   ],
   "properties": [
-    "High Durability",
-    "No Armor or Defense Slots",
-    "5 Upgrade Slots",
-    "1 Ability Slot"
+    "Low Armor",
+    "0 Defense Slots",
+    "4 Upgrade Slots",
+    "1 Ability Slot",
+    "Wings"
   ]
 }

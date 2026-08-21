@@ -95,11 +95,17 @@
     }
   },
   {
-    "name": "materials_skull",
+    "name": "materials_slime",
     "data": "no-load",
-    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:skull", "detailed": true } },
+    "extraData": { "tconstruct:material_tier": [
+      { "type": "tconstruct:slime",   "detailed": true  },
+      { "type": "tconstruct:skull",   "detailed": true, "suffix": "item.tconstruct.skull" },
+      { "type": "tconstruct:ribcage", "detailed": true, "suffix": "item.tconstruct.ribcage" },
+      { "type": "tconstruct:shell",   "detailed": true, "suffix": "item.tconstruct.shell" },
+      { "type": "tconstruct:laces",   "detailed": true, "suffix": "item.tconstruct.laces" }
+    ]},
     "icon": {
-      "item": "minecraft:skeleton_skull"
+      "item": "minecraft:creeper_head"
     }
   },
   {

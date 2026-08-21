@@ -5,6 +5,7 @@ import slimeknights.mantle.client.book.data.SectionData;
 import slimeknights.mantle.client.book.transformer.SectionTransformer;
 import slimeknights.tconstruct.library.client.book.content.AbstractMaterialContent;
 import slimeknights.tconstruct.library.client.book.content.MeleeHarvestMaterialContent;
+import slimeknights.tconstruct.library.client.book.sectiontransformer.materials.TierRangeMaterialSectionTransformer.MaterialTier;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 
@@ -48,8 +49,9 @@ public abstract class AbstractMaterialSectionTransformer extends SectionTransfor
    * @param sectionData     Section data
    * @param validMaterial   Predicate to validate materials
    * @param pageCreator     Logic to create a page
-   * @deprecated use {@link TierRangeMaterialSectionTransformer#createPages(BookData, SectionData, Predicate, Function)}
+   * @deprecated use {@link MaterialTier#createPages(BookData, SectionData)}
    */
+  @SuppressWarnings("removal")
   @Deprecated(forRemoval = true)
   public static void createPages(BookData book, SectionData sectionData, Predicate<IMaterial> validMaterial, Function<MaterialVariantId,AbstractMaterialContent> pageCreator) {
     TierRangeMaterialSectionTransformer.createPages(book, sectionData, validMaterial, pageCreator, null);

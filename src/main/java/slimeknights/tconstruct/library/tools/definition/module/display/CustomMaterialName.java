@@ -50,25 +50,24 @@ public record CustomMaterialName(int index, String suffix) implements ToolNameHo
       return itemName;
     }
     // translate the suffixed key
-    Component component;
-    find: {
-      // first, try the material directly
-      String materialKey = MaterialTooltipCache.getKey(material) + '.' + suffix;
-      if (Util.canTranslate(materialKey)) {
-        component = Component.translatable(materialKey);
-        break find;
-      }
-      // if that did not work, do base material
-      if (material.hasVariant()) {
-        materialKey = MaterialTooltipCache.getKey(material.getId()) + '.' + suffix;
-        if (Util.canTranslate(materialKey)) {
-          component = Component.translatable(materialKey);
-          break find;
-        }
-      }
-      // if both failed, use the regular key
-      component = MaterialTooltipCache.getDisplayName(material);
+    return Component.translatable(TooltipUtil.KEY_FORMAT, getMaterialName(material, suffix), itemName);
+  }
+
+  /** Gets the material name for the given material and suffix */
+  public static Component getMaterialName(MaterialVariantId material, String suffix) {
+    // first, try the material directly
+    String materialKey = MaterialTooltipCache.getKey(material) + '.' + suffix;
+    if (Util.canTranslate(materialKey)) {
+      return Component.translatable(materialKey);
     }
-    return Component.translatable(TooltipUtil.KEY_FORMAT, component, itemName);
+    // if that did not work, do base material
+    if (material.hasVariant()) {
+      materialKey = MaterialTooltipCache.getKey(material.getId()) + '.' + suffix;
+      if (Util.canTranslate(materialKey)) {
+        return Component.translatable(materialKey);
+      }
+    }
+    // if both failed, use the regular key
+    return MaterialTooltipCache.getDisplayName(material);
   }
 }

@@ -89,12 +89,12 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addMaterial(MaterialIds.darkthread, 3, ORDER_BINDING, false);
     addMaterial(MaterialIds.ichorskin,  3, ORDER_BINDING, false);
     // tier 3 - ammo
-    addMaterial(MaterialIds.quartz,    3, ORDER_REPAIR, false);
-    addMaterial(MaterialIds.ichor,     3, ORDER_REPAIR, true);
-    addMaterial(MaterialIds.glowstone, 3, ORDER_REPAIR, true);
     addMaterial(MaterialIds.magnetite, 3, ORDER_REPAIR, true);
-    addMaterial(MaterialIds.kobold,    3, ORDER_REPAIR, true);
-    addMaterial(MaterialIds.magma,     3, ORDER_REPAIR, true);
+    addMaterial(MaterialIds.quartz,    3, ORDER_REPAIR + ORDER_NETHER, false);
+    addMaterial(MaterialIds.glowstone, 3, ORDER_REPAIR + ORDER_NETHER, true);
+    addMaterial(MaterialIds.ichor,     3, ORDER_REPAIR + ORDER_NETHER, true);
+    addMaterial(MaterialIds.kobold,    3, ORDER_REPAIR + ORDER_NETHER, true);
+    addMaterial(MaterialIds.magma,     3, ORDER_REPAIR + ORDER_NETHER, true);
     // tier 3 - misc
     addMaterial(MaterialIds.ice,     3, ORDER_BINDING, true);
     addMaterial(MaterialIds.jadeite, 3, ORDER_BINDING, true);
@@ -151,8 +151,10 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addMaterial(MaterialIds.clay,  2, ORDER_REPAIR + 5, true);
     addMaterial(MaterialIds.honey, 2, ORDER_REPAIR + 5, true);
     addMaterial(MaterialIds.blood, 5, ORDER_REPAIR, false, true, null);
-    // slimesuit - repair
-    addMaterial(MaterialIds.phantom, 1, ORDER_REPAIR, true);
+    // slimesuit
+    addMaterial(MaterialIds.horn, 1, ORDER_REPAIR, true);
+    addMaterial(MaterialIds.cheese, 2, ORDER_REPAIR, true);
+    addMaterial(MaterialIds.phantom, 2, ORDER_REPAIR + 5, true);
 
     // rose gold is most comparable to chain as you can use the extra slot for reinforced
     addRedirect(id("chain"), redirect(MaterialIds.roseGold));

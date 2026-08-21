@@ -1,0 +1,22 @@
+{
+  "level_display": "tconstruct:single_level",
+  "modules": [
+    {
+      "type": "tconstruct:conditional_melee_damage",
+      "attacker": "mantle:sprinting",
+      "each_level": 4.0,
+      "percent": false
+    },
+    {
+      "type": "tconstruct:melee_instrument",
+      "attacker": "mantle:sprinting",
+      "hooks": [
+        "tconstruct:melee_hit",
+        "tconstruct:monster_melee_hit"
+      ],
+      "instrument_material": "tconstruct:horn",
+      "instrument_tag": "minecraft:regular_goat_horns"
+    }
+  ],
+  "tooltip_display": "always"
+}

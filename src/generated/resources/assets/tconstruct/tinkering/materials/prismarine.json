@@ -5,7 +5,9 @@
   ],
   "generator": {
     "supported_stats": [
-      "tconstruct:arrow_head"
+      "tconstruct:arrow_head",
+      "tconstruct:shell",
+      "tconstruct:repair_kit"
     ],
     "transformer": {
       "type": "tconstruct:recolor_sprite",

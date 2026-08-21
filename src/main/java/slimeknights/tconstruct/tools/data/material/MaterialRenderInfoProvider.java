@@ -133,7 +133,7 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.steeleaf);
 
     // tier 4 compat
-    buildRenderInfo(MaterialIds.fiery).color(0x893D14).fallbacks("metal").luminosity(15);
+    buildRenderInfo(MaterialIds.fiery).color(0x893D14).luminosity(15);
     buildRenderInfo(MaterialIds.nicrosil).color(0xD9E6DC);
 
     // ammo
@@ -167,6 +167,8 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.clay);
     buildRenderInfo(MaterialIds.honey);
     buildRenderInfo(MaterialIds.phantom);
+    buildRenderInfo(MaterialIds.horn);
+    buildRenderInfo(MaterialIds.cheese);
 
     // UI internal
     redirect(ToolBuildHandler.getRenderMaterial(0), MaterialIds.iron);

@@ -18,6 +18,10 @@ import slimeknights.tconstruct.tools.stats.StatlessMaterialStats;
 import javax.annotation.Nullable;
 import java.util.List;
 
+/**
+ * Material content for ammo, showing heads, shafts, and fletching.
+ * TODO 1.21: move to {@link slimeknights.tconstruct.library.client.book.content.material}.
+ */
 public class AmmoMaterialContent extends AbstractMaterialContent {
   /** Page ID for using this index directly */
   public static final ResourceLocation ID = TConstruct.getResource("ammo_material");

@@ -2,9 +2,14 @@ package slimeknights.tconstruct.tools.data.material;
 
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.InstrumentTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Instrument;
+import net.minecraft.world.item.Instruments;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;
@@ -30,6 +35,7 @@ import slimeknights.tconstruct.library.data.recipe.IMaterialRecipeHelper;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.casting.material.MaterialFluidRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.ingredient.InstrumentIngredient;
 import slimeknights.tconstruct.library.recipe.melting.MaterialMeltingRecipeBuilder;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
@@ -39,9 +45,11 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.recipe.severing.SheepShearingRecipe;
 import slimeknights.tconstruct.world.TinkerWorld;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 import static slimeknights.mantle.Mantle.COMMON;
+import static slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe.getTemperature;
 
 public class MaterialRecipeProvider extends BaseRecipeProvider implements IMaterialRecipeHelper {
   public MaterialRecipeProvider(PackOutput packOutput) {
@@ -235,8 +243,23 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     metalMaterialRecipe(consumer, MaterialIds.nicrosil, folder, "nicrosil", true);
 
     // slimesuit
-    materialRecipe(consumer, MaterialIds.enderslime, Ingredient.of(TinkerWorld.enderGeode), 1, 1, folder + "enderslime");
-    materialRecipe(consumer, MaterialIds.phantom,    Ingredient.of(Items.PHANTOM_MEMBRANE), 1, 1, folder + "phantom_membrane");
+    materialRecipe(consumer, MaterialIds.enderslime, Ingredient.of(TinkerWorld.enderGeode), 1, 1,    folder + "enderslime");
+    materialRecipe(consumer, MaterialIds.honey,      Ingredient.of(Items.HONEY_BOTTLE),     1, 1,    folder + "honey");
+    materialRecipe(consumer, MaterialIds.phantom,    Ingredient.of(Items.PHANTOM_MEMBRANE), 1, 1,    folder + "phantom_membrane");
+    materialRecipe(consumer, MaterialIds.cheese,     Ingredient.of(TinkerCommons.cheeseIngot), 1, 1, folder + "cheese_ingot");
+    materialRecipe(consumer, MaterialIds.cheese,     Ingredient.of(TinkerCommons.cheeseBlock), 4, 1, folder + "cheese_block");
+    // goat horns
+    // fallback recipe if mods add a new goat horn variant
+    materialRecipe(withCondition(consumer, new TagCombinationCondition<>(List.of(InstrumentTags.GOAT_HORNS), TinkerTags.Instruments.VARIANT_HORNS)),
+      MaterialIds.horn, InstrumentIngredient.of(Items.GOAT_HORN, TinkerTags.Instruments.VARIANT_HORNS), 2, 1, folder + "horn/default");
+    hornMaterial(consumer, Instruments.PONDER_GOAT_HORN, folder);
+    hornMaterial(consumer, Instruments.SING_GOAT_HORN,   folder);
+    hornMaterial(consumer, Instruments.SEEK_GOAT_HORN,   folder);
+    hornMaterial(consumer, Instruments.FEEL_GOAT_HORN,   folder);
+    hornMaterial(consumer, Instruments.ADMIRE_GOAT_HORN, folder);
+    hornMaterial(consumer, Instruments.CALL_GOAT_HORN,   folder);
+    hornMaterial(consumer, Instruments.YEARN_GOAT_HORN,  folder);
+    hornMaterial(consumer, Instruments.DREAM_GOAT_HORN,  folder);
   }
 
   private void addMaterialSmeltery(Consumer<FinishedRecipe> consumer) {
@@ -271,10 +294,10 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialComposite(consumer, MaterialIds.leather,   MaterialIds.skySlimeskin,   TinkerFluids.skySlime,   FluidValues.SLIMEBALL, slimeskinFolder, "sky");
     materialComposite(consumer, MaterialIds.leather,   MaterialIds.ichorskin,      TinkerFluids.ichor,      FluidValues.SLIMEBALL, slimeskinFolder, "ichor");
     materialComposite(consumer, MaterialIds.leather,   MaterialIds.enderSlimeskin, TinkerFluids.enderSlime, FluidValues.SLIMEBALL, slimeskinFolder, "ender");
-    materialComposite(consumer, MaterialIds.slimeskin,      MaterialIds.leather, TinkerFluids.venom, FluidValues.SIP, slimeskinFolder, "earth_cleaning");
-    materialComposite(consumer, MaterialIds.skySlimeskin,   MaterialIds.leather, TinkerFluids.venom, FluidValues.SIP, slimeskinFolder, "sky_cleaning");
-    materialComposite(consumer, MaterialIds.ichorskin,      MaterialIds.leather, TinkerFluids.venom, FluidValues.SIP, slimeskinFolder, "ichor_cleaning");
-    materialComposite(consumer, MaterialIds.enderSlimeskin, MaterialIds.leather, TinkerFluids.venom, FluidValues.SIP, slimeskinFolder, "ender_cleaning");
+    venomCleaning(consumer, MaterialIds.slimeskin,      MaterialIds.leather, slimeskinFolder, "earth_cleaning");
+    venomCleaning(consumer, MaterialIds.skySlimeskin,   MaterialIds.leather, slimeskinFolder, "sky_cleaning");
+    venomCleaning(consumer, MaterialIds.ichorskin,      MaterialIds.leather, slimeskinFolder, "ichor_cleaning");
+    venomCleaning(consumer, MaterialIds.enderSlimeskin, MaterialIds.leather, slimeskinFolder, "ender_cleaning");
 
     // tier 3
     materialMeltingCasting(consumer, MaterialIds.slimesteel,     TinkerFluids.moltenSlimesteel, folder);
@@ -302,9 +325,9 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialComposite(consumer, MaterialIds.bloodshroom,  MaterialIds.blazewood,   TinkerFluids.blazingBlood, FluidType.BUCKET_VOLUME / 5, folder);
     materialComposite(consumer, MaterialIds.necroticBone, MaterialIds.blazingBone, TinkerFluids.blazingBlood, FluidType.BUCKET_VOLUME / 5, folder);
     materialMeltingComposite(consumer, MaterialIds.leather, MaterialIds.jeweledHide, TinkerFluids.moltenDiamond, FluidValues.GEM, folder);
-    materialComposite(consumer, MaterialIds.jeweledHide, MaterialIds.leather, TinkerFluids.venom, FluidValues.SIP, folder, "jeweled_hide_cleaning");
+    venomCleaning(consumer, MaterialIds.jeweledHide, MaterialIds.leather, folder, "jeweled_hide_cleaning");
     materialMelting(consumer, MaterialIds.ancientHide, TinkerFluids.moltenDebris, FluidValues.INGOT, folder);
-    materialComposite(consumer, MaterialIds.ancientHide, MaterialIds.leather, TinkerFluids.venom, FluidValues.SIP, folder, "ancient_hide_cleaning");
+    venomCleaning(consumer, MaterialIds.ancientHide, MaterialIds.leather, folder, "ancient_hide_cleaning");
 
     // tier 2 compat
     compatMeltingCasting(consumer, MaterialIds.osmium,   TinkerFluids.moltenOsmium,   folder);
@@ -357,15 +380,32 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialMeltingCasting(consumer, MaterialIds.enderslime, TinkerFluids.enderSlime, FluidValues.SLIMEBALL, folder);
     materialMeltingCasting(consumer, MaterialIds.magma,      TinkerFluids.magma,      FluidValues.SLIMEBALL, folder);
     // slimesuit - pseudoslime
-    materialMeltingCasting(consumer, MaterialIds.clay,       TinkerFluids.moltenClay,  FluidValues.BRICK,    folder);
+    materialMeltingCasting(consumer, MaterialIds.clay,       TinkerFluids.moltenClay,  FluidValues.BRICK,     folder);
     materialMeltingCasting(consumer, MaterialIds.enderPearl, TinkerFluids.moltenEnder, FluidValues.SLIMEBALL, folder);
+    materialMeltingCasting(consumer, MaterialIds.honey,      TinkerFluids.honey,       FluidValues.BOTTLE,    folder);
     // slimesuit - repair kits
     materialMeltingCasting(consumer, MaterialIds.glass, TinkerFluids.moltenGlass, FluidValues.GLASS_PANE, folder);
   }
 
-  /** Adds a  */
+  /** Adds a recipe casting whitestone from the given fluid */
   private void whitestoneCasting(Consumer<FinishedRecipe> consumer, FluidObject<?> fluid, String folder) {
     String name = TinkerFluids.withoutMolten(fluid);
     materialComposite(withCondition(consumer, tagCondition("ingots/" + name)), MaterialIds.rock, MaterialIds.whitestoneComposite, fluid, FluidValues.INGOT, folder, "whitestone_from_" + name);
+  }
+
+  /** Adds recipes to clean leather with venom */
+  private void venomCleaning(Consumer<FinishedRecipe> consumer, MaterialVariantId input, MaterialVariantId output, String folder, String name) {
+    MaterialFluidRecipeBuilder.material(output)
+      .setInputId(input)
+      .setFluid(TinkerFluids.venom.ingredient(FluidValues.SIP))
+      .setTemperature(getTemperature(TinkerFluids.venom))
+      .setHideInBook(true)
+      .save(consumer, location(folder + "composite/" + name));
+  }
+
+  /** Adds a recipe for crafting a goat horn material */
+  private void hornMaterial(Consumer<FinishedRecipe> consumer, ResourceKey<Instrument> instrument, String folder) {
+    ResourceLocation key = instrument.location();
+    materialRecipe(consumer, MaterialVariantId.create(MaterialIds.horn, key.toLanguageKey()), InstrumentIngredient.of(Items.GOAT_HORN, instrument), 2, 1, folder + "horn/" + key.getPath());
   }
 }

@@ -42,6 +42,7 @@ import slimeknights.tconstruct.library.tools.definition.module.material.Material
 import slimeknights.tconstruct.library.tools.definition.module.material.MaterialTraitsModule;
 import slimeknights.tconstruct.library.tools.definition.module.material.PartStatsModule;
 import slimeknights.tconstruct.library.tools.definition.module.material.PartsModule;
+import slimeknights.tconstruct.library.tools.definition.module.material.RemappingMaterialsModule;
 import slimeknights.tconstruct.library.tools.definition.module.material.StatlessPartRepairModule;
 import slimeknights.tconstruct.library.tools.definition.module.mining.IsEffectiveModule;
 import slimeknights.tconstruct.library.tools.definition.module.mining.MaxTierModule;
@@ -666,7 +667,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
         .stat(StatlessMaterialStats.CUIRASS, 1))
       .module(DefaultMaterialsModule.builder().material(MaterialIds.roseGold).material(MaterialIds.leather).build())
       .modules(slots -> MultiplyStatsModule.armor(slots)
-        .set(ArmorItem.Type.CHESTPLATE, ToolStats.ATTACK_DAMAGE, 0.55f)
+        .set(ArmorItem.Type.CHESTPLATE, ToolStats.ATTACK_DAMAGE, 0.6f)
         .setAll(ToolStats.DURABILITY, 0.75f))
       .module(ToolSlotsModule.builder()
         .slots(SlotType.UPGRADE, 2)
@@ -711,7 +712,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
          .part(TinkerToolParts.plating, 1)
          .part(TinkerToolParts.maille, 1))
       .module(plateMaterials)
-      .module(ArmorItem.Type.CHESTPLATE, new MultiplyStatsModule(MultiplierNBT.builder().set(ToolStats.ATTACK_DAMAGE, 0.4f).build()))
+      .module(ArmorItem.Type.CHESTPLATE, new MultiplyStatsModule(MultiplierNBT.builder().set(ToolStats.ATTACK_DAMAGE, 0.5f).build()))
       .module(plateSlots)
       // faster tool name logic
       .module(FixedMaterialToolName.FIRST);
@@ -738,11 +739,18 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       // materials
       // helmet - slime and skull
       .module(ArmorItem.Type.HELMET, MaterialStatsModule.stats().stat(SkullStats.ID).stat(SlimeStats.ID, 1.1f).build())
-      .module(ArmorItem.Type.HELMET, DefaultMaterialsModule.builder().material(anyMaterial, blood).build())
+      .module(ArmorItem.Type.HELMET, RemappingMaterialsModule.builder()
+        .material(anyMaterial, blood).remap()
+          .add(MaterialIds.glass, MaterialIds.gunpowder)
+          .add(MaterialIds.venombone, MaterialIds.ice)
+          .add(MaterialIds.blazingBone, MaterialIds.blaze)
+        .end().build())
       // chestplate - slime
-      .module(ArmorItem.Type.CHESTPLATE, MaterialStatsModule.stats().stat(RepairStats.RIBCAGE.getId()).stat(SlimeStats.ID, 1.6f).build())
+      .module(ArmorItem.Type.CHESTPLATE, MaterialStatsModule.stats().stat(RepairStats.RIBCAGE.getId()).stat(SlimeStats.ID, 1.6f).primaryPart(-1).build())
+      // add an extra copy of the material trait, plus add that when rebalanced
+      .module(ArmorItem.Type.CHESTPLATE, new MaterialTraitsModule(RepairStats.RIBCAGE.getId(), 0), ToolHooks.TOOL_TRAITS, ToolHooks.REBALANCED_TRAIT)
       .module(ArmorItem.Type.CHESTPLATE, DefaultMaterialsModule.builder().material(ToolBuildHandler.RANDOM, blood).build())
-      .module(ArmorItem.Type.CHESTPLATE, new MultiplyStatsModule(MultiplierNBT.builder().set(ToolStats.ATTACK_DAMAGE, 0.6f).build()))
+      .module(ArmorItem.Type.CHESTPLATE, new MultiplyStatsModule(MultiplierNBT.builder().set(ToolStats.ATTACK_DAMAGE, 0.75f).build()))
       .module(ArmorItem.Type.CHESTPLATE, new PartsModule(List.of(TinkerToolParts.ribcage.get())))
       // leggings - shell and slime
       .module(ArmorItem.Type.LEGGINGS, MaterialStatsModule.stats().stat(RepairStats.SHELL.getId()).stat(SlimeStats.ID, 1.5f).build())
@@ -757,7 +765,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
         .slots(SlotType.UPGRADE, 3)
         .slots(SlotType.ABILITY, 2).build())
       // traits
-      .module(ArmorItem.Type.CHESTPLATE, ToolTraitsModule.builder().trait(TinkerModifiers.ambidextrous).trait(ModifierIds.reach).build())
+      .module(ArmorItem.Type.CHESTPLATE, ToolTraitsModule.builder().trait(ModifierIds.reach).build())
       .module(ArmorItem.Type.LEGGINGS, ToolTraitsModule.builder().trait(ModifierIds.shellStorage, 1).build())
       .module(ArmorItem.Type.BOOTS, ToolTraitsModule.builder().trait(ModifierIds.bouncy).build())
       // armor trim
@@ -774,7 +782,8 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .module(MaterialStatsModule.stats().stat(SlimeStats.ID, 1.6f).primaryPart(-1).build())
       .module(DefaultMaterialsModule.builder().material(blood).build())
       // stats
-      .module(new MultiplyStatsModule(MultiplierNBT.builder().set(ToolStats.ATTACK_DAMAGE, 0.4f).build()))
+      .module(new SetStatsModule(StatsNBT.builder().set(ToolStats.DURABILITY, 222).build()))
+      .module(new MultiplyStatsModule(MultiplierNBT.builder().set(ToolStats.ATTACK_DAMAGE, 0.5f).build()))
       // slots
       .module(ToolSlotsModule.builder()
           .slots(SlotType.UPGRADE, 4)

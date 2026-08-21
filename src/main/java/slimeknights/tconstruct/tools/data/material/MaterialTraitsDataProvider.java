@@ -79,6 +79,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.whitestone, ModifierIds.stoneshield);
     // tier 2 - binding
     addDefaultTraits(MaterialIds.skyslimeVine, ModifierIds.airborne, ModifierIds.overslimeFriend);
+    addDefaultTraits(MaterialIds.cheese, ModifierIds.savory);
     addTraits(MaterialIds.skyslimeVine, ARMOR, ModifierIds.skyfall, ModifierIds.overslimeFriend);
     addDefaultTraits(MaterialIds.weepingVine, ModifierIds.flamestance);
     addDefaultTraits(MaterialIds.twistingVine, ModifierIds.entangled);
@@ -184,38 +185,36 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addTraits(MaterialIds.earthslime, SlimeStats.ID, ModifierIds.overgrowth, TinkerModifiers.overslime.getId());
     addTraits(MaterialIds.skyslime, SlimeStats.ID, ModifierIds.skyfall, TinkerModifiers.overslime.getId(), ModifierIds.overslimeFriend);
     addTraits(MaterialIds.ichor, SlimeStats.ID, ModifierIds.godspeed, TinkerModifiers.overslime.getId(), ModifierIds.overslimeFriend);
-    addTraits(MaterialIds.enderslime, SlimeStats.ID, ModifierIds.enderdodging, TinkerModifiers.overslime.getId());
+    addTraits(MaterialIds.enderslime, SlimeStats.ID, ModifierIds.enderdodging, TinkerModifiers.overslime.getId(), ModifierIds.overslimeFriend);
     addTraits(MaterialIds.magma, SlimeStats.ID, ModifierIds.fireProtection, TinkerModifiers.overslime.getId(), ModifierIds.overslimeFriend);
     addTraits(MaterialIds.blood, SlimeStats.ID, ModifierIds.reverted, TinkerModifiers.overslime.getId(), ModifierIds.overslimeFriend);
     // pseudoslime
     addTraits(MaterialIds.clay, SlimeStats.ID, ModifierIds.forming);
+    addTraits(MaterialIds.honey, SlimeStats.ID, ModifierIds.scrumptious);
     addTraits(MaterialIds.enderPearl, SlimeStats.ID, ModifierIds.magicProtection);
 
     // slimeskull
-    material(MaterialIds.glass).addTraits(SkullStats.ID, TinkerModifiers.selfDestructive.getId(), ModifierIds.creeperDisguise);
+    material(MaterialIds.gunpowder).addTraits(SkullStats.ID, TinkerModifiers.selfDestructive.getId(), ModifierIds.creeperDisguise);
     // end
     material(MaterialIds.enderPearl).addTraits(SkullStats.ID, ModifierIds.warping, ModifierIds.endermanDisguise);
     material(MaterialIds.dragonScale).addTraits(SkullStats.ID, ModifierIds.dragonheart);
     // skeleton
     material(MaterialIds.bone).addTraits(SkullStats.ID, TinkerModifiers.strongBones.getId(), ModifierIds.skeletonDisguise);
     material(MaterialIds.ice).addTraits(SkullStats.ID, ModifierIds.slowBones, ModifierIds.strayDisguise);
-    material(MaterialIds.necroticBone).addTraits(SkullStats.ID, ModifierIds.rebuff, ModifierIds.witherSkeletonDisguise);
+    material(MaterialIds.necroticBone).addTraits(SkullStats.ID, ModifierIds.witheredBones, ModifierIds.witherSkeletonDisguise);
     // spider
     material(MaterialIds.string).addTraits(SkullStats.ID, ModifierIds.boonOfSssss, ModifierIds.spiderDisguise);
     material(MaterialIds.darkthread).addTraits(SkullStats.ID, ModifierIds.balmOfSssss, ModifierIds.caveSpiderDisguise);
     // zombie
     material(MaterialIds.leather).addTraits(SkullStats.ID, new ModifierEntry(ModifierIds.consecrated, 2)).addTraits(SkullStats.ID, ModifierIds.zombieDisguise);
-    material(MaterialIds.iron).addTraits(SkullStats.ID, TinkerModifiers.plague.getId(), ModifierIds.huskDisguise);
+    material(MaterialIds.iron).addTraits(SkullStats.ID, ModifierIds.rebuff, ModifierIds.huskDisguise);
     material(MaterialIds.copper).addTraits(SkullStats.ID, new ModifierEntry(ModifierIds.respiration, 2)).addTraits(SkullStats.ID, ModifierIds.drownedDisguise);
     // nether
     material(MaterialIds.blaze).addTraits(SkullStats.ID, ModifierIds.fireborn, ModifierIds.blazeDisguise);
     material(MaterialIds.gold).addTraits(SkullStats.ID, TinkerModifiers.chrysophilite.getId(), ModifierIds.piglinDisguise, TinkerModifiers.golden.getId());
     material(MaterialIds.roseGold).addTraits(SkullStats.ID, TinkerModifiers.goldGuard.getId(), ModifierIds.piglinBruteDisguise, TinkerModifiers.golden.getId());
-    material(MaterialIds.pigIron).addTraits(SkullStats.ID, ModifierIds.revenge, ModifierIds.zombifiedPiglinDisguise);
+    material(MaterialIds.pigIron).addTraits(SkullStats.ID, new ModifierEntry(ModifierIds.vitalProtection, 2)).addTraits(SkullStats.ID, ModifierIds.zombifiedPiglinDisguise);
     // crafted
-    material(MaterialIds.venombone).addTraits(SkullStats.ID, ModifierIds.magicBones, ModifierIds.skeletonDisguise);
-    material(MaterialIds.blazingBone).addTraits(SkullStats.ID, ModifierIds.flamingBones, ModifierIds.witherSkeletonDisguise);
-    material(MaterialIds.necronium).addTraits(SkullStats.ID, ModifierIds.decayedBones, ModifierIds.witherSkeletonDisguise);
     material(MaterialIds.knightmetal).addTraits(SkullStats.ID, ModifierIds.spitting);
 
     // slimecage
@@ -224,11 +223,14 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addTraits(MaterialIds.blazingBone, cage, ModifierIds.conductive);
     addDefaultTraits(MaterialIds.jadeite, TinkerModifiers.insatiable);
     addTraits(MaterialIds.endRod, cage, ModifierIds.floaty);
+    addTraits(MaterialIds.horn, cage, ModifierIds.ramAttack);
 
     // slimeshell
     MaterialStatsId shell = RepairStats.SHELL.getId();
     // shells
     addTraits(MaterialIds.turtle, shell, ModifierIds.turtlesGrace);
+    addTraits(MaterialIds.phantom, shell, ModifierIds.skyfall);
+    addTraits(MaterialIds.prismarine, shell, new ModifierEntry(ModifierIds.thorns, 2));
     addTraits(MaterialIds.shulker, shell, ModifierIds.shulkerBox);
     addTraits(MaterialIds.dragonScale, shell, ModifierIds.dragonfall);
     // shards
@@ -247,9 +249,5 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addTraits(MaterialIds.weepingVine, laces, ModifierIds.soulspeed);
     addTraits(MaterialIds.jeweledHide, laces, ModifierIds.fortunate);
     // enderslime vine uses standard armor
-
-    // slimesuit - repair
-    noTraits(MaterialIds.honey);
-    noTraits(MaterialIds.phantom);
   }
 }

@@ -135,6 +135,7 @@ public class ModifierIds {
   public static final ModifierId wings = id("wings");
   public static final ModifierId knockbackResistance = id("knockback_resistance");
   public static final ModifierId cobalamin = id("cobalamin");
+  public static final ModifierId ramAttack = id("ram_attack");
   // counter
   public static final ModifierId thorns = id("thorns");
   public static final ModifierId ricochet = id("ricochet");
@@ -318,13 +319,13 @@ public class ModifierIds {
 
   // traits - slimesuit
   public static final ModifierId reverted = id("reverted");
+  public static final ModifierId savory = id("savory");
+  public static final ModifierId scrumptious = id("scrumptious");
   // traits - slimeskull
   public static final ModifierId boonOfSssss = id("boon_of_sssss");
   public static final ModifierId balmOfSssss = id("balm_of_sssss");
   public static final ModifierId slowBones = id("slow_bones");
-  public static final ModifierId magicBones = id("magic_bones");
-  public static final ModifierId flamingBones = id("flaming_bones");
-  public static final ModifierId decayedBones = id("decayed_bones");
+  public static final ModifierId witheredBones = id("withered");
   public static final ModifierId revenge = id("revenge");
   public static final ModifierId fireborn = id("fireborn");
   public static final ModifierId dragonheart = id("dragonheart");

@@ -39,7 +39,7 @@ import java.util.List;
 public record ConditionalStatModule(INumericToolStat<?> stat, IJsonPredicate<LivingEntity> holder, ConditionalStatFormula formula, ModifierCondition<IToolStackView> condition) implements ModifierModule, ConditionalStatModifierHook, ConditionalStatTooltip, ConditionalModule<IToolStackView> {
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<ConditionalStatModule>defaultHooks(ModifierHooks.CONDITIONAL_STAT, ModifierHooks.TOOLTIP);
   public static final RecordLoadable<ConditionalStatModule> LOADER = RecordLoadable.create(
-    ToolStats.NUMERIC_LOADER.requiredField("stat", ConditionalStatModule::stat),
+    ToolStats.CONDITIONAL_LOADER.requiredField("stat", ConditionalStatModule::stat),
     LivingEntityPredicate.LOADER.defaultField("entity", ConditionalStatModule::holder),
     ConditionalStatFormula.LOADER.directField(ConditionalStatModule::formula),
     ModifierCondition.TOOL_FIELD,

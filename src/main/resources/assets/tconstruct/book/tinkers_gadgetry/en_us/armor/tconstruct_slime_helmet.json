@@ -1,13 +1,14 @@
 {
   "tool": "tconstruct:slime_helmet",
   "text": [
-    { "text": "I have found enderslime can be used to mimic the effects of monsters with the proper focus such as a skull." },
-    { "text": "The skulls I have tested are described in the next section of the book.", "paragraph": true }
+    { "text": "I have found slime can be used to mimic the effects of monsters with the proper focus such as a skull." },
+    { "text": "Each skull grants a unique effect, covered in the next section.", "paragraph": true }
   ],
   "properties": [
-    "High Durability",
-    "5 Upgrade Slots",
+    "Low Armor",
     "0 Defense Slots",
-    "1 Ability Slot"
+    "3 Upgrade Slots",
+    "2 Ability Slots",
+    "Unique Skull Traits"
   ]
 }

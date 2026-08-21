@@ -8,8 +8,8 @@
   "perStat": {
     "tconstruct:skull": [
       {
-        "level": 1,
-        "name": "tconstruct:revenge"
+        "level": 2,
+        "name": "tconstruct:vital_protection"
       },
       {
         "level": 1,

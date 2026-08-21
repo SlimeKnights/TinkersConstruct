@@ -1,6 +1,12 @@
 {
   "type": "tconstruct:swappable_modifier",
   "allow_crystal": false,
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "tconstruct:modifiable/embellishment/slime"
+    }
+  ],
   "inputs": [
     {
       "item": "minecraft:clay"

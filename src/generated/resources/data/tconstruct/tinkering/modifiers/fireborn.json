@@ -2,16 +2,17 @@
   "level_display": "tconstruct:single_level",
   "modules": [
     {
-      "type": "tconstruct:block_damage",
-      "damage_source": {
-        "type": "mantle:damage_type",
-        "name": "minecraft:on_fire"
-      }
+      "type": "tconstruct:enchantment_ignoring_protection",
+      "level": {
+        "flat": 7
+      },
+      "name": "minecraft:fire_protection"
     },
     {
-      "type": "tconstruct:fiery_armor_attack",
-      "seconds": {
-        "each_level": 5
+      "type": "tconstruct:effect_immunity",
+      "effect": "tconstruct:conductive",
+      "max_level": {
+        "each_level": 1
       }
     }
   ],

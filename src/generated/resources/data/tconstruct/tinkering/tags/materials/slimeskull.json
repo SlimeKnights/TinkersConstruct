@@ -1,6 +1,6 @@
 {
   "values": [
-    "tconstruct:glass",
+    "tconstruct:gunpowder",
     "tconstruct:leather",
     "tconstruct:iron",
     "tconstruct:copper",
@@ -15,12 +15,6 @@
     "tconstruct:blaze",
     "tconstruct:ender_pearl",
     "tconstruct:dragon_scale",
-    "tconstruct:venombone",
-    "tconstruct:blazing_bone",
-    "tconstruct:knightmetal",
-    {
-      "id": "tconstruct:necronium",
-      "required": false
-    }
+    "tconstruct:knightmetal"
   ]
 }

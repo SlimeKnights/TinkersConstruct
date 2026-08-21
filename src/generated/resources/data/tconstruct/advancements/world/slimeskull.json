@@ -27,32 +27,6 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "blazing_bone": {
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool_stack",
-            "predicate": {
-              "type": "mantle:and",
-              "predicates": [
-                {
-                  "type": "mantle:set",
-                  "items": [
-                    "tconstruct:slime_helmet"
-                  ]
-                },
-                {
-                  "type": "tconstruct:has_material",
-                  "index": 0,
-                  "material": "tconstruct:blazing_bone"
-                }
-              ]
-            }
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
     "bone": {
       "conditions": {
         "items": [
@@ -183,32 +157,6 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "glass": {
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool_stack",
-            "predicate": {
-              "type": "mantle:and",
-              "predicates": [
-                {
-                  "type": "mantle:set",
-                  "items": [
-                    "tconstruct:slime_helmet"
-                  ]
-                },
-                {
-                  "type": "tconstruct:has_material",
-                  "index": 0,
-                  "material": "tconstruct:glass"
-                }
-              ]
-            }
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
     "gold": {
       "conditions": {
         "items": [
@@ -227,6 +175,32 @@
                   "type": "tconstruct:has_material",
                   "index": 0,
                   "material": "tconstruct:gold"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "gunpowder": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "mantle:and",
+              "predicates": [
+                {
+                  "type": "mantle:set",
+                  "items": [
+                    "tconstruct:slime_helmet"
+                  ]
+                },
+                {
+                  "type": "tconstruct:has_material",
+                  "index": 0,
+                  "material": "tconstruct:gunpowder"
                 }
               ]
             }
@@ -442,32 +416,6 @@
         ]
       },
       "trigger": "minecraft:inventory_changed"
-    },
-    "venombone": {
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool_stack",
-            "predicate": {
-              "type": "mantle:and",
-              "predicates": [
-                {
-                  "type": "mantle:set",
-                  "items": [
-                    "tconstruct:slime_helmet"
-                  ]
-                },
-                {
-                  "type": "tconstruct:has_material",
-                  "index": 0,
-                  "material": "tconstruct:venombone"
-                }
-              ]
-            }
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
     }
   },
   "display": {
@@ -479,7 +427,7 @@
     "hidden": false,
     "icon": {
       "item": "tconstruct:slime_helmet",
-      "nbt": "{Damage:0,tic_broken:0b,tic_materials:[\"tconstruct:glass\",\"tconstruct:enderslime\"]}"
+      "nbt": "{Damage:0,tic_broken:0b,tic_materials:[\"tconstruct:gunpowder\",\"tconstruct:enderslime\"]}"
     },
     "show_toast": true,
     "title": {
@@ -488,7 +436,7 @@
   },
   "requirements": [
     [
-      "glass"
+      "gunpowder"
     ],
     [
       "blaze"
@@ -531,12 +479,6 @@
     ],
     [
       "dragon_scale"
-    ],
-    [
-      "venombone"
-    ],
-    [
-      "blazing_bone"
     ],
     [
       "knightmetal"
