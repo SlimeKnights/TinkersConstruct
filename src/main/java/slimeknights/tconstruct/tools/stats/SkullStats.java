@@ -40,7 +40,7 @@ public record SkullStats(int durability, int armor) implements IRepairableMateri
 
   @Override
   public List<Component> getLocalizedInfo(float scale) {
-    Component durability = IToolStat.formatNumber(RepairStats.REPAIR_KEY, ToolStats.DURABILITY.getColor(), (int)(this.durability * scale / MaterialRecipe.INGOTS_PER_REPAIR));
+    Component durability = IToolStat.formatNumber(RepairStats.REPAIR_KEY, ToolStats.DURABILITY.getColor(), (int)(this.durability / MaterialRecipe.INGOTS_PER_REPAIR));
     if (armor > 0) {
       return List.of(durability, ToolStats.ARMOR.formatValue(this.armor * scale));
     }

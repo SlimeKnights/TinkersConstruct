@@ -30,7 +30,7 @@ public record RepairStats(MaterialStatType<?> getType, int durability) implement
 
   @Override
   public List<Component> getLocalizedInfo(float scale) {
-    return List.of(IToolStat.formatNumber(REPAIR_KEY, ToolStats.DURABILITY.getColor(), (int)(this.durability * scale / MaterialRecipe.INGOTS_PER_REPAIR)));
+    return List.of(IToolStat.formatNumber(REPAIR_KEY, ToolStats.DURABILITY.getColor(), (int)(this.durability / MaterialRecipe.INGOTS_PER_REPAIR)));
   }
 
   @Override
