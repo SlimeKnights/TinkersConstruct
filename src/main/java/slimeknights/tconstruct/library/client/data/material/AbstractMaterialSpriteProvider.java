@@ -250,7 +250,7 @@ public abstract class AbstractMaterialSpriteProvider {
 
     /** Adds a slimesuit ribcage part for the given material. */
     public MaterialSpriteInfoBuilder ribcage() {
-      return statType(RepairStats.RIBCAGE).repairKit();
+      return statType(RepairStats.RIBCAGE).statType(TinkerPartSpriteProvider.SLIMESUIT_OVERLAY).repairKit();
     }
 
     /** Adds a slimesuit shell part for the given material. */
@@ -260,7 +260,7 @@ public abstract class AbstractMaterialSpriteProvider {
 
     /** Adds a slimesuit laces part for the given material. */
     public MaterialSpriteInfoBuilder laces() {
-      return statType(RepairStats.LACES).repairKit();
+      return statType(RepairStats.LACES).statType(TinkerPartSpriteProvider.SLIMESUIT_OVERLAY).repairKit();
     }
 
     /** Makes this work as the wood part for a shield */

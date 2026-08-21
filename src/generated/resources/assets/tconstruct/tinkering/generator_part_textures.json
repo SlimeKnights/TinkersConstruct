@@ -123,6 +123,16 @@
     },
     {
       "allow_animated": false,
+      "path": "tconstruct:tinker_armor/slime/overlay_armor",
+      "stat_type": "tconstruct:slimesuit_overlay"
+    },
+    {
+      "allow_animated": false,
+      "path": "tconstruct:tinker_armor/slime/overlay_leggings",
+      "stat_type": "tconstruct:shell"
+    },
+    {
+      "allow_animated": false,
       "path": "tconstruct:item/tool/armor/travelers/goggles/cuirass",
       "stat_type": "tconstruct:cuirass"
     },
@@ -392,11 +402,6 @@
     {
       "allow_animated": false,
       "path": "tconstruct:item/tool/armor/slime/boots/laces",
-      "stat_type": "tconstruct:laces"
-    },
-    {
-      "allow_animated": false,
-      "path": "tconstruct:item/tool/armor/slime/boots/laces_broken",
       "stat_type": "tconstruct:laces"
     },
     {

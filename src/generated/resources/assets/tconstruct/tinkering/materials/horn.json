@@ -3,6 +3,7 @@
   "generator": {
     "supported_stats": [
       "tconstruct:ribcage",
+      "tconstruct:slimesuit_overlay",
       "tconstruct:repair_kit"
     ],
     "transformer": {

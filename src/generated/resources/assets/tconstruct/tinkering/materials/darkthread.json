@@ -8,6 +8,7 @@
       "tconstruct:binding",
       "tconstruct:bowstring",
       "tconstruct:laces",
+      "tconstruct:slimesuit_overlay",
       "tconstruct:repair_kit"
     ],
     "transformer": {

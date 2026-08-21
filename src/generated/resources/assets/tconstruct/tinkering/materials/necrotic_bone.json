@@ -14,7 +14,8 @@
       "tconstruct:grip",
       "tconstruct:arrow_shaft",
       "tconstruct:shield_core",
-      "tconstruct:ribcage"
+      "tconstruct:ribcage",
+      "tconstruct:slimesuit_overlay"
     ],
     "transformer": {
       "type": "tconstruct:recolor_sprite",

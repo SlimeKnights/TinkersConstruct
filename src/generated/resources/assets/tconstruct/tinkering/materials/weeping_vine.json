@@ -11,6 +11,7 @@
       "tconstruct:maille",
       "tconstruct:armor_maille",
       "tconstruct:laces",
+      "tconstruct:slimesuit_overlay",
       "tconstruct:repair_kit"
     ],
     "transformer": {

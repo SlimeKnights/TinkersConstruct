@@ -68,9 +68,9 @@ public class TinkerItemModelProvider extends ItemModelProvider {
     part(TinkerToolParts.maille);
     part(TinkerToolParts.shieldCore, "armor/plate/shield/core");
     // slimesuit
-    part(TinkerToolParts.ribcage, "armor/slime/chestplate/ribcage").offset(0, 3);
+    part(TinkerToolParts.ribcage, "armor/slime/chestplate/ribcage");
     part(TinkerToolParts.shell, "armor/slime/leggings/shell").offset(0, -1);
-    part(TinkerToolParts.laces, "armor/slime/boots/laces").offset(0, 1);
+    part(TinkerToolParts.laces, "armor/slime/boots/laces").offset(0, -1);
 
     // gauges
     generated(TinkerSmeltery.copperGauge, "block/smeltery/io/gauge");

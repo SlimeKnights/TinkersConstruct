@@ -5,6 +5,11 @@
       "index": 1,
       "prefix": "tconstruct:slime/"
     },
+    {
+      "type": "tconstruct:material",
+      "index": 0,
+      "prefix": "tconstruct:slime/overlay_"
+    },
     "tconstruct:trim"
   ]
 }

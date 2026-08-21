@@ -4,6 +4,7 @@
     "supported_stats": [
       "tconstruct:arrow_shaft",
       "tconstruct:ribcage",
+      "tconstruct:slimesuit_overlay",
       "tconstruct:repair_kit"
     ],
     "transformer": {
