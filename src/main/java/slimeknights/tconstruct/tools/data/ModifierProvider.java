@@ -147,6 +147,7 @@ import slimeknights.tconstruct.library.modifiers.modules.display.MeleeInstrument
 import slimeknights.tconstruct.library.modifiers.modules.display.ModifierVariantColorModule;
 import slimeknights.tconstruct.library.modifiers.modules.display.ModifierVariantNameModule;
 import slimeknights.tconstruct.library.modifiers.modules.display.ShowInteractionSourceModule;
+import slimeknights.tconstruct.library.modifiers.modules.display.StatTooltipModule;
 import slimeknights.tconstruct.library.modifiers.modules.interaction.edible.EdibleConsumeDurabilityModule;
 import slimeknights.tconstruct.library.modifiers.modules.interaction.edible.EdibleCureRandomEffectModule;
 import slimeknights.tconstruct.library.modifiers.modules.interaction.edible.EdibleModule;
@@ -938,7 +939,12 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     // internal
     buildModifier(ModifierIds.overslimeFriend).tooltipDisplay(TooltipDisplay.NEVER);
     buildModifier(ModifierIds.snowBoots).addModule(new VolatileFlagModule(ModifiableArmorItem.SNOW_BOOTS)).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
-    buildModifier(TinkerModifiers.edible).priority(40).tooltipDisplay(TooltipDisplay.NEVER).addModule(EdibleModule.INSTANCE);
+    buildModifier(TinkerModifiers.edible).priority(40).tooltipDisplay(TooltipDisplay.NEVER)
+      .addModule(EdibleModule.INSTANCE)
+      .addModule(new ModifierTraitModule(ModifierIds.edibleTooltip, 1, true));
+    buildModifier(ModifierIds.edibleTooltip).tooltipDisplay(TooltipDisplay.NEVER)
+      .addModule(new StatTooltipModule<>(EdibleModule.HUNGER))
+      .addModule(new StatTooltipModule<>(EdibleModule.SATURATION));
 
     // traits - tier 1
     buildModifier(ModifierIds.cultivated).addModule(RepairModule.builder().eachLevel(0.5f));

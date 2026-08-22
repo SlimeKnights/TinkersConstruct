@@ -3800,6 +3800,15 @@
   "tool_stat.tconstruct.max_energy": "Max Energy: ",
   "tool_stat.tconstruct.max_energy.description": "Maximum amount of energy that can be stord in this tool",
 
+  "tool_stat.tconstruct.hunger": "Hunger: ",
+  "tool_stat.tconstruct.hunger.description": "Hunger restored when eating this tool.",
+  "tool_stat.tconstruct.saturation": "Saturation: ",
+  "tool_stat.tconstruct.saturation.description": "Rate of saturation restored when eating this tool. Multiplied by hunger restored.",
+  "tool_stat.tconstruct.eat_duration": "Eating Duration: ",
+  "tool_stat.tconstruct.eat_duration.description": "Time it takes to eat this tool.",
+  "tool_stat.tconstruct.edible_counter_chance": "Hit Eat Chance: ",
+  "tool_stat.tconstruct.edible_counter_chance.description": "Chance of eating the armor upon taking damage.",
+
   "stat.tconstruct.repair_kit": "Repair Kit",
 
   "stat.tconstruct.harvest_tier.minecraft.wood": "Wood",

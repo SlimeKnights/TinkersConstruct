@@ -1,0 +1,14 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:stat_tooltip",
+      "stat": "tconstruct:hunger"
+    },
+    {
+      "type": "tconstruct:stat_tooltip",
+      "stat": "tconstruct:saturation"
+    }
+  ],
+  "tooltip_display": "never"
+}

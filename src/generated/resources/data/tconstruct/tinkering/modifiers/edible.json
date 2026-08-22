@@ -3,6 +3,12 @@
   "modules": [
     {
       "type": "tconstruct:edible"
+    },
+    {
+      "type": "tconstruct:trait",
+      "fixed_level": true,
+      "level": 1,
+      "name": "tconstruct:edible_tooltip"
     }
   ],
   "priority": 40,

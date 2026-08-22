@@ -209,6 +209,7 @@ public class ModifierIds {
   // internal
   public static final ModifierId overslimeFriend = id("overslime_friend");
   public static final ModifierId snowBoots = id("snow_boots");
+  public static final ModifierId edibleTooltip = id("edible_tooltip");
 
   // traits - tier 1
   public static final ModifierId cultivated = id("cultivated");
