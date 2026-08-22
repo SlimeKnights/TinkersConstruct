@@ -1,6 +1,7 @@
 {
   "title": "Protection Defense Modifiers",
   "text": [
-    { "text": "Protection defense modifiers increase resistance to a particular type of damage. All damage sources should fit into one of the five types, and types can be freely mixed on armor and shields for passive protection." }
+    { "text": "Protection defense modifiers increase resistance to a particular type of damage. All damage sources should fit into one of the five main types, and types can be freely mixed on armor and shields for passive protection." },
+    { "text": "Protection can be augmented using the Protection Ability, but each armor piece is limited to a single level. To maximize protection against all damage, you can simply use a balance of the 5 main types, which will easily let you exceed the puny enchanting table on plate armor.", "paragraph": true }
   ]
 }
