@@ -1,0 +1,13 @@
+{
+    "title": "沙鑄模",
+    "image": {
+      "file": "tconstruct:book/images/sandcast_partbuilder.png",
+      "width": 172,
+      "height": 74
+    },
+    "text": [
+      {
+        "text": "沙子鑄模也可以在部件製造臺上製造，只需將空白的沙鑄模放在模板槽即可。"
+      }
+    ]
+  }

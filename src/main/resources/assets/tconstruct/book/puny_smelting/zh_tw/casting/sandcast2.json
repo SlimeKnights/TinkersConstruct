@@ -4,5 +4,10 @@
     "file": "tconstruct:book/images/sand_pick.png",
     "width": 119,
     "height": 100
-  }
+  },
+  "text": [
+    {
+      "text": "沙子鑄模可以在鑄件臺上使用對應的工具部件壓製而成。"
+    }
+  ]
 }

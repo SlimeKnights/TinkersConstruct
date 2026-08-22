@@ -14,7 +14,7 @@ armor.subtext=合金拓寬了盔甲製造中材料的使用範圍。這些材料
 smeltery=冶煉爐
 
 abilities=能力強化
-abilities.subtext=能力強化的效果比升級強化更強大，但其槽位個數也更少。
+abilities.subtext=能力強化的效果比升級強化更強大，但其欄位個數也更少。
 abilities.group_general=通用能力
 abilities.group_harvest=採掘能力
 abilities.group_melee=近戰能力
@@ -29,6 +29,6 @@ abilities.group_armor.shield=盾牌能力
 upgrades.subtext=工具可被升級強化，但同一把工具的升級次數是有限的。
 
 defense=防禦強化
-defense.subtext=防禦強化只能被附加於盔甲，並且消耗防禦槽。
+defense.subtext=防禦強化只能被附加於盔甲，並且消耗防禦 槽。
 defense.group_protection=保護防禦
 defense.group_special=特殊防禦

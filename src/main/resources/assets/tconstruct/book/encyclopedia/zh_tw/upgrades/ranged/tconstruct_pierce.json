@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:pierce",
   "text": [
     {
-      "text": "箭矢每級抵消目標護甲值+1"
+      "text": "箭矢每級抵消目標護甲值+1。"
     }
   ],
   "more_text_space": true,
