@@ -71,7 +71,7 @@ public enum EdibleModule implements ModifierModule, GeneralInteractionModifierHo
   public static final PercentToolStat COUNTER_CHANCE = new PercentToolStat(new ToolStatId(TConstruct.MOD_ID, "edible_counter_chance"), 0xFFF0A8A4, 0, 0, 1, VALID_TOOLS);
 
   /** Module for adding a modifier with this module to the tool */
-  public static final ModifierModule EDIBLE_TRAIT = new ModifierTraitModule(TinkerModifiers.edible.getId(), 1, false);
+  public static final ModifierModule EDIBLE_TRAIT = new ModifierTraitModule(TinkerModifiers.edible.getId(), 1, true);
 
   @Override
   public RecordLoadable<EdibleModule> getLoader() {
