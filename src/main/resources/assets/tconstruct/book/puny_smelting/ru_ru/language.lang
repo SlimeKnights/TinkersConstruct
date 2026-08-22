@@ -1,21 +1,35 @@
-intro=Вступление
+intro=Введение
 melter=Плавильная печь
 moving_fluids=Перемещение жидкостей
 casting=Литьё
-materials=Материалы 2-го уровня
+worktable=Рабочий стол для модификаторов
+melee_harvest_materials=Общие материалы (2 уровень)
+melee_harvest_materials.subtext=Из этих материалов отлить детали для оружия ближнего боя или инструментов для сбора.
+ranged_materials=Материалы для дальнего боя (2 уровень)
+ranged_materials.subtext=Из этих материалов можно отлить детали для оружия дальнего боя, например луков.
+armor_materials=Материалы для брони (2 уровень)
+armor_materials.subtext=Из этих материалов можно отлить броню и щиты.
 
-armor=Снаряжение путешественника
-armor.subtext=Снаряжение путешественника создаётся с помощью станции создания! Этот костюм обеспечивает не самую лучшую защиту, но есть ещё много возможностей улучшить свой доспех! А какие забавные вещи вы создадите?
+further_reading=Дальнейшее изучение
+
+armor=Лёгкая броня
+armor.subtext=Выбирайте свой путь в выборе брони: снаряжение путешественника позволяет использовать множество модификаций и даёт больше возможностей для развития умений, а пластинчатая броня предоставляет больше возможностей для обороны. Если у вас нет чувства стиля, вы можете сочетать оба варианта.
 
 upgrades=Улучшения
-upgrades.subtext=Инструменты могут быть усилены с помощью улучшений, хотя к каждому инструменту может быть применено только ограниченное их количество.
-upgrades.group_general=Основные
-upgrades.group_harvest=Для копания
-upgrades.group_melee=Для оружия
-upgrades.group_damage=Увелич. урон
-upgrades.group_armor=Для брони
+upgrades.subtext=Инструменты можно улучшать с помощью улучшений, хотя кол-во улучшений для каждого инструмента ограничено.
+upgrades.group_general=Общие
+upgrades.group_harvest=Сбор
+upgrades.group_melee=Ближний бой
+upgrades.group_ranged=Дальний бой
+upgrades.group_damage=Доп. урон
+upgrades.group_armor=Броня
+upgrades.group_armor.helmet=Шлем
+upgrades.group_armor.chestplate=Нагрудник
+upgrades.group_armor.leggings=Поножи
+upgrades.group_armor.boots=Ботинки
 
-slotless=Бесслотовые модификаторы
-slotless.subtext=Эти модификаторы не требуют слотов для применения, Вы можете иметь их все, если хотите.
-slotless.group_slotless=Бесслотовые
-slotless.group_bonus_upgrades=Улучшения++
+slotless=Модификатор без слота
+slotless.subtext=Для применения этих модификаторов не требуется никаких слотов, вы можете использовать их все, если пожелаете.
+slotless.group_slotless=Общие
+slotless.group_bonus_upgrades=Слоты++
+slotless.group_cosmetic=Косметика

@@ -1,0 +1,11 @@
+{
+  "coverTexture": "tconstruct:book/images/covers/ru_ru/gadgetry_cover.png",
+  "coverColor": -1,
+  "bookTexture": "tconstruct:book/images/covers/gadgetry_pages.png",
+  "arrowColor": -1,
+  "slotColor": 0xFDF500,
+  "drawSectionListText": true,
+  "centerPageTitles": true,
+  "drawFourColumnIndex": true,
+  "exportTitle": "Литейные гаджеты"
+}

@@ -1,9 +1,10 @@
 intro=Введение
 
 tools=Инструменты
-tools.group_small=Маленькие инструменты
-tools.group_large=Широкие инструменты
-tools.group_ancient=Древние инструменты
+tools.group_small=Маленькие
+tools.group_large=Широкие
+tools.group_ranged=Дальний бой
+tools.group_ancient=Древние
 tools.group_staff=Посохи
 tools.tconstruct.earth_staff=Земная слизь
 tools.tconstruct.sky_staff=Небесная слизь
@@ -12,9 +13,11 @@ tools.tconstruct.ender_staff=Эндер-слизь
 armor=Броня
 
 materials_harvest=Общие материалы
-materials_harvest.subtext=Материалы, используемые для создания оружия ближнего боя или инструментов для сбора урожая.
+materials_harvest.subtext=Материалы, используемые для создания оружия ближнего боя или инструментов для сбора.
 materials_ranged=Материалы для дальнего боя 
 materials_ranged.subtext=Материалы, используемые для создания оружия дальнего боя.
+materials_ammo=Материалы для боеприпасов
+materials_ammo.subtext=Материалы, используемые для создания стрел и сюрикенов.
 materials_armor=Материалы для брони
 materials_armor.subtext=Материалы, используемые для создания брони и щитов.
 materials_skull=Слизневые черепа
@@ -23,7 +26,7 @@ materials_skull.subtext=В этом разделе описываются эфф
 upgrades=Улучшения
 upgrades.subtext=Каждому инструменту доступно ограниченное количество слотов для улучшений.
 upgrades.group_general=Общие
-upgrades.group_harvest=Сбор урожая
+upgrades.group_harvest=Сбор
 upgrades.group_weapon=Ближний бой
 upgrades.group_ranged=Дальний бой
 upgrades.group_damage=Усиление урона
@@ -37,8 +40,8 @@ upgrades.boots.tconstruct.feather_falling=Невесомость
 # Вы также можете отключить параметр «Невесомость» в настройках языка, и в этом случае будет использоваться файл языка .json
 # Смотрите раздел JSON, чтобы найти префикс, любой тип модификатора, который определяет, что его можно использовать
 
-defense=Защита
-defense.subtext=Вместо характеристик от материала, броня будет включать защитные слоты для усиления защиты.
+defense=Оборона
+defense.subtext=Вместо особенностей от материала, броня будет включать слоты для обороны для усиления защиты.
 defense.group_protection=Защитные
 defense.group_special=Специальные
 
@@ -46,14 +49,15 @@ slotless=Без слота
 slotless.subtext=Модификаторы без слотов не требуют слотов.
 slotless.group_general=Общие
 slotless.group_bonus=Бонусные
+slotless.group_cosmetic=Косметика
 
 abilities=Умения
 abilities.subtext=У модификаторов умений меньше слотов, чем у улучшений, но они сильнее в каждом слоте.
 abilities.group_general=Общие
 abilities.group_harvest=Сбор урожая
-abilities.group_melee=Ближний бой
+abilities.group_weapon=Ближний бой
 abilities.group_ranged=Дальний бой
-abilities.group_interact=Взаимодействие
+abilities.group_interact=Взаимод.
 abilities.group_armor=Броня
 abilities.group_armor.helmet=Шлем
 abilities.group_armor.chestplate=Нагрудник

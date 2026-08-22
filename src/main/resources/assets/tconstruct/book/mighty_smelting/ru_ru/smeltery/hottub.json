@@ -1,0 +1,13 @@
+{
+  "title": "Джакузи",
+  "image": {
+	"file": "tconstruct:book/images/hottub.png",
+    "width": 120,
+    "height": 120
+  },
+  "text": [
+    {
+      "text": "Не хочешь присоединиться ко мне?"
+    }
+  ]
+}
