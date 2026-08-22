@@ -264,10 +264,9 @@ public class ModifierModelMapProvider extends AbstractModifierModelMapProvider {
       String path = "armor/" + item + "/modifiers";
       tool(item).basic(path, null,
           ModifierIds.diamond, ModifierIds.emerald, ModifierIds.netherite,
-          ModifierIds.reinforced, ModifierIds.overforced, ModifierIds.ricochet, ModifierIds.springy,
+          ModifierIds.ricochet, ModifierIds.springy,
           ModifierIds.thorns, ModifierIds.freezing)
         .luminosity(10, path, null, ModifierIds.fiery)
-        .luminosity(2, path, null, ModifierIds.unbreakable)
         .modifier(dyed, new MaterialHasFallbackModifierModel(1,
         new DyedModifierModel(toolMaterial(root + "_metal"), null),
         new DyedModifierModel(toolMaterial(root), null),
