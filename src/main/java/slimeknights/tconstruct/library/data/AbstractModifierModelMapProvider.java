@@ -168,8 +168,8 @@ public abstract class AbstractModifierModelMapProvider extends GenericDataProvid
     }
 
     /**
-     * Remove a modifier model that should not be displayed under certain conditions for tools
-     * <p>Example: Do not display modifier textures on the hook part when the fishing rod is cast.</p>
+     * Override a "lower" priority modifier map that sets a modifier.
+     * <p>Example: removing modifier textures on the hook for a cast fishing rod.</p>
      */
     public Builder empty(ModifierId id) {
       ModifierModel existing = modifiers.putIfAbsent(id, merge(ModifierModel.EMPTY));
@@ -180,8 +180,8 @@ public abstract class AbstractModifierModelMapProvider extends GenericDataProvid
     }
 
     /**
-     * Remove modifier models that should not be displayed in certain scenarios.
-     * <p>Example: Do not display modifier textures on the hook part when the fishing rod is cast.</p>
+     * Override a "lower" priority modifier map that sets a modifier.
+     * <p>Example: removing modifier textures on the hook for a cast fishing rod.</p>
      */
     public Builder empty(ModifierId... ids) {
       for (ModifierId id : ids) {
