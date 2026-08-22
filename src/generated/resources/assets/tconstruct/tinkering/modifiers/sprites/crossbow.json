@@ -1,0 +1,26 @@
+{
+  "modifiers": {
+    "tconstruct:diamond": "tconstruct:item/tool/crossbow/modifiers/tconstruct_diamond",
+    "tconstruct:emerald": "tconstruct:item/tool/crossbow/modifiers/tconstruct_emerald",
+    "tconstruct:experienced": "tconstruct:item/tool/crossbow/modifiers/tconstruct_experienced",
+    "tconstruct:fiery": {
+      "luminosity": 10,
+      "texture": "tconstruct:item/tool/crossbow/modifiers/tconstruct_fiery"
+    },
+    "tconstruct:freezing": "tconstruct:item/tool/crossbow/modifiers/tconstruct_freezing",
+    "tconstruct:impaling": "tconstruct:item/tool/crossbow/modifiers/tconstruct_impaling",
+    "tconstruct:netherite": "tconstruct:item/tool/crossbow/modifiers/tconstruct_netherite",
+    "tconstruct:overforced": "tconstruct:item/tool/crossbow/modifiers/tconstruct_overforced",
+    "tconstruct:pierce": "tconstruct:item/tool/crossbow/modifiers/tconstruct_pierce",
+    "tconstruct:quick_charge": {
+      "luminosity": 7,
+      "texture": "tconstruct:item/tool/crossbow/modifiers/tconstruct_quick_charge"
+    },
+    "tconstruct:reinforced": "tconstruct:item/tool/crossbow/modifiers/tconstruct_reinforced",
+    "tconstruct:trueshot": "tconstruct:item/tool/crossbow/modifiers/tconstruct_trueshot",
+    "tconstruct:unbreakable": {
+      "luminosity": 2,
+      "texture": "tconstruct:item/tool/crossbow/modifiers/tconstruct_unbreakable"
+    }
+  }
+}

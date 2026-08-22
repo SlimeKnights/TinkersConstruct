@@ -1,5 +1,7 @@
 {
   "modifiers": {
+    "tconstruct:ambidextrous": "tconstruct:item/tool/armor/plate/chestplate/modifiers/tconstruct_ambidextrous",
+    "tconstruct:diamond": "tconstruct:item/tool/armor/plate/chestplate/modifiers/tconstruct_diamond",
     "tconstruct:dyed": {
       "type": "tconstruct:material_has_fallback",
       "fallback": "metal",
@@ -13,6 +15,24 @@
       },
       "index": 1
     },
+    "tconstruct:emerald": "tconstruct:item/tool/armor/plate/chestplate/modifiers/tconstruct_emerald",
+    "tconstruct:fiery": {
+      "luminosity": 10,
+      "texture": "tconstruct:item/tool/armor/plate/chestplate/modifiers/tconstruct_fiery"
+    },
+    "tconstruct:freezing": "tconstruct:item/tool/armor/plate/chestplate/modifiers/tconstruct_freezing",
+    "tconstruct:haste": {
+      "luminosity": 7,
+      "texture": "tconstruct:item/tool/armor/plate/chestplate/modifiers/tconstruct_haste"
+    },
+    "tconstruct:knockback": "tconstruct:item/tool/armor/plate/chestplate/modifiers/tconstruct_knockback",
+    "tconstruct:netherite": "tconstruct:item/tool/armor/plate/chestplate/modifiers/tconstruct_netherite",
+    "tconstruct:reach": "tconstruct:item/tool/armor/plate/chestplate/modifiers/tconstruct_reach",
+    "tconstruct:ricochet": "tconstruct:item/tool/armor/plate/chestplate/modifiers/tconstruct_ricochet",
+    "tconstruct:sleeves": "tconstruct:item/tool/armor/plate/chestplate/modifiers/tconstruct_sleeves",
+    "tconstruct:springy": "tconstruct:item/tool/armor/plate/chestplate/modifiers/tconstruct_springy",
+    "tconstruct:strength": "tconstruct:item/tool/armor/plate/chestplate/modifiers/tconstruct_strength",
+    "tconstruct:thorns": "tconstruct:item/tool/armor/plate/chestplate/modifiers/tconstruct_thorns",
     "tconstruct:trim": {
       "type": "tconstruct:armor_trim",
       "slot": "chestplate"

@@ -3,5 +3,35 @@
     "tipped": {
       "type": "tconstruct:empty"
     }
+  },
+  "modifiers": {
+    "tconstruct:bounce": {
+      "type": "tconstruct:empty"
+    },
+    "tconstruct:collecting": {
+      "type": "tconstruct:empty"
+    },
+    "tconstruct:fiery": {
+      "type": "tconstruct:empty"
+    },
+    "tconstruct:freezing": {
+      "type": "tconstruct:empty"
+    },
+    "tconstruct:grapple": {
+      "type": "tconstruct:empty"
+    },
+    "tconstruct:lure": {
+      "type": "tconstruct:empty"
+    },
+    "tconstruct:netherite": "tconstruct:item/tool/fishing_rod/modifiers/tconstruct_netherite_broken",
+    "tconstruct:quick_charge": {
+      "type": "tconstruct:empty"
+    },
+    "tconstruct:trueshot": {
+      "type": "tconstruct:empty"
+    },
+    "tconstruct:unbreakable": {
+      "type": "tconstruct:empty"
+    }
   }
 }
