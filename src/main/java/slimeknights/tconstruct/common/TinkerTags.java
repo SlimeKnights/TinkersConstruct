@@ -913,6 +913,9 @@ public class TinkerTags {
 
   public static class DamageTypes {
     private static void init() {}
+    /** Damage types dealt by a melee attack, notably excluding damage that is merely in melee range such as cramming. Shared by the melee protection modifier and the loot modifier whitelist. */
+    public static final TagKey<DamageType> IS_MELEE = local("is_melee");
+
     /** Damage types reduced by the melee protection modifier */
     public static final TagKey<DamageType> MELEE_PROTECTION = local("protection/melee");
     /** Damage types reduced by the projectile protection modifier */
@@ -928,6 +931,8 @@ public class TinkerTags {
 
     /** Damage types that can use modifiers. */
     public static final TagKey<DamageType> MODIFIER_WHITELIST = local("modifier_whitelist");
+    /** Damage types where the held tool is responsible for the kill, allowing it to apply loot modifiers such as severing. Projectiles instead use the modifiers stored on the projectile. */
+    public static final TagKey<DamageType> LOOT_MODIFIER_WHITELIST = local("loot_modifier_whitelist");
 
     private static TagKey<DamageType> local(String name) {
       return TagKey.create(Registries.DAMAGE_TYPE, getResource(name));
