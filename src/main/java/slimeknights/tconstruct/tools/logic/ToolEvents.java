@@ -453,8 +453,6 @@ public class ToolEvents {
           // not consider adding non-chest armor to the unarmed tag
           ItemStack unarmed = living.getItemBySlot(EquipmentSlot.CHEST);
           if (!unarmed.isEmpty() && unarmed.is(TinkerTags.Items.UNARMED)) {
-            // get the melee damage attribute
-            float damageAttr = (float) entity.getAttributeValue(Attributes.ATTACK_DAMAGE);
             // already know we are not a player
             IToolStackView tool = ToolStack.from(unarmed);
             ToolAttackContext meleeContext = ToolAttackContext.attacker(living, null).target(event.getEntity()).applyAttributes().addAttributes(tool.getStats().get(ToolStats.ATTACK_DAMAGE), 0).slot(EquipmentSlot.CHEST, InteractionHand.MAIN_HAND).build();
