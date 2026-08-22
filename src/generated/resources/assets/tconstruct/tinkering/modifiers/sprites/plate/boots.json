@@ -29,8 +29,6 @@
     },
     "tconstruct:long_fall": "tconstruct:item/tool/armor/plate/boots/modifiers/tconstruct_long_fall",
     "tconstruct:netherite": "tconstruct:item/tool/armor/plate/boots/modifiers/tconstruct_netherite",
-    "tconstruct:overforced": "tconstruct:item/tool/armor/plate/boots/modifiers/tconstruct_overforced",
-    "tconstruct:reinforced": "tconstruct:item/tool/armor/plate/boots/modifiers/tconstruct_reinforced",
     "tconstruct:ricochet": "tconstruct:item/tool/armor/plate/boots/modifiers/tconstruct_ricochet",
     "tconstruct:soulspeed": "tconstruct:item/tool/armor/plate/boots/modifiers/tconstruct_soulspeed",
     "tconstruct:springy": "tconstruct:item/tool/armor/plate/boots/modifiers/tconstruct_springy",
@@ -38,10 +36,6 @@
     "tconstruct:trim": {
       "type": "tconstruct:armor_trim",
       "slot": "boots"
-    },
-    "tconstruct:unbreakable": {
-      "luminosity": 2,
-      "texture": "tconstruct:item/tool/armor/plate/boots/modifiers/tconstruct_unbreakable"
     }
   }
 }

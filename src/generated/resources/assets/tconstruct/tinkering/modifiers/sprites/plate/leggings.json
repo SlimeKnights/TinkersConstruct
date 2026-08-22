@@ -23,8 +23,6 @@
     "tconstruct:leaping": "tconstruct:item/tool/armor/plate/leggings/modifiers/tconstruct_leaping",
     "tconstruct:luck": "tconstruct:item/tool/armor/plate/leggings/modifiers/tconstruct_luck",
     "tconstruct:netherite": "tconstruct:item/tool/armor/plate/leggings/modifiers/tconstruct_netherite",
-    "tconstruct:overforced": "tconstruct:item/tool/armor/plate/leggings/modifiers/tconstruct_overforced",
-    "tconstruct:reinforced": "tconstruct:item/tool/armor/plate/leggings/modifiers/tconstruct_reinforced",
     "tconstruct:ricochet": "tconstruct:item/tool/armor/plate/leggings/modifiers/tconstruct_ricochet",
     "tconstruct:shield_strap": "tconstruct:item/tool/armor/plate/leggings/modifiers/tconstruct_shield_strap",
     "tconstruct:speedy": "tconstruct:item/tool/armor/plate/leggings/modifiers/tconstruct_speedy",
@@ -35,10 +33,6 @@
     "tconstruct:trim": {
       "type": "tconstruct:armor_trim",
       "slot": "leggings"
-    },
-    "tconstruct:unbreakable": {
-      "luminosity": 2,
-      "texture": "tconstruct:item/tool/armor/plate/leggings/modifiers/tconstruct_unbreakable"
     }
   }
 }

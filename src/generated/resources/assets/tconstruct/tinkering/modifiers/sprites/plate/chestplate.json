@@ -27,9 +27,7 @@
     },
     "tconstruct:knockback": "tconstruct:item/tool/armor/plate/chestplate/modifiers/tconstruct_knockback",
     "tconstruct:netherite": "tconstruct:item/tool/armor/plate/chestplate/modifiers/tconstruct_netherite",
-    "tconstruct:overforced": "tconstruct:item/tool/armor/plate/chestplate/modifiers/tconstruct_overforced",
     "tconstruct:reach": "tconstruct:item/tool/armor/plate/chestplate/modifiers/tconstruct_reach",
-    "tconstruct:reinforced": "tconstruct:item/tool/armor/plate/chestplate/modifiers/tconstruct_reinforced",
     "tconstruct:ricochet": "tconstruct:item/tool/armor/plate/chestplate/modifiers/tconstruct_ricochet",
     "tconstruct:sleeves": "tconstruct:item/tool/armor/plate/chestplate/modifiers/tconstruct_sleeves",
     "tconstruct:springy": "tconstruct:item/tool/armor/plate/chestplate/modifiers/tconstruct_springy",
@@ -38,10 +36,6 @@
     "tconstruct:trim": {
       "type": "tconstruct:armor_trim",
       "slot": "chestplate"
-    },
-    "tconstruct:unbreakable": {
-      "luminosity": 2,
-      "texture": "tconstruct:item/tool/armor/plate/chestplate/modifiers/tconstruct_unbreakable"
     }
   }
 }

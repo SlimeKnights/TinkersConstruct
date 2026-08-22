@@ -23,8 +23,6 @@
     "tconstruct:freezing": "tconstruct:item/tool/armor/plate/helmet/modifiers/tconstruct_freezing",
     "tconstruct:item_frame": "tconstruct:item/tool/armor/plate/helmet/modifiers/tconstruct_item_frame",
     "tconstruct:netherite": "tconstruct:item/tool/armor/plate/helmet/modifiers/tconstruct_netherite",
-    "tconstruct:overforced": "tconstruct:item/tool/armor/plate/helmet/modifiers/tconstruct_overforced",
-    "tconstruct:reinforced": "tconstruct:item/tool/armor/plate/helmet/modifiers/tconstruct_reinforced",
     "tconstruct:respiration": "tconstruct:item/tool/armor/plate/helmet/modifiers/tconstruct_respiration",
     "tconstruct:ricochet": "tconstruct:item/tool/armor/plate/helmet/modifiers/tconstruct_ricochet",
     "tconstruct:springy": "tconstruct:item/tool/armor/plate/helmet/modifiers/tconstruct_springy",
@@ -32,10 +30,6 @@
     "tconstruct:trim": {
       "type": "tconstruct:armor_trim",
       "slot": "helmet"
-    },
-    "tconstruct:unbreakable": {
-      "luminosity": 2,
-      "texture": "tconstruct:item/tool/armor/plate/helmet/modifiers/tconstruct_unbreakable"
     }
   }
 }
