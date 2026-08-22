@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:banner",
+  "text": [
+    {
+      "text": "盾の前面に旗を飾ることができます"
+    },
+    {
+      "text": "実際の表示は、元の旗とは多少異なる場合があります。",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": ["再度適用すると旗を入れ替えられます", "スロット不要"]
+}

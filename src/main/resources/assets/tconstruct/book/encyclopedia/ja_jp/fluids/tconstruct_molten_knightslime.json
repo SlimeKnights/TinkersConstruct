@@ -1,0 +1,5 @@
+{
+  "text": "All the boom with none of the consequences.",
+  "entity": ["爆発 (強度2)", "最大4爆発ダメージ", "この爆発でノックバックは起こらない"],
+  "block": ["爆発ではブロックを破壊しない"]
+}

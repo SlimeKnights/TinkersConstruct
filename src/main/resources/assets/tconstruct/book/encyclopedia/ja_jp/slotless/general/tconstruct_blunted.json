@@ -1,0 +1,10 @@
+{
+  "modifier_id": "tconstruct:blunted",
+  "text": [
+    {
+      "text": "道具が近接攻撃を行わないようにし、代わりに一般的なアクションを行うようにします。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": ["最大1レベル", "スロット不要"]
+}

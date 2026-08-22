@@ -1,0 +1,16 @@
+{
+  "title": "Ichor",
+  "item": [
+    "tconstruct:ichor_slime_ball",
+    "tconstruct:ichor_congealed_slime",
+    "tconstruct:ichor_slime",
+    "tconstruct:ichor_slime_crystal",
+    "tconstruct:ichor_slime_crystal_block"
+  ],
+  "text": [
+    {
+      "text": "イコルを溶かすことで燃え盛る血液を入手することもできますが、そもそもそれを溶かすにはより高温の燃料が必要となるため、あまり理想的とは言えません。とはいえ、最終的にはプラスの利益となるため、他の手段で燃え盛る血液を入手した後に、その供給量を増やす手段として有効かもしれません。",
+      "paragraph": true
+    }
+  ]
+}

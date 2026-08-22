@@ -1,0 +1,10 @@
+{
+  "modifier_id": "tconstruct:redirected",
+  "text": [
+    {
+      "text": "発射物の特性のいずれか1つ（通常は最初の矢じり）のレベルを上昇させます。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": ["最大1レベル", "スロット不要"]
+}

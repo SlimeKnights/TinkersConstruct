@@ -1,0 +1,10 @@
+{
+  "modifier_id": "tconstruct:blunted",
+  "text": [
+    {
+      "text": "遠距離戦闘が好きな方へ。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": ["道具が近接攻撃を行えないようにする", "攻撃時に発動する改造とシナジーする", "単一レベル", "スロット不要"]
+}
