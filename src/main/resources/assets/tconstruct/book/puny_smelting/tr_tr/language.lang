@@ -25,6 +25,6 @@ upgrades.group_armor.leggings=Pantolon
 upgrades.group_armor.boots=Bot
 
 slotless=Yuvasız Değiştiriciler
-slotless.subtext=Bu değiştiriciler uygulanması için herhangi bir yuva gerekmez, istersen hepsine sahip olabilirsin.
+slotless.subtext=Bu değiştiricilerin uygulanması için herhangi bir yuva gerekmez, istersen hepsine sahip olabilirsin.
 slotless.group_slotless=Yuvasız
 slotless.group_bonus_upgrades=Yuva++

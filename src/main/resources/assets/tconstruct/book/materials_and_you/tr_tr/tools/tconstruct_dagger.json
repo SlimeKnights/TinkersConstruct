@@ -2,7 +2,7 @@
   "tool": "tconstruct:dagger",
   "text": [
     {
-      "text": "Hançer çabuk savaşçıları için çok yönlü bir silahtır. Düşük hasarlı yüksek hızı vardır böylece çabuk hızlı saldırılara izin verir. Ayıra hançer öbür elinle de kullanarak hançerleri çiftleyebilirsin."
+      "text": "Hançer çabuk savaşçılar için çok yönlü bir silahtır. Düşük hasarlı yüksek hızı vardır böylece çabuk hızlı saldırılara izin verir. Ayrıca hançer öbür elinle de kullanarak hançerleri çiftleyebilirsin."
     },
     {
       "text": "\n"
@@ -12,6 +12,6 @@
     "Düşük Hasar",
     "Yüksek Hız",
     "Öbür elinde kullanılabilir",
-    "Üretirken ve değişiklik yaparken 2ye yığınlanabilir"
+    "Üretirken ve değişiklik yaparken 2'ye yığınlanabilir"
   ]
 }

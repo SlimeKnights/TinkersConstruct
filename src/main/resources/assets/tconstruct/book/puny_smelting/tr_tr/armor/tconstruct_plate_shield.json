@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:plate_shield",
+  "text": [
+    { "text": "Parlak dikdörtgen maceralarınız için parlak dikdörtgen kalkan." },
+    {
+      "text": "Saldırıların en güçlüsünü engellemek için en güçlü kalkan. Kalkan özünün üzerine dökümlenmiş metalden veya seramikten yapılır.", "paragraph": true
+    }
+  ],
+  "properties": [
+    "Yüksek Engelleme Olasılığı",
+    "Kalkanla korunurken düşük hız",
+    "2 Yükseltme Yuvası",
+    "3 Savunma Yuvası",
+    "2 Malzeme Niteliği"
+  ]
+}

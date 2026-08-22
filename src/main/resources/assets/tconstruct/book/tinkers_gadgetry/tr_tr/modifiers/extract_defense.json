@@ -1,0 +1,13 @@
+{
+  "title": "Savunmayı Çıkarma",
+  "image": {
+    "file": "tconstruct:book/images/worktable/extract_defense.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "Savunma değiştiricilerini büyülü kitaplardan veya araçlardan çıkarmak içim karabalçığı kristali ve altın gerekir. İşlem benzer bir biçimde aracın kaybına neden olacak kadar kararsızdır."
+    }
+  ]
+}

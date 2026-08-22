@@ -2,7 +2,7 @@
   "title": "Kanallar",
   "text": [
     {
-      "text": "Kanallar sıvı ile üstten veya giriş olarak ayarlanmış yanlardan doldurulabilir. Alttan veya çıkış olarak ayarlanmış yanlardan çıktı verir."
+      "text": "Kanallar, sıvı ile üstten veya giriş olarak ayarlanmış yanlardan doldurulabilir. Alttan veya çıkış olarak ayarlanmış yanlardan çıktı verirler."
     },
     {
       "text": "Kanalların içerisinde sıvıların akış yönünü gösteren oklar bulunur. Kanalların kenarlarına sağ tıklamak onları giriş, çıkış ve yok arasında geçiş yapar. Altında sıvı tutucu bulunması durumunda kanalın orta kısmına sağ tıklamak çıkışı alta ayarlar. Kanallar yukarı doğru aktaramaz.",

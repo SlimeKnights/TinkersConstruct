@@ -1,0 +1,12 @@
+{
+  "tool": "tconstruct:war_pick",
+  "text": [
+    { "text": "Savaş kazması, Tatar yayı ile kazmanın birleşimidir. Maden ocağında bulunabilir ve köylülerden veya höylülerden edinilebilir." }
+  ],
+  "properties": [
+    "Taş bloklarını ve benzerlerini çıkarır",
+    "Oku ateşlemek için hazırda bekletebilir",
+    "3 Yülseltme Yuvası",
+    "1 Yetenek Yuvası"
+  ]
+}

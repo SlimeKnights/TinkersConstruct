@@ -7,7 +7,8 @@
   ],
   "effects": [
     "Uzun menzillilerin hasarını azaltır",
-    "Seviyeler aşamalı olarak uygulanabilir",
+    "Savurma direncini artırır",
+    "Çoklu seviyeler, etkileri her seviyede artırır",
     "Seviye başına 1 savunma yuvası gerekir"
   ]
 }

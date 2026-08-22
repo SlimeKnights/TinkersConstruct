@@ -1,0 +1,13 @@
+{
+  "title": "Değiştiricileri Kaldırma",
+  "image": {
+    "file": "tconstruct:book/images/worktable/remove_modifier.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "Islak sünger kullanarak araçtaki değiştiricileri kaldırmanın olası olduğunu keşfettim. Eğer onlardan biri yoksa örümcek ağı da etkilidir. Değiştiriciyi kaldırma yeni değiştiriciler için yuvayı geri verir ama ne yazık ki değiştiriciyi eklemek için kullanılan eşyalar kaybolur. En azından süngeri yeniden kullanabiliyorum."
+    }
+  ]
+}

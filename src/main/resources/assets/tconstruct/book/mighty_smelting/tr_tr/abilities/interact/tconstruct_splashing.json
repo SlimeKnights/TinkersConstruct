@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:splashing",
+  "text": [
+    {
+      "text": "Bak bir havuz partisi ama havuzsuz."
+    },
+    {
+      "text": "Tanka araçla sağ tıklamak onu doldurur.", "paragraph": true
+    }
+  ],
+  "effects": [
+    "Etkileşimde sıvıyı akıtır",
+    "Sıvıya bağlı ateş ve zehir de içeren çeşitli etkiler",
+    "Seviye başına 1 yetenek yuvası gerekir"
+  ]
+}

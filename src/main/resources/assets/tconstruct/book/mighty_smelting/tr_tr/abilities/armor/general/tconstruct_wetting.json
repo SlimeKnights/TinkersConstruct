@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:wetting",
+  "text": [
+    {
+      "text": "Yaralanınca kendini biraz ıslatmanın sakıncası yok. Bekle, bu değiştiriciyi pantolonuna eklememiş miydin?"
+    }
+  ],
+  "effects": [
+    "Hasar alınca sıvı etkileri uygular",
+    "Tek seviye",
+    "1 yetenek yuvası gerekir",
+    "Aracı sıvıyla doldurmak için tankta kullanın."
+  ]
+}

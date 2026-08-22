@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:swift_sneak",
+  "text": [
+    {
+      "text": "Hızlıca gizlice çıkmalıyım."
+    }
+  ],
+  "effects": [
+    "Çömelirken hareket hızını artırır",
+    "Çoklu seviye, hızı her seviye daha da artırır",
+    "Seviye başına 1 yükseltme yuvası gerekir"
+  ]
+}

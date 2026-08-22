@@ -12,7 +12,7 @@
   "tool_filter": "tconstruct:modifiable/ranged",
   "effects": [
     "Zırhın küçük bir kısmını geçersiz kılar",
-    "Ayrıca çok azca aracın hasarını artırır",
+    "Ayrıca azca aracın hasarını artırır",
     "Çoklu seviyeler, etkisini her seviyede artırır",
     "Seviye başına 1 yükseltme yuvası gerekir"
   ]

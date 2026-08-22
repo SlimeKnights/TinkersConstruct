@@ -8,7 +8,7 @@
   "tool_filter": "tconstruct:modifiable/armor",
   "effects": [
     "Saldıranlar vurduklarında onları yakma şansı vardır",
-    "Çoklu seviyeler, yanış süresi seviye yükseldikçe artar",
+    "Çoklu seviyeler, yanış süresini her seviyede artırır",
     "Seviye başına 1 yükseltme yuvası gerekir"
   ]
 }

@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:plate_chestplate",
+  "text": [
+    { "text": "Eğer başını göğsünün üzerine koyarsan kalbinin atışını duyarken creeper arkanda patlayailir. Niçin çıkardın?" },
+	{
+      "text": "Esneklik sağlayan zincir ile yüksek zırh, bundan daha havalı olamaz!", "paragraph": true
+    }
+  ],
+  "properties": [
+    "Yüksek Dayanıklılık",
+    "Yüksek Zırh",
+    "2 Yükseltme Yuvası",
+    "3 Savunma Yuvası",
+    "2 Malzeme Niteliği"
+  ]}

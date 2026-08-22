@@ -7,8 +7,8 @@
   ],
   "effects": [
     "Dayanıklılıktan önce kullanılacak balçık aşımı çubuğu ekler",
-    "Balçık topu ile yeniden yüklenir, niceliği türe göre değişir",
-    "Birçok araç malzemesiyle aracın sığasını artırır",
+    "Balçık topu ile yeniden dolar, niceliği türüne göre değişir",
+    "Birçok araç malzemesi sığasını artırır",
     "Balçığımsı malzemeleri olmayan araçlara güçsüzleştirme uygular"
   ]
 }

@@ -2,11 +2,11 @@
   "modifier_id": "tconstruct:reach",
   "text": [
     {
-      "text": "Yıldızlar için ulaşma! Ya da rafın üstüne... Ya da kısaysan orta yükseklikteki raflara..."
+      "text": "Yıldızlar için ulaş! Ya da rafın üstüne... Ya da kısaysan orta yükseklikteki raflara..."
     }
   ],
   "effects": [
-    "Bloklar, çıkarma ve saldırma için ulaşma uzaklığını artırır",
+    "Engelleme, çıkarma ve saldırma için ulaşma uzaklığını artırır",
     "Çoklu seviyeler, her seviyede daha uzağa erişmeni sağlar",
     "Seviye başına 1 yetenek yuvası gerekir"
   ]

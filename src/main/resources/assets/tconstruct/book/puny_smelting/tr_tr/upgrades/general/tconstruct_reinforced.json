@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:reinforced",
   "text": [
     {
-      "text": "Aracını güçlendirmek ikiniz içinde daha az bir iş olabilirdi!"
+      "text": "Aracını güçlendirmek ikiniz içinde daha az bir iş olabilir!"
     }
   ],
   "effects": [
     "Dayanıklılığı tüketmeme şansı",
-    "Çoklu seviyeler, aracın hasar alıma şansını her seviyede azaltır",
+    "Çoklu seviyeler, aracın hasar almama şansını her seviyede azaltır",
     "Seviye başına 1 yükseltme yuvası gerekir"
   ]
 }

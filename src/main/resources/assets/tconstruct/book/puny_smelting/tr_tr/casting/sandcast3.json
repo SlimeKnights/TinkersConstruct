@@ -1,0 +1,13 @@
+{
+  "title": "Kum Kalıpları",
+  "image": {
+    "file": "tconstruct:book/images/sandcast_partbuilder.png",
+    "width": 172,
+    "height": 74
+  },
+  "text": [
+    {
+      "text": "Ayrıca kum kalıpları, parça yapıcıda kumu veya düz kum kalıbını taslak yuvasına koyarak da üretilebilirler. Bu, zırh kaplaması kalıbını üretmek için gereklidir."
+    }
+  ]
+}

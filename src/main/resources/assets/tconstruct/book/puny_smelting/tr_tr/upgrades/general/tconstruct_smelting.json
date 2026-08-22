@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:smelting",
+  "text": [
+    {
+      "text": "Bir tavuğu pişirmek için ne güçlükte tokatlamalısın?"
+    }
+  ],
+  "effects": [
+    "Aracı eşyalarla doldurmak için etkileşimdeyken eğil",
+    "Aracı kullanmak eşyaları pişirir",
+    "Çoklu seviyeler, yeni yuva her seviyede eklenir",
+    "Seviye başına 1 yükseltme yuvası gerekir"
+  ]
+}

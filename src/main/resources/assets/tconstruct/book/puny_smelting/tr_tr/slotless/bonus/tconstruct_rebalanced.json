@@ -5,13 +5,14 @@
       "text": "Güç dengesi barışın ölçeğidir. --Thomas Paine."
     },
     {
-      "text": "Güç dengesi gerçekte ejderhanın puludur. Gerçi antik yaldızlama şaşırtıcı bir biçimde yakın. --Thruul M'Gon.", "paragraph": true
+      "text": "\nGüç dengesi gerçekte ejderhanın puludur. Gerçi antik yaldızlama şaşırtıcı bir biçimde yakın. --Thruul M'Gon."
     }
   ],
   "effects": [
     "Bir değiştirici yuvası ekler",
     "Yuva türü tarife göre belirlenir",
     "Açgözlülük cezalandırılır",
+    "Enderbalçığı nitelik ekler",
     "Tek seviye"
   ]
 }

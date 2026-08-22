@@ -6,7 +6,7 @@
     }
   ],
   "effects": [
-    "Olasıysa bütün düşen bloklar kallanır",
+    "Olasıysa bütün bloklardan düşenler kallanır",
     "Tek seviye",
     "1 yetenek yuvası gereklidir"
   ]

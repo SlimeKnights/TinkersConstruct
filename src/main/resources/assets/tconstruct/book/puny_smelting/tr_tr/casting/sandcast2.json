@@ -4,5 +4,10 @@
     "file": "tconstruct:book/images/sand_pick.png",
     "width": 119,
     "height": 100
-  }
+  },
+  "text": [
+    {
+      "text": "Kum kalıpları, kum kaplı döküm masalarına araç parçasını basarak üretilebilirler."
+    }
+  ]
 }

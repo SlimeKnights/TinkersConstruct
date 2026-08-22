@@ -1,7 +1,7 @@
 {
   "tool": "tconstruct:travelers_helmet",
   "text": [
-    { "text": "Gözlükler Hakanlara veya Yaban Sıçanlarına veya Hakan Yaban Sıçanlarına yakışır." },
+    { "text": "Gözlükler Hakanlara, Yaban Sıçanlarına veya Hakan Yaban Sıçanlarına yakışır." },
 	{
       "text": "İyi bir gözlük güvenli maceralar, kolay görüş ve Hakanın özelliklerini sağlar.", "paragraph": true
     }
@@ -12,6 +12,7 @@
     "Karda mükemmeldir",
     "3 Yükseltme Yuvası",
     "2 Savunma Yuvası",
-    "1 Yetenek Yuvası"
+    "1 Yetenek Yuvası",
+    "Tabaklanmış"
   ]
 }

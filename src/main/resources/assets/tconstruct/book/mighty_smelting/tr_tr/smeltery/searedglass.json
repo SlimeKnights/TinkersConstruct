@@ -3,11 +3,11 @@
   "item": "tconstruct:seared_glass",
   "text": [
     {
-      "text": "Bu cam ile kallama ocağını geçersiz kılmadan ergimiş malzemelerinin yavuz mucizelerine bakabilirsin. Bir kenara yaz, tank gibi su depolayamaz ",
+      "text": "Bu cam ile kallama ocağını geçersiz kılmadan ergimiş malzemelerinin yavuz mucizelerine bakabilirsin. Şunu bir kenara yaz: tank gibi su depolayamaz ",
       "paragraph": true
     },
 	{
-      "text": "Cam kallama ocağının tabanı olarak kullanılamaz.",
+      "text": "Cam, kallama ocağının tabanı olarak kullanılamaz.",
       "paragraph": true
     }
   ]

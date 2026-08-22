@@ -5,11 +5,11 @@
       "text": "Musluklar ergiticiden, kallama ocağından, tanklardan veya herhangi bir geçerli sıvı tutucudan sıvıları çıkarmak için ana yolunuzdur. Kolayca bloğun üzerine koy ve altındaki sıvı tutucunun içine dökmek için sağ tıkla."
     },
     {
-      "text": "Musluk değen bloğun yanlarından veya altından musluğun altındaki bloğa doğru dökecektir.",
+      "text": "Musluk, değen bloğun yanlarından veya altından musluğun altındaki bloğa doğru dökecektir.",
       "paragraph": true
     },
     {
-      "text": "Musluk redstone uyarılarına yanıt verir, yani etkinleştirilmiş şalteri kolayca onun yanına koymak sürekli olarak içeriğinin dökülmesine neden olacaktır. Bir redstone atımı varış yeri dolasıya kadar veya kaynağı boşalana kadar içeriği dökülecektir.",
+      "text": "Musluk redstone uyarılarına yanıt verir, yani etkinleştirilmiş şalteri kolayca onun yanına koymak sürekli olarak içeriğini döktürecektir. Bir redstone atımı varış yeri dolasıya kadar veya kaynağı boşalana kadar içeriğini döktürecektir.",
       "paragraph": true
     }
   ]

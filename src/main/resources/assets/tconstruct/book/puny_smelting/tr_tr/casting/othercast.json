@@ -1,5 +1,5 @@
 {
-  "title": "Bileşim Kalıpları",
+  "title": "Bileşimleme",
   "image": {
     "file": "tconstruct:book/images/compositecast.png",
     "width": 177,
@@ -7,10 +7,10 @@
   },
   "text": [
     {
-      "text": "Bileşim kalıpları döküm masası/çanağı içindeki eşyanın/bloğun üzerine sıvı dökerek yeni malzemeler yapmana izin verir."
+      "text": "Bileşimleme, döküm masası/çanağı içindeki eşyanın/bloğun üzerine sıvı dökerek yeni malzemeler yapmanı sağlar."
     },
     {
-      "text": "Balçıkodunu ve Nahuatl göze çarpan malzemelerdir, odundan araç parçalarının üzerine sırasıyla balçık ve ergimiş obsidyeni dökerek yapılabilirler.",
+      "text": "Balçıkodunu ve Nahuatl göze çarpan malzemelerdir, odundan araç parçalarının üzerine sırasıyla balçık ve ergimiş obsidyen dökerek yapılabilirler.",
       "paragraph": true
     }
   ]

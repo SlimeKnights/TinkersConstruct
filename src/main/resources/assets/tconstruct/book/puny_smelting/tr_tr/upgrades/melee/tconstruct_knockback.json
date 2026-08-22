@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:knockback",
   "text": [
     {
-      "text": "Koşarken enerji harcamaı bırak ve düşmanlarının sana dönerken enerji harcasın."
+      "text": "Koşarken enerji harcamayı bırak ve düşmanların sana dönerken enerji harcasın."
     }
   ],
   "tool_filter": "tconstruct:modifiable/melee",

@@ -3,7 +3,7 @@
   "text": [
     { "text": "Ne yazıkki kötü bir frizbi oluyor." },
     {
-      "text": "Kalkanlar dünyada saldırılara karşı kendini korumada önemlidir, en iyisi gezmeye gideriken yanına bir tane almak", "paragraph": true
+      "text": "Kalkanlar, dünyadaki saldırılara karşı kendini korumada önemlidir, en iyisi gezmeye gideriken yanına bir tane al", "paragraph": true
     }
   ],
   "properties": [
@@ -12,6 +12,7 @@
     "Kalkanla korunurken yüksek hız",
     "3 Yükseltme Yuvası",
     "2 Savunma Yuvası",
-    "1 Yetenek Yuvası"
+    "1 Yetenek Yuvası",
+    "Tabaklanmış"
   ]
 }

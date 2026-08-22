@@ -1,0 +1,12 @@
+{
+  "tool": "tconstruct:earth_staff",
+  "text": [
+    { "text": "Yeşil balçığın gücünü kullanarak büyü asalarının en savunanını yapabilirsin. Engelleme olasılığı ve doğruluğu daha yüksektir ama ok hızı daha kötüdür." }
+  ],
+  "properties": [
+    "Orta Dayanıklılık",
+    "2 Yükseltme Yuvası",
+    "3 Savunma Yuvası",
+    "2 Yetenek Yuvası"
+  ]
+}

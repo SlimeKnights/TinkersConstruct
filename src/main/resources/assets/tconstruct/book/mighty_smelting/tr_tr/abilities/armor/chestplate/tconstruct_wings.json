@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:wings",
+  "text": [
+    {
+      "text": "Bu uçmuyor, düşüyor! Bir tarz ile!"
+    }
+  ],
+  "effects": [
+    "Havada zıplayınca süzülmeyi sağlar",
+    "Tek seviye",
+    "2 yetenek yuvası gerekir"
+  ]
+}

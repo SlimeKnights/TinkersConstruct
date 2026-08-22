@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:severing",
   "text": [
     {
-      "text": "Kim bilirdiki iyi terleştirilmiş patlayıcılarla başı tertemiz patlatabilesin? Yalnızca biraz yukarıdan."
+      "text": "Kim bilirdiki iyi yerleştirilmiş patlayıcılarla başı tertemiz patlatabilesin? Yalnızca biraz yukarıdan."
     }
   ],
   "effects": [
     "Düşmanlar başlarını düşürürler",
-    "Çoklu seviyeler, bal kesme şansı her seviyede daha da artar",
+    "Çoklu seviyeler, baş kesme şansı her seviyede daha da artar",
     "Seviye başına 1 yükseltme yuvası gerekir"
   ]
 }

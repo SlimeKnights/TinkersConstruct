@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:plate_leggings",
+  "text": [
+    { "text": "Benim bacağım, benim bacağım." },
+	{
+      "text": "Bu pantolonlar tüm dövüş gereksinimleriniz için yüksek koruma sağlar!", "paragraph": true
+    }
+  ],
+  "properties": [
+    "Yüksek Dayanıklılık",
+    "Yüksek Zırh",
+    "2 Yükseltme Yuvası",
+    "3 Savunma Yuvası",
+    "2 Malzeme Niteliği"
+  ]
+}

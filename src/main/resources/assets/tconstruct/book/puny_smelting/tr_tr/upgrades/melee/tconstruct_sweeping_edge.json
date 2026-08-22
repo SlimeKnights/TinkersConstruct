@@ -6,7 +6,7 @@
     }
   ],
   "effects": [
-    "Süpürücü saldırıların hedefleri daha büyük yüzde oranlarıyla alır",
+    "Süpürücü saldırıların hedefleri, daha büyük yüzde oranlarıyla hasar alır",
     "Çoklu seviyeler, hasarın yüzde oranını her seviyede daha da artırır",
     "Seviye başına 1 yükseltme yuvası gerekir"
   ]

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:soul_belt",
+  "text": [
+    {
+      "text": "Arkadaşlarını yakınında tut, araçlarını ise daha yakında."
+    }
+  ],
+  "effects": [
+    "Araç çubuğu eşyaları, zamansız ölümlerde senle kalacak",
+    "Tek seviye",
+    "1 yetenek yuvası gerekir"
+  ]
+}

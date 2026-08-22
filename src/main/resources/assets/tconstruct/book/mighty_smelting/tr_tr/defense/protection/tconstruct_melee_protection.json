@@ -7,8 +7,9 @@
 
   ],
   "effects": [
-    "Kılıçlardan, silahsız saldırılardan ve dahasından gelen hasarı azaltır",
-    "Çoklu seviyeler, hasarı her seviyede daha da azaltır.",
+    "Yakın menzilden gelen hasarı azaltır",
+    "Kalkan ile yay kullanırken yürüyüş hızını artırır",
+    "Çoklu seviyeler, etkileri her seviyede artırır.",
     "Seviye başına 1 savunma yuvası gerekir"
   ]
 }

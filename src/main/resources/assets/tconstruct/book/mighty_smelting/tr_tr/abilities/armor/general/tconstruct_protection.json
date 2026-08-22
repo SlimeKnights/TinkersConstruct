@@ -2,11 +2,12 @@
   "modifier_id": "tconstruct:protection",
   "text": [
     {
-      "text": "Onca yıl sonra. Sonunda, tümüne sahibim."
+      "text": "Onca yıl sonra sonunda tümüne sahibim."
     }
   ],
   "effects": [
     "Tüm hasarlara karşı korumayı artırır",
-    "Seviye başına 1 yetenek yuvası gerekir"
+    "Tek seviye",
+    "1 yetenek yuvası gerekir"
   ]
 }
