@@ -327,7 +327,7 @@ public class ModifierModelMapProvider extends AbstractModifierModelMapProvider {
         ModifierIds.emerald, ModifierIds.netherite, ModifierIds.reinforced,
         ModifierIds.overforced
         ).constant("tipped", ModifierModel.EMPTY);
-    // some modifier should not show while rod casting
+    // some modifier textures display on the hook, so hide them when the rod is cast.
     tool(TinkerTools.fishingRod, "/cast").basic(SMALL, "_broken", ModifierIds.netherite).empty(
       ModifierIds.bounce, ModifierIds.collecting, ModifierIds.fiery, ModifierIds.freezing,
       ModifierIds.lure, ModifierIds.unbreakable, ModifierIds.quickCharge, ModifierIds.trueshot,

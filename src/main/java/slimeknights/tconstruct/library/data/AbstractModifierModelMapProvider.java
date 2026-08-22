@@ -167,6 +167,10 @@ public abstract class AbstractModifierModelMapProvider extends GenericDataProvid
       return this;
     }
 
+    /**
+     * Remove a modifier model that should not be displayed under certain conditions for tools
+     * <p>Example: Do not display modifier textures on the hook part when the fishing rod is cast.</p>
+     */
     public Builder empty(ModifierId id) {
       ModifierModel existing = modifiers.putIfAbsent(id, merge(ModifierModel.EMPTY));
       if (existing != null) {
@@ -175,6 +179,10 @@ public abstract class AbstractModifierModelMapProvider extends GenericDataProvid
       return this;
     }
 
+    /**
+     * Remove modifier models that should not be displayed in certain scenarios.
+     * <p>Example: Do not display modifier textures on the hook part when the fishing rod is cast.</p>
+     */
     public Builder empty(ModifierId... ids) {
       for (ModifierId id : ids) {
         empty(id);
