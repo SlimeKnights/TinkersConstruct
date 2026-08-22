@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:wings",
   "text": [
     {
-      "text": "允许在半空中跳跃滑翔。滑翔时会缓慢损耗胸甲耐久度。"
+      "text": "能够在半空中跳跃滑翔。滑翔时会缓慢损耗胸甲耐久度。"
     }
   ],
   "more_text_space": true,
