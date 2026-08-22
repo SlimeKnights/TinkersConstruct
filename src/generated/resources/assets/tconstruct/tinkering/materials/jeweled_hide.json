@@ -6,6 +6,7 @@
   "generator": {
     "supported_stats": [
       "tconstruct:binding",
+      "tconstruct:bowstring",
       "tconstruct:cuirass",
       "tconstruct:armor_cuirass",
       "tconstruct:repair_kit",
