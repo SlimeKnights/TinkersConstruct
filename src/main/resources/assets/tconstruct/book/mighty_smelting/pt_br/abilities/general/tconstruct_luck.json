@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:luck",
   "text": [
     {
-      "text": "Na minha experiência, a sorte não existe."
+      "text": "Na minha experiência, não existe sorte."
     }
   ],
   "effects": [
-    "Aumenta os drops de criaturas e de blocos",
-    "Máximo de 3 niveis, receitas diferentes para cada nivel",
-    "Receita diferente para as calças",
-    "Primeiro nivel requer 1 slot de habilidade"
+    "Aumenta as quedas de mob e as quedas de blocos",
+    "Em ferramentas, máximo de 3 níveis, receita diferente para cada nível",
+    "Nas calças, máximo de 1 nível, aumenta as quedas para a ferramenta equipada",
+    "Apenas o primeiro nível requer 1 slot de habilidade"
   ]
 }

@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:long_fall",
+  "text": [
+    {
+      "text": "Vá em frente e tente cair de cabeça no chão. Ha! Você não consegue!"
+    }
+  ],
+  "effects": [
+    "Previne todo o dano de queda",
+    "Requer Peso Pena IV ",
+    "Máximo de 1 nível",
+    "Requer 1 slot de habilidade"
+  ]
+}

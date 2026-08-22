@@ -1,13 +1,14 @@
 {
-  "modifier_id": "tconstruct:unarmed",
+  "modifier_id": "tconstruct:ambidextrous",
   "text": [
     {
       "text": "Todo mundo junto: KUNG FU FIGHTING."
     }
   ],
   "effects": [
-    "Aumenta o dano desarmado",
+    "Permite socos com as duas mãos",
     "Nivel Único",
     "Requer 1 slot de habilidade"
   ]
 }
+

@@ -6,9 +6,9 @@
     }
   ],
   "effects": [
-    "Aumenta a largura e a altura da mineração",
-	"O alcance é diferente para cada ferramenta",
-    "Múltiplos níveis, cada nível aumenta a largura e a altura em um",
+    "Aumenta a largura e altura da mineração",
+    "A faixa é diferente para cada ferramenta",
+    "Vários níveis, cada nível aumenta a largura e altura em um",
     "Requer 1 slot de habilidade por nível"
   ]
 }

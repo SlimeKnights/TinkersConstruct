@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:wetting",
+  "text": [
+    {
+      "text": "Tudo bem se você se molhar um pouco quando se machucar. Espera, você não adicionou esse modificador nas suas calças?"
+    }
+  ],
+  "effects": [
+    "Aplica efeitos de fluido quando danificado",
+    "Nível único",
+    "Requer 1 slot de habilidade",
+    "Use a ferramenta em um tanque para preenchê-lo com fluido."
+  ]
+}

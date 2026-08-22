@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:shulking",
+  "text": [
+    {
+      "text": "Casa é onde a concha está."
+    }
+  ],
+  "effects": [
+    "Reduz o dano recebido e causado enquanto estiver agachado",
+    "Vários níveis, cada nível aumenta ainda mais o efeito",
+    "Pode aplicar níveis de forma incremental",
+    "Requer 1 slot de defesa por nível"
+  ]
+}

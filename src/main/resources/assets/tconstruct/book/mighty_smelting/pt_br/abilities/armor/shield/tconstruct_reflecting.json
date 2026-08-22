@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:reflecting",
+  "text": [
+    {
+      "text": "Seu escudo também é seu trampolim."
+    }
+  ],
+  "effects": [
+    "Rebate projéteis dentro de um curto período após bloquear",
+    "Vários níveis, cada nível aumenta a janela de reflexão",
+    "Requer 1 slot de habilidade"
+  ]
+}

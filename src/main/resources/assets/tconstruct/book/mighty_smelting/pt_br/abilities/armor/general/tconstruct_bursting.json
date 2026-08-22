@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:bursting",
+  "text": [
+    {
+      "text": "Meio nojento que sua armadura está vazando. Mas também muito efetivo!"
+    },
+    {
+      "text": "Clicar com o botão direito em um tanque com uma ferramenta o enche",
+
+      "paragraph": true
+    }
+  ],
+  "effects": [
+    "Drena o tanque quando atacado, é necessário estar bloqueando para escudos",
+    "Efeitos variados baseados no fluido, incluindo fogo e veneno",
+    "Requer 1 slot de habilidade por nível"
+  ]
+}

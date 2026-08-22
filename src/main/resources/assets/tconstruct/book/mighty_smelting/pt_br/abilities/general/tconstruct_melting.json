@@ -2,13 +2,16 @@
   "modifier_id": "tconstruct:melting",
   "text": [
     {
-      "text": "A fundição não é portátil o suficiente? Tente transformar sua ferramenta em uma fundição portátil!"
+      "text": "Forno não portátil o suficiente? Tente transformar sua ferramenta em um forno portátil!"
+    },
+    {
+      "text": "Clique com o botão direito em um tanque enquanto segura a ferramenta para esvaziar o fluido.", "paragraph": true
     }
   ],
   "effects": [
-    "Derrete criaturas atacadas no tanque da ferramenta",
-    "Itens dropados também são derretidos, se possível",
-    "A ferramenta pode ser esvaziada em um tanque ou em um dreno de fundição",
-    "Requer 1 Slot de Habilidade, nível único"
+    "Derrete os mobs atacados no tanque da ferramenta",
+    "Itens caídos também são derretidos, se possível",
+    "A ferramenta pode ser esvaziada em um tanque ou em um dreno de forno",
+    "Requer 1 slot de habilidade, nível único"
   ]
 }
