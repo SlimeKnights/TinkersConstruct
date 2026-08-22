@@ -1,11 +1,11 @@
 {
-  "title": "流体的转移",
+  "title": "转移流体",
   "image": {
     "file": "tconstruct:book/images/movingfluids.png"
   },
   "text": [
     {
-      "text": "学会怎么使用熔化炉之后，你可能会问：“但是Thruul，我怎么把那些材料弄出来呢？”这是个好问题！"
+      "text": "学会使用最基础的熔化炉之后，你可能会问：“Thruul啊，我要怎么把金属材料取出来呢？” 真是个好问题！"
     }
   ]
 }

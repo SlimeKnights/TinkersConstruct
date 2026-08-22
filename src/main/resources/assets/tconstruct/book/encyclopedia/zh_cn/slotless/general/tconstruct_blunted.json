@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:blunted",
   "text": [
     {
-      "text": "防止工具触发近战攻击，改为触发交互功能。"
+      "text": "阻止工具进行近战攻击，而改为触发工具的交互能力。"
     }
   ],
   "more_text_space": true,

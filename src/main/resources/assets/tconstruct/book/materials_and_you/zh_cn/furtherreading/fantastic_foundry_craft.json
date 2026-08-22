@@ -3,6 +3,6 @@
   "recipe": "tconstruct:common/fantastic_foundry",
   "grid_size": "small",
   "description": [
-    { "text": "熔融金属中最热门的新技术。跳过冶炼炉，从熔铸炉开始！详情请参阅Nemea所著《§o奇异熔铸术§r》。" }
+    { "text": "冶金业最新最“热”的技术。你可以直接跳过冶炼炉，从熔铸炉开始！详情请阅读Nemea编写的 《§o奇异熔铸术§r》。" }
   ]
 }

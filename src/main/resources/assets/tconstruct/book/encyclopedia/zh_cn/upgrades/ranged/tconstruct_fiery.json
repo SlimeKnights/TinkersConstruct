@@ -2,15 +2,15 @@
   "modifier_id": "tconstruct:fiery",
   "text": [
     {
-      "text": "使射出的箭矢着火，点燃击中的目标。"
+      "text": "使射出的箭矢着火，并且点燃击中的目标，每级延长5秒燃烧时间。"
     }
   ],
   "more_text_space": true,
   "tool_filter": "tconstruct:modifiable/ranged",
   "effects": [
-    "可以逐级强化",
+    "支持累积强化",
     "最高5级",
-    "和“冰冻”相性不佳",
+    "与“冰冻”相性不佳",
     "每级需要1个升级槽"
   ]
 }

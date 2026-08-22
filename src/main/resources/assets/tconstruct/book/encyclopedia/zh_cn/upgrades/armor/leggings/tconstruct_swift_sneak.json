@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:swift_sneak",
   "text": [
     {
-      "text": "每级潜行移动速度减益-15%。5级时，你可以在潜行状态下疾跑。"
+      "text": "每级使潜行移动速度减益-15%。达到5级时，潜行状态下可以疾跑。"
     }
   ],
   "more_text_space": true,

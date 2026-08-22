@@ -2,17 +2,17 @@
   "modifier_id": "tconstruct:lightspeed",
   "text": [
     {
-      "text": "在光照良好的区域每级移动速度+9%。若光照条件不佳，仍会有增益效果，但总体较弱。"
+      "text": "在光照良好的区域每级移动速度+9%。即使未充分照亮的区域内也有稍弱的增益效果。"
     },
     {
-      "text": "此强化工作时靴子会持续消耗耐久度。",
+      "text": "此强化工作时，靴子持续消耗耐久度。",
       "paragraph": true
     }
   ],
   "more_text_space": true,
   "tool_filter": "tconstruct:modifiable/armor/boots",
   "effects": [
-    "可以逐级强化",
+    "支持累积强化",
     "最高3级",
     "每级需要1个升级槽"
   ]

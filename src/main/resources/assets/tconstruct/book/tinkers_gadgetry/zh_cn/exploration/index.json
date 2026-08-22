@@ -1,11 +1,11 @@
 {
   "title": "探索",
-  "subText": "许多工匠提到过能作为工具材料或强化的资源，但忘了告诉你如何获取它们。幸运的是，我在旅行中找到了它们中的大部分，所以我可以将我的发现传授给你。",
+  "subText": "其他工匠同事只是在书里稍稍提及那些能用 于强化或打造工具的材料，但忘记同你讲这 些材料的来源。我有幸在旅途中找到很多这 样的材料，也非常愿意同你分享我的见闻。",
   "operations": [
     { "before": "steel_shard", "action": "add_group", "data": "资源" },
     { "before": "skyslime_island", "action": "column_break" },
-    { "before": "skyslime_island", "action": "add_group", "data": "岛屿" },
+    { "before": "skyslime_island", "action": "add_group", "data": "黏液岛" },
     { "before": "skyslime_geode", "action": "column_break" },
-    { "before": "skyslime_geode", "action": "add_group", "data": "晶洞" }
+    { "before": "skyslime_geode", "action": "add_group", "data": "黏液晶洞" }
   ]
 }

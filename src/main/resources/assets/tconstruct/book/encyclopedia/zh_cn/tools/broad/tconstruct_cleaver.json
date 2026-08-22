@@ -2,7 +2,7 @@
   "tool": "tconstruct:cleaver",
   "text": [
     { "text": "劈刀是一种高伤害，低攻速的武器。" },
-    { "text": "“延展”能够增加横扫攻击的范围，而“丝触”可以获得范围修剪能力。", "paragraph": true }
+    { "text": "“延展”能够增加横扫攻击的范围，“丝触”能够添加范围修剪能力。", "paragraph": true }
   ],
   "properties": [
     "+3 攻击力",

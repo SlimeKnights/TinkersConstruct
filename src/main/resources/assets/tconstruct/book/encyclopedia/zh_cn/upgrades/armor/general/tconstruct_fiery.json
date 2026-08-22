@@ -2,16 +2,16 @@
     "modifier_id": "tconstruct:fiery",
     "text": [
       {
-        "text": "每级有15%的概率对攻击者造成1-7秒的燃烧效果。效果由强化等级最高的盔甲决定。"
+        "text": "每级有15%的概率点燃攻击者1到7秒。效果由强化等级最高的盔甲决定。"
       },
       {
-        "text": "盾牌格挡时造成的效果翻倍，但只在格挡时起效。", "paragraph": true
+        "text": "盾牌造成的效果翻倍，但只在格挡时起效。", "paragraph": true
       }
     ],
     "more_text_space": true,
     "tool_filter": "tconstruct:modifiable/armor",
     "effects": [
-      "可以逐级强化",
+      "支持累积强化",
       "最高5级",
       "每级需要1个升级槽"
     ]

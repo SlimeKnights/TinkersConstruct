@@ -2,12 +2,13 @@
   "modifier_id": "tconstruct:lightspeed",
   "text": [
     {
-      "text": "光照等级为5时每级挖掘速度+1，光照等级为10时每级挖掘速度+3，光照等级为15时每级挖掘速度+9。"
+      "text": "光照等级达到5时，每级使挖掘速度+1； 光照等级达到10时，每级使挖掘速度+3； 光照等级达到15时，每级使挖掘速度+9。"
     }
   ],
   "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/harvest",
   "effects": [
-    "可以逐级强化",
+    "支持累积强化",
     "最高5级",
     "每级需要1个升级槽"
   ]

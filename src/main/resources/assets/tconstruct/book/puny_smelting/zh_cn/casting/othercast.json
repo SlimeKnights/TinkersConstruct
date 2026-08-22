@@ -1,16 +1,16 @@
 {
-  "title": "合成铸造",
+  "title": "浇注合成",
   "image": {
-    "file": "tconstruct:book/images/compositecast.png",
+    "file": "tconstruct:book/images/zh_cn/compositecast.png",
     "width": 177,
     "height": 50
   },
   "text": [
     {
-      "text": "合成铸造使你能在铸件台或铸造盆中向工具部件或方块上倒入流体来制造全新的材料。"
+      "text": "浇注合成是一种能创造出新材料的技术。需要将物品放在铸件台上，或者将方块放入铸造盆 里，然后浇上流体。"
     },
     {
-      "text": "值得一提的材料有黏木和纳瓦特尔，分别是往木部件上浇注黏液和熔融黑曜石制成的。",
+      "text": "典型的例子有黏木和纳瓦特尔，它们分别需要在木部件上浇注黏液和熔融黑曜石。",
       "paragraph": true
     }
   ]

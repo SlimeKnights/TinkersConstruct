@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:depth_strider",
   "text": [
     {
-      "text": "每级水中移速-33%。第3级时，抵消在水中的移速减益。"
+      "text": "每级使水下的移速惩罚-33%。达到3级时，水下移动不再有移速惩罚。"
     }
   ],
   "more_text_space": true,

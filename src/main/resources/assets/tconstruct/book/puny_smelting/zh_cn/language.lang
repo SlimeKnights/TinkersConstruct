@@ -4,22 +4,23 @@ moving_fluids=流体转移
 casting=铸造
 worktable=强化调配台
 melee_harvest_materials=二级通用材料
-melee_harvest_materials.subtext=这些材料可以铸造成近程武器或采掘工具的工具部件。
+melee_harvest_materials.subtext=这些材料可以铸造成近程武器或采掘工具的 部件。
 ranged_materials=二级远程材料
-ranged_materials.subtext=这些材料可以铸造成像弓那样的远程武器的工具部件。
+ranged_materials.subtext=这些材料可以铸造成弓等远程武器的部件。
 armor_materials=二级盔甲材料
 armor_materials.subtext=这些材料可以锻造成盔甲和盾牌的部件。
 
 further_reading=延伸阅读
 
 armor=入门盔甲
-armor.subtext=接下来，你需要选择你的盔甲锻造路径：旅行者套装，可高度定制且拥有更多强化槽；镶板盔甲，给予你更强的防护。但如果你不那么追求时尚，你可以尝试混搭风。
+armor.subtext=对于盔甲，你有两种选择：选择旅行者套装 的话，它可高度定制，拥有更多能力槽；选 择镶板套装的话，则可以获得更强的防护能 力。不那么追求统一的话，还可以试试混搭。
 
 upgrades=升级强化
-upgrades.subtext=工具可加持升级强化，不过一把工具能加持的升级强化的数量是有限的。
+upgrades.subtext=工具可以通过升级强化性能，但可加持强化的总数有限。
 upgrades.group_general=通用升级
 upgrades.group_harvest=采掘升级
 upgrades.group_melee=近战升级
+upgrades.group_ranged=远程升级
 upgrades.group_damage=额外伤害升级
 upgrades.group_armor=盔甲升级
 upgrades.group_armor.helmet=头盔升级
@@ -28,7 +29,7 @@ upgrades.group_armor.leggings=护腿升级
 upgrades.group_armor.boots=靴子升级
 
 slotless=无槽位强化
-slotless.subtext=这些强化不需要任何槽位就能加持，如果你愿意的话可以都加上。
-slotless.group_slotless=无槽位强化
-slotless.group_bonus_upgrades=额外槽位强化
-slotless.group_cosmetic=装饰用强化
+slotless.subtext=不需要槽位就能加持，只要你想可以都加上。
+slotless.group_slotless=通用型
+slotless.group_bonus_upgrades=额外槽位型
+slotless.group_cosmetic=装饰型

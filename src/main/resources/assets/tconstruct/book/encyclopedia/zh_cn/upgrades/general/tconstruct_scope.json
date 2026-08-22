@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:scope",
   "text": [
     {
-      "text": "工具蓄力时逐渐将视角放大到远处目标。满弦时放大效果比望远镜稍弱。"
+      "text": "工具蓄力时拉远视野。完全蓄力下放大效果只稍弱于望远镜。"
     }
   ],
   "more_text_space": true,

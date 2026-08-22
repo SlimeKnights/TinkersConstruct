@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:fiery",
   "text": [
     {
-      "text": "对敌人使用下界的烈焰吧。"
+      "text": "用下界烈火惩戒你的敌人。"
     }
   ],
   "tool_filter": "tconstruct:modifiable/armor",
   "effects": [
-    "受击时有概率点燃攻击者",
-    "多个等级，每级提升燃烧概率",
+    "受击有概率点燃攻击者",
+    "多个等级，每级进一步 提升燃烧概率",
     "每级需要1个升级槽"
   ]
 }
