@@ -16,6 +16,7 @@ import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickAction;
@@ -193,7 +194,7 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
   }
 
 
-  /* Indestructible items */
+  /* Item entity */
 
   @Override
   public boolean hasCustomEntity(ItemStack stack) {
@@ -204,6 +205,11 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
   @Override
   public Entity createEntity(Level level, Entity original, ItemStack stack) {
     return IndestructibleItemEntity.createFrom(level, original, stack);
+  }
+
+  @Override
+  public void onDestroyed(ItemEntity entity) {
+    ToolInventoryCapability.onDestroyed(entity);
   }
 
 
