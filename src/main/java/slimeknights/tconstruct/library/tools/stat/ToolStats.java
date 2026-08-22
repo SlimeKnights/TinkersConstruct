@@ -7,6 +7,8 @@ import slimeknights.mantle.data.loadable.ErrorFactory;
 import slimeknights.mantle.data.loadable.primitive.StringLoadable;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.tools.stat.impl.IntegerToolStat;
+import slimeknights.tconstruct.library.tools.stat.impl.PercentToolStat;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
@@ -75,7 +77,7 @@ public class ToolStats {
   });
 
   /** Tools durability, determines how long it lasts */
-  public static final FloatToolStat DURABILITY = register(new FloatToolStat(name("durability"), 0xFF47CC47, 1, 1, Integer.MAX_VALUE, TinkerTags.Items.DURABILITY));
+  public static final FloatToolStat DURABILITY = register(new IntegerToolStat(name("durability"), 0xFF47CC47, 1, 1, Integer.MAX_VALUE, TinkerTags.Items.DURABILITY));
   /** Movement speed percentage when using this item, applicable to charging tools, pulling back bows, and shield blocking among other actions */
   public static final FloatToolStat USE_ITEM_SPEED = register(new FloatToolStat(name("use_item_speed"), 0xFF78A0CD, 0.2f, 0, 1, TinkerTags.Items.HELD));
 
@@ -116,13 +118,13 @@ public class ToolStats {
   // TODO 1.21: rename to projectile power?
   public static final FloatToolStat PROJECTILE_DAMAGE = registerConditional(new FloatToolStat(name("projectile_damage"), 0xFFD76464, 2f, 0f, 1024f, or(tag(TinkerTags.Items.LAUNCHERS), tag(TinkerTags.Items.AMMO))));
   /** Projectile movement speed reduction while underwater */
-  public static final FloatToolStat WATER_INERTIA = registerConditional(new FloatToolStat(name("water_inertia"), 0xFF5A82F3, 0.6f, 0.01f, 0.99f));
+  public static final FloatToolStat WATER_INERTIA = registerConditional(new PercentToolStat(name("water_inertia"), 0xFF5A82F3, 0.6f, 0.01f, 0.99f));
 
   // fishing
-  /** Luck bonus applied to fishing rods */
-  public static final FloatToolStat SEA_LUCK = registerConditional(new FloatToolStat(name("sea_luck"), 0xFF345EC3, 0, 0, 1024f, TinkerTags.Items.FISHING_RODS));
+  /** Luck bonus applied to fishing rods */ // TODO 1.21: change field type to IntToolStat
+  public static final FloatToolStat SEA_LUCK = registerConditional(new IntegerToolStat(name("sea_luck"), 0xFF345EC3, 0, 0, 1024f, TinkerTags.Items.FISHING_RODS));
   /** Floored value will reduce fishing time by 5 seconds */
-  public static final FloatToolStat LURE = registerConditional(new FloatToolStat(name("lure"), 0xFFCBCC18, 0, 0, 5, TinkerTags.Items.FISHING_RODS));
+  public static final FloatToolStat LURE = registerConditional(new IntegerToolStat(name("lure"), 0xFFCBCC18, 0, 0, 5, TinkerTags.Items.FISHING_RODS));
 
   /**
    * Gets the tool stat for the given name
