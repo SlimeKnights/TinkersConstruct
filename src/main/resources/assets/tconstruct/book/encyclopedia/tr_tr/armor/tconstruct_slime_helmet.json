@@ -1,0 +1,13 @@
+{
+  "tool": "tconstruct:slime_helmet",
+  "text": [
+    { "text": "Balçıklı Kafatası canavarların yeteneklerini kopyalayabilen bir kasktır. Enderbalçığını canlının başına dökülerek üretilir ve baş türü etkileri belirler." },
+    { "text": "Kitabın Balçıklı Kafatası bölümü çeşitlerle ilgili daha çok bilgi var.", "paragraph": true }
+  ],
+  "properties": [
+    "+362 Fazladan Dayanıklılık",
+    "5 Yükseltme Yuvası",
+    "0 Savunma Yuvası",
+    "1 Yetenek Yuvası"
+  ]
+}

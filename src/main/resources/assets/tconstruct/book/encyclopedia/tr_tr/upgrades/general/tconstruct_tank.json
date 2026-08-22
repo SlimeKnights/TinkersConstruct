@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:tank",
+  "text": [
+    {
+      "text": "Aracın tank sığasını seviye başına 1 kova artır. Kovalama veya ergitme gibi yeteneklerle kullanışlıdır."
+    },
+    {
+      "text": "Tanklı araçların sıvı tank bloklarıyla etkileşim kurarak doldurulma ile çekilme özelliği vardır. Zırhta parça tankı doldurmak veya boşaltmak için elde tutulmalıdır.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 5 seviye",
+    "Seviye başına 1 yükseltme yuvası gerekir"
+  ]
+}

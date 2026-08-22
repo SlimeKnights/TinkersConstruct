@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:pathing",
+  "text": [
+    {
+      "text": "Aracın kazı küreği veya kazaratar gibi yolak oluşturmasını sağlar. Araç kendinin olağan çıkarım alanını yolak koymak için kullanacaktır."
+    },
+    {
+      "text": "Eğer aracın özgün soyması veya sürmesi varsa ondan önce tetiklenir.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 1 seviye",
+    "1 yetenek yuvası gerekir"
+  ]
+}

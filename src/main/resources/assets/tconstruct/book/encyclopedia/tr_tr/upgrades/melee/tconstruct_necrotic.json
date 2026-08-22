@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:necrotic",
+  "text": [
+    {
+      "text": "Kritik vuruşlar seviye başına vurulan hasarın %5'ini iyileştirir. Araçlar seviye başına 1 ek dayanıklılık kaybeder."
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/melee",
+  "effects": [
+    "En çok 5 seviye",
+    "Seviye başına 1 yükseltme yuvası gerekir"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:vein_hammer",
+  "text": [
+    { "text": "Damar Çekici 2 blok uzaklıktaki taş bloklarını ve bitişiğindeki aynı tür blokları çıkarır." },
+    { "text": "Her genişletici doruk uzaklığını 1 blok artırır.", "paragraph": true }
+  ],
+  "properties": [
+    "+3 Saldırı Hasarı",
+    "%125 Saldırı Katlayıcısı",
+    "0.85 Saldırı Speed",
+    "%30 Çıkarım Katlayıcısı",
+    "%500 Dayanıklılık Katlayıcısı",
+    "Delme II"
+  ]
+}

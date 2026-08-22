@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:glowing",
+  "text": [
+    {
+      "text": "Hedeflenen bloğun yüzü ışık yayarak parlar. ışık koymak 10 dayanıklılık tüketir ki bu dayananıklılık kaybını azaltan diğer değiştiricileri atlar."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 1 seviye",
+    "1 yetenek yuvası gerekir"
+  ]
+}

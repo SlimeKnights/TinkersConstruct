@@ -1,0 +1,14 @@
+{
+  "tool": "tconstruct:flint_and_brick",
+  "text": [
+    { "text": "Çakmak Taşı ve Tuğla ateşleyiciyle başlayan elde kullanılan bir araçtır." },
+    { "text": "Ateş fitili ile daha da artan genişleyerek artışlı ateş yarıçapı.", "paragraph": true }
+  ],
+  "properties": [
+    "+0 Saldırı Hasarı",
+    "1.0 Saldırı Hızı",
+    "100 Dayanıklılık",
+    "Ateşli 1",
+    "Ateşleme"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:crystalshot",
+  "text": [
+    {
+      "text": "Envanterdeki cephane yerine yay kendi kristal oklarını üretir."
+    },
+    {
+      "text": "Araç fazladan ürettiği ok başına 4 hasar alır."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 1 seviye",
+    "1 yetenek yuvası gerekir"
+  ]
+}

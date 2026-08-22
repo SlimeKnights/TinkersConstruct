@@ -1,0 +1,14 @@
+{
+  "tool": "tconstruct:cleaver",
+  "text": [
+    { "text": "Satır yüksek hasarlı ve yavaş hızlı silahtır." },
+    { "text": "Genişletici süpürücü saldırı alanını artırır ve ipeksi alan etkili kırkma sağlar.", "paragraph": true }
+  ],
+  "properties": [
+    "+3 Saldırı Hasarı",
+    "%150 Saldırı Katlayıcısı",
+    "1.0 Saldırı Hızı",
+    "%350 Dayanıklılık Katlayıcısı",
+    "Koparma II"
+  ]
+}

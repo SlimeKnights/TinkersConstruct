@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:knockback_resistance",
+  "text": [
+    {
+      "text": "Karşılanan savurmayı %10 azaltır."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Parça başına en çok 1 seviye",
+    "1 savunma yuvası gerekir"
+  ]
+}

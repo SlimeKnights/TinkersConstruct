@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:exchanging",
+  "text": [
+    {
+      "text": "Çıkarılan blokları öbür elinde tutulan blokla yer değiştirir."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 1 seviye",
+    "1 yetenek yuvası gerekir"
+  ]
+}

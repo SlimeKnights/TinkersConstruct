@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:zoom",
+  "text": [
+    {
+      "text": "Eğilirken kaskın tuşuna basıldığında veya tutulan araçla etkileşime girildiğinde görüş alanını büyük gözükmesini sağlar."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 1 seviye",
+    "1 yükseltme yuvası gerekir"
+  ]
+}

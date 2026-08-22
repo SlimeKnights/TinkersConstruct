@@ -1,0 +1,13 @@
+{
+  "tool": "tconstruct:sword",
+  "text": [
+    { "text": "Kılıç her yönünden bir silahtır, orta hız ile saldırı sağlar." },
+    { "text": "Kılıçtaki genişleticiler süpürücü saldırı alanını artırırken İpeksi kırkma sağlar.", "paragraph": true }
+  ],
+  "properties": [
+    "+3 Saldırı Hasarı",
+    "1.6 Saldırı Hızı",
+    "%110 Dayanıklılık Katlayıcısı",
+    "Süpürücü Saldırı"
+  ]
+}

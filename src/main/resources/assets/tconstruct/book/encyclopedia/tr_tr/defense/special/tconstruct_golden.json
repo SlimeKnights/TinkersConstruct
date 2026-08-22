@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:golden",
+  "text": [
+    {
+      "text": "Piglinlerin sana karşı arkadaşca davranmasını sağlar. Bütün takımdan yalnızca birinin altından olması gerekir."
+    },
+    {
+      "text": "Zırhı altınla onarmayı sağlar.", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Parça başına en çok 1 seviye",
+    "1 savunma yuvası gerekir"
+  ]
+}

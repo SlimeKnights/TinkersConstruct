@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:scope",
+  "text": [
+    {
+      "text": "Yay çekilcikce uzaktaki nesneleri büyütür. Tümüyle çekildiğinde dürbünden daha azcık olur."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 1 seviye",
+    "1 yükseltme yuvası gerekir"
+  ]
+}

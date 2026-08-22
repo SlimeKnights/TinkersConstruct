@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:reach",
+  "text": [
+    {
+      "text": "Oyuncunun aracının çıkarabileceği, blok koyabileceği ve canlılara saldırabileceği en çok uzaklığı seviye başına 1 blok artırır."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok seviye yok",
+    "Seviye başına 1 yetenek yuvası gerekir"
+  ]
+}

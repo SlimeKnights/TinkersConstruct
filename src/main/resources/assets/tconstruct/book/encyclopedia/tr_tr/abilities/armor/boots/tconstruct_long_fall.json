@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:long_fall",
+  "text": [
+    {
+      "text": "Bütün düşüş hasarını etkisizleştirir."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 1 seviye",
+    "Tüy Düşüşü IV gerekir",
+    "1 yetenek yuvası gerekir"
+  ]
+}

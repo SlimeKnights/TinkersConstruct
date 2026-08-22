@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:blocking",
+  "text": [
+    {
+      "text": "Aracı kalkan olarak kulnamayı sağlar ki olası çoğu saldırıyı engeller. Sıkça araçlar yükleniyorken engelleyebilir."
+    },
+    {
+      "text": "Çoğu araç 5 hasarı engelleyebilir ama bazıları (asalar gibi) 15 ile 20 arasında hasar engelleyebilir."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 1 seviye",
+    "1 yetenek yuvası gerekir"
+  ]
+}

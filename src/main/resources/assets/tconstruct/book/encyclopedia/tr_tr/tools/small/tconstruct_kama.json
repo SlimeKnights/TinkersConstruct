@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:kama",
+  "text": [
+    { "text": "Kama bitkilerde, ağlarda ve yünde etkili eksiksiz bir biçme aracıdır." },
+    { "text": "Genişleticiler kamanın dairesel yarıçapını artırır.", "paragraph": true }
+  ],
+  "properties": [
+    "+1 Saldırı Hasarı",
+    "%50 Saldırı Değiştiricisi",
+    "1.6 Saldırı Hızı",
+    "Bitkileri ve hayvanları kırpar",
+    "Küçük Alan Etkili Saldırı",
+    "Bitkileri biç",
+    "Toprağı sür"
+  ]
+}

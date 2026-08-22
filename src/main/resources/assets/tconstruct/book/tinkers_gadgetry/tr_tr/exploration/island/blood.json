@@ -1,0 +1,13 @@
+{
+  "title": "Kan Adaları",
+  "image": {
+	"file": "tconstruct:book/images/islands/blood.png",
+    "width": 180,
+    "height": 87
+  },
+  "text": [
+    {
+      "text": "Bu kan kırmızısı adalar, nether'in lav okyanuslarında ara sıra bulunurlar. Nether'in geri kalanına göre daha çok yoğunlukta magma küpü olma eğilimi vardır ve ayrıca od kaynağı gibi görünen garip bir mantar türünü de içerir."
+    }
+  ]
+}

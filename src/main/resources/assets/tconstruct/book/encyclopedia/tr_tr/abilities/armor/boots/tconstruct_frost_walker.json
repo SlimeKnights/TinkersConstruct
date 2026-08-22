@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:frost_walker",
+  "text": [
+    {
+      "text": "Bastığın suyu dondurur. Genişletilmiş ile etki alanı artar."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 1 seviye",
+    "1 yetenek yuvası gerekir"
+  ]
+}

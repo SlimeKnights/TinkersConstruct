@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:lightspeed",
+  "text": [
+    {
+      "text": "Çıkarım hızına 5. ışık düzeyinde seviye başına +1, 10. ışık düzeyinde seviye başına +3 ve 15. ışık düzeyinde seviye başına +9 artış sağlar."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Aşamalı olarak seviyeler uygulanabilir",
+    "En çok 5 seviye",
+    "Seviye başına 1 yükseltme yuvası gerekir"
+  ]
+}

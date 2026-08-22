@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:fiery",
+  "text": [
+    {
+      "text": "Saldırılan canlıların seviye başına 5 saniye yanmasını sağlar."
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/melee",
+  "effects": [
+    "Aşamalı olarak seviyeler uygulanabilir",
+    "En çok 5 seviye",
+    "Seviye başına 1 yükseltme yuvası gerekir"
+  ]
+}

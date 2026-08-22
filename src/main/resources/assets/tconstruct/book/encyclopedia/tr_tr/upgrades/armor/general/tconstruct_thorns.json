@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:thorns",
+  "text": [
+    {
+      "text": "Saldırana seviye başına %15 şans ile 1'den 4'e kadar hasar uygulayabilir. Çoklu parçalar etkileri yığar."
+    },
+    {
+      "text": "Kalkanlar iki kat etkilidir ama yalnızca engellerken çalışır.", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 3 seviye",
+    "Seviye başına 1 yükseltme yuvası gerekir"
+  ]
+}

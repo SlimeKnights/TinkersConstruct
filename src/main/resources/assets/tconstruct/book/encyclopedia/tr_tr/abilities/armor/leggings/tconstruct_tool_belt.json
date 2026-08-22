@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:tool_belt",
+  "text": [
+    {
+      "text": "Pantolonun etkileşimini kullanarak ilk 4 araç çubuğunun yuvalarının yer değiştirmesini sağlar. Art arda seviyeler 6. seviyede 9 yuvaya ulaşana dek 1 yuva eklerler."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "İlk seviye 1 yetenek yuvası gerektirir",
+    "En çok 6 seviye",
+    "Her seviyede farklı tarifler"
+  ]
+}

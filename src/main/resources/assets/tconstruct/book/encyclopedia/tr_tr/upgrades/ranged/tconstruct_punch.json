@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:punch",
+  "text": [
+    {
+      "text": "Okların uyguladığı savurmayı her seviyede artırır."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 5 seviye",
+    "Seviye başına 1 yükseltme yuvası gerekir"
+  ]
+}

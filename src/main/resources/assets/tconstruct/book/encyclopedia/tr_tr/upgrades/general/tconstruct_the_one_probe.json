@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:the_one_probe",
+  "text": [
+    {
+      "text": "Hedeflenen bloğun bilgilerini gösterir tıpkı bir sorguda eşyası gibi."
+    },
+    {
+      "text": "Bilgilerin alınması için kaskın giyilmesi veya aracın iki elin birinde tutulması zorunludur.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 1 seviye",
+    "1 yükseltme yuvası gerekir"
+  ]
+}

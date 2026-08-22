@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:double_jump",
+  "text": [
+    {
+      "text": "Havada ikinci kez zıplamanı sağlar. Daha yüksek seviyeler ek zıplamalar ekler ki üçlü zıplamalara ve olası olarak dörtlü zıplamalar sağlar."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok seviyesi yok",
+    "Seviye başına 1 yetenek yuvası gerekir",
+  ]
+}

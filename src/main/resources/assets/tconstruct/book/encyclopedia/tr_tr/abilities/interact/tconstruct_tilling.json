@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:tilling",
+  "text": [
+    {
+      "text": "Aracın keser çapası veya tırpan gibi toprağı sürmesini sağlar. Araç kendinin olağan çıkarım alanını sürmek için kullanacaktır."
+    },
+    {
+      "text": "Eğer aracın özgün soyması veya yolaklaması varsa ondan önce tetiklenir.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 1 seviye",
+    "1 yetenek yuvası gerekir"
+  ]
+}

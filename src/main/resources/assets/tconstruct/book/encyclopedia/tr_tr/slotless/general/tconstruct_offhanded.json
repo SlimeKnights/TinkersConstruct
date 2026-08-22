@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:offhanded",
+  "text": [
+    {
+      "text": "Öbür eli doluysa ana elin etkileşim yeteneğini kullanmayı önler. Örneğin kalkan öbür elindeyse balta odunu soymayacaktır."
+    },
+    {
+      "text": "İkinci seviyesi tümüyle aracın etkileşim yeteneğini etkisizleştirir.", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 2 seviye"
+  ]
+}

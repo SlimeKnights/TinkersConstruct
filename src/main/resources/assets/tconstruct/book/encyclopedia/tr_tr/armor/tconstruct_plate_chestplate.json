@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:plate_chestplate",
+  "text": [
+    { "text": "Sac Göğüslük yüksek koruma, düşük yükselme yuvası ile yüksek savunma yuvası olan savunmacı bir göğüslüktür." }
+  ],
+  "properties": [
+    "480 Dayanıklılık",
+    "+7 Zırh",
+    "+2 Sertlik",
+    "%40 Silahsız Saldırı",
+    "1 Yükseltme Yuvası",
+    "4 Savunma Yuvası",
+    "1 Yetenek Yuvası"
+  ]
+}

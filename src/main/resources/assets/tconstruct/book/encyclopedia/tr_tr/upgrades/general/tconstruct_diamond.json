@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:diamond",
+  "text": [
+    {
+      "text": "+500 dayanıklılık (zırhta +250), +0.5 saldırı hasarı, +2 çıkarım hızı, +0.5 uzun menzilli gücü ile +1 zırh sağlar. Ek olarak aracın çıkarım düzeyini elmasa yükseltir."
+    },
+    {
+      "text": "Araçlar ve zırhlar uygulanabilir istatistik artışlarını alacaklar, örneğin tutulan araçlar +1 zırh almayacaktır.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 1 seviye",
+    "1 yükseltme yuvası gerekir"
+  ]
+}

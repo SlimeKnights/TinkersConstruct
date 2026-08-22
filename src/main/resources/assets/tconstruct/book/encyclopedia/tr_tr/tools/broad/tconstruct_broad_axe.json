@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:broad_axe",
+  "text": [
+    { "text": "Savaş Baltası ağaçtaki direklerden birini veya dikey direkteki 6 bloğu çıkarabilir." },
+    { "text": "Genişleticiler sırasıyla genişliği ile derinliği artırır.", "paragraph": true }
+  ],
+  "properties": [
+    "+5 Saldırı Hasarı",
+    "%165 Saldırı Katlayıcısı",
+    "0.6 Saldırı Hızı",
+    "%30 Çıkarım Katlayıcısı",
+    "%425 Dayanıklılık Katlayıcısı",
+    "Odunu soyar"
+  ]
+}

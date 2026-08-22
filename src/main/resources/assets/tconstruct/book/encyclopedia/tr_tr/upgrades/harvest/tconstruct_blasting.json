@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:blasting",
+  "text": [
+    {
+      "text": "Patlama direnci daha düşük olan bloklara daha çok çıkarım hızı sağlar, en düşük patlama dirençli blok için seviye başına +10 olasıya dek. Örneğin, taş gibi bloklara seviye başına +1, terakota gibi bloklara seviye başına +3 ve cevherler gibi yumuşak bloklara seviye başına +9 çıkarım hızı sağlar."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Aşamalı olarak seviyeler uygulanabilir",
+    "En çok 5 seviye",
+    "Seviye başına 1 yükseltme yuvası gerekir"
+  ]
+}

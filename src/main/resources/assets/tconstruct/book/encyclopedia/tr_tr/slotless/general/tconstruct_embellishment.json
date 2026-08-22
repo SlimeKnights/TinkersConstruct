@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:embellishment",
+  "text": [
+    {
+      "text": "Sac zırhının, balçık takımının, asaların ve kalkanların görünümünü değiştirmeyi sağlar."
+    },
+    {
+      "text": "Balçık, katılaşmış balçık bloğu kullanırken metal, metal külçeleri kullanarak süslenir.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Çoklu kullamım",
+    "Yuvasız"
+  ]
+}

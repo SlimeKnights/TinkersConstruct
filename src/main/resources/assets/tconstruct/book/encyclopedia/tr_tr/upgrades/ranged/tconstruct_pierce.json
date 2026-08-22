@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:pierce",
+  "text": [
+    {
+      "text": "Oklar, seviye başına 1 zırh puanını yok sayar."
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/ranged",
+  "effects": [
+    "Aşamalı olarak seviyeler uygulanabilir",
+    "En çok 3 seviye",
+    "Seviye başına 1 yükseltme yuvası gerekir"
+  ]
+}

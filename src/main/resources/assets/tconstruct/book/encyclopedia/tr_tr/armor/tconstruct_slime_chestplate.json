@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:slime_chestplate",
+  "text": [
+    { "text": "Balçıklı Elitra uçma uygulamalarının sonuncusudur." },
+    { "text": "Enderbalçığını elitraya dökülerek üretilir ayrıca bu kanatlar kabus zarıyla onarılabilir.", "paragraph": true }
+  ],
+  "properties": [
+    "672 Dayanıklılık",
+    "%40 Silahsız Saldırı",
+    "5 Yükseltme Yuvası",
+    "0 Savunma Yuvası",
+    "1 Yetenek Yuvası",
+    "Kanatlar"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:ricochet",
+  "text": [
+    {
+      "text": "Seviye başına alınan savurmayı %20 artırır."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 2 seviye",
+    "Tüm parçaların etkilerini birleştirir",
+    "Seviye başına 1 yükseltme yuvası gerekir"
+  ]
+}

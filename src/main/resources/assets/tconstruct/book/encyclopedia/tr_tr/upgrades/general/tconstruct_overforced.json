@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:overforced",
+  "text": [
+    {
+      "text": "Seviye başına +75 balçık aşımı sağlar."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Aşamalı olarak seviyeler uygulanabilir",
+    "En çok 5 seviye",
+    "Seviye başına 1 yükseltme yuvası gerekir"
+  ]
+}

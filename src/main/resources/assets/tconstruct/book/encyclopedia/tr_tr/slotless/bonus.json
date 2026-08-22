@@ -1,0 +1,14 @@
+{
+  "title": "Ek",
+  "text": [
+    { "text": "Ek değiştiriciler ek olarak değiştirici yuvası sunan yuvasız değiştirici kümesidir." },
+    {
+      "text": "Varsayılan olarak çoğu küçük araç 3 yükseltme yuvasıyla başlar ve çoğu koca araç 2 ile başlar. Değiştiriciler araca ek 4 yuva ekleyebilirler.",
+      "paragraph": true
+    },
+    {
+      "text": "Ek olarak çoğu araç 1 yetenek yuvası ile başlar. Değiştiriciler araca bir ek yetenek yuvası ekleyebilirler üstelik olası olarak ek iki yuva da olabilir.",
+      "paragraph": true
+    }
+  ]
+}

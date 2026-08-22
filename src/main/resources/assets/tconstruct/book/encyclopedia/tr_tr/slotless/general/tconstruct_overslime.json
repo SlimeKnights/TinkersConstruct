@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:overslime",
+  "text": [
+    {
+      "text": "Balçık aşımı araca ana dayanıklılık çubuğundan önce tüketilen ikinci dayanıklılık çubuğu sağlar. Varsayılan olarak araçlar dayanıklılık değiştiricisiyle katlanmadan önce en çok 50 balçık aşımıyla başlar ."
+    },
+    {
+      "text": "Aşırı güçlenmiş veya balçığımsı malzemeleri olmayan araçların düşürülmüş istatistikleri vardır",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Çoklu kullamım",
+    "Yuvasız",
+    "Balçığımsız araçlar: -%10 çıkarım hızı ile saldırı hasarı, -0.5 zırh"
+  ]
+}

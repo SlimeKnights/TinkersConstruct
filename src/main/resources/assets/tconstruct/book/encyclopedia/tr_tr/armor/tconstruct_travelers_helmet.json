@@ -1,0 +1,14 @@
+{
+  "tool": "tconstruct:travelers_helmet",
+  "text": [
+    { "text": "Gezginin Gözlüğü düşük koruma ile ortalama yükseltme ve savunma yuvası olan dengeli bir kasktır." }
+  ],
+  "properties": [
+    "110 Dayanıklılık",
+    "+1 Zırh",
+    "3 Yükseltme Yuvası",
+    "2 Savunma Yuvası",
+    "1 Yetenek Yuvası",
+    "Yalıtılmış"
+  ]
+}

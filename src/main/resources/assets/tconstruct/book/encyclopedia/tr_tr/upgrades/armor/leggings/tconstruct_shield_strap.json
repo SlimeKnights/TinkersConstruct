@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:shield_strap",
+  "text": [
+    {
+      "text": "Seviye başına +1 öbür elin yuvası ekler, pantolon ile etkileşerek öbür eldeki eşyayı değiştirmeyi sağlar."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Seviye başına 1 yükseltme yuvası gerekir"
+  ]
+}

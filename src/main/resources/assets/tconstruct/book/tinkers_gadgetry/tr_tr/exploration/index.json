@@ -1,0 +1,11 @@
+{
+  "title": "Keşif",
+  "subText": "Bazı Onarıcılar değiştiricilerde veya araç malzemelerinde kullanışlı kaynaklara değinirler ama onları nasıl elde edileceğine değinmeyi savsaklarlar. Şanstan ki yolculuklarımda onların birçoğunun yerini buldum, yani bulduklarımı sana aktarabilirim.",
+  "operations": [
+    { "before": "grass_seeds", "action": "add_group", "data": "Kaynaklar" },
+    { "before": "skyslime_island", "action": "column_break" },
+    { "before": "skyslime_island", "action": "add_group", "data": "Adalar" },
+    { "before": "skyslime_geode", "action": "column_break" },
+    { "before": "skyslime_geode", "action": "add_group", "data": "Oyuklar" }
+  ]
+}

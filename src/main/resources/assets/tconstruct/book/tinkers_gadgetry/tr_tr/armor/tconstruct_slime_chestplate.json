@@ -1,0 +1,13 @@
+{
+  "tool": "tconstruct:slime_chestplate",
+  "text": [
+    { "text": "Yürümekten yoruldun mu? Bu gelecekçil kanatlarla uçmayı dene!" },
+    { "text": "Bu gelecekçil kanatları üretmek için elitra üzerine kolayca enderbalçığı dökmen gerekir. Balçıklı elitra sonra hayali zar kullanılarak onarılabilir.", "paragraph": true }
+  ],
+  "properties": [
+    "Yüksek Dayanıklılık",
+    "Zırh veya Savunma Yuvası Yok",
+    "5 Yükseltme Yuvası",
+    "1 Yetenek Yuvası"
+  ]
+}

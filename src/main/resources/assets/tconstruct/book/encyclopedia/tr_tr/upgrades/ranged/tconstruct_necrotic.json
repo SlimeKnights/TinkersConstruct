@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:necrotic",
+  "text": [
+    {
+      "text": "Tümüyle çekilmiş oklar verilen hasarın belli oranında can yeniler. 1. seviyede %25, 2. seviyede %45, 3. sevide %60, 4. seviyede %70 ve 5. seviyede %75 iyileştirir. Araç seviye başına 1 ek dayanıklılık kaybeder."
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/ranged",
+  "effects": [
+    "En çok 5 seviye",
+    "Seviye başına 1 yükseltme yuvası gerekir"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:dual_wielding",
+  "text": [
+    {
+      "text": "Aracın hem ana hem de öbür elden kullanılmasını sağlar. Çifte kullanmalı araçlar saldırı hızı ile hasarının %80'i veya iki elli araçlarda saldırı hızının %90'ı ile hasarın %70'i vardır."
+    },
+    {
+      "text": "İki elli araçlar çifte kullanma alabilmeleri için önce öbür elli almalılardır.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 1 seviye",
+    "1 yetenek yuvası gerekir"
+  ]
+}

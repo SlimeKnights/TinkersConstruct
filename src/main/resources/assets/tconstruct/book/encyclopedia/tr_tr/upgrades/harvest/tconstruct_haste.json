@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:haste",
+  "text": [
+    {
+      "text": "Çıkarım araçlarında seviye başına +4 çıkarım hızı sağlar."
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/harvest",
+  "effects": [
+    "Aşamalı olarak seviyeler uygulanabilir",
+    "En çok 5 seviye",
+    "Seviye başına 1 yükseltme yuvası gerekir"
+  ]
+}

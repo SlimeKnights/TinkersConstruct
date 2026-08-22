@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:unbreakable",
+  "text": [
+    {
+      "text": "Lezzetli gibi özel hasarlar dışında aracın hasar almasını engeller."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 1 seviye",
+    "Sağlamlaştırılmış V ile Netherit gereklidir",
+    "1 yetenek yuvası gerekir"
+  ]
+}

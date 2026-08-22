@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:haste",
+  "text": [
+    {
+      "text": "Tüm elde tutulan araçlar için seviye başına +%10 çıkarım hızı sağlar."
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/armor",
+  "effects": [
+    "Aşamalı olarak seviyeler uygulanabilir",
+    "En çok 5 seviye",
+    "Seviye başına 1 yükseltme yuvası gerekir"
+  ]
+}

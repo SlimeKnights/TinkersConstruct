@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:gilded",
+  "text": [
+    {
+      "text": "1 yetenek yuvasını 2 yükseltme yuvasına değiştirir."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok seviyesi yok",
+    "Seviye başına 1 yetenek yuvası gerekir"
+  ]
+}

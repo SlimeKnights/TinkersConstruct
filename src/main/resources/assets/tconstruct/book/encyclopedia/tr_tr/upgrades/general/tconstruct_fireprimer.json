@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:fireprimer",
+  "text": [
+    {
+      "text": "Çakmak taşı ve tuğlanın etki alanını 1 artırır. 1 seviye genişletilmişe eşdeğerdir ama yalnızca yükseltme yuvası gerekir."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 1 seviye",
+    "1 yükseltme yuvası gerekir"
+  ]
+}

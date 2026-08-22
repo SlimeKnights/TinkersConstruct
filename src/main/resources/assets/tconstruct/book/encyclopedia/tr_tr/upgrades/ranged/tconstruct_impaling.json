@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:impaling",
+  "text": [
+    {
+      "text": "Okların ilk hedefi vurduktan sonra olası olarak çoklu hedefleri vurarak devam etmesini sağlar. Seviye başına bir varlığın içinden geçebilir."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 4 seviye",
+    "Seviye başına 1 yükseltme yuvası gerekir"
+  ]
+}

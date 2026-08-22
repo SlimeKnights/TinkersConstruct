@@ -1,0 +1,13 @@
+{
+  "tool": "tconstruct:ichor_staff",
+  "text": [
+    { "text": "Od Asası yüksek yetenek yuvalı ve ok hızlı asa çeşididir." }
+  ],
+  "properties": [
+    "1225 Dayanıklılık",
+    "1.2 Ok Hızı",
+    "0.75 Çekiş Hızı",
+    "2 Yükseltme Yuvası",
+    "3 Yetenek Yuvası"
+  ]
+}

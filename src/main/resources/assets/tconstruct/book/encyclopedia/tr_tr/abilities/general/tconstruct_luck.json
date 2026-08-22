@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:luck",
+  "text": [
+    {
+      "text": "Bloklardan (yalnızca çıkarım araçları) ve canavarlardan düşenlerin oranını artırır. Şans sırasıyla uygulanan her seviyede farklı tarifler gerektirir."
+    },
+    {
+      "text": "Pantolonlar yalnızca bir seviye şans alabilirler ki onarıcı araçları kullanırken canlılardan ve bloklardan düşenleri fazlalaştırsın.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 3 seviye",
+    "İlk seviyesi 1 yetenek yuvası gerektirir",
+    "İkinci ile üçüncü seviyeler yuvasızdır"
+  ]
+}

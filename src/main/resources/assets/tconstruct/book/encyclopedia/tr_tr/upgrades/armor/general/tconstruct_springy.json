@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:springy",
+  "text": [
+    {
+      "text": "Seviye başına %25 şans ile saldıranlara seviye başına 2 bloğa kadar savurma uygulamasını sağlar. Parçalardaki en büyük fazlalıktaki etkiyi uygular."
+    },
+    {
+      "text": "Kalkanlar iki kat etkilidir ama yalnızca engellerken çalışır.", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Aşamalı olarak seviyeler uygulanabilir",
+    "En çok 3 seviye",
+    "Seviye başına 1 yükseltme yuvası gerekir"
+  ]
+}

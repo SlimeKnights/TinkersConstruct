@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:soulbound",
+  "text": [
+    {
+      "text": "Aracın ölümünde veya yeniden doğuşunda envanterinde kalmasını sağlar."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 1 seviye",
+    "1 yükseltme yuvası gerekir"
+  ]
+}

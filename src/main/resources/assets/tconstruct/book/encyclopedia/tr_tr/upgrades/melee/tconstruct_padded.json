@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:padded",
+  "text": [
+    {
+      "text": "Tüm kaynaklardan gelen aracın savurmasını seviye başına %50 düşürür."
+    },
+    {
+      "text": "Fırlatma, sıçrama ve gümletmeyi seviye başına yarı yarıya daha az etkili yapar.", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 3 seviye",
+    "Seviye başına 1 yükseltme yuvası gerekir"
+  ]
+}

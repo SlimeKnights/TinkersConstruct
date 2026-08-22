@@ -1,0 +1,13 @@
+{
+  "title": "Enderbalçığı Oyukları",
+  "image": {
+    "file": "tconstruct:book/images/geodes/enderslime.png",
+    "width": 180,
+    "height": 99
+  },
+  "text": [
+    {
+      "text": "Enderbalçığı oyukları enddeki dıştaki adaların çevresinde hem yer altında hem de kendilerince süzülürken bulunabilirler. Bazen gökteki öbür süzülen kayalardan oyukları ayırt etmek zor olabiliyor."
+    }
+  ]
+}

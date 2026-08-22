@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:expanded",
+  "text": [
+    {
+      "text": "Aracın etki alanını artırır. Belirli etkileri araçların sayfalarında açıklanmıştır."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok seviyesi yok",
+    "Seviye başına 1 yetenek yuvası gerekir"
+  ]
+}

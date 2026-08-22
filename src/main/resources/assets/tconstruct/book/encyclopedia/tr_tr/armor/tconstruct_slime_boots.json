@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:slime_boots",
+  "text": [
+    { "text": "Balçık Botları korumasız, savunma yuvasız ve yüksek yükseltme yuvası olan yüksek hareketlilikli botlardır." },
+    { "text": "Enderbalçığını tavşanın ayağına dökülerek üretilir ve tavşan postuyla onarılırlar.", "paragraph": true }
+  ],
+  "properties": [
+    "546 Dayanıklılık",
+    "5 Yükseltme Yuvası",
+    "0 Savunma Yuvası",
+    "1 Yetenek Yuvası",
+    "Sekme",
+    "Sıçrama I"
+  ]
+}

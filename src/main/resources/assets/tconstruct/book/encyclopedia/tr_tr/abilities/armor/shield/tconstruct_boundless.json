@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:boundless",
+  "text": [
+    {
+      "text": "Koruma, ejderleşme veya shulklama gibi değiştiricilerin sınırını %80'den %90'a çıkarır. Eğer iki parçaya uygulandıysa sınırı %90'dan %95'e daha da artırır."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 1 seviye",
+    "1 yetenek yuvası gerekir"
+  ]
+}

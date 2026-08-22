@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:dagger",
+  "text": [
+    { "text": "Hançer iki ellede kullanılabilen çabuk eksiksiz bir silahtır. Özdeş hançerler hasarsızken değişiklik yaparken 2'ye kadar yığınlanabilirler böylece değişticirilerden indirim sağlanır." },
+    { "text": "İpeksi kırkma sağlar.", "paragraph": true }
+  ],
+  "properties": [
+    "+3 Saldırı Hasarı",
+    "%65 Saldırı Değiştiricisi",
+    "2.0 Saldırı Hızı",
+    "%75 Dayanıklılık Katlayıcısı",
+    "Yastığımsı I",
+    "Öbür Elli saldırı"
+  ]
+}

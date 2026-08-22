@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:melting",
+  "text": [
+    {
+      "text": "Düşürülen eşyalar ile saldırılan varlıkların aracın tankına ergitilmesini sağlar. En yüksek sıvı alımı çoğu canlıya 4 hasar uygulandığındadır. Ayrıca tank sığasını 1000 mk artırır"
+    },
+    {
+      "text": "Araç veya zırh parçasını elde tutarak ergimiş sıvılar tank veya akıtaç ile etkileşim kurarak boşaltılabilirler."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 1 seviye",
+    "1 yetenek yuvası gerekir"
+  ]
+}

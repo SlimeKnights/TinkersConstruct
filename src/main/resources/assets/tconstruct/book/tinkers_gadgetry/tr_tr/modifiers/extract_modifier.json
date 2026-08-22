@@ -1,0 +1,13 @@
+{
+  "title": "Değiştiricileri Çıkarma",
+  "image": {
+    "file": "tconstruct:book/images/worktable/extract_modifier.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "Eşyaları korumak olası olmasada değiştiricinin yeniden kullanılmasını sağlayacak biçimde değiştiriciyi çıkarırken onun özünü bir kristalin içine depolamanın yolunu buldum. İşlemin gerçekleşebilmesi için enderbalçığı kristali ve ejderha nefesi veya bir ıslak sünger gerektirir. Bu yöntem kitap gibi büyülü eşyalarda da çalışır ancak işlem yalnızca 1 büyü yerine tüm büyüleri kaldırır ve süngerler ile çalışmaz."
+    }
+  ]
+}

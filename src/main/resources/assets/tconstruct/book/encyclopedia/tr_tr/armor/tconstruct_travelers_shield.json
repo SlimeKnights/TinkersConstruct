@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:travelers_shield",
+  "text": [
+    { "text": "Onarıcının Kalkanı sınırlı engelleme olasısı olan ama engellerken çabuk hareketi olan yeğni bir zırhtır." }
+  ],
+  "properties": [
+    "200 Dayanıklılık",
+    "10 hasar engeller",
+    "90° engelleme açısı",
+    "%80 engelleme hızı",
+    "3 Yükseltme Yuvası",
+    "2 Savunma Yuvası",
+    "1 Yetenek Yuvası"
+  ]
+}

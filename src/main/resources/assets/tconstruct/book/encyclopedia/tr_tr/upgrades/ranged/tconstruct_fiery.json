@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:fiery",
+  "text": [
+    {
+      "text": "Ateşlenen okları tutuşturarak vurdukları hedefi yakmasını sağlar."
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/ranged",
+  "effects": [
+    "Aşamalı olarak seviyeler uygulanabilir",
+    "En çok 5 seviye",
+    "Dondurucu ile iyi çalışmaz",
+    "Seviye başına 1 yükseltme yuvası gerekir"
+  ]
+}

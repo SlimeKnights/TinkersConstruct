@@ -1,0 +1,14 @@
+{
+  "tool": "tconstruct:slime_leggings",
+  "text": [
+    { "text": "Balçıklı Kabuk envanter ile savunmayı artırarak shulker kabuğunun gücünü ellerine alır." },
+    { "text": "Enderbalçığını shulker kabuğuna dökülerek üretilir ve patlamış nakaratla onarılır.", "paragraph": true }
+  ],
+  "properties": [
+    "630 Dayanıklılık",
+    "5 Yükseltme Yuvası",
+    "0 Savunma Yuvası",
+    "1 Yetenek Yuvası",
+    "Shulklama I"
+  ]
+}

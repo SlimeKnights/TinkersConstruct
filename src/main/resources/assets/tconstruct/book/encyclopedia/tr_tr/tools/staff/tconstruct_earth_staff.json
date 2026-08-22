@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:earth_staff",
+  "text": [
+    { "text": "Karabalçığı Asası yüksek savunmalı ve doğruluklu asa çeşididir." }
+  ],
+  "properties": [
+    "800 Dayanıklılık",
+    "1.5 Uzun Menzilli Gücü",
+    "0.9 Doğruluk",
+    "35 En Üst Engelleme",
+    "1.25 Çekim Hızı",
+    "2 Yükseltme Yuvası",
+    "3 Savunma Yuvası",
+    "2 Yetenek Yuvası"
+  ]
+}

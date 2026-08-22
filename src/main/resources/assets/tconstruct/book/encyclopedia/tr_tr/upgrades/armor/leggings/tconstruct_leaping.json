@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:leaping",
+  "text": [
+    {
+      "text": "Seviye başına +0.5 blok zıplama sağlar ve güvenli düşüş yüksekliğini seviye başına 1 blok artırır."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 2 seviye",
+    "Seviye başına 1 yükseltme yuvası gerekir"
+  ]
+}

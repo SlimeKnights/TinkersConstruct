@@ -1,0 +1,14 @@
+{
+  "tool": "tconstruct:slime_leggings",
+  "text": [
+    { "text": "Balçıklı kabuklar bir parça savunma ile bir parça depolamadır, böylece shulkerın yeteneklerinin en iyisini sağlar." },
+    { "text": "Bu harika pantolonu üretmek için enderbalçığını shulker kabuğunun üzerine çanakta dökün. Kabuk sonra nakarat kullanılarak onarılabilir.", "paragraph": true }
+  ],
+  "properties": [
+    "Yüksek Dayanıklılık",
+    "Zırh veya Savunma Yuvası Yok",
+    "5 Yükseltme Yuvası",
+    "1 Yetenek Yuvası",
+    "Shulkma"
+  ]
+}

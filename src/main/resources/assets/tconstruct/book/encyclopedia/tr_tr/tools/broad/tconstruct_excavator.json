@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:excavator",
+  "text": [
+    { "text": "Kazaratar 3x3 alanda toprakta, çakılda ve kumda etkilidir koca küreme aracıdır." },
+    { "text": "Genişleticiler sırasıyla genişlik ile yükseklik artışı arasındadır.", "paragraph": true }
+  ],
+  "properties": [
+    "+1.5 Saldırı Hasarı",
+    "%120 Saldırı Katlayıcısı",
+    "1.0 Saldırı Hızı",
+    "%30 Çıkarım Katlayıcısı",
+    "%375 Dayanıklılık Katlayıcısı",
+    "Savurma II",
+    "Yolak yapar"
+  ]
+}

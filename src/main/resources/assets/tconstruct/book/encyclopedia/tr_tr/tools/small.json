@@ -1,0 +1,7 @@
+{
+  "title": "Küçük Araçlar",
+  "text": [
+    { "text": "Tüm küçük araçlar ya Onarıcı İstasyonunda ya da Onarıcının Örsünde üretilebilir. 2 ile 3 aralığında nitelik sağlayan 2 ile 3 aralığında parça gerektirirler. Çoğu küçük aracın 1 yetenek yuvası ile 3 yükseltme yuvası da vardır." },
+    { "text": "Çoğu araçta fazladan saldırı hasarı vardır ki baş istatistiklerine eklenir ve sap istatikleriyle çarpılır. Ek olarak bazı araçlarda saldırı değiştircisi vardır ki değiştiricileri de kapsayarak aracın tüm kaynaklarındaki saldırı hasarıyla katlanır. Bazı araçlar ayrıca araç nitelikleriyle başlar ki malzeme niteliklerine benzer biçimde tüm yapıya uygulanır.", "paragraph": true }
+  ]
+}

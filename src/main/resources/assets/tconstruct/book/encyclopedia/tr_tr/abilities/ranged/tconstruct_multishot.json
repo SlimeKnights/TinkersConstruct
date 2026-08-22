@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:multishot",
+  "text": [
+    {
+      "text": "Seviye başına 2 ek ok atmasını sağlar. Ek olarak okların konumu yaya bağlı olarak değişebilir."
+    },
+    {
+      "text": "Envanterde ateşlenmesi için ek olarak okların bulunmalıdır, eğer daha az ok varsa daha az ok atar.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok seviyesi yok",
+    "Seviye başına 1 yetenek yuvası gerekir",
+  ]
+}

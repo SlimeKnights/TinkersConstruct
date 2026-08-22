@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:depth_strider",
+  "text": [
+    {
+      "text": "Su altında hareket etme cezasını seviye başına %33 düşürür. 3. seviyede su altında hareket etme cezası yoktur."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 3 seviye",
+    "Seviye başına 1 yükseltme yuvası gerekir"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:freezing",
+  "text": [
+    {
+      "text": "Saldıranları seviye başına %15 şans ile 4 saniyeliğine (ek olarak seviye başına 4 saniye) dondurarak zamanla hasara ve yavaşlığa neden olur... Çoklu parçaların etkileri yığar"
+    },
+    {
+      "text": "Kalkanlar iki kat etkilidir ama yalnızca engellerken çalışır.", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/armor",
+  "effects": [
+    "En çok 3 seviye",
+    "Ateşli ile iyi çalışmaz",
+    "Seviye başına 1 yükseltme yuvası gerekir"
+  ]
+}

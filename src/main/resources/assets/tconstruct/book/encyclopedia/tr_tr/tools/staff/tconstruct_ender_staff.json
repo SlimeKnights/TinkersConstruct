@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:ender_staff",
+  "text": [
+    { "text": "Enderbalçığı Asası yüksek ulaşlı ve güçlü asa çeşididir. " }
+  ],
+  "properties": [
+    "1520 Dayanıklılık",
+    "3 Uzun Menzilli Gücü",
+    "0.5 Doğruluk",
+    "120 Engelleme Açısı",
+    "3 Yükseltme Yuvası",
+    "1 Savunma Yuvası",
+    "2 Yetenek Yuvası",
+    "Ulaş II"
+  ]
+}

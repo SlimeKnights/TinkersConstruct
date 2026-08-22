@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:longbow",
+  "text": [
+    { "text": "Uzun Yay ok ateşleyen koca uzun menzilli silahtır. Oklar yayı saldıktan sonra anında fırlatılırlar." },
+    { "text": "Etkileşim değiştiricileri kullanıldığında uzun yaylar sol tıkta çalışır.", "paragraph": true }
+  ],
+  "properties": [
+    "1.0 Saldırı Hızı",
+    "1.0 Çekim Hızı",
+    "1.00 Ok Hızı",
+    "0.75 Doğruluk",
+    "Kanatların istatistiklerini toplar",
+    "%150 Dayanıklılık Katlayıcısı"
+  ]
+}

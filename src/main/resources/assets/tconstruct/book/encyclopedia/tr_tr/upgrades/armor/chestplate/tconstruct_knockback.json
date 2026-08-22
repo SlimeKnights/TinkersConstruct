@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:knockback",
+  "text": [
+    {
+      "text": "TÜm silahlara canlıları 2 blok fırlatan seviye başına 1 savurma sağlar. Çoğu araç 0.4 savurma ile başlar."
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/armor",
+  "effects": [
+    "En çok 3 seviye",
+    "Seviye başına 1 yükseltme yuvası gerekir"
+  ]
+}

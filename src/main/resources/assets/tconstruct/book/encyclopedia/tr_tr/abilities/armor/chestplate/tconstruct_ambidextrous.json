@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:ambidextrous",
+  "text": [
+    {
+      "text": "Öbür elinle yumruk atmanı sağlar. Öbür elin ana eline uygulanan tüm silahsız güçlüleştiricilerini alacaktır."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 1 seviye",
+    "1 yetenek yuvası gerekir"
+  ]
+}

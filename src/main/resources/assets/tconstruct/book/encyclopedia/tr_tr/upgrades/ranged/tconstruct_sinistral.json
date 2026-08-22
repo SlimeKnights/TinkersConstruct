@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:sinistral",
+  "text": [
+    {
+      "text": "Etkileşmek yerine saldırırken Tatar yayının ateşlenmesini sağlar ve yalnızca eğilmiyorken doldururlur. Tatar yayı kullanılırken öbür elinde eşya kullanılmasını sağlar."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 1 seviye",
+    "1 yükseltme yuvası gerekir"
+  ]
+}

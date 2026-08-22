@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:autosmelt",
+  "text": [
+    {
+      "text": "Çıkarılan bloktan düşen eşyaların fırındaymışcasına kallanmasını sağlar."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 1 seviye",
+    "1 yetenek yuvası gerekir"
+  ]
+}

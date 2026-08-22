@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:emerald",
+  "text": [
+    {
+      "text": "+%50 dayanıklılık, +0.1 doğruluk ile +%5 savurma direnci sağlar. Aracın çıkarım düzeyini demire yükseltir ve koşullu saldırı hasarını ile çıkarım hızını %25 artırır."
+    },
+    {
+      "text": "Araçlar ve zırhlar uygulanabilir istatistik artışlarını alacaklar, örneğin tutulan araçlar savurma direnci almayacaktır.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 1 seviye",
+    "1 yükseltme yuvası gerekir"
+  ]
+}

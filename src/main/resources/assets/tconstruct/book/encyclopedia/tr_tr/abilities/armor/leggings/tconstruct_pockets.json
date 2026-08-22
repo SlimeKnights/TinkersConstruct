@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:pockets",
+  "text": [
+    {
+      "text": "Eğilirken pantolonun etkileşim tuşuna basarak veya pantolonu tutarken erişilebilecek ek 18 yuva sağlar."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok seviye yok",
+    "Seviye başına 1 yetenek yuvası gerekir"
+  ]
+}

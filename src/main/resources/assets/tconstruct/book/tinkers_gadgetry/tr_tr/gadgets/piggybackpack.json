@@ -1,0 +1,13 @@
+{
+  "title": "Sırtlama Çantası",
+  "image": {
+	"file": "tconstruct:book/images/piggybackpack.png",
+    "width": 140,
+    "height": 80
+  },
+  "text": [
+    {
+      "text": "Sırtlama çantasını yaratık üzerine kullanmak onu seni sürmesi için almanı sağlar, domuzların uzun yolculuklarda yorulduğu zaman için mükemmeldir. Ayrıca kallama ocağına canavarları atmak için de iyidir. Bir kerede 3 sırtlama çantası giymeyi başardım ancak o kadar çok sürücüyle yürümesi zordu."
+    }
+  ]
+}

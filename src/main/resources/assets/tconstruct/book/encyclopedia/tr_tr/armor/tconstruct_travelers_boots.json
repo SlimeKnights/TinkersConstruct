@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:travelers_boots",
+  "text": [
+    { "text": "Onarıcının Botu düşük koruma ile ortalama yükseltme ve savunma yuvası olan dengeli bir bottur." }
+  ],
+  "properties": [
+    "130 Dayanıklılık",
+    "+1 Zırh",
+    "3 Yükseltme Yuvası",
+    "2 Savunma Yuvası",
+    "1 Yetenek Yuvası",
+    "Yalıtılmış",
+    "Tozlaşmış kar üzerinde yürüyebilir"
+  ]
+}

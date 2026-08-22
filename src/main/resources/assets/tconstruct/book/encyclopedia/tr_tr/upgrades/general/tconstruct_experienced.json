@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:experienced",
+  "text": [
+    {
+      "text": "Seviye başına canlı öldürmeden ve blok kırmadan düşen deneyimleri %50 artırır."
+    },
+    {
+      "text": "Göğüslükte fazladan deneyim yalnızca boş elle öldürülen canlılarda geçerlidir. Pantolonlar tüm araçları etkiler.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 5 seviye",
+    "Seviye başına 1 yükseltme yuvası gerekir"
+  ]
+}

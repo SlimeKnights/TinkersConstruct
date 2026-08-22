@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:stripping",
+  "text": [
+    {
+      "text": "Aracın el veya savaş baltası gibi odunu soymasını sağlar. Araç kendinin olağan çıkarım alanını odun soymak için kullanacaktır."
+    },
+    {
+      "text": "Eğer aracın özgün yolaklaması veya sürmesi varsa ondan önce tetiklenir.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 1 seviye",
+    "1 yetenek yuvası gerekir"
+  ]
+}

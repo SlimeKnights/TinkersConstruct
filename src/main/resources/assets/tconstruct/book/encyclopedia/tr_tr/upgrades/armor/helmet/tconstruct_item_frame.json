@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:item_frame",
+  "text": [
+    {
+      "text": "Kaska giyildiğinde arayüzde gösterilecek yuvalar eklenir."
+    },
+    {
+      "text": "Kaskın envanteri elde tutarken etkileşime girerek açılabilir.", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Seviye başına 1 yükseltme yuvası gerekir"
+  ]
+}

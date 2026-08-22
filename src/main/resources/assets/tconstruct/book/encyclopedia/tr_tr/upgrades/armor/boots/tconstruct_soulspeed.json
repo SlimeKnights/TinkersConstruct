@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:soulspeed",
+  "text": [
+    {
+      "text": "Ruh kumunda +%40.5 hız sağlar ayrıca her yeni seviye için %10.5 eklenir. Ruh kumunda yürümenin yavaşlığını düşürür."
+    },
+    {
+      "text": "Botlar bu değiştirici etkinken hasar alacaklardır.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 3 seviye",
+    "Seviye başına 1 yükseltme yuvası gerekir"
+  ]
+}

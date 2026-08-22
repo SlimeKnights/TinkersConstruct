@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:rebalanced",
+  "text": [
+    {
+      "text": "+1 değiştirici yuvası sağlar. Türü tarifine göre değişir."
+    },
+    {
+      "text": "Ugulandığında +1 yetenek yuvası sağlar, 1 yükseltme yuvası kaybeder.", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Tek kullanım",
+    "Yuvasız"
+  ]
+}

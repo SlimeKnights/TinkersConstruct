@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:sledge_hammer",
+  "text": [
+    { "text": "Balyoz 3x3 alanda taşta etkili koca madencilik aracıdır." },
+    { "text": "Genişleticiler sırasıyla genişliği ile yüksekliği artırır.", "paragraph": true }
+  ],
+  "properties": [
+    "+3 Saldırı Hasarı",
+    "%135 Saldırı Katlayıcısı",
+    "0.75 Saldırı Hızı",
+    "%40 Çıkarım Katlayıcısı",
+    "%400 Dayanıklılık Katlayıcısı",
+    "Darbe II"
+  ]
+}

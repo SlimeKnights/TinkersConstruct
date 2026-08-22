@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:bouncy",
+  "text": [
+    {
+      "text": "İnişinizde düşüş hasarını önleyerek ve hızınızın %90'ını yukarı uygulayarak sekmenizi sağlar."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 1 seviye",
+    "1 yetenek yuvası gerekir"
+  ]
+}

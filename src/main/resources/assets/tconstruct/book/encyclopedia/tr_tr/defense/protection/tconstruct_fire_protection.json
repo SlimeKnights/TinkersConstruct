@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:fire_protection",
+  "text": [
+    {
+      "text": "Lavdan veya blaze'den gelen hasar gibi ateşe karşı +%10 direnç sağlar. Bütün takımda %80 ile sınırlıdır veya 8 seviyeyle."
+    },
+    {
+      "text": "En yüksek seviyedeki parçanın seviyesi başına %15 ateşin süresini düşürür.", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Aşamalı olarak seviyeler uygulanabilir",
+    "Seviye başına 1 savunma yuvası gerekir"
+  ]
+}

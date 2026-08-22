@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:slurping",
+  "text": [
+    {
+      "text": "Kaskının tuş atamasını kullanarak kaskında tutulan sıvıyı içerek örneğin kendini yakmak, durum etkilerini silmek veya açlığını gidermek gibi etkileri gerçekleştirir."
+    },
+    {
+      "text": "Aracı sıvıyla doldurmak için tank veya akıtaç ile aracı tutarken etkileşim kurulabilir.", "paragraph": true
+
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok seviyesi yok",
+    "Seviye başına 1 yetenek yuvası gerekir",
+    "Doldurmak için aracı sıvı tankı üzerinde kullanın"
+  ]
+}

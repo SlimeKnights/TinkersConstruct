@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:respiration",
+  "text": [
+    {
+      "text": "Hava tüketimini 1., 2. ve 3. seviye sırasıyla %50, .%33, or %25 oranına düşürür."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 3 seviye",
+    "Seviye başına 1 yükseltme yuvası gerekir"
+  ]
+}

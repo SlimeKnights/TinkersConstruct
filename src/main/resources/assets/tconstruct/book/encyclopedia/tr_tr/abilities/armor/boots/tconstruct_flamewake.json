@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:flamewake",
+  "text": [
+    {
+      "text": "Bastığın yerin çevresini tutuşturur. Genişletilmiş ile etki alanı artar."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 1 seviye",
+    "1 yetenek yuvası gerekir"
+  ]
+}

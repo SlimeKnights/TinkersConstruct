@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:plate_shield",
+  "text": [
+    { "text": "Sac Kalkan engellerken hıza karşılık yüksek engelleme gücü sağlayan savunmacı bir kalkandır." }
+  ],
+  "properties": [
+    "500 Dayanıklılık",
+    "100 hasar engeller",
+    "180° engelleme açısı",
+    "%20 engelleme açısı",
+    "+2 Sertlik",
+    "1 Yükseltme Yuvası",
+    "4 Savunma Yuvası",
+    "1 Yetenek Yuvası"
+  ]
+}

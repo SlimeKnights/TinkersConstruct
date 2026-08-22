@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:firestarter",
+  "text": [
+    {
+      "text": "Aracı kullanarak, 1 dayanıklılık tüketerek, ateş oluşturmasını sağlar."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 1 seviye",
+    "1 yetenek yuvası gerekir"
+  ]
+}

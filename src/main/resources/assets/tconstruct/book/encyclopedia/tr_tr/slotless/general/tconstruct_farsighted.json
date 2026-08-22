@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:farsighted",
+  "text": [
+    {
+      "text": "Bu zırhı giyerken veya bu aracı tutarken görüş açısını seviye başına %5 düşürür."
+    },
+    {
+      "text": "Bu değiştirici hızlı değiştiricisinin görüş açısı değiştirimini ortadan kaldırmak için ülküseldir ama başka kullanımlar da bulunabilir.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Çoklu kullamım",
+    "Yuvasız"
+  ]
+}

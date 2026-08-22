@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:draconic",
+  "text": [
+    {
+      "text": "+1 yetenek yuvası sağlar."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+	  "Tek kullanım",
+    "Yuvasız"
+  ]
+}

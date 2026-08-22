@@ -1,0 +1,13 @@
+{
+  "tool": "tconstruct:sky_staff",
+  "text": [
+    { "text": "Gökbalçığı Asası yüksek yükseltilebilirlikli ve hızlı asa çeşididir." }
+  ],
+  "properties": [
+    "375 DAyanıklılık",
+    "0.8 Ok Hızı",
+    "1.25 Çekiş Hızı",
+    "5 Yükseltme Yuvası",
+    "2 Yetenek Yuvası"
+  ]
+}

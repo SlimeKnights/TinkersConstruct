@@ -1,0 +1,13 @@
+{
+  "title": "Yeteneği Çıkarma",
+  "image": {
+    "file": "tconstruct:book/images/worktable/extract_ability.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "Yetenek değiştiricilerini büyülü araçlardan çıkarmak oldukça pahalı bir işlem, yalnızca od kristalleri değil ayrıca bir elmasında kullanılması gerektiren işlemdir. Odun gücü ile bile araç yine de kaybolur, aracını korumak istiyorsan enderbalçığı kullanman gerekiyor gibi gözükür."
+    }
+  ]
+}

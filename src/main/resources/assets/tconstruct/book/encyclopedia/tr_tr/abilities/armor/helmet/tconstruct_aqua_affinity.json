@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:aqua_affinity",
+  "text": [
+    {
+      "text": "Su altında hızının %20'si yerine tüm hızıyla çıkarmayı sağlar."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 1 seviye",
+    "1 yetenek yuvası gerekir"
+  ]
+}

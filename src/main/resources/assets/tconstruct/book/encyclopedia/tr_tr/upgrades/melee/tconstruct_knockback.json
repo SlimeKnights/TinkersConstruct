@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:knockback",
+  "text": [
+    {
+      "text": "Seviye başına canlıyı yaklaşık 2 blok fırlatan 1 savurma sağlar. Çoğu araç 0.4 savurmayla başlar."
+    },
+    {
+      "text": "Fırlatma, sıçrama ve gümletmeyi seviye başına %25 daha etkili yapar.", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/melee",
+  "effects": [
+    "En çok 5 seviye",
+    "Seviye başına 1 yükseltme yuvası gerekir"
+  ]
+}

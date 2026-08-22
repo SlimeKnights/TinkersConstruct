@@ -1,0 +1,12 @@
+{
+  "tool": "tconstruct:pickaxe",
+  "text": [
+    { "text": "Kazma taşta, metalde ve cevherlerde etkili eksiksiz bir madencilik aracıdır." },
+    { "text": "Genişleticiler sırayla derinliği veya yüksekliği artırır.", "paragraph": true }
+  ],
+  "properties": [
+    "+0.5 Saldırı Hasarı",
+    "1.2 Saldırı Hızı",
+    "Delme I"
+  ]
+}

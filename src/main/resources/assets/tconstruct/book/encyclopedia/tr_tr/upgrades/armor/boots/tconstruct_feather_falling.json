@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:feather_falling",
+  "text": [
+    {
+      "text": "Seviye başına +%15 düşüş hasarı direnci, en çok 4. seviyede +%60 olasıya dek, sağlar."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Aşamalı olarak seviyeler uygulanabilir",
+    "En çok 4 seviye",
+    "Seviye başına 1 yükseltme yuvası gerekir"
+  ]
+}

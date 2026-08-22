@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:warping",
+  "text": [
+    {
+      "text": "Yükleyip bırakmak hedeflenen yöne, 1 dayanaklılık tüketerek, kendini ışınlatır."
+    },
+    {
+      "text": " Etkiler gücün seviyesi başına %25 fazlalaşır. Yüklenme süresi çabuk çekişle düşer.", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 1 seviye",
+    "1 yetenek yuvası gerekir"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:worldbound",
+  "text": [
+    {
+      "text": "Netherit gibi araçları düşürüldüğünde zarar göremez yapan ancak yükseltme yuvası istemeyen bir seçenek. Herhangi bir istatistik artışı sağlamaz"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Tek kullanım",
+    "Yuvasız"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:mattock",
+  "text": [
+    { "text": "Keser Çapası kütüklerde, toprakta, çakılda ve kumda etkili çiftçilik aracıdır. Ayrıca odunda daha hızlıdır." },
+    { "text": "Genişleticilerin sayısına göre genişleticiler bitişiğindeki aynı tür blokları da çıkarır.", "paragraph": true }
+  ],
+  "properties": [
+    "+1.5 Saldırı Hasarı",
+    "%110 Saldırı Değiştiricisi",
+    "0.9 Saldırı Hızı",
+    "%110 Çıkarım Katlayıcısı",
+    "%125 Dayanıklılık Katlayıcısı",
+    "Toprağı sürer"
+  ]
+}

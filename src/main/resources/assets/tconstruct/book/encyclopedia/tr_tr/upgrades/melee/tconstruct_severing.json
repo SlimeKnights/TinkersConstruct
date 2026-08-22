@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:severing",
+  "text": [
+    {
+      "text": "Canlının başını veya diğer vücut parçalarının düşmesi için seviye başına %5 şans sağlar. Şans şans seviyesi kere koparma seviyesi kez ek olarak %1 şans ekler. Patronlar gibi ender canlılara karşı şans ikiye katlanır."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 3 seviye",
+    "Seviye başına 1 yükseltme yuvası gerekir"
+  ]
+}

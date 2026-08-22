@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:silky",
+  "text": [
+    {
+	"text": "Çıkarılan blokların değiştirilmeden kendilerinin düşürülmesini sağlar. Kılıçlar, satırlar, tırpanlar ile hançerler için ek olarak canlıları kırpmasını sağlar."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 1 seviye",
+    "1 yetenek yuvası gerekir"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:protection",
+  "text": [
+    {
+      "text": "Bu değiştiriciyle her parça için tüm hasarlara karşı +%5 direnç sağlar. Bütün takımda diğer tür korumaları da içermek üzere %80 ile sınırlıdır."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 1 seviye",
+    "1 yetenek yuvası gerekir"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:reflecting",
+  "text": [
+    {
+      "text": "Kalkanın konuşlandırılmasından 2 saniye içindeyse baktığın yönde uzun menzilliler yansıtılır. Her ek seviye yansıtma için fazladan 2 saniye sağlar."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "1 yetenek yuvası gerekir"
+  ]
+}

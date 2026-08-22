@@ -1,0 +1,19 @@
+{
+  "modifier_id": "tconstruct:nearsighted",
+  "text": [
+    {
+      "text": "Bu zırhı giyerken veya bu aracı tutarken görüş açısını seviye başına %5 artırır."
+    },
+    {
+      "text": "This modifier is ideal to cancel out the FOV change from the heavy tools, but you may find other uses for it.",
+      "text": "Bu değiştirici ağır araçların görüş açısı değiştirimini ortadan kaldırmak için ülküseldir ama başka kullanımlar da bulunabilir.",
+
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Çoklu kullamım",
+    "Yuvasız"
+  ]
+}

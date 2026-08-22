@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:pickadze",
+  "text": [
+    { "text": "Kazı Küreği çeşitli bloklarda etkili çok amaçlı taş ile toprak çıkarma aracıdır ama çıkarım düzeylerini kullanamaz." },
+    { "text": "Genişleticiler çıkarılan yüksekliği artırarak merdivenler için etkilidir.", "paragraph": true }
+  ],
+  "properties": [
+    "+0.5 Saldırı Hasarı",
+    "%115 Saldırı Değiştiricisi",
+    "1.3 Saldırı Hızı",
+    "%75 Çıkarım Katlayıcısı",
+    "%130 Dayanıklılık Katlayıcısı",
+    "Yolak yapar",
+    "Çıkarım düzeyi altınla sınırlıdır"
+  ]
+}

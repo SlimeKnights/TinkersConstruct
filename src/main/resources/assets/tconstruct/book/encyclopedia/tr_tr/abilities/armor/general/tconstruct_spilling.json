@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:spilling",
+  "text": [
+    {
+      "text": "Küçük bir nicelikte (genellikle 10 mk ile 50 mk arasında) sıvı çeker ki karşı saldırılar özel etkilerle güçlüleştirilsin. Kalkanlarda kullanılması için engelliyor olması gerekir."
+    },
+    {
+      "text": "Aracı sıvıyla doldurmak için tank veya akıtaç ile aracı tutarken etkileşim kurulabilir."
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/armor",
+  "effects": [
+    "En çok seviyesi yok",
+    "Seviye başına 1 yetenek yuvası gerekir",
+    "Doldurmak için aracı sıvı tankı üzerinde kullanın"
+  ]
+}

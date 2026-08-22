@@ -1,0 +1,14 @@
+{
+  "tool": "tconstruct:plate_leggings",
+  "text": [
+    { "text": "Sac Pantolon yüksek koruma, düşük yükseltme yuvası ile yüksek savunma yuvası olan savunmacı bir pantolondur." }
+  ],
+  "properties": [
+    "450 Dayanıklılık",
+    "+5 Zırh",
+    "+2 Sertlik",
+    "1 Yükseltme Yuvası",
+    "4 Savunma Yuvası",
+    "1 Yetenek Yuvası"
+  ]
+}

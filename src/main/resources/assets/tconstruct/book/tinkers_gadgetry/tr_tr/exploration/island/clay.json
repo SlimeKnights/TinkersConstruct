@@ -1,0 +1,13 @@
+{
+  "title": "Kil Adaları",
+  "image": {
+	"file": "tconstruct:book/images/islands/clay.png",
+    "width": 180,
+    "height": 87
+  },
+  "text": [
+    {
+      "text": "Kil adaları diğerlerine göre gariptir çünkü ada balçıktan çok dünya üzerine benzer. Bu adalar bazen \"yerkübü\" olarak adlandırdığım kil balçıkları üretir. Çok yükseğe zıplayamazlar ve dünya üzerindeki diğer canavarlar gibi karanlığa bağımlı gözüküyorlar."
+    }
+  ]
+}

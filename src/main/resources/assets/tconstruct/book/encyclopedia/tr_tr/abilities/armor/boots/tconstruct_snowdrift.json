@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:snowdrift",
+  "text": [
+    {
+      "text": "Serin biyomlarda ardında kardan adam gibi kardan iz bırakır. İzin yarıçapı genişletilmiş ile artırılabilir."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 1 seviye",
+    "1 yetenek yuvası gerekir"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:trick_quiver",
+  "text": [
+    {
+      "text": "Yaya aldatmaca okları tutmak için üç içsel yuva verir, her yuva 32 ok (veya 2. seviye 64 ok) tutar."
+    },
+    {
+      "text": "Saldırarak seçilen oku üç seçenek arasında geçerli yapabilir veya aldatmaca okluğunu geçebilir. Eğilerek saldırmak okluğu ok eklemek için açar.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 2 seviye",
+    "Seviye başına 1 yetenek yuvası gerekir"
+  ]
+}

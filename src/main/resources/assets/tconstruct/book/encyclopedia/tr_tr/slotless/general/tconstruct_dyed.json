@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:dyed",
+  "text": [
+    {
+      "text": "Gezginin donanımının, kalkanının ve asalarının deri veya tahta parçalarının rengini değiştirir."
+    },
+    {
+      "text": "Çok boyayı karıştırabilir ayrıca önceki donanım rengiyle de boyaları karıştırabilir.", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Çoklu kullamım",
+    "Yuvasız"
+  ]
+}

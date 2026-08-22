@@ -1,0 +1,14 @@
+{
+  "tool": "tconstruct:crossbow",
+  "text": [
+    { "text": "Tatar yayı, ok ile havai fişek ateşleyebilen çabuk bir uzun menzilli silahtır. Oklar daha sonra ateşlenmek için yayın içine doldurulabilir." },
+    { "text": "Etkileşim değiştiricisini kullanırken tatar yayı sol tıklamada çalışır.", "paragraph": true }
+  ],
+  "properties": [
+    "1.0 Saldırı Hızı",
+    "1.0 Çekim Hızı",
+    "1.00 Ok Hızı",
+    "0.75 Doğruluk",
+    "%200 Dayanıklılık Katlayıcısı"
+  ]
+}

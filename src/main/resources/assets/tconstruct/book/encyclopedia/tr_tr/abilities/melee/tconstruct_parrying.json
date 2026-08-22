@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:parrying",
+  "text": [
+    {
+      "text": "Saldırmanın ardından kısaca araç kalkan gibi kullanılabilir. "
+    },
+    {
+      "text": "Çoğu hançer 10 hasara kadar engeller ve kullanırken oyuncuyu yavaşlatmaz."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 1 seviye",
+    "1 yetenek yuvası gerekir"
+  ]
+}

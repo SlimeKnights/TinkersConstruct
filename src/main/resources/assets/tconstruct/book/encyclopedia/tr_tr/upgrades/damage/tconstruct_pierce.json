@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:pierce",
+  "text": [
+    {
+      "text": "Seviye başına +0.5 yakın menzilli hasarı ekler. Yakın menzilli saldırılar seviye başına 1 zırh puanı yok sayar."
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/melee",
+  "effects": [
+    "Aşamalı olarak seviyeler uygulanabilir",
+    "En çok 3 seviye",
+    "Seviye başına 1 yükseltme yuvası gerekir"
+  ]
+}

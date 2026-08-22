@@ -1,0 +1,72 @@
+intro=Tanıtım
+
+tools=Araçlar
+tools.group_small=Küçük Araçlar
+tools.group_large=Koca Araçlar
+tools.group_staff=Asalar
+tools.tconstruct.earth_staff=Karabalçığı
+tools.tconstruct.sky_staff=Gökbalçığı
+tools.tconstruct.ichor_staff=Od
+tools.tconstruct.ender_staff=Enderbalçığı
+armor=Zırh
+
+materials_harvest_1=1. Düzey Yakın Menzilli Çıkarım Malzemeleri
+materials_harvest_1.subtext=Yakın menzilli silahlarda veya çıkarım araçlarında kullanılan 1. düzey malzemeler.
+materials_harvest_2=2. Düzey Yakın Menzilli Çıkarım Malzemeleri
+materials_harvest_2.subtext=Yakın menzilli silahlarda veya çıkarım araçlarında kullanılan 2. düzey malzemeler.
+materials_harvest_3=3. Düzey Yakın Menzilli Çıkarım Malzemeleri
+materials_harvest_3.subtext=Yakın menzilli silahlarda veya çıkarım araçlarında kullanılan 3. düzey malzemeler.
+materials_harvest_4=4. Düzey Yakın Menzilli Çıkarım Malzemeleri
+materials_harvest_4.subtext=Yakın menzilli silahlarda veya çıkarım araçlarında kullanılan 4. düzey malzemeler.
+materials_ranged_1=1. Düzey Uzun Menzilli Malzemeleri
+materials_ranged_1.subtext=Uzun menzilli silahlarda kullanılan 1. düzey malzemeler.
+materials_ranged_2=2. Düzey Uzun Menzilli Malzemeleri
+materials_ranged_2.subtext=Uzun menzilli silahlarda kullanılan 2. düzey malzemeler.
+materials_ranged_3=3. Düzey Uzun Menzilli Malzemeleri
+materials_ranged_3.subtext=Uzun menzilli silahlarda kullanılan 3. düzey malzemeler.
+materials_ranged_4=4. Düzey Uzun Menzilli Malzemeleri
+materials_ranged_4.subtext=Uzun menzilli silahlarda kullanılan 4. düzey malzemeler.
+materials_skull=Balçıklı Kafatası
+materials_skull.subtext=Bu bölüm balçıklı kafatası üretimindeki bütün kafataslarının etkilerini tanımlar
+
+
+upgrades=Yükseltmeler
+upgrades.subtext=Her araç sınırlı toplam sayıda yükseltme yuvası alır.
+upgrades.group_general=Genel
+upgrades.group_harvest=Çıkarım
+upgrades.group_weapon=Yakın Menzilli
+upgrades.group_ranged=Uzun Menzilli
+upgrades.group_damage=Fazladan Hasar
+upgrades.group_armor=Zırh
+upgrades.group_armor.helmet=Kask
+upgrades.group_armor.chestplate=Göğüslük
+upgrades.group_armor.leggings=Pantolon
+upgrades.group_armor.boots=Bot
+# upgrades.boots.tconstruct.feather_falling=Tüy Düşüşü
+# can add other modifiers using [section].[prefix].[mod_id].[modifier_id], we just use this for long names
+# you should also be able to leave off feather falling in your language and it will fallback to the language .json
+# see the section json to find the prefix, any modifier type that defines that can use it
+
+defense=Savunma
+defense.subtext=Malzeme nitelikleri yerine zırhlar korumayı iyileşitrmek için savunma yuvaları ekleyecektir.
+defense.group_protection=Koruma
+defense.group_special=Özel
+
+slotless=Yuvasız
+slotless.subtext=Yuvasız değiştiricileri herhangi bir yuva gerektirmez.
+slotless.group_general=Genel
+slotless.group_bonus=Fazlalık
+
+abilities=Yetenekler
+abilities.subtext=Yetenek değiştiricileri yükselmelere göre daha az yuvası vardır ama yuva başına daha güçlülerdir.
+abilities.group_general=Genel
+abilities.group_harvest=Çıkarım
+abilities.group_melee=Yakın Menzilli
+abilities.group_ranged=Uzun Menzilli
+abilities.group_interact=Etkileşim
+abilities.group_armor=Zırh
+abilities.group_armor.helmet=Kask
+abilities.group_armor.chestplate=Göğüslük
+abilities.group_armor.leggings=Pantolon
+abilities.group_armor.boots=Bot
+abilities.group_armor.shield=Kalkan

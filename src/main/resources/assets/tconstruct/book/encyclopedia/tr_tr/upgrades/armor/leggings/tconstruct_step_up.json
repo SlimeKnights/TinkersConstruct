@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:step_up",
+  "text": [
+    {
+      "text": "Oyuncunun adım atabileceği yüksekliği seviye başına 0.5 blok artırır."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 2 seviye",
+    "Seviye başına 1 yükseltme yuvası gerekir"
+  ]
+}

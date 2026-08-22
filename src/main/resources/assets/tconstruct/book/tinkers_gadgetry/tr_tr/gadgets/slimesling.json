@@ -1,0 +1,12 @@
+{
+  "title": "Balçık Sapanları",
+  "item": {
+    "tag": "tconstruct:slimeslings"
+  },
+  "text": [
+    {
+      "text": "Balçık sapanları kendini ya da diğer yaratıkları fırlatmanı sağlayan en son buluşum. Karabalçığı büyük uzaklıklar gitmeye başlamak için blokları tekmelemeni sağlar, gökbalçığı seni o kadar uzağa göndermez ama havada da çalışır, od düşmanlarını fırlatmak için etkilidir ve enderbalçığı sapanı uzayda ışınlanmanı sağlar. Sapanların üzerine değiştiriciler ekleyerek güçlerini arttırmanın yolları üzerinde çalışıyorum.",
+      "paragraph": true
+    }
+  ]
+}

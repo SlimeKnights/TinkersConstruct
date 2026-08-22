@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:travelers_chestplate",
+  "text": [
+    { "text": "Gezginin Yeleği ortalama koruma ile ortalama yükseltme ve savunma yuvası olan dengeli bir göğüslüktür." }
+  ],
+  "properties": [
+    "160 Dayanıklılık",
+    "+5 Zırh",
+    "%55 Silahsız Saldırı",
+    "3 Yükseltme Yuvası",
+    "2 Savunma Yuvası",
+    "1 Yetenek Yuvası",
+    "Yalıtılmış"
+  ]
+}

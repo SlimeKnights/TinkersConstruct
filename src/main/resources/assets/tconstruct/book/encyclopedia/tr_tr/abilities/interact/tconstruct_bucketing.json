@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:bucketing",
+  "text": [
+    {
+      "text": "Aracın sıvıları kullanırken toplamasını ve eğilirken koymasını sağlar. Ayrıca aracın tank sığasını 1000 mk artırır."
+    },
+    {
+      "text": "Kovalamalı araçların sıvı tank bloklarıyla etkileşim kurarak doldurma ile çekme yeteneği vardır.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 1 seviye",
+    "1 yetenek yuvası gerekir"
+  ]
+}

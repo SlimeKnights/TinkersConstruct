@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:blindshot",
+  "text": [
+    {
+      "text": "Seviye başına doğruluğu 0.1 düşürür."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Çoklu kullanım",
+    "Yuvasız",
+    "En üst seviyesi yok ancak doğruluk en az 0.1 olabilir"
+  ]
+}

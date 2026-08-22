@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:bulk_quiver",
+  "text": [
+    {
+      "text": "Yaya içsel yuvalar vererek okları tutmasını sağlar. Ana envanterde oklar yoksa o yuvadaki oklar kullanılacaktır."
+    },
+    {
+      "text": "Okluğun envanteri eğilip saldırarak erişilebilir. Envanter seviye başına 64'lük 2 yığın tutar.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok seviyesi yok",
+    "Seviye başına 1 yetenek yuvası gerekir"
+  ]
+}

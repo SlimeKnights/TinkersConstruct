@@ -1,0 +1,13 @@
+{
+  "title": "Karabalçığı Adaları",
+  "image": {
+	"file": "tconstruct:book/images/islands/earthslime.png",
+    "width": 180,
+    "height": 84
+  },
+  "text": [
+    {
+      "text": "Karabalçığı adaları bazen dünya üzerindeki okyanuslarda bulunur ve gökbalçığı yeğenine göre daha az uzaylımsı görünür. Sıradan yeşil balçık türünü bulmak için tek yolu değildir ancak çimen onların daha yaygın görülmesine neden olur."
+    }
+  ]
+}

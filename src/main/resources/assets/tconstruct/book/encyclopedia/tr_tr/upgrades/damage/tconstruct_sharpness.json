@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:sharpness",
+  "text": [
+    {
+      "text": "Seviye başına +0.75 hasar sağlar."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Aşamalı olarak seviyeler uygulanabilir",
+    "En çok 5 seviye",
+    "Seviye başına 1 yükseltme yuvası gerekir"
+  ]
+}

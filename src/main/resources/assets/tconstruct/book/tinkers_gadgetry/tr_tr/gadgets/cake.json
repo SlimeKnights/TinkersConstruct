@@ -1,0 +1,13 @@
+{
+  "title": "Balçık Keki",
+  "image": {
+	"file": "tconstruct:book/images/cake.png",
+    "width": 180,
+    "height": 67
+  },
+  "text": [
+    {
+      "text": "Balçık çimenini kekteki buğday yerine mükemmel olduğunu ve balçık sıvısının eşsiz bir şekerleme tadına dönüştüğünü buldum. En tatlı kekler olmasalarda gökbalçığı keki yedikten kısa bir süre sonra daha yükseğe zıpladığımı ve magma keki yediğimde ateşin daha az canımı sıktığı gördüm. Enderbalçığı ya da karabalçığı tükettiğimde ne olacağını merak ediyorum..."
+    }
+  ]
+}

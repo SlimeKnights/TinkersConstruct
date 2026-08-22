@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:power",
+  "text": [
+    {
+      "text": "Uzun menzilli gücünü seviye başına 0.5 artırır."
+    },
+    {
+      "text": "Fırlatma, sıçrama ve gümletmeyi seviye başına %25 daha etkili yapar.", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Aşamalı olarak seviyeler uygulanabilir",
+    "En çok 5 seviye",
+    "Seviye başına 1 yükseltme yuvası gerekir"
+  ]
+}

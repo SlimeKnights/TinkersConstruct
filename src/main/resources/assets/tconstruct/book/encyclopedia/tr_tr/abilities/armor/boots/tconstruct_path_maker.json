@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:path_maker",
+  "text": [
+    {
+      "text": "Bastığın çimeni düzleştirerek arkanda yolak bırakır. Genişletilmiş ile etki alanı artar."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 1 seviye",
+    "1 yetenek yuvası gerekir"
+  ]
+}

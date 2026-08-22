@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:shiny",
+  "text": [
+    {
+      "text": "Büyülüymüş gibi araç parlar. Bu kadar yalnızca bir süstür."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Tek kullanım",
+    "Yuvasız"
+  ]
+}

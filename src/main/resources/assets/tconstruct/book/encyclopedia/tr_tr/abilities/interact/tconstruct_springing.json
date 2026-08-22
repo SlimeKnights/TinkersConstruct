@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:springing",
+  "text": [
+    {
+      "text": "Yükleyip bırakmak hedeflediğin yönde 1 dayanaklılık tüketerek kendini fırlattırır."
+    },
+    {
+      "text": " Etkiler gücün veya savurmanın seviyesi başına %25 fazlalaşır ve yastığımsıyla yarılanır. Yüklenme süresi çabuk çekişle düşer.", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "En çok 1 seviye",
+    "1 yetenek yuvası gerekir"
+  ]
+}

@@ -1,0 +1,28 @@
+intro=Tanıtım
+
+gadgets=Ivır Zıvırlar
+
+modifiers=Garip Değiştiriciler
+
+exploration=Keşfetme
+exploration.necrotic_bones=Ölük Kemik
+
+exploration.skyslime_island=Gökbalçığı
+exploration.earthslime_island=Karabalçığı
+exploration.clay_island=Kil
+exploration.blood_island=Kan
+exploration.enderslime_island=Enderbalçığı
+
+exploration.skyslime_geode=Gökbalçığı
+exploration.earthslime_geode=Karabalçığı
+exploration.ichor_geode=Od
+exploration.enderslime_geode=Enderbalçığı
+
+armor=Balçığımsı Zırh
+armor.subtext=Balçıkla çeşitli yaratık parçalarını karıştırmak ilginç zırh donanımı üretir. En iyi savunan değildir ancak yeteneklerini gerçekten geliştirebilirsin.
+
+staffs=Asalar
+staffs.subtext=Balçık kristalleriyle balçık odunlarını birleştirmek çok esnek araçların oluşturulmasına katkı sağlar. Yalnızca tüm şeyi bir arada tutabilmek için azcık metal gerekir.
+
+materials=Kafatası Malzemeleri
+materials.subtext=Bu kafatasların birini döküm çanağına yerleştirmek ve enderbalçığı eklemek onların yeteneklerini kask olarak geliştirebilir.

@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:freezing",
+  "text": [
+    {
+      "text": "Saldırılan canlıları 4 saniyeliğine (ek olarak seviye başına 4 saniye) dondurarak zamanla hasara ve yavaşlığa neden olur."
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/melee",
+  "effects": [
+    "En çok 3 seviye",
+    "Ateşli ile iyi çalışmaz",
+    "Seviye başına 1 yükseltme yuvası gerekir"
+  ]
+}

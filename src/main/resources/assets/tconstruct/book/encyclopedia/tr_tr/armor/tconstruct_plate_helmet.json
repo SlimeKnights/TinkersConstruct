@@ -1,0 +1,14 @@
+{
+  "tool": "tconstruct:plate_helmet",
+  "text": [
+    { "text": "Sac Kask yüksek koruma, düşük yükseltme yuvası ile yüksek savunma yuvası olan savunmacı bir kasktır." }
+  ],
+  "properties": [
+    "330 Dayanıklılık",
+    "+2 Zırh",
+    "+2 Sertlik",
+    "1 Yükseltme Yuvası",
+    "4 Savunma Yuvası",
+    "1 Yetenek Yuvası"
+  ]
+}

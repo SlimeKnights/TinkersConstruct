@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:scythe",
+  "text": [
+    { "text": "Tırpan 3x3x3 oylumda bitkilerde veya canavarlarda etkili koca biçme aracıdır." },
+    { "text": "Genişleticiler sırasıyla genişliği, yüksekliği ve derinliği artırır ipeksi alan etkili kırkma sağlar.", "paragraph": true }
+  ],
+  "properties": [
+    "+1 Saldırı Hasarı",
+    "0.7 Saldırı Hızı",
+    "%45 Çıkarım Katlayıcısı",
+    "%250 Dayanıklılık Katlayıcısı",
+    "Alan Etkili Saldırı",
+    "Toprak sürer",
+    "Bitkileri biçer"
+  ]
+}

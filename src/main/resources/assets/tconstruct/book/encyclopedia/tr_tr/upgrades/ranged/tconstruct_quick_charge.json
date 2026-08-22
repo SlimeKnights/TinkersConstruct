@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:quick_charge",
+  "text": [
+    {
+      "text": "Aracın çekim hzını seviye başına %25 artırır."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Aşamalı olarak seviyeler uygulanabilir",
+    "En çok 4 seviye",
+    "Seviye başına 1 yükseltme yuvası gerekir"
+  ]
+}

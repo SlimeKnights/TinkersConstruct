@@ -1,0 +1,14 @@
+{
+  "tool": "tconstruct:slime_boots",
+  "text": [
+    { "text": "Bu bot kolayca çevrede zıplamak için tavşanın gücünü balçık ile birleştirir." },
+    { "text": "Bu düşlemsel botu üretmek için enderbalçığını tavşan ayağının üzerine dök. Bot sonra tavşan postu kullanılarak onarılabilir.", "paragraph": true }
+  ],
+  "properties": [
+    "Yüksek DAyanıklılık",
+    "Zırh veya Savunma Yuvası Yok",
+    "5 Yükseltme Yuvası",
+    "1 Yetenek Yuvası",
+    "Sekme ile Sıçrama"
+  ]
+}

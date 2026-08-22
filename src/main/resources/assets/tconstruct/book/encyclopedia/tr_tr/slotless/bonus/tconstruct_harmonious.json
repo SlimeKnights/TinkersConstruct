@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:harmonious",
+  "text": [
+    {
+      "text": "+1 yükseltme yuvası sağlar."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Tek kullanım",
+    "Yuvasız"
+  ]
+}

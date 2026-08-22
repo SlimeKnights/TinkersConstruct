@@ -1,0 +1,12 @@
+{
+  "tool": "tconstruct:hand_axe",
+  "text": [
+    { "text": "El Baltası odunda, bitkilerde ve yapraklarda etkili eksiksiz bir kesme aracıdır." },
+    { "text": "Genişleticiler baltanın dairesel yarıçapını artırır.", "paragraph": true }
+  ],
+  "properties": [
+    "+6 Saldırı Hasarı",
+    "0.9 Saldırı Hızı",
+    "Odun soyar"
+  ]
+}
