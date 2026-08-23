@@ -1,12 +1,10 @@
 package slimeknights.tconstruct.smeltery.network;
 
 import lombok.RequiredArgsConstructor;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent.Context;
-import slimeknights.mantle.network.packet.IThreadsafePacket;
-import slimeknights.mantle.util.BlockEntityHelper;
+import slimeknights.tconstruct.common.network.BlockEntityPacket;
 import slimeknights.tconstruct.smeltery.block.entity.controller.HeatingStructureBlockEntity;
 
 import javax.annotation.Nullable;
@@ -15,7 +13,7 @@ import javax.annotation.Nullable;
  * Packet to tell a multiblock to render a specific position as the cause of the error
  */
 @RequiredArgsConstructor
-public class StructureErrorPositionPacket implements IThreadsafePacket {
+public class StructureErrorPositionPacket implements BlockEntityPacket<HeatingStructureBlockEntity> {
   private final BlockPos controllerPos;
   @Nullable
   private final BlockPos errorPos;
@@ -41,14 +39,17 @@ public class StructureErrorPositionPacket implements IThreadsafePacket {
   }
 
   @Override
-  public void handleThreadsafe(Context context) {
-    HandleClient.handle(this);
+  public BlockPos pos() {
+    return controllerPos;
   }
 
-  private static class HandleClient {
-    private static void handle(StructureErrorPositionPacket packet) {
-      BlockEntityHelper.get(HeatingStructureBlockEntity.class, Minecraft.getInstance().level, packet.controllerPos)
-                       .ifPresent(te -> te.setErrorPos(packet.errorPos));
-    }
+  @Override
+  public Class<HeatingStructureBlockEntity> type() {
+    return HeatingStructureBlockEntity.class;
+  }
+
+  @Override
+  public void handleBlockEntity(Context context, HeatingStructureBlockEntity be) {
+    be.setErrorPos(errorPos);
   }
 }
