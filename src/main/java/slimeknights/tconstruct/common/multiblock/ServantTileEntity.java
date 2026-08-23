@@ -12,7 +12,6 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.block.entity.MantleBlockEntity;
-import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.library.utils.TagUtil;
 
 import javax.annotation.Nullable;
@@ -78,9 +77,8 @@ public class ServantTileEntity extends MantleBlockEntity implements IServantLogi
 
   @Override
   public void notifyMasterOfChange(BlockPos pos, BlockState state) {
-    if (validateMaster()) {
-      assert masterPos != null;
-      BlockEntityHelper.get(IMasterLogic.class, level, masterPos).ifPresent(te -> te.notifyChange(pos, state));
+    if (level != null && masterPos != null && validateMaster() && level.getBlockEntity(masterPos) instanceof IMasterLogic te) {
+      te.notifyChange(pos, state);
     }
   }
 
