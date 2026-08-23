@@ -46,4 +46,13 @@ public interface MonsterMeleeHitModifierHook {
       afterMeleeHit(tool, modifier, context, damage);
     }
   }
+
+  /** Helper that just redirects the before hit method to the monster melee hit */
+  interface RedirectBefore extends MonsterMeleeHitModifierHook, MeleeHitModifierHook {
+    @Override
+    default float beforeMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damage, float baseKnockback, float knockback) {
+      onMonsterMeleeHit(tool, modifier, context, damage);
+      return knockback;
+    }
+  }
 }

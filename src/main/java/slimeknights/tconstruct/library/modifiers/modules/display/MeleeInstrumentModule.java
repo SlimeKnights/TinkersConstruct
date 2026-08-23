@@ -45,7 +45,7 @@ import java.util.List;
 /**
  * Plays an instrument on successful melee hits.
  */
-public record MeleeInstrumentModule(@Nullable MaterialId material, TagKey<Instrument> tag, IJsonPredicate<LivingEntity> attacker, IJsonPredicate<LivingEntity> target, ModifierCondition<IToolStackView> condition) implements ModifierModule, ConditionalModule<IToolStackView>, MonsterMeleeHitModifierHook.RedirectAfter, DamageDealtModifierHook {
+public record MeleeInstrumentModule(@Nullable MaterialId material, TagKey<Instrument> tag, IJsonPredicate<LivingEntity> attacker, IJsonPredicate<LivingEntity> target, ModifierCondition<IToolStackView> condition) implements ModifierModule, ConditionalModule<IToolStackView>, MonsterMeleeHitModifierHook.RedirectBefore, DamageDealtModifierHook {
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<MeleeInstrumentModule>defaultHooks(ModifierHooks.MELEE_HIT, ModifierHooks.MONSTER_MELEE_HIT, ModifierHooks.DAMAGE_DEALT);
   public static final RecordLoadable<MeleeInstrumentModule> LOADER = RecordLoadable.create(
     MaterialId.PARSER.nullableField("instrument_material", MeleeInstrumentModule::material),
@@ -105,7 +105,7 @@ public record MeleeInstrumentModule(@Nullable MaterialId material, TagKey<Instru
   }
 
   @Override
-  public void afterMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damageDealt) {
+  public void onMonsterMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damage) {
     if (TinkerPredicate.matches(this.target, context.getLivingTarget())) {
       playSound(tool, context.getAttacker(), context.getPlayerAttacker(), context.getTarget());
     }
