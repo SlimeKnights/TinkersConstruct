@@ -20,8 +20,8 @@ materials_ammo=弹药材料
 materials_ammo.subtext=这些材料可用于制作箭矢和手里剑。
 materials_armor=盔甲材料
 materials_armor.subtext=这些材料可用于制作盔甲和盾牌。
-materials_skull=黏液头颅
-materials_skull.subtext=本章节描述每种生物头颅所对应黏液头颅的 效果。
+materials_slime=黏液盔甲材料
+materials_skull.subtext=本章节描述各材料所对应黏液盔甲的效果。
 
 upgrades=升级强化
 upgrades.subtext=所有工具上可以安装有限数量的强化升级。
