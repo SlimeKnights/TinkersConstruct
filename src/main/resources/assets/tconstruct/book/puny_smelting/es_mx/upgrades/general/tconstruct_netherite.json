@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:netherite",
+  "text": [
+    {
+      "text": "La fuerza del Nether fluye intensamente a través de tu herramienta."
+    },
+    {
+      "text": "Tanto que ni siquiera la lava puede dañar esta pieza.", "paragraph": true
+    }
+  ],
+  "effects": [
+    "Sube durabilidad, daño, minado, dureza y empuje",
+    "Nivel único",
+    "Requiere 1 ranura de mejora"
+  ]
+}

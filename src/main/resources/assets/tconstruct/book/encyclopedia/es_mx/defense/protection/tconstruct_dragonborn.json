@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:dragonborn",
+  "text": [
+    {
+      "text": "Otorga un +10% de resistencia mientras estás en el aire. Tiene un límite del 80% en todo el conjunto, u 8 niveles."
+    },
+    {
+      "text": "Aumenta el daño de ataque mientras estás en el aire en un 5% por cada nivel de la pieza de mayor nivel.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Se pueden aplicar niveles de forma incremental",
+    "Requiere 1 ranura de defensa por nivel"
+  ]
+}

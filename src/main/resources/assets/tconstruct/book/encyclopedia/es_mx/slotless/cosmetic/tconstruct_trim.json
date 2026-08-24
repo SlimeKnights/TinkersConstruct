@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:trim",
+  "text": [
+    {
+      "text": "Combina adornos de armadura con el material correcto para añadir a la armadura una variante de color de una textura única.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Intercambiable",
+    "Sin ranura"
+  ]
+}

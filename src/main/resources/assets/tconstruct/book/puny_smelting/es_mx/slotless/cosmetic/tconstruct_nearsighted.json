@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:nearsighted",
+  "text": [
+    {
+      "text": "Eventualmente tendrás que superar las herramientas de piedra, ¿no crees?"
+    }
+  ],
+  "effects": [
+    "Aumenta el FOV (campo de visión) de la herramienta o armadura equipada",
+    "Múltiples niveles",
+    "Sin ranuras"
+  ]
+}

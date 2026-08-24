@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:diamond",
+  "text": [
+    {
+      "text": "¡Diamantes para la eternidad!"
+    }
+  ],
+  "effects": [
+    "Sube durabilidad, minado, daño y armadura",
+    "Nivel único",
+    "Requiere 1 ranura de mejora"
+  ]
+}

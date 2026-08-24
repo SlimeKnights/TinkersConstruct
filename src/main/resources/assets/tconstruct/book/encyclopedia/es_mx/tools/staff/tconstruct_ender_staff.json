@@ -1,0 +1,17 @@
+{
+  "tool": "tconstruct:ender_staff",
+  "text": [
+    {
+      "text": "El bastón de enderslime es una variante de bastón con gran alcance y potencia."
+    }
+  ],
+  "properties": [
+    "1520 de durabilidad",
+    "3 de potencia de proyectil",
+    "0.5 de precisión",
+    "3 ranuras de mejora",
+    "1 ranura de defensa",
+    "2 ranuras de habilidad",
+    "Alcance II"
+  ]
+}

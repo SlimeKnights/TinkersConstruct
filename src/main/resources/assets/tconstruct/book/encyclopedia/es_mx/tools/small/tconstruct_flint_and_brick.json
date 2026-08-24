@@ -1,0 +1,19 @@
+{
+  "tool": "tconstruct:flint_and_brick",
+  "text": [
+    {
+      "text": "Herramienta de mano que otorga la habilidad de encendedor."
+    },
+    {
+      "text": "Los expansores aumentan el radio del fuego, potenciado por el modificador de imprimación ígnea.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "+0 daño de ataque",
+    "1.0 vel. de ataque",
+    "100 durabilidad",
+    "Ígneo I",
+    "Encendido de fuego"
+  ]
+}

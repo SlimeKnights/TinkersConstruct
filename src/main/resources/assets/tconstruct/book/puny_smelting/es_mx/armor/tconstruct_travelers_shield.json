@@ -1,0 +1,18 @@
+{
+  "tool": "tconstruct:travelers_shield",
+  "text": [
+    { "text": "Por desgracia, no sirve como frisbee." },
+    {
+      "text": "Los escudos son clave para defenderte en este mundo; mejor lleva uno cuando salgas de viaje.", "paragraph": true
+    }
+  ],
+  "properties": [
+    "Poca durabilidad",
+    "Poco potencial bloqueo",
+    "Rápido al cubrirse",
+    "2 ranuras de mejora",
+    "2 ranuras de defensa",
+    "1 ranura de habilidad",
+    "2 rasgos de material"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:rebalanced",
+  "text": [
+    {
+      "text": "Otorga +1 ranura de modificador; el tipo se determina según la receta. Aplicar +1 ranura de habilidad hace que la herramienta pierda 1 ranura de mejora."
+    },
+    {
+      "text": "La mucosidad de ender aumenta el nivel de uno de los rasgos de la herramienta, típicamente el rasgo del cabezal.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nivel",
+    "Sin ranura"
+  ]
+}

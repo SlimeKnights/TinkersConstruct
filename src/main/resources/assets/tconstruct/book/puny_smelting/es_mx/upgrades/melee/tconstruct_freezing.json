@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:freezing",
+  "text": [
+    {
+      "text": "La Elsa se va a poner celosa.Libre soy."
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/melee",
+  "effects": [
+    "Ralentiza y hace daño extra",
+    "Varios niveles, duran más tiempo",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

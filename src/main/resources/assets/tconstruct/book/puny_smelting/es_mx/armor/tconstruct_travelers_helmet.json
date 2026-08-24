@@ -1,0 +1,18 @@
+{
+  "tool": "tconstruct:travelers_helmet",
+  "text": [
+    { "text": "Gafas dignas de un rey, de Lemmings, o de un King Lemming." },
+  {
+      "text": "Un buen par de gafas ofrece aventuras seguras, mejor visión y el porte de un rey.", "paragraph": true
+    }
+  ],
+  "properties": [
+    "Menos armadura",
+    "Menos durabilidad",
+    "2 ranuras de mejora",
+    "2 ranuras de defensa",
+    "1 ranura de habilidad",
+    "2 rasgos de material",
+    "Aislado"
+  ]
+}

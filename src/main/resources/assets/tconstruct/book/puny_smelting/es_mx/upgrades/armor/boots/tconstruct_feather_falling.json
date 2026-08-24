@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:feather_falling",
+  "text": [
+    {
+      "text": "Más ligero que una pluma, pero el doble de letal. Ideal para aterrizajes forzosos."
+    }
+  ],
+  "effects": [
+    "Reduce el daño por caída",
+    "Varios niveles, reducen más el daño",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:knockback",
+  "text": [
+    {
+      "text": "Otorga 1 de empuje por nivel; lanza al mob unos 2 bloques. Casi toda herramienta inicia con 0.4 de empuje."
+    },
+    {
+      "text": "Lanzar, rebotar y golpear ganan +0.5 de potencia por nivel; escala con resistencia al empuje y rebote en vez de velocidad.", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/melee",
+  "effects": [
+    "Máximo 3 niveles",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

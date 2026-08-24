@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:ballista",
+  "text": [
+    {
+      "text": "Dispara armas cuerpo a cuerpo desde la otra mano o carcaj con 3 de daño base."
+    },
+    {
+      "text": "Usa daño de combate en vez de potencia. La velocidad del arco sube el daño y el ataque reduce el movimiento.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Nivel único",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

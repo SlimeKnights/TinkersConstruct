@@ -1,0 +1,17 @@
+{
+  "title": "Interfaz de la Fundición",
+  "image": {
+    "file": "tconstruct:book/images/foundrygui.png",
+    "width": 161,
+    "height": 82
+  },
+  "text": [
+    {
+      "text": "1: Coloca los objetos para fundir en estos espacios. El tamaño de la fundición determina el número de espacios disponibles."
+    },
+    {
+      "text": "2: Los metales fundidos se muestran aquí. Puedes hacer clic en un fluido para seleccionarlo para el vertido. Al pasar el cursor sobre el área vacía se mostrará la capacidad total.",
+      "paragraph": true
+    }
+  ]
+}

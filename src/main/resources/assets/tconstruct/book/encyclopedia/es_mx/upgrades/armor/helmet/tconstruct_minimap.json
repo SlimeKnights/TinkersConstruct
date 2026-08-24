@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:minimap",
+  "text": [
+    {
+      "text": "Añade 3 ranuras por nivel para mapas que puedes ver mientras deambulas. Usa Control más la tecla de interacción del casco para cambiar el mapa activo."
+    },
+    {
+      "text": "El inventario del casco se puede abrir interactuando con él mientras lo sostienes.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

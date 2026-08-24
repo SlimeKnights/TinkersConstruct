@@ -1,0 +1,17 @@
+{
+  "tool": "tconstruct:dagger",
+  "text": [
+    {
+      "text": "La daga es un arma versátil para el guerrero veloz. Tiene un daño bajo pero una velocidad mayor, lo que permite ataques rápidos y seguidos. La daga también se puede usar en la mano secundaria para llevar el doble de dagas."
+    },
+    {
+      "text": "\n"
+    }
+  ],
+  "properties": [
+    "Daño bajo",
+    "Alta velocidad",
+    "Se puede usar en la mano secundaria",
+    "Se apila de a 2 al fabricar y modificar"
+  ]
+}

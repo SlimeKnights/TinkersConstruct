@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:depth_strider",
+  "text": [
+    {
+      "text": "Esto es locura o brillantez. Es sorprendente lo seguido que ambas coinciden."
+    }
+  ],
+  "effects": [
+    "Aumenta la velocidad de movimiento bajo el agua",
+    "Varios niveles, aumentan más la velocidad",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

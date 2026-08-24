@@ -1,0 +1,21 @@
+{
+  "tool": "tconstruct:war_pick",
+  "text": [
+    {
+      "text": "Pico-ballesta hallado en minas, puestos de saqueo, vindicadores y regalos de armeros."
+    },
+    {
+      "text": "Cargado otorga +0.01 vel. por bloque minado (máx +0.25). Los expansores aumentan el radio circular.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "+0 daño de ataque",
+    "1.2 vel. ataque",
+    "1.0 vel. carga",
+    "1.00 vel. flecha",
+    "0.75 precisión",
+    "3 ranuras mejora",
+    "1 ranura habilidad"
+  ]
+}

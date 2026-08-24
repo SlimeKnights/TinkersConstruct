@@ -1,0 +1,16 @@
+{
+  "title": "Interfaz de la Fundición",
+  "text": [
+    {
+      "text": "3: Aquí es donde puedes ver tu combustible. Al pasar el cursor sobre él, se mostrará el tipo y la cantidad exacta."
+    },
+    {
+      "text": "En las zonas 2 y 3, el clic izquierdo con un objeto de fluido intentará llenarlo desde el tanque, mientras que el clic derecho intentará vaciar el objeto en el tanque.",
+      "paragraph": true
+    },
+    {
+      "text": "4: Este espacio permite llenar o vaciar rápidamente un objeto en el tanque principal, siguiendo el mismo comportamiento que al hacer clic en un drenaje. El 5 permite restringir esto solo a llenar o solo a vaciar. Tras la interacción, el resultado se moverá al 6.",
+      "paragraph": true
+    }
+  ]
+}

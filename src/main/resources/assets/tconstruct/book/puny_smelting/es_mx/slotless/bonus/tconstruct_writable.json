@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:writable",
+  "text": [
+    {
+      "text": "Mientras las palabras fluyen por tu cabeza, tu herramienta siente que también podría aprender un poco más. Quizás hasta podrías escribir con ella."
+    }
+  ],
+  "effects": [
+    "Añade una ranura de mejora",
+    "Nivel único",
+    "Sin ranuras"
+  ]
+}

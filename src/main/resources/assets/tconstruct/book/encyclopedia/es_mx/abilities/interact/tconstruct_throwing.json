@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:throwing",
+  "text": [
+    {
+      "text": "Lanza armas o herramientas como proyectil. Ignora atributos del jugador e inflige -1 daño base. Rompe bloques si se minan en menos de 1 segundo."
+    },
+    {
+      "text": "Vel. de lanzamiento = ataque × tensado. Determina distancia, daño y minado.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nivel",
+    "Requiere 1 ranura de habilidad",
+    "Requiere lanzadores sin munición"
+  ]
+}

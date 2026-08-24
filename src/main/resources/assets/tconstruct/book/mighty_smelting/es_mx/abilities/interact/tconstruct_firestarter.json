@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:firestarter",
+  "text": [
+    {
+      "text": "Todo cambió cuando el modificador encendedor atacó."
+    }
+  ],
+  "effects": [
+    "Interactúa para prender fuego",
+    "Nivel único",
+    "Requiere 1 ranura de habilidad",
+    "Con sílex y bronce aumenta el radio (+1 mejora)"
+  ]
+}

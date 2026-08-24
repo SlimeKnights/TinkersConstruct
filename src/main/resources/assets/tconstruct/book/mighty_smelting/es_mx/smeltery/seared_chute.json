@@ -1,0 +1,10 @@
+{
+  "title": "Tolva quemada",
+  "item": "tconstruct:seared_chute",
+  "text": [
+    {
+      "text": "La tolva fundida es tu vía para meter o sacar objetos de la fundición. Es mejor colocarla en un lugar donde sea fácilmente accesible para una tolva convencional.",
+      "paragraph": true
+    }
+  ]
+}

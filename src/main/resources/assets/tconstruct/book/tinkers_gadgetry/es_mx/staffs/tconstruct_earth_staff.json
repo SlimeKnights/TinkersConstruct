@@ -1,0 +1,12 @@
+{
+  "tool": "tconstruct:earth_staff",
+  "text": [
+    { "text": "Usando el poder del slime verde, puedes fabricar el más defensivo de los bastones mágicos. Tiene mayor potencial de bloqueo y precisión, pero peor potencia de proyectil." }
+  ],
+  "properties": [
+    "Durabilidad media",
+    "2 Ranuras de mejora",
+    "3 Ranuras de defensa",
+    "2 Ranuras de habilidad"
+  ]
+}

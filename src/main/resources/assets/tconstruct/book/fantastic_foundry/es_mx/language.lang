@@ -1,0 +1,11 @@
+intro=Introducción
+
+alloyer=Aleador
+
+foundry=Fundición
+
+blazing_blood=Sangre ardiente
+
+armor=Armadura fantástica armor.subtext=El uso de recursos del Nether permite crear armaduras de niveles superiores. Por ejemplo, la imponente armadura de placas presume de una defensa alta, pero menos modificabilidad. ¿Quién necesita extras cuando se está bien protegido?
+
+melee_harvest_materials=Materiales: Tier 4 General melee_harvest_materials.subtext=Estos materiales requieren sangre ardiente para su creación y se usan para fabricar piezas de armas cuerpo a cuerpo o herramientas de recolección. ranged_materials=Materiales: Tier 4 Distancia ranged_materials.subtext=Estos materiales requieren sangre ardiente y se utilizan para fabricar piezas de armas a distancia, como los arcos. armor_materials=Materiales: Tier 4 Armadura armor_materials.subtext=Estos materiales requieren sangre ardiente y pueden fundirse para crear armaduras y escudos.

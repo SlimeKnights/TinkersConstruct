@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:soul_belt",
+  "text": [
+    {
+      "text": "Mantén a tus amigos cerca, y a tus herramientas aún más cerca."
+    }
+  ],
+  "effects": [
+    "Los objetos de la hotbar se quedan contigo al morir",
+    "Nivel único",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

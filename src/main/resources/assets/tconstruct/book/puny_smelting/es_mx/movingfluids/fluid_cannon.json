@@ -1,0 +1,14 @@
+{
+  "title": "Cañón de fluidos",
+  "item": "tconstruct:seared_fluid_cannon",
+  "text": [
+    {
+      "text": "¿Te sobra metal fundido? ¡Usa el cañón de fluidos! Con un pulso de redstone, dispara líquidos que pueden quemar enemigos, destruir bloques o incluso alimentarte automáticamente.",
+      "paragraph": true
+    },
+    {
+      "text": "Al interactuar con su base puedes darle objetos para usar con el fluido; según el tipo de líquido, podrá colocar bloques o usar herramientas.",
+      "paragraph": true
+    }
+  ]
+}

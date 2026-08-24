@@ -1,0 +1,13 @@
+{
+  "tool": "tconstruct:war_pick",
+  "text": [
+    { "text": "El pico de guerra combina un pico con una ballesta. Puede hallarse en minas abandonadas o conseguirse de aldeanos y maldeanos." }
+  ],
+  "properties": [
+    "Mina piedra y bloques similares",
+    "Mantiene una flecha lista para disparar",
+    "Minar bloques aumenta la velocidad de la flecha",
+    "3 Espacios de mejora",
+    "1 Espacio de habilidad"
+  ]
+}

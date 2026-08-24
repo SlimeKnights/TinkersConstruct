@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:slurping",
+  "text": [
+    {
+      "text": "Permite beber el fluido contenido en la herramienta para obtener efectos, como prenderte fuego, limpiar estados alterados o restaurar el hambre."
+    },
+    {
+      "text": "Los niveles más altos consumen más fluido para producir efectos más potentes.", "paragraph": true
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/interactable/charge",
+  "more_text_space": true,
+  "effects": [
+    "Sin nivel máximo",
+    "Requiere 1 ranura de habilidad por nivel",
+    "Llenar usando la herramienta en un tanque de fluido"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "tool": "tconstruct:travelers_leggings",
+  "text": [
+    {
+      "text": "Los pantalones de viajero son grebas equilibradas con protección media y ranuras promedio."
+    }
+  ],
+  "properties": [
+    "75% multi. durabilidad",
+    "75% stats de chapado",
+    "2 ranuras mejora",
+    "2 ranuras defensa",
+    "1 ranura habilidad",
+    "2 rasgos de material",
+    "Aislado"
+  ]
+}

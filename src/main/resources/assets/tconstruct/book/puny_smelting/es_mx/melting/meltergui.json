@@ -1,0 +1,13 @@
+{
+  "title": "Interfaz del Fundidor",
+  "image": {
+    "file": "tconstruct:book/images/meltergui.png",
+    "width": 172,
+    "height": 81
+  },
+  "text": [
+    {
+      "text": "La interfaz básica de tu fundidor. Ni más, ni menos."
+    }
+  ]
+}

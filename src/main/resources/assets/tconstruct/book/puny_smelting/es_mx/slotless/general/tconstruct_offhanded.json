@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:offhanded",
+  "text": [
+    {
+      "text": "La mejora más indiferente y relajada que verás."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Nvl 1: Bloquea mano secundaria | Nvl 2: Bloqueo total",
+    "Sin ranuras"
+  ]
+}

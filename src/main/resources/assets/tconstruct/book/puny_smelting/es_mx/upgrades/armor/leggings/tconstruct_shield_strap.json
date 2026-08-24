@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:shield_strap",
+  "text": [
+    {
+      "text": "Él protege, él ataca, pero lo más importante: las antorchas nunca le faltan."
+    }
+  ],
+  "effects": [
+    "Otorga una ranura extra para la mano secundaria",
+    "Interactúa con los pantalones para cambiar de objeto",
+    "Varios niveles, cada uno otorga +1 ranura",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

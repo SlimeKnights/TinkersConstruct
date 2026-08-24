@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:pockets",
+  "text": [
+    {
+      "text": "Otorga 18 ranuras adicionales a las que se puede acceder agachándose y pulsando la tecla de interacción de grebas o mientras se sostienen los pantalones."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 2 niveles",
+    "Requiere 1 ranura de habilidad por nivel"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:fiery",
+  "text": [
+    {
+      "text": "Las llamas del Nether castigan a tus enemigos. Es lo que pasa por andar jugando con fuego."
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/armor",
+  "effects": [
+    "Probabilidad de quemar al atacante al recibir un golpe",
+    "Varios niveles, aumentan la probabilidad",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

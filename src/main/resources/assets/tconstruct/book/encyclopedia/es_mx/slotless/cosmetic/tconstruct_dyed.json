@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:dyed",
+  "text": [
+    {
+      "text": "Cambia el color de las partes de cuero o madera del equipo de viajero, escudos y bastones."
+    },
+    {
+      "text": "Se pueden mezclar varios tintes, además de mezclar tintes con el color previo del equipo.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Se puede aplicar varias veces",
+    "Sin ranura"
+  ]
+}

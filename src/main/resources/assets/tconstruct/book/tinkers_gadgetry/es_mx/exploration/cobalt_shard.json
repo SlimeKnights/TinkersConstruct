@@ -1,0 +1,10 @@
+{
+  "title": "Fragmentos de cobalto",
+  "item": "tconstruct:cobalt_shard",
+  "text": [
+    {
+      "text": "Los fragmentos de cobalto no se obtienen de los slimes; solo aparecen en geodas de ícor. Son útiles principalmente como una fuente alternativa del mineral.",
+      "paragraph": true
+    }
+  ]
+}

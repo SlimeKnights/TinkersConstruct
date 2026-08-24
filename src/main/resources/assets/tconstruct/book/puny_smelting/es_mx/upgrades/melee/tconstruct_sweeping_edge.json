@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:sweeping_edge",
+  "text": [
+    {
+      "text": "Chim chiminey, chim chiminey... ¡qué suerte es barrer! a limpiar la zona."
+    }
+  ],
+  "effects": [
+    "El ataque de barrido hace más daño",
+    "Varios niveles, aumentan el daño",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

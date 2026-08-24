@@ -1,0 +1,15 @@
+{
+  "title": "Marcos elegantes",
+  "text": [
+    { "text": "• Transparente: Se vuelve invisible cuando se coloca un objeto dentro y permite interactuar con el bloque de atrás al estar lleno (si no estás agachado)." },
+    { "text": "\n" },
+    { "text": "• Oro: Rota el objeto automáticamente de forma gradual. Fabricarlo con una antorcha de redstone invierte la dirección." },
+    { "text": "\n" },
+    { "text": "• Diamante: Reduce gradualmente la rotación hasta que el objeto queda en posición vertical." },
+    { "text": "\n" },
+    { "text": "• Manyullyn: Siempre aparece totalmente iluminado, incluso en la oscuridad." },
+    { "text": "\n" },
+    { "text": "• Netherite: Resistente al fuego y a las explosiones." },
+    { "text": "Los de diamante, manyullyn y netherite también admiten el doble de rotaciones que otros marcos.", "paragraph": true }
+  ]
+}

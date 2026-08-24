@@ -1,0 +1,13 @@
+{
+  "tool": "tconstruct:melting_pan",
+  "text": [
+    { "text": "La sartén de fundición derretirá bloques y almacenará fluidos para tus objetivos con bastones. Puede hallarse en mazmorras, iglús, zombis o como regalo de los aldeanos." }
+  ],
+  "properties": [
+    "Mina bloques fundibles",
+    "Fundición+",
+    "1 Espacio de defensa",
+    "1 Espacio de mejora",
+    "2 Espacios de habilidad"
+  ]
+}

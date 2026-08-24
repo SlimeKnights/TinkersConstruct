@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:blockade",
+  "text": [
+    {
+      "text": "Suma +100% de bloqueo base por nivel (máximo +300% al nivel 3)."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Niveles incrementales",
+    "Máximo nivel: 3",
+    "1 ranura mejora por nivel",
+    "Requiere bloqueo o parada"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:bursting",
+  "text": [
+    {
+      "text": "Es un poco asqueroso que tu armadura gotee, ¡pero también es muy efectivo!"
+    },
+    {
+      "text": "Haz clic derecho en un tanque con la pieza para llenarla.", "paragraph": true
+    }
+  ],
+  "effects": [
+    "Probabilidad de aplicar efectos al atacante",
+    "Efectos según el fluido (fuego, veneno, etc.)",
+    "Requiere 1 ranura de habilidad por nivel"
+  ]
+}

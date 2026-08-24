@@ -1,0 +1,14 @@
+{
+  "tool": "tconstruct:scythe",
+  "text": [
+    {
+      "text": "La Guadaña es la mejor aliada del aventurero. Ya sea que prefieras aventurarte por densas selvas, adentrarte en cuevas profundas infestadas de arañas o simplemente cosechar tus cultivos, la guadaña siempre te apoyará para abrirte paso a través del follaje."
+    }
+  ],
+  "properties": [
+    "Herramienta de cosecha avanzada",
+    "Cosecha y arado en área de 3x3",
+    "Eficaz en todo tipo de follaje",
+    "Capacidad de ataque en área"
+  ]
+}

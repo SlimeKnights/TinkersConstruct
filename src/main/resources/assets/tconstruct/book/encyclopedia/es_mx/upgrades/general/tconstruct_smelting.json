@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:smelting",
+  "text": [
+    {
+      "text": "Cocina los objetos dentro de la herramienta cuando esta se usa para infligir daño cuerpo a cuerpo, minar bloques, disparar flechas o bloquear daño. Cocina 1 objeto por nivel a la vez."
+    },
+    {
+      "text": "El inventario se puede abrir agachándose mientras se interactúa.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 4 niveles",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:flinging",
+  "text": [
+    {
+      "text": "¡Al infinito y más allá! (no es un juguete volador)"
+    }
+  ],
+  "effects": [
+    "Carga para impulsarte lejos del bloque",
+    "Potenciable con Poder o Empuje",
+    "Nivel único",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

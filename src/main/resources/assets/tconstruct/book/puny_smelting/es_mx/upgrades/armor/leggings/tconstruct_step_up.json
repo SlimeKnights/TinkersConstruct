@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:step_up",
+  "text": [
+    {
+      "text": "Pon un pie delante del otro... solo que mucho más arriba."
+    }
+  ],
+  "effects": [
+    "Permite subir bloques altos como si fueran escaleras",
+    "Varios niveles, aumentan la altura del paso con cada nivel",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

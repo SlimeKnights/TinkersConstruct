@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:wings",
+  "text": [
+    {
+      "text": "Permite planear al saltar mientras estás en el aire. Daña lentamente el peto mientras planeas."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nivel",
+    "Requiere 2 ranuras de habilidad"
+  ]
+}

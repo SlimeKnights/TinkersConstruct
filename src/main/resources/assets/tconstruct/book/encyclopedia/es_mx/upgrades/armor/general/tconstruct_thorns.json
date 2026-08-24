@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:thorns",
+  "text": [
+    {
+      "text": "Tiene un 15% de probabilidad por nivel de infligir de 1 a 4 de daño al atacante. Varias piezas acumularán el efecto."
+    },
+    {
+      "text": "Los escudos son el doble de efectivos pero solo funcionan al bloquear.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 3 niveles",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

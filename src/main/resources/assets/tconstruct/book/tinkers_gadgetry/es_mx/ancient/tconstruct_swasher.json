@@ -1,0 +1,13 @@
+{
+  "tool": "tconstruct:swasher",
+  "text": [
+    { "text": "El swasher es una combinación de arma cuerpo a cuerpo y una pistola de fluidos de mano; suele encontrarse en diversos refugios piratas." }
+  ],
+  "properties": [
+    "Daño medio",
+    "Velocidad de ataque alta",
+    "Pistola de fluidos",
+    "3 Espacios de mejora",
+    "1 Espacio de habilidad"
+  ]
+}

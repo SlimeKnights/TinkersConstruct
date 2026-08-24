@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:ricochet",
+  "text": [
+    {
+      "text": "Aumenta el empuje recibido en un 20% por nivel."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 2 niveles por pieza",
+    "Se acumula entre las piezas de armadura",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

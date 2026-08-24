@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:bulk_quiver",
+  "text": [
+    {
+      "text": "Llevar un carcaj en la espalda está sobrevalorado."
+    }
+  ],
+  "effects": [
+    "Permite que tu arco almacene flechas",
+    "Accede agachándote y atacando",
+    "Más niveles aumentan el almacenamiento",
+    "Requiere 1 ranura de habilidad por nivel"
+  ]
+}

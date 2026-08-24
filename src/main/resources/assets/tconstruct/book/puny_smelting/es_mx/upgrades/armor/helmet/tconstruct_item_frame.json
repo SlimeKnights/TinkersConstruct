@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:item_frame",
+  "text": [
+    {
+      "text": "¿Cansado de cargar con el reloj y la brújula? ¿Por qué mejor no te los pones?"
+    }
+  ],
+  "effects": [
+    "Añade ranuras al casco, interactúa para acceder",
+    "El casco mostrará los objetos puestos mientras se usa",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

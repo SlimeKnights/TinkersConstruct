@@ -1,0 +1,138 @@
+[
+  {
+    "name": "intro",
+    "data": "sections/introduction.json",
+    "icon": {
+      "item": "tconstruct:blank_red_sand_cast"
+    }
+  },
+  {
+    "name": "melter",
+    "data": "sections/melting.json",
+    "icon": {
+      "item": "tconstruct:seared_melter"
+    }
+  },
+  {
+    "name": "moving_fluids",
+    "data": "sections/movingfluids.json",
+    "icon": {
+      "item": "tconstruct:seared_channel"
+    }
+  },
+  {
+    "name": "casting",
+    "data": "sections/casting.json",
+    "icon": {
+      "item": "tconstruct:ingot_red_sand_cast"
+    }
+  },
+  {
+    "name": "melee_harvest_materials",
+    "data": "no-load",
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:melee_harvest", "tier": 2, "predicate": {
+      "type": "mantle:or",
+      "predicates": [
+        { "type": "mantle:inverted", "inverted_type": "mantle:tag", "tag": "tconstruct:book/distant" },
+        { "type": "mantle:load_condition", "conditions": [{ "type": "mantle:tag_filled", "tag": "tconstruct:whitestone_ingots" }], "if_true": { "type": "tconstruct:id", "id": "tconstruct:whitestone" }}
+      ]
+    }}},
+    "icon": {
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:small_axe_head",
+        "nbt": { "Material": "tconstruct:seared_stone" }
+      }
+    }
+  },
+  {
+    "name": "ranged_materials",
+    "data": "no-load",
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:ranged", "tier": 2, "predicate": { "type": "mantle:inverted", "inverted_type": "mantle:tag", "tag": "tconstruct:book/distant" }}},
+    "icon": {
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:bow_grip",
+        "nbt": { "Material": "tconstruct:slimewood" }
+      }
+    }
+  },
+  {
+    "name": "armor_materials",
+    "data": "no-load",
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:armor", "tier": { "min": 0, "max": 2 }, "predicate":  { "type": "mantle:inverted", "inverted_type": "mantle:tag", "tag": "tconstruct:book/distant" } } },
+    "icon": {
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:leggings_plating",
+        "nbt": { "Material": "tconstruct:gold" }
+      }
+    }
+  },
+  {
+    "name": "armor",
+    "icon": {
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:travelers_chestplate",
+        "nbt": {
+          "tic_broken": false,
+          "tic_display": true,
+          "tic_materials": [
+            "tconstruct:ui_render#extra_large",
+            "tconstruct:ui_render#handle"
+          ]
+        }
+      }
+    },
+    "condition": {
+      "type": "tconstruct:tag_not_empty",
+      "registry": "minecraft:item",
+      "tag": "tconstruct:modifiable/book_armor/puny_smelting"
+    },
+    "data": "no-load",
+    "extraData": {
+      "tconstruct:load_tools": { "tag": "tconstruct:modifiable/book_armor/puny_smelting", "path": "armor", "sort": false }
+    }
+  },
+  {
+    "name": "upgrades",
+    "data": "sections/upgrades.json",
+    "icon": {
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:creative_slot",
+        "nbt": {
+          "slot": "upgrades"
+        }
+      }
+    }
+  },
+  {
+    "name": "slotless",
+    "data": "sections/slotless.json",
+    "icon": {
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:creative_slot",
+        "nbt": {
+          "slot": "slotless"
+        }
+      }
+    }
+  },
+  {
+    "name": "worktable",
+    "data": "sections/worktable.json",
+    "icon": {
+      "item": "tconstruct:modifier_worktable"
+    }
+  },
+  {
+    "name": "further_reading",
+    "data": "sections/further_reading.json",
+    "icon": {
+      "item": "tconstruct:mighty_smelting"
+    }
+  }
+]

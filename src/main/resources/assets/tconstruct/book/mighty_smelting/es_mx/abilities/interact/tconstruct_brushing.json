@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:brushing",
+  "text": [
+    {
+      "text": "Descubre una civilización antigua. O al menos un montón de cerámica tonta."
+    }
+  ],
+  "effects": [
+    "Úsalo en bloques sospechosos para hallar botín",
+    "Nivel único",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:multishot",
+  "text": [
+    {
+      "text": "Thruul no se hace responsable de los accidentes al disparar más de un proyectil."
+    }
+  ],
+  "effects": [
+    "Dispara varias flechas a la vez",
+    "Más niveles disparan más proyectiles",
+    "Requiere 1 ranura de habilidad por nivel"
+  ]
+}

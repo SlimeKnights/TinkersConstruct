@@ -1,0 +1,13 @@
+{
+  "title": "Herramientas de Daño",
+  "image": {
+    "file": "tconstruct:book/images/damage_tools.png",
+    "width": 121,
+    "height": 65
+  },
+  "text": [
+    {
+      "text": "¿Alguna vez has pensado: \"Ojalá pudiera romper mi herramienta más rápido\"? Solo échale un poco de magma para quitarle algo de durabilidad, o usa veneno para un daño mayor. ¿Aún no es suficiente? Bañala en lava o sangre ardiente para destruirla de verdad."
+    }
+  ]
+}

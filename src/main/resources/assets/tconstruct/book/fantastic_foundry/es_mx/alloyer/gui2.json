@@ -1,0 +1,20 @@
+{
+  "title": "Interfaz del Aleador",
+  "text": [
+    {
+      "text": "1: En esta zona verás los materiales de los tanques laterales; a más tanques, más espacios para materiales."
+    },
+    {
+      "text": "2: Aquí aparecerán tus materiales aleados una vez que hayan terminado de hacer su magia.",
+      "paragraph": true
+    },
+    {
+      "text": "3: En esta zona se muestra el combustible. Los más calientes permiten fundir más tipos de cosas.",
+      "paragraph": true
+    },
+    {
+      "text": "En las zonas 1 y 3, el clic izquierdo con un objeto de fluido intentará llenarlo desde el tanque, mientras que el clic derecho intentará vaciar el objeto en el tanque.",
+      "paragraph": true
+    }
+  ]
+}

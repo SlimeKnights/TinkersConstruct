@@ -1,0 +1,13 @@
+{
+  "title": "Tinta Invisible",
+  "image": {
+    "file": "tconstruct:book/images/worktable/invisible_ink.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "¿Los modificadores de tu herramienta son feos? ¡Solo viértele una botella de skyslime! Por alguna razón científica, el slime interactúa con el modificador para hacerlo invisible mientras mantiene su efecto."
+    }
+  ]
+}

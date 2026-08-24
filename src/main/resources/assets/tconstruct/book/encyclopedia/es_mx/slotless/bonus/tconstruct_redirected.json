@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:redirected",
+  "text": [
+    {
+      "text": "Aumenta el nivel de uno de los rasgos del proyectil, típicamente el del primer cabezal de flecha."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nivel",
+    "Sin ranura"
+  ]
+}

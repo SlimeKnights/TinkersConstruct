@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:reinforced",
+  "text": [
+    {
+      "text": "¡Reforzar tu herramienta les ahorra trabajo a ambos!"
+    }
+  ],
+  "effects": [
+    "Probabilidad de no gastar durabilidad",
+    "Varios niveles, reducen el daño recibido",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

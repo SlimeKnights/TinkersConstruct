@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:bounce",
+  "text": [
+    {
+      "text": "Hace que las flechas reboten al golpear un bloque en lugar de detenerse. El primer nivel permite un solo rebote, y cada nivel adicional añade hasta 2 rebotes más."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 3 niveles",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

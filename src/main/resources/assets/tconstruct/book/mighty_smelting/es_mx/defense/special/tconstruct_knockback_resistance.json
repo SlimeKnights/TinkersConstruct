@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:knockback_resistance",
+  "text": [
+    {
+      "text": "Aquí me planto; ni un tanque logrará moverme."
+    }
+  ],
+  "effects": [
+    "Reduce el empuje recibido",
+    "Nivel único",
+    "Requiere 1 ranura de defensa"
+  ]
+}

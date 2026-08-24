@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:grapple",
+  "text": [
+    {
+      "text": "¡GANCHO DE AGARRE!"
+    }
+  ],
+  "effects": [
+    "Te permite impulsarte hacia bloques enganchados",
+    "El anzuelo también se adhiere a las paredes",
+    "Nivel único",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

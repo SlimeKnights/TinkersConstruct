@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:snowdrift",
+  "text": [
+    {
+      "text": "Deja un rastro de nieve en biomas fríos, de forma similar a un gólem de nieve. El radio del rastro se puede aumentar usando el modificador expandido (expanded)."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nivel",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

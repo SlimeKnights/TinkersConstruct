@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:returning",
+  "text": [
+    {
+      "text": "¡Como el Mjolnir!"
+    }
+  ],
+  "effects": [
+    "La herramienta arrojada regresa tras un tiempo",
+    "Niveles altos regresan más rápido",
+    "Nivel 1: 1 hab. | Niveles +: 1 mejora",
+    "Requiere Arrojadizo o Balista"
+  ]
+}

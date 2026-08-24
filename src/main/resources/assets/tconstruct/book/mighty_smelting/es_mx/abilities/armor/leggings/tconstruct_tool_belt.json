@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:tool_belt",
+  "text": [
+    {
+      "text": "Es un cinturón para tus herramientas. Cinturón de herramientas."
+    }
+  ],
+  "effects": [
+    "Intercambia con la hotbar: Ctrl + interacción de pantalones",
+    "4 ranuras base (+1/nivel) | 1 ranura de habilidad (Nvl 1)"
+  ]
+}

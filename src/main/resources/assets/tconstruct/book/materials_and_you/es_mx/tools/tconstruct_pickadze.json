@@ -1,0 +1,20 @@
+{
+  "tool": "tconstruct:pickadze",
+  "text": [
+    {
+      "text": "El nombre apropiado para esta herramienta sería pico-azadón, pero a la gente le gusta lo familiar."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Puede crear caminos hacia la gloria."
+    }
+  ],
+  "properties": [
+    "Crea caminos",
+    "Mina bloques de piedra y similares",
+    "Rompe tierra suave y grava",
+    "Nivel de minería limitado a madera"
+  ]
+}

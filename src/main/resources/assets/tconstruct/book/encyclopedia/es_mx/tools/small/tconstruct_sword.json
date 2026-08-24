@@ -1,0 +1,18 @@
+{
+  "tool": "tconstruct:sword",
+  "text": [
+    {
+      "text": "La espada es un arma equilibrada que otorga velocidad y ataque medios."
+    },
+    {
+      "text": "Los expansores en una espada aumentan el área del ataque de barrido, mientras que el modificador Sedoso permite trasquilar.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "+3 de daño de ataque",
+    "1.6 de velocidad de ataque",
+    "110% de multiplicador de durabilidad",
+    "Ataque de barrido"
+  ]
+}

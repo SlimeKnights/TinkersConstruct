@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:respiration",
+  "text": [
+    {
+      "text": "¿Quién necesita aire para respirar, de todos modos?"
+    }
+  ],
+  "effects": [
+    "Reduce el consumo de aire bajo el agua", 
+    "Varios niveles, reducen aún más el consumo de aire",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

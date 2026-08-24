@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:melting",
+  "text": [
+    {
+      "text": "Funde objetos y entidades en el tanque. Máximo fluido a los 4 de daño. Suma +1000 mb de capacidad al tanque."
+    },
+    {
+      "text": "Vacía el fluido interactuando con tanques o drenajes mientras sostienes la pieza.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nivel",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

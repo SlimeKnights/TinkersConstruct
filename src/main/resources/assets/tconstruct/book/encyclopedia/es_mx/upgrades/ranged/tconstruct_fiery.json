@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:fiery",
+  "text": [
+    {
+      "text": "Hace que las flechas disparadas se enciendan, quemando a los objetivos que alcancen durante 5 segundos por nivel."
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/ranged",
+  "effects": [
+    "Puedes aplicar niveles de forma incremental",
+    "Máximo de 5 niveles",
+    "Funciona raro con congelación (freezing)",
+    "1 ranura de mejora por nivel"
+  ]
+}

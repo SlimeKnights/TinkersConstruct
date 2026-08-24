@@ -1,0 +1,13 @@
+{
+  "tool": "tconstruct:arrow",
+  "text": [
+    {
+      "text": "Las flechas son un proyectil de un solo uso que se dispara desde arcos largos y ballestas. No se pueden usar directamente para atacar."
+    }
+  ],
+  "properties": [
+    "2.0 de daño de proyectil",
+    "0.75 de precisión",
+    "1 rasgo de cabezal, 1 rasgo de mango"
+  ]
+}

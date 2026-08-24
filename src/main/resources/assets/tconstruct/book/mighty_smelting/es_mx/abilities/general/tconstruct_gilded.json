@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:gilded",
+  "text": [
+    {
+      "text": "¡Es una oferta de 2 por 1!"
+    }
+  ],
+  "effects": [
+    "Cambia 1 ranura de habilidad por 2 de mejora",
+    "Múltiples niveles",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

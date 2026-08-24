@@ -1,0 +1,13 @@
+{
+  "title": "Islas de sangre",
+  "image": {
+    "file": "tconstruct:book/images/islands/blood.png",
+    "width": 180,
+    "height": 87
+  },
+  "text": [
+    {
+      "text": "Estas islas rojo sangre aparecen en los océanos de lava del Nether. Tienen una alta concentración de cubos de magma y un hongo extraño que parece ser una fuente de ícor."
+    }
+  ]
+}

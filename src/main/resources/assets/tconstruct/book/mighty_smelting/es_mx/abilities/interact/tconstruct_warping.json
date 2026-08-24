@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:warping",
+  "text": [
+    {
+      "text": "No podemos pasar por encima. No podemos pasar por debajo. ¡Oh, no! ¡Tenemos que pasar a través!"
+    }
+  ],
+  "effects": [
+    "Carga para teletransportarte a donde miras",
+    "Potenciable con Poder para mayor rango",
+    "Nivel único",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

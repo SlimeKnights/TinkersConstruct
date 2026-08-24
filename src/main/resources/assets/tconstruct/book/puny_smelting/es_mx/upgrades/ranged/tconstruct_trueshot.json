@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:trueshot",
+  "text": [
+    {
+      "text": "Céntrate en tu objetivo. Ahora tu arco tiene mejor vista que tú, aprovéchalo."
+    }
+  ],
+  "effects": [
+    "Aumenta la precisión de los proyectiles",
+    "Varios niveles, mejoran aún más la puntería",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

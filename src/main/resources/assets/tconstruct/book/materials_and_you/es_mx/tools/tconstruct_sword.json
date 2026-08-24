@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:sword",
+  "text": [
+    {
+      "text": "La espada es un arma versátil. Tiene un daño promedio y te permite empujar a varios enemigos a la vez con un ataque de barrido, todo mientras mantienes tu otra mano libre."
+    },
+    {
+      "text": "\n"
+    }
+  ],
+  "properties": [
+    "Daño medio",
+    "Ataque de barrido"
+  ]
+}

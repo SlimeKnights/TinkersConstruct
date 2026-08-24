@@ -1,0 +1,25 @@
+{
+  "title": "Materiales y Tú",
+  "text": [
+    {
+      "text": "Bienvenido a la tercera edición de Materiales y Tú: Sobreviviendo al primer día y más allá. A diferencia de la segunda edición, este libro se centra en la fabricación de herramientas, dejando temas como modificadores para Lecturas Posteriores."
+    },
+    {
+      "text": "Si quieres ver las novedades, puedes visitar el GitHub en: github.com/SlimeKnights/TinkersConstruct/issues",
+      "paragraph": true
+    },
+    {
+      "text": "O unirte al Discord en: discord.com/invite/njGrvuh",
+      "paragraph": true
+    },
+    {
+      "text": "Traducción al español por ",
+      "paragraph": true
+    },
+    {
+      "text": "GravisLudio",
+      "color": "dark_purple",
+      "bold": true
+    }
+  ]
+}

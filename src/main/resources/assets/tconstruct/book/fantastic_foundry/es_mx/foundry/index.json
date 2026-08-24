@@ -1,0 +1,10 @@
+{
+  "title": "Fundición",
+  "subText": "No hay nada tan fantástico como la Fundición.",
+  "hidden": ["structurereq", "fgui2"],
+  "operations": [
+    { "before": "features",       "action": "add_group", "data": "Detalles" },
+    { "before": "scorched_tanks", "action": "column_break" },
+    { "before": "scorched_tanks", "action": "add_group", "data": "Bloques" }
+  ]
+}

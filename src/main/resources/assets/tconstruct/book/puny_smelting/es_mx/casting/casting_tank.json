@@ -1,0 +1,14 @@
+{
+  "title": "Tanque de fundición",
+  "item": "tconstruct:seared_casting_tank",
+  "text": [
+    {
+      "text": "Ideal para llenar o vaciar cubos, cuencos o botellas automáticamente. Es compatible con tolvas, grifos y canales.",
+      "paragraph": true
+    },
+    {
+      "text": "Interactúa con la parte superior para poner objetos y con la inferior para los fluidos. No sirve para herramientas; para eso usa el tanque tinker.",
+      "paragraph": true
+    }
+  ]
+}

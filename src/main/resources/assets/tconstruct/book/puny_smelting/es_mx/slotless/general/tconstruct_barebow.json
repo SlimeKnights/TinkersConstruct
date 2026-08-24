@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:barebow",
+  "text": [
+    {
+      "text": "¿Quién fue el que dijo que la arquería 'al desnudo' era una buena idea?"
+    }
+  ],
+  "effects": [
+    "El arco no usará munición del inventario",
+    "Útil si prefieres usar Crystalshot o carcajes",
+    "Uso único",
+    "Sin ranuras"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:glowing",
+  "text": [
+    {
+      "text": "Hace que el lado del bloque seleccionado brille, emitiendo luz. Colocar un brillo consume 5 de durabilidad."
+    },
+    {
+      "text": "En los arcos, también colocará un brillo en los bloques alcanzados por la flecha, consumiendo la flecha en el proceso."
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/interactable",
+  "effects": [
+    "Máximo de 1 nivel",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "title": "Fragmentos de knightmetal",
+  "item": "tconstruct:knightmetal_shard",
+  "text": [
+    {
+      "text": "Al igual que el acero, estos fragmentos se obtienen de slimes; en este caso, de enderslimes con núcleo de knightmetal. También se hallan en geodas de enderslime y no se regeneran tras la cosecha. Pueden encontrarse en el Twilight Forest, aunque para muchos el saber de cómo llegar a esa dimensión se ha perdido.",
+      "paragraph": true
+    }
+  ]
+}

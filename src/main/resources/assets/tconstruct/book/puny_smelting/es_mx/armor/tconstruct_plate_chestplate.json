@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:plate_chestplate",
+  "text": [
+    { "text": "Si pegas el oído al peto, oirás tu corazón mientras un creeper explota detrás de ti. ¿Por qué te lo quitaste?" },
+  {
+      "text": "Armadura pesada con cota de malla para dar flexibilidad, ¡no hay nada más genial!", "paragraph": true
+    }
+  ],
+  "properties": [
+    "Más durabilidad",
+    "Más armadura",
+    "2 ranuras de mejora",
+    "3 ranuras de defensa",
+    "2 rasgos de material"
+  ]
+}

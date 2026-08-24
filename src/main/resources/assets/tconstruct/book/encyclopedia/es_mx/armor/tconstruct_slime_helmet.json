@@ -1,0 +1,20 @@
+{
+  "tool": "tconstruct:slime_helmet",
+  "text": [
+    {
+      "text": "Cráneo que copia habilidades de monstruos al verter enderslime sobre una cabeza de criatura."
+    },
+    {
+      "text": "Consulta la sección del libro para ver todas las variantes.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "+362 durabilidad extra",
+    "5 ranuras mejora",
+    "0 ranuras defensa",
+    "1 ranura habilidad",
+    "1 rasgo de cráneo",
+    "Disfraz de criatura"
+  ]
+}

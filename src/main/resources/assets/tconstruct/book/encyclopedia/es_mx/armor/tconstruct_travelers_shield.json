@@ -1,0 +1,18 @@
+{
+  "tool": "tconstruct:travelers_shield",
+  "text": [
+    {
+      "text": "Escudo ligero con bloqueo limitado pero gran movilidad al protegerse."
+    }
+  ],
+  "properties": [
+    "200 durabilidad",
+    "Bloquea 10 daño",
+    "90° ángulo bloqueo",
+    "80% vel. bloqueo",
+    "2 ranuras mejora",
+    "2 ranuras defensa",
+    "1 ranura habilidad",
+    "2 rasgos material"
+  ]
+}

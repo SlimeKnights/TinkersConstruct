@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:pierce",
+  "text": [
+    {
+      "text": "Tu herramienta gana el poder del cactus: atraviesa armaduras como si fueran de papel."
+    },
+    {
+      "text": "Por favor, no lo confundas con Empalamiento.",
+      "paragraph": true
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/ranged",
+  "effects": [
+    "Las flechas ignoran parte de la armadura",
+    "Varios niveles, potencian el efecto",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

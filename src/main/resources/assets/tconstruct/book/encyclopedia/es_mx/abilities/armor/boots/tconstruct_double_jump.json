@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:double_jump",
+  "text": [
+    {
+      "text": "Permite saltar una segunda vez en el aire. Los niveles superiores añaden saltos adicionales, permitiendo el salto triple o incluso potencialmente el salto cuádruple."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 2 niveles",
+    "Requiere 1 ranura de habilidad por nivel"
+  ]
+}

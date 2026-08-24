@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:spitting",
+  "text": [
+    {
+      "text": "Carga y suelta para lanzar fluido, infligiendo efectos al objetivo y consumiendo 1 de durabilidad. Los niveles más altos disparan múltiples proyectiles y consumen más durabilidad y fluido."
+    },
+    {
+      "text": "La potencia aumenta el efecto y el consumo de fluido en un 25% por nivel. El tiempo de carga se reduce con carga rápida.", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 3 niveles",
+    "Requiere 1 ranura de habilidad por nivel"
+  ]
+}

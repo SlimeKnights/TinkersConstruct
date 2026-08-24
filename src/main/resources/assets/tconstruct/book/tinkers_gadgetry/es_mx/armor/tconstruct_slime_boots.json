@@ -1,0 +1,14 @@
+{
+  "tool": "tconstruct:slime_boots",
+  "text": [
+    { "text": "Estas botas combinan el poder del conejo con el slime para permitirte saltar con total facilidad." },
+    { "text": "Para crearlas, vierte enderslime sobre una pata de conejo. Pueden repararse después usando piel de conejo.", "paragraph": true }
+  ],
+  "properties": [
+    "Durabilidad alta",
+    "Sin armadura ni defensa",
+    "5 Espacios de mejora",
+    "1 Espacio de habilidad",
+    "Rebotar y Saltar"
+  ]
+}

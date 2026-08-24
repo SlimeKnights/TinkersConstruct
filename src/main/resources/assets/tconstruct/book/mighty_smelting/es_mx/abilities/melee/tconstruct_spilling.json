@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:spilling",
+  "text": [
+    {
+      "text": "Es un poco asqueroso que tu herramienta gotee, ¡pero también es muy efectivo!"
+    },
+    {
+      "text": "Haz clic derecho en un tanque con la herramienta para llenarla.", "paragraph": true
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/held",
+  "effects": [
+    "Drena el tanque al atacar",
+    "Efectos según el fluido (fuego, veneno, etc.)",
+    "Requiere 1 ranura de habilidad por nivel"
+  ]
+}

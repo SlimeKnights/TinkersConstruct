@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:dual_wielding",
+  "text": [
+    {
+      "text": "Permite el uso en ambas manos. Otorga 80% de velocidad y daño (90% vel. y 70% daño en armas a dos manos)."
+    },
+    {
+      "text": "Armas a dos manos requieren la mejora 'mano secundaria' previamente.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nivel",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

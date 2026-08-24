@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:embossed",
+  "text": [
+    {
+      "text": "¿Te sientes poderoso después de derrotar a ese jefe? ¡Bueno, toma ese poder y ponlo en tus herramientas!"
+    }
+  ],
+  "effects": [
+    "Añade una ranura de mejora",
+    "Nivel único",
+    "Sin ranuras"
+  ]
+}

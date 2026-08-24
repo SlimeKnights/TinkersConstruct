@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:scope",
+  "text": [
+    {
+      "text": "Agranda los objetos distantes a medida que la herramienta se carga. El zoom final es menor al de un catalejo cuando está totalmente cargada."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nivel",
+    "Requiere 1 ranura de mejora"
+  ]
+}

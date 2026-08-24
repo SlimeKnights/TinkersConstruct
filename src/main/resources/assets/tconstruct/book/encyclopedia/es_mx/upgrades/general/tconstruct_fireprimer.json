@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:fireprimer",
+  "text": [
+    {
+      "text": "Aumenta el área de efecto del mechero (pedernal y acero) en 1. Es equivalente a 1 nivel de expandido (expanded), pero solo requiere una ranura de mejora."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nivel",
+    "Requiere 1 ranura de mejora"
+  ]
+}

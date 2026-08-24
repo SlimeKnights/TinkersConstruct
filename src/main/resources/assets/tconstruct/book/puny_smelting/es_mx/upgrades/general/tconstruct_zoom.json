@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:zoom",
+  "text": [
+    {
+      "text": "Veo, veo... ¿qué ves? Algo que está lejos y no sé qué es."
+    }
+  ],
+  "effects": [
+    "Zoom rápido al usar la herramienta",
+    "Nivel único",
+    "Requiere 1 ranura de mejora"
+  ]
+}

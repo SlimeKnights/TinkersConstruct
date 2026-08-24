@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:the_one_probe",
+  "text": [
+    {
+      "text": "¡Arrójalo al fuego! ¡Destrúyelo!"
+    },
+    {
+      "text": "No. Ta bien así.",
+      "paragraph": true
+    }
+  ],
+  "effects": [
+    "Muestra info de bloques y entidades",
+    "Nivel único",
+    "Requiere 1 ranura de mejora"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "title": "Fundición compuesta",
+  "image": {
+    "file": "tconstruct:book/images/compositecast.png",
+    "width": 177,
+    "height": 50
+  },
+  "text": [
+    {
+      "text": "La fundición compuesta permite crear materiales vertiendo fluidos sobre objetos o bloques en la mesa o cuenca de fundición."
+    },
+    {
+      "text": "Destacan la madera viscosa y el náhuatl, hechos al verter limo u obsidiana fundida sobre piezas de madera.",
+      "paragraph": true
+    }
+  ]
+}

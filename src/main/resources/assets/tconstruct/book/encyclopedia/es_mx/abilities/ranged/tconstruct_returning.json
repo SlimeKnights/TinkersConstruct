@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:returning",
+  "text": [
+    {
+      "text": "El arma lanzada regresa a ti tras un tiempo, atravesando obstáculos.\nLa velocidad de regreso escala con el nivel del modificador. Requiere lanzamiento o balista"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Lvl 1: 1 ranura habilidad",
+    "Lvl 2-4: 1 ranura mejora",
+    "Máximo 4 niveles"
+  ]
+}

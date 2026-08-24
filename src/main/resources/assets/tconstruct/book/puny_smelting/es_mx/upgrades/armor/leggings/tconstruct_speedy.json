@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:speedy",
+  "text": [
+    {
+      "text": "Hay que ir rápido. ¡Andale, Andale, Arriba, Arriba!"
+    }
+  ],
+  "effects": [
+    "Aumenta la velocidad de movimiento",
+    "Varios niveles, aumentan aún más la velocidad",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

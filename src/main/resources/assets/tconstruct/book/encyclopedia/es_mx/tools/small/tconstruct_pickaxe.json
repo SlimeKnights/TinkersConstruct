@@ -1,0 +1,17 @@
+{
+  "tool": "tconstruct:pickaxe",
+  "text": [
+    {
+      "text": "El pico es una herramienta de minería precisa, efectiva contra piedra, metal y minerales."
+    },
+    {
+      "text": "Los expansores alternan entre aumentar la profundidad y aumentar la altura.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "+0.5 de daño de ataque",
+    "1.2 de velocidad de ataque",
+    "Perforación I"
+  ]
+}

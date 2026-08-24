@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:channeling",
+  "text": [
+    {
+      "text": "¡Como el Mjolnir!"
+    }
+  ],
+  "effects": [
+    "Los proyectiles pueden invocar rayos según el clima",
+    "Nivel único",
+    "Requiere 1 ranura de habilidad",
+    "Requiere Arrojadizo, Pesca o Balista"
+  ]
+}

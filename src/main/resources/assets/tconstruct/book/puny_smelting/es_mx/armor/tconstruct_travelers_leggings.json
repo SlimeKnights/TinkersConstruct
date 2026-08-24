@@ -1,0 +1,18 @@
+{
+  "tool": "tconstruct:travelers_leggings",
+  "text": [
+    { "text": "¡Cariñoooo! ¿Dóndeeee están mis pantalooonessss?" },
+  {
+      "text": "Ir por el mundo sin pantalones no es buena idea. ¡Lleva unos para estar cómodo y ayudarte a viajar!", "paragraph": true
+    }
+  ],
+  "properties": [
+    "Menos armadura",
+    "Menos durabilidad",
+    "2 ranuras de mejora",
+    "2 ranuras de defensa",
+    "1 ranura de habilidad",
+    "2 rasgos de material",
+    "Aislado"
+  ]
+}

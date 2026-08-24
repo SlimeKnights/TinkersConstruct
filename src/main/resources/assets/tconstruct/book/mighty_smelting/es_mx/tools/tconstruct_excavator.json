@@ -1,0 +1,21 @@
+{
+  "tool": "tconstruct:excavator",
+  "text": [
+    {
+      "text": "La Excavadora es una herramienta de excavación amplia. Recolecta tierra y nieve en un área extensa."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Muy útil para cuando necesitas cavar muchas tumbas."
+    }
+  ],
+  "properties": [
+    "Herramienta de excavación avanzada",
+    "Excavación en área de 3x3",
+    "Eficaz en tierra, arena y grava",
+    "Puede crear caminos",
+    "Comienza con Empuje II"
+  ]
+}

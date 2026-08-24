@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:shield_strap",
+  "text": [
+    {
+      "text": "Añade +1 ranura de mano secundaria por nivel, lo que permite cambiar el objeto de la mano secundaria al interactuar con los pantalones."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

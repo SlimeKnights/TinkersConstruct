@@ -1,0 +1,10 @@
+{
+  "title": "La Fundición",
+  "subText": "El control de la Gran Fundición está en tus manos.",
+  "hidden": ["structurereq", "sgui2"],
+  "operations": [
+    { "before": "features", "action": "add_group", "data": "Detalles" },
+    { "before": "seared_tanks", "action": "column_break" },
+    { "before": "seared_tanks", "action": "add_group", "data": "Bloques" }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:revitalizing",
+  "text": [
+    {
+      "text": "Manzanas enjoyadas, qué recuerdos."
+    }
+  ],
+  "effects": [
+    "Añade 1 corazón por nivel",
+    "Se pueden aplicar niveles de forma incremental",
+    "Máximo de 5 niveles",
+    "Requiere 1 ranura de defensa por nivel"
+  ]
+}

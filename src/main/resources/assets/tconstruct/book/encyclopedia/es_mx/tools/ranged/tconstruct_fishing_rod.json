@@ -1,0 +1,20 @@
+{
+  "tool": "tconstruct:fishing_rod",
+  "text": [
+    {
+      "text": "Arma a distancia sin munición. Daña monstruos al atraerlos con el carrete y sirve para pescar."
+    },
+    {
+      "text": "Con modificadores de interacción usa el clic izquierdo (configurable en mesa de trabajo).",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "2.0 vel. de ataque",
+    "1.0 vel. de carga",
+    "1.00 vel. de flotador",
+    "0.75 precisión",
+    "150% multi. durabilidad",
+    "Atrapa peces"
+  ]
+}

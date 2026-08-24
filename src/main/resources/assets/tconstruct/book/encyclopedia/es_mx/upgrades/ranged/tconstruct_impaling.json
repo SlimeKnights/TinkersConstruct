@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:impaling",
+  "text": [
+    {
+      "text": "Permite que las flechas sigan moviéndose tras dañar al primer objetivo, pudiendo golpear a múltiples objetivos. Puede atravesar una entidad por nivel."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 4 niveles",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

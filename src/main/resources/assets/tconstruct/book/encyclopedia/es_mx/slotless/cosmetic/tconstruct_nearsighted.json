@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:nearsighted",
+  "text": [
+    {
+      "text": "Aumenta el campo de visión (FOV) en un 5% por nivel mientras se lleva puesta esta armadura o se sostiene esta herramienta."
+    },
+    {
+      "text": "Este modificador es ideal para anular el cambio de FOV de las herramientas pesadas, pero es posible que le encuentres otros usos.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Sin nivel máximo",
+    "Sin ranura"
+  ]
+}

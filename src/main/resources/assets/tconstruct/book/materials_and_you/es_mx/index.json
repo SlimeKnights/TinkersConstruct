@@ -1,0 +1,94 @@
+[
+  {
+    "name": "intro",
+    "data": "sections/introduction.json",
+    "icon": {
+      "item": "tconstruct:pattern"
+    }
+  },
+  {
+    "name": "melee_harvest_materials",
+    "data": "no-load",
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:melee_harvest", "tier": { "min": 0, "max": 1 }, "predicate": { "type": "mantle:inverted", "inverted_type": "mantle:tag", "tag": "tconstruct:book/distant" }}},
+    "icon": {
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:tool_binding",
+        "nbt": { "Material": "tconstruct:rock#stone" }
+      }
+    }
+  },
+  {
+    "name": "ranged_materials",
+    "data": "no-load",
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:ranged", "tier": { "min": 0, "max": 1 }, "predicate": { "type": "mantle:inverted", "inverted_type": "mantle:tag", "tag": "tconstruct:book/distant" }}},
+    "icon": {
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:bowstring",
+        "nbt": { "Material": "tconstruct:string" }
+      }
+    }
+  },
+  {
+    "name": "ammo_materials",
+    "data": "no-load",
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:ammo", "tag": "tconstruct:book/basic_ammo" }},
+    "icon": {
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:arrow_shaft",
+        "nbt": { "Material": "tconstruct:bamboo" }
+      }
+    }
+  },
+  {
+    "name": "tools",
+    "data": "sections/tools.json",
+    "icon": {
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:pickaxe",
+        "nbt": {
+          "tic_broken": false,
+          "tic_display": true,
+          "Damage": 0,
+          "tic_materials": [
+            "tconstruct:ui_render#head",
+            "tconstruct:ui_render#handle",
+            "tconstruct:ui_render#extra"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "name": "armor",
+    "icon": {
+      "item": "minecraft:carved_pumpkin"
+    },
+    "condition": {
+      "type": "tconstruct:tag_not_empty",
+      "registry": "minecraft:item",
+      "tag": "tconstruct:modifiable/book_armor/materials_and_you"
+    },
+    "data": "no-load",
+    "extraData": {
+      "tconstruct:load_tools": { "tag": "tconstruct:modifiable/book_armor/materials_and_you", "path": "armor", "sort": false }
+    }
+  },
+  {
+    "name": "modifiers",
+    "data": "sections/modifiers.json",
+    "icon": {
+      "item": "minecraft:redstone"
+    }
+  },
+  {
+    "name": "further_reading",
+    "data": "sections/furtherreading.json",
+    "icon": {
+      "item": "tconstruct:puny_smelting"
+    }
+  }
+]

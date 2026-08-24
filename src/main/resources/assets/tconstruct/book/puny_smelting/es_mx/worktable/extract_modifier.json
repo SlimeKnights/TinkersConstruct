@@ -1,0 +1,13 @@
+{
+  "title": "Extraer Modificadores",
+  "image": {
+    "file": "tconstruct:book/images/worktable/extract_modifier.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "¿Quieres mover ese modificador a otra herramienta en lugar de simplemente borrarlo? Solo usa una esponja mojada y un cristal: skyslime para mejoras, earthslime para defensa, ícor para habilidades, amatista para los 'slotless' o enderslime para cualquier cosa. El cristal se llenará con la esencia del modificador y podrás aplicarlo en otra herramienta."
+    }
+  ]
+}

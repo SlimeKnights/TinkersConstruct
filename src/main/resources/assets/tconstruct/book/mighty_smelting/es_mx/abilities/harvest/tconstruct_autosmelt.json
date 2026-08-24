@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:autosmelt",
+  "text": [
+    {
+      "text": "Las llamas del infierno son útiles para subir la temperatura."
+    }
+  ],
+  "effects": [
+    "Funde los objetos soltados por bloques",
+    "Nivel único",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:haste",
+  "text": [
+    {
+      "text": "Ponerle redstone a una herramienta la hace más rápida. El subidón se nota más en herramientas lentas."
+    },
+    {
+      "text": "Redstone. Cosa de locos, ¿verdad?",
+      "paragraph": true
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/harvest",
+  "effects": [
+    "Aumenta la velocidad de minado",
+    "Varios niveles, suben más la velocidad",
+    "Requires 1 ranura de mejora por nivel"
+  ]
+}

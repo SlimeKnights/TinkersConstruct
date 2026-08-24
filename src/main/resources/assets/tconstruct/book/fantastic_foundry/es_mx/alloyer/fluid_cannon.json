@@ -1,0 +1,14 @@
+{
+  "title": "Cañón de fluidos",
+  "item": "tconstruct:scorched_fluid_cannon",
+  "text": [
+    {
+      "text": "Thruul se cree muy listo con su cañón para disparar fluidos a los enemigos. Mi cañón de fluidos aprovecha el poder del cobalto para lanzar proyectiles más grandes con efectos más potentes. El único inconveniente es que agotas el fluido mucho más rápido.",
+      "paragraph": true
+    },
+  {
+      "text": "Sin embargo, la idea de colocar objetos frente a la boquilla de fluidos sigue siendo buena; no hay mucho que pueda hacer para mejorar ese diseño.",
+      "paragraph": true
+    }
+  ]
+}

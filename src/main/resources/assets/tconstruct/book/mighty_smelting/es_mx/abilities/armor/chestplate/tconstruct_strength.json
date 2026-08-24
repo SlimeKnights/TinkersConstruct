@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:strength",
+  "text": [
+    {
+      "text": "Un gran poder conlleva un daño aún mayor."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Aumenta el daño de ataque de las armas",
+    "Más niveles aumentan el daño aún más",
+    "Requiere 1 ranura de habilidad por nivel"
+  ]
+}

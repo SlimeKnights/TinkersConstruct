@@ -1,0 +1,21 @@
+{
+  "tool": "tconstruct:melting_pan",
+  "text": [
+    {
+      "text": "Mina bloques fundibles dando 6 pepitas extra (frente a las 3 de la fundición). Expansores actúan como en martillo de vetas."
+    },
+    {
+      "text": "Se halla en zombis, mazmorras e iglús, o como regalo de asalto de armeros.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "6 vel. de minado",
+    "Cosecha: Piedra",
+    "10% res. empuje",
+    "Fundición+",
+    "1 ranura defensa",
+    "1 ranura mejora",
+    "2 ranuras habilidad"
+  ]
+}

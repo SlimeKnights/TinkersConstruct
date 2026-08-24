@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:bonking",
+  "text": [
+    {
+      "text": "Ideal para usar en acantilados durante un atardecer épico."
+    }
+  ],
+  "effects": [
+    "Carga para lanzar lejos al mob objetivo",
+    "Potenciable con Poder o Empuje",
+    "Nivel único",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

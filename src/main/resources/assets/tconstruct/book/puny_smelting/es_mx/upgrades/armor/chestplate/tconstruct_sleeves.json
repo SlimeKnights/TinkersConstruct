@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:sleeves",
+  "text": [
+    {
+      "text": "Shurikens ocultos: el truco clásico de todo buen ninja."
+    }
+  ],
+  "effects": [
+    "Lanza objetos con la mano vacía; agáchate para cambiar",
+    "Interactúa con el peto en el inventario para configurar",
+    "Añade más ranuras de guardado por nivel (requiere Mejora)"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:ballista",
+  "text": [
+    {
+      "text": "¿Las flechas normales no son suficientes? ¡Prueba munición balística! Dispara solo armas cuerpo a cuerpo de la mejor calidad."
+    }
+  ],
+  "effects": [
+    "Permite que tu arco dispare armas cuerpo a cuerpo",
+    "El arma debe estar en la otra mano o en el carcaj",
+    "Nivel único",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

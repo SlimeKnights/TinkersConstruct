@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:thorns",
+  "text": [
+    {
+      "text": "Qué tipo tan pesado."
+    }
+  ],
+  "effects": [
+    "Probabilidad de dañar a los atacantes al recibir un golpe",
+    "Varios niveles, aumentan la probabilidad",
+    "Requires 1 upgrade slot per level"
+  ]
+}

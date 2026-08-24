@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:reach",
+  "text": [
+    {
+      "text": "Aumenta la distancia máxima desde el jugador a la que esta herramienta puede minar, colocar bloques y atacar criaturas en 1 bloque por nivel."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 2 niveles",
+    "Requiere 1 ranura de habilidad por nivel"
+  ]
+}

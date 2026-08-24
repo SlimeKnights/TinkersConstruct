@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:overforced",
+  "text": [
+    {
+      "text": "¿Sobreesforzado? Vaya nombre... ¿o es que usaste demasiada fuerza?"
+    }
+  ],
+  "effects": [
+    "Sube la capacidad de superlimo",
+    "Varios niveles, aumentan la capacidad",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:lure",
+  "text": [
+    {
+      "text": "¿Sabías que el queso es uno de los cebos más usados para pescar? Qué cosas, ¿no?"
+    }
+  ],
+  "effects": [
+    "Reduce el tiempo para pescar",
+    "Niveles altos reducen más el tiempo",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:tool_belt",
+  "text": [
+    {
+      "text": "Permite intercambiar las primeras 4 ranuras de la barra de acceso rápido usando la tecla de interacción de grebas. Cada nivel consecutivo añade una ranura adicional hasta alcanzar un máximo de 9 ranuras en el nivel 6."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "El primer nivel requiere 1 ranura de habilidad",
+    "Máximo de 6 niveles",
+    "Receta diferente para cada nivel"
+  ]
+}

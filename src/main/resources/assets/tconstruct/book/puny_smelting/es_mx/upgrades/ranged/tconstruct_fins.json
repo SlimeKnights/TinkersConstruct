@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:fins",
+  "text": [
+    {
+      "text": "Convierte tu espada en un pez. ¿Un pez espada? Qué ingenioso."
+    }
+  ],
+  "effects": [
+    "La herramienta lanzada vuela libre bajo el agua",
+    "Nivel único",
+    "Requiere 1 ranura de mejora",
+    "Requiere lanzamiento o una balista"
+  ]
+}

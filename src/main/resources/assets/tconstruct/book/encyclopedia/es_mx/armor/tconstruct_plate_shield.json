@@ -1,0 +1,17 @@
+{
+  "tool": "tconstruct:plate_shield",
+  "text": [
+    {
+      "text": "Escudo de alta defensa con gran bloqueo a costa de menor velocidad al protegerse."
+    }
+  ],
+  "properties": [
+    "Stats según material",
+    "Bloquea 100 daño",
+    "180° ángulo bloqueo",
+    "20% vel. bloqueo",
+    "2 ranuras mejora",
+    "3 ranuras defensa",
+    "2 rasgos material"
+  ]
+}

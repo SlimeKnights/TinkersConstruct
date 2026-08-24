@@ -1,0 +1,19 @@
+{
+  "tool": "tconstruct:broad_axe",
+  "text": [
+    {
+      "text": "La Gran Hacha es una herramienta de tala de alta eficiencia. Es capaz de destruir árboles enteros de un solo golpe."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Óptima para talar bosques en rápida sucesión."
+    }
+  ],
+  "properties": [
+    "Herramienta de tala avanzada",
+    "Capaz de destruir un árbol entero de un golpe",
+    "Capaz de descortezar un árbol entero de una vez"
+  ]
+}

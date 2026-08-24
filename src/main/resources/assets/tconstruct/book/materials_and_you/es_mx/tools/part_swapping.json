@@ -1,0 +1,14 @@
+{
+  "title": "Cambio de piezas",
+  "image": {
+    "file": "tconstruct:book/images/part_swapping.png",
+    "width": 136,
+    "height": 72
+  },
+  "text": [
+    {
+      "text": "¿Quieres corregir un error o mejorar tu equipo? Puedes cambiar el material de una pieza colocando la herramienta y la nueva parte en la estación de tinker. Si tiene piezas iguales, prueba en distintas ranuras hasta cambiar la correcta. Para las armaduras, suele usarse la mesa de moldeado.",
+      "paragraph": false
+    }
+  ]
+}

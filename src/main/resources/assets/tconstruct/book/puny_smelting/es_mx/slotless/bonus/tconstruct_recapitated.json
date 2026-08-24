@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:recapitated",
+  "text": [
+    {
+      "text": "Primero quieres cortarles la cabeza, ¿y ahora quieres volver a ponérselas? ¿Quién eres? ¿Frankenstein?"
+    }
+  ],
+  "effects": [
+    "Añade una ranura de mejora",
+    "Nivel único",
+    "Sin ranuras"
+  ]
+}

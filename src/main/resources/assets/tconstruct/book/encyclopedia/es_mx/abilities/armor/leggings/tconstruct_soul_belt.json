@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:soul_belt",
+  "text": [
+    {
+      "text": "Los objetos en la barra de acceso rápido permanecen en el inventario al morir y reaparecer."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nivel",
+    "Requiere 1 ranura de habilidad",
+    "Requiere Vinculación de alma (Soulbound)"
+  ]
+}

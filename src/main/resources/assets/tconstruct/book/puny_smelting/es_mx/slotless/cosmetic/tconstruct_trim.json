@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:trim",
+  "text": [
+    {
+      "text": "Una forma costosa de darle un acabado de lujo a tu armadura."
+    }
+  ],
+  "effects": [
+    "Añade bordes decorativos a tu armadura",
+    "La combinación de plantilla y material determina el diseño",
+    "Intercambiable",
+    "Sin ranuras"
+  ]
+}

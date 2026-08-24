@@ -1,0 +1,66 @@
+intro=Introducción
+
+tools=Herramientas
+tools.group_small=Pequeñas
+tools.group_large=Grandes
+tools.group_ranged=A distancia
+tools.group_ancient=Antiguas
+tools.group_staff=Bastones
+tools.tconstruct.earth_staff=Limo terrestre
+tools.tconstruct.sky_staff=Limo celeste
+tools.tconstruct.ichor_staff=Ícor
+tools.tconstruct.ender_staff=Limo de Ender
+armor=Armadura
+
+materials_harvest=Materiales generales
+materials_harvest.subtext=Materiales utilizados para crear armas cuerpo a cuerpo o herramientas de recolección.
+materials_ranged=Materiales a distancia
+materials_ranged.subtext=Materiales utilizados para crear armas de proyectiles.
+materials_ammo=Materiales de munición
+materials_ammo.subtext=Materiales utilizados para crear flechas y shurikens.
+materials_armor=Materiales de armadura
+materials_armor.subtext=Materiales utilizados para crear armaduras y escudos.
+materials_skull=Cráneos de limo
+materials_skull.subtext=Esta sección describe los efectos de cada tipo de cráneo al crear un casco de limo.
+
+upgrades=Mejoras
+upgrades.subtext=Cada herramienta tiene un número total limitado de ranuras de mejora.
+upgrades.group_general=Generales
+upgrades.group_harvest=Recolección
+upgrades.group_weapon=Cuerpo a cuerpo
+upgrades.group_ranged=A distancia
+upgrades.group_damage=Aumento de daño
+upgrades.group_armor=Armadura
+upgrades.group_armor.helmet=Casco
+upgrades.group_armor.chestplate=Peto
+upgrades.group_armor.leggings=Grebas
+upgrades.group_armor.boots=Botas
+upgrades.boots.tconstruct.feather_falling=Caída de pluma
+
+defense=Defensa
+defense.subtext=En lugar de rasgos de material, la armadura incluye ranuras de defensa para mejorar la protección.
+defense.group_protection=Protección
+defense.group_special=Especiales
+
+slotless=Sin ranura
+slotless.subtext=Los modificadores sin ranura no requieren espacios de mejora o habilidad.
+slotless.group_general=Generales
+slotless.group_bonus=Bonificaciones
+slotless.group_cosmetic=Cosméticos
+
+abilities=Habilidades
+abilities.subtext=Los modificadores de habilidad tienen menos ranuras que las mejoras, pero son más potentes por nivel.
+abilities.group_general=Generales
+abilities.group_harvest=Recolección
+abilities.group_melee=Cuerpo a cuerpo
+abilities.group_ranged=A distancia
+abilities.group_interact=Interacción
+abilities.group_armor=Armadura
+abilities.group_armor.helmet=Casco
+abilities.group_armor.chestplate=Peto
+abilities.group_armor.leggings=Grebas
+abilities.group_armor.boots=Botas
+abilities.group_armor.shield=Escudo
+
+fluid_effects=Efectos de fluidos
+fluid_effects.subtext=Los efectos de fluidos definen el comportamiento cuando un líquido golpea un bloque o entidad mediante modificadores de escupitajo, derrame o salpicadura.

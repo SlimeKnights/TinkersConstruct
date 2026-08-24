@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:worldbound",
+  "text": [
+    {
+      "text": "El fuego ya no es tu enemigo; tu herramienta se siente cómoda con el mundo que la rodea."
+    }
+  ],
+  "effects": [
+    "Versión rudimentaria de la netherite",
+    "Otorga inmunidad al daño externo (fuego/lava), pero no aumenta la fuerza",
+    "Nivel único",
+    "Sin ranuras"
+  ]
+}

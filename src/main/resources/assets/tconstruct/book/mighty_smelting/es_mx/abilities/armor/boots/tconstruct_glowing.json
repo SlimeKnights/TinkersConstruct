@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:glowing",
+  "text": [
+    {
+      "text": "Esa es una idea brillante."
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/armor/boots",
+  "effects": [
+    "Coloca luces al caminar por lugares oscuros",
+    "Colocar luces consume durabilidad",
+    "Nivel único",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

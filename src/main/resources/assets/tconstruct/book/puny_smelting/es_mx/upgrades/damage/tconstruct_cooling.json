@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:cooling",
+  "text": [
+    {
+      "text": "La mejor forma de vencer las llamas del Nether es congelándolas y extinguiendo su fuego eterno."
+    }
+  ],
+  "effects": [
+    "Más daño a criaturas de fuego",
+    "Varios niveles, aumentan más el daño",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

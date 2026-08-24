@@ -1,0 +1,32 @@
+{
+  "modifier_id": "tconstruct:bucketing",
+  "text": [
+    {
+      "text": "§oEsto es un cubo.§r"
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "§lDios mío...§r"
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "§oHay más.§r"
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "§lNooo.§r"
+    }
+  ],
+  "effects": [
+    "Tu herramienta ahora actúa como un cubo",
+    "Capacidad ampliable con Mejoras de Tanque",
+    "Nivel único",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "title": "Fragmentos de acero",
+  "item": "tconstruct:steel_shard",
+  "text": [
+    {
+      "text": "Los fragmentos de acero caen de skyslimes poco comunes con núcleo de acero. También se hallan en geodas de skyslime o earthslime, pero no se regeneran. El acero también se obtiene como subproducto del hierro, aunque así no podrás fabricar fragmentos para puntas de flecha.",
+      "paragraph": true
+    }
+  ]
+}

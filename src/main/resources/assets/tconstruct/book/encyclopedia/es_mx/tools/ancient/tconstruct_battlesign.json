@@ -1,0 +1,17 @@
+{
+  "tool": "tconstruct:battlesign",
+  "text": [
+    {
+      "text": "Cruce entre escudo y espada. Se halla en bastiones, trueques o en manos de piglins."
+    }
+  ],
+  "properties": [
+    "+2 daño de ataque",
+    "1.4 vel. de ataque",
+    "Bloquea 50 de daño",
+    "120° ángulo bloqueo",
+    "20% vel. de bloqueo",
+    "3 ranuras defensa",
+    "1 ranura habilidad"
+  ]
+}

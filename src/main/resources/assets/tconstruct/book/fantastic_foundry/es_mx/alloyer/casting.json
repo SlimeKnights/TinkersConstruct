@@ -1,0 +1,13 @@
+{
+  "title": "Moldeo",
+  "image": {
+    "file": "tconstruct:book/images/scorched_casting.png",
+    "width": 109,
+    "height": 75
+  },
+  "text": [
+    {
+      "text": "Los verdaderos Tinkers siempre usan un molde para evitar errores, por lo que la mesa chamuscada siempre requiere uno. Las plataformas y barras de oro pueden servir como sustituto de un bloque de moldeo vacío."
+    }
+  ]
+}

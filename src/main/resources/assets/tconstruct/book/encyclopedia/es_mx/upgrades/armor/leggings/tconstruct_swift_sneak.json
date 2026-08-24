@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:swift_sneak",
+  "text": [
+    {
+      "text": "Reduce la penalización de velocidad de movimiento al agacharse en un 15% por nivel. En el nivel 5, puedes correr mientras estás agachado."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 5 niveles",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

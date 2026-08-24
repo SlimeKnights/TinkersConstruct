@@ -1,0 +1,13 @@
+{
+  "title": "Extraer Defensa",
+  "image": {
+    "file": "tconstruct:book/images/worktable/extract_defense.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "Extraer modificadores de defensa de libros o herramientas encantadas requiere cristales de earthslime y oro. El proceso es igualmente inestable, lo que provoca la pérdida de la herramienta original."
+    }
+  ]
+}

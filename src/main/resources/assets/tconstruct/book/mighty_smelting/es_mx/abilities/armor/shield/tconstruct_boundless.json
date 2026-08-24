@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:boundless",
+  "text": [
+    {
+      "text": "¡No tienes límites! Bueno, aún los tienes, solo que ahora son más altos."
+    }
+  ],
+  "effects": [
+    "Aumenta el límite de protección máxima un 10%",
+    "La segunda pieza otorga un 5% adicional",
+    "Nivel único",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

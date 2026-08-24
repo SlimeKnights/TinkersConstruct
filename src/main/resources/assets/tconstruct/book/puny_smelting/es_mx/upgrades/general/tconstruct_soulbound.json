@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:soulbound",
+  "text": [
+    {
+      "text": "Meter tu alma en un objeto no suena muy sano. Pero bueno, ta bien, sirve."
+    }
+  ],
+  "effects": [
+    "Conservas el objeto al morir",
+    "Nivel único",
+    "Requiere 1 ranura de mejora"
+  ]
+}

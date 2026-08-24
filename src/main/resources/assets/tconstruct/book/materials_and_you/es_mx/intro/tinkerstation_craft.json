@@ -1,0 +1,7 @@
+{
+  "title": "Fabricación de la Estación de tinkers",
+  "recipe": "tconstruct:tables/tinker_station",
+  "description": [
+    { "text": "Con suerte, todavía te quedan algunos moldes. Si no, siempre puedes fabricar más." }
+  ]
+}

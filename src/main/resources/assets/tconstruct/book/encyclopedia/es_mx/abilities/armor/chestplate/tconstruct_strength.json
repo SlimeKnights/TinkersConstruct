@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:strength",
+  "text": [
+    {
+      "text": "Otorga un +10% de daño de ataque a todas las armas por cada nivel."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Se pueden aplicar niveles de forma incremental",
+    "Máximo de 2 niveles",
+    "Requiere 1 ranura de habilidad por nivel"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:knockback",
+  "text": [
+    {
+      "text": "Deja de gastar energía corriendo; mejor haz que tus enemigos gasten la suya intentando regresar a ti."
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/armor",
+  "effects": [
+    "Empuja a los enemigos al golpearlos con cualquier arma",
+    "Varios niveles, aumentan la fuerza del empuje",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}
