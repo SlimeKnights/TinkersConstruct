@@ -14,6 +14,7 @@ import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.json.loot.ToolPartLootEntry;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
@@ -111,48 +112,50 @@ public final class TinkerToolParts extends TinkerModule {
   /** Adds all relevant items to the creative tab */
   private static void addTabItems(ItemDisplayParameters itemDisplayParameters, CreativeModeTab.Output tab) {
     Consumer<ItemStack> output = tab::accept;
-    accept(output, repairKit);
+    String showOnly = Config.COMMON.showOnlyPartMaterial.get();
+
+    accept(output, showOnly, repairKit);
     // fake ingot is in materials tab, helps the illusion
     // small heads
-    accept(output, pickHead);
-    accept(output, smallAxeHead);
-    accept(output, smallBlade);
-    accept(output, adzeHead);
+    accept(output, showOnly, pickHead);
+    accept(output, showOnly, smallAxeHead);
+    accept(output, showOnly, smallBlade);
+    accept(output, showOnly, adzeHead);
     // large heads
-    accept(output, hammerHead);
-    accept(output, broadAxeHead);
-    accept(output, broadBlade);
-    accept(output, largePlate);
+    accept(output, showOnly, hammerHead);
+    accept(output, showOnly, broadAxeHead);
+    accept(output, showOnly, broadBlade);
+    accept(output, showOnly, largePlate);
     // binding and rods
-    accept(output, toolHandle);
-    accept(output, toolBinding);
-    accept(output, toughHandle);
-    accept(output, toughBinding);
+    accept(output, showOnly, toolHandle);
+    accept(output, showOnly, toolBinding);
+    accept(output, showOnly, toughHandle);
+    accept(output, showOnly, toughBinding);
     // ranged
-    accept(output, bowLimb);
-    accept(output, bowGrip);
-    accept(output, bowstring);
-    accept(output, arrowHead);
-    accept(output, arrowShaft);
-    accept(output, fletching);
+    accept(output, showOnly, bowLimb);
+    accept(output, showOnly, bowGrip);
+    accept(output, showOnly, bowstring);
+    accept(output, showOnly, arrowHead);
+    accept(output, showOnly, arrowShaft);
+    accept(output, showOnly, fletching);
     // plating, pair each one with the dummy plating item
     for (ArmorItem.Type type : ArmorItem.Type.values()) {
       tab.accept(TinkerSmeltery.dummyPlating.get(type));
-      plating.get(type).addVariants(output, "");
+      plating.get(type).addVariants(output, showOnly);
     }
-    accept(output, maille);
-    accept(output, shieldCore);
+    accept(output, showOnly, maille);
+    accept(output, showOnly, shieldCore);
     // slimesuit
-    accept(output, ribcage);
-    accept(output, shell);
-    accept(output, laces);
+    accept(output, showOnly, ribcage);
+    accept(output, showOnly, shell);
+    accept(output, showOnly, laces);
 
     // end with modifier crystal dynamic listing
     ModifierCrystalItem.addVariants(output);
   }
 
   /** Adds a tool part to the tab */
-  private static void accept(Consumer<ItemStack> output, Supplier<? extends IMaterialItem> item) {
-    item.get().addVariants(output, "");
+  private static void accept(Consumer<ItemStack> output, String showOnly, Supplier<? extends IMaterialItem> item) {
+    item.get().addVariants(output, showOnly);
   }
 }

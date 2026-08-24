@@ -466,7 +466,7 @@ public class JEIPlugin implements IModPlugin {
     removeItems.add(new ItemStack(TinkerModifiers.creativeSlotItem));
     TinkerModifiers.creativeSlotItem.get().addVariants(removeItem);
 
-    // fluids can be clutter so remove them by default
+    // fluids can be clutter so remove them by default. These always show in creative
     if (!Config.CLIENT.showFilledFluidTanks.get()) {
       CopperCanItem.addFilledVariants(removeItem);
       TankItem.addFilledVariants(removeItem);
@@ -479,7 +479,8 @@ public class JEIPlugin implements IModPlugin {
     }
     // tool config filters to 1 material, easiest to just remove all then add back the 1
     String showOnlyTools = Config.CLIENT.showOnlyToolMaterial.get();
-    if (!showOnlyTools.isEmpty()) {
+    // if the creative is showing just 1, skip the client option
+    if (!showOnlyTools.isEmpty() && Config.COMMON.showOnlyToolMaterial.get().isEmpty()) {
       for (Holder<Item> item : BuiltInRegistries.ITEM.getTagOrEmpty(TinkerTags.Items.MODIFIABLE)) {
         if (item.get() instanceof IModifiable modifiable) {
           ToolBuildHandler.addVariants(removeItem, modifiable, "");
@@ -487,8 +488,9 @@ public class JEIPlugin implements IModPlugin {
         }
       }
     }
+    // parts work the same as tools
     String showOnlyParts = Config.CLIENT.showOnlyPartMaterial.get();
-    if (!showOnlyTools.isEmpty()) {
+    if (!showOnlyParts.isEmpty() && Config.COMMON.showOnlyPartMaterial.get().isEmpty()) {
       for (Holder<Item> item : BuiltInRegistries.ITEM.getTagOrEmpty(TinkerTags.Items.TOOL_PARTS)) {
         if (item.get() instanceof IMaterialItem part) {
           part.addVariants(removeItem, "");
@@ -497,34 +499,41 @@ public class JEIPlugin implements IModPlugin {
       }
     }
     // for smeltery and tables, if the relevant config is true clear the blank variant
+    // however, don't change anything if the relevant server config is false
     // if its false clear the special variants
     Predicate<ItemStack> cleanupItem = stack -> {
       removeItems.add(stack);
       return false;
     };
     // wooden
-    boolean showTables = Config.CLIENT.showAllTableVariants.get();
-    cleanupRetexturedBlock(cleanupItem, showTables, TinkerTables.craftingStation, ItemTags.LOGS);
-    cleanupRetexturedBlock(cleanupItem, showTables, TinkerTables.partBuilder, ItemTags.PLANKS);
-    cleanupRetexturedBlock(cleanupItem, showTables, TinkerTables.tinkerStation, ItemTags.PLANKS);
-    cleanupRetexturedBlock(cleanupItem, showTables, TinkerTables.modifierWorktable, TinkerTags.Items.WORKSTATION_ROCK);
-    // anvils
-    boolean showAnvils = Config.CLIENT.showAllAnvilVariants.get();
-    if (!showAnvils) {
-      Consumer<ItemStack> consumer = removeItems::add;
-      ((IMaterialItem) TinkerTables.tinkersAnvil.asItem()).addVariants(consumer, "");
-      ((IMaterialItem) TinkerTables.scorchedAnvil.asItem()).addVariants(consumer, "");
+    if (Config.COMMON.showAllTableVariants.get()) {
+      boolean showTables = Config.CLIENT.showAllTableVariants.get();
+      cleanupRetexturedBlock(cleanupItem, showTables, TinkerTables.craftingStation, ItemTags.LOGS);
+      cleanupRetexturedBlock(cleanupItem, showTables, TinkerTables.partBuilder, ItemTags.PLANKS);
+      cleanupRetexturedBlock(cleanupItem, showTables, TinkerTables.tinkerStation, ItemTags.PLANKS);
+      cleanupRetexturedBlock(cleanupItem, showTables, TinkerTables.modifierWorktable, TinkerTags.Items.WORKSTATION_ROCK);
     }
     // smeltery
-    boolean showSmeltery = Config.CLIENT.showAllSmelteryVariants.get();
-    cleanupRetexturedBlock(cleanupItem, showSmeltery, TinkerSmeltery.smelteryController, TinkerTags.Items.SEARED_BLOCKS);
-    cleanupRetexturedBlock(cleanupItem, showSmeltery, TinkerSmeltery.searedDrain, TinkerTags.Items.SEARED_BLOCKS);
-    cleanupRetexturedBlock(cleanupItem, showSmeltery, TinkerSmeltery.searedDuct, TinkerTags.Items.SEARED_BLOCKS);
-    cleanupRetexturedBlock(cleanupItem, showSmeltery, TinkerSmeltery.searedChute, TinkerTags.Items.SEARED_BLOCKS);
-    cleanupRetexturedBlock(cleanupItem, showSmeltery, TinkerSmeltery.foundryController, TinkerTags.Items.SCORCHED_BLOCKS);
-    cleanupRetexturedBlock(cleanupItem, showSmeltery, TinkerSmeltery.scorchedDrain, TinkerTags.Items.SCORCHED_BLOCKS);
-    cleanupRetexturedBlock(cleanupItem, showSmeltery, TinkerSmeltery.scorchedDuct, TinkerTags.Items.SCORCHED_BLOCKS);
-    cleanupRetexturedBlock(cleanupItem, showSmeltery, TinkerSmeltery.scorchedChute, TinkerTags.Items.SCORCHED_BLOCKS);
+    if (Config.COMMON.showAllSmelteryVariants.get()) {
+      boolean showSmeltery = Config.CLIENT.showAllSmelteryVariants.get();
+      cleanupRetexturedBlock(cleanupItem, showSmeltery, TinkerSmeltery.smelteryController, TinkerTags.Items.SEARED_BLOCKS);
+      cleanupRetexturedBlock(cleanupItem, showSmeltery, TinkerSmeltery.searedDrain, TinkerTags.Items.SEARED_BLOCKS);
+      cleanupRetexturedBlock(cleanupItem, showSmeltery, TinkerSmeltery.searedDuct, TinkerTags.Items.SEARED_BLOCKS);
+      cleanupRetexturedBlock(cleanupItem, showSmeltery, TinkerSmeltery.searedChute, TinkerTags.Items.SEARED_BLOCKS);
+      cleanupRetexturedBlock(cleanupItem, showSmeltery, TinkerSmeltery.foundryController, TinkerTags.Items.SCORCHED_BLOCKS);
+      cleanupRetexturedBlock(cleanupItem, showSmeltery, TinkerSmeltery.scorchedDrain, TinkerTags.Items.SCORCHED_BLOCKS);
+      cleanupRetexturedBlock(cleanupItem, showSmeltery, TinkerSmeltery.scorchedDuct, TinkerTags.Items.SCORCHED_BLOCKS);
+      cleanupRetexturedBlock(cleanupItem, showSmeltery, TinkerSmeltery.scorchedChute, TinkerTags.Items.SCORCHED_BLOCKS);
+    }
+    // anvils are all variants
+    if (Config.COMMON.showAllAnvilVariants.get()) {
+      boolean showAnvils = Config.CLIENT.showAllAnvilVariants.get();
+      if (!showAnvils) {
+        Consumer<ItemStack> consumer = removeItems::add;
+        ((IMaterialItem) TinkerTables.tinkersAnvil.asItem()).addVariants(consumer, "");
+        ((IMaterialItem) TinkerTables.scorchedAnvil.asItem()).addVariants(consumer, "");
+      }
+    }
 
     if (!removeItems.isEmpty()) {
       manager.removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK, removeItems);

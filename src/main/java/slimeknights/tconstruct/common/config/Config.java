@@ -49,6 +49,13 @@ public class Config {
     public final OreRate smelteryOreRate;
     public final OreRate foundryOreRate, foundryByproductRate;
 
+    // creative
+    public final ConfigValue<String> showOnlyToolMaterial;
+    public final ConfigValue<String> showOnlyPartMaterial;
+    public final BooleanValue showAllTableVariants;
+    public final BooleanValue showAllAnvilVariants;
+    public final BooleanValue showAllSmelteryVariants;
+
     // compatability
     public final BooleanValue allowIngotlessAlloys;
     public final DoubleValue chemthrowerShotValue;
@@ -175,6 +182,43 @@ public class Config {
 
       builder.pop();
 
+
+      builder.comment(
+        "Creative Configuration",
+        "These options also exist in the client config to change JEI specifically. The duplication is to work around a JEI issue where hiding an item also breaks its usage in recipes.",
+        "The creative configuration prevents needing to hide it in JEI but also means the items will not show in the creative tabs."
+      ).push("creative");
+      {
+        this.showOnlyToolMaterial = builder
+          .comment("If non-empty, only this material will be shown on tools in creative (or the first valid material if this is invalid for the tool).", "If empty, all materials will show")
+          .translation("tconstruct.configgui.showOnlyToolMaterial")
+          .worldRestart()
+          .define("showOnlyToolMaterial", "");
+
+        this.showOnlyPartMaterial = builder
+          .comment("If non-empty, only material will be shown on parts in creative (or the first valid material if this is invalid for the part).", "If empty, all materials will show")
+          .translation("tconstruct.configgui.showOnlyPartMaterial")
+          .worldRestart()
+          .define("showOnlyPartMaterial", "");
+
+        this.showAllTableVariants = builder
+          .comment("If true, tables such as the part builder and tinker station will show all variants in creative. If false, only the default variant shows.")
+          .translation("tconstruct.configgui.showAllTableVariants")
+          .define("showAllTableVariants", false);
+
+        this.showAllAnvilVariants = builder
+          .comment("If true, anvils will show all metal variants in creative. If false, only the default variant shows.")
+          .translation("tconstruct.configgui.showAllAnvilVariants")
+          .define("showAllAnvilVariants", true);
+
+        this.showAllSmelteryVariants = builder
+          .comment("If true, smeltery and foundry controllers, drains, ducts, and chutes will show all variants in creative. If false, only the default variant will show.")
+          .translation("tconstruct.configgui.showAllSmelteryVariants")
+          .define("showAllSmelteryVariants", false);
+      }
+      builder.pop(); // creative
+
+
       builder.comment("Configuration related to integration with other mods").push("compatability");
       {
         this.allowIngotlessAlloys = builder
@@ -254,6 +298,7 @@ public class Config {
     public final ForgeConfigSpec.EnumValue<Orientation2D> mapLocation;
 
     Client(ForgeConfigSpec.Builder builder) {
+      // TODO 1.21: do we really need everything in a big "client" group? can simplify
       builder.comment("Client only settings").push("client");
 
 //      this.temperatureInCelsius = builder
@@ -279,7 +324,11 @@ public class Config {
         .translation("tconstruct.configgui.logMissingMaterialTextures")
         .define("logMissingModifierTextures", false);
 
-      builder.comment("JEI configuration").push("jei");
+      builder.comment(
+        "JEI configuration",
+        "Some of these options also exist in the common config to change the creative tabs directly. This duplication is to work around a bug in JEI where hiding breaks some usages in recipes.",
+        "The common creative configuration prevents needing to hide it in JEI but also means the items will not show in the creative tabs."
+      ).push("jei");
       {
         this.showModifiersInJEI = builder
           .comment("If true, modifiers will be added to the JEI ingredient list. If false, they will only be visible in the modifiers recipe tab.")

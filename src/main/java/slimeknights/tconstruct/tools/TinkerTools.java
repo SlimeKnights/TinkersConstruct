@@ -419,65 +419,68 @@ public final class TinkerTools extends TinkerModule {
   private static void addTabItems(ItemDisplayParameters itemDisplayParameters, CreativeModeTab.Output tab) {
     // start with tools that lack materials
     Consumer<ItemStack> output = tab::accept;
-    acceptTool(output, flintAndBrick);
-    acceptTool(output, skyStaff);
-    acceptTool(output, earthStaff);
-    acceptTool(output, ichorStaff);
-    acceptTool(output, enderStaff);
+    // TODO: common config for show only tool to fix JEI bug
+    String showOnly = Config.COMMON.showOnlyToolMaterial.get();
+
+    acceptTool(output, "", flintAndBrick);
+    acceptTool(output, "", skyStaff);
+    acceptTool(output, "", earthStaff);
+    acceptTool(output, "", ichorStaff);
+    acceptTool(output, "", enderStaff);
 
     // small tools
-    acceptTool(output, pickaxe);
-    acceptTool(output, pickadze);
-    acceptTool(output, mattock);
-    acceptTool(output, handAxe);
-    acceptTool(output, kama);
-    acceptTool(output, dagger);
-    acceptTool(output, sword);
+    acceptTool(output, showOnly, pickaxe);
+    acceptTool(output, showOnly, pickadze);
+    acceptTool(output, showOnly, mattock);
+    acceptTool(output, showOnly, handAxe);
+    acceptTool(output, showOnly, kama);
+    acceptTool(output, showOnly, dagger);
+    acceptTool(output, showOnly, sword);
 
     // broad tools
-    acceptTool(output, sledgeHammer);
-    acceptTool(output, veinHammer);
-    acceptTool(output, excavator);
-    acceptTool(output, broadAxe);
-    acceptTool(output, scythe);
-    acceptTool(output, cleaver);
+    acceptTool(output, showOnly, sledgeHammer);
+    acceptTool(output, showOnly, veinHammer);
+    acceptTool(output, showOnly, excavator);
+    acceptTool(output, showOnly, broadAxe);
+    acceptTool(output, showOnly, scythe);
+    acceptTool(output, showOnly, cleaver);
 
     // ranged tools
-    acceptTool(output, crossbow);
-    acceptTool(output, longbow);
-    acceptTool(output, fishingRod);
-    acceptTool(output, javelin);
-    acceptTool(output, arrow);
-    acceptTool(output, shuriken);
+    acceptTool(output, showOnly, crossbow);
+    acceptTool(output, showOnly, longbow);
+    acceptTool(output, showOnly, fishingRod);
+    acceptTool(output, showOnly, javelin);
+    acceptTool(output, showOnly, arrow);
+    acceptTool(output, showOnly, shuriken);
     acceptEFLN(shuriken.get(), tab);
-    acceptTool(output, throwingAxe);
+    acceptTool(output, showOnly, throwingAxe);
 
     // ancient tools
-    acceptTool(output, meltingPan);
-    acceptTool(output, warPick);
-    acceptTool(output, battlesign);
-    acceptTool(output, swasher);
+    acceptTool(output, showOnly, meltingPan);
+    acceptTool(output, showOnly, warPick);
+    acceptTool(output, showOnly, battlesign);
+    acceptTool(output, showOnly, swasher);
     if (ModList.get().isLoaded("twilightforest")) {
-      acceptTool(output, minotaurAxe);
+      acceptTool(output, showOnly, minotaurAxe);
     }
 
     // armor
-    acceptTools(output, travelersGear);
-    acceptTool(output, travelersShield);
-    acceptTools(output, plateArmor);
-    acceptTool(output, plateShield);
-    acceptTools(output, slimesuit);
-    acceptTool(output, slimeWings);
+    acceptTools(output, showOnly, travelersGear);
+    acceptTool(output, showOnly, travelersShield);
+    acceptTools(output, showOnly, plateArmor);
+    acceptTool(output, showOnly, plateShield);
+    acceptTools(output, showOnly, slimesuit);
+    acceptTool(output, showOnly, slimeWings);
   }
 
   /** Adds a tool to the tab */
-  private static void acceptTool(Consumer<ItemStack> output, Supplier<? extends IModifiable> tool) {
-    ToolBuildHandler.addVariants(output, tool.get(), "");
+  private static void acceptTool(Consumer<ItemStack> output, String showOnly, Supplier<? extends IModifiable> tool) {
+    ToolBuildHandler.addVariants(output, tool.get(), showOnly);
   }
 
   /** Adds a tool to the tab */
-  private static void acceptTools(Consumer<ItemStack> output, EnumObject<?,? extends IModifiable> tools) {
-    tools.forEach(tool -> ToolBuildHandler.addVariants(output, tool, ""));
+  private static void acceptTools(Consumer<ItemStack> output, String showOnly, EnumObject<?,? extends IModifiable> tools) {
+    tools.forEach(tool -> ToolBuildHandler.addVariants(output, tool, showOnly));
   }
 
   /**
