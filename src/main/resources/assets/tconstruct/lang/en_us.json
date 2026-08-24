@@ -1936,7 +1936,7 @@
 
   "material.tconstruct.gold": "Gold",
   "material.tconstruct.gold.flavor": "Piglins love it.",
-  "material.tconstruct.gold.armor": "Grants 10% protection per level against magic damage and reduces the time of negative potion effects. Also makes piglins friendly.",
+  "material.tconstruct.gold.armor": "Grants 10% protection per level against magic damage and reduces negative potion duration. Also makes piglins friendly.",
   "material.tconstruct.gold.skull": "Piglin",
   "material.tconstruct.gold.skull_flavor": "So shiny",
   "material.tconstruct.gold.skull_encyclopedia": "Causes some gold ores to drop extra gold nuggets, and increases drop chance of gold armor by 4%. Nuggets and armor drops are further boosted by each piece of golden armor worn.",
@@ -2254,7 +2254,7 @@
 
   "material.tconstruct.knightslime": "Knightslime",
   "material.tconstruct.knightslime.flavor": "Slimy yet metallic but also stone? Fascinating!",
-  "material.tconstruct.knightslime.encyclopedia": "Consumes 1 overslime per level (or 5 per level from broad mining) to grant +20% mining speed and +15% attack speed per level.",
+  "material.tconstruct.knightslime.encyclopedia": "Each level consumes 1 overslime (or 5 from broad mining) to grant +20% mining speed and +15% attack speed.",
   "material.tconstruct.knightslime.ranged": "Consumes 1 overslime per level to grant +0.06 velocity and draw speed per level.",
   "material.tconstruct.knightslime.armor": "Consumes up to 2 overslime per level to reduce damage by 2.5% per overslime consumed (up to 5% per level).",
 
@@ -2301,7 +2301,7 @@
   "material.tconstruct.cheese": "Cheese",
   "material.tconstruct.cheese.flavor": "Well Aged!",
   "material.tconstruct.cheese.ranged": "Can be eaten (consuming some durability) to restore 1 hunger at 0.4 saturation and to remove a random effect.",
-  "material.tconstruct.cheese.encyclopedia.slime": "Grants a 15% chance per level of eating the armor (consuming some durability) for 1 hunger per level at 0.4 saturation and to removes a random effect.",
+  "material.tconstruct.cheese.encyclopedia.laces": "Grants a 15% chance per level of eating the armor (consuming some durability) for 1 hunger per level at 0.4 saturation and to removes a random effect.",
 
   "material.tconstruct.blood": "Blood",
 
