@@ -243,7 +243,7 @@ public class SmelteryRecipeBuilder {
   /* Melting helpers */
 
   /** Adds a recipe for melting a list of items. Never optional */
-  @SuppressWarnings("removal")
+  @SuppressWarnings({"removal", "deprecation"})
   private void minecraftArmorMelting(int cost, String prefix, String name) {
     Item item = BuiltInRegistries.ITEM.get(new ResourceLocation(prefix + '_' + name));
     if (item == Items.AIR) {
