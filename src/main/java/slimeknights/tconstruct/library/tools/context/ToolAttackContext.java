@@ -263,9 +263,8 @@ public class ToolAttackContext {
     }
 
     /** Change the base damage for some special reason. */
-    public Builder addAttributes(float damage, float knockback) {
+    public Builder addBaseDamage(float damage) {
       baseDamage += damage;
-      baseKnockback += knockback;
       return this;
     }
 

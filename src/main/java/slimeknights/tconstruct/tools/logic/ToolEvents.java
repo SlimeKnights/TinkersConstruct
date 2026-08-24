@@ -12,7 +12,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -303,7 +302,7 @@ public class ToolEvents {
             float damageAttr = (float) entity.getAttributeValue(Attributes.ATTACK_DAMAGE);
             IToolStackView tool = ToolStack.from(unarmed);
             // already know the player is null
-            ToolAttackContext meleeContext = ToolAttackContext.attacker(living, null).target(entity).toolAttributes(tool).addAttributes(originalDamage - damageAttr, 0).slot(EquipmentSlot.CHEST, InteractionHand.MAIN_HAND).build();
+            ToolAttackContext meleeContext = ToolAttackContext.attacker(living, null).target(entity).toolAttributes(tool).addBaseDamage(originalDamage - damageAttr).slot(EquipmentSlot.CHEST, InteractionHand.MAIN_HAND).build();
             float baseDamage = originalDamage;
             for (ModifierEntry entry : tool.getModifiers()) {
               originalDamage = entry.getHook(ModifierHooks.MONSTER_MELEE_DAMAGE).getMeleeDamage(tool, entry, meleeContext, baseDamage, originalDamage);
@@ -455,7 +454,7 @@ public class ToolEvents {
           if (!unarmed.isEmpty() && unarmed.is(TinkerTags.Items.UNARMED)) {
             // already know we are not a player
             IToolStackView tool = ToolStack.from(unarmed);
-            ToolAttackContext meleeContext = ToolAttackContext.attacker(living, null).target(event.getEntity()).applyAttributes().addAttributes(tool.getStats().get(ToolStats.ATTACK_DAMAGE), 0).slot(EquipmentSlot.CHEST, InteractionHand.MAIN_HAND).build();
+            ToolAttackContext meleeContext = ToolAttackContext.attacker(living, null).target(event.getEntity()).applyAttributes().addBaseDamage(tool.getStats().get(ToolStats.ATTACK_DAMAGE)).slot(EquipmentSlot.CHEST, InteractionHand.MAIN_HAND).build();
             for (ModifierEntry entry : tool.getModifiers()) {
               entry.getHook(ModifierHooks.MONSTER_MELEE_HIT).onMonsterMeleeHit(tool, entry, meleeContext, amount);
             }
