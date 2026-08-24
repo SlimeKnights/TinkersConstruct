@@ -123,8 +123,26 @@ public abstract class AbstractMaterialContent extends PageContent {
     return 2;
   }
 
+  /** Gets the suffix for the translation key */
+  protected String translationSuffix() {
+    // TODO 1.21: make abstract and drop the empty condition below
+    return "";
+  }
+
   /** Gets the text to display, empty if no text */
-  protected abstract String getTextKey(MaterialId material);
+  protected String getTextKey(MaterialId material) {
+    // allow both the encyclopedia and flavor keys to use a separate variant if defined
+    String rootKey = "material." + material.toLanguageKey() + (detailed ? ".encyclopedia" : ".flavor");
+    String suffix = translationSuffix();
+    // allow the suffix to override the translation key
+    if (!suffix.isEmpty()) {
+      String primaryKey = rootKey + '.' + translationSuffix();
+      if (Util.canTranslate(primaryKey)) {
+        return primaryKey;
+      }
+    }
+    return rootKey;
+  }
 
   /** Returns true if this stat type is supported, anything unsupported is hidden from the tools list */
   protected abstract boolean supportsStatType(MaterialStatsId statsId);

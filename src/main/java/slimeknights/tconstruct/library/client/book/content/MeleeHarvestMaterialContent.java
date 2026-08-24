@@ -49,8 +49,8 @@ public class MeleeHarvestMaterialContent extends AbstractMaterialContent {
   }
 
   @Override
-  protected String getTextKey(MaterialId material) {
-    return String.format(detailed ? "material.%s.%s.encyclopedia" : "material.%s.%s.flavor", material.getNamespace(), material.getPath());
+  protected String translationSuffix() {
+    return "melee_harvest";
   }
 
   @Override
