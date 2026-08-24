@@ -36,6 +36,7 @@ import net.minecraftforge.registries.RegistryObject;
 import slimeknights.mantle.data.predicate.block.BlockPredicate;
 import slimeknights.mantle.data.predicate.damage.DamageSourcePredicate;
 import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
+import slimeknights.mantle.data.predicate.fluid.FluidPredicate;
 import slimeknights.mantle.data.predicate.item.ItemPredicate;
 import slimeknights.mantle.item.EdibleItem;
 import slimeknights.mantle.registration.object.EnumObject;
@@ -227,6 +228,8 @@ public final class TinkerCommons extends TinkerModule {
       BlockPredicate.LOADER.register(getResource("can_melt"), TinkerPredicate.CAN_MELT_BLOCK.getLoader());
       BlockPredicate.LOADER.register(getResource("harvest_tier"), HarvestTierPredicate.LOADER);
       BlockPredicate.LOADER.register(getResource("variable_range"), BlockVariableRangePredicate.LOADER);
+      // fluid
+      FluidPredicate.LOADER.register(getResource("fuel"), TinkerPredicate.FUEL.getLoader());
     }
   }
 
