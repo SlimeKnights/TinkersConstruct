@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.tools.item;
 
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -17,6 +16,7 @@ import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.test.BaseMcTest;
+import slimeknights.tconstruct.test.TestHelper;
 
 @ExtendWith(MaterialRegistryExtension.class)
 public abstract class ToolItemTest extends BaseMcTest {
@@ -31,7 +31,7 @@ public abstract class ToolItemTest extends BaseMcTest {
     TagFixture.init();
     if (tool == null) {
       tool = new ModifiableItem(new Item.Properties().stacksTo(1), ToolDefinitionFixture.getStandardToolDefinition());
-      ForgeRegistries.ITEMS.register(new ResourceLocation("test", "toolcore"), tool);
+      ForgeRegistries.ITEMS.register(TestHelper.id("toolcore"), tool);
     }
     setupTierSorting();
     // ModifierStatsBuilder.disableFilter();

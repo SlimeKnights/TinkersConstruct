@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.test;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
@@ -18,7 +19,16 @@ import java.util.List;
 
 /** Helpers for running tests */
 public class TestHelper {
+  /** Dummy mod ID for tests */
+  public static final String MOD_ID = "test";
+
   private TestHelper() {}
+
+  /** Creates a resource location under {@link #MOD_ID} */
+  @SuppressWarnings("removal")
+  public static ResourceLocation id(String name) {
+    return new ResourceLocation(MOD_ID, name);
+  }
 
   /** Helper to fetch traits from the trait hook */
   public static List<ModifierEntry> getTraits(ToolDefinitionData data) {
