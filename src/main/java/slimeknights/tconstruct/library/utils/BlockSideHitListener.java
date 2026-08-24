@@ -58,7 +58,7 @@ public class BlockSideHitListener {
   private static void onLeaveServer(PlayerLoggedOutEvent event) {
     UUID uuid = event.getEntity().getUUID();
     HIT_FACE.remove(uuid);
-    LAST_XP.remove(uuid);
+    LAST_XP.removeInt(uuid);
   }
 
   /**
