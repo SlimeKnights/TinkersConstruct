@@ -40,6 +40,7 @@ public class ToolPartLootEntry extends LootPoolSingletonContainer {
     return TinkerToolParts.toolPartLootEntry.get();
   }
 
+  @SuppressWarnings("deprecation")
   @Override
   protected void createItemStack(Consumer<ItemStack> consumer, LootContext context) {
     List<IToolPart> options = RegistryHelper.getTagValueStream(BuiltInRegistries.ITEM, tag)

@@ -185,6 +185,7 @@ public class JEIPlugin implements IModPlugin {
     registration.register(TConstructJEIConstants.SLOT_TYPE, slots, new SlotIngredientHelper(), SlotIngredientRenderer.INGREDIENT);
   }
 
+  @SuppressWarnings("deprecation")
   @Override
   public void registerVanillaCategoryExtensions(IVanillaCategoryExtensionRegistration registry) {
     registry.getCraftingCategory().addCategoryExtension(ShapedMaterialRecipe.class, ShapedMaterialExtension::new);
@@ -451,6 +452,7 @@ public class JEIPlugin implements IModPlugin {
     // do not remove blank if not showing all as that removes all anvils from the catalyst display due to recipe context
   }
 
+  @SuppressWarnings("deprecation")
   @Override
   public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
     IIngredientManager manager = jeiRuntime.getIngredientManager();

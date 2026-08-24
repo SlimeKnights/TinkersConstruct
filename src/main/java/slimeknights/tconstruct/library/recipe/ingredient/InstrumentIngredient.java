@@ -143,6 +143,7 @@ public class InstrumentIngredient extends AbstractIngredient {
       return new InstrumentIngredient(item, instrument, ignore);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void write(FriendlyByteBuf buffer, InstrumentIngredient ingredient) {
       buffer.writeId(BuiltInRegistries.ITEM, ingredient.item);
@@ -156,6 +157,7 @@ public class InstrumentIngredient extends AbstractIngredient {
       }
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public InstrumentIngredient parse(FriendlyByteBuf buffer) {
       Item item = buffer.readById(BuiltInRegistries.ITEM);

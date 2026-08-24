@@ -57,6 +57,7 @@ public class BlockTagIngredient extends AbstractIngredient {
   }
 
   /** Gets the ordered matching items set */
+  @SuppressWarnings("deprecation")
   private Set<Item> getMatchingItems() {
     if (matchingItems == null || checkInvalidation()) {
       markValid();
@@ -77,6 +78,7 @@ public class BlockTagIngredient extends AbstractIngredient {
     return items;
   }
 
+  @SuppressWarnings("deprecation")
   @Override
   public IntList getStackingIds() {
     if (stackingIds == null || checkInvalidation()) {

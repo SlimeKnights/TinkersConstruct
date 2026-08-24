@@ -65,6 +65,7 @@ public class PotionModifierModel implements SimpleModifierModel {
     return new CacheKey(modifier, tool.getPersistentData().getString(modifier));
   }
 
+  @SuppressWarnings("deprecation")
   @Override
   public void addQuads(IToolStackView tool, ModifierEntry modifier, Function<Material,TextureAtlasSprite> spriteGetter, Transformation transforms, boolean isLarge, int startTintIndex, Consumer<Collection<BakedQuad>> quadConsumer, @Nullable ItemLayerPixels pixels) {
     Material texture = isLarge ? large : small;

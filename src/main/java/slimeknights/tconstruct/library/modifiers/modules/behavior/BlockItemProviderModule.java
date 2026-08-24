@@ -1,10 +1,10 @@
 package slimeknights.tconstruct.library.modifiers.modules.behavior;
 
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.common.ItemStackLoadable;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
@@ -35,7 +35,7 @@ public record BlockItemProviderModule(ItemStack item, int damage, ModifierCondit
         if (item instanceof BlockItem) {
           return stack;
         }
-        throw error.create(String.format("Expected item %s to be instance of BlockItem, but was %s instead", BuiltInRegistries.ITEM.getKey(item), item.getClass().getName()));
+        throw error.create(String.format("Expected item %s to be instance of BlockItem, but was %s instead", Loadables.ITEM.getKey(item), item.getClass().getName()));
       }).requiredField("item", BlockItemProviderModule::item),
       IntLoadable.FROM_ZERO.defaultField("tool_damage", 1, BlockItemProviderModule::damage),
       ModifierCondition.TOOL_FIELD,

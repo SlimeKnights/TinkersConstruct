@@ -57,6 +57,7 @@ public class TipClearingCastingRecipe extends PotionCastingRecipe {
 
   /* JEI */
 
+  @SuppressWarnings("deprecation")
   @Override
   public List<DisplayCastingRecipe> getRecipes(RegistryAccess access) {
     if (displayRecipes == null) {

@@ -92,6 +92,7 @@ public record MobEquipment(EquipmentSlot slot, IJsonPredicate<Item> match, ItemO
   }
 
   /** Applies this replacement to the target */
+  @SuppressWarnings("deprecation")
   public void apply(Mob mob) {
     // check if the slot is replaceable
     if (match.matches(mob.getItemBySlot(slot).getItem())) {
