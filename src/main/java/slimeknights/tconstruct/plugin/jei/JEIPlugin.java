@@ -29,13 +29,11 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.CraftingRecipe;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ItemLike;
@@ -53,8 +51,10 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.fluids.fluids.PotionFluidType;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
+import slimeknights.tconstruct.library.modifiers.ModifierManager;
 import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipe;
 import slimeknights.tconstruct.library.recipe.casting.IDisplayableCastingRecipe;
@@ -265,7 +265,7 @@ public class JEIPlugin implements IModPlugin {
    * @param ownCategory  Category to always add
    * @param type         Molding recipe type
    */
-  private static <T extends Recipe<C>, C extends Container> void addCastingCatalyst(IRecipeCatalystRegistration registry, ItemLike item, mezz.jei.api.recipe.RecipeType<IDisplayableCastingRecipe> ownCategory, RecipeType<MoldingRecipe> type) {
+  private static void addCastingCatalyst(IRecipeCatalystRegistration registry, ItemLike item, mezz.jei.api.recipe.RecipeType<IDisplayableCastingRecipe> ownCategory, RecipeType<MoldingRecipe> type) {
     ItemStack stack = new ItemStack(item);
     registry.addRecipeCatalyst(stack, ownCategory);
     assert Minecraft.getInstance().level != null;
@@ -274,9 +274,17 @@ public class JEIPlugin implements IModPlugin {
     }
   }
 
+  /** Adds all entries from the given modifier tag to catalysts for the given recipe type. */
+  private static void addModifierCatalyst(IRecipeCatalystRegistration registry, TagKey<Modifier> tag, mezz.jei.api.recipe.RecipeType<?>... types) {
+    for (Modifier modifier : ModifierManager.getTagValues(tag)) {
+      registry.addRecipeCatalyst(TConstructJEIConstants.MODIFIER_TYPE, new ModifierEntry(modifier, 1), types);
+    }
+  }
+
   @Override
   public void registerRecipeCatalysts(IRecipeCatalystRegistration registry) {
     // tables
+    registry.addRecipeCatalyst(new ItemStack(TinkerTables.craftingStation), RecipeTypes.CRAFTING);
     registry.addRecipeCatalyst(new ItemStack(TinkerTables.partBuilder), TConstructJEIConstants.PART_BUILDER);
     registry.addRecipeCatalyst(new ItemStack(TinkerTables.tinkerStation), TConstructJEIConstants.MODIFIERS, TConstructJEIConstants.TOOL_BUILDING);
     registry.addRecipeCatalyst(new ItemStack(TinkerTables.tinkersAnvil), TConstructJEIConstants.MODIFIERS, TConstructJEIConstants.TOOL_BUILDING);
@@ -297,17 +305,26 @@ public class JEIPlugin implements IModPlugin {
     registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.foundryController), TConstructJEIConstants.FOUNDRY);
 
     // modifiers
-    registry.addRecipeCatalyst(TConstructJEIConstants.MODIFIER_TYPE, new ModifierEntry(TinkerModifiers.severing, 1), TConstructJEIConstants.SEVERING);
-    registry.addRecipeCatalyst(TConstructJEIConstants.MODIFIER_TYPE, new ModifierEntry(TinkerModifiers.melting, 1), TConstructJEIConstants.MELTING, TConstructJEIConstants.ENTITY_MELTING);
+    addModifierCatalyst(registry, TinkerTags.Modifiers.CRAFTING, RecipeTypes.CRAFTING);
+    addModifierCatalyst(registry, TinkerTags.Modifiers.SMELTING, RecipeTypes.SMELTING);
+    addModifierCatalyst(registry, TinkerTags.Modifiers.SEVERING, TConstructJEIConstants.SEVERING);
+    addModifierCatalyst(registry, TinkerTags.Modifiers.MELTING, TConstructJEIConstants.MELTING, TConstructJEIConstants.ENTITY_MELTING);
+    // add items containing these modifiers to start as catalysts as well
     for (Holder<Item> item : BuiltInRegistries.ITEM.getTagOrEmpty(TinkerTags.Items.MODIFIABLE)) {
       if (item.get() instanceof IModifiableDisplay modifiable) {
         // add any tools with a severing trait to severing
         ModifierNBT traits = ToolTraitHook.getTraits(modifiable.getToolDefinition(), MaterialNBT.EMPTY);
-        if (traits.getLevel(TinkerModifiers.severing.getId()) > 0) {
+        if (traits.has(TinkerTags.Modifiers.CRAFTING)) {
+          registry.addRecipeCatalyst(modifiable.getRenderTool(), RecipeTypes.CRAFTING);
+        }
+        if (traits.has(TinkerTags.Modifiers.SMELTING)) {
+          registry.addRecipeCatalyst(modifiable.getRenderTool(), RecipeTypes.SMELTING);
+        }
+        if (traits.has(TinkerTags.Modifiers.SEVERING)) {
           registry.addRecipeCatalyst(modifiable.getRenderTool(), TConstructJEIConstants.SEVERING);
         }
         // add any tools with a melting trait to melting
-        if (traits.getLevel(TinkerModifiers.melting.getId()) > 0) {
+        if (traits.has(TinkerTags.Modifiers.MELTING)) {
           // only add to entity melting if its melee too
           if (item.containsTag(TinkerTags.Items.MELEE)) {
             registry.addRecipeCatalyst(modifiable.getRenderTool(), TConstructJEIConstants.MELTING, TConstructJEIConstants.ENTITY_MELTING);

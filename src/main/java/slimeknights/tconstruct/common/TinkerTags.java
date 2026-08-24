@@ -850,6 +850,14 @@ public class TinkerTags {
 
     // JEI
     public static final TagKey<Modifier> HIDDEN_FROM_RECIPE_VIEWERS = hiddenFromRecipeViewers(ModifierManager.REGISTRY_KEY);
+    /** Modifiers in this tag allow crafting and should be listed as a crafting table catalyst */
+    public static final TagKey<Modifier> CRAFTING = local("jei/crafting");
+    /** Modifiers in this tag allow smelting and should be listed as a furnace catalyst */
+    public static final TagKey<Modifier> SMELTING = local("jei/smelting");
+    /** Modifiers in this tag allow melting recipes and should be listed as an item and entity melting catalyst. If a modifier needs these separated make a feature request. */
+    public static final TagKey<Modifier> MELTING = local("jei/melting");
+    /** Modifiers in this tag allow severing and are listed as a severing catalyst */
+    public static final TagKey<Modifier> SEVERING = local("jei/severing");
 
 
     private static TagKey<Modifier> local(String name) {

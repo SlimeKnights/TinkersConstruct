@@ -25,6 +25,7 @@ import static slimeknights.tconstruct.common.TinkerTags.Modifiers.CHARGE_EMPTY_B
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.CHESTPLATE_ABILITIES;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.CHESTPLATE_UPGRADES;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.COSMETIC_SLOTLESS;
+import static slimeknights.tconstruct.common.TinkerTags.Modifiers.CRAFTING;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.DAMAGE_UPGRADES;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.DEFENSE;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.DRILL_ATTACKS;
@@ -49,6 +50,7 @@ import static slimeknights.tconstruct.common.TinkerTags.Modifiers.LEGGING_ABILIT
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.LEGGING_UPGRADES;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.MELEE_ABILITIES;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.MELEE_UPGRADES;
+import static slimeknights.tconstruct.common.TinkerTags.Modifiers.MELTING;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.OVERSLIME_FRIEND;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.PROTECTION_DEFENSE;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.RANGED_ABILITIES;
@@ -56,9 +58,11 @@ import static slimeknights.tconstruct.common.TinkerTags.Modifiers.RANGED_UPGRADE
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.REMOVE_MODIFIER_BLACKLIST;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.SECONDARY_DURABILITY;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.SELF_KNOCKBACK_SLINGS;
+import static slimeknights.tconstruct.common.TinkerTags.Modifiers.SEVERING;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.SHIELD_ABILITIES;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.SLIME_DEFENSE;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.SLOTLESS;
+import static slimeknights.tconstruct.common.TinkerTags.Modifiers.SMELTING;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.SPECIAL_DEFENSE;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.TARGET_KNOCKBACK_SLINGS;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.UPGRADES;
@@ -223,6 +227,12 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
       ModifierIds.shiny,
       TinkerModifiers.dyed.getId(), TinkerModifiers.embellishment.getId(), TinkerModifiers.banner.getId(),
       ModifierIds.farsighted, ModifierIds.nearsighted);
+
+    // JEI
+    this.tag(CRAFTING).add(ModifierIds.workbench, ModifierIds.craftingTable);
+    this.tag(SMELTING).add(ModifierIds.smelting, ModifierIds.autosmelt);
+    this.tag(MELTING).add(TinkerModifiers.melting.getId());
+    this.tag(SEVERING).add(TinkerModifiers.severing.getId());
   }
 
   @Override

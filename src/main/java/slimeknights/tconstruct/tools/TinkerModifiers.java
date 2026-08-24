@@ -436,10 +436,8 @@ public final class TinkerModifiers extends TinkerModule {
   public static final DynamicModifier sleeves = MODIFIERS.registerDynamic("sleeves");
   public static final DynamicModifier shieldStrap = MODIFIERS.registerDynamic("shield_strap");
 
-  // used in JEI
-  /** Used in JEI to add tools to the severing tab */
+  // TODO 1.21: relocate to ModifierIds, no longer directly referenced in JEI thanks to the tags
   public static final StaticModifier<?> severing = MODIFIERS.registerDynamic("severing");
-  /** Used in JEI to add tools to the melting tabs */
   public static final DynamicModifier melting = MODIFIERS.registerDynamic("melting");
 
   // logic handlers - used as modifier traits
