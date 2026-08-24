@@ -207,6 +207,7 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
     return IndestructibleItemEntity.createFrom(level, original, stack);
   }
 
+  @Deprecated
   @Override
   public void onDestroyed(ItemEntity entity) {
     ToolInventoryCapability.onDestroyed(entity);

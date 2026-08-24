@@ -298,6 +298,7 @@ public interface MobEffectModule extends ModifierModule, ConditionalModule<ITool
       }
     }
 
+    @Deprecated
     @Override
     default boolean onProjectileHitEntity(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
       if (condition().modifierLevel().test(modifier.getLevel()) && TinkerPredicate.matches(holder(), attacker) && checkChance(modifier)) {
@@ -475,6 +476,7 @@ public interface MobEffectModule extends ModifierModule, ConditionalModule<ITool
       }
     }
 
+    @Deprecated
     @Override
     public void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, Projectile projectile, @Nullable AbstractArrow arrow, ModDataNBT persistentData, boolean primary) {
       // yes, we are launching a projectile, but the intention of that condition is are we a projectile that just hit

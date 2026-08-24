@@ -194,6 +194,7 @@ public class ModifiableItem extends TieredItem implements IModifiableDisplay {
     return IndestructibleItemEntity.createFrom(world, original, stack);
   }
 
+  @Deprecated
   @Override
   public void onDestroyed(ItemEntity entity) {
     ToolInventoryCapability.onDestroyed(entity);

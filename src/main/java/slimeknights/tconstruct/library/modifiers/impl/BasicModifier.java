@@ -36,6 +36,8 @@ public class BasicModifier extends Modifier {
   /**
    * This method is final to prevent overrides as the constructor no longer calls it
    */
+  @SuppressWarnings("deprecation")
+  @Deprecated
   @Override
   protected final void registerHooks(ModuleHookMap.Builder hookBuilder) {}
 

@@ -28,6 +28,7 @@ public record MiningSpeedFormula(ModifierFormula formula, List<MiningSpeedVariab
   }
 
   /** Builds the arguments from the context */
+  @SuppressWarnings("deprecation")
   private float[] getArguments(IToolStackView tool, ModifierEntry modifier, @Nullable BreakSpeed event, @Nullable Player player, @Nullable Direction sideHit, float baseSpeed, float newSpeed, float multiplier) {
     int size = variables.size();
     float[] arguments = VariableFormula.statModuleArguments(size, formula.processLevel(modifier), baseSpeed, newSpeed, multiplier * tool.getMultiplier(ToolStats.MINING_SPEED));

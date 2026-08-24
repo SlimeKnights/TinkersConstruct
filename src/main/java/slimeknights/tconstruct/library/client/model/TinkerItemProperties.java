@@ -19,6 +19,7 @@ import slimeknights.tconstruct.library.tools.item.ranged.ModifiableLauncherItem;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 /** Properties for tinker tools */
+@SuppressWarnings("deprecation")
 public class TinkerItemProperties {
   /** ID for broken property */
   private static final ResourceLocation BROKEN_ID = TConstruct.getResource("broken");

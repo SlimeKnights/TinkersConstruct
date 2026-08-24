@@ -30,6 +30,7 @@ public interface ConditionalStatVariable extends IHaveLoader, MiningSpeedVariabl
    */
   float getValue(IToolStackView tool, @Nullable LivingEntity entity);
 
+  @Deprecated
   @Override
   default float getValue(IToolStackView tool, @Nullable BreakSpeed event, @Nullable Player player, @Nullable Direction sideHit) {
     return getValue(tool, player);

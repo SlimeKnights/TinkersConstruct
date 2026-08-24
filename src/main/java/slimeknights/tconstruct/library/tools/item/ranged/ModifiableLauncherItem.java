@@ -181,6 +181,7 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
     return IndestructibleItemEntity.createFrom(world, original, stack);
   }
 
+  @Deprecated
   @Override
   public void onDestroyed(ItemEntity entity) {
     ToolInventoryCapability.onDestroyed(entity);

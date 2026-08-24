@@ -41,6 +41,7 @@ public class InvertedCakeBlock extends FoodCakeBlock {
     return state;
   }
 
+  @SuppressWarnings("deprecation")
   @Override
   public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
     return pLevel.getBlockState(pPos.above()).isSolid();

@@ -46,6 +46,7 @@ public record UniqueMaterialToolName(int index) implements ToolNameHook, ToolMod
     return LOADER;
   }
 
+  @Deprecated
   @Override
   public Component getDisplayName(ToolDefinition definition, ItemStack stack, @Nullable IToolStackView tool) {
     String key = stack.getItem().getDescriptionId();

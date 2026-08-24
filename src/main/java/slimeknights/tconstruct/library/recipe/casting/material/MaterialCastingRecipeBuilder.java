@@ -100,6 +100,7 @@ public class MaterialCastingRecipeBuilder extends AbstractRecipeBuilder<Material
    * @param consumed  If true, cast is consumed. For tool casting, see {@link #setCast(Ingredient, CastPurpose)}.
    * @return  Builder instance
    */
+  @SuppressWarnings("deprecation")
   public MaterialCastingRecipeBuilder setCast(Ingredient cast, boolean consumed) {
     // TODO 1.21: switch MAYBE_MATERIAL to CONSUMED
     return setCast(cast, consumed ? CastPurpose.MAYBE_MATERIAL : CastPurpose.CATALYST);

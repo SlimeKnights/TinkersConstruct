@@ -41,6 +41,7 @@ public class MaterialBlock extends Block implements EntityBlock {
     }
   }
 
+  @Deprecated
   @Override
   public ItemStack getCloneItemStack(BlockGetter level, BlockPos pos, BlockState state) {
     ItemStack stack = new ItemStack(state.getBlock());

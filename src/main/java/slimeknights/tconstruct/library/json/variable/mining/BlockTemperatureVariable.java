@@ -18,6 +18,7 @@ public record BlockTemperatureVariable(float fallback) implements MiningSpeedVar
     FloatLoadable.ANY.requiredField("fallback", BlockTemperatureVariable::fallback),
     BlockTemperatureVariable::new);
 
+  @Deprecated
   @Override
   public float getValue(IToolStackView tool, @Nullable BreakSpeed event, @Nullable Player player, @Nullable Direction sideHit) {
     if (player != null) {

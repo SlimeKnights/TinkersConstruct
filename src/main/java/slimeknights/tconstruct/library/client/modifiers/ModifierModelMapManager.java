@@ -179,6 +179,7 @@ public class ModifierModelMapManager extends MergingJsonDataLoader<Builder> {
   /* Helpers */
 
   /** Models in this blacklist are skipped from the legacy system. Used to prevent singletons that don't check textures from causing legacy warnings on every tools */
+  @SuppressWarnings("deprecation")
   private static final Set<IUnbakedModifierModel> LEGACY_BLACKLIST = new HashSet<>();
   /** Predicate for removing empty modifier models */
   private static final Predicate<Entry<?,? extends IBakedModifierModel>> EMPTY_ENTRY = entry -> entry.getValue() == ModifierModel.EMPTY;
@@ -186,6 +187,7 @@ public class ModifierModelMapManager extends MergingJsonDataLoader<Builder> {
   private static final Predicate<ModifierModelMap> NOT_EMPTY_MAP = map -> !map.isEmpty();
 
   /** Blacklists the given model from being included in the legacy system */
+  @SuppressWarnings("deprecation")
   public static void legacyBlacklist(IUnbakedModifierModel model) {
     LEGACY_BLACKLIST.add(model);
   }
@@ -233,6 +235,7 @@ public class ModifierModelMapManager extends MergingJsonDataLoader<Builder> {
   }
 
   /** Gets a map of modifier models for the given tool, considering the legacy model system */
+  @SuppressWarnings("deprecation")
   public ModifierModelMap getModelsForTool(Function<Material, TextureAtlasSprite> spriteGetter, List<ResourceLocation> options, List<ResourceLocation> smallRoots, List<ResourceLocation> largeRoots, ResourceLocation modelLocation) {
     ModifierModelMap models = getModelsForTool(spriteGetter, options);
     // if not using the legacy system, we are done
