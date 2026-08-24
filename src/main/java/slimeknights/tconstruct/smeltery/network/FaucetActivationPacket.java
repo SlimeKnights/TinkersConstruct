@@ -6,7 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.network.NetworkEvent.Context;
-import slimeknights.tconstruct.common.network.BlockEntityPacket;
+import slimeknights.mantle.network.packet.BlockEntityPacket;
 import slimeknights.tconstruct.smeltery.block.entity.FaucetBlockEntity;
 
 /**
