@@ -6,6 +6,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -79,6 +80,7 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.BlockSideHitListener;
 import slimeknights.tconstruct.shared.TinkerAttributes;
 import slimeknights.tconstruct.shared.TinkerEffects;
@@ -282,13 +284,30 @@ public class ToolEvents {
       // boost damage based on monster's melee weapon
       if (Config.COMMON.allowMonsterMeleeModifiers.get() && source.is(TinkerTags.DamageTypes.MODIFIER_WHITELIST) && !living.getType().is(TinkerTags.EntityTypes.DAMAGE_MODIFIER_BLACKLIST)) {
         ItemStack weapon = living.getMainHandItem();
-        if (!weapon.isEmpty() && weapon.is(TinkerTags.Items.MELEE_WEAPON)) {
-          IToolStackView tool = ToolStack.from(weapon);
-          // already know the player is null
-          ToolAttackContext meleeContext = ToolAttackContext.attacker(living, null).target(entity).applyAttributes().build();
-          float baseDamage = originalDamage;
-          for (ModifierEntry entry : tool.getModifiers()) {
-            originalDamage = entry.getHook(ModifierHooks.MONSTER_MELEE_DAMAGE).getMeleeDamage(tool, entry, meleeContext, baseDamage, originalDamage);
+        if (!weapon.isEmpty()) {
+            if (weapon.is(TinkerTags.Items.MELEE_WEAPON)) {
+              IToolStackView tool = ToolStack.from(weapon);
+              // already know the player is null
+              ToolAttackContext meleeContext = ToolAttackContext.attacker(living, null).target(entity).applyAttributes().build();
+              float baseDamage = originalDamage;
+              for (ModifierEntry entry : tool.getModifiers()) {
+                  originalDamage = entry.getHook(ModifierHooks.MONSTER_MELEE_DAMAGE).getMeleeDamage(tool, entry, meleeContext, baseDamage, originalDamage);
+              }
+            }
+        } else {// unarmed
+          // not consider adding non-chest armor to the unarmed tag
+          ItemStack unarmed = living.getItemBySlot(EquipmentSlot.CHEST);
+          if (!unarmed.isEmpty() && unarmed.is(TinkerTags.Items.UNARMED)) {
+            // get the melee damage attribute
+            float damageAttr = (float) entity.getAttributeValue(Attributes.ATTACK_DAMAGE);
+            IToolStackView tool = ToolStack.from(unarmed);
+            // already know the player is null
+            ToolAttackContext meleeContext = ToolAttackContext.attacker(living, null).target(entity).toolAttributes(tool).addBaseDamage(originalDamage - damageAttr).slot(EquipmentSlot.CHEST, InteractionHand.MAIN_HAND).build();
+            originalDamage = meleeContext.getBaseDamage();
+            float baseDamage = originalDamage;
+            for (ModifierEntry entry : tool.getModifiers()) {
+              originalDamage = entry.getHook(ModifierHooks.MONSTER_MELEE_DAMAGE).getMeleeDamage(tool, entry, meleeContext, baseDamage, originalDamage);
+            }
           }
         }
       }
@@ -421,12 +440,25 @@ public class ToolEvents {
       Entity attacker = event.getSource().getEntity();
       if (attacker != null && !attacker.getType().is(TinkerTags.EntityTypes.DAMAGE_MODIFIER_BLACKLIST) && attacker instanceof LivingEntity living) {
         ItemStack weapon = living.getMainHandItem();
-        if (!weapon.isEmpty() && weapon.is(TinkerTags.Items.MELEE_WEAPON)) {
-          // already know we are not a player
-          ToolAttackContext meleeContext = ToolAttackContext.attacker(living, null).target(event.getEntity()).applyAttributes().build();
-          IToolStackView tool = ToolStack.from(weapon);
-          for (ModifierEntry entry : tool.getModifiers()) {
-            entry.getHook(ModifierHooks.MONSTER_MELEE_HIT).onMonsterMeleeHit(tool, entry, meleeContext, amount);
+        if (!weapon.isEmpty()) {
+          if (weapon.is(TinkerTags.Items.MELEE_WEAPON)) {
+            // already know we are not a player
+            IToolStackView tool = ToolStack.from(weapon);
+            ToolAttackContext meleeContext = ToolAttackContext.attacker(living, null).target(event.getEntity()).applyAttributes().build();
+            for (ModifierEntry entry : tool.getModifiers()) {
+              entry.getHook(ModifierHooks.MONSTER_MELEE_HIT).onMonsterMeleeHit(tool, entry, meleeContext, amount);
+            }
+          }
+        } else {// unarmed
+          // not consider adding non-chest armor to the unarmed tag
+          ItemStack unarmed = living.getItemBySlot(EquipmentSlot.CHEST);
+          if (!unarmed.isEmpty() && unarmed.is(TinkerTags.Items.UNARMED)) {
+            // already know we are not a player
+            IToolStackView tool = ToolStack.from(unarmed);
+            ToolAttackContext meleeContext = ToolAttackContext.attacker(living, null).target(event.getEntity()).applyAttributes().addBaseDamage(tool.getStats().get(ToolStats.ATTACK_DAMAGE)).slot(EquipmentSlot.CHEST, InteractionHand.MAIN_HAND).build();
+            for (ModifierEntry entry : tool.getModifiers()) {
+              entry.getHook(ModifierHooks.MONSTER_MELEE_HIT).onMonsterMeleeHit(tool, entry, meleeContext, amount);
+            }
           }
         }
       }
