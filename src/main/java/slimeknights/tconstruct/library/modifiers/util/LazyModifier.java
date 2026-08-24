@@ -35,7 +35,7 @@ public class LazyModifier implements Supplier<Modifier>, IdAwareObject {
   protected Modifier getUnchecked() {
     if (result == null) {
       result = ModifierManager.getValue(id);
-      if (result == ModifierManager.INSTANCE.getDefaultValue() && !ModifierManager.EMPTY.equals(id)) {
+      if (result == ModifierManager.INSTANCE.getDefaultValue() && !ModifierId.EMPTY.equals(id)) {
         TConstruct.LOG.error("Attempted to fetch modifier with ID {}, but it was not registered. Returning the empty modifier and hoping things don't break.", id);
       }
     }

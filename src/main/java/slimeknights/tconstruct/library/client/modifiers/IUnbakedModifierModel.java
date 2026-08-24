@@ -12,6 +12,7 @@ import java.util.function.Function;
  * There is one copy of a class implementing this interface per modifier.
  * @deprecated use {@link ModifierModel} with {@link slimeknights.mantle.data.loadable.record.RecordLoadable}.
  */
+@Deprecated
 public interface IUnbakedModifierModel {
   /**
    * Bakes the modifier model for a particular tool

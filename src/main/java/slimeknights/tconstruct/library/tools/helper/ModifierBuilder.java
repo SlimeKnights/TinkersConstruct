@@ -28,7 +28,7 @@ public interface ModifierBuilder {
       throw new IllegalArgumentException("Level must be above 0");
     }
     // skip if it's the empty modifier, no sense tracking
-    if (!modifier.equals(ModifierManager.EMPTY)) {
+    if (!modifier.equals(ModifierId.EMPTY)) {
       add(new ModifierEntry(modifier, level));
     }
     return this;

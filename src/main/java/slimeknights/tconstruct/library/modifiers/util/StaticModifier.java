@@ -36,7 +36,7 @@ public class StaticModifier<T extends Modifier> extends LazyModifier {
     }
     Modifier result = getUnchecked();
     if (result == ModifierManager.INSTANCE.getDefaultValue()) {
-      throw new IllegalStateException("Static modifier for " + id + " returned " + ModifierManager.EMPTY + ", this typically indicates the modifier is improperly registered");
+      throw new IllegalStateException("Static modifier for " + id + " returned " + ModifierId.EMPTY + ", this typically indicates the modifier is improperly registered");
     }
     return (T) result;
   }

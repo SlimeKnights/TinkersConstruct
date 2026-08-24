@@ -5,7 +5,7 @@ import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.library.json.LevelingInt;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.modifiers.ModifierManager;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.hook.special.CapacityBarHook;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -33,7 +33,7 @@ public class CapacityBarModule extends CapacityBarHook.PersistentDataCapacityBar
 
   /** Constructor for datagen */
   public CapacityBarModule(LevelingInt capacity, @Nullable INumericToolStat<?> multiplier) {
-    this(ModifierManager.EMPTY, capacity, multiplier);
+    this(ModifierId.EMPTY, capacity, multiplier);
   }
 
   @Override

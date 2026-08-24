@@ -55,7 +55,7 @@ public class DynamicModifier extends StaticModifier<Modifier> {
     }
     Modifier result = getUnchecked();
     if (result == ModifierManager.INSTANCE.getDefaultValue()) {
-      throw new IllegalStateException("Dynamic modifier for " + id + " returned " + ModifierManager.EMPTY + ", this typically means the modifier is not registered");
+      throw new IllegalStateException("Dynamic modifier for " + id + " returned " + ModifierId.EMPTY + ", this typically means the modifier is not registered");
     }
     return result;
   }
