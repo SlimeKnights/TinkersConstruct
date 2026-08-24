@@ -23,7 +23,6 @@ import mezz.jei.api.runtime.IIngredientManager;
 import mezz.jei.api.runtime.IJeiRuntime;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderSet.Named;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -127,12 +126,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-
-import static slimeknights.mantle.Mantle.commonResource;
 
 @JeiPlugin
 public class JEIPlugin implements IModPlugin {
@@ -437,13 +433,6 @@ public class JEIPlugin implements IModPlugin {
     remove.add(new FluidStack(fluid, FluidType.BUCKET_VOLUME));
   }
 
-  /** Checks if the given tag exists */
-  @SuppressWarnings("deprecation")
-  private static boolean tagExists(String name) {
-    Optional<Named<Item>> tag = BuiltInRegistries.ITEM.getTag(ItemTags.create(commonResource(name)));
-    return tag.isPresent() && tag.get().size() > 0;
-  }
-
   /** Removes any retextured variants that shouldn't show */
   private static void cleanupRetexturedBlock(Predicate<ItemStack> remover, boolean showAll, ItemLike item, TagKey<Item> tag) {
     if (!showAll) {
@@ -547,7 +536,6 @@ public class JEIPlugin implements IModPlugin {
     // fluid hiding, buckets are hidden via the creative tab logic
     // hide compat that is not present
     List<FluidStack> removeFluids = new ArrayList<>();
-    compatLoop:
     for (SmelteryCompat compat : SmelteryCompat.values()) {
       // if none of the tags exist, remove the fluid
       if (!compat.isPresent()) {
