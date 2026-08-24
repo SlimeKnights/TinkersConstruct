@@ -303,6 +303,7 @@ public class ToolEvents {
             IToolStackView tool = ToolStack.from(unarmed);
             // already know the player is null
             ToolAttackContext meleeContext = ToolAttackContext.attacker(living, null).target(entity).toolAttributes(tool).addBaseDamage(originalDamage - damageAttr).slot(EquipmentSlot.CHEST, InteractionHand.MAIN_HAND).build();
+            originalDamage = meleeContext.getBaseDamage();
             float baseDamage = originalDamage;
             for (ModifierEntry entry : tool.getModifiers()) {
               originalDamage = entry.getHook(ModifierHooks.MONSTER_MELEE_DAMAGE).getMeleeDamage(tool, entry, meleeContext, baseDamage, originalDamage);
