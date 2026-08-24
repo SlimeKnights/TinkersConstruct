@@ -212,6 +212,7 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
             originalSlot = Inventory.SLOT_OFFHAND;
           } else {
             Inventory inventory = player.getInventory();
+            // does not use the inventory method as we want instance match, not deep compare
             for (int i = 0; i < Inventory.INVENTORY_SIZE; i++) {
               if (inventory.getItem(i) == foundAmmo) {
                 originalSlot = i;

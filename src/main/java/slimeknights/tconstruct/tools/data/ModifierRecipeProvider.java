@@ -1256,7 +1256,8 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .disallowCrystal() // would allow a cost cheese
                          .exactLevel(3)
                          .save(consumer, wrap(ModifierIds.luck, abilityFolder, "_level_3"));
-    // pants have just one level
+    // add recipe to salvage luck from pants
+    // TODO 1.21: remove this salvage recipe
     ModifierRecipeBuilder.modifier(ModifierIds.luck)
                          .setTools(TinkerTags.Items.LEGGINGS)
                          .setMaxLevel(1)

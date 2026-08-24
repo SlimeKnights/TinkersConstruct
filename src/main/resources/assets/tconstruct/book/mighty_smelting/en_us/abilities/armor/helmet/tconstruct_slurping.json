@@ -5,7 +5,7 @@
       "text": "He was number one!"
     }
   ],
-  "tool_filter": "tconstruct:modifiable/armor",
+  "tool_filter": "tconstruct:modifiable/armor/helmets",
   "effects": [
     "Drink fluids stored in the helmet",
     "Keybind is used to drink",

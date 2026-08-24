@@ -22,7 +22,7 @@ public interface MeleeDamageModifierHook {
    * @param tool          Tool used to attack
    * @param modifier      Modifier level
    * @param context       Attack context
-   * @param baseDamage    Base damage dealt before modifiers
+   * @param baseDamage    Base damage dealt before modifiers. TODO 1.21: remove this parameter since its now part of context.
    * @param damage        Computed damage from all prior modifiers
    * @return  New damage to deal
    */
