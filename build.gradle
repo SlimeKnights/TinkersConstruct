@@ -51,8 +51,7 @@ repositories {
         url 'https://dvs1.progwml6.com/files/maven'
     }
     maven { // TOP
-        name 'tterrag maven'
-        url "https://maven.tterrag.com/"
+        url "https://maven.k-4u.nl"
     }
     maven { // CraftTweaker, Immersive Engineering
         name 'BlameJared Maven'
