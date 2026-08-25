@@ -1178,7 +1178,7 @@
 
     "material.tconstruct.flint": "Krzemień",
     "material.tconstruct.flint.flavor": "Zapali światełko nadziei nawet w najcięższej sytuacji!",
-    "material.tconstruct.flint.encyclopedia": "Narzędzie zadaje o ćwierć pierwiastka utraconej wytrzymałości więcej obrażeń",
+    "material.tconstruct.flint.encyclopedia.melee_harvest": "Narzędzie zadaje o ćwierć pierwiastka utraconej wytrzymałości więcej obrażeń",
 
     "material.tconstruct.bone": "Kość",
     "material.tconstruct.bone.flavor": "Może nie dostaniesz od niej w kość.",
@@ -1204,7 +1204,7 @@
 
     "material.tconstruct.copper": "Miedź",
     "material.tconstruct.copper.flavor": "Zmiecie przeciwników z powierzchni Ziemi.",
-    "material.tconstruct.copper.encyclopedia": "Im niżej jesteś, tym szybciej kopie. Nawet do +10% na poziom",
+    "material.tconstruct.copper.encyclopedia.melee_harvest": "Im niżej jesteś, tym szybciej kopie. Nawet do +10% na poziom",
 
     "material.tconstruct.slimewood": "Szlamiste drewno",
     "material.tconstruct.slimewood.flavor": "Czy to jest drewno ze szlamu czy szlam z drewna?",
@@ -1241,7 +1241,7 @@
     "__comment": "Tier Nether Materials",
     "material.tconstruct.cobalt": "Kobalt",
     "material.tconstruct.cobalt.flavor": "Ulubiony materiał ratowników wodnych",
-    "material.tconstruct.cobalt.encyclopedia": "Zwiększa szybkość kopania i atakowania o 7% na poziom",
+    "material.tconstruct.cobalt.encyclopedia.melee_harvest": "Zwiększa szybkość kopania i atakowania o 7% na poziom",
 
     "material.tconstruct.manyullyn": "Manyullyn",
     "material.tconstruct.manyullyn.flavor": "Metal, którego nazwy nikt nie wypowie poprawnie. Znany też jako gwiezdny metal.",
@@ -1249,7 +1249,7 @@
 
     "material.tconstruct.hepatizon": "Hepatizon",
     "material.tconstruct.hepatizon.flavor": "He-pa-ti-zon - ugotuj, pokrój, i wsadź do gulaszu",
-    "material.tconstruct.hepatizon.encyclopedia": "Zwiększa szybkość kopania o 25% na poziom po wykopaniu 32 bloków pod rząd",
+    "material.tconstruct.hepatizon.encyclopedia.melee_harvest": "Zwiększa szybkość kopania o 25% na poziom po wykopaniu 32 bloków pod rząd",
 
     "material.tconstruct.queens_slime": "Szlam królowej",
     "material.tconstruct.queens_slime.flavor": "Księżniczki są przereklamowane, lepiej zostać królową",
@@ -1270,7 +1270,7 @@
     "__comment": "Tier 2 Integration Materials",
     "material.tconstruct.lead": "Ołów",
     "material.tconstruct.lead.flavor": "Również dobry do robienia żołnierzyków",
-    "material.tconstruct.lead.encyclopedia": "Daje +10% do szybkości ataku i -10% do szybkości poruszania",
+    "material.tconstruct.lead.encyclopedia.melee_harvest": "Daje +10% do szybkości ataku i -10% do szybkości poruszania",
 
     "material.tconstruct.silver": "Srebro",
     "material.tconstruct.silver.flavor": "Pamiętaj, że nie będzie już tak błyszczeć za kilka dni",
@@ -1284,7 +1284,7 @@
     "__comment": "Tier 3 Integration Materials",
     "material.tconstruct.bronze": "Brąz",
     "material.tconstruct.bronze.flavor": "Nie mylić z brązem metalurga",
-    "material.tconstruct.bronze.encyclopedia": "Daje +12.5% do szybkości kopania przy pełnej wytrzymałości",
+    "material.tconstruct.bronze.encyclopedia.melee_harvest": "Daje +12.5% do szybkości kopania przy pełnej wytrzymałości",
 
     "material.tconstruct.steel": "Stal",
     "material.tconstruct.steel.flavor": "Około 90% całej inżynierii materiałów",
@@ -1292,7 +1292,7 @@
 
     "material.tconstruct.constantan": "Konstantan",
     "material.tconstruct.constantan.flavor": "Konstantantantantantantan. Przepraszam, śmiesznie jest dodać kilka \"tan\" więcej.",
-    "material.tconstruct.constantan.encyclopedia": "Daje +12.5% do szybkości kopania w ekstremalnym cieple lub zimnie",
+    "material.tconstruct.constantan.encyclopedia.melee_harvest": "Daje +12.5% do szybkości kopania w ekstremalnym cieple lub zimnie",
 
 
 

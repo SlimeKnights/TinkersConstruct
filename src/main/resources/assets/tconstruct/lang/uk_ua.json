@@ -1842,13 +1842,13 @@
   "material.tconstruct.rock.blackstone": "Чорнокамінь",
   "material.tconstruct.rock.calcite": "Кальцит",
   "material.tconstruct.rock.flavor": "Твердий, як скеля",
-  "material.tconstruct.rock.encyclopedia": "Змушує інструмент добувати на половину квадратного кореня втраченої міцності швидше.",
+  "material.tconstruct.rock.encyclopedia.melee_harvest": "Змушує інструмент добувати на половину квадратного кореня втраченої міцності швидше.",
 
   "material.tconstruct.flint": "Кремінь",
   "material.tconstruct.flint.basalt": "Базальт",
   "material.tconstruct.flint.deepslate": "Глибосланець",
   "material.tconstruct.flint.flavor": "Запалить вогник у серці Інженера!",
-  "material.tconstruct.flint.encyclopedia": "Збільшує шкоду на чверть квадратного кореня втраченої міцності.",
+  "material.tconstruct.flint.encyclopedia.melee_harvest": "Збільшує шкоду на чверть квадратного кореня втраченої міцності.",
   "material.tconstruct.flint.encyclopedia.ammo": "Дає змогу оброблювати боєзапаси зіллями. Оброблені боєзапаси застосовуватимуть ефект зілля додатково після ураження.",
 
   "material.tconstruct.bone": "Кістка",
@@ -1927,7 +1927,7 @@
   "material.tconstruct.copper": "Мідь",
   "material.tconstruct.copper.oxidized": "Окиснена мідь",
   "material.tconstruct.copper.flavor": "Нехай це не робить вам в житті погоди.",
-  "material.tconstruct.copper.encyclopedia": "Надає більше швидкости добування на нижчих глибинах, +6 за кожні 64 блоки під рівнем 64.",
+  "material.tconstruct.copper.encyclopedia.melee_harvest": "Надає більше швидкости добування на нижчих глибинах, +6 за кожні 64 блоки під рівнем 64.",
   "material.tconstruct.copper.encyclopedia.ranged": "Надає додаткову швидкість на нижчій глибині, +0.05 за кожні 64 блоки під рівнем 64.",
   "material.tconstruct.copper.encyclopedia.armor": "Надає додатковий захист зі зниженням глибини, +5% за кожні 64 блоки під рівнем 64.",
   "material.tconstruct.copper.skull": "Потопельник",
@@ -1971,7 +1971,7 @@
   "material.tconstruct.skyslime_vine": "Слизуваті лози",
   "material.tconstruct.skyslime_vine.slimeskin": "Слизошкіра",
   "material.tconstruct.skyslime_vine.flavor": "Літай як метелик, жаль як бджола.",
-  "material.tconstruct.skyslime_vine.encyclopedia": "Скасовує зменшення швидкости добування, коли ви не на землі.",
+  "material.tconstruct.skyslime_vine.encyclopedia.melee_harvest": "Скасовує зменшення швидкости добування, коли ви не на землі.",
   "material.tconstruct.skyslime_vine.encyclopedia.ranged": "Надає +0.5 точності, коли не на землі або драбині.",
   "material.tconstruct.skyslime_vine.encyclopedia.armor": "Зменшує силу тяжіння на 20% за кожен елемент обладунку.",
   "material.tconstruct.skyslime_vine.encyclopedia.laces": "Надає +0.5 блоку висоти стрибка на першому рівні та +1 на другому рівні. Збільшує безпечну дальність падіння на 1 блок за кожен рівень.",
@@ -1985,7 +1985,7 @@
 
   "material.tconstruct.twisting_vine": "Кручені лози",
   "material.tconstruct.twisting_vine.flavor": "Не сперечайся та їж!",
-  "material.tconstruct.twisting_vine.encyclopedia": "Надає +6 до швидкости видобутку, але втрачає 1 міцність, коли ви опускаєте інструмент.",
+  "material.tconstruct.twisting_vine.encyclopedia.melee_harvest": "Надає +6 до швидкости видобутку, але втрачає 1 міцність, коли ви опускаєте інструмент.",
   "material.tconstruct.twisting_vine.encyclopedia.ranged": "Надає +15% до швидкости натягування лука, але втрачає 1 міцність, коли ви опускаєте інструмент.",
   "material.tconstruct.twisting_vine.encyclopedia.armor": "Надає +10% до стійкості до відкидань, але втрачає 2 міцності, коли ви знімаєте обладунок.",
   "material.tconstruct.twisting_vine.encyclopedia.laces": "Збільшує швидкість руху на 15% за рівень, але завдає 2 одиниці шкоди за рівень, коли не екіпірований.",
@@ -2106,7 +2106,7 @@
 
   "material.tconstruct.amethyst_bronze": "Аметистова бронза",
   "material.tconstruct.amethyst_bronze.flavor": "Не плутати з бронзою.",
-  "material.tconstruct.amethyst_bronze.encyclopedia": "Надає +0.25 швидкости добування на рівень для блоків, які не потребують інструмента, навіть якщо бронзовий інструмент неефективний проти них.",
+  "material.tconstruct.amethyst_bronze.encyclopedia.melee_harvest": "Надає +0.25 швидкости добування на рівень для блоків, які не потребують інструмента, навіть якщо бронзовий інструмент неефективний проти них.",
   "material.tconstruct.amethyst_bronze.encyclopedia.ranged": "Додає +0.1 до швидкости на рівень, але при цьому обмежує кути стріл до 32, 16 або 8 напрямків на перших 3 рівнях відповідно.",
   "material.tconstruct.amethyst_bronze.encyclopedia.armor": "Надає +2,5% до швидкости атаки на рівень, але обмежує кути відкидання до 32, 16, 8 або 4 напрямків.",
 
@@ -2131,7 +2131,7 @@
   "__comment": "Tier Nether Materials",
   "material.tconstruct.cobalt": "Кобальт",
   "material.tconstruct.cobalt.flavor": "Матеріал червоної армії.",
-  "material.tconstruct.cobalt.encyclopedia": "Прискорює добування й атакування на 7% на рівень.",
+  "material.tconstruct.cobalt.encyclopedia.melee_harvest": "Прискорює добування й атакування на 7% на рівень.",
   "material.tconstruct.cobalt.encyclopedia.ranged": "Збільшує швидкість тяги та швидкість на 5% на рівень.",
   "material.tconstruct.cobalt.encyclopedia.armor": "Зменшує шкоду від атак ближнього бою на 10% на рівень та збільшує швидкість руху при використанні предмета на 5% за максимальний рівень.",
 
@@ -2163,13 +2163,13 @@
 
   "material.tconstruct.hepatizon": "Гепатизон",
   "material.tconstruct.hepatizon.flavor": "Ге-па-ти-зон — звари його, потовчи його, кинь його в суп.",
-  "material.tconstruct.hepatizon.encyclopedia": "Прискорює добування на 25% на рівень після ламання 32 послідовних блоків.",
+  "material.tconstruct.hepatizon.encyclopedia.melee_harvest": "Прискорює добування на 25% на рівень після ламання 32 послідовних блоків.",
   "material.tconstruct.hepatizon.encyclopedia.ranged": "Збільшує швидкість тяги на 25% на рівень після 16 послідовних пострілів.",
   "material.tconstruct.hepatizon.encyclopedia.armor": "Перетворює 50% отриманої шкоди на тимчасове зменшення шкоди. Зменшення триває 5 секунд на рівень.",
 
   "material.tconstruct.ichorskin": "Іхорошкіра",
   "material.tconstruct.ichorskin.flavor": "Іхор точно не має шкіри",
-  "material.tconstruct.ichorskin.encyclopedia": "Споживає до 5 одиниць переслизу, щоб зменшити шкоду на 1% за кожен спожитий переслиз (до 5%).",
+  "material.tconstruct.ichorskin.encyclopedia.armor": "Споживає до 5 одиниць переслизу, щоб зменшити шкоду на 1% за кожен спожитий переслиз (до 5%).",
 
   "material.tconstruct.cinderslime": "Жарослиз",
   "material.tconstruct.cinderslime.flavor": "Кинь його у вогонь!",
@@ -2189,7 +2189,7 @@
 
   "material.tconstruct.blazewood": "Пломенедерево",
   "material.tconstruct.blazewood.flavor": "Полум'я захищає полум'я",
-  "material.tconstruct.blazewood.encyclopedia": "Надає +0,5% захисту від шкоди, не пов'язаної з вогнем, за кожну секунду вогню, до +7,5% від 15 секунд лави. Бонус зменшується стійкістю до вогню.",
+  "material.tconstruct.blazewood.encyclopedia.armor": "Надає +0,5% захисту від шкоди, не пов'язаної з вогнем, за кожну секунду вогню, до +7,5% від 15 секунд лави. Бонус зменшується стійкістю до вогню.",
   "material.tconstruct.blazewood.encyclopedia.ammo": "Підсвічує ціль на 10 секунд. Якщо снаряд влучить у блок, на місці влучання з'являється постійне джерело світла, яке замінює снаряд.",
 
   "material.tconstruct.ichor": "Іхор",
@@ -2213,20 +2213,19 @@
 
   "material.tconstruct.jeweled_hide": "Коштована шкіра",
   "material.tconstruct.jeweled_hide.flavor": "Шкіра, вичинена за допомогою найчистіших дорогоцінних каменів",
-  "material.tconstruct.jeweled_hide.encyclopedia": "Збільшує шанси випадіння здобичі з блоків, сумісно з удачею.",
+  "material.tconstruct.jeweled_hide.encyclopedia.melee_harvest": "Збільшує шанси випадіння здобичі з блоків, сумісно з удачею.",
   "material.tconstruct.jeweled_hide.encyclopedia.ranged": "Збільшує якість здобичі від риболовлі, сумісно з удачею.",
   "material.tconstruct.jeweled_hide.encyclopedia.armor": "Збільшує максимальний запас здоров'я на 1 очко. На щитах це очко відновлюється миттєво, але при знятті ви отримаєте 1 очко шкоди.",
   "material.tconstruct.jeweled_hide.encyclopedia.laces": "Збільшує рівень удачі. На другому рівні збільшує рівень грабунок.",
 
   "material.tconstruct.ancient_hide": "Давня шкіра",
   "material.tconstruct.ancient_hide.flavor": "Шкіра, вичинена найстарішим серед каменів",
-  "material.tconstruct.ancient_hide.encyclopedia": "Збільшує шанси випадіння здобичі з блоків, сумісно з удачею.",
-  "material.tconstruct.ancient_hide.encyclopedia.ranged": "Надає додатковий слот захисту.",
-  "material.tconstruct.ancient_hide.encyclopedia.armor": "Надає додатковий слот захисту.",
+  "material.tconstruct.ancient_hide.encyclopedia": "Надає додатковий слот захисту.",
+  "material.tconstruct.ancient_hide.encyclopedia.melee_harvest": "Збільшує шанси випадіння здобичі з блоків, сумісно з удачею.",
 
   "material.tconstruct.ancient": "Стародавень",
   "material.tconstruct.ancient.flavor": "Вже не такий як раніше.",
-  "material.tconstruct.ancient.encyclopedia": "Застосовується у бойових кайлах, водяних бластерах та бойових табличках, а також в результаті бартеру. Кожен рівень надає +1 слот здібностей коштом -10% швидкости атаки, -10% швидкости видобутку корисних копалин та +10% сили тяжіння.",
+  "material.tconstruct.ancient.encyclopedia.melee_harvest": "Застосовується у бойових кайлах, водяних бластерах та бойових табличках, а також в результаті бартеру. Кожен рівень надає +1 слот здібностей коштом -10% швидкости атаки, -10% швидкости видобутку корисних копалин та +10% сили тяжіння.",
   "material.tconstruct.ancient.encyclopedia.ranged": "Можна отримати зі сковорідок, бойових кайл та в результаті бартеру. Кожен рівень надає +1 слот здібностей та +10% до сили тяжіння ціною -10% до швидкости натягування.",
   "material.tconstruct.ancient.encyclopedia.armor": "Здобувається з пластинчастих обладунків в бастіонах, бойових табличок, сковорідок та в результаті бартеру. Кожен рівень дає +1 слот здібностей та +10% до сили тяжіння коштом -10% до швидкости руху або -10% до швидкости атаки щитом.",
 
@@ -2254,14 +2253,14 @@
 
   "material.tconstruct.knightslime": "Лицарський слиз",
   "material.tconstruct.knightslime.flavor": "Слизьке, але металеве, і водночас кам'яне? Цікаво!",
-  "material.tconstruct.knightslime.encyclopedia": "Витрачає 1 переслиз на рівень (або 5 на рівень під час інтенсивного видобутку), надаючи +20% швидкості видобутку та +15% швидкості атаки на рівень.",
+  "material.tconstruct.knightslime.encyclopedia.melee_harvest": "Витрачає 1 переслиз на рівень (або 5 на рівень під час інтенсивного видобутку), надаючи +20% швидкості видобутку та +15% швидкості атаки на рівень.",
   "material.tconstruct.knightslime.encyclopedia.ranged": "Витрачає 1 переслиз на кожен рівень, надаючи +0.06 до швидкості руху та швидкості наближення на кожен рівень.",
   "material.tconstruct.knightslime.encyclopedia.armor": "Витрачає до 2 переслизу на рівень, щоб зменшити отримувану шкоду на 2,5% за кожен витрачений переслиз (до 5% на рівень).",
 
   "material.tconstruct.enderslime_vine": "Ендерові слизуваті лози",
   "material.tconstruct.enderslime_vine.slimeskin": "Слизошкіра",
   "material.tconstruct.enderslime_vine.flavor": "Кінець?",
-  "material.tconstruct.enderslime_vine.encyclopedia": "Телепортує власника до місця добутих блоків чи вбитих монстрів.",
+  "material.tconstruct.enderslime_vine.encyclopedia.melee_harvest": "Телепортує власника до місця добутих блоків чи вбитих монстрів.",
   "material.tconstruct.enderslime_vine.encyclopedia.ranged": "Телепортує власника до місця падіння стріли на блоці або міняє місцями власника з сутністю, в яку було влучено.",
   "material.tconstruct.enderslime_vine.encyclopedia.armor": "Додає 25% шансу за частину обладунку випадково телепортувати нападників.",
   "material.tconstruct.enderslime_vine.encyclopedia.laces": "Має 25% шанс за рівень випадково телепортувати нападників геть.",
@@ -2275,11 +2274,11 @@
   "__comment": "Slimesuit materials",
 
   "material.tconstruct.clay": "Глина",
-  "material.tconstruct.clay.flavor.slime": "Повністю натурально!",
+  "material.tconstruct.clay.flavor": "Повністю натурально!",
   "material.tconstruct.clay.encyclopedia.slime": "Надає +1 до захисту за рівень.",
 
   "material.tconstruct.honey": "Мед",
-  "material.tconstruct.honey.flavor.slime": "Дуже солодко!",
+  "material.tconstruct.honey.flavor": "Дуже солодко!",
   "material.tconstruct.honey.encyclopedia.slime": "Дає 15% шанс за кожен рівень з'їсти обладунок (що споживає частину міцності) на 1 очко голоду за кожен рівень при насиченні 0.1, що також лікує отруту.",
 
   "material.tconstruct.phantom": "Перетинка фантома",
@@ -2313,7 +2312,7 @@
 
   "material.tconstruct.lead": "Свинець",
   "material.tconstruct.lead.flavor": "Можна спробувати зробити салець з цього",
-  "material.tconstruct.lead.encyclopedia": "Надає +10% шкоди й -10% швидкости руху на рівень.",
+  "material.tconstruct.lead.encyclopedia.melee_harvest": "Надає +10% шкоди й -10% швидкости руху на рівень.",
   "material.tconstruct.lead.encyclopedia.ranged": "Дає +10% шкоди від снарядів і -10% швидкости руху на рівень.",
   "material.tconstruct.lead.encyclopedia.armor": "Надає +15% стійкості до відкидання, -10% до швидкости руху та +5% до сили тяжіння на рівень.",
 
@@ -2329,7 +2328,7 @@
   "material.tconstruct.whitestone.tin": "Білокамінь",
   "material.tconstruct.whitestone.zinc": "Білокамінь",
   "material.tconstruct.whitestone.flavor": "Що це?.. діорит?",
-  "material.tconstruct.whitestone.encyclopedia": "Добування каменю має шанс 20% на рівень додати +3 каменещита.",
+  "material.tconstruct.whitestone.encyclopedia.melee_harvest": "Добування каменю має шанс 20% на рівень додати +3 каменещита.",
 
   "material.tconstruct.aluminum": "Алюміній",
   "material.tconstruct.aluminum.flavor": "Найчастіше зустрічається в курганах.",
@@ -2364,13 +2363,13 @@
 
   "material.tconstruct.bronze": "Бронза",
   "material.tconstruct.bronze.flavor": "Не плутати з аметистовою бронзою.",
-  "material.tconstruct.bronze.encyclopedia": "Надає +6 швидкости добування на рівень при повній міцності, збільшення нульове нижче половини міцності.",
+  "material.tconstruct.bronze.encyclopedia.melee_harvest": "Надає +6 швидкости добування на рівень при повній міцності, збільшення нульове нижче половини міцності.",
   "material.tconstruct.bronze.encyclopedia.ranged": "Дає +0,05 швидкости на рівень при повній міцності, 0 при повній міцності нижче 50% міцності.",
   "material.tconstruct.bronze.encyclopedia.armor": "Збільшує витривалість на 2 на рівень при повній міцності, але підвищення падає до 0 нижче 50% міцності.",
 
   "material.tconstruct.constantan": "Константан",
   "material.tconstruct.constantan.flavor": "Шіканоко-ноконоко-константан… вибачте",
-  "material.tconstruct.constantan.encyclopedia": "Надає +7.5 швидкости добування в екстремальному теплі чи холоді.",
+  "material.tconstruct.constantan.encyclopedia.melee_harvest": "Надає +7.5 швидкости добування в екстремальному теплі чи холоді.",
   "material.tconstruct.constantan.encyclopedia.ranged": "Дає +0,15 швидкости в екстремальному холоді та вдвічі посилюється в екстремальній спеці.",
   "material.tconstruct.constantan.encyclopedia.armor": "Забезпечує 5% захисту від сильного холоду та подвійне посилення від сильної спеки.",
 

@@ -1303,11 +1303,11 @@
 "material.tconstruct.rock.blackstone": "Schwarzstein",
 "material.tconstruct.rock.deepslate": "Deepslate",
 "material.tconstruct.rock.flavor": "Felsenfest",
-"material.tconstruct.rock.encyclopedia": "Bewirkt, dass das Werkzeug um die Hälfte der Quadratwurzel der verlorenen Haltbarkeit schneller abgebaut wird",
+"material.tconstruct.rock.encyclopedia.melee_harvest": "Bewirkt, dass das Werkzeug um die Hälfte der Quadratwurzel der verlorenen Haltbarkeit schneller abgebaut wird",
 
 "material.tconstruct.flint": "Flint",
 "material.tconstruct.flint.flavor": "Das wird die Flammen eines Bastlerherzens entfachen!",
-"material.tconstruct.flint.encyclopedia": "Erhöht den Schaden um ein Viertel der Quadratwurzel der verlorenen Haltbarkeit",
+"material.tconstruct.flint.encyclopedia.melee_harvest": "Erhöht den Schaden um ein Viertel der Quadratwurzel der verlorenen Haltbarkeit",
 
 "material.tconstruct.bone": "Knochen",
 "material.tconstruct.bone.flavor": "Ich bin der Knochen meines Schwertes",
@@ -1351,7 +1351,7 @@
 
 "material.tconstruct.copper": "Kupfer",
 "material.tconstruct.copper.flavor": "Lass dir davon nicht den Tag verderben.",
-"material.tconstruct.copper.encyclopedia": "Gewährt mehr Abbaugeschwindigkeit in geringeren Tiefen, bis zu +10 % pro Stufe",
+"material.tconstruct.copper.encyclopedia.melee_harvest": "Gewährt mehr Abbaugeschwindigkeit in geringeren Tiefen, bis zu +10 % pro Stufe",
 "material.tconstruct.copper.flavor.skull": "Schlägt ihnen den Wind aus den Segeln",
 "material.tconstruct.copper.encyclopedia.skull": "Nahkampfangriffe stehlen dem Ziel 3 Sekunden Luft",
 
@@ -1380,7 +1380,7 @@
 
 "material.tconstruct.skyslime_vine": "Schleimige Ranke",
 "material.tconstruct.skyslime_vine.flavor": "Schweben wie ein Schmetterling, stechen wie eine Biene.",
-"material.tconstruct.skyslime_vine.encyclopedia": "Hebt die Mining-Geschwindigkeitsreduzierung auf, wenn nicht am Boden",
+"material.tconstruct.skyslime_vine.encyclopedia.melee_harvest": "Hebt die Mining-Geschwindigkeitsreduzierung auf, wenn nicht am Boden",
 
 
 "__comment": "Materialien der Stufe 3",
@@ -1395,7 +1395,7 @@
 "material.tconstruct.bronze": "Bronze",
 "material.tconstruct.bronze.silicon": "Tinker's Bronze",
 "material.tconstruct.bronze.flavor": "Nicht zu verwechseln mit Bronze.",
-"material.tconstruct.bronze.encyclopedia": "Gewährt +10 % bis +15 % Bergbaugeschwindigkeit pro Level bei voller Haltbarkeit, basierend auf anderen Modifikatoren",
+"material.tconstruct.bronze.encyclopedia.melee_harvest": "Gewährt +10 % bis +15 % Bergbaugeschwindigkeit pro Level bei voller Haltbarkeit, basierend auf anderen Modifikatoren",
 
 "material.tconstruct.pig_iron": "Roheisen",
 "material.tconstruct.pig_iron.flavor": "Das absolut beste Material, keine Diskussionen.",
@@ -1408,7 +1408,7 @@
 "__comment": "Tier-Nethermaterialien",
 "material.tconstruct.cobalt": "Kobalt",
 "material.tconstruct.cobalt.flavor": "Coblat. Das Material der Roten Armee.",
-"material.tconstruct.cobalt.encyclopedia": "Erhöht Bergbau- und Angriffsgeschwindigkeit um 7 % pro Stufe",
+"material.tconstruct.cobalt.encyclopedia.melee_harvest": "Erhöht Bergbau- und Angriffsgeschwindigkeit um 7 % pro Stufe",
 
 "material.tconstruct.manyullyn": "Manyullyn",
 "material.tconstruct.manyullyn.flavor": "Das Metall, das die meisten Tüftler nie richtig aussprechen werden. Auch bekannt als Spitzenschneidmaterial.",
@@ -1416,7 +1416,7 @@
 
 "material.tconstruct.hepatizon": "Hepatizon",
 "material.tconstruct.hepatizon.flavor": "He-pa-ti-zon - kochen, pürieren, in einen Eintopf geben.",
-"material.tconstruct.hepatizon.encyclopedia": "Steigert die Mining-Geschwindigkeit um 25 % pro Level nach Mining von 32 aufeinanderfolgenden Blöcken",
+"material.tconstruct.hepatizon.encyclopedia.melee_harvest": "Steigert die Mining-Geschwindigkeit um 25 % pro Level nach Mining von 32 aufeinanderfolgenden Blöcken",
 
 "material.tconstruct.queens_slime": "Schleim der Königin",
 "material.tconstruct.queens_slime.flavor": "Prinzessinnen sind böse, hol dir eine Königin.",
@@ -1437,7 +1437,7 @@
 
 "material.tconstruct.enderslime_vine": "Schleimige Ranke",
 "material.tconstruct.enderslime_vine.flavor": "Das Ende?",
-"material.tconstruct.enderslime_vine.encyclopedia": "Teleportiert den Besitzer zum Ort von abgebauten Blöcken oder getöteten Monstern",
+"material.tconstruct.enderslime_vine.encyclopedia.melee_harvest": "Teleportiert den Besitzer zum Ort von abgebauten Blöcken oder getöteten Monstern",
 
 "__comment": "Slimesuit-Materialien",
 "material.tconstruct.gunpowder": "Schießpulver",
@@ -1497,7 +1497,7 @@
 
 "material.tconstruct.lead": "Blei",
 "material.tconstruct.lead.flavor": "Könnte versuchen, daraus ein Sandwich zu machen.",
-"material.tconstruct.lead.encyclopedia": "Gewährt +10 % Angriffs- und -10 % Bewegungsgeschwindigkeit pro Level",
+"material.tconstruct.lead.encyclopedia.melee_harvest": "Gewährt +10 % Angriffs- und -10 % Bewegungsgeschwindigkeit pro Level",
 
 "material.tconstruct.silver": "Silber",
 "material.tconstruct.silver.flavor": "Weißt du, dieses Werkzeug wird in ein paar Tagen nicht mehr so glänzend aussehen.",
@@ -1505,7 +1505,7 @@
 
 "material.tconstruct.whitestone": "Weißstein",
 "material.tconstruct.whitestone.flavor": "Nimm deine nutzlosen Weißmetalle und stelle ein nützliches Werkzeug her",
-"material.tconstruct.whitestone.encyclopedia": "Der Steinabbau gewährt 20 % pro Stufe +3 Steinschild",
+"material.tconstruct.whitestone.encyclopedia.melee_harvest": "Der Steinabbau gewährt 20 % pro Stufe +3 Steinschild",
 
 
 "__comment": "Tier-3-Integrationsmaterialien",
@@ -1515,7 +1515,7 @@
 
 "material.tconstruct.constantan": "Konstantan",
 "material.tconstruct.constantan.flavor": "Constantantantantantan... Tut mir leid, es macht Spaß, mehr \"tans.\" hinzuzufügen",
-"material.tconstruct.constantan.encyclopedia": "Gewährt +12,5 % Abbaugeschwindigkeit bei extremer Hitze oder Kälte",
+"material.tconstruct.constantan.encyclopedia.melee_harvest": "Gewährt +12,5 % Abbaugeschwindigkeit bei extremer Hitze oder Kälte",
 
 "material.tconstruct.invar": "Invar",
 "material.tconstruct.invar.flavor": "Widersteht sowohl Temperatur als auch Arrest.",

@@ -1356,12 +1356,12 @@
   "material.tconstruct.rock.blackstone": "흑암",
   "material.tconstruct.rock.deepslate":  "심층암",
   "material.tconstruct.rock.flavor": "바위처럼 단단하게!",
-  "material.tconstruct.rock.encyclopedia": "채굴 속도가 감소한 내구도의 제곱근만큼 증가합니다",
+  "material.tconstruct.rock.encyclopedia.melee_harvest": "채굴 속도가 감소한 내구도의 제곱근만큼 증가합니다",
 
   "material.tconstruct.flint": "부싯돌",
   "material.tconstruct.flint.basalt": "현무암",
   "material.tconstruct.flint.flavor": "대장장이의 심장에 불꽃을 튀깁니다!",
-  "material.tconstruct.flint.encyclopedia": "(잃은 내구도 × 특성 레벨의 제곱근 / 4) 만큼 피해량이 증가합니다",
+  "material.tconstruct.flint.encyclopedia.melee_harvest": "(잃은 내구도 × 특성 레벨의 제곱근 / 4) 만큼 피해량이 증가합니다",
 
   "material.tconstruct.bone": "뼈",
   "material.tconstruct.bone.flavor": "이 검은 제 뼈를 갈아 만들었습니다",
@@ -1415,7 +1415,7 @@
   "material.tconstruct.copper": "구리",
   "material.tconstruct.copper.oxidized": "산화된 구리",
   "material.tconstruct.copper.flavor": "일상까지는 변색되지 않도록 하라.",
-  "material.tconstruct.copper.encyclopedia": "낮은 장소에서 채굴 속도가 증가합니다. Y 64아래에서 64 블록당 채굴 속도 +6을 얻습니다",
+  "material.tconstruct.copper.encyclopedia.melee_harvest": "낮은 장소에서 채굴 속도가 증가합니다. Y 64아래에서 64 블록당 채굴 속도 +6을 얻습니다",
   "material.tconstruct.copper.encyclopedia.ranged": "낮은 장소에서 화살 속도가 증가합니다. Y 64아래에서 64 블록당 속도 +0.05를 얻습니다",
   "material.tconstruct.copper.flavor.skull": "숨 넘어가게 해주지!",
   "material.tconstruct.copper.encyclopedia.skull": "근접 공격이 대상의 공기를 3초만큼 훔칩니다.",
@@ -1446,7 +1446,7 @@
 
   "material.tconstruct.skyslime_vine": "슬라임 덩굴",
   "material.tconstruct.skyslime_vine.flavor": "나비처럼 날아서 벌처럼 쏜다",
-  "material.tconstruct.skyslime_vine.encyclopedia": "땅에 서있지 않아도 채굴 속도가 감소하지 않습니다",
+  "material.tconstruct.skyslime_vine.encyclopedia.melee_harvest": "땅에 서있지 않아도 채굴 속도가 감소하지 않습니다",
   "material.tconstruct.skyslime_vine.encyclopedia.ranged": "땅에 서 있지 않을 때 정확도가 +0.5 증가합니다",
 
 
@@ -1460,7 +1460,7 @@
 
   "material.tconstruct.amethyst_bronze": "수정동",
   "material.tconstruct.amethyst_bronze.flavor": "청동과 헷갈리지 마시오",
-  "material.tconstruct.amethyst_bronze.encyclopedia": "도구가 필요 없거나 효과적이지 않은 블록들에 대한 채굴 속도가 (0.5 × 특성 레벨) 증가합니다. ",
+  "material.tconstruct.amethyst_bronze.encyclopedia.melee_harvest": "도구가 필요 없거나 효과적이지 않은 블록들에 대한 채굴 속도가 (0.5 × 특성 레벨) 증가합니다. ",
   "material.tconstruct.amethyst_bronze.encyclopedia.ranged": "화살 속도가 레벨당 +0.1씩 증가하는 대신 발사 각도가 처음 3레벨에서 32, 16, 8방향으로 점점 제한됩니다",
 
   "material.tconstruct.pig_iron": "돼지 선철",
@@ -1479,7 +1479,7 @@
 
   "material.tconstruct.cobalt": "코발트",
   "material.tconstruct.cobalt.flavor": "코밭르, 붉은 군대에서 사용하는 재료입니다.",
-  "material.tconstruct.cobalt.encyclopedia": "공격 속도와 채굴 속도가 (7 × 특성 레벨)% 증가합니다",
+  "material.tconstruct.cobalt.encyclopedia.melee_harvest": "공격 속도와 채굴 속도가 (7 × 특성 레벨)% 증가합니다",
   "material.tconstruct.cobalt.encyclopedia.ranged": "공격 속도와 화살 속도가 (5 × 특성 레벨)% 증가합니다",
 
   "material.tconstruct.manyullyn": "마뉼린",
@@ -1489,7 +1489,7 @@
 
   "material.tconstruct.hepatizon": "헤파티존",
   "material.tconstruct.hepatizon.flavor": "과몰입은 채광할때 좋습니다.",
-  "material.tconstruct.hepatizon.encyclopedia": "연속으로 블록을 32개 채굴하면, 채굴 속도가 (25 × 특성 레벨)% 증가합니다",
+  "material.tconstruct.hepatizon.encyclopedia.melee_harvest": "연속으로 블록을 32개 채굴하면, 채굴 속도가 (25 × 특성 레벨)% 증가합니다",
   "material.tconstruct.hepatizon.encyclopedia.ranged": "연속으로 화살을 16개 쏘면, 공격 속도가 (25 × 특성 레벨)% 증가합니다",
 
   "material.tconstruct.queens_slime": "여왕슬라임",
@@ -1507,13 +1507,13 @@
 
   "material.tconstruct.ancient_hide": "고대 가죽",
   "material.tconstruct.ancient_hide.flavor": "가장 오래된 돌로 담금질한 가죽",
-  "material.tconstruct.ancient_hide.encyclopedia": "블록이 아이템을 떨어뜨릴 확률이 증가합니다. 운과 중첩이 가능합니다",
+  "material.tconstruct.ancient_hide.encyclopedia.melee_harvest": "블록이 아이템을 떨어뜨릴 확률이 증가합니다. 운과 중첩이 가능합니다",
 
   "material.tconstruct.knightslime": "기사슬라임",
 
   "material.tconstruct.enderslime_vine": "슬라임 덩굴",
   "material.tconstruct.enderslime_vine.flavor": "이걸로 끝이야?",
-  "material.tconstruct.enderslime_vine.encyclopedia": "채굴한 블록의 위치나 공격한 몬스터의 위치로 순간이동합니다",
+  "material.tconstruct.enderslime_vine.encyclopedia.melee_harvest": "채굴한 블록의 위치나 공격한 몬스터의 위치로 순간이동합니다",
   "material.tconstruct.enderslime_vine.encyclopedia.ranged": "화살이 꽂힌 블록이나 공격한 몬스터의 위치로 순간이동합니다",
 
   "material.tconstruct.glass": "유리",
@@ -1568,7 +1568,7 @@
 
   "material.tconstruct.lead": "납",
   "material.tconstruct.lead.flavor": "이걸로 샌드위치를 만들어 보세요",
-  "material.tconstruct.lead.encyclopedia": "공격 피해량이 (10 × 특성 레벨)% 증가하고, 이동 속도가 (10 × 특성 레벨)% 감소합니다",
+  "material.tconstruct.lead.encyclopedia.melee_harvest": "공격 피해량이 (10 × 특성 레벨)% 증가하고, 이동 속도가 (10 × 특성 레벨)% 감소합니다",
   "material.tconstruct.lead.encyclopedia.ranged": "화살 피해량이 (10 × 특성 레벨)% 증가하고, 이동 속도가 (10 × 특성 레벨)% 감소합니다",
 
   "material.tconstruct.silver": "은",
@@ -1579,7 +1579,7 @@
   "material.tconstruct.whitestone": "백석",
   "material.tconstruct.whitestone.end": "엔드 돌",
   "material.tconstruct.whitestone.flavor": "쓸모없는 하얀 금속이나 돌로 유용한 도구를 만들어 봅시다",
-  "material.tconstruct.whitestone.encyclopedia": "돌을 채굴할 때 (20 × 특성 레벨)% 확률로 3 돌 방패를 얻습니다",
+  "material.tconstruct.whitestone.encyclopedia.melee_harvest": "돌을 채굴할 때 (20 × 특성 레벨)% 확률로 3 돌 방패를 얻습니다",
 
   "material.tconstruct.aluminum": "알루미늄",
   "material.tconstruct.aluminum.flavor": "화산재에서 가장 흔하게 발견됩니다",
@@ -1593,12 +1593,12 @@
 
   "material.tconstruct.bronze": "청동",
   "material.tconstruct.bronze.flavor": "수정동과 헷갈리지 마세요",
-  "material.tconstruct.bronze.encyclopedia": "최대 내구도일 때 채굴 속도를 6 증가시킵니다.내구도가 절반 이하면 효과가 없어집니다",
+  "material.tconstruct.bronze.encyclopedia.melee_harvest": "최대 내구도일 때 채굴 속도를 6 증가시킵니다.내구도가 절반 이하면 효과가 없어집니다",
   "material.tconstruct.bronze.encyclopedia.ranged": "최대 내구도일 때 화살 속도를 0.05 증가시킵니다.내구도가 절반 이하면 효과가 없어집니다",
 
   "material.tconstruct.constantan": "콘스탄탄",
   "material.tconstruct.constantan.flavor": "콘스탄탄탄탄탄탄탄... 죄송합니다. \"탄\"을 붙이는 게 재미있네요",
-  "material.tconstruct.constantan.encyclopedia": "극한의 추위에서 7.5 채굴 속도를 얻고, 극한의 더위에서 2배로 단단해집니다",
+  "material.tconstruct.constantan.encyclopedia.melee_harvest": "극한의 추위에서 7.5 채굴 속도를 얻고, 극한의 더위에서 2배로 단단해집니다",
   "material.tconstruct.constantan.encyclopedia.ranged": "극한의 추위에서 0.15 화살 속도를 얻고, 극한의 더위에서 2배로 단단해집니다",
 
   "material.tconstruct.invar": "인바",

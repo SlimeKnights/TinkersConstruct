@@ -1332,12 +1332,12 @@
   "material.tconstruct.rock.blackstone": "Blackstone",
   "material.tconstruct.rock.deepslate":  "Deepslate",
   "material.tconstruct.rock.flavor": "Rock solid",
-  "material.tconstruct.rock.encyclopedia": "Causes the tool to mine faster by half of the square root of lost durability",
+  "material.tconstruct.rock.encyclopedia.melee_harvest": "Causes the tool to mine faster by half of the square root of lost durability",
 
   "material.tconstruct.flint": "Flint",
   "material.tconstruct.flint.basalt": "Basalt",
   "material.tconstruct.flint.flavor": "This will spark the flames of a Tinker's heart!",
-  "material.tconstruct.flint.encyclopedia": "Increases damage by a quarter of the square root of the lost durability",
+  "material.tconstruct.flint.encyclopedia.melee_harvest": "Increases damage by a quarter of the square root of the lost durability",
 
   "material.tconstruct.bone": "Bone",
   "material.tconstruct.bone.flavor": "I am the bone of my sword",
@@ -1381,7 +1381,7 @@
 
   "material.tconstruct.copper": "Copper",
   "material.tconstruct.copper.flavor": "Don't let this tarnish your day.",
-  "material.tconstruct.copper.encyclopedia": "Grants mining speed at lower depth, +6 per 64 blocks below 64",
+  "material.tconstruct.copper.encyclopedia.melee_harvest": "Grants mining speed at lower depth, +6 per 64 blocks below 64",
   "material.tconstruct.copper.flavor.skull": "Knocks the wind right out of them",
   "material.tconstruct.copper.encyclopedia.skull": "Melee attacks steal 3 seconds of air from the target",
 
@@ -1410,7 +1410,7 @@
 
   "material.tconstruct.skyslime_vine": "Slimy Vine",
   "material.tconstruct.skyslime_vine.flavor": "Float like a butterfly, sting like a bee.",
-  "material.tconstruct.skyslime_vine.encyclopedia": "Cancels out the mining speed reduction when not on the ground",
+  "material.tconstruct.skyslime_vine.encyclopedia.melee_harvest": "Cancels out the mining speed reduction when not on the ground",
 
 
   "__comment": "Tier 3 Materials",
@@ -1424,7 +1424,7 @@
 
   "material.tconstruct.amethyst_bronze": "Amethyst Bronze",
   "material.tconstruct.amethyst_bronze.flavor": "Not to be confused with bronze.",
-  "material.tconstruct.amethyst_bronze.encyclopedia": "Grants +0.25 mining speed per level to blocks that don't require tools, even ones where the tool is not effective",
+  "material.tconstruct.amethyst_bronze.encyclopedia.melee_harvest": "Grants +0.25 mining speed per level to blocks that don't require tools, even ones where the tool is not effective",
 
   "material.tconstruct.pig_iron": "Pig Iron",
   "material.tconstruct.pig_iron.flavor": "The absolute best material, no debates.",
@@ -1440,7 +1440,7 @@
   "__comment": "Tier Nether Materials",
   "material.tconstruct.cobalt": "Cobalt",
   "material.tconstruct.cobalt.flavor": "Coblat. The material of the Red Army.",
-  "material.tconstruct.cobalt.encyclopedia": "Boosts mining and attack speed by 7% per level",
+  "material.tconstruct.cobalt.encyclopedia.melee_harvest": "Boosts mining and attack speed by 7% per level",
 
   "material.tconstruct.manyullyn": "Manyullyn",
   "material.tconstruct.manyullyn.flavor": "The metal that most Tinkers will never pronounce right. Also known as a star cutting material.",
@@ -1448,7 +1448,7 @@
 
   "material.tconstruct.hepatizon": "Hepatizon",
   "material.tconstruct.hepatizon.flavor": "He-pa-ti-zon - boil it, mash it, put it in a stew.",
-  "material.tconstruct.hepatizon.encyclopedia": "Boosts mining speed by 25% per level after mining 32 consecutive blocks",
+  "material.tconstruct.hepatizon.encyclopedia.melee_harvest": "Boosts mining speed by 25% per level after mining 32 consecutive blocks",
 
   "material.tconstruct.queens_slime": "Queen's Slime",
   "material.tconstruct.queens_slime.flavor": "Princesses are evil, get yourself a Queen.",
@@ -1464,7 +1464,7 @@
 
   "material.tconstruct.ancient_hide": "Ancient Hide",
   "material.tconstruct.ancient_hide.flavor": "Leather tanned by the oldest of stone",
-  "material.tconstruct.ancient_hide.encyclopedia": "Increases drop chances from blocks, stacking with luck",
+  "material.tconstruct.ancient_hide.encyclopedia.melee_harvest": "Increases drop chances from blocks, stacking with luck",
 
   "__comment": "Tier End Materials",
   "material.tconstruct.endstone": "End",
@@ -1472,7 +1472,7 @@
 
   "material.tconstruct.enderslime_vine": "Slimy Vine",
   "material.tconstruct.enderslime_vine.flavor": "The End?",
-  "material.tconstruct.enderslime_vine.encyclopedia": "Teleports the holder to the location of mined blocks or killed monsters",
+  "material.tconstruct.enderslime_vine.encyclopedia.melee_harvest": "Teleports the holder to the location of mined blocks or killed monsters",
 
   "__comment": "Slimesuit materials",
   "material.tconstruct.gunpowder": "Gunpowder",
@@ -1536,7 +1536,7 @@
 
   "material.tconstruct.lead": "Lead",
   "material.tconstruct.lead.flavor": "Could try and make a sandwich out of this.",
-  "material.tconstruct.lead.encyclopedia": "Grants +10% attack and -10% movement speed per level",
+  "material.tconstruct.lead.encyclopedia.melee_harvest": "Grants +10% attack and -10% movement speed per level",
 
   "material.tconstruct.silver": "Silver",
   "material.tconstruct.silver.flavor": "You know, this tool isn't going to look so shiny in a few days.",
@@ -1544,7 +1544,7 @@
 
   "material.tconstruct.whitestone": "Whitestone",
   "material.tconstruct.whitestone.flavor": "Take your useless white metals and make a useful tool",
-  "material.tconstruct.whitestone.encyclopedia": "Mining stone has a 20% per level of granting +3 stoneshield",
+  "material.tconstruct.whitestone.encyclopedia.melee_harvest": "Mining stone has a 20% per level of granting +3 stoneshield",
 
 
   "__comment": "Tier 3 Integration Materials",
@@ -1554,11 +1554,11 @@
 
   "material.tconstruct.bronze": "Bronze",
   "material.tconstruct.bronze.flavor": "Not to be confused with amethyst bronze.",
-  "material.tconstruct.bronze.encyclopedia": "Grants +6 mining speed per level at full durability, 0 boost below 50% durability",
+  "material.tconstruct.bronze.encyclopedia.melee_harvest": "Grants +6 mining speed per level at full durability, 0 boost below 50% durability",
 
   "material.tconstruct.constantan": "Constantan",
   "material.tconstruct.constantan.flavor": "Constantantantantantantan... Sorry it's fun to add more \"tans.\"",
-  "material.tconstruct.constantan.encyclopedia": "Grants +7.5 mining speed in extreme heat or cold",
+  "material.tconstruct.constantan.encyclopedia.melee_harvest": "Grants +7.5 mining speed in extreme heat or cold",
 
   "material.tconstruct.invar": "Invar",
   "material.tconstruct.invar.flavor": "Resists both temperature and arrest.",

@@ -1665,12 +1665,12 @@
 "material.tconstruct.rock.blackstone": "Pedra-Negra",
 "material.tconstruct.rock.deepslate": "Ardósia",
 "material.tconstruct.rock.flavor": "Duro feito pedra",
-"material.tconstruct.rock.encyclopedia": "Faz com que a ferramenta minere mais rápido que a metade da raiz quadrada do nível do traço vezes a durabilidade perdida",
+"material.tconstruct.rock.encyclopedia.melee_harvest": "Faz com que a ferramenta minere mais rápido que a metade da raiz quadrada do nível do traço vezes a durabilidade perdida",
 
 "material.tconstruct.flint": "Sílex",
 "material.tconstruct.flint.basalt": "Basalto",
 "material.tconstruct.flint.flavor": "Isso vai acender as chamas do coração de um Tinkereiro!",
-"material.tconstruct.flint.encyclopedia": "Aumenta o dano em um quarto da raiz quadrada do nível do traço vezes a durabilidade perdida",
+"material.tconstruct.flint.encyclopedia.melee_harvest": "Aumenta o dano em um quarto da raiz quadrada do nível do traço vezes a durabilidade perdida",
 
 "material.tconstruct.bone": "Osso",
 "material.tconstruct.bone.flavor": "Eu pOSSO usar isso?!",
@@ -1731,7 +1731,7 @@
 "material.tconstruct.copper": "Cobre",
 "material.tconstruct.copper.oxidized": "Cobre Oxidado",
 "material.tconstruct.copper.flavor": "Está frio, venha e se cobre comigo.",
-"material.tconstruct.copper.encyclopedia": "Concede bônus de velocidade de mineração em profundidades menores, +6 por 64 blocos abaixo de 64",
+"material.tconstruct.copper.encyclopedia.melee_harvest": "Concede bônus de velocidade de mineração em profundidades menores, +6 por 64 blocos abaixo de 64",
 "material.tconstruct.copper.encyclopedia.ranged": "Concede bônus de velocidade em profundidades menores, +0,05 por 64 blocos abaixo de 64",
 "material.tconstruct.copper.encyclopedia.armor": "Concede bônus de proteção em profundidades menores, +5% por 64 blocos abaixo de 64",
 "material.tconstruct.copper.flavor.skull": "Isso é de tirar o fôlego",
@@ -1763,7 +1763,7 @@
 
 "material.tconstruct.skyslime_vine": "Trepadeira de Slime-do-Céu",
 "material.tconstruct.skyslime_vine.flavor": "Uma trepada grudenta, mas que te leva ao céu",
-"material.tconstruct.skyslime_vine.encyclopedia": "Cancela a redução de velocidade de mineração quando não está no chão",
+"material.tconstruct.skyslime_vine.encyclopedia.melee_harvest": "Cancela a redução de velocidade de mineração quando não está no chão",
 "material.tconstruct.skyslime_vine.encyclopedia.ranged": "Concede +0,5 de precisão quando não está no chão ou em uma escada de mão",
 "material.tconstruct.skyslime_vine.encyclopedia.armor": "Reduz a gravidade em 20% por peça",
 
@@ -1775,7 +1775,7 @@
 
 "material.tconstruct.twisting_vine": "Trepadeira Retorcida",
 "material.tconstruct.twisting_vine.flavor": "Coma os esporos!",
-"material.tconstruct.twisting_vine.encyclopedia": "Concede +6 de velocidade de mineração ao custo de sofrer 1 de dano ao guardar a ferramenta.",
+"material.tconstruct.twisting_vine.encyclopedia.melee_harvest": "Concede +6 de velocidade de mineração ao custo de sofrer 1 de dano ao guardar a ferramenta.",
 "material.tconstruct.twisting_vine.encyclopedia.ranged": "Concede +15% de velocidade de disparo ao custo de sofrer 1 de dano ao guardar a ferramenta.",
 "material.tconstruct.twisting_vine.encyclopedia.armor": "Concede +15% de resistência à repulsão ao custo de sofrer 2 de dano ao remover a armadura.",
 
@@ -1792,7 +1792,7 @@
 
 "material.tconstruct.amethyst_bronze": "Bronze de Ametista",
 "material.tconstruct.amethyst_bronze.flavor": "Não deve ser confundido com bronze.",
-"material.tconstruct.amethyst_bronze.encyclopedia": "Concede +1 de velocidade de mineração por nível para blocos que não requerem ferramentas, principalmente aqueles em que a ferramenta não é eficaz",
+"material.tconstruct.amethyst_bronze.encyclopedia.melee_harvest": "Concede +1 de velocidade de mineração por nível para blocos que não requerem ferramentas, principalmente aqueles em que a ferramenta não é eficaz",
 "material.tconstruct.amethyst_bronze.encyclopedia.ranged": "Adiciona +0,1 de velocidade por nível ao custo de limitar os ângulos das flechas a 32, 16 ou 8 direções nos primeiros 3 níveis, respectivamente",
 "material.tconstruct.amethyst_bronze.encyclopedia.armor": "Concede +2,5% de velocidade de ataque por nível ao custo de limitar os ângulos de recuo sofrido a 32, 16, 8 ou 4 direções",
 
@@ -1814,7 +1814,7 @@
 "__comment": "Tier Nether Materials",
 "material.tconstruct.cobalt": "Cobalto",
 "material.tconstruct.cobalt.flavor": "Cobalto. O material do Exército Vermelho.",
-"material.tconstruct.cobalt.encyclopedia": "Aumenta a velocidade de mineração e ataque em 7% por nível",
+"material.tconstruct.cobalt.encyclopedia.melee_harvest": "Aumenta a velocidade de mineração e ataque em 7% por nível",
 "material.tconstruct.cobalt.encyclopedia.ranged": "Aumenta a velocidade de puxada e velocidade em 5% por nível",
 "material.tconstruct.cobalt.encyclopedia.armor": "Reduz o dano de ataques corpo a corpo em 10% por nível e aumenta a velocidade de movimento ao usar itens em 5% por nível máximo",
 
@@ -1826,7 +1826,7 @@
 
 "material.tconstruct.hepatizon": "Hepatizão",
 "material.tconstruct.hepatizon.flavor": "He-pa-ti-zão - ferva, amasse, coloque em um ensopado.",
-"material.tconstruct.hepatizon.encyclopedia": "Aumenta a velocidade de mineração em até 25% por nível, aumentando linearmente ao minerar 32 blocos consecutivos",
+"material.tconstruct.hepatizon.encyclopedia.melee_harvest": "Aumenta a velocidade de mineração em até 25% por nível, aumentando linearmente ao minerar 32 blocos consecutivos",
 "material.tconstruct.hepatizon.encyclopedia.ranged": "Aumenta a velocidade de puxada em até 25% por nível, aumentando linearmente ao disparar 16 flechas consecutivas",
 "material.tconstruct.hepatizon.encyclopedia.armor": "Converte 50% do dano recebido em uma redução temporária de dano fixo. A redução dura 5 segundos por nível.",
 
@@ -1847,22 +1847,21 @@
 
 "material.tconstruct.blazewood": "Madeira de Blaze",
 "material.tconstruct.blazewood.flavor": "A chama protege a chama",
-"material.tconstruct.blazewood.encyclopedia": "Concede +0,5% de proteção contra dano não de fogo por segundo de fogo, até +7,5% dos 15 segundos de lava. Bônus reduzido por resistência ao fogo.",
+"material.tconstruct.blazewood.encyclopedia.armor": "Concede +0,5% de proteção contra dano não de fogo por segundo de fogo, até +7,5% dos 15 segundos de lava. Bônus reduzido por resistência ao fogo.",
 
 "material.tconstruct.soulsteel": "Aço-de-Alma",
 
 "material.tconstruct.ancient_hide": "Couro Antigo",
 "material.tconstruct.ancient_hide.flavor": "Primeiro couro usado pelo próprio Ei Nerd!",
-"material.tconstruct.ancient_hide.encyclopedia": "Aumenta as chances de drop de blocos, acumulando com sorte",
-"material.tconstruct.ancient_hide.encyclopedia.ranged": "Concede um slot de defesa extra",
-"material.tconstruct.ancient_hide.encyclopedia.armor": "Concede um slot de defesa extra",
+"material.tconstruct.ancient_hide.encyclopedia": "Concede um slot de defesa extra",
+"material.tconstruct.ancient_hide.encyclopedia.melee_harvest": "Aumenta as chances de drop de blocos, acumulando com sorte",
 
 "__comment": "Tier End Materials",
 "material.tconstruct.knightslime": "Slime-Cavaleiro",
 
 "material.tconstruct.enderslime_vine": "Trepadeira de Slime-do-Ender",
 "material.tconstruct.enderslime_vine.flavor": "No final é só trepar o que importa?",
-"material.tconstruct.enderslime_vine.encyclopedia": "Teleporta o portador para o local de blocos minerados ou troca o portador com monstros atacados",
+"material.tconstruct.enderslime_vine.encyclopedia.melee_harvest": "Teleporta o portador para o local de blocos minerados ou troca o portador com monstros atacados",
 "material.tconstruct.enderslime_vine.encyclopedia.ranged": "Teleporta o portador para o local das flechas que acertam blocos ou troca o portador com monstros atingidos por flechas",
 "material.tconstruct.enderslime_vine.encyclopedia.armor": "Tem 25% de chance, por peça, de teletransportar aleatoriamente quem o atacar para longe",
 
@@ -1890,7 +1889,7 @@
 "material.tconstruct.obsidian.encyclopedia.armor": "Concede 10% de proteção por nível contra explosões e reduz a repulsão de explosões",
 "material.tconstruct.ancient": "Ancestral",
 "material.tconstruct.ancient.flavor": "Eles não fazem mais como antigamente.",
-"material.tconstruct.ancient.encyclopedia": "Cada nível concede +1 slot de habilidade ao custo de -10% de velocidade de ataque, -10% de velocidade de mineração e +10% de gravidade.",
+"material.tconstruct.ancient.encyclopedia.melee_harvest": "Cada nível concede +1 slot de habilidade ao custo de -10% de velocidade de ataque, -10% de velocidade de mineração e +10% de gravidade.",
 "material.tconstruct.ancient.encyclopedia.ranged": "Cada nível concede +1 slot de habilidade ao custo de -10% de velocidade de puxada e +10% de gravidade.",
 "material.tconstruct.ancient.encyclopedia.armor": "Cada nível concede +1 slot de habilidade ao custo de +10% de gravidade, e -10% de velocidade de movimento ou -10% de velocidade de ataque em escudos.",
 "material.tconstruct.netherite": "Netherita",
@@ -1930,7 +1929,7 @@
 
 "material.tconstruct.lead": "Chumbo",
 "material.tconstruct.lead.flavor": "É o que você vai levar se mexer com casada.",
-"material.tconstruct.lead.encyclopedia": "Concede +15% de ataque, -10% de velocidade de movimento e +5% de gravidade por nível",
+"material.tconstruct.lead.encyclopedia.melee_harvest": "Concede +15% de ataque, -10% de velocidade de movimento e +5% de gravidade por nível",
 "material.tconstruct.lead.encyclopedia.ranged": "Concede +10% de poder de projétil, -10% de velocidade de movimento e +5% de gravidade por nível",
 "material.tconstruct.lead.encyclopedia.armor": "Concede +15% de resistência à repulsão, -10% de velocidade de movimento e +5% de gravidade por nível",
 
@@ -1945,7 +1944,7 @@
 "material.tconstruct.whitestone.tin": "Pedra Branca",
 "material.tconstruct.whitestone.zinc": "Pedra Branca",
 "material.tconstruct.whitestone.flavor": "Pegue seus metais brancos ou rochas inúteis e faça uma ferramenta útil",
-"material.tconstruct.whitestone.encyclopedia": "Mineração de pedra tem 20% de chance, por nível, de conceder +3 de escudo de pedra",
+"material.tconstruct.whitestone.encyclopedia.melee_harvest": "Mineração de pedra tem 20% de chance, por nível, de conceder +3 de escudo de pedra",
 
 "material.tconstruct.aluminum": "Alumínio",
 "material.tconstruct.aluminum.flavor": "Não é pra colocar na cabeça! Para com isso!.",
@@ -1966,13 +1965,13 @@
 
 "material.tconstruct.bronze": "Bronze",
 "material.tconstruct.bronze.flavor": "Não deve ser confundido com bronze de ametista.",
-"material.tconstruct.bronze.encyclopedia": "Concede +6 de velocidade de mineração por nível com durabilidade total, 0 de aumento abaixo de 50% de durabilidade",
+"material.tconstruct.bronze.encyclopedia.melee_harvest": "Concede +6 de velocidade de mineração por nível com durabilidade total, 0 de aumento abaixo de 50% de durabilidade",
 "material.tconstruct.bronze.encyclopedia.ranged": "Concede +0,05 de velocidade por nível com durabilidade total, 0 de aumento abaixo de 50% de durabilidade",
 "material.tconstruct.bronze.encyclopedia.armor": "Aumenta a resistência em 2 por nível quando em durabilidade total, mas o aumento cai para 0 abaixo de 50% de durabilidade",
 
 "material.tconstruct.constantan": "Constantan",
 "material.tconstruct.constantan.flavor": "Vem Constantan, Mexe o Constantantantantan... Desculpe, esses \"tan\" me lembrou uma música",
-"material.tconstruct.constantan.encyclopedia": "Concede +7,5 de velocidade de mineração em frio extremo e duplamente reforçado em calor extremo",
+"material.tconstruct.constantan.encyclopedia.melee_harvest": "Concede +7,5 de velocidade de mineração em frio extremo e duplamente reforçado em calor extremo",
 "material.tconstruct.constantan.encyclopedia.ranged": "Concede +0,15 de velocidade em frio extremo e duplamente reforçado em calor extremo",
 "material.tconstruct.constantan.encyclopedia.armor": "Concede 5% de proteção em frio extremo e duplamente reforçado em calor extremo",
 

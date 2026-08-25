@@ -1842,13 +1842,13 @@
   "material.tconstruct.rock.blackstone": "黑石",
   "material.tconstruct.rock.calcite": "方解石",
   "material.tconstruct.rock.flavor": "保证坚如磐石",
-  "material.tconstruct.rock.encyclopedia": "每级使挖掘速度额外增加已损失耐久度与工具耐久系数之比的平方根的1%。",
+  "material.tconstruct.rock.encyclopedia.melee_harvest": "每级使挖掘速度额外增加已损失耐久度与工具耐久系数之比的平方根的1%。",
 
   "material.tconstruct.flint": "燧石",
   "material.tconstruct.flint.basalt": "玄武岩",
   "material.tconstruct.flint.deepslate": "深板岩",
   "material.tconstruct.flint.flavor": "点燃你滚烫的工匠之心！",
-  "material.tconstruct.flint.encyclopedia": "每级使近战伤害额外增加已损失耐久度与工具耐久系数之比的平方根的0.5%。",
+  "material.tconstruct.flint.encyclopedia.melee_harvest": "每级使近战伤害额外增加已损失耐久度与工具耐久系数之比的平方根的0.5%。",
   "material.tconstruct.flint.encyclopedia.ammo": "可向弹药类工具浇注药水。令其在造成伤害的同时施加药水效果。",
 
   "material.tconstruct.bone": "骨头",
@@ -1927,7 +1927,7 @@
   "material.tconstruct.copper": "铜",
   "material.tconstruct.copper.oxidized": "氧化铜",
   "material.tconstruct.copper.flavor": "不要被铜“锈”到了。",
-  "material.tconstruct.copper.encyclopedia": "在低海拔处额外增加挖掘速度，每低于海平面64格，挖掘速度+6。",
+  "material.tconstruct.copper.encyclopedia.melee_harvest": "在低海拔处额外增加挖掘速度，每低于海平面64格，挖掘速度+6。",
   "material.tconstruct.copper.encyclopedia.ranged": "在低海拔处额外增加箭矢初速度，每低于海平面64格，箭矢初速度+0.05。",
   "material.tconstruct.copper.encyclopedia.armor": "在低海拔处额外增加保护属性，每低于海平面64格，保护+5%。",
   "material.tconstruct.copper.skull": "溺尸",
@@ -1971,7 +1971,7 @@
   "material.tconstruct.skyslime_vine": "黏液藤蔓",
   "material.tconstruct.skyslime_vine.slimeskin": "黏液皮",
   "material.tconstruct.skyslime_vine.flavor": "掠翅若蝶，蛰刺似蜂。",
-  "material.tconstruct.skyslime_vine.encyclopedia": "离开地面时，不再受到挖掘速度削减惩罚。",
+  "material.tconstruct.skyslime_vine.encyclopedia.melee_harvest": "离开地面时，不再受到挖掘速度削减惩罚。",
   "material.tconstruct.skyslime_vine.encyclopedia.ranged": "离开地面或攀附梯子时，让工具的箭矢初速度+0.1。",
   "material.tconstruct.skyslime_vine.encyclopedia.armor": "每件盔甲使重力减少15%。",
   "material.tconstruct.skyslime_vine.encyclopedia.laces": "第一级增加0.5格跳跃高度，第二级增加1格跳跃高度。每级增加1格安全摔落高度。",
@@ -1985,7 +1985,7 @@
 
   "material.tconstruct.twisting_vine": "缠怨藤",
   "material.tconstruct.twisting_vine.flavor": "吞食孢子！",
-  "material.tconstruct.twisting_vine.encyclopedia": "工具获得+6挖掘速度；代价是每次放下工具时流失1点生命值。",
+  "material.tconstruct.twisting_vine.encyclopedia.melee_harvest": "工具获得+6挖掘速度；代价是每次放下工具时流失1点生命值。",
   "material.tconstruct.twisting_vine.encyclopedia.ranged": "工具获得+15%拉弓速度；代价是每次放下工具时流失1点生命值。",
   "material.tconstruct.twisting_vine.encyclopedia.armor": "盔甲获得+10%击退抗性；代价是每次卸下盔甲时流失2点生命值。",
   "material.tconstruct.twisting_vine.encyclopedia.laces": "每级增加15%移动速度，代价是每次卸下盔甲时流失2点生命值。",
@@ -2106,7 +2106,7 @@
 
   "material.tconstruct.amethyst_bronze": "紫水晶青铜",
   "material.tconstruct.amethyst_bronze.flavor": "别和青铜搞混了。",
-  "material.tconstruct.amethyst_bronze.encyclopedia": "挖掘不需要工具采集的方块，尤其是与当前工具类型不匹配的方块时，每级使 工具的挖掘速度+1。",
+  "material.tconstruct.amethyst_bronze.encyclopedia.melee_harvest": "挖掘不需要工具采集的方块，尤其是与当前工具类型不匹配的方块时，每级使 工具的挖掘速度+1。",
   "material.tconstruct.amethyst_bronze.encyclopedia.ranged": "每级使箭矢初速度+0.1；代价是箭矢只能以固定角度出射， 前三级分别使得 出射方向限定为32、16、8向。",
   "material.tconstruct.amethyst_bronze.encyclopedia.armor": "每级使攻击速度+5%；代价是负面效果持续时间延长5%，且只能以固定角度 被击退，前四级分别将方向限定为32、 16、8、4向。",
 
@@ -2131,7 +2131,7 @@
   "__comment": "Tier Nether Materials",
   "material.tconstruct.cobalt": "钴",
   "material.tconstruct.cobalt.flavor": "雄关漫道真如钴，而今回首从头迈。",
-  "material.tconstruct.cobalt.encyclopedia": "每级使攻击速度和挖掘速度+8%。",
+  "material.tconstruct.cobalt.encyclopedia.melee_harvest": "每级使攻击速度和挖掘速度+8%。",
   "material.tconstruct.cobalt.encyclopedia.ranged": "每级使拉弓速度和初速度+0.03。",
   "material.tconstruct.cobalt.encyclopedia.armor": "每级使受到的近战伤害-8%；使用物品的时候，按等级最高的盔甲，每级使移动 速度+5%。",
 
@@ -2163,13 +2163,13 @@
 
   "material.tconstruct.hepatizon": "黑色科林斯青铜",
   "material.tconstruct.hepatizon.flavor": "-科什么斯啊？  -科林斯啊。\n-什么林斯啊？  -科林斯啊！\n-科林什么啊？  -行了你先歇着吧。",
-  "material.tconstruct.hepatizon.encyclopedia": "每连续挖掘的1个方块使挖掘速度+2.5%×等级；连续挖掘10个方块后，挖掘速度 加成达到上限为+25%×等级。",
+  "material.tconstruct.hepatizon.encyclopedia.melee_harvest": "每连续挖掘的1个方块使挖掘速度+2.5%×等级；连续挖掘10个方块后，挖掘速度 加成达到上限为+25%×等级。",
   "material.tconstruct.hepatizon.encyclopedia.ranged": "每发射1枚箭矢，拉弓速度+2.5%×等级，连续发射10枚箭矢后，拉弓速度加成至 上限为+25%×等级。",
   "material.tconstruct.hepatizon.encyclopedia.armor": "受到伤害后，令当次伤害的50%转换为临时的固定数值减伤。每级使得减伤 增益持续时间延长5秒。",
 
   "material.tconstruct.ichorskin": "灵浆皮",
   "material.tconstruct.ichorskin.flavor": "灵浆显然没有外皮。",
-  "material.tconstruct.ichorskin.encyclopedia": "移动速度+5%，攻击速度+2.5%，挖掘速度+7.5%。",
+  "material.tconstruct.ichorskin.encyclopedia.armor": "移动速度+5%，攻击速度+2.5%，挖掘速度+7.5%。",
 
   "material.tconstruct.cinderslime": "余烬黏液",
   "material.tconstruct.cinderslime.flavor": "把它丢进烈焰中！",
@@ -2189,7 +2189,7 @@
 
   "material.tconstruct.blazewood": "烈焰木",
   "material.tconstruct.blazewood.flavor": "薪火相传，生生不息",
-  "material.tconstruct.blazewood.encyclopedia": "使攻击者获得10秒发光；成功格挡则改为20秒。",
+  "material.tconstruct.blazewood.encyclopedia.armor": "使攻击者获得10秒发光；成功格挡则改为20秒。",
   "material.tconstruct.blazewood.encyclopedia.ammo": "使目标发光，持续10秒。若击中方块，则消耗弹射物在落点处放置一个永久 的光源。",
 
   "material.tconstruct.ichor": "灵浆",
@@ -2213,20 +2213,19 @@
 
   "material.tconstruct.jeweled_hide": "宝钻皮革",
   "material.tconstruct.jeweled_hide.flavor": "用最纯粹的宝石鞣制的皮革。",
-  "material.tconstruct.jeweled_hide.encyclopedia": "增加方块掉落物的掉落概率，与“幸运”效果叠加。",
+  "material.tconstruct.jeweled_hide.encyclopedia.melee_harvest": "增加方块掉落物的掉落概率，与“幸运”效果叠加。",
   "material.tconstruct.jeweled_hide.encyclopedia.ranged": "增加钓鱼的宝藏概率，与“幸运”效果叠加。",
   "material.tconstruct.jeweled_hide.encyclopedia.armor": "最大生命值增加一颗心。加持在盾牌上后，举盾时立即回复生命值，但卸下时 会受到一颗心的伤害",
   "material.tconstruct.jeweled_hide.encyclopedia.laces": "提升挖掘方块时的“幸运”等级；第二级对怪物掉落的“抢夺”也生效。",
 
   "material.tconstruct.ancient_hide": "远古兽皮",
   "material.tconstruct.ancient_hide.flavor": "用最古老的石头鞣制的皮革。",
-  "material.tconstruct.ancient_hide.encyclopedia": "增加方块掉落物的掉落概率，与“幸运”效果叠加。",
-  "material.tconstruct.ancient_hide.encyclopedia.ranged": "增加1个额外的防御槽。",
-  "material.tconstruct.ancient_hide.encyclopedia.armor": "增加1个额外的防御槽。",
+  "material.tconstruct.ancient_hide.encyclopedia": "增加1个额外的防御槽。",
+  "material.tconstruct.ancient_hide.encyclopedia.melee_harvest": "增加方块掉落物的掉落概率，与“幸运”效果叠加。",
 
   "material.tconstruct.ancient": "远古",
   "material.tconstruct.ancient.flavor": "如今之物，不复旧时之质",
-  "material.tconstruct.ancient.encyclopedia": "通过战镐、喷流刃、战斗牌子或猪灵以物易物机制获得。每级能力槽+1，但使 攻击速度和挖掘速度-10%，重力+10%。",
+  "material.tconstruct.ancient.encyclopedia.melee_harvest": "通过战镐、喷流刃、战斗牌子或猪灵以物易物机制获得。每级能力槽+1，但使 攻击速度和挖掘速度-10%，重力+10%。",
   "material.tconstruct.ancient.encyclopedia.ranged": "通过熔炼锅、战镐或猪灵以物易物机制获得。每级能力槽+1，但拉弓速度-10%，重力+10%。",
   "material.tconstruct.ancient.encyclopedia.armor": "通过堡垒遗迹内镶板盔甲、战斗牌子、熔炼锅或猪灵以物易物机制获得。每级 能力槽+1，但重力+10%，移动速度-10%； 对于盾牌，攻击速度-10%。",
 
@@ -2254,14 +2253,14 @@
 
   "material.tconstruct.knightslime": "骑士史莱姆",
   "material.tconstruct.knightslime.flavor": "黏液？金属？还是石头？何等奇妙的材料！",
-  "material.tconstruct.knightslime.encyclopedia": "每级消耗1点黏液覆层（用宽型工具挖掘时改为消耗5点），获得+20%挖掘速 度和+15%攻击速度。",
+  "material.tconstruct.knightslime.encyclopedia.melee_harvest": "每级消耗1点黏液覆层（用宽型工具挖掘时改为消耗5点），获得+20%挖掘速 度和+15%攻击速度。",
   "material.tconstruct.knightslime.encyclopedia.ranged": "每级消耗1点黏液覆层，获得+0.06点箭矢初速度和拉弓速度。",
   "material.tconstruct.knightslime.encyclopedia.armor": "消耗最多2点黏液覆层，每消耗1点，令受到的伤害减少2.5%（上限5%）。",
 
   "material.tconstruct.enderslime_vine": "黏液藤蔓",
   "material.tconstruct.enderslime_vine.slimeskin": "黏液皮",
   "material.tconstruct.enderslime_vine.flavor": "结束了？",
-  "material.tconstruct.enderslime_vine.encyclopedia": "将持有者传送到挖掉的方块处，或交换持有者与被击中生物的位置。",
+  "material.tconstruct.enderslime_vine.encyclopedia.melee_harvest": "将持有者传送到挖掉的方块处，或交换持有者与被击中生物的位置。",
   "material.tconstruct.enderslime_vine.encyclopedia.ranged": "将持有者传送到击中方块的箭矢处，或交换持有者与被命中生物的位置。",
   "material.tconstruct.enderslime_vine.encyclopedia.armor": "每件装备增加25%概率，触发时让攻击者随机传送走。",
   "material.tconstruct.enderslime_vine.encyclopedia.laces": "每级增加25%概率，触发时让攻击者随机传送走。",
@@ -2275,11 +2274,11 @@
   "__comment": "Slimesuit materials",
 
   "material.tconstruct.clay": "黏土",
-  "material.tconstruct.clay.flavor.slime": "全天然！",
+  "material.tconstruct.clay.flavor": "全天然！",
   "material.tconstruct.clay.encyclopedia.slime": "每级获得+1护甲值。",
 
   "material.tconstruct.honey": "蜂蜜",
-  "material.tconstruct.honey.flavor.slime": "超甜！",
+  "material.tconstruct.honey.flavor": "超甜！",
   "material.tconstruct.honey.encyclopedia.slime": "每级有15%概率可以食用盔甲。食用后，消耗耐久度并回复等同于等级数的饥饿 值与固定0.6点饱和度，并移除中毒效果。",
 
   "material.tconstruct.phantom": "幻翼膜",
@@ -2313,7 +2312,7 @@
 
   "material.tconstruct.lead": "铅",
   "material.tconstruct.lead.flavor": "有人想吃铅弹三明治了。",
-  "material.tconstruct.lead.encyclopedia": "每级使工具的挖掘速度+15%，击退抗性 +10%；但移动速度-10%，重力+5%。",
+  "material.tconstruct.lead.encyclopedia.melee_harvest": "每级使工具的挖掘速度+15%，击退抗性 +10%；但移动速度-10%，重力+5%。",
   "material.tconstruct.lead.encyclopedia.ranged": "每级使发射的弹射物精确度+10%，击退抗性+10%；但移动速度-10%，重力+5%。",
   "material.tconstruct.lead.encyclopedia.armor": "每级使盔甲的击退抗性+15%；但移动速度-10%，重力+5%。",
 
@@ -2329,7 +2328,7 @@
   "material.tconstruct.whitestone.tin": "白石",
   "material.tconstruct.whitestone.zinc": "白石",
   "material.tconstruct.whitestone.flavor": "拿上你那些毫无用处的白色金属和石头，做个有用的工具吧",
-  "material.tconstruct.whitestone.encyclopedia": "挖掘石头后，每级有20%概率消耗石头使工具的石盾+3。",
+  "material.tconstruct.whitestone.encyclopedia.melee_harvest": "挖掘石头后，每级有20%概率消耗石头使工具的石盾+3。",
 
   "material.tconstruct.aluminum": "铝",
   "material.tconstruct.aluminum.flavor": "最常出现在火山灰中。",
@@ -2364,13 +2363,13 @@
 
   "material.tconstruct.bronze": "青铜",
   "material.tconstruct.bronze.flavor": "别和紫水晶青铜搞混了。",
-  "material.tconstruct.bronze.encyclopedia": "满耐久度时，每级使工具挖掘速度+6；耐久度低于50%后，加成衰减为0。",
+  "material.tconstruct.bronze.encyclopedia.melee_harvest": "满耐久度时，每级使工具挖掘速度+6；耐久度低于50%后，加成衰减为0。",
   "material.tconstruct.bronze.encyclopedia.ranged": "满耐久度时，每级使箭矢初速度+0.08；耐久度低于50%后，加成衰减为0。",
   "material.tconstruct.bronze.encyclopedia.armor": "满耐久度时，每级使得盔甲韧性+2； 耐久度低于50%后，加成衰减为0。",
 
   "material.tconstruct.constantan": "康铜",
   "material.tconstruct.constantan.flavor": "让我康康这好康的康铜……抱歉，用“康”造句太好玩了。",
-  "material.tconstruct.constantan.encyclopedia": "极冷环境下，工具挖掘速度+7.5；极热环境下，工具双倍减少耐久度消耗。",
+  "material.tconstruct.constantan.encyclopedia.melee_harvest": "极冷环境下，工具挖掘速度+7.5；极热环境下，工具双倍减少耐久度消耗。",
   "material.tconstruct.constantan.encyclopedia.ranged": "极冷环境下，初速度+0.15；极热环境下则双倍减少耐久度消耗。",
   "material.tconstruct.constantan.encyclopedia.armor": "在极冷环境下保护+5%；极热环境下则双倍减少耐久度消耗。",
 

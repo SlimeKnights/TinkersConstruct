@@ -1798,13 +1798,13 @@
   "material.tconstruct.rock.blackstone": "ブラックストーン",
   "material.tconstruct.rock.calcite": "方解石",
   "material.tconstruct.rock.flavor": "堅実",
-  "material.tconstruct.rock.encyclopedia": "失った耐久度の平方根×レベル%採掘速度が増加する。耐久力補正は失った耐久度の量分の1になる",
+  "material.tconstruct.rock.encyclopedia.melee_harvest": "失った耐久度の平方根×レベル%採掘速度が増加する。耐久力補正は失った耐久度の量分の1になる",
 
   "material.tconstruct.flint": "火打石",
   "material.tconstruct.flint.basalt": "玄武岩",
   "material.tconstruct.flint.deepslate": "深層岩",
   "material.tconstruct.flint.flavor": "ティンカーの心が燃え上がる！",
-  "material.tconstruct.flint.encyclopedia": "失った耐久度の平方根×レベル÷2%だけ攻撃力が増加する。耐久力補正は失った耐久度の量分の1になる",
+  "material.tconstruct.flint.encyclopedia.melee_harvest": "失った耐久度の平方根×レベル÷2%だけ攻撃力が増加する。耐久力補正は失った耐久度の量分の1になる",
   "material.tconstruct.flint.encyclopedia.ammo": "ポーションに浸すことができる。そうしたなら、ダメージに加えてポーションの効果を与える",
 
   "material.tconstruct.bone": "骨",
@@ -1875,7 +1875,7 @@
   "material.tconstruct.copper": "銅",
   "material.tconstruct.copper.oxidized": "酸化した銅",
   "material.tconstruct.copper.flavor": "変色させないでね。",
-  "material.tconstruct.copper.encyclopedia": "より低い高度で使用すると採掘速度が増加し、高度64以下で64ブロックごとに+6される",
+  "material.tconstruct.copper.encyclopedia.melee_harvest": "より低い高度で使用すると採掘速度が増加し、高度64以下で64ブロックごとに+6される",
   "material.tconstruct.copper.encyclopedia.ranged": "より低い高度で使用すると矢の速度ボーナスが発生し、高度64以下で64ブロックごとに+0.05される",
   "material.tconstruct.copper.encyclopedia.armor": "より低い高度で使用すると追加の防御ボーナスが発生し、高度64以下で64ブロックごとに+5%される",
   "material.tconstruct.copper.skull": "ドラウンド",
@@ -1920,7 +1920,7 @@
   "material.tconstruct.skyslime_vine": "べとつくツタ",
   "material.tconstruct.skyslime_vine.slimeskin": "スライムスキン",
   "material.tconstruct.skyslime_vine.flavor": "蝶のように舞い、蜂のように刺す。",
-  "material.tconstruct.skyslime_vine.encyclopedia": "足が大地に付いてない場合でも採掘速度が低下しなくなる",
+  "material.tconstruct.skyslime_vine.encyclopedia.melee_harvest": "足が大地に付いてない場合でも採掘速度が低下しなくなる",
   "material.tconstruct.skyslime_vine.encyclopedia.ranged": "地面やはしごに乗っていない時に+0.1の速度補正を得る",
   "material.tconstruct.skyslime_vine.encyclopedia.armor": "1つの部位につき15%重力が軽減される",
 
@@ -1932,7 +1932,7 @@
 
   "material.tconstruct.twisting_vine": "ねじれツタ",
   "material.tconstruct.twisting_vine.flavor": "胞子を食べよ",
-  "material.tconstruct.twisting_vine.encyclopedia": "道具を置くたび、HPを1失う代わりに、採掘速度が+6上昇する",
+  "material.tconstruct.twisting_vine.encyclopedia.melee_harvest": "道具を置くたび、HPを1失う代わりに、採掘速度が+6上昇する",
   "material.tconstruct.twisting_vine.encyclopedia.ranged": "道具を置くたび、HPを1失う代わりに、弓引き速度補正が+15%増加する",
   "material.tconstruct.twisting_vine.encyclopedia.armor": "この防具を外すたび、HPが2減少する代わりに、ノックバック耐性が10%上昇する",
 
@@ -2041,7 +2041,7 @@
 
   "material.tconstruct.amethyst_bronze": "アメジスト青銅",
   "material.tconstruct.amethyst_bronze.flavor": "青銅と混同しないように。",
-  "material.tconstruct.amethyst_bronze.encyclopedia": "道具を必要とせずに採掘できるブロックに対して（特に道具が有効ではないブロックに対して）レベルごとに+1の採掘速度補正を受ける",
+  "material.tconstruct.amethyst_bronze.encyclopedia.melee_harvest": "道具を必要とせずに採掘できるブロックに対して（特に道具が有効ではないブロックに対して）レベルごとに+1の採掘速度補正を受ける",
   "material.tconstruct.amethyst_bronze.encyclopedia.ranged": "レベルごとに+0.1の速度補正を得るが、代償として最初の3レベルで矢を放てる角度が32方向、16方向、8方向に制限されていく",
   "material.tconstruct.amethyst_bronze.encyclopedia.armor": "レベルごとに+5%の攻撃速度増加を得るが、代償として負のステータス効果の効果時間が+5%され、ノックバックさせる方向が32方向、16方向、8方向、4方向に制限されていく",
 
@@ -2064,7 +2064,7 @@
   "__comment": "Tier Nether Materials",
   "material.tconstruct.cobalt": "コバルト",
   "material.tconstruct.cobalt.flavor": "Coblatとも書く。赤軍の素材。",
-  "material.tconstruct.cobalt.encyclopedia": "レベルごとに、採掘速度と攻撃速度が8%上がる",
+  "material.tconstruct.cobalt.encyclopedia.melee_harvest": "レベルごとに、採掘速度と攻撃速度が8%上がる",
   "material.tconstruct.cobalt.encyclopedia.ranged": "レベルごとに弓引き速度と矢の速度が+0.03上がる",
   "material.tconstruct.cobalt.encyclopedia.armor": "レベルごとに近接攻撃によるダメージを8%軽減し、アイテム使用時の移動速度を5%増加する。最もレベルの高いアーマーのものが適用される",
 
@@ -2093,13 +2093,13 @@
 
   "material.tconstruct.hepatizon": "ヘパティゾン",
   "material.tconstruct.hepatizon.flavor": "He-pa-ti-zon - 茹でて潰してシチューに入れる。",
-  "material.tconstruct.hepatizon.encyclopedia": "レベルごとに採掘速度が25%増加する。また、ブロックを10回連続で採掘したたび、以降の採掘速度がレベルごとに2.5％上がる",
+  "material.tconstruct.hepatizon.encyclopedia.melee_harvest": "レベルごとに採掘速度が25%増加する。また、ブロックを10回連続で採掘したたび、以降の採掘速度がレベルごとに2.5％上がる",
   "material.tconstruct.hepatizon.encyclopedia.ranged": "レベルごとに弓引き速度が25%増加する。また、矢を10回続けて放つたび、以降の弓引き速度がレベルごとに2.5%上がる",
   "material.tconstruct.hepatizon.encyclopedia.armor": "ダメージを受けるたび、レベルごとに-5%の一時的なダメージ軽減を得る",
 
   "material.tconstruct.ichorskin": "イコルスキン",
   "material.tconstruct.ichorskin.flavor": "イコルには間違いなく皮膚がない",
-  "material.tconstruct.ichorskin.encyclopedia": "移動速度+5%、攻撃速度+2.5%、採掘速度+7.5%を得る",
+  "material.tconstruct.ichorskin.encyclopedia.armor": "移動速度+5%、攻撃速度+2.5%、採掘速度+7.5%を得る",
 
   "material.tconstruct.cinderslime": "シンダースライム",
   "material.tconstruct.cinderslime.flavor": "火に投げ込め！",
@@ -2120,7 +2120,7 @@
 
   "material.tconstruct.blazewood": "ブレイズウッド",
   "material.tconstruct.blazewood.flavor": "炎は炎を守る",
-  "material.tconstruct.blazewood.encyclopedia": "攻撃してきた相手に10秒間発光を付与する。ブロック時は20秒間となる",
+  "material.tconstruct.blazewood.encyclopedia.armor": "攻撃してきた相手に10秒間発光を付与する。ブロック時は20秒間となる",
 
   "material.tconstruct.ichor": "イコル",
   "material.tconstruct.ichor.flavor": "水切り",
@@ -2138,19 +2138,18 @@
 
   "material.tconstruct.jeweled_hide": "宝石の革",
   "material.tconstruct.jeweled_hide.flavor": "天然の宝石を用いてなめされた革",
-  "material.tconstruct.jeweled_hide.encyclopedia": "ドロップ確率が上昇する。幸運と重複する",
+  "material.tconstruct.jeweled_hide.encyclopedia.melee_harvest": "ドロップ確率が上昇する。幸運と重複する",
   "material.tconstruct.jeweled_hide.encyclopedia.ranged": "釣りの報酬がよくなる。幸運と重複する",
   "material.tconstruct.jeweled_hide.encyclopedia.armor": "最大HPがハート1つ分増加する。盾を装備している間は、ハートが即座に回復するが、装備を解除するとハート1つ分のダメージを受ける",
 
   "material.tconstruct.ancient_hide": "古代の革",
   "material.tconstruct.ancient_hide.flavor": "最古の石でなめした革",
-  "material.tconstruct.ancient_hide.encyclopedia": "ブロックからのドロップ率が上昇し、運が良ければ複数落ちる",
-  "material.tconstruct.ancient_hide.encyclopedia.ranged": "防御スロットが1つ増える",
-  "material.tconstruct.ancient_hide.encyclopedia.armor": "防御スロットが1つ増える",
+  "material.tconstruct.ancient_hide.encyclopedia": "防御スロットが1つ増える",
+  "material.tconstruct.ancient_hide.encyclopedia.melee_harvest": "ブロックからのドロップ率が上昇し、運が良ければ複数落ちる",
 
   "material.tconstruct.ancient": "古代",
   "material.tconstruct.ancient.flavor": "昔のようには作れない",
-  "material.tconstruct.ancient.encyclopedia": "ウォーピック、スワッシャー、戦看板や、物々交換でのみ手に入る。レベルごとに攻撃速度と採掘速度が-10%され、重力が10%増加するが、その代わりアビリティスロットを1つ得る",
+  "material.tconstruct.ancient.encyclopedia.melee_harvest": "ウォーピック、スワッシャー、戦看板や、物々交換でのみ手に入る。レベルごとに攻撃速度と採掘速度が-10%され、重力が10%増加するが、その代わりアビリティスロットを1つ得る",
   "material.tconstruct.ancient.encyclopedia.ranged": "メルティングパン、戦看板や、物々交換でのみ手に入る。レベルごとに弓引き速度が-10%され、重力が10%増加するが、その代わりアビリティスロットを1つ得る",
   "material.tconstruct.ancient.encyclopedia.armor": "砦の遺跡で見つかるプレートアーマーや、戦看板、メルティングパン、あるいは物々交換でのみ手に入る。レベルごとに移動速度（盾なら攻撃速度）が-10%され、重力が10%増加するが、その代わりアビリティスロットを1つ得る",
 
@@ -2174,14 +2173,14 @@
 
   "material.tconstruct.knightslime": "ナイトスライム",
   "material.tconstruct.knightslime.flavor": "ぬめりがあるのに金属的で、しかも石のよう？実に興味深い！",
-  "material.tconstruct.knightslime.encyclopedia": "レベルごとにオーバースライムを1（または広範囲の採掘の場合はレベルごとに5）消費し、レベルごとに採掘速度+20%および攻撃速度+15%の効果が得る",
+  "material.tconstruct.knightslime.encyclopedia.melee_harvest": "レベルごとにオーバースライムを1（または広範囲の採掘の場合はレベルごとに5）消費し、レベルごとに採掘速度+20%および攻撃速度+15%の効果が得る",
   "material.tconstruct.knightslime.encyclopedia.ranged": "レベルごとにオーバースライムを1消費し、速度補正と弓引き速度が+0.06される",
   "material.tconstruct.knightslime.encyclopedia.armor": "レベル×2までのオーバースライムを消費し、消費したオーバースライムにつきダメージを2.5%軽減する（最大はレベル×5%）",
 
   "material.tconstruct.enderslime_vine": "べとつくツタ",
   "material.tconstruct.enderslime_vine.slimeskin": "スライムスキン",
   "material.tconstruct.enderslime_vine.flavor": "おしまい？",
-  "material.tconstruct.enderslime_vine.encyclopedia": "所有者を採掘したブロックの位置にテレポートさせ、攻撃したMobの位置と入れ替えさせる",
+  "material.tconstruct.enderslime_vine.encyclopedia.melee_harvest": "所有者を採掘したブロックの位置にテレポートさせ、攻撃したMobの位置と入れ替えさせる",
   "material.tconstruct.enderslime_vine.encyclopedia.ranged": "矢がブロックに当たると所有者をその位置にテレポートさせ、Mobに当たると所有者と位置を入れ替える",
   "material.tconstruct.enderslime_vine.encyclopedia.armor": "攻撃してきた相手を25%の確率でテレポートさせる",
 
@@ -2206,7 +2205,7 @@
 
   "material.tconstruct.lead": "鉛",
   "material.tconstruct.lead.flavor": "これでサンドイッチを作ってみて。",
-  "material.tconstruct.lead.encyclopedia": "レベルごとに+15%の採掘速度、+10%のノックバック耐性、-10%の移動速度補正、+5%の重力を得る",
+  "material.tconstruct.lead.encyclopedia.melee_harvest": "レベルごとに+15%の採掘速度、+10%のノックバック耐性、-10%の移動速度補正、+5%の重力を得る",
   "material.tconstruct.lead.encyclopedia.ranged": "レベルごとに+10%の飛翔体攻撃力補正、+0.1の正確性補正、-10%の移動速度補正、+5%の重力を得る",
   "material.tconstruct.lead.encyclopedia.armor": "レベルごとにノックバック耐性+15%、移動速度-10%、+5%の重力を与える。",
 
@@ -2222,7 +2221,7 @@
   "material.tconstruct.whitestone.tin": "ホワイトストーン",
   "material.tconstruct.whitestone.zinc": "ホワイトストーン",
   "material.tconstruct.whitestone.flavor": "無価値な白い金属や石から価値のある道具を生み出そう",
-  "material.tconstruct.whitestone.encyclopedia": "石を採掘するたび、レベルごとに20%の確率でその石を消費し、+3のストーンシールドを得る",
+  "material.tconstruct.whitestone.encyclopedia.melee_harvest": "石を採掘するたび、レベルごとに20%の確率でその石を消費し、+3のストーンシールドを得る",
 
   "material.tconstruct.aluminum": "アルミニウム",
   "material.tconstruct.aluminum.flavor": "灰塚でよく見られる。",
@@ -2255,13 +2254,13 @@
 
   "material.tconstruct.bronze": "青銅",
   "material.tconstruct.bronze.flavor": "アメジスト青銅と混同しないように。",
-  "material.tconstruct.bronze.encyclopedia": "耐久度が満タンの場合にレベルごとに+6の採掘速度補正を得るが、耐久度が50%以下になると補正がなくなる",
+  "material.tconstruct.bronze.encyclopedia.melee_harvest": "耐久度が満タンの場合にレベルごとに+6の採掘速度補正を得るが、耐久度が50%以下になると補正がなくなる",
   "material.tconstruct.bronze.encyclopedia.ranged": "耐久度が満タンの場合にレベルごとに+0.08の矢の速度補正を得るが、耐久度が50%以下になると補正がなくなる",
   "material.tconstruct.bronze.encyclopedia.armor": "耐久度が満タンの場合にレベルごとに防具強度を2増加させるが、耐久度が50%以下になると増加がなくなる",
 
   "material.tconstruct.constantan": "コンスタンタン",
   "material.tconstruct.constantan.flavor": "コンスタンタンタンタンタンタンタン…。ごめん、「タン」を足すのが楽しくて。",
-  "material.tconstruct.constantan.encyclopedia": "極端に寒い場所で使用すると+7.5の採掘速度補正があり、極端に暑い場所では効果が2倍になる",
+  "material.tconstruct.constantan.encyclopedia.melee_harvest": "極端に寒い場所で使用すると+7.5の採掘速度補正があり、極端に暑い場所では効果が2倍になる",
   "material.tconstruct.constantan.encyclopedia.ranged": "極端に寒い場所で使用すると+0.15の矢の速度補正があり、極端に暑い場所では効果が2倍になる",
   "material.tconstruct.constantan.encyclopedia.armor": "極端に寒い場所で使用すると5%のダメージ軽減を受け、極端に暑い場所では効果が2倍になる",
 

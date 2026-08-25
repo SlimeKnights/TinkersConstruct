@@ -1804,13 +1804,13 @@
   "material.tconstruct.rock.blackstone": "Piedra negra",
   "material.tconstruct.rock.calcite":    "Calcita",
   "material.tconstruct.rock.flavor": "Roca sólida",
-  "material.tconstruct.rock.encyclopedia": "Causa que la herramienta mine más rápido por 1% veces la raíz cuadrada de la durabilidad perdida por cada nivel. El multiplicador de durabilidad de la herramienta dividirá la durabilidad perdida.",
+  "material.tconstruct.rock.encyclopedia.melee_harvest": "Causa que la herramienta mine más rápido por 1% veces la raíz cuadrada de la durabilidad perdida por cada nivel. El multiplicador de durabilidad de la herramienta dividirá la durabilidad perdida.",
 
   "material.tconstruct.flint": "Pedernal",
   "material.tconstruct.flint.basalt": "Basalto",
   "material.tconstruct.flint.deepslate": "Pizarra abismal",
   "material.tconstruct.flint.flavor": "¡Esto encenderá el fuego que hay en tu corazón!",
-  "material.tconstruct.flint.encyclopedia": "Aumenta el daño cuerpo a cuerpo por 1% veces la raíz cuadrada de la durabilidad perdida por cada nivel. El multiplicador de durabilidad de la herramienta dividirá la durabilidad perdida.",
+  "material.tconstruct.flint.encyclopedia.melee_harvest": "Aumenta el daño cuerpo a cuerpo por 1% veces la raíz cuadrada de la durabilidad perdida por cada nivel. El multiplicador de durabilidad de la herramienta dividirá la durabilidad perdida.",
   "material.tconstruct.flint.encyclopedia.ammo": "Permite verter una poción en la cabeza de flecha. Las flechas con poción aplicarán el efecto aparte de el daño base.",
 
   "material.tconstruct.bone": "Hueso",
@@ -1880,7 +1880,7 @@
   "material.tconstruct.copper": "Cobre",
   "material.tconstruct.copper.oxidized": "Cobre oxidado",
   "material.tconstruct.copper.flavor": "No dejes que esto deslustre tu día.",
-  "material.tconstruct.copper.encyclopedia": "Otorga un bono de velocidad minera mientras más profundo vayas, +6 por cada 64 bloques bajo la capa 64",
+  "material.tconstruct.copper.encyclopedia.melee_harvest": "Otorga un bono de velocidad minera mientras más profundo vayas, +6 por cada 64 bloques bajo la capa 64",
   "material.tconstruct.copper.encyclopedia.ranged": "Otorga un bono de velocidad mientras más profundo vayas, +0.05 por cada 64 bloques bajo la capa 64",
   "material.tconstruct.copper.encyclopedia.armor": "Otorga un bono de protección minera mientras más profundo vayas, +5% por cada 64 bloques bajo la capa 64",
   "material.tconstruct.copper.flavor.skull": "Les quita el aire a golpes",
@@ -1922,7 +1922,7 @@
   "material.tconstruct.skyslime_vine": "Enredadera Slime Celesital",
   "material.tconstruct.skyslime_vine.slimeskin": "Piel slime",
   "material.tconstruct.skyslime_vine.flavor": "Flota como mariposa, pica como una abeja.",
-  "material.tconstruct.skyslime_vine.encyclopedia": "Quita la reducción de velocidad minera mientras no estés en el piso",
+  "material.tconstruct.skyslime_vine.encyclopedia.melee_harvest": "Quita la reducción de velocidad minera mientras no estés en el piso",
   "material.tconstruct.skyslime_vine.encyclopedia.ranged": "Otorga +0.1 de velocidad cuando no estés en el piso o en una escalera",
   "material.tconstruct.skyslime_vine.encyclopedia.armor": "Reduce la gravedad en 20% por pieza",
 
@@ -1934,7 +1934,7 @@
 
   "material.tconstruct.twisting_vine": "Enredaderas retorcidas",
   "material.tconstruct.twisting_vine.flavor": "¡Come esporas!",
-  "material.tconstruct.twisting_vine.encyclopedia": "Otorga +6 de velocidad minera con el coste de perder 1 de vida cada vez que cambies de herramienta",
+  "material.tconstruct.twisting_vine.encyclopedia.melee_harvest": "Otorga +6 de velocidad minera con el coste de perder 1 de vida cada vez que cambies de herramienta",
   "material.tconstruct.twisting_vine.encyclopedia.ranged": "Otorga +15% de velocidad de carga con el coste de perder 1 de vida cada vez que cambies de herramienta",
   "material.tconstruct.twisting_vine.encyclopedia.armor": "Otorga +10% de resistencia al empuje con el coste de perder 2 de vida cada vez que cambies de armadura",
 
@@ -2031,7 +2031,7 @@
 
   "material.tconstruct.amethyst_bronze": "Bronce Amatista",
   "material.tconstruct.amethyst_bronze.flavor": "No ser confundido con el bronce.",
-  "material.tconstruct.amethyst_bronze.encyclopedia": "Otorga +1 de velocidad minera en bloques que no requieren herramienta, notablemente aquellos en los que la herramienta no es tan efectiva",
+  "material.tconstruct.amethyst_bronze.encyclopedia.melee_harvest": "Otorga +1 de velocidad minera en bloques que no requieren herramienta, notablemente aquellos en los que la herramienta no es tan efectiva",
   "material.tconstruct.amethyst_bronze.encyclopedia.ranged": "Otorga +0.1 de velocidad con el coste de limitad los ángulos de flecha a 32, 16, o 8 direcciones en los primeros 3 niveles respectivamente",
   "material.tconstruct.amethyst_bronze.encyclopedia.armor": "Otorga +2.5% de velocidad de ataque con el coste de limitad los ángulos del empuje tomado a 32, 16, 8 o 4 direcciones respectivamente",
 
@@ -2053,7 +2053,7 @@
   "__comment": "Materiales de Tier nether",
   "material.tconstruct.cobalt": "Cobalto",
   "material.tconstruct.cobalt.flavor": "Coblato. El material del ejército rojo.",
-  "material.tconstruct.cobalt.encyclopedia": "Aumenta la velocidad de minería y ataque en un 8% cada nivel",
+  "material.tconstruct.cobalt.encyclopedia.melee_harvest": "Aumenta la velocidad de minería y ataque en un 8% cada nivel",
   "material.tconstruct.cobalt.encyclopedia.ranged": "Aumenta la velocidad de carga y velocidad en +0.03 cada nivel",
   "material.tconstruct.cobalt.encyclopedia.armor": "Reduce el daño de ataques cuerpo a cuerpo en un 8% cada nivel, y aumenta la velocidad al usar items en un 3% cada nivel",
 
@@ -2079,13 +2079,13 @@
 
   "material.tconstruct.hepatizon": "Hepatizon",
   "material.tconstruct.hepatizon.flavor": "je-pa-tai-zon, en puré, cocido, o en un buen guiso.",
-  "material.tconstruct.hepatizon.encyclopedia": "Aumenta la velocidad minera hasta en un 25% cada nivel, aumentando por +2.5% cada nivel en al minar 10 bloques consecutivos",
+  "material.tconstruct.hepatizon.encyclopedia.melee_harvest": "Aumenta la velocidad minera hasta en un 25% cada nivel, aumentando por +2.5% cada nivel en al minar 10 bloques consecutivos",
   "material.tconstruct.hepatizon.encyclopedia.ranged": "Aumenta la velocidad de carga hasta en un 25% cada nivel, cumentando en +2.5% cada nivel en los siguientes 10 proyectiles consecutivos",
   "material.tconstruct.hepatizon.encyclopedia.armor": "Convierte 50% de el daño tomado en una reducción de daño base. La reducción dura 5 segundos cada nivel.",
 
   "material.tconstruct.ichorskin": "Piel de Ícor",
   "material.tconstruct.ichorskin.flavor": "El Ícor definitivamente no tiene piel",
-  "material.tconstruct.ichorskin.encyclopedia": "Consume hasta 5 de Sobreslime para reducir el daño en 1% por cada punto de Sobreslime consumido (hasta 5%).",
+  "material.tconstruct.ichorskin.encyclopedia.armor": "Consume hasta 5 de Sobreslime para reducir el daño en 1% por cada punto de Sobreslime consumido (hasta 5%).",
 
   "material.tconstruct.cinderslime": "Slime Ceniza",
   "material.tconstruct.cinderslime.flavor": "¡Lánzalo al fuego!",
@@ -2106,7 +2106,7 @@
 
   "material.tconstruct.blazewood": "Madera de Blaze",
   "material.tconstruct.blazewood.flavor": "Las llamas protegen la llama",
-  "material.tconstruct.blazewood.encyclopedia": "Inflinge al atacante 10 segundos de luminiscencia, o 20 segundos al bloquear.",
+  "material.tconstruct.blazewood.encyclopedia.armor": "Inflinge al atacante 10 segundos de luminiscencia, o 20 segundos al bloquear.",
   "material.tconstruct.blazewood.encyclopedia.ammo": "Causa luminiscencia en el objetivo por 10 segundos. Si impacta en un bloque, coloca una fuente de luz temporal a coste del proyectil.",
 
   "material.tconstruct.ichor": "Ícor",
@@ -2125,13 +2125,12 @@
 
   "material.tconstruct.ancient_hide": "Piel antigua",
   "material.tconstruct.ancient_hide.flavor": "Cuero curtido por la piedra más vieja",
-  "material.tconstruct.ancient_hide.encyclopedia": "Aumenta las probabilidades de drops de los bloques, pudiendo acumularse con suerte",
-  "material.tconstruct.ancient_hide.encyclopedia.ranged": "Otorga un slot de defensa extra",
-  "material.tconstruct.ancient_hide.encyclopedia.armor": "Otorga un slot de defensa extra",
+  "material.tconstruct.ancient_hide.encyclopedia": "Otorga un slot de defensa extra",
+  "material.tconstruct.ancient_hide.encyclopedia.melee_harvest": "Aumenta las probabilidades de drops de los bloques, pudiendo acumularse con suerte",
 
   "material.tconstruct.ancient":     "Material Antiguo",
   "material.tconstruct.ancient.flavor": "Ya no los hacen como antes.",
-  "material.tconstruct.ancient.encyclopedia": "Encontrado en las herramientas antiguas, y también en el trueque. Cada nivel otorga un slot de abilidad por el coste de -10% de velocidad de ataque, -10% velocidad de minería y +10% de gravedad.",
+  "material.tconstruct.ancient.encyclopedia.melee_harvest": "Encontrado en las herramientas antiguas, y también en el trueque. Cada nivel otorga un slot de abilidad por el coste de -10% de velocidad de ataque, -10% velocidad de minería y +10% de gravedad.",
   "material.tconstruct.ancient.encyclopedia.ranged": "Encontrado en las herramientas antiguas de rango, y también en el trueque. Cada nivel otorga un slot de abilidad por el coste de -10% de velocidad de carga, y +10% de gravedad.",
   "material.tconstruct.ancient.encyclopedia.armor": "Encontrado en armadura blindada en bastiones, carteles de batalla, Sartenes derretidores, y también en el trueque. Cada nivel otorga un slot de abilidad por el coste de  +10% gravedad, y -10% velocidad de movimiento, o -10% velocidad de ataque en escudos.",
 
@@ -2158,7 +2157,7 @@
   "material.tconstruct.enderslime_vine": "Enredadera Slime Ender",
   "material.tconstruct.enderslime_vine.slimeskin": "Piel de Slime Ender",
   "material.tconstruct.enderslime_vine.flavor": "¿El fin?",
-  "material.tconstruct.enderslime_vine.encyclopedia": "Teletransporta al portador a los bloques minados o intercambia de lugar al portador y al objetivo atacado",
+  "material.tconstruct.enderslime_vine.encyclopedia.melee_harvest": "Teletransporta al portador a los bloques minados o intercambia de lugar al portador y al objetivo atacado",
   "material.tconstruct.enderslime_vine.encyclopedia.ranged": "Teletransporta al portador al lugar de los proyectiles que aterricen en bloques o  intercambia de lugar al portador y al objetivo golpeado con el proyectil",
   "material.tconstruct.enderslime_vine.encyclopedia.armor": "Tiene una probabilidad del 25% de teletransportar aleatoriamente al atacante",
 
@@ -2182,7 +2181,7 @@
 
   "material.tconstruct.lead": "Plomo",
   "material.tconstruct.lead.flavor": "Podrías intentar y hacer un sandwitch con esto.",
-  "material.tconstruct.lead.encyclopedia": "Otorga +15% de velocidad minera, +10% de resistencia al empuje, -10% de velocidad de movimiento, y +5% de gravedad cada nivel",
+  "material.tconstruct.lead.encyclopedia.melee_harvest": "Otorga +15% de velocidad minera, +10% de resistencia al empuje, -10% de velocidad de movimiento, y +5% de gravedad cada nivel",
   "material.tconstruct.lead.encyclopedia.ranged": "Otorga +0.1 de precisión, +10% de resistencia al empuje, -10% de velocidad de movimiento, y +5% de gravedad cada nivel",
   "material.tconstruct.lead.encyclopedia.armor": "Otorga +15% de resistencia al empuje, -10% de velocidad de movimiento, y +5% de gravedad cada nivel",
 
@@ -2198,7 +2197,7 @@
   "material.tconstruct.whitestone.tin": "Piedra blanca",
   "material.tconstruct.whitestone.zinc": "Piedra blanca",
   "material.tconstruct.whitestone.flavor": "Toma tus inútiles metales o piedras blancas para hacer herramientas útiles",
-  "material.tconstruct.whitestone.encyclopedia": "Minar piedra tiene una probabilidad del 20% cada nivel de otorgar +3 de Escudo de piedra",
+  "material.tconstruct.whitestone.encyclopedia.melee_harvest": "Minar piedra tiene una probabilidad del 20% cada nivel de otorgar +3 de Escudo de piedra",
 
   "material.tconstruct.aluminum": "Aluminio",
   "material.tconstruct.aluminum.flavor": "Encontrado comúnmente cerca de los ceniceros.",
@@ -2228,13 +2227,13 @@
 
   "material.tconstruct.bronze": "Bronce",
   "material.tconstruct.bronze.flavor": "No confundir con el bronce amatista.",
-  "material.tconstruct.bronze.encyclopedia": "Otorga +6 de velocidad minera cada nivel mientras la durabilidad está llena, pero el bono cae a 0 bajo del 50% de la durabilidad",
+  "material.tconstruct.bronze.encyclopedia.melee_harvest": "Otorga +6 de velocidad minera cada nivel mientras la durabilidad está llena, pero el bono cae a 0 bajo del 50% de la durabilidad",
   "material.tconstruct.bronze.encyclopedia.ranged": "Otorga +0.08 de velocidad cada nivel mientras la durabilidad está llena, pero el bono cae a 0 bajo del 50% de la durabilidad",
   "material.tconstruct.bronze.encyclopedia.armor": "Otorga +2 de dureza de armadura cada nivel mientras la durabilidad está llena, pero el bono cae a 0 bajo del 50% de la durabilidad",
 
   "material.tconstruct.constantan": "Constantán",
   "material.tconstruct.constantan.flavor": "Shikanokonokonokoconstantán",
-  "material.tconstruct.constantan.encyclopedia": "Otorga +7.5 de velocidad minera en frío extremo y doble reforzado en calor extremo",
+  "material.tconstruct.constantan.encyclopedia.melee_harvest": "Otorga +7.5 de velocidad minera en frío extremo y doble reforzado en calor extremo",
   "material.tconstruct.constantan.encyclopedia.ranged": "Otorga +0.15 de velocidad en frío extremo y doble reforzado en calor extremo",
   "material.tconstruct.constantan.encyclopedia.armor": "Otorga 5% de protección en frío extremo y doble reforzado en calor extremo",
 

@@ -1307,13 +1307,13 @@
   "material.tconstruct.rock.deepslate":  "Djupskiffer",
   "material.tconstruct.rock.format": "%s av sten",
   "material.tconstruct.rock.flavor": "Stentufft",
-  "material.tconstruct.rock.encyclopedia": "Får verktyget att gräva snabbare med hälften av roten ur den förlorade hållbarheten",
+  "material.tconstruct.rock.encyclopedia.melee_harvest": "Får verktyget att gräva snabbare med hälften av roten ur den förlorade hållbarheten",
   
   "material.tconstruct.flint": "Flinta",
   "material.tconstruct.flint.basalt": "Basalt",
   "material.tconstruct.flint.format": "%s av flinta",
   "material.tconstruct.flint.flavor": "Detta tänder gnistan hos varje Tinkers-spelare!",
-  "material.tconstruct.flint.encyclopedia": "Ökar skada med en fjärdedel av roten ur den förlorade hållbarheten",
+  "material.tconstruct.flint.encyclopedia.melee_harvest": "Ökar skada med en fjärdedel av roten ur den förlorade hållbarheten",
   
   "material.tconstruct.bone": "Ben",
   "material.tconstruct.bone.format": "%s av ben",
@@ -1366,7 +1366,7 @@
   "material.tconstruct.copper": "Koppar",
   "material.tconstruct.copper.format": "%s av koppar",
   "material.tconstruct.copper.flavor": "Ädelmetall med flera användningsområden.",
-  "material.tconstruct.copper.encyclopedia": "Ger grävhastighet vid lägre djup, +8 per 64 block under havsnivån",
+  "material.tconstruct.copper.encyclopedia.melee_harvest": "Ger grävhastighet vid lägre djup, +8 per 64 block under havsnivån",
   "material.tconstruct.copper.flavor.skull": "Slår luften ur dem",
   "material.tconstruct.copper.encyclopedia.skull": "Närstridsattacker stjäl 3 sekunders luft från målet",
   
@@ -1400,7 +1400,7 @@
   "material.tconstruct.skyslime_vine": "Slemmig klätterväxt",
   "material.tconstruct.skyslime_vine.format": "%s av slemmig klätterväxt",
   "material.tconstruct.skyslime_vine.flavor": "Flyg som en fjäril, stick som ett bi.",
-  "material.tconstruct.skyslime_vine.encyclopedia": "Motverkar den reducerade grävhastigheten när man inte står på marken",
+  "material.tconstruct.skyslime_vine.encyclopedia.melee_harvest": "Motverkar den reducerade grävhastigheten när man inte står på marken",
   
   
   "__comment": "Tier 3 Materials",
@@ -1417,7 +1417,7 @@
   "material.tconstruct.amethyst_bronze": "Ametistbrons",
   "material.tconstruct.amethyst_bronze.format": "%s av ametistbrons",
   "material.tconstruct.amethyst_bronze.flavor": "Inte att förväxlas med brons.",
-  "material.tconstruct.amethyst_bronze.encyclopedia": "Ger +0,25 grävhastighet per nivå på block som inte kräver verktyg, även där verktyget inte är effektivt",
+  "material.tconstruct.amethyst_bronze.encyclopedia.melee_harvest": "Ger +0,25 grävhastighet per nivå på block som inte kräver verktyg, även där verktyget inte är effektivt",
   
   "material.tconstruct.pig_iron": "Grisjärn",
   "material.tconstruct.pig_iron.format": "%s av grisjärn",
@@ -1437,7 +1437,7 @@
   "material.tconstruct.cobalt": "Kobolt",
   "material.tconstruct.cobalt.format": "%s av kobolt",
   "material.tconstruct.cobalt.flavor": "Kobolt. Den röda arméns material.",
-  "material.tconstruct.cobalt.encyclopedia": "Ökar gräv- och attackhastigheten med 7 % per nivå",
+  "material.tconstruct.cobalt.encyclopedia.melee_harvest": "Ökar gräv- och attackhastigheten med 7 % per nivå",
   
   "material.tconstruct.manyullyn": "Manyullyn",
   "material.tconstruct.manyullyn.format": "%s av manyullyn",
@@ -1447,7 +1447,7 @@
   "material.tconstruct.hepatizon": "Hepatizon",
   "material.tconstruct.hepatizon.format": "%s av hepatizon",
   "material.tconstruct.hepatizon.flavor": "He-pa-ti-zon - koka, mosa och stoppa ned den i en stuvning.",
-  "material.tconstruct.hepatizon.encyclopedia": "Ökar grävhastigheten med 25 % per nivå när 32 block har brutits kontinuerligt",
+  "material.tconstruct.hepatizon.encyclopedia.melee_harvest": "Ökar grävhastigheten med 25 % per nivå när 32 block har brutits kontinuerligt",
   
   "material.tconstruct.queens_slime": "Drottningsslem",
   "material.tconstruct.queens_slime.format": "%s av drottningsslem",
@@ -1466,7 +1466,7 @@
   "material.tconstruct.ancient_hide": "Forntida skinn",
   "material.tconstruct.ancient_hide.format": "%s av forntida skinn",
   "material.tconstruct.ancient_hide.flavor": "Läder som har garvats av uråldrig sten",
-  "material.tconstruct.ancient_hide.encyclopedia": "Ökar chansen att få föremål från block, kan kombineras med \"Tur\"",
+  "material.tconstruct.ancient_hide.encyclopedia.melee_harvest": "Ökar chansen att få föremål från block, kan kombineras med \"Tur\"",
   
   
   "__comment": "Tier End Materials",
@@ -1476,7 +1476,7 @@
   "material.tconstruct.enderslime_vine": "Slemmig klätterväxt",
   "material.tconstruct.enderslime_vine.format": "%s av slemmig klätterväxt",
   "material.tconstruct.enderslime_vine.flavor": "Slutet?",
-  "material.tconstruct.enderslime_vine.encyclopedia": "Teleporterar bäraren dit block bryts eller monster dödas",
+  "material.tconstruct.enderslime_vine.encyclopedia.melee_harvest": "Teleporterar bäraren dit block bryts eller monster dödas",
   
   "__comment": "Slimesuit materials",
   "material.tconstruct.gunpowder": "Krut",
@@ -1554,7 +1554,7 @@
   "material.tconstruct.lead": "Bly",
   "material.tconstruct.lead.format": "%s av bly",
   "material.tconstruct.lead.flavor": "Skulle kunna försöka att göra en smörgås utav detta.",
-  "material.tconstruct.lead.encyclopedia": "Ger +10 % attack och -10 % rörelsehastighet per nivå",
+  "material.tconstruct.lead.encyclopedia.melee_harvest": "Ger +10 % attack och -10 % rörelsehastighet per nivå",
   
   "material.tconstruct.silver": "Silver",
   "material.tconstruct.silver.format": "%s av silver",
@@ -1564,7 +1564,7 @@
   "material.tconstruct.whitestone": "Vitsten",
   "material.tconstruct.whitestone.format": "%s av vitsten",
   "material.tconstruct.whitestone.flavor": "Ta dina värdelösa vita metaller och gör ett användbart verktyg",
-  "material.tconstruct.whitestone.encyclopedia": "Har en chans på 20 % per nivå att ge +3 stensköld när sten grävs",
+  "material.tconstruct.whitestone.encyclopedia.melee_harvest": "Har en chans på 20 % per nivå att ge +3 stensköld när sten grävs",
   
   
   "__comment": "Tier 3 Integration Materials",
@@ -1576,12 +1576,12 @@
   "material.tconstruct.bronze": "Brons",
   "material.tconstruct.bronze.format": "%s av tinkersbrons",
   "material.tconstruct.bronze.flavor": "Inte att förväxlas med brons.",
-  "material.tconstruct.bronze.encyclopedia": "Ger +6 grävhastighet per nivå vid full hållbarhet, där under 50 % hållbarhet ger ingenting",
+  "material.tconstruct.bronze.encyclopedia.melee_harvest": "Ger +6 grävhastighet per nivå vid full hållbarhet, där under 50 % hållbarhet ger ingenting",
 
   "material.tconstruct.constantan": "Konstantan",
   "material.tconstruct.constantan.format": "%s av konstantan",
   "material.tconstruct.constantan.flavor": "Konstantantantantantantan... Förlåt, men det är så roligt att lägga till flera \"tan\".",
-  "material.tconstruct.constantan.encyclopedia": "Ger +7,5 grävhastighet vid extrem hetta eller kyla",
+  "material.tconstruct.constantan.encyclopedia.melee_harvest": "Ger +7,5 grävhastighet vid extrem hetta eller kyla",
   
   "material.tconstruct.invar": "Invar",
   "material.tconstruct.invar.format": "%s av invar",

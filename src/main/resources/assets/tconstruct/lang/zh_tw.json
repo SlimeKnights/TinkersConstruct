@@ -1421,12 +1421,12 @@
   "material.tconstruct.rock.blackstone": "黑石",
   "material.tconstruct.rock.deepslate": "深板岩",
   "material.tconstruct.rock.flavor": "保證堅如磐石",
-  "material.tconstruct.rock.encyclopedia": "按已消耗耐久度和材料特性等級的積的平方根的一半加快工具的挖掘速度。",
+  "material.tconstruct.rock.encyclopedia.melee_harvest": "按已消耗耐久度和材料特性等級的積的平方根的一半加快工具的挖掘速度。",
 
   "material.tconstruct.flint": "燧石",
   "material.tconstruct.flint.basalt": "玄武岩",
   "material.tconstruct.flint.flavor": "點燃你滾燙的工匠之心！",
-  "material.tconstruct.flint.encyclopedia": "按已消耗耐久度和材料特性等級的積的平方根的四分之一增加工具的傷害。",
+  "material.tconstruct.flint.encyclopedia.melee_harvest": "按已消耗耐久度和材料特性等級的積的平方根的四分之一增加工具的傷害。",
 
   "material.tconstruct.bone": "骨頭",
   "material.tconstruct.bone.flavor": "吾為所持劍之骨",
@@ -1481,7 +1481,7 @@
   "material.tconstruct.copper": "銅",
   "material.tconstruct.copper.oxidized": "氧化銅",
   "material.tconstruct.copper.flavor": "不要被銅鏽鏽到了",
-  "material.tconstruct.copper.encyclopedia": "在低海拔時額外增加挖掘速度，每低於海平面64格，挖掘速度+6。",
+  "material.tconstruct.copper.encyclopedia.melee_harvest": "在低海拔時額外增加挖掘速度，每低於海平面64格，挖掘速度+6。",
   "material.tconstruct.copper.encyclopedia.ranged": "在低海拔時額外增加初速度，每低於海平面64格，初速度+0.05。",
   "material.tconstruct.copper.flavor.skull": "你的攻擊令人窒息",
   "material.tconstruct.copper.encyclopedia.skull": "近戰攻擊使敵人3秒鐘無法呼吸。",
@@ -1512,7 +1512,7 @@
 
   "material.tconstruct.skyslime_vine": "史萊姆藤蔓",
   "material.tconstruct.skyslime_vine.flavor": "掠翅若蝶，蟄刺似蜂",
-  "material.tconstruct.skyslime_vine.encyclopedia": "取消不站在地面時的挖掘速度削減。",
+  "material.tconstruct.skyslime_vine.encyclopedia.melee_harvest": "取消不站在地面時的挖掘速度削減。",
   "material.tconstruct.skyslime_vine.encyclopedia.ranged": "不站在地面或拉著梯子是使精確度+0.5。",
 
 
@@ -1527,7 +1527,7 @@
 
   "material.tconstruct.amethyst_bronze": "紫晶青銅",
   "material.tconstruct.amethyst_bronze.flavor": "別和青銅搞混了",
-  "material.tconstruct.amethyst_bronze.encyclopedia": "挖掘不需要工具採掘的方塊時，每級挖掘速度+0.5，工具種類不匹配時也有效。",
+  "material.tconstruct.amethyst_bronze.encyclopedia.melee_harvest": "挖掘不需要工具採掘的方塊時，每級挖掘速度+0.5，工具種類不匹配時也有效。",
   "material.tconstruct.amethyst_bronze.encyclopedia.ranged": "每級+0.1初速度，但同時限定箭矢出射方向；前三級分別將方向限定為32、16、8向。",
 
   "material.tconstruct.pig_iron": "生鐵",
@@ -1547,7 +1547,7 @@
   "__comment": "Tier Nether Materials",
   "material.tconstruct.cobalt": "鈷",
   "material.tconstruct.cobalt.flavor": "雄關漫道真如鈷，而今回首從頭邁。",
-  "material.tconstruct.cobalt.encyclopedia": "每級的攻擊速度和挖掘速度+7%。",
+  "material.tconstruct.cobalt.encyclopedia.melee_harvest": "每級的攻擊速度和挖掘速度+7%。",
   "material.tconstruct.cobalt.encyclopedia.ranged": "每級的拉弓速度和初速度+5%。",
 
   "material.tconstruct.manyullyn": "瑪玉靈",
@@ -1557,7 +1557,7 @@
 
   "material.tconstruct.hepatizon": "黑色科林斯青銅",
   "material.tconstruct.hepatizon.flavor": "-科什麼斯啊？\n-科林斯啊。\n-什麼林斯啊？\n-科林斯啊！\n-科林什麼啊？\n-行了你先休息吧。",
-  "material.tconstruct.hepatizon.encyclopedia": "在連續挖掘32個方塊後，每級挖掘速度+25%。",
+  "material.tconstruct.hepatizon.encyclopedia.melee_harvest": "在連續挖掘32個方塊後，每級挖掘速度+25%。",
   "material.tconstruct.hepatizon.encyclopedia.ranged": "在連續發射16次後，每級拉弓速度+25%。",
 
   "material.tconstruct.queens_slime": "皇后史萊姆",
@@ -1575,14 +1575,14 @@
 
   "material.tconstruct.ancient_hide": "遠古獸皮",
   "material.tconstruct.ancient_hide.flavor": "用最古老的石頭鞣製的皮革",
-  "material.tconstruct.ancient_hide.encyclopedia": "增加挖掘方塊時的掉落機率，可與「幸運」強化同時存在。",
+  "material.tconstruct.ancient_hide.encyclopedia.melee_harvest": "增加挖掘方塊時的掉落機率，可與「幸運」強化同時存在。",
 
   "__comment": "Tier End Materials",
   "material.tconstruct.knightslime": "騎士史萊姆",
 
   "material.tconstruct.enderslime_vine": "史萊姆藤蔓",
   "material.tconstruct.enderslime_vine.flavor": "結束了？",
-  "material.tconstruct.enderslime_vine.encyclopedia": "將持有者傳送到挖掉的方塊處，或交換持有者與被擊中生物的位置。",
+  "material.tconstruct.enderslime_vine.encyclopedia.melee_harvest": "將持有者傳送到挖掉的方塊處，或交換持有者與被擊中生物的位置。",
   "material.tconstruct.enderslime_vine.encyclopedia.ranged": "將持有者傳送到擊中方塊的箭矢處，或交換持有者與被命中生物的位置。",
 
   "__comment": "Slimesuit materials",
@@ -1639,7 +1639,7 @@
 
   "material.tconstruct.lead": "鉛",
   "material.tconstruct.lead.flavor": "可以試試用這東西做個三明治",
-  "material.tconstruct.lead.encyclopedia": "每級攻擊力+10%，移動速度-10%。",
+  "material.tconstruct.lead.encyclopedia.melee_harvest": "每級攻擊力+10%，移動速度-10%。",
   "material.tconstruct.lead.encyclopedia.ranged": "每級彈射物傷害+10%，移動速度-10%。",
 
   "material.tconstruct.silver": "銀",
@@ -1650,7 +1650,7 @@
   "material.tconstruct.whitestone": "白石",
   "material.tconstruct.whitestone.end": "終界石",
   "material.tconstruct.whitestone.flavor": "拿走你那些毫無用處的白色金屬和石頭，做個有用的工具吧",
-  "material.tconstruct.whitestone.encyclopedia": "挖掘石頭時有機率石盾+3，每級機率+20%。",
+  "material.tconstruct.whitestone.encyclopedia.melee_harvest": "挖掘石頭時有機率石盾+3，每級機率+20%。",
 
   "material.tconstruct.aluminum": "鋁",
   "material.tconstruct.aluminum.flavor": "前代奢侈品，現代尋常物",
@@ -1665,12 +1665,12 @@
 
   "material.tconstruct.bronze": "青銅",
   "material.tconstruct.bronze.flavor": "別和紫晶青銅搞混了",
-  "material.tconstruct.bronze.encyclopedia": "滿耐久度時挖掘速度+6，耐久度低於50%時不增加挖掘速度。",
+  "material.tconstruct.bronze.encyclopedia.melee_harvest": "滿耐久度時挖掘速度+6，耐久度低於50%時不增加挖掘速度。",
   "material.tconstruct.bronze.encyclopedia.ranged": "滿耐久度時初速度+0.05，耐久度低於50%時不增加初速度。",
 
   "material.tconstruct.constantan": "康銅",
   "material.tconstruct.constantan.flavor": "誒，康銅！我還從來沒見過呢。都走開，讓我「康康」！",
-  "material.tconstruct.constantan.encyclopedia": "在極冷環境下挖掘速度+7.5，極熱環境下則雙倍增加。",
+  "material.tconstruct.constantan.encyclopedia.melee_harvest": "在極冷環境下挖掘速度+7.5，極熱環境下則雙倍增加。",
   "material.tconstruct.constantan.encyclopedia.ranged": "在極冷環境下初速度+0.15，極熱環境下則雙倍增加。",
 
   "material.tconstruct.invar": "殷鋼",

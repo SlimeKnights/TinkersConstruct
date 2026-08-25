@@ -1421,12 +1421,12 @@
   "material.tconstruct.rock.blackstone": "Kara Taş",
   "material.tconstruct.rock.deepslate":  "Derin Kayrak Taşı",
   "material.tconstruct.rock.flavor": "Kaya gibi sağlam",
-  "material.tconstruct.rock.encyclopedia": "Aracın kazma hızını, kaybedilmiş dayanıklılık kez nitelik seviyesinin karekökünün yarısı kadar artırır",
+  "material.tconstruct.rock.encyclopedia.melee_harvest": "Aracın kazma hızını, kaybedilmiş dayanıklılık kez nitelik seviyesinin karekökünün yarısı kadar artırır",
 
   "material.tconstruct.flint": "Çakmak Taşı",
   "material.tconstruct.flint.basalt": "Bazalt",
   "material.tconstruct.flint.flavor": "Onarıcının kalbindeki alevin kıvılcımını yakacak!",
-  "material.tconstruct.flint.encyclopedia": "Hasarı, kaybedilmiş dayanıklılık kez nitelik seviyesinin karekökünün çeyreği kadar artırır",
+  "material.tconstruct.flint.encyclopedia.melee_harvest": "Hasarı, kaybedilmiş dayanıklılık kez nitelik seviyesinin karekökünün çeyreği kadar artırır",
 
   "material.tconstruct.bone": "Kemik",
   "material.tconstruct.bone.flavor": "Ben kılıcımın kemiğiyim",
@@ -1481,7 +1481,7 @@
   "material.tconstruct.copper": "Bakır",
   "material.tconstruct.copper.oxidized": "Oksitlenmiş Bakır",
   "material.tconstruct.copper.flavor": "Gününü lekemesine izin verme.",
-  "material.tconstruct.copper.encyclopedia": "Derine indikçe çıkarım hızı artar, 64'üncü bloktan derinde her 64 blokta bir +6 çıkarım hızı sağlar",
+  "material.tconstruct.copper.encyclopedia.melee_harvest": "Derine indikçe çıkarım hızı artar, 64'üncü bloktan derinde her 64 blokta bir +6 çıkarım hızı sağlar",
   "material.tconstruct.copper.encyclopedia.ranged": "Derine indikçe fazladan ok hızı verir, 64'üncü bloktan derinde her 64 blokta bir +0.05 çıkarım hızı sağlar",
   "material.tconstruct.copper.flavor.skull": "Rüzgarı onlardan uzağa vurar",
   "material.tconstruct.copper.encyclopedia.skull": "Yakın menzilli salıdırılar hedeften 3 saniye boyunca havasını çalar",
@@ -1512,7 +1512,7 @@
 
   "material.tconstruct.skyslime_vine": "Balçığımsı Sarmaşık",
   "material.tconstruct.skyslime_vine.flavor": "Kelebek gibi uçar, arı gibi sokar.",
-  "material.tconstruct.skyslime_vine.encyclopedia": "Yerde değilken çıkarım hızının azaltılmasını iptal eder",
+  "material.tconstruct.skyslime_vine.encyclopedia.melee_harvest": "Yerde değilken çıkarım hızının azaltılmasını iptal eder",
   "material.tconstruct.skyslime_vine.encyclopedia.ranged": "Yerde ya da merdivende değilken doğruluğu +0.5 artırır",
 
 
@@ -1527,7 +1527,7 @@
 
   "material.tconstruct.amethyst_bronze": "Ametist Tuncu",
   "material.tconstruct.amethyst_bronze.flavor": "Tunç ile karıştırılmamalıdır.",
-  "material.tconstruct.amethyst_bronze.encyclopedia": "Çıkarılması için araç gerektirmeyen bloklara hatta araçların etkili olmayanları bile seviye başına +0.5 çıkarım hızı sağlar",
+  "material.tconstruct.amethyst_bronze.encyclopedia.melee_harvest": "Çıkarılması için araç gerektirmeyen bloklara hatta araçların etkili olmayanları bile seviye başına +0.5 çıkarım hızı sağlar",
   "material.tconstruct.amethyst_bronze.encyclopedia.ranged": "Seviye başına +0.1 ok hızı ekler ancak ok açılarını 32, 16, 8 doğrultularına ilk 3 seviyenin sırasıyla sınırlar",
 
   "material.tconstruct.pig_iron": "Domuz Demiri",
@@ -1547,7 +1547,7 @@
   "__comment": "Nether Aşaması Malzemeleri",
   "material.tconstruct.cobalt": "Kobalt",
   "material.tconstruct.cobalt.flavor": "Koblat. Kızıl Ordunun malzemesi.",
-  "material.tconstruct.cobalt.encyclopedia": "Seviye başına %7 çıkarım ve saldırı hızı verir",
+  "material.tconstruct.cobalt.encyclopedia.melee_harvest": "Seviye başına %7 çıkarım ve saldırı hızı verir",
   "material.tconstruct.cobalt.encyclopedia.ranged": "Seviye başına çekme hızını ve ok hızını %5 artırır",
 
   "material.tconstruct.manyullyn": "Menyullen",
@@ -1557,7 +1557,7 @@
 
   "material.tconstruct.hepatizon": "Hepatizon",
   "material.tconstruct.hepatizon.flavor": "He-pa-ti-zon - kaynat, püre yap, yahni yap.",
-  "material.tconstruct.hepatizon.encyclopedia": "Ardışık olarak 32 bloğu kırınca seviye başına %25 çıkarım hızı sağlar",
+  "material.tconstruct.hepatizon.encyclopedia.melee_harvest": "Ardışık olarak 32 bloğu kırınca seviye başına %25 çıkarım hızı sağlar",
   "material.tconstruct.hepatizon.encyclopedia.ranged": "Ardışık olarak 16 ok atınca seviye başına %25 çekme hızı sağlar",
 
   "material.tconstruct.queens_slime": "Ecenin Balçığı",
@@ -1575,14 +1575,14 @@
 
   "material.tconstruct.ancient_hide": "Antik Deri",
   "material.tconstruct.ancient_hide.flavor": "Deri en eski taşla sepilenmiş",
-  "material.tconstruct.ancient_hide.encyclopedia": "Bloklardan eşya düşme şansını artırır, şans ile yığılır",
+  "material.tconstruct.ancient_hide.encyclopedia.melee_harvest": "Bloklardan eşya düşme şansını artırır, şans ile yığılır",
 
   "__comment": "End Aşaması Malzemeleri",
   "material.tconstruct.knightslime": "Şövalyebalçığı",
 
   "material.tconstruct.enderslime_vine": "Balçığımsı Sarmaşık",
   "material.tconstruct.enderslime_vine.flavor": "Son mu?",
-  "material.tconstruct.enderslime_vine.encyclopedia": "Çıkarılan bloğun konumuna ışınlanırsın ya da saldırılan canavarla yerlerini değiştirirsin",
+  "material.tconstruct.enderslime_vine.encyclopedia.melee_harvest": "Çıkarılan bloğun konumuna ışınlanırsın ya da saldırılan canavarla yerlerini değiştirirsin",
   "material.tconstruct.enderslime_vine.encyclopedia.ranged": "Düşen okun bulunduğu bloğun konuma ışınlarsın ya da okun değdiği canavarla yerlerini değiştirirsin",
 
   "__comment": "Balçıklı Takım Malzemeleri",
@@ -1639,7 +1639,7 @@
 
   "material.tconstruct.lead": "Kurşun",
   "material.tconstruct.lead.flavor": "Bundan sandviç yapmayı deneyebilirim.",
-  "material.tconstruct.lead.encyclopedia": "Seviye başına %10 hasarı artırır ve %10 yürüme hızını yavaşlatır",
+  "material.tconstruct.lead.encyclopedia.melee_harvest": "Seviye başına %10 hasarı artırır ve %10 yürüme hızını yavaşlatır",
   "material.tconstruct.lead.encyclopedia.ranged": "Seviye başına %10 uzun menizlli gücünü artırır ve %10 yürüme hızını yavaşlatır",
 
   "material.tconstruct.silver": "Gümüş",
@@ -1650,7 +1650,7 @@
   "material.tconstruct.whitestone": "Aktaş",
   "material.tconstruct.whitestone.end": "End Taşı",
   "material.tconstruct.whitestone.flavor": "İşe yaramaz ak metalleri ya da taşları işe yarar araçlar yap",
-  "material.tconstruct.whitestone.encyclopedia": "Taşları kazmak seviye başına %20 şansla +3 taş kalkanı sağlar",
+  "material.tconstruct.whitestone.encyclopedia.melee_harvest": "Taşları kazmak seviye başına %20 şansla +3 taş kalkanı sağlar",
 
   "material.tconstruct.aluminum": "Alüminyum",
   "material.tconstruct.aluminum.flavor": "En çok kül yığınlarında bulunur.",
@@ -1665,12 +1665,12 @@
 
   "material.tconstruct.bronze": "Tunç",
   "material.tconstruct.bronze.flavor": "Ametist Tuncu ile karıştırılmamalıdır.",
-  "material.tconstruct.bronze.encyclopedia": "Tam dayanıklılıkta +6 çıkarım hızı sağlar, %50 dayanıklılık altında hiç sağlamaz",
+  "material.tconstruct.bronze.encyclopedia.melee_harvest": "Tam dayanıklılıkta +6 çıkarım hızı sağlar, %50 dayanıklılık altında hiç sağlamaz",
   "material.tconstruct.bronze.encyclopedia.ranged": "Tam dayanıklılıkta +0.05 çıkarım hızı sağlar, %50 dayanıklılık altında hiç sağlamaz",
 
   "material.tconstruct.constantan": "Konstantan",
   "material.tconstruct.constantan.flavor": "Konstantantantantantantan... Üzgünüm eğlenceliydi \"tanları\".",
-  "material.tconstruct.constantan.encyclopedia": "Aşırı soğuklarda +7.5 çıkarım hızı sağlar ve aşırı sıcaklarda iki kat sağlamlaştırılmış sağlar",
+  "material.tconstruct.constantan.encyclopedia.melee_harvest": "Aşırı soğuklarda +7.5 çıkarım hızı sağlar ve aşırı sıcaklarda iki kat sağlamlaştırılmış sağlar",
   "material.tconstruct.constantan.encyclopedia.ranged": "Aşırı soğuklarda +0.15 ok hızı sağlar ve aşırı sıcaklarda iki kat sağlamlaştırılmış sağlar",
 
   "material.tconstruct.invar": "İnvar",

@@ -1842,13 +1842,13 @@
   "material.tconstruct.rock.blackstone": "Blackstone",
   "material.tconstruct.rock.calcite":    "Calcite",
   "material.tconstruct.rock.flavor": "Rock solid",
-  "material.tconstruct.rock.encyclopedia": "Causes the tool to mine faster by 1% per level times the square root of lost durability. Tool durability multiplier will divide the lost durability.",
+  "material.tconstruct.rock.encyclopedia.melee_harvest": "Causes the tool to mine faster by 1% per level times the square root of lost durability. Tool durability multiplier will divide the lost durability.",
 
   "material.tconstruct.flint": "Flint",
   "material.tconstruct.flint.basalt": "Basalt",
   "material.tconstruct.flint.deepslate": "Deepslate",
   "material.tconstruct.flint.flavor": "This will spark the flames of a Tinker's heart!",
-  "material.tconstruct.flint.encyclopedia": "Increases melee damage by 0.5% per level times the square root of lost durability. Tool durability multiplier will divide the lost durability.",
+  "material.tconstruct.flint.encyclopedia.melee_harvest": "Increases melee damage by 0.5% per level times the square root of lost durability. Tool durability multiplier will divide the lost durability.",
   "material.tconstruct.flint.encyclopedia.ammo": "Allows casting potion on the ammo to tip it. Tipped ammo will apply a potion effect in addition to its damage.",
 
   "material.tconstruct.bone": "Bone",
@@ -1871,7 +1871,7 @@
   "material.tconstruct.necrotic_bone.skull": "Wither Skeleton",
   "material.tconstruct.necrotic_bone.flavor.skull": "Spooky Scary Skeleton!",
   "material.tconstruct.necrotic_bone.encyclopedia.skull": "Makes you immune to Wither I. Melee attacks cause 6 seconds wither to the target.",
-  "material.tconstruct.necrotic_bone.encyclopedia.ribcage": "Heals 5% per level of damage dealt from critical hits.",
+  "material.tconstruct.necrotic_bone.encyclopedia.ribcage": "Heals 5% per level of damage dealt from unarmed critical hits.",
 
   "material.tconstruct.chorus": "Chorus",
   "material.tconstruct.chorus.flavor": "Not just the endermen, but the enderwomen, and the enderchildren",
@@ -1927,7 +1927,7 @@
   "material.tconstruct.copper": "Copper",
   "material.tconstruct.copper.oxidized": "Oxidized Copper",
   "material.tconstruct.copper.flavor": "Don't let this tarnish your day.",
-  "material.tconstruct.copper.encyclopedia": "Grants bonus mining speed at lower depth, +6 per 64 blocks below 64.",
+  "material.tconstruct.copper.encyclopedia.melee_harvest": "Grants bonus mining speed at lower depth, +6 per 64 blocks below 64.",
   "material.tconstruct.copper.encyclopedia.ranged": "Grants bonus velocity at lower depth, +0.05 per 64 blocks below 64.",
   "material.tconstruct.copper.encyclopedia.armor": "Grants bonus protection at lower depth, +5% per 64 blocks below 64.",
   "material.tconstruct.copper.skull": "Drowned",
@@ -1971,7 +1971,7 @@
   "material.tconstruct.skyslime_vine": "Slimy Vine",
   "material.tconstruct.skyslime_vine.slimeskin": "Slimeskin",
   "material.tconstruct.skyslime_vine.flavor": "Float like a butterfly, sting like a bee.",
-  "material.tconstruct.skyslime_vine.encyclopedia": "Cancels out the mining speed reduction when not on the ground.",
+  "material.tconstruct.skyslime_vine.encyclopedia.melee_harvest": "Cancels out the mining speed reduction when not on the ground.",
   "material.tconstruct.skyslime_vine.encyclopedia.ranged": "Grants +0.1 velocity when not on the ground or a ladder.",
   "material.tconstruct.skyslime_vine.encyclopedia.armor": "Reduces gravity by 15% per piece.",
   "material.tconstruct.skyslime_vine.encyclopedia.laces": "Grants +0.5 blocks jump height at first level, and +1 at second level. Increases the safe fall distance by 1 block per level.",
@@ -1985,7 +1985,7 @@
 
   "material.tconstruct.twisting_vine": "Twisting Vine",
   "material.tconstruct.twisting_vine.flavor": "Eat the spores!",
-  "material.tconstruct.twisting_vine.encyclopedia": "Grants +6 mining speed at the cost of losing 1 health when you put down the tool.",
+  "material.tconstruct.twisting_vine.encyclopedia.melee_harvest": "Grants +6 mining speed at the cost of losing 1 health when you put down the tool.",
   "material.tconstruct.twisting_vine.encyclopedia.ranged": "Grants +15% draw speed at the cost of losing 1 health when you put down the tool.",
   "material.tconstruct.twisting_vine.encyclopedia.armor": "Grants +10% knockback resistance at the cost of losing 2 health when you remove the armor.",
   "material.tconstruct.twisting_vine.encyclopedia.laces": "Increases movement speed by 15% per level, but deals 2 damage per level when unequipped.",
@@ -2106,7 +2106,7 @@
 
   "material.tconstruct.amethyst_bronze": "Amethyst Bronze",
   "material.tconstruct.amethyst_bronze.flavor": "Not to be confused with bronze.",
-  "material.tconstruct.amethyst_bronze.encyclopedia": "Grants +1 mining speed per level to blocks that don't require tools, notably ones where the tool is not effective.",
+  "material.tconstruct.amethyst_bronze.encyclopedia.melee_harvest": "Grants +1 mining speed per level to blocks that don't require tools, notably ones where the tool is not effective.",
   "material.tconstruct.amethyst_bronze.encyclopedia.ranged": "Adds +0.1 velocity per level at the cost of limiting arrow angles to 32, 16, or 8 directions at the first 3 levels respectively.",
   "material.tconstruct.amethyst_bronze.encyclopedia.armor": "Grants +5% attack speed per level at the cost of +5% duration on negative effects and limiting taken knockback angles to 32, 16, 8, or 4 directions.",
 
@@ -2131,9 +2131,24 @@
   "__comment": "Tier Nether Materials",
   "material.tconstruct.cobalt": "Cobalt",
   "material.tconstruct.cobalt.flavor": "Coblat. The material of the Red Army.",
-  "material.tconstruct.cobalt.encyclopedia": "Boosts mining and attack speed by 8% per level.",
+  "material.tconstruct.cobalt.encyclopedia.melee_harvest": "Boosts mining and attack speed by 8% per level.",
   "material.tconstruct.cobalt.encyclopedia.ranged": "Boosts drawspeed and velocity by +0.03 per level.",
   "material.tconstruct.cobalt.encyclopedia.armor": "Reduces damage from melee attacks by 8% per level, and boosts movement speed when using items by 5% per max level.",
+
+  "material.tconstruct.kobold": "Kobold",
+  "material.tconstruct.kobold.flavor.shell": "Like discarded scales of a shimmering creature",
+  "material.tconstruct.kobold.encyclopedia.shell": "Grants +5% attack speed, +10% use item speed, and +15% mining speed per level.",
+
+  "material.tconstruct.steel": "Steel",
+  "material.tconstruct.steel.flavor": "Basically 90% of material science",
+  "material.tconstruct.steel.encyclopedia": "Grants +10% durability and +5% melee damage per level.",
+  "material.tconstruct.steel.encyclopedia.ranged": "Grants +10% durability and +0.25 projectile power per level.",
+  "material.tconstruct.steel.encyclopedia.armor": "Grants +10% durability and +1 toughness per level.",
+
+  "material.tconstruct.magnetite": "Magnetite",
+  "material.tconstruct.magnetite.flavor": "Naturally occurring magnetism",
+  "material.tconstruct.magnetite.encyclopedia.ammo": "Attracts mobs within a radius of 3 blocks per level towards the place the projectile hits.",
+  "material.tconstruct.magnetite.encyclopedia.shell": "Pulls nearby items, with radius and speed based on level.",
 
   "material.tconstruct.quartz": "Quartz",
   "material.tconstruct.quartz.flavor": "Sharp!",
@@ -2163,13 +2178,13 @@
 
   "material.tconstruct.hepatizon": "Hepatizon",
   "material.tconstruct.hepatizon.flavor": "He-pa-ti-zon - boil it, mash it, put it in a stew!",
-  "material.tconstruct.hepatizon.encyclopedia": "Boosts mining speed by up to 25% per level, increasing by +2.5% per level over 10 consecutive blocks mined.",
+  "material.tconstruct.hepatizon.encyclopedia.melee_harvest": "Boosts mining speed by up to 25% per level, increasing by +2.5% per level over 10 consecutive blocks mined.",
   "material.tconstruct.hepatizon.encyclopedia.ranged": "Boosts drawspeed by up to 25% per level, increasing by +2.5% per level over 10 consecutive arrows fired.",
   "material.tconstruct.hepatizon.encyclopedia.armor": "Converts 50% of damage taken into a temporary flat damage reduction. Reduction lasts 5 seconds per level.",
 
   "material.tconstruct.ichorskin": "Ichorskin",
   "material.tconstruct.ichorskin.flavor": "Does ichor even have slimes?",
-  "material.tconstruct.ichorskin.encyclopedia": "Grants +5% movement speed, +2.5% attack speed, and +7.5% mining speed.",
+  "material.tconstruct.ichorskin.encyclopedia.armor": "Grants +5% movement speed, +2.5% attack speed, and +7.5% mining speed.",
 
   "material.tconstruct.cinderslime": "Cinderslime",
   "material.tconstruct.cinderslime.flavor": "Cast it into the fire!",
@@ -2189,7 +2204,7 @@
 
   "material.tconstruct.blazewood": "Blazewood",
   "material.tconstruct.blazewood.flavor": "The flame protects the flame",
-  "material.tconstruct.blazewood.encyclopedia": "Inflicts the attacker with 10 seconds of glowing, or 20 seconds when blocking.",
+  "material.tconstruct.blazewood.encyclopedia.armor": "Inflicts the attacker with 10 seconds of glowing, or 20 seconds when blocking.",
   "material.tconstruct.blazewood.encyclopedia.ammo": "Causes the target to glow for 10 seconds. If it hits a block, places a permanent light source at the cost of the projectile.",
 
   "material.tconstruct.ichor": "Ichor",
@@ -2213,20 +2228,19 @@
 
   "material.tconstruct.jeweled_hide": "Jeweled Hide",
   "material.tconstruct.jeweled_hide.flavor": "Leather tanned using pure gemstones",
-  "material.tconstruct.jeweled_hide.encyclopedia": "Increases drop chances from blocks, stacking with luck.",
+  "material.tconstruct.jeweled_hide.encyclopedia.melee_harvest": "Increases drop chances from blocks, stacking with luck.",
   "material.tconstruct.jeweled_hide.encyclopedia.ranged": "Increases the quality of loot from fishing, stacking with luck.",
   "material.tconstruct.jeweled_hide.encyclopedia.armor": "Increases max health by 1 heart. On shields, the heart is immediately restored, but you will take 1 heart of damage on unequip.",
   "material.tconstruct.jeweled_hide.encyclopedia.laces": "Increases fortune level for mined blocks. At second level, the looting level for monster drops.",
 
   "material.tconstruct.ancient_hide": "Ancient Hide",
   "material.tconstruct.ancient_hide.flavor": "Leather tanned by the oldest of stone",
-  "material.tconstruct.ancient_hide.encyclopedia": "Increases drop chances from blocks, stacking with luck.",
-  "material.tconstruct.ancient_hide.encyclopedia.ranged": "Grants an extra defense slot.",
-  "material.tconstruct.ancient_hide.encyclopedia.armor": "Grants an extra defense slot.",
+  "material.tconstruct.ancient_hide.encyclopedia": "Grants an extra defense slot.",
+  "material.tconstruct.ancient_hide.encyclopedia.melee_harvest": "Increases drop chances from blocks, stacking with luck.",
 
   "material.tconstruct.ancient":     "Ancient",
   "material.tconstruct.ancient.flavor": "They don't make them like they used to.",
-  "material.tconstruct.ancient.encyclopedia": "Found on war picks, swashers, and battlesigns, plus from bartering. Each level grants +1 ability slot at the cost of -10% attack speed, -10% mining speed, and +10% gravity.",
+  "material.tconstruct.ancient.encyclopedia.melee_harvest": "Found on war picks, swashers, and battlesigns, plus from bartering. Each level grants +1 ability slot at the cost of -10% attack speed, -10% mining speed, and +10% gravity.",
   "material.tconstruct.ancient.encyclopedia.ranged": "Available on melting pans, war picks, and from bartering. Each level grants +1 ability slot at the cost of -10% draw speed, and +10% gravity.",
   "material.tconstruct.ancient.encyclopedia.armor": "Obtained on plate armor in bastions, battle signs, melting pans, and from bartering. Each level grants +1 ability slot at the cost of +10% gravity, and -10% movement speed or -10% attack speed on shields.",
 
@@ -2254,14 +2268,14 @@
 
   "material.tconstruct.knightslime": "Knightslime",
   "material.tconstruct.knightslime.flavor": "Slimy yet metallic but also stone? Fascinating!",
-  "material.tconstruct.knightslime.encyclopedia": "Each level consumes 1 overslime (or 5 from broad mining) to grant +20% mining speed and +15% attack speed.",
+  "material.tconstruct.knightslime.encyclopedia.melee_harvest": "Each level consumes 1 overslime (or 5 from broad mining) to grant +20% mining speed and +15% attack speed.",
   "material.tconstruct.knightslime.encyclopedia.ranged": "Consumes 1 overslime per level to grant +0.06 velocity and draw speed per level.",
   "material.tconstruct.knightslime.encyclopedia.armor": "Consumes up to 2 overslime per level to reduce damage by 2.5% per overslime consumed (up to 5% per level).",
 
   "material.tconstruct.enderslime_vine": "Slimy Vine",
   "material.tconstruct.enderslime_vine.slimeskin": "Slimeskin",
   "material.tconstruct.enderslime_vine.flavor": "The End?",
-  "material.tconstruct.enderslime_vine.encyclopedia": "Teleports the holder to the location of mined blocks or swaps the holder with attacked monsters.",
+  "material.tconstruct.enderslime_vine.encyclopedia.melee_harvest": "Teleports the holder to the location of mined blocks or swaps the holder with attacked monsters.",
   "material.tconstruct.enderslime_vine.encyclopedia.ranged": "Teleports the holder to the location of arrows that land in blocks or swaps the holder with monsters hit by arrows.",
   "material.tconstruct.enderslime_vine.encyclopedia.armor": "Has a 25% chance per piece of randomly teleporting attackers away.",
   "material.tconstruct.enderslime_vine.encyclopedia.laces": "Has a 25% chance per level of randomly teleporting attackers away.",
@@ -2275,11 +2289,11 @@
   "__comment": "Slimesuit materials",
 
   "material.tconstruct.clay": "Clay",
-  "material.tconstruct.clay.flavor.slime": "All natural!",
+  "material.tconstruct.clay.flavor": "All natural!",
   "material.tconstruct.clay.encyclopedia.slime": "Grants +1 armor per level.",
 
   "material.tconstruct.honey": "Honey",
-  "material.tconstruct.honey.flavor.slime": "Super Sweet!",
+  "material.tconstruct.honey.flavor": "Super Sweet!",
   "material.tconstruct.honey.encyclopedia.slime": "Grants a 15% chance per level of eating the armor (consuming some durability) for 1 hunger per level at 0.1 saturation that also cures poison.",
 
   "material.tconstruct.phantom": "Phantom Membrane",
@@ -2313,7 +2327,7 @@
 
   "material.tconstruct.lead": "Lead",
   "material.tconstruct.lead.flavor": "Could try and make a sandwich out of this.",
-  "material.tconstruct.lead.encyclopedia": "Grants +15% mining speed, +10% knockback resistance, -10% movement speed, and +5% gravity per level.",
+  "material.tconstruct.lead.encyclopedia.melee_harvest": "Grants +15% mining speed, +10% knockback resistance, -10% movement speed, and +5% gravity per level.",
   "material.tconstruct.lead.encyclopedia.ranged": "Grants +0.1 accuracy, +10% knockback resistance, -10% movement speed, and +5% gravity per level.",
   "material.tconstruct.lead.encyclopedia.armor": "Grants +15% knockback resistance, -10% movement speed, and +5% gravity per level.",
 
@@ -2329,7 +2343,7 @@
   "material.tconstruct.whitestone.tin": "Whitestone",
   "material.tconstruct.whitestone.zinc": "Whitestone",
   "material.tconstruct.whitestone.flavor": "Take your useless white metals and rocks and make a useful tool",
-  "material.tconstruct.whitestone.encyclopedia": "Mining stone has a 20% chance per level of consuming the stone to grant +3 stoneshield.",
+  "material.tconstruct.whitestone.encyclopedia.melee_harvest": "Mining stone has a 20% chance per level of consuming the stone to grant +3 stoneshield.",
 
   "material.tconstruct.aluminum": "Aluminum",
   "material.tconstruct.aluminum.flavor": "Found most commonly in ashmounds",
@@ -2347,30 +2361,15 @@
 
 
   "__comment": "Tier 3 Integration Materials",
-  "material.tconstruct.steel": "Steel",
-  "material.tconstruct.steel.flavor": "Basically 90% of material science",
-  "material.tconstruct.steel.encyclopedia": "Grants +10% durability and +5% melee damage per level.",
-  "material.tconstruct.steel.encyclopedia.ranged": "Grants +10% durability and +0.25 projectile power per level.",
-  "material.tconstruct.steel.encyclopedia.armor": "Grants +10% durability and +1 toughness per level.",
-
-  "material.tconstruct.magnetite": "Magnetite",
-  "material.tconstruct.magnetite.flavor": "Naturally occurring magnetism",
-  "material.tconstruct.magnetite.encyclopedia.ammo": "Attracts mobs within a radius of 3 blocks per level towards the place the projectile hits.",
-  "material.tconstruct.magnetite.encyclopedia.shell": "Pulls nearby items, with radius and speed based on level.",
-
-  "material.tconstruct.kobold": "Kobold",
-  "material.tconstruct.kobold.flavor.shell": "Like discarded scales of a shimmering creature",
-  "material.tconstruct.kobold.encyclopedia.shell": "Grants +5% attack speed, +10% use item speed, and +15% mining speed per level.",
-
   "material.tconstruct.bronze": "Bronze",
   "material.tconstruct.bronze.flavor": "Not to be confused with amethyst bronze.",
-  "material.tconstruct.bronze.encyclopedia": "Grants +6 mining speed per level at full durability, 0 boost below 50% durability.",
+  "material.tconstruct.bronze.encyclopedia.melee_harvest": "Grants +6 mining speed per level at full durability, 0 boost below 50% durability.",
   "material.tconstruct.bronze.encyclopedia.ranged": "Grants +0.08 velocity per level at full durability, 0 boost below 50% durability.",
   "material.tconstruct.bronze.encyclopedia.armor": "Boosts toughness by 2 per level when at full durability, but boost drops to 0 below 50% durability.",
 
   "material.tconstruct.constantan": "Constantan",
   "material.tconstruct.constantan.flavor": "Constantantantantantantan... Sorry it's fun to add more \"tans.\"",
-  "material.tconstruct.constantan.encyclopedia": "Grants +7.5 mining speed in extreme cold and twice reinforced in extreme heat.",
+  "material.tconstruct.constantan.encyclopedia.melee_harvest": "Grants +7.5 mining speed in extreme cold and twice reinforced in extreme heat.",
   "material.tconstruct.constantan.encyclopedia.ranged": "Grants +0.15 velocity in extreme cold and twice reinforced in extreme heat.",
   "material.tconstruct.constantan.encyclopedia.armor": "Grants 5% protection in extreme cold and twice reinforced in extreme heat.",
 
