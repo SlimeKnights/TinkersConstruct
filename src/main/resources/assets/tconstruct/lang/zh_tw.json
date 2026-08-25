@@ -1411,7 +1411,7 @@
   
   "material.tconstruct.bamboo": "竹",
   "material.tconstruct.bamboo.flavor": "被敲竹槓了！",
-  "material.tconstruct.bamboo.ranged": "箭矢的初速度變為110%，傷害變為90%。也就是說，箭矢射程更遠但傷害基本不變。",
+  "material.tconstruct.bamboo.encyclopedia.ranged": "箭矢的初速度變為110%，傷害變為90%。也就是說，箭矢射程更遠但傷害基本不變。",
 
   "material.tconstruct.rock": "岩石",
   "material.tconstruct.rock.stone": "石頭",
@@ -1431,21 +1431,21 @@
   "material.tconstruct.bone": "骨頭",
   "material.tconstruct.bone.flavor": "吾為所持劍之骨",
   "material.tconstruct.bone.encyclopedia": "每級近戰傷害+0.5，穿透護甲值+1",
-  "material.tconstruct.bone.ranged": "每級近戰傷害+0.5，穿透護甲值+1",
+  "material.tconstruct.bone.encyclopedia.ranged": "每級近戰傷害+0.5，穿透護甲值+1",
   "material.tconstruct.bone.flavor.skull": "來點牛奶嗎？",
   "material.tconstruct.bone.encyclopedia.skull": "飲用牛奶後獲得1分鐘抗性提升。",
 
   "material.tconstruct.necrotic_bone": "壞死之骨",
   "material.tconstruct.necrotic_bone.flavor": "你是故意挑我骨頭是不是？",
   "material.tconstruct.necrotic_bone.encyclopedia": "暴擊時，按造成傷害的百分比治療。",
-  "material.tconstruct.necrotic_bone.ranged": "箭矢命中時，按造成傷害的百分比治療。",
+  "material.tconstruct.necrotic_bone.encyclopedia.ranged": "箭矢命中時，按造成傷害的百分比治療。",
   "material.tconstruct.necrotic_bone.flavor.skull": "驚悚恐怖骷髏頭！",
   "material.tconstruct.necrotic_bone.encyclopedia.skull": "普通攻擊給予敵人凋零效果。飲用牛奶後可給予凋零II。",
 
   "material.tconstruct.chorus": "歌萊",
   "material.tconstruct.chorus.flavor": "不只是終界使者，還有終界娘和終界孩",
   "material.tconstruct.chorus.encyclopedia": "防止目標瞬移，每級+5秒。",
-  "material.tconstruct.chorus.ranged": "防止目標瞬移，每級+5秒，也使得箭矢能擊中終界使者。",
+  "material.tconstruct.chorus.encyclopedia.ranged": "防止目標瞬移，每級+5秒，也使得箭矢能擊中終界使者。",
 
   "material.tconstruct.string": "線",
   "material.tconstruct.string.flavor": "理論上的最佳材料",
@@ -1482,7 +1482,7 @@
   "material.tconstruct.copper.oxidized": "氧化銅",
   "material.tconstruct.copper.flavor": "不要被銅鏽鏽到了",
   "material.tconstruct.copper.encyclopedia": "在低海拔時額外增加挖掘速度，每低於海平面64格，挖掘速度+6。",
-  "material.tconstruct.copper.ranged": "在低海拔時額外增加初速度，每低於海平面64格，初速度+0.05。",
+  "material.tconstruct.copper.encyclopedia.ranged": "在低海拔時額外增加初速度，每低於海平面64格，初速度+0.05。",
   "material.tconstruct.copper.flavor.skull": "你的攻擊令人窒息",
   "material.tconstruct.copper.encyclopedia.skull": "近戰攻擊使敵人3秒鐘無法呼吸。",
 
@@ -1496,7 +1496,7 @@
   "material.tconstruct.bloodbone": "血之骨",
   "material.tconstruct.bloodbone.flavor": "血難道不應該在骨頭裡面嗎？",
   "material.tconstruct.bloodbone.encyclopedia": "在生命值低時提升攻擊力，剩餘1顆心時每級使攻擊傷害+4。",
-  "material.tconstruct.bloodbone.ranged": "在生命值低時提升拉弓速度，剩餘1顆心時每級使拉弓速度+0.25。",
+  "material.tconstruct.bloodbone.encyclopedia.ranged": "在生命值低時提升拉弓速度，剩餘1顆心時每級使拉弓速度+0.25。",
   "material.tconstruct.bloodbone.flavor.skull": "令人毛骨悚然",
   "material.tconstruct.bloodbone.encyclopedia.skull": "彈射物會使攻擊目標獲得緩速效果。飲用牛奶後，近戰攻擊也會使目標獲得緩速效果，並且等級更高。",
 
@@ -1513,7 +1513,7 @@
   "material.tconstruct.skyslime_vine": "史萊姆藤蔓",
   "material.tconstruct.skyslime_vine.flavor": "掠翅若蝶，蟄刺似蜂",
   "material.tconstruct.skyslime_vine.encyclopedia": "取消不站在地面時的挖掘速度削減。",
-  "material.tconstruct.skyslime_vine.ranged": "不站在地面或拉著梯子是使精確度+0.5。",
+  "material.tconstruct.skyslime_vine.encyclopedia.ranged": "不站在地面或拉著梯子是使精確度+0.5。",
 
 
   "__comment": "Tier 3 Materials",
@@ -1528,7 +1528,7 @@
   "material.tconstruct.amethyst_bronze": "紫晶青銅",
   "material.tconstruct.amethyst_bronze.flavor": "別和青銅搞混了",
   "material.tconstruct.amethyst_bronze.encyclopedia": "挖掘不需要工具採掘的方塊時，每級挖掘速度+0.5，工具種類不匹配時也有效。",
-  "material.tconstruct.amethyst_bronze.ranged": "每級+0.1初速度，但同時限定箭矢出射方向；前三級分別將方向限定為32、16、8向。",
+  "material.tconstruct.amethyst_bronze.encyclopedia.ranged": "每級+0.1初速度，但同時限定箭矢出射方向；前三級分別將方向限定為32、16、8向。",
 
   "material.tconstruct.pig_iron": "生鐵",
   "material.tconstruct.pig_iron.flavor": "這是最強材料，不接受反駁",
@@ -1539,7 +1539,7 @@
   "material.tconstruct.darkthread": "黑曜絲線",
   "material.tconstruct.darkthread.flavor": "站到黑暗的一邊吧，我們有縫紉線",
   "material.tconstruct.darkthread.encyclopedia": "增加生物掉落物的掉落機率，可與「幸運」強化同時存在。",
-  "material.tconstruct.darkthread.ranged": "增加箭矢所擊殺生物掉落物的掉落機率。",
+  "material.tconstruct.darkthread.encyclopedia.ranged": "增加箭矢所擊殺生物掉落物的掉落機率。",
   "material.tconstruct.darkthread.flavor.skull": "高智商戰鬥必備，對那些需要痛飲來決對錯的決鬥來說更是如此",
   "material.tconstruct.darkthread.encyclopedia.skull": "使穿戴者免疫中毒，但不會取消已有中毒效果。",
 
@@ -1548,17 +1548,17 @@
   "material.tconstruct.cobalt": "鈷",
   "material.tconstruct.cobalt.flavor": "雄關漫道真如鈷，而今回首從頭邁。",
   "material.tconstruct.cobalt.encyclopedia": "每級的攻擊速度和挖掘速度+7%。",
-  "material.tconstruct.cobalt.ranged": "每級的拉弓速度和初速度+5%。",
+  "material.tconstruct.cobalt.encyclopedia.ranged": "每級的拉弓速度和初速度+5%。",
 
   "material.tconstruct.manyullyn": "瑪玉靈",
   "material.tconstruct.manyullyn.flavor": "沒幾個工匠能叫對這材料的名字。他們說這個材料能夠斬斷星辰",
   "material.tconstruct.manyullyn.encyclopedia": "8次連擊後，每級傷害+2。",
-  "material.tconstruct.manyullyn.ranged": "8次連續發射後，每級箭矢傷害+1（先於初速度計算）。",
+  "material.tconstruct.manyullyn.encyclopedia.ranged": "8次連續發射後，每級箭矢傷害+1（先於初速度計算）。",
 
   "material.tconstruct.hepatizon": "黑色科林斯青銅",
   "material.tconstruct.hepatizon.flavor": "-科什麼斯啊？\n-科林斯啊。\n-什麼林斯啊？\n-科林斯啊！\n-科林什麼啊？\n-行了你先休息吧。",
   "material.tconstruct.hepatizon.encyclopedia": "在連續挖掘32個方塊後，每級挖掘速度+25%。",
-  "material.tconstruct.hepatizon.ranged": "在連續發射16次後，每級拉弓速度+25%。",
+  "material.tconstruct.hepatizon.encyclopedia.ranged": "在連續發射16次後，每級拉弓速度+25%。",
 
   "material.tconstruct.queens_slime": "皇后史萊姆",
   "material.tconstruct.queens_slime.flavor": "公主都不是什麼好人，去找個皇后吧",
@@ -1567,7 +1567,7 @@
   "material.tconstruct.blazing_bone": "烈焰之骨",
   "material.tconstruct.blazing_bone.flavor": "獲取地獄要塞的所有力量——烈焰之力與骨之力",
   "material.tconstruct.blazing_bone.encyclopedia": "在火焰中每秒傷害+1%，熔岩中15秒傷害至多+15%。防火效果會減少加成。",
-  "material.tconstruct.blazing_bone.ranged": "在火焰中每秒箭矢傷害+1%，熔岩中15秒傷害至多+15%。防火效果會減少加成。",
+  "material.tconstruct.blazing_bone.encyclopedia.ranged": "在火焰中每秒箭矢傷害+1%，熔岩中15秒傷害至多+15%。防火效果會減少加成。",
   "material.tconstruct.blazing_bone.flavor.skull": "我給他們說了，這東西技術上來說其實是吐火，不是噴火。但是很明顯，我發明的東西我卻沒有命名權。",
   "material.tconstruct.blazing_bone.encyclopedia.skull": "能夠以火球的形式從物品欄中發射火焰彈。冷卻時間5秒鐘，不能在水下使用。",
 
@@ -1583,7 +1583,7 @@
   "material.tconstruct.enderslime_vine": "史萊姆藤蔓",
   "material.tconstruct.enderslime_vine.flavor": "結束了？",
   "material.tconstruct.enderslime_vine.encyclopedia": "將持有者傳送到挖掉的方塊處，或交換持有者與被擊中生物的位置。",
-  "material.tconstruct.enderslime_vine.ranged": "將持有者傳送到擊中方塊的箭矢處，或交換持有者與被命中生物的位置。",
+  "material.tconstruct.enderslime_vine.encyclopedia.ranged": "將持有者傳送到擊中方塊的箭矢處，或交換持有者與被命中生物的位置。",
 
   "__comment": "Slimesuit materials",
   "material.tconstruct.glass": "玻璃",
@@ -1630,22 +1630,22 @@
   "material.tconstruct.tungsten": "鎢",
   "material.tconstruct.tungsten.flavor": "你考慮過組建一支重金屬樂隊嗎？",
   "material.tconstruct.tungsten.encyclopedia": "每級挖掘速度+10%，移動速度-10%。",
-  "material.tconstruct.tungsten.ranged": "每級拉弓速度+15%，移動速度-10%。",
+  "material.tconstruct.tungsten.encyclopedia.ranged": "每級拉弓速度+15%，移動速度-10%。",
 
   "material.tconstruct.platinum": "鉑",
   "material.tconstruct.platinum.flavor": "它是勝利者的專屬",
   "material.tconstruct.platinum.encyclopedia": "開採礦石時，額外掉落2-6個金屬粒，掉落金屬粒的數量隨強化等級增加而增加。",
-  "material.tconstruct.platinum.ranged": "命中遠處怪物時，有5%機率掉落金屬粒。50格及以上掉落鉑粒，40格掉落金粒，30格掉落鐵粒，20格掉落銅粒。",
+  "material.tconstruct.platinum.encyclopedia.ranged": "命中遠處怪物時，有5%機率掉落金屬粒。50格及以上掉落鉑粒，40格掉落金粒，30格掉落鐵粒，20格掉落銅粒。",
 
   "material.tconstruct.lead": "鉛",
   "material.tconstruct.lead.flavor": "可以試試用這東西做個三明治",
   "material.tconstruct.lead.encyclopedia": "每級攻擊力+10%，移動速度-10%。",
-  "material.tconstruct.lead.ranged": "每級彈射物傷害+10%，移動速度-10%。",
+  "material.tconstruct.lead.encyclopedia.ranged": "每級彈射物傷害+10%，移動速度-10%。",
 
   "material.tconstruct.silver": "銀",
   "material.tconstruct.silver.flavor": "你知道的，這東西沒幾天就不再閃閃發光了",
   "material.tconstruct.silver.encyclopedia": "對不死生物每級傷害+2.5。",
-  "material.tconstruct.silver.ranged": "對不死生物每級彈射物傷害+0.5。",
+  "material.tconstruct.silver.encyclopedia.ranged": "對不死生物每級彈射物傷害+0.5。",
 
   "material.tconstruct.whitestone": "白石",
   "material.tconstruct.whitestone.end": "終界石",
@@ -1654,34 +1654,34 @@
 
   "material.tconstruct.aluminum": "鋁",
   "material.tconstruct.aluminum.flavor": "前代奢侈品，現代尋常物",
-  "material.tconstruct.aluminum.ranged": "拉弓速度+7%，精確度+7%。",
+  "material.tconstruct.aluminum.encyclopedia.ranged": "拉弓速度+7%，精確度+7%。",
 
 
   "__comment": "Tier 3 Integration Materials",
   "material.tconstruct.steel": "鋼",
   "material.tconstruct.steel.flavor": "差不多90%的材料科學內容都是它",
   "material.tconstruct.steel.encyclopedia": "每級耐久度、傷害和速度+4%。",
-  "material.tconstruct.steel.ranged": "每級耐久度+4%，初速度+3%，彈射物傷害+3%。",
+  "material.tconstruct.steel.encyclopedia.ranged": "每級耐久度+4%，初速度+3%，彈射物傷害+3%。",
 
   "material.tconstruct.bronze": "青銅",
   "material.tconstruct.bronze.flavor": "別和紫晶青銅搞混了",
   "material.tconstruct.bronze.encyclopedia": "滿耐久度時挖掘速度+6，耐久度低於50%時不增加挖掘速度。",
-  "material.tconstruct.bronze.ranged": "滿耐久度時初速度+0.05，耐久度低於50%時不增加初速度。",
+  "material.tconstruct.bronze.encyclopedia.ranged": "滿耐久度時初速度+0.05，耐久度低於50%時不增加初速度。",
 
   "material.tconstruct.constantan": "康銅",
   "material.tconstruct.constantan.flavor": "誒，康銅！我還從來沒見過呢。都走開，讓我「康康」！",
   "material.tconstruct.constantan.encyclopedia": "在極冷環境下挖掘速度+7.5，極熱環境下則雙倍增加。",
-  "material.tconstruct.constantan.ranged": "在極冷環境下初速度+0.15，極熱環境下則雙倍增加。",
+  "material.tconstruct.constantan.encyclopedia.ranged": "在極冷環境下初速度+0.15，極熱環境下則雙倍增加。",
 
   "material.tconstruct.invar": "殷鋼",
   "material.tconstruct.invar.flavor": "它能抵禦溫度，還能避免追捕",
   "material.tconstruct.invar.encyclopedia": "在中等溫度的生態域系傷害+2.5。",
-  "material.tconstruct.invar.ranged": "在中等溫度的生態域系精確度+0.15。",
+  "material.tconstruct.invar.encyclopedia.ranged": "在中等溫度的生態域系精確度+0.15。",
 
   "material.tconstruct.electrum": "琥珀金",
   "material.tconstruct.electrum.flavor": "適用於電子元件",
   "material.tconstruct.electrum.encyclopedia": "挖掘方塊或擊殺怪物時，每級經驗掉落+50%。",
-  "material.tconstruct.electrum.ranged": "以箭矢擊殺怪物時，每級經驗掉落+50%。",
+  "material.tconstruct.electrum.encyclopedia.ranged": "以箭矢擊殺怪物時，每級經驗掉落+50%。",
 
   "material.tconstruct.necronium": "輻射之骨",
   "material.tconstruct.necronium.flavor": "這麼多的輻射，很可能代表著你為數不多的生命只剩下四分之一了",

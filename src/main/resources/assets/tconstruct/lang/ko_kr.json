@@ -1346,7 +1346,7 @@
 
   "material.tconstruct.bamboo": "대나무",
   "material.tconstruct.bamboo.flavor": "죽창 앞에서는 너도 한 방, 나도 한 방!",
-  "material.tconstruct.bamboo.ranged": "화살 속도가 110%로 증가하지만, 90%의 피해를 입힙니다.\n사실상 거의 같은 피해를 입히면서 더 멀리 갑니다",
+  "material.tconstruct.bamboo.encyclopedia.ranged": "화살 속도가 110%로 증가하지만, 90%의 피해를 입힙니다.\n사실상 거의 같은 피해를 입히면서 더 멀리 갑니다",
 
   "material.tconstruct.rock": "돌",
   "material.tconstruct.rock.stone":      "돌",
@@ -1366,21 +1366,21 @@
   "material.tconstruct.bone": "뼈",
   "material.tconstruct.bone.flavor": "이 검은 제 뼈를 갈아 만들었습니다",
   "material.tconstruct.bone.encyclopedia": "특성 레벨당 0.5의 공격 피해가 1의 관통 피해로 변환됩니다",
-  "material.tconstruct.bone.ranged": "화살이 (1 × 특성 레벨) 관통 피해를 추가로 입힙니다.",
+  "material.tconstruct.bone.encyclopedia.ranged": "화살이 (1 × 특성 레벨) 관통 피해를 추가로 입힙니다.",
   "material.tconstruct.bone.flavor.skull": "우유 마실래?",
   "material.tconstruct.bone.encyclopedia.skull": "우유를 마시면 1분 동안 저항 효과를 받습니다",
 
   "material.tconstruct.necrotic_bone": "시들어버린 뼈",
   "material.tconstruct.necrotic_bone.flavor": "제 뼈에 볼일이 있나요?",
   "material.tconstruct.necrotic_bone.encyclopedia": "치명타로 입힌 피해량의 일부만큼 체력을 회복합니다",
-  "material.tconstruct.necrotic_bone.ranged": "화살로 입힌 피해량의 일부만큼 체력을 회복합니다",
+  "material.tconstruct.necrotic_bone.encyclopedia.ranged": "화살로 입힌 피해량의 일부만큼 체력을 회복합니다",
   "material.tconstruct.necrotic_bone.flavor.skull": "으스스한 스켈레톤!",
   "material.tconstruct.necrotic_bone.encyclopedia.skull": "근접 공격에 시듦 효과를 추가합니다. 우유를 마셨다면 효과가 강해집니다.",
 
   "material.tconstruct.chorus":              "후렴과",
   "material.tconstruct.chorus.flavor":       "앤더맨도, 앤더우먼도, 앤더린이도 아닙니다",
   "material.tconstruct.chorus.encyclopedia": "대상이 (5 × 특성 레벨)초 동안 순간이동 할 수 없습니다.",
-  "material.tconstruct.chorus.ranged": "대상이 (5 × 특성 레벨)초 동안 순간이동 할 수 없으며 엔더맨을 화살로 맞출 수 있습니다.",
+  "material.tconstruct.chorus.encyclopedia.ranged": "대상이 (5 × 특성 레벨)초 동안 순간이동 할 수 없으며 엔더맨을 화살로 맞출 수 있습니다.",
 
   "material.tconstruct.string": "실",
   "material.tconstruct.string.flavor": "이론상 가장 좋은 재료입니다.",
@@ -1416,7 +1416,7 @@
   "material.tconstruct.copper.oxidized": "산화된 구리",
   "material.tconstruct.copper.flavor": "일상까지는 변색되지 않도록 하라.",
   "material.tconstruct.copper.encyclopedia": "낮은 장소에서 채굴 속도가 증가합니다. Y 64아래에서 64 블록당 채굴 속도 +6을 얻습니다",
-  "material.tconstruct.copper.ranged": "낮은 장소에서 화살 속도가 증가합니다. Y 64아래에서 64 블록당 속도 +0.05를 얻습니다",
+  "material.tconstruct.copper.encyclopedia.ranged": "낮은 장소에서 화살 속도가 증가합니다. Y 64아래에서 64 블록당 속도 +0.05를 얻습니다",
   "material.tconstruct.copper.flavor.skull": "숨 넘어가게 해주지!",
   "material.tconstruct.copper.encyclopedia.skull": "근접 공격이 대상의 공기를 3초만큼 훔칩니다.",
 
@@ -1430,7 +1430,7 @@
   "material.tconstruct.bloodbone": "피에 젖은 뼈",
   "material.tconstruct.bloodbone.flavor": "피는 원래 뼈 안에 있어야하지 않나?",
   "material.tconstruct.bloodbone.encyclopedia": "체력이 낮을수록 공격 피해량이 증가하며, 생명력 1칸일때 공격 피해량이 최대 (4 × 특성 레벨) 증가합니다",
-  "material.tconstruct.bloodbone.ranged": "체력이 낮을수록 공격 속도가 증가하며, 생명력 1칸일때 공격속도가 최대 (0.25 × 특성 레벨) 증가합니다",
+  "material.tconstruct.bloodbone.encyclopedia.ranged": "체력이 낮을수록 공격 속도가 증가하며, 생명력 1칸일때 공격속도가 최대 (0.25 × 특성 레벨) 증가합니다",
   "material.tconstruct.bloodbone.flavor.skull": "뼛속까지 파고드는 한기",
   "material.tconstruct.bloodbone.encyclopedia.skull": "발사체가 대상을 느려지게 합니다. 우유를 마시면 근접 공격으로도 느려지게 만들며, 효과가 강해집니다",
 
@@ -1447,7 +1447,7 @@
   "material.tconstruct.skyslime_vine": "슬라임 덩굴",
   "material.tconstruct.skyslime_vine.flavor": "나비처럼 날아서 벌처럼 쏜다",
   "material.tconstruct.skyslime_vine.encyclopedia": "땅에 서있지 않아도 채굴 속도가 감소하지 않습니다",
-  "material.tconstruct.skyslime_vine.ranged": "땅에 서 있지 않을 때 정확도가 +0.5 증가합니다",
+  "material.tconstruct.skyslime_vine.encyclopedia.ranged": "땅에 서 있지 않을 때 정확도가 +0.5 증가합니다",
 
 
   "material.tconstruct.slimesteel": "슬라임강철",
@@ -1461,7 +1461,7 @@
   "material.tconstruct.amethyst_bronze": "수정동",
   "material.tconstruct.amethyst_bronze.flavor": "청동과 헷갈리지 마시오",
   "material.tconstruct.amethyst_bronze.encyclopedia": "도구가 필요 없거나 효과적이지 않은 블록들에 대한 채굴 속도가 (0.5 × 특성 레벨) 증가합니다. ",
-  "material.tconstruct.amethyst_bronze.ranged": "화살 속도가 레벨당 +0.1씩 증가하는 대신 발사 각도가 처음 3레벨에서 32, 16, 8방향으로 점점 제한됩니다",
+  "material.tconstruct.amethyst_bronze.encyclopedia.ranged": "화살 속도가 레벨당 +0.1씩 증가하는 대신 발사 각도가 처음 3레벨에서 32, 16, 8방향으로 점점 제한됩니다",
 
   "material.tconstruct.pig_iron": "돼지 선철",
   "material.tconstruct.pig_iron.flavor": "배고플 여지 없는 완벽한 재료입니다",
@@ -1472,7 +1472,7 @@
   "material.tconstruct.darkthread": "어둠실",
   "material.tconstruct.darkthread.flavor": "어둠에 빠져보세요, 우리는 씨를 뿌리고 있답니다",
   "material.tconstruct.darkthread.encyclopedia": "몹이 아이템을 떨어뜨릴 확률이 증가합니다. 운과 중첩이 가능합니다",
-  "material.tconstruct.darkthread.ranged": "화살로 처치한 몹이 아이템을 떨어뜨릴 확률이 증가합니다",
+  "material.tconstruct.darkthread.encyclopedia.ranged": "화살로 처치한 몹이 아이템을 떨어뜨릴 확률이 증가합니다",
   "material.tconstruct.darkthread.flavor.skull": "누가 옳은지 결정하고 마셔야 하는 지혜의 싸움에 완벽합니다",
   "material.tconstruct.darkthread.encyclopedia.skull": "착용자는 독 효과에 면역이 됩니다. 기존 독 효과를 없애진 않습니다",
 
@@ -1480,17 +1480,17 @@
   "material.tconstruct.cobalt": "코발트",
   "material.tconstruct.cobalt.flavor": "코밭르, 붉은 군대에서 사용하는 재료입니다.",
   "material.tconstruct.cobalt.encyclopedia": "공격 속도와 채굴 속도가 (7 × 특성 레벨)% 증가합니다",
-  "material.tconstruct.cobalt.ranged": "공격 속도와 화살 속도가 (5 × 특성 레벨)% 증가합니다",
+  "material.tconstruct.cobalt.encyclopedia.ranged": "공격 속도와 화살 속도가 (5 × 특성 레벨)% 증가합니다",
 
   "material.tconstruct.manyullyn": "마뉼린",
   "material.tconstruct.manyullyn.flavor": "대부분의 대장장이가 제대로 발음하지 못 할 재료입니다. 별을 자르는 물질이라고도 알려져 있습니다.",
   "material.tconstruct.manyullyn.encyclopedia": "적을 연속으로 8번 공격한 이후, 공격 피해가 (2 × 특성 레벨) 증가합니다",
-  "material.tconstruct.manyullyn.ranged": "화살로 적을 연속으로 8번 공격한 이후, 화살 기본 피해량이 (1 × 특성 레벨) 증가합니다",
+  "material.tconstruct.manyullyn.encyclopedia.ranged": "화살로 적을 연속으로 8번 공격한 이후, 화살 기본 피해량이 (1 × 특성 레벨) 증가합니다",
 
   "material.tconstruct.hepatizon": "헤파티존",
   "material.tconstruct.hepatizon.flavor": "과몰입은 채광할때 좋습니다.",
   "material.tconstruct.hepatizon.encyclopedia": "연속으로 블록을 32개 채굴하면, 채굴 속도가 (25 × 특성 레벨)% 증가합니다",
-  "material.tconstruct.hepatizon.ranged": "연속으로 화살을 16개 쏘면, 공격 속도가 (25 × 특성 레벨)% 증가합니다",
+  "material.tconstruct.hepatizon.encyclopedia.ranged": "연속으로 화살을 16개 쏘면, 공격 속도가 (25 × 특성 레벨)% 증가합니다",
 
   "material.tconstruct.queens_slime": "여왕슬라임",
   "material.tconstruct.queens_slime.flavor": "공주는 사악하니, 여왕이 되세요",
@@ -1499,7 +1499,7 @@
   "material.tconstruct.blazing_bone": "이글거리는 뼈",
   "material.tconstruct.blazing_bone.flavor": "네더 요새의 진정한 힘을 담다 - 뼈와 블레이즈",
   "material.tconstruct.blazing_bone.encyclopedia": "불이 붙었을 때 초당 피해량이 1%씩 증가하며, 용암에서 초당 최대 15%까지 증가합니다. 화염 저항이 있다면 추가 피해가 감소합니다.",
-  "material.tconstruct.blazing_bone.ranged": "불이 붙으면, 초당 화살 피해령이 1%씩 증가하며, 용암에서 초당 최대 15%까지 증가합니다. 화염 저항이 있다면, 추가 공격 피해가 감소합니다",
+  "material.tconstruct.blazing_bone.encyclopedia.ranged": "불이 붙으면, 초당 화살 피해령이 1%씩 증가하며, 용암에서 초당 최대 15%까지 증가합니다. 화염 저항이 있다면, 추가 공격 피해가 감소합니다",
   "material.tconstruct.blazing_bone.flavor.skull": "원래 이름은 화염의 숨결이지만, 알 필요는 없어. 시간이 지나면 어차피 화염구라고 부를텐데 뭐.",
   "material.tconstruct.blazing_bone.encyclopedia.skull": "인벤토리에 있는 화염구를 뱉을 수 있습니다. 5초의 대기시간이 있으며, 물속에서는 사용할 수 없습니다",
 
@@ -1514,7 +1514,7 @@
   "material.tconstruct.enderslime_vine": "슬라임 덩굴",
   "material.tconstruct.enderslime_vine.flavor": "이걸로 끝이야?",
   "material.tconstruct.enderslime_vine.encyclopedia": "채굴한 블록의 위치나 공격한 몬스터의 위치로 순간이동합니다",
-  "material.tconstruct.enderslime_vine.ranged": "화살이 꽂힌 블록이나 공격한 몬스터의 위치로 순간이동합니다",
+  "material.tconstruct.enderslime_vine.encyclopedia.ranged": "화살이 꽂힌 블록이나 공격한 몬스터의 위치로 순간이동합니다",
 
   "material.tconstruct.glass": "유리",
   "material.tconstruct.glass.flavor.skull": "이제 누가 폭발하는 걸까, 크리퍼?",
@@ -1559,22 +1559,22 @@
   "material.tconstruct.tungsten": "텅스텐",
   "material.tconstruct.tungsten.flavor": "중금속 밴드를 시작해보지 않을래?",
   "material.tconstruct.tungsten.encyclopedia": "채굴 속도가 (10 × 특성 레벨)% 증가하고, 이동 속도가 (10 × 특성 레벨)% 감소합니다",
-  "material.tconstruct.tungsten.ranged": "공격 속도가 (15 × 특성 레벨)% 증가하고, 이동 속도가 (10 × 특성 레벨)% 감소합니다",
+  "material.tconstruct.tungsten.encyclopedia.ranged": "공격 속도가 (15 × 특성 레벨)% 증가하고, 이동 속도가 (10 × 특성 레벨)% 감소합니다",
 
   "material.tconstruct.platinum": "백금",
   "material.tconstruct.platinum.flavor": "우승자가 사용하는 금속입니다!",
   "material.tconstruct.platinum.encyclopedia": "광석을 채굴할 때, 해당 광물 조각이 2-6개 떨어집니다. 특성 레벨에 따라 증가합니다",
-  "material.tconstruct.platinum.ranged": "먼 거리에서 몹을 맞추면 5% 확률로 광물 조각을 떨어뜨립니다. 50블록 이상이면 백금, 40블록 이상이면 금, 30블록 이상이면 철, 20블록 이상이면 구리 조각입니다",
+  "material.tconstruct.platinum.encyclopedia.ranged": "먼 거리에서 몹을 맞추면 5% 확률로 광물 조각을 떨어뜨립니다. 50블록 이상이면 백금, 40블록 이상이면 금, 30블록 이상이면 철, 20블록 이상이면 구리 조각입니다",
 
   "material.tconstruct.lead": "납",
   "material.tconstruct.lead.flavor": "이걸로 샌드위치를 만들어 보세요",
   "material.tconstruct.lead.encyclopedia": "공격 피해량이 (10 × 특성 레벨)% 증가하고, 이동 속도가 (10 × 특성 레벨)% 감소합니다",
-  "material.tconstruct.lead.ranged": "화살 피해량이 (10 × 특성 레벨)% 증가하고, 이동 속도가 (10 × 특성 레벨)% 감소합니다",
+  "material.tconstruct.lead.encyclopedia.ranged": "화살 피해량이 (10 × 특성 레벨)% 증가하고, 이동 속도가 (10 × 특성 레벨)% 감소합니다",
 
   "material.tconstruct.silver": "은",
   "material.tconstruct.silver.flavor": "알겠지만, 이 도구는 며칠 지나면 이렇게 반짝거리지 않을겁니다",
   "material.tconstruct.silver.encyclopedia": "언데드에게 주는 공격 피해량이 (2.5 × 특성 레벨)만큼 증가합니다",
-  "material.tconstruct.silver.ranged": "언데드에게 주는 공격 피해량이 (0.5 × 특성 레벨)만큼 증가합니다",
+  "material.tconstruct.silver.encyclopedia.ranged": "언데드에게 주는 공격 피해량이 (0.5 × 특성 레벨)만큼 증가합니다",
 
   "material.tconstruct.whitestone": "백석",
   "material.tconstruct.whitestone.end": "엔드 돌",
@@ -1583,33 +1583,33 @@
 
   "material.tconstruct.aluminum": "알루미늄",
   "material.tconstruct.aluminum.flavor": "화산재에서 가장 흔하게 발견됩니다",
-  "material.tconstruct.aluminum.ranged": "공격 속도와 정확도가 7% 증가합니다",
+  "material.tconstruct.aluminum.encyclopedia.ranged": "공격 속도와 정확도가 7% 증가합니다",
 
 
   "material.tconstruct.steel": "강철",
   "material.tconstruct.steel.flavor": "기본적으로 재료 과학의 90%를 차지합니다",
   "material.tconstruct.steel.encyclopedia": "내구도, 공격 피해량, 속도가 (4 × 특성 레벨)% 증가합니다",
-  "material.tconstruct.steel.ranged": "내구도가 (4 × 특성 레벨)%, 화살 속도와 화살 피해량은 (3 × 특성 레벨)% 증가합니다",
+  "material.tconstruct.steel.encyclopedia.ranged": "내구도가 (4 × 특성 레벨)%, 화살 속도와 화살 피해량은 (3 × 특성 레벨)% 증가합니다",
 
   "material.tconstruct.bronze": "청동",
   "material.tconstruct.bronze.flavor": "수정동과 헷갈리지 마세요",
   "material.tconstruct.bronze.encyclopedia": "최대 내구도일 때 채굴 속도를 6 증가시킵니다.내구도가 절반 이하면 효과가 없어집니다",
-  "material.tconstruct.bronze.ranged": "최대 내구도일 때 화살 속도를 0.05 증가시킵니다.내구도가 절반 이하면 효과가 없어집니다",
+  "material.tconstruct.bronze.encyclopedia.ranged": "최대 내구도일 때 화살 속도를 0.05 증가시킵니다.내구도가 절반 이하면 효과가 없어집니다",
 
   "material.tconstruct.constantan": "콘스탄탄",
   "material.tconstruct.constantan.flavor": "콘스탄탄탄탄탄탄탄... 죄송합니다. \"탄\"을 붙이는 게 재미있네요",
   "material.tconstruct.constantan.encyclopedia": "극한의 추위에서 7.5 채굴 속도를 얻고, 극한의 더위에서 2배로 단단해집니다",
-  "material.tconstruct.constantan.ranged": "극한의 추위에서 0.15 화살 속도를 얻고, 극한의 더위에서 2배로 단단해집니다",
+  "material.tconstruct.constantan.encyclopedia.ranged": "극한의 추위에서 0.15 화살 속도를 얻고, 극한의 더위에서 2배로 단단해집니다",
 
   "material.tconstruct.invar": "인바",
   "material.tconstruct.invar.flavor": "가열과 결합에 모두 저항합니다",
   "material.tconstruct.invar.encyclopedia": "중간 온도의 생물군계에서 공격 피해가 2.5 증가합니다",
-  "material.tconstruct.invar.ranged": "중간 온도의 생물군계에서 정확도가 0.15 증가합니다",
+  "material.tconstruct.invar.encyclopedia.ranged": "중간 온도의 생물군계에서 정확도가 0.15 증가합니다",
 
   "material.tconstruct.electrum": "일렉트럼",
   "material.tconstruct.electrum.flavor": "전자 부품에 매우 좋습니다",
   "material.tconstruct.electrum.encyclopedia": "블록과 몬스터로부터 경험치를 (50 × 특성 레벨)% 추가로 얻습니다",
-  "material.tconstruct.electrum.ranged": "화살로 처치한 몬스터로부터 경험치를 (50 × 특성 레벨)% 추가로 얻습니다",
+  "material.tconstruct.electrum.encyclopedia.ranged": "화살로 처치한 몬스터로부터 경험치를 (50 × 특성 레벨)% 추가로 얻습니다",
 
   "material.tconstruct.necronium": "네크로늄",
   "material.tconstruct.necronium.flavor": "이 정도로 부패했으면 생명이 거의 다했을겁니다",
