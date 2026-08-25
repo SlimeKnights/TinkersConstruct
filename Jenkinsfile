@@ -15,7 +15,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh "./gradlew build -PBUILD_NUMBER=${env.BUILD_NUMBER} --no-daemon"
+                sh "JAVA_HOME=${env.JDK_8} ./gradlew build -PBUILD_NUMBER=${env.BUILD_NUMBER} --no-daemon"
             }
         }
 
