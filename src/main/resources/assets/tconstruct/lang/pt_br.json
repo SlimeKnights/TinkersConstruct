@@ -1,5 +1,4 @@
 {
-"_translators_comment": "Traduzido por Sr.Xlr11",
 "_comment": "Tinkers Common",
 "block.tconstruct.sky_slime": "Bloco de Slime-do-Céu",
 "block.tconstruct.sky_slime.tooltip": "Gruda tanto em slimes quanto mel",
@@ -94,7 +93,6 @@
 "block.tconstruct.soul_glass_pane.tooltip": "Parece sólido, mas pode ser atravessado",
 
 "block.tconstruct.glow": "Brilho",
-"block.tconstruct.silky_jewel_block": "Bloco de Jóias de Seda",
 
 
 "__comment": "Ore Metals",
@@ -169,10 +167,8 @@
 
 "block.tconstruct.knightslime_block": "Bloco de Slime-Cavaleiro",
 "item.tconstruct.knightslime_ingot": "Lingote de Slime-Cavaleiro",
-"item.tconstruct.knightslime_ingot.tooltip": "Viscoso, porém metálico e também duro feito pedra? Fascinante!",
 "item.tconstruct.knightslime_nugget": "Pepita de Slime-Cavaleiro",
 
-"item.tconstruct.book.click_to_open": "Clique com botão direito p/ abrir",
 "item.tconstruct.materials_and_you": "Materiais & Você",
 "item.tconstruct.materials_and_you.tooltip": "O livro introdutório sobre ferramentas e materiais\npor Selena",
 "item.tconstruct.encyclopedia": "Enciclopédia do Tinkerando",
@@ -247,8 +243,6 @@
 "item.tconstruct.jeweled_apple": "Maçã Ornamentada",
 "item.tconstruct.silky_cloth": "Pano de Seda",
 "item.tconstruct.silky_cloth.tooltip": "Evita que uma ferramenta danifique os itens dropados de blocos",
-"item.tconstruct.silky_jewel": "Joia Sedosa",
-"item.tconstruct.silky_jewel.tooltip": "Evita que uma ferramenta danifique os itens dropados de blocos",
 "item.tconstruct.necrotic_bone": "Osso Necrótico",
 "item.tconstruct.necrotic_bone.tooltip": "Dropado de wither skeletons",
 "item.tconstruct.necronium_bone": "Osso Necrosado",
@@ -951,7 +945,7 @@
 "item.tconstruct.diamond_item_frame": "Moldura de Item de Diamante",
 "item.tconstruct.manyullyn_item_frame": "Moldura de Item de Manyullyn",
 "item.tconstruct.netherite_item_frame": "Moldura de Item de Netherita",
-"entity.tconstruct.fancy_item_frame": "Moldura de Item Extravagante",
+"entity.tconstruct.item_frame": "Moldura de Item Extravagante",
 
 "item.tconstruct.glow_ball": "Bola Luminosa",
 "item.tconstruct.glow_ball.tooltip": "Não é adequada para consumo.",
@@ -1064,23 +1058,9 @@
 "item.tconstruct.plate_shield": "Escudo de Placa",
 
 "item.tconstruct.slime_helmet": "Capacete de Slime",
-"item.tconstruct.slime_chestplate": "Slimélitros",
 "item.tconstruct.slime_leggings": "Calça de Slime",
 "item.tconstruct.slime_boots": "Botas de Slime",
-"item.tconstruct.slime_helmet.material.tconstruct.glass": "Crânio-Slime de Creeper",
-"item.tconstruct.slime_helmet.material.tconstruct.ender_pearl": "Crânio-Slime de Enderman",
-"item.tconstruct.slime_helmet.material.tconstruct.bone": "Crânio-Slime de Esqueleto",
-"item.tconstruct.slime_helmet.material.tconstruct.venombone": "Crânio-Slime de Esqueleto Errante",
-"item.tconstruct.slime_helmet.material.tconstruct.necrotic_bone": "Crânio-Slime de Esqueleto Wither",
-"item.tconstruct.slime_helmet.material.tconstruct.string": "Crânio-Slime de Aranha",
-"item.tconstruct.slime_helmet.material.tconstruct.darkthread": "Crânio-Slime de Aranha das Cavernas",
-"item.tconstruct.slime_helmet.material.tconstruct.rotten_flesh": "Crânio-Slime de Zumbi",
-"item.tconstruct.slime_helmet.material.tconstruct.iron": "Crânio-Slime de Zumbi-Múmia",
-"item.tconstruct.slime_helmet.material.tconstruct.copper": "Crânio-Slime de Afogado",
-"item.tconstruct.slime_helmet.material.tconstruct.blazing_bone": "Crânio-Slime de Blaze",
-"item.tconstruct.slime_helmet.material.tconstruct.gold": "Crânio-Slime de Piglin",
-"item.tconstruct.slime_helmet.material.tconstruct.rose_gold": "Crânio-Slime de Piglin Bruto",
-"item.tconstruct.slime_helmet.material.tconstruct.pig_iron": "Crânio-Slime de Piglin Zumbificado",
+  "item.tconstruct.slime_wings": "Slimélitros",
 
 "item.tconstruct.crystalshot": "Tiro de Cristal",
 "entity.tconstruct.crystalshot": "Tiro de Cristal",
@@ -1663,12 +1643,12 @@
 "material.tconstruct.rock.diorite": "Diorito",
 "material.tconstruct.rock.granite": "Granito",
 "material.tconstruct.rock.blackstone": "Pedra-Negra",
-"material.tconstruct.rock.deepslate": "Ardósia",
 "material.tconstruct.rock.flavor": "Duro feito pedra",
 "material.tconstruct.rock.encyclopedia.melee_harvest": "Faz com que a ferramenta minere mais rápido que a metade da raiz quadrada do nível do traço vezes a durabilidade perdida",
 
 "material.tconstruct.flint": "Sílex",
 "material.tconstruct.flint.basalt": "Basalto",
+"material.tconstruct.flint.deepslate": "Ardósia",
 "material.tconstruct.flint.flavor": "Isso vai acender as chamas do coração de um Tinkereiro!",
 "material.tconstruct.flint.encyclopedia.melee_harvest": "Aumenta o dano em um quarto da raiz quadrada do nível do traço vezes a durabilidade perdida",
 
@@ -1701,6 +1681,8 @@
 "material.tconstruct.leather": "Couro",
 "material.tconstruct.leather.flavor": "Matei uma vaca, curti seu couro.",
 "material.tconstruct.leather.encyclopedia": "Impede que a ferramenta receba mais de 1 de dano em uma ação",
+"material.tconstruct.leather.flavor.skull": "Deveria ser carne queimada, mas ok.",
+"material.tconstruct.leather.encyclopedia.skull": "Ataques corpo a corpo aumentam o tempo em chamas dos alvos com base no tempo em chamas do usuário",
 
 "material.tconstruct.vine": "Trepadeira",
 "material.tconstruct.vine.flavor": "Deveria trepar mais por aí, sair das redes social pode te ajudar.",
@@ -1752,8 +1734,8 @@
 "material.tconstruct.venombone.flavor": "Eu pOSSO ser uma cobra?",
 "material.tconstruct.venombone.encyclopedia": "Aumenta o dano corpo a corpo quando envenenado em 0,5 + o nível de veneno",
 "material.tconstruct.venombone.encyclopedia.ranged": "Aumenta a velocidade de puxada quando envenenado em 0,05 + 0,1 por nível de veneno",
-"material.tconstruct.venombone.flavor.skull": "Arrepios até os ossos",
-"material.tconstruct.venombone.encyclopedia.skull": "Projéteis causam lentidão ao alvo. Após beber leite, ataques corpo a corpo causam lentidão e o nível é mais forte.",
+"material.tconstruct.ice.flavor.skull": "Arrepios até os ossos",
+"material.tconstruct.ice.encyclopedia.skull": "Projéteis causam lentidão ao alvo. Após beber leite, ataques corpo a corpo causam lentidão e o nível é mais forte.",
 
 "material.tconstruct.rose_gold": "Ouro Rosé",
 "material.tconstruct.rose_gold.flavor": "Aviso: Não é realmente feito com rosas francesas.",
@@ -1820,9 +1802,10 @@
 
 "material.tconstruct.manyullyn": "Manyullyn",
 "material.tconstruct.manyullyn.flavor": "O metal que a maioria dos Tinkereiros nunca pronunciará corretamente. Também conhecido como um material de corte estelar.",
-"material.tconstruct.manyullyn.encyclopedia": "Concede até +2 de dano por nível, com o dano aumentando linearmente ao longo de 8 acertos consecutivos",
-"material.tconstruct.manyullyn.encyclopedia.ranged": "Flechas ganham até +1 de dano por nível (antes da velocidade), com o dano aumentando linearmente ao longo de 8 acertos consecutivos de flechas",
-"material.tconstruct.manyullyn.encyclopedia.armor": "Aumenta temporariamente o dano corpo a corpo em 1 após receber dano, limitado ao nível total em toda a armadura",
+
+"material.tconstruct.nicrosil.encyclopedia": "Concede até +2.5 de dano por nível, com o dano aumentando linearmente ao longo de 8 acertos consecutivos",
+"material.tconstruct.nicrosil.encyclopedia.ranged": "Flechas ganham até +1.25 de dano por nível (antes da velocidade), com o dano aumentando linearmente ao longo de 8 acertos consecutivos de flechas",
+"material.tconstruct.nicrosil.encyclopedia.armor": "Aumenta temporariamente o dano corpo a corpo em 1 após receber dano, limitado ao nível total em toda a armadura",
 
 "material.tconstruct.hepatizon": "Hepatizão",
 "material.tconstruct.hepatizon.flavor": "He-pa-ti-zão - ferva, amasse, coloque em um ensopado.",
@@ -1842,14 +1825,12 @@
 "material.tconstruct.blazing_bone.flavor": "Aproveite todo o poder da Fortaleza do Nether - osso e blaze",
 "material.tconstruct.blazing_bone.encyclopedia": "Concede +1% de dano por segundo de fogo, até +15% dos 15 segundos de lava. Bônus reduzido por resistência ao fogo.",
 "material.tconstruct.blazing_bone.encyclopedia.ranged": "Concede +1% de dano de flecha por segundo de fogo, até +15% dos 15 segundos de lava. Bônus reduzido por resistência ao fogo.",
-"material.tconstruct.blazing_bone.flavor.skull": "Eu disse a eles que, tecnicamente, isso cuspe fogo, e não sopra fogo, mas, aparentemente, eu não posso decidir os nomes das coisas que eu invento.",
-"material.tconstruct.blazing_bone.encyclopedia.skull": "Permite soprar cargas de fogo do inventário como bolas de fogo. Tem um tempo de recarga de 5 segundos e não funciona debaixo d'água",
+"material.tconstruct.blaze.flavor.skull": "Eu disse a eles que, tecnicamente, isso cuspe fogo, e não sopra fogo, mas, aparentemente, eu não posso decidir os nomes das coisas que eu invento.",
+"material.tconstruct.blaze.encyclopedia.skull": "Permite soprar cargas de fogo do inventário como bolas de fogo. Tem um tempo de recarga de 5 segundos e não funciona debaixo d'água",
 
 "material.tconstruct.blazewood": "Madeira de Blaze",
 "material.tconstruct.blazewood.flavor": "A chama protege a chama",
 "material.tconstruct.blazewood.encyclopedia.armor": "Concede +0,5% de proteção contra dano não de fogo por segundo de fogo, até +7,5% dos 15 segundos de lava. Bônus reduzido por resistência ao fogo.",
-
-"material.tconstruct.soulsteel": "Aço-de-Alma",
 
 "material.tconstruct.ancient_hide": "Couro Antigo",
 "material.tconstruct.ancient_hide.flavor": "Primeiro couro usado pelo próprio Ei Nerd!",
@@ -1858,6 +1839,7 @@
 
 "__comment": "Tier End Materials",
 "material.tconstruct.knightslime": "Slime-Cavaleiro",
+"material.tconstruct.knightslime.flavor": "Viscoso, porém metálico e também duro feito pedra? Fascinante!",
 
 "material.tconstruct.enderslime_vine": "Trepadeira de Slime-do-Ender",
 "material.tconstruct.enderslime_vine.flavor": "No final é só trepar o que importa?",
@@ -1867,16 +1849,12 @@
 
 "__comment": "Materiais do Slimesuit",
 "material.tconstruct.glass": "Vidro",
-"material.tconstruct.glass.flavor.skull": "De quem são as coisas boas sendo destruídas agora, creeper?",
-"material.tconstruct.glass.encyclopedia.skull": "Segurar a tecla de interação do capacete enquanto agachado faz o usuário explodir",
+"material.tconstruct.gunpowder.flavor.skull": "De quem são as coisas boas sendo destruídas agora, creeper?",
+"material.tconstruct.gunpowder.encyclopedia.skull": "Segurar a tecla de interação do capacete enquanto agachado faz o usuário explodir",
 
 "material.tconstruct.ender_pearl": "Pérola de Ender",
 "material.tconstruct.ender_pearl.flavor.skull": "Endermen sabem nem como se manter longe de danos, e de cientistas! Eles estão ignorando meus pedidos de entrevista há semanas!",
 "material.tconstruct.ender_pearl.encyclopedia.skull": "Teleporta automaticamente quando atacado por um projétil e aleatoriamente de ataques corpo a corpo. Tem um tempo de recarga de 15 segundos",
-
-"material.tconstruct.rotten_flesh": "Carne Podre",
-"material.tconstruct.rotten_flesh.flavor.skull": "Deveria ser carne queimada, mas ok.",
-"material.tconstruct.rotten_flesh.encyclopedia.skull": "Ataques corpo a corpo aumentam o tempo em chamas dos alvos com base no tempo em chamas do usuário",
 
 "material.tconstruct.gold": "Ouro",
 "material.tconstruct.gold.flavor": "Piglins adoram isso. Mulher também, mas deixa queito.",
@@ -1892,7 +1870,6 @@
 "material.tconstruct.ancient.encyclopedia.melee_harvest": "Cada nível concede +1 slot de habilidade ao custo de -10% de velocidade de ataque, -10% de velocidade de mineração e +10% de gravidade.",
 "material.tconstruct.ancient.encyclopedia.ranged": "Cada nível concede +1 slot de habilidade ao custo de -10% de velocidade de puxada e +10% de gravidade.",
 "material.tconstruct.ancient.encyclopedia.armor": "Cada nível concede +1 slot de habilidade ao custo de +10% de gravidade, e -10% de velocidade de movimento ou -10% de velocidade de ataque em escudos.",
-"material.tconstruct.netherite": "Netherita",
 "material.tconstruct.earthslime": "Slime-da-Terra",
 "material.tconstruct.skyslime": "Slime-do-Céu",
 "material.tconstruct.blood": "Sangue",
@@ -1901,14 +1878,7 @@
 "material.tconstruct.enderslime": "Slime-do-Ender",
 "material.tconstruct.clay": "Argila",
 "material.tconstruct.honey": "Mel",
-"material.tconstruct.venom": "Veneno",
 "material.tconstruct.phantom": "Membrana de Fantasma",
-
-"material.tconstruct.nickel": "Níquel",
-"material.tconstruct.tin": "Estanho",
-"material.tconstruct.zinc": "Zinco",
-"material.tconstruct.brass": "Latão",
-"material.tconstruct.uranium": "Urânio",
 
 
 "__comment": "Materiais de Integração de Nível 2",
@@ -1916,20 +1886,9 @@
 "material.tconstruct.osmium.flavor": "Denso demais, não sabe levar a vida com leveza.",
 "material.tconstruct.osmium.encyclopedia": "Previne 33% do dano ao custo de um adicional de 25% no custo de reparo no primeiro nível",
 
-"material.tconstruct.tungsten": "Tungstênio",
-"material.tconstruct.tungsten.flavor": "Já considerou começar uma banda de heavy metal?",
-"material.tconstruct.tungsten.encyclopedia": "Concede +15% de velocidade de mineração, -10% de velocidade de movimento e +5% de gravidade por nível",
-"material.tconstruct.tungsten.encyclopedia.ranged": "Concede +15% de velocidade de puxada, -10% de velocidade de movimento e +5% de gravidade por nível",
-"material.tconstruct.tungsten.encyclopedia.armor": "Concede +2 de resistência, -10% de velocidade de movimento e +5% de gravidade por nível",
-
-"material.tconstruct.platinum": "Platina",
-"material.tconstruct.platinum.flavor": "Mais 2 rankeadas e chego em diamante!",
-"material.tconstruct.platinum.encyclopedia": "Concede de 2 a 6 drops de pepitas bônus ao minerar minério, aumentado em níveis mais altos",
-"material.tconstruct.platinum.encyclopedia.ranged": "Acertar um monstro distante tem 5% de chance por nível de dropar pepitas. 50 blocos ou mais dropam platina, 40 blocos ouro, 30 blocos ferro e 20 blocos cobre.",
-
 "material.tconstruct.lead": "Chumbo",
 "material.tconstruct.lead.flavor": "É o que você vai levar se mexer com casada.",
-"material.tconstruct.lead.encyclopedia.melee_harvest": "Concede +15% de ataque, -10% de velocidade de movimento e +5% de gravidade por nível",
+"material.tconstruct.lead.encyclopedia.melee_harvest": "Concede +15% de velocidade de mineração, -10% de velocidade de movimento e +5% de gravidade por nível",
 "material.tconstruct.lead.encyclopedia.ranged": "Concede +10% de poder de projétil, -10% de velocidade de movimento e +5% de gravidade por nível",
 "material.tconstruct.lead.encyclopedia.armor": "Concede +15% de resistência à repulsão, -10% de velocidade de movimento e +5% de gravidade por nível",
 
@@ -1940,6 +1899,7 @@
 "material.tconstruct.silver.encyclopedia.armor": "Reduz o dano de mortos-vivos em 5%, por nível",
 
 "material.tconstruct.whitestone": "Pedra do End",
+"material.tconstruct.whitestone.composite": "Pedra Branca",
 "material.tconstruct.whitestone.aluminum": "Pedra Branca",
 "material.tconstruct.whitestone.tin": "Pedra Branca",
 "material.tconstruct.whitestone.zinc": "Pedra Branca",
@@ -1977,7 +1937,7 @@
 
 "material.tconstruct.invar": "Invar",
 "material.tconstruct.invar.flavor": "Resiste tanto à temperatura quanto à INVAção do meu amor por você",
-"material.tconstruct.invar.encyclopedia": "Concede +1,6 de dano em biomas com temperaturas neutras",
+"material.tconstruct.invar.encyclopedia": "Concede +15% de ataque, -10% de velocidade de movimento e +5% de gravidade por nível",
 "material.tconstruct.invar.encyclopedia.ranged": "Concede +0,15 de precisão em biomas com temperaturas neutras",
 "material.tconstruct.invar.encyclopedia.armor": "Reduz o dano em 5% por nível em biomas com temperaturas neutras",
 
@@ -2178,8 +2138,6 @@
 "modifier.tconstruct.trick_quiver.flavor": "É tipo ser o Gavião Arqueiro, só que quadrado.",
 "modifier.tconstruct.trick_quiver.description": "Dá ao arco três slots de flechas alternáveis. Selecione o slot atacando, ou acesse-os agachando e atacando",
 "modifier.tconstruct.trick_quiver.disabled": "Aljava de Truques: Desativada",
-"modifier.tconstruct.trick_quiver.empty": "Aljava de Truques: Sem flechas no slot %s, usando flechas padrão",
-"modifier.tconstruct.trick_quiver.selected": "Aljava de Truques: Selecionado %s do slot %s",
 "modifier.tconstruct.crystalshot": "Tiro de Cristal",
 "modifier.tconstruct.crystalshot.flavor": "Quem não tem cão, caça com gato",
 "modifier.tconstruct.crystalshot.description": "No lugar de flechas, dispara fragmentos de cristal cultivados pelo próprio arco. Cultivar cristais consome durabilidade extra",
@@ -2548,20 +2506,6 @@
 "modifier.tconstruct.rebalanced.defense": "Defesa",
 "modifier.tconstruct.rebalanced.traits": "Traço",
 
-"__comment": "Três modificadores adicionais de +1 melhoria para modpacks",
-"modifier.tconstruct.red_extra_upgrade": "Melhoria Extra Vermelha",
-"modifier.tconstruct.red_extra_upgrade.flavor": "Para modpacks!",
-"modifier.tconstruct.red_extra_upgrade.description": "Peça ao criador do seu modpack para fornecer um pacote de recursos que dê uma lore melhor a isso",
-"modifier.tconstruct.green_extra_upgrade": "Melhoria Extra Verde",
-"modifier.tconstruct.green_extra_upgrade.flavor": "Para modpacks!",
-"modifier.tconstruct.green_extra_upgrade.description": "Peça ao criador do seu modpack para fornecer um pacote de recursos que dê uma lore melhor a isso",
-"modifier.tconstruct.blue_extra_upgrade": "Melhoria Extra Azul",
-"modifier.tconstruct.blue_extra_upgrade.flavor": "Para modpacks!",
-"modifier.tconstruct.blue_extra_upgrade.description": "Peça ao criador do seu modpack para fornecer um pacote de recursos que dê uma lore melhor a isso",
-"modifier.tconstruct.extra_ability": "Habilidade Extra",
-"modifier.tconstruct.extra_ability.flavor": "Para modpacks!",
-"modifier.tconstruct.extra_ability.description": "Peça ao criador do seu modpack para fornecer um pacote de recursos que dê uma lore melhor a isso",
-
 "modifier.tconstruct.smelting": "Fundição",
 "modifier.tconstruct.smelting.flavor": "Bacon crocante e gostoso",
 "modifier.tconstruct.smelting.description": "Usar a ferramenta cozinha os itens dentro! Encha a ferramenta agachando enquanto interage.",
@@ -2624,7 +2568,6 @@
 "modifier.tconstruct.raging.flavor": "Uma solução desesperada!",
 "modifier.tconstruct.raging.description": "A ferramenta causa mais dano e puxa mais rápido quando a vida do portador está baixa",
 "modifier.tconstruct.raging.attack_damage": "Dano Furioso",
-"modifier.tconstruct.raging.draw_speed": "Velocidade de Puxada Furiosa",
 "modifier.tconstruct.antitoxin": "Antitoxina",
 "modifier.tconstruct.antitoxin.flavor": "Força de alto risco!",
 "modifier.tconstruct.antitoxin.description": "A ferramenta causa mais dano e puxa mais rápido quando envenenado",
@@ -2642,7 +2585,6 @@
 "modifier.tconstruct.airborne": "Aéreo",
 "modifier.tconstruct.airborne.flavor": "Levante voo!",
 "modifier.tconstruct.airborne.description": "A ferramenta não é mais penalizada ao minerar no ar e ganha um bônus de precisão de projétil",
-"modifier.tconstruct.airborne.accuracy": "Precisão Aérea",
 "modifier.tconstruct.skyfall": "Queda Celeste",
 "modifier.tconstruct.skyfall.flavor": "Caindo com estilo!",
 "modifier.tconstruct.skyfall.description": "Reduz o efeito da gravidade",
@@ -2725,9 +2667,6 @@
 "modifier.tconstruct.dense": "Denso",
 "modifier.tconstruct.dense.flavor": "Quase não perde sua forma",
 "modifier.tconstruct.dense.description": "A ferramenta dura mais, mas é mais difícil de reparar",
-"modifier.tconstruct.sharpweight": "Peso Afiado",
-"modifier.tconstruct.sharpweight.flavor": "Ao contrário de um peso burro",
-"modifier.tconstruct.sharpweight.description": "Mais forte, mas extremamente difícil de mover",
 "modifier.tconstruct.lustrous": "Lustroso",
 "modifier.tconstruct.lustrous.flavor": "O mais brilhante dos minérios!",
 "modifier.tconstruct.lustrous.description": "Minérios dropam pepitas extras",
@@ -2736,7 +2675,8 @@
 "modifier.tconstruct.olympic.description": "Ganhe medalhas ao acertar alvos distantes",
 "modifier.tconstruct.heavy": "Pesado",
 "modifier.tconstruct.heavy.flavor": "Denso!",
-"modifier.tconstruct.heavy.description": "Difícil de mover enquanto empunhado, mas dá um golpe forte",
+"modifier.tconstruct.heavy.description": "Mais forte, mas extremamente difícil de mover",
+"modifier.tconstruct.solid.description": "Difícil de mover enquanto empunhado, mas dá um golpe forte",
 "modifier.tconstruct.stoneshield": "Escudo de Pedra",
 "modifier.tconstruct.stoneshield.flavor": "Domínio magistral da manipulação de pedra",
 "modifier.tconstruct.stoneshield.description": "Pedra minerada tem uma chance de proteger a ferramenta de danos futuros",
@@ -2798,9 +2738,9 @@
 "modifier.tconstruct.strong_bones": "Ossos Fortes",
 "modifier.tconstruct.strong_bones.flavor": "Tem Leite?",
 "modifier.tconstruct.strong_bones.description": "Beber leite aumenta temporariamente a resistência",
-"modifier.tconstruct.frosttouch": "Toque Gelado",
-"modifier.tconstruct.frosttouch.flavor": "Um toque gelado mantém os inimigos afastados",
-"modifier.tconstruct.frosttouch.description": "Faz as flechas causarem lentidão, beber leite também causa lentidão em ataques corpo a corpo",
+"modifier.tconstruct.slow_bones": "Toque Gelado",
+"modifier.tconstruct.slow_bones.flavor": "Um toque gelado mantém os inimigos afastados",
+"modifier.tconstruct.slow_bones.description": "Faz as flechas causarem lentidão, beber leite também causa lentidão em ataques corpo a corpo",
 "modifier.tconstruct.withered": "Murchado",
 "modifier.tconstruct.withered.flavor": "O segredo do decaimento",
 "modifier.tconstruct.withered.description": "Faz os alvos dos ataques murcharem, murchando mais rápido após beber leite",
@@ -3067,7 +3007,6 @@
 "armor_stat.tconstruct.good_effect_duration": "Duração de Poção Boa",
 "armor_stat.tconstruct.bad_effect_duration": "Duração de Poção Ruim",
 "armor_stat.tconstruct.crouch_damage": "Dano Agachado",
-"armor_stat.tconstruct.explosion_knockback": "Repulsão por Explosão",
 
 "attribute.name.tconstruct.player.use_item_speed": "Velocidade de Uso de Item",
 "attribute.name.tconstruct.player.critical_damage": "Dano Crítico",
@@ -3167,10 +3106,9 @@
 "recipe.tconstruct.invisible_modifiers.removing.description": "Selecione um modificador oculto para torná-lo visível novamente no modelo da ferramenta",
 
 "modifier.tconstruct.attack_toggled": "%s (Ataque)",
-"recipe.tconstruct.attack_modifiers.adding.title": "Alternar Interação",
-"recipe.tconstruct.attack_modifiers.adding.description": "Troca um modificador de interação para ativação por ataque",
-"recipe.tconstruct.attack_modifiers.removing.title": "Desalternar Interação",
-"recipe.tconstruct.attack_modifiers.removing.description": "Troca um modificador de interação de volta para ativação por interação",
+"recipe.tconstruct.toggle_interaction.title": "Alternar Interação",
+"recipe.tconstruct.toggle_interaction.description": "Troca um modificador de interação para ativação por ataque",
+"recipe.tconstruct.toggle_interaction.removing.description": "Troca um modificador de interação de volta para ativação por interação",
 
 "recipe.tconstruct.extract_modifier.upgrades": "Extrair Melhoria",
 "recipe.tconstruct.extract_modifier.slotless": "Extrair Sem Slot",

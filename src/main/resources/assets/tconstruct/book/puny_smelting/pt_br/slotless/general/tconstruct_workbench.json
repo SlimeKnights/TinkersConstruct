@@ -8,6 +8,6 @@
   "effects": [
     "Adiciona uma bancada de trabalho ao inventário da ferramenta",
     "Nível único",
-    "Requer 1 slot de melhoria"
+    "Não requer slot"
   ]
 }
