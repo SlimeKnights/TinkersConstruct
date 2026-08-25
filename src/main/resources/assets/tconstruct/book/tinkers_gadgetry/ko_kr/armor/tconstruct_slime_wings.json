@@ -1,5 +1,5 @@
 {
-  "tool": "tconstruct:slime_chestplate",
+  "tool": "tconstruct:slime_wings",
   "text": [
     { "text": "걷기 지겹니? 그럼, 이 초현대적인 날개로 날아 봐!" },
     { "text": "겉날개에 엔더슬라임을 부으면 슬라임날개를 만들 수 있어. 슬라임날개는 팬텀 막을 사용하여 수리할 수 있어.", "paragraph": true }

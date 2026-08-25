@@ -5,6 +5,7 @@
       "text": "황금 벽돌길을 찾을 수 없다면 흙길을 만들어라."
     }
   ],
+  "tool_filter": "tconstruct:modifiable/interactable",
   "effects": [
      "도구를 사용하여 길을 만들 수 있다",
     "단일 등급",

@@ -5,6 +5,7 @@
       "text": "다이아몬드를 괭이에 낭비하지 말라. \n§m능력 슬롯은?§r"
     }
   ],
+  "tool_filter": "tconstruct:modifiable/interactable",
   "effects": [
      "도구로 땅을 경작할 수 있다",
     "단일 등급",

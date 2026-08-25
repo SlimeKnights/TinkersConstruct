@@ -1,10 +1,11 @@
 {
-  "modifier_id": "tconstruct:plowing",
+  "modifier_id": "tconstruct:tilling",
   "text": [
     {
       "text": "큰 농장을 만들고 싶었나? 이제는 할 수 있다."
     }
   ],
+  "tool_filter": "tconstruct:modifiable/armor/boots",
   "effects": [
     "지나간 자리에 흙을 경작한다",
     "확장 수식어로 영역을 늘릴 수 있다",
