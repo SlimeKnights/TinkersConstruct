@@ -5,7 +5,7 @@
       "text": "他是第一名！"
     }
   ],
-  "tool_filter": "tconstruct:modifiable/armor",
+  "tool_filter": "tconstruct:modifiable/armor/helmets",
   "effects": [
     "饮用头盔中储存的流体",
     "按“头盔交互”键饮用",
