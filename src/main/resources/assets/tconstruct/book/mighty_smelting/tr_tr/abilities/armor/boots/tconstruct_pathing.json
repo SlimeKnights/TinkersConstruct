@@ -1,10 +1,11 @@
 {
-  "modifier_id": "tconstruct:path_maker",
+  "modifier_id": "tconstruct:pathing",
   "text": [
     {
       "text": "Eve dönüş yolunu unutmaktan bıktın mı? Neden durağan bir iz bırakmıyorsun? Yürüdükçe yolu ez ve nerede olduğunu asla unutma!"
     }
   ],
+  "tool_filter": "tconstruct:modifiable/armor/boots",
   "effects": [
     "Yürüdükçe yolak oluşturur",
     "Genişletilmiş ile alan artırılabilir",

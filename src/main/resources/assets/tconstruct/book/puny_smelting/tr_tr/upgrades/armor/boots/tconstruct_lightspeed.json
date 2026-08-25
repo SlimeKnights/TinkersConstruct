@@ -1,10 +1,11 @@
 {
-  "modifier_id": "tconstruct:lightspeed_armor",
+  "modifier_id": "tconstruct:lightspeed",
   "text": [
     {
       "text": "Işık botlarının içinden akıyor ve hıphızlı koşmana yardımcı oluyor."
     }
   ],
+  "tool_filter": "tconstruct:modifiable/armor/boots",
   "effects": [
     "İyi aydınlatılmış alanlarda daha hızlı koş",
     "Çoklu seviyeler, hızı her seviyede daha da artırır",
