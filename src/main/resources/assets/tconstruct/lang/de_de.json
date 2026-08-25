@@ -1312,14 +1312,14 @@
 "material.tconstruct.bone": "Knochen",
 "material.tconstruct.bone.flavor": "Ich bin der Knochen meines Schwertes",
 "material.tconstruct.bone.encyclopedia": "Wandelt 0,5 Schaden in 1 Stichschaden um",
-"material.tconstruct.bone.skull_flavor": "Haben Sie Milch?",
-"material.tconstruct.bone.skull_encyclopedia": "Gewährt Widerstand für 1 Minute nach dem Trinken von Milch",
+"material.tconstruct.bone.flavor.skull": "Haben Sie Milch?",
+"material.tconstruct.bone.encyclopedia.skull": "Gewährt Widerstand für 1 Minute nach dem Trinken von Milch",
 
 "material.tconstruct.necrotic_bone": "Nekrotischer Knochen",
 "material.tconstruct.necrotic_bone.flavor": "Haben Sie mit mir einen Knochen zu rupfen?",
 "material.tconstruct.necrotic_bone.encyclopedia": "Heilt bis zu 5 % des verursachten Schadens pro Stufe",
-"material.tconstruct.necrotic_bone.skull_flavor": "Gruseliges, unheimliches Skelett!",
-"material.tconstruct.necrotic_bone.skull_encyclopedia": "Nahkampfangriffe verursachen Verwelken. Nach dem Trinken von Milch wird die Wirkung schneller",
+"material.tconstruct.necrotic_bone.flavor.skull": "Gruseliges, unheimliches Skelett!",
+"material.tconstruct.necrotic_bone.encyclopedia.skull": "Nahkampfangriffe verursachen Verwelken. Nach dem Trinken von Milch wird die Wirkung schneller",
 
 "material.tconstruct.string": "Zeichenfolge",
 "material.tconstruct.string.flavor": "Theoretisch das beste Material.",
@@ -1338,8 +1338,8 @@
 "material.tconstruct.iron": "Eisen",
 "material.tconstruct.iron.flavor": "Ironisch. Er konnte andere vor dem Tod retten, aber nicht sich selbst.",
 "material.tconstruct.iron.encyclopedia": "Ergibt 10 % zusätzliche Haltbarkeit pro Teil",
-"material.tconstruct.iron.skull_flavor": "Verletzung der Quarantäne",
-"material.tconstruct.iron.skull_encyclopedia": "Nahkampfangriffe kopieren alle negativen Statuseffekte vom Träger auf das Ziel",
+"material.tconstruct.iron.flavor.skull": "Verletzung der Quarantäne",
+"material.tconstruct.iron.encyclopedia.skull": "Nahkampfangriffe kopieren alle negativen Statuseffekte vom Träger auf das Ziel",
 
 "material.tconstruct.seared_stone": "Versengter Stein",
 "material.tconstruct.seared_stone.flavor": "Wärmerer Mörtel.",
@@ -1352,8 +1352,8 @@
 "material.tconstruct.copper": "Kupfer",
 "material.tconstruct.copper.flavor": "Lass dir davon nicht den Tag verderben.",
 "material.tconstruct.copper.encyclopedia": "Gewährt mehr Abbaugeschwindigkeit in geringeren Tiefen, bis zu +10 % pro Stufe",
-"material.tconstruct.copper.skull_flavor": "Schlägt ihnen den Wind aus den Segeln",
-"material.tconstruct.copper.skull_encyclopedia": "Nahkampfangriffe stehlen dem Ziel 3 Sekunden Luft",
+"material.tconstruct.copper.flavor.skull": "Schlägt ihnen den Wind aus den Segeln",
+"material.tconstruct.copper.encyclopedia.skull": "Nahkampfangriffe stehlen dem Ziel 3 Sekunden Luft",
 
 "material.tconstruct.slimewood": "Schleimholz",
 "material.tconstruct.slimewood.greenheart": "Grünes Herz",
@@ -1365,14 +1365,14 @@
 "material.tconstruct.bloodbone": "Blutknochen",
 "material.tconstruct.bloodbone.flavor": "Sollte das Blut nicht im Knochen sein?",
 "material.tconstruct.bloodbone.encyclopedia": "Erhöht den Schaden bei geringer Gesundheit, bis zu +4 Schaden pro Stufe bei 1 Herz",
-"material.tconstruct.bloodbone.skull_flavor": "Frost bis auf die Knochen",
-"material.tconstruct.bloodbone.skull_encyclopedia": "Projektile verlangsamen das Ziel. Nach dem Trinken von Milch verursachen Nahkampfangriffe Verlangsamung und das Level ist stärker.",
+"material.tconstruct.bloodbone.flavor.skull": "Frost bis auf die Knochen",
+"material.tconstruct.bloodbone.encyclopedia.skull": "Projektile verlangsamen das Ziel. Nach dem Trinken von Milch verursachen Nahkampfangriffe Verlangsamung und das Level ist stärker.",
 
 "material.tconstruct.rose_gold": "Roségold",
 "material.tconstruct.rose_gold.flavor": "Haftungsausschluss: Nicht wirklich aus Rosen gemacht.",
 "material.tconstruct.rose_gold.encyclopedia": "Gewährt 1 zusätzlichen Upgrade-Slot pro Teil",
-"material.tconstruct.rose_gold.skull_flavor": "Den Armschild sinnvoll einsetzen",
-"material.tconstruct.rose_gold.skull_encyclopedia": "Erhöht die Gesundheit um 1 Herz plus ein zusätzliches Herz pro Stück goldener Rüstung.",
+"material.tconstruct.rose_gold.flavor.skull": "Den Armschild sinnvoll einsetzen",
+"material.tconstruct.rose_gold.encyclopedia.skull": "Erhöht die Gesundheit um 1 Herz plus ein zusätzliches Herz pro Stück goldener Rüstung.",
 
 "material.tconstruct.chain": "Kette",
 "material.tconstruct.chain.flavor": "Auch du kannst jetzt Kettennutzer werden.",
@@ -1400,8 +1400,8 @@
 "material.tconstruct.pig_iron": "Roheisen",
 "material.tconstruct.pig_iron.flavor": "Das absolut beste Material, keine Diskussionen.",
 "material.tconstruct.pig_iron.encyclopedia": "Kann gegessen werden, um 1 Hunger und 0,1 Sättigung pro Level wiederherzustellen",
-"material.tconstruct.pig_iron.skull_flavor": "Du wirst mich nicht mögen, wenn ich wütend bin!",
-"material.tconstruct.pig_iron.skull_encyclopedia": "Gewährt 15 Sekunden Stärke, wenn es von einem anderen Mob beschädigt wird",
+"material.tconstruct.pig_iron.flavor.skull": "Du wirst mich nicht mögen, wenn ich wütend bin!",
+"material.tconstruct.pig_iron.encyclopedia.skull": "Gewährt 15 Sekunden Stärke, wenn es von einem anderen Mob beschädigt wird",
 
 
 
@@ -1425,8 +1425,8 @@
 "material.tconstruct.blazing_bone": "Lodernder Knochen",
 "material.tconstruct.blazing_bone.flavor": "Nutzen Sie die volle Kraft der Netherfestung - Knochen und Flammen",
 "material.tconstruct.blazing_bone.encyclopedia": "Gewährt +1 % Schaden pro Sekunde Feuer, bis zu +15 % von 15 Sekunden Lava. Bonus verringert durch Feuerwiderstand.",
-"material.tconstruct.blazing_bone.skull_flavor": "Ich habe ihnen gesagt, dass dies technisch gesehen Feuerspucke ist, kein Feueratem, aber anscheinend kann ich die Namen für Dinge, die ich erfinde, nicht festlegen",
-"material.tconstruct.blazing_bone.skull_encyclopedia": "Erlaubt das Spucken von Feuerladungen aus dem Inventar als Feuerbälle. Hat eine Abklingzeit von 5 Sekunden und funktioniert nicht unter Wasser",
+"material.tconstruct.blazing_bone.flavor.skull": "Ich habe ihnen gesagt, dass dies technisch gesehen Feuerspucke ist, kein Feueratem, aber anscheinend kann ich die Namen für Dinge, die ich erfinde, nicht festlegen",
+"material.tconstruct.blazing_bone.encyclopedia.skull": "Erlaubt das Spucken von Feuerladungen aus dem Inventar als Feuerbälle. Hat eine Abklingzeit von 5 Sekunden und funktioniert nicht unter Wasser",
 
 "material.tconstruct.soulsteel": "Seelenstahl",
 
@@ -1441,28 +1441,28 @@
 
 "__comment": "Slimesuit-Materialien",
 "material.tconstruct.gunpowder": "Schießpulver",
-"material.tconstruct.gunpowder.skull_flavor": "Wessen schöne Sachen werden jetzt zerstört, Creeper?",
-"material.tconstruct.gunpowder.skull_encyclopedia": "Das Halten der Helm-Interaktionstaste lässt den Träger explodieren",
+"material.tconstruct.gunpowder.flavor.skull": "Wessen schöne Sachen werden jetzt zerstört, Creeper?",
+"material.tconstruct.gunpowder.encyclopedia.skull": "Das Halten der Helm-Interaktionstaste lässt den Träger explodieren",
 
 "material.tconstruct.ender_pearl": "Enderperle",
-"material.tconstruct.ender_pearl.skull_flavor": "Endermen wissen, wie man sich von Schaden und Wissenschaftlern fernhält. Sie ignorieren meine Interviewanfragen seit Wochen!",
-"material.tconstruct.ender_pearl.skull_encyclopedia": "Teleportiert sich automatisch, wenn es von einem Projektil angegriffen wird, und zufällig aus dem Nahkampf. Hat eine Abklingzeit von 15 Sekunden",
+"material.tconstruct.ender_pearl.flavor.skull": "Endermen wissen, wie man sich von Schaden und Wissenschaftlern fernhält. Sie ignorieren meine Interviewanfragen seit Wochen!",
+"material.tconstruct.ender_pearl.encyclopedia.skull": "Teleportiert sich automatisch, wenn es von einem Projektil angegriffen wird, und zufällig aus dem Nahkampf. Hat eine Abklingzeit von 15 Sekunden",
 
 "material.tconstruct.spider": "Spinne",
-"material.tconstruct.spider.skull_flavor": "Spinnen sind Meister der Tränke, vielleicht hilft mir ihr Geheimnis, Tränke zu verbessern...",
-"material.tconstruct.spider.skull_encyclopedia": "Bewirkt, dass positive Trankeffekte 25 % länger anhalten",
+"material.tconstruct.spider.flavor.skull": "Spinnen sind Meister der Tränke, vielleicht hilft mir ihr Geheimnis, Tränke zu verbessern...",
+"material.tconstruct.spider.encyclopedia.skull": "Bewirkt, dass positive Trankeffekte 25 % länger anhalten",
 
 "material.tconstruct.venom": "Gift",
-"material.tconstruct.venom.skull_flavor": "Perfekt für Machtkämpfe, wenn man entscheiden und trinken muss, um herauszufinden, wer Recht hat.",
-"material.tconstruct.venom.skull_encyclopedia": "Macht den Träger immun gegen Gift, entfernt aber vorhandenes Gift nicht",
+"material.tconstruct.venom.flavor.skull": "Perfekt für Machtkämpfe, wenn man entscheiden und trinken muss, um herauszufinden, wer Recht hat.",
+"material.tconstruct.venom.encyclopedia.skull": "Macht den Träger immun gegen Gift, entfernt aber vorhandenes Gift nicht",
 
 "material.tconstruct.rotten_flesh": "Faules Fleisch",
-"material.tconstruct.rotten_flesh.skull_flavor": "Das ist in Ordnung",
-"material.tconstruct.rotten_flesh.skull_encyclopedia": "Nahkampfangriffe erhöhen die Feuerzeit des Ziels basierend auf der Feuerzeit des Trägers",
+"material.tconstruct.rotten_flesh.flavor.skull": "Das ist in Ordnung",
+"material.tconstruct.rotten_flesh.encyclopedia.skull": "Nahkampfangriffe erhöhen die Feuerzeit des Ziels basierend auf der Feuerzeit des Trägers",
 
 "material.tconstruct.gold": "Gold",
-"material.tconstruct.gold.skull_flavor": "So glänzend",
-"material.tconstruct.gold.skull_encyclopedia": "Bewirkt, dass einige Golderze zusätzliche Goldnuggets fallen lassen, und erhöht die Dropchance auf Goldrüstung um 4 %. Nuggets und Rüstungsdrops werden durch jedes getragene Stück goldener Rüstung weiter erhöht.",
+"material.tconstruct.gold.flavor.skull": "So glänzend",
+"material.tconstruct.gold.encyclopedia.skull": "Bewirkt, dass einige Golderze zusätzliche Goldnuggets fallen lassen, und erhöht die Dropchance auf Goldrüstung um 4 %. Nuggets und Rüstungsdrops werden durch jedes getragene Stück goldener Rüstung weiter erhöht.",
 
 "material.tconstruct.netherite": "Netherit",
 "material.tconstruct.earthslime": "Erdschleim",
