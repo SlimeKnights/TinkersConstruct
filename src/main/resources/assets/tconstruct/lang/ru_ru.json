@@ -1,5 +1,4 @@
 {
-  "_translators_comment": "Обновлено и переведено пользователем deaddiesel",
   "_comment": "Литейное дело: Общее",
 
   "block.tconstruct.sky_slime": "Блок небесной слизи",
@@ -95,7 +94,6 @@
   "block.tconstruct.soul_glass_pane.tooltip": "Визуально выглядит солидно, но сквозь неё можно пройти.",
 
   "block.tconstruct.glow": "Свечение",
-  "block.tconstruct.silky_jewel_block": "Шёлковый блок драгоценностей",
 
 
   "__comment": "Литейное дело: Рудные металлы",
@@ -268,8 +266,6 @@
   "item.tconstruct.jeweled_apple": "Драгоценное яблоко",
   "item.tconstruct.silky_cloth": "Шёлковая ткань",
   "item.tconstruct.silky_cloth.tooltip": "Предотвращает повреждение инструмента при выпадении блоков.",
-  "item.tconstruct.silky_jewel": "Шёлковая драгоценность",
-  "item.tconstruct.silky_jewel.tooltip": "Предотвращает повреждение инструмента при выпадении блоков.",
   "item.tconstruct.necrotic_bone": "Некротическая кость",
   "item.tconstruct.necrotic_bone.tooltip": "Выпадает с визер-скелетов.",
   "item.tconstruct.necronium_bone": "Некрониевая кость",
@@ -1073,9 +1069,6 @@
   "block.tconstruct.cave_spider_head": "Голова пещерного паука",
   "block.tconstruct.piglin_brute_head":     "Голова брутального пиглина",
   "block.tconstruct.zombified_piglin_head": "Голова зомбифицированного пиглина",
-  "block.tconstruct.venombone_head":        "Голова из ядовитой кости",
-  "block.tconstruct.blazing_bone_head":     "Голова из огненной кости",
-  "block.tconstruct.necronium_head":        "Голова из некрония",
 
   "_comment": "Литейное дело: Литейные столы",
 
@@ -1170,15 +1163,6 @@
   "item.tconstruct.slime_helmet.material.tconstruct.honey": "Медовый череп",
   "item.tconstruct.slime_helmet.material.tconstruct.ender_pearl": "Эндер-череп",
 
-  "__comment": "По сути, мы просто смешиваем название материала с названием «элитры», используйте то, что подходит для вашего языка, при необходимости можно использовать «Материальные элитры».",
-  "item.tconstruct.slime_chestplate": "Слизневые элитры",
-  "item.tconstruct.slime_chestplate.material.tconstruct.ui_render": "Любые слизневые элитры",
-  "item.tconstruct.slime_chestplate.material.tconstruct.ichor": "Ихоровые элитры",
-  "item.tconstruct.slime_chestplate.material.tconstruct.magma": "Магмовые элитры",
-  "item.tconstruct.slime_chestplate.material.tconstruct.clay": "Глиняные элитры",
-  "item.tconstruct.slime_chestplate.material.tconstruct.honey": "Пчелиные элитры",
-  "item.tconstruct.slime_chestplate.material.tconstruct.ender_pearl": "Эндер-элитры",
-
   "item.tconstruct.slime_leggings": "Слизневые поножи",
   "item.tconstruct.slime_leggings.material.tconstruct.ichor": "Ихоровые поножи",
   "item.tconstruct.slime_leggings.material.tconstruct.magma": "Магмовые поножи",
@@ -1192,6 +1176,15 @@
   "item.tconstruct.slime_boots.material.tconstruct.clay": "Глиняные ботинки",
   "item.tconstruct.slime_boots.material.tconstruct.honey": "Медовые ботинки",
   "item.tconstruct.slime_boots.material.tconstruct.ender_pearl": "Эндер-ботинки",
+
+  "__comment": "По сути, мы просто смешиваем название материала с названием «элитры», используйте то, что подходит для вашего языка, при необходимости можно использовать «Материальные элитры».",
+  "item.tconstruct.slime_wings": "Слизневые элитры",
+  "item.tconstruct.slime_wings.material.tconstruct.ui_render": "Любые слизневые элитры",
+  "item.tconstruct.slime_wings.material.tconstruct.ichor": "Ихоровые элитры",
+  "item.tconstruct.slime_wings.material.tconstruct.magma": "Магмовые элитры",
+  "item.tconstruct.slime_wings.material.tconstruct.clay": "Глиняные элитры",
+  "item.tconstruct.slime_wings.material.tconstruct.honey": "Пчелиные элитры",
+  "item.tconstruct.slime_wings.material.tconstruct.ender_pearl": "Эндер-элитры",
 
   "item.tconstruct.crystalshot": "Аметистовый выстрел",
   "entity.tconstruct.crystalshot": "Аметистовый выстрел",
@@ -1935,8 +1928,6 @@
   "material.tconstruct.venombone.encyclopedia.ranged": "Увеличивает скорость извлечения при отравлении на 0.05 + 0.1 за уровень яда.",
   "material.tconstruct.venombone.encyclopedia.armor": "Имеет шанс 15% при попадании отравить атакующего, заставляя его получать 200% магического урона в течение следующих 5-10 сек. (или до 15 сек. при блокировании).",
   "material.tconstruct.venombone.encyclopedia.ammo": "Применяет яд к цели, в результате чего она получает 200% магического урона в течение следующих 5-10 сек.",
-  "material.tconstruct.venombone.flavor.skull": "Использует магическую слабость!",
-  "material.tconstruct.venombone.encyclopedia.skull": "Делает вас невосприимчивым к эффекту «Яд I». Снаряды наносят цели яд на 5-10 сек., в результате чего она получает 200% магического урона.",
 
   "material.tconstruct.rose_gold": "Розовое золото",
   "material.tconstruct.rose_gold.flavor": "Оговорка: на самом деле сделано не из роз.",
@@ -2007,6 +1998,9 @@
   "material.tconstruct.gunpowder": "Порох",
   "material.tconstruct.gunpowder.flavor": "Взрывоопасно!",
   "material.tconstruct.gunpowder.encyclopedia.ammo": "Заставляет стрелы взрываться радиусом 1 + 1 за каждый уровень. Урон от взрыва зависит от мощности снаряда.",
+  "material.tconstruct.gunpowder.skull": "Крипер",
+  "material.tconstruct.gunpowder.flavor.skull": "Чьи красивые вещи сейчас уничтожаются, крипер?",
+  "material.tconstruct.gunpowder.encyclopedia.skull": "Удерживая клавишу взаимодействия со шлемом в приседе, пользователь взрывается.",
 
   "material.tconstruct.redstone": "Редстоун",
   "material.tconstruct.redstone.flavor": "Быстро!",
@@ -2041,9 +2035,6 @@
   "material.tconstruct.glass": "Стекло",
   "material.tconstruct.glass.flavor": "Разбивается при ударе!",
   "material.tconstruct.glass.encyclopedia.ammo": "Снижает урон от снаряда на 0.75 за уровень, но увеличивает его ёмкость. Боеприпасы ломаются при ударе о блок, когда резервуар заполнен.",
-  "material.tconstruct.glass.skull": "Крипер",
-  "material.tconstruct.glass.flavor.skull": "Чьи красивые вещи сейчас уничтожаются, крипер?",
-  "material.tconstruct.glass.encyclopedia.skull": "Удерживая клавишу взаимодействия со шлемом в приседе, пользователь взрывается.",
 
   "material.tconstruct.slimeball": "Слизь",
   "material.tconstruct.slimeball.earth": "Земная слизь",
@@ -2145,8 +2136,6 @@
   "material.tconstruct.blazing_bone.encyclopedia.ranged": "Даёт +1% урона от стрел в секунду от огня, до +15% от 15 сек. действия лавы. Бонус уменьшается сопротивлением огню.",
   "material.tconstruct.blazing_bone.encyclopedia.armor": "Имеет шанс 15% при попадании нанести проводящий урон атакующим, заставляя их получать 200% урона от огня в течение следующих 5-10 сек. (или до 15 сек. при блокировании).",
   "material.tconstruct.blazing_bone.encyclopedia.ammo": "Наносит цели проводящий урон, в результате чего она получает 200% урона от огня в течение следующих 5-10 сек.",
-  "material.tconstruct.blazing_bone.flavor.skull": "Станьте призрачным гонщиком!",
-  "material.tconstruct.blazing_bone.encyclopedia.skull": "Делает вас невосприимчивым к эффекту «Проводящий I». Атаки ближнего боя наносят цели проводящий урон на 5-10 сек., в результате чего она получает 200% урона от огня.",
 
   "material.tconstruct.blazewood": "Огненное дерево",
   "material.tconstruct.blazewood.flavor": "Пламя защищает пламя.",
@@ -2164,8 +2153,6 @@
   "material.tconstruct.glowstone": "Светокамень",
   "material.tconstruct.glowstone.flavor": "Самый яркий день, самая тёмная ночь, ни одна пещера не ускользнёт от моего света!",
   "material.tconstruct.glowstone.encyclopedia.ammo": "Заставляет цель светиться в течение 10 сек. за каждый уровень. Если попадает в блок, размещает постоянный источник света ценой снаряда.",
-
-  "material.tconstruct.soulsteel": "Сталь душ",
 
   "material.tconstruct.jeweled_hide": "Драгоценная кожа",
   "material.tconstruct.jeweled_hide.flavor": "Кожа, выделанная с использованием чистых драгоценных камней!",
@@ -2319,9 +2306,7 @@
   "material.tconstruct.necronium.flavor": "При таком количестве разложения срок его службы, вероятно, составляет всего четверть.",
   "material.tconstruct.necronium.encyclopedia": "Вызывает эффект «Иссушение» на 6 сек. на уровне модификатора для вашей цели и с вероятностью 25% для вас.",
   "material.tconstruct.necronium.encyclopedia.armor": "При попадании имеет 50% шанс (или 100% шанс при блокировании) иссушить атакующего как минимум на 6 сек. + 10% шанс иссушить вас.",
-  "material.tconstruct.necronium.flavor.skull": "Станьте призрачным гонщиком!",
-  "material.tconstruct.necronium.encyclopedia.skull": "Даёт вам иммунитет к эффекту «Иссушение I». Атаки ближнего боя вызывают у цели эффект иссушения на 6 сек.",
-  
+
   "material.tconstruct.plated_slimewood": "Покрытое слизневое дерево",
   "material.tconstruct.plated_slimewood.flavor": "Блеск латуни с лёгким привкусом слизи.",
   "material.tconstruct.plated_slimewood.encyclopedia": "Даёт +100% ко всем методам восстановления сверхслизи.",
@@ -3063,20 +3048,6 @@
   "modifier.tconstruct.redirected.flavor": "Отправить стрелу обратно!",
   "modifier.tconstruct.redirected.description": "Даёт снаряду дополнительную копию характеристики головы.",
 
-  "__comment": "Ещё три модификатора улучшения +1 для пакетов ресурсов",
-  "modifier.tconstruct.red_extra_upgrade": "Красное дополнительное улучшение",
-  "modifier.tconstruct.red_extra_upgrade.flavor": "Для пакетов ресурсов!",
-  "modifier.tconstruct.red_extra_upgrade.description": "Попросите создателя вашего модпака предоставить ресурспак, который лучше раскроет эту историю.",
-  "modifier.tconstruct.green_extra_upgrade": "Зелёное дополнительное улучшение",
-  "modifier.tconstruct.green_extra_upgrade.flavor": "Для пакетов ресурсов!",
-  "modifier.tconstruct.green_extra_upgrade.description": "Попросите создателя вашего модпака предоставить ресурспак, который лучше раскроет эту историю.",
-  "modifier.tconstruct.blue_extra_upgrade": "Синее дополнительное улучшение",
-  "modifier.tconstruct.blue_extra_upgrade.flavor": "Для пакетов ресурсов!",
-  "modifier.tconstruct.blue_extra_upgrade.description": "Попросите создателя вашего модпака предоставить ресурспак, который лучше раскроет эту историю.",
-  "modifier.tconstruct.extra_ability": "Дополнительное умение",
-  "modifier.tconstruct.extra_ability.flavor": "Для пакетов ресурсов!",
-  "modifier.tconstruct.extra_ability.description": "Попросите создателя вашего модпака предоставить ресурспак, который лучше раскроет эту историю.",
-
   "modifier.tconstruct.smelting": "Выплавка",
   "modifier.tconstruct.smelting.flavor": "Бекон с приятной хрустящей корочкой!",
   "modifier.tconstruct.smelting.description": "Использование инструмента готовит находящиеся внутри предметы! Наполните инструмент в приседе во время взаимодействия.",
@@ -3438,21 +3409,12 @@
   "modifier.tconstruct.slow_bones": "Медленные кости",
   "modifier.tconstruct.slow_bones.flavor": "Мастерство замедления!",
   "modifier.tconstruct.slow_bones.description": "Замедляет урон от снарядов и делает вас невосприимчивым к эффекту «Замедление I».",
-  "modifier.tconstruct.magic_bones": "Магические кости",
-  "modifier.tconstruct.magic_bones.flavor": "Мастерство магии!",
-  "modifier.tconstruct.magic_bones.description": "Наносит урон от снарядов ядом и делает вас невосприимчивым к эффекту «Яд I».",
-  "modifier.tconstruct.flaming_bones": "Пылающие кости",
-  "modifier.tconstruct.flaming_bones.flavor": "Мастерство огня!",
-  "modifier.tconstruct.flaming_bones.description": "Наносит проводящий урон в ближнем бою и делает вас невосприимчивым к эффекту «Проводимость I».",
   "modifier.tconstruct.fireborn": "Огнерождённый",
   "modifier.tconstruct.fireborn.flavor": "Мастерство пламени!",
   "modifier.tconstruct.fireborn.description": "Наносит урон в ближнем бою и от снарядов, вызывая воспламенение, и делает вас невосприимчивым к урону от нахождения в огне.",
-  "modifier.tconstruct.decayed_bones": "Истлевшие кости",
-  "modifier.tconstruct.decayed_bones.flavor": "Мастерство разложения!",
-  "modifier.tconstruct.decayed_bones.description": "Уменьшает урон, наносимый в ближнем бою, и делает вас невосприимчивым к эффекту «Иссушение I».",
   "modifier.tconstruct.withered": "Иссушённый",
   "modifier.tconstruct.withered.flavor": "Секрет разложения!",
-  "modifier.tconstruct.withered.description": "Иссушение целей, скорость иссушения увеличивается после употребления молока.",
+  "modifier.tconstruct.withered.description": "Уменьшает урон, наносимый в ближнем бою, и делает вас невосприимчивым к эффекту «Иссушение I».",
   "modifier.tconstruct.boon_of_sssss": "Шипящий дар",
   "modifier.tconstruct.boon_of_sssss.flavor": "С этим зелья действуют сильнее!",
   "modifier.tconstruct.boon_of_sssss.description": "Увеличивает продолжительность положительных эффектов.",
