@@ -1,5 +1,5 @@
 {
-  "modifier_id": "tconstruct:lightspeed_armor",
+  "modifier_id": "tconstruct:lightspeed",
   "text": [
     {
       "text": "在光照良好的區域每級移動速度+5%。若光照條件不佳，仍會有加成效果，但總體較弱。"
@@ -10,6 +10,7 @@
     }
   ],
   "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/armor/boots",
   "effects": [
     "可以逐級強化",
     "最高3級",

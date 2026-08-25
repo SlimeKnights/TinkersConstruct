@@ -1,5 +1,5 @@
 {
-  "modifier_id": "tconstruct:spilling",
+  "modifier_id": "tconstruct:bursting",
   "text": [
     {
       "text": "排出一小部分流體（一般在10mB到50mB之間），通過特殊效果提升反擊力。盾牌則只在格擋時起效。"
@@ -9,7 +9,6 @@
     }
   ],
   "more_text_space": true,
-  "tool_filter": "tconstruct:modifiable/armor",
   "effects": [
     "無等級上限",
     "需要1個能力槽",
