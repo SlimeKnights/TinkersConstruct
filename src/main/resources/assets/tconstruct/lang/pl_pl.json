@@ -7,8 +7,6 @@
     "block.tconstruct.ichor_slime.tooltip": "Przykleja się do wszystkich klejących bloków, oprócz ichoru",
     "block.tconstruct.ender_slime": "Blok enderowego szlamu",
     "block.tconstruct.ender_slime.tooltip": "Klejący kiedy jest popychany, ale nie kiedy sąsiaduje z klejącym blokiem",
-    "block.tconstruct.blood_slime": "Blok krwi",
-    "block.tconstruct.blood_slime.tooltip": "Sprężysty, ale nie klejący",
 
     "block.tconstruct.earth_congealed_slime": "Skrzepnięty blok szlamu",
     "block.tconstruct.earth_congealed_slime.tooltip": "Pozwala na bardzo wysokie skoki",
@@ -16,18 +14,12 @@
     "block.tconstruct.sky_congealed_slime.tooltip": "Pozwala na bardzo wysokie skoki",
     "block.tconstruct.ender_congealed_slime": "Skrzepnięty blok enderowego szlamu",
     "block.tconstruct.ender_congealed_slime.tooltip": "Pozwala na bardzo wysokie skoki",
-    "block.tconstruct.blood_congealed_slime": "Skrzepnięta krew",
-    "block.tconstruct.blood_congealed_slime.tooltip": "Pozwala na bardzo wysokie skoki",
     "block.tconstruct.ichor_congealed_slime": "Skrzepnięty ichor",
     "block.tconstruct.ichor_congealed_slime.tooltip": "Pozwala na bardzo wysokie skoki",
 
     "block.tconstruct.mud_bricks": "Błotne cegły",
     "block.tconstruct.mud_bricks_slab": "Błotna ceglana płyta",
     "block.tconstruct.mud_bricks_stairs": "Błotne ceglane schody",
-
-    "block.tconstruct.lavawood": "Lawowe drewno",
-    "block.tconstruct.lavawood_slab": "Lawowa drewniana płyta",
-    "block.tconstruct.lavawood_stairs": "Lawowe drewniane schody",
 
     "block.tconstruct.blazewood": "Płomienne drewno",
     "block.tconstruct.blazewood_slab": "Płomienna drewniana płyta",
@@ -81,16 +73,10 @@
     "block.tconstruct.soul_glass_pane": "Szyba dusz",
 
     "block.tconstruct.glow": "Blask",
-    "block.tconstruct.silky_jewel_block": "Jedwabisty blok klejnotu",
-    "block.tconstruct.silky_jewel_block.tooltip": "Może być użyty jako podstawa do magicznej latarni",
 
 
     "__comment": "Ore Metals",
 
-    "block.tconstruct.copper_ore": "Ruda miedzi",
-    "block.tconstruct.copper_block": "Blok miedzi",
-    "block.tconstruct.copper_block.tooltip": "Może być użyty jako podstawa do magicznej latarni",
-    "item.tconstruct.copper_ingot": "Sztabka miedzi",
     "item.tconstruct.copper_nugget": "Bryłka miedzi",
 
     "block.tconstruct.cobalt_ore": "Netherowa ruda kobaltu",
@@ -107,18 +93,11 @@
     "item.tconstruct.slimesteel_ingot": "Sztabka Szlamostali",
     "item.tconstruct.slimesteel_nugget": "Bryłka Szlamostali",
 
-    "block.tconstruct.tinkers_bronze_block": "Blok brązu",
-    "block.tconstruct.tinkers_bronze_block.tooltip": "Może być użyty jako podstawa do magicznej latarni",
-    "item.tconstruct.tinkers_bronze_ingot": "Sztabka brązu",
-    "item.tconstruct.tinkers_bronze_nugget": "Bryłka brązu",
-
     "block.tconstruct.rose_gold_block": "Blok różanego złota",
-    "block.tconstruct.rose_gold_block.tooltip": "Może być użyty jako podstawa do magicznej latarni",
     "item.tconstruct.rose_gold_ingot": "Sztabka różanego złota",
     "item.tconstruct.rose_gold_nugget": "Bryłka różanego złota",
 
     "block.tconstruct.pig_iron_block": "Blok świńskiego żelaza",
-    "block.tconstruct.pig_iron_block.tooltip": "Może być użyty jako podstawa do magicznej latarni",
     "item.tconstruct.pig_iron_ingot": "Sztabka świńskiego żelaza",
     "item.tconstruct.pig_iron_nugget": "Bryłka świńskiego żelaza",
 
@@ -155,7 +134,6 @@
     "block.tconstruct.knightslime_block": "Blok rycerskiego szlamu",
     "block.tconstruct.knightslime_block.tooltip": "Może być użyty jako podstawa do magicznej latarni",
     "item.tconstruct.knightslime_ingot": "Sztabka rycerskiego szlamu",
-    "item.tconstruct.knightslime_ingot.tooltip": "Szlamowaty i metaliczny, ale tak naprawdę skała? Fascynujące!",
     "item.tconstruct.knightslime_nugget": "Bryłka rycerskiego szlamu",
 
     "item.tconstruct.materials_and_you": "Materiały i Ty",
@@ -176,19 +154,14 @@
 
     "item.tconstruct.sky_slime_ball": "Kula podniebnego szlamu",
     "item.tconstruct.ender_slime_ball": "Kula enderowego szlamu",
-    "item.tconstruct.blood_slime_ball": "Kula skrzepniętej krwi",
     "item.tconstruct.ichor_slime_ball": "Kula ichoru",
 
     "item.tconstruct.bacon": "Bekon",
 
     "item.tconstruct.earth_slime_crystal": "Kryształ szlamu",
-    "item.tconstruct.earth_slime_crystal.tooltip": "Używany do oszlamowania narzędzi",
     "item.tconstruct.sky_slime_crystal": "Kryształ podniebnego szlamu",
-    "item.tconstruct.sky_slime_crystal.tooltip": "Używany do oszlamowania narzędzi",
     "item.tconstruct.ichor_slime_crystal": "Kryształ ichoru",
-    "item.tconstruct.ichor_slime_crystal.tooltip": "Używany do oszlamowania narzędzi",
     "item.tconstruct.ender_slime_crystal": "Kryształ enderowego szlamu",
-    "item.tconstruct.ender_slime_crystal.tooltip": "Używany do oszlamowania narzędzi",
 
     "item.tconstruct.iron_reinforcement": "Żelazne wzmocnienie",
     "item.tconstruct.iron_reinforcement.tooltip": "Redukuje szansę uszkodzenia narzędzia",
@@ -196,11 +169,8 @@
     "item.tconstruct.slimesteel_reinforcement.tooltip": "Zwiększa pojemność szlamostali",
     "item.tconstruct.silky_cloth": "Jedwabista tkanina",
     "item.tconstruct.silky_cloth.tooltip": "Zapobiega uszkodzeniu niszczonych bloków",
-    "item.tconstruct.silky_jewel": "Jedwabisty klejnot",
-    "item.tconstruct.silky_jewel.tooltip": "Zapobiega uszkodzeniu niszczonych bloków",
     "item.tconstruct.necrotic_bone": "Nekrotyczna kość",
     "item.tconstruct.necrotic_bone.tooltip": "Upuszczana witherowe szkielety",
-    "item.tconstruct.bloodbone": "Krwawa kość",
     "item.tconstruct.blazing_bone": "Płomienna kość",
     "item.tconstruct.dragon_scale": "Łuska smoka",
     "item.tconstruct.dragon_scale.tooltip": "Zgubiona przez smoka Endu",
@@ -209,7 +179,7 @@
     "item.tconstruct.creative_slot.upgrades": "Kreatywne ulepszenie",
     "item.tconstruct.creative_slot.abilities": "Kreatywna umiejątność",
     "item.tconstruct.creative_slot.souls": "Kreatywny slot na duszę",
-    "item.tconstruct.creative_slot.armor": "Kreatywny slot na zbroję",
+    "item.tconstruct.creative_slot.defense": "Kreatywny slot na zbroję",
     "item.tconstruct.creative_slot.missing": "Brakujące lub nieprawidłowe dane NBT definiujące rodzaj slotu",
     "item.tconstruct.creative_slot.tooltip": "Dodaje narzędziu dodatkowy slot (%s)",
 
@@ -224,10 +194,9 @@
 
     "_comment": "Small Head Gold Casts",
 
-    "pattern.tconstruct.pickaxe_head": "Głowica kilofa",
+    "pattern.tconstruct.pick_head": "Głowica kilofa",
     "pattern.tconstruct.small_axe_head": "Mała głowica siekiery",
     "pattern.tconstruct.small_blade": "Małe ostrze",
-    "pattern.tconstruct.sign_head": "Płyta tablicowa",
     "pattern.tconstruct.bow_limb": "Ramię łuku",
 
     "_comment": "Large Head Gold Casts",
@@ -263,10 +232,9 @@
 
     "_comment": "Small Head Gold Casts",
 
-    "item.tconstruct.pickaxe_head_cast": "Złota forma głowicy kilofa",
+    "item.tconstruct.pick_head_cast": "Złota forma głowicy kilofa",
     "item.tconstruct.small_axe_head_cast": "Złota forma małej głowicy siekiery",
     "item.tconstruct.small_blade_cast": "Złota forma małego ostrza",
-    "item.tconstruct.sign_head_cast": "Złota forma tablicy",
     "item.tconstruct.bow_limb_cast": "Złota forma ramienia łuku",
 
     "_comment": "Large Head Gold Casts",
@@ -302,10 +270,9 @@
 
     "_comment": "Small Head Sand Casts",
 
-    "item.tconstruct.pickaxe_head_sand_cast": "Piaskowa forma głowicy kilofa",
+    "item.tconstruct.pick_head_sand_cast": "Piaskowa forma głowicy kilofa",
     "item.tconstruct.small_axe_head_sand_cast": "Piaskowa forma małej głowicy siekiery",
     "item.tconstruct.small_blade_sand_cast": "Piaskowa forma małego ostrza",
-    "item.tconstruct.sign_head_sand_cast": "Piaskowa forma tablicy",
     "item.tconstruct.bow_limb_sand_cast": "Piaskowa forma ramienia łuku",
 
     "_comment": "Large Head Sand Casts",
@@ -341,10 +308,9 @@
 
     "_comment": "Small Head Red Sand Casts",
 
-    "item.tconstruct.pickaxe_head_red_sand_cast": "Czerwona piaskowa forma głowicy kilofa",
+    "item.tconstruct.pick_head_red_sand_cast": "Czerwona piaskowa forma głowicy kilofa",
     "item.tconstruct.small_axe_head_red_sand_cast": "Czerwona piaskowa forma małej głowicy siekiery",
     "item.tconstruct.small_blade_red_sand_cast": "Czerwona piaskowa forma małego ostrza",
-    "item.tconstruct.sign_head_red_sand_cast": "Czerwona piaskowa forma tablicy",
     "item.tconstruct.bow_limb_red_sand_cast": "Czerwona piaskowa forma ramienia łuku",
 
     "_comment": "Large Head Red Sand Casts",
@@ -372,11 +338,6 @@
     "item.tconstruct.blazing_blood_bucket": "Wiadro płomiennej krwi",
 
     "_comment": "Slime",
-
-    "block.tconstruct.blood_fluid": "Krew",
-    "fluid.tconstruct.blood": "Krew",
-    "fluid.tconstruct.flowing_blood": "Płynąca krew",
-    "item.tconstruct.blood_bucket": "Wiadro krwi",
 
     "block.tconstruct.earth_slime_fluid": "Szlam",
     "fluid.tconstruct.earth_slime": "Szlam",
@@ -493,11 +454,6 @@
     "fluid.tconstruct.molten_slimesteel": "Stopiona szlamostal",
     "fluid.tconstruct.flowing_molten_slimesteel": "Płynąca stopiona szlamostal",
     "item.tconstruct.molten_slimesteel_bucket": "Wiadro stopionej szlamostali",
-
-    "block.tconstruct.molten_tinkers_bronze_fluid": "Stopiony brąz metalurga",
-    "fluid.tconstruct.molten_tinkers_bronze": "Stopiony brąz metalurga",
-    "fluid.tconstruct.flowing_molten_tinkers_bronze": "Płynący stopiony brąz metalurga",
-    "item.tconstruct.molten_tinkers_bronze_bucket": "Wiadro stopionego brązu metalurga",
 
     "block.tconstruct.molten_rose_gold_fluid": "Stopione różane złoto",
     "fluid.tconstruct.molten_rose_gold": "Stopione różane złoto",
@@ -660,26 +616,6 @@
     "block.tconstruct.blood_cake": "Krwawe ciasto",
     "block.tconstruct.magma_cake": "Magmowe ciasto",
 
-    "item.tconstruct.earth_slime_sling": "Szlamowa proca",
-    "item.tconstruct.earth_slime_sling.tooltip": "Naciągnij, wyceluj nisko i leć wysoko! Użyj szlamowych butów, jeśli życie Ci miłe!",
-    "item.tconstruct.sky_slime_sling": "Podniebna szlamowa proca",
-    "item.tconstruct.sky_slime_sling.tooltip": "Naciągnij, puść i wracaj w powietrze! Użyj szlamowych butów, jeśli życie Ci miłe!",
-    "item.tconstruct.ender_slime_sling": "Enderowa szlamowa proca",
-    "item.tconstruct.ender_slime_sling.tooltip": "Naciągnij, wyceluj w ścianę i wyląduj po drugiej stronie!",
-    "item.tconstruct.ichor_slime_sling": "Ichorowa proca",
-    "item.tconstruct.ichor_slime_sling.tooltip": "Naciągnij, wyceluj w jakąś istotę, i naucz ją latać!",
-
-    "item.tconstruct.earth_slime_boots": "Szlamowe buty",
-    "item.tconstruct.earth_slime_boots.tooltip": "Sprawiają, że odbijasz się przy lądowaniu",
-    "item.tconstruct.sky_slime_boots": "Podniebne szlamowe buty",
-    "item.tconstruct.sky_slime_boots.tooltip": "Sprawiają, że odbijasz się przy lądowaniu",
-    "item.tconstruct.ender_slime_boots": "Enderowe szlamowe buty",
-    "item.tconstruct.ender_slime_boots.tooltip": "Sprawiają, że odbijasz się przy lądowaniu",
-    "item.tconstruct.blood_slime_boots": "Skrzepnięte krwawe buty",
-    "item.tconstruct.blood_slime_boots.tooltip": "Sprawiają, że odbijasz się przy lądowaniu",
-    "item.tconstruct.ichor_slime_boots": "Ichorowe buty",
-    "item.tconstruct.ichor_slime_boots.tooltip": "Sprawiają, że odbijasz się przy lądowaniu",
-
     "item.tconstruct.piggy_backpack": "Plecak na barana",
     "item.tconstruct.piggy_backpack.tooltip": "Użyj na jakimś stworzeniu aby je podnieść",
     "effect.tconstruct.carry": "Noszenie",
@@ -733,14 +669,12 @@
     "item.tconstruct.sword": "Miecz",
     "item.tconstruct.cleaver": "Tasak",
 
-    "item.tconstruct.flint_and_bronze": "Krzesiwo z brązu",
-
 
     "_comment": "Tinkers Tool Parts",
 
     "item.tconstruct.repair_kit": "Zestaw naprawczy",
 
-    "item.tconstruct.pickaxe_head": "Głowica kilofa",
+    "item.tconstruct.pick_head": "Głowica kilofa",
     "item.tconstruct.hammer_head": "Głowica młota",
 
     "item.tconstruct.small_axe_head": "Mała głowica siekiery",
@@ -776,11 +710,6 @@
 
 
     "_comment": "Smeltery shared",
-
-    "block.tconstruct.tank.fluid": "Ciecz: %s",
-    "block.tconstruct.tank.mb": "%d mW",
-    "block.tconstruct.tank.ingots": "Ilość sztabek: %d",
-    "block.tconstruct.tank.mixed": "Ilość sztabek: %d i %d mW",
 
     "block.tconstruct.tank.drained": "Opróżniono %s mW cieczy: %s",
     "block.tconstruct.tank.filled": "Napełniono %s mW cieczy: %s",
@@ -1172,9 +1101,9 @@
     "material.tconstruct.wood.flavor": "\"How much wood could a woodchuck chuck if a woodchuck could chuck wood?\"",
     "material.tconstruct.wood.encyclopedia": "Naprawy są 50% bardziej skuteczne",
 
-    "material.tconstruct.stone": "Kamień",
-    "material.tconstruct.stone.flavor": "Twardy jak skała.",
-    "material.tconstruct.stone.encyclopedia": "Narzędzie kopie szybciej o połowę pierwiastka utraconej wytrzymałości",
+    "material.tconstruct.rock": "Kamień",
+    "material.tconstruct.rock.flavor": "Twardy jak skała.",
+    "material.tconstruct.rock.encyclopedia.melee_harvest": "Narzędzie kopie szybciej o połowę pierwiastka utraconej wytrzymałości",
 
     "material.tconstruct.flint": "Krzemień",
     "material.tconstruct.flint.flavor": "Zapali światełko nadziei nawet w najcięższej sytuacji!",
@@ -1210,9 +1139,7 @@
     "material.tconstruct.slimewood.flavor": "Czy to jest drewno ze szlamu czy szlam z drewna?",
     "material.tconstruct.slimewood.encyclopedia": "Daje 5% szans na zregenerowanie 1 punktu Obszlamowania w każdej sekundzie na poziom ",
 
-    "material.tconstruct.bloodbone": "Krwawa kość",
-    "material.tconstruct.bloodbone.flavor": "Ta krew nie powinna być §owewnątrz§r§7 kości?",
-    "material.tconstruct.bloodbone.encyclopedia": "Zwiększa obrażenia przy niskim życiu, aż do +4 przy 1 sercu",
+    "material.tconstruct.pewter.encyclopedia": "Zwiększa obrażenia przy niskim życiu, aż do +4 przy 1 sercu",
 
     "material.tconstruct.rose_gold": "Różane złoto",
     "material.tconstruct.rose_gold.flavor": "Zastrzeżenie: nie zawiera żadnych części róży.",
@@ -1228,10 +1155,6 @@
     "material.tconstruct.nahuatl.flavor": "Nie jest z obsydianu, bo było by napisane \"Obsydian\".",
     "material.tconstruct.nahuatl.encyclopedia": "Posiada 50% na zadanie nawet do 5 obrażeń przez jakiś okres czasu, więcej przy wyższych poziomach",
 
-    "material.tconstruct.tinkers_bronze": "Brąz metalurga",
-    "material.tconstruct.tinkers_bronze.flavor": "Nie mylić z brązem.",
-    "material.tconstruct.tinkers_bronze.encyclopedia": "Daje od +10% do +15% do szybkości kopania, bazując na innych modyfikatorach",
-
     "material.tconstruct.pig_iron": "Świńskie żelazo",
     "material.tconstruct.pig_iron.flavor": "Najlepszy ze wszystkich materiałów, bez dwóch zdań.",
     "material.tconstruct.pig_iron.encyclopedia": "Można ugryźć aby odnowić 1 punkt głodu i 0.1 punktu saturacji na poziom",
@@ -1245,7 +1168,8 @@
 
     "material.tconstruct.manyullyn": "Manyullyn",
     "material.tconstruct.manyullyn.flavor": "Metal, którego nazwy nikt nie wypowie poprawnie. Znany też jako gwiezdny metal.",
-    "material.tconstruct.manyullyn.encyclopedia": "Daje +2 do obrażeń po 8 uderzeniach z rzędu na poziom",
+
+    "material.tconstruct.nicrosil.encyclopedia": "Daje +2 do obrażeń po 8 uderzeniach z rzędu na poziom",
 
     "material.tconstruct.hepatizon": "Hepatizon",
     "material.tconstruct.hepatizon.flavor": "He-pa-ti-zon - ugotuj, pokrój, i wsadź do gulaszu",
@@ -1259,12 +1183,11 @@
     "material.tconstruct.blazing_bone.flavor": "Okiełznaj pełną moc Fortecy Netheru - kość i płomień",
     "material.tconstruct.blazing_bone.encyclopedia": "Daje +1% do obrażeń za każdą sekundę spędzoną w ogniu, aż do 15%. Bonus jest mniejszy przy użyciu odporności na ogień.",
 
-    "material.tconstruct.soulsteel": "Stal dusz",
-
 
     "__comment": "Tier End Materials",
-    "material.tconstruct.endstone": "Kamień Endu",
+    "material.tconstruct.whitestone": "Kamień Endu",
     "material.tconstruct.knightslime": "Rycerski szlam",
+    "material.tconstruct.knightslime.flavor": "Szlamowaty i metaliczny, ale tak naprawdę skała? Fascynujące!",
 
 
     "__comment": "Tier 2 Integration Materials",
@@ -1319,7 +1242,7 @@
     "modifier.tconstruct.emerald": "Szmaragd",
     "modifier.tconstruct.emerald.flavor": "Piękny!",
     "modifier.tconstruct.emerald.description": "Zwiększa wytrzymałość na podstawie bazowej wytrzymałości. Rozbójnicy go nienawidzą!",
-    "modifier.tconstruct.emerald.attack_damage": "do obrażeń przeciwko rozbójnikom",
+    "modifier.tconstruct.killager.attack_damage": "do obrażeń przeciwko rozbójnikom",
     "modifier.tconstruct.diamond": "Diament",
     "modifier.tconstruct.diamond.flavor": "Bogactwo!",
     "modifier.tconstruct.diamond.description": "Zwiększona wytrzymałość i inne statystyki!",
@@ -1332,7 +1255,6 @@
     "modifier.tconstruct.netherite": "Netheryt",
     "modifier.tconstruct.netherite.flavor": "Udoskonalony!",
     "modifier.tconstruct.netherite.description": "Okiełznaj moc starożytnego metalu, czyniąc narzędzie silniejszym i odpornym na ogień",
-    "recipe.tconstruct.modifier.netherite_requirements": "Netheryt wymaga, aby narzędzie zostało uprzednio ulepszone Diamentem lub Szmaragdem",
     "modifier.tconstruct.overslime": "Obszlamienie",
     "modifier.tconstruct.overslime.flavor": "Szlamisty!",
     "modifier.tconstruct.overslime.description": "Narzędzie zużywa zmagazynowany szlam zamiast wytrzymałości. Niezbyt pomocne przy narzędziach ubogich w szlam",
@@ -1346,7 +1268,6 @@
     "modifier.tconstruct.magnetic.description": "Kopanie przyciąga pobliskie przedmioty?!",
 
     "modifier.tconstruct.haste": "Pośpiech",
-    "modifier.tconstruct.haste.1": "Pośpieszny",
     "modifier.tconstruct.haste.2": "Pośpieszniejszy",
     "modifier.tconstruct.haste.3": "Najpośpieszniejszy",
     "modifier.tconstruct.haste.4": "Bardziej najpośpieszniejszy",
@@ -1423,11 +1344,10 @@
     "modifier.tconstruct.unbreakable": "Niezniszczalny",
     "modifier.tconstruct.unbreakable.flavor": "Zatrzymany w czasie!",
     "modifier.tconstruct.unbreakable.description": "Narzędzie nie niszczy się przy normalnym używaniu",
-    "recipe.tconstruct.modifier.unbreakable_requirements": "Wymaga wcześniejszego nałożenia ulepszeń \"Netheryt\" i \"Wzmocniony V\"",
+    "modifier.tconstruct.unbreakable.requirements": "Wymaga wcześniejszego nałożenia ulepszeń \"Netheryt\" i \"Wzmocniony V\"",
     "modifier.tconstruct.dual_wielding": "Podwójny",
     "modifier.tconstruct.dual_wielding.flavor": "2 razy więcej zabawy!",
     "modifier.tconstruct.dual_wielding.description": "Może być użyty w drugiej ręce, jeśli narzędzie w głównej ręce też ma to ulepszenie. Takie narzędzia mają zredukowane statystyki",
-    "recipe.tconstruct.modifier.two_handed_dual_wielding": "Dwuręczne narzędzia wymagają ulepszenia \"Dwuręczny\"",
 
     "_comment": "Loot",
     "modifier.tconstruct.silky": "Jedwabisty",
@@ -1437,13 +1357,10 @@
     "modifier.tconstruct.autosmelt.flavor": "Ogień Netheru na wyciągnięcie ręki!",
     "modifier.tconstruct.autosmelt.description": "Narzędzie automatycznie przepala wszystkie przedmioty",
     "modifier.tconstruct.luck": "Szczęście",
-    "modifier.tconstruct.luck.1": "Szczęśliwy",
     "modifier.tconstruct.luck.2": "Szczęśliwszy",
     "modifier.tconstruct.luck.3": "Najszczęśliwszy",
     "modifier.tconstruct.luck.flavor": "Spróbuj szczęścia!",
     "modifier.tconstruct.luck.description": "Daje więcej ciekawych rzeczy z mobów i bloków!",
-    "recipe.tconstruct.modifier.luck.level_2": "\"Szczęśliwszy\" wymaga innej receptury na pierwszy poziom",
-    "recipe.tconstruct.modifier.luck.level_3": "\"Najszczęśliwszy\" wymaga innej receptury na pierwszy i drugi poziom",
     "modifier.tconstruct.fortune": "Fortuna",
     "modifier.tconstruct.fortune.flavor": "Fortuna z rud!",
     "modifier.tconstruct.fortune.description": "Daje więcej ciekawych rzeczy podczas kopania!",
@@ -1485,8 +1402,7 @@
     "modifier.tconstruct.melting.flavor": "Moc pieca w Twoich rękach",
     "modifier.tconstruct.melting.description": "Topi zaatakowane stworzenia i upuszczone przedmioty",
     "modifier.tconstruct.tank": "Zbiornik",
-    "modifier.tconstruct.tank.filled": "Zbiornik: %s mW %s",
-    "modifier.tconstruct.tank.capacity": "Pojemność: %s mW",
+    "tool_stat.tconstruct.tank_capacity": "Pojemność: ",
     "modifier.tconstruct.tank.flavor": "Większe zawsze jest lepsze!",
     "modifier.tconstruct.tank.description": "Narzędzie posiada zbiornik na ciecze, dzięki czemu może je przechowywać!",
     "modifier.tconstruct.bucketing": "Wiaderko",
@@ -1498,7 +1414,6 @@
 
     "_comment": "Bonus modifier slots",
     "modifier.tconstruct.creative_slot": "Kreatywny slot",
-    "modifier.tconstruct.creative_slot.prefix": "Kreatywny:",
     "modifier.tconstruct.creative_slot.flavor": "Oszukujesz!",
     "modifier.tconstruct.creative_slot.description": "Daje nielegalne, dodatkowe sloty na ulepszenia",
 
@@ -1522,23 +1437,9 @@
     "modifier.tconstruct.draconic.flavor": "Podbił End!",
     "modifier.tconstruct.draconic.description": "Głowa największej bestii wszechczasów daje narzędziu dodatkowy slot na umiejętność!",
 
-    "__comment": "Three more +1 upgrade modifiers for modpacks",
-    "modifier.tconstruct.red_extra_upgrade": "Czerwone dodatkowe ulepszenie",
-    "modifier.tconstruct.red_extra_upgrade.flavor": "Dla modpacków!",
-    "modifier.tconstruct.red_extra_upgrade.description": "Zapytaj twórcę Twojego modpacka o paczkę zasobów dającą temu ulepszeniu lepszy opis!",
-    "modifier.tconstruct.green_extra_upgrade": "Zielone dodatkowe ulepszenie",
-    "modifier.tconstruct.green_extra_upgrade.flavor": "Dla modpacków!",
-    "modifier.tconstruct.green_extra_upgrade.description": "Zapytaj twórcę Twojego modpacka o paczkę zasobów dającą temu ulepszeniu lepszy opis!",
-    "modifier.tconstruct.blue_extra_upgrade": "Niebieskie dodatkowe ulepszenie",
-    "modifier.tconstruct.blue_extra_upgrade.flavor": "Dla modpacków!",
-    "modifier.tconstruct.blue_extra_upgrade.description": "Zapytaj twórcę Twojego modpacka o paczkę zasobów dającą temu ulepszeniu lepszy opis!",
-    "modifier.tconstruct.extra_ability": "Dodatkowa umiejętność",
-    "modifier.tconstruct.extra_ability.flavor": "Dla modpacków!",
-    "modifier.tconstruct.extra_ability.description": "Zapytaj twórcę Twojego modpacka o paczkę zasobów dającą temu ulepszeniu lepszy opis!",
-
 
     "__comment": "Tier 1 Traits",
-    "modifier.tconstruct.fake_attribute.mining_speed": "Szybkość kopania",
+    "armor_stat.tconstruct.mining_speed": "Szybkość kopania",
 
     "modifier.tconstruct.cultivated": "Wzrost",
     "modifier.tconstruct.cultivated.flavor": "Ekonomicznie!",
@@ -1551,16 +1452,12 @@
     "modifier.tconstruct.stonebound.description": "Każdy punkt wytrzymałości zwiększa szybkość kopania, ale zmniejsza obrażenia",
 
     "__comment": "Tier 2 Traits",
-    "modifier.tconstruct.fractured": "Złamany",
-    "modifier.tconstruct.fractured.flavor": "Złamana noga!",
-    "modifier.tconstruct.fractured.description": "Narzędzie jest szczególnie ostre ze względu na fragmenty złamanej kości",
     "modifier.tconstruct.sturdy": "Wytrzymały",
     "modifier.tconstruct.sturdy.flavor": "Dobra robota!",
     "modifier.tconstruct.sturdy.description": "Stworzone z najlepszego żelaza",
     "modifier.tconstruct.searing": "Palący",
     "modifier.tconstruct.searing.flavor": "Okiełznaj siły pieca!",
     "modifier.tconstruct.searing.description": "Narzędzie zadaje większe obrażenia w ciepłych obszarach, ale mniejsze w zimnych",
-    "modifier.tconstruct.searing.attack_damage": "do gorących obrażeń",
     "modifier.tconstruct.scorching": "Upalny",
     "modifier.tconstruct.scorching.flavor": "Okiełznaj siły odlewni!",
     "modifier.tconstruct.scorching.description": "Narzędzie zadaje większe obrażenia palącym się celom",
@@ -1607,7 +1504,7 @@
     "modifier.tconstruct.momentum": "Pęd",
     "modifier.tconstruct.momentum.flavor": "Byle szybciej!",
     "modifier.tconstruct.momentum.description": "Kopanie bloków zwiększa szybkość kopania tak długo, jak nie przestajesz",
-    "modifier.tconstruct.momentum.mining_speed": "do pędu kopania",
+    "modifier.tconstruct.momentum.speed": "do pędu kopania",
     "modifier.tconstruct.insatiable": "Nienasycony",
     "modifier.tconstruct.insatiable.flavor": "Czuje zapach krwi!",
     "modifier.tconstruct.insatiable.description": "W czasie walki zadaje coraz więcej obrażeń z każdym uderzeniem",
@@ -1615,7 +1512,7 @@
     "modifier.tconstruct.conducting": "Przewodniczy",
     "modifier.tconstruct.conducting.flavor": "Termodynamiczny!",
     "modifier.tconstruct.conducting.description": "Narzędzie zadaje zwielokrotnione obrażenia, kiedy się palisz",
-    "modifier.tconstruct.conducting.attack_damage": "do maksymalnych obrażeń w ogniu",
+    "modifier.tconstruct.conducting.boost": "do maksymalnych obrażeń w ogniu",
 
     "__comment": "Tier 2 Mod Compat Traits",
     "modifier.tconstruct.heavy": "Ciężki",
@@ -1639,8 +1536,10 @@
     "_comment": "Internal effects",
     "effect.tconstruct.bleeding": "Krwawienie",
     "effect.tconstruct.magnetic": "Magnetyzm",
-    "effect.tconstruct.momentum": "Pęd",
-    "effect.tconstruct.insatiable": "Nienasycenie",
+    "effect.tconstruct.momentum_harvest": "Pęd",
+    "effect.tconstruct.momentum_ranged": "Pęd",
+    "effect.tconstruct.insatiable_melee": "Nienasycenie",
+    "effect.tconstruct.insatiable_ranged": "Nienasycenie",
 
     "_comment": "Roman numerals",
     "roman_numeral.value.1": "I",
@@ -1674,8 +1573,8 @@
     "stat.tconstruct.head": "Głowica",
     "tool_stat.tconstruct.mining_speed": "Szybkość kopania:",
     "tool_stat.tconstruct.mining_speed.description": "Szybkość, z jaką narzędzie jest w stanie kopać bloki. Mogą na to wpływać pozostałe części.",
-    "tool_stat.tconstruct.harvest_level": "Poziom kopania:",
-    "tool_stat.tconstruct.harvest_level.description": "Jakie grupy bloków może to narzędzie wykopać",
+    "tool_stat.tconstruct.harvest_tier": "Poziom kopania:",
+    "tool_stat.tconstruct.harvest_tier.description": "Jakie grupy bloków może to narzędzie wykopać",
     "tool_stat.tconstruct.attack_damage": "Obrażenia:",
     "tool_stat.tconstruct.attack_damage.description": "Podstawowa wartość dla pozostałych kalkulacji. Efekt końcowy zależy od samego narzędzia, jak i od użytych części składowych",
     
@@ -1685,24 +1584,22 @@
     "tool_stat.tconstruct.handle.attack_speed.description": "Całkowita szybkość ataku będzie przez tą wartość pomnożona.",
     "tool_stat.tconstruct.handle.mining_speed.description": "Całkowita szybkość kopania będzie przez tą wartość pomnożona.",
 
-    "stat.tconstruct.extra": "Dodatek",
     "tool_stat.tconstruct.extra.no_stats": "Brak statystyk",
 
-    "stat.tconstruct.mining_level.wood": "Drewno",
-    "stat.tconstruct.mining_level.stone": "Kamień",
-    "stat.tconstruct.mining_level.iron": "Żelazo",
-    "stat.tconstruct.mining_level.diamond": "Diamenty",
-    "stat.tconstruct.mining_level.netherite": "Netheryt",
+    "stat.tconstruct.harvest_tier.minecraft.wood": "Drewno",
+    "stat.tconstruct.harvest_tier.minecraft.stone": "Kamień",
+    "stat.tconstruct.harvest_tier.minecraft.iron": "Żelazo",
+    "stat.tconstruct.harvest_tier.minecraft.diamond": "Diamenty",
+    "stat.tconstruct.harvest_tier.minecraft.netherite": "Netheryt",
 
     "stat.tconstruct.slot.prefix.upgrades": "Ulepszenia:",
     "stat.tconstruct.slot.prefix.abilities": "Umiejętności:",
-    "stat.tconstruct.slot.prefix.soul": "Sloty na dusze:",
-    "stat.tconstruct.slot.prefix.armor": "Sloty na zbroję:",
+    "stat.tconstruct.slot.prefix.defense": "Sloty na zbroję:",
 
     "stat.tconstruct.slot.display.upgrades": "ulepszenie",
     "stat.tconstruct.slot.display.abilities": "umiejętność",
     "stat.tconstruct.slot.display.souls": "dusza",
-    "stat.tconstruct.slot.display.armor": "zbroja",
+    "stat.tconstruct.slot.display.defense": "zbroja",
 
 
     "_comment": "Tooltips",
@@ -1728,7 +1625,6 @@
     "itemGroup.tconstruct.tool_parts": "Części Tinkers'a",
     "itemGroup.tconstruct.smeltery": "Piece Tinkers'a",
     "itemGroup.tconstruct.world": "Świat Tinkers'a",
-    "itemGroup.tconstruct.gadgets": "Gadżety Tinkers'a",
 
     "gui.tconstruct.crafting_station": "Stacja konstruowania",
     "gui.tconstruct.crafting_station.uncraftable": "Ten przedmiot nie jest możliwy do wytworzenia przez gracza",
@@ -1767,7 +1663,6 @@
     "recipe.tconstruct.modifier.not_enough_slots": "Potrzebne jest co najmniej %s slotów na %s aby zastosować tą modyfikację",
     "recipe.tconstruct.modifier.validate_slots": "Ta zmiana pozostawia narzędzie ze zbyt małą ilością slotów na %s",
     "recipe.tconstruct.modifier.max_level": "Poziom %s nie może być powyżej %s",
-    "recipe.tconstruct.modifier.requirements_error": "Stan narzędzia nieprawidłowy dla jednej z modyfikacji. Skontaktuj się z autorem modpacka i poproś o lepszy opis błędu.",
 
 
     "_comment": "GUIs Messages",
@@ -1823,7 +1718,6 @@
     "jei.tconstruct.modifiers.slots": "Modyfikacja wymaga %s slotów na %s, aby zastosować",
     "jei.tconstruct.modifiers.free": "Nie wymaga slotów na modyfikacje do zastosowania",
     "jei.tconstruct.modifiers.incremental": "Receptura jest stopniowa, możesz zastosować jedynie część dla częściowego efektu",
-    "jei.tconstruct.modifiers.max": "Maks: ",
 
     "jei.tconstruct.severing.title": "Odcinanie",
 
@@ -1904,8 +1798,6 @@
     "advancements.tconstruct.world.clay_island.description": "Zlokalizuj glinianą wyspę wysoko na niebie",
     "advancements.tconstruct.world.slime_collector.title": "Zbieracz szlamu",
     "advancements.tconstruct.world.slime_collector.description": "Zbierz wszystkie 6 rodzajów szlamu",
-    "advancements.tconstruct.world.slime_sling.title": "Ekspert od proc",
-    "advancements.tconstruct.world.slime_sling.description": "Użyj każdej z 4 rodzajów proc",
     "advancements.tconstruct.world.piggybackpack.title": "Świnia na barana",
     "advancements.tconstruct.world.piggybackpack.description": "Weź świnię na barana z pomocą specjalnego plecaka"
 }
