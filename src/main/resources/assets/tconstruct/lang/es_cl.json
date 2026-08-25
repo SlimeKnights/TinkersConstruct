@@ -94,7 +94,6 @@
   "block.tconstruct.soul_glass_pane.tooltip": "Actúa como un sólido, pero puedes pasar por el",
 
   "block.tconstruct.glow": "Brillo",
-  "block.tconstruct.silky_jewel_block": "Bloque sedoso de gema",
 
 
   "__comment": "Metales de mineral",
@@ -177,7 +176,6 @@
 
   "block.tconstruct.knightslime_block": "Bloque de Slime Caballero",
   "item.tconstruct.knightslime_ingot": "Lingote de Slime Caballero",
-  "item.tconstruct.knightslime_ingot.tooltip": "Pegajoso aunque metálico, ¿Pero también piedroso? ¡Facinante!",
   "item.tconstruct.knightslime_nugget": "Pepita de Slime Caballero",
 
   "item.tconstruct.materials_and_you": "Materiales y tú",
@@ -269,8 +267,6 @@
   "item.tconstruct.jeweled_apple": "Manzana Joyada",
   "item.tconstruct.silky_cloth": "Paño sedoso",
   "item.tconstruct.silky_cloth.tooltip": "Previene la herramienta dañe los drops de bloques",
-  "item.tconstruct.silky_jewel": "Gema sedosa",
-  "item.tconstruct.silky_jewel.tooltip": "Previene la herramienta dañe los drops de bloques",
   "item.tconstruct.necrotic_bone": "Hueso Necrótico",
   "item.tconstruct.necrotic_bone.tooltip": "Soltado de los Esqueletos de Wither",
   "item.tconstruct.necronium_bone": "Hueso de Necronio",
@@ -1163,24 +1159,9 @@
   "item.tconstruct.plate_shield": "Escudo Blindado",
 
   "item.tconstruct.slime_helmet": "Calavera Slime",
-  "item.tconstruct.slime_chestplate": "Slimelytra",
   "item.tconstruct.slime_leggings": "Caparazón Slime",
   "item.tconstruct.slime_boots": "Botas Slime",
-  "item.tconstruct.slime_helmet.material.tconstruct.ui_render.head": "Cualquier Calavera Slime", 
-  "item.tconstruct.slime_helmet.material.tconstruct.glass":         "Calavera Slime de Creeper",
-  "item.tconstruct.slime_helmet.material.tconstruct.ender_pearl":   "Calavera Slime de Enderman",
-  "item.tconstruct.slime_helmet.material.tconstruct.bone":          "Calavera Slime de Esqueleto",
-  "item.tconstruct.slime_helmet.material.tconstruct.venombone":     "Calavera Slime de Stray",
-  "item.tconstruct.slime_helmet.material.tconstruct.necrotic_bone": "Calavera Slime de Esqueleto Wither",
-  "item.tconstruct.slime_helmet.material.tconstruct.string":        "Calavera Slime de Araña",
-  "item.tconstruct.slime_helmet.material.tconstruct.darkthread":    "Calavera Slime de Araña de Cuevas",
-  "item.tconstruct.slime_helmet.material.tconstruct.leather":       "Calavera Slime de Zombie",
-  "item.tconstruct.slime_helmet.material.tconstruct.iron":          "Calavera Slime de Husk",
-  "item.tconstruct.slime_helmet.material.tconstruct.copper":        "Calavera Slime de Ahogado",
-  "item.tconstruct.slime_helmet.material.tconstruct.blazing_bone":  "Calavera Slime de Blaze",
-  "item.tconstruct.slime_helmet.material.tconstruct.gold":          "Calavera Slime de Piglin",
-  "item.tconstruct.slime_helmet.material.tconstruct.rose_gold":     "Calavera Slime de Piglin Bruto",
-  "item.tconstruct.slime_helmet.material.tconstruct.pig_iron":      "Calavera Slime de Piglin Zombificado",
+  "item.tconstruct.slime_wings": "Slimelytra",
 
   "item.tconstruct.crystalshot": "Disparo de cristal",
   "entity.tconstruct.crystalshot": "Disparo de cristal",
@@ -1789,6 +1770,8 @@
   "material.tconstruct.ice.flavor": "De chill",
   "material.tconstruct.ice.encyclopedia.armor": "Convierte el daño de hielo en un escudo de durabilidad.",
   "material.tconstruct.ice.encyclopedia.ammo": "Congela al objetivo por 4 segundos cada nivel, causando lentitúd y daño con el tiempo.",
+  "material.tconstruct.ice.flavor.skull": "Escalofríos hasta los huesos",
+  "material.tconstruct.ice.encyclopedia.skull": "Los proyectiles realentizan a el objetivo. Luego de beber leche, los ataques cuerpo a cuerpo causan lentitúd también, y el nivel se esta es mayor.",
 
   "material.tconstruct.cactus": "Cactus",
   "material.tconstruct.cactus.flavor": "Un escudo puntiagudo para pinchar a tu atacadore.",
@@ -1910,8 +1893,6 @@
   "material.tconstruct.venombone.encyclopedia.ranged": "Aumenta la velocidad de carga mientras tienes el efecto de veneno por 0.05 más 0.1 cada nivel de veneno",
   "material.tconstruct.venombone.encyclopedia.armor": "Tiene un 15% de probababilidad de que cuando te golpeen el atacante sufra un 200% de daño mágico por los siguientes 5 a 10 segundos (O hasta 15 mientras se bloquea).",
   "material.tconstruct.venombone.encyclopedia.ammo": "Causa que el atacante sufra un 200% de daño mágico por los siguientes 5 a 10 segundos .",
-  "material.tconstruct.venombone.flavor.skull": "Escalofríos hasta los huesos",
-  "material.tconstruct.venombone.encyclopedia.skull": "Los proyectiles realentizan a el objetivo. Luego de beber leche, los ataques cuerpo a cuerpo causan lentitúd también, y el nivel se esta es mayor.",
 
   "material.tconstruct.rose_gold": "Oro rosado",
   "material.tconstruct.rose_gold.flavor": "Advertencia: No está hecho con tinte rosado.",
@@ -1981,6 +1962,8 @@
   "material.tconstruct.gunpowder": "Pólvora",
   "material.tconstruct.gunpowder.flavor": "¡Explosivo!",
   "material.tconstruct.gunpowder.encyclopedia.ammo": "Causa que la flecha explote en un radio de 1 mas 1 cada nivel. El daño de la explosión se basa en el poder del proyectil.",
+  "material.tconstruct.gunpowder.flavor.skull": "¿Qué objetos de valor quieres destruir ahora, creeper?",
+  "material.tconstruct.gunpowder.encyclopedia.skull": "Mantener presionada la tecla de interacción con el casco causa que el portador explote",
 
   "material.tconstruct.earthslime": "Slime Terrestre",
   "material.tconstruct.earthslime.flavor": "¡Hacia mí!",
@@ -1993,6 +1976,8 @@
   "material.tconstruct.blaze": "Blaze",
   "material.tconstruct.blaze.flavor": "¡¡Quémalo todo!!",
   "material.tconstruct.blaze.encyclopedia.ammo": "Causa que las flechas ardan, quemando objetivos por 5 segundos cada nivel.",
+  "material.tconstruct.blaze.flavor.skull": "Les dije una vez que esto es téctinamente Escupo ígneo, no aliento de fuego, pero aparentemente no puedo nombrar las cosas que yo invento",
+  "material.tconstruct.blaze.encyclopedia.skull": "Permite escupir las cargas ígneas de tu inventario como bolas de fuego. Tiene un enfriamiento de 5 segundos y no funciona bajo el agua",
 
   "material.tconstruct.ender_pearl": "Ender Pearl",
   "material.tconstruct.ender_pearl.flavor": "Una manera más segura de transporte Ender",
@@ -2003,8 +1988,6 @@
   "material.tconstruct.glass": "Vidrio",
   "material.tconstruct.glass.flavor": "¡Se quiebra en impacto!",
   "material.tconstruct.glass.encyclopedia.ammo": "Disminuye el poder del proyectil por 0.75 cada nivel, pero le da un tanque. En impacto, aplica el efecto del fluido dentro del tanque. La munición se rompe al impactar con un bloque mientras esté llena.",
-  "material.tconstruct.glass.flavor.skull": "¿Qué objetos de valor quieres destruir ahora, creeper?",
-  "material.tconstruct.glass.encyclopedia.skull": "Mantener presionada la tecla de interacción con el casco causa que el portador explote",
 
   "material.tconstruct.slimeball": "Slime",
   "material.tconstruct.slimeball.earth": "Slime Terrestre",
@@ -2073,9 +2056,10 @@
 
   "material.tconstruct.manyullyn": "Manyullyn",
   "material.tconstruct.manyullyn.flavor": "El metal que la mayoría de Tinkers no sabe pronunciar. También conocido como el metal corta-estrellas.",
-  "material.tconstruct.manyullyn.encyclopedia": "Otorga hasta +2.5 de daño cada nivel, con el daño aumentando en +0.5 por golpe en 5 golpes consecutivos",
-  "material.tconstruct.manyullyn.encyclopedia.ranged": "Los proyectiles ganan hasta +1.25 de poder cada nivel, con el daño aumentando por +0.25 cada nivel por golpe 5 golpes consecutivos",
-  "material.tconstruct.manyullyn.encyclopedia.armor": "Temporalmente aumenta el daño cuerpo a cuerpo en 1 luego de tomar daño, limitandose al nivel total en toda la armadura",
+
+  "material.tconstruct.nicrosil.encyclopedia": "Otorga hasta +2.5 de daño cada nivel, con el daño aumentando en +0.5 por golpe en 5 golpes consecutivos",
+  "material.tconstruct.nicrosil.encyclopedia.ranged": "Los proyectiles ganan hasta +1.25 de poder cada nivel, con el daño aumentando por +0.25 cada nivel por golpe 5 golpes consecutivos",
+  "material.tconstruct.nicrosil.encyclopedia.armor": "Temporalmente aumenta el daño cuerpo a cuerpo en 1 luego de tomar daño, limitandose al nivel total en toda la armadura",
 
   "material.tconstruct.hepatizon": "Hepatizon",
   "material.tconstruct.hepatizon.flavor": "je-pa-tai-zon, en puré, cocido, o en un buen guiso.",
@@ -2101,8 +2085,6 @@
   "material.tconstruct.blazing_bone.encyclopedia.ranged": "Otorga 2% de daño de flecha por segundo de fuego, hasta 20% por 10+ segundos. Bono reducido por la resistencia contra el fuego.",
   "material.tconstruct.blazing_bone.encyclopedia.armor": "tiene una probabilidad del 15% de que cuando te golpean, el atacante sufra 200% de daño ígneo por los siguientes 5 a 10 segundos (o hasta 15 segundos mientras se bloquea).",
   "material.tconstruct.blazing_bone.encyclopedia.ammo": "Causa al objetivo tomar 200% de daño de fuego en los siguientes 5 a 10 segundos.",
-  "material.tconstruct.blazing_bone.flavor.skull": "Les dije una vez que esto es téctinamente Escupo ígneo, no aliento de fuego, pero aparentemente no puedo nombrar las cosas que yo invento",
-  "material.tconstruct.blazing_bone.encyclopedia.skull": "Permite escupir las cargas ígneas de tu inventario como bolas de fuego. Tiene un enfriamiento de 5 segundos y no funciona bajo el agua",
 
   "material.tconstruct.blazewood": "Madera de Blaze",
   "material.tconstruct.blazewood.flavor": "Las llamas protegen la llama",
@@ -2120,8 +2102,6 @@
   "material.tconstruct.glowstone": "Glowstone",
   "material.tconstruct.glowstone.flavor": "En el día más brillante, en la noche más oscura, ninguna cueva escapará mi vista!",
   "material.tconstruct.glowstone.encyclopedia.ammo": "Causa luminiscencia en el objetivo por 10 segundos cada nivel. Si impacta en un bloque, coloca una fuente de luz temporal a coste del proyectil.",
-
-  "material.tconstruct.soulsteel": "Acero de Almas",
 
   "material.tconstruct.ancient_hide": "Piel antigua",
   "material.tconstruct.ancient_hide.flavor": "Cuero curtido por la piedra más vieja",
@@ -2153,6 +2133,7 @@
   "material.tconstruct.end_rod.encyclopedia.ammo": "El proyectil ignora la gravedad por el primer segundo de su vida",
 
   "material.tconstruct.knightslime": "Slime Caballero",
+  "material.tconstruct.knightslime.flavor": "Pegajoso aunque metálico, ¿Pero también piedroso? ¡Facinante!",
 
   "material.tconstruct.enderslime_vine": "Enredadera Slime Ender",
   "material.tconstruct.enderslime_vine.slimeskin": "Piel de Slime Ender",
@@ -2950,20 +2931,6 @@
   "modifier.tconstruct.redirected.flavor": "Envía la flecha devuelta",
   "modifier.tconstruct.redirected.description": "Otorga al proyectil una copia extra del rasgo de la cabeza.",
 
-  "__comment": "Tres + 1 mejora extras para modpacks",
-  "modifier.tconstruct.red_extra_upgrade": "Mejora extra roja",
-  "modifier.tconstruct.red_extra_upgrade.flavor": "¡Para modpacks!",
-  "modifier.tconstruct.red_extra_upgrade.description": "Dile al creador de tu modpack que añada un paquete de recursos dándole una descripción mejor a este slot",
-  "modifier.tconstruct.green_extra_upgrade": "Mejora extra verde",
-  "modifier.tconstruct.green_extra_upgrade.flavor": "¡Para modpacks!",
-  "modifier.tconstruct.green_extra_upgrade.description": "Dile al creador de tu modpack que añada un paquete de recursos dándole una descripción mejor a este slot",
-  "modifier.tconstruct.blue_extra_upgrade": "Mejora extra azul",
-  "modifier.tconstruct.blue_extra_upgrade.flavor": "¡Para modpacks!",
-  "modifier.tconstruct.blue_extra_upgrade.description": "Dile al creador de tu modpack que añada un paquete de recursos dándole una descripción mejor a este slot",
-  "modifier.tconstruct.extra_ability": "Habilidad extra",
-  "modifier.tconstruct.extra_ability.flavor": "¡Para modpacks!",
-  "modifier.tconstruct.extra_ability.description": "Dile al creador de tu modpack que añada un paquete de recursos dándole una descripción mejor a este slot",
-
   "modifier.tconstruct.smelting": "Hornear",
   "modifier.tconstruct.smelting.flavor": "Que rico tocino frito",
   "modifier.tconstruct.smelting.description": "¡Usar la herramienta cocina los items dentro! Llena la herramienta al interactuar agachándote.",
@@ -3287,9 +3254,9 @@
   "modifier.tconstruct.strong_bones": "Huesos fuertes",
   "modifier.tconstruct.strong_bones.flavor": "¿Tienes leche?",
   "modifier.tconstruct.strong_bones.description": "Beber leche mejora temporalmente la resistencia",
-  "modifier.tconstruct.frosttouch": "Toque helado",
-  "modifier.tconstruct.frosttouch.flavor": "Un toque gélido mentiene a los enemigos lejos",
-  "modifier.tconstruct.frosttouch.description": "Hace que las flechas realentizen objetivos, al beber leche permite realentizar en ataques cuerpo a cuerpo",
+  "modifier.tconstruct.slow_bones": "Toque helado",
+  "modifier.tconstruct.slow_bones.flavor": "Un toque gélido mentiene a los enemigos lejos",
+  "modifier.tconstruct.slow_bones.description": "Hace que las flechas realentizen objetivos, al beber leche permite realentizar en ataques cuerpo a cuerpo",
   "modifier.tconstruct.withered": "Wither",
   "modifier.tconstruct.withered.flavor": "El secreto de la decadencia",
   "modifier.tconstruct.withered.description": "Causa wither a los objetivos, haciéndolo más rápido al beber leche",
