@@ -8,6 +8,6 @@
   "effects": [
     "Ajoute une table de craft dans l’inventaire de l’outil",
     "Niveau unique",
-    "Nécessite 1 emplacement d’amélioration"
+    "Ne nécessite aucun emplacement"
   ]
 }
