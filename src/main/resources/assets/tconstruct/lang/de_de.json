@@ -7,8 +7,6 @@
 "block.tconstruct.ichor_slime.tooltip": "Klebt alle klebrigen Blöcke außer Ichor",
 "block.tconstruct.ender_slime": "Enderslime-Block",
 "block.tconstruct.ender_slime.tooltip": "Klebt beim Drücken, aber nicht neben einem klebrigen Block",
-"block.tconstruct.blood_slime": "Blutblock",
-"block.tconstruct.blood_slime.tooltip": "Hüpfend, aber nicht klebrig",
 
 "block.tconstruct.earth_congealed_slime": "Erstarrter Schleimblock",
 "block.tconstruct.earth_congealed_slime.tooltip": "Lässt dich richtig hoch springen",
@@ -16,18 +14,12 @@
 "block.tconstruct.sky_congealed_slime.tooltip": "Lässt dich richtig hoch springen",
 "block.tconstruct.ender_congealed_slime": "Erstarrter Enderslime-Block",
 "block.tconstruct.ender_congealed_slime.tooltip": "Lässt dich richtig hoch springen",
-"block.tconstruct.blood_congealed_slime": "Gegeronnenes Blut",
-"block.tconstruct.blood_congealed_slime.tooltip": "Lässt dich richtig hoch springen",
 "block.tconstruct.ichor_congealed_slime": "Erstarrtes Sekret",
 "block.tconstruct.ichor_congealed_slime.tooltip": "Lässt dich richtig hoch springen",
 
 "block.tconstruct.mud_bricks": "Lehmziegel",
 "block.tconstruct.mud_bricks_slab": "Lehmziegelplatte",
 "block.tconstruct.mud_bricks_stairs": "Lehmziegeltreppe",
-
-"block.tconstruct.lavawood": "Lavaholz",
-"block.tconstruct.lavawood_slab": "Lavaholzplatte",
-"block.tconstruct.lavawood_stairs": "Lavaholztreppen",
 
 "block.tconstruct.blazewood": "Blazewood",
 "block.tconstruct.blazewood_slab": "Blazewood-Platte",
@@ -97,7 +89,6 @@
 "block.tconstruct.soul_glass_pane": "Seelenglasscheibe",
 
 "block.tconstruct.glow": "Glühen",
-"block.tconstruct.silky_jewel_block": "Seidiger Juwelenblock",
 
 
 "__comment": "Erzmetalle",
@@ -119,10 +110,6 @@
 "block.tconstruct.slimesteel_block": "Slimesteel-Block",
 "item.tconstruct.slimesteel_ingot": "Schleimstahlbarren",
 "item.tconstruct.slimesteel_nugget": "Slimesteel-Nugget",
-
-"block.tconstruct.tinkers_bronze_block": "Block aus Tinkers Bronze",
-"item.tconstruct.tinkers_bronze_ingot": "Tinkers Bronzebarren",
-"item.tconstruct.tinkers_bronze_nugget": "Tinkers Bronzenugget",
 
 "block.tconstruct.rose_gold_block": "Block aus Roségold",
 "item.tconstruct.rose_gold_ingot": "Roségoldbarren",
@@ -164,7 +151,6 @@
 
 "block.tconstruct.knightslime_block": "Knightslime-Block",
 "item.tconstruct.knightslime_ingot": "Knightslime-Barren",
-"item.tconstruct.knightslime_ingot.tooltip": "Schleimig und doch metallisch, aber auch Stein? Faszinierend!",
 "item.tconstruct.knightslime_nugget": "Knightslime-Nugget",
 
 "item.tconstruct.materials_and_you": "Materialien und Sie",
@@ -185,7 +171,6 @@
 
 "item.tconstruct.sky_slime_ball": "Himmelsschleimball",
 "item.tconstruct.ender_slime_ball": "Enderslimeball",
-"item.tconstruct.blood_slime_ball": "Geronnenes Blut",
 "item.tconstruct.ichor_slime_ball": "Ichor-Ball",
 
 "item.tconstruct.bacon": "Speck",
@@ -222,29 +207,26 @@
 "block.tconstruct.ender_slime_crystal_cluster": "Enderslime-Kristall-Cluster",
 "block.tconstruct.budding_ender_slime_crystal": "Angehender Enderslime-Kristall",
 
-"item.tconstruct.iron_reinforcement": "Eisenverstärkung",
-"item.tconstruct.iron_reinforcement.tooltip": "Verringert die Wahrscheinlichkeit, dass ein Werkzeug Schaden nimmt",
+"item.tconstruct.emerald_reinforcement": "Smaragd-Verstärkung",
+"item.tconstruct.emerald_reinforcement.tooltip": "Verringert die Wahrscheinlichkeit, dass ein Werkzeug Schaden nimmt",
 "item.tconstruct.slimesteel_reinforcement": "Slimesteel-Verstärkung",
 "item.tconstruct.slimesteel_reinforcement.tooltip": "Erhöht die Slimesteel-Kapazität",
 "item.tconstruct.seared_reinforcement": "Versengte Verstärkung",
 "item.tconstruct.seared_reinforcement.tooltip": "Erhöht Rüstungswiderstand gegen Feuer",
-"item.tconstruct.bronze_reinforcement": "Bronze-Verstärkung",
-"item.tconstruct.bronze_reinforcement.tooltip": "Erhöht den Rüstungswiderstand gegen Projektile",
+"item.tconstruct.iron_reinforcement": "Eisenverstärkung",
+"item.tconstruct.iron_reinforcement.tooltip": "Erhöht den Rüstungswiderstand gegen Projektile",
 "item.tconstruct.gold_reinforcement": "Goldverstärkung",
 "item.tconstruct.gold_reinforcement.tooltip": "Erhöht den Rüstungswiderstand gegen Magie",
-"item.tconstruct.emerald_reinforcement": "Smaragd-Verstärkung",
-"item.tconstruct.emerald_reinforcement.tooltip": "Erhöht den Rüstungswiderstand gegen Explosionen",
+"item.tconstruct.obsidian_reinforcement": "Obsidian Reinforcement",
+"item.tconstruct.obsidian_reinforcement.tooltip": "Erhöht den Rüstungswiderstand gegen Explosionen",
 "item.tconstruct.cobalt_reinforcement": "Kobalt-Verstärkung",
 "item.tconstruct.cobalt_reinforcement.tooltip": "Erhöht den Rüstungswiderstand gegen allgemeine Angriffe",
 "item.tconstruct.jeweled_apple": "Edelsteinbesetzter Apfel",
 "item.tconstruct.silky_cloth": "Seidiger Stoff",
 "item.tconstruct.silky_cloth.tooltip": "Verhindert, dass ein Werkzeug Block-Drops beschädigt",
-"item.tconstruct.silky_jewel": "Seidiges Juwel",
-"item.tconstruct.silky_jewel.tooltip": "Verhindert, dass ein Werkzeug Block-Drops beschädigt",
 "item.tconstruct.necrotic_bone": "Nekrotischer Knochen",
 "item.tconstruct.necrotic_bone.tooltip": "Von Witherskeletten fallen gelassen",
 "item.tconstruct.necronium_bone": "Necroniumknochen",
-"item.tconstruct.bloodbone": "Blutknochen",
 "item.tconstruct.blazing_bone": "Lodernder Knochen",
 "item.tconstruct.dragon_scale": "Drachenschuppe",
 "item.tconstruct.dragon_scale.tooltip": "Von einem Enderdrachen gesprengt",
@@ -271,7 +253,6 @@
 "pattern.tconstruct.pick_head": "Pickaxtkopf",
 "pattern.tconstruct.small_axe_head": "Kleiner Axtkopf",
 "pattern.tconstruct.small_blade": "Kleine Klinge",
-"pattern.tconstruct.sign_head": "Kopfzeichen",
 "pattern.tconstruct.bow_limb": "Bogenglied",
 
 "_comment": "Goldgüsse für große Köpfe",
@@ -283,7 +264,6 @@
 "_comment": "Goldgüsse binden",
 
 "pattern.tconstruct.tool_binding": "Werkzeugbindung",
-"pattern.tconstruct.round_plate": "Rundplatte",
 "pattern.tconstruct.large_plate": "Große Platte",
 
 "_comment": "Werkzeuggriff Goldguss",
@@ -312,7 +292,6 @@
 "item.tconstruct.pick_head_cast": "Pick Head Goldguss",
 "item.tconstruct.small_axe_head_cast": "Kleiner Axtkopf Goldguss",
 "item.tconstruct.small_blade_cast": "Kleine Klinge aus Goldguss",
-"item.tconstruct.sign_head_cast": "Schilderkopf Goldguss",
 "item.tconstruct.bow_limb_cast": "Bogenglied Goldguss",
 
 "_comment": "Goldgüsse für große Köpfe",
@@ -324,7 +303,6 @@
 "_comment": "Goldgüsse binden",
 
 "item.tconstruct.tool_binding_cast": "Werkzeugbindung Goldguss",
-"item.tconstruct.round_plate_cast": "Rundplatte Goldguss",
 "item.tconstruct.large_plate_cast": "Große Platte aus Goldguss",
 
 "_comment": "Werkzeuggriff Goldguss",
@@ -353,7 +331,6 @@
 "item.tconstruct.pick_head_sand_cast": "Pick Head Sandguss",
 "item.tconstruct.small_axe_head_sand_cast": "Kleiner Axtkopf im Sandguss",
 "item.tconstruct.small_blade_sand_cast": "Kleine Klinge im Sandguss",
-"item.tconstruct.sign_head_sand_cast": "Schilderkopf im Sandguss",
 "item.tconstruct.bow_limb_sand_cast": "Sandguss für Bogengliedmaßen",
 
 "_comment": "Großkopf-Sandabgüsse",
@@ -365,7 +342,6 @@
 "_comment": "Sandabgüsse binden",
 
 "item.tconstruct.tool_binding_sand_cast": "Sandguss binden",
-"item.tconstruct.round_plate_sand_cast": "Runder Plattensandguss",
 "item.tconstruct.large_plate_sand_cast": "Sandguss für große Platten",
 
 "_comment": "Werkzeuggriff-Sandgüsse",
@@ -394,7 +370,6 @@
 "item.tconstruct.pick_head_red_sand_cast": "Pick Head Roter Sandguss",
 "item.tconstruct.small_axe_head_red_sand_cast": "Kleiner Axtkopf roter Sandguss",
 "item.tconstruct.small_blade_red_sand_cast": "Kleine Klinge aus rotem Sandguss",
-"item.tconstruct.sign_head_red_sand_cast": "Schilderkopf roter Sandguss",
 "item.tconstruct.bow_limb_red_sand_cast": "Bogenglied aus rotem Sandguss",
 
 "_comment": "Großer roter Sandguss",
@@ -406,7 +381,6 @@
 "_comment": "Rote Sandgüsse binden",
 
 "item.tconstruct.tool_binding_red_sand_cast": "Werkzeugbindung roter Sandguss",
-"item.tconstruct.round_plate_red_sand_cast": "Rundplatte aus rotem Sandguss",
 "item.tconstruct.large_plate_red_sand_cast": "Große Platte aus rotem Sandguss",
 
 "_comment": "Werkzeuggriff aus rotem Sandguss",
@@ -423,11 +397,6 @@
 "item.tconstruct.blazing_blood_bucket": "Lodernder Bluteimer",
 
 "_comment": "Schleim",
-
-"block.tconstruct.blood_fluid": "Blut",
-"fluid.tconstruct.blood": "Blut",
-"fluid.tconstruct.flowing_blood": "Fließendes Blut",
-"item.tconstruct.blood_bucket": "Bucket of Blood",
 
 "block.tconstruct.earth_slime_fluid": "Schleim",
 "fluid.tconstruct.earth_slime": "Schleim",
@@ -549,11 +518,6 @@
 "fluid.tconstruct.molten_slimesteel": "Geschmolzener Schleimstahl",
 "fluid.tconstruct.flowing_molten_slimesteel": "Fließender geschmolzener Schleimstahl",
 "item.tconstruct.molten_slimesteel_bucket": "Eimer aus geschmolzenem Schleimstahl",
-
-"block.tconstruct.molten_tinkers_bronze_fluid": "Geschmolzene Tüftlerbronze",
-"fluid.tconstruct.molten_tinkers_bronze": "Geschmolzene Tüftlerbronze",
-"fluid.tconstruct.flowing_molten_tinkers_bronze": "Fließende geschmolzene Tinker-Bronze",
-"item.tconstruct.molten_tinkers_bronze_bucket": "Bronzeeimer des geschmolzenen Tinkers",
 
 "block.tconstruct.molten_rose_gold_fluid": "Geschmolzenes Roségold",
 "fluid.tconstruct.molten_rose_gold": "Geschmolzenes Roségold",
@@ -745,15 +709,6 @@
 "block.tconstruct.blood_cake": "Blutkuchen",
 "block.tconstruct.magma_cake": "Magmakuchen",
 
-"item.tconstruct.earth_slime_sling": "Schleimschleuder",
-"item.tconstruct.earth_slime_sling.tooltip": "Laden Sie auf, zielen Sie tief, schleudern Sie!\nVerwenden Sie Schleimstiefel, wenn Sie Ihr Leben schätzen!",
-"item.tconstruct.sky_slime_sling": "Skyslime-Schlinge",
-"item.tconstruct.sky_slime_sling.tooltip": "Aufladen, loslassen, wieder in die Luft!\nVerwende Schleimstiefel, wenn dir dein Leben wichtig ist!",
-"item.tconstruct.ender_slime_sling": "Enderslime-Schlinge",
-"item.tconstruct.ender_slime_sling.tooltip": "Aufladen, auf eine Wand richten, auf der anderen Seite herauskommen!",
-"item.tconstruct.ichor_slime_sling": "Ichor-Schlinge",
-"item.tconstruct.ichor_slime_sling.tooltip": "Aufladen, auf eine Kreatur zielen und sie fliegen lassen!",
-
 "item.tconstruct.piggy_backpack": "Huckepack",
 "item.tconstruct.piggy_backpack.tooltip": "Auf einen Mob anwenden, um es aufzuheben",
 "effect.tconstruct.carry": "Tragen",
@@ -765,7 +720,6 @@
 "block.tconstruct.drowned_head": "Ertrunkener Kopf",
 "block.tconstruct.spider_head": "Spinnenkopf",
 "block.tconstruct.cave_spider_head": "Höhlenspinnenkopf",
-"block.tconstruct.piglin_head": "Schweinkopf",
 "block.tconstruct.piglin_brute_head": "Piglin Brute-Kopf",
 "block.tconstruct.zombified_piglin_head": "Zombifizierter Piglin-Kopf",
 
@@ -811,8 +765,6 @@
 "item.tconstruct.sword": "Schwert",
 "item.tconstruct.cleaver": "Spalter",
 
-"item.tconstruct.flint_and_bronze": "Flint und Bronze",
-  
 "item.tconstruct.travelers_helmet": "Reisebrille",
 "item.tconstruct.travelers_chestplate": "Weste des Reisenden",
 "item.tconstruct.travelers_leggings": "Reisende Hosen",
@@ -824,22 +776,9 @@
 "item.tconstruct.plate_boots": "Plattenstiefel",
 
 "item.tconstruct.slime_helmet": "Schleimschädel",
-"item.tconstruct.slime_chestplate": "Slimelytra",
 "item.tconstruct.slime_leggings": "Schleimhaut",
 "item.tconstruct.slime_boots": "Schleimstiefel",
-"item.tconstruct.slime_helmet.material.tconstruct.gunpowder": "Creeper Slimeskull",
-"item.tconstruct.slime_helmet.material.tconstruct.ender_pearl": "Enderman Schleimkull",
-"item.tconstruct.slime_helmet.material.tconstruct.bone": "Skelett Schleimkull",
-"item.tconstruct.slime_helmet.material.tconstruct.bloodbone": "Streuner Schleimschädel",
-"item.tconstruct.slime_helmet.material.tconstruct.necrotic_bone": "Witherskelett Slimeskull",
-"item.tconstruct.slime_helmet.material.tconstruct.venom": "Höhlenspinnenschleimschädel",
-"item.tconstruct.slime_helmet.material.tconstruct.rotten_flesh": "Zombie-Schleimkull",
-"item.tconstruct.slime_helmet.material.tconstruct.iron": "Hülsenschleimschädel",
-"item.tconstruct.slime_helmet.material.tconstruct.copper": "Ertrunkener Schleimschädel",
-"item.tconstruct.slime_helmet.material.tconstruct.blazing_bone": "Blaze Slimeskull",
-"item.tconstruct.slime_helmet.material.tconstruct.gold": "Piglin Slimeskull",
-"item.tconstruct.slime_helmet.material.tconstruct.rose_gold": "Piglin Brute Slimeskull",
-"item.tconstruct.slime_helmet.material.tconstruct.pig_iron": "Zombifizierter Piglin Slimeskull",
+"item.tconstruct.slime_wings": "Slimelytra",
 
 
 "_comment": "Tinkers-Werkzeugteile",
@@ -858,7 +797,6 @@
 "item.tconstruct.tool_handle": "Werkzeuggriff",
 "item.tconstruct.tough_handle": "Harter Griff",
 "item.tconstruct.tool_binding": "Werkzeugbindung",
-"item.tconstruct.round_plate": "Runder Teller",
 "item.tconstruct.large_plate": "Große Platte",
 
 
@@ -884,11 +822,6 @@
 
 
 "_comment": "Schmelzerei geteilt",
-
-"block.tconstruct.tank.fluid": "Flüssigkeit %s",
-"block.tconstruct.tank.mb": "%d mb",
-"block.tconstruct.tank.ingots": "%d Barren",
-"block.tconstruct.tank.mixed": "%d Barren, %d mb",
 
 "block.tconstruct.tank.drained": "%s mb %s entleert",
 "block.tconstruct.tank.filled": "Gefüllt %s mb %s",
@@ -1283,12 +1216,6 @@
 
 "__comment": "Materialien der Stufe 1",
 "material.tconstruct.wood": "Holz",
-"material.tconstruct.wood.oak": "Eichenholz",
-"material.tconstruct.wood.spruce": "Fichtenholz",
-"material.tconstruct.wood.birch": "Birkenholz",
-"material.tconstruct.wood.jungle": "Dschungelholz",
-"material.tconstruct.wood.acacia": "Akazienholz",
-"material.tconstruct.wood.dark_oak": "Dunkles Eichenholz",
 "material.tconstruct.wood.crimson": "Crimson Hyphen",
 "material.tconstruct.wood.warped": "Verzerrte Hyphen",
 "material.tconstruct.wood.format": "Holz %s",
@@ -1301,11 +1228,11 @@
 "material.tconstruct.rock.diorite": "Diorit",
 "material.tconstruct.rock.granite": "Granit",
 "material.tconstruct.rock.blackstone": "Schwarzstein",
-"material.tconstruct.rock.deepslate": "Deepslate",
 "material.tconstruct.rock.flavor": "Felsenfest",
 "material.tconstruct.rock.encyclopedia.melee_harvest": "Bewirkt, dass das Werkzeug um die Hälfte der Quadratwurzel der verlorenen Haltbarkeit schneller abgebaut wird",
 
 "material.tconstruct.flint": "Flint",
+"material.tconstruct.flint.deepslate": "Deepslate",
 "material.tconstruct.flint.flavor": "Das wird die Flammen eines Bastlerherzens entfachen!",
 "material.tconstruct.flint.encyclopedia.melee_harvest": "Erhöht den Schaden um ein Viertel der Quadratwurzel der verlorenen Haltbarkeit",
 
@@ -1314,6 +1241,9 @@
 "material.tconstruct.bone.encyclopedia": "Wandelt 0,5 Schaden in 1 Stichschaden um",
 "material.tconstruct.bone.flavor.skull": "Haben Sie Milch?",
 "material.tconstruct.bone.encyclopedia.skull": "Gewährt Widerstand für 1 Minute nach dem Trinken von Milch",
+
+"material.tconstruct.ice.flavor.skull": "Frost bis auf die Knochen",
+"material.tconstruct.ice.encyclopedia.skull": "Projektile verlangsamen das Ziel. Nach dem Trinken von Milch verursachen Nahkampfangriffe Verlangsamung und das Level ist stärker.",
 
 "material.tconstruct.necrotic_bone": "Nekrotischer Knochen",
 "material.tconstruct.necrotic_bone.flavor": "Haben Sie mit mir einen Knochen zu rupfen?",
@@ -1328,6 +1258,8 @@
 "material.tconstruct.leather": "Leder",
 "material.tconstruct.leather.flavor": "Eine Kuh getötet, ihre Haut gegerbt.",
 "material.tconstruct.leather.encyclopedia": "Verhindert, dass das Werkzeug mehr als 1 Schaden in einer Aktion erleidet",
+"material.tconstruct.leather.flavor.skull": "Das ist in Ordnung",
+"material.tconstruct.leather.encyclopedia.skull": "Nahkampfangriffe erhöhen die Feuerzeit des Ziels basierend auf der Feuerzeit des Trägers",
 
 "material.tconstruct.vine": "Rebe",
 "material.tconstruct.vine.flavor": "Bleibt am Leben, im Gegensatz zum sozialen Netzwerk.",
@@ -1362,21 +1294,11 @@
 "material.tconstruct.slimewood.flavor": "Ist das das Holz eines Schleims oder Schleim, der mit Holz angereichert wurde?",
 "material.tconstruct.slimewood.encyclopedia": "Gibt eine Chance von 5 % pro Level, Overslime jede Sekunde zu regenerieren",
 
-"material.tconstruct.bloodbone": "Blutknochen",
-"material.tconstruct.bloodbone.flavor": "Sollte das Blut nicht im Knochen sein?",
-"material.tconstruct.bloodbone.encyclopedia": "Erhöht den Schaden bei geringer Gesundheit, bis zu +4 Schaden pro Stufe bei 1 Herz",
-"material.tconstruct.bloodbone.flavor.skull": "Frost bis auf die Knochen",
-"material.tconstruct.bloodbone.encyclopedia.skull": "Projektile verlangsamen das Ziel. Nach dem Trinken von Milch verursachen Nahkampfangriffe Verlangsamung und das Level ist stärker.",
-
 "material.tconstruct.rose_gold": "Roségold",
 "material.tconstruct.rose_gold.flavor": "Haftungsausschluss: Nicht wirklich aus Rosen gemacht.",
 "material.tconstruct.rose_gold.encyclopedia": "Gewährt 1 zusätzlichen Upgrade-Slot pro Teil",
 "material.tconstruct.rose_gold.flavor.skull": "Den Armschild sinnvoll einsetzen",
 "material.tconstruct.rose_gold.encyclopedia.skull": "Erhöht die Gesundheit um 1 Herz plus ein zusätzliches Herz pro Stück goldener Rüstung.",
-
-"material.tconstruct.chain": "Kette",
-"material.tconstruct.chain.flavor": "Auch du kannst jetzt Kettennutzer werden.",
-"material.tconstruct.chain.encyclopedia": "Werkzeug nimmt 25 % weniger Schaden",
 
 "material.tconstruct.skyslime_vine": "Schleimige Ranke",
 "material.tconstruct.skyslime_vine.flavor": "Schweben wie ein Schmetterling, stechen wie eine Biene.",
@@ -1393,7 +1315,6 @@
 "material.tconstruct.nahuatl.encyclopedia": "Hat eine Chance von 50 %, im Laufe der Zeit bis zu 5 Schaden zu verursachen, mehr Schaden auf höheren Stufen",
 
 "material.tconstruct.bronze": "Bronze",
-"material.tconstruct.bronze.silicon": "Tinker's Bronze",
 "material.tconstruct.bronze.flavor": "Nicht zu verwechseln mit Bronze.",
 "material.tconstruct.bronze.encyclopedia.melee_harvest": "Gewährt +10 % bis +15 % Bergbaugeschwindigkeit pro Level bei voller Haltbarkeit, basierend auf anderen Modifikatoren",
 
@@ -1412,7 +1333,8 @@
 
 "material.tconstruct.manyullyn": "Manyullyn",
 "material.tconstruct.manyullyn.flavor": "Das Metall, das die meisten Tüftler nie richtig aussprechen werden. Auch bekannt als Spitzenschneidmaterial.",
-"material.tconstruct.manyullyn.encyclopedia": "Gewährt +2 Schaden pro Stufe nach 8 aufeinanderfolgenden Treffern",
+
+"material.tconstruct.nicrosil.encyclopedia": "Gewährt +2.5 Schaden pro Stufe nach 8 aufeinanderfolgenden Treffern",
 
 "material.tconstruct.hepatizon": "Hepatizon",
 "material.tconstruct.hepatizon.flavor": "He-pa-ti-zon - kochen, pürieren, in einen Eintopf geben.",
@@ -1425,15 +1347,14 @@
 "material.tconstruct.blazing_bone": "Lodernder Knochen",
 "material.tconstruct.blazing_bone.flavor": "Nutzen Sie die volle Kraft der Netherfestung - Knochen und Flammen",
 "material.tconstruct.blazing_bone.encyclopedia": "Gewährt +1 % Schaden pro Sekunde Feuer, bis zu +15 % von 15 Sekunden Lava. Bonus verringert durch Feuerwiderstand.",
-"material.tconstruct.blazing_bone.flavor.skull": "Ich habe ihnen gesagt, dass dies technisch gesehen Feuerspucke ist, kein Feueratem, aber anscheinend kann ich die Namen für Dinge, die ich erfinde, nicht festlegen",
-"material.tconstruct.blazing_bone.encyclopedia.skull": "Erlaubt das Spucken von Feuerladungen aus dem Inventar als Feuerbälle. Hat eine Abklingzeit von 5 Sekunden und funktioniert nicht unter Wasser",
 
-"material.tconstruct.soulsteel": "Seelenstahl",
+"material.tconstruct.blaze.flavor.skull": "Ich habe ihnen gesagt, dass dies technisch gesehen Feuerspucke ist, kein Feueratem, aber anscheinend kann ich die Namen für Dinge, die ich erfinde, nicht festlegen",
+"material.tconstruct.blaze.encyclopedia.skull": "Erlaubt das Spucken von Feuerladungen aus dem Inventar als Feuerbälle. Hat eine Abklingzeit von 5 Sekunden und funktioniert nicht unter Wasser",
 
 
 "__comment": "Tier-End-Materialien",
-"material.tconstruct.endstone": "Ende",
 "material.tconstruct.knightslime": "Knightslime",
+"material.tconstruct.knightslime.flavor": "Schleimig und doch metallisch, aber auch Stein? Faszinierend!",
 
 "material.tconstruct.enderslime_vine": "Schleimige Ranke",
 "material.tconstruct.enderslime_vine.flavor": "Das Ende?",
@@ -1448,23 +1369,17 @@
 "material.tconstruct.ender_pearl.flavor.skull": "Endermen wissen, wie man sich von Schaden und Wissenschaftlern fernhält. Sie ignorieren meine Interviewanfragen seit Wochen!",
 "material.tconstruct.ender_pearl.encyclopedia.skull": "Teleportiert sich automatisch, wenn es von einem Projektil angegriffen wird, und zufällig aus dem Nahkampf. Hat eine Abklingzeit von 15 Sekunden",
 
-"material.tconstruct.spider": "Spinne",
-"material.tconstruct.spider.flavor.skull": "Spinnen sind Meister der Tränke, vielleicht hilft mir ihr Geheimnis, Tränke zu verbessern...",
-"material.tconstruct.spider.encyclopedia.skull": "Bewirkt, dass positive Trankeffekte 25 % länger anhalten",
+"material.tconstruct.string.skull": "Spinne",
+"material.tconstruct.string.flavor.skull": "Spinnen sind Meister der Tränke, vielleicht hilft mir ihr Geheimnis, Tränke zu verbessern...",
+"material.tconstruct.string.encyclopedia.skull": "Bewirkt, dass positive Trankeffekte 25 % länger anhalten",
 
-"material.tconstruct.venom": "Gift",
-"material.tconstruct.venom.flavor.skull": "Perfekt für Machtkämpfe, wenn man entscheiden und trinken muss, um herauszufinden, wer Recht hat.",
-"material.tconstruct.venom.encyclopedia.skull": "Macht den Träger immun gegen Gift, entfernt aber vorhandenes Gift nicht",
-
-"material.tconstruct.rotten_flesh": "Faules Fleisch",
-"material.tconstruct.rotten_flesh.flavor.skull": "Das ist in Ordnung",
-"material.tconstruct.rotten_flesh.encyclopedia.skull": "Nahkampfangriffe erhöhen die Feuerzeit des Ziels basierend auf der Feuerzeit des Trägers",
+"material.tconstruct.darkthread.flavor.skull": "Perfekt für Machtkämpfe, wenn man entscheiden und trinken muss, um herauszufinden, wer Recht hat.",
+"material.tconstruct.darkthread.encyclopedia.skull": "Macht den Träger immun gegen Gift, entfernt aber vorhandenes Gift nicht",
 
 "material.tconstruct.gold": "Gold",
 "material.tconstruct.gold.flavor.skull": "So glänzend",
 "material.tconstruct.gold.encyclopedia.skull": "Bewirkt, dass einige Golderze zusätzliche Goldnuggets fallen lassen, und erhöht die Dropchance auf Goldrüstung um 4 %. Nuggets und Rüstungsdrops werden durch jedes getragene Stück goldener Rüstung weiter erhöht.",
 
-"material.tconstruct.netherite": "Netherit",
 "material.tconstruct.earthslime": "Erdschleim",
 "material.tconstruct.skyslime": "Himmelsschleim",
 "material.tconstruct.blood": "Blut",
@@ -1472,14 +1387,8 @@
 "material.tconstruct.enderslime": "Enderslime",
 "material.tconstruct.phantom": "Phantommembran",
 "material.tconstruct.chorus": "Chorus",
-"material.tconstruct.rabbit": "Kaninchenhaut",
 
 "material.tconstruct.aluminum": "Aluminium",
-"material.tconstruct.nickel": "Nickel",
-"material.tconstruct.tin": "Zinn",
-"material.tconstruct.zinc": "Zink",
-"material.tconstruct.brass": "Messing",
-"material.tconstruct.uranium": "Uran",
 
 
 "__comment": "Tier-2-Integrationsmaterialien",
@@ -1487,23 +1396,19 @@
 "material.tconstruct.osmium.flavor": "Zu dicht, um die meisten Witze zu machen",
 "material.tconstruct.osmium.encyclopedia": "Verhindert 33 % des Schadens auf Kosten von zusätzlichen 25 % Reparaturkosten auf der ersten Ebene",
 
-"material.tconstruct.tungsten": "Wolfram",
-"material.tconstruct.tungsten.flavor": "Haben Sie darüber nachgedacht, eine Heavy-Metal-Band zu gründen?",
-"material.tconstruct.tungsten.encyclopedia": "Gewährt +10 % Bergbaugeschwindigkeit und -10 % Bewegungsgeschwindigkeit pro Level",
-
-"material.tconstruct.platinum": "Platin",
-"material.tconstruct.platinum.flavor": "Das verwenden die Gewinner!",
-"material.tconstruct.platinum.encyclopedia": "Gewährt +8 Bergbaugeschwindigkeit gegen Erze",
-
 "material.tconstruct.lead": "Blei",
 "material.tconstruct.lead.flavor": "Könnte versuchen, daraus ein Sandwich zu machen.",
-"material.tconstruct.lead.encyclopedia.melee_harvest": "Gewährt +10 % Angriffs- und -10 % Bewegungsgeschwindigkeit pro Level",
+"material.tconstruct.lead.encyclopedia.melee_harvest": "Gewährt +15 % Bergbaugeschwindigkeit und -10 % Bewegungsgeschwindigkeit pro Level",
 
 "material.tconstruct.silver": "Silber",
 "material.tconstruct.silver.flavor": "Weißt du, dieses Werkzeug wird in ein paar Tagen nicht mehr so glänzend aussehen.",
 "material.tconstruct.silver.encyclopedia": "Gewährt +2,5 Schaden gegen Untote pro Level",
 
-"material.tconstruct.whitestone": "Weißstein",
+"material.tconstruct.whitestone": "Ende",
+"material.tconstruct.whitestone.composite": "Weißstein",
+"material.tconstruct.whitestone.aluminum": "Weißstein",
+"material.tconstruct.whitestone.tin": "Weißstein",
+"material.tconstruct.whitestone.zinc": "Weißstein",
 "material.tconstruct.whitestone.flavor": "Nimm deine nutzlosen Weißmetalle und stelle ein nützliches Werkzeug her",
 "material.tconstruct.whitestone.encyclopedia.melee_harvest": "Der Steinabbau gewährt 20 % pro Stufe +3 Steinschild",
 
@@ -1519,7 +1424,7 @@
 
 "material.tconstruct.invar": "Invar",
 "material.tconstruct.invar.flavor": "Widersteht sowohl Temperatur als auch Arrest.",
-"material.tconstruct.invar.encyclopedia": "Gewährt +2,5 Schaden in Biomen mit neutralen Temperaturen",
+"material.tconstruct.invar.encyclopedia": "Gewährt +15 % Angriffs- und -10 % Bewegungsgeschwindigkeit pro Level",
 
 "material.tconstruct.electrum": "Elektrum",
 "material.tconstruct.electrum.flavor": "Gut für elektronische Bauteile.",
@@ -1529,12 +1434,14 @@
 "material.tconstruct.necronium.flavor": "Bei so viel Zerfall bleibt wahrscheinlich nur noch ein Viertel der Lebensdauer",
 "material.tconstruct.necronium.encyclopedia": "Verursacht mindestens 5 Sekunden lang Verdorren bei deinem Ziel und mit einer Chance von 25 % bei dir",
 
-"material.tconstruct.plate_slimewood": "Plattiertes Schleimholz",
-"material.tconstruct.plateed_slimewood.flavor": "Der ganze Glanz von Messing mit dem Spritzen von Schleim",
-"material.tconstruct.plate_slimewood.encyclopedia": "Gewährt +100 % auf alle Methoden zur Wiederherstellung von Schleim",
+"material.tconstruct.plated_slimewood": "Plattiertes Schleimholz",
+"material.tconstruct.plated_slimewood.flavor": "Der ganze Glanz von Messing mit dem Spritzen von Schleim",
+"material.tconstruct.plated_slimewood.encyclopedia": "Gewährt +100 % auf alle Methoden zur Wiederherstellung von Schleim",
+
+"material.tconstruct.pewter.encyclopedia": "Erhöht den Schaden bei geringer Gesundheit, bis zu +4 Schaden pro Stufe bei 1 Herz",
 
 
-"_comment": "Modifikatoren",
+  "_comment": "Modifikatoren",
 
 "key.categories.tconstruct": "Tüftler-Konstrukt",
 "key.tconstruct.helmet_interact": "Helminteraktion",
@@ -1558,20 +1465,19 @@
 "modifier.tconstruct.offhanded.flavor": "Denke nicht zu viel darüber nach",
 "modifier.tconstruct.offhanded.description": "Deaktiviert die Interaktionsfähigkeiten der Werkzeuge, wenn die Nebenhand gefüllt ist",
 "modifier.tconstruct.offhanded.description.2": "Deaktiviert die Interaktionsfähigkeiten der Werkzeuge vollständig",
-"recipe.tconstruct.modifier.offhanded.level_2": "Für Nohanded muss sich Offhanded bewerben",
 
 
 "_comment": "Haltbarkeit",
-"modifier.tconstruct.verstärkung": "Verstärkt",
-"modifikator.tkonstruieren.verstärkt.flavor": "Lang anhaltend!",
-"modifier.tconstruct.stronger.description": "Das Werkzeug erleidet mit geringerer Wahrscheinlichkeit Schaden",
+"modifier.tconstruct.reinforced": "Verstärkt",
+"modifier.tconstruct.reinforced.flavor": "Lang anhaltend!",
+"modifier.tconstruct.reinforced.description": "Das Werkzeug erleidet mit geringerer Wahrscheinlichkeit Schaden",
 "modifier.tconstruct.overforced": "Überfordert",
 "modifier.tconstruct.overforced.flavor": "Durch Schleim geschützt!",
 "modifier.tconstruct.overforced.description": "Werkzeug wird durch Schleim verstärkt, wodurch mehr Kapazität für Overslime entsteht",
 "modifier.tconstruct.emerald": "Smaragd",
 "modifier.tconstruct.emerald.flavor": "Schick!",
 "modifier.tconstruct.emerald.description": "Erhöht die Haltbarkeit abhängig von der Grundhaltbarkeit! Illager hassen es!",
-"modifier.tconstruct.emerald.attack_damage": "Illager-Schaden",
+"modifier.tconstruct.killager.attack_damage": "Illager-Schaden",
 "modifier.tconstruct.diamond": "Diamant",
 "modifier.tconstruct.diamond.flavor": "Reich!",
 "modifier.tconstruct.diamond.description": "Erhöhte Haltbarkeit und Werte!",
@@ -1584,7 +1490,6 @@
 "modifier.tconstruct.netherite": "Netherit",
 "modifier.tconstruct.netherite.flavor": "Verfeinert!",
 "modifier.tconstruct.netherite.description": "Nutzen Sie die Kraft des uralten Metalls und machen Sie das Werkzeug stärker und immun gegen äußere Schäden wie Feuer",
-"recipe.tconstruct.modifier.netherite_requirements": "Netherit erfordert entweder Diamant oder Smaragd, um aufgetragen zu werden",
 
 "modifier.tconstruct.overslime": "Überschleim",
 "modifier.tconstruct.overslime.flavor": "Schleimig!",
@@ -1599,7 +1504,6 @@
 "modifier.tconstruct.magnetic.description": "Das Schlagen von Gegenständen zieht Gegenstände in der Nähe an?!",
 
 "modifier.tconstruct.haste": "Eile",
-"modifier.tconstruct.haste.1": "Eile",
 "modifier.tconstruct.haste.2": "Hastier",
 "modifier.tconstruct.haste.3": "Hastiest",
 "modifier.tconstruct.haste.4": "Hastiester",
@@ -1618,6 +1522,7 @@
 "modifier.tconstruct.lightspeed": "Lichtgeschwindigkeit",
 "modifier.tconstruct.lightspeed.flavor": "Heller ist schneller!",
 "modifier.tconstruct.lightspeed.description": "Werkzeug baut gut beleuchtete Blöcke schneller ab!",
+"modifier.tconstruct.lightspeed_armor.description": "Bewegt sich schneller in gut beleuchteten Bereichen",
 "modifier.tconstruct.lightspeed.mining_speed": "Mining in Light",
 
 "_comment": "Waffe",
@@ -1672,7 +1577,6 @@
 "modifier.tconstruct.sharpness.flavor": "Wie scharf?",
 "modifier.tconstruct.sharpness.description": "Das Werkzeug ist so viel schärfer und verursacht mehr Schaden!",
 "modifier.tconstruct.swiftstrike": "Swiftstrike",
-"modifier.tconstruct.swiftstrike.1": "Swiftstrike",
 "modifier.tconstruct.swiftstrike.2": "Swiftstrike",
 "modifier.tconstruct.swiftstrike.3": "Swifteststrike",
 "modifier.tconstruct.swiftstrike.4": "Swiftesterstrike",
@@ -1767,19 +1671,12 @@
 "modifier.tconstruct.item_frame.description": "Fügt dem Helm Inventarplätze für zu beobachtende Gegenstände hinzu. Perfekt für Uhren und Kompasse",
 
 "_comment": "Rüstung - Brustplatte",
-"modifier.tconstruct.knockback_armor": "Rückstoß",
-"modifier.tconstruct.knockback_armor.flavor": "Wolololo!",
-"modifier.tconstruct.knockback_armor.description": "Dinge mit irgendeiner Waffe zu treffen lässt sie weiter fliegen!",
 "modifier.tconstruct.armor_power": "Macht",
 "modifier.tconstruct.armor_power.flavor": "Kannst du spüren, wie die Kraft durch dich fließt?",
 "modifier.tconstruct.armor_power.description": "Macht deine Waffen stärker",
 "modifier.tconstruct.strength": "Stärke",
 "modifier.tconstruct.strength.flavor": "Kannst du spüren, wie die Kraft durch dich fließt?",
 "modifier.tconstruct.strength.description": "Macht deine Waffen stärker",
-"modifier.tconstruct.unarmed": "Unbewaffneter Angriff",
-"modifier.tconstruct.unarmed.flavor": "Die Mönchsoption",
-"modifier.tconstruct.unarmed.description": "Bewirkt, dass Brustplatten-Modifikatoren den Schaden unbewaffneter Angriffe erhöhen",
-"recipe.tconstruct.modifier.unarmed": "Erfordert, dass zuerst der unbewaffnete Modifikator hinzugefügt wird",
 "modifier.tconstruct.wings": "Flügel",
 "modifier.tconstruct.wings.flavor": "Der Himmel gehört dir",
 "modifier.tconstruct.wings.description": "Ermöglicht es Ihnen, durch die Luft zu schweben, indem Sie in der Luft springen",
@@ -1800,10 +1697,6 @@
 "modifier.tconstruct.tool_belt": "Werkzeuggürtel",
 "modifier.tconstruct.tool_belt.flavor": "Hast du dir jemals mehr Hände gewünscht?",
 "modifier.tconstruct.tool_belt.description": "Die Interaktion mit den Leggings ermöglicht das Austauschen der Hotbar",
-"modifier.tconstruct.pocket_chain": "Taschenkette",
-"modifier.tconstruct.pocket_chain.flavor": "Eine Kette, um sie zu binden",
-"modifier.tconstruct.pocket_chain.description": "Ermöglicht den Zugriff auf alle Steckplätze für Werkzeuggürtel oder Schildriemen durch Schleichen und Interagieren und fügt +1 Steckplatz hinzu",
-"recipe.tconstruct.modifier.pocket_chain": "Taschenkette erfordert Werkzeuggürtel oder Schildriemen",
 
 "modifier.tconstruct.inventory_cannot_remove": "Diese Änderung würde dazu führen, dass ein in diesem Tool gespeicherter Gegenstand gelöscht wird",
 
@@ -1815,12 +1708,9 @@
 "modifier.tconstruct.soulspeed": "Seelengeschwindigkeit",
 "modifier.tconstruct.soulspeed.flavor": "Gespenstisch",
 "modifier.tconstruct.soulspeed.description": "Erhöht die Bewegungsgeschwindigkeit auf Seelensand",
-"modifier.tconstruct.lightspeed_armor": "Lichtgeschwindigkeit",
-"modifier.tconstruct.lightspeed_armor.flavor": "Heller ist schneller!",
-"modifier.tconstruct.lightspeed_armor.description": "Bewegt sich schneller in gut beleuchteten Bereichen",
 "modifier.tconstruct.double_jump": "Doppelsprung",
-"modifier.tconstruct.double_jump.double": "Doppelsprung",
-"modifier.tconstruct.double_jump.triple": "Dreisprung",
+"modifier.tconstruct.double_jump.2": "Doppelsprung",
+"modifier.tconstruct.double_jump.3": "Dreisprung",
 "modifier.tconstruct.double_jump.flavor": "Hoch, hoch und weg!",
 "modifier.tconstruct.double_jump.description": "Lässt dich wieder mitten in der Luft springen. Höhere Level fügen noch mehr Sprünge hinzu!",
 "modifier.tconstruct.bouncy": "Bouncy",
@@ -1830,12 +1720,6 @@
 "modifier.tconstruct.frost_walker": "Frostläufer",
 "modifier.tconstruct.frost_walker.flavor": "Wo ist mein Superanzug?",
 "modifier.tconstruct.frost_walker.description": "Lässt Wasserblöcke vorübergehend einfrieren",
-"modifier.tconstruct.path_maker": "Pfadmacher",
-"modifier.tconstruct.path_maker.flavor": "Vorangehen",
-"modifier.tconstruct.path_maker.description": "Hinterlässt Pfade, wo immer Sie hintreten",
-"modifier.tconstruct.plowing": "Pflügen",
-"modifier.tconstruct.plowing.flavor": "Traktoren wurden 1892 erfunden",
-"modifier.tconstruct.plowing.description": "Bearbeitet die Blöcke auf deinem Weg",
 "modifier.tconstruct.snowdrift": "Schneewehe",
 "modifier.tconstruct.snowdrift.flavor": "Golem-Golem",
 "modifier.tconstruct.snowdrift.description": "Hinterlasse eine Schneespur wie ein Schneegolem",
@@ -1848,11 +1732,10 @@
 "modifier.tconstruct.unbreakable": "Unzerbrechlich",
 "modifier.tconstruct.unbreakable.flavor": "Gefrorener Zustand!",
 "modifier.tconstruct.unbreakable.description": "Werkzeug nimmt bei normaler Verwendung keinen Schaden mehr",
-"recipe.tconstruct.modifier.unbreakable_requirements": "Unzerbrechlich erfordert Netherit und verstärktes V, um angewendet zu werden",
+"modifier.tconstruct.unbreakable.requirements": "Unzerbrechlich erfordert Netherit und verstärktes V, um angewendet zu werden",
 "modifier.tconstruct.dual_wielding": "Zwei Waffen",
 "modifier.tconstruct.dual_wielding.flavor": "Doppelaktion!",
 "modifier.tconstruct.dual_wielding.description": "Kann aus der Zweithand angreifen, vorausgesetzt, die Haupthand kann auch zwei Waffen führen. Werkzeuge mit zwei Waffen haben reduzierte Werte",
-"recipe.tconstruct.modifier.two_handed_dual_wielding": "Zweihändige Werkzeuge erfordern Offhanded, um beidhändig geführt zu werden.",
 
 "_comment": "Beute",
 "modifier.tconstruct.silky": "Seidig",
@@ -1862,21 +1745,16 @@
 "modifier.tconstruct.autosmelt.flavor": "Feuer des Nethers in deinem Werkzeug!",
 "modifier.tconstruct.autosmelt.description": "Tool schmilzt automatisch alle Tropfen",
 "modifier.tconstruct.luck": "Glück",
-"modifier.tconstruct.luck.1": "Glück",
 "modifier.tconstruct.luck.2": "Glücklicher",
 "modifier.tconstruct.luck.3": "Glücklichste",
 "modifier.tconstruct.luck.flavor": "Auffällig!",
 "modifier.tconstruct.luck.description": "Gibt dir mehr nette Dinge beim Schürfen oder Töten von Mobs!",
-"recipe.tconstruct.modifier.luck.level_2": "Glücklicher benötigt ein anderes Rezept für das erste Level",
-"recipe.tconstruct.modifier.luck.level_3": "Glücklichste erfordert ein anderes Rezept für die ersten beiden Level",
 "modifier.tconstruct.fortune": "Vermögen",
 "modifier.tconstruct.fortune.flavor": "Glück der Orks!",
 "modifier.tconstruct.fortune.description": "Bringt dir mehr nette Dinge beim Schürfen!",
 "modifier.tconstruct.looting": "Plündern",
 "modifier.tconstruct.looting.flavor": "Glück der Mobs!",
 "modifier.tconstruct.looting.description": "Gibt dir mehr nette Dinge beim Töten von Mobs!",
-"recipe.tconstruct.modifier.looting.level_2": "Plündern II erfordert ein anderes Rezept für das erste Level",
-"recipe.tconstruct.modifier.looting.level_3": "Looting III erfordert ein anderes Rezept für die ersten beiden Level",
 
 "_comment": "Expander",
 "modifier.tconstruct.expanded": "Erweitert",
@@ -1912,8 +1790,7 @@
 "modifier.tconstruct.melting.flavor": "Die Kraft eines Schmelzers auf einem Stick!",
 "modifier.tconstruct.melting.description": "Schmilzt angegriffene Entitäten und fallengelassene Gegenstände!",
 "modifier.tconstruct.tank": "Tank",
-"modifier.tconstruct.tank.filled": "Tank: %s mb %s",
-"modifier.tconstruct.tank.capacity": "Tankkapazität: %s mb",
+"tool_stat.tconstruct.tank_capacity": "Tankkapazität: ",
 "modifier.tconstruct.tank.flavor": "Größer ist immer besser!",
 "modifier.tconstruct.tank.description": "Das Werkzeug hat einen Flüssigkeitstank, in dem es Flüssigkeit speichern kann",
 "modifier.tconstruct.bucketing": "Bucketing",
@@ -1953,23 +1830,9 @@
 "modifier.tconstruct.draconic.flavor": "Das Ende erobert!",
 "modifier.tconstruct.draconic.description": "Der Kopf der großen Bestie gibt deinem Werkzeug einen zweiten Fähigkeitsslot!",
 
-"__comment": "Drei weitere +1-Upgrade-Modifikatoren für Modpacks",
-"modifier.tconstruct.red_extra_upgrade": "Rotes Extra-Upgrade",
-"modifier.tconstruct.red_extra_upgrade.flavor": "Für Modpacks!",
-"modifier.tconstruct.red_extra_upgrade.description": "Bitten Sie Ihren Modpack-Ersteller, ein Ressourcenpaket bereitzustellen, das diese bessere Überlieferung enthält",
-"modifier.tconstruct.green_extra_upgrade": "Grünes Extra-Upgrade",
-"modifier.tconstruct.green_extra_upgrade.flavor": "Für Modpacks!",
-"modifier.tconstruct.green_extra_upgrade.description": "Bitten Sie Ihren Modpack-Ersteller, ein Ressourcenpaket bereitzustellen, das diese bessere Überlieferung enthält",
-"modifier.tconstruct.blue_extra_upgrade": "Blue Extra-Upgrade",
-"modifier.tconstruct.blue_extra_upgrade.flavor": "Für Modpacks!",
-"modifier.tconstruct.blue_extra_upgrade.description": "Bitten Sie Ihren Modpack-Ersteller, ein Ressourcenpaket bereitzustellen, das diese bessere Überlieferung enthält",
-"modifier.tconstruct.extra_ability": "Zusätzliche Fähigkeit",
-"modifier.tconstruct.extra_ability.flavor": "Für Modpacks!",
-"modifier.tconstruct.extra_ability.description": "Bitten Sie Ihren Modpack-Ersteller, ein Ressourcenpaket bereitzustellen, das diese bessere Überlieferung enthält",
-
 
 "__comment": "Eigenschaften der Stufe 1",
-"modifier.tconstruct.fake_attribute.mining_speed": "Mining-Geschwindigkeit",
+"armor_stat.tconstruct.mining_speed": "Mining-Geschwindigkeit",
 
 "modifier.tconstruct.cultivated": "Angebaut",
 "modifier.tconstruct.cultivated.flavor": "Wirtschaftlich!",
@@ -1980,9 +1843,6 @@
 "modifier.tconstruct.stonebound": "Steingebunden",
 "modifier.tconstruct.stonebound.flavor": "Ihr Werkzeug liebt Stein absolut!",
 "modifier.tconstruct.stonebound.description": "Das Werkzeug schürft mit zunehmender Abnutzung schneller, verursacht aber weniger Schaden",
-"modifier.tconstruct.fractured": "Gebrochen",
-"modifier.tconstruct.fractured.flavor": "Bein brechen!",
-"modifier.tconstruct.fractured.description": "Werkzeug ist aufgrund der gebrochenen Knochenstücke extra scharf",
 "modifier.tconstruct.stringy": "Stringy",
 "modifier.tconstruct.stringy.flavor": "Wie Käse, aber weniger lecker",
 "modifier.tconstruct.stringy.description": "Tool kann mit String repariert werden",
@@ -2000,7 +1860,6 @@
 "modifier.tconstruct.searing": "Sengen",
 "modifier.tconstruct.searing.flavor": "Nutzen Sie die Schmelze!",
 "modifier.tconstruct.searing.description": "Werkzeug verursacht Bonusschaden in heißen Bereichen, aber weniger Schaden in kalten",
-"modifier.tconstruct.searing.attack_damage": "Hitzeschaden",
 "modifier.tconstruct.scorching": "Sengend",
 "modifier.tconstruct.scorching.flavor": "Nutzen Sie die Gießerei!",
 "modifier.tconstruct.scorching.description": "Werkzeug verursacht Bonusschaden an brennenden Zielen",
@@ -2051,15 +1910,15 @@
 "modifier.tconstruct.momentum": "Impuls",
 "modifier.tconstruct.momentum.flavor": "Nicht schnell genug, muss schneller gehen!",
 "modifier.tconstruct.momentum.description": "Blöcke abbauen erhöht deine Geschwindigkeit, solange du weitermachst",
-"modifier.tconstruct.momentum.mining_speed": "Momentum-Geschwindigkeit",
+"modifier.tconstruct.momentum.speed": "Momentum-Geschwindigkeit",
 "modifier.tconstruct.insatiable": "Unersättlich",
 "modifier.tconstruct.insatiable.flavor": "Geschmack nach Blut!",
 "modifier.tconstruct.insatiable.description": "Während des Kampfes fügst du jedes Mal mehr Schaden zu, wenn du einen Feind triffst",
 "modifier.tconstruct.insatiable.attack_damage": "Schwungschaden",
-"modifier.tconstruct.leading": "Leitung",
-"modifier.tconstruct.leading.flavor": "Thermodynamisch!",
-"modifier.tconstruct.leading.description": "Werkzeug verursacht multiplizierten Schaden, wenn du brennst",
-"modifier.tconstruct.leading.attack_damage": "Schaden bei Feuer maximal",
+"modifier.tconstruct.conducting": "Leitung",
+"modifier.tconstruct.conducting.flavor": "Thermodynamisch!",
+"modifier.tconstruct.conducting.description": "Werkzeug verursacht multiplizierten Schaden, wenn du brennst",
+"modifier.tconstruct.conducting.boost": "Schaden bei Feuer maximal",
 
 "__comment": "Eigenschaften der Stufe 5",
 "modifier.tconstruct.enderporting": "Enderportierung",
@@ -2071,16 +1930,13 @@
 "modifier.tconstruct.dense": "Dichte",
 "modifier.tconstruct.dense.flavor": "Verliert kaum seine Form",
 "modifier.tconstruct.dense.description": "Werkzeug hält länger, ist aber schwerer zu reparieren",
-"modifier.tconstruct.sharpweight": "Sharpweight",
-"modifier.tconstruct.sharpweight.flavor": "Im Gegensatz zu einem Dummkopf",
-"modifier.tconstruct.sharpweight.description": "Schürft schneller, ist aber extrem schwer zu bewegen",
 "modifier.tconstruct.lustrous": "Glänzend",
 "modifier.tconstruct.lustrous.flavor": "Das glänzendste aller Erze!",
 "modifier.tconstruct.lustrous.description": "Baut Erze schneller ab",
-"modifier.tconstruct.lustrous.mining_speed": "Erzabbau",
 "modifier.tconstruct.heavy": "Schwer",
 "modifier.tconstruct.heavy.flavor": "Dichte!",
-"modifier.tconstruct.heavy.description": "Schwer zu bewegen, während man sie trägt, aber es hat einen starken Schlag",
+"modifier.tconstruct.heavy.description": "Schürft schneller, ist aber extrem schwer zu bewegen",
+"modifier.tconstruct.solid.description": "Schwer zu bewegen, während man sie trägt, aber es hat einen starken Schlag",
 "modifier.tconstruct.stoneshield": "Steinschild",
 "modifier.tconstruct.stoneshield.flavor": "Meisterhaftes Steinbiegen",
 "modifier.tconstruct.stoneshield.description": "Abgebauter Stein schützt das Werkzeug vor zukünftigen Schäden",
@@ -2108,18 +1964,18 @@
 "modifier.tconstruct.overworked.description": "Erhöht die Menge an wiederhergestelltem Überschleim aus allen Quellen",
 
 "_comment": "Schleimschädel-Merkmale",
-"modifier.tconstruct.self_structive": "Selbstzerstörerisch",
-"modifier.tconstruct.self_structive.flavor": "Nicht besonders gesund",
-"modifier.tconstruct.self_historic.description": "Kann explodieren, wenn man beim Schleichen mit dem Helm interagiert",
+"modifier.tconstruct.self_destructive": "Selbstzerstörerisch",
+"modifier.tconstruct.self_destructive.flavor": "Nicht besonders gesund",
+"modifier.tconstruct.self_destructive.description": "Kann explodieren, wenn man beim Schleichen mit dem Helm interagiert",
 "modifier.tconstruct.enderdodging": "Enderdodging",
 "modifier.tconstruct.enderdodging.flavor": "Agilität eines Endermans",
 "modifier.tconstruct.enderdodging.description": "Ermöglicht es, Projektilen durch Teleportation auszuweichen und zufällig Angriffen durch Teleportation zu entkommen",
 "modifier.tconstruct.strong_bones": "Starke Knochen",
 "modifier.tconstruct.strong_bones.flavor": "Haben Sie Milch?",
 "modifier.tconstruct.strong_bones.description": "Milch trinken erhöht vorübergehend den Widerstand",
-"modifier.tconstruct.frosttouch": "Frostberührung",
-"modifier.tconstruct.frosttouch.flavor": "Eine eisige Berührung hält die Feinde fern",
-"modifier.tconstruct.frosttouch.description": "Lässt Pfeile verlangsamen, das Trinken von Milch verlangsamt auch bei Nahkampfangriffen",
+"modifier.tconstruct.slow_bones": "Frostberührung",
+"modifier.tconstruct.slow_bones.flavor": "Eine eisige Berührung hält die Feinde fern",
+"modifier.tconstruct.slow_bones.description": "Lässt Pfeile verlangsamen, das Trinken von Milch verlangsamt auch bei Nahkampfangriffen",
 "modifier.tconstruct.withered": "Verwelkt",
 "modifier.tconstruct.withered.flavor": "Das Geheimnis des Verfalls",
 "modifier.tconstruct.withered.description": "Verdorrt Ziele von Angriffen, verwelkt schneller nach dem Trinken von Milch",
@@ -2203,8 +2059,10 @@
 "_comment": "Interne Effekte",
 "effect.tconstruct.bleeding": "Blutung",
 "effect.tconstruct.magnetic": "Magnetisch",
-"effect.tconstruct.momentum": "Impuls",
-"effect.tconstruct.insatiable": "Unersättlich",
+"effect.tconstruct.momentum_harvest": "Impuls",
+"effect.tconstruct.momentum_ranged": "Impuls",
+"effect.tconstruct.insatiable_melee": "Unersättlich",
+"effect.tconstruct.insatiable_ranged": "Unersättlich",
 "effect.tconstruct.teleport_cooldown": "Abklingzeit der Teleportation",
 "effect.tconstruct.fireball_cooldown": "Feuerball-Abklingzeit",
 "effect.tconstruct.calcified": "Verkalkt",
@@ -2308,7 +2166,6 @@
 "itemGroup.tconstruct.tool_parts": "Tüftler-Werkzeugteile",
 "itemGroup.tconstruct.smeltery": "Tinkers' Schmelzerei",
 "itemGroup.tconstruct.world": "Bastelwelt",
-"itemGroup.tconstruct.gadgets": "Tüftler-Gadgets",
 
 "gui.tconstruct.crafting_station": "Handwerksstation",
 "gui.tconstruct.crafting_station.uncraftable": "Dieser Gegenstand kann derzeit nicht vom Spieler hergestellt werden",
@@ -2350,7 +2207,6 @@
 "recipe.tconstruct.modifier.not_enough_slots": "Benötigen Sie mindestens %s %s Slots, um diesen Modifikator hinzuzufügen",
 "recipe.tconstruct.modifier.validate_slots": "Diese Änderung lässt das Tool mit zu wenigen %s Slots zurück",
 "recipe.tconstruct.modifier.max_level": "%s-Level kann nicht über %s liegen",
-"recipe.tconstruct.modifier.requirements_error": "Toolstatus für einen der Modifikatoren ungültig. Wenden Sie sich an Ihren Modpack-Hersteller und fordern Sie einen aussagekräftigeren Fehler an.",
 
 
 "_comment": "GUIs-Meldungen",
@@ -2487,7 +2343,6 @@
 "jei.tconstruct.modifiers.slots": "Für den Modifikator sind %s %s Slots erforderlich",
 "jei.tconstruct.modifiers.free": "Zum Anwenden sind keine Modifikator-Slots erforderlich",
 "jei.tconstruct.modifiers.incremental": "Rezept ist inkrementell, Sie können einen Teil der Eingabe für einen Teileffekt anwenden",
-"jei.tconstruct.modifiers.max": "Max: ",
 
 "jei.tconstruct.severing.title": "Durchtrennen",
 
@@ -2576,9 +2431,6 @@
 "advancements.tconstruct.world.clay_island.description": "Suche eine Lehminsel im Himmel",
 "advancements.tconstruct.world.slime_collector.title": "Schleimsammler",
 "advancements.tconstruct.world.slime_collector.description": "Erhalte alle 6 Arten von Schleim",
-"advancements.tconstruct.world.slime_sling.title": "Sling-Experte",
-"advancements.tconstruct.world.slime_sling.description": "Benutze jeden der 4 Schleimschleudertypen ausreichend",
 "advancements.tconstruct.world.piggybackpack.title": "Schwein Huckepack",
 "advancements.tconstruct.world.piggybackpack.description": "Nimm ein Schwein mit einem Huckepack hoch"
-
 }
