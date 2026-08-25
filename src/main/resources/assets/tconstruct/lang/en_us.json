@@ -94,7 +94,6 @@
   "block.tconstruct.soul_glass_pane.tooltip": "Acts solid, but can be walked through",
 
   "block.tconstruct.glow": "Glow",
-  "block.tconstruct.silky_jewel_block": "Silky Block of Jewel",
 
 
   "__comment": "Ore Metals",
@@ -267,8 +266,6 @@
   "item.tconstruct.jeweled_apple": "Jeweled Apple",
   "item.tconstruct.silky_cloth": "Silky Cloth",
   "item.tconstruct.silky_cloth.tooltip": "Prevents a tool from damaging block drops",
-  "item.tconstruct.silky_jewel": "Silky Jewel",
-  "item.tconstruct.silky_jewel.tooltip": "Prevents a tool from damaging block drops",
   "item.tconstruct.necrotic_bone": "Necrotic Bone",
   "item.tconstruct.necrotic_bone.tooltip": "Dropped from wither skeletons",
   "item.tconstruct.necronium_bone": "Necronium Bone",
@@ -522,8 +519,8 @@
   "item.tconstruct.blazing_blood_bucket": "Blazing Blood Bucket",
   "fluid.tconstruct.blazing_blood.fluid_effect": "Blazing blood is an acceptable fluid for combat, but it really shines as a light source.",
 
-  "fluid.tconstruct.powdered_snow": "Powdered Snow",
-  "fluid.tconstruct.powdered_snow.fluid_effect": "Powdered snow is a useful fluid for nether combat, dealing bonus damage to blazing mobs.",
+  "fluid.tconstruct.powdered_snow": "Powder Snow",
+  "fluid.tconstruct.powdered_snow.fluid_effect": "Powder snow is a useful fluid for nether combat, dealing bonus damage to blazing mobs.",
 
   "_comment": "Food",
 
@@ -2136,7 +2133,7 @@
   "material.tconstruct.cobalt.encyclopedia.armor": "Reduces damage from melee attacks by 8% per level, and boosts movement speed when using items by 5% per max level.",
 
   "material.tconstruct.kobold": "Kobold",
-  "material.tconstruct.kobold.flavor.shell": "Like discarded scales of a shimmering creature",
+  "material.tconstruct.kobold.flavor": "Like discarded scales of a shimmering creature",
   "material.tconstruct.kobold.encyclopedia.shell": "Grants +5% attack speed, +10% use item speed, and +15% mining speed per level.",
 
   "material.tconstruct.steel": "Steel",
@@ -3200,7 +3197,7 @@
   "modifier.tconstruct.tanned.description": "Tool no longer takes double or more damage from certain actions",
   "modifier.tconstruct.snow_boots": "Snow Step",
   "modifier.tconstruct.snow_boots.flavor": "Snowshoeing",
-  "modifier.tconstruct.snow_boots.description": "Allows walking on top of powdered snow",
+  "modifier.tconstruct.snow_boots.description": "Allows walking on top of powder snow",
   "modifier.tconstruct.solar_powered": "Solar Powered",
   "modifier.tconstruct.solar_powered.flavor": "Good for the environment",
   "modifier.tconstruct.solar_powered.description": "Tool resists damage in sunlight",
