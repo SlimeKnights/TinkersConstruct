@@ -6,6 +6,7 @@ import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
+import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
@@ -34,12 +35,9 @@ public class MoldingRecipeCategory implements IRecipeCategory<MoldingRecipe> {
   private static final Component TOOLTIP_PATTERN_CONSUMED = Component.translatable(TConstruct.makeTranslationKey("jei", "molding.pattern_consumed"));
 
   @Getter
-  private final IDrawable background;
-  @Getter
   private final IDrawable icon;
   private final IDrawable table, basin, downArrow, upArrow;
   public MoldingRecipeCategory(IGuiHelper helper) {
-    this.background = helper.createDrawable(BACKGROUND_LOC, 0, 55, 70, 57);
     this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(TinkerSmeltery.blankSandCast.get()));
     this.table = helper.createDrawable(BACKGROUND_LOC, 117, 0, 16, 16);
     this.basin = helper.createDrawable(BACKGROUND_LOC, 117, 16, 16, 16);
@@ -55,6 +53,21 @@ public class MoldingRecipeCategory implements IRecipeCategory<MoldingRecipe> {
   @Override
   public Component getTitle() {
     return TITLE;
+  }
+
+  @Override
+  public int getWidth() {
+    return 70;
+  }
+
+  @Override
+  public int getHeight() {
+    return 57;
+  }
+
+  @Override
+  public void createRecipeExtras(IRecipeExtrasBuilder builder, MoldingRecipe recipe, IFocusGroup focuses) {
+    builder.addRecipeArrow().setPosition(24, 23);
   }
 
   @Override

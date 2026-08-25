@@ -46,7 +46,6 @@ public class EntityMeltingRecipeCategory implements IRecipeCategory<EntityMeltin
   /** Renderer instance to use in this category */
   private final EntityIngredientRenderer entityRenderer = new EntityIngredientRenderer(32);
 
-  @Getter
   private final IDrawable background;
   @Getter
   private final IDrawable icon;
@@ -71,7 +70,18 @@ public class EntityMeltingRecipeCategory implements IRecipeCategory<EntityMeltin
   }
 
   @Override
+  public int getWidth() {
+    return 150;
+  }
+
+  @Override
+  public int getHeight() {
+    return 62;
+  }
+
+  @Override
   public void draw(EntityMeltingRecipe recipe, IRecipeSlotsView slot, GuiGraphics graphics, double mouseX, double mouseY) {
+    background.draw(graphics);
     arrow.draw(graphics, 71, 21);
 
     // draw damage string next to the heart icon

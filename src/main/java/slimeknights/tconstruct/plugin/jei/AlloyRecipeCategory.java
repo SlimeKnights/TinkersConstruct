@@ -58,7 +58,6 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe> {
     }
   };
 
-  @Getter
   private final IDrawable background;
   @Getter
   private final IDrawable icon;
@@ -83,7 +82,18 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe> {
   }
 
   @Override
+  public int getWidth() {
+    return 172;
+  }
+
+  @Override
+  public int getHeight() {
+    return 62;
+  }
+
+  @Override
   public void draw(AlloyRecipe recipe, IRecipeSlotsView slots, GuiGraphics graphics, double mouseX, double mouseY) {
+    background.draw(graphics);
     arrow.draw(graphics, 90, 21);
     // temperature info
     Font fontRenderer = Minecraft.getInstance().font;

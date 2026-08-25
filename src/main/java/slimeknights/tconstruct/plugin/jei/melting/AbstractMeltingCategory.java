@@ -3,7 +3,6 @@ package slimeknights.tconstruct.plugin.jei.melting;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
@@ -50,7 +49,6 @@ public abstract class AbstractMeltingCategory implements IRecipeCategory<Melting
     }
   };
 
-  @Getter
   private final IDrawable background;
   protected final IDrawableStatic tankOverlay;
   protected final IDrawableStatic plus;
@@ -69,7 +67,18 @@ public abstract class AbstractMeltingCategory implements IRecipeCategory<Melting
   }
 
   @Override
+  public int getWidth() {
+    return 132;
+  }
+
+  @Override
+  public int getHeight() {
+    return 40;
+  }
+
+  @Override
   public void draw(MeltingRecipe recipe, IRecipeSlotsView slots, GuiGraphics graphics, double mouseX, double mouseY) {
+    background.draw(graphics);
     // draw the arrow
     cachedArrows.getUnchecked(recipe.getTime() * 5).draw(graphics, 56, 18);
     if (recipe.getOreType() != null) {

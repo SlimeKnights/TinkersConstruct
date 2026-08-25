@@ -5,6 +5,7 @@ import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IIngredientAcceptor;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
@@ -28,11 +29,8 @@ public class SeveringCategory implements IRecipeCategory<SeveringRecipe> {
   private final EntityIngredientRenderer entityRenderer = new EntityIngredientRenderer(32);
 
   @Getter
-  private final IDrawable background;
-  @Getter
   private final IDrawable icon;
   public SeveringCategory(IGuiHelper helper) {
-    this.background = helper.createDrawable(BACKGROUND_LOC, 0, 78, 100, 38);
     this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, TinkerTools.cleaver.get().getRenderTool());
   }
 
@@ -47,6 +45,21 @@ public class SeveringCategory implements IRecipeCategory<SeveringRecipe> {
   }
 
   @Override
+  public int getWidth() {
+    return 100;
+  }
+
+  @Override
+  public int getHeight() {
+    return 38;
+  }
+
+  @Override
+  public void createRecipeExtras(IRecipeExtrasBuilder builder, SeveringRecipe recipe, IFocusGroup focuses) {
+    builder.addRecipeArrow().setPosition(42, 10);
+  }
+
+  @Override
   public void setRecipe(IRecipeLayoutBuilder builder, SeveringRecipe recipe, IFocusGroup focuses) {
     EntityIngredient input = recipe.getIngredient();
     IIngredientAcceptor<?> entities = builder.addSlot(RecipeIngredientRole.INPUT, 3, 3)
@@ -56,7 +69,7 @@ public class SeveringCategory implements IRecipeCategory<SeveringRecipe> {
     builder.createFocusLink(entities, eggs);
 
     // output
-    builder.addSlot(RecipeIngredientRole.OUTPUT, 76, 11).addItemStack(recipe.getOutput());
+    builder.addSlot(RecipeIngredientRole.OUTPUT, 76, 11).addItemStack(recipe.getOutput()).setOutputSlotBackground();
   }
 
   @Override
