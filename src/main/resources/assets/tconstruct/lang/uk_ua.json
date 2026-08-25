@@ -94,7 +94,6 @@
   "block.tconstruct.soul_glass_pane.tooltip": "Тверда, але дає змогу пройти наскрізь",
 
   "block.tconstruct.glow": "Сяйво",
-  "block.tconstruct.silky_jewel_block": "Блок шовкових самоцвітів",
 
 
   "__comment": "Ore Metals",
@@ -267,8 +266,6 @@
   "item.tconstruct.jeweled_apple": "Коштовне яблуко",
   "item.tconstruct.silky_cloth": "Шовкова тканина",
   "item.tconstruct.silky_cloth.tooltip": "Запобігає пошкодженню блоків, добутих із цим модифікатором",
-  "item.tconstruct.silky_jewel": "Шовковий самоцвіт",
-  "item.tconstruct.silky_jewel.tooltip": "Запобігає пошкодженню блоків, добутих із цим модифікатором",
   "item.tconstruct.necrotic_bone": "Некротична кістка",
   "item.tconstruct.necrotic_bone.tooltip": "Випадає з візер-скелетів",
   "item.tconstruct.necronium_bone": "Некронієва кістка",
@@ -2300,7 +2297,7 @@
   "material.tconstruct.cheese": "Сир",
   "material.tconstruct.cheese.flavor": "Добре витриманий!",
   "material.tconstruct.cheese.encyclopedia.ranged": "Можна з'їсти (споживаючи трохи міцності), щоб відновити 1 голод при насиченні 0.4 та зняти випадковий ефект.",
-  "material.tconstruct.cheese.encyclopedia.slime": "Дає 15% шанс за кожен рівень з'їсти броню (що споживає частину міцності) на 1 голод за рівень при насиченні 0.4 та знімає випадковий ефект.",
+  "material.tconstruct.cheese.encyclopedia.laces": "Дає 15% шанс за кожен рівень з'їсти броню (що споживає частину міцності) на 1 голод за рівень при насиченні 0.4 та знімає випадковий ефект.",
 
   "material.tconstruct.blood": "Кров",
 
@@ -2358,7 +2355,7 @@
   "material.tconstruct.magnetite.encyclopedia.shell": "Притягує предмети поблизу, радіус та швидкість яких залежать від рівня.",
 
   "material.tconstruct.kobold": "Кобольд",
-  "material.tconstruct.kobold.flavor.shell": "Немов скинуті лусочки мерехтливої істоти",
+  "material.tconstruct.kobold.flavor": "Немов скинуті лусочки мерехтливої істоти",
   "material.tconstruct.kobold.encyclopedia.shell": "Надає +5% до швидкості атаки, +10% до швидкості використання предметів та +15% до швидкості добування за кожен рівень.",
 
   "material.tconstruct.bronze": "Бронза",
@@ -3144,20 +3141,6 @@
   "modifier.tconstruct.redirected": "Перенаправленість",
   "modifier.tconstruct.redirected.flavor": "Відправляє стрілу назад",
   "modifier.tconstruct.redirected.description": "Надає снаряду додаткову копію його основної властивості.",
-
-  "__comment": "Three more +1 upgrade modifiers for modpacks",
-  "modifier.tconstruct.red_extra_upgrade": "Червоне додаткове покращення",
-  "modifier.tconstruct.red_extra_upgrade.flavor": "Для модпаків!",
-  "modifier.tconstruct.red_extra_upgrade.description": "Попроси автора свого модпака, щоб він створив набір ресурсів, який надав би цьому предметові значення",
-  "modifier.tconstruct.green_extra_upgrade": "Зелене додаткове покращення",
-  "modifier.tconstruct.green_extra_upgrade.flavor": "Для модпаків!",
-  "modifier.tconstruct.green_extra_upgrade.description": "Попроси автора свого модпака, щоб він створив набір ресурсів, який надав би цьому предметові значення",
-  "modifier.tconstruct.blue_extra_upgrade": "Синє додаткове покращення",
-  "modifier.tconstruct.blue_extra_upgrade.flavor": "Для модпаків!",
-  "modifier.tconstruct.blue_extra_upgrade.description": "Попроси автора свого модпака, щоб він створив набір ресурсів, який надав би цьому предметові значення",
-  "modifier.tconstruct.extra_ability": "Додаткове вміння",
-  "modifier.tconstruct.extra_ability.flavor": "Для модпаків!",
-  "modifier.tconstruct.extra_ability.description": "Попроси автора свого модпака, щоб він створив набір ресурсів, який надав би цьому предметові значення",
 
   "modifier.tconstruct.smelting": "Витоплення",
   "modifier.tconstruct.smelting.flavor": "Гарний хрусткий бекон",
