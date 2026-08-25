@@ -14,7 +14,6 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
 
 import javax.annotation.Nullable;
-import java.util.Collections;
 import java.util.List;
 
 /** Recipe instance to return in JEI from recipes that contain multiple display recipes */
@@ -68,7 +67,7 @@ public class DisplayModifierRecipe implements IDisplayModifierRecipe {
     if (slot >= 0 && slot < inputs.size()) {
       return inputs.get(slot);
     }
-    return Collections.emptyList();
+    return List.of();
   }
 
   /** Creates a new builder instance */

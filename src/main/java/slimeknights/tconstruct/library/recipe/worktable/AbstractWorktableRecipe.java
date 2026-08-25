@@ -19,7 +19,6 @@ import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -80,7 +79,7 @@ public abstract class AbstractWorktableRecipe implements IModifierWorktableRecip
   @Override
   public List<ItemStack> getDisplayItems(int slot) {
     if (slot < 0 || slot >= inputs.size()) {
-      return Collections.emptyList();
+      return List.of();
     }
     return inputs.get(slot).getMatchingStacks();
   }

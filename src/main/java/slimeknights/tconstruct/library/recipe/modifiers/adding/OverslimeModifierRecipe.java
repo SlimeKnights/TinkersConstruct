@@ -29,7 +29,6 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static slimeknights.tconstruct.library.recipe.modifiers.adding.IDisplayModifierRecipe.withModifiers;
@@ -144,9 +143,9 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
   @Override
   public List<ItemStack> getDisplayItems(int slot) {
     if (slot == 0) {
-      return Arrays.asList(ingredient.getItems());
+      return List.of(ingredient.getItems());
     }
-    return Collections.emptyList();
+    return List.of();
   }
   @Override
   public List<ItemStack> getToolWithoutModifier() {
