@@ -50,9 +50,6 @@ repositories {
         name 'DVS1 Maven FS'
         url 'https://dvs1.progwml6.com/files/maven'
     }
-    maven { // TOP
-        url "https://maven.k-4u.nl"
-    }
     maven { // CraftTweaker, Immersive Engineering
         name 'BlameJared Maven'
         url 'https://maven.blamejared.com'
@@ -221,8 +218,6 @@ dependencies {
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}:api")
     // at runtime, use the full JEI jar
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")
-
-    implementation fg.deobf("mcjty.theoneprobe:theoneprobe:${minecraft_base_version}-${probe_version}")
 
     compileOnly fg.deobf("com.blamejared.crafttweaker:CraftTweaker-${minecraft_version}:${crt_version}")
     compileOnly fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${minecraft_version}-${ie_version}")
