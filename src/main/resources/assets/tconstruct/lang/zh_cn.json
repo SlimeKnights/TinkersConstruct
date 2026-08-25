@@ -94,7 +94,6 @@
   "block.tconstruct.soul_glass_pane.tooltip": "与普通方块相似，但是可以从中穿过",
 
   "block.tconstruct.glow": "荧光球",
-  "block.tconstruct.silky_jewel_block": "裹绸宝石块",
 
 
   "__comment": "Ore Metals",
@@ -267,8 +266,6 @@
   "item.tconstruct.jeweled_apple": "宝钻苹果",
   "item.tconstruct.silky_cloth": "丝绢",
   "item.tconstruct.silky_cloth.tooltip": "防止工具损伤方块掉落物",
-  "item.tconstruct.silky_jewel": "裹绸宝石",
-  "item.tconstruct.silky_jewel.tooltip": "防止工具损伤方块掉落物",
   "item.tconstruct.necrotic_bone": "噬生之骨",
   "item.tconstruct.necrotic_bone.tooltip": "凋灵骷髅的掉落物",
   "item.tconstruct.necronium_bone": "辐射之骨",
@@ -2300,7 +2297,7 @@
   "material.tconstruct.cheese": "奶酪",
   "material.tconstruct.cheese.flavor": "饱经岁月！",
   "material.tconstruct.cheese.encyclopedia.ranged": "每级有15%概率可以食用工具。食用后，消耗耐久度并回复等同于等级数的饥饿 值与固定0.6点饱和度，并移除一个随机效果。",
-  "material.tconstruct.cheese.encyclopedia.slime": "每级有15%概率可以食用盔甲。食用后，消耗耐久度并回复等同于等级数的饥饿 值与固定0.6点饱和度，并移除一个随机效果。",
+  "material.tconstruct.cheese.encyclopedia.laces": "每级有15%概率可以食用盔甲。食用后，消耗耐久度并回复等同于等级数的饥饿 值与固定0.6点饱和度，并移除一个随机效果。",
 
   "material.tconstruct.blood": "血",
 
@@ -2358,7 +2355,7 @@
   "material.tconstruct.magnetite.encyclopedia.shell": "吸引附近物品，范围和速度由强化等级决定。",
 
   "material.tconstruct.kobold": "钴鳞",
-  "material.tconstruct.kobold.flavor.shell": "像是从某种会发光的生物身上脱落的鳞片",
+  "material.tconstruct.kobold.flavor": "像是从某种会发光的生物身上脱落的鳞片",
   "material.tconstruct.kobold.encyclopedia.shell": "每级使攻击速度+5%，使用物品速度+10%，挖掘速度+15%。",
 
   "material.tconstruct.bronze": "青铜",
@@ -3144,20 +3141,6 @@
   "modifier.tconstruct.redirected": "重定向",
   "modifier.tconstruct.redirected.flavor": "双“箭”合璧",
   "modifier.tconstruct.redirected.description": "弹射物获得双倍的箭头材料特性。",
-
-  "__comment": "Three more +1 upgrade modifiers for modpacks",
-  "modifier.tconstruct.red_extra_upgrade": "红色额外升级",
-  "modifier.tconstruct.red_extra_upgrade.flavor": "整合包专用！",
-  "modifier.tconstruct.red_extra_upgrade.description": "请咨询该整合包的作者，使用资源包完善该描述语",
-  "modifier.tconstruct.green_extra_upgrade": "绿色额外升级",
-  "modifier.tconstruct.green_extra_upgrade.flavor": "整合包专用！",
-  "modifier.tconstruct.green_extra_upgrade.description": "请咨询该整合包的作者，使用资源包完善该描述语",
-  "modifier.tconstruct.blue_extra_upgrade": "蓝色额外升级",
-  "modifier.tconstruct.blue_extra_upgrade.flavor": "整合包专用！",
-  "modifier.tconstruct.blue_extra_upgrade.description": "请咨询该整合包的作者，使用资源包完善该描述语",
-  "modifier.tconstruct.extra_ability": "额外能力",
-  "modifier.tconstruct.extra_ability.flavor": "整合包专用！",
-  "modifier.tconstruct.extra_ability.description": "请咨询该整合包的作者，使用资源包完善该描述语",
 
   "modifier.tconstruct.smelting": "烧炼",
   "modifier.tconstruct.smelting.flavor": "美味的酥脆培根",
