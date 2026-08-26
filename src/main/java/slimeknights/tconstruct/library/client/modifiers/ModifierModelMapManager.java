@@ -151,7 +151,7 @@ public class ModifierModelMapManager extends MergingJsonDataLoader<Builder> {
     Map<ResourceLocation, ModifierModelMap> modelMaps = new HashMap<>();
     for (Entry<ResourceLocation, Builder> file : map.entrySet()) {
       ResourceLocation id = file.getKey();
-      Map<String, ModifierModel> constant = new LinkedHashMap<>();
+      Map<String, ModifierModel> constant = new HashMap<>();
       Map<ModifierId, ModifierModel> modifiers = new HashMap<>();
       for (Entry<String,JsonElement> entry : file.getValue().constant.entrySet()) {
         parseModel(constant, entry.getKey(), entry.getValue(), "constant key", id, constantContext);
@@ -160,7 +160,7 @@ public class ModifierModelMapManager extends MergingJsonDataLoader<Builder> {
         parseModel(modifiers, entry.getKey(), entry.getValue(), "modifier", id, modifierContext);
       }
       // ensure we actually managed to parse something
-      ModifierModelMap modelMap = ModifierModelMap.create(constant, modifiers);
+      ModifierModelMap modelMap = ModifierModelMap.create(modifiers, constant);
       if (modelMap != ModifierModelMap.EMPTY) {
         modelMaps.put(id, modelMap);
       }
@@ -208,7 +208,7 @@ public class ModifierModelMapManager extends MergingJsonDataLoader<Builder> {
     if (maps.size() == 1) {
       modelMap = maps.get(0);
     } else {
-      Map<String, ModifierModel> constant = new LinkedHashMap<>();
+      Map<String, ModifierModel> constant = new HashMap<>();
       Map<ModifierId, IBakedModifierModel> modifiers = new HashMap<>();
       // loop backwards as we want the first that appears to take priority
       for (int i = maps.size() - 1; i >= 0; i--) {
@@ -221,10 +221,10 @@ public class ModifierModelMapManager extends MergingJsonDataLoader<Builder> {
       // remove empty models, we might have some if we were overriding for something like broken
       constant.entrySet().removeIf(EMPTY_ENTRY);
       modifiers.entrySet().removeIf(EMPTY_ENTRY);
-      modelMap = ModifierModelMap.create(constant, modifiers);
+      modelMap = ModifierModelMap.create(modifiers, constant);
     }
     // validate all model textures
-    for (ModifierModel model : modelMap.constant().values()) {
+    for (ModifierModel model : modelMap.sortedConstant()) {
       model.validate(spriteGetter);
     }
     for (IBakedModifierModel model : modelMap.modifiers().values()) {
@@ -250,7 +250,7 @@ public class ModifierModelMapManager extends MergingJsonDataLoader<Builder> {
     // if nothing is on the new system, just return the legacy one with a warning
     if (models.isEmpty()) {
       TConstruct.LOG.warn("Tool model {} is using deprecated system for modifier models instead of modifier model maps for {}", modelLocation, legacy.keySet());
-      return ModifierModelMap.create(Map.of(), legacy);
+      return ModifierModelMap.create(legacy, Map.of());
     }
     // have both so we need to combine
     Map<ModifierId, IBakedModifierModel> builder = new HashMap<>(models.modifiers());
@@ -265,6 +265,6 @@ public class ModifierModelMapManager extends MergingJsonDataLoader<Builder> {
     if (!legacyIds.isEmpty()) {
       TConstruct.LOG.warn("Tool model {} is using deprecated system for modifier models instead of modifier model maps for {}", modelLocation, legacyIds);
     }
-    return ModifierModelMap.create(models.constant(), builder);
+    return models.withModifiers(builder);
   }
 }

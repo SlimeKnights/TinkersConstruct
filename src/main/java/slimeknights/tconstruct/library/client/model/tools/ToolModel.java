@@ -155,8 +155,8 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
             }
           }
         }
-        // iterate the constant models in order for simplicity, you can just reverse the order yourself I guess
-        for (ModifierModel model : overrides.modifierModels.constant().values()) {
+        // iterate the constant in order of key (already reverse alphabetical)
+        for (ModifierModel model : overrides.modifierModels.sortedConstant()) {
           int modelIndexes = model.getTintIndexes();
           if (index < modelIndexes) {
             return model.getTint(tool, ModifierEntry.EMPTY, index);
@@ -330,8 +330,8 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
           }
         }
       }
-      // iterate the constant models in order for simplicity, you can just reverse the order yourself I guess
-      for (ModifierModel model : modifierModels.constant().values()) {
+      // iterate the constant in order of key (already reverse alphabetical)
+      for (ModifierModel model : modifierModels.sortedConstant()) {
         model.addQuads(tool, ModifierEntry.EMPTY, spriteGetter, transforms, isLarge, modelIndex, quadConsumer, pixels);
         modelIndex += model.getTintIndexes();
       }
