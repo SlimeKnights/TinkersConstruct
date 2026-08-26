@@ -42,7 +42,6 @@ public abstract class AbstractCastingCategory implements IRecipeCategory<IDispla
   private static final String KEY_CAST_CONSUMED = TConstruct.makeTranslationKey("jei", "casting.cast_consumed");
   protected static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/casting.png");
 
-  @Getter
   private final IDrawable background;
   @Getter
   private final IDrawable icon;
@@ -68,7 +67,18 @@ public abstract class AbstractCastingCategory implements IRecipeCategory<IDispla
   }
 
   @Override
+  public int getWidth() {
+    return 117;
+  }
+
+  @Override
+  public int getHeight() {
+    return 54;
+  }
+
+  @Override
   public void draw(IDisplayableCastingRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics graphics, double mouseX, double mouseY) {
+    background.draw(graphics);
     cachedArrows.getUnchecked(Math.max(1, recipe.getCoolingTime())).draw(graphics, 58, 18);
     block.draw(graphics, 38, 35);
     if (recipe.hasCast()) {

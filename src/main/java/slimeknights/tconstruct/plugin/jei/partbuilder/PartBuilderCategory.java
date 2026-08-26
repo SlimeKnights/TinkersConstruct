@@ -6,6 +6,7 @@ import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
+import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
@@ -36,12 +37,11 @@ public class PartBuilderCategory implements IRecipeCategory<IDisplayPartBuilderR
   private static final String KEY_COST = TConstruct.makeTranslationKey("jei", "part_builder.cost");
 
   @Getter
-  private final IDrawable background;
-  @Getter
   private final IDrawable icon;
+  private final IDrawable patternButton;
   public PartBuilderCategory(IGuiHelper helper) {
-    this.background = helper.createDrawable(BACKGROUND_LOC, 0, 117, 121, 46);
     this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(TinkerTables.partBuilder));
+    this.patternButton = helper.createDrawable(BACKGROUND_LOC, 45, 132, 18, 18);
   }
 
   @Override
@@ -52,6 +52,21 @@ public class PartBuilderCategory implements IRecipeCategory<IDisplayPartBuilderR
   @Override
   public Component getTitle() {
     return TITLE;
+  }
+
+  @Override
+  public int getWidth() {
+    return 121;
+  }
+
+  @Override
+  public int getHeight() {
+    return 46;
+  }
+
+  @Override
+  public void createRecipeExtras(IRecipeExtrasBuilder builder, IDisplayPartBuilderRecipe recipe, IFocusGroup focuses) {
+    builder.addRecipeArrow().setPosition(66, 15);
   }
 
   @Override
@@ -72,15 +87,20 @@ public class PartBuilderCategory implements IRecipeCategory<IDisplayPartBuilderR
   public void setRecipe(IRecipeLayoutBuilder builder, IDisplayPartBuilderRecipe recipe, IFocusGroup focuses) {
     // items
     List<ItemStack> materialItems = recipe.getMaterialItems();
-    IRecipeSlotBuilder materialSlot = builder.addSlot(RecipeIngredientRole.INPUT, 25, 16).addItemStacks(materialItems);
-    builder.addSlot(RecipeIngredientRole.INPUT,  4, 16).addItemStacks(recipe.getPatternItems());
+    IRecipeSlotBuilder materialSlot = builder.addSlot(RecipeIngredientRole.INPUT, 25, 16)
+      .addItemStacks(materialItems).setStandardSlotBackground();
+    builder.addSlot(RecipeIngredientRole.INPUT,  4, 16)
+      .addItemStacks(recipe.getPatternItems()).setStandardSlotBackground();
     // patterns
-    builder.addSlot(RecipeIngredientRole.INPUT, 46, 16).addIngredient(TConstructJEIConstants.PATTERN_TYPE, recipe.getPattern());
+    builder.addSlot(RecipeIngredientRole.INPUT, 46, 16)
+      .addIngredient(TConstructJEIConstants.PATTERN_TYPE, recipe.getPattern())
+      .setBackground(patternButton, -1, -1);
     // TODO: material ingredient input?
 
     // output
     List<ItemStack> resultItems = recipe.getResultItems();
-    IRecipeSlotBuilder resultSlot = builder.addSlot(RecipeIngredientRole.OUTPUT, 96, 15).addItemStacks(resultItems);
+    IRecipeSlotBuilder resultSlot = builder.addSlot(RecipeIngredientRole.OUTPUT, 96, 15)
+      .addItemStacks(resultItems).setOutputSlotBackground();
 
     // add focus link between materials and result; practically we only the size for result to be >1 for focus link; but better to be safe
     if (resultItems.size() == materialItems.size()) {

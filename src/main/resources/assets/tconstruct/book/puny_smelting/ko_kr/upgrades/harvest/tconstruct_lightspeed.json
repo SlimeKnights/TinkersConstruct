@@ -5,6 +5,7 @@
       "text": "빛이 도구를 통해 흘러, 채굴 속도가 증가한다."
     }
   ],
+  "tool_filter": "tconstruct:modifiable/harvest",
   "effects": [
     "주위가 밝을수록 채굴 속도가 증가한다",
     "다중 등급, 등급당 속도가 증가한다",

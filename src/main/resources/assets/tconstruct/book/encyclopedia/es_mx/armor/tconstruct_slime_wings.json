@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:slime_wings",
+  "text": [
+    { "text": "Los slimitros son lo último en tecnología de vuelo." },
+    { "text": "Creadas al verter enderslime sobre unos elitros, estas alas también se pueden reparar con membranas de fantasma.", "paragraph": true }
+  ],
+  "properties": [
+    "672 de durabilidad",
+    "40% de ataque desarmado",
+    "5 ranuras de mejora",
+    "0 ranuras de defensa",
+    "1 ranura de habilidad",
+    "Alas"
+  ]
+}

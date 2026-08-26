@@ -7,6 +7,7 @@ import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
+import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
@@ -38,8 +39,6 @@ public class ToolBuildingCategory implements IRecipeCategory<ToolBuildingRecipe>
   private static final Component TITLE = TConstruct.makeTranslation("jei", "tinkering.tool_building");
   @Getter
   private final IDrawable icon;
-  @Getter
-  private final IDrawable background;
   private final IDrawable anvil, slotBg, slotBorder;
   private final IDrawable itemCover;
   private static final int WIDTH = 134;
@@ -48,11 +47,25 @@ public class ToolBuildingCategory implements IRecipeCategory<ToolBuildingRecipe>
 
   public ToolBuildingCategory(IGuiHelper guiHelper) {
     this.icon = guiHelper.createDrawableItemStack(TinkerTools.pickaxe.get().getRenderTool());
-    this.background = guiHelper.createDrawable(BACKGROUND_LOC, 122, 77, WIDTH, HEIGHT);
     this.slotBg = guiHelper.createDrawable(BACKGROUND_LOC, 144, 59, SLOT_SIZE, SLOT_SIZE);
     this.slotBorder = guiHelper.createDrawable(BACKGROUND_LOC, 162, 59, SLOT_SIZE, SLOT_SIZE);
     this.anvil = guiHelper.createDrawable(BACKGROUND_LOC, 128, 61, ITEM_SIZE, ITEM_SIZE);
     this.itemCover = guiHelper.createDrawable(BACKGROUND_LOC, 122, 77, 70, 60);
+  }
+
+  @Override
+  public int getWidth() {
+    return WIDTH;
+  }
+
+  @Override
+  public int getHeight() {
+    return HEIGHT;
+  }
+
+  @Override
+  public void createRecipeExtras(IRecipeExtrasBuilder builder, ToolBuildingRecipe recipe, IFocusGroup focuses) {
+    builder.addRecipeArrow().setPosition(74, 22);
   }
 
   @Override
@@ -82,7 +95,8 @@ public class ToolBuildingCategory implements IRecipeCategory<ToolBuildingRecipe>
 
     // create a focus link between result and first slot if same size
     List<ItemStack> result = recipe.getDisplayOutput();
-    IRecipeSlotBuilder resultSlot = builder.addSlot(RecipeIngredientRole.OUTPUT, WIDTH - 26, 23).addItemStacks(result);
+    IRecipeSlotBuilder resultSlot = builder.addSlot(RecipeIngredientRole.OUTPUT, WIDTH - 26, 23)
+      .addItemStacks(result).setOutputSlotBackground();
     if (result.size() > 1 && partsAndExtras.get(0).size() == result.size()) {
       builder.createFocusLink(resultSlot, firstSlot);
     }

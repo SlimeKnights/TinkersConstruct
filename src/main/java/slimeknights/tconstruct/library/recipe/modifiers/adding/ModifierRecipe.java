@@ -26,7 +26,6 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
 import java.util.BitSet;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -215,6 +214,6 @@ public class ModifierRecipe extends AbstractModifierRecipe {
     if (slot >= 0 && slot < inputs.size()) {
       return inputs.get(slot).getMatchingStacks();
     }
-    return Collections.emptyList();
+    return List.of();
   }
 }

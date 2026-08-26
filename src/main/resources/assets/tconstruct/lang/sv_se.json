@@ -7,27 +7,19 @@
   "block.tconstruct.ichor_slime.tooltip": "Kletar fast sig på alla kletiga block förutom ichor",
   "block.tconstruct.ender_slime": "Enderslemsblock",
   "block.tconstruct.ender_slime.tooltip": "Kletar fast sig när den knuffas, men inte när den ligger intill ett kletigt block",
-  "block.tconstruct.blood_slime": "Blodblock",
-  "block.tconstruct.blood_slime.tooltip": "Studsigt, men inte kletigt",
-  
+
   "block.tconstruct.earth_congealed_slime": "Stelnat slemblock",
   "block.tconstruct.earth_congealed_slime.tooltip": "Låter dig hoppa riktigt högt",
   "block.tconstruct.sky_congealed_slime": "Stelnat himmelslemsblock",
   "block.tconstruct.sky_congealed_slime.tooltip": "Låter dig hoppa riktigt högt",
   "block.tconstruct.ender_congealed_slime": "Stelnat enderslemsblock",
   "block.tconstruct.ender_congealed_slime.tooltip": "Låter dig hoppa riktigt högt",
-  "block.tconstruct.blood_congealed_slime": "Koagulerat blod",
-  "block.tconstruct.blood_congealed_slime.tooltip": "Låter dig hoppa riktigt högt",
   "block.tconstruct.ichor_congealed_slime": "Stelnad ichor",
   "block.tconstruct.ichor_congealed_slime.tooltip": "Låter dig hoppa riktigt högt",
   
   "block.tconstruct.mud_bricks": "Gyttjetegel",
   "block.tconstruct.mud_bricks_slab": "Gyttjetegelplatta",
   "block.tconstruct.mud_bricks_stairs": "Gyttjetegeltrappa",
-  
-  "block.tconstruct.lavawood": "Lavaträ",
-  "block.tconstruct.lavawood_slab": "Lavaträplatta",
-  "block.tconstruct.lavawood_stairs": "Lavaträtrappa",
   
   "block.tconstruct.blazewood": "Brännarträ",
   "block.tconstruct.blazewood_slab": "Brännarträplatta",
@@ -99,8 +91,7 @@
   "block.tconstruct.soul_glass_pane": "Själglasruta",
   
   "block.tconstruct.glow": "Glöd",
-  "block.tconstruct.silky_jewel_block": "Silkesjuvelblock",
-  
+
   
   "__comment": "Ore Metals",
   
@@ -166,7 +157,6 @@
   
   "block.tconstruct.knightslime_block": "Riddarslemsblock",
   "item.tconstruct.knightslime_ingot": "Riddarslemstacka",
-  "item.tconstruct.knightslime_ingot.tooltip": "Slemmigt fast metalliskt men även sten? Fascinerande!",
   "item.tconstruct.knightslime_nugget": "Riddarslemsklimp",
   
   "item.tconstruct.materials_and_you": "Materialen och dig",
@@ -187,7 +177,6 @@
   
   "item.tconstruct.sky_slime_ball": "Himmelslemsboll",
   "item.tconstruct.ender_slime_ball": "Enderslemsboll",
-  "item.tconstruct.blood_slime_ball": "Koagulerat blod",
   "item.tconstruct.ichor_slime_ball": "Ichorboll",
   
   "item.tconstruct.bacon": "Bacon",
@@ -225,28 +214,24 @@
   "block.tconstruct.budding_ender_slime_crystal": "Knoppande enderslemskristall",
   
   "item.tconstruct.iron_reinforcement": "Järnförstärkning",
-  "item.tconstruct.iron_reinforcement.tooltip": "Reducerar chansen att ett verktyg tar skada",
+  "item.tconstruct.iron_reinforcement.tooltip": "Ökar rustningsresistans mot projektiler",
   "item.tconstruct.slimesteel_reinforcement": "Slemstålsförstärkning",
   "item.tconstruct.slimesteel_reinforcement.tooltip": "Ökar slemstålets kapacitet",
   "item.tconstruct.seared_reinforcement": "Bränd förstärkning",
   "item.tconstruct.seared_reinforcement.tooltip": "Ökar rustningsresistans mot eld",
-  "item.tconstruct.bronze_reinforcement": "Ametistbronsförstärkning",
-  "item.tconstruct.bronze_reinforcement.tooltip": "Ökar rustningsresistans mot projektiler",
   "item.tconstruct.gold_reinforcement": "Guldförstärkning",
   "item.tconstruct.gold_reinforcement.tooltip": "Ökar rustningsresistans mot magi",
   "item.tconstruct.emerald_reinforcement": "Smaragdförstärkning",
-  "item.tconstruct.emerald_reinforcement.tooltip": "Ökar rustningsresistans mot explosioner",
+  "item.tconstruct.emerald_reinforcement.tooltip": "Reducerar chansen att ett verktyg tar skada",
+  "item.tconstruct.obsidian_reinforcement.tooltip": "Ökar rustningsresistans mot explosioner",
   "item.tconstruct.cobalt_reinforcement": "Koboltförstärkning",
   "item.tconstruct.cobalt_reinforcement.tooltip": "Ökar rustningsresistans mot attacker i allmänhet",
   "item.tconstruct.jeweled_apple": "Juveläpple",
   "item.tconstruct.silky_cloth": "Silkestyg",
   "item.tconstruct.silky_cloth.tooltip": "Förhindrar ett verktyg från att skada block som avges",
-  "item.tconstruct.silky_jewel": "Silkesjuvel",
-  "item.tconstruct.silky_jewel.tooltip": "Förhindrar ett verktyg från att skada block som avges",
   "item.tconstruct.necrotic_bone": "Nekrotiskt ben",
   "item.tconstruct.necrotic_bone.tooltip": "Kommer från Witherskelett",
   "item.tconstruct.necronium_bone": "Nekroniumben",
-  "item.tconstruct.bloodbone": "Blodsben",
   "item.tconstruct.blazing_bone": "Brännben",
   "item.tconstruct.dragon_scale": "Drakfjäll",
   "item.tconstruct.dragon_scale.tooltip": "Har sprängts bort från en enderdrake",
@@ -273,7 +258,6 @@
   "pattern.tconstruct.pick_head": "Hackhuvud",
   "pattern.tconstruct.small_axe_head": "Litet yxhuvud",
   "pattern.tconstruct.small_blade": "Liten klinga",
-  "pattern.tconstruct.sign_head": "Skylthuvud",
   "pattern.tconstruct.bow_limb": "Pilbågsstock",
   
   "_comment": "Large Head Gold Casts",
@@ -285,7 +269,6 @@
   "_comment": "Binding Gold Casts",
   
   "pattern.tconstruct.tool_binding": "Verktygsbindning",
-  "pattern.tconstruct.round_plate": "Rund plåt",
   "pattern.tconstruct.large_plate": "Stor plåt",
   
   "_comment": "Tool Handle Gold Casts",
@@ -314,7 +297,6 @@
   "item.tconstruct.pick_head_cast": "Guldavgjutning för hackhuvud",
   "item.tconstruct.small_axe_head_cast": "Guldavgjutning för litet yxhuvud",
   "item.tconstruct.small_blade_cast": "Guldavgjutning för liten klinga",
-  "item.tconstruct.sign_head_cast": "Guldavgjutning för skylthuvud",
   "item.tconstruct.bow_limb_cast": "Guldavgjutning för pilbågsstock",
   
   "_comment": "Large Head Gold Casts",
@@ -326,7 +308,6 @@
   "_comment": "Binding Gold Casts",
   
   "item.tconstruct.tool_binding_cast": "Guldavgjutning för verktygsbindning",
-  "item.tconstruct.round_plate_cast": "Guldavgjutning för rund plåt",
   "item.tconstruct.large_plate_cast": "Guldavgjutning för stor plåt",
   
   "_comment": "Tool Handle Gold Casts",
@@ -355,7 +336,6 @@
   "item.tconstruct.pick_head_sand_cast": "Sandavgjutning för hackhuvud",
   "item.tconstruct.small_axe_head_sand_cast": "Sandavgjutning för litet yxhuvud",
   "item.tconstruct.small_blade_sand_cast": "Sandavgjutning för liten klinga",
-  "item.tconstruct.sign_head_sand_cast": "Sandavgjutning för skylthuvud",
   "item.tconstruct.bow_limb_sand_cast": "Sandavgjutning för pilbågsstock",
   
   "_comment": "Large Head Sand Casts",
@@ -367,7 +347,6 @@
   "_comment": "Binding Sand Casts",
   
   "item.tconstruct.tool_binding_sand_cast": "Sandavgjutning för bindning",
-  "item.tconstruct.round_plate_sand_cast": "Sandavgjutning för rund plåt",
   "item.tconstruct.large_plate_sand_cast": "Sandavgjutning för stor plåt",
   
   "_comment": "Tool Handle Sand Casts",
@@ -396,7 +375,6 @@
   "item.tconstruct.pick_head_red_sand_cast": "Rödsandsavgjutning för hackhuvud",
   "item.tconstruct.small_axe_head_red_sand_cast": "Rödsandsavgjutning för litet yxhuvud",
   "item.tconstruct.small_blade_red_sand_cast": "Rödsandsavgjutning för liten klinga",
-  "item.tconstruct.sign_head_red_sand_cast": "Rödsandsavgjutning för skylthuvud",
   "item.tconstruct.bow_limb_red_sand_cast": "Rödsandsavgjutning för pilbågsstock",
   
   "_comment": "Large Head Red Sand Casts",
@@ -408,7 +386,6 @@
   "_comment": "Binding Red Sand Casts",
   
   "item.tconstruct.tool_binding_red_sand_cast": "Rödsandsavgjutning för verktygsbindning",
-  "item.tconstruct.round_plate_red_sand_cast": "Rödsandsavgjutning för rund plåt",
   "item.tconstruct.large_plate_red_sand_cast": "Rödsandsavgjutning för stor plåt",
   
   "_comment": "Tool Handle Red Sand Casts",
@@ -425,11 +402,6 @@
   "item.tconstruct.blazing_blood_bucket": "Hink med brännarblod",
   
   "_comment": "Slime",
-  
-  "block.tconstruct.blood_fluid": "Blod",
-  "fluid.tconstruct.blood": "Blod",
-  "fluid.tconstruct.flowing_blood": "Flödande blod",
-  "item.tconstruct.blood_bucket": "Blodhink",
   
   "block.tconstruct.earth_slime_fluid": "Slem",
   "fluid.tconstruct.earth_slime": "Slem",
@@ -747,15 +719,6 @@
   "block.tconstruct.blood_cake": "Blodstårta",
   "block.tconstruct.magma_cake": "Magmatårta",
   
-  "item.tconstruct.earth_slime_sling": "Slangbella av slem",
-  "item.tconstruct.earth_slime_sling.tooltip": "Dra tillbaka, sikta lågt, börja slunga!\nAnvänd slemstövlar om du värderar ditt liv!",
-  "item.tconstruct.sky_slime_sling": "Slangbella av himmelslem",
-  "item.tconstruct.sky_slime_sling.tooltip": "Dra tillbaka, avfyra, flyg upp i luften!\nAnvänd slemstövlar om du värderar ditt liv!",
-  "item.tconstruct.ender_slime_sling": "Slangbella av enderslem",
-  "item.tconstruct.ender_slime_sling.tooltip": "Dra tillbaka, sikta på en vägg och dyk upp på andra sidan!",
-  "item.tconstruct.ichor_slime_sling": "Slangbella av ichor",
-  "item.tconstruct.ichor_slime_sling.tooltip": "Dra tillbaka, sikta på en varelse och få den att flyga iväg!",
-  
   "item.tconstruct.piggy_backpack": "Bärsele",
   "item.tconstruct.piggy_backpack.tooltip": "Använd på en varelse för att plocka upp den",
   "effect.tconstruct.carry": "Bärsele",
@@ -767,7 +730,6 @@
   "block.tconstruct.drowned_head": "Drunkad zombie-huvud",
   "block.tconstruct.spider_head": "Spindelhuvud",
   "block.tconstruct.cave_spider_head": "Grottspindelhuvud",
-  "block.tconstruct.piglin_head": "Piglinhuvud",
   "block.tconstruct.piglin_brute_head": "Piglinbarbarshuvud",
   "block.tconstruct.zombified_piglin_head": "Zombifierad piglin-huvud",
   
@@ -794,6 +756,9 @@
   "item.tconstruct.pattern": "Mönster",
   
   "_comment": "Tinkers Tools",
+
+  "item.tconstruct.tool.format": "%2$s av %1$s",
+  "item.tconstruct.tool.material_separator": "-",
   
   "item.tconstruct.pickaxe": "Hacka",
   "item.tconstruct.sledge_hammer": "Slägga",
@@ -826,23 +791,10 @@
   "item.tconstruct.plate_boots": "Plåtstövlar",
   
   "item.tconstruct.slime_helmet": "Slemskalle",
-  "item.tconstruct.slime_chestplate": "Slemelytra",
   "item.tconstruct.slime_leggings": "Slemskal",
   "item.tconstruct.slime_boots": "Slemstövlar",
-  "item.tconstruct.slime_helmet.material.tconstruct.gunpowder": "Slemskalle av creeper",
-  "item.tconstruct.slime_helmet.material.tconstruct.ender_pearl": "Slemskalle av enderman",
-  "item.tconstruct.slime_helmet.material.tconstruct.bone": "Slemskalle av skelett",
-  "item.tconstruct.slime_helmet.material.tconstruct.bloodbone": "Slemskalle av strövare",
-  "item.tconstruct.slime_helmet.material.tconstruct.necrotic_bone": "Slemskalle av witherskelett",
-  "item.tconstruct.slime_helmet.material.tconstruct.venom": "Slemskalle av grottspindel",
-  "item.tconstruct.slime_helmet.material.tconstruct.rotten_flesh": "Slemskalle av zombie",
-  "item.tconstruct.slime_helmet.material.tconstruct.iron": "Slemskalle av uttorkad zombie",
-  "item.tconstruct.slime_helmet.material.tconstruct.copper": "Slemskalle av drunknad zombie",
-  "item.tconstruct.slime_helmet.material.tconstruct.blazing_bone": "Slemskalle av brännare",
-  "item.tconstruct.slime_helmet.material.tconstruct.gold": "Slemskalle av piglin",
-  "item.tconstruct.slime_helmet.material.tconstruct.rose_gold": "Slemskalle av piglinbarbar",
-  "item.tconstruct.slime_helmet.material.tconstruct.pig_iron": "Slemskalle av zombifierad piglin",
-  
+  "item.tconstruct.slime_wings": "Slemelytra",
+
   
   "_comment": "Tinkers Tool Parts",
   
@@ -860,7 +812,6 @@
   "item.tconstruct.tool_handle": "Verktygshandtag",
   "item.tconstruct.tough_handle": "Robust handtag",
   "item.tconstruct.tool_binding": "Verktygsbindning",
-  "item.tconstruct.round_plate": "Rundplåt",
   "item.tconstruct.large_plate": "Stor plåt",
   
   
@@ -886,11 +837,6 @@
   
   
   "_comment": "Smeltery shared",
-  
-  "block.tconstruct.tank.fluid": "%s (flytande)",
-  "block.tconstruct.tank.mb": "%d mB",
-  "block.tconstruct.tank.ingots": "%d tackor",
-  "block.tconstruct.tank.mixed": "%d tackor, %d mb",
   
   "block.tconstruct.tank.drained": "Tömde %s mb %s",
   "block.tconstruct.tank.filled": "Fyllde %s mb %s",
@@ -1284,16 +1230,10 @@
   "material.tconstruct.unknown": "Okänd",
   
   "__comment": "Tier 1 Materials",
+
   "material.tconstruct.wood": "Trä",
-  "material.tconstruct.wood.oak":      "Ekträ",
-  "material.tconstruct.wood.spruce":   "Granträ",
-  "material.tconstruct.wood.birch":    "Björkträ",
-  "material.tconstruct.wood.jungle":   "Djungelträ",
-  "material.tconstruct.wood.acacia":   "Akaciaträ",
-  "material.tconstruct.wood.dark_oak": "Mörkt ekträ",
   "material.tconstruct.wood.crimson":  "Karmosinhyfer",
   "material.tconstruct.wood.warped":   "Förvrängda hyfer",
-  "material.tconstruct.wood.bamboo":   "Bambu",
   "material.tconstruct.wood.format": "%s av trä",
   "material.tconstruct.wood.flavor": "Trä mot trä gör ingen skada",
   "material.tconstruct.wood.encyclopedia": "Gör reparationer 50 % effektivare per del",
@@ -1304,214 +1244,165 @@
   "material.tconstruct.rock.diorite":    "Diorit",
   "material.tconstruct.rock.granite":    "Granit",
   "material.tconstruct.rock.blackstone": "Svartsten",
-  "material.tconstruct.rock.deepslate":  "Djupskiffer",
-  "material.tconstruct.rock.format": "%s av sten",
   "material.tconstruct.rock.flavor": "Stentufft",
-  "material.tconstruct.rock.encyclopedia": "Får verktyget att gräva snabbare med hälften av roten ur den förlorade hållbarheten",
+  "material.tconstruct.rock.encyclopedia.melee_harvest": "Får verktyget att gräva snabbare med hälften av roten ur den förlorade hållbarheten",
   
   "material.tconstruct.flint": "Flinta",
   "material.tconstruct.flint.basalt": "Basalt",
-  "material.tconstruct.flint.format": "%s av flinta",
+  "material.tconstruct.flint.deepslate":  "Djupskiffer",
   "material.tconstruct.flint.flavor": "Detta tänder gnistan hos varje Tinkers-spelare!",
-  "material.tconstruct.flint.encyclopedia": "Ökar skada med en fjärdedel av roten ur den förlorade hållbarheten",
+  "material.tconstruct.flint.encyclopedia.melee_harvest": "Ökar skada med en fjärdedel av roten ur den förlorade hållbarheten",
   
   "material.tconstruct.bone": "Ben",
-  "material.tconstruct.bone.format": "%s av ben",
   "material.tconstruct.bone.flavor": "Benhårt",
   "material.tconstruct.bone.encyclopedia": "Omvandlar 0,5 skada till 1 genomträngande skada",
-  "material.tconstruct.bone.skull_flavor": "Har du mjölk?",
-  "material.tconstruct.bone.skull_encyclopedia": "Ger resistans i 1 minut när man dricker mjölk",
+  "material.tconstruct.bone.flavor.skull": "Har du mjölk?",
+  "material.tconstruct.bone.encyclopedia.skull": "Ger resistans i 1 minut när man dricker mjölk",
   
   "material.tconstruct.necrotic_bone": "Nekrotiskt ben",
-  "material.tconstruct.necrotic_bone.format": "%s av nekrotiskt ben",
   "material.tconstruct.necrotic_bone.flavor": "Gjord för beniga situationer",
   "material.tconstruct.necrotic_bone.encyclopedia": "Läker upp till 5 % utdelad skada per nivå",
-  "material.tconstruct.necrotic_bone.skull_flavor": "Skrämmande läskigt skelett!",
-  "material.tconstruct.necrotic_bone.skull_encyclopedia": "Närstridsattacker orsakar effekten \"Vissnande\", som blir snabbare efter man dricker mjölk",
+  "material.tconstruct.necrotic_bone.flavor.skull": "Skrämmande läskigt skelett!",
+  "material.tconstruct.necrotic_bone.encyclopedia.skull": "Närstridsattacker orsakar effekten \"Vissnande\", som blir snabbare efter man dricker mjölk",
   
   "material.tconstruct.string": "Tråd",
-  "material.tconstruct.string.format": "%s av tråd",
   "material.tconstruct.string.flavor": "Teoretiskt sett det bästa materialet.",
   "material.tconstruct.string.encyclopedia": "Låter verktyget att repareras med tråd i tinkerstationen eller arbetsbänken",
-  
+  "material.tconstruct.string.skull": "Spindel",
+  "material.tconstruct.string.flavor.skull": "Spindlar är mästare på brygder och deras hemlighet kanske kan hjälpa mig att förtrolla brygder...",
+  "material.tconstruct.string.encyclopedia.skull": "Förlänger positiva brygdeffekter med 50 %",
+
   "material.tconstruct.leather": "Läder",
-  "material.tconstruct.leather.format": "%s av läder",
   "material.tconstruct.leather.flavor": "Dödade en ko och garvade dess läder.",
   "material.tconstruct.leather.encyclopedia": "Förhindrar verktyget från att ta mer än 1 skada när det används",
-  
+  "material.tconstruct.leather.flavor.skull": "Allt är väl",
+  "material.tconstruct.leather.encyclopedia.skull": "Närstridsattacker ökar brinntiden för mål baserat på bärarens brinntid",
+
   "material.tconstruct.vine": "Klätterväxt",
-  "material.tconstruct.vine.format": "%s av klätterväxt",
   "material.tconstruct.vine.flavor": "Fortsätter att leva, till skillnad från det sociala nätverket.",
   "material.tconstruct.vine.encyclopedia": "Verktyget har upp till 75 % chans att motstå skada i fullt dagsljus",
   
   
   "__comment": "Tier 2 Materials",
   "material.tconstruct.iron": "Järn",
-  "material.tconstruct.iron.format": "%s av järn",
   "material.tconstruct.iron.flavor": "Ge järnet!",
   "material.tconstruct.iron.encyclopedia": "Ger extra 10 % hållbarhet per del",
-  "material.tconstruct.iron.skull_flavor": "Karantänsbrott",
-  "material.tconstruct.iron.skull_encyclopedia": "Närstridsattacker kopierar alla negativa statuseffekter från bäraren till målet",
+  "material.tconstruct.iron.flavor.skull": "Karantänsbrott",
+  "material.tconstruct.iron.encyclopedia.skull": "Närstridsattacker kopierar alla negativa statuseffekter från bäraren till målet",
   
   "material.tconstruct.seared_stone": "Bränd sten",
-  "material.tconstruct.seared_stone.format": "%s av bränd sten",
   "material.tconstruct.seared_stone.flavor": "Varmare Grout.",
   "material.tconstruct.seared_stone.encyclopedia": "Ger +6 grävhastighet på block som kan smältas i en nedsmältare",
   
   "material.tconstruct.scorched_stone": "Eldad sten",
-  "material.tconstruct.scorched_stone.format": "%s av eldad sten",
   "material.tconstruct.scorched_stone.flavor": "Bonus från grundarutgåvan.",
   "material.tconstruct.scorched_stone.encyclopedia": "Utdelar +2 skada per nivå mot brinnande mål",
   
   "material.tconstruct.copper": "Koppar",
-  "material.tconstruct.copper.format": "%s av koppar",
   "material.tconstruct.copper.flavor": "Ädelmetall med flera användningsområden.",
-  "material.tconstruct.copper.encyclopedia": "Ger grävhastighet vid lägre djup, +8 per 64 block under havsnivån",
-  "material.tconstruct.copper.skull_flavor": "Slår luften ur dem",
-  "material.tconstruct.copper.skull_encyclopedia": "Närstridsattacker stjäl 3 sekunders luft från målet",
+  "material.tconstruct.copper.encyclopedia.melee_harvest": "Ger grävhastighet vid lägre djup, +8 per 64 block under havsnivån",
+  "material.tconstruct.copper.flavor.skull": "Slår luften ur dem",
+  "material.tconstruct.copper.encyclopedia.skull": "Närstridsattacker stjäl 3 sekunders luft från målet",
   
   "material.tconstruct.slimewood": "Slemträ",
   "material.tconstruct.slimewood.greenheart":  "Grönhjärta",
   "material.tconstruct.slimewood.skyroot":     "Himmelrot",
   "material.tconstruct.slimewood.bloodshroom": "Blodsvamp",
-  "material.tconstruct.slimewood.format": "%s av slemträ",
   "material.tconstruct.slimewood.flavor": "Är detta trä från slem eller slem som har infuserats med trä?",
   "material.tconstruct.slimewood.encyclopedia": "Ger 5 % chans per nivå att återgenerera slemhölje varje sekund",
   
-  "material.tconstruct.bloodbone": "Blodsben",
-  "material.tconstruct.bloodbone.format": "%s av blodsben",
-  "material.tconstruct.bloodbone.flavor": "Ska inte blodet vara inuti benet?",
-  "material.tconstruct.bloodbone.encyclopedia": "Ökar utdelad skada vid låg hälsa, upp till +4 skada per nivå vid 1 hjärta",
-  "material.tconstruct.bloodbone.skull_flavor": "Kylan gör att det går kalla kårar längs ryggraden",
-  "material.tconstruct.bloodbone.skull_encyclopedia": "Projektiler kan orsaka långsamhet för målet. Efter du dricker mjölk kommer närstridsattacker orsaka långsamhet och nivån är starkare.",
+  "material.tconstruct.pewter.encyclopedia": "Ökar utdelad skada vid låg hälsa, upp till +4 skada per nivå vid 1 hjärta",
+
+  "material.tconstruct.ice.flavor.skull": "Kylan gör att det går kalla kårar längs ryggraden",
+  "material.tconstruct.ice.encyclopedia.skull": "Projektiler kan orsaka långsamhet för målet. Efter du dricker mjölk kommer närstridsattacker orsaka långsamhet och nivån är starkare.",
   
   "material.tconstruct.rose_gold": "Rosguld",
-  "material.tconstruct.rose_gold.format": "%s av rosguld",
   "material.tconstruct.rose_gold.flavor": "Ansvarsfriskrivning: Inte gjord av riktiga rosor.",
   "material.tconstruct.rose_gold.encyclopedia": "Ger 1 extra uppgraderingsplats per del",
-  "material.tconstruct.rose_gold.skull_flavor": "Ser till att armskölden används",
-  "material.tconstruct.rose_gold.skull_encyclopedia": "Ökar hälsa med 1 hjärta, plus ett ytterligare hjärta per rustningsdel av guld.",
-  
-  "material.tconstruct.chain": "Kedja",
-  "material.tconstruct.chain.format": "%s av kedja",
-  "material.tconstruct.chain.flavor": "En riktig kedjereaktion",
-  "material.tconstruct.chain.encyclopedia": "Verktyget tar 25 % mindre skada",
+  "material.tconstruct.rose_gold.flavor.skull": "Ser till att armskölden används",
+  "material.tconstruct.rose_gold.encyclopedia.skull": "Ökar hälsa med 1 hjärta, plus ett ytterligare hjärta per rustningsdel av guld.",
   
   "material.tconstruct.skyslime_vine": "Slemmig klätterväxt",
-  "material.tconstruct.skyslime_vine.format": "%s av slemmig klätterväxt",
   "material.tconstruct.skyslime_vine.flavor": "Flyg som en fjäril, stick som ett bi.",
-  "material.tconstruct.skyslime_vine.encyclopedia": "Motverkar den reducerade grävhastigheten när man inte står på marken",
+  "material.tconstruct.skyslime_vine.encyclopedia.melee_harvest": "Motverkar den reducerade grävhastigheten när man inte står på marken",
   
   
   "__comment": "Tier 3 Materials",
   "material.tconstruct.slimesteel": "Slemstål",
-  "material.tconstruct.slimesteel.format": "%s av slemstål",
   "material.tconstruct.slimesteel.flavor": "Det slemmigaste stålet som finns!",
   "material.tconstruct.slimesteel.encyclopedia": "Ger 25 extra slemhölje, +50 % av det totala per nivå",
   
   "material.tconstruct.nahuatl": "Nahuatl",
-  "material.tconstruct.nahuatl.format": "%s av nahuatl",
   "material.tconstruct.nahuatl.flavor": "Detta är inte en obsidiandel, för om det vore det skulle det stå \"Obsidian.\"",
   "material.tconstruct.nahuatl.encyclopedia": "Har 50 % chans att utdela upp till 5 skada med tiden, där högre nivåer innebär mer skada",
 
   "material.tconstruct.amethyst_bronze": "Ametistbrons",
-  "material.tconstruct.amethyst_bronze.format": "%s av ametistbrons",
   "material.tconstruct.amethyst_bronze.flavor": "Inte att förväxlas med brons.",
-  "material.tconstruct.amethyst_bronze.encyclopedia": "Ger +0,25 grävhastighet per nivå på block som inte kräver verktyg, även där verktyget inte är effektivt",
+  "material.tconstruct.amethyst_bronze.encyclopedia.melee_harvest": "Ger +0,25 grävhastighet per nivå på block som inte kräver verktyg, även där verktyget inte är effektivt",
   
   "material.tconstruct.pig_iron": "Grisjärn",
-  "material.tconstruct.pig_iron.format": "%s av grisjärn",
   "material.tconstruct.pig_iron.flavor": "Absolut det bästa materialet, utan tvekan.",
   "material.tconstruct.pig_iron.encyclopedia": "Kan ätas för att återställa 1 hunger och 0,1 mättnad per nivå",
-  "material.tconstruct.pig_iron.skull_flavor": "Du kommer inte gilla mig när jag är arg!",
-  "material.tconstruct.pig_iron.skull_encyclopedia": "Ger extra styrka i 15 sekunder när man tar skada från en annan varelse",
+  "material.tconstruct.pig_iron.flavor.skull": "Du kommer inte gilla mig när jag är arg!",
+  "material.tconstruct.pig_iron.encyclopedia.skull": "Ger extra styrka i 15 sekunder när man tar skada från en annan varelse",
   
   "material.tconstruct.darkthread": "Mörkertråd",
-  "material.tconstruct.darkthread.format": "%s av mörkertråd",
   "material.tconstruct.darkthread.flavor": "Kom till den mörka sidan, vi kan olda",
   "material.tconstruct.darkthread.encyclopedia": "Ökar chansen att få föremål från varelser, kan kombineras med \"Tur\"",
+  "material.tconstruct.darkthread.flavor.skull": "Perfekt för strider där man måste tänka till lite extra, när du behöver göra ett val och dricka för att ta reda på vilken som är den rätta.",
+  "material.tconstruct.darkthread.encyclopedia.skull": "Gör bäraren immun mot gift, men tar inte bort befintlig förgiftning",
 
 
-  
   "__comment": "Tier Nether Materials",
   "material.tconstruct.cobalt": "Kobolt",
-  "material.tconstruct.cobalt.format": "%s av kobolt",
   "material.tconstruct.cobalt.flavor": "Kobolt. Den röda arméns material.",
-  "material.tconstruct.cobalt.encyclopedia": "Ökar gräv- och attackhastigheten med 7 % per nivå",
+  "material.tconstruct.cobalt.encyclopedia.melee_harvest": "Ökar gräv- och attackhastigheten med 7 % per nivå",
   
   "material.tconstruct.manyullyn": "Manyullyn",
-  "material.tconstruct.manyullyn.format": "%s av manyullyn",
   "material.tconstruct.manyullyn.flavor": "Metallen som de flesta Tinkers-spelarna aldrig kommer uttala rätt. Även känt som ett utmärkt material för att skära saker och ting.",
   "material.tconstruct.manyullyn.encyclopedia": "Ger +2 skada per nivå efter 8 kontinuerliga träffar",
   
   "material.tconstruct.hepatizon": "Hepatizon",
-  "material.tconstruct.hepatizon.format": "%s av hepatizon",
   "material.tconstruct.hepatizon.flavor": "He-pa-ti-zon - koka, mosa och stoppa ned den i en stuvning.",
-  "material.tconstruct.hepatizon.encyclopedia": "Ökar grävhastigheten med 25 % per nivå när 32 block har brutits kontinuerligt",
+  "material.tconstruct.hepatizon.encyclopedia.melee_harvest": "Ökar grävhastigheten med 25 % per nivå när 32 block har brutits kontinuerligt",
   
   "material.tconstruct.queens_slime": "Drottningsslem",
-  "material.tconstruct.queens_slime.format": "%s av drottningsslem",
   "material.tconstruct.queens_slime.flavor": "Prinsessor är ondskefulla, skaffa dig en drottning.",
   "material.tconstruct.queens_slime.encyclopedia": "Reducerar hållbarheten med 15 % per nivå, 66 % av detta går till slemhölje",
   
   "material.tconstruct.blazing_bone": "Brännben",
-  "material.tconstruct.blazing_bone.format": "%s av brännben",
   "material.tconstruct.blazing_bone.flavor": "Utnyttja den fullständiga kraften hos Netherfästningen - ben och brännare",
   "material.tconstruct.blazing_bone.encyclopedia": "Ger +1 % skada för varje sekund som du brinner, upp till +15 % från lavans 15 sekunder. Bonusen reduceras av eldresistans.",
-  "material.tconstruct.blazing_bone.skull_flavor": "Jag sade åt dem att detta tekniskt sätt är eldspottande, inte eldsprutande, men tydligen får jag inte namnge mina egna uppfinningar",
-  "material.tconstruct.blazing_bone.skull_encyclopedia": "Låter dig spotta eldladdningar från förrådet som om det vore eldklot. Har en väntetid på 5 sekunder och fungerar inte under vatten",
+  "material.tconstruct.blaze.flavor.skull": "Jag sade åt dem att detta tekniskt sätt är eldspottande, inte eldsprutande, men tydligen får jag inte namnge mina egna uppfinningar",
+  "material.tconstruct.blaze.encyclopedia.skull": "Låter dig spotta eldladdningar från förrådet som om det vore eldklot. Har en väntetid på 5 sekunder och fungerar inte under vatten",
   
-  "material.tconstruct.soulsteel": "Själstål",
-
   "material.tconstruct.ancient_hide": "Forntida skinn",
-  "material.tconstruct.ancient_hide.format": "%s av forntida skinn",
   "material.tconstruct.ancient_hide.flavor": "Läder som har garvats av uråldrig sten",
-  "material.tconstruct.ancient_hide.encyclopedia": "Ökar chansen att få föremål från block, kan kombineras med \"Tur\"",
+  "material.tconstruct.ancient_hide.encyclopedia.melee_harvest": "Ökar chansen att få föremål från block, kan kombineras med \"Tur\"",
   
   
   "__comment": "Tier End Materials",
-  "material.tconstruct.endstone": "Endsten",
   "material.tconstruct.knightslime": "Riddarslem",
+  "material.tconstruct.knightslime.flavor": "Slemmigt fast metalliskt men även sten? Fascinerande!",
   
   "material.tconstruct.enderslime_vine": "Slemmig klätterväxt",
-  "material.tconstruct.enderslime_vine.format": "%s av slemmig klätterväxt",
   "material.tconstruct.enderslime_vine.flavor": "Slutet?",
-  "material.tconstruct.enderslime_vine.encyclopedia": "Teleporterar bäraren dit block bryts eller monster dödas",
+  "material.tconstruct.enderslime_vine.encyclopedia.melee_harvest": "Teleporterar bäraren dit block bryts eller monster dödas",
   
   "__comment": "Slimesuit materials",
   "material.tconstruct.gunpowder": "Krut",
-  "material.tconstruct.gunpowder.format": "%s av krut",
-  "material.tconstruct.gunpowder.skull_flavor": "Vems fina saker kommer att förstöras den här gången, creeper?",
-  "material.tconstruct.gunpowder.skull_encyclopedia": "När interaktionstangenten för hjälmen hålls ned exploderar den",
+  "material.tconstruct.gunpowder.flavor.skull": "Vems fina saker kommer att förstöras den här gången, creeper?",
+  "material.tconstruct.gunpowder.encyclopedia.skull": "När interaktionstangenten för hjälmen hålls ned exploderar den",
   
   "material.tconstruct.ender_pearl": "Enderpärla",
-  "material.tconstruct.ender_pearl.format": "%s av enderpärla",
-  "material.tconstruct.ender_pearl.skull_flavor": "Endermän vet hur man gör för att undvika fara och vetenskapsmän. De har ignorerat mig varje gång jag ber om en intervju i flera veckor!",
-  "material.tconstruct.ender_pearl.skull_encyclopedia": "Teleporterar automatiskt när man blir attackerad av en projektil och slumpartat vid närstrid. Har en väntetid på 30 sekunder",
-  
-  "material.tconstruct.spider": "Spindel",
-  "material.tconstruct.spider.format": "%s av spindel",
-  "material.tconstruct.spider.skull_flavor": "Spindlar är mästare på brygder och deras hemlighet kanske kan hjälpa mig att förtrolla brygder...",
-  "material.tconstruct.spider.skull_encyclopedia": "Förlänger positiva brygdeffekter med 50 %",
-  
-  "material.tconstruct.venom": "Gift",
-  "material.tconstruct.venom.format": "%s av gift",
-  "material.tconstruct.venom.skull_flavor": "Perfekt för strider där man måste tänka till lite extra, när du behöver göra ett val och dricka för att ta reda på vilken som är den rätta.",
-  "material.tconstruct.venom.skull_encyclopedia": "Gör bäraren immun mot gift, men tar inte bort befintlig förgiftning",
-  
-  "material.tconstruct.rotten_flesh": "Ruttet kött",
-  "material.tconstruct.rotten_flesh.format": "%s av ruttet kött",
-  "material.tconstruct.rotten_flesh.skull_flavor": "Allt är väl",
-  "material.tconstruct.rotten_flesh.skull_encyclopedia": "Närstridsattacker ökar brinntiden för mål baserat på bärarens brinntid",
+  "material.tconstruct.ender_pearl.flavor.skull": "Endermän vet hur man gör för att undvika fara och vetenskapsmän. De har ignorerat mig varje gång jag ber om en intervju i flera veckor!",
+  "material.tconstruct.ender_pearl.encyclopedia.skull": "Teleporterar automatiskt när man blir attackerad av en projektil och slumpartat vid närstrid. Har en väntetid på 30 sekunder",
   
   "material.tconstruct.gold": "Guld",
-  "material.tconstruct.gold.format": "% av guld",
-  "material.tconstruct.gold.skull_flavor": "Så glänsande",
-  "material.tconstruct.gold.skull_encyclopedia": "Får en del guldmalm att avge några extra guldklimpar och ökar chansen att få guldrustning med 4 %. Chansen att få klimpar och rustningar ökas ytterligare för varje rustningsdel av guld som bärs.",
+  "material.tconstruct.gold.flavor.skull": "Så glänsande",
+  "material.tconstruct.gold.encyclopedia.skull": "Får en del guldmalm att avge några extra guldklimpar och ökar chansen att få guldrustning med 4 %. Chansen att få klimpar och rustningar ökas ytterligare för varje rustningsdel av guld som bärs.",
   
   "material.tconstruct.obsidian":   "Obsidian",
-  "material.tconstruct.debris":     "Spillror",
-  "material.tconstruct.netherite":  "Netherit",
   "material.tconstruct.earthslime": "Jordslem",
   "material.tconstruct.skyslime":   "Himmelslem",
   "material.tconstruct.blood":      "Blod",
@@ -1519,87 +1410,60 @@
   "material.tconstruct.enderslime": "Enderslem",
   "material.tconstruct.clay":       "Lera",
   "material.tconstruct.honey":      "Honung",
-  "material.tconstruct.enderslime.format": "%s av enderslem",
   "material.tconstruct.phantom": "Fantommembran",
-  "material.tconstruct.phantom.format": "%s av fantommembran",
   "material.tconstruct.chorus": "Kör",
-  "material.tconstruct.chorus.format": "%s av kör",
-  "material.tconstruct.rabbit": "Kaninskinn",
-  "material.tconstruct.rabbit.format": "%s av kaninskinn",
 
   "material.tconstruct.aluminum": "Aluminium",
-  "material.tconstruct.nickel":   "Nickel",
-  "material.tconstruct.tin":      "Tenn",
-  "material.tconstruct.zinc":     "Zink",
-  "material.tconstruct.brass":    "Mässing",
-  "material.tconstruct.uranium":  "Uran",
-  
+
   
   "__comment": "Tier 2 Integration Materials",
   "material.tconstruct.osmium": "Osmium",
-  "material.tconstruct.osmium.format": "%s av osmium",
   "material.tconstruct.osmium.flavor": "Trögare än trögast",
   "material.tconstruct.osmium.encyclopedia": "Förhindrar 33 % skada på bekostnad av 25 % extra reparationskostnad vid nivå 1",
   
-  "material.tconstruct.tungsten": "Volfram",
-  "material.tconstruct.tungsten.format": "%s av volfram",
-  "material.tconstruct.tungsten.flavor": "Har du övervägt att starta ett heavy metal-band?",
-  "material.tconstruct.tungsten.encyclopedia": "Ger +10 % grävhastighet och -10 % rörelsehastighet per nivå",
-  
-  "material.tconstruct.platinum": "Platina",
-  "material.tconstruct.platinum.format": "%s av platina",
-  "material.tconstruct.platinum.flavor": "Det som vinnarna använder!",
-  "material.tconstruct.platinum.encyclopedia": "Ger +8 grävhastighet på malm",
-  
   "material.tconstruct.lead": "Bly",
-  "material.tconstruct.lead.format": "%s av bly",
   "material.tconstruct.lead.flavor": "Skulle kunna försöka att göra en smörgås utav detta.",
-  "material.tconstruct.lead.encyclopedia": "Ger +10 % attack och -10 % rörelsehastighet per nivå",
+  "material.tconstruct.lead.encyclopedia.melee_harvest": "Ger +10 % grävhastighet och -10 % rörelsehastighet per nivå",
   
   "material.tconstruct.silver": "Silver",
-  "material.tconstruct.silver.format": "%s av silver",
   "material.tconstruct.silver.flavor": "Det här verktyget kommer inte att glänsa så mycket om några dagar.",
   "material.tconstruct.silver.encyclopedia": "Ger +2,5 skada mot odöda per nivå",
-  
-  "material.tconstruct.whitestone": "Vitsten",
-  "material.tconstruct.whitestone.format": "%s av vitsten",
+
+  "material.tconstruct.whitestone": "Endsten",
+  "material.tconstruct.whitestone.composite": "Vitsten",
+  "material.tconstruct.whitestone.aluminum": "Vitsten",
+  "material.tconstruct.whitestone.tin": "Vitsten",
+  "material.tconstruct.whitestone.zinc": "Vitsten",
   "material.tconstruct.whitestone.flavor": "Ta dina värdelösa vita metaller och gör ett användbart verktyg",
-  "material.tconstruct.whitestone.encyclopedia": "Har en chans på 20 % per nivå att ge +3 stensköld när sten grävs",
+  "material.tconstruct.whitestone.encyclopedia.melee_harvest": "Har en chans på 20 % per nivå att ge +3 stensköld när sten grävs",
   
   
   "__comment": "Tier 3 Integration Materials",
   "material.tconstruct.steel": "Stål",
-  "material.tconstruct.steel.format": "%s av stål",
   "material.tconstruct.steel.flavor": "I princip 90 % materialvetenskap",
   "material.tconstruct.steel.encyclopedia": "Ger +4 % hållbarhet, skada och hastighet per nivå",
 
   "material.tconstruct.bronze": "Brons",
-  "material.tconstruct.bronze.format": "%s av tinkersbrons",
   "material.tconstruct.bronze.flavor": "Inte att förväxlas med brons.",
-  "material.tconstruct.bronze.encyclopedia": "Ger +6 grävhastighet per nivå vid full hållbarhet, där under 50 % hållbarhet ger ingenting",
+  "material.tconstruct.bronze.encyclopedia.melee_harvest": "Ger +6 grävhastighet per nivå vid full hållbarhet, där under 50 % hållbarhet ger ingenting",
 
   "material.tconstruct.constantan": "Konstantan",
-  "material.tconstruct.constantan.format": "%s av konstantan",
   "material.tconstruct.constantan.flavor": "Konstantantantantantantan... Förlåt, men det är så roligt att lägga till flera \"tan\".",
-  "material.tconstruct.constantan.encyclopedia": "Ger +7,5 grävhastighet vid extrem hetta eller kyla",
+  "material.tconstruct.constantan.encyclopedia.melee_harvest": "Ger +7,5 grävhastighet vid extrem hetta eller kyla",
   
   "material.tconstruct.invar": "Invar",
-  "material.tconstruct.invar.format": "%s av invar",
   "material.tconstruct.invar.flavor": "Resistans mot temperaturer.",
-  "material.tconstruct.invar.encyclopedia": "Ger +2,5 skada i biomer med neutrala temperaturer",
-  
+  "material.tconstruct.invar.encyclopedia": "Ger +10 % attack och -10 % rörelsehastighet per nivå",
+
   "material.tconstruct.electrum": "Elektrum",
-  "material.tconstruct.electrum.format": "%s av elektrum",
   "material.tconstruct.electrum.flavor": "Bra för elektroniska komponenter.",
   "material.tconstruct.electrum.encyclopedia": "Ger +50 % erfarenhet per nivå från block och monster",
   
   "material.tconstruct.necronium": "Nekronium",
-  "material.tconstruct.necronium.format": "%s av nekronium",
   "material.tconstruct.necronium.flavor": "Med så mycket vissnande kommer den bara en fjärdedels liv kvar",
   "material.tconstruct.necronium.encyclopedia": "Orsakar minst 5 sekunders vissnandeeffekt till ditt mål och med 25 % chans på dig",
   
   "material.tconstruct.plated_slimewood": "Pläterat slemträ",
-  "material.tconstruct.plated_slimewood.format": "%s av pläterat slemträ",
   "material.tconstruct.plated_slimewood.flavor": "Glansen från mässingen med klafset från slemmet",
   "material.tconstruct.plated_slimewood.encyclopedia": "Ger +100 % till alla metoder för att återställa slemhölje",
   
@@ -1628,8 +1492,7 @@
   "modifier.tconstruct.offhanded.flavor": "Fundera inte på detta alltför mycket",
   "modifier.tconstruct.offhanded.description": "Inaktiverar verktygets förmåga att interagera när den sekundära handen inte är tom",
   "modifier.tconstruct.offhanded.description.2": "Inaktiverar verktygets förmåga att interagera helt och hållet",
-  "recipe.tconstruct.modifier.offhanded.level_2": "\"Ingen hand\" kräver \"Sekundär hand\" för att kunna tillämpas",
-  
+
   
   "_comment": "Durability",
   "modifier.tconstruct.reinforced": "Förstärkt",
@@ -1653,8 +1516,7 @@
   "modifier.tconstruct.netherite": "Netherit",
   "modifier.tconstruct.netherite.flavor": "Raffinerat!",
   "modifier.tconstruct.netherite.description": "Utnyttja kraften hos uråldrig metall vilket gör verktyget starkare och immun mot extern skada, t.ex. eld",
-  "recipe.tconstruct.modifier.netherite_requirements": "Netherit kräver antingen diamant eller smaragd för att tillämpas",
-  
+
   "modifier.tconstruct.overslime": "Slemhölje",
   "modifier.tconstruct.overslime.flavor": "Slemmigt!",
   "modifier.tconstruct.overslime.description": "Verktyget konsumerar slemhölje istället för hållbarhet, tills det tar slut! Inte så vänligt för verktyg som saknar slem",
@@ -1668,7 +1530,6 @@
   "modifier.tconstruct.magnetic.description": "Slå på saker för att dra till sig föremål?!",
   
   "modifier.tconstruct.haste": "Skyndsamhet",
-  "modifier.tconstruct.haste.1": "Skyndsamhet",
   "modifier.tconstruct.haste.2": "Skyndsammare",
   "modifier.tconstruct.haste.3": "Mer skyndsammare",
   "modifier.tconstruct.haste.4": "ÄNNU mer skyndsammare",
@@ -1687,6 +1548,7 @@
   "modifier.tconstruct.lightspeed": "Ljushastighet",
   "modifier.tconstruct.lightspeed.flavor": "Ljusare är snabbare!",
   "modifier.tconstruct.lightspeed.description": "Verktyget gräver snabbare i välupplysta miljöer!",
+  "modifier.tconstruct.lightspeed_armor.description": "Ökar gåhastigheten i välupplysta områden",
   "modifier.tconstruct.lightspeed.mining_speed": "ljusgrävande",
   
   "_comment": "Weapon",
@@ -1745,7 +1607,6 @@
   "modifier.tconstruct.sharpness.flavor": "Hur vass?",
   "modifier.tconstruct.sharpness.description": "Verktyget blir mycket vassare och utdelar mer skada!",
   "modifier.tconstruct.swiftstrike": "Snabbslag",
-  "modifier.tconstruct.swiftstrike.1": "Snabbslag",
   "modifier.tconstruct.swiftstrike.2": "Fler snabbslag",
   "modifier.tconstruct.swiftstrike.3": "Ännu fler snabbslag",
   "modifier.tconstruct.swiftstrike.4": "Näst flest snabbslag",
@@ -1840,19 +1701,12 @@
   "modifier.tconstruct.item_frame.description": "Lägger till förrådplatser på hjälmen för att kunna visa upp föremål. Perfekt för klockor och kompasser",
   
   "_comment": "Armor - chestplate",
-  "modifier.tconstruct.knockback_armor": "Knuff",
-  "modifier.tconstruct.knockback_armor.flavor": "Wolololo!",
-  "modifier.tconstruct.knockback_armor.description": "Saker flyger iväg längre när du slår dem med ett vapen!",
   "modifier.tconstruct.armor_power": "Kraft",
   "modifier.tconstruct.armor_power.flavor": "Kan du känna kraften flöda genom dig?",
   "modifier.tconstruct.armor_power.description": "Får dina vapen att bli starkare",
   "modifier.tconstruct.strength": "Styrka",
   "modifier.tconstruct.strength.flavor": "Kan du känna styrkan flöda igenom dig?",
   "modifier.tconstruct.strength.description": "Får dina vapen att bli starkare",
-  "modifier.tconstruct.unarmed": "Obeväpnad",
-  "modifier.tconstruct.unarmed.flavor": "För de som gillar att använda sina händer",
-  "modifier.tconstruct.unarmed.description": "Får modifierare i ett harnesk att öka skada från obeväpnade attacker",
-  "recipe.tconstruct.modifier.unarmed": "Kräver att modifieraren \"Obeväpnad\" läggs till först",
   "modifier.tconstruct.wings": "Vingar",
   "modifier.tconstruct.wings.flavor": "Himlen är din",
   "modifier.tconstruct.wings.description": "Låter dig sväva genom luften genom att hoppa när du är i luften",
@@ -1873,11 +1727,7 @@
   "modifier.tconstruct.tool_belt": "Verktygsbälte",
   "modifier.tconstruct.tool_belt.flavor": "Har du någonsin önskat du hade fler händer?",
   "modifier.tconstruct.tool_belt.description": "Interagera med byxorna för att byta föremålsmeny",
-  "modifier.tconstruct.pocket_chain": "Fickkedja",
-  "modifier.tconstruct.pocket_chain.flavor": "En kedja för att binda alla",
-  "modifier.tconstruct.pocket_chain.description": "Ger åtkomst till alla platser i ett verktygsbälte eller en sköldrem genom att smyga och interagera, samt lägger till +1 plats",
-  "recipe.tconstruct.modifier.pocket_chain": "Fickkedja kräver \"Verktygsbälte\" eller \"Sköldrem\"",
-  
+
   "modifier.tconstruct.inventory_cannot_remove": "Denna ändring kan orsaka att föremål som lagras i detta verktyg raderas",
 
   "_comment": "Armor - boots",
@@ -1888,12 +1738,9 @@
   "modifier.tconstruct.soulspeed": "Själhastighet",
   "modifier.tconstruct.soulspeed.flavor": "Läskigt",
   "modifier.tconstruct.soulspeed.description": "Ökar gåhastigheten på själsand",
-  "modifier.tconstruct.lightspeed_armor": "Ljushastighet",
-  "modifier.tconstruct.lightspeed_armor.flavor": "Ljusare är snabbare!",
-  "modifier.tconstruct.lightspeed_armor.description": "Ökar gåhastigheten i välupplysta områden",
   "modifier.tconstruct.double_jump": "Dubbelhopp",
-  "modifier.tconstruct.double_jump.double": "Dubbelhopp",
-  "modifier.tconstruct.double_jump.triple": "Trippelhopp",
+  "modifier.tconstruct.double_jump.2": "Dubbelhopp",
+  "modifier.tconstruct.double_jump.3": "Trippelhopp",
   "modifier.tconstruct.double_jump.flavor": "Upp, upp och iväg!",
   "modifier.tconstruct.double_jump.description": "Låter dig hoppa igen i luften. Högre nivåer lägger till fler hopp!",
   "modifier.tconstruct.bouncy": "Studsigt",
@@ -1903,12 +1750,6 @@
   "modifier.tconstruct.frost_walker": "Frostgående",
   "modifier.tconstruct.frost_walker.flavor": "Var är min superdräkt?",
   "modifier.tconstruct.frost_walker.description": "Får vattenblock att tillfälligt frysas",
-  "modifier.tconstruct.path_maker": "Stigläggare",
-  "modifier.tconstruct.path_maker.flavor": "Led vägen",
-  "modifier.tconstruct.path_maker.description": "Skapar stigar där du går",
-  "modifier.tconstruct.plowing": "Plöjare",
-  "modifier.tconstruct.plowing.flavor": "Traktorn uppfanns 1892",
-  "modifier.tconstruct.plowing.description": "Plöjer block framför dig",
   "modifier.tconstruct.snowdrift": "Snödrivande",
   "modifier.tconstruct.snowdrift.flavor": "Golem golem",
   "modifier.tconstruct.snowdrift.description": "Lämna ett spår av snö efter dig som en snögolem",
@@ -1921,12 +1762,11 @@
   "modifier.tconstruct.unbreakable": "Oförstörbar",
   "modifier.tconstruct.unbreakable.flavor": "Fruset tillstånd!",
   "modifier.tconstruct.unbreakable.description": "Verktyget tar inte längre skada när det används på rätt sätt",
-  "recipe.tconstruct.modifier.unbreakable_requirements": "\"Oförstörbar\" kräver netherit och \"Förstärkt V\" för att kunna tillämpas",
+  "modifier.tconstruct.unbreakable.requirements": "\"Oförstörbar\" kräver netherit och \"Förstärkt V\" för att kunna tillämpas",
   "modifier.tconstruct.dual_wielding": "Tvåhänthet",
   "modifier.tconstruct.dual_wielding.flavor": "Dubbelt så mycket action!",
   "modifier.tconstruct.dual_wielding.description": "Låter dig attackera med den sekundära handen förutsett att den primära handen också kan hålla i ett vapen. Verktyg med \"Tvåhänthet\" har reducerade värden",
-  "recipe.tconstruct.modifier.two_handed_dual_wielding": "Verktyg för två händer kräver \"Sekundär hand\" för att kunna få \"Tvåhänthet\".",
-  
+
   "_comment": "Loot",
   "modifier.tconstruct.silky": "Silkeslent",
   "modifier.tconstruct.silky.flavor": "Lent som silke!",
@@ -1935,22 +1775,17 @@
   "modifier.tconstruct.autosmelt.flavor": "Nethers eldar i ditt verktyg!",
   "modifier.tconstruct.autosmelt.description": "Verktyget smälter automatiskt föremål",
   "modifier.tconstruct.luck": "Tur",
-  "modifier.tconstruct.luck.1": "Tur",
   "modifier.tconstruct.luck.2": "Mer tur",
   "modifier.tconstruct.luck.3": "Maximal tur",
   "modifier.tconstruct.luck.flavor": "Tjusigt!",
   "modifier.tconstruct.luck.description": "Ger dig fler fina saker när du gräver eller dödar varelser!",
-  "recipe.tconstruct.modifier.luck.level_2": "\"Mer tur\" kräver ett annat recept för den första nivån",
-  "recipe.tconstruct.modifier.luck.level_3": "\"Maximal tur\" kräver ett annat recept för de två första nivåerna",
   "modifier.tconstruct.fortune": "Rikedom",
   "modifier.tconstruct.fortune.flavor": "Tur i malmbrytning!",
   "modifier.tconstruct.fortune.description": "Ger dig fler fina saker när du gräver!",
   "modifier.tconstruct.looting": "Plundring",
   "modifier.tconstruct.looting.flavor": "Tur i strid!",
   "modifier.tconstruct.looting.description": "Ger dig fler fina saker när du dödar varelser!",
-  "recipe.tconstruct.modifier.looting.level_2": "\"Plundring II\" kräver ett annat recept för den första nivån",
-  "recipe.tconstruct.modifier.looting.level_3": "\"Plundring III\" kräver ett annat recept för de två första nivåerna",
-  
+
   "_comment": "Expanders",
   "modifier.tconstruct.expanded": "Expanderad",
   "modifier.tconstruct.expanded.flavor": "Vet verkligen hur man breder ut sig!",
@@ -1985,8 +1820,7 @@
   "modifier.tconstruct.melting.flavor": "Kraften hos en nedsmältare på en pinne!",
   "modifier.tconstruct.melting.description": "Smälter ned attackerade entiteter och föremål som avges!",
   "modifier.tconstruct.tank": "Tank",
-  "modifier.tconstruct.tank.filled": "Tank: %s mb %s",
-  "modifier.tconstruct.tank.capacity": "Tankkapacitet: %s mb",
+  "tool_stat.tconstruct.tank_capacity": "Tankkapacitet: ",
   "modifier.tconstruct.tank.flavor": "Större är alltid bättre!",
   "modifier.tconstruct.tank.description": "Verktyget får en vätsketank som låter den att lagra vätska",
   "modifier.tconstruct.bucketing": "Hinkförmåga",
@@ -2026,23 +1860,9 @@
   "modifier.tconstruct.draconic.flavor": "End har erövrats!",
   "modifier.tconstruct.draconic.description": "Huvudet från den stora besten ger ditt verktyg en till plats för en förmåga!",
   
-  "__comment": "Three more +1 upgrade modifiers for modpacks",
-  "modifier.tconstruct.red_extra_upgrade": "Röd extrauppgradering",
-  "modifier.tconstruct.red_extra_upgrade.flavor": "For modpaket!",
-  "modifier.tconstruct.red_extra_upgrade.description": "Be skaparen av ditt modpaket att skapa ett resurspaket med mer informationstext",
-  "modifier.tconstruct.green_extra_upgrade": "Grön extrauppgradering",
-  "modifier.tconstruct.green_extra_upgrade.flavor": "För modpaket!",
-  "modifier.tconstruct.green_extra_upgrade.description": "Be skaparen av ditt modpaket att skapa ett resurspaket med mer informationstext",
-  "modifier.tconstruct.blue_extra_upgrade": "Blå extrauppgradering",
-  "modifier.tconstruct.blue_extra_upgrade.flavor": "För modpaket!",
-  "modifier.tconstruct.blue_extra_upgrade.description": "Be skaparen av ditt modpaket att skapa ett resurspaket med mer informationstext",
-  "modifier.tconstruct.extra_ability": "Extraförmåga",
-  "modifier.tconstruct.extra_ability.flavor": "För modpaket!",
-  "modifier.tconstruct.extra_ability.description": "Be skaparen av ditt modpaket att skapa ett resurspaket med mer informationstext",
-  
-  
+
   "__comment": "Tier 1 Traits",
-  "modifier.tconstruct.fake_attribute.mining_speed": "grävhastighet",
+  "armor_stat.tconstruct.mining_speed": "grävhastighet",
   
   "modifier.tconstruct.cultivated": "Kultiverad",
   "modifier.tconstruct.cultivated.flavor": "Ekonomiskt!",
@@ -2121,7 +1941,7 @@
   "modifier.tconstruct.momentum": "Tempo",
   "modifier.tconstruct.momentum.flavor": "Inte tillräckligt snabbt, det måste gå snabbare!",
   "modifier.tconstruct.momentum.description": "Din hastighet ökar när du bryter block så länge du fortsätter gräva",
-  "modifier.tconstruct.momentum.mining_speed": "sekventiell grävhastighet",
+  "modifier.tconstruct.momentum.speed": "sekventiell grävhastighet",
   "modifier.tconstruct.insatiable": "Omättlig",
   "modifier.tconstruct.insatiable.flavor": "Blodsmak!",
   "modifier.tconstruct.insatiable.description": "Under strid utdelar du mer och mer skada varje gång du träffar en fiende",
@@ -2129,7 +1949,7 @@
   "modifier.tconstruct.conducting": "Värmeledande",
   "modifier.tconstruct.conducting.flavor": "Termodynamiskt!",
   "modifier.tconstruct.conducting.description": "Verktyget utdelar multiplicerad skada när du brinner",
-  "modifier.tconstruct.conducting.attack_damage": "maxskada när man brinner",
+  "modifier.tconstruct.conducting.boost": "maxskada när man brinner",
   
   "__comment": "Tier 5 Traits",
   "modifier.tconstruct.enderporting": "Enderportering",
@@ -2141,16 +1961,13 @@
   "modifier.tconstruct.dense": "Kompakt",
   "modifier.tconstruct.dense.flavor": "Förlorar knappt sin form",
   "modifier.tconstruct.dense.description": "Verktyget varar längre men blir svårare att repareras",
-  "modifier.tconstruct.sharpweight": "Vassviktad",
-  "modifier.tconstruct.sharpweight.flavor": "Till skillnad från \"slöviktad\"",
-  "modifier.tconstruct.sharpweight.description": "Gräver snabbare, men det är extremt svårt att röra sig",
   "modifier.tconstruct.lustrous": "Glänsande",
   "modifier.tconstruct.lustrous.flavor": "Den mest glänsande malmen av dem alla!",
   "modifier.tconstruct.lustrous.description": "Gräver malm snabbare",
-  "modifier.tconstruct.lustrous.mining_speed": "malmgrävande",
   "modifier.tconstruct.heavy": "Tung",
   "modifier.tconstruct.heavy.flavor": "Trög!",
-  "modifier.tconstruct.heavy.description": "Det är svårt att röra sig när man bär detta, men man slår hårt",
+  "modifier.tconstruct.heavy.description": "Gräver snabbare, men det är extremt svårt att röra sig",
+  "modifier.tconstruct.solid.description": "Det är svårt att röra sig när man bär detta, men man slår hårt",
   "modifier.tconstruct.stoneshield": "Stensköld",
   "modifier.tconstruct.stoneshield.flavor": "Mästerlig stenformning",
   "modifier.tconstruct.stoneshield.description": "Bruten sten skyddar verktyget från att ta skada i framtiden",
@@ -2192,9 +2009,9 @@
   "modifier.tconstruct.strong_bones": "Starka ben",
   "modifier.tconstruct.strong_bones.flavor": "Har du mjölk?",
   "modifier.tconstruct.strong_bones.description": "Drick mjölk för att tillfälligt få högre resistans",
-  "modifier.tconstruct.frosttouch": "Frostvante",
-  "modifier.tconstruct.frosttouch.flavor": "En kyla som håller fiender borta",
-  "modifier.tconstruct.frosttouch.description": "Får pilar att orsaka långsamhet, som även tillämpas på närstridsattacker efter man dricker mjölk",
+  "modifier.tconstruct.slow_bones": "Frostvante",
+  "modifier.tconstruct.slow_bones.flavor": "En kyla som håller fiender borta",
+  "modifier.tconstruct.slow_bones.description": "Får pilar att orsaka långsamhet, som även tillämpas på närstridsattacker efter man dricker mjölk",
   "modifier.tconstruct.withered": "Vissnad",
   "modifier.tconstruct.withered.flavor": "Hemligheten hos vissnandet",
   "modifier.tconstruct.withered.description": "Mål som attackeras får vissnandeeffekten, som ökar i hastighet efter man dricker mjölk",
@@ -2278,8 +2095,10 @@
   "_comment": "Internal effects",
   "effect.tconstruct.bleeding": "Blödande",
   "effect.tconstruct.magnetic": "Magnetisk",
-  "effect.tconstruct.momentum": "Tempo",
-  "effect.tconstruct.insatiable": "Omättlig",
+  "effect.tconstruct.momentum_harvest": "Tempo",
+  "effect.tconstruct.momentum_ranged": "Tempo",
+  "effect.tconstruct.insatiable_melee": "Omättlig",
+  "effect.tconstruct.insatiable_ranged": "Omättlig",
   "effect.tconstruct.teleport_cooldown": "Väntetid för teleportering",
   "effect.tconstruct.fireball_cooldown": "Väntetid för eldklot",
   "effect.tconstruct.calcified": "Förkalkning",
@@ -2334,7 +2153,6 @@
   "tool_stat.tconstruct.handle.attack_speed.description": "Verktygets totala attackhastighet multipliceras med detta.",
   "tool_stat.tconstruct.handle.mining_speed.description": "Verktygets totala grävhastighet multipliceras med detta.",
   
-  "stat.tconstruct.extra": "Extra",
   "tool_stat.tconstruct.extra.no_stats": "Inga värden",
   
   "stat.tconstruct.repair_kit": "Reparationssats",
@@ -2383,8 +2201,7 @@
   "itemGroup.tconstruct.tool_parts": "Tinkers verktygsdelar",
   "itemGroup.tconstruct.smeltery": "Tinkers smältning",
   "itemGroup.tconstruct.world": "Tinkers värld",
-  "itemGroup.tconstruct.gadgets": "Tinkers manicker",
-  
+
   "gui.tconstruct.crafting_station": "Tillverkningsstation",
   "gui.tconstruct.crafting_station.uncraftable": "Detta föremål kan för tillfället inte tillverkas av spelaren",
   
@@ -2425,8 +2242,7 @@
   "recipe.tconstruct.modifier.not_enough_slots": "Behöver minst %s %splatser för att lägga till denna modifierare",
   "recipe.tconstruct.modifier.validate_slots": "Denna förändring lämnar verktyget med för få %splatser",
   "recipe.tconstruct.modifier.max_level": "Nivån för %s kan inte vara över %s",
-  "recipe.tconstruct.modifier.requirements_error": "Verktygets tillstånd är ogiltigt för en av modifierarna. Kontakta skaparen för ditt modpaket och be om mer beskrivande information om felet.",
-  
+
   
   "_comment": "GUIs Messages",
   
@@ -2562,8 +2378,7 @@
   "jei.tconstruct.modifiers.slots": "Modifieraren kräver %s %splatser för att kunna tillämpa detta",
   "jei.tconstruct.modifiers.free": "Inga modifierarplatser krävs för att kunna tillämpa detta",
   "jei.tconstruct.modifiers.incremental": "Receptet är inkrementellt, vilket betyder att du kan tillämpa lite grann av inmatningen för att få en delvis effekt",
-  "jei.tconstruct.modifiers.max": "Max: ",
-  
+
   "jei.tconstruct.severing.title": "Avhuggning",
   
   "jei.tconstruct.part_builder.title": "Delbyggare",
@@ -2651,11 +2466,6 @@
   "advancements.tconstruct.world.clay_island.description": "Hitta en ö av lera i himlen",
   "advancements.tconstruct.world.slime_collector.title": "Slemsamlare",
   "advancements.tconstruct.world.slime_collector.description": "Få alla 6 slemtyper",
-  "advancements.tconstruct.world.slime_sling.title": "Slangbellsexpert",
-  "advancements.tconstruct.world.slime_sling.description": "Använd alla 4 typer av slemslangbellor tillräckligt mycket",
   "advancements.tconstruct.world.piggybackpack.title": "Liftare med knorr",
   "advancements.tconstruct.world.piggybackpack.description": "Plocka upp en gris med en bärsele"
-  
-  }
-  
- 
+}

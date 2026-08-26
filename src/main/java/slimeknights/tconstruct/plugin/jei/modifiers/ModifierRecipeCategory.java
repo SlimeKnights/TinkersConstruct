@@ -4,8 +4,10 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import lombok.Getter;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
+import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocus;
 import mezz.jei.api.recipe.IFocusGroup;
@@ -59,13 +61,10 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
   private final ModifierIngredientRenderer modifierRenderer = new ModifierIngredientRenderer(124, 10);
 
   @Getter
-  private final IDrawable background;
-  @Getter
   private final IDrawable icon;
   private final IDrawable requirements, incremental;
   private final IDrawable[] slotIcons;
   public ModifierRecipeCategory(IGuiHelper helper) {
-    this.background = helper.createDrawable(BACKGROUND_LOC, 0, 0, 128, 77);
     this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, CreativeSlotItem.withSlot(new ItemStack(TinkerModifiers.creativeSlotItem), SlotType.UPGRADE));
     this.slotIcons = new IDrawable[6];
     for (int i = 0; i < 6; i++) {
@@ -86,23 +85,23 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
     return TITLE;
   }
 
-  /** Draws a single slot icon */
-  private void drawSlot(GuiGraphics graphics, IDisplayModifierRecipe recipe, int slot, int x, int y) {
-    List<ItemStack> stacks = recipe.getDisplayItems(slot);
-    if (stacks.isEmpty()) {
-      // -1 as the item list includes the output slot, we skip that
-      slotIcons[slot].draw(graphics, x + 1, y + 1);
-    }
+  @Override
+  public int getWidth() {
+    return 128;
+  }
+
+  @Override
+  public int getHeight() {
+    return 77;
+  }
+
+  @Override
+  public void createRecipeExtras(IRecipeExtrasBuilder builder, IDisplayModifierRecipe recipe, IFocusGroup focuses) {
+    builder.addRecipeArrow().setPosition(71, 33);
   }
 
   @Override
   public void draw(IDisplayModifierRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics graphics, double mouseX, double mouseY) {
-    drawSlot(graphics, recipe, 0,  2, 32);
-    drawSlot(graphics, recipe, 1, 24, 14);
-    drawSlot(graphics, recipe, 2, 46, 32);
-    drawSlot(graphics, recipe, 3, 42, 57);
-    drawSlot(graphics, recipe, 4,  6, 57);
-
     // draw info icons
     ModifierEntry result = recipe.getDisplayResult();
     if (result.getHook(ModifierHooks.REQUIREMENTS).requirementsError(result) != null) {
@@ -173,19 +172,31 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
     return Collections.emptyList();
   }
 
+  /** Adds an input slot with the icon */
+  private void addInput(IRecipeLayoutBuilder builder, IDisplayModifierRecipe recipe, int index, int x, int y) {
+    List<ItemStack> stacks = recipe.getDisplayItems(index);
+    IRecipeSlotBuilder slot = builder.addSlot(RecipeIngredientRole.INPUT, x, y)
+      .addItemStacks(stacks)
+      .setStandardSlotBackground();
+    // show icon if the slot is empty
+    if (stacks.isEmpty()) {
+      slot.setOverlay(slotIcons[index], 0, 0);
+    }
+  }
+
   @Override
   public void setRecipe(IRecipeLayoutBuilder builder, IDisplayModifierRecipe recipe, IFocusGroup focuses) {
     // inputs
-    builder.addSlot(RecipeIngredientRole.INPUT,  3, 33).addItemStacks(recipe.getDisplayItems(0));
-    builder.addSlot(RecipeIngredientRole.INPUT, 25, 15).addItemStacks(recipe.getDisplayItems(1));
-    builder.addSlot(RecipeIngredientRole.INPUT, 47, 33).addItemStacks(recipe.getDisplayItems(2));
-    builder.addSlot(RecipeIngredientRole.INPUT, 43, 58).addItemStacks(recipe.getDisplayItems(3));
-    builder.addSlot(RecipeIngredientRole.INPUT,  7, 58).addItemStacks(recipe.getDisplayItems(4));
+    addInput(builder, recipe, 0,  3, 33);
+    addInput(builder, recipe, 1, 25, 15);
+    addInput(builder, recipe, 2, 47, 33);
+    addInput(builder, recipe, 3, 43, 58);
+    addInput(builder, recipe, 4,  7, 58);
 
     // modifiers
     builder.addSlot(RecipeIngredientRole.OUTPUT, 3, 3)
-           .setCustomRenderer(TConstructJEIConstants.MODIFIER_TYPE, modifierRenderer)
-           .addIngredient(TConstructJEIConstants.MODIFIER_TYPE, recipe.getDisplayResult());
+      .setCustomRenderer(TConstructJEIConstants.MODIFIER_TYPE, modifierRenderer)
+      .addIngredient(TConstructJEIConstants.MODIFIER_TYPE, recipe.getDisplayResult());
 
     // tool
     List<ItemStack> toolWithoutModifier = recipe.getToolWithoutModifier();
@@ -217,8 +228,10 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
         }
       }
     }
-    builder.addSlot(RecipeIngredientRole.CATALYST,  25, 38).addItemStacks(toolWithoutModifier);
-    builder.addSlot(RecipeIngredientRole.CATALYST, 105, 34).addItemStacks(toolWithModifier);
+    builder.addSlot(RecipeIngredientRole.CATALYST,  25, 38)
+      .addItemStacks(toolWithoutModifier).setStandardSlotBackground();
+    builder.addSlot(RecipeIngredientRole.CATALYST, 105, 34)
+      .addItemStacks(toolWithModifier).setOutputSlotBackground();
 
     // modifier slots
     SlotCount slots = recipe.getSlots();

@@ -77,7 +77,7 @@ public interface IModifierWorktableRecipe extends ICommonRecipe<ITinkerableConta
   /**
    * Gets an ingredients to display in JEI.
    * @param  slot  Slot index to display
-   * @return  Display item list
+   * @return  Display item list, or {@link List#of()} if an invalid index.
    */
   List<ItemStack> getDisplayItems(int slot);
 

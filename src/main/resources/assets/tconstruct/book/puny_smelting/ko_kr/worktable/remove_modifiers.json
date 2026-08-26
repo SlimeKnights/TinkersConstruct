@@ -1,9 +1,9 @@
 {
   "title": "수식어 제거",
   "image": {
-    "file": "tconstruct:book/images/remove_modifiers.png",
-    "width": 135,
-    "height": 72
+    "file": "tconstruct:book/images/worktable/remove_modifier.png",
+    "width": 147,
+    "height": 64
   },
   "text": [
     {

@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:tilling",
+  "text": [
+    {
+      "text": "Hiç büyük bir tarlaya gerek duymuş muydun? Gerçekten büyük bir tarla gibi? Şimdi yapabilirsin."
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/armor/boots",
+  "effects": [
+    "Yürüdükçe tarım alanı oluştur",
+    "Genişletilmiş ile alan artırılabilir",
+    "Tek seviye",
+    "1 yetenek yuvası gerekir"
+  ]
+}

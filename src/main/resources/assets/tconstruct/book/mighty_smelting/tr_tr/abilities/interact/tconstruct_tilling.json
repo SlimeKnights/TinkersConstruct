@@ -5,6 +5,7 @@
       "text": "Elmasları çapada boşuna harcama."
     }
   ],
+  "tool_filter": "tconstruct:modifiable/interactable",
   "effects": [
     "Aracınla yeri sürmeni sağlar",
     "Tek seviye",
