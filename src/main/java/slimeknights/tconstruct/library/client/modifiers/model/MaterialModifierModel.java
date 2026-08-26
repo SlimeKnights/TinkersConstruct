@@ -47,6 +47,17 @@ public interface MaterialModifierModel extends SimpleModifierModel {
   @Nullable
   MaterialVariantId getMaterial(IToolStackView tool, ModifierEntry entry);
 
+  /**
+   * Gets the color to tint the given material texture
+   * @param tool     Tool instance
+   * @param entry    Modifier entry
+   * @param sprite   Current material sprite
+   * @return  Color to tint
+   */
+  default int getColor(IToolStackView tool, ModifierEntry entry, TintedSprite sprite) {
+    return sprite.color();
+  }
+
   @Override
   default void addQuads(IToolStackView tool, ModifierEntry modifier, Function<Material,TextureAtlasSprite> spriteGetter, Transformation transforms, boolean isLarge, int startTintIndex, Consumer<Collection<BakedQuad>> quadConsumer, @Nullable ItemLayerPixels pixels) {
     Material texture = isLarge ? large() : small();
@@ -138,34 +149,23 @@ public interface MaterialModifierModel extends SimpleModifierModel {
     }
 
     @Override
-    public void addQuads(IToolStackView tool, ModifierEntry modifier, Function<Material, TextureAtlasSprite> spriteGetter, Transformation transforms, boolean isLarge, int startTintIndex, Consumer<Collection<BakedQuad>> quadConsumer, @Nullable ItemLayerPixels pixels) {
-      Material texture = isLarge ? large : small;
-      if (texture != null) {
-        MaterialVariantId material = getMaterial(tool, modifier);
-        if (material != null) {
-          // start with the material data
-          TintedSprite sprite = MaterialModel.getMaterialSprite(spriteGetter, texture, material);
-          int color = sprite.color();
-          // fetch the dye color
-          IModDataView data = tool.getPersistentData();
-          ResourceLocation key = getKey(modifier);
-          if (data.contains(key, Tag.TAG_INT)) {
-            // if we have a dye color, need to mix the two
-            int dyed = 0xFF000000 | data.getInt(key);
-            if (dyed != -1) {
-              // no material color makes mixing easy
-              if (color == -1) {
-                color = dyed;
-              } else {
-                // otherwise, let Minecraft figure it out
-                color = FastColor.ARGB32.multiply(color, dyed);
-              }
-            }
-          }
-          // use combined color with material sprite data
-          quadConsumer.accept(MantleItemLayerModel.getQuadsForSprite(color, -1, sprite.sprite(), transforms, sprite.emissivity(), pixels));
+    public int getColor(IToolStackView tool, ModifierEntry modifier, TintedSprite sprite) {
+      int color = useMaterialColor ? sprite.color() : -1;
+      // fetch the dye color
+      IModDataView data = tool.getPersistentData();
+      ResourceLocation key = getKey(modifier);
+      if (data.contains(key, Tag.TAG_INT)) {
+        // if we have a dye color, need to mix the two
+        int dyed = 0xFF000000 | data.getInt(key);
+        // no material color makes mixing easy
+        if (color == -1) {
+          color = dyed;
+        } else if (dyed != -1) {
+          // otherwise, let Minecraft figure it out
+          color = FastColor.ARGB32.multiply(color, dyed);
         }
       }
+      return color;
     }
 
     @Override

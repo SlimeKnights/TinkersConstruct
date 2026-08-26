@@ -57,6 +57,7 @@ import slimeknights.tconstruct.library.client.modifiers.model.ModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.NestedModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.TankModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.TrimModifierModel;
+import slimeknights.tconstruct.tools.client.SlimeskullModifierModel;
 
 import java.util.function.Consumer;
 
@@ -114,6 +115,8 @@ public class TinkerClient {
     ModifierModel.LOADER.register(getResource("fluid"), FluidModifierModel.LOADER);
     ModifierModel.LOADER.register(getResource("tank"), TankModifierModel.LOADER);
     ModifierModel.LOADER.register(getResource("material_has_fallback"), MaterialHasFallbackModifierModel.LOADER);
+    // specialized
+    ModifierModel.LOADER.register(getResource("slimeskull"), SlimeskullModifierModel.LOADER);
   }
 
   @SubscribeEvent

@@ -1,13 +1,10 @@
 {
   "constant": {
-    "__dyed": {
-      "type": "tconstruct:crafted",
-      "model": {
-        "type": "tconstruct:dyed_material",
-        "index": 0,
-        "texture": "tconstruct:item/tool/armor/slime/helmet/skull"
-      },
-      "modifier": "tconstruct:dyed"
+    "__skull": {
+      "type": "tconstruct:slimeskull",
+      "skull_index": 0,
+      "slime_index": 1,
+      "texture": "tconstruct:item/tool/armor/slime/helmet/skull"
     },
     "_trim": {
       "type": "tconstruct:crafted",

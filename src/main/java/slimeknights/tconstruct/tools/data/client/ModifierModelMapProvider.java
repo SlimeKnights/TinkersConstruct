@@ -5,11 +5,11 @@ import net.minecraft.world.item.ArmorItem;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.modifiers.DyedModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.MaterialHasFallbackModifierModel;
-import slimeknights.tconstruct.library.client.modifiers.model.MaterialModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.ModifierModel;
 import slimeknights.tconstruct.library.data.AbstractModifierModelMapProvider;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.tools.client.SlimeskullModifierModel;
 import slimeknights.tconstruct.tools.data.ModifierIds;
 
 import javax.annotation.Nullable;
@@ -310,7 +310,8 @@ public class ModifierModelMapProvider extends AbstractModifierModelMapProvider {
       .dyed("armor/slime/wings/slime");
     tool("slime/wings_broken").dyed("armor/slime/wings/slime_broken");
     // slimesuit dyeing
-    tool("slime/helmet").dyed(new MaterialModifierModel.Dyed(toolMaterial("armor/slime/helmet/skull"), null, 0));
+    // skull texture is added via the modifier map instead of the tool JSON, since we have to fetch the material anyway to dye it, saves fetching it twice
+    tool("slime/helmet").constant("__skull", new SlimeskullModifierModel(toolMaterial("armor/slime/helmet/skull"), 0, 1));
     tool("slime/leggings").dyed("armor/slime/leggings/shell");
     tool("slime/leggings_broken").dyed("armor/slime/leggings/shell_broken");
     tool("slime/boots").dyed("armor/slime/boots/laces");

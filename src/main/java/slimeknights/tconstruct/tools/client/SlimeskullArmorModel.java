@@ -46,7 +46,7 @@ public class SlimeskullArmorModel extends MultilayerArmorModel {
   /** Singleton model instance, all data is passed in via setters */
   public static final SlimeskullArmorModel INSTANCE = new SlimeskullArmorModel();
   /** Cache of colors for materials */
-  private static final SimpleCache<MaterialVariantId,Integer> MATERIAL_COLOR_CACHE = new SimpleCache<>(mat ->
+  static final SimpleCache<MaterialVariantId,Integer> MATERIAL_COLOR_CACHE = new SimpleCache<>(mat ->
     MaterialRenderInfoLoader.INSTANCE.getRenderInfo(mat)
             .map(MaterialRenderInfo::vertexColor)
             .orElse(-1));
