@@ -18,9 +18,5 @@
       "name": "slime",
       "index": 1
     }
-  ],
-  "first_modifiers": [
-    "tconstruct:dyed",
-    "tconstruct:trim"
   ]
 }

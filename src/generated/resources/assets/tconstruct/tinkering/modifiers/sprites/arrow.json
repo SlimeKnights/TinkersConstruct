@@ -1,5 +1,13 @@
 {
   "constant": {
+    "__dyed": {
+      "type": "tconstruct:crafted",
+      "model": {
+        "type": "tconstruct:dyed",
+        "texture": "tconstruct:item/tool/ammo/arrow_modifiers/dyed"
+      },
+      "modifier": "tconstruct:dyed"
+    },
     "smashing": {
       "type": "tconstruct:trait",
       "model": {
@@ -16,12 +24,6 @@
         "texture": "tconstruct:item/tool/ammo/arrow_modifiers/tipped"
       },
       "modifier": "tconstruct:tipped"
-    }
-  },
-  "modifiers": {
-    "tconstruct:dyed": {
-      "type": "tconstruct:dyed",
-      "texture": "tconstruct:item/tool/ammo/arrow_modifiers/dyed"
     }
   }
 }

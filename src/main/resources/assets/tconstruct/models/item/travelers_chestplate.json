@@ -6,7 +6,6 @@
     "metal":   "tconstruct:item/tool/armor/travelers/vest/metal"
   },
   "modifier_maps": ["tconstruct:travelers/vest"],
-  "first_modifiers": [ "tconstruct:dyed", "tconstruct:trim" ],
   "parts": [
     { "name": "cuirass", "index": 1 },
     { "name": "metal", "index": 0 }

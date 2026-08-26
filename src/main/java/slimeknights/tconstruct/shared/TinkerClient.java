@@ -56,7 +56,6 @@ import slimeknights.tconstruct.library.client.modifiers.model.MaterialModifierMo
 import slimeknights.tconstruct.library.client.modifiers.model.ModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.NestedModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.TankModifierModel;
-import slimeknights.tconstruct.library.client.modifiers.model.TraitModel;
 import slimeknights.tconstruct.library.client.modifiers.model.TrimModifierModel;
 
 import java.util.function.Consumer;
@@ -101,7 +100,8 @@ public class TinkerClient {
     ModifierModel.LOADER.register(getResource("empty"), ModifierModel.EMPTY.getLoader());
     ModifierModel.LOADER.register(getResource("compound"), CompoundModifierModel.LOADER);
     ModifierModel.LOADER.register(getResource("conditional"), ConditionalModifierModel.LOADER);
-    ModifierModel.LOADER.register(getResource("trait"), TraitModel.LOADER);
+    ModifierModel.LOADER.register(getResource("trait"), NestedModifierModel.Trait.LOADER);
+    ModifierModel.LOADER.register(getResource("crafted"), NestedModifierModel.Crafted.LOADER);
     ModifierModel.LOADER.register(getResource("basic"), NormalModifierModel.LOADER);
     ModifierModel.LOADER.register(getResource("dyed"), DyedModifierModel.LOADER);
     ModifierModel.LOADER.register(getResource("material_index"), MaterialModifierModel.Index.LOADER);

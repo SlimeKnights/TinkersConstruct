@@ -1,20 +1,34 @@
 {
+  "constant": {
+    "__dyed": {
+      "type": "tconstruct:crafted",
+      "model": {
+        "type": "tconstruct:material_has_fallback",
+        "fallback": "metal",
+        "if_false": {
+          "type": "tconstruct:dyed",
+          "texture": "tconstruct:item/tool/armor/plate/helmet/maille"
+        },
+        "if_true": {
+          "type": "tconstruct:dyed",
+          "texture": "tconstruct:item/tool/armor/plate/helmet/maille_metal"
+        },
+        "index": 1
+      },
+      "modifier": "tconstruct:dyed"
+    },
+    "_trim": {
+      "type": "tconstruct:crafted",
+      "model": {
+        "type": "tconstruct:armor_trim",
+        "slot": "helmet"
+      },
+      "modifier": "tconstruct:trim"
+    }
+  },
   "modifiers": {
     "tconstruct:aqua_affinity": "tconstruct:item/tool/armor/plate/helmet/modifiers/tconstruct_aqua_affinity",
     "tconstruct:diamond": "tconstruct:item/tool/armor/plate/helmet/modifiers/tconstruct_diamond",
-    "tconstruct:dyed": {
-      "type": "tconstruct:material_has_fallback",
-      "fallback": "metal",
-      "if_false": {
-        "type": "tconstruct:dyed",
-        "texture": "tconstruct:item/tool/armor/plate/helmet/maille"
-      },
-      "if_true": {
-        "type": "tconstruct:dyed",
-        "texture": "tconstruct:item/tool/armor/plate/helmet/maille_metal"
-      },
-      "index": 1
-    },
     "tconstruct:emerald": "tconstruct:item/tool/armor/plate/helmet/modifiers/tconstruct_emerald",
     "tconstruct:fiery": {
       "luminosity": 10,
@@ -26,10 +40,6 @@
     "tconstruct:respiration": "tconstruct:item/tool/armor/plate/helmet/modifiers/tconstruct_respiration",
     "tconstruct:ricochet": "tconstruct:item/tool/armor/plate/helmet/modifiers/tconstruct_ricochet",
     "tconstruct:springy": "tconstruct:item/tool/armor/plate/helmet/modifiers/tconstruct_springy",
-    "tconstruct:thorns": "tconstruct:item/tool/armor/plate/helmet/modifiers/tconstruct_thorns",
-    "tconstruct:trim": {
-      "type": "tconstruct:armor_trim",
-      "slot": "helmet"
-    }
+    "tconstruct:thorns": "tconstruct:item/tool/armor/plate/helmet/modifiers/tconstruct_thorns"
   }
 }

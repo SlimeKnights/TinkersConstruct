@@ -1,12 +1,20 @@
 {
-  "modifiers": {
-    "tconstruct:dyed": {
-      "type": "tconstruct:dyed",
-      "texture": "tconstruct:item/tool/armor/travelers/goggles/modifiers/dyed"
+  "constant": {
+    "__dyed": {
+      "type": "tconstruct:crafted",
+      "model": {
+        "type": "tconstruct:dyed",
+        "texture": "tconstruct:item/tool/armor/travelers/goggles/modifiers/dyed"
+      },
+      "modifier": "tconstruct:dyed"
     },
-    "tconstruct:trim": {
-      "type": "tconstruct:custom_trim",
-      "root": "tconstruct:item/tool/armor/travelers/goggles/trim"
+    "_trim": {
+      "type": "tconstruct:crafted",
+      "model": {
+        "type": "tconstruct:custom_trim",
+        "root": "tconstruct:item/tool/armor/travelers/goggles/trim"
+      },
+      "modifier": "tconstruct:trim"
     }
   }
 }

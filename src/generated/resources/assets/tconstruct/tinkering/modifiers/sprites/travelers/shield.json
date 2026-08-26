@@ -1,8 +1,12 @@
 {
-  "modifiers": {
-    "tconstruct:dyed": {
-      "type": "tconstruct:dyed",
-      "texture": "tconstruct:item/tool/armor/travelers/shield/modifiers/dyed"
+  "constant": {
+    "__dyed": {
+      "type": "tconstruct:crafted",
+      "model": {
+        "type": "tconstruct:dyed",
+        "texture": "tconstruct:item/tool/armor/travelers/shield/modifiers/dyed"
+      },
+      "modifier": "tconstruct:dyed"
     }
   }
 }

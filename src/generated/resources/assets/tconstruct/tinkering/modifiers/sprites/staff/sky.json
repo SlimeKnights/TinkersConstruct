@@ -1,9 +1,13 @@
 {
-  "modifiers": {
-    "tconstruct:dyed": {
-      "type": "tconstruct:dyed",
-      "texture": "tconstruct:item/tool/staff/modifiers/sky/dyed",
-      "texture_large": "tconstruct:item/tool/staff/large_modifiers/sky/dyed"
+  "constant": {
+    "__dyed": {
+      "type": "tconstruct:crafted",
+      "model": {
+        "type": "tconstruct:dyed",
+        "texture": "tconstruct:item/tool/staff/modifiers/sky/dyed",
+        "texture_large": "tconstruct:item/tool/staff/large_modifiers/sky/dyed"
+      },
+      "modifier": "tconstruct:dyed"
     }
   }
 }

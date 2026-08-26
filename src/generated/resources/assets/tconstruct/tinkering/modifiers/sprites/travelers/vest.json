@@ -1,12 +1,20 @@
 {
-  "modifiers": {
-    "tconstruct:dyed": {
-      "type": "tconstruct:dyed",
-      "texture": "tconstruct:item/tool/armor/travelers/vest/modifiers/dyed"
+  "constant": {
+    "__dyed": {
+      "type": "tconstruct:crafted",
+      "model": {
+        "type": "tconstruct:dyed",
+        "texture": "tconstruct:item/tool/armor/travelers/vest/modifiers/dyed"
+      },
+      "modifier": "tconstruct:dyed"
     },
-    "tconstruct:trim": {
-      "type": "tconstruct:armor_trim",
-      "slot": "chestplate"
+    "_trim": {
+      "type": "tconstruct:crafted",
+      "model": {
+        "type": "tconstruct:armor_trim",
+        "slot": "chestplate"
+      },
+      "modifier": "tconstruct:trim"
     }
   }
 }

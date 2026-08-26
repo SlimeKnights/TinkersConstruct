@@ -1,13 +1,21 @@
 {
-  "modifiers": {
-    "tconstruct:dyed": {
-      "type": "tconstruct:dyed_material",
-      "index": 0,
-      "texture": "tconstruct:item/tool/armor/slime/helmet/skull"
+  "constant": {
+    "__dyed": {
+      "type": "tconstruct:crafted",
+      "model": {
+        "type": "tconstruct:dyed_material",
+        "index": 0,
+        "texture": "tconstruct:item/tool/armor/slime/helmet/skull"
+      },
+      "modifier": "tconstruct:dyed"
     },
-    "tconstruct:trim": {
-      "type": "tconstruct:armor_trim",
-      "slot": "helmet"
+    "_trim": {
+      "type": "tconstruct:crafted",
+      "model": {
+        "type": "tconstruct:armor_trim",
+        "slot": "helmet"
+      },
+      "modifier": "tconstruct:trim"
     }
   }
 }

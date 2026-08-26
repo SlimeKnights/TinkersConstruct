@@ -7,7 +7,6 @@
     "metal":   "tconstruct:item/tool/armor/travelers/goggles/metal"
   },
   "modifier_maps": ["tconstruct:travelers/goggles"],
-  "first_modifiers": [ "tconstruct:dyed" ],
   "parts": [
     { "name": "base" },
     { "name": "cuirass", "index": 1 },

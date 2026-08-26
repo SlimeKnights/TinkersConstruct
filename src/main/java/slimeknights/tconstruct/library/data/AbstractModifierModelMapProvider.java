@@ -24,8 +24,8 @@ import slimeknights.tconstruct.library.client.modifiers.model.CompoundModifierMo
 import slimeknights.tconstruct.library.client.modifiers.model.FluidModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.MaterialModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.ModifierModel;
+import slimeknights.tconstruct.library.client.modifiers.model.NestedModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.TankModifierModel;
-import slimeknights.tconstruct.library.client.modifiers.model.TraitModel;
 import slimeknights.tconstruct.library.client.modifiers.model.TrimModifierModel;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -267,6 +267,32 @@ public abstract class AbstractModifierModelMapProvider extends GenericDataProvid
       return compact(id.getPath() + "/modifiers", modifiers);
     }
 
+
+    /* Common constants */
+
+    /** Adds a new modifier model that shows when the given crafted modifier is present */
+    public Builder trait(String key, ModifierId id, ModifierModel model, ModifierModel... models) {
+      return constant(key, new NestedModifierModel.Trait(id, merge(model, models)));
+    }
+
+    /** Adds a new modifier model that shows when the given crafted modifier is present */
+    public Builder trait(ModifierId id, ModifierModel model, ModifierModel... models) {
+      return trait(id.getPath(), id, model, models);
+    }
+
+    /** Adds a new modifier model that shows when the given crafted modifier is present */
+    public Builder first(String key, ModifierId id, ModifierModel model, ModifierModel... models) {
+      return constant(key, new NestedModifierModel.Crafted(id, merge(model, models)));
+    }
+
+    /** Adds a new modifier model that shows when the given crafted modifier is present */
+    public Builder first(ModifierId id, ModifierModel model, ModifierModel... models) {
+      return first('_' + id.getPath(), id, model, models);
+    }
+
+
+    /* Fluid */
+
     /** Creates a model for a constant tank on a small tool */
     public Builder fluid(String folder) {
       return constant("fluid", new TankModifierModel(toolMaterial(folder + "/fluid_partial"), toolMaterial(folder + "/fluid_full"), null, null, 0));
@@ -320,29 +346,41 @@ public abstract class AbstractModifierModelMapProvider extends GenericDataProvid
 
     /** Creates a model for smashing on a small tool */
     public Builder smashing(String texture) {
-      return constant("smashing", new TraitModel(ModifierIds.smashing, new FluidModifierModel(toolMaterial(texture), null, SmashingModule.TANK_HELPER)));
+      return trait(ModifierIds.smashing, new FluidModifierModel(toolMaterial(texture), null, SmashingModule.TANK_HELPER));
     }
 
     /** Creates a model for tipping a small tool */
     public Builder tipped(String texture) {
-      return constant("tipped", new TraitModel(ModifierIds.tipped, new PotionModifierModel(toolMaterial(texture), null)));
+      return trait(ModifierIds.tipped, new PotionModifierModel(toolMaterial(texture), null));
     }
+
 
     /* Cosmetic */
 
     /** Adds a model for dyed */
+    public Builder dyed(ModifierModel model, ModifierModel... models) {
+      // whatever is dyed we usually want first next to materials so want extra early
+      return first("__dyed", TinkerModifiers.dyed.getId(), merge(model, models));
+    }
+
+    /** Adds a model for dyed */
     public Builder dyed(String smallTexture, @Nullable String largeTexture) {
-      return modifier(TinkerModifiers.dyed.getId(), new DyedModifierModel(toolMaterial(smallTexture), largeTexture != null ? toolMaterial(largeTexture) : null));
+      return dyed(new DyedModifierModel(toolMaterial(smallTexture), largeTexture != null ? toolMaterial(largeTexture) : null));
+    }
+
+    /** Adds a model for dyed */
+    public Builder dyed(String smallTexture) {
+      return dyed(smallTexture, null);
     }
 
     /** Adds the trim model to the tool */
     public Builder trim(ArmorItem.Type type) {
-      return modifier(TinkerModifiers.trim.getId(), TrimModifierModel.Armor.values()[type.ordinal()]);
+      return first(TinkerModifiers.trim.getId(), TrimModifierModel.Armor.values()[type.ordinal()]);
     }
 
     /** Creates a custom trim in the given folder, using the given name for the large variant. */
     public Builder customTrim(String folder, @Nullable String largeTexture) {
-      return modifier(TinkerModifiers.trim.getId(), new TrimModifierModel.Custom(toolMaterial(folder + "/trim").texture(), largeTexture != null ? toolMaterial(folder + '/' + largeTexture).texture() : null));
+      return first(TinkerModifiers.trim.getId(), new TrimModifierModel.Custom(toolMaterial(folder + "/trim").texture(), largeTexture != null ? toolMaterial(folder + '/' + largeTexture).texture() : null));
     }
 
     /** Creates a custom trim in the default folder, using the given name for the large variant */
@@ -354,7 +392,8 @@ public abstract class AbstractModifierModelMapProvider extends GenericDataProvid
     public Builder embellishment(String folder, @Nullable String largeFolder) {
       ModifierId embellishment = TinkerModifiers.embellishment.getId();
       String name = '/' + suffix(embellishment);
-      return modifier(embellishment, new MaterialModifierModel.PersistentData(toolMaterial(folder + name), largeFolder != null ? toolMaterial(largeFolder + name) : null));
+      // whatever is embellish is basically a part so want extra early
+      return first("__embellishment", embellishment, new MaterialModifierModel.PersistentData(toolMaterial(folder + name), largeFolder != null ? toolMaterial(largeFolder + name) : null));
     }
 
     /** Adds the embellishment model to the tool */
@@ -365,7 +404,7 @@ public abstract class AbstractModifierModelMapProvider extends GenericDataProvid
 
     /** Adds the banner model to the tool */
     public Builder banner(@Nullable String smallPrefix, @Nullable String largePrefix) {
-      return modifier(TinkerModifiers.banner.getId(), new BannerModifierModel(
+      return first(TinkerModifiers.banner.getId(), new BannerModifierModel(
         smallPrefix != null ? toolMaterial(smallPrefix).texture() : null,
         largePrefix != null ? toolMaterial(largePrefix).texture() : null
       ));

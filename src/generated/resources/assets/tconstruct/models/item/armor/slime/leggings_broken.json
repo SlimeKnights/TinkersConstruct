@@ -18,9 +18,5 @@
       "name": "shell",
       "index": 0
     }
-  ],
-  "first_modifiers": [
-    "tconstruct:dyed",
-    "tconstruct:trim"
   ]
 }

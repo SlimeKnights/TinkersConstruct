@@ -10,7 +10,6 @@
     { "name": "skull", "index": 0 },
     { "name": "slime", "index": 1 }
   ],
-  "first_modifiers": [ "tconstruct:dyed", "tconstruct:trim" ],
   "overrides": [
     {
       "predicate": { "tconstruct:broken": 1 },

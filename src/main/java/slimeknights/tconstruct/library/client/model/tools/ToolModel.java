@@ -263,6 +263,7 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
   @Deprecated
   private final List<ResourceLocation> largeModifierRoots;
   /** Modifiers that show first on tools, bypassing normal sort order */
+  @Deprecated
   private final List<FirstModifier> firstModifiers;
   /** Location in tool NBT to find the ammo */
   @Nullable
@@ -509,11 +510,13 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
   public BakedModel bake(IGeometryBakingContext owner, ModelBaker baker, Function<Material,TextureAtlasSprite> spriteGetter, ModelState modelTransform, ItemOverrides overrides, ResourceLocation modelLocation) {
     // warn on deprecated keys
     if (showTraits) {
-      TConstruct.LOG.warn("Using deprecated key 'show_traits' in tool model {}, use 'constant' in modifier model maps with TraitModel instead", modelLocation);
+      TConstruct.LOG.warn("Using deprecated key 'show_traits' in tool model {}, use 'constant' in modifier model maps with 'tconstruct:trait' instead", modelLocation);
+    }
+    if (!firstModifiers.isEmpty()) {
+      TConstruct.LOG.warn("Using deprecated key 'first_modifiers' in tool model {}, use 'constant' in modifier model maps with 'tconstruct:crafted' and an early ID instead", modelLocation);
     }
     for (FirstModifier modifier : firstModifiers) {
       if (modifier.forced) {
-        TConstruct.LOG.warn("Using 'forced' in 'first_modifiers' is deprecated in tool model {}, use 'constant' in modifier model maps instead", modelLocation);
         break;
       }
     }
@@ -764,9 +767,10 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
       IToolStackView tool = ToolStack.from(stack);
 
       // if nothing unique, render original
+      // TODO 1.21: with how forced modifiers work, this will probably be true way more often
       ModifierNBT modifiers = showTraits ? tool.getModifiers() : tool.getUpgrades();
       skip:
-      if (materialIds.isEmpty() && modifiers.isEmpty()) {
+      if (materialIds.isEmpty() && modifiers.isEmpty() && modifierModels.sortedConstant().isEmpty()) {
         for (FirstModifier modifier : firstModifiers) {
           if (modifier.forced) {
             break skip;

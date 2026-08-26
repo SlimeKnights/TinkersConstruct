@@ -11,7 +11,6 @@
     "small": [ "tconstruct:item/tool/staff/modifiers/earth/", "tconstruct:item/tool/staff/modifiers/" ],
     "large": [ "tconstruct:item/tool/staff/large_modifiers/earth/", "tconstruct:item/tool/staff/large_modifiers/" ]
   },
-  "first_modifiers": [ "tconstruct:dyed", "tconstruct:embellishment" ],
   "overrides": [
     {
       "predicate": { "tconstruct:charging": 1 },

@@ -8,7 +8,6 @@ import slimeknights.tconstruct.library.client.modifiers.model.MaterialHasFallbac
 import slimeknights.tconstruct.library.client.modifiers.model.MaterialModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.ModifierModel;
 import slimeknights.tconstruct.library.data.AbstractModifierModelMapProvider;
-import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.data.ModifierIds;
@@ -257,7 +256,6 @@ public class ModifierModelMapProvider extends AbstractModifierModelMapProvider {
       .luminosity(2, SMALL, ModifierIds.unbreakable);
 
     // plate armor
-    ModifierId dyed = TinkerModifiers.dyed.getId();
     for (ArmorItem.Type type : ArmorItem.Type.values()) {
       String root = "armor/plate/" + type.getName() + "/maille";
       String item = "plate/" + type.getName();
@@ -267,12 +265,12 @@ public class ModifierModelMapProvider extends AbstractModifierModelMapProvider {
           ModifierIds.ricochet, ModifierIds.springy,
           ModifierIds.thorns, ModifierIds.freezing)
         .luminosity(10, path, null, ModifierIds.fiery)
-        .modifier(dyed, new MaterialHasFallbackModifierModel(1,
+        .dyed(new MaterialHasFallbackModifierModel(1,
         new DyedModifierModel(toolMaterial(root + "_metal"), null),
         new DyedModifierModel(toolMaterial(root), null),
         "metal"
       )).trim(type);
-      tool(item + "_broken").modifier(dyed, new MaterialHasFallbackModifierModel(1,
+      tool(item + "_broken").dyed(new MaterialHasFallbackModifierModel(1,
         new DyedModifierModel(toolMaterial(root + "_broken_metal"), null),
         new DyedModifierModel(toolMaterial(root + "_broken"), null),
         "metal"
@@ -308,29 +306,28 @@ public class ModifierModelMapProvider extends AbstractModifierModelMapProvider {
       tool("slime/" + type.getName()).trim(type);
     }
     tool("slime/wings")
-      .customTrim("armor/slime/wings", null)
-      .dyed("armor/slime/wings/slime", null);
-    tool("slime/wings_broken").dyed("armor/slime/wings/slime_broken", null);
+      .customTrim("armor/slime/wings")
+      .dyed("armor/slime/wings/slime");
+    tool("slime/wings_broken").dyed("armor/slime/wings/slime_broken");
     // slimesuit dyeing
-    tool("slime/helmet").modifier(dyed, new MaterialModifierModel.Dyed(toolMaterial("armor/slime/helmet/skull"), null, 0));
-    tool("slime/leggings").dyed("armor/slime/leggings/shell", null);
-    tool("slime/leggings_broken").dyed("armor/slime/leggings/shell_broken", null);
-    tool("slime/boots").dyed("armor/slime/boots/laces", null);
+    tool("slime/helmet").dyed(new MaterialModifierModel.Dyed(toolMaterial("armor/slime/helmet/skull"), null, 0));
+    tool("slime/leggings").dyed("armor/slime/leggings/shell");
+    tool("slime/leggings_broken").dyed("armor/slime/leggings/shell_broken");
+    tool("slime/boots").dyed("armor/slime/boots/laces");
     String ribcage = "armor/slime/chestplate/ribcage";
-    tool("slime/chestplate").modifier(dyed, new MaterialHasFallbackModifierModel(0,
+    tool("slime/chestplate").dyed(new MaterialHasFallbackModifierModel(0,
       new DyedModifierModel(toolMaterial(ribcage + "_bone"), null),
       new DyedModifierModel(toolMaterial(ribcage), null),
       "bone"
     ));
-    tool("slime/chestplate_broken").modifier(dyed, new MaterialHasFallbackModifierModel(0,
+    tool("slime/chestplate_broken").dyed(new MaterialHasFallbackModifierModel(0,
       new DyedModifierModel(toolMaterial(ribcage + "_broken_bone"), null),
       new DyedModifierModel(toolMaterial(ribcage + "_broken"), null),
       "bone"
     ));
 
     // ammo
-    tool(TinkerTools.arrow).tipped("ammo/arrow_modifiers/tipped").smashing("ammo/arrow_modifiers/smashing")
-      .modifier(dyed, new DyedModifierModel(toolMaterial("ammo/arrow_modifiers/dyed"), null));
+    tool(TinkerTools.arrow).tipped("ammo/arrow_modifiers/tipped").smashing("ammo/arrow_modifiers/smashing").dyed("ammo/arrow_modifiers/dyed");
     tool(TinkerTools.shuriken).tipped("ammo/shuriken_modifiers/tipped").smashing("ammo/shuriken_modifiers/smashing");
     tool(TinkerTools.throwingAxe).tipped("ammo/axe_modifiers/tipped").smashing("ammo/axe_modifiers/smashing");
     // fishing rods have tipped
@@ -378,11 +375,11 @@ public class ModifierModelMapProvider extends AbstractModifierModelMapProvider {
   private void travelers(String name, @Nullable ArmorItem.Type type) {
     String root = "armor/travelers/" + name + "/modifiers/";
     String item = "travelers/" + name;
-    Builder b = tool(item).dyed(root + "dyed", null);
+    Builder b = tool(item).dyed(root + "dyed");
     if (type != null) {
       b.trim(type);
     }
-    tool(item + "_broken").dyed(root + "dyed_broken", null);
+    tool(item + "_broken").dyed(root + "dyed_broken");
   }
 
   /** Adds dyed textures to a staff */

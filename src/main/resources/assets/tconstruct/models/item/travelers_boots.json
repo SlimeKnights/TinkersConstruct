@@ -6,7 +6,6 @@
     "metal":   "tconstruct:item/tool/armor/travelers/boots/metal"
   },
   "modifier_maps": ["tconstruct:travelers/boots"],
-  "first_modifiers": [ "tconstruct:dyed", "tconstruct:trim" ],
   "parts": [
     { "name": "cuirass", "index": 1 },
     { "name": "metal", "index": 0 }

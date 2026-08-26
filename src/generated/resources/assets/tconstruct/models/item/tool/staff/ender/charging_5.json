@@ -22,9 +22,5 @@
       "tconstruct:item/tool/staff/large_modifiers/ender/",
       "tconstruct:item/tool/staff/large_modifiers/"
     ]
-  },
-  "first_modifiers": [
-    "tconstruct:dyed",
-    "tconstruct:embellishment"
-  ]
+  }
 }
