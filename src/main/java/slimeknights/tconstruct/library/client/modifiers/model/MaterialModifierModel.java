@@ -8,6 +8,8 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FastColor;
 import slimeknights.mantle.client.model.util.MantleItemLayerModel;
+import slimeknights.mantle.data.loadable.field.RecordField;
+import slimeknights.mantle.data.loadable.primitive.BooleanLoadable;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.util.ItemLayerPixels;
@@ -22,13 +24,13 @@ import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.util.ModuleWithKey;
 import slimeknights.tconstruct.library.tools.nbt.IModDataView;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+/** Implementation of modifier models that have variants based on a material texture */
 public interface MaterialModifierModel extends SimpleModifierModel {
   @Override
   default void validate(Function<Material, TextureAtlasSprite> spriteGetter) {
@@ -64,31 +66,33 @@ public interface MaterialModifierModel extends SimpleModifierModel {
     if (texture != null) {
       MaterialVariantId material = getMaterial(tool, modifier);
       if (material != null) {
-        quadConsumer.accept(MaterialModel.getQuadsForMaterial(spriteGetter, texture, material, -1, transforms, pixels));
+        TintedSprite sprite = MaterialModel.getMaterialSprite(spriteGetter, texture, material);
+        quadConsumer.accept(MantleItemLayerModel.getQuadsForSprite(getColor(tool, modifier, sprite), -1, sprite.sprite(), transforms, sprite.emissivity(), pixels));
       }
     }
   }
 
+  /** Common code between {@link Index} and {@link Dyed} */
+  interface WithIndex extends MaterialModifierModel {
+    RecordField<Integer, WithIndex> INDEX_FIELD = IntLoadable.FROM_ZERO.requiredField("index", WithIndex::index);
+
+    /** Material index */
+    int index();
+
+    @Override
+    default MaterialVariantId getMaterial(IToolStackView tool, ModifierEntry entry) {
+      return tool.getMaterial(index()).getVariant();
+    }
+  }
+
   /** Fetches the material from an index on the tool materials */
-  record Index(@Nullable Material small, @Nullable Material large, int index) implements MaterialModifierModel {
-    public static final RecordLoadable<Index> LOADER = RecordLoadable.create(TEXTURE_FIELD, LARGE_TEXTURE_FIELD, IntLoadable.FROM_ZERO.requiredField("index", Index::index), Index::new);
+  record Index(@Nullable Material small, @Nullable Material large, int index) implements MaterialModifierModel.WithIndex {
+    public static final RecordLoadable<Index> LOADER = RecordLoadable.create(TEXTURE_FIELD, LARGE_TEXTURE_FIELD, INDEX_FIELD, Index::new);
 
     @Override
     public RecordLoadable<Index> getLoader() {
       return LOADER;
     }
-
-    @Nullable
-    @Override
-    public MaterialVariantId getMaterial(IToolStackView tool, ModifierEntry entry) {
-      MaterialNBT materials = tool.getMaterials();
-      if (index < materials.size()) {
-        return materials.get(index).getVariant();
-      }
-      return null;
-    }
-
-    // no need for a custom cache key, the material is already in the cache key
   }
 
   /** Fetches the material from persistent data on the tool under the specified key, or the modifier ID. */
@@ -126,26 +130,19 @@ public interface MaterialModifierModel extends SimpleModifierModel {
   }
 
   /** Module using a material index, but applying a custom dye color to it. */
-  record Dyed(@Nullable Material small, @Nullable Material large, int index, @Nullable ResourceLocation key) implements MaterialModifierModel, ModuleWithKey {
-    public static final RecordLoadable<Dyed> LOADER = RecordLoadable.create(TEXTURE_FIELD, LARGE_TEXTURE_FIELD, IntLoadable.FROM_ZERO.requiredField("index", Dyed::index), FIELD, Dyed::new);
+  record Dyed(@Nullable Material small, @Nullable Material large, int index, boolean useMaterialColor, @Nullable ResourceLocation key) implements MaterialModifierModel.WithIndex, ModuleWithKey {
+    public static final RecordLoadable<Dyed> LOADER = RecordLoadable.create(
+      TEXTURE_FIELD, LARGE_TEXTURE_FIELD, INDEX_FIELD,
+      BooleanLoadable.INSTANCE.defaultField("use_material_color", true, Dyed::useMaterialColor),
+      FIELD, Dyed::new);
 
-    public Dyed(@Nullable Material small, @Nullable Material large, int index) {
-      this(small, large, index, null);
+    public Dyed(@Nullable Material small, @Nullable Material large, int index, boolean useMaterialColor) {
+      this(small, large, index, useMaterialColor, null);
     }
 
     @Override
     public RecordLoadable<Dyed> getLoader() {
       return LOADER;
-    }
-
-    @Nullable
-    @Override
-    public MaterialVariantId getMaterial(IToolStackView tool, ModifierEntry entry) {
-      MaterialNBT materials = tool.getMaterials();
-      if (index < materials.size()) {
-        return materials.get(index).getVariant();
-      }
-      return null;
     }
 
     @Override
