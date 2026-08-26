@@ -28,8 +28,11 @@ import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
+import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.library.utils.SimpleCache;
+import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.world.client.BlockModelSkullRenderer;
 
 import javax.annotation.Nullable;
@@ -76,12 +79,18 @@ public class SlimeskullArmorModel extends MultilayerArmorModel {
       if (skull != null && texture != null) {
         headModel = skull;
         headTexture = texture;
-        // determine the color to tint the helmet, fallback to no tint if missing
-        MaterialVariantId material = MaterialIdNBT.from(stack).getMaterial(1);
-        if (IMaterial.UNKNOWN_ID.equals(material)) {
-          headColor = -1;
+        // if dyed, color is the dye
+        ModifierId dyed = TinkerModifiers.dyed.getId();
+        if (ModifierUtil.getModifierLevel(stack, dyed) > 0) {
+          headColor = 0xFF000000 | ModifierUtil.getPersistentInt(stack, dyed, -1);
         } else {
-          headColor = MATERIAL_COLOR_CACHE.apply(material);
+          // if not dyed, color is the material, fallback to no tint if missing
+          MaterialVariantId material = MaterialIdNBT.from(stack).getMaterial(1);
+          if (IMaterial.UNKNOWN_ID.equals(material)) {
+            headColor = -1;
+          } else {
+            headColor = MATERIAL_COLOR_CACHE.apply(material);
+          }
         }
 
         // setup walk animation

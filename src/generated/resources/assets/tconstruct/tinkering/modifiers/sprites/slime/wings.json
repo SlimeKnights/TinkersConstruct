@@ -1,5 +1,9 @@
 {
   "modifiers": {
+    "tconstruct:dyed": {
+      "type": "tconstruct:dyed",
+      "texture": "tconstruct:item/tool/armor/slime/wings/slime"
+    },
     "tconstruct:trim": {
       "type": "tconstruct:custom_trim",
       "root": "tconstruct:item/tool/armor/slime/wings/trim"

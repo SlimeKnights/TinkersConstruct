@@ -10,7 +10,7 @@
     { "name": "slime", "index": 1 },
     { "name": "laces", "index": 0 }
   ],
-  "first_modifiers": [ "tconstruct:trim" ],
+  "first_modifiers": [ "tconstruct:dyed", "tconstruct:trim" ],
   "overrides": [
     {
       "predicate": { "tconstruct:broken": 1 },

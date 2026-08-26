@@ -15,6 +15,7 @@
     }
   ],
   "first_modifiers": [
+    "tconstruct:dyed",
     "tconstruct:trim"
   ]
 }

@@ -6,7 +6,6 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.modifiers.DyedModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.MaterialHasFallbackModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.ModifierModel;
-import slimeknights.tconstruct.library.client.modifiers.model.TrimModifierModel;
 import slimeknights.tconstruct.library.data.AbstractModifierModelMapProvider;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -307,7 +306,26 @@ public class ModifierModelMapProvider extends AbstractModifierModelMapProvider {
     for (ArmorItem.Type type : ArmorItem.Type.values()) {
       tool("slime/" + type.getName()).trim(type);
     }
-    tool("slime/wings").modifier(TinkerModifiers.trim.getId(), new TrimModifierModel.Custom(toolMaterial("armor/slime/wings/trim").texture(), null));
+    tool("slime/wings")
+      .customTrim("armor/slime/wings", null)
+      .dyed("armor/slime/wings/slime", null);
+    tool("slime/wings_broken").dyed("armor/slime/wings/slime_broken", null);
+    // slimesuit dyeing
+    tool("slime/helmet").dyed("armor/slime/helmet/modifiers/tconstruct_dyed", null);
+    tool("slime/leggings").dyed("armor/slime/leggings/shell", null);
+    tool("slime/leggings_broken").dyed("armor/slime/leggings/shell_broken", null);
+    tool("slime/boots").dyed("armor/slime/boots/laces", null);
+    String ribcage = "armor/slime/chestplate/ribcage";
+    tool("slime/chestplate").modifier(dyed, new MaterialHasFallbackModifierModel(0,
+      new DyedModifierModel(toolMaterial(ribcage + "_bone"), null),
+      new DyedModifierModel(toolMaterial(ribcage), null),
+      "bone"
+    ));
+    tool("slime/chestplate_broken").modifier(dyed, new MaterialHasFallbackModifierModel(0,
+      new DyedModifierModel(toolMaterial(ribcage + "_broken_bone"), null),
+      new DyedModifierModel(toolMaterial(ribcage + "_broken"), null),
+      "bone"
+    ));
 
     // ammo
     tool(TinkerTools.arrow).tipped("ammo/arrow_modifiers/tipped").smashing("ammo/arrow_modifiers/smashing")
@@ -358,13 +376,12 @@ public class ModifierModelMapProvider extends AbstractModifierModelMapProvider {
   /** Adds dyed textures for travelers gear */
   private void travelers(String name, @Nullable ArmorItem.Type type) {
     String root = "armor/travelers/" + name + "/modifiers/";
-    ModifierId dyed = TinkerModifiers.dyed.getId();
     String item = "travelers/" + name;
-    Builder b = tool(item).modifier(dyed, new DyedModifierModel(toolMaterial(root + "dyed"), null));
+    Builder b = tool(item).dyed(root + "dyed", null);
     if (type != null) {
       b.trim(type);
     }
-    tool(item + "_broken").modifier(dyed, new DyedModifierModel(toolMaterial(root + "dyed_broken"), null));
+    tool(item + "_broken").dyed(root + "dyed_broken", null);
   }
 
   /** Adds dyed textures to a staff */
@@ -372,12 +389,11 @@ public class ModifierModelMapProvider extends AbstractModifierModelMapProvider {
     String staff = "staff/" + name;
     String small = "staff/modifiers/" + name + "/dyed";
     String large = "staff/large_modifiers/" + name + "/dyed";
-    ModifierId dyed = TinkerModifiers.dyed.getId();
-    tool(staff).modifier(dyed, new DyedModifierModel(toolMaterial(small), toolMaterial(large)));
-    tool(staff + "/broken").modifier(dyed, new DyedModifierModel(toolMaterial(small + "_broken"), toolMaterial(large + "_broken")));
+    tool(staff).dyed(small, large);
+    tool(staff + "/broken").dyed(small + "_broken", large + "_broken");
     for (int i = 1; i <= 5; i++) {
       String variant = Integer.toString(i);
-      tool(staff + '/' + variant).modifier(dyed, new DyedModifierModel(toolMaterial(small + '_' + variant), toolMaterial(large + '_' + variant)));
+      tool(staff + '/' + variant).dyed(small + '_' + variant, large + '_' + variant);
     }
   }
 }

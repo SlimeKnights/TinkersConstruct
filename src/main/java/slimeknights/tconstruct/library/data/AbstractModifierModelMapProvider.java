@@ -16,6 +16,7 @@ import slimeknights.mantle.data.GenericDataProvider;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.registration.object.IdAwareObject;
 import slimeknights.tconstruct.library.client.modifiers.MaterialModifierModel;
+import slimeknights.tconstruct.library.client.modifiers.DyedModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.ModifierModelMapManager;
 import slimeknights.tconstruct.library.client.modifiers.NormalModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.PotionModifierModel;
@@ -328,6 +329,11 @@ public abstract class AbstractModifierModelMapProvider extends GenericDataProvid
     }
 
     /* Cosmetic */
+
+    /** Adds a model for dyed */
+    public Builder dyed(String smallTexture, @Nullable String largeTexture) {
+      return modifier(TinkerModifiers.dyed.getId(), new DyedModifierModel(toolMaterial(smallTexture), largeTexture != null ? toolMaterial(largeTexture) : null));
+    }
 
     /** Adds the trim model to the tool */
     public Builder trim(ArmorItem.Type type) {

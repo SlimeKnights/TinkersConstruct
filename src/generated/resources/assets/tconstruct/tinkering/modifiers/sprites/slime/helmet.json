@@ -1,5 +1,9 @@
 {
   "modifiers": {
+    "tconstruct:dyed": {
+      "type": "tconstruct:dyed",
+      "texture": "tconstruct:item/tool/armor/slime/helmet/modifiers/tconstruct_dyed"
+    },
     "tconstruct:trim": {
       "type": "tconstruct:armor_trim",
       "slot": "helmet"
