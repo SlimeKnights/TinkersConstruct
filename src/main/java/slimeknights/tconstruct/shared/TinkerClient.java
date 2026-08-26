@@ -44,7 +44,6 @@ import slimeknights.tconstruct.library.client.data.spritetransformer.OffsettingS
 import slimeknights.tconstruct.library.client.data.spritetransformer.RecolorSpriteTransformer;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
 import slimeknights.tconstruct.library.client.modifiers.DyedModifierModel;
-import slimeknights.tconstruct.library.client.modifiers.MaterialModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.ModifierIconManager;
 import slimeknights.tconstruct.library.client.modifiers.NormalModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.PotionModifierModel;
@@ -53,7 +52,9 @@ import slimeknights.tconstruct.library.client.modifiers.model.CompoundModifierMo
 import slimeknights.tconstruct.library.client.modifiers.model.ConditionalModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.FluidModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.MaterialHasFallbackModifierModel;
+import slimeknights.tconstruct.library.client.modifiers.model.MaterialModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.ModifierModel;
+import slimeknights.tconstruct.library.client.modifiers.model.NestedModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.TankModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.TraitModel;
 import slimeknights.tconstruct.library.client.modifiers.model.TrimModifierModel;
@@ -103,7 +104,9 @@ public class TinkerClient {
     ModifierModel.LOADER.register(getResource("trait"), TraitModel.LOADER);
     ModifierModel.LOADER.register(getResource("basic"), NormalModifierModel.LOADER);
     ModifierModel.LOADER.register(getResource("dyed"), DyedModifierModel.LOADER);
-    ModifierModel.LOADER.register(getResource("material"), MaterialModifierModel.LOADER);
+    ModifierModel.LOADER.register(getResource("material_index"), MaterialModifierModel.Index.LOADER);
+    ModifierModel.LOADER.register(getResource("persistent_material"), MaterialModifierModel.PersistentData.LOADER);
+    ModifierModel.LOADER.register(getResource("dyed_material"), MaterialModifierModel.Dyed.LOADER);
     ModifierModel.LOADER.register(getResource("potion"), PotionModifierModel.LOADER);
     ModifierModel.LOADER.register(getResource("armor_trim"), TrimModifierModel.Armor.LOADER);
     ModifierModel.LOADER.register(getResource("custom_trim"), TrimModifierModel.Custom.LOADER);

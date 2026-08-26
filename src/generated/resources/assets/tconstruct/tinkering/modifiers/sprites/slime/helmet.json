@@ -1,8 +1,9 @@
 {
   "modifiers": {
     "tconstruct:dyed": {
-      "type": "tconstruct:dyed",
-      "texture": "tconstruct:item/tool/armor/slime/helmet/modifiers/tconstruct_dyed"
+      "type": "tconstruct:dyed_material",
+      "index": 0,
+      "texture": "tconstruct:item/tool/armor/slime/helmet/skull"
     },
     "tconstruct:trim": {
       "type": "tconstruct:armor_trim",

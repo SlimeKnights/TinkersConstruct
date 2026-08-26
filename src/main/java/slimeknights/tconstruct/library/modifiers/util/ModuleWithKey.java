@@ -7,6 +7,7 @@ import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.field.LoadableField;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 
 import javax.annotation.Nullable;
 
@@ -14,11 +15,20 @@ import javax.annotation.Nullable;
  * Shared boilerplate for a module with a nullable key that can alternatively be the modifier ID
  */
 public interface ModuleWithKey {
-  /** Field for building loadables */
+  /** Field for building loadables */ // TODO 1.21: rename to key field
   LoadableField<ResourceLocation,ModuleWithKey> FIELD = Loadables.RESOURCE_LOCATION.nullableField("key", ModuleWithKey::key);
 
   /** Gets the key for the module */
   default ResourceLocation getKey(Modifier modifier) {
+    ResourceLocation key = key();
+    if (key != null) {
+      return key;
+    }
+    return modifier.getId();
+  }
+
+  /** Gets the key for the module */
+  default ResourceLocation getKey(ModifierEntry modifier) {
     ResourceLocation key = key();
     if (key != null) {
       return key;

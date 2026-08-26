@@ -5,6 +5,7 @@ import net.minecraft.world.item.ArmorItem;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.modifiers.DyedModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.MaterialHasFallbackModifierModel;
+import slimeknights.tconstruct.library.client.modifiers.model.MaterialModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.ModifierModel;
 import slimeknights.tconstruct.library.data.AbstractModifierModelMapProvider;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
@@ -311,7 +312,7 @@ public class ModifierModelMapProvider extends AbstractModifierModelMapProvider {
       .dyed("armor/slime/wings/slime", null);
     tool("slime/wings_broken").dyed("armor/slime/wings/slime_broken", null);
     // slimesuit dyeing
-    tool("slime/helmet").dyed("armor/slime/helmet/modifiers/tconstruct_dyed", null);
+    tool("slime/helmet").modifier(dyed, new MaterialModifierModel.Dyed(toolMaterial("armor/slime/helmet/skull"), null, 0));
     tool("slime/leggings").dyed("armor/slime/leggings/shell", null);
     tool("slime/leggings_broken").dyed("armor/slime/leggings/shell_broken", null);
     tool("slime/boots").dyed("armor/slime/boots/laces", null);

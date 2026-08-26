@@ -17,7 +17,7 @@
       "texture_large": "tconstruct:item/tool/staff/large_modifiers/tconstruct_diamond"
     },
     "tconstruct:embellishment": {
-      "type": "tconstruct:material",
+      "type": "tconstruct:persistent_material",
       "texture": "tconstruct:item/tool/staff/modifiers/tconstruct_embellishment",
       "texture_large": "tconstruct:item/tool/staff/large_modifiers/tconstruct_embellishment"
     },

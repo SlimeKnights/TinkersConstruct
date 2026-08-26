@@ -15,7 +15,6 @@ import net.minecraft.world.item.Item;
 import slimeknights.mantle.data.GenericDataProvider;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.registration.object.IdAwareObject;
-import slimeknights.tconstruct.library.client.modifiers.MaterialModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.DyedModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.ModifierModelMapManager;
 import slimeknights.tconstruct.library.client.modifiers.NormalModifierModel;
@@ -23,6 +22,7 @@ import slimeknights.tconstruct.library.client.modifiers.PotionModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.BannerModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.CompoundModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.FluidModifierModel;
+import slimeknights.tconstruct.library.client.modifiers.model.MaterialModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.ModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.TankModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.TraitModel;
@@ -354,7 +354,7 @@ public abstract class AbstractModifierModelMapProvider extends GenericDataProvid
     public Builder embellishment(String folder, @Nullable String largeFolder) {
       ModifierId embellishment = TinkerModifiers.embellishment.getId();
       String name = '/' + suffix(embellishment);
-      return modifier(embellishment, new MaterialModifierModel(toolMaterial(folder + name), largeFolder != null ? toolMaterial(largeFolder + name) : null));
+      return modifier(embellishment, new MaterialModifierModel.PersistentData(toolMaterial(folder + name), largeFolder != null ? toolMaterial(largeFolder + name) : null));
     }
 
     /** Adds the embellishment model to the tool */
