@@ -451,7 +451,7 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF5D0000).addARGB(102, 0xFF750000).addARGB(127, 0xFF820000).addARGB(140, 0xFF930000).addARGB(178, 0xFFA00000).addARGB(193, 0xFFAB0000).addARGB(216, 0xFFB80000).addARGB(255, 0xFFE82323).build());
     buildMaterial(MaterialIds.clay)
       .slime()
-      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF55627F).addARGB(102, 0xFF5E6C8D).addARGB(140, 0xFF757D90).addARGB(178, 0xFF9499A4).addARGB(216, 0xFFA1A7B1).addARGB(255, 0xFFAFB9D6).build());
+      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF373944).addARGB(102, 0xFF40445A).addARGB(140, 0xFF5E6C8D).addARGB(178, 0xFF757D90).addARGB(216, 0xFF9499A4).addARGB(255, 0xFFAFB9D6).build());
     buildMaterial(MaterialIds.honey)
       .slime()
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFFC86A08).addARGB(102, 0xFFD87803).addARGB(140, 0xFFE88C08).addARGB(178, 0xFFFAAB1C).addARGB(216, 0xFFFFCE5D).addARGB(255, 0xFFFFE47F).build());

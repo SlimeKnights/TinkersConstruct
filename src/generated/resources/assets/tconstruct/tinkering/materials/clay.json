@@ -1,5 +1,5 @@
 {
-  "color": "FFA1A7B1",
+  "color": "FF9499A4",
   "generator": {
     "supported_stats": [
       "tconstruct:slime",
@@ -16,23 +16,23 @@
             "grey": 0
           },
           {
-            "color": "FF55627F",
+            "color": "FF373944",
             "grey": 63
           },
           {
-            "color": "FF5E6C8D",
+            "color": "FF40445A",
             "grey": 102
           },
           {
-            "color": "FF757D90",
+            "color": "FF5E6C8D",
             "grey": 140
           },
           {
-            "color": "FF9499A4",
+            "color": "FF757D90",
             "grey": 178
           },
           {
-            "color": "FFA1A7B1",
+            "color": "FF9499A4",
             "grey": 216
           },
           {
