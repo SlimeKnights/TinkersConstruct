@@ -117,10 +117,12 @@ public class SlimeskullArmorModel extends MultilayerArmorModel {
         }
         if (base.young) {
           matrixStackIn.scale(0.85F, 0.85F, 0.85F);
-          matrixStackIn.translate(0.0D, 1.0D, 0.0D);
+          matrixStackIn.translate(0.0D, 0.9D, 0.0D);
         } else {
           matrixStackIn.scale(1.115f, 1.115f, 1.115f);
         }
+        // handle head rotation directly as it fixes issues with dragon heads
+        // could fix it directly, but saves us some math to handle here
         matrixStackIn.mulPose((new Quaternionf()).rotationZYX(0, base.head.yRot, base.head.xRot));
         headModel.setupAnim(walkAnimation, 0, 0);
         renderColored(headModel, matrixStackIn, heaadBuffer, packedLightIn, packedOverlayIn, headColor, red, green, blue, alpha);
@@ -129,12 +131,9 @@ public class SlimeskullArmorModel extends MultilayerArmorModel {
       if (model != ArmorModel.EMPTY) {
         matrixStackIn.pushPose();
         // apply rotation before translation
-        matrixStackIn.mulPose((new Quaternionf()).rotationZYX(0, base.head.yRot, base.head.xRot));
-        base.head.yRot = 0;
-        base.head.xRot = 0;
         // offset and resize helmet to be around head
-        matrixStackIn.translate(0.0D, base.young ? -0.015D : -0.025D, 0.0D);
-        matrixStackIn.scale(1.01f, 1.1f, 1.01f);
+        matrixStackIn.translate(0.0D, base.young ? -0.09D : -0.025D, 0.0D);
+        matrixStackIn.scale(1.1f, 1.1f, 1.1f);
         super.renderToBuffer(matrixStackIn, vertexBuilder, packedLightIn, packedOverlayIn, red, green, blue, alpha);
         matrixStackIn.popPose();
       }
