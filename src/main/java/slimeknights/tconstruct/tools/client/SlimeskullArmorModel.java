@@ -109,14 +109,6 @@ public class SlimeskullArmorModel extends MultilayerArmorModel {
   @Override
   public void renderToBuffer(PoseStack matrixStackIn, VertexConsumer vertexBuilder, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
     if (base != null && buffer != null) {
-      if (model != ArmorModel.EMPTY) {
-        matrixStackIn.pushPose();
-        // TODO: this offset messes with the rotation of the skull slightly, though it is barely noticable
-        matrixStackIn.translate(0.0D, base.young ? -0.015D : -0.02D, 0.0D);
-        matrixStackIn.scale(1.01f, 1.1f, 1.01f);
-        super.renderToBuffer(matrixStackIn, vertexBuilder, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-        matrixStackIn.popPose();
-      }
       if (headModel != null && headTexture != null) {
         VertexConsumer heaadBuffer = ItemRenderer.getArmorFoilBuffer(buffer, RenderType.entityCutoutNoCullZOffset(headTexture), false, hasGlint);
         matrixStackIn.pushPose();
@@ -132,6 +124,18 @@ public class SlimeskullArmorModel extends MultilayerArmorModel {
         matrixStackIn.mulPose((new Quaternionf()).rotationZYX(0, base.head.yRot, base.head.xRot));
         headModel.setupAnim(walkAnimation, 0, 0);
         renderColored(headModel, matrixStackIn, heaadBuffer, packedLightIn, packedOverlayIn, headColor, red, green, blue, alpha);
+        matrixStackIn.popPose();
+      }
+      if (model != ArmorModel.EMPTY) {
+        matrixStackIn.pushPose();
+        // apply rotation before translation
+        matrixStackIn.mulPose((new Quaternionf()).rotationZYX(0, base.head.yRot, base.head.xRot));
+        base.head.yRot = 0;
+        base.head.xRot = 0;
+        // offset and resize helmet to be around head
+        matrixStackIn.translate(0.0D, base.young ? -0.015D : -0.025D, 0.0D);
+        matrixStackIn.scale(1.01f, 1.1f, 1.01f);
+        super.renderToBuffer(matrixStackIn, vertexBuilder, packedLightIn, packedOverlayIn, red, green, blue, alpha);
         matrixStackIn.popPose();
       }
     }
