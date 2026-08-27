@@ -8,7 +8,7 @@
     "tconstruct:steel",
     "tconstruct:manyullyn",
     "tconstruct:cinderslime",
-    "tconstruct:knightslime",
+    "tconstruct:knightmetal",
     {
       "id": "tconstruct:lead",
       "required": false
