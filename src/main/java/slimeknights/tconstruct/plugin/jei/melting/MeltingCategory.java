@@ -2,7 +2,6 @@ package slimeknights.tconstruct.plugin.jei.melting;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -16,7 +15,6 @@ import mezz.jei.api.recipe.RecipeType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.fluid.tooltip.FluidTooltipHandler;
@@ -55,7 +53,7 @@ public class MeltingCategory extends AbstractMeltingCategory {
 
   public MeltingCategory(IGuiHelper helper) {
     super(helper);
-    this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(TinkerSmeltery.searedMelter));
+    this.icon = helper.createDrawableItemLike(TinkerSmeltery.searedMelter);
     this.solidFuel = helper.drawableBuilder(BACKGROUND_LOC, 164, 0, 18, 20).build();
   }
 
@@ -83,7 +81,7 @@ public class MeltingCategory extends AbstractMeltingCategory {
   @Override
   public void setRecipe(IRecipeLayoutBuilder builder, MeltingRecipe recipe, IFocusGroup focuses) {
     // input
-    builder.addSlot(RecipeIngredientRole.INPUT, 24, 18).addIngredients(recipe.getInput());
+    builder.addInputSlot(24, 18).addIngredients(recipe.getInput());
 
     // output
     OreRateType oreType = recipe.getOreType();
@@ -95,7 +93,7 @@ public class MeltingCategory extends AbstractMeltingCategory {
     } else {
       tooltip = MeltingFluidCallback.INSTANCE;
     }
-    builder.addSlot(RecipeIngredientRole.OUTPUT, 96, 4)
+    builder.addOutputSlot(96, 4)
       .addTooltipCallback(tooltip)
       .setFluidRenderer(FluidValues.METAL_BLOCK, false, 32, 32)
       .setOverlay(tankOverlay, 0, 0)

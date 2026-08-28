@@ -31,7 +31,7 @@ public class SeveringCategory implements IRecipeCategory<SeveringRecipe> {
   @Getter
   private final IDrawable icon;
   public SeveringCategory(IGuiHelper helper) {
-    this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, TinkerTools.cleaver.get().getRenderTool());
+    this.icon = helper.createDrawableItemStack(TinkerTools.cleaver.get().getRenderTool());
   }
 
   @Override
@@ -62,14 +62,14 @@ public class SeveringCategory implements IRecipeCategory<SeveringRecipe> {
   @Override
   public void setRecipe(IRecipeLayoutBuilder builder, SeveringRecipe recipe, IFocusGroup focuses) {
     EntityIngredient input = recipe.getIngredient();
-    IIngredientAcceptor<?> entities = builder.addSlot(RecipeIngredientRole.INPUT, 3, 3)
+    IIngredientAcceptor<?> entities = builder.addInputSlot(3, 3)
            .setCustomRenderer(MantleJEIConstants.ENTITY_TYPE, entityRenderer)
            .addIngredients(MantleJEIConstants.ENTITY_TYPE, input.getDisplay());
     IIngredientAcceptor<?> eggs = builder.addInvisibleIngredients(RecipeIngredientRole.INPUT).addItemStacks(input.getEggs());
     builder.createFocusLink(entities, eggs);
 
     // output
-    builder.addSlot(RecipeIngredientRole.OUTPUT, 76, 11).addItemStack(recipe.getOutput()).setOutputSlotBackground();
+    builder.addOutputSlot(76, 11).addItemStack(recipe.getOutput()).setOutputSlotBackground();
   }
 
   @Override

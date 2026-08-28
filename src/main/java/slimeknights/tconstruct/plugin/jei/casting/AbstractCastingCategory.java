@@ -4,10 +4,10 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import lombok.Getter;
-import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
+import mezz.jei.api.gui.builder.ITooltipBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
@@ -32,7 +32,6 @@ import slimeknights.tconstruct.plugin.jei.util.FluidTooltipCallback;
 
 import javax.annotation.Nullable;
 import java.awt.Color;
-import java.util.Collections;
 import java.util.List;
 
 /** Shared base logic for the two casting recipe types */
@@ -53,7 +52,7 @@ public abstract class AbstractCastingCategory implements IRecipeCategory<IDispla
 
   protected AbstractCastingCategory(IGuiHelper guiHelper, Block icon, IDrawable block) {
     this.background = guiHelper.createDrawable(BACKGROUND_LOC, 0, 0, 117, 54);
-    this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(icon));
+    this.icon = guiHelper.createDrawableItemLike(icon);
     this.tankOverlay = guiHelper.createDrawable(BACKGROUND_LOC, 133, 0, 32, 32);
     this.castConsumed = guiHelper.createDrawable(BACKGROUND_LOC, 141, 32, 13, 11);
     this.castKept = guiHelper.createDrawable(BACKGROUND_LOC, 141, 43, 13, 11);
@@ -93,17 +92,16 @@ public abstract class AbstractCastingCategory implements IRecipeCategory<IDispla
   }
 
   @Override
-  public List<Component> getTooltipStrings(IDisplayableCastingRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
+  public void getTooltip(ITooltipBuilder tooltip, IDisplayableCastingRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
     if (recipe.hasCast() && GuiUtil.isHovered((int)mouseX, (int)mouseY, 63, 39, 13, 11)) {
-      return Collections.singletonList(Component.translatable(recipe.isConsumed() ? KEY_CAST_CONSUMED : KEY_CAST_KEPT));
+      tooltip.add(Component.translatable(recipe.isConsumed() ? KEY_CAST_CONSUMED : KEY_CAST_KEPT));
     }
-    return Collections.emptyList();
   }
 
   @Override
   public void setRecipe(IRecipeLayoutBuilder builder, IDisplayableCastingRecipe recipe, IFocusGroup focuses) {
     List<ItemStack> outputs = recipe.getOutputs();
-    IRecipeSlotBuilder output = builder.addSlot(RecipeIngredientRole.OUTPUT, 93, 18).addItemStacks(recipe.getOutputs());
+    IRecipeSlotBuilder output = builder.addOutputSlot(93, 18).addItemStacks(recipe.getOutputs());
     // items
     List<ItemStack> casts = recipe.getCastItems();
     if (!casts.isEmpty()) {
@@ -118,7 +116,7 @@ public abstract class AbstractCastingCategory implements IRecipeCategory<IDispla
     // tank fluids
     int capacity = FluidValues.METAL_BLOCK;
     List<FluidStack> inputs = recipe.getFluids();
-    IRecipeSlotBuilder tank = builder.addSlot(RecipeIngredientRole.INPUT, 3, 3)
+    IRecipeSlotBuilder tank = builder.addInputSlot(3, 3)
            .addTooltipCallback(FluidTooltipCallback.UNITS)
            .setFluidRenderer(capacity, false, 32, 32)
            .setOverlay(tankOverlay, 0, 0)

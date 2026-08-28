@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.plugin.jei.partbuilder;
 
 import lombok.Getter;
-import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -40,7 +39,7 @@ public class PartBuilderCategory implements IRecipeCategory<IDisplayPartBuilderR
   private final IDrawable icon;
   private final IDrawable patternButton;
   public PartBuilderCategory(IGuiHelper helper) {
-    this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(TinkerTables.partBuilder));
+    this.icon = helper.createDrawableItemLike(TinkerTables.partBuilder);
     this.patternButton = helper.createDrawable(BACKGROUND_LOC, 45, 132, 18, 18);
   }
 
@@ -87,19 +86,19 @@ public class PartBuilderCategory implements IRecipeCategory<IDisplayPartBuilderR
   public void setRecipe(IRecipeLayoutBuilder builder, IDisplayPartBuilderRecipe recipe, IFocusGroup focuses) {
     // items
     List<ItemStack> materialItems = recipe.getMaterialItems();
-    IRecipeSlotBuilder materialSlot = builder.addSlot(RecipeIngredientRole.INPUT, 25, 16)
+    IRecipeSlotBuilder materialSlot = builder.addInputSlot(25, 16)
       .addItemStacks(materialItems).setStandardSlotBackground();
-    builder.addSlot(RecipeIngredientRole.INPUT,  4, 16)
+    builder.addInputSlot(4, 16)
       .addItemStacks(recipe.getPatternItems()).setStandardSlotBackground();
     // patterns
-    builder.addSlot(RecipeIngredientRole.INPUT, 46, 16)
+    builder.addInputSlot(46, 16)
       .addIngredient(TConstructJEIConstants.PATTERN_TYPE, recipe.getPattern())
       .setBackground(patternButton, -1, -1);
     // TODO: material ingredient input?
 
     // output
     List<ItemStack> resultItems = recipe.getResultItems();
-    IRecipeSlotBuilder resultSlot = builder.addSlot(RecipeIngredientRole.OUTPUT, 96, 15)
+    IRecipeSlotBuilder resultSlot = builder.addOutputSlot(96, 15)
       .addItemStacks(resultItems).setOutputSlotBackground();
 
     // add focus link between materials and result; practically we only the size for result to be >1 for focus link; but better to be safe

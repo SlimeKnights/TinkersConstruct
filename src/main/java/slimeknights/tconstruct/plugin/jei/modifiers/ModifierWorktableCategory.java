@@ -1,9 +1,9 @@
 package slimeknights.tconstruct.plugin.jei.modifiers;
 
 import lombok.Getter;
-import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
+import mezz.jei.api.gui.builder.ITooltipBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
@@ -22,7 +22,6 @@ import slimeknights.tconstruct.library.recipe.worktable.IModifierWorktableRecipe
 import slimeknights.tconstruct.plugin.jei.TConstructJEIConstants;
 import slimeknights.tconstruct.tables.TinkerTables;
 
-import java.util.Collections;
 import java.util.List;
 
 public class ModifierWorktableCategory implements IRecipeCategory<IModifierWorktableRecipe> {
@@ -35,7 +34,7 @@ public class ModifierWorktableCategory implements IRecipeCategory<IModifierWorkt
   private final IDrawable[] slotIcons;
   private final IDrawable modifierButton;
   public ModifierWorktableCategory(IGuiHelper helper) {
-    this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(TinkerTables.modifierWorktable));
+    this.icon = helper.createDrawableItemLike(TinkerTables.modifierWorktable);
     this.toolIcon = helper.createDrawable(BACKGROUND_LOC, 128, 0, 16, 16);
     this.slotIcons = new IDrawable[] {
       helper.createDrawable(BACKGROUND_LOC, 176, 0, 16, 16),
@@ -71,11 +70,10 @@ public class ModifierWorktableCategory implements IRecipeCategory<IModifierWorkt
   }
 
   @Override
-  public List<Component> getTooltipStrings(IModifierWorktableRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
+  public void getTooltip(ITooltipBuilder tooltip, IModifierWorktableRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
     if (mouseY >= 2 && mouseY <= 12) {
-      return List.of(recipe.getDescription(null));
+      tooltip.add(recipe.getDescription(null));
     }
-    return Collections.emptyList();
   }
 
   @Override
@@ -90,7 +88,7 @@ public class ModifierWorktableCategory implements IRecipeCategory<IModifierWorkt
     // input items
     for (int i = 0; i < 2; i++) {
       List<ItemStack> stacks = recipe.getDisplayItems(i);
-      IRecipeSlotBuilder slot = builder.addSlot(RecipeIngredientRole.INPUT, 43 + i*18, 16)
+      IRecipeSlotBuilder slot = builder.addInputSlot(43 + i*18, 16)
         .addItemStacks(stacks)
         .setStandardSlotBackground();
       if (stacks.isEmpty()) {

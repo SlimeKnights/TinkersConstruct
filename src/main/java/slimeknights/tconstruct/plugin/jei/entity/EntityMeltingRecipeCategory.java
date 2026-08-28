@@ -95,7 +95,7 @@ public class EntityMeltingRecipeCategory implements IRecipeCategory<EntityMeltin
   public void setRecipe(IRecipeLayoutBuilder builder, EntityMeltingRecipe recipe, IFocusGroup focuses) {
     // inputs, filtered by spawn egg item
     EntityIngredient input = recipe.getIngredient();
-    IIngredientAcceptor<?> entities = builder.addSlot(RecipeIngredientRole.INPUT, 19, 11)
+    IIngredientAcceptor<?> entities = builder.addInputSlot(19, 11)
                                              .setCustomRenderer(MantleJEIConstants.ENTITY_TYPE, entityRenderer)
                                              .addIngredients(MantleJEIConstants.ENTITY_TYPE, input.getDisplay());
     // add spawn eggs as hidden inputs
@@ -103,7 +103,7 @@ public class EntityMeltingRecipeCategory implements IRecipeCategory<EntityMeltin
     builder.createFocusLink(entities, eggs);
 
     // output
-    builder.addSlot(RecipeIngredientRole.OUTPUT, 115, 11)
+    builder.addOutputSlot(115, 11)
            .setFluidRenderer(FluidValues.INGOT * 2, false, 16, 32)
            .addTooltipCallback(new FluidTooltip(recipe.getDamage())) // object is cheap, no need to cache
            .addIngredient(ForgeTypes.FLUID_STACK, recipe.getOutput());
