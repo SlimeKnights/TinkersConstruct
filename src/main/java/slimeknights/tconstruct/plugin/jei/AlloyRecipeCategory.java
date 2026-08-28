@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.plugin.jei;
 
 import lombok.Getter;
-import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -20,7 +19,6 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.fluid.tooltip.FluidTooltipHandler;
 import slimeknights.tconstruct.TConstruct;
@@ -66,7 +64,7 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe> {
 
   public AlloyRecipeCategory(IGuiHelper helper) {
     this.background = helper.createDrawable(BACKGROUND_LOC, 0, 0, 172, 62);
-    this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(TinkerSmeltery.smelteryController));
+    this.icon = helper.createDrawableItemLike(TinkerSmeltery.smelteryController);
     this.arrow = helper.drawableBuilder(BACKGROUND_LOC, 172, 0, 24, 17).buildAnimated(200, StartDirection.LEFT, false);
     this.tank = helper.createDrawable(BACKGROUND_LOC, 172, 17, 16, 16);
   }
@@ -159,7 +157,7 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe> {
                                        ingredient -> ingredient.catalyst() ? CATALYST_TOOLTIP : FluidTooltipCallback.UNITS);
 
     // output
-    builder.addSlot(RecipeIngredientRole.OUTPUT, 137, 11)
+    builder.addOutputSlot(137, 11)
            .addTooltipCallback(FluidTooltipCallback.UNITS)
            .setFluidRenderer(maxAmount, false, 16, 32)
            .addIngredient(ForgeTypes.FLUID_STACK, recipe.getOutput());

@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import lombok.Getter;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
+import mezz.jei.api.gui.builder.ITooltipBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
@@ -86,7 +87,7 @@ public class ToolBuildingCategory implements IRecipeCategory<ToolBuildingRecipe>
 
     IRecipeSlotBuilder firstSlot = null;
     for (int i = 0; i < layoutSlots.size(); i++) {
-      IRecipeSlotBuilder slot = builder.addSlot(RecipeIngredientRole.INPUT, layoutSlots.get(i).getX() + X_OFFSET, layoutSlots.get(i).getY() + Y_OFFSET)
+      IRecipeSlotBuilder slot = builder.addInputSlot(layoutSlots.get(i).getX() + X_OFFSET, layoutSlots.get(i).getY() + Y_OFFSET)
              .addItemStacks(partsAndExtras.get(i));
       if (i == 0) {
         firstSlot = slot;
@@ -95,7 +96,7 @@ public class ToolBuildingCategory implements IRecipeCategory<ToolBuildingRecipe>
 
     // create a focus link between result and first slot if same size
     List<ItemStack> result = recipe.getDisplayOutput();
-    IRecipeSlotBuilder resultSlot = builder.addSlot(RecipeIngredientRole.OUTPUT, WIDTH - 26, 23)
+    IRecipeSlotBuilder resultSlot = builder.addOutputSlot(WIDTH - 26, 23)
       .addItemStacks(result).setOutputSlotBackground();
     if (result.size() > 1 && partsAndExtras.get(0).size() == result.size()) {
       builder.createFocusLink(resultSlot, firstSlot);
@@ -147,10 +148,10 @@ public class ToolBuildingCategory implements IRecipeCategory<ToolBuildingRecipe>
   }
 
   @Override
-  public List<Component> getTooltipStrings(ToolBuildingRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
-    return recipe.requiresAnvil() && GuiUtil.isHovered((int) mouseX, (int) mouseY, 76, 44, ITEM_SIZE, ITEM_SIZE) ?
-      List.of(TConstruct.makeTranslation("jei", "tinkering.tool_building.anvil")) :
-      List.of();
+  public void getTooltip(ITooltipBuilder tooltip, ToolBuildingRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
+    if (recipe.requiresAnvil() && GuiUtil.isHovered((int)mouseX, (int)mouseY, 76, 44, ITEM_SIZE, ITEM_SIZE)) {
+      tooltip.add(TConstruct.makeTranslation("jei", "tinkering.tool_building.anvil"));
+    }
   }
 
   @Nonnull
