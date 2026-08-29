@@ -126,8 +126,8 @@ public class ModifierRecipeCategory extends AbstractRecipeCategory<IDisplayModif
     }
     Component levelText = getLevelText(recipe);
     if (levelText != null) {
-      builder.addText(levelText, 83, 9)
-        .setPosition(45, 16)
+      builder.addText(levelText, 85, 9)
+        .setPosition(43, 16)
         .setColor(Color.GRAY.getRGB())
         .setTextAlignment(HorizontalAlignment.CENTER);
     }
