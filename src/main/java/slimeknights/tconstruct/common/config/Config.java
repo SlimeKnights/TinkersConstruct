@@ -52,9 +52,6 @@ public class Config {
     // creative
     public final ConfigValue<String> showOnlyToolMaterial;
     public final ConfigValue<String> showOnlyPartMaterial;
-    public final BooleanValue showAllTableVariants;
-    public final BooleanValue showAllAnvilVariants;
-    public final BooleanValue showAllSmelteryVariants;
 
     // compatability
     public final BooleanValue allowIngotlessAlloys;
@@ -200,21 +197,6 @@ public class Config {
           .translation("tconstruct.configgui.showOnlyPartMaterial")
           .worldRestart()
           .define("showOnlyPartMaterial", "");
-
-        this.showAllTableVariants = builder
-          .comment("If true, tables such as the part builder and tinker station will show all variants in creative. If false, only the default variant shows.")
-          .translation("tconstruct.configgui.showAllTableVariants")
-          .define("showAllTableVariants", false);
-
-        this.showAllAnvilVariants = builder
-          .comment("If true, anvils will show all metal variants in creative. If false, only the default variant shows.")
-          .translation("tconstruct.configgui.showAllAnvilVariants")
-          .define("showAllAnvilVariants", true);
-
-        this.showAllSmelteryVariants = builder
-          .comment("If true, smeltery and foundry controllers, drains, ducts, and chutes will show all variants in creative. If false, only the default variant will show.")
-          .translation("tconstruct.configgui.showAllSmelteryVariants")
-          .define("showAllSmelteryVariants", false);
       }
       builder.pop(); // creative
 
@@ -348,17 +330,17 @@ public class Config {
           .define("showOnlyPartMaterial", "");
 
         this.showAllTableVariants = builder
-          .comment("If true, tables such as the part builder and tinker station will show all variants in JEI. If false the variants only show in the tables tab")
+          .comment("If true, tables such as the part builder and tinker station will show all variants in JEI. If false the variants only show in the table variants tab")
           .translation("tconstruct.configgui.showAllTableVariants")
           .define("showAllTableVariants", false);
 
         this.showAllAnvilVariants = builder
-          .comment("If true, anvils will show all metal variants in JEI. If false, the variants only show in the tables tab")
+          .comment("If true, anvils will show all metal variants in JEI. If false, the variants only show in the table variants tab")
           .translation("tconstruct.configgui.showAllAnvilVariants")
           .define("showAllAnvilVariants", true);
 
         this.showAllSmelteryVariants = builder
-          .comment("If true, smeltery and foundry controllers, drains, ducts, and chutes will show all variants in JEI. If false, the variants only shows in the smeltery tab")
+          .comment("If true, smeltery and foundry controllers, drains, ducts, and chutes will show all variants in JEI. If false, the variants only shows in the table variants tab")
           .translation("tconstruct.configgui.showAllSmelteryVariants")
           .define("showAllSmelteryVariants", false);
 

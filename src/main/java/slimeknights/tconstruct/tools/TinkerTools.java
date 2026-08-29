@@ -123,7 +123,7 @@ import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.BlockSideHitListener;
-import slimeknights.tconstruct.tables.TinkerTables;
+import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.tools.data.ArmorModelProvider;
 import slimeknights.tconstruct.tools.data.ModifierIds;
 import slimeknights.tconstruct.tools.data.StationSlotLayoutProvider;
@@ -173,11 +173,11 @@ public final class TinkerTools extends TinkerModule {
   /** Creative tab for complete tools */
   public static final RegistryObject<CreativeModeTab> tabTools = CREATIVE_TABS.register(
     "tools", () -> CreativeModeTab.builder().title(TConstruct.makeTranslation("itemGroup", "tools"))
-                                  .icon(() -> TinkerTools.pickaxe.get().getRenderTool())
-                                  .displayItems(TinkerTools::addTabItems)
-                                  .withTabsBefore(TinkerTables.tabTables.getId())
-                                  .withSearchBar()
-                                  .build());
+      .icon(() -> TinkerTools.pickaxe.get().getRenderTool())
+      .displayItems(TinkerTools::addTabItems)
+      .withTabsBefore(TinkerCommons.tabGeneral.getId())
+      .withSearchBar()
+      .build());
 
   /** Loot function type for tool add data */
   public static final RegistryObject<LootItemFunctionType> lootAddToolData = LOOT_FUNCTIONS.register("add_tool_data", () -> new LootItemFunctionType(AddToolDataFunction.SERIALIZER));

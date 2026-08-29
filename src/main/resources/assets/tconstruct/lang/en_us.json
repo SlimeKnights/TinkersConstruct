@@ -3857,12 +3857,12 @@
 
   "_comment": "GUIs",
 
-  "itemGroup.tconstruct.general": "Tinkers' General Items",
-  "itemGroup.tconstruct.tables": "Tinkers' Tables",
+  "itemGroup.tconstruct.general": "Tinkers' General",
+  "itemGroup.tconstruct.tables": "Tinkers' Deco",
   "itemGroup.tconstruct.tools": "Tinkers' Tools",
   "itemGroup.tconstruct.tool_parts": "Tinkers' Parts",
   "itemGroup.tconstruct.smeltery": "Tinkers' Smeltery",
-  "itemGroup.tconstruct.fluids": "Tinkers' Fluids",
+  "itemGroup.tconstruct.fluids": "Tinkers' Tanks",
   "itemGroup.tconstruct.world": "Tinkers' World",
 
   "gui.tconstruct.crafting_station": "Crafting Station",

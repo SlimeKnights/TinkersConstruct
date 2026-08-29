@@ -38,7 +38,6 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fml.ModList;
@@ -129,6 +128,8 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+
+import static slimeknights.mantle.util.RetexturedHelper.addTagVariants;
 
 @JeiPlugin
 public class JEIPlugin implements IModPlugin {
@@ -432,14 +433,6 @@ public class JEIPlugin implements IModPlugin {
     remove.add(new FluidStack(fluid, FluidType.BUCKET_VOLUME));
   }
 
-  /** Removes any retextured variants that shouldn't show */
-  private static void cleanupRetexturedBlock(Predicate<ItemStack> remover, boolean showAll, ItemLike item, TagKey<Item> tag) {
-    if (!showAll) {
-      RetexturedHelper.addTagVariants(remover, item, tag);
-    }
-    // do not remove blank if not showing all as that removes all anvils from the catalyst display due to recipe context
-  }
-
   @SuppressWarnings("deprecation")
   @Override
   public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
@@ -456,17 +449,6 @@ public class JEIPlugin implements IModPlugin {
     removeItems.add(new ItemStack(TinkerModifiers.creativeSlotItem));
     TinkerModifiers.creativeSlotItem.get().addVariants(removeItem);
 
-    // fluids can be clutter so remove them by default. These always show in creative
-    if (!Config.CLIENT.showFilledFluidTanks.get()) {
-      CopperCanItem.addFilledVariants(removeItem);
-      TankItem.addFilledVariants(removeItem);
-      // add back lava and blazing blood filled tanks, since they are useful and not much clutter
-      // easier to do this than to filter the list
-      addItems.add(TankItem.fillTank(TinkerSmeltery.searedTank, TankType.FUEL_TANK, Fluids.LAVA));
-      addItems.add(TankItem.fillTank(TinkerSmeltery.searedTank, TankType.FUEL_TANK, TinkerFluids.blazingBlood.get()));
-      addItems.add(TankItem.fillTank(TinkerSmeltery.scorchedTank, TankType.FUEL_TANK, Fluids.LAVA));
-      addItems.add(TankItem.fillTank(TinkerSmeltery.scorchedTank, TankType.FUEL_TANK, TinkerFluids.blazingBlood.get()));
-    }
     // tool config filters to 1 material, easiest to just remove all then add back the 1
     String showOnlyTools = Config.CLIENT.showOnlyToolMaterial.get();
     // if the creative is showing just 1, skip the client option
@@ -488,43 +470,45 @@ public class JEIPlugin implements IModPlugin {
         }
       }
     }
-    // for smeltery and tables, if the relevant config is true clear the blank variant
-    // however, don't change anything if the relevant server config is false
-    // if its false clear the special variants
-    Predicate<ItemStack> cleanupItem = stack -> {
-      removeItems.add(stack);
+
+    // for smeltery and tables, their creative tabs are hidden so the variants only show if we add them
+    Predicate<ItemStack> addVariants = stack -> {
+      addItems.add(stack);
       return false;
     };
     // wooden
-    if (Config.COMMON.showAllTableVariants.get()) {
-      boolean showTables = Config.CLIENT.showAllTableVariants.get();
-      cleanupRetexturedBlock(cleanupItem, showTables, TinkerTables.craftingStation, ItemTags.LOGS);
-      cleanupRetexturedBlock(cleanupItem, showTables, TinkerTables.partBuilder, ItemTags.PLANKS);
-      cleanupRetexturedBlock(cleanupItem, showTables, TinkerTables.tinkerStation, ItemTags.PLANKS);
-      cleanupRetexturedBlock(cleanupItem, showTables, TinkerTables.modifierWorktable, TinkerTags.Items.WORKSTATION_ROCK);
+    if (Config.CLIENT.showAllTableVariants.get()) {
+      addTagVariants(addVariants, TinkerTables.craftingStation, ItemTags.LOGS);
+      addTagVariants(addVariants, TinkerTables.partBuilder, ItemTags.PLANKS);
+      addTagVariants(addVariants, TinkerTables.tinkerStation, ItemTags.PLANKS);
+      addTagVariants(addVariants, TinkerTables.modifierWorktable, TinkerTags.Items.WORKSTATION_ROCK);
     }
     // smeltery
-    if (Config.COMMON.showAllSmelteryVariants.get()) {
-      boolean showSmeltery = Config.CLIENT.showAllSmelteryVariants.get();
-      cleanupRetexturedBlock(cleanupItem, showSmeltery, TinkerSmeltery.smelteryController, TinkerTags.Items.SEARED_BLOCKS);
-      cleanupRetexturedBlock(cleanupItem, showSmeltery, TinkerSmeltery.searedDrain, TinkerTags.Items.SEARED_BLOCKS);
-      cleanupRetexturedBlock(cleanupItem, showSmeltery, TinkerSmeltery.searedDuct, TinkerTags.Items.SEARED_BLOCKS);
-      cleanupRetexturedBlock(cleanupItem, showSmeltery, TinkerSmeltery.searedChute, TinkerTags.Items.SEARED_BLOCKS);
-      cleanupRetexturedBlock(cleanupItem, showSmeltery, TinkerSmeltery.foundryController, TinkerTags.Items.SCORCHED_BLOCKS);
-      cleanupRetexturedBlock(cleanupItem, showSmeltery, TinkerSmeltery.scorchedDrain, TinkerTags.Items.SCORCHED_BLOCKS);
-      cleanupRetexturedBlock(cleanupItem, showSmeltery, TinkerSmeltery.scorchedDuct, TinkerTags.Items.SCORCHED_BLOCKS);
-      cleanupRetexturedBlock(cleanupItem, showSmeltery, TinkerSmeltery.scorchedChute, TinkerTags.Items.SCORCHED_BLOCKS);
+    if (Config.CLIENT.showAllSmelteryVariants.get()) {
+      addTagVariants(addVariants, TinkerSmeltery.smelteryController, TinkerTags.Items.SEARED_BLOCKS);
+      addTagVariants(addVariants, TinkerSmeltery.searedDrain, TinkerTags.Items.SEARED_BLOCKS);
+      addTagVariants(addVariants, TinkerSmeltery.searedDuct, TinkerTags.Items.SEARED_BLOCKS);
+      addTagVariants(addVariants, TinkerSmeltery.searedChute, TinkerTags.Items.SEARED_BLOCKS);
+      addTagVariants(addVariants, TinkerSmeltery.foundryController, TinkerTags.Items.SCORCHED_BLOCKS);
+      addTagVariants(addVariants, TinkerSmeltery.scorchedDrain, TinkerTags.Items.SCORCHED_BLOCKS);
+      addTagVariants(addVariants, TinkerSmeltery.scorchedDuct, TinkerTags.Items.SCORCHED_BLOCKS);
+      addTagVariants(addVariants, TinkerSmeltery.scorchedChute, TinkerTags.Items.SCORCHED_BLOCKS);
     }
     // anvils are all variants
-    if (Config.COMMON.showAllAnvilVariants.get()) {
-      boolean showAnvils = Config.CLIENT.showAllAnvilVariants.get();
-      if (!showAnvils) {
-        Consumer<ItemStack> consumer = removeItems::add;
-        ((IMaterialItem) TinkerTables.tinkersAnvil.asItem()).addVariants(consumer, "");
-        ((IMaterialItem) TinkerTables.scorchedAnvil.asItem()).addVariants(consumer, "");
-      }
+    if (Config.CLIENT.showAllAnvilVariants.get()) {
+      // if true, add all metal variants
+      Consumer<ItemStack> consumer = removeItems::add;
+      ((IMaterialItem) TinkerTables.tinkersAnvil.asItem()).addVariants(addItem, "");
+      ((IMaterialItem) TinkerTables.scorchedAnvil.asItem()).addVariants(addItem, "");
     }
 
+    // fluid containers tab is hidden by tab, add back in the filled containers if requested
+    if (Config.CLIENT.showFilledFluidTanks.get()) {
+      CopperCanItem.addFilledVariants(addItem);
+      TankItem.addFilledVariants(addItem);
+    }
+
+    // update ingredients as requested
     if (!removeItems.isEmpty()) {
       manager.removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK, removeItems);
     }
