@@ -35,6 +35,7 @@ import static slimeknights.tconstruct.library.recipe.tinkerstation.building.Tool
 public class ToolBuildingCategory extends AbstractRecipeCategory<ToolBuildingRecipe> {
   private static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/tinker_station.png");
   private static final Component TITLE = TConstruct.makeTranslation("jei", "tinkering.tool_building");
+  private static final Component ANVIL = TConstruct.makeTranslation("jei", "tinkering.tool_building.anvil");
   private final IDrawable anvil, slotBg, slotBorder;
   private final IDrawable itemCover;
   private static final int WIDTH = 134;
@@ -135,7 +136,7 @@ public class ToolBuildingCategory extends AbstractRecipeCategory<ToolBuildingRec
   @Override
   public void getTooltip(ITooltipBuilder tooltip, ToolBuildingRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
     if (recipe.requiresAnvil() && GuiUtil.isHovered((int)mouseX, (int)mouseY, 76, 44, ITEM_SIZE, ITEM_SIZE)) {
-      tooltip.add(TConstruct.makeTranslation("jei", "tinkering.tool_building.anvil"));
+      tooltip.add(ANVIL);
     }
   }
 
