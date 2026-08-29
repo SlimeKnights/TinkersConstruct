@@ -5,7 +5,7 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.materials.MaterialTooltipCache;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
@@ -46,7 +46,7 @@ public interface MaterialToolName extends ToolNameHook.FromDefault {
     Set<MaterialVariantId> displayMaterials = new LinkedHashSet<>(size);
     for (int i = 0; i < size; i++) {
       MaterialVariantId material = materials.get(i).getVariant();
-      if (!IMaterial.UNKNOWN_ID.equals(material) && shouldDisplayMaterial(i, components.get(i), material)) {
+      if (!MaterialId.UNKNOWN.equals(material) && shouldDisplayMaterial(i, components.get(i), material)) {
         displayMaterials.add(material);
       }
     }

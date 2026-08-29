@@ -65,7 +65,7 @@ import slimeknights.tconstruct.library.client.modifiers.IBakedModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.ModifierModelMap;
 import slimeknights.tconstruct.library.client.modifiers.ModifierModelMapManager;
 import slimeknights.tconstruct.library.client.modifiers.model.ModifierModel;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
@@ -411,7 +411,7 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
       if (part.hasMaterials()) {
         // start by fetching the material we are rendering at this position, should only be null on invalid tools or during the initial bake
         int index = part.index();
-        MaterialVariantId material = index < materials.size() ? materials.get(index) : IMaterial.UNKNOWN_ID;
+        MaterialVariantId material = index < materials.size() ? materials.get(index) : MaterialId.UNKNOWN;
         TintedSprite materialSprite = MaterialModel.getMaterialSprite(spriteGetter, owner.getMaterial(part.getName(false)), material);
         particle = materialSprite.sprite();
 

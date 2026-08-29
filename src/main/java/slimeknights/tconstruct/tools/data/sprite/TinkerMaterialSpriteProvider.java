@@ -8,7 +8,7 @@ import slimeknights.tconstruct.library.client.data.spritetransformer.GreyToColor
 import slimeknights.tconstruct.library.client.data.spritetransformer.GreyToSpriteTransformer;
 import slimeknights.tconstruct.library.client.data.spritetransformer.IColorMapping;
 import slimeknights.tconstruct.library.client.data.spritetransformer.ISpriteTransformer;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.tools.data.material.MaterialIds;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
@@ -37,7 +37,7 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
   @Override
   protected void addAllMaterials() {
     // unknown: just do a black border, make sure it stands out when data is missing
-    buildMaterial(IMaterial.UNKNOWN_ID)
+    buildMaterial(MaterialId.UNKNOWN)
       .meleeHarvest().ranged().arrowHead().arrowShaft().statType(INGOT)
       // not using the helper to avoid catching armor models
       .statType(PlatingMaterialStats.TYPES)

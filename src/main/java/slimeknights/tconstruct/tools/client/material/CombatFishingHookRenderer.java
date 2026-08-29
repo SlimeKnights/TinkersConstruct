@@ -24,7 +24,7 @@ import slimeknights.tconstruct.library.client.armor.texture.ArmorTextureSupplier
 import slimeknights.tconstruct.library.client.armor.texture.TintedArmorTexture;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfo;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.utils.SimpleCache;
 import slimeknights.tconstruct.tools.entity.CombatFishingHook;
@@ -51,7 +51,7 @@ public class CombatFishingHookRenderer extends EntityRenderer<CombatFishingHook>
 
   /** Cache of texture and color for each material. */
   private static final SimpleCache<MaterialVariantId,MaterialTexture> TEXTURE_CACHE = new SimpleCache<>(material -> {
-    if (!IMaterial.UNKNOWN_ID.equals(material)) {
+    if (!MaterialId.UNKNOWN.equals(material)) {
       Optional<MaterialRenderInfo> infoOptional = MaterialRenderInfoLoader.INSTANCE.getRenderInfo(material);
       int color = -1;
       int luminosity = 0;

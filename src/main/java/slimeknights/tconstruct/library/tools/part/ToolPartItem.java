@@ -49,7 +49,7 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
     }
     MaterialVariantId materialVariant = self.getMaterial(stack);
     MaterialId id = materialVariant.getId();
-    if (!materialVariant.equals(IMaterial.UNKNOWN_ID)) {
+    if (!materialVariant.equals(MaterialId.UNKNOWN)) {
       // internal material ID
       if (flag.isAdvanced()) {
         tooltip.add((Component.translatable(MATERIAL_KEY, materialVariant.toString())).withStyle(ChatFormatting.DARK_GRAY));

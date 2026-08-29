@@ -61,7 +61,7 @@ public class AnvilBlockItem extends MaterialBlockItem {
     // ditch the super call advanced tooltip material ID, we will handle it ourselves later
     this.getBlock().appendHoverText(stack, level, tooltip, flag);
     MaterialVariantId material = getMaterial(stack);
-    if (!IMaterial.UNKNOWN_ID.equals(material)) {
+    if (!MaterialId.UNKNOWN.equals(material)) {
       // put tool material in tooltip. Its technically below texture but the two should never coexist.
       tooltip.add(this.matching.get().asItem().getName(stack).copy().withStyle(ChatFormatting.GRAY));
       // add ID if advanced

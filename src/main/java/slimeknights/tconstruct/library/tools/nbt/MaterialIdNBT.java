@@ -11,7 +11,6 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.library.materials.IMaterialRegistry;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 
@@ -46,7 +45,7 @@ public class MaterialIdNBT {
    */
   public MaterialVariantId getMaterial(int index) {
     if (index >= materials.size() || index < 0) {
-      return IMaterial.UNKNOWN_ID;
+      return MaterialId.UNKNOWN;
     }
     return materials.get(index);
   }

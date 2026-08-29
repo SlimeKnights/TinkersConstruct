@@ -1,14 +1,13 @@
 package slimeknights.tconstruct.library.materials.definition;
 
-import slimeknights.tconstruct.TConstruct;
-
 /**
  * Base interface for all materials.
  * TODO 1.21: Make {@link slimeknights.mantle.registration.object.IdAwareObject}
  */
 public interface IMaterial extends Comparable<IMaterial> {
-  /** ID of fallback material */
-  MaterialId UNKNOWN_ID = new MaterialId(TConstruct.MOD_ID, "unknown");
+  /** @deprecated use {@link MaterialId#UNKNOWN} */
+  @Deprecated(forRemoval = true)
+  MaterialId UNKNOWN_ID = MaterialId.UNKNOWN;
 
   /**
    * Fallback material. Used for operations where a material or specific aspects of a material are used,
@@ -17,7 +16,7 @@ public interface IMaterial extends Comparable<IMaterial> {
    * <p>
    * The fallback material needs to have all part types associated with it.
    */
-  IMaterial UNKNOWN = new Material(UNKNOWN_ID, false, true);
+  IMaterial UNKNOWN = new Material(MaterialId.UNKNOWN, false, true);
 
   /**
    * Used to identify the material in NBT and other constructs.

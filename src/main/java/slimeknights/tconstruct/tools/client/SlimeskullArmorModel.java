@@ -25,7 +25,6 @@ import slimeknights.tconstruct.library.client.armor.ArmorModelManager.ArmorModel
 import slimeknights.tconstruct.library.client.armor.MultilayerArmorModel;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfo;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
@@ -73,7 +72,7 @@ public class SlimeskullArmorModel extends MultilayerArmorModel {
   public Model setup(LivingEntity living, ItemStack stack, HumanoidModel<?> base, ArmorModel model) {
     super.setup(living, stack, EquipmentSlot.HEAD, base, model);
     MaterialId materialId = MaterialIdNBT.from(stack).getMaterial(0).getId();
-    if (!materialId.equals(IMaterial.UNKNOWN_ID)) {
+    if (!materialId.equals(MaterialId.UNKNOWN)) {
       SkullModelBase skull = getHeadModel(materialId);
       ResourceLocation texture = HEAD_TEXTURES.get(materialId);
       if (skull != null && texture != null) {
@@ -86,7 +85,7 @@ public class SlimeskullArmorModel extends MultilayerArmorModel {
         } else {
           // if not dyed, color is the material, fallback to no tint if missing
           MaterialVariantId material = MaterialIdNBT.from(stack).getMaterial(1);
-          if (IMaterial.UNKNOWN_ID.equals(material)) {
+          if (MaterialId.UNKNOWN.equals(material)) {
             headColor = -1;
           } else {
             headColor = MATERIAL_COLOR_CACHE.apply(material);

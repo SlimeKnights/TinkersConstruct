@@ -16,7 +16,7 @@ import slimeknights.mantle.recipe.ICustomOutputRecipe;
 import slimeknights.mantle.recipe.container.ISingleStackContainer;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.mantle.recipe.helper.LoadableRecipeSerializer;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 public class MaterialRecipe implements ICustomOutputRecipe<ISingleStackContainer>, IMaterialValue {
   /** Empty material instance for the cache */
   @SuppressWarnings("removal")
-  public static final MaterialRecipe EMPTY = new MaterialRecipe(new ResourceLocation("missingno"), "", Ingredient.EMPTY, 0, 0, IMaterial.UNKNOWN_ID, ItemOutput.EMPTY);
+  public static final MaterialRecipe EMPTY = new MaterialRecipe(new ResourceLocation("missingno"), "", Ingredient.EMPTY, 0, 0, MaterialId.UNKNOWN, ItemOutput.EMPTY);
   public static final RecordLoadable<MaterialRecipe> LOADER = RecordLoadable.create(
     ContextKey.ID.requiredField(),
     LoadableRecipeSerializer.RECIPE_GROUP,

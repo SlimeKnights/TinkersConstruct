@@ -14,7 +14,6 @@ import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
@@ -77,7 +76,7 @@ public class RepairKitItem extends MaterialItem implements IRepairKitItem {
         ToolStack tool = ToolStack.from(toolItem);
         MaterialId material = getMaterial(stack).getId();
         // tool must be damaged for us to repair it, and we must have a material
-        if (tool.getDamage() > 0 && material != IMaterial.UNKNOWN_ID) {
+        if (tool.getDamage() > 0 && material != MaterialId.UNKNOWN) {
           // ask the tool how much this material is worth
           float amount = MaterialRepairToolHook.repairAmount(tool, material);
           if (amount > 0) {
