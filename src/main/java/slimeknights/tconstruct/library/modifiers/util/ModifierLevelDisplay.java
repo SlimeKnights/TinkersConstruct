@@ -7,14 +7,10 @@ import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.loadable.record.SingletonLoader;
 import slimeknights.mantle.data.registry.DefaultingLoaderRegistry;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.json.LevelingInt;
 import slimeknights.tconstruct.library.modifiers.Modifier;
-import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.utils.RomanNumeralHelper;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.BiFunction;
 
 /**
@@ -129,35 +125,28 @@ public interface ModifierLevelDisplay extends IHaveLoader {
   }
 
   /** Displays the modifier name using another modifier's name */
-  record ModifierName(LazyModifier modifier, LevelingInt level) implements ModifierLevelDisplay {
-    public static final RecordLoadable<ModifierName> LOADER = RecordLoadable.create(
-      ModifierId.PARSER.requiredField("modifier", r -> r.modifier.getId()),
-      LevelingInt.LOADABLE.requiredField("level", ModifierName::level),
-      ModifierName::new);
-    /** Stack of modifiers currently being processed, to avoid cycles. */
-    private static final List<ModifierId> PROCESSING = new ArrayList<>(4);
+  record MapLevel(LevelingInt level, ModifierLevelDisplay apply) implements ModifierLevelDisplay {
+    public static final RecordLoadable<MapLevel> LOADER = RecordLoadable.create(
+      LevelingInt.LOADABLE.requiredField("level", MapLevel::level),
+      ModifierLevelDisplay.LOADER.defaultField("apply", MapLevel::apply),
+      MapLevel::new);
 
-    public ModifierName(ModifierId modifier, LevelingInt level) {
-      this(new LazyModifier(modifier), level);
+    public MapLevel(LevelingInt level) {
+      this(level, DEFAULT);
+    }
+
+    public MapLevel(int flat, int eachLevel) {
+      this(new LevelingInt(flat, eachLevel));
     }
 
     @Override
-    public RecordLoadable<ModifierName> getLoader() {
+    public RecordLoadable<MapLevel> getLoader() {
       return LOADER;
     }
 
     @Override
     public Component nameForLevel(Modifier modifier, int level) {
-      ModifierId override = this.modifier.id;
-      if (PROCESSING.contains(override)) {
-        TConstruct.LOG.error("Modifier name override cycle detected: attempting to query {} but its being processed: {}", override, PROCESSING);
-        // levelness display is good enough
-        return this.modifier.get().getDisplayName();
-      }
-      PROCESSING.add(override);
-      Component name = this.modifier.get().getDisplayName(this.level.computeForLevel(level));
-      PROCESSING.remove(override);
-      return name;
+      return apply.nameForLevel(modifier, this.level.computeForLevel(level));
     }
   }
 }

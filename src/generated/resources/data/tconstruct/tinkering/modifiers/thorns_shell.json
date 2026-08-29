@@ -1,11 +1,10 @@
 {
   "level_display": {
-    "type": "tconstruct:modifier_name",
+    "type": "tconstruct:map_level",
     "level": {
       "each_level": 1,
       "flat": 1
-    },
-    "modifier": "tconstruct:thorns"
+    }
   },
   "modules": [
     {

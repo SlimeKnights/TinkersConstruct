@@ -159,7 +159,6 @@ import slimeknights.tconstruct.library.modifiers.modules.util.BooleanPredicate;
 import slimeknights.tconstruct.library.modifiers.modules.util.ModifierCondition;
 import slimeknights.tconstruct.library.modifiers.modules.util.ProjectilePredicate;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
-import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay.ModifierName;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay.UniqueForLevels;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.SwappableModifierRecipe.VariantFormatter;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
@@ -1705,7 +1704,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
   private void traitTwoPlusOne(ModifierId modifier, ModifierId trait) {
     buildModifier(modifier).tooltipDisplay(TooltipDisplay.NEVER)
       // use the trait for name and description
-      .levelDisplay(new ModifierName(trait, new LevelingInt(1, 1))).translationKey(trait)
+      .levelDisplay(new ModifierLevelDisplay.MapLevel(1, 1)).translationKey(trait)
       // add the trait once fixed and once leveling
       .addModule(new ModifierTraitModule(trait, 1, false))
       .addModule(new ModifierTraitModule(trait, 1, true));

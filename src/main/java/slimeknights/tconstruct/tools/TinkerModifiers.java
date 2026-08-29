@@ -843,7 +843,7 @@ public final class TinkerModifiers extends TinkerModule {
       ModifierLevelDisplay.LOADER.register(getResource("pluses"), ModifierLevelDisplay.PLUSES.getLoader());
       ModifierLevelDisplay.LOADER.register(getResource("unique"), ModifierLevelDisplay.UniqueForLevels.LOADER);
       ModifierLevelDisplay.LOADER.register(getResource("cap_level"), ModifierLevelDisplay.LevelCap.LOADER);
-      ModifierLevelDisplay.LOADER.register(getResource("modifier_name"), ModifierLevelDisplay.ModifierName.LOADER);
+      ModifierLevelDisplay.LOADER.register(getResource("map_level"), ModifierLevelDisplay.MapLevel.LOADER);
 
       // modifier modules //
       ModifierModule.LOADER.register(getResource("empty"), ModifierModule.EMPTY.getLoader());
