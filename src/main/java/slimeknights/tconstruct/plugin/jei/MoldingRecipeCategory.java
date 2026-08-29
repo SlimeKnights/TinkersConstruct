@@ -76,8 +76,10 @@ public class MoldingRecipeCategory extends AbstractRecipeCategory<MoldingRecipe>
     // if we have a mold, we are pressing into the table, so draw pressed item on input and output
     Ingredient pattern = recipe.getPattern();
     if (!pattern.isEmpty()) {
-      IRecipeSlotBuilder inputSlot = builder.addInputSlot(3, 1).addIngredients(pattern);
-      if (!recipe.isPatternConsumed()) {
+      boolean patternConsumed = recipe.isPatternConsumed();
+      IRecipeSlotBuilder inputSlot = builder.addSlot(patternConsumed ? RecipeIngredientRole.INPUT : RecipeIngredientRole.CATALYST, 3, 1)
+        .addIngredients(pattern);
+      if (!patternConsumed) {
         IRecipeSlotBuilder preservedSlot = builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 51, 8).addIngredients(pattern);
         builder.createFocusLink(inputSlot, preservedSlot);
       }

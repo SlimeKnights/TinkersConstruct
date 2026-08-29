@@ -17,6 +17,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.library.client.materials.MaterialTooltipCache;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
@@ -64,8 +65,10 @@ public class PartBuilderCategory extends AbstractRecipeCategory<IDisplayPartBuil
     List<ItemStack> materialItems = recipe.getMaterialItems();
     IRecipeSlotBuilder materialSlot = builder.addInputSlot(25, 16)
       .addItemStacks(materialItems).setStandardSlotBackground();
-    builder.addInputSlot(4, 16)
-      .addItemStacks(recipe.getPatternItems()).setStandardSlotBackground();
+    List<ItemStack> patternItems = recipe.getPatternItems();
+    boolean reusablePattern = !patternItems.isEmpty() && patternItems.stream().allMatch(stack -> stack.is(TinkerTags.Items.REUSABLE_PATTERNS));
+    builder.addSlot(reusablePattern ? RecipeIngredientRole.CATALYST : RecipeIngredientRole.INPUT, 4, 16)
+      .addItemStacks(patternItems).setStandardSlotBackground();
     // patterns
     builder.addInputSlot(46, 16)
       .addIngredient(TConstructJEIConstants.PATTERN_TYPE, recipe.getPattern())
