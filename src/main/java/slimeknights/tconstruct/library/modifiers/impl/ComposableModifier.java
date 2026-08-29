@@ -5,12 +5,16 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import slimeknights.mantle.data.loadable.ErrorFactory;
 import slimeknights.mantle.data.loadable.primitive.EnumLoadable;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
+import slimeknights.mantle.data.loadable.primitive.StringLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.module.ModuleHook;
@@ -18,6 +22,7 @@ import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.module.WithHooks;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,10 +34,12 @@ public class ComposableModifier extends BasicModifier {
     new EnumLoadable<>(TooltipDisplay.class).defaultField("tooltip_display", TooltipDisplay.ALWAYS, true, m -> m.tooltipDisplay),
     IntLoadable.ANY_FULL.defaultField("priority", Integer.MIN_VALUE, m -> m.priority),
     ModifierModule.WITH_HOOKS.list(0).defaultField("modules", List.of(), m -> m.modules),
+    StringLoadable.DEFAULT.defaultField("description_key", "", false, m -> m.descriptionKey),
     ErrorFactory.FIELD,
-    (level, tooltip, priority, modules, error) -> new ComposableModifier(level, tooltip, priority == Integer.MIN_VALUE ? computePriority(modules) : priority, modules, error));
+    (level, tooltip, priority, modules, descriptionKey, error) -> new ComposableModifier(level, tooltip, priority == Integer.MIN_VALUE ? computePriority(modules) : priority, modules, descriptionKey, error));
 
   private final List<WithHooks<ModifierModule>> modules;
+  private final String descriptionKey;
 
   /**
    * Creates a new instance
@@ -41,9 +48,29 @@ public class ComposableModifier extends BasicModifier {
    * @param priority         If the value is {@link Integer#MIN_VALUE}, assumed unset for datagen
    * @param modules          Modules for this modifier
    */
-  protected ComposableModifier(ModifierLevelDisplay levelDisplay, TooltipDisplay tooltipDisplay, int priority, List<WithHooks<ModifierModule>> modules, ErrorFactory error) {
+  protected ComposableModifier(ModifierLevelDisplay levelDisplay, TooltipDisplay tooltipDisplay, int priority, List<WithHooks<ModifierModule>> modules, String descriptionKey, ErrorFactory error) {
     super(ModuleHookMap.createMap(modules, error), levelDisplay, tooltipDisplay, priority);
     this.modules = modules;
+    this.descriptionKey = descriptionKey;
+  }
+
+  /** @deprecated use {@link #ComposableModifier(ModifierLevelDisplay, TooltipDisplay, int, List, String, ErrorFactory)} */
+  @Deprecated(forRemoval = true)
+  protected ComposableModifier(ModifierLevelDisplay levelDisplay, TooltipDisplay tooltipDisplay, int priority, List<WithHooks<ModifierModule>> modules, ErrorFactory error) {
+    this(levelDisplay, tooltipDisplay, priority, modules, "", error);
+  }
+
+  @Override
+  public List<Component> getDescriptionList() {
+    if (!descriptionKey.isEmpty()) {
+      if (descriptionList == null) {
+        descriptionList = Arrays.asList(
+          Component.translatable(descriptionKey + ".flavor").withStyle(ChatFormatting.ITALIC),
+          Component.translatable(descriptionKey + ".description").withStyle(ChatFormatting.GRAY));
+      }
+      return descriptionList;
+    }
+    return super.getDescriptionList();
   }
 
   /** Creates a builder instance for datagen */
@@ -82,17 +109,17 @@ public class ComposableModifier extends BasicModifier {
 
   /** Builder for a composable modifier instance */
   @SuppressWarnings("UnusedReturnValue")  // it's a builder
+  @Setter
   @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
   @Accessors(fluent = true)
   public static class Builder {
-    @Setter
+    private final ImmutableList.Builder<WithHooks<ModifierModule>> modules = ImmutableList.builder();
     private ModifierLevelDisplay levelDisplay = ModifierLevelDisplay.DEFAULT;
-    @Setter
     private TooltipDisplay tooltipDisplay = TooltipDisplay.ALWAYS;
     /** {@link Integer#MIN_VALUE} is an internal value used to represent unset for datagen, to distinguish unset from {@link Modifier#DEFAULT_PRIORITY} */
-    @Setter
     private int priority = Integer.MIN_VALUE;
-    private final ImmutableList.Builder<WithHooks<ModifierModule>> modules = ImmutableList.builder();
+    /** Description key prefix. If not empty, will use instead of the modifier ID for the prefix for tooltip keys. */
+    private String descriptionKey = "";
 
     /** Adds a module to the builder */
     public final Builder addModule(ModifierModule module) {
@@ -116,6 +143,11 @@ public class ComposableModifier extends BasicModifier {
       return this;
     }
 
+    /** Overrides the description key prefix using the given modifier. */
+    public Builder modifierDescription(ModifierId modifier) {
+      return descriptionKey("modifier." + modifier.toLanguageKey());
+    }
+
     /** Builds the final instance */
     public ComposableModifier build() {
       List<WithHooks<ModifierModule>> modules = this.modules.build();
@@ -123,7 +155,7 @@ public class ComposableModifier extends BasicModifier {
         // call computePriority if we did not set one so we get the warning if multiple modules wish to set the priority
         computePriority(modules);
       }
-      return new ComposableModifier(levelDisplay, tooltipDisplay, priority, modules, ErrorFactory.RUNTIME);
+      return new ComposableModifier(levelDisplay, tooltipDisplay, priority, modules, descriptionKey, ErrorFactory.RUNTIME);
     }
   }
 }
