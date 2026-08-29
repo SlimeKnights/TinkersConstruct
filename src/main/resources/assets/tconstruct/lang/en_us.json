@@ -4157,7 +4157,7 @@
   "jei.tconstruct.modifiers.incremental": "Recipe is incremental, you can apply part of the input for a partial effect",
   "jei.tconstruct.modifiers.level.min": "Min level: %s",
   "jei.tconstruct.modifiers.level.max": "Max level: %s",
-  "jei.tconstruct.modifiers.level.range": "Level range: %s-%s",
+  "jei.tconstruct.modifiers.level.range": "For levels: %s-%s",
   "jei.tconstruct.modifiers.level.exact": "For level: %s",
 
   "jei.tconstruct.severing.title": "Severing",
