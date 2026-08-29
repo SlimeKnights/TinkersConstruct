@@ -4,7 +4,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
-import mezz.jei.api.gui.builder.ITooltipBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
@@ -17,10 +16,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipe;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 import slimeknights.tconstruct.library.tools.layout.LayoutSlot;
+import slimeknights.tconstruct.plugin.jei.util.RecipeTooltipWidget;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 import java.util.ArrayList;
@@ -53,6 +52,9 @@ public class ToolBuildingCategory extends AbstractRecipeCategory<ToolBuildingRec
   @Override
   public void createRecipeExtras(IRecipeExtrasBuilder builder, ToolBuildingRecipe recipe, IFocusGroup focuses) {
     builder.addRecipeArrow().setPosition(74, 22);
+    if (recipe.requiresAnvil()) {
+      builder.addWidget(new RecipeTooltipWidget(anvil, 76, 44, ANVIL));
+    }
   }
 
   @Override
@@ -126,18 +128,6 @@ public class ToolBuildingCategory extends AbstractRecipeCategory<ToolBuildingRec
     }
     RenderSystem.disableBlend();
     RenderSystem.enableDepthTest();
-
-    // draw anvil icon if anvil is required
-    if (recipe.requiresAnvil()) {
-      this.anvil.draw(graphics, 76, 44);
-    }
-  }
-
-  @Override
-  public void getTooltip(ITooltipBuilder tooltip, ToolBuildingRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
-    if (recipe.requiresAnvil() && GuiUtil.isHovered((int)mouseX, (int)mouseY, 76, 44, ITEM_SIZE, ITEM_SIZE)) {
-      tooltip.add(ANVIL);
-    }
   }
 
   @Override

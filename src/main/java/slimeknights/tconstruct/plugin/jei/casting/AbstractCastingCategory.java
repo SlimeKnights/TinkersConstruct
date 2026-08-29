@@ -1,34 +1,30 @@
 package slimeknights.tconstruct.plugin.jei.casting;
 
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
 import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
-import mezz.jei.api.gui.builder.ITooltipBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
-import mezz.jei.api.gui.drawable.IDrawableAnimated;
+import mezz.jei.api.gui.drawable.IDrawableAnimated.StartDirection;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
+import mezz.jei.api.gui.placement.HorizontalAlignment;
+import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.AbstractRecipeCategory;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.casting.IDisplayableCastingRecipe;
 import slimeknights.tconstruct.plugin.jei.util.FluidTooltipCallback;
+import slimeknights.tconstruct.plugin.jei.util.RecipeTooltipWidget;
 
 import javax.annotation.Nullable;
 import java.awt.Color;
@@ -46,44 +42,39 @@ public abstract class AbstractCastingCategory extends AbstractRecipeCategory<IDi
   private final IDrawable castConsumed;
   private final IDrawable castKept;
   private final IDrawable block;
-  private final LoadingCache<Integer,IDrawableAnimated> cachedArrows;
+  private final IGuiHelper guiHelper;
 
   protected AbstractCastingCategory(IGuiHelper guiHelper, RecipeType<IDisplayableCastingRecipe> recipeType, Component title, Block icon, IDrawable block) {
     super(recipeType, title, guiHelper.createDrawableItemLike(icon), 117, 54);
+    this.guiHelper = guiHelper;
     this.background = guiHelper.createDrawable(BACKGROUND_LOC, 0, 0, 117, 54);
     this.tankOverlay = guiHelper.createDrawable(BACKGROUND_LOC, 133, 0, 32, 32);
     this.castConsumed = guiHelper.createDrawable(BACKGROUND_LOC, 141, 32, 13, 11);
     this.castKept = guiHelper.createDrawable(BACKGROUND_LOC, 141, 43, 13, 11);
     this.block = block;
-    this.cachedArrows = CacheBuilder.newBuilder().maximumSize(25L).build(new CacheLoader<>() {
-      @Override
-      public IDrawableAnimated load(Integer coolingTime) {
-        return guiHelper.drawableBuilder(BACKGROUND_LOC, 117, 32, 24, 17).buildAnimated(coolingTime, IDrawableAnimated.StartDirection.LEFT, false);
-      }
-    });
+  }
+
+  @Override
+  public void createRecipeExtras(IRecipeExtrasBuilder builder, IDisplayableCastingRecipe recipe, IFocusGroup focuses) {
+    int coolingTime = recipe.getCoolingTime();
+    builder.addDrawable(guiHelper.drawableBuilder(BACKGROUND_LOC, 117, 32, 24, 17)
+                                 .buildAnimated(Math.max(1, coolingTime), StartDirection.LEFT, false), 58, 18);
+    if (recipe.hasCast()) {
+      boolean consumed = recipe.isConsumed();
+      IDrawable drawable = consumed ? castConsumed : castKept;
+      MutableComponent tooltip = Component.translatable(consumed ? KEY_CAST_CONSUMED : KEY_CAST_KEPT);
+      builder.addWidget(new RecipeTooltipWidget(drawable, 63, 39, tooltip));
+    }
+    builder.addText(Component.translatable(KEY_COOLING_TIME, coolingTime / 20), 89, 9)
+      .setPosition(28, 2)
+      .setColor(Color.GRAY.getRGB())
+      .setTextAlignment(HorizontalAlignment.CENTER);
   }
 
   @Override
   public void draw(IDisplayableCastingRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics graphics, double mouseX, double mouseY) {
     background.draw(graphics);
-    cachedArrows.getUnchecked(Math.max(1, recipe.getCoolingTime())).draw(graphics, 58, 18);
     block.draw(graphics, 38, 35);
-    if (recipe.hasCast()) {
-      (recipe.isConsumed() ? castConsumed : castKept).draw(graphics, 63, 39);
-    }
-
-    int coolingTime = recipe.getCoolingTime() / 20;
-    String coolingString = I18n.get(KEY_COOLING_TIME, coolingTime);
-    Font fontRenderer = Minecraft.getInstance().font;
-    int x = 72 - fontRenderer.width(coolingString) / 2;
-    graphics.drawString(fontRenderer, coolingString, x, 2, Color.GRAY.getRGB(), false);
-  }
-
-  @Override
-  public void getTooltip(ITooltipBuilder tooltip, IDisplayableCastingRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
-    if (recipe.hasCast() && GuiUtil.isHovered((int)mouseX, (int)mouseY, 63, 39, 13, 11)) {
-      tooltip.add(Component.translatable(recipe.isConsumed() ? KEY_CAST_CONSUMED : KEY_CAST_KEPT));
-    }
   }
 
   @Override

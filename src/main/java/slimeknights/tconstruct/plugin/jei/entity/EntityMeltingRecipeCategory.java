@@ -7,13 +7,13 @@ import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated.StartDirection;
 import mezz.jei.api.gui.ingredient.IRecipeSlotView;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
+import mezz.jei.api.gui.placement.HorizontalAlignment;
+import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.AbstractRecipeCategory;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -56,15 +56,17 @@ public class EntityMeltingRecipeCategory extends AbstractRecipeCategory<EntityMe
   }
 
   @Override
+  public void createRecipeExtras(IRecipeExtrasBuilder builder, EntityMeltingRecipe recipe, IFocusGroup focuses) {
+    builder.addDrawable(arrow, 71, 21);
+    builder.addText(Component.literal(Float.toString(recipe.getDamage() / 2f)), 84, 9)
+      .setPosition(0, 8)
+      .setColor(Color.RED.getRGB())
+      .setTextAlignment(HorizontalAlignment.RIGHT);
+  }
+
+  @Override
   public void draw(EntityMeltingRecipe recipe, IRecipeSlotsView slot, GuiGraphics graphics, double mouseX, double mouseY) {
     background.draw(graphics);
-    arrow.draw(graphics, 71, 21);
-
-    // draw damage string next to the heart icon
-    String damage = Float.toString(recipe.getDamage() / 2f);
-    Font fontRenderer = Minecraft.getInstance().font;
-    int x = 84 - fontRenderer.width(damage);
-    graphics.drawString(fontRenderer, damage, x, 8, Color.RED.getRGB(), false);
   }
 
   @Override
