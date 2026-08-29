@@ -83,7 +83,7 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF878787).addARGB(102, 0xFFAEAEAE).addARGB(140, 0xFFC1C1C1).addARGB(178, 0xFFD6D6D6).addARGB(216, 0xFFE9EAEB).addARGB(255, 0xFFFCFCF2).build());
     // tier 1 - wood
     buildMaterial(MaterialIds.wood)
-      .meleeHarvest().ranged().shieldCore().arrowShaft()
+      .meleeHarvest().ranged().shieldCore().arrowShaft().statType(WOOD)
       .fallbacks("wood", "stick", "primitive")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF281E0B).addARGB(102, 0xFF493615).addARGB(140, 0xFF584014).addARGB(178, 0xFF684E1E).addARGB(216, 0xFF785A22).addARGB(255, 0xFF896727).build());
     buildPlanks(MaterialIds.crimson ).arrowShaft().colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF2B141F).addARGB(102, 0xFF331824).addARGB(140, 0xFF3F1E2D).addARGB(178, 0xFF442131).addARGB(216, 0xFF4B2737).addARGB(234, 0xFF6A344B).addARGB(255, 0xFF7E3A56).build());

@@ -1877,6 +1877,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     String folder = "tools/modifiers/slotless/";
 
     // slime staff
+    woodTexture(consumer, MaterialIds.wood, Items.STICK, folder);
     // nether
     woodTexture(consumer, MaterialIds.crimson, Blocks.CRIMSON_PLANKS, folder);
     woodTexture(consumer, MaterialIds.warped, Blocks.WARPED_PLANKS, folder);
