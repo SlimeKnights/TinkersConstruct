@@ -1465,7 +1465,7 @@
   "block.tconstruct.scorched_fluid_cannon": "Cobalt Fluid Cannon",
   "block.tconstruct.scorched_fluid_cannon.tooltip": "Shoots stronger fluid projectiles when triggered by redstone.\nRetains liquid when broken.",
   "block.tconstruct.end_fluid_cannon": "Knightmetal Fluid Cannon",
-  "block.tconstruct.end_fluid_cannon.tooltip": "Shoots faster fluid projectiles when triggered by redstone.\nRetains liquid when broken, higher capacity.",
+  "block.tconstruct.end_fluid_cannon.tooltip": "Shoots faster, accurate fluid projectiles when triggered by redstone.\nRetains liquid when broken, higher capacity.",
   "entity.tconstruct.fluid_spit": "Fluid Projectile",
 
   "block.tconstruct.smeltery_controller": "Smeltery Controller",
