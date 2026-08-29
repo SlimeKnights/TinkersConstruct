@@ -337,7 +337,7 @@ public class ModifierModelMapProvider extends AbstractModifierModelMapProvider {
       ModifierIds.reinforced, ModifierIds.overforced, ModifierIds.experienced, ModifierIds.lure,
       ModifierIds.punch, ModifierIds.trueshot, ModifierIds.bounce, ModifierIds.collecting,
       ModifierIds.grapple, ModifierIds.channeling).luminosity(7, SMALL,ModifierIds.quickCharge)
-      .luminosity(10, SMALL,ModifierIds.fiery)
+      .luminosity(10, SMALL, ModifierIds.fiery)
       .luminosity(2, SMALL, ModifierIds.unbreakable)
       .tipped("fishing_rod/modifiers/tipped").fluid().compact(ModifierIds.tank);
     tool(TinkerTools.fishingRod, "/broken").basic(SMALL, "_broken",

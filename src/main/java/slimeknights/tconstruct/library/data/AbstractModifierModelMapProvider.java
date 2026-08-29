@@ -393,7 +393,9 @@ public abstract class AbstractModifierModelMapProvider extends GenericDataProvid
       ModifierId embellishment = TinkerModifiers.embellishment.getId();
       String name = '/' + suffix(embellishment);
       // whatever is embellish is basically a part so want extra early
-      return first("__embellishment", embellishment, new MaterialModifierModel.PersistentData(toolMaterial(folder + name), largeFolder != null ? toolMaterial(largeFolder + name) : null));
+      return first("__embellishment", embellishment, new MaterialModifierModel.PersistentData(toolMaterial(folder + name), largeFolder != null ? toolMaterial(largeFolder + name) : null))
+        // set the embellishment to empty so its skipped in the legacy system. TODO 1.21: remove this
+        .empty(embellishment);
     }
 
     /** Adds the embellishment model to the tool */
