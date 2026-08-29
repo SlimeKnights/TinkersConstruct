@@ -4,14 +4,12 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
-import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableStatic;
 import mezz.jei.api.gui.ingredient.IRecipeSlotTooltipCallback;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
@@ -47,24 +45,11 @@ public class MeltingCategory extends AbstractMeltingCategory {
   private static final IRecipeSlotTooltipCallback METAL_ORE_TOOLTIP = new MeltingFluidCallback(OreRateType.METAL);
   private static final IRecipeSlotTooltipCallback GEM_ORE_TOOLTIP = new MeltingFluidCallback(OreRateType.GEM);
 
-  @Getter
-  private final IDrawable icon;
   private final IDrawableStatic solidFuel;
 
   public MeltingCategory(IGuiHelper helper) {
-    super(helper);
-    this.icon = helper.createDrawableItemLike(TinkerSmeltery.searedMelter);
+    super(helper, TConstructJEIConstants.MELTING, TITLE, helper.createDrawableItemLike(TinkerSmeltery.searedMelter));
     this.solidFuel = helper.drawableBuilder(BACKGROUND_LOC, 164, 0, 18, 20).build();
-  }
-
-  @Override
-  public RecipeType<MeltingRecipe> getRecipeType() {
-    return TConstructJEIConstants.MELTING;
-  }
-
-  @Override
-  public Component getTitle() {
-    return TITLE;
   }
 
   @Override

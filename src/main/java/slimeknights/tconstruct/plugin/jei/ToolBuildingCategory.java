@@ -2,7 +2,6 @@ package slimeknights.tconstruct.plugin.jei;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import lombok.Getter;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.builder.ITooltipBuilder;
@@ -12,8 +11,7 @@ import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
-import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.category.AbstractRecipeCategory;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -25,7 +23,6 @@ import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 import slimeknights.tconstruct.library.tools.layout.LayoutSlot;
 import slimeknights.tconstruct.tools.TinkerTools;
 
-import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -35,11 +32,9 @@ import static slimeknights.tconstruct.library.recipe.tinkerstation.building.Tool
 import static slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipe.X_OFFSET;
 import static slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipe.Y_OFFSET;
 
-public class ToolBuildingCategory implements IRecipeCategory<ToolBuildingRecipe> {
+public class ToolBuildingCategory extends AbstractRecipeCategory<ToolBuildingRecipe> {
   private static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/tinker_station.png");
   private static final Component TITLE = TConstruct.makeTranslation("jei", "tinkering.tool_building");
-  @Getter
-  private final IDrawable icon;
   private final IDrawable anvil, slotBg, slotBorder;
   private final IDrawable itemCover;
   private static final int WIDTH = 134;
@@ -47,21 +42,11 @@ public class ToolBuildingCategory implements IRecipeCategory<ToolBuildingRecipe>
   private static final int ITEM_SIZE = 16;
 
   public ToolBuildingCategory(IGuiHelper guiHelper) {
-    this.icon = guiHelper.createDrawableItemStack(TinkerTools.pickaxe.get().getRenderTool());
+    super(TConstructJEIConstants.TOOL_BUILDING, TITLE, guiHelper.createDrawableItemStack(TinkerTools.pickaxe.get().getRenderTool()), WIDTH, HEIGHT);
     this.slotBg = guiHelper.createDrawable(BACKGROUND_LOC, 144, 59, SLOT_SIZE, SLOT_SIZE);
     this.slotBorder = guiHelper.createDrawable(BACKGROUND_LOC, 162, 59, SLOT_SIZE, SLOT_SIZE);
     this.anvil = guiHelper.createDrawable(BACKGROUND_LOC, 128, 61, ITEM_SIZE, ITEM_SIZE);
     this.itemCover = guiHelper.createDrawable(BACKGROUND_LOC, 122, 77, 70, 60);
-  }
-
-  @Override
-  public int getWidth() {
-    return WIDTH;
-  }
-
-  @Override
-  public int getHeight() {
-    return HEIGHT;
   }
 
   @Override
@@ -152,18 +137,6 @@ public class ToolBuildingCategory implements IRecipeCategory<ToolBuildingRecipe>
     if (recipe.requiresAnvil() && GuiUtil.isHovered((int)mouseX, (int)mouseY, 76, 44, ITEM_SIZE, ITEM_SIZE)) {
       tooltip.add(TConstruct.makeTranslation("jei", "tinkering.tool_building.anvil"));
     }
-  }
-
-  @Nonnull
-  @Override
-  public Component getTitle() {
-    return TITLE;
-  }
-
-  @Nonnull
-  @Override
-  public RecipeType<ToolBuildingRecipe> getRecipeType() {
-    return TConstructJEIConstants.TOOL_BUILDING;
   }
 
   @Override

@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.plugin.jei;
 
-import lombok.Getter;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.builder.ITooltipBuilder;
@@ -10,8 +9,7 @@ import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
-import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.category.AbstractRecipeCategory;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
@@ -25,40 +23,18 @@ import slimeknights.tconstruct.library.recipe.molding.MoldingRecipe;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 /** Recipe category for molding casts */
-public class MoldingRecipeCategory implements IRecipeCategory<MoldingRecipe> {
+public class MoldingRecipeCategory extends AbstractRecipeCategory<MoldingRecipe> {
   private static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/casting.png");
   private static final Component TITLE = TConstruct.makeTranslation("jei", "molding.title");
   private static final Component TOOLTIP_PATTERN_CONSUMED = Component.translatable(TConstruct.makeTranslationKey("jei", "molding.pattern_consumed"));
 
-  @Getter
-  private final IDrawable icon;
   private final IDrawable table, basin, downArrow, upArrow;
   public MoldingRecipeCategory(IGuiHelper helper) {
-    this.icon = helper.createDrawableItemLike(TinkerSmeltery.blankSandCast);
+    super(TConstructJEIConstants.MOLDING, TITLE, helper.createDrawableItemLike(TinkerSmeltery.blankSandCast), 70, 57);
     this.table = helper.createDrawable(BACKGROUND_LOC, 117, 0, 16, 16);
     this.basin = helper.createDrawable(BACKGROUND_LOC, 117, 16, 16, 16);
     this.downArrow = helper.createDrawable(BACKGROUND_LOC, 70, 55, 6, 6);
     this.upArrow = helper.createDrawable(BACKGROUND_LOC, 76, 55, 6, 6);
-  }
-
-  @Override
-  public RecipeType<MoldingRecipe> getRecipeType() {
-    return TConstructJEIConstants.MOLDING;
-  }
-
-  @Override
-  public Component getTitle() {
-    return TITLE;
-  }
-
-  @Override
-  public int getWidth() {
-    return 70;
-  }
-
-  @Override
-  public int getHeight() {
-    return 57;
   }
 
   @Override

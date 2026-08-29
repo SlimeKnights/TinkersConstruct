@@ -3,7 +3,6 @@ package slimeknights.tconstruct.plugin.jei.casting;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import lombok.Getter;
 import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
@@ -14,7 +13,8 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.RecipeType;
+import mezz.jei.api.recipe.category.AbstractRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -35,24 +35,22 @@ import java.awt.Color;
 import java.util.List;
 
 /** Shared base logic for the two casting recipe types */
-public abstract class AbstractCastingCategory implements IRecipeCategory<IDisplayableCastingRecipe> {
+public abstract class AbstractCastingCategory extends AbstractRecipeCategory<IDisplayableCastingRecipe> {
   private static final String KEY_COOLING_TIME = TConstruct.makeTranslationKey("jei", "time");
   private static final String KEY_CAST_KEPT = TConstruct.makeTranslationKey("jei", "casting.cast_kept");
   private static final String KEY_CAST_CONSUMED = TConstruct.makeTranslationKey("jei", "casting.cast_consumed");
   protected static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/casting.png");
 
   private final IDrawable background;
-  @Getter
-  private final IDrawable icon;
   private final IDrawable tankOverlay;
   private final IDrawable castConsumed;
   private final IDrawable castKept;
   private final IDrawable block;
   private final LoadingCache<Integer,IDrawableAnimated> cachedArrows;
 
-  protected AbstractCastingCategory(IGuiHelper guiHelper, Block icon, IDrawable block) {
+  protected AbstractCastingCategory(IGuiHelper guiHelper, RecipeType<IDisplayableCastingRecipe> recipeType, Component title, Block icon, IDrawable block) {
+    super(recipeType, title, guiHelper.createDrawableItemLike(icon), 117, 54);
     this.background = guiHelper.createDrawable(BACKGROUND_LOC, 0, 0, 117, 54);
-    this.icon = guiHelper.createDrawableItemLike(icon);
     this.tankOverlay = guiHelper.createDrawable(BACKGROUND_LOC, 133, 0, 32, 32);
     this.castConsumed = guiHelper.createDrawable(BACKGROUND_LOC, 141, 32, 13, 11);
     this.castKept = guiHelper.createDrawable(BACKGROUND_LOC, 141, 43, 13, 11);
@@ -63,16 +61,6 @@ public abstract class AbstractCastingCategory implements IRecipeCategory<IDispla
         return guiHelper.drawableBuilder(BACKGROUND_LOC, 117, 32, 24, 17).buildAnimated(coolingTime, IDrawableAnimated.StartDirection.LEFT, false);
       }
     });
-  }
-
-  @Override
-  public int getWidth() {
-    return 117;
-  }
-
-  @Override
-  public int getHeight() {
-    return 54;
   }
 
   @Override

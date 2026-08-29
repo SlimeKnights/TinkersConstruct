@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.plugin.jei.modifiers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import lombok.Getter;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.builder.ITooltipBuilder;
@@ -12,8 +11,7 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocus;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
-import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.category.AbstractRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -46,7 +44,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
-public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierRecipe> {
+public class ModifierRecipeCategory extends AbstractRecipeCategory<IDisplayModifierRecipe> {
   protected static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/tinker_station.png");
   private static final Component TITLE = TConstruct.makeTranslation("jei", "modifiers.title");
 
@@ -59,12 +57,10 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
 
   private final ModifierIngredientRenderer modifierRenderer = new ModifierIngredientRenderer(124, 10);
 
-  @Getter
-  private final IDrawable icon;
   private final IDrawable requirements, incremental;
   private final IDrawable[] slotIcons;
   public ModifierRecipeCategory(IGuiHelper helper) {
-    this.icon = helper.createDrawableItemStack(CreativeSlotItem.withSlot(new ItemStack(TinkerModifiers.creativeSlotItem), SlotType.UPGRADE));
+    super(TConstructJEIConstants.MODIFIERS, TITLE, helper.createDrawableItemStack(CreativeSlotItem.withSlot(new ItemStack(TinkerModifiers.creativeSlotItem), SlotType.UPGRADE)), 128, 77);
     this.slotIcons = new IDrawable[6];
     for (int i = 0; i < 6; i++) {
       slotIcons[i] = helper.createDrawable(BACKGROUND_LOC, 128 + i * 16, 0, 16, 16);
@@ -72,26 +68,6 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
     this.requirements = helper.createDrawable(BACKGROUND_LOC, 128, 17, 16, 16);
     this.incremental = helper.createDrawable(BACKGROUND_LOC, 128, 33, 16, 16);
     clearSlimeskullCache();
-  }
-
-  @Override
-  public RecipeType<IDisplayModifierRecipe> getRecipeType() {
-    return TConstructJEIConstants.MODIFIERS;
-  }
-
-  @Override
-  public Component getTitle() {
-    return TITLE;
-  }
-
-  @Override
-  public int getWidth() {
-    return 128;
-  }
-
-  @Override
-  public int getHeight() {
-    return 77;
   }
 
   @Override

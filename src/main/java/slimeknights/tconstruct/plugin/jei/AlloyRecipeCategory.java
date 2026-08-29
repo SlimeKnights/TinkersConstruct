@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.plugin.jei;
 
-import lombok.Getter;
 import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -10,8 +9,7 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
-import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.category.AbstractRecipeCategory;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -36,7 +34,7 @@ import java.util.function.Function;
 /**
  * Alloy recipe category for JEI display
  */
-public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe> {
+public class AlloyRecipeCategory extends AbstractRecipeCategory<AlloyRecipe> {
   private static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/alloy.png");
   private static final Component TITLE = TConstruct.makeTranslation("jei", "alloy.title");
   private static final Component CATALYST = TConstruct.makeTranslation("jei", "alloy.catalyst").withStyle(ChatFormatting.ITALIC);
@@ -57,36 +55,14 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe> {
   };
 
   private final IDrawable background;
-  @Getter
-  private final IDrawable icon;
   private final IDrawable arrow;
   private final IDrawable tank;
 
   public AlloyRecipeCategory(IGuiHelper helper) {
+    super(TConstructJEIConstants.ALLOY, TITLE, helper.createDrawableItemLike(TinkerSmeltery.smelteryController), 172, 62);
     this.background = helper.createDrawable(BACKGROUND_LOC, 0, 0, 172, 62);
-    this.icon = helper.createDrawableItemLike(TinkerSmeltery.smelteryController);
     this.arrow = helper.drawableBuilder(BACKGROUND_LOC, 172, 0, 24, 17).buildAnimated(200, StartDirection.LEFT, false);
     this.tank = helper.createDrawable(BACKGROUND_LOC, 172, 17, 16, 16);
-  }
-
-  @Override
-  public RecipeType<AlloyRecipe> getRecipeType() {
-    return TConstructJEIConstants.ALLOY;
-  }
-
-  @Override
-  public Component getTitle() {
-    return TITLE;
-  }
-
-  @Override
-  public int getWidth() {
-    return 172;
-  }
-
-  @Override
-  public int getHeight() {
-    return 62;
   }
 
   @Override

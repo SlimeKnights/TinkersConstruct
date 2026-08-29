@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.plugin.jei.entity;
 
-import lombok.Getter;
 import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IIngredientAcceptor;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -11,8 +10,7 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
-import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.category.AbstractRecipeCategory;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -37,7 +35,7 @@ import java.util.List;
 /**
  * Entity melting display in JEI
  */
-public class EntityMeltingRecipeCategory implements IRecipeCategory<EntityMeltingRecipe> {
+public class EntityMeltingRecipeCategory extends AbstractRecipeCategory<EntityMeltingRecipe> {
   public static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/melting.png");
   private static final Component TITLE = TConstruct.makeTranslation("jei", "entity_melting.title");
   private static final String KEY_PER_HEARTS = TConstruct.makeTranslationKey("jei", "entity_melting.per_hearts");
@@ -47,36 +45,14 @@ public class EntityMeltingRecipeCategory implements IRecipeCategory<EntityMeltin
   private final EntityIngredientRenderer entityRenderer = new EntityIngredientRenderer(32);
 
   private final IDrawable background;
-  @Getter
-  private final IDrawable icon;
   private final IDrawable arrow;
   private final IDrawable tank;
 
   public EntityMeltingRecipeCategory(IGuiHelper helper) {
+    super(TConstructJEIConstants.ENTITY_MELTING, TITLE, helper.createDrawable(BACKGROUND_LOC, 174, 41, 16, 16), 150, 62);
     this.background = helper.createDrawable(BACKGROUND_LOC, 0, 41, 150, 62);
-    this.icon = helper.createDrawable(BACKGROUND_LOC, 174, 41, 16, 16);
     this.arrow = helper.drawableBuilder(BACKGROUND_LOC, 150, 41, 24, 17).buildAnimated(200, StartDirection.LEFT, false);
     this.tank = helper.createDrawable(BACKGROUND_LOC, 150, 74, 16, 16);
-  }
-
-  @Override
-  public RecipeType<EntityMeltingRecipe> getRecipeType() {
-    return TConstructJEIConstants.ENTITY_MELTING;
-  }
-
-  @Override
-  public Component getTitle() {
-    return TITLE;
-  }
-
-  @Override
-  public int getWidth() {
-    return 150;
-  }
-
-  @Override
-  public int getHeight() {
-    return 62;
   }
 
   @Override
