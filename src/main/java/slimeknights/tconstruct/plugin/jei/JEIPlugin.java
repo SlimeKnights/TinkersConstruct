@@ -452,7 +452,7 @@ public class JEIPlugin implements IModPlugin {
     // tool config filters to 1 material, easiest to just remove all then add back the 1
     String showOnlyTools = Config.CLIENT.showOnlyToolMaterial.get();
     // if the creative is showing just 1, skip the client option
-    if (!showOnlyTools.isEmpty() && Config.COMMON.showOnlyToolMaterial.get().isEmpty()) {
+    if (!showOnlyTools.isEmpty()) {
       for (Holder<Item> item : BuiltInRegistries.ITEM.getTagOrEmpty(TinkerTags.Items.MODIFIABLE)) {
         if (item.get() instanceof IModifiable modifiable) {
           ToolBuildHandler.addVariants(removeItem, modifiable, "");
@@ -462,7 +462,7 @@ public class JEIPlugin implements IModPlugin {
     }
     // parts work the same as tools
     String showOnlyParts = Config.CLIENT.showOnlyPartMaterial.get();
-    if (!showOnlyParts.isEmpty() && Config.COMMON.showOnlyPartMaterial.get().isEmpty()) {
+    if (!showOnlyParts.isEmpty()) {
       for (Holder<Item> item : BuiltInRegistries.ITEM.getTagOrEmpty(TinkerTags.Items.TOOL_PARTS)) {
         if (item.get() instanceof IMaterialItem part) {
           part.addVariants(removeItem, "");
@@ -497,7 +497,6 @@ public class JEIPlugin implements IModPlugin {
     // anvils are all variants
     if (Config.CLIENT.showAllAnvilVariants.get()) {
       // if true, add all metal variants
-      Consumer<ItemStack> consumer = removeItems::add;
       ((IMaterialItem) TinkerTables.tinkersAnvil.asItem()).addVariants(addItem, "");
       ((IMaterialItem) TinkerTables.scorchedAnvil.asItem()).addVariants(addItem, "");
     }
