@@ -1,0 +1,26 @@
+{
+  "level_display": {
+    "type": "tconstruct:modifier_name",
+    "level": {
+      "each_level": 1,
+      "flat": 1
+    },
+    "modifier": "tconstruct:respiration"
+  },
+  "modules": [
+    {
+      "type": "tconstruct:trait",
+      "fixed_level": false,
+      "level": 1,
+      "name": "tconstruct:respiration"
+    },
+    {
+      "type": "tconstruct:trait",
+      "fixed_level": true,
+      "level": 1,
+      "name": "tconstruct:respiration"
+    }
+  ],
+  "tooltip_display": "never",
+  "translation_key": "modifier.tconstruct.respiration"
+}

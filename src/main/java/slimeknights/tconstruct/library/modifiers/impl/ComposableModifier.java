@@ -5,8 +5,6 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.Component;
 import slimeknights.mantle.data.loadable.ErrorFactory;
 import slimeknights.mantle.data.loadable.primitive.EnumLoadable;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
@@ -21,8 +19,8 @@ import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.module.WithHooks;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,12 +32,11 @@ public class ComposableModifier extends BasicModifier {
     new EnumLoadable<>(TooltipDisplay.class).defaultField("tooltip_display", TooltipDisplay.ALWAYS, true, m -> m.tooltipDisplay),
     IntLoadable.ANY_FULL.defaultField("priority", Integer.MIN_VALUE, m -> m.priority),
     ModifierModule.WITH_HOOKS.list(0).defaultField("modules", List.of(), m -> m.modules),
-    StringLoadable.DEFAULT.defaultField("description_key", "", false, m -> m.descriptionKey),
+    StringLoadable.DEFAULT.nullableField("translation_key", m -> m.translationKey),
     ErrorFactory.FIELD,
     (level, tooltip, priority, modules, descriptionKey, error) -> new ComposableModifier(level, tooltip, priority == Integer.MIN_VALUE ? computePriority(modules) : priority, modules, descriptionKey, error));
 
   private final List<WithHooks<ModifierModule>> modules;
-  private final String descriptionKey;
 
   /**
    * Creates a new instance
@@ -47,30 +44,20 @@ public class ComposableModifier extends BasicModifier {
    * @param tooltipDisplay   Tooltip display
    * @param priority         If the value is {@link Integer#MIN_VALUE}, assumed unset for datagen
    * @param modules          Modules for this modifier
+   * @param translationKey   Translation key override. If empty, generates key from the modifier ID.
    */
-  protected ComposableModifier(ModifierLevelDisplay levelDisplay, TooltipDisplay tooltipDisplay, int priority, List<WithHooks<ModifierModule>> modules, String descriptionKey, ErrorFactory error) {
+  protected ComposableModifier(ModifierLevelDisplay levelDisplay, TooltipDisplay tooltipDisplay, int priority, List<WithHooks<ModifierModule>> modules, @Nullable String translationKey, ErrorFactory error) {
     super(ModuleHookMap.createMap(modules, error), levelDisplay, tooltipDisplay, priority);
     this.modules = modules;
-    this.descriptionKey = descriptionKey;
+    if (translationKey != null) {
+      this.translationKey = translationKey;
+    }
   }
 
   /** @deprecated use {@link #ComposableModifier(ModifierLevelDisplay, TooltipDisplay, int, List, String, ErrorFactory)} */
   @Deprecated(forRemoval = true)
   protected ComposableModifier(ModifierLevelDisplay levelDisplay, TooltipDisplay tooltipDisplay, int priority, List<WithHooks<ModifierModule>> modules, ErrorFactory error) {
     this(levelDisplay, tooltipDisplay, priority, modules, "", error);
-  }
-
-  @Override
-  public List<Component> getDescriptionList() {
-    if (!descriptionKey.isEmpty()) {
-      if (descriptionList == null) {
-        descriptionList = Arrays.asList(
-          Component.translatable(descriptionKey + ".flavor").withStyle(ChatFormatting.ITALIC),
-          Component.translatable(descriptionKey + ".description").withStyle(ChatFormatting.GRAY));
-      }
-      return descriptionList;
-    }
-    return super.getDescriptionList();
   }
 
   /** Creates a builder instance for datagen */
@@ -118,8 +105,8 @@ public class ComposableModifier extends BasicModifier {
     private TooltipDisplay tooltipDisplay = TooltipDisplay.ALWAYS;
     /** {@link Integer#MIN_VALUE} is an internal value used to represent unset for datagen, to distinguish unset from {@link Modifier#DEFAULT_PRIORITY} */
     private int priority = Integer.MIN_VALUE;
-    /** Description key prefix. If not empty, will use instead of the modifier ID for the prefix for tooltip keys. */
-    private String descriptionKey = "";
+    /** Translation key. If not empty, will use instead of the modifier ID for tooltip and color. */
+    private String translationKey;
 
     /** Adds a module to the builder */
     public final Builder addModule(ModifierModule module) {
@@ -143,9 +130,15 @@ public class ComposableModifier extends BasicModifier {
       return this;
     }
 
+    /** Overrides the translation key. */
+    public Builder translationKey(String key) {
+      this.translationKey = key;
+      return this;
+    }
+
     /** Overrides the description key prefix using the given modifier. */
-    public Builder modifierDescription(ModifierId modifier) {
-      return descriptionKey("modifier." + modifier.toLanguageKey());
+    public Builder translationKey(ModifierId modifier) {
+      return translationKey("modifier." + modifier.toLanguageKey());
     }
 
     /** Builds the final instance */
@@ -155,7 +148,7 @@ public class ComposableModifier extends BasicModifier {
         // call computePriority if we did not set one so we get the warning if multiple modules wish to set the priority
         computePriority(modules);
       }
-      return new ComposableModifier(levelDisplay, tooltipDisplay, priority, modules, descriptionKey, ErrorFactory.RUNTIME);
+      return new ComposableModifier(levelDisplay, tooltipDisplay, priority, modules, translationKey, ErrorFactory.RUNTIME);
     }
   }
 }

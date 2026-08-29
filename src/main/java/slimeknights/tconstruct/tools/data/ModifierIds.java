@@ -86,9 +86,6 @@ public class ModifierIds {
   public static final ModifierId fortune = id("fortune");
   public static final ModifierId experienced = id("experienced");
   public static final ModifierId silky = id("silky");
-  // boot traits
-  public static final ModifierId looter = id("looter");
-  public static final ModifierId fortunate = id("fortunate");
 
   // damage boost
   public static final ModifierId sharpness   = id("sharpness");
@@ -323,6 +320,9 @@ public class ModifierIds {
   public static final ModifierId savory = id("savory");
   public static final ModifierId scrumptious = id("scrumptious");
   // traits - slimeskull
+  public static final ModifierId consecratedSkull = id("consecrated_skull");
+  public static final ModifierId respirationSkull = id("respiration_skull");
+  public static final ModifierId vitalProtectionSkull = id("vital_protection_skull");
   public static final ModifierId boonOfSssss = id("boon_of_sssss");
   public static final ModifierId balmOfSssss = id("balm_of_sssss");
   public static final ModifierId slowBones = id("slow_bones");
@@ -333,6 +333,11 @@ public class ModifierIds {
   /** @deprecated cave spider's trait was switched to {@link #balmOfSssss}. Reimplement if you need this functionality */
   @Deprecated(forRemoval = true)
   public static final ModifierId mithridatism = id("mithridatism");
+  // traits - slimeshell
+  public static final ModifierId thornsShell = id("thorns_shell");
+  // traits - slimeboots
+  public static final ModifierId looter = id("looter");
+  public static final ModifierId fortunate = id("fortunate");
 
   // mob disguises
   public static final ModifierId creeperDisguise         = id("creeper_disguise");

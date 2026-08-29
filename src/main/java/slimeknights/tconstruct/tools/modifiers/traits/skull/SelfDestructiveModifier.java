@@ -2,6 +2,7 @@ package slimeknights.tconstruct.tools.modifiers.traits.skull;
 
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
@@ -15,24 +16,24 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.armor.EquipmentChangeModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.KeybindInteractModifierHook;
-import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
+import slimeknights.tconstruct.library.modifiers.impl.SingleLevelModifier;
 import slimeknights.tconstruct.library.module.ModuleHookMap.Builder;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.shared.TinkerEffects;
 import slimeknights.tconstruct.tools.modifiers.effect.NoMilkEffect;
 
-public class SelfDestructiveModifier extends NoLevelsModifier implements KeybindInteractModifierHook, EquipmentChangeModifierHook {
+// TODO: migrate to JSON
+public class SelfDestructiveModifier extends SingleLevelModifier implements KeybindInteractModifierHook, EquipmentChangeModifierHook {
   @Override
   protected void registerHooks(Builder hookBuilder) {
-    super.registerHooks(hookBuilder);
     hookBuilder.addHook(this, ModifierHooks.ARMOR_INTERACT, ModifierHooks.EQUIPMENT_CHANGE);
   }
 
   @Override
   public boolean startInteract(IToolStackView tool, ModifierEntry modifier, Player player, EquipmentSlot slot, TooltipKey keyModifier) {
     if (player.isShiftKeyDown()) {
-      TinkerEffects.selfDestructing.get().apply(player, 30, 2, true);
+      player.addEffect(new MobEffectInstance(TinkerEffects.selfDestructing.get(), 30, 2 * modifier.intEffectiveLevel()));
       player.playSound(SoundEvents.CREEPER_PRIMED, 1.0F, 0.5F);
       return true;
     }

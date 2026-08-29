@@ -159,6 +159,7 @@ import slimeknights.tconstruct.library.modifiers.modules.util.BooleanPredicate;
 import slimeknights.tconstruct.library.modifiers.modules.util.ModifierCondition;
 import slimeknights.tconstruct.library.modifiers.modules.util.ProjectilePredicate;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
+import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay.ModifierName;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay.UniqueForLevels;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.SwappableModifierRecipe.VariantFormatter;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
@@ -1606,11 +1607,13 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     // traits - slimeskull
     buildModifier(ModifierIds.mithridatism).addModule(new EffectImmunityModule(MobEffects.POISON)).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
     buildModifier(ModifierIds.boonOfSssss).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
-      .addModule(AttributeModule.builder(TinkerAttributes.GOOD_EFFECT_DURATION, Operation.MULTIPLY_BASE).eachLevel(0.25f))
+      // 15%, +10% per level
+      .addModule(AttributeModule.builder(TinkerAttributes.GOOD_EFFECT_DURATION, Operation.MULTIPLY_BASE).amount(0.15f, 0.1f))
       // reduce time of effects on removal. 20% reduction should cancel out the 25% addition
       .addModule(new ReduceEffectOnUnequipModule(MobEffectCategory.BENEFICIAL, LevelingValue.eachLevel(0.2f), ModifierCondition.ANY_TOOL));
     buildModifier(ModifierIds.balmOfSssss).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
-      .addModule(AttributeModule.builder(TinkerAttributes.BAD_EFFECT_DURATION, Operation.MULTIPLY_BASE).tooltipStyle(TooltipStyle.PERCENT).eachLevel(0.2f));
+      // 10%, +10% per level
+      .addModule(AttributeModule.builder(TinkerAttributes.BAD_EFFECT_DURATION, Operation.MULTIPLY_BASE).tooltipStyle(TooltipStyle.PERCENT).amount(-0.1f, -0.1f));
     buildModifier(ModifierIds.revenge).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
       .addModule(MobEffectModule.builder(MobEffects.DAMAGE_BOOST).time(RandomLevelingValue.perLevel(0, 200)).chance(LevelingValue.ONE).counterDurabilityUsage(0).targetSelf(true).directDamage(BooleanPredicate.ALWAYS).damageSource(SourceAttackerPredicate.causing(LivingEntityPredicate.ANY)).buildCounter())
       .addModule(new ClearEffectOnUnequipModule(MobEffects.DAMAGE_BOOST, ModifierCondition.ANY_TOOL));
@@ -1636,6 +1639,11 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(EnchantmentModule.builder(Enchantments.FIRE_PROTECTION).level(LevelingInt.flat(7)).protection())
       // also immune to conductive, this one is purely defensive
       .addModule(new EffectImmunityModule(TinkerEffects.conductive, LevelingInt.LEVEL));
+    // bundles - adds 2 levels of ###, plus 1 when trimmed
+    traitTwoPlusOne(ModifierIds.consecratedSkull, ModifierIds.consecrated);
+    traitTwoPlusOne(ModifierIds.respirationSkull, ModifierIds.respiration);
+    traitTwoPlusOne(ModifierIds.vitalProtectionSkull, ModifierIds.vitalProtection);
+    traitTwoPlusOne(ModifierIds.thornsShell, ModifierIds.thorns);
 
     // ribcages
     buildModifier(ModifierIds.floaty).addModule(MobEffectModule.builder(MobEffects.LEVITATION).time(RandomLevelingValue.random(20*2, 20*5)).buildWeapon());
@@ -1691,6 +1699,16 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     addRedirect(id("plowing"), redirect(ModifierIds.tilling));
     addRedirect(id("lightspeed_armor"), redirect(ModifierIds.lightspeed));
     addRedirect(TinkerModifiers.frosttouch.getId(), redirect(ModifierIds.slowBones));
+  }
+
+  /** Creates a modifier that grants 2 levels of another modifier, plus a third on the next level. */
+  private void traitTwoPlusOne(ModifierId modifier, ModifierId trait) {
+    buildModifier(modifier).tooltipDisplay(TooltipDisplay.NEVER)
+      // use the trait for name and description
+      .levelDisplay(new ModifierName(trait, new LevelingInt(1, 1))).translationKey(trait)
+      // add the trait once fixed and once leveling
+      .addModule(new ModifierTraitModule(trait, 1, false))
+      .addModule(new ModifierTraitModule(trait, 1, true));
   }
 
   @Override

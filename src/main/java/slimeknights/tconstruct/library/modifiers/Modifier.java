@@ -50,7 +50,7 @@ public class Modifier implements IdAwareObject {
 
   /** Cached key used for translations */
   @Nullable
-  private String translationKey;
+  protected String translationKey;
   /** Cached text component for display names */
   @Nullable
   private Component displayName;

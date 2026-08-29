@@ -12,8 +12,8 @@
     ],
     "tconstruct:shell": [
       {
-        "level": 2,
-        "name": "tconstruct:thorns"
+        "level": 1,
+        "name": "tconstruct:thorns_shell"
       }
     ]
   }
