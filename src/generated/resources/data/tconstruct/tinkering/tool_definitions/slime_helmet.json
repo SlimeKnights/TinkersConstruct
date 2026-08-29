@@ -2,7 +2,7 @@
   "modules": [
     {
       "type": "tconstruct:material_stats",
-      "primary_part": 0,
+      "primary_part": 1,
       "stat_types": [
         "tconstruct:skull",
         {
@@ -10,6 +10,14 @@
           "stat": "tconstruct:slime"
         }
       ]
+    },
+    {
+      "type": "tconstruct:material_traits",
+      "hooks": [
+        "tconstruct:trim_trait"
+      ],
+      "material_index": 0,
+      "stat_type": "tconstruct:skull"
     },
     {
       "type": "tconstruct:remapping_materials",
@@ -37,14 +45,6 @@
         "abilities": 2,
         "upgrades": 3
       }
-    },
-    {
-      "type": "tconstruct:material_traits",
-      "hooks": [
-        "tconstruct:trim_trait"
-      ],
-      "material_index": 1,
-      "stat_type": "tconstruct:slime"
     },
     {
       "type": "tconstruct:unique_material_name",

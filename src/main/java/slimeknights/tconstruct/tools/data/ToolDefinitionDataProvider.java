@@ -738,7 +738,8 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
     defineArmor(ArmorDefinitions.SLIMESUIT)
       // materials
       // helmet - slime and skull
-      .module(ArmorItem.Type.HELMET, MaterialStatsModule.stats().stat(SkullStats.ID).stat(SlimeStats.ID, 1.1f).build())
+      .module(ArmorItem.Type.HELMET, MaterialStatsModule.stats().stat(SkullStats.ID).stat(SlimeStats.ID, 1.1f).primaryPart(1).build())
+      .module(ArmorItem.Type.HELMET, new MaterialTraitsModule(SkullStats.ID, 0), ToolHooks.TRIM_TRAIT)
       .module(ArmorItem.Type.HELMET, RemappingMaterialsModule.builder()
         .material(anyMaterial, blood).remap()
           .add(MaterialIds.glass, MaterialIds.gunpowder)
@@ -746,18 +747,20 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
           .add(MaterialIds.blazingBone, MaterialIds.blaze)
         .end().build())
       // chestplate - slime
-      .module(ArmorItem.Type.CHESTPLATE, MaterialStatsModule.stats().stat(RepairStats.RIBCAGE.getId()).stat(SlimeStats.ID, 1.6f).primaryPart(-1).build())
-      // add an extra copy of the material trait, plus add that when rebalanced
-      .module(ArmorItem.Type.CHESTPLATE, new MaterialTraitsModule(RepairStats.RIBCAGE.getId(), 0), ToolHooks.TOOL_TRAITS, ToolHooks.REBALANCED_TRAIT)
+      .module(ArmorItem.Type.CHESTPLATE, MaterialStatsModule.stats().stat(RepairStats.RIBCAGE.getId()).stat(SlimeStats.ID, 1.6f).primaryPart(1).build())
+      // add an extra copy of the material trait, plus add that when trimmed
+      .module(ArmorItem.Type.CHESTPLATE, new MaterialTraitsModule(RepairStats.RIBCAGE.getId(), 0), ToolHooks.TOOL_TRAITS, ToolHooks.TRIM_TRAIT)
       .module(ArmorItem.Type.CHESTPLATE, DefaultMaterialsModule.builder().material(ToolBuildHandler.RANDOM, blood).build())
       .module(ArmorItem.Type.CHESTPLATE, new MultiplyStatsModule(MultiplierNBT.builder().set(ToolStats.ATTACK_DAMAGE, 0.75f).build()))
       .module(ArmorItem.Type.CHESTPLATE, new PartsModule(List.of(TinkerToolParts.ribcage.get())))
       // leggings - shell and slime
-      .module(ArmorItem.Type.LEGGINGS, MaterialStatsModule.stats().stat(RepairStats.SHELL.getId()).stat(SlimeStats.ID, 1.5f).build())
+      .module(ArmorItem.Type.LEGGINGS, MaterialStatsModule.stats().stat(RepairStats.SHELL).stat(SlimeStats.ID, 1.5f).primaryPart(1).build())
+      .module(ArmorItem.Type.LEGGINGS, new MaterialTraitsModule(RepairStats.SHELL, 0), ToolHooks.TRIM_TRAIT)
       .module(ArmorItem.Type.LEGGINGS, DefaultMaterialsModule.builder().material(RandomMaterial.fixed(MaterialIds.shulker), blood).build())
       .module(ArmorItem.Type.LEGGINGS, new PartsModule(List.of(TinkerToolParts.shell.get())))
       // boots - laces and slime
-      .module(ArmorItem.Type.BOOTS, MaterialStatsModule.stats().stat(RepairStats.LACES.getId()).stat(SlimeStats.ID, 1.3f).build())
+      .module(ArmorItem.Type.BOOTS, MaterialStatsModule.stats().stat(RepairStats.LACES.getId()).stat(SlimeStats.ID, 1.3f).primaryPart(1).build())
+      .module(ArmorItem.Type.BOOTS, new MaterialTraitsModule(RepairStats.LACES, 0), ToolHooks.TRIM_TRAIT)
       .module(ArmorItem.Type.BOOTS, DefaultMaterialsModule.builder().material(RandomMaterial.fixed(MaterialIds.skyslimeVine), blood).build())
       .module(ArmorItem.Type.BOOTS, new PartsModule(List.of(TinkerToolParts.laces.get())))
       // slots
@@ -768,8 +771,6 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .module(ArmorItem.Type.CHESTPLATE, ToolTraitsModule.builder().trait(ModifierIds.reach).build())
       .module(ArmorItem.Type.LEGGINGS, ToolTraitsModule.builder().trait(ModifierIds.shellStorage, 1).build())
       .module(ArmorItem.Type.BOOTS, ToolTraitsModule.builder().trait(ModifierIds.bouncy).build())
-      // armor trim
-      .module(new MaterialTraitsModule(SlimeStats.ID, 1), ToolHooks.TRIM_TRAIT)
       // display name
       // start with a variant of the base based on the tool type - Slimeskull, Magmaskull, etc.
       .module(UniqueMaterialToolName.SECOND)
