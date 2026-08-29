@@ -115,6 +115,25 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe> {
    * @param <T> Object type
    * @return Max amount based on fluids
    */
+  public static <T> int drawVariableFluids(IRecipeLayoutBuilder builder, RecipeIngredientRole role, int x, int y, int totalWidth, int height, List<T> fluids, int minAmount, Function<T,List<FluidStack>> mapper, Function<T,IRecipeSlotTooltipCallback> tooltip) {
+    return drawVariableFluids(builder, i -> role, x, y, totalWidth, height, fluids, minAmount, mapper, tooltip);
+  }
+
+  /**
+   * Draws a variable number of fluids
+   * @param builder      Builder
+   * @param role         Role of the fluids in the recipe
+   * @param x            X start
+   * @param y            Y start
+   * @param totalWidth   Total width
+   * @param height       Tank height
+   * @param fluids       List of fluids to draw
+   * @param minAmount    Minimum tank size
+   * @param mapper       Logic to get a fluid list from the object
+   * @param tooltip      Tooltip callback
+   * @param <T> Object type
+   * @return Max amount based on fluids
+   */
   public static <T> int drawVariableFluids(IRecipeLayoutBuilder builder, Function<T,RecipeIngredientRole> role, int x, int y, int totalWidth, int height, List<T> fluids, int minAmount, Function<T,List<FluidStack>> mapper, Function<T,IRecipeSlotTooltipCallback> tooltip) {
     int count = fluids.size();
     int maxAmount = minAmount;
