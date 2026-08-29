@@ -27,16 +27,8 @@ public class RecipeTooltipWidget implements IRecipeWidget {
     this(drawable, x, y, drawable.getWidth(), drawable.getHeight(), tooltip);
   }
 
-  public RecipeTooltipWidget(IDrawable drawable, int x, int y, int width, int height, Component tooltip) {
-    this(drawable, x, y, width, height, List.of(tooltip));
-  }
-
   public RecipeTooltipWidget(int x, int y, int width, int height, Component tooltip) {
-    this(x, y, width, height, List.of(tooltip));
-  }
-
-  public RecipeTooltipWidget(int x, int y, int width, int height, List<Component> tooltip) {
-    this(null, x, y, width, height, tooltip);
+    this(null, x, y, width, height, List.of(tooltip));
   }
 
   private RecipeTooltipWidget(@Nullable IDrawable drawable, int x, int y, int width, int height, List<Component> tooltip) {

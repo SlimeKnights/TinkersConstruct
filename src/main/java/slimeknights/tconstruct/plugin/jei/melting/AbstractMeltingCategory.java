@@ -55,7 +55,9 @@ public abstract class AbstractMeltingCategory extends AbstractRecipeCategory<Mel
     this.guiHelper = helper;
     this.background = helper.createDrawable(BACKGROUND_LOC, 0, 0, 132, 40);
     this.tankOverlay = helper.createDrawable(BACKGROUND_LOC, 132, 0, 32, 32);
-    this.plus = helper.drawableBuilder(BACKGROUND_LOC, 132, 34, 6, 6).build();
+    this.plus = helper.drawableBuilder(BACKGROUND_LOC, 132, 32, 8, 8)
+                      .addPadding(2, 2, 2, 2)
+                      .build();
   }
 
   @Override
@@ -65,7 +67,7 @@ public abstract class AbstractMeltingCategory extends AbstractRecipeCategory<Mel
     builder.addWidget(new RecipeTooltipWidget(
       arrow, 56, 18, Component.translatable(KEY_COOLING_TIME, recipe.getTime() / 4)));
     if (recipe.getOreType() != null) {
-      builder.addWidget(new RecipeTooltipWidget(plus, 87, 31, 16, 16, TOOLTIP_ORE));
+      builder.addWidget(new RecipeTooltipWidget(plus, 83, 26, TOOLTIP_ORE));
     }
     builder.addText(Component.translatable(KEY_TEMPERATURE, recipe.getTemperature()), 113, 9)
       .setPosition(0, 3)
