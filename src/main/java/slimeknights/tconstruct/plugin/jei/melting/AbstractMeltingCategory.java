@@ -12,7 +12,8 @@ import mezz.jei.api.gui.drawable.IDrawableStatic;
 import mezz.jei.api.gui.ingredient.IRecipeSlotView;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.RecipeType;
+import mezz.jei.api.recipe.category.AbstractRecipeCategory;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -33,7 +34,7 @@ import java.awt.Color;
 import java.util.List;
 
 /** Shared logic between melting and foundry */
-public abstract class AbstractMeltingCategory implements IRecipeCategory<MeltingRecipe> {
+public abstract class AbstractMeltingCategory extends AbstractRecipeCategory<MeltingRecipe> {
   protected static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/melting.png");
   protected static final String KEY_COOLING_TIME = TConstruct.makeTranslationKey("jei", "melting.time");
   protected static final String KEY_TEMPERATURE = TConstruct.makeTranslationKey("jei", "temperature");
@@ -54,7 +55,8 @@ public abstract class AbstractMeltingCategory implements IRecipeCategory<Melting
   protected final IDrawableStatic plus;
   protected final LoadingCache<Integer,IDrawableAnimated> cachedArrows;
 
-  public AbstractMeltingCategory(IGuiHelper helper) {
+  public AbstractMeltingCategory(IGuiHelper helper, RecipeType<MeltingRecipe> recipeType, Component title, IDrawable icon) {
+    super(recipeType, title, icon, 132, 40);
     this.background = helper.createDrawable(BACKGROUND_LOC, 0, 0, 132, 40);
     this.tankOverlay = helper.createDrawable(BACKGROUND_LOC, 132, 0, 32, 32);
     this.plus = helper.drawableBuilder(BACKGROUND_LOC, 132, 34, 6, 6).build();
@@ -64,16 +66,6 @@ public abstract class AbstractMeltingCategory implements IRecipeCategory<Melting
         return helper.drawableBuilder(BACKGROUND_LOC, 150, 41, 24, 17).buildAnimated(meltingTime, StartDirection.LEFT, false);
       }
     });
-  }
-
-  @Override
-  public int getWidth() {
-    return 132;
-  }
-
-  @Override
-  public int getHeight() {
-    return 40;
   }
 
   @Override

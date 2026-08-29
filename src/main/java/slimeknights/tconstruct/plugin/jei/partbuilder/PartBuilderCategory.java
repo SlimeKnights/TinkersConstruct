@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.plugin.jei.partbuilder;
 
-import lombok.Getter;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -9,8 +8,7 @@ import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
-import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.category.AbstractRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -30,37 +28,15 @@ import slimeknights.tconstruct.tables.TinkerTables;
 import java.awt.Color;
 import java.util.List;
 
-public class PartBuilderCategory implements IRecipeCategory<IDisplayPartBuilderRecipe> {
+public class PartBuilderCategory extends AbstractRecipeCategory<IDisplayPartBuilderRecipe> {
   private static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/tinker_station.png");
   private static final Component TITLE = TConstruct.makeTranslation("jei", "part_builder.title");
   private static final String KEY_COST = TConstruct.makeTranslationKey("jei", "part_builder.cost");
 
-  @Getter
-  private final IDrawable icon;
   private final IDrawable patternButton;
   public PartBuilderCategory(IGuiHelper helper) {
-    this.icon = helper.createDrawableItemLike(TinkerTables.partBuilder);
+    super(TConstructJEIConstants.PART_BUILDER, TITLE, helper.createDrawableItemLike(TinkerTables.partBuilder), 121, 46);
     this.patternButton = helper.createDrawable(BACKGROUND_LOC, 45, 132, 18, 18);
-  }
-
-  @Override
-  public RecipeType<IDisplayPartBuilderRecipe> getRecipeType() {
-    return TConstructJEIConstants.PART_BUILDER;
-  }
-
-  @Override
-  public Component getTitle() {
-    return TITLE;
-  }
-
-  @Override
-  public int getWidth() {
-    return 121;
-  }
-
-  @Override
-  public int getHeight() {
-    return 46;
   }
 
   @Override

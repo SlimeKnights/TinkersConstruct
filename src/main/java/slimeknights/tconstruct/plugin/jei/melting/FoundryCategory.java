@@ -1,13 +1,10 @@
 package slimeknights.tconstruct.plugin.jei.melting;
 
-import lombok.Getter;
 import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
-import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
 import net.minecraft.network.chat.Component;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.recipe.FluidValues;
@@ -22,22 +19,8 @@ import java.util.function.Function;
 public class FoundryCategory extends AbstractMeltingCategory {
   private static final Component TITLE = TConstruct.makeTranslation("jei", "foundry.title");
 
-  @Getter
-  private final IDrawable icon;
-
   public FoundryCategory(IGuiHelper helper) {
-    super(helper);
-    this.icon = helper.createDrawableItemLike(TinkerSmeltery.foundryController);
-  }
-
-  @Override
-  public RecipeType<MeltingRecipe> getRecipeType() {
-    return TConstructJEIConstants.FOUNDRY;
-  }
-
-  @Override
-  public Component getTitle() {
-    return TITLE;
+    super(helper, TConstructJEIConstants.FOUNDRY, TITLE, helper.createDrawableItemLike(TinkerSmeltery.foundryController));
   }
 
   @Override

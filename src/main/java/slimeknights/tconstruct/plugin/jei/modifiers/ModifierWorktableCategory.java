@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.plugin.jei.modifiers;
 
-import lombok.Getter;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.builder.ITooltipBuilder;
@@ -9,8 +8,7 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
-import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.category.AbstractRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
@@ -24,17 +22,15 @@ import slimeknights.tconstruct.tables.TinkerTables;
 
 import java.util.List;
 
-public class ModifierWorktableCategory implements IRecipeCategory<IModifierWorktableRecipe> {
+public class ModifierWorktableCategory extends AbstractRecipeCategory<IModifierWorktableRecipe> {
   private static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/tinker_station.png");
   private static final Component TITLE = TConstruct.makeTranslation("jei", "modifier_worktable.title");
 
-  @Getter
-  private final IDrawable icon;
   private final IDrawable toolIcon;
   private final IDrawable[] slotIcons;
   private final IDrawable modifierButton;
   public ModifierWorktableCategory(IGuiHelper helper) {
-    this.icon = helper.createDrawableItemLike(TinkerTables.modifierWorktable);
+    super(TConstructJEIConstants.MODIFIER_WORKTABLE, TITLE, helper.createDrawableItemLike(TinkerTables.modifierWorktable), 121, 35);
     this.toolIcon = helper.createDrawable(BACKGROUND_LOC, 128, 0, 16, 16);
     this.slotIcons = new IDrawable[] {
       helper.createDrawable(BACKGROUND_LOC, 176, 0, 16, 16),
@@ -42,26 +38,6 @@ public class ModifierWorktableCategory implements IRecipeCategory<IModifierWorkt
     };
     // TODO 1.21: relocate the texture
     this.modifierButton = helper.createDrawable(BACKGROUND_LOC, 81, 181, 18, 18);
-  }
-
-  @Override
-  public Component getTitle() {
-    return TITLE;
-  }
-
-  @Override
-  public RecipeType<IModifierWorktableRecipe> getRecipeType() {
-    return TConstructJEIConstants.MODIFIER_WORKTABLE;
-  }
-
-  @Override
-  public int getWidth() {
-    return 121;
-  }
-
-  @Override
-  public int getHeight() {
-    return 35;
   }
 
   @Override
