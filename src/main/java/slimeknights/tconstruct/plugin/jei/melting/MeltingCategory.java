@@ -6,12 +6,10 @@ import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawableStatic;
 import mezz.jei.api.gui.ingredient.IRecipeSlotTooltipCallback;
-import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
@@ -53,17 +51,6 @@ public class MeltingCategory extends AbstractMeltingCategory {
   }
 
   @Override
-  public void draw(MeltingRecipe recipe, IRecipeSlotsView slots, GuiGraphics graphics, double mouseX, double mouseY) {
-    super.draw(recipe, slots, graphics, mouseX, mouseY);
-
-    // solid fuel slot
-    int temperature = recipe.getTemperature();
-    if (temperature <= MeltingFuelLookup.getSolid().getTemperature()) {
-      solidFuel.draw(graphics, 1, 19);
-    }
-  }
-
-  @Override
   public void setRecipe(IRecipeLayoutBuilder builder, MeltingRecipe recipe, IFocusGroup focuses) {
     // input
     builder.addInputSlot(24, 18).addIngredients(recipe.getInput());
@@ -91,6 +78,7 @@ public class MeltingCategory extends AbstractMeltingCategory {
       fuelHeight = 15;
       builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 2, 22)
              .addTooltipCallback(ITEM_FUEL_TOOLTIP)
+             .setBackground(solidFuel, -1, -3)
              .addItemStacks(MeltingFuelHandler.SOLID_FUELS.get());
     }
 

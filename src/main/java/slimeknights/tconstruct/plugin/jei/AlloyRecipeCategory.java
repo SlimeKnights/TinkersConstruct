@@ -6,15 +6,14 @@ import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated.StartDirection;
 import mezz.jei.api.gui.ingredient.IRecipeSlotTooltipCallback;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
+import mezz.jei.api.gui.placement.HorizontalAlignment;
+import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.AbstractRecipeCategory;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
@@ -66,14 +65,17 @@ public class AlloyRecipeCategory extends AbstractRecipeCategory<AlloyRecipe> {
   }
 
   @Override
+  public void createRecipeExtras(IRecipeExtrasBuilder builder, AlloyRecipe recipe, IFocusGroup focuses) {
+    builder.addDrawable(arrow, 90, 21);
+    builder.addText(Component.translatable(KEY_TEMPERATURE, recipe.getTemperature()), 139, 9)
+      .setPosition(33, 5)
+      .setColor(Color.GRAY.getRGB())
+      .setTextAlignment(HorizontalAlignment.CENTER);
+  }
+
+  @Override
   public void draw(AlloyRecipe recipe, IRecipeSlotsView slots, GuiGraphics graphics, double mouseX, double mouseY) {
     background.draw(graphics);
-    arrow.draw(graphics, 90, 21);
-    // temperature info
-    Font fontRenderer = Minecraft.getInstance().font;
-    String tempString = I18n.get(KEY_TEMPERATURE, recipe.getTemperature());
-    int x = 102 - (fontRenderer.width(tempString) / 2);
-    graphics.drawString(fontRenderer, tempString, x, 5, Color.GRAY.getRGB(), false);
   }
 
   /**

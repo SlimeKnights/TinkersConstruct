@@ -1,34 +1,29 @@
 package slimeknights.tconstruct.plugin.jei.melting;
 
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
 import lombok.RequiredArgsConstructor;
-import mezz.jei.api.gui.builder.ITooltipBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
-import mezz.jei.api.gui.drawable.IDrawableAnimated;
 import mezz.jei.api.gui.drawable.IDrawableAnimated.StartDirection;
 import mezz.jei.api.gui.drawable.IDrawableStatic;
 import mezz.jei.api.gui.ingredient.IRecipeSlotView;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
+import mezz.jei.api.gui.placement.HorizontalAlignment;
+import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
 import mezz.jei.api.helpers.IGuiHelper;
+import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.AbstractRecipeCategory;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.fluid.tooltip.FluidTooltipHandler;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuelLookup;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipe;
 import slimeknights.tconstruct.plugin.jei.util.FluidTooltipCallback;
+import slimeknights.tconstruct.plugin.jei.util.RecipeTooltipWidget;
 
 import java.awt.Color;
 import java.util.List;
@@ -53,50 +48,34 @@ public abstract class AbstractMeltingCategory extends AbstractRecipeCategory<Mel
   private final IDrawable background;
   protected final IDrawableStatic tankOverlay;
   protected final IDrawableStatic plus;
-  protected final LoadingCache<Integer,IDrawableAnimated> cachedArrows;
+  private final IGuiHelper guiHelper;
 
   public AbstractMeltingCategory(IGuiHelper helper, RecipeType<MeltingRecipe> recipeType, Component title, IDrawable icon) {
     super(recipeType, title, icon, 132, 40);
+    this.guiHelper = helper;
     this.background = helper.createDrawable(BACKGROUND_LOC, 0, 0, 132, 40);
     this.tankOverlay = helper.createDrawable(BACKGROUND_LOC, 132, 0, 32, 32);
     this.plus = helper.drawableBuilder(BACKGROUND_LOC, 132, 34, 6, 6).build();
-    this.cachedArrows = CacheBuilder.newBuilder().maximumSize(25L).build(new CacheLoader<>() {
-      @Override
-      public IDrawableAnimated load(Integer meltingTime) {
-        return helper.drawableBuilder(BACKGROUND_LOC, 150, 41, 24, 17).buildAnimated(meltingTime, StartDirection.LEFT, false);
-      }
-    });
+  }
+
+  @Override
+  public void createRecipeExtras(IRecipeExtrasBuilder builder, MeltingRecipe recipe, IFocusGroup focuses) {
+    IDrawable arrow = guiHelper.drawableBuilder(BACKGROUND_LOC, 150, 41, 24, 17)
+                                 .buildAnimated(recipe.getTime() * 5, StartDirection.LEFT, false);
+    builder.addWidget(new RecipeTooltipWidget(
+      arrow, 56, 18, Component.translatable(KEY_COOLING_TIME, recipe.getTime() / 4)));
+    if (recipe.getOreType() != null) {
+      builder.addWidget(new RecipeTooltipWidget(plus, 87, 31, 16, 16, TOOLTIP_ORE));
+    }
+    builder.addText(Component.translatable(KEY_TEMPERATURE, recipe.getTemperature()), 113, 9)
+      .setPosition(0, 3)
+      .setColor(Color.GRAY.getRGB())
+      .setTextAlignment(HorizontalAlignment.CENTER);
   }
 
   @Override
   public void draw(MeltingRecipe recipe, IRecipeSlotsView slots, GuiGraphics graphics, double mouseX, double mouseY) {
     background.draw(graphics);
-    // draw the arrow
-    cachedArrows.getUnchecked(recipe.getTime() * 5).draw(graphics, 56, 18);
-    if (recipe.getOreType() != null) {
-      plus.draw(graphics, 87, 31);
-    }
-
-    // temperature
-    int temperature = recipe.getTemperature();
-    Font fontRenderer = Minecraft.getInstance().font;
-    String tempString = I18n.get(KEY_TEMPERATURE, temperature);
-    int x = 56 - fontRenderer.width(tempString) / 2;
-    graphics.drawString(fontRenderer, tempString, x, 3, Color.GRAY.getRGB(), false);
-  }
-
-  @Override
-  public void getTooltip(ITooltipBuilder tooltip, MeltingRecipe recipe, IRecipeSlotsView slots, double mouseXD, double mouseYD) {
-    int mouseX = (int)mouseXD;
-    int mouseY = (int)mouseYD;
-    if (recipe.getOreType() != null && GuiUtil.isHovered(mouseX, mouseY, 87, 31, 16, 16)) {
-      tooltip.add(TOOLTIP_ORE);
-      return;
-    }
-    // time tooltip
-    if (GuiUtil.isHovered(mouseX, mouseY, 56, 18, 24, 17)) {
-      tooltip.add(Component.translatable(KEY_COOLING_TIME, recipe.getTime() / 4));
-    }
   }
 
   /** Adds amounts to outputs and temperatures to fuels */
