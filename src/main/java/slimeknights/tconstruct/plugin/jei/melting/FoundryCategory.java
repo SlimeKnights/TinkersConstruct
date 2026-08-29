@@ -46,7 +46,7 @@ public class FoundryCategory extends AbstractMeltingCategory {
     builder.addInputSlot(24, 18).addIngredients(recipe.getInput());
 
     // output fluid
-    AlloyRecipeCategory.drawVariableFluids(builder, RecipeIngredientRole.OUTPUT, 96, 4, 32, 32, recipe.getOutputWithByproducts(), FluidValues.METAL_BLOCK, Function.identity(), list -> MeltingFluidCallback.INSTANCE);
+    AlloyRecipeCategory.drawVariableFluids(builder, i -> RecipeIngredientRole.OUTPUT, 96, 4, 32, 32, recipe.getOutputWithByproducts(), FluidValues.METAL_BLOCK, Function.identity(), list -> MeltingFluidCallback.INSTANCE);
 
     // fuel
     builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 4, 4)

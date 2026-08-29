@@ -103,7 +103,7 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe> {
   /**
    * Draws a variable number of fluids
    * @param builder      Builder
-   * @param role         Role of the set of fluids in the recipe
+   * @param role         Role of the fluids in the recipe
    * @param x            X start
    * @param y            Y start
    * @param totalWidth   Total width
@@ -115,7 +115,7 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe> {
    * @param <T> Object type
    * @return Max amount based on fluids
    */
-  public static <T> int drawVariableFluids(IRecipeLayoutBuilder builder, RecipeIngredientRole role, int x, int y, int totalWidth, int height, List<T> fluids, int minAmount, Function<T,List<FluidStack>> mapper, Function<T,IRecipeSlotTooltipCallback> tooltip) {
+  public static <T> int drawVariableFluids(IRecipeLayoutBuilder builder, Function<T,RecipeIngredientRole> role, int x, int y, int totalWidth, int height, List<T> fluids, int minAmount, Function<T,List<FluidStack>> mapper, Function<T,IRecipeSlotTooltipCallback> tooltip) {
     int count = fluids.size();
     int maxAmount = minAmount;
     if (count > 0) {
@@ -133,7 +133,7 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe> {
       for (int i = 0; i < max; i++) {
         int fluidX = x + i * w;
         T ingredient = fluids.get(i);
-        builder.addSlot(role, fluidX, y)
+        builder.addSlot(role.apply(ingredient), fluidX, y)
                .addTooltipCallback(tooltip.apply(ingredient))
                .setFluidRenderer(maxAmount, false, w, height)
                .addIngredients(ForgeTypes.FLUID_STACK, mapper.apply(ingredient));
@@ -141,7 +141,7 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe> {
       // for the last, the width is the full remaining width
       int fluidX = x + max * w;
       T ingredient = fluids.get(max);
-      builder.addSlot(role, fluidX, y)
+      builder.addSlot(role.apply(ingredient), fluidX, y)
              .addTooltipCallback(tooltip.apply(ingredient))
              .setFluidRenderer(maxAmount, false, totalWidth - (w * max), height)
              .addIngredients(ForgeTypes.FLUID_STACK, mapper.apply(ingredient));
@@ -152,7 +152,8 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe> {
   @Override
   public void setRecipe(IRecipeLayoutBuilder builder, AlloyRecipe recipe, IFocusGroup focuses) {
     // inputs
-    int maxAmount = drawVariableFluids(builder, RecipeIngredientRole.INPUT, 19, 11, 48, 32, recipe.getInputs(),recipe.getOutput().getAmount(),
+    int maxAmount = drawVariableFluids(builder, ingredient -> ingredient.catalyst() ? RecipeIngredientRole.CATALYST : RecipeIngredientRole.INPUT,
+                                       19, 11, 48, 32, recipe.getInputs(), recipe.getOutput().getAmount(),
                                        ingredient -> ingredient.fluid().getFluids(),
                                        ingredient -> ingredient.catalyst() ? CATALYST_TOOLTIP : FluidTooltipCallback.UNITS);
 
