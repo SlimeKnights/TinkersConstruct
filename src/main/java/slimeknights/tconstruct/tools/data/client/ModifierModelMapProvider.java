@@ -306,7 +306,7 @@ public class ModifierModelMapProvider extends AbstractModifierModelMapProvider {
       tool("slime/" + type.getName()).trim(type);
     }
     tool("slime/wings")
-      .customTrim("armor/slime/wings")
+      .customTrim("armor/slime/wings", null)
       .dyed("armor/slime/wings/slime");
     tool("slime/wings_broken").dyed("armor/slime/wings/slime_broken");
     // slimesuit dyeing

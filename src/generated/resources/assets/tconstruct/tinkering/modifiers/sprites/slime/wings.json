@@ -12,8 +12,7 @@
       "type": "tconstruct:crafted",
       "model": {
         "type": "tconstruct:custom_trim",
-        "root": "tconstruct:item/tool/slime/wings/trim",
-        "root_large": "tconstruct:item/tool/slime/wings/armor/slime/wings"
+        "root": "tconstruct:item/tool/armor/slime/wings/trim"
       },
       "modifier": "tconstruct:trim"
     }
