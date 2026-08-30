@@ -6,7 +6,6 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.Model;
-import net.minecraft.client.model.PiglinHeadModel;
 import net.minecraft.client.model.SkullModel;
 import net.minecraft.client.model.SkullModelBase;
 import net.minecraft.client.model.geom.EntityModelSet;
@@ -33,6 +32,7 @@ import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.library.utils.SimpleCache;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.world.client.BlockModelSkullRenderer;
+import slimeknights.tconstruct.world.client.PiglinSkullModel;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -154,7 +154,7 @@ public class SlimeskullArmorModel extends MultilayerArmorModel {
 
   /** Registers a head model and texture, using the piglin skull model */
   public static void registerPiglinHeadModel(MaterialId materialId, ModelLayerLocation headModel, ResourceLocation texture) {
-    registerHeadModel(materialId, modelSet -> new PiglinHeadModel(modelSet.bakeLayer(headModel)), texture);
+    registerHeadModel(materialId, modelSet -> new PiglinSkullModel(modelSet.bakeLayer(headModel)), texture);
   }
 
   /** Registers a skull model using an item as the model */
