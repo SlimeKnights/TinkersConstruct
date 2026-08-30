@@ -125,14 +125,10 @@ public class ModifierIds {
   public static final ModifierId blastProtection = id("blast_protection");
   public static final ModifierId magicProtection = id("magic_protection");
   public static final ModifierId turtleShell = id("turtle_shell");
-  public static final ModifierId turtlesGrace = id("turtles_grace");
   public static final ModifierId shulking = id("shulking");
   public static final ModifierId dragonborn = id("dragonborn");
-  public static final ModifierId dragonfall = id("dragonfall");
   public static final ModifierId wings = id("wings");
   public static final ModifierId knockbackResistance = id("knockback_resistance");
-  public static final ModifierId cobalamin = id("cobalamin");
-  public static final ModifierId ramAttack = id("ram_attack");
   // counter
   public static final ModifierId thorns = id("thorns");
   public static final ModifierId ricochet = id("ricochet");
@@ -148,8 +144,6 @@ public class ModifierIds {
   /** Internal modifier that grants +3 slots. TODO 1.21: replace this with calls to the inventory module directly; this is just here for free NBT migration */
   public static final ModifierId pocket = id("pocket");
   public static final ModifierId pockets = id("pockets");
-  public static final ModifierId shellStorage = id("shell_storage");
-  public static final ModifierId shulkerBox = id("shulker_box");
   public static final ModifierId stepUp = id("step_up");
   public static final ModifierId speedy = id("speedy");
   public static final ModifierId swiftSneak = id("swift_sneak");
@@ -236,7 +230,6 @@ public class ModifierIds {
   public static final ModifierId skyfall = id("skyfall");
   public static final ModifierId flamestance = id("flamestance");
   public static final ModifierId entangled = id("entangled");
-  public static final ModifierId entwined = id("entwined");
   public static final ModifierId stoneshield = id("stoneshield");
   public static final ModifierId amorphous = id("amorphous");
   public static final ModifierId smashing = id("smashing");
@@ -301,11 +294,9 @@ public class ModifierIds {
   public static final ModifierId vintage = id("vintage");
   public static final ModifierId valiant = id("valiant");
   public static final ModifierId stalwart = id("stalwart");
-  public static final ModifierId loyal = id("loyal");
   public static final ModifierId dragonshot = id("dragonshot");
   public static final ModifierId reclaim = id("reclaim");
   public static final ModifierId hover = id("hover");
-  public static final ModifierId floaty = id("float");
   public static final ModifierId enderdodging = id("enderdodging");
   // traits - tier 4 compat
   public static final ModifierId temperedProtection = id("tempered_protection");
@@ -327,15 +318,24 @@ public class ModifierIds {
   public static final ModifierId balmOfSssss = id("balm_of_sssss");
   public static final ModifierId slowBones = id("slow_bones");
   public static final ModifierId witheredBones = id("withered");
-  public static final ModifierId revenge = id("revenge");
   public static final ModifierId fireborn = id("fireborn");
   public static final ModifierId dragonheart = id("dragonheart");
   /** @deprecated cave spider's trait was switched to {@link #balmOfSssss}. Reimplement if you need this functionality */
   @Deprecated(forRemoval = true)
   public static final ModifierId mithridatism = id("mithridatism");
+  // traits - slimecage
+  public static final ModifierId floaty = id("float");
+  public static final ModifierId ramAttack = id("ram_attack");
   // traits - slimeshell
+  public static final ModifierId shellStorage = id("shell_storage");
+  public static final ModifierId turtlesGrace = id("turtles_grace");
   public static final ModifierId thornsShell = id("thorns_shell");
+  public static final ModifierId shulkerBox = id("shulker_box");
+  public static final ModifierId dragonfall = id("dragonfall");
+  public static final ModifierId cobalamin = id("cobalamin");
+  public static final ModifierId loyal = id("loyal");
   // traits - slimeboots
+  public static final ModifierId entwined = id("entwined");
   public static final ModifierId looter = id("looter");
   public static final ModifierId fortunate = id("fortunate");
 

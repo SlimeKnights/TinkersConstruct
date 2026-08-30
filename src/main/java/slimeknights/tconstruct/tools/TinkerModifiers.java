@@ -490,6 +490,9 @@ public final class TinkerModifiers extends TinkerModule {
   /** @deprecated blazes trait was switched to {@link slimeknights.tconstruct.tools.data.ModifierIds#fireborn} and helmet projectile was switched to {@link slimeknights.tconstruct.tools.data.ModifierIds#spitting} */
   @Deprecated(forRemoval = true)
   public static final StaticModifier<FirebreathModifier> firebreath = MODIFIERS.register("firebreath", FirebreathModifier::new);
+  /** @deprecated zombified piglin's trait was switched to {@link slimeknights.tconstruct.tools.data.ModifierIds#vitalProtectionSkull} */
+  @Deprecated(forRemoval = true)
+  public static final StaticModifier<?> revenge = MODIFIERS.registerDynamic("revenge");
 
   // fields that have been relocated to ModifierIds
   // slotless
@@ -683,10 +686,7 @@ public final class TinkerModifiers extends TinkerModule {
   /** @deprecated use {@link slimeknights.tconstruct.tools.data.ModifierIds#witheredBones} */
   @Deprecated(forRemoval = true)
   public static final StaticModifier<?> withered = MODIFIERS.registerDynamic("withered");
-  /** @deprecated use {@link slimeknights.tconstruct.tools.data.ModifierIds#revenge} */
-  @Deprecated(forRemoval = true)
-  public static final StaticModifier<?> revenge = MODIFIERS.registerDynamic("revenge");
-  /** @deprecated use {@link slimeknights.tconstruct.tools.data.ModifierIds#revenge} */
+  /** @deprecated use {@link slimeknights.tconstruct.tools.data.ModifierIds#enderdodging} */
   @Deprecated(forRemoval = true)
   public static final StaticModifier<?> enderdodging = MODIFIERS.registerDynamic("enderdodging");
 
