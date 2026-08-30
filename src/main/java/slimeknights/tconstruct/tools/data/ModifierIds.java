@@ -331,6 +331,7 @@ public class ModifierIds {
   // traits - slimeshell
   public static final ModifierId shellStorage = id("shell_storage");
   public static final ModifierId turtlesGrace = id("turtles_grace");
+  public static final ModifierId shellGut = id("shell_gut");
   public static final ModifierId thornsShell = id("thorns_shell");
   public static final ModifierId shulkerBox = id("shulker_box");
   public static final ModifierId dragonfall = id("dragonfall");

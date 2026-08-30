@@ -2063,6 +2063,10 @@
   "material.tconstruct.turtle.encyclopedia.armor": "Grants +10% resistance while underwater, and increases swim speed by 5% per level based on the highest piece.",
   "material.tconstruct.turtle.encyclopedia.shell": "Grants 1 respiration and +10% swim speed per level.",
 
+  "material.tconstruct.nautilus": "Nautilus",
+  "material.tconstruct.nautilus.flavor": "Master the cuisine of the sea",
+  "material.tconstruct.nautilus.encyclopedia.shell": "Grants immunity to Poison I, Hunger II, and Nausea I, increasing the max level of each when trimmed.",
+
   "material.tconstruct.blaze": "Blaze",
   "material.tconstruct.blaze.flavor": "Burn it all",
   "material.tconstruct.blaze.encyclopedia.ammo": "Causes arrows to ignite, burning targets for 5 seconds per level.",
@@ -2742,6 +2746,9 @@
   "modifier.tconstruct.turtles_grace": "Turtle's Grace",
   "modifier.tconstruct.turtles_grace.flavor": "Like a dolphin, but not really",
   "modifier.tconstruct.turtles_grace.description": "Increases underwater swimspeed and makes air last longer",
+  "modifier.tconstruct.shell_gut": "Shell Gut",
+  "modifier.tconstruct.shell_gut.flavor": "Like a nautilus, but not really",
+  "modifier.tconstruct.shell_gut.description": "Grants immunity to Poison I, Hunger II, and Nausea I",
   "modifier.tconstruct.dragonborn": "Dragonborn",
   "modifier.tconstruct.dragonborn.flavor": "Become Strixiki",
   "modifier.tconstruct.dragonborn.description": "Increases protection and attack when airborne",

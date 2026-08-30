@@ -229,6 +229,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     MaterialStatsId shell = RepairStats.SHELL.getId();
     // shells
     addTraits(MaterialIds.turtle, shell, ModifierIds.turtlesGrace);
+    addTraits(MaterialIds.nautilus, shell, ModifierIds.shellGut);
     addTraits(MaterialIds.phantom, shell, ModifierIds.skyfall);
     addTraits(MaterialIds.prismarine, shell, ModifierIds.thornsShell);
     addTraits(MaterialIds.shulker, shell, ModifierIds.shulkerBox);

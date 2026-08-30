@@ -1,0 +1,28 @@
+{
+  "level_display": "tconstruct:single_level",
+  "modules": [
+    {
+      "type": "tconstruct:effect_immunity",
+      "effect": "minecraft:poison",
+      "max_level": {
+        "each_level": 1
+      }
+    },
+    {
+      "type": "tconstruct:effect_immunity",
+      "effect": "minecraft:hunger",
+      "max_level": {
+        "each_level": 1,
+        "flat": 1
+      }
+    },
+    {
+      "type": "tconstruct:effect_immunity",
+      "effect": "minecraft:nausea",
+      "max_level": {
+        "each_level": 1
+      }
+    }
+  ],
+  "tooltip_display": "always"
+}

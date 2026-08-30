@@ -401,6 +401,8 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
     buildMaterial(MaterialIds.turtle)
       .maille().shell()
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF0A3118).addARGB(102, 0xFF1B5B31).addARGB(140, 0xFF30723F).addARGB(178, 0xFF388D3A).addARGB(216, 0xFF3FA442).addARGB(255, 0xFF47BF4A).build());
+    buildMaterial(MaterialIds.nautilus).shell()
+      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF6D533F).addARGB(102, 0xFF8A6A53).addARGB(140, 0xFFA6846A).addARGB(178, 0xFFBAAD96).addARGB(216, 0xFFD4CCC3).addARGB(255, 0xFFD48080).build());
 
     // wool for arrows
     for (DyeColor color : DyeColor.values()) {

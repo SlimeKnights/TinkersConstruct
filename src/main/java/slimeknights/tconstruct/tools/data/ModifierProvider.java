@@ -1614,6 +1614,10 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.turtlesGrace).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
       .addModule(AttributeModule.builder(ForgeMod.SWIM_SPEED.get(), Operation.MULTIPLY_TOTAL).eachLevel(0.1f))
       .addModule(EnchantmentModule.builder(Enchantments.RESPIRATION).constant());
+    buildModifier(ModifierIds.shellGut).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
+      .addModule(new EffectImmunityModule(MobEffects.POISON, LevelingInt.LEVEL))
+      .addModule(new EffectImmunityModule(MobEffects.HUNGER, new LevelingInt(1, 1)))
+      .addModule(new EffectImmunityModule(MobEffects.CONFUSION, LevelingInt.LEVEL));
     traitTwoPlusOne(ModifierIds.thornsShell, ModifierIds.thorns);
     buildModifier(ModifierIds.shulkerBox).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
       // 6 slots, 3 at second level
