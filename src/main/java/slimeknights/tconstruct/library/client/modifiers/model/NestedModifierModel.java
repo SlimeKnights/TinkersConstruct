@@ -4,6 +4,7 @@ import com.mojang.math.Transformation;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.Material;
+import slimeknights.mantle.data.loadable.field.LoadableField;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.util.ItemLayerPixels;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -17,6 +18,8 @@ import java.util.function.Function;
 
 /** Modifier model fetching a modifier entry from the tool and using it to show a nested model. */
 public interface NestedModifierModel extends ModifierModel {
+  LoadableField<ModifierModel,NestedModifierModel> NESTED_FIELD = ModifierModelLoadable.COMPACT.requiredField("model", NestedModifierModel::nested);
+
   /** Gets the nested model instance */
   ModifierModel nested();
 
@@ -65,8 +68,7 @@ public interface NestedModifierModel extends ModifierModel {
   record Crafted(ModifierId modifier, ModifierModel nested) implements NestedModifierModel {
     public static final RecordLoadable<Crafted> LOADER = RecordLoadable.create(
       ModifierId.PARSER.requiredField("modifier", Crafted::modifier),
-      ModifierModel.LOADER.requiredField("model", Crafted::nested),
-      Crafted::new);
+      NESTED_FIELD, Crafted::new);
 
     @Override
     public RecordLoadable<Crafted> getLoader() {
@@ -88,8 +90,7 @@ public interface NestedModifierModel extends ModifierModel {
   record Trait(ModifierId modifier, ModifierModel nested) implements NestedModifierModel {
     public static final RecordLoadable<Trait> LOADER = RecordLoadable.create(
       ModifierId.PARSER.requiredField("modifier", Trait::modifier),
-      ModifierModel.LOADER.requiredField("model", Trait::nested),
-      Trait::new);
+      NESTED_FIELD, Trait::new);
 
     @Override
     public RecordLoadable<Trait> getLoader() {

@@ -9,7 +9,6 @@
         "mask": "tconstruct:item/tool/pickadze/modifiers/tconstruct_bucketing_full"
       },
       {
-        "type": "tconstruct:basic",
         "texture": "tconstruct:item/tool/pickadze/modifiers/tconstruct_bucketing"
       }
     ],
@@ -50,7 +49,6 @@
         "partial": "tconstruct:item/tool/pickadze/modifiers/tconstruct_tank_partial"
       },
       {
-        "type": "tconstruct:basic",
         "texture": "tconstruct:item/tool/pickadze/modifiers/tconstruct_tank"
       }
     ],

@@ -9,7 +9,6 @@
         "mask": "tconstruct:item/tool/hand_axe/modifiers/tconstruct_bucketing_full"
       },
       {
-        "type": "tconstruct:basic",
         "texture": "tconstruct:item/tool/hand_axe/modifiers/tconstruct_bucketing"
       }
     ],
@@ -53,7 +52,6 @@
         "partial": "tconstruct:item/tool/hand_axe/modifiers/tconstruct_tank_partial"
       },
       {
-        "type": "tconstruct:basic",
         "texture": "tconstruct:item/tool/hand_axe/modifiers/tconstruct_tank"
       }
     ],

@@ -9,7 +9,6 @@
         "mask": "tconstruct:item/tool/dagger/modifiers/tconstruct_bucketing_full"
       },
       {
-        "type": "tconstruct:basic",
         "texture": "tconstruct:item/tool/dagger/modifiers/tconstruct_bucketing"
       }
     ],
@@ -46,7 +45,6 @@
         "partial": "tconstruct:item/tool/dagger/modifiers/tconstruct_tank_partial"
       },
       {
-        "type": "tconstruct:basic",
         "texture": "tconstruct:item/tool/dagger/modifiers/tconstruct_tank"
       }
     ],

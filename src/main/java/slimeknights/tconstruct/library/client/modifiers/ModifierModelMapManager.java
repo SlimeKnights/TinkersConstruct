@@ -18,8 +18,8 @@ import slimeknights.mantle.util.typed.TypedMap;
 import slimeknights.mantle.util.typed.TypedMapBuilder;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.modifiers.ModifierModelMapManager.Builder;
-import slimeknights.tconstruct.library.client.modifiers.model.CompoundModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.ModifierModel;
+import slimeknights.tconstruct.library.client.modifiers.model.ModifierModelLoadable;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 
 import java.util.HashMap;
@@ -120,24 +120,10 @@ public class ModifierModelMapManager extends MergingJsonDataLoader<Builder> {
   }
 
   /** Parses the given model from the map */
-  @SuppressWarnings("removal")
   private static <T> void parseModel(Map<T, ModifierModel> map, T key, JsonElement value, String errorPrefix, ResourceLocation id, BiFunction<ResourceLocation, T,TypedMap> context) {
     try {
       // if it's an object, it's a single model
-      ModifierModel model;
-      if (value.isJsonArray()) {
-        // for simplicity, treat an array as a compound
-        model = CompoundModifierModel.create(CompoundModifierModel.LIST_LOADABLE.convert(value, key.toString(), context.apply(id, key)));
-      } else if (value.isJsonPrimitive()) {
-        model = new NormalModifierModel(ModifierModel.blockAtlas(new ResourceLocation(value.getAsString())), null);
-      } else {
-        JsonObject json = value.getAsJsonObject();
-        if (!json.has("type")) {
-          model = NormalModifierModel.LOADER.deserialize(json, context.apply(id, key));
-        } else {
-          model = ModifierModel.LOADER.deserialize(json, context.apply(id, key));
-        }
-      }
+      ModifierModel model = ModifierModelLoadable.COMPACT.convert(value, key.toString(), context.apply(id, key));
       map.put(key, model);
     } catch (JsonSyntaxException | ResourceLocationException e) {
       TConstruct.LOG.error("Failed to parse modifier model map {} for {} {}", id, errorPrefix, key, e);

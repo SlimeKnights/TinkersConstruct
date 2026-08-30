@@ -19,7 +19,6 @@
         "mask_large": "tconstruct:item/tool/cleaver/large/modifiers/tconstruct_bucketing_full"
       },
       {
-        "type": "tconstruct:basic",
         "texture": "tconstruct:item/tool/cleaver/modifiers/tconstruct_bucketing",
         "texture_large": "tconstruct:item/tool/cleaver/large/modifiers/tconstruct_bucketing"
       }
@@ -111,7 +110,6 @@
         "partial_large": "tconstruct:item/tool/cleaver/large/modifiers/tconstruct_tank_partial"
       },
       {
-        "type": "tconstruct:basic",
         "texture": "tconstruct:item/tool/cleaver/modifiers/tconstruct_tank",
         "texture_large": "tconstruct:item/tool/cleaver/large/modifiers/tconstruct_tank"
       }

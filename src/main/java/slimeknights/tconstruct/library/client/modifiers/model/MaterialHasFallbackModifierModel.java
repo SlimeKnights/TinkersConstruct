@@ -30,8 +30,8 @@ public final class MaterialHasFallbackModifierModel implements ModifierModel, Fu
   public static final RecordLoadable<MaterialHasFallbackModifierModel> LOADER = RecordLoadable.create(
     IntLoadable.FROM_ZERO.requiredField("index", m -> m.index),
     StringLoadable.DEFAULT.set(ArrayLoadable.COMPACT).requiredField("fallback", m -> m.fallback),
-    ModifierModel.LOADER.requiredField("if_true", m -> m.ifTrue),
-    ModifierModel.LOADER.requiredField("if_false", m -> m.ifFalse),
+    ModifierModelLoadable.COMPACT.requiredField("if_true", m -> m.ifTrue),
+    ModifierModelLoadable.COMPACT.requiredField("if_false", m -> m.ifFalse),
     MaterialHasFallbackModifierModel::new);
 
   private final int index;

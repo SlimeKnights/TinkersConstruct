@@ -18,7 +18,6 @@
         "mask_large": "tconstruct:item/tool/staff/large_modifiers/tconstruct_bucketing_full"
       },
       {
-        "type": "tconstruct:basic",
         "texture": "tconstruct:item/tool/staff/modifiers/tconstruct_bucketing",
         "texture_large": "tconstruct:item/tool/staff/large_modifiers/tconstruct_bucketing"
       }
@@ -59,7 +58,6 @@
         "partial_large": "tconstruct:item/tool/staff/large_modifiers/tconstruct_tank_partial"
       },
       {
-        "type": "tconstruct:basic",
         "texture": "tconstruct:item/tool/staff/modifiers/tconstruct_tank",
         "texture_large": "tconstruct:item/tool/staff/large_modifiers/tconstruct_tank"
       }
