@@ -1038,11 +1038,17 @@
   "block.tconstruct.punji.tooltip": "Pointy! Also sticks to walls.",
 
   "item.tconstruct.clear_item_frame": "Clear Item Frame",
+  "item.tconstruct.clear_item_frame.tooltip": "Turns invisible when containing an item",
   "item.tconstruct.gold_item_frame": "Golden Item Frame",
+  "item.tconstruct.gold_item_frame.tooltip": "Slowly rotates clockwise",
   "item.tconstruct.reversed_gold_item_frame": "Inverted Golden Item Frame",
+  "item.tconstruct.reversed_gold_item_frame.tooltip": "Slowly rotates counter-clockwise",
   "item.tconstruct.diamond_item_frame": "Diamond Item Frame",
+  "item.tconstruct.diamond_item_frame.tooltip": "After rotating, slowly rotates back",
   "item.tconstruct.manyullyn_item_frame": "Manyullyn Item Frame",
+  "item.tconstruct.manyullyn_item_frame.tooltip": "Always bright item frame",
   "item.tconstruct.netherite_item_frame": "Netherite Item Frame",
+  "item.tconstruct.netherite_item_frame.tooltip": "Immune to fire and explosions",
   "entity.tconstruct.item_frame": "Fancy Item Frame",
 
   "item.tconstruct.glow_ball": "Glowball",
