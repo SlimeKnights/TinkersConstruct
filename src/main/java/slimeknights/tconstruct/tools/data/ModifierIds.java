@@ -318,6 +318,8 @@ public class ModifierIds {
   public static final ModifierId balmOfSssss = id("balm_of_sssss");
   public static final ModifierId slowBones = id("slow_bones");
   public static final ModifierId witheredBones = id("withered");
+  public static final ModifierId goldGuard = id("gold_guard");
+  public static final ModifierId chrysophilite = id("chrysophilite");
   public static final ModifierId fireborn = id("fireborn");
   public static final ModifierId dragonheart = id("dragonheart");
   /** @deprecated cave spider's trait was switched to {@link #balmOfSssss}. Reimplement if you need this functionality */

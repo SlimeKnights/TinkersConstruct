@@ -1942,7 +1942,7 @@
   "material.tconstruct.gold.encyclopedia.armor": "Grants 10% protection per level against magic damage and reduces negative potion duration. Also makes piglins friendly.",
   "material.tconstruct.gold.skull": "Piglin",
   "material.tconstruct.gold.flavor.skull": "So shiny",
-  "material.tconstruct.gold.encyclopedia.skull": "Causes some gold ores to drop extra gold nuggets, and increases drop chance of gold armor by 4%. Nuggets and armor drops are further boosted by each piece of golden armor worn.",
+  "material.tconstruct.gold.encyclopedia.skull": "Causes some gold ores to drop extra gold nuggets, and increases drop chance of gold armor by 4%. Nuggets and armor drops are further boosted if trimmed and by each piece of golden armor worn.",
 
   "material.tconstruct.slimewood": "Slimewood",
   "material.tconstruct.slimewood.greenheart":  "Greenheart",
@@ -1969,7 +1969,7 @@
   "material.tconstruct.rose_gold.encyclopedia": "Grants 1 extra upgrade slot per part.",
   "material.tconstruct.rose_gold.skull": "Piglin Brute",
   "material.tconstruct.rose_gold.flavor.skull": "Putting that arm shield to good use",
-  "material.tconstruct.rose_gold.encyclopedia.skull": "Boosts health by 1 heart, plus an additional heart per piece of golden armor.",
+  "material.tconstruct.rose_gold.encyclopedia.skull": "Boosts health by 2 hearts, plus an additional 2 hearts when trimmed and per piece of golden armor.",
 
   "material.tconstruct.skyslime_vine": "Slimy Vine",
   "material.tconstruct.skyslime_vine.slimeskin": "Slimeskin",
@@ -3551,7 +3551,6 @@
   "modifier.tconstruct.gold_guard": "Gold Guard",
   "modifier.tconstruct.gold_guard.flavor": "Means you love gold",
   "modifier.tconstruct.gold_guard.description": "Increases health based on how much gold you are wearing",
-  "modifier.tconstruct.gold_guard.health": "Gold Health",
   "modifier.tconstruct.revenge": "Revenge",
   "modifier.tconstruct.revenge.flavor": "Perfect for counterattacks",
   "modifier.tconstruct.revenge.description": "Makes you stronger after you are attacked",
@@ -3834,6 +3833,7 @@
   "attribute.name.tconstruct.player.jump_count": "Jumps",
 
   "attribute.name.tconstruct.generic.protection_cap": "Max Protection",
+  "attribute.name.tconstruct.generic.chrysophilite": "Chrysophilite",
   "attribute.name.tconstruct.generic.jump_boost": "Jump Height",
   "attribute.name.tconstruct.generic.safe_fall_distance": "Safe Fall Distance",
   "attribute.name.tconstruct.generic.crouch_damage_multiplier": "Crouch Damage",

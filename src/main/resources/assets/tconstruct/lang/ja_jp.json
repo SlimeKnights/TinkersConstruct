@@ -3402,7 +3402,6 @@
   "modifier.tconstruct.gold_guard": "金の加護",
   "modifier.tconstruct.gold_guard.flavor": "あなたは金を愛している",
   "modifier.tconstruct.gold_guard.description": "金装備を装着している部位の個数に応じて体力が増える",
-  "modifier.tconstruct.gold_guard.health": "金による体力補正",
   "modifier.tconstruct.revenge": "復讐",
   "modifier.tconstruct.revenge.flavor": "完璧なカウンター",
   "modifier.tconstruct.revenge.description": "攻撃されると強くなる",

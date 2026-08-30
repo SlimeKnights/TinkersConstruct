@@ -2039,7 +2039,6 @@
   "modifier.tconstruct.gold_guard": "Guldvakt",
   "modifier.tconstruct.gold_guard.flavor": "Innebär att man älskar guld",
   "modifier.tconstruct.gold_guard.description": "Ökar hälsan baserat på hur mycket guld du har på dig",
-  "modifier.tconstruct.gold_guard.health": "guldhälsa",
   "modifier.tconstruct.revenge": "Hämnd",
   "modifier.tconstruct.revenge.flavor": "Perfekt för kontringsattacker",
   "modifier.tconstruct.revenge.description": "Gör dig starkare efter du har blivit attackerad",

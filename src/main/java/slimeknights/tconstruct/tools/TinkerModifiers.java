@@ -242,9 +242,7 @@ import slimeknights.tconstruct.tools.modifiers.traits.melee.InsatiableModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.melee.LaceratingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.ranged.OlympicModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.BreathtakingModifier;
-import slimeknights.tconstruct.tools.modifiers.traits.skull.ChrysophiliteModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.FirebreathModifier;
-import slimeknights.tconstruct.tools.modifiers.traits.skull.GoldGuardModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.PlagueModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.SelfDestructiveModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.StrongBonesModifier;
@@ -272,6 +270,7 @@ import slimeknights.tconstruct.tools.modules.armor.FireWalkerModule;
 import slimeknights.tconstruct.tools.modules.armor.FlameBarrierModule;
 import slimeknights.tconstruct.tools.modules.armor.FreezingCounterModule;
 import slimeknights.tconstruct.tools.modules.armor.GlowWalkerModule;
+import slimeknights.tconstruct.tools.modules.armor.GoldenAttributeModule;
 import slimeknights.tconstruct.tools.modules.armor.KineticModule;
 import slimeknights.tconstruct.tools.modules.armor.KnockbackCounterModule;
 import slimeknights.tconstruct.tools.modules.armor.LightspeedAttributeModule;
@@ -422,8 +421,6 @@ public final class TinkerModifiers extends TinkerModule {
   public static final StaticModifier<SelfDestructiveModifier> selfDestructive = MODIFIERS.register("self_destructive", SelfDestructiveModifier::new);
   public static final StaticModifier<StrongBonesModifier> strongBones = MODIFIERS.register("strong_bones", StrongBonesModifier::new);
   public static final StaticModifier<PlagueModifier> plague = MODIFIERS.register("plague", PlagueModifier::new);
-  public static final StaticModifier<ChrysophiliteModifier> chrysophilite = MODIFIERS.register("chrysophilite", ChrysophiliteModifier::new);
-  public static final StaticModifier<GoldGuardModifier> goldGuard = MODIFIERS.register("gold_guard", GoldGuardModifier::new);
 
   // slotless - cosmetic - used as defaults for rendering modules and recipes
   public static final StaticModifier<?> embellishment = MODIFIERS.registerDynamic("embellishment");
@@ -689,6 +686,12 @@ public final class TinkerModifiers extends TinkerModule {
   /** @deprecated use {@link slimeknights.tconstruct.tools.data.ModifierIds#enderdodging} */
   @Deprecated(forRemoval = true)
   public static final StaticModifier<?> enderdodging = MODIFIERS.registerDynamic("enderdodging");
+  /** @deprecated use {@link slimeknights.tconstruct.tools.data.ModifierIds#chrysophilite} */
+  @Deprecated(forRemoval = true)
+  public static final StaticModifier<?> chrysophilite = MODIFIERS.registerDynamic("chrysophilite");
+  /** @deprecated use {@link slimeknights.tconstruct.tools.data.ModifierIds#goldGuard} */
+  @Deprecated(forRemoval = true)
+  public static final StaticModifier<?> goldGuard = MODIFIERS.registerDynamic("gold_guard");
 
 
   /*
@@ -959,6 +962,7 @@ public final class TinkerModifiers extends TinkerModule {
       ModifierModule.LOADER.register(getResource("projectile_bounce"), ProjectileBounceModule.LOADER);
       ModifierModule.LOADER.register(getResource("block_item_provider"), BlockItemProviderModule.LOADER);
       ModifierModule.LOADER.register(getResource("tool_damage_range"), ToolDamageRangeModule.LOADER);
+      ModifierModule.LOADER.register(getResource("golden_attribute"), GoldenAttributeModule.LOADER);
       // interaction
       ModifierModule.LOADER.register(getResource("brush"), BrushModule.LOADER);
       ModifierModule.LOADER.register(getResource("campfire_extinguish"), ExtinguishCampfireModule.LOADER);

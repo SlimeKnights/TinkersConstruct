@@ -3442,7 +3442,6 @@
   "modifier.tconstruct.gold_guard": "Золотая защита",
   "modifier.tconstruct.gold_guard.flavor": "Означает, что вы любите золото!",
   "modifier.tconstruct.gold_guard.description": "Увеличивает здоровье в зависимости от количества золота на вашем снаряжении.",
-  "modifier.tconstruct.gold_guard.health": "Золотое здоровье",
   "modifier.tconstruct.revenge": "Месть",
   "modifier.tconstruct.revenge.flavor": "Идеально подходит для контратак!",
   "modifier.tconstruct.revenge.description": "Делает вас сильнее после нападения.",

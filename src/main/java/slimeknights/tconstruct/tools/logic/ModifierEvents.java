@@ -11,11 +11,13 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.player.Inventory;
@@ -39,6 +41,7 @@ import net.minecraftforge.event.entity.EntityTeleportEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent.ImpactResult;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingTickEvent;
 import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
@@ -163,6 +166,35 @@ public class ModifierEvents {
         }
       }
     };
+  }
+
+  /** Causes more gold armor to drop */
+  @SubscribeEvent
+  static void onLivingDrops(LivingDropsEvent event) {
+    DamageSource source = event.getSource();
+    if (source != null) {
+      float gold = (float) event.getEntity().getAttributeValue(TinkerAttributes.CHRYSOPHILITE.get());
+      if (gold > 0) {
+        float extraChance = 0.04f * gold;
+        LivingEntity target = event.getEntity();
+        // check each slot for gold
+        for (EquipmentSlot slot : EquipmentSlot.values()) {
+          ItemStack stack = target.getItemBySlot(slot);
+          RandomSource random = target.getRandom();
+          // if the stack is gold, and it drops, we get it
+          // don't have to worry about checking if it already dropped, the stacks are removed on drop
+          if (!stack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(stack) && stack.makesPiglinsNeutral(target) && random.nextFloat() < extraChance) {
+            // mobs damage items on drop, its kinda weird
+            if (stack.isDamageableItem()) {
+              stack.setDamageValue(stack.getMaxDamage() - random.nextInt(1 + random.nextInt(Math.max(stack.getMaxDamage() - 3, 1))));
+            }
+            // remove stack to prevent further drops
+            event.getDrops().add(target.spawnAtLocation(stack));
+            target.setItemSlot(slot, ItemStack.EMPTY);
+          }
+        }
+      }
+    }
   }
 
   /** Called when the player dies to store the item in the original inventory */

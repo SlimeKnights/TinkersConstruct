@@ -3545,7 +3545,6 @@
   "modifier.tconstruct.gold_guard": "Золотий захист",
   "modifier.tconstruct.gold_guard.flavor": "Значить, що ти любиш золото",
   "modifier.tconstruct.gold_guard.description": "Збільшує здоров'я залежно від того, скільки на вас надягнено золота",
-  "modifier.tconstruct.gold_guard.health": "Золоте здоров'я",
   "modifier.tconstruct.revenge": "Помста",
   "modifier.tconstruct.revenge.flavor": "Ідеально для контрнаступів",
   "modifier.tconstruct.revenge.description": "Робить вас сильнішими, коли ви атаковані",

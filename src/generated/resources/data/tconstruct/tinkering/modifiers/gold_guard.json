@@ -1,0 +1,20 @@
+{
+  "level_display": "tconstruct:single_level",
+  "modules": [
+    {
+      "type": "tconstruct:golden_attribute",
+      "attribute": "minecraft:generic.max_health",
+      "each_level": 4.0,
+      "flat": 4.0,
+      "operation": "addition"
+    },
+    {
+      "type": "tconstruct:volatile_flag",
+      "flag": "tconstruct:piglin_neutral",
+      "modifier_level": {
+        "min": 2
+      }
+    }
+  ],
+  "tooltip_display": "always"
+}

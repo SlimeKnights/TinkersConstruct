@@ -2445,7 +2445,6 @@
   "modifier.tconstruct.gold_guard": "Gardien doré",
   "modifier.tconstruct.gold_guard.flavor": "Vous aimez l'or, non ?",
   "modifier.tconstruct.gold_guard.description": "Augmente la santé selon la quantité d'or portée.",
-  "modifier.tconstruct.gold_guard.health": "Santé dorée",
   "modifier.tconstruct.revenge": "Vengeance",
   "modifier.tconstruct.revenge.flavor": "Parfait pour riposter",
   "modifier.tconstruct.revenge.description": "Vous renforce après avoir été attaqué.",
