@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "tconstruct:item/gadgets/necrotic_bone_armor_stand"
+  }
+}

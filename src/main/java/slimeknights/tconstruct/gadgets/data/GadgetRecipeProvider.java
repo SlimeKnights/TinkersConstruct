@@ -19,12 +19,15 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
+import slimeknights.tconstruct.gadgets.entity.FancyArmorStandEntity.StandType;
 import slimeknights.tconstruct.gadgets.entity.FrameType;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.shared.block.SlimeType;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.FoliageType;
 
@@ -127,6 +130,37 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
                        .pattern("MMM").pattern("SES").pattern("WWW")
                        .unlockedBy("has_slime", has(bucket))
                        .save(consumer, location(cakeFolder + "magma"));
+
+    // armor stands
+    String standFolder = "gadgets/armor_stands/";
+    // bamboo - small
+    ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TinkerGadgets.armorStand.get(StandType.BAMBOO))
+      .define('S', Items.BAMBOO)
+      .define('B', TinkerTables.pattern)
+      .pattern("SSS").pattern(" S ").pattern("SBS")
+      .unlockedBy("has_base", has(TinkerTables.pattern))
+      .save(consumer, location(standFolder + "bamboo"));
+    // bone - arms
+    ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TinkerGadgets.armorStand.get(StandType.BONE))
+      .define('S', TinkerTags.Items.BONES)
+      .define('B', TinkerSmeltery.searedPaver.getSlab())
+      .pattern("SSS").pattern(" S ").pattern("SBS")
+      .unlockedBy("has_base", has(TinkerSmeltery.searedPaver.getSlab()))
+      .save(consumer, location(standFolder + "bone"));
+    // necrotic bone - fullbright
+    ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TinkerGadgets.armorStand.get(StandType.NECROTIC_BONE))
+      .define('S', TinkerTags.Items.WITHER_BONES)
+      .define('B', TinkerMaterials.blazewood.getSlab())
+      .pattern("SSS").pattern(" S ").pattern("SBS")
+      .unlockedBy("has_base", has(TinkerMaterials.blazewood.getSlab()))
+      .save(consumer, location(standFolder + "bloodshroom"));
+    // clear - glass base
+    ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TinkerGadgets.armorStand.get(StandType.CLEAR))
+      .define('S', Tags.Items.GLASS_PANES_COLORLESS)
+      .define('B', Tags.Items.GLASS_COLORLESS)
+      .pattern("SSS").pattern(" S ").pattern("SBS")
+      .unlockedBy("has_base", has(Tags.Items.GLASS_COLORLESS))
+      .save(consumer, location(standFolder + "clear"));
   }
 
 

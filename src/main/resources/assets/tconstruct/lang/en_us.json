@@ -1051,6 +1051,16 @@
   "item.tconstruct.netherite_item_frame.tooltip": "Immune to fire and explosions",
   "entity.tconstruct.item_frame": "Fancy Item Frame",
 
+  "item.tconstruct.clear_armor_stand": "Clear Armor Stand",
+  "item.tconstruct.clear_armor_stand.tooltip": "Turns invisible when any item is equipped",
+  "item.tconstruct.bamboo_armor_stand": "Bamboo Armor Stand",
+  "item.tconstruct.bamboo_armor_stand.tooltip": "Smaller armor stand",
+  "item.tconstruct.bone_armor_stand": "Bone Armor Stand",
+  "item.tconstruct.bone_armor_stand.tooltip": "Has two arms for holding tools",
+  "item.tconstruct.necrotic_bone_armor_stand": "Necrotic Bone Armor Stand",
+  "item.tconstruct.necrotic_bone_armor_stand.tooltip": "Always bright armor stand",
+  "entity.tconstruct.armor_stand": "Fancy Armor Stand",
+
   "item.tconstruct.glow_ball": "Glowball",
   "item.tconstruct.glow_ball.tooltip": "Not suited for consumption.",
   "entity.tconstruct.glow_ball": "Glowball",
