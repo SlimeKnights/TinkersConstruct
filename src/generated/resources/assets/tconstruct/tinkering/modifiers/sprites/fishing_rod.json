@@ -1,17 +1,17 @@
 {
   "constant": {
-    "fluid": {
-      "type": "tconstruct:tank",
-      "full": "tconstruct:item/tool/fishing_rod/fluid_full",
-      "partial": "tconstruct:item/tool/fishing_rod/fluid_partial"
-    },
-    "tipped": {
+    "__tipped": {
       "type": "tconstruct:trait",
       "model": {
         "type": "tconstruct:potion",
         "texture": "tconstruct:item/tool/fishing_rod/modifiers/tipped"
       },
       "modifier": "tconstruct:tipped"
+    },
+    "fluid": {
+      "type": "tconstruct:tank",
+      "full": "tconstruct:item/tool/fishing_rod/fluid_full",
+      "partial": "tconstruct:item/tool/fishing_rod/fluid_partial"
     }
   },
   "modifiers": {

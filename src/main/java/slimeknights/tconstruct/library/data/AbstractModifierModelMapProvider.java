@@ -350,7 +350,7 @@ public abstract class AbstractModifierModelMapProvider extends GenericDataProvid
 
     /** Creates a model for tipping a small tool */
     public Builder tipped(String texture) {
-      return trait(ModifierIds.tipped, new PotionModifierModel(toolMaterial(texture), null));
+      return trait("__tipped", ModifierIds.tipped, new PotionModifierModel(toolMaterial(texture), null));
     }
 
 
