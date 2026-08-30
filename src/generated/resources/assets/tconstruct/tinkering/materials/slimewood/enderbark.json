@@ -20,34 +20,20 @@
     ],
     "transformer": {
       "type": "tconstruct:grey_to_sprite",
-      "palette": [
-        {
-          "color": "FF000000",
-          "grey": 0
-        },
-        {
+      "palette": {
+        "000": "FF000000",
+        "063": {
           "color": "FF404040",
-          "grey": 63,
           "path": "tconstruct:block/wood/enderbark/planks"
         },
-        {
+        "102": {
           "color": "FF808080",
-          "grey": 102,
           "path": "tconstruct:block/wood/enderbark/planks"
         },
-        {
-          "grey": 140,
-          "path": "tconstruct:block/wood/enderbark/planks"
-        },
-        {
-          "grey": 216,
-          "path": "tconstruct:block/wood/enderbark/planks"
-        },
-        {
-          "color": "FF594D59",
-          "grey": 255
-        }
-      ]
+        "140": "tconstruct:block/wood/enderbark/planks",
+        "216": "tconstruct:block/wood/enderbark/planks",
+        "255": "FF594D59"
+      }
     },
     "variant": true
   }

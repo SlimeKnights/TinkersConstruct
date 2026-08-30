@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.client.data.spritetransformer;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import com.mojang.blaze3d.platform.NativeImage;
@@ -99,5 +100,17 @@ public class AnimatedGreyToSpriteTransformer extends GreyToSpriteTransformer {
     object.addProperty("meta", metaPath.toString());
     object.addProperty("frames", frames);
     return object;
+  }
+
+  /** Serializes the palette as an array instead of a compact object */
+  static class PaletteArray extends AnimatedGreyToSpriteTransformer {
+    protected PaletteArray(List<SpriteMapping> sprites, ResourceLocation metaPath, int frames) {
+      super(sprites, metaPath, frames);
+    }
+
+    @Override
+    protected JsonElement serializePalette() {
+      return serializePaletteArray();
+    }
   }
 }

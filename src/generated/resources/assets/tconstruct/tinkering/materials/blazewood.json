@@ -15,26 +15,18 @@
       "type": "tconstruct:animated_sprite",
       "frames": 7,
       "meta": "tconstruct:block/wood/blazewood",
-      "palette": [
-        {
-          "color": "FF000000",
-          "grey": 0
-        },
-        {
+      "palette": {
+        "000": "FF000000",
+        "063": {
           "color": "FF404040",
-          "grey": 63,
           "path": "tconstruct:block/wood/blazewood"
         },
-        {
+        "102": {
           "color": "FF808080",
-          "grey": 102,
           "path": "tconstruct:block/wood/blazewood"
         },
-        {
-          "grey": 140,
-          "path": "tconstruct:block/wood/blazewood"
-        }
-      ]
+        "140": "tconstruct:block/wood/blazewood"
+      }
     }
   },
   "luminosity": 7

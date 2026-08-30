@@ -28,77 +28,29 @@
       "frames": [
         {
           "type": "tconstruct:grey_to_sprite",
-          "palette": [
-            {
-              "color": "FF000000",
-              "grey": 0
-            },
-            {
-              "color": "FF191919",
-              "grey": 25
-            },
-            {
-              "grey": 26,
-              "path": "tconstruct:generator/fiery"
-            },
-            {
-              "grey": 102,
-              "path": "tconstruct:generator/fiery"
-            },
-            {
-              "color": "FF3C2323",
-              "grey": 140
-            },
-            {
-              "color": "FF2D1B1B",
-              "grey": 178
-            },
-            {
-              "color": "FF191313",
-              "grey": 216
-            },
-            {
-              "color": "FF080606",
-              "grey": 255
-            }
-          ]
+          "palette": {
+            "000": "FF000000",
+            "025": "FF191919",
+            "026": "tconstruct:generator/fiery",
+            "102": "tconstruct:generator/fiery",
+            "140": "FF3C2323",
+            "178": "FF2D1B1B",
+            "216": "FF191313",
+            "255": "FF080606"
+          }
         },
         {
           "type": "tconstruct:grey_to_sprite",
-          "palette": [
-            {
-              "color": "FF000000",
-              "grey": 0
-            },
-            {
-              "color": "FF191919",
-              "grey": 25
-            },
-            {
-              "grey": 26,
-              "path": "tconstruct:generator/fiery"
-            },
-            {
-              "grey": 102,
-              "path": "tconstruct:generator/fiery"
-            },
-            {
-              "color": "FF893D14",
-              "grey": 140
-            },
-            {
-              "color": "FF773511",
-              "grey": 178
-            },
-            {
-              "color": "FF662D09",
-              "grey": 216
-            },
-            {
-              "color": "FF5D2603",
-              "grey": 255
-            }
-          ]
+          "palette": {
+            "000": "FF000000",
+            "025": "FF191919",
+            "026": "tconstruct:generator/fiery",
+            "102": "tconstruct:generator/fiery",
+            "140": "FF893D14",
+            "178": "FF773511",
+            "216": "FF662D09",
+            "255": "FF5D2603"
+          }
         }
       ],
       "meta": "tconstruct:generator/fiery"
