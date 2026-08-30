@@ -10,6 +10,7 @@ import mezz.jei.api.recipe.IFocus;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.AbstractRecipeCategory;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -28,7 +29,6 @@ import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.plugin.jei.TConstructJEIConstants;
-import slimeknights.tconstruct.plugin.jei.util.RecipeTooltipWidget;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.item.CreativeSlotItem;
 
@@ -111,18 +111,19 @@ public class ModifierRecipeCategory extends AbstractRecipeCategory<IDisplayModif
 
   @Override
   public void createRecipeExtras(IRecipeExtrasBuilder builder, IDisplayModifierRecipe recipe, IFocusGroup focuses) {
-    builder.addRecipeArrow().setPosition(71, 33);
+    builder.addRecipeArrowWidget().setPosition(71, 33);
     ModifierEntry result = recipe.getDisplayResult();
     Component requirementsError = result.getHook(ModifierHooks.REQUIREMENTS).requirementsError(result);
     if (requirementsError != null) {
-      builder.addWidget(new RecipeTooltipWidget(requirements, 66, 58, requirementsError));
+      builder.addDrawableWidget(requirements).setPosition(66, 58).setTooltip(requirementsError);
     }
     if (recipe.isIncremental()) {
-      builder.addWidget(new RecipeTooltipWidget(incremental, 83, 59, TEXT_INCREMENTAL));
+      builder.addDrawableWidget(incremental).setPosition(83, 59).setTooltip(TEXT_INCREMENTAL);
     }
     if (recipe.getSlots() == null) {
-      List<Component> slotlessTooltip = SlotIngredientRenderer.INPUT.getTooltip(null, TooltipFlag.NORMAL);
-      builder.addWidget(new RecipeTooltipWidget(SLOTLESS, 102, 58, slotlessTooltip));
+      builder.addDrawableWidget(SLOTLESS)
+        .setPosition(102, 58)
+        .setTooltip(tooltip -> SlotIngredientRenderer.INPUT.getTooltip(tooltip, null, Minecraft.getInstance().player, TooltipFlag.NORMAL));
     }
     Component levelText = getLevelText(recipe);
     if (levelText != null) {

@@ -1,15 +1,15 @@
 package slimeknights.tconstruct.plugin.jei.util;
 
-import mezz.jei.api.gui.ingredient.IRecipeSlotTooltipCallback;
 import mezz.jei.api.gui.ingredient.IRecipeSlotView;
 import net.minecraft.network.chat.Component;
 
 import java.util.List;
 
 /** @deprecated use {@link FluidTooltipCallback} for better handling of advanced tooltip information */
+@SuppressWarnings("removal")
 @Deprecated(forRemoval = true)
 @FunctionalInterface
-public interface IRecipeTooltipReplacement extends IRecipeSlotTooltipCallback {
+public interface IRecipeTooltipReplacement extends mezz.jei.api.gui.ingredient.IRecipeSlotTooltipCallback {
   /** Tooltip replacement that keeps just the name and mod ID */
   IRecipeTooltipReplacement EMPTY = (slot, tooltip) -> {};
 

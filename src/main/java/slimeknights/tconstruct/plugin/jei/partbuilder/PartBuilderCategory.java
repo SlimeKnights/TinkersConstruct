@@ -39,7 +39,7 @@ public class PartBuilderCategory extends AbstractRecipeCategory<IDisplayPartBuil
 
   @Override
   public void createRecipeExtras(IRecipeExtrasBuilder builder, IDisplayPartBuilderRecipe recipe, IFocusGroup focuses) {
-    builder.addRecipeArrow().setPosition(66, 15);
+    builder.addRecipeArrowWidget().setPosition(66, 15);
     MaterialVariant variant = recipe.getMaterial();
     if (!variant.isEmpty()) {
       builder.addText(MaterialTooltipCache.getColoredDisplayName(variant.getVariant()), 118, 9)
