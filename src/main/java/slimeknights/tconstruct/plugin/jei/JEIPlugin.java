@@ -20,6 +20,7 @@ import mezz.jei.api.registration.IRecipeTransferRegistration;
 import mezz.jei.api.registration.ISubtypeRegistration;
 import mezz.jei.api.registration.IVanillaCategoryExtensionRegistration;
 import mezz.jei.api.runtime.IIngredientManager;
+import mezz.jei.api.runtime.IIngredientVisibility;
 import mezz.jei.api.runtime.IJeiRuntime;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
@@ -125,6 +126,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -438,10 +440,16 @@ public class JEIPlugin implements IModPlugin {
   public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
     IIngredientManager manager = jeiRuntime.getIngredientManager();
 
+    // ingredient runtime
     List<ItemStack> removeItems = new ArrayList<>();
     Consumer<ItemStack> removeItem = removeItems::add;
     List<ItemStack> addItems = new ArrayList<>();
     Consumer<ItemStack> addItem = addItems::add;
+    // ingredient visibility
+    List<ItemStack> hideItems = new ArrayList<>();
+    Consumer<ItemStack> hideItem = hideItems::add;
+    List<ItemStack> showItems = new ArrayList<>();
+    Consumer<ItemStack> showItem = showItems::add;
     // shown via the modifiers
     removeItems.add(new ItemStack(TinkerModifiers.modifierCrystal));
     ModifierCrystalItem.addVariants(removeItem);
@@ -455,8 +463,8 @@ public class JEIPlugin implements IModPlugin {
     if (!showOnlyTools.isEmpty()) {
       for (Holder<Item> item : BuiltInRegistries.ITEM.getTagOrEmpty(TinkerTags.Items.MODIFIABLE)) {
         if (item.get() instanceof IModifiable modifiable) {
-          ToolBuildHandler.addVariants(removeItem, modifiable, "");
-          ToolBuildHandler.addVariants(addItem, modifiable, showOnlyTools);
+          ToolBuildHandler.addVariants(hideItem, modifiable, "");
+          ToolBuildHandler.addVariants(showItem, modifiable, showOnlyTools);
         }
       }
     }
@@ -465,8 +473,8 @@ public class JEIPlugin implements IModPlugin {
     if (!showOnlyParts.isEmpty()) {
       for (Holder<Item> item : BuiltInRegistries.ITEM.getTagOrEmpty(TinkerTags.Items.TOOL_PARTS)) {
         if (item.get() instanceof IMaterialItem part) {
-          part.addVariants(removeItem, "");
-          part.addVariants(addItem, showOnlyParts);
+          part.addVariants(hideItem, "");
+          part.addVariants(showItem, showOnlyParts);
         }
       }
     }
@@ -513,6 +521,13 @@ public class JEIPlugin implements IModPlugin {
     }
     if (!addItems.isEmpty()) {
       manager.addIngredientsAtRuntime(VanillaTypes.ITEM_STACK, addItems);
+    }
+    IIngredientVisibility visibility = jeiRuntime.getJeiHelpers().getIngredientVisibility();
+    if (!hideItems.isEmpty()) {
+      visibility.hideIngredients(VanillaTypes.ITEM_STACK, hideItems, Set.of(UidContext.Ingredient));
+    }
+    if (!showItems.isEmpty()) {
+      visibility.unhideIngredients(VanillaTypes.ITEM_STACK, showItems, Set.of(UidContext.Ingredient));
     }
 
     // fluid hiding, buckets are hidden via the creative tab logic
