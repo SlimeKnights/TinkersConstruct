@@ -83,7 +83,7 @@ public class EntityMeltingRecipeCategory extends AbstractRecipeCategory<EntityMe
     // output
     builder.addOutputSlot(115, 11)
            .setFluidRenderer(FluidValues.INGOT * 2, false, 16, 32)
-           .addRichTooltipCallback(new FluidTooltip(recipe.getDamage())) // object is cheap, no need to cache
+           .addRichTooltipCallback(new FluidTooltip(recipe.getDamage()))
            .addIngredient(ForgeTypes.FLUID_STACK, recipe.getOutput());
 
     // show fuels that are valid for this recipe
