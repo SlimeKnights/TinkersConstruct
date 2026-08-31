@@ -58,6 +58,7 @@ public abstract class AbstractMeltingCategory extends AbstractRecipeCategory<Mel
 
   @Override
   public void createRecipeExtras(IRecipeExtrasBuilder builder, MeltingRecipe recipe, IFocusGroup focuses) {
+    // includes both the static arrow background and animated foreground
     builder.addAnimatedRecipeArrowWidget(recipe.getTime() * 5)
       .setPosition(56, 18)
       .setTooltip(Component.translatable(KEY_COOLING_TIME, recipe.getTime() / 4));
