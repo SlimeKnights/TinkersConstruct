@@ -55,20 +55,20 @@ public interface FluidTooltipCallback extends mezz.jei.api.gui.ingredient.IRecip
       if (line instanceof Component component && component.getContents() instanceof TranslatableContents translatable && AMOUNT_KEY.equals(translatable.getKey())) {
         listIterator.remove();
         FluidStack fluid = recipeSlotView.getDisplayedIngredient(ForgeTypes.FLUID_STACK).orElse(FluidStack.EMPTY);
-        List<Component> newTooltip = new ArrayList<>();
-        onFluidTooltip(fluid, recipeSlotView, newTooltip);
-        for (Component newLine : newTooltip) {
-          listIterator.add(Either.left(newLine));
-        }
+        onFluidTooltip(fluid, recipeSlotView, tooltip);
         return;
       }
     }
     // failed to find the tooltip to replace, so just append our stuff at the end
-    recipeSlotView.getDisplayedIngredient(ForgeTypes.FLUID_STACK).ifPresent(fluid -> {
-      List<Component> newTooltip = new ArrayList<>();
-      onFluidTooltip(fluid, recipeSlotView, newTooltip);
-      tooltip.addAll(newTooltip);
-    });
+    recipeSlotView.getDisplayedIngredient(ForgeTypes.FLUID_STACK)
+      .ifPresent(fluid -> onFluidTooltip(fluid, recipeSlotView, tooltip));
+  }
+
+  /** Adds rich information about the fluid to the tooltip. */
+  default void onFluidTooltip(FluidStack fluid, IRecipeSlotView recipeSlotView, ITooltipBuilder tooltip) {
+    List<Component> newTooltip = new ArrayList<>();
+    onFluidTooltip(fluid, recipeSlotView, newTooltip);
+    tooltip.addAll(newTooltip);
   }
 
   /** Adds information about the fluid to the tooltip */
