@@ -23,6 +23,7 @@ import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipe;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuelLookup;
 import slimeknights.tconstruct.plugin.jei.melting.MeltingFuelHandler;
+import slimeknights.tconstruct.plugin.jei.util.CategoryUtil;
 import slimeknights.tconstruct.plugin.jei.util.FluidTooltipCallback;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
@@ -97,62 +98,13 @@ public class AlloyRecipeCategory extends AbstractRecipeCategory<AlloyRecipe> {
   @Deprecated(forRemoval = true)
   public static <T> int drawVariableFluids(IRecipeLayoutBuilder builder, RecipeIngredientRole role, int x, int y, int totalWidth, int height, List<T> fluids, int minAmount, Function<T,List<FluidStack>> mapper, Function<T,mezz.jei.api.gui.ingredient.IRecipeSlotTooltipCallback> tooltip) {
     Function<T,IRecipeSlotRichTooltipCallback> richTooltip = (ingredient) -> tooltip.apply(ingredient)::onRichTooltip;
-    return drawVariableFluidsWithRichTooltip(builder, i -> role, x, y, totalWidth, height, fluids, minAmount, mapper, richTooltip);
-  }
-
-  /**
-   * Draws a variable number of fluids
-   * @param builder      Builder
-   * @param role         Role of the fluids in the recipe
-   * @param x            X start
-   * @param y            Y start
-   * @param totalWidth   Total width
-   * @param height       Tank height
-   * @param fluids       List of fluids to draw
-   * @param minAmount    Minimum tank size
-   * @param mapper       Logic to get a fluid list from the object
-   * @param tooltip      Tooltip callback
-   * @param <T> Object type
-   * @return Max amount based on fluids
-   */
-  public static <T> int drawVariableFluidsWithRichTooltip(IRecipeLayoutBuilder builder, Function<T,RecipeIngredientRole> role, int x, int y, int totalWidth, int height, List<T> fluids, int minAmount, Function<T,List<FluidStack>> mapper, Function<T,IRecipeSlotRichTooltipCallback> tooltip) {
-    int count = fluids.size();
-    int maxAmount = minAmount;
-    if (count > 0) {
-      // first, find maximum used amount in the recipe so relations are correct
-      for(T ingredient : fluids) {
-        for(FluidStack input : mapper.apply(ingredient)) {
-          if (input.getAmount() > maxAmount) {
-            maxAmount = input.getAmount();
-          }
-        }
-      }
-      // next, draw all fluids but the last
-      int w = totalWidth / count;
-      int max = count - 1;
-      for (int i = 0; i < max; i++) {
-        int fluidX = x + i * w;
-        T ingredient = fluids.get(i);
-        builder.addSlot(role.apply(ingredient), fluidX, y)
-               .addRichTooltipCallback(tooltip.apply(ingredient))
-               .setFluidRenderer(maxAmount, false, w, height)
-               .addIngredients(ForgeTypes.FLUID_STACK, mapper.apply(ingredient));
-      }
-      // for the last, the width is the full remaining width
-      int fluidX = x + max * w;
-      T ingredient = fluids.get(max);
-      builder.addSlot(role.apply(ingredient), fluidX, y)
-             .addRichTooltipCallback(tooltip.apply(ingredient))
-             .setFluidRenderer(maxAmount, false, totalWidth - (w * max), height)
-             .addIngredients(ForgeTypes.FLUID_STACK, mapper.apply(ingredient));
-    }
-    return maxAmount;
+    return CategoryUtil.drawMultipleFluids(builder, i -> role, x, y, totalWidth, height, fluids, minAmount, mapper, richTooltip);
   }
 
   @Override
   public void setRecipe(IRecipeLayoutBuilder builder, AlloyRecipe recipe, IFocusGroup focuses) {
     // inputs
-    int maxAmount = drawVariableFluidsWithRichTooltip(builder, ingredient -> ingredient.catalyst() ? RecipeIngredientRole.CATALYST : RecipeIngredientRole.INPUT,
+    int maxAmount = CategoryUtil.drawMultipleFluids(builder, ingredient -> ingredient.catalyst() ? RecipeIngredientRole.CATALYST : RecipeIngredientRole.INPUT,
                                        19, 11, 48, 32, recipe.getInputs(), recipe.getOutput().getAmount(),
                                        ingredient -> ingredient.fluid().getFluids(),
                                        ingredient -> ingredient.catalyst() ? CATALYST_TOOLTIP : FluidTooltipCallback.UNITS);

@@ -9,8 +9,8 @@ import net.minecraft.network.chat.Component;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipe;
-import slimeknights.tconstruct.plugin.jei.AlloyRecipeCategory;
 import slimeknights.tconstruct.plugin.jei.TConstructJEIConstants;
+import slimeknights.tconstruct.plugin.jei.util.CategoryUtil;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import java.util.function.Function;
@@ -29,7 +29,7 @@ public class FoundryCategory extends AbstractMeltingCategory {
     builder.addInputSlot(24, 18).addIngredients(recipe.getInput());
 
     // output fluid
-    AlloyRecipeCategory.drawVariableFluidsWithRichTooltip(builder, i -> RecipeIngredientRole.OUTPUT, 96, 4, 32, 32, recipe.getOutputWithByproducts(), FluidValues.METAL_BLOCK, Function.identity(), list -> MeltingFluidCallback.INSTANCE);
+    CategoryUtil.drawMultipleFluids(builder, i -> RecipeIngredientRole.OUTPUT, 96, 4, 32, 32, recipe.getOutputWithByproducts(), FluidValues.METAL_BLOCK, Function.identity(), list -> MeltingFluidCallback.INSTANCE);
 
     // fuel
     builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 4, 4)
