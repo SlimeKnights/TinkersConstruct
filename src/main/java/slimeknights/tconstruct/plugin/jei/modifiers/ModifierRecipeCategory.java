@@ -10,13 +10,11 @@ import mezz.jei.api.recipe.IFocus;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.AbstractRecipeCategory;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -123,7 +121,7 @@ public class ModifierRecipeCategory extends AbstractRecipeCategory<IDisplayModif
     if (recipe.getSlots() == null) {
       builder.addDrawableWidget(SLOTLESS)
         .setPosition(102, 58)
-        .setTooltip(tooltip -> SlotIngredientRenderer.INPUT.getTooltip(tooltip, null, Minecraft.getInstance().player, TooltipFlag.NORMAL));
+        .setTooltip(SlotIngredientRenderer.TEXT_FREE);
     }
     Component levelText = getLevelText(recipe);
     if (levelText != null) {

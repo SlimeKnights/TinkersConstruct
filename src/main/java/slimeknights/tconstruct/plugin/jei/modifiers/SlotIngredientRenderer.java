@@ -21,7 +21,6 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
 import java.awt.Color;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -72,7 +71,7 @@ public enum SlotIngredientRenderer implements IIngredientRenderer<SlotCount> {
   /** Key for a slot count of 2+ */
   private static final String KEY_SLOTS = TConstruct.makeTranslationKey("jei", "modifiers.slots");
   /** Key for slotless */
-  private static final List<Component> TEXT_FREE = Collections.singletonList(TConstruct.makeTranslation("jei", "modifiers.free"));
+  public static final List<Component> TEXT_FREE = List.of(TConstruct.makeTranslation("jei", "modifiers.free"));
   /** Key for the ingredient list tooltip */
   private static final String KEY_INGREDIENT = TConstruct.makeTranslationKey("jei", "modifier_slot.ingredient");
   /** Key for the slot ID advanced tooltip */
