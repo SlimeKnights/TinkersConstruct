@@ -24,7 +24,6 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.casting.IDisplayableCastingRecipe;
 import slimeknights.tconstruct.plugin.jei.util.FluidTooltipCallback;
-import slimeknights.tconstruct.plugin.jei.util.RecipeTooltipWidget;
 
 import javax.annotation.Nullable;
 import java.awt.Color;
@@ -46,24 +45,26 @@ public abstract class AbstractCastingCategory extends AbstractRecipeCategory<IDi
 
   protected AbstractCastingCategory(IGuiHelper guiHelper, RecipeType<IDisplayableCastingRecipe> recipeType, Component title, Block icon, IDrawable block) {
     super(recipeType, title, guiHelper.createDrawableItemLike(icon), 117, 54);
-    this.guiHelper = guiHelper;
     this.background = guiHelper.createDrawable(BACKGROUND_LOC, 0, 0, 117, 54);
     this.tankOverlay = guiHelper.createDrawable(BACKGROUND_LOC, 133, 0, 32, 32);
     this.castConsumed = guiHelper.createDrawable(BACKGROUND_LOC, 141, 32, 13, 11);
     this.castKept = guiHelper.createDrawable(BACKGROUND_LOC, 141, 43, 13, 11);
     this.block = block;
+    this.guiHelper = guiHelper;
   }
 
   @Override
   public void createRecipeExtras(IRecipeExtrasBuilder builder, IDisplayableCastingRecipe recipe, IFocusGroup focuses) {
+    builder.addDrawableWidget(block).setPosition(38, 35);
     int coolingTime = recipe.getCoolingTime();
-    builder.addDrawable(guiHelper.drawableBuilder(BACKGROUND_LOC, 117, 32, 24, 17)
-                                 .buildAnimated(Math.max(1, coolingTime), StartDirection.LEFT, false), 58, 18);
+    IDrawable arrow = guiHelper.drawableBuilder(BACKGROUND_LOC, 117, 32, 24, 17)
+                                  .buildAnimated(Math.max(1, coolingTime), StartDirection.LEFT, false);
+    builder.addDrawableWidget(arrow).setPosition(58, 18);
     if (recipe.hasCast()) {
       boolean consumed = recipe.isConsumed();
       IDrawable drawable = consumed ? castConsumed : castKept;
       MutableComponent tooltip = Component.translatable(consumed ? KEY_CAST_CONSUMED : KEY_CAST_KEPT);
-      builder.addWidget(new RecipeTooltipWidget(drawable, 63, 39, tooltip));
+      builder.addDrawableWidget(drawable).setPosition(63, 39).setTooltip(tooltip);
     }
     builder.addText(Component.translatable(KEY_COOLING_TIME, coolingTime / 20), 89, 9)
       .setPosition(28, 2)
@@ -74,7 +75,6 @@ public abstract class AbstractCastingCategory extends AbstractRecipeCategory<IDi
   @Override
   public void draw(IDisplayableCastingRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics graphics, double mouseX, double mouseY) {
     background.draw(graphics);
-    block.draw(graphics, 38, 35);
   }
 
   @Override
@@ -96,7 +96,7 @@ public abstract class AbstractCastingCategory extends AbstractRecipeCategory<IDi
     int capacity = FluidValues.METAL_BLOCK;
     List<FluidStack> inputs = recipe.getFluids();
     IRecipeSlotBuilder tank = builder.addInputSlot(3, 3)
-           .addTooltipCallback(FluidTooltipCallback.UNITS)
+           .addRichTooltipCallback(FluidTooltipCallback.UNITS)
            .setFluidRenderer(capacity, false, 32, 32)
            .setOverlay(tankOverlay, 0, 0)
            .addIngredients(ForgeTypes.FLUID_STACK, inputs);
@@ -106,7 +106,7 @@ public abstract class AbstractCastingCategory extends AbstractRecipeCategory<IDi
       h += 16;
     }
     IRecipeSlotBuilder faucet = builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 43, 8)
-           .addTooltipCallback(FluidTooltipCallback.UNITS)
+           .addRichTooltipCallback(FluidTooltipCallback.UNITS)
            .setFluidRenderer(1, false, 6, h)
            .addIngredients(ForgeTypes.FLUID_STACK, inputs);
 

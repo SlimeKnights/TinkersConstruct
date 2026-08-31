@@ -4,13 +4,11 @@ import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotRichTooltipCallback;
-import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.AbstractRecipeCategory;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -39,19 +37,14 @@ public class MoldingRecipeCategory extends AbstractRecipeCategory<MoldingRecipe>
 
   @Override
   public void createRecipeExtras(IRecipeExtrasBuilder builder, MoldingRecipe recipe, IFocusGroup focuses) {
-    builder.addRecipeArrow().setPosition(24, 23);
-    builder.addDrawable(recipe.getPattern().isEmpty() ? upArrow : downArrow, 8, 17);
-  }
-
-  @Override
-  public void draw(MoldingRecipe recipe, IRecipeSlotsView slots, GuiGraphics graphics, double mouseX, double mouseY) {
-    // draw the main block
+    builder.addRecipeArrowWidget().setPosition(24, 23);
+    builder.addDrawableWidget(recipe.getPattern().isEmpty() ? upArrow : downArrow).setPosition(8, 17);
     IDrawable block = recipe.getType() == TinkerRecipeTypes.MOLDING_BASIN.get() ? basin : table;
-    block.draw(graphics, 3, 40);
+    builder.addDrawableWidget(block).setPosition(3, 40);
 
     // if no mold, we "pickup" the item, so draw no table
     if (!recipe.getPattern().isEmpty()) {
-      block.draw(graphics, 51, 40);
+      builder.addDrawableWidget(block).setPosition(51, 40);
     }
   }
 

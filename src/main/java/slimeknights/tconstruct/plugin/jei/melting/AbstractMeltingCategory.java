@@ -2,7 +2,6 @@ package slimeknights.tconstruct.plugin.jei.melting;
 
 import lombok.RequiredArgsConstructor;
 import mezz.jei.api.gui.drawable.IDrawable;
-import mezz.jei.api.gui.drawable.IDrawableAnimated.StartDirection;
 import mezz.jei.api.gui.drawable.IDrawableStatic;
 import mezz.jei.api.gui.ingredient.IRecipeSlotView;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
@@ -23,7 +22,6 @@ import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuelLookup;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipe;
 import slimeknights.tconstruct.plugin.jei.util.FluidTooltipCallback;
-import slimeknights.tconstruct.plugin.jei.util.RecipeTooltipWidget;
 
 import java.awt.Color;
 import java.util.List;
@@ -48,11 +46,9 @@ public abstract class AbstractMeltingCategory extends AbstractRecipeCategory<Mel
   private final IDrawable background;
   protected final IDrawableStatic tankOverlay;
   protected final IDrawableStatic plus;
-  private final IGuiHelper guiHelper;
 
   public AbstractMeltingCategory(IGuiHelper helper, RecipeType<MeltingRecipe> recipeType, Component title, IDrawable icon) {
     super(recipeType, title, icon, 132, 40);
-    this.guiHelper = helper;
     this.background = helper.createDrawable(BACKGROUND_LOC, 0, 0, 132, 40);
     this.tankOverlay = helper.createDrawable(BACKGROUND_LOC, 132, 0, 32, 32);
     this.plus = helper.drawableBuilder(BACKGROUND_LOC, 132, 32, 8, 8)
@@ -62,12 +58,12 @@ public abstract class AbstractMeltingCategory extends AbstractRecipeCategory<Mel
 
   @Override
   public void createRecipeExtras(IRecipeExtrasBuilder builder, MeltingRecipe recipe, IFocusGroup focuses) {
-    IDrawable arrow = guiHelper.drawableBuilder(BACKGROUND_LOC, 150, 41, 24, 17)
-                                 .buildAnimated(recipe.getTime() * 5, StartDirection.LEFT, false);
-    builder.addWidget(new RecipeTooltipWidget(
-      arrow, 56, 18, Component.translatable(KEY_COOLING_TIME, recipe.getTime() / 4)));
+    // includes both the static arrow background and animated foreground
+    builder.addAnimatedRecipeArrowWidget(recipe.getTime() * 5)
+      .setPosition(56, 18)
+      .setTooltip(Component.translatable(KEY_COOLING_TIME, recipe.getTime() / 4));
     if (recipe.getOreType() != null) {
-      builder.addWidget(new RecipeTooltipWidget(plus, 83, 26, TOOLTIP_ORE));
+      builder.addDrawableWidget(plus).setPosition(83, 26).setTooltip(TOOLTIP_ORE);
     }
     builder.addText(Component.translatable(KEY_TEMPERATURE, recipe.getTemperature()), 113, 9)
       .setPosition(0, 3)

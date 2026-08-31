@@ -57,7 +57,7 @@ public class EntityMeltingRecipeCategory extends AbstractRecipeCategory<EntityMe
 
   @Override
   public void createRecipeExtras(IRecipeExtrasBuilder builder, EntityMeltingRecipe recipe, IFocusGroup focuses) {
-    builder.addDrawable(arrow, 71, 21);
+    builder.addDrawableWidget(arrow).setPosition(71, 21);
     builder.addText(Component.literal(Float.toString(recipe.getDamage() / 2f)), 84, 9)
       .setPosition(0, 8)
       .setColor(Color.RED.getRGB())
@@ -83,14 +83,14 @@ public class EntityMeltingRecipeCategory extends AbstractRecipeCategory<EntityMe
     // output
     builder.addOutputSlot(115, 11)
            .setFluidRenderer(FluidValues.INGOT * 2, false, 16, 32)
-           .addTooltipCallback(new FluidTooltip(recipe.getDamage())) // object is cheap, no need to cache
+           .addRichTooltipCallback(new FluidTooltip(recipe.getDamage()))
            .addIngredient(ForgeTypes.FLUID_STACK, recipe.getOutput());
 
     // show fuels that are valid for this recipe
     builder.addSlot(RecipeIngredientRole.CATALYST, 75, 43)
            .setFluidRenderer(1, false, 16, 16)
            .setOverlay(tank, 0, 0)
-           .addTooltipCallback(FluidTooltipCallback.NO_AMOUNT)
+           .addRichTooltipCallback(FluidTooltipCallback.NO_AMOUNT)
            .addIngredients(ForgeTypes.FLUID_STACK, MeltingFuelHandler.getUsableFuels(1));
   }
 

@@ -30,7 +30,7 @@ public class SeveringCategory extends AbstractRecipeCategory<SeveringRecipe> {
 
   @Override
   public void createRecipeExtras(IRecipeExtrasBuilder builder, SeveringRecipe recipe, IFocusGroup focuses) {
-    builder.addRecipeArrow().setPosition(42, 10);
+    builder.addRecipeArrowWidget().setPosition(42, 10);
   }
 
   @Override
