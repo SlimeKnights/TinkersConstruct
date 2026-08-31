@@ -4,6 +4,7 @@ import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.drawable.IDrawableAnimated.StartDirection;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.gui.placement.HorizontalAlignment;
 import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
@@ -40,6 +41,7 @@ public abstract class AbstractCastingCategory extends AbstractRecipeCategory<IDi
   private final IDrawable castConsumed;
   private final IDrawable castKept;
   private final IDrawable block;
+  private final IGuiHelper guiHelper;
 
   protected AbstractCastingCategory(IGuiHelper guiHelper, RecipeType<IDisplayableCastingRecipe> recipeType, Component title, Block icon, IDrawable block) {
     super(recipeType, title, guiHelper.createDrawableItemLike(icon), 117, 54);
@@ -48,13 +50,16 @@ public abstract class AbstractCastingCategory extends AbstractRecipeCategory<IDi
     this.castConsumed = guiHelper.createDrawable(BACKGROUND_LOC, 141, 32, 13, 11);
     this.castKept = guiHelper.createDrawable(BACKGROUND_LOC, 141, 43, 13, 11);
     this.block = block;
+    this.guiHelper = guiHelper;
   }
 
   @Override
   public void createRecipeExtras(IRecipeExtrasBuilder builder, IDisplayableCastingRecipe recipe, IFocusGroup focuses) {
     builder.addDrawableWidget(block).setPosition(38, 35);
     int coolingTime = recipe.getCoolingTime();
-    builder.addAnimatedRecipeArrowWidget(Math.max(1, coolingTime)).setPosition(58, 18);
+    IDrawable arrow = guiHelper.drawableBuilder(BACKGROUND_LOC, 117, 32, 24, 17)
+                                  .buildAnimated(Math.max(1, coolingTime), StartDirection.LEFT, false);
+    builder.addDrawableWidget(arrow).setPosition(58, 18);
     if (recipe.hasCast()) {
       boolean consumed = recipe.isConsumed();
       IDrawable drawable = consumed ? castConsumed : castKept;
