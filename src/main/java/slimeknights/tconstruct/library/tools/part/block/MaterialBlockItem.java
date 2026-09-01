@@ -31,6 +31,11 @@ public class MaterialBlockItem extends BlockItem implements IMaterialItem {
   }
 
   @Override
+  public Rarity getRarity(ItemStack stack) {
+    return MaterialRegistry.getMaterial(getMaterial(stack).getId()).getRarity();
+  }
+
+  @Override
   public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
     MaterialItem.appendHoverText(this, stack, tooltip, flag);
     super.appendHoverText(stack, level, tooltip, flag);
