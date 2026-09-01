@@ -17,6 +17,7 @@ import slimeknights.mantle.fluid.FluidTransferHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.TinkerTags.Modifiers;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
@@ -48,9 +49,16 @@ public class ModifierCrystalItem extends Item {
 
   @Override
   public Component getName(ItemStack stack) {
-    ModifierId modifier = getModifier(stack);
-    if (modifier != null) {
-      return Component.translatable(getDescriptionId(stack) + ".format", Component.translatable(Util.makeTranslationKey("modifier", modifier)));
+    ModifierId id = getModifier(stack);
+    if (id != null) {
+      Modifier modifier = ModifierManager.getValue(id);
+      Component modifierName;
+      if (modifier != ModifierManager.INSTANCE.getDefaultValue()) {
+        modifierName = modifier.getDisplayName();
+      } else {
+        modifierName = Component.translatable(Util.makeTranslationKey("modifier", id));
+      }
+      return Component.translatable(getDescriptionId(stack) + ".format", modifierName);
     }
     return super.getName(stack);
   }
