@@ -1,15 +1,14 @@
 package slimeknights.tconstruct.library.client.modifiers.block;
 
+import com.google.common.base.Joiner;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import com.mojang.datafixers.util.Either;
 
 import net.minecraft.ResourceLocationException;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.model.Material;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraftforge.fml.ModLoader;
@@ -19,41 +18,42 @@ import slimeknights.mantle.util.JsonHelper;
 import slimeknights.mantle.util.typed.TypedMap;
 import slimeknights.mantle.util.typed.TypedMapBuilder;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.client.modifiers.IBakedModifierModel;
-import slimeknights.tconstruct.library.client.modifiers.ModifierModelMap;
 import slimeknights.tconstruct.library.client.modifiers.block.BlockModifierModelMapManager.Builder;
 import slimeknights.tconstruct.library.client.modifiers.block.model.BlockModifierModel;
-import slimeknights.tconstruct.library.client.modifiers.block.model.CompoundBlockModifierModel;
-import slimeknights.tconstruct.library.client.modifiers.block.model.ElementBlockModifierModel;
-import slimeknights.tconstruct.library.client.modifiers.model.ModifierModel;
+import slimeknights.tconstruct.library.client.modifiers.block.model.BlockModifierModelLoadable;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import java.util.function.BiFunction;
-import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
  * Manager for getting block modifier model maps
  */
 public class BlockModifierModelMapManager extends MergingJsonDataLoader<Builder> {
+  /** Folder for the block modifier models */
+  public static final String MODEL_FOLDER = "tinkering/modifiers/models";
   /** Folder for the block modifier model maps */
-  public static final String FOLDER = "tinkering/modifiers/block";
+  public static final String MAP_FOLDER = "tinkering/modifiers/block";
   /** Instance of this manager */
   public static final BlockModifierModelMapManager INSTANCE = new BlockModifierModelMapManager();
-
-  /** List of loaded models */
-  private Map<ResourceLocation, ModifierModelMap> models = new HashMap<>();
+  /** List of unparsed models */
+  private Map<ResourceLocation, JsonElement> unparsedModels = new HashMap<>();
+  /** List of parsed models */
+  private Map<ResourceLocation, BlockModifierModel> parsedModels = new HashMap<>();
+  /** List of loaded model maps */
+  private Map<ResourceLocation, BlockModifierModelMap> modelMaps = new HashMap<>();
 
   private BlockModifierModelMapManager() {
-    super(JsonHelper.DEFAULT_GSON, FOLDER, id -> new Builder());
+    super(JsonHelper.DEFAULT_GSON, MAP_FOLDER, id -> new Builder());
   }
 
   @Override
@@ -61,8 +61,6 @@ public class BlockModifierModelMapManager extends MergingJsonDataLoader<Builder>
     // run in the first stage instead of the second stage
     return CompletableFuture.runAsync(() -> {
       if (ModLoader.isLoadingStateValid()) {
-        // load block modifier models first
-        BlockModifierModelManager.INSTANCE.load(resourceManager);
         this.onResourceManagerReload(resourceManager);
       }
     }, backgroundExecutor).thenCompose(stage::wait);
@@ -126,27 +124,11 @@ public class BlockModifierModelMapManager extends MergingJsonDataLoader<Builder>
   }
 
   /** Parses the given model from the map */
-  @SuppressWarnings("removal")
-  private static <T> void parseModel(Map<T, ModifierModel> map, T key, JsonElement value, String errorPrefix, ResourceLocation id, BiFunction<ResourceLocation, T,TypedMap> context) {
+  private static <T> void parseModel(Map<T, BlockModifierModel> map, T key, JsonElement value, String errorPrefix, ResourceLocation id, BiFunction<ResourceLocation, T,TypedMap> context) {
     try {
-      // if it's an object, it's a single model
-      BlockModifierModel model;
-      if (value.isJsonArray()) {
-        // for simplicity, treat an array as a compound
-        model = CompoundBlockModifierModel.create(CompoundBlockModifierModel.LIST_LOADABLE.convert(value, key.toString(), context.apply(id, key)));
-      } else if (value.isJsonPrimitive()) {
-        model = Objects.requireNonNull(BlockModifierModelManager.INSTANCE.getModel(new ResourceLocation(value.getAsString())));
-      } else {
-        // if it's an object, it's a inline model. may be used for add transforms
-        JsonObject json = value.getAsJsonObject();
-        if (!json.has("type")) {
-          model = CompoundBlockModifierModel.LOADER.deserialize(json, context.apply(id, key));
-        } else {
-          model = BlockModifierModel.LOADER.deserialize(json, context.apply(id, key));
-        }
-      }
+      BlockModifierModel model = BlockModifierModelLoadable.DEFAULT.convert(value, key.toString(), context.apply(id, key));
       map.put(key, model);
-    } catch (RuntimeException e) {
+    } catch (JsonSyntaxException | ResourceLocationException e) {
       TConstruct.LOG.error("Failed to parse modifier model map {} for {} {}", id, errorPrefix, key, e);
     }
   }
@@ -156,11 +138,11 @@ public class BlockModifierModelMapManager extends MergingJsonDataLoader<Builder>
     BiFunction<ResourceLocation,String,TypedMap> constantContext = BlockModifierModelMapManager::context;
     BiFunction<ResourceLocation,ModifierId,TypedMap> modifierContext = BlockModifierModelMapManager::context;
 
-    Map<ResourceLocation, ModifierModelMap> modelMaps = new HashMap<>();
+    Map<ResourceLocation, BlockModifierModelMap> modelMaps = new HashMap<>();
     for (Entry<ResourceLocation, Builder> file : map.entrySet()) {
       ResourceLocation id = file.getKey();
-      Map<String, ModifierModel> constant = new LinkedHashMap<>();
-      Map<ModifierId, ModifierModel> modifiers = new HashMap<>();
+      Map<String, BlockModifierModel> constant = new LinkedHashMap<>();
+      Map<ModifierId, BlockModifierModel> modifiers = new HashMap<>();
       for (Entry<String,JsonElement> entry : file.getValue().constant.entrySet()) {
         parseModel(constant, entry.getKey(), entry.getValue(), "constant key", id, constantContext);
       }
@@ -168,51 +150,98 @@ public class BlockModifierModelMapManager extends MergingJsonDataLoader<Builder>
         parseModel(modifiers, entry.getKey(), entry.getValue(), "modifier", id, modifierContext);
       }
       // ensure we actually managed to parse something
-      ModifierModelMap modelMap = ModifierModelMap.create(constant, modifiers);
-      if (modelMap != ModifierModelMap.EMPTY) {
+      BlockModifierModelMap modelMap = BlockModifierModelMap.create(modifiers, constant);
+      if (modelMap != BlockModifierModelMap.EMPTY) {
         modelMaps.put(id, modelMap);
       }
     }
-    this.models = Map.copyOf(modelMaps);
+    this.modelMaps = Map.copyOf(modelMaps);
   }
 
   @Override
   public void onResourceManagerReload(ResourceManager manager) {
     long time = System.nanoTime();
+    unparsedModels.clear();
+    parsedModels.clear();
+    SimpleJsonResourceReloadListener.scanDirectory(manager, MODEL_FOLDER, JsonHelper.DEFAULT_GSON, unparsedModels);
+    Iterator<Map.Entry<ResourceLocation, JsonElement>> iterator = unparsedModels.entrySet().iterator();
+    while (iterator.hasNext()) {
+      Map.Entry<ResourceLocation, JsonElement> entry = iterator.next();
+      JsonElement element = entry.getValue();
+      if (!element.isJsonObject()) {
+        TConstruct.LOG.error("Expected a JSON object for modifier model map '{}', but found {} (actual: {})", entry.getKey(), element.getClass().getSimpleName(), element);
+        iterator.remove();
+      }
+    }
     super.onResourceManagerReload(manager);
-    TConstruct.LOG.info("{} block modifier model maps in {} ms : {}", this.models.size(), (System.nanoTime() - time) / 1000000f, this.models.keySet());
+    TConstruct.LOG.info("{} block modifier model maps in {} ms : {}", this.modelMaps.size(), (System.nanoTime() - time) / 1000000f, this.modelMaps.keySet());
   }
 
+  private transient List<ResourceLocation> parsingStack = new ArrayList<>();
+
+  public BlockModifierModel getModel(ResourceLocation id) {
+    if(parsingStack.contains(id)) {
+      TConstruct.LOG.warn("Circular reference of block modifier model: {} -> {}", Joiner.on("->").join(parsingStack), id);
+      return null;
+    }
+    parsingStack.add(id);
+    if (this.parsedModels.containsKey(id)) {
+      parsingStack.remove(id);
+      return this.parsedModels.get(id);
+    }else if (this.unparsedModels.containsKey(id)) {
+      try {
+        BlockModifierModel model = BlockModifierModelLoadable.DEFAULT.convert(this.unparsedModels.get(id), id.toString());
+        this.parsedModels.put(id, model);
+        parsingStack.remove(id);
+        return model;
+      } catch (JsonSyntaxException | ResourceLocationException e) {
+        parsingStack.remove(id);
+        TConstruct.LOG.error("Failed to parse modifier model map {} for {}", id, e);
+        return null;
+      }
+    }
+    parsingStack.remove(id);
+    return null;
+  }
+
+  public ResourceLocation getId(BlockModifierModel model) {
+    for(Entry<ResourceLocation, BlockModifierModel> entry : this.parsedModels.entrySet()) {
+      if(entry.getValue() == model) {
+        return entry.getKey();
+      }
+    }
+    return null;
+  }
 
   /* Helpers */
 
   /** Predicate for removing empty modifier models */
-  private static final Predicate<Entry<?,? extends IBakedModifierModel>> EMPTY_ENTRY = entry -> entry.getValue() == BlockModifierModel.EMPTY;
+  private static final Predicate<Entry<?,?>> EMPTY_ENTRY = entry -> entry.getValue() == BlockModifierModel.EMPTY;
   /** Predicate for removing empty modifier maps */
-  private static final Predicate<ModifierModelMap> NOT_EMPTY_MAP = map -> !map.isEmpty();
+  private static final Predicate<BlockModifierModelMap> NOT_EMPTY_MAP = map -> !map.isEmpty();
 
 
   /** Gets a map of modifier models for the given tool */
-  public ModifierModelMap getModelsForTool(Function<Material, TextureAtlasSprite> spriteGetter, List<ResourceLocation> options) {
+  public BlockModifierModelMap getModelsForTool(List<ResourceLocation> options) {
     // quick exit: no options
     if (options.isEmpty()) {
-      return ModifierModelMap.EMPTY;
+      return BlockModifierModelMap.EMPTY;
     }
     // fetch options, filter to just those that exist
-    List<ModifierModelMap> maps = options.stream().map(id -> this.models.getOrDefault(id, ModifierModelMap.EMPTY)).filter(NOT_EMPTY_MAP).toList();
+    List<BlockModifierModelMap> maps = options.stream().map(id -> this.modelMaps.getOrDefault(id, BlockModifierModelMap.EMPTY)).filter(NOT_EMPTY_MAP).toList();
     if (maps.isEmpty()) {
-      return ModifierModelMap.EMPTY;
+      return BlockModifierModelMap.EMPTY;
     }
     // if only one is requested, reuse that instance
-    ModifierModelMap modelMap;
+    BlockModifierModelMap modelMap;
     if (maps.size() == 1) {
       modelMap = maps.get(0);
     } else {
-      Map<String, ModifierModel> constant = new LinkedHashMap<>();
-      Map<ModifierId, IBakedModifierModel> modifiers = new HashMap<>();
+      Map<String, BlockModifierModel> constant = new LinkedHashMap<>();
+      Map<ModifierId, IBakedBlockModifierModel> modifiers = new HashMap<>();
       // loop backwards as we want the first that appears to take priority
       for (int i = maps.size() - 1; i >= 0; i--) {
-        ModifierModelMap optionMap = maps.get(i);
+        BlockModifierModelMap optionMap = maps.get(i);
         if (optionMap != null) {
           constant.putAll(optionMap.constant());
           modifiers.putAll(optionMap.modifiers());
@@ -221,15 +250,15 @@ public class BlockModifierModelMapManager extends MergingJsonDataLoader<Builder>
       // remove empty models, we might have some if we were overriding for something like broken
       constant.entrySet().removeIf(EMPTY_ENTRY);
       modifiers.entrySet().removeIf(EMPTY_ENTRY);
-      modelMap = ModifierModelMap.create(constant, modifiers);
+      modelMap = BlockModifierModelMap.create(modifiers, constant);
     }
     // validate all model textures
-    for (ModifierModel model : modelMap.constant().values()) {
-      model.validate(spriteGetter);
+    for (BlockModifierModel model : modelMap.constant().values()) {
+      model.validate();
     }
-    for (IBakedModifierModel model : modelMap.modifiers().values()) {
+    for (IBakedBlockModifierModel model : modelMap.modifiers().values()) {
       // we loaded this map in so know the type
-      ((BlockModifierModel)model).validate(spriteGetter);
+      ((BlockModifierModel)model).validate();
     }
     return modelMap;
   }

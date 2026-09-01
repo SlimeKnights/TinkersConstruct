@@ -58,7 +58,6 @@ import slimeknights.tconstruct.library.client.modifiers.FluidModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.MaterialModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.ModifierModelManager;
 import slimeknights.tconstruct.library.client.modifiers.ModifierModelManager.ModifierModelRegistrationEvent;
-import slimeknights.tconstruct.library.client.modifiers.block.BlockModifierModelManager;
 import slimeknights.tconstruct.library.client.modifiers.block.BlockModifierModelMapManager;
 import slimeknights.tconstruct.library.client.modifiers.ModifierModelMapManager;
 import slimeknights.tconstruct.library.client.modifiers.NormalModifierModel;

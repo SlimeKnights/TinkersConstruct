@@ -54,6 +54,7 @@ import slimeknights.tconstruct.library.client.modifiers.block.model.ConditionalB
 import slimeknights.tconstruct.library.client.modifiers.block.model.DyedBlockModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.block.model.ElementBlockModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.block.model.TankBlockModifierModel;
+import slimeknights.tconstruct.library.client.modifiers.block.model.TransformationBlockModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.BannerModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.CompoundModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.ConditionalModifierModel;
@@ -122,6 +123,10 @@ public class TinkerClient {
     ModifierModel.LOADER.register(getResource("fluid"), FluidModifierModel.LOADER);
     ModifierModel.LOADER.register(getResource("tank"), TankModifierModel.LOADER);
     ModifierModel.LOADER.register(getResource("material_has_fallback"), MaterialHasFallbackModifierModel.LOADER);
+    // specialized
+    ModifierModel.LOADER.register(getResource("slimeskull"), SlimeskullModifierModel.LOADER);
+
+    // block modifier models
     BlockModifierModel.LOADER.register(getResource("empty"), BlockModifierModel.EMPTY.getLoader());
     BlockModifierModel.LOADER.register(getResource("basic"), ElementBlockModifierModel.LOADER);
     BlockModifierModel.LOADER.register(getResource("child"), ChildBlockModifierModel.LOADER);
@@ -129,9 +134,7 @@ public class TinkerClient {
     BlockModifierModel.LOADER.register(getResource("conditional"), ConditionalBlockModifierModel.LOADER);
     BlockModifierModel.LOADER.register(getResource("dyed"), DyedBlockModifierModel.LOADER);
     BlockModifierModel.LOADER.register(getResource("tank"), TankBlockModifierModel.LOADER);
-
-    // specialized
-    ModifierModel.LOADER.register(getResource("slimeskull"), SlimeskullModifierModel.LOADER);
+    BlockModifierModel.LOADER.register(getResource("transform"), TransformationBlockModifierModel.LOADER);
   }
 
   @SubscribeEvent

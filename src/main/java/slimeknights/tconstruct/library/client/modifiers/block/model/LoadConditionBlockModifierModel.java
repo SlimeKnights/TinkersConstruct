@@ -1,19 +1,16 @@
 package slimeknights.tconstruct.library.client.modifiers.block.model;
 
-import com.mojang.math.Transformation;
-import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.Material;
+import net.minecraft.client.resources.model.SimpleBakedModel;
+import net.minecraftforge.client.model.IQuadTransformer;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import slimeknights.mantle.data.loadable.mapping.ConditionalLoadable.ConditionalObject;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
-import slimeknights.mantle.util.ItemLayerPixels;
+import slimeknights.tconstruct.library.client.modifiers.block.ModifierBakingContext;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
-import javax.annotation.Nullable;
-import java.util.Collection;
-import java.util.function.Consumer;
 import java.util.function.Function;
 
 /**
@@ -33,8 +30,8 @@ public record LoadConditionBlockModifierModel(BlockModifierModel ifTrue, BlockMo
   }
 
   @Override
-  public void validate(Function<Material, TextureAtlasSprite> spriteGetter) {}
+  public void validate() {}
 
   @Override
-  public void addQuads(IToolStackView tool, ModifierEntry modifier, Function<Material, TextureAtlasSprite> spriteGetter, Transformation transforms, boolean isLarge, int startTintIndex, Consumer<Collection<BakedQuad>> quadConsumer, @Nullable ItemLayerPixels pixels) {}
+  public void addParts(IToolStackView tool, ModifierEntry modifier, ModifierBakingContext context, Function<Material, TextureAtlasSprite> spriteGetter, IQuadTransformer quadTransformer, SimpleBakedModel.Builder builder) {}
 }
