@@ -7,6 +7,8 @@ import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfo.TintedSprite;
 import slimeknights.tconstruct.library.client.modifiers.model.MaterialModifierModel;
+import slimeknights.tconstruct.library.client.modifiers.model.ModifierModel;
+import slimeknights.tconstruct.library.client.modifiers.model.SimpleModifierModel;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.nbt.IModDataView;
@@ -20,7 +22,7 @@ import javax.annotation.Nullable;
  */
 public record SlimeskullModifierModel(Material small, int skullIndex, int slimeIndex) implements MaterialModifierModel {
   public static final RecordLoadable<SlimeskullModifierModel> LOADER = RecordLoadable.create(
-    TEXTURE_FIELD,
+    ModifierModel.MATERIAL_LOADABLE.requiredField("texture", SimpleModifierModel::small),
     IntLoadable.FROM_ZERO.requiredField("skull_index", SlimeskullModifierModel::skullIndex),
     IntLoadable.FROM_ZERO.requiredField("slime_index", SlimeskullModifierModel::slimeIndex),
     SlimeskullModifierModel::new);

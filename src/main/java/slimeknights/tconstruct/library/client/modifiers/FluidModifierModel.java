@@ -7,7 +7,6 @@ import net.minecraft.client.resources.model.Material;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
-import org.joml.Vector3f;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.util.ItemLayerPixels;
 import slimeknights.tconstruct.TConstruct;
@@ -29,12 +28,6 @@ import java.util.function.Function;
 public class FluidModifierModel extends NormalModifierModel {
   /** Location used for baking dynamic models, name does not matter so just using a constant */
   private static final ResourceLocation BAKE_LOCATION = TConstruct.getResource("dynamic_fluid_model");
-
-  /**
-   * The vanilla model bakery uses an orgin of 0.5,0.5,0.5, and forges dynamic fluid code uses the vanilla model bakery. (see{@link net.minecraft.client.renderer.block.model.FaceBakery} {@code #rotateVertexBy()} for vanilla bakery)
-   * However, item layer wants an origin of 0,0,0, which is what we expect in our tool models. So cancel out the origin.
-  */
-  private static final Vector3f ORIGIN = new Vector3f(-0.5f, -0.5f, -0.5f);
 
   /** Constant unbaked model instance, as they are all the same */
   public static final IUnbakedModifierModel UNBAKED_INSTANCE = new Unbaked(ToolTankHelper.TANK_HELPER);
