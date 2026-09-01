@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import net.minecraft.resources.ResourceLocation;
 import slimeknights.mantle.data.loadable.ErrorFactory;
 import slimeknights.mantle.data.loadable.primitive.EnumLoadable;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
@@ -12,7 +13,6 @@ import slimeknights.mantle.data.loadable.primitive.StringLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
-import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.module.ModuleHook;
@@ -137,7 +137,7 @@ public class ComposableModifier extends BasicModifier {
     }
 
     /** Overrides the description key prefix using the given modifier. */
-    public Builder translationKey(ModifierId modifier) {
+    public Builder translationKey(ResourceLocation modifier) {
       return translationKey("modifier." + modifier.toLanguageKey());
     }
 
