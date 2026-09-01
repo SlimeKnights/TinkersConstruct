@@ -197,6 +197,8 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.copy(Tags.Blocks.STORAGE_BLOCKS, Tags.Items.STORAGE_BLOCKS);
 
     // glass
+    copy(Tags.Blocks.GLASS, Tags.Items.GLASS);
+    copy(Tags.Blocks.GLASS_PANES, Tags.Items.GLASS_PANES);
     copy(Tags.Blocks.GLASS_SILICA, Tags.Items.GLASS_SILICA);
     copy(Tags.Blocks.GLASS_TINTED, Tags.Items.GLASS_TINTED);
     copy(TinkerTags.Blocks.GLASS_PANES_SILICA, TinkerTags.Items.GLASS_PANES_SILICA);
