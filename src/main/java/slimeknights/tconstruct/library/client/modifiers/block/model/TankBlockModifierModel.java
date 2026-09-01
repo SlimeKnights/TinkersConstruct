@@ -90,7 +90,10 @@ public class TankBlockModifierModel implements BlockModifierModel, ModifierBakin
     FluidType type = stack.getFluid().getFluidType();
     int color = attributes.getTintColor(stack);
     int luminosity = type.getLightLevel(stack);
-    BlockElement fluid = this.fluid.getPart(this.fluid.getIncrements(), type.isLighterThanAir());
+    int increments = fluid.getIncrements();
+    int capacity = tankHelper.getCapacity(tool);
+    int amount = Mth.clamp(stack.getAmount() * increments / Math.max(capacity, 1), 1, increments);
+    BlockElement fluid = this.fluid.getPart(amount, type.isLighterThanAir());
     IQuadTransformer fluidTransformer = color == -1 ? quadTransformer : quadTransformer.andThen(ColoredBlockModel.applyColorQuadTransformer(color));
     ColoredBlockModel.bakePart(builder, context.with(tool, modifier, this).getResolver(tool, modifier), fluid, luminosity, spriteGetter, context.transform.getRotation(), fluidTransformer, context.transform.isUvLocked(), context.location);
   }
