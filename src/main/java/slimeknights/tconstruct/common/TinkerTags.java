@@ -869,6 +869,8 @@ public class TinkerTags {
 
   public static class Materials {
     private static void init() {}
+    /** Materials to render with an enchanted glint. See also {@link slimeknights.tconstruct.tools.data.ModifierIds#shiny}. */
+    public static final TagKey<IMaterial> SHINY = local("shiny");
     /** Materials available in nether. */
     public static final TagKey<IMaterial> NETHER = local("nether");
     /** Materials that cannot be obtained without going to the nether. */

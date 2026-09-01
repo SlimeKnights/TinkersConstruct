@@ -11,6 +11,7 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.client.materials.MaterialTooltipCache;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
@@ -108,6 +109,12 @@ public class MaterialItem extends Item implements IMaterialItem {
     return MaterialRegistry.getMaterial(getMaterial(stack).getId()).getRarity();
   }
 
+  @Override
+  public boolean isFoil(ItemStack stack) {
+    return MaterialRegistry.getInstance().isInTag(getMaterial(stack).getId(), TinkerTags.Materials.SHINY);
+  }
+
+  /** Helper to append the material ID to the tool part. */
   public static void appendHoverText(IMaterialItem self, ItemStack stack, List<Component> tooltip, TooltipFlag flag) {
     if (flag.isAdvanced() && !TooltipUtil.isDisplay(stack)) {
       MaterialVariantId materialVariant = self.getMaterial(stack);

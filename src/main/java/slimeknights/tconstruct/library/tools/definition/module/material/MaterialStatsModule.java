@@ -13,10 +13,12 @@ import net.minecraft.world.item.Rarity;
 import slimeknights.mantle.data.loadable.field.LoadableField;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.json.field.OptionallyNestedLoadable;
 import slimeknights.tconstruct.library.materials.IMaterialRegistry;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatType;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
@@ -31,6 +33,7 @@ import slimeknights.tconstruct.library.tools.definition.module.build.ToolStatsHo
 import slimeknights.tconstruct.library.tools.definition.module.build.ToolTraitHook;
 import slimeknights.tconstruct.library.tools.definition.module.build.VolatileDataToolHook;
 import slimeknights.tconstruct.library.tools.helper.ModifierBuilder;
+import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
@@ -78,12 +81,25 @@ public class MaterialStatsModule implements ToolStatsHook, ToolTraitHook, ToolMa
 
   @Override
   public void addVolatileData(IToolContext context, ToolDataNBT volatileData) {
-    Rarity[] rarities = new Rarity[statTypes.size()];
+    Rarity max = null;
     MaterialNBT materials = context.getMaterials();
-    for (int i = 0; i < rarities.length; i++) {
-      rarities[i] = materials.get(i).get().getRarity();
+    boolean shiny = false;
+    for (int i = 0; i < statTypes.size(); i++) {
+      MaterialVariant material = materials.get(i);
+      // if the material is shiny, the tool becomes shiny
+      if (MaterialRegistry.getInstance().isInTag(material.getId(), TinkerTags.Materials.SHINY)) {
+        shiny = true;
+      }
+      // keep just the rarest rarity
+      Rarity rarity = material.get().getRarity();
+      max = RarityModule.max(max, rarity);
     }
-    RarityModule.setRarity(volatileData, RarityModule.max(rarities));
+    if (shiny) {
+      volatileData.putBoolean(IModifiable.SHINY, true);
+    }
+    if (max != null) {
+      RarityModule.setRarity(volatileData, max);
+    }
   }
 
   @Override

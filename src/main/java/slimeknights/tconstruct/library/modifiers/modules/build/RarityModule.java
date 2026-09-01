@@ -18,6 +18,7 @@ import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolDataNBT;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -66,14 +67,16 @@ public record RarityModule(Rarity rarity) implements VolatileDataModifierHook, M
     }
   }
 
-  /** Gets the maximum rarity among the passed values */
-  public static Rarity max(Rarity... rarity) {
-    Rarity max = rarity[0];
-    for (int i = 1; i < rarity.length; i++) {
-      if (rarity[i].ordinal() > max.ordinal()) {
-        max = rarity[i];
-      }
+  /**
+   * Gets the larger rarity
+   * @param prev    Previous maximum.
+   * @param rarity  New rarity to check.
+   * @return Larger rarity between the two.
+   */
+  public static Rarity max(@Nullable Rarity prev, Rarity rarity) {
+    if (prev == null || rarity.ordinal() > prev.ordinal()) {
+      return rarity;
     }
-    return max;
+    return prev;
   }
 }

@@ -4,9 +4,12 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.library.tools.part.MaterialItem;
@@ -33,6 +36,11 @@ public class MaterialBlockItem extends BlockItem implements IMaterialItem {
   @Override
   public Rarity getRarity(ItemStack stack) {
     return MaterialRegistry.getMaterial(getMaterial(stack).getId()).getRarity();
+  }
+
+  @Override
+  public boolean isFoil(ItemStack stack) {
+    return MaterialRegistry.getInstance().isInTag(getMaterial(stack).getId(), TinkerTags.Materials.SHINY);
   }
 
   @Override

@@ -54,6 +54,12 @@ public class AnvilBlockItem extends MaterialBlockItem {
     return Rarity.COMMON;
   }
 
+  @Override
+  public boolean isFoil(ItemStack stack) {
+    // disable shiny as it won't show in world
+    return false;
+  }
+
 
   /* Tooltip */
 
