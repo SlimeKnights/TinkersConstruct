@@ -3,10 +3,10 @@
   "category": "misc",
   "key": {
     "B": {
-      "tag": "forge:glass/colorless"
+      "item": "tconstruct:clear_glass"
     },
     "S": {
-      "tag": "forge:glass_panes/colorless"
+      "item": "tconstruct:clear_glass_pane"
     }
   },
   "pattern": [

@@ -73,12 +73,12 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
                        .group(prefix("fancy_item_frame"))
                        .save(consumer, location("gadgets/frame/" + FrameType.DIAMOND.getSerializedName()));
     ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TinkerGadgets.itemFrame.get(FrameType.CLEAR))
-                       .define('e', Tags.Items.GLASS_PANES_COLORLESS)
-                       .define('M', Tags.Items.GLASS_COLORLESS)
+                       .define('e', TinkerCommons.clearGlassPane)
+                       .define('M', TinkerCommons.clearGlass)
                        .pattern(" e ")
                        .pattern("eMe")
                        .pattern(" e ")
-                       .unlockedBy("has_item", has(Tags.Items.GLASS_PANES_COLORLESS))
+                       .unlockedBy("has_item", has(TinkerCommons.clearGlassPane))
                        .group(prefix("fancy_item_frame"))
                        .save(consumer, location(folder + FrameType.CLEAR.getSerializedName()));
     Item goldFrame = TinkerGadgets.itemFrame.get(FrameType.GOLD);
@@ -153,13 +153,13 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
       .define('B', TinkerMaterials.blazewood.getSlab())
       .pattern("SSS").pattern(" S ").pattern("SBS")
       .unlockedBy("has_base", has(TinkerMaterials.blazewood.getSlab()))
-      .save(consumer, location(standFolder + "bloodshroom"));
+      .save(consumer, location(standFolder + "necrotic_bone"));
     // clear - glass base
     ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TinkerGadgets.armorStand.get(StandType.CLEAR))
-      .define('S', Tags.Items.GLASS_PANES_COLORLESS)
-      .define('B', Tags.Items.GLASS_COLORLESS)
+      .define('S', TinkerCommons.clearGlassPane)
+      .define('B', TinkerCommons.clearGlass)
       .pattern("SSS").pattern(" S ").pattern("SBS")
-      .unlockedBy("has_base", has(Tags.Items.GLASS_COLORLESS))
+      .unlockedBy("has_base", has(TinkerCommons.clearGlass))
       .save(consumer, location(standFolder + "clear"));
   }
 

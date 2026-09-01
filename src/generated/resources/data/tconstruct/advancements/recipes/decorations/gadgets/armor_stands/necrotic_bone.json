@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "tconstruct:gadgets/armor_stands/bloodshroom"
+        "recipe": "tconstruct:gadgets/armor_stands/necrotic_bone"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "tconstruct:gadgets/armor_stands/bloodshroom"
+      "tconstruct:gadgets/armor_stands/necrotic_bone"
     ]
   },
   "sends_telemetry_event": false
