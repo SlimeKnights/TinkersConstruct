@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.library.materials.definition;
 
+import net.minecraft.world.item.Rarity;
+
 /**
  * Base interface for all materials.
  * TODO 1.21: Make {@link slimeknights.mantle.registration.object.IdAwareObject}
@@ -47,6 +49,11 @@ public interface IMaterial extends Comparable<IMaterial> {
   /** Gets the sort location within this tier */
   int getSortOrder();
 
+  /** Gets the rarity for this material's display name */
+  default Rarity getRarity() {
+    return Rarity.COMMON;
+  }
+
   @Override
   default int compareTo(IMaterial other) {
     // tier first, then sort order, fallback to unique ID
@@ -62,5 +69,22 @@ public interface IMaterial extends Comparable<IMaterial> {
   /** Checks if the given material is the same material as the other, matches by ID */
   default boolean matches(IMaterial other) {
     return this == other || this.getIdentifier().matches(other);
+  }
+
+
+  /* Helpers */
+
+  /** Computes the default rarity for a given tier */
+  static Rarity computeRarity(int tier) {
+    if (tier >= 5) {
+      return Rarity.EPIC;
+    }
+    if (tier == 4) {
+      return Rarity.RARE;
+    }
+    if (tier == 3) {
+      return Rarity.UNCOMMON;
+    }
+    return Rarity.COMMON;
   }
 }

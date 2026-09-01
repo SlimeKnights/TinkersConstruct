@@ -67,8 +67,6 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     material(MaterialIds.prismarine).tier(2).sort(ORDER_REPAIR).craftable();
     material(MaterialIds.earthslime).tier(2).sort(ORDER_REPAIR).craftable();
     material(MaterialIds.skyslime  ).tier(2).sort(ORDER_REPAIR).craftable();
-    material(MaterialIds.blaze     ).tier(2).sort(ORDER_REPAIR).craftable();
-    material(MaterialIds.enderPearl).tier(2).sort(ORDER_REPAIR);
     material(MaterialIds.glass     ).tier(2).sort(ORDER_REPAIR);
     material(MaterialIds.slimeball ).tier(2).sort(ORDER_REPAIR).craftable();
     material(MaterialIds.gunpowder ).tier(2).sort(ORDER_REPAIR).craftable();
@@ -88,12 +86,14 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     material(MaterialIds.darkthread).tier(3).sort(ORDER_BINDING);
     material(MaterialIds.ichorskin ).tier(3).sort(ORDER_BINDING);
     // tier 3 - ammo
-    material(MaterialIds.magnetite).tier(3).sort(ORDER_REPAIR).craftable();
-    material(MaterialIds.quartz   ).tier(3).sort(ORDER_REPAIR + ORDER_NETHER);
-    material(MaterialIds.glowstone).tier(3).sort(ORDER_REPAIR + ORDER_NETHER).craftable();
-    material(MaterialIds.ichor    ).tier(3).sort(ORDER_REPAIR + ORDER_NETHER).craftable();
-    material(MaterialIds.kobold   ).tier(3).sort(ORDER_REPAIR + ORDER_NETHER).craftable();
-    material(MaterialIds.magma    ).tier(3).sort(ORDER_REPAIR + ORDER_NETHER).craftable();
+    material(MaterialIds.enderPearl).tier(3).sort(ORDER_REPAIR);
+    material(MaterialIds.magnetite ).tier(3).sort(ORDER_REPAIR).craftable();
+    material(MaterialIds.quartz    ).tier(3).sort(ORDER_REPAIR + ORDER_NETHER);
+    material(MaterialIds.glowstone ).tier(3).sort(ORDER_REPAIR + ORDER_NETHER).craftable();
+    material(MaterialIds.ichor     ).tier(3).sort(ORDER_REPAIR + ORDER_NETHER).craftable();
+    material(MaterialIds.kobold    ).tier(3).sort(ORDER_REPAIR + ORDER_NETHER).craftable();
+    material(MaterialIds.blaze     ).tier(3).sort(ORDER_REPAIR).craftable();
+    material(MaterialIds.magma     ).tier(3).sort(ORDER_REPAIR + ORDER_NETHER).craftable();
     // tier 3 - misc
     material(MaterialIds.ice    ).tier(3).sort(ORDER_BINDING).craftable();
     material(MaterialIds.jadeite).tier(3).sort(ORDER_BINDING).craftable();
@@ -106,7 +106,6 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     material(MaterialIds.blazingBone).tier(4).sort(ORDER_SPECIAL).craftable();
     material(MaterialIds.knightmetal).tier(4).sort(ORDER_END    );
     material(MaterialIds.knightslime).tier(4).sort(ORDER_END    );
-    material(MaterialIds.ancient    ).tier(4).sort(ORDER_NETHER ).hidden();
     // tier 4 - binding
     material(MaterialIds.jeweledHide   ).tier(4).sort(ORDER_BINDING);
     material(MaterialIds.ancientHide   ).tier(4).sort(ORDER_BINDING).hidden();
@@ -119,10 +118,13 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     material(MaterialIds.knightly   ).tier(4).sort(ORDER_REPAIR).craftable();
     material(MaterialIds.endRod     ).tier(4).sort(ORDER_REPAIR).craftable();
 
+    // tier 5 - really just makes this show as epic
+    material(MaterialIds.ancient    ).tier(5).sort(ORDER_NETHER ).hidden();
+
     // slimesuit
     material(MaterialIds.clay ).tier(2).sort(ORDER_REPAIR + 5);
     material(MaterialIds.honey).tier(2).sort(ORDER_REPAIR + 5);
-    material(MaterialIds.blood).tier(5).sort(ORDER_REPAIR).hidden();
+    material(MaterialIds.blood).tier(2).sort(ORDER_REPAIR).hidden();
     // slimesuit parts
     material(MaterialIds.horn   ).tier(1).sort(ORDER_REPAIR).craftable();
     material(MaterialIds.cheese ).tier(2).sort(ORDER_REPAIR).craftable();

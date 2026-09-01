@@ -9,6 +9,7 @@ import net.minecraft.data.CachedOutput;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.PackOutput.Target;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Rarity;
 import net.minecraftforge.common.crafting.conditions.AndCondition;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.OrCondition;
@@ -247,6 +248,7 @@ public abstract class AbstractMaterialDataProvider extends GenericDataProvider {
     private boolean hidden = false;
     private int tier = 1;
     private int sort = 100;
+    private Rarity rarity = null;
 
     /** Makes the material craftable in the part builder */
     public MaterialBuilder craftable() {
@@ -369,7 +371,7 @@ public abstract class AbstractMaterialDataProvider extends GenericDataProvider {
       if (isPureRedirect()) {
         return new MaterialJson(condition, null, null, null, null, null, redirects);
       }
-      return new MaterialJson(condition, craftable, tier, sort, hidden, redirects);
+      return new MaterialJson(condition, craftable, tier, sort, rarity, hidden, redirects);
     }
   }
 }

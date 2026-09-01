@@ -15,6 +15,7 @@ import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.tags.TagKey;
 import net.minecraft.tags.TagLoader;
 import net.minecraft.util.profiling.ProfilerFiller;
+import net.minecraft.world.item.Rarity;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.ICondition.IContext;
 import slimeknights.mantle.data.gson.ConditionSerializer;
@@ -272,9 +273,14 @@ public class MaterialManager extends SimpleJsonResourceReloadListener {
 
       boolean isCraftable = Boolean.TRUE.equals(materialJson.getCraftable());
       boolean hidden = Boolean.TRUE.equals(materialJson.getHidden());
+      int tier = requireNonNullElse(materialJson.getTier(), 0);
+      Rarity rarity = materialJson.getRarity();
+      if (rarity == null) {
+        rarity = IMaterial.computeRarity(tier);
+      }
 
       // parse trait
-      return new Material(materialId, requireNonNullElse(materialJson.getTier(), 0), requireNonNullElse(materialJson.getSortOrder(), 100), isCraftable, hidden);
+      return new Material(materialId, tier, requireNonNullElse(materialJson.getSortOrder(), 100), rarity, isCraftable, hidden);
     } catch (Exception e) {
       log.error("Could not deserialize material {}. JSON: {}", materialId, jsonObject, e);
       return null;

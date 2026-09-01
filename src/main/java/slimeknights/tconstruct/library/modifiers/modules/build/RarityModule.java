@@ -65,4 +65,15 @@ public record RarityModule(Rarity rarity) implements VolatileDataModifierHook, M
       volatileData.putInt(RARITY, rarity.ordinal());
     }
   }
+
+  /** Gets the maximum rarity among the passed values */
+  public static Rarity max(Rarity... rarity) {
+    Rarity max = rarity[0];
+    for (int i = 1; i < rarity.length; i++) {
+      if (rarity[i].ordinal() > max.ordinal()) {
+        max = rarity[i];
+      }
+    }
+    return max;
+  }
 }
