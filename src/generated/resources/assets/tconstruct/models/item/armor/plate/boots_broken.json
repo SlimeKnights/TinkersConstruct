@@ -9,10 +9,6 @@
     "tconstruct:plate/boots_broken",
     "tconstruct:plate/boots"
   ],
-  "first_modifiers": [
-    "tconstruct:dyed",
-    "tconstruct:trim"
-  ],
   "parts": [
     {
       "name": "plating",

@@ -1,0 +1,14 @@
+{
+  "title": "Cristal chamuscado tintado",
+  "item": "tconstruct:scorched_tinted_glass",
+  "text": [
+    {
+      "text": "¿Quieres mantener tu fundición a oscuras para maximizar la aparición de Blazes? Considera usar el cristal chamuscado tintado como ventana en lugar del cristal tintado estándar; es totalmente transparente pero no deja pasar la luz.",
+      "paragraph": true
+    },
+    {
+      "text": "El cristal no se puede utilizar para el suelo de la fundición.",
+      "paragraph": true
+    }
+  ]
+}

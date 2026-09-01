@@ -10,7 +10,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.tables.block.entity.chest.TinkersChestBlockEntity;
 
 import javax.annotation.Nullable;
@@ -28,11 +27,10 @@ public class TinkersChestBlockItem extends BlockItem implements DyeableLeatherIt
   }
 
   @Override
-  protected boolean updateCustomBlockEntityTag(BlockPos pos, Level worldIn, @Nullable Player player, ItemStack stack, BlockState state) {
-    boolean result = super.updateCustomBlockEntityTag(pos, worldIn, player, stack, state);
-    if (hasCustomColor(stack)) {
-      int color = getColor(stack);
-      BlockEntityHelper.get(TinkersChestBlockEntity.class, worldIn, pos).ifPresent(te -> te.setColor(color));
+  protected boolean updateCustomBlockEntityTag(BlockPos pos, Level world, @Nullable Player player, ItemStack stack, BlockState state) {
+    boolean result = super.updateCustomBlockEntityTag(pos, world, player, stack, state);
+    if (hasCustomColor(stack) && world.getBlockEntity(pos) instanceof TinkersChestBlockEntity te) {
+      te.setColor(getColor(stack));
     }
     return result;
   }

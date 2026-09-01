@@ -1,0 +1,13 @@
+{
+  "title": "Extraer Habilidad",
+  "image": {
+    "file": "tconstruct:book/images/worktable/extract_ability.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "Extraer modificadores de habilidad de herramientas encantadas es un proceso bastante costoso; requiere no solo cristales de ícor, sino también un diamante para ayudar en el proceso. Incluso con el poder del ícor, la herramienta se perderá para siempre."
+    }
+  ]
+}

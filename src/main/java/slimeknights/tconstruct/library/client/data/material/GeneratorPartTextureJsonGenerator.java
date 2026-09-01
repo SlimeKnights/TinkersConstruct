@@ -49,6 +49,7 @@ public class GeneratorPartTextureJsonGenerator extends GenericDataProvider {
     this.overrides = overrides;
   }
 
+  @SuppressWarnings("removal")
   @Override
   public CompletableFuture<?> run(CachedOutput cache) {
     JsonObject json = new JsonObject();

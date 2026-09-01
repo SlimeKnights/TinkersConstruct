@@ -1,12 +1,10 @@
 package slimeknights.tconstruct.smeltery.network;
 
 import lombok.AllArgsConstructor;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent.Context;
-import slimeknights.mantle.network.packet.IThreadsafePacket;
-import slimeknights.mantle.util.BlockEntityHelper;
+import slimeknights.mantle.network.packet.BlockEntityPacket;
 import slimeknights.tconstruct.smeltery.block.entity.controller.HeatingStructureBlockEntity;
 
 import java.util.ArrayList;
@@ -16,7 +14,7 @@ import java.util.List;
  * Packet sent when the smeltery or foundry structure changes
  */
 @AllArgsConstructor
-public class StructureUpdatePacket implements IThreadsafePacket {
+public class StructureUpdatePacket implements BlockEntityPacket<HeatingStructureBlockEntity> {
   private final BlockPos pos;
   private final BlockPos minPos;
   private final BlockPos maxPos;
@@ -45,14 +43,17 @@ public class StructureUpdatePacket implements IThreadsafePacket {
   }
 
   @Override
-  public void handleThreadsafe(Context context) {
-    HandleClient.handle(this);
+  public BlockPos pos() {
+    return pos;
   }
 
-  private static class HandleClient {
-    private static void handle(StructureUpdatePacket packet) {
-      BlockEntityHelper.get(HeatingStructureBlockEntity.class, Minecraft.getInstance().level, packet.pos)
-                       .ifPresent(te -> te.setStructureSize(packet.minPos, packet.maxPos, packet.tanks));
-    }
+  @Override
+  public Class<HeatingStructureBlockEntity> type() {
+    return HeatingStructureBlockEntity.class;
+  }
+
+  @Override
+  public void handleBlockEntity(Context context, HeatingStructureBlockEntity be) {
+    be.setStructureSize(minPos, maxPos, tanks);
   }
 }

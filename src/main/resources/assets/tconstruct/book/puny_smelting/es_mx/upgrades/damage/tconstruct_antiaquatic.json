@@ -1,0 +1,20 @@
+{
+  "modifier_id": "tconstruct:antiaquatic",
+  "text": [
+    {
+      "text": "Los enemigos del mar tiemblan ante quienes portan este rasgo."
+    },
+    {
+      "text": "Aviso: Eres una persona horrible si usas esto contra criaturas marinas pacíficas."
+    },
+  {
+    "text": "No confundir con Empalamiento.",
+      "paragraph": true 
+  }
+  ],
+  "effects": [
+    "Aumenta el daño a criaturas marinas",
+    "Varios niveles, aumentan más el daño",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

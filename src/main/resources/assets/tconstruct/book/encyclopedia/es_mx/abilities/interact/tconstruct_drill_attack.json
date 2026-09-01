@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:drill_attack",
+  "text": [
+    {
+      "text": "Golpear a una criatura durante el primer segundo de una habilidad de movimiento como Brinco, Impulso o Gancho hará que sea atacada con el arma de la mano principal."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nivel",
+    "Requiere 1 ranura de habilidad",
+    "Requiere Brinco, Impulso o Gancho"
+  ]
+}

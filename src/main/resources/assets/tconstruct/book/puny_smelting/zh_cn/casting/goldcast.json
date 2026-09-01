@@ -1,13 +1,13 @@
 {
   "title": "金质铸模",
   "image": {
-    "file": "tconstruct:book/images/gold_pick.png",
+    "file": "tconstruct:book/images/zh_cn/gold_pick.png",
     "width": 170,
     "height": 90
   },
   "text": [
     {
-      "text": "金质铸模可重复使用。在铸件台上，将1锭量的熔融金浇注在任意工具部件上就能制作对应铸模。该过程消耗工具部件。"
+      "text": "金质铸模可重复使用。把1锭量的熔融金浇注到放有工具部件的铸件台上，就能做出相应 的金质铸模。这一过程会消耗掉工具部件。"
     }
   ]
 }

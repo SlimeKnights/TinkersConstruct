@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:necrotic",
   "text": [
     {
-      "text": "暴击时，每级按造成的伤害的5%恢复自身生命值。每级额外消耗1点耐久度。"
+      "text": "暴击时，每级按当次伤害5%比例回复自身生命值。每级使工具额外消耗1点耐久度。"
     }
   ],
   "more_text_space": true,

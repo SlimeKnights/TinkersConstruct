@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:feather_falling",
+  "text": [
+    {
+      "text": "Otorga +25% de resistencia al daño por caída por nivel, hasta un máximo de +50% en el nivel 2."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Se pueden aplicar niveles de forma incremental",
+    "Máximo de 2 niveles",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

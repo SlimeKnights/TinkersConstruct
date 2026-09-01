@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:snowdrift",
+  "text": [
+    {
+      "text": "Mira al gólem de nieve. ¿A que es genial cómo deja rastros de nieve? ¿No desearías poder dejar rastros de nieve tú también?"
+    }
+  ],
+  "effects": [
+    "Crea nieve al caminar",
+    "No funciona en biomas cálidos",
+    "Área aumentada por el modificador Expandido",
+    "Nivel único",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

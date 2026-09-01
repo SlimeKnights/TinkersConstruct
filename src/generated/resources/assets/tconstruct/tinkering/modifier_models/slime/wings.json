@@ -1,8 +1,0 @@
-{
-  "modifiers": {
-    "tconstruct:trim": {
-      "type": "tconstruct:custom_trim",
-      "root": "tconstruct:item/tool/armor/slime/wings/trim"
-    }
-  }
-}

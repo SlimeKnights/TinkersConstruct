@@ -6,7 +6,7 @@ import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.primitive.StringLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.library.client.materials.MaterialTooltipCache;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.module.HookProvider;
 import slimeknights.tconstruct.library.module.ModuleHook;
@@ -46,29 +46,28 @@ public record CustomMaterialName(int index, String suffix) implements ToolNameHo
   @Override
   public Component getDisplayName(ToolDefinition definition, ItemStack stack, @Nullable IToolStackView tool, Component itemName) {
     MaterialVariantId material = ToolNameHook.getTool(stack, tool).getMaterials().get(index).getVariant();
-    if (IMaterial.UNKNOWN_ID.equals(material)) {
+    if (MaterialId.UNKNOWN.equals(material)) {
       return itemName;
     }
     // translate the suffixed key
-    Component component;
-    find: {
-      // first, try the material directly
-      String materialKey = MaterialTooltipCache.getKey(material) + '.' + suffix;
-      if (Util.canTranslate(materialKey)) {
-        component = Component.translatable(materialKey);
-        break find;
-      }
-      // if that did not work, do base material
-      if (material.hasVariant()) {
-        materialKey = MaterialTooltipCache.getKey(material.getId()) + '.' + suffix;
-        if (Util.canTranslate(materialKey)) {
-          component = Component.translatable(materialKey);
-          break find;
-        }
-      }
-      // if both failed, use the regular key
-      component = MaterialTooltipCache.getDisplayName(material);
+    return Component.translatable(TooltipUtil.KEY_FORMAT, getMaterialName(material, suffix), itemName);
+  }
+
+  /** Gets the material name for the given material and suffix */
+  public static Component getMaterialName(MaterialVariantId material, String suffix) {
+    // first, try the material directly
+    String materialKey = MaterialTooltipCache.getKey(material) + '.' + suffix;
+    if (Util.canTranslate(materialKey)) {
+      return Component.translatable(materialKey);
     }
-    return Component.translatable(TooltipUtil.KEY_FORMAT, component, itemName);
+    // if that did not work, do base material
+    if (material.hasVariant()) {
+      materialKey = MaterialTooltipCache.getKey(material.getId()) + '.' + suffix;
+      if (Util.canTranslate(materialKey)) {
+        return Component.translatable(materialKey);
+      }
+    }
+    // if both failed, use the regular key
+    return MaterialTooltipCache.getDisplayName(material);
   }
 }

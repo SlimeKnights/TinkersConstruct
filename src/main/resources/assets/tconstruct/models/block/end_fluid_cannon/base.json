@@ -26,12 +26,12 @@
 		{
 			"name": "inside",
 			"from": [15, 15, 15],
-			"to": [ 1, 5, 1],
+			"to": [ 1, 7, 1],
 			"faces": {
-				"north": {"uv": [15, 11, 1, 1], "texture": "#side"},
-				"east":  {"uv": [15, 11, 1, 1], "texture": "#side"},
-				"south": {"uv": [15, 11, 1, 1], "texture": "#front"},
-				"west":  {"uv": [15, 11, 1, 1], "texture": "#side"},
+				"north": {"uv": [15,  9, 1, 1], "texture": "#side"},
+				"east":  {"uv": [15,  9, 1, 1], "texture": "#side"},
+				"south": {"uv": [15,  9, 1, 1], "texture": "#front"},
+				"west":  {"uv": [15,  9, 1, 1], "texture": "#side"},
 				"up":    {"uv": [15, 15, 1, 1], "texture": "#inside"},
 				"down":  {"uv": [15, 15, 1, 1], "texture": "#top"}
 			}
@@ -211,8 +211,8 @@
       },
       {
         "name": "inside",
-        "from": [1, 5, 1],
-        "to": [ 15, 5, 15],
+        "from": [1, 7, 1],
+        "to": [ 15, 7, 15],
         "faces": {
           "up":  {"uv": [1, 1, 15, 15], "texture": "#inside"}
         }
@@ -376,8 +376,8 @@
 		]
 	},
 	"fluid": {
-		"from": [1.08, 5.08, 1.08],
+		"from": [1.08, 7.08, 1.08],
 		"to": [14.92, 14.92, 14.92],
-		"increments": 160
+		"increments": 128
 	}
 }

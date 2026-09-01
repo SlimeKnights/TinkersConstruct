@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:depth_strider",
+  "text": [
+    {
+      "text": "Reduce la penalización de movimiento bajo el agua en un 33% por nivel. En el nivel 3, no hay penalización de movimiento bajo el agua."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 3 niveles",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

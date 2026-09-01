@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:trick_quiver",
+  "text": [
+    {
+      "text": "Otorga al arco 3 ranuras internas por nivel para guardar flechas de truco, cada ranura con capacidad para 32 flechas."
+    },
+    {
+      "text": "Se puede cambiar la flecha seleccionada atacando, alternando entre las tres opciones o saltándose el carcaj de trucos. Al agacharse y atacar se abre el carcaj para añadir flechas.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Sin nivel máximo",
+    "Requiere 1 ranura de habilidad por nivel"
+  ]
+}

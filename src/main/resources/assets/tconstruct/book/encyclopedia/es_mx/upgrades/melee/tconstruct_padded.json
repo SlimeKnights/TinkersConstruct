@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:padded",
+  "text": [
+    {
+      "text": "Reduce el empuje de la herramienta de todas las fuentes en un 50% por nivel."
+    },
+    {
+      "text": "Hace que el lanzamiento (flinging), el salto (springing) y el golpe (bonking) sean la mitad de efectivos por nivel.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 3 niveles",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

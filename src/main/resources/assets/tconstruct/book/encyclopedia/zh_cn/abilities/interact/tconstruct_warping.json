@@ -2,10 +2,10 @@
   "modifier_id": "tconstruct:warping",
   "text": [
     {
-      "text": "蓄力后将你传送至目标方向，消耗1点耐久。"
+      "text": "蓄力后释放，可消耗工具1点耐久度，并将自己向目标方向传送。"
     },
     {
-      "text": "可通过加持“力量”每级增强25%击飞效果；加持“快速装填”缩短蓄力时间。", "paragraph": true
+      "text": "每级“力量”增强25%效果。“快速装填”能够 缩短蓄力时间。", "paragraph": true
     }
   ],
   "more_text_space": true,

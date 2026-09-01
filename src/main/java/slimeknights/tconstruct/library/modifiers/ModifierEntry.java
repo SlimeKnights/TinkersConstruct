@@ -34,7 +34,7 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
   public static final String TAG_EFFECTIVE = "effective";
 
   /** Empty modifier instance, default for many methods */
-  public static final ModifierEntry EMPTY = new ModifierEntry(ModifierManager.EMPTY, 0);
+  public static final ModifierEntry EMPTY = new ModifierEntry(ModifierId.EMPTY, 0);
 
   /** Loadable instance for parsing. Does not handle incremental, we currently disallow incremental as traits */
   public static final RecordLoadable<ModifierEntry> LOADABLE = RecordLoadable.create(

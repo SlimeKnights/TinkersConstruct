@@ -12,6 +12,7 @@ import java.util.Iterator;
 /**
  * Shared logic to iterate fluid capabilities for {@link ToolFluidCapability}
  */
+@SuppressWarnings("deprecation")
 abstract class FluidModifierHookIterator<I> extends CompoundIndexHookIterator<FluidModifierHook,I> {
   /** Entry from {@link #findHook(IToolStackView, int)}, will be set during or before iteration */
   protected ModifierEntry indexEntry = null;

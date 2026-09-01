@@ -8,10 +8,13 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSyntaxException;
 import com.mojang.blaze3d.platform.NativeImage;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.FastColor;
@@ -33,9 +36,14 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.ToIntFunction;
+
+import static slimeknights.tconstruct.library.client.data.spritetransformer.GreyToColorMapping.GREY_LOADABLE;
+import static slimeknights.tconstruct.library.client.data.spritetransformer.GreyToColorMapping.GREY_STRING_LOADABLE;
+import static slimeknights.tconstruct.library.client.data.spritetransformer.GreyToColorMapping.serializeColor;
 
 /**
  * Supports including sprites as "part of the palette"
@@ -54,7 +62,7 @@ public class GreyToSpriteTransformer implements IRecolorSpriteTransformer {
   private static final List<SpriteMapping> MAPPINGS_TO_CLEAR = new ArrayList<>();
 
   /** List of sprites to try */
-  private final List<SpriteMapping> sprites;
+  final List<SpriteMapping> sprites;
 
   /** Cache of the sprites to use for each color value */
   private final SpriteRange[] foundSpriteCache = new SpriteRange[256];
@@ -92,17 +100,15 @@ public class GreyToSpriteTransformer implements IRecolorSpriteTransformer {
 
   /* Serializing */
 
-  @Override
-  public JsonObject serialize(JsonSerializationContext context) {
-    JsonObject object = new JsonObject();
-    object.addProperty("type", NAME.toString());
+  /** Serializes the palette as an array */
+  protected JsonArray serializePaletteArray() {
     JsonArray colors = new JsonArray();
     for (SpriteMapping mapping : sprites) {
       JsonObject pair = new JsonObject();
-      pair.addProperty("grey", mapping.grey);
+      pair.add("grey", GREY_LOADABLE.serialize(mapping.grey));
       // color used by both types
       if (mapping.color != -1 || mapping.path == null) {
-        pair.addProperty("color", String.format("%08X", Util.translateColorBGR(mapping.color)));
+        pair.add("color", serializeColor(mapping.color));
       }
       // path by one
       if (mapping.path != null) {
@@ -110,30 +116,120 @@ public class GreyToSpriteTransformer implements IRecolorSpriteTransformer {
       }
       colors.add(pair);
     }
-    object.add("palette", colors);
+    return colors;
+  }
+
+  /** Serializes the palette as an object */
+  protected JsonObject serializePaletteObject() {
+    JsonObject colors = new JsonObject();
+    for (SpriteMapping mapping : sprites) {
+      // zero pad the grey string to length of exactly 3
+      String grey = String.format("%03d", mapping.grey);
+      if (mapping.path != null) {
+        // path with no tint: add path directly
+        if (mapping.color == -1) {
+          colors.addProperty(grey, mapping.path.toString());
+        } else {
+          // path with a tint, combine both in an object
+          JsonObject pair = new JsonObject();
+          pair.add("color", serializeColor(mapping.color));
+          pair.addProperty("path", mapping.path.toString());
+          colors.add(grey, pair);
+        }
+      } else {
+        // color with no path: add color directly
+        colors.add(grey, serializeColor(mapping.color));
+      }
+    }
+    return colors;
+  }
+
+  /** Serializes the palette */
+  protected JsonElement serializePalette() {
+    return serializePaletteObject();
+  }
+
+  @Override
+  public JsonObject serialize(JsonSerializationContext context) {
+    JsonObject object = new JsonObject();
+    object.addProperty("type", NAME.toString());
+    object.add("palette", serializePalette());
     return object;
+  }
+
+  /** Serializes the palette as an array instead of a compact object */
+  private static class PaletteArray extends GreyToSpriteTransformer {
+    protected PaletteArray(List<SpriteMapping> sprites) {
+      super(sprites);
+    }
+
+    @Override
+    protected JsonElement serializePalette() {
+      return serializePaletteArray();
+    }
   }
 
   /** Serializer for a recolor sprite transformer */
   protected record Deserializer<T extends GreyToSpriteTransformer>(BiFunction<GreyToSpriteTransformer.Builder, JsonObject, T> constructor) implements JsonDeserializer<T> {
+    /** Parses a palette entry from JSON */
+    private static void parsePaletteEntry(JsonObject entry, int grey, GreyToSpriteTransformer.Builder paletteBuilder) {
+      int color = ColorLoadable.ALPHA.getOrWhite(entry, "color");
+      // get the proper type
+      if (entry.has("path")) {
+        paletteBuilder.addTexture(grey, JsonHelper.getResourceLocation(entry, "path"), color);
+      } else {
+        paletteBuilder.addARGB(grey, color);
+      }
+    }
+
     @Override
     public T deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
       JsonObject object = json.getAsJsonObject();
-      JsonArray palette = GsonHelper.getAsJsonArray(object, "palette");
       GreyToSpriteTransformer.Builder paletteBuilder = GreyToSpriteTransformer.builder();
-      for (int i = 0; i < palette.size(); i++) {
-        JsonObject palettePair = GsonHelper.convertToJsonObject(palette.get(i), "palette["+i+']');
-        int grey = GsonHelper.getAsInt(palettePair, "grey");
-        if (i == 0 && grey != 0) {
-          paletteBuilder.addABGR(0, 0xFF000000);
+      JsonElement element = JsonHelper.getElement(object, "palette");
+      // array format: [{"grey": ###, "color": "######"}]
+      if (element.isJsonArray()) {
+        JsonArray palette = element.getAsJsonArray();
+        for (int i = 0; i < palette.size(); i++) {
+          JsonObject palettePair = GsonHelper.convertToJsonObject(palette.get(i), "palette[" + i + ']');
+          int grey = GREY_LOADABLE.getIfPresent(palettePair, "grey");
+          // ensure we have 0
+          if (i == 0 && grey != 0) {
+            paletteBuilder.addABGR(0, 0xFF000000);
+          }
+          parsePaletteEntry(palettePair, grey, paletteBuilder);
         }
-        // get the proper type
-        int color = ColorLoadable.ALPHA.getOrWhite(palettePair, "color");
-        if (palettePair.has("path")) {
-          paletteBuilder.addTexture(grey, JsonHelper.getResourceLocation(palettePair, "path"), color);
-        } else {
-          paletteBuilder.addARGB(grey, color);
+        // compact object format: {"###": "######"}. Requires keys to be sorted.
+      } else if (element.isJsonObject()) {
+        JsonObject palette = element.getAsJsonObject();
+        boolean first = true;
+        for (Entry<String,JsonElement> entry : palette.entrySet()) {
+          String key = entry.getKey();
+          int grey = GREY_STRING_LOADABLE.parseString(key, "palette");
+          // ensure we have 0
+          if (first && grey != 0) {
+            paletteBuilder.addABGR(0, 0xFF000000);
+          }
+          first = false;
+          // parse element based on its type
+          JsonElement colorElement = entry.getValue();
+          // object: may contain color and sprite
+          if (colorElement.isJsonObject()) {
+            parsePaletteEntry(colorElement.getAsJsonObject(), grey, paletteBuilder);
+          } else if (colorElement.isJsonPrimitive()) {
+            String color = colorElement.getAsString();
+            // sprites will contain ":", no defaulting namespaces
+            if (color.contains(":")) {
+              paletteBuilder.addTexture(grey, JsonHelper.parseResourceLocation(color, key), -1);
+            } else {
+              paletteBuilder.addARGB(grey, ColorLoadable.ALPHA.parseString(color, key));
+            }
+          } else {
+            throw new JsonSyntaxException("Missing " + key + ", expected to find a String or JsonObject");
+          }
         }
+      } else {
+        throw new JsonSyntaxException("Missing palette, expected to find a JsonArray or JsonObject");
       }
       return constructor.apply(paletteBuilder, object);
     }
@@ -156,6 +252,9 @@ public class GreyToSpriteTransformer implements IRecolorSpriteTransformer {
   public static class Builder {
     private final ImmutableList.Builder<SpriteMapping> builder = ImmutableList.builder();
     private int lastGrey = -1;
+    @Accessors(fluent = true)
+    @Setter
+    private boolean compact = true;
 
     /** Validates the given grey value */
     private void checkGrey(int grey) {
@@ -199,7 +298,7 @@ public class GreyToSpriteTransformer implements IRecolorSpriteTransformer {
       if (list.size() < 2) {
         throw new IllegalStateException("Too few colors in palette, must have at least 2");
       }
-      return new GreyToSpriteTransformer(list);
+      return compact ? new GreyToSpriteTransformer(list) : new GreyToSpriteTransformer.PaletteArray(list);
     }
 
     /** Builds an animated transformer */
@@ -208,7 +307,8 @@ public class GreyToSpriteTransformer implements IRecolorSpriteTransformer {
       if (list.size() < 2) {
         throw new IllegalStateException("Too few colors in palette, must have at least 2");
       }
-      return new AnimatedGreyToSpriteTransformer(list, metaPath, frames);
+      return compact ? new AnimatedGreyToSpriteTransformer(list, metaPath, frames)
+        : new AnimatedGreyToSpriteTransformer.PaletteArray(list, metaPath, frames);
     }
   }
 

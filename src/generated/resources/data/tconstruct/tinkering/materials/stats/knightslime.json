@@ -20,9 +20,9 @@
     },
     "tconstruct:limb": {
       "accuracy": -0.15,
-      "draw_speed": 0.0,
+      "draw_speed": 0.15,
       "durability": 1047,
-      "velocity": 0.15
+      "velocity": 0.05
     },
     "tconstruct:maille": {},
     "tconstruct:plating_boots": {

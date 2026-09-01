@@ -35,6 +35,7 @@ public final class DisplayCastingRecipe implements IDisplayableCastingRecipe {
     this(null, type, castItems, fluids, output, coolingTime, consumed);
   }
 
+  @Deprecated
   @Override
   public ItemStack getOutput() {
     return outputs.get(0);

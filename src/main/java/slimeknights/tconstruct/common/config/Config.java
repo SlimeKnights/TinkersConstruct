@@ -254,6 +254,7 @@ public class Config {
     public final ForgeConfigSpec.EnumValue<Orientation2D> mapLocation;
 
     Client(ForgeConfigSpec.Builder builder) {
+      // TODO 1.21: do we really need everything in a big "client" group? can simplify
       builder.comment("Client only settings").push("client");
 
 //      this.temperatureInCelsius = builder
@@ -299,17 +300,17 @@ public class Config {
           .define("showOnlyPartMaterial", "");
 
         this.showAllTableVariants = builder
-          .comment("If true, tables such as the part builder and tinker station will show all variants in JEI. If false the variants only show in the tables tab")
+          .comment("If true, tables such as the part builder and tinker station will show all variants in JEI. If false the variants only show in the table variants tab")
           .translation("tconstruct.configgui.showAllTableVariants")
           .define("showAllTableVariants", false);
 
         this.showAllAnvilVariants = builder
-          .comment("If true, anvils will show all metal variants in JEI. If false, the variants only show in the tables tab")
+          .comment("If true, anvils will show all metal variants in JEI. If false, the variants only show in the table variants tab")
           .translation("tconstruct.configgui.showAllAnvilVariants")
           .define("showAllAnvilVariants", true);
 
         this.showAllSmelteryVariants = builder
-          .comment("If true, smeltery and foundry controllers, drains, ducts, and chutes will show all variants in JEI. If false, the variants only shows in the smeltery tab")
+          .comment("If true, smeltery and foundry controllers, drains, ducts, and chutes will show all variants in JEI. If false, the variants only shows in the table variants tab")
           .translation("tconstruct.configgui.showAllSmelteryVariants")
           .define("showAllSmelteryVariants", false);
 

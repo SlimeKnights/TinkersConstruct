@@ -60,6 +60,7 @@ public abstract class AbstractStructureRepalleter extends GenericNBTProvider {
     return palette;
   }
 
+  @SuppressWarnings("removal")
   @Override
   public CompletableFuture<?> run(CachedOutput cache) {
     addStructures();

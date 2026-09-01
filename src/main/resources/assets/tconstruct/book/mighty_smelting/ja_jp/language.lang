@@ -1,6 +1,6 @@
 intro=はじめに
 entity_melting=エンティティ溶融
-melee_harvest_materials=Tier3 近接/収穫用素材
+melee_harvest_materials=Tier3 汎用素材
 melee_harvest_materials.subtext=これらの素材は合金化で作成でき、鋳造して近接武器や収穫道具の部品を作れます。
 ranged_materials=Tier3 遠距離用素材
 ranged_materials.subtext=これらの素材は合金化で作成でき、鋳造して弓のような遠距離武器の部品を作れます。
@@ -9,6 +9,9 @@ armor_materials.subtext=これらの素材を鋳造して防具や盾の部品�
 
 tools=大型道具
 tools.subtext=大型道具を作成するためにはティンカー金床が必要です
+tools.group_general=汎用
+tools.group_ranged=遠距離
+tools.group_info=情報
 
 armor=強力な防具
 armor.subtext=合金化により、防具の作成に使用できる多くの素材が開放されます。これらの素材は、旅行者の防具などの基本的なものにその防御性能を超える追加の能力を付与できる場合があります。

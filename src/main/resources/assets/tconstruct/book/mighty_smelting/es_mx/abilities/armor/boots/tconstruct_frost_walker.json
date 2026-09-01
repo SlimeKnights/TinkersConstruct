@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:frost_walker",
+  "text": [
+    {
+      "text": "Gana la habilidad de caminar sobre el agua. Bueno, no exactamente, pero se le parece mucho."
+    }
+  ],
+  "effects": [
+    "El agua se congela al caminar",
+    "Área aumentada por el modificador Expandido",
+    "Nivel único",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

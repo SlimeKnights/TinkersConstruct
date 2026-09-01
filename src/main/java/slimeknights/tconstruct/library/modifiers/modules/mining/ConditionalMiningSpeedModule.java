@@ -71,6 +71,7 @@ public record ConditionalMiningSpeedModule(
   }
 
   @SuppressWarnings("removal")
+  @Deprecated
   @Override
   public void onBreakSpeed(IToolStackView tool, ModifierEntry modifier, BreakSpeed event, Direction sideHit, boolean isEffective, float miningSpeedModifier) {
     Player player = event.getEntity();

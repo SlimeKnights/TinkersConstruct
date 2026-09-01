@@ -28,9 +28,6 @@
     "tconstruct:ribcage": {
       "repair_amount": 205
     },
-    "tconstruct:shield_core": {},
-    "tconstruct:skull": {
-      "durability": 205
-    }
+    "tconstruct:shield_core": {}
   }
 }

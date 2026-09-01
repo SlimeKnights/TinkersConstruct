@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:fiery",
+  "text": [
+    {
+      "text": "Las llamas del Nether castigan a tus enemigos desde lejos. Un poco de calor extra no les vendría mal."
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/ranged",
+  "effects": [
+    "Quema a los objetivos al recibir el flechazo",
+    "Varios niveles, aumentan la duración",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

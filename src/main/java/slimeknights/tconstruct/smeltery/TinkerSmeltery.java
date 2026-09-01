@@ -279,7 +279,7 @@ public final class TinkerSmeltery extends TinkerModule {
     scorchedFluidCannon = BLOCKS.register("scorched_fluid_cannon", () -> new FluidCannonBlock(scorched, FluidType.BUCKET_VOLUME * 2, 2.0f, 1.5f, 7.0f), tankItem);
     scorchedLantern = BLOCKS.register("scorched_lantern", () -> new SearedLanternBlock(scorchedNonSolidProps(SoundType.LANTERN).lightLevel(SearedTankBlock.LIGHT_GETTER), FluidValues.LANTERN_CAPACITY), lanternItem);
     // end
-    endFluidCannon = BLOCKS.register("end_fluid_cannon", () -> new KnightMetalFluidCannonBlock(seared, FluidType.BUCKET_VOLUME * 4, 1.5f, 3.0f, 6.0f), tankItem);
+    endFluidCannon = BLOCKS.register("end_fluid_cannon", () -> new KnightMetalFluidCannonBlock(seared, FluidType.BUCKET_VOLUME * 4, 1.5f, 3.0f, 4.0f), tankItem);
   }
 
   // utility
@@ -572,6 +572,12 @@ public final class TinkerSmeltery extends TinkerModule {
     addCasts(output, CastItemObject::getRedSand);
     // dummy parts are in tool parts creative tab
 
+    // buckets
+    TinkerFluids.addTabItems(itemDisplayParameters, output);
+  }
+
+  /** Adds all relevant items to the variants creative tab. */
+  public static void addTableVariants(ItemDisplayParameters itemDisplayParameters, CreativeModeTab.Output output) {
     // additional texture variants of controllers, drains, and ducts
     Predicate<ItemStack> variant = stack -> {
       output.accept(stack);

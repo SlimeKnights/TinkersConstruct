@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:material",
+  "ingredient": {
+    "type": "tconstruct:instrument",
+    "instrument": "minecraft:yearn_goat_horn",
+    "item": "minecraft:goat_horn"
+  },
+  "material": "tconstruct:horn#minecraft.yearn_goat_horn",
+  "needed": 1,
+  "value": 4
+}

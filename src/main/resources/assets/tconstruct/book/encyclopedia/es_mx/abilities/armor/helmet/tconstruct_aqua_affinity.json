@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:aqua_affinity",
+  "text": [
+    {
+      "text": "Permite minar a velocidad completa bajo el agua, en lugar de al 20% de velocidad."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nivel",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

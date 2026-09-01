@@ -1,47 +1,6 @@
 {
   "values": [
-    "minecraft:player_attack",
-    "minecraft:mob_attack",
-    "minecraft:mob_attack_no_aggro",
-    "minecraft:cramming",
-    "minecraft:sting",
-    "tconstruct:fluid_impact_melee",
-    "tconstruct:fluid_spike_melee",
-    {
-      "id": "twilightforest:ghast_tear",
-      "required": false
-    },
-    {
-      "id": "twilightforest:hydra_bite",
-      "required": false
-    },
-    {
-      "id": "twilightforest:squish",
-      "required": false
-    },
-    {
-      "id": "twilightforest:axing",
-      "required": false
-    },
-    {
-      "id": "twilightforest:slam",
-      "required": false
-    },
-    {
-      "id": "twilightforest:yeeted",
-      "required": false
-    },
-    {
-      "id": "twilightforest:ant",
-      "required": false
-    },
-    {
-      "id": "twilightforest:clamped",
-      "required": false
-    },
-    {
-      "id": "twilightforest:spiked",
-      "required": false
-    }
+    "#tconstruct:is_melee",
+    "minecraft:cramming"
   ]
 }

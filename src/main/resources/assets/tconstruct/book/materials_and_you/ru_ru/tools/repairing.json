@@ -11,16 +11,23 @@
           "tic_display": true,
           "Damage": 70,
           "tic_materials": [
-            "tconstruct:ui_render_head",
-            "tconstruct:ui_render_handle",
-            "tconstruct:ui_render_extra"
+            "tconstruct:ui_render#head",
+            "tconstruct:ui_render#handle",
+            "tconstruct:ui_render#extra"
           ],
           "tic_stats": {
             "tconstruct:durability": 100
           }
         }
       },
-      "tconstruct:repair_kit"
+      {
+        "type": "forge:nbt",
+        "item": "tconstruct:repair_kit",
+        "nbt": {
+          "tic_display": true,
+          "Material": "tconstruct:ui_render#head"
+        }
+      }
     ]
   ],
   "result": {
@@ -31,17 +38,16 @@
       "tic_display": true,
       "Damage": 10,
       "tic_materials": [
-        "tconstruct:ui_render_head",
-        "tconstruct:ui_render_handle",
-        "tconstruct:ui_render_extra"
+        "tconstruct:ui_render#head",
+        "tconstruct:ui_render#handle",
+        "tconstruct:ui_render#extra"
       ],
       "tic_stats": { "tconstruct:durability": 100 }
     }
   },
   "description": [
     {
-      "text": "Починка инструмента — важное занятие, если Вы не хотите, чтобы он сломался. Положите инструмент и материал, из которого изготовлена головка/пластина вашего инструмента, в Литейный Стол или Кузню, чтобы починить его.  В качестве альтернативы вы можете использовать ремонтные комплекты, которые работают в верстаках!",
-      "paragraph": true
+      "text": "Чтобы починить инструмент, просто поместите его в литейную станцию или литейную наковальню с материалом, из которого создан наконечник. В качестве альтернативы вы можете использовать ремонтные комплекты, которые можно использовать как на рабочих столах, так и непосредственно при щелчке [ПКМ] на инструменте!"
     }
 	]
 }

@@ -2,10 +2,10 @@ package slimeknights.tconstruct.fixture;
 
 import net.minecraft.core.MappedRegistry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.tconstruct.library.tools.part.ToolPartItem;
+import slimeknights.tconstruct.test.TestHelper;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 import slimeknights.tconstruct.tools.stats.StatlessMaterialStats;
@@ -30,10 +30,10 @@ public class MaterialItemFixture {
     MATERIAL_ITEM_HEAD = new ToolPartItem(new Item.Properties(), HeadMaterialStats.ID);
     MATERIAL_ITEM_HANDLE = new ToolPartItem(new Item.Properties(), HandleMaterialStats.ID);
     MATERIAL_ITEM_EXTRA = new ToolPartItem(new Item.Properties(), StatlessMaterialStats.BINDING.getIdentifier());
-    ForgeRegistries.ITEMS.register(new ResourceLocation("test", "test_material"), MATERIAL_ITEM);
-    ForgeRegistries.ITEMS.register(new ResourceLocation("test", "test_material_2"), MATERIAL_ITEM_2);
-    ForgeRegistries.ITEMS.register(new ResourceLocation("test", "test_head"), MATERIAL_ITEM_HEAD);
-    ForgeRegistries.ITEMS.register(new ResourceLocation("test", "test_handle"), MATERIAL_ITEM_HANDLE);
-    ForgeRegistries.ITEMS.register(new ResourceLocation("test", "test_extra"), MATERIAL_ITEM_EXTRA);
+    ForgeRegistries.ITEMS.register(TestHelper.id("test_material"), MATERIAL_ITEM);
+    ForgeRegistries.ITEMS.register(TestHelper.id("test_material_2"), MATERIAL_ITEM_2);
+    ForgeRegistries.ITEMS.register(TestHelper.id("test_head"), MATERIAL_ITEM_HEAD);
+    ForgeRegistries.ITEMS.register(TestHelper.id("test_handle"), MATERIAL_ITEM_HANDLE);
+    ForgeRegistries.ITEMS.register(TestHelper.id("test_extra"), MATERIAL_ITEM_EXTRA);
   }
 }

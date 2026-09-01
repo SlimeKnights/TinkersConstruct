@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:ambidextrous",
+  "text": [
+    {
+      "text": "Todo el mundo pelea Kung Fu."
+    }
+  ],
+  "effects": [
+    "Permite dar puñetazos con ambas manos",
+    "Nivel único",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

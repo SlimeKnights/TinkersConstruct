@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:item_frame",
+  "text": [
+    {
+      "text": "Añade 3 ranuras por nivel al casco que se mostrarán en la interfaz (UI) cuando el casco esté puesto."
+    },
+    {
+      "text": "El inventario del casco se puede abrir interactuando con él mientras lo sostienes.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

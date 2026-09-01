@@ -35,6 +35,7 @@ public interface MiningSpeedVariable extends IHaveLoader {
    * @param player    Player instance, may be defined when event is null, but still may be null on tooltips.
    * @return  Value of this variable, using a fallback if appropiate
    */
+  @SuppressWarnings("deprecation")
   default float getValue(IToolStackView tool, @Nullable BreakSpeedContext context, @Nullable Player player) {
     if (context != null) {
       return getValue(tool, context.event(), player, context.sideHit());

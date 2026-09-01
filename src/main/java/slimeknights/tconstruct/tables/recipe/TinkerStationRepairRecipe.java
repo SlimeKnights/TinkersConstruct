@@ -9,7 +9,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
@@ -56,7 +55,7 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
     if (recipe != null) {
       return recipe.getMaterial().getId();
     }
-    return IMaterial.UNKNOWN_ID;
+    return MaterialId.UNKNOWN;
   }
 
   /** Gets the amount to repair given the passed tool */
@@ -107,7 +106,7 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
 
       // ensure we have a material
       MaterialId inputMaterial = getMaterialFrom(inv, i);
-      if (inputMaterial.equals(IMaterial.UNKNOWN_ID)) {
+      if (inputMaterial.equals(MaterialId.UNKNOWN)) {
         return false;
       }
 
@@ -194,7 +193,7 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
     if (!stack.isEmpty()) {
       // we have a recipe with matching stack, find out how much we can repair
       MaterialId repairMaterial = getMaterialFrom(inv, slot);
-      if (!repairMaterial.equals(IMaterial.UNKNOWN_ID)) {
+      if (!repairMaterial.equals(MaterialId.UNKNOWN)) {
         float durabilityPerItem = getRepairPerItem(tool, inv, slot, repairMaterial);
         if (durabilityPerItem > 0) {
           // adjust the factor based on modifiers

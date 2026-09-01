@@ -1,0 +1,14 @@
+{
+  "title": "Cristal de almas chamuscado",
+  "item": "tconstruct:scorched_soul_glass",
+  "text": [
+    {
+      "text": "¿Mirar no es suficiente? ¿Quieres tocar los metales fundidos? ¿Nadar en ellos? El cristal de almas crea una barrera que tú puedes atravesar, pero los fluidos no.",
+      "paragraph": true
+    },
+  {
+      "text": "El cristal no se puede utilizar para el suelo de la fundición.",
+      "paragraph": true
+    }
+  ]
+}

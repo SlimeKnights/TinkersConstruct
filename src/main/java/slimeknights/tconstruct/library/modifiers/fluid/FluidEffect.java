@@ -135,7 +135,7 @@ public interface FluidEffect<C extends FluidEffectContext> extends IHaveLoader, 
   BinaryOperator<Component> MERGE_COMPONENT_LIST = (left, right) -> Component.translatable(KEY_SEPARATOR, left, right);
 
   /** Gets the registry name for the given loader */
-  @SuppressWarnings("unchecked")
+  @SuppressWarnings({"unchecked", "removal"})
   static ResourceLocation getLoaderName(RecordLoadable<? extends FluidEffect<?>> loader) {
     ResourceLocation loaderId = ENTITY_EFFECTS.getName((RecordLoadable<? extends FluidEffect<? super FluidEffectContext.Entity>>)loader);
     if (loaderId != null) {

@@ -24,7 +24,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.fluid.FluidTransferHelper;
-import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.utils.NBTTags;
 import slimeknights.tconstruct.smeltery.block.entity.ITankBlockEntity;
@@ -125,9 +124,7 @@ public class SearedTankBlock extends SearedBlock implements ITankBlock, EntityBl
 
   @Override
   public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter world, BlockPos pos, Player player) {
-    ItemStack stack = new ItemStack(this);
-    BlockEntityHelper.get(TankBlockEntity.class, world, pos).ifPresent(te -> te.setTankTag(stack));
-    return stack;
+    return ITankBlockEntity.getCloneItemStack(new ItemStack(this), world, pos);
   }
 
   @AllArgsConstructor

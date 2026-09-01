@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:dual_wielding",
+  "text": [
+    {
+      "text": "Los duelos son más honorables con la doble empuñadura."
+    }
+  ],
+  "effects": [
+    "Permite usar dos herramientas a la vez",
+    "Nivel único",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

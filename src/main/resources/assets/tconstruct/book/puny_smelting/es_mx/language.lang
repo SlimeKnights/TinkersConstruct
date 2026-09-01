@@ -1,0 +1,34 @@
+intro=Introducción
+melter=Fundidor
+moving_fluids=Fluidos
+casting=Fundición
+worktable=Mesa de trabajo
+melee_harvest_materials=Materiales T2
+melee_harvest_materials.subtext=Materiales fundidos para herramientas de combate o recolección.
+ranged_materials=Rango T2
+ranged_materials.subtext=Materiales fundidos para arcos y armas a distancia.
+armor_materials=Armadura T2
+armor_materials.subtext=Materiales fundidos para armaduras y escudos.
+
+further_reading=Lecturas adicionales
+
+armor=Armadura básica
+armor.subtext=Elige tu camino: la de viajero es más modificable, la de placas ofrece más defensa. Puedes mezclarlas si no tienes sentido de la moda.
+
+upgrades=Mejoras
+upgrades.subtext=Las herramientas se pueden potenciar con mejoras, aunque el número por herramienta es limitado.
+upgrades.group_general=General
+upgrades.group_harvest=Cosecha
+upgrades.group_melee=Combate
+upgrades.group_damage=Daño extra
+upgrades.group_armor=Armadura
+upgrades.group_armor.helmet=Casco
+upgrades.group_armor.chestplate=Peto
+upgrades.group_armor.leggings=Grebas
+upgrades.group_armor.boots=Botas
+
+slotless=Sin ranura
+slotless.subtext=Estos modificadores no requieren espacios; puedes aplicarlos todos si quieres.
+slotless.group_slotless=General
+slotless.group_bonus_upgrades=Ranuras++
+slotless.group_cosmetic=Cosmético

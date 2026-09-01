@@ -85,6 +85,7 @@ public record IdParser<T extends ResourceLocation>(Function<String, T> construct
    * @return  Resource location, or exception if invalid
    * @throws CommandSyntaxException  If parsing fails
    */
+  @SuppressWarnings("removal")
   public static ResourceLocation read(String defaultDomain, StringReader reader) throws CommandSyntaxException {
     int start = reader.getCursor();
     while(reader.canRead() && ResourceLocation.isAllowedInResourceLocation(reader.peek())) {

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:power",
+  "text": [
+    {
+      "text": "¡§1§lPOOOOOODEEEEERRRRR§r ilimitado!"
+    }
+  ],
+  "effects": [
+    "Aumenta el daño de flechas en arcos largos",
+    "Varios niveles, aumentan más el daño",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

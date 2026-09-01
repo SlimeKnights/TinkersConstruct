@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:shulking",
+  "text": [
+    {
+      "text": "El hogar está donde está el caparazón."
+    }
+  ],
+  "effects": [
+    "Reduce el daño infligido y recibido al estar agachado",
+    "Más niveles aumentan el efecto aún más",
+    "Se pueden aplicar niveles de forma incremental",
+    "Requiere 1 ranura de defensa por nivel"
+  ]
+}

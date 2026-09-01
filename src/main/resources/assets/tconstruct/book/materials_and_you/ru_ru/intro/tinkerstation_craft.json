@@ -1,4 +1,7 @@
 {
   "title": "Создание литейной станции",
-  "recipe": "tconstruct:tables/tinker_station"
+  "recipe": "tconstruct:tables/tinker_station",
+  "description": [
+    { "text": "Надеюсь, у вас ещё остались какие-нибудь шаблоны. Если нет, всегда можно сделать ещё." }
+  ]
 }

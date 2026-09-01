@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:splashing",
+  "text": [
+    {
+      "text": "Drena una pequeña cantidad de fluido (normalmente entre 10 mb y 50 mb) al interactuar para aplicar efectos especiales, como fuego, daño adicional o efectos de poción al bloque o entidad seleccionada."
+    },
+    {
+      "text": "La herramienta puede llenarse con fluido interactuando con un tanque o un drenaje mientras se sostiene la herramienta."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Sin nivel máximo",
+    "Requiere 1 ranura de habilidad",
+    "Llenar usando la herramienta en un tanque de fluido"
+  ]
+}

@@ -50,7 +50,7 @@ public class Modifier implements IdAwareObject {
 
   /** Cached key used for translations */
   @Nullable
-  private String translationKey;
+  protected String translationKey;
   /** Cached text component for display names */
   @Nullable
   private Component displayName;
@@ -212,9 +212,10 @@ public class Modifier implements IdAwareObject {
    */
   public List<Component> getDescriptionList() {
     if (descriptionList == null) {
+      String key = getTranslationKey();
       descriptionList = Arrays.asList(
-        Component.translatable(getTranslationKey() + ".flavor").withStyle(ChatFormatting.ITALIC),
-        Component.translatable(getTranslationKey() + ".description").withStyle(ChatFormatting.GRAY));
+        Component.translatable(key + ".flavor").withStyle(ChatFormatting.ITALIC),
+        Component.translatable(key + ".description").withStyle(ChatFormatting.GRAY));
     }
     return descriptionList;
   }

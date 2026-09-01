@@ -1,0 +1,25 @@
+{
+  "type": "tconstruct:showcase",
+  "title": "Modificadores de defensa",
+  "item": {
+    "type": "forge:nbt",
+    "item": "tconstruct:creative_slot",
+    "nbt": {
+      "slot": "defense"
+    }
+  },
+  "tooltip": [ "Icono de ranura de defensa" ],
+  "text": [
+    {
+      "text": "Estos modificadores exclusivos de armaduras aumentan la protección contra amenazas como fuego o empuje. Permiten personalizarlas, ya que muchas carecen de rasgos de material."
+    },
+    {
+      "text": "A mayor número de ranuras de defensa, menor será el de mejora; se sacrifica funcionalidad por protección.",
+      "paragraph": true
+    },
+    {
+      "text": "Ver la lista completa en 'Fundición poderosa' o en la Enciclopedia de Tinkering.",
+      "paragraph": true
+    }
+  ]
+}

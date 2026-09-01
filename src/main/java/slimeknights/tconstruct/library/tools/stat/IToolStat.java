@@ -136,6 +136,18 @@ public interface IToolStat<T> {
   }
 
   /**
+   * Creates a text component, coloring the number
+   * @param loc     Translation key
+   * @param color   Color
+   * @param number  Number
+   * @return  Text component
+   */
+  static Component formatInteger(String loc, TextColor color, int number) {
+    return Component.translatable(loc)
+      .append(Component.literal(Util.COMMA_FORMAT.format(number)).withStyle(style -> style.withColor(color)));
+  }
+
+  /**
    * Creates a text component, coloring the number as a percentage
    * @param loc     Translation key
    * @param color   Color

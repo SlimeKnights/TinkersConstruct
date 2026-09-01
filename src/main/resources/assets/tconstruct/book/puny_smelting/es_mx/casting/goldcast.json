@@ -1,0 +1,13 @@
+{
+  "title": "Moldes de oro",
+  "image": {
+    "file": "tconstruct:book/images/gold_pick.png",
+    "width": 170,
+    "height": 90
+  },
+  "text": [
+    {
+      "text": "Los moldes de oro son reutilizables. Para crear uno, vierte un lingote de oro fundido sobre una pieza en la mesa de fundición. La pieza se consumirá en el proceso."
+    }
+  ]
+}

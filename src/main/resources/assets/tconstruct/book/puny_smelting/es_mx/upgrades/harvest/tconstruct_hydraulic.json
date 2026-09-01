@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:hydraulic",
+  "text": [
+    {
+      "text": "Con la magia de las bombas y fluidos puedes mover cosas fácilmente. Bueno, podrías, pero este no es el caso."
+    }
+  ],
+  "effects": [
+    "Mina más rápido bajo el agua o lluvia",
+    "Varios niveles, aumentan más la velocidad",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

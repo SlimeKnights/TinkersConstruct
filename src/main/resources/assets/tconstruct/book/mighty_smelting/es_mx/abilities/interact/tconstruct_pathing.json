@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:pathing",
+  "text": [
+    {
+      "text": "Si no encuentras el camino de baldosas amarillas, crea tu propia senda de tierra."
+    }
+  ],
+  "effects": [
+    "Permite crear caminos con tus herramientas",
+    "Nivel único",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

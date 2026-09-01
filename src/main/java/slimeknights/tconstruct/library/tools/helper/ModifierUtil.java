@@ -37,6 +37,7 @@ import slimeknights.tconstruct.tools.TinkerTools;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
@@ -82,6 +83,26 @@ public final class ModifierUtil {
       return player;
     }
     return null;
+  }
+
+  /**
+   * Checks if the given entity pays the resource costs of using a tool, such as draining the tank or consuming ammo.
+   * Creative players get their resources for free, matching {@link ToolDamageUtil#directDamage(IToolStackView, int, LivingEntity, ItemStack)} skipping durability for them.
+   * @param entity  Entity using the tool. Anything that is not a creative player consumes, including mobs and null.
+   * @return  True if resources should be consumed.
+   */
+  public static boolean consumesResources(@Nullable LivingEntity entity) {
+    return !(entity instanceof Player player) || consumesResources(player);
+  }
+
+  /**
+   * Checks if the given player pays the resource costs of using a tool, such as draining the tank or consuming ammo.
+   * Creative players get their resources for free, matching {@link ToolDamageUtil#directDamage(IToolStackView, int, LivingEntity, ItemStack)} skipping durability for them.
+   * @param player  Player using the tool. Null consumes, as only creative players get their resources for free.
+   * @return  True if resources should be consumed.
+   */
+  public static boolean consumesResources(@Nullable Player player) {
+    return player == null || !player.isCreative();
   }
 
   /**
@@ -281,6 +302,9 @@ public final class ModifierUtil {
   public interface FoodConsumer {
     /** Called when food is eaten to notify compat that food was eaten */
     void onConsume(Player player, ItemStack stack, int hunger, float saturation);
+
+    /** Called when a list of foods is eaten at once is eaten to notify compat that food was eaten */
+    default void onConsume(Player player, List<ItemStack> stacks, int hunger, float saturation) {}
   }
 
   /** Instance of the current food consumer, will be either no-op or an implementation calling the Diet API, never null. */

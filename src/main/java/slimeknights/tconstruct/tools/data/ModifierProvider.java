@@ -4,6 +4,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.data.PackOutput;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.tags.InstrumentTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -105,7 +106,6 @@ import slimeknights.tconstruct.library.modifiers.modules.behavior.AttributeModul
 import slimeknights.tconstruct.library.modifiers.modules.behavior.AttributeModule.TooltipStyle;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.BlockItemProviderModule;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.ConditionalStatModule;
-import slimeknights.tconstruct.library.modifiers.modules.behavior.EdibleModule;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.InfinityModule;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.MaterialRepairModule;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.ReduceToolDamageModule;
@@ -143,9 +143,16 @@ import slimeknights.tconstruct.library.modifiers.modules.combat.ProjectileExplos
 import slimeknights.tconstruct.library.modifiers.modules.combat.SlingForceModule;
 import slimeknights.tconstruct.library.modifiers.modules.display.DurabilityBarColorModule;
 import slimeknights.tconstruct.library.modifiers.modules.display.MaterialVariantColorModule;
+import slimeknights.tconstruct.library.modifiers.modules.display.MeleeInstrumentModule;
 import slimeknights.tconstruct.library.modifiers.modules.display.ModifierVariantColorModule;
 import slimeknights.tconstruct.library.modifiers.modules.display.ModifierVariantNameModule;
 import slimeknights.tconstruct.library.modifiers.modules.display.ShowInteractionSourceModule;
+import slimeknights.tconstruct.library.modifiers.modules.display.StatTooltipModule;
+import slimeknights.tconstruct.library.modifiers.modules.interaction.edible.EdibleConsumeDurabilityModule;
+import slimeknights.tconstruct.library.modifiers.modules.interaction.edible.EdibleCureRandomEffectModule;
+import slimeknights.tconstruct.library.modifiers.modules.interaction.edible.EdibleModule;
+import slimeknights.tconstruct.library.modifiers.modules.interaction.edible.EdibleRemoveEffectModule;
+import slimeknights.tconstruct.library.modifiers.modules.interaction.edible.EdibleRepresentativeItemModule;
 import slimeknights.tconstruct.library.modifiers.modules.mining.ConditionalMiningSpeedModule;
 import slimeknights.tconstruct.library.modifiers.modules.technical.ArmorLevelModule;
 import slimeknights.tconstruct.library.modifiers.modules.util.BooleanPredicate;
@@ -203,6 +210,7 @@ import slimeknights.tconstruct.tools.modules.armor.FireWalkerModule;
 import slimeknights.tconstruct.tools.modules.armor.FlameBarrierModule;
 import slimeknights.tconstruct.tools.modules.armor.FreezingCounterModule;
 import slimeknights.tconstruct.tools.modules.armor.GlowWalkerModule;
+import slimeknights.tconstruct.tools.modules.armor.GoldenAttributeModule;
 import slimeknights.tconstruct.tools.modules.armor.KineticModule;
 import slimeknights.tconstruct.tools.modules.armor.KnockbackCounterModule;
 import slimeknights.tconstruct.tools.modules.armor.LightspeedAttributeModule;
@@ -220,7 +228,6 @@ import slimeknights.tconstruct.tools.modules.armor.UpdateHealthModule;
 import slimeknights.tconstruct.tools.modules.combat.BlockingModule;
 import slimeknights.tconstruct.tools.modules.combat.ChannelingModule;
 import slimeknights.tconstruct.tools.modules.combat.DamageOnShootModule;
-import slimeknights.tconstruct.tools.modules.combat.FieryArmorAttackModule;
 import slimeknights.tconstruct.tools.modules.combat.FieryAttackModule;
 import slimeknights.tconstruct.tools.modules.combat.FreezingAttackModule;
 import slimeknights.tconstruct.tools.modules.combat.LifestealModule;
@@ -511,15 +518,6 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.luck).levelDisplay(new UniqueForLevels(3)).addModules(CONSTANT_FORTUNE, ARMOR_FORTUNE, WEAPON_LOOTING, ARMOR_LOOTING, SEA_LUCK, ARMOR_LUCK);
     buildModifier(ModifierIds.fortune).addModules(CONSTANT_FORTUNE, ARMOR_FORTUNE, SEA_LUCK, ARMOR_LUCK);
     buildModifier(ModifierIds.looting).addModules(WEAPON_LOOTING, ARMOR_LOOTING);
-    // boot traits
-    UniqueForLevels twoLevels = new UniqueForLevels(2, false);
-    buildModifier(ModifierIds.looter).levelDisplay(twoLevels)
-      .addModule(LootingModule.builder().lootingLevel(LevelingInt.ONE).armor(ARMOR_SLOTS))
-      .addModule(AttributeModule.builder(TinkerAttributes.EXPERIENCE_MULTIPLIER, Operation.MULTIPLY_BASE).minLevel(2).flat(0.25f));
-    buildModifier(ModifierIds.fortunate).levelDisplay(twoLevels)
-      .addModule(EnchantmentModule.builder(Enchantments.BLOCK_FORTUNE).lootingLevel(LevelingInt.ONE).toolItem(harvest).constant())
-      .addModule(AttributeModule.builder(Attributes.LUCK, Operation.ADDITION).toolTag(TinkerTags.Items.ARMOR).flat(1))
-      .addModule(LootingModule.builder().minLevel(2).lootingLevel(LevelingInt.ONE).armor(ARMOR_SLOTS));
 
 
     /// attack
@@ -739,18 +737,12 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(ProtectionModule.builder()
                                  .toolItem(ItemPredicate.or(ItemPredicate.tag(TinkerTags.Items.LEGGINGS), ItemPredicate.tag(TinkerTags.Items.BOOTS)))
                                  .entity(LivingEntityPredicate.FEET_IN_WATER).eachLevel(2.5f));
-    buildModifier(ModifierIds.turtlesGrace).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
-      .addModule(AttributeModule.builder(ForgeMod.SWIM_SPEED.get(), Operation.MULTIPLY_TOTAL).eachLevel(0.1f))
-      .addModule(EnchantmentModule.builder(Enchantments.RESPIRATION).constant());
     buildModifier(ModifierIds.shulking)
       .addModule(MaxArmorAttributeModule.builder(TinkerAttributes.CROUCH_DAMAGE_MULTIPLIER, Operation.MULTIPLY_BASE).heldTag(TinkerTags.Items.HELD).eachLevel(-0.1f))
       .addModule(ProtectionModule.builder().entity(LivingEntityPredicate.CROUCHING).eachLevel(2.5f));
     buildModifier(ModifierIds.dragonborn)
       .addModule(MaxArmorAttributeModule.builder(TinkerAttributes.CRITICAL_DAMAGE, Operation.ADDITION).heldTag(TinkerTags.Items.HELD).tooltipStyle(TooltipStyle.PERCENT).eachLevel(0.05f))
       .addModule(ProtectionModule.builder().entity(TinkerPredicate.AIRBORNE).eachLevel(2.5f));
-    buildModifier(ModifierIds.dragonfall).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
-      .addModule(AttributeModule.builder(TinkerAttributes.CRITICAL_DAMAGE, Operation.ADDITION).tooltipStyle(TooltipStyle.PERCENT).eachLevel(0.1f))
-      .addModule(AttributeModule.builder(TinkerAttributes.SAFE_FALL_DISTANCE, Operation.ADDITION).eachLevel(2));
     // helmet
     buildModifier(ModifierIds.respiration).addModule(EnchantmentModule.builder(Enchantments.RESPIRATION).constant());
     buildModifier(ModifierIds.aquaAffinity).addModule(EnchantmentModule.builder(Enchantments.AQUA_AFFINITY).constant()).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
@@ -768,12 +760,6 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(InventoryMenuModule.ANY);
     // 18 slots per level
     buildModifier(ModifierIds.pockets).addModule(new ModifierTraitModule(ModifierIds.pocket, 6, false));
-    // 9 slots, single level
-    buildModifier(ModifierIds.shellStorage).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(new ModifierTraitModule(ModifierIds.pocket, 3, true));
-    // 6 slots, 3 at second level
-    buildModifier(ModifierIds.shulkerBox).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
-      .addModule(new ModifierTraitModule(ModifierIds.pocket, 1, true))
-      .addModule(new ModifierTraitModule(ModifierIds.pocket, 1, false));
     // other inventory
     buildModifier(ModifierIds.toolBelt).priority(85)
       .levelDisplay(ModifierLevelDisplay.PLUSES)
@@ -930,6 +916,12 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     // internal
     buildModifier(ModifierIds.overslimeFriend).tooltipDisplay(TooltipDisplay.NEVER);
     buildModifier(ModifierIds.snowBoots).addModule(new VolatileFlagModule(ModifiableArmorItem.SNOW_BOOTS)).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
+    buildModifier(TinkerModifiers.edible).priority(40).tooltipDisplay(TooltipDisplay.NEVER)
+      .addModule(EdibleModule.INSTANCE)
+      .addModule(new ModifierTraitModule(ModifierIds.edibleTooltip, 1, true));
+    buildModifier(ModifierIds.edibleTooltip).tooltipDisplay(TooltipDisplay.NEVER)
+      .addModule(new StatTooltipModule<>(EdibleModule.HUNGER))
+      .addModule(new StatTooltipModule<>(EdibleModule.SATURATION));
 
     // traits - tier 1
     buildModifier(ModifierIds.cultivated).addModule(RepairModule.builder().eachLevel(0.5f));
@@ -1116,12 +1108,6 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       // downside: don't take it off, damage more for armor
       .addModule(new DamageOnUnequipModule(1, ModifierCondition.ANY_TOOL.with(ToolStackPredicate.tag(TinkerTags.Items.WORN_ARMOR).inverted())))
       .addModule(new DamageOnUnequipModule(2, ModifierCondition.ANY_TOOL.with(ToolStackPredicate.tag(TinkerTags.Items.WORN_ARMOR))));
-    buildModifier(ModifierIds.entwined)
-      .levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
-      // boots: +15% movement speed
-      .addModule(AttributeModule.builder(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL).slots(armorMainHand).eachLevel(0.15f))
-      // downside: don't take it off
-      .addModule(new DamageOnUnequipModule(2, ModifierCondition.ANY_TOOL));
 
     MobEffectModule.Builder venomBuilder = MobEffectModule.builder(TinkerEffects.venom).time(RandomLevelingValue.random(5 * 20, 5 * 20));
     buildModifier(ModifierIds.venom).priority(150)
@@ -1234,10 +1220,29 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(StatBoostModule.multiplyBase(OverslimeModule.OVERSLIME_STAT).eachLevel(0.5f));
     buildModifier(ModifierIds.crumbling).addModule(ConditionalMiningSpeedModule.builder().blocks(BlockPredicate.REQUIRES_TOOL.inverted()).allowIneffective().eachLevel(1f));
     buildModifier(ModifierIds.enhanced).priority(60).addModule(UPGRADE);
-    buildModifier(ModifierIds.tasty).priority(40)
-      .addModule(new EdibleModule(TinkerCommons.bacon, LevelingInt.flat(16), new LevelingInt(5, 5), LevelingValue.eachLevel(0.15f)))
+    buildModifier(ModifierIds.tasty)
+      .addModule(EdibleModule.EDIBLE_TRAIT)
+      .addModule(new EdibleRepresentativeItemModule(TinkerCommons.bacon))
+      .addModule(new EdibleConsumeDurabilityModule(new LevelingInt(5, 5)))
       .addModule(StatBoostModule.add(EdibleModule.HUNGER).eachLevel(1))
-      .addModule(StatBoostModule.add(EdibleModule.SATURATION).flat(0.6f));
+      .addModule(StatBoostModule.add(EdibleModule.SATURATION).flat(0.6f))
+      .addModule(StatBoostModule.add(EdibleModule.COUNTER_CHANCE).eachLevel(0.15f));
+    buildModifier(ModifierIds.scrumptious).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
+      .addModule(EdibleModule.EDIBLE_TRAIT)
+      .addModule(new EdibleRepresentativeItemModule(Items.HONEY_BOTTLE))
+      .addModule(new EdibleConsumeDurabilityModule(new LevelingInt(5, 3)))
+      .addModule(new EdibleRemoveEffectModule(MobEffects.POISON))
+      .addModule(StatBoostModule.add(EdibleModule.HUNGER).eachLevel(1))
+      .addModule(StatBoostModule.add(EdibleModule.SATURATION).flat(0.1f))
+      .addModule(StatBoostModule.add(EdibleModule.COUNTER_CHANCE).eachLevel(0.15f));
+    buildModifier(ModifierIds.savory).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
+      .addModule(EdibleModule.EDIBLE_TRAIT)
+      .addModule(new EdibleRepresentativeItemModule(TinkerCommons.cheeseIngot))
+      .addModule(new EdibleConsumeDurabilityModule(new LevelingInt(4, 4)))
+      .addModule(new EdibleCureRandomEffectModule())
+      .addModule(StatBoostModule.add(EdibleModule.HUNGER).eachLevel(1))
+      .addModule(StatBoostModule.add(EdibleModule.SATURATION).flat(0.4f))
+      .addModule(StatBoostModule.add(EdibleModule.COUNTER_CHANCE).eachLevel(0.15f));
     buildModifier(ModifierIds.crystalbound)
       .addModule(RestrictAngleModule.INSTANCE)
       .addModule(StatBoostModule.add(ToolStats.VELOCITY).toolTag(TinkerTags.Items.RANGED).eachLevel(0.1f))
@@ -1259,9 +1264,6 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(StatBoostModule.multiplyBase(ToolStats.MINING_SPEED).eachLevel(0.08f))
       .addModule(StatBoostModule.add(ToolStats.DRAW_SPEED).eachLevel(0.03f))
       .addModule(StatBoostModule.add(ToolStats.VELOCITY).eachLevel(0.03f));
-    buildModifier(ModifierIds.cobalamin).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
-      .addModule(AttributeModule.builder(Attributes.ATTACK_SPEED, Operation.MULTIPLY_TOTAL).tooltipStyle(TooltipStyle.PERCENT).eachLevel(0.05f))
-      .addModule(AttributeModule.builder(TinkerAttributes.MINING_SPEED_MULTIPLIER, Operation.MULTIPLY_TOTAL).tooltipStyle(TooltipStyle.PERCENT).eachLevel(0.15f));
     buildModifier(ModifierIds.ductile)
       .addModule(StatBoostModule.multiplyBase(ToolStats.DURABILITY).eachLevel(0.1f))
       .addModule(StatBoostModule.multiplyBase(ToolStats.ATTACK_DAMAGE).eachLevel(0.05f))
@@ -1526,19 +1528,6 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
         .variable(LEVEL).multiply()
         .variable(VALUE).add()
         .build());
-    buildModifier(ModifierIds.loyal).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
-      .addModule(ProtectionModule.builder()
-        .formula()
-        // we get a bonus for each armor piece you do not wear, so 1-armor
-        .constant(1)
-        .customVariable("equipment", new EntityProtectionVariable(EntityVariable.ARMOR_COVERAGE, EntityProtectionVariable.WhichEntity.TARGET, 0.25f))
-        .subtract()
-        // grants +30% when this is all we wear (75% above), or +10% per piece
-        .constant(10).multiply()
-        // can achieve higher level via rebalanced
-        .variable(LEVEL).multiply()
-        .variable(VALUE).add()
-        .build());
     buildModifier(ModifierIds.temperedProtection).addModule(ProtectionModule.builder().attacker(LivingEntityPredicate.ON_FIRE).eachLevel(1.25f));
     buildModifier(ModifierIds.ambush)
       .addModule(ConditionalStatModule.stat(ToolStats.PROJECTILE_DAMAGE).holder(TinkerPredicate.FULL_HEALTH).eachLevel(0.5f))
@@ -1571,12 +1560,14 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     // traits - slimeskull
     buildModifier(ModifierIds.mithridatism).addModule(new EffectImmunityModule(MobEffects.POISON)).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
     buildModifier(ModifierIds.boonOfSssss).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
-      .addModule(AttributeModule.builder(TinkerAttributes.GOOD_EFFECT_DURATION, Operation.MULTIPLY_BASE).eachLevel(0.25f))
+      // 15%, +10% per level
+      .addModule(AttributeModule.builder(TinkerAttributes.GOOD_EFFECT_DURATION, Operation.MULTIPLY_BASE).amount(0.15f, 0.1f))
       // reduce time of effects on removal. 20% reduction should cancel out the 25% addition
       .addModule(new ReduceEffectOnUnequipModule(MobEffectCategory.BENEFICIAL, LevelingValue.eachLevel(0.2f), ModifierCondition.ANY_TOOL));
     buildModifier(ModifierIds.balmOfSssss).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
-      .addModule(AttributeModule.builder(TinkerAttributes.BAD_EFFECT_DURATION, Operation.MULTIPLY_BASE).tooltipStyle(TooltipStyle.PERCENT).eachLevel(0.2f));
-    buildModifier(ModifierIds.revenge).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
+      // 10%, +10% per level
+      .addModule(AttributeModule.builder(TinkerAttributes.BAD_EFFECT_DURATION, Operation.MULTIPLY_BASE).tooltipStyle(TooltipStyle.PERCENT).amount(-0.1f, -0.1f));
+    buildModifier(TinkerModifiers.revenge.getId()).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
       .addModule(MobEffectModule.builder(MobEffects.DAMAGE_BOOST).time(RandomLevelingValue.perLevel(0, 200)).chance(LevelingValue.ONE).counterDurabilityUsage(0).targetSelf(true).directDamage(BooleanPredicate.ALWAYS).damageSource(SourceAttackerPredicate.causing(LivingEntityPredicate.ANY)).buildCounter())
       .addModule(new ClearEffectOnUnequipModule(MobEffects.DAMAGE_BOOST, ModifierCondition.ANY_TOOL));
     buildModifier(ModifierIds.dragonheart).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
@@ -1589,27 +1580,86 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
         .variable(LEVEL).constant(2).multiply().subtract()
         .constant(1).max().min()
         .build(), ModifierHooks.MODIFY_DAMAGE);
-    // bones
+    buildModifier(ModifierIds.chrysophilite).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
+      .addModule(GoldenAttributeModule.builder(TinkerAttributes.CHRYSOPHILITE, Operation.ADDITION).amount(1, 1))
+      .addModule(new VolatileFlagModule(ModifiableArmorItem.PIGLIN_NEUTRAL, ModifierCondition.ANY_CONTEXT.minLevel(2)));
+    buildModifier(ModifierIds.goldGuard).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
+      .addModule(GoldenAttributeModule.builder(Attributes.MAX_HEALTH, Operation.ADDITION).amount(4, 4))
+      .addModule(new VolatileFlagModule(ModifiableArmorItem.PIGLIN_NEUTRAL, ModifierCondition.ANY_CONTEXT.minLevel(2)));
+    // effects
     buildModifier(ModifierIds.slowBones).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
       .addModule(new EffectImmunityModule(MobEffects.MOVEMENT_SLOWDOWN, LevelingInt.LEVEL))
       .addModule(MobEffectModule.builder(MobEffects.MOVEMENT_SLOWDOWN).damageSource(DamageSourcePredicate.tag(DamageTypeTags.IS_PROJECTILE)).time(RandomLevelingValue.flat(300)).level(RandomLevelingValue.perLevel(0, 2)).buildArmorAttack());
-    buildModifier(ModifierIds.magicBones).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
-      .addModule(new EffectImmunityModule(TinkerEffects.venom, LevelingInt.LEVEL))
-      .addModule(MobEffectModule.builder(TinkerEffects.venom).damageSource(DamageSourcePredicate.tag(DamageTypeTags.IS_PROJECTILE)).time(RandomLevelingValue.random(5 * 20, 5 * 20)).buildArmorAttack());
-    buildModifier(ModifierIds.flamingBones).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
-      .addModule(new EffectImmunityModule(TinkerEffects.conductive, LevelingInt.LEVEL))
-      .addModule(MobEffectModule.builder(TinkerEffects.conductive).damageSource(DamageSourcePredicate.tag(TinkerTags.DamageTypes.MELEE_PROTECTION)).time(RandomLevelingValue.random(5 * 20, 5 * 20)).buildArmorAttack());
-    buildModifier(ModifierIds.decayedBones).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
+    buildModifier(ModifierIds.witheredBones).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
       .addModule(new EffectImmunityModule(MobEffects.WITHER, LevelingInt.LEVEL))
       .addModule(MobEffectModule.builder(MobEffects.WITHER).damageSource(DamageSourcePredicate.tag(TinkerTags.DamageTypes.MELEE_PROTECTION)).time(RandomLevelingValue.flat(120)).buildArmorAttack());
     buildModifier(ModifierIds.fireborn).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
-      // immune to being on fire specifically
-      .addModule(new BlockDamageSourceModule(new DamageTypePredicate(DamageTypes.ON_FIRE), ModifierCondition.ANY_TOOL))
-      // all attacks now cause fire. Bit niche
-      .addModule(new FieryArmorAttackModule(LevelingInt.eachLevel(5), DamageSourcePredicate.ANY));
+      // make immune to fire by forcing fire time to 0 (that is, -105% fire tick time)
+      .addModule(EnchantmentModule.builder(Enchantments.FIRE_PROTECTION).level(LevelingInt.flat(7)).protection())
+      // also immune to conductive, this one is purely defensive
+      .addModule(new EffectImmunityModule(TinkerEffects.conductive, LevelingInt.LEVEL));
+    // bundles - adds 2 levels of ###, plus 1 when trimmed
+    traitTwoPlusOne(ModifierIds.consecratedSkull, ModifierIds.consecrated);
+    traitTwoPlusOne(ModifierIds.respirationSkull, ModifierIds.respiration);
+    traitTwoPlusOne(ModifierIds.vitalProtectionSkull, ModifierIds.vitalProtection);
 
-    // ribcages
+    // traits - ribcages
     buildModifier(ModifierIds.floaty).addModule(MobEffectModule.builder(MobEffects.LEVITATION).time(RandomLevelingValue.random(20*2, 20*5)).buildWeapon());
+    buildModifier(ModifierIds.ramAttack).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
+      .addModule(ConditionalMeleeDamageModule.builder().attacker(LivingEntityPredicate.SPRINTING).eachLevel(4))
+      .addModule(MeleeInstrumentModule.tag(InstrumentTags.REGULAR_GOAT_HORNS).material(MaterialIds.horn).attacker(LivingEntityPredicate.SPRINTING).build(), ModifierHooks.MELEE_HIT, ModifierHooks.MONSTER_MELEE_HIT);
+
+    // traits - slimeshell
+    buildModifier(ModifierIds.shellStorage).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(new ModifierTraitModule(ModifierIds.pocket, 3, true));
+    buildModifier(ModifierIds.turtlesGrace).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
+      .addModule(AttributeModule.builder(ForgeMod.SWIM_SPEED.get(), Operation.MULTIPLY_TOTAL).eachLevel(0.1f))
+      .addModule(EnchantmentModule.builder(Enchantments.RESPIRATION).constant());
+    buildModifier(ModifierIds.shellGut).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
+      .addModule(new EffectImmunityModule(MobEffects.POISON, LevelingInt.LEVEL))
+      .addModule(new EffectImmunityModule(MobEffects.HUNGER, new LevelingInt(1, 1)))
+      .addModule(new EffectImmunityModule(MobEffects.CONFUSION, LevelingInt.LEVEL));
+    traitTwoPlusOne(ModifierIds.thornsShell, ModifierIds.thorns);
+    buildModifier(ModifierIds.shulkerBox).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
+      // 6 slots, 3 at second level
+      .addModule(new ModifierTraitModule(ModifierIds.pocket, 1, true))
+      .addModule(new ModifierTraitModule(ModifierIds.pocket, 1, false));
+    buildModifier(ModifierIds.dragonfall).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
+      .addModule(AttributeModule.builder(TinkerAttributes.CRITICAL_DAMAGE, Operation.ADDITION).tooltipStyle(TooltipStyle.PERCENT).eachLevel(0.1f))
+      .addModule(AttributeModule.builder(TinkerAttributes.SAFE_FALL_DISTANCE, Operation.ADDITION).eachLevel(2));
+    // shards
+    buildModifier(ModifierIds.cobalamin).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
+      .addModule(AttributeModule.builder(Attributes.ATTACK_SPEED, Operation.MULTIPLY_TOTAL).tooltipStyle(TooltipStyle.PERCENT).eachLevel(0.05f))
+      .addModule(AttributeModule.builder(TinkerAttributes.USE_ITEM_SPEED, Operation.ADDITION).tooltipStyle(TooltipStyle.PERCENT).eachLevel(0.10f))
+      .addModule(AttributeModule.builder(TinkerAttributes.MINING_SPEED_MULTIPLIER, Operation.MULTIPLY_TOTAL).tooltipStyle(TooltipStyle.PERCENT).eachLevel(0.15f));
+    buildModifier(ModifierIds.loyal).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
+      .addModule(ProtectionModule.builder()
+        .formula()
+        // we get a bonus for each armor piece you do not wear, so 1-armor
+        .constant(1)
+        .customVariable("equipment", new EntityProtectionVariable(EntityVariable.ARMOR_COVERAGE, EntityProtectionVariable.WhichEntity.TARGET, 0.25f))
+        .subtract()
+        // grants +30% when this is all we wear (75% above), or +10% per piece
+        .constant(10).multiply()
+        // can achieve higher level via rebalanced
+        .variable(LEVEL).multiply()
+        .variable(VALUE).add()
+        .build());
+
+    // traits - slimeboots
+    UniqueForLevels twoLevels = new UniqueForLevels(2, false);
+    buildModifier(ModifierIds.looter).levelDisplay(twoLevels)
+      .addModule(LootingModule.builder().level(LevelingInt.ONE).armor(ARMOR_SLOTS))
+      .addModule(AttributeModule.builder(TinkerAttributes.EXPERIENCE_MULTIPLIER, Operation.MULTIPLY_BASE).minLevel(2).flat(0.25f));
+    buildModifier(ModifierIds.fortunate).levelDisplay(twoLevels)
+      .addModule(EnchantmentModule.builder(Enchantments.BLOCK_FORTUNE).level(LevelingInt.ONE).toolItem(harvest).constant())
+      .addModule(AttributeModule.builder(Attributes.LUCK, Operation.ADDITION).toolTag(TinkerTags.Items.ARMOR).flat(1))
+      .addModule(LootingModule.builder().minLevel(2).level(LevelingInt.ONE).armor(ARMOR_SLOTS));
+    buildModifier(ModifierIds.entwined)
+      .levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
+      // boots: +15% movement speed
+      .addModule(AttributeModule.builder(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL).slots(armorMainHand).eachLevel(0.15f))
+      // downside: don't take it off
+      .addModule(new DamageOnUnequipModule(2, ModifierCondition.ANY_TOOL));
 
     // internal modifier to restore older slots to slimesuit
     IJsonPredicate<IToolContext> notSlimelytra = ToolContextPredicate.set(TinkerTools.slimeWings.get()).inverted();
@@ -1662,6 +1712,16 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     addRedirect(id("plowing"), redirect(ModifierIds.tilling));
     addRedirect(id("lightspeed_armor"), redirect(ModifierIds.lightspeed));
     addRedirect(TinkerModifiers.frosttouch.getId(), redirect(ModifierIds.slowBones));
+  }
+
+  /** Creates a modifier that grants 2 levels of another modifier, plus a third on the next level. */
+  private void traitTwoPlusOne(ModifierId modifier, ModifierId trait) {
+    buildModifier(modifier).tooltipDisplay(TooltipDisplay.NEVER)
+      // use the trait for name and description
+      .levelDisplay(new ModifierLevelDisplay.MapLevel(1, 1)).translationKey(trait)
+      // add the trait once fixed and once leveling
+      .addModule(new ModifierTraitModule(trait, 1, false))
+      .addModule(new ModifierTraitModule(trait, 1, true));
   }
 
   @Override

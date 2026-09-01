@@ -1,0 +1,20 @@
+{
+  "level_display": "tconstruct:single_level",
+  "modules": [
+    {
+      "type": "tconstruct:golden_attribute",
+      "attribute": "tconstruct:generic.chrysophilite",
+      "each_level": 1.0,
+      "flat": 1.0,
+      "operation": "addition"
+    },
+    {
+      "type": "tconstruct:volatile_flag",
+      "flag": "tconstruct:piglin_neutral",
+      "modifier_level": {
+        "min": 2
+      }
+    }
+  ],
+  "tooltip_display": "always"
+}

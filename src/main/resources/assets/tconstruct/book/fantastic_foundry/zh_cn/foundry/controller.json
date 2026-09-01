@@ -1,11 +1,13 @@
 {
   "title": "熔铸炉控制器",
   "image": {
-    "file": "tconstruct:book/images/fcontroller.png"
+    "file": "tconstruct:book/images/zh_cn/fcontroller.png",
+    "width": 160,
+    "height": 76
   },
   "text": [
     {
-      "text": "将1块量的熔融黑曜石浇注到焦褐砖块上，你就能获得这个神秘的熔铸炉控制器。"
+      "text": "将1块量的熔融黑曜石浇注到焦褐砖块上，你就能得到这个神奇的熔铸炉控制器。"
     }
   ]
 }

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:bane_of_sssss",
+  "text": [
+    {
+      "text": "La mejor mejora para quienes sufren de aracnofobia o creeperfobia. Arañas y creepers, mejor corran."
+    }
+  ],
+  "effects": [
+    "Sube el daño y ralentiza a arañas y bichos explosivos",
+    "Varios niveles, aumentan más el daño",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

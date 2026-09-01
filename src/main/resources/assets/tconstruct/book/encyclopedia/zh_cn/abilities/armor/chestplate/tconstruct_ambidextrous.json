@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:ambidextrous",
   "text": [
     {
-      "text": "能让你使用副手攻击。副手将会受到所有对主手的空手强化的加成。"
+      "text": "可以用副手进行空手攻击。副手攻击也会触发所有对主手的空手强化的加成。"
     }
   ],
   "more_text_space": true,

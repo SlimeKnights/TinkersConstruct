@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:fiery",
+  "text": [
+    {
+      "text": "Hace que las criaturas atacadas se quemen durante 5 segundos por nivel."
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/melee",
+  "effects": [
+    "Se pueden aplicar niveles de forma incremental",
+    "Máximo de 5 niveles",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:unbreakable",
+  "text": [
+    {
+      "text": "Las cosas rotas no son divertidas; por suerte, todo puede hacerse irrompible."
+    }
+  ],
+  "effects": [
+    "Tu herramienta ahora es irrompible",
+    "Nivel único",
+    "Requiere: 1 hab., Reforzado 5 y Netherite",
+    "No funciona si intentas comerte la herramienta"
+  ]
+}

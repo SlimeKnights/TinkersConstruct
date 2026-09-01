@@ -24,7 +24,7 @@ public class MaterialVariant extends LazyMaterial {
 
   /** Creates a new lazy material variant with the given variant ID */
   public static MaterialVariant of(MaterialVariantId variantId) {
-    if (variantId.equals(IMaterial.UNKNOWN_ID)) {
+    if (variantId.equals(MaterialId.UNKNOWN)) {
       return UNKNOWN;
     }
     return new MaterialVariant(variantId);

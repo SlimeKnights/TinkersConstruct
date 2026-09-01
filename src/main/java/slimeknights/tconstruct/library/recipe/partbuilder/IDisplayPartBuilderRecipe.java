@@ -41,6 +41,7 @@ public interface IDisplayPartBuilderRecipe extends IPartBuilderRecipe {
    * Gets a list of pattern items to display in the pattern slot
    * @return  Pattern items
    */
+  @SuppressWarnings("deprecation")
   default List<ItemStack> getPatternItems() {
     return RegistryHelper.getTagValueStream(BuiltInRegistries.ITEM, TinkerTags.Items.DEFAULT_PATTERNS).map(ItemStack::new).toList();
   }

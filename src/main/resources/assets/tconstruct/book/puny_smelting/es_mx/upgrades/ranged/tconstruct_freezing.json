@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:freezing",
+  "text": [
+    {
+      "text": "La Elsa se va a poner celosa. Solo asegúrate de no congelarte tú también."
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/ranged",
+  "effects": [
+    "Los proyectiles ralentizan y hacen daño extra",
+    "Varios niveles, duran más tiempo",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

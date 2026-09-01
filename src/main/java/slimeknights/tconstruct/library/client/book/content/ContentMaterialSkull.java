@@ -7,17 +7,20 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.screen.book.element.ItemElement;
-import slimeknights.mantle.util.html.HtmlSerializable;
+import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.client.book.content.material.SingleMaterialStatContent;
 import slimeknights.tconstruct.library.client.book.elements.TinkerItemElement;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.library.recipe.casting.IDisplayableCastingRecipe;
+import slimeknights.tconstruct.library.tools.definition.module.display.CustomMaterialName;
+import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
+import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.stats.SkullStats;
@@ -25,10 +28,13 @@ import slimeknights.tconstruct.tools.stats.SkullStats;
 import javax.annotation.Nullable;
 import java.util.List;
 
-/** Extension of the material page to display skull stats for the slimeskull */
-public class ContentMaterialSkull extends AbstractMaterialContent {
+/**
+ * Extension of the material page to display skull stats for the slimeskull
+ * TODO 1.21: move to {@link slimeknights.tconstruct.library.client.book.content.material}.
+ */
+public class ContentMaterialSkull extends SingleMaterialStatContent {
   /** Translation key for skull recipe */
-  private static final Component SKULL = TConstruct.makeTranslation("book", "material.skull");
+  private static final Component SKULL_CRAFTING = TConstruct.makeTranslation("book", "material.skull");
   /** Translation key for skull recipe */
   private static final String SKULL_FROM = TConstruct.makeTranslationKey("book", "material.skull_from");
   /** Page ID for using this index directly */
@@ -50,15 +56,29 @@ public class ContentMaterialSkull extends AbstractMaterialContent {
     return ID;
   }
 
-  @Nullable
   @Override
-  protected MaterialStatsId getStatType(int index) {
-    return index == 0 ? SkullStats.ID : null;
+  protected MaterialStatsId getStatType() {
+    return SkullStats.ID;
+  }
+
+  @Override
+  protected boolean hasPart() {
+    return false;
+  }
+
+  @Override
+  protected String translationSuffix() {
+    return "skull";
   }
 
   @Override
   protected String getTextKey(MaterialId material) {
-    return String.format(detailed ? "material.%s.%s.skull_encyclopedia" : "material.%s.%s.skull_flavor", material.getNamespace(), material.getPath());
+    // TOOD 1.21: drop legacy key
+    String legacyKey = "material." + material.toLanguageKey() + (detailed ? ".skull_encyclopedia" : ".skull_flavor");
+    if (Util.canTranslate(legacyKey)) {
+      return legacyKey;
+    }
+    return super.getTextKey(material);
   }
 
   /** Gets the recipe to cast this skull */
@@ -66,9 +86,7 @@ public class ContentMaterialSkull extends AbstractMaterialContent {
   private IDisplayableCastingRecipe getSkullRecipe() {
     Level world = Minecraft.getInstance().level;
     if (!searchedSkullRecipe && world != null) {
-      skullRecipe = world.getRecipeManager().getAllRecipesFor(TinkerRecipeTypes.CASTING_BASIN.get()).stream()
-												 .filter(recipe -> recipe instanceof IDisplayableCastingRecipe)
-												 .map(recipe -> (IDisplayableCastingRecipe)recipe)
+      skullRecipe = RecipeHelper.getJEIRecipes(world.registryAccess(), world.getRecipeManager(), TinkerRecipeTypes.CASTING_BASIN.get(), IDisplayableCastingRecipe.class).stream()
 												 .filter(recipe -> {
                            ItemStack output = recipe.getOutput();
                            return output.getItem() == TinkerTools.slimesuit.get(ArmorItem.Type.HELMET) && MaterialIdNBT.from(output).getMaterial(0).getId().toString().equals(materialName);
@@ -82,56 +100,54 @@ public class ContentMaterialSkull extends AbstractMaterialContent {
 
   @Override
   public Component getTitleComponent() {
-    // display slimeskull instead of material name
-    IDisplayableCastingRecipe skullRecipe = getSkullRecipe();
-    if (skullRecipe != null) {
-      return skullRecipe.getOutput().getHoverName();
+    Component material = CustomMaterialName.getMaterialName(getMaterialVariant(), "skull");
+    if (titleSuffix != null) {
+      return Component.translatable(TooltipUtil.KEY_FORMAT, material, titleSuffix);
     }
-    return super.getTitleComponent();
+    return material;
   }
 
   @Override
   public List<ItemStack> getDisplayStacks() {
-    // display skull items instead of repair items
-    IDisplayableCastingRecipe skullRecipe = getSkullRecipe();
-    if (skullRecipe != null) {
-      List<ItemStack> skulls = skullRecipe.getCastItems();
-      if (!skulls.isEmpty()) {
-        return skulls;
+    cacheStacks:
+    if (skullStacks == null) {
+      // display skull items instead of repair items
+      IDisplayableCastingRecipe skullRecipe = getSkullRecipe();
+      if (skullRecipe != null) {
+        List<ItemStack> skulls = skullRecipe.getCastItems();
+        if (!skulls.isEmpty()) {
+          // first will be the skull, second will be the part swapping
+          skullStacks = List.of(skulls.get(0));
+          break cacheStacks;
+        }
       }
+      skullStacks = super.getDisplayStacks();
     }
-    return super.getDisplayStacks();
-  }
-
-  @Override
-  protected boolean supportsStatType(MaterialStatsId statsId) {
-    return statsId.equals(SkullStats.ID); // support only skulls
+    return skullStacks;
   }
 
   @Override
   protected void addPrimaryDisplayItems(List<ItemElement> displayTools, MaterialVariantId materialId) {
-    displayTools.add(new TinkerItemElement(TinkerToolParts.repairKit.get().withMaterialForDisplay(materialId)));
-
-    super.addPrimaryDisplayItems(displayTools, materialId);
+    List<ItemStack> repairStacks = getRepairStacks();
+    if (!repairStacks.isEmpty() && repairStacks.get(0).getItem() != TinkerToolParts.repairKit.asItem()) {
+      displayTools.add(new TinkerItemElement(TinkerToolParts.repairKit.get().withMaterialForDisplay(materialId)));
+    }
 
     // add skull recipe to display items
     IDisplayableCastingRecipe skullRecipe = getSkullRecipe();
     if (skullRecipe != null) {
       // add repair kit
-      List<ItemStack> casts = skullRecipe.getCastItems();
+      List<ItemStack> casts = getDisplayStacks();
       if (!casts.isEmpty()) {
         ItemElement elementItem = new TinkerItemElement(0, 0, 1, casts);
         elementItem.tooltip = List.of(
-          SKULL,
+          SKULL_CRAFTING,
           Component.translatable(SKULL_FROM, casts.get(0).getHoverName()).withStyle(ChatFormatting.GRAY)
         );
         displayTools.add(elementItem);
       }
     }
-  }
 
-  @Override
-  protected HtmlSerializable makeStatsHtml(BookData data) {
-    return makeStatHtml(SkullStats.ID, true, false);
+    super.addPrimaryDisplayItems(displayTools, materialId);
   }
 }

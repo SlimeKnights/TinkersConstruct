@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:luck",
+  "text": [
+    {
+      "text": "Aumenta el botín de bloques y monstruos. Requiere una receta distinta para cada nivel, aplicadas en orden."
+    },
+    {
+      "text": "Las grebas admiten un nivel de suerte, afectando botín de criaturas y bloques minados.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 3 niveles",
+    "Nivel 1: requiere 1 ranura habilidad",
+    "Nivel 2 y 3: sin coste de ranura"
+  ]
+}

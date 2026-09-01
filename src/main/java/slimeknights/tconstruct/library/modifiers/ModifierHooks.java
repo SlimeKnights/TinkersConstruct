@@ -48,6 +48,7 @@ import slimeknights.tconstruct.library.modifiers.hook.display.RequirementsModifi
 import slimeknights.tconstruct.library.modifiers.hook.display.TooltipModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.AreaOfEffectHighlightModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.BlockInteractionModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.EdibleEffectHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.EntityInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InventoryTickModifierHook;
@@ -74,6 +75,7 @@ import slimeknights.tconstruct.library.modifiers.hook.special.ShearsModifierHook
 import slimeknights.tconstruct.library.modifiers.hook.special.sling.SlingAngleModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.special.sling.SlingForceModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.special.sling.SlingLaunchModifierHook;
+import slimeknights.tconstruct.library.modifiers.modules.interaction.edible.EdibleModule;
 import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.tools.capability.BlockItemProviderModifierHook;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -304,6 +306,7 @@ public class ModifierHooks {
 
   /** Hook for conditionally modifying the break speed of a block */
   public static final ModuleHook<BreakSpeedModifierHook> BREAK_SPEED = register("break_speed", BreakSpeedModifierHook.class, BreakSpeedModifierHook.AllMerger::new, new BreakSpeedModifierHook() {
+    @Deprecated
     @Override
     public void onBreakSpeed(IToolStackView tool, ModifierEntry modifier, BreakSpeed event, Direction sideHit, boolean isEffective, float miningSpeedModifier) {}
 
@@ -416,6 +419,9 @@ public class ModifierHooks {
 
   /** Hook called on all tool modifiers after transforming a block */
   public static final ModuleHook<BlockTransformModifierHook> BLOCK_TRANSFORM = register("block_transform", BlockTransformModifierHook.class, BlockTransformModifierHook.AllMerger::new, (tool, modifier, context, state, pos, action) -> {});
+
+  /** Hook called when an edible tool is eaten to perform effects other than restoring hunger and saturation. See {@link EdibleModule} */
+  public static final ModuleHook<EdibleEffectHook> EDIBLE_EFFECT = register("edible_effect", EdibleEffectHook.class, EdibleEffectHook.AllMerger::new, ((tool, modifier, player, eatenSlot, hunger, saturation, representativeItems) -> {}));
 
 
   /* Registration */

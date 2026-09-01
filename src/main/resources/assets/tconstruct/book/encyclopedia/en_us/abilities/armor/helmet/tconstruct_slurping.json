@@ -8,7 +8,7 @@
       "text": "Higher levels consume more fluid to perform stronger effects", "paragraph": true
     }
   ],
-  "tool_filter": "tconstruct:modifiable/armor",
+  "tool_filter": "tconstruct:modifiable/armor/helmets",
   "more_text_space": true,
   "effects": [
     "No max level",

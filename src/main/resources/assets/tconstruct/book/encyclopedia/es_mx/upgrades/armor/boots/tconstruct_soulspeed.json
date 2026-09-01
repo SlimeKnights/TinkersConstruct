@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:soulspeed",
+  "text": [
+    {
+      "text": "Otorga +40.5% de velocidad sobre arena de almas, más un 10.5% adicional por cada nivel extra. Reduce la ralentización al caminar sobre arena de almas."
+    },
+    {
+      "text": "Las botas recibirán daño con el tiempo cuando este modificador esté activo.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 3 niveles",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

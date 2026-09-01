@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:protection",
+  "text": [
+    {
+      "text": "Otorga un +5% de resistencia contra todo tipo de daño por cada pieza con este modificador. Tiene un límite del 80% para todo el conjunto, incluyendo otros tipos de protección."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nivel",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

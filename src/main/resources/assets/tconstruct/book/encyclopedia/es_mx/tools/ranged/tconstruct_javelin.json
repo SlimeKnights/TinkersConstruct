@@ -1,0 +1,14 @@
+{
+  "tool": "tconstruct:javelin",
+  "text": [
+    {
+      "text": "La jabalina es un arma híbrida cuerpo a cuerpo/a distancia que puede usarse tanto para ataques a corta distancia como lanzarse para atacar desde lejos."
+    }
+  ],
+  "properties": [
+    "+3 de daño de ataque",
+    "1.1 de velocidad de ataque",
+    "Suma las estadísticas de todas las piezas",
+    "Arrojadiza"
+  ]
+}

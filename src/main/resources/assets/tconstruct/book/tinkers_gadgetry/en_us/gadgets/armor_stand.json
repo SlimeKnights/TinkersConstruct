@@ -1,0 +1,13 @@
+{
+  "title": "Fancy Armor Stands",
+  "image": {
+    "file": "tconstruct:book/images/armor_stand.png",
+    "width": 140,
+    "height": 82
+  },
+  "text": [
+    {
+      "text": "Leveraging other types of wood and bones, I invented new types of armor stands."
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:plate_boots",
+  "text": [
+    { "text": "¿Qué son esooooos?" },
+  {
+      "text": "¡Ir al Nether requiere botas resistentes para tus pies! Nadie piensa en lo caliente que está el suelo en realidad.", "paragraph": true
+    }
+  ],
+  "properties": [
+    "Más durabilidad",
+    "Más armadura",
+    "2 ranuras de mejora",
+    "3 ranuras de defensa",
+    "2 rasgos de material"
+  ]
+}

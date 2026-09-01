@@ -1,32 +1,30 @@
 package slimeknights.tconstruct.library.utils;
 
-import it.unimi.dsi.fastutil.objects.Object2IntMap;
-import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import lombok.Getter;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedOutEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.LeftClickBlock;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.LeftClickBlock.Action;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import org.jetbrains.annotations.ApiStatus.Internal;
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
+import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 
 /**
  * Logic to keep track of the side of the block that was last hit
  */
 public class BlockSideHitListener {
-  private static final Map<UUID,Direction> HIT_FACE = new HashMap<>();
-  private static final Object2IntMap<UUID> LAST_XP = new Object2IntOpenHashMap<>();
+  private static final TinkerDataKey<Direction> HIT_FACE = TConstruct.createKey("hit_face");
+  private static final TinkerDataKey<Integer> LAST_XP = TConstruct.createKey("last_xp");
   @Getter
   private static Direction clientSideHit = Direction.UP;
   private static boolean init = false;
 
-  /** Initializes this listener */
+  /** @apiNote Internal method to initialize the listener. */
+  @Internal
   public static void init() {
     if (init) {
       return;
@@ -34,31 +32,32 @@ public class BlockSideHitListener {
     init = true;
     MinecraftForge.EVENT_BUS.addListener(BlockSideHitListener::onLeftClickBlock);
     MinecraftForge.EVENT_BUS.addListener(EventPriority.LOWEST, BlockSideHitListener::breakBlock);
-    MinecraftForge.EVENT_BUS.addListener(BlockSideHitListener::onLeaveServer);
   }
 
   /** Called when the player left-clicks a block to store the face */
   private static void onLeftClickBlock(LeftClickBlock event) {
     if (event.getAction() == Action.START) {
-      Player player = event.getEntity();
-      if (player.level().isClientSide()) {
-        clientSideHit = event.getFace();
-      } else {
-        HIT_FACE.put(player.getUUID(), event.getFace());
+      Direction face = event.getFace();
+      if (face != null) {
+        Player player = event.getEntity();
+        if (player.level().isClientSide()) {
+          clientSideHit = face;
+        } else {
+          TinkerDataCapability.Holder data = TinkerDataCapability.getData(player);
+          if (data != null) {
+            data.put(HIT_FACE, face);
+          }
+        }
       }
     }
   }
 
   /** Called on block break to store the last break XP */
   private static void breakBlock(BlockEvent.BreakEvent event) {
-    LAST_XP.put(event.getPlayer().getUUID(), event.getExpToDrop());
-  }
-
-  /** Called when a player leaves the server to clear the face */
-  private static void onLeaveServer(PlayerLoggedOutEvent event) {
-    UUID uuid = event.getEntity().getUUID();
-    HIT_FACE.remove(uuid);
-    LAST_XP.remove(uuid);
+    TinkerDataCapability.Holder data = TinkerDataCapability.getData(event.getPlayer());
+    if (data != null) {
+      data.put(LAST_XP, event.getExpToDrop());
+    }
   }
 
   /**
@@ -70,11 +69,19 @@ public class BlockSideHitListener {
     if (player.level().isClientSide()) {
       return clientSideHit;
     }
-    return HIT_FACE.getOrDefault(player.getUUID(), Direction.UP);
+    TinkerDataCapability.Holder data = TinkerDataCapability.getData(player);
+    if (data != null) {
+      return data.get(HIT_FACE, Direction.UP);
+    }
+    return Direction.UP;
   }
 
   /** Gets the last XP from the break block event */
   public static int getLastXP(Player player) {
-    return LAST_XP.getOrDefault(player.getUUID(), 0);
+    TinkerDataCapability.Holder data = TinkerDataCapability.getData(player);
+    if (data != null) {
+      return data.get(LAST_XP, 0);
+    }
+    return 0;
   }
 }

@@ -158,7 +158,8 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
       MaterialIds.wood, MaterialIds.chorus,
       MaterialIds.string, MaterialIds.vine, MaterialIds.leather,
       // tier 2
-      MaterialIds.slimewood, MaterialIds.necroticBone, MaterialIds.skyslimeVine,
+      MaterialIds.slimewood, MaterialIds.necroticBone,
+      MaterialIds.skyslimeVine, MaterialIds.cheese,
       // tier 3
       MaterialIds.slimesteel, MaterialIds.darkthread, MaterialIds.cobalt, MaterialIds.pigIron,
       // tier 4
@@ -179,7 +180,7 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
       // tier 3
       MaterialIds.nahuatl, MaterialIds.roseGold,
       // tier 4
-      MaterialIds.hepatizon, MaterialIds.queensSlime, MaterialIds.knightmetal
+      MaterialIds.hepatizon, MaterialIds.queensSlime, MaterialIds.knightslime
     ).addOptional(
       // tier 2
       MaterialIds.aluminum,
@@ -196,7 +197,7 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
       // tier 3
       MaterialIds.amethystBronze, MaterialIds.steel,
       // tier 4
-      MaterialIds.manyullyn, MaterialIds.cinderslime, MaterialIds.knightslime
+      MaterialIds.manyullyn, MaterialIds.cinderslime, MaterialIds.knightmetal
     ).addOptional(
       // tier 2
       MaterialIds.lead,
@@ -209,7 +210,7 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
     // slimeskull sort order
     tag(TinkerTags.Materials.SLIMESKULL).add(
       // creeper
-      MaterialIds.glass,
+      MaterialIds.gunpowder,
       // zombie
       MaterialIds.leather, MaterialIds.iron, MaterialIds.copper,
       // spider
@@ -221,8 +222,8 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
       // misc
       MaterialIds.blaze, MaterialIds.enderPearl, MaterialIds.dragonScale,
       // crafted
-      MaterialIds.venombone, MaterialIds.blazingBone, MaterialIds.knightmetal
-    ).addOptional(MaterialIds.necronium);
+      MaterialIds.knightmetal
+    );
   }
 
   @Override

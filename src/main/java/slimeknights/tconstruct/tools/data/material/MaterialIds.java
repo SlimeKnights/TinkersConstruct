@@ -57,6 +57,7 @@ public final class MaterialIds {
   public static final MaterialId redstone = id("redstone");
   // tier 2 - ammo slimeballs
   public static final MaterialId turtle = id("turtle");
+  public static final MaterialId nautilus = id("nautilus");
   public static final MaterialId slimeball = id("slimeball");
   // tier 3
   public static final MaterialId slimesteel = id("slimesteel");
@@ -134,10 +135,12 @@ public final class MaterialIds {
   @Deprecated(forRemoval = true)
   public static final MaterialId rottenFlesh = id("rotten_flesh");
   // slimesuit
-  public static final MaterialId phantom = id("phantom");
   public static final MaterialId blood = id("blood");
   public static final MaterialId clay = id("clay");
   public static final MaterialId honey = id("honey");
+  public static final MaterialId horn = id("horn");
+  public static final MaterialId phantom = id("phantom");
+  public static final MaterialId cheese = id("cheese");
 
   /** List of custom trim materials we support */
   public static final MaterialId[] TRIM_MATERIALS = {

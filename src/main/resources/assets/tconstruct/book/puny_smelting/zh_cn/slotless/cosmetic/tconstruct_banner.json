@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:banner",
+  "text": [
+    {
+      "text": "可以制作灾厄盾牌了。"
+    }
+  ],
+  "effects": [
+    "用旗帜装饰盾牌",
+    "再次加持改变旗帜设计",
+    "无需槽位"
+  ]
+}

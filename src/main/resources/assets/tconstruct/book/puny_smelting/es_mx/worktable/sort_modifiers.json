@@ -1,0 +1,13 @@
+{
+  "title": "Ordenar Modificadores",
+  "image": {
+    "file": "tconstruct:book/images/worktable/sort_modifiers.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "Aunque normalmente la brújula magnetiza las herramientas, puedes usarla para reordenar modificadores sin quitarlos. A diferencia de la tinta invisible, esto no es solo estética; el orden permite cambiar la prioridad de ejecución cuando los modificadores se solapan. Poner la brújula en la ranura superior da menos prioridad al modificador, mientras que en la inferior le da mayor prioridad."
+    }
+  ]
+}

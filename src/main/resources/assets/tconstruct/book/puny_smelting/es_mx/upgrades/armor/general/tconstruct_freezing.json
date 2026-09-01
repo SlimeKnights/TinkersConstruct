@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:freezing",
+  "text": [
+    {
+      "text": "La Elsa se va a poner celosa. Un abrazo tuyo y se quedan tiesos."
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/armor",
+  "effects": [
+    "Probabilidad de congelar al atacante al recibir un golpe",
+    "Varios niveles, aumentan la probabilidad",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

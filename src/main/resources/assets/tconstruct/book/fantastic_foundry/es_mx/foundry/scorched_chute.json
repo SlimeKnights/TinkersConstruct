@@ -1,0 +1,10 @@
+{
+  "title": "Tolva chamuscada",
+  "item": "tconstruct:scorched_chute",
+  "text": [
+    {
+      "text": "La tolva chamuscada es tu vía para introducir o extraer objetos de la fundición. Lo ideal es colocarla en algún lugar de fácil acceso para un embudo.",
+      "paragraph": true
+    }
+  ]
+}

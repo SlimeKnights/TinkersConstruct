@@ -2,14 +2,16 @@
   "tool": "tconstruct:slime_wings",
   "text": [
     { "text": "The slimelytra is the latest in flight technology." },
-    { "text": "Created by pouring enderslime on an elytra, these wings can also be repaired with phantom membranes.", "paragraph": true }
+    { "text": " Created by pouring slime on an elytra, these wings can also be repaired with phantom membranes in addition to their slime type." }
   ],
   "properties": [
-    "672 Durability",
-    "40% Unarmed Attack",
-    "5 Upgrade Slots",
+    "Low defense",
+    "50% Unarmed Attack",
+    "+222 Durability",
+    "4 Upgrade Slots",
     "0 Defense Slots",
     "1 Ability Slot",
+    "Slime Trait",
     "Wings"
   ]
 }

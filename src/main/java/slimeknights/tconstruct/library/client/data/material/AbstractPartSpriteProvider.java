@@ -66,13 +66,14 @@ public abstract class AbstractPartSpriteProvider {
   }
 
   /** Adds a given sprite to the list to generate, for the local namespace */
+  @SuppressWarnings("removal")
   protected PartSpriteInfo.Builder addTexture(String name, MaterialStatsId... requiredStats) {
     return addTexture(new ResourceLocation(modID, name), requiredStats);
   }
 
   /** Adds a given sprite to the list to generated, located in the tools folder */
   protected PartSpriteInfo.Builder addSprite(String name, MaterialStatsId... requiredStats) {
-    return addTexture(new ResourceLocation(modID, "item/tool/" + name), requiredStats);
+    return addTexture("item/tool/" + name, requiredStats);
   }
 
   /** Adds a sprite for a generic tool part from the parts folder */
@@ -113,6 +114,7 @@ public abstract class AbstractPartSpriteProvider {
   }
 
   /** Create a builder for tool sprites relative to the default mod ID */
+  @SuppressWarnings("removal")
   protected ToolSpriteBuilder buildTool(String name) {
     return buildTool(new ResourceLocation(modID, name));
   }
@@ -174,7 +176,7 @@ public abstract class AbstractPartSpriteProvider {
       // determine the path to try for the sprite
       ResourceLocation fallbackPath = path;
       if (!name.isEmpty()) {
-        fallbackPath = new ResourceLocation(path.getNamespace(), path.getPath() + "_" + name);
+        fallbackPath = path.withSuffix('_' + name);
       }
       // if the image exists, fetch it and return it
       NativeImage image = spriteReader.readIfExists(fallbackPath);
@@ -319,7 +321,7 @@ public abstract class AbstractPartSpriteProvider {
     /** Helper to add all parts for a size */
     private void addParts(String path) {
       for (Entry<String,MaterialStatsId[]> entry : parts.entrySet()) {
-        addTexture(new ResourceLocation(name.getNamespace(), "item/tool/" + path + "/" + entry.getKey()), entry.getValue())
+        addTexture(name.withPath("item/tool/" + path + "/" + entry.getKey()), entry.getValue())
           .allowAnimated(allowAnimated).skipVariants(skipVariants);
       }
     }

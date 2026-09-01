@@ -2,10 +2,10 @@
   "modifier_id": "tconstruct:offhanded",
   "text": [
     {
-      "text": "如果副手被占用，这个升级会禁止你使用主手工具的交互功能。例如，如果副手拿着一块盾牌，那么你不能用主手的斧为原木去皮。"
+      "text": "副手有物品时，阻止主手工具的交互能力。举例说明，副手持握盾牌时，主手的斧将不 能为原木去皮。"
     },
     {
-      "text": "第2级会完全禁用工具的交互功能。", "paragraph": true
+      "text": "达到第2级时，彻底禁用工具的交互能力。", "paragraph": true
     }
   ],
   "more_text_space": true,

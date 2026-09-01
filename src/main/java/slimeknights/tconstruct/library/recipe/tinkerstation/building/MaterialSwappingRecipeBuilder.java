@@ -12,7 +12,7 @@ import net.minecraft.world.level.ItemLike;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.mantle.recipe.ingredient.SizedIngredient;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.tools.part.IToolPart;
 
@@ -41,7 +41,7 @@ public class MaterialSwappingRecipeBuilder extends AbstractRecipeBuilder<Materia
   /** Ingredient for the input part, used by fixed */
   private SizedIngredient ingredient = SizedIngredient.EMPTY;
   /** Material to swap to, used by fixed */
-  private MaterialVariantId material = IMaterial.UNKNOWN_ID;
+  private MaterialVariantId material = MaterialId.UNKNOWN;
   /** Repair value on swapping, used by fixed */
   @Setter
   private int repairValue = 0;

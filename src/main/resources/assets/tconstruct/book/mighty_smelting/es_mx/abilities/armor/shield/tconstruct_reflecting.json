@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:reflecting",
+  "text": [
+    {
+      "text": "Tu escudo también es tu trampolín."
+    }
+  ],
+  "effects": [
+    "Rebota proyectiles al bloquear en el momento justo",
+    "Más niveles aumentan el margen de tiempo para reflejar",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

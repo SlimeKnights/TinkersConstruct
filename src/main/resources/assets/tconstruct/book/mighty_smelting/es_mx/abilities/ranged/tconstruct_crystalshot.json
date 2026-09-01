@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:crystalshot",
+  "text": [
+    {
+      "text": "Su manipulación puede causar que te crezcan cristales por todo el cuerpo."
+    }
+  ],
+  "effects": [
+    "Dispara cristales como flechas",
+    "Sin munición; consume durabilidad extra",
+    "Color según el cristal usado al crearlo",
+    "Nivel único",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

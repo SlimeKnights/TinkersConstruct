@@ -1,0 +1,12 @@
+{
+  "title": "Bastones",
+  "text": [
+    {
+      "text": "Los bastones son herramientas altamente modificables. Aunque carecen de potencial de combate cuerpo a cuerpo, lo compensan con la amplia gama de habilidades que pueden usar tanto al interactuar como al atacar. Notablemente, otorgan un 40% de velocidad de movimiento al usarse y permiten bloquear hasta 15 de daño."
+    },
+    {
+      "text": "Las habilidades de los bastones se pueden configurar utilizando la mesa de trabajo de modificadores.",
+      "paragraph": true
+    }
+  ]
+}

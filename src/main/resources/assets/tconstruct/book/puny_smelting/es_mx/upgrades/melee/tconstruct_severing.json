@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:severing",
+  "text": [
+    {
+      "text": "Quién diría que los explosivos servían para esto. Solo un corte por arriba."
+    }
+  ],
+  "effects": [
+    "Los enemigos sueltan sus cabezas",
+    "Varios niveles, suben la probabilidad",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

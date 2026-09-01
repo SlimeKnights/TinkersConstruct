@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:splashing",
+  "text": [
+    {
+      "text": "Como una fiesta en la piscina, pero sin la piscina."
+    },
+    {
+      "text": "Haz clic derecho en un tanque con la herramienta para llenarla.", "paragraph": true
+    }
+  ],
+  "effects": [
+    "Drena fluido al interactuar",
+    "Efectos según el fluido (fuego, veneno, etc.)",
+    "Requiere 1 ranura de habilidad por nivel"
+  ]
+}

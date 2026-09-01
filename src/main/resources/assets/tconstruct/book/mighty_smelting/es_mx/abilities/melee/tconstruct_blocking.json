@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:blocking",
+  "text": [
+    {
+      "text": "Tu espada ahora es un escudo, solo falta encontrar la forma de que tu escudo sea una espada."
+    }
+  ],
+  "effects": [
+    "Permite bloquear con tu herramienta",
+    "Nivel único",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

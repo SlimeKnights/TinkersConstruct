@@ -1,8 +1,0 @@
-{
-  "modifiers": {
-    "tconstruct:trim": {
-      "type": "tconstruct:armor_trim",
-      "slot": "chestplate"
-    }
-  }
-}

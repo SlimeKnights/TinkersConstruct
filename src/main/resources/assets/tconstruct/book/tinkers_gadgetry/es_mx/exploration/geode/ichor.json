@@ -1,0 +1,13 @@
+{
+  "title": "Geodas de ícor",
+  "image": {
+    "file": "tconstruct:book/images/geodes/ichor.png",
+    "width": 180,
+    "height": 106
+  },
+  "text": [
+    {
+      "text": "Son la mejor fuente de slime naranja. Aparecen en las zonas altas del Nether y sus cristales emiten una luz propia muy distintiva."
+    }
+  ]
+}

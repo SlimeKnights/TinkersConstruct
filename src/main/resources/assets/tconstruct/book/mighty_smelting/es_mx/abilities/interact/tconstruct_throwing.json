@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:throwing",
+  "text": [
+    {
+      "text": "Lanzar tu espada es mucho más efectivo que lanzar tu arco."
+    }
+  ],
+  "effects": [
+    "Lanza herramientas para dañar mobs o romper bloques",
+    "Debes recuperarla manualmente",
+    "Nivel único | Requiere 1 ranura de habilidad"
+  ]
+}

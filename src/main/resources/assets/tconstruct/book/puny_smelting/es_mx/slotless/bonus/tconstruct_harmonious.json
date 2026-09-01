@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:harmonious",
+  "text": [
+    {
+      "text": "La música es buena para el alma... y para tu herramienta. ¿Será que tu herramienta tiene alma?"
+    }
+  ],
+  "effects": [
+    "Añade una ranura de mejora",
+    "Nivel único",
+    "Sin ranuras"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:workbench",
+  "text": [
+    {
+      "text": "A veces, simplemente no quieres dejar de hurgar en tus bolsillos el tiempo suficiente para craftear."
+    }
+  ],
+  "effects": [
+    "Añade una cuadrícula de crafteo de 2x2 al inventario de la herramienta",
+    "Nivel único",
+    "Sin ranuras"
+  ]
+}

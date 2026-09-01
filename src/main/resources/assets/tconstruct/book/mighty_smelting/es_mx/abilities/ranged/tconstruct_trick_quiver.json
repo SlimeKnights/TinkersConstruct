@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:trick_quiver",
+  "text": [
+    {
+      "text": "El carcaj de Ojo de Halcón en tu arco."
+    }
+  ],
+  "effects": [
+    "3 ranuras de flechas: cambia atacando (Shift para abrir)",
+    "Niveles extra aumentan capacidad | 1 ranura de habilidad"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:flamewake",
+  "text": [
+    {
+      "text": "¿A quién se le ocurrió que era buena idea combinar pedernal y ladrillo con botas? ¡Ya no puedo pisar ningún lado de forma segura!"
+    }
+  ],
+  "effects": [
+    "Deja fuego por donde caminas",
+    "Área aumentada por el modificador Expandido",
+    "Nivel único",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

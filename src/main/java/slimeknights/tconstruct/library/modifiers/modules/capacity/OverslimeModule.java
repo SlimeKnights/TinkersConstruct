@@ -13,6 +13,7 @@ import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.stat.ToolStatId;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.library.tools.stat.impl.IntegerToolStat;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import java.util.List;
@@ -27,7 +28,7 @@ public class OverslimeModule extends CapacityBarHook.PersistentDataCapacityBar {
   public static final OverslimeModule INSTANCE = new OverslimeModule();
 
   /** Stat for the overslime cap, copies the durability global multiplier on build */
-  public static final FloatToolStat OVERSLIME_STAT = new FloatToolStat(new ToolStatId(TConstruct.MOD_ID, "overslime"), 0xFF71DC85, 0, 0, Short.MAX_VALUE, TinkerTags.Items.DURABILITY) {
+  public static final FloatToolStat OVERSLIME_STAT = new IntegerToolStat(new ToolStatId(TConstruct.MOD_ID, "overslime"), 0xFF71DC85, 0, 0, Short.MAX_VALUE, TinkerTags.Items.DURABILITY) {
     @Override
     public Float build(ModifierStatsBuilder parent, Object builderObj) {
       return super.build(parent, builderObj) * parent.getMultiplier(ToolStats.DURABILITY);

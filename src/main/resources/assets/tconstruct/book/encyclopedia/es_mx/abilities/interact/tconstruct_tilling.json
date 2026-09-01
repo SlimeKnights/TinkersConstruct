@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:tilling",
+  "text": [
+    {
+      "text": "Permite que la herramienta labre la tierra, de forma similar a los picos-azada o las guadañas. Las herramientas usarán su área de minado normal para labrar."
+    },
+    {
+      "text": "Se activa antes que la función nativa de creación de caminos o descortezado de la herramienta, si las tiene.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/interactable",
+  "effects": [
+    "Máximo de 1 nivel",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

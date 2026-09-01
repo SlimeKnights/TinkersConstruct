@@ -1,0 +1,16 @@
+{
+  "title": "Latas de cobre",
+  "text": [
+    {
+      "text": "Las latas de cobre (¡y los cubos!) pueden usarse para transportar fluidos manualmente."
+    },
+    {
+      "text": "Las latas de cobre contienen el equivalente a 1 lingote de fluido.",
+      "paragraph": true
+    },
+    {
+      "text": "Se pueden apilar hasta 16 latas de cobre.",
+      "paragraph": true
+    }
+  ]
+}

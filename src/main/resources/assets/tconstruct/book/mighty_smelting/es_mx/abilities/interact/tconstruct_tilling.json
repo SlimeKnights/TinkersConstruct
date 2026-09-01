@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:tilling",
+  "text": [
+    {
+      "text": "No gastes diamantes en una azada."
+    }
+  ],
+  "effects": [
+    "Permite labrar la tierra con tu herramienta",
+    "Nivel único",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

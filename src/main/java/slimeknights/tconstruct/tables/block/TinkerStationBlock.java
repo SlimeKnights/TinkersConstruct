@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.HitResult;
 import slimeknights.mantle.util.RetexturedHelper;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.tables.block.entity.table.TinkerStationBlockEntity;
@@ -49,7 +49,7 @@ public class TinkerStationBlock extends RetexturedTableBlock {
       } else {
         // if no block, try material
         MaterialVariantId material = IMaterialItem.getMaterialFromStack(stack);
-        if (material != IMaterial.UNKNOWN_ID) {
+        if (material != MaterialId.UNKNOWN) {
           be.setMaterial(material);
         }
       }

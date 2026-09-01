@@ -47,6 +47,7 @@ public record VolatileFloatModule(ResourceLocation flag, LevelingValue value, Mo
     }
   }
 
+  @Deprecated
   @Override
   public void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, Projectile projectile, @Nullable AbstractArrow arrow, ModDataNBT persistentData, boolean primary) {
     if (condition.matches(tool, modifier)) {

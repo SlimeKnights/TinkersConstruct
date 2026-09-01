@@ -277,10 +277,9 @@ public class ContentTool extends PageContent {
       HtmlElement.div().style("padding-left", 10).add(
         HtmlElement.div().classes("column").style("height", 128)
           .add(TextData.toHtml(text, book)),
-        HtmlElement.div().style("width", 210).add(
-          HtmlElement.p().classes("underline").add(I18n.get(KEY_PROPERTIES)),
-          HtmlElement.ul().classes("prop-list")
-            .add(Arrays.stream(properties).map(prop -> HtmlElement.li().add(HTMLUtils.parse(prop))))
+        HtmlElement.div().style("width", 210)
+          .add(HtmlElement.p().classes("underline").add(I18n.get(KEY_PROPERTIES))
+          .add(HtmlElement.ul().style("margin-top", 8).classes("prop-list").add(HTMLUtils.toListItems(properties)))
         )
       )
     );

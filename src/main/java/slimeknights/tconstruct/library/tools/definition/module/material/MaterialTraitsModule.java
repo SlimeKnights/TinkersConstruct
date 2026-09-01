@@ -6,6 +6,7 @@ import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
+import slimeknights.tconstruct.library.materials.stats.MaterialStatType;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.module.HookProvider;
 import slimeknights.tconstruct.library.module.ModuleHook;
@@ -36,8 +37,12 @@ public final class MaterialTraitsModule implements ToolTraitHook, ToolModule {
   private MaterialStatsId statType;
   private final int materialIndex;
 
+  public MaterialTraitsModule(MaterialStatType<?> statType, int materialIndex) {
+    this(statType.getId(), materialIndex);
+  }
+
   public MaterialTraitsModule(int materialIndex) {
-    this(null, materialIndex);
+    this((MaterialStatsId)null, materialIndex);
   }
 
   @Override

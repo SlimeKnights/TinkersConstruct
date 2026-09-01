@@ -4,26 +4,27 @@ gadgets=小工具
 
 exploration=探索
 exploration.necrotic_bones=噬生之骨
+exploration.knightmetal_shard=骑士碎片
 
-exploration.skyslime_island=碧空黏液岛
-exploration.earthslime_island=大地黏液岛
-exploration.clay_island=黏土岛
-exploration.blood_island=黏血岛
-exploration.enderslime_island=末影黏液岛
+exploration.skyslime_island=碧空
+exploration.earthslime_island=大地
+exploration.clay_island=黏土
+exploration.blood_island=黏血
+exploration.enderslime_island=末影
 
-exploration.skyslime_geode=碧空黏液水晶洞
-exploration.earthslime_geode=大地黏液水晶洞
-exploration.ichor_geode=灵浆水晶洞
-exploration.enderslime_geode=末影黏液水晶洞
+exploration.skyslime_geode=碧空
+exploration.earthslime_geode=大地
+exploration.ichor_geode=灵浆
+exploration.enderslime_geode=末影
 
 armor=黏液盔甲
-armor.subtext=把黏液和各种生物的身体部位混合在一起，可以制造出一套有趣的盔甲。虽然它不能提供很强的保护，但它可以增强你的能力。
+armor.subtext=把黏液和各种生物的身体部位混合在一起， 可以制造出一套有趣的盔甲。虽然保护属性 不算最高，但至少可以增强你的能力。
 
 staffs=手杖
-staffs.subtext=将黏液水晶和黏木结合就能创造出非常灵活的工具。接着只需要再加点金属就能把两者固定在一起了。
+staffs.subtext=简单组合黏液水晶和黏木就能创造出非常灵活的工具。然后箍上一点金属让它更加牢固。
 
 ancient_tools=远古工具
-ancient_tools.subtext=远古工具在战利品中十分罕见。它们的材料组合是随机的且无法更改，但是能像正常工具一样加持强化。极其罕见的情况下，它们可由一种特殊材料构成，这种材料通常情况下只能从猪灵那里得到盔甲或工具部件。
+ancient_tools.subtext=远古工具在战利品中极其稀有。它们自带有随机的材料组合，且无法更改，但也能像正常工 具一样加持强化。极其罕见的情况下，它们包 含一种特殊材料，这种材料通常只能是从猪灵 那里得到对应的盔甲或工具部件。
 
 materials=头颅材料
 materials.subtext=在铸造盆中放一个头颅并浇注末影黏液，可以增强它们作为头盔的能力。
@@ -35,4 +36,4 @@ ranged_materials.subtext=这些材料需要探索遥远地界获得，可用于�
 armor_materials=盔甲材料
 armor_materials.subtext=这些材料需要探索遥远地界获得，可用于制作盔甲或盾牌。
 ammo_materials=高级弹药材料
-ammo_materials.subtext=这些材料更加稀有，用来制作更好的弹药类工具。
+ammo_materials.subtext=这些材料更加稀有，可用于制作更好的弹药工具。

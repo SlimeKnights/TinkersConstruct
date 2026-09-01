@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:springing",
+  "text": [
+    {
+      "text": "La primera parte del horario de verano."
+    }
+  ],
+  "effects": [
+    "Carga para impulsarte hacia donde miras",
+    "Potenciable con Poder o Empuje",
+    "Nivel único",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "title": "Transporte",
+  "image": {
+    "file": "tconstruct:book/images/carry_blaze.png",
+    "width": 128,
+    "height": 73
+  },
+  "text": [
+    {
+      "text": "\"Pero Nemea, ¿cómo meto un blaze en la fundición?\". Si fueras ese cerebrito de Melvin, podrías sugerir: \"Bebe una poción de resistencia al fuego y luego usa una mochila de cerdito o dales un porrazo\". Perfecto si lo que quieres es terminar hecho cenizas.",
+      "paragraph": true
+    }
+  ]
+}

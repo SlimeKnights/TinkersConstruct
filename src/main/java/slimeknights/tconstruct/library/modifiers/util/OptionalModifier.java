@@ -22,7 +22,7 @@ public class OptionalModifier extends LazyModifier {
     // same as super, except we don't log an error when its missing
     if (result == null) {
       result = ModifierManager.getValue(id);
-      if (result == ModifierManager.INSTANCE.getDefaultValue() && !ModifierManager.EMPTY.equals(id)) {
+      if (result == ModifierManager.INSTANCE.getDefaultValue() && !ModifierId.EMPTY.equals(id)) {
         TConstruct.LOG.debug("Optional modifier with ID {} is absent. Returning the empty modifier.", id);
       }
     }

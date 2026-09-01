@@ -1,0 +1,13 @@
+{
+  "tool": "tconstruct:slime_wings",
+  "text": [
+    { "text": "¿Cansado de caminar? ¡Prueba a volar con estas alas futuristas!" },
+    { "text": "Para crearlas, simplemente vierte enderslime sobre unas élitros. Esta \"slimelytra\" puede repararse después usando membranas de phantom.", "paragraph": true }
+  ],
+  "properties": [
+    "Durabilidad alta",
+    "Sin armadura ni defensa",
+    "5 Espacios de mejora",
+    "1 Espacio de habilidad"
+  ]
+}

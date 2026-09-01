@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:projectile_protection",
+  "text": [
+    {
+      "text": "Otorga un +8% de resistencia contra el daño de proyectiles, como las flechas de los esqueletos. Tiene un límite del 80% en todo el conjunto, o 10 niveles."
+    },
+    {
+      "text": "Otorga un +5% de resistencia al empuje por cada nivel de la pieza de mayor nivel.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Se pueden aplicar niveles de forma incremental",
+    "Requiere 1 ranura de defensa por nivel"
+  ]
+}

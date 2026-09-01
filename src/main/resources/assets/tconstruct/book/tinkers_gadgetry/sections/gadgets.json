@@ -20,6 +20,16 @@
     "data": "gadgets/melvin.json"
   },
   {
+    "name": "armor_stand",
+    "type": "mantle:image_text",
+    "data": "gadgets/armor_stand.json"
+  },
+  {
+    "name": "armor_stand_details",
+    "type": "mantle:text",
+    "data": "gadgets/armor_stand_details.json"
+  },
+  {
     "name": "fancy_frames",
     "type": "mantle:image_text",
     "data": "gadgets/fancy_frame.json"

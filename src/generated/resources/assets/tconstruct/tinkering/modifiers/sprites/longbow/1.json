@@ -1,0 +1,38 @@
+{
+  "modifiers": {
+    "tconstruct:diamond": {
+      "texture": "tconstruct:item/tool/longbow/modifiers/tconstruct_diamond_1",
+      "texture_large": "tconstruct:item/tool/longbow/large/modifiers/tconstruct_diamond_1"
+    },
+    "tconstruct:experienced": {
+      "texture": "tconstruct:item/tool/longbow/modifiers/tconstruct_experienced_1",
+      "texture_large": "tconstruct:item/tool/longbow/large/modifiers/tconstruct_experienced_1"
+    },
+    "tconstruct:fiery": {
+      "luminosity": 10,
+      "texture": "tconstruct:item/tool/longbow/modifiers/tconstruct_fiery_1",
+      "texture_large": "tconstruct:item/tool/longbow/large/modifiers/tconstruct_fiery_1"
+    },
+    "tconstruct:freezing": {
+      "texture": "tconstruct:item/tool/longbow/modifiers/tconstruct_freezing_1",
+      "texture_large": "tconstruct:item/tool/longbow/large/modifiers/tconstruct_freezing_1"
+    },
+    "tconstruct:netherite": {
+      "texture": "tconstruct:item/tool/longbow/modifiers/tconstruct_netherite_1",
+      "texture_large": "tconstruct:item/tool/longbow/large/modifiers/tconstruct_netherite_1"
+    },
+    "tconstruct:overforced": {
+      "texture": "tconstruct:item/tool/longbow/modifiers/tconstruct_overforced_1",
+      "texture_large": "tconstruct:item/tool/longbow/large/modifiers/tconstruct_overforced_1"
+    },
+    "tconstruct:reinforced": {
+      "texture": "tconstruct:item/tool/longbow/modifiers/tconstruct_reinforced_1",
+      "texture_large": "tconstruct:item/tool/longbow/large/modifiers/tconstruct_reinforced_1"
+    },
+    "tconstruct:unbreakable": {
+      "luminosity": 2,
+      "texture": "tconstruct:item/tool/longbow/modifiers/tconstruct_unbreakable_1",
+      "texture_large": "tconstruct:item/tool/longbow/large/modifiers/tconstruct_unbreakable_1"
+    }
+  }
+}

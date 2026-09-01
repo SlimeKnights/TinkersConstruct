@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:quick_charge",
+  "text": [
+    {
+      "text": "Aumenta la velocidad de carga de la herramienta en un 25% por nivel."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Se pueden aplicar niveles de forma incremental",
+    "Máximo de 4 niveles",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

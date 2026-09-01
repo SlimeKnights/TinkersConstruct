@@ -18,7 +18,6 @@ import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.advancements.critereon.NbtPredicate;
 import net.minecraft.advancements.critereon.PlayerInteractTrigger;
 import net.minecraft.advancements.critereon.PlayerTrigger;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.PackOutput.Target;
@@ -41,6 +40,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import slimeknights.mantle.data.GenericDataProvider;
+import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -181,7 +181,7 @@ public class AdvancementsProvider extends GenericDataProvider {
     builder(TinkerTools.travelersGear.get(ArmorItem.Type.HELMET).getRenderTool(), resource("tools/travelers_gear"), tinkerStation, FrameType.TASK, builder ->
       TinkerTools.travelersGear.forEach((type, armor) -> builder.addCriterion("crafted_" + type.getName(), hasItem(armor))));
     builder(TinkerTools.pickaxe.get().getRenderTool(), resource("tools/tool_smith"), tinkerTool, FrameType.CHALLENGE, builder -> {
-      Consumer<Item> with = item -> builder.addCriterion(BuiltInRegistries.ITEM.getKey(item).getPath(), hasItem(item));
+      Consumer<Item> with = item -> builder.addCriterion(Loadables.ITEM.getKey(item).getPath(), hasItem(item));
       with.accept(TinkerTools.pickaxe.get());
       with.accept(TinkerTools.mattock.get());
       with.accept(TinkerTools.pickadze.get());
@@ -211,7 +211,7 @@ public class AdvancementsProvider extends GenericDataProvider {
     Advancement punySmelting = builder(TinkerCommons.punySmelting, resource("smeltery/puny_smelting"), materialsAndYou, FrameType.TASK, builder ->
       builder.addCriterion("crafted_book", hasItem(TinkerCommons.punySmelting)));
     Advancement melter = builder(TinkerSmeltery.searedMelter, resource("smeltery/melter"), punySmelting, FrameType.TASK, builder -> {
-      Consumer<Block> with = block -> builder.addCriterion(BuiltInRegistries.BLOCK.getKey(block).getPath(), ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(block));
+      Consumer<Block> with = block -> builder.addCriterion(Loadables.BLOCK.getKey(block).getPath(), ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(block));
       with.accept(TinkerSmeltery.searedMelter.get());
       with.accept(TinkerSmeltery.searedTable.get());
       with.accept(TinkerSmeltery.searedBasin.get());
@@ -363,7 +363,7 @@ public class AdvancementsProvider extends GenericDataProvider {
     builder(TinkerCommons.encyclopedia, resource("foundry/encyclopedia"), fantasticFoundry, FrameType.GOAL, builder ->
       builder.addCriterion("crafted_book", hasItem(TinkerCommons.encyclopedia)));
     Advancement alloyer = builder(TinkerSmeltery.scorchedAlloyer, resource("foundry/alloyer"), fantasticFoundry, FrameType.TASK, builder -> {
-      Consumer<Block> with = block -> builder.addCriterion(BuiltInRegistries.BLOCK.getKey(block).getPath(), ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(block));
+      Consumer<Block> with = block -> builder.addCriterion(Loadables.BLOCK.getKey(block).getPath(), ItemUsedOnLocationTrigger.TriggerInstance.placedBlock(block));
       with.accept(TinkerSmeltery.scorchedAlloyer.get());
       with.accept(TinkerSmeltery.scorchedFaucet.get());
       with.accept(TinkerSmeltery.scorchedTable.get());
@@ -380,7 +380,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       Consumer<SearedTankBlock> with = block -> {
         CompoundTag nbt = new CompoundTag();
         nbt.put(NBTTags.TANK, getTankWith(TinkerFluids.blazingBlood.get(), block.getCapacity()).writeToNBT(new CompoundTag()));
-        builder.addCriterion(BuiltInRegistries.BLOCK.getKey(block).getPath(),
+        builder.addCriterion(Loadables.BLOCK.getKey(block).getPath(),
                               InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(block).hasNbt(nbt).build()));
         builder.requirements(RequirementsStrategy.OR);
       };
@@ -394,7 +394,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       Consumer<SearedLanternBlock> with = block -> {
         CompoundTag nbt = new CompoundTag();
         nbt.put(NBTTags.TANK, getTankWith(TinkerFluids.moltenManyullyn.get(), block.getCapacity()).writeToNBT(new CompoundTag()));
-        builder.addCriterion(BuiltInRegistries.BLOCK.getKey(block).getPath(),
+        builder.addCriterion(Loadables.BLOCK.getKey(block).getPath(),
                               InventoryChangeTrigger.TriggerInstance.hasItems(new ItemPredicate(null, Collections.singleton(block.asItem()), MinMaxBounds.Ints.atLeast(64), MinMaxBounds.Ints.ANY,
                                                                                                 EnchantmentPredicate.NONE, EnchantmentPredicate.NONE, null, new NbtPredicate(nbt))));
         builder.requirements(RequirementsStrategy.OR);
@@ -426,12 +426,12 @@ public class AdvancementsProvider extends GenericDataProvider {
       builder.addCriterion("used_pack", PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(ContextAwarePredicate.ANY, ItemPredicate.Builder.item().of(TinkerGadgets.piggyBackpack), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(EntityType.PIG).build()))));
     Advancement slimesuit = builder(new MaterialIdNBT(List.of(MaterialIds.bone, MaterialIds.skyslime)).updateStack(new ItemStack(TinkerTools.slimesuit.get(ArmorItem.Type.CHESTPLATE))), resource("world/slimesuit"), skyslimeIsland, FrameType.GOAL, builder ->
       TinkerTools.slimesuit.forEach((type, armor) -> builder.addCriterion("crafted_" + type.getName(), hasItem(armor))));
-    builder(new MaterialIdNBT(List.of(MaterialIds.glass, MaterialIds.enderslime)).updateStack(new ItemStack(TinkerTools.slimesuit.get(ArmorItem.Type.HELMET))),
+    builder(new MaterialIdNBT(List.of(MaterialIds.gunpowder, MaterialIds.enderslime)).updateStack(new ItemStack(TinkerTools.slimesuit.get(ArmorItem.Type.HELMET))),
             resource("world/slimeskull"), slimesuit, FrameType.CHALLENGE, builder -> {
       Item helmet = TinkerTools.slimesuit.get(ArmorItem.Type.HELMET);
       Consumer<MaterialId> with = mat -> builder.addCriterion(mat.getPath(), InventoryChangeTrigger.TriggerInstance.hasItems(ToolStackItemPredicate.ofContext(
         ToolContextPredicate.and(ToolContextPredicate.set(helmet), new HasMaterialPredicate(mat, 0)))));
-      with.accept(MaterialIds.glass);
+      with.accept(MaterialIds.gunpowder);
       with.accept(MaterialIds.blaze);
       // zombie
       with.accept(MaterialIds.leather);
@@ -452,8 +452,6 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(MaterialIds.enderPearl);
       with.accept(MaterialIds.dragonScale);
       // crafted
-      with.accept(MaterialIds.venombone);
-      with.accept(MaterialIds.blazingBone);
       with.accept(MaterialIds.knightmetal);
     });
     builder(TinkerTools.battlesign.get().getRenderTool(), resource("world/ancient_tools"), tinkersGadgetry, FrameType.CHALLENGE, builder -> {

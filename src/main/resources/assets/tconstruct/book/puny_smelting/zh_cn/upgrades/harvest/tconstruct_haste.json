@@ -12,7 +12,7 @@
   "tool_filter": "tconstruct:modifiable/harvest",
   "effects": [
     "增加挖掘速度",
-    "多个等级，每级进一步增加一点挖掘速度",
+    "多个等级，每级进一步 增加挖掘速度",
     "每级需要1个升级槽"
   ]
 }

@@ -132,6 +132,7 @@ public record PlaceBlockFluidEffect(@Nullable Block block, @Nullable SoundEvent 
     return result;
   }
 
+  @SuppressWarnings("deprecation")
   private int placeBlockItem(BlockItem blockItem, FluidEffectContext.Block context, FluidAction action, Block block, BlockPlaceContext placeContext) {
     Level world = context.getLevel();
     BlockPos clicked = placeContext.getClickedPos();

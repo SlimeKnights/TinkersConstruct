@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "tag": "forge:glass/colorless"
+    },
+    "S": {
+      "tag": "forge:glass_panes/colorless"
+    }
+  },
+  "pattern": [
+    "SSS",
+    " S ",
+    "SBS"
+  ],
+  "result": {
+    "item": "tconstruct:clear_armor_stand"
+  },
+  "show_notification": true
+}

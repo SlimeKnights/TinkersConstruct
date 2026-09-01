@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:leaping",
+  "text": [
+    {
+      "text": "Otorga +0.5 bloques de altura de salto en el primer nivel y +1 en el segundo nivel. Aumenta la distancia de caída segura en 1 bloque por nivel."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 2 niveles",
+    "Nivel 1 requiere 1 ranura de mejora",
+    "Nivel 2 requiere 1 ranura de habilidad"
+  ]
+}

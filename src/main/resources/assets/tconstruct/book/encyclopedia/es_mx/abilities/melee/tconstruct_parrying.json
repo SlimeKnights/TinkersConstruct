@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:parrying",
+  "text": [
+    {
+      "text": "Permite usar la herramienta como un escudo brevemente después de atacar."
+    },
+    {
+      "text": "La mayoría de las dagas pueden bloquear hasta 10 de daño y no ralentizan al jugador mientras se usan."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Nivel único",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

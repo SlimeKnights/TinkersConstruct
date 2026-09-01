@@ -11,6 +11,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierManager;
  * Predicate matching an entity tag.
  * @deprecated use {@link ModifierPredicate#tag(TagKey)}
  */
+@SuppressWarnings("DeprecatedIsStillUsed")
 @Deprecated
 public record TagModifierPredicate(TagKey<Modifier> tag) implements ModifierPredicate {
   public static final RecordLoadable<TagModifierPredicate> LOADER = RecordLoadable.create(TinkerLoadables.MODIFIER_TAGS.requiredField("tag", TagModifierPredicate::tag), TagModifierPredicate::new);

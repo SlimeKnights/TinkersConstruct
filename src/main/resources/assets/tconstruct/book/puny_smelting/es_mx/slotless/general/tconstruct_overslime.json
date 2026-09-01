@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:overslime",
+  "text": [
+    {
+      "text": "Una capa extra... un poco pegajosa, ¿no crees?"
+    }
+  ],
+  "effects": [
+    "Escudo de slime que protege la durabilidad (recarga con slime)",
+    "Penaliza herramientas sin materiales babosos",
+    "Sin ranuras"
+  ]
+}

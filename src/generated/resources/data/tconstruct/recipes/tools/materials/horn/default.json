@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:material",
+  "conditions": [
+    {
+      "type": "mantle:tag_combination_filled",
+      "ignore": "tconstruct:variant_horns",
+      "match": "minecraft:goat_horns",
+      "registry": "minecraft:instrument"
+    }
+  ],
+  "ingredient": {
+    "type": "tconstruct:instrument",
+    "ignore": "tconstruct:variant_horns",
+    "item": "minecraft:goat_horn"
+  },
+  "material": "tconstruct:horn",
+  "needed": 1,
+  "value": 4
+}

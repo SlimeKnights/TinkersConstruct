@@ -17,16 +17,6 @@
         "level": 1,
         "name": "tconstruct:venom"
       }
-    ],
-    "tconstruct:skull": [
-      {
-        "level": 1,
-        "name": "tconstruct:magic_bones"
-      },
-      {
-        "level": 1,
-        "name": "tconstruct:skeleton_disguise"
-      }
     ]
   }
 }

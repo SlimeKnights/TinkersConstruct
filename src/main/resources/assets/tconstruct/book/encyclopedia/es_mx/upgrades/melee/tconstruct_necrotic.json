@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:necrotic",
+  "text": [
+    {
+      "text": "Los golpes críticos curan un 5% del daño infligido por nivel. La herramienta pierde 1 punto extra de durabilidad por nivel."
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/melee",
+  "effects": [
+    "Máximo de 5 niveles",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

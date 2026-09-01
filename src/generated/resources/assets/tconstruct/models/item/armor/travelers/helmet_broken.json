@@ -10,9 +10,6 @@
     "tconstruct:travelers/goggles_broken",
     "tconstruct:travelers/goggles"
   ],
-  "first_modifiers": [
-    "tconstruct:dyed"
-  ],
   "parts": [
     {
       "name": "base"

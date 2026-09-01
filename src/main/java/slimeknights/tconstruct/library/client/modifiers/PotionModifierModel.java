@@ -37,6 +37,7 @@ import java.util.function.Function;
 public class PotionModifierModel implements SimpleModifierModel {
   public static final RecordLoadable<PotionModifierModel> LOADER = SimpleModifierModel.loader(PotionModifierModel::new);
   /** @deprecated legacy system, use {@link #LOADER} */
+  @SuppressWarnings("DeprecatedIsStillUsed")
   @Deprecated
   public static final IUnbakedModifierModel UNBAKED_INSTANCE = (smallGetter, largeGetter) -> {
     Material smallTexture = smallGetter.apply("");
@@ -65,6 +66,7 @@ public class PotionModifierModel implements SimpleModifierModel {
     return new CacheKey(modifier, tool.getPersistentData().getString(modifier));
   }
 
+  @SuppressWarnings("deprecation")
   @Override
   public void addQuads(IToolStackView tool, ModifierEntry modifier, Function<Material,TextureAtlasSprite> spriteGetter, Transformation transforms, boolean isLarge, int startTintIndex, Consumer<Collection<BakedQuad>> quadConsumer, @Nullable ItemLayerPixels pixels) {
     Material texture = isLarge ? large : small;

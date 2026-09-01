@@ -8,7 +8,6 @@
   "effects": [
     "Interact to start fires",
     "Single level",
-    "Requires 1 ability slot",
-    "Using on flint and bronze increases radius, requiring 1 upgrade slot"
+    "Requires 1 ability slot"
   ]
 }

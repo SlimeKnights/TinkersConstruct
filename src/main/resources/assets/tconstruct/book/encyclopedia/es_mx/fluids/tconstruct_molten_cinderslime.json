@@ -1,0 +1,11 @@
+{
+  "text": "El limo de ceniza fluye en la dirección opuesta, y su explosión también va en la dirección equivocada.",
+  "entity": [
+    "Explosión de potencia 2",
+    "Hasta 3 de daño por explosión",
+    "Empuje de explosión invertido"
+  ],
+  "block": [
+    "La explosión rompe bloques"
+  ]
+}

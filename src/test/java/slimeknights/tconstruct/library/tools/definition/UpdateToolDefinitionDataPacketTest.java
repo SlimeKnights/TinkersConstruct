@@ -48,8 +48,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
 class UpdateToolDefinitionDataPacketTest extends BaseMcTest {
-  private static final ResourceLocation EMPTY_ID = new ResourceLocation("test", "empty");
-  private static final ResourceLocation FILLED_ID = new ResourceLocation("test", "filled");
+  private static final ResourceLocation EMPTY_ID = TestHelper.id("empty");
+  private static final ResourceLocation FILLED_ID = TestHelper.id("filled");
 
   @BeforeAll
   static void initialize() {

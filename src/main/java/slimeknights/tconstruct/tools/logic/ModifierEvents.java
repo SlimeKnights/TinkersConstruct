@@ -11,11 +11,13 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.player.Inventory;
@@ -39,6 +41,7 @@ import net.minecraftforge.event.entity.EntityTeleportEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent.ImpactResult;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingTickEvent;
 import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
@@ -163,6 +166,35 @@ public class ModifierEvents {
         }
       }
     };
+  }
+
+  /** Causes more gold armor to drop */
+  @SubscribeEvent
+  static void onLivingDrops(LivingDropsEvent event) {
+    DamageSource source = event.getSource();
+    if (source != null) {
+      float gold = (float) event.getEntity().getAttributeValue(TinkerAttributes.CHRYSOPHILITE.get());
+      if (gold > 0) {
+        float extraChance = 0.04f * gold;
+        LivingEntity target = event.getEntity();
+        // check each slot for gold
+        for (EquipmentSlot slot : EquipmentSlot.values()) {
+          ItemStack stack = target.getItemBySlot(slot);
+          RandomSource random = target.getRandom();
+          // if the stack is gold, and it drops, we get it
+          // don't have to worry about checking if it already dropped, the stacks are removed on drop
+          if (!stack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(stack) && stack.makesPiglinsNeutral(target) && random.nextFloat() < extraChance) {
+            // mobs damage items on drop, its kinda weird
+            if (stack.isDamageableItem()) {
+              stack.setDamageValue(stack.getMaxDamage() - random.nextInt(1 + random.nextInt(Math.max(stack.getMaxDamage() - 3, 1))));
+            }
+            // remove stack to prevent further drops
+            event.getDrops().add(target.spawnAtLocation(stack));
+            target.setItemSlot(slot, ItemStack.EMPTY);
+          }
+        }
+      }
+    }
   }
 
   /** Called when the player dies to store the item in the original inventory */
@@ -299,7 +331,7 @@ public class ModifierEvents {
   static void bounceOnFall(LivingFallEvent event) {
     LivingEntity living = event.getEntity();
     // using fall distance as the event distance could be reduced by jump boost
-    if (living == null || (living.getDeltaMovement().y > -0.3 && living.fallDistance < 3)) {
+    if (living == null || (living.fallDistance < 3 && living.getDeltaMovement().y > -0.3) || living.fallDistance <= 0.5f + living.getAttributeValue(ForgeMod.STEP_HEIGHT_ADDITION.get())) {
       return;
     }
     // can the entity bounce?
@@ -447,14 +479,15 @@ public class ModifierEvents {
       EntityType<?> projectileType = projectile.getType();
       if (TinkerEffects.needsEnderferenceOverride(target) && !projectileType.is(TinkerTags.EntityTypes.ENDERFERENCE_ARROW_BLACKLIST) && projectile instanceof AbstractArrow arrow) {
         // first, give up if we reached pierce capacity, and ensure list are created
-        if (arrow.getPierceLevel() > 0) {
+        int pierce = arrow.getPierceLevel();
+        if (pierce > 0) {
           if (arrow.piercingIgnoreEntityIds == null) {
             arrow.piercingIgnoreEntityIds = new IntOpenHashSet(5);
           }
           if (arrow.piercedAndKilledEntities == null) {
             arrow.piercedAndKilledEntities = Lists.newArrayListWithCapacity(5);
           }
-          if (arrow.piercingIgnoreEntityIds.size() >= arrow.getPierceLevel() + 1) {
+          if (arrow.piercingIgnoreEntityIds.size() >= pierce + 1) {
             ReusableProjectile.discard(projectile);
             event.setCanceled(true);
             return;
@@ -484,7 +517,7 @@ public class ModifierEvents {
 
         // hurt the enderman
         if (target.hurt(damageSource, (float) damage)) {
-          if (!level.isClientSide && arrow.getPierceLevel() <= 0) {
+          if (!level.isClientSide && pierce <= 0) {
             target.setArrowCount(target.getArrowCount() + 1);
           }
 
@@ -517,7 +550,7 @@ public class ModifierEvents {
           }
 
           arrow.playSound(arrow.soundEvent, 1.0F, 1.2F / (target.getRandom().nextFloat() * 0.2F + 0.9F));
-          if (arrow.getPierceLevel() <= 0) {
+          if (pierce <= 0) {
             ReusableProjectile.discard(projectile);
           }
         } else {

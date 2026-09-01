@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:lightspeed",
+  "text": [
+    {
+      "text": "La luz fluye por tu herramienta y la ayuda a picar más rápido. Tiene sentido, supongo."
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/harvest",
+  "effects": [
+    "Mina más rápido bloques bien iluminados",
+    "Varios niveles, aumentan más la velocidad",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

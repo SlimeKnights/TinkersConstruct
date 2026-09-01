@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:shiny",
+  "text": [
+    {
+      "text": "Este modificador legendario posee el poder legendario de la legendaria manzana dorada encantada. Y con un nombre tan legendario como §dResplandeciente§r, ¿qué podría salir mal? ¡Esto será legendario!"
+    }
+  ],
+  "effects": [
+    "Hace que tu herramienta brille",
+    "Eso es literalmente todo",
+    "Legendario",
+    "Darkosto también es legendariamente legendario.",
+    "Sin ranuras"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "title": "Enciclopedia del Tinker",
+  "image": {
+    "file": "tconstruct:book/images/book_encyclopedia.png",
+    "width": 128,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "¿No tienes cuatro brazos para cargar mis libros? Con un poco de oro fundido, fabrica el compendio de Selena. Incluye toda la info de herramientas, pero ni una palabra sobre mi asombrosa fundición."
+    }
+  ]
+}

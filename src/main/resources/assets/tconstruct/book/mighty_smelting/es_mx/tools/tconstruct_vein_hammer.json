@@ -1,0 +1,20 @@
+{
+  "tool": "tconstruct:vein_hammer",
+  "text": [
+    {
+      "text": "Herramienta de minería amplia diseñada para recolectar vetas completas de un solo golpe."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Descargo de responsabilidad: Industrias Thruul no se hace responsable de la minería de vetas masiva en propiedad privada."
+    }
+  ],
+  "properties": [
+    "Herramienta de minería avanzada",
+    "Minería de vetas",
+    "Eficaz en piedra y minerales",
+    "Bonificación de daño perforante"
+  ]
+}

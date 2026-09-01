@@ -11,5 +11,5 @@
   ],
   "more_text_space": true,
   "tool_filter": "tconstruct:modifiable/armor/boots",
-  "effects": ["段階的に適用できる", "最大5レベル", "レベルごとにアップグレードスロットが1つ必要"]
+  "effects": ["段階的に適用できる", "最大3レベル", "レベルごとにアップグレードスロットが1つ必要"]
 }

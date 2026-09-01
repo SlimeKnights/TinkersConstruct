@@ -1,0 +1,14 @@
+{
+  "title": "Interfaz del Aleador",
+  "image": {
+    "file": "tconstruct:book/images/alloyergui.png",
+    "width": 166,
+    "height": 78
+  },
+  "text": [
+    {
+      "text": "La interfaz básica del Aleador, aunque podría mostrar más o menos elementos según la configuración.",
+      "paragraph": true
+    }
+  ]
+}

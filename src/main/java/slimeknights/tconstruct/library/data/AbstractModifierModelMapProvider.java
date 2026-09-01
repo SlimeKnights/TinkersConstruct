@@ -1,8 +1,6 @@
 package slimeknights.tconstruct.library.data;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.client.resources.model.Material;
@@ -15,16 +13,18 @@ import net.minecraft.world.item.Item;
 import slimeknights.mantle.data.GenericDataProvider;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.registration.object.IdAwareObject;
-import slimeknights.tconstruct.library.client.modifiers.MaterialModifierModel;
+import slimeknights.tconstruct.library.client.modifiers.DyedModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.ModifierModelMapManager;
 import slimeknights.tconstruct.library.client.modifiers.NormalModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.PotionModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.BannerModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.CompoundModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.FluidModifierModel;
+import slimeknights.tconstruct.library.client.modifiers.model.MaterialModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.ModifierModel;
+import slimeknights.tconstruct.library.client.modifiers.model.ModifierModelLoadable;
+import slimeknights.tconstruct.library.client.modifiers.model.NestedModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.TankModifierModel;
-import slimeknights.tconstruct.library.client.modifiers.model.TraitModel;
 import slimeknights.tconstruct.library.client.modifiers.model.TrimModifierModel;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -167,6 +167,28 @@ public abstract class AbstractModifierModelMapProvider extends GenericDataProvid
       return this;
     }
 
+    /**
+     * Override a "lower" priority modifier map that sets a modifier.
+     * <p>Example: removing modifier textures on the hook for a cast fishing rod.</p>
+     */
+    public Builder empty(ModifierId id) {
+      ModifierModel existing = modifiers.putIfAbsent(id, merge(ModifierModel.EMPTY));
+      if (existing != null) {
+        throw new IllegalArgumentException("Duplicate modifier: " + id + ", previous " + existing);
+      }
+      return this;
+    }
+
+    /**
+     * Override a "lower" priority modifier map that sets a modifier.
+     * <p>Example: removing modifier textures on the hook for a cast fishing rod.</p>
+     */
+    public Builder empty(ModifierId... ids) {
+      for (ModifierId id : ids) {
+        empty(id);
+      }
+      return this;
+    }
 
     /* Common models */
 
@@ -190,10 +212,25 @@ public abstract class AbstractModifierModelMapProvider extends GenericDataProvid
       return this;
     }
 
+    /** Adds a basic modifier in the given folder with texture suffix */
+    public Builder luminosity(int light, String folder, @Nullable String largeFolder, String textureSuffix, ModifierId... modifiers) {
+      for (ModifierId modifier : modifiers) {
+        String suffix = '/' + suffix(modifier) + textureSuffix;
+        luminosity(light, modifier, folder + suffix, largeFolder != null ? largeFolder + suffix : null);
+      }
+      return this;
+    }
+
     /** Adds a basic modifier in the default folder */
     public Builder luminosity(int light, char largeSeparator, ModifierId... modifiers) {
       String path = id.getPath();
       return luminosity(light, path + "/modifiers", largeFolder(path, largeSeparator), modifiers);
+    }
+
+    /** Adds a basic modifier in the default folder with texture suffix*/
+    public Builder luminosity(int light, char largeSeparator, String textureSuffix, ModifierId... modifiers) {
+      String path = id.getPath();
+      return luminosity(light, path + "/modifiers", largeFolder(path, largeSeparator), textureSuffix, modifiers);
     }
 
     /** Adds a basic modifier in the given folder */
@@ -211,6 +248,11 @@ public abstract class AbstractModifierModelMapProvider extends GenericDataProvid
       return luminosity(0, largeSeparator, modifiers);
     }
 
+    /** Adds a basic modifier in the default folder with texture suffix*/
+    public Builder basic(char largeSeparator, String textureSuffix, ModifierId... modifiers) {
+      return luminosity(0, largeSeparator, textureSuffix, modifiers);
+    }
+
     /** Adds a basic modifier in the given folder using just the modifier path as the name */
     public Builder compact(String folder, ModifierId... modifiers) {
       for (ModifierId modifier : modifiers) {
@@ -223,6 +265,32 @@ public abstract class AbstractModifierModelMapProvider extends GenericDataProvid
     public Builder compact(ModifierId... modifiers) {
       return compact(id.getPath() + "/modifiers", modifiers);
     }
+
+
+    /* Common constants */
+
+    /** Adds a new modifier model that shows when the given crafted modifier is present */
+    public Builder trait(String key, ModifierId id, ModifierModel model, ModifierModel... models) {
+      return constant(key, new NestedModifierModel.Trait(id, merge(model, models)));
+    }
+
+    /** Adds a new modifier model that shows when the given crafted modifier is present */
+    public Builder trait(ModifierId id, ModifierModel model, ModifierModel... models) {
+      return trait(id.getPath(), id, model, models);
+    }
+
+    /** Adds a new modifier model that shows when the given crafted modifier is present */
+    public Builder first(String key, ModifierId id, ModifierModel model, ModifierModel... models) {
+      return constant(key, new NestedModifierModel.Crafted(id, merge(model, models)));
+    }
+
+    /** Adds a new modifier model that shows when the given crafted modifier is present */
+    public Builder first(ModifierId id, ModifierModel model, ModifierModel... models) {
+      return first('_' + id.getPath(), id, model, models);
+    }
+
+
+    /* Fluid */
 
     /** Creates a model for a constant tank on a small tool */
     public Builder fluid(String folder) {
@@ -277,24 +345,41 @@ public abstract class AbstractModifierModelMapProvider extends GenericDataProvid
 
     /** Creates a model for smashing on a small tool */
     public Builder smashing(String texture) {
-      return constant("smashing", new TraitModel(ModifierIds.smashing, new FluidModifierModel(toolMaterial(texture), null, SmashingModule.TANK_HELPER)));
+      return trait(ModifierIds.smashing, new FluidModifierModel(toolMaterial(texture), null, SmashingModule.TANK_HELPER));
     }
 
     /** Creates a model for tipping a small tool */
     public Builder tipped(String texture) {
-      return constant("tipped", new TraitModel(ModifierIds.tipped, new PotionModifierModel(toolMaterial(texture), null)));
+      return trait("__tipped", ModifierIds.tipped, new PotionModifierModel(toolMaterial(texture), null));
     }
+
 
     /* Cosmetic */
 
+    /** Adds a model for dyed */
+    public Builder dyed(ModifierModel model, ModifierModel... models) {
+      // whatever is dyed we usually want first next to materials so want extra early
+      return first("__dyed", TinkerModifiers.dyed.getId(), merge(model, models));
+    }
+
+    /** Adds a model for dyed */
+    public Builder dyed(String smallTexture, @Nullable String largeTexture) {
+      return dyed(new DyedModifierModel(toolMaterial(smallTexture), largeTexture != null ? toolMaterial(largeTexture) : null));
+    }
+
+    /** Adds a model for dyed */
+    public Builder dyed(String smallTexture) {
+      return dyed(smallTexture, null);
+    }
+
     /** Adds the trim model to the tool */
     public Builder trim(ArmorItem.Type type) {
-      return modifier(TinkerModifiers.trim.getId(), TrimModifierModel.Armor.values()[type.ordinal()]);
+      return first(TinkerModifiers.trim.getId(), TrimModifierModel.Armor.values()[type.ordinal()]);
     }
 
     /** Creates a custom trim in the given folder, using the given name for the large variant. */
     public Builder customTrim(String folder, @Nullable String largeTexture) {
-      return modifier(TinkerModifiers.trim.getId(), new TrimModifierModel.Custom(toolMaterial(folder + "/trim").texture(), largeTexture != null ? toolMaterial(folder + '/' + largeTexture).texture() : null));
+      return first(TinkerModifiers.trim.getId(), new TrimModifierModel.Custom(toolMaterial(folder + "/trim").texture(), largeTexture != null ? toolMaterial(folder + '/' + largeTexture).texture() : null));
     }
 
     /** Creates a custom trim in the default folder, using the given name for the large variant */
@@ -306,7 +391,10 @@ public abstract class AbstractModifierModelMapProvider extends GenericDataProvid
     public Builder embellishment(String folder, @Nullable String largeFolder) {
       ModifierId embellishment = TinkerModifiers.embellishment.getId();
       String name = '/' + suffix(embellishment);
-      return modifier(embellishment, new MaterialModifierModel(toolMaterial(folder + name), largeFolder != null ? toolMaterial(largeFolder + name) : null));
+      // whatever is embellish is basically a part so want extra early
+      return first("__embellishment", embellishment, new MaterialModifierModel.PersistentData(toolMaterial(folder + name), largeFolder != null ? toolMaterial(largeFolder + name) : null))
+        // set the embellishment to empty so its skipped in the legacy system. TODO 1.21: remove this
+        .empty(embellishment);
     }
 
     /** Adds the embellishment model to the tool */
@@ -317,7 +405,7 @@ public abstract class AbstractModifierModelMapProvider extends GenericDataProvid
 
     /** Adds the banner model to the tool */
     public Builder banner(@Nullable String smallPrefix, @Nullable String largePrefix) {
-      return modifier(TinkerModifiers.banner.getId(), new BannerModifierModel(
+      return first(TinkerModifiers.banner.getId(), new BannerModifierModel(
         smallPrefix != null ? toolMaterial(smallPrefix).texture() : null,
         largePrefix != null ? toolMaterial(largePrefix).texture() : null
       ));
@@ -331,38 +419,20 @@ public abstract class AbstractModifierModelMapProvider extends GenericDataProvid
       return constant.isEmpty() && modifiers.isEmpty();
     }
 
-    /** Serializes the model to JSON */
-    private static JsonElement serialize(ModifierModel model) {
-      // serialize compound as an array
-      if (model instanceof CompoundModifierModel compound) {
-        return CompoundModifierModel.LIST_LOADABLE.serialize(compound.models());
-      }
-      if (model.getLoader() == NormalModifierModel.LOADER) {
-        NormalModifierModel basic = (NormalModifierModel) model;
-        Material small = basic.small();
-        if (small != null && basic.large() == null && basic.luminosity() == 0 && basic.color() == -1) {
-          return new JsonPrimitive(small.texture().toString());
-        }
-        // type of objects is optional as long as its basic, leave it out so large tools are not as big
-        return NormalModifierModel.LOADER.serialize(basic);
-      }
-      return ModifierModel.LOADER.serialize(model);
-    }
-
     /** Builds the final JSON */
     private JsonObject build() {
       JsonObject json = new JsonObject();
       if (!this.constant.isEmpty()) {
         JsonObject constant = new JsonObject();
         for (Entry<String, ModifierModel> entry : this.constant.entrySet()) {
-          constant.add(entry.getKey(), serialize(entry.getValue()));
+          constant.add(entry.getKey(), ModifierModelLoadable.COMPACT.serialize(entry.getValue()));
         }
         json.add("constant", constant);
       }
       if (!this.modifiers.isEmpty()) {
         JsonObject modifiers = new JsonObject();
         for (Entry<ModifierId, ModifierModel> entry : this.modifiers.entrySet()) {
-          modifiers.add(entry.getKey().toString(), serialize(entry.getValue()));
+          modifiers.add(entry.getKey().toString(), ModifierModelLoadable.COMPACT.serialize(entry.getValue()));
         }
         json.add("modifiers", modifiers);
       }

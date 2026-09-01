@@ -1,0 +1,16 @@
+{
+  "title": "Tanques Chamuscados",
+  "item": {
+    "tag": "tconstruct:seared_tanks"
+  },
+  "text": [
+    {
+      "text": "Los tanques son ideales para almacenar fluidos fundidos o combustibles. ¡Necesitarás uno para fundir metales! Sin embargo, no pueden colocarse en el suelo de la fundición.",
+      "paragraph": true
+    },
+    {
+      "text": "Se pueden llenar con cubos o pociones, y recibir fluidos desde grifos. También sirven para fundir sin una fundición. Los pistones los rompen y los dispensadores pueden colocarlos.",
+      "paragraph": true
+    }
+  ]
+}

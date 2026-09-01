@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:magnetic",
+  "text": [
+    {
+      "text": "La Fuerza es intensa en esta herramienta."
+    }
+  ],
+  "effects": [
+    "Atrae objetos al minar o atacar",
+    "En armadura, el imán es pasivo",
+    "Varios niveles, suben la potencia",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

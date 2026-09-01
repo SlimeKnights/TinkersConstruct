@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:pathing",
+  "text": [
+    {
+      "text": "¿Cansado de olvidar el camino a casa? ¿Por qué no dejar un rastro constante? ¡Aplana la tierra al caminar y nunca olvides por dónde has pasado!"
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/armor/boots",
+  "effects": [
+    "Crea caminos al caminar",
+    "Área aumentada por el modificador Expandido",
+    "Nivel único",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "tool": "tconstruct:ichor_staff",
+  "text": [
+    { "text": "El ícor es un material poco común, pero permite fabricar algunos de los bastones más fuertes. Otorga una mayor velocidad del proyectil a costa de la velocidad de tensado." }
+  ],
+  "properties": [
+    "Alta durabilidad",
+    "2 Ranuras de mejora",
+    "3 Ranuras de habilidad"
+  ]
+}

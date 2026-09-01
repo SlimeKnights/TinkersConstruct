@@ -38,8 +38,8 @@ public class AlloyerBlock extends TinyMultiblockControllerBlock {
   @Override
   public void neighborChanged(BlockState state, Level world, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
     Direction direction = Util.directionFromOffset(pos, fromPos);
-    if (direction != Direction.DOWN) {
-      BlockEntityHelper.get(AlloyerBlockEntity.class, world, pos).ifPresent(te -> te.neighborChanged(direction));
+    if (direction != Direction.DOWN && world.getBlockEntity(pos) instanceof AlloyerBlockEntity te) {
+      te.neighborChanged(direction);
     }
   }
 

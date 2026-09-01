@@ -35,6 +35,7 @@ public abstract class AbstractMobEquipmentProvider extends GenericDataProvider {
   /** Adds all equipment for this provider */
   protected abstract void addEquipment();
 
+  @SuppressWarnings("removal")
   @Override
   public CompletableFuture<?> run(CachedOutput cache) {
     addEquipment();

@@ -1,0 +1,12 @@
+{
+  "tool": "tconstruct:plate_boots",
+  "text": [
+    { "text": "Las botas de placas son botas defensivas, con una alta protección, pocas ranuras de habilidad y muchas ranuras de defensa." }
+  ],
+  "properties": [
+    "Estadísticas controladas por el material",
+    "2 ranuras de mejora",
+    "3 ranuras de defensa",
+    "2 rasgos de material"
+  ]
+}

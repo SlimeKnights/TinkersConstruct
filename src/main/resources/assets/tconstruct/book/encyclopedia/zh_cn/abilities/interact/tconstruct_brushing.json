@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:brushing",
   "text": [
     {
-      "text": "对着可疑的方块右击可疑缓慢地进行清刷。清刷完成后会消耗耐久；可范围清刷。"
+      "text": "对可疑的方块按住交互键，可以逐渐刷扫。完成刷扫操作后才会消耗工具耐久度，支持 范围刷扫。"
     }
   ],
   "more_text_space": true,

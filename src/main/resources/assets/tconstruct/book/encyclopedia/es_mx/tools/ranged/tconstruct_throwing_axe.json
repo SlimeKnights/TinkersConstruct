@@ -1,0 +1,19 @@
+{
+  "tool": "tconstruct:throwing_axe",
+  "text": [
+    {
+      "text": "Las hachas arrojadizas son munición de un solo uso, corto alcance y gran daño que se pueden lanzar sin necesidad de otra herramienta."
+    },
+    {
+      "text": "Ideales cuando quieres dar un golpe un poco más potente que con un shuriken.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "0.75 de velocidad",
+    "1.5 de daño de proyectil",
+    "300% de multiplicador de daño",
+    "0.5 de precisión",
+    "1 rasgo de cabezal, 1 rasgo de mango"
+  ]
+}

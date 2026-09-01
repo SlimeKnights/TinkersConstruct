@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:pierce",
   "text": [
     {
-      "text": "命中敌人后，接下来5秒内每级使箭矢无视敌人2点护甲值。"
+      "text": "箭矢命中后，每级使目标减少1点护甲值，效果持续5秒。"
     }
   ],
   "more_text_space": true,
   "tool_filter": "tconstruct:modifiable/ranged",
   "effects": [
-    "可以逐级强化",
+    "支持累积强化",
     "最高3级",
     "每级需要1个升级槽"
   ]

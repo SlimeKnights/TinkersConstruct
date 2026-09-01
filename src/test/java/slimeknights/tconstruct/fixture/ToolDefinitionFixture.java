@@ -9,9 +9,10 @@ import slimeknights.tconstruct.library.tools.definition.ToolDefinitionDataBuilde
 import slimeknights.tconstruct.library.tools.definition.module.build.ToolActionsModule;
 import slimeknights.tconstruct.library.tools.definition.module.material.PartStatsModule;
 import slimeknights.tconstruct.library.tools.definition.module.mining.IsEffectiveModule;
+import slimeknights.tconstruct.test.TestHelper;
 
 public final class ToolDefinitionFixture {
-  private static final ResourceLocation DEFINITION_ID = new ResourceLocation("test", "test_tool");
+  private static final ResourceLocation DEFINITION_ID = TestHelper.id("test_tool");
 
   /** Standard tool definition for testing */
   private static final ToolDefinition STANDARD_TOOL_DEFINITION = new ToolDefinition(DEFINITION_ID);

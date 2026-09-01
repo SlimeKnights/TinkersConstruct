@@ -20,8 +20,8 @@ materials_ammo=Ammo Materials
 materials_ammo.subtext=Materials used for creating arrows and shurikens.
 materials_armor=Armor Materials
 materials_armor.subtext=Materials used for creating armor and shields.
-materials_skull=Slimeskulls
-materials_skull.subtext=This section describes the effects of all types of skulls in creating a slimeskull
+materials_slime=Slimesuit Materials
+materials_slime.subtext=This section describes the effects of all materials used in creating a slimesuit.
 
 upgrades=Upgrades
 upgrades.subtext=Each tool gets a limited total number of upgrades slots.

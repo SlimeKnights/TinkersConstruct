@@ -1,0 +1,13 @@
+{
+  "title": "Geodas de ender",
+  "image": {
+    "file": "tconstruct:book/images/geodes/enderslime.png",
+    "width": 180,
+    "height": 99
+  },
+  "text": [
+    {
+      "text": "Se hallan en las islas exteriores del End, ya sea bajo tierra o flotando. A veces es difícil distinguirlas de las demás rocas que flotan en ese cielo."
+    }
+  ]
+}

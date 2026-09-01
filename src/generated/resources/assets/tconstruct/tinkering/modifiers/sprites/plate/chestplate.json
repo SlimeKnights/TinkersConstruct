@@ -1,0 +1,51 @@
+{
+  "constant": {
+    "__dyed": {
+      "type": "tconstruct:crafted",
+      "model": {
+        "type": "tconstruct:material_has_fallback",
+        "fallback": "metal",
+        "if_false": {
+          "type": "tconstruct:dyed",
+          "texture": "tconstruct:item/tool/armor/plate/chestplate/maille"
+        },
+        "if_true": {
+          "type": "tconstruct:dyed",
+          "texture": "tconstruct:item/tool/armor/plate/chestplate/maille_metal"
+        },
+        "index": 1
+      },
+      "modifier": "tconstruct:dyed"
+    },
+    "_trim": {
+      "type": "tconstruct:crafted",
+      "model": {
+        "type": "tconstruct:armor_trim",
+        "slot": "chestplate"
+      },
+      "modifier": "tconstruct:trim"
+    }
+  },
+  "modifiers": {
+    "tconstruct:ambidextrous": "tconstruct:item/tool/armor/plate/chestplate/modifiers/tconstruct_ambidextrous",
+    "tconstruct:diamond": "tconstruct:item/tool/armor/plate/chestplate/modifiers/tconstruct_diamond",
+    "tconstruct:emerald": "tconstruct:item/tool/armor/plate/chestplate/modifiers/tconstruct_emerald",
+    "tconstruct:fiery": {
+      "luminosity": 10,
+      "texture": "tconstruct:item/tool/armor/plate/chestplate/modifiers/tconstruct_fiery"
+    },
+    "tconstruct:freezing": "tconstruct:item/tool/armor/plate/chestplate/modifiers/tconstruct_freezing",
+    "tconstruct:haste": {
+      "luminosity": 7,
+      "texture": "tconstruct:item/tool/armor/plate/chestplate/modifiers/tconstruct_haste"
+    },
+    "tconstruct:knockback": "tconstruct:item/tool/armor/plate/chestplate/modifiers/tconstruct_knockback",
+    "tconstruct:netherite": "tconstruct:item/tool/armor/plate/chestplate/modifiers/tconstruct_netherite",
+    "tconstruct:reach": "tconstruct:item/tool/armor/plate/chestplate/modifiers/tconstruct_reach",
+    "tconstruct:ricochet": "tconstruct:item/tool/armor/plate/chestplate/modifiers/tconstruct_ricochet",
+    "tconstruct:sleeves": "tconstruct:item/tool/armor/plate/chestplate/modifiers/tconstruct_sleeves",
+    "tconstruct:springy": "tconstruct:item/tool/armor/plate/chestplate/modifiers/tconstruct_springy",
+    "tconstruct:strength": "tconstruct:item/tool/armor/plate/chestplate/modifiers/tconstruct_strength",
+    "tconstruct:thorns": "tconstruct:item/tool/armor/plate/chestplate/modifiers/tconstruct_thorns"
+  }
+}

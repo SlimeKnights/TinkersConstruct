@@ -1,0 +1,29 @@
+{
+  "constant": {
+    "__dyed": {
+      "type": "tconstruct:crafted",
+      "model": {
+        "type": "tconstruct:material_has_fallback",
+        "fallback": "bone",
+        "if_false": {
+          "type": "tconstruct:dyed",
+          "texture": "tconstruct:item/tool/armor/slime/chestplate/ribcage"
+        },
+        "if_true": {
+          "type": "tconstruct:dyed",
+          "texture": "tconstruct:item/tool/armor/slime/chestplate/ribcage_bone"
+        },
+        "index": 0
+      },
+      "modifier": "tconstruct:dyed"
+    },
+    "_trim": {
+      "type": "tconstruct:crafted",
+      "model": {
+        "type": "tconstruct:armor_trim",
+        "slot": "chestplate"
+      },
+      "modifier": "tconstruct:trim"
+    }
+  }
+}

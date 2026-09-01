@@ -6,12 +6,13 @@ import net.minecraft.resources.ResourceLocation;
 import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.test.BaseMcTest;
+import slimeknights.tconstruct.test.TestHelper;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ToolDataNBTTest extends BaseMcTest {
-  private static final ResourceLocation testKey = new ResourceLocation("test");
-  private static final ResourceLocation testKey2 = new ResourceLocation("test2");
+  private static final ResourceLocation testKey = TestHelper.id("test");
+  private static final ResourceLocation testKey2 = TestHelper.id("test2");
 
   @Test
   void empty() {

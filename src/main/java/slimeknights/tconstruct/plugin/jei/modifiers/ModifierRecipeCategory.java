@@ -1,29 +1,23 @@
 package slimeknights.tconstruct.plugin.jei.modifiers;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import lombok.Getter;
-import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
-import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
+import mezz.jei.api.gui.placement.HorizontalAlignment;
+import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocus;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
-import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
+import mezz.jei.api.recipe.category.AbstractRecipeCategory;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.library.json.IntRange;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
@@ -39,34 +33,46 @@ import slimeknights.tconstruct.tools.item.CreativeSlotItem;
 import javax.annotation.Nullable;
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
-public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierRecipe> {
+public class ModifierRecipeCategory extends AbstractRecipeCategory<IDisplayModifierRecipe> {
   protected static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/tinker_station.png");
   private static final Component TITLE = TConstruct.makeTranslation("jei", "modifiers.title");
 
   // translation
-  private static final List<Component> TEXT_INCREMENTAL = Collections.singletonList(TConstruct.makeTranslation("jei", "modifiers.incremental"));
+  private static final Component TEXT_INCREMENTAL = TConstruct.makeTranslation("jei", "modifiers.incremental");
   private static final String KEY_MIN = TConstruct.makeTranslationKey("jei", "modifiers.level.min");
   private static final String KEY_MAX = TConstruct.makeTranslationKey("jei", "modifiers.level.max");
   private static final String KEY_RANGE = TConstruct.makeTranslationKey("jei", "modifiers.level.range");
   private static final String KEY_EXACT = TConstruct.makeTranslationKey("jei", "modifiers.level.exact");
 
+  /** Draws the slotless input icon. */
+  private static final IDrawable SLOTLESS = new IDrawable() {
+    @Override
+    public int getWidth() {
+      return SlotIngredientRenderer.INPUT.getWidth();
+    }
+
+    @Override
+    public int getHeight() {
+      return SlotIngredientRenderer.INPUT.getHeight();
+    }
+
+    @Override
+    public void draw(GuiGraphics graphics, int xOffset, int yOffset) {
+      SlotIngredientRenderer.INPUT.render(graphics, null, xOffset, yOffset);
+    }
+  };
+
   private final ModifierIngredientRenderer modifierRenderer = new ModifierIngredientRenderer(124, 10);
 
-  @Getter
-  private final IDrawable background;
-  @Getter
-  private final IDrawable icon;
   private final IDrawable requirements, incremental;
   private final IDrawable[] slotIcons;
   public ModifierRecipeCategory(IGuiHelper helper) {
-    this.background = helper.createDrawable(BACKGROUND_LOC, 0, 0, 128, 77);
-    this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, CreativeSlotItem.withSlot(new ItemStack(TinkerModifiers.creativeSlotItem), SlotType.UPGRADE));
+    super(TConstructJEIConstants.MODIFIERS, TITLE, helper.createDrawableItemStack(CreativeSlotItem.withSlot(new ItemStack(TinkerModifiers.creativeSlotItem), SlotType.UPGRADE)), 128, 77);
     this.slotIcons = new IDrawable[6];
     for (int i = 0; i < 6; i++) {
       slotIcons[i] = helper.createDrawable(BACKGROUND_LOC, 128 + i * 16, 0, 16, 16);
@@ -76,116 +82,81 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
     clearSlimeskullCache();
   }
 
-  @Override
-  public RecipeType<IDisplayModifierRecipe> getRecipeType() {
-    return TConstructJEIConstants.MODIFIERS;
-  }
-
-  @Override
-  public Component getTitle() {
-    return TITLE;
-  }
-
-  /** Draws a single slot icon */
-  private void drawSlot(GuiGraphics graphics, IDisplayModifierRecipe recipe, int slot, int x, int y) {
-    List<ItemStack> stacks = recipe.getDisplayItems(slot);
-    if (stacks.isEmpty()) {
-      // -1 as the item list includes the output slot, we skip that
-      slotIcons[slot].draw(graphics, x + 1, y + 1);
-    }
-  }
-
-  @Override
-  public void draw(IDisplayModifierRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics graphics, double mouseX, double mouseY) {
-    drawSlot(graphics, recipe, 0,  2, 32);
-    drawSlot(graphics, recipe, 1, 24, 14);
-    drawSlot(graphics, recipe, 2, 46, 32);
-    drawSlot(graphics, recipe, 3, 42, 57);
-    drawSlot(graphics, recipe, 4,  6, 57);
-
-    // draw info icons
-    ModifierEntry result = recipe.getDisplayResult();
-    if (result.getHook(ModifierHooks.REQUIREMENTS).requirementsError(result) != null) {
-      requirements.draw(graphics, 66, 58);
-    }
-    if (recipe.isIncremental()) {
-      incremental.draw(graphics, 83, 59);
-    }
-
-    // draw level requirements
-    Component levelText = null;
+  /** Gets the text describing the required modifier level, if any. */
+  @Nullable
+  private static Component getLevelText(IDisplayModifierRecipe recipe) {
     Component variant = recipe.getVariant();
     if (variant != null) {
-      levelText = variant;
-    } else {
-      IntRange level = recipe.getLevel();
-      int min = level.min();
-      int max = level.max();
-      // min being 1 means we only have a max level, we check this first as Max Level is better than exact typiclly
-      if (min == 1) {
-        if (max < ModifierEntry.VALID_LEVEL.max()) {
-          levelText = Component.translatable(KEY_MAX, max);
-        }
-      } else if (min == max) {
-        levelText = Component.translatable(KEY_EXACT, min);
-      } else if (max == ModifierEntry.VALID_LEVEL.max()) {
-        levelText = Component.translatable(KEY_MIN, min);
-      } else {
-        levelText = Component.translatable(KEY_RANGE, min, max);
+      return variant;
+    }
+    IntRange level = recipe.getLevel();
+    int min = level.min();
+    int max = level.max();
+    // min being 1 means we only have a max level, we check this first as Max Level is better than exact typically
+    if (min == 1) {
+      if (max < ModifierEntry.VALID_LEVEL.max()) {
+        return Component.translatable(KEY_MAX, max);
       }
+    } else if (min == max) {
+      return Component.translatable(KEY_EXACT, min);
+    } else if (max == ModifierEntry.VALID_LEVEL.max()) {
+      return Component.translatable(KEY_MIN, min);
+    } else {
+      return Component.translatable(KEY_RANGE, min, max);
     }
-    if (levelText != null) {
-      // center string
-      Font fontRenderer = Minecraft.getInstance().font;
-      graphics.drawString(fontRenderer, levelText, 86 - fontRenderer.width(levelText) / 2, 16, Color.GRAY.getRGB(), false);
-    }
-
-    // draw slotless icon if needed. Slots are handled by ingredient renderer.
-    SlotCount slots = recipe.getSlots();
-    if (slots == null) {
-      PoseStack pose = graphics.pose();
-      pose.pushPose();
-      pose.translate(102, 58, 0);
-      SlotIngredientRenderer.INPUT.render(graphics, null);
-      pose.popPose();
-    }
+    return null;
   }
 
   @Override
-  public List<Component> getTooltipStrings(IDisplayModifierRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
-    int checkX = (int) mouseX;
-    int checkY = (int) mouseY;
+  public void createRecipeExtras(IRecipeExtrasBuilder builder, IDisplayModifierRecipe recipe, IFocusGroup focuses) {
+    builder.addRecipeArrowWidget().setPosition(71, 33);
     ModifierEntry result = recipe.getDisplayResult();
-    if (GuiUtil.isHovered(checkX, checkY, 66, 58, 16, 16)) {
-      Component requirements = result.getHook(ModifierHooks.REQUIREMENTS).requirementsError(result);
-      if (requirements != null) {
-        return Collections.singletonList(requirements);
-      }
+    Component requirementsError = result.getHook(ModifierHooks.REQUIREMENTS).requirementsError(result);
+    if (requirementsError != null) {
+      builder.addDrawableWidget(requirements).setPosition(66, 58).setTooltip(requirementsError);
     }
-    if (recipe.isIncremental() && GuiUtil.isHovered(checkX, checkY, 83, 59, 16, 16)) {
-      return TEXT_INCREMENTAL;
+    if (recipe.isIncremental()) {
+      builder.addDrawableWidget(incremental).setPosition(83, 59).setTooltip(TEXT_INCREMENTAL);
     }
-    SlotCount slots = recipe.getSlots();
-    if (slots == null && GuiUtil.isHovered(checkX, checkY, 102, 58, 24, 16)) {
-      return SlotIngredientRenderer.INPUT.getTooltip(null, TooltipFlag.NORMAL);
+    if (recipe.getSlots() == null) {
+      builder.addDrawableWidget(SLOTLESS)
+        .setPosition(102, 58)
+        .setTooltip(SlotIngredientRenderer.TEXT_FREE);
     }
-    
-    return Collections.emptyList();
+    Component levelText = getLevelText(recipe);
+    if (levelText != null) {
+      builder.addText(levelText, 85, 9)
+        .setPosition(43, 16)
+        .setColor(Color.GRAY.getRGB())
+        .setTextAlignment(HorizontalAlignment.CENTER);
+    }
+  }
+
+  /** Adds an input slot with the icon */
+  private void addInput(IRecipeLayoutBuilder builder, IDisplayModifierRecipe recipe, int index, int x, int y) {
+    List<ItemStack> stacks = recipe.getDisplayItems(index);
+    IRecipeSlotBuilder slot = builder.addInputSlot(x, y)
+      .addItemStacks(stacks)
+      .setStandardSlotBackground();
+    // show icon if the slot is empty
+    if (stacks.isEmpty()) {
+      slot.setOverlay(slotIcons[index], 0, 0);
+    }
   }
 
   @Override
   public void setRecipe(IRecipeLayoutBuilder builder, IDisplayModifierRecipe recipe, IFocusGroup focuses) {
     // inputs
-    builder.addSlot(RecipeIngredientRole.INPUT,  3, 33).addItemStacks(recipe.getDisplayItems(0));
-    builder.addSlot(RecipeIngredientRole.INPUT, 25, 15).addItemStacks(recipe.getDisplayItems(1));
-    builder.addSlot(RecipeIngredientRole.INPUT, 47, 33).addItemStacks(recipe.getDisplayItems(2));
-    builder.addSlot(RecipeIngredientRole.INPUT, 43, 58).addItemStacks(recipe.getDisplayItems(3));
-    builder.addSlot(RecipeIngredientRole.INPUT,  7, 58).addItemStacks(recipe.getDisplayItems(4));
+    addInput(builder, recipe, 0,  3, 33);
+    addInput(builder, recipe, 1, 25, 15);
+    addInput(builder, recipe, 2, 47, 33);
+    addInput(builder, recipe, 3, 43, 58);
+    addInput(builder, recipe, 4,  7, 58);
 
     // modifiers
-    builder.addSlot(RecipeIngredientRole.OUTPUT, 3, 3)
-           .setCustomRenderer(TConstructJEIConstants.MODIFIER_TYPE, modifierRenderer)
-           .addIngredient(TConstructJEIConstants.MODIFIER_TYPE, recipe.getDisplayResult());
+    builder.addOutputSlot(3, 3)
+      .setCustomRenderer(TConstructJEIConstants.MODIFIER_TYPE, modifierRenderer)
+      .addIngredient(TConstructJEIConstants.MODIFIER_TYPE, recipe.getDisplayResult());
 
     // tool
     List<ItemStack> toolWithoutModifier = recipe.getToolWithoutModifier();
@@ -201,7 +172,7 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
     // JEI is currently being dumb and using ingredient subtypes within recipe focuses
     // we use a more strict subtype for tools in ingredients so they all show in JEI, but do not care in recipes
     // thus, manually handle the focuses
-    IFocus<ItemStack> focus = focuses.getFocuses(VanillaTypes.ITEM_STACK).filter(f -> f.getRole() == RecipeIngredientRole.CATALYST).findFirst().orElse(null);
+    IFocus<ItemStack> focus = focuses.getItemStackFocuses(RecipeIngredientRole.CATALYST).findFirst().orElse(null);
     if (focus != null) {
       Item item = focus.getTypedValue().getIngredient().getItem();
       for (ItemStack stack : toolWithoutModifier) {
@@ -217,13 +188,15 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
         }
       }
     }
-    builder.addSlot(RecipeIngredientRole.CATALYST,  25, 38).addItemStacks(toolWithoutModifier);
-    builder.addSlot(RecipeIngredientRole.CATALYST, 105, 34).addItemStacks(toolWithModifier);
+    builder.addSlot(RecipeIngredientRole.CATALYST,  25, 38)
+      .addItemStacks(toolWithoutModifier).setStandardSlotBackground();
+    builder.addSlot(RecipeIngredientRole.CATALYST, 105, 34)
+      .addItemStacks(toolWithModifier).setOutputSlotBackground();
 
     // modifier slots
     SlotCount slots = recipe.getSlots();
     if (slots != null) {
-      builder.addSlot(RecipeIngredientRole.INPUT, 102, 58)
+      builder.addInputSlot(102, 58)
         .setCustomRenderer(TConstructJEIConstants.SLOT_TYPE, SlotIngredientRenderer.INPUT)
         .addIngredient(TConstructJEIConstants.SLOT_TYPE, recipe.getSlots());
     }

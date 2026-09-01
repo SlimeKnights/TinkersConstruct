@@ -1,0 +1,17 @@
+{
+  "title": "Automatización",
+  "image": {
+    "file": "tconstruct:book/images/cast_automation.png",
+    "width": 88,
+    "height": 75
+  },
+  "text": [
+    {
+      "text": "Las cuencas y mesas de fundición funcionan con tolvas, permitiendo insertar objetos y extraer piezas frías fácilmente."
+    },
+    {
+      "text": "Los comparadores hacen que la redstone brille de colores raros al conectarlos, y un pulso puede alternar la entrada y salida.",
+      "paragraph": true
+    }
+  ]
+}

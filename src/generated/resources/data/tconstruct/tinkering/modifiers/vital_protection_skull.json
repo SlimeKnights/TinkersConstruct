@@ -1,0 +1,25 @@
+{
+  "level_display": {
+    "type": "tconstruct:map_level",
+    "level": {
+      "each_level": 1,
+      "flat": 1
+    }
+  },
+  "modules": [
+    {
+      "type": "tconstruct:trait",
+      "fixed_level": false,
+      "level": 1,
+      "name": "tconstruct:vital_protection"
+    },
+    {
+      "type": "tconstruct:trait",
+      "fixed_level": true,
+      "level": 1,
+      "name": "tconstruct:vital_protection"
+    }
+  ],
+  "tooltip_display": "never",
+  "translation_key": "modifier.tconstruct.vital_protection"
+}

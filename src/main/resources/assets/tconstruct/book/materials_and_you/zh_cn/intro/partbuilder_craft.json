@@ -3,6 +3,6 @@
   "recipe": "tconstruct:tables/part_builder",
   "grid_size": "small",
   "description": [
-    { "text": "合成一些模具之后，就该合成部件制造台制作工具了。" }
+    { "text": "在有了一些模具后，你还需要制作一个部件制造台，这样就能正式开始制造工具。" }
   ]
 }

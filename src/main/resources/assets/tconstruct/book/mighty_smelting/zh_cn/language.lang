@@ -1,16 +1,17 @@
 intro=介绍
 entity_melting=实体熔炼
 melee_harvest_materials=三级通用材料
-melee_harvest_materials.subtext=这些材料需要通过合金来获得，然后铸造成近程武器或采掘工具的工具部件。
+melee_harvest_materials.subtext=这些材料需要通过合金来获得，然后铸造成近战武器或采掘工具的工具部件。
 ranged_materials=三级远程材料
 ranged_materials.subtext=这些材料需要通过合金来获得，然后铸造成像弓那样的远程武器的工具部件。
 armor_materials=三级盔甲材料
 armor_materials.subtext=这些材料可以锻造成盔甲和盾牌的部件。
 
 tools=宽型工具
-tools.subtext=宽型工具需要工匠砧才能制作。
+tools.subtext=宽型工具需要在工匠砧上制作。
 tools.group_general=通用工具
 tools.group_ranged=远程工具
+tools.group_info=信息
 
 armor=大师盔甲
 armor.subtext=合金拓宽了盔甲制造中材料的使用范围。这些材料或许能向旅行者套装这样的基础盔甲上增加额外的能力。
@@ -18,7 +19,7 @@ armor.subtext=合金拓宽了盔甲制造中材料的使用范围。这些材料
 smeltery=冶炼炉
 
 abilities=能力强化
-abilities.subtext=能力强化的效果比升级强化更强大，但其槽位个数也更少。
+abilities.subtext=能力强化效果强于升级强化，但槽位数较少。
 abilities.group_general=通用能力
 abilities.group_harvest=采掘能力
 abilities.group_melee=近战能力
@@ -33,6 +34,6 @@ abilities.group_armor.shield=盾牌能力
 upgrades.subtext=工具可被升级强化，但同一把工具的升级次数是有限的。
 
 defense=防御强化
-defense.subtext=防御强化只能被应用于盔甲，并且消耗防御槽。
-defense.group_protection=保护防御
-defense.group_special=特殊防御
+defense.subtext=防御强化只能加持在盔甲上，消耗防御槽。
+defense.group_protection=保护型
+defense.group_special=特殊型

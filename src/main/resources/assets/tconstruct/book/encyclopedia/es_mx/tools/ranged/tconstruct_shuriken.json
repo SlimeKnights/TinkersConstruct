@@ -1,0 +1,19 @@
+{
+  "tool": "tconstruct:shuriken",
+  "text": [
+    {
+      "text": "Los shurikens son munición rápida de un solo uso que se puede lanzar sin necesidad de otra herramienta."
+    },
+    {
+      "text": "Esto los hace fáciles de usar, pero limita su potencial.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "1.5 de velocidad",
+    "1.5 de daño de proyectil",
+    "200% de multiplicador de daño",
+    "0.75 de precisión",
+    "2 rasgos de cabezal"
+  ]
+}

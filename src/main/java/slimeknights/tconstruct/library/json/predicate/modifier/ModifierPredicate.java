@@ -48,7 +48,7 @@ public interface ModifierPredicate extends IJsonPredicate<ModifierId> {
   }
 
   /** Creates a tag predicate */
-  @SuppressWarnings("removal")
+  @SuppressWarnings({"removal", "deprecation"})
   static IJsonPredicate<ModifierId> tag(TagKey<Modifier> tag) {
     return new TagModifierPredicate(tag);
   }

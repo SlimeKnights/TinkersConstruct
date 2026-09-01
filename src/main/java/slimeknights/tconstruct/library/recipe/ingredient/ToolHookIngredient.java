@@ -75,6 +75,7 @@ public class ToolHookIngredient extends AbstractIngredient {
     private final TagKey<Item> tag;
     private final ModuleHook<?> hook;
 
+    @SuppressWarnings("deprecation")
     @Override
     public Collection<ItemStack> getItems() {
       List<ItemStack> list = new ArrayList<>();
@@ -85,7 +86,7 @@ public class ToolHookIngredient extends AbstractIngredient {
           list.add(new ItemStack(modifiable));
         }
       }
-      if (list.size() == 0) {
+      if (list.isEmpty()) {
         list.add(new ItemStack(Blocks.BARRIER).setHoverName(Component.literal("Empty Tag: " + tag.location())));
       }
       return list;

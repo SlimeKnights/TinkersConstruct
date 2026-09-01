@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:experienced",
+  "text": [
+    {
+      "text": "Mírate, ya te sientes un genio con un poquito de experiencia."
+    }
+  ],
+  "effects": [
+    "Ganas más XP de bloques y mobs",
+    "Niveles múltiples, suben la XP ganada",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

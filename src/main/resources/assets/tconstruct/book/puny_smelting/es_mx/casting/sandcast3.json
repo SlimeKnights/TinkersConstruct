@@ -1,0 +1,13 @@
+{
+  "title": "Moldes de arena",
+  "image": {
+    "file": "tconstruct:book/images/sandcast_partbuilder.png",
+    "width": 172,
+    "height": 74
+  },
+  "text": [
+    {
+      "text": "También puedes crear moldes en el constructor de piezas usando arena o un molde vacío. Esto es necesario para los moldes de placas de armadura."
+    }
+  ]
+}

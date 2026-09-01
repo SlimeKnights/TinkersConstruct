@@ -1,0 +1,13 @@
+{
+  "tool": "tconstruct:ender_staff",
+  "text": [
+    { "text": "Usando el poder del slime de Ender, puedes fabricar un bastón para alcanzar objetivos lejanos. Tiene una mayor potencia de proyectil, pero peor precisión." }
+  ],
+  "properties": [
+    "Alta durabilidad",
+    "3 Ranuras de mejora",
+    "1 Ranura de defensa",
+    "2 Ranuras de habilidad",
+    "Alcance II"
+  ]
+}

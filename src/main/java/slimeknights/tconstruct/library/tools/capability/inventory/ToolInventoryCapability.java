@@ -7,9 +7,11 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUtils;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
@@ -41,6 +43,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
+import java.util.stream.IntStream;
 
 /** Capability for a tool with an inventory */
 @RequiredArgsConstructor
@@ -560,6 +563,16 @@ public class ToolInventoryCapability extends InventoryModifierHookIterator<Modif
       return InteractionResult.sidedSuccess(player.level().isClientSide);
     }
     return InteractionResult.PASS;
+  }
+
+  /** Called when a tool item entity is destroyed to drop its inventory items. */
+  public static void onDestroyed(ItemEntity entity) {
+    if (!entity.level().isClientSide) {
+      IItemHandler handler = entity.getItem().getCapability(ForgeCapabilities.ITEM_HANDLER).orElse(EmptyItemHandler.INSTANCE);
+      if (handler.getSlots() > 0) {
+        ItemUtils.onContainerDestroyed(entity, IntStream.range(0, handler.getSlots()).mapToObj(handler::getStackInSlot).filter(stack -> !stack.isEmpty()));
+      }
+    }
   }
 
   /** Iterator that goes through a list in reverse order */

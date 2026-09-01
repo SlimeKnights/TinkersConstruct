@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:redirected",
+  "text": [
+    {
+      "text": "Dirige la flecha de vuelta en la dirección en la que ya estaba yendo."
+    }
+  ],
+  "effects": [
+    "Copia el rasgo del cabezal de la herramienta",
+    "Nivel único",
+    "Sin ranuras"
+  ]
+}

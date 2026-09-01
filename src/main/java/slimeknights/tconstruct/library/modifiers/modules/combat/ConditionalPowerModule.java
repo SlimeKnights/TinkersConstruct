@@ -96,6 +96,7 @@ public record ConditionalPowerModule(IJsonPredicate<LivingEntity> target, IJsonP
     persistentData.putFloat(tool.hasTag(TinkerTags.Items.AMMO) ? AMMO_MULTIPLIER : BOW_MULTIPLIER, tool.getMultiplier(ToolStats.PROJECTILE_DAMAGE));
   }
 
+  @Deprecated
   @Override
   public boolean onProjectileHitEntity(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
     ResourceLocation key = modifier.getId();

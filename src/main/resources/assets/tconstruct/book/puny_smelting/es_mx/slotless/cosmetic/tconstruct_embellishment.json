@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:embellishment",
+  "text": [
+    {
+      "text": "¡El cosmético original para cambiar la apariencia de tus herramientas y armaduras!"
+    }
+  ],
+  "effects": [
+    "Cambia la apariencia de armaduras, escudos y bastones",
+    "Usa madera para embellecer bastones y escudos",
+    "Usa slime congelado para embellecer con slime",
+    "Intercambiable",
+    "Sin ranuras"
+  ]
+}

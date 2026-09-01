@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:expanded",
+  "text": [
+    {
+      "text": "Aumenta el área de efecto de la herramienta. Los efectos específicos se describen en las páginas de cada herramienta."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Sin nivel máximo",
+    "Requiere 1 ranura de habilidad por nivel"
+  ]
+}

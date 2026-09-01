@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:impaling",
   "text": [
     {
-      "text": "让箭矢在击中第一个目标后继续移动，击中多个目标。每级可以多击穿1个目标。"
+      "text": "箭矢在击中第一个目标后可以继续移动，从而有机会击中更多目标。每级增加1个可以穿透的生物。"
     }
   ],
   "more_text_space": true,

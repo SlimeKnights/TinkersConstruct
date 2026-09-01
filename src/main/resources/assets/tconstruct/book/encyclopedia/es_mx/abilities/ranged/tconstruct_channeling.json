@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:channeling",
+  "text": [
+    {
+      "text": "Añade una probabilidad de que caiga un rayo sobre herramientas lanzadas y anzuelos de pesca, según el clima. Con cielos despejados, tiene un 15% de probabilidad; 65% bajo la lluvia; y 100% en tormentas eléctricas."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Sin nivel máximo",
+    "Requiere 1 ranura de habilidad por nivel",
+    "Requiere lanzamiento, pesca o un arco de balista"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "tool": "tconstruct:sledge_hammer",
+  "text": [
+    {
+      "text": "El Mazo de Demolición es una herramienta de minería amplia. Recolecta bloques en un área extensa y es eficaz contra los no-muertos."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Es óptimo para minar grandes áreas y para largas jornadas de minería."
+    }
+  ],
+  "properties": [
+    "Herramienta de minería avanzada",
+    "Minería en área de 3x3",
+    "Eficaz en piedra y minerales",
+    "Comienza con Castigo II"
+  ]
+}

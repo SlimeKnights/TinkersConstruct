@@ -1,0 +1,51 @@
+{
+  "constant": {
+    "__dyed": {
+      "type": "tconstruct:crafted",
+      "model": {
+        "type": "tconstruct:material_has_fallback",
+        "fallback": "metal",
+        "if_false": {
+          "type": "tconstruct:dyed",
+          "texture": "tconstruct:item/tool/armor/plate/boots/maille"
+        },
+        "if_true": {
+          "type": "tconstruct:dyed",
+          "texture": "tconstruct:item/tool/armor/plate/boots/maille_metal"
+        },
+        "index": 1
+      },
+      "modifier": "tconstruct:dyed"
+    },
+    "_trim": {
+      "type": "tconstruct:crafted",
+      "model": {
+        "type": "tconstruct:armor_trim",
+        "slot": "boots"
+      },
+      "modifier": "tconstruct:trim"
+    }
+  },
+  "modifiers": {
+    "tconstruct:depth_strider": "tconstruct:item/tool/armor/plate/boots/modifiers/tconstruct_depth_strider",
+    "tconstruct:diamond": "tconstruct:item/tool/armor/plate/boots/modifiers/tconstruct_diamond",
+    "tconstruct:double_jump": "tconstruct:item/tool/armor/plate/boots/modifiers/tconstruct_double_jump",
+    "tconstruct:emerald": "tconstruct:item/tool/armor/plate/boots/modifiers/tconstruct_emerald",
+    "tconstruct:feather_falling": "tconstruct:item/tool/armor/plate/boots/modifiers/tconstruct_feather_falling",
+    "tconstruct:fiery": {
+      "luminosity": 10,
+      "texture": "tconstruct:item/tool/armor/plate/boots/modifiers/tconstruct_fiery"
+    },
+    "tconstruct:freezing": "tconstruct:item/tool/armor/plate/boots/modifiers/tconstruct_freezing",
+    "tconstruct:lightspeed": {
+      "luminosity": 15,
+      "texture": "tconstruct:item/tool/armor/plate/boots/modifiers/tconstruct_lightspeed"
+    },
+    "tconstruct:long_fall": "tconstruct:item/tool/armor/plate/boots/modifiers/tconstruct_long_fall",
+    "tconstruct:netherite": "tconstruct:item/tool/armor/plate/boots/modifiers/tconstruct_netherite",
+    "tconstruct:ricochet": "tconstruct:item/tool/armor/plate/boots/modifiers/tconstruct_ricochet",
+    "tconstruct:soulspeed": "tconstruct:item/tool/armor/plate/boots/modifiers/tconstruct_soulspeed",
+    "tconstruct:springy": "tconstruct:item/tool/armor/plate/boots/modifiers/tconstruct_springy",
+    "tconstruct:thorns": "tconstruct:item/tool/armor/plate/boots/modifiers/tconstruct_thorns"
+  }
+}

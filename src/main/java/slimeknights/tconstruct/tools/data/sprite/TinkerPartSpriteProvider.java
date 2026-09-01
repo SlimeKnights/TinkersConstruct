@@ -14,12 +14,21 @@ import slimeknights.tconstruct.tools.stats.StatlessMaterialStats;
  * Do not use both this and {@link TinkerMaterialSpriteProvider} in a single generator for an addon, if you need to use both make two instances of {@link slimeknights.tconstruct.library.client.data.material.MaterialPartTextureGenerator}
  */
 public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
+  /** Used for wooden embellishments */
   public static final MaterialStatsId WOOD = new MaterialStatsId(TConstruct.MOD_ID, "wood");
+  /** Used for slimesuit slime on armor models */
   public static final MaterialStatsId SLIMESUIT = new MaterialStatsId(TConstruct.MOD_ID, "slimesuit");
+  /** Used for slimesuit ribcage and laces on armor models */
+  public static final MaterialStatsId SLIMESUIT_OVERLAY = new MaterialStatsId(TConstruct.MOD_ID, "slimesuit_overlay");
+  /** Plating on armor models */
   public static final MaterialStatsId ARMOR_PLATING = new MaterialStatsId(TConstruct.MOD_ID, "armor_plating");
+  /** Maille on armor models */
   public static final MaterialStatsId ARMOR_MAILLE = new MaterialStatsId(TConstruct.MOD_ID, "armor_maille");
+  /** Curiass on travelers armor model */
   public static final MaterialStatsId ARMOR_CUIRASS = new MaterialStatsId(TConstruct.MOD_ID, "armor_cuirass");
+  /** Fake ingots used for fallbacks for mod compat materials */
   public static final MaterialStatsId INGOT = new MaterialStatsId(TConstruct.MOD_ID, "ingot");
+  /** Fake storage blocks used for fallbacks for mod compat materials */
   public static final MaterialStatsId STORAGE_BLOCK = new MaterialStatsId(TConstruct.MOD_ID, "storage_block");
 
   public TinkerPartSpriteProvider() {
@@ -104,11 +113,13 @@ public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
       .addBreakablePart("leggings/slime",     SlimeStats.ID)
       .addBreakablePart("leggings/shell",     RepairStats.SHELL.getId())
       .addBreakablePart("boots/slime",        SlimeStats.ID)
-      .addBreakablePart("boots/laces",        RepairStats.LACES.getId())
+      .addPart(         "boots/laces",        RepairStats.LACES.getId())
       .addBreakablePart("wings/slime",        SlimeStats.ID);
-    addTexture("tinker_armor/slime/armor", SLIMESUIT).disallowAnimated();
+    addTexture("tinker_armor/slime/armor",    SLIMESUIT).disallowAnimated();
     addTexture("tinker_armor/slime/leggings", SLIMESUIT).disallowAnimated();
-    addTexture("tinker_armor/slime/wings", SLIMESUIT).disallowAnimated();
+    addTexture("tinker_armor/slime/wings",    SLIMESUIT).disallowAnimated();
+    addTexture("tinker_armor/slime/overlay_armor", SLIMESUIT_OVERLAY).disallowAnimated();
+    addTexture("tinker_armor/slime/overlay_leggings", RepairStats.SHELL.getId()).disallowAnimated();
 
     // tools
     // pickaxe - regular variant uses handle on frypans as a grip so generate those too

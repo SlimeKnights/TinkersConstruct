@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:step_up",
+  "text": [
+    {
+      "text": "Aumenta la altura que el jugador puede subir automáticamente en 0.5 bloques por nivel."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 2 niveles",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "color": "FFA1A7B1",
+  "color": "FF9499A4",
   "generator": {
     "supported_stats": [
       "tconstruct:slime",
@@ -10,36 +10,15 @@
       "type": "tconstruct:recolor_sprite",
       "color_mapping": {
         "type": "tconstruct:grey_to_color",
-        "palette": [
-          {
-            "color": "FF000000",
-            "grey": 0
-          },
-          {
-            "color": "FF55627F",
-            "grey": 63
-          },
-          {
-            "color": "FF5E6C8D",
-            "grey": 102
-          },
-          {
-            "color": "FF757D90",
-            "grey": 140
-          },
-          {
-            "color": "FF9499A4",
-            "grey": 178
-          },
-          {
-            "color": "FFA1A7B1",
-            "grey": 216
-          },
-          {
-            "color": "FFAFB9D6",
-            "grey": 255
-          }
-        ]
+        "palette": {
+          "000": "FF000000",
+          "063": "FF373944",
+          "102": "FF40445A",
+          "140": "FF5E6C8D",
+          "178": "FF757D90",
+          "216": "FF9499A4",
+          "255": "FFAFB9D6"
+        }
       }
     }
   }

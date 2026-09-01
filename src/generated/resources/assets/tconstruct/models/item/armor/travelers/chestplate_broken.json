@@ -9,10 +9,6 @@
     "tconstruct:travelers/vest_broken",
     "tconstruct:travelers/vest"
   ],
-  "first_modifiers": [
-    "tconstruct:dyed",
-    "tconstruct:trim"
-  ],
   "parts": [
     {
       "name": "cuirass",

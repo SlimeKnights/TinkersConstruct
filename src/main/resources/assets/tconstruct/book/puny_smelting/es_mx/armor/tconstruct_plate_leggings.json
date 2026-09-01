@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:plate_leggings",
+  "text": [
+    { "text": "Mi pierna, mi pierna." },
+  {
+      "text": "¡Estos pantalones ofrecen gran protección para todas tus batallas!", "paragraph": true
+    }
+  ],
+  "properties": [
+    "Más durabilidad",
+    "Más armadura",
+    "2 ranuras de mejora",
+    "3 ranuras de defensa",
+    "2 rasgos de material"
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "color": "FF817E76",
+  "generator": {
+    "supported_stats": [
+      "tconstruct:ribcage",
+      "tconstruct:slimesuit_overlay",
+      "tconstruct:repair_kit"
+    ],
+    "transformer": {
+      "type": "tconstruct:recolor_sprite",
+      "color_mapping": {
+        "type": "tconstruct:grey_to_color",
+        "palette": {
+          "000": "FF000000",
+          "063": "FF433E3D",
+          "102": "FF494845",
+          "140": "FF595959",
+          "178": "FF666460",
+          "216": "FF817E76",
+          "255": "FFA3A393"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:zoom",
+  "text": [
+    {
+      "text": "Permite hacer zoom rápidamente en el campo de visión mientras te agachas y presionas la tecla de casco, o al interactuar con la herramienta en mano."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nivel",
+    "Requiere 1 ranura de mejora"
+  ]
+}

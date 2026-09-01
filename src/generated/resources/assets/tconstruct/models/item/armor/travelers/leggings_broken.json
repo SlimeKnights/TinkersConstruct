@@ -9,10 +9,6 @@
     "tconstruct:travelers/pants_broken",
     "tconstruct:travelers/pants"
   ],
-  "first_modifiers": [
-    "tconstruct:dyed",
-    "tconstruct:trim"
-  ],
   "parts": [
     {
       "name": "cuirass",

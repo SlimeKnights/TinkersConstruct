@@ -1,0 +1,26 @@
+{
+  "color": "FFFFDD59",
+  "generator": {
+    "supported_stats": [
+      "tconstruct:laces",
+      "tconstruct:slimesuit_overlay",
+      "tconstruct:repair_kit",
+      "tconstruct:bowstring"
+    ],
+    "transformer": {
+      "type": "tconstruct:recolor_sprite",
+      "color_mapping": {
+        "type": "tconstruct:grey_to_color",
+        "palette": {
+          "000": "FF000000",
+          "063": "FF8E6100",
+          "102": "FFAF7F05",
+          "140": "FFCC990E",
+          "178": "FFE2B221",
+          "216": "FFFFDD59",
+          "255": "FFFFEC89"
+        }
+      }
+    }
+  }
+}

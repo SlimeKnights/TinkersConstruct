@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:slimy_chestplate",
+  "text": [
+    { "text": "The slimecage is the ultimate unarmed combat weapon with its ribcage traits boosting unarmed attacks." },
+    { "text": " Created by pouring slime on a ribcage." }
+  ],
+  "properties": [
+    "Low defense",
+    "75% Unarmed Attack",
+    "3 Upgrade Slots",
+    "0 Defense Slots",
+    "2 Ability Slots",
+    "Slime & 2 Ribcage Traits",
+    "Reach"
+  ]
+}

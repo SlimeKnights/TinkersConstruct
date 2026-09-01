@@ -1,0 +1,21 @@
+{
+  "tool": "tconstruct:kama",
+  "text": [
+    {
+      "text": "Herramienta de precisión para plantas, telarañas y lana."
+    },
+    {
+      "text": "Los expansores aumentan su radio circular.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "+1 daño de ataque",
+    "50% mod. de ataque",
+    "1.6 vel. de ataque",
+    "Trasquila plantas/animales",
+    "Ataque en área pequeño",
+    "Cosecha plantas",
+    "Ara la tierra"
+  ]
+}

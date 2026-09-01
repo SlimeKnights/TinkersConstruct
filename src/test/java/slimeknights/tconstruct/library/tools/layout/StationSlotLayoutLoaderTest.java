@@ -27,6 +27,7 @@ import static org.mockito.Mockito.mock;
 class StationSlotLayoutLoaderTest extends BaseMcTest {
   private static final JsonFileLoader fileLoader = new JsonFileLoader(StationSlotLayoutLoader.GSON, StationSlotLayoutLoader.FOLDER);
 
+  @SuppressWarnings("removal")
   @BeforeAll
   static void setup() {
     try {

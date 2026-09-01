@@ -1,0 +1,13 @@
+{
+  "title": "Islas de arcilla",
+  "image": {
+    "file": "tconstruct:book/images/islands/clay.png",
+    "width": 180,
+    "height": 87
+  },
+  "text": [
+    {
+      "text": "Son inusuales, pues parecen más parte del mundo real que del de los slimes. En ellas habitan slimes de arcilla que he llamado \"terracubes\"; no saltan muy alto y prefieren la oscuridad como otros monstruos."
+    }
+  ]
+}

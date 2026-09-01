@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:reach",
+  "text": [
+    {
+      "text": "¡Alcanza las estrellas! O el estante de arriba... O el estante medio si eres bajito..."
+    }
+  ],
+  "effects": [
+    "Aumenta el alcance de bloques, minado y ataque",
+    "Más niveles permiten llegar más lejos",
+    "Requiere 1 ranura de habilidad por nivel"
+  ]
+}

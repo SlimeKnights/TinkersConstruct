@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.tools.helper;
 
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
@@ -21,6 +20,7 @@ import slimeknights.tconstruct.library.tools.item.ModifiableItem;
 import slimeknights.tconstruct.library.tools.item.ToolItemTest;
 import slimeknights.tconstruct.library.tools.nbt.MultiplierNBT;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.test.TestHelper;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -32,7 +32,7 @@ class ToolHarvestLogicTest extends ToolItemTest {
     MaterialItemFixture.init();
     if (pickaxeTool == null) {
       pickaxeTool = new ModifiableItem(new Item.Properties().stacksTo(1), ToolDefinitionFixture.getStandardToolDefinition());
-      ForgeRegistries.ITEMS.register(new ResourceLocation("test", "pickaxe"), pickaxeTool);
+      ForgeRegistries.ITEMS.register(TestHelper.id("pickaxe"), pickaxeTool);
     }
   }
 
@@ -78,7 +78,7 @@ class ToolHarvestLogicTest extends ToolItemTest {
   void calcSpeed_effective_withMiningModifier() {
     float modifier = 2f;
 
-    ToolDefinition definition = new ToolDefinition(new ResourceLocation("test", "mining_tool"));
+    ToolDefinition definition = new ToolDefinition(TestHelper.id("mining_tool"));
     definition.setData(ToolDefinitionDataBuilder
                          .builder()
                          .module(new IsEffectiveModule(BlockPredicate.set(Blocks.COBBLESTONE), true))
@@ -90,7 +90,7 @@ class ToolHarvestLogicTest extends ToolItemTest {
                          .build());
 
     ModifiableItem toolWithMiningModifier = new ModifiableItem(new Item.Properties(), definition);
-    ForgeRegistries.ITEMS.register(new ResourceLocation("test", "tool_with_mining_modifier"), toolWithMiningModifier);
+    ForgeRegistries.ITEMS.register(TestHelper.id("tool_with_mining_modifier"), toolWithMiningModifier);
     ItemStack tool = buildTestTool(toolWithMiningModifier);
 
     // boosted by correct block

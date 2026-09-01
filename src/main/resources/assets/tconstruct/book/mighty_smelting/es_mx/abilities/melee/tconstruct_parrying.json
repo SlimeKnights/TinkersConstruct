@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:parrying",
+  "text": [
+    {
+      "text": "Usa tus locas habilidades ninja para desviar ataques en el aire."
+    }
+  ],
+  "effects": [
+    "Dagas bloquean brevemente tras atacar",
+    "Nivel único",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

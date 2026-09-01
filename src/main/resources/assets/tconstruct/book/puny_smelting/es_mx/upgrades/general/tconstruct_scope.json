@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:scope",
+  "text": [
+    {
+      "text": "Un 360 no scope... de los de antes."
+    }
+  ],
+  "effects": [
+    "Zoom gradual al cargar la herramienta",
+    "Nivel único",
+    "Requiere 1 ranura de mejora"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "text": "A veces solo quieres hacer volar por los aires a tus enemigos sin destruir tu mundo.",
+  "entity": [
+    "Explosión de potencia 2",
+    "Hasta 3 de daño por explosión"
+  ],
+  "block": [
+    "La explosión ignora los bloques",
+    "La explosión provoca incendios"
+  ]
+}

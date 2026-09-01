@@ -12,7 +12,7 @@ import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.helper.ItemOutput;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.recipe.material.IMaterialValue;
@@ -29,7 +29,7 @@ import java.util.List;
 public class ItemPartRecipe implements IDisplayPartBuilderRecipe {
   public static final RecordLoadable<ItemPartRecipe> LOADER = RecordLoadable.create(
     ContextKey.ID.requiredField(),
-    MaterialVariantId.LOADABLE.defaultField("material", IMaterial.UNKNOWN_ID, r -> r.material.getVariant()),
+    MaterialVariantId.LOADABLE.defaultField("material", MaterialId.UNKNOWN, r -> r.material.getVariant()),
     Pattern.PARSER.requiredField("pattern", ItemPartRecipe::getPattern),
     IngredientLoadable.DISALLOW_EMPTY.defaultField("pattern_item", DEFAULT_PATTERNS, r -> r.patternItem),
     IntLoadable.FROM_ZERO.defaultField("cost", 0, ItemPartRecipe::getCost),

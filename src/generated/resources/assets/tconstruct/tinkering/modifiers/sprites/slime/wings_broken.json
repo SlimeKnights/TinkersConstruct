@@ -1,0 +1,12 @@
+{
+  "constant": {
+    "__dyed": {
+      "type": "tconstruct:crafted",
+      "model": {
+        "type": "tconstruct:dyed",
+        "texture": "tconstruct:item/tool/armor/slime/wings/slime_broken"
+      },
+      "modifier": "tconstruct:dyed"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:crafting_table",
+  "text": [
+    {
+      "text": "Como cuando todos los hilos en tu bolsillo se enredan, pero útil."
+    }
+  ],
+  "effects": [
+    "Añade una mesa de trabajo completa al inventario de la pieza",
+    "Nivel único",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

@@ -189,7 +189,7 @@ public record FireballModule(List<FireballType> options, DamageTypePair damageTy
         level.addFreshEntity(projectile);
 
         // damage tool if not creative
-        if (player != null && !player.isCreative()) {
+        if (ModifierUtil.consumesResources(player)) {
           ToolDamageUtil.damageAnimated(tool, durability.compute(modifier), entity, slot, modifier.getId());
         }
       }

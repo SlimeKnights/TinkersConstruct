@@ -20,6 +20,7 @@ import javax.annotation.Nullable;
  */
 @SuppressWarnings("unused") // API
 public record LoadConditionMiningSpeedVariable(MiningSpeedVariable ifTrue, MiningSpeedVariable ifFalse, ICondition... conditions) implements MiningSpeedVariable, ConditionalObject<MiningSpeedVariable> {
+  @Deprecated
   @Override
   public float getValue(IToolStackView tool, @Nullable BreakSpeed event, @Nullable Player player, @Nullable Direction sideHit) {
     return (Util.testConditions(conditions) ? ifTrue : ifFalse).getValue(tool, event, player, sideHit);

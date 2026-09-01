@@ -22,6 +22,10 @@ import java.util.List;
 
 import static slimeknights.tconstruct.TConstruct.getResource;
 
+/**
+ * Content page for ranged materials, showing limb, grip, and bowstrings.
+ * TODO 1.21: move to {@link slimeknights.tconstruct.library.client.book.content.material}.
+ */
 public class RangedMaterialContent extends AbstractMaterialContent {
   /** Page ID for using this index directly */
   public static final ResourceLocation ID = TConstruct.getResource("ranged_material");
@@ -47,15 +51,20 @@ public class RangedMaterialContent extends AbstractMaterialContent {
   }
 
   @Override
+  protected String translationSuffix() {
+    return "ranged";
+  }
+
+  @Override
   protected String getTextKey(MaterialId material) {
+    // TODO 1.21: drop legacy key
     if (detailed) {
-      String primaryKey = String.format("material.%s.%s.ranged", material.getNamespace(), material.getPath());
-      if (Util.canTranslate(primaryKey)) {
-        return primaryKey;
+      String legacyKey = "material." + material.toLanguageKey() + ".ranged";
+      if (Util.canTranslate(legacyKey)) {
+        return legacyKey;
       }
-      return String.format("material.%s.%s.encyclopedia", material.getNamespace(), material.getPath());
     }
-    return String.format("material.%s.%s.flavor", material.getNamespace(), material.getPath());
+    return super.getTextKey(material);
   }
 
   @Override

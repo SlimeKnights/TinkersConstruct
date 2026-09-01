@@ -5,6 +5,7 @@
       "text": "Işık aracın içinden akıyor ve aracın daha hızlı çıkarmasına yardımcı oluyor."
     }
   ],
+  "tool_filter": "tconstruct:modifiable/harvest",
   "effects": [
     "İyi aydınlatılmış blokları daha hızlı çıkarır",
     "Çoklu seviyeler, hızı her seviyede daha da artırır",

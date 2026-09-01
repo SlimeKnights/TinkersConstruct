@@ -2,11 +2,11 @@
   "modifier_id": "tconstruct:fireprimer",
   "text": [
     {
-      "text": "“这是好的。”"
+      "text": "“一切都好。”"
     }
   ],
   "effects": [
-    "增加焦砖打火石的作用范围",
+    "可在更大范围内点火",
     "单个等级",
     "需要1个升级槽"
   ]

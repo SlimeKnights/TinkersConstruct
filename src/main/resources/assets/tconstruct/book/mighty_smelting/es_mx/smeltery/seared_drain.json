@@ -1,0 +1,14 @@
+{
+  "title": "Drenaje quemado",
+  "item": "tconstruct:seared_drain",
+  "text": [
+    {
+      "text": "El drenaje es tu entrada y salida de fluidos para la fundición. Puedes usar grifos o tuberías de otros mods en él para extraer fluidos. Los cubos, latas de cobre y canales sirven para meter o sacar líquidos.",
+      "paragraph": true
+    },
+  {
+      "text": "El fluido que se muestra en el centro del drenaje será el siguiente en salir al verterlo.",
+      "paragraph": true
+    }
+  ]
+}

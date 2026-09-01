@@ -3,10 +3,10 @@ package slimeknights.tconstruct.library.recipe.tinkerstation.building;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
+import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
@@ -73,7 +73,7 @@ public class ToolBuildingRecipeBuilder extends AbstractRecipeBuilder<ToolBuildin
 
   @Override
   public void save(Consumer<FinishedRecipe> consumerIn) {
-    this.save(consumerIn, BuiltInRegistries.ITEM.getKey(this.output.asItem()));
+    this.save(consumerIn, Loadables.ITEM.getKey(this.output.asItem()));
   }
 
   @Override

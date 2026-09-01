@@ -1,0 +1,25 @@
+{
+  "type": "tconstruct:showcase",
+  "title": "Modificadores sin ranura",
+  "item": {
+    "type": "forge:nbt",
+    "item": "tconstruct:creative_slot",
+    "nbt": {
+      "slot": "slotless"
+    }
+  },
+  "tooltip": [ "Icono de modificador sin ranura" ],
+  "text": [
+    {
+      "text": "Estos modificadores no consumen ranuras. Por ello, suelen tener efectos menores o incluir alguna desventaja."
+    },
+    {
+      "text": "Destacan los de bonificación, que otorgan ranuras extra de mejora o incluso de habilidad.",
+      "paragraph": true
+    },
+    {
+      "text": "La lista completa está en 'Fundición insignificante' y en la Enciclopedia de Tinkering.",
+      "paragraph": true
+    }
+  ]
+}

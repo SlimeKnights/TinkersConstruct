@@ -1,0 +1,10 @@
+{
+  "modifier_id": "tconstruct:embossed",
+  "text": [
+    {
+      "text": "アップグレードスロットが+1されます。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": ["最大1レベル", "スロット不要"]
+}

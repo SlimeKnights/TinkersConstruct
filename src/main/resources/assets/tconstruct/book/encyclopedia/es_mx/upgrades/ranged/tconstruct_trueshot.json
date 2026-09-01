@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:trueshot",
+  "text": [
+    {
+      "text": "Otorga +0.1 de precisión por nivel."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Puedes niveles de forma incremental",
+    "Máximo de 3 niveles",
+    "1 ranura de mejora por nivel"
+  ]
+}

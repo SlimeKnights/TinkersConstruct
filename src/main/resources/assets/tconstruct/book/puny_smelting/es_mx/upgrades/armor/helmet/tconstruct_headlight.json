@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:headlight",
+  "text": [
+    {
+      "text": "¡Tú iluminas mi mundo! Literalmente, eres un faro andante."
+    }
+  ],
+  "effects": [
+    "Ilumina visualmente los bloques a tu alrededor",
+    "Nivel único",
+    "Requiere 1 ranura de mejora"
+  ]
+}

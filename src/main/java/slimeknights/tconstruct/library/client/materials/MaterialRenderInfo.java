@@ -88,7 +88,7 @@ public record MaterialRenderInfo(MaterialVariantId id, @Nullable ResourceLocatio
    * @return  Material instance
    */
   private static Material getMaterial(ResourceLocation texture, String suffix) {
-    return new Material(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(texture.getNamespace(), texture.getPath() + "_" + suffix));
+    return new Material(InventoryMenu.BLOCK_ATLAS, texture.withSuffix('_' + suffix));
   }
 
   /**

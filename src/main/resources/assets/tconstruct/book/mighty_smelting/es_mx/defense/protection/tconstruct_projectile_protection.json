@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:projectile_protection",
+  "text": [
+    {
+      "text": "No protegerá tus rodillas de las flechas, obligándote a dejar las aventuras para convertirte en guardia."
+    }
+  ],
+  "effects": [
+    "Reduce el daño de los proyectiles",
+    "Aumenta la resistencia al empuje",
+    "Más niveles aumentan ambos efectos",
+    "Requiere 1 ranura de defensa por nivel"
+  ]
+}

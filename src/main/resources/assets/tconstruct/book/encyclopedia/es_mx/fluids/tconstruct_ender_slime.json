@@ -1,0 +1,10 @@
+{
+  "text": "Teletransportar tus problemas a una ubicación aleatoria es un método para lidiar con ellos.",
+  "block": [
+    "Reemplaza el bloque golpeado con el bloque sostenido"
+  ],
+  "entity": [
+    "+7 segundos de Regreso",
+    "Teletransporta al objetivo si no hay un efecto de Regreso actual"
+  ]
+}

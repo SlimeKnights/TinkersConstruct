@@ -26,6 +26,7 @@ public record BlockLightVariable(@Nullable LightLayer lightLayer, float fallback
     FloatLoadable.ANY.requiredField("fallback", BlockLightVariable::fallback),
     BlockLightVariable::new);
 
+  @Deprecated
   @Override
   public float getValue(IToolStackView tool, @Nullable BreakSpeed event, @Nullable Player player, @Nullable Direction sideHit) {
     if (player != null) {

@@ -1,0 +1,53 @@
+{
+  "title": "Reparación",
+  "grid_size": "small",
+  "grid": [
+    [
+      {
+        "type": "forge:nbt",
+        "item": "tconstruct:pickaxe",
+        "nbt": {
+          "tic_broken": false,
+          "tic_display": true,
+          "Damage": 70,
+          "tic_materials": [
+            "tconstruct:ui_render#head",
+            "tconstruct:ui_render#handle",
+            "tconstruct:ui_render#extra"
+          ],
+          "tic_stats": {
+            "tconstruct:durability": 100
+          }
+        }
+      },
+      {
+        "type": "forge:nbt",
+        "item": "tconstruct:repair_kit",
+        "nbt": {
+          "tic_display": true,
+          "Material": "tconstruct:ui_render#head"
+        }
+      }
+    ]
+  ],
+  "result": {
+    "type": "forge:nbt",
+    "item": "tconstruct:pickaxe",
+    "nbt": {
+      "tic_broken": false,
+      "tic_display": true,
+      "Damage": 10,
+      "tic_materials": [
+        "tconstruct:ui_render#head",
+        "tconstruct:ui_render#handle",
+        "tconstruct:ui_render#extra"
+      ],
+      "tic_stats": { "tconstruct:durability": 100 }
+    }
+  },
+  "description": [
+    {
+      "text": "Para reparar herramientas, simplemente coloca la herramienta en la Estación de Tinker o el Yunque de Tinker con el material del cabezal. ¡Como alternativa, puedes usar kits de reparación, que funcionan tanto en mesas de crafteo como al hacer clic derecho con el kit directamente!"
+    }
+  ]
+}

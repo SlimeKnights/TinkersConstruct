@@ -1,0 +1,19 @@
+{
+  "modifier_id": "tconstruct:fiery",
+  "text": [
+    {
+      "text": "Tiene un 15% de probabilidad por nivel de hacer que el atacante se queme durante 1 a 7 segundos. Varias piezas aplicarán el efecto más alto."
+    },
+    {
+      "text": "Los escudos son el doble de efectivos pero solo funcionan al bloquear.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/armor",
+  "effects": [
+    "Niveles Incrementales",
+    "Nivel Maximo: 5",
+    "Cada nivel gasta 1 mejora"
+  ]
+}

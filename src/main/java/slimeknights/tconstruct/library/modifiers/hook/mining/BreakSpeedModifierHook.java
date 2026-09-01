@@ -39,6 +39,7 @@ public interface BreakSpeedModifierHook {
    * @param speed     Speed as modified by other modifiers.
    * @return new speed as modified by this hook.
    */
+  @SuppressWarnings("deprecation")
   default float modifyBreakSpeed(IToolStackView tool, ModifierEntry modifier, BreakSpeedContext context, float speed) {
     BreakSpeed event = context.event();
     event.setNewSpeed(speed);

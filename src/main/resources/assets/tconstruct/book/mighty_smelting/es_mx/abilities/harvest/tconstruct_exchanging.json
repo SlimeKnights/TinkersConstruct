@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:exchanging",
+  "text": [
+    {
+      "text": "Usar esto podría hacer que una roca gigante te persiga, ya que no sabes intercambiar cosas bien."
+    }
+  ],
+  "effects": [
+    "Reemplaza bloques rotos por los de la mano secundaria",
+    "Nivel único",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

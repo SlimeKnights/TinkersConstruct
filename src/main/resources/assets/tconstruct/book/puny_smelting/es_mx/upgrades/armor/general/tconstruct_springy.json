@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:springy",
+  "text": [
+    {
+      "text": "Manda a tus enemigos lejos, dándote tiempo para poner pies en polvorosa o para curarte. Tú decides."
+    }
+  ],
+  "effects": [
+    "Probabilidad de empujar a los atacantes",
+    "Varios niveles, aumentan la probabilidad",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "title": "Drenaje chamuscado",
+  "item": "tconstruct:scorched_drain",
+ "text": [
+    {
+      "text": "El drenaje es la entrada y salida de fluidos de tu fundición. Puedes usar grifos o tuberías de tu mod favorito en el drenaje para extraer fluidos. También se pueden usar cubos, latas de cobre y canales para introducir o extraer líquidos.",
+      "paragraph": true
+    },
+  {
+      "text": "El fluido que se muestra en el centro del drenaje será el siguiente en salir al verter.",
+      "paragraph": true
+    }
+  ]
+}

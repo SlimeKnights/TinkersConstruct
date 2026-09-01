@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:overforced",
+  "text": [
+    {
+      "text": "Otorga +75 de sobrelimo (overslime) por nivel."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Se pueden aplicar niveles de forma incremental",
+    "Máximo de 5 niveles",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

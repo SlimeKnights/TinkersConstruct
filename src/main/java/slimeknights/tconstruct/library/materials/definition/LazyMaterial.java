@@ -45,7 +45,7 @@ public class LazyMaterial implements Supplier<IMaterial> {
 
   /** If true, this material is intentionally the unknown ID. Unlike {@link #isUnknown()} this will not match if the material is a valid ID but is not found */
   public boolean isEmpty() {
-    return id.equals(IMaterial.UNKNOWN_ID);
+    return id.equals(MaterialId.UNKNOWN);
   }
 
   /** If true, this material was not found in the registry. Can use to immediately resolve a material */

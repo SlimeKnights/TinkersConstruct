@@ -1,0 +1,21 @@
+{
+  "tool": "tconstruct:scythe",
+  "text": [
+    {
+      "text": "Herramienta de recolección amplia para plantas o monstruos en un área de 3x3x3."
+    },
+    {
+      "text": "Expansores aumentan el rango y el modificador Sedoso otorga trasquilado en área.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "+1 daño de ataque",
+    "0.7 vel. de ataque",
+    "45% multi. de minado",
+    "250% multi. durabilidad",
+    "Ataque en área (AOE)",
+    "Ara la tierra",
+    "Cosecha plantas"
+  ]
+}

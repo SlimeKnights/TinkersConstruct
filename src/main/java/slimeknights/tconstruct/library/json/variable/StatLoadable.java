@@ -104,6 +104,7 @@ public enum StatLoadable implements Loadable<Stat<?>> {
     throw new DecoderException("Unknown " + registry.key().location() + " id " + id);
   }
 
+  @SuppressWarnings("deprecation")
   @Override
   public Stat<?> decode(FriendlyByteBuf buffer, TypedMap context) {
     return decodeValue(buffer, decodeRegistry(buffer, BuiltInRegistries.STAT_TYPE));
@@ -120,6 +121,7 @@ public enum StatLoadable implements Loadable<Stat<?>> {
   }
 
   /** Encodes the value to the registry using the type generics */
+  @SuppressWarnings("deprecation")
   private <T> void encodeGeneric(FriendlyByteBuf buffer, Stat<T> value) {
     StatType<T> type = value.getType();
     buffer.writeId(BuiltInRegistries.STAT_TYPE, type);
@@ -136,6 +138,7 @@ public enum StatLoadable implements Loadable<Stat<?>> {
   private static final String KEY_KILLED_BY = TConstruct.makeTranslationKey("stat_type", "killed_by");
 
   /** Gets the name for the given stat */
+  @SuppressWarnings("deprecation")
   public static Component statName(Stat<?> stat) {
     StatType<?> type = stat.getType();
     Object value = stat.getValue();

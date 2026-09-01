@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:slurping",
+  "text": [
+    {
+      "text": "道具に含まれる液体を飲むことで、自身に火をつける、状態異常を解除する、空腹を回復するなどの効果を発動できます。"
+    },
+    {
+      "text": "レベルが高くなるほど、より強力な効果を発揮するために多くの液体を消費します。",
+      "paragraph": true
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/interactable/charge",
+  "more_text_space": true,
+  "effects": ["最大レベルなし", "レベルごとにアビリティスロットが必要", "道具を液体タンクに使って補充する"]
+}

@@ -22,6 +22,7 @@ public record BlockMiningSpeedVariable(BlockVariable block, float fallback) impl
     FloatLoadable.ANY.requiredField("fallback", BlockMiningSpeedVariable::fallback),
     BlockMiningSpeedVariable::new);
 
+  @Deprecated
   @Override
   public float getValue(IToolStackView tool, @Nullable BreakSpeed event, @Nullable Player player, @Nullable Direction sideHit) {
     if (event != null) {

@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:blockade",
+  "text": [
+    {
+      "text": "Sella tu escudo para evitar que el daño entre. Mantén las malas vibras (y las flechas) afuera."
+    }
+  ],
+  "effects": [
+    "Aumenta la cantidad máxima bloqueada",
+    "Varios niveles, aumentan más la cantidad",
+    "Requiere 1 ranura de mejora por nivel",
+    "Requiere bloqueo o parry"
+  ]
+}

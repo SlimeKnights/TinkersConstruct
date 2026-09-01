@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:emerald",
+  "text": [
+    {
+      "text": "El mejor amigo del aldeano. ¡Que no te vean usando esto! No son amuletos de la suerte."
+    }
+  ],
+  "effects": [
+    "Sube durabilidad según la base",
+    "Sube daño condicional, minado y empuje",
+    "Nivel único",
+    "Requiere 1 ranura de mejora"
+  ]
+}

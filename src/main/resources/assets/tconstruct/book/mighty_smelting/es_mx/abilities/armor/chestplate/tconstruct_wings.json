@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:wings",
+  "text": [
+    {
+      "text": "¡Esto no es volar, es caer! ¡Con estilo!"
+    }
+  ],
+  "effects": [
+    "Permite planear saltando en el aire",
+    "Nivel único",
+    "Requiere 2 ranuras de habilidad"
+  ]
+}

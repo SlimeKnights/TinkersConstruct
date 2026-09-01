@@ -1,0 +1,18 @@
+{
+  "tool": "tconstruct:travelers_chestplate",
+  "text": [
+    { "text": "No olvides esconder la etiqueta, no querrás andar por ahí con ella fuera." },
+  {
+      "text": "Los petos protegen tus órganos vitales. Y además, ¡te hacen ver muy bien!", "paragraph": true
+    }
+  ],
+  "properties": [
+    "Menos armadura",
+    "Menos durabilidad",
+    "2 ranuras de mejora",
+    "2 ranuras de defensa",
+    "1 ranura de habilidad",
+    "2 rasgos de material",
+    "Aislado"
+  ]
+}

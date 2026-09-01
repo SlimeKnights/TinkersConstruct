@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:dragonborn",
+  "text": [
+    {
+      "text": "Dovah ko krif dilos ahrk qah."
+    },
+    {
+      "text": "Tinker, ¿no sabes leer la lengua de los dragones? ¿Qué enseñan hoy en día? Dice: \"Los dragones que vuelan son mortales y están protegidos\".", "paragraph": true
+    }
+  ],
+  "effects": [
+    "Aumenta la protección y el daño al estar en el aire",
+    "Más niveles aumentan la protección y el daño aún más",
+    "Requiere 1 ranura de defensa por nivel"
+  ]
+}

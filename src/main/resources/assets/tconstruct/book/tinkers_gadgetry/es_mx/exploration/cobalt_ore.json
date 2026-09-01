@@ -1,0 +1,10 @@
+{
+  "title": "Cobalto",
+  "item": "tconstruct:cobalt_ore",
+  "text": [
+    {
+      "text": "La mena de cobalto se halla por todo el Nether. Es más común cerca de restos ancestrales entre las capas 8 y 32, aunque aparece en menor cantidad a cualquier altura. Como suele estar expuesta al aire, es fácil de ver por su tono distintivo en las paredes o techos del Nether.",
+      "paragraph": true
+    }
+  ]
+}

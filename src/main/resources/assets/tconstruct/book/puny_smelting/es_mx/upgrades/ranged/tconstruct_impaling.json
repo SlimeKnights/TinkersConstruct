@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:impaling",
+  "text": [
+    {
+      "text": "Me sentiría bastante empalado si me empalaras con empalamiento. Todo muy empalador."
+    },
+    {
+      "text": "Por favor, no lo confundas con Antiacuático.",
+      "paragraph": true
+    }
+  ],
+  "effects": [
+    "Las flechas atraviesan a los objetivos",
+    "Varios niveles, atraviesan más enemigos",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}

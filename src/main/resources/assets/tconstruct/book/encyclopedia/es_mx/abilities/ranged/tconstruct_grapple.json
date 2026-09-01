@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:grapple",
+  "text": [
+    {
+      "text": "Convierte la caña de pescar en un gancho de agarre, lo que te permite impulsarte hacia el bloque donde caiga el anzuelo. Permite que el anzuelo se enganche en los laterales de los bloques."
+    },
+    {
+      "text": "La velocidad del impulso será mayor cuanto más lejos estés del anzuelo al recoger el sedal.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Nivel único",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

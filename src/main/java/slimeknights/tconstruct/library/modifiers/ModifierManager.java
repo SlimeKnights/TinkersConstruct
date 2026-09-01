@@ -143,7 +143,7 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
     conditionContext = event.getConditionContext();
   }
 
-  @SuppressWarnings("removal")
+  @SuppressWarnings({"removal", "deprecation"})
   @Override
   protected void apply(Map<ResourceLocation,JsonElement> splashList, ResourceManager pResourceManager, ProfilerFiller pProfiler) {
     long time = System.nanoTime();

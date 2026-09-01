@@ -1,0 +1,16 @@
+{
+  "title": "Canales",
+  "text": [
+    {
+      "text": "Los canales se llenan desde arriba o por los lados configurados como entrada. El fluido sale por la base o por los lados configurados como salida."
+    },
+    {
+      "text": "Las flechas internas muestran la dirección del flujo. Haz clic derecho en los lados para alternar entre entrada, salida o nada. Clic derecho en el centro para verter hacia abajo si hay un contenedor válido. No pueden transportar fluidos hacia arriba.",
+      "paragraph": true
+    },
+    {
+      "text": "También responden a redstone. Al recibir energía, se activa o desactiva el flujo hacia abajo del canal.",
+      "paragraph": true
+    }
+  ]
+}

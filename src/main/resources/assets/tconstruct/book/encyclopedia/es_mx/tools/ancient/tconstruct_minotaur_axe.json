@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:minotaur_axe",
+  "text": [
+    {
+      "text": "El hacha de minotauro es un hacha especial que se obtiene de los minotauros en el Twilight Forest. El hacha otorga daño de bonificación al golpear objetivos mientras se corre, infligiendo a menudo más daño que los golpes críticos. También rompe madera en columna."
+    }
+  ],
+  "properties": [
+    "+3 de daño de ataque",
+    "+7 de daño de carga",
+    "0.9 de velocidad de ataque",
+    "Estadísticas completas de ambos cabezales",
+    "3 ranuras de mejora",
+    "1 ranura de habilidad"
+  ]
+}

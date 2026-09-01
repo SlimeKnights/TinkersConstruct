@@ -1,0 +1,11 @@
+{
+  "title": "Fundición",
+  "image": {
+    "file": "tconstruct:book/images/sandcast.png"
+  },
+  "text": [
+    {
+      "text": "Muy bien, tinker: ya fundiste el metal y aprendiste a transportarlo. ¡Ahora solo queda convertirlo en piezas para tus herramientas!"
+    }
+  ]
+}

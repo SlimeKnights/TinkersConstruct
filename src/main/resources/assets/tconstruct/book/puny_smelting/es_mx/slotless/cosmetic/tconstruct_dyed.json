@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:dyed",
+  "text": [
+    {
+      "text": "¿Lo tienen en negro?"
+    }
+  ],
+  "effects": [
+    "Puedes usar tintes para cambiar el color de la herramienta",
+    "Aplícalo de nuevo para mezclar colores",
+    "Sin ranuras"
+  ]
+}

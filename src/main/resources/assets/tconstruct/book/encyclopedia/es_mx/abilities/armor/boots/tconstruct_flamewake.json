@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:flamewake",
+  "text": [
+    {
+      "text": "Enciende fuego alrededor de donde pisas. El área de efecto aumenta con el modificador expandido (expanded)."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nivel",
+    "Requiere 1 ranura de habilidad"
+  ]
+}

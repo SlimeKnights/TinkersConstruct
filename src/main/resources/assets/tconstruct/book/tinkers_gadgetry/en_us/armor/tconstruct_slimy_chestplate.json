@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:slimy_chestplate",
+  "text": [
+    { "text": "Become the ultimate boxer by pouring slime on a ribcage in a basin!" },
+    { "text": "Provides many useful melee traits to buff your unarmed attacks.", "paragraph": true }
+  ],
+  "properties": [
+    "Low Armor",
+    "0 Defense Slots",
+    "3 Upgrade Slots",
+    "2 Ability Slots",
+    "Ideal for Unarmed Melee",
+    "Reach"
+  ]
+}

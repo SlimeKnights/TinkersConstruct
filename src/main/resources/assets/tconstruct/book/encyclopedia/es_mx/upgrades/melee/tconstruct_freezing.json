@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:freezing",
+  "text": [
+    {
+      "text": "Congela a las criaturas atacadas durante 4 segundos (más 4 segundos por nivel), lo que inflige daño continuo y lentitud."
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/melee",
+  "effects": [
+    "Máximo de 3 niveles",
+    "No funciona bien con ígneo (fiery)",
+    "Requiere 1 ranura de mejora por nivel"
+  ]
+}
