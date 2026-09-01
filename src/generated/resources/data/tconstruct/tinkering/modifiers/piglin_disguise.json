@@ -4,6 +4,10 @@
     {
       "type": "tconstruct:mob_disguise",
       "entity": "minecraft:piglin"
+    },
+    {
+      "type": "tconstruct:rarity",
+      "rarity": "uncommon"
     }
   ],
   "tooltip_display": "always"

@@ -7,7 +7,7 @@
     },
     {
       "type": "tconstruct:rarity",
-      "rarity": "uncommon"
+      "rarity": "rare"
     }
   ],
   "tooltip_display": "always"

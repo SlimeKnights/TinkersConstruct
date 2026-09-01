@@ -4,6 +4,10 @@
     {
       "type": "tconstruct:mob_disguise",
       "entity": "minecraft:drowned"
+    },
+    {
+      "type": "tconstruct:rarity",
+      "rarity": "uncommon"
     }
   ],
   "tooltip_display": "always"

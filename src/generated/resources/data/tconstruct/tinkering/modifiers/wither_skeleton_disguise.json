@@ -4,6 +4,10 @@
     {
       "type": "tconstruct:mob_disguise",
       "entity": "minecraft:wither_skeleton"
+    },
+    {
+      "type": "tconstruct:rarity",
+      "rarity": "uncommon"
     }
   ],
   "tooltip_display": "always"
