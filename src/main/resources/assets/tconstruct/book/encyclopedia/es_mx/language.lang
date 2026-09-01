@@ -35,8 +35,6 @@ upgrades.group_armor.helmet=Casco
 upgrades.group_armor.chestplate=Peto
 upgrades.group_armor.leggings=Grebas
 upgrades.group_armor.boots=Botas
-upgrades.boots.tconstruct.feather_falling=Caída de pluma
-
 defense=Defensa
 defense.subtext=En lugar de rasgos de material, la armadura incluye ranuras de defensa para mejorar la protección.
 defense.group_protection=Protección

@@ -146,6 +146,7 @@
   "tconstruct:bouncy":           "tconstruct:gui/modifiers/armor/bouncy",
   "tconstruct:double_jump":      "tconstruct:gui/modifiers/armor/double_jump",
   "tconstruct:feather_falling":  "tconstruct:gui/modifiers/armor/feather_falling",
+  "tconstruct:feather_fall":     "tconstruct:gui/modifiers/armor/feather_falling",
   "tconstruct:flamewake":        "tconstruct:gui/modifiers/armor/flamewake",
   "tconstruct:frost_walker":     "tconstruct:gui/modifiers/armor/frost_walker",
   "tconstruct:lightspeed_armor": "tconstruct:gui/modifiers/armor/lightspeed",

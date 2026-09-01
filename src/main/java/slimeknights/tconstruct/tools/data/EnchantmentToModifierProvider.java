@@ -22,7 +22,7 @@ public class EnchantmentToModifierProvider extends AbstractEnchantmentToModifier
     add(Enchantments.FIRE_PROTECTION, ModifierIds.fireProtection);
     add(Enchantments.BLAST_PROTECTION, ModifierIds.blastProtection);
     add(Enchantments.PROJECTILE_PROTECTION, ModifierIds.projectileProtection);
-    add(Enchantments.FALL_PROTECTION, ModifierIds.featherFalling);
+    add(Enchantments.FALL_PROTECTION, ModifierIds.featherFall);
     // misc armor
     add(Enchantments.RESPIRATION, ModifierIds.respiration);
     add(Enchantments.AQUA_AFFINITY, ModifierIds.aquaAffinity);

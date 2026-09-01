@@ -1,5 +1,5 @@
 {
-  "modifier_id": "tconstruct:feather_falling",
+  "modifier_id": "tconstruct:feather_fall",
   "text": [
     {
       "text": "Otorga +25% de resistencia al daño por caída por nivel, hasta un máximo de +50% en el nivel 2."

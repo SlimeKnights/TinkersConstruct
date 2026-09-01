@@ -1,5 +1,5 @@
 {
-  "modifier_id": "tconstruct:feather_falling",
+  "modifier_id": "tconstruct:feather_fall",
   "text": [
     {
       "text": "Grants +25% resistance to fall damage per level, up to a maximum of +50% at 2 levels."
@@ -8,7 +8,7 @@
   "more_text_space": true,
   "effects": [
     "Can apply levels incrementally",
-    "Maximum of 2 levels",
-    "Requires 1 upgrade slot per level"
+    "Maximum of 4 levels",
+    "Requires 1 upgrade slot every other level"
   ]
 }

@@ -289,7 +289,8 @@ public class ModifierModelMapProvider extends AbstractModifierModelMapProvider {
     tool("plate/boots").basic("armor/plate/boots/modifiers", null,
       ModifierIds.depthStrider, ModifierIds.doubleJump, ModifierIds.featherFalling,
       ModifierIds.longFall, ModifierIds.soulspeed)
-      .luminosity(15, "armor/plate/boots/modifiers", null, ModifierIds.lightspeed);
+      .luminosity(15, "armor/plate/boots/modifiers", null, ModifierIds.lightspeed)
+      .basic(ModifierIds.featherFall, "armor/plate/boots/modifiers/tconstruct_feather_falling", null);
     // we include both folders, but limited for small
     tool("plate/shield").banner("armor/plate/shield/banner_small/", "armor/plate/shield/banner_large/");
 

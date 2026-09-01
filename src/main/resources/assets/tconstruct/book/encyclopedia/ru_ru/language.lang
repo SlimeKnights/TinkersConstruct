@@ -35,7 +35,7 @@ upgrades.group_armor.helmet=Шлем
 upgrades.group_armor.chestplate=Нагрудник
 upgrades.group_armor.leggings=Поножи
 upgrades.group_armor.boots=Ботинки
-upgrades.boots.tconstruct.feather_falling=Невесомость
+upgrades.boots.tconstruct.feather_fall=Невесомость
 # Можно добавить другие модификаторы, используя [section].[prefix].[mod_id].[modifier_id], мы используем это только для длинных названий
 # Вы также можете отключить параметр «Невесомость» в настройках языка, и в этом случае будет использоваться файл языка .json
 # Смотрите раздел JSON, чтобы найти префикс, любой тип модификатора, который определяет, что его можно использовать

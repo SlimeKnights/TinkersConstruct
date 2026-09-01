@@ -1,5 +1,5 @@
 {
-  "modifier_id": "tconstruct:feather_falling",
+  "modifier_id": "tconstruct:feather_fall",
   "text": [
     {
       "text": "Lighter than a feather, but more than twice as deadly."
@@ -8,6 +8,6 @@
   "effects": [
     "Reduces fall damage",
     "Multiple levels, each level decreases fall damage further",
-    "Requires 1 upgrade slot per level"
+    "Requires 1 upgrade slot every other level"
   ]
 }

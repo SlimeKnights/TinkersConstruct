@@ -1,5 +1,5 @@
 {
-  "modifier_id": "tconstruct:feather_falling",
+  "modifier_id": "tconstruct:feather_fall",
   "text": [
     {
       "text": "落下ダメージに対して(+25×レベル)%の耐性がつき、2レベルで最大+50%になります。"

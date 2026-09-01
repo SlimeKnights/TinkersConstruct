@@ -3,21 +3,15 @@
   "modules": [
     {
       "type": "tconstruct:requirements",
-      "display_modifiers": [
-        {
-          "level": 2,
-          "name": "tconstruct:feather_falling"
-        }
-      ],
       "requirement": {
         "type": "tconstruct:has_modifier",
         "check": "all",
         "level": {
-          "min": 2
+          "min": 4
         },
         "modifier": {
           "type": "tconstruct:single",
-          "modifier": "tconstruct:feather_falling"
+          "modifier": "tconstruct:feather_fall"
         }
       },
       "translation_key": "modifier.tconstruct.long_fall.requirements"

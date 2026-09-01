@@ -41,7 +41,6 @@ upgrades.group_armor.helmet=頭盔升級
 upgrades.group_armor.chestplate=胸甲升級
 upgrades.group_armor.leggings=護腿升級
 upgrades.group_armor.boots=靴子升級
-upgrades.tconstruct.feather_falling=摔落保護
 
 defense=防禦強化
 defense.subtext=盔甲沒有材料特性，但有防禦強化槽來提供更好的防護。

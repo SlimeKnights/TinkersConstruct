@@ -959,13 +959,20 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .save(consumer, prefix(ModifierIds.swiftSneak, upgradeFolder));
 
     // upgrade - boots
-    IncrementalModifierRecipeBuilder.modifier(ModifierIds.featherFalling)
-                                    .setTools(TinkerTags.Items.BOOTS)
-                                    .setInput(Items.FEATHER, 1, 25) // 1% per feather
-                                    .setSlots(SlotType.UPGRADE, 1)
-                                    .setMaxLevel(2)
-                                    .saveSalvage(consumer, prefix(ModifierIds.featherFalling, upgradeSalvage))
-                                    .save(consumer, prefix(ModifierIds.featherFalling, upgradeFolder));
+    ModifierRecipeBuilder.modifier(ModifierIds.featherFalling)
+      .setTools(TinkerTags.Items.BOOTS)
+      .setSlots(SlotType.UPGRADE, 1)
+      .saveSalvage(consumer, prefix(ModifierIds.featherFalling, upgradeSalvage));
+    MultilevelIncrementalModifierRecipeBuilder.modifier(ModifierIds.featherFall)
+      .setTools(TinkerTags.Items.BOOTS)
+      .setInput(Items.FEATHER, 1, 12) // 1% per feather
+      .addLevel(SlotType.UPGRADE, 1, 1)
+      .addLevel(2)
+      .addLevel(SlotType.UPGRADE, 1, 3)
+      .addLevel(4)
+      .checkTraitLevel()
+      .saveSalvage(consumer, prefix(ModifierIds.featherFall, upgradeSalvage))
+      .save(consumer, prefix(ModifierIds.featherFall, upgradeFolder));
     ModifierRecipeBuilder.modifier(ModifierIds.longFall)
       .setTools(TinkerTags.Items.BOOTS)
       .addInput(Items.PISTON)

@@ -31,6 +31,7 @@
     "tconstruct:diamond": "tconstruct:item/tool/armor/plate/boots/modifiers/tconstruct_diamond",
     "tconstruct:double_jump": "tconstruct:item/tool/armor/plate/boots/modifiers/tconstruct_double_jump",
     "tconstruct:emerald": "tconstruct:item/tool/armor/plate/boots/modifiers/tconstruct_emerald",
+    "tconstruct:feather_fall": "tconstruct:item/tool/armor/plate/boots/modifiers/tconstruct_feather_falling",
     "tconstruct:feather_falling": "tconstruct:item/tool/armor/plate/boots/modifiers/tconstruct_feather_falling",
     "tconstruct:fiery": {
       "luminosity": 10,

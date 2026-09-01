@@ -155,7 +155,10 @@ public class ModifierIds {
   // boots
   public static final ModifierId depthStrider = id("depth_strider");
   public static final ModifierId soulspeed = id("soulspeed");
+  /** @deprecated use {@link #featherFall}. Migrating to change behavior. */
+  @Deprecated
   public static final ModifierId featherFalling = id("feather_falling");
+  public static final ModifierId featherFall = id("feather_fall");
   public static final ModifierId longFall = id("long_fall");
   public static final ModifierId frostWalker = id("frost_walker");
   public static final ModifierId snowdrift = id("snowdrift");

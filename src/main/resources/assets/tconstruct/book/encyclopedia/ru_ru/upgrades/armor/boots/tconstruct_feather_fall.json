@@ -1,5 +1,5 @@
 {
-  "modifier_id": "tconstruct:feather_falling",
+  "modifier_id": "tconstruct:feather_fall",
   "text": [
     {
       "text": "Даёт +25% сопротивления урону при падении на каждом уровне, максимум +50% на 2 уровнях."

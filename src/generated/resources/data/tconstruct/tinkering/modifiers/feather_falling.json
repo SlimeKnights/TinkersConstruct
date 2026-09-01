@@ -1,23 +1,17 @@
 {
-  "level_display": "tconstruct:default",
+  "level_display": {
+    "type": "tconstruct:map_level",
+    "level": {
+      "each_level": 2
+    }
+  },
   "modules": [
     {
-      "type": "tconstruct:protection",
-      "damage_source": {
-        "type": "mantle:tag",
-        "tag": "tconstruct:protection/fall"
-      },
-      "each_level": 6.25,
-      "tool": {
-        "type": "tconstruct:has_modifier",
-        "check": "all",
-        "level": 0,
-        "modifier": {
-          "type": "tconstruct:single",
-          "modifier": "tconstruct:long_fall"
-        }
-      }
+      "type": "tconstruct:trait",
+      "fixed_level": false,
+      "level": 2,
+      "name": "tconstruct:feather_fall"
     }
   ],
-  "tooltip_display": "always"
+  "tooltip_display": "never"
 }

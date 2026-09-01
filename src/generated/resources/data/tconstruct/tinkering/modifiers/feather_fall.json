@@ -1,0 +1,24 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:protection",
+      "damage_source": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:protection/fall"
+      },
+      "each_level": 3.0,
+      "tool": {
+        "type": "tconstruct:has_modifier",
+        "check": "all",
+        "level": 0,
+        "modifier": {
+          "type": "tconstruct:single",
+          "modifier": "tconstruct:long_fall"
+        }
+      }
+    }
+  ],
+  "tooltip_display": "always",
+  "translation_key": "modifier.tconstruct.feather_falling"
+}

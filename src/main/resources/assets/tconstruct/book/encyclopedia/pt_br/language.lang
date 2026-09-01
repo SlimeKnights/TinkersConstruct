@@ -32,7 +32,6 @@ upgrades.group_armor.helmet=Capacete
 upgrades.group_armor.chestplate=Peitoral
 upgrades.group_armor.leggings=Calças
 upgrades.group_armor.boots=Botas
-upgrades.boots.tconstruct.feather_falling=Peso Pena
 
 defense=Defesa
 defense.subtext=Em vez de atributos materiais, a armadura incluirá slots de defesa para melhorar a proteção.

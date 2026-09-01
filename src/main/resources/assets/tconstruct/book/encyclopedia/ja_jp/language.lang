@@ -35,7 +35,6 @@ upgrades.group_armor.helmet=ヘルメット
 upgrades.group_armor.chestplate=チェストプレート
 upgrades.group_armor.leggings=レギンス
 upgrades.group_armor.boots=ブーツ
-# upgrades.boots.tconstruct.feather_falling=低速落下
 # can add other modifiers using [section].[prefix].[mod_id].[modifier_id], we just use this for long names
 # you should also be able to leave off feather falling in your language and it will fallback to the language .json
 # see the section json to find the prefix, any modifier type that defines that can use it
