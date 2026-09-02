@@ -58,11 +58,11 @@ public record ToolDamageRangeModule(int min, int max, IJsonPredicate<ModifierId>
   @Deprecated
   @Override
   public int onDamageTool(IToolStackView tool, ModifierEntry modifier, int amount, @Nullable LivingEntity holder) {
-    return onDamageTool(tool, modifier, amount, holder, null, ModifierId.EMPTY);
+    return beforeDamageTool(tool, modifier, amount, holder, null, ModifierId.EMPTY);
   }
 
   @Override
-  public int onDamageTool(IToolStackView tool, ModifierEntry modifier, int amount, @Nullable LivingEntity holder, @Nullable ItemStack stack, ModifierId cause) {
+  public int beforeDamageTool(IToolStackView tool, ModifierEntry modifier, int amount, @Nullable LivingEntity holder, @Nullable ItemStack stack, ModifierId cause) {
     if (condition.matches(tool, modifier) && this.cause.matches(cause) && TinkerPredicate.matches(this.holder, holder)) {
       // if the range is closed, all actions deal that
       if (min == max) {

@@ -20,7 +20,7 @@ public interface ToolDamageModifierHook {
    * @param amount     Amount of damage to deal
    * @param holder     Entity holding the tool
    * @return  Replacement damage. Returning 0 cancels the damage and stops other modifiers from processing.
-   * @deprecated use {@link #onDamageTool(IToolStackView, ModifierEntry, int, LivingEntity, ItemStack, ModifierId)}. Overriding is okay.
+   * @deprecated use {@link #beforeDamageTool(IToolStackView, ModifierEntry, int, LivingEntity, ItemStack, ModifierId)}. Overriding is okay.
    */
   @Deprecated
   int onDamageTool(IToolStackView tool, ModifierEntry modifier, int amount, @Nullable LivingEntity holder);
@@ -33,7 +33,7 @@ public interface ToolDamageModifierHook {
    * @param holder     Entity holding the tool
    * @param stack      Stack instance being damaged. Useful for identifying the slot being damaged.
    * @return  Replacement damage. Returning 0 cancels the damage and stops other modifiers from processing.
-   * @deprecated use {@link #onDamageTool(IToolStackView, ModifierEntry, int, LivingEntity, ItemStack, ModifierId)}. Overriding is okay.
+   * @deprecated use {@link #beforeDamageTool(IToolStackView, ModifierEntry, int, LivingEntity, ItemStack, ModifierId)}. Overriding is okay.
    */
   @Deprecated
   default int onDamageTool(IToolStackView tool, ModifierEntry modifier, int amount, @Nullable LivingEntity holder, @Nullable ItemStack stack) {
@@ -50,7 +50,7 @@ public interface ToolDamageModifierHook {
    * @param cause      Modifier causing the damage. Will be {@link ModifierId#EMPTY} for the tool itself.
    * @return  Replacement damage. Returning 0 cancels the damage and stops other modifiers from processing.
    */
-  default int onDamageTool(IToolStackView tool, ModifierEntry modifier, int amount, @Nullable LivingEntity holder, @Nullable ItemStack stack, ModifierId cause) {
+  default int beforeDamageTool(IToolStackView tool, ModifierEntry modifier, int amount, @Nullable LivingEntity holder, @Nullable ItemStack stack, ModifierId cause) {
     return onDamageTool(tool, modifier, amount, holder, stack);
   }
 
@@ -80,9 +80,9 @@ public interface ToolDamageModifierHook {
     }
 
     @Override
-    public int onDamageTool(IToolStackView tool, ModifierEntry modifier, int amount, @Nullable LivingEntity holder, @Nullable ItemStack stack, ModifierId cause) {
+    public int beforeDamageTool(IToolStackView tool, ModifierEntry modifier, int amount, @Nullable LivingEntity holder, @Nullable ItemStack stack, ModifierId cause) {
       for (ToolDamageModifierHook module : modules) {
-        amount = module.onDamageTool(tool, modifier, amount, holder, stack, cause);
+        amount = module.beforeDamageTool(tool, modifier, amount, holder, stack, cause);
         if (amount <= 0) {
           break;
         }
