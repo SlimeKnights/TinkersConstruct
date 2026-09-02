@@ -28,6 +28,7 @@ import slimeknights.tconstruct.library.modifiers.hook.behavior.ProcessLootModifi
 import slimeknights.tconstruct.library.modifiers.hook.behavior.RepairFactorModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.behavior.ToolActionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.behavior.ToolDamageModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.behavior.ToolDurabilityChangedHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.ConditionalStatModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.CraftCountModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.ModifierRemovalHook;
@@ -123,9 +124,10 @@ public class ModifierHooks {
       return 0;
     }
   });
-
   /** Hook for modifying the damage amount for tools */
   public static final ModuleHook<ToolDamageModifierHook> TOOL_DAMAGE = register("tool_damage", ToolDamageModifierHook.class, ToolDamageModifierHook.Merger::new, (tool, modifier, amount, holder) -> amount);
+  /** Hook for observing durability changed (damage or repair) without altering the amount. */
+  public static final ModuleHook<ToolDurabilityChangedHook> DURABILITY_CHANGED = register("durability_changed", ToolDurabilityChangedHook.class, ToolDurabilityChangedHook.Merger::new, new ToolDurabilityChangedHook() {});
 
   /** Hook running while the tool is in the inventory */
   public static final ModuleHook<InventoryTickModifierHook> INVENTORY_TICK = register("inventory_tick", InventoryTickModifierHook.class, InventoryTickModifierHook.AllMerger::new, (tool, modifier, world, holder, itemSlot, isSelected, isCorrectSlot, stack) -> {});
