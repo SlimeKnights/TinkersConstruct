@@ -884,7 +884,7 @@
 "_comment": "Fluid effect contents",
 "fluid_effect.tconstruct.separator": "%s e %s",
 
-"fluid_effect.tconstruct.extinguish_fire": "Extingue o fogo",
+"fluid_effect.tconstruct.extinguish": "Extingue o fogo",
 "fluid_effect.tconstruct.remove_block": "Remove o bloco",
 "fluid_effect.tconstruct.weather": "Oxida o cobre",
 "fluid_effect.tconstruct.teleport": "Teleporta o alvo",

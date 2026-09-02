@@ -969,7 +969,7 @@
   "_comment": "Contenidos de efectos de fluidos",
   "fluid_effect.tconstruct.separator": "%s y %s",
 
-  "fluid_effect.tconstruct.extinguish_fire": "Extingue el fuego",
+  "fluid_effect.tconstruct.extinguish": "Extingue el fuego",
   "fluid_effect.tconstruct.remove_block": "Elimina el bloque",
   "fluid_effect.tconstruct.weather": "Desgasta el cobre",
   "fluid_effect.tconstruct.teleport": "Teletransporta al objetivo",

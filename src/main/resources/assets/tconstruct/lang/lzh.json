@@ -658,7 +658,7 @@
   "item.tconstruct.molten_nicrosil_bucket": "熔鎳鉻合金桶",
   "fluid.tconstruct.molten_nicrosil.fluid_effect": "鎳鉻合金者，親灋也，熔而浪費也。",
   "fluid_effect.tconstruct.separator": "%s與%s",
-  "fluid_effect.tconstruct.extinguish_fire": "火滅",
+  "fluid_effect.tconstruct.extinguish": "火滅",
   "fluid_effect.tconstruct.remove_block": "塊方破",
   "fluid_effect.tconstruct.weather": "銅鏽",
   "fluid_effect.tconstruct.teleport": "的傳送",

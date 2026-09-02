@@ -749,7 +749,7 @@
   "_comment": "Fluid effect contents",
 
   "fluid_effect.tconstruct.separator": "%s et %s",
-  "fluid_effect.tconstruct.extinguish_fire": "Éteint le feu",
+  "fluid_effect.tconstruct.extinguish": "Éteint le feu",
   "fluid_effect.tconstruct.remove_block": "Retire le bloc",
   "fluid_effect.tconstruct.weather": "Patine le cuivre",
   "fluid_effect.tconstruct.teleport": "Téléporte la cible",

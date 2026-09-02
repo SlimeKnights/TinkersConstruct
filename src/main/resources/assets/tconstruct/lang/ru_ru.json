@@ -971,7 +971,7 @@
   "_comment": "Литейное дело: Содержимое эффекта жидкости",
   "fluid_effect.tconstruct.separator": "%s и %s",
 
-  "fluid_effect.tconstruct.extinguish_fire": "Тушит огонь",
+  "fluid_effect.tconstruct.extinguish": "Тушит огонь",
   "fluid_effect.tconstruct.remove_block": "Удаляет блок",
   "fluid_effect.tconstruct.weather": "Изменяет погоду для меди",
   "fluid_effect.tconstruct.teleport": "Телепортирует цель",
