@@ -11,16 +11,14 @@ import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
 
 import lombok.RequiredArgsConstructor;
-import net.minecraft.client.renderer.texture.MissingTextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.client.resources.model.ModelState;
 import net.minecraft.client.resources.model.SimpleBakedModel;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.client.model.IQuadTransformer;
 import net.minecraftforge.client.model.geometry.IGeometryBakingContext;
 import slimeknights.mantle.client.model.util.GeometryContextWrapper;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.client.modifiers.block.model.TexturedBlockModifierModel;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
@@ -106,7 +104,7 @@ public class ModifierBakingContext {
         public Material getMaterial(String name) {
             if (chain.contains(name)) {
                 TConstruct.LOG.warn("Circular reference of block modifier model texture: {} -> {}", Joiner.on("->").join(chain), name);
-                return new Material(TextureAtlas.LOCATION_BLOCKS, MissingTextureAtlasSprite.getLocation());
+                return TexturedBlockModifierModel.MISSING;
             }
             chain.add(name);
             try {
@@ -116,8 +114,10 @@ public class ModifierBakingContext {
                         .filter(s -> s.hasMaterial(tool, modifier, name, this))
                         .findFirst()
                         .map(s -> s.getMaterial(tool, modifier, name, this))
-                        .orElseGet(() -> new Material(TextureAtlas.LOCATION_BLOCKS,
-                                MissingTextureAtlasSprite.getLocation()));
+                        .orElseGet(() -> {
+                            TConstruct.LOG.warn("Got MISSING texture for {} as none of the suppliers can provide it", Joiner.on("->").join(chain));
+                            return TexturedBlockModifierModel.MISSING;
+                        });
             } finally {
                 chain.remove(name);
             }
