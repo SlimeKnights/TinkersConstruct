@@ -2,7 +2,7 @@
   "type": "tconstruct:entity_melting",
   "damage": 4,
   "entity": {
-    "type": "minecraft:phantom"
+    "tag": "forge:phantoms"
   },
   "result": {
     "amount": 50,

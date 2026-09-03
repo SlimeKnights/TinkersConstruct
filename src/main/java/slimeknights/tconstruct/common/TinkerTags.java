@@ -653,14 +653,71 @@ public class TinkerTags {
   public static class EntityTypes {
     private static void init() {}
 
-    // mob classes
+    // common tag mob classes
     public static final TagKey<EntityType<?>> SLIMES = common("slimes");
-    /** Entities in this tag take more damage from bane of sssss */
+    // overworld
+    /** Take more damage from bane of sssss and melt into glass. */
     public static final TagKey<EntityType<?>> CREEPERS = common("creepers");
+    /** Melt into venom. */
+    public static final TagKey<EntityType<?>> SPIDERS = common("spiders");
+    /** Melt into seared stone. */
+    public static final TagKey<EntityType<?>> GUARDIANS = common("guardians");
+    /** Melt into seared stone. */
+    public static final TagKey<EntityType<?>> SILVERFISH = common("silverfish");
+    // nether
+    /** Melt into blazing blood. */
+    public static final TagKey<EntityType<?>> BLAZES = common("blazes");
+    /** Melt into regeneration. */
+    public static final TagKey<EntityType<?>> GHASTS = common("ghasts");
+    /** Melt into slow falling. */
+    public static final TagKey<EntityType<?>> PHANTOMS = common("phantoms");
+    // end
+    /** Melt into levitation */
+    public static final TagKey<EntityType<?>> SHULKERS = common("shulkers");
+    // passive
+    /** Melt into regeneration. */
+    public static final TagKey<EntityType<?>> AXOLOTLS = common("axolotls");
+    /** Melt into honey. */
+    public static final TagKey<EntityType<?>> BEES = common("bees");
+    /** Melt into leaping */
+    public static final TagKey<EntityType<?>> FROGS = common("frogs");
+    /** Melt into water breathing. */
+    public static final TagKey<EntityType<?>> SQUIDS = common("squids");
+    /** Melt into fire resistance. */
+    public static final TagKey<EntityType<?>> STRIDERS = common("striders");
+    /** Melt into turtle master. */
+    public static final TagKey<EntityType<?>> TURTLES = common("turtles");
+    // villager
+    /** Entities in this tag melt into emerald. Also added to {@link #KILLAGERS}.  */
     public static final TagKey<EntityType<?>> VILLAGERS = common("villagers");
+    /** Entities in this tag melt into less emerald. Also added to {@link #KILLAGERS}. */
     public static final TagKey<EntityType<?>> ILLAGERS = common("illagers");
-    /** Entities in this tag may spawn with battle signs */
+    /** Entities in this tag may spawn with battle signs and melt into gold */
     public static final TagKey<EntityType<?>> PIGLINS = common("piglins");
+
+    // melting
+    /** Entities in this tag are forced to show in JEI even if not living */
+    public static final TagKey<EntityType<?>> MELTING_SHOW = local("melting/show_in_default");
+    /** Entities in this tag are hidden from JEI and blacklisted from melting in the smeltery */
+    public static final TagKey<EntityType<?>> MELTING_HIDE = local("melting/hide_in_default");
+    // specialized melting tags
+    /** Farm animals that melt into meat soup. */
+    public static final TagKey<EntityType<?>> MELTABLE_FARM_ANIMALS = local("meltable/farm_animals");
+    // hostile
+    /** Zombie-like mobs expected to melt into iron. */
+    public static final TagKey<EntityType<?>> MELTABLE_ZOMBIE = local("meltable/zombie");
+    /** Drowned-like mobs expected to melt into copper. */
+    public static final TagKey<EntityType<?>> MELTABLE_DROWNED = local("meltable/drowned");
+    /** Skeleton-like mobs expected to melt into milk. */
+    public static final TagKey<EntityType<?>> MELTABLE_SKELETON = local("meltable/skeleton");
+    /** Ender-based mobs expected to melt into molten ender. */
+    public static final TagKey<EntityType<?>> MELTABLE_ENDER = local("meltable/ender");
+    /** Vanilla slime-like mobs expected to melt into earthslime. */
+    public static final TagKey<EntityType<?>> MELTABLE_SLIME = local("meltable/slime");
+    /** Magmacube like mobs expected to melt into magma (cream). */
+    public static final TagKey<EntityType<?>> MELTABLE_MAGMA = local("meltable/magma");
+
+
     /** @deprecated use the chance fields on the severing recipe to adjust rates. */
     @Deprecated(forRemoval = true)
     public static final TagKey<EntityType<?>> RARE_MOBS = local("rare_mobs");
@@ -684,9 +741,7 @@ public class TinkerTags {
     /** Trident like entities, to ensure they are preserved in the related hooks. */
     public static final TagKey<EntityType<?>> TRIDENTS = common("tridents");
 
-
     // modifiers
-
     /** Entities in this tag take more damage from killager */
     public static final TagKey<EntityType<?>> KILLAGERS = local("killagers");
     /** Entities in this tag drop bacon from the tasty modifier */
@@ -695,12 +750,6 @@ public class TinkerTags {
     public static final TagKey<EntityType<?>> ENDERFERENCE_ARROW_BLACKLIST = local("enderference_arrow_blacklist");
     /** Entities that will not heal you using necrotic */
     public static final TagKey<EntityType<?>> NECROTIC_BLACKLIST = local("necrotic_blacklist");
-
-    // melting
-    /** Entities in this tag are forced to show in JEI even if not living */
-    public static final TagKey<EntityType<?>> MELTING_SHOW = local("melting/show_in_default");
-    /** Entities in this tag are hidden from JEI and blacklisted from melting in the smeltery */
-    public static final TagKey<EntityType<?>> MELTING_HIDE = local("melting/hide_in_default");
 
     // collecting
     /** Things that can be collected using {@link net.minecraft.world.entity.Entity#playerTouch(Player)} using a fishing rod. */
