@@ -10,6 +10,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.GsonHelper;
 import org.apache.logging.log4j.Level;
+import org.jetbrains.annotations.ApiStatus.Internal;
+
 import slimeknights.mantle.data.listener.MergingJsonDataLoader;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.registry.IdAwareComponentRegistry;
@@ -17,9 +19,13 @@ import slimeknights.mantle.util.JsonHelper;
 import slimeknights.mantle.util.typed.TypedMapBuilder;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.json.MaterialStatJson;
+import slimeknights.tconstruct.library.materials.stats.dynamic.DynamicMaterialStatType;
+import slimeknights.tconstruct.library.materials.stats.dynamic.MaterialStatTypesLoader;
 import slimeknights.tconstruct.library.utils.Util;
 
 import javax.annotation.Nullable;
+
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -56,11 +62,19 @@ public class MaterialStatsManager extends MergingJsonDataLoader<Map<ResourceLoca
   @Getter
   private final IdAwareComponentRegistry<MaterialStatType<?>> statTypes = new IdAwareComponentRegistry<>("Unknown Material Stat Type");
 
+  @Getter
+  private MaterialStatTypesLoader statTypesLoader = null;
+
   /** Final map of material ID to material stat ID to material stats */
   private Map<MaterialId, Map<MaterialStatsId, IMaterialStats>> materialToStatsPerType = Collections.emptyMap();
 
+  /** Gets a list of all material stat IDs */
+  @Getter
+  private Collection<ResourceLocation> allStatTypeIds;
+
   public MaterialStatsManager(Runnable onLoaded) {
     super(JsonHelper.DEFAULT_GSON, FOLDER, id -> new HashMap<>());
+    this.statTypesLoader = new MaterialStatTypesLoader();
     this.onLoaded = onLoaded;
   }
 
@@ -72,11 +86,6 @@ public class MaterialStatsManager extends MergingJsonDataLoader<Map<ResourceLoca
     statTypes.register(type);
   }
 
-  /** Gets a lit of all material stat IDs */
-  public Collection<ResourceLocation> getAllStatTypeIds() {
-    return statTypes.getKeys();
-  }
-
   /**
    * Gets the stat type for the given ID
    * @param id  Material stat ID
@@ -85,7 +94,14 @@ public class MaterialStatsManager extends MergingJsonDataLoader<Map<ResourceLoca
   @SuppressWarnings("unchecked")
   @Nullable
   public <T extends IMaterialStats> MaterialStatType<T> getStatType(MaterialStatsId id) {
-    return (MaterialStatType<T>) statTypes.getValue(id);
+    MaterialStatType<T> type = null;
+    if (statTypesLoader.getStatTypes() != null) {
+      type = (MaterialStatType<T>) statTypesLoader.getStatTypes().get(id);
+    }
+    if (type == null) {
+      type = (MaterialStatType<T>) statTypes.getValue(id);
+    }
+    return type;
   }
 
   /**
@@ -145,7 +161,8 @@ public class MaterialStatsManager extends MergingJsonDataLoader<Map<ResourceLoca
    * Updates the material stats from the server, should only be called on the client
    * @param materialStats  Material stats list
    */
-  public void updateMaterialStatsFromServer(Map<MaterialId, Collection<IMaterialStats>> materialStats) {
+  public void updateMaterialStatsFromServer(Map<MaterialId, Collection<IMaterialStats>> materialStats, Map<MaterialStatsId, DynamicMaterialStatType> dynamicStatTypes) {
+    this.statTypesLoader.setStatTypes(dynamicStatTypes);
     this.materialToStatsPerType = materialStats.entrySet().stream()
       .collect(Collectors.toMap(
         Map.Entry::getKey,
@@ -155,7 +172,16 @@ public class MaterialStatsManager extends MergingJsonDataLoader<Map<ResourceLoca
             Function.identity()
           )))
       );
+    allStatTypeIds = new ArrayList<>(statTypes.getKeys());
+    if (statTypesLoader.getStatTypes() != null) {
+      allStatTypeIds.addAll(statTypesLoader.getStatTypes().keySet());
+    }
     onLoaded.run();
+  }
+
+  @Internal
+  public void setDynamicStatTypes(Map<MaterialStatsId, DynamicMaterialStatType> dynamicStatTypes) {
+    this.statTypesLoader.setStatTypes(dynamicStatTypes);
   }
 
   @Override
@@ -189,6 +215,11 @@ public class MaterialStatsManager extends MergingJsonDataLoader<Map<ResourceLoca
                                   entry -> new MaterialId(entry.getKey()),
                                   entry -> deserializeMaterialStatsFromContent(entry.getKey(), entry.getValue())));
 
+    allStatTypeIds = new ArrayList<>(statTypes.getKeys());
+    if (statTypesLoader.getStatTypes() != null) {
+      allStatTypeIds.addAll(statTypesLoader.getStatTypes().keySet());
+    }
+
     log.debug("Loaded stats for materials:{}",
               Util.toIndentedStringList(materialToStatsPerType.entrySet().stream()
                 .sorted(Entry.comparingByKey())
@@ -199,6 +230,7 @@ public class MaterialStatsManager extends MergingJsonDataLoader<Map<ResourceLoca
 
   @Override
   public void onResourceManagerReload(ResourceManager manager) {
+    statTypesLoader.loadResources(manager);
     long time = System.nanoTime();
     super.onResourceManagerReload(manager);
     log.info("{} stats loaded for {} materials in {} ms",
@@ -216,7 +248,7 @@ public class MaterialStatsManager extends MergingJsonDataLoader<Map<ResourceLoca
                             .collect(Collectors.toMap(
                               Map.Entry::getKey,
                               entry -> entry.getValue().values()));
-    return new UpdateMaterialStatsPacket(networkPayload);
+    return new UpdateMaterialStatsPacket(networkPayload, this.statTypesLoader.getStatTypes());
   }
 
   /**
