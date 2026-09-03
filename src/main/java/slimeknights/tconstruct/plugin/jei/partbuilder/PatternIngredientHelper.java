@@ -4,6 +4,7 @@ import mezz.jei.api.ingredients.IIngredientHelper;
 import mezz.jei.api.ingredients.IIngredientType;
 import mezz.jei.api.ingredients.subtypes.UidContext;
 import net.minecraft.resources.ResourceLocation;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.plugin.jei.TConstructJEIConstants;
 
@@ -25,7 +26,7 @@ public class PatternIngredientHelper implements IIngredientHelper<Pattern> {
 
   @Override
   public String getUniqueId(Pattern pattern, UidContext context) {
-    return pattern.toString();
+    return TConstruct.resourceString("pattern:") + pattern;
   }
 
   @Override

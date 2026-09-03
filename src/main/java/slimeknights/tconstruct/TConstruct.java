@@ -262,7 +262,7 @@ public class TConstruct {
    * resource locations.
    */
   public static String resourceString(String res) {
-    return String.format("%s:%s", MOD_ID, res);
+    return MOD_ID + ':' + res;
   }
 
   /**
