@@ -507,7 +507,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
         .part(bowstring)
         .part(arrowHead).build())
       .module(new VolatileIntModule(FishingModule.HOOK_MATERIAL, 2)) // arrow head should be the bobber material
-      .module(defaultTwoParts)
+      .module(defaultThreeParts)
       // stats - high attack speed so melee modifying it is not useless with its base 1 attack damage
       .module(new SetStatsModule(StatsNBT.builder().set(ToolStats.ATTACK_SPEED, 2.0f).build()))
       // give a bit more durability to make up for modifier costs, plus non-fishing uses are really durability hungry
