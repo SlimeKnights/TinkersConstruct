@@ -29,6 +29,11 @@ public class PatternIngredientHelper implements IIngredientHelper<Pattern> {
   }
 
   @Override
+  public Object getUid(Pattern pattern, UidContext context) {
+    return pattern;
+  }
+
+  @Override
   public ResourceLocation getResourceLocation(Pattern pattern) {
     return pattern;
   }
