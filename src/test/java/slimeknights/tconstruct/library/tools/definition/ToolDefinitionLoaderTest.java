@@ -43,6 +43,8 @@ import slimeknights.tconstruct.test.JsonFileLoader;
 import slimeknights.tconstruct.test.TestHelper;
 import slimeknights.tconstruct.test.TestHelper.ToolDefinitionStats;
 
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -74,7 +76,7 @@ class ToolDefinitionLoaderTest extends BaseMcTest {
   }
 
   /** Helper to do all the stats checks */
-  private static void checkFullNonParts(ToolDefinitionData data) {
+  private static void checkFullNonParts(ToolDefinitionData data, boolean hasMaterials) {
     // base stats
     ToolDefinitionStats stats = TestHelper.buildStats(data);
     assertThat(stats.base().getContainedStats()).hasSize(4);
@@ -96,6 +98,14 @@ class ToolDefinitionLoaderTest extends BaseMcTest {
     assertThat(stats.multipliers().get(ToolStats.MINING_SPEED)).isEqualTo(0.5f);
     // slots
     VolatileDataToolHook volatileHook = data.getHook(ToolHooks.VOLATILE_DATA);
+    if (hasMaterials) {
+      assertThat(volatileHook).isInstanceOf(VolatileDataToolHook.AllMerger.class);
+      Collection<VolatileDataToolHook> collection = ((VolatileDataToolHook.AllMerger) volatileHook).modules();
+      assertThat(collection).hasSize(2);
+      Iterator<VolatileDataToolHook> iterator = collection.iterator();
+      assertThat(iterator.next()).isInstanceOf(PartStatsModule.class);
+      volatileHook = iterator.next();
+    }
     assertThat(volatileHook).isInstanceOf(ToolSlotsModule.class);
     Map<SlotType,Integer> slots = ((ToolSlotsModule) volatileHook).slots();
     assertThat(slots).hasSize(3);
@@ -161,7 +171,7 @@ class ToolDefinitionLoaderTest extends BaseMcTest {
     assertThat(data).isNotNull();
     assertThat(data).isNotSameAs(ToolDefinitionData.EMPTY);
     assertThat(data.getHook(ToolHooks.TOOL_PARTS).getParts(ToolDefinition.EMPTY)).isEmpty();
-    checkFullNonParts(data);
+    checkFullNonParts(data, false);
   }
 
   @Test
@@ -217,7 +227,7 @@ class ToolDefinitionLoaderTest extends BaseMcTest {
     assertThat(scales[1]).isEqualTo(1);
     assertThat(parts.get(2)).isEqualTo(MaterialItemFixture.MATERIAL_ITEM_HANDLE);
     assertThat(scales[2]).isEqualTo(3);
-    checkFullNonParts(data);
+    checkFullNonParts(data, true);
   }
 
   @Test
