@@ -53,12 +53,8 @@ import static org.mockito.Mockito.mock;
 
 class ToolDefinitionLoaderTest extends BaseMcTest {
   private static final JsonFileLoader fileLoader = new JsonFileLoader(JsonHelper.DEFAULT_GSON, ToolDefinitionLoader.FOLDER);
-  private static final ToolDefinition NO_PARTS_MINIMAL = ToolDefinition.create(TConstruct.getResource("minimal_no_parts"));
-  private static final ToolDefinition NO_PARTS_FULL = ToolDefinition.create(TConstruct.getResource("full_no_parts"));
-  private static final ToolDefinition MELEE_HARVEST_MINIMAL = ToolDefinition.create(TConstruct.getResource("minimal_with_parts"));
-  private static final ToolDefinition MELEE_HARVEST_FULL = ToolDefinition.create(TConstruct.getResource("full_with_parts"));
-  private static final ToolDefinition NEED_PARTS_HAS_NONE = ToolDefinition.create(TConstruct.getResource("need_parts_has_none"));
-  private static final ToolDefinition WRONG_PART_TYPE = ToolDefinition.create(TConstruct.getResource("wrong_part_type"));
+  // shared by 2 tests
+  private static final ResourceLocation MELEE_HARVEST_MINIMAL = TConstruct.getResource("minimal_with_parts");
 
   @BeforeAll
   static void beforeAll() {
@@ -156,10 +152,11 @@ class ToolDefinitionLoaderTest extends BaseMcTest {
 
   @Test
   void noParts_minimal() {
-    Map<ResourceLocation,JsonElement> splashList = fileLoader.loadFilesAsSplashlist(NO_PARTS_MINIMAL.getId().getPath());
+    ToolDefinition minimalNoParts = ToolDefinition.create(TConstruct.getResource("minimal_no_parts"));
+    Map<ResourceLocation,JsonElement> splashList = fileLoader.loadFilesAsSplashlist(minimalNoParts.getId().getPath());
     ToolDefinitionLoader.getInstance().apply(splashList, mock(ResourceManager.class), mock(ProfilerFiller.class));
 
-    ToolDefinitionData data = NO_PARTS_MINIMAL.getData();
+    ToolDefinitionData data = minimalNoParts.getData();
     assertThat(data).isNotNull();
     // will not be the empty instance, but will be filled with empty data
     assertThat(data).isNotSameAs(ToolDefinitionData.EMPTY);
@@ -168,10 +165,12 @@ class ToolDefinitionLoaderTest extends BaseMcTest {
 
   @Test
   void noParts_full() {
-    Map<ResourceLocation,JsonElement> splashList = fileLoader.loadFilesAsSplashlist(NO_PARTS_FULL.getId().getPath());
+    ToolDefinition noPartsFull = ToolDefinition.create(TConstruct.getResource("full_no_parts"));
+
+    Map<ResourceLocation,JsonElement> splashList = fileLoader.loadFilesAsSplashlist(noPartsFull.getId().getPath());
     ToolDefinitionLoader.getInstance().apply(splashList, mock(ResourceManager.class), mock(ProfilerFiller.class));
 
-    ToolDefinitionData data = NO_PARTS_FULL.getData();
+    ToolDefinitionData data = noPartsFull.getData();
     assertThat(data).isNotNull();
     assertThat(data).isNotSameAs(ToolDefinitionData.EMPTY);
     assertThat(data.getHook(ToolHooks.TOOL_PARTS).getParts(ToolDefinition.EMPTY)).isEmpty();
@@ -180,19 +179,23 @@ class ToolDefinitionLoaderTest extends BaseMcTest {
 
   @Test
   void missingStats_defaults() {
-    NO_PARTS_FULL.setData(getWrongData()); // set to wrong data to ensure something changes
+    ToolDefinition missing = ToolDefinition.create(TConstruct.getResource("missing"));
+
+    missing.setData(getWrongData()); // set to wrong data to ensure something changes
     // next line is intentionally loading a different file, to make it missing
-    Map<ResourceLocation,JsonElement> splashList = fileLoader.loadFilesAsSplashlist(MELEE_HARVEST_MINIMAL.getId().getPath());
+    Map<ResourceLocation,JsonElement> splashList = fileLoader.loadFilesAsSplashlist(MELEE_HARVEST_MINIMAL.getPath());
     ToolDefinitionLoader.getInstance().apply(splashList, mock(ResourceManager.class), mock(ProfilerFiller.class));
-    assertThat(NO_PARTS_FULL.getData()).isSameAs(ToolDefinitionData.EMPTY);
+    assertThat(missing.getData()).isSameAs(ToolDefinitionData.EMPTY);
   }
 
   @Test
   void meleeHarvest_minimal() {
-    Map<ResourceLocation,JsonElement> splashList = fileLoader.loadFilesAsSplashlist(MELEE_HARVEST_MINIMAL.getId().getPath());
+    ToolDefinition meleeHarvestMinimal = ToolDefinition.create(MELEE_HARVEST_MINIMAL);
+
+    Map<ResourceLocation,JsonElement> splashList = fileLoader.loadFilesAsSplashlist(MELEE_HARVEST_MINIMAL.getPath());
     ToolDefinitionLoader.getInstance().apply(splashList, mock(ResourceManager.class), mock(ProfilerFiller.class));
 
-    ToolDefinitionData data = MELEE_HARVEST_MINIMAL.getData();
+    ToolDefinitionData data = meleeHarvestMinimal.getData();
     assertThat(data).isNotNull();
     // will not be the empty instance, but will be filled with empty data
     assertThat(data).isNotSameAs(ToolDefinitionData.EMPTY);
@@ -212,10 +215,11 @@ class ToolDefinitionLoaderTest extends BaseMcTest {
 
   @Test
   void meleeHarvest_full() {
-    Map<ResourceLocation,JsonElement> splashList = fileLoader.loadFilesAsSplashlist(MELEE_HARVEST_FULL.getId().getPath());
+    ToolDefinition fullWithParts = ToolDefinition.create(TConstruct.getResource("full_with_parts"));
+    Map<ResourceLocation,JsonElement> splashList = fileLoader.loadFilesAsSplashlist(fullWithParts.getId().getPath());
     ToolDefinitionLoader.getInstance().apply(splashList, mock(ResourceManager.class), mock(ProfilerFiller.class));
 
-    ToolDefinitionData data = MELEE_HARVEST_FULL.getData();
+    ToolDefinitionData data = fullWithParts.getData();
     assertThat(data).isNotNull();
     assertThat(data).isNotSameAs(ToolDefinitionData.EMPTY);
     ToolPartsHook toolPartsHook = data.getHook(ToolHooks.TOOL_PARTS);
@@ -236,9 +240,10 @@ class ToolDefinitionLoaderTest extends BaseMcTest {
 
   @Test
   void meleeHarvest_missingParts_defaults() {
-    NEED_PARTS_HAS_NONE.setData(getWrongData()); // set to wrong data to ensure something changes
-    Map<ResourceLocation,JsonElement> splashList = fileLoader.loadFilesAsSplashlist(NEED_PARTS_HAS_NONE.getId().getPath());
+    ToolDefinition needPartsHasNone = ToolDefinition.create(TConstruct.getResource("need_parts_has_none"));
+    needPartsHasNone.setData(getWrongData()); // set to wrong data to ensure something changes
+    Map<ResourceLocation,JsonElement> splashList = fileLoader.loadFilesAsSplashlist(needPartsHasNone.getId().getPath());
     ToolDefinitionLoader.getInstance().apply(splashList, mock(ResourceManager.class), mock(ProfilerFiller.class));
-    assertThat(NEED_PARTS_HAS_NONE.getData()).isSameAs(ToolDefinitionData.EMPTY);
+    assertThat(needPartsHasNone.getData()).isSameAs(ToolDefinitionData.EMPTY);
   }
 }
