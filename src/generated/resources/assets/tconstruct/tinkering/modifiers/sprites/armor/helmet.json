@@ -1,0 +1,21 @@
+{
+  "constant": {
+    "_trim": {
+      "type": "tconstruct:crafted",
+      "model": {
+        "type": "tconstruct:armor_trim",
+        "slot": "helmet"
+      },
+      "modifier": "tconstruct:trim"
+    }
+  },
+  "modifiers": {
+    "tconstruct:aqua_affinity": "tconstruct:item/tool/armor/modifiers/helmet/tconstruct_aqua_affinity",
+    "tconstruct:emerald": "tconstruct:item/tool/armor/modifiers/armor/helmet/tconstruct_emerald",
+    "tconstruct:fiery": {
+      "luminosity": 10,
+      "texture": "tconstruct:item/tool/armor/modifiers/armor/helmet/tconstruct_fiery"
+    },
+    "tconstruct:thorns": "tconstruct:item/tool/armor/modifiers/armor/helmet/tconstruct_thorns"
+  }
+}

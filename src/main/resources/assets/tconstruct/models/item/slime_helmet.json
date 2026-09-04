@@ -4,7 +4,7 @@
   "textures": {
     "slime": "tconstruct:item/tool/armor/slime/helmet/slime"
   },
-  "modifier_maps": ["tconstruct:slime/helmet"],
+  "modifier_maps": ["tconstruct:slime/helmet", "tconstruct:armor/helmet"],
   "parts": [
     { "name": "slime", "index": 1 }
   ],

@@ -5,14 +5,12 @@
       "skull_index": 0,
       "slime_index": 1,
       "texture": "tconstruct:item/tool/armor/slime/helmet/skull"
-    },
-    "_trim": {
-      "type": "tconstruct:crafted",
-      "model": {
-        "type": "tconstruct:armor_trim",
-        "slot": "helmet"
-      },
-      "modifier": "tconstruct:trim"
+    }
+  },
+  "modifiers": {
+    "tconstruct:fiery": {
+      "luminosity": 10,
+      "texture": "tconstruct:item/tool/armor/slime/helmet/modifiers/tconstruct_fiery"
     }
   }
 }

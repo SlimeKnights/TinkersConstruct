@@ -255,21 +255,44 @@ public class ModifierModelMapProvider extends AbstractModifierModelMapProvider {
     ).luminosity(15, SMALL, ModifierIds.glowing)
       .luminosity(2, SMALL, ModifierIds.unbreakable);
 
+    // shared armor
+    for (ArmorItem.Type type : ArmorItem.Type.values()) {
+      String item = "armor/" + type.getName();
+      String path = "armor/modifiers/" + item;
+      tool(item).basic(path, null,
+          ModifierIds.emerald, ModifierIds.thorns)
+        .luminosity(10, path, null, ModifierIds.fiery)
+        .trim(type);
+    }
+    // piece specific
+    tool("armor/helmet").basic("armor/modifiers/helmet", null, ModifierIds.aquaAffinity);
+    tool("armor/chestplate").basic("armor/modifiers/chestplate", null,
+      ModifierIds.knockback, TinkerModifiers.sleeves.getId(),
+      ModifierIds.reach, ModifierIds.strength,TinkerModifiers.ambidextrous.getId()
+    ).luminosity(7, "armor/modifiers/chestplate", null, ModifierIds.haste);
+    tool("armor/leggings").basic("armor/modifiers/leggings", null,
+      ModifierIds.leaping, ModifierIds.luck, TinkerModifiers.shieldStrap.getId(),
+      ModifierIds.speedy, ModifierIds.stepUp, ModifierIds.swiftSneak);
+    tool("armor/boots").basic("armor/modifiers/boots", null,
+        ModifierIds.depthStrider, ModifierIds.doubleJump, ModifierIds.featherFalling,
+        ModifierIds.longFall, ModifierIds.soulspeed)
+      .luminosity(15, "armor/plate/boots/modifiers", null, ModifierIds.lightspeed)
+      .basic(ModifierIds.featherFall, "armor/plate/boots/modifiers/tconstruct_feather_falling", null);
+
     // plate armor
     for (ArmorItem.Type type : ArmorItem.Type.values()) {
       String root = "armor/plate/" + type.getName() + "/maille";
       String item = "plate/" + type.getName();
       String path = "armor/" + item + "/modifiers";
       tool(item).basic(path, null,
-          ModifierIds.diamond, ModifierIds.emerald, ModifierIds.netherite,
+          ModifierIds.diamond, ModifierIds.netherite,
           ModifierIds.ricochet, ModifierIds.springy,
-          ModifierIds.thorns, ModifierIds.freezing)
-        .luminosity(10, path, null, ModifierIds.fiery)
+          ModifierIds.freezing)
         .dyed(new MaterialHasFallbackModifierModel(1,
         new DyedModifierModel(toolMaterial(root + "_metal"), null),
         new DyedModifierModel(toolMaterial(root), null),
         "metal"
-      )).trim(type);
+      ));
       tool(item + "_broken").dyed(new MaterialHasFallbackModifierModel(1,
         new DyedModifierModel(toolMaterial(root + "_broken_metal"), null),
         new DyedModifierModel(toolMaterial(root + "_broken"), null),
@@ -278,33 +301,22 @@ public class ModifierModelMapProvider extends AbstractModifierModelMapProvider {
     }
     // other modifiers
     tool("plate/helmet").basic("armor/plate/helmet/modifiers", null,
-      ModifierIds.aquaAffinity, TinkerModifiers.itemFrame.getId(), ModifierIds.respiration);
-    tool("plate/chestplate").basic("armor/plate/chestplate/modifiers", null,
-      ModifierIds.strength, ModifierIds.knockback,
-      ModifierIds.reach, TinkerModifiers.sleeves.getId(), TinkerModifiers.ambidextrous.getId()
-    ).luminosity(7, "armor/plate/chestplate/modifiers", null, ModifierIds.haste);
-    tool("plate/leggings").basic("armor/plate/leggings/modifiers", null,
-      ModifierIds.leaping, ModifierIds.luck, TinkerModifiers.shieldStrap.getId(),
-      ModifierIds.speedy, ModifierIds.stepUp, ModifierIds.swiftSneak);
-    tool("plate/boots").basic("armor/plate/boots/modifiers", null,
-      ModifierIds.depthStrider, ModifierIds.doubleJump, ModifierIds.featherFalling,
-      ModifierIds.longFall, ModifierIds.soulspeed)
-      .luminosity(15, "armor/plate/boots/modifiers", null, ModifierIds.lightspeed)
-      .basic(ModifierIds.featherFall, "armor/plate/boots/modifiers/tconstruct_feather_falling", null);
+      TinkerModifiers.itemFrame.getId(), ModifierIds.respiration);
     // we include both folders, but limited for small
     tool("plate/shield").banner("armor/plate/shield/banner_small/", "armor/plate/shield/banner_large/");
 
     // travelers
-    travelers("goggles", null);
-    travelers("vest", ArmorItem.Type.CHESTPLATE);
-    travelers("pants", ArmorItem.Type.LEGGINGS);
-    travelers("boots", ArmorItem.Type.BOOTS);
-    travelers("shield", null);
+    travelers("goggles");
+    travelers("vest");
+    travelers("pants");
+    travelers("boots");
+    travelers("shield");
     tool("travelers/goggles").customTrim("armor/travelers/goggles", null);
+    tool("travelers/pants").basic("armor/travelers/pants/modifiers", null, ModifierIds.swiftSneak);
 
     // slimesuit
     for (ArmorItem.Type type : ArmorItem.Type.values()) {
-      tool("slime/" + type.getName()).trim(type);
+      tool("slime/" + type.getName());
     }
     tool("slime/wings")
       .customTrim("armor/slime/wings", null)
@@ -312,7 +324,9 @@ public class ModifierModelMapProvider extends AbstractModifierModelMapProvider {
     tool("slime/wings_broken").dyed("armor/slime/wings/slime_broken");
     // slimesuit dyeing
     // skull texture is added via the modifier map instead of the tool JSON, since we have to fetch the material anyway to dye it, saves fetching it twice
-    tool("slime/helmet").constant("__skull", new SlimeskullModifierModel(toolMaterial("armor/slime/helmet/skull"), 0, 1));
+    tool("slime/helmet")
+      .constant("__skull", new SlimeskullModifierModel(toolMaterial("armor/slime/helmet/skull"), 0, 1))
+      .luminosity(10, "armor/slime/helmet/modifiers", null, ModifierIds.fiery);
     tool("slime/leggings").dyed("armor/slime/leggings/shell");
     tool("slime/leggings_broken").dyed("armor/slime/leggings/shell_broken");
     tool("slime/boots").dyed("armor/slime/boots/laces");
@@ -321,7 +335,9 @@ public class ModifierModelMapProvider extends AbstractModifierModelMapProvider {
       new DyedModifierModel(toolMaterial(ribcage + "_bone"), null),
       new DyedModifierModel(toolMaterial(ribcage), null),
       "bone"
-    ));
+    )).empty(
+      ModifierIds.emerald // no shoulders to fit
+    );
     tool("slime/chestplate_broken").dyed(new MaterialHasFallbackModifierModel(0,
       new DyedModifierModel(toolMaterial(ribcage + "_broken_bone"), null),
       new DyedModifierModel(toolMaterial(ribcage + "_broken"), null),
@@ -374,13 +390,10 @@ public class ModifierModelMapProvider extends AbstractModifierModelMapProvider {
   }
 
   /** Adds dyed textures for travelers gear */
-  private void travelers(String name, @Nullable ArmorItem.Type type) {
+  private void travelers(String name) {
     String root = "armor/travelers/" + name + "/modifiers/";
     String item = "travelers/" + name;
-    Builder b = tool(item).dyed(root + "dyed");
-    if (type != null) {
-      b.trim(type);
-    }
+    tool(item).dyed(root + "dyed");
     tool(item + "_broken").dyed(root + "dyed_broken");
   }
 

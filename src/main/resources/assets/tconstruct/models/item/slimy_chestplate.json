@@ -5,7 +5,7 @@
     "slime": "tconstruct:item/tool/armor/slime/chestplate/slime",
     "ribcage": "tconstruct:item/tool/armor/slime/chestplate/ribcage"
   },
-  "modifier_maps": ["tconstruct:slime/chestplate"],
+  "modifier_maps": ["tconstruct:slime/chestplate", "tconstruct:armor/chestplate"],
   "parts": [
     { "name": "slime", "index": 1 },
     { "name": "ribcage", "index": 0 }

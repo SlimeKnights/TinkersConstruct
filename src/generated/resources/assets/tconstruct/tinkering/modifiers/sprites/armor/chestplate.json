@@ -1,0 +1,29 @@
+{
+  "constant": {
+    "_trim": {
+      "type": "tconstruct:crafted",
+      "model": {
+        "type": "tconstruct:armor_trim",
+        "slot": "chestplate"
+      },
+      "modifier": "tconstruct:trim"
+    }
+  },
+  "modifiers": {
+    "tconstruct:ambidextrous": "tconstruct:item/tool/armor/modifiers/chestplate/tconstruct_ambidextrous",
+    "tconstruct:emerald": "tconstruct:item/tool/armor/modifiers/armor/chestplate/tconstruct_emerald",
+    "tconstruct:fiery": {
+      "luminosity": 10,
+      "texture": "tconstruct:item/tool/armor/modifiers/armor/chestplate/tconstruct_fiery"
+    },
+    "tconstruct:haste": {
+      "luminosity": 7,
+      "texture": "tconstruct:item/tool/armor/modifiers/chestplate/tconstruct_haste"
+    },
+    "tconstruct:knockback": "tconstruct:item/tool/armor/modifiers/chestplate/tconstruct_knockback",
+    "tconstruct:reach": "tconstruct:item/tool/armor/modifiers/chestplate/tconstruct_reach",
+    "tconstruct:sleeves": "tconstruct:item/tool/armor/modifiers/chestplate/tconstruct_sleeves",
+    "tconstruct:strength": "tconstruct:item/tool/armor/modifiers/chestplate/tconstruct_strength",
+    "tconstruct:thorns": "tconstruct:item/tool/armor/modifiers/armor/chestplate/tconstruct_thorns"
+  }
+}

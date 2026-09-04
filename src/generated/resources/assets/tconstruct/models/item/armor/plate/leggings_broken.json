@@ -7,7 +7,8 @@
   },
   "modifier_maps": [
     "tconstruct:plate/leggings_broken",
-    "tconstruct:plate/leggings"
+    "tconstruct:plate/leggings",
+    "tconstruct:armor/leggings"
   ],
   "parts": [
     {

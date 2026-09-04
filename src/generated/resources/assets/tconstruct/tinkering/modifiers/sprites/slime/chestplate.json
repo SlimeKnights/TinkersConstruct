@@ -16,14 +16,11 @@
         "index": 0
       },
       "modifier": "tconstruct:dyed"
-    },
-    "_trim": {
-      "type": "tconstruct:crafted",
-      "model": {
-        "type": "tconstruct:armor_trim",
-        "slot": "chestplate"
-      },
-      "modifier": "tconstruct:trim"
+    }
+  },
+  "modifiers": {
+    "tconstruct:emerald": {
+      "type": "tconstruct:empty"
     }
   }
 }

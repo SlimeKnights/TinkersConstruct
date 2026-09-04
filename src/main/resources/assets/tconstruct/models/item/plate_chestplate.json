@@ -5,7 +5,7 @@
     "plating": "tconstruct:item/tool/armor/plate/chestplate/plating",
     "maille":  "tconstruct:item/tool/armor/plate/chestplate/maille"
   },
-  "modifier_maps": ["tconstruct:plate/chestplate"],
+  "modifier_maps": ["tconstruct:plate/chestplate", "tconstruct:armor/chestplate"],
   "parts": [
     { "name": "plating", "index": 0 },
     { "name": "maille",  "index": 1 }
