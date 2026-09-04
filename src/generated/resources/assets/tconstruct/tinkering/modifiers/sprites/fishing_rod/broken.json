@@ -1,6 +1,6 @@
 {
   "constant": {
-    "tipped": []
+    "__tipped": []
   },
   "modifiers": {
     "tconstruct:emerald": "tconstruct:item/tool/fishing_rod/modifiers/tconstruct_emerald_broken",

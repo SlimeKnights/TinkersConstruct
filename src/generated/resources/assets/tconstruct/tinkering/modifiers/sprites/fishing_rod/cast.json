@@ -1,6 +1,6 @@
 {
   "constant": {
-    "tipped": []
+    "__tipped": []
   },
   "modifiers": {
     "tconstruct:bounce": [],
