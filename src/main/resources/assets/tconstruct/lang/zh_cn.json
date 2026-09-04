@@ -1537,9 +1537,9 @@
   "block.tconstruct.scorched_faucet": "焦褐浇注口",
   "block.tconstruct.scorched_faucet.tooltip": "从熔铸炉或储罐中输出流体",
   "block.tconstruct.scorched_basin": "焦褐铸造盆",
-  "block.tconstruct.scorched_basin.tooltip": "利用熔铸炉中的熔融材料铸造物品，在铸造时需要一个铸模或是金平台以成型",
+  "block.tconstruct.scorched_basin.tooltip": "利用熔铸炉中的熔融材料铸造物品。\n在铸造时需要一个铸模或是金平台以成型",
   "block.tconstruct.scorched_table": "焦褐铸件台",
-  "block.tconstruct.scorched_table.tooltip": "利用熔铸炉中的熔融材料铸造物品，在铸造时需要一个铸模或是金栏杆以成型",
+  "block.tconstruct.scorched_table.tooltip": "利用熔铸炉中的熔融材料铸造物品。\n在铸造时需要一个铸模或是金栏杆以成型",
   "block.tconstruct.scorched_proxy_tank": "焦褐工匠储罐",
   "block.tconstruct.scorched_proxy_tank.tooltip": "能够装填或倒空物品内部储罐的储罐方块，但无法操作自带的内部储罐",
 
