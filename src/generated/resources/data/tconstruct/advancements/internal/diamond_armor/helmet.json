@@ -30,7 +30,7 @@
     ]
   ],
   "rewards": {
-    "function": "tconstruct:grant_story_shiny_gear_diamond_helmet"
+    "function": "tconstruct:grant_advancement/story_shiny_gear/diamond_helmet"
   },
   "sends_telemetry_event": true
 }

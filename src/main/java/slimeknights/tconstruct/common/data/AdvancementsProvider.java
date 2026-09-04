@@ -693,17 +693,27 @@ public class AdvancementsProvider extends GenericDataProvider {
   }
 
   /**
+   * Helper for making an internal advancement running a function.
+   * @param name         Advancement name
+   * @param function     Function to run
+   * @param consumer     Consumer to add conditions
+   */
+  protected void runFunction(ResourceLocation name, ResourceLocation function, Consumer<Advancement.Builder> consumer) {
+    Advancement.Builder builder = Advancement.Builder.advancement();
+    // grant the advancement
+    builder.rewards(AdvancementRewards.Builder.function(function));
+    consumer.accept(builder);
+    builder.save(advancementConsumer, name.toString());
+  }
+
+  /**
    * Helper for making an internal advancement granting a vanilla one
    * @param name         Advancement name
    * @param advancement  Vanilla advancement to grant
    * @param consumer     Consumer to add conditions
    */
   protected void grantAdvancement(ResourceLocation name, ResourceLocation advancement, Consumer<Advancement.Builder> consumer) {
-    Advancement.Builder builder = Advancement.Builder.advancement();
-    // grant the advancement
-    builder.rewards(AdvancementRewards.Builder.function(AdvancementIds.function(advancement)));
-    consumer.accept(builder);
-    builder.save(advancementConsumer, name.toString());
+    runFunction(name, AdvancementIds.function(advancement), consumer);
   }
 
   /**
@@ -714,6 +724,6 @@ public class AdvancementsProvider extends GenericDataProvider {
    * @param consumer     Consumer to add conditions
    */
   protected void grantAdvancement(ResourceLocation name, ResourceLocation advancement, String criteria, Consumer<Advancement.Builder> consumer) {
-    grantAdvancement(name, advancement.withSuffix('_' + criteria), consumer);
+    runFunction(name, AdvancementIds.function(advancement, criteria), consumer);
   }
 }

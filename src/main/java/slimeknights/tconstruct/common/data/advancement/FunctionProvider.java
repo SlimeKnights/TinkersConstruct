@@ -17,7 +17,7 @@ public class FunctionProvider extends GenericStringProvider {
   private final Map<ResourceLocation,String> functions = new HashMap<>();
 
   public FunctionProvider(PackOutput output) {
-    super(output, Target.DATA_PACK, "function", "mcfunction");
+    super(output, Target.DATA_PACK, "functions", "mcfunction");
   }
 
   /** Generates all functions */

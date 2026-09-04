@@ -42,11 +42,11 @@ public class AdvancementIds {
 
   /** Creates a function ID from the given advancement */
   public static ResourceLocation function(ResourceLocation advancement) {
-    return TConstruct.getResource("grant_" + advancement.getPath().replace('/', '_'));
+    return TConstruct.getResource("grant_advancement/" + advancement.getPath().replace('/', '_'));
   }
 
   /** Creates a function ID from the given advancement */
   public static ResourceLocation function(ResourceLocation advancement, String criteria) {
-    return function(advancement).withSuffix('_' + criteria);
+    return function(advancement).withSuffix('/' + criteria);
   }
 }

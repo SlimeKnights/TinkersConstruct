@@ -34,7 +34,7 @@
     ]
   ],
   "rewards": {
-    "function": "tconstruct:grant_husbandry_obtain_netherite_hoe"
+    "function": "tconstruct:grant_advancement/husbandry_obtain_netherite_hoe"
   },
   "sends_telemetry_event": true
 }
