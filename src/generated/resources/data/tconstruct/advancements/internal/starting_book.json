@@ -18,7 +18,7 @@
             "tconstruct:gameplay/starting_book"
           ]
         },
-        "sends_telemetry_event": true
+        "sends_telemetry_event": false
       },
       "conditions": [
         {

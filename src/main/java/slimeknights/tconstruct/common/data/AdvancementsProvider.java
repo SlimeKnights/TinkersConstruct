@@ -666,11 +666,10 @@ public class AdvancementsProvider extends GenericDataProvider {
    * @return  Builder
    */
   protected Advancement builder(ItemStack display, ResourceLocation name, @Nullable ResourceLocation background, FrameType frame, Consumer<Advancement.Builder> consumer) {
-    Advancement.Builder builder = Advancement.Builder
-      .advancement().display(display,
-                             Component.translatable(makeTranslationKey(name) + ".title"),
-                             Component.translatable(makeTranslationKey(name) + ".description"),
-                             background, frame, true, frame != FrameType.TASK, false);
+    Advancement.Builder builder = Advancement.Builder.recipeAdvancement().display(display,
+      Component.translatable(makeTranslationKey(name) + ".title"),
+      Component.translatable(makeTranslationKey(name) + ".description"),
+      background, frame, true, frame != FrameType.TASK, false);
     consumer.accept(builder);
     return builder.save(advancementConsumer, name.toString());
   }
@@ -683,7 +682,7 @@ public class AdvancementsProvider extends GenericDataProvider {
    */
   @SuppressWarnings("SameParameterValue")
   protected void hiddenBuilder(ResourceLocation name, ICondition condition, Consumer<Advancement.Builder> consumer) {
-    Advancement.Builder builder = Advancement.Builder.advancement();
+    Advancement.Builder builder = Advancement.Builder.recipeAdvancement();
     consumer.accept(builder);
     ConditionalAdvancement.Builder conditionalBuilder = new ConditionalAdvancement.Builder();
     conditionalBuilder.addCondition(condition);
@@ -699,7 +698,7 @@ public class AdvancementsProvider extends GenericDataProvider {
    * @param consumer     Consumer to add conditions
    */
   protected void runFunction(ResourceLocation name, ResourceLocation function, Consumer<Advancement.Builder> consumer) {
-    Advancement.Builder builder = Advancement.Builder.advancement();
+    Advancement.Builder builder = Advancement.Builder.recipeAdvancement();
     // grant the advancement
     builder.rewards(AdvancementRewards.Builder.function(function));
     consumer.accept(builder);

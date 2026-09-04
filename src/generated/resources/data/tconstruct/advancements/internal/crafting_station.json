@@ -21,5 +21,5 @@
   "rewards": {
     "function": "tconstruct:grant_advancement/story_root"
   },
-  "sends_telemetry_event": true
+  "sends_telemetry_event": false
 }

@@ -80,5 +80,5 @@
   "rewards": {
     "function": "tconstruct:grant_advancement/nether_netherite_armor"
   },
-  "sends_telemetry_event": true
+  "sends_telemetry_event": false
 }

@@ -32,5 +32,5 @@
   "rewards": {
     "function": "tconstruct:grant_advancement/story_obtain_armor/iron_helmet"
   },
-  "sends_telemetry_event": true
+  "sends_telemetry_event": false
 }
