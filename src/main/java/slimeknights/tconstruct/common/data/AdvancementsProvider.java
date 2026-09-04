@@ -509,21 +509,12 @@ public class AdvancementsProvider extends GenericDataProvider {
         .steppingOn(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(Blocks.POWDER_SNOW).build()).build())
         .build()))
     );
-    // have 3 different armor events, need 1 advancement per piece as each just grants 1 criteria
-    for (ArmorItem.Type type : ArmorItem.Type.values()) {
-      String criteria = type.getName();
-      TagKey<Item> tag = switch (type) {
-        case HELMET -> TinkerTags.Items.HELMETS;
-        case CHESTPLATE -> TinkerTags.Items.CHESTPLATES;
-        case LEGGINGS -> TinkerTags.Items.LEGGINGS;
-        case BOOTS -> TinkerTags.Items.BOOTS;
-      };
-      // iron armor expects iron from armor plating
-      IJsonPredicate<IToolStackView> hasTag = ToolStackPredicate.tag(tag);
-      grantAdvancement(resource("internal/iron_armor/" + criteria), AdvancementIds.OBTAIN_ARMOR, "iron_" + criteria, builder -> builder.addCriterion("has_armor", hasToolStack(hasTag, new VolatileDataPredicate(AdvancementIds.IRON_ARMOR))));
-      // diamond armor wants the diamond modifier
-      grantAdvancement(resource("internal/diamond_armor/" + criteria), AdvancementIds.SHINY_GEAR, "diamond_" + criteria, builder -> builder.addCriterion("has_armor", hasToolStack(hasTag, new VolatileDataPredicate(AdvancementIds.DIAMOND_ARMOR))));
-    }
+    // despite having multiple criteria, these use an any condition so easier to just bypass criteria
+    // iron armor expects iron from armor plating's trait
+    IJsonPredicate<IToolStackView> hasTag = ToolStackPredicate.tag(TinkerTags.Items.WORN_ARMOR);
+    grantAdvancement(resource("internal/iron_armor"), AdvancementIds.OBTAIN_ARMOR, builder -> builder.addCriterion("has_armor", hasToolStack(hasTag, new VolatileDataPredicate(AdvancementIds.IRON_ARMOR))));
+    // diamond armor wants the diamond modifier
+    grantAdvancement(resource("internal/diamond_armor"), AdvancementIds.SHINY_GEAR, builder -> builder.addCriterion("has_armor", hasToolStack(hasTag, new VolatileDataPredicate(AdvancementIds.DIAMOND_ARMOR))));
     // netherite armor wants a whole set of netherite armor in the inventory at once
     grantAdvancement(resource("internal/netherite_armor"), AdvancementIds.NETHERITE_ARMOR, builder -> {
       ToolStackPredicate hasNetherite = new VolatileDataPredicate(AdvancementIds.NETHERITE);

@@ -10,7 +10,7 @@
               "predicates": [
                 {
                   "type": "mantle:tag",
-                  "tag": "tconstruct:modifiable/armor/boots"
+                  "tag": "tconstruct:modifiable/armor/worn"
                 },
                 {
                   "type": "tconstruct:has_volatile_key",
@@ -30,7 +30,7 @@
     ]
   ],
   "rewards": {
-    "function": "tconstruct:grant_advancement/story_obtain_armor/iron_boots"
+    "function": "tconstruct:grant_advancement/story_obtain_armor"
   },
   "sends_telemetry_event": false
 }

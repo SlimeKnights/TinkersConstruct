@@ -4,7 +4,6 @@ import net.minecraft.data.CachedOutput;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.PackOutput.Target;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ArmorItem;
 import slimeknights.mantle.data.GenericDataProvider;
 import slimeknights.tconstruct.library.data.GenericStringProvider;
 
@@ -27,12 +26,8 @@ public class FunctionProvider extends GenericStringProvider {
     grant(AdvancementIds.IRON_PICK);
     grant(AdvancementIds.NETHERITE_HOE);
     grant(AdvancementIds.WALK_ON_POWDER_SNOW);
-    for (ArmorItem.Type type : ArmorItem.Type.values()) {
-      String name = type.getName();
-      grant(AdvancementIds.OBTAIN_ARMOR, "iron_" + name);
-      grant(AdvancementIds.SHINY_GEAR, "diamond_" + name);
-    }
-    // netherite wants the whole set in your inventory at once
+    grant(AdvancementIds.OBTAIN_ARMOR);
+    grant(AdvancementIds.SHINY_GEAR);
     grant(AdvancementIds.NETHERITE_ARMOR);
   }
 

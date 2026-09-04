@@ -10,7 +10,7 @@
               "predicates": [
                 {
                   "type": "mantle:tag",
-                  "tag": "tconstruct:modifiable/armor/chestplate"
+                  "tag": "tconstruct:modifiable/armor/worn"
                 },
                 {
                   "type": "tconstruct:has_volatile_key",
@@ -30,7 +30,7 @@
     ]
   ],
   "rewards": {
-    "function": "tconstruct:grant_advancement/story_shiny_gear/diamond_chestplate"
+    "function": "tconstruct:grant_advancement/story_shiny_gear"
   },
   "sends_telemetry_event": false
 }
