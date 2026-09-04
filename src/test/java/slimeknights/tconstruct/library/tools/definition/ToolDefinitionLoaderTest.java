@@ -52,7 +52,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
 class ToolDefinitionLoaderTest extends BaseMcTest {
-  private static final ToolDefinitionData WRONG_DATA = ToolDefinitionDataBuilder.builder().module(new SetStatsModule(StatsNBT.builder().set(ToolStats.DURABILITY, 100).build())).build();
   private static final JsonFileLoader fileLoader = new JsonFileLoader(JsonHelper.DEFAULT_GSON, ToolDefinitionLoader.FOLDER);
   private static final ToolDefinition NO_PARTS_MINIMAL = ToolDefinition.create(TConstruct.getResource("minimal_no_parts"));
   private static final ToolDefinition NO_PARTS_FULL = ToolDefinition.create(TConstruct.getResource("full_no_parts"));
@@ -143,6 +142,11 @@ class ToolDefinitionLoaderTest extends BaseMcTest {
     assertThat(range.eachLevel()).isEqualTo(1);
   }
 
+  /** Gets some invalid data to ensure the data changed */
+  private static ToolDefinitionData getWrongData() {
+    return ToolDefinitionDataBuilder.builder().module(new SetStatsModule(StatsNBT.builder().set(ToolStats.DURABILITY, 100).build())).build();
+  }
+
   @BeforeAll
   static void setup() {
     SlotType.init();
@@ -176,7 +180,7 @@ class ToolDefinitionLoaderTest extends BaseMcTest {
 
   @Test
   void missingStats_defaults() {
-    NO_PARTS_FULL.setData(WRONG_DATA); // set to wrong data to ensure something changes
+    NO_PARTS_FULL.setData(getWrongData()); // set to wrong data to ensure something changes
     // next line is intentionally loading a different file, to make it missing
     Map<ResourceLocation,JsonElement> splashList = fileLoader.loadFilesAsSplashlist(MELEE_HARVEST_MINIMAL.getId().getPath());
     ToolDefinitionLoader.getInstance().apply(splashList, mock(ResourceManager.class), mock(ProfilerFiller.class));
@@ -232,7 +236,7 @@ class ToolDefinitionLoaderTest extends BaseMcTest {
 
   @Test
   void meleeHarvest_missingParts_defaults() {
-    NEED_PARTS_HAS_NONE.setData(WRONG_DATA); // set to wrong data to ensure something changes
+    NEED_PARTS_HAS_NONE.setData(getWrongData()); // set to wrong data to ensure something changes
     Map<ResourceLocation,JsonElement> splashList = fileLoader.loadFilesAsSplashlist(NEED_PARTS_HAS_NONE.getId().getPath());
     ToolDefinitionLoader.getInstance().apply(splashList, mock(ResourceManager.class), mock(ProfilerFiller.class));
     assertThat(NEED_PARTS_HAS_NONE.getData()).isSameAs(ToolDefinitionData.EMPTY);

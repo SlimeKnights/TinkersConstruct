@@ -181,25 +181,18 @@ public class Util {
   }
 
   /** Array of tints for each dye color */
-  private static final int[] DYE_TINTS;
-  static {
-    DyeColor[] colors = DyeColor.values();
-    DYE_TINTS = new int[colors.length];
-    for (DyeColor color : colors) {
-      int id = color.getId();
-      // protect against dumb mods extending dye colors array
-      if (id >= 0 && id < DYE_TINTS.length) {
-        DYE_TINTS[color.getId()] = calcColor(color);
-      }
-    }
-  }
+  private static final int[] DYE_TINTS = new int[16];
 
   /** Gets the diffuse color for the given dye color */
   public static int getColor(DyeColor color) {
     int id = color.getId();
     // protect against dumb mods extending dye colors array
     if (id >= 0 && id < DYE_TINTS.length) {
-      return DYE_TINTS[id];
+      int argb = DYE_TINTS[id];
+      if (argb == 0) {
+        DYE_TINTS[id] = argb = calcColor(color);
+      }
+      return argb;
     }
     return calcColor(color);
   }
