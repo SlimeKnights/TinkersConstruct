@@ -15,7 +15,6 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.AbstractRecipeCategory;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
@@ -32,8 +31,8 @@ import java.util.List;
 /** Shared base logic for the two casting recipe types */
 public abstract class AbstractCastingCategory extends AbstractRecipeCategory<IDisplayableCastingRecipe> {
   private static final String KEY_COOLING_TIME = TConstruct.makeTranslationKey("jei", "time");
-  private static final String KEY_CAST_KEPT = TConstruct.makeTranslationKey("jei", "casting.cast_kept");
-  private static final String KEY_CAST_CONSUMED = TConstruct.makeTranslationKey("jei", "casting.cast_consumed");
+  private static final Component CAST_KEPT = TConstruct.makeTranslation("jei", "casting.cast_kept");
+  private static final Component CAST_CONSUMED = TConstruct.makeTranslation("jei", "casting.cast_consumed");
   protected static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/casting.png");
 
   private final IDrawable background;
@@ -62,9 +61,9 @@ public abstract class AbstractCastingCategory extends AbstractRecipeCategory<IDi
     builder.addDrawableWidget(arrow).setPosition(58, 18);
     if (recipe.hasCast()) {
       boolean consumed = recipe.isConsumed();
-      IDrawable drawable = consumed ? castConsumed : castKept;
-      MutableComponent tooltip = Component.translatable(consumed ? KEY_CAST_CONSUMED : KEY_CAST_KEPT);
-      builder.addDrawableWidget(drawable).setPosition(63, 39).setTooltip(tooltip);
+      builder.addDrawableWidget(consumed ? castConsumed : castKept)
+        .setPosition(63, 39)
+        .setTooltip(consumed ? CAST_CONSUMED : CAST_KEPT);
     }
     builder.addText(Component.translatable(KEY_COOLING_TIME, coolingTime / 20), 89, 9)
       .setPosition(28, 2)
