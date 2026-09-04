@@ -42,7 +42,7 @@ public class SlotIngredientHelper implements IIngredientHelper<SlotCount> {
 
   @Override
   public String getUniqueId(SlotCount slots, UidContext context) {
-    return TConstruct.resourceString("slot:") + getName(slots);
+    return getName(slots);
   }
 
   @Override

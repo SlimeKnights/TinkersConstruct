@@ -6,7 +6,6 @@ import mezz.jei.api.ingredients.subtypes.UidContext;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.ItemStack;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.TinkerTags.Modifiers;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -35,7 +34,7 @@ public class ModifierIngredientHelper implements IIngredientHelper<ModifierEntry
 
   @Override
   public String getUniqueId(ModifierEntry entry, UidContext context) {
-    return TConstruct.resourceString("modifier:") +entry.getId();
+    return entry.getId().toString();
   }
 
   @Override
