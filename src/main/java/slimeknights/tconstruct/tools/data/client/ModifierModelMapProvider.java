@@ -309,9 +309,9 @@ public class ModifierModelMapProvider extends AbstractModifierModelMapProvider {
 
     // shared armor
     for (ArmorItem.Type type : ArmorItem.Type.values()) {
-      String item = "armor/" + type.getName();
-      String path = "armor/modifiers/" + item;
-      tool(item).basic(path, null,
+      String name = type.getName();
+      String path = "armor/modifiers/" + name;
+      tool("armor/" + name).basic(path, null,
           ModifierIds.emerald, ModifierIds.thorns)
         .luminosity(10, path, null, ModifierIds.fiery)
         .trim(type);
@@ -328,8 +328,8 @@ public class ModifierModelMapProvider extends AbstractModifierModelMapProvider {
     tool("armor/boots").basic("armor/modifiers/boots", null,
         ModifierIds.depthStrider, ModifierIds.doubleJump, ModifierIds.featherFalling,
         ModifierIds.longFall, ModifierIds.soulspeed)
-      .luminosity(15, "armor/plate/boots/modifiers", null, ModifierIds.lightspeed)
-      .basic(ModifierIds.featherFall, "armor/plate/boots/modifiers/tconstruct_feather_falling", null);
+      .luminosity(15, "armor/modifiers/boots", null, ModifierIds.lightspeed)
+      .basic(ModifierIds.featherFall, "armor/modifiers/boots/tconstruct_feather_falling", null);
 
     // plate armor
     for (ArmorItem.Type type : ArmorItem.Type.values()) {

@@ -11,10 +11,10 @@
   },
   "modifiers": {
     "tconstruct:ambidextrous": "tconstruct:item/tool/armor/modifiers/chestplate/tconstruct_ambidextrous",
-    "tconstruct:emerald": "tconstruct:item/tool/armor/modifiers/armor/chestplate/tconstruct_emerald",
+    "tconstruct:emerald": "tconstruct:item/tool/armor/modifiers/chestplate/tconstruct_emerald",
     "tconstruct:fiery": {
       "luminosity": 10,
-      "texture": "tconstruct:item/tool/armor/modifiers/armor/chestplate/tconstruct_fiery"
+      "texture": "tconstruct:item/tool/armor/modifiers/chestplate/tconstruct_fiery"
     },
     "tconstruct:haste": {
       "luminosity": 7,
@@ -24,6 +24,6 @@
     "tconstruct:reach": "tconstruct:item/tool/armor/modifiers/chestplate/tconstruct_reach",
     "tconstruct:sleeves": "tconstruct:item/tool/armor/modifiers/chestplate/tconstruct_sleeves",
     "tconstruct:strength": "tconstruct:item/tool/armor/modifiers/chestplate/tconstruct_strength",
-    "tconstruct:thorns": "tconstruct:item/tool/armor/modifiers/armor/chestplate/tconstruct_thorns"
+    "tconstruct:thorns": "tconstruct:item/tool/armor/modifiers/chestplate/tconstruct_thorns"
   }
 }

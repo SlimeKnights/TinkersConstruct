@@ -11,11 +11,11 @@
   },
   "modifiers": {
     "tconstruct:aqua_affinity": "tconstruct:item/tool/armor/modifiers/helmet/tconstruct_aqua_affinity",
-    "tconstruct:emerald": "tconstruct:item/tool/armor/modifiers/armor/helmet/tconstruct_emerald",
+    "tconstruct:emerald": "tconstruct:item/tool/armor/modifiers/helmet/tconstruct_emerald",
     "tconstruct:fiery": {
       "luminosity": 10,
-      "texture": "tconstruct:item/tool/armor/modifiers/armor/helmet/tconstruct_fiery"
+      "texture": "tconstruct:item/tool/armor/modifiers/helmet/tconstruct_fiery"
     },
-    "tconstruct:thorns": "tconstruct:item/tool/armor/modifiers/armor/helmet/tconstruct_thorns"
+    "tconstruct:thorns": "tconstruct:item/tool/armor/modifiers/helmet/tconstruct_thorns"
   }
 }
