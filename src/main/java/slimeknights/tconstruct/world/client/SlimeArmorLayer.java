@@ -127,6 +127,7 @@ public class SlimeArmorLayer<T extends Slime, M extends HierarchicalModel<T>, A 
    * @param type Subtype, can be null or "overlay"
    * @return ResourceLocation pointing at the armor's texture
    */
+  @SuppressWarnings("removal")
   public static ResourceLocation getArmorResource(Entity entity, ItemStack stack, ArmorItem armor, String type) {
     String texture = armor.getMaterial().getName();
     String domain = "minecraft";

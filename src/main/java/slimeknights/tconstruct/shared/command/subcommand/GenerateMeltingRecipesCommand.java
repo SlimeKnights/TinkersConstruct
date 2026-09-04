@@ -93,7 +93,7 @@ public class GenerateMeltingRecipesCommand {
   }
 
   /** Runs the command */
-  @SuppressWarnings("unchecked")  // not like we are using the generics at all
+  @SuppressWarnings({"unchecked", "removal"})  // not like we are using the generics at all
   private static <C extends Container, T extends Recipe<C>> int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
     long startTime = System.nanoTime();
     Holder<RecipeType<?>> recipeType = ResourceArgument.getResource(context, "recipe_type", Registries.RECIPE_TYPE);

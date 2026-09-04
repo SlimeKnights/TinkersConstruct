@@ -1,12 +1,12 @@
 package slimeknights.tconstruct.smeltery.client.screen;
 
 import net.minecraft.client.gui.screens.MenuScreens.ScreenConstructor;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import slimeknights.mantle.client.screen.BackgroundContainerScreen;
+import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.smeltery.menu.SingleItemContainerMenu;
 
@@ -26,10 +26,8 @@ public class SingleItemScreenFactory implements ScreenConstructor<SingleItemCont
    */
   private static ResourceLocation getBackground(@Nullable BlockEntity tile) {
     if (tile != null) {
-      ResourceLocation id = BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(tile.getType());
-      if (id != null) {
-        return new ResourceLocation(id.getNamespace(), String.format("textures/gui/%s.png", id.getPath()));
-      }
+      ResourceLocation id = Loadables.BLOCK_ENTITY_TYPE.getKey(tile.getType());
+      return id.withPath("textures/gui/" + id.getPath() + ".png");
     }
     return DEFAULT;
   }
