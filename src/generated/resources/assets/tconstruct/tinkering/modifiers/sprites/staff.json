@@ -26,9 +26,7 @@
       "texture": "tconstruct:item/tool/staff/modifiers/tconstruct_diamond",
       "texture_large": "tconstruct:item/tool/staff/large_modifiers/tconstruct_diamond"
     },
-    "tconstruct:embellishment": {
-      "type": "tconstruct:empty"
-    },
+    "tconstruct:embellishment": [],
     "tconstruct:emerald": {
       "texture": "tconstruct:item/tool/staff/modifiers/tconstruct_emerald",
       "texture_large": "tconstruct:item/tool/staff/large_modifiers/tconstruct_emerald"

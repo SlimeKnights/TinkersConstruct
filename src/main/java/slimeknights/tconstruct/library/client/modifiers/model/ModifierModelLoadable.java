@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.client.modifiers.model;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
@@ -29,6 +30,16 @@ public enum ModifierModelLoadable implements Loadable<ModifierModel> {
     // array? load as compound
     if (this == COMPACT) {
       if (element.isJsonArray()) {
+        JsonArray array = element.getAsJsonArray();
+        // if it's an empty array, replace with the empty model
+        if (array.isEmpty()) {
+          return ModifierModel.EMPTY;
+        }
+        // if it's a size 1 array, just parse that directly, but stick to what is valid in a list
+        if (array.size() == 1) {
+          return OPTIONAL_TYPE.convert(array.get(0), key + "[0]", context);
+        }
+        // otherwise parse as a compound
         return CompoundModifierModel.create(LIST.convert(element, key, context));
       }
       // primitive? load as the texture for normal
@@ -47,8 +58,16 @@ public enum ModifierModelLoadable implements Loadable<ModifierModel> {
   @Override
   public JsonElement serialize(ModifierModel model) {
     // if it's a compound, serialize as a list
-    if (this == COMPACT && model instanceof CompoundModifierModel compound) {
-      return LIST.serialize(compound.models());
+    if (this == COMPACT) {
+      // if its empty, serialize as an empty list
+      if (model == ModifierModel.EMPTY) {
+        return new JsonArray();
+      }
+      // if it's a compound, serialize as a list with stuff
+      // note this will error if the compound has 0 or 1 elements; why use a compound then?
+      if (model instanceof CompoundModifierModel compound) {
+        return LIST.serialize(compound.models());
+      }
     }
     // if normal, leave off the type when serializing. Want exact type match as that is extendable
     if (model.getLoader() == NormalModifierModel.LOADER) {

@@ -19,8 +19,6 @@
     }
   },
   "modifiers": {
-    "tconstruct:emerald": {
-      "type": "tconstruct:empty"
-    }
+    "tconstruct:emerald": []
   }
 }
