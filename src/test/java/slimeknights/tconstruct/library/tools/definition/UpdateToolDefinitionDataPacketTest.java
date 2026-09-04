@@ -41,6 +41,8 @@ import slimeknights.tconstruct.test.BaseMcTest;
 import slimeknights.tconstruct.test.TestHelper;
 import slimeknights.tconstruct.test.TestHelper.ToolDefinitionStats;
 
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -55,7 +57,10 @@ class UpdateToolDefinitionDataPacketTest extends BaseMcTest {
   static void initialize() {
     MaterialItemFixture.init();
     ModifierFixture.init();
+    RegistrationFixture.register(ToolModule.LOADER, "base_stats", SetStatsModule.LOADER);
+    RegistrationFixture.register(ToolModule.LOADER, "multiply_stats", MultiplyStatsModule.LOADER);
     RegistrationFixture.register(ToolModule.LOADER, "slots", ToolSlotsModule.LOADER);
+    RegistrationFixture.register(ToolModule.LOADER, "parts", PartStatsModule.LOADER);
     RegistrationFixture.register(ToolModule.LOADER, "is_effective", IsEffectiveModule.LOADER);
     RegistrationFixture.register(ToolModule.LOADER, "circle", CircleAOEIterator.LOADER);
     RegistrationFixture.register(ToolModule.LOADER, "sweep", SweepWeaponAttack.LOADER);
@@ -149,6 +154,13 @@ class UpdateToolDefinitionDataPacketTest extends BaseMcTest {
 
     // slots
     VolatileDataToolHook volatileHook = parsed.getHook(ToolHooks.VOLATILE_DATA);
+    // parts has volatile data, so need to extract it out
+    assertThat(volatileHook).isInstanceOf(VolatileDataToolHook.AllMerger.class);
+    Collection<VolatileDataToolHook> collection = ((VolatileDataToolHook.AllMerger) volatileHook).modules();
+    assertThat(collection).hasSize(2);
+    Iterator<VolatileDataToolHook> iterator = collection.iterator();
+    assertThat(iterator.next()).isInstanceOf(PartStatsModule.class);
+    volatileHook = iterator.next();
     assertThat(volatileHook).isInstanceOf(ToolSlotsModule.class);
     Map<SlotType,Integer> slots = ((ToolSlotsModule) volatileHook).slots();
     assertThat(slots).hasSize(2);
