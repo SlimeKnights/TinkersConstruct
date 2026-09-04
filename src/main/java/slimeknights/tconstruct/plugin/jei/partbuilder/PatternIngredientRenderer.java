@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.plugin.jei.partbuilder;
 
 import lombok.NoArgsConstructor;
+import mezz.jei.api.gui.builder.ITooltipBuilder;
 import mezz.jei.api.ingredients.IIngredientRenderer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
@@ -25,12 +26,21 @@ public class PatternIngredientRenderer implements IIngredientRenderer<Pattern> {
     }
   }
 
+  @SuppressWarnings("removal")
   @Override
   public List<Component> getTooltip(Pattern pattern, TooltipFlag flag) {
     if (flag.isAdvanced()) {
       return Arrays.asList(pattern.getDisplayName(), Component.literal(pattern.toString()).withStyle(ChatFormatting.DARK_GRAY));
     } else {
       return Collections.singletonList(pattern.getDisplayName());
+    }
+  }
+
+  @Override
+  public void getTooltip(ITooltipBuilder tooltip, Pattern pattern, TooltipFlag flag) {
+    tooltip.add(pattern.getDisplayName());
+    if (flag.isAdvanced()) {
+      tooltip.add(Component.literal(pattern.toString()).withStyle(ChatFormatting.DARK_GRAY));
     }
   }
 }
