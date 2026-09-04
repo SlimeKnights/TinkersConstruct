@@ -9,17 +9,17 @@
       "texture_large": "tconstruct:item/tool/vein_hammer/large/modifiers/tconstruct_bane_of_sssss"
     },
     "tconstruct:blasting": {
-      "texture": "tconstruct:item/tool/vein_hammer/modifiers/tconstruct_blasting",
-      "texture_large": "tconstruct:item/tool/vein_hammer/large/modifiers/tconstruct_blasting"
+      "texture": "tconstruct:item/tool/sledge_hammer/modifiers/tconstruct_blasting",
+      "texture_large": "tconstruct:item/tool/sledge_hammer/large/modifiers/tconstruct_blasting"
     },
     "tconstruct:bucketing": [
       {
         "type": "tconstruct:fluid",
-        "mask": "tconstruct:item/tool/vein_hammer/modifiers/tconstruct_bucketing_full",
+        "mask": "tconstruct:item/tool/sledge_hammer/modifiers/tconstruct_bucketing_full",
         "mask_large": "tconstruct:item/tool/vein_hammer/large/modifiers/tconstruct_bucketing_full"
       },
       {
-        "texture": "tconstruct:item/tool/vein_hammer/modifiers/tconstruct_bucketing",
+        "texture": "tconstruct:item/tool/sledge_hammer/modifiers/tconstruct_bucketing",
         "texture_large": "tconstruct:item/tool/vein_hammer/large/modifiers/tconstruct_bucketing"
       }
     ],
@@ -32,11 +32,11 @@
       "texture_large": "tconstruct:item/tool/vein_hammer/large/modifiers/tconstruct_diamond"
     },
     "tconstruct:emerald": {
-      "texture": "tconstruct:item/tool/vein_hammer/modifiers/tconstruct_emerald",
+      "texture": "tconstruct:item/tool/sledge_hammer/modifiers/tconstruct_emerald",
       "texture_large": "tconstruct:item/tool/vein_hammer/large/modifiers/tconstruct_emerald"
     },
     "tconstruct:experienced": {
-      "texture": "tconstruct:item/tool/vein_hammer/modifiers/tconstruct_experienced",
+      "texture": "tconstruct:item/tool/sledge_hammer/modifiers/tconstruct_experienced",
       "texture_large": "tconstruct:item/tool/vein_hammer/large/modifiers/tconstruct_experienced"
     },
     "tconstruct:fiery": {
@@ -46,12 +46,12 @@
     },
     "tconstruct:haste": {
       "luminosity": 7,
-      "texture": "tconstruct:item/tool/vein_hammer/modifiers/tconstruct_haste",
-      "texture_large": "tconstruct:item/tool/vein_hammer/large/modifiers/tconstruct_haste"
+      "texture": "tconstruct:item/tool/sledge_hammer/modifiers/tconstruct_haste",
+      "texture_large": "tconstruct:item/tool/sledge_hammer/large/modifiers/tconstruct_haste"
     },
     "tconstruct:hydraulic": {
-      "texture": "tconstruct:item/tool/vein_hammer/modifiers/tconstruct_hydraulic",
-      "texture_large": "tconstruct:item/tool/vein_hammer/large/modifiers/tconstruct_hydraulic"
+      "texture": "tconstruct:item/tool/sledge_hammer/modifiers/tconstruct_hydraulic",
+      "texture_large": "tconstruct:item/tool/sledge_hammer/large/modifiers/tconstruct_hydraulic"
     },
     "tconstruct:knockback": {
       "texture": "tconstruct:item/tool/vein_hammer/modifiers/tconstruct_knockback",
@@ -59,12 +59,12 @@
     },
     "tconstruct:lightspeed": {
       "luminosity": 15,
-      "texture": "tconstruct:item/tool/vein_hammer/modifiers/tconstruct_lightspeed",
-      "texture_large": "tconstruct:item/tool/vein_hammer/large/modifiers/tconstruct_lightspeed"
+      "texture": "tconstruct:item/tool/sledge_hammer/modifiers/tconstruct_lightspeed",
+      "texture_large": "tconstruct:item/tool/sledge_hammer/large/modifiers/tconstruct_lightspeed"
     },
     "tconstruct:luck": {
-      "texture": "tconstruct:item/tool/vein_hammer/modifiers/tconstruct_luck",
-      "texture_large": "tconstruct:item/tool/vein_hammer/large/modifiers/tconstruct_luck"
+      "texture": "tconstruct:item/tool/sledge_hammer/modifiers/tconstruct_luck",
+      "texture_large": "tconstruct:item/tool/sledge_hammer/large/modifiers/tconstruct_luck"
     },
     "tconstruct:magnetic": {
       "texture": "tconstruct:item/tool/vein_hammer/modifiers/tconstruct_magnetic",
@@ -75,11 +75,11 @@
       "texture_large": "tconstruct:item/tool/vein_hammer/large/modifiers/tconstruct_netherite"
     },
     "tconstruct:overforced": {
-      "texture": "tconstruct:item/tool/vein_hammer/modifiers/tconstruct_overforced",
+      "texture": "tconstruct:item/tool/sledge_hammer/modifiers/tconstruct_overforced",
       "texture_large": "tconstruct:item/tool/vein_hammer/large/modifiers/tconstruct_overforced"
     },
     "tconstruct:reinforced": {
-      "texture": "tconstruct:item/tool/vein_hammer/modifiers/tconstruct_reinforced",
+      "texture": "tconstruct:item/tool/sledge_hammer/modifiers/tconstruct_reinforced",
       "texture_large": "tconstruct:item/tool/vein_hammer/large/modifiers/tconstruct_reinforced"
     },
     "tconstruct:sharpness": {
@@ -109,7 +109,7 @@
     ],
     "tconstruct:unbreakable": {
       "luminosity": 2,
-      "texture": "tconstruct:item/tool/vein_hammer/modifiers/tconstruct_unbreakable",
+      "texture": "tconstruct:item/tool/sledge_hammer/modifiers/tconstruct_unbreakable",
       "texture_large": "tconstruct:item/tool/vein_hammer/large/modifiers/tconstruct_unbreakable"
     }
   }

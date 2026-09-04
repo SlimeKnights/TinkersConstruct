@@ -12,8 +12,6 @@ import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.client.SlimeskullModifierModel;
 import slimeknights.tconstruct.tools.data.ModifierIds;
 
-import javax.annotation.Nullable;
-
 /** Provider for modifier models on tools */
 public class ModifierModelMapProvider extends AbstractModifierModelMapProvider {
   public ModifierModelMapProvider(PackOutput output) {
@@ -23,6 +21,8 @@ public class ModifierModelMapProvider extends AbstractModifierModelMapProvider {
   @Override
   protected void addModels() {
     // small
+    String pickaxeModifier = "pickaxe/modifiers";
+    String mattockModifier = "mattock/modifiers";
     tool(TinkerTools.pickaxe).basic(SMALL,
       ModifierIds.diamond, ModifierIds.emerald, ModifierIds.netherite,
       ModifierIds.reinforced, ModifierIds.overforced, ModifierIds.magnetic, ModifierIds.soulbound,
@@ -35,62 +35,90 @@ public class ModifierModelMapProvider extends AbstractModifierModelMapProvider {
       .luminosity(15, SMALL, ModifierIds.lightspeed, ModifierIds.glowing)
       .luminosity(10, SMALL, ModifierIds.fiery)
       .luminosity(2, SMALL, ModifierIds.unbreakable);
-    tool(TinkerTools.pickadze).basic(SMALL,
-        ModifierIds.emerald, ModifierIds.netherite,
-        ModifierIds.reinforced, ModifierIds.overforced, ModifierIds.magnetic, ModifierIds.soulbound,
-        ModifierIds.experienced, ModifierIds.luck, ModifierIds.silky,
-        ModifierIds.smite, ModifierIds.antiaquatic, ModifierIds.baneOfSssss, ModifierIds.cooling,
-        ModifierIds.knockback, ModifierIds.necrotic,
-        ModifierIds.blasting, ModifierIds.hydraulic
-      ).fluid(ModifierIds.bucketing, SMALL).tank(SMALL)
-      .luminosity(7, SMALL, ModifierIds.haste)
-      .luminosity(15, SMALL, ModifierIds.lightspeed, ModifierIds.glowing)
+    tool(TinkerTools.pickadze)
+      .basic(SMALL, ModifierIds.netherite, ModifierIds.magnetic, ModifierIds.silky, ModifierIds.knockback)
       .luminosity(10, SMALL, ModifierIds.fiery)
-      .luminosity(2, SMALL, ModifierIds.unbreakable);
+      // shared with pickaxe
+      .basic(pickaxeModifier, null,
+        ModifierIds.experienced, ModifierIds.luck,
+        ModifierIds.antiaquatic, ModifierIds.baneOfSssss, ModifierIds.smite,
+        ModifierIds.blasting, ModifierIds.hydraulic
+      ).fluid(pickaxeModifier, null, ModifierIds.bucketing).tank(pickaxeModifier, null)
+      .luminosity(7, pickaxeModifier, null, ModifierIds.haste)
+      .luminosity(15, pickaxeModifier, null, ModifierIds.lightspeed)
+      // shared with mattock
+      .basic(mattockModifier, null,
+        ModifierIds.reinforced, ModifierIds.overforced, ModifierIds.soulbound,
+        ModifierIds.emerald, ModifierIds.cooling, ModifierIds.necrotic
+      )
+      .luminosity(15, mattockModifier, null, ModifierIds.glowing)
+      .luminosity(2, mattockModifier, null, ModifierIds.unbreakable);
     tool(TinkerTools.mattock).basic(SMALL,
         ModifierIds.diamond, ModifierIds.emerald, ModifierIds.netherite,
-        ModifierIds.reinforced, ModifierIds.overforced, ModifierIds.magnetic, ModifierIds.soulbound,
-        ModifierIds.experienced, ModifierIds.luck, TinkerModifiers.severing.getId(), ModifierIds.silky,
-        ModifierIds.sharpness, ModifierIds.smite, ModifierIds.antiaquatic, ModifierIds.baneOfSssss, ModifierIds.cooling,
-        ModifierIds.knockback, ModifierIds.necrotic,
-        ModifierIds.blasting, ModifierIds.hydraulic
-      ).fluid(ModifierIds.bucketing, SMALL).tank(SMALL)
-      .luminosity(7, SMALL, ModifierIds.haste)
-      .luminosity(15, SMALL, ModifierIds.lightspeed, ModifierIds.glowing)
+        ModifierIds.reinforced, ModifierIds.overforced, ModifierIds.soulbound,
+        TinkerModifiers.severing.getId(), ModifierIds.silky,
+        ModifierIds.sharpness, ModifierIds.cooling,
+        ModifierIds.knockback, ModifierIds.necrotic
+      )
+      .luminosity(15, SMALL, ModifierIds.glowing)
       .luminosity(10, SMALL, ModifierIds.fiery)
-      .luminosity(2, SMALL, ModifierIds.unbreakable);
+      .luminosity(2, SMALL, ModifierIds.unbreakable)
+      // shared with pickaxe
+      .basic(pickaxeModifier, null,
+        ModifierIds.magnetic,
+        ModifierIds.experienced, ModifierIds.luck,
+        ModifierIds.antiaquatic, ModifierIds.baneOfSssss, ModifierIds.smite,
+        ModifierIds.hydraulic
+      )
+      .fluid(pickaxeModifier, null, ModifierIds.bucketing).tank(pickaxeModifier, null)
+      .luminosity(15, pickaxeModifier, null, ModifierIds.lightspeed)
+      .luminosity(7, pickaxeModifier, null, ModifierIds.haste);
     tool(TinkerTools.handAxe).basic(SMALL,
         ModifierIds.diamond, ModifierIds.emerald, ModifierIds.netherite,
         ModifierIds.reinforced, ModifierIds.overforced, ModifierIds.magnetic, ModifierIds.soulbound,
-        ModifierIds.experienced, ModifierIds.luck, TinkerModifiers.severing.getId(), ModifierIds.silky,
-        ModifierIds.sharpness, ModifierIds.smite, ModifierIds.antiaquatic, ModifierIds.baneOfSssss, ModifierIds.cooling,
+        ModifierIds.experienced, TinkerModifiers.severing.getId(), ModifierIds.silky,
+        ModifierIds.sharpness, ModifierIds.smite, ModifierIds.baneOfSssss, ModifierIds.cooling,
         ModifierIds.knockback, ModifierIds.necrotic,
-        ModifierIds.blasting, ModifierIds.hydraulic
-      ).fluid(ModifierIds.bucketing, SMALL).tank(SMALL)
+        ModifierIds.hydraulic
+      )
       .luminosity(7, SMALL, ModifierIds.haste)
       .luminosity(15, SMALL, ModifierIds.lightspeed, ModifierIds.glowing)
       .luminosity(10, SMALL, ModifierIds.fiery)
-      .luminosity(2, SMALL, ModifierIds.unbreakable);
-    tool(TinkerTools.kama).basic(SMALL,
-        ModifierIds.diamond, ModifierIds.emerald, ModifierIds.netherite,
-        ModifierIds.reinforced, ModifierIds.overforced, ModifierIds.magnetic, ModifierIds.soulbound,
-        ModifierIds.experienced, ModifierIds.luck, TinkerModifiers.severing.getId(), ModifierIds.silky,
-        ModifierIds.sharpness, ModifierIds.smite, ModifierIds.antiaquatic, ModifierIds.baneOfSssss, ModifierIds.cooling,
-        ModifierIds.knockback, ModifierIds.necrotic,
-        ModifierIds.blasting, ModifierIds.hydraulic
-      ).fluid(ModifierIds.bucketing, SMALL).tank(SMALL)
-      .luminosity(7, SMALL, ModifierIds.haste)
-      .luminosity(15, SMALL, ModifierIds.lightspeed, ModifierIds.glowing)
+      .luminosity(2, SMALL, ModifierIds.unbreakable)
+      // shared with pickaxe
+      .basic(pickaxeModifier, null,
+        ModifierIds.luck,
+        ModifierIds.antiaquatic
+      ).fluid(pickaxeModifier, null, ModifierIds.bucketing).tank(pickaxeModifier, null);
+    tool(TinkerTools.kama)
+      .basic(SMALL,
+        ModifierIds.diamond, ModifierIds.netherite,
+        ModifierIds.reinforced, ModifierIds.overforced, ModifierIds.soulbound,
+        TinkerModifiers.severing.getId(), ModifierIds.silky,
+        ModifierIds.sharpness, ModifierIds.baneOfSssss, ModifierIds.cooling,
+        ModifierIds.knockback, ModifierIds.necrotic
+      )
+      .luminosity(15, SMALL, ModifierIds.glowing)
       .luminosity(10, SMALL, ModifierIds.fiery)
-      .luminosity(2, SMALL, ModifierIds.unbreakable);
+      .luminosity(2, SMALL, ModifierIds.unbreakable)
+      // shared with pickaxe
+      .basic(pickaxeModifier, null,
+        ModifierIds.emerald,
+        ModifierIds.magnetic,
+        ModifierIds.experienced, ModifierIds.luck,
+        ModifierIds.antiaquatic, ModifierIds.smite,
+        ModifierIds.hydraulic
+      )
+      .fluid(pickaxeModifier, null, ModifierIds.bucketing).tank(pickaxeModifier, null)
+      .luminosity(7, pickaxeModifier, null, ModifierIds.haste)
+      .luminosity(15, pickaxeModifier, null, ModifierIds.lightspeed);
     // melee weapon
     tool(TinkerTools.dagger).basic(SMALL,
         ModifierIds.diamond, ModifierIds.emerald, ModifierIds.netherite,
         ModifierIds.reinforced, ModifierIds.overforced, ModifierIds.magnetic,
         ModifierIds.experienced, ModifierIds.luck, ModifierIds.silky,
         ModifierIds.sharpness, ModifierIds.smite, ModifierIds.antiaquatic, ModifierIds.baneOfSssss, ModifierIds.cooling,
-        ModifierIds.knockback,
-        ModifierIds.blasting, ModifierIds.hydraulic
+        ModifierIds.knockback, ModifierIds.hydraulic
       ).fluid(ModifierIds.bucketing, SMALL).tank(SMALL)
       .luminosity(7, SMALL, ModifierIds.haste)
       .luminosity(15, SMALL, ModifierIds.lightspeed)
@@ -101,8 +129,7 @@ public class ModifierModelMapProvider extends AbstractModifierModelMapProvider {
         ModifierIds.reinforced, ModifierIds.overforced, ModifierIds.magnetic, ModifierIds.soulbound,
         ModifierIds.experienced, ModifierIds.luck, TinkerModifiers.severing.getId(), ModifierIds.silky,
         ModifierIds.sharpness, ModifierIds.smite, ModifierIds.antiaquatic, ModifierIds.baneOfSssss, ModifierIds.cooling,
-        ModifierIds.knockback, ModifierIds.necrotic,
-        ModifierIds.blasting, ModifierIds.hydraulic
+        ModifierIds.knockback, ModifierIds.necrotic, ModifierIds.hydraulic
       ).fluid(ModifierIds.bucketing, SMALL).tank(SMALL)
       .luminosity(7, SMALL, ModifierIds.haste)
       .luminosity(15, SMALL, ModifierIds.lightspeed, ModifierIds.glowing)
@@ -122,6 +149,8 @@ public class ModifierModelMapProvider extends AbstractModifierModelMapProvider {
     tool(TinkerTools.crossbow, "/broken").basic(SMALL, "_broken", ModifierIds.quickCharge);
 
     // broad
+    String sledgeSmall = "sledge_hammer/modifiers";
+    String sledgeLarge = "sledge_hammer/large/modifiers";
     tool(TinkerTools.sledgeHammer).basic('/',
         ModifierIds.diamond, ModifierIds.emerald, ModifierIds.netherite,
         ModifierIds.reinforced, ModifierIds.overforced, ModifierIds.magnetic,
@@ -136,53 +165,72 @@ public class ModifierModelMapProvider extends AbstractModifierModelMapProvider {
       .luminosity(15, SMALL, ModifierIds.glowing)
       .luminosity(10, '/', ModifierIds.fiery)
       .luminosity(2, '/', ModifierIds.unbreakable);
+    String veinLarge = "vein_hammer/large/modifiers";
     tool(TinkerTools.veinHammer).basic('/',
-        ModifierIds.diamond, ModifierIds.emerald, ModifierIds.netherite,
-        ModifierIds.reinforced, ModifierIds.overforced, ModifierIds.magnetic,
-        ModifierIds.experienced, ModifierIds.luck, ModifierIds.silky,
+        ModifierIds.diamond, ModifierIds.netherite, ModifierIds.magnetic, ModifierIds.silky,
         ModifierIds.sharpness, ModifierIds.smite, ModifierIds.antiaquatic, ModifierIds.baneOfSssss, ModifierIds.cooling,
-        ModifierIds.knockback,
-        ModifierIds.blasting, ModifierIds.hydraulic
-      ).fluid(ModifierIds.bucketing, '/').tank('/')
-      .luminosity(7, '/', ModifierIds.haste)
-      .luminosity(15, '/', ModifierIds.lightspeed)
+        ModifierIds.knockback
+      ).tank('/')
       .luminosity(10, '/', ModifierIds.fiery)
-      .luminosity(2, '/', ModifierIds.unbreakable);
+      // shared with sledgehammer
+      .basic(sledgeSmall, sledgeLarge, ModifierIds.blasting, ModifierIds.hydraulic, ModifierIds.luck)
+      .luminosity(15, sledgeSmall, sledgeLarge, ModifierIds.lightspeed)
+      .luminosity(7, sledgeSmall, sledgeLarge, ModifierIds.haste)
+      // partially shared with sledgehammer
+      .basic(sledgeSmall, veinLarge,
+        ModifierIds.emerald,
+        ModifierIds.reinforced, ModifierIds.overforced,
+        ModifierIds.experienced
+        )
+      .fluid(sledgeSmall, veinLarge, ModifierIds.bucketing)
+      .luminosity(2, sledgeSmall, veinLarge, ModifierIds.unbreakable);
+    String excavatorSmall = "excavator/modifiers";
+    String excavatorLarge = "excavator/large/modifiers";
     tool(TinkerTools.excavator).basic('/',
         ModifierIds.diamond, ModifierIds.emerald, ModifierIds.netherite,
         ModifierIds.reinforced, ModifierIds.overforced, ModifierIds.magnetic,
-        ModifierIds.experienced, ModifierIds.luck, ModifierIds.silky,
+        ModifierIds.luck, ModifierIds.silky,
         ModifierIds.sharpness, ModifierIds.smite, ModifierIds.antiaquatic, ModifierIds.baneOfSssss, ModifierIds.cooling,
         ModifierIds.knockback,
-        ModifierIds.blasting, ModifierIds.hydraulic
-      ).basic(SMALL, ModifierIds.soulbound, TinkerModifiers.severing.getId(), ModifierIds.necrotic)
+        ModifierIds.hydraulic
+      ).basic(SMALL, TinkerModifiers.severing.getId(), ModifierIds.necrotic)
       .fluid(ModifierIds.bucketing, '/').tank('/')
       .luminosity(7, '/', ModifierIds.haste)
       .luminosity(15, '/', ModifierIds.lightspeed)
       .luminosity(15, SMALL, ModifierIds.glowing)
       .luminosity(10, '/', ModifierIds.fiery)
-      .luminosity(2, '/', ModifierIds.unbreakable);
+      .luminosity(2, '/', ModifierIds.unbreakable)
+      // shared with sledgehammer
+      .basic(sledgeSmall, sledgeLarge, ModifierIds.experienced)
+      .basic(sledgeSmall, null, ModifierIds.soulbound);
+    String broadAxeSmall = "broad_axe/modifiers";
+    String broadAxeLarge = "broad_axe/large/modifiers";
     tool(TinkerTools.broadAxe).basic('/',
-        ModifierIds.diamond, ModifierIds.emerald, ModifierIds.netherite,
-        ModifierIds.reinforced, ModifierIds.overforced, ModifierIds.magnetic,
-        ModifierIds.experienced, ModifierIds.luck, ModifierIds.silky,
+        ModifierIds.diamond, ModifierIds.netherite,
+        ModifierIds.magnetic,
+        ModifierIds.experienced, ModifierIds.silky,
         ModifierIds.sharpness, ModifierIds.smite, ModifierIds.antiaquatic, ModifierIds.baneOfSssss, ModifierIds.cooling,
-        ModifierIds.knockback,
-        ModifierIds.blasting, ModifierIds.hydraulic
+        ModifierIds.knockback
       ).basic(SMALL, ModifierIds.soulbound, TinkerModifiers.severing.getId(), ModifierIds.necrotic)
-      .fluid(ModifierIds.bucketing, '/').tank('/')
-      .luminosity(7, '/', ModifierIds.haste)
-      .luminosity(15, '/', ModifierIds.lightspeed)
       .luminosity(15, SMALL, ModifierIds.glowing)
       .luminosity(10, '/', ModifierIds.fiery)
-      .luminosity(2, '/', ModifierIds.unbreakable);
+      // partially shared with sledgehammer
+      .basic(sledgeSmall, broadAxeLarge, ModifierIds.luck, ModifierIds.overforced, ModifierIds.reinforced)
+      .fluid(sledgeSmall, broadAxeLarge, ModifierIds.bucketing)
+      .luminosity(2, sledgeSmall, broadAxeLarge, ModifierIds.unbreakable)
+      // partially shared with excavator
+      .basic(excavatorSmall, broadAxeLarge, ModifierIds.emerald)
+      .tank(excavatorSmall, broadAxeLarge)
+      .basic(broadAxeSmall, excavatorLarge, ModifierIds.hydraulic)
+      .luminosity(7, broadAxeSmall, excavatorLarge, ModifierIds.haste)
+      .luminosity(15, broadAxeSmall, excavatorLarge, ModifierIds.lightspeed);
     tool(TinkerTools.scythe).basic('/',
         ModifierIds.diamond, ModifierIds.emerald, ModifierIds.netherite,
         ModifierIds.reinforced, ModifierIds.overforced, ModifierIds.magnetic,
         ModifierIds.experienced, ModifierIds.luck, ModifierIds.silky,
         ModifierIds.sharpness, ModifierIds.smite, ModifierIds.antiaquatic, ModifierIds.baneOfSssss, ModifierIds.cooling,
         ModifierIds.knockback,
-        ModifierIds.blasting, ModifierIds.hydraulic
+        ModifierIds.hydraulic
       ).basic(SMALL, ModifierIds.soulbound, TinkerModifiers.severing.getId(), ModifierIds.necrotic)
       .fluid(ModifierIds.bucketing, '/').tank('/')
       .luminosity(7, '/', ModifierIds.haste)
@@ -191,32 +239,36 @@ public class ModifierModelMapProvider extends AbstractModifierModelMapProvider {
       .luminosity(10, '/', ModifierIds.fiery)
       .luminosity(2, '/', ModifierIds.unbreakable);
     // melee weapon
+    String cleaverSmall = "cleaver/modifiers";
     tool(TinkerTools.cleaver).basic('/',
         ModifierIds.diamond, ModifierIds.emerald, ModifierIds.netherite,
         ModifierIds.reinforced, ModifierIds.overforced, ModifierIds.magnetic,
-        ModifierIds.experienced, ModifierIds.luck, ModifierIds.silky,
+        ModifierIds.experienced, ModifierIds.silky,
         ModifierIds.sharpness, ModifierIds.smite, ModifierIds.antiaquatic, ModifierIds.baneOfSssss, ModifierIds.cooling,
-        ModifierIds.knockback,
-        ModifierIds.blasting, ModifierIds.hydraulic
+        ModifierIds.knockback, ModifierIds.hydraulic
       ).basic(SMALL, ModifierIds.soulbound, TinkerModifiers.severing.getId(), ModifierIds.necrotic)
       .fluid(ModifierIds.bucketing, '/').tank('/')
       .luminosity(7, '/', ModifierIds.haste)
       .luminosity(15, '/', ModifierIds.lightspeed)
       .luminosity(15, SMALL, ModifierIds.glowing)
       .luminosity(10, '/', ModifierIds.fiery)
-      .luminosity(2, '/', ModifierIds.unbreakable);
+      .luminosity(2, '/', ModifierIds.unbreakable)
+      // partially shared with sledgehammer
+      .basic(cleaverSmall, sledgeLarge, ModifierIds.luck);
+    String javelinLarge = "javelin/large/modifiers";
     tool(TinkerTools.javelin).basic('/',
         ModifierIds.diamond, ModifierIds.emerald, ModifierIds.netherite,
-        ModifierIds.reinforced, ModifierIds.overforced, ModifierIds.magnetic,
+        ModifierIds.magnetic,
         ModifierIds.experienced, ModifierIds.luck, ModifierIds.silky,
         ModifierIds.sharpness, ModifierIds.smite, ModifierIds.antiaquatic, ModifierIds.baneOfSssss, ModifierIds.cooling,
-        ModifierIds.knockback,
-        ModifierIds.blasting, ModifierIds.hydraulic
+        ModifierIds.knockback, ModifierIds.hydraulic
       ).fluid(ModifierIds.bucketing, '/').tank('/')
       .luminosity(7, '/', ModifierIds.haste)
       .luminosity(15, '/', ModifierIds.lightspeed)
       .luminosity(10, '/', ModifierIds.fiery)
-      .luminosity(2, '/', ModifierIds.unbreakable);
+      // partially shared with sledgehammer
+      .basic(sledgeSmall, javelinLarge, ModifierIds.overforced, ModifierIds.reinforced)
+      .luminosity(2, sledgeSmall, javelinLarge, ModifierIds.unbreakable);
     // ranged weapon
     tool(TinkerTools.longbow).basic('/',
       ModifierIds.diamond, ModifierIds.emerald, ModifierIds.netherite,
@@ -241,7 +293,7 @@ public class ModifierModelMapProvider extends AbstractModifierModelMapProvider {
         ModifierIds.experienced, ModifierIds.luck, TinkerModifiers.severing.getId(), ModifierIds.silky,
         ModifierIds.sharpness, ModifierIds.smite, ModifierIds.antiaquatic, ModifierIds.baneOfSssss, ModifierIds.cooling,
         ModifierIds.knockback, ModifierIds.necrotic,
-        ModifierIds.blasting, ModifierIds.hydraulic
+        ModifierIds.hydraulic
       ).fluid(ModifierIds.bucketing, SMALL).tank(SMALL)
       .luminosity(7, SMALL, ModifierIds.haste)
       .luminosity(15, SMALL, ModifierIds.lightspeed, ModifierIds.glowing)

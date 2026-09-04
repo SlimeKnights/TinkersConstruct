@@ -1,15 +1,14 @@
 {
   "modifiers": {
-    "tconstruct:antiaquatic": "tconstruct:item/tool/hand_axe/modifiers/tconstruct_antiaquatic",
+    "tconstruct:antiaquatic": "tconstruct:item/tool/pickaxe/modifiers/tconstruct_antiaquatic",
     "tconstruct:bane_of_sssss": "tconstruct:item/tool/hand_axe/modifiers/tconstruct_bane_of_sssss",
-    "tconstruct:blasting": "tconstruct:item/tool/hand_axe/modifiers/tconstruct_blasting",
     "tconstruct:bucketing": [
       {
         "type": "tconstruct:fluid",
-        "mask": "tconstruct:item/tool/hand_axe/modifiers/tconstruct_bucketing_full"
+        "mask": "tconstruct:item/tool/pickaxe/modifiers/tconstruct_bucketing_full"
       },
       {
-        "texture": "tconstruct:item/tool/hand_axe/modifiers/tconstruct_bucketing"
+        "texture": "tconstruct:item/tool/pickaxe/modifiers/tconstruct_bucketing"
       }
     ],
     "tconstruct:cooling": "tconstruct:item/tool/hand_axe/modifiers/tconstruct_cooling",
@@ -34,7 +33,7 @@
       "luminosity": 15,
       "texture": "tconstruct:item/tool/hand_axe/modifiers/tconstruct_lightspeed"
     },
-    "tconstruct:luck": "tconstruct:item/tool/hand_axe/modifiers/tconstruct_luck",
+    "tconstruct:luck": "tconstruct:item/tool/pickaxe/modifiers/tconstruct_luck",
     "tconstruct:magnetic": "tconstruct:item/tool/hand_axe/modifiers/tconstruct_magnetic",
     "tconstruct:necrotic": "tconstruct:item/tool/hand_axe/modifiers/tconstruct_necrotic",
     "tconstruct:netherite": "tconstruct:item/tool/hand_axe/modifiers/tconstruct_netherite",
@@ -48,11 +47,11 @@
     "tconstruct:tank": [
       {
         "type": "tconstruct:tank",
-        "full": "tconstruct:item/tool/hand_axe/modifiers/tconstruct_tank_full",
-        "partial": "tconstruct:item/tool/hand_axe/modifiers/tconstruct_tank_partial"
+        "full": "tconstruct:item/tool/pickaxe/modifiers/tconstruct_tank_full",
+        "partial": "tconstruct:item/tool/pickaxe/modifiers/tconstruct_tank_partial"
       },
       {
-        "texture": "tconstruct:item/tool/hand_axe/modifiers/tconstruct_tank"
+        "texture": "tconstruct:item/tool/pickaxe/modifiers/tconstruct_tank"
       }
     ],
     "tconstruct:unbreakable": {

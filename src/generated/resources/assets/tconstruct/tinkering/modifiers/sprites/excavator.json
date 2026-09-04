@@ -8,10 +8,6 @@
       "texture": "tconstruct:item/tool/excavator/modifiers/tconstruct_bane_of_sssss",
       "texture_large": "tconstruct:item/tool/excavator/large/modifiers/tconstruct_bane_of_sssss"
     },
-    "tconstruct:blasting": {
-      "texture": "tconstruct:item/tool/excavator/modifiers/tconstruct_blasting",
-      "texture_large": "tconstruct:item/tool/excavator/large/modifiers/tconstruct_blasting"
-    },
     "tconstruct:bucketing": [
       {
         "type": "tconstruct:fluid",
@@ -36,8 +32,8 @@
       "texture_large": "tconstruct:item/tool/excavator/large/modifiers/tconstruct_emerald"
     },
     "tconstruct:experienced": {
-      "texture": "tconstruct:item/tool/excavator/modifiers/tconstruct_experienced",
-      "texture_large": "tconstruct:item/tool/excavator/large/modifiers/tconstruct_experienced"
+      "texture": "tconstruct:item/tool/sledge_hammer/modifiers/tconstruct_experienced",
+      "texture_large": "tconstruct:item/tool/sledge_hammer/large/modifiers/tconstruct_experienced"
     },
     "tconstruct:fiery": {
       "luminosity": 10,
@@ -100,7 +96,7 @@
       "texture": "tconstruct:item/tool/excavator/modifiers/tconstruct_smite",
       "texture_large": "tconstruct:item/tool/excavator/large/modifiers/tconstruct_smite"
     },
-    "tconstruct:soulbound": "tconstruct:item/tool/excavator/modifiers/tconstruct_soulbound",
+    "tconstruct:soulbound": "tconstruct:item/tool/sledge_hammer/modifiers/tconstruct_soulbound",
     "tconstruct:tank": [
       {
         "type": "tconstruct:tank",

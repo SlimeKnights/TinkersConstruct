@@ -2,7 +2,6 @@
   "modifiers": {
     "tconstruct:antiaquatic": "tconstruct:item/tool/dagger/modifiers/tconstruct_antiaquatic",
     "tconstruct:bane_of_sssss": "tconstruct:item/tool/dagger/modifiers/tconstruct_bane_of_sssss",
-    "tconstruct:blasting": "tconstruct:item/tool/dagger/modifiers/tconstruct_blasting",
     "tconstruct:bucketing": [
       {
         "type": "tconstruct:fluid",
