@@ -60,7 +60,12 @@ public class EntityTypeTagProvider extends EntityTypeTagsProvider {
 
     // melting
     this.tag(TinkerTags.EntityTypes.MELTING_SHOW).add(EntityType.IRON_GOLEM, EntityType.SNOW_GOLEM, EntityType.VILLAGER, EntityType.PLAYER);
-    this.tag(TinkerTags.EntityTypes.MELTING_HIDE).add(EntityType.GIANT);
+    this.tag(TinkerTags.EntityTypes.MELTING_HIDE)
+      .add(EntityType.GIANT)
+      .addTag(TinkerTags.EntityTypes.MELTING_BLACKLIST)
+      .addOptionalTag(TinkerTags.HIDDEN_FROM_RECIPE_VIEWERS);
+    this.tag(TinkerTags.EntityTypes.MELTING_BLACKLIST);
+
     // meltable
     this.tag(TinkerTags.EntityTypes.MELTABLE_FARM_ANIMALS).add(
       EntityType.CHICKEN, EntityType.RABBIT,

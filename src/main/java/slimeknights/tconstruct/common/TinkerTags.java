@@ -696,6 +696,8 @@ public class TinkerTags {
     public static final TagKey<EntityType<?>> PIGLINS = common("piglins");
 
     // melting
+    /** Entities in this tag blacklisted from melting in the smeltery, notably in the default recipe */
+    public static final TagKey<EntityType<?>> MELTING_BLACKLIST = local("melting/blacklist");
     /** Entities in this tag are forced to show in JEI even if not living */
     public static final TagKey<EntityType<?>> MELTING_SHOW = local("melting/show_in_default");
     /** Entities in this tag are hidden from JEI and blacklisted from melting in the smeltery */
