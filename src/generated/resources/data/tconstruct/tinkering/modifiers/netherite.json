@@ -49,6 +49,10 @@
       "flat": 0.1,
       "operation": "multiply_base",
       "stat": "tconstruct:velocity"
+    },
+    {
+      "type": "tconstruct:volatile_flag",
+      "flag": "tconstruct:netherite"
     }
   ],
   "tooltip_display": "always"

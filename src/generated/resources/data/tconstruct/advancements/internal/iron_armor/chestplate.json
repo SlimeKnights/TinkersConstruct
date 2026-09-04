@@ -1,0 +1,36 @@
+{
+  "criteria": {
+    "has_armor": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "mantle:and",
+              "predicates": [
+                {
+                  "type": "mantle:tag",
+                  "tag": "tconstruct:modifiable/armor/chestplate"
+                },
+                {
+                  "type": "tconstruct:has_volatile_key",
+                  "key": "tconstruct:iron_armor"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_armor"
+    ]
+  ],
+  "rewards": {
+    "function": "tconstruct:grant_story_obtain_armor_iron_chestplate"
+  },
+  "sends_telemetry_event": true
+}

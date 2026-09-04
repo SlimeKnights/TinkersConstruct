@@ -1,0 +1,1 @@
+advancement grant @s only minecraft:adventure/walk_on_powder_snow_with_leather_boots

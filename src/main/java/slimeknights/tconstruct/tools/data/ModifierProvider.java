@@ -52,6 +52,7 @@ import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.common.TinkerDamageTypes;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.TinkerTags.Modifiers;
+import slimeknights.tconstruct.common.data.advancement.AdvancementIds;
 import slimeknights.tconstruct.library.data.tinkering.AbstractModifierProvider;
 import slimeknights.tconstruct.library.json.LevelingInt;
 import slimeknights.tconstruct.library.json.LevelingValue;
@@ -348,7 +349,9 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(StatBoostModule.add(ToolStats.MINING_SPEED).flat(2))
       .addModule(SetStatModule.set(ToolStats.HARVEST_TIER).value(Tiers.DIAMOND))
       // ranged
-      .addModule(StatBoostModule.add(ToolStats.PROJECTILE_DAMAGE).flat(0.5f));
+      .addModule(StatBoostModule.add(ToolStats.PROJECTILE_DAMAGE).flat(0.5f))
+      // achievement
+      .addModule(new VolatileFlagModule(AdvancementIds.DIAMOND_ARMOR, ModifierCondition.ANY_CONTEXT.with(ToolContextPredicate.tag(TinkerTags.Items.WORN_ARMOR))));
     // netherite
     buildModifier(ModifierIds.netherite)
       .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
@@ -363,7 +366,9 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(StatBoostModule.multiplyBase(ToolStats.MINING_SPEED).flat(0.25f))
       .addModule(SetStatModule.set(ToolStats.HARVEST_TIER).value(Tiers.NETHERITE))
       // ranged
-      .addModule(StatBoostModule.multiplyBase(ToolStats.VELOCITY).flat(0.1f));
+      .addModule(StatBoostModule.multiplyBase(ToolStats.VELOCITY).flat(0.1f))
+      // achievement
+      .addModule(new VolatileFlagModule(AdvancementIds.NETHERITE));
 
     // general
     buildModifier(ModifierIds.worldbound).addModule(new VolatileFlagModule(IndestructibleItemEntity.INDESTRUCTIBLE_ENTITY)).addModule(new RarityModule(Rarity.RARE)).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
@@ -925,6 +930,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.edibleTooltip).tooltipDisplay(TooltipDisplay.NEVER)
       .addModule(new StatTooltipModule<>(EdibleModule.HUNGER))
       .addModule(new StatTooltipModule<>(EdibleModule.SATURATION));
+    buildModifier(ModifierIds.ironArmor).tooltipDisplay(TooltipDisplay.NEVER).addModule(new VolatileFlagModule(AdvancementIds.IRON_ARMOR));
 
     // traits - tier 1
     buildModifier(ModifierIds.cultivated).addModule(RepairModule.builder().eachLevel(0.5f));

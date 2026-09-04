@@ -77,6 +77,7 @@ public class EntityTypeTagProvider extends EntityTypeTagsProvider {
 
     // behavior
     this.tag(EntityTypeTags.FROG_FOOD).add(TinkerWorld.skySlimeEntity.get(), TinkerWorld.enderSlimeEntity.get(), TinkerWorld.terracubeEntity.get());
+    this.tag(EntityTypeTags.ARROWS).add(TinkerTools.materialArrow.get());
 
     // compatability
     this.tag(TinkerTags.EntityTypes.BOBBERS).add(TinkerTools.fishingHook.get());

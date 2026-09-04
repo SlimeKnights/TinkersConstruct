@@ -49,6 +49,14 @@
       "flat": 0.5,
       "operation": "add",
       "stat": "tconstruct:projectile_damage"
+    },
+    {
+      "type": "tconstruct:volatile_flag",
+      "flag": "tconstruct:diamond_armor",
+      "tool": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:modifiable/armor/worn"
+      }
     }
   ],
   "tooltip_display": "always"

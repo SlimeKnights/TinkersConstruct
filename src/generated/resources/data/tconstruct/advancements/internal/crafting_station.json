@@ -1,0 +1,25 @@
+{
+  "criteria": {
+    "crafting_station": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:crafting_station"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "crafting_station"
+    ]
+  ],
+  "rewards": {
+    "function": "tconstruct:grant_story_root"
+  },
+  "sends_telemetry_event": true
+}

@@ -32,6 +32,7 @@ import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.data.AdvancementsProvider;
 import slimeknights.tconstruct.common.data.ConfigurationDataProvider;
 import slimeknights.tconstruct.common.data.DamageTypeProvider;
+import slimeknights.tconstruct.common.data.advancement.FunctionProvider;
 import slimeknights.tconstruct.common.data.loot.GlobalLootModifiersProvider;
 import slimeknights.tconstruct.common.data.loot.LootTableInjectionProvider;
 import slimeknights.tconstruct.common.data.loot.TConstructLootTableProvider;
@@ -197,6 +198,7 @@ public class TConstruct {
     generator.addProvider(server, new GlobalLootModifiersProvider(packOutput));
     generator.addProvider(server, new LootTableInjectionProvider(packOutput));
     generator.addProvider(server, new ConfigurationDataProvider(packOutput));
+    generator.addProvider(server, new FunctionProvider(packOutput));
   }
 
   /** Handles missing mappings of all types */

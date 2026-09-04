@@ -1,0 +1,43 @@
+{
+  "criteria": {
+    "stone_pick": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "mantle:and",
+              "predicates": [
+                {
+                  "type": "mantle:tag",
+                  "tag": "tconstruct:modifiable/harvest"
+                },
+                {
+                  "type": "tconstruct:tool_action",
+                  "action": "pickaxe_dig"
+                },
+                {
+                  "type": "tconstruct:stat_in_set",
+                  "stat": "tconstruct:harvest_tier",
+                  "values": [
+                    "minecraft:stone"
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "stone_pick"
+    ]
+  ],
+  "rewards": {
+    "function": "tconstruct:grant_story_upgrade_tools"
+  },
+  "sends_telemetry_event": true
+}
