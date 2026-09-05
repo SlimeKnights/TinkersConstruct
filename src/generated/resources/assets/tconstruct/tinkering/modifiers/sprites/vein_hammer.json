@@ -67,7 +67,7 @@
       "texture_large": "tconstruct:item/tool/sledge_hammer/large/modifiers/tconstruct_luck"
     },
     "tconstruct:magnetic": {
-      "texture": "tconstruct:item/tool/vein_hammer/modifiers/tconstruct_magnetic",
+      "texture": "tconstruct:item/tool/scythe/modifiers/tconstruct_magnetic",
       "texture_large": "tconstruct:item/tool/vein_hammer/large/modifiers/tconstruct_magnetic"
     },
     "tconstruct:netherite": {

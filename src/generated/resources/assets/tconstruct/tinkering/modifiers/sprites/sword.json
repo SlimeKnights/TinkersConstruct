@@ -33,7 +33,7 @@
       "luminosity": 15,
       "texture": "tconstruct:item/tool/sword/modifiers/tconstruct_lightspeed"
     },
-    "tconstruct:luck": "tconstruct:item/tool/sword/modifiers/tconstruct_luck",
+    "tconstruct:luck": "tconstruct:item/tool/javelin/modifiers/tconstruct_luck",
     "tconstruct:magnetic": "tconstruct:item/tool/sword/modifiers/tconstruct_magnetic",
     "tconstruct:necrotic": "tconstruct:item/tool/sword/modifiers/tconstruct_necrotic",
     "tconstruct:netherite": "tconstruct:item/tool/sword/modifiers/tconstruct_netherite",
@@ -42,7 +42,7 @@
     "tconstruct:severing": "tconstruct:item/tool/sword/modifiers/tconstruct_severing",
     "tconstruct:sharpness": "tconstruct:item/tool/sword/modifiers/tconstruct_sharpness",
     "tconstruct:silky": "tconstruct:item/tool/sword/modifiers/tconstruct_silky",
-    "tconstruct:smite": "tconstruct:item/tool/sword/modifiers/tconstruct_smite",
+    "tconstruct:smite": "tconstruct:item/tool/scythe/modifiers/tconstruct_smite",
     "tconstruct:soulbound": "tconstruct:item/tool/sword/modifiers/tconstruct_soulbound",
     "tconstruct:tank": [
       {

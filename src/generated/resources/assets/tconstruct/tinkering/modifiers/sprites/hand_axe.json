@@ -34,7 +34,7 @@
       "texture": "tconstruct:item/tool/hand_axe/modifiers/tconstruct_lightspeed"
     },
     "tconstruct:luck": "tconstruct:item/tool/pickaxe/modifiers/tconstruct_luck",
-    "tconstruct:magnetic": "tconstruct:item/tool/hand_axe/modifiers/tconstruct_magnetic",
+    "tconstruct:magnetic": "tconstruct:item/tool/scythe/modifiers/tconstruct_magnetic",
     "tconstruct:necrotic": "tconstruct:item/tool/hand_axe/modifiers/tconstruct_necrotic",
     "tconstruct:netherite": "tconstruct:item/tool/hand_axe/modifiers/tconstruct_netherite",
     "tconstruct:overforced": "tconstruct:item/tool/hand_axe/modifiers/tconstruct_overforced",
