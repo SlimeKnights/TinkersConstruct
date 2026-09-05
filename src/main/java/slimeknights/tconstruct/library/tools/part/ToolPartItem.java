@@ -58,7 +58,7 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
         // add all valid traits
         TooltipKey key = SafeClientAccess.getTooltipKey();
         for (ModifierEntry entry : MaterialRegistry.getInstance().getTraits(id, self.getStatType())) {
-          if (!entry.isBound()) {
+          if (!entry.isBound() || !entry.getModifier().shouldDisplay(false)) {
             continue;
           }
           Component name = entry.getDisplayName();

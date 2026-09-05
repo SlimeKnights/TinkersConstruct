@@ -296,10 +296,12 @@ public class Modifier implements IdAwareObject {
 
   /**
    * Determines if the modifier should display
-   * @param advanced  If true, in an advanced view such as the tinker station. False for tooltips
+   * @param advanced  If true, in an advanced view such as the tinker station, part builder, modifier worktable, or books.
+   *                  False for tooltips including tools and tool parts.
    * @return  True if the modifier should show
    */
   public boolean shouldDisplay(boolean advanced) {
+    // TODO: extend parameter to an enum context, since we have so many contexts
     return true;
   }
 
