@@ -3631,6 +3631,9 @@
   "modifier.tconstruct.overslime_friend": "Overslime Friend",
   "modifier.tconstruct.overslime_friend.flavor": "Friend of the slime",
   "modifier.tconstruct.overslime_friend.description": "Counts as a slimy material, preventing overslime from debuffing the tool",
+  "modifier.tconstruct.iron_armor": "Iron Armor",
+  "modifier.tconstruct.iron_armor.flavor": "Its armor made of iron",
+  "modifier.tconstruct.iron_armor.description": "Counts towards the Suit Up advancement",
 
   "modifier.tconstruct.reverted": "Reverted",
   "modifier.tconstruct.reverted.flavor": "We need to go back!",
