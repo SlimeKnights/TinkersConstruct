@@ -7,6 +7,14 @@
         "texture": "tconstruct:item/tool/armor/travelers/shield/modifiers/dyed"
       },
       "modifier": "tconstruct:dyed"
+    },
+    "_banner": {
+      "type": "tconstruct:crafted",
+      "model": {
+        "type": "tconstruct:banner",
+        "prefix": "tconstruct:item/tool/armor/travelers/shield/banner/"
+      },
+      "modifier": "tconstruct:banner"
     }
   }
 }

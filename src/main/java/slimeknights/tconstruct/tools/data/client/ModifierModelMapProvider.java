@@ -435,6 +435,7 @@ public class ModifierModelMapProvider extends AbstractModifierModelMapProvider {
     travelers("shield");
     tool("travelers/goggles").customTrim("armor/travelers/goggles/trim", null);
     tool("travelers/pants").armor().basic(ModifierIds.swiftSneak);
+    tool("travelers/shield").banner("armor/travelers/shield/banner/", null);
 
     // slimesuit
     for (ArmorItem.Type type : ArmorItem.Type.values()) {
