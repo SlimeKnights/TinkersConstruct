@@ -2541,7 +2541,7 @@
   "modifier.tconstruct.fiery": "Fiery",
   "modifier.tconstruct.fiery.flavor": "Infused with the fires of hell!",
   "modifier.tconstruct.fiery.description": "Ignites targets of melee attacks, fired arrows, and counterattacks",
-  "modifier.tconstruct.necrotic": "Necrotic",
+  "modifier.tconstruct.necrotic": "Lifesteal",
   "modifier.tconstruct.necrotic.flavor": "Vampiric!",
   "modifier.tconstruct.necrotic.description": "Critical hits on enemies drains their life to heal you",
   "modifier.tconstruct.necrotic.lifesteal": "Life Steal",
