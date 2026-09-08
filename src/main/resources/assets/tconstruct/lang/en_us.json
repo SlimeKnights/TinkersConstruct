@@ -3927,6 +3927,8 @@
   "recipe.tconstruct.modifier.amount": "Amount: %s",
 
   "recipe.tconstruct.swappable.already_present": "Tool already contains %s with variant %s",
+  "recipe.tconstruct.banner.clear": "Clear",
+  "recipe.tconstruct.banner.clear.no_patterns": "Must have at least one pattern to make the banner clear",
 
   "gui.tconstruct.modifier_worktable": "Modifier Worktable",
   "gui.tconstruct.modifier_worktable.title": "Modifier Tuning",

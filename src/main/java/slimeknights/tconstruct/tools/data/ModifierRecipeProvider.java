@@ -32,6 +32,7 @@ import slimeknights.mantle.registration.object.WoodBlockObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
+import slimeknights.tconstruct.common.recipe.LoadableFinishedRecipe;
 import slimeknights.tconstruct.common.registration.GeodeItemObject.BudSize;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
@@ -69,6 +70,7 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.data.material.MaterialIds;
+import slimeknights.tconstruct.tools.recipe.BannerModifierRecipe;
 import slimeknights.tconstruct.tools.recipe.EnchantmentConvertingRecipeBuilder;
 import slimeknights.tconstruct.tools.recipe.ModifierRemovalRecipeBuilder;
 import slimeknights.tconstruct.tools.recipe.ModifierSortingRecipeBuilder;
@@ -1915,7 +1917,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     // cosmetics //
     consumer.accept(new SimpleFinishedRecipe(location(folder + "dyeing"), TinkerModifiers.armorDyeingSerializer.get()));
     consumer.accept(new SimpleFinishedRecipe(location(folder + "trim"), TinkerModifiers.armorTrimSerializer.get()));
-    consumer.accept(new SimpleFinishedRecipe(location(folder + "banner"), TinkerModifiers.bannerModifierSerializer.get()));
+    LoadableFinishedRecipe.save(consumer, BannerModifierRecipe.LOADER, new BannerModifierRecipe(location(folder + "banner"), Ingredient.of(TinkerFluids.slimeBottle.get(SlimeType.SKY))));
 
     // slimesuit //
     Consumer<FinishedRecipe> slimeEmbellishmentConsumer = withCondition(consumer, new TagFilledCondition<>(TinkerTags.Items.EMBELLISHMENT_SLIME));
