@@ -20,6 +20,6 @@
       "name": "tconstruct:consecrated"
     }
   ],
-  "tooltip_display": "never",
+  "show_in_tooltips": "parts_only",
   "translation_key": "modifier.tconstruct.consecrated"
 }

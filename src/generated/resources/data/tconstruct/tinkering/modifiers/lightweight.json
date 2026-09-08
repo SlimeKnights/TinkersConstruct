@@ -25,6 +25,5 @@
       "operation": "add",
       "stat": "tconstruct:velocity"
     }
-  ],
-  "tooltip_display": "always"
+  ]
 }

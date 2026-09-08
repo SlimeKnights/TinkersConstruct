@@ -19,6 +19,5 @@
       "max": 0
     }
   ],
-  "priority": 200,
-  "tooltip_display": "always"
+  "priority": 200
 }

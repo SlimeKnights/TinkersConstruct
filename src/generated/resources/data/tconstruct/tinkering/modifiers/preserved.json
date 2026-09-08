@@ -11,6 +11,5 @@
       "type": "tconstruct:repair",
       "each_level": 0.15
     }
-  ],
-  "tooltip_display": "always"
+  ]
 }

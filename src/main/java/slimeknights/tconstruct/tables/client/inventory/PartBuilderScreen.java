@@ -21,6 +21,7 @@ import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.util.ModifierTooltip;
 import slimeknights.tconstruct.library.recipe.material.IMaterialValue;
 import slimeknights.tconstruct.library.recipe.partbuilder.IPartBuilderRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
@@ -292,7 +293,7 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
           for (ModifierEntry trait : traits) {
             if (trait.isBound()) {
               Modifier mod = trait.getModifier();
-              if (mod.shouldDisplay(true)) {
+              if (mod.shouldDisplay(ModifierTooltip.PART_BUILDER)) {
                 stats.add(mod.getDisplayName(trait.getLevel()));
                 tips.add(mod.getDescription(trait.getLevel()));
               }

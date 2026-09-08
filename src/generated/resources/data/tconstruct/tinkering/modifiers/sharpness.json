@@ -11,6 +11,5 @@
       "operation": "add",
       "stat": "tconstruct:attack_damage"
     }
-  ],
-  "tooltip_display": "always"
+  ]
 }

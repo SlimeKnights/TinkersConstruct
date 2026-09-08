@@ -7,6 +7,5 @@
       "percent": false,
       "target": "mantle:on_fire"
     }
-  ],
-  "tooltip_display": "always"
+  ]
 }

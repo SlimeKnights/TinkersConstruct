@@ -43,6 +43,7 @@ import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.util.ModifierTooltip;
 import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.library.recipe.casting.material.MaterialCastingLookup;
 import slimeknights.tconstruct.library.recipe.casting.material.MaterialFluidRecipe;
@@ -311,7 +312,7 @@ public abstract class AbstractMaterialContent extends PageContent {
         continue;
       }
       Modifier mod = trait.getModifier();
-      if (!mod.shouldDisplay(true)) {
+      if (!mod.shouldDisplay(ModifierTooltip.BOOK)) {
         continue;
       }
       TextComponentData textComponentData = new TextComponentData(mod.getDisplayName());
@@ -589,7 +590,7 @@ public abstract class AbstractMaterialContent extends PageContent {
         continue;
       }
       Modifier modifier = entry.getModifier();
-      if (!modifier.shouldDisplay(true)) {
+      if (!modifier.shouldDisplay(ModifierTooltip.BOOK)) {
         continue;
       }
       HtmlGroup tooltip = HtmlGroup.indent();

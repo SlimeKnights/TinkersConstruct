@@ -6,6 +6,5 @@
       "extra_drop_chance": 0.2,
       "recipe_types": "minecraft:smelting"
     }
-  ],
-  "tooltip_display": "always"
+  ]
 }

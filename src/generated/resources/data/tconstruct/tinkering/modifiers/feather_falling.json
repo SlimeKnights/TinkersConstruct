@@ -13,5 +13,5 @@
       "name": "tconstruct:feather_fall"
     }
   ],
-  "tooltip_display": "never"
+  "show_in_tooltips": "parts_only"
 }

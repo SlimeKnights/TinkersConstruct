@@ -18,6 +18,7 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierManager.ModifierRegistrationEvent;
 import slimeknights.tconstruct.library.modifiers.hook.mining.BreakSpeedContext;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
+import slimeknights.tconstruct.library.modifiers.util.ModifierTooltip;
 import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.module.ModuleHookMap.Builder;
@@ -294,15 +295,19 @@ public class Modifier implements IdAwareObject {
 
   /* General hooks */
 
+  /** @deprecated use {@link #shouldDisplay(ModifierTooltip)} */
+  @Deprecated(forRemoval = true)
+  public boolean shouldDisplay(boolean advanced) {
+    return true;
+  }
+
   /**
-   * Determines if the modifier should display
-   * @param advanced  If true, in an advanced view such as the tinker station, part builder, modifier worktable, or books.
-   *                  False for tooltips including tools and tool parts.
+   * Determines if the modifier should display in modifier lists
+   * @param context  Context displaing the modifier. Might be a block, a book, or a tool.
    * @return  True if the modifier should show
    */
-  public boolean shouldDisplay(boolean advanced) {
-    // TODO: extend parameter to an enum context, since we have so many contexts
-    return true;
+  public boolean shouldDisplay(ModifierTooltip context) {
+    return context.isNew() || shouldDisplay(context == ModifierTooltip.TINKER_STATION);
   }
 
 

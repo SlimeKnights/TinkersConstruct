@@ -53,6 +53,5 @@
       "flat": 1.0
     }
   ],
-  "priority": 125,
-  "tooltip_display": "always"
+  "priority": 125
 }

@@ -12,6 +12,5 @@
       "type": "tconstruct:volatile_flag",
       "flag": "tconstruct:inventory_crafting"
     }
-  ],
-  "tooltip_display": "always"
+  ]
 }

@@ -16,6 +16,5 @@
       "each_level": 2.5,
       "wearing_entity": "tconstruct:airborne"
     }
-  ],
-  "tooltip_display": "always"
+  ]
 }

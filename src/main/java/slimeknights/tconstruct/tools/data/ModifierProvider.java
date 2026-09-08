@@ -93,7 +93,6 @@ import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.EntityInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.BowAmmoModifierHook;
-import slimeknights.tconstruct.library.modifiers.impl.BasicModifier.TooltipDisplay;
 import slimeknights.tconstruct.library.modifiers.modules.armor.AdjustDamageModule;
 import slimeknights.tconstruct.library.modifiers.modules.armor.BlockDamageSourceModule;
 import slimeknights.tconstruct.library.modifiers.modules.armor.CoverGroundWalkerModule;
@@ -161,6 +160,8 @@ import slimeknights.tconstruct.library.modifiers.modules.util.ModifierCondition;
 import slimeknights.tconstruct.library.modifiers.modules.util.ProjectilePredicate;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay.UniqueForLevels;
+import slimeknights.tconstruct.library.modifiers.util.ModifierTooltip;
+import slimeknights.tconstruct.library.modifiers.util.ModifierTooltip.ShowInTooltips;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.SwappableModifierRecipe.VariantFormatter;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
@@ -297,27 +298,27 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
 
     // extra modifier slots
     ModifierSlotModule UPGRADE = ModifierSlotModule.slot(SlotType.UPGRADE).eachLevel(1);
-    buildModifier(ModifierIds.writable   ).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(UPGRADE);
-    buildModifier(ModifierIds.recapitated).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(UPGRADE);
-    buildModifier(ModifierIds.harmonious ).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(UPGRADE);
-    buildModifier(ModifierIds.forecast   ).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(UPGRADE);
-    buildModifier(ModifierIds.gilded     ).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(ModifierSlotModule.slot(SlotType.UPGRADE).eachLevel(2));
-    buildModifier(ModifierIds.draconic   ).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(ModifierSlotModule.slot(SlotType.ABILITY).eachLevel(1));
-    buildModifier(ModifierIds.embossed, new TagFilledCondition<>(TinkerTags.Items.BOSS_TROPHIES)).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(UPGRADE);
+    buildModifier(ModifierIds.writable   ).showInTooltips(ShowInTooltips.BONUS_SLOT).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(UPGRADE);
+    buildModifier(ModifierIds.recapitated).showInTooltips(ShowInTooltips.BONUS_SLOT).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(UPGRADE);
+    buildModifier(ModifierIds.harmonious ).showInTooltips(ShowInTooltips.BONUS_SLOT).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(UPGRADE);
+    buildModifier(ModifierIds.forecast   ).showInTooltips(ShowInTooltips.BONUS_SLOT).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(UPGRADE);
+    buildModifier(ModifierIds.gilded     ).showInTooltips(ShowInTooltips.BONUS_SLOT).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(ModifierSlotModule.slot(SlotType.UPGRADE).eachLevel(2));
+    buildModifier(ModifierIds.draconic   ).showInTooltips(ShowInTooltips.BONUS_SLOT).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(ModifierSlotModule.slot(SlotType.ABILITY).eachLevel(1));
+    buildModifier(ModifierIds.embossed, new TagFilledCondition<>(TinkerTags.Items.BOSS_TROPHIES)).showInTooltips(ShowInTooltips.BONUS_SLOT).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(UPGRADE);
     IJsonPredicate<IToolContext> ancientTool = ToolContextPredicate.tag(TinkerTags.Items.ANCIENT_TOOLS);
     buildModifier(ModifierIds.rebalanced)
-      .tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.NO_LEVELS)
+      .showInTooltips(ModifierTooltip.TINKER_STATION).levelDisplay(ModifierLevelDisplay.NO_LEVELS)
       .addModule(new SwappableSlotModule(1))
       .addModule(new SwappableSlotModule(null, 1, ModifierCondition.ANY_CONTEXT.with(ancientTool)), ModifierHooks.VOLATILE_DATA)
       .addModule(new SwappableSlotModule.BonusSlot(null, SlotType.ABILITY, SlotType.UPGRADE, -1, ModifierCondition.ANY_CONTEXT.with(ancientTool.inverted())))
       .addModule(new SwappableSlotModule.BonusSlot(null, SlotType.ABILITY, SlotType.ABILITY, -1, ModifierCondition.ANY_CONTEXT.with(ancientTool)))
       .addModule(new SwappableToolTraitsModule(null, "traits", ToolHooks.REBALANCED_TRAIT));
     buildModifier(ModifierIds.redirected)
-      .tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.NO_LEVELS)
+      .showInTooltips(ShowInTooltips.BONUS_SLOT).levelDisplay(ModifierLevelDisplay.NO_LEVELS)
       .addModule(new SwappableToolTraitsModule(null, "", ToolHooks.REBALANCED_TRAIT));
     // resurrected replaced with forecast
     buildModifier(ModifierIds.resurrected)
-      .tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(UPGRADE)
+      .showInTooltips(ShowInTooltips.BONUS_SLOT).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(UPGRADE)
       // migration: disallow having both resurrected and forecast, as forecast is meant to replace resurrected. Not giving you a free upgrade slot for updating tinkers
       .addModule(ModifierRequirementsModule.builder().requirement(HasModifierPredicate.hasUpgrade(ModifierIds.forecast, 1).inverted()).modifierKey(ModifierIds.resurrected).build());
 
@@ -694,13 +695,13 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(StatBoostModule.add(ToolTankHelper.CAPACITY_STAT).eachLevel(FluidType.BUCKET_VOLUME))
       .addModule(new SpillingModule(LevelingValue.eachLevel(1), ModifierCondition.ANY_TOOL));
     // on fishing rods, we want spilling, but no spilling on bows
-    buildModifier(ModifierIds.spillingRod).tooltipDisplay(TooltipDisplay.NEVER).addModule(ModifierTraitModule.tagCondition(ModifierIds.spilling, TinkerTags.Items.FISHING_RODS));
+    buildModifier(ModifierIds.spillingRod).showInTooltips(ShowInTooltips.PARTS_ONLY).addModule(ModifierTraitModule.tagCondition(ModifierIds.spilling, TinkerTags.Items.FISHING_RODS));
 
     // glass trait is implemented in two parts: a constantly added debuff, and a conditionally added smashing module
     buildModifier(ModifierIds.amorphous).addModule(StatBoostModule.add(ToolStats.PROJECTILE_DAMAGE).eachLevel(-0.75f));
     buildModifier(ModifierIds.smashing).addModule(SmashingModule.INSTANCE);
     // we use an internal modifier to ensure smashing doesn't go on fishng rods
-    buildModifier(ModifierIds.smashingAmmo).tooltipDisplay(TooltipDisplay.NEVER).addModule(ModifierTraitModule.tagCondition(ModifierIds.smashing, TinkerTags.Items.AMMO));
+    buildModifier(ModifierIds.smashingAmmo).showInTooltips(ShowInTooltips.PARTS_ONLY).addModule(ModifierTraitModule.tagCondition(ModifierIds.smashing, TinkerTags.Items.AMMO));
 
 
     // armor
@@ -760,7 +761,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(InventoryModule.builder().flatLimit(16).filter(ItemPredicate.tag(TinkerTags.Items.THROWABLE)).pattern(new Pattern(TConstruct.MOD_ID, "shuriken")).slotsPerLevel(3));
     // leggings
     // pocket is an internal modifier to keep the NBT structure for inventory modifiers the smae
-    buildModifier(ModifierIds.pocket).tooltipDisplay(TooltipDisplay.NEVER)
+    buildModifier(ModifierIds.pocket).showInTooltips(ShowInTooltips.NEVER)
       .addModule(InventoryModule.builder().key(ModifierIds.pockets).slotsPerLevel(3))
       .addModule(InventoryMenuModule.ANY);
     // 18 slots per level
@@ -798,7 +799,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.depthStrider).addModule(EnchantmentModule.builder(Enchantments.DEPTH_STRIDER).constant());
     buildModifier(ModifierIds.soulspeed).addModule(new SoulSpeedModule(LevelingInt.flat(1), ModifierCondition.ANY_TOOL));
     buildModifier(ModifierIds.featherFalling)
-      .tooltipDisplay(TooltipDisplay.NEVER).levelDisplay(new ModifierLevelDisplay.MapLevel(LevelingInt.eachLevel(2)))
+      .showInTooltips(ShowInTooltips.PARTS_ONLY).levelDisplay(new ModifierLevelDisplay.MapLevel(LevelingInt.eachLevel(2)))
       .addModule(new ModifierTraitModule(ModifierIds.featherFall, 2, false));
     buildModifier(ModifierIds.featherFall).translationKey(ModifierIds.featherFalling)
       .addModule(ProtectionModule.builder().source(DamageSourcePredicate.tag(TinkerTags.DamageTypes.FALL_PROTECTION))
@@ -863,7 +864,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       // make explosive use EFLN style, it works underwater!
       .addModule(new VolatileFlagModule(ProjectileExplosionModule.EFLN), ModifierHooks.PROJECTILE_LAUNCH, ModifierHooks.PROJECTILE_SHOT);
     // fins on prismarine arrow heads should only apply to arrows
-    buildModifier(ModifierIds.finsAmmo).tooltipDisplay(TooltipDisplay.NEVER).addModule(ModifierTraitModule.tagCondition(ModifierIds.fins, TinkerTags.Items.AMMO));
+    buildModifier(ModifierIds.finsAmmo).showInTooltips(ShowInTooltips.PARTS_ONLY).addModule(ModifierTraitModule.tagCondition(ModifierIds.fins, TinkerTags.Items.AMMO));
     // shears
     buildModifier(ModifierIds.shears).priority(70).levelDisplay(ModifierLevelDisplay.PLUSES)
       .addModule(ShowOffhandModule.DISALLOW_BROKEN)
@@ -900,7 +901,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.fishing).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(FishingModule.INSTANCE).addModule(ShowInteractionSourceModule.INSTANCE);
     buildModifier(ModifierIds.lure).addModule(StatBoostModule.add(ToolStats.LURE).eachLevel(1));
     // lure on prismarine arrows should only apply to fishing rods
-    buildModifier(ModifierIds.lureRod).tooltipDisplay(TooltipDisplay.NEVER).addModule(ModifierTraitModule.tagCondition(ModifierIds.lure, TinkerTags.Items.FISHING_RODS));
+    buildModifier(ModifierIds.lureRod).showInTooltips(ShowInTooltips.PARTS_ONLY).addModule(ModifierTraitModule.tagCondition(ModifierIds.lure, TinkerTags.Items.FISHING_RODS));
     buildModifier(ModifierIds.grapple)
       .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
       .addModule(new ToolActionsModule(TinkerToolActions.GRAPPLE_HOOK))
@@ -922,15 +923,15 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(new SmeltingModule(RecipeType.SMELTING, 10, InventoryModule.builder().pattern(pattern("fire")).slotsPerLevel(1)));
 
     // internal
-    buildModifier(ModifierIds.overslimeFriend).tooltipDisplay(TooltipDisplay.TINKER_STATION);
+    buildModifier(ModifierIds.overslimeFriend).showInTooltips(ShowInTooltips.ADVANCED);
     buildModifier(ModifierIds.snowBoots).addModule(new VolatileFlagModule(ModifiableArmorItem.SNOW_BOOTS)).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
-    buildModifier(TinkerModifiers.edible).priority(40).tooltipDisplay(TooltipDisplay.NEVER)
+    buildModifier(TinkerModifiers.edible).priority(40).showInTooltips(ShowInTooltips.NEVER)
       .addModule(EdibleModule.INSTANCE)
       .addModule(new ModifierTraitModule(ModifierIds.edibleTooltip, 1, true));
-    buildModifier(ModifierIds.edibleTooltip).tooltipDisplay(TooltipDisplay.NEVER)
+    buildModifier(ModifierIds.edibleTooltip).showInTooltips(ShowInTooltips.NEVER)
       .addModule(new StatTooltipModule<>(EdibleModule.HUNGER))
       .addModule(new StatTooltipModule<>(EdibleModule.SATURATION));
-    buildModifier(ModifierIds.ironArmor).tooltipDisplay(TooltipDisplay.NEVER).addModule(new VolatileFlagModule(AdvancementIds.IRON_ARMOR));
+    buildModifier(ModifierIds.ironArmor).showInTooltips(ShowInTooltips.NEVER).addModule(new VolatileFlagModule(AdvancementIds.IRON_ARMOR));
 
     // traits - tier 1
     buildModifier(ModifierIds.cultivated).addModule(RepairModule.builder().eachLevel(0.5f));
@@ -1703,12 +1704,13 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(new VolatileFlagModule(ModifiableArmorItem.ENDERMASK));
 
     // cosmetic
-    buildModifier(TinkerModifiers.dyed.getId()).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(DyeModule.INSTANCE);
-    buildModifier(TinkerModifiers.embellishment.getId()).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(EmbellishmentModule.INSTANCE);
-    buildModifier(TinkerModifiers.banner.getId()).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(BannerModule.INSTANCE).priority(25);
+    buildModifier(TinkerModifiers.dyed.getId()).showInTooltips(ModifierTooltip.TINKER_STATION).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(DyeModule.INSTANCE);
+    buildModifier(TinkerModifiers.embellishment.getId()).showInTooltips(ModifierTooltip.TINKER_STATION).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(EmbellishmentModule.INSTANCE);
+    // will never be used as a tool part trait, so stick to just tinker station
+    buildModifier(TinkerModifiers.banner.getId()).showInTooltips(ModifierTooltip.TINKER_STATION).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(BannerModule.INSTANCE).priority(25);
     // trim
     buildModifier(TinkerModifiers.trim.getId())
-      .tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.NO_LEVELS)
+      .showInTooltips(ModifierTooltip.TINKER_STATION).levelDisplay(ModifierLevelDisplay.NO_LEVELS)
       .addModule(new TrimModule())
       .addModule(ModifierSlotModule.slot(SlotType.DEFENSE).toolContext(new HasToolHookPredicate(ToolHooks.TRIM_TRAIT).inverted()).eachLevel(1))
       .addModule(new SwappableToolTraitsModule(null, "", ToolHooks.TRIM_TRAIT));
@@ -1726,7 +1728,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
 
   /** Creates a modifier that grants 2 levels of another modifier, plus a third on the next level. */
   private void traitTwoPlusOne(ModifierId modifier, ModifierId trait) {
-    buildModifier(modifier).tooltipDisplay(TooltipDisplay.NEVER)
+    buildModifier(modifier).showInTooltips(ShowInTooltips.PARTS_ONLY)
       // use the trait for name and description
       .levelDisplay(new ModifierLevelDisplay.MapLevel(1, 1)).translationKey(trait)
       // add the trait once fixed and once leveling

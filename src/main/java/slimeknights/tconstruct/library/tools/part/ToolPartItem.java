@@ -15,6 +15,7 @@ import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.util.ModifierTooltip;
 import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
 
 import javax.annotation.Nullable;
@@ -58,7 +59,7 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
         // add all valid traits
         TooltipKey key = SafeClientAccess.getTooltipKey();
         for (ModifierEntry entry : MaterialRegistry.getInstance().getTraits(id, self.getStatType())) {
-          if (!entry.isBound() || !entry.getModifier().shouldDisplay(false)) {
+          if (!entry.isBound() || !entry.getModifier().shouldDisplay(ModifierTooltip.TOOL_PART)) {
             continue;
           }
           Component name = entry.getDisplayName();

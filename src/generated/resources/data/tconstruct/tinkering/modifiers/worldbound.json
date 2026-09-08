@@ -9,6 +9,5 @@
       "type": "tconstruct:rarity",
       "rarity": "rare"
     }
-  ],
-  "tooltip_display": "always"
+  ]
 }

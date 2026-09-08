@@ -5,6 +5,5 @@
       "type": "tconstruct:volatile_flag",
       "flag": "tconstruct:ballista"
     }
-  ],
-  "tooltip_display": "always"
+  ]
 }

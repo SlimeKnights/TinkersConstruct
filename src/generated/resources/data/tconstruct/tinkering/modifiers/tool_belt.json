@@ -21,6 +21,5 @@
       "on_key": "shift"
     }
   ],
-  "priority": 85,
-  "tooltip_display": "always"
+  "priority": 85
 }

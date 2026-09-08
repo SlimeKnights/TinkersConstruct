@@ -7,7 +7,6 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.resources.ResourceLocation;
 import slimeknights.mantle.data.loadable.ErrorFactory;
-import slimeknights.mantle.data.loadable.primitive.EnumLoadable;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.primitive.StringLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
@@ -15,6 +14,9 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
+import slimeknights.tconstruct.library.modifiers.util.ModifierTooltip;
+import slimeknights.tconstruct.library.modifiers.util.ModifierTooltip.ShowInTooltips;
+import slimeknights.tconstruct.library.modifiers.util.ModifierTooltipsField;
 import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.module.WithHooks;
@@ -29,7 +31,7 @@ import java.util.stream.Collectors;
 public class ComposableModifier extends BasicModifier {
   public static final RecordLoadable<ComposableModifier> LOADER = RecordLoadable.create(
     ModifierLevelDisplay.LOADER.defaultField("level_display", true, m -> m.levelDisplay),
-    new EnumLoadable<>(TooltipDisplay.class).defaultField("tooltip_display", TooltipDisplay.ALWAYS, true, m -> m.tooltipDisplay),
+    new ModifierTooltipsField<>("show_in_tooltips", "tooltip_display", m -> m.showInTooltips),
     IntLoadable.ANY_FULL.defaultField("priority", Integer.MIN_VALUE, m -> m.priority),
     ModifierModule.WITH_HOOKS.list(0).defaultField("modules", List.of(), m -> m.modules),
     StringLoadable.DEFAULT.nullableField("translation_key", m -> m.translationKey),
@@ -41,11 +43,22 @@ public class ComposableModifier extends BasicModifier {
   /**
    * Creates a new instance
    * @param levelDisplay     Level display
-   * @param tooltipDisplay   Tooltip display
+   * @param showInTooltips   Tooltip display
    * @param priority         If the value is {@link Integer#MIN_VALUE}, assumed unset for datagen
    * @param modules          Modules for this modifier
    * @param translationKey   Translation key override. If empty, generates key from the modifier ID.
    */
+  protected ComposableModifier(ModifierLevelDisplay levelDisplay, ShowInTooltips showInTooltips, int priority, List<WithHooks<ModifierModule>> modules, @Nullable String translationKey, ErrorFactory error) {
+    super(ModuleHookMap.createMap(modules, error), levelDisplay, showInTooltips, priority);
+    this.modules = modules;
+    if (translationKey != null) {
+      this.translationKey = translationKey;
+    }
+  }
+
+  /** @deprecated use {@link #ComposableModifier(ModifierLevelDisplay, ShowInTooltips, int, List, String, ErrorFactory)} */
+  @SuppressWarnings("removal")
+  @Deprecated(forRemoval = true)
   protected ComposableModifier(ModifierLevelDisplay levelDisplay, TooltipDisplay tooltipDisplay, int priority, List<WithHooks<ModifierModule>> modules, @Nullable String translationKey, ErrorFactory error) {
     super(ModuleHookMap.createMap(modules, error), levelDisplay, tooltipDisplay, priority);
     this.modules = modules;
@@ -54,7 +67,8 @@ public class ComposableModifier extends BasicModifier {
     }
   }
 
-  /** @deprecated use {@link #ComposableModifier(ModifierLevelDisplay, TooltipDisplay, int, List, String, ErrorFactory)} */
+  /** @deprecated use {@link #ComposableModifier(ModifierLevelDisplay, ShowInTooltips, int, List, String, ErrorFactory)} */
+  @SuppressWarnings("removal")
   @Deprecated(forRemoval = true)
   protected ComposableModifier(ModifierLevelDisplay levelDisplay, TooltipDisplay tooltipDisplay, int priority, List<WithHooks<ModifierModule>> modules, ErrorFactory error) {
     this(levelDisplay, tooltipDisplay, priority, modules, "", error);
@@ -102,7 +116,8 @@ public class ComposableModifier extends BasicModifier {
   public static class Builder {
     private final ImmutableList.Builder<WithHooks<ModifierModule>> modules = ImmutableList.builder();
     private ModifierLevelDisplay levelDisplay = ModifierLevelDisplay.DEFAULT;
-    private TooltipDisplay tooltipDisplay = TooltipDisplay.ALWAYS;
+    /** Whether to show this modifier in tooltips */
+    private ShowInTooltips showInTooltips = ShowInTooltips.ALWAYS;
     /** {@link Integer#MIN_VALUE} is an internal value used to represent unset for datagen, to distinguish unset from {@link Modifier#DEFAULT_PRIORITY} */
     private int priority = Integer.MIN_VALUE;
     /** Translation key. If not empty, will use instead of the modifier ID for tooltip and color. */
@@ -141,6 +156,27 @@ public class ComposableModifier extends BasicModifier {
       return translationKey("modifier." + modifier.toLanguageKey());
     }
 
+
+    /* Tooltip display */
+
+    /** Sets the tooltips this modifier shows in */
+    public Builder showInTooltips(ShowInTooltips showInTooltips) {
+      this.showInTooltips = showInTooltips;
+      return this;
+    }
+
+    /** Sets the tooltips this modifier shows in */
+    public Builder showInTooltips(ModifierTooltip... tooltips) {
+      return showInTooltips(ShowInTooltips.match(tooltips));
+    }
+
+    /** @deprecated use {@link #showInTooltips(ShowInTooltips)} */
+    @SuppressWarnings("removal")
+    @Deprecated(forRemoval = true)
+    public Builder tooltipDisplay(TooltipDisplay display) {
+      return showInTooltips(display.getShowInTooltips());
+    }
+
     /** Builds the final instance */
     public ComposableModifier build() {
       List<WithHooks<ModifierModule>> modules = this.modules.build();
@@ -148,7 +184,7 @@ public class ComposableModifier extends BasicModifier {
         // call computePriority if we did not set one so we get the warning if multiple modules wish to set the priority
         computePriority(modules);
       }
-      return new ComposableModifier(levelDisplay, tooltipDisplay, priority, modules, translationKey, ErrorFactory.RUNTIME);
+      return new ComposableModifier(levelDisplay, showInTooltips, priority, modules, translationKey, ErrorFactory.RUNTIME);
     }
   }
 }
