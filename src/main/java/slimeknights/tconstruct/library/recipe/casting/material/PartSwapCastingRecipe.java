@@ -16,7 +16,6 @@ import slimeknights.mantle.recipe.IMultiRecipe;
 import slimeknights.mantle.recipe.helper.LoadableRecipeSerializer;
 import slimeknights.mantle.recipe.helper.TypeAwareRecipeSerializer;
 import slimeknights.tconstruct.library.json.predicate.material.MaterialPredicate;
-import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
@@ -29,6 +28,7 @@ import slimeknights.tconstruct.library.recipe.casting.ICastingContainer;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.IDisplayableCastingRecipe;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
+import slimeknights.tconstruct.library.recipe.tinkerstation.building.MaterialSwappingRecipe;
 import slimeknights.tconstruct.library.tools.definition.module.material.MaterialRepairModule;
 import slimeknights.tconstruct.library.tools.definition.module.material.ToolMaterialHook;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
@@ -36,7 +36,6 @@ import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
-import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import javax.annotation.Nullable;
@@ -199,22 +198,7 @@ public class PartSwapCastingRecipe extends AbstractMaterialCastingRecipe impleme
 
   /** Creates a new item stack with the given material. Will modify {@code tool}. */
   private ItemStack withMaterial(ToolStack tool, MaterialVariant material) {
-    if (tool.getMaterials().isEmpty()) {
-      MaterialNBT.Builder builder = MaterialNBT.builder();
-      List<MaterialStatsId> requirements = ToolMaterialHook.stats(tool.getDefinition());
-      for (int i = 0; i < requirements.size(); i++) {
-        if (i == index) {
-          builder.add(material);
-        } else {
-          builder.add(MaterialRegistry.firstWithStatType(requirements.get(i)));
-        }
-      }
-      tool.setMaterials(builder.build());
-    } else {
-      // if it has materials already just swap the one to update
-      tool.replaceMaterial(index, material);
-    }
-    return tool.createStack();
+    return MaterialSwappingRecipe.withMaterial(tool, material, index);
   }
 
   @Override

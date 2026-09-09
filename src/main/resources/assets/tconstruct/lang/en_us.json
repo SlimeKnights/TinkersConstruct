@@ -3996,6 +3996,9 @@
   "recipe.tconstruct.tool_damaging": "Tool Damaging",
   "recipe.tconstruct.tool_damaging.tooltip": "Reduces the tool's durability by the given amount. Useful for maximizing modifier effects.",
 
+  "recipe.tconstruct.part_swapping": "Part Swapping",
+  "recipe.tconstruct.part_swapping.tooltip": "Swaps a material on the tool for a different material.",
+
 
   "_comment": "GUIs Messages",
 

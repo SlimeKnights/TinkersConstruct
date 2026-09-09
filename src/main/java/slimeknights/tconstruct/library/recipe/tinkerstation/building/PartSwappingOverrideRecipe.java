@@ -1,6 +1,9 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation.building;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -11,28 +14,36 @@ import slimeknights.mantle.data.loadable.array.IntArrayLoadable;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
+import slimeknights.mantle.recipe.IMultiRecipe;
 import slimeknights.mantle.recipe.ingredient.SizedIngredient;
+import slimeknights.tconstruct.library.client.materials.MaterialTooltipCache;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
+import slimeknights.tconstruct.library.materials.IMaterialRegistry;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.casting.material.MaterialCastingLookup;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.ModifierRecipe;
+import slimeknights.tconstruct.library.recipe.tinkerstation.IDisplayToolModification;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.tools.definition.module.material.ToolMaterialHook;
+import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
 import slimeknights.tconstruct.library.tools.part.IToolPart;
 import slimeknights.tconstruct.tables.TinkerTables;
 
+import java.util.Arrays;
 import java.util.BitSet;
 import java.util.List;
+import java.util.stream.IntStream;
 
 /** Recipe for swapping a single material on a tool given a specific tool part. Notably allows swapping a part into a tool on an index other than the first. */
-public class PartSwappingOverrideRecipe extends MaterialSwappingRecipe {
+public class PartSwappingOverrideRecipe extends MaterialSwappingRecipe implements IMultiRecipe<IDisplayToolModification> {
   public static final RecordLoadable<PartSwappingOverrideRecipe> LOADER = RecordLoadable.create(
     ContextKey.ID.requiredField(), TOOLS_FIELD, STACK_SIZE_FIELD,
     TinkerLoadables.TOOL_PART_ITEM.requiredField("part", r -> r.part),
@@ -136,5 +147,81 @@ public class PartSwappingOverrideRecipe extends MaterialSwappingRecipe {
   @Override
   public RecipeSerializer<?> getSerializer() {
     return TinkerTables.fixedMaterialSwapping.get();
+  }
+
+
+  /* JEI */
+  private List<IDisplayToolModification> multiRecipes;
+
+  @Override
+  public List<IDisplayToolModification> getRecipes(RegistryAccess access) {
+    if (multiRecipes == null) {
+      ItemStack[] tools = this.tools.getItems();
+      // need 1 recipe per material, then one per index
+      IMaterialRegistry registry = MaterialRegistry.getInstance();
+      MaterialStatsId statType = part.getStatType();
+      // create tools for each index - this is the same regardless of material
+      List<List<ItemStack>> toolsWithoutMaterial = Arrays.stream(indices)
+        .mapToObj(i -> Arrays.stream(tools)
+          .map(stack -> withMaterial(stack.copy(), MaterialVariant.of(ToolBuildHandler.getRenderMaterial(i)), i))
+          .toList())
+        .toList();
+
+      // create a recipe per material matching the part
+      multiRecipes = registry.getVisibleMaterials().stream()
+        .filter(material -> registry.getMaterialStats(material.getIdentifier(), statType).isPresent())
+        .flatMap(material -> {
+          MaterialId id = material.getIdentifier();
+          Component title = MaterialTooltipCache.getDisplayName(id);
+          MaterialVariant variant = MaterialVariant.of(material);
+          // create a recipe per index you can swap
+          return IntStream.range(0, indices.length).<IDisplayToolModification>mapToObj(i -> {
+            // for each index, use first as the material on input, desired material on output
+            int index = indices[i];
+            List<ItemStack> withMaterial = Arrays.stream(tools).map(stack -> withMaterial(stack.copy(), variant, index)).toList();
+            return new DisplayRecipe(title, index, List.of(part.withMaterialForDisplay(id)), toolsWithoutMaterial.get(i), withMaterial);
+          });
+        }).toList();
+    }
+    return multiRecipes;
+  }
+
+  /** Recipe for a single index and material */
+  @RequiredArgsConstructor
+  private class DisplayRecipe implements IDisplayToolModification {
+    @Getter
+    private final Component variant;
+    private final int index;
+    private final List<ItemStack> part;
+    @Getter
+    private final List<ItemStack> toolWithoutModifier, toolWithModifier;
+
+    @Override
+    public Component getTitle() {
+      return TITLE;
+    }
+
+    @Override
+    public Component getTooltip() {
+      return TOOLTIP;
+    }
+
+    @Override
+    public ResourceLocation getRecipeId() {
+      return getId();
+    }
+
+    @Override
+    public int getInputCount() {
+      return index + 1;
+    }
+
+    @Override
+    public List<ItemStack> getDisplayItems(int slot) {
+      if (index == slot) {
+        return part;
+      }
+      return List.of();
+    }
   }
 }

@@ -12,6 +12,7 @@ import slimeknights.mantle.data.loadable.field.RecordField;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.recipe.ingredient.SizedIngredient;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
@@ -30,6 +31,7 @@ import slimeknights.tconstruct.library.tools.definition.module.material.ToolMate
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
+import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import java.util.BitSet;
@@ -45,6 +47,8 @@ public abstract class MaterialSwappingRecipe implements ITinkerStationRecipe {
   protected static final RecipeResult<LazyToolStack> TOO_FEW_PARTS = RecipeResult.failure(TConstruct.makeTranslationKey("recipe", "part_swapping.too_few_parts"));
   protected static final RecipeResult<LazyToolStack> TOO_MANY_PARTS = RecipeResult.failure(TConstruct.makeTranslationKey("recipe", "part_swapping.too_many_parts"));
   protected static final RecipeResult<LazyToolStack> INVALID_MATERIAL = RecipeResult.failure(TConstruct.makeTranslationKey("recipe", "part_swapping.invalid_material"));
+  protected static final Component TITLE = TConstruct.makeTranslation("recipe", "part_swapping");
+  protected static final Component TOOLTIP = TConstruct.makeTranslation("recipe", "part_swapping.tooltip");
 
   @Getter
   protected final ResourceLocation id;
@@ -184,5 +188,33 @@ public abstract class MaterialSwappingRecipe implements ITinkerStationRecipe {
     }
     // shrink remaining requirements
     ModifierRecipe.updateInputs(inv, extraRequirements, used);
+  }
+
+
+  /* JEI helpers */
+
+  /** Creates a new item stack with the given material. Will modify {@code tool}. */
+  public static ItemStack withMaterial(ItemStack tool, MaterialVariant material, int index) {
+    return withMaterial(ToolStack.from(tool), material, index);
+  }
+
+  /** Creates a new item stack with the given material. Will modify {@code tool}. */
+  public static ItemStack withMaterial(ToolStack tool, MaterialVariant material, int index) {
+    if (tool.getMaterials().isEmpty()) {
+      MaterialNBT.Builder builder = MaterialNBT.builder();
+      List<MaterialStatsId> requirements = ToolMaterialHook.stats(tool.getDefinition());
+      for (int i = 0; i < requirements.size(); i++) {
+        if (i == index) {
+          builder.add(material);
+        } else {
+          builder.add(MaterialRegistry.firstWithStatType(requirements.get(i)));
+        }
+      }
+      tool.setMaterials(builder.build());
+    } else {
+      // if it has materials already just swap the one to update
+      tool.replaceMaterial(index, material);
+    }
+    return tool.createStack();
   }
 }
