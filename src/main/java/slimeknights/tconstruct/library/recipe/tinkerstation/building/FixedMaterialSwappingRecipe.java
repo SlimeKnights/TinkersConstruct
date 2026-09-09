@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation.building;
 
-import lombok.Getter;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -15,7 +14,6 @@ import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.IMultiRecipe;
 import slimeknights.mantle.recipe.ingredient.SizedIngredient;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.materials.MaterialTooltipCache;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
@@ -158,32 +156,9 @@ public class FixedMaterialSwappingRecipe extends MaterialSwappingRecipe implemen
         // for each index, use first as the material on input, desired material on output
         List<ItemStack> withoutMaterial = Arrays.stream(tools).map(stack -> withMaterial(stack.copy(), i, MaterialVariant.of(ToolBuildHandler.getRenderMaterial(i)))).toList();
         List<ItemStack> withMaterial = Arrays.stream(tools).map(stack -> withMaterial(stack.copy(), i, material)).toList();
-        return new DisplayRecipe(variantText, i, inputs, withoutMaterial, withMaterial);
+        return new MaterialDisplayRecipe(variantText, i, inputs, withoutMaterial, withMaterial);
       }).toList();
     }
     return multiRecipes;
-  }
-
-  /** Overrides the title for the display recipe */
-  private class DisplayRecipe extends MaterialSwappingRecipe.DisplayRecipe {
-    private static final Component TITLE = TConstruct.makeTranslation("recipe", "material_swapping");
-    private static final Component TOOLTIP = TConstruct.makeTranslation("recipe", "material_swapping.tooltip");
-
-    @Getter
-    private final Component variant;
-    public DisplayRecipe(Component variant, int index, List<ItemStack> input, List<ItemStack> toolWithoutModifier, List<ItemStack> toolWithModifier) {
-      super(index, input, toolWithoutModifier, toolWithModifier);
-      this.variant = variant;
-    }
-
-    @Override
-    public Component getTitle() {
-      return TITLE;
-    }
-
-    @Override
-    public Component getTooltip() {
-      return TOOLTIP;
-    }
   }
 }

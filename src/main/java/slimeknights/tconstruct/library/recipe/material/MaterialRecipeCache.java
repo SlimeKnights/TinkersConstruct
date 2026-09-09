@@ -89,7 +89,7 @@ public class MaterialRecipeCache {
     });
   }
 
-  /** Gets a list of all material recipes */
+  /** Gets a list of all material recipes, including hidden */
   public static Collection<MaterialRecipe> getAllRecipes() {
     return RECIPES;
   }

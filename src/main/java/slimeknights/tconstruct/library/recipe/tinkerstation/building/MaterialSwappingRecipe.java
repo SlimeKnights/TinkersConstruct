@@ -293,4 +293,27 @@ public abstract class MaterialSwappingRecipe implements ITinkerStationRecipe {
       return outputLinks;
     }
   }
+
+  /** Overrides the title for the display recipe */
+  protected class MaterialDisplayRecipe extends DisplayRecipe {
+    private static final Component TITLE = TConstruct.makeTranslation("recipe", "material_swapping");
+    private static final Component TOOLTIP = TConstruct.makeTranslation("recipe", "material_swapping.tooltip");
+
+    @Getter
+    private final Component variant;
+    public MaterialDisplayRecipe(Component variant, int index, List<ItemStack> input, List<ItemStack> toolWithoutModifier, List<ItemStack> toolWithModifier) {
+      super(index, input, toolWithoutModifier, toolWithModifier);
+      this.variant = variant;
+    }
+
+    @Override
+    public Component getTitle() {
+      return TITLE;
+    }
+
+    @Override
+    public Component getTooltip() {
+      return TOOLTIP;
+    }
+  }
 }

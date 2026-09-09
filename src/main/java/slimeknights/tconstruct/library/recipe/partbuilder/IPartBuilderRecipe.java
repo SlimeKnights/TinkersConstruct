@@ -84,21 +84,7 @@ public interface IPartBuilderRecipe extends ICommonRecipe<IPartBuilderContainer>
   default ItemStack getLeftover(IPartBuilderContainer inventoryWrapper, Pattern pattern) {
     IMaterialValue recipe = inventoryWrapper.getMaterial();
     if (recipe != null) {
-      int value = recipe.getValue();
-      if (value > 1) {
-        int needed = recipe.getNeeded();
-        int remainder = (value - getCost() * needed) % value;
-        if (remainder < 0) {
-          remainder += value;
-        }
-        if (remainder > 0) {
-          ItemStack leftover = recipe.getLeftover();
-          if (!leftover.isEmpty()) {
-            leftover.setCount(leftover.getCount() * remainder / needed);
-          }
-          return leftover;
-        }
-      }
+      return recipe.getLeftover(getCost());
     }
     return ItemStack.EMPTY;
   }
