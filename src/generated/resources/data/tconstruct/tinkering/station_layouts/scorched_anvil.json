@@ -4,11 +4,6 @@
   },
   "input_slots": [
     {
-      "icon": "tconstruct:quartz",
-      "x": 15,
-      "y": 62
-    },
-    {
       "icon": "tconstruct:dust",
       "x": 11,
       "y": 37
@@ -26,6 +21,11 @@
     {
       "icon": "tconstruct:gem",
       "x": 51,
+      "y": 62
+    },
+    {
+      "icon": "tconstruct:quartz",
+      "x": 15,
       "y": 62
     }
   ],

@@ -83,7 +83,7 @@ public abstract class AbstractTinkerStationCategory<T extends IDisplayTinkerStat
       .setStandardSlotBackground();
     // show icon if the slot is empty
     if (stacks.isEmpty()) {
-      slot.setOverlay(slotIcons[index], 0, 0);
+      slot.setOverlay(slotIcons[index+1], 0, 0);
     }
     return slot;
   }
