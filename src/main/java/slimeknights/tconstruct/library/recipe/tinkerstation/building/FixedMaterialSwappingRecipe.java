@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation.building;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -32,7 +30,6 @@ import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
 import slimeknights.tconstruct.tables.TinkerTables;
 
-import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.BitSet;
 import java.util.List;
@@ -146,72 +143,22 @@ public class FixedMaterialSwappingRecipe extends MaterialSwappingRecipe implemen
   /* JEI */
 
   private List<IDisplayToolModification> multiRecipes;
-  private Component variantText;
-
-  /** Gets the variant text for this recipe */
-  private Component getVariantText() {
-    if (variantText == null) {
-      variantText = MaterialTooltipCache.getDisplayName(material);
-    }
-    return variantText;
-  }
 
   @Override
   public List<IDisplayToolModification> getRecipes(RegistryAccess access) {
     if (multiRecipes == null) {
       ItemStack[] tools = this.tools.getItems();
       MaterialVariant material = MaterialVariant.of(this.material);
+      List<ItemStack> inputs = ingredient.getMatchingStacks();
+      Component variantText = MaterialTooltipCache.getDisplayName(this.material);
       // need 1 recipe per index we can swap into
       multiRecipes = Arrays.stream(indices).<IDisplayToolModification>mapToObj(i -> {
         // for each index, use first as the material on input, desired material on output
         List<ItemStack> withoutMaterial = Arrays.stream(tools).map(stack -> withMaterial(stack.copy(), MaterialVariant.of(ToolBuildHandler.getRenderMaterial(i)), i)).toList();
         List<ItemStack> withMaterial = Arrays.stream(tools).map(stack -> withMaterial(stack.copy(), material, i)).toList();
-        return new DisplayRecipe(i, withoutMaterial, withMaterial);
+        return new DisplayRecipe(variantText, i, inputs, withoutMaterial, withMaterial);
       }).toList();
     }
     return multiRecipes;
-  }
-
-
-  /** Recipe for a single index */
-  @RequiredArgsConstructor
-  private class DisplayRecipe implements IDisplayToolModification {
-    private final int index;
-    @Getter
-    private final List<ItemStack> toolWithoutModifier, toolWithModifier;
-
-    @Override
-    public Component getTitle() {
-      return TITLE;
-    }
-
-    @Override
-    public Component getTooltip() {
-      return TOOLTIP;
-    }
-
-    @Override
-    public ResourceLocation getRecipeId() {
-      return getId();
-    }
-
-    @Override
-    public int getInputCount() {
-      return index + 1;
-    }
-
-    @Override
-    public List<ItemStack> getDisplayItems(int slot) {
-      if (index == slot) {
-        return ingredient.getMatchingStacks();
-      }
-      return List.of();
-    }
-
-    @Nullable
-    @Override
-    public Component getVariant() {
-      return getVariantText();
-    }
   }
 }

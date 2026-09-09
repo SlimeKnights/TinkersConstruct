@@ -23,6 +23,7 @@ import slimeknights.tconstruct.library.recipe.ITinkerableContainer;
 import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.ModifierRecipe;
+import slimeknights.tconstruct.library.recipe.tinkerstation.IDisplayToolModification;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
@@ -34,6 +35,7 @@ import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
 import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
+import javax.annotation.Nullable;
 import java.util.BitSet;
 import java.util.List;
 
@@ -216,5 +218,49 @@ public abstract class MaterialSwappingRecipe implements ITinkerStationRecipe {
       tool.replaceMaterial(index, material);
     }
     return tool.createStack();
+  }
+
+  /** Recipe mapping a single ingredient to a part */
+  @RequiredArgsConstructor
+  protected class DisplayRecipe implements IDisplayToolModification {
+    @Getter
+    @Nullable
+    private final Component variant;
+    private final int index;
+    private final List<ItemStack> input;
+    @Getter
+    private final List<ItemStack> toolWithoutModifier, toolWithModifier;
+
+    protected DisplayRecipe(int index, List<ItemStack> input, List<ItemStack> toolWithoutModifier, List<ItemStack> toolWithModifier) {
+      this(null, index, input, toolWithoutModifier, toolWithModifier);
+    }
+
+    @Override
+    public Component getTitle() {
+      return TITLE;
+    }
+
+    @Override
+    public Component getTooltip() {
+      return TOOLTIP;
+    }
+
+    @Override
+    public ResourceLocation getRecipeId() {
+      return getId();
+    }
+
+    @Override
+    public int getInputCount() {
+      return index + 1;
+    }
+
+    @Override
+    public List<ItemStack> getDisplayItems(int slot) {
+      if (index == slot) {
+        return input;
+      }
+      return List.of();
+    }
   }
 }

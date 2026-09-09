@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation.building;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -184,44 +182,5 @@ public class PartSwappingOverrideRecipe extends MaterialSwappingRecipe implement
         }).toList();
     }
     return multiRecipes;
-  }
-
-  /** Recipe for a single index and material */
-  @RequiredArgsConstructor
-  private class DisplayRecipe implements IDisplayToolModification {
-    @Getter
-    private final Component variant;
-    private final int index;
-    private final List<ItemStack> part;
-    @Getter
-    private final List<ItemStack> toolWithoutModifier, toolWithModifier;
-
-    @Override
-    public Component getTitle() {
-      return TITLE;
-    }
-
-    @Override
-    public Component getTooltip() {
-      return TOOLTIP;
-    }
-
-    @Override
-    public ResourceLocation getRecipeId() {
-      return getId();
-    }
-
-    @Override
-    public int getInputCount() {
-      return index + 1;
-    }
-
-    @Override
-    public List<ItemStack> getDisplayItems(int slot) {
-      if (index == slot) {
-        return part;
-      }
-      return List.of();
-    }
   }
 }
