@@ -3993,6 +3993,9 @@
   "recipe.tconstruct.recycling.not_enough_durability": "Item does not have enough durability to salvage anything.",
   "recipe.tconstruct.recycling.no_enchantments": "A tool cannot be recycled if it is enchanted, use the grindstone to remove them first.",
 
+  "recipe.tconstruct.tool_damaging": "Tool Damaging",
+  "recipe.tconstruct.tool_damaging.tooltip": "Reduces the tool's durability by the given amount. Useful for maximizing modifier effects.",
+
 
   "_comment": "GUIs Messages",
 
@@ -4192,6 +4195,8 @@
 
   "jei.tconstruct.tinkering.tool_building": "Tool Building",
   "jei.tconstruct.tinkering.tool_building.anvil": "Broad tools require the Tinker's Anvil to be created or swap parts",
+
+  "jei.tconstruct.tool_modification.title": "Tool Modification",
 
   "jei.tconstruct.part_builder.title": "Part Builder",
   "jei.tconstruct.part_builder.cost": "Cost: %s",

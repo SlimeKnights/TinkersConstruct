@@ -68,6 +68,7 @@ import slimeknights.tconstruct.library.recipe.modifiers.adding.IDisplayModifierR
 import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipe;
 import slimeknights.tconstruct.library.recipe.molding.MoldingRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.IDisplayPartBuilderRecipe;
+import slimeknights.tconstruct.library.recipe.tinkerstation.IDisplayToolModification;
 import slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipe;
 import slimeknights.tconstruct.library.recipe.worktable.IModifierWorktableRecipe;
 import slimeknights.tconstruct.library.tools.SlotType;
@@ -96,6 +97,7 @@ import slimeknights.tconstruct.plugin.jei.modifiers.ModifierRecipeCategory;
 import slimeknights.tconstruct.plugin.jei.modifiers.ModifierWorktableCategory;
 import slimeknights.tconstruct.plugin.jei.modifiers.SlotIngredientHelper;
 import slimeknights.tconstruct.plugin.jei.modifiers.SlotIngredientRenderer;
+import slimeknights.tconstruct.plugin.jei.modifiers.ToolModificationCategory;
 import slimeknights.tconstruct.plugin.jei.partbuilder.MaterialItemList;
 import slimeknights.tconstruct.plugin.jei.partbuilder.PartBuilderCategory;
 import slimeknights.tconstruct.plugin.jei.partbuilder.PatternIngredientHelper;
@@ -165,6 +167,7 @@ public class JEIPlugin implements IModPlugin {
     registry.addRecipeCategories(new ModifierRecipeCategory(guiHelper));
     registry.addRecipeCategories(new SeveringCategory(guiHelper));
     registry.addRecipeCategories(new ToolBuildingCategory(guiHelper));
+    registry.addRecipeCategories(new ToolModificationCategory(guiHelper));
     // part builder
     registry.addRecipeCategories(new PartBuilderCategory(guiHelper));
     // modifier worktable
@@ -199,10 +202,8 @@ public class JEIPlugin implements IModPlugin {
     RegistryAccess access = level.registryAccess();
     RecipeManager manager = level.getRecipeManager();
     // casting
-    List<IDisplayableCastingRecipe> castingBasinRecipes = RecipeHelper.getJEIRecipes(access, manager, TinkerRecipeTypes.CASTING_BASIN.get(), IDisplayableCastingRecipe.class);
-    register.addRecipes(TConstructJEIConstants.CASTING_BASIN, castingBasinRecipes);
-    List<IDisplayableCastingRecipe> castingTableRecipes = RecipeHelper.getJEIRecipes(access, manager, TinkerRecipeTypes.CASTING_TABLE.get(), IDisplayableCastingRecipe.class);
-    register.addRecipes(TConstructJEIConstants.CASTING_TABLE, castingTableRecipes);
+    register.addRecipes(TConstructJEIConstants.CASTING_BASIN, RecipeHelper.getJEIRecipes(access, manager, TinkerRecipeTypes.CASTING_BASIN.get(), IDisplayableCastingRecipe.class));
+    register.addRecipes(TConstructJEIConstants.CASTING_TABLE, RecipeHelper.getJEIRecipes(access, manager, TinkerRecipeTypes.CASTING_TABLE.get(), IDisplayableCastingRecipe.class));
 
     // melting
     List<MeltingRecipe> meltingRecipes = RecipeHelper.getJEIRecipes(access, manager, TinkerRecipeTypes.MELTING.get(), MeltingRecipe.class);
@@ -217,15 +218,13 @@ public class JEIPlugin implements IModPlugin {
     register.addRecipes(TConstructJEIConstants.ENTITY_MELTING, entityMeltingRecipes);
 
     // alloying
-    List<AlloyRecipe> alloyRecipes = RecipeHelper.getJEIRecipes(access, manager, TinkerRecipeTypes.ALLOYING.get(), AlloyRecipe.class);
-    register.addRecipes(TConstructJEIConstants.ALLOY, alloyRecipes);
+    register.addRecipes(TConstructJEIConstants.ALLOY, RecipeHelper.getJEIRecipes(access, manager, TinkerRecipeTypes.ALLOYING.get(), AlloyRecipe.class));
 
     // molding
-    List<MoldingRecipe> moldingRecipes = ImmutableList.<MoldingRecipe>builder()
+    register.addRecipes(TConstructJEIConstants.MOLDING, ImmutableList.<MoldingRecipe>builder()
       .addAll(RecipeHelper.getJEIRecipes(access, manager, TinkerRecipeTypes.MOLDING_TABLE.get(), MoldingRecipe.class))
       .addAll(RecipeHelper.getJEIRecipes(access, manager, TinkerRecipeTypes.MOLDING_BASIN.get(), MoldingRecipe.class))
-      .build();
-    register.addRecipes(TConstructJEIConstants.MOLDING, moldingRecipes);
+      .build());
 
     // modifiers
     List<IDisplayModifierRecipe> modifierRecipes = RecipeHelper.getJEIRecipes(access, manager, TinkerRecipeTypes.TINKER_STATION.get(), IDisplayModifierRecipe.class)
@@ -238,10 +237,10 @@ public class JEIPlugin implements IModPlugin {
                                                                  return n1.compareTo(n2);
                                                                }).collect(Collectors.toList());
     register.addRecipes(TConstructJEIConstants.MODIFIERS, modifierRecipes);
+    register.addRecipes(TConstructJEIConstants.TOOL_MODIFICATION, RecipeHelper.getJEIRecipes(access, manager, TinkerRecipeTypes.TINKER_STATION.get(), IDisplayToolModification.class));
 
     // beheading
-    List<SeveringRecipe> severingRecipes = RecipeHelper.getJEIRecipes(access, manager, TinkerRecipeTypes.SEVERING.get(), SeveringRecipe.class);
-    register.addRecipes(TConstructJEIConstants.SEVERING, severingRecipes);
+    register.addRecipes(TConstructJEIConstants.SEVERING, RecipeHelper.getJEIRecipes(access, manager, TinkerRecipeTypes.SEVERING.get(), SeveringRecipe.class));
 
     // tool building
     List<ToolBuildingRecipe> toolBuilding = RecipeHelper.getJEIRecipes(access, manager, TinkerRecipeTypes.TINKER_STATION.get(), ToolBuildingRecipe.class)
@@ -285,9 +284,9 @@ public class JEIPlugin implements IModPlugin {
     // tables
     registry.addRecipeCatalyst(TinkerTables.craftingStation, RecipeTypes.CRAFTING);
     registry.addRecipeCatalyst(TinkerTables.partBuilder, TConstructJEIConstants.PART_BUILDER);
-    registry.addRecipeCatalyst(TinkerTables.tinkerStation, TConstructJEIConstants.MODIFIERS, TConstructJEIConstants.TOOL_BUILDING);
-    registry.addRecipeCatalyst(TinkerTables.tinkersAnvil, TConstructJEIConstants.MODIFIERS, TConstructJEIConstants.TOOL_BUILDING);
-    registry.addRecipeCatalyst(TinkerTables.scorchedAnvil, TConstructJEIConstants.MODIFIERS, TConstructJEIConstants.TOOL_BUILDING);
+    registry.addRecipeCatalyst(TinkerTables.tinkerStation, TConstructJEIConstants.MODIFIERS, TConstructJEIConstants.TOOL_BUILDING, TConstructJEIConstants.TOOL_MODIFICATION);
+    registry.addRecipeCatalyst(TinkerTables.tinkersAnvil, TConstructJEIConstants.MODIFIERS, TConstructJEIConstants.TOOL_BUILDING, TConstructJEIConstants.TOOL_MODIFICATION);
+    registry.addRecipeCatalyst(TinkerTables.scorchedAnvil, TConstructJEIConstants.MODIFIERS, TConstructJEIConstants.TOOL_BUILDING, TConstructJEIConstants.TOOL_MODIFICATION);
     registry.addRecipeCatalyst(TinkerTables.modifierWorktable, TConstructJEIConstants.MODIFIER_WORKTABLE);
 
     // smeltery
