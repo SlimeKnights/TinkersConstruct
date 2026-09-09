@@ -198,7 +198,7 @@ public class PartSwapCastingRecipe extends AbstractMaterialCastingRecipe impleme
 
   /** Creates a new item stack with the given material. Will modify {@code tool}. */
   private ItemStack withMaterial(ToolStack tool, MaterialVariant material) {
-    return MaterialSwappingRecipe.withMaterial(tool, material, index);
+    return MaterialSwappingRecipe.withMaterial(tool, index, material, 1);
   }
 
   @Override

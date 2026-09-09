@@ -158,9 +158,9 @@ public class TinkerStationPartSwapping extends MaterialSwappingRecipe implements
             // one part per material
             filtered.stream().map(mat -> part.withMaterialForDisplay(mat.getIdentifier())).toList(),
             // single tool with the material to swap left blank
-            List.of(withMaterial(tool.copy(), MaterialVariant.of(ToolBuildHandler.getRenderMaterial(i)), i)),
+            List.of(withMaterial(tool.copy(), i, MaterialVariant.of(ToolBuildHandler.getRenderMaterial(i)))),
             // one output per material
-            filtered.stream().map(mat -> withMaterial(tool.copy(), MaterialVariant.of(mat), i)).toList()
+            filtered.stream().map(mat -> withMaterial(tool.copy(), i, MaterialVariant.of(mat))).toList()
           );
         });
       }).toList();

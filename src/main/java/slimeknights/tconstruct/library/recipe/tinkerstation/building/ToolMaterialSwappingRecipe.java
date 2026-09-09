@@ -155,11 +155,11 @@ public class ToolMaterialSwappingRecipe extends MaterialSwappingRecipe implement
           List<IMaterial> filtered = materials.stream().filter(mat -> registry.getMaterialStats(mat.getIdentifier(), stat).isPresent()).toList();
           return new LinkedDisplayRecipe(i,
             // one part per material
-            filtered.stream().map(mat -> withMaterial(displayTool.copy(), MaterialVariant.of(mat), i)).toList(),
+            filtered.stream().map(mat -> withMaterial(displayTool.copy(), i, MaterialVariant.of(mat))).toList(),
             // single tool with the material to swap left blank
-            List.of(withMaterial(tool.copy(), renderMaterials.get(i), i)),
+            List.of(withMaterial(tool.copy(), i, renderMaterials.get(i))),
             // one output per material
-            filtered.stream().map(mat -> withMaterial(tool.copy(), MaterialVariant.of(mat), i)).toList()
+            filtered.stream().map(mat -> withMaterial(tool.copy(), i, MaterialVariant.of(mat))).toList()
           );
         });
       }).toList();

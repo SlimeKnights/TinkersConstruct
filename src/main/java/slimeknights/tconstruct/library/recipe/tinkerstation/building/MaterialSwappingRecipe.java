@@ -196,12 +196,22 @@ public abstract class MaterialSwappingRecipe implements ITinkerStationRecipe {
   /* JEI helpers */
 
   /** Creates a new item stack with the given material. Will modify {@code tool}. */
-  public static ItemStack withMaterial(ItemStack tool, MaterialVariant material, int index) {
-    return withMaterial(ToolStack.from(tool), material, index);
+  public ItemStack withMaterial(ItemStack tool, int index, MaterialVariant material) {
+    return withMaterial(ToolStack.from(tool), index, material);
   }
 
   /** Creates a new item stack with the given material. Will modify {@code tool}. */
-  public static ItemStack withMaterial(ToolStack tool, MaterialVariant material, int index) {
+  public ItemStack withMaterial(ToolStack tool, int index, MaterialVariant material) {
+    return withMaterial(tool, index, material, maxStackSize);
+  }
+
+  /** Creates a new item stack with the given material. Will modify {@code tool}. */
+  public static ItemStack withMaterial(ItemStack tool, int index, MaterialVariant material, int maxStackSize) {
+    return withMaterial(ToolStack.from(tool), index, material, maxStackSize);
+  }
+
+  /** Creates a new item stack with the given material. Will modify {@code tool}. */
+  public static ItemStack withMaterial(ToolStack tool, int index, MaterialVariant material, int maxStackSize) {
     if (tool.getMaterials().isEmpty()) {
       MaterialNBT.Builder builder = MaterialNBT.builder();
       List<MaterialStatsId> requirements = ToolMaterialHook.stats(tool.getDefinition());
@@ -217,7 +227,7 @@ public abstract class MaterialSwappingRecipe implements ITinkerStationRecipe {
       // if it has materials already just swap the one to update
       tool.replaceMaterial(index, material);
     }
-    return tool.createStack();
+    return tool.createStack(Math.min(maxStackSize, tool.getItem().getMaxStackSize()));
   }
 
   /** Recipe mapping a single ingredient to a part */
