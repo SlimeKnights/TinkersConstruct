@@ -259,13 +259,22 @@ public abstract class MaterialSwappingRecipe implements ITinkerStationRecipe {
 
     @Override
     public int getInputCount() {
-      return index + 1;
+      // need 1 input for the part, and 1 for each extra requirement
+      // if it's just the part by itself though, ensure we have an index for each location before it
+      return Math.min(index, extraRequirements.size()) + 1;
     }
 
     @Override
     public List<ItemStack> getDisplayItems(int slot) {
-      if (index == slot) {
+      if (slot == index) {
         return input;
+      }
+      // place extra requirements around the part by offsetting if the slot is after the index
+      if (slot > index) {
+        slot--;
+      }
+      if (slot < extraRequirements.size()) {
+        return extraRequirements.get(slot).getMatchingStacks();
       }
       return List.of();
     }
