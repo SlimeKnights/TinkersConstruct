@@ -36,6 +36,7 @@ import java.util.BitSet;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * Recipe that replaces a tool part with another.
@@ -151,6 +152,10 @@ public class TinkerStationPartSwapping extends MaterialSwappingRecipe implements
       multiRecipes = Arrays.stream(tools.getItems()).flatMap(stack -> {
         ToolStack tool = ToolStack.from(stack);
         List<IToolPart> parts = ToolPartsHook.parts(tool.getDefinition());
+        // JEI only shows up to 5 slots
+        if (parts.size() > MAX_SLOTS) {
+          return Stream.empty();
+        }
         return IntStream.range(0, parts.size()).<IDisplayToolModification>mapToObj(i -> {
           IToolPart part = parts.get(i);
           List<IMaterial> filtered = materials.stream().filter(mat -> registry.getMaterialStats(mat.getIdentifier(), part.getStatType()).isPresent()).toList();

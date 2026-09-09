@@ -38,6 +38,7 @@ import java.util.BitSet;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /** Recipe swapping a tool material using another tool as input */
 public class ToolMaterialSwappingRecipe extends MaterialSwappingRecipe implements IMultiRecipe<IDisplayToolModification> {
@@ -147,6 +148,9 @@ public class ToolMaterialSwappingRecipe extends MaterialSwappingRecipe implement
       multiRecipes = Arrays.stream(tools.getItems()).flatMap(stack -> {
         ToolStack tool = ToolStack.from(stack);
         List<MaterialStatsId> stats = ToolMaterialHook.stats(tool.getDefinition());
+        if (stats.size() > MAX_SLOTS) {
+          return Stream.empty();
+        }
         List<MaterialVariant> renderMaterials = IntStream.range(0, stats.size()).mapToObj(i -> MaterialVariant.of(ToolBuildHandler.getRenderMaterial(i))).toList();
         ToolStack displayTool = tool.copy();
         displayTool.setMaterials(MaterialNBT.of(renderMaterials.toArray(MaterialVariant[]::new)));

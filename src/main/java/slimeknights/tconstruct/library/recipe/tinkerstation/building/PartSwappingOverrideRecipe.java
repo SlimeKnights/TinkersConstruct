@@ -38,6 +38,7 @@ import slimeknights.tconstruct.tables.TinkerTables;
 import java.util.Arrays;
 import java.util.BitSet;
 import java.util.List;
+import java.util.stream.Stream;
 
 /** Recipe for swapping a single material on a tool given a specific tool part. Notably allows swapping a part into a tool on an index other than the first. */
 public class PartSwappingOverrideRecipe extends MaterialSwappingRecipe implements IMultiRecipe<IDisplayToolModification> {
@@ -160,7 +161,11 @@ public class PartSwappingOverrideRecipe extends MaterialSwappingRecipe implement
       // create a recipe per tool, then per index, matching standard part swapping
       multiRecipes = Arrays.stream(this.tools.getItems()).flatMap(stack -> {
         ToolStack tool = ToolStack.from(stack);
-        return Arrays.stream(indices).<IDisplayToolModification>mapToObj(i -> new LinkedDisplayRecipe(i,
+        // JEI only shows up to 5 slots
+        if (ToolMaterialHook.stats(tool.getDefinition()).size() > MAX_SLOTS) {
+          return Stream.empty();
+        }
+        return Arrays.stream(indices).filter(VALID_SLOT).<IDisplayToolModification>mapToObj(i -> new LinkedDisplayRecipe(i,
           // one part per material
           materials.stream().map(mat -> part.withMaterialForDisplay(mat.getIdentifier())).toList(),
           // single tool with the material to swap left blank

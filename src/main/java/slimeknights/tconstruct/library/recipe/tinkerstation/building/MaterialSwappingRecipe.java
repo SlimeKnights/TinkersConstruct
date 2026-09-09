@@ -38,6 +38,7 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import javax.annotation.Nullable;
 import java.util.BitSet;
 import java.util.List;
+import java.util.function.IntPredicate;
 
 /** Common logic for different implementations of material swapping. */
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
@@ -194,6 +195,10 @@ public abstract class MaterialSwappingRecipe implements ITinkerStationRecipe {
 
 
   /* JEI helpers */
+  /** Maximum slot index supported by JEI */
+  protected static final int MAX_SLOTS = 5;
+  /** Int stream filter to validate the slot index */
+  protected static IntPredicate VALID_SLOT = i -> i < MAX_SLOTS;
 
   /** Creates a new item stack with the given material. Will modify {@code tool}. */
   public ItemStack withMaterial(ItemStack tool, int index, MaterialVariant material) {
