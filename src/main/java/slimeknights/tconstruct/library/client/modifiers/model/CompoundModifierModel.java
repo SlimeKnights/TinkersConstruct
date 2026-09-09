@@ -5,7 +5,6 @@ import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.Material;
 import slimeknights.mantle.data.loadable.ErrorFactory;
-import slimeknights.mantle.data.loadable.Loadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.util.ItemLayerPixels;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -19,8 +18,7 @@ import java.util.function.Function;
 
 /** Modifier model that composes multiple modifier models together. */
 public record CompoundModifierModel(List<ModifierModel> models) implements ModifierModel {
-  public static final Loadable<List<ModifierModel>> LIST_LOADABLE = ModifierModel.LOADER.list(2);
-  public static final RecordLoadable<CompoundModifierModel> LOADER = RecordLoadable.create(LIST_LOADABLE.requiredField("models", CompoundModifierModel::models), CompoundModifierModel::new)
+  public static final RecordLoadable<CompoundModifierModel> LOADER = RecordLoadable.create(ModifierModelLoadable.LIST.requiredField("models", CompoundModifierModel::models), CompoundModifierModel::new)
     .validate((model, error) -> {
       // if parsing from JSON, discard any empty models from the list
       if (error == ErrorFactory.JSON_SYNTAX_ERROR) {

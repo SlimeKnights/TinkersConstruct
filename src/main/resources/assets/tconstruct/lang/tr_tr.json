@@ -2311,7 +2311,6 @@
   "modifier.tconstruct.gold_guard": "Altın Koruma",
   "modifier.tconstruct.gold_guard.flavor": "Altınlara aşıksın demektir",
   "modifier.tconstruct.gold_guard.description": "Üzerindeki altın niceliğine bağlı olarak sağlığını artırır",
-  "modifier.tconstruct.gold_guard.health": "Altın Sağlık",
   "modifier.tconstruct.revenge": "Öç",
   "modifier.tconstruct.revenge.flavor": "Karşı saldırıları için kusursuz",
   "modifier.tconstruct.revenge.description": "Sana saldırdıklartan sonra seni güçlü yapar",

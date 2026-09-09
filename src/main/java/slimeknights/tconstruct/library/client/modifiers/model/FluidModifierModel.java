@@ -31,9 +31,9 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 /** Model for a fluid in a tool. */
-public record FluidModifierModel(Material small, @Nullable Material large, ToolTankHelper tankHelper) implements SimpleModifierModel {
+public record FluidModifierModel(@Nullable Material small, @Nullable Material large, ToolTankHelper tankHelper) implements SimpleModifierModel {
   public static final RecordLoadable<FluidModifierModel> LOADER = RecordLoadable.create(
-    ModifierModel.MATERIAL_LOADABLE.requiredField("mask", FluidModifierModel::small),
+    ModifierModel.MATERIAL_LOADABLE.nullableField("mask", FluidModifierModel::small),
     ModifierModel.MATERIAL_LOADABLE.nullableField("mask_large", FluidModifierModel::large),
     ToolTankHelper.LOADABLE.defaultField("tank_helper", ToolTankHelper.TANK_HELPER, false, FluidModifierModel::tankHelper),
     FluidModifierModel::new);
@@ -47,7 +47,7 @@ public record FluidModifierModel(Material small, @Nullable Material large, ToolT
   private static final Vector3f ORIGIN = new Vector3f(-0.5f, -0.5f, -0.5f);
 
   /** Instance with default tank helper */
-  public FluidModifierModel(Material small, @Nullable Material large) {
+  public FluidModifierModel(@Nullable Material small, @Nullable Material large) {
     this(small, large, ToolTankHelper.TANK_HELPER);
   }
 

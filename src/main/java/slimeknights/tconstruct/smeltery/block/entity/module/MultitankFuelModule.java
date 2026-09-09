@@ -21,7 +21,6 @@ import javax.annotation.Nullable;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.function.Supplier;
 
 /** Fuel module that supports multiple tanks, selecting just one for the fuel result */
@@ -228,32 +227,31 @@ public class MultitankFuelModule extends FuelModule implements IFluidHandler {
 
   @Override
   public FuelInfo getFuelInfo() {
-    // if there is no position, means we have not yet consumed fuel. Just fetch the first tank
-    // TODO: should we try to find a valid fuel tank? might be a bit confusing if they have multiple tanks in the structure before melting
-    // however, a valid tank is a lot more effort to find
-
-    // Y of big negative is how the UI syncs null
-    BlockPos mainTank = lastPos;
-    if (mainTank.getY() == NULL_POS.getY()) {
-      // if no first, return no fuel info
-      List<BlockPos> positions = tankSupplier.get();
-      if (positions.isEmpty()) {
-        return FuelInfo.EMPTY;
-      }
-      mainTank = positions.get(0);
-      assert mainTank != null;
-    }
-
-    // fetch primary fuel handler
-    if (fluidHandler == null) {
-      LazyOptional<IFluidHandler> fluidCap = getTankHandlers().getOrDefault(mainTank, LazyOptional.empty());
+    // fetch the primary fuel handler, the tank we last pulled fuel from
+    // Y of big negative is how the UI syncs null, meaning we have not yet consumed fuel
+    if (fluidHandler == null && lastPos.getY() != NULL_POS.getY()) {
+      LazyOptional<IFluidHandler> fluidCap = getTankHandlers().getOrDefault(lastPos, LazyOptional.empty());
       if (fluidCap.isPresent()) {
         fluidHandler = fluidCap;
-        fluidHandler.addListener(fluidListener);
-      } else {
-        // ensure handlers is set
-        fluidHandler = LazyOptional.empty();
+        fluidCap.addListener(fluidListener);
       }
+    }
+
+    // two cases leave us with no tank to show despite the structure holding fuel: we never consumed fuel so we have no handler,
+    // and the tank we did consume from was drained dry while we are still burning the fuel we took out of it
+    // in both cases promote the first tank containing fluid, caching the handler so the search does not repeat next frame
+    // note we search for fluid rather than for fuel, skipping the recipe lookup as there is little use in non-fuels in the smeltery walls
+    if (fluidHandler == null || fluidHandler.orElse(EmptyFluidHandler.INSTANCE).getFluidInTank(0).isEmpty()) {
+      for (LazyOptional<IFluidHandler> tankCap : getTankHandlers().values()) {
+        if (!tankCap.orElse(EmptyFluidHandler.INSTANCE).getFluidInTank(0).isEmpty()) {
+          clearLastListener();
+          fluidHandler = tankCap;
+          tankCap.addListener(fluidListener);
+          break;
+        }
+      }
+      // if no tank contains fluid we cache nothing, so the search runs again next frame until fuel returns
+      // caching the lack of a tank saves that loop, but leaves the gauge empty after refueling a structure that ran dry
     }
 
     // determine what fluid we have and hpw many other fluids we have
@@ -262,17 +260,17 @@ public class MultitankFuelModule extends FuelModule implements IFluidHandler {
     if (!info.isEmpty()) {
       // add display info from each handler
       FluidStack currentFuel = info.getFluid();
-      for (Entry<BlockPos,LazyOptional<IFluidHandler>> entry : getTankHandlers().entrySet()) {
-        if (!mainTank.equals(entry.getKey())) {
-          entry.getValue().ifPresent(handler -> {
-            // sum if empty (more capacity) or the same fluid (more amount and capacity)
-            FluidStack fluid = handler.getFluidInTank(0);
-            if (fluid.isEmpty()) {
-              info.add(0, handler.getTankCapacity(0));
-            } else if (currentFuel.isFluidEqual(fluid)) {
-              info.add(fluid.getAmount(), handler.getTankCapacity(0));
-            }
-          });
+      for (LazyOptional<IFluidHandler> tankCap : getTankHandlers().values()) {
+        // skip the main tank, the info above is already its contents
+        if (tankCap != fluidHandler) {
+          IFluidHandler handler = tankCap.orElse(EmptyFluidHandler.INSTANCE);
+          // sum if empty (more capacity) or the same fluid (more amount and capacity)
+          FluidStack fluid = handler.getFluidInTank(0);
+          if (fluid.isEmpty()) {
+            info.add(0, handler.getTankCapacity(0));
+          } else if (currentFuel.isFluidEqual(fluid)) {
+            info.add(fluid.getAmount(), handler.getTankCapacity(0));
+          }
         }
       }
     }

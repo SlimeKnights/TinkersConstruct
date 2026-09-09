@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.plugin.jei.material;
 
 import com.google.common.collect.Streams;
-import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.ingredient.ICraftingGridHelper;
@@ -99,7 +98,7 @@ public class MaterialsCraftingExtension<T extends CraftingRecipe & MaterialsCraf
       width = height = getShapelessSize(inputStacks.size());
       builder.setShapeless();
     }
-    List<IRecipeSlotBuilder> inputs = craftingGridHelper.createAndSetInputs(builder, VanillaTypes.ITEM_STACK, inputStacks, width, height);
+    List<IRecipeSlotBuilder> inputs = craftingGridHelper.createAndSetInputs(builder, inputStacks, width, height);
     IRecipeSlotBuilder output = craftingGridHelper.createAndSetOutputs(builder, result);
     if (inputs.size() != 9) {
       Mantle.logger.error("Failed to create focus link for {} as the layout {} is not 3x3", recipe.getId(), builder.getClass().getName());

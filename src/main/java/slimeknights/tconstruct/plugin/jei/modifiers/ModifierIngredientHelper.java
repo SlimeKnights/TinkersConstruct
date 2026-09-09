@@ -38,6 +38,11 @@ public class ModifierIngredientHelper implements IIngredientHelper<ModifierEntry
   }
 
   @Override
+  public Object getUid(ModifierEntry entry, UidContext context) {
+    return entry.getId();
+  }
+
+  @Override
   public ResourceLocation getResourceLocation(ModifierEntry entry) {
     return entry.getId();
   }
@@ -106,7 +111,7 @@ public class ModifierIngredientHelper implements IIngredientHelper<ModifierEntry
   public Optional<TagKey<?>> getTagKeyEquivalent(Collection<ModifierEntry> entries) {
     List<Modifier> values = entries.stream().map(ModifierEntry::getModifier).toList();
     return ModifierManager.getAllTags()
-                          .filter(entry -> entry.equals(values))
+                          .filter(entry -> entry.getValue().equals(values))
                           .<TagKey<?>>map(Entry::getKey).findFirst();
   }
 

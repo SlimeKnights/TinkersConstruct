@@ -14,7 +14,7 @@ import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
@@ -35,7 +35,7 @@ public class MaterialFluidRecipe implements ICustomOutputRecipe<ICastingContaine
     BooleanLoadable.INSTANCE.defaultField("hide_in_book", false, false, r -> r.hideInBook),
     MaterialFluidRecipe::new);
   /** Empty recipe instance, used as a fallback */
-  public static final MaterialFluidRecipe EMPTY = new MaterialFluidRecipe(TConstruct.getResource("missingno"), FluidIngredient.EMPTY, 0, null, IMaterial.UNKNOWN_ID);
+  public static final MaterialFluidRecipe EMPTY = new MaterialFluidRecipe(TConstruct.getResource("missingno"), FluidIngredient.EMPTY, 0, null, MaterialId.UNKNOWN);
 
   @Getter
   private final ResourceLocation id;

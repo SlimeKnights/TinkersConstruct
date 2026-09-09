@@ -1,5 +1,5 @@
 {
-  "craftable": true,
+  "craftable": false,
   "hidden": false,
   "sortOrder": 30,
   "tier": 2

@@ -6,9 +6,28 @@
       "prefix": "tconstruct:slime/"
     },
     {
-      "type": "tconstruct:material",
-      "index": 0,
-      "prefix": "tconstruct:slime/overlay_"
+      "type": "tconstruct:first_present",
+      "options": [
+        {
+          "type": "tconstruct:material_has_fallback",
+          "apply": {
+            "type": "tconstruct:dyed",
+            "prefix": "tconstruct:slime/overlay_",
+            "suffix": "_bone"
+          },
+          "fallback": "bone",
+          "index": 0
+        },
+        {
+          "type": "tconstruct:dyed",
+          "prefix": "tconstruct:slime/overlay_"
+        },
+        {
+          "type": "tconstruct:material",
+          "index": 0,
+          "prefix": "tconstruct:slime/overlay_"
+        }
+      ]
     },
     "tconstruct:trim"
   ]

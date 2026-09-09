@@ -5,6 +5,5 @@
       "type": "tconstruct:zoom",
       "style": "spyglass"
     }
-  ],
-  "tooltip_display": "always"
+  ]
 }

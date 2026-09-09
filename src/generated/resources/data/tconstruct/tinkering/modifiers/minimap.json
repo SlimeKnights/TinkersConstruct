@@ -15,6 +15,5 @@
     {
       "type": "tconstruct:minimap"
     }
-  ],
-  "tooltip_display": "always"
+  ]
 }

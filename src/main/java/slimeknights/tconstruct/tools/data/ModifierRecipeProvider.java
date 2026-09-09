@@ -32,6 +32,7 @@ import slimeknights.mantle.registration.object.WoodBlockObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
+import slimeknights.tconstruct.common.recipe.LoadableFinishedRecipe;
 import slimeknights.tconstruct.common.registration.GeodeItemObject.BudSize;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
@@ -69,6 +70,7 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.data.material.MaterialIds;
+import slimeknights.tconstruct.tools.recipe.BannerModifierRecipe;
 import slimeknights.tconstruct.tools.recipe.EnchantmentConvertingRecipeBuilder;
 import slimeknights.tconstruct.tools.recipe.ModifierRemovalRecipeBuilder;
 import slimeknights.tconstruct.tools.recipe.ModifierSortingRecipeBuilder;
@@ -959,13 +961,20 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .save(consumer, prefix(ModifierIds.swiftSneak, upgradeFolder));
 
     // upgrade - boots
-    IncrementalModifierRecipeBuilder.modifier(ModifierIds.featherFalling)
-                                    .setTools(TinkerTags.Items.BOOTS)
-                                    .setInput(Items.FEATHER, 1, 25) // 1% per feather
-                                    .setSlots(SlotType.UPGRADE, 1)
-                                    .setMaxLevel(2)
-                                    .saveSalvage(consumer, prefix(ModifierIds.featherFalling, upgradeSalvage))
-                                    .save(consumer, prefix(ModifierIds.featherFalling, upgradeFolder));
+    ModifierRecipeBuilder.modifier(ModifierIds.featherFalling)
+      .setTools(TinkerTags.Items.BOOTS)
+      .setSlots(SlotType.UPGRADE, 1)
+      .saveSalvage(consumer, prefix(ModifierIds.featherFalling, upgradeSalvage));
+    MultilevelIncrementalModifierRecipeBuilder.modifier(ModifierIds.featherFall)
+      .setTools(TinkerTags.Items.BOOTS)
+      .setInput(Items.FEATHER, 1, 12) // 1% per feather
+      .addLevel(SlotType.UPGRADE, 1, 1)
+      .addLevel(2)
+      .addLevel(SlotType.UPGRADE, 1, 3)
+      .addLevel(4)
+      .checkTraitLevel()
+      .saveSalvage(consumer, prefix(ModifierIds.featherFall, upgradeSalvage))
+      .save(consumer, prefix(ModifierIds.featherFall, upgradeFolder));
     ModifierRecipeBuilder.modifier(ModifierIds.longFall)
       .setTools(TinkerTags.Items.BOOTS)
       .addInput(Items.PISTON)
@@ -1877,6 +1886,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     String folder = "tools/modifiers/slotless/";
 
     // slime staff
+    woodTexture(consumer, MaterialIds.wood, Items.STICK, folder);
     // nether
     woodTexture(consumer, MaterialIds.crimson, Blocks.CRIMSON_PLANKS, folder);
     woodTexture(consumer, MaterialIds.warped, Blocks.WARPED_PLANKS, folder);
@@ -1907,7 +1917,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     // cosmetics //
     consumer.accept(new SimpleFinishedRecipe(location(folder + "dyeing"), TinkerModifiers.armorDyeingSerializer.get()));
     consumer.accept(new SimpleFinishedRecipe(location(folder + "trim"), TinkerModifiers.armorTrimSerializer.get()));
-    consumer.accept(new SimpleFinishedRecipe(location(folder + "banner"), TinkerModifiers.bannerModifierSerializer.get()));
+    LoadableFinishedRecipe.save(consumer, BannerModifierRecipe.LOADER, new BannerModifierRecipe(location(folder + "banner"), Ingredient.of(TinkerFluids.slimeBottle.get(SlimeType.SKY))));
 
     // slimesuit //
     Consumer<FinishedRecipe> slimeEmbellishmentConsumer = withCondition(consumer, new TagFilledCondition<>(TinkerTags.Items.EMBELLISHMENT_SLIME));

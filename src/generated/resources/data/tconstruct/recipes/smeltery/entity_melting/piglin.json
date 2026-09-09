@@ -2,11 +2,7 @@
   "type": "tconstruct:entity_melting",
   "damage": 4,
   "entity": {
-    "types": [
-      "minecraft:piglin",
-      "minecraft:piglin_brute",
-      "minecraft:zombified_piglin"
-    ]
+    "tag": "forge:piglins"
   },
   "result": {
     "amount": 10,

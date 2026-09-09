@@ -95,9 +95,17 @@ public class ToolDamageUtil {
         if (!stack.isEmpty()) {
           CriteriaTriggers.ITEM_DURABILITY_CHANGED.trigger(player, stack, newDamage);
         }
+      } else if (stack == null) {
+        stack = ItemStack.EMPTY;
       }
 
+      // update durability
       tool.setDamage(newDamage);
+      // alert tools of the change
+      for (ModifierEntry modifier : tool.getModifiers()) {
+        modifier.getHook(ModifierHooks.DURABILITY_CHANGED).afterDamageTool(tool, modifier, amount, entity, stack);
+      }
+      // return true if now broken
       return newDamage >= durability;
     }
     return false;
@@ -118,7 +126,7 @@ public class ToolDamageUtil {
 
     // try each modifier
     for (ModifierEntry entry : tool.getModifierList()) {
-      amount = entry.getHook(ModifierHooks.TOOL_DAMAGE).onDamageTool(tool, entry, amount, entity, stack, cause);
+      amount = entry.getHook(ModifierHooks.TOOL_DAMAGE).beforeDamageTool(tool, entry, amount, entity, stack, cause);
       // if no more damage, done
       if (amount <= 0) {
         return false;
@@ -276,10 +284,18 @@ public class ToolDamageUtil {
       return;
     }
 
-    // note modifiers are run in the recipe instead
+    // repair factor hook is run in the recipe directly
 
     // ensure we never repair more than max durability
-    int newDamage = damage - Math.min(amount, damage);
+    amount = Math.min(amount, damage);
+    int newDamage = damage - amount;
+
+    // update the damage
     tool.setDamage(newDamage);
+
+    // alert tools of the change
+    for (ModifierEntry modifier : tool.getModifiers()) {
+      modifier.getHook(ModifierHooks.DURABILITY_CHANGED).afterRepairTool(tool, modifier, amount);
+    }
   }
 }

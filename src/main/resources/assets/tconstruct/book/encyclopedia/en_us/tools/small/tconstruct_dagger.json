@@ -1,8 +1,8 @@
 {
   "tool": "tconstruct:dagger",
   "text": [
-    { "text": "The Dagger is a quick precise weapon, usable in both hands. Identical daggers can be stacked to 2 when modifying they are undamaged, providing a discount on modifiers." },
-    { "text": "Silky grants shearing.", "paragraph": true }
+    { "text": "The dagger is a quick, low damage weapon usable in both hands. They are effective on many plants and glass blocks." },
+    { "text": "Identical undamaged daggers can be stacked to 2, providing a discount on modifiers. Silky grants shearing.", "paragraph": true }
   ],
   "properties": [
     "+3 Attack Damage",

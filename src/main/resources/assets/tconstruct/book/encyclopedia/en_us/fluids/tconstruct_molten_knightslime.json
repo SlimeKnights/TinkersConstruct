@@ -1,8 +1,8 @@
 {
   "text": "All the boom with none of the consequences.",
   "entity": [
-    "Power 2 explosion",
-    "Up to 4 Explosion Damage",
+    "Power 1 explosion, +1 power per level",
+    "Up to 4 Explosion Damage per level",
     "No explosion knockback"
   ],
   "block": [

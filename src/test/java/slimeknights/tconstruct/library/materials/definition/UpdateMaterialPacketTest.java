@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.materials.definition;
 import com.google.common.collect.ImmutableMap;
 import io.netty.buffer.Unpooled;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.item.Rarity;
 import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.fixture.MaterialFixture;
 import slimeknights.tconstruct.test.BaseMcTest;
@@ -21,8 +22,8 @@ class UpdateMaterialPacketTest extends BaseMcTest {
 
   @Test
   void testGenericEncodeDecode() {
-    IMaterial material1 = new Material(MATERIAL_ID_1, 1, 2, true, false);
-    IMaterial material2 = new Material(MATERIAL_ID_2, 3, 4, false, true);
+    IMaterial material1 = new Material(MATERIAL_ID_1, 1, 2, Rarity.UNCOMMON, true, false);
+    IMaterial material2 = new Material(MATERIAL_ID_2, 3, 4, Rarity.RARE, false, true);
     Map<MaterialId,IMaterial> materials = ImmutableMap.of(MATERIAL_ID_1, material1, MATERIAL_ID_2, material2);
     Map<MaterialId,MaterialId> redirects = ImmutableMap.of(REDIRECT_ID, MATERIAL_ID_1);
 
@@ -44,6 +45,7 @@ class UpdateMaterialPacketTest extends BaseMcTest {
     assertThat(parsedMat.getSortOrder()).isEqualTo(2);
     assertThat(parsedMat.isCraftable()).isTrue();
     assertThat(parsedMat.isHidden()).isFalse();
+    assertThat(parsedMat.getRarity()).isEqualTo(Rarity.UNCOMMON);
 
     // material 2
     parsedMat = iterator.next();
@@ -52,6 +54,7 @@ class UpdateMaterialPacketTest extends BaseMcTest {
     assertThat(parsedMat.getSortOrder()).isEqualTo(4);
     assertThat(parsedMat.isCraftable()).isFalse();
     assertThat(parsedMat.isHidden()).isTrue();
+    assertThat(parsedMat.getRarity()).isEqualTo(Rarity.RARE);
 
     // redirects not included
     Map<MaterialId,MaterialId> decodedRedirects = decoded.getRedirects();

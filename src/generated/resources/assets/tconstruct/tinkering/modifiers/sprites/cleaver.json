@@ -8,10 +8,6 @@
       "texture": "tconstruct:item/tool/cleaver/modifiers/tconstruct_bane_of_sssss",
       "texture_large": "tconstruct:item/tool/cleaver/large/modifiers/tconstruct_bane_of_sssss"
     },
-    "tconstruct:blasting": {
-      "texture": "tconstruct:item/tool/cleaver/modifiers/tconstruct_blasting",
-      "texture_large": "tconstruct:item/tool/cleaver/large/modifiers/tconstruct_blasting"
-    },
     "tconstruct:bucketing": [
       {
         "type": "tconstruct:fluid",
@@ -19,7 +15,6 @@
         "mask_large": "tconstruct:item/tool/cleaver/large/modifiers/tconstruct_bucketing_full"
       },
       {
-        "type": "tconstruct:basic",
         "texture": "tconstruct:item/tool/cleaver/modifiers/tconstruct_bucketing",
         "texture_large": "tconstruct:item/tool/cleaver/large/modifiers/tconstruct_bucketing"
       }
@@ -69,7 +64,7 @@
     },
     "tconstruct:luck": {
       "texture": "tconstruct:item/tool/cleaver/modifiers/tconstruct_luck",
-      "texture_large": "tconstruct:item/tool/cleaver/large/modifiers/tconstruct_luck"
+      "texture_large": "tconstruct:item/tool/sledge_hammer/large/modifiers/tconstruct_luck"
     },
     "tconstruct:magnetic": {
       "texture": "tconstruct:item/tool/cleaver/modifiers/tconstruct_magnetic",
@@ -111,7 +106,6 @@
         "partial_large": "tconstruct:item/tool/cleaver/large/modifiers/tconstruct_tank_partial"
       },
       {
-        "type": "tconstruct:basic",
         "texture": "tconstruct:item/tool/cleaver/modifiers/tconstruct_tank",
         "texture_large": "tconstruct:item/tool/cleaver/large/modifiers/tconstruct_tank"
       }

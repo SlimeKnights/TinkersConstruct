@@ -1,9 +1,13 @@
 {
-  "modifiers": {
-    "tconstruct:dyed": {
-      "type": "tconstruct:dyed",
-      "texture": "tconstruct:item/tool/staff/modifiers/ichor/dyed_4",
-      "texture_large": "tconstruct:item/tool/staff/large_modifiers/ichor/dyed_4"
+  "constant": {
+    "__dyed": {
+      "type": "tconstruct:crafted",
+      "model": {
+        "type": "tconstruct:dyed",
+        "texture": "tconstruct:item/tool/staff/modifiers/ichor/dyed_4",
+        "texture_large": "tconstruct:item/tool/staff/large_modifiers/ichor/dyed_4"
+      },
+      "modifier": "tconstruct:dyed"
     }
   }
 }

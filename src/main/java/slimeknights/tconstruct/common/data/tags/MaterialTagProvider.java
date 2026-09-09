@@ -14,6 +14,8 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
 
   @Override
   protected void addTags() {
+    // ensure the tag exists to help addons discover it, but we don't intend to use it
+    tag(TinkerTags.Materials.SHINY);
     tag(TinkerTags.Materials.EXCLUDE_FROM_LOOT)
       // ancient hide is deprecated, don't add it to new tools
       .add(MaterialIds.ancientHide)
@@ -180,7 +182,7 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
       // tier 3
       MaterialIds.nahuatl, MaterialIds.roseGold,
       // tier 4
-      MaterialIds.hepatizon, MaterialIds.queensSlime, MaterialIds.knightmetal
+      MaterialIds.hepatizon, MaterialIds.queensSlime, MaterialIds.knightslime
     ).addOptional(
       // tier 2
       MaterialIds.aluminum,
@@ -197,7 +199,7 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
       // tier 3
       MaterialIds.amethystBronze, MaterialIds.steel,
       // tier 4
-      MaterialIds.manyullyn, MaterialIds.cinderslime, MaterialIds.knightslime
+      MaterialIds.manyullyn, MaterialIds.cinderslime, MaterialIds.knightmetal
     ).addOptional(
       // tier 2
       MaterialIds.lead,

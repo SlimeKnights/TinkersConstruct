@@ -14,7 +14,7 @@ import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.ingredient.SizedIngredient;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.recipe.RecipeResult;
@@ -94,7 +94,7 @@ public class PartSwappingOverrideRecipe extends MaterialSwappingRecipe {
       if (!stack.isEmpty() && stack.getItem() == part) {
         // ensure the part is valid
         MaterialVariantId partVariant = part.getMaterial(stack);
-        if (partVariant.equals(IMaterial.UNKNOWN_ID)) {
+        if (partVariant.equals(MaterialId.UNKNOWN)) {
           return RecipeResult.pass();
         }
 

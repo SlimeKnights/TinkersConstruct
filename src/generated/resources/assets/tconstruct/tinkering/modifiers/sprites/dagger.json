@@ -2,14 +2,12 @@
   "modifiers": {
     "tconstruct:antiaquatic": "tconstruct:item/tool/dagger/modifiers/tconstruct_antiaquatic",
     "tconstruct:bane_of_sssss": "tconstruct:item/tool/dagger/modifiers/tconstruct_bane_of_sssss",
-    "tconstruct:blasting": "tconstruct:item/tool/dagger/modifiers/tconstruct_blasting",
     "tconstruct:bucketing": [
       {
         "type": "tconstruct:fluid",
         "mask": "tconstruct:item/tool/dagger/modifiers/tconstruct_bucketing_full"
       },
       {
-        "type": "tconstruct:basic",
         "texture": "tconstruct:item/tool/dagger/modifiers/tconstruct_bucketing"
       }
     ],
@@ -46,7 +44,6 @@
         "partial": "tconstruct:item/tool/dagger/modifiers/tconstruct_tank_partial"
       },
       {
-        "type": "tconstruct:basic",
         "texture": "tconstruct:item/tool/dagger/modifiers/tconstruct_tank"
       }
     ],

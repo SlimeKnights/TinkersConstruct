@@ -1,8 +1,12 @@
 {
-  "modifiers": {
-    "tconstruct:trim": {
-      "type": "tconstruct:armor_trim",
-      "slot": "boots"
+  "constant": {
+    "__dyed": {
+      "type": "tconstruct:crafted",
+      "model": {
+        "type": "tconstruct:dyed",
+        "texture": "tconstruct:item/tool/armor/slime/boots/laces"
+      },
+      "modifier": "tconstruct:dyed"
     }
   }
 }

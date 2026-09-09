@@ -5,7 +5,9 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:glass_panes/colorless"
+            "items": [
+              "tconstruct:clear_glass_pane"
+            ]
           }
         ]
       },

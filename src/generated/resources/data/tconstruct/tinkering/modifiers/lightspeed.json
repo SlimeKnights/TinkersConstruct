@@ -37,6 +37,5 @@
       "operation": "addition",
       "per_level": 9.0E-4
     }
-  ],
-  "tooltip_display": "always"
+  ]
 }

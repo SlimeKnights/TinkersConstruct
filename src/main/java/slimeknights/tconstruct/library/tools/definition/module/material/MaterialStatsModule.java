@@ -9,16 +9,20 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.Rarity;
 import slimeknights.mantle.data.loadable.field.LoadableField;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.json.field.OptionallyNestedLoadable;
 import slimeknights.tconstruct.library.materials.IMaterialRegistry;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatType;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
+import slimeknights.tconstruct.library.modifiers.modules.build.RarityModule;
 import slimeknights.tconstruct.library.module.HookProvider;
 import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.module.ModuleHookMap;
@@ -27,10 +31,13 @@ import slimeknights.tconstruct.library.tools.definition.module.ToolHooks;
 import slimeknights.tconstruct.library.tools.definition.module.ToolModule;
 import slimeknights.tconstruct.library.tools.definition.module.build.ToolStatsHook;
 import slimeknights.tconstruct.library.tools.definition.module.build.ToolTraitHook;
+import slimeknights.tconstruct.library.tools.definition.module.build.VolatileDataToolHook;
 import slimeknights.tconstruct.library.tools.helper.ModifierBuilder;
+import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
+import slimeknights.tconstruct.library.tools.nbt.ToolDataNBT;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.tools.modules.ArmorModuleBuilder;
 import slimeknights.tconstruct.tools.stats.PlatingMaterialStats;
@@ -41,8 +48,8 @@ import java.util.Set;
 import java.util.stream.IntStream;
 
 /** Module for building tool stats using materials */
-public class MaterialStatsModule implements ToolStatsHook, ToolTraitHook, ToolMaterialHook, MaterialRepairToolHook, ToolModule {
-  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<MaterialStatsModule>defaultHooks(ToolHooks.TOOL_STATS, ToolHooks.TOOL_TRAITS, ToolHooks.TOOL_MATERIALS, ToolHooks.MATERIAL_REPAIR);
+public class MaterialStatsModule implements ToolStatsHook, ToolTraitHook, ToolMaterialHook, MaterialRepairToolHook, ToolModule, VolatileDataToolHook {
+  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<MaterialStatsModule>defaultHooks(ToolHooks.TOOL_STATS, ToolHooks.TOOL_TRAITS, ToolHooks.TOOL_MATERIALS, ToolHooks.MATERIAL_REPAIR, ToolHooks.VOLATILE_DATA);
   protected static final LoadableField<Integer,MaterialStatsModule> PRIMARY_PART_FIELD = IntLoadable.FROM_MINUS_ONE.defaultField("primary_part", 0, true, m -> m.primaryPart);
   public static final RecordLoadable<MaterialStatsModule> LOADER = RecordLoadable.create(
     new OptionallyNestedLoadable<>(MaterialStatsId.PARSER, "stat").list().requiredField("stat_types", m -> m.statTypes),
@@ -70,6 +77,29 @@ public class MaterialStatsModule implements ToolStatsHook, ToolTraitHook, ToolMa
   @Override
   public List<ModuleHook<?>> getDefaultHooks() {
     return DEFAULT_HOOKS;
+  }
+
+  @Override
+  public void addVolatileData(IToolContext context, ToolDataNBT volatileData) {
+    Rarity max = null;
+    MaterialNBT materials = context.getMaterials();
+    boolean shiny = false;
+    for (int i = 0; i < statTypes.size(); i++) {
+      MaterialVariant material = materials.get(i);
+      // if the material is shiny, the tool becomes shiny
+      if (MaterialRegistry.getInstance().isInTag(material.getId(), TinkerTags.Materials.SHINY)) {
+        shiny = true;
+      }
+      // keep just the rarest rarity
+      Rarity rarity = material.get().getRarity();
+      max = RarityModule.max(max, rarity);
+    }
+    if (shiny) {
+      volatileData.putBoolean(IModifiable.SHINY, true);
+    }
+    if (max != null) {
+      RarityModule.setRarity(volatileData, max);
+    }
   }
 
   @Override
@@ -174,11 +204,12 @@ public class MaterialStatsModule implements ToolStatsHook, ToolTraitHook, ToolMa
     return new ArmorBuilder(slots);
   }
 
+  @Setter
+  @Accessors(fluent = true)
   @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
   public static class Builder {
     private final ImmutableList.Builder<MaterialStatsId> stats = ImmutableList.builder();
     private final ImmutableList.Builder<Float> scales = ImmutableList.builder();
-    @Setter @Accessors(fluent = true)
     private int primaryPart = 0;
 
     /** Adds a stat type */

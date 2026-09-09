@@ -9,6 +9,7 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.Tag;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 
@@ -141,7 +142,7 @@ public class MaterialNBT implements Iterable<MaterialVariant> {
 
     List<MaterialVariant> materials = listNBT.stream()
       // if any material ID fails to parse (invalid string), replace with unknown
-      .map(tag -> requireNonNullElse(MaterialVariantId.tryParse(tag.getAsString()), IMaterial.UNKNOWN_ID))
+      .map(tag -> requireNonNullElse(MaterialVariantId.tryParse(tag.getAsString()), MaterialId.UNKNOWN))
       .map(MaterialVariant::of)
       .toList();
     return new MaterialNBT(materials);

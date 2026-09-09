@@ -8,24 +8,12 @@
     ],
     "transformer": {
       "type": "tconstruct:grey_to_sprite",
-      "palette": [
-        {
-          "color": "FF000000",
-          "grey": 0
-        },
-        {
-          "grey": 63,
-          "path": "minecraft:block/blue_ice"
-        },
-        {
-          "grey": 102,
-          "path": "minecraft:block/packed_ice"
-        },
-        {
-          "grey": 140,
-          "path": "minecraft:block/ice"
-        }
-      ]
+      "palette": {
+        "000": "FF000000",
+        "063": "minecraft:block/blue_ice",
+        "102": "minecraft:block/packed_ice",
+        "140": "minecraft:block/ice"
+      }
     }
   }
 }

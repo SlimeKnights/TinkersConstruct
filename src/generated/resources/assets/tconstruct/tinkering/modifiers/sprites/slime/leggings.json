@@ -1,8 +1,12 @@
 {
-  "modifiers": {
-    "tconstruct:trim": {
-      "type": "tconstruct:armor_trim",
-      "slot": "leggings"
+  "constant": {
+    "__dyed": {
+      "type": "tconstruct:crafted",
+      "model": {
+        "type": "tconstruct:dyed",
+        "texture": "tconstruct:item/tool/armor/slime/leggings/shell"
+      },
+      "modifier": "tconstruct:dyed"
     }
   }
 }

@@ -137,7 +137,7 @@ public record SlingKnockbackModule(LevelingValue forceMultiplier, float drawtime
                 ModDataNBT data = tool.getPersistentData();
                 data.putBoolean(IS_BONKING, true);
                 InteractionHand hand = player.getUsedItemHand();
-                ToolAttackContext.Builder builder = ToolAttackContext.attacker(entity).target(target).hand(hand).cooldown(Math.min(1, charge)).extraAttack();
+                ToolAttackContext.Builder builder = ToolAttackContext.attacker(entity).target(target).hand(hand).cooldown(Math.min(1, charge));
                 if (hand == InteractionHand.MAIN_HAND) {
                   builder.applyAttributes();
                 } else {

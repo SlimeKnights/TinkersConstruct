@@ -31,7 +31,7 @@ import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfo;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfo.TintedSprite;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 
@@ -153,7 +153,7 @@ public class MaterialModel implements IUnbakedGeometry<MaterialModel> {
     }
 
     // after that its base logic
-    return bakeInternal(owner, spriteGetter, transforms, Objects.requireNonNullElse(material, IMaterial.UNKNOWN_ID), index, overrides);
+    return bakeInternal(owner, spriteGetter, transforms, Objects.requireNonNullElse(material, MaterialId.UNKNOWN), index, overrides);
   }
 
   /**

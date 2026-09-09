@@ -8,7 +8,7 @@ import slimeknights.tconstruct.library.client.data.spritetransformer.GreyToColor
 import slimeknights.tconstruct.library.client.data.spritetransformer.GreyToSpriteTransformer;
 import slimeknights.tconstruct.library.client.data.spritetransformer.IColorMapping;
 import slimeknights.tconstruct.library.client.data.spritetransformer.ISpriteTransformer;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.tools.data.material.MaterialIds;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
@@ -37,7 +37,7 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
   @Override
   protected void addAllMaterials() {
     // unknown: just do a black border, make sure it stands out when data is missing
-    buildMaterial(IMaterial.UNKNOWN_ID)
+    buildMaterial(MaterialId.UNKNOWN)
       .meleeHarvest().ranged().arrowHead().arrowShaft().statType(INGOT)
       // not using the helper to avoid catching armor models
       .statType(PlatingMaterialStats.TYPES)
@@ -83,7 +83,7 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF878787).addARGB(102, 0xFFAEAEAE).addARGB(140, 0xFFC1C1C1).addARGB(178, 0xFFD6D6D6).addARGB(216, 0xFFE9EAEB).addARGB(255, 0xFFFCFCF2).build());
     // tier 1 - wood
     buildMaterial(MaterialIds.wood)
-      .meleeHarvest().ranged().shieldCore().arrowShaft()
+      .meleeHarvest().ranged().shieldCore().arrowShaft().statType(WOOD)
       .fallbacks("wood", "stick", "primitive")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF281E0B).addARGB(102, 0xFF493615).addARGB(140, 0xFF584014).addARGB(178, 0xFF684E1E).addARGB(216, 0xFF785A22).addARGB(255, 0xFF896727).build());
     buildPlanks(MaterialIds.crimson ).arrowShaft().colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF2B141F).addARGB(102, 0xFF331824).addARGB(140, 0xFF3F1E2D).addARGB(178, 0xFF442131).addARGB(216, 0xFF4B2737).addARGB(234, 0xFF6A344B).addARGB(255, 0xFF7E3A56).build());
@@ -401,6 +401,8 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
     buildMaterial(MaterialIds.turtle)
       .maille().shell()
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF0A3118).addARGB(102, 0xFF1B5B31).addARGB(140, 0xFF30723F).addARGB(178, 0xFF388D3A).addARGB(216, 0xFF3FA442).addARGB(255, 0xFF47BF4A).build());
+    buildMaterial(MaterialIds.nautilus).shell()
+      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF6D533F).addARGB(102, 0xFF8A6A53).addARGB(140, 0xFFA6846A).addARGB(178, 0xFFBAAD96).addARGB(216, 0xFFD4CCC3).addARGB(255, 0xFFD48080).build());
 
     // wool for arrows
     for (DyeColor color : DyeColor.values()) {
@@ -451,7 +453,7 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF5D0000).addARGB(102, 0xFF750000).addARGB(127, 0xFF820000).addARGB(140, 0xFF930000).addARGB(178, 0xFFA00000).addARGB(193, 0xFFAB0000).addARGB(216, 0xFFB80000).addARGB(255, 0xFFE82323).build());
     buildMaterial(MaterialIds.clay)
       .slime()
-      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF55627F).addARGB(102, 0xFF5E6C8D).addARGB(140, 0xFF757D90).addARGB(178, 0xFF9499A4).addARGB(216, 0xFFA1A7B1).addARGB(255, 0xFFAFB9D6).build());
+      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF373944).addARGB(102, 0xFF40445A).addARGB(140, 0xFF5E6C8D).addARGB(178, 0xFF757D90).addARGB(216, 0xFF9499A4).addARGB(255, 0xFFAFB9D6).build());
     buildMaterial(MaterialIds.honey)
       .slime()
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFFC86A08).addARGB(102, 0xFFD87803).addARGB(140, 0xFFE88C08).addARGB(178, 0xFFFAAB1C).addARGB(216, 0xFFFFCE5D).addARGB(255, 0xFFFFE47F).build());

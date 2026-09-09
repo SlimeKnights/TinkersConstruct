@@ -1,8 +1,8 @@
 {
   "text": "Ever wish you were a ghast? This gets you partway there.",
   "entity": [
-    "Power 1 explosion",
-    "Up to 2 Explosion Damage"
+    "Power 0.5 explosion +0.5 per level",
+    "Up to 2 Explosion Damage per level"
   ],
   "block": [
     "Explosion breaks blocks",

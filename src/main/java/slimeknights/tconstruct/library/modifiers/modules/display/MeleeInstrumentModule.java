@@ -98,7 +98,7 @@ public record MeleeInstrumentModule(@Nullable MaterialId material, TagKey<Instru
         float range = instrument.range() / 16f;
         Level level = attacker.level();
 
-        level.playSound(null, target, instrument.soundEvent().value(), SoundSource.RECORDS, range, 1.0f);
+        level.playSound(null, attacker, instrument.soundEvent().value(), SoundSource.RECORDS, range, 1.0f);
         level.gameEvent(GameEvent.INSTRUMENT_PLAY, target.position(), GameEvent.Context.of(attacker));
       }
     }

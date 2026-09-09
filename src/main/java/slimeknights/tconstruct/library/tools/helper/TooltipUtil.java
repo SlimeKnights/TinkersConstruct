@@ -33,6 +33,7 @@ import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.EntityInteractionModifierHook;
+import slimeknights.tconstruct.library.modifiers.util.ModifierTooltip;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.definition.module.ToolHooks;
 import slimeknights.tconstruct.library.tools.definition.module.display.ToolNameHook;
@@ -206,7 +207,7 @@ public class TooltipUtil {
   public static void addModifierNames(ItemStack stack, IToolStackView tool, @Nullable Player player, List<Component> tooltips, TooltipFlag flag) {
     RegistryAccess access = player == null ? null : player.level().registryAccess();
     for (ModifierEntry entry : tool.getModifierList()) {
-      if (entry.getModifier().shouldDisplay(false)) {
+      if (entry.getModifier().shouldDisplay(ModifierTooltip.TOOL)) {
         Component name = entry.getModifier().getDisplayName(tool, entry, access);
         if (flag.isAdvanced() && Config.CLIENT.modifiersIDsInAdvancedTooltips.get()) {
           tooltips.add(Component.translatable(KEY_ID_FORMAT, name, Component.literal(entry.getModifier().getId().toString())).withStyle(ChatFormatting.DARK_GRAY));

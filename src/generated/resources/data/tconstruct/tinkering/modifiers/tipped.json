@@ -4,6 +4,5 @@
     {
       "type": "tconstruct:tipped"
     }
-  ],
-  "tooltip_display": "always"
+  ]
 }

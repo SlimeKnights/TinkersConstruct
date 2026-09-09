@@ -8,14 +8,10 @@ import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.resources.ResourceLocation;
-import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.util.ItemLayerPixels;
-import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfo;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
 import slimeknights.tconstruct.library.client.model.tools.MaterialModel;
-import slimeknights.tconstruct.library.client.modifiers.model.ModifierModel;
-import slimeknights.tconstruct.library.client.modifiers.model.SimpleModifierModel;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -29,13 +25,13 @@ import java.util.function.Function;
 
 /**
  * Model for a modifier that has variants based on a material
- * TODO 1.21: move to {@link slimeknights.tconstruct.library.modifiers.modules}
+ * @deprecated use {@link slimeknights.tconstruct.library.client.modifiers.model.MaterialModifierModel}
  */
+@Deprecated
 @Getter
 @Accessors(fluent = true)
 @RequiredArgsConstructor
-public class MaterialModifierModel implements SimpleModifierModel {
-  public static final RecordLoadable<MaterialModifierModel> LOADER = SimpleModifierModel.loader(MaterialModifierModel::new);
+public class MaterialModifierModel implements IBakedModifierModel {
   /** Fetches relevant material textures after checking if the texture exists */
   @Nullable
   private static Material stitchMaterialTextures(Function<String,Material> textureGetter) {
@@ -54,7 +50,7 @@ public class MaterialModifierModel implements SimpleModifierModel {
     return baseTexture;
   }
 
-  /** @deprecated legacy system, use {@link #LOADER} */
+  /** @deprecated legacy system, use {@link slimeknights.tconstruct.library.client.modifiers.model.MaterialModifierModel.PersistentData#LOADER} */
   @Deprecated
   public static final IUnbakedModifierModel UNBAKED_INSTANCE = (smallGetter, largeGetter) -> {
     Material smallTexture = stitchMaterialTextures(smallGetter);
@@ -69,22 +65,6 @@ public class MaterialModifierModel implements SimpleModifierModel {
   private final Material small;
   @Nullable
   private final Material large;
-
-  @Override
-  public RecordLoadable<? extends ModifierModel> getLoader() {
-    return LOADER;
-  }
-
-  @Override
-  public void validate(Function<Material, TextureAtlasSprite> spriteGetter) {
-    SimpleModifierModel.super.validate(spriteGetter);
-    if (Config.CLIENT.logMissingMaterialTextures.get()) {
-      for (MaterialRenderInfo info : MaterialRenderInfoLoader.INSTANCE.getAllRenderInfos()) {
-        if (small != null) info.getSprite(small, spriteGetter);
-        if (large != null) info.getSprite(large, spriteGetter);
-      }
-    }
-  }
 
   @Nullable
   @Override

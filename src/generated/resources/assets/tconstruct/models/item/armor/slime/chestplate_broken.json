@@ -7,7 +7,8 @@
   },
   "modifier_maps": [
     "tconstruct:slime/chestplate_broken",
-    "tconstruct:slime/chestplate"
+    "tconstruct:slime/chestplate",
+    "tconstruct:armor/chestplate"
   ],
   "parts": [
     {
@@ -18,8 +19,5 @@
       "name": "ribcage",
       "index": 0
     }
-  ],
-  "first_modifiers": [
-    "tconstruct:trim"
   ]
 }

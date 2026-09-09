@@ -9,7 +9,7 @@ import net.minecraft.world.level.Level;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.ingredient.SizedIngredient;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.casting.material.MaterialCastingLookup;
@@ -91,7 +91,7 @@ public class TinkerStationPartSwapping extends MaterialSwappingRecipe {
       if (!stack.isEmpty() && stack.getItem() instanceof IToolPart part) {
         // ensure the part is valid
         MaterialVariantId partVariant = part.getMaterial(stack);
-        if (partVariant.equals(IMaterial.UNKNOWN_ID)) {
+        if (partVariant.equals(MaterialId.UNKNOWN)) {
           return RecipeResult.pass();
         }
 

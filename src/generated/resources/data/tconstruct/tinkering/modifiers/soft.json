@@ -11,6 +11,5 @@
       "operation": "multiply_all",
       "stat": "tconstruct:projectile_damage"
     }
-  ],
-  "tooltip_display": "always"
+  ]
 }

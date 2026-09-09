@@ -76,18 +76,19 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
   protected void addTags() {
     tag(GEMS).add(ModifierIds.diamond, ModifierIds.emerald);
     tag(INVISIBLE_INK_BLACKLIST).add(
-      TinkerModifiers.embellishment.getId(), TinkerModifiers.dyed.getId(), TinkerModifiers.trim.getId(),
+      TinkerModifiers.embellishment.getId(), TinkerModifiers.dyed.getId(), TinkerModifiers.trim.getId(), TinkerModifiers.banner.getId(),
       TinkerModifiers.creativeSlot.getId(), TinkerModifiers.statOverride.getId(),
       ModifierIds.shiny, TinkerModifiers.golden.getId()
     );
     tag(REMOVE_MODIFIER_BLACKLIST).add(TinkerModifiers.creativeSlot.getId(), TinkerModifiers.statOverride.getId());
     tag(EXTRACT_MODIFIER_BLACKLIST).add(
-      TinkerModifiers.embellishment.getId(), TinkerModifiers.dyed.getId(), TinkerModifiers.trim.getId(),
+      TinkerModifiers.embellishment.getId(), TinkerModifiers.dyed.getId(), TinkerModifiers.trim.getId(), TinkerModifiers.banner.getId(),
       ModifierIds.rebalanced, TinkerModifiers.overslime.getId()
     ).addTag(REMOVE_MODIFIER_BLACKLIST);
     // blacklist modifiers that are not really slotless, they just have a slotless recipe
-    tag(EXTRACT_SLOTLESS_BLACKLIST).add(ModifierIds.luck, ModifierIds.toolBelt);
-    tag(EXTRACT_UPGRADE_BLACKLIST);
+    tag(EXTRACT_SLOTLESS_BLACKLIST).add(ModifierIds.luck, ModifierIds.toolBelt, ModifierIds.featherFall);
+    // modifiers with different slot types per level
+    tag(EXTRACT_UPGRADE_BLACKLIST).add(ModifierIds.leaping, ModifierIds.reflecting, ModifierIds.returning);
 
     // modifiers in this tag support both left click and right click interaction
     tag(DUAL_INTERACTION).add(
@@ -168,7 +169,7 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
     this.tag(HELMET_UPGRADES).add(TinkerModifiers.itemFrame.getId(), ModifierIds.respiration, ModifierIds.minimap).addOptional(ModifierIds.headlight);
     this.tag(CHESTPLATE_UPGRADES).add(ModifierIds.haste, ModifierIds.knockback, TinkerModifiers.sleeves.getId());
     this.tag(LEGGING_UPGRADES).add(ModifierIds.leaping, TinkerModifiers.shieldStrap.getId(), ModifierIds.speedy, ModifierIds.swiftSneak, ModifierIds.stepUp);
-    this.tag(BOOT_UPGRADES).add(ModifierIds.depthStrider, ModifierIds.featherFalling, ModifierIds.longFall, ModifierIds.lightspeed, ModifierIds.soulspeed);
+    this.tag(BOOT_UPGRADES).add(ModifierIds.depthStrider, ModifierIds.featherFall, ModifierIds.longFall, ModifierIds.lightspeed, ModifierIds.soulspeed);
 
     this.tag(RANGED_UPGRADES).add(
       ModifierIds.pierce, ModifierIds.power, ModifierIds.punch, ModifierIds.quickCharge,

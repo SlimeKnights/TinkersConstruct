@@ -29,6 +29,7 @@ public class BlockContainerOpenedTrigger extends SimpleCriterionTrigger<BlockCon
     return ID;
   }
 
+  @SuppressWarnings("removal")
   @Override
   protected Instance createInstance(JsonObject json, ContextAwarePredicate predicate, DeserializationContext pDeserializationContext) {
     ResourceLocation id = new ResourceLocation(GsonHelper.getAsString(json, "type"));

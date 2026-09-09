@@ -15,6 +15,7 @@ import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.util.ModifierTooltip;
 import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
 
 import javax.annotation.Nullable;
@@ -49,7 +50,7 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
     }
     MaterialVariantId materialVariant = self.getMaterial(stack);
     MaterialId id = materialVariant.getId();
-    if (!materialVariant.equals(IMaterial.UNKNOWN_ID)) {
+    if (!materialVariant.equals(MaterialId.UNKNOWN)) {
       // internal material ID
       if (flag.isAdvanced()) {
         tooltip.add((Component.translatable(MATERIAL_KEY, materialVariant.toString())).withStyle(ChatFormatting.DARK_GRAY));
@@ -58,7 +59,7 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
         // add all valid traits
         TooltipKey key = SafeClientAccess.getTooltipKey();
         for (ModifierEntry entry : MaterialRegistry.getInstance().getTraits(id, self.getStatType())) {
-          if (!entry.isBound()) {
+          if (!entry.isBound() || !entry.getModifier().shouldDisplay(ModifierTooltip.TOOL_PART)) {
             continue;
           }
           Component name = entry.getDisplayName();

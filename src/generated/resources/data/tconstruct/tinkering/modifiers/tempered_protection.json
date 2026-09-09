@@ -7,6 +7,5 @@
       "damage_source": "mantle:can_protect",
       "each_level": 1.25
     }
-  ],
-  "tooltip_display": "always"
+  ]
 }

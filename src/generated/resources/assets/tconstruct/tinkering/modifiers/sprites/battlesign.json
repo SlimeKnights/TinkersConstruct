@@ -2,14 +2,12 @@
   "modifiers": {
     "tconstruct:antiaquatic": "tconstruct:item/tool/battlesign/modifiers/tconstruct_antiaquatic",
     "tconstruct:bane_of_sssss": "tconstruct:item/tool/battlesign/modifiers/tconstruct_bane_of_sssss",
-    "tconstruct:blasting": "tconstruct:item/tool/battlesign/modifiers/tconstruct_blasting",
     "tconstruct:bucketing": [
       {
         "type": "tconstruct:fluid",
         "mask": "tconstruct:item/tool/battlesign/modifiers/tconstruct_bucketing_full"
       },
       {
-        "type": "tconstruct:basic",
         "texture": "tconstruct:item/tool/battlesign/modifiers/tconstruct_bucketing"
       }
     ],
@@ -53,7 +51,6 @@
         "partial": "tconstruct:item/tool/battlesign/modifiers/tconstruct_tank_partial"
       },
       {
-        "type": "tconstruct:basic",
         "texture": "tconstruct:item/tool/battlesign/modifiers/tconstruct_tank"
       }
     ],

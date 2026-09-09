@@ -7,11 +7,8 @@
   },
   "modifier_maps": [
     "tconstruct:travelers/vest_broken",
-    "tconstruct:travelers/vest"
-  ],
-  "first_modifiers": [
-    "tconstruct:dyed",
-    "tconstruct:trim"
+    "tconstruct:travelers/vest",
+    "tconstruct:armor/chestplate"
   ],
   "parts": [
     {

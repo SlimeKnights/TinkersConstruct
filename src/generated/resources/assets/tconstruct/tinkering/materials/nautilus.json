@@ -1,0 +1,24 @@
+{
+  "color": "FFD4CCC3",
+  "generator": {
+    "supported_stats": [
+      "tconstruct:shell",
+      "tconstruct:repair_kit"
+    ],
+    "transformer": {
+      "type": "tconstruct:recolor_sprite",
+      "color_mapping": {
+        "type": "tconstruct:grey_to_color",
+        "palette": {
+          "000": "FF000000",
+          "063": "FF6D533F",
+          "102": "FF8A6A53",
+          "140": "FFA6846A",
+          "178": "FFBAAD96",
+          "216": "FFD4CCC3",
+          "255": "FFD48080"
+        }
+      }
+    }
+  }
+}

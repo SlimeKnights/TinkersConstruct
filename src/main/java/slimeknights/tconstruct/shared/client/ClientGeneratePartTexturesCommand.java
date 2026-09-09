@@ -34,7 +34,7 @@ import slimeknights.tconstruct.library.client.data.util.ResourceManagerSpriteRea
 import slimeknights.tconstruct.library.client.materials.MaterialGeneratorInfo;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfo;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.shared.network.GeneratePartTexturesPacket.Operation;
@@ -263,7 +263,7 @@ public class ClientGeneratePartTexturesCommand {
   }
 
   /** We are using loadables just for JSON parsing. Its not *exactly* made for that so we are basically using this to no-op the getter */
-  private static final MaterialRenderInfo EMPTY = new MaterialRenderInfo(IMaterial.UNKNOWN_ID, null, new String[0], -1, 0);
+  private static final MaterialRenderInfo EMPTY = new MaterialRenderInfo(MaterialId.UNKNOWN, null, new String[0], -1, 0);
 
   /** Loadable for a sprite info */
   private static final RecordLoadable<MaterialSpriteInfo> SPRITE_LOADER = RecordLoadable.create(

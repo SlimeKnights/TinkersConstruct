@@ -52,6 +52,7 @@ import java.util.Objects;
 /**
  * This recipe is used for crafting a set of parts into a tool.
  * TODO 1.21: extend {@link MaterialSwappingRecipe} to automatically provide part swapping here.
+ * TODO 1.21: support specifying material items instead of tool parts for crafting, for the sake of JSON addons.
  */
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class ToolBuildingRecipe implements ITinkerStationRecipe {

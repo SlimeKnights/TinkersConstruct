@@ -9,7 +9,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.mantle.recipe.helper.ItemOutput;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 
 import java.util.function.Consumer;
@@ -20,7 +19,7 @@ public class ItemPartRecipeBuilder extends AbstractRecipeBuilder<ItemPartRecipeB
   private final ItemOutput result;
   @Setter @Accessors(chain = true)
   private Ingredient patternItem = IPartBuilderRecipe.DEFAULT_PATTERNS;
-  private MaterialId materialId = IMaterial.UNKNOWN_ID;
+  private MaterialId materialId = MaterialId.UNKNOWN;
   private int cost = 0;
 
   /** Sets the material Id and cost */

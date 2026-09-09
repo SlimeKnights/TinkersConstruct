@@ -18,6 +18,7 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierManager.ModifierRegistrationEvent;
 import slimeknights.tconstruct.library.modifiers.hook.mining.BreakSpeedContext;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
+import slimeknights.tconstruct.library.modifiers.util.ModifierTooltip;
 import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.module.ModuleHookMap.Builder;
@@ -50,7 +51,7 @@ public class Modifier implements IdAwareObject {
 
   /** Cached key used for translations */
   @Nullable
-  private String translationKey;
+  protected String translationKey;
   /** Cached text component for display names */
   @Nullable
   private Component displayName;
@@ -212,9 +213,10 @@ public class Modifier implements IdAwareObject {
    */
   public List<Component> getDescriptionList() {
     if (descriptionList == null) {
+      String key = getTranslationKey();
       descriptionList = Arrays.asList(
-        Component.translatable(getTranslationKey() + ".flavor").withStyle(ChatFormatting.ITALIC),
-        Component.translatable(getTranslationKey() + ".description").withStyle(ChatFormatting.GRAY));
+        Component.translatable(key + ".flavor").withStyle(ChatFormatting.ITALIC),
+        Component.translatable(key + ".description").withStyle(ChatFormatting.GRAY));
     }
     return descriptionList;
   }
@@ -293,13 +295,19 @@ public class Modifier implements IdAwareObject {
 
   /* General hooks */
 
-  /**
-   * Determines if the modifier should display
-   * @param advanced  If true, in an advanced view such as the tinker station. False for tooltips
-   * @return  True if the modifier should show
-   */
+  /** @deprecated use {@link #shouldDisplay(ModifierTooltip)} */
+  @Deprecated(forRemoval = true)
   public boolean shouldDisplay(boolean advanced) {
     return true;
+  }
+
+  /**
+   * Determines if the modifier should display in modifier lists
+   * @param context  Context displaing the modifier. Might be a block, a book, or a tool.
+   * @return  True if the modifier should show
+   */
+  public boolean shouldDisplay(ModifierTooltip context) {
+    return context.isNew() || shouldDisplay(context == ModifierTooltip.TINKER_STATION);
   }
 
 

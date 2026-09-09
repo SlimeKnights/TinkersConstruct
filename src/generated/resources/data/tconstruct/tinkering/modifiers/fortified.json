@@ -7,6 +7,5 @@
       "name": "defense"
     }
   ],
-  "priority": 60,
-  "tooltip_display": "always"
+  "priority": 60
 }

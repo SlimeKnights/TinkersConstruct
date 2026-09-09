@@ -25,7 +25,7 @@ import slimeknights.tconstruct.common.SoundUtils;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.client.model.ModelProperties;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
@@ -76,7 +76,7 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
 
   /** Material variant texture, alterantive to {@link #getTexture()} in the model. */
   @Getter
-  private MaterialVariantId material = IMaterial.UNKNOWN_ID;
+  private MaterialVariantId material = MaterialId.UNKNOWN;
 
   public TinkerStationBlockEntity(BlockPos pos, BlockState state) {
     // if the block is the right type, use it for slot count
@@ -320,7 +320,7 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
   public void updateTexture(String name) {
     // reset material
     if (!name.isEmpty()) {
-      this.material = IMaterial.UNKNOWN_ID;
+      this.material = MaterialId.UNKNOWN;
     }
     super.updateTexture(name);
   }
@@ -341,7 +341,7 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
   @Override
   public void saveSynced(CompoundTag tags) {
     super.saveSynced(tags);
-    if (material != IMaterial.UNKNOWN_ID) {
+    if (material != MaterialId.UNKNOWN) {
       tags.putString(MATERIAL_TAG, material.toString());
     }
   }
@@ -350,7 +350,7 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
   public void load(CompoundTag tags) {
     super.load(tags);
     if (tags.contains(MATERIAL_TAG, Tag.TAG_STRING)) {
-      material = Objects.requireNonNullElse(MaterialVariantId.tryParse(tags.getString(MATERIAL_TAG)), IMaterial.UNKNOWN_ID);
+      material = Objects.requireNonNullElse(MaterialVariantId.tryParse(tags.getString(MATERIAL_TAG)), MaterialId.UNKNOWN);
       RetexturedHelper.onTextureUpdated(this);
     }
   }

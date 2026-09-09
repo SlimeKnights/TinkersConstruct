@@ -11,6 +11,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
+import slimeknights.tconstruct.gadgets.client.FancyArmorStandRenderer;
 import slimeknights.tconstruct.gadgets.client.FancyItemFrameRenderer;
 import slimeknights.tconstruct.gadgets.entity.shuriken.ShurikenEntityBase;
 import slimeknights.tconstruct.tools.client.material.ThrownShurikenRenderer;
@@ -27,6 +28,7 @@ public class GadgetClientEvents extends ClientEventBase {
   @SubscribeEvent
   static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
     event.registerEntityRenderer(TinkerGadgets.itemFrameEntity.get(), FancyItemFrameRenderer::new);
+    event.registerEntityRenderer(TinkerGadgets.armorStandEntity.get(), FancyArmorStandRenderer::new);
     EntityRendererProvider<ThrowableItemProjectile> throwable = ThrownItemRenderer::new;
     event.registerEntityRenderer(TinkerGadgets.glowBallEntity.get(), throwable);
     event.registerEntityRenderer(TinkerGadgets.eflnEntity.get(), throwable);

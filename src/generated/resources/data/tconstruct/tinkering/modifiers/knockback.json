@@ -73,6 +73,5 @@
         "tag": "tconstruct:knockback_slings/target"
       }
     }
-  ],
-  "tooltip_display": "always"
+  ]
 }

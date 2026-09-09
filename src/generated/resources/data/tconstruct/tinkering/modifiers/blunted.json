@@ -5,6 +5,5 @@
       "type": "tconstruct:volatile_flag",
       "flag": "tconstruct:no_melee"
     }
-  ],
-  "tooltip_display": "always"
+  ]
 }

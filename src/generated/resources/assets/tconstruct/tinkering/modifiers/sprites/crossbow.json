@@ -1,7 +1,7 @@
 {
   "modifiers": {
     "tconstruct:diamond": "tconstruct:item/tool/crossbow/modifiers/tconstruct_diamond",
-    "tconstruct:emerald": "tconstruct:item/tool/crossbow/modifiers/tconstruct_emerald",
+    "tconstruct:emerald": "tconstruct:item/tool/longbow/modifiers/tconstruct_emerald",
     "tconstruct:experienced": "tconstruct:item/tool/crossbow/modifiers/tconstruct_experienced",
     "tconstruct:fiery": {
       "luminosity": 10,

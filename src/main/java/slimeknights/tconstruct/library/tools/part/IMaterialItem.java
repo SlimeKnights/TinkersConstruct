@@ -20,7 +20,7 @@ public interface IMaterialItem extends ItemLike {
   /**
    * Returns the material ID of the part this itemstack holds.
    *
-   * @return Material ID or {@link IMaterial#UNKNOWN_ID} if invalid
+   * @return Material ID or {@link MaterialId#UNKNOWN} if invalid
    */
   MaterialVariantId getMaterial(ItemStack stack);
 
@@ -100,7 +100,7 @@ public interface IMaterialItem extends ItemLike {
     if ((stack.getItem() instanceof IMaterialItem)) {
       return ((IMaterialItem) stack.getItem()).getMaterial(stack);
     }
-    return IMaterial.UNKNOWN_ID;
+    return MaterialId.UNKNOWN;
   }
 
   /**

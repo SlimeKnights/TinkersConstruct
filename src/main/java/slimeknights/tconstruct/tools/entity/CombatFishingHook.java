@@ -33,7 +33,7 @@ import net.minecraftforge.common.ToolActions;
 import slimeknights.mantle.util.CombatHelper;
 import slimeknights.tconstruct.common.TinkerDamageTypes;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
@@ -109,7 +109,7 @@ public class CombatFishingHook extends FishingHook implements ProjectileWithKnoc
     super.defineSynchedData();
     this.entityData.define(GRAPPLE, (byte) GrappleType.NONE.ordinal());
     this.entityData.define(COLLECTING, false);
-    this.entityData.define(MATERIAL, IMaterial.UNKNOWN_ID);
+    this.entityData.define(MATERIAL, MaterialId.UNKNOWN);
   }
 
   /** Gets the currently displayed material */
@@ -401,7 +401,7 @@ public class CombatFishingHook extends FishingHook implements ProjectileWithKnoc
   public void readAdditionalSaveData(CompoundTag tag) {
     super.readAdditionalSaveData(tag);
     if (tag.contains(TAG_MATERIAL)) {
-      setMaterial(Objects.requireNonNullElse(MaterialVariantId.tryParse(tag.getString(TAG_MATERIAL)), IMaterial.UNKNOWN_ID));
+      setMaterial(Objects.requireNonNullElse(MaterialVariantId.tryParse(tag.getString(TAG_MATERIAL)), MaterialId.UNKNOWN));
     }
   }
 }

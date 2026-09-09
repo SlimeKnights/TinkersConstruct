@@ -10,6 +10,16 @@
       {
         "level": 1,
         "name": "tconstruct:projectile_protection"
+      },
+      {
+        "level": 1,
+        "name": "tconstruct:iron_armor"
+      }
+    ],
+    "tconstruct:maille": [
+      {
+        "level": 1,
+        "name": "tconstruct:projectile_protection"
       }
     ],
     "tconstruct:skull": [

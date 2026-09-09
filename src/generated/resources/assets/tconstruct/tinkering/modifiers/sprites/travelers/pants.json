@@ -1,12 +1,15 @@
 {
-  "modifiers": {
-    "tconstruct:dyed": {
-      "type": "tconstruct:dyed",
-      "texture": "tconstruct:item/tool/armor/travelers/pants/modifiers/dyed"
-    },
-    "tconstruct:trim": {
-      "type": "tconstruct:armor_trim",
-      "slot": "leggings"
+  "constant": {
+    "__dyed": {
+      "type": "tconstruct:crafted",
+      "model": {
+        "type": "tconstruct:dyed",
+        "texture": "tconstruct:item/tool/armor/travelers/pants/modifiers/dyed"
+      },
+      "modifier": "tconstruct:dyed"
     }
+  },
+  "modifiers": {
+    "tconstruct:swift_sneak": "tconstruct:item/tool/armor/travelers/pants/modifiers/tconstruct_swift_sneak"
   }
 }

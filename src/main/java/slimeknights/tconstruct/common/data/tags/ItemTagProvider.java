@@ -197,6 +197,8 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.copy(Tags.Blocks.STORAGE_BLOCKS, Tags.Items.STORAGE_BLOCKS);
 
     // glass
+    copy(Tags.Blocks.GLASS, Tags.Items.GLASS);
+    copy(Tags.Blocks.GLASS_PANES, Tags.Items.GLASS_PANES);
     copy(Tags.Blocks.GLASS_SILICA, Tags.Items.GLASS_SILICA);
     copy(Tags.Blocks.GLASS_TINTED, Tags.Items.GLASS_TINTED);
     copy(TinkerTags.Blocks.GLASS_PANES_SILICA, TinkerTags.Items.GLASS_PANES_SILICA);
@@ -371,12 +373,12 @@ public class ItemTagProvider extends ItemTagsProvider {
     // armor
     addArmorTags(TinkerTools.travelersGear, SINGLEPART_TOOL, DURABILITY, BONUS_SLOTS, DYEABLE, TRIM, ItemTags.FREEZE_IMMUNE_WEARABLES);
     addArmorTags(TinkerTools.plateArmor,    MULTIPART_TOOL, DURABILITY, BONUS_SLOTS, DYEABLE, TRIM);
-    addArmorTags(TinkerTools.slimesuit,     DURABILITY, BONUS_SLOTS, TRIM, SINGLEPART_TOOL, UNRECYCLABLE);
-    addToolTags(TinkerTools.slimeWings, DURABILITY, BONUS_SLOTS, TRIM, SINGLEPART_TOOL, CHESTPLATES, Tags.Items.ARMORS_CHESTPLATES);
+    addArmorTags(TinkerTools.slimesuit,     DURABILITY, BONUS_SLOTS, DYEABLE, TRIM, SINGLEPART_TOOL, UNRECYCLABLE);
+    addToolTags(TinkerTools.slimeWings, DURABILITY, BONUS_SLOTS, DYEABLE, TRIM, SINGLEPART_TOOL, CHESTPLATES, Tags.Items.ARMORS_CHESTPLATES);
     addToolTags(TinkerTools.slimesuit.get(ArmorItem.Type.HELMET), SWAPPABLE_SKULLS);
 
     // shields
-    addToolTags(TinkerTools.travelersShield, DURABILITY, BONUS_SLOTS, SHIELDS, INTERACTABLE_LEFT, Tags.Items.TOOLS_SHIELDS, SINGLEPART_TOOL, UNRECYCLABLE, DYEABLE);
+    addToolTags(TinkerTools.travelersShield, DURABILITY, BONUS_SLOTS, SHIELDS, INTERACTABLE_LEFT, Tags.Items.TOOLS_SHIELDS, SINGLEPART_TOOL, UNRECYCLABLE, BANNER, DYEABLE);
     addToolTags(TinkerTools.plateShield,     DURABILITY, BONUS_SLOTS, SHIELDS, INTERACTABLE_LEFT, Tags.Items.TOOLS_SHIELDS, SINGLEPART_TOOL, UNRECYCLABLE, BANNER);
 
     // care about order for armor in the book

@@ -1,8 +1,8 @@
 {
   "text": "Molten signalum is great for inverted explosive combat with minimal environmental damage.",
   "entity": [
-    "Power 2 explosion",
-    "Up to 2 Explosion Damage",
+    "Power 1 explosion, +1 power per level",
+    "Up to 2 Explosion Damage per level",
     "Inverted explosion knockback"
   ],
   "block": [

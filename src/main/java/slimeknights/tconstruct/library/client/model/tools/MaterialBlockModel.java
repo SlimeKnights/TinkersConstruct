@@ -52,7 +52,7 @@ import slimeknights.tconstruct.library.client.materials.MaterialRenderInfo;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfo.TintedSprite;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
 import slimeknights.tconstruct.library.client.model.ModelProperties;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
@@ -339,7 +339,7 @@ public class MaterialBlockModel implements IUnbakedGeometry<MaterialBlockModel> 
 
     /** Gets the model for the given material */
     public BakedModel getCachedModel(MaterialVariantId material) {
-      if (IMaterial.UNKNOWN_ID.equals(material)) {
+      if (MaterialId.UNKNOWN.equals(material)) {
         return originalModel;
       }
       return cache.computeIfAbsent(material, baker);

@@ -21,6 +21,5 @@
       "percent": false,
       "stat": "tconstruct:velocity"
     }
-  ],
-  "tooltip_display": "always"
+  ]
 }

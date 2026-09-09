@@ -143,6 +143,7 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialRecipe(consumer, MaterialIds.endstone, Ingredient.of(Tags.Items.END_STONES), 1, 1, folder + "endstone");
     // ammo
     materialRecipe(consumer, MaterialIds.turtle,     Ingredient.of(Items.SCUTE),                 1, 1, folder + "turtle_scute");
+    materialRecipe(consumer, MaterialIds.nautilus,   Ingredient.of(Items.NAUTILUS_SHELL),        4, 1, folder + "nautilus_shell");
     materialRecipe(consumer, MaterialIds.earthslime, Ingredient.of(TinkerWorld.earthGeode),      1, 1, folder + "earthslime");
     materialRecipe(consumer, MaterialIds.skyslime,   Ingredient.of(TinkerWorld.skyGeode),        1, 1, folder + "skyslime");
     materialRecipe(consumer, MaterialIds.blaze,      Ingredient.of(Tags.Items.RODS_BLAZE),       1, 1, folder + "blaze");

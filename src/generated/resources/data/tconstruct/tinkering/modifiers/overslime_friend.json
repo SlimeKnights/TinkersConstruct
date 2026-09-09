@@ -1,4 +1,4 @@
 {
   "level_display": "tconstruct:default",
-  "tooltip_display": "never"
+  "show_in_tooltips": "advanced"
 }

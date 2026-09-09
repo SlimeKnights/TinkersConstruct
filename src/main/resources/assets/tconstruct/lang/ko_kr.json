@@ -2149,7 +2149,6 @@
   "modifier.tconstruct.gold_guard": "황금 보호자",
   "modifier.tconstruct.gold_guard.flavor": "금이 최고야",
   "modifier.tconstruct.gold_guard.description": "입고 있는 금 갑옷에 비례하여 체력이 증가합니다",
-  "modifier.tconstruct.gold_guard.health": "황금 체력",
   "modifier.tconstruct.revenge": "복수",
   "modifier.tconstruct.revenge.flavor": "반격에 적합합니다",
   "modifier.tconstruct.revenge.description": "공격당할 시 강해집니다",

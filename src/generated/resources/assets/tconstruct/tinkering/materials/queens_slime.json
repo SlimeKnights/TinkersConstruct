@@ -23,39 +23,24 @@
     ],
     "transformer": {
       "type": "tconstruct:grey_to_sprite",
-      "palette": [
-        {
-          "color": "FF000000",
-          "grey": 0
-        },
-        {
+      "palette": {
+        "000": "FF000000",
+        "063": {
           "color": "FFC8C8C8",
-          "grey": 63,
           "path": "tconstruct:generator/queens_slime_border"
         },
-        {
-          "grey": 102,
-          "path": "tconstruct:generator/queens_slime_border"
-        },
-        {
+        "102": "tconstruct:generator/queens_slime_border",
+        "140": {
           "color": "FFE1E1E1",
-          "grey": 140,
           "path": "tconstruct:generator/queens_slime"
         },
-        {
-          "grey": 178,
-          "path": "tconstruct:generator/queens_slime"
-        },
-        {
+        "178": "tconstruct:generator/queens_slime",
+        "216": {
           "color": "FFE1E1E1",
-          "grey": 216,
           "path": "tconstruct:generator/queens_slime_highlight"
         },
-        {
-          "grey": 255,
-          "path": "tconstruct:generator/queens_slime_highlight"
-        }
-      ]
+        "255": "tconstruct:generator/queens_slime_highlight"
+      }
     }
   },
   "luminosity": 9

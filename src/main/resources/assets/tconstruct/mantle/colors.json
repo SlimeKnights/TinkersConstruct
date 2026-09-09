@@ -336,6 +336,7 @@
     "float":         "#FFF6F6",
     "ram_attack":    "#817E76",
     "turtles_grace": "#47BF4A",
+    "shell_gut":     "#D4CCC3",
     "shulker_box":   "#8F648F",
     "dragonfall":    "#474747",
     "cobalamin":     "#2376DD",
@@ -561,7 +562,8 @@
     "venom":      "#EDEDED",
     "phantom":    "#C3B9A1",
     "horn":       "#817E76",
-    "cheese":     "#FFDD59"
+    "cheese":     "#FFDD59",
+    "nautilus":   "#D4CCC3"
   },
 
   "harvest_tier.minecraft": {

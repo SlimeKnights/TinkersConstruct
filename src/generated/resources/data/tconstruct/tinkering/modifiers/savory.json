@@ -39,6 +39,5 @@
       "operation": "add",
       "stat": "tconstruct:edible_counter_chance"
     }
-  ],
-  "tooltip_display": "always"
+  ]
 }

@@ -14,8 +14,8 @@
     ],
     "tconstruct:skull": [
       {
-        "level": 2,
-        "name": "tconstruct:respiration"
+        "level": 1,
+        "name": "tconstruct:respiration_skull"
       },
       {
         "level": 1,

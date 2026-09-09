@@ -13,10 +13,13 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.registration.CastItemObject;
+import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.tools.part.MaterialItem;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.world.TinkerWorld;
+
+import java.util.Locale;
 
 import static slimeknights.tconstruct.TConstruct.getResource;
 
@@ -129,6 +132,8 @@ public class TinkerItemModelProvider extends ItemModelProvider {
     generated(TinkerWorld.knightmetalCluster, "block/geode/knightmetal_cluster");
     // heads
     TinkerWorld.headItems.forEach(head -> withExistingParent(id(head).getPath(), "item/template_skull"));
+    // armor stands
+    TinkerGadgets.armorStand.forEach((type, item) -> basicItem(item, "gadgets/" + type.name().toLowerCase(Locale.ROOT) + "_armor_stand"));
   }
 
   @SuppressWarnings("deprecation") // no its not

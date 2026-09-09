@@ -45,7 +45,6 @@ import slimeknights.mantle.util.RetexturedHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.registration.CastItemObject;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.fluids.item.EmptyPotionTransfer;
@@ -272,15 +271,15 @@ public final class TinkerSmeltery extends TinkerModule {
     Properties seared = searedNonSolidProps(SoundType.METAL).lightLevel(SearedTankBlock.LIGHT_GETTER);
     searedTank = BLOCKS.registerEnum("seared", SearedTankBlock.TankType.values(), type -> new SearedTankBlock(seared, type.getCapacity(), PushReaction.DESTROY), tankItem);
     searedCastingTank = BLOCKS.register("seared_casting_tank", () -> new CastingTankBlock(seared), b -> new TankItem(b, ITEM_PROPS, true));
-    searedFluidCannon = BLOCKS.register("seared_fluid_cannon", () -> new FluidCannonBlock(seared, FluidType.BUCKET_VOLUME * 2, 1.0f, 1.1f, 6.0f), tankItem);
+    searedFluidCannon = BLOCKS.register("seared_fluid_cannon", () -> new FluidCannonBlock(seared, FluidType.BUCKET_VOLUME * 2, 1.0f, 1.1f, 4.5f), tankItem);
     searedLantern = BLOCKS.register("seared_lantern", () -> new SearedLanternBlock(searedNonSolidProps(SoundType.LANTERN).lightLevel(SearedTankBlock.LIGHT_GETTER), FluidValues.LANTERN_CAPACITY), lanternItem);
     // scorched
     Properties scorched = scorchedNonSolidProps(SoundType.BASALT).lightLevel(SearedTankBlock.LIGHT_GETTER);
     scorchedTank = BLOCKS.registerEnum("scorched", SearedTankBlock.TankType.values(), type -> new SearedTankBlock(scorched, type.getCapacity(), PushReaction.DESTROY), tankItem);
-    scorchedFluidCannon = BLOCKS.register("scorched_fluid_cannon", () -> new FluidCannonBlock(scorched, FluidType.BUCKET_VOLUME * 2, 2.0f, 1.5f, 7.0f), tankItem);
+    scorchedFluidCannon = BLOCKS.register("scorched_fluid_cannon", () -> new FluidCannonBlock(scorched, FluidType.BUCKET_VOLUME * 2, 2.0f, 1.5f, 6.0f), tankItem);
     scorchedLantern = BLOCKS.register("scorched_lantern", () -> new SearedLanternBlock(scorchedNonSolidProps(SoundType.LANTERN).lightLevel(SearedTankBlock.LIGHT_GETTER), FluidValues.LANTERN_CAPACITY), lanternItem);
     // end
-    endFluidCannon = BLOCKS.register("end_fluid_cannon", () -> new KnightMetalFluidCannonBlock(seared, FluidType.BUCKET_VOLUME * 4, 1.5f, 3.0f, 6.0f), tankItem);
+    endFluidCannon = BLOCKS.register("end_fluid_cannon", () -> new KnightMetalFluidCannonBlock(seared, FluidType.BUCKET_VOLUME * 4, 1.5f, 3.0f, 3.0f), tankItem);
   }
 
   // utility
@@ -573,21 +572,25 @@ public final class TinkerSmeltery extends TinkerModule {
     addCasts(output, CastItemObject::getRedSand);
     // dummy parts are in tool parts creative tab
 
+    // buckets
+    TinkerFluids.addTabItems(itemDisplayParameters, output);
+  }
+
+  /** Adds all relevant items to the variants creative tab. */
+  public static void addTableVariants(ItemDisplayParameters itemDisplayParameters, CreativeModeTab.Output output) {
     // additional texture variants of controllers, drains, and ducts
-    if (Config.COMMON.showAllSmelteryVariants.get()) {
-      Predicate<ItemStack> variant = stack -> {
-        output.accept(stack);
-        return false;
-      };
-      RetexturedHelper.addTagVariants(variant, smelteryController, TinkerTags.Items.SEARED_BLOCKS);
-      RetexturedHelper.addTagVariants(variant, searedDrain, TinkerTags.Items.SEARED_BLOCKS);
-      RetexturedHelper.addTagVariants(variant, searedDuct, TinkerTags.Items.SEARED_BLOCKS);
-      RetexturedHelper.addTagVariants(variant, searedChute, TinkerTags.Items.SEARED_BLOCKS);
-      RetexturedHelper.addTagVariants(variant, foundryController, TinkerTags.Items.SCORCHED_BLOCKS);
-      RetexturedHelper.addTagVariants(variant, scorchedDrain, TinkerTags.Items.SCORCHED_BLOCKS);
-      RetexturedHelper.addTagVariants(variant, scorchedDuct, TinkerTags.Items.SCORCHED_BLOCKS);
-      RetexturedHelper.addTagVariants(variant, scorchedChute, TinkerTags.Items.SCORCHED_BLOCKS);
-    }
+    Predicate<ItemStack> variant = stack -> {
+      output.accept(stack);
+      return false;
+    };
+    RetexturedHelper.addTagVariants(variant, smelteryController, TinkerTags.Items.SEARED_BLOCKS);
+    RetexturedHelper.addTagVariants(variant, searedDrain, TinkerTags.Items.SEARED_BLOCKS);
+    RetexturedHelper.addTagVariants(variant, searedDuct, TinkerTags.Items.SEARED_BLOCKS);
+    RetexturedHelper.addTagVariants(variant, searedChute, TinkerTags.Items.SEARED_BLOCKS);
+    RetexturedHelper.addTagVariants(variant, foundryController, TinkerTags.Items.SCORCHED_BLOCKS);
+    RetexturedHelper.addTagVariants(variant, scorchedDrain, TinkerTags.Items.SCORCHED_BLOCKS);
+    RetexturedHelper.addTagVariants(variant, scorchedDuct, TinkerTags.Items.SCORCHED_BLOCKS);
+    RetexturedHelper.addTagVariants(variant, scorchedChute, TinkerTags.Items.SCORCHED_BLOCKS);
   }
 
   /** Adds adds all casts of the given type to the tab */

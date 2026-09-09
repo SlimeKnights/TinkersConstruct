@@ -19,7 +19,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
 import slimeknights.tconstruct.library.json.predicate.material.MaterialPredicate;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
@@ -196,7 +196,7 @@ public class ToolCastingRecipe extends PartSwapCastingRecipe implements IMultiRe
             }
             // if the material is unknown, just use the first; deals with the fact the tool is an extra cast for showing part swapping
             MaterialVariantId id = IMaterialItem.getMaterialFromStack(cast);
-            builder.add(id == IMaterial.UNKNOWN_ID ? castMaterial : MaterialVariant.of(id));
+            builder.add(id == MaterialId.UNKNOWN ? castMaterial : MaterialVariant.of(id));
             // if the cast is first, add the fluid material second
             if (first) {
               builder.add(mat);

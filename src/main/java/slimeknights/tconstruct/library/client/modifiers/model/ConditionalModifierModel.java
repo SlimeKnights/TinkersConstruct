@@ -20,7 +20,7 @@ import java.util.function.Function;
 public record ConditionalModifierModel(ModifierCondition<IToolStackView> condition, ModifierModel nested) implements ModifierModel, ConditionalModule<IToolStackView> {
   public static final RecordLoadable<ConditionalModifierModel> LOADER = RecordLoadable.create(
     ModifierCondition.TOOL_FIELD,
-    ModifierModel.LOADER.requiredField("model", ConditionalModifierModel::nested),
+    ModifierModelLoadable.COMPACT.requiredField("model", ConditionalModifierModel::nested),
     ConditionalModifierModel::new);
 
   @Override

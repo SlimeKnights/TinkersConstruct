@@ -7,11 +7,8 @@
   },
   "modifier_maps": [
     "tconstruct:plate/leggings_broken",
-    "tconstruct:plate/leggings"
-  ],
-  "first_modifiers": [
-    "tconstruct:dyed",
-    "tconstruct:trim"
+    "tconstruct:plate/leggings",
+    "tconstruct:armor/leggings"
   ],
   "parts": [
     {

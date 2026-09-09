@@ -10,6 +10,5 @@
         "mobs": "minecraft:undead"
       }
     }
-  ],
-  "tooltip_display": "always"
+  ]
 }

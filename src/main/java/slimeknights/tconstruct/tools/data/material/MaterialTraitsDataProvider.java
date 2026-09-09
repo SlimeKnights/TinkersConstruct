@@ -11,6 +11,7 @@ import slimeknights.tconstruct.tools.stats.PlatingMaterialStats;
 import slimeknights.tconstruct.tools.stats.RepairStats;
 import slimeknights.tconstruct.tools.stats.SkullStats;
 import slimeknights.tconstruct.tools.stats.SlimeStats;
+import slimeknights.tconstruct.tools.stats.StatlessMaterialStats;
 
 import static slimeknights.tconstruct.library.materials.MaterialRegistry.AMMO;
 import static slimeknights.tconstruct.library.materials.MaterialRegistry.ARMOR;
@@ -58,7 +59,9 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
 
     // tier 2
     addDefaultTraits(MaterialIds.iron, ModifierIds.magnetic);
-    addTraits(MaterialIds.iron, ARMOR, ModifierIds.projectileProtection);
+    addTraits(MaterialIds.iron, ARMOR, ModifierIds.projectileProtection, ModifierIds.ironArmor);
+    // don't count iron maille for the iron armor achievement
+    addTraits(MaterialIds.iron, StatlessMaterialStats.MAILLE.getIdentifier(), ModifierIds.projectileProtection);
     addDefaultTraits(MaterialIds.copper, TinkerModifiers.dwarven);
     addTraits(MaterialIds.copper, ARMOR, ModifierIds.depthProtection);
     addDefaultTraits(MaterialIds.searedStone, ModifierIds.searing);
@@ -206,14 +209,14 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     material(MaterialIds.string).addTraits(SkullStats.ID, ModifierIds.boonOfSssss, ModifierIds.spiderDisguise);
     material(MaterialIds.darkthread).addTraits(SkullStats.ID, ModifierIds.balmOfSssss, ModifierIds.caveSpiderDisguise);
     // zombie
-    material(MaterialIds.leather).addTraits(SkullStats.ID, new ModifierEntry(ModifierIds.consecrated, 2)).addTraits(SkullStats.ID, ModifierIds.zombieDisguise);
+    material(MaterialIds.leather).addTraits(SkullStats.ID, ModifierIds.consecratedSkull, ModifierIds.zombieDisguise);
     material(MaterialIds.iron).addTraits(SkullStats.ID, ModifierIds.rebuff, ModifierIds.huskDisguise);
-    material(MaterialIds.copper).addTraits(SkullStats.ID, new ModifierEntry(ModifierIds.respiration, 2)).addTraits(SkullStats.ID, ModifierIds.drownedDisguise);
+    material(MaterialIds.copper).addTraits(SkullStats.ID, ModifierIds.respirationSkull, ModifierIds.drownedDisguise);
     // nether
     material(MaterialIds.blaze).addTraits(SkullStats.ID, ModifierIds.fireborn, ModifierIds.blazeDisguise);
-    material(MaterialIds.gold).addTraits(SkullStats.ID, TinkerModifiers.chrysophilite.getId(), ModifierIds.piglinDisguise, TinkerModifiers.golden.getId());
-    material(MaterialIds.roseGold).addTraits(SkullStats.ID, TinkerModifiers.goldGuard.getId(), ModifierIds.piglinBruteDisguise, TinkerModifiers.golden.getId());
-    material(MaterialIds.pigIron).addTraits(SkullStats.ID, new ModifierEntry(ModifierIds.vitalProtection, 2)).addTraits(SkullStats.ID, ModifierIds.zombifiedPiglinDisguise);
+    material(MaterialIds.gold).addTraits(SkullStats.ID, ModifierIds.chrysophilite, ModifierIds.piglinDisguise);
+    material(MaterialIds.roseGold).addTraits(SkullStats.ID, ModifierIds.goldGuard, ModifierIds.piglinBruteDisguise);
+    material(MaterialIds.pigIron).addTraits(SkullStats.ID, ModifierIds.vitalProtectionSkull, ModifierIds.zombifiedPiglinDisguise);
     // crafted
     material(MaterialIds.knightmetal).addTraits(SkullStats.ID, ModifierIds.spitting);
 
@@ -229,8 +232,9 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     MaterialStatsId shell = RepairStats.SHELL.getId();
     // shells
     addTraits(MaterialIds.turtle, shell, ModifierIds.turtlesGrace);
+    addTraits(MaterialIds.nautilus, shell, ModifierIds.shellGut);
     addTraits(MaterialIds.phantom, shell, ModifierIds.skyfall);
-    addTraits(MaterialIds.prismarine, shell, new ModifierEntry(ModifierIds.thorns, 2));
+    addTraits(MaterialIds.prismarine, shell, ModifierIds.thornsShell);
     addTraits(MaterialIds.shulker, shell, ModifierIds.shulkerBox);
     addTraits(MaterialIds.dragonScale, shell, ModifierIds.dragonfall);
     // shards

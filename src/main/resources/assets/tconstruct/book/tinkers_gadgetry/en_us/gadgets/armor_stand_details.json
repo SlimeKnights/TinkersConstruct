@@ -1,0 +1,9 @@
+{
+  "title": "Fancy Armor Stands",
+  "text": [
+    { "text": "• Clear: Turn invisible when an item is placed on it.", "linebreak": true },
+    { "text": "• Bamboo: Smaller armor stand for compact armor storage.", "linebreak": true },
+    { "text": "• Bone: Has arms, letting it be armed! Interact with the base to place items, and can hold shields in the offhand.", "linebreak": true },
+    { "text": "• Necrotic Bone: Always appears fully lit, even in darkness.", "linebreak": true }
+  ]
+}

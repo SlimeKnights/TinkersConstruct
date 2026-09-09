@@ -21,12 +21,14 @@ import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.util.ModifierTooltip;
 import slimeknights.tconstruct.library.recipe.material.IMaterialValue;
 import slimeknights.tconstruct.library.recipe.partbuilder.IPartBuilderRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tables.block.entity.table.PartBuilderBlockEntity;
 import slimeknights.tconstruct.tables.menu.PartBuilderContainerMenu;
+import slimeknights.tconstruct.tools.stats.StatlessMaterialStats;
 
 import java.util.List;
 import java.util.function.Function;
@@ -278,6 +280,8 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
 
     MaterialId id = materialVariant.getId();
     for (IMaterialStats stat : MaterialRegistry.getInstance().getAllStats(id)) {
+      // skip repair kit, its just an internal marker and the traits are inaccurate
+      if (stat == StatlessMaterialStats.REPAIR_KIT) continue;
       List<Component> info = stat.getLocalizedInfo();
 
       if (!info.isEmpty()) {
@@ -292,8 +296,10 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
           for (ModifierEntry trait : traits) {
             if (trait.isBound()) {
               Modifier mod = trait.getModifier();
-              stats.add(mod.getDisplayName(trait.getLevel()));
-              tips.add(mod.getDescription(trait.getLevel()));
+              if (mod.shouldDisplay(ModifierTooltip.PART_BUILDER)) {
+                stats.add(mod.getDisplayName(trait.getLevel()));
+                tips.add(mod.getDescription(trait.getLevel()));
+              }
             }
           }
         }

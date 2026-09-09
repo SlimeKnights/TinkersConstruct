@@ -1,5 +1,21 @@
 {
   "constant": {
+    "__dyed": {
+      "type": "tconstruct:crafted",
+      "model": {
+        "type": "tconstruct:dyed",
+        "texture": "tconstruct:item/tool/ammo/arrow_modifiers/dyed"
+      },
+      "modifier": "tconstruct:dyed"
+    },
+    "__tipped": {
+      "type": "tconstruct:trait",
+      "model": {
+        "type": "tconstruct:potion",
+        "texture": "tconstruct:item/tool/ammo/arrow_modifiers/tipped"
+      },
+      "modifier": "tconstruct:tipped"
+    },
     "smashing": {
       "type": "tconstruct:trait",
       "model": {
@@ -8,20 +24,6 @@
         "tank_helper": "tconstruct:smashing"
       },
       "modifier": "tconstruct:smashing"
-    },
-    "tipped": {
-      "type": "tconstruct:trait",
-      "model": {
-        "type": "tconstruct:potion",
-        "texture": "tconstruct:item/tool/ammo/arrow_modifiers/tipped"
-      },
-      "modifier": "tconstruct:tipped"
-    }
-  },
-  "modifiers": {
-    "tconstruct:dyed": {
-      "type": "tconstruct:dyed",
-      "texture": "tconstruct:item/tool/ammo/arrow_modifiers/dyed"
     }
   }
 }

@@ -14,8 +14,8 @@
     ],
     "tconstruct:skull": [
       {
-        "level": 2,
-        "name": "tconstruct:consecrated"
+        "level": 1,
+        "name": "tconstruct:consecrated_skull"
       },
       {
         "level": 1,

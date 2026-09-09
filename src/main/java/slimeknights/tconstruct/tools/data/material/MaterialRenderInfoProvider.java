@@ -5,7 +5,7 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import slimeknights.tconstruct.library.client.data.material.AbstractMaterialRenderInfoProvider;
 import slimeknights.tconstruct.library.client.data.material.AbstractMaterialSpriteProvider;
-import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.shared.block.SlimeType;
@@ -18,7 +18,7 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
   @Override
   protected void addMaterialRenderInfo() {
     // fallback
-    buildRenderInfo(IMaterial.UNKNOWN_ID);
+    buildRenderInfo(MaterialId.UNKNOWN);
 
     // tier 1
     buildRenderInfo(MaterialIds.flint).color(0x3D3C3C).fallbacks("crystal", "rock", "stick");
@@ -152,6 +152,7 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.gunpowder);
     buildRenderInfo(MaterialIds.redstone);
     buildRenderInfo(MaterialIds.turtle);
+    buildRenderInfo(MaterialIds.nautilus).color(0xFFD4CCC3);
     buildRenderInfo(MaterialIds.dragonScale);
     buildRenderInfo(MaterialIds.endRod);
     redirect(MaterialIds.magnetite, MaterialIds.steel);

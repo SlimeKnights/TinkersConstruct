@@ -12,7 +12,7 @@ import java.util.function.Function;
 /** Modifier model that just requires a texture */
 public interface SimpleModifierModel extends ModifierModel {
   /** field for small texture */
-  LoadableField<Material, SimpleModifierModel> TEXTURE_FIELD = ModifierModel.MATERIAL_LOADABLE.requiredField("texture", SimpleModifierModel::small);
+  LoadableField<Material, SimpleModifierModel> TEXTURE_FIELD = ModifierModel.MATERIAL_LOADABLE.nullableField("texture", SimpleModifierModel::small);
   /** field for large texture */
   LoadableField<Material, SimpleModifierModel> LARGE_TEXTURE_FIELD = ModifierModel.MATERIAL_LOADABLE.nullableField("texture_large", SimpleModifierModel::large);
 

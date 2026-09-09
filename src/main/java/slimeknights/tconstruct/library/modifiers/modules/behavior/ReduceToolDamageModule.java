@@ -105,7 +105,7 @@ public record ReduceToolDamageModule(IJsonPredicate<LivingEntity> holder, IJsonP
   }
 
   @Override
-  public int onDamageTool(IToolStackView tool, ModifierEntry modifier, int amount, @Nullable LivingEntity holder, @Nullable ItemStack stack, ModifierId cause) {
+  public int beforeDamageTool(IToolStackView tool, ModifierEntry modifier, int amount, @Nullable LivingEntity holder, @Nullable ItemStack stack, ModifierId cause) {
     if (this.condition.matches(tool, modifier) && this.cause.matches(cause)) {
       return reduceDamage(amount, formula.apply(tool, modifier, holder, 0, 1));
     }

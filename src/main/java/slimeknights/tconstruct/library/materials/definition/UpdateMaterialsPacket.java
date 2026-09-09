@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Rarity;
 import net.minecraftforge.network.NetworkEvent.Context;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
@@ -14,6 +15,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 @Getter
 @AllArgsConstructor
@@ -30,9 +32,10 @@ public class UpdateMaterialsPacket implements IThreadsafePacket {
       MaterialId id = new MaterialId(buffer.readResourceLocation());
       int tier = buffer.readVarInt();
       int sortOrder = buffer.readVarInt();
+      Rarity rarity = buffer.readEnum(Rarity.class);
       boolean craftable = buffer.readBoolean();
       boolean hidden = buffer.readBoolean();
-      materials.put(id, new Material(id, tier, sortOrder, craftable, hidden));
+      materials.put(id, new Material(id, tier, sortOrder, rarity, craftable, hidden));
     }
     this.materials = materials.build();
     // process redirects
@@ -51,18 +54,19 @@ public class UpdateMaterialsPacket implements IThreadsafePacket {
   @Override
   public void encode(FriendlyByteBuf buffer) {
     buffer.writeInt(this.materials.size());
-    this.materials.values().forEach(material -> {
+    for (IMaterial material : this.materials.values()) {
       buffer.writeResourceLocation(material.getIdentifier());
       buffer.writeVarInt(material.getTier());
       buffer.writeVarInt(material.getSortOrder());
+      buffer.writeEnum(material.getRarity());
       buffer.writeBoolean(material.isCraftable());
       buffer.writeBoolean(material.isHidden());
-    });
+    }
     buffer.writeVarInt(this.redirects.size());
-    this.redirects.forEach((key, value) -> {
-      buffer.writeUtf(key.toString());
-      buffer.writeUtf(value.toString());
-    });
+    for (Entry<MaterialId,MaterialId> entry : this.redirects.entrySet()) {
+      buffer.writeUtf(entry.getKey().toString());
+      buffer.writeUtf(entry.getValue().toString());
+    }
     GenericTagUtil.encodeTags(buffer, IMaterial::getIdentifier, this.tags);
   }
 

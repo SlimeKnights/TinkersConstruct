@@ -2,9 +2,9 @@
   "title": "Redstone",
   "text": "Redstone is great for putting mobs into orderly positions without hurting them.",
   "entity": [
-    "Power 1.5 explosion",
+    "Power 1 explosion, +0.5 power per level",
     "0 Explosion Damage",
-    "Inverted explosion knockback"
+    "Inverted explosion knockback, scaling with level"
   ],
   "block": [
     "Explosion ignores blocks"

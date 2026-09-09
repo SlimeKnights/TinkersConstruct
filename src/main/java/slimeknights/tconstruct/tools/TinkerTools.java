@@ -44,6 +44,7 @@ import slimeknights.tconstruct.library.json.predicate.tool.HasToolHookPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.PersistentDataPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.StatInRangePredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.StatInSetPredicate;
+import slimeknights.tconstruct.library.json.predicate.tool.ToolActionPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.ToolContextPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.ToolStackItemPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.ToolStackPredicate;
@@ -123,7 +124,7 @@ import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.BlockSideHitListener;
-import slimeknights.tconstruct.tables.TinkerTables;
+import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.tools.data.ArmorModelProvider;
 import slimeknights.tconstruct.tools.data.ModifierIds;
 import slimeknights.tconstruct.tools.data.StationSlotLayoutProvider;
@@ -173,11 +174,11 @@ public final class TinkerTools extends TinkerModule {
   /** Creative tab for complete tools */
   public static final RegistryObject<CreativeModeTab> tabTools = CREATIVE_TABS.register(
     "tools", () -> CreativeModeTab.builder().title(TConstruct.makeTranslation("itemGroup", "tools"))
-                                  .icon(() -> TinkerTools.pickaxe.get().getRenderTool())
-                                  .displayItems(TinkerTools::addTabItems)
-                                  .withTabsBefore(TinkerTables.tabTables.getId())
-                                  .withSearchBar()
-                                  .build());
+      .icon(() -> TinkerTools.pickaxe.get().getRenderTool())
+      .displayItems(TinkerTools::addTabItems)
+      .withTabsBefore(TinkerCommons.tabGeneral.getId())
+      .withSearchBar()
+      .build());
 
   /** Loot function type for tool add data */
   public static final RegistryObject<LootItemFunctionType> lootAddToolData = LOOT_FUNCTIONS.register("add_tool_data", () -> new LootItemFunctionType(AddToolDataFunction.SERIALIZER));
@@ -384,6 +385,7 @@ public final class TinkerTools extends TinkerModule {
       ToolStackPredicate.LOADER.register(getResource("stat_in_set"), StatInSetPredicate.LOADER);
       ToolStackPredicate.LOADER.register(getResource("has_volatile_key"), VolatileDataPredicate.LOADER);
       ToolStackPredicate.LOADER.register(getResource("variable_range"), ToolVariableRangePredicate.LOADER);
+      ToolStackPredicate.LOADER.register(getResource("tool_action"), ToolActionPredicate.LOADER);
     }
   }
 
@@ -419,68 +421,66 @@ public final class TinkerTools extends TinkerModule {
   private static void addTabItems(ItemDisplayParameters itemDisplayParameters, CreativeModeTab.Output tab) {
     // start with tools that lack materials
     Consumer<ItemStack> output = tab::accept;
-    // TODO: common config for show only tool to fix JEI bug
-    String showOnly = Config.COMMON.showOnlyToolMaterial.get();
 
-    acceptTool(output, "", flintAndBrick);
-    acceptTool(output, "", skyStaff);
-    acceptTool(output, "", earthStaff);
-    acceptTool(output, "", ichorStaff);
-    acceptTool(output, "", enderStaff);
+    acceptTool(output, flintAndBrick);
+    acceptTool(output, skyStaff);
+    acceptTool(output, earthStaff);
+    acceptTool(output, ichorStaff);
+    acceptTool(output, enderStaff);
 
     // small tools
-    acceptTool(output, showOnly, pickaxe);
-    acceptTool(output, showOnly, pickadze);
-    acceptTool(output, showOnly, mattock);
-    acceptTool(output, showOnly, handAxe);
-    acceptTool(output, showOnly, kama);
-    acceptTool(output, showOnly, dagger);
-    acceptTool(output, showOnly, sword);
+    acceptTool(output, pickaxe);
+    acceptTool(output, pickadze);
+    acceptTool(output, mattock);
+    acceptTool(output, handAxe);
+    acceptTool(output, kama);
+    acceptTool(output, dagger);
+    acceptTool(output, sword);
 
     // broad tools
-    acceptTool(output, showOnly, sledgeHammer);
-    acceptTool(output, showOnly, veinHammer);
-    acceptTool(output, showOnly, excavator);
-    acceptTool(output, showOnly, broadAxe);
-    acceptTool(output, showOnly, scythe);
-    acceptTool(output, showOnly, cleaver);
+    acceptTool(output, sledgeHammer);
+    acceptTool(output, veinHammer);
+    acceptTool(output, excavator);
+    acceptTool(output, broadAxe);
+    acceptTool(output, scythe);
+    acceptTool(output, cleaver);
 
     // ranged tools
-    acceptTool(output, showOnly, crossbow);
-    acceptTool(output, showOnly, longbow);
-    acceptTool(output, showOnly, fishingRod);
-    acceptTool(output, showOnly, javelin);
-    acceptTool(output, showOnly, arrow);
-    acceptTool(output, showOnly, shuriken);
+    acceptTool(output, crossbow);
+    acceptTool(output, longbow);
+    acceptTool(output, fishingRod);
+    acceptTool(output, javelin);
+    acceptTool(output, arrow);
+    acceptTool(output, shuriken);
     acceptEFLN(shuriken.get(), tab);
-    acceptTool(output, showOnly, throwingAxe);
+    acceptTool(output, throwingAxe);
 
     // ancient tools
-    acceptTool(output, showOnly, meltingPan);
-    acceptTool(output, showOnly, warPick);
-    acceptTool(output, showOnly, battlesign);
-    acceptTool(output, showOnly, swasher);
+    acceptTool(output, meltingPan);
+    acceptTool(output, warPick);
+    acceptTool(output, battlesign);
+    acceptTool(output, swasher);
     if (ModList.get().isLoaded("twilightforest")) {
-      acceptTool(output, showOnly, minotaurAxe);
+      acceptTool(output, minotaurAxe);
     }
 
     // armor
-    acceptTools(output, showOnly, travelersGear);
-    acceptTool(output, showOnly, travelersShield);
-    acceptTools(output, showOnly, plateArmor);
-    acceptTool(output, showOnly, plateShield);
-    acceptTools(output, showOnly, slimesuit);
-    acceptTool(output, showOnly, slimeWings);
+    acceptTools(output, travelersGear);
+    acceptTool(output, travelersShield);
+    acceptTools(output, plateArmor);
+    acceptTool(output, plateShield);
+    acceptTools(output, slimesuit);
+    acceptTool(output, slimeWings);
   }
 
   /** Adds a tool to the tab */
-  private static void acceptTool(Consumer<ItemStack> output, String showOnly, Supplier<? extends IModifiable> tool) {
-    ToolBuildHandler.addVariants(output, tool.get(), showOnly);
+  private static void acceptTool(Consumer<ItemStack> output, Supplier<? extends IModifiable> tool) {
+    ToolBuildHandler.addVariants(output, tool.get(), "");
   }
 
   /** Adds a tool to the tab */
-  private static void acceptTools(Consumer<ItemStack> output, String showOnly, EnumObject<?,? extends IModifiable> tools) {
-    tools.forEach(tool -> ToolBuildHandler.addVariants(output, tool, showOnly));
+  private static void acceptTools(Consumer<ItemStack> output, EnumObject<?,? extends IModifiable> tools) {
+    tools.forEach(tool -> ToolBuildHandler.addVariants(output, tool, ""));
   }
 
   /**

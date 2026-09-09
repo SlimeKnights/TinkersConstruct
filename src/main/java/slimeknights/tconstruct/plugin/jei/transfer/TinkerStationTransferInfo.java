@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.plugin.jei.transfer;
 
 import lombok.Getter;
-import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.ingredient.IRecipeSlotView;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.recipe.RecipeIngredientRole;
@@ -101,7 +100,7 @@ public class TinkerStationTransferInfo<T> implements IRecipeTransferInfo<TinkerS
       IRecipeSlotView slotView = slotViews.get(i);
       // if it is not empty and it contains an item stack, thats a problem
       // the item stack check is because we show modifier slots as an "input"
-      if (!slotView.isEmpty() && slotView.getDisplayedIngredient(VanillaTypes.ITEM_STACK).isPresent()) {
+      if (!slotView.isEmpty() && slotView.getDisplayedItemStack().isPresent()) {
         return false;
       }
     }
