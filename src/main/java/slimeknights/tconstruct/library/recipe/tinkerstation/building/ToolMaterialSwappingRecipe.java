@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation.building;
 
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -157,7 +158,7 @@ public class ToolMaterialSwappingRecipe extends MaterialSwappingRecipe implement
         return IntStream.range(0, stats.size()).<IDisplayToolModification>mapToObj(i -> {
           MaterialStatsId stat = stats.get(i);
           List<IMaterial> filtered = materials.stream().filter(mat -> registry.getMaterialStats(mat.getIdentifier(), stat).isPresent()).toList();
-          return new LinkedDisplayRecipe(i,
+          return new DisplayRecipe(i,
             // one part per material
             filtered.stream().map(mat -> withMaterial(displayTool.copy(), i, MaterialVariant.of(mat))).toList(),
             // single tool with the material to swap left blank
@@ -169,5 +170,24 @@ public class ToolMaterialSwappingRecipe extends MaterialSwappingRecipe implement
       }).toList();
     }
     return multiRecipes;
+  }
+
+  private class DisplayRecipe extends MaterialSwappingRecipe.LinkedDisplayRecipe {
+    private static final Component TITLE = TConstruct.makeTranslation("recipe", "tool_material_swapping");
+    private static final Component TOOLTIP = TConstruct.makeTranslation("recipe", "tool_material_swapping.tooltip");
+
+    public DisplayRecipe(int index, List<ItemStack> input, List<ItemStack> toolWithoutModifier, List<ItemStack> toolWithModifier) {
+      super(index, input, toolWithoutModifier, toolWithModifier);
+    }
+
+    @Override
+    public Component getTitle() {
+      return TITLE;
+    }
+
+    @Override
+    public Component getTooltip() {
+      return TOOLTIP;
+    }
   }
 }

@@ -35,7 +35,6 @@ import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
 import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
-import javax.annotation.Nullable;
 import java.util.BitSet;
 import java.util.List;
 import java.util.function.IntPredicate;
@@ -238,17 +237,10 @@ public abstract class MaterialSwappingRecipe implements ITinkerStationRecipe {
   /** Recipe mapping a single ingredient to a part */
   @RequiredArgsConstructor
   protected class DisplayRecipe implements IDisplayToolModification {
-    @Getter
-    @Nullable
-    protected final Component variant;
     protected final int index;
     protected final List<ItemStack> input;
     @Getter
     protected final List<ItemStack> toolWithoutModifier, toolWithModifier;
-
-    public DisplayRecipe(int index, List<ItemStack> input, List<ItemStack> toolWithoutModifier, List<ItemStack> toolWithModifier) {
-      this(null, index, input, toolWithoutModifier, toolWithModifier);
-    }
 
     @Override
     public Component getTitle() {

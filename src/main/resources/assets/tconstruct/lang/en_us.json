@@ -3997,7 +3997,11 @@
   "recipe.tconstruct.tool_damaging.tooltip": "Reduces the tool's durability by the given amount. Useful for maximizing modifier effects.",
 
   "recipe.tconstruct.part_swapping": "Part Swapping",
-  "recipe.tconstruct.part_swapping.tooltip": "Swaps a material on the tool for a different material.",
+  "recipe.tconstruct.part_swapping.tooltip": "Swaps a material on the tool for the material of the part.",
+  "recipe.tconstruct.material_swapping": "Material Swapping",
+  "recipe.tconstruct.material_swapping.tooltip": "Swaps a material on the tool for a different material.",
+  "recipe.tconstruct.tool_material_swapping": "Tool Material Swapping",
+  "recipe.tconstruct.tool_material_swapping.tooltip": "Swaps a material on the tool for a material on the other tool based on the slot.\nSacrificed tool must have no modifiers.",
 
 
   "_comment": "GUIs Messages",
