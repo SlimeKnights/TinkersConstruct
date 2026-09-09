@@ -9,6 +9,9 @@ import java.util.List;
 
 /** Common interface between {@link IDisplayToolModification} and {@link slimeknights.tconstruct.library.recipe.modifiers.adding.IDisplayModifierRecipe} */
 public interface IDisplayTinkerStationRecipe {
+  /** Return from {@link #linkToOutput()} to indicate no slots are linked. Will attempt to link the inputs instead. */
+  int[] NO_LINKS = new int[0];
+
   /** Gets the ID of this recipe. If this is a generated display recipe, uses the parent recipe ID */
   @Nullable
   ResourceLocation getRecipeId();
@@ -37,4 +40,9 @@ public interface IDisplayTinkerStationRecipe {
 
   /** Gets the result tool after applying this recipe. */
   List<ItemStack> getToolWithModifier();
+
+  /** List of input indices to link to the output in JEI. */
+  default int[] linkToOutput() {
+    return NO_LINKS;
+  }
 }

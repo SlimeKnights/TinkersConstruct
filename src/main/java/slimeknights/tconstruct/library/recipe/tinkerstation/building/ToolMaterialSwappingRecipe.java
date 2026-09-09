@@ -9,28 +9,38 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
+import slimeknights.mantle.recipe.IMultiRecipe;
 import slimeknights.mantle.recipe.ingredient.SizedIngredient;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.materials.IMaterialRegistry;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
+import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.ModifierRecipe;
+import slimeknights.tconstruct.library.recipe.tinkerstation.IDisplayToolModification;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.tools.definition.module.material.ToolMaterialHook;
+import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
+import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tables.TinkerTables;
 
+import java.util.Arrays;
 import java.util.BitSet;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.IntStream;
 
 /** Recipe swapping a tool material using another tool as input */
-public class ToolMaterialSwappingRecipe extends MaterialSwappingRecipe {
+public class ToolMaterialSwappingRecipe extends MaterialSwappingRecipe implements IMultiRecipe<IDisplayToolModification> {
   protected static final RecipeResult<LazyToolStack> NO_MODIFIERS = RecipeResult.failure(TConstruct.makeTranslationKey("recipe", "part_swapping.no_modifiers"));
   public static final RecordLoadable<ToolMaterialSwappingRecipe> LOADER = RecordLoadable.create(ContextKey.ID.requiredField(), TOOLS_FIELD, STACK_SIZE_FIELD, EXTRA_REQUIREMENTS_FIELD, ToolMaterialSwappingRecipe::new);
 
@@ -123,5 +133,37 @@ public class ToolMaterialSwappingRecipe extends MaterialSwappingRecipe {
   @Override
   public RecipeSerializer<?> getSerializer() {
     return TinkerTables.toolMaterialSwapping.get();
+  }
+
+
+  /* JEI */
+  private List<IDisplayToolModification> multiRecipes;
+
+  @Override
+  public List<IDisplayToolModification> getRecipes(RegistryAccess access) {
+    if (multiRecipes == null) {
+      IMaterialRegistry registry = MaterialRegistry.getInstance();
+      Collection<IMaterial> materials = registry.getVisibleMaterials();
+      multiRecipes = Arrays.stream(tools.getItems()).flatMap(stack -> {
+        ToolStack tool = ToolStack.from(stack);
+        List<MaterialStatsId> stats = ToolMaterialHook.stats(tool.getDefinition());
+        List<MaterialVariant> renderMaterials = IntStream.range(0, stats.size()).mapToObj(i -> MaterialVariant.of(ToolBuildHandler.getRenderMaterial(i))).toList();
+        ToolStack displayTool = tool.copy();
+        displayTool.setMaterials(MaterialNBT.of(renderMaterials.toArray(MaterialVariant[]::new)));
+        return IntStream.range(0, stats.size()).<IDisplayToolModification>mapToObj(i -> {
+          MaterialStatsId stat = stats.get(i);
+          List<IMaterial> filtered = materials.stream().filter(mat -> registry.getMaterialStats(mat.getIdentifier(), stat).isPresent()).toList();
+          return new LinkedDisplayRecipe(i,
+            // one part per material
+            filtered.stream().map(mat -> withMaterial(displayTool.copy(), MaterialVariant.of(mat), i)).toList(),
+            // single tool with the material to swap left blank
+            List.of(withMaterial(tool.copy(), renderMaterials.get(i), i)),
+            // one output per material
+            filtered.stream().map(mat -> withMaterial(tool.copy(), MaterialVariant.of(mat), i)).toList()
+          );
+        });
+      }).toList();
+    }
+    return multiRecipes;
   }
 }

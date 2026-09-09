@@ -225,13 +225,13 @@ public abstract class MaterialSwappingRecipe implements ITinkerStationRecipe {
   protected class DisplayRecipe implements IDisplayToolModification {
     @Getter
     @Nullable
-    private final Component variant;
-    private final int index;
-    private final List<ItemStack> input;
+    protected final Component variant;
+    protected final int index;
+    protected final List<ItemStack> input;
     @Getter
-    private final List<ItemStack> toolWithoutModifier, toolWithModifier;
+    protected final List<ItemStack> toolWithoutModifier, toolWithModifier;
 
-    protected DisplayRecipe(int index, List<ItemStack> input, List<ItemStack> toolWithoutModifier, List<ItemStack> toolWithModifier) {
+    public DisplayRecipe(int index, List<ItemStack> input, List<ItemStack> toolWithoutModifier, List<ItemStack> toolWithModifier) {
       this(null, index, input, toolWithoutModifier, toolWithModifier);
     }
 
@@ -261,6 +261,20 @@ public abstract class MaterialSwappingRecipe implements ITinkerStationRecipe {
         return input;
       }
       return List.of();
+    }
+  }
+
+  /** Display recipe linking the input to the output slot */
+  protected class LinkedDisplayRecipe extends DisplayRecipe {
+    private final int[] outputLinks;
+    public LinkedDisplayRecipe(int index, List<ItemStack> input, List<ItemStack> toolWithoutModifier, List<ItemStack> toolWithModifier) {
+      super(index, input, toolWithoutModifier, toolWithModifier);
+      this.outputLinks = new int[] {index};
+    }
+
+    @Override
+    public int[] linkToOutput() {
+      return outputLinks;
     }
   }
 }

@@ -23,10 +23,12 @@ import slimeknights.tconstruct.library.tools.item.IModifiable;
 import javax.annotation.Nullable;
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
+import java.util.stream.Stream;
 
 /** Common logic between {@link ModifierRecipeCategory} and {@link ToolModificationCategory} */
 public abstract class AbstractTinkerStationCategory<T extends IDisplayTinkerStationRecipe> extends AbstractRecipeCategory<T> {
@@ -74,8 +76,8 @@ public abstract class AbstractTinkerStationCategory<T extends IDisplayTinkerStat
   }
 
   /** Adds an input slot with the icon */
-  private void addInput(IRecipeLayoutBuilder builder, T recipe, int index, int x, int y) {
-    List<ItemStack> stacks = recipe.getDisplayItems(index);
+  private IRecipeSlotBuilder addInput(IRecipeLayoutBuilder builder, List<List<ItemStack>> inputs, int index, int x, int y) {
+    List<ItemStack> stacks = inputs.get(index);
     IRecipeSlotBuilder slot = builder.addInputSlot(x, y)
       .addItemStacks(stacks)
       .setStandardSlotBackground();
@@ -83,6 +85,7 @@ public abstract class AbstractTinkerStationCategory<T extends IDisplayTinkerStat
     if (stacks.isEmpty()) {
       slot.setOverlay(slotIcons[index], 0, 0);
     }
+    return slot;
   }
 
   /** If true, the tool is a catalyst. If false, its either an input or an output. */
@@ -90,12 +93,19 @@ public abstract class AbstractTinkerStationCategory<T extends IDisplayTinkerStat
 
   @Override
   public void setRecipe(IRecipeLayoutBuilder builder, T recipe, IFocusGroup focuses) {
+    List<List<ItemStack>> inputs = new ArrayList<>(5);
+    for (int i = 0; i < 5; i++) {
+      inputs.add(recipe.getDisplayItems(i));
+    }
+
     // inputs
-    addInput(builder, recipe, 0,  3, 33);
-    addInput(builder, recipe, 1, 25, 15);
-    addInput(builder, recipe, 2, 47, 33);
-    addInput(builder, recipe, 3, 43, 58);
-    addInput(builder, recipe, 4,  7, 58);
+    IRecipeSlotBuilder[] inputSlots = {
+      addInput(builder, inputs, 0, 3, 33),
+      addInput(builder, inputs, 1, 25, 15),
+      addInput(builder, inputs, 2, 47, 33),
+      addInput(builder, inputs, 3, 43, 58),
+      addInput(builder, inputs, 4, 7, 58)
+    };
 
     // tool
     List<ItemStack> toolWithoutModifier = recipe.getToolWithoutModifier();
@@ -113,7 +123,24 @@ public abstract class AbstractTinkerStationCategory<T extends IDisplayTinkerStat
     IRecipeSlotBuilder withoutModifierSlot = builder.addSlot(withoutModifierRole,  25, 38).addItemStacks(toolWithoutModifier).setStandardSlotBackground();
     RecipeIngredientRole withModifierRole = isCatalyst ? RecipeIngredientRole.CATALYST : RecipeIngredientRole.OUTPUT;
     IRecipeSlotBuilder withModifierSlot = builder.addSlot(withModifierRole, 105, 34).addItemStacks(toolWithModifier).setOutputSlotBackground();
-    builder.createFocusLink(withoutModifierSlot, withModifierSlot);
+
+    // apply focus links
+    int[] linkToOutput = recipe.linkToOutput();
+    int size = toolWithModifier.size();
+    if (linkToOutput.length > 0) {
+      // if given a list, filter to ensure they are all valid
+      // need input slot size to match output size
+      IRecipeSlotBuilder[] linked = Stream.concat(
+        Stream.of(withModifierSlot),
+        Arrays.stream(linkToOutput).filter(i -> i < inputSlots.length && inputs.get(i).size() == size).mapToObj(i -> inputSlots[i])
+      ).toArray(IRecipeSlotBuilder[]::new);
+      if (linked.length > 0) {
+        builder.createFocusLink(linked);
+      }
+    // if no links, try linking tool to output
+    } else if (toolWithoutModifier.size() == size) {
+      builder.createFocusLink(withoutModifierSlot, withModifierSlot);
+    }
   }
 
   /* Single part tools hack */
