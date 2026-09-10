@@ -1940,10 +1940,10 @@
   "material.tconstruct.skyslime_vine.flavor": "Порхай как бабочка, жаль как пчела.",
   "material.tconstruct.skyslime_vine.encyclopedia.melee_harvest": "Отменяет снижение скорости добычи, когда вы не на земле.",
   "material.tconstruct.skyslime_vine.encyclopedia.ranged": "Даёт +0.5 точности, когда вы не на земле или не на лестнице.",
+  "material.tconstruct.skyslime_vine.encyclopedia.armor": "Снижает гравитацию на 15% за каждую деталь.",
 
   "material.tconstruct.skyslimeskin": "Слизневая кожа",
   "material.tconstruct.skyslimeskin.flavor": "Порхай как бабочка, жаль как пчела.",
-  "material.tconstruct.skyslimeskin.encyclopedia.armor": "Снижает гравитацию на 15% за каждую деталь.",
 
   "material.tconstruct.weeping_vine": "Плакучая лоза",
   "material.tconstruct.weeping_vine.flavor": "Направляет тепло.",

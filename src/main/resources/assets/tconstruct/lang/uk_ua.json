@@ -1969,11 +1969,11 @@
   "material.tconstruct.skyslime_vine.flavor": "Літай як метелик, жаль як бджола.",
   "material.tconstruct.skyslime_vine.encyclopedia.melee_harvest": "Скасовує зменшення швидкости добування, коли ви не на землі.",
   "material.tconstruct.skyslime_vine.encyclopedia.ranged": "Надає +0.5 точності, коли не на землі або драбині.",
+  "material.tconstruct.skyslime_vine.encyclopedia.armor": "Зменшує силу тяжіння на 20% за кожен елемент обладунку.",
   "material.tconstruct.skyslime_vine.encyclopedia.laces": "Надає +0.5 блоку висоти стрибка на першому рівні та +1 на другому рівні. Збільшує безпечну дальність падіння на 1 блок за кожен рівень.",
 
   "material.tconstruct.skyslimeskin": "Слизошкіра",
   "material.tconstruct.skyslimeskin.flavor": "Літай як метелик, жаль як бджола.",
-  "material.tconstruct.skyslimeskin.encyclopedia.armor": "Зменшує силу тяжіння на 20% за кожен елемент обладунку.",
 
   "material.tconstruct.weeping_vine": "Плакучі лози",
   "material.tconstruct.weeping_vine.flavor": "Проводить тепло.",

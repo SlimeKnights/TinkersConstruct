@@ -1900,10 +1900,10 @@
   "material.tconstruct.skyslime_vine.flavor": "Vuela como mariposa, pica como abeja.",
   "material.tconstruct.skyslime_vine.encyclopedia.melee_harvest": "Cancela la reducción de velocidad de minado cuando no estás en el suelo",
   "material.tconstruct.skyslime_vine.encyclopedia.ranged": "Otorga +0.1 de velocidad de proyectil cuando no estás en el suelo o en una escalera",
+  "material.tconstruct.skyslime_vine.encyclopedia.armor": "Reduce la gravedad un 20% por pieza",
 
   "material.tconstruct.skyslimeskin": "Piel de slime",
   "material.tconstruct.skyslimeskin.flavor": "Vuela como mariposa, pica como abeja.",
-  "material.tconstruct.skyslimeskin.encyclopedia.armor": "Reduce la gravedad un 20% por pieza",
 
   "material.tconstruct.weeping_vine": "Liana llorona",
   "material.tconstruct.weeping_vine.flavor": "Canaliza el calor.",

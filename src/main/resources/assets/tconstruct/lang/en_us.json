@@ -1982,15 +1982,15 @@
   "material.tconstruct.rose_gold.encyclopedia.skull": "Boosts health by 2 hearts, plus an additional 2 hearts when trimmed and per piece of golden armor.",
 
   "material.tconstruct.skyslime_vine": "Slimy Vine",
-  "material.tconstruct.skyslime_vine.flavor": "Float like a butterfly, stung by a bee.",
+  "material.tconstruct.skyslime_vine.flavor": "Float like a butterfly, sting like a bee.",
   "material.tconstruct.skyslime_vine.encyclopedia.melee_harvest": "Cancels out the mining speed reduction when not on the ground.",
   "material.tconstruct.skyslime_vine.encyclopedia.ranged": "Grants +0.1 velocity when not on the ground or a ladder.",
-  "material.tconstruct.skyslime_vine.encyclopedia.armor": "Reduces damage from airborne targets by 10%.",
+  "material.tconstruct.skyslime_vine.encyclopedia.armor": "Reduces gravity by 15% per piece.",
   "material.tconstruct.skyslime_vine.encyclopedia.laces": "Grants +0.5 blocks jump height at first level, and +1 at second level. Increases the safe fall distance by 1 block per level.",
 
   "material.tconstruct.skyslimeskin": "Slimeskin",
-  "material.tconstruct.skyslimeskin.flavor": "Float like a butterfly, sting like a bee.",
-  "material.tconstruct.skyslimeskin.encyclopedia.armor": "Reduces gravity by 15% per piece.",
+  "material.tconstruct.skyslimeskin.flavor": "Float like a butterfly, stung by a bee.",
+  "material.tconstruct.skyslimeskin.encyclopedia.armor": "Reduces damage from airborne targets by 10%.",
 
   "material.tconstruct.weeping_vine": "Weeping Vine",
   "material.tconstruct.weeping_vine.flavor": "Channel the heat.",

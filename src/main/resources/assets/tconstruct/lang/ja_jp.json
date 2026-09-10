@@ -1911,10 +1911,10 @@
   "material.tconstruct.skyslime_vine.flavor": "蝶のように舞い、蜂のように刺す。",
   "material.tconstruct.skyslime_vine.encyclopedia.melee_harvest": "足が大地に付いてない場合でも採掘速度が低下しなくなる",
   "material.tconstruct.skyslime_vine.encyclopedia.ranged": "地面やはしごに乗っていない時に+0.1の速度補正を得る",
+  "material.tconstruct.skyslime_vine.encyclopedia.armor": "1つの部位につき15%重力が軽減される",
 
   "material.tconstruct.skyslimeskin": "スライムスキン",
   "material.tconstruct.skyslimeskin.flavor": "蝶のように舞い、蜂のように刺す。",
-  "material.tconstruct.skyslimeskin.encyclopedia.armor": "1つの部位につき15%重力が軽減される",
 
   "material.tconstruct.weeping_vine": "しだれツタ",
   "material.tconstruct.weeping_vine.flavor": "熱を集中させよ",

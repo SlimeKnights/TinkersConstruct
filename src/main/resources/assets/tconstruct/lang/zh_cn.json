@@ -1969,11 +1969,11 @@
   "material.tconstruct.skyslime_vine.flavor": "掠翅若蝶，蛰刺似蜂。",
   "material.tconstruct.skyslime_vine.encyclopedia.melee_harvest": "离开地面时，不再受到挖掘速度削减惩罚。",
   "material.tconstruct.skyslime_vine.encyclopedia.ranged": "离开地面或攀附梯子时，让工具的箭矢初速度+0.1。",
+  "material.tconstruct.skyslime_vine.encyclopedia.armor": "每件盔甲使重力减少15%。",
   "material.tconstruct.skyslime_vine.encyclopedia.laces": "第一级增加0.5格跳跃高度，第二级增加1格跳跃高度。每级增加1格安全摔落高度。",
 
   "material.tconstruct.skyslimeskin": "黏液皮",
   "material.tconstruct.skyslimeskin.flavor": "掠翅若蝶，蛰刺似蜂。",
-  "material.tconstruct.skyslimeskin.encyclopedia.armor": "每件盔甲使重力减少15%。",
 
   "material.tconstruct.weeping_vine": "垂泪藤",
   "material.tconstruct.weeping_vine.flavor": "传导热量",
