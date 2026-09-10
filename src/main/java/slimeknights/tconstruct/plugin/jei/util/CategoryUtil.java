@@ -4,10 +4,12 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.ingredient.IRecipeSlotDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotRichTooltipCallback;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import net.minecraftforge.fluids.FluidStack;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Function;
 
@@ -61,5 +63,21 @@ public final class CategoryUtil {
              .addIngredients(ForgeTypes.FLUID_STACK, mapper.apply(ingredient));
     }
     return maxAmount;
+  }
+
+  /** Finds the slot with the given name, or null if the slot is missing */
+  @Nullable
+  public static IRecipeSlotDrawable findSlot(List<IRecipeSlotDrawable> slots, String name) {
+    for (IRecipeSlotDrawable slot : slots) {
+      if (slot.getSlotName().orElse("").equals(name)) {
+        return slot;
+      }
+    }
+    return null;
+  }
+
+  /** Filters the slot list to only those starting with the given prefix */
+  public static List<IRecipeSlotDrawable> filterSlots(List<IRecipeSlotDrawable> slots, String prefix) {
+    return slots.stream().filter(slot -> slot.getSlotName().orElse("").startsWith(prefix)).toList();
   }
 }
