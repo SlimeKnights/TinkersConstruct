@@ -956,7 +956,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(StatBoostModule.add(ToolStats.VELOCITY).eachLevel(0.1f))
       .addModule(StatBoostModule.add(ToolStats.VELOCITY).toolTag(TinkerTags.Items.THROWN_AMMO).eachLevel(0.1f));
     buildModifier(ModifierIds.depthProtection).addModule(DepthProtectionModule.builder().baselineHeight(64).neutralRange(32).eachLevel(1.25f));
-    buildModifier(ModifierIds.enderclearance).addModule(new EnderclearanceModule(LevelingValue.eachLevel(0.25f), new LevelingInt(8, 8), LevelingInt.flat(16)));
+    buildModifier(ModifierIds.enderclearance).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(new EnderclearanceModule(LevelingValue.eachLevel(0.25f), new LevelingInt(8, 8), LevelingInt.flat(16)));
     buildModifier(ModifierIds.frostshield)
       .levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
       .priority(175) // higher than overslime, to ensure this is removed first
@@ -1052,7 +1052,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.overgrowth).addModule(new OvergrowthModule(LevelingValue.eachLevel(0.05f)));
     buildModifier(ModifierIds.searing).addModule(ConditionalMiningSpeedModule.builder().blocks(TinkerPredicate.CAN_MELT_BLOCK).eachLevel(6f));
     buildModifier(ModifierIds.scorching).addModule(ConditionalMeleeDamageModule.builder().target(LivingEntityPredicate.ON_FIRE).eachLevel(2f));
-    buildModifier(ModifierIds.airborne)
+    buildModifier(ModifierIds.airborne).levelDisplay(ModifierLevelDisplay.NO_LEVELS)
       // 400% boost means 5x mining speed
       .addModule(ConditionalMiningSpeedModule.builder().holder(LivingEntityPredicate.ON_GROUND.inverted()).percent().allowIneffective().flat(4), ModifierHooks.BREAK_SPEED)
       // velocity gets a 0.1 boost under the stricter version of in air (no boost just for being on a ladder)

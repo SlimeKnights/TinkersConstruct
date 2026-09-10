@@ -1,5 +1,5 @@
 {
-  "level_display": "tconstruct:default",
+  "level_display": "tconstruct:single_level",
   "modules": [
     {
       "type": "tconstruct:enderclearance",
