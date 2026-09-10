@@ -86,8 +86,8 @@ import slimeknights.tconstruct.plugin.jei.casting.CastingTableCategory;
 import slimeknights.tconstruct.plugin.jei.entity.DefaultEntityMeltingRecipe;
 import slimeknights.tconstruct.plugin.jei.entity.EntityMeltingRecipeCategory;
 import slimeknights.tconstruct.plugin.jei.entity.SeveringCategory;
-import slimeknights.tconstruct.plugin.jei.material.MaterialsCraftingExtension;
 import slimeknights.tconstruct.plugin.jei.material.ShapedMaterialsExtension;
+import slimeknights.tconstruct.plugin.jei.material.ShapelessMaterialsExtension;
 import slimeknights.tconstruct.plugin.jei.melting.FoundryCategory;
 import slimeknights.tconstruct.plugin.jei.melting.MeltingCategory;
 import slimeknights.tconstruct.plugin.jei.melting.MeltingFuelHandler;
@@ -192,7 +192,7 @@ public class JEIPlugin implements IModPlugin {
   public void registerVanillaCategoryExtensions(IVanillaCategoryExtensionRegistration registry) {
     registry.getCraftingCategory().addCategoryExtension(ShapedMaterialRecipe.class, ShapedMaterialExtension::new);
     registry.getCraftingCategory().addCategoryExtension(ShapedMaterialsRecipe.class, ShapedMaterialsExtension::create);
-    registry.getCraftingCategory().addCategoryExtension(ShapelessMaterialsRecipe.class, MaterialsCraftingExtension::shapeless);
+    registry.getCraftingCategory().addCategoryExtension(ShapelessMaterialsRecipe.class, ShapelessMaterialsExtension::shapeless);
   }
 
   @Override

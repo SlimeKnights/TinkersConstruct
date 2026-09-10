@@ -1,11 +1,12 @@
 package slimeknights.tconstruct.plugin.jei.material;
 
 import com.google.common.collect.Streams;
-import it.unimi.dsi.fastutil.ints.IntArrayList;
-import it.unimi.dsi.fastutil.ints.IntList;
+import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.ingredient.ICraftingGridHelper;
+import mezz.jei.api.gui.ingredient.IRecipeSlotDrawable;
+import mezz.jei.api.recipe.IFocus;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.extensions.vanilla.crafting.ICraftingCategoryExtension;
@@ -15,14 +16,14 @@ import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import slimeknights.mantle.Mantle;
 import slimeknights.mantle.client.SafeClientAccess;
-import slimeknights.mantle.plugin.jei.MantleJEIConstants;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipeCache;
 import slimeknights.tconstruct.library.recipe.material.MaterialsCraftingTableRecipe;
 import slimeknights.tconstruct.library.recipe.material.ShapelessMaterialsRecipe;
-import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
-import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
+import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
+import slimeknights.tconstruct.plugin.jei.util.CategoryUtil;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -31,22 +32,25 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
 
-/** Common logic for {@link ShapedMaterialsExtension} and {@link #shapeless(ShapelessMaterialsRecipe)} */
+/** Common logic for {@link ShapedMaterialsExtension} and {@link ShapelessMaterialsRecipe} */
 public class MaterialsCraftingExtension<T extends CraftingRecipe & MaterialsCraftingTableRecipe> implements ICraftingCategoryExtension {
+  private static final String RESULT_SLOT = "result";
+
   protected final T recipe;
   private final ItemStack plainResult;
-  private final List<List<ItemStack>> inputs;
   private final List<ItemStack> result;
+  /** List of slot indices matching the first part to link to the output */
   @Nullable
-  private final int[] materialSlots;
+  private final int[] outputLink;
+  /** List of slot indices matching each part */
+  private final List<int[]> partSlots;
 
   public MaterialsCraftingExtension(T recipe) {
     this.recipe = recipe;
     this.plainResult = recipe.getResultItem(Objects.requireNonNull(SafeClientAccess.getRegistryAccess()));
 
     // if we have just the one part, set the output to match its material
-    int partCount = recipe.getPartCount();
-    if (partCount == 1) {
+    if (recipe.getPartCount() == 1) {
       Ingredient firstPart = recipe.getParts().get(0);
       this.result = Arrays.stream(firstPart.getItems()).map(variant -> {
         ItemStack stack = plainResult.copy();
@@ -57,96 +61,31 @@ public class MaterialsCraftingExtension<T extends CraftingRecipe & MaterialsCraf
         }
         return stack;
       }).toList();
-      this.materialSlots = getMaterialSlots(recipe, firstPart);
-      this.inputs = getInputs(recipe.getIngredients());
+      this.outputLink = getMaterialSlots(recipe, firstPart);
+      this.partSlots = List.of();
       // otherwise, use a display material. allow display tool part if it has just 1 material
     } else {
-      // expand parts out to all combinations of parts
-      List<Ingredient> partIngredients = recipe.getParts();
-      int[] partSizes = new int[partCount];
-      int product = 1;
-      // to start, we need to know how big each group is
-      for (int i = 0; i < partCount; i++) {
-        int size = partIngredients.get(i).getItems().length;
-        partSizes[i] = size;
-        product *= size;
-      }
-      List<List<ItemStack>> partItems = new ArrayList<>(partCount);
-      for (int part = 0; part < partCount; part++) {
-        // item repeats once per previous part
-        int repeatItem = 1;
-        for (int i = 0; i < part; i++) {
-          repeatItem *= partSizes[i];
-        }
-        // entire list repeats once per future part
-        int repeatGroup = 1;
-        for (int i = part + 1; i < partCount; i++) {
-          repeatGroup *= partSizes[i];
-        }
-        ItemStack[] originalStacks = partIngredients.get(part).getItems();
-        List<ItemStack> finalList = new ArrayList<>(product);
-        for (int i = 0; i < repeatGroup; i++) {
-          for (ItemStack stack : originalStacks) {
-            for (int j = 0; j < repeatItem; j++) {
-              finalList.add(stack);
-            }
-          }
-        }
-        partItems.add(List.copyOf(finalList));
-      }
-      // next, it's time to build the ingredient lists
-      List<Ingredient> ingredients = recipe.getIngredients();
-      int ingredientCount = ingredients.size();
-      List<List<ItemStack>> inputs = new ArrayList<>(ingredientCount);
-      IntList materialSlots = new IntArrayList();
-      ingredientLoop:
-      for (int i = 0; i < ingredientCount; i++) {
-        Ingredient ingredient = ingredients.get(i);
-        // if it matches a part ingredient, replace with the expanded list and add to our focus links
-        for (int part = 0; part < partCount; part++) {
-          if (ingredient == partIngredients.get(part)) {
-            inputs.add(partItems.get(part));
-            materialSlots.add(i);
-            continue ingredientLoop;
-          }
-        }
-        // not a part? add its items directly with no focus link
-        inputs.add(List.of(ingredient.getItems()));
-      }
-      this.inputs = List.copyOf(inputs);
-      this.materialSlots = materialSlots.toIntArray();
-
-      // finally, compute result variants for each input
-      List<ItemStack> results = new ArrayList<>(product);
-      List<MaterialVariantId> extraMaterials = recipe.getExtraMaterials();
-      for (int i = 0; i < product; i++) {
-        MaterialNBT.Builder builder = MaterialNBT.builder();
-        for (int part = 0; part < partCount; part++) {
-          builder.add(MaterialRecipeCache.findRecipe(partItems.get(part).get(i)).getMaterial());
-        }
-        builder.add(extraMaterials);
-
-        ItemStack result = plainResult.copy();
-        ToolStack.from(result).setMaterials(builder.build());
-        results.add(result);
-      }
-      this.result = List.copyOf(results);
+      // just set a display tool, it should never be seen
+      this.result = List.of(IModifiableDisplay.getDisplayStack(plainResult));
+      this.outputLink = null;
+      this.partSlots = recipe.getParts().stream().map(part -> getMaterialSlots(recipe, part)).toList();
     }
   }
 
   /** {@return Instance of the shapeless extension, or null if the recipe is invalid for display} */
   @Nullable
   public static MaterialsCraftingExtension<ShapelessMaterialsRecipe> shapeless(ShapelessMaterialsRecipe recipe) {
+    // TODO 1.21: move this to ShapelessMaterialsExtension
     List<Ingredient> parts = recipe.getIngredients();
     for (int i = 0; i < recipe.getPartCount(); i++) {
       if (parts.get(i).getItems().length == 0) {
         return null;
       }
     }
-    return new MaterialsCraftingExtension<>(recipe);
+    return new ShapelessMaterialsExtension(recipe);
   }
 
-  /** Gets the material slots for the given recipe */
+  /** Gets the material slots for the given recipe. Indices should be mapped via {@link slimeknights.mantle.plugin.jei.MantleJEIConstants#getCraftingIndex(int, int, int)} */
   protected int[] getMaterialSlots(T recipe, Ingredient firstPart) {
     return new int[] {0};
   }
@@ -156,22 +95,12 @@ public class MaterialsCraftingExtension<T extends CraftingRecipe & MaterialsCraf
     return recipe.getId();
   }
 
-  /** Gets a list of item lists per slot from a list of ingredients */
-  private static List<List<ItemStack>> getInputs(List<Ingredient> ingredients) {
-    return ingredients.stream().map(ingredient -> List.of(ingredient.getItems())).toList();
-  }
-
-  /** @deprecated use {@link #setRecipe(ICraftingCategoryExtension, IRecipeLayoutBuilder, ICraftingGridHelper, ResourceLocation, List, List, ItemStack, int[])} */
-  @Deprecated(forRemoval = true)
-  public static void setRecipe(ICraftingCategoryExtension self, IRecipeLayoutBuilder builder, ICraftingGridHelper craftingGridHelper, CraftingRecipe recipe, List<ItemStack> result, ItemStack plainResult, @Nullable int[] materialSlots) {
-    setRecipe(self, builder, craftingGridHelper, recipe.getId(), getInputs(recipe.getIngredients()), result, plainResult, materialSlots);
-  }
-
   /** Sets the recipe in the builder */
-  public static void setRecipe(ICraftingCategoryExtension self, IRecipeLayoutBuilder builder, ICraftingGridHelper craftingGridHelper, ResourceLocation id, List<List<ItemStack>> inputStacks, List<ItemStack> result, ItemStack plainResult, @Nullable int[] materialSlots) {
+  public static void setRecipe(ICraftingCategoryExtension self, IRecipeLayoutBuilder builder, ICraftingGridHelper craftingGridHelper, CraftingRecipe recipe, List<ItemStack> result, ItemStack plainResult, @Nullable int[] materialSlots) {
     builder.addInvisibleIngredients(RecipeIngredientRole.OUTPUT).addItemStack(plainResult);
 
     // apply ingredient stacks
+    List<List<ItemStack>> inputStacks = recipe.getIngredients().stream().map(ingredient -> List.of(ingredient.getItems())).toList();
     // shapeless needs its width and height set, but we also want to recover those sizes, so calculate it locally
     int width = self.getWidth();
     int height = self.getHeight();
@@ -180,27 +109,82 @@ public class MaterialsCraftingExtension<T extends CraftingRecipe & MaterialsCraf
       builder.setShapeless();
     }
     List<IRecipeSlotBuilder> inputs = craftingGridHelper.createAndSetInputs(builder, inputStacks, width, height);
-    IRecipeSlotBuilder output = craftingGridHelper.createAndSetOutputs(builder, result);
+    IRecipeSlotBuilder output = craftingGridHelper.createAndSetOutputs(builder, result).setSlotName(RESULT_SLOT);
     if (inputs.size() != 9) {
-      Mantle.logger.error("Failed to create focus link for {} as the layout {} is not 3x3", id, builder.getClass().getName());
+      Mantle.logger.error("Failed to create focus link for {} as the layout {} is not 3x3", recipe.getId(), builder.getClass().getName());
     } else if (materialSlots != null) {
       // apply focus links
-      int finalWidth = width;
-      int finalHeight = height;
       builder.createFocusLink(Streams.concat(
         Stream.of(output),
-        Arrays.stream(materialSlots).mapToObj(i -> inputs.get(MantleJEIConstants.getCraftingIndex(i, finalWidth, finalHeight)))
+        Arrays.stream(materialSlots).mapToObj(inputs::get)
       ).toArray(IRecipeSlotBuilder[]::new));
     }
   }
 
   @Override
   public void setRecipe(IRecipeLayoutBuilder builder, ICraftingGridHelper craftingGridHelper, IFocusGroup focuses) {
-    setRecipe(this, builder, craftingGridHelper, recipe.getId(), inputs, result, plainResult, materialSlots);
+    setRecipe(this, builder, craftingGridHelper, recipe, result, plainResult, outputLink);
+  }
+
+  @Override
+  public void onDisplayedIngredientsUpdate(List<IRecipeSlotDrawable> recipeSlots, IFocusGroup focuses) {
+    // don't care if only 1 part
+    if (!partSlots.isEmpty()) {
+      IRecipeSlotDrawable resultSlot = CategoryUtil.findSlot(recipeSlots, RESULT_SLOT);
+      if (resultSlot != null) {
+        int partCount = partSlots.size();
+        // we just assume the first 9 slots are inputs to avoid needing to make a new list
+        IFocus<ItemStack> focus = focuses.getFocuses(VanillaTypes.ITEM_STACK, RecipeIngredientRole.OUTPUT).findFirst().orElse(null);
+        // if we have an output focus, set the input slots to match
+        outputFocus:
+        if (focus != null) {
+          ItemStack result = focus.getTypedValue().getIngredient();
+          MaterialIdNBT materials = MaterialIdNBT.from(result);
+          // loop through finding all overrides to display, but don't override yet in case any materials on the tool are absent
+          List<List<ItemStack>> slotOverrides = new ArrayList<>(partCount);
+          for (int i = 0; i < partCount; i++) {
+            // find all inputs matching the material
+            MaterialVariantId material = materials.getMaterial(i);
+            List<ItemStack> matchingStacks = Arrays.stream(recipe.getParts().get(i).getItems()).filter(stack -> {
+              if (stack.getItem() instanceof IMaterialItem materialItem) {
+                return materialItem.getMaterial(stack).equals(material);
+              }
+              return MaterialRecipeCache.findRecipe(stack).getMaterial().sameVariant(material);
+            }) .toList();
+            if (matchingStacks.isEmpty()) {
+              // give up, doing the input method
+              break outputFocus;
+            }
+            slotOverrides.add(matchingStacks);
+          }
+          // all materials are present, so time to override
+          for (int i = 0; i < partCount; i++) {
+            List<ItemStack> override = slotOverrides.get(i);
+            for (int slot : partSlots.get(i)) {
+              recipeSlots.get(slot).createDisplayOverrides().addItemStacks(override);
+            }
+          }
+          resultSlot.createDisplayOverrides().addItemStack(materials.updateStack(plainResult.copy()));
+          return;
+        }
+        // find input materials and use to set the output
+        List<MaterialVariantId> variants = new ArrayList<>(partCount);
+        for (int i = 0; i < partCount; i++) {
+          ItemStack stack = recipeSlots.get(partSlots.get(i)[0]).getDisplayedItemStack().orElse(ItemStack.EMPTY);
+          if (stack.getItem() instanceof IMaterialItem materialItem) {
+            variants.add(materialItem.getMaterial(stack));
+          } else {
+            variants.add(MaterialRecipeCache.findRecipe(stack).getMaterial().getVariant());
+          }
+        }
+        variants.addAll(recipe.getExtraMaterials());
+        resultSlot.createDisplayOverrides().addItemStack(new MaterialIdNBT(variants).updateStack(plainResult.copy()));
+      }
+    }
   }
 
   /** Gets the width and height of the grid for a shapeless recipe. */
-  private static int getShapelessSize(int total) {
+  static int getShapelessSize(int total) {
     if (total > 4) {
       return 3;
     } else if (total > 1) {
