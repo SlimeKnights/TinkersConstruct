@@ -1,9 +1,6 @@
 {
   "type": "tconstruct:crafting_shaped_materials",
   "category": "equipment",
-  "extra_materials": [
-    "tconstruct:leather"
-  ],
   "key": {
     "c": [
       {
@@ -36,10 +33,15 @@
       }
     ],
     "l": {
-      "tag": "forge:leather"
+      "type": "tconstruct:material_value",
+      "material": {
+        "type": "tconstruct:stat_type",
+        "stat_type": "tconstruct:cuirass"
+      },
+      "value": 1.0
     }
   },
-  "parts": "c",
+  "parts": "cl",
   "pattern": [
     "l l",
     "lcl",

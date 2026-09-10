@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:material_value_swapping",
+  "cost": 5,
+  "index": 1,
+  "material": {
+    "type": "tconstruct:stat_type",
+    "stat_type": "tconstruct:cuirass"
+  },
+  "max_stack_size": 16,
+  "tools": {
+    "item": "tconstruct:travelers_leggings"
+  }
+}

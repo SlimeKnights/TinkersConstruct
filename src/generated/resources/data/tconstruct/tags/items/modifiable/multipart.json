@@ -28,10 +28,15 @@
       "id": "tconstruct:minotaur_axe",
       "required": false
     },
+    "tconstruct:travelers_helmet",
+    "tconstruct:travelers_chestplate",
+    "tconstruct:travelers_leggings",
+    "tconstruct:travelers_boots",
     "tconstruct:plate_helmet",
     "tconstruct:plate_chestplate",
     "tconstruct:plate_leggings",
     "tconstruct:plate_boots",
+    "tconstruct:travelers_shield",
     "#tconstruct:modifiable/multipart/single"
   ]
 }
