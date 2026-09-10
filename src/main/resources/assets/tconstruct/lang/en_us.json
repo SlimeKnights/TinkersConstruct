@@ -2313,7 +2313,7 @@
 
   "material.tconstruct.clay": "Clay",
   "material.tconstruct.clay.flavor": "All natural!",
-  "material.tconstruct.clay.encyclopedia.slime": "Grants +1 armor per level.",
+  "material.tconstruct.clay.encyclopedia.slime": "Grants +1 armor and +5% knockback resistance per level.",
 
   "material.tconstruct.honey": "Honey",
   "material.tconstruct.honey.flavor": "Super Sweet!",
