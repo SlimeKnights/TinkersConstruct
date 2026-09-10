@@ -93,10 +93,14 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
     if (tinkerable.isEmpty() || !tinkerable.is(TinkerTags.Items.DURABILITY)) {
       return false;
     }
+    // cannot repair if not damaged, this allows it to defer to other recipes such as part swapping
+    ToolStack tool = inv.getTinkerable();
+    if (!tool.isBroken() && tool.getDamage() == 0) {
+      return false;
+    }
 
     // validate materials
     MaterialId material = null;
-    ToolStack tool = inv.getTinkerable();
     for (int i = 0; i < inv.getInputCount(); i++) {
       // skip empty slots
       ItemStack stack = inv.getInput(i);
