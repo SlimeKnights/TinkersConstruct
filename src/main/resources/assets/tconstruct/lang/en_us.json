@@ -2025,6 +2025,7 @@
   "material.tconstruct.wool.black": "Black Wool",
   "material.tconstruct.wool.flavor": "Woolooloo",
   "material.tconstruct.wool.encyclopedia.ammo": "Multiplies the projectile damage by 0. Note damage may still be increased by bow power, and it may still aggravate mobs.",
+  "material.tconstruct.wool.encyclopedia.armor": "Grants +10% knockback resistance",
 
   "material.tconstruct.feather": "Feather",
   "material.tconstruct.feather.flavor": "The traditional arrow fletching",
@@ -2698,7 +2699,7 @@
   "_comment": "Armor",
   "modifier.tconstruct.knockback_resistance": "Knockback Resistance",
   "modifier.tconstruct.knockback_resistance.flavor": "A weighty subject",
-  "modifier.tconstruct.knockback_resistance.description": "Anvils are heavy, so it should keep you from being knocked back, right?",
+  "modifier.tconstruct.knockback_resistance.description": "This reduces knockback in others, so why not reducing knockback on myself?",
   "modifier.tconstruct.golden": "Golden",
   "modifier.tconstruct.golden.flavor": "Good as gold",
   "modifier.tconstruct.golden.description": "Gives your armor extra golden bling - piglins love it!",

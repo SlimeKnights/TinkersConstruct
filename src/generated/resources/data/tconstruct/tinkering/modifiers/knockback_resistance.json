@@ -1,11 +1,15 @@
 {
-  "level_display": "tconstruct:default",
+  "level_display": "tconstruct:single_level",
   "modules": [
     {
       "type": "tconstruct:stat_boost",
       "each_level": 0.1,
       "operation": "add",
       "stat": "tconstruct:knockback_resistance"
+    },
+    {
+      "type": "tconstruct:material_variant_color",
+      "material": "tconstruct:wool"
     }
   ]
 }

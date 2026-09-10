@@ -1,8 +1,14 @@
 {
   "color": "FFE9ECEC",
+  "fallbacks": [
+    "wool"
+  ],
   "generator": {
     "supported_stats": [
       "tconstruct:arrow_head",
+      "tconstruct:cuirass",
+      "tconstruct:armor_cuirass",
+      "tconstruct:repair_kit",
       "tconstruct:fletching"
     ],
     "transformer": {

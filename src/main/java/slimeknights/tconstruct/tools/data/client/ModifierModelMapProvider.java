@@ -521,10 +521,19 @@ public class ModifierModelMapProvider extends AbstractModifierModelMapProvider {
 
   /** Adds dyed textures for travelers gear */
   private void travelers(String name) {
-    String root = "armor/travelers/" + name + "/modifiers/";
+    String root = "armor/travelers/" + name + "/";
+    String modifiers = root + "modifiers/";
     String item = "travelers/" + name;
-    tool(item).dyed(root + "dyed", null);
-    tool(item + "_broken").dyed(root + "dyed_broken", null);
+    tool(item).dyed(new MaterialHasFallbackModifierModel(1,
+      new DyedModifierModel(toolMaterial(root + "cuirass_tconstruct_wool_white"), null),
+      new DyedModifierModel(toolMaterial(modifiers + "dyed"), null),
+      "wool"
+    ));
+    tool(item + "_broken").dyed(new MaterialHasFallbackModifierModel(1,
+      new DyedModifierModel(toolMaterial(root + "cuirass_broken_tconstruct_wool_white"), null),
+      new DyedModifierModel(toolMaterial(modifiers + "dyed_broken"), null),
+      "wool"
+    ));
   }
 
   /** Adds dyed textures to a staff */

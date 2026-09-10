@@ -408,7 +408,7 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
     for (DyeColor color : DyeColor.values()) {
       String name = color.getName();
       MaterialSpriteInfoBuilder builder = buildMaterial(MaterialVariantId.create(MaterialIds.wool, name));
-      builder.arrowHead().transformer(transformerFromSprite(new ResourceLocation("block/" + name + "_wool"), 0, 0));
+      builder.fallbacks("wool").arrowHead().cuirass().transformer(transformerFromSprite(new ResourceLocation("block/" + name + "_wool"), 0, 0));
       if (color == DyeColor.WHITE) {
         builder.fletching();
       } else {

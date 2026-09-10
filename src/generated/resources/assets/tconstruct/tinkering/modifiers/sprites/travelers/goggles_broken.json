@@ -3,8 +3,17 @@
     "__dyed": {
       "type": "tconstruct:crafted",
       "model": {
-        "type": "tconstruct:dyed",
-        "texture": "tconstruct:item/tool/armor/travelers/goggles/modifiers/dyed_broken"
+        "type": "tconstruct:material_has_fallback",
+        "fallback": "wool",
+        "if_false": {
+          "type": "tconstruct:dyed",
+          "texture": "tconstruct:item/tool/armor/travelers/goggles/modifiers/dyed_broken"
+        },
+        "if_true": {
+          "type": "tconstruct:dyed",
+          "texture": "tconstruct:item/tool/armor/travelers/goggles/cuirass_broken_tconstruct_wool_white"
+        },
+        "index": 1
       },
       "modifier": "tconstruct:dyed"
     }
