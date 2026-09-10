@@ -88,6 +88,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addTraits(MaterialIds.skyslimeVine, ARMOR, ModifierIds.skyfall, ModifierIds.overslimeFriend);
     addDefaultTraits(MaterialIds.weepingVine, ModifierIds.flamestance);
     addDefaultTraits(MaterialIds.twistingVine, ModifierIds.entangled);
+    addTraits(MaterialIds.twistingVine, ARMOR, ModifierIds.entwined);
     addDefaultTraits(MaterialIds.turtle, ModifierIds.turtleShell);
     // tier 2 - ammo
     addTraits(MaterialIds.amethyst, AMMO, ModifierIds.crystalbound);
@@ -252,7 +253,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     // vine uses default
     addTraits(MaterialIds.skyslimeVine, laces, ModifierIds.leaping);
     addTraits(MaterialIds.darkthread, laces, ModifierIds.looter);
-    addTraits(MaterialIds.twistingVine, laces, ModifierIds.entwined);
+    // twisting vine uses standard armor
     addTraits(MaterialIds.weepingVine, laces, ModifierIds.soulspeed);
     addTraits(MaterialIds.jeweledHide, laces, ModifierIds.fortunate);
     // enderslime vine uses standard armor

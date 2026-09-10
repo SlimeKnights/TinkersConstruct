@@ -1986,7 +1986,7 @@
   "material.tconstruct.twisting_vine.flavor": "吞食孢子！",
   "material.tconstruct.twisting_vine.encyclopedia.melee_harvest": "工具获得+6挖掘速度；代价是每次放下工具时流失1点生命值。",
   "material.tconstruct.twisting_vine.encyclopedia.ranged": "工具获得+15%拉弓速度；代价是每次放下工具时流失1点生命值。",
-  "material.tconstruct.twisting_vine.encyclopedia.armor": "盔甲获得+10%击退抗性；代价是每次卸下盔甲时流失2点生命值。",
+  "material.tconstruct.twisting_vine.encyclopedia.armor": "15%移动速度，代价是每次卸下盔甲时流失2点生命值。",
   "material.tconstruct.twisting_vine.encyclopedia.laces": "每级增加15%移动速度，代价是每次卸下盔甲时流失2点生命值。",
 
   "material.tconstruct.wool": "羊毛",

@@ -2003,7 +2003,7 @@
   "material.tconstruct.twisting_vine.flavor": "Eat the spores!",
   "material.tconstruct.twisting_vine.encyclopedia.melee_harvest": "Grants +6 mining speed at the cost of losing 1 health when you put down the tool.",
   "material.tconstruct.twisting_vine.encyclopedia.ranged": "Grants +15% draw speed at the cost of losing 1 health when you put down the tool.",
-  "material.tconstruct.twisting_vine.encyclopedia.armor": "Grants +10% knockback resistance at the cost of losing 2 health when you remove the armor.",
+  "material.tconstruct.twisting_vine.encyclopedia.armor": "Increases movement speed by 15%, but deals 2 damage per level when unequipped.",
   "material.tconstruct.twisting_vine.encyclopedia.laces": "Increases movement speed by 15% per level, but deals 2 damage per level when unequipped.",
 
   "material.tconstruct.wool": "Wool",

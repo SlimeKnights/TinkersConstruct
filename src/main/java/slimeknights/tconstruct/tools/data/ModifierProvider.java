@@ -1114,13 +1114,10 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
       // harvest: +6 is a bit better than haste
       .addModule(StatBoostModule.add(ToolStats.MINING_SPEED).flat(6))
-      // armor: +15% knockback resistance, making it stronger than anvil
-      .addModule(StatBoostModule.add(ToolStats.KNOCKBACK_RESISTANCE).flat(0.10f))
       // ranged: +10% drawspeed is on par with netherite, hard to get elsewhere
       .addModule(StatBoostModule.add(ToolStats.DRAW_SPEED).flat(0.15f))
-      // downside: don't take it off, damage more for armor
-      .addModule(new DamageOnUnequipModule(1, ModifierCondition.ANY_TOOL.with(ToolStackPredicate.tag(TinkerTags.Items.WORN_ARMOR).inverted())))
-      .addModule(new DamageOnUnequipModule(2, ModifierCondition.ANY_TOOL.with(ToolStackPredicate.tag(TinkerTags.Items.WORN_ARMOR))));
+      // downside: don't take it off
+      .addModule(new DamageOnUnequipModule(1));
 
     MobEffectModule.Builder venomBuilder = MobEffectModule.builder(TinkerEffects.venom).time(RandomLevelingValue.random(5 * 20, 5 * 20));
     buildModifier(ModifierIds.venom).priority(150)
@@ -1672,7 +1669,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       // boots: +15% movement speed
       .addModule(AttributeModule.builder(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL).slots(armorMainHand).eachLevel(0.15f))
       // downside: don't take it off
-      .addModule(new DamageOnUnequipModule(2, ModifierCondition.ANY_TOOL));
+      .addModule(new DamageOnUnequipModule(2));
 
     // internal modifier to restore older slots to slimesuit
     IJsonPredicate<IToolContext> notSlimelytra = ToolContextPredicate.set(TinkerTools.slimeWings.get()).inverted();

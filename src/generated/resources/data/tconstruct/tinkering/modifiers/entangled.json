@@ -9,12 +9,6 @@
     },
     {
       "type": "tconstruct:stat_boost",
-      "flat": 0.1,
-      "operation": "add",
-      "stat": "tconstruct:knockback_resistance"
-    },
-    {
-      "type": "tconstruct:stat_boost",
       "flat": 0.15,
       "operation": "add",
       "stat": "tconstruct:draw_speed"
@@ -22,21 +16,7 @@
     {
       "type": "tconstruct:damage_on_unequip",
       "damage": 1.0,
-      "damage_type": "tconstruct:entangled",
-      "tool": {
-        "type": "mantle:inverted",
-        "inverted_type": "mantle:tag",
-        "tag": "tconstruct:modifiable/armor/worn"
-      }
-    },
-    {
-      "type": "tconstruct:damage_on_unequip",
-      "damage": 2.0,
-      "damage_type": "tconstruct:entangled",
-      "tool": {
-        "type": "mantle:tag",
-        "tag": "tconstruct:modifiable/armor/worn"
-      }
+      "damage_type": "tconstruct:entangled"
     }
   ]
 }

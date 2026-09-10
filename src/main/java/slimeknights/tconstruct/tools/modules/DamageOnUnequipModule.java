@@ -33,6 +33,10 @@ public record DamageOnUnequipModule(float damage, ResourceKey<DamageType> damage
     this(damage, TinkerDamageTypes.ENTANGLED, condition);
   }
 
+  public DamageOnUnequipModule(float damage) {
+    this(damage, ModifierCondition.ANY_TOOL);
+  }
+
   @Override
   public RecordLoadable<DamageOnUnequipModule> getLoader() {
     return LOADER;

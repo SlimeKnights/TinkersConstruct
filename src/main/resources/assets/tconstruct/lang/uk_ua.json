@@ -1986,7 +1986,7 @@
   "material.tconstruct.twisting_vine.flavor": "Не сперечайся та їж!",
   "material.tconstruct.twisting_vine.encyclopedia.melee_harvest": "Надає +6 до швидкости видобутку, але втрачає 1 міцність, коли ви опускаєте інструмент.",
   "material.tconstruct.twisting_vine.encyclopedia.ranged": "Надає +15% до швидкости натягування лука, але втрачає 1 міцність, коли ви опускаєте інструмент.",
-  "material.tconstruct.twisting_vine.encyclopedia.armor": "Надає +10% до стійкості до відкидань, але втрачає 2 міцності, коли ви знімаєте обладунок.",
+  "material.tconstruct.twisting_vine.encyclopedia.armor": "Збільшує швидкість руху на 15%, але завдає 2 одиниці шкоди за рівень, коли не екіпірований.",
   "material.tconstruct.twisting_vine.encyclopedia.laces": "Збільшує швидкість руху на 15% за рівень, але завдає 2 одиниці шкоди за рівень, коли не екіпірований.",
 
   "material.tconstruct.wool": "Вовна",
