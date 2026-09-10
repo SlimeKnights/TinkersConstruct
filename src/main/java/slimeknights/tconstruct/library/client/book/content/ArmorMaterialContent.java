@@ -251,7 +251,9 @@ public class ArmorMaterialContent extends AbstractMaterialContent {
         .add(makeStatHtml(HELMET.getId(), ARMOR_PLATING_LABEL.getString(), false, false))
         .add(makeStatHtml(StatlessMaterialStats.MAILLE.getIdentifier(), false, true))
         .add(makeStatHtml(StatlessMaterialStats.SHIELD_CORE.getIdentifier(), false, true)))
-      .add(makeStatHtml(SHIELD.getId(), SHIELD_LABEL.getString(), false, false)));
+      .add(HtmlElement.div().classes("column").style("gap", 12)
+        .add(makeStatHtml(SHIELD.getId(), SHIELD_LABEL.getString(), false, false))
+        .add(makeStatHtml(StatlessMaterialStats.CUIRASS.getIdentifier(), false, false))));
     return group;
   }
 }
