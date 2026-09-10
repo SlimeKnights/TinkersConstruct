@@ -2176,7 +2176,7 @@
 
   "material.tconstruct.dragon_scale": "Dragon Scale",
   "material.tconstruct.dragon_scale.flavor": "With this, even dragons will fear me!",
-  "material.tconstruct.dragon_scale.encyclopedia.armor": "Grants +10% resistance while airborne, and boosts attack damage by 5% per level based on the highest piece.",
+  "material.tconstruct.dragon_scale.encyclopedia.armor": "Grants +8% resistance while airborne, and boosts attack damage by 5% per level based on the highest piece.",
   "material.tconstruct.dragon_scale.encyclopedia.ammo": "Increases projectile damage by 1 per level if launched while in mid air.",
   "material.tconstruct.dragon_scale.skull": "Dragon",
   "material.tconstruct.dragon_scale.flavor.skull": "No one shotting!",

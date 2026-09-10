@@ -2066,7 +2066,7 @@
 
   "material.tconstruct.dragon_scale": "ドラゴンの鱗",
   "material.tconstruct.dragon_scale.flavor": "ドラゴンでさえも恐れることになる！",
-  "material.tconstruct.dragon_scale.encyclopedia.armor": "空中にいる間、耐性を10%増加させ、最高のレベルの装備品に基づいて攻撃力を5%ずつ上昇させる",
+  "material.tconstruct.dragon_scale.encyclopedia.armor": "空中にいる間、耐性を8%増加させ、最高のレベルの装備品に基づいて攻撃力を5%ずつ上昇させる",
   "material.tconstruct.dragon_scale.encyclopedia.ammo": "空中にいる間に発射した場合、レベルごとに飛翔体ダメージが1増加する",
   "material.tconstruct.dragon_scale.skull": "ドラゴン",
   "material.tconstruct.dragon_scale.flavor.skull": "誰も撃つな！",

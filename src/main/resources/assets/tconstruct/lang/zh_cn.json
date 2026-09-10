@@ -2140,7 +2140,7 @@
 
   "material.tconstruct.dragon_scale": "龙鳞",
   "material.tconstruct.dragon_scale.flavor": "只要有了这个，龙看见了也得怕！",
-  "material.tconstruct.dragon_scale.encyclopedia.armor": "滞空时+10%抗性；每级令攻击伤害+5%，等级由强化等级最高的盔甲决定。",
+  "material.tconstruct.dragon_scale.encyclopedia.armor": "滞空时+8%抗性；每级令攻击伤害+5%，等级由强化等级最高的盔甲决定。",
   "material.tconstruct.dragon_scale.encyclopedia.ammo": "每级使滞空时发射的弹射物伤害+1。",
   "material.tconstruct.dragon_scale.skull": "末影龙",
   "material.tconstruct.dragon_scale.flavor.skull": "你能秒我？你能秒杀我？",
