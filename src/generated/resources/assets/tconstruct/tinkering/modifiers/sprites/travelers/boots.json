@@ -7,11 +7,11 @@
         "fallback": "wool",
         "if_false": {
           "type": "tconstruct:dyed",
-          "texture": "tconstruct:item/tool/armor/travelers/boots/modifiers/dyed"
+          "texture": "tconstruct:item/tool/armor/travelers/boots/dyed"
         },
         "if_true": {
           "type": "tconstruct:dyed",
-          "texture": "tconstruct:item/tool/armor/travelers/boots/cuirass_tconstruct_wool_white"
+          "texture": "tconstruct:item/tool/armor/travelers/boots/dyed_wool"
         },
         "index": 1
       },

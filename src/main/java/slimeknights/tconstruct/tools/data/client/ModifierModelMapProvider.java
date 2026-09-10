@@ -428,11 +428,11 @@ public class ModifierModelMapProvider extends AbstractModifierModelMapProvider {
     tool("plate/shield").banner("armor/plate/shield/banner_small/", "armor/plate/shield/banner_large/");
 
     // travelers
-    travelers("goggles");
-    travelers("vest");
-    travelers("pants");
-    travelers("boots");
-    travelers("shield");
+    travelers("goggles", true);
+    travelers("vest", false);
+    travelers("pants", false);
+    travelers("boots", false);
+    travelers("shield", true);
     tool("travelers/goggles").customTrim("armor/travelers/goggles/trim", null);
     tool("travelers/pants").armor().basic(ModifierIds.swiftSneak);
     tool("travelers/shield").banner("armor/travelers/shield/banner/", null);
@@ -520,18 +520,17 @@ public class ModifierModelMapProvider extends AbstractModifierModelMapProvider {
   }
 
   /** Adds dyed textures for travelers gear */
-  private void travelers(String name) {
+  private void travelers(String name, boolean useMaterial) {
     String root = "armor/travelers/" + name + "/";
-    String modifiers = root + "modifiers/";
     String item = "travelers/" + name;
     tool(item).dyed(new MaterialHasFallbackModifierModel(1,
-      new DyedModifierModel(toolMaterial(root + "cuirass_tconstruct_wool_white"), null),
-      new DyedModifierModel(toolMaterial(modifiers + "dyed"), null),
+      new DyedModifierModel(toolMaterial(root + (useMaterial ? "cuirass_tconstruct_wool_white" : "dyed_wool")), null),
+      new DyedModifierModel(toolMaterial(root + "dyed"), null),
       "wool"
     ));
     tool(item + "_broken").dyed(new MaterialHasFallbackModifierModel(1,
-      new DyedModifierModel(toolMaterial(root + "cuirass_broken_tconstruct_wool_white"), null),
-      new DyedModifierModel(toolMaterial(modifiers + "dyed_broken"), null),
+      new DyedModifierModel(toolMaterial(root + (useMaterial ? "cuirass_broken_tconstruct_wool_white" : "dyed_wool_broken")), null),
+      new DyedModifierModel(toolMaterial(root + "dyed_broken"), null),
       "wool"
     ));
   }

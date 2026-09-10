@@ -7,7 +7,7 @@
         "fallback": "wool",
         "if_false": {
           "type": "tconstruct:dyed",
-          "texture": "tconstruct:item/tool/armor/travelers/goggles/modifiers/dyed"
+          "texture": "tconstruct:item/tool/armor/travelers/goggles/dyed"
         },
         "if_true": {
           "type": "tconstruct:dyed",

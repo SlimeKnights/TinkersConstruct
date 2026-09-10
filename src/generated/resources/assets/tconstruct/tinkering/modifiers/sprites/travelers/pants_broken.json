@@ -7,11 +7,11 @@
         "fallback": "wool",
         "if_false": {
           "type": "tconstruct:dyed",
-          "texture": "tconstruct:item/tool/armor/travelers/pants/modifiers/dyed_broken"
+          "texture": "tconstruct:item/tool/armor/travelers/pants/dyed_broken"
         },
         "if_true": {
           "type": "tconstruct:dyed",
-          "texture": "tconstruct:item/tool/armor/travelers/pants/cuirass_broken_tconstruct_wool_white"
+          "texture": "tconstruct:item/tool/armor/travelers/pants/dyed_wool_broken"
         },
         "index": 1
       },
