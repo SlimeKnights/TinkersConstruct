@@ -1670,6 +1670,11 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(AttributeModule.builder(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL).slots(armorMainHand).eachLevel(0.15f))
       // downside: don't take it off
       .addModule(new DamageOnUnequipModule(2));
+    buildModifier(ModifierIds.rugged).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
+      .addModule(BlockDamageSourceModule.source(DamageSourcePredicate.tag(TinkerTags.DamageTypes.RUGGED_TERRAIN)).build())
+      .addModule(BlockDamageSourceModule.source(DamageSourcePredicate.tag(TinkerTags.DamageTypes.RUGGED_ATTACKS)).minLevel(2).build())
+      .addModule(new VolatileFlagModule(ModifiableArmorItem.SNOW_BOOTS)).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
+
 
     // internal modifier to restore older slots to slimesuit
     IJsonPredicate<IToolContext> notSlimelytra = ToolContextPredicate.set(TinkerTools.slimeWings.get()).inverted();

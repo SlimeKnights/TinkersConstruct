@@ -329,6 +329,7 @@
     "overshield":           "#B771FF",
     "restore":              "#4D4D4D",
     "piercing_guard":       "#E8E5D2",
+    "snow_boots":           "#C65C35",
 
     "__traits_slimesuit_": null,
     "enderdodging":  "#CC00FA",
@@ -342,7 +343,7 @@
     "dragonfall":    "#474747",
     "cobalamin":     "#2376DD",
     "loyal":         "#C4D6AE",
-    "snow_boots":    "#C65C35",
+    "rugged":        "#C65C35",
     "savory":        "#FFDD59",
     "entwined":      "#14B485",
     "looter":        "#503572",

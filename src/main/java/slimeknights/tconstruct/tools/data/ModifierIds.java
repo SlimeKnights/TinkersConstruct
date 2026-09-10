@@ -346,6 +346,7 @@ public class ModifierIds {
   public static final ModifierId entwined = id("entwined");
   public static final ModifierId looter = id("looter");
   public static final ModifierId fortunate = id("fortunate");
+  public static final ModifierId rugged = id("rugged");
 
   // mob disguises
   public static final ModifierId creeperDisguise         = id("creeper_disguise");

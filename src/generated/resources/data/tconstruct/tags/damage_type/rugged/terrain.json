@@ -1,0 +1,17 @@
+{
+  "values": [
+    "minecraft:hot_floor",
+    "minecraft:cactus",
+    "minecraft:sweet_berry_bush",
+    "minecraft:stalagmite",
+    "tconstruct:knightmetal",
+    {
+      "id": "twilightforest:knightmetal",
+      "required": false
+    },
+    {
+      "id": "twilightforest:fiery",
+      "required": false
+    }
+  ]
+}

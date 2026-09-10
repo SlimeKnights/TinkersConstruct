@@ -978,6 +978,10 @@ public class TinkerTags {
     private static void init() {}
     /** Damage types dealt by a melee attack, notably excluding damage that is merely in melee range such as cramming. Shared by the melee protection modifier and the loot modifier whitelist. */
     public static final TagKey<DamageType> IS_MELEE = local("is_melee");
+    /** Damage types in this tag are canceled by {@link slimeknights.tconstruct.tools.data.ModifierIds#rugged} at level 1. */
+    public static final TagKey<DamageType> RUGGED_TERRAIN = local("rugged/terrain");
+    /** Damage types in this tag are canceled by {@link slimeknights.tconstruct.tools.data.ModifierIds#rugged} at level 2. */
+    public static final TagKey<DamageType> RUGGED_ATTACKS = local("rugged/attacks");
 
     /** Damage types reduced by the melee protection modifier */
     public static final TagKey<DamageType> MELEE_PROTECTION = local("protection/melee");

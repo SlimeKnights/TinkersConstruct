@@ -1907,8 +1907,7 @@
   "material.tconstruct.leather.skull": "Zombie",
   "material.tconstruct.leather.flavor.skull": "How do you do, fellow zombies?",
   "material.tconstruct.leather.encyclopedia.skull": "Reduces damage from undead by 10%.",
-  "material.tconstruct.leather.encyclopedia.laces": "Allows walking on powder snow.",
-
+  "material.tconstruct.leather.encyclopedia.laces": "Allows walking on powder snow and prevents uncomfortable damage from many blocks. When trimmed, prevents damage from thorns.",
 
   "material.tconstruct.vine": "Vine",
   "material.tconstruct.vine.flavor": "Keeps living, unlike the social network.",
@@ -3225,6 +3224,9 @@
   "modifier.tconstruct.tanned": "Tanned",
   "modifier.tconstruct.tanned.flavor": "Become a master leatherworker",
   "modifier.tconstruct.tanned.description": "Tool no longer takes double or more damage from certain actions",
+  "modifier.tconstruct.rugged": "Rugged",
+  "modifier.tconstruct.rugged.flavor": "All terrain boots!",
+  "modifier.tconstruct.rugged.description": "Allows walking on hazardous blocks such as powder snow, magma, and cactus.",
   "modifier.tconstruct.snow_boots": "Snow Step",
   "modifier.tconstruct.snow_boots.flavor": "Snowshoeing",
   "modifier.tconstruct.snow_boots.description": "Allows walking on top of powder snow",

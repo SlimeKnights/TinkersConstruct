@@ -1,0 +1,11 @@
+{
+  "values": [
+    "minecraft:cramming",
+    "minecraft:sting",
+    "minecraft:thorns",
+    {
+      "id": "twilightforest:thorns",
+      "required": false
+    }
+  ]
+}

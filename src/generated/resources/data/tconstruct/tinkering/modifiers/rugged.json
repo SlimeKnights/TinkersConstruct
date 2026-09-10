@@ -1,0 +1,26 @@
+{
+  "level_display": "tconstruct:no_levels",
+  "modules": [
+    {
+      "type": "tconstruct:block_damage",
+      "damage_source": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:rugged/terrain"
+      }
+    },
+    {
+      "type": "tconstruct:block_damage",
+      "damage_source": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:rugged/attacks"
+      },
+      "modifier_level": {
+        "min": 2
+      }
+    },
+    {
+      "type": "tconstruct:volatile_flag",
+      "flag": "tconstruct:snow_boots"
+    }
+  ]
+}
