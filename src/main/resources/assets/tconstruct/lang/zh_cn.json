@@ -1966,12 +1966,14 @@
   "material.tconstruct.rose_gold.encyclopedia.skull": "最大生命值增加1颗心。每件正在穿戴的金盔甲继续增加1颗心。",
 
   "material.tconstruct.skyslime_vine": "黏液藤蔓",
-  "material.tconstruct.skyslime_vine.slimeskin": "黏液皮",
   "material.tconstruct.skyslime_vine.flavor": "掠翅若蝶，蛰刺似蜂。",
   "material.tconstruct.skyslime_vine.encyclopedia.melee_harvest": "离开地面时，不再受到挖掘速度削减惩罚。",
   "material.tconstruct.skyslime_vine.encyclopedia.ranged": "离开地面或攀附梯子时，让工具的箭矢初速度+0.1。",
-  "material.tconstruct.skyslime_vine.encyclopedia.armor": "每件盔甲使重力减少15%。",
   "material.tconstruct.skyslime_vine.encyclopedia.laces": "第一级增加0.5格跳跃高度，第二级增加1格跳跃高度。每级增加1格安全摔落高度。",
+
+  "material.tconstruct.skyslimeskin": "黏液皮",
+  "material.tconstruct.skyslimeskin.flavor": "掠翅若蝶，蛰刺似蜂。",
+  "material.tconstruct.skyslimeskin.encyclopedia.armor": "每件盔甲使重力减少15%。",
 
   "material.tconstruct.weeping_vine": "垂泪藤",
   "material.tconstruct.weeping_vine.flavor": "传导热量",
@@ -2255,12 +2257,14 @@
   "material.tconstruct.knightslime.encyclopedia.armor": "消耗最多2点黏液覆层，每消耗1点，令受到的伤害减少2.5%（上限5%）。",
 
   "material.tconstruct.enderslime_vine": "黏液藤蔓",
-  "material.tconstruct.enderslime_vine.slimeskin": "黏液皮",
   "material.tconstruct.enderslime_vine.flavor": "结束了？",
   "material.tconstruct.enderslime_vine.encyclopedia.melee_harvest": "将持有者传送到挖掉的方块处，或交换持有者与被击中生物的位置。",
   "material.tconstruct.enderslime_vine.encyclopedia.ranged": "将持有者传送到击中方块的箭矢处，或交换持有者与被命中生物的位置。",
-  "material.tconstruct.enderslime_vine.encyclopedia.armor": "每件装备增加25%概率，触发时让攻击者随机传送走。",
-  "material.tconstruct.enderslime_vine.encyclopedia.laces": "每级增加25%概率，触发时让攻击者随机传送走。",
+  "material.tconstruct.enderslime_vine.encyclopedia.armor": "受伤前有5%概率闪避，每级增加5%概率，触发后进入短暂冷却。伤害来自弹射物时触发概率翻倍。",
+  "material.tconstruct.enderslime_vine.encyclopedia.laces": "受伤前有5%概率闪避，每级增加5%概率，触发后进入短暂冷却。伤害来自弹射物时触发概率翻倍。",
+
+  "material.tconstruct.enderslimeskin": "黏液皮",
+  "material.tconstruct.enderslimeskin.encyclopedia.armor": "每件装备增加25%概率，触发时让攻击者随机传送走。",
 
   "material.tconstruct.enderslime": "末影黏液",
   "material.tconstruct.enderslime.flavor": "去无踪",

@@ -69,6 +69,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.slimewood, ModifierIds.overgrowth, TinkerModifiers.overslime.getId());
     addTraits(MaterialIds.slimewood, AMMO, new ModifierEntry(ModifierIds.bounce, 2));
     addDefaultTraits(MaterialIds.slimeskin, ModifierIds.overgrowth, TinkerModifiers.overslime.getId());
+    addDefaultTraits(MaterialIds.skyslimeskin, ModifierIds.airborn, ModifierIds.overslimeFriend);
     addDefaultTraits(MaterialIds.venombone, ModifierIds.antitoxin);
     addTraits(MaterialIds.venombone, AMMO, ModifierIds.venom);
     addTraits(MaterialIds.venombone, ARMOR, ModifierIds.venom);
@@ -154,8 +155,9 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.knightslime, ModifierIds.overwield, TinkerModifiers.overslime.getId());
     addTraits(MaterialIds.knightslime, ARMOR, ModifierIds.overshield, TinkerModifiers.overslime.getId());
     addTraits(MaterialIds.knightly, AMMO, ModifierIds.valiant);
+    addDefaultTraits(MaterialIds.enderslimeskin, ModifierIds.enderclearance, ModifierIds.overslimeFriend);
     addDefaultTraits(MaterialIds.enderslimeVine, TinkerModifiers.enderporting.getId(), ModifierIds.overslimeFriend);
-    addTraits(MaterialIds.enderslimeVine, ARMOR, ModifierIds.enderclearance, ModifierIds.overslimeFriend);
+    addTraits(MaterialIds.enderslimeVine, ARMOR, ModifierIds.enderdodging, ModifierIds.overslimeFriend);
     addTraits(MaterialIds.endRod, AMMO, ModifierIds.hover);
 
     // tier 2 - mod compat

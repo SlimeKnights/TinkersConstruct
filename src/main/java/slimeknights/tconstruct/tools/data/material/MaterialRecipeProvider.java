@@ -292,13 +292,13 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     // slimeskin
     String slimeskinFolder = folder + "slimeskin/";
     materialComposite(consumer, MaterialIds.leather,   MaterialIds.slimeskin,      TinkerFluids.earthSlime, FluidValues.SLIMEBALL, slimeskinFolder, "earth");
-    materialComposite(consumer, MaterialIds.leather,   MaterialIds.skySlimeskin,   TinkerFluids.skySlime,   FluidValues.SLIMEBALL, slimeskinFolder, "sky");
+    materialComposite(consumer, MaterialIds.leather,   MaterialIds.skyslimeskin,   TinkerFluids.skySlime,   FluidValues.SLIMEBALL, slimeskinFolder, "sky");
     materialComposite(consumer, MaterialIds.leather,   MaterialIds.ichorskin,      TinkerFluids.ichor,      FluidValues.SLIMEBALL, slimeskinFolder, "ichor");
-    materialComposite(consumer, MaterialIds.leather,   MaterialIds.enderSlimeskin, TinkerFluids.enderSlime, FluidValues.SLIMEBALL, slimeskinFolder, "ender");
+    materialComposite(consumer, MaterialIds.leather,   MaterialIds.enderslimeskin, TinkerFluids.enderSlime, FluidValues.SLIMEBALL, slimeskinFolder, "ender");
     venomCleaning(consumer, MaterialIds.slimeskin,      slimeskinFolder, "earth_cleaning");
-    venomCleaning(consumer, MaterialIds.skySlimeskin,   slimeskinFolder, "sky_cleaning");
+    venomCleaning(consumer, MaterialIds.skyslimeskin,   slimeskinFolder, "sky_cleaning");
     venomCleaning(consumer, MaterialIds.ichorskin,      slimeskinFolder, "ichor_cleaning");
-    venomCleaning(consumer, MaterialIds.enderSlimeskin, slimeskinFolder, "ender_cleaning");
+    venomCleaning(consumer, MaterialIds.enderslimeskin, slimeskinFolder, "ender_cleaning");
 
     // tier 3
     materialMeltingCasting(consumer, MaterialIds.slimesteel,     TinkerFluids.moltenSlimesteel, folder);

@@ -471,6 +471,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.venombone, StatlessMaterialStats.SHIELD_CORE);
     addMaterialStats(MaterialIds.necroticBone, StatlessMaterialStats.SHIELD_CORE);
     addMaterialStats(MaterialIds.slimeskin, StatlessMaterialStats.MAILLE, StatlessMaterialStats.CUIRASS);
+    addMaterialStats(MaterialIds.skyslimeskin, StatlessMaterialStats.MAILLE, StatlessMaterialStats.CUIRASS);
     addMaterialStats(MaterialIds.skyslimeVine, StatlessMaterialStats.MAILLE, StatlessMaterialStats.CUIRASS);
     addMaterialStats(MaterialIds.weepingVine, StatlessMaterialStats.MAILLE, StatlessMaterialStats.CUIRASS);
     addMaterialStats(MaterialIds.twistingVine, StatlessMaterialStats.MAILLE, StatlessMaterialStats.CUIRASS);
@@ -518,6 +519,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addArmorShieldStats(MaterialIds.knightmetal, PlatingMaterialStats.builder().durabilityFactor(20).armor(2, 5, 7, 2).toughness(2).knockbackResistance(0.05f), StatlessMaterialStats.MAILLE);
     addArmorShieldStats(MaterialIds.knightslime, PlatingMaterialStats.builder().durabilityFactor(33).armor(2, 5, 7, 2).toughness(1).knockbackResistance(0.10f), StatlessMaterialStats.MAILLE);
     addMaterialStats(MaterialIds.enderslimeVine, StatlessMaterialStats.MAILLE, StatlessMaterialStats.CUIRASS);
+    addMaterialStats(MaterialIds.enderslimeskin, StatlessMaterialStats.CUIRASS, StatlessMaterialStats.MAILLE);
     addMaterialStats(MaterialIds.dragonScale, StatlessMaterialStats.MAILLE);
     addMaterialStats(MaterialIds.shulker, StatlessMaterialStats.MAILLE);
     // tier 4 (compat)

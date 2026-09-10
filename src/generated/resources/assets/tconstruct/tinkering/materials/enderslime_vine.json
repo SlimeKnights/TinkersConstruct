@@ -1,7 +1,9 @@
 {
   "color": "FFA92DFF",
   "fallbacks": [
-    "vine"
+    "vine",
+    "primitive",
+    "cloth"
   ],
   "generator": {
     "supported_stats": [
@@ -22,13 +24,11 @@
         "palette": {
           "000": "FF000000",
           "063": "FF6300B0",
-          "102": "FF790DC6",
-          "127": "FF8819D3",
+          "102": "FF790CC9",
           "140": "FF9727DD",
           "178": "FFA936ED",
-          "193": "FFBF58F7",
-          "216": "FFD37CFF",
-          "255": "FFEEBFFF"
+          "216": "FFBF58F7",
+          "255": "FFD37CFF"
         }
       }
     }

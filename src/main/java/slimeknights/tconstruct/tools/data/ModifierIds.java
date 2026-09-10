@@ -231,6 +231,7 @@ public class ModifierIds {
   public static final ModifierId scorchProtection = id("scorch_protection");
   public static final ModifierId antitoxin = id("antitoxin");
   public static final ModifierId airborne = id("airborne");
+  public static final ModifierId airborn = id("airborn");
   public static final ModifierId skyfall = id("skyfall");
   public static final ModifierId flamestance = id("flamestance");
   public static final ModifierId entangled = id("entangled");

@@ -1937,11 +1937,13 @@
   "material.tconstruct.rose_gold.encyclopedia.skull": "Увеличивает здоровье на 1 + доп. здоровье за каждый элемент золотой брони.",
   
   "material.tconstruct.skyslime_vine": "Слизневые лианы",
-  "material.tconstruct.skyslime_vine.slimeskin": "Слизневая кожа",
   "material.tconstruct.skyslime_vine.flavor": "Порхай как бабочка, жаль как пчела.",
   "material.tconstruct.skyslime_vine.encyclopedia.melee_harvest": "Отменяет снижение скорости добычи, когда вы не на земле.",
   "material.tconstruct.skyslime_vine.encyclopedia.ranged": "Даёт +0.5 точности, когда вы не на земле или не на лестнице.",
-  "material.tconstruct.skyslime_vine.encyclopedia.armor": "Снижает гравитацию на 15% за каждую деталь.",
+
+  "material.tconstruct.skyslimeskin": "Слизневая кожа",
+  "material.tconstruct.skyslimeskin.flavor": "Порхай как бабочка, жаль как пчела.",
+  "material.tconstruct.skyslimeskin.encyclopedia.armor": "Снижает гравитацию на 15% за каждую деталь.",
 
   "material.tconstruct.weeping_vine": "Плакучая лоза",
   "material.tconstruct.weeping_vine.flavor": "Направляет тепло.",
@@ -2197,11 +2199,12 @@
   "material.tconstruct.knightslime.encyclopedia.armor": "Расходует до 2 сверхслизи за уровень, снижая урон на 2.5% за каждое потребление свехслизи (до 5% за уровень).",
 
   "material.tconstruct.enderslime_vine": "Эндер-слизневые лианы",
-  "material.tconstruct.enderslime_vine.slimeskin": "Эндер-слизневая кожа",
   "material.tconstruct.enderslime_vine.flavor": "Конец?",
   "material.tconstruct.enderslime_vine.encyclopedia.melee_harvest": "Телепортирует пользователя к месту расположения добытых блоков или меняет пользователя местами с атакованными монстрами.",
   "material.tconstruct.enderslime_vine.encyclopedia.ranged": "Телепортирует пользователя к месту расположения стрел, попавших в блоки, или меняет пользователя местами с монстрами, пораженными стрелами.",
-  "material.tconstruct.enderslime_vine.encyclopedia.armor": "Имеет 25% шанс за каждый предмет случайным образом телепортировать атакующих.",
+
+  "material.tconstruct.enderslimeskin": "Эндер-слизневая кожа",
+  "material.tconstruct.enderslimeskin.encyclopedia.armor": "Имеет 25% шанс за каждый предмет случайным образом телепортировать атакующих.",
 
   "material.tconstruct.enderslime": "Эндер-слизь",
   "material.tconstruct.enderslime.flavor": "Звууп!",

@@ -1,7 +1,9 @@
 {
   "color": "FF48B518",
   "fallbacks": [
-    "vine"
+    "vine",
+    "primitive",
+    "cloth"
   ],
   "generator": {
     "supported_stats": [

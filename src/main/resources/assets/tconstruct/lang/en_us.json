@@ -1982,12 +1982,15 @@
   "material.tconstruct.rose_gold.encyclopedia.skull": "Boosts health by 2 hearts, plus an additional 2 hearts when trimmed and per piece of golden armor.",
 
   "material.tconstruct.skyslime_vine": "Slimy Vine",
-  "material.tconstruct.skyslime_vine.slimeskin": "Slimeskin",
-  "material.tconstruct.skyslime_vine.flavor": "Float like a butterfly, sting like a bee.",
+  "material.tconstruct.skyslime_vine.flavor": "Float like a butterfly, stung by a bee.",
   "material.tconstruct.skyslime_vine.encyclopedia.melee_harvest": "Cancels out the mining speed reduction when not on the ground.",
   "material.tconstruct.skyslime_vine.encyclopedia.ranged": "Grants +0.1 velocity when not on the ground or a ladder.",
-  "material.tconstruct.skyslime_vine.encyclopedia.armor": "Reduces gravity by 15% per piece.",
+  "material.tconstruct.skyslime_vine.encyclopedia.armor": "Reduces damage from airborne targets by 10%.",
   "material.tconstruct.skyslime_vine.encyclopedia.laces": "Grants +0.5 blocks jump height at first level, and +1 at second level. Increases the safe fall distance by 1 block per level.",
+
+  "material.tconstruct.skyslimeskin": "Slimeskin",
+  "material.tconstruct.skyslimeskin.flavor": "Float like a butterfly, sting like a bee.",
+  "material.tconstruct.skyslimeskin.encyclopedia.armor": "Reduces gravity by 15% per piece.",
 
   "material.tconstruct.weeping_vine": "Weeping Vine",
   "material.tconstruct.weeping_vine.flavor": "Channel the heat.",
@@ -2290,12 +2293,15 @@
   "material.tconstruct.knightslime.encyclopedia.armor": "Consumes up to 2 overslime per level to reduce damage by 2.5% per overslime consumed (up to 5% per level).",
 
   "material.tconstruct.enderslime_vine": "Slimy Vine",
-  "material.tconstruct.enderslime_vine.slimeskin": "Slimeskin",
   "material.tconstruct.enderslime_vine.flavor": "The End?",
   "material.tconstruct.enderslime_vine.encyclopedia.melee_harvest": "Teleports the holder to the location of mined blocks or swaps the holder with attacked monsters.",
   "material.tconstruct.enderslime_vine.encyclopedia.ranged": "Teleports the holder to the location of arrows that land in blocks or swaps the holder with monsters hit by arrows.",
-  "material.tconstruct.enderslime_vine.encyclopedia.armor": "Has a 25% chance per piece of randomly teleporting attackers away.",
-  "material.tconstruct.enderslime_vine.encyclopedia.laces": "Has a 25% chance per level of randomly teleporting attackers away.",
+  "material.tconstruct.enderslime_vine.encyclopedia.armor": "Grants a 10% chance to dodge incoming damage with a short cooldown. Chance is doubled for projectiles.",
+  "material.tconstruct.enderslime_vine.encyclopedia.laces": "Grants a 5% chance plus 5% per level to dodge incoming damage with a short cooldown. Chance is doubled for projectiles.",
+
+  "material.tconstruct.enderslimeskin": "Slimeskin",
+  "material.tconstruct.enderslimeskin.flavor": "Bye bye!",
+  "material.tconstruct.enderslimeskin.encyclopedia.armor": "Has a 25% chance per piece of randomly teleporting attackers away.",
 
   "material.tconstruct.enderslime": "Enderslime",
   "material.tconstruct.enderslime.flavor": "Zwooop",
@@ -3287,6 +3293,10 @@
   "modifier.tconstruct.airborne.flavor": "Take to the skies!",
   "modifier.tconstruct.airborne.description": "Tool no longer is penalized when mining in the air and gains a projectile velocity bonus",
   "modifier.tconstruct.airborne.velocity": "Airborne Velocity",
+  "modifier.tconstruct.airborn": "Airborn",
+  "modifier.tconstruct.airborn.flavor": "Look to the skies!",
+  "modifier.tconstruct.airborn.description": "Increases protection against airborne enemies",
+  "modifier.tconstruct.airborn.resistance": "Airborn Resistance",
   "modifier.tconstruct.skyfall": "Skyfall",
   "modifier.tconstruct.skyfall.flavor": "Falling with style!",
   "modifier.tconstruct.skyfall.description": "Reduces the effect of gravity",

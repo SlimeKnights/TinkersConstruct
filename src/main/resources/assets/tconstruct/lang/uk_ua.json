@@ -1966,12 +1966,14 @@
   "material.tconstruct.rose_gold.encyclopedia.skull": "Збільшує здоров'я на 1 серце, плюс додаткове серце на кожну частину одягненої золотої броні.",
 
   "material.tconstruct.skyslime_vine": "Слизуваті лози",
-  "material.tconstruct.skyslime_vine.slimeskin": "Слизошкіра",
   "material.tconstruct.skyslime_vine.flavor": "Літай як метелик, жаль як бджола.",
   "material.tconstruct.skyslime_vine.encyclopedia.melee_harvest": "Скасовує зменшення швидкости добування, коли ви не на землі.",
   "material.tconstruct.skyslime_vine.encyclopedia.ranged": "Надає +0.5 точності, коли не на землі або драбині.",
-  "material.tconstruct.skyslime_vine.encyclopedia.armor": "Зменшує силу тяжіння на 20% за кожен елемент обладунку.",
   "material.tconstruct.skyslime_vine.encyclopedia.laces": "Надає +0.5 блоку висоти стрибка на першому рівні та +1 на другому рівні. Збільшує безпечну дальність падіння на 1 блок за кожен рівень.",
+
+  "material.tconstruct.skyslimeskin": "Слизошкіра",
+  "material.tconstruct.skyslimeskin.flavor": "Літай як метелик, жаль як бджола.",
+  "material.tconstruct.skyslimeskin.encyclopedia.armor": "Зменшує силу тяжіння на 20% за кожен елемент обладунку.",
 
   "material.tconstruct.weeping_vine": "Плакучі лози",
   "material.tconstruct.weeping_vine.flavor": "Проводить тепло.",
@@ -2255,12 +2257,14 @@
   "material.tconstruct.knightslime.encyclopedia.armor": "Витрачає до 2 переслизу на рівень, щоб зменшити отримувану шкоду на 2,5% за кожен витрачений переслиз (до 5% на рівень).",
 
   "material.tconstruct.enderslime_vine": "Ендерові слизуваті лози",
-  "material.tconstruct.enderslime_vine.slimeskin": "Слизошкіра",
   "material.tconstruct.enderslime_vine.flavor": "Кінець?",
   "material.tconstruct.enderslime_vine.encyclopedia.melee_harvest": "Телепортує власника до місця добутих блоків чи вбитих монстрів.",
   "material.tconstruct.enderslime_vine.encyclopedia.ranged": "Телепортує власника до місця падіння стріли на блоці або міняє місцями власника з сутністю, в яку було влучено.",
-  "material.tconstruct.enderslime_vine.encyclopedia.armor": "Додає 25% шансу за частину обладунку випадково телепортувати нападників.",
-  "material.tconstruct.enderslime_vine.encyclopedia.laces": "Має 25% шанс за рівень випадково телепортувати нападників геть.",
+  "material.tconstruct.enderslime_vine.encyclopedia.armor": "Дає 5% шансу плюс 5% за кожен рівень ухилитися від атаки з коротким часом перезаряджання. Шанс подвоєно для снарядів.",
+  "material.tconstruct.enderslime_vine.encyclopedia.laces": "Дає 5% шансу плюс 5% за кожен рівень ухилитися від атаки з коротким часом перезаряджання. Шанс подвоєно для снарядів.",
+
+  "material.tconstruct.enderslimeskin": "Слизошкіра",
+  "material.tconstruct.enderslimeskin.encyclopedia.armor": "Додає 25% шансу за частину обладунку випадково телепортувати нападників.",
 
   "material.tconstruct.enderslime": "Ендерслиз",
   "material.tconstruct.enderslime.flavor": "Звуп",

@@ -1901,11 +1901,13 @@
   "material.tconstruct.rose_gold.encyclopedia.skull": "Aumenta la vida en 1 corazón, y por 1 adicional por cada pieza de armadura de oro que lleves puesta.",
 
   "material.tconstruct.skyslime_vine": "Enredadera Slime Celesital",
-  "material.tconstruct.skyslime_vine.slimeskin": "Piel slime",
   "material.tconstruct.skyslime_vine.flavor": "Flota como mariposa, pica como una abeja.",
   "material.tconstruct.skyslime_vine.encyclopedia.melee_harvest": "Quita la reducción de velocidad minera mientras no estés en el piso",
   "material.tconstruct.skyslime_vine.encyclopedia.ranged": "Otorga +0.1 de velocidad cuando no estés en el piso o en una escalera",
-  "material.tconstruct.skyslime_vine.encyclopedia.armor": "Reduce la gravedad en 20% por pieza",
+
+  "material.tconstruct.skyslimeskin": "Piel slime",
+  "material.tconstruct.skyslimeskin.flavor": "Flota como mariposa, pica como una abeja.",
+  "material.tconstruct.skyslimeskin.encyclopedia.armor": "Reduce la gravedad en 20% por pieza",
 
   "material.tconstruct.weeping_vine": "Enredaderas lloronas",
   "material.tconstruct.weeping_vine.flavor": "Canaliza el calor.",
@@ -2136,11 +2138,12 @@
   "material.tconstruct.knightslime.flavor": "Pegajoso aunque metálico, ¿Pero también piedroso? ¡Facinante!",
 
   "material.tconstruct.enderslime_vine": "Enredadera Slime Ender",
-  "material.tconstruct.enderslime_vine.slimeskin": "Piel de Slime Ender",
   "material.tconstruct.enderslime_vine.flavor": "¿El fin?",
   "material.tconstruct.enderslime_vine.encyclopedia.melee_harvest": "Teletransporta al portador a los bloques minados o intercambia de lugar al portador y al objetivo atacado",
   "material.tconstruct.enderslime_vine.encyclopedia.ranged": "Teletransporta al portador al lugar de los proyectiles que aterricen en bloques o  intercambia de lugar al portador y al objetivo golpeado con el proyectil",
-  "material.tconstruct.enderslime_vine.encyclopedia.armor": "Tiene una probabilidad del 25% de teletransportar aleatoriamente al atacante",
+
+  "material.tconstruct.enderslimeskin": "Piel de Slime Ender",
+  "material.tconstruct.enderslimeskin.encyclopedia.armor": "Tiene una probabilidad del 25% de teletransportar aleatoriamente al atacante",
 
   "material.tconstruct.enderslime": "Slime Ender",
   "material.tconstruct.enderslime.flavor": "Zooooom",

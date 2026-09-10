@@ -1897,11 +1897,13 @@
   "material.tconstruct.rose_gold.encyclopedia.skull": "Aumenta la salud en 1 corazón, más un corazón adicional por cada pieza de armadura dorada.",
 
   "material.tconstruct.skyslime_vine": "Liana babosa",
-  "material.tconstruct.skyslime_vine.slimeskin": "Piel de slime",
   "material.tconstruct.skyslime_vine.flavor": "Vuela como mariposa, pica como abeja.",
   "material.tconstruct.skyslime_vine.encyclopedia.melee_harvest": "Cancela la reducción de velocidad de minado cuando no estás en el suelo",
   "material.tconstruct.skyslime_vine.encyclopedia.ranged": "Otorga +0.1 de velocidad de proyectil cuando no estás en el suelo o en una escalera",
-  "material.tconstruct.skyslime_vine.encyclopedia.armor": "Reduce la gravedad un 20% por pieza",
+
+  "material.tconstruct.skyslimeskin": "Piel de slime",
+  "material.tconstruct.skyslimeskin.flavor": "Vuela como mariposa, pica como abeja.",
+  "material.tconstruct.skyslimeskin.encyclopedia.armor": "Reduce la gravedad un 20% por pieza",
 
   "material.tconstruct.weeping_vine": "Liana llorona",
   "material.tconstruct.weeping_vine.flavor": "Canaliza el calor.",
@@ -2120,11 +2122,12 @@
   "material.tconstruct.knightslime.flavor": "¡Baboso pero metálico, pero también piedra? ¡Fascinante!",
 
   "material.tconstruct.enderslime_vine": "Liana babosa",
-  "material.tconstruct.enderslime_vine.slimeskin": "Piel de slime",
   "material.tconstruct.enderslime_vine.flavor": "¿El Fin?",
   "material.tconstruct.enderslime_vine.encyclopedia.melee_harvest": "Teletransporta al portador a la ubicación de los bloques minados o intercambia al portador con los monstruos atacados",
   "material.tconstruct.enderslime_vine.encyclopedia.ranged": "Teletransporta al portador a la ubicación de las flechas que caen en bloques o intercambia al portador con los monstruos golpeados por flechas",
-  "material.tconstruct.enderslime_vine.encyclopedia.armor": "Tiene un 25% de probabilidad por pieza de teletransportar aleatoriamente a los atacantes lejos",
+
+  "material.tconstruct.enderslimeskin": "Piel de slime",
+  "material.tconstruct.enderslimeskin.encyclopedia.armor": "Tiene un 25% de probabilidad por pieza de teletransportar aleatoriamente a los atacantes lejos",
 
   "material.tconstruct.enderslime": "Enderslime",
   "material.tconstruct.enderslime.flavor": "Zwooop",

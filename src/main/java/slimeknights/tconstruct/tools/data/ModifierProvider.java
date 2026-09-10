@@ -1057,6 +1057,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(ConditionalMiningSpeedModule.builder().holder(LivingEntityPredicate.ON_GROUND.inverted()).percent().allowIneffective().flat(4), ModifierHooks.BREAK_SPEED)
       // velocity gets a 0.1 boost under the stricter version of in air (no boost just for being on a ladder)
       .addModule(ConditionalStatModule.stat(ToolStats.VELOCITY).holder(TinkerPredicate.AIRBORNE).flat(0.1f));
+    buildModifier(ModifierIds.airborn).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(ProtectionModule.builder().attacker(TinkerPredicate.AIRBORNE).flat(2.5f));
     buildModifier(ModifierIds.skyfall)
       .levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
       // goes from -15% to -25%

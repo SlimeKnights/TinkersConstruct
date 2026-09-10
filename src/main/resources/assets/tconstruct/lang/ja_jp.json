@@ -1908,11 +1908,13 @@
   "material.tconstruct.rose_gold.encyclopedia.skull": "体力がハート1つ分増え、金の防具を付けていると更に追加でハートが増える。",
 
   "material.tconstruct.skyslime_vine": "べとつくツタ",
-  "material.tconstruct.skyslime_vine.slimeskin": "スライムスキン",
   "material.tconstruct.skyslime_vine.flavor": "蝶のように舞い、蜂のように刺す。",
   "material.tconstruct.skyslime_vine.encyclopedia.melee_harvest": "足が大地に付いてない場合でも採掘速度が低下しなくなる",
   "material.tconstruct.skyslime_vine.encyclopedia.ranged": "地面やはしごに乗っていない時に+0.1の速度補正を得る",
-  "material.tconstruct.skyslime_vine.encyclopedia.armor": "1つの部位につき15%重力が軽減される",
+
+  "material.tconstruct.skyslimeskin": "スライムスキン",
+  "material.tconstruct.skyslimeskin.flavor": "蝶のように舞い、蜂のように刺す。",
+  "material.tconstruct.skyslimeskin.encyclopedia.armor": "1つの部位につき15%重力が軽減される",
 
   "material.tconstruct.weeping_vine": "しだれツタ",
   "material.tconstruct.weeping_vine.flavor": "熱を集中させよ",
@@ -2164,11 +2166,12 @@
   "material.tconstruct.knightslime.encyclopedia.armor": "レベル×2までのオーバースライムを消費し、消費したオーバースライムにつきダメージを2.5%軽減する（最大はレベル×5%）",
 
   "material.tconstruct.enderslime_vine": "べとつくツタ",
-  "material.tconstruct.enderslime_vine.slimeskin": "スライムスキン",
   "material.tconstruct.enderslime_vine.flavor": "おしまい？",
   "material.tconstruct.enderslime_vine.encyclopedia.melee_harvest": "所有者を採掘したブロックの位置にテレポートさせ、攻撃したMobの位置と入れ替えさせる",
   "material.tconstruct.enderslime_vine.encyclopedia.ranged": "矢がブロックに当たると所有者をその位置にテレポートさせ、Mobに当たると所有者と位置を入れ替える",
-  "material.tconstruct.enderslime_vine.encyclopedia.armor": "攻撃してきた相手を25%の確率でテレポートさせる",
+
+  "material.tconstruct.enderslimeskin": "スライムスキン",
+  "material.tconstruct.enderslimeskin.encyclopedia.armor": "攻撃してきた相手を25%の確率でテレポートさせる",
 
   "material.tconstruct.enderslime": "エンダースライム",
   "material.tconstruct.enderslime.flavor": "ズウォープ",
