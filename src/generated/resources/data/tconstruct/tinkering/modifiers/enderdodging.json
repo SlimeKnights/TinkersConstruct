@@ -4,8 +4,7 @@
     {
       "type": "tconstruct:teleport_dodge",
       "chance": {
-        "each_level": 0.1,
-        "flat": 0.1
+        "each_level": 0.15
       },
       "cooldown": {
         "flat": 200
@@ -18,8 +17,7 @@
     {
       "type": "tconstruct:teleport_dodge",
       "chance": {
-        "each_level": 0.05,
-        "flat": 0.05
+        "each_level": 0.075
       },
       "cooldown": {
         "flat": 200

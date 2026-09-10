@@ -1845,7 +1845,8 @@
 "material.tconstruct.enderslime_vine.flavor": "No final é só trepar o que importa?",
 "material.tconstruct.enderslime_vine.encyclopedia.melee_harvest": "Teleporta o portador para o local de blocos minerados ou troca o portador com monstros atacados",
 "material.tconstruct.enderslime_vine.encyclopedia.ranged": "Teleporta o portador para o local das flechas que acertam blocos ou troca o portador com monstros atingidos por flechas",
-"material.tconstruct.enderslime_vine.encyclopedia.armor": "Tem 25% de chance, por peça, de teletransportar aleatoriamente quem o atacar para longe",
+
+"material.tconstruct.enderslimeskin.encyclopedia.armor": "Tem 25% de chance, por peça, de teletransportar aleatoriamente quem o atacar para longe",
 
 "__comment": "Materiais do Slimesuit",
 "material.tconstruct.glass": "Vidro",

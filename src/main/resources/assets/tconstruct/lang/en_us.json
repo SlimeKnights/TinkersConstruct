@@ -2296,8 +2296,8 @@
   "material.tconstruct.enderslime_vine.flavor": "The End?",
   "material.tconstruct.enderslime_vine.encyclopedia.melee_harvest": "Teleports the holder to the location of mined blocks or swaps the holder with attacked monsters.",
   "material.tconstruct.enderslime_vine.encyclopedia.ranged": "Teleports the holder to the location of arrows that land in blocks or swaps the holder with monsters hit by arrows.",
-  "material.tconstruct.enderslime_vine.encyclopedia.armor": "Grants a 10% chance to dodge incoming damage with a short cooldown. Chance is doubled for projectiles.",
-  "material.tconstruct.enderslime_vine.encyclopedia.laces": "Grants a 5% chance plus 5% per level to dodge incoming damage with a short cooldown. Chance is doubled for projectiles.",
+  "material.tconstruct.enderslime_vine.encyclopedia.armor": "Grants a 7.5% chance to dodge incoming damage with a short cooldown. Chance is doubled for projectiles.",
+  "material.tconstruct.enderslime_vine.encyclopedia.laces": "Grants a 7.5% chance per level to dodge incoming damage with a short cooldown. Chance is doubled for projectiles.",
 
   "material.tconstruct.enderslimeskin": "Slimeskin",
   "material.tconstruct.enderslimeskin.flavor": "Bye bye!",
@@ -2306,7 +2306,7 @@
   "material.tconstruct.enderslime": "Enderslime",
   "material.tconstruct.enderslime.flavor": "Zwooop",
   "material.tconstruct.enderslime.encyclopedia.ammo": "Causes the target to be teleported randomly up to 16 blocks, or up to 24 blocks at level 2.",
-  "material.tconstruct.enderslime.encyclopedia.slime": "Grants a 5% chance plus 5% per level to dodge incoming damage with a short cooldown. Chance is doubled for projectiles.",
+  "material.tconstruct.enderslime.encyclopedia.slime": "Grants a 7.5% chance per level to dodge incoming damage with a short cooldown. Chance is doubled for projectiles.",
 
 
   "__comment": "Slimesuit materials",

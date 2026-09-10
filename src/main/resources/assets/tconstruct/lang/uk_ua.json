@@ -2260,8 +2260,8 @@
   "material.tconstruct.enderslime_vine.flavor": "Кінець?",
   "material.tconstruct.enderslime_vine.encyclopedia.melee_harvest": "Телепортує власника до місця добутих блоків чи вбитих монстрів.",
   "material.tconstruct.enderslime_vine.encyclopedia.ranged": "Телепортує власника до місця падіння стріли на блоці або міняє місцями власника з сутністю, в яку було влучено.",
-  "material.tconstruct.enderslime_vine.encyclopedia.armor": "Дає 5% шансу плюс 5% за кожен рівень ухилитися від атаки з коротким часом перезаряджання. Шанс подвоєно для снарядів.",
-  "material.tconstruct.enderslime_vine.encyclopedia.laces": "Дає 5% шансу плюс 5% за кожен рівень ухилитися від атаки з коротким часом перезаряджання. Шанс подвоєно для снарядів.",
+  "material.tconstruct.enderslime_vine.encyclopedia.armor": "Дає 7.5% ухилитися від атаки з коротким часом перезаряджання. Шанс подвоєно для снарядів.",
+  "material.tconstruct.enderslime_vine.encyclopedia.laces": "Дає 7.5% за кожен рівень ухилитися від атаки з коротким часом перезаряджання. Шанс подвоєно для снарядів.",
 
   "material.tconstruct.enderslimeskin": "Слизошкіра",
   "material.tconstruct.enderslimeskin.encyclopedia.armor": "Додає 25% шансу за частину обладунку випадково телепортувати нападників.",
@@ -2269,7 +2269,7 @@
   "material.tconstruct.enderslime": "Ендерслиз",
   "material.tconstruct.enderslime.flavor": "Звуп",
   "material.tconstruct.enderslime.encyclopedia.ammo": "Змушує ціль телепортуватися у випадковому напрямку на відстань до 16 блоків, або до 24 блоків на 2-му рівні.",
-  "material.tconstruct.enderslime.encyclopedia.slime": "Дає 5% шансу плюс 5% за кожен рівень ухилитися від атаки з коротким часом перезаряджання. Шанс подвоєно для снарядів.",
+  "material.tconstruct.enderslime.encyclopedia.slime": "Дає 7.5% за кожен рівень ухилитися від атаки з коротким часом перезаряджання. Шанс подвоєно для снарядів.",
 
 
   "__comment": "Slimesuit materials",

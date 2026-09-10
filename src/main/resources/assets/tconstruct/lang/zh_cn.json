@@ -2260,8 +2260,8 @@
   "material.tconstruct.enderslime_vine.flavor": "结束了？",
   "material.tconstruct.enderslime_vine.encyclopedia.melee_harvest": "将持有者传送到挖掉的方块处，或交换持有者与被击中生物的位置。",
   "material.tconstruct.enderslime_vine.encyclopedia.ranged": "将持有者传送到击中方块的箭矢处，或交换持有者与被命中生物的位置。",
-  "material.tconstruct.enderslime_vine.encyclopedia.armor": "受伤前有5%概率闪避，每级增加5%概率，触发后进入短暂冷却。伤害来自弹射物时触发概率翻倍。",
-  "material.tconstruct.enderslime_vine.encyclopedia.laces": "受伤前有5%概率闪避，每级增加5%概率，触发后进入短暂冷却。伤害来自弹射物时触发概率翻倍。",
+  "material.tconstruct.enderslime_vine.encyclopedia.armor": "受伤前有7.5%概率闪避，触发后进入短暂冷却。伤害来自弹射物时触发概率翻倍。",
+  "material.tconstruct.enderslime_vine.encyclopedia.laces": "受伤前有每级增加7.5%概率闪避，触发后进入短暂冷却。伤害来自弹射物时触发概率翻倍。",
 
   "material.tconstruct.enderslimeskin": "黏液皮",
   "material.tconstruct.enderslimeskin.encyclopedia.armor": "每件装备增加25%概率，触发时让攻击者随机传送走。",
@@ -2269,7 +2269,7 @@
   "material.tconstruct.enderslime": "末影黏液",
   "material.tconstruct.enderslime.flavor": "去无踪",
   "material.tconstruct.enderslime.encyclopedia.ammo": "使目标随机传送到最多16格远，2级时改为最多24格远。",
-  "material.tconstruct.enderslime.encyclopedia.slime": "受伤前有5%概率闪避，每级增加5%概率，触发后进入短暂冷却。伤害来自弹射物时触发概率翻倍。",
+  "material.tconstruct.enderslime.encyclopedia.slime": "受伤前有0%概率闪避，每级增加7.5%概率，触发后进入短暂冷却。伤害来自弹射物时触发概率翻倍。",
 
 
   "__comment": "Slimesuit materials",
