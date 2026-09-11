@@ -195,7 +195,7 @@ class UpdateToolDefinitionDataPacketTest extends BaseMcTest {
     // weapon
     MeleeHitToolHook attack = parsed.getHook(ToolHooks.MELEE_HIT);
     assertThat(attack).isInstanceOf(SweepWeaponAttack.class);
-    LevelingValue range = ((SweepWeaponAttack)attack).range();
+    LevelingValue range = ((SweepWeaponAttack)attack).ranges();
     assertThat(range.flat()).isEqualTo(4);
     assertThat(range.eachLevel()).isEqualTo(1);
   }
