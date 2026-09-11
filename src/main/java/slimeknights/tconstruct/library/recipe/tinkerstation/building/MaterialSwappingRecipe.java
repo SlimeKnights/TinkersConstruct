@@ -213,8 +213,8 @@ public abstract class MaterialSwappingRecipe implements ITinkerStationRecipe {
     return withMaterial(ToolStack.from(tool), index, material, maxStackSize);
   }
 
-  /** Creates a new item stack with the given material. Will modify {@code tool}. */
-  public static ItemStack withMaterial(ToolStack tool, int index, MaterialVariant material, int maxStackSize) {
+  /** Sets the materials on the given tool using the passed material */
+  public static void setMaterials(ToolStack tool, int index, MaterialVariant material) {
     if (tool.getMaterials().isEmpty()) {
       MaterialNBT.Builder builder = MaterialNBT.builder();
       List<MaterialStatsId> requirements = ToolMaterialHook.stats(tool.getDefinition());
@@ -230,6 +230,11 @@ public abstract class MaterialSwappingRecipe implements ITinkerStationRecipe {
       // if it has materials already just swap the one to update
       tool.replaceMaterial(index, material);
     }
+  }
+
+  /** Creates a new item stack with the given material. Will modify {@code tool}. */
+  public static ItemStack withMaterial(ToolStack tool, int index, MaterialVariant material, int maxStackSize) {
+    setMaterials(tool, index, material);
     return tool.createStack(Math.min(maxStackSize, tool.getItem().getMaxStackSize()));
   }
 
