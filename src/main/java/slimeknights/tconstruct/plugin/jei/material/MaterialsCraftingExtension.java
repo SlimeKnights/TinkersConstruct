@@ -153,7 +153,7 @@ public class MaterialsCraftingExtension<T extends CraftingRecipe & MaterialsCraf
               recipeSlots.get(slot).createDisplayOverrides().addItemStacks(override);
             }
           }
-          resultSlot.createDisplayOverrides().addItemStack(materials.updateStack(plainResult.copy()));
+          resultSlot.createDisplayOverrides().addItemStack(materials.normalize(partCount, recipe.getExtraMaterials()).updateStack(plainResult.copy()));
           return;
         }
         // find input materials and use to set the output

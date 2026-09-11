@@ -125,7 +125,9 @@ public class ToolBuildingCategory extends AbstractRecipeCategory<ToolBuildingRec
         for (int i = 0; i < inputCount; i++) {
           inputSlots.get(i).createDisplayOverrides().addItemStack(parts.get(i).withMaterial(materials.getMaterial(i)));
         }
-        resultSlot.createDisplayOverrides().addItemStack(materials.updateStack(new ItemStack(recipe.getOutput())));
+        resultSlot.createDisplayOverrides().addItemStack(materials
+          .normalize(parts.size(), recipe.getMaterials())
+          .updateStack(new ItemStack(recipe.getOutput())));
       } else {
         // no output focus? set the output based on the inputs
         List<MaterialVariantId> variants = new ArrayList<>(inputCount);

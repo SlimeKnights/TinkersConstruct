@@ -15,6 +15,7 @@ import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -36,6 +37,11 @@ public class MaterialIdNBT {
   /** Creates a new material NBT */
   public MaterialIdNBT(List<? extends MaterialVariantId> materials) {
     this.materials = ImmutableList.copyOf(materials);
+  }
+
+  /** Gets the number of materials on this stack. Note this may not match the number of materials the tool desires. */
+  public int size() {
+    return materials.size();
   }
 
   /**
@@ -68,6 +74,25 @@ public class MaterialIdNBT {
       return new MaterialIdNBT(builder.build());
     }
     return this;
+  }
+
+  /**
+   * Creates a copy of the given materials. Used for recipe viewers to ensure the materials displayed is craftable.
+   * @param keep            Number of materials to keep
+   * @param extraMaterials  Extra materials to add after those kept
+   * @return  Updated materials list.
+   */
+  public MaterialIdNBT normalize(int keep, List<MaterialVariantId> extraMaterials) {
+    // no work to do if the size is already fine
+    if (extraMaterials.isEmpty() && size() <= keep) {
+      return this;
+    }
+    List<MaterialVariantId> list = new ArrayList<>(keep + extraMaterials.size());
+    for (int i = 0; i < keep; i++) {
+      list.add(materials.get(i));
+    }
+    list.addAll(extraMaterials);
+    return new MaterialIdNBT(list);
   }
 
   /**
