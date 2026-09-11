@@ -17,12 +17,15 @@
         "stat_type": "tconstruct:cuirass"
       },
       "value": 1.0
+    },
+    "s": {
+      "tag": "forge:rods/wooden"
     }
   },
   "parts": "cl",
   "pattern": [
-    "cl",
-    "lc"
+    "scs",
+    "lcl"
   ],
   "result": {
     "item": "tconstruct:travelers_shield"

@@ -200,36 +200,41 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
       .unlockedBy("has_item", has(Tags.Items.INGOTS_COPPER))
       .save(shapedMaterial, location(travelersFolder + "goggles"));
     ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, TinkerTools.travelersGear.get(ArmorItem.Type.CHESTPLATE))
-      .pattern("l l")
+      .pattern("lsl")
       .pattern("lcl")
       .pattern("lcl")
       .define('c', travelersMaterial.apply(PlatingMaterialStats.CHESTPLATE.getId()))
       .define('l', cuirass)
+      .define('s', Tags.Items.STRING)
       .unlockedBy("has_item", has(Tags.Items.INGOTS_COPPER))
       .save(shapedMaterial, location(travelersFolder + "chestplate"));
     ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, TinkerTools.travelersGear.get(ArmorItem.Type.LEGGINGS))
-      .pattern("lll")
+      .pattern("lfl")
       .pattern("c c")
       .pattern("l l")
       .define('c', travelersMaterial.apply(PlatingMaterialStats.LEGGINGS.getId()))
       .define('l', cuirass)
+      .define('f', Items.FLINT)
       .unlockedBy("has_item", has(Tags.Items.INGOTS_COPPER))
       .save(shapedMaterial, location(travelersFolder + "pants"));
     ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, TinkerTools.travelersGear.get(ArmorItem.Type.BOOTS))
+      .pattern("s s")
       .pattern("c c")
       .pattern("l l")
       .define('c', travelersMaterial.apply(PlatingMaterialStats.BOOTS.getId()))
       .define('l', cuirass)
+      .define('s', Tags.Items.STRING)
       .unlockedBy("has_item", has(Tags.Items.INGOTS_COPPER))
       .save(shapedMaterial, location(travelersFolder + "boots"));
-    // shield needs no special variants, no compat shield cores exist
+    // shield needs no special ingots, no compat shield cores exist
     ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, TinkerTools.travelersShield)
-                       .pattern("cl")
-                       .pattern("lc")
-                       .define('l', cuirass)
-                       .define('c', MaterialValueIngredient.of(new MaterialStatTypePredicate(StatlessMaterialStats.SHIELD_CORE.getIdentifier()), 1))
-                       .unlockedBy("has_item", has(Tags.Items.LEATHER))
-                       .save(shapedMaterial, location(travelersFolder + "shield"));
+      .pattern("scs")
+      .pattern("lcl")
+      .define('l', cuirass)
+      .define('c', MaterialValueIngredient.of(new MaterialStatTypePredicate(StatlessMaterialStats.SHIELD_CORE.getIdentifier()), 1))
+      .define('s', Tags.Items.RODS_WOODEN)
+      .unlockedBy("has_item", has(Tags.Items.LEATHER))
+      .save(shapedMaterial, location(travelersFolder + "shield"));
 
     // travelers part swapping - cuirass casting
     PartSwapCastingRecipeBuilder.tableRecipe(Ingredient.of(TinkerTools.travelersGear.get(ArmorItem.Type.HELMET)), 3)
@@ -238,7 +243,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     PartSwapCastingRecipeBuilder.tableRecipe(Ingredient.of(TinkerTools.travelersGear.get(ArmorItem.Type.CHESTPLATE)), 6)
       .index(1)
       .save(consumer, location(travelersFolder + "chestplate_leather"));
-    PartSwapCastingRecipeBuilder.tableRecipe(Ingredient.of(TinkerTools.travelersGear.get(ArmorItem.Type.LEGGINGS)), 5)
+    PartSwapCastingRecipeBuilder.tableRecipe(Ingredient.of(TinkerTools.travelersGear.get(ArmorItem.Type.LEGGINGS)), 4)
       .index(1)
       .save(consumer, location(travelersFolder + "pants_leather"));
     PartSwapCastingRecipeBuilder.tableRecipe(Ingredient.of(TinkerTools.travelersGear.get(ArmorItem.Type.BOOTS), TinkerTools.travelersShield), 2)
@@ -256,7 +261,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
       .index(1).materials(travelersCuirass, 6)
       .save(consumer, location(travelersFolder + "vest_cuirass"));
     MaterialSwappingRecipeBuilder.tool(TinkerTools.travelersGear.get(ArmorItem.Type.LEGGINGS))
-      .index(1).materials(travelersCuirass, 5)
+      .index(1).materials(travelersCuirass, 4)
       .save(consumer, location(travelersFolder + "pants_cuirass"));
     MaterialSwappingRecipeBuilder.tools(Ingredient.of(TinkerTools.travelersGear.get(ArmorItem.Type.BOOTS), TinkerTools.travelersShield))
       .index(1).materials(travelersCuirass, 2)

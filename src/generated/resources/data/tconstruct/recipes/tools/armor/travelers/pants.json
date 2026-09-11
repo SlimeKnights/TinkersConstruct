@@ -32,6 +32,9 @@
         }
       }
     ],
+    "f": {
+      "item": "minecraft:flint"
+    },
     "l": {
       "type": "tconstruct:material_value",
       "material": {
@@ -43,7 +46,7 @@
   },
   "parts": "cl",
   "pattern": [
-    "lll",
+    "lfl",
     "c c",
     "l l"
   ],

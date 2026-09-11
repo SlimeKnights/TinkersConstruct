@@ -39,11 +39,14 @@
         "stat_type": "tconstruct:cuirass"
       },
       "value": 1.0
+    },
+    "s": {
+      "tag": "forge:string"
     }
   },
   "parts": "cl",
   "pattern": [
-    "l l",
+    "lsl",
     "lcl",
     "lcl"
   ],

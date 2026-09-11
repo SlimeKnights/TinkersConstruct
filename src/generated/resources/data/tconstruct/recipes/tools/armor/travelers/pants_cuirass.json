@@ -1,6 +1,6 @@
 {
   "type": "tconstruct:material_value_swapping",
-  "cost": 5,
+  "cost": 4,
   "index": 1,
   "material": {
     "type": "tconstruct:stat_type",
