@@ -9,6 +9,7 @@ import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatType;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
+import slimeknights.tconstruct.library.materials.stats.dynamic.DynamicMaterialStatType;
 import slimeknights.tconstruct.library.materials.traits.MaterialTraits;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 

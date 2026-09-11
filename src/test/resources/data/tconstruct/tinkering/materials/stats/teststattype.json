@@ -1,0 +1,12 @@
+{
+    "stats": {
+        "tconstruct:testtype1": {
+            "durability": 123,
+            "mining_tier": "stone"
+        },
+        "tconstruct:testtype2": {
+            "mining_speed": 45.67
+        },
+        "tconstruct:emptytype": {}
+    }
+}
