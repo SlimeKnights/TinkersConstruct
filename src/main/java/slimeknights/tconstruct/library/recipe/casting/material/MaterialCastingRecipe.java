@@ -1,11 +1,13 @@
 package slimeknights.tconstruct.library.recipe.casting.material;
 
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.field.LoadableField;
@@ -19,15 +21,13 @@ import slimeknights.tconstruct.library.json.predicate.material.MaterialPredicate
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.recipe.casting.CastingRecipeLookup;
-import slimeknights.tconstruct.library.recipe.casting.DisplayCastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.ICastingContainer;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.IDisplayableCastingRecipe;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Casting recipe that takes an arbitrary fluid of a given amount and set the material on the output based on that fluid
@@ -74,27 +74,51 @@ public class MaterialCastingRecipe extends AbstractMaterialCastingRecipe impleme
     return result.withMaterial(getFluidRecipe(inv).getOutput().getVariant());
   }
 
-  /* JEI display */
+
+  /* JEI */
   protected List<IDisplayableCastingRecipe> multiRecipes;
 
   @Override
   public List<IDisplayableCastingRecipe> getRecipes(RegistryAccess access) {
     if (multiRecipes == null) {
-      RecipeType<?> type = getType();
-      List<ItemStack> castItems = Arrays.asList(getCast().getItems());
-      multiRecipes = MaterialCastingLookup
-        .getAllCastingFluids().stream()
-        .filter(recipe -> {
-          MaterialVariant output = recipe.getOutput();
-          return recipe.isVisible() && result.canUseMaterial(output.getId()) && this.materials.matches(output.getVariant());
-        })
-        .map(recipe -> {
-          List<FluidStack> fluids = resizeFluids(recipe.getFluids());
-          int fluidAmount = fluids.stream().mapToInt(FluidStack::getAmount).max().orElse(0);
-          return new DisplayCastingRecipe(getId(), type, castItems, fluids, result.withMaterial(recipe.getOutput().getVariant()),
-                                          ICastingRecipe.calcCoolingTime(recipe.getTemperature(), itemCost * fluidAmount), isConsumed());
-        })
-        .collect(Collectors.toList());
+      List<MaterialFluidRecipe> recipes = MaterialCastingLookup.getSortedCastingFluids();
+      List<FluidStack> fluids = new ArrayList<>(recipes.size());
+      List<ItemStack> results = new ArrayList<>(recipes.size());
+      Object2IntMap<Fluid> coolingTimes = new Object2IntOpenHashMap<>();
+      int maxTime = 0;
+      for (MaterialFluidRecipe recipe : recipes) {
+        // must support this material
+        MaterialVariant output = recipe.getOutput();
+        MaterialVariantId outputId = output.getVariant();
+        if (!result.canUseMaterial(output.getId()) || !this.materials.matches(outputId)) {
+          continue;
+        }
+
+        // add all fluids to our builders
+        List<FluidStack> newFluids = resizeFluids(recipe.getFluids());
+        fluids.addAll(newFluids);
+        ItemStack result = this.result.withMaterial(outputId);
+        for (FluidStack fluid : newFluids) {
+          // add one copy of result per fluid
+          results.add(result);
+          // cache the time so we don't need to compute it again
+          int time = ICastingRecipe.calcCoolingTime(recipe.getTemperature(), fluid.getAmount());
+          coolingTimes.put(fluid.getFluid(), time);
+          if (time > maxTime) {
+            maxTime = time;
+          }
+        }
+      }
+      if (fluids.isEmpty()) {
+        multiRecipes = List.of();
+      } else {
+        multiRecipes = List.of(DisplayMaterialCastingRecipe.from(this)
+          .cast(getCast()).consumed(isConsumed())
+          .fluids(List.copyOf(fluids))
+          .results(List.copyOf(results))
+          .coolingTimes(coolingTimes).maxCoolingTime(maxTime)
+          .build());
+      }
     }
     return multiRecipes;
   }

@@ -42,6 +42,19 @@ public sealed interface MaterialVariantId permits MaterialId, MaterialVariantIdI
   /** Returns true if this ID has a variant */
   boolean hasVariant();
 
+  /** Checks if this is the default variant */
+  default boolean isDefaultVariant() {
+    return DEFAULT_VARIANT.equals(getVariant());
+  }
+
+  /** Replaces the default variant with the ID by itself */
+  default MaterialVariantId normalizeVariant() {
+    if (isDefaultVariant()) {
+      return getId();
+    }
+    return this;
+  }
+
   /**
    * Gets the path for this material
    * @param separator  Variant separator
