@@ -124,7 +124,7 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     material(MaterialIds.ancient    ).tier(5).sort(ORDER_NETHER ).hidden();
 
     // slimesuit
-    material(MaterialIds.clay ).tier(2).sort(ORDER_REPAIR + 5);
+    material(MaterialIds.clay ).tier(2).sort(ORDER_REPAIR + 5).craftable();
     material(MaterialIds.honey).tier(2).sort(ORDER_REPAIR + 5);
     material(MaterialIds.blood).tier(2).sort(ORDER_REPAIR).hidden();
     // slimesuit parts
