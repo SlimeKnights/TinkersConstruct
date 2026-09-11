@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "tconstruct:ichor_slime"
   },
-  "restore_amount": 900,
+  "restore_amount": 540,
   "tools": {
     "tag": "tconstruct:modifiable/durability"
   }

@@ -243,9 +243,9 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
         case EARTH -> amount = 20;
         // sky is tinkers specialty
         case SKY -> amount = 50;
-        // ichor is hard to farm
-        case ICHOR -> amount = 100;
-        // ender is late game, but easier to farm than ichor
+        // ichor is hard to farm but easier to find, plus you'd probably rather it for fuel
+        case ICHOR -> amount = 60;
+        // ender is late game
         case ENDER -> amount = 80;
         // unhandled -> update
         default -> {
