@@ -116,8 +116,7 @@ public class MaterialCastingRecipe extends AbstractMaterialCastingRecipe impleme
           .cast(getCast()).consumed(isConsumed())
           .fluids(List.copyOf(fluids))
           .results(List.copyOf(results))
-          .coolingTimes(coolingTimes).maxCoolingTime(maxTime)
-          .build());
+          .maxCoolingTime(maxTime).casting(coolingTimes));
       }
     }
     return multiRecipes;

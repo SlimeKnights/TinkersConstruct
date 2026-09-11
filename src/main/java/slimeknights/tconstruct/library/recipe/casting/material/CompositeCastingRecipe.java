@@ -21,6 +21,7 @@ import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.recipe.casting.ICastingContainer;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.IDisplayableCastingRecipe;
+import slimeknights.tconstruct.library.recipe.casting.material.DisplayMaterialCastingRecipe.CompositeFluid;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipeCache;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 
@@ -87,7 +88,7 @@ public class CompositeCastingRecipe extends MaterialCastingRecipe implements IMu
       List<FluidStack> displayFluids = new ArrayList<>(recipes.size());
       List<ItemStack> displayInputs = new ArrayList<>(recipes.size());
       List<ItemStack> displayResults = new ArrayList<>(recipes.size());
-      Object2IntMap<Fluid> coolingTimes = new Object2IntOpenHashMap<>();
+      Object2IntMap<CompositeFluid> coolingTimes = new Object2IntOpenHashMap<>();
       int maxTime = 0;
       for (MaterialFluidRecipe recipe : MaterialCastingLookup.getAllCompositeFluids()) {
         MaterialVariant output = recipe.getOutput();
@@ -127,7 +128,7 @@ public class CompositeCastingRecipe extends MaterialCastingRecipe implements IMu
         // store all cooling times now, before we duplicate fluids
         for (FluidStack fluid : fluids) {
           int time = ICastingRecipe.calcCoolingTime(recipe.getTemperature(), fluid.getAmount());
-          coolingTimes.put(fluid.getFluid(), time);
+          coolingTimes.put(new CompositeFluid(fluid), time);
           if (time > maxTime) {
             maxTime = time;
           }
@@ -157,12 +158,11 @@ public class CompositeCastingRecipe extends MaterialCastingRecipe implements IMu
         multiRecipes = List.of();
       } else {
         multiRecipes = List.of(DisplayMaterialCastingRecipe.from(this)
-          .casts(List.copyOf(displayInputs)).consumed().linkCastToOutput()
+          .casts(List.copyOf(displayInputs)).consumed()
           .fluids(List.copyOf(displayFluids))
           .results(List.copyOf(displayResults))
-          .coolingTimes(coolingTimes)
           .maxCoolingTime(maxTime)
-          .build());
+          .composite(coolingTimes));
       }
     }
     return multiRecipes;
