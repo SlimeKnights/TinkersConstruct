@@ -36,6 +36,29 @@ public interface IDisplayableCastingRecipe {
     return List.of(getOutput());
   }
 
+  /** If true, will attempt to link the output slot with the cast slot. */
+  default boolean linkCastToOutput() {
+    return true;
+  }
+
+  /** If true, will attempt to link the output slot with the fluids. */
+  default boolean linkFluidsToOutput() {
+    return false;
+  }
+
+
+  /* Cooling time *.
+
+  /** If true, the cooling time is animated and will be computed using {@link #getCoolingTime(FluidStack)}. If false, it is static and {@link #getCastItems()} is used. */
+  default boolean isCoolingTimeDynamic() {
+    return false;
+  }
+
   /** Recipe cooling time */
   int getCoolingTime();
+
+  /** Gets the cooling time for the given fluid */
+  default int getCoolingTime(FluidStack fluid) {
+    return getCoolingTime();
+  }
 }
