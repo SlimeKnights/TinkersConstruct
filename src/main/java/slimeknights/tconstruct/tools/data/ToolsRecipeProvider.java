@@ -266,6 +266,9 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     MaterialSwappingRecipeBuilder.tools(Ingredient.of(TinkerTools.travelersGear.get(ArmorItem.Type.BOOTS), TinkerTools.travelersShield))
       .index(1).materials(travelersCuirass, 2)
       .save(consumer, location(travelersFolder + "boots_cuirass"));
+    MaterialSwappingRecipeBuilder.tool(TinkerTools.travelersShield)
+      .index(0).materials(new MaterialStatTypePredicate(StatlessMaterialStats.SHIELD_CORE.getIdentifier()), 2)
+      .save(consumer, location(travelersFolder + "shield_wood"));
 
     // plate armor
     String plateFolder = armorFolder + "plate/";

@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:material_value_swapping",
+  "cost": 2,
+  "index": 0,
+  "material": {
+    "type": "tconstruct:stat_type",
+    "stat_type": "tconstruct:shield_core"
+  },
+  "max_stack_size": 16,
+  "tools": {
+    "item": "tconstruct:travelers_shield"
+  }
+}
