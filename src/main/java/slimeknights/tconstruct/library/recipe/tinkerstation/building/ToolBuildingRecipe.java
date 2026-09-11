@@ -93,7 +93,6 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
   @Nullable
   protected final List<IToolPart> parts;
   /** List of materials to apply after the parts */
-  @Getter
   protected final List<MaterialVariantId> materials;
   // JEI cache
   protected List<LayoutSlot> layoutSlots;
@@ -122,6 +121,11 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
   /** Gets the additional recipe requirements beyond the tool parts */
   public List<Ingredient> getExtraRequirements() {
     return ingredients;
+  }
+
+  /** Gets the extra materials that are applied to tools using this recipe after the tool parts. */
+  public List<MaterialVariantId> getExtraMaterials() {
+    return materials;
   }
 
   @Override
