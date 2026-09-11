@@ -1067,10 +1067,10 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(AttributeModule.builder(TinkerAttributes.SAFE_FALL_DISTANCE.get(), Operation.ADDITION).eachLevel(1));
     buildModifier(ModifierIds.godspeed)
       .levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
-      // goes from +5% to +7.5%
-      .addModule(AttributeModule.builder(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL).tooltipStyle(TooltipStyle.PERCENT).amount(0.025f, 0.025f))
       // goes from +2.5% to +4%
       .addModule(AttributeModule.builder(Attributes.ATTACK_SPEED, Operation.MULTIPLY_TOTAL).tooltipStyle(TooltipStyle.PERCENT).amount(0.01f, 0.015f))
+      // goes from +5% to +7.5%
+      .addModule(AttributeModule.builder(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL).tooltipStyle(TooltipStyle.PERCENT).amount(0.025f, 0.025f))
       // goes from +7.5% to +12.5%
       .addModule(AttributeModule.builder(TinkerAttributes.MINING_SPEED_MULTIPLIER, Operation.MULTIPLY_TOTAL).tooltipStyle(TooltipStyle.PERCENT).amount(0.025f, 0.05f));
     IJsonPredicate<DamageSource> isProjectile = DamageSourcePredicate.tag(DamageTypeTags.IS_PROJECTILE);
