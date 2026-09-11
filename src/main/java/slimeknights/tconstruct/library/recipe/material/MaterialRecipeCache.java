@@ -11,6 +11,7 @@ import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
+import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -96,6 +97,17 @@ public class MaterialRecipeCache {
       }
       return MaterialRecipe.EMPTY;
     });
+  }
+  
+  /** Gets the material from the given stack, using {@link IMaterialItem} if present, otherwise falling back to {@link #findRecipe(ItemStack)} */
+  public static MaterialVariantId getMaterial(ItemStack stack) {
+    if (stack.isEmpty()) {
+      return MaterialId.UNKNOWN;
+    }
+    if (stack.getItem() instanceof IMaterialItem materialItem) {
+      return materialItem.getMaterial(stack);
+    }
+    return findRecipe(stack).getMaterial().getVariant();
   }
 
   /** Gets a list of all material recipes, including hidden */

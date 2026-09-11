@@ -22,7 +22,6 @@ import slimeknights.tconstruct.library.recipe.material.MaterialsCraftingTableRec
 import slimeknights.tconstruct.library.recipe.material.ShapelessMaterialsRecipe;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
-import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.plugin.jei.util.CategoryUtil;
 
 import javax.annotation.Nullable;
@@ -54,11 +53,7 @@ public class MaterialsCraftingExtension<T extends CraftingRecipe & MaterialsCraf
       Ingredient firstPart = recipe.getParts().get(0);
       this.result = Arrays.stream(firstPart.getItems()).map(variant -> {
         ItemStack stack = plainResult.copy();
-        if (variant.getItem() instanceof IMaterialItem materialItem) {
-          recipe.setMaterial(stack, materialItem.getMaterial(variant));
-        } else {
-          recipe.setMaterial(stack, MaterialRecipeCache.findRecipe(variant).getMaterial().getVariant());
-        }
+        recipe.setMaterial(stack, MaterialRecipeCache.getMaterial(variant));
         return stack;
       }).toList();
       this.outputLink = getMaterialSlots(recipe, firstPart);
@@ -145,12 +140,9 @@ public class MaterialsCraftingExtension<T extends CraftingRecipe & MaterialsCraf
           for (int i = 0; i < partCount; i++) {
             // find all inputs matching the material
             MaterialVariantId material = materials.getMaterial(i);
-            List<ItemStack> matchingStacks = Arrays.stream(recipe.getParts().get(i).getItems()).filter(stack -> {
-              if (stack.getItem() instanceof IMaterialItem materialItem) {
-                return material.matchesVariant(materialItem.getMaterial(stack));
-              }
-              return material.matchesVariant(MaterialRecipeCache.findRecipe(stack).getMaterial());
-            }) .toList();
+            List<ItemStack> matchingStacks = Arrays.stream(recipe.getParts().get(i).getItems())
+              .filter(stack -> material.matchesVariant(MaterialRecipeCache.getMaterial(stack)))
+              .toList();
             if (matchingStacks.isEmpty()) {
               // give up, doing the input method
               break outputFocus;
@@ -171,11 +163,7 @@ public class MaterialsCraftingExtension<T extends CraftingRecipe & MaterialsCraf
         List<MaterialVariantId> variants = new ArrayList<>(partCount);
         for (int i = 0; i < partCount; i++) {
           ItemStack stack = recipeSlots.get(partSlots.get(i)[0]).getDisplayedItemStack().orElse(ItemStack.EMPTY);
-          if (stack.getItem() instanceof IMaterialItem materialItem) {
-            variants.add(materialItem.getMaterial(stack));
-          } else {
-            variants.add(MaterialRecipeCache.findRecipe(stack).getMaterial().getVariant());
-          }
+          variants.add(MaterialRecipeCache.getMaterial(stack));
         }
         variants.addAll(recipe.getExtraMaterials());
         resultSlot.createDisplayOverrides().addItemStack(new MaterialIdNBT(variants).updateStack(plainResult.copy()));
