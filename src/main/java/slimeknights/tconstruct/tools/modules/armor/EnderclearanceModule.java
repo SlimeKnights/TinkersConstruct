@@ -74,8 +74,11 @@ public record EnderclearanceModule(LevelingValue chance, LevelingInt diameter, L
   public void onAttacked(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
     // this works like vanilla, damage is capped due to the hurt immunity mechanics, so if multiple pieces apply thorns between us and vanilla, damage is capped at 4
     if (isDirectDamage && source.getEntity() instanceof LivingEntity attacker) {
-      float level = CounterModule.getLevel(tool, modifier, slotType, context.getEntity());
-      if (attacker.getRandom().nextFloat() < chance.compute(level)) {
+      float chance = this.chance.compute(modifier.getEffectiveLevel());
+      if (CounterModule.isBlocking(tool, slotType, context.getEntity())) {
+        chance *= 2;
+      }
+      if (attacker.getRandom().nextFloat() < chance) {
         teleport(modifier, attacker);
       }
     }

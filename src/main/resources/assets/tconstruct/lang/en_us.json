@@ -1895,7 +1895,7 @@
   "material.tconstruct.chorus.flavor": "Not just the endermen, but the enderwomen, and the enderchildren",
   "material.tconstruct.chorus.encyclopedia": "Prevents the target from teleporting for a 5 seconds per effect level.",
   "material.tconstruct.chorus.encyclopedia.ranged": "Prevents the target from teleporting for a 5 seconds per effect level and allows damaging endermen with arrows.",
-  "material.tconstruct.chorus.encyclopedia.armor": "Has a 25% chance randomly teleporting attackers away, or a 50% chance when blocking.",
+  "material.tconstruct.chorus.encyclopedia.armor": "Has a 25% chance of randomly teleporting attackers away, or a 50% chance when blocking.",
   "material.tconstruct.chorus.encyclopedia.ammo": "Prevents the target from teleporting for 5 seconds per level, and can be fired at endermen.",
 
   "material.tconstruct.string": "String",
@@ -2100,7 +2100,7 @@
   "material.tconstruct.ender_pearl.flavor.skull": "Endermen know how to stay away from harm, and scientists. They have been ignoring my interview requests for weeks!",
   "material.tconstruct.ender_pearl.encyclopedia.skull": "Allows teleporting a short distance in the direction you face by holding then releasing the helmet keybind.",
   "material.tconstruct.ender_pearl.flavor.slime": "Just avoid your problems",
-  "material.tconstruct.ender_pearl.encyclopedia.slime": "Has a 25% chance per level of randomly teleporting attackers away.",
+  "material.tconstruct.ender_pearl.encyclopedia.slime": "Has a 25% chance per piece of randomly teleporting attackers away. Higher levels send them further!",
 
   "material.tconstruct.glass": "Glass",
   "material.tconstruct.glass.flavor": "Shatters on impact!",
