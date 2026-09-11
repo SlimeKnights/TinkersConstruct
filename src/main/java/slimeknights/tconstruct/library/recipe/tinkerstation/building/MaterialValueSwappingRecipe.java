@@ -12,7 +12,6 @@ import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.recipe.IMultiRecipe;
 import slimeknights.mantle.recipe.ingredient.SizedIngredient;
-import slimeknights.tconstruct.library.client.materials.MaterialTooltipCache;
 import slimeknights.tconstruct.library.json.predicate.material.MaterialPredicate;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
@@ -23,10 +22,10 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStatio
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.tables.TinkerTables;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 /** Recipe for swapping materials on a tool based on material items. For best results, there needs to not be a repairable part that supports the same materials. */
 public class MaterialValueSwappingRecipe extends MaterialIndexSwappingRecipe implements IMultiRecipe<IDisplayToolModification> {
@@ -92,31 +91,54 @@ public class MaterialValueSwappingRecipe extends MaterialIndexSwappingRecipe imp
   public List<IDisplayToolModification> getRecipes(RegistryAccess access) {
     if (multiRecipes == null) {
       ItemStack[] tools = this.tools.getItems();
-      // tools without materials are the same each time, so just fetch once
-      List<List<ItemStack>> toolsWithoutMaterial = Arrays.stream(indices)
-        .mapToObj(i -> Arrays.stream(tools).map(stack -> withMaterial(stack.copy(), i, MaterialVariant.of(ToolBuildHandler.getRenderMaterial(i)))).toList())
-        .toList();
-      // recipe per material variant, animated over tools
-      multiRecipes = MaterialRecipeCache.getAllVariants().stream()
-        .filter(material::matches)
-        .<IDisplayToolModification>flatMap(variantId -> {
-          List<ItemStack> inputs = MaterialRecipeCache.getRecipes(variantId).stream()
-            .flatMap(recipe -> Arrays.stream(recipe.getIngredient().getItems())
-              .map(stack -> stack.copyWithCount(recipe.getItemsUsed(cost)))).toList();
-          if (inputs.isEmpty()) {
-            return Stream.empty();
-          }
-          MaterialVariant variant = MaterialVariant.of(variantId);
-          Component variantText = MaterialTooltipCache.getDisplayName(variantId);
-          return IntStream.range(0, indices.length).filter(VALID_SLOT).mapToObj(i -> {
-            int index = indices[i];
-            return new MaterialDisplayRecipe(
-              variantText, index, inputs, toolsWithoutMaterial.get(i),
-              Arrays.stream(tools).map(stack -> withMaterial(stack.copy(), index, variant)).toList()
-            );
-          });
-        }).toList();
+
+      // filter materials list to just the ones we need for this recipe
+      List<MaterialVariantId> materials = MaterialRecipeCache.getAllVariants().stream().filter(material::matches).toList();
+
+      // inputs are the same regardless of tool or slot, so compute once
+      List<ItemStack> inputs = new ArrayList<>();
+      // each tool will have its own materials, but to save memory we just duplicate the stack multiple times
+      record MaterialCount(MaterialVariant variant, int count) {}
+      List<MaterialCount> materialCounts = new ArrayList<>();
+      for (MaterialVariantId material : materials) {
+        List<ItemStack> newStacks = MaterialRecipeCache.getRecipes(material).stream()
+          .flatMap(recipe -> Arrays.stream(recipe.getIngredient().getItems())
+            .map(stack -> stack.copyWithCount(recipe.getItemsUsed(cost)))).toList();
+        inputs.addAll(newStacks);
+        materialCounts.add(new MaterialCount(MaterialVariant.of(material), newStacks.size()));
+      }
+      List<ItemStack> finalInputs = List.copyOf(inputs);
+      // final recipes: 1 per tool and 1 per part in the tool
+      // for most usages, this will be just 1 recipe
+      multiRecipes = Arrays.stream(tools).<IDisplayToolModification>flatMap(tool ->
+        Arrays.stream(indices).filter(VALID_SLOT).mapToObj(i ->
+          new DisplayRecipe(
+            i, finalInputs, List.of(withMaterial(tool.copy(), i, MaterialVariant.of(ToolBuildHandler.getRenderMaterial(i)))),
+            materialCounts.stream().flatMap(count -> {
+              ItemStack withMaterial = withMaterial(tool.copy(), i, count.variant);
+              return IntStream.range(0, count.count).mapToObj(j -> withMaterial);
+            }).toList()
+          )
+        )
+      ).toList();
     }
     return multiRecipes;
+  }
+
+  /** Recipe combining linked with material. */
+  private class DisplayRecipe extends LinkedDisplayRecipe {
+    public DisplayRecipe(int index, List<ItemStack> input, List<ItemStack> toolWithoutModifier, List<ItemStack> toolWithModifier) {
+      super(index, input, toolWithoutModifier, toolWithModifier);
+    }
+
+    @Override
+    public Component getTitle() {
+      return MaterialDisplayRecipe.TITLE;
+    }
+
+    @Override
+    public Component getTooltip() {
+      return MaterialDisplayRecipe.TOOLTIP;
+    }
   }
 }

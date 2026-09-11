@@ -35,6 +35,7 @@ import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
 import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
+import javax.annotation.Nullable;
 import java.util.BitSet;
 import java.util.List;
 import java.util.function.IntPredicate;
@@ -49,8 +50,6 @@ public abstract class MaterialSwappingRecipe implements ITinkerStationRecipe {
   protected static final RecipeResult<LazyToolStack> TOO_FEW_PARTS = RecipeResult.failure(TConstruct.makeTranslationKey("recipe", "part_swapping.too_few_parts"));
   protected static final RecipeResult<LazyToolStack> TOO_MANY_PARTS = RecipeResult.failure(TConstruct.makeTranslationKey("recipe", "part_swapping.too_many_parts"));
   protected static final RecipeResult<LazyToolStack> INVALID_MATERIAL = RecipeResult.failure(TConstruct.makeTranslationKey("recipe", "part_swapping.invalid_material"));
-  protected static final Component TITLE = TConstruct.makeTranslation("recipe", "part_swapping");
-  protected static final Component TOOLTIP = TConstruct.makeTranslation("recipe", "part_swapping.tooltip");
 
   @Getter
   protected final ResourceLocation id;
@@ -237,6 +236,9 @@ public abstract class MaterialSwappingRecipe implements ITinkerStationRecipe {
   /** Recipe mapping a single ingredient to a part */
   @RequiredArgsConstructor
   protected class DisplayRecipe implements IDisplayToolModification {
+    public static final Component TITLE = TConstruct.makeTranslation("recipe", "part_swapping");
+    public static final Component TOOLTIP = TConstruct.makeTranslation("recipe", "part_swapping.tooltip");
+
     protected final int index;
     protected final List<ItemStack> input;
     @Getter
@@ -296,12 +298,13 @@ public abstract class MaterialSwappingRecipe implements ITinkerStationRecipe {
 
   /** Overrides the title for the display recipe */
   protected class MaterialDisplayRecipe extends DisplayRecipe {
-    private static final Component TITLE = TConstruct.makeTranslation("recipe", "material_swapping");
-    private static final Component TOOLTIP = TConstruct.makeTranslation("recipe", "material_swapping.tooltip");
+    public static final Component TITLE = TConstruct.makeTranslation("recipe", "material_swapping");
+    public static final Component TOOLTIP = TConstruct.makeTranslation("recipe", "material_swapping.tooltip");
 
+    @Nullable
     @Getter
     private final Component variant;
-    public MaterialDisplayRecipe(Component variant, int index, List<ItemStack> input, List<ItemStack> toolWithoutModifier, List<ItemStack> toolWithModifier) {
+    public MaterialDisplayRecipe(@Nullable Component variant, int index, List<ItemStack> input, List<ItemStack> toolWithoutModifier, List<ItemStack> toolWithModifier) {
       super(index, input, toolWithoutModifier, toolWithModifier);
       this.variant = variant;
     }
