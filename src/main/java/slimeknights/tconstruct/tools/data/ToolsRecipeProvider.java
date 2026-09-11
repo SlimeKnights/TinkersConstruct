@@ -344,13 +344,14 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     PartBuilderToolRecycleBuilder.tools(SizedIngredient.fromItems(TinkerTools.travelersGear.values().toArray(Item[]::new)))
       // repair kit cost matches exactly
       .part(TinkerToolParts.repairKit)
-      // bit of a material loss on some travelers pieces, but better than no recycling, right?
-      .part(TinkerToolParts.maille)
+      // no good alternative to cuirass, so just do repair kit again. Means you can't choose it but you can get it
+      .part(TinkerToolParts.repairKit)
       .save(consumer, location(folder + "travelers_gear"));
     PartBuilderToolRecycleBuilder.tool(TinkerTools.travelersShield)
       // repair kit cost matches exactly; would give you a shield core but that costs 4
       .part(TinkerToolParts.repairKit)
-      .part(TinkerToolParts.maille)
+      // no good alternative to cuirass, so just do repair kit again. Means you can't choose it but you can get it
+      .part(TinkerToolParts.repairKit)
       .save(consumer, location(folder + "travelers_shield"));
 
     // plate shields don't have a real tool part for the plating
