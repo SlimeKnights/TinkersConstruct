@@ -32,7 +32,7 @@ public class MaterialRecipeCache {
   private static List<MaterialRecipe> SORTED_RECIPES = null;
   /** Comparator used to create {@link #SORTED_RECIPES} */
   private static final Comparator<MaterialRecipe> RECIPE_COMPARATOR = Comparator
-    .<MaterialRecipe,IMaterial>comparing(r -> r.getMaterial().get())
+    .comparing(MaterialRecipe::getMaterial)
     .thenComparing(MaterialRecipe::getValue)
     .thenComparing(MaterialRecipe::getNeeded);
   /** Lookup from item ID to recipe */

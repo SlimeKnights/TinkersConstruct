@@ -6,7 +6,7 @@ import net.minecraft.world.item.ItemStack;
 import javax.annotation.Nullable;
 
 /** Class for a material variant, lazily loads the material instance and stores the variant string */
-public class MaterialVariant extends LazyMaterial {
+public class MaterialVariant extends LazyMaterial implements Comparable<MaterialVariant> {
   /** Unknown material variant, as it comes up a lot */
   public static final MaterialVariant UNKNOWN = new MaterialVariant(IMaterial.UNKNOWN, "");
 
@@ -87,5 +87,15 @@ public class MaterialVariant extends LazyMaterial {
   @Override
   public int hashCode() {
     return variant.hashCode();
+  }
+
+  @Override
+  public int compareTo(MaterialVariant other) {
+    // if material IDs are different, compare those
+    if (!this.matches(other.getId())) {
+      return this.get().compareTo(other.get());
+    }
+    // otherwise, compare variants
+    return this.variant.getVariant().compareTo(other.variant.getVariant());
   }
 }
