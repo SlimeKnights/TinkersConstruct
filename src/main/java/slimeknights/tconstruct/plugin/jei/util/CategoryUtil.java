@@ -2,11 +2,15 @@ package slimeknights.tconstruct.plugin.jei.util;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.ingredient.IRecipeSlotDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotRichTooltipCallback;
+import mezz.jei.api.recipe.IFocus;
+import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
 import javax.annotation.Nullable;
@@ -79,5 +83,14 @@ public final class CategoryUtil {
   /** Filters the slot list to only those starting with the given prefix */
   public static List<IRecipeSlotDrawable> filterSlots(List<IRecipeSlotDrawable> slots, String prefix) {
     return slots.stream().filter(slot -> slot.getSlotName().orElse("").startsWith(prefix)).toList();
+  }
+
+  /** Gets the current result item focus, or {@link ItemStack#EMPTY} if the focus is absent. */
+  public static ItemStack getResultItemFocus(IFocusGroup focuses) {
+    IFocus<ItemStack> focus = focuses.getFocuses(VanillaTypes.ITEM_STACK, RecipeIngredientRole.OUTPUT).findFirst().orElse(null);
+    if (focus != null) {
+      return focus.getTypedValue().getIngredient();
+    }
+    return ItemStack.EMPTY;
   }
 }

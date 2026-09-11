@@ -2,7 +2,6 @@ package slimeknights.tconstruct.plugin.jei;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -10,7 +9,6 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.recipe.IFocus;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.AbstractRecipeCategory;
@@ -119,12 +117,11 @@ public class ToolBuildingCategory extends AbstractRecipeCategory<ToolBuildingRec
     List<IRecipeSlotDrawable> inputSlots = CategoryUtil.filterSlots(recipeSlots, PART_SLOT_PREFIX);
     if (resultSlot != null && !inputSlots.isEmpty()) {
       List<IToolPart> parts = recipe.getToolParts();
-      IFocus<ItemStack> focus = focuses.getFocuses(VanillaTypes.ITEM_STACK, RecipeIngredientRole.OUTPUT).findFirst().orElse(null);
+      ItemStack focus = CategoryUtil.getResultItemFocus(focuses);
       int inputCount = inputSlots.size();
       // if we have an output focus, set the input slots to match
-      if (focus != null) {
-        ItemStack result = focus.getTypedValue().getIngredient();
-        MaterialIdNBT materials = MaterialIdNBT.from(result);
+      if (!focus.isEmpty()) {
+        MaterialIdNBT materials = MaterialIdNBT.from(focus);
         for (int i = 0; i < inputCount; i++) {
           inputSlots.get(i).createDisplayOverrides().addItemStack(parts.get(i).withMaterial(materials.getMaterial(i)));
         }

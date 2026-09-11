@@ -1,12 +1,10 @@
 package slimeknights.tconstruct.plugin.jei.material;
 
 import com.google.common.collect.Streams;
-import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.ingredient.ICraftingGridHelper;
 import mezz.jei.api.gui.ingredient.IRecipeSlotDrawable;
-import mezz.jei.api.recipe.IFocus;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.extensions.vanilla.crafting.ICraftingCategoryExtension;
@@ -129,12 +127,11 @@ public class MaterialsCraftingExtension<T extends CraftingRecipe & MaterialsCraf
       if (resultSlot != null) {
         int partCount = partSlots.size();
         // we just assume the first 9 slots are inputs to avoid needing to make a new list
-        IFocus<ItemStack> focus = focuses.getFocuses(VanillaTypes.ITEM_STACK, RecipeIngredientRole.OUTPUT).findFirst().orElse(null);
+        ItemStack focus = CategoryUtil.getResultItemFocus(focuses);
         // if we have an output focus, set the input slots to match
         outputFocus:
-        if (focus != null) {
-          ItemStack result = focus.getTypedValue().getIngredient();
-          MaterialIdNBT materials = MaterialIdNBT.from(result);
+        if (!focus.isEmpty()) {
+          MaterialIdNBT materials = MaterialIdNBT.from(focus);
           // loop through finding all overrides to display, but don't override yet in case any materials on the tool are absent
           List<List<ItemStack>> slotOverrides = new ArrayList<>(partCount);
           for (int i = 0; i < partCount; i++) {
