@@ -147,9 +147,9 @@ public class MaterialsCraftingExtension<T extends CraftingRecipe & MaterialsCraf
             MaterialVariantId material = materials.getMaterial(i);
             List<ItemStack> matchingStacks = Arrays.stream(recipe.getParts().get(i).getItems()).filter(stack -> {
               if (stack.getItem() instanceof IMaterialItem materialItem) {
-                return materialItem.getMaterial(stack).equals(material);
+                return material.matchesVariant(materialItem.getMaterial(stack));
               }
-              return MaterialRecipeCache.findRecipe(stack).getMaterial().sameVariant(material);
+              return material.matchesVariant(MaterialRecipeCache.findRecipe(stack).getMaterial());
             }) .toList();
             if (matchingStacks.isEmpty()) {
               // give up, doing the input method
