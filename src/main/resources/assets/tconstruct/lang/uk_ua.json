@@ -2073,8 +2073,6 @@
   "material.tconstruct.ender_pearl.skull": "Ендермен",
   "material.tconstruct.ender_pearl.flavor.skull": "Ендермени знають, як уникати шкоди, а також науковців. Вони тижнями ігнорують мої прохання взяти інтерв'ю!",
   "material.tconstruct.ender_pearl.encyclopedia.skull": "Автоматично телепортує вас, коли ви атаковані снарядом, і випадково від беззбройної шкоди. Перезаряджається 15 секунд.",
-  "material.tconstruct.ender_pearl.flavor.slime": "Контрзакляття!",
-  "material.tconstruct.ender_pearl.encyclopedia.slime": "Надає 10% захисту від магічної шкоди за кожен рівень та зменшує час дії негативних зіллів.",
 
   "material.tconstruct.glass": "Скло",
   "material.tconstruct.glass.flavor": "Розбивається при ударі!",
@@ -2281,6 +2279,9 @@
   "material.tconstruct.honey": "Мед",
   "material.tconstruct.honey.flavor": "Дуже солодко!",
   "material.tconstruct.honey.encyclopedia.slime": "Дає 15% шанс за кожен рівень з'їсти обладунок (що споживає частину міцності) на 1 очко голоду за кожен рівень при насиченні 0.1, що також лікує отруту.",
+
+  "material.tconstruct.venom.flavor.slime": "Контрзакляття!",
+  "material.tconstruct.venom.encyclopedia.slime": "Надає 10% захисту від магічної шкоди за кожен рівень та зменшує час дії негативних зіллів.",
 
   "material.tconstruct.phantom": "Перетинка фантома",
   "material.tconstruct.phantom.flavor.shell": "Лети як фантом",

@@ -540,6 +540,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     // pseudo-slime
     addMaterialStats(MaterialIds.clay,       new SlimeStats(150, 0));
     addMaterialStats(MaterialIds.honey,      new SlimeStats(200, 0));
+    addMaterialStats(MaterialIds.venom,      new SlimeStats(225, 0));
     addMaterialStats(MaterialIds.enderPearl, new SlimeStats(250, 0));
 
     // slimeskull

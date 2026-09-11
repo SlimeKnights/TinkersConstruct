@@ -1188,6 +1188,7 @@
   "item.tconstruct.slime_helmet.material.tconstruct.magma": "Magmaskull",
   "item.tconstruct.slime_helmet.material.tconstruct.clay": "Clayskull",
   "item.tconstruct.slime_helmet.material.tconstruct.honey": "Honeyskull",
+  "item.tconstruct.slime_helmet.material.tconstruct.venom": "Venomskull",
   "item.tconstruct.slime_helmet.material.tconstruct.ender_pearl": "Enderskull",
 
   "__comment": "Name is like ribcage, meant to invoke bones",
@@ -1197,6 +1198,7 @@
   "item.tconstruct.slimy_chestplate.material.tconstruct.magma": "Magmacage",
   "item.tconstruct.slimy_chestplate.material.tconstruct.clay": "Claycage",
   "item.tconstruct.slimy_chestplate.material.tconstruct.honey": "Honeycage",
+  "item.tconstruct.slimy_chestplate.material.tconstruct.venom": "Venomcage",
   "item.tconstruct.slimy_chestplate.material.tconstruct.ender_pearl": "Endercage",
 
   "item.tconstruct.slime_leggings": "Slimeshell",
@@ -1204,6 +1206,7 @@
   "item.tconstruct.slime_leggings.material.tconstruct.magma": "Magmashell",
   "item.tconstruct.slime_leggings.material.tconstruct.clay": "Clayshell",
   "item.tconstruct.slime_leggings.material.tconstruct.honey": "Honeyshell",
+  "item.tconstruct.slime_leggings.material.tconstruct.venom": "Venomshell",
   "item.tconstruct.slime_leggings.material.tconstruct.ender_pearl": "Endershell",
 
   "item.tconstruct.slime_boots": "Slimeboots",
@@ -1211,6 +1214,7 @@
   "item.tconstruct.slime_boots.material.tconstruct.magma": "Magmaboots",
   "item.tconstruct.slime_boots.material.tconstruct.clay": "Clayboots",
   "item.tconstruct.slime_boots.material.tconstruct.honey": "Honeyboots",
+  "item.tconstruct.slime_boots.material.tconstruct.venom": "Venomboots",
   "item.tconstruct.slime_boots.material.tconstruct.ender_pearl": "Enderboots",
 
   "__comment": "We are really just mashing up the material name with elytra here, do whatever works for your language, if needed 'Material Elytra' works",
@@ -1220,6 +1224,7 @@
   "item.tconstruct.slime_wings.material.tconstruct.magma": "Magma Elytra",
   "item.tconstruct.slime_wings.material.tconstruct.clay": "Claytra",
   "item.tconstruct.slime_wings.material.tconstruct.honey": "Beelytra",
+  "item.tconstruct.slime_wings.material.tconstruct.venom": "Venolytra",
   "item.tconstruct.slime_wings.material.tconstruct.ender_pearl": "Ender Elytra",
 
   "item.tconstruct.crystalshot": "Crystalshot",
@@ -2094,8 +2099,8 @@
   "material.tconstruct.ender_pearl.skull": "Enderman",
   "material.tconstruct.ender_pearl.flavor.skull": "Endermen know how to stay away from harm, and scientists. They have been ignoring my interview requests for weeks!",
   "material.tconstruct.ender_pearl.encyclopedia.skull": "Allows teleporting a short distance in the direction you face by holding then releasing the helmet keybind.",
-  "material.tconstruct.ender_pearl.flavor.slime": "Counterspell!",
-  "material.tconstruct.ender_pearl.encyclopedia.slime": "Grants 10% protection per level against magic damage and reduces the time of negative potion effects.",
+  "material.tconstruct.ender_pearl.flavor.slime": "Just avoid your problems",
+  "material.tconstruct.ender_pearl.encyclopedia.slime": "Has a 25% chance per level of randomly teleporting attackers away.",
 
   "material.tconstruct.glass": "Glass",
   "material.tconstruct.glass.flavor": "Shatters on impact!",
@@ -2318,6 +2323,10 @@
   "material.tconstruct.honey": "Honey",
   "material.tconstruct.honey.flavor": "Super Sweet!",
   "material.tconstruct.honey.encyclopedia.slime": "Grants a 15% chance per level of eating the armor (consuming some durability) for 1 hunger per level at 0.1 saturation that also cures poison.",
+
+  "material.tconstruct.venom": "Venom",
+  "material.tconstruct.venom.flavor.slime": "Counterspell!",
+  "material.tconstruct.venom.encyclopedia.slime": "Grants 10% protection per level against magic damage and reduces the time of negative potion effects.",
 
   "material.tconstruct.phantom": "Phantom Membrane",
   "material.tconstruct.phantom.flavor.shell": "Float like a phantom",

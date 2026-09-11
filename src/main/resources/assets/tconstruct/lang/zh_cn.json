@@ -2073,8 +2073,6 @@
   "material.tconstruct.ender_pearl.skull": "末影人",
   "material.tconstruct.ender_pearl.flavor.skull": "末影人会回避危险，这帮搞科学的也是。他们几周都没接受我的采访邀请！",
   "material.tconstruct.ender_pearl.encyclopedia.skull": "按住并释放“头盔交互”键，可朝视线方向进行一次短距离传送。",
-  "material.tconstruct.ender_pearl.flavor.slime": "法术反制！",
-  "material.tconstruct.ender_pearl.encyclopedia.slime": "每级获得10%对魔法伤害的抗性，缩短负面药水效果持续时间。",
 
   "material.tconstruct.glass": "玻璃",
   "material.tconstruct.glass.flavor": "一碰即碎！",
@@ -2281,6 +2279,9 @@
   "material.tconstruct.honey": "蜂蜜",
   "material.tconstruct.honey.flavor": "超甜！",
   "material.tconstruct.honey.encyclopedia.slime": "每级有15%概率可以食用盔甲。食用后，消耗耐久度并回复等同于等级数的饥饿 值与固定0.6点饱和度，并移除中毒效果。",
+
+  "material.tconstruct.venom.flavor.slime": "法术反制！",
+  "material.tconstruct.venom.encyclopedia.slime": "每级获得10%对魔法伤害的抗性，缩短负面药水效果持续时间。",
 
   "material.tconstruct.phantom": "幻翼膜",
   "material.tconstruct.phantom.flavor.shell": "飘渺如幻翼",

@@ -198,7 +198,8 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     // pseudoslime
     addTraits(MaterialIds.clay, SlimeStats.ID, ModifierIds.forming);
     addTraits(MaterialIds.honey, SlimeStats.ID, ModifierIds.scrumptious);
-    addTraits(MaterialIds.enderPearl, SlimeStats.ID, ModifierIds.magicProtection);
+    addTraits(MaterialIds.venom, SlimeStats.ID, ModifierIds.magicProtection);
+    addTraits(MaterialIds.enderPearl, SlimeStats.ID, ModifierIds.enderclearance);
 
     // slimeskull
     material(MaterialIds.gunpowder).addTraits(SkullStats.ID, TinkerModifiers.selfDestructive.getId(), ModifierIds.creeperDisguise);

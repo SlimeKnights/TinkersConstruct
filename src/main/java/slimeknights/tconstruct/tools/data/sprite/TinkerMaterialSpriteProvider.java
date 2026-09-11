@@ -461,6 +461,9 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
     buildMaterial(MaterialIds.clay)
       .slime()
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF373944).addARGB(102, 0xFF40445A).addARGB(140, 0xFF5E6C8D).addARGB(178, 0xFF757D90).addARGB(216, 0xFF9499A4).addARGB(255, 0xFFAFB9D6).build());
+    buildMaterial(MaterialIds.venom)
+      .slime()
+      .colorMapper(GreyToColorMapping.builder().addARGB(0, 0xE07F7F7F).addARGB(63, 0xE59B9B9B).addARGB(102, 0xE6A1A1A1).addARGB(140, 0xE9A7A7A7).addARGB(178, 0xEDBBBBBB).addARGB(216, 0xF3D4D4D4).addARGB(255, 0xF8EFEFEF).build());
     buildMaterial(MaterialIds.honey)
       .slime()
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFFC86A08).addARGB(102, 0xFFD87803).addARGB(140, 0xFFE88C08).addARGB(178, 0xFFFAAB1C).addARGB(216, 0xFFFFCE5D).addARGB(255, 0xFFFFE47F).build());

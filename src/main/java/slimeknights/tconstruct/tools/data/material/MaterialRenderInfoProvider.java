@@ -170,6 +170,7 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.blood);
     buildRenderInfo(MaterialIds.clay);
     buildRenderInfo(MaterialIds.honey);
+    buildRenderInfo(MaterialIds.venom);
     buildRenderInfo(MaterialIds.phantom);
     buildRenderInfo(MaterialIds.horn);
     buildRenderInfo(MaterialIds.cheese);
