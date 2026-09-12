@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /** Common logic for {@link ShapedMaterialsExtension} and {@link ShapelessMaterialsRecipe} */
@@ -88,12 +89,22 @@ public class MaterialsCraftingExtension<T extends CraftingRecipe & MaterialsCraf
     return recipe.getId();
   }
 
+  /** Gets a modifiable list of inputs to the given recipe */
+  private static List<List<ItemStack>> getInputs(CraftingRecipe recipe) {
+    // using Collectors.toList to ensure we can mutate the list
+    return recipe.getIngredients().stream().map(ingredient -> List.of(ingredient.getItems())).collect(Collectors.toList());
+  }
+
   /** Sets the recipe in the builder */
+  @Deprecated
   public static void setRecipe(ICraftingCategoryExtension self, IRecipeLayoutBuilder builder, ICraftingGridHelper craftingGridHelper, CraftingRecipe recipe, List<ItemStack> result, ItemStack plainResult, @Nullable int[] materialSlots) {
+    setRecipe(self, builder, craftingGridHelper, recipe.getId(), getInputs(recipe), result, plainResult, materialSlots);
+  }
+
+  /** Sets the recipe in the builder */
+  public static void setRecipe(ICraftingCategoryExtension self, IRecipeLayoutBuilder builder, ICraftingGridHelper craftingGridHelper, ResourceLocation id, List<List<ItemStack>> inputStacks, List<ItemStack> result, ItemStack plainResult, @Nullable int[] materialSlots) {
     builder.addInvisibleIngredients(RecipeIngredientRole.OUTPUT).addItemStack(plainResult);
 
-    // apply ingredient stacks
-    List<List<ItemStack>> inputStacks = recipe.getIngredients().stream().map(ingredient -> List.of(ingredient.getItems())).toList();
     // shapeless needs its width and height set, but we also want to recover those sizes, so calculate it locally
     int width = self.getWidth();
     int height = self.getHeight();
@@ -104,7 +115,7 @@ public class MaterialsCraftingExtension<T extends CraftingRecipe & MaterialsCraf
     List<IRecipeSlotBuilder> inputs = craftingGridHelper.createAndSetInputs(builder, inputStacks, width, height);
     IRecipeSlotBuilder output = craftingGridHelper.createAndSetOutputs(builder, result).setSlotName(RESULT_SLOT);
     if (inputs.size() != 9) {
-      Mantle.logger.error("Failed to create focus link for {} as the layout {} is not 3x3", recipe.getId(), builder.getClass().getName());
+      Mantle.logger.error("Failed to create focus link for {} as the layout {} is not 3x3", id, builder.getClass().getName());
     } else if (materialSlots != null) {
       // apply focus links
       builder.createFocusLink(Streams.concat(
@@ -116,50 +127,50 @@ public class MaterialsCraftingExtension<T extends CraftingRecipe & MaterialsCraf
 
   @Override
   public void setRecipe(IRecipeLayoutBuilder builder, ICraftingGridHelper craftingGridHelper, IFocusGroup focuses) {
-    setRecipe(this, builder, craftingGridHelper, recipe, result, plainResult, outputLink);
+    List<List<ItemStack>> inputs = getInputs(recipe);
+
+    // if we have a focused tool, use it to filter the inputs to match
+    // we just assume the first 9 slots are inputs to avoid needing to make a new list
+    ItemStack focus = CategoryUtil.getResultItemFocus(focuses);
+    // if we have an output focus, set the input slots to match
+    outputFocus:
+    if (!focus.isEmpty()) {
+      MaterialIdNBT materials = MaterialIdNBT.from(focus);
+      // loop through finding all overrides to display, but don't override yet in case any materials on the tool are absent
+      int partCount = partSlots.size();
+      List<List<ItemStack>> slotOverrides = new ArrayList<>(partCount);
+      for (int i = 0; i < partCount; i++) {
+        // find all inputs matching the material
+        MaterialVariantId material = materials.getMaterial(i);
+        List<ItemStack> matchingStacks = Arrays.stream(recipe.getParts().get(i).getItems())
+          .filter(stack -> material.matchesVariant(MaterialRecipeCache.getMaterial(stack)))
+          .toList();
+        // if filtered to empty, just display the original stacks
+        // this happens if the focus has materials that are not in this recipe
+        if (matchingStacks.isEmpty()) break outputFocus;
+        slotOverrides.add(matchingStacks);
+      }
+      // all materials are present, so time to override
+      for (int i = 0; i < partCount; i++) {
+        List<ItemStack> override = slotOverrides.get(i);
+        for (int slot : partSlots.get(i)) {
+          inputs.set(slot, override);
+        }
+      }
+    }
+    setRecipe(this, builder, craftingGridHelper, recipe.getId(), inputs, result, plainResult, outputLink);
   }
 
   @Override
   public void onDisplayedIngredientsUpdate(List<IRecipeSlotDrawable> recipeSlots, IFocusGroup focuses) {
     // don't care if only 1 part
-    if (!partSlots.isEmpty()) {
+    if (partSlots.size() > 1) {
       IRecipeSlotDrawable resultSlot = CategoryUtil.findSlot(recipeSlots, RESULT_SLOT);
       if (resultSlot != null) {
-        int partCount = partSlots.size();
-        // we just assume the first 9 slots are inputs to avoid needing to make a new list
-        ItemStack focus = CategoryUtil.getResultItemFocus(focuses);
-        // if we have an output focus, set the input slots to match
-        outputFocus:
-        if (!focus.isEmpty()) {
-          MaterialIdNBT materials = MaterialIdNBT.from(focus);
-          // loop through finding all overrides to display, but don't override yet in case any materials on the tool are absent
-          List<List<ItemStack>> slotOverrides = new ArrayList<>(partCount);
-          for (int i = 0; i < partCount; i++) {
-            // find all inputs matching the material
-            MaterialVariantId material = materials.getMaterial(i);
-            List<ItemStack> matchingStacks = Arrays.stream(recipe.getParts().get(i).getItems())
-              .filter(stack -> material.matchesVariant(MaterialRecipeCache.getMaterial(stack)))
-              .toList();
-            if (matchingStacks.isEmpty()) {
-              // give up, doing the input method
-              break outputFocus;
-            }
-            slotOverrides.add(matchingStacks);
-          }
-          // all materials are present, so time to override
-          for (int i = 0; i < partCount; i++) {
-            List<ItemStack> override = slotOverrides.get(i);
-            for (int slot : partSlots.get(i)) {
-              recipeSlots.get(slot).createDisplayOverrides().addItemStacks(override);
-            }
-          }
-          resultSlot.createDisplayOverrides().addItemStack(materials.normalize(partCount, recipe.getExtraMaterials()).updateStack(plainResult.copy()));
-          return;
-        }
         // find input materials and use to set the output
-        List<MaterialVariantId> variants = new ArrayList<>(partCount);
-        for (int i = 0; i < partCount; i++) {
-          ItemStack stack = recipeSlots.get(partSlots.get(i)[0]).getDisplayedItemStack().orElse(ItemStack.EMPTY);
+        List<MaterialVariantId> variants = new ArrayList<>(partSlots.size());
+        for (int[] partSlot : partSlots) {
+          ItemStack stack = recipeSlots.get(partSlot[0]).getDisplayedItemStack().orElse(ItemStack.EMPTY);
           variants.add(MaterialRecipeCache.getMaterial(stack));
         }
         variants.addAll(recipe.getExtraMaterials());

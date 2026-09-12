@@ -29,6 +29,7 @@ import slimeknights.tconstruct.tools.TinkerTools;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipe.SLOT_SIZE;
@@ -68,10 +69,27 @@ public class ToolBuildingCategory extends AbstractRecipeCategory<ToolBuildingRec
   @Override
   public void setRecipe(IRecipeLayoutBuilder builder, ToolBuildingRecipe recipe, IFocusGroup focuses) {
     List<List<ItemStack>> toolParts = recipe.getAllToolParts();
-    List<List<ItemStack>> partsAndExtras = Stream.concat(toolParts.stream(),
-      recipe.getExtraRequirements().stream().map(ingredient -> Arrays.asList(ingredient.getItems()))).toList();
-    List<LayoutSlot> layoutSlots = recipe.getLayoutSlots();
+    List<List<ItemStack>> partsAndExtras = Stream.concat(
+      toolParts.stream(),
+      recipe.getExtraRequirements().stream().map(ingredient -> Arrays.asList(ingredient.getItems()))
+    ).collect(Collectors.toList()); // using collectors.toList to ensure we can mutate the list
 
+    // if we have parts, and there is a focus, use that to override the materials on the parts
+    int partCount = toolParts.size();
+    if (partCount > 0) {
+      ItemStack focus = CategoryUtil.getResultItemFocus(focuses);
+      // if we have an output focus, set the input slots to match
+      if (!focus.isEmpty()) {
+        List<IToolPart> parts = recipe.getToolParts();
+        MaterialIdNBT materials = MaterialIdNBT.from(focus);
+        for (int i = 0; i < partCount; i++) {
+          partsAndExtras.set(i, List.of(parts.get(i).withMaterial(materials.getMaterial(i))));
+        }
+      }
+    }
+
+    // start building the layout
+    List<LayoutSlot> layoutSlots = recipe.getLayoutSlots();
     int missingSlots = partsAndExtras.size() - layoutSlots.size();
 
     if (missingSlots < 0) {
@@ -83,7 +101,6 @@ public class ToolBuildingCategory extends AbstractRecipeCategory<ToolBuildingRec
     }
 
     IRecipeSlotBuilder firstSlot = null;
-    int partCount = toolParts.size();
     for (int i = 0; i < layoutSlots.size(); i++) {
       IRecipeSlotBuilder slot = builder.addInputSlot(layoutSlots.get(i).getX() + X_OFFSET, layoutSlots.get(i).getY() + Y_OFFSET)
         .addItemStacks(partsAndExtras.get(i));
@@ -117,26 +134,12 @@ public class ToolBuildingCategory extends AbstractRecipeCategory<ToolBuildingRec
     List<IRecipeSlotDrawable> inputSlots = CategoryUtil.filterSlots(recipeSlots, PART_SLOT_PREFIX);
     if (resultSlot != null && !inputSlots.isEmpty()) {
       List<IToolPart> parts = recipe.getToolParts();
-      ItemStack focus = CategoryUtil.getResultItemFocus(focuses);
-      int inputCount = inputSlots.size();
-      // if we have an output focus, set the input slots to match
-      if (!focus.isEmpty()) {
-        MaterialIdNBT materials = MaterialIdNBT.from(focus);
-        for (int i = 0; i < inputCount; i++) {
-          inputSlots.get(i).createDisplayOverrides().addItemStack(parts.get(i).withMaterial(materials.getMaterial(i)));
-        }
-        resultSlot.createDisplayOverrides().addItemStack(materials
-          .normalize(parts.size(), recipe.getExtraMaterials())
-          .updateStack(new ItemStack(recipe.getOutput())));
-      } else {
-        // no output focus? set the output based on the inputs
-        List<MaterialVariantId> variants = new ArrayList<>(inputCount);
-        for (int i = 0; i < parts.size(); i++) {
-          variants.add(parts.get(i).getMaterial(inputSlots.get(i).getDisplayedItemStack().orElse(ItemStack.EMPTY)));
-        }
-        variants.addAll(recipe.getExtraMaterials());
-        resultSlot.createDisplayOverrides().addItemStack(new MaterialIdNBT(variants).updateStack(new ItemStack(recipe.getOutput())));
+      List<MaterialVariantId> variants = new ArrayList<>(parts.size());
+      for (int i = 0; i < parts.size(); i++) {
+        variants.add(parts.get(i).getMaterial(inputSlots.get(i).getDisplayedItemStack().orElse(ItemStack.EMPTY)));
       }
+      variants.addAll(recipe.getExtraMaterials());
+      resultSlot.createDisplayOverrides().addItemStack(new MaterialIdNBT(variants).updateStack(new ItemStack(recipe.getOutput())));
     }
   }
 
