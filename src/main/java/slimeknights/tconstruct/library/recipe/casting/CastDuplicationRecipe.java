@@ -17,7 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /** Recipe which duplicates the input cast using a fluid */
-public class CastDuplicationRecipe extends ItemCastingRecipe implements IMultiRecipe<DisplayCastingRecipe> {
+public class CastDuplicationRecipe extends ItemCastingRecipe implements IMultiRecipe<IDisplayableCastingRecipe> {
   public static final RecordLoadable<CastDuplicationRecipe> LOADER = RecordLoadable.create(
     LoadableRecipeSerializer.TYPED_SERIALIZER.requiredField(), ContextKey.ID.requiredField(),
     LoadableRecipeSerializer.RECIPE_GROUP,
@@ -41,12 +41,20 @@ public class CastDuplicationRecipe extends ItemCastingRecipe implements IMultiRe
   }
 
   /* JEI */
-  private List<DisplayCastingRecipe> displayRecipes = null;
+  private List<IDisplayableCastingRecipe> displayRecipes = null;
 
   @Override
-  public List<DisplayCastingRecipe> getRecipes(RegistryAccess access) {
+  public List<IDisplayableCastingRecipe> getRecipes(RegistryAccess access) {
     if (displayRecipes == null) {
-      displayRecipes = Arrays.stream(getCast().getItems())
+      List<ItemStack> casts = List.of(getCast().getItems());
+      displayRecipes = List.of(DisplayCastingRecipe.from(this)
+        .casts(casts).results(casts).linkCastToOutput()
+        .fluids(fluid.getFluids())
+        .coolingTime(coolingTime)
+        .build());
+
+
+      Arrays.stream(getCast().getItems())
         .map(item -> new DisplayCastingRecipe(getId(), getType(), List.of(item), fluid.getFluids(), item, coolingTime, false))
         .toList();
     }
