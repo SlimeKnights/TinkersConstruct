@@ -258,7 +258,7 @@ public class ItemTagProvider extends ItemTagsProvider {
       // internal item for modifiers
       TinkerTools.crystalshotItem.asItem(),
       // unused future fluids
-      TinkerFluids.moltenSoulsteel.asItem(), TinkerFluids.moltenKnightslime.asItem()
+      TinkerFluids.moltenSoulsteel.asItem()
     );
     // unused future material items
     TinkerMaterials.soulsteel.forEach(item -> hidden.add(item.asItem()));
