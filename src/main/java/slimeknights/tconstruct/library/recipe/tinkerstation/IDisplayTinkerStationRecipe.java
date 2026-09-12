@@ -81,7 +81,7 @@ public interface IDisplayTinkerStationRecipe {
     return RecipeResult.pass();
   }
 
-  /** If true, the displayed ingredients are dynamically updated whenever the view changes in {@link #onDisplayUpdate(RecipeSlot, RecipeSlots, RecipeSlot, ItemStack, boolean)} */
+  /** If true, the displayed ingredients are dynamically updated whenever the view changes in {@link #onDisplayUpdate(RecipeSlot, RecipeSlots, RecipeSlot)} */
   default boolean isSlotsDynamic() {
     return false;
   }
@@ -89,11 +89,10 @@ public interface IDisplayTinkerStationRecipe {
   /**
    * Called when the display updates in JEI to allow a recipe to dynamically change the displayed values.
    * Only called if {@link #isSlotsDynamic()} is true.
-   * @param tool         Tool input, representing the tool without this modification.
-   * @param inputs       List of inputs used to modify the tool.
-   * @param output       Tool output, representing the tool with this modification.
-   * @param focus        Current focus. Will be empty if no focus.
-   * @param focusOutput  If true, the focus is the output. If false, it is an input.
+   *
+   * @param tool   Tool input, representing the tool without this modification.
+   * @param inputs List of inputs used to modify the tool.
+   * @param output Tool output, representing the tool with this modification.
    */
-  default void onDisplayUpdate(RecipeSlot<ItemStack> tool, RecipeSlots<ItemStack> inputs, RecipeSlot<ItemStack> output, ItemStack focus, boolean focusOutput) {}
+  default void onDisplayUpdate(RecipeSlot<ItemStack> tool, RecipeSlots<ItemStack> inputs, RecipeSlot<ItemStack> output) {}
 }

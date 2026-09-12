@@ -208,24 +208,10 @@ public abstract class AbstractTinkerStationCategory<T extends IDisplayTinkerStat
   public void onDisplayedIngredientsUpdate(T recipe, List<IRecipeSlotDrawable> recipeSlots, IFocusGroup focuses) {
     // handle dynamic hook
     if (recipe.isSlotsDynamic()) {
-
-      // some recipes want to handle focus on the input, so grab either type of focus
-      // there shouldn't be multiple focuses, right?
-      // TODO: can we ditch the focus parameter here since we will handle them in set recipe?
-      IFocus<ItemStack> focus = focuses.getFocuses(VanillaTypes.ITEM_STACK).findFirst().orElse(null);
-      ItemStack focusStack = ItemStack.EMPTY;
-      boolean focusOutput = false;
-      if (focus != null) {
-        focusStack = focus.getTypedValue().getIngredient();
-        focusOutput = focus.getRole() == RecipeIngredientRole.OUTPUT;
-      }
-      // just pass in item context, can't see a use case for non-item contexts dynamically changing (we don't animate them)
       recipe.onDisplayUpdate(
         RecipeSlotWrapper.createItem(recipeSlots, TOOL_SLOT),
         RecipeSlotsWrapper.createItem(recipeSlots.subList(0, 5)),
-        RecipeSlotWrapper.createItem(recipeSlots, RESULT_TOOL_SLOT),
-        focusStack,
-        focusOutput
+        RecipeSlotWrapper.createItem(recipeSlots, RESULT_TOOL_SLOT)
       );
     }
   }
