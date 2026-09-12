@@ -44,6 +44,7 @@ import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fml.ModList;
 import slimeknights.mantle.client.SafeClientAccess;
 import slimeknights.mantle.recipe.helper.RecipeHelper;
+import slimeknights.mantle.registration.object.FluidObject;
 import slimeknights.mantle.util.RetexturedHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -514,31 +515,19 @@ public class JEIPlugin implements IModPlugin {
       TankItem.addFilledVariants(addItem);
     }
 
-    // update ingredients as requested
-    if (!removeItems.isEmpty()) {
-      manager.removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK, removeItems);
-    }
-    if (!addItems.isEmpty()) {
-      manager.addIngredientsAtRuntime(VanillaTypes.ITEM_STACK, addItems);
-    }
-    IIngredientVisibility visibility = jeiRuntime.getJeiHelpers().getIngredientVisibility();
-    if (!hideItems.isEmpty()) {
-      visibility.hideIngredients(VanillaTypes.ITEM_STACK, hideItems, Set.of(UidContext.Ingredient));
-    }
-    if (!showItems.isEmpty()) {
-      visibility.unhideIngredients(VanillaTypes.ITEM_STACK, showItems, Set.of(UidContext.Ingredient));
-    }
-
     // fluid hiding, buckets are hidden via the creative tab logic
     // hide compat that is not present
     List<FluidStack> removeFluids = new ArrayList<>();
     for (SmelteryCompat compat : SmelteryCompat.values()) {
       // if none of the tags exist, remove the fluid
       if (!compat.isPresent()) {
-        removeFluid(removeFluids, compat.getFluid().get());
+        FluidObject<?> fluid = compat.getFluid();
+        removeItems.add(new ItemStack(fluid));
+        removeFluid(removeFluids, fluid.get());
       }
     }
     if (!ModList.get().isLoaded("ceramics")) {
+      removeItems.add(new ItemStack(TinkerFluids.moltenPorcelain));
       removeFluid(removeFluids, TinkerFluids.moltenPorcelain.get());
     }
 
@@ -553,7 +542,20 @@ public class JEIPlugin implements IModPlugin {
     // remove variantless potion fluid
     removeFluid(removeFluids, TinkerFluids.potion.get());
 
-    // remove all the fluids
+    // update ingredients as requested
+    if (!removeItems.isEmpty()) {
+      manager.removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK, removeItems);
+    }
+    if (!addItems.isEmpty()) {
+      manager.addIngredientsAtRuntime(VanillaTypes.ITEM_STACK, addItems);
+    }
+    IIngredientVisibility visibility = jeiRuntime.getJeiHelpers().getIngredientVisibility();
+    if (!hideItems.isEmpty()) {
+      visibility.hideIngredients(VanillaTypes.ITEM_STACK, hideItems, Set.of(UidContext.Ingredient));
+    }
+    if (!showItems.isEmpty()) {
+      visibility.unhideIngredients(VanillaTypes.ITEM_STACK, showItems, Set.of(UidContext.Ingredient));
+    }
     manager.removeIngredientsAtRuntime(ForgeTypes.FLUID_STACK, removeFluids);
 
     // hide easter egg recipes
