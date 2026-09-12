@@ -108,6 +108,7 @@ import slimeknights.tconstruct.plugin.jei.transfer.TinkerStationTransferInfo;
 import slimeknights.tconstruct.plugin.jei.transfer.ToolInventoryTransferInfo;
 import slimeknights.tconstruct.plugin.jei.util.GuiContainerTankHandler;
 import slimeknights.tconstruct.plugin.jei.util.PotionSubtypeInterpreter;
+import slimeknights.tconstruct.plugin.jei.util.TankHidingIngredientListener;
 import slimeknights.tconstruct.plugin.jei.util.ToolPartSubtypeInterpreter;
 import slimeknights.tconstruct.plugin.jei.util.ToolSubtypeInterpreter;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -133,6 +134,7 @@ import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static slimeknights.mantle.util.RetexturedHelper.addTagVariants;
 
@@ -256,6 +258,13 @@ public class JEIPlugin implements IModPlugin {
 
     // modifier worktable
     register.addRecipes(TConstructJEIConstants.MODIFIER_WORKTABLE, RecipeHelper.getJEIRecipes(access, manager, TinkerRecipeTypes.MODIFIER_WORKTABLE.get(), IModifierWorktableRecipe.class));
+
+    // add an ingredient listener to hide tanks when fluids are hidden
+    IIngredientManager ingredientManager = register.getIngredientManager();
+    ingredientManager.registerIngredientListener(new TankHidingIngredientListener(ingredientManager, Stream.concat(
+      Stream.of(TinkerSmeltery.copperCan, TinkerSmeltery.searedLantern, TinkerSmeltery.scorchedLantern),
+      Stream.concat(TinkerSmeltery.searedTank.values().stream(), TinkerSmeltery.scorchedTank.values().stream())
+    ).map(ItemLike::asItem).toList()));
   }
 
   /**
