@@ -64,11 +64,16 @@ public interface IDisplayTinkerStationRecipe {
 
   /* Dynamic ingredients */
 
+  /** Gets the maximum stack size for tools computed via {@link #onFocused(ItemStack)}. The minimum between this and the stack's max stack size will be used. */
+  default int getMaxToolSize() {
+    return ITinkerStationRecipe.DEFAULT_TOOL_STACK_SIZE;
+  }
+
   /**
    * Creates a result for this recipe given the passed focus.
    * @param  focus  Input tool focus. Called if it passes {@link #isTool(ItemStack)}.
    * @return {@link RecipeResult#pass()} to use the default {@link #getToolWithoutModifier()} and {@link #getToolWithModifier()}, filtered by the focus.
-   *         {@link RecipeResult#success(Object)} to override the result with the returned stack.
+   *         {@link RecipeResult#success(Object)} to override the result with the returned stack. Stack size will be handled automatically using {@link #getMaxToolSize()}.
    *         {@link RecipeResult#failure(Component)} to return an error indicating why this recipe cannot apply.
    *         If anything other than {@link RecipeResult#pass()} is returned, the input tool will be set to the focus.
    */

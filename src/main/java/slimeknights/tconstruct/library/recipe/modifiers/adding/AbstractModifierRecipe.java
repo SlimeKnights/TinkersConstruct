@@ -76,6 +76,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   /** Ingredient representing the required tool, typically a tag */
   protected final Ingredient toolRequirement;
   /** Max size of the tool for this modifier. If the tool size is smaller, the stack will reduce by less */
+  @Getter
   protected final int maxToolSize;
   /** Modifier this recipe is adding */
   protected final LazyModifier result;
@@ -112,6 +113,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   public int shrinkToolSlotBy() {
     return maxToolSize;
   }
+
 
   /* JEI display */
   /** Cache of input items shared between result and input */

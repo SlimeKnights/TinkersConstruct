@@ -11,6 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import slimeknights.mantle.recipe.ingredient.SizedIngredient;
 import slimeknights.tconstruct.library.json.IntRange;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
 
 import javax.annotation.Nullable;
@@ -28,6 +29,8 @@ public class DisplayModifierRecipe implements IDisplayModifierRecipe {
   private final List<ItemStack> toolWithoutModifier;
   @Getter
   private final List<ItemStack> toolWithModifier;
+  @Getter
+  private final int maxToolSize;
   @Nullable
   private final Predicate<ItemStack> isTool;
   @Getter
@@ -47,7 +50,7 @@ public class DisplayModifierRecipe implements IDisplayModifierRecipe {
   /** @deprecated use {@link #builder()} */
   @Deprecated(forRemoval = true)
   public DisplayModifierRecipe(@Nullable ResourceLocation id, List<SizedIngredient> inputs, List<ItemStack> toolWithoutModifier, List<ItemStack> toolWithModifier, ModifierEntry displayResult, IntRange level, @Nullable SlotCount slots, List<SlotCount> resultSlots) {
-    this(id, resolve(inputs), toolWithoutModifier, toolWithModifier, null, displayResult, level, slots, resultSlots, false, false);
+    this(id, resolve(inputs), toolWithoutModifier, toolWithModifier, ITinkerStationRecipe.DEFAULT_TOOL_STACK_SIZE, null, displayResult, level, slots, resultSlots, false, false);
   }
 
   /** @deprecated use {@link #builder()} */
@@ -113,6 +116,8 @@ public class DisplayModifierRecipe implements IDisplayModifierRecipe {
     private boolean incremental = false;
     /** If true, this recipe uses the trait level for its level range instead of just crafted levels */
     private boolean checkTraitLevel = false;
+    /** Maximum stack size for dynamically computed tools. The minimum between this and the stack's max stack size will be used. */
+    private int maxToolSize = ITinkerStationRecipe.DEFAULT_TOOL_STACK_SIZE;
 
     /** Creates a copy of this builder with the same properties */
     public Builder copy() {
@@ -156,7 +161,7 @@ public class DisplayModifierRecipe implements IDisplayModifierRecipe {
       if (toolWithModifier.isEmpty()) {
         throw new IllegalStateException("Must set tools with modifier");
       }
-      return new DisplayModifierRecipe(id, inputs, toolWithoutModifier, toolWithModifier, isTool, result, level, slots, resultSlots, incremental, checkTraitLevel);
+      return new DisplayModifierRecipe(id, inputs, toolWithoutModifier, toolWithModifier, maxToolSize, isTool, result, level, slots, resultSlots, incremental, checkTraitLevel);
     }
   }
 }

@@ -136,7 +136,8 @@ public abstract class AbstractTinkerStationCategory<T extends IDisplayTinkerStat
       ItemStack focusStack = focus.getTypedValue().getIngredient();
       // only focus on non-outputs currently. TODO: reconsider output focuses, applies to part swapping notably.
       if (focus.getRole() != RecipeIngredientRole.OUTPUT && recipe.isTool(focusStack)) {
-        // TODO: consider how to do stack sizes
+        // make the stack count as large as the recipe allows. This should also automatically update the size in the result
+        focusStack = focusStack.copyWithCount(Math.min(focusStack.getMaxStackSize(), recipe.getMaxToolSize()));
         // ask the recipe if it wishes to adjust sizes
         RecipeResult<ItemStack> focusUpdate = recipe.onFocused(focusStack);
         // on success, update the input to the focus stack and the output to the result
