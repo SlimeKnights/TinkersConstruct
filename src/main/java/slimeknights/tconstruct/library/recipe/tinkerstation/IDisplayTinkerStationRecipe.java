@@ -2,7 +2,10 @@ package slimeknights.tconstruct.library.recipe.tinkerstation;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import slimeknights.tconstruct.library.recipe.RecipeSlot;
+import slimeknights.tconstruct.library.recipe.RecipeSlots;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -41,8 +44,38 @@ public interface IDisplayTinkerStationRecipe {
   /** Gets the result tool after applying this recipe. */
   List<ItemStack> getToolWithModifier();
 
+  /** Checks if the passed item is a valid tool for this recipe */
+  default boolean isTool(ItemStack check) {
+    Item item = check.getItem();
+    for (ItemStack stack : getToolWithoutModifier()) {
+      if (stack.is(item)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   /** List of input indices to link to the output in JEI. */
   default int[] linkToOutput() {
     return NO_LINKS;
   }
+
+
+  /* Dynamic ingredients */
+
+  /** If true, the displayed ingredients can be dynamically updated using {@link #onDisplayUpdate(RecipeSlot, RecipeSlots, RecipeSlot, ItemStack, boolean)} */
+  default boolean isSlotsDynamic() {
+    return false;
+  }
+
+  /**
+   * Called when the display updates in JEI to allow a recipe to dynamically change the displayed values.
+   * Only called if {@link #isSlotsDynamic()} is true.
+   * @param tool         Tool input, representing the tool without this modification.
+   * @param inputs       List of inputs used to modify the tool.
+   * @param output       Tool output, representing the tool with this modification.
+   * @param focus        Current focus. Will be empty if no focus.
+   * @param focusOutput  If true, the focus is the output. If false, it is an input.
+   */
+  default void onDisplayUpdate(RecipeSlot<ItemStack> tool, RecipeSlots<ItemStack> inputs, RecipeSlot<ItemStack> output, ItemStack focus, boolean focusOutput) {}
 }

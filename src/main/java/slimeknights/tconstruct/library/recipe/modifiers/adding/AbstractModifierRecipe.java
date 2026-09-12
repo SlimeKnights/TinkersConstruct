@@ -164,6 +164,11 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   }
 
   @Override
+  public boolean isTool(ItemStack check) {
+    return toolRequirement.test(check);
+  }
+
+  @Override
   public List<ItemStack> getToolWithoutModifier() {
     if (displayInputs == null) {
       int min = level.min() - 1;

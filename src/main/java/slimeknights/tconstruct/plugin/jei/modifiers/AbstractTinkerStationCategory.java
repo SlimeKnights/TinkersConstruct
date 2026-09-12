@@ -1,11 +1,14 @@
 package slimeknights.tconstruct.plugin.jei.modifiers;
 
+import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.ingredient.IRecipeSlotDrawable;
 import mezz.jei.api.gui.placement.HorizontalAlignment;
 import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
 import mezz.jei.api.helpers.IGuiHelper;
+import mezz.jei.api.recipe.IFocus;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
@@ -19,6 +22,8 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IDisplayTinkerStationRecipe;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
+import slimeknights.tconstruct.plugin.jei.util.RecipeSlotWrapper;
+import slimeknights.tconstruct.plugin.jei.util.RecipeSlotsWrapper;
 
 import javax.annotation.Nullable;
 import java.awt.Color;
@@ -33,6 +38,8 @@ import java.util.stream.Stream;
 /** Common logic between {@link ModifierRecipeCategory} and {@link ToolModificationCategory} */
 public abstract class AbstractTinkerStationCategory<T extends IDisplayTinkerStationRecipe> extends AbstractRecipeCategory<T> {
   protected static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/tinker_station.png");
+  protected final String TOOL_SLOT = "tool_with";
+  protected final String RESULT_TOOL_SLOT = "tool_without";
 
   /** Icons to draw on empty slots */
   private final IDrawable[] slotIcons;
@@ -120,9 +127,9 @@ public abstract class AbstractTinkerStationCategory<T extends IDisplayTinkerStat
       }
     }
 
-    IRecipeSlotBuilder withoutModifierSlot = builder.addSlot(withoutModifierRole,  25, 38).addItemStacks(toolWithoutModifier).setStandardSlotBackground();
+    IRecipeSlotBuilder withoutModifierSlot = builder.addSlot(withoutModifierRole,  25, 38).addItemStacks(toolWithoutModifier).setStandardSlotBackground().setSlotName(TOOL_SLOT);
     RecipeIngredientRole withModifierRole = isCatalyst ? RecipeIngredientRole.CATALYST : RecipeIngredientRole.OUTPUT;
-    IRecipeSlotBuilder withModifierSlot = builder.addSlot(withModifierRole, 105, 34).addItemStacks(toolWithModifier).setOutputSlotBackground();
+    IRecipeSlotBuilder withModifierSlot = builder.addSlot(withModifierRole, 105, 34).addItemStacks(toolWithModifier).setOutputSlotBackground().setSlotName(RESULT_TOOL_SLOT);
 
     // apply focus links
     int[] linkToOutput = recipe.linkToOutput();
@@ -140,6 +147,29 @@ public abstract class AbstractTinkerStationCategory<T extends IDisplayTinkerStat
     // if no links, try linking tool to output
     } else if (toolWithoutModifier.size() == size) {
       builder.createFocusLink(withoutModifierSlot, withModifierSlot);
+    }
+  }
+
+  @Override
+  public void onDisplayedIngredientsUpdate(T recipe, List<IRecipeSlotDrawable> recipeSlots, IFocusGroup focuses) {
+    if (recipe.isSlotsDynamic()) {
+      // some recipes want to handle focus on the input, so grab either type of focus
+      // there shouldn't be multiple focuses, right?
+      IFocus<ItemStack> focus = focuses.getFocuses(VanillaTypes.ITEM_STACK).findFirst().orElse(null);
+      ItemStack focusStack = ItemStack.EMPTY;
+      boolean focusOutput = false;
+      if (focus != null) {
+        focusStack = focus.getTypedValue().getIngredient();
+        focusOutput = focus.getRole() == RecipeIngredientRole.OUTPUT;
+      }
+      // just pass in item context, can't see a use case for non-item contexts dynamically changing (we don't animate them)
+      recipe.onDisplayUpdate(
+        RecipeSlotWrapper.createItem(recipeSlots, TOOL_SLOT),
+        RecipeSlotsWrapper.createItem(recipeSlots.subList(0, 5)),
+        RecipeSlotWrapper.createItem(recipeSlots, RESULT_TOOL_SLOT),
+        focusStack,
+        focusOutput
+      );
     }
   }
 

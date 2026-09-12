@@ -10,12 +10,15 @@ import slimeknights.tconstruct.library.json.IntRange;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
+import slimeknights.tconstruct.library.recipe.RecipeSlot;
+import slimeknights.tconstruct.library.recipe.RecipeSlots;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IDisplayTinkerStationRecipe;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
@@ -79,6 +82,24 @@ public interface IDisplayModifierRecipe extends IModifierRecipe, IDisplayTinkerS
     return List.of();
   }
 
+
+  /* Dynamic updates */
+
+  @Override
+  default boolean isSlotsDynamic() {
+    return true;
+  }
+
+  @Override
+  default void onDisplayUpdate(RecipeSlot<ItemStack> tool, RecipeSlots<ItemStack> inputs, RecipeSlot<ItemStack> output, ItemStack focus, boolean focusOutput) {
+    // if the focus is a tool, filter the tools to show only the focus
+    if (!focusOutput && !focus.isEmpty() && isTool(focus)) {
+      // TODO: this is only needed as long as singlepart tool is a thing, we can ditch if we remove it
+      Item item = focus.getItem();
+      tool.set(getToolWithoutModifier().stream().filter(stack -> stack.is(item)).toList());
+      output.set(getToolWithModifier().stream().filter(stack -> stack.is(item)).toList());
+    }
+  }
 
   /* Helpers */
 

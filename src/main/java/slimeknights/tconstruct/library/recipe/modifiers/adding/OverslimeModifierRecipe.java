@@ -51,6 +51,8 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
   private final Ingredient tools;
   private final Ingredient ingredient;
   private final int restoreAmount;
+  @Getter
+  private final Component variant;
 
   @Internal
   protected OverslimeModifierRecipe(ResourceLocation id, Ingredient tools, Ingredient ingredient, int restoreAmount) {
@@ -58,6 +60,7 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
     this.tools = tools;
     this.ingredient = ingredient;
     this.restoreAmount = restoreAmount;
+    this.variant = Component.translatable(KEY_AMOUNT, restoreAmount);
     ModifierRecipeLookup.addRecipeModifier(null, TinkerModifiers.overslime);
   }
 
@@ -118,6 +121,7 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
     return TinkerModifiers.overslimeSerializer.get();
   }
 
+
   /* JEI display */
   /** Cache of modifier result, same for all overslime */
   private static final ModifierEntry RESULT = new ModifierEntry(TinkerModifiers.overslime, 1);
@@ -128,11 +132,6 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
   @Override
   public ResourceLocation getRecipeId() {
     return getId();
-  }
-
-  @Override
-  public Component getVariant() {
-    return Component.translatable(TConstruct.makeTranslationKey("recipe", "modifier.amount"), restoreAmount);
   }
 
   @Override
@@ -147,6 +146,12 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
     }
     return List.of();
   }
+
+  @Override
+  public boolean isTool(ItemStack check) {
+    return tools.test(check);
+  }
+
   @Override
   public List<ItemStack> getToolWithoutModifier() {
     if (toolWithoutModifier == null) {

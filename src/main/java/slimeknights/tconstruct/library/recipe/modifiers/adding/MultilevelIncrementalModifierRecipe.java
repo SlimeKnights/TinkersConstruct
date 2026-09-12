@@ -109,7 +109,7 @@ public class MultilevelIncrementalModifierRecipe extends IncrementalModifierReci
       // this instance is a proper display recipe for the first level entry, for the rest build display instances with unique requirements keys
       DisplayModifierRecipe.Builder builder = DisplayModifierRecipe.builder()
         .id(getId()).inputs(getInputs()).resultSlots(getResultSlots()).incremental()
-        .toolWithoutModifier(getToolWithoutModifier()).toolWithModifier(getToolWithModifier());
+        .isTool(toolRequirement).toolWithoutModifier(getToolWithoutModifier()).toolWithModifier(getToolWithModifier());
       displayRecipes = Streams.concat(
         Stream.of(this),
         levels.stream().skip(1).map(levelEntry -> builder.copy()
