@@ -25,6 +25,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -81,9 +82,10 @@ public class SwappableModifierRecipe extends ModifierRecipe {
     int level = tool.getUpgrades().getLevel(modifier);
     if (level == 0) {
       needsModifier = true;
-      Component commonError = validatePrerequisites(tool);
-      if (commonError != null) {
-        return RecipeResult.failure(commonError);
+      // no need to check level as we know the level is 0 and we are making it 1
+      Component slotError = checkSlots(tool, getSlots());
+      if (slotError != null) {
+        return RecipeResult.failure(slotError);
       }
     } else {
       needsModifier = false;
@@ -149,6 +151,27 @@ public class SwappableModifierRecipe extends ModifierRecipe {
     return resultSlots;
   }
 
+  @Override
+  public boolean canApply(IToolStackView tool) {
+    ModifierId result = this.result.getId();
+    // only check slots if we lack the modifier
+    if (tool.getUpgrades().getLevel(result) == 0 && !checkSlots(tool)) {
+      return false;
+    }
+    // must not already have the same variant
+    return !tool.getPersistentData().getString(result).equals(value);
+  }
+
+  @Override
+  public void applyModifier(ToolStack tool) {
+    ModifierId result = this.result.getId();
+    // only add the modifier if we lack it
+    if (tool.getUpgrades().getLevel(result) == 0) {
+      super.applyModifier(tool);
+    }
+    // apply the variant
+    tool.getPersistentData().putString(result, value);
+  }
 
   /** Methods of formatting the variant string */
   @FunctionalInterface

@@ -33,9 +33,11 @@ import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IDisplayModifierRecipe;
+import slimeknights.tconstruct.library.recipe.modifiers.adding.IDynamicModifierRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -180,6 +182,7 @@ public class BannerModifierRecipe implements ITinkerStationRecipe, IMultiRecipe<
       if (!toolInputs.isEmpty()) {
         ListTag noPatterns = new ListTag();
         ResourceLocation id = getId();
+        // TODO: single recipe using dynamic updates instead of a set of recipes?
         Stream<IDisplayModifierRecipe> recipes = RegistryHelper.getTagValueStream(BuiltInRegistries.ITEM, ItemTags.BANNERS).flatMap(item -> {
           if (item instanceof BannerItem banner) {
             return Stream.of(new DisplayRecipe(id, toolInputs, banner.getColor(), List.of(new ItemStack(banner)), List.of(), noPatterns));
@@ -227,7 +230,7 @@ public class BannerModifierRecipe implements ITinkerStationRecipe, IMultiRecipe<
   }
 
   /** Display recipe instance */
-  private static class DisplayRecipe implements IDisplayModifierRecipe {
+  private static class DisplayRecipe implements IDynamicModifierRecipe {
     private static final IntRange LEVELS = new IntRange(1, 1);
     private final ModifierEntry RESULT = new ModifierEntry(TinkerModifiers.banner, 1);
 
@@ -241,16 +244,21 @@ public class BannerModifierRecipe implements ITinkerStationRecipe, IMultiRecipe<
     private final List<ItemStack> toolWithModifier;
     @Getter
     private final Component variant;
+    private final DyeColor dye;
+    private final ListTag patterns;
     public DisplayRecipe(ResourceLocation recipeId, List<ItemStack> tools, @Nullable DyeColor dye, List<ItemStack> banner, List<ItemStack> clearInput, ListTag patterns) {
       this.recipeId = recipeId;
       this.toolWithoutModifier = tools;
       this.banner = banner;
       this.clearInput = clearInput;
+      this.dye = dye;
       if (dye != null) {
         this.variant = Component.translatable("color.minecraft." + dye.getSerializedName());
       } else {
         this.variant = TConstruct.makeTranslation("recipe", "banner.clear");
       }
+      this.patterns = patterns;
+      // build tools with modifier
       ModifierId key = RESULT.getId();
       List<ModifierEntry> results = List.of(RESULT);
       toolWithModifier = tools.stream().map(stack -> IDisplayModifierRecipe.withModifiers(stack, DEFAULT_TOOL_STACK_SIZE, results, data -> BannerModule.copyPatterns(data, key, dye, patterns))).toList();
@@ -281,6 +289,34 @@ public class BannerModifierRecipe implements ITinkerStationRecipe, IMultiRecipe<
     @Override
     public IntRange getLevel() {
       return LEVELS;
+    }
+
+    @Override
+    public boolean isTool(ItemStack check) {
+      return check.is(TinkerTags.Items.BANNER);
+    }
+
+    @Override
+    public boolean canApply(IToolStackView tool) {
+      return true;
+    }
+
+    @Override
+    public void applyModifier(ToolStack tool) {
+      ModifierId modifier = TinkerModifiers.banner.getId();
+      BannerModule.copyPatterns(tool.getPersistentData(), modifier, dye, patterns);
+
+      // add the modifier if missing
+      if (tool.getModifierLevel(modifier) == 0) {
+        tool.addModifier(modifier, 1);
+      }
+    }
+
+    // TODO: would be nice if focusing on a banner would cause it to show the patterns of that banner
+
+    @Override
+    public boolean skipDisplayValidation() {
+      return true;
     }
   }
 }

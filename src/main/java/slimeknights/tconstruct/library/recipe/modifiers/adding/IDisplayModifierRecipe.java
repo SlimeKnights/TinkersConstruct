@@ -56,6 +56,11 @@ public interface IDisplayModifierRecipe extends IModifierRecipe, IDisplayTinkerS
     return ModifierEntry.VALID_LEVEL;
   }
 
+  /** If true, this recipe checks the level from {@link IToolStackView#getModifiers()}. If false, it uses the level from {@link IToolStackView#getUpgrades()} */
+  default boolean checkTraitLevel() {
+    return false;
+  }
+
   /** Gets the slot type used by this modifier */
   @Nullable
   default SlotCount getSlots() {

@@ -23,6 +23,7 @@ import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -36,7 +37,7 @@ import static slimeknights.tconstruct.library.recipe.modifiers.adding.IDisplayMo
 /**
  * Recipe to add overslime to a tool
  */
-public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayModifierRecipe {
+public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDynamicModifierRecipe {
   private static final RecipeResult<LazyToolStack> AT_CAPACITY = RecipeResult.failure(TConstruct.makeTranslationKey("recipe", "overslime.at_capacity"));
   private static final String KEY_AMOUNT = TConstruct.makeTranslationKey("recipe", "modifier.amount");
   public static final RecordLoadable<OverslimeModifierRecipe> LOADER = RecordLoadable.create(
@@ -176,5 +177,25 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
   @Override
   public ModifierEntry getDisplayResult() {
     return RESULT;
+  }
+
+  @Override
+  public boolean canApply(IToolStackView tool) {
+    // any tool can get overslime; not bothering to check overslime amount
+    return true;
+  }
+
+  @Override
+  public void applyModifier(ToolStack tool) {
+    ModifierId overslime = TinkerModifiers.overslime.getId();
+    if (tool.getUpgrades().getLevel(overslime) == 0) {
+      tool.addModifier(overslime, 1);
+    }
+    OverslimeModule.INSTANCE.addAmount(tool, restoreAmount);
+  }
+
+  @Override
+  public boolean skipDisplayValidation() {
+    return true;
   }
 }

@@ -19,7 +19,7 @@ import java.util.function.Predicate;
 
 /** Recipe instance to return in JEI from recipes that contain multiple display recipes */
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class DisplayModifierRecipe implements IDisplayModifierRecipe {
+public class DisplayModifierRecipe implements IDynamicModifierRecipe {
   @Getter
   @Nullable
   private final ResourceLocation recipeId;
@@ -47,7 +47,7 @@ public class DisplayModifierRecipe implements IDisplayModifierRecipe {
   /** @deprecated use {@link #builder()} */
   @Deprecated(forRemoval = true)
   public DisplayModifierRecipe(@Nullable ResourceLocation id, List<SizedIngredient> inputs, List<ItemStack> toolWithoutModifier, List<ItemStack> toolWithModifier, ModifierEntry displayResult, IntRange level, @Nullable SlotCount slots, List<SlotCount> resultSlots) {
-    this(id, resolve(inputs), toolWithoutModifier, toolWithModifier, null, displayResult, level, slots, resultSlots, false);
+    this(id, resolve(inputs), toolWithoutModifier, toolWithModifier, null, displayResult, level, slots, resultSlots, false, false);
   }
 
   /** @deprecated use {@link #builder()} */
@@ -111,6 +111,8 @@ public class DisplayModifierRecipe implements IDisplayModifierRecipe {
     private SlotCount slots = null;
     private List<SlotCount> resultSlots = List.of();
     private boolean incremental = false;
+    /** If true, this recipe uses the trait level for its level range instead of just crafted levels */
+    private boolean checkTraitLevel = false;
 
     /** Creates a copy of this builder with the same properties */
     public Builder copy() {
@@ -125,6 +127,7 @@ public class DisplayModifierRecipe implements IDisplayModifierRecipe {
       copy.result = this.result;
       copy.resultSlots = this.resultSlots;
       copy.incremental = this.incremental;
+      copy.checkTraitLevel = this.checkTraitLevel;
       return copy;
     }
 
@@ -140,6 +143,7 @@ public class DisplayModifierRecipe implements IDisplayModifierRecipe {
 
     /** Builds the final recipe */
     public DisplayModifierRecipe build() {
+      // TODO 1.21: change return type to something more generic like IDisplayModifierRecipe
       if (result == ModifierEntry.EMPTY) {
         throw new IllegalStateException("Must set result");
       }
@@ -152,7 +156,7 @@ public class DisplayModifierRecipe implements IDisplayModifierRecipe {
       if (toolWithModifier.isEmpty()) {
         throw new IllegalStateException("Must set tools with modifier");
       }
-      return new DisplayModifierRecipe(id, inputs, toolWithoutModifier, toolWithModifier, isTool, result, level, slots, resultSlots, incremental);
+      return new DisplayModifierRecipe(id, inputs, toolWithoutModifier, toolWithModifier, isTool, result, level, slots, resultSlots, incremental, checkTraitLevel);
     }
   }
 }

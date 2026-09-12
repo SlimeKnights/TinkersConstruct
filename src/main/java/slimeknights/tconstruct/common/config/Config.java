@@ -239,6 +239,7 @@ public class Config {
     public final BooleanValue showAllSmelteryVariants;
     public final BooleanValue showFilledFluidTanks;
     public final BooleanValue showPotionFluidInJEI;
+    public final BooleanValue showToolInModifiers;
 
     // framed modifier
     public final ForgeConfigSpec.BooleanValue renderItemFrame;
@@ -321,6 +322,10 @@ public class Config {
         this.showPotionFluidInJEI = builder
           .comment("If true, variants of our potion fluid for every potion will show in JEI. If false it will be hidden, but still usable.")
           .define("showPotionFluid", true);
+
+        this.showToolInModifiers = builder
+          .comment("[Experimental] If true, modifier recipe lookup from a specific tool will show your tool in JEI. If false, a generic display tool will be shown.")
+          .define("showToolInModifiers", false);
       }
       builder.pop(); // jei
 

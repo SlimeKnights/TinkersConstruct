@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.recipe.modifiers.adding;
 
 import lombok.Getter;
+import lombok.experimental.Accessors;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -49,7 +50,7 @@ import static slimeknights.tconstruct.library.recipe.modifiers.adding.IDisplayMo
 import static slimeknights.tconstruct.library.recipe.modifiers.adding.IDisplayModifierRecipe.withModifiers;
 
 /** Shared logic between modifier and incremental modifier recipes */
-public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, IDisplayModifierRecipe {
+public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, IDynamicModifierRecipe {
   /** Error for when the tool has does not have enough existing levels of this modifier, has a single parameter, modifier with level */
   protected static final String KEY_MIN_LEVEL = TConstruct.makeTranslationKey("recipe", "modifier.min_level");
   protected static final String KEY_MIN_LEVEL_TRAITS = KEY_MIN_LEVEL + ".traits";
@@ -89,6 +90,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   /** If true, this recipe can be applied using modifier crystals */
   protected final boolean allowCrystal;
   /** If true, validates the level against the trait level. False validates against recipe modifiers only. */
+  @Getter @Accessors(fluent = true)
   protected final boolean checkTraitLevel;
 
   protected AbstractModifierRecipe(ResourceLocation id, Ingredient toolRequirement, int maxToolSize,

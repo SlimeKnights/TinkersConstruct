@@ -113,9 +113,9 @@ public class MultilevelModifierRecipe extends ModifierRecipe implements IMultiRe
     }
     if (displayRecipes == null) {
       // this instance is a proper display recipe for the first level entry, for the rest build display instances with unique requirements keys
-      DisplayModifierRecipe.Builder builder = DisplayModifierRecipe.builder().id(getId()).ingredients(inputs).resultSlots(getResultSlots())
+      DisplayModifierRecipe.Builder builder = DisplayModifierRecipe.builder().id(getId()).ingredients(inputs).resultSlots(getResultSlots()).checkTraitLevel(checkTraitLevel)
         .isTool(toolRequirement).toolWithoutModifier(getToolWithoutModifier()).toolWithModifier(getToolWithModifier());
-      displayRecipes = Streams.concat(
+      displayRecipes = Streams.<IDisplayModifierRecipe>concat(
         Stream.of(this),
         levels.stream().skip(1).map(levelEntry -> builder.copy()
           .result(new ModifierEntry(result, levelEntry.level.min()))
