@@ -37,7 +37,7 @@ import static slimeknights.tconstruct.library.recipe.modifiers.adding.IDisplayMo
 /**
  * Recipe to add overslime to a tool
  */
-public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDynamicModifierRecipe {
+public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayModifierRecipe {
   private static final RecipeResult<LazyToolStack> AT_CAPACITY = RecipeResult.failure(TConstruct.makeTranslationKey("recipe", "overslime.at_capacity"));
   private static final String KEY_AMOUNT = TConstruct.makeTranslationKey("recipe", "modifier.amount");
   public static final RecordLoadable<OverslimeModifierRecipe> LOADER = RecordLoadable.create(
@@ -179,10 +179,11 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDynamicMo
     return RESULT;
   }
 
+  @Nullable
   @Override
-  public boolean canApply(IToolStackView tool) {
+  public Component canApply(IToolStackView tool) {
     // any tool can get overslime; not bothering to check overslime amount
-    return true;
+    return null;
   }
 
   @Override
@@ -195,7 +196,7 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDynamicMo
   }
 
   @Override
-  public boolean skipDisplayValidation() {
-    return true;
+  public boolean shouldDisplayValidate() {
+    return false;
   }
 }

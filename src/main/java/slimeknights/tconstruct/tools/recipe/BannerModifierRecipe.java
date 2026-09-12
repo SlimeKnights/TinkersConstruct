@@ -33,7 +33,6 @@ import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IDisplayModifierRecipe;
-import slimeknights.tconstruct.library.recipe.modifiers.adding.IDynamicModifierRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
@@ -230,7 +229,7 @@ public class BannerModifierRecipe implements ITinkerStationRecipe, IMultiRecipe<
   }
 
   /** Display recipe instance */
-  private static class DisplayRecipe implements IDynamicModifierRecipe {
+  private static class DisplayRecipe implements IDisplayModifierRecipe {
     private static final IntRange LEVELS = new IntRange(1, 1);
     private final ModifierEntry RESULT = new ModifierEntry(TinkerModifiers.banner, 1);
 
@@ -296,9 +295,10 @@ public class BannerModifierRecipe implements ITinkerStationRecipe, IMultiRecipe<
       return check.is(TinkerTags.Items.BANNER);
     }
 
+    @Nullable
     @Override
-    public boolean canApply(IToolStackView tool) {
-      return true;
+    public Component canApply(IToolStackView tool) {
+      return null;
     }
 
     @Override
@@ -315,8 +315,8 @@ public class BannerModifierRecipe implements ITinkerStationRecipe, IMultiRecipe<
     // TODO: would be nice if focusing on a banner would cause it to show the patterns of that banner
 
     @Override
-    public boolean skipDisplayValidation() {
-      return true;
+    public boolean shouldDisplayValidate() {
+      return false;
     }
   }
 }

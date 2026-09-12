@@ -151,15 +151,19 @@ public class SwappableModifierRecipe extends ModifierRecipe {
     return resultSlots;
   }
 
+  @Nullable
   @Override
-  public boolean canApply(IToolStackView tool) {
+  public Component canApply(IToolStackView tool) {
     ModifierId result = this.result.getId();
     // only check slots if we lack the modifier
-    if (tool.getUpgrades().getLevel(result) == 0 && !checkSlots(tool)) {
-      return false;
+    if (tool.getUpgrades().getLevel(result) == 0) {
+      return checkSlots(tool, getSlots());
     }
-    // must not already have the same variant
-    return !tool.getPersistentData().getString(result).equals(value);
+    // if we already have it, ensure the variant is changing
+    if (tool.getPersistentData().getString(result).equals(value)) {
+      return Component.translatable(ALREADY_PRESENT, this.result.get().getDisplayName(), variant);
+    }
+    return null;
   }
 
   @Override

@@ -25,7 +25,6 @@ import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IDisplayModifierRecipe;
-import slimeknights.tconstruct.library.recipe.modifiers.adding.IDynamicModifierRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
@@ -166,7 +165,7 @@ public class ArmorTrimRecipe implements ITinkerStationRecipe, IMultiRecipe<IDisp
     return displayRecipes;
   }
 
-  private static class DisplayRecipe implements IDynamicModifierRecipe {
+  private static class DisplayRecipe implements IDisplayModifierRecipe {
     private static final IntRange LEVELS = new IntRange(1, 1);
     private final ModifierEntry RESULT = new ModifierEntry(TinkerModifiers.trim, 1);
 
@@ -230,10 +229,11 @@ public class ArmorTrimRecipe implements ITinkerStationRecipe, IMultiRecipe<IDisp
       return check.is(TinkerTags.Items.TRIM);
     }
 
+    @Nullable
     @Override
-    public boolean canApply(IToolStackView tool) {
+    public Component canApply(IToolStackView tool) {
       // just say we can always apply trim for simplicity
-      return true;
+      return null;
     }
 
     @Override
@@ -251,8 +251,8 @@ public class ArmorTrimRecipe implements ITinkerStationRecipe, IMultiRecipe<IDisp
     }
 
     @Override
-    public boolean skipDisplayValidation() {
-      return true;
+    public boolean shouldDisplayValidate() {
+      return false;
     }
   }
 }

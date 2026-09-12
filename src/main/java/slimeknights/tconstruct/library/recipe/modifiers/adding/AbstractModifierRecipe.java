@@ -14,7 +14,6 @@ import slimeknights.mantle.data.loadable.common.IngredientLoadable;
 import slimeknights.mantle.data.loadable.field.LoadableField;
 import slimeknights.mantle.data.loadable.primitive.BooleanLoadable;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.json.IntRange;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
@@ -50,17 +49,17 @@ import static slimeknights.tconstruct.library.recipe.modifiers.adding.IDisplayMo
 import static slimeknights.tconstruct.library.recipe.modifiers.adding.IDisplayModifierRecipe.withModifiers;
 
 /** Shared logic between modifier and incremental modifier recipes */
-public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, IDynamicModifierRecipe {
+public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, IDisplayModifierRecipe {
   /** Error for when the tool has does not have enough existing levels of this modifier, has a single parameter, modifier with level */
-  protected static final String KEY_MIN_LEVEL = TConstruct.makeTranslationKey("recipe", "modifier.min_level");
-  protected static final String KEY_MIN_LEVEL_TRAITS = KEY_MIN_LEVEL + ".traits";
+  protected static final String KEY_MIN_LEVEL = IDisplayModifierRecipe.KEY_MIN_LEVEL;
+  protected static final String KEY_MIN_LEVEL_TRAITS = IDisplayModifierRecipe.KEY_MIN_LEVEL_TRAITS;
   /** Error for when the tool is at the max modifier level */
-  protected static final String KEY_MAX_LEVEL = TConstruct.makeTranslationKey("recipe", "modifier.max_level");
-  protected static final String KEY_MAX_LEVEL_TRAITS = KEY_MAX_LEVEL + ".traits";
+  protected static final String KEY_MAX_LEVEL = IDisplayModifierRecipe.KEY_MAX_LEVEL;
+  protected static final String KEY_MAX_LEVEL_TRAITS = IDisplayModifierRecipe.KEY_MAX_LEVEL_TRAITS;
   /** Error for when the tool has too few upgrade slots */
-  protected static final String KEY_NOT_ENOUGH_SLOTS = TConstruct.makeTranslationKey("recipe", "modifier.not_enough_slots");
+  protected static final String KEY_NOT_ENOUGH_SLOTS = IDisplayModifierRecipe.KEY_NOT_ENOUGH_SLOTS;
   /** Error for when the tool has too few upgrade slots from a single slot */
-  protected static final String KEY_NOT_ENOUGH_SLOT = TConstruct.makeTranslationKey("recipe", "modifier.not_enough_slot");
+  protected static final String KEY_NOT_ENOUGH_SLOT = IDisplayModifierRecipe.KEY_NOT_ENOUGH_SLOT;
 
   /* Fields */
   protected static final LoadableField<Ingredient,AbstractModifierRecipe> TOOLS_FIELD = IngredientLoadable.DISALLOW_EMPTY.requiredField("tools", r -> r.toolRequirement);
@@ -259,14 +258,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   /** Validates that the given level is a valid result */
   @Nullable
   protected Component validateLevel(int resultLevel) {
-    if (resultLevel < this.level.min()) {
-      return Component.translatable(checkTraitLevel ? KEY_MIN_LEVEL_TRAITS : KEY_MIN_LEVEL, result.get().getDisplayName(this.level.min() - 1));
-    }
-    // max level of modifier
-    if (resultLevel > this.level.max()) {
-      return Component.translatable(checkTraitLevel ? KEY_MAX_LEVEL_TRAITS : KEY_MAX_LEVEL, result.get().getDisplayName(), this.level.max());
-    }
-    return null;
+    return IDisplayModifierRecipe.checkLevel(result, level, resultLevel, checkTraitLevel);
   }
 
   /**
@@ -277,17 +269,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
    */
   @Nullable
   protected static Component checkSlots(IToolStackView tool, @Nullable SlotCount slots) {
-    if (slots != null) {
-      int count = slots.count();
-      if (tool.getFreeSlots(slots.type()) < count) {
-        if (count == 1) {
-          return Component.translatable(KEY_NOT_ENOUGH_SLOT, slots.type().getDisplayName());
-        } else {
-          return Component.translatable(KEY_NOT_ENOUGH_SLOTS, count, slots.type().getDisplayName());
-        }
-      }
-    }
-    return null;
+    return IDisplayModifierRecipe.checkSlots(tool, slots);
   }
 
   /**

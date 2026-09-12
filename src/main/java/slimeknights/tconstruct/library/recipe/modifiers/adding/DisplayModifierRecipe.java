@@ -19,7 +19,7 @@ import java.util.function.Predicate;
 
 /** Recipe instance to return in JEI from recipes that contain multiple display recipes */
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class DisplayModifierRecipe implements IDynamicModifierRecipe {
+public class DisplayModifierRecipe implements IDisplayModifierRecipe {
   @Getter
   @Nullable
   private final ResourceLocation recipeId;
@@ -77,7 +77,7 @@ public class DisplayModifierRecipe implements IDynamicModifierRecipe {
 
   @Override
   public boolean isTool(ItemStack check) {
-    return isTool != null ? isTool.test(check) : IDynamicModifierRecipe.super.isTool(check);
+    return isTool != null ? isTool.test(check) : IDisplayModifierRecipe.super.isTool(check);
   }
 
 

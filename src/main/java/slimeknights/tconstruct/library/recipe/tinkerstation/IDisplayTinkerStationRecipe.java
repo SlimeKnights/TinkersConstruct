@@ -4,6 +4,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.RecipeSlot;
 import slimeknights.tconstruct.library.recipe.RecipeSlots;
 
@@ -63,7 +64,19 @@ public interface IDisplayTinkerStationRecipe {
 
   /* Dynamic ingredients */
 
-  /** If true, the displayed ingredients can be dynamically updated using {@link #onDisplayUpdate(RecipeSlot, RecipeSlots, RecipeSlot, ItemStack, boolean)} */
+  /**
+   * Creates a result for this recipe given the passed focus.
+   * @param  focus  Input tool focus. Called if it passes {@link #isTool(ItemStack)}.
+   * @return {@link RecipeResult#pass()} to use the default {@link #getToolWithoutModifier()} and {@link #getToolWithModifier()}, filtered by the focus.
+   *         {@link RecipeResult#success(Object)} to override the result with the returned stack.
+   *         {@link RecipeResult#failure(Component)} to return an error indicating why this recipe cannot apply.
+   *         If anything other than {@link RecipeResult#pass()} is returned, the input tool will be set to the focus.
+   */
+  default RecipeResult<ItemStack> onFocused(ItemStack focus) {
+    return RecipeResult.pass();
+  }
+
+  /** If true, the displayed ingredients are dynamically updated whenever the view changes in {@link #onDisplayUpdate(RecipeSlot, RecipeSlots, RecipeSlot, ItemStack, boolean)} */
   default boolean isSlotsDynamic() {
     return false;
   }

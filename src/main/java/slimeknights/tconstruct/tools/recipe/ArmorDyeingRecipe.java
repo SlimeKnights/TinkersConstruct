@@ -20,7 +20,6 @@ import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IDisplayModifierRecipe;
-import slimeknights.tconstruct.library.recipe.modifiers.adding.IDynamicModifierRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
@@ -162,7 +161,7 @@ public class ArmorDyeingRecipe implements ITinkerStationRecipe, IMultiRecipe<IDi
     return displayRecipes;
   }
 
-  private static class DisplayRecipe implements IDynamicModifierRecipe {
+  private static class DisplayRecipe implements IDisplayModifierRecipe {
     private static final IntRange LEVELS = new IntRange(1, 1);
     private final ModifierEntry RESULT = new ModifierEntry(TinkerModifiers.dyed, 1);
 
@@ -226,9 +225,10 @@ public class ArmorDyeingRecipe implements ITinkerStationRecipe, IMultiRecipe<IDi
       return check.is(TinkerTags.Items.DYEABLE);
     }
 
+    @Nullable
     @Override
-    public boolean canApply(IToolStackView tool) {
-      return true;
+    public Component canApply(IToolStackView tool) {
+      return null;
     }
 
     @Override

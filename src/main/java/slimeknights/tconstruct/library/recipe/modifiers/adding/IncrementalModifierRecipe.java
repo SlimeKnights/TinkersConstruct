@@ -80,14 +80,19 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
     // fetch the amount from the modifier, will be 0 if we have a full level
     ModifierId modifier = result.getId();
     boolean crystal = matchesCrystal(inv);
-    boolean isNewLevel = crystal || tool.getUpgrades().getEntry(modifier).getAmount(0) <= 0;
+    ModifierEntry entry = (checkTraitLevel ? tool.getModifiers() : tool.getUpgrades()).getEntry(modifier);
+    boolean isNewLevel = crystal || entry.getAmount(0) <= 0;
 
-    // can skip validations if we are not adding a new level
+    Component commonError;
     if (isNewLevel) {
-      Component commonError = validatePrerequisites(tool);
-      if (commonError != null) {
-        return RecipeResult.failure(commonError);
-      }
+      // if adding a new level, need to check max and check we have slots
+      commonError = validatePrerequisites(tool);
+    } else {
+      // ensure this recipe is meant for the current level
+      commonError = validateLevel(entry.getLevel());
+    }
+    if (commonError != null) {
+      return RecipeResult.failure(commonError);
     }
 
     // if at the max, add a new level

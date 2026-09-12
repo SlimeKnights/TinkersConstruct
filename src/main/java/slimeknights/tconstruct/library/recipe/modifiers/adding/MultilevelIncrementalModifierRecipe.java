@@ -45,20 +45,21 @@ public class MultilevelIncrementalModifierRecipe extends IncrementalModifierReci
     // fetch the amount from the modifier, will be 0 if we have a full level
     ModifierId modifier = result.getId();
     boolean crystal = matchesCrystal(inv);
-    boolean isNewLevel = tool.getUpgrades().getEntry(modifier).getAmount(0) <= 0;
+    ModifierEntry entry = (checkTraitLevel ? tool.getModifiers() : tool.getUpgrades()).getEntry(modifier);
+    boolean isNewLevel = crystal || entry.getAmount(0) <= 0;
 
-    // can skip validations if we are not adding a new level
+    // if we are working on a partial level, validate against the current level rather than the level + 1
+    int checkLevel = isNewLevel ? getNewLevel(tool) : entry.getLevel();
+    LevelEntry levelEntry = LevelEntry.find(levels, checkLevel);
+
+    // no entry means our level is outside the range, so done now
+    if (levelEntry == null) {
+      return MultilevelModifierRecipe.missingLevelError(levels, checkLevel, result, checkTraitLevel);
+    }
+
+    // can skip slots if not adding a new level
     SlotCount slots = null;
     if (isNewLevel) {
-      // next few checks depend on the current level to decide
-      int newLevel = getNewLevel(tool);
-      LevelEntry levelEntry = LevelEntry.find(levels, newLevel);
-
-      // no entry means our level is above the max, so done now
-      if (levelEntry == null) {
-        return MultilevelModifierRecipe.missingLevelError(levels, newLevel, result, checkTraitLevel);
-      }
-
       // found our level entry, time to validate slots
       slots = levelEntry.slots();
       Component requirements = checkSlots(tool, slots);
@@ -110,7 +111,7 @@ public class MultilevelIncrementalModifierRecipe extends IncrementalModifierReci
       DisplayModifierRecipe.Builder builder = DisplayModifierRecipe.builder()
         .id(getId()).inputs(getInputs()).resultSlots(getResultSlots()).incremental().checkTraitLevel(checkTraitLevel)
         .isTool(toolRequirement).toolWithoutModifier(getToolWithoutModifier()).toolWithModifier(getToolWithModifier());
-      displayRecipes = Streams.<IDisplayModifierRecipe>concat(
+      displayRecipes = Streams.concat(
         Stream.of(this),
         levels.stream().skip(1).map(levelEntry -> builder.copy()
           .result(new ModifierEntry(result, levelEntry.level().min()))

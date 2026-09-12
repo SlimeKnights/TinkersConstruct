@@ -6,6 +6,7 @@ import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotDrawable;
 import mezz.jei.api.gui.placement.HorizontalAlignment;
+import mezz.jei.api.gui.widgets.IDrawableWidget;
 import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocus;
@@ -15,13 +16,16 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.AbstractRecipeCategory;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IDisplayTinkerStationRecipe;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
+import slimeknights.tconstruct.plugin.jei.util.CategoryUtil;
 import slimeknights.tconstruct.plugin.jei.util.RecipeSlotWrapper;
 import slimeknights.tconstruct.plugin.jei.util.RecipeSlotsWrapper;
 
@@ -33,6 +37,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 /** Common logic between {@link ModifierRecipeCategory} and {@link ToolModificationCategory} */
@@ -43,6 +48,8 @@ public abstract class AbstractTinkerStationCategory<T extends IDisplayTinkerStat
 
   /** Icons to draw on empty slots */
   private final IDrawable[] slotIcons;
+  /** Arrow to draw when the focus does not produce a valid recipe */
+  private final IDrawable errorArrow;
 
   /**
    * @param recipeType  JEI recipe type for the category
@@ -55,6 +62,7 @@ public abstract class AbstractTinkerStationCategory<T extends IDisplayTinkerStat
     for (int i = 0; i < 6; i++) {
       slotIcons[i] = helper.createDrawable(BACKGROUND_LOC, 128 + i * 16, 0, 16, 16);
     }
+    this.errorArrow = helper.createDrawable(BACKGROUND_LOC, 144, 33, 22, 17);
     clearLookupCache();
   }
 
@@ -80,6 +88,24 @@ public abstract class AbstractTinkerStationCategory<T extends IDisplayTinkerStat
         .setColor(Color.GRAY.getRGB())
         .setTextAlignment(HorizontalAlignment.CENTER);
     }
+
+    // if the result slot is empty, means we had an error so display that
+    IRecipeSlotDrawable resultSlot = CategoryUtil.findSlot(builder.getRecipeSlots().getSlots(), RESULT_TOOL_SLOT);
+    if (resultSlot != null && resultSlot.getDisplayedItemStack().isEmpty()) {
+      IDrawableWidget errorArrow = builder.addDrawableWidget(this.errorArrow).setPosition(71, 33);
+      // need to compute the error message again as no good way to store it between methods
+      // fortunately, we can just fetch the item from the input slot; only case we would have such an output error is if that is unique
+      IRecipeSlotDrawable toolSlot = CategoryUtil.findSlot(builder.getRecipeSlots().getSlots(), TOOL_SLOT);
+      if (toolSlot != null) {
+        ItemStack tool = toolSlot.getDisplayedItemStack().orElse(ItemStack.EMPTY);
+        if (!tool.isEmpty()) {
+          RecipeResult<ItemStack> focusUpdate = recipe.onFocused(tool);
+          if (focusUpdate.hasError()) {
+            errorArrow.setTooltip(focusUpdate.getMessage());
+          }
+        }
+      }
+    }
   }
 
   /** Adds an input slot with the icon */
@@ -100,6 +126,37 @@ public abstract class AbstractTinkerStationCategory<T extends IDisplayTinkerStat
 
   @Override
   public void setRecipe(IRecipeLayoutBuilder builder, T recipe, IFocusGroup focuses) {
+    List<ItemStack> toolWithoutModifier = recipe.getToolWithoutModifier();
+    List<ItemStack> toolWithModifier = recipe.getToolWithModifier();
+
+    // allow the recipe to update based on the focuses
+    // usually will
+    IFocus<ItemStack> focus = focuses.getFocuses(VanillaTypes.ITEM_STACK).findFirst().orElse(null);
+    if (focus != null) {
+      ItemStack focusStack = focus.getTypedValue().getIngredient();
+      // only focus on non-outputs currently. TODO: reconsider output focuses, applies to part swapping notably.
+      if (focus.getRole() != RecipeIngredientRole.OUTPUT && recipe.isTool(focusStack)) {
+        // TODO: consider how to do stack sizes
+        // ask the recipe if it wishes to adjust sizes
+        RecipeResult<ItemStack> focusUpdate = recipe.onFocused(focusStack);
+        // on success, update the input to the focus stack and the output to the result
+        if (focusUpdate.isSuccess()) {
+          toolWithoutModifier = List.of(focusStack);
+          toolWithModifier = List.of(focusUpdate.getResult());
+        // on error, make the input the stack and the output a barrier
+        } else if (focusUpdate.hasError()) {
+          toolWithoutModifier = List.of(focusStack);
+          toolWithModifier = List.of();
+        } else {
+          // on pass, just filter the items to only show the focus tool
+          Item item = focusStack.getItem();
+          Predicate<ItemStack> filter = stack -> stack.is(item);
+          toolWithoutModifier = toolWithoutModifier.stream().filter(filter).toList();
+          toolWithModifier = toolWithModifier.stream().filter(filter).toList();
+        }
+      }
+    }
+
     List<List<ItemStack>> inputs = new ArrayList<>(5);
     for (int i = 0; i < 5; i++) {
       inputs.add(recipe.getDisplayItems(i));
@@ -113,10 +170,6 @@ public abstract class AbstractTinkerStationCategory<T extends IDisplayTinkerStat
       addInput(builder, inputs, 3, 43, 58),
       addInput(builder, inputs, 4, 7, 58)
     };
-
-    // tool
-    List<ItemStack> toolWithoutModifier = recipe.getToolWithoutModifier();
-    List<ItemStack> toolWithModifier = recipe.getToolWithModifier();
 
     // hack: if a single part tool is in the recipe, add variants of it as invisible ingredients
     boolean isCatalyst = isToolCatalyst(recipe);
@@ -152,9 +205,12 @@ public abstract class AbstractTinkerStationCategory<T extends IDisplayTinkerStat
 
   @Override
   public void onDisplayedIngredientsUpdate(T recipe, List<IRecipeSlotDrawable> recipeSlots, IFocusGroup focuses) {
+    // handle dynamic hook
     if (recipe.isSlotsDynamic()) {
+
       // some recipes want to handle focus on the input, so grab either type of focus
       // there shouldn't be multiple focuses, right?
+      // TODO: can we ditch the focus parameter here since we will handle them in set recipe?
       IFocus<ItemStack> focus = focuses.getFocuses(VanillaTypes.ITEM_STACK).findFirst().orElse(null);
       ItemStack focusStack = ItemStack.EMPTY;
       boolean focusOutput = false;
