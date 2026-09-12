@@ -63,7 +63,7 @@ public abstract class AbstractCastingCategory extends AbstractRecipeCategory<IDi
     builder.addDrawableWidget(block).setPosition(38, 35);
     int coolingTime = recipe.getCoolingTime();
     IDrawable arrow = guiHelper.drawableBuilder(BACKGROUND_LOC, 117, 32, 24, 17)
-                                  .buildAnimated(Math.max(1, coolingTime), StartDirection.LEFT, false);
+                                  .buildAnimated(Math.max(5, coolingTime), StartDirection.LEFT, false);
     builder.addDrawableWidget(arrow).setPosition(58, 18);
     if (recipe.hasCast()) {
       boolean consumed = recipe.isConsumed();
