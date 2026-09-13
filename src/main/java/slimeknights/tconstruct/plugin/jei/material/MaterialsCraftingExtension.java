@@ -14,6 +14,7 @@ import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import slimeknights.mantle.Mantle;
 import slimeknights.mantle.client.SafeClientAccess;
+import slimeknights.mantle.plugin.jei.MantleJEIConstants;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipeCache;
 import slimeknights.tconstruct.library.recipe.material.MaterialsCraftingTableRecipe;
@@ -79,7 +80,7 @@ public class MaterialsCraftingExtension<T extends CraftingRecipe & MaterialsCraf
     return new ShapelessMaterialsExtension(recipe);
   }
 
-  /** Gets the material slots for the given recipe. Indices should be mapped via {@link slimeknights.mantle.plugin.jei.MantleJEIConstants#getCraftingIndex(int, int, int)} */
+  /** Gets the material slots for the given recipe from {@link CraftingRecipe#getIngredients()} */
   protected int[] getMaterialSlots(T recipe, Ingredient firstPart) {
     return new int[] {0};
   }
@@ -167,10 +168,15 @@ public class MaterialsCraftingExtension<T extends CraftingRecipe & MaterialsCraf
     if (partSlots.size() > 1) {
       IRecipeSlotDrawable resultSlot = CategoryUtil.findSlot(recipeSlots, RESULT_SLOT);
       if (resultSlot != null) {
+        int width = getWidth();
+        int height = getHeight();
+        if (width <= 0 || height <= 0) {
+          width = height = getShapelessSize(recipe.getIngredients().size());
+        }
         // find input materials and use to set the output
         List<MaterialVariantId> variants = new ArrayList<>(partSlots.size());
         for (int[] partSlot : partSlots) {
-          ItemStack stack = recipeSlots.get(partSlot[0]).getDisplayedItemStack().orElse(ItemStack.EMPTY);
+          ItemStack stack = recipeSlots.get(MantleJEIConstants.getCraftingIndex(partSlot[0], width, height)).getDisplayedItemStack().orElse(ItemStack.EMPTY);
           variants.add(MaterialRecipeCache.getMaterial(stack));
         }
         variants.addAll(recipe.getExtraMaterials());

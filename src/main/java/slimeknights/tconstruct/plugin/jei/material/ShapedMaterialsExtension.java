@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.plugin.jei.material;
 
 import net.minecraft.world.item.crafting.Ingredient;
-import slimeknights.mantle.plugin.jei.MantleJEIConstants;
 import slimeknights.tconstruct.library.recipe.material.ShapedMaterialsRecipe;
 
 import javax.annotation.Nullable;
@@ -28,8 +27,7 @@ public class ShapedMaterialsExtension extends MaterialsCraftingExtension<ShapedM
   @Override
   protected int[] getMaterialSlots(ShapedMaterialsRecipe recipe, Ingredient part) {
     List<Ingredient> inputs = recipe.getIngredients();
-    return IntStream.range(0, inputs.size()).filter(i -> inputs.get(i) == part)
-      .map(i -> MantleJEIConstants.getCraftingIndex(i, recipe.getWidth(), recipe.getHeight())).toArray();
+    return IntStream.range(0, inputs.size()).filter(i -> inputs.get(i) == part).toArray();
   }
 
   @Override
