@@ -48,13 +48,15 @@ public class MaterialCastingLookup {
   /** Predicate for sorted recipe lists, ensuring they are visible */
   private static final Predicate<MaterialFluidRecipe> RECIPE_FILTER = MaterialFluidRecipe::isVisible;
   /** Comparator for casting recipes, used in {@link #getSortedCastingFluids()} */
-  private static final Comparator<MaterialFluidRecipe> CASTING_COMPARATOR = Comparator.comparing(MaterialFluidRecipe::getOutput);
-  /** Comparator for composite recipes, used in {@link #getSortedCompositeFluids()} */
-  private static final Comparator<MaterialFluidRecipe> COMPOSITE_COMPARATOR = CASTING_COMPARATOR.thenComparing(r -> {
+  private static final Comparator<MaterialFluidRecipe> OUTPUT_COMPARATOR = Comparator.comparing(MaterialFluidRecipe::getOutput);
+  /** Comparator for casting recipes, used in {@link #getSortedCastingFluids()} */
+  private static final Comparator<MaterialFluidRecipe> INPUT_COMPARATOR = Comparator.comparing(r -> {
     MaterialVariant input = r.getInput();
     assert input != null;
     return input;
   });
+  /** Comparator for composite recipes, used in {@link #getSortedCompositeFluids()} */
+  private static final Comparator<MaterialFluidRecipe> COMPOSITE_COMPARATOR = OUTPUT_COMPARATOR.thenComparing(INPUT_COMPARATOR);
 
   /** Cache for casting recipe for a given fluid */
   private static final SimpleCache<Fluid,MaterialFluidRecipe> CASTING_CACHE = new SimpleCache<>(fluid -> {
@@ -87,6 +89,7 @@ public class MaterialCastingLookup {
   private static final SimpleCache<MaterialVariantId,List<MaterialFluidRecipe>> MATERIAL_COMPOSITE = new SimpleCache<>(material ->
     COMPOSITE_FLUIDS.stream()
       .filter(recipe -> material.matchesVariant(recipe.getOutput()))
+      .sorted(INPUT_COMPARATOR)
       .collect(Collectors.toList()));
 
   /** Cache of temperatures for each fluid. Used for validation and for dynamic recipe display. */
@@ -248,7 +251,7 @@ public class MaterialCastingLookup {
   /** Gets all visible casting fluids sorted in material order */
   public static List<MaterialFluidRecipe> getSortedCastingFluids() {
     if (SORTED_CASTING == null) {
-      SORTED_CASTING = CASTING_FLUIDS.stream().filter(RECIPE_FILTER).sorted(CASTING_COMPARATOR).toList();
+      SORTED_CASTING = CASTING_FLUIDS.stream().filter(RECIPE_FILTER).sorted(OUTPUT_COMPARATOR).toList();
     }
     return SORTED_CASTING;
   }
