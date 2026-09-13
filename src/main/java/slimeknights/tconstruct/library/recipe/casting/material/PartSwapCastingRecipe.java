@@ -255,10 +255,11 @@ public class PartSwapCastingRecipe extends AbstractMaterialCastingRecipe impleme
     int maxCoolingTime = 0;
     // again, filtering using the predicate and make cooling time map
     for (MaterialFluidRecipe recipe : MaterialCastingLookup.getSortedCompositeFluids()) {
-      MaterialVariantId output = recipe.getOutput().getVariant();
+      MaterialVariant output = recipe.getOutput();
       // ensure the recipe can use the materials
-      if (!materials.matches(output)) continue;
-      if (statType != null && !statType.canUseMaterial(output.getId())) continue;
+      if (!materials.matches(output.getVariant())) continue;
+      MaterialVariant input = Objects.requireNonNull(recipe.getInput());
+      if (statType != null && (!statType.canUseMaterial(output.getId()) || !statType.canUseMaterial(input.getId()))) continue;
       // scale the fluids to the recipe size
       List<FluidStack> fluids = resizeFluids(recipe.getFluids());
       for (FluidStack fluid : fluids) {
@@ -268,7 +269,7 @@ public class PartSwapCastingRecipe extends AbstractMaterialCastingRecipe impleme
           maxCoolingTime = time;
         }
       }
-      compositeRecipes.add(new FluidRecipe(fluids, Objects.requireNonNull(recipe.getInput()), recipe.getOutput()));
+      compositeRecipes.add(new FluidRecipe(fluids, input, output));
     }
     return maxCoolingTime;
   }
@@ -280,7 +281,9 @@ public class PartSwapCastingRecipe extends AbstractMaterialCastingRecipe impleme
       // start building a recipe per tool type
       for (ToolRequirement tool : tools) {
         // filter down materials to just those applicable to the tool
-        List<FluidRecipe> filtered = fluidRecipes.stream().filter(recipe -> tool.requirement.canUseMaterial(recipe.output.getId())).toList();
+        List<FluidRecipe> filtered = fluidRecipes.stream()
+          .filter(recipe -> tool.requirement.canUseMaterial(recipe.output.getId()) && (!uniqueInput || !tool.requirement.canUseMaterial(recipe.input.getId())))
+          .toList();
         if (!filtered.isEmpty()) {
           displayRecipes.add(constructor.apply(makeRecipe(tool, filtered, uniqueInput, maxCoolingTime)));
         }
