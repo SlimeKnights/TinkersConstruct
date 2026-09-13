@@ -13,7 +13,6 @@ import slimeknights.mantle.recipe.helper.LoadableRecipeSerializer;
 import slimeknights.mantle.recipe.helper.TypeAwareRecipeSerializer;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 
-import java.util.Arrays;
 import java.util.List;
 
 /** Recipe which duplicates the input cast using a fluid */
@@ -52,11 +51,6 @@ public class CastDuplicationRecipe extends ItemCastingRecipe implements IMultiRe
         .fluids(fluid.getFluids())
         .coolingTime(coolingTime)
         .build());
-
-
-      Arrays.stream(getCast().getItems())
-        .map(item -> new DisplayCastingRecipe(getId(), getType(), List.of(item), fluid.getFluids(), item, coolingTime, false))
-        .toList();
     }
     return displayRecipes;
   }
