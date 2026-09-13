@@ -134,12 +134,10 @@ public class MaterialsCraftingExtension<T extends CraftingRecipe & MaterialsCraf
     // we just assume the first 9 slots are inputs to avoid needing to make a new list
     ItemStack focus = CategoryUtil.getResultItemFocus(focuses);
     // if we have an output focus, set the input slots to match
-    outputFocus:
     if (!focus.isEmpty()) {
       MaterialIdNBT materials = MaterialIdNBT.from(focus);
-      // loop through finding all overrides to display, but don't override yet in case any materials on the tool are absent
+      // loop through finding all overrides to display, but skip any that are not present on the too
       int partCount = partSlots.size();
-      List<List<ItemStack>> slotOverrides = new ArrayList<>(partCount);
       for (int i = 0; i < partCount; i++) {
         // find all inputs matching the material
         MaterialVariantId material = materials.getMaterial(i);
@@ -148,14 +146,10 @@ public class MaterialsCraftingExtension<T extends CraftingRecipe & MaterialsCraf
           .toList();
         // if filtered to empty, just display the original stacks
         // this happens if the focus has materials that are not in this recipe
-        if (matchingStacks.isEmpty()) break outputFocus;
-        slotOverrides.add(matchingStacks);
-      }
-      // all materials are present, so time to override
-      for (int i = 0; i < partCount; i++) {
-        List<ItemStack> override = slotOverrides.get(i);
-        for (int slot : partSlots.get(i)) {
-          inputs.set(slot, override);
+        if (!matchingStacks.isEmpty()) {
+          for (int slot : partSlots.get(i)) {
+            inputs.set(slot, matchingStacks);
+          }
         }
       }
     }
