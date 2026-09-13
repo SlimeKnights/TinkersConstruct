@@ -41,6 +41,12 @@ public class MaterialCastingRecipeBuilder extends AbstractRecipeBuilder<Material
   private int itemCost = 0;
   private CastPurpose castPurpose = CastPurpose.CATALYST;
   private boolean switchSlots = false;
+  /**
+   * If true, tool swapping recipes (from {@link #basinRecipe(IModifiable)} or {@link #tableRecipe(IModifiable)}) will not generate a part swapping recipe.
+   * Can use {@link PartSwapCastingRecipeBuilder} to manually create one as a separate JSON.
+   */
+  @Setter
+  private boolean fluidSwapping = true;
   @Setter
   private IJsonPredicate<MaterialVariantId> allowedMaterials = MaterialPredicate.ANY;
   /** Extra materials for tool casting. Has no impact on part casting. */
@@ -175,7 +181,7 @@ public class MaterialCastingRecipeBuilder extends AbstractRecipeBuilder<Material
     if (result != null) {
       consumer.accept(new LoadableFinishedRecipe<>(new MaterialCastingRecipe(recipeSerializer, id, group, cast, itemCost, result, allowedMaterials, castPurpose != CastPurpose.CATALYST, switchSlots), MaterialCastingRecipe.LOADER, advancementId));
     } else if (resultTool != null) {
-      consumer.accept(new LoadableFinishedRecipe<>(new ToolCastingRecipe(recipeSerializer, id, group, cast, itemCost, castPurpose, resultTool, allowedMaterials, extraMaterials), ToolCastingRecipe.LOADER, advancementId));
+      consumer.accept(new LoadableFinishedRecipe<>(new ToolCastingRecipe(recipeSerializer, id, group, cast, itemCost, castPurpose, resultTool, allowedMaterials, extraMaterials, fluidSwapping), ToolCastingRecipe.LOADER, advancementId));
     } else {
       throw new IllegalArgumentException("Must have either result or result tool");
     }

@@ -308,6 +308,10 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     slimeskull(consumer, MaterialIds.pigIron, TinkerWorld.heads.get(TinkerHeadType.ZOMBIFIED_PIGLIN), armorFolder);
     // crafted
     slimeskull(consumer, MaterialIds.knightmetal, TinkerSmeltery.endFluidCannon.get(), armorFolder);
+    // single swapping recipe for all skulls, saves logic and duplicate recipes in JEI
+    PartSwapCastingRecipeBuilder.basinRecipe(Ingredient.of(TinkerTools.slimesuit.get(ArmorItem.Type.HELMET)), 5)
+      .index(1)
+      .save(consumer, location(armorFolder + "slime_skull/swapping/slime"));
 
     // slimelytra
     MaterialCastingRecipeBuilder.basinRecipe(TinkerTools.slimeWings.get())
@@ -512,6 +516,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
       .setCast(skull, CastPurpose.CONSUMED_OFFSET)
       .addExtraMaterial(material)
       .setItemCost(5)
+      .setFluidSwapping(false) // will handle in a single recipe for all skulls
       .save(consumer, location(folder + "slime_skull/" + material.getPath()));
     MaterialSwappingRecipeBuilder.tools(TinkerTags.Items.SWAPPABLE_SKULLS)
       .index(0).material(material, skull).repairValue((int) (MaterialRecipe.INGOTS_PER_REPAIR * 2))
