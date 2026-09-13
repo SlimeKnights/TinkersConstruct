@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.library.recipe.casting.material;
 
-import it.unimi.dsi.fastutil.objects.Object2IntMap;
-import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.core.RegistryAccess;
@@ -10,7 +8,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.primitive.BooleanLoadable;
@@ -28,9 +25,9 @@ import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.recipe.RecipeSlot;
 import slimeknights.tconstruct.library.recipe.casting.CastingRecipeLookup;
+import slimeknights.tconstruct.library.recipe.casting.DisplayCastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.ICastingContainer;
 import slimeknights.tconstruct.library.recipe.casting.IDisplayableCastingRecipe;
-import slimeknights.tconstruct.library.recipe.casting.material.DisplayMaterialCastingRecipe.CompositeFluid;
 import slimeknights.tconstruct.library.recipe.tinkerstation.building.MaterialSwappingRecipe;
 import slimeknights.tconstruct.library.tools.definition.module.material.ToolMaterialHook;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
@@ -198,21 +195,20 @@ public class ToolCastingRecipe extends PartSwapCastingRecipe implements IMultiRe
 
         // casting recipes
         List<FluidRecipe> fluidRecipes = new ArrayList<>();
-        Object2IntMap<Fluid> castingTimes = new Object2IntOpenHashMap<>();
         MaterialStatsId requirement = tool.requirement();
-        int maxCoolingTime = prepareCastingRecipes(fluidRecipes, castingTimes, requirement);
+        int maxCoolingTime = prepareRecipes(fluidRecipes, MaterialCastingLookup.getSortedCastingFluids(), false, requirement);
         // this should never happen or the recipe would not exist, but better to not make broken JEI
         if (fluidRecipes.isEmpty()) {
           TConstruct.LOG.error("Failed to create display recipes for Tool Casting {}: no fluid casting matches conditions.", getId());
         } else {
           // build the cast swapping recipe, it has our fluids
-          IDisplayableCastingRecipe castSwap = makeRecipe(tool, fluidRecipes, false, maxCoolingTime).casting(castingTimes);
+          IDisplayableCastingRecipe castSwap = makeRecipe(tool, fluidRecipes, false, maxCoolingTime);
 
           // if we have a second material, create the dynamic display recipe
           List<ItemStack> casts = List.of(getCast().getItems());
           if (castPurpose == CastPurpose.FIRST_MATERIAL || castPurpose == CastPurpose.SECOND_MATERIAL
             || castPurpose == CastPurpose.MAYBE_MATERIAL && requirements.size() > 1) {
-            displayRecipes.add(new DisplayRecipe(fluidIndex, requirement, casts, castSwap.getFluids(), maxCoolingTime, castingTimes));
+            displayRecipes.add(new DisplayRecipe(fluidIndex, requirement, casts, castSwap.getFluids(), maxCoolingTime));
           } else {
             // standard display recipe, animates 1 material
             List<ItemStack> tools;
@@ -226,10 +222,11 @@ public class ToolCastingRecipe extends PartSwapCastingRecipe implements IMultiRe
             } else {
               tools = castSwap.getOutputs();
             }
-            displayRecipes.add(DisplayMaterialCastingRecipe.from(this)
+            displayRecipes.add(DisplayCastingRecipe.from(this)
               .casts(casts).consumed(isConsumed())
               .fluids(castSwap.getFluids()).results(tools)
-              .maxCoolingTime(maxCoolingTime).casting(castingTimes));
+              .coolingTime(maxCoolingTime).materialCasting(false)
+              .build());
           }
           // want the cast swap to be second
           // still go through the trouble of making the recipe regardless as we wish to reuse a lot of its code
@@ -241,10 +238,9 @@ public class ToolCastingRecipe extends PartSwapCastingRecipe implements IMultiRe
         // composite recipe third
         if (fluidSwapping) {
           fluidRecipes.clear();
-          Object2IntMap<CompositeFluid> compositeTimes = new Object2IntOpenHashMap<>();
-          maxCoolingTime = prepareCompositeRecipes(fluidRecipes, compositeTimes, requirement);
+          maxCoolingTime = prepareRecipes(fluidRecipes, MaterialCastingLookup.getSortedCompositeFluids(), true, requirement);
           if (!fluidRecipes.isEmpty()) {
-            displayRecipes.add(makeRecipe(tool, fluidRecipes, true, maxCoolingTime).composite(compositeTimes));
+            displayRecipes.add(makeRecipe(tool, fluidRecipes, true, maxCoolingTime));
           }
         }
 
@@ -294,7 +290,6 @@ public class ToolCastingRecipe extends PartSwapCastingRecipe implements IMultiRe
     private final List<ItemStack> outputs;
     @Getter
     private final int coolingTime;
-    private final Object2IntMap<Fluid> coolingTimes;
 
     /** Index on the tool holding the fluid material. */
     private final int fluidIndex;
@@ -305,12 +300,11 @@ public class ToolCastingRecipe extends PartSwapCastingRecipe implements IMultiRe
     /** Filter to find fluid recipes given the material on the tool */
     private final Predicate<MaterialFluidRecipe> fluidFilter;
 
-    private DisplayRecipe(int fluidIndex, MaterialStatsId statType, List<ItemStack> castItems, List<FluidStack> fluids, int coolingTime, Object2IntMap<Fluid> coolingTimes) {
+    private DisplayRecipe(int fluidIndex, MaterialStatsId statType, List<ItemStack> castItems, List<FluidStack> fluids, int coolingTime) {
       this.castItems = castItems;
       this.fluids = fluids;
       this.outputs = List.of(IModifiableDisplay.getDisplayStack(result.asItem()));
       this.coolingTime = coolingTime;
-      this.coolingTimes = coolingTimes;
       this.castIndex = castPurpose == CastPurpose.SECOND_MATERIAL ? 1 : 0;
       this.fluidIndex = fluidIndex;
       // while we should always have a cast item, might as well be safe
@@ -345,12 +339,12 @@ public class ToolCastingRecipe extends PartSwapCastingRecipe implements IMultiRe
 
     @Override
     public boolean isCoolingTimeDynamic() {
-      return true;
+      return fluids.size() > 1;
     }
 
     @Override
     public int getCoolingTime(FluidStack fluid) {
-      return coolingTimes.getOrDefault(fluid, coolingTime);
+      return MaterialCastingLookup.getCoolingTime(fluid, coolingTime);
     }
 
     @Override

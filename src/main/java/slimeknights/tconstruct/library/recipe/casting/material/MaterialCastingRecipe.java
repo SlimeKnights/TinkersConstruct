@@ -1,13 +1,10 @@
 package slimeknights.tconstruct.library.recipe.casting.material;
 
-import it.unimi.dsi.fastutil.objects.Object2IntMap;
-import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.field.LoadableField;
@@ -21,6 +18,7 @@ import slimeknights.tconstruct.library.json.predicate.material.MaterialPredicate
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.recipe.casting.CastingRecipeLookup;
+import slimeknights.tconstruct.library.recipe.casting.DisplayCastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.ICastingContainer;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.IDisplayableCastingRecipe;
@@ -84,7 +82,6 @@ public class MaterialCastingRecipe extends AbstractMaterialCastingRecipe impleme
       List<MaterialFluidRecipe> recipes = MaterialCastingLookup.getSortedCastingFluids();
       List<FluidStack> fluids = new ArrayList<>(recipes.size());
       List<ItemStack> results = new ArrayList<>(recipes.size());
-      Object2IntMap<Fluid> coolingTimes = new Object2IntOpenHashMap<>();
       int maxTime = 0;
       for (MaterialFluidRecipe recipe : recipes) {
         // must support this material
@@ -101,9 +98,8 @@ public class MaterialCastingRecipe extends AbstractMaterialCastingRecipe impleme
         for (FluidStack fluid : newFluids) {
           // add one copy of result per fluid
           results.add(result);
-          // cache the time so we don't need to compute it again
+          // use the maximum time for cooling time. Will be recomputed dynamically but need a fallback
           int time = ICastingRecipe.calcCoolingTime(recipe.getTemperature(), fluid.getAmount());
-          coolingTimes.put(fluid.getFluid(), time);
           if (time > maxTime) {
             maxTime = time;
           }
@@ -112,11 +108,12 @@ public class MaterialCastingRecipe extends AbstractMaterialCastingRecipe impleme
       if (fluids.isEmpty()) {
         multiRecipes = List.of();
       } else {
-        multiRecipes = List.of(DisplayMaterialCastingRecipe.from(this)
+        multiRecipes = List.of(DisplayCastingRecipe.from(this)
           .cast(getCast()).consumed(isConsumed())
           .fluids(List.copyOf(fluids))
           .results(List.copyOf(results))
-          .maxCoolingTime(maxTime).casting(coolingTimes));
+          .coolingTime(maxTime).materialCasting(false)
+          .build());
       }
     }
     return multiRecipes;

@@ -7,6 +7,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.tconstruct.TConstruct;
@@ -14,6 +15,7 @@ import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator.DuelSidedListener;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
+import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipeCache;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.library.utils.SimpleCache;
@@ -45,9 +47,9 @@ public class MaterialCastingLookup {
 
   /** Predicate for sorted recipe lists, ensuring they are visible */
   private static final Predicate<MaterialFluidRecipe> RECIPE_FILTER = MaterialFluidRecipe::isVisible;
-  /** Comparator for casting recipes */
+  /** Comparator for casting recipes, used in {@link #getSortedCastingFluids()} */
   private static final Comparator<MaterialFluidRecipe> CASTING_COMPARATOR = Comparator.comparing(MaterialFluidRecipe::getOutput);
-  /** Comparator for composite recipes */
+  /** Comparator for composite recipes, used in {@link #getSortedCompositeFluids()} */
   private static final Comparator<MaterialFluidRecipe> COMPOSITE_COMPARATOR = CASTING_COMPARATOR.thenComparing(r -> {
     MaterialVariant input = r.getInput();
     assert input != null;
@@ -87,6 +89,17 @@ public class MaterialCastingLookup {
       .filter(recipe -> material.matchesVariant(recipe.getOutput()))
       .collect(Collectors.toList()));
 
+  /** Cache of temperatures for each fluid. Used for validation and for dynamic recipe display. */
+  private static final SimpleCache<Fluid,Integer> TEMPERATURE_CACHE = new SimpleCache<>(fluid -> {
+    for (MaterialFluidRecipe recipe : CASTING_FLUIDS) {
+      if (recipe.matches(fluid)) return recipe.getTemperature();
+    }
+    for (MaterialFluidRecipe recipe : COMPOSITE_FLUIDS) {
+      if (recipe.matches(fluid)) return recipe.getTemperature();
+    }
+    return 0;
+  });
+
   /** Listener for clearing the recipe cache on recipe reload */
   private static final DuelSidedListener LISTENER = RecipeCacheInvalidator.addDuelSidedListener(() -> {
     ITEM_COST_LOOKUP.clear();
@@ -98,6 +111,7 @@ public class MaterialCastingLookup {
     COMPOSITE_CACHE.clear();
     SORTED_CASTING = null;
     SORTED_COMPOSITE = null;
+    TEMPERATURE_CACHE.clear();
   });
 
   /** Shared logic to register parts */
@@ -255,4 +269,17 @@ public class MaterialCastingLookup {
     return SORTED_COMPOSITE;
   }
 
+  /** Gets the temperature for the given fluid, or 0 if undefined. */
+  public static int getTemperature(Fluid fluid) {
+    return TEMPERATURE_CACHE.apply(fluid);
+  }
+
+  /** Gets the temperature for the given fluid */
+  public static int getCoolingTime(FluidStack fluid, int fallback) {
+    int temperature = TEMPERATURE_CACHE.apply(fluid.getFluid());
+    if (temperature > 0) {
+      return ICastingRecipe.calcCoolingTime(temperature, fluid.getAmount());
+    }
+    return fallback;
+  }
 }

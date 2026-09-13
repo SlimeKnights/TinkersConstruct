@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.library.recipe.casting.material;
 
-import it.unimi.dsi.fastutil.objects.Object2IntMap;
-import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -18,10 +16,10 @@ import slimeknights.tconstruct.library.json.predicate.material.MaterialPredicate
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
+import slimeknights.tconstruct.library.recipe.casting.DisplayCastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.ICastingContainer;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.IDisplayableCastingRecipe;
-import slimeknights.tconstruct.library.recipe.casting.material.DisplayMaterialCastingRecipe.CompositeFluid;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipeCache;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 
@@ -88,7 +86,6 @@ public class CompositeCastingRecipe extends MaterialCastingRecipe implements IMu
       List<FluidStack> displayFluids = new ArrayList<>(recipes.size());
       List<ItemStack> displayInputs = new ArrayList<>(recipes.size());
       List<ItemStack> displayResults = new ArrayList<>(recipes.size());
-      Object2IntMap<CompositeFluid> coolingTimes = new Object2IntOpenHashMap<>();
       int maxTime = 0;
       for (MaterialFluidRecipe recipe : MaterialCastingLookup.getAllCompositeFluids()) {
         MaterialVariant output = recipe.getOutput();
@@ -127,8 +124,8 @@ public class CompositeCastingRecipe extends MaterialCastingRecipe implements IMu
 
         // store all cooling times now, before we duplicate fluids
         for (FluidStack fluid : fluids) {
+          // use the maximum time for cooling time. Will be recomputed dynamically but need a fallback
           int time = ICastingRecipe.calcCoolingTime(recipe.getTemperature(), fluid.getAmount());
-          coolingTimes.put(new CompositeFluid(fluid), time);
           if (time > maxTime) {
             maxTime = time;
           }
@@ -157,12 +154,12 @@ public class CompositeCastingRecipe extends MaterialCastingRecipe implements IMu
       if (displayFluids.isEmpty()) {
         multiRecipes = List.of();
       } else {
-        multiRecipes = List.of(DisplayMaterialCastingRecipe.from(this)
+        multiRecipes = List.of(DisplayCastingRecipe.from(this)
           .casts(List.copyOf(displayInputs)).consumed()
           .fluids(List.copyOf(displayFluids))
           .results(List.copyOf(displayResults))
-          .maxCoolingTime(maxTime)
-          .composite(coolingTimes));
+          .coolingTime(maxTime).materialCasting(true)
+          .build());
       }
     }
     return multiRecipes;

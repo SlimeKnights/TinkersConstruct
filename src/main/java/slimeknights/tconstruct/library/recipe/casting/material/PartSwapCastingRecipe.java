@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.library.recipe.casting.material;
 
-import it.unimi.dsi.fastutil.objects.Object2IntMap;
-import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -25,10 +23,10 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.build.ModifierRemovalHook;
 import slimeknights.tconstruct.library.recipe.casting.AbstractCastingRecipe;
+import slimeknights.tconstruct.library.recipe.casting.DisplayCastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.ICastingContainer;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.IDisplayableCastingRecipe;
-import slimeknights.tconstruct.library.recipe.casting.material.DisplayMaterialCastingRecipe.CompositeFluid;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.building.MaterialSwappingRecipe;
 import slimeknights.tconstruct.library.tools.definition.module.material.MaterialRepairModule;
@@ -42,8 +40,6 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.function.Function;
 
 /**
  * Recipe for allowing part swapping on casting, without making the tool craftable on casting.
@@ -225,77 +221,67 @@ public class PartSwapCastingRecipe extends AbstractMaterialCastingRecipe impleme
     }
   }
 
-  /** Sets up the data structures for {@link #makeRecipes(List, List, List, boolean, int, Function)} */
-  protected int prepareCastingRecipes(List<FluidRecipe> castingRecipes, Object2IntMap<Fluid> coolingTimes, @Nullable MaterialStatsId statType) {
-    int maxCoolingTime = 0;
-    // start by filtering using the predicate and making the cooling time map
-    // will share the same map for all created recipes, even if they ended up filtering it further
-    for (MaterialFluidRecipe recipe : MaterialCastingLookup.getSortedCastingFluids()) {
-      MaterialVariant output = recipe.getOutput();
-      // ensure the recipe can use the material
-      if (!materials.matches(output.getVariant())) continue;
-      if (statType != null && !statType.canUseMaterial(output.getId())) continue;
-      // prepare the fluids
-      List<FluidStack> fluids = resizeFluids(recipe.getFluids());
-      for (FluidStack fluid : fluids) {
-        int time = ICastingRecipe.calcCoolingTime(recipe.getTemperature(), fluid.getAmount());
-        coolingTimes.put(fluid.getFluid(), time);
-        if (time > maxCoolingTime) {
-          maxCoolingTime = time;
-        }
-      }
-      castingRecipes.add(new FluidRecipe(fluids, output));
-    }
-    return maxCoolingTime;
-  }
-
-  /** Creates the composite recipes for each tool and adds them to {@code displayRecipes} */
-  protected int prepareCompositeRecipes(List<FluidRecipe> compositeRecipes, Object2IntMap<CompositeFluid> coolingTimes, @Nullable MaterialStatsId statType) {
+  /**
+   * Filters the recipe list and adds them to {@code filteredRecipes}
+   * @param filteredRecipes  List of recipes to fill from this method.
+   * @param fluidRecipes     List of fluid recipes to filter.
+   * @param composite        If true, recipes are filtered as a composite recipe. If false, they are filtered as casting.
+   * @param statType         Material stat type filter. If null no filter is applied.
+   * @return Maximum cooling time from the recipe list.
+   */
+  protected int prepareRecipes(List<FluidRecipe> filteredRecipes, List<MaterialFluidRecipe> fluidRecipes, boolean composite, @Nullable MaterialStatsId statType) {
     // mostly same deal as casting before, but now we care about the input material
     int maxCoolingTime = 0;
     // again, filtering using the predicate and make cooling time map
-    for (MaterialFluidRecipe recipe : MaterialCastingLookup.getSortedCompositeFluids()) {
+    for (MaterialFluidRecipe recipe : fluidRecipes) {
       MaterialVariant output = recipe.getOutput();
       // ensure the recipe can use the materials
       if (!materials.matches(output.getVariant())) continue;
-      MaterialVariant input = Objects.requireNonNull(recipe.getInput());
-      if (statType != null && (!statType.canUseMaterial(output.getId()) || !statType.canUseMaterial(input.getId()))) continue;
+      MaterialVariant input = recipe.getInput();
+      if (composite) {
+        // composite recipes require an input, really just a safety here
+        if (input == null) continue;
+      } else {
+        // casting recipes just store the same material in both fields to avoid nullability
+        input = output;
+      }
+      // if given a stat type, check against that type
+      if (statType != null && (!statType.canUseMaterial(output.getId()) || (composite && !statType.canUseMaterial(input.getId())))) continue;
       // scale the fluids to the recipe size
       List<FluidStack> fluids = resizeFluids(recipe.getFluids());
       for (FluidStack fluid : fluids) {
         int time = ICastingRecipe.calcCoolingTime(recipe.getTemperature(), fluid.getAmount());
-        coolingTimes.put(new CompositeFluid(fluid), time);
         if (time > maxCoolingTime) {
           maxCoolingTime = time;
         }
       }
-      compositeRecipes.add(new FluidRecipe(fluids, input, output));
+      filteredRecipes.add(new FluidRecipe(fluids, input, output));
     }
     return maxCoolingTime;
   }
 
   /** Creates the recipes for each tool and adds them to {@code displayRecipes} */
-  protected void makeRecipes(List<IDisplayableCastingRecipe> displayRecipes, List<ToolRequirement> tools, List<FluidRecipe> fluidRecipes, boolean uniqueInput, int maxCoolingTime, Function<DisplayMaterialCastingRecipe.Builder,IDisplayableCastingRecipe> constructor) {
+  protected void makeRecipes(List<IDisplayableCastingRecipe> displayRecipes, List<ToolRequirement> tools, List<FluidRecipe> fluidRecipes, int maxCoolingTime, boolean composite) {
     // if we have any, add recipes for casting
     if (!fluidRecipes.isEmpty()) {
       // start building a recipe per tool type
       for (ToolRequirement tool : tools) {
         // filter down materials to just those applicable to the tool
         List<FluidRecipe> filtered = fluidRecipes.stream()
-          .filter(recipe -> tool.requirement.canUseMaterial(recipe.output.getId()) && (!uniqueInput || !tool.requirement.canUseMaterial(recipe.input.getId())))
+          .filter(recipe -> tool.requirement.canUseMaterial(recipe.output.getId()) && (!composite || !tool.requirement.canUseMaterial(recipe.input.getId())))
           .toList();
         if (!filtered.isEmpty()) {
-          displayRecipes.add(constructor.apply(makeRecipe(tool, filtered, uniqueInput, maxCoolingTime)));
+          displayRecipes.add(makeRecipe(tool, filtered, composite, maxCoolingTime));
         }
       }
     }
   }
 
   /** Prepares the builder for a recipe given the fluid recipes. */
-  protected DisplayMaterialCastingRecipe.Builder makeRecipe(ToolRequirement tool, List<FluidRecipe> fluidRecipes, boolean uniqueInput, int maxCoolingTime) {
+  protected IDisplayableCastingRecipe makeRecipe(ToolRequirement tool, List<FluidRecipe> fluidRecipes, boolean composite, int maxCoolingTime) {
     // create lists of fluids and results of the same size
     List<ItemStack> inputs;
-    if (uniqueInput) {
+    if (composite) {
       inputs = new ArrayList<>();
     } else {
       inputs = List.of(tool.tool.createStack());
@@ -307,7 +293,7 @@ public class PartSwapCastingRecipe extends AbstractMaterialCastingRecipe impleme
       fluids.addAll(newFluids);
       ToolStack copy = tool.tool.copy();
       // add inputs if requested
-      if (uniqueInput) {
+      if (composite) {
         copy.replaceMaterial(tool.index, recipe.input);
         // copy to unlink from the tool instance
         ItemStack input = copy.createStack().copy();
@@ -322,11 +308,12 @@ public class PartSwapCastingRecipe extends AbstractMaterialCastingRecipe impleme
         results.add(result);
       }
     }
-    return DisplayMaterialCastingRecipe.from(this)
+    return DisplayCastingRecipe.from(this)
       .casts(inputs).consumed()
       .results(List.copyOf(results))
       .fluids(List.copyOf(fluids))
-      .maxCoolingTime(maxCoolingTime);
+      .coolingTime(maxCoolingTime).materialCasting(composite)
+      .build();
   }
 
   @Override
@@ -341,15 +328,13 @@ public class PartSwapCastingRecipe extends AbstractMaterialCastingRecipe impleme
 
         // casting recipes
         List<FluidRecipe> fluidRecipes = new ArrayList<>();
-        Object2IntMap<Fluid> castingTimes = new Object2IntOpenHashMap<>();
-        int maxCoolingTime = prepareCastingRecipes(fluidRecipes, castingTimes, null);
-        makeRecipes(displayRecipes, tools, fluidRecipes, false, maxCoolingTime, builder -> builder.casting(castingTimes));
+        int maxCoolingTime = prepareRecipes(fluidRecipes, MaterialCastingLookup.getSortedCastingFluids(), false, null);
+        makeRecipes(displayRecipes, tools, fluidRecipes, maxCoolingTime, false);
 
         // composite recipes
         fluidRecipes.clear();
-        Object2IntMap<CompositeFluid> compositeTimes = new Object2IntOpenHashMap<>();
-        maxCoolingTime = prepareCompositeRecipes(fluidRecipes, compositeTimes, null);
-        makeRecipes(displayRecipes, tools, fluidRecipes, true, maxCoolingTime, builder -> builder.composite(compositeTimes));
+        maxCoolingTime = prepareRecipes(fluidRecipes, MaterialCastingLookup.getSortedCompositeFluids(), true, null);
+        makeRecipes(displayRecipes, tools, fluidRecipes, maxCoolingTime, true);
 
         // make final recipe list
         this.multiRecipes = List.copyOf(displayRecipes);
