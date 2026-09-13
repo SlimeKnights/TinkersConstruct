@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.recipe.casting;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
+import slimeknights.tconstruct.library.recipe.RecipeSlot;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -47,7 +48,7 @@ public interface IDisplayableCastingRecipe {
   }
 
 
-  /* Cooling time *.
+  /* Cooling time */
 
   /** If true, the cooling time is animated and will be computed using {@link #getCoolingTime(FluidStack)}. If false, it is static and {@link #getCastItems()} is used. */
   default boolean isCoolingTimeDynamic() {
@@ -57,8 +58,22 @@ public interface IDisplayableCastingRecipe {
   /** Recipe cooling time */
   int getCoolingTime();
 
-  /** Gets the cooling time for the given fluid */
+  /** Gets the cooling time for the given fluid. Only called if {@link #isCoolingTimeDynamic()} is true. */
   default int getCoolingTime(FluidStack fluid) {
     return getCoolingTime();
   }
+
+  /** If true, the displayed ingredients can be dynamically updated using {@link #onDisplayUpdate(RecipeSlot, RecipeSlot, RecipeSlot)} */
+  default boolean isSlotsDynamic() {
+    return false;
+  }
+
+  /**
+   * Called when the display updates in JEI to allow a recipe to dynamically change the displayed values.
+   * Only called if {@link #isSlotsDynamic()} is true.
+   * @param cast         Cast slot to get or set displayed cast contents. Will be {@link RecipeSlot#EMPTY_ITEM} if {@link #hasCast()} is false (meaning you cannot change the cast).
+   * @param fluid        Fluid slot to get or set displayed fluid contents.
+   * @param output       Result slot to get or set displayed output contents.
+   */
+  default void onDisplayUpdate(RecipeSlot<ItemStack> cast, RecipeSlot<FluidStack> fluid, RecipeSlot<ItemStack> output) {}
 }

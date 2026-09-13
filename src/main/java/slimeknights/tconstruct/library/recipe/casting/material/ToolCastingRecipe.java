@@ -1,12 +1,16 @@
 package slimeknights.tconstruct.library.recipe.casting.material;
 
-import com.google.common.collect.Streams;
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.primitive.EnumLoadable;
@@ -18,28 +22,26 @@ import slimeknights.mantle.recipe.helper.TypeAwareRecipeSerializer;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
 import slimeknights.tconstruct.library.json.predicate.material.MaterialPredicate;
-import slimeknights.tconstruct.library.materials.MaterialRegistry;
-import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
+import slimeknights.tconstruct.library.recipe.RecipeSlot;
 import slimeknights.tconstruct.library.recipe.casting.CastingRecipeLookup;
-import slimeknights.tconstruct.library.recipe.casting.DisplayCastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.ICastingContainer;
-import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.IDisplayableCastingRecipe;
+import slimeknights.tconstruct.library.recipe.casting.material.DisplayMaterialCastingRecipe.CompositeFluid;
+import slimeknights.tconstruct.library.recipe.tinkerstation.building.MaterialSwappingRecipe;
 import slimeknights.tconstruct.library.tools.definition.module.material.ToolMaterialHook;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
-import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
+import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BiFunction;
-import java.util.function.Predicate;
-import java.util.stream.Stream;
+import java.util.stream.IntStream;
 
 /** Recipe for casting a tool using molten metal on either a tool part or a non-tool part (2 materials or 1) */
 public class ToolCastingRecipe extends PartSwapCastingRecipe implements IMultiRecipe<IDisplayableCastingRecipe> {
@@ -58,7 +60,7 @@ public class ToolCastingRecipe extends PartSwapCastingRecipe implements IMultiRe
   private final List<MaterialVariantId> extraMaterials;
 
   protected ToolCastingRecipe(TypeAwareRecipeSerializer<?> serializer, ResourceLocation id, String group, Ingredient cast, int itemCost, CastPurpose castPurpose, IModifiable result, IJsonPredicate<MaterialVariantId> allowedMaterials, List<MaterialVariantId> extraMaterials) {
-    super(serializer, id, group, cast, itemCost, castPurpose.swapIndex, allowedMaterials);
+    super(serializer, id, group, cast, itemCost, castPurpose.fluidIndex, allowedMaterials);
     this.result = result;
     this.extraMaterials = extraMaterials;
     CastingRecipeLookup.registerCastable(result);
@@ -100,12 +102,46 @@ public class ToolCastingRecipe extends PartSwapCastingRecipe implements IMultiRe
     List<MaterialStatsId> requirements = ToolMaterialHook.stats(result.getToolDefinition());
     // last material is the part, may be index 0 or 1
     MaterialFluidRecipe recipe = getFluidRecipe(inv);
-    return recipe != MaterialFluidRecipe.EMPTY && requirements.get(castPurpose == CastPurpose.MAYBE_MATERIAL ? requirements.size() - 1 : castPurpose.swapIndex).canUseMaterial(recipe.getOutput().getId());
+    return recipe != MaterialFluidRecipe.EMPTY && requirements.get(castPurpose == CastPurpose.MAYBE_MATERIAL ? requirements.size() - 1 : castPurpose.fluidIndex).canUseMaterial(recipe.getOutput().getId());
   }
 
   @Override
   public ItemStack getResultItem(RegistryAccess access) {
     return new ItemStack(result);
+  }
+
+  /** Creates the tool for the given cast and fluid material */
+  private ItemStack assemble(ItemStack cast, MaterialVariant fluidMaterial) {
+    // figure out how to apply our materials
+    MaterialNBT.Builder materials = MaterialNBT.builder();
+    // in offset mode, the first extra material goes before the fluid material
+    boolean offset = castPurpose == CastPurpose.CONSUMED_OFFSET && !extraMaterials.isEmpty();
+    if (offset) {
+      materials.add(extraMaterials.get(0));
+    }
+
+    // if the cast material goes second, need our material now
+    if (castPurpose == CastPurpose.SECOND_MATERIAL) {
+      materials.add(fluidMaterial);
+    }
+    // add cast material if relevant
+    if (castPurpose == CastPurpose.FIRST_MATERIAL || castPurpose == CastPurpose.SECOND_MATERIAL
+      || castPurpose == CastPurpose.MAYBE_MATERIAL && ToolMaterialHook.stats(result.getToolDefinition()).size() > 1) {
+      materials.add(IMaterialItem.getMaterialFromStack(cast));
+    }
+    // add fluid material
+    if (castPurpose != CastPurpose.SECOND_MATERIAL) {
+      materials.add(fluidMaterial);
+    }
+    // add extra materials
+    if (offset) {
+      for (int i = 1; i < extraMaterials.size(); i++) {
+        materials.add(extraMaterials.get(i));
+      }
+    } else {
+      materials.add(extraMaterials);
+    }
+    return ToolBuildHandler.buildItemFromMaterials(result, materials.build());
   }
 
   @Override
@@ -115,44 +151,19 @@ public class ToolCastingRecipe extends PartSwapCastingRecipe implements IMultiRe
     if (cast.getItem() == result) {
       return super.assemble(inv, access);
     } else {
-      // figure out how to apply our materials
-      MaterialVariant fluidMaterial = getFluidRecipe(inv).getOutput();
-      MaterialNBT.Builder materials = MaterialNBT.builder();
-      // in offset mode, the first extra material goes before the fluid material
-      boolean offset = castPurpose == CastPurpose.CONSUMED_OFFSET && !extraMaterials.isEmpty();
-      if (offset) {
-        materials.add(extraMaterials.get(0));
-      }
-
-      // if the cast material goes second, need our material now
-      if (castPurpose == CastPurpose.SECOND_MATERIAL) {
-        materials.add(fluidMaterial);
-      }
-      // add cast material if relevant
-      if (castPurpose == CastPurpose.FIRST_MATERIAL || castPurpose == CastPurpose.SECOND_MATERIAL
-        || castPurpose == CastPurpose.MAYBE_MATERIAL && ToolMaterialHook.stats(result.getToolDefinition()).size() > 1) {
-        materials.add(IMaterialItem.getMaterialFromStack(cast));
-      }
-      // add fluid material
-      if (castPurpose != CastPurpose.SECOND_MATERIAL) {
-        materials.add(fluidMaterial);
-      }
-      // add extra materials
-      if (offset) {
-        for (int i = 1; i < extraMaterials.size(); i++) {
-          materials.add(extraMaterials.get(i));
-        }
-      } else {
-        materials.add(extraMaterials);
-      }
-      return ToolBuildHandler.buildItemFromMaterials(result, materials.build());
+      return assemble(cast, getFluidRecipe(inv).getOutput());
     }
+  }
+
+  @Override
+  public boolean isConsumed() {
+    return castPurpose != CastPurpose.CATALYST;
   }
 
   @Override
   public boolean isConsumed(ICastingContainer inv) {
     // if part swapping, always consume the input
-    return castPurpose != CastPurpose.CATALYST || inv.getStack().getItem() == result.asItem();
+    return isConsumed() || inv.getStack().getItem() == result.asItem();
   }
 
 
@@ -162,117 +173,65 @@ public class ToolCastingRecipe extends PartSwapCastingRecipe implements IMultiRe
   public List<IDisplayableCastingRecipe> getRecipes(RegistryAccess access) {
     if (multiRecipes == null) {
       List<MaterialStatsId> requirements = ToolMaterialHook.stats(result.getToolDefinition());
-      if (requirements.isEmpty()) {
+      if (requirements.size() < castPurpose.minMaterials) {
+        TConstruct.LOG.error("Failed to create display recipes for Tool Casting {}: tool {} has too few materials.", getId(), result.getToolDefinition().getId());
         multiRecipes = List.of();
       } else {
-        MaterialVariant dummyRequirement = MaterialVariant.of(ToolBuildHandler.getRenderMaterial(0));
-        // if we have two item requirements, fill in the part in display
-        BiFunction<MaterialVariant,List<ItemStack>,List<ItemStack>> materials;
-        MaterialNBT.Builder partSwapMaterials = new MaterialNBT.Builder();
+        // tool is valid, create setup to call part swapping methods
+        int fluidIndex = getIndex(requirements);
+        ToolRequirement tool = new ToolRequirement(ToolStack.from(result.asItem(), result.getToolDefinition(), new CompoundTag()), fluidIndex, requirements.get(fluidIndex));
+        MaterialSwappingRecipe.setMaterials(tool.tool(), fluidIndex, MaterialVariant.of(ToolBuildHandler.getRenderMaterial(0)));
+        List<IDisplayableCastingRecipe> displayRecipes = new ArrayList<>(3);
 
-        // legacy support: determine the function of the cast when set to maybe
-        CastPurpose castPurpose = this.castPurpose;
-        MaterialStatsId requirement;
-        if (castPurpose == CastPurpose.MAYBE_MATERIAL) {
-          castPurpose = requirements.size() > 1 ? CastPurpose.FIRST_MATERIAL : CastPurpose.CONSUMED;
-          requirement = requirements.get(requirements.size() - 1);
-          // if the cast is the first material, use index 1 for the output requirement, though skip if invalid tool definition
-        } else if ((castPurpose == CastPurpose.FIRST_MATERIAL || castPurpose == CastPurpose.CONSUMED_OFFSET) && requirements.size() > 1) {
-          requirement = requirements.get(1);
+        // casting recipes
+        List<FluidRecipe> fluidRecipes = new ArrayList<>();
+        Object2IntMap<Fluid> castingTimes = new Object2IntOpenHashMap<>();
+        MaterialStatsId requirement = tool.requirement();
+        int maxCoolingTime = prepareCastingRecipes(fluidRecipes, castingTimes, requirement);
+        // this should never happen or the recipe would not exist, but better to not make broken JEI
+        if (fluidRecipes.isEmpty()) {
+          TConstruct.LOG.error("Failed to create display recipes for Tool Casting {}: no fluid casting matches conditions.", getId());
         } else {
-          requirement = requirements.get(0);
-        }
+          // build the cast swapping recipe, it has our fluids
+          IDisplayableCastingRecipe castSwap = makeRecipe(tool, fluidRecipes, false, maxCoolingTime).casting(castingTimes);
 
-        // if we have a cast material, add it to display stacks
-        boolean first = castPurpose == CastPurpose.FIRST_MATERIAL;
-        boolean offset = castPurpose == CastPurpose.CONSUMED_OFFSET && !extraMaterials.isEmpty();
-        if (first || castPurpose == CastPurpose.SECOND_MATERIAL) {
-          MaterialVariant castMaterial = MaterialVariant.of(MaterialRegistry.firstWithStatType(requirements.get(1 - castPurpose.swapIndex)));
-          materials = (mat, casts) -> casts.stream().map(cast -> {
-            MaterialNBT.Builder builder = MaterialNBT.builder();
-            // if the cast is second, add the fluid material first
-            if (!first) {
-              builder.add(mat);
-            }
-            // if the material is unknown, just use the first; deals with the fact the tool is an extra cast for showing part swapping
-            MaterialVariantId id = IMaterialItem.getMaterialFromStack(cast);
-            builder.add(id == MaterialId.UNKNOWN ? castMaterial : MaterialVariant.of(id));
-            // if the cast is first, add the fluid material second
-            if (first) {
-              builder.add(mat);
-            }
-            return ToolBuildHandler.buildItemFromMaterials(result, builder.add(extraMaterials).build());
-          }).toList();
-          // add materials to the part swap marker
-          if (first) {
-            partSwapMaterials.add(castMaterial).add(dummyRequirement);
+          // if we have a second material, create the dynamic display recipe
+          List<ItemStack> casts = List.of(getCast().getItems());
+          if (castPurpose == CastPurpose.FIRST_MATERIAL || castPurpose == CastPurpose.SECOND_MATERIAL
+            || castPurpose == CastPurpose.MAYBE_MATERIAL && requirements.size() > 1) {
+            displayRecipes.add(new DisplayRecipe(casts, castSwap.getFluids(), maxCoolingTime, castingTimes));
           } else {
-            partSwapMaterials.add(dummyRequirement).add(castMaterial);
-          }
-        } else if (offset) {
-          materials = (mat, casts) -> {
-            MaterialNBT.Builder builder = MaterialNBT.builder();
-            builder.add(extraMaterials.get(0)).add(mat);
-            for (int i = 1; i < extraMaterials.size(); i++) {
-              builder.add(extraMaterials.get(i));
+            // standard display recipe, animates 1 material
+            List<ItemStack> tools;
+            if (!extraMaterials.isEmpty()) {
+              // if we have extra materials, need to use them to compute the cast tools
+              tools = fluidRecipes.stream().flatMap(recipe -> {
+                // we already checked, cast is not a material item so doesn't matter what we pass in
+                ItemStack withMaterial = assemble(ItemStack.EMPTY, recipe.output());
+                return IntStream.range(0, recipe.fluids().size()).mapToObj(i -> withMaterial);
+              }).toList();
+            } else {
+              tools = castSwap.getOutputs();
             }
-            return List.of(ToolBuildHandler.buildItemFromMaterials(result, builder.build()));
-          };
-          partSwapMaterials.add(extraMaterials.get(0)).add(dummyRequirement);
-          for (int i = 1; i < extraMaterials.size(); i++) {
-            partSwapMaterials.add(extraMaterials.get(i));
+            displayRecipes.add(DisplayMaterialCastingRecipe.from(this)
+              .casts(casts).consumed(isConsumed())
+              .fluids(castSwap.getFluids()).results(tools)
+              .maxCoolingTime(maxCoolingTime).casting(castingTimes));
           }
-        } else {
-          // no cast material? just show the fluid material
-          materials = (mat, casts) -> List.of(ToolBuildHandler.buildItemFromMaterials(result, MaterialNBT.builder().add(mat).add(extraMaterials).build()));
-          partSwapMaterials.add(dummyRequirement);
-        }
-        // consumed offset already handled extra materials
-        if (!offset) {
-          partSwapMaterials.add(extraMaterials);
-        }
-        // build part swap tool, mark as display so tooltip does not show useless stats
-        ItemStack partSwapDisplay = ToolBuildHandler.buildItemFromMaterials(result, partSwapMaterials.build());
-        partSwapDisplay.getOrCreateTag().putBoolean(TooltipUtil.KEY_DISPLAY, true);
-
-        List<ItemStack> casts = List.of(getCast().getItems());
-        // if the cast is consumed, add the tool to the list of cast items to show that part swapping is an option
-        boolean consumed = castPurpose != CastPurpose.CATALYST;
-        List<ItemStack> castsWithTool = consumed ? Streams.concat(casts.stream(), Stream.of(partSwapDisplay)).toList() : casts;
-        List<ItemStack> partSwapList = consumed ? List.of() : List.of(partSwapDisplay);
-
-        // start building recipes
-        List<IDisplayableCastingRecipe> recipes = new ArrayList<>();
-        Predicate<MaterialFluidRecipe> validRecipe = recipe -> {
-          MaterialVariant output = recipe.getOutput();
-          MaterialVariant input = recipe.getInput();
-          return recipe.isVisible() && requirement.canUseMaterial(output.getId()) && (input == null || requirement.canUseMaterial(input.getId())) && this.materials.matches(output.getVariant());
-        };
-
-        // show recipes for creating the tool from all castable fluids
-        List<MaterialFluidRecipe> validCasting = MaterialCastingLookup.getAllCastingFluids().stream().filter(validRecipe).toList();
-        for (MaterialFluidRecipe recipe : validCasting) {
-          List<FluidStack> fluids = resizeFluids(recipe.getFluids());
-          int amount = itemCost * getFluidAmount(fluids);
-          recipes.add(new DisplayCastingRecipe(getId(), getType(), castsWithTool, fluids, materials.apply(recipe.getOutput(), castsWithTool),
-            ICastingRecipe.calcCoolingTime(recipe.getTemperature(), amount), consumed));
-
-          // if the cast is not consumed, then part swapping will have to be done separately for the proper consumed flag
-          if (!consumed) {
-            recipes.add(new DisplayCastingRecipe(getId(), getType(), partSwapList, fluids, materials.apply(recipe.getOutput(), partSwapList),
-              ICastingRecipe.calcCoolingTime(recipe.getTemperature(), amount), true));
-          }
+          // want the cast swap to be second
+          displayRecipes.add(castSwap);
         }
 
-        // all composite fluids become special composite swapping recipes
-        MaterialCastingLookup.getAllCompositeFluids().stream()
-          .filter(validRecipe)
-          .map(recipe -> {
-            List<FluidStack> fluids = resizeFluids(recipe.getFluids());
-            return new DisplayCastingRecipe(getId(), getType(), materials.apply(recipe.getInput(), casts), fluids, materials.apply(recipe.getOutput(), casts),
-              ICastingRecipe.calcCoolingTime(recipe.getTemperature(), itemCost * getFluidAmount(fluids)), true);
-          }).forEach(recipes::add);
-        multiRecipes = List.copyOf(recipes);
+        // composite recipe third
+        fluidRecipes.clear();
+        Object2IntMap<CompositeFluid> compositeTimes = new Object2IntOpenHashMap<>();
+        maxCoolingTime = prepareCompositeRecipes(fluidRecipes, compositeTimes, requirement);
+        if (!fluidRecipes.isEmpty()) {
+          displayRecipes.add(makeRecipe(tool, fluidRecipes, true, maxCoolingTime).composite(compositeTimes));
+        }
+
+        // build final list
+        this.multiRecipes = List.copyOf(displayRecipes);
       }
     }
     return multiRecipes;
@@ -286,19 +245,93 @@ public class ToolCastingRecipe extends PartSwapCastingRecipe implements IMultiRe
      * @deprecated use {@link #CONSUMED} or {@link #FIRST_MATERIAL}.
      */
     @Deprecated
-    MAYBE_MATERIAL(-1),
+    MAYBE_MATERIAL(-1, 1),
     /** Cast is not consumed by the recipe */
-    CATALYST(0),
+    CATALYST(0, 1),
     /** Cast is consumed, but has no material purpose */
-    CONSUMED(0),
+    CONSUMED(0, 1),
     /** Cast is consumed, but has no material purpose. However, an extra material will set material 1 on the tool */
-    CONSUMED_OFFSET(1),
+    CONSUMED_OFFSET(1, 2),
     /** Cast is consumed, and becomes the first material with the fluid the second. */
-    FIRST_MATERIAL(1),
+    FIRST_MATERIAL(1, 2),
     /** Cast is consumed, and becomes the second material with the fluid the first. */
-    SECOND_MATERIAL(0);
+    SECOND_MATERIAL(0, 2);
 
-    /** Index for part swapping */
-    private final int swapIndex;
+    /** Index for the fluid in the recipe. If -1, means the fluid is the last material. */
+    private final int fluidIndex;
+    /** Minimum number of materials needed for this cast */
+    private final int minMaterials;
+  }
+
+  /**
+   * Recipe to display tool casting with multiple materials.
+   * Only used if {@link #castPurpose} is {@link CastPurpose#FIRST_MATERIAL}, {@link CastPurpose#SECOND_MATERIAL}, or {@link CastPurpose#MAYBE_MATERIAL} with the materrial confirmed.
+   */
+  private class DisplayRecipe implements IDisplayableCastingRecipe {
+    @Getter
+    private final List<ItemStack> castItems;
+    @Getter
+    private final List<FluidStack> fluids;
+    @Getter
+    private final List<ItemStack> outputs;
+    @Getter
+    private final int coolingTime;
+    private final Object2IntMap<Fluid> coolingTimes;
+
+    private DisplayRecipe(List<ItemStack> castItems, List<FluidStack> fluids, int coolingTime, Object2IntMap<Fluid> coolingTimes) {
+      this.castItems = castItems;
+      this.fluids = fluids;
+      this.outputs = List.of(IModifiableDisplay.getDisplayStack(result.asItem()));
+      this.coolingTime = coolingTime;
+      this.coolingTimes = coolingTimes;
+    }
+
+    @Override
+    public boolean hasCast() {
+      // always have a cast, it provides our material
+      return true;
+    }
+
+    @Override
+    public boolean isConsumed() {
+      return true;
+    }
+
+    @Override
+    public boolean linkCastToOutput() {
+      // we are using display update to handle output materials instead of a focus link
+      return false;
+    }
+
+
+    /* Dynamic */
+
+    @Override
+    public boolean isCoolingTimeDynamic() {
+      return true;
+    }
+
+    @Override
+    public int getCoolingTime(FluidStack fluid) {
+      return coolingTimes.getOrDefault(fluid, coolingTime);
+    }
+
+    @Override
+    public boolean isSlotsDynamic() {
+      return true;
+    }
+
+    @Override
+    public void onDisplayUpdate(RecipeSlot<ItemStack> cast, RecipeSlot<FluidStack> fluid, RecipeSlot<ItemStack> output) {
+      // set the output based on the current cast and the current fluid, however the recipe would regularly do that
+      output.set(assemble(cast.get(), MaterialCastingLookup.getCastingFluid(fluid.get().getFluid()).getOutput()));
+    }
+
+    /** @deprecated use {@link #getOutputs()} */
+    @Deprecated
+    @Override
+    public ItemStack getOutput() {
+      return new ItemStack(result);
+    }
   }
 }

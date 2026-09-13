@@ -5,6 +5,7 @@ import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated.StartDirection;
+import mezz.jei.api.gui.ingredient.IRecipeSlotDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.gui.placement.HorizontalAlignment;
 import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
@@ -23,8 +24,11 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.recipe.FluidValues;
+import slimeknights.tconstruct.library.recipe.RecipeSlot;
 import slimeknights.tconstruct.library.recipe.casting.IDisplayableCastingRecipe;
+import slimeknights.tconstruct.plugin.jei.util.CategoryUtil;
 import slimeknights.tconstruct.plugin.jei.util.FluidTooltipCallback;
+import slimeknights.tconstruct.plugin.jei.util.RecipeSlotWrapper;
 
 import javax.annotation.Nullable;
 import java.awt.Color;
@@ -37,7 +41,10 @@ public abstract class AbstractCastingCategory extends AbstractRecipeCategory<IDi
   private static final Component CAST_KEPT = TConstruct.makeTranslation("jei", "casting.cast_kept");
   private static final Component CAST_CONSUMED = TConstruct.makeTranslation("jei", "casting.cast_consumed");
   protected static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/casting.png");
+  private static final String CAST_SLOT = "cast";
+  private static final String RESULT_SLOT = "result";
   private static final String FLUID_SLOT = "fluid";
+  private static final String FAUCET_SLOT = "faucet";
 
   private final IDrawable background;
   private final IDrawable tankOverlay;
@@ -98,7 +105,7 @@ public abstract class AbstractCastingCategory extends AbstractRecipeCategory<IDi
   @Override
   public void setRecipe(IRecipeLayoutBuilder builder, IDisplayableCastingRecipe recipe, IFocusGroup focuses) {
     List<ItemStack> outputs = recipe.getOutputs();
-    IRecipeSlotBuilder output = builder.addOutputSlot(93, 18).addItemStacks(recipe.getOutputs());
+    IRecipeSlotBuilder output = builder.addOutputSlot(93, 18).addItemStacks(outputs).setSlotName(RESULT_SLOT);
     List<IRecipeSlotBuilder> linked = new ArrayList<>(4);
     int outputSize = outputs.size();
     if (outputSize > 1) {
@@ -108,7 +115,7 @@ public abstract class AbstractCastingCategory extends AbstractRecipeCategory<IDi
     // items
     List<ItemStack> casts = recipe.getCastItems();
     if (!casts.isEmpty()) {
-      IRecipeSlotBuilder cast = builder.addSlot(recipe.isConsumed() ? RecipeIngredientRole.INPUT : RecipeIngredientRole.CATALYST, 38, 19).addItemStacks(casts);
+      IRecipeSlotBuilder cast = builder.addSlot(recipe.isConsumed() ? RecipeIngredientRole.INPUT : RecipeIngredientRole.CATALYST, 38, 19).addItemStacks(casts).setSlotName(CAST_SLOT);
       // if the same size, tie a focus link to the output and cast; means we have material variants on both
       if (recipe.linkCastToOutput() && !linked.isEmpty() && casts.size() == outputSize) {
         linked.add(cast);
@@ -131,9 +138,10 @@ public abstract class AbstractCastingCategory extends AbstractRecipeCategory<IDi
       h += 16;
     }
     IRecipeSlotBuilder faucet = builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 43, 8)
-           .addRichTooltipCallback(FluidTooltipCallback.UNITS)
-           .setFluidRenderer(1, false, 6, h)
-           .addIngredients(ForgeTypes.FLUID_STACK, inputs);
+      .addRichTooltipCallback(FluidTooltipCallback.UNITS)
+      .setFluidRenderer(1, false, 6, h)
+      .addIngredients(ForgeTypes.FLUID_STACK, inputs)
+      .setSlotName(FAUCET_SLOT);
 
     // if requested, and they are the same size, link output and fluid
     if (recipe.linkFluidsToOutput() && !linked.isEmpty() && inputs.size() == outputSize) {
@@ -146,6 +154,32 @@ public abstract class AbstractCastingCategory extends AbstractRecipeCategory<IDi
     // apply links
     if (linked.size() > 1) {
       builder.createFocusLink(linked.toArray(IRecipeSlotBuilder[]::new));
+    }
+  }
+
+  @Override
+  public void onDisplayedIngredientsUpdate(IDisplayableCastingRecipe recipe, List<IRecipeSlotDrawable> recipeSlots, IFocusGroup focuses) {
+    // require the recipe to opt in as it saves a lot of lookups on recipes that don't need this feature
+    if (recipe.isSlotsDynamic()) {
+      // combine both fluids together into a single slot
+      IRecipeSlotDrawable fluid = CategoryUtil.findSlot(recipeSlots, FLUID_SLOT);
+      RecipeSlot<FluidStack> fluidSlot;
+      if (fluid != null) {
+        IRecipeSlotDrawable faucet = CategoryUtil.findSlot(recipeSlots, FAUCET_SLOT);
+        if (faucet != null) {
+          fluidSlot = new RecipeSlotWrapper<>(fluid, ForgeTypes.FLUID_STACK, FluidStack.EMPTY, faucet);
+        } else {
+          fluidSlot = new RecipeSlotWrapper<>(fluid, ForgeTypes.FLUID_STACK, FluidStack.EMPTY);
+        }
+      } else {
+        fluidSlot = RecipeSlot.EMPTY_FLUID;
+      }
+
+      recipe.onDisplayUpdate(
+        recipe.hasCast() ? RecipeSlotWrapper.createItem(recipeSlots, CAST_SLOT) : RecipeSlot.EMPTY_ITEM,
+        fluidSlot,
+        RecipeSlotWrapper.createItem(recipeSlots, RESULT_SLOT)
+      );
     }
   }
 

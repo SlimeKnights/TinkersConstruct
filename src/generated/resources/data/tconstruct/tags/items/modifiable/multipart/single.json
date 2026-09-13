@@ -1,10 +1,6 @@
 {
   "values": [
-    "tconstruct:slime_helmet",
-    "tconstruct:slimy_chestplate",
-    "tconstruct:slime_leggings",
-    "tconstruct:slime_boots",
     "tconstruct:slime_wings",
-    "tconstruct:plate_shield"
+    "tconstruct:slime_helmet"
   ]
 }
