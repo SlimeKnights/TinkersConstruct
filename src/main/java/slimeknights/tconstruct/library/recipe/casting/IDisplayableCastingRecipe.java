@@ -63,6 +63,39 @@ public interface IDisplayableCastingRecipe {
     return getCoolingTime();
   }
 
+
+  /* Dynamic display */
+
+  /**
+   * Gets the cast based on the current focus.
+   * @param focus        Focus stack
+   * @param focusOutput  If true, the focus is an output. If false, it is an input.
+   * @return focus sensitive cast items.
+   */
+  default List<ItemStack> getCastItems(ItemStack focus, boolean focusOutput) {
+    return getCastItems();
+  }
+
+  /**
+   * Gets the fluids based on the current focus.
+   * @param focus        Focus stack
+   * @param focusOutput  If true, the focus is an output. If false, it is an input.
+   * @return focus sensitive fluids.
+   */
+  default List<FluidStack> getFluids(ItemStack focus, boolean focusOutput) {
+    return getFluids();
+  }
+
+  /**
+   * Gets the outputs based on the current focus.
+   * @param focus        Focus stack
+   * @param focusOutput  If true, the focus is an output. If false, it is an input.
+   * @return focus sensitive outputs.
+   */
+  default List<ItemStack> getOutputs(ItemStack focus, boolean focusOutput) {
+    return getOutputs();
+  }
+
   /** If true, the displayed ingredients can be dynamically updated using {@link #onDisplayUpdate(RecipeSlot, RecipeSlot, RecipeSlot)} */
   default boolean isSlotsDynamic() {
     return false;

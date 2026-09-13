@@ -35,12 +35,14 @@ import slimeknights.tconstruct.library.tools.definition.module.material.ToolMate
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
+import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.IntStream;
 
 /** Recipe for casting a tool using molten metal on either a tool part or a non-tool part (2 materials or 1) */
@@ -199,7 +201,7 @@ public class ToolCastingRecipe extends PartSwapCastingRecipe implements IMultiRe
           List<ItemStack> casts = List.of(getCast().getItems());
           if (castPurpose == CastPurpose.FIRST_MATERIAL || castPurpose == CastPurpose.SECOND_MATERIAL
             || castPurpose == CastPurpose.MAYBE_MATERIAL && requirements.size() > 1) {
-            displayRecipes.add(new DisplayRecipe(casts, castSwap.getFluids(), maxCoolingTime, castingTimes));
+            displayRecipes.add(new DisplayRecipe(fluidIndex, requirement, casts, castSwap.getFluids(), maxCoolingTime, castingTimes));
           } else {
             // standard display recipe, animates 1 material
             List<ItemStack> tools;
@@ -278,12 +280,31 @@ public class ToolCastingRecipe extends PartSwapCastingRecipe implements IMultiRe
     private final int coolingTime;
     private final Object2IntMap<Fluid> coolingTimes;
 
-    private DisplayRecipe(List<ItemStack> castItems, List<FluidStack> fluids, int coolingTime, Object2IntMap<Fluid> coolingTimes) {
+    /** Index on the tool holding the fluid material. */
+    private final int fluidIndex;
+    /** Index on the tool holding the cast material. */
+    private final int castIndex;
+    /** Material item representing the cast, used when a tool is the output focus. */
+    private final IMaterialItem castItem;
+    /** Filter to find fluid recipes given the material on the tool */
+    private final Predicate<MaterialFluidRecipe> fluidFilter;
+
+    private DisplayRecipe(int fluidIndex, MaterialStatsId statType, List<ItemStack> castItems, List<FluidStack> fluids, int coolingTime, Object2IntMap<Fluid> coolingTimes) {
       this.castItems = castItems;
       this.fluids = fluids;
       this.outputs = List.of(IModifiableDisplay.getDisplayStack(result.asItem()));
       this.coolingTime = coolingTime;
       this.coolingTimes = coolingTimes;
+      this.castIndex = castPurpose == CastPurpose.SECOND_MATERIAL ? 1 : 0;
+      this.fluidIndex = fluidIndex;
+      // while we should always have a cast item, might as well be safe
+      this.castItem = !castItems.isEmpty() && castItems.get(0).getItem() instanceof IMaterialItem item ? item : IMaterialItem.EMPTY;
+      // create the filter for the fluid recipes, no reason to compute this every display update
+      // create a filter for fluid recipes
+      this.fluidFilter = recipe -> {
+        MaterialVariantId output = recipe.getOutput().getVariant();
+        return materials.matches(output) && statType.canUseMaterial(output.getId());
+      };
     }
 
     @Override
@@ -314,6 +335,31 @@ public class ToolCastingRecipe extends PartSwapCastingRecipe implements IMultiRe
     @Override
     public int getCoolingTime(FluidStack fluid) {
       return coolingTimes.getOrDefault(fluid, coolingTime);
+    }
+
+    @Override
+    public List<ItemStack> getCastItems(ItemStack focus, boolean focusOutput) {
+      if (focusOutput && !focus.isEmpty()) {
+        MaterialVariantId castMaterial = MaterialIdNBT.from(focus).getMaterial(castIndex);
+        if (castItem.canUseMaterial(castMaterial.getId())) {
+          return List.of(castItem.withMaterialForDisplay(castMaterial));
+        }
+      }
+      return castItems;
+    }
+
+    @Override
+    public List<FluidStack> getFluids(ItemStack focus, boolean focusOutput) {
+      if (focusOutput && !focus.isEmpty()) {
+        List<FluidStack> fluids = MaterialCastingLookup.getCastingFluids(MaterialIdNBT.from(focus).getMaterial(fluidIndex)).stream()
+          .filter(fluidFilter)
+          .flatMap(recipe -> recipe.getFluids().stream().map(ToolCastingRecipe.this::resizeFluid))
+          .toList();
+        if (!fluids.isEmpty()) {
+          return fluids;
+        }
+      }
+      return this.fluids;
     }
 
     @Override

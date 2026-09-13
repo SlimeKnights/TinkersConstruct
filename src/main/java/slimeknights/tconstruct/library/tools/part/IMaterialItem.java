@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.tools.part;
 
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
@@ -116,4 +117,23 @@ public interface IMaterialItem extends ItemLike {
     }
     return stack;
   }
+
+
+  /** Material item instance to use as a fallback to ensure a nonnull material item in some contexts */
+  IMaterialItem EMPTY = new IMaterialItem() {
+    @Override
+    public Item asItem() {
+      return Items.AIR;
+    }
+
+    @Override
+    public MaterialVariantId getMaterial(ItemStack stack) {
+      return MaterialId.UNKNOWN;
+    }
+
+    @Override
+    public boolean canUseMaterial(IMaterial mat) {
+      return false;
+    }
+  };
 }

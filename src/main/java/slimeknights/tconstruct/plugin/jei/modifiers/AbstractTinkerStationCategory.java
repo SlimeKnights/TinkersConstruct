@@ -132,25 +132,29 @@ public abstract class AbstractTinkerStationCategory<T extends IDisplayTinkerStat
     // allow the recipe to update based on the focuses
     // usually will
     IFocus<ItemStack> focus = focuses.getFocuses(VanillaTypes.ITEM_STACK).findFirst().orElse(null);
+    ItemStack focusStack = ItemStack.EMPTY;
+    boolean focusOutput = false;
     if (focus != null) {
-      ItemStack focusStack = focus.getTypedValue().getIngredient();
+      focusStack = focus.getTypedValue().getIngredient();
       // only focus on non-outputs currently. TODO: reconsider output focuses, applies to part swapping notably.
-      if (focus.getRole() != RecipeIngredientRole.OUTPUT && recipe.isTool(focusStack)) {
+      if (focus.getRole() == RecipeIngredientRole.OUTPUT) {
+        focusOutput = true;
+      } else if (recipe.isTool(focusStack)) {
         // make the stack count as large as the recipe allows. This should also automatically update the size in the result
-        focusStack = focusStack.copyWithCount(Math.min(focusStack.getMaxStackSize(), recipe.getMaxToolSize()));
+        ItemStack toolStack = focusStack.copyWithCount(Math.min(focusStack.getMaxStackSize(), recipe.getMaxToolSize()));
         // ask the recipe if it wishes to adjust sizes
-        RecipeResult<ItemStack> focusUpdate = recipe.onFocused(focusStack);
+        RecipeResult<ItemStack> focusUpdate = recipe.onFocused(toolStack);
         // on success, update the input to the focus stack and the output to the result
         if (focusUpdate.isSuccess()) {
-          toolWithoutModifier = List.of(focusStack);
+          toolWithoutModifier = List.of(toolStack);
           toolWithModifier = List.of(focusUpdate.getResult());
         // on error, make the input the stack and the output a barrier
         } else if (focusUpdate.hasError()) {
-          toolWithoutModifier = List.of(focusStack);
+          toolWithoutModifier = List.of(toolStack);
           toolWithModifier = List.of();
         } else {
           // on pass, just filter the items to only show the focus tool
-          Item item = focusStack.getItem();
+          Item item = toolStack.getItem();
           Predicate<ItemStack> filter = stack -> stack.is(item);
           toolWithoutModifier = toolWithoutModifier.stream().filter(filter).toList();
           toolWithModifier = toolWithModifier.stream().filter(filter).toList();
@@ -158,9 +162,10 @@ public abstract class AbstractTinkerStationCategory<T extends IDisplayTinkerStat
       }
     }
 
+    // fetch inputs with respect to current focus
     List<List<ItemStack>> inputs = new ArrayList<>(5);
     for (int i = 0; i < 5; i++) {
-      inputs.add(recipe.getDisplayItems(i));
+      inputs.add(recipe.getDisplayItems(i, focusStack, focusOutput));
     }
 
     // inputs

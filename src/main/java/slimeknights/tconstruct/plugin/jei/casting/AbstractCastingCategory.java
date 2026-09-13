@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.plugin.jei.casting;
 
+import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
@@ -10,6 +11,7 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.gui.placement.HorizontalAlignment;
 import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
 import mezz.jei.api.helpers.IGuiHelper;
+import mezz.jei.api.recipe.IFocus;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
@@ -104,7 +106,16 @@ public abstract class AbstractCastingCategory extends AbstractRecipeCategory<IDi
 
   @Override
   public void setRecipe(IRecipeLayoutBuilder builder, IDisplayableCastingRecipe recipe, IFocusGroup focuses) {
-    List<ItemStack> outputs = recipe.getOutputs();
+    // fetch focus data
+    IFocus<ItemStack> focus = focuses.getFocuses(VanillaTypes.ITEM_STACK).findFirst().orElse(null);
+    ItemStack focusStack = ItemStack.EMPTY;
+    boolean focusOutput = false;
+    if (focus != null) {
+      focusStack = focus.getTypedValue().getIngredient();
+      focusOutput = focus.getRole() == RecipeIngredientRole.OUTPUT;
+    }
+
+    List<ItemStack> outputs = recipe.getOutputs(focusStack, focusOutput);
     IRecipeSlotBuilder output = builder.addOutputSlot(93, 18).addItemStacks(outputs).setSlotName(RESULT_SLOT);
     List<IRecipeSlotBuilder> linked = new ArrayList<>(4);
     int outputSize = outputs.size();
@@ -113,7 +124,7 @@ public abstract class AbstractCastingCategory extends AbstractRecipeCategory<IDi
     }
 
     // items
-    List<ItemStack> casts = recipe.getCastItems();
+    List<ItemStack> casts = recipe.getCastItems(focusStack, focusOutput);
     if (!casts.isEmpty()) {
       IRecipeSlotBuilder cast = builder.addSlot(recipe.isConsumed() ? RecipeIngredientRole.INPUT : RecipeIngredientRole.CATALYST, 38, 19).addItemStacks(casts).setSlotName(CAST_SLOT);
       // if the same size, tie a focus link to the output and cast; means we have material variants on both
@@ -125,7 +136,7 @@ public abstract class AbstractCastingCategory extends AbstractRecipeCategory<IDi
     // fluids
     // tank fluids
     int capacity = FluidValues.METAL_BLOCK;
-    List<FluidStack> inputs = recipe.getFluids();
+    List<FluidStack> inputs = recipe.getFluids(focusStack, focusOutput);
     IRecipeSlotBuilder tank = builder.addInputSlot(3, 3)
            .addRichTooltipCallback(FluidTooltipCallback.UNITS)
            .setFluidRenderer(capacity, false, 32, 32)
