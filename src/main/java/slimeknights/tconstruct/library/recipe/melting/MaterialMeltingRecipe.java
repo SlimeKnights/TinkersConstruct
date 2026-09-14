@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.recipe.melting;
 
+import it.unimi.dsi.fastutil.objects.Object2IntMap.Entry;
 import lombok.Getter;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
@@ -9,19 +10,21 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.IMultiRecipe;
 import slimeknights.mantle.recipe.helper.FluidOutput;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.recipe.casting.material.MaterialCastingLookup;
+import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Recipe to melt all castable tool parts of a given material
@@ -108,30 +111,34 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<IDisp
   public List<IDisplayableMeltingRecipe> getRecipes(RegistryAccess access) {
     if (multiRecipes == null) {
       if (input.get().isHidden()) {
-        multiRecipes = Collections.emptyList();
+        multiRecipes = List.of();
       } else {
-        // 1 recipe for each part
+        // grab and sort all parts that work
         MaterialVariantId inputId = input.getVariant();
-        multiRecipes = MaterialCastingLookup
+        List<Entry<IMaterialItem>> entries = MaterialCastingLookup
           .getAllItemCosts().stream()
           .filter(entry -> entry.getKey().canUseMaterial(inputId.getId()))
-          .map(entry -> {
-            FluidOutput output = this.result;
-            List<FluidOutput> byproducts = this.byproducts;
-            int cost = entry.getIntValue();
-            // if the part cost is 1, can skip messing with the output size
-            if (cost != 1) {
-              output = FluidOutput.fromStack(new FluidStack(output.get(), output.getAmount() * cost));
-              // skip streaming the byproducts if empty
-              if (!byproducts.isEmpty()) {
-                byproducts = byproducts.stream().map(fluid -> FluidOutput.fromStack(new FluidStack(fluid.get(), fluid.getAmount() * cost))).toList();
-              }
-            }
-            return DisplayMeltingRecipe.id(id)
-              .input(entry.getKey().withMaterial(inputId))
-              .output(output).byproducts(byproducts)
-              .temperature(temperature).build();
-          }).collect(Collectors.toList());
+          .sorted(Comparator.<Entry<IMaterialItem>,Integer>comparing(Entry::getIntValue).thenComparing(entry -> Loadables.ITEM.getKey(entry.getKey().asItem())))
+          .toList();
+        // if we found nothing, do nothing. Should never happen so error
+        if (entries.isEmpty()) {
+          TConstruct.LOG.error("Failed to create display recipe for {}: found no tool parts that support {}", id, inputId);
+          multiRecipes = List.of();
+        } else {
+          // start building the recipe
+          DisplayMeltingRecipe.Builder recipe = DisplayMeltingRecipe.id(id).temperature(temperature).timeDynamic();
+          // input items just use the material
+          recipe.inputs(entries.stream().map(entry -> entry.getKey().withMaterialForDisplay(inputId)).toList());
+          // fluids
+          FluidStack output = this.result.get();
+          recipe.outputs(entries.stream().map(entry -> new FluidStack(output, output.getAmount() * entry.getIntValue())).toList());
+          // if we have byproducts, scale those too
+          for (FluidOutput byproduct : this.byproducts) {
+            FluidStack fluid = byproduct.get();
+            recipe.byproduct(entries.stream().map(entry -> new FluidStack(fluid, fluid.getAmount() * entry.getIntValue())).toList());
+          }
+          this.multiRecipes = List.of(recipe.build());
+        }
       }
     }
     return multiRecipes;
