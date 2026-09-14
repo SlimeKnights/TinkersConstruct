@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.library.recipe.casting.material;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -23,7 +25,6 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.build.ModifierRemovalHook;
 import slimeknights.tconstruct.library.recipe.casting.AbstractCastingRecipe;
-import slimeknights.tconstruct.library.recipe.casting.DisplayCastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.ICastingContainer;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.IDisplayableCastingRecipe;
@@ -40,6 +41,7 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 /**
  * Recipe for allowing part swapping on casting, without making the tool craftable on casting.
@@ -268,7 +270,7 @@ public class PartSwapCastingRecipe extends AbstractMaterialCastingRecipe impleme
       for (ToolRequirement tool : tools) {
         // filter down materials to just those applicable to the tool
         List<FluidRecipe> filtered = fluidRecipes.stream()
-          .filter(recipe -> tool.requirement.canUseMaterial(recipe.output.getId()) && (!composite || !tool.requirement.canUseMaterial(recipe.input.getId())))
+          .filter(recipe -> tool.requirement.canUseMaterial(recipe.output.getId()) && (!composite || tool.requirement.canUseMaterial(recipe.input.getId())))
           .toList();
         if (!filtered.isEmpty()) {
           displayRecipes.add(makeRecipe(tool, filtered, composite, maxCoolingTime));
@@ -281,19 +283,24 @@ public class PartSwapCastingRecipe extends AbstractMaterialCastingRecipe impleme
   protected IDisplayableCastingRecipe makeRecipe(ToolRequirement tool, List<FluidRecipe> fluidRecipes, boolean composite, int maxCoolingTime) {
     // create lists of fluids and results of the same size
     List<ItemStack> inputs;
+    List<MaterialVariantId> inputMaterials;
     if (composite) {
       inputs = new ArrayList<>();
+      inputMaterials = new ArrayList<>();
     } else {
       inputs = List.of(tool.tool.createStack());
+      inputMaterials = List.of();
     }
     List<ItemStack> results = new ArrayList<>();
     List<FluidStack> fluids = new ArrayList<>();
+    List<MaterialVariantId> resultMaterials = new ArrayList<>();
     for (FluidRecipe recipe : fluidRecipes) {
       List<FluidStack> newFluids = recipe.fluids();
       fluids.addAll(newFluids);
       ToolStack copy = tool.tool.copy();
       // add inputs if requested
       if (composite) {
+        inputMaterials.add(recipe.input.getVariant());
         copy.replaceMaterial(tool.index, recipe.input);
         // copy to unlink from the tool instance
         ItemStack input = copy.createStack().copy();
@@ -302,18 +309,22 @@ public class PartSwapCastingRecipe extends AbstractMaterialCastingRecipe impleme
         }
       }
       // add result tool regardless
+      resultMaterials.add(recipe.output.getVariant());
       copy.replaceMaterial(tool.index, recipe.output);
       ItemStack result = copy.createStack();
       for (int i = 0; i < newFluids.size(); i++) {
         results.add(result);
       }
     }
-    return DisplayCastingRecipe.from(this)
-      .casts(inputs).consumed()
-      .results(List.copyOf(results))
-      .fluids(List.copyOf(fluids))
-      .coolingTime(maxCoolingTime).materialCasting(composite)
-      .build();
+    // make lists immutable
+    fluids = List.copyOf(fluids);
+    results = List.copyOf(results);
+    resultMaterials = List.copyOf(resultMaterials);
+    if (composite) {
+      return new CompositeDisplayRecipe(List.copyOf(inputs), fluids, results, maxCoolingTime, tool.index, resultMaterials, List.copyOf(inputMaterials));
+    } else {
+      return new CastingDisplayRecipe(inputs, fluids, results, maxCoolingTime, tool.index, resultMaterials);
+    }
   }
 
   @Override
@@ -343,5 +354,170 @@ public class PartSwapCastingRecipe extends AbstractMaterialCastingRecipe impleme
     return multiRecipes;
   }
 
-  // TODO: can use custom display recipe so we show the materials of your tool on the input/output
+  /** Common logic for both {@link CastingDisplayRecipe} and {@link CompositeDisplayRecipe} */
+  @Getter
+  @RequiredArgsConstructor
+  private static abstract class DisplayRecipe implements IDisplayableCastingRecipe {
+    protected final List<ItemStack> castItems;
+    protected final List<FluidStack> fluids;
+    protected final List<ItemStack> outputs;
+    protected final int coolingTime;
+    protected final int fluidIndex;
+    /** List of materials on the output produced by this recipe. Used to generate new output display lists. */
+    protected final List<MaterialVariantId> resultMaterials;
+
+    @Override
+    public boolean hasCast() {
+      return !castItems.isEmpty();
+    }
+
+    @Override
+    public boolean isConsumed() {
+      return true;
+    }
+
+    @Override
+    public boolean isCoolingTimeDynamic() {
+      return true;
+    }
+
+    @Override
+    public int getCoolingTime(FluidStack fluid) {
+      return MaterialCastingLookup.getCoolingTime(fluid, coolingTime);
+    }
+
+    @Override
+    public boolean linkFluidsToOutput() {
+      return true;
+    }
+
+
+    /* Dynamic focus */
+
+    /** Gets a stream of indices filtered to only include the material. Called when the material is an output focus. */
+    protected IntStream indicesFromOutput(MaterialVariantId material) {
+      return IntStream.range(0, resultMaterials.size()).filter(i -> material.matchesVariant(resultMaterials.get(i)));
+    }
+
+    /** Gets a stream of indices filtered for the given material as the input. */
+    protected abstract IntStream indicesFromInput(MaterialVariantId material);
+
+    /** Gets the list of fluids to display for the given material on the focused tool. */
+    protected abstract List<ItemStack> getCastItems(ItemStack focus, MaterialIdNBT materials, MaterialVariantId material, boolean focusOutput);
+
+    @Override
+    public List<ItemStack> getCastItems(ItemStack focus, boolean focusOutput) {
+      if (!focus.isEmpty()) {
+        MaterialIdNBT materials = MaterialIdNBT.from(focus);
+        return getCastItems(focus, materials, materials.getMaterial(fluidIndex), focusOutput);
+      }
+      return castItems;
+    }
+
+    @Override
+    public List<FluidStack> getFluids(ItemStack focus, boolean focusOutput) {
+      if (!focus.isEmpty()) {
+        // let the recipe filter the focus, but if it ends up with nothing use the full list
+        MaterialVariantId material = MaterialIdNBT.from(focus).getMaterial(fluidIndex);
+        List<FluidStack> filtered = (focusOutput ? indicesFromOutput(material) : indicesFromInput(material)).mapToObj(fluids::get).toList();
+        if (!filtered.isEmpty()) return filtered;
+      }
+      return fluids;
+    }
+
+    @Override
+    public List<ItemStack> getOutputs(ItemStack focus, boolean focusOutput) {
+      if (!focus.isEmpty()) {
+        MaterialIdNBT materials = MaterialIdNBT.from(focus);
+        MaterialVariantId material = materials.getMaterial(fluidIndex);
+        // if we cannot use the tool as a focus, just display most of its materials with all valid inputs
+        List<MaterialVariantId> results = this.resultMaterials;
+        if (focusOutput) {
+          // on output, just set the display to a copy of the focus materials; want to keep it simple by discarding anything that won't appear on a newly crafted tool
+          // do this for every material in the list, which may include variants
+          // on the chance its empty, just show all recipes here copying over most materials. The other methods should similarly resolve to no change.
+          List<MaterialVariantId> matching = results.stream().filter(material::matchesVariant).toList();
+          if (!matching.isEmpty()) {
+            results = matching;
+          }
+        } else {
+          // if the focus is an input, try creating outputs from it, copying over most data
+          ToolStack tool = ToolStack.copyFrom(focus);
+          List<ItemStack> outputs = indicesFromInput(material).mapToObj(i -> {
+            // safe to mutate as long as we copy for the return; we are not using parallel streams
+            tool.replaceMaterial(fluidIndex, resultMaterials.get(i));
+            return tool.createStack().copy();
+          }).toList();
+          if (!outputs.isEmpty()) return outputs;
+        }
+        return results.stream().map(result -> materials.replaceMaterial(fluidIndex, result).updateStack(new ItemStack(focus.getItem()))).toList();
+      }
+      return outputs;
+    }
+
+    /** @deprecated use {@link #getOutputs()} */
+    @Deprecated
+    @Override
+    public ItemStack getOutput() {
+      return outputs.get(0);
+    }
+  }
+
+  /** Display recipe for material casting to dynamically update focuses. */
+  private static class CastingDisplayRecipe extends DisplayRecipe {
+    public CastingDisplayRecipe(List<ItemStack> castItems, List<FluidStack> fluids, List<ItemStack> outputs, int coolingTime, int fluidIndex, List<MaterialVariantId> resultMaterials) {
+      super(castItems, fluids, outputs, coolingTime, fluidIndex, resultMaterials);
+    }
+
+    @Override
+    public boolean linkCastToOutput() {
+      return false;
+    }
+
+    @Override
+    protected IntStream indicesFromInput(MaterialVariantId material) {
+      // filter to ignore any recipes that end where we started
+      return IntStream.range(0, resultMaterials.size()).filter(i -> !material.sameVariant(resultMaterials.get(i)));
+    }
+
+    @Override
+    protected List<ItemStack> getCastItems(ItemStack focus, MaterialIdNBT materials, MaterialVariantId material, boolean focusOutput) {
+      // on input, the focus itself becomes our cast as long as we have at least 1 recipe that doesn't produce the material
+      if (!focusOutput && indicesFromInput(material).findAny().isPresent()) {
+        return List.of(focus);
+      }
+      // on output, or on input if all recipes produce the material, use a generic input with most materials copied over
+      return List.of(materials.replaceMaterial(fluidIndex, ToolBuildHandler.getRenderMaterial(0)).updateStack(new ItemStack(focus.getItem())));
+    }
+  }
+
+  /** Recipe displaying composite tool swapping. Handles input materials in composite recipes. */
+  private static class CompositeDisplayRecipe extends DisplayRecipe {
+    private final List<MaterialVariantId> inputMaterials;
+
+    public CompositeDisplayRecipe(List<ItemStack> castItems, List<FluidStack> fluids, List<ItemStack> outputs, int coolingTime, int fluidIndex, List<MaterialVariantId> resultMaterials, List<MaterialVariantId> inputMaterials) {
+      super(castItems, fluids, outputs, coolingTime, fluidIndex, resultMaterials);
+      this.inputMaterials = inputMaterials;
+    }
+
+    @Override
+    protected IntStream indicesFromInput(MaterialVariantId material) {
+      // filter to show any recipes starting from this material
+      return IntStream.range(0, inputMaterials.size()).filter(index -> inputMaterials.get(index).matchesVariant(material));
+    }
+
+    @Override
+    protected List<ItemStack> getCastItems(ItemStack focus, MaterialIdNBT materials, MaterialVariantId material, boolean focusOutput) {
+      if (focusOutput) {
+        // on output, display any input materials that could composite to the output. If there are none use full list
+        List<ItemStack> results = indicesFromOutput(material).mapToObj(i -> materials.replaceMaterial(fluidIndex, inputMaterials.get(i)).updateStack(new ItemStack(focus.getItem()))).toList();
+        if (!results.isEmpty()) return results;
+      } else if (indicesFromInput(material).findAny().isPresent()) {
+        // on input, the focus itself becomes our cast as long as we have at least 1 recipe starting from our current material
+        return List.of(focus);
+      }
+      // if the focus material cannot be used, fall back to displaying all inputs with remaining materials copied from the input
+      return inputMaterials.stream().map(input -> materials.replaceMaterial(fluidIndex, input).updateStack(new ItemStack(focus.getItem()))).toList();
+    }
+  }
 }
