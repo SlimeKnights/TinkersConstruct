@@ -4,23 +4,21 @@ import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
+import mezz.jei.api.gui.builder.ITooltipBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated.StartDirection;
 import mezz.jei.api.gui.ingredient.IRecipeSlotDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
-import mezz.jei.api.gui.placement.HorizontalAlignment;
+import mezz.jei.api.gui.widgets.IDrawableWidget;
 import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
-import mezz.jei.api.gui.widgets.IRecipeWidget;
+import mezz.jei.api.gui.widgets.IRecipeWidgetTooltipCallback;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocus;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.AbstractRecipeCategory;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.navigation.ScreenPosition;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -35,13 +33,12 @@ import slimeknights.tconstruct.plugin.jei.util.FluidTooltipCallback;
 import slimeknights.tconstruct.plugin.jei.util.RecipeSlotWrapper;
 
 import javax.annotation.Nullable;
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
 /** Shared base logic for the two casting recipe types */
 public abstract class AbstractCastingCategory extends AbstractRecipeCategory<IDisplayableCastingRecipe> {
-  private static final String KEY_COOLING_TIME = TConstruct.makeTranslationKey("jei", "time");
+  private static final String KEY_COOLING_TIME = TConstruct.makeTranslationKey("jei", "casting.time");
   private static final Component CAST_KEPT = TConstruct.makeTranslation("jei", "casting.cast_kept");
   private static final Component CAST_CONSUMED = TConstruct.makeTranslation("jei", "casting.cast_consumed");
   protected static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/casting.png");
@@ -73,26 +70,24 @@ public abstract class AbstractCastingCategory extends AbstractRecipeCategory<IDi
     int coolingTime = recipe.getCoolingTime();
     IDrawable arrow = guiHelper.drawableBuilder(BACKGROUND_LOC, 117, 32, 24, 17)
                                   .buildAnimated(Math.max(5, coolingTime), StartDirection.LEFT, false);
-    builder.addDrawableWidget(arrow).setPosition(58, 18);
+    IDrawableWidget arrowWidget = builder.addDrawableWidget(arrow).setPosition(58, 18);
+    arrowTooltip:
+    {
+      if (recipe.isCoolingTimeDynamic()) {
+        IRecipeSlotDrawable fluid = CategoryUtil.findSlot(builder.getRecipeSlots().getSlots(), FLUID_SLOT);
+        if (fluid != null) {
+          arrowWidget.setTooltip(new CoolingArrowTooltip(recipe, fluid));
+          break arrowTooltip;
+        }
+      }
+      arrowWidget.setTooltip(Component.translatable(KEY_COOLING_TIME, coolingTime / 20));
+    }
     if (recipe.hasCast()) {
       boolean consumed = recipe.isConsumed();
       builder.addDrawableWidget(consumed ? castConsumed : castKept)
         .setPosition(63, 39)
         .setTooltip(consumed ? CAST_CONSUMED : CAST_KEPT);
     }
-    // if cooling time is dynamic, add its dynamic widget
-    if (recipe.isCoolingTimeDynamic()) {
-      IRecipeSlotDrawable fluid = CategoryUtil.findSlot(builder.getRecipeSlots().getSlots(), FLUID_SLOT);
-      if (fluid != null) {
-        builder.addWidget(new CoolingTimeWidget(new ScreenPosition(28, 2), 89, fluid, recipe, Minecraft.getInstance().font));
-        return;
-      }
-    }
-    // if not dynamic or we could not find the slot, use the static display
-    builder.addText(Component.translatable(KEY_COOLING_TIME, coolingTime / 20), 89, 9)
-      .setPosition(28, 2)
-      .setColor(Color.GRAY.getRGB())
-      .setTextAlignment(HorizontalAlignment.CENTER);
   }
 
   @Override
@@ -196,16 +191,12 @@ public abstract class AbstractCastingCategory extends AbstractRecipeCategory<IDi
     return recipe.getRecipeId();
   }
 
-  /** Widget for drawing the dynamic cooling time. */
-  private record CoolingTimeWidget(ScreenPosition getPosition, int width, IRecipeSlotDrawable fluidSlot, IDisplayableCastingRecipe recipe, Font font) implements IRecipeWidget {
+  /** Handles the tooltip for the arrow */
+  private record CoolingArrowTooltip(IDisplayableCastingRecipe recipe, IRecipeSlotDrawable fluidSlot) implements IRecipeWidgetTooltipCallback {
     @Override
-    public void drawWidget(GuiGraphics graphics, double mouseX, double mouseY) {
-      // animate the time based on the fluid
+    public void onTooltip(ITooltipBuilder tooltip) {
       FluidStack fluid = fluidSlot.getDisplayedIngredient(ForgeTypes.FLUID_STACK).orElse(FluidStack.EMPTY);
-      Component coolingTime = Component.translatable(KEY_COOLING_TIME, recipe.getCoolingTime(fluid) / 20);
-      // center the string horizontally
-      int x = (width - font.width(coolingTime)) / 2;
-      graphics.drawString(font, coolingTime, x, 0, Color.GRAY.getRGB(), false);
+      tooltip.add(Component.translatable(KEY_COOLING_TIME, recipe.getCoolingTime(fluid) / 20));
     }
   }
 }
