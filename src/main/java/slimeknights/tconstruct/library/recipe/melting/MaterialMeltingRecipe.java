@@ -17,7 +17,6 @@ import slimeknights.mantle.recipe.helper.FluidOutput;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.recipe.casting.material.MaterialCastingLookup;
-import slimeknights.tconstruct.library.recipe.ingredient.MaterialIngredient;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import java.util.Collections;
@@ -27,7 +26,7 @@ import java.util.stream.Collectors;
 /**
  * Recipe to melt all castable tool parts of a given material
  */
-public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<MeltingRecipe> {
+public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<IDisplayableMeltingRecipe> {
   public static final RecordLoadable<MaterialMeltingRecipe> LOADER = RecordLoadable.create(
     ContextKey.ID.requiredField(),
     MaterialVariantId.LOADABLE.requiredField("input", r -> r.input.getVariant()),
@@ -103,10 +102,10 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<Melti
 
 
   /* JEI display */
-  private List<MeltingRecipe> multiRecipes = null;
+  private List<IDisplayableMeltingRecipe> multiRecipes = null;
 
   @Override
-  public List<MeltingRecipe> getRecipes(RegistryAccess access) {
+  public List<IDisplayableMeltingRecipe> getRecipes(RegistryAccess access) {
     if (multiRecipes == null) {
       if (input.get().isHidden()) {
         multiRecipes = Collections.emptyList();
@@ -128,8 +127,10 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<Melti
                 byproducts = byproducts.stream().map(fluid -> FluidOutput.fromStack(new FluidStack(fluid.get(), fluid.getAmount() * cost))).toList();
               }
             }
-            return new MeltingRecipe(id, "", MaterialIngredient.of(entry.getKey(), inputId), output, temperature,
-                                     IMeltingRecipe.calcTimeForAmount(temperature, output.getAmount()), byproducts, false);
+            return DisplayMeltingRecipe.id(id)
+              .input(entry.getKey().withMaterial(inputId))
+              .output(output).byproducts(byproducts)
+              .temperature(temperature).build();
           }).collect(Collectors.toList());
       }
     }

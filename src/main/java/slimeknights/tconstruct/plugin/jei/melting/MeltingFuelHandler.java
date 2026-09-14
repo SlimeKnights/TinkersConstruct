@@ -26,7 +26,8 @@ public class MeltingFuelHandler {
     new ItemStack(Items.COAL), new ItemStack(Items.CHARCOAL), new ItemStack(Blocks.OAK_LOG), new ItemStack(Blocks.OAK_PLANKS), new ItemStack(Items.BLAZE_ROD)));
 
   /**
-   * Updates the melting cache, called on JEI load
+   * Updates the melting cache, called on JEI load.
+   * TODO 1.21: fix method name.
    * @param fuels  List of fuel recipes
    */
   public static void setMeltngFuels(List<MeltingFuel> fuels) {

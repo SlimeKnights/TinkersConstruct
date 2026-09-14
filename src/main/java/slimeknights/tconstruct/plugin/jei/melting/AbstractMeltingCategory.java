@@ -20,14 +20,14 @@ import slimeknights.mantle.fluid.tooltip.FluidTooltipHandler;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuelLookup;
-import slimeknights.tconstruct.library.recipe.melting.MeltingRecipe;
+import slimeknights.tconstruct.library.recipe.melting.IDisplayableMeltingRecipe;
 import slimeknights.tconstruct.plugin.jei.util.FluidTooltipCallback;
 
 import java.awt.Color;
 import java.util.List;
 
 /** Shared logic between melting and foundry */
-public abstract class AbstractMeltingCategory extends AbstractRecipeCategory<MeltingRecipe> {
+public abstract class AbstractMeltingCategory extends AbstractRecipeCategory<IDisplayableMeltingRecipe> {
   protected static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/melting.png");
   protected static final String KEY_COOLING_TIME = TConstruct.makeTranslationKey("jei", "melting.time");
   protected static final String KEY_TEMPERATURE = TConstruct.makeTranslationKey("jei", "temperature");
@@ -47,7 +47,7 @@ public abstract class AbstractMeltingCategory extends AbstractRecipeCategory<Mel
   protected final IDrawableStatic tankOverlay;
   protected final IDrawableStatic plus;
 
-  public AbstractMeltingCategory(IGuiHelper helper, RecipeType<MeltingRecipe> recipeType, Component title, IDrawable icon) {
+  public AbstractMeltingCategory(IGuiHelper helper, RecipeType<IDisplayableMeltingRecipe> recipeType, Component title, IDrawable icon) {
     super(recipeType, title, icon, 132, 40);
     this.background = helper.createDrawable(BACKGROUND_LOC, 0, 0, 132, 40);
     this.tankOverlay = helper.createDrawable(BACKGROUND_LOC, 132, 0, 32, 32);
@@ -57,7 +57,7 @@ public abstract class AbstractMeltingCategory extends AbstractRecipeCategory<Mel
   }
 
   @Override
-  public void createRecipeExtras(IRecipeExtrasBuilder builder, MeltingRecipe recipe, IFocusGroup focuses) {
+  public void createRecipeExtras(IRecipeExtrasBuilder builder, IDisplayableMeltingRecipe recipe, IFocusGroup focuses) {
     // includes both the static arrow background and animated foreground
     builder.addAnimatedRecipeArrowWidget(recipe.getTime() * 5)
       .setPosition(56, 18)
@@ -72,7 +72,7 @@ public abstract class AbstractMeltingCategory extends AbstractRecipeCategory<Mel
   }
 
   @Override
-  public void draw(MeltingRecipe recipe, IRecipeSlotsView slots, GuiGraphics graphics, double mouseX, double mouseY) {
+  public void draw(IDisplayableMeltingRecipe recipe, IRecipeSlotsView slots, GuiGraphics graphics, double mouseX, double mouseY) {
     background.draw(graphics);
   }
 
@@ -101,7 +101,7 @@ public abstract class AbstractMeltingCategory extends AbstractRecipeCategory<Mel
   }
 
   @Override
-  public ResourceLocation getRegistryName(MeltingRecipe recipe) {
-    return recipe.getId();
+  public ResourceLocation getRegistryName(IDisplayableMeltingRecipe recipe) {
+    return recipe.getRecipeId();
   }
 }

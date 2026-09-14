@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.drawable.IDrawableStatic;
 import mezz.jei.api.gui.ingredient.IRecipeSlotRichTooltipCallback;
 import mezz.jei.api.helpers.IGuiHelper;
@@ -12,6 +13,7 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.fluid.tooltip.FluidTooltipHandler;
@@ -20,8 +22,8 @@ import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuelLookup;
+import slimeknights.tconstruct.library.recipe.melting.IDisplayableMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingContainer.OreRateType;
-import slimeknights.tconstruct.library.recipe.melting.MeltingRecipe;
 import slimeknights.tconstruct.plugin.jei.TConstructJEIConstants;
 import slimeknights.tconstruct.plugin.jei.util.FluidTooltipCallback;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -59,9 +61,10 @@ public class MeltingCategory extends AbstractMeltingCategory {
   }
 
   @Override
-  public void setRecipe(IRecipeLayoutBuilder builder, MeltingRecipe recipe, IFocusGroup focuses) {
+  public void setRecipe(IRecipeLayoutBuilder builder, IDisplayableMeltingRecipe recipe, IFocusGroup focuses) {
     // input
-    builder.addInputSlot(24, 18).addIngredients(recipe.getInput());
+    List<ItemStack> inputs = recipe.getInputs();
+    IRecipeSlotBuilder inputSlot = builder.addInputSlot(24, 18).addItemStacks(inputs);
 
     // output
     OreRateType oreType = recipe.getOreType();
@@ -73,11 +76,16 @@ public class MeltingCategory extends AbstractMeltingCategory {
     } else {
       tooltip = MeltingFluidCallback.INSTANCE;
     }
-    builder.addOutputSlot(96, 4)
+    List<FluidStack> outputs = recipe.getOutputs();
+    IRecipeSlotBuilder outputSlot = builder.addOutputSlot(96, 4)
       .addRichTooltipCallback(tooltip)
       .setFluidRenderer(FluidValues.METAL_BLOCK, false, 32, 32)
       .setOverlay(tankOverlay, 0, 0)
-      .addIngredient(ForgeTypes.FLUID_STACK, recipe.getOutput());
+      .addIngredients(ForgeTypes.FLUID_STACK, outputs);
+    // apply focus link if the sizes match
+    if (outputs.size() > 1 && outputs.size() == inputs.size()) {
+      builder.createFocusLink(outputSlot, inputSlot);
+    }
 
     // show fuels that are valid for this recipe
     int fuelHeight = 32;

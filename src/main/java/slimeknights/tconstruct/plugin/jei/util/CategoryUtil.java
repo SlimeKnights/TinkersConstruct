@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.ingredient.IRecipeSlotDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotRichTooltipCallback;
 import mezz.jei.api.recipe.IFocus;
@@ -15,11 +16,17 @@ import net.minecraftforge.fluids.FluidStack;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 /** Helpers for setting up JEI recipe categories. */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class CategoryUtil {
+  /** Same as {@link #drawMultipleFluids(IRecipeLayoutBuilder, Function, int, int, int, int, List, int, Function, Function, Consumer)} but with an empty consumer. */
+  public static <T> int drawMultipleFluids(IRecipeLayoutBuilder builder, Function<T,RecipeIngredientRole> role, int x, int y, int totalWidth, int height, List<T> fluids, int minAmount, Function<T,List<FluidStack>> mapper, Function<T,IRecipeSlotRichTooltipCallback> tooltip) {
+    return drawMultipleFluids(builder, role, x, y, totalWidth, height, fluids, minAmount, mapper, tooltip, slot -> {});
+  }
+
   /**
    * Draws a variable number of fluids.
    * @param builder      Builder
@@ -32,10 +39,11 @@ public final class CategoryUtil {
    * @param minAmount    Minimum tank size
    * @param mapper       Logic to get a fluid list from the object
    * @param tooltip      Tooltip callback
+   * @param slotConsumer Function called for each slot, useful for focus links.
    * @param <T> Object type
    * @return Max amount based on fluids
    */
-  public static <T> int drawMultipleFluids(IRecipeLayoutBuilder builder, Function<T,RecipeIngredientRole> role, int x, int y, int totalWidth, int height, List<T> fluids, int minAmount, Function<T,List<FluidStack>> mapper, Function<T,IRecipeSlotRichTooltipCallback> tooltip) {
+  public static <T> int drawMultipleFluids(IRecipeLayoutBuilder builder, Function<T,RecipeIngredientRole> role, int x, int y, int totalWidth, int height, List<T> fluids, int minAmount, Function<T,List<FluidStack>> mapper, Function<T,IRecipeSlotRichTooltipCallback> tooltip, Consumer<IRecipeSlotBuilder> slotConsumer) {
     int count = fluids.size();
     int maxAmount = minAmount;
     if (count > 0) {
@@ -53,18 +61,18 @@ public final class CategoryUtil {
       for (int i = 0; i < last; i++) {
         int fluidX = x + i * width;
         T ingredient = fluids.get(i);
-        builder.addSlot(role.apply(ingredient), fluidX, y)
-               .addRichTooltipCallback(tooltip.apply(ingredient))
-               .setFluidRenderer(maxAmount, false, width, height)
-               .addIngredients(ForgeTypes.FLUID_STACK, mapper.apply(ingredient));
+        slotConsumer.accept(builder.addSlot(role.apply(ingredient), fluidX, y)
+          .addRichTooltipCallback(tooltip.apply(ingredient))
+          .setFluidRenderer(maxAmount, false, width, height)
+          .addIngredients(ForgeTypes.FLUID_STACK, mapper.apply(ingredient)));
       }
       // for the last, the width is the full remaining width
       int fluidX = x + last * width;
       T ingredient = fluids.get(last);
-      builder.addSlot(role.apply(ingredient), fluidX, y)
-             .addRichTooltipCallback(tooltip.apply(ingredient))
-             .setFluidRenderer(maxAmount, false, totalWidth - (width * last), height)
-             .addIngredients(ForgeTypes.FLUID_STACK, mapper.apply(ingredient));
+      slotConsumer.accept(builder.addSlot(role.apply(ingredient), fluidX, y)
+        .addRichTooltipCallback(tooltip.apply(ingredient))
+        .setFluidRenderer(maxAmount, false, totalWidth - (width * last), height)
+        .addIngredients(ForgeTypes.FLUID_STACK, mapper.apply(ingredient)));
     }
     return maxAmount;
   }
