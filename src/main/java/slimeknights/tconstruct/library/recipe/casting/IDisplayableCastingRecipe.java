@@ -50,7 +50,7 @@ public interface IDisplayableCastingRecipe {
 
   /* Cooling time */
 
-  /** If true, the cooling time is animated and will be computed using {@link #getCoolingTime(FluidStack)}. If false, it is static and {@link #getCastItems()} is used. */
+  /** If true, the cooling time is animated and will be computed using {@link #getCoolingTime(FluidStack)}. If false, it is static and {@link #getCoolingTime()} is used. */
   default boolean isCoolingTimeDynamic() {
     return false;
   }

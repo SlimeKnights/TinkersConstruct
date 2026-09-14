@@ -10,6 +10,7 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.gui.placement.HorizontalAlignment;
 import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
+import mezz.jei.api.gui.widgets.IRecipeWidget;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocus;
 import mezz.jei.api.recipe.IFocusGroup;
@@ -19,6 +20,7 @@ import mezz.jei.api.recipe.category.AbstractRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.navigation.ScreenPosition;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -54,7 +56,6 @@ public abstract class AbstractCastingCategory extends AbstractRecipeCategory<IDi
   private final IDrawable castKept;
   private final IDrawable block;
   private final IGuiHelper guiHelper;
-  private final Font font;
 
   protected AbstractCastingCategory(IGuiHelper guiHelper, RecipeType<IDisplayableCastingRecipe> recipeType, Component title, Block icon, IDrawable block) {
     super(recipeType, title, guiHelper.createDrawableItemLike(icon), 117, 54);
@@ -64,7 +65,6 @@ public abstract class AbstractCastingCategory extends AbstractRecipeCategory<IDi
     this.castKept = guiHelper.createDrawable(BACKGROUND_LOC, 141, 43, 13, 11);
     this.block = block;
     this.guiHelper = guiHelper;
-    this.font = Minecraft.getInstance().font;
   }
 
   @Override
@@ -80,28 +80,24 @@ public abstract class AbstractCastingCategory extends AbstractRecipeCategory<IDi
         .setPosition(63, 39)
         .setTooltip(consumed ? CAST_CONSUMED : CAST_KEPT);
     }
-    if (!recipe.isCoolingTimeDynamic()) {
-      builder.addText(Component.translatable(KEY_COOLING_TIME, coolingTime / 20), 89, 9)
-        .setPosition(28, 2)
-        .setColor(Color.GRAY.getRGB())
-        .setTextAlignment(HorizontalAlignment.CENTER);
+    // if cooling time is dynamic, add its dynamic widget
+    if (recipe.isCoolingTimeDynamic()) {
+      IRecipeSlotDrawable fluid = CategoryUtil.findSlot(builder.getRecipeSlots().getSlots(), FLUID_SLOT);
+      if (fluid != null) {
+        builder.addWidget(new CoolingTimeWidget(new ScreenPosition(28, 2), 89, fluid, recipe, Minecraft.getInstance().font));
+        return;
+      }
     }
+    // if not dynamic or we could not find the slot, use the static display
+    builder.addText(Component.translatable(KEY_COOLING_TIME, coolingTime / 20), 89, 9)
+      .setPosition(28, 2)
+      .setColor(Color.GRAY.getRGB())
+      .setTextAlignment(HorizontalAlignment.CENTER);
   }
 
   @Override
   public void draw(IDisplayableCastingRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics graphics, double mouseX, double mouseY) {
     background.draw(graphics);
-
-    // animate cooling time based on the displayed fluid
-    if (recipe.isCoolingTimeDynamic()) {
-      // animate the time based on the fluid
-      FluidStack fluid = recipeSlotsView.findSlotByName(FLUID_SLOT)
-        .flatMap(slot -> slot.getDisplayedIngredient(ForgeTypes.FLUID_STACK))
-        .orElse(FluidStack.EMPTY);
-      Component coolingTime = Component.translatable(KEY_COOLING_TIME, recipe.getCoolingTime(fluid) / 20);
-      int x = 72 - font.width(coolingTime) / 2;
-      graphics.drawString(font, coolingTime, x, 2, Color.GRAY.getRGB(), false);
-    }
   }
 
   @Override
@@ -198,5 +194,18 @@ public abstract class AbstractCastingCategory extends AbstractRecipeCategory<IDi
   @Override
   public ResourceLocation getRegistryName(IDisplayableCastingRecipe recipe) {
     return recipe.getRecipeId();
+  }
+
+  /** Widget for drawing the dynamic cooling time. */
+  private record CoolingTimeWidget(ScreenPosition getPosition, int width, IRecipeSlotDrawable fluidSlot, IDisplayableCastingRecipe recipe, Font font) implements IRecipeWidget {
+    @Override
+    public void drawWidget(GuiGraphics graphics, double mouseX, double mouseY) {
+      // animate the time based on the fluid
+      FluidStack fluid = fluidSlot.getDisplayedIngredient(ForgeTypes.FLUID_STACK).orElse(FluidStack.EMPTY);
+      Component coolingTime = Component.translatable(KEY_COOLING_TIME, recipe.getCoolingTime(fluid) / 20);
+      // center the string horizontally
+      int x = (width - font.width(coolingTime)) / 2;
+      graphics.drawString(font, coolingTime, x, 0, Color.GRAY.getRGB(), false);
+    }
   }
 }
