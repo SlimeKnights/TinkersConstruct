@@ -168,6 +168,9 @@ public final class DisplayCastingRecipe implements IDisplayableCastingRecipe {
 
     /** Builds the final recipe */
     public IDisplayableCastingRecipe build() {
+      if (casts.isEmpty()) throw new IllegalStateException("Casts cannot be empty");
+      if (fluids.isEmpty()) throw new IllegalStateException("Fluids cannot be empty");
+      if (results.isEmpty()) throw new IllegalStateException("Results cannot be empty");
       return new DisplayCastingRecipe(id, type, casts, fluids, results, coolingTime, consumed, linkCastToOutput, linkFluidsToOutput, materialCoolingTime && fluids.size() > 1);
     }
   }
