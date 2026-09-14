@@ -39,6 +39,17 @@ public interface IDisplayTinkerStationRecipe {
    */
   List<ItemStack> getDisplayItems(int slot);
 
+  /**
+   * Gets an ingredients to display in JEI.
+   * @param  slot        Slot index to display
+   * @param  focus       Current focus
+   * @param focusOutput  If true, the focus is from an output. If false, its from an input or tool.
+   * @return  Display item list, or {@link List#of()} if an invalid index.
+   */
+  default List<ItemStack> getDisplayItems(int slot, ItemStack focus, boolean focusOutput) {
+    return getDisplayItems(slot);
+  }
+
   /** Gets the result tool before applying this recipe. */
   List<ItemStack> getToolWithoutModifier();
 
