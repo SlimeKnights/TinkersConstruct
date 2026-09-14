@@ -42,6 +42,19 @@ public interface IDisplayableMeltingRecipe {
   /** Gets the minimum temperature needed to perform this recipe. */
   int getTemperature();
 
+
+  /* Cooling time */
+
   /** Gets the time it takes to melt this recipe. */
   int getTime();
+
+  /** If true, the cooling time is animated and will be computed using {@link #getTime(FluidStack)}. */
+  default boolean isTimeDynamic() {
+    return false;
+  }
+
+  /** Gets the melting time for the given fluid. */
+  default int getTime(FluidStack fluid) {
+    return getTime();
+  }
 }

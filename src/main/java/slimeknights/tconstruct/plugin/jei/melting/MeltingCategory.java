@@ -81,7 +81,8 @@ public class MeltingCategory extends AbstractMeltingCategory {
       .addRichTooltipCallback(tooltip)
       .setFluidRenderer(FluidValues.METAL_BLOCK, false, 32, 32)
       .setOverlay(tankOverlay, 0, 0)
-      .addIngredients(ForgeTypes.FLUID_STACK, outputs);
+      .addIngredients(ForgeTypes.FLUID_STACK, outputs)
+      .setSlotName(FLUID_SLOT);
     // apply focus link if the sizes match
     if (outputs.size() > 1 && outputs.size() == inputs.size()) {
       builder.createFocusLink(outputSlot, inputSlot);

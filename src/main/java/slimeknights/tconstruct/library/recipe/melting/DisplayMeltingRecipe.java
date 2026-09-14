@@ -30,6 +30,12 @@ public class DisplayMeltingRecipe implements IDisplayableMeltingRecipe {
   private final int time;
   @Nullable
   private final OreRateType oreType;
+  private final boolean timeDynamic;
+
+  @Override
+  public int getTime(FluidStack fluid) {
+    return IMeltingRecipe.calcTimeForAmount(temperature, fluid.getAmount());
+  }
 
 
   /* Builder */
@@ -52,6 +58,7 @@ public class DisplayMeltingRecipe implements IDisplayableMeltingRecipe {
     private int temperature = 0;
     private int time = 0;
     private OreRateType oreType = null;
+    private boolean timeDynamic = false;
 
     /** Sets the input to an ingredient. */
     public Builder input(Ingredient ingredient) {
@@ -112,6 +119,11 @@ public class DisplayMeltingRecipe implements IDisplayableMeltingRecipe {
       return byproduct(List.of(Config.COMMON.foundryByproductRate.applyOreBoost(oreType, byproduct, false)));
     }
 
+    /** Marks the time as dynamic */
+    public Builder timeDynamic() {
+      return timeDynamic(true);
+    }
+
     /** Builds the final display recipe */
     public IDisplayableMeltingRecipe build() {
       if (inputs.isEmpty()) throw new IllegalStateException("Casts cannot be empty");
@@ -129,7 +141,7 @@ public class DisplayMeltingRecipe implements IDisplayableMeltingRecipe {
       if (time == 0) {
         time = outputs.stream().mapToInt(fluid -> IMeltingRecipe.calcTimeForAmount(temperature, fluid.getAmount())).max().orElse(1);
       }
-      return new DisplayMeltingRecipe(id, inputs, outputs, outputsWithByproducts, temperature, time, oreType);
+      return new DisplayMeltingRecipe(id, inputs, outputs, outputsWithByproducts, temperature, time, oreType, timeDynamic);
     }
   }
 }

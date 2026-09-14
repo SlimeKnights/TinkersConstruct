@@ -38,6 +38,8 @@ public class FoundryCategory extends AbstractMeltingCategory {
     List<List<FluidStack>> fluids = recipe.getOutputWithByproducts();
     List<IRecipeSlotBuilder> slots = new ArrayList<>(fluids.size() + 1);
     CategoryUtil.drawMultipleFluids(builder, i -> RecipeIngredientRole.OUTPUT, 96, 4, 32, 32, recipe.getOutputWithByproducts(), FluidValues.METAL_BLOCK, Function.identity(), list -> MeltingFluidCallback.INSTANCE, slots::add);
+    // first one is the main output, should always be present
+    slots.get(0).setSlotName(FLUID_SLOT);
 
     // apply focus links to anything matching the first output size
     int size = fluids.get(0).size();
