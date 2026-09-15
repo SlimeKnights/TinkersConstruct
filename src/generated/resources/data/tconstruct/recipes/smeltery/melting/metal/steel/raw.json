@@ -7,6 +7,12 @@
       "tag": "forge:molten_iron"
     }
   ],
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "forge:raw_materials/steel"
+    }
+  ],
   "ingredient": {
     "tag": "forge:raw_materials/steel"
   },
