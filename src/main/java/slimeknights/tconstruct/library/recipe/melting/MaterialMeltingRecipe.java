@@ -122,7 +122,7 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<IDisp
           .toList();
         // if we found nothing, do nothing. Should never happen so error
         if (entries.isEmpty()) {
-          TConstruct.LOG.error("Failed to create display recipe for {}: found no tool parts that support {}", id, inputId);
+          TConstruct.LOG.warn("Failed to create display recipe for {}: found no tool parts that support {}", id, inputId);
           multiRecipes = List.of();
         } else {
           // start building the recipe
