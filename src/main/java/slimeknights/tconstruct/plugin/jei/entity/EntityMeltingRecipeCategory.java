@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.plugin.jei.entity;
 
+import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IIngredientAcceptor;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -17,6 +18,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.fluid.tooltip.FluidTooltipHandler;
 import slimeknights.mantle.plugin.jei.MantleJEIConstants;
@@ -77,7 +79,9 @@ public class EntityMeltingRecipeCategory extends AbstractRecipeCategory<EntityMe
                                              .setCustomRenderer(MantleJEIConstants.ENTITY_TYPE, entityRenderer)
                                              .addIngredients(MantleJEIConstants.ENTITY_TYPE, input.getDisplay());
     // add spawn eggs as hidden inputs
-    IIngredientAcceptor<?> eggs = builder.addInvisibleIngredients(RecipeIngredientRole.INPUT).addItemStacks(input.getEggs());
+    // currently JEI doesn't accept empty for a focus linked slot, so use null
+    List<ItemStack> eggStacks = input.getEggs().stream().map(stack -> stack.isEmpty() ? null : stack).toList();
+    IIngredientAcceptor<?> eggs = builder.addInvisibleIngredients(RecipeIngredientRole.INPUT).addIngredients(VanillaTypes.ITEM_STACK, eggStacks);
     builder.createFocusLink(entities, eggs);
 
     // output
