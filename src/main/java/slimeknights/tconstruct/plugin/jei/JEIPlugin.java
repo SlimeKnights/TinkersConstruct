@@ -6,6 +6,7 @@ import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.forge.ForgeTypes;
+import mezz.jei.api.gui.builder.IIngredientAcceptor;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.helpers.IModIdHelper;
 import mezz.jei.api.ingredients.subtypes.IIngredientSubtypeInterpreter;
@@ -267,6 +268,21 @@ public class JEIPlugin implements IModPlugin {
     ).map(ItemLike::asItem).toList()));
   }
 
+  /** Adds a table as a catalys */
+  private static void addTableCatalyst(IRecipeCatalystRegistration registry, ItemLike table, TagKey<Item> tag, boolean addDefault, mezz.jei.api.recipe.RecipeType<?>... types) {
+    List<ItemStack> list = new ArrayList<>();
+    // add default variant
+    if (addDefault) list.add(new ItemStack(table));
+    RetexturedHelper.addTagVariants(stack -> {
+      list.add(stack);
+      return false;
+    }, table, tag);
+    Consumer<IIngredientAcceptor<?>> ingredientAdder = acceptor -> acceptor.addItemStacks(list);
+    for (mezz.jei.api.recipe.RecipeType<?> type : types) {
+      registry.addRecipeCatalyst(type, ingredientAdder);
+    }
+  }
+
   /**
    * Adds an item as a casting catalyst, and as a molding catalyst if it has molding recipes
    * @param registry     Catalyst registry
@@ -292,25 +308,25 @@ public class JEIPlugin implements IModPlugin {
   @Override
   public void registerRecipeCatalysts(IRecipeCatalystRegistration registry) {
     // tables
-    registry.addRecipeCatalyst(TinkerTables.craftingStation, RecipeTypes.CRAFTING);
-    registry.addRecipeCatalyst(TinkerTables.partBuilder, TConstructJEIConstants.PART_BUILDER);
-    registry.addRecipeCatalyst(TinkerTables.tinkerStation, TConstructJEIConstants.MODIFIERS, TConstructJEIConstants.TOOL_BUILDING, TConstructJEIConstants.TOOL_MODIFICATION);
-    registry.addRecipeCatalyst(TinkerTables.tinkersAnvil, TConstructJEIConstants.MODIFIERS, TConstructJEIConstants.TOOL_BUILDING, TConstructJEIConstants.TOOL_MODIFICATION);
-    registry.addRecipeCatalyst(TinkerTables.scorchedAnvil, TConstructJEIConstants.MODIFIERS, TConstructJEIConstants.TOOL_BUILDING, TConstructJEIConstants.TOOL_MODIFICATION);
-    registry.addRecipeCatalyst(TinkerTables.modifierWorktable, TConstructJEIConstants.MODIFIER_WORKTABLE);
+    addTableCatalyst(registry, TinkerTables.craftingStation, ItemTags.LOGS, true, RecipeTypes.CRAFTING);
+    addTableCatalyst(registry, TinkerTables.partBuilder, ItemTags.PLANKS, true, TConstructJEIConstants.PART_BUILDER);
+    addTableCatalyst(registry, TinkerTables.tinkerStation, ItemTags.PLANKS, true, TConstructJEIConstants.MODIFIERS, TConstructJEIConstants.TOOL_BUILDING, TConstructJEIConstants.TOOL_MODIFICATION);
+    addTableCatalyst(registry, TinkerTables.tinkersAnvil, TinkerTags.Items.ANVIL_METAL, false, TConstructJEIConstants.MODIFIERS, TConstructJEIConstants.TOOL_BUILDING, TConstructJEIConstants.TOOL_MODIFICATION);
+    addTableCatalyst(registry, TinkerTables.scorchedAnvil, TinkerTags.Items.ANVIL_METAL, false, TConstructJEIConstants.MODIFIERS, TConstructJEIConstants.TOOL_BUILDING, TConstructJEIConstants.TOOL_MODIFICATION);
+    addTableCatalyst(registry, TinkerTables.modifierWorktable, TinkerTags.Items.WORKSTATION_ROCK, true, TConstructJEIConstants.MODIFIER_WORKTABLE);
 
     // smeltery
     registry.addRecipeCatalyst(TinkerSmeltery.searedMelter, TConstructJEIConstants.MELTING);
     registry.addRecipeCatalyst(TinkerSmeltery.searedHeater, RecipeTypes.FUELING);
     addCastingCatalyst(registry, TinkerSmeltery.searedTable, TConstructJEIConstants.CASTING_TABLE, TinkerRecipeTypes.MOLDING_TABLE.get());
     addCastingCatalyst(registry, TinkerSmeltery.searedBasin, TConstructJEIConstants.CASTING_BASIN, TinkerRecipeTypes.MOLDING_BASIN.get());
-    registry.addRecipeCatalyst(TinkerSmeltery.smelteryController, TConstructJEIConstants.MELTING, TConstructJEIConstants.ALLOY, TConstructJEIConstants.ENTITY_MELTING);
+    addTableCatalyst(registry, TinkerSmeltery.smelteryController, TinkerTags.Items.SEARED_BLOCKS, false, TConstructJEIConstants.MELTING, TConstructJEIConstants.ALLOY, TConstructJEIConstants.ENTITY_MELTING);
 
     // foundry
     registry.addRecipeCatalyst(TinkerSmeltery.scorchedAlloyer, TConstructJEIConstants.ALLOY);
     addCastingCatalyst(registry, TinkerSmeltery.scorchedTable, TConstructJEIConstants.CASTING_TABLE, TinkerRecipeTypes.MOLDING_TABLE.get());
     addCastingCatalyst(registry, TinkerSmeltery.scorchedBasin, TConstructJEIConstants.CASTING_BASIN, TinkerRecipeTypes.MOLDING_BASIN.get());
-    registry.addRecipeCatalyst(TinkerSmeltery.foundryController, TConstructJEIConstants.FOUNDRY);
+    addTableCatalyst(registry, TinkerSmeltery.foundryController, TinkerTags.Items.SCORCHED_BLOCKS, false, TConstructJEIConstants.FOUNDRY);
 
     // modifiers
     addModifierCatalyst(registry, TinkerTags.Modifiers.CRAFTING, RecipeTypes.CRAFTING);
