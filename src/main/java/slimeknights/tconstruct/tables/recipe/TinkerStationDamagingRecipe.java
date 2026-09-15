@@ -130,6 +130,11 @@ public class TinkerStationDamagingRecipe implements ITinkerStationRecipe, IDispl
   }
 
   @Override
+  public int getMaxToolSize() {
+    return 1;
+  }
+
+  @Override
   public int getInputCount() {
     return 1;
   }
@@ -170,5 +175,17 @@ public class TinkerStationDamagingRecipe implements ITinkerStationRecipe, IDispl
         }).toList();
     }
     return toolWithModifier;
+  }
+
+  @Override
+  public boolean isTool(ItemStack check) {
+    return check.is(TinkerTags.Items.DURABILITY);
+  }
+
+  @Override
+  public RecipeResult<ItemStack> onFocused(ItemStack focus) {
+    ToolStack tool = ToolStack.copyFrom(focus);
+    ToolDamageUtil.directDamage(tool, damageAmount, null, focus);
+    return RecipeResult.success(tool.copyStack(focus));
   }
 }
