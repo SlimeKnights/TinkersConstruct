@@ -333,17 +333,16 @@ public abstract class MaterialSwappingRecipe implements ITinkerStationRecipe {
 
     @Override
     public List<ItemStack> getDisplayItems(int slot, ItemStack focus, boolean focusOutput) {
-      if (slot == index && !focus.isEmpty()) {
+      if (slot == index && !focus.isEmpty() && (focusOutput || isTool(focus))) {
+        MaterialVariantId material = MaterialIdNBT.from(focus).getMaterial(index);
         // if focusing on the output, display just the part that makes that output, assuming its usable
         if (focusOutput) {
-          MaterialVariantId material = MaterialIdNBT.from(focus).getMaterial(index);
           if (part.canUseMaterial(material.getId())) {
             return List.of(part.withMaterialForDisplay(material));
           }
-        } else if (isTool(focus)) {
+        } else  {
           // if focusing on the input, and focus is a tool, display all parts that are not the original material
           // if focus is a part, no work to do (focus link takes care of that)
-          MaterialVariantId material = MaterialIdNBT.from(focus).getMaterial(index);
           List<ItemStack> parts = IntStream.range(0, materials.size()).filter(i -> !materials.get(i).sameVariant(material)).mapToObj(input::get).toList();
           // if we have no parts, best we can do is just display the full list
           if (!parts.isEmpty()) return parts;
