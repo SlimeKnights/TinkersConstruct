@@ -133,12 +133,12 @@ public class MaterialValueSwappingRecipe extends MaterialIndexSwappingRecipe imp
 
     @Override
     public Component getTitle() {
-      return MaterialDisplayRecipe.TITLE;
+      return MATERIAL_TITLE;
     }
 
     @Override
     public Component getTooltip() {
-      return MaterialDisplayRecipe.TOOLTIP;
+      return MATERIAL_TOOLTIP;
     }
   }
 }

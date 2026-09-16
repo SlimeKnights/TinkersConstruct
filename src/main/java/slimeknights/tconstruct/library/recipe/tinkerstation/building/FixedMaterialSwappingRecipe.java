@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation.building;
 
+import lombok.Getter;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -28,8 +29,11 @@ import slimeknights.tconstruct.library.tools.definition.module.material.ToolMate
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
+import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tables.TinkerTables;
 
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.BitSet;
 import java.util.List;
@@ -156,9 +160,71 @@ public class FixedMaterialSwappingRecipe extends MaterialSwappingRecipe implemen
         // for each index, use first as the material on input, desired material on output
         List<ItemStack> withoutMaterial = Arrays.stream(tools).map(stack -> withMaterial(stack.copy(), i, MaterialVariant.of(ToolBuildHandler.getRenderMaterial(i)))).toList();
         List<ItemStack> withMaterial = Arrays.stream(tools).map(stack -> withMaterial(stack.copy(), i, material)).toList();
-        return new MaterialDisplayRecipe(variantText, i, inputs, withoutMaterial, withMaterial);
+        return new DisplayRecipe(variantText, i, inputs, withoutMaterial, withMaterial);
       }).toList();
     }
     return multiRecipes;
+  }
+
+  /** Overrides the title and variant for the display recipe */
+  protected class DisplayRecipe extends MaterialSwappingRecipe.DisplayRecipe {
+    @Nullable
+    @Getter
+    private final Component variant;
+    public DisplayRecipe(@Nullable Component variant, int index, List<ItemStack> input, List<ItemStack> toolWithoutModifier, List<ItemStack> toolWithModifier) {
+      super(index, input, toolWithoutModifier, toolWithModifier);
+      this.variant = variant;
+    }
+
+    @Override
+    public Component getTitle() {
+      return MATERIAL_TITLE;
+    }
+
+    @Override
+    public Component getTooltip() {
+      return MATERIAL_TOOLTIP;
+    }
+
+    @Override
+    public List<ItemStack> getToolWithoutModifier(ItemStack focus, boolean focusOutput) {
+      if (!focus.isEmpty() && (focusOutput || isTool(focus))) {
+        // if focusing on an input tool, it becomes our tool without modifier provided we can change it
+        MaterialIdNBT materials = MaterialIdNBT.from(focus);
+        if (!focusOutput && !materials.getMaterial(index).sameVariant(material)) {
+          return List.of(focus.copyWithCount(getMaxToolSize(focus)));
+        }
+        // otherwise, copy all materials to the input except the one we plan to swap
+        return List.of(createDisplayStack(materials.replaceMaterial(index, ToolBuildHandler.getRenderMaterial(0)), focus.getItem()));
+      }
+      return toolWithoutModifier;
+    }
+
+    @Override
+    public List<ItemStack> getToolWithModifier(ItemStack focus, boolean focusOutput) {
+      if (!focus.isEmpty() && (focusOutput || isTool(focus))) {
+        if (focusOutput) {
+          // for output focus, want to make the simplest output with the material
+          MaterialIdNBT materials = MaterialIdNBT.from(focus);
+          // skip duplicating if the material is already there
+          if (!materials.getMaterial(index).sameVariant(material)) {
+            materials = materials.replaceMaterial(index, material);
+          }
+          return List.of(createDisplayStack(materials, focus.getItem()));
+        } else {
+          // add the material to the input focus if its lacking
+          ToolStack tool = ToolStack.from(focus);
+          if (!tool.getMaterial(index).sameVariant(material)) {
+            tool = tool.copy();
+            tool.replaceMaterial(index, material);
+            return List.of(tool.updateStack(focus.copyWithCount(maxStackSize(tool)), true));
+          } else {
+            // if it already has the material, strip unique properties
+            return List.of(createDisplayStack(tool, tool.getMaterials()));
+          }
+        }
+      }
+      return toolWithModifier;
+    }
   }
 }

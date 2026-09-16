@@ -11,7 +11,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -288,7 +287,6 @@ public class ToolStack implements IToolStackView {
       throw new IllegalArgumentException("Wrong item in stack");
     }
     // set the raw tag to avoid going through verifyTagAfterLoad and rebuilding stats again
-    // TODO: is there any reason we copy NBT here? might be worth never copying
     if (copyNBT) {
       stack.tag = nbt.copy();
     } else {
@@ -308,7 +306,7 @@ public class ToolStack implements IToolStackView {
 
   /** Creates a stack a copy of the given stack with size no greater than the passed amount */
   public ItemStack copyStack(ItemStack stack, int size) {
-    return updateStack(ItemHandlerHelper.copyStackWithSize(stack, size), false);
+    return updateStack(stack.copyWithCount(size), false);
   }
 
   /**

@@ -40,7 +40,6 @@ import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 
-import javax.annotation.Nullable;
 import java.util.BitSet;
 import java.util.List;
 import java.util.function.IntPredicate;
@@ -233,11 +232,19 @@ public abstract class MaterialSwappingRecipe implements ITinkerStationRecipe {
     return CraftCountModifierHook.createDisplayStack(materials, focus, maxStackSize);
   }
 
+  /** Creates a stack with the item from the given tool and the passed materials. */
+  protected ItemStack createDisplayStack(IToolStackView tool, MaterialNBT materials) {
+    ToolStack copy = ToolStack.createTool(tool.getItem(), tool.getDefinition(), materials);
+    return copy.createStack(maxStackSize(tool));
+  }
+
   /** Recipe mapping a single ingredient to a part */
   @RequiredArgsConstructor
   protected class DisplayRecipe implements IDisplayToolModification {
     public static final Component TITLE = TConstruct.makeTranslation("recipe", "part_swapping");
     public static final Component TOOLTIP = TConstruct.makeTranslation("recipe", "part_swapping.tooltip");
+    public static final Component MATERIAL_TITLE = TConstruct.makeTranslation("recipe", "material_swapping");
+    public static final Component MATERIAL_TOOLTIP = TConstruct.makeTranslation("recipe", "material_swapping.tooltip");
 
     protected final int index;
     protected final List<ItemStack> input;
@@ -387,38 +394,11 @@ public abstract class MaterialSwappingRecipe implements ITinkerStationRecipe {
             return results;
           } else {
             // create a new tool with the same materials for each material option
-            return this.materials.stream().map(newMaterial -> {
-              ToolStack newTool = ToolStack.createTool(tool.getItem(), tool.getDefinition(), tool.getMaterials().replaceMaterial(index, newMaterial));
-              return newTool.createStack(maxStackSize(newTool));
-            }).toList();
+            return this.materials.stream().map(newMaterial -> createDisplayStack(tool, tool.getMaterials().replaceMaterial(index, newMaterial))).toList();
           }
         }
       }
       return toolWithModifier;
-    }
-  }
-
-  /** Overrides the title and variant for the display recipe */
-  protected class MaterialDisplayRecipe extends DisplayRecipe {
-    public static final Component TITLE = TConstruct.makeTranslation("recipe", "material_swapping");
-    public static final Component TOOLTIP = TConstruct.makeTranslation("recipe", "material_swapping.tooltip");
-
-    @Nullable
-    @Getter
-    private final Component variant;
-    public MaterialDisplayRecipe(@Nullable Component variant, int index, List<ItemStack> input, List<ItemStack> toolWithoutModifier, List<ItemStack> toolWithModifier) {
-      super(index, input, toolWithoutModifier, toolWithModifier);
-      this.variant = variant;
-    }
-
-    @Override
-    public Component getTitle() {
-      return TITLE;
-    }
-
-    @Override
-    public Component getTooltip() {
-      return TOOLTIP;
     }
   }
 }
