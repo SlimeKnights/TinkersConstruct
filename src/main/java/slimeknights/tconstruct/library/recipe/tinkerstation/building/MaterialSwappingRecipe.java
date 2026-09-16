@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import slimeknights.mantle.data.loadable.common.IngredientLoadable;
@@ -29,16 +30,20 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContai
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.tools.definition.module.material.MaterialRepairModule;
 import slimeknights.tconstruct.library.tools.definition.module.material.ToolMaterialHook;
+import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
+import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 
 import javax.annotation.Nullable;
 import java.util.BitSet;
 import java.util.List;
 import java.util.function.IntPredicate;
+import java.util.stream.IntStream;
 
 /** Common logic for different implementations of material swapping. */
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
@@ -231,6 +236,15 @@ public abstract class MaterialSwappingRecipe implements ITinkerStationRecipe {
     }
   }
 
+  /** Creates a stack with the max size from the given materials and focus, running the material stack size hook as needed. */
+  protected ItemStack createDisplayStack(MaterialIdNBT materials, Item focus) {
+    ItemStack stack = materials.updateStack(new ItemStack(focus));
+    if (focus.getMaxStackSize() > 1) {
+      stack.setCount(maxStackSize(ToolStack.from(stack)));
+    }
+    return stack;
+  }
+
   /** Recipe mapping a single ingredient to a part */
   @RequiredArgsConstructor
   protected class DisplayRecipe implements IDisplayToolModification {
@@ -309,7 +323,88 @@ public abstract class MaterialSwappingRecipe implements ITinkerStationRecipe {
     }
   }
 
-  /** Overrides the title for the display recipe */
+  /** Display recipe with a tool part. Used to implement dynamic focus */
+  protected class PartDisplayRecipe extends LinkedDisplayRecipe {
+    protected final List<MaterialVariant> materials;
+    protected final IMaterialItem part;
+    public PartDisplayRecipe(int index, List<ItemStack> input, List<ItemStack> toolWithoutModifier, List<ItemStack> toolWithModifier, List<MaterialVariant> materials, IMaterialItem part) {
+      super(index, input, toolWithoutModifier, toolWithModifier);
+      this.materials = materials;
+      this.part = part;
+    }
+
+
+    /* Dynamic focus */
+
+    @Override
+    public List<ItemStack> getDisplayItems(int slot, ItemStack focus, boolean focusOutput) {
+      if (slot == index && !focus.isEmpty()) {
+        // if focusing on the output, display just the part that makes that output, assuming its usable
+        if (focusOutput) {
+          MaterialVariantId material = MaterialIdNBT.from(focus).getMaterial(index);
+          if (part.canUseMaterial(material.getId())) {
+            return List.of(part.withMaterialForDisplay(material));
+          }
+        } else if (isTool(focus)) {
+          // if focusing on the input, and focus is a tool, display all parts that are not the original material
+          // if focus is a part, no work to do (focus link takes care of that)
+          MaterialVariantId material = MaterialIdNBT.from(focus).getMaterial(index);
+          List<ItemStack> parts = IntStream.range(0, materials.size()).filter(i -> !materials.get(i).sameVariant(material)).mapToObj(input::get).toList();
+          // if we have no parts, best we can do is just display the full list
+          if (!parts.isEmpty()) return parts;
+        }
+      }
+      return getDisplayItems(slot);
+    }
+
+    @Override
+    public List<ItemStack> getToolWithoutModifier(ItemStack focus, boolean focusOutput) {
+      if (!focus.isEmpty()) {
+        if (focusOutput) {
+          // if the tool is our output, input should be a generic tool copying most of the materials (assuming this material is valid for this recipe
+          // we also want to simplify it to just the materials (no modifiers and alike)
+          MaterialIdNBT materials = MaterialIdNBT.from(focus);
+          if (part.canUseMaterial(materials.getMaterial(index).getId())) {
+            return List.of(createDisplayStack(materials.replaceMaterial(index, ToolBuildHandler.getRenderMaterial(0)), focus.getItem()));
+          }
+        } else if (isTool(focus)) {
+          // if focusing on an input tool, it becomes our tool without modifier
+          return List.of(focus.copyWithCount(getMaxToolSize(focus)));
+        }
+      }
+      return toolWithoutModifier;
+    }
+
+    @Override
+    public List<ItemStack> getToolWithModifier(ItemStack focus, boolean focusOutput) {
+      if (!focus.isEmpty()) {
+        if (focusOutput) {
+          // if the focus is the output, duplicate just the materials so its the simplest version of the recipe
+          MaterialIdNBT materials = MaterialIdNBT.from(focus);
+          if (part.canUseMaterial(materials.getMaterial(index).getId())) {
+            return List.of(createDisplayStack(materials, focus.getItem()));
+          }
+        } else if (isTool(focus)) {
+          // if focusing on an input tool, output is the input with the new material. need to filter our list of options to just new ones
+          ToolStack tool = ToolStack.copyFrom(focus);
+          MaterialVariantId material = tool.getMaterial(index).getVariant();
+          List<ItemStack> results = materials.stream()
+            .filter(newMaterial -> !newMaterial.sameVariant(material))
+            .map(newMaterial -> {
+              tool.replaceMaterial(index, newMaterial);
+              return tool.updateStack(focus.copyWithCount(maxStackSize(tool)), true);
+            })
+            .toList();
+          if (!results.isEmpty()) {
+            return results;
+          }
+        }
+      }
+      return toolWithModifier;
+    }
+  }
+
+  /** Overrides the title and variant for the display recipe */
   protected class MaterialDisplayRecipe extends DisplayRecipe {
     public static final Component TITLE = TConstruct.makeTranslation("recipe", "material_swapping");
     public static final Component TOOLTIP = TConstruct.makeTranslation("recipe", "material_swapping.tooltip");

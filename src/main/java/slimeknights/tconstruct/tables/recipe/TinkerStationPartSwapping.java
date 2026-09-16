@@ -158,14 +158,17 @@ public class TinkerStationPartSwapping extends MaterialSwappingRecipe implements
         }
         return IntStream.range(0, parts.size()).<IDisplayToolModification>mapToObj(i -> {
           IToolPart part = parts.get(i);
+          ToolStack copy = tool.copy();
           List<IMaterial> filtered = materials.stream().filter(mat -> registry.getMaterialStats(mat.getIdentifier(), part.getStatType()).isPresent()).toList();
-          return new LinkedDisplayRecipe(i,
+          return new PartDisplayRecipe(i,
             // one part per material
             filtered.stream().map(mat -> part.withMaterialForDisplay(mat.getIdentifier())).toList(),
             // single tool with the material to swap left blank
-            List.of(withMaterial(tool.copy(), i, MaterialVariant.of(ToolBuildHandler.getRenderMaterial(i)))),
+            List.of(withMaterial(copy, i, MaterialVariant.of(ToolBuildHandler.getRenderMaterial(0))).copy()),
             // one output per material
-            filtered.stream().map(mat -> withMaterial(tool.copy(), i, MaterialVariant.of(mat))).toList()
+            filtered.stream().map(mat -> withMaterial(copy, i, MaterialVariant.of(mat)).copy()).toList(),
+            // part info
+            filtered.stream().map(MaterialVariant::of).toList(), part
           );
         });
       }).toList();

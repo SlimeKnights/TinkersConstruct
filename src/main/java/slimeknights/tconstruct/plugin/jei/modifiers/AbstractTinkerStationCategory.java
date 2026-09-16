@@ -126,8 +126,6 @@ public abstract class AbstractTinkerStationCategory<T extends IDisplayTinkerStat
 
   @Override
   public void setRecipe(IRecipeLayoutBuilder builder, T recipe, IFocusGroup focuses) {
-    List<ItemStack> toolWithoutModifier = recipe.getToolWithoutModifier();
-    List<ItemStack> toolWithModifier = recipe.getToolWithModifier();
 
     // allow the recipe to update based on the focuses
     // usually will
@@ -136,29 +134,32 @@ public abstract class AbstractTinkerStationCategory<T extends IDisplayTinkerStat
     boolean focusOutput = false;
     if (focus != null) {
       focusStack = focus.getTypedValue().getIngredient();
-      // only focus on non-outputs currently. TODO: reconsider output focuses, applies to part swapping notably.
-      if (focus.getRole() == RecipeIngredientRole.OUTPUT) {
-        focusOutput = true;
-      } else if (recipe.isTool(focusStack)) {
-        // make the stack count as large as the recipe allows. This should also automatically update the size in the result
-        ItemStack toolStack = focusStack.copyWithCount(recipe.getMaxToolSize(focusStack));
-        // ask the recipe if it wishes to adjust sizes
-        RecipeResult<ItemStack> focusUpdate = recipe.onFocused(toolStack);
-        // on success, update the input to the focus stack and the output to the result
-        if (focusUpdate.isSuccess()) {
-          toolWithoutModifier = List.of(toolStack);
-          toolWithModifier = List.of(focusUpdate.getResult());
-        // on error, make the input the stack and the output a barrier
-        } else if (focusUpdate.hasError()) {
-          toolWithoutModifier = List.of(toolStack);
-          toolWithModifier = List.of();
-        } else {
-          // on pass, just filter the items to only show the focus tool
-          Item item = toolStack.getItem();
-          Predicate<ItemStack> filter = stack -> stack.is(item);
-          toolWithoutModifier = toolWithoutModifier.stream().filter(filter).toList();
-          toolWithModifier = toolWithModifier.stream().filter(filter).toList();
-        }
+      focusOutput = focus.getRole() == RecipeIngredientRole.OUTPUT;
+    }
+
+    // allow tools to directly respond to focus
+    List<ItemStack> toolWithoutModifier = recipe.getToolWithoutModifier(focusStack, focusOutput);
+    List<ItemStack> toolWithModifier = recipe.getToolWithModifier(focusStack, focusOutput);
+    // or use the specialized method - TODO: should this be disabled from non-catalysts?
+    if (!focusOutput && recipe.isTool(focusStack)) {
+      // make the stack count as large as the recipe allows. This should also automatically update the size in the result
+      ItemStack toolStack = focusStack.copyWithCount(recipe.getMaxToolSize(focusStack));
+      // ask the recipe if it wishes to adjust sizes
+      RecipeResult<ItemStack> focusUpdate = recipe.onFocused(toolStack);
+      // on success, update the input to the focus stack and the output to the result
+      if (focusUpdate.isSuccess()) {
+        toolWithoutModifier = List.of(toolStack);
+        toolWithModifier = List.of(focusUpdate.getResult());
+      // on error, make the input the stack and the output a barrier
+      } else if (focusUpdate.hasError()) {
+        toolWithoutModifier = List.of(toolStack);
+        toolWithModifier = List.of();
+      } else {
+        // on pass, just filter the items to only show the focus tool
+        Item item = toolStack.getItem();
+        Predicate<ItemStack> filter = stack -> stack.is(item);
+        toolWithoutModifier = toolWithoutModifier.stream().filter(filter).toList();
+        toolWithModifier = toolWithModifier.stream().filter(filter).toList();
       }
     }
 

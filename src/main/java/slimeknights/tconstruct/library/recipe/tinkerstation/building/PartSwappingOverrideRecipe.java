@@ -82,14 +82,20 @@ public class PartSwappingOverrideRecipe extends MaterialIndexSwappingRecipe impl
         if (ToolMaterialHook.stats(tool.getDefinition()).size() > MAX_SLOTS) {
           return Stream.empty();
         }
-        return Arrays.stream(indices).filter(VALID_SLOT).<IDisplayToolModification>mapToObj(i -> new LinkedDisplayRecipe(i,
-          // one part per material
-          materials.stream().map(mat -> part.withMaterialForDisplay(mat.getIdentifier())).toList(),
-          // single tool with the material to swap left blank
-          List.of(withMaterial(tool.copy(), i, MaterialVariant.of(ToolBuildHandler.getRenderMaterial(i)))),
-          // one output per material
-          materials.stream().map(mat -> withMaterial(tool.copy(), i, MaterialVariant.of(mat))).toList()
-        ));
+        List<MaterialVariant> variants = materials.stream().map(MaterialVariant::of).toList();
+        return Arrays.stream(indices).filter(VALID_SLOT).<IDisplayToolModification>mapToObj(i -> {
+          ToolStack copy = tool.copy();
+          return new PartDisplayRecipe(i,
+            // one part per material
+            materials.stream().map(mat -> part.withMaterialForDisplay(mat.getIdentifier())).toList(),
+            // single tool with the material to swap left blank
+            List.of(withMaterial(copy, i, MaterialVariant.of(ToolBuildHandler.getRenderMaterial(0))).copy()),
+            // one output per material
+            materials.stream().map(mat -> withMaterial(copy, i, MaterialVariant.of(mat)).copy()).toList(),
+            // part info
+            variants, part
+          );
+        });
       }).toList();
     }
     return multiRecipes;
