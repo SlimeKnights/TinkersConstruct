@@ -391,7 +391,7 @@ public class TooltipUtil {
       // display tool parts as the tool part name, nicer to work with
       Component componentName;
       if (i < partCount) {
-        componentName = parts.get(i).withMaterial(material).getHoverName();
+        componentName = parts.get(i).withMaterialForDisplay(material).getHoverName();
       } else {
         componentName = Component.translatable(KEY_FORMAT, MaterialTooltipCache.getDisplayName(material), Component.translatable(Util.makeTranslationKey("stat", components.get(i))));
       }
