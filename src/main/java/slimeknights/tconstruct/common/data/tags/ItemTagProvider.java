@@ -380,8 +380,8 @@ public class ItemTagProvider extends ItemTagsProvider {
         multipart.add(TinkerTools.slimesuit.get(type));
       }
     }
-    addToolTags(TinkerTools.slimeWings, DURABILITY, BONUS_SLOTS, DYEABLE, TRIM, SINGLEPART_TOOL, CHESTPLATES, Tags.Items.ARMORS_CHESTPLATES);
-    addToolTags(TinkerTools.slimesuit.get(ArmorItem.Type.HELMET), SINGLEPART_TOOL, SWAPPABLE_SKULLS);
+    addToolTags(TinkerTools.slimeWings, DURABILITY, BONUS_SLOTS, DYEABLE, TRIM, MULTIPART_TOOL, CHESTPLATES, Tags.Items.ARMORS_CHESTPLATES);
+    addToolTags(TinkerTools.slimesuit.get(ArmorItem.Type.HELMET), MULTIPART_TOOL, SWAPPABLE_SKULLS);
 
     // shields
     addToolTags(TinkerTools.travelersShield, DURABILITY, BONUS_SLOTS, SHIELDS, INTERACTABLE_LEFT, Tags.Items.TOOLS_SHIELDS, MULTIPART_TOOL, UNRECYCLABLE, BANNER, DYEABLE);
@@ -450,7 +450,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.tag(ItemTags.create(new ResourceLocation("headlight", "headlight_helmets"))).addTag(HELMETS);
 
     // general
-    this.tag(MULTIPART_TOOL).addTag(SINGLEPART_TOOL);
+    this.tag(MULTIPART_TOOL).addOptionalTag(SINGLEPART_TOOL);
     this.tag(MODIFIABLE).addTags(MULTIPART_TOOL, DURABILITY, MELEE, HARVEST, RANGED, AMMO, AOE, HELD, BONUS_SLOTS);
     // disable parry mod on our items, we have our own modifier for that
     this.tag(TagKey.create(Registries.ITEM, new ResourceLocation("parry", "excluded_shields"))).addTag(HELD);

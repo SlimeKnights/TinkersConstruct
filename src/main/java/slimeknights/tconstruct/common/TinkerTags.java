@@ -392,7 +392,8 @@ public class TinkerTags {
 
     /** Modifiable items that contain multiple parts. TODO 1.21: rename to modifiable/parts? */
     public static final TagKey<Item> MULTIPART_TOOL = local("modifiable/multipart");
-    /** Modifiable items that contain exactly 1 tool part, special cased in JEI */
+    /** @deprecated use {@link #MULTIPART_TOOL} or use {@link slimeknights.tconstruct.library.recipe.display.FilteredItemRecipe}. If you need filtered support on a recipe type it's not provided, request it on GitHub. */
+    @Deprecated
     public static final TagKey<Item> SINGLEPART_TOOL = local("modifiable/multipart/single");
     /** Modifiable items that can have range increased */
     public static final TagKey<Item> AOE = local("modifiable/aoe");

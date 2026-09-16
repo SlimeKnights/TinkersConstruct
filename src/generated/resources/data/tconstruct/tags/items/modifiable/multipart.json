@@ -39,8 +39,13 @@
     "tconstruct:slimy_chestplate",
     "tconstruct:slime_leggings",
     "tconstruct:slime_boots",
+    "tconstruct:slime_wings",
+    "tconstruct:slime_helmet",
     "tconstruct:travelers_shield",
     "tconstruct:plate_shield",
-    "#tconstruct:modifiable/multipart/single"
+    {
+      "id": "#tconstruct:modifiable/multipart/single",
+      "required": false
+    }
   ]
 }
