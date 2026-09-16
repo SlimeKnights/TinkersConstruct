@@ -347,18 +347,18 @@ public abstract class MaterialSwappingRecipe implements ITinkerStationRecipe {
 
     @Override
     public List<ItemStack> getToolWithoutModifier(ItemStack focus, boolean focusOutput) {
-      if (!focus.isEmpty()) {
-        if (focusOutput) {
-          // if the tool is our output, input should be a generic tool copying most of the materials (assuming this material is valid for this recipe
-          // we also want to simplify it to just the materials (no modifiers and alike)
-          MaterialIdNBT materials = MaterialIdNBT.from(focus);
-          if (part.canUseMaterial(materials.getMaterial(index).getId())) {
-            return List.of(createDisplayStack(materials.replaceMaterial(index, ToolBuildHandler.getRenderMaterial(0)), focus.getItem()));
+      // skip inputs that are not the tool
+      if (!focus.isEmpty() && (focusOutput || isTool(focus))) {
+        MaterialIdNBT materials = MaterialIdNBT.from(focus);
+        // for inputs, display the focus itself provided we have at least 1 material that is not the current material
+        if (!focusOutput) {
+          MaterialVariantId material = materials.getMaterial(index);
+          if (this.materials.stream().anyMatch(newMaterial -> !newMaterial.sameVariant(material))) {
+            return List.of(focus.copyWithCount(getMaxToolSize(focus)));
           }
-        } else if (isTool(focus)) {
-          // if focusing on an input tool, it becomes our tool without modifier
-          return List.of(focus.copyWithCount(getMaxToolSize(focus)));
         }
+        // otherwise, display a generic render tool with all other materials copied
+        return List.of(createDisplayStack(materials.replaceMaterial(index, ToolBuildHandler.getRenderMaterial(0)), focus.getItem()));
       }
       return toolWithoutModifier;
     }
@@ -367,24 +367,30 @@ public abstract class MaterialSwappingRecipe implements ITinkerStationRecipe {
     public List<ItemStack> getToolWithModifier(ItemStack focus, boolean focusOutput) {
       if (!focus.isEmpty()) {
         if (focusOutput) {
-          // if the focus is the output, duplicate just the materials so its the simplest version of the recipe
+          // if the focus is the output, duplicate just the materials so it's the simplest version of the recipe
           MaterialIdNBT materials = MaterialIdNBT.from(focus);
           if (part.canUseMaterial(materials.getMaterial(index).getId())) {
             return List.of(createDisplayStack(materials, focus.getItem()));
+          } else {
+            // on the chance the result stack isn't usable, duplicate the rest of the materials as an animation over parts
+            return this.materials.stream().map(newMaterial -> createDisplayStack(materials.replaceMaterial(index, newMaterial.getVariant()), focus.getItem())).toList();
           }
         } else if (isTool(focus)) {
           // if focusing on an input tool, output is the input with the new material. need to filter our list of options to just new ones
           ToolStack tool = ToolStack.copyFrom(focus);
           MaterialVariantId material = tool.getMaterial(index).getVariant();
-          List<ItemStack> results = materials.stream()
-            .filter(newMaterial -> !newMaterial.sameVariant(material))
-            .map(newMaterial -> {
-              tool.replaceMaterial(index, newMaterial);
-              return tool.updateStack(focus.copyWithCount(maxStackSize(tool)), true);
-            })
-            .toList();
+          List<ItemStack> results = materials.stream().filter(newMaterial -> !newMaterial.sameVariant(material)).map(newMaterial -> {
+            tool.replaceMaterial(index, newMaterial);
+            return tool.updateStack(focus.copyWithCount(maxStackSize(tool)), true);
+          }).toList();
           if (!results.isEmpty()) {
             return results;
+          } else {
+            // create a new tool with the same materials for each material option
+            return this.materials.stream().map(newMaterial -> {
+              ToolStack newTool = ToolStack.createTool(tool.getItem(), tool.getDefinition(), tool.getMaterials().replaceMaterial(index, newMaterial));
+              return newTool.createStack(maxStackSize(newTool));
+            }).toList();
           }
         }
       }
