@@ -9,7 +9,7 @@ import mezz.jei.api.runtime.IIngredientManager;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.library.recipe.display.FilteredRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IDisplayToolModification;
-import slimeknights.tconstruct.plugin.jei.util.ItemRecipeCache;
+import slimeknights.tconstruct.plugin.jei.util.manager.ItemRecipeCache;
 
 import java.util.List;
 

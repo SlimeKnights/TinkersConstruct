@@ -12,8 +12,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.library.recipe.casting.IDisplayableCastingRecipe;
 import slimeknights.tconstruct.library.recipe.display.FilteredRecipe;
-import slimeknights.tconstruct.plugin.jei.util.FluidRecipeCache;
-import slimeknights.tconstruct.plugin.jei.util.ItemRecipeCache;
+import slimeknights.tconstruct.plugin.jei.util.manager.FluidRecipeCache;
+import slimeknights.tconstruct.plugin.jei.util.manager.ItemRecipeCache;
 
 import java.util.List;
 

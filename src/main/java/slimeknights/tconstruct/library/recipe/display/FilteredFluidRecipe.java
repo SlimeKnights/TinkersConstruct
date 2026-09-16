@@ -4,7 +4,10 @@ import net.minecraftforge.fluids.FluidStack;
 
 import java.util.function.Predicate;
 
-/** Interface to apply to display recipes that enable hiding with respect to specific item stacks */
+/**
+ * Interface to apply to display recipes that enable hiding with respect to specific item stacks.
+ * @see slimeknights.tconstruct.plugin.jei.util.manager.FluidRecipeCache
+ */
 public interface FilteredFluidRecipe extends FilteredRecipe {
   /**
    * Checks if this recipe matches the item stack, causing it to be included in the cache.
