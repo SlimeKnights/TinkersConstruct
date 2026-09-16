@@ -93,7 +93,7 @@ public class PartSwapCastingRecipe extends AbstractMaterialCastingRecipe impleme
     Fluid fluid = inv.getFluid();
     List<MaterialStatsId> requirements = ToolMaterialHook.stats(modifiable.getToolDefinition());
     int index = getIndex(requirements);
-    MaterialVariantId currentMaterial = MaterialIdNBT.from(stack).getMaterial(index);
+    MaterialVariantId currentMaterial = MaterialIdNBT.getMaterial(stack, index);
     if (cachedPartSwapping != null && cachedPartSwapping.matches(fluid, currentMaterial)) {
       return cachedPartSwapping;
     }
@@ -418,7 +418,7 @@ public class PartSwapCastingRecipe extends AbstractMaterialCastingRecipe impleme
     public List<FluidStack> getFluids(ItemStack focus, boolean focusOutput) {
       if (!focus.isEmpty()) {
         // let the recipe filter the focus, but if it ends up with nothing use the full list
-        MaterialVariantId material = MaterialIdNBT.from(focus).getMaterial(fluidIndex);
+        MaterialVariantId material = MaterialIdNBT.getMaterial(focus, fluidIndex);
         List<FluidStack> filtered = (focusOutput ? indicesFromOutput(material) : indicesFromInput(material)).mapToObj(fluids::get).toList();
         if (!filtered.isEmpty()) return filtered;
       }

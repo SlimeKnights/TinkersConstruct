@@ -216,7 +216,7 @@ public class ToolMaterialSwappingRecipe extends MaterialSwappingRecipe implement
     @Override
     public List<ItemStack> getDisplayItems(int slot, ItemStack focus, boolean focusOutput) {
       if (slot == index && !focus.isEmpty() && (focusOutput || isTool(focus))) {
-        MaterialVariantId material = MaterialIdNBT.from(focus).getMaterial(index);
+        MaterialVariantId material = MaterialIdNBT.getMaterial(focus, index);
         // if focusing on the output, display a sacrifice that would create this tool
         if (focusOutput) {
           if (statType.canUseMaterial(material.getId())) {

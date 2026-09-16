@@ -341,7 +341,7 @@ public class ToolCastingRecipe extends PartSwapCastingRecipe implements IMultiRe
     @Override
     public List<ItemStack> getCastItems(ItemStack focus, boolean focusOutput) {
       if (focusOutput && !focus.isEmpty()) {
-        MaterialVariantId castMaterial = MaterialIdNBT.from(focus).getMaterial(castIndex);
+        MaterialVariantId castMaterial = MaterialIdNBT.getMaterial(focus, castIndex);
         if (castItem.canUseMaterial(castMaterial.getId())) {
           return List.of(castItem.withMaterialForDisplay(castMaterial));
         }
@@ -352,7 +352,7 @@ public class ToolCastingRecipe extends PartSwapCastingRecipe implements IMultiRe
     @Override
     public List<FluidStack> getFluids(ItemStack focus, boolean focusOutput) {
       if (focusOutput && !focus.isEmpty()) {
-        MaterialVariantId material = MaterialIdNBT.from(focus).getMaterial(fluidIndex);
+        MaterialVariantId material = MaterialIdNBT.getMaterial(focus, fluidIndex);
         if (materials.matches(material) && castItem.canUseMaterial(material.getId())) {
           List<FluidStack> fluids = MaterialCastingLookup.getCastingFluids(material).stream()
             .flatMap(recipe -> recipe.getFluids().stream().map(ToolCastingRecipe.this::resizeFluid))

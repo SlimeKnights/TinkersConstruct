@@ -156,7 +156,7 @@ public class MaterialValueSwappingRecipe extends MaterialIndexSwappingRecipe imp
     @Override
     public List<ItemStack> getDisplayItems(int slot, ItemStack focus, boolean focusOutput) {
       if (slot == index && !focus.isEmpty() && (focusOutput || isTool(focus))) {
-        MaterialVariantId material = MaterialIdNBT.from(focus).getMaterial(index);
+        MaterialVariantId material = MaterialIdNBT.getMaterial(focus, index);
         IntStream indices;
         if (focusOutput) {
           // if focusing on the output, filter to just materials that produce the output

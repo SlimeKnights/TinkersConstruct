@@ -17,8 +17,6 @@ import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 /**
  * Similar to {@link slimeknights.tconstruct.library.tools.nbt.MaterialNBT}, but does not check materials against the registry.
@@ -36,7 +34,7 @@ public class MaterialIdNBT {
 
   /** Creates a new material NBT */
   public MaterialIdNBT(List<? extends MaterialVariantId> materials) {
-    this.materials = ImmutableList.copyOf(materials);
+    this.materials = List.copyOf(materials);
   }
 
   /** Gets the number of materials on this stack. Note this may not match the number of materials the tool desires. */
@@ -48,6 +46,7 @@ public class MaterialIdNBT {
    * Gets the material at the given index
    * @param index  Index
    * @return  Material, or unknown if index is invalid
+   * @see #getMaterial(ItemStack, int)
    */
   public MaterialVariantId getMaterial(int index) {
     if (index >= materials.size() || index < 0) {
@@ -110,6 +109,15 @@ public class MaterialIdNBT {
     return this;
   }
 
+  /** Tries to parse the tag as a material variant ID, returning unknown if invalid. */
+  private static MaterialVariantId tryParse(String tag) {
+    MaterialVariantId material = MaterialVariantId.tryParse(tag);
+    if (material != null) {
+      return material;
+    }
+    return MaterialId.UNKNOWN;
+  }
+
   /**
    * Parses the material list from NBT
    * @param nbt  NBT instance
@@ -119,16 +127,14 @@ public class MaterialIdNBT {
     if (nbt == null || nbt.getId() != Tag.TAG_LIST) {
       return EMPTY;
     }
-    ListTag listNBT = (ListTag) nbt;
-    if (listNBT.getElementType() != Tag.TAG_STRING) {
+    ListTag list = (ListTag) nbt;
+    if (list.getElementType() != Tag.TAG_STRING) {
       return EMPTY;
     }
-
-    List<MaterialVariantId> materials = listNBT.stream()
-      .map(Tag::getAsString)
-      .map(MaterialVariantId::tryParse)
-      .filter(Objects::nonNull)
-      .collect(Collectors.toList());
+    List<MaterialVariantId> materials = new ArrayList<>(list.size());
+    for (int i = 0; i < list.size(); i++) {
+      materials.add(tryParse(list.getString(i)));
+    }
     return new MaterialIdNBT(materials);
   }
 
@@ -137,10 +143,11 @@ public class MaterialIdNBT {
    * @return  List of materials
    */
   public ListTag serializeToNBT() {
-    return materials.stream()
-                    .map(MaterialVariantId::toString)
-                    .map(StringTag::valueOf)
-                    .collect(Collectors.toCollection(ListTag::new));
+    ListTag list = new ListTag();
+    for (MaterialVariantId material : materials) {
+      list.add(StringTag.valueOf(material.toString()));
+    }
+    return list;
   }
 
   /**
@@ -154,6 +161,18 @@ public class MaterialIdNBT {
       return readFromNBT(nbt.getList(ToolStack.TAG_MATERIALS, Tag.TAG_STRING));
     }
     return EMPTY;
+  }
+
+  /** Helper to quickly fetch a single material ID from a stack. Use {@link #from(ItemStack)} and {@link #getMaterial(int)} instead if you need to parse multiple. */
+  public static MaterialVariantId getMaterial(ItemStack stack, int index) {
+    CompoundTag nbt = stack.getTag();
+    if (nbt != null) {
+      ListTag list = nbt.getList(ToolStack.TAG_MATERIALS, Tag.TAG_STRING);
+      if (index < list.size()) {
+        return tryParse(list.getString(index));
+      }
+    }
+    return MaterialId.UNKNOWN;
   }
 
   /** Writes this material list to the given stack */
