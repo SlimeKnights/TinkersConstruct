@@ -12,6 +12,7 @@ import mezz.jei.api.helpers.IModIdHelper;
 import mezz.jei.api.ingredients.subtypes.IIngredientSubtypeInterpreter;
 import mezz.jei.api.ingredients.subtypes.UidContext;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandlerHelper;
+import mezz.jei.api.registration.IAdvancedRegistration;
 import mezz.jei.api.registration.IGuiHandlerRegistration;
 import mezz.jei.api.registration.IModIngredientRegistration;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
@@ -58,7 +59,9 @@ import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.ModifierManager;
 import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipe;
+import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.IDisplayableCastingRecipe;
+import slimeknights.tconstruct.library.recipe.display.FilteredRecipe;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.library.recipe.material.ShapedMaterialRecipe;
@@ -84,6 +87,7 @@ import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.plugin.jei.casting.CastingBasinCategory;
+import slimeknights.tconstruct.plugin.jei.casting.CastingRecipeManager;
 import slimeknights.tconstruct.plugin.jei.casting.CastingTableCategory;
 import slimeknights.tconstruct.plugin.jei.entity.DefaultEntityMeltingRecipe;
 import slimeknights.tconstruct.plugin.jei.entity.EntityMeltingRecipeCategory;
@@ -134,6 +138,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -199,6 +204,11 @@ public class JEIPlugin implements IModPlugin {
     registry.getCraftingCategory().addCategoryExtension(ShapelessMaterialsRecipe.class, ShapelessMaterialsExtension::shapeless);
   }
 
+  /** Gets a list of unfiltered casting recipes to give to JEI. */
+  private static List<IDisplayableCastingRecipe> getCastingRecipes(RegistryAccess access, RecipeManager manager, Supplier<? extends RecipeType<ICastingRecipe>> recipeType) {
+    return FilteredRecipe.unfiltered(RecipeHelper.getJEIRecipes(access, manager, recipeType.get(), IDisplayableCastingRecipe.class));
+  }
+
   @Override
   public void registerRecipes(IRecipeRegistration register) {
     Level level = Minecraft.getInstance().level;
@@ -206,8 +216,8 @@ public class JEIPlugin implements IModPlugin {
     RegistryAccess access = level.registryAccess();
     RecipeManager manager = level.getRecipeManager();
     // casting
-    register.addRecipes(TConstructJEIConstants.CASTING_BASIN, RecipeHelper.getJEIRecipes(access, manager, TinkerRecipeTypes.CASTING_BASIN.get(), IDisplayableCastingRecipe.class));
-    register.addRecipes(TConstructJEIConstants.CASTING_TABLE, RecipeHelper.getJEIRecipes(access, manager, TinkerRecipeTypes.CASTING_TABLE.get(), IDisplayableCastingRecipe.class));
+    register.addRecipes(TConstructJEIConstants.CASTING_BASIN, getCastingRecipes(access, manager, TinkerRecipeTypes.CASTING_BASIN));
+    register.addRecipes(TConstructJEIConstants.CASTING_TABLE, getCastingRecipes(access, manager, TinkerRecipeTypes.CASTING_TABLE));
 
     // melting
     List<IDisplayableMeltingRecipe> meltingRecipes = RecipeHelper.getJEIRecipes(access, manager, TinkerRecipeTypes.MELTING.get(), IDisplayableMeltingRecipe.class);
@@ -266,6 +276,23 @@ public class JEIPlugin implements IModPlugin {
       Stream.of(TinkerSmeltery.copperCan, TinkerSmeltery.searedLantern, TinkerSmeltery.scorchedLantern),
       Stream.concat(TinkerSmeltery.searedTank.values().stream(), TinkerSmeltery.scorchedTank.values().stream())
     ).map(ItemLike::asItem).toList()));
+  }
+
+  /** Gets a list of filtered casting recipes to give to JEI. */
+  private static List<IDisplayableCastingRecipe> getFilteredCastingRecipes(RegistryAccess access, RecipeManager manager, Supplier<? extends RecipeType<ICastingRecipe>> recipeType) {
+    return FilteredRecipe.filtered(RecipeHelper.getJEIRecipes(access, manager, recipeType.get(), IDisplayableCastingRecipe.class));
+  }
+
+  @Override
+  public void registerAdvanced(IAdvancedRegistration registration) {
+    Level level = Minecraft.getInstance().level;
+    assert level != null;
+    RegistryAccess access = level.registryAccess();
+    RecipeManager manager = level.getRecipeManager();
+
+    IIngredientManager ingredientManager = registration.getJeiHelpers().getIngredientManager();
+    registration.addTypedRecipeManagerPlugin(TConstructJEIConstants.CASTING_BASIN, new CastingRecipeManager(ingredientManager, getFilteredCastingRecipes(access, manager, TinkerRecipeTypes.CASTING_BASIN)));
+    registration.addTypedRecipeManagerPlugin(TConstructJEIConstants.CASTING_TABLE, new CastingRecipeManager(ingredientManager, getFilteredCastingRecipes(access, manager, TinkerRecipeTypes.CASTING_TABLE)));
   }
 
   /** Adds a table as a catalys */

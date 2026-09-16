@@ -3,13 +3,18 @@ package slimeknights.tconstruct.library.recipe.casting;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
+import slimeknights.tconstruct.library.recipe.display.FilteredFluidRecipe;
+import slimeknights.tconstruct.library.recipe.display.FilteredItemRecipe;
 import slimeknights.tconstruct.library.recipe.display.RecipeSlot;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.function.Predicate;
+
+import static slimeknights.tconstruct.library.recipe.display.FilteredRecipe.matchesList;
 
 /** Interface for casting recipes that are displayable in JEI */
-public interface IDisplayableCastingRecipe {
+public interface IDisplayableCastingRecipe extends FilteredItemRecipe, FilteredFluidRecipe {
   /** Gets the ID of this recipe. If this is a generated display recipe, uses the parent recipe ID */
   @Nullable
   default ResourceLocation getRecipeId() {
@@ -109,4 +114,17 @@ public interface IDisplayableCastingRecipe {
    * @param output       Result slot to get or set displayed output contents.
    */
   default void onDisplayUpdate(RecipeSlot<ItemStack> cast, RecipeSlot<FluidStack> fluid, RecipeSlot<ItemStack> output) {}
+
+
+  /* Focus filtering */
+
+  @Override
+  default boolean matchesItem(Predicate<ItemStack> focus, boolean output) {
+    return matchesList(focus, output ? getOutputs() : getCastItems());
+  }
+
+  @Override
+  default boolean matchesFluid(Predicate<FluidStack> focus, boolean output) {
+    return !output && matchesList(focus, getFluids());
+  }
 }

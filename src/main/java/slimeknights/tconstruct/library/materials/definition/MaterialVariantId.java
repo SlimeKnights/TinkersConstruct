@@ -82,8 +82,13 @@ public sealed interface MaterialVariantId permits MaterialId, MaterialVariantIdI
   }
 
   /** Checks if two material variants match */
+  default boolean sameId(MaterialVariantId other) {
+    return this.getId().equals(other.getId());
+  }
+
+  /** Checks if two material variants match */
   default boolean sameVariant(MaterialVariantId other) {
-    return this.getId().equals(other.getId()) && this.getVariant().equals(other.getVariant());
+    return this.sameId(other) && this.getVariant().equals(other.getVariant());
   }
 
   /* Constructors */

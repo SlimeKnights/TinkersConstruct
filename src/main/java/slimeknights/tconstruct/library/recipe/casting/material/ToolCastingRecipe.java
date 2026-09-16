@@ -178,6 +178,26 @@ public class ToolCastingRecipe extends PartSwapCastingRecipe implements IMultiRe
 
   /* JEI display */
 
+  /** Checks if the given stack matches the extra materials */
+  private boolean matchesExtraMaterials(ItemStack stack) {
+    MaterialIdNBT materials = MaterialIdNBT.from(stack);
+    int index = 0;
+    // if consumed offset, the first extra material is at index 0
+    if (castPurpose == CastPurpose.CONSUMED_OFFSET) {
+      if (!this.extraMaterials.get(0).sameId(materials.getMaterial(0))) {
+        return false;
+      }
+      index = 1;
+    }
+    for (; index < extraMaterials.size(); index++) {
+      // this method is only called if we have 1 material
+      if (!this.extraMaterials.get(index).sameId(materials.getMaterial(index + 1))) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   @Override
   public List<IDisplayableCastingRecipe> getRecipes(RegistryAccess access) {
     if (multiRecipes == null) {
@@ -207,7 +227,7 @@ public class ToolCastingRecipe extends PartSwapCastingRecipe implements IMultiRe
           List<ItemStack> casts = List.of(getCast().getItems());
           if (castPurpose == CastPurpose.FIRST_MATERIAL || castPurpose == CastPurpose.SECOND_MATERIAL
             || castPurpose == CastPurpose.MAYBE_MATERIAL && requirements.size() > 1) {
-            displayRecipes.add(new DisplayRecipe(fluidIndex, requirement, casts, castSwap.getFluids(), maxCoolingTime));
+            displayRecipes.add(new DisplayRecipe(fluidIndex, casts, castSwap.getFluids(), maxCoolingTime));
           } else {
             // standard display recipe, animates 1 material
             List<ItemStack> tools;
@@ -225,6 +245,7 @@ public class ToolCastingRecipe extends PartSwapCastingRecipe implements IMultiRe
               .casts(casts).consumed(isConsumed())
               .fluids(castSwap.getFluids()).results(tools)
               .coolingTime(maxCoolingTime).materialCasting(false)
+              .isVisible((focus, output) -> !output || matchesExtraMaterials(focus))
               .build());
           }
           // want the cast swap to be second
@@ -297,7 +318,7 @@ public class ToolCastingRecipe extends PartSwapCastingRecipe implements IMultiRe
     /** Material item representing the cast, used when a tool is the output focus. */
     private final IMaterialItem castItem;
 
-    private DisplayRecipe(int fluidIndex, MaterialStatsId statType, List<ItemStack> castItems, List<FluidStack> fluids, int coolingTime) {
+    private DisplayRecipe(int fluidIndex, List<ItemStack> castItems, List<FluidStack> fluids, int coolingTime) {
       this.castItems = castItems;
       this.fluids = fluids;
       this.outputs = List.of(IModifiableDisplay.getDisplayStack(result.asItem()));
@@ -374,6 +395,29 @@ public class ToolCastingRecipe extends PartSwapCastingRecipe implements IMultiRe
     public void onDisplayUpdate(RecipeSlot<ItemStack> cast, RecipeSlot<FluidStack> fluid, RecipeSlot<ItemStack> output) {
       // set the output based on the current cast and the current fluid, however the recipe would regularly do that
       output.set(assemble(cast.get(), MaterialCastingLookup.getCastingFluid(fluid.get().getFluid()).getOutput()));
+    }
+
+
+    /* Filtered */
+
+    @Override
+    public boolean isFiltered() {
+      return !extraMaterials.isEmpty();
+    }
+
+    @Override
+    public boolean isVisibleFromItem(ItemStack focus, boolean output) {
+      if (!output) {
+        return false;
+      }
+      MaterialIdNBT materials = MaterialIdNBT.from(focus);
+      for (int i = 0; i < extraMaterials.size(); i++) {
+        // we always have 2 materials before extra materials in this recipe
+        if (!extraMaterials.get(i).sameId(materials.getMaterial(i + 2))) {
+          return false;
+        }
+      }
+      return true;
     }
 
     /** @deprecated use {@link #getOutputs()} */

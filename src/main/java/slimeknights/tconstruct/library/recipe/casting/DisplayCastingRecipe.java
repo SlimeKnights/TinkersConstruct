@@ -11,6 +11,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.library.recipe.casting.material.MaterialCastingLookup;
+import slimeknights.tconstruct.library.recipe.display.ItemVisible;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -29,16 +30,20 @@ public final class DisplayCastingRecipe implements IDisplayableCastingRecipe {
   private final List<ItemStack> outputs;
   private final int coolingTime;
   private final boolean consumed;
-  @Getter @Accessors(fluent = true)
+  @Accessors(fluent = true)
   private final boolean linkCastToOutput;
-  @Getter @Accessors(fluent = true)
+  @Accessors(fluent = true)
   private final boolean linkFluidsToOutput;
-  private final boolean materialCoolingTime;
+  private final boolean coolingTimeDynamic;
+  @Accessors(fluent = true)
+  private final boolean showUnfocused;
+  @Nullable
+  private final ItemVisible isVisible;
 
   /** @deprecated use {@link #type(RecipeType)} */
   @Deprecated
   public DisplayCastingRecipe(@Nullable ResourceLocation recipeId, RecipeType<?> type, List<ItemStack> castItems, List<FluidStack> fluids, List<ItemStack> outputs, int coolingTime, boolean consumed) {
-    this(recipeId, type, castItems, fluids, outputs, coolingTime, consumed, true, false, false);
+    this(recipeId, type, castItems, fluids, outputs, coolingTime, consumed, true, false, false, true, null);
   }
 
   /** @deprecated use {@link #type(RecipeType)} */
@@ -66,13 +71,18 @@ public final class DisplayCastingRecipe implements IDisplayableCastingRecipe {
   }
 
   @Override
-  public boolean isCoolingTimeDynamic() {
-    return materialCoolingTime;
+  public int getCoolingTime(FluidStack fluid) {
+    return MaterialCastingLookup.getCoolingTime(fluid, coolingTime);
   }
 
   @Override
-  public int getCoolingTime(FluidStack fluid) {
-    return MaterialCastingLookup.getCoolingTime(fluid, coolingTime);
+  public boolean isFiltered() {
+    return !showUnfocused || isVisible != null;
+  }
+
+  @Override
+  public boolean isVisibleFromItem(ItemStack focus, boolean output) {
+    return isVisible == null || isVisible.isVisibleFromItem(focus, output);
   }
 
 
@@ -104,6 +114,11 @@ public final class DisplayCastingRecipe implements IDisplayableCastingRecipe {
     private boolean linkFluidsToOutput = false;
     /** If true, this is a material casting recipe and the casting time should animate between fluids. {@link #coolingTime} is used as a fallback for unknown fluids. */
     private boolean materialCoolingTime = false;
+    // filtering
+    private boolean showUnfocused = true;
+    /** Checks if the recipe is visible given the focus stack */
+    @Nullable
+    private ItemVisible isVisible;
 
     /** Sets the given ingredient as the cast */
     public Builder cast(Ingredient cast) {
@@ -171,7 +186,7 @@ public final class DisplayCastingRecipe implements IDisplayableCastingRecipe {
       if (casts.isEmpty()) throw new IllegalStateException("Casts cannot be empty");
       if (fluids.isEmpty()) throw new IllegalStateException("Fluids cannot be empty");
       if (results.isEmpty()) throw new IllegalStateException("Results cannot be empty");
-      return new DisplayCastingRecipe(id, type, casts, fluids, results, coolingTime, consumed, linkCastToOutput, linkFluidsToOutput, materialCoolingTime && fluids.size() > 1);
+      return new DisplayCastingRecipe(id, type, casts, fluids, results, coolingTime, consumed, linkCastToOutput, linkFluidsToOutput, materialCoolingTime && fluids.size() > 1, showUnfocused, isVisible);
     }
   }
 }
