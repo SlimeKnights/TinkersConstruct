@@ -22,6 +22,11 @@ public interface IDisplayPartBuilderRecipe extends IPartBuilderRecipe {
    */
   MaterialVariant getMaterial();
 
+  /** Gets the list of patterns for display on this recipe. */
+  default List<Pattern> getPatterns() {
+    return List.of(getPattern());
+  }
+
   /** Gets a list of input material items for display in the material slot. */
   default List<ItemStack> getMaterialItems() {
     MaterialVariant material = getMaterial();

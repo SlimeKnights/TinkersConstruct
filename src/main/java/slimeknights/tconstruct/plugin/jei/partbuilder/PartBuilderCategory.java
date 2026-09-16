@@ -16,11 +16,13 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.client.materials.MaterialTooltipCache;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.recipe.partbuilder.IDisplayPartBuilderRecipe;
+import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.library.tools.layout.Patterns;
 import slimeknights.tconstruct.plugin.jei.TConstructJEIConstants;
 import slimeknights.tconstruct.tables.TinkerTables;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PartBuilderCategory extends AbstractRecipeCategory<IDisplayPartBuilderRecipe> {
@@ -66,8 +68,9 @@ public class PartBuilderCategory extends AbstractRecipeCategory<IDisplayPartBuil
     builder.addSlot(reusablePattern ? RecipeIngredientRole.CATALYST : RecipeIngredientRole.INPUT, 4, 16)
       .addItemStacks(patternItems).setStandardSlotBackground();
     // patterns
-    builder.addInputSlot(46, 16)
-      .addIngredient(TConstructJEIConstants.PATTERN_TYPE, recipe.getPattern())
+    List<Pattern> patterns = recipe.getPatterns();
+    IRecipeSlotBuilder patternSlot = builder.addInputSlot(46, 16)
+      .addIngredients(TConstructJEIConstants.PATTERN_TYPE, patterns)
       .setBackground(patternButton, -1, -1);
     // TODO: material ingredient input?
 
@@ -77,8 +80,19 @@ public class PartBuilderCategory extends AbstractRecipeCategory<IDisplayPartBuil
       .addItemStacks(resultItems).setOutputSlotBackground();
 
     // add focus link between materials and result; practically we only the size for result to be >1 for focus link; but better to be safe
-    if (resultItems.size() == materialItems.size()) {
-      builder.createFocusLink(materialSlot, resultSlot);
+    int resultSize = resultItems.size();
+    if (resultSize > 1) {
+      List<IRecipeSlotBuilder> linked = new ArrayList<>(3);
+      linked.add(resultSlot);
+      if (resultSize == materialItems.size()) {
+        linked.add(materialSlot);
+      }
+      if (resultSize == patterns.size()) {
+        linked.add(patternSlot);
+      }
+      if (linked.size() > 1) {
+        builder.createFocusLink(linked.toArray(IRecipeSlotBuilder[]::new));
+      }
     }
   }
 

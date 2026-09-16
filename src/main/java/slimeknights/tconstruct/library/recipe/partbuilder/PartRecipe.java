@@ -31,7 +31,6 @@ import slimeknights.tconstruct.tables.TinkerTables;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -211,9 +210,12 @@ public class PartRecipe implements IPartBuilderRecipe, IMultiRecipe<IDisplayPart
             materialItems = List.copyOf(materialItems);
             resultItems = List.copyOf(resultItems);
           }
-          return Stream.of(new DisplayPartRecipe(id, materialTitle, pattern, List.of(patternItem.getItems()), getCost(), materialItems, resultItems));
+          return Stream.of(DisplayPartRecipe.id(id)
+            .material(materialTitle).materialItems(materialItems)
+            .pattern(pattern).patternItem(patternItem).cost(getCost())
+            .results(resultItems).build());
         })
-        .collect(Collectors.toUnmodifiableList());
+        .toList();
     }
     return multiRecipes;
   }

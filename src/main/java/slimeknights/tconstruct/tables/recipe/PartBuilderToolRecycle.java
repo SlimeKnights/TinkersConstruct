@@ -16,7 +16,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
-import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.common.IngredientLoadable;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
@@ -25,9 +24,9 @@ import slimeknights.mantle.recipe.ingredient.SizedIngredient;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
-import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.recipe.partbuilder.DisplayPartRecipe;
+import slimeknights.tconstruct.library.recipe.partbuilder.IDisplayPartBuilderRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.IPartBuilderContainer;
 import slimeknights.tconstruct.library.recipe.partbuilder.IPartBuilderRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
@@ -59,7 +58,7 @@ import java.util.stream.Stream;
  */
 @SuppressWarnings("deprecation")  // Forge is dumb
 @RequiredArgsConstructor
-public class PartBuilderToolRecycle implements IPartBuilderRecipe, IMultiRecipe<DisplayPartRecipe> {
+public class PartBuilderToolRecycle implements IPartBuilderRecipe, IMultiRecipe<IDisplayPartBuilderRecipe> {
   /** Title for the screen */
   private static final Component TOOL_RECYCLING = TConstruct.makeTranslation("recipe", "tool_recycling");
   /** General instructions for recycling */
@@ -227,37 +226,41 @@ public class PartBuilderToolRecycle implements IPartBuilderRecipe, IMultiRecipe<
 
 
   /* JEI */
-  private List<DisplayPartRecipe> displayRecipes;
+  private List<IDisplayPartBuilderRecipe> displayRecipes;
 
   private record PartIndex(IMaterialItem part, int index) {};
 
-  /** Helper handling both cases of making recipes */
-  private Stream<DisplayPartRecipe> makeRecipes(List<? extends IMaterialItem> parts, List<ItemStack> patternItems, List<ItemStack> tool) {
-    Collection<PartIndex> displayParts = IntStream.range(0, parts.size()).mapToObj(i -> new PartIndex(parts.get(i), i)).collect(Collectors.toMap(PartIndex::part, Function.identity(), (a, b) -> a)).values();
-    return displayParts.stream().map(pi -> {
-      ItemStack part = pi.part.withMaterialForDisplay(ToolBuildHandler.getRenderMaterial(pi.index));
-      part.getOrCreateTag().putBoolean(TooltipUtil.KEY_DISPLAY, true);
-      return new DisplayPartRecipe(id, MaterialVariant.UNKNOWN, new Pattern(Loadables.ITEM.getKey(pi.part.asItem())), patternItems, 0, tool, List.of(part));
-    });
+  /** Gets the display parts for a given part list. */
+  private static Collection<PartIndex> getDisplayParts(List<? extends IMaterialItem> parts) {
+    // pair each part with its index, and remove duplicate parts
+    return IntStream.range(0, parts.size())
+      .mapToObj(i -> new PartIndex(parts.get(i), i))
+      .collect(Collectors.toMap(PartIndex::part, Function.identity(), (a, b) -> a))
+      .values();
   }
 
   @Override
-  public List<DisplayPartRecipe> getRecipes(RegistryAccess access) {
+  public List<IDisplayPartBuilderRecipe> getRecipes(RegistryAccess access) {
     if (displayRecipes == null) {
+      // if we have a parts override, might as well only compute this map once
+      Collection<PartIndex> partsOverride = parts.isEmpty() ? List.of() : getDisplayParts(parts);
       List<ItemStack> patternItems = List.of(this.pattern.getItems());
-      // if we have parts, will be using the same list for all tools, so make just 1 recipe per part
-      if (!parts.isEmpty()) {
-        List<ItemStack> tools = toolRequirement.getMatchingStacks().stream().map(IModifiableDisplay::getDisplayStack).toList();
-        displayRecipes = makeRecipes(parts, patternItems, tools).toList();
-      } else {
-        // no parts? make a recipe per tool per part
-        displayRecipes = toolRequirement.getMatchingStacks().stream().flatMap(stack -> {
-          if (stack.getItem() instanceof IModifiable modifiable) {
-            return makeRecipes(ToolPartsHook.parts(modifiable.getToolDefinition()), patternItems, List.of(IModifiableDisplay.getDisplayStack(stack)));
-          }
-          return Stream.empty();
-        }).toList();
-      }
+      displayRecipes = toolRequirement.getMatchingStacks().stream()
+        .map(stack -> {
+          // if we have a parts override, use that instead of the tool parts
+          Collection<PartIndex> parts = !partsOverride.isEmpty() ? partsOverride : getDisplayParts(ToolPartsHook.parts(IModifiable.getToolDefinition(stack.getItem())));
+          return DisplayPartRecipe.id(id)
+            .patterns(parts.stream().map(pi -> Pattern.fromItem(pi.part)).toList())
+            .patternItems(patternItems)
+            .materialItem(IModifiableDisplay.getDisplayStack(stack))
+            .results(parts.stream().map(pi -> {
+              ItemStack part = pi.part.withMaterialForDisplay(ToolBuildHandler.getRenderMaterial(pi.index));
+              part.getOrCreateTag().putBoolean(TooltipUtil.KEY_DISPLAY, true);
+              return part;
+            }).toList())
+            .build();
+        })
+        .toList();
     }
     return displayRecipes;
   }
