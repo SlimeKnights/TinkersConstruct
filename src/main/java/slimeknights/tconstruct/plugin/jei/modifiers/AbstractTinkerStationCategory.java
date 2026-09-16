@@ -25,6 +25,7 @@ import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IDisplayTinkerStationRecipe;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
+import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.plugin.jei.util.CategoryUtil;
 import slimeknights.tconstruct.plugin.jei.util.RecipeSlotWrapper;
 import slimeknights.tconstruct.plugin.jei.util.RecipeSlotsWrapper;
@@ -140,6 +141,12 @@ public abstract class AbstractTinkerStationCategory<T extends IDisplayTinkerStat
     // allow tools to directly respond to focus
     List<ItemStack> toolWithoutModifier = recipe.getToolWithoutModifier(focusStack, focusOutput);
     List<ItemStack> toolWithModifier = recipe.getToolWithModifier(focusStack, focusOutput);
+    for (ItemStack tool : toolWithoutModifier) {
+      TConstruct.LOG.info(MaterialIdNBT.from(tool));
+    }
+    for (ItemStack tool : toolWithModifier) {
+      TConstruct.LOG.info(MaterialIdNBT.from(tool));
+    }
     // or use the specialized method - TODO: should this be disabled from non-catalysts?
     if (!focusOutput && recipe.isTool(focusStack)) {
       // make the stack count as large as the recipe allows. This should also automatically update the size in the result
@@ -194,19 +201,22 @@ public abstract class AbstractTinkerStationCategory<T extends IDisplayTinkerStat
     // apply focus links
     int[] linkToOutput = recipe.linkToOutput();
     int size = toolWithModifier.size();
-    if (linkToOutput.length > 0) {
-      // if given a list, filter to ensure they are all valid
-      // need input slot size to match output size
-      IRecipeSlotBuilder[] linked = Stream.concat(
-        Stream.of(withModifierSlot),
-        Arrays.stream(linkToOutput).filter(i -> i < inputSlots.length && inputs.get(i).size() == size).mapToObj(i -> inputSlots[i])
-      ).toArray(IRecipeSlotBuilder[]::new);
-      if (linked.length > 0) {
-        builder.createFocusLink(linked);
+    if (size > 1) {
+      if (linkToOutput.length > 0) {
+        // if given a list, filter to ensure they are all valid
+        // need input slot size to match output size
+        IRecipeSlotBuilder[] linked = Stream.concat(
+          // include both tool slots if they are the same size
+          toolWithoutModifier.size() == size ? Stream.of(withModifierSlot, withoutModifierSlot) : Stream.of(withModifierSlot),
+          Arrays.stream(linkToOutput).filter(i -> i < inputSlots.length && inputs.get(i).size() == size).mapToObj(i -> inputSlots[i])
+        ).toArray(IRecipeSlotBuilder[]::new);
+        if (linked.length > 0) {
+          builder.createFocusLink(linked);
+        }
+        // if no links, try linking tool to output
+      } else if (toolWithoutModifier.size() == size) {
+        builder.createFocusLink(withoutModifierSlot, withModifierSlot);
       }
-    // if no links, try linking tool to output
-    } else if (toolWithoutModifier.size() == size) {
-      builder.createFocusLink(withoutModifierSlot, withModifierSlot);
     }
   }
 
