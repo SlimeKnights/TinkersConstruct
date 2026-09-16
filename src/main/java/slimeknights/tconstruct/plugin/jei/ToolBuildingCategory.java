@@ -18,10 +18,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
+import slimeknights.tconstruct.library.modifiers.hook.build.CraftCountModifierHook;
 import slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipe;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 import slimeknights.tconstruct.library.tools.layout.LayoutSlot;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.part.IToolPart;
 import slimeknights.tconstruct.plugin.jei.util.CategoryUtil;
 import slimeknights.tconstruct.tools.TinkerTools;
@@ -139,7 +141,14 @@ public class ToolBuildingCategory extends AbstractRecipeCategory<ToolBuildingRec
         variants.add(parts.get(i).getMaterial(inputSlots.get(i).getDisplayedItemStack().orElse(ItemStack.EMPTY)));
       }
       variants.addAll(recipe.getExtraMaterials());
-      resultSlot.createDisplayOverrides().addItemStack(new MaterialIdNBT(variants).updateStack(new ItemStack(recipe.getOutput())));
+      ItemStack stack = new MaterialIdNBT(variants).updateStack(new ItemStack(recipe.getOutput()));
+      if (stack.getMaxStackSize() > 1) {
+        ToolStack tool = ToolStack.from(stack);
+        tool.rebuildStats();
+        stack.setCount(CraftCountModifierHook.maxStackSize(tool, recipe.shrinkToolSlotBy()));
+      }
+
+      resultSlot.createDisplayOverrides().addItemStack(CraftCountModifierHook.createDisplayStack(new MaterialIdNBT(variants), recipe.getOutput(), recipe.getOutputCount()));
     }
   }
 

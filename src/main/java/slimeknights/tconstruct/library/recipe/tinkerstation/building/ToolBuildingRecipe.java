@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -22,8 +23,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
-import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.modifiers.ModifierHooks;
+import slimeknights.tconstruct.library.modifiers.hook.build.CraftCountModifierHook;
 import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipeCache;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
@@ -83,6 +83,7 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
   @Getter
   protected final IModifiable output;
   /** Size of the result */
+  @Getter
   protected final int outputCount;
   /** Layout for slots in JEI */
   @Nullable
@@ -196,21 +197,21 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
       }
     }
     // create tool
-    ToolStack tool = ToolStack.createTool(output.asItem(), output.getToolDefinition(), new MaterialNBT(materials));
-    int count = outputCount;
+    Item item = output.asItem();
+    ToolStack tool = ToolStack.createTool(item, output.getToolDefinition(), new MaterialNBT(materials));
+    int count;
     // if we have any parts set, run the count hook
     // no point running it if all materials are set through override/no materials, just set the recipe count in that case
     // note there is an edge case when you have a fixed material that adjusts count plus parts, not really a good solution for that case
-    if (parts > 0) {
-      // apply tool craft hook for remaining traits
-      float newCount = count;
-      for (ModifierEntry entry : tool.getModifiers()) {
-        newCount = entry.getHook(ModifierHooks.CRAFT_COUNT).modifyCraftCount(tool, entry, newCount);
-        if (newCount <= 0) {
-          return NO_COUNT;
-        }
+    int itemMax = item.getMaxStackSize();
+    if (parts > 0 && itemMax > 1) {
+      count = CraftCountModifierHook.maxStackSize(tool, outputCount);
+      if (count <= 0) {
+        return NO_COUNT;
       }
-      count = (int) newCount;
+    } else {
+      // the min is handled inside the max stack size helper, so just handle it here
+      count = Math.min(itemMax, outputCount);
     }
 
     // validate the tool, lets people have traits reject each other or do weird slot shenanigans
@@ -218,7 +219,7 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
     if (error != null) {
       return RecipeResult.failure(error);
     }
-    return LazyToolStack.success(tool, Math.min(output.asItem().getMaxStackSize(), count));
+    return LazyToolStack.success(tool, count);
   }
 
 

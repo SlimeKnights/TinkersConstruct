@@ -19,6 +19,7 @@ import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
+import slimeknights.tconstruct.library.modifiers.hook.build.CraftCountModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.ModifierRemovalHook;
 import slimeknights.tconstruct.library.recipe.ITinkerableContainer;
 import slimeknights.tconstruct.library.recipe.RecipeResult;
@@ -72,16 +73,7 @@ public abstract class MaterialSwappingRecipe implements ITinkerStationRecipe {
 
   /** Gets the max stack size for the given tool, calling the modifier hook */
   protected static int maxStackSize(IToolStackView tool, float count) {
-    // don't bother running if the tool can't go above count 1. Prevents the trait from being abused on non-ammo
-    int itemMax = tool.getItem().getMaxStackSize();
-    if (itemMax == 1) return 1;
-    for (ModifierEntry entry : tool.getModifiers()) {
-      count = entry.getHook(ModifierHooks.CRAFT_COUNT).modifyCraftCount(tool, entry, count);
-      if (count <= 0) {
-        return 0;
-      }
-    }
-    return (int) Math.min(count, itemMax);
+    return CraftCountModifierHook.maxStackSize(tool, count);
   }
 
   /** Gets the max stack size for the given tool, calling the modifier hook */
@@ -238,11 +230,7 @@ public abstract class MaterialSwappingRecipe implements ITinkerStationRecipe {
 
   /** Creates a stack with the max size from the given materials and focus, running the material stack size hook as needed. */
   protected ItemStack createDisplayStack(MaterialIdNBT materials, Item focus) {
-    ItemStack stack = materials.updateStack(new ItemStack(focus));
-    if (focus.getMaxStackSize() > 1) {
-      stack.setCount(maxStackSize(ToolStack.from(stack)));
-    }
-    return stack;
+    return CraftCountModifierHook.createDisplayStack(materials, focus, maxStackSize);
   }
 
   /** Recipe mapping a single ingredient to a part */

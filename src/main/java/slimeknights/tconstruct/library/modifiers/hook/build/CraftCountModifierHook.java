@@ -1,7 +1,12 @@
 package slimeknights.tconstruct.library.modifiers.hook.build;
 
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ItemLike;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
+import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import java.util.Collection;
 
@@ -34,4 +39,33 @@ public interface CraftCountModifierHook {
       return amount;
     }
   }
+
+
+  /* Helpers */
+
+  /** Gets the max stack size for the given tool, calling the modifier hook */
+  static int maxStackSize(IToolStackView tool, float count) {
+    // don't bother running if the tool can't go above count 1. Prevents the trait from being abused on non-ammo
+    int itemMax = tool.getItem().getMaxStackSize();
+    if (itemMax == 1) return 1;
+    for (ModifierEntry entry : tool.getModifiers()) {
+      count = entry.getHook(ModifierHooks.CRAFT_COUNT).modifyCraftCount(tool, entry, count);
+      if (count <= 0) {
+        return 0;
+      }
+    }
+    return (int) Math.min(count, itemMax);
+  }
+
+  /** Creates a stack with the max size from the given materials and focus, running the material stack size hook as needed. */
+  static ItemStack createDisplayStack(MaterialIdNBT materials, ItemLike focus, int count) {
+    ItemStack stack = materials.updateStack(new ItemStack(focus));
+    if (stack.getMaxStackSize() > 1) {
+      ToolStack tool = ToolStack.from(stack);
+      tool.rebuildStats();
+      stack.setCount(maxStackSize(tool, count));
+    }
+    return stack;
+  }
+
 }
