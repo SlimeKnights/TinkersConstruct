@@ -80,6 +80,11 @@ public interface IDisplayTinkerStationRecipe {
     return ITinkerStationRecipe.DEFAULT_TOOL_STACK_SIZE;
   }
 
+  /** Gets the maximum stack size for the given stack. */
+  default int getMaxToolSize(ItemStack stack) {
+    return Math.min(stack.getMaxStackSize(), getMaxToolSize());
+  }
+
   /**
    * Creates a result for this recipe given the passed focus.
    * @param  focus  Input tool focus. Called if it passes {@link #isTool(ItemStack)}.

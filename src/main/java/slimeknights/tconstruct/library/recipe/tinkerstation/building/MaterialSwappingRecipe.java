@@ -67,13 +67,16 @@ public abstract class MaterialSwappingRecipe implements ITinkerStationRecipe {
 
   /** Gets the max stack size for the given tool, calling the modifier hook */
   protected static int maxStackSize(IToolStackView tool, float count) {
+    // don't bother running if the tool can't go above count 1. Prevents the trait from being abused on non-ammo
+    int itemMax = tool.getItem().getMaxStackSize();
+    if (itemMax == 1) return 1;
     for (ModifierEntry entry : tool.getModifiers()) {
       count = entry.getHook(ModifierHooks.CRAFT_COUNT).modifyCraftCount(tool, entry, count);
       if (count <= 0) {
         return 0;
       }
     }
-    return (int) count;
+    return (int) Math.min(count, itemMax);
   }
 
   /** Gets the max stack size for the given tool, calling the modifier hook */
@@ -205,12 +208,8 @@ public abstract class MaterialSwappingRecipe implements ITinkerStationRecipe {
 
   /** Creates a new item stack with the given material. Will modify {@code tool}. */
   public ItemStack withMaterial(ToolStack tool, int index, MaterialVariant material) {
-    return withMaterial(tool, index, material, maxStackSize);
-  }
-
-  /** Creates a new item stack with the given material. Will modify {@code tool}. */
-  public static ItemStack withMaterial(ItemStack tool, int index, MaterialVariant material, int maxStackSize) {
-    return withMaterial(ToolStack.from(tool), index, material, maxStackSize);
+    setMaterials(tool, index, material);
+    return tool.createStack(maxStackSize(tool));
   }
 
   /** Sets the materials on the given tool using the passed material */
@@ -230,12 +229,6 @@ public abstract class MaterialSwappingRecipe implements ITinkerStationRecipe {
       // if it has materials already just swap the one to update
       tool.replaceMaterial(index, material);
     }
-  }
-
-  /** Creates a new item stack with the given material. Will modify {@code tool}. */
-  public static ItemStack withMaterial(ToolStack tool, int index, MaterialVariant material, int maxStackSize) {
-    setMaterials(tool, index, material);
-    return tool.createStack(Math.min(maxStackSize, tool.getItem().getMaxStackSize()));
   }
 
   /** Recipe mapping a single ingredient to a part */
@@ -261,7 +254,22 @@ public abstract class MaterialSwappingRecipe implements ITinkerStationRecipe {
 
     @Override
     public ResourceLocation getRecipeId() {
-      return getId();
+      return id;
+    }
+
+    @Override
+    public int getMaxToolSize() {
+      return maxStackSize;
+    }
+
+    @Override
+    public int getMaxToolSize(ItemStack stack) {
+      return maxStackSize(ToolStack.from(stack));
+    }
+
+    @Override
+    public boolean isTool(ItemStack check) {
+      return tools.test(check);
     }
 
     @Override

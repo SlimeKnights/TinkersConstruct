@@ -141,7 +141,7 @@ public abstract class AbstractTinkerStationCategory<T extends IDisplayTinkerStat
         focusOutput = true;
       } else if (recipe.isTool(focusStack)) {
         // make the stack count as large as the recipe allows. This should also automatically update the size in the result
-        ItemStack toolStack = focusStack.copyWithCount(Math.min(focusStack.getMaxStackSize(), recipe.getMaxToolSize()));
+        ItemStack toolStack = focusStack.copyWithCount(recipe.getMaxToolSize(focusStack));
         // ask the recipe if it wishes to adjust sizes
         RecipeResult<ItemStack> focusUpdate = recipe.onFocused(toolStack);
         // on success, update the input to the focus stack and the output to the result
