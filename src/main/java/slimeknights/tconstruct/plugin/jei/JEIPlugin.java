@@ -104,6 +104,7 @@ import slimeknights.tconstruct.plugin.jei.modifiers.ModifierWorktableCategory;
 import slimeknights.tconstruct.plugin.jei.modifiers.SlotIngredientHelper;
 import slimeknights.tconstruct.plugin.jei.modifiers.SlotIngredientRenderer;
 import slimeknights.tconstruct.plugin.jei.modifiers.ToolModificationCategory;
+import slimeknights.tconstruct.plugin.jei.modifiers.ToolModificationRecipeManager;
 import slimeknights.tconstruct.plugin.jei.partbuilder.MaterialItemList;
 import slimeknights.tconstruct.plugin.jei.partbuilder.PartBuilderCategory;
 import slimeknights.tconstruct.plugin.jei.partbuilder.PatternIngredientHelper;
@@ -251,7 +252,7 @@ public class JEIPlugin implements IModPlugin {
                                                                  return n1.compareTo(n2);
                                                                }).collect(Collectors.toList());
     register.addRecipes(TConstructJEIConstants.MODIFIERS, modifierRecipes);
-    register.addRecipes(TConstructJEIConstants.TOOL_MODIFICATION, RecipeHelper.getJEIRecipes(access, manager, TinkerRecipeTypes.TINKER_STATION.get(), IDisplayToolModification.class));
+    register.addRecipes(TConstructJEIConstants.TOOL_MODIFICATION, FilteredRecipe.unfiltered(RecipeHelper.getJEIRecipes(access, manager, TinkerRecipeTypes.TINKER_STATION.get(), IDisplayToolModification.class)));
 
     // beheading
     register.addRecipes(TConstructJEIConstants.SEVERING, RecipeHelper.getJEIRecipes(access, manager, TinkerRecipeTypes.SEVERING.get(), SeveringRecipe.class));
@@ -293,6 +294,7 @@ public class JEIPlugin implements IModPlugin {
     IIngredientManager ingredientManager = registration.getJeiHelpers().getIngredientManager();
     registration.addTypedRecipeManagerPlugin(TConstructJEIConstants.CASTING_BASIN, new CastingRecipeManager(ingredientManager, getFilteredCastingRecipes(access, manager, TinkerRecipeTypes.CASTING_BASIN)));
     registration.addTypedRecipeManagerPlugin(TConstructJEIConstants.CASTING_TABLE, new CastingRecipeManager(ingredientManager, getFilteredCastingRecipes(access, manager, TinkerRecipeTypes.CASTING_TABLE)));
+    registration.addTypedRecipeManagerPlugin(TConstructJEIConstants.TOOL_MODIFICATION, new ToolModificationRecipeManager(ingredientManager, FilteredRecipe.filtered(RecipeHelper.getJEIRecipes(access, manager, TinkerRecipeTypes.TINKER_STATION.get(), IDisplayToolModification.class))));
   }
 
   /** Adds a table as a catalys */

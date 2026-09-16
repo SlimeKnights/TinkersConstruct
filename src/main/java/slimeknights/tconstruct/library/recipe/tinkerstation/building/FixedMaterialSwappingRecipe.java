@@ -222,5 +222,15 @@ public class FixedMaterialSwappingRecipe extends MaterialSwappingRecipe implemen
       }
       return toolWithModifier;
     }
+
+    @Override
+    public boolean isFiltered() {
+      return true;
+    }
+
+    @Override
+    public boolean isVisibleFromItem(ItemStack focus, boolean output) {
+      return output == MaterialIdNBT.getMaterial(focus, index).sameId(material);
+    }
   }
 }
