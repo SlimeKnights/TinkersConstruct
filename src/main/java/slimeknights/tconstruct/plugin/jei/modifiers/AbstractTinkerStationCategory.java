@@ -25,7 +25,6 @@ import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IDisplayTinkerStationRecipe;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
-import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.plugin.jei.util.CategoryUtil;
 import slimeknights.tconstruct.plugin.jei.util.RecipeSlotWrapper;
 import slimeknights.tconstruct.plugin.jei.util.RecipeSlotsWrapper;
@@ -141,13 +140,7 @@ public abstract class AbstractTinkerStationCategory<T extends IDisplayTinkerStat
     // allow tools to directly respond to focus
     List<ItemStack> toolWithoutModifier = recipe.getToolWithoutModifier(focusStack, focusOutput);
     List<ItemStack> toolWithModifier = recipe.getToolWithModifier(focusStack, focusOutput);
-    for (ItemStack tool : toolWithoutModifier) {
-      TConstruct.LOG.info(MaterialIdNBT.from(tool));
-    }
-    for (ItemStack tool : toolWithModifier) {
-      TConstruct.LOG.info(MaterialIdNBT.from(tool));
-    }
-    // or use the specialized method - TODO: should this be disabled from non-catalysts?
+    // or use the specialized method
     if (!focusOutput && recipe.isTool(focusStack)) {
       // make the stack count as large as the recipe allows. This should also automatically update the size in the result
       ItemStack toolStack = focusStack.copyWithCount(recipe.getMaxToolSize(focusStack));
