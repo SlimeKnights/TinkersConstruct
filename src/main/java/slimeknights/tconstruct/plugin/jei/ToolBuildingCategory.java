@@ -148,7 +148,7 @@ public class ToolBuildingCategory extends AbstractRecipeCategory<ToolBuildingRec
         stack.setCount(CraftCountModifierHook.maxStackSize(tool, recipe.shrinkToolSlotBy()));
       }
 
-      resultSlot.createDisplayOverrides().addItemStack(CraftCountModifierHook.createDisplayStack(new MaterialIdNBT(variants), recipe.getOutput(), recipe.getOutputCount()));
+      resultSlot.createDisplayOverrides().addItemStack(CraftCountModifierHook.copyMaterials(new MaterialIdNBT(variants), recipe.getOutput(), recipe.getOutputCount()));
     }
   }
 

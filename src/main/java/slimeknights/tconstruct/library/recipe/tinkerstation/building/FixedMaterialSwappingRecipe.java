@@ -33,7 +33,6 @@ import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tables.TinkerTables;
 
-import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.BitSet;
 import java.util.List;
@@ -168,10 +167,9 @@ public class FixedMaterialSwappingRecipe extends MaterialSwappingRecipe implemen
 
   /** Overrides the title and variant for the display recipe */
   protected class DisplayRecipe extends MaterialSwappingRecipe.DisplayRecipe {
-    @Nullable
     @Getter
     private final Component variant;
-    public DisplayRecipe(@Nullable Component variant, int index, List<ItemStack> input, List<ItemStack> toolWithoutModifier, List<ItemStack> toolWithModifier) {
+    public DisplayRecipe(Component variant, int index, List<ItemStack> input, List<ItemStack> toolWithoutModifier, List<ItemStack> toolWithModifier) {
       super(index, input, toolWithoutModifier, toolWithModifier);
       this.variant = variant;
     }
@@ -192,10 +190,10 @@ public class FixedMaterialSwappingRecipe extends MaterialSwappingRecipe implemen
         // if focusing on an input tool, it becomes our tool without modifier provided we can change it
         MaterialIdNBT materials = MaterialIdNBT.from(focus);
         if (!focusOutput && !materials.getMaterial(index).sameVariant(material)) {
-          return List.of(focus.copyWithCount(getMaxToolSize(focus)));
+          return focusInput(focus);
         }
         // otherwise, copy all materials to the input except the one we plan to swap
-        return List.of(createDisplayStack(materials.replaceMaterial(index, ToolBuildHandler.getRenderMaterial(0)), focus.getItem()));
+        return createDisplayStack(materials, focus);
       }
       return toolWithoutModifier;
     }
@@ -210,17 +208,15 @@ public class FixedMaterialSwappingRecipe extends MaterialSwappingRecipe implemen
           if (!materials.getMaterial(index).sameVariant(material)) {
             materials = materials.replaceMaterial(index, material);
           }
-          return List.of(createDisplayStack(materials, focus.getItem()));
+          return List.of(copyMaterials(materials, focus.getItem()));
         } else {
           // add the material to the input focus if its lacking
           ToolStack tool = ToolStack.from(focus);
           if (!tool.getMaterial(index).sameVariant(material)) {
-            tool = tool.copy();
-            tool.replaceMaterial(index, material);
-            return List.of(tool.updateStack(focus.copyWithCount(maxStackSize(tool)), true));
+            return List.of(replaceMaterial(tool.copy(), MaterialVariant.of(material), focus));
           } else {
             // if it already has the material, strip unique properties
-            return List.of(createDisplayStack(tool, tool.getMaterials()));
+            return List.of(copyMaterials(tool, tool.getMaterials()));
           }
         }
       }

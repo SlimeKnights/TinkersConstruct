@@ -5,14 +5,15 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
 import slimeknights.mantle.data.loadable.common.IngredientLoadable;
 import slimeknights.mantle.data.loadable.field.RecordField;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.recipe.ingredient.SizedIngredient;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.materials.IMaterialUser;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
@@ -228,12 +229,12 @@ public abstract class MaterialSwappingRecipe implements ITinkerStationRecipe {
   }
 
   /** Creates a stack with the max size from the given materials and focus, running the material stack size hook as needed. */
-  protected ItemStack createDisplayStack(MaterialIdNBT materials, Item focus) {
-    return CraftCountModifierHook.createDisplayStack(materials, focus, maxStackSize);
+  protected ItemStack copyMaterials(MaterialIdNBT materials, ItemLike focus) {
+    return CraftCountModifierHook.copyMaterials(materials, focus, maxStackSize);
   }
 
   /** Creates a stack with the item from the given tool and the passed materials. */
-  protected ItemStack createDisplayStack(IToolStackView tool, MaterialNBT materials) {
+  protected ItemStack copyMaterials(IToolStackView tool, MaterialNBT materials) {
     ToolStack copy = ToolStack.createTool(tool.getItem(), tool.getDefinition(), materials);
     return copy.createStack(maxStackSize(tool));
   }
@@ -302,29 +303,109 @@ public abstract class MaterialSwappingRecipe implements ITinkerStationRecipe {
       }
       return List.of();
     }
+
+    /** Replaces the given material on the stack before creating a stack. */
+    protected ItemStack replaceMaterial(MaterialIdNBT materials, MaterialVariantId replacement, ItemStack focus) {
+      return copyMaterials(materials.replaceMaterial(index, replacement), focus.getItem());
+    }
+
+    /** Helper to create a stack with replaced material. Will modify the tool stack instance. */
+    protected ItemStack replaceMaterial(ToolStack tool, MaterialVariant replacement, ItemStack focus) {
+      tool.replaceMaterial(index, replacement);
+      return tool.updateStack(focus.copyWithCount(maxStackSize(tool)), true);
+    }
+
+    /** Creates an input for the given materials list */
+    protected List<ItemStack> createDisplayStack(MaterialIdNBT materials, ItemStack focus) {
+      return List.of(replaceMaterial(materials, ToolBuildHandler.getRenderMaterial(0), focus));
+    }
+
+    /** Creates the list for the focus as an input */
+    protected List<ItemStack> focusInput(ItemStack focus) {
+      return List.of(focus.copyWithCount(getMaxToolSize(focus)));
+    }
   }
 
   /** Display recipe linking the input to the output slot */
   protected class LinkedDisplayRecipe extends DisplayRecipe {
     private final int[] outputLinks;
-    public LinkedDisplayRecipe(int index, List<ItemStack> input, List<ItemStack> toolWithoutModifier, List<ItemStack> toolWithModifier) {
+    protected final List<MaterialVariant> materials;
+    public LinkedDisplayRecipe(int index, List<ItemStack> input, List<ItemStack> toolWithoutModifier, List<ItemStack> toolWithModifier, List<MaterialVariant> materials) {
       super(index, input, toolWithoutModifier, toolWithModifier);
       this.outputLinks = new int[] {index};
+      this.materials = materials;
     }
 
     @Override
     public int[] linkToOutput() {
       return outputLinks;
     }
+
+
+    /* Dynamic focus */
+
+    /** Gets a stream of animation indices without the given material */
+    protected IntStream indicesWithout(MaterialVariantId material) {
+      return IntStream.range(0, materials.size()).filter(i -> !materials.get(i).sameVariant(material));
+    }
+
+    @Override
+    public List<ItemStack> getToolWithoutModifier(ItemStack focus, boolean focusOutput) {
+      // skip inputs that are not the tool
+      if (!focus.isEmpty() && (focusOutput || isTool(focus))) {
+        MaterialIdNBT materials = MaterialIdNBT.from(focus);
+        // for inputs, display the focus itself provided we have at least 1 material that is not the current material
+        if (!focusOutput) {
+          MaterialVariantId material = materials.getMaterial(index);
+          if (indicesWithout(material).findAny().isPresent()) {
+            return focusInput(focus);
+          }
+        }
+        // otherwise, display a generic render tool with all other materials copied
+        return createDisplayStack(materials, focus);
+      }
+      return toolWithoutModifier;
+    }
+
+    /** Common code for handling an input focus tool with the given modifier. */
+    protected List<ItemStack> getInputFocusWithModifier(ItemStack focus) {
+      ToolStack tool = ToolStack.copyFrom(focus);
+      return getInputFocusWithModifier(tool, tool.getMaterial(index).getVariant(), focus);
+    }
+
+    /** Gets the stacks for the output focus with the modifier, copying materials but discarding stack data. */
+    protected List<ItemStack> getOutputFocusWithModifier(IMaterialUser materialUser, ItemStack focus) {
+      // if the focus is the output, duplicate just the materials so it's the simplest version of the recipe
+      MaterialIdNBT materials = MaterialIdNBT.from(focus);
+      if (materialUser.canUseMaterial(materials.getMaterial(index).getId())) {
+        return List.of(copyMaterials(materials, focus.getItem()));
+      } else {
+        // on the chance the result stack isn't usable, duplicate the rest of the materials as an animation over parts
+        return this.materials.stream().map(newMaterial -> replaceMaterial(materials, newMaterial.getVariant(), focus)).toList();
+      }
+    }
+
+    /** Common code for handling an input focus tool with the given modifier, replacing the material but copying over stack data. */
+    protected List<ItemStack> getInputFocusWithModifier(ToolStack tool, MaterialVariantId material, ItemStack focus) {
+      // if focusing on an input tool, output is the input with the new material. need to filter our list of options to just new ones
+      List<ItemStack> results = materials.stream()
+        .filter(newMaterial -> !newMaterial.sameVariant(material))
+        .map(newMaterial -> replaceMaterial(tool, newMaterial, focus))
+        .toList();
+      if (!results.isEmpty()) {
+        return results;
+      } else {
+        // create a new tool with the same materials for each material option
+        return this.materials.stream().map(newMaterial -> copyMaterials(tool, tool.getMaterials().replaceMaterial(index, newMaterial))).toList();
+      }
+    }
   }
 
   /** Display recipe with a tool part. Used to implement dynamic focus */
   protected class PartDisplayRecipe extends LinkedDisplayRecipe {
-    protected final List<MaterialVariant> materials;
     protected final IMaterialItem part;
     public PartDisplayRecipe(int index, List<ItemStack> input, List<ItemStack> toolWithoutModifier, List<ItemStack> toolWithModifier, List<MaterialVariant> materials, IMaterialItem part) {
-      super(index, input, toolWithoutModifier, toolWithModifier);
-      this.materials = materials;
+      super(index, input, toolWithoutModifier, toolWithModifier, materials);
       this.part = part;
     }
 
@@ -343,7 +424,7 @@ public abstract class MaterialSwappingRecipe implements ITinkerStationRecipe {
         } else  {
           // if focusing on the input, and focus is a tool, display all parts that are not the original material
           // if focus is a part, no work to do (focus link takes care of that)
-          List<ItemStack> parts = IntStream.range(0, materials.size()).filter(i -> !materials.get(i).sameVariant(material)).mapToObj(input::get).toList();
+          List<ItemStack> parts = indicesWithout(material).mapToObj(input::get).toList();
           // if we have no parts, best we can do is just display the full list
           if (!parts.isEmpty()) return parts;
         }
@@ -352,49 +433,12 @@ public abstract class MaterialSwappingRecipe implements ITinkerStationRecipe {
     }
 
     @Override
-    public List<ItemStack> getToolWithoutModifier(ItemStack focus, boolean focusOutput) {
-      // skip inputs that are not the tool
-      if (!focus.isEmpty() && (focusOutput || isTool(focus))) {
-        MaterialIdNBT materials = MaterialIdNBT.from(focus);
-        // for inputs, display the focus itself provided we have at least 1 material that is not the current material
-        if (!focusOutput) {
-          MaterialVariantId material = materials.getMaterial(index);
-          if (this.materials.stream().anyMatch(newMaterial -> !newMaterial.sameVariant(material))) {
-            return List.of(focus.copyWithCount(getMaxToolSize(focus)));
-          }
-        }
-        // otherwise, display a generic render tool with all other materials copied
-        return List.of(createDisplayStack(materials.replaceMaterial(index, ToolBuildHandler.getRenderMaterial(0)), focus.getItem()));
-      }
-      return toolWithoutModifier;
-    }
-
-    @Override
     public List<ItemStack> getToolWithModifier(ItemStack focus, boolean focusOutput) {
       if (!focus.isEmpty()) {
         if (focusOutput) {
-          // if the focus is the output, duplicate just the materials so it's the simplest version of the recipe
-          MaterialIdNBT materials = MaterialIdNBT.from(focus);
-          if (part.canUseMaterial(materials.getMaterial(index).getId())) {
-            return List.of(createDisplayStack(materials, focus.getItem()));
-          } else {
-            // on the chance the result stack isn't usable, duplicate the rest of the materials as an animation over parts
-            return this.materials.stream().map(newMaterial -> createDisplayStack(materials.replaceMaterial(index, newMaterial.getVariant()), focus.getItem())).toList();
-          }
+          return getOutputFocusWithModifier(part, focus);
         } else if (isTool(focus)) {
-          // if focusing on an input tool, output is the input with the new material. need to filter our list of options to just new ones
-          ToolStack tool = ToolStack.copyFrom(focus);
-          MaterialVariantId material = tool.getMaterial(index).getVariant();
-          List<ItemStack> results = materials.stream().filter(newMaterial -> !newMaterial.sameVariant(material)).map(newMaterial -> {
-            tool.replaceMaterial(index, newMaterial);
-            return tool.updateStack(focus.copyWithCount(maxStackSize(tool)), true);
-          }).toList();
-          if (!results.isEmpty()) {
-            return results;
-          } else {
-            // create a new tool with the same materials for each material option
-            return this.materials.stream().map(newMaterial -> createDisplayStack(tool, tool.getMaterials().replaceMaterial(index, newMaterial))).toList();
-          }
+          return getInputFocusWithModifier(focus);
         }
       }
       return toolWithModifier;

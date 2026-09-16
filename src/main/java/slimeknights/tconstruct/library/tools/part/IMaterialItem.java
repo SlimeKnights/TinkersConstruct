@@ -4,6 +4,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
+import slimeknights.tconstruct.library.materials.IMaterialUser;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
@@ -14,7 +15,7 @@ import java.util.function.Consumer;
 /**
  * Items implementing this interface contain a material
  */
-public interface IMaterialItem extends ItemLike {
+public interface IMaterialItem extends ItemLike, IMaterialUser {
   /** Tag used in NBT for the material ID */
   String MATERIAL_TAG = "Material";
 
@@ -54,6 +55,7 @@ public interface IMaterialItem extends ItemLike {
   /**
    * Returns true if the material can be used for this toolpart
    */
+  @Override
   default boolean canUseMaterial(MaterialId mat) {
     return true;
   }

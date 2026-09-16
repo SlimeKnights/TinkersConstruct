@@ -192,12 +192,10 @@ public class ToolMaterialSwappingRecipe extends MaterialSwappingRecipe implement
     private static final Component TITLE = TConstruct.makeTranslation("recipe", "tool_material_swapping");
     private static final Component TOOLTIP = TConstruct.makeTranslation("recipe", "tool_material_swapping.tooltip");
 
-    private final List<MaterialVariant> materials;
     private final MaterialStatsId statType;
     private final ToolStack displayTool;
     public DisplayRecipe(int index, List<ItemStack> input, List<ItemStack> toolWithoutModifier, List<ItemStack> toolWithModifier, List<MaterialVariant> materials, MaterialStatsId statType, ToolStack displayTool) {
-      super(index, input, toolWithoutModifier, toolWithModifier);
-      this.materials = materials;
+      super(index, input, toolWithoutModifier, toolWithModifier, materials);
       this.statType = statType;
       this.displayTool = displayTool;
     }
@@ -228,7 +226,7 @@ public class ToolMaterialSwappingRecipe extends MaterialSwappingRecipe implement
           }
         } else if (ModifierUtil.hasUpgrades(focus)) {
           // we can only use the focus as the sacrifice if it has no upgrades. if it has upgrades, just filter to materials that don't match current material
-          List<ItemStack> tools = IntStream.range(0, materials.size()).filter(i -> !materials.get(i).sameVariant(material)).mapToObj(input::get).toList();
+          List<ItemStack> tools = indicesWithout(material).mapToObj(input::get).toList();
           if (!tools.isEmpty()) {
             return tools;
           }
@@ -251,8 +249,8 @@ public class ToolMaterialSwappingRecipe extends MaterialSwappingRecipe implement
           MaterialVariantId material = materials.getMaterial(index);
           // if the focus has upgrades, it cannot be a sacrifice, so just use it as the input every time
           if (ModifierUtil.hasUpgrades(focus)) {
-            if (this.materials.stream().anyMatch(newMaterial -> !newMaterial.sameVariant(material))) {
-              return List.of(focus.copyWithCount(getMaxToolSize(focus)));
+            if (indicesWithout(material).findAny().isPresent()) {
+              return focusInput(focus);
             }
           } else {
             // if the focus lacks upgrades, it will be the sacrifice whenever the material matches and the input otherwise
@@ -262,7 +260,7 @@ public class ToolMaterialSwappingRecipe extends MaterialSwappingRecipe implement
           }
         }
         // otherwise, display a generic render tool with all other materials copied
-        return List.of(createDisplayStack(materials.replaceMaterial(index, ToolBuildHandler.getRenderMaterial(0)), focus.getItem()));
+        return createDisplayStack(materials, focus);
       }
       return toolWithoutModifier;
     }
@@ -271,41 +269,23 @@ public class ToolMaterialSwappingRecipe extends MaterialSwappingRecipe implement
     public List<ItemStack> getToolWithModifier(ItemStack focus, boolean focusOutput) {
       if (!focus.isEmpty()) {
         if (focusOutput) {
-          // if the focus is the output, duplicate just the materials so it's the simplest version of the recipe
-          MaterialIdNBT materials = MaterialIdNBT.from(focus);
-          if (statType.canUseMaterial(materials.getMaterial(index).getId())) {
-            return List.of(createDisplayStack(materials, focus.getItem()));
-          } else {
-            // on the chance the result stack isn't usable, duplicate the rest of the materials as an animation over parts
-            return this.materials.stream().map(newMaterial -> createDisplayStack(materials.replaceMaterial(index, newMaterial.getVariant()), focus.getItem())).toList();
-          }
+          return getOutputFocusWithModifier(statType, focus);
         } else if (isTool(focus)) {
           // if focusing on an input tool, output is the input with the new material
           ToolStack tool = ToolStack.copyFrom(focus);
           MaterialVariantId material = tool.getMaterial(index).getVariant();
           if (tool.getUpgrades().isEmpty()) {
-            // tool lacking upgrades means its a valid sacrifice. show a generic output with its material at the matching spot and a copy with new material otherwise
+            // tool lacking upgrades means it's a valid sacrifice. show a generic output with its material at the matching spot and a copy with new material otherwise
             return IntStream.range(0, this.materials.size()).mapToObj(i -> {
               MaterialVariant newMaterial = this.materials.get(i);
               if (newMaterial.sameVariant(material)) {
                 return toolWithModifier.get(i);
               } else {
-                tool.replaceMaterial(index, newMaterial);
-                return tool.updateStack(focus.copyWithCount(maxStackSize(tool)), true);
+                return replaceMaterial(tool, newMaterial, focus);
               }
             }).toList();
           } else {
-            // if we have upgrades, the focus is not a valid sacrifice, so use filtered results
-            List<ItemStack> results = materials.stream().filter(newMaterial -> !newMaterial.sameVariant(material)).map(newMaterial -> {
-              tool.replaceMaterial(index, newMaterial);
-              return tool.updateStack(focus.copyWithCount(maxStackSize(tool)), true);
-            }).toList();
-            if (!results.isEmpty()) {
-              return results;
-            } else {
-              // create a new tool with the same materials for each material option
-              return this.materials.stream().map(newMaterial -> createDisplayStack(tool, tool.getMaterials().replaceMaterial(index, newMaterial))).toList();
-            }
+            return getInputFocusWithModifier(tool, material, focus);
           }
         }
       }

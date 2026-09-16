@@ -58,7 +58,7 @@ public interface CraftCountModifierHook {
   }
 
   /** Creates a stack with the max size from the given materials and focus, running the material stack size hook as needed. */
-  static ItemStack createDisplayStack(MaterialIdNBT materials, ItemLike focus, int count) {
+  static ItemStack copyMaterials(MaterialIdNBT materials, ItemLike focus, int count) {
     ItemStack stack = materials.updateStack(new ItemStack(focus));
     if (stack.getMaxStackSize() > 1) {
       ToolStack tool = ToolStack.from(stack);
