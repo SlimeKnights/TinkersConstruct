@@ -367,12 +367,6 @@ public abstract class MaterialSwappingRecipe implements ITinkerStationRecipe {
       return toolWithoutModifier;
     }
 
-    /** Common code for handling an input focus tool with the given modifier. */
-    protected List<ItemStack> getInputFocusWithModifier(ItemStack focus) {
-      ToolStack tool = ToolStack.copyFrom(focus);
-      return getInputFocusWithModifier(tool, tool.getMaterial(index).getVariant(), focus);
-    }
-
     /** Gets the stacks for the output focus with the modifier, copying materials but discarding stack data. */
     protected List<ItemStack> getOutputFocusWithModifier(IMaterialUser materialUser, ItemStack focus) {
       // if the focus is the output, duplicate just the materials so it's the simplest version of the recipe
@@ -383,6 +377,12 @@ public abstract class MaterialSwappingRecipe implements ITinkerStationRecipe {
         // on the chance the result stack isn't usable, duplicate the rest of the materials as an animation over parts
         return this.materials.stream().map(newMaterial -> replaceMaterial(materials, newMaterial.getVariant(), focus)).toList();
       }
+    }
+
+    /** Common code for handling an input focus tool with the given modifier. */
+    protected List<ItemStack> getInputFocusWithModifier(ItemStack focus) {
+      ToolStack tool = ToolStack.copyFrom(focus);
+      return getInputFocusWithModifier(tool, tool.getMaterial(index).getVariant(), focus);
     }
 
     /** Common code for handling an input focus tool with the given modifier, replacing the material but copying over stack data. */

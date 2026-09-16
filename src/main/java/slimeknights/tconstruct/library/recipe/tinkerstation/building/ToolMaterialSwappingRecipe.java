@@ -37,6 +37,7 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tables.TinkerTables;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.BitSet;
 import java.util.Collection;
@@ -160,34 +161,43 @@ public class ToolMaterialSwappingRecipe extends MaterialSwappingRecipe implement
         List<MaterialVariant> renderMaterials = IntStream.range(0, stats.size()).mapToObj(i -> MaterialVariant.of(ToolBuildHandler.getRenderMaterial(i))).toList();
         ToolStack displayTool = tool.copy();
         displayTool.setMaterials(MaterialNBT.of(renderMaterials.toArray(MaterialVariant[]::new)));
-        return IntStream.range(0, stats.size()).<IDisplayToolModification>mapToObj(i -> {
+        // start making recipes
+        List<IDisplayToolModification> newRecipes = new ArrayList<>(stats.size() * 2);
+        for (int i = 0; i < stats.size(); i++) {
           MaterialStatsId stat = stats.get(i);
           List<IMaterial> filtered = materials.stream().filter(mat -> registry.getMaterialStats(mat.getIdentifier(), stat).isPresent()).toList();
           ToolStack copy = tool.copy();
           setMaterials(copy, i, renderMaterials.get(i));
-          return new DisplayRecipe(i,
+          List<ItemStack> withoutMaterial = List.of(copy.createStack().copy());
+          // standard recipe - focus is the tool being changed
+          int index = i;
+          newRecipes.add(new DisplayRecipe(i,
             // one part per material
             filtered.stream().map(mat -> {
               ToolStack displayCopy = displayTool.copy();
-              displayCopy.replaceMaterial(i, MaterialVariant.of(mat));
+              displayCopy.replaceMaterial(index, MaterialVariant.of(mat));
               return displayCopy.createStack();
             }).toList(),
             // single tool with the material to swap left blank
-            List.of(copy.createStack().copy()),
+            withoutMaterial,
             // one output per material
             filtered.stream().map(mat -> {
-              copy.replaceMaterial(i, MaterialVariant.of(mat));
+              copy.replaceMaterial(index, MaterialVariant.of(mat));
               return copy.createStack().copy();
             }).toList(),
             // material list
             filtered.stream().map(MaterialVariant::of).toList(), stat, displayTool
-          );
-        });
+          ));
+          // recipe for sacrificing the focus to swap materials - just needs the tool on one list so it is detected by the cache
+          newRecipes.add(new SacrificeDisplayRecipe(i, List.of(), withoutMaterial, List.of()));
+        }
+        return newRecipes.stream();
       }).toList();
     }
     return multiRecipes;
   }
 
+  /** Recipe handling tool swapping including tool focuses */
   private class DisplayRecipe extends MaterialSwappingRecipe.LinkedDisplayRecipe {
     private static final Component TITLE = TConstruct.makeTranslation("recipe", "tool_material_swapping");
     private static final Component TOOLTIP = TConstruct.makeTranslation("recipe", "tool_material_swapping.tooltip");
@@ -224,45 +234,13 @@ public class ToolMaterialSwappingRecipe extends MaterialSwappingRecipe implement
             tool.replaceMaterial(index, material);
             return List.of(tool.createStack());
           }
-        } else if (ModifierUtil.hasUpgrades(focus)) {
-          // we can only use the focus as the sacrifice if it has no upgrades. if it has upgrades, just filter to materials that don't match current material
-          List<ItemStack> tools = indicesWithout(material).mapToObj(input::get).toList();
-          if (!tools.isEmpty()) {
-            return tools;
-          }
         } else {
-          // if the tool is a valid sacrifice, use it as the input anywhere that matches the material
-          ItemStack copy = focus.copyWithCount(1);
-          return IntStream.range(0, this.materials.size()).mapToObj(i -> this.materials.get(i).sameVariant(material) ? copy : input.get(i)).toList();
+          // sacrifice generic tools, will sacrifice the focus itself in the other display recipe
+          List<ItemStack> tools = indicesWithout(material).mapToObj(input::get).toList();
+          if (!tools.isEmpty()) return tools;
         }
       }
       return getDisplayItems(slot);
-    }
-
-    @Override
-    public List<ItemStack> getToolWithoutModifier(ItemStack focus, boolean focusOutput) {
-      // skip inputs that are not the tool
-      if (!focus.isEmpty() && (focusOutput || isTool(focus))) {
-        MaterialIdNBT materials = MaterialIdNBT.from(focus);
-        // for inputs, display the focus itself provided we have at least 1 material that is not the current material
-        if (!focusOutput) {
-          MaterialVariantId material = materials.getMaterial(index);
-          // if the focus has upgrades, it cannot be a sacrifice, so just use it as the input every time
-          if (ModifierUtil.hasUpgrades(focus)) {
-            if (indicesWithout(material).findAny().isPresent()) {
-              return focusInput(focus);
-            }
-          } else {
-            // if the focus lacks upgrades, it will be the sacrifice whenever the material matches and the input otherwise
-            ItemStack copy = focus.copyWithCount(1);
-            ItemStack withoutModifier = toolWithoutModifier.get(0);
-            return this.materials.stream().map(variant -> variant.sameVariant(material) ? withoutModifier : copy).toList();
-          }
-        }
-        // otherwise, display a generic render tool with all other materials copied
-        return createDisplayStack(materials, focus);
-      }
-      return toolWithoutModifier;
     }
 
     @Override
@@ -271,25 +249,62 @@ public class ToolMaterialSwappingRecipe extends MaterialSwappingRecipe implement
         if (focusOutput) {
           return getOutputFocusWithModifier(statType, focus);
         } else if (isTool(focus)) {
-          // if focusing on an input tool, output is the input with the new material
-          ToolStack tool = ToolStack.copyFrom(focus);
-          MaterialVariantId material = tool.getMaterial(index).getVariant();
-          if (tool.getUpgrades().isEmpty()) {
-            // tool lacking upgrades means it's a valid sacrifice. show a generic output with its material at the matching spot and a copy with new material otherwise
-            return IntStream.range(0, this.materials.size()).mapToObj(i -> {
-              MaterialVariant newMaterial = this.materials.get(i);
-              if (newMaterial.sameVariant(material)) {
-                return toolWithModifier.get(i);
-              } else {
-                return replaceMaterial(tool, newMaterial, focus);
-              }
-            }).toList();
-          } else {
-            return getInputFocusWithModifier(tool, material, focus);
-          }
+          return getInputFocusWithModifier(focus);
         }
       }
       return toolWithModifier;
+    }
+  }
+
+  /** Display recipe for using the tool itself as a sacrifice for part swapping. */
+  private class SacrificeDisplayRecipe extends MaterialSwappingRecipe.DisplayRecipe {
+    public SacrificeDisplayRecipe(int index, List<ItemStack> input, List<ItemStack> toolWithoutModifier, List<ItemStack> toolWithModifier) {
+      super(index, input, toolWithoutModifier, toolWithModifier);
+    }
+
+    @Override
+    public Component getTitle() {
+      return DisplayRecipe.TITLE;
+    }
+
+    @Override
+    public Component getTooltip() {
+      return DisplayRecipe.TOOLTIP;
+    }
+
+    /* Focus */
+
+    @Override
+    public List<ItemStack> getDisplayItems(int slot, ItemStack focus, boolean focusOutput) {
+      if (slot == index) {
+        return List.of(focus.copyWithCount(1));
+      }
+      return getDisplayItems(slot);
+    }
+
+    @Override
+    public List<ItemStack> getToolWithModifier(ItemStack focus, boolean focusOutput) {
+      // copy materials from the display output, but replace the swapped material to that from the focus
+      return List.of(replaceMaterial(MaterialIdNBT.from(toolWithoutModifier.get(0)), MaterialIdNBT.getMaterial(focus, index), focus));
+    }
+
+
+    /* Filtering */
+
+    @Override
+    public boolean isFiltered() {
+      return true;
+    }
+
+    @Override
+    public boolean showUnfocused() {
+      return false;
+    }
+
+    @Override
+    public boolean isVisibleFromItem(ItemStack focus, boolean output) {
+      // only show on inputs without modifiers
+      return !output && !ModifierUtil.hasUpgrades(focus);
     }
   }
 }
