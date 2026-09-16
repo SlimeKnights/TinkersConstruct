@@ -2,6 +2,8 @@ package slimeknights.tconstruct.library.recipe.partbuilder;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.ItemLike;
+import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.tconstruct.library.utils.IdParser;
 import slimeknights.tconstruct.library.utils.ResourceId;
 import slimeknights.tconstruct.library.utils.Util;
@@ -65,5 +67,10 @@ public class Pattern extends ResourceId {
   @Nullable
   public static Pattern tryBuild(String namespace, String path) {
     return tryBuild(namespace, path, (n, p) -> new Pattern(namespace, path, null));
+  }
+
+  /** Gets the pattern for the given item ID */
+  public static Pattern fromItem(ItemLike item) {
+    return new Pattern(Loadables.ITEM.getKey(item.asItem()));
   }
 }

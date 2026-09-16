@@ -6,6 +6,7 @@ import lombok.experimental.Accessors;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
@@ -15,18 +16,15 @@ import java.util.function.Consumer;
 /**
  * Builder for a material item part crafting recipe
  */
+@Setter
 @Accessors(chain = true)
 @RequiredArgsConstructor(staticName = "partRecipe")
 public class PartRecipeBuilder extends AbstractRecipeBuilder<PartRecipeBuilder> {
   private final IMaterialItem output;
   private final int outputAmount;
-  @Setter
   private int cost = 1;
-  @Setter
-  private ResourceLocation pattern = null;
-  @Setter
+  private Pattern pattern = null;
   private Ingredient patternItem = IPartBuilderRecipe.DEFAULT_PATTERNS;
-  @Setter
   private boolean allowUncraftable = false;
 
   /**
@@ -36,6 +34,22 @@ public class PartRecipeBuilder extends AbstractRecipeBuilder<PartRecipeBuilder> 
    */
   public static PartRecipeBuilder partRecipe(IMaterialItem output) {
     return partRecipe(output, 1);
+  }
+
+  /** Sets the pattern in the builder */
+  public PartRecipeBuilder setPattern(Pattern pattern) {
+    this.pattern = pattern;
+    return this;
+  }
+
+  /** Sets the pattern in the builder */
+  public PartRecipeBuilder setPattern(ResourceLocation pattern) {
+    return setPattern(new Pattern(pattern));
+  }
+
+  /** Sets the pattern to match the given item */
+  public PartRecipeBuilder setPattern(ItemLike pattern) {
+    return setPattern(Pattern.fromItem(pattern));
   }
 
   @Override
@@ -55,6 +69,6 @@ public class PartRecipeBuilder extends AbstractRecipeBuilder<PartRecipeBuilder> 
       throw new IllegalStateException("recipe " + id + " has no pattern associated with it");
     }
     ResourceLocation advancementId = this.buildOptionalAdvancement(id, "parts");
-    consumerIn.accept(new LoadableFinishedRecipe<>(new PartRecipe(id, group, new Pattern(pattern), patternItem, cost, allowUncraftable, output, outputAmount), PartRecipe.LOADER, advancementId));
+    consumerIn.accept(new LoadableFinishedRecipe<>(new PartRecipe(id, group, pattern, patternItem, cost, allowUncraftable, output, outputAmount), PartRecipe.LOADER, advancementId));
   }
 }

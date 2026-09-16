@@ -491,19 +491,19 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     // arrow parts are just part builder, no composite currently
     Ingredient arrowPattern = CompoundIngredient.of(Ingredient.of(TinkerTags.Items.DEFAULT_PATTERNS), Ingredient.of(TinkerSmeltery.arrowCast));
     PartRecipeBuilder.partRecipe(TinkerToolParts.arrowHead.get())
-      .setPattern(TinkerToolParts.arrowHead.getId())
+      .setPattern(TinkerToolParts.arrowHead)
       .setPatternItem(arrowPattern)
       .setCost(1)
       .setAllowUncraftable(true)
       .save(consumer, location(partFolder + "builder/arrow_head"));
     PartRecipeBuilder.partRecipe(TinkerToolParts.arrowShaft.get())
-      .setPattern(TinkerToolParts.arrowShaft.getId())
+      .setPattern(TinkerToolParts.arrowShaft)
       .setPatternItem(arrowPattern)
       .setCost(1)
       .setAllowUncraftable(true)
       .save(consumer, location(partFolder + "builder/arrow_shaft"));
     PartRecipeBuilder.partRecipe(TinkerToolParts.fletching.get())
-      .setPattern(TinkerToolParts.fletching.getId())
+      .setPattern(TinkerToolParts.fletching)
       .setPatternItem(arrowPattern)
       .setCost(1)
       .setAllowUncraftable(true)
