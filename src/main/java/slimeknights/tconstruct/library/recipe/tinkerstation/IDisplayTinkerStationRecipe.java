@@ -5,8 +5,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.library.recipe.RecipeResult;
-import slimeknights.tconstruct.library.recipe.RecipeSlot;
-import slimeknights.tconstruct.library.recipe.RecipeSlots;
+import slimeknights.tconstruct.library.recipe.display.RecipeSlot;
+import slimeknights.tconstruct.library.recipe.display.RecipeSlots;
 
 import javax.annotation.Nullable;
 import java.util.List;

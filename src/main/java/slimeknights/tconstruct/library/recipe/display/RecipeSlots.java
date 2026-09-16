@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.recipe;
+package slimeknights.tconstruct.library.recipe.display;
 
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;

@@ -4,7 +4,7 @@ import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.ingredient.IRecipeSlotDrawable;
 import mezz.jei.api.ingredients.IIngredientType;
 import net.minecraft.world.item.ItemStack;
-import slimeknights.tconstruct.library.recipe.RecipeSlots;
+import slimeknights.tconstruct.library.recipe.display.RecipeSlots;
 
 import java.util.List;
 

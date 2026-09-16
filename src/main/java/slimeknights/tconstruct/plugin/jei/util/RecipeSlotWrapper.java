@@ -6,7 +6,7 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotDrawable;
 import mezz.jei.api.ingredients.IIngredientType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
-import slimeknights.tconstruct.library.recipe.RecipeSlot;
+import slimeknights.tconstruct.library.recipe.display.RecipeSlot;
 
 import java.util.List;
 
