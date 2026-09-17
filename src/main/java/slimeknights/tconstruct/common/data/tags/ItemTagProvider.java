@@ -664,6 +664,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.tag(TinkerTags.Items.BASIN_EMPTY_CASTS).add(TinkerCommons.goldPlatform.asItem());
 
     this.tag(TinkerTags.Items.DUCT_CONTAINERS).add(Items.BUCKET, TinkerSmeltery.copperCan.get(), TinkerSmeltery.searedLantern.asItem(), TinkerSmeltery.scorchedLantern.asItem());
+    this.tag(TinkerTags.Items.FUEL_EXAMPLES).add(Items.COAL, Items.CHARCOAL, Items.COAL_BLOCK, Items.OAK_LOG, Items.OAK_PLANKS, Items.BLAZE_ROD);
 
     // tank tag
     this.copy(TinkerTags.Blocks.SEARED_TANKS, TinkerTags.Items.SEARED_TANKS);

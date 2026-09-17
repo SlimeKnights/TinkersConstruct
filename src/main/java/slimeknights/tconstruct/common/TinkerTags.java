@@ -347,6 +347,8 @@ public class TinkerTags {
 
     /** Containers that can be used in the duct */
     public static final TagKey<Item> DUCT_CONTAINERS = local("duct_containers");
+    /** Example fuel items to show in JEI categories */
+    public static final TagKey<Item> FUEL_EXAMPLES = local("fuel_examples");
 
 
     /** Items that are seeds for kama harvest */
