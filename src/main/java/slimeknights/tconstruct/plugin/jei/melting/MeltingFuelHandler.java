@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.plugin.jei.melting;
 
 import com.mojang.datafixers.util.Pair;
+import mezz.jei.api.recipe.vanilla.IJeiFuelingRecipe;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
@@ -13,6 +14,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class MeltingFuelHandler {
   /**
@@ -20,10 +22,13 @@ public class MeltingFuelHandler {
    * Sorted from highest to lowest temperature
    */
   private static List<Pair<Integer,List<FluidStack>>> fuelLookup = Collections.emptyList();
+  /** List of all solid fuels from the JEI recipe manager. */
+  private static List<ItemStack> allSolidFuels = List.of();
 
-  /** List of solid fuels for solid melting */
+  /** List of solid fuels for solid melting examples */
   public static final Lazy<List<ItemStack>> SOLID_FUELS = Lazy.of(() -> Arrays.asList(
     new ItemStack(Items.COAL), new ItemStack(Items.CHARCOAL), new ItemStack(Blocks.OAK_LOG), new ItemStack(Blocks.OAK_PLANKS), new ItemStack(Items.BLAZE_ROD)));
+
 
   /**
    * Updates the melting cache, called on JEI load.
@@ -57,5 +62,18 @@ public class MeltingFuelHandler {
       }
     }
     return Collections.emptyList();
+  }
+
+  /** Sets the solid fuels from the given fuel stacks */
+  public static void setAllSolidFuels(Stream<IJeiFuelingRecipe> fuels) {
+    allSolidFuels = fuels.flatMap(fuel -> fuel.getInputs().stream()).toList();
+  }
+
+  /** Gets a list of all solid fuels for display in the fuel category */
+  public static List<ItemStack> getAllSolidFuels() {
+    if (allSolidFuels.isEmpty()) {
+      return SOLID_FUELS.get();
+    }
+    return allSolidFuels;
   }
 }

@@ -4205,6 +4205,12 @@
   "jei.tconstruct.melting.melter": "In melter:",
   "jei.tconstruct.foundry.title": "Foundry",
 
+  "jei.tconstruct.fuel.title": "Smeltery Fuel",
+  "jei.tconstruct.fuel.solid": "Solid Fuel",
+  "jei.tconstruct.fuel.duration.up_to": "Up to:",
+  "jei.tconstruct.fuel.duration.liquid": "%s s / %s mb",
+  "jei.tconstruct.fuel.duration.solid": "%s s / item",
+
   "jei.tconstruct.entity_melting.title": "Entity Melting",
   "jei.tconstruct.entity_melting.per_hearts": "Per %s Hearts Damage",
   "jei.tconstruct.entity_melting.per_heart": "Per 1.0 Heart Damage",

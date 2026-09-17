@@ -10,6 +10,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipe;
 import slimeknights.tconstruct.library.recipe.casting.IDisplayableCastingRecipe;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
+import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.library.recipe.melting.IDisplayableMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IDisplayModifierRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipe;
@@ -70,6 +71,7 @@ public class TConstructJEIConstants {
   public static final RecipeType<EntityMeltingRecipe> ENTITY_MELTING = type("entity_melting", EntityMeltingRecipe.class);
   public static final RecipeType<AlloyRecipe> ALLOY = type("alloy", AlloyRecipe.class);
   public static final RecipeType<IDisplayableMeltingRecipe> FOUNDRY = type("foundry", IDisplayableMeltingRecipe.class);
+  public static final RecipeType<MeltingFuel> FUEL = type("fuel", MeltingFuel.class);
 
   // tinker station
   public static final RecipeType<IDisplayModifierRecipe> MODIFIERS = type("modifiers", IDisplayModifierRecipe.class);
