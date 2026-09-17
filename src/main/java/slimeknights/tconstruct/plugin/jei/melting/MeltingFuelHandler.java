@@ -13,7 +13,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class MeltingFuelHandler {
@@ -40,13 +39,13 @@ public class MeltingFuelHandler {
     fuels.sort(Comparator.comparingInt(MeltingFuel::getTemperature));
     // get a list of temperature to fuel
     fuelLookup = fuels.stream()
-                      .mapToInt(MeltingFuel::getTemperature)
-                      .distinct()
-                      .mapToObj((temperature) -> Pair.of(temperature, fuels.stream()
-                          .filter(fuel -> fuel.getTemperature() >= temperature)
-                          .flatMap(fuel -> fuel.getInputs().stream())
-                          .collect(Collectors.toList())))
-                      .collect(Collectors.toList());
+      .mapToInt(MeltingFuel::getTemperature)
+      .distinct()
+      .mapToObj((temperature) -> Pair.of(temperature, fuels.stream()
+        .filter(fuel -> fuel.getTemperature() >= temperature && !fuel.getInputs().isEmpty())
+        .flatMap(fuel -> fuel.getInputs().stream())
+        .toList()))
+      .toList();
   }
 
   /**
