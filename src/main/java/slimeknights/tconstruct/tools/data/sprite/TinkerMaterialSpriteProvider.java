@@ -71,7 +71,7 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .fallbacks("primitive")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF2F4547).addARGB(102, 0xFF4D5859).addARGB(140, 0xFF838B8C).addARGB(178, 0xFFAFB3B5).addARGB(216, 0xFFDBDBDB).addARGB(255, 0xFFF7F7F7).build());
     buildMaterial(MaterialIds.vine)
-      .statType(StatlessMaterialStats.BINDING, StatlessMaterialStats.BOWSTRING).maille().fletching().laces()
+      .statType(StatlessMaterialStats.BINDING, StatlessMaterialStats.BOWSTRING).cuirass().maille().fletching().laces()
       .fallbacks("vine", "primitive", "cloth")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF143306).addARGB(102, 0xFF183D08).addARGB(140, 0xFF1F4E0A).addARGB(178, 0xFF265F0D).addARGB(216, 0xFF2E730F).addARGB(255, 0xFF3A9313).build());
     buildMaterial(MaterialIds.chorus)
@@ -219,12 +219,12 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
 
     // tier 3
     buildMaterial(MaterialIds.weepingVine)
-      .statType(StatlessMaterialStats.BINDING, StatlessMaterialStats.BOWSTRING).maille().laces()
-      .fallbacks("primitive", "cloth")
+      .statType(StatlessMaterialStats.BINDING, StatlessMaterialStats.BOWSTRING).cuirass().maille().laces()
+      .fallbacks("vine", "primitive", "cloth")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF5A0000).addARGB(102, 0xFF6A0400).addARGB(140, 0xFF7B0000).addARGB(178, 0xFFA42429).addARGB(216, 0xFFC53439).addARGB(255, 0xFFFF6500).build());
     buildMaterial(MaterialIds.twistingVine)
-      .statType(StatlessMaterialStats.BINDING, StatlessMaterialStats.BOWSTRING).maille().laces()
-      .fallbacks("primitive", "cloth")
+      .statType(StatlessMaterialStats.BINDING, StatlessMaterialStats.BOWSTRING).cuirass().maille().laces()
+      .fallbacks("vine", "primitive", "cloth")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF13544E).addARGB(102, 0xFF16615B).addARGB(140, 0xFF167E86).addARGB(178, 0xFF119B85).addARGB(216, 0xFF14B485).addARGB(255, 0xFF18CC96).build());
     buildMaterial(MaterialIds.slimesteel)
       .meleeHarvest().ranged().armor()
