@@ -39,7 +39,7 @@ import static slimeknights.tconstruct.plugin.jei.melting.AbstractMeltingCategory
 public class FuelCategory extends AbstractRecipeCategory<MeltingFuel> {
   private static final Component TITLE = TConstruct.makeTranslation("jei", "fuel.title");
   private static final Component SOLID = TConstruct.makeTranslation("jei", "fuel.solid");
-  private static final Component UP_TO = TConstruct.makeTranslation("jei", "fuel.duration.up_to");
+  private static final Component LASTS = TConstruct.makeTranslation("jei", "fuel.duration.lasts");
   private static final String FUEL_SLOT = "fuel";
 
   private final IDrawableStatic fuelBar;
@@ -106,7 +106,7 @@ public class FuelCategory extends AbstractRecipeCategory<MeltingFuel> {
     public void drawWidget(GuiGraphics graphics, double mouseX, double mouseY) {
       FluidStack fluid = fuel.getDisplayedIngredient(ForgeTypes.FLUID_STACK).orElse(FluidStack.EMPTY);
       if (!fluid.isEmpty()) {
-        graphics.drawString(font, UP_TO, 0, 0, Color.GRAY.getRGB(), false);
+        graphics.drawString(font, LASTS, 0, 0, Color.GRAY.getRGB(), false);
         Component string = Component.translatable(KEY_DURATION, duration, fluid.getAmount());
         graphics.drawString(font, string, width - font.width(string), 0, Color.GRAY.getRGB(), false);
       }
@@ -140,7 +140,7 @@ public class FuelCategory extends AbstractRecipeCategory<MeltingFuel> {
     public void drawWidget(GuiGraphics graphics, double mouseX, double mouseY) {
       ItemStack stack = fuel.getDisplayedItemStack().orElse(ItemStack.EMPTY);
       if (!stack.isEmpty()) {
-        graphics.drawString(font, UP_TO, 0, 0, Color.GRAY.getRGB(), false);
+        graphics.drawString(font, LASTS, 0, 0, Color.GRAY.getRGB(), false);
         Component string = Component.translatable(KEY_DURATION, getBurnTime(stack));
         graphics.drawString(font, string, width - font.width(string), 0, Color.GRAY.getRGB(), false);
       }

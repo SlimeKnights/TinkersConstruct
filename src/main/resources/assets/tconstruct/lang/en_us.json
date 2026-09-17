@@ -4207,7 +4207,7 @@
 
   "jei.tconstruct.fuel.title": "Smeltery Fuel",
   "jei.tconstruct.fuel.solid": "Solid Fuel",
-  "jei.tconstruct.fuel.duration.up_to": "Up to:",
+  "jei.tconstruct.fuel.duration.lasts": "Lasts:",
   "jei.tconstruct.fuel.duration.liquid": "%s s / %s mb",
   "jei.tconstruct.fuel.duration.solid": "%s s / item",
 
