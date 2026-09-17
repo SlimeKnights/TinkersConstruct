@@ -229,12 +229,15 @@ public class JEIPlugin implements IModPlugin {
     register.addRecipes(TConstructJEIConstants.CASTING_TABLE, getCastingRecipes(access, manager, TinkerRecipeTypes.CASTING_TABLE));
 
     // melting
-    List<IDisplayableMeltingRecipe> meltingRecipes = RecipeHelper.getJEIRecipes(access, manager, TinkerRecipeTypes.MELTING.get(), IDisplayableMeltingRecipe.class);
-    register.addRecipes(TConstructJEIConstants.MELTING, meltingRecipes);
-    register.addRecipes(TConstructJEIConstants.FOUNDRY, meltingRecipes);
+    // need to register the fuels before the categories so they are available
+    MeltingFuelHandler.registerSolidFuels(register.getIngredientManager());
     List<MeltingFuel> fuels = RecipeHelper.getRecipes(manager, TinkerRecipeTypes.FUEL.get(), MeltingFuel.class);
     MeltingFuelHandler.setMeltngFuels(fuels);
     register.addRecipes(TConstructJEIConstants.FUEL, fuels);
+    // register melting recipes
+    List<IDisplayableMeltingRecipe> meltingRecipes = RecipeHelper.getJEIRecipes(access, manager, TinkerRecipeTypes.MELTING.get(), IDisplayableMeltingRecipe.class);
+    register.addRecipes(TConstructJEIConstants.MELTING, meltingRecipes);
+    register.addRecipes(TConstructJEIConstants.FOUNDRY, meltingRecipes);
 
     // entity melting
     List<EntityMeltingRecipe> entityMeltingRecipes = RecipeHelper.getJEIRecipes(access, manager, TinkerRecipeTypes.ENTITY_MELTING.get(), EntityMeltingRecipe.class);
@@ -638,7 +641,6 @@ public class JEIPlugin implements IModPlugin {
       }
     }
 
-    MeltingFuelHandler.setAllSolidFuels(recipeManager.createRecipeLookup(RecipeTypes.FUELING).get());
     modIdHelper = jeiRuntime.getJeiHelpers().getModIdHelper();
   }
 }

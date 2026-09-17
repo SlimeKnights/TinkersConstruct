@@ -20,11 +20,9 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.navigation.ScreenPosition;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.fluids.TinkerFluids;
-import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.plugin.jei.TConstructJEIConstants;
 import slimeknights.tconstruct.plugin.jei.util.CategoryUtil;
@@ -132,7 +130,7 @@ public class FuelCategory extends AbstractRecipeCategory<MeltingFuel> {
         return lastDuration;
       }
       lastStack = stack;
-      lastDuration = ForgeHooks.getBurnTime(stack, TinkerRecipeTypes.FUEL.get()) / 20;
+      lastDuration = MeltingFuelHandler.getFuelDuration(stack) / 20;
       return lastDuration;
     }
 

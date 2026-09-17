@@ -1,18 +1,29 @@
 package slimeknights.tconstruct.plugin.jei.melting;
 
 import com.mojang.datafixers.util.Pair;
-import mezz.jei.api.recipe.vanilla.IJeiFuelingRecipe;
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import it.unimi.dsi.fastutil.objects.Object2IntMaps;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+import mezz.jei.api.constants.VanillaTypes;
+import mezz.jei.api.ingredients.IIngredientHelper;
+import mezz.jei.api.ingredients.subtypes.UidContext;
+import mezz.jei.api.runtime.IIngredientManager;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.fluids.FluidStack;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class MeltingFuelHandler {
   /**
@@ -22,11 +33,14 @@ public class MeltingFuelHandler {
   private static List<Pair<Integer,List<FluidStack>>> fuelLookup = Collections.emptyList();
   /** List of all solid fuels from the JEI recipe manager. */
   private static List<ItemStack> allSolidFuels = List.of();
-
+  /** Map of fuel durations for all stacks */
+  private static Object2IntMap<Object> fuelDurations = Object2IntMaps.emptyMap();
   /** Ingredient showing examples of fuels */
   private static final Ingredient FUEL_EXAMPLES = Ingredient.of(TinkerTags.Items.FUEL_EXAMPLES);
   /** List of solid fuels for solid melting examples */
   public static final Lazy<List<ItemStack>> SOLID_FUELS = Lazy.of(() -> List.of(FUEL_EXAMPLES.getItems()));
+  /** Item stack helper for grabbing cache keys */
+  private static IIngredientHelper<ItemStack> itemHelper = null;
 
   /**
    * Updates the melting cache, called on JEI load.
@@ -62,9 +76,29 @@ public class MeltingFuelHandler {
     return Collections.emptyList();
   }
 
+
+  /* Solid fuels */
+
   /** Sets the solid fuels from the given fuel stacks */
-  public static void setAllSolidFuels(Stream<IJeiFuelingRecipe> fuels) {
-    allSolidFuels = fuels.flatMap(fuel -> fuel.getInputs().stream()).toList();
+  public static void registerSolidFuels(IIngredientManager ingredientManager) {
+    Collection<ItemStack> allStacks = ingredientManager.getAllItemStacks();
+    List<ItemStack> fuels = new ArrayList<>(allStacks.size());
+    Object2IntMap<Object> newFuels = new Object2IntOpenHashMap<>(allStacks.size());
+    itemHelper = ingredientManager.getIngredientHelper(VanillaTypes.ITEM_STACK);
+    RecipeType<?> fuel = TinkerRecipeTypes.FUEL.get();
+    for (ItemStack stack : allStacks) {
+      try {
+        int burnTime = ForgeHooks.getBurnTime(stack, fuel);
+        if (burnTime > 0) {
+          fuels.add(stack);
+          newFuels.put(itemHelper.getUid(stack, UidContext.Ingredient), burnTime);
+        }
+      } catch (RuntimeException | LinkageError e) {
+        TConstruct.LOG.error("Failed to check if item is fuel {}.", stack, e);
+      }
+    }
+    allSolidFuels = List.copyOf(fuels);
+    fuelDurations = Object2IntMaps.unmodifiable(newFuels);
   }
 
   /** Gets a list of all solid fuels for display in the fuel category */
@@ -73,5 +107,13 @@ public class MeltingFuelHandler {
       return SOLID_FUELS.get();
     }
     return allSolidFuels;
+  }
+
+  /** Gets the duration of the given item stack */
+  public static int getFuelDuration(ItemStack stack) {
+    if (itemHelper != null) {
+      return fuelDurations.getOrDefault(itemHelper.getUid(stack, UidContext.Ingredient), 0);
+    }
+    return 0;
   }
 }
