@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:feather_fall",
   "text": [
     {
-      "text": "每级使摔落伤害抗性+25%；达到2级时，最多可以抵消50%摔落伤害。"
+      "text": "每级使摔落伤害抗性+12%；达到4级时，最多可以抵消48%摔落伤害。"
     }
   ],
   "more_text_space": true,
