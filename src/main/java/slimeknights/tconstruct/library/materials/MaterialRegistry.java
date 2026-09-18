@@ -21,6 +21,10 @@ import slimeknights.tconstruct.library.materials.stats.MaterialStatType;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsManager;
 import slimeknights.tconstruct.library.materials.stats.UpdateMaterialStatsPacket;
+import slimeknights.tconstruct.library.materials.stats.dynamic.DynamicStatField;
+import slimeknights.tconstruct.library.materials.stats.dynamic.FloatDynamicStatField;
+import slimeknights.tconstruct.library.materials.stats.dynamic.MaterialStatTypesLoader;
+import slimeknights.tconstruct.library.materials.stats.dynamic.TierDynamicStatField;
 import slimeknights.tconstruct.library.materials.traits.MaterialTraitsManager;
 import slimeknights.tconstruct.library.materials.traits.UpdateMaterialTraitsPacket;
 import slimeknights.tconstruct.shared.command.argument.MaterialTagSource;
@@ -140,6 +144,10 @@ public final class MaterialRegistry {
     registry.registerStatType(StatlessMaterialStats.FLETCHING.getType(), AMMO);
     // misc
     registry.registerStatType(StatlessMaterialStats.REPAIR_KIT.getType());
+
+    // stat type fields
+    DynamicStatField.REGISTRY.register(TierDynamicStatField.TYPE, TierDynamicStatField.LOADER);
+    DynamicStatField.REGISTRY.register(FloatDynamicStatField.TYPE, FloatDynamicStatField.LOADER);
   }
 
   @VisibleForTesting
@@ -166,7 +174,7 @@ public final class MaterialRegistry {
    * @param packet  Materials stats packet
    */
   public static void updateMaterialStatsFromServer(UpdateMaterialStatsPacket packet) {
-    INSTANCE.materialStatsManager.updateMaterialStatsFromServer(packet.getMaterialToStats());
+    INSTANCE.materialStatsManager.updateMaterialStatsFromServer(packet.getMaterialToStats(), packet.getDynamicStatTypes());
   }
 
   /**

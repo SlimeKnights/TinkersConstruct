@@ -1,0 +1,22 @@
+{
+    "stats": [
+        {
+            "type": "tconstruct:float",
+            "name": "durability",
+            "stat": "test_stat",
+            "default_value": 0.0,
+            "operation": "percent",
+            "tooltip": "info3",
+            "description": "desc3"
+        },
+        {
+            "type": "tconstruct:float",
+            "name": "mining_speed",
+            "stat": "test_stat",
+            "default_value": 1.0,
+            "operation": "update",
+            "tooltip": "info4",
+            "description": "desc4"
+        }
+    ]
+}
