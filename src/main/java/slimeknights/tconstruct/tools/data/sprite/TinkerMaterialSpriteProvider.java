@@ -418,7 +418,7 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
 
     // slimeskull
     buildMaterial(MaterialIds.glass)
-      .arrowHead().fallbacks("crystal")
+      .arrowHead().repairKit().fallbacks("crystal")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF7BAEB7).addARGB(102, 0xFFA8D0D9).addARGB(140, 0x00000000).addARGB(216, 0x00000000).addARGB(255, 0xFFD0EAE9).build());
     buildMaterial(MaterialIds.enderPearl)
       .repairKit().arrowHead().fallbacks("rock").slime()
