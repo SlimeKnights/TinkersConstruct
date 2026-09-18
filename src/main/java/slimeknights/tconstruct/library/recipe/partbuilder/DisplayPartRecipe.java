@@ -26,7 +26,7 @@ public class DisplayPartRecipe implements IDisplayPartBuilderRecipe {
   /** ID of recipe; should generally match a real recipe JSON */
   private final ResourceLocation id;
   /** Material variant for name display */
-  private final MaterialVariant material;
+  private final List<MaterialVariant> materials;
   /** Display title override. */
   @Nullable
   private final Component displayTitle;
@@ -46,7 +46,15 @@ public class DisplayPartRecipe implements IDisplayPartBuilderRecipe {
   /** @deprecated use {@link #id(ResourceLocation)} */
   @Deprecated(forRemoval = true)
   public DisplayPartRecipe(ResourceLocation id, MaterialVariant material, Pattern pattern, List<ItemStack> patternItems, int cost, List<ItemStack> materialItems, List<ItemStack> resultItems) {
-    this(id, material, null, List.of(), List.of(pattern), patternItems, cost, materialItems, resultItems);
+    this(id, List.of(material), null, List.of(), List.of(pattern), patternItems, cost, materialItems, resultItems);
+  }
+
+  @Override
+  public MaterialVariant getMaterial() {
+    if (materials.isEmpty()) {
+      return MaterialVariant.UNKNOWN;
+    }
+    return materials.get(0);
   }
 
   @Override
@@ -94,7 +102,7 @@ public class DisplayPartRecipe implements IDisplayPartBuilderRecipe {
     /** ID of recipe; should generally match a real recipe JSON */
     private final ResourceLocation id;
     /** Material variant for name display */
-    private MaterialVariant material = MaterialVariant.UNKNOWN;
+    private List<MaterialVariant> materials = List.of();
     /** Title to display in JEI */
     private Component title = null;
     /** Tooltip to display in JEI */
@@ -111,7 +119,12 @@ public class DisplayPartRecipe implements IDisplayPartBuilderRecipe {
     private List<ItemStack> results = List.of();
 
     /** Sets the material. */
-    public Builder materialId(MaterialVariantId material) {
+    public Builder material(MaterialVariant material) {
+      return materials(List.of(material));
+    }
+
+    /** Sets the material. */
+    public Builder material(MaterialVariantId material) {
       return material(MaterialVariant.of(material));
     }
 
@@ -143,7 +156,7 @@ public class DisplayPartRecipe implements IDisplayPartBuilderRecipe {
     /** Builds the display recipe */
     public IDisplayPartBuilderRecipe build() {
       if (results.isEmpty()) throw new IllegalStateException("Results cannot be empty");
-      return new DisplayPartRecipe(id, material, title, tooltip, patterns, patternItems, cost, materialItems, results);
+      return new DisplayPartRecipe(id, materials, title, tooltip, patterns, patternItems, cost, materialItems, results);
     }
   }
 }

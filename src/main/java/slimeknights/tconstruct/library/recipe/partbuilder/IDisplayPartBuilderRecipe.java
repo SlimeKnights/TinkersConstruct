@@ -20,9 +20,18 @@ import java.util.List;
 public interface IDisplayPartBuilderRecipe extends IPartBuilderRecipe {
   /**
    * Gets the material variant required to craft this recipe.
-   * TODO 1.21: make this return {@link slimeknights.tconstruct.library.materials.definition.MaterialVariantId}
+   * @deprecated use {@link #getMaterials()}. Implementing is okay.
    */
-  MaterialVariant getMaterial();
+  @Deprecated
+  default MaterialVariant getMaterial() {
+    return MaterialVariant.UNKNOWN;
+  }
+
+  /** Gets the list of material inputs for this recipe. Will be focus linked to the output if the sizes match. */
+  default List<MaterialVariant> getMaterials() {
+    MaterialVariant variant = getMaterial();
+    return variant.isUnknown() ? List.of() : List.of(variant);
+  }
 
   /** Gets the title to display above the recipe. If null, will try dynamically making the title based on the displayed material. */
   @Nullable

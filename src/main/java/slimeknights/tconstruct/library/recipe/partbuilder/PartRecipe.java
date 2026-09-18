@@ -21,6 +21,7 @@ import slimeknights.tconstruct.library.json.TinkerLoadables;
 import slimeknights.tconstruct.library.json.field.MergingField;
 import slimeknights.tconstruct.library.json.field.MergingField.MissingMode;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
+import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.recipe.material.IMaterialValue;
@@ -31,7 +32,6 @@ import slimeknights.tconstruct.tables.TinkerTables;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 /**
  * Recipe to make a tool part from a material item in the part builder
@@ -170,55 +170,48 @@ public class PartRecipe implements IPartBuilderRecipe, IMultiRecipe<IDisplayPart
   @Override
   public List<IDisplayPartBuilderRecipe> getRecipes(RegistryAccess access) {
     if (multiRecipes == null) {
-      multiRecipes = MaterialRegistry
-        .getMaterials().stream()
-        .filter(mat -> (allowUncraftable || mat.isCraftable()) && output.canUseMaterial(mat))
-        .flatMap(mat -> {
-          // start by finding all variants to display
-          // if no variant has a part builder recipe, skip this recipe
-          List<MaterialVariantId> variants = MaterialRecipeCache.getVariants(mat.getIdentifier()).stream()
-            .filter(variant -> !MaterialRecipeCache.getRecipes(variant).isEmpty()).toList();
-          if (variants.isEmpty()) {
-            return Stream.empty();
-          }
+      // start building the recipe
+      List<MaterialVariant> materials = new ArrayList<>();
+      List<ItemStack> materialItems = new ArrayList<>();
+      List<ItemStack> resultItems = new ArrayList<>();
 
-          // now we need to determine what material contents to show
-          MaterialVariant materialTitle;
-          List<ItemStack> materialItems;
-          List<ItemStack> resultItems;
-          // if we only have 1 variant, display that as our title and simplify the result listing
-          if (variants.size() == 1) {
-            MaterialVariantId variant = variants.get(0);
-            materialTitle = MaterialVariant.of(variant);
-            materialItems = new ArrayList<>();
-            MaterialRecipeCache.addItems(variant, cost, materialItems);
-            materialItems = List.copyOf(materialItems);
-            resultItems = List.of(output.withMaterial(variant));
-          } else {
-            // if we have multiple variants, title will be the variantless material
-            materialTitle = MaterialVariant.of(mat);
+      // iterate materials to generate recipes
+      for (IMaterial material : MaterialRegistry.getMaterials()) {
+        // require the material to be craftable and valid for this part
+        if ((allowUncraftable || material.isCraftable()) && output.canUseMaterial(material)) {
+          // iterate all recipes per variant, will let us save some memory
+          for (MaterialVariantId variantId : MaterialRecipeCache.getVariants(material.getIdentifier())) {
+            // skip variants that have no material recipes
+            if (MaterialRecipeCache.getRecipes(variantId).isEmpty()) continue;
 
-            // we have our material, now to build our item list; requires 1 copy of the result per input so the slots are same size
-            materialItems = new ArrayList<>();
-            resultItems = new ArrayList<>();
-            for (MaterialVariantId variant : variants) {
-              int oldSize = materialItems.size();
-              MaterialRecipeCache.addItems(variant, cost, materialItems);
-              // add a copy of result per item added
-              ItemStack result = output.withMaterial(variant);
-              for (int i = materialItems.size(); i > oldSize; i--) {
-                resultItems.add(result);
-              }
+            // add items for the variant
+            int oldSize = materialItems.size();
+            MaterialRecipeCache.addItems(variantId, cost, materialItems);
+
+            // add a copy of result per item added
+            MaterialVariant variant = MaterialVariant.of(variantId);
+            ItemStack result = output.withMaterialForDisplay(variantId);
+            for (int i = materialItems.size(); i > oldSize; i--) {
+              materials.add(variant);
+              resultItems.add(result);
             }
-            materialItems = List.copyOf(materialItems);
-            resultItems = List.copyOf(resultItems);
           }
-          return Stream.of(DisplayPartRecipe.id(id)
-            .material(materialTitle).materialItems(materialItems)
-            .pattern(pattern).patternItem(patternItem).cost(getCost())
-            .results(resultItems).build());
-        })
-        .toList();
+        }
+      }
+
+      // safety: make sure we got results
+      if (materials.isEmpty()) {
+        multiRecipes = List.of();
+      } else {
+        multiRecipes = List.of(DisplayPartRecipe.id(id)
+          .materials(List.copyOf(materials))
+          .materialItems(List.copyOf(materialItems))
+          .results(List.copyOf(resultItems))
+          .pattern(pattern)
+          .patternItem(patternItem)
+          .cost(getCost())
+          .build());
+      }
     }
     return multiRecipes;
   }

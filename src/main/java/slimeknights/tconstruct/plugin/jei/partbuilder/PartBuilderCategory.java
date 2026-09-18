@@ -49,7 +49,7 @@ public class PartBuilderCategory extends AbstractRecipeCategory<IDisplayPartBuil
   public void createRecipeExtras(IRecipeExtrasBuilder builder, IDisplayPartBuilderRecipe recipe, IFocusGroup focuses) {
     builder.addRecipeArrowWidget().setPosition(66, 15);
     Component title = recipe.getDisplayTitle();
-    if (title != null && recipe.getMaterial().isEmpty()) {
+    if (title != null && recipe.getMaterials().isEmpty()) {
       ITextWidget widget = builder.addText(title, 118, 9)
         .setPosition(3, 2)
         .setColor(-1)
@@ -65,10 +65,10 @@ public class PartBuilderCategory extends AbstractRecipeCategory<IDisplayPartBuil
   public void setRecipe(IRecipeLayoutBuilder builder, IDisplayPartBuilderRecipe recipe, IFocusGroup focuses) {
     // items
     List<ItemStack> materialItems = recipe.getMaterialItems();
-    IRecipeSlotBuilder materialSlot = builder.addInputSlot(25, 16)
+    IRecipeSlotBuilder materialItemSlot = builder.addInputSlot(25, 16)
       .addItemStacks(materialItems).setStandardSlotBackground();
     if (materialItems.isEmpty()) {
-      materialSlot.setOverlay(materialPlaceholder, 0, 0);
+      materialItemSlot.setOverlay(materialPlaceholder, 0, 0);
     }
     List<ItemStack> patternItems = recipe.getPatternItems();
     boolean reusablePattern = !patternItems.isEmpty() && patternItems.stream().allMatch(stack -> stack.is(TinkerTags.Items.REUSABLE_PATTERNS));
@@ -85,11 +85,12 @@ public class PartBuilderCategory extends AbstractRecipeCategory<IDisplayPartBuil
     }
 
     // material input
-    MaterialVariant material = recipe.getMaterial();
-    if (!material.isEmpty()) {
-      builder.addInputSlot(3, 2)
+    List<MaterialVariant> materials = recipe.getMaterials();
+    IRecipeSlotBuilder materialSlot = null;
+    if (!materials.isEmpty()) {
+      materialSlot = builder.addInputSlot(3, 2)
         .setCustomRenderer(TConstructJEIConstants.MATERIAL_TYPE, materialTitleRenderer)
-        .addIngredient(TConstructJEIConstants.MATERIAL_TYPE, material);
+        .addIngredients(TConstructJEIConstants.MATERIAL_TYPE, materials);
     }
 
     // output
@@ -102,12 +103,9 @@ public class PartBuilderCategory extends AbstractRecipeCategory<IDisplayPartBuil
     if (resultSize > 1) {
       List<IRecipeSlotBuilder> linked = new ArrayList<>(3);
       linked.add(resultSlot);
-      if (resultSize == materialItems.size()) {
-        linked.add(materialSlot);
-      }
-      if (resultSize == patterns.size()) {
-        linked.add(patternSlot);
-      }
+      if (resultSize == materials.size())     linked.add(materialSlot);
+      if (resultSize == materialItems.size()) linked.add(materialItemSlot);
+      if (resultSize == patterns.size())      linked.add(patternSlot);
       if (linked.size() > 1) {
         builder.createFocusLink(linked.toArray(IRecipeSlotBuilder[]::new));
       }
