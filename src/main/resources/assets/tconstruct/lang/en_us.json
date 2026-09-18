@@ -753,7 +753,7 @@
   "fluid.tconstruct.molten_hepatizon": "Molten Hepatizon",
   "fluid.tconstruct.flowing_molten_hepatizon": "Flowing Molten Hepatizon",
   "item.tconstruct.molten_hepatizon_bucket": "Molten Hepatizon Bucket",
-  "fluid.tconstruct.molten_hepatizon.fluid_effect": "Is molten hepatizon best for defense, or combat? Either is a risk reward setup.",
+  "fluid.tconstruct.molten_hepatizon.fluid_effect": "Cold is a rare damage source, but can be neutralized by warm clothes. The withering may help in that case.",
 
   "block.tconstruct.molten_knightmetal_fluid": "Molten Knightmetal",
   "fluid.tconstruct.molten_knightmetal": "Molten Knightmetal",
@@ -1560,7 +1560,7 @@
   "block.tconstruct.scorched_basin": "Scorched Casting Basin",
   "block.tconstruct.scorched_basin.tooltip": "Cast items using molten metals from a Foundry\nRequires a cast or gold platform to cast",
   "block.tconstruct.scorched_table": "Scorched Casting Table",
-  "block.tconstruct.scorched_table.tooltip": "Cast items using molten metals from a Foundry\nrequires a cast or gold bars to cast",
+  "block.tconstruct.scorched_table.tooltip": "Cast items using molten metals from a Foundry\nRequires a cast or gold bars to cast",
   "block.tconstruct.scorched_proxy_tank": "Scorched Tinker Tank",
   "block.tconstruct.scorched_proxy_tank.tooltip": "Tank block that fills or empties the item tank inside instead of an internal tank",
 
