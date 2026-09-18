@@ -22,6 +22,11 @@ public class MaterialVariant extends LazyMaterial implements Comparable<Material
     this.variant = MaterialVariantId.create(material.getIdentifier(), variant);
   }
 
+  /** Gets an object representing hte base material */
+  public LazyMaterial getBase() {
+    return new LazyMaterial(this);
+  }
+
   /** Creates a new lazy material variant with the given variant ID */
   public static MaterialVariant of(MaterialVariantId variantId) {
     if (variantId.equals(MaterialId.UNKNOWN)) {

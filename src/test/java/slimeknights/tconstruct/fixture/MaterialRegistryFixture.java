@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.fixture;
 
 import lombok.AllArgsConstructor;
-import net.minecraft.tags.TagKey;
 import slimeknights.mantle.data.loadable.Loadable;
 import slimeknights.tconstruct.library.materials.IMaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
@@ -45,19 +44,6 @@ public class MaterialRegistryFixture implements IMaterialRegistry {
   @Override
   public Collection<IMaterial> getAllMaterials() {
     return materials.values();
-  }
-
-
-  /* Tags */
-
-  @Override
-  public boolean isInTag(MaterialId id, TagKey<IMaterial> tag) {
-    return false;
-  }
-
-  @Override
-  public List<IMaterial> getTagValues(TagKey<IMaterial> tag) {
-    return Collections.emptyList();
   }
 
 

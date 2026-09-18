@@ -5,6 +5,8 @@ import mezz.jei.api.ingredients.IIngredientTypeWithSubtypes;
 import mezz.jei.api.recipe.RecipeType;
 import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.materials.definition.LazyMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipe;
@@ -58,6 +60,22 @@ public class TConstructJEIConstants {
     @Override
     public SlotType getBase(SlotCount slots) {
       return slots.type();
+    }
+  };
+  public static final IIngredientTypeWithSubtypes<LazyMaterial, MaterialVariant> MATERIAL_TYPE = new IIngredientTypeWithSubtypes<>() {
+    @Override
+    public Class<? extends MaterialVariant> getIngredientClass() {
+      return MaterialVariant.class;
+    }
+
+    @Override
+    public Class<? extends LazyMaterial> getIngredientBaseClass() {
+      return LazyMaterial.class;
+    }
+
+    @Override
+    public LazyMaterial getBase(MaterialVariant variant) {
+      return variant.getBase();
     }
   };
 

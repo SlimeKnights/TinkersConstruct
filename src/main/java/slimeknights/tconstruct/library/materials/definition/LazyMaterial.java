@@ -22,6 +22,11 @@ public class LazyMaterial implements Supplier<IMaterial> {
     this.material = material;
   }
 
+  protected LazyMaterial(LazyMaterial material) {
+    this.id = material.getId();
+    this.material = material.material;
+  }
+
   /** Creates a new lazy material instance */
   public static LazyMaterial of(MaterialId id) {
     return new LazyMaterial(id);

@@ -971,6 +971,9 @@ public class TinkerTags {
     /** Materials that are a slimeskull. Mostly used for a sort order in books rather than having gameplay function. */
     public static final TagKey<IMaterial> SLIMESKULL = local("slimeskull");
 
+    // JEI
+    public static final TagKey<IMaterial> HIDDEN_FROM_RECIPE_VIEWERS = hiddenFromRecipeViewers(MaterialManager.REGISTRY_KEY);
+
     @SuppressWarnings("SameParameterValue")  // may want more tags later
     private static TagKey<IMaterial> local(String name) {
       return MaterialManager.getTag(getResource(name));

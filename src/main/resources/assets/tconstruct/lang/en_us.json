@@ -4187,6 +4187,7 @@
   "jei.tconstruct.modifier_ingredient": "%s Modifier",
   "jei.tconstruct.modifier_slot.ingredient": "Modifier Slot: %s",
   "jei.tconstruct.modifier_slot.id": "Slot ID: %s",
+  "jei.tconstruct.material_ingredient": "%s Material",
 
   "jei.tconstruct.casting.basin": "Casting Basin",
   "jei.tconstruct.casting.table": "Casting Table",
