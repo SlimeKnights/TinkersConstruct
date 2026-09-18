@@ -145,6 +145,22 @@ public class MaterialRecipeCache {
     return ITEMS_BY_MATERIAL.computeIfAbsent(variant, GET_ITEMS_BY_MATERIAL);
   }
 
+  /** Adds all items for the given material variant and cost to the given list. */
+  public static void addItems(MaterialVariantId variant, int cost, List<ItemStack> items) {
+    for (MaterialRecipe recipe : getRecipes(variant)) {
+      int count = recipe.getItemsUsed(cost);
+      ItemStack[] stacks = recipe.getIngredient().getItems();
+      if (count == 1) {
+        Collections.addAll(items, stacks);
+      } else {
+        for (ItemStack stack : stacks) {
+          stack = stack.copyWithCount(count);
+          items.add(stack);
+        }
+      }
+    }
+  }
+
 
   /* Material variants */
 

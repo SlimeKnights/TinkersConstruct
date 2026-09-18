@@ -153,7 +153,7 @@ public class ItemPartRecipe implements IDisplayPartBuilderRecipe {
           // fetch the root and all variants
           List<ItemStack> items = new ArrayList<>(MaterialRecipeCache.getItems(material));
           for (MaterialVariantId variant : MaterialRecipeCache.getVariants(material.getId())) {
-            items.addAll(MaterialRecipeCache.getItems(variant));
+            MaterialRecipeCache.addItems(variant, cost, items);
           }
           this.materialItems = List.copyOf(items);
         }

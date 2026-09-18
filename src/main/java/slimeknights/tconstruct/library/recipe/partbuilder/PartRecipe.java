@@ -190,7 +190,9 @@ public class PartRecipe implements IPartBuilderRecipe, IMultiRecipe<IDisplayPart
           if (variants.size() == 1) {
             MaterialVariantId variant = variants.get(0);
             materialTitle = MaterialVariant.of(variant);
-            materialItems = MaterialRecipeCache.getItems(variant);
+            materialItems = new ArrayList<>();
+            MaterialRecipeCache.addItems(variant, cost, materialItems);
+            materialItems = List.copyOf(materialItems);
             resultItems = List.of(output.withMaterial(variant));
           } else {
             // if we have multiple variants, title will be the variantless material
@@ -200,10 +202,11 @@ public class PartRecipe implements IPartBuilderRecipe, IMultiRecipe<IDisplayPart
             materialItems = new ArrayList<>();
             resultItems = new ArrayList<>();
             for (MaterialVariantId variant : variants) {
+              int oldSize = materialItems.size();
+              MaterialRecipeCache.addItems(variant, cost, materialItems);
+              // add a copy of result per item added
               ItemStack result = output.withMaterial(variant);
-              List<ItemStack> variantItems = MaterialRecipeCache.getItems(variant);
-              materialItems.addAll(variantItems);
-              for (int i = 0; i < variantItems.size(); i++) {
+              for (int i = materialItems.size(); i > oldSize; i--) {
                 resultItems.add(result);
               }
             }
