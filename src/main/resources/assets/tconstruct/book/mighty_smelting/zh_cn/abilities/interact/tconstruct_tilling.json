@@ -5,6 +5,7 @@
       "text": "别把钻石浪费在做锄头上。"
     }
   ],
+  "tool_filter": "tconstruct:modifiable/interactable",
   "effects": [
     "可使用该工具开垦耕地",
     "单个等级",
