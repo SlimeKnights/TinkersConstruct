@@ -1671,8 +1671,8 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       // downside: don't take it off
       .addModule(new DamageOnUnequipModule(2));
     buildModifier(ModifierIds.rugged).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
-      .addModule(BlockDamageSourceModule.source(DamageSourcePredicate.tag(TinkerTags.DamageTypes.RUGGED_TERRAIN)).build())
-      .addModule(BlockDamageSourceModule.source(DamageSourcePredicate.tag(TinkerTags.DamageTypes.RUGGED_ATTACKS)).minLevel(2).build())
+      .addModule(BlockDamageSourceModule.source(DamageSourcePredicate.tag(TinkerTags.DamageTypes.RUGGED_TERRAIN)).build(), ModifierHooks.DAMAGE_BLOCK)
+      .addModule(BlockDamageSourceModule.source(DamageSourcePredicate.tag(TinkerTags.DamageTypes.RUGGED_ATTACKS)).minLevel(2).build(), ModifierHooks.DAMAGE_BLOCK)
       .addModule(new VolatileFlagModule(ModifiableArmorItem.SNOW_BOOTS)).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
 
 
