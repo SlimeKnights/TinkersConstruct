@@ -20,9 +20,14 @@ public class PatternIngredientRenderer implements IIngredientRenderer<Pattern> {
   public static final PatternIngredientRenderer INSTANCE = new PatternIngredientRenderer();
 
   @Override
-  public void render(GuiGraphics graphics, @Nullable Pattern pattern) {
+  public void render(GuiGraphics graphics, Pattern ingredient) {
+    render(graphics, ingredient, 0, 0);
+  }
+
+  @Override
+  public void render(GuiGraphics graphics, @Nullable Pattern pattern, int posX, int posY) {
     if (pattern != null) {
-      GuiUtil.renderPattern(graphics, pattern, 0, 0);
+      GuiUtil.renderPattern(graphics, pattern, posX, posY);
     }
   }
 

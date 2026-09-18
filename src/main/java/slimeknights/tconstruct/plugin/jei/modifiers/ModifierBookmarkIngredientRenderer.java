@@ -21,8 +21,13 @@ public enum ModifierBookmarkIngredientRenderer implements IIngredientRenderer<Mo
 
   @Override
   public void render(GuiGraphics graphics, @Nullable ModifierEntry entry) {
+    render(graphics, entry, 0, 0);
+  }
+
+  @Override
+  public void render(GuiGraphics graphics, @Nullable ModifierEntry entry, int posX, int posY) {
     if (entry != null) {
-      ModifierIconManager.renderIcon(graphics, entry.getModifier(), 0, 0, 100, 16);
+      ModifierIconManager.renderIcon(graphics, entry.getModifier(), posX, posY, 100, 16);
     }
   }
 
