@@ -19,13 +19,14 @@ import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.library.recipe.casting.ICastingContainer;
+import slimeknights.tconstruct.library.recipe.material.IDisplayMaterialRecipe;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
 /** Recipe defining casting and composite fluids for a given input */
-public class MaterialFluidRecipe implements ICustomOutputRecipe<ICastingContainer> {
+public class MaterialFluidRecipe implements ICustomOutputRecipe<ICastingContainer>, IDisplayMaterialRecipe {
   public static final RecordLoadable<MaterialFluidRecipe> LOADER = RecordLoadable.create(
     ContextKey.ID.requiredField(),
     FluidIngredient.LOADABLE.requiredField("fluid", r -> r.fluid),
@@ -84,6 +85,7 @@ public class MaterialFluidRecipe implements ICustomOutputRecipe<ICastingContaine
   }
 
   /** Gets a list of fluids for display */
+  @Override
   public List<FluidStack> getFluids() {
     return fluid.getFluids();
   }
@@ -108,5 +110,19 @@ public class MaterialFluidRecipe implements ICustomOutputRecipe<ICastingContaine
   public boolean isVisible() {
     return !output.isUnknown() && !output.get().isHidden()
       && (input == null || !input.isUnknown() && !input.get().isHidden());
+  }
+
+
+  /* JEI */
+
+  @Override
+  public ResourceLocation getRecipeId() {
+    return getId();
+  }
+
+  /** Alias for {@link #getOutput()} for the sake of implementing {@link IDisplayMaterialRecipe} */
+  @Override
+  public MaterialVariant getMaterial() {
+    return output;
   }
 }

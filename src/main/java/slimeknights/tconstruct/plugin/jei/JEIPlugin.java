@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.plugin.jei;
 
-import com.google.common.collect.ImmutableList;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.RecipeTypes;
@@ -64,9 +63,12 @@ import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipe;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.IDisplayableCastingRecipe;
+import slimeknights.tconstruct.library.recipe.casting.material.MaterialCastingLookup;
 import slimeknights.tconstruct.library.recipe.display.FilteredRecipe;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
+import slimeknights.tconstruct.library.recipe.material.IDisplayMaterialRecipe;
+import slimeknights.tconstruct.library.recipe.material.MaterialRecipeCache;
 import slimeknights.tconstruct.library.recipe.material.ShapedMaterialRecipe;
 import slimeknights.tconstruct.library.recipe.material.ShapedMaterialsRecipe;
 import slimeknights.tconstruct.library.recipe.material.ShapelessMaterialsRecipe;
@@ -95,6 +97,7 @@ import slimeknights.tconstruct.plugin.jei.casting.CastingTableCategory;
 import slimeknights.tconstruct.plugin.jei.entity.DefaultEntityMeltingRecipe;
 import slimeknights.tconstruct.plugin.jei.entity.EntityMeltingRecipeCategory;
 import slimeknights.tconstruct.plugin.jei.entity.SeveringCategory;
+import slimeknights.tconstruct.plugin.jei.material.MaterialCategory;
 import slimeknights.tconstruct.plugin.jei.material.MaterialIconIngredientRenderer;
 import slimeknights.tconstruct.plugin.jei.material.MaterialIngredientHelper;
 import slimeknights.tconstruct.plugin.jei.material.ShapedMaterialsExtension;
@@ -188,6 +191,7 @@ public class JEIPlugin implements IModPlugin {
     registry.addRecipeCategories(new ToolBuildingCategory(guiHelper));
     registry.addRecipeCategories(new ToolModificationCategory(guiHelper));
     // part builder
+    registry.addRecipeCategories(new MaterialCategory(guiHelper));
     registry.addRecipeCategories(new PartBuilderCategory(guiHelper));
     // modifier worktable
     registry.addRecipeCategories(new ModifierWorktableCategory(guiHelper));
@@ -252,10 +256,10 @@ public class JEIPlugin implements IModPlugin {
     register.addRecipes(TConstructJEIConstants.ALLOY, RecipeHelper.getJEIRecipes(access, manager, TinkerRecipeTypes.ALLOYING.get(), AlloyRecipe.class));
 
     // molding
-    register.addRecipes(TConstructJEIConstants.MOLDING, ImmutableList.<MoldingRecipe>builder()
-      .addAll(RecipeHelper.getJEIRecipes(access, manager, TinkerRecipeTypes.MOLDING_TABLE.get(), MoldingRecipe.class))
-      .addAll(RecipeHelper.getJEIRecipes(access, manager, TinkerRecipeTypes.MOLDING_BASIN.get(), MoldingRecipe.class))
-      .build());
+    List<MoldingRecipe> moldingRecipes = new ArrayList<>();
+    moldingRecipes.addAll(RecipeHelper.getJEIRecipes(access, manager, TinkerRecipeTypes.MOLDING_TABLE.get(), MoldingRecipe.class));
+    moldingRecipes.addAll(RecipeHelper.getJEIRecipes(access, manager, TinkerRecipeTypes.MOLDING_BASIN.get(), MoldingRecipe.class));
+    register.addRecipes(TConstructJEIConstants.MOLDING, moldingRecipes);
 
     // modifiers
     List<IDisplayModifierRecipe> modifierRecipes = RecipeHelper.getJEIRecipes(access, manager, TinkerRecipeTypes.TINKER_STATION.get(), IDisplayModifierRecipe.class)
@@ -279,6 +283,12 @@ public class JEIPlugin implements IModPlugin {
       .sorted(Comparator.comparingInt(r -> StationSlotLayoutLoader.getInstance().get(r.getLayoutSlotId()).getSortIndex()))
       .toList();
     register.addRecipes(TConstructJEIConstants.TOOL_BUILDING, toolBuilding);
+
+    // materials
+    register.addRecipes(TConstructJEIConstants.MATERIALS, Stream.<IDisplayMaterialRecipe>concat(
+        MaterialRecipeCache.getSortedRecipes().stream(),
+        Stream.concat(MaterialCastingLookup.getSortedCastingFluids().stream(), MaterialCastingLookup.getSortedCompositeFluids().stream()))
+      .sorted(Comparator.comparing(IDisplayMaterialRecipe::getMaterial)).toList());
 
     // part builder
     MaterialItemList.setRecipes(List.of()); // list of recipes is ignored as this whole class is getting ditched in 1.21; it just clears cache right now

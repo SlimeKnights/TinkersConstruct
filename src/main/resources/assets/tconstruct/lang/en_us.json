@@ -4229,6 +4229,15 @@
   "jei.tconstruct.modifiers.level.range": "For levels: %s-%s",
   "jei.tconstruct.modifiers.level.exact": "For level: %s",
 
+  "jei.tconstruct.materials.title": "Materials",
+  "jei.tconstruct.materials.value": "Value: %s",
+  "jei.tconstruct.materials.value.tooltip": "Number of units in the part builder and multiplier on repair value",
+  "jei.tconstruct.materials.amount": "Per unit: %s mb",
+  "jei.tconstruct.materials.amount.tooltip": "Amount of fluid needed per unit of material when casting",
+  "jei.tconstruct.materials.craftable": "Material can be used in the part builder.",
+  "jei.tconstruct.materials.uncraftable": "Material requires alternative crafting methods such as the casting table.",
+  "jei.tconstruct.materials.leftover": "Leftover for extra value",
+  "jei.tconstruct.materials.composite": "Composite base",
   "jei.tconstruct.severing.title": "Severing",
 
   "jei.tconstruct.tinkering.tool_building": "Tool Building",

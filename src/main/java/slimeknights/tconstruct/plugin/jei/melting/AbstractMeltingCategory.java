@@ -34,7 +34,7 @@ import java.util.List;
 
 /** Shared logic between melting and foundry */
 public abstract class AbstractMeltingCategory extends AbstractRecipeCategory<IDisplayableMeltingRecipe> {
-  protected static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/melting.png");
+  public static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/melting.png");
   protected static final String KEY_COOLING_TIME = TConstruct.makeTranslationKey("jei", "melting.time");
   protected static final String KEY_TEMPERATURE = TConstruct.makeTranslationKey("jei", "temperature");
   protected static final String KEY_MULTIPLIER = TConstruct.makeTranslationKey("jei", "melting.multiplier");

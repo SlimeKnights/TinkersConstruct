@@ -43,8 +43,8 @@ public interface IMaterialValue {
   default ItemStack getLeftover(int itemCost) {
     int remainder = getRemainder(itemCost);
     if (remainder > 0) {
-      ItemStack leftover = getLeftover();
-      if (!leftover.isEmpty()) {
+      if (hasLeftover()) {
+        ItemStack leftover = getLeftover();
         leftover.setCount(leftover.getCount() * remainder / getNeeded());
         return leftover;
       }

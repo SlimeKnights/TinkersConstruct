@@ -52,7 +52,7 @@ public class FuelCategory extends AbstractRecipeCategory<MeltingFuel> {
     // no fluids mean this is the solid fuel info
     if (!fluids.isEmpty()) {
       builder.addInputSlot(4, 4)
-        .addIngredients(ForgeTypes.FLUID_STACK, recipe.getInputs())
+        .addIngredients(ForgeTypes.FLUID_STACK, fluids)
         .setFluidRenderer(100, false, 12, 32)
         .setBackground(fuelBar, -1, -1)
         .setSlotName(FUEL_SLOT);

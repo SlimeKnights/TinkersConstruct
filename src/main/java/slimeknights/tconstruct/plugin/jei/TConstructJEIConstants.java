@@ -13,6 +13,7 @@ import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipe;
 import slimeknights.tconstruct.library.recipe.casting.IDisplayableCastingRecipe;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
+import slimeknights.tconstruct.library.recipe.material.IDisplayMaterialRecipe;
 import slimeknights.tconstruct.library.recipe.melting.IDisplayableMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IDisplayModifierRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipe;
@@ -98,6 +99,7 @@ public class TConstructJEIConstants {
   public static final RecipeType<IDisplayToolModification> TOOL_MODIFICATION = type("tool_modification", IDisplayToolModification.class);
 
   // part builder
+  public static final RecipeType<IDisplayMaterialRecipe> MATERIALS = type("materials", IDisplayMaterialRecipe.class);
   public static final RecipeType<IDisplayPartBuilderRecipe> PART_BUILDER = type("part_builder", IDisplayPartBuilderRecipe.class);
 
   // modifier workstation
