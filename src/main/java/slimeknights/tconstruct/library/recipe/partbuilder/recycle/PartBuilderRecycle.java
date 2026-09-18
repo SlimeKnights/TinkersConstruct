@@ -186,6 +186,7 @@ public class PartBuilderRecycle implements IPartBuilderRecipe, IMultiRecipe<IDis
     if (displayRecipes == null) {
       List<ItemStack> patternItems = List.of(pattern.getItems());
       displayRecipes = Arrays.stream(tool.getItems()).map(tool -> DisplayPartRecipe.id(id)
+        .title(RECYCLING).tooltip(INSTRUCTIONS)
         .patterns(results.keySet().stream().toList())
         .patternItems(patternItems)
         .materialItem(tool)

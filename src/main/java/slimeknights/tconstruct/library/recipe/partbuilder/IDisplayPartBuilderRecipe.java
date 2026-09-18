@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.recipe.partbuilder;
 
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.mantle.client.SafeClientAccess;
 import slimeknights.mantle.util.RegistryHelper;
@@ -9,6 +10,7 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipeCache;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -21,6 +23,17 @@ public interface IDisplayPartBuilderRecipe extends IPartBuilderRecipe {
    * TODO 1.21: make this return {@link slimeknights.tconstruct.library.materials.definition.MaterialVariantId}
    */
   MaterialVariant getMaterial();
+
+  /** Gets the title to display above the recipe. If null, will try dynamically making the title based on the displayed material. */
+  @Nullable
+  default Component getDisplayTitle() {
+    return null;
+  }
+
+  /** Gets the tooltip for the title in JEI */
+  default List<Component> getTooltip() {
+    return List.of();
+  }
 
   /** Gets the list of patterns for display on this recipe. */
   default List<Pattern> getPatterns() {

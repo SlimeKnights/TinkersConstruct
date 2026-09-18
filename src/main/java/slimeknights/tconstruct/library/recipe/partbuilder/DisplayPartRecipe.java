@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -15,6 +16,7 @@ import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 /** Part builder recipe for JEI display with full control over display. */
@@ -25,6 +27,11 @@ public class DisplayPartRecipe implements IDisplayPartBuilderRecipe {
   private final ResourceLocation id;
   /** Material variant for name display */
   private final MaterialVariant material;
+  /** Display title override. */
+  @Nullable
+  private final Component displayTitle;
+  /** Title tooltip */
+  private final List<Component> tooltip;
   /** Pattern button input */
   private final List<Pattern> patterns;
   /** Pattern item input */
@@ -39,7 +46,7 @@ public class DisplayPartRecipe implements IDisplayPartBuilderRecipe {
   /** @deprecated use {@link #id(ResourceLocation)} */
   @Deprecated(forRemoval = true)
   public DisplayPartRecipe(ResourceLocation id, MaterialVariant material, Pattern pattern, List<ItemStack> patternItems, int cost, List<ItemStack> materialItems, List<ItemStack> resultItems) {
-    this(id, material, List.of(pattern), patternItems, cost, materialItems, resultItems);
+    this(id, material, null, List.of(), List.of(pattern), patternItems, cost, materialItems, resultItems);
   }
 
   @Override
@@ -88,6 +95,10 @@ public class DisplayPartRecipe implements IDisplayPartBuilderRecipe {
     private final ResourceLocation id;
     /** Material variant for name display */
     private MaterialVariant material = MaterialVariant.UNKNOWN;
+    /** Title to display in JEI */
+    private Component title = null;
+    /** Tooltip to display in JEI */
+    private List<Component> tooltip = List.of();
     /** Pattern button input */
     private List<Pattern> patterns = List.of();
     /** Pattern item input */
@@ -132,7 +143,7 @@ public class DisplayPartRecipe implements IDisplayPartBuilderRecipe {
     /** Builds the display recipe */
     public IDisplayPartBuilderRecipe build() {
       if (results.isEmpty()) throw new IllegalStateException("Results cannot be empty");
-      return new DisplayPartRecipe(id, material, patterns, patternItems, cost, materialItems, results);
+      return new DisplayPartRecipe(id, material, title, tooltip, patterns, patternItems, cost, materialItems, results);
     }
   }
 }
