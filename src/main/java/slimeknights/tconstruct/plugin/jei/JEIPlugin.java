@@ -283,7 +283,13 @@ public class JEIPlugin implements IModPlugin {
 
     // modifier worktable
     register.addRecipes(TConstructJEIConstants.MODIFIER_WORKTABLE, RecipeHelper.getJEIRecipes(access, manager, TinkerRecipeTypes.MODIFIER_WORKTABLE.get(), IModifierWorktableRecipe.class)
-      .stream().filter(recipe -> !recipe.getModifierOptions(null).isEmpty()).toList());
+      .stream().filter(recipe -> {
+        if (recipe.getModifierOptions(null).isEmpty()) {
+          TConstruct.LOG.debug("Hiding Modifier Worktable recipe {} as it has no valid modifiers", recipe.getId());
+          return false;
+        }
+        return true;
+      }).toList());
 
     // add an ingredient listener to hide tanks when fluids are hidden
     IIngredientManager ingredientManager = register.getIngredientManager();
