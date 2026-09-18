@@ -246,10 +246,14 @@ public class PartBuilderToolRecycle implements IPartBuilderRecipe, IMultiRecipe<
       Collection<PartIndex> partsOverride = parts.isEmpty() ? List.of() : getDisplayParts(parts);
       List<ItemStack> patternItems = List.of(this.pattern.getItems());
       displayRecipes = toolRequirement.getMatchingStacks().stream()
-        .map(stack -> {
+        .flatMap(stack -> {
           // if we have a parts override, use that instead of the tool parts
           Collection<PartIndex> parts = !partsOverride.isEmpty() ? partsOverride : getDisplayParts(ToolPartsHook.parts(IModifiable.getToolDefinition(stack.getItem())));
-          return DisplayPartRecipe.id(id)
+          // may have no parts if no override and the tool lacks parts
+          if (parts.isEmpty()) {
+            return Stream.empty();
+          }
+          return Stream.of(DisplayPartRecipe.id(id).title(TOOL_RECYCLING).tooltip(INSTRUCTIONS)
             .patterns(parts.stream().map(pi -> Pattern.fromItem(pi.part)).toList())
             .patternItems(patternItems)
             .materialItem(IModifiableDisplay.getDisplayStack(stack))
@@ -258,7 +262,7 @@ public class PartBuilderToolRecycle implements IPartBuilderRecipe, IMultiRecipe<
               part.getOrCreateTag().putBoolean(TooltipUtil.KEY_DISPLAY, true);
               return part;
             }).toList())
-            .build();
+            .build());
         })
         .toList();
     }
