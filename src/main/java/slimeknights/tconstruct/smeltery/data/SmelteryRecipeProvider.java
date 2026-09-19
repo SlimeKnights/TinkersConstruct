@@ -1267,7 +1267,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                             .save(consumer, location(folder + "blaze/cream"));
     ItemCastingRecipeBuilder.basinRecipe(Blocks.MAGMA_BLOCK)
                             .setFluidAndTime(TinkerFluids.blazingBlood, FluidType.BUCKET_VOLUME / 5)
-                            .setCast(TinkerTags.Items.CONGEALED_SLIME, true)
+                            .setCast(TinkerWorld.congealedSlime.get(SlimeType.EARTH), true)
                             .save(consumer, location(folder + "blaze/congealed"));
     ItemCastingRecipeBuilder.tableRecipe(TinkerMaterials.blazingBone)
                             .setFluidAndTime(TinkerFluids.blazingBlood, FluidType.BUCKET_VOLUME / 5)
