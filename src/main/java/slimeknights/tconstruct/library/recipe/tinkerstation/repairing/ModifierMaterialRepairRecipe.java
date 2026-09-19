@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation.repairing;
 
 import lombok.Getter;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -12,12 +13,15 @@ import slimeknights.tconstruct.library.materials.definition.LazyMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
+import slimeknights.tconstruct.library.recipe.tinkerstation.IDisplayToolModification;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.tools.definition.module.material.MaterialRepairModule;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tables.recipe.TinkerStationRepairRecipe;
 import slimeknights.tconstruct.tools.TinkerModifiers;
+
+import java.util.List;
 
 /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.modules.behavior.MaterialRepairModule} */
 @Deprecated(forRemoval = true)
@@ -68,6 +72,10 @@ public class ModifierMaterialRepairRecipe extends TinkerStationRepairRecipe impl
     return TinkerModifiers.modifierMaterialRepair.get();
   }
 
+  @Override
+  public List<IDisplayToolModification> getRecipes(RegistryAccess access) {
+    return List.of();
+  }
 
   /** Find the repair item in the inventory */
   private static boolean findMaterialItem(ITinkerStationContainer inv, MaterialId repairMaterial) {
