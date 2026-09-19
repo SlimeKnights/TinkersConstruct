@@ -13,9 +13,7 @@ import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 
 import java.util.function.Consumer;
 
-/**
- * Builder for a material item part crafting recipe
- */
+/** Builder for a material item part crafting recipe in {@link PartRecipe}. */
 @Setter
 @Accessors(chain = true)
 @RequiredArgsConstructor(staticName = "partRecipe")

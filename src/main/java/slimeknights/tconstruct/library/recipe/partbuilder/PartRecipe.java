@@ -17,7 +17,6 @@ import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.IMultiRecipe;
 import slimeknights.mantle.recipe.helper.LoadableRecipeSerializer;
-import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
 import slimeknights.tconstruct.library.json.field.MergingField;
 import slimeknights.tconstruct.library.json.field.MergingField.MissingMode;
@@ -37,7 +36,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Recipe to make a tool part from a material item in the part builder
+ * Dynamic to make a tool part from material items in the part builder.
+ * @see ItemPartRecipe
  */
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class PartRecipe implements IPartBuilderRecipe, IMultiRecipe<IDisplayPartBuilderRecipe> {
@@ -294,7 +294,7 @@ public class PartRecipe implements IPartBuilderRecipe, IMultiRecipe<IDisplayPart
             // if it's a base ID, animate its variant recipes
             return List.of(MaterialVariant.of(variant));
           }
-        } else if (!focusStack.is(TinkerTags.Items.PATTERNS)) {
+        } else {
           // if the item has a material, return that directly, no need to animate
           MaterialRecipe recipe = MaterialRecipeCache.findRecipe(focusStack);
           if (recipe != MaterialRecipe.EMPTY) {
@@ -317,7 +317,7 @@ public class PartRecipe implements IPartBuilderRecipe, IMultiRecipe<IDisplayPart
           if (!MaterialId.UNKNOWN.equals(variant)) {
             return PartRecipe.getItems(variant, cost);
           }
-        } else if (!focusStack.is(TinkerTags.Items.PATTERNS)) {
+        } else {
           // if the item has a material, return it directly, no need to animate
           MaterialRecipe recipe = MaterialRecipeCache.findRecipe(focusStack);
           if (recipe != MaterialRecipe.EMPTY) {
@@ -339,7 +339,7 @@ public class PartRecipe implements IPartBuilderRecipe, IMultiRecipe<IDisplayPart
           if (!MaterialId.UNKNOWN.equals(variant)) {
             return List.of(output.withMaterial(variant));
           }
-        } else if (!focusStack.is(TinkerTags.Items.PATTERNS)) {
+        } else {
           MaterialRecipe recipe = MaterialRecipeCache.findRecipe(focusStack);
           if (recipe != MaterialRecipe.EMPTY) {
             return List.of(output.withMaterial(recipe.getMaterial().getVariant()));
