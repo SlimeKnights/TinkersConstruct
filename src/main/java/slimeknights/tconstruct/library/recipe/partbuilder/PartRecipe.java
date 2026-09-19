@@ -235,6 +235,19 @@ public class PartRecipe implements IPartBuilderRecipe, IMultiRecipe<IDisplayPart
     return multiRecipes;
   }
 
+  /** Gets the display items for the given material */
+  public static List<ItemStack> getItems(MaterialVariantId id, int cost) {
+    List<ItemStack> stacks = new ArrayList<>();
+    if (id.hasVariant()) {
+      MaterialRecipeCache.addItems(id, cost, stacks);
+    } else {
+      for (MaterialVariantId variant : MaterialRecipeCache.getVariants(id.getId())) {
+        MaterialRecipeCache.addItems(variant, cost, stacks);
+      }
+    }
+    return stacks;
+  }
+
   /** Display recipe handling dynamic focus */
   @Getter
   @RequiredArgsConstructor
@@ -292,30 +305,17 @@ public class PartRecipe implements IPartBuilderRecipe, IMultiRecipe<IDisplayPart
       return getMaterials();
     }
 
-    /** Gets the display items for the given material */
-    private List<ItemStack> getItems(MaterialVariantId id) {
-      List<ItemStack> stacks = new ArrayList<>();
-      if (id.hasVariant()) {
-        MaterialRecipeCache.addItems(id, cost, stacks);
-      } else {
-        for (MaterialVariantId variant : MaterialRecipeCache.getVariants(id.getId())) {
-          MaterialRecipeCache.addItems(variant, cost, stacks);
-        }
-      }
-      return stacks;
-    }
-
     @Override
     public List<ItemStack> getMaterialItems(MaterialVariant focusMaterial, ItemStack focusStack, boolean focusOutput) {
       if (!focusMaterial.isUnknown()) {
-        return getItems(focusMaterial.getId());
+        return PartRecipe.getItems(focusMaterial.getId(), cost);
       }
       if (!focusStack.isEmpty()) {
         if (focusOutput) {
           // outputs are tool parts, so ask the material item
           MaterialVariantId variant = output.getMaterial(focusStack);
           if (!MaterialId.UNKNOWN.equals(variant)) {
-            return getItems(variant);
+            return PartRecipe.getItems(variant, cost);
           }
         } else if (!focusStack.is(TinkerTags.Items.PATTERNS)) {
           // if the item has a material, return it directly, no need to animate
