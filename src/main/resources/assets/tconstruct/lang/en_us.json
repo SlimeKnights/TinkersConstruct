@@ -4015,6 +4015,8 @@
   "recipe.tconstruct.recycling.info": "Select which item to salvage. Based on the durability, may be able to salvage unselected items.",
   "recipe.tconstruct.recycling.not_enough_durability": "Item does not have enough durability to salvage anything.",
   "recipe.tconstruct.recycling.no_enchantments": "A tool cannot be recycled if it is enchanted, use the grindstone to remove them first.",
+  "recipe.tconstruct.sand_cast": "Sand Casts",
+  "recipe.tconstruct.sand_cast.info": "Select a pattern to create a sand cast with that shape. Sand casts can be used a single time in the casting table to create a tool part from molten materials.",
 
   "recipe.tconstruct.tool_damaging": "Tool Damaging",
   "recipe.tconstruct.tool_damaging.tooltip": "Reduces the tool's durability by the given amount. Useful for maximizing modifier effects.",

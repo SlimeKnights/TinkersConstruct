@@ -10,5 +10,6 @@
   "pattern_item": {
     "tag": "tconstruct:casts/red_sand"
   },
-  "result": "tconstruct:wire_red_sand_cast"
+  "result": "tconstruct:wire_red_sand_cast",
+  "title_key": "tconstruct:sand_cast"
 }

@@ -13,7 +13,6 @@ import slimeknights.tconstruct.library.recipe.material.IMaterialValue;
 import slimeknights.tconstruct.tables.TinkerTables;
 
 import javax.annotation.Nullable;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -97,6 +96,6 @@ public interface IPartBuilderRecipe extends ICommonRecipe<IPartBuilderContainer>
 
   /** Gets the text to display on the part builder screen */
   default List<Component> getText(IPartBuilderContainer inv) {
-    return Collections.emptyList();
+    return List.of();
   }
 }

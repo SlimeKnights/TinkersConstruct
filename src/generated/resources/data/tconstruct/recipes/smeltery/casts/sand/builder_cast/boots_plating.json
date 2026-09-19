@@ -4,5 +4,6 @@
   "pattern_item": {
     "tag": "tconstruct:casts/sand"
   },
-  "result": "tconstruct:boots_plating_sand_cast"
+  "result": "tconstruct:boots_plating_sand_cast",
+  "title_key": "tconstruct:sand_cast"
 }
