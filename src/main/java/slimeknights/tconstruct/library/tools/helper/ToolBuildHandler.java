@@ -31,7 +31,8 @@ import java.util.function.Consumer;
 public final class ToolBuildHandler {
   private ToolBuildHandler() {}
 
-  private static final MaterialId RENDER_MATERIAL = new MaterialId(TConstruct.MOD_ID, "ui_render");
+  /** Internal material used for displaying tools in recipe viewers. Represents "any" material. */
+  public static final MaterialId RENDER_MATERIAL = new MaterialId(TConstruct.MOD_ID, "ui_render");
 
   /** Fully random material instance. */
   public static final RandomMaterial RANDOM = RandomMaterial.random().allowHidden().build();

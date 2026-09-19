@@ -5,6 +5,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import java.util.Collection;
+import java.util.Set;
 
 /**
  * Hook allowing a modifier to add an additional repair material to a tool.
@@ -28,6 +29,13 @@ public interface MaterialRepairModifierHook {
    */
   float getRepairAmount(IToolStackView tool, ModifierEntry modifier, MaterialId material);
 
+  /**
+   * Adds all repair materials from the given tool to the material list for display in recipe viewers.
+   * @param tool       Tool instance
+   * @param materials  List of materials being built;
+   */
+  default void addRepairMaterials(IToolStackView tool, ModifierEntry modifier, Set<MaterialId> materials) {}
+
   /** Merger that gets the max repair amount across all materials */
   record MaxMerger(Collection<MaterialRepairModifierHook> modules) implements MaterialRepairModifierHook {
     @Override
@@ -50,6 +58,13 @@ public interface MaterialRepairModifierHook {
         }
       }
       return maxRepair;
+    }
+
+    @Override
+    public void addRepairMaterials(IToolStackView tool, ModifierEntry modifier, Set<MaterialId> materials) {
+      for (MaterialRepairModifierHook module : modules) {
+        module.addRepairMaterials(tool, modifier, materials);
+      }
     }
   }
 }
