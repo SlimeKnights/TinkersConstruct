@@ -25,12 +25,16 @@ public interface CapacityBarHook {
 
   /** Adds the given amount to the current shield. */
   default void addAmount(IToolStackView tool, ModifierEntry modifier, int amount) {
-    setAmount(tool, modifier, getAmount(tool) + amount);
+    if (amount != 0) {
+      setAmount(tool, modifier, getAmount(tool) + amount);
+    }
   }
 
   /** Adds the given amount to the current shield. */
   default void removeAmount(IToolStackView tool, ModifierEntry modifier, int amount) {
-    setAmount(tool, modifier, getAmount(tool) - amount);
+    if (amount != 0) {
+      setAmount(tool, modifier, getAmount(tool) - amount);
+    }
   }
 
   /** Capacity bar implementation storing data in persistent data */
