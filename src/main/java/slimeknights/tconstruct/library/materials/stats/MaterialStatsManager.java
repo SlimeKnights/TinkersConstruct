@@ -189,11 +189,13 @@ public class MaterialStatsManager extends MergingJsonDataLoader<Map<ResourceLoca
                                   entry -> new MaterialId(entry.getKey()),
                                   entry -> deserializeMaterialStatsFromContent(entry.getKey(), entry.getValue())));
 
-    log.debug("Loaded stats for materials:{}",
-              Util.toIndentedStringList(materialToStatsPerType.entrySet().stream()
-                .sorted(Entry.comparingByKey())
-                .map(entry -> String.format("%s - [%s]", entry.getKey(), entry.getValue().keySet().stream().sorted().map(Object::toString).collect(Collectors.joining(", "))))
-                .collect(Collectors.toList())));
+    if (log.isDebugEnabled()) {
+      log.debug("Loaded stats for materials:{}",
+        Util.toIndentedStringList(materialToStatsPerType.entrySet().stream()
+          .sorted(Entry.comparingByKey())
+          .map(entry -> String.format("%s - [%s]", entry.getKey(), entry.getValue().keySet().stream().sorted().map(Object::toString).collect(Collectors.joining(", "))))
+          .collect(Collectors.toList())));
+    }
     onLoaded.run();
   }
 
