@@ -24,4 +24,9 @@ public class SimpleCache<K,V> implements Function<K,V> {
   public void clear() {
     cache.clear();
   }
+
+  /** Removes the given key from the cache */
+  public void remove(K key) {
+    cache.remove(key);
+  }
 }
