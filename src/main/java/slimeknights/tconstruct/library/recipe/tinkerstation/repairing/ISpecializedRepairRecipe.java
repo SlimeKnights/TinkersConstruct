@@ -5,9 +5,8 @@ import slimeknights.mantle.data.loadable.common.IngredientLoadable;
 import slimeknights.mantle.data.loadable.field.LoadableField;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 
-/**
- * Interface for serializing the recipe
- */
+/** @deprecated seems this was never used, so no sense keeping it around. Must have been accidentally committed after a different solution was chosen in a refactor. */
+@Deprecated(forRemoval = true)
 public interface ISpecializedRepairRecipe {
   /* Fields */
   LoadableField<Ingredient,ISpecializedRepairRecipe> TOOL_FIELD = IngredientLoadable.DISALLOW_EMPTY.requiredField("tool", ISpecializedRepairRecipe::getTool);

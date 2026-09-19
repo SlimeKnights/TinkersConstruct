@@ -28,7 +28,12 @@ import slimeknights.tconstruct.tables.TinkerTables;
 
 import java.util.function.IntConsumer;
 
-/** Recipe for repairing tools */
+/**
+ * Recipe for repairing tools in the tinker station or anvil.
+ * Handles calls to {@link slimeknights.tconstruct.library.modifiers.hook.behavior.MaterialRepairModifierHook} and {@link MaterialRepairToolHook}.
+ * @see CraftingTableRepairKitRecipe
+ * @see slimeknights.mantle.recipe.helper.SimpleFinishedRecipe
+ */
 @RequiredArgsConstructor
 public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
   protected static final RecipeResult<LazyToolStack> FULLY_REPAIRED = RecipeResult.failure(TConstruct.makeTranslationKey("recipe", "tool_repair.fully_repaired"));

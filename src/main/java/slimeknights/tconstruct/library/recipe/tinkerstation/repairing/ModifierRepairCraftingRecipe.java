@@ -27,6 +27,12 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import java.util.function.Predicate;
 
+/**
+ * Recipe for repairing a tool in the crafting table provided it has the given modifier.
+ * @see ModifierRepairRecipeBuilder
+ * @see ModifierRepairTinkerStationRecipe
+ * @see slimeknights.tconstruct.library.modifiers.modules.behavior.MaterialRepairModule
+ */
 public class ModifierRepairCraftingRecipe extends CustomRecipe implements IModifierRepairRecipe {
   public static final RecordLoadable<ModifierRepairCraftingRecipe> LOADER = RecordLoadable.create(ContextKey.ID.requiredField(), MODIFIER_FIELD, INGREDIENT_FIELD, REPAIR_AMOUNT_FIELD, ModifierRepairCraftingRecipe::new);
   private static final Predicate<ItemStack> TOOLS = stack -> stack.is(TinkerTags.Items.DURABILITY);
@@ -82,7 +88,6 @@ public class ModifierRepairCraftingRecipe extends CustomRecipe implements IModif
 
   @Override
   public NonNullList<ItemStack> getRemainingItems(CraftingContainer inv) {
-    NonNullList<ItemStack> list = NonNullList.withSize(inv.getContainerSize(), ItemStack.EMPTY);
     // step 1: find out how much we need to repair
     ToolFound inputs = OverslimeCraftingTableRecipe.findTool(inv, TOOLS, ingredient);
     int repairPerItem = 0;

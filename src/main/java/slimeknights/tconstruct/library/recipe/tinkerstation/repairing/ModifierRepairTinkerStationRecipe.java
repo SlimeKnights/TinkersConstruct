@@ -24,6 +24,12 @@ import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
+/**
+ * Recipe to repair tools with the given modifier using a specific item.
+ * @see ModifierRepairRecipeBuilder
+ * @see ModifierRepairCraftingRecipe
+ * @see slimeknights.tconstruct.library.modifiers.modules.behavior.MaterialRepairModule
+ */
 @RequiredArgsConstructor
 public class ModifierRepairTinkerStationRecipe implements ITinkerStationRecipe, IModifierRepairRecipe {
   public static final RecordLoadable<ModifierRepairTinkerStationRecipe> LOADER = RecordLoadable.create(ContextKey.ID.requiredField(), MODIFIER_FIELD, INGREDIENT_FIELD, REPAIR_AMOUNT_FIELD, ModifierRepairTinkerStationRecipe::new);
