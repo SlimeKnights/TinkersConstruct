@@ -1,6 +1,5 @@
 {
   "type": "tconstruct:tool_material_swapping",
-  "max_stack_size": 16,
   "tools": {
     "type": "forge:difference",
     "base": {

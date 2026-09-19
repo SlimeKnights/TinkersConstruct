@@ -46,16 +46,14 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 /** Recipe swapping a tool material using another tool as input */
-// dynamic notes: show the tool as a sacrifice only if it has no modifiers. Otherwise stick to modifications to the shown tool
-  // no reason to not copy the tool for display
 public class ToolMaterialSwappingRecipe extends MaterialSwappingRecipe implements IMultiRecipe<IDisplayToolModification> {
   protected static final RecipeResult<LazyToolStack> NO_MODIFIERS = RecipeResult.failure(TConstruct.makeTranslationKey("recipe", "part_swapping.no_modifiers"));
-  public static final RecordLoadable<ToolMaterialSwappingRecipe> LOADER = RecordLoadable.create(ContextKey.ID.requiredField(), TOOLS_FIELD, STACK_SIZE_FIELD, EXTRA_REQUIREMENTS_FIELD, ToolMaterialSwappingRecipe::new);
+  public static final RecordLoadable<ToolMaterialSwappingRecipe> LOADER = RecordLoadable.create(ContextKey.ID.requiredField(), TOOLS_FIELD, EXTRA_REQUIREMENTS_FIELD, ToolMaterialSwappingRecipe::new);
 
   /** @apiNote Internal usage. To create see {@link slimeknights.tconstruct.tables.recipe.TinkerStationPartSwappingBuilder} */
   @Internal
-  public ToolMaterialSwappingRecipe(ResourceLocation id, Ingredient tools, int maxStackSize, List<SizedIngredient> extraRequirements) {
-    super(id, tools, maxStackSize, extraRequirements);
+  public ToolMaterialSwappingRecipe(ResourceLocation id, Ingredient tools, List<SizedIngredient> extraRequirements) {
+    super(id, tools, 1, extraRequirements);
   }
 
   @Override
