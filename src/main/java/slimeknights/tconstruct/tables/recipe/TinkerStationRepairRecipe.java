@@ -356,7 +356,7 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe, IMultiRe
         IRepairKitItem repairKit = TinkerToolParts.repairKit.get();
         return MaterialRepairToolHook.getRepairMaterials(ToolStack.from(focus)).stream().map(repairKit::withMaterialForDisplay).toList();
       }
-      return List.of();
+      return getDisplayItems(slot);
     }
 
     @Override
