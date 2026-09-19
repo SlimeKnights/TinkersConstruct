@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.plugin.jei.casting;
 
-import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
@@ -98,7 +97,7 @@ public abstract class AbstractCastingCategory extends AbstractRecipeCategory<IDi
   @Override
   public void setRecipe(IRecipeLayoutBuilder builder, IDisplayableCastingRecipe recipe, IFocusGroup focuses) {
     // fetch focus data
-    IFocus<ItemStack> focus = focuses.getFocuses(VanillaTypes.ITEM_STACK).findFirst().orElse(null);
+    IFocus<ItemStack> focus = focuses.getItemStackFocuses().findFirst().orElse(null);
     ItemStack focusStack = ItemStack.EMPTY;
     boolean focusOutput = false;
     if (focus != null) {

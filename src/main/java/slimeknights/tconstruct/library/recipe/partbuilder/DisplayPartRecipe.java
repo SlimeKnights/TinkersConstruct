@@ -5,14 +5,10 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 
@@ -22,7 +18,7 @@ import java.util.List;
 /** Part builder recipe for JEI display with full control over display. */
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
-public class DisplayPartRecipe implements IDisplayPartBuilderRecipe {
+public class DisplayPartRecipe implements IDisplayPartBuilderRecipe.DisplayOnly {
   /** ID of recipe; should generally match a real recipe JSON */
   private final ResourceLocation id;
   /** Material variant for name display */
@@ -60,31 +56,6 @@ public class DisplayPartRecipe implements IDisplayPartBuilderRecipe {
   @Override
   public Pattern getPattern() {
     return patterns.get(0);
-  }
-
-  /* Required part builder methods */
-
-  @Override
-  public boolean partialMatch(IPartBuilderContainer inv) {
-    throw new UnsupportedOperationException();
-  }
-
-  /** @deprecated needed to implement the interface, not meant to be used */
-  @Override
-  @Deprecated
-  @Internal
-  public boolean matches(IPartBuilderContainer pContainer, Level pLevel) {
-    throw new UnsupportedOperationException();
-  }
-
-  @Override
-  public ItemStack getResultItem(RegistryAccess pRegistryAccess) {
-    throw new UnsupportedOperationException();
-  }
-
-  @Override
-  public RecipeSerializer<?> getSerializer() {
-    throw new UnsupportedOperationException();
   }
 
 

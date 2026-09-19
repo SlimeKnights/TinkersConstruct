@@ -9,6 +9,7 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotView;
 import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
 import mezz.jei.api.gui.widgets.ITextWidget;
 import mezz.jei.api.helpers.IGuiHelper;
+import mezz.jei.api.recipe.IFocus;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.AbstractRecipeCategory;
@@ -63,8 +64,22 @@ public class PartBuilderCategory extends AbstractRecipeCategory<IDisplayPartBuil
 
   @Override
   public void setRecipe(IRecipeLayoutBuilder builder, IDisplayPartBuilderRecipe recipe, IFocusGroup focuses) {
+    // focus
+    MaterialVariant focusMaterial = MaterialVariant.UNKNOWN;
+    ItemStack focusStack = ItemStack.EMPTY;
+    boolean focusOutput = false;
+    IFocus<ItemStack> itemFocus = focuses.getItemStackFocuses().findFirst().orElse(null);
+    if (itemFocus != null) {
+      focusStack = itemFocus.getTypedValue().getIngredient();;
+      focusOutput = itemFocus.getRole() == RecipeIngredientRole.OUTPUT;
+    }
+    IFocus<MaterialVariant> materialFocus = focuses.getFocuses(TConstructJEIConstants.MATERIAL_TYPE, RecipeIngredientRole.INPUT).findFirst().orElse(null);
+    if (materialFocus != null) {
+      focusMaterial = materialFocus.getTypedValue().getIngredient();
+    }
+
     // items
-    List<ItemStack> materialItems = recipe.getMaterialItems();
+    List<ItemStack> materialItems = recipe.getMaterialItems(focusMaterial, focusStack, focusOutput);
     IRecipeSlotBuilder materialItemSlot = builder.addInputSlot(25, 16)
       .addItemStacks(materialItems).setStandardSlotBackground();
     if (materialItems.isEmpty()) {
@@ -84,8 +99,11 @@ public class PartBuilderCategory extends AbstractRecipeCategory<IDisplayPartBuil
       patternSlot.addRichTooltipCallback(new PatternTooltip(cost));
     }
 
+    // hidden ingredients for focusing
+    builder.addInvisibleIngredients(RecipeIngredientRole.INPUT).addItemStacks(recipe.getHiddenInputs());
+
     // material input
-    List<MaterialVariant> materials = recipe.getMaterials();
+    List<MaterialVariant> materials = recipe.getMaterials(focusMaterial, focusStack, focusOutput);
     IRecipeSlotBuilder materialSlot = null;
     if (!materials.isEmpty()) {
       materialSlot = builder.addInputSlot(3, 2)
@@ -94,7 +112,7 @@ public class PartBuilderCategory extends AbstractRecipeCategory<IDisplayPartBuil
     }
 
     // output
-    List<ItemStack> resultItems = recipe.getResultItems();
+    List<ItemStack> resultItems = recipe.getResultItems(focusMaterial, focusStack, focusOutput);
     IRecipeSlotBuilder resultSlot = builder.addOutputSlot(96, 15)
       .addItemStacks(resultItems).setOutputSlotBackground();
 

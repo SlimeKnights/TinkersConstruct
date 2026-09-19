@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.plugin.jei.modifiers;
 
-import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -129,7 +128,7 @@ public abstract class AbstractTinkerStationCategory<T extends IDisplayTinkerStat
 
     // allow the recipe to update based on the focuses
     // usually will
-    IFocus<ItemStack> focus = focuses.getFocuses(VanillaTypes.ITEM_STACK).findFirst().orElse(null);
+    IFocus<ItemStack> focus = focuses.getItemStackFocuses().findFirst().orElse(null);
     ItemStack focusStack = ItemStack.EMPTY;
     boolean focusOutput = false;
     if (focus != null) {

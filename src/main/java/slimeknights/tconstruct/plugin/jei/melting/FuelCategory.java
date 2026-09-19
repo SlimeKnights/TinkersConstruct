@@ -2,7 +2,6 @@ package slimeknights.tconstruct.plugin.jei.melting;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawableStatic;
@@ -58,7 +57,7 @@ public class FuelCategory extends AbstractRecipeCategory<MeltingFuel> {
         .setSlotName(FUEL_SLOT);
     } else {
       // if focusing on a fuel, show it
-      IFocus<ItemStack> focus = focuses.getFocuses(VanillaTypes.ITEM_STACK).findFirst().orElse(null);
+      IFocus<ItemStack> focus = focuses.getItemStackFocuses().findFirst().orElse(null);
       // otherwise, show our examples
       List<ItemStack> fuels = focus != null ? List.of(focus.getTypedValue().getIngredient()) : MeltingFuelHandler.SOLID_FUELS.get();
       builder.addInputSlot(2, 12)
