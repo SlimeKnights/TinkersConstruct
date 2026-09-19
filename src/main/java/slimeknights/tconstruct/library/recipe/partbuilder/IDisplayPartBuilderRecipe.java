@@ -32,7 +32,7 @@ public interface IDisplayPartBuilderRecipe extends IPartBuilderRecipe {
   /** Gets the list of material inputs for this recipe. Will be focus linked to the output if the sizes match. */
   default List<MaterialVariant> getMaterials() {
     MaterialVariant variant = getMaterial();
-    return variant.isUnknown() ? List.of() : List.of(variant);
+    return variant.isEmpty() ? List.of() : List.of(variant);
   }
 
   /** Gets the title to display above the recipe. If null, will try dynamically making the title based on the displayed material. */
@@ -54,7 +54,7 @@ public interface IDisplayPartBuilderRecipe extends IPartBuilderRecipe {
   /** Gets a list of input material items for display in the material slot. */
   default List<ItemStack> getMaterialItems() {
     MaterialVariant material = getMaterial();
-    if (material.isUnknown()) {
+    if (material.isEmpty()) {
       return List.of();
     }
     return MaterialRecipeCache.getItems(material.getVariant());
@@ -90,7 +90,7 @@ public interface IDisplayPartBuilderRecipe extends IPartBuilderRecipe {
 
   /**
    * Gets the materials to display subject to the given focuses
-   * @param focusMaterial  Currently focused material. Will only ever be input. Will be {@link MaterialVariant#isUnknown()} if not focused.
+   * @param focusMaterial  Currently focused material. Will only ever be input. Will be {@link MaterialVariant#isEmpty()} if not focused.
    * @param focusStack     Currently focused item stack. Will be {@link ItemStack#isEmpty()} if not focused.
    * @param focusOutput    If true, focus is an output. If false, focus is an input.
    * @return  List of materials subject to the current focus.
@@ -102,7 +102,7 @@ public interface IDisplayPartBuilderRecipe extends IPartBuilderRecipe {
 
   /**
    * Gets the material items to display subject to the given focuses.
-   * @param focusMaterial  Currently focused material. Will only ever be input. Will be {@link MaterialVariant#isUnknown()} if not focused.
+   * @param focusMaterial  Currently focused material. Will only ever be input. Will be {@link MaterialVariant#isEmpty()} if not focused.
    * @param focusStack     Currently focused item stack. Will be {@link ItemStack#isEmpty()} if not focused.
    * @param focusOutput    If true, focus is an output. If false, focus is an input.
    * @return  List of material items subject to the current focus.
@@ -114,7 +114,7 @@ public interface IDisplayPartBuilderRecipe extends IPartBuilderRecipe {
 
   /**
    * Gets the result items to display subject to the given focuses
-   * @param focusMaterial  Currently focused material. Will only ever be input. Will be {@link MaterialVariant#isUnknown()} if not focused.
+   * @param focusMaterial  Currently focused material. Will only ever be input. Will be {@link MaterialVariant#isEmpty()} if not focused.
    * @param focusStack     Currently focused item stack. Will be {@link ItemStack#isEmpty()} if not focused.
    * @param focusOutput    If true, focus is an output. If false, focus is an input.
    * @return  List of results subject to the current focus.

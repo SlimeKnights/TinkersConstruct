@@ -281,7 +281,7 @@ public class PartRecipe implements IPartBuilderRecipe, IMultiRecipe<IDisplayPart
     @Override
     public List<MaterialVariant> getMaterials(MaterialVariant focusMaterial, ItemStack focusStack, boolean focusOutput) {
       // if focusing on a material, just display that
-      if (!focusMaterial.isUnknown()) {
+      if (!focusMaterial.isEmpty()) {
         // if it's a base ID, animate its variant recipes
         return List.of(focusMaterial);
       }
@@ -307,7 +307,7 @@ public class PartRecipe implements IPartBuilderRecipe, IMultiRecipe<IDisplayPart
 
     @Override
     public List<ItemStack> getMaterialItems(MaterialVariant focusMaterial, ItemStack focusStack, boolean focusOutput) {
-      if (!focusMaterial.isUnknown()) {
+      if (!focusMaterial.isEmpty()) {
         return PartRecipe.getItems(focusMaterial.getId(), cost);
       }
       if (!focusStack.isEmpty()) {
@@ -330,7 +330,7 @@ public class PartRecipe implements IPartBuilderRecipe, IMultiRecipe<IDisplayPart
 
     @Override
     public List<ItemStack> getResultItems(MaterialVariant focusMaterial, ItemStack focusStack, boolean focusOutput) {
-      if (!focusMaterial.isUnknown()) {
+      if (!focusMaterial.isEmpty()) {
         return List.of(output.withMaterial(focusMaterial.getVariant()));
       }
       if (!focusStack.isEmpty()) {

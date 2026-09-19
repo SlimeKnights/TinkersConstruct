@@ -55,6 +55,7 @@ public class LazyMaterial implements Supplier<IMaterial> {
 
   /** If true, this material was not found in the registry. Can use to immediately resolve a material */
   public boolean isUnknown() {
+    // TODO 1.21: rename to isBound to minimize confusion and match LazyModifier
     return get() == IMaterial.UNKNOWN;
   }
 

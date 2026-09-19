@@ -188,10 +188,10 @@ public class ItemPartRecipe implements IDisplayPartBuilderRecipe {
   public List<ItemStack> getMaterialItems() {
     if (materialItems == null) {
       // if unknown, nothing to display. Used for no material input
-      if (material.isUnknown()) {
+      if (material.isEmpty()) {
         materialItems = List.of();
       } else {
-        this.materialItems = List.copyOf(PartRecipe.getItems(material.getVariant(), cost));
+        materialItems = List.copyOf(PartRecipe.getItems(material.getVariant(), cost));
       }
     }
     return materialItems;
