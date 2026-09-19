@@ -160,7 +160,7 @@ public class ToolMaterialSwappingRecipe extends MaterialSwappingRecipe implement
         }
         List<MaterialVariant> renderMaterials = IntStream.range(0, stats.size()).mapToObj(i -> MaterialVariant.of(ToolBuildHandler.getRenderMaterial(i))).toList();
         ToolStack displayTool = tool.copy();
-        displayTool.setMaterials(MaterialNBT.of(renderMaterials.toArray(MaterialVariant[]::new)));
+        displayTool.setMaterials(new MaterialNBT(renderMaterials));
         // start making recipes
         List<IDisplayToolModification> newRecipes = new ArrayList<>(stats.size() * 2);
         for (int i = 0; i < stats.size(); i++) {

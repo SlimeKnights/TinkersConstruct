@@ -101,6 +101,7 @@ public class PartBuilderCategory extends AbstractRecipeCategory<IDisplayPartBuil
 
     // hidden ingredients for focusing
     builder.addInvisibleIngredients(RecipeIngredientRole.INPUT).addItemStacks(recipe.getHiddenInputs());
+    builder.addInvisibleIngredients(RecipeIngredientRole.OUTPUT).addItemStacks(recipe.getHiddenOutputs());
 
     // material input
     List<MaterialVariant> materials = recipe.getMaterials(focusMaterial, focusStack, focusOutput);

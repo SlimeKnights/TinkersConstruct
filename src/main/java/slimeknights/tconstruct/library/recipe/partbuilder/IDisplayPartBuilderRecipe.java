@@ -83,6 +83,11 @@ public interface IDisplayPartBuilderRecipe extends IPartBuilderRecipe {
     return List.of();
   }
 
+  /** Gets a list of hidden output items that act as focuses to this recipe, allowing them to be responded to in the below methods. */
+  default List<ItemStack> getHiddenOutputs() {
+    return List.of();
+  }
+
   /**
    * Gets the materials to display subject to the given focuses
    * @param focusMaterial  Currently focused material. Will only ever be input. Will be {@link MaterialVariant#isUnknown()} if not focused.

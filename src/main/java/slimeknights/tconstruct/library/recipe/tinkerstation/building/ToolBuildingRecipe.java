@@ -42,6 +42,7 @@ import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.library.tools.part.IToolPart;
+import slimeknights.tconstruct.library.tools.part.MaterialItemCache;
 import slimeknights.tconstruct.tables.TinkerTables;
 
 import javax.annotation.Nullable;
@@ -243,12 +244,7 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
    */
   public List<List<ItemStack>> getAllToolParts() {
     if (allToolParts == null) {
-      allToolParts = getToolParts().stream()
-        .map(part -> MaterialRecipeCache.getAllVariants().stream()
-          .filter(mat -> part.canUseMaterial(mat.getId()))
-          .map(part::withMaterial)
-          .toList())
-        .toList();
+      allToolParts = getToolParts().stream().map(MaterialItemCache::getAllMaterials).toList();
     }
     return allToolParts;
   }
