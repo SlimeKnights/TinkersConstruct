@@ -371,9 +371,9 @@ public class ItemTagProvider extends ItemTagsProvider {
     optionalToolTags(TinkerTools.minotaurAxe, MULTIPART_TOOL, DURABILITY, ANCIENT_TOOLS, HARVEST_PRIMARY, MELEE_PRIMARY, INTERACTABLE_RIGHT, AOE, BONUS_SLOTS, ItemTags.AXES);
 
     // armor
-    addArmorTags(TinkerTools.travelersGear, MULTIPART_TOOL, DURABILITY, BONUS_SLOTS, DYEABLE, TRIM, ItemTags.FREEZE_IMMUNE_WEARABLES);
+    addArmorTags(TinkerTools.travelersGear, MULTIPART_TOOL, DURABILITY, BONUS_SLOTS, DYEABLE, TRIM, UNRECYCLABLE, ItemTags.FREEZE_IMMUNE_WEARABLES);
     addArmorTags(TinkerTools.plateArmor,    MULTIPART_TOOL, DURABILITY, BONUS_SLOTS, DYEABLE, TRIM);
-    addArmorTags(TinkerTools.slimesuit,     DURABILITY, BONUS_SLOTS, DYEABLE, TRIM, UNRECYCLABLE);
+    addArmorTags(TinkerTools.slimesuit,     DURABILITY, BONUS_SLOTS, DYEABLE, TRIM);
     IntrinsicTagAppender<Item> multipart = tag(MULTIPART_TOOL);
     for (ArmorItem.Type type : ArmorItem.Type.values()) {
       if (type != ArmorItem.Type.HELMET) {
@@ -381,7 +381,7 @@ public class ItemTagProvider extends ItemTagsProvider {
       }
     }
     addToolTags(TinkerTools.slimeWings, DURABILITY, BONUS_SLOTS, DYEABLE, TRIM, MULTIPART_TOOL, CHESTPLATES, Tags.Items.ARMORS_CHESTPLATES);
-    addToolTags(TinkerTools.slimesuit.get(ArmorItem.Type.HELMET), MULTIPART_TOOL, SWAPPABLE_SKULLS);
+    addToolTags(TinkerTools.slimesuit.get(ArmorItem.Type.HELMET), MULTIPART_TOOL, SWAPPABLE_SKULLS, UNRECYCLABLE);
 
     // shields
     addToolTags(TinkerTools.travelersShield, DURABILITY, BONUS_SLOTS, SHIELDS, INTERACTABLE_LEFT, Tags.Items.TOOLS_SHIELDS, MULTIPART_TOOL, UNRECYCLABLE, BANNER, DYEABLE);
