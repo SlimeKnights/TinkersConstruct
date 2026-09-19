@@ -10,12 +10,10 @@ import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.recipe.helper.FluidOutput;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator.DuelSidedListener;
+import slimeknights.tconstruct.library.utils.SimpleCache;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
 
 /**
  * Lookup for melting recipe, used for a few modifiers.
@@ -40,7 +38,18 @@ public class MeltingRecipeLookup {
   /** List of fluid recipes stored from melting recipe constructors */
   private static final List<MeltingFluid> FLUIDS = new ArrayList<>();
   /** Cache of lookup by item, assumes no recipes vary by NBT. We mostly use this for blocks anyways */
-  private static final Map<Item,MeltingFluid> LOOKUP = new HashMap<>();
+  private static final SimpleCache<Item,MeltingFluid> LOOKUP = new SimpleCache<>(item -> {
+    if (item != Items.AIR) {
+      ItemStack stack = new ItemStack(item);
+      for (MeltingFluid fluid : FLUIDS) {
+        if (fluid.ingredient.test(stack)) {
+          return fluid;
+        }
+      }
+    }
+    return MeltingFluid.EMPTY;
+  });
+
   /** Cache invalidator */
   private static final DuelSidedListener CACHE = RecipeCacheInvalidator.addDuelSidedListener(() -> {
     FLUIDS.clear();
@@ -56,22 +65,9 @@ public class MeltingRecipeLookup {
     FLUIDS.add(new MeltingFluid(ingredient, result, temperature));
   }
 
-  /** Cache populator */
-  private static final Function<Item,MeltingFluid> LOOKUP_FUNCTION = item -> {
-    if (item != Items.AIR) {
-      ItemStack stack = new ItemStack(item);
-      for (MeltingFluid fluid : FLUIDS) {
-        if (fluid.ingredient.test(stack)) {
-          return fluid;
-        }
-      }
-    }
-    return MeltingFluid.EMPTY;
-  };
-
   /** Logic to find a fluid for a given item */
   public static MeltingFluid findFluid(ItemLike item) {
-    return LOOKUP.computeIfAbsent(item.asItem(), LOOKUP_FUNCTION);
+    return LOOKUP.apply(item.asItem());
   }
 
   /** Finds the result fluid for the given input and temperature */

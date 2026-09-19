@@ -10,9 +10,9 @@ import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator.DuelSidedListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
 /**
@@ -20,7 +20,7 @@ import java.util.function.Function;
  */
 public class CastingRecipeLookup {
   /** Set of all castable items */
-  private static final Map<Item,Boolean> CASTABLE_ITEMS = new HashMap<>();
+  private static final Map<Item,Boolean> CASTABLE_ITEMS = new ConcurrentHashMap<>();
   /** List of tags that represent castable items */
   private static final List<TagKey<Item>> CASTABLE_TAGS = new ArrayList<>();
   /** Function to evaluate whether something is castable */

@@ -35,6 +35,7 @@ import slimeknights.tconstruct.library.recipe.material.IDisplayMaterialRecipe;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
+import slimeknights.tconstruct.library.utils.SimpleCache;
 import slimeknights.tconstruct.plugin.jei.TConstructJEIConstants;
 import slimeknights.tconstruct.plugin.jei.melting.AbstractMeltingCategory;
 import slimeknights.tconstruct.plugin.jei.util.CategoryUtil;
@@ -42,10 +43,7 @@ import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.data.material.MaterialIds;
 
 import java.awt.Color;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
 
 /** Category for displaying generic recipes to create materials. */
 public class MaterialCategory extends AbstractRecipeCategory<IDisplayMaterialRecipe> {
@@ -103,21 +101,17 @@ public class MaterialCategory extends AbstractRecipeCategory<IDisplayMaterialRec
     .filter(item -> item instanceof IMaterialItem).map(item -> (IMaterialItem) item).toList();
 
   /** Cache of display tools for each material */
-  private final Map<MaterialVariant,List<ItemStack>> tools = new HashMap<>();
-  /** Cache of display parts for each material */
-  private final Map<MaterialVariantId,List<ItemStack>> toolParts = new HashMap<>();
-  /** Getter for display tools for each material */
-  private final Function<MaterialVariant,List<ItemStack>> toolGetter = material ->
+  private final SimpleCache<MaterialVariant,List<ItemStack>> tools = new SimpleCache<>(material ->
     toolItems.stream()
       .map(item -> ToolBuildHandler.createSingleMaterial(item, material))
       .filter(stack -> !stack.isEmpty())
-      .toList();
-  /** Getter for display parts for each material */
-  private final Function<MaterialVariantId,List<ItemStack>> partGetter = material ->
+      .toList());
+  /** Cache of display parts for each material */
+  private final SimpleCache<MaterialVariantId,List<ItemStack>> toolParts = new SimpleCache<>(material ->
     partItems.stream()
       .filter(item -> item.canUseMaterial(material.getId()))
       .map(item -> item.withMaterialForDisplay(material))
-      .toList();
+      .toList());
 
   @Override
   public void draw(IDisplayMaterialRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics graphics, double mouseX, double mouseY) {
@@ -172,8 +166,8 @@ public class MaterialCategory extends AbstractRecipeCategory<IDisplayMaterialRec
     }
 
     // display tools and parts
-    builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 116,  0).addItemStacks(toolParts.computeIfAbsent(material.getVariant(), partGetter));
-    builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 116, 20).addItemStacks(tools.computeIfAbsent(material, toolGetter));
+    builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 116,  0).addItemStacks(toolParts.apply(material.getVariant()));
+    builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 116, 20).addItemStacks(tools.apply(material));
   }
 
   @Override
