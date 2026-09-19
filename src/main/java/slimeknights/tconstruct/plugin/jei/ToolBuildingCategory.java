@@ -24,6 +24,7 @@ import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 import slimeknights.tconstruct.library.tools.layout.LayoutSlot;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.library.tools.part.IToolPart;
 import slimeknights.tconstruct.plugin.jei.util.CategoryUtil;
 import slimeknights.tconstruct.tools.TinkerTools;
@@ -85,7 +86,11 @@ public class ToolBuildingCategory extends AbstractRecipeCategory<ToolBuildingRec
         List<IToolPart> parts = recipe.getToolParts();
         MaterialIdNBT materials = MaterialIdNBT.from(focus);
         for (int i = 0; i < partCount; i++) {
-          partsAndExtras.set(i, List.of(parts.get(i).withMaterial(materials.getMaterial(i))));
+          IMaterialItem part = parts.get(i);
+          MaterialVariantId material = materials.getMaterial(i);
+          if (part.canUseMaterial(material.getId())) {
+            partsAndExtras.set(i, List.of(part.withMaterialForDisplay(material)));
+          }
         }
       }
     }
