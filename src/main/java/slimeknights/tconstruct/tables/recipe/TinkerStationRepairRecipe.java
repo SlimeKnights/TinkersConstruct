@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tables.recipe;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -36,6 +37,7 @@ import java.util.function.IntConsumer;
  */
 @RequiredArgsConstructor
 public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
+  public static final Component TITLE = TConstruct.makeTranslation("recipe", "tool_repair");
   protected static final RecipeResult<LazyToolStack> FULLY_REPAIRED = RecipeResult.failure(TConstruct.makeTranslationKey("recipe", "tool_repair.fully_repaired"));
   /** No action int consumer for recipe result */
   private static final IntConsumer NO_ACTION = i -> {};
