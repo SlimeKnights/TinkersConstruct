@@ -33,9 +33,14 @@ import java.util.List;
 public class PartBuilderCategory extends AbstractRecipeCategory<IDisplayPartBuilderRecipe> {
   private static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/tinker_station.png");
   private static final Component TITLE = TConstruct.makeTranslation("jei", "part_builder.title");
+  private static final Component REUSABLE = TConstruct.makeTranslation("jei", "part_builder.reusable").withStyle(ChatFormatting.GRAY);
+  private static final Component CONSUMED = TConstruct.makeTranslation("jei", "part_builder.consumed").withStyle(ChatFormatting.GRAY);
   private static final String KEY_COST = TConstruct.makeTranslationKey("jei", "part_builder.cost");
 
   private final MaterialTitleIngredientRenderer materialTitleRenderer = new MaterialTitleIngredientRenderer(118, 10);
+  /** Shows the consumed or reusable tooltip on the pattern slot. */
+  private final IRecipeSlotRichTooltipCallback patternTooltip = (slot, tooltip) ->
+    tooltip.add(slot.getDisplayedItemStack().orElse(ItemStack.EMPTY).is(TinkerTags.Items.REUSABLE_PATTERNS) ? REUSABLE : CONSUMED);
 
   private final IDrawable patternButton;
   private final IDrawable materialPlaceholder;
@@ -88,7 +93,7 @@ public class PartBuilderCategory extends AbstractRecipeCategory<IDisplayPartBuil
     List<ItemStack> patternItems = recipe.getPatternItems();
     boolean reusablePattern = !patternItems.isEmpty() && patternItems.stream().allMatch(stack -> stack.is(TinkerTags.Items.REUSABLE_PATTERNS));
     builder.addSlot(reusablePattern ? RecipeIngredientRole.CATALYST : RecipeIngredientRole.INPUT, 4, 16)
-      .addItemStacks(patternItems).setStandardSlotBackground();
+      .addItemStacks(patternItems).setStandardSlotBackground().addRichTooltipCallback(patternTooltip);
     // patterns
     List<Pattern> patterns = recipe.getPatterns();
     IRecipeSlotBuilder patternSlot = builder.addInputSlot(46, 16)
