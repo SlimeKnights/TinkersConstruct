@@ -10,6 +10,7 @@ import lombok.extern.log4j.Log4j2;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import slimeknights.mantle.data.listener.MergingJsonDataLoader;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.exception.TinkerAPIMaterialException;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.json.MaterialTraitsJson;
@@ -145,7 +146,7 @@ public class MaterialTraitsManager extends MergingJsonDataLoader<MaterialTraits.
     map.entrySet().stream().sorted(Entry.comparingByKey()).forEach(entry -> {
       MaterialTraits traits = entry.getValue().build(statTypeFallbacks);
       builder.put(new MaterialId(entry.getKey()), traits);
-      if (log.isDebugEnabled()) {
+      if (log.isDebugEnabled() && Config.COMMON.debugLogDatapackValues.get()) {
         log.debug("Loaded traits for material '{}': \n\tDefault - {}{}",
           entry.getKey(),
           Arrays.toString(traits.getDefaultTraits().toArray()),

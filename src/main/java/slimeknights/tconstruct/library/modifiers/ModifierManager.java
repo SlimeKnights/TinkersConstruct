@@ -43,6 +43,7 @@ import slimeknights.mantle.util.RegistryHelper;
 import slimeknights.mantle.util.typed.TypedMap;
 import slimeknights.mantle.util.typed.TypedMapBuilder;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.json.JsonRedirect;
 import slimeknights.tconstruct.library.modifiers.impl.ComposableModifier;
 import slimeknights.tconstruct.library.modifiers.util.ModifierTooltip;
@@ -227,7 +228,9 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
             Modifier modifier = get(modifierId);
             if (modifier == defaultValue) {
               if (optional) {
-                TConstruct.LOG.debug("Skipping unknown optional modifier " + modifierId + " for enchantment " + key);
+                if (Config.COMMON.debugLogDatapackValues.get()) {
+                  TConstruct.LOG.debug("Skipping unknown optional modifier {} for enchantment {}", modifierId, key);
+                }
                 continue;
               }
               throw new JsonSyntaxException("Unknown modifier " + modifierId + " for enchantment " + key);

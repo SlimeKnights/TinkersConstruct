@@ -20,6 +20,7 @@ import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.ICondition.IContext;
 import slimeknights.mantle.data.gson.ConditionSerializer;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.exception.TinkerJSONException;
 import slimeknights.tconstruct.library.json.JsonRedirect;
 import slimeknights.tconstruct.library.materials.json.MaterialJson;
@@ -219,7 +220,7 @@ public class MaterialManager extends SimpleJsonResourceReloadListener {
     this.redirects = redirects;
     onMaterialUpdate();
 
-    if (log.isDebugEnabled()) {
+    if (log.isDebugEnabled() && Config.COMMON.debugLogDatapackValues.get()) {
       log.debug("Loaded materials: {}", Util.toIndentedStringList(materials.keySet().stream().sorted().toList()));
       log.debug("Loaded redirects: {}", Util.toIndentedStringList(redirects.entrySet().stream().sorted(Entry.comparingByKey()).toList()));
     }

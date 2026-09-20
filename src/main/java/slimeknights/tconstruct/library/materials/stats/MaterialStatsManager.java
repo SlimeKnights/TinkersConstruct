@@ -15,6 +15,7 @@ import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.registry.IdAwareComponentRegistry;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.mantle.util.typed.TypedMapBuilder;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.json.MaterialStatJson;
 import slimeknights.tconstruct.library.utils.Util;
@@ -189,7 +190,7 @@ public class MaterialStatsManager extends MergingJsonDataLoader<Map<ResourceLoca
                                   entry -> new MaterialId(entry.getKey()),
                                   entry -> deserializeMaterialStatsFromContent(entry.getKey(), entry.getValue())));
 
-    if (log.isDebugEnabled()) {
+    if (log.isDebugEnabled() && Config.COMMON.debugLogDatapackValues.get()) {
       log.debug("Loaded stats for materials:{}",
         Util.toIndentedStringList(materialToStatsPerType.entrySet().stream()
           .sorted(Entry.comparingByKey())
