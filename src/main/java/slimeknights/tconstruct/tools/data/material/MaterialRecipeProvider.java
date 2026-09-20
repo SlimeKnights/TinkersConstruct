@@ -248,7 +248,7 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialRecipe(consumer, MaterialIds.honey,      Ingredient.of(Items.HONEY_BOTTLE),         1, 1, folder + "honey");
     materialRecipe(consumer, MaterialIds.honey,      Ingredient.of(Blocks.HONEY_BLOCK),         4, 1, folder + "honey_block");
     materialRecipe(consumer, MaterialIds.venom,      Ingredient.of(Items.SPIDER_EYE),           1, 1, folder + "venom_eye");
-    materialRecipe(consumer, MaterialIds.venom,      Ingredient.of(Items.FERMENTED_SPIDER_EYE), 1, 1, folder + "venom_fermented");
+    materialRecipe(consumer, MaterialIds.venom,      Ingredient.of(Items.FERMENTED_SPIDER_EYE), 2, 1, folder + "venom_fermented");
     materialRecipe(consumer, MaterialIds.phantom,    Ingredient.of(Items.PHANTOM_MEMBRANE),     1, 1, folder + "phantom_membrane");
     materialRecipe(consumer, MaterialIds.cheese,     Ingredient.of(TinkerCommons.cheeseIngot),  1, 1, folder + "cheese_ingot");
     materialRecipe(consumer, MaterialIds.cheese,     Ingredient.of(TinkerCommons.cheeseBlock),  4, 1, folder + "cheese_block");
