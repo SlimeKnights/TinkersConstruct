@@ -1025,9 +1025,12 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
         // multiply into the final value
         .variable(VALUE).multiply().build());
     buildModifier(ModifierIds.solarPowered).priority(185) // after tanned, before stoneshield
+      .levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
       .addModule(ReduceToolDamageModule.builder().reinforcedTooltip().formula()
+        .constant(0.01f).variable(LEVEL).multiply() // 1% per level
+        .constant(0.04f).add() // 5% at level 1, 6% at level 2
         .customVariable("light", new EntityConditionalStatVariable(new EntityLightVariable(LightLayer.SKY), 15))
-        .constant(0.05f).multiply()
+        .multiply() // up to 75% at level 1, or 90% at level 2
         .build());
     buildModifier(ModifierIds.tipped).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(TippedModule.INSTANCE);
     buildModifier(ModifierIds.soft)

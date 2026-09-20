@@ -1916,7 +1916,8 @@
 
   "material.tconstruct.vine": "Vine",
   "material.tconstruct.vine.flavor": "Keeps living, unlike the social network.",
-  "material.tconstruct.vine.encyclopedia": "Tool has up to a 75% chance to resist damage in full sunlight.",
+  "material.tconstruct.vine.encyclopedia": "Tool has a 5% chance per sunlight level to resist damage, up to a 75% chance in full sunlight.",
+  "material.tconstruct.vine.encyclopedia.laces": "Tool has a 5% chance per sunlight level to resist damage, up to a 75% chance in full sunlight. Trim increases the chance to 6% per sunlight for a max of 90%.",
 
 
   "__comment": "Tier 2 Materials",
