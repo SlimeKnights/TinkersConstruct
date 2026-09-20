@@ -190,7 +190,7 @@ public class MaterialStatsManager extends MergingJsonDataLoader<Map<ResourceLoca
                                   entry -> new MaterialId(entry.getKey()),
                                   entry -> deserializeMaterialStatsFromContent(entry.getKey(), entry.getValue())));
 
-    if (log.isDebugEnabled() && Config.COMMON.debugLogDatapackValues.get()) {
+    if (log.isDebugEnabled() && Config.COMMON.debugLogResourceValues.get()) {
       log.debug("Loaded stats for materials:{}",
         Util.toIndentedStringList(materialToStatsPerType.entrySet().stream()
           .sorted(Entry.comparingByKey())

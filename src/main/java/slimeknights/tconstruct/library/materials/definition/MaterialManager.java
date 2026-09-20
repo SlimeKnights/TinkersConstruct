@@ -220,7 +220,7 @@ public class MaterialManager extends SimpleJsonResourceReloadListener {
     this.redirects = redirects;
     onMaterialUpdate();
 
-    if (log.isDebugEnabled() && Config.COMMON.debugLogDatapackValues.get()) {
+    if (log.isDebugEnabled() && Config.COMMON.debugLogResourceValues.get()) {
       log.debug("Loaded materials: {}", Util.toIndentedStringList(materials.keySet().stream().sorted().toList()));
       log.debug("Loaded redirects: {}", Util.toIndentedStringList(redirects.entrySet().stream().sorted(Entry.comparingByKey()).toList()));
     }

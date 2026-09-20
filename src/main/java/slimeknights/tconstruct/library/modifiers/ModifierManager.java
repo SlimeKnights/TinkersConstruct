@@ -228,7 +228,7 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
             Modifier modifier = get(modifierId);
             if (modifier == defaultValue) {
               if (optional) {
-                if (Config.COMMON.debugLogDatapackValues.get()) {
+                if (Config.COMMON.debugLogResourceValues.get()) {
                   TConstruct.LOG.debug("Skipping unknown optional modifier {} for enchantment {}", modifierId, key);
                 }
                 continue;

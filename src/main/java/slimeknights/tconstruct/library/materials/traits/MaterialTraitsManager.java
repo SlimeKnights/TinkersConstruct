@@ -146,7 +146,7 @@ public class MaterialTraitsManager extends MergingJsonDataLoader<MaterialTraits.
     map.entrySet().stream().sorted(Entry.comparingByKey()).forEach(entry -> {
       MaterialTraits traits = entry.getValue().build(statTypeFallbacks);
       builder.put(new MaterialId(entry.getKey()), traits);
-      if (log.isDebugEnabled() && Config.COMMON.debugLogDatapackValues.get()) {
+      if (log.isDebugEnabled() && Config.COMMON.debugLogResourceValues.get()) {
         log.debug("Loaded traits for material '{}': \n\tDefault - {}{}",
           entry.getKey(),
           Arrays.toString(traits.getDefaultTraits().toArray()),
