@@ -383,6 +383,8 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialMeltingCasting(consumer, MaterialIds.ichor,      TinkerFluids.ichor,      FluidValues.SLIMEBALL, folder);
     materialMeltingCasting(consumer, MaterialIds.enderslime, TinkerFluids.enderSlime, FluidValues.SLIMEBALL, folder);
     materialMeltingCasting(consumer, MaterialIds.magma,      TinkerFluids.magma,      FluidValues.SLIMEBALL, folder);
+    materialComposite(consumer, MaterialIds.slimeball, MaterialIds.magma, TinkerFluids.blazingBlood, FluidType.BUCKET_VOLUME / 20, folder);
+    materialComposite(consumer, MaterialIds.earthslime, MaterialIds.magma, TinkerFluids.blazingBlood, FluidType.BUCKET_VOLUME / 20, folder);
     // slimesuit - pseudoslime
     materialMeltingCasting(consumer, MaterialIds.clay,       TinkerFluids.moltenClay,  FluidValues.BRICK,     folder);
     materialMeltingCasting(consumer, MaterialIds.enderPearl, TinkerFluids.moltenEnder, FluidValues.SLIMEBALL, folder);
