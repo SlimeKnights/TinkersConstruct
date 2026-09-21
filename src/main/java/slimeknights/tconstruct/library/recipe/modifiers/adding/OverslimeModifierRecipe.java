@@ -156,7 +156,16 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
   @Override
   public List<ItemStack> getToolWithoutModifier() {
     if (toolWithoutModifier == null) {
-      toolWithoutModifier = Arrays.stream(this.tools.getItems()).map(MAP_TOOL_STACK_FOR_RENDERING).toList();
+      // ensure tools are the proper stack size for without
+      int maxSize = shrinkToolSlotBy();
+      toolWithoutModifier = Arrays.stream(this.tools.getItems()).map(MAP_TOOL_STACK_FOR_RENDERING).map(stack -> {
+        // only copy if something changes
+        int stackMax = stack.getMaxStackSize();
+        if (stackMax > 1) {
+          return stack.copyWithCount(Math.min(maxSize, stackMax));
+        }
+        return stack;
+      }).toList();
     }
     return toolWithoutModifier;
   }
@@ -166,8 +175,7 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
     if (toolWithModifier == null) {
       List<ModifierEntry> result = List.of(RESULT);
       int maxSize = shrinkToolSlotBy();
-      toolWithModifier = Arrays.stream(this.tools.getItems())
-        .map(MAP_TOOL_STACK_FOR_RENDERING)
+      toolWithModifier = getToolWithoutModifier().stream()
         .map(stack -> withModifiers(stack, maxSize, result, data -> OverslimeModule.INSTANCE.setAmountRaw(data, restoreAmount)))
         .toList();
     }
