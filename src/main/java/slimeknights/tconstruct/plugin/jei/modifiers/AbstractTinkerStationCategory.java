@@ -187,7 +187,7 @@ public abstract class AbstractTinkerStationCategory<T extends IDisplayTinkerStat
     }
 
     IRecipeSlotBuilder withoutModifierSlot = builder.addSlot(withoutModifierRole,  25, 38).addItemStacks(toolWithoutModifier).setStandardSlotBackground().setSlotName(TOOL_SLOT);
-    RecipeIngredientRole withModifierRole = isCatalyst ? RecipeIngredientRole.CATALYST : RecipeIngredientRole.OUTPUT;
+    RecipeIngredientRole withModifierRole = isCatalyst ? RecipeIngredientRole.RENDER_ONLY : RecipeIngredientRole.OUTPUT;
     IRecipeSlotBuilder withModifierSlot = builder.addSlot(withModifierRole, 105, 34).addItemStacks(toolWithModifier).setOutputSlotBackground().setSlotName(RESULT_TOOL_SLOT);
 
     // apply focus links

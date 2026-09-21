@@ -48,7 +48,6 @@ public class ModifierRecipeCategory extends AbstractTinkerStationCategory<IDispl
       return SlotIngredientRenderer.INPUT.getHeight();
     }
 
-    @SuppressWarnings("DataFlowIssue") // we make it nullable for this renderer
     @Override
     public void draw(GuiGraphics graphics, int xOffset, int yOffset) {
       SlotIngredientRenderer.INPUT.render(graphics, null, xOffset, yOffset);
