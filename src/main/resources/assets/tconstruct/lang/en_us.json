@@ -2008,8 +2008,8 @@
   "material.tconstruct.twisting_vine.flavor": "Eat the spores!",
   "material.tconstruct.twisting_vine.encyclopedia.melee_harvest": "Grants +6 mining speed at the cost of losing 1 health when you put down the tool.",
   "material.tconstruct.twisting_vine.encyclopedia.ranged": "Grants +15% draw speed at the cost of losing 1 health when you put down the tool.",
-  "material.tconstruct.twisting_vine.encyclopedia.armor": "Increases movement speed by 15%, but deals 2 damage per level when unequipped.",
-  "material.tconstruct.twisting_vine.encyclopedia.laces": "Increases movement speed by 15% per level, but deals 2 damage per level when unequipped.",
+  "material.tconstruct.twisting_vine.encyclopedia.armor": "Increases movement speed by 10%, but deals 2 damage per level when unequipped.",
+  "material.tconstruct.twisting_vine.encyclopedia.laces": "Increases movement speed by 10% per level, but deals 2 damage per level when unequipped.",
 
   "material.tconstruct.wool": "Wool",
   "material.tconstruct.wool.white": "White Wool",
@@ -2381,7 +2381,7 @@
   "material.tconstruct.aluminum": "Aluminum",
   "material.tconstruct.aluminum.flavor": "Found most commonly in ashmounds",
   "material.tconstruct.aluminum.encyclopedia.ranged": "Grants +0.05 drawspeed and accuracy.",
-  "material.tconstruct.aluminum.encyclopedia.armor": "Grants +5% use item speed at the cost of 5% loss of protection.",
+  "material.tconstruct.aluminum.encyclopedia.armor": "Grants +5% movement speed and +5% use item speed at the cost of 2.5% loss of protection.",
 
   "material.tconstruct.treated_wood": "Treated Wood",
   "material.tconstruct.treated_wood.flavor": "Slán go fóill",

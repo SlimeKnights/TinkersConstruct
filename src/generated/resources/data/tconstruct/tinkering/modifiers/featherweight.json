@@ -16,7 +16,25 @@
     {
       "type": "tconstruct:protection",
       "damage_source": "mantle:can_protect",
-      "each_level": -1.25,
+      "each_level": -0.625,
+      "tool": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:modifiable/armor"
+      }
+    },
+    {
+      "type": "tconstruct:attribute",
+      "attribute": "minecraft:generic.movement_speed",
+      "each_level": 0.05,
+      "operation": "multiply_base",
+      "slots": [
+        "mainhand",
+        "offhand",
+        "feet",
+        "legs",
+        "chest",
+        "head"
+      ],
       "tool": {
         "type": "mantle:tag",
         "tag": "tconstruct:modifiable/armor"
@@ -25,7 +43,7 @@
     {
       "type": "tconstruct:attribute",
       "attribute": "tconstruct:player.use_item_speed",
-      "each_level": 0.1,
+      "each_level": 0.05,
       "operation": "addition",
       "slots": [
         "mainhand",
