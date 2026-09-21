@@ -10,6 +10,8 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.IDisplayToolModifica
 import slimeknights.tconstruct.plugin.jei.TConstructJEIConstants;
 import slimeknights.tconstruct.tables.TinkerTables;
 
+import java.awt.Color;
+
 /** Displays tool modifications that are not adding modifiers, such as part swapping or tool damaging. */
 public class ToolModificationCategory extends AbstractTinkerStationCategory<IDisplayToolModification> {
   private static final Component TITLE = TConstruct.makeTranslation("jei", "tool_modification.title");
@@ -28,6 +30,9 @@ public class ToolModificationCategory extends AbstractTinkerStationCategory<IDis
     super.createRecipeExtras(builder, recipe, focuses);
 
     // add title and tooltip
-    builder.addText(recipe.getTitle(), 124, 10).setTextAlignment(HorizontalAlignment.CENTER).setPosition(3, 3).setTooltip(recipe.getTooltip());
+    builder.addText(recipe.getTitle(), 124, 10)
+      .setShadow(true).setColor(Color.WHITE.getRGB())
+      .setTextAlignment(HorizontalAlignment.CENTER).setPosition(3, 3)
+      .setTooltip(recipe.getTooltip());
   }
 }
