@@ -12,9 +12,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
-import slimeknights.mantle.Mantle;
 import slimeknights.mantle.client.SafeClientAccess;
 import slimeknights.mantle.plugin.jei.MantleJEIConstants;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipeCache;
 import slimeknights.tconstruct.library.recipe.material.MaterialsCraftingTableRecipe;
@@ -116,12 +116,14 @@ public class MaterialsCraftingExtension<T extends CraftingRecipe & MaterialsCraf
     List<IRecipeSlotBuilder> inputs = craftingGridHelper.createAndSetInputs(builder, inputStacks, width, height);
     IRecipeSlotBuilder output = craftingGridHelper.createAndSetOutputs(builder, result).setSlotName(RESULT_SLOT);
     if (inputs.size() != 9) {
-      Mantle.logger.error("Failed to create focus link for {} as the layout {} is not 3x3", id, builder.getClass().getName());
+      TConstruct.LOG.error("Failed to create focus link for {} as the layout {} is not 3x3", id, builder.getClass().getName());
     } else if (materialSlots != null) {
       // apply focus links
+      int fWidth = width;
+      int fHeight = height;
       builder.createFocusLink(Streams.concat(
         Stream.of(output),
-        Arrays.stream(materialSlots).mapToObj(inputs::get)
+        Arrays.stream(materialSlots).mapToObj(i -> inputs.get(MantleJEIConstants.getCraftingIndex(i, fWidth, fHeight)))
       ).toArray(IRecipeSlotBuilder[]::new));
     }
   }
