@@ -10,7 +10,6 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.helpers.IModIdHelper;
 import mezz.jei.api.ingredients.subtypes.IIngredientSubtypeInterpreter;
 import mezz.jei.api.ingredients.subtypes.UidContext;
-import mezz.jei.api.recipe.IRecipeManager;
 import mezz.jei.api.recipe.category.extensions.IExtendableRecipeCategory;
 import mezz.jei.api.recipe.category.extensions.vanilla.crafting.ICraftingCategoryExtension;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandlerHelper;
@@ -33,11 +32,13 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.Container;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ItemLike;
@@ -79,6 +80,7 @@ import slimeknights.tconstruct.library.recipe.modifiers.adding.OverslimeCrafting
 import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipe;
 import slimeknights.tconstruct.library.recipe.molding.MoldingRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.IDisplayPartBuilderRecipe;
+import slimeknights.tconstruct.library.recipe.tinkerstation.IDisplayCraftingTinkering;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IDisplayToolModification;
 import slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipe;
 import slimeknights.tconstruct.library.recipe.worktable.IModifierWorktableRecipe;
@@ -115,6 +117,7 @@ import slimeknights.tconstruct.plugin.jei.modifiers.ModifierWorktableCategory;
 import slimeknights.tconstruct.plugin.jei.modifiers.SlotIngredientHelper;
 import slimeknights.tconstruct.plugin.jei.modifiers.SlotIngredientRenderer;
 import slimeknights.tconstruct.plugin.jei.modifiers.ToolModificationCategory;
+import slimeknights.tconstruct.plugin.jei.modifiers.ToolModificationExtension;
 import slimeknights.tconstruct.plugin.jei.modifiers.ToolModificationRecipeManager;
 import slimeknights.tconstruct.plugin.jei.partbuilder.MaterialItemList;
 import slimeknights.tconstruct.plugin.jei.partbuilder.PartBuilderCategory;
@@ -137,11 +140,14 @@ import slimeknights.tconstruct.smeltery.data.SmelteryCompat;
 import slimeknights.tconstruct.smeltery.item.CopperCanItem;
 import slimeknights.tconstruct.smeltery.item.TankItem;
 import slimeknights.tconstruct.tables.TinkerTables;
+import slimeknights.tconstruct.tables.recipe.CraftingTableRepairKitRecipe;
+import slimeknights.tconstruct.tables.recipe.TinkerStationRepairRecipe;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.client.ToolContainerScreen;
 import slimeknights.tconstruct.tools.item.CreativeSlotItem;
 import slimeknights.tconstruct.tools.item.ModifierCrystalItem;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -192,6 +198,7 @@ public class JEIPlugin implements IModPlugin {
     registry.addRecipeCategories(new SeveringCategory(guiHelper));
     registry.addRecipeCategories(new ToolBuildingCategory(guiHelper));
     registry.addRecipeCategories(new ToolModificationCategory(guiHelper));
+    ToolModificationExtension.prepareDrawables(guiHelper);
     // part builder
     registry.addRecipeCategories(new MaterialCategory(guiHelper));
     registry.addRecipeCategories(new PartBuilderCategory(guiHelper));
@@ -221,11 +228,18 @@ public class JEIPlugin implements IModPlugin {
     craftingCategory.addCategoryExtension(ShapedMaterialsRecipe.class, ShapedMaterialsExtension::create);
     craftingCategory.addCategoryExtension(ShapelessMaterialsRecipe.class, ShapelessMaterialsExtension::shapeless);
     craftingCategory.addCategoryExtension(OverslimeCraftingTableRecipe.class, OverslimeRecipeExtension::new);
+    craftingCategory.addCategoryExtension(IDisplayCraftingTinkering.class, ToolModificationExtension::new);
   }
 
   /** Gets a list of unfiltered casting recipes to give to JEI. */
   private static List<IDisplayableCastingRecipe> getCastingRecipes(RegistryAccess access, RecipeManager manager, Supplier<? extends RecipeType<ICastingRecipe>> recipeType) {
     return FilteredRecipe.unfiltered(RecipeHelper.getJEIRecipes(access, manager, recipeType.get(), IDisplayableCastingRecipe.class));
+  }
+
+  /** Finds the first recipe of the given type */
+  @Nullable
+  private static <T, C extends Container, R extends Recipe<C>> T findFirst(RecipeManager manager, RecipeType<R> type, Class<T> clazz) {
+    return manager.byType(type).values().stream().filter(clazz::isInstance).map(clazz::cast).findFirst().orElse(null);
   }
 
   @Override
@@ -307,6 +321,24 @@ public class JEIPlugin implements IModPlugin {
         return true;
       }).toList());
 
+    // copy tinker station repair recipes to the crafting table
+    CraftingTableRepairKitRecipe craftingRepair = findFirst(manager, RecipeType.CRAFTING, CraftingTableRepairKitRecipe.class);
+    TinkerStationRepairRecipe tinkerRepair = findFirst(manager, TinkerRecipeTypes.TINKER_STATION.get(), TinkerStationRepairRecipe.class);
+    if (craftingRepair != null && tinkerRepair != null) {
+      ResourceLocation id = craftingRepair.getId();
+      List<IDisplayCraftingTinkering> recipes = tinkerRepair.getRecipes(access);
+      List<CraftingRecipe> newRecipes = new ArrayList<>();
+      TinkerStationRepairRecipe.setCraftingId(recipes, id);
+      for (IDisplayCraftingTinkering recipe : recipes) {
+        if (!recipe.isFiltered()) {
+          newRecipes.add(recipe);
+        }
+      }
+      if (!recipes.isEmpty()) {
+        register.addRecipes(RecipeTypes.CRAFTING, newRecipes);
+      }
+    }
+
     // add an ingredient listener to hide tanks when fluids are hidden
     IIngredientManager ingredientManager = register.getIngredientManager();
     ingredientManager.registerIngredientListener(new TankHidingIngredientListener(ingredientManager, Stream.concat(
@@ -330,6 +362,23 @@ public class JEIPlugin implements IModPlugin {
     IIngredientManager ingredientManager = registration.getJeiHelpers().getIngredientManager();
     registration.addTypedRecipeManagerPlugin(TConstructJEIConstants.CASTING_BASIN, new CastingRecipeManager(ingredientManager, getFilteredCastingRecipes(access, manager, TinkerRecipeTypes.CASTING_BASIN)));
     registration.addTypedRecipeManagerPlugin(TConstructJEIConstants.CASTING_TABLE, new CastingRecipeManager(ingredientManager, getFilteredCastingRecipes(access, manager, TinkerRecipeTypes.CASTING_TABLE)));
+    registration.addTypedRecipeManagerPlugin(TConstructJEIConstants.TOOL_MODIFICATION, new ToolModificationRecipeManager(ingredientManager, FilteredRecipe.filtered(RecipeHelper.getJEIRecipes(access, manager, TinkerRecipeTypes.TINKER_STATION.get(), IDisplayToolModification.class))));
+
+    // copy tinker station repair recipes to the crafting table
+    TinkerStationRepairRecipe tinkerRepair = findFirst(manager, TinkerRecipeTypes.TINKER_STATION.get(), TinkerStationRepairRecipe.class);
+    if (tinkerRepair != null) {
+      List<IDisplayCraftingTinkering> recipes = tinkerRepair.getRecipes(access);
+      List<IDisplayCraftingTinkering> newRecipes = new ArrayList<>();
+      for (IDisplayCraftingTinkering recipe : recipes) {
+        if (recipe.isFiltered()) {
+          newRecipes.add(recipe);
+        }
+      }
+      if (!recipes.isEmpty()) {
+        registration.addTypedRecipeManagerPlugin(RecipeTypes.CRAFTING, ToolModificationRecipeManager.createCrafting(ingredientManager, newRecipes));
+      }
+    }
+
     registration.addTypedRecipeManagerPlugin(TConstructJEIConstants.TOOL_MODIFICATION, new ToolModificationRecipeManager(ingredientManager, FilteredRecipe.filtered(RecipeHelper.getJEIRecipes(access, manager, TinkerRecipeTypes.TINKER_STATION.get(), IDisplayToolModification.class))));
   }
 
@@ -650,7 +699,6 @@ public class JEIPlugin implements IModPlugin {
 
     // hide easter egg recipes
     Level level = SafeClientAccess.getLevel();
-    IRecipeManager recipeManager = jeiRuntime.getRecipeManager();
     if (level != null) {
       RecipeManager recipes = level.getRecipeManager();
       List<CraftingRecipe> easterEggs = Arrays.stream(EASTER_EGG_RECIPES)

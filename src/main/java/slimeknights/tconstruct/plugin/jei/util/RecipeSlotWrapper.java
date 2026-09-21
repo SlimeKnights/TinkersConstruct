@@ -69,4 +69,9 @@ public record RecipeSlotWrapper<T>(IRecipeSlotDrawable slot, IIngredientType<T> 
   public static RecipeSlot<FluidStack> createFluid(List<IRecipeSlotDrawable> slots, String name) {
     return create(slots, name, ForgeTypes.FLUID_STACK, RecipeSlot.EMPTY_FLUID);
   }
+
+  /** Makes a wrapper for an item slot. */
+  public static RecipeSlot<ItemStack> createItem(IRecipeSlotDrawable slot) {
+    return new RecipeSlotWrapper<>(slot, VanillaTypes.ITEM_STACK, ItemStack.EMPTY);
+  }
 }

@@ -4022,6 +4022,7 @@
 
   "recipe.tconstruct.tool_repair": "Tool Repair",
   "recipe.tconstruct.tool_repair.tooltip": "Restores durability based on the material and item used. Can use repair kits with valid materials, or any items associated with the valid material.",
+  "recipe.tconstruct.tool_repair.crafting_table": "Restores durability based on the material and item used. Can use repair kits with valid materials.",
   "recipe.tconstruct.tool_repair.modifier": "Repairs tools with the %s modifier. Repair amount scales with modifier level.",
   "recipe.tconstruct.tool_damaging": "Tool Damaging",
   "recipe.tconstruct.tool_damaging.tooltip": "Reduces the tool's durability by the given amount. Useful for maximizing modifier effects.",

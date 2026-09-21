@@ -110,7 +110,7 @@ public class MaterialsCraftingExtension<T extends CraftingRecipe & MaterialsCraf
     int width = self.getWidth();
     int height = self.getHeight();
     if (width <= 0 || height <= 0) {
-      width = height = getShapelessSize(inputStacks.size());
+      width = height = CategoryUtil.getShapelessSize(inputStacks.size());
       builder.setShapeless();
     }
     List<IRecipeSlotBuilder> inputs = craftingGridHelper.createAndSetInputs(builder, inputStacks, width, height);
@@ -167,7 +167,7 @@ public class MaterialsCraftingExtension<T extends CraftingRecipe & MaterialsCraf
         int width = getWidth();
         int height = getHeight();
         if (width <= 0 || height <= 0) {
-          width = height = getShapelessSize(recipe.getIngredients().size());
+          width = height = CategoryUtil.getShapelessSize(recipe.getIngredients().size());
         }
         // find input materials and use to set the output
         List<MaterialVariantId> variants = new ArrayList<>(partSlots.size());
@@ -178,17 +178,6 @@ public class MaterialsCraftingExtension<T extends CraftingRecipe & MaterialsCraf
         variants.addAll(recipe.getExtraMaterials());
         resultSlot.createDisplayOverrides().addItemStack(new MaterialIdNBT(variants).updateStack(plainResult.copy()));
       }
-    }
-  }
-
-  /** Gets the width and height of the grid for a shapeless recipe. */
-  static int getShapelessSize(int total) {
-    if (total > 4) {
-      return 3;
-    } else if (total > 1) {
-      return 2;
-    } else {
-      return 1;
     }
   }
 }

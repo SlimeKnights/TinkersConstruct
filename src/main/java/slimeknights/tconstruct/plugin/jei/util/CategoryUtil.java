@@ -101,4 +101,15 @@ public final class CategoryUtil {
     }
     return ItemStack.EMPTY;
   }
+
+  /** Gets the width and height of the grid for a shapeless recipe in a {@link mezz.jei.api.recipe.category.extensions.vanilla.crafting.ICraftingCategoryExtension} */
+  public static int getShapelessSize(int total) {
+    if (total > 4) {
+      return 3;
+    } else if (total > 1) {
+      return 2;
+    } else {
+      return 1;
+    }
+  }
 }
