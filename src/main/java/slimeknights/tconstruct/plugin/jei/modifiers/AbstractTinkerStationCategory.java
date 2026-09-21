@@ -153,7 +153,7 @@ public abstract class AbstractTinkerStationCategory<T extends IDisplayTinkerStat
       } else if (focusUpdate.hasError()) {
         toolWithoutModifier = List.of(toolStack);
         toolWithModifier = List.of();
-      } else {
+      } else if (toolStack.is(TinkerTags.Items.SINGLEPART_TOOL)) {
         // on pass, just filter the items to only show the focus tool
         Item item = toolStack.getItem();
         Predicate<ItemStack> filter = stack -> stack.is(item);
