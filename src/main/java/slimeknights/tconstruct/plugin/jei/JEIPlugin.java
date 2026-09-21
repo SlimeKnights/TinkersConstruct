@@ -75,6 +75,7 @@ import slimeknights.tconstruct.library.recipe.material.ShapelessMaterialsRecipe;
 import slimeknights.tconstruct.library.recipe.melting.IDisplayableMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IDisplayModifierRecipe;
+import slimeknights.tconstruct.library.recipe.modifiers.adding.OverslimeCraftingTableRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipe;
 import slimeknights.tconstruct.library.recipe.molding.MoldingRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.IDisplayPartBuilderRecipe;
@@ -100,6 +101,7 @@ import slimeknights.tconstruct.plugin.jei.entity.SeveringCategory;
 import slimeknights.tconstruct.plugin.jei.material.MaterialCategory;
 import slimeknights.tconstruct.plugin.jei.material.MaterialIconIngredientRenderer;
 import slimeknights.tconstruct.plugin.jei.material.MaterialIngredientHelper;
+import slimeknights.tconstruct.plugin.jei.material.OverslimeRecipeExtension;
 import slimeknights.tconstruct.plugin.jei.material.ShapedMaterialsExtension;
 import slimeknights.tconstruct.plugin.jei.material.ShapelessMaterialsExtension;
 import slimeknights.tconstruct.plugin.jei.melting.FoundryCategory;
@@ -218,6 +220,7 @@ public class JEIPlugin implements IModPlugin {
     craftingCategory.addCategoryExtension(ShapedMaterialRecipe.class, ShapedMaterialExtension::new);
     craftingCategory.addCategoryExtension(ShapedMaterialsRecipe.class, ShapedMaterialsExtension::create);
     craftingCategory.addCategoryExtension(ShapelessMaterialsRecipe.class, ShapelessMaterialsExtension::shapeless);
+    craftingCategory.addCategoryExtension(OverslimeCraftingTableRecipe.class, OverslimeRecipeExtension::new);
   }
 
   /** Gets a list of unfiltered casting recipes to give to JEI. */

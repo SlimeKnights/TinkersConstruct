@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.recipe.modifiers.adding;
 
+import lombok.Getter;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
@@ -24,6 +25,7 @@ import javax.annotation.Nullable;
 import java.util.function.Predicate;
 
 /** Recipe for applying overslime in the crafting table */
+@Getter
 public class OverslimeCraftingTableRecipe extends CustomRecipe {
   public static final RecordLoadable<OverslimeCraftingTableRecipe> LOADER = RecordLoadable.create(
     ContextKey.ID.requiredField(),

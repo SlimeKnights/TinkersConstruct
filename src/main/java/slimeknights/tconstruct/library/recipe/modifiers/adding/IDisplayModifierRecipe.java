@@ -219,6 +219,7 @@ public interface IDisplayModifierRecipe extends IModifierRecipe, IDisplayTinkerS
 
     // build modifiers list
     // go through the builder to ensure they are merged properly
+    // TODO 1.21: this should maybe just take a modifier NBT argument?
     ModifierNBT modifiers = ModifierNBT.builder().add(modifierList).build();
     ListTag list = modifiers.serializeToNBT();
     nbt.put(ToolStack.TAG_UPGRADES, list);
