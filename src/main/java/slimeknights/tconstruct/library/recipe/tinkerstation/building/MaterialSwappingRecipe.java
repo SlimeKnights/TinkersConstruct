@@ -26,7 +26,7 @@ import slimeknights.tconstruct.library.recipe.ITinkerableContainer;
 import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.ModifierRecipe;
-import slimeknights.tconstruct.library.recipe.tinkerstation.IDisplayToolModification;
+import slimeknights.tconstruct.library.recipe.tinkerstation.IDisplayToolTinkering;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
@@ -241,7 +241,7 @@ public abstract class MaterialSwappingRecipe implements ITinkerStationRecipe {
 
   /** Recipe mapping a single ingredient to a part */
   @RequiredArgsConstructor
-  protected class DisplayRecipe implements IDisplayToolModification {
+  protected class DisplayRecipe implements IDisplayToolTinkering {
     public static final Component TITLE = TConstruct.makeTranslation("recipe", "part_swapping");
     public static final Component TOOLTIP = TConstruct.makeTranslation("recipe", "part_swapping.tooltip");
     public static final Component MATERIAL_TITLE = TConstruct.makeTranslation("recipe", "material_swapping");

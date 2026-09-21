@@ -10,18 +10,18 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import slimeknights.tconstruct.library.recipe.display.FilteredRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IDisplayCraftingTinkering;
-import slimeknights.tconstruct.library.recipe.tinkerstation.IDisplayToolModification;
+import slimeknights.tconstruct.library.recipe.tinkerstation.IDisplayToolTinkering;
 import slimeknights.tconstruct.plugin.jei.util.manager.ItemRecipeCache;
 
 import java.util.List;
 
 /** Category handling tool modification recipes. */
-public class ToolModificationRecipeManager implements ISimpleRecipeManagerPlugin<IDisplayToolModification> {
+public class ToolTinkeringRecipeManager implements ISimpleRecipeManagerPlugin<IDisplayToolTinkering> {
   @Getter
-  private final List<IDisplayToolModification> allRecipes;
-  private final ItemRecipeCache<IDisplayToolModification> inputItemCache, outputItemCache;
+  private final List<IDisplayToolTinkering> allRecipes;
+  private final ItemRecipeCache<IDisplayToolTinkering> inputItemCache, outputItemCache;
 
-  public ToolModificationRecipeManager(IIngredientManager ingredientManager, List<IDisplayToolModification> recipes) {
+  public ToolTinkeringRecipeManager(IIngredientManager ingredientManager, List<IDisplayToolTinkering> recipes) {
     this.allRecipes = FilteredRecipe.alwaysVisible(recipes);
     IIngredientHelper<ItemStack> itemHelper = ingredientManager.getIngredientHelper(VanillaTypes.ITEM_STACK);
     inputItemCache = new ItemRecipeCache<>(itemHelper, recipes, false);
@@ -39,7 +39,7 @@ public class ToolModificationRecipeManager implements ISimpleRecipeManagerPlugin
   }
 
   @Override
-  public List<IDisplayToolModification> getRecipesForInput(ITypedIngredient<?> input) {
+  public List<IDisplayToolTinkering> getRecipesForInput(ITypedIngredient<?> input) {
     ITypedIngredient<ItemStack> item = input.cast(VanillaTypes.ITEM_STACK);
     if (item != null) {
       return inputItemCache.filterRecipes(item.getIngredient());
@@ -48,7 +48,7 @@ public class ToolModificationRecipeManager implements ISimpleRecipeManagerPlugin
   }
 
   @Override
-  public List<IDisplayToolModification> getRecipesForOutput(ITypedIngredient<?> output) {
+  public List<IDisplayToolTinkering> getRecipesForOutput(ITypedIngredient<?> output) {
     ITypedIngredient<ItemStack> item = output.cast(VanillaTypes.ITEM_STACK);
     if (item != null) {
       return outputItemCache.filterRecipes(item.getIngredient());
@@ -59,6 +59,6 @@ public class ToolModificationRecipeManager implements ISimpleRecipeManagerPlugin
   /** Creates an instance of the category for the crafting table. */
   @SuppressWarnings({"unchecked", "rawtypes"})
   public static ISimpleRecipeManagerPlugin<CraftingRecipe> createCrafting(IIngredientManager ingredientManager, List<IDisplayCraftingTinkering> recipes) {
-    return (ISimpleRecipeManagerPlugin<CraftingRecipe>)(ISimpleRecipeManagerPlugin) new ToolModificationRecipeManager(ingredientManager, (List<IDisplayToolModification>)(List)recipes);
+    return (ISimpleRecipeManagerPlugin<CraftingRecipe>)(ISimpleRecipeManagerPlugin) new ToolTinkeringRecipeManager(ingredientManager, (List<IDisplayToolTinkering>)(List)recipes);
   }
 }

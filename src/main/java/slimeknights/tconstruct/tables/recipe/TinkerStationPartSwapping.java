@@ -19,7 +19,7 @@ import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.casting.material.MaterialCastingLookup;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.ModifierRecipe;
-import slimeknights.tconstruct.library.recipe.tinkerstation.IDisplayToolModification;
+import slimeknights.tconstruct.library.recipe.tinkerstation.IDisplayToolTinkering;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.building.MaterialSwappingRecipe;
@@ -43,7 +43,7 @@ import java.util.stream.Stream;
  * TODO 1.21: rename this to something clearer like {@code PartMaterialSwappingRecipe} given we now have so many part swapping recipes.
  * That or merge it into tool building as previously planned.
  */
-public class TinkerStationPartSwapping extends MaterialSwappingRecipe implements IMultiRecipe<IDisplayToolModification> {
+public class TinkerStationPartSwapping extends MaterialSwappingRecipe implements IMultiRecipe<IDisplayToolTinkering> {
   public static final RecordLoadable<TinkerStationPartSwapping> LOADER = RecordLoadable.create(ContextKey.ID.requiredField(), TOOLS_FIELD, STACK_SIZE_FIELD, EXTRA_REQUIREMENTS_FIELD, TinkerStationPartSwapping::new);
 
   protected TinkerStationPartSwapping(ResourceLocation id, Ingredient tools, int maxStackSize, List<SizedIngredient> extraRequirements) {
@@ -142,10 +142,10 @@ public class TinkerStationPartSwapping extends MaterialSwappingRecipe implements
 
 
   /* JEI */
-  private List<IDisplayToolModification> multiRecipes;
+  private List<IDisplayToolTinkering> multiRecipes;
 
   @Override
-  public List<IDisplayToolModification> getRecipes(RegistryAccess access) {
+  public List<IDisplayToolTinkering> getRecipes(RegistryAccess access) {
     if (multiRecipes == null) {
       IMaterialRegistry registry = MaterialRegistry.getInstance();
       Collection<IMaterial> materials = registry.getVisibleMaterials();
@@ -156,7 +156,7 @@ public class TinkerStationPartSwapping extends MaterialSwappingRecipe implements
         if (parts.size() > MAX_SLOTS) {
           return Stream.empty();
         }
-        return IntStream.range(0, parts.size()).<IDisplayToolModification>mapToObj(i -> {
+        return IntStream.range(0, parts.size()).<IDisplayToolTinkering>mapToObj(i -> {
           IToolPart part = parts.get(i);
           ToolStack copy = tool.copy();
           List<IMaterial> filtered = materials.stream().filter(mat -> registry.getMaterialStats(mat.getIdentifier(), part.getStatType()).isPresent()).toList();

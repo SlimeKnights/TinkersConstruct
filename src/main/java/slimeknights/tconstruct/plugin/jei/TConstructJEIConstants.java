@@ -20,7 +20,7 @@ import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipe;
 import slimeknights.tconstruct.library.recipe.molding.MoldingRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.IDisplayPartBuilderRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
-import slimeknights.tconstruct.library.recipe.tinkerstation.IDisplayToolModification;
+import slimeknights.tconstruct.library.recipe.tinkerstation.IDisplayToolTinkering;
 import slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipe;
 import slimeknights.tconstruct.library.recipe.worktable.IModifierWorktableRecipe;
 import slimeknights.tconstruct.library.tools.SlotType;
@@ -96,7 +96,7 @@ public class TConstructJEIConstants {
   public static final RecipeType<IDisplayModifierRecipe> MODIFIERS = type("modifiers", IDisplayModifierRecipe.class);
   public static final RecipeType<SeveringRecipe> SEVERING = type("severing", SeveringRecipe.class);
   public static final RecipeType<ToolBuildingRecipe> TOOL_BUILDING = type("tool_recipes", ToolBuildingRecipe.class);
-  public static final RecipeType<IDisplayToolModification> TOOL_MODIFICATION = type("tool_modification", IDisplayToolModification.class);
+  public static final RecipeType<IDisplayToolTinkering> TOOL_MODIFICATION = type("tool_modification", IDisplayToolTinkering.class);
 
   // part builder
   public static final RecipeType<IDisplayMaterialRecipe> MATERIALS = type("materials", IDisplayMaterialRecipe.class);

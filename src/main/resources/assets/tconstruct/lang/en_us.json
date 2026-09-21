@@ -4251,7 +4251,7 @@
   "jei.tconstruct.tinkering.tool_building": "Tool Building",
   "jei.tconstruct.tinkering.tool_building.anvil": "Broad tools require the Tinker's Anvil to be created or swap parts",
 
-  "jei.tconstruct.tool_modification.title": "Tool Tinkering",
+  "jei.tconstruct.tool_tinkering.title": "Tool Tinkering",
 
   "jei.tconstruct.part_builder.title": "Part Builder",
   "jei.tconstruct.part_builder.cost": "Cost: %s",

@@ -34,7 +34,7 @@ import static slimeknights.tconstruct.plugin.jei.modifiers.AbstractTinkerStation
 
 /** Crafting extension to display tinkers anvil recipes in the crafting table. Used for some recipes that work in both the tinker station and crafting table. */
 @RequiredArgsConstructor
-public class ToolModificationExtension implements ICraftingCategoryExtension {
+public class ToolTinkeringExtension implements ICraftingCategoryExtension {
   @Nullable
   private static IDrawable information, errorArrow;
 

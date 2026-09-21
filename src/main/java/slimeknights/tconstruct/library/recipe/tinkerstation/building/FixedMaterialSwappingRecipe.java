@@ -22,7 +22,7 @@ import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.ModifierRecipe;
-import slimeknights.tconstruct.library.recipe.tinkerstation.IDisplayToolModification;
+import slimeknights.tconstruct.library.recipe.tinkerstation.IDisplayToolTinkering;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.tools.definition.module.material.ToolMaterialHook;
@@ -38,7 +38,7 @@ import java.util.BitSet;
 import java.util.List;
 
 /** Recipe for swapping a single material on a tool given a specific input ingredient. */
-public class FixedMaterialSwappingRecipe extends MaterialSwappingRecipe implements IMultiRecipe<IDisplayToolModification> {
+public class FixedMaterialSwappingRecipe extends MaterialSwappingRecipe implements IMultiRecipe<IDisplayToolTinkering> {
   public static final RecordLoadable<FixedMaterialSwappingRecipe> LOADER = RecordLoadable.create(
     ContextKey.ID.requiredField(), TOOLS_FIELD, STACK_SIZE_FIELD,
     SizedIngredient.LOADABLE.requiredField("ingredient", r -> r.ingredient),
@@ -145,17 +145,17 @@ public class FixedMaterialSwappingRecipe extends MaterialSwappingRecipe implemen
 
   /* JEI */
 
-  private List<IDisplayToolModification> multiRecipes;
+  private List<IDisplayToolTinkering> multiRecipes;
 
   @Override
-  public List<IDisplayToolModification> getRecipes(RegistryAccess access) {
+  public List<IDisplayToolTinkering> getRecipes(RegistryAccess access) {
     if (multiRecipes == null) {
       ItemStack[] tools = this.tools.getItems();
       MaterialVariant material = MaterialVariant.of(this.material);
       List<ItemStack> inputs = ingredient.getMatchingStacks();
       Component variantText = MaterialTooltipCache.getDisplayName(this.material);
       // need 1 recipe per index we can swap into
-      multiRecipes = Arrays.stream(indices).filter(VALID_SLOT).<IDisplayToolModification>mapToObj(i -> {
+      multiRecipes = Arrays.stream(indices).filter(VALID_SLOT).<IDisplayToolTinkering>mapToObj(i -> {
         // for each index, use first as the material on input, desired material on output
         List<ItemStack> withoutMaterial = Arrays.stream(tools).map(stack -> withMaterial(stack.copy(), i, MaterialVariant.of(ToolBuildHandler.getRenderMaterial(i)))).toList();
         List<ItemStack> withMaterial = Arrays.stream(tools).map(stack -> withMaterial(stack.copy(), i, material)).toList();

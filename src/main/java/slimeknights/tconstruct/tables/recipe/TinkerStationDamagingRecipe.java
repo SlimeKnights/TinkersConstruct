@@ -19,7 +19,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IncrementalModifierRecipe;
-import slimeknights.tconstruct.library.recipe.tinkerstation.IDisplayToolModification;
+import slimeknights.tconstruct.library.recipe.tinkerstation.IDisplayToolTinkering;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
@@ -34,7 +34,7 @@ import slimeknights.tconstruct.tables.TinkerTables;
 import java.util.List;
 
 /** Recipe for damaging a tool in the tinker station. */
-public class TinkerStationDamagingRecipe implements ITinkerStationRecipe, IDisplayToolModification {
+public class TinkerStationDamagingRecipe implements ITinkerStationRecipe, IDisplayToolTinkering {
   public static final RecordLoadable<TinkerStationDamagingRecipe> LOADER = RecordLoadable.create(
     ContextKey.ID.requiredField(),
     IngredientLoadable.DISALLOW_EMPTY.requiredField("ingredient", r -> r.ingredient),

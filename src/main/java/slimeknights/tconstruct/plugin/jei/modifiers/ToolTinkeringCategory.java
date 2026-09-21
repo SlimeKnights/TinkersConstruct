@@ -6,27 +6,27 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import net.minecraft.network.chat.Component;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.recipe.tinkerstation.IDisplayToolModification;
+import slimeknights.tconstruct.library.recipe.tinkerstation.IDisplayToolTinkering;
 import slimeknights.tconstruct.plugin.jei.TConstructJEIConstants;
 import slimeknights.tconstruct.tables.TinkerTables;
 
 import java.awt.Color;
 
 /** Displays tool modifications that are not adding modifiers, such as part swapping or tool damaging. */
-public class ToolModificationCategory extends AbstractTinkerStationCategory<IDisplayToolModification> {
-  private static final Component TITLE = TConstruct.makeTranslation("jei", "tool_modification.title");
+public class ToolTinkeringCategory extends AbstractTinkerStationCategory<IDisplayToolTinkering> {
+  private static final Component TITLE = TConstruct.makeTranslation("jei", "tool_tinkering.title");
 
-  public ToolModificationCategory(IGuiHelper helper) {
+  public ToolTinkeringCategory(IGuiHelper helper) {
     super(helper, TConstructJEIConstants.TOOL_MODIFICATION, TITLE, helper.createDrawableItemLike(TinkerTables.tinkersAnvil));
   }
 
   @Override
-  protected boolean isToolCatalyst(IDisplayToolModification recipe) {
+  protected boolean isToolCatalyst(IDisplayToolTinkering recipe) {
     return recipe.isToolCatalyst();
   }
 
   @Override
-  public void createRecipeExtras(IRecipeExtrasBuilder builder, IDisplayToolModification recipe, IFocusGroup focuses) {
+  public void createRecipeExtras(IRecipeExtrasBuilder builder, IDisplayToolTinkering recipe, IFocusGroup focuses) {
     super.createRecipeExtras(builder, recipe, focuses);
 
     // add title and tooltip

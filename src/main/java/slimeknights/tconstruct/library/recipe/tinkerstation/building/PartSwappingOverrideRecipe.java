@@ -17,7 +17,7 @@ import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.recipe.casting.material.MaterialCastingLookup;
-import slimeknights.tconstruct.library.recipe.tinkerstation.IDisplayToolModification;
+import slimeknights.tconstruct.library.recipe.tinkerstation.IDisplayToolTinkering;
 import slimeknights.tconstruct.library.tools.definition.module.material.ToolMaterialHook;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 /** Recipe for swapping a single material on a tool given a specific tool part. Notably allows swapping a part into a tool on an index other than the first. */
-public class PartSwappingOverrideRecipe extends MaterialIndexSwappingRecipe implements IMultiRecipe<IDisplayToolModification> {
+public class PartSwappingOverrideRecipe extends MaterialIndexSwappingRecipe implements IMultiRecipe<IDisplayToolTinkering> {
   public static final RecordLoadable<PartSwappingOverrideRecipe> LOADER = RecordLoadable.create(
     ContextKey.ID.requiredField(), TOOLS_FIELD, STACK_SIZE_FIELD,
     TinkerLoadables.TOOL_PART_ITEM.requiredField("part", r -> r.part),
@@ -66,10 +66,10 @@ public class PartSwappingOverrideRecipe extends MaterialIndexSwappingRecipe impl
 
 
   /* JEI */
-  private List<IDisplayToolModification> multiRecipes;
+  private List<IDisplayToolTinkering> multiRecipes;
 
   @Override
-  public List<IDisplayToolModification> getRecipes(RegistryAccess access) {
+  public List<IDisplayToolTinkering> getRecipes(RegistryAccess access) {
     if (multiRecipes == null) {
       IMaterialRegistry registry = MaterialRegistry.getInstance();
       MaterialStatsId statType = part.getStatType();
@@ -83,7 +83,7 @@ public class PartSwappingOverrideRecipe extends MaterialIndexSwappingRecipe impl
           return Stream.empty();
         }
         List<MaterialVariant> variants = materials.stream().map(MaterialVariant::of).toList();
-        return Arrays.stream(indices).filter(VALID_SLOT).<IDisplayToolModification>mapToObj(i -> {
+        return Arrays.stream(indices).filter(VALID_SLOT).<IDisplayToolTinkering>mapToObj(i -> {
           ToolStack copy = tool.copy();
           return new PartDisplayRecipe(i,
             // one part per material

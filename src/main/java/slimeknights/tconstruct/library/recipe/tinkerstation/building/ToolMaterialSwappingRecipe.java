@@ -21,7 +21,7 @@ import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.ModifierRecipe;
-import slimeknights.tconstruct.library.recipe.tinkerstation.IDisplayToolModification;
+import slimeknights.tconstruct.library.recipe.tinkerstation.IDisplayToolTinkering;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.tools.definition.module.material.ToolMaterialHook;
@@ -46,7 +46,7 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 /** Recipe swapping a tool material using another tool as input */
-public class ToolMaterialSwappingRecipe extends MaterialSwappingRecipe implements IMultiRecipe<IDisplayToolModification> {
+public class ToolMaterialSwappingRecipe extends MaterialSwappingRecipe implements IMultiRecipe<IDisplayToolTinkering> {
   protected static final RecipeResult<LazyToolStack> NO_MODIFIERS = RecipeResult.failure(TConstruct.makeTranslationKey("recipe", "part_swapping.no_modifiers"));
   public static final RecordLoadable<ToolMaterialSwappingRecipe> LOADER = RecordLoadable.create(ContextKey.ID.requiredField(), TOOLS_FIELD, EXTRA_REQUIREMENTS_FIELD, ToolMaterialSwappingRecipe::new);
 
@@ -143,10 +143,10 @@ public class ToolMaterialSwappingRecipe extends MaterialSwappingRecipe implement
 
 
   /* JEI */
-  private List<IDisplayToolModification> multiRecipes;
+  private List<IDisplayToolTinkering> multiRecipes;
 
   @Override
-  public List<IDisplayToolModification> getRecipes(RegistryAccess access) {
+  public List<IDisplayToolTinkering> getRecipes(RegistryAccess access) {
     if (multiRecipes == null) {
       IMaterialRegistry registry = MaterialRegistry.getInstance();
       Collection<IMaterial> materials = registry.getVisibleMaterials();
@@ -160,7 +160,7 @@ public class ToolMaterialSwappingRecipe extends MaterialSwappingRecipe implement
         ToolStack displayTool = tool.copy();
         displayTool.setMaterials(new MaterialNBT(renderMaterials));
         // start making recipes
-        List<IDisplayToolModification> newRecipes = new ArrayList<>(stats.size() * 2);
+        List<IDisplayToolTinkering> newRecipes = new ArrayList<>(stats.size() * 2);
         for (int i = 0; i < stats.size(); i++) {
           MaterialStatsId stat = stats.get(i);
           List<IMaterial> filtered = materials.stream().filter(mat -> registry.getMaterialStats(mat.getIdentifier(), stat).isPresent()).toList();

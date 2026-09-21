@@ -18,7 +18,7 @@ import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipeCache;
-import slimeknights.tconstruct.library.recipe.tinkerstation.IDisplayToolModification;
+import slimeknights.tconstruct.library.recipe.tinkerstation.IDisplayToolTinkering;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationContainer;
 import slimeknights.tconstruct.library.tools.definition.module.material.ToolMaterialHook;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
@@ -33,7 +33,7 @@ import java.util.function.Function;
 import java.util.stream.IntStream;
 
 /** Recipe for swapping materials on a tool based on material items. For best results, there needs to not be a repairable part that supports the same materials. */
-public class MaterialValueSwappingRecipe extends MaterialIndexSwappingRecipe implements IMultiRecipe<IDisplayToolModification> {
+public class MaterialValueSwappingRecipe extends MaterialIndexSwappingRecipe implements IMultiRecipe<IDisplayToolTinkering> {
   public static final RecordLoadable<MaterialValueSwappingRecipe> LOADER = RecordLoadable.create(
     ContextKey.ID.requiredField(), TOOLS_FIELD, STACK_SIZE_FIELD,
     MaterialPredicate.LOADER.requiredField("material", r -> r.material),
@@ -90,10 +90,10 @@ public class MaterialValueSwappingRecipe extends MaterialIndexSwappingRecipe imp
 
 
   /* JEI */
-  private List<IDisplayToolModification> multiRecipes;
+  private List<IDisplayToolTinkering> multiRecipes;
 
   @Override
-  public List<IDisplayToolModification> getRecipes(RegistryAccess access) {
+  public List<IDisplayToolTinkering> getRecipes(RegistryAccess access) {
     if (multiRecipes == null) {
       // since each tool may have its own valid materials, we may need to filter this list again
       // however, we can avoid duplicating the stacks more than once since the cost is constant, along with apply the common filter
@@ -109,7 +109,7 @@ public class MaterialValueSwappingRecipe extends MaterialIndexSwappingRecipe imp
       }
       // final recipes: 1 per tool and 1 per part in the tool
       // for most usages, this will be just 1 recipe
-      multiRecipes = Arrays.stream(tools.getItems()).<IDisplayToolModification>flatMap(tool -> {
+      multiRecipes = Arrays.stream(tools.getItems()).<IDisplayToolTinkering>flatMap(tool -> {
         List<MaterialStatsId> statTypes = ToolMaterialHook.stats(IModifiable.getToolDefinition(tool.getItem()));
         return Arrays.stream(indices).filter(VALID_SLOT).filter(i -> i < statTypes.size()).mapToObj(i -> {
           MaterialStatsId statType = statTypes.get(i);

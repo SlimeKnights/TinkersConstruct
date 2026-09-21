@@ -9,7 +9,7 @@ import java.util.function.Predicate;
 import static slimeknights.tconstruct.library.recipe.display.FilteredRecipe.matchesList;
 
 /** Recipes that show in JEI for changing tools in ways other than adding modifiers, such as part swapping or tool damaging. */
-public interface IDisplayToolModification extends IDisplayTinkerStationRecipe, FilteredItemRecipe {
+public interface IDisplayToolTinkering extends IDisplayTinkerStationRecipe, FilteredItemRecipe {
   /** Gets the title for display in JEI */
   Component getTitle();
 

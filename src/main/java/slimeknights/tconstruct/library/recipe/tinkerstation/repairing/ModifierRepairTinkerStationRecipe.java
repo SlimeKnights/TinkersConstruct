@@ -26,7 +26,7 @@ import slimeknights.tconstruct.library.modifiers.hook.behavior.RepairFactorModif
 import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IncrementalModifierRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IDisplayCraftingTinkering;
-import slimeknights.tconstruct.library.recipe.tinkerstation.IDisplayToolModification;
+import slimeknights.tconstruct.library.recipe.tinkerstation.IDisplayToolTinkering;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
@@ -50,7 +50,7 @@ import java.util.List;
  * @see slimeknights.tconstruct.library.modifiers.modules.behavior.MaterialRepairModule
  */
 @RequiredArgsConstructor
-public class ModifierRepairTinkerStationRecipe implements ITinkerStationRecipe, IModifierRepairRecipe, IMultiRecipe<IDisplayToolModification> {
+public class ModifierRepairTinkerStationRecipe implements ITinkerStationRecipe, IModifierRepairRecipe, IMultiRecipe<IDisplayToolTinkering> {
   private static final String TOOLTIP_KEY = TConstruct.makeTranslationKey("recipe", "tool_repair.modifier");
   private static final String KEY_AMOUNT = TConstruct.makeTranslationKey("recipe", "modifier.amount");
   public static final RecordLoadable<ModifierRepairTinkerStationRecipe> LOADER = RecordLoadable.create(ContextKey.ID.requiredField(), MODIFIER_FIELD, INGREDIENT_FIELD, REPAIR_AMOUNT_FIELD, ModifierRepairTinkerStationRecipe::new);
@@ -134,10 +134,10 @@ public class ModifierRepairTinkerStationRecipe implements ITinkerStationRecipe, 
 
 
   /* JEI */
-  private List<IDisplayToolModification> displayRecipes;
+  private List<IDisplayToolTinkering> displayRecipes;
 
   @Override
-  public List<IDisplayToolModification> getRecipes(RegistryAccess access) {
+  public List<IDisplayToolTinkering> getRecipes(RegistryAccess access) {
     if (displayRecipes == null) {
       displayRecipes = List.of(new DisplayRecipe(id, this, false));
     }

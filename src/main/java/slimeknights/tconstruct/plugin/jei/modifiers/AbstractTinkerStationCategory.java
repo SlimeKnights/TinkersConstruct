@@ -39,7 +39,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-/** Common logic between {@link ModifierRecipeCategory} and {@link ToolModificationCategory} */
+/** Common logic between {@link ModifierRecipeCategory} and {@link ToolTinkeringCategory} */
 public abstract class AbstractTinkerStationCategory<T extends IDisplayTinkerStationRecipe> extends AbstractRecipeCategory<T> {
   protected static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/tinker_station.png");
   protected static final String TOOL_SLOT = "tool_with";
@@ -116,7 +116,7 @@ public abstract class AbstractTinkerStationCategory<T extends IDisplayTinkerStat
     createErrorArrow(builder, recipe, errorArrow, 71, 33);
   }
 
-  /** Handles common logic between this and {@link ToolModificationExtension} */
+  /** Handles common logic between this and {@link ToolTinkeringExtension} */
   record RecipeLayout(List<ItemStack> toolWithoutModifier, List<ItemStack> toolWithModifier, List<List<ItemStack>> inputs) {
     /**
      * Gets the current layout items from the given recipe

@@ -11,7 +11,7 @@ import slimeknights.tconstruct.library.recipe.display.RecipeSlots;
 import javax.annotation.Nullable;
 import java.util.List;
 
-/** Common interface between {@link IDisplayToolModification} and {@link slimeknights.tconstruct.library.recipe.modifiers.adding.IDisplayModifierRecipe} */
+/** Common interface between {@link IDisplayToolTinkering} and {@link slimeknights.tconstruct.library.recipe.modifiers.adding.IDisplayModifierRecipe} */
 public interface IDisplayTinkerStationRecipe {
   /** Return from {@link #linkToOutput()} to indicate no slots are linked. Will attempt to link the inputs instead. */
   int[] NO_LINKS = new int[0];
