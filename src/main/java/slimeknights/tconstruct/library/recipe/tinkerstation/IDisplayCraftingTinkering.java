@@ -16,6 +16,7 @@ import java.util.List;
 /**
  * Interface for tool modifications that should show in the crafting recipe category in JEI.
  * Generally implemented on a crafting recipe, but may be used for dynamic recipes.
+ * If you wish to use {@link #isFiltered()} or {@link #showUnfocused()} in the crafting table, this must not be implemented on the recipe, and instead returned from {@link slimeknights.tconstruct.library.recipe.display.VanillaFilteredRecipe}.
  */
 public interface IDisplayCraftingTinkering extends IDisplayToolModification, CraftingRecipe {
   /** Gets the ID for the crafting table tab. */

@@ -66,6 +66,7 @@ import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.IDisplayableCastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.material.MaterialCastingLookup;
 import slimeknights.tconstruct.library.recipe.display.FilteredRecipe;
+import slimeknights.tconstruct.library.recipe.display.VanillaFilteredRecipe;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.library.recipe.material.IDisplayMaterialRecipe;
@@ -365,21 +366,21 @@ public class JEIPlugin implements IModPlugin {
     registration.addTypedRecipeManagerPlugin(TConstructJEIConstants.TOOL_MODIFICATION, new ToolModificationRecipeManager(ingredientManager, FilteredRecipe.filtered(RecipeHelper.getJEIRecipes(access, manager, TinkerRecipeTypes.TINKER_STATION.get(), IDisplayToolModification.class))));
 
     // copy tinker station repair recipes to the crafting table
+    List<IDisplayCraftingTinkering> craftingRecipes = VanillaFilteredRecipe.getRecipes(access, manager, RecipeType.CRAFTING, IDisplayCraftingTinkering.class);
+    // copy tinker repair recipes to the crafting table
     TinkerStationRepairRecipe tinkerRepair = findFirst(manager, TinkerRecipeTypes.TINKER_STATION.get(), TinkerStationRepairRecipe.class);
     if (tinkerRepair != null) {
       List<IDisplayCraftingTinkering> recipes = tinkerRepair.getRecipes(access);
-      List<IDisplayCraftingTinkering> newRecipes = new ArrayList<>();
       for (IDisplayCraftingTinkering recipe : recipes) {
         if (recipe.isFiltered()) {
-          newRecipes.add(recipe);
+          craftingRecipes.add(recipe);
         }
       }
-      if (!recipes.isEmpty()) {
-        registration.addTypedRecipeManagerPlugin(RecipeTypes.CRAFTING, ToolModificationRecipeManager.createCrafting(ingredientManager, newRecipes));
-      }
     }
-
-    registration.addTypedRecipeManagerPlugin(TConstructJEIConstants.TOOL_MODIFICATION, new ToolModificationRecipeManager(ingredientManager, FilteredRecipe.filtered(RecipeHelper.getJEIRecipes(access, manager, TinkerRecipeTypes.TINKER_STATION.get(), IDisplayToolModification.class))));
+    // add the plugin if we found anything
+    if (!craftingRecipes.isEmpty()) {
+      registration.addTypedRecipeManagerPlugin(RecipeTypes.CRAFTING, ToolModificationRecipeManager.createCrafting(ingredientManager, craftingRecipes));
+    }
   }
 
   /** Adds a table as a catalys */
