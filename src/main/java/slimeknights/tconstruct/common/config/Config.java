@@ -329,7 +329,7 @@ public class Config {
 
         this.showToolInModifiers = builder
           .comment("[Experimental] If true, modifier recipe lookup from a specific tool will show your tool in JEI. If false, a generic display tool will be shown.")
-          .define("showToolInModifiers", false);
+          .define("showToolInModifiers", true);
       }
       builder.pop(); // jei
 
