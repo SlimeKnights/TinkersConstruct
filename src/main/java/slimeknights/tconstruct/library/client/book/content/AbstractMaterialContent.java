@@ -352,8 +352,9 @@ public abstract class AbstractMaterialContent extends PageContent {
 
   /** Adds items to the display tools list for all relevant recipes */
   protected void addPrimaryDisplayItems(List<ItemElement> displayTools, MaterialVariantId materialId) {
+    IMaterial material = getMaterial();
     // part builder
-    if (allowPartBuilder() && getMaterial().isCraftable()) {
+    if (allowPartBuilder() && material.isCraftable()) {
       ItemStack partBuilder = new ItemStack(TinkerTables.partBuilder.asItem());
       ItemElement elementItem = new TinkerItemElement(partBuilder);
       elementItem.tooltip = PART_BUILDER;
