@@ -14,6 +14,10 @@
         {
           "type": "tconstruct:fixed",
           "material": "tconstruct:wood"
+        },
+        {
+          "type": "tconstruct:fixed",
+          "material": "tconstruct:leather"
         }
       ]
     },

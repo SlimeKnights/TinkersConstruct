@@ -682,7 +682,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
         .stat(StatlessMaterialStats.SHIELD_CORE)
         .stat(StatlessMaterialStats.CUIRASS)
         .build())
-      .module(DefaultMaterialsModule.builder().material(MaterialIds.wood).build())
+      .module(DefaultMaterialsModule.builder().material(MaterialIds.wood).material(MaterialIds.leather).build())
       .module(new SetStatsModule(StatsNBT.builder()
         .set(ToolStats.DURABILITY, 200)
         .set(ToolStats.BLOCK_AMOUNT, 10)
