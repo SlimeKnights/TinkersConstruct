@@ -5,6 +5,7 @@
     "tconstruct:cuirass": {},
     "tconstruct:laces": {
       "repair_amount": 90
-    }
+    },
+    "tconstruct:repair_kit": {}
   }
 }
