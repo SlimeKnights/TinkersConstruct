@@ -56,6 +56,11 @@ public class Pattern extends ResourceId {
     return withPrefix("gui/tinker_pattern/");
   }
 
+  /** Checks if this pattern matches the give item, typically a tool part. */
+  public boolean matches(ItemLike item) {
+    return this.equals(Loadables.ITEM.getKey(item.asItem()));
+  }
+
 
   /** {@return Pattern ID, or null if invalid} */
   @Nullable

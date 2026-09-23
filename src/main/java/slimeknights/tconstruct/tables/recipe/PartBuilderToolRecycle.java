@@ -10,7 +10,6 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -42,6 +41,7 @@ import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
+import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.library.tools.part.MaterialItemCache;
@@ -53,13 +53,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 /**
  * Recipe to break a tool into tool parts.
  * TODO 1.21: move to {@link slimeknights.tconstruct.library.recipe.partbuilder.recycle}.
  */
-@SuppressWarnings("deprecation")  // Forge is dumb
 @RequiredArgsConstructor
 public class PartBuilderToolRecycle implements IPartBuilderRecipe, IMultiRecipe<IDisplayPartBuilderRecipe> {
   /** Title for the screen */
@@ -96,17 +96,20 @@ public class PartBuilderToolRecycle implements IPartBuilderRecipe, IMultiRecipe<
     return MISSING;
   }
 
+  /** Gets the parts for the given recipe and tool */
+  private List<? extends IMaterialItem> getParts(ToolDefinition tool) {
+    return !this.parts.isEmpty() ? this.parts : ToolPartsHook.parts(tool);
+  }
+
   @Override
   public Stream<Pattern> getPatterns(IPartBuilderContainer inv) {
     // use the parts override if set
-    List<? extends IMaterialItem> parts = this.parts;
-    if (parts.isEmpty() && inv.getStack().getItem() instanceof IModifiable modifiable) {
-      parts = ToolPartsHook.parts(modifiable.getToolDefinition());
-    }
-    return parts.stream()
-      .map(part -> BuiltInRegistries.ITEM.getKey(part.asItem()))
-      .distinct()
-      .map(Pattern::new);
+    ItemStack tool = inv.getStack();
+    List<? extends IMaterialItem> parts = getParts(IModifiable.getToolDefinition(tool.getItem()));
+    MaterialIdNBT materials = MaterialIdNBT.from(tool);
+    return IntStream.range(0, parts.size()).filter(i -> parts.get(i).canUseMaterial(materials.getMaterial(i).getId()))
+      .mapToObj(i -> Pattern.fromItem(parts.get(i)))
+      .distinct();
   }
 
   @Override
@@ -134,18 +137,16 @@ public class PartBuilderToolRecycle implements IPartBuilderRecipe, IMultiRecipe<
     ToolStack tool = ToolStack.from(inv.getStack());
     // find our parts list, either set or override
     ToolDefinition definition = tool.getDefinition();
-    List<? extends IMaterialItem> parts = this.parts;
-    if (parts.isEmpty()) {
-      parts = ToolPartsHook.parts(definition);
-    }
+    List<? extends IMaterialItem> parts = getParts(definition);
     // ensure parts list is not greater than material count
-    int materials = Math.min(ToolMaterialHook.stats(definition).size(), parts.size());
+    int materialSize = Math.min(ToolMaterialHook.stats(definition).size(), parts.size());
+    MaterialNBT materials = tool.getMaterials();
     // find part matching pattern
     IMaterialItem match = null;
     int matchIndex = -1;
-    for (int i = 0; i < materials; i++) {
+    for (int i = 0; i < materialSize; i++) {
       IMaterialItem part = parts.get(i);
-      if (pattern.equals(BuiltInRegistries.ITEM.getKey(part.asItem()))) {
+      if (pattern.matches(part) && part.canUseMaterial(materials.get(i).getId())) {
         matchIndex = i;
         match = part;
         break;
@@ -178,10 +179,7 @@ public class PartBuilderToolRecycle implements IPartBuilderRecipe, IMultiRecipe<
 
     // find our parts list, either set or override
     ToolDefinition definition = tool.getDefinition();
-    List<? extends IMaterialItem> requirements = this.parts;
-    if (requirements.isEmpty()) {
-      requirements = ToolPartsHook.parts(definition);
-    }
+    List<? extends IMaterialItem> requirements = getParts(definition);
     // ensure parts list is not greater than material count
     int materials = Math.min(ToolMaterialHook.stats(definition).size(), requirements.size());
     // find all parts that did not match the pattern
@@ -190,9 +188,12 @@ public class PartBuilderToolRecycle implements IPartBuilderRecipe, IMultiRecipe<
     List<IMaterialItem> parts = new ArrayList<>();
     for (int i = 0; i < materials; i++) {
       IMaterialItem part = requirements.get(i);
-      if (found || !pattern.equals(BuiltInRegistries.ITEM.getKey(part.asItem()))) {
-        parts.add(part);
-        indices.add(i);
+      if (found || !pattern.matches(part)) {
+        // ensure the part is actually craftable with the material. Works around issues with using repair kits for some partless types
+        if (part.canUseMaterial(tool.getMaterial(i).getId())) {
+          parts.add(part);
+          indices.add(i);
+        }
       } else {
         found = true;
       }
