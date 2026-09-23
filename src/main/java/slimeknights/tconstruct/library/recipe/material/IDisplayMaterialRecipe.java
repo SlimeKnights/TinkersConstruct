@@ -16,6 +16,17 @@ public interface IDisplayMaterialRecipe {
   /** Gets the material result for this recipe */
   MaterialVariant getMaterial();
 
+  /** Checks that all materials in this recipe are known */
+  default boolean isVisible() {
+    MaterialVariant input = getInput();
+    if (input != null && (input.isUnknown() || input.get().isHidden())) {
+      return false;
+    }
+    MaterialVariant material = getMaterial();
+    return !material.isUnknown() && !material.get().isHidden();
+  }
+
+
   /* Items */
 
   /** Gets the list of items used to craft this recipe, for {@link MaterialRecipe} */

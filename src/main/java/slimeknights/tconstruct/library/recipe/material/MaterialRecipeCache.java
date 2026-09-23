@@ -23,12 +23,15 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 /** Cache of details related to materials */
 public class MaterialRecipeCache {
   /** Full list of recipes in the cache */
   private static final List<MaterialRecipe> RECIPES = new ArrayList<>();
+  /** Predicate for sorted recipe lists, ensuring they are visible */
+  private static final Predicate<MaterialRecipe> RECIPE_FILTER = MaterialRecipe::isVisible;
   /** Full list of recipes in the cache */
   private static List<MaterialRecipe> SORTED_RECIPES = null;
   /** Comparator used to create {@link #SORTED_RECIPES} */
@@ -41,11 +44,8 @@ public class MaterialRecipeCache {
   /** Lookup from material variant ID to recipe */
   private static final Multimap<MaterialVariantId, MaterialRecipe> RECIPES_BY_MATERIAL = HashMultimap.create();
   /** Gets the list of recipes per material in sorted order */
-  private static final SimpleCache<MaterialVariantId, List<MaterialRecipe>> SORTED_RECIPES_BY_MATERIAL = new SimpleCache<>(id -> {
-    List<MaterialRecipe> recipes = new ArrayList<>(RECIPES_BY_MATERIAL.get(id));
-    recipes.sort(RECIPE_COMPARATOR);
-    return List.copyOf(recipes);
-  });
+  private static final SimpleCache<MaterialVariantId, List<MaterialRecipe>> SORTED_RECIPES_BY_MATERIAL = new SimpleCache<>(id ->
+    RECIPES_BY_MATERIAL.get(id).stream().filter(RECIPE_FILTER).sorted(RECIPE_COMPARATOR).toList());
   /** Map from material variant ID to item stack list for display */
   private static final SimpleCache<MaterialVariantId, List<ItemStack>> ITEMS_BY_MATERIAL = new SimpleCache<>(variant ->
     getRecipes(variant).stream().flatMap(r -> {
@@ -135,12 +135,17 @@ public class MaterialRecipeCache {
   /** Gets a list of all non-hidden material recipes, sorted by tier, sort key, and value. */
   public static Collection<MaterialRecipe> getSortedRecipes() {
     if (SORTED_RECIPES == null) {
-      SORTED_RECIPES = RECIPES.stream().sorted(RECIPE_COMPARATOR).toList();
+      SORTED_RECIPES = RECIPES.stream().filter(RECIPE_FILTER).sorted(RECIPE_COMPARATOR).toList();
     }
     return SORTED_RECIPES;
   }
 
-  /** Gets all recipes for the given material variant */
+  /** Gets all unsorted recipes for the given material variant */
+  public static Collection<MaterialRecipe> getAllRecipes(MaterialVariantId variant) {
+    return RECIPES_BY_MATERIAL.get(variant);
+  }
+
+  /** Gets sorted recipes for the given material variant */
   public static Collection<MaterialRecipe> getRecipes(MaterialVariantId variant) {
     return SORTED_RECIPES_BY_MATERIAL.apply(variant);
   }
