@@ -45,7 +45,7 @@ public interface ProjectileLaunchModifierHook extends ProjectileShootModifierHoo
   @Override
   default void onProjectileShoot(IToolStackView tool, ModifierEntry modifier, @Nullable LivingEntity shooter, ItemStack ammo, Projectile projectile, @Nullable AbstractArrow arrow, ModDataNBT persistentData, boolean primary) {
     if (shooter != null) {
-      onProjectileLaunch(tool, modifier, shooter, projectile, arrow, persistentData, primary);
+      onProjectileLaunch(tool, modifier, shooter, ammo, projectile, arrow, persistentData, primary);
     }
   }
 
