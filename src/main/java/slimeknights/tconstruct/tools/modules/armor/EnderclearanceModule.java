@@ -6,7 +6,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.phys.EntityHitResult;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
-import slimeknights.tconstruct.library.events.teleport.ModifierTeleportEvent;
+import slimeknights.tconstruct.library.events.teleport.EnderclearanceTeleportEvent;
 import slimeknights.tconstruct.library.json.LevelingInt;
 import slimeknights.tconstruct.library.json.LevelingValue;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -61,7 +61,7 @@ public record EnderclearanceModule(LevelingValue chance, LevelingInt diameter, L
   private void teleport(ModifierEntry modifier, @Nullable LivingEntity target) {
     if (target != null) {
       float level = modifier.getEffectiveLevel();
-      TeleportHelper.randomNearbyTeleport(target, (e, x, y, z) -> new ModifierTeleportEvent(e, x, y, z, modifier), diameter.compute(level), teleportChances.compute(level));
+      TeleportHelper.randomNearbyTeleport(target, (e, x, y, z) -> new EnderclearanceTeleportEvent(e, x, y, z, modifier), diameter.compute(level), teleportChances.compute(level));
     }
   }
 
