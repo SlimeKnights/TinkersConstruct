@@ -86,7 +86,7 @@ public class ToolDamageUtil {
           stack = ItemStack.EMPTY;
           for (EquipmentSlot slot : EquipmentSlot.values()) {
             ItemStack slotStack = player.getItemBySlot(slot);
-            if (tool.isSameStack(slotStack)) {
+            if (!stack.isEmpty() && tool.isSameStack(slotStack)) {
               stack = slotStack;
             }
           }
@@ -219,7 +219,7 @@ public class ToolDamageUtil {
     if (entity != null) {
       for (EquipmentSlot slot : EquipmentSlot.values()) {
         ItemStack stack = entity.getItemBySlot(slot);
-        if (tool.isSameStack(stack)) {
+        if (!stack.isEmpty() && tool.isSameStack(stack)) {
           if (damage(tool, amount, entity, stack, cause)) {
             entity.broadcastBreakEvent(slot);
             return true;
@@ -229,7 +229,7 @@ public class ToolDamageUtil {
       }
     }
     // did not find in any of the slots? just skip the animation/stack
-    return damage(tool, amount, entity, ItemStack.EMPTY);
+    return damage(tool, amount, entity, ItemStack.EMPTY, cause);
   }
 
   /**
