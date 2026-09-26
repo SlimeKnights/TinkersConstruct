@@ -475,6 +475,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.skyslimeVine, StatlessMaterialStats.CUIRASS, StatlessMaterialStats.REPAIR_KIT);
     addMaterialStats(MaterialIds.weepingVine, StatlessMaterialStats.CUIRASS, StatlessMaterialStats.REPAIR_KIT);
     addMaterialStats(MaterialIds.twistingVine, StatlessMaterialStats.CUIRASS, StatlessMaterialStats.REPAIR_KIT);
+    addMaterialStats(MaterialIds.phantom, StatlessMaterialStats.CUIRASS, StatlessMaterialStats.REPAIR_KIT);
     addArmorShieldStats(MaterialIds.iron,          PlatingMaterialStats.builder().durabilityFactor(15).armor(2, 4, 5, 2), StatlessMaterialStats.MAILLE);
     addArmorShieldStats(MaterialIds.gold,          PlatingMaterialStats.builder().durabilityFactor( 7).armor(1, 3, 4, 1), StatlessMaterialStats.MAILLE);
     addArmorShieldStats(MaterialIds.searedStone,   PlatingMaterialStats.builder().durabilityFactor(14).armor(1, 3, 4, 2).knockbackResistance(0.1f), StatlessMaterialStats.MAILLE);

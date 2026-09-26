@@ -1,0 +1,29 @@
+{
+  "level_display": "tconstruct:single_level",
+  "modules": [
+    {
+      "type": "tconstruct:protection",
+      "damage_source": "mantle:can_protect",
+      "formula": [
+        10.0,
+        "$light",
+        "-",
+        "non-negative",
+        0.125,
+        "*",
+        "$level",
+        "*",
+        "$protection",
+        "+"
+      ],
+      "variables": {
+        "light": {
+          "type": "tconstruct:entity",
+          "entity_type": "tconstruct:light",
+          "fallback": 0.0,
+          "which": "target"
+        }
+      }
+    }
+  ]
+}

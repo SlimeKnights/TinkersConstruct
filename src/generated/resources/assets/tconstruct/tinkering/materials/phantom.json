@@ -6,7 +6,9 @@
   "generator": {
     "supported_stats": [
       "tconstruct:shell",
-      "tconstruct:repair_kit"
+      "tconstruct:repair_kit",
+      "tconstruct:cuirass",
+      "tconstruct:armor_cuirass"
     ],
     "transformer": {
       "type": "tconstruct:recolor_sprite",
