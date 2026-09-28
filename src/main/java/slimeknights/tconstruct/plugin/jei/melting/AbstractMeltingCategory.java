@@ -11,13 +11,17 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.gui.placement.HorizontalAlignment;
 import mezz.jei.api.gui.widgets.IDrawableWidget;
 import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
+import mezz.jei.api.gui.widgets.IRecipeWidget;
 import mezz.jei.api.gui.widgets.IRecipeWidgetTooltipCallback;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.AbstractRecipeCategory;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.navigation.ScreenPosition;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
@@ -66,18 +70,18 @@ public abstract class AbstractMeltingCategory extends AbstractRecipeCategory<IDi
 
   @Override
   public void createRecipeExtras(IRecipeExtrasBuilder builder, IDisplayableMeltingRecipe recipe, IFocusGroup focuses) {
+    IRecipeSlotDrawable fluid = null;
+    if (recipe.isTimeDynamic() || recipe.isTemperatureDynamic()) {
+      fluid = CategoryUtil.findSlot(builder.getRecipeSlots().getSlots(), FLUID_SLOT);
+    }
+
     // includes both the static arrow background and animated foreground
     int time = recipe.getTime();
     IDrawableWidget arrow = builder.addAnimatedRecipeArrowWidget(time * 5).setPosition(56, 18);
-    arrowTooltip:
-    {
-      if (recipe.isTimeDynamic()) {
-        IRecipeSlotDrawable fluid = CategoryUtil.findSlot(builder.getRecipeSlots().getSlots(), FLUID_SLOT);
-        if (fluid != null) {
-          arrow.setTooltip(new MeltingArrowTooltip(recipe, fluid));
-          break arrowTooltip;
-        }
-      }
+    // add time as a tooltip on the arrow
+    if (recipe.isTimeDynamic() && fluid != null) {
+      arrow.setTooltip(new MeltingArrowTooltip(recipe, fluid));
+    } else {
       // not dynamic or fail to find the slot? static tooltip is fine
       arrow.setTooltip(Component.translatable(KEY_COOLING_TIME, time / 4));
     }
@@ -85,10 +89,15 @@ public abstract class AbstractMeltingCategory extends AbstractRecipeCategory<IDi
     if (recipe.getOreType() != null) {
       builder.addDrawableWidget(plus).setPosition(83, 26).setTooltip(TOOLTIP_ORE);
     }
-    builder.addText(Component.translatable(KEY_TEMPERATURE, recipe.getTemperature()), 113, 9)
-      .setPosition(0, 3)
-      .setColor(Color.GRAY.getRGB())
-      .setTextAlignment(HorizontalAlignment.CENTER);
+    // draw temperature above the recipe, animated if requested
+    if (recipe.isTemperatureDynamic() && fluid != null) {
+      builder.addWidget(new TemperatureWidget(new ScreenPosition(0, 3), 113, recipe, fluid, Minecraft.getInstance().font));
+    } else {
+      builder.addText(Component.translatable(KEY_TEMPERATURE, recipe.getTemperature()), 113, 9)
+        .setPosition(0, 3)
+        .setColor(Color.GRAY.getRGB())
+        .setTextAlignment(HorizontalAlignment.CENTER);
+    }
   }
 
   @Override
@@ -131,6 +140,16 @@ public abstract class AbstractMeltingCategory extends AbstractRecipeCategory<IDi
     public void onTooltip(ITooltipBuilder tooltip) {
       FluidStack fluid = fluidSlot.getDisplayedIngredient(ForgeTypes.FLUID_STACK).orElse(FluidStack.EMPTY);
       tooltip.add(Component.translatable(KEY_COOLING_TIME, recipe.getTime(fluid) / 4));
+    }
+  }
+
+  /** Widget to display dynamic temperature with respect to the recipe */
+  private record TemperatureWidget(ScreenPosition getPosition, int width, IDisplayableMeltingRecipe recipe, IRecipeSlotDrawable fluidSlot, Font font) implements IRecipeWidget {
+    @Override
+    public void drawWidget(GuiGraphics graphics, double mouseX, double mouseY) {
+      FluidStack fluid = fluidSlot.getDisplayedIngredient(ForgeTypes.FLUID_STACK).orElse(FluidStack.EMPTY);
+      Component temperature = Component.translatable(KEY_TEMPERATURE, recipe.getTemperature(fluid));
+      graphics.drawString(font, temperature, (width - font.width(temperature)) / 2, 0, Color.GRAY.getRGB(), false);
     }
   }
 }
