@@ -24,7 +24,6 @@ import slimeknights.mantle.client.screen.book.element.BookElement;
 import slimeknights.mantle.client.screen.book.element.ItemElement;
 import slimeknights.mantle.client.screen.book.element.TextComponentElement;
 import slimeknights.mantle.client.screen.book.element.TextElement;
-import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.mantle.util.RegistryHelper;
 import slimeknights.mantle.util.html.HtmlElement;
 import slimeknights.mantle.util.html.HtmlGroup;
@@ -44,10 +43,9 @@ import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.util.ModifierTooltip;
-import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.library.recipe.casting.material.MaterialCastingLookup;
 import slimeknights.tconstruct.library.recipe.casting.material.MaterialFluidRecipe;
-import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
+import slimeknights.tconstruct.library.recipe.material.MaterialRecipeCache;
 import slimeknights.tconstruct.library.tools.definition.module.material.ToolMaterialHook;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
@@ -64,13 +62,11 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 /**
  * Base class for material content pages.
@@ -173,12 +169,11 @@ public abstract class AbstractMaterialContent extends PageContent {
       }
       // simply combine all items from all recipes
       MaterialVariantId material = getMaterialVariant();
-      repairStacks = RecipeHelper.getUIRecipes(world.getRecipeManager(), TinkerRecipeTypes.MATERIAL.get(), MaterialRecipe.class, recipe -> material.matchesVariant(recipe.getMaterial()))
+      // not using #getItems or #addItems as we want to keep count of 1
+      repairStacks = MaterialRecipeCache.getRecipes(materialVariant)
         .stream()
-        // prefer 1 value 1 needed (ingots), then 1 value with higher needed (nuggets), then higher value (blocks)
-        .sorted(Comparator.comparing(MaterialRecipe::getValue).thenComparing(MaterialRecipe::getNeeded))
         .flatMap(recipe -> Arrays.stream(recipe.getIngredient().getItems()))
-        .collect(Collectors.toList());
+        .toList();
       // no repair items? use the fallbacks
       if (repairStacks.isEmpty()) {
         // use the fallback stacks
@@ -188,9 +183,9 @@ public abstract class AbstractMaterialContent extends PageContent {
 
         // no matching fallback? just use a repair kit
         if (repairStacks.isEmpty()) {
-          TConstruct.LOG.debug("Material with id " + material + " has no representation items associated with it, using repair kit");
+          TConstruct.LOG.debug("Material with id {} has no representation items associated with it, using repair kit", material);
           // bypass the valid check, because we need to show something
-          repairStacks = Collections.singletonList(TinkerToolParts.repairKit.get().withMaterialForDisplay(material));
+          repairStacks = List.of(TinkerToolParts.repairKit.get().withMaterialForDisplay(material));
         }
       }
     }
