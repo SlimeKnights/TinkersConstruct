@@ -789,6 +789,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
           .slots(SlotType.UPGRADE, 4)
           .slots(SlotType.ABILITY, 1).build())
       .module(MaterialRepairModule.of(MaterialIds.phantom, ArmorItem.Type.CHESTPLATE, 42))
+      .module(MaterialRepairModule.of(MaterialIds.dragonScale, ArmorItem.Type.CHESTPLATE, 30))
       // traits
       .module(ToolTraitsModule.builder().trait(ModifierIds.wings).build())
       // armor trim/rebalanced

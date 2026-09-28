@@ -44,6 +44,11 @@
       "material": "tconstruct:phantom"
     },
     {
+      "type": "tconstruct:material_repair",
+      "durability": 480,
+      "material": "tconstruct:dragon_scale"
+    },
+    {
       "type": "tconstruct:traits",
       "traits": [
         {
