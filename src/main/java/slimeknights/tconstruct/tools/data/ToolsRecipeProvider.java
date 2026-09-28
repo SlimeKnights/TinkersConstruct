@@ -48,6 +48,7 @@ import slimeknights.tconstruct.library.recipe.partbuilder.recycle.PartBuilderToo
 import slimeknights.tconstruct.library.recipe.tinkerstation.building.MaterialSwappingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipeBuilder;
 import slimeknights.tconstruct.library.tools.layout.Patterns;
+import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tables.TinkerTables;
@@ -367,7 +368,24 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
       .part(TinkerToolParts.repairKit)
       .save(consumer, location(folder + "plate_shield"));
 
-    // TODO: consider if I want slimesuit recycling, it gets wierd with skull in particular needing a custom recipe likely
+    // slimesuit recycling
+    for (ArmorItem.Type type : ArmorItem.Type.values()) {
+      PartBuilderToolRecycleBuilder.tool(TinkerTools.slimesuit.get(type))
+        // different parts for index 0
+        .part(switch (type) {
+          // helmet has no part for index 0 though
+          case HELMET -> IMaterialItem.EMPTY;
+          case CHESTPLATE -> TinkerToolParts.ribcage.get();
+          case LEGGINGS -> TinkerToolParts.shell.get();
+          case BOOTS -> TinkerToolParts.laces.get();
+        })
+        // slime lacks a part so do repair kit
+        .part(TinkerToolParts.repairKit)
+        .save(consumer, location(folder + "slime_" + type.getName()));
+    }
+    PartBuilderToolRecycleBuilder.tool(TinkerTools.slimeWings)
+      .part(TinkerToolParts.repairKit)
+      .save(consumer, location(folder + "slime_wings"));
 
     // crafting table tool recycling
     // flint and brick loses the brick as we don't know if you used seared or scorched

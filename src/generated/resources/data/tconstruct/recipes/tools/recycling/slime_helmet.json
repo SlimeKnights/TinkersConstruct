@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:part_builder_tool_recycling",
+  "parts": [
+    "minecraft:air",
+    "tconstruct:repair_kit"
+  ],
+  "pattern": {
+    "item": "tconstruct:venom_bottle"
+  },
+  "tools": {
+    "item": "tconstruct:slime_helmet"
+  }
+}

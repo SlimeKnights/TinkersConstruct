@@ -134,6 +134,11 @@ public interface IMaterialItem extends ItemLike, IMaterialUser {
     }
 
     @Override
+    public boolean canUseMaterial(MaterialId mat) {
+      return false;
+    }
+
+    @Override
     public boolean canUseMaterial(IMaterial mat) {
       return false;
     }

@@ -76,7 +76,7 @@ public class PartBuilderToolRecycle implements IPartBuilderRecipe, IMultiRecipe<
     ContextKey.ID.requiredField(),
     SizedIngredient.LOADABLE.defaultField("tools", DEFAULT_TOOLS, true, r -> r.toolRequirement),
     IngredientLoadable.DISALLOW_EMPTY.requiredField("pattern", r -> r.pattern),
-    TinkerLoadables.MATERIAL_ITEM.list(0).defaultField("parts", List.of(), r -> r.parts),
+    TinkerLoadables.OPTIONAL_MATERIAL_ITEM.list(0).defaultField("parts", List.of(), r -> r.parts),
     PartBuilderToolRecycle::new);
 
   @Getter
@@ -236,7 +236,10 @@ public class PartBuilderToolRecycle implements IPartBuilderRecipe, IMultiRecipe<
   private static Object2IntMap<IMaterialItem> getDisplayParts(List<? extends IMaterialItem> parts) {
     Object2IntMap<IMaterialItem> map = new Object2IntArrayMap<>(parts.size());
     for (int i = 0; i < parts.size(); i++) {
-      map.putIfAbsent(parts.get(i), i);
+      IMaterialItem part = parts.get(i);
+      if (part != IMaterialItem.EMPTY) {
+        map.putIfAbsent(parts.get(i), i);
+      }
     }
     return map;
   }
