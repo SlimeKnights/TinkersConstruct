@@ -415,6 +415,11 @@ public class BlockTagProvider extends BlockTagsProvider {
         .addTag(TinkerTags.Blocks.FOUNDRY_FLOOR)
         .addTag(TinkerTags.Blocks.FOUNDRY_TANKS);
 
+    // channels connect to other channels automatically
+    this.tag(TinkerTags.Blocks.CHANNELS)
+      .add(TinkerSmeltery.searedChannel.get())
+      .add(TinkerSmeltery.scorchedChannel.get());
+
     // climb seared ladder
     this.tag(BlockTags.CLIMBABLE).add(TinkerSmeltery.searedLadder.get(), TinkerSmeltery.scorchedLadder.get());
     this.tag(BlockTags.DRAGON_IMMUNE).add(TinkerCommons.obsidianPane.get());

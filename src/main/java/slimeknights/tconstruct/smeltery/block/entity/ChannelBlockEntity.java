@@ -24,8 +24,8 @@ import slimeknights.mantle.util.WeakConsumerWrapper;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.fluid.FillOnlyFluidHandler;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.block.ChannelBlock;
-import slimeknights.tconstruct.smeltery.block.ChannelBlock.ChannelConnection;
+import slimeknights.tconstruct.smeltery.block.channel.AbstractChannelBlock;
+import slimeknights.tconstruct.smeltery.block.channel.ChannelConnection;
 import slimeknights.tconstruct.smeltery.block.entity.tank.ChannelSideTank;
 import slimeknights.tconstruct.smeltery.block.entity.tank.ChannelTank;
 import slimeknights.tconstruct.smeltery.network.ChannelFlowPacket;
@@ -108,7 +108,7 @@ public class ChannelBlockEntity extends MantleBlockEntity implements IFluidPacke
       }
       // side tanks keep track of which side inserts
       if (side != Direction.DOWN) {
-        ChannelConnection connection = getBlockState().getValue(ChannelBlock.DIRECTION_MAP.get(side));
+        ChannelConnection connection = getBlockState().getValue(AbstractChannelBlock.DIRECTION_MAP.get(side));
         if (connection == ChannelConnection.IN) {
           return sideHandlers.computeIfAbsent(side, s -> LazyOptional.of(() -> sideTanks.get(s))).cast();
         }
@@ -167,11 +167,11 @@ public class ChannelBlockEntity extends MantleBlockEntity implements IFluidPacke
 	public void refreshNeighbor(BlockState state, Direction side) {
 		// for below, only thing that needs to invalidate is if we are no longer connected down, remove the listener below
 		if (side == Direction.DOWN) {
-			if (!state.getValue(ChannelBlock.DOWN)) {
+			if (!state.getValue(AbstractChannelBlock.DOWN_1WAY)) {
 				neighborTanks.remove(Direction.DOWN);
 			}
 		} else if (side != Direction.UP) {
-			ChannelConnection connection = state.getValue(ChannelBlock.DIRECTION_MAP.get(side));
+			ChannelConnection connection = state.getValue(AbstractChannelBlock.DIRECTION_MAP.get(side));
 			// if no longer flowing out, remove the neighbor tank
 			if (connection != ChannelConnection.OUT) {
 				neighborTanks.remove(Direction.DOWN);
@@ -270,9 +270,9 @@ public class ChannelBlockEntity extends MantleBlockEntity implements IFluidPacke
 		}
 		// down is boolean, sides is multistate
 		if(side == Direction.DOWN) {
-			return this.getBlockState().getValue(ChannelBlock.DOWN);
+			return this.getBlockState().getValue(AbstractChannelBlock.DOWN_1WAY);
 		}
-		return this.getBlockState().getValue(ChannelBlock.DIRECTION_MAP.get(side)) == ChannelConnection.OUT;
+		return this.getBlockState().getValue(AbstractChannelBlock.DIRECTION_MAP.get(side)) == ChannelConnection.OUT;
 	}
 
 	/**
@@ -283,7 +283,7 @@ public class ChannelBlockEntity extends MantleBlockEntity implements IFluidPacke
 	private static int countOutputs(BlockState state) {
 		int count = 0;
 		for (Direction direction : Plane.HORIZONTAL) {
-			if (state.getValue(ChannelBlock.DIRECTION_MAP.get(direction)) == ChannelConnection.OUT) {
+			if (state.getValue(AbstractChannelBlock.DIRECTION_MAP.get(direction)) == ChannelConnection.OUT) {
 				count++;
 			}
 		}
@@ -311,7 +311,7 @@ public class ChannelBlockEntity extends MantleBlockEntity implements IFluidPacke
 		if (!fluid.isEmpty()) {
 			// if we have down and can flow, skip sides
 			boolean hasFlown = false;
-			if(state.getValue(ChannelBlock.DOWN)) {
+			if(state.getValue(AbstractChannelBlock.DOWN_1WAY)) {
 				hasFlown = trySide(Direction.DOWN, FaucetBlockEntity.MB_PER_TICK);
 			}
 			// try sides if we have any sides

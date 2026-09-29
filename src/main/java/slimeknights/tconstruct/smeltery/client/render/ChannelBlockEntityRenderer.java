@@ -18,8 +18,8 @@ import slimeknights.mantle.client.render.FluidCuboid;
 import slimeknights.mantle.client.render.FluidRenderer;
 import slimeknights.mantle.client.render.MantleRenderTypes;
 import slimeknights.mantle.client.render.RenderingHelper;
-import slimeknights.tconstruct.smeltery.block.ChannelBlock;
-import slimeknights.tconstruct.smeltery.block.ChannelBlock.ChannelConnection;
+import slimeknights.tconstruct.smeltery.block.channel.AbstractChannelBlock;
+import slimeknights.tconstruct.smeltery.block.channel.ChannelConnection;
 import slimeknights.tconstruct.smeltery.block.entity.ChannelBlockEntity;
 
 public class ChannelBlockEntityRenderer implements BlockEntityRenderer<ChannelBlockEntity> {
@@ -58,7 +58,7 @@ public class ChannelBlockEntityRenderer implements BlockEntityRenderer<ChannelBl
 		Direction centerFlow = Direction.UP;
 		for (Direction direction : Plane.HORIZONTAL) {
 			// check if we have that side on the block
-			ChannelConnection connection = state.getValue(ChannelBlock.DIRECTION_MAP.get(direction));
+			ChannelConnection connection = state.getValue(AbstractChannelBlock.DIRECTION_MAP.get(direction));
 			if (connection.canFlow()) {
 				// apply rotation for the side
 				isRotated = RenderingHelper.applyRotation(matrices, direction);
@@ -106,7 +106,7 @@ public class ChannelBlockEntityRenderer implements BlockEntityRenderer<ChannelBl
 		}
 
 		// render flow downwards
-		if (state.getValue(ChannelBlock.DOWN) && te.isFlowing(Direction.DOWN)) {
+		if (state.getValue(AbstractChannelBlock.DOWN_1WAY) && te.isFlowing(Direction.DOWN)) {
 			cube = model.down();
 			FluidRenderer.renderCuboid(matrices, builder, cube, 0, still, flowing, color, light, false);
 
