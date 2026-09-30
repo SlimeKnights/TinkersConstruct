@@ -18,11 +18,11 @@ public sealed interface ChannelConnection extends StringRepresentable {
   boolean canFlow();
 
   /**
-   * Gets the opposite flow direction to this side
-   *
-   * @return Opposite direction
+   * Gets this channel connection as a two-way connection (for flow direction normalisation)
+   * @return This connection as {@link TwoWay}
    */
-  ChannelConnection reverseFlow();
+  TwoWay asTwoWay();
+
   /**
    * Gets the opposite flow direction to this side as a two-way
    *
@@ -66,6 +66,11 @@ public sealed interface ChannelConnection extends StringRepresentable {
 
     public boolean canFlow() {
       return this == IN || this == OUT;
+    }
+
+    @Override
+    public TwoWay asTwoWay() {
+      return this;
     }
 
     public TwoWay reverseFlow() {
@@ -118,8 +123,8 @@ public sealed interface ChannelConnection extends StringRepresentable {
     }
 
     @Override
-    public OneWay reverseFlow() {
-      return this;
+    public TwoWay asTwoWay() {
+      return this == TRUE ? TwoWay.OUT : TwoWay.NONE;
     }
 
     @Override
