@@ -346,9 +346,8 @@ public abstract class AbstractChannelBlock
 
     // if we have changes, apply them and return success
     if (newState != null) {
-      Direction finalSide = side;
-      if (!world.isClientSide) {
-        BlockEntityHelper.get(ChannelBlockEntity.class, world, pos).ifPresent(te -> te.refreshNeighbor(newState, finalSide));
+      if (!world.isClientSide && world.getBlockEntity(pos) instanceof ChannelBlockEntity te) {
+        te.refreshNeighbor(newState, side);
       }
       world.setBlockAndUpdate(pos, newState);
       return InteractionResult.SUCCESS;
@@ -360,11 +359,10 @@ public abstract class AbstractChannelBlock
   @SuppressWarnings("deprecation")
   @Override
   @Deprecated
-  public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
-    super.neighborChanged(state, worldIn, pos, blockIn, fromPos, isMoving);
-    if (!worldIn.isClientSide) {
-      BlockEntityHelper.get(ChannelBlockEntity.class, worldIn, pos)
-        .ifPresent(te -> te.removeCachedNeighbor(Util.directionFromOffset(pos, fromPos)));
+  public void neighborChanged(BlockState state, Level world, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
+    super.neighborChanged(state, world, pos, blockIn, fromPos, isMoving);
+    if (!world.isClientSide && world.getBlockEntity(pos) instanceof ChannelBlockEntity be) {
+      be.removeCachedNeighbor(Util.directionFromOffset(pos, fromPos));
     }
   }
 
