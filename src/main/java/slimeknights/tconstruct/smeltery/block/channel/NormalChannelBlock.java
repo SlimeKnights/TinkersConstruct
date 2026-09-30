@@ -77,14 +77,14 @@ public class NormalChannelBlock extends AbstractChannelBlock {
 
   @Override
   @SuppressWarnings("deprecation")
-  public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
-    super.neighborChanged(state, worldIn, pos, blockIn, fromPos, isMoving);
-    if (!worldIn.isClientSide) {
-      boolean isPowered = worldIn.hasNeighborSignal(pos);
+  public void neighborChanged(BlockState state, Level world, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
+    super.neighborChanged(state, world, pos, blockIn, fromPos, isMoving);
+    if (!world.isClientSide) {
+      boolean isPowered = world.hasNeighborSignal(pos);
       if (isPowered != state.getValue(POWERED)) {
         state = state.setValue(POWERED, isPowered)
-          .setValue(DOWN_1WAY, isPowered && canConnect(worldIn, pos, Direction.DOWN) ? OneWay.TRUE : OneWay.FALSE);
-        worldIn.setBlock(pos, state, Block.UPDATE_CLIENTS);
+          .setValue(DOWN_1WAY, isPowered && canConnect(world, pos, Direction.DOWN) ? OneWay.TRUE : OneWay.FALSE);
+        world.setBlock(pos, state, Block.UPDATE_CLIENTS);
       }
     }
   }

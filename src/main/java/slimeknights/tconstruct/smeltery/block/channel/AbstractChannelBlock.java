@@ -44,6 +44,7 @@ import static slimeknights.mantle.datagen.MantleTags.Blocks.ATTACHED_GAUGES;
 import static slimeknights.tconstruct.common.TinkerTags.Blocks.CHANNELS;
 import static slimeknights.tconstruct.smeltery.block.channel.AbstractChannelBlock.ConnectionType.NONE;
 import static slimeknights.tconstruct.smeltery.block.channel.AbstractChannelBlock.ConnectionType.ONE_WAY;
+import static slimeknights.tconstruct.smeltery.block.channel.AbstractChannelBlock.ConnectionType.TWO_WAY;
 
 public abstract class AbstractChannelBlock
   extends Block implements EntityBlock {
@@ -87,16 +88,21 @@ public abstract class AbstractChannelBlock
     this.shapes = createShapes();
   }
 
-  /**
-   * Gets the default value for the property in a given direction.
-   *
-   * @param dir The direction to get for
-   * @param on If this should be a default 'on' value, otherwise is a default 'off' value
-   * @return a default value for the enum property
-   */
-  protected static <C extends Enum<C> & ChannelConnection> C getDefaultValue(EnumProperty<C> dir, boolean on) {
-    var values = dir.getValueClass().getEnumConstants();
-    return values[on ? values.length - 1 : 0];
+
+  public TwoWay getCurrentFlowOnSide(Direction side, BlockState state) {
+    return switch (side) {
+      case UP -> switch (this.up) {
+        case NONE -> TwoWay.NONE;
+        case ONE_WAY -> state.getValue(UP_1WAY).asTwoWay();
+        case TWO_WAY -> state.getValue(UP_2WAY);
+      };
+      case DOWN -> switch (this.down) {
+        case NONE -> TwoWay.NONE;
+        case ONE_WAY -> state.getValue(DOWN_1WAY).asTwoWay();
+        case TWO_WAY -> state.getValue(DOWN_2WAY);
+      };
+      default -> (TwoWay) state.getValue(getProperty(side));
+    };
   }
 
   /**
