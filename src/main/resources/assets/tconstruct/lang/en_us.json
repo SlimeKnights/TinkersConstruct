@@ -1323,7 +1323,11 @@
   "block.tconstruct.channel.side.out": "Set side to flow outwards",
   "block.tconstruct.channel.side.none": "Disallowed flowing on side",
   "block.tconstruct.channel.down.out": "Allowed flowing down",
+  "block.tconstruct.channel.down.in": "Set down to flow up",
   "block.tconstruct.channel.down.none": "Disallowed flowing down",
+  "block.tconstruct.channel.up.out": "Allowed flowing up",
+  "block.tconstruct.channel.up.in": "Set up to flow down",
+  "block.tconstruct.channel.up.none": "Disallowed flowing up",
 
   "death.attack.tconstruct.smeltery_heat": "%1$s tried to make molten player",
   "death.attack.tconstruct.smeltery_heat.player": "%1$s tried to make molten player whilst fighting %2$s",

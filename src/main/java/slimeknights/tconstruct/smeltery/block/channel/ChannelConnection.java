@@ -3,25 +3,13 @@ package slimeknights.tconstruct.smeltery.block.channel;
 import net.minecraft.util.StringRepresentable;
 import org.apache.commons.lang3.NotImplementedException;
 
+import java.nio.channels.Channel;
 import java.util.Locale;
 
 /**
  * Base interface for possible channel connections on a side.
- * Extenders must be enums, and the first value in the enum should be a default 'disabled' state, with the last a default 'enabled' state.
- * @param <E> Self type
  */
-public interface ChannelConnection<E extends Enum<E> & ChannelConnection<E>> extends StringRepresentable {
-
-  static <C extends Enum<C> & ChannelConnection<C>> C getDefaultOn(Class<C> clss) {
-    var all = clss.getEnumConstants();
-    return all[all.length - 1];
-  }
-
-  static <C extends Enum<C> & ChannelConnection<C>> C getDefaultOff(Class<C> clss) {
-    var all = clss.getEnumConstants();
-    return all[0];
-  }
-
+public sealed interface ChannelConnection extends StringRepresentable {
   /**
    * Checks if the channel can flow on this side
    *
@@ -34,22 +22,35 @@ public interface ChannelConnection<E extends Enum<E> & ChannelConnection<E>> ext
    *
    * @return Opposite direction
    */
-  E reverseFlow();
+  ChannelConnection reverseFlow();
+  /**
+   * Gets the opposite flow direction to this side as a two-way
+   *
+   * @return Opposite direction
+   */
+  TwoWay reverseFlowTwoWay();
 
   /**
-   * Gets the next side in the cycle for interaction
-   *
+   * Gets the next side in the cycle for interaction.
+   * <br/>
+   * Should return <b>an object of same class as {@code this}</b>
    * @param reverse If true, reverse cycle order
    * @return Next side to cycle
    */
-  E getNext(boolean reverse);
+  ChannelConnection getNext(boolean reverse);
+
+  /** Helper for calling the above method without the unchecked warning */
+  @SuppressWarnings("unchecked")
+  static <C extends ChannelConnection> C getNext(ChannelConnection c, boolean reverse) {
+    return (C) c.getNext(reverse);
+  }
 
   @Override
   default String getSerializedName() {
     return this.toString().toLowerCase(Locale.US);
   }
 
-  enum TwoWay implements ChannelConnection<TwoWay> {
+  enum TwoWay implements ChannelConnection {
     /**
      * No connection on this side
      */
@@ -75,6 +76,11 @@ public interface ChannelConnection<E extends Enum<E> & ChannelConnection<E>> ext
       };
     }
 
+    @Override
+    public TwoWay reverseFlowTwoWay() {
+      return reverseFlow();
+    }
+
     public TwoWay getNext(boolean reverse) {
       if (reverse) {
         return switch (this) {
@@ -96,7 +102,7 @@ public interface ChannelConnection<E extends Enum<E> & ChannelConnection<E>> ext
    * For connections that are single mode (ie can only push fluid).
    * Names are for serialization level compatibility with {@link net.minecraft.world.level.block.state.properties.BooleanProperty BooleanProperty}.
    */
-  enum OneWay implements ChannelConnection<OneWay> {
+  enum OneWay implements ChannelConnection {
     /**
      * Does not flow this way
      */
@@ -117,20 +123,13 @@ public interface ChannelConnection<E extends Enum<E> & ChannelConnection<E>> ext
     }
 
     @Override
+    public TwoWay reverseFlowTwoWay() {
+      return this == TRUE ? TwoWay.IN : TwoWay.NONE;
+    }
+
+    @Override
     public OneWay getNext(boolean reverse) {
       return this == TRUE ? FALSE : TRUE;
     }
-  }
-
-  /** Enum for fudging generics when a channel cannot connect in that direction. */
-  enum NoWay implements ChannelConnection<NoWay> {;
-    @Override
-    public boolean canFlow() { throw new NotImplementedException("Void channel connection has no members"); }
-
-    @Override
-    public NoWay reverseFlow() {throw new NotImplementedException("Void channel connection has no members"); }
-
-    @Override
-    public NoWay getNext(boolean reverse) { throw new NotImplementedException("Void channel connection has no members"); }
   }
 }
