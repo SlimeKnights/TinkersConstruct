@@ -20,6 +20,8 @@ import slimeknights.mantle.client.screen.book.BookScreen;
 import slimeknights.mantle.client.screen.book.element.BookElement;
 import slimeknights.mantle.client.screen.book.element.TextComponentElement;
 import slimeknights.mantle.client.screen.book.element.TextElement;
+import slimeknights.mantle.data.loadable.Loadables;
+import slimeknights.mantle.fluid.tooltip.FluidTooltipHandler;
 import slimeknights.mantle.util.html.HtmlElement;
 import slimeknights.mantle.util.html.HtmlGroup;
 import slimeknights.mantle.util.html.HtmlSerializable;
@@ -129,22 +131,43 @@ public class FluidEffectContent extends PageContent {
 
   @Override
   public HtmlSerializable toHTML(BookData book) {
-    HtmlElement div = HtmlElement.div()
-      .add(HtmlElement.p().add(text).style("height", 64).style("padding-left", 64));
+    HtmlElement div = HtmlElement.div().classes("fluid-effect").add(makeTitleHTML().classes("title"));
+    // build fluid info
+    HtmlElement icon = HtmlElement.div().classes("item-icon");
+    div.add(HtmlElement.div().classes("item-with-text").add(
+      icon,
+      HtmlElement.div().classes("item-text").add(HtmlElement.p().add(text))
+    ));
+    // if we have a fluid, add its tooltip to the icon
+    if (!fluids.isEmpty()) {
+      HtmlGroup fluidTooltip = HtmlGroup.indent();
+      FluidStack fluid = this.fluids.get(0);
+      fluidTooltip.add(HtmlElement.span().add(HTMLUtils.toHtml(fluid.getDisplayName())));
+      List<Component> tooltip = new ArrayList<>();
+      FluidTooltipHandler.appendMaterialNoShift(fluid.getFluid(), fluid.getAmount(), tooltip);
+      tooltip.add(FluidTooltipHandler.formatModName(Loadables.FLUID.getKey(fluid.getFluid())));
+      for (Component component : tooltip) {
+        fluidTooltip.add(HTMLUtils.toHtml(component));
+      }
+      icon.minetip(fluidTooltip);
+    }
 
+    // add effects
     addHtmlList(div, KEY_ENTITY_EFFECTS, entity, entityComponents);
     addHtmlList(div, KEY_BLOCK_EFFECTS, block, blockComponents);
 
-    return HtmlGroup.indent().add(makeTitleHTML()).add(div);
+    return div;
   }
 
   /** Adds an effect list to the HTML */
   private void addHtmlList(HtmlElement div, String key, @Nullable String[] strings, List<Component> components) {
+    HtmlElement root = HtmlElement.div().classes("effect-list");
+    div.add(root);
     if (components.isEmpty() && strings == null) return;
 
-    // append hardcoded text
-    HtmlElement list = HtmlElement.ul().style("margin-top", 8).classes("prop-list");
+    HtmlElement list = HtmlElement.ul().classes("prop-list");
     if (strings != null) {
+      // append hardcoded text
       list.add(HTMLUtils.toListItems(strings));
     } else {
       // append generated text
@@ -152,8 +175,6 @@ public class FluidEffectContent extends PageContent {
     }
 
     // add elements to final div
-    div.add(HtmlElement.div().style("height", 128).add(
-      HtmlElement.p().add(I18n.get(key)).classes("underline"), list
-    ));
+    root.add(HtmlElement.p().add(I18n.get(key)).classes("underline"), list);
   }
 }
