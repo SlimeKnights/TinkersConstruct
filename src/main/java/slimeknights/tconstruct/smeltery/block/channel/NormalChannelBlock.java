@@ -7,6 +7,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -73,6 +74,21 @@ public class NormalChannelBlock extends AbstractChannelBlock {
       }
     }
     return shapes;
+  }
+
+  @Override
+  protected Direction getHitSide(Vec3 hitVec, Direction side) {
+    // map X and Z coords to a direction
+    if (hitVec.z() < 0.25f) {
+      side = Direction.NORTH;
+    } else if (hitVec.z() > 0.75f) {
+      side = Direction.SOUTH;
+    } else if (hitVec.x() < 0.25f) {
+      side = Direction.WEST;
+    } else if (hitVec.x() > 0.75f) {
+      side = Direction.EAST;
+    }
+    return side;
   }
 
   @Override

@@ -1,12 +1,7 @@
 {
     "multipart": [
-        {   "when": { "down": "false" },
-            "apply": { "model": "tconstruct:block/smeltery/channel/center" }
-        },
-        {   "when": { "down": "true" },
-            "apply": { "model": "tconstruct:block/smeltery/channel/center_out" }
-        },
-        
+        { "apply": { "model": "tconstruct:block/smeltery/slab/bricks/slab" } },
+
         {   "when": { "north": "none" },
             "apply": { "model": "tconstruct:block/smeltery/channel/side_wall", "uvlock": true }
         },
