@@ -935,7 +935,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(new SmeltingModule(RecipeType.SMELTING, 10, InventoryModule.builder().pattern(pattern("fire")).slotsPerLevel(1)));
 
     // internal
-    buildModifier(ModifierIds.overslimeFriend).showInTooltips(ShowInTooltips.ADVANCED);
+    buildModifier(ModifierIds.overslimeFriend).showInTooltips(ShowInTooltips.ADVANCED).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
     buildModifier(ModifierIds.snowBoots).addModule(new VolatileFlagModule(ModifiableArmorItem.SNOW_BOOTS)).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
     buildModifier(TinkerModifiers.edible).priority(40).showInTooltips(ShowInTooltips.NEVER)
       .addModule(EdibleModule.INSTANCE)

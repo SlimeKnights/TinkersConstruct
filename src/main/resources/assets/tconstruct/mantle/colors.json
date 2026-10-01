@@ -247,6 +247,7 @@
     "flamestance":   "#C53439",
     "entangled":     "#14B485",
     "war_charge":    "#A1A1A1",
+    "overslime_friend": "#71DC85",
 
     "__traits_melee__": null,
     "airborne":     "#00F4DA",
