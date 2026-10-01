@@ -1,9 +1,7 @@
 package slimeknights.tconstruct.smeltery.block.channel;
 
 import net.minecraft.util.StringRepresentable;
-import org.apache.commons.lang3.NotImplementedException;
 
-import java.nio.channels.Channel;
 import java.util.Locale;
 
 /**
@@ -22,13 +20,6 @@ public sealed interface ChannelConnection extends StringRepresentable {
    * @return This connection as {@link TwoWay}
    */
   TwoWay asTwoWay();
-
-  /**
-   * Gets the opposite flow direction to this side as a two-way
-   *
-   * @return Opposite direction
-   */
-  TwoWay reverseFlowTwoWay();
 
   /**
    * Gets the next side in the cycle for interaction.
@@ -73,17 +64,17 @@ public sealed interface ChannelConnection extends StringRepresentable {
       return this;
     }
 
+    /**
+     * Gets the opposite flow direction to this side
+     *
+     * @return Opposite direction
+     */
     public TwoWay reverseFlow() {
       return switch (this) {
         case IN -> OUT;
         case OUT -> IN;
         default -> NONE;
       };
-    }
-
-    @Override
-    public TwoWay reverseFlowTwoWay() {
-      return reverseFlow();
     }
 
     public TwoWay getNext(boolean reverse) {
@@ -113,7 +104,7 @@ public sealed interface ChannelConnection extends StringRepresentable {
      */
     FALSE,
     /**
-     * Flows this way
+     * Flows out this way
      */
     TRUE;
 
@@ -125,11 +116,6 @@ public sealed interface ChannelConnection extends StringRepresentable {
     @Override
     public TwoWay asTwoWay() {
       return this == TRUE ? TwoWay.OUT : TwoWay.NONE;
-    }
-
-    @Override
-    public TwoWay reverseFlowTwoWay() {
-      return this == TRUE ? TwoWay.IN : TwoWay.NONE;
     }
 
     @Override

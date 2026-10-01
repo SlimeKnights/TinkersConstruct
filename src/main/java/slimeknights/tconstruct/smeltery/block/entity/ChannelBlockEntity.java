@@ -3,7 +3,6 @@ package slimeknights.tconstruct.smeltery.block.entity;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Direction.Plane;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -25,9 +24,6 @@ import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.fluid.FillOnlyFluidHandler;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.channel.AbstractChannelBlock;
-import slimeknights.tconstruct.smeltery.block.channel.AbstractChannelBlock.ConnectionType;
-import slimeknights.tconstruct.smeltery.block.channel.ChannelConnection;
-import slimeknights.tconstruct.smeltery.block.channel.ChannelConnection.OneWay;
 import slimeknights.tconstruct.smeltery.block.channel.ChannelConnection.TwoWay;
 import slimeknights.tconstruct.smeltery.block.entity.tank.ChannelSideTank;
 import slimeknights.tconstruct.smeltery.block.entity.tank.ChannelTank;
@@ -53,7 +49,7 @@ public class ChannelBlockEntity extends MantleBlockEntity implements IFluidPacke
 	private final LazyOptional<IFluidHandler> topHandler = LazyOptional.of(() -> new FillOnlyFluidHandler(tank));
 	/** Tanks for inserting on each side */
 	private final Map<Direction,IFluidHandler> sideTanks = Util.make(new EnumMap<>(Direction.class), map -> {
-		for (Direction direction : Plane.HORIZONTAL) {
+		for (Direction direction : Direction.values()) {
 			map.put(direction, new ChannelSideTank(this, tank, direction));
 		}
 	});
@@ -110,25 +106,25 @@ public class ChannelBlockEntity extends MantleBlockEntity implements IFluidPacke
 	public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction side) {
 		// top side gets the insert direct
     if (capability == ForgeCapabilities.FLUID_HANDLER) {
-      if (side == null || side == Direction.UP) {  // TODO: remove UP/DOWN hardcoding from here
+      if (side == null) return topHandler.cast();
+
+      AbstractChannelBlock block = ((AbstractChannelBlock) this.getBlockState().getBlock());
+      if ((side == Direction.UP && block.up == NONE) || (side == Direction.DOWN && block.down == NONE)) {
         return topHandler.cast();
       }
-      // side tanks keep track of which side inserts
-      if (side != Direction.DOWN) {
-        BlockState state = getBlockState();
-        ChannelConnection connection = state.getValue(((AbstractChannelBlock) state.getBlock()).getProperty(side));
-        if (connection.asTwoWay() == TwoWay.IN) {
+      // two-way tanks keep track of which side inserts
+      switch (block.getCurrentFlowOnSide(side, getBlockState())) {
+        case IN -> {
           return sideHandlers.computeIfAbsent(side, s -> LazyOptional.of(() -> sideTanks.get(s))).cast();
         }
-        // for out, return an empty fluid handler so the block we are pouring into knows we support fluids, even though we disallow any interaction
-        // this will get invalidated when the connection goes back to in later
-        if (connection.asTwoWay() == TwoWay.OUT) {
+        case OUT -> {
+          // for out, return an empty fluid handler so the block we are pouring into knows we support fluids, even though we disallow any interaction
+          // this will get invalidated when the connection goes back to in later
           return emptySideHandler.computeIfAbsent(side, s -> LazyOptional.of(() -> EmptyFluidHandler.INSTANCE)).cast();
         }
-      }
+      };
     }
-
-		return super.getCapability(capability, side);
+    return super.getCapability(capability, side);
 	}
 
 	/**
@@ -175,37 +171,26 @@ public class ChannelBlockEntity extends MantleBlockEntity implements IFluidPacke
 	public void refreshNeighbor(BlockState state, Direction side) {
     var block = ((AbstractChannelBlock) state.getBlock());
 
-    // no connections on these sides
+    // no connections on these sides. there is no harm in running the following logic, but it won't do anything.
     if (side == Direction.DOWN && block.down == NONE || side == Direction.UP && block.up == NONE)
       return;
 
-		if (side == Direction.DOWN && block.down == ConnectionType.ONE_WAY) {
-			if (state.getValue(AbstractChannelBlock.DOWN_1WAY) != OneWay.TRUE) {
-				neighborTanks.remove(Direction.DOWN);
-			}
-		} else if (side == Direction.UP && block.up == ConnectionType.ONE_WAY) {
-      if (state.getValue(AbstractChannelBlock.UP_1WAY) != OneWay.TRUE) {
-        neighborTanks.remove(Direction.UP);
+    TwoWay connection = block.getCurrentFlowOnSide(side, state);
+    // if no longer flowing out, remove the neighbor tank
+    if (connection != TwoWay.OUT) {
+      neighborTanks.remove(side);
+      // remove the empty handler, mostly so the neighbor knows to update
+      LazyOptional<IFluidHandler> handler = emptySideHandler.remove(side);
+      if (handler != null) {
+        handler.invalidate();
       }
-    } else {
-			ChannelConnection connection = state.getValue(block.getProperty(side));
-			// if no longer flowing out, remove the neighbor tank
-			if (connection.asTwoWay() != TwoWay.OUT) {
-        // TODO: why down?  https://discord.com/channels/381483562576379907/381504018834522123/1554860003809296488
-				neighborTanks.remove(Direction.DOWN);
-				// remove the empty handler, mostly so the neighbor knows to update
-				LazyOptional<IFluidHandler> handler = emptySideHandler.remove(side);
-				if (handler != null) {
-					handler.invalidate();
-				}
-			}
-			// remove the side handler, if we changed from out or from in the handler is no longer correct
-			if (connection.asTwoWay() != TwoWay.IN) {
-				LazyOptional<IFluidHandler> handler = sideHandlers.remove(side);
-				if (handler != null) {
-					handler.invalidate();
-				}
-			}
+    }
+    // remove the side handler, if we changed from out or from in the handler is no longer correct
+    if (connection != TwoWay.IN) {
+      LazyOptional<IFluidHandler> handler = sideHandlers.remove(side);
+      if (handler != null) {
+        handler.invalidate();
+      }
 		}
 	}
 
