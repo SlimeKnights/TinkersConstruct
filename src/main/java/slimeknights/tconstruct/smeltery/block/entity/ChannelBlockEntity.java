@@ -70,7 +70,11 @@ public class ChannelBlockEntity extends MantleBlockEntity implements IFluidPacke
 	private final byte[] isFlowing = new byte[6];
 
 	public ChannelBlockEntity(BlockPos pos, BlockState state) {
-		this(TinkerSmeltery.channel.get(), pos, state);
+		this(true, pos, state);
+	}
+
+	public ChannelBlockEntity(boolean renderFluid, BlockPos pos, BlockState state) {
+		this(renderFluid ? TinkerSmeltery.channel.get() : TinkerSmeltery.channelNoRender.get(), pos, state);
 	}
 
 	protected ChannelBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
@@ -122,7 +126,7 @@ public class ChannelBlockEntity extends MantleBlockEntity implements IFluidPacke
           // this will get invalidated when the connection goes back to in later
           return emptySideHandler.computeIfAbsent(side, s -> LazyOptional.of(() -> EmptyFluidHandler.INSTANCE)).cast();
         }
-      };
+      }
     }
     return super.getCapability(capability, side);
 	}

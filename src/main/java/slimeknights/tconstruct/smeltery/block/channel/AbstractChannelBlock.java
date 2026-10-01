@@ -162,7 +162,7 @@ public abstract class AbstractChannelBlock
    * @return True if the channel can connect
    */
   private boolean canConnect(LevelAccessor world, Direction side, BlockState facingState, BlockPos facingPos) {
-    if (facingState.getBlock() == this) {
+    if (RegistryHelper.contains(CHANNELS, facingState.getBlock())) {
       return true;
     }
     return isFluidHandler(world, side.getOpposite(), facingPos);
@@ -208,7 +208,7 @@ public abstract class AbstractChannelBlock
 		TwoWay connection = TwoWay.NONE;
     BlockPos placedOn = pos.relative(side.getOpposite());
     // on another channel means in or out
-    if (world.getBlockState(placedOn).is(this)) {
+    if (world.getBlockState(placedOn).is(CHANNELS)) {
       Player player = context.getPlayer();
       connection = player != null && player.isShiftKeyDown() ? TwoWay.IN : TwoWay.OUT;
     } else if (isFluidHandler(world, side, placedOn)) {
@@ -263,8 +263,15 @@ public abstract class AbstractChannelBlock
 
   @Nullable
   private BlockState interactWithSide(BlockState state, Level world, BlockPos pos, Player player, Direction side) {
-    // if we cannot connect in this direction, ignore the connection
-    if ((side == Direction.DOWN && this.down == NONE) || (side == Direction.UP && this.up == NONE)) return state;
+    // if we cannot connect in this direction, we try the opposite if that is connectable.
+    if (side == Direction.DOWN && this.down == NONE) {
+      if (this.up != NONE) side = Direction.UP;
+      else return state;
+    }
+    if (side == Direction.UP && this.up == NONE) {
+      if (this.down != NONE) side = Direction.DOWN;
+      else return state;
+    }
 
     if (side == Direction.DOWN && this.down == ONE_WAY) {
       if (!state.getValue(DOWN_1WAY).canFlow() && canConnect(world, pos, side)) {
@@ -334,23 +341,13 @@ public abstract class AbstractChannelBlock
 
     // default to using the clicked side, though null (is that valid?) and up act as down
     Direction side = hitFace == Direction.UP ? Direction.DOWN : hitFace;
-    if (player.isShiftKeyDown() && side != Direction.DOWN) {
+    if (player.isShiftKeyDown()) {
       side = side.getOpposite();
     }
 
     // TODO: this needs testing with channels that can flow up/down
     // try each of the sides, if clicked use that
-    Vec3 hitVec = hit.getLocation().subtract(pos.getX(), pos.getY(), pos.getZ());
-    // map X and Z coords to a direction
-    if (hitVec.z() < 0.25f) {
-      side = Direction.NORTH;
-    } else if (hitVec.z() > 0.75f) {
-      side = Direction.SOUTH;
-    } else if (hitVec.x() < 0.25f) {
-      side = Direction.WEST;
-    } else if (hitVec.x() > 0.75f) {
-      side = Direction.EAST;
-    }
+    side = getHitSide(hit.getLocation().subtract(pos.getX(), pos.getY(), pos.getZ()), side);
 
     // toggle the side clicked
     BlockState newState = interactWithSide(state, world, pos, player, side);
@@ -367,6 +364,8 @@ public abstract class AbstractChannelBlock
     return InteractionResult.PASS;
   }
 
+  protected abstract Direction getHitSide(Vec3 hitVec, Direction side);
+
   @SuppressWarnings("deprecation")
   @Override
   @Deprecated
@@ -381,6 +380,7 @@ public abstract class AbstractChannelBlock
   @Deprecated
   @SuppressWarnings("deprecation")
   public boolean skipRendering(BlockState state, BlockState adjacentBlockState, Direction side) {
+    // only skip rendering if the other block is exactly the same channel type (different channel types have different models)
     return side.getAxis().isHorizontal() && adjacentBlockState.is(this) && state.getValue(getProperty(side))
       .canFlow() && adjacentBlockState.getValue(getProperty(side.getOpposite())).canFlow();
   }

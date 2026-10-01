@@ -1,12 +1,14 @@
 package slimeknights.tconstruct.smeltery.block.channel;
 
+import net.minecraft.core.Direction;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class SlabChannelBlock extends NormalChannelBlock {
+public class SlabChannelBlock extends AbstractChannelBlock {
   public SlabChannelBlock(Properties props) {
-    super(props);
+    super(props, ConnectionType.NONE, ConnectionType.NONE);
   }
 
   @Override
@@ -44,5 +46,20 @@ public class SlabChannelBlock extends NormalChannelBlock {
       }
     }
     return shapes;
+  }
+
+  @Override
+  protected Direction getHitSide(Vec3 hitVec, Direction side) {
+    // map X and Z coords to a direction
+    boolean northish = hitVec.z < 0.5;
+    boolean westish = hitVec.x < 0.5;
+
+    var x = Math.abs(hitVec.x - 0.5);
+    var z = Math.abs(hitVec.z - 0.5);
+
+    if (x > z)
+      return westish ? Direction.WEST : Direction.EAST;
+    else
+      return northish ? Direction.NORTH : Direction.SOUTH;
   }
 }
