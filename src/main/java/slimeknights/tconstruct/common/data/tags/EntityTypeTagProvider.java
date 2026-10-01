@@ -80,6 +80,13 @@ public class EntityTypeTagProvider extends EntityTypeTagsProvider {
     this.tag(TinkerTags.EntityTypes.MELTABLE_SLIME).add(EntityType.SLIME);
     this.tag(TinkerTags.EntityTypes.MELTABLE_MAGMA).add(EntityType.MAGMA_CUBE);
 
+    // ancient tools
+    this.tag(TinkerTags.EntityTypes.SPAWNS_WITH_WAR_PICK).add(EntityType.ZOMBIE_VILLAGER, EntityType.VINDICATOR);
+    this.tag(TinkerTags.EntityTypes.SPAWNS_WITH_MELTING_PAN).add(EntityType.ZOMBIE, EntityType.ZOMBIE_VILLAGER, EntityType.HUSK);
+    this.tag(TinkerTags.EntityTypes.SPAWNS_WITH_SWASHER_DROWNED).add(EntityType.DROWNED);
+    this.tag(TinkerTags.EntityTypes.SPAWNS_WITH_SWASHER_WITHER_SKELETON).add(EntityType.WITHER_SKELETON);
+    this.tag(TinkerTags.EntityTypes.SPAWNS_WITH_BATTLE_SIGN).addTag(TinkerTags.EntityTypes.PIGLINS);
+
     // behavior
     this.tag(EntityTypeTags.FROG_FOOD).add(TinkerWorld.skySlimeEntity.get(), TinkerWorld.enderSlimeEntity.get(), TinkerWorld.terracubeEntity.get());
     this.tag(EntityTypeTags.ARROWS).add(TinkerTools.materialArrow.get());

@@ -1,8 +1,5 @@
 {
-  "entity": [
-    "minecraft:zombie_villager",
-    "minecraft:vindicator"
-  ],
+  "entity": "#tconstruct:spawns_with/war_pick",
   "equip": {
     "chance": 0.05,
     "materials": [
