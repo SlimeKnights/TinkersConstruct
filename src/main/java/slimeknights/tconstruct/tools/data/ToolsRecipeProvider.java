@@ -17,6 +17,7 @@ import net.minecraftforge.common.crafting.DifferenceIngredient;
 import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.recipe.data.ItemNameIngredient;
+import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.mantle.recipe.ingredient.PotionDisplayIngredient;
 import slimeknights.mantle.recipe.ingredient.SizedIngredient;
 import slimeknights.tconstruct.TConstruct;
@@ -41,6 +42,7 @@ import slimeknights.tconstruct.library.recipe.ingredient.MaterialIngredient;
 import slimeknights.tconstruct.library.recipe.ingredient.MaterialValueIngredient;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.material.MaterialsConsumerBuilder;
+import slimeknights.tconstruct.library.recipe.partbuilder.ItemPartRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.library.recipe.partbuilder.recycle.PartBuilderRecycleBuilder;
@@ -334,6 +336,12 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
       .setPart(TinkerToolParts.laces, true)
       .setItemCost(4)
       .save(consumer, location(folder + "slime_boots"));
+
+    // duplicate elytra with dragon scales
+    ItemPartRecipeBuilder.item(Pattern.fromItem(TinkerToolParts.maille), ItemOutput.fromItem(Items.ELYTRA))
+      .material(MaterialIds.dragonScale, 32)
+      .setPatternItem(Ingredient.of(Items.ELYTRA))
+      .save(consumer, location(folder + "elytra_copying"));
   }
 
   private void addRecycleRecipes(Consumer<FinishedRecipe> consumer) {
