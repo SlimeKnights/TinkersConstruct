@@ -78,7 +78,6 @@ import slimeknights.tconstruct.shared.block.SoulGlassPaneBlock;
 import slimeknights.tconstruct.smeltery.block.CastingBasinBlock;
 import slimeknights.tconstruct.smeltery.block.CastingTableBlock;
 import slimeknights.tconstruct.smeltery.block.CastingTankBlock;
-import slimeknights.tconstruct.smeltery.block.channel.AbstractChannelBlock;
 import slimeknights.tconstruct.smeltery.block.FaucetBlock;
 import slimeknights.tconstruct.smeltery.block.FluidCannonBlock;
 import slimeknights.tconstruct.smeltery.block.KnightMetalFluidCannonBlock;
@@ -86,6 +85,7 @@ import slimeknights.tconstruct.smeltery.block.ProxyTankBlock;
 import slimeknights.tconstruct.smeltery.block.RenderingGaugeBlock;
 import slimeknights.tconstruct.smeltery.block.SearedLanternBlock;
 import slimeknights.tconstruct.smeltery.block.channel.NormalChannelBlock;
+import slimeknights.tconstruct.smeltery.block.channel.SlabChannelBlock;
 import slimeknights.tconstruct.smeltery.block.component.RetexturedOrientableSmelteryBlock;
 import slimeknights.tconstruct.smeltery.block.component.SearedBlock;
 import slimeknights.tconstruct.smeltery.block.component.SearedDrainBlock;
@@ -240,6 +240,7 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final ItemObject<SearedLadderBlock> searedLadder, scorchedLadder;
   public static final ItemObject<FaucetBlock> searedFaucet, scorchedFaucet;
   public static final ItemObject<NormalChannelBlock> searedChannel, scorchedChannel;
+  public static final ItemObject<SlabChannelBlock> slabChannel;
   public static final ItemObject<CastingBasinBlock> searedBasin, scorchedBasin;
   public static final ItemObject<CastingTableBlock> searedTable, scorchedTable;
   public static final ItemObject<ProxyTankBlock> scorchedProxyTank;
@@ -251,6 +252,8 @@ public final class TinkerSmeltery extends TinkerModule {
     searedBasin = BLOCKS.register("seared_basin", () -> new CastingBasinBlock(seared, false), TOOLTIP_BLOCK_ITEM);
     searedTable = BLOCKS.register("seared_table", () -> new CastingTableBlock(seared, false), TOOLTIP_BLOCK_ITEM);
 
+    slabChannel = BLOCKS.register("slab_channel", () -> new SlabChannelBlock(seared), TOOLTIP_BLOCK_ITEM);
+
     Properties scorched = scorchedNonSolidProps(SoundType.BASALT);
     scorchedLadder = BLOCKS.register("scorched_ladder", () -> new SearedLadderBlock(scorched), TOOLTIP_BLOCK_ITEM);
     scorchedFaucet = BLOCKS.register("scorched_faucet", () -> new FaucetBlock(scorched), TOOLTIP_BLOCK_ITEM);
@@ -258,6 +261,8 @@ public final class TinkerSmeltery extends TinkerModule {
     scorchedBasin = BLOCKS.register("scorched_basin", () -> new CastingBasinBlock(scorched, true), TOOLTIP_BLOCK_ITEM);
     scorchedTable = BLOCKS.register("scorched_table", () -> new CastingTableBlock(scorched, true), TOOLTIP_BLOCK_ITEM);
     scorchedProxyTank = BLOCKS.register("scorched_proxy_tank", () -> new ProxyTankBlock(scorched), TOOLTIP_BLOCK_ITEM);
+
+
   }
 
   // tank
@@ -342,7 +347,8 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final RegistryObject<BlockEntityType<AlloyerBlockEntity>> alloyer = BLOCK_ENTITIES.register("alloyer", AlloyerBlockEntity::new, scorchedAlloyer);
   // fluid transfer
   public static final RegistryObject<BlockEntityType<FaucetBlockEntity>> faucet = BLOCK_ENTITIES.register("faucet", FaucetBlockEntity::new, set -> set.add(searedFaucet.get(), scorchedFaucet.get()));
-  public static final RegistryObject<BlockEntityType<ChannelBlockEntity>> channel = BLOCK_ENTITIES.register("channel", ChannelBlockEntity::new, set -> set.add(searedChannel.get(), scorchedChannel.get()));
+  public static final RegistryObject<BlockEntityType<ChannelBlockEntity>> channel = BLOCK_ENTITIES.register("channel", ChannelBlockEntity::new, set -> set.add(searedChannel.get(), scorchedChannel.get(), slabChannel.get()));
+  public static final RegistryObject<BlockEntityType<ChannelBlockEntity>> channelNoRender = BLOCK_ENTITIES.register("channel_renderless", ChannelBlockEntity::new, set -> set.add());
   public static final RegistryObject<BlockEntityType<GaugeBlockEntity>> gauge = BLOCK_ENTITIES.register("gauge", GaugeBlockEntity::new, obsidianGauge);
   // casting
   public static final RegistryObject<BlockEntityType<CastingBlockEntity>> basin = BLOCK_ENTITIES.register("basin", CastingBlockEntity.Basin::new, set -> set.add(searedBasin.get(), scorchedBasin.get()));
