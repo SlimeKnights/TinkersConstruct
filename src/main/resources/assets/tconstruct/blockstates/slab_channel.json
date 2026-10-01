@@ -1,0 +1,50 @@
+{
+    "multipart": [
+        {   "when": { "down": "false" },
+            "apply": { "model": "tconstruct:block/smeltery/channel/center" }
+        },
+        {   "when": { "down": "true" },
+            "apply": { "model": "tconstruct:block/smeltery/channel/center_out" }
+        },
+        
+        {   "when": { "north": "none" },
+            "apply": { "model": "tconstruct:block/smeltery/channel/side_wall", "uvlock": true }
+        },
+        {   "when": { "north": "in" },
+            "apply": { "model": "tconstruct:block/smeltery/channel/side_in", "uvlock": true }
+        },
+        {   "when": { "north": "out" },
+            "apply": { "model": "tconstruct:block/smeltery/channel/side_out", "uvlock": true }
+        },
+        
+        {   "when": { "east": "none" },
+            "apply": { "model": "tconstruct:block/smeltery/channel/side_wall", "y": 90, "uvlock": true }
+        },
+        {   "when": { "east": "in" },
+            "apply": { "model": "tconstruct:block/smeltery/channel/side_in", "y": 90, "uvlock": true }
+        },
+        {   "when": { "east": "out" },
+            "apply": { "model": "tconstruct:block/smeltery/channel/side_out", "y": 90, "uvlock": true }
+        },
+        
+        {   "when": { "south": "none" },
+            "apply": { "model": "tconstruct:block/smeltery/channel/side_wall", "y": 180, "uvlock": true }
+        },
+        {   "when": { "south": "in" },
+            "apply": { "model": "tconstruct:block/smeltery/channel/side_in", "y": 180, "uvlock": true }
+        },
+        {   "when": { "south": "out" },
+            "apply": { "model": "tconstruct:block/smeltery/channel/side_out", "y": 180, "uvlock": true }
+        },
+        
+        {   "when": { "west": "none" },
+            "apply": { "model": "tconstruct:block/smeltery/channel/side_wall", "y": 270, "uvlock": true }
+        },
+        {   "when": { "west": "in" },
+            "apply": { "model": "tconstruct:block/smeltery/channel/side_in", "y": 270, "uvlock": true }
+        },
+        {   "when": { "west": "out" },
+            "apply": { "model": "tconstruct:block/smeltery/channel/side_out", "y": 270, "uvlock": true }
+        }
+    ]
+}

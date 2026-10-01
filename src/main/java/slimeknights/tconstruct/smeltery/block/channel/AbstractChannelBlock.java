@@ -182,11 +182,10 @@ public abstract class AbstractChannelBlock
   }
 
   @Override
-  @Nullable
   public BlockState getStateForPlacement(BlockPlaceContext context) {
     Level world = context.getLevel();
     BlockPos pos = context.getClickedPos();
-    BlockState state = this.defaultBlockState().setValue(POWERED, world.hasNeighborSignal(pos));
+    BlockState state = this.defaultBlockState();
     Direction side = context.getClickedFace();
 
     // we cannot in this direction, so ignore
@@ -402,21 +401,13 @@ public abstract class AbstractChannelBlock
   @Override
   @Deprecated
   public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
-    var up = this.up != NONE && state.getValue(getProperty(Direction.UP)).canFlow();
-    var down = this.down != NONE && state.getValue(getProperty(Direction.DOWN)).canFlow();
+    var up = getCurrentFlowOnSide(Direction.UP, state).canFlow();
+    var down = getCurrentFlowOnSide(Direction.DOWN, state).canFlow();
     return shapes[makeShapeKey(up, down, state.getValue(NORTH).canFlow(), state.getValue(SOUTH).canFlow(), state.getValue(WEST).canFlow(), state.getValue(EAST).canFlow())];
   }
 
   @Override
   protected void createBlockStateDefinition(StateDefinition.Builder<Block,BlockState> builder) {
-    switch (this.down) {
-      case ONE_WAY -> builder.add(DOWN_1WAY);
-      case TWO_WAY -> builder.add(DOWN_2WAY);
-    }
-    switch (this.up) {
-      case ONE_WAY -> builder.add(UP_1WAY);
-      case TWO_WAY -> builder.add(UP_2WAY);
-    }
     builder.add(NORTH);
     builder.add(EAST);
     builder.add(SOUTH);
