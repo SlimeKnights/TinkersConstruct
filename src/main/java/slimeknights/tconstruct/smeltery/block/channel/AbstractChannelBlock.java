@@ -44,7 +44,6 @@ import static slimeknights.mantle.datagen.MantleTags.Blocks.ATTACHED_GAUGES;
 import static slimeknights.tconstruct.common.TinkerTags.Blocks.CHANNELS;
 import static slimeknights.tconstruct.smeltery.block.channel.AbstractChannelBlock.ConnectionType.NONE;
 import static slimeknights.tconstruct.smeltery.block.channel.AbstractChannelBlock.ConnectionType.ONE_WAY;
-import static slimeknights.tconstruct.smeltery.block.channel.AbstractChannelBlock.ConnectionType.TWO_WAY;
 
 public abstract class AbstractChannelBlock
   extends Block implements EntityBlock {
@@ -89,6 +88,12 @@ public abstract class AbstractChannelBlock
   }
 
 
+  /**
+   * Helper method that essentially calls {@code state.getValue(block.getProperty(side))} but without the potential to have getProperty throw (instead returning TwoWay.NONE)
+   * @param side The side to get the flow for
+   * @param state The state to get the flow for
+   * @return The flow on the specified side for the given state
+   */
   public TwoWay getCurrentFlowOnSide(Direction side, BlockState state) {
     return switch (side) {
       case UP -> switch (this.up) {
@@ -109,7 +114,7 @@ public abstract class AbstractChannelBlock
    * Makes an int key from a set of booleans. The range of this should be [0,{@link AbstractChannelBlock#createShapes() createShapes().length}) as it is used to index the shapes array.
    *
    * @return {@link AbstractChannelBlock#shapes} index key
-   * @apiNote Called during the super call in your constructor so you cannot use field values in here. {@link AbstractChannelBlock#up} and {@link AbstractChannelBlock#down} are both set though.
+   * @apiNote You may find it helpful to call this from {@link AbstractChannelBlock#createShapes()}, in which case field values will be unavailable. {@link AbstractChannelBlock#up} and {@link AbstractChannelBlock#down} are both set though.
    */
   protected abstract int makeShapeKey(boolean up, boolean down, boolean north, boolean south, boolean west, boolean east);
 
@@ -243,9 +248,9 @@ public abstract class AbstractChannelBlock
     EnumProperty<TwoWay> prop = (EnumProperty<TwoWay>) getProperty(facing);
 
     // if the change was from another channel, copy, but invert its connection
-    if (facingState.is(CHANNELS)) {
-      TwoWay oppositeConnection = facingState.getValue(getProperty(facing.getOpposite())).reverseFlowTwoWay();
-      state = state.setValue(prop, oppositeConnection);
+    if (facingState.is(CHANNELS) && facingState.getBlock() instanceof AbstractChannelBlock facingBlock) {
+        TwoWay oppositeConnection = facingBlock.getCurrentFlowOnSide(facing.getOpposite(), facingState);
+        state = state.setValue(prop, oppositeConnection.reverseFlow());
     } else {
       // out is only valid if facing a fluid handler
       TwoWay connection = state.getValue(prop);
@@ -334,6 +339,7 @@ public abstract class AbstractChannelBlock
       side = side.getOpposite();
     }
 
+    // TODO: this needs testing with channels that can flow up/down
     // try each of the sides, if clicked use that
     Vec3 hitVec = hit.getLocation().subtract(pos.getX(), pos.getY(), pos.getZ());
     // map X and Z coords to a direction
