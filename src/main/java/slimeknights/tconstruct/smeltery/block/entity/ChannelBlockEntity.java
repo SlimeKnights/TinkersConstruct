@@ -3,7 +3,6 @@ package slimeknights.tconstruct.smeltery.block.entity;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Direction.Plane;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -24,8 +23,8 @@ import slimeknights.mantle.util.WeakConsumerWrapper;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.fluid.FillOnlyFluidHandler;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.block.ChannelBlock;
-import slimeknights.tconstruct.smeltery.block.ChannelBlock.ChannelConnection;
+import slimeknights.tconstruct.smeltery.block.channel.AbstractChannelBlock;
+import slimeknights.tconstruct.smeltery.block.channel.ChannelConnection.TwoWay;
 import slimeknights.tconstruct.smeltery.block.entity.tank.ChannelSideTank;
 import slimeknights.tconstruct.smeltery.block.entity.tank.ChannelTank;
 import slimeknights.tconstruct.smeltery.network.ChannelFlowPacket;
@@ -34,7 +33,11 @@ import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket.IFluidPacketRe
 
 import javax.annotation.Nullable;
 import java.util.EnumMap;
+import java.util.EnumSet;
 import java.util.Map;
+
+import static slimeknights.tconstruct.smeltery.block.channel.AbstractChannelBlock.ConnectionType.NONE;
+import static slimeknights.tconstruct.smeltery.block.channel.AbstractChannelBlock.ConnectionType.ONE_WAY;
 
 /**
  * Logic for channel fluid transfer
@@ -46,7 +49,7 @@ public class ChannelBlockEntity extends MantleBlockEntity implements IFluidPacke
 	private final LazyOptional<IFluidHandler> topHandler = LazyOptional.of(() -> new FillOnlyFluidHandler(tank));
 	/** Tanks for inserting on each side */
 	private final Map<Direction,IFluidHandler> sideTanks = Util.make(new EnumMap<>(Direction.class), map -> {
-		for (Direction direction : Plane.HORIZONTAL) {
+		for (Direction direction : Direction.values()) {
 			map.put(direction, new ChannelSideTank(this, tank, direction));
 		}
 	});
@@ -64,10 +67,14 @@ public class ChannelBlockEntity extends MantleBlockEntity implements IFluidPacke
   public static final BlockEntityTicker<ChannelBlockEntity> SERVER_TICKER = (level, pos, state, self) -> self.tick(state);
 
 	/** Stores if the channel is currently flowing, set to 2 to allow a small buffer */
-	private final byte[] isFlowing = new byte[5];
+	private final byte[] isFlowing = new byte[6];
 
 	public ChannelBlockEntity(BlockPos pos, BlockState state) {
-		this(TinkerSmeltery.channel.get(), pos, state);
+		this(true, pos, state);
+	}
+
+	public ChannelBlockEntity(boolean renderFluid, BlockPos pos, BlockState state) {
+		this(renderFluid ? TinkerSmeltery.channel.get() : TinkerSmeltery.channelNoRender.get(), pos, state);
 	}
 
 	protected ChannelBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
@@ -103,24 +110,25 @@ public class ChannelBlockEntity extends MantleBlockEntity implements IFluidPacke
 	public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction side) {
 		// top side gets the insert direct
     if (capability == ForgeCapabilities.FLUID_HANDLER) {
-      if (side == null || side == Direction.UP) {
+      if (side == null) return topHandler.cast();
+
+      AbstractChannelBlock block = ((AbstractChannelBlock) this.getBlockState().getBlock());
+      if ((side == Direction.UP && block.up == NONE) || (side == Direction.DOWN && block.down == NONE)) {
         return topHandler.cast();
       }
-      // side tanks keep track of which side inserts
-      if (side != Direction.DOWN) {
-        ChannelConnection connection = getBlockState().getValue(ChannelBlock.DIRECTION_MAP.get(side));
-        if (connection == ChannelConnection.IN) {
+      // two-way tanks keep track of which side inserts
+      switch (block.getCurrentFlowOnSide(side, getBlockState())) {
+        case IN -> {
           return sideHandlers.computeIfAbsent(side, s -> LazyOptional.of(() -> sideTanks.get(s))).cast();
         }
-        // for out, return an empty fluid handler so the block we are pouring into knows we support fluids, even though we disallow any interaction
-        // this will get invalidated when the connection goes back to in later
-        if (connection == ChannelConnection.OUT) {
+        case OUT -> {
+          // for out, return an empty fluid handler so the block we are pouring into knows we support fluids, even though we disallow any interaction
+          // this will get invalidated when the connection goes back to in later
           return emptySideHandler.computeIfAbsent(side, s -> LazyOptional.of(() -> EmptyFluidHandler.INSTANCE)).cast();
         }
       }
     }
-
-		return super.getCapability(capability, side);
+    return super.getCapability(capability, side);
 	}
 
 	/**
@@ -165,29 +173,28 @@ public class ChannelBlockEntity extends MantleBlockEntity implements IFluidPacke
 	 * @param side   Side to update
 	 */
 	public void refreshNeighbor(BlockState state, Direction side) {
-		// for below, only thing that needs to invalidate is if we are no longer connected down, remove the listener below
-		if (side == Direction.DOWN) {
-			if (!state.getValue(ChannelBlock.DOWN)) {
-				neighborTanks.remove(Direction.DOWN);
-			}
-		} else if (side != Direction.UP) {
-			ChannelConnection connection = state.getValue(ChannelBlock.DIRECTION_MAP.get(side));
-			// if no longer flowing out, remove the neighbor tank
-			if (connection != ChannelConnection.OUT) {
-				neighborTanks.remove(Direction.DOWN);
-				// remove the empty handler, mostly so the neighbor knows to update
-				LazyOptional<IFluidHandler> handler = emptySideHandler.remove(side);
-				if (handler != null) {
-					handler.invalidate();
-				}
-			}
-			// remove the side handler, if we changed from out or from in the handler is no longer correct
-			if (connection != ChannelConnection.IN) {
-				LazyOptional<IFluidHandler> handler = sideHandlers.remove(side);
-				if (handler != null) {
-					handler.invalidate();
-				}
-			}
+    var block = ((AbstractChannelBlock) state.getBlock());
+
+    // no connections on these sides. there is no harm in running the following logic, but it won't do anything.
+    if (side == Direction.DOWN && block.down == NONE || side == Direction.UP && block.up == NONE)
+      return;
+
+    TwoWay connection = block.getCurrentFlowOnSide(side, state);
+    // if no longer flowing out, remove the neighbor tank
+    if (connection != TwoWay.OUT) {
+      neighborTanks.remove(side);
+      // remove the empty handler, mostly so the neighbor knows to update
+      LazyOptional<IFluidHandler> handler = emptySideHandler.remove(side);
+      if (handler != null) {
+        handler.invalidate();
+      }
+    }
+    // remove the side handler, if we changed from out or from in the handler is no longer correct
+    if (connection != TwoWay.IN) {
+      LazyOptional<IFluidHandler> handler = sideHandlers.remove(side);
+      if (handler != null) {
+        handler.invalidate();
+      }
 		}
 	}
 
@@ -216,10 +223,7 @@ public class ChannelBlockEntity extends MantleBlockEntity implements IFluidPacke
 	 * @return Flow index
 	 */
 	private int getFlowIndex(Direction side) {
-		if (side.getAxis().isVertical()) {
-			return 0;
-		}
-		return side.get3DDataValue() - 1;
+		return side.get3DDataValue();
 	}
 
 	/**
@@ -228,9 +232,6 @@ public class ChannelBlockEntity extends MantleBlockEntity implements IFluidPacke
 	 * @param flowing  True to mark it as flowing
 	 */
 	public void setFlow(Direction side, boolean flowing) {
-		if (side == Direction.UP) {
-			return;
-		}
 		// update flowing state
 		int index = getFlowIndex(side);
 		boolean wasFlowing = isFlowing[index] > 0;
@@ -248,10 +249,6 @@ public class ChannelBlockEntity extends MantleBlockEntity implements IFluidPacke
 	 * @return  True if flowing
 	 */
 	public boolean isFlowing(Direction side) {
-		if (side == Direction.UP) {
-			return false;
-		}
-
 		return isFlowing[getFlowIndex(side)] > 0;
 	}
 
@@ -263,31 +260,9 @@ public class ChannelBlockEntity extends MantleBlockEntity implements IFluidPacke
 	 * @param side  Side to query
 	 * @return  Connection on the specified side
 	 */
-	protected boolean isOutput(Direction side) {
-		// just always return in for up, thats fine
-		if(side == Direction.UP) {
-			return false;
-		}
-		// down is boolean, sides is multistate
-		if(side == Direction.DOWN) {
-			return this.getBlockState().getValue(ChannelBlock.DOWN);
-		}
-		return this.getBlockState().getValue(ChannelBlock.DIRECTION_MAP.get(side)) == ChannelConnection.OUT;
-	}
-
-	/**
-	 * Counts the number of side outputs on the given side
-	 * @param state  State to check
-	 * @return  Number of outputs
-	 */
-	private static int countOutputs(BlockState state) {
-		int count = 0;
-		for (Direction direction : Plane.HORIZONTAL) {
-			if (state.getValue(ChannelBlock.DIRECTION_MAP.get(direction)) == ChannelConnection.OUT) {
-				count++;
-			}
-		}
-		return count;
+	protected static boolean isOutput(Direction side, BlockState state) {
+    AbstractChannelBlock block = (AbstractChannelBlock) state.getBlock();
+    return block.getCurrentFlowOnSide(side, state) == TwoWay.OUT;
 	}
 
 	/**
@@ -309,34 +284,49 @@ public class ChannelBlockEntity extends MantleBlockEntity implements IFluidPacke
 		// must have fluid first
 		FluidStack fluid = tank.getFluid();
 		if (!fluid.isEmpty()) {
-			// if we have down and can flow, skip sides
-			boolean hasFlown = false;
-			if(state.getValue(ChannelBlock.DOWN)) {
-				hasFlown = trySide(Direction.DOWN, FaucetBlockEntity.MB_PER_TICK);
-			}
-			// try sides if we have any sides
-			int outputs = countOutputs(state);
-			if(!hasFlown && outputs > 0) {
-				// split the fluid evenly between sides
-				int flowRate = Mth.clamp(tank.getMaxUsable() / outputs, 1, FaucetBlockEntity.MB_PER_TICK);
-				// then transfer on each side
-				for(Direction side : Plane.HORIZONTAL) {
-					trySide(side, flowRate);
-				}
-			}
+			var outputs = EnumSet.noneOf(Direction.class);
+
+      // up/down take priority if they are one-way outputs.
+      boolean hasFlown = false;
+      AbstractChannelBlock block = (AbstractChannelBlock) state.getBlock();
+
+      if (block.up == ONE_WAY)
+        outputs.add(Direction.UP);
+      if (block.down == ONE_WAY)
+        outputs.add(Direction.DOWN);
+
+      for (Direction side : outputs) {
+        hasFlown = trySide(side, FaucetBlockEntity.MB_PER_TICK);
+      }
+
+      // otherwise we try the other directions
+      if (!hasFlown) {
+        var secondTry = EnumSet.noneOf(Direction.class);
+        // don't try to flow to sides we already tried
+        for (Direction side : EnumSet.complementOf(outputs)) {
+          var flow = block.getCurrentFlowOnSide(side, state);
+          if (flow == TwoWay.OUT)
+            secondTry.add(side);
+        }
+
+        if (!secondTry.isEmpty()) {
+          // split evenly
+          int flowRate = Mth.clamp(tank.getMaxUsable() / secondTry.size(), 1, FaucetBlockEntity.MB_PER_TICK);
+          // then transfer on each side
+          for(Direction side : secondTry) {
+            trySide(side, flowRate);
+          }
+        }
+
+      }
 		}
 
 		// clear flowing if we should no longer flow on a side
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < isFlowing.length; i++) {
 			if (isFlowing[i] > 0) {
 				isFlowing[i]--;
 				if (isFlowing[i] == 0) {
-					Direction direction;
-					if (i == 0) {
-						direction = Direction.DOWN;
-					} else {
-						direction = Direction.from3DDataValue(i + 1);
-					}
+          Direction direction = Direction.from3DDataValue(i);
 					syncFlowToClient(direction, false);
 				}
 			}
@@ -352,7 +342,7 @@ public class ChannelBlockEntity extends MantleBlockEntity implements IFluidPacke
 	 * @return  True if the side transferred fluid
 	 */
 	protected boolean trySide(Direction side, int flowRate) {
-		if(tank.isEmpty() || !this.isOutput(side)) {
+		if(tank.isEmpty() || !isOutput(side, this.getBlockState())) {
 			return false;
 		}
 
@@ -430,16 +420,10 @@ public class ChannelBlockEntity extends MantleBlockEntity implements IFluidPacke
 		// isFlowing
 		if (nbt.contains(TAG_IS_FLOWING)) {
 			byte[] nbtFlowing = nbt.getByteArray(TAG_IS_FLOWING);
-			int max = Math.min(5, nbtFlowing.length);
+			int max = Math.min(6, nbtFlowing.length);
 			for (int i = 0; i < max; i++) {
 				byte b = nbtFlowing[i];
-				if (b > 2) {
-					isFlowing[i] = 2;
-				} else if (b < 0) {
-					isFlowing[i] = 0;
-				} else {
-					isFlowing[i] = b;
-				}
+        isFlowing[i] = (byte) Mth.clamp(b, 0, 2);
 			}
 		}
 

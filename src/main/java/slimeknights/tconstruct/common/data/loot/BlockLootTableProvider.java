@@ -272,6 +272,8 @@ public class BlockLootTableProvider extends BlockLootSubProvider {
     // fluid
     this.dropSelf(TinkerSmeltery.searedFaucet.get());
     this.dropSelf(TinkerSmeltery.searedChannel.get());
+    this.dropSelf(TinkerSmeltery.slabChannel.get());
+    this.dropSelf(TinkerSmeltery.fullBlockChannel.get());
 
     // casting
     this.dropSelf(TinkerSmeltery.searedBasin.get());

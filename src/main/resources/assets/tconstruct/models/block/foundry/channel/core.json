@@ -1,0 +1,20 @@
+{
+  "textures": {
+    "particle": "#texture"
+  },
+  "elements": [
+    {
+      "name": "Core",
+      "from": [ 4.001, 4.001, 4.001 ],
+      "to": [ 11.999, 11.999, 11.999 ],
+      "faces": {
+        "up":   { "texture": "#texture" },
+        "down":  { "texture": "#texture" },
+        "north": { "texture": "#texture" },
+        "east":  { "texture": "#texture" },
+        "south": { "texture": "#texture" },
+        "west":  { "texture": "#texture" }
+      }
+    }
+  ]
+}
