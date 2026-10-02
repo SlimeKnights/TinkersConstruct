@@ -1,6 +1,0 @@
-{
-  "parent": "tconstruct:block/template/channel/center",
-  "textures": {
-    "texture": "tconstruct:block/foundry/scorched/stone_side"
-  }
-}
