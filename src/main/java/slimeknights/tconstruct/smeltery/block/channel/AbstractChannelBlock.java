@@ -223,7 +223,7 @@ public abstract class AbstractChannelBlock
 
   @SuppressWarnings("deprecation")
   @Override
-  @Deprecated // TODO: this is running too much and somehow setting stuff incorrect on pipes flowing up/down
+  @Deprecated // TODO: this resets pipes when they point down into a channel - need to make NONE sides return IN from getCurrentFlowOnSide probably.
   public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor world, BlockPos currentPos, BlockPos facingPos) {
     // ignore changes from directions we don't connect to
     if ((facing == Direction.UP && this.up == NONE) || (facing == Direction.DOWN && this.down == NONE))
