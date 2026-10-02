@@ -9,7 +9,7 @@
       "apply": { "model": "tconstruct:block/foundry/channel/side_out" }
     },
     {   "when": { "down": "in" },
-      "apply": { "model": "tconstruct:block/foundry/channel/side_out", "x": 180, "uvlock": true }
+      "apply": { "model": "tconstruct:block/foundry/channel/side_in", "x": 180, "uvlock": true }
     },
     {   "when": { "down": "out" },
       "apply": { "model": "tconstruct:block/foundry/channel/side_out", "x": 180, "uvlock": true }
