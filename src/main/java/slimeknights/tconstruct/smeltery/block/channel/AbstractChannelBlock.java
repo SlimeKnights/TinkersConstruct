@@ -48,6 +48,7 @@ import static slimeknights.tconstruct.smeltery.block.channel.AbstractChannelBloc
 public abstract class AbstractChannelBlock
   extends Block implements EntityBlock {
 
+  // TODO: up and down have bad wording for pipes so that needs fixing
   private static final Component SIDE_IN = TConstruct.makeTranslation("block", "channel.side.in");
   private static final Component SIDE_OUT = TConstruct.makeTranslation("block", "channel.side.out");
   private static final Component SIDE_NONE = TConstruct.makeTranslation("block", "channel.side.none");
@@ -222,7 +223,7 @@ public abstract class AbstractChannelBlock
 
   @SuppressWarnings("deprecation")
   @Override
-  @Deprecated
+  @Deprecated // TODO: this is running too much and somehow setting stuff incorrect on pipes flowing up/down
   public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor world, BlockPos currentPos, BlockPos facingPos) {
     // ignore changes from directions we don't connect to
     if ((facing == Direction.UP && this.up == NONE) || (facing == Direction.DOWN && this.down == NONE))
@@ -294,7 +295,7 @@ public abstract class AbstractChannelBlock
       EnumProperty<TwoWay> prop = (EnumProperty<TwoWay>) getProperty(side);
       TwoWay connection = state.getValue(prop);
       BlockPos facingPos = pos.relative(side);
-      // if facing another channel, toggle to next connection prop
+
       BlockState facingState = world.getBlockState(facingPos);
       TwoWay newConnect = connection.getNext(player.isShiftKeyDown());
       // if its not a fluid handler, cannot set out

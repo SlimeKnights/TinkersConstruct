@@ -1,7 +1,7 @@
 {
-  "parent": "tconstruct:block/template/channel/side",
+  "parent": "tconstruct:block/foundry/channel/pipe_side",
   "textures": {
-    "texture": "tconstruct:block/foundry/scorched/stone_side",
+    "texture": "tconstruct:block/foundry/scorched/stone_top",
     "top":     "tconstruct:block/foundry/channel_out"
   }
 }

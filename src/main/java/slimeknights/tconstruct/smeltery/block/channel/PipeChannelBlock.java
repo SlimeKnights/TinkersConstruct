@@ -2,8 +2,11 @@ package slimeknights.tconstruct.smeltery.block.channel;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.Vec3;
@@ -11,6 +14,8 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+import slimeknights.mantle.util.BlockEntityHelper;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.entity.ChannelBlockEntity;
 
 import java.util.Arrays;
@@ -36,13 +41,13 @@ public class PipeChannelBlock extends AbstractChannelBlock {
 
   @Override
   protected VoxelShape[] createShapes() {
-    VoxelShape base = box(4, 4, 4, 12, 12, 12);
-    VoxelShape upConnection = box(4, 8, 4, 12, 16, 12);
-    VoxelShape downConnection = box(4, 0, 4, 12, 8, 12);
-    VoxelShape northConnection = box(4, 4, 0, 12, 12, 8);
+    VoxelShape base =            box(4, 4, 4, 12, 12, 12);
+    VoxelShape upConnection =    box(4, 8, 4, 12, 16, 12);
+    VoxelShape downConnection =  box(4, 0, 4, 12,  8, 12);
+    VoxelShape northConnection = box(4, 4, 0, 12, 12,  8);
     VoxelShape southConnection = box(4, 4, 8, 12, 12, 16);
-    VoxelShape westConnection = box(0, 4, 4, 8, 12, 12);
-    VoxelShape eastConnection = box(8, 4, 4, 16, 12, 12);
+    VoxelShape westConnection =  box(0, 4, 4,  8, 12, 12);
+    VoxelShape eastConnection =  box(8, 4, 4, 16, 12, 12);
 
     var booleans = new boolean[] {false, true};
     var shapes = new VoxelShape[64];
@@ -100,5 +105,10 @@ public class PipeChannelBlock extends AbstractChannelBlock {
   @Override
   public @Nullable BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
     return new ChannelBlockEntity(false, pPos, pState);
+  }
+
+  @Override
+  public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> givenType) {
+    return BlockEntityHelper.serverTicker(pLevel, givenType, TinkerSmeltery.channelNoRender.get(), ChannelBlockEntity.SERVER_TICKER);
   }
 }
