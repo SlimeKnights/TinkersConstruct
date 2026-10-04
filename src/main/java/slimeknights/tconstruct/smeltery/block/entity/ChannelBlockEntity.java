@@ -70,11 +70,7 @@ public class ChannelBlockEntity extends MantleBlockEntity implements IFluidPacke
 	private final byte[] isFlowing = new byte[6];
 
 	public ChannelBlockEntity(BlockPos pos, BlockState state) {
-		this(true, pos, state);
-	}
-
-	public ChannelBlockEntity(boolean renderFluid, BlockPos pos, BlockState state) {
-		this(renderFluid ? TinkerSmeltery.channel.get() : TinkerSmeltery.channelNoRender.get(), pos, state);
+		this(TinkerSmeltery.channel.get(), pos, state);
 	}
 
 	protected ChannelBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
@@ -103,6 +99,9 @@ public class ChannelBlockEntity extends MantleBlockEntity implements IFluidPacke
 		}
 	}
 
+  public boolean shouldRender() {
+    return true;
+  }
 
 	/* Fluid handlers */
 
