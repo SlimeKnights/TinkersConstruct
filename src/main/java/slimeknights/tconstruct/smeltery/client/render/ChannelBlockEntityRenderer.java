@@ -56,7 +56,8 @@ public class ChannelBlockEntityRenderer implements BlockEntityRenderer<ChannelBl
 		// render sides first, while doing so we will determine center "flow"
 		FluidCuboid cube;
 		boolean isRotated;
-		Direction centerFlow = Direction.UP;
+    boolean hasFlow = false;
+		Direction centerFlow = null;
 		for (Direction direction : Plane.HORIZONTAL) {
 			// check if we have that side on the block
 			TwoWay connection = block.getCurrentFlowOnSide(direction, state);
@@ -69,12 +70,13 @@ public class ChannelBlockEntityRenderer implements BlockEntityRenderer<ChannelBl
 
 					// add to center direction
 					if (connection == TwoWay.OUT) {
-						// if unset (up), use this direction
-						if (centerFlow == Direction.UP) {
+						// if unset (null), use this direction
+						if (!hasFlow) {
+              hasFlow = true;
 							centerFlow = direction;
-							// if set and it disagrees, set the fail state (down)
+							// if set and it disagrees, set the fail state (null)
 						} else if (centerFlow != direction) {
-							centerFlow = Direction.DOWN;
+							centerFlow = null;
 						}
 					}
 					// render the extra edge against other blocks
@@ -94,11 +96,11 @@ public class ChannelBlockEntityRenderer implements BlockEntityRenderer<ChannelBl
 
 		// render center
 		isRotated = false;
-		if (centerFlow.getAxis().isVertical()) {
+		if (centerFlow != null && centerFlow.getAxis().isVertical()) {
 			cube = model.center(false);
 		} else {
 			cube = model.center(true);
-			isRotated = RenderingHelper.applyRotation(matrices, centerFlow);
+			isRotated = RenderingHelper.applyRotation(matrices, Direction.DOWN);
 		}
 		// render the cube and pop back
 		FluidRenderer.renderCuboid(matrices, builder, cube, 0, still, flowing, color, light, false);
@@ -109,10 +111,21 @@ public class ChannelBlockEntityRenderer implements BlockEntityRenderer<ChannelBl
 		// render flow downwards
 		if (block.getCurrentFlowOnSide(Direction.DOWN, state) == TwoWay.OUT && te.isFlowing(Direction.DOWN)) {
 			cube = model.down();
-			FluidRenderer.renderCuboid(matrices, builder, cube, 0, still, flowing, color, light, false);
+      if (cube != null) {
+        FluidRenderer.renderCuboid(matrices, builder, cube, 0, still, flowing, color, light, false);
 
-			// render into the block(s) below
-			RenderingHelper.renderFaucetFluids(world, pos, Direction.DOWN, matrices, builder, still, flowing, color, light);
+        // render into the block(s) below
+        RenderingHelper.renderFaucetFluids(world, pos, Direction.DOWN, matrices, builder, still, flowing, color, light);
+      }
+		}
+    if (block.getCurrentFlowOnSide(Direction.UP, state) == TwoWay.OUT && te.isFlowing(Direction.UP)) {
+			cube = model.up();
+      if (cube != null) {
+        FluidRenderer.renderCuboid(matrices, builder, cube, 0, still, flowing, color, light, false);
+
+        // render into the block(s) below
+        RenderingHelper.renderFaucetFluids(world, pos, Direction.UP, matrices, builder, still, flowing, color, light);
+      }
 		}
 	}
 }

@@ -1,6 +1,9 @@
 {
   "values": [
     "tconstruct:seared_channel",
-    "tconstruct:scorched_channel"
+    "tconstruct:scorched_channel",
+    "tconstruct:slab_channel",
+    "tconstruct:full_block_channel",
+    "tconstruct:upside_down_channel"
   ]
 }

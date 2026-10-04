@@ -62,6 +62,8 @@
     "tconstruct:seared_table",
     "tconstruct:seared_casting_tank",
     "tconstruct:slab_channel",
+    "tconstruct:full_block_channel",
+    "tconstruct:upside_down_channel",
     "tconstruct:scorched_lantern",
     "tconstruct:scorched_faucet",
     "tconstruct:scorched_channel",

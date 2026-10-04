@@ -202,7 +202,7 @@ public abstract class AbstractChannelBlock
       return state.setValue(DOWN_1WAY, OneWay.TRUE);
     }
     if (side == Direction.DOWN && up == ONE_WAY) {
-      return state.setValue(DOWN_1WAY, OneWay.TRUE);
+      return state.setValue(UP_1WAY, OneWay.TRUE);
     }
 
 		// if placed on a fluid handler, connect to that
