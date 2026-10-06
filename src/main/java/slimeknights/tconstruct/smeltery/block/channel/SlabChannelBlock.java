@@ -23,11 +23,14 @@ public class SlabChannelBlock extends AbstractChannelBlock {
 
   @Override
   protected VoxelShape[] createShapes() {
-    VoxelShape base = box(0, 0, 0, 16, 8, 16);
-    VoxelShape northCutout = box( 6, 6,  0, 10, 9,  4);
-    VoxelShape southCutout = box( 6, 6, 12, 10, 9, 16);
-    VoxelShape westCutout = box( 0, 6,  6,  4, 9, 10);
-    VoxelShape eastCutout = box(12, 6,  6, 16, 9, 10);
+    VoxelShape slab =        box(0, 0, 0, 16, 8, 16);
+    VoxelShape coreCutout =  box(6, 6, 6, 10, 8, 10);
+    VoxelShape base =        Shapes.joinUnoptimized(slab, coreCutout, BooleanOp.ONLY_FIRST);
+
+    VoxelShape northCutout = box(6, 6, 0, 10, 8, 10);
+    VoxelShape southCutout = box(6, 6, 6, 10, 8, 16);
+    VoxelShape westCutout =  box(0, 6, 6, 10, 8, 10);
+    VoxelShape eastCutout =  box(6, 6, 6, 16, 8, 10);
 
     var booleans = new boolean[] { false, true };
     var shapes = new VoxelShape[16];

@@ -1,0 +1,17 @@
+{
+  "textures": {
+    "texture": "tconstruct:block/smeltery/seared/bricks",
+    "particle": "#texture"
+  },
+  "elements": [
+    {
+      "from": [0, 6, 6],
+      "to": [6, 8, 10],
+      "faces": {
+        "west": { "texture":  "#texture" },
+        "east": { "texture":  "#texture" },
+        "up": { "texture":  "#texture" }
+      }
+    }
+  ]
+}

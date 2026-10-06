@@ -2,17 +2,12 @@ package slimeknights.tconstruct.smeltery.block.channel;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
-import slimeknights.mantle.util.BlockEntityHelper;
-import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.entity.ChannelBlockEntity;
 
 public class FullChannelBlock extends AbstractChannelBlock {
@@ -47,11 +42,6 @@ public class FullChannelBlock extends AbstractChannelBlock {
 
   @Override
   public @Nullable BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-    return new ChannelBlockEntity(false, pPos, pState);
-  }
-
-  @Override
-  public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> givenType) {
-    return BlockEntityHelper.serverTicker(pLevel, givenType, TinkerSmeltery.channelNoRender.get(), ChannelBlockEntity.SERVER_TICKER);
+    return new ChannelBlockEntity(pPos, pState);
   }
 }
