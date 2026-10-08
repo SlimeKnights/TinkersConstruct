@@ -5,7 +5,7 @@
     "slime": "tconstruct:item/tool/armor/slime/leggings/slime",
     "shell": "tconstruct:item/tool/armor/slime/leggings/shell"
   },
-  "modifier_maps": ["tconstruct:slime/leggings"],
+  "modifier_maps": ["tconstruct:slime/leggings", "tconstruct:armor/leggings"],
   "parts": [
     { "name": "slime", "index": 1 },
     { "name": "shell", "index": 0 }

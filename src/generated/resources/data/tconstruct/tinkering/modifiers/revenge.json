@@ -26,6 +26,5 @@
       "type": "tconstruct:clear_effect_on_unequip",
       "effect": "minecraft:strength"
     }
-  ],
-  "tooltip_display": "always"
+  ]
 }

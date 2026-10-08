@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.plugin.jei.modifiers;
 
+import mezz.jei.api.gui.builder.ITooltipBuilder;
 import mezz.jei.api.ingredients.IIngredientRenderer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
@@ -20,11 +21,17 @@ public enum ModifierBookmarkIngredientRenderer implements IIngredientRenderer<Mo
 
   @Override
   public void render(GuiGraphics graphics, @Nullable ModifierEntry entry) {
+    render(graphics, entry, 0, 0);
+  }
+
+  @Override
+  public void render(GuiGraphics graphics, @Nullable ModifierEntry entry, int posX, int posY) {
     if (entry != null) {
-      ModifierIconManager.renderIcon(graphics, entry.getModifier(), 0, 0, 100, 16);
+      ModifierIconManager.renderIcon(graphics, entry.getModifier(), posX, posY, 100, 16);
     }
   }
 
+  @SuppressWarnings("removal")
   @Override
   public List<Component> getTooltip(ModifierEntry entry, TooltipFlag flag) {
     List<Component> list = new ArrayList<>();
@@ -35,5 +42,15 @@ public enum ModifierBookmarkIngredientRenderer implements IIngredientRenderer<Mo
       list.add((Component.literal(entry.getId().toString())).withStyle(ChatFormatting.DARK_GRAY));
     }
     return list;
+  }
+
+  @SuppressWarnings("removal")
+  @Override
+  public void getTooltip(ITooltipBuilder tooltip, ModifierEntry entry, TooltipFlag flag) {
+    tooltip.add(Component.translatable(WRAPPER_KEY, Component.translatable(entry.getModifier().getTranslationKey())));
+    tooltip.addAll(entry.getModifier().getDescriptionList());
+    if (flag.isAdvanced()) {
+      tooltip.add((Component.literal(entry.getId().toString())).withStyle(ChatFormatting.DARK_GRAY));
+    }
   }
 }

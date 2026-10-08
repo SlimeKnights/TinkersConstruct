@@ -5,6 +5,6 @@
     "tag": "tconstruct:sky_slime"
   },
   "input": "tconstruct:leather",
-  "output": "tconstruct:skyslime_vine#slimeskin",
+  "output": "tconstruct:skyslimeskin",
   "temperature": 10
 }

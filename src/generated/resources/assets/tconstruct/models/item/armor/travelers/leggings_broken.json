@@ -7,7 +7,8 @@
   },
   "modifier_maps": [
     "tconstruct:travelers/pants_broken",
-    "tconstruct:travelers/pants"
+    "tconstruct:travelers/pants",
+    "tconstruct:armor/leggings"
   ],
   "parts": [
     {

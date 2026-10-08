@@ -2,9 +2,10 @@
   "stats": {
     "tconstruct:binding": {},
     "tconstruct:bowstring": {},
+    "tconstruct:cuirass": {},
     "tconstruct:laces": {
       "repair_amount": 75
     },
-    "tconstruct:maille": {}
+    "tconstruct:repair_kit": {}
   }
 }

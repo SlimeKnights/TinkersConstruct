@@ -17,6 +17,7 @@ import slimeknights.mantle.util.JsonHelper;
 import slimeknights.mantle.util.typed.TypedMapBuilder;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.json.MaterialStatJson;
+import slimeknights.tconstruct.library.utils.JsonUtils;
 import slimeknights.tconstruct.library.utils.Util;
 
 import javax.annotation.Nullable;
@@ -189,11 +190,13 @@ public class MaterialStatsManager extends MergingJsonDataLoader<Map<ResourceLoca
                                   entry -> new MaterialId(entry.getKey()),
                                   entry -> deserializeMaterialStatsFromContent(entry.getKey(), entry.getValue())));
 
-    log.debug("Loaded stats for materials:{}",
-              Util.toIndentedStringList(materialToStatsPerType.entrySet().stream()
-                .sorted(Entry.comparingByKey())
-                .map(entry -> String.format("%s - [%s]", entry.getKey(), entry.getValue().keySet().stream().sorted().map(Object::toString).collect(Collectors.joining(", "))))
-                .collect(Collectors.toList())));
+    if (log.isDebugEnabled() && JsonUtils.debugLogResourceValues()) {
+      log.debug("Loaded stats for materials:{}",
+        Util.toIndentedStringList(materialToStatsPerType.entrySet().stream()
+          .sorted(Entry.comparingByKey())
+          .map(entry -> String.format("%s - [%s]", entry.getKey(), entry.getValue().keySet().stream().sorted().map(Object::toString).collect(Collectors.joining(", "))))
+          .collect(Collectors.toList())));
+    }
     onLoaded.run();
   }
 
@@ -229,25 +232,25 @@ public class MaterialStatsManager extends MergingJsonDataLoader<Map<ResourceLoca
   private Map<MaterialStatsId, IMaterialStats> deserializeMaterialStatsFromContent(ResourceLocation id, Map<ResourceLocation, JsonObject> contentsMap) {
     ImmutableMap.Builder<MaterialStatsId, IMaterialStats> builder = ImmutableMap.builder();
     for (Entry<ResourceLocation, JsonObject> entry : contentsMap.entrySet()) {
-      MaterialStatsId statType = new MaterialStatsId(entry.getKey());
-      JsonObject json = entry.getValue();
-      MaterialStatType<?> type = getStatType(statType);
-      if (type == null) {
-        try {
+      try {
+        MaterialStatsId statType = new MaterialStatsId(entry.getKey());
+        JsonObject json = entry.getValue();
+        MaterialStatType<?> type = getStatType(statType);
+        if (type == null) {
           boolean optional = GsonHelper.getAsBoolean(json, "optional", false);
           log.log(optional ? Level.DEBUG : Level.ERROR, "Skipping unregistered material stat type '{}' for material '{}'. {}", statType, id, optional
             ? "It was marked as optional, so it is likely disabled compatability."
             : "This likely indicates a broken mod or datapack.");
-        } catch (JsonSyntaxException e) {
-          log.error("Failed to parse optional status for missing stat type '{}' on material '{}'", statType, id, e);
+          continue;
         }
-        continue;
+        builder.put(statType, type.getLoadable().deserialize(json, TypedMapBuilder.builder()
+          .put(ContextKey.ID, id)
+          .put(ContextKey.DEBUG, "Material Stats for " + id)
+          .put(MaterialStatType.CONTEXT_KEY, type)
+          .build()));
+      } catch (JsonSyntaxException e) {
+        log.error("Failed to parse material stats {} on material '{}'", entry.getKey(), id, e);
       }
-      builder.put(statType, type.getLoadable().deserialize(json, TypedMapBuilder.builder()
-        .put(ContextKey.ID, id)
-        .put(ContextKey.DEBUG, "Material Stats for " + id)
-        .put(MaterialStatType.CONTEXT_KEY, type)
-        .build()));
     }
     return builder.build();
   }

@@ -1,6 +1,7 @@
 {
   "values": [
     "tconstruct:luck",
-    "tconstruct:tool_belt"
+    "tconstruct:tool_belt",
+    "tconstruct:feather_fall"
   ]
 }

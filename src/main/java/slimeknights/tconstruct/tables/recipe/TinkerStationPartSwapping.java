@@ -8,29 +8,42 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
+import slimeknights.mantle.recipe.IMultiRecipe;
 import slimeknights.mantle.recipe.ingredient.SizedIngredient;
+import slimeknights.tconstruct.library.materials.IMaterialRegistry;
+import slimeknights.tconstruct.library.materials.MaterialRegistry;
+import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.casting.material.MaterialCastingLookup;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.ModifierRecipe;
+import slimeknights.tconstruct.library.recipe.tinkerstation.IDisplayToolTinkering;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.building.MaterialSwappingRecipe;
 import slimeknights.tconstruct.library.tools.definition.module.material.ToolPartsHook;
+import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.part.IToolPart;
 import slimeknights.tconstruct.tables.TinkerTables;
 
+import java.util.Arrays;
 import java.util.BitSet;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
- * Recipe that replaces a tool part with another
+ * Recipe that replaces a tool part with another.
+ * TODO 1.21: rename this to something clearer like {@code PartMaterialSwappingRecipe} given we now have so many part swapping recipes.
+ * That or merge it into tool building as previously planned.
  */
-public class TinkerStationPartSwapping extends MaterialSwappingRecipe {
+public class TinkerStationPartSwapping extends MaterialSwappingRecipe implements IMultiRecipe<IDisplayToolTinkering> {
   public static final RecordLoadable<TinkerStationPartSwapping> LOADER = RecordLoadable.create(ContextKey.ID.requiredField(), TOOLS_FIELD, STACK_SIZE_FIELD, EXTRA_REQUIREMENTS_FIELD, TinkerStationPartSwapping::new);
 
   protected TinkerStationPartSwapping(ResourceLocation id, Ingredient tools, int maxStackSize, List<SizedIngredient> extraRequirements) {
@@ -125,5 +138,41 @@ public class TinkerStationPartSwapping extends MaterialSwappingRecipe {
   @Override
   public RecipeSerializer<?> getSerializer() {
     return TinkerTables.tinkerStationPartSwappingSerializer.get();
+  }
+
+
+  /* JEI */
+  private List<IDisplayToolTinkering> multiRecipes;
+
+  @Override
+  public List<IDisplayToolTinkering> getRecipes(RegistryAccess access) {
+    if (multiRecipes == null) {
+      IMaterialRegistry registry = MaterialRegistry.getInstance();
+      Collection<IMaterial> materials = registry.getVisibleMaterials();
+      multiRecipes = Arrays.stream(tools.getItems()).flatMap(stack -> {
+        ToolStack tool = ToolStack.from(stack);
+        List<IToolPart> parts = ToolPartsHook.parts(tool.getDefinition());
+        // JEI only shows up to 5 slots
+        if (parts.size() > MAX_SLOTS) {
+          return Stream.empty();
+        }
+        return IntStream.range(0, parts.size()).<IDisplayToolTinkering>mapToObj(i -> {
+          IToolPart part = parts.get(i);
+          ToolStack copy = tool.copy();
+          List<IMaterial> filtered = materials.stream().filter(mat -> registry.getMaterialStats(mat.getIdentifier(), part.getStatType()).isPresent()).toList();
+          return new PartDisplayRecipe(i,
+            // one part per material
+            filtered.stream().map(mat -> part.withMaterialForDisplay(mat.getIdentifier())).toList(),
+            // single tool with the material to swap left blank
+            List.of(withMaterial(copy, i, MaterialVariant.of(ToolBuildHandler.getRenderMaterial(0))).copy()),
+            // one output per material
+            filtered.stream().map(mat -> withMaterial(copy, i, MaterialVariant.of(mat)).copy()).toList(),
+            // part info
+            filtered.stream().map(MaterialVariant::of).toList(), part
+          );
+        });
+      }).toList();
+    }
+    return multiRecipes;
   }
 }

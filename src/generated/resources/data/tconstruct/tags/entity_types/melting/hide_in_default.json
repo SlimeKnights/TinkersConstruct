@@ -1,5 +1,10 @@
 {
   "values": [
-    "minecraft:giant"
+    "minecraft:giant",
+    "#tconstruct:melting/blacklist",
+    {
+      "id": "#c:hidden_from_recipe_viewers",
+      "required": false
+    }
   ]
 }

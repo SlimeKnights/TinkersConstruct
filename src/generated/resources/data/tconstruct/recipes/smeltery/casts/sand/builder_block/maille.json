@@ -7,5 +7,6 @@
   "result": {
     "count": 4,
     "item": "tconstruct:maille_sand_cast"
-  }
+  },
+  "title_key": "tconstruct:sand_cast"
 }

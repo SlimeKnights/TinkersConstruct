@@ -22,6 +22,5 @@
       "damage": 1.0,
       "damage_type": "tconstruct:spiny"
     }
-  ],
-  "tooltip_display": "always"
+  ]
 }

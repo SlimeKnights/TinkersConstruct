@@ -1857,7 +1857,7 @@
   "material.tconstruct.seared_stone": "焼成石",
   "material.tconstruct.seared_stone.flavor": "熱くなったグラウト。",
   "material.tconstruct.seared_stone.encyclopedia": "溶融器で溶かすことができるブロックに対して採掘速度が+6される",
-  "material.tconstruct.seared_stone.encyclopedia.armor": "燃焼によるダメージを1レベルにつき10%軽減し、燃焼時間を短縮する",
+  "material.tconstruct.seared_stone.encyclopedia.armor": "燃焼によるダメージを1レベルにつき12%軽減し、燃焼時間を短縮する",
 
   "material.tconstruct.scorched_stone": "焦熱石",
   "material.tconstruct.scorched_stone.flavor": "焦熱バージョンのボーナス。",
@@ -1876,7 +1876,7 @@
 
   "material.tconstruct.gold": "金",
   "material.tconstruct.gold.flavor": "ピグリン大好き",
-  "material.tconstruct.gold.encyclopedia.armor": "魔法ダメージに対する防御力がレベル毎に+10%され、負のポーション効果の持続時間が短くなる。ピグリンが友好的になる",
+  "material.tconstruct.gold.encyclopedia.armor": "魔法ダメージに対する防御力がレベル毎に+12%され、負のポーション効果の持続時間が短くなる。ピグリンが友好的になる",
   "material.tconstruct.gold.skull": "ピグリン",
   "material.tconstruct.gold.flavor.skull": "何という輝き",
   "material.tconstruct.gold.encyclopedia.skull": "金鉱石を採掘すると追加の金塊がドロップされることがあり、また金の防具をドロップする確率が4%増加する。金塊や防具のドロップ確率は、金装備をしている部位の個数によって更に増加する。",
@@ -1908,11 +1908,13 @@
   "material.tconstruct.rose_gold.encyclopedia.skull": "体力がハート1つ分増え、金の防具を付けていると更に追加でハートが増える。",
 
   "material.tconstruct.skyslime_vine": "べとつくツタ",
-  "material.tconstruct.skyslime_vine.slimeskin": "スライムスキン",
   "material.tconstruct.skyslime_vine.flavor": "蝶のように舞い、蜂のように刺す。",
   "material.tconstruct.skyslime_vine.encyclopedia.melee_harvest": "足が大地に付いてない場合でも採掘速度が低下しなくなる",
   "material.tconstruct.skyslime_vine.encyclopedia.ranged": "地面やはしごに乗っていない時に+0.1の速度補正を得る",
   "material.tconstruct.skyslime_vine.encyclopedia.armor": "1つの部位につき15%重力が軽減される",
+
+  "material.tconstruct.skyslimeskin": "スライムスキン",
+  "material.tconstruct.skyslimeskin.flavor": "蝶のように舞い、蜂のように刺す。",
 
   "material.tconstruct.weeping_vine": "しだれツタ",
   "material.tconstruct.weeping_vine.flavor": "熱を集中させよ",
@@ -2027,7 +2029,7 @@
 
   "material.tconstruct.obsidian": "黒曜石",
   "material.tconstruct.obsidian.flavor": "これは黒曜石のパーツで、そうでなければ「黒曜石」とは書かれていない",
-  "material.tconstruct.obsidian.encyclopedia.armor": "レベルごとに爆発に対する耐性が10%増加し、爆発によるノックバック効果が減少する",
+  "material.tconstruct.obsidian.encyclopedia.armor": "レベルごとに爆発に対する耐性が12%増加し、爆発によるノックバック効果が減少する",
 
   "material.tconstruct.amethyst_bronze": "アメジスト青銅",
   "material.tconstruct.amethyst_bronze.flavor": "青銅と混同しないように。",
@@ -2064,7 +2066,7 @@
 
   "material.tconstruct.dragon_scale": "ドラゴンの鱗",
   "material.tconstruct.dragon_scale.flavor": "ドラゴンでさえも恐れることになる！",
-  "material.tconstruct.dragon_scale.encyclopedia.armor": "空中にいる間、耐性を10%増加させ、最高のレベルの装備品に基づいて攻撃力を5%ずつ上昇させる",
+  "material.tconstruct.dragon_scale.encyclopedia.armor": "空中にいる間、耐性を8%増加させ、最高のレベルの装備品に基づいて攻撃力を5%ずつ上昇させる",
   "material.tconstruct.dragon_scale.encyclopedia.ammo": "空中にいる間に発射した場合、レベルごとに飛翔体ダメージが1増加する",
   "material.tconstruct.dragon_scale.skull": "ドラゴン",
   "material.tconstruct.dragon_scale.flavor.skull": "誰も撃つな！",
@@ -2164,11 +2166,12 @@
   "material.tconstruct.knightslime.encyclopedia.armor": "レベル×2までのオーバースライムを消費し、消費したオーバースライムにつきダメージを2.5%軽減する（最大はレベル×5%）",
 
   "material.tconstruct.enderslime_vine": "べとつくツタ",
-  "material.tconstruct.enderslime_vine.slimeskin": "スライムスキン",
   "material.tconstruct.enderslime_vine.flavor": "おしまい？",
   "material.tconstruct.enderslime_vine.encyclopedia.melee_harvest": "所有者を採掘したブロックの位置にテレポートさせ、攻撃したMobの位置と入れ替えさせる",
   "material.tconstruct.enderslime_vine.encyclopedia.ranged": "矢がブロックに当たると所有者をその位置にテレポートさせ、Mobに当たると所有者と位置を入れ替える",
-  "material.tconstruct.enderslime_vine.encyclopedia.armor": "攻撃してきた相手を25%の確率でテレポートさせる",
+
+  "material.tconstruct.enderslimeskin": "スライムスキン",
+  "material.tconstruct.enderslimeskin.encyclopedia.armor": "攻撃してきた相手を25%の確率でテレポートさせる",
 
   "material.tconstruct.enderslime": "エンダースライム",
   "material.tconstruct.enderslime.flavor": "ズウォープ",

@@ -204,6 +204,7 @@ public class ModifierIds {
   public static final ModifierId overslimeFriend = id("overslime_friend");
   public static final ModifierId snowBoots = id("snow_boots");
   public static final ModifierId edibleTooltip = id("edible_tooltip");
+  public static final ModifierId ironArmor = id("iron_armor");
 
   // traits - tier 1
   public static final ModifierId cultivated = id("cultivated");
@@ -230,6 +231,7 @@ public class ModifierIds {
   public static final ModifierId scorchProtection = id("scorch_protection");
   public static final ModifierId antitoxin = id("antitoxin");
   public static final ModifierId airborne = id("airborne");
+  public static final ModifierId airborn = id("airborn");
   public static final ModifierId skyfall = id("skyfall");
   public static final ModifierId flamestance = id("flamestance");
   public static final ModifierId entangled = id("entangled");
@@ -242,6 +244,7 @@ public class ModifierIds {
   public static final ModifierId restore = id("restore");
   public static final ModifierId rebuff = id("rebuff");
   public static final ModifierId forming = id("forming");
+  public static final ModifierId nightmareProtection = id("nightmare_protection");
   // traits - tier 2 compat
   public static final ModifierId deciduous = id("deciduous");
   public static final ModifierId barkskin = id("barkskin");
@@ -338,12 +341,14 @@ public class ModifierIds {
   public static final ModifierId thornsShell = id("thorns_shell");
   public static final ModifierId shulkerBox = id("shulker_box");
   public static final ModifierId dragonfall = id("dragonfall");
+  public static final ModifierId dreambound = id("dreambound");
   public static final ModifierId cobalamin = id("cobalamin");
   public static final ModifierId loyal = id("loyal");
   // traits - slimeboots
   public static final ModifierId entwined = id("entwined");
   public static final ModifierId looter = id("looter");
   public static final ModifierId fortunate = id("fortunate");
+  public static final ModifierId rugged = id("rugged");
 
   // mob disguises
   public static final ModifierId creeperDisguise         = id("creeper_disguise");

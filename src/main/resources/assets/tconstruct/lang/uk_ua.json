@@ -1906,7 +1906,7 @@
   "material.tconstruct.iron.flavor": "Залізне як Залізняк, але не як Залізниця…",
   "material.tconstruct.iron.encyclopedia": "Надає 10% додаткової міцності на деталь.",
   "material.tconstruct.iron.encyclopedia.ranged": "Змушує випущені стріли притягувати предмети поблизу до власника.",
-  "material.tconstruct.iron.encyclopedia.armor": "Зменшує отримувану шкоду від снарядів на 10% на рівень та надає 5% стійкості до відкидання на максимальному.",
+  "material.tconstruct.iron.encyclopedia.armor": "Зменшує отримувану шкоду від снарядів на 8% на рівень та надає 5% стійкості до відкидання на максимальному.",
   "material.tconstruct.iron.skull": "Висушень",
   "material.tconstruct.iron.flavor.skull": "Передозування плазмієм!",
   "material.tconstruct.iron.encyclopedia.skull": "При отриманні шкоди з часом відновлює 50% отриманої шкоди після броні",
@@ -1914,7 +1914,7 @@
   "material.tconstruct.seared_stone": "Обпалений камінь",
   "material.tconstruct.seared_stone.flavor": "Гарячіший мент",
   "material.tconstruct.seared_stone.encyclopedia": "Надає +6 швидкости добування для блоків, які можна розтопити в плавильнику.",
-  "material.tconstruct.seared_stone.encyclopedia.armor": "Зменшує отримувану шкоду від вогню на 10% на рівень та скорочує час горіння.",
+  "material.tconstruct.seared_stone.encyclopedia.armor": "Зменшує отримувану шкоду від вогню на 12% на рівень та скорочує час горіння.",
 
   "material.tconstruct.scorched_stone": "Випалений камінь",
   "material.tconstruct.scorched_stone.flavor": "Вилита ливарня.",
@@ -1933,7 +1933,7 @@
 
   "material.tconstruct.gold": "Золото",
   "material.tconstruct.gold.flavor": "Піґліни люблять його.",
-  "material.tconstruct.gold.encyclopedia.armor": "Надає 10% захисту від магічної шкоди за кожен рівень та зменшує час дії негативних зіллів. Також робить свиней дружніми.",
+  "material.tconstruct.gold.encyclopedia.armor": "Надає 12% захисту від магічної шкоди за кожен рівень та зменшує час дії негативних зіллів. Також робить свиней дружніми.",
   "material.tconstruct.gold.skull": "Піґлін",
   "material.tconstruct.gold.flavor.skull": "Яке блискуче",
   "material.tconstruct.gold.encyclopedia.skull": "Збільшує здобуток золотих самородків із деяких золотих руд, а також шанси випадіння золотої броні на 4%. Випадіння броні та самородків далі збільшується кожною надягнутою частиною золотої броні.",
@@ -1966,12 +1966,14 @@
   "material.tconstruct.rose_gold.encyclopedia.skull": "Збільшує здоров'я на 1 серце, плюс додаткове серце на кожну частину одягненої золотої броні.",
 
   "material.tconstruct.skyslime_vine": "Слизуваті лози",
-  "material.tconstruct.skyslime_vine.slimeskin": "Слизошкіра",
   "material.tconstruct.skyslime_vine.flavor": "Літай як метелик, жаль як бджола.",
   "material.tconstruct.skyslime_vine.encyclopedia.melee_harvest": "Скасовує зменшення швидкости добування, коли ви не на землі.",
   "material.tconstruct.skyslime_vine.encyclopedia.ranged": "Надає +0.5 точності, коли не на землі або драбині.",
   "material.tconstruct.skyslime_vine.encyclopedia.armor": "Зменшує силу тяжіння на 20% за кожен елемент обладунку.",
   "material.tconstruct.skyslime_vine.encyclopedia.laces": "Надає +0.5 блоку висоти стрибка на першому рівні та +1 на другому рівні. Збільшує безпечну дальність падіння на 1 блок за кожен рівень.",
+
+  "material.tconstruct.skyslimeskin": "Слизошкіра",
+  "material.tconstruct.skyslimeskin.flavor": "Літай як метелик, жаль як бджола.",
 
   "material.tconstruct.weeping_vine": "Плакучі лози",
   "material.tconstruct.weeping_vine.flavor": "Проводить тепло.",
@@ -1984,7 +1986,7 @@
   "material.tconstruct.twisting_vine.flavor": "Не сперечайся та їж!",
   "material.tconstruct.twisting_vine.encyclopedia.melee_harvest": "Надає +6 до швидкости видобутку, але втрачає 1 міцність, коли ви опускаєте інструмент.",
   "material.tconstruct.twisting_vine.encyclopedia.ranged": "Надає +15% до швидкости натягування лука, але втрачає 1 міцність, коли ви опускаєте інструмент.",
-  "material.tconstruct.twisting_vine.encyclopedia.armor": "Надає +10% до стійкості до відкидань, але втрачає 2 міцності, коли ви знімаєте обладунок.",
+  "material.tconstruct.twisting_vine.encyclopedia.armor": "Збільшує швидкість руху на 15%, але завдає 2 одиниці шкоди за рівень, коли не екіпірований.",
   "material.tconstruct.twisting_vine.encyclopedia.laces": "Збільшує швидкість руху на 15% за рівень, але завдає 2 одиниці шкоди за рівень, коли не екіпірований.",
 
   "material.tconstruct.wool": "Вовна",
@@ -2071,8 +2073,6 @@
   "material.tconstruct.ender_pearl.skull": "Ендермен",
   "material.tconstruct.ender_pearl.flavor.skull": "Ендермени знають, як уникати шкоди, а також науковців. Вони тижнями ігнорують мої прохання взяти інтерв'ю!",
   "material.tconstruct.ender_pearl.encyclopedia.skull": "Автоматично телепортує вас, коли ви атаковані снарядом, і випадково від беззбройної шкоди. Перезаряджається 15 секунд.",
-  "material.tconstruct.ender_pearl.flavor.slime": "Контрзакляття!",
-  "material.tconstruct.ender_pearl.encyclopedia.slime": "Надає 10% захисту від магічної шкоди за кожен рівень та зменшує час дії негативних зіллів.",
 
   "material.tconstruct.glass": "Скло",
   "material.tconstruct.glass.flavor": "Розбивається при ударі!",
@@ -2099,7 +2099,7 @@
 
   "material.tconstruct.obsidian": "Обсидіан",
   "material.tconstruct.obsidian.flavor": "Це деталь з обсидіану, і якби це було не так, вона б не називалась «Обсидіан»",
-  "material.tconstruct.obsidian.encyclopedia.armor": "Надає 10% захисту від вибухів за кожен рівень та зменшує відкидання від вибуху.",
+  "material.tconstruct.obsidian.encyclopedia.armor": "Надає 12% захисту від вибухів за кожен рівень та зменшує відкидання від вибуху.",
 
   "material.tconstruct.amethyst_bronze": "Аметистова бронза",
   "material.tconstruct.amethyst_bronze.flavor": "Не плутати з бронзою.",
@@ -2130,7 +2130,7 @@
   "material.tconstruct.cobalt.flavor": "Матеріал червоної армії.",
   "material.tconstruct.cobalt.encyclopedia.melee_harvest": "Прискорює добування й атакування на 7% на рівень.",
   "material.tconstruct.cobalt.encyclopedia.ranged": "Збільшує швидкість тяги та швидкість на 5% на рівень.",
-  "material.tconstruct.cobalt.encyclopedia.armor": "Зменшує шкоду від атак ближнього бою на 10% на рівень та збільшує швидкість руху при використанні предмета на 5% за максимальний рівень.",
+  "material.tconstruct.cobalt.encyclopedia.armor": "Зменшує шкоду від атак ближнього бою на 8% на рівень та збільшує швидкість руху при використанні предмета на 5% за максимальний рівень.",
 
   "material.tconstruct.quartz": "Кварц",
   "material.tconstruct.quartz.flavor": "Гострий!",
@@ -2138,7 +2138,7 @@
 
   "material.tconstruct.dragon_scale": "Драконова луска",
   "material.tconstruct.dragon_scale.flavor": "З цим навіть дракони мене боятимуся!",
-  "material.tconstruct.dragon_scale.encyclopedia.armor": "Надає +10% до захисту у повітрі та збільшує швидкість атаки на 5% за кожен рівень відповідно до найвищого показника.",
+  "material.tconstruct.dragon_scale.encyclopedia.armor": "Надає +8% до захисту у повітрі та збільшує швидкість атаки на 5% за кожен рівень відповідно до найвищого показника.",
   "material.tconstruct.dragon_scale.encyclopedia.ammo": "Збільшує шкоду від снаряда на 1 на рівень, якщо його випустити, знаходячись у повітрі.",
   "material.tconstruct.dragon_scale.skull": "Дракон",
   "material.tconstruct.dragon_scale.flavor.skull": "Нікому не стріляти!",
@@ -2255,17 +2255,19 @@
   "material.tconstruct.knightslime.encyclopedia.armor": "Витрачає до 2 переслизу на рівень, щоб зменшити отримувану шкоду на 2,5% за кожен витрачений переслиз (до 5% на рівень).",
 
   "material.tconstruct.enderslime_vine": "Ендерові слизуваті лози",
-  "material.tconstruct.enderslime_vine.slimeskin": "Слизошкіра",
   "material.tconstruct.enderslime_vine.flavor": "Кінець?",
   "material.tconstruct.enderslime_vine.encyclopedia.melee_harvest": "Телепортує власника до місця добутих блоків чи вбитих монстрів.",
   "material.tconstruct.enderslime_vine.encyclopedia.ranged": "Телепортує власника до місця падіння стріли на блоці або міняє місцями власника з сутністю, в яку було влучено.",
-  "material.tconstruct.enderslime_vine.encyclopedia.armor": "Додає 25% шансу за частину обладунку випадково телепортувати нападників.",
-  "material.tconstruct.enderslime_vine.encyclopedia.laces": "Має 25% шанс за рівень випадково телепортувати нападників геть.",
+  "material.tconstruct.enderslime_vine.encyclopedia.armor": "Дає 7.5% ухилитися від атаки з коротким часом перезаряджання. Шанс подвоєно для снарядів.",
+  "material.tconstruct.enderslime_vine.encyclopedia.laces": "Дає 7.5% за кожен рівень ухилитися від атаки з коротким часом перезаряджання. Шанс подвоєно для снарядів.",
+
+  "material.tconstruct.enderslimeskin": "Слизошкіра",
+  "material.tconstruct.enderslimeskin.encyclopedia.armor": "Додає 25% шансу за частину обладунку випадково телепортувати нападників.",
 
   "material.tconstruct.enderslime": "Ендерслиз",
   "material.tconstruct.enderslime.flavor": "Звуп",
   "material.tconstruct.enderslime.encyclopedia.ammo": "Змушує ціль телепортуватися у випадковому напрямку на відстань до 16 блоків, або до 24 блоків на 2-му рівні.",
-  "material.tconstruct.enderslime.encyclopedia.slime": "Дає 5% шансу плюс 5% за кожен рівень ухилитися від атаки з коротким часом перезаряджання. Шанс подвоєно для снарядів.",
+  "material.tconstruct.enderslime.encyclopedia.slime": "Дає 7.5% за кожен рівень ухилитися від атаки з коротким часом перезаряджання. Шанс подвоєно для снарядів.",
 
 
   "__comment": "Slimesuit materials",
@@ -2277,6 +2279,9 @@
   "material.tconstruct.honey": "Мед",
   "material.tconstruct.honey.flavor": "Дуже солодко!",
   "material.tconstruct.honey.encyclopedia.slime": "Дає 15% шанс за кожен рівень з'їсти обладунок (що споживає частину міцності) на 1 очко голоду за кожен рівень при насиченні 0.1, що також лікує отруту.",
+
+  "material.tconstruct.venom.flavor.slime": "Контрзакляття!",
+  "material.tconstruct.venom.encyclopedia.slime": "Надає 10% захисту від магічної шкоди за кожен рівень та зменшує час дії негативних зіллів.",
 
   "material.tconstruct.phantom": "Перетинка фантома",
   "material.tconstruct.phantom.flavor.shell": "Лети як фантом",

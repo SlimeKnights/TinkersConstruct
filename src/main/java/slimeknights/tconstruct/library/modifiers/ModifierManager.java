@@ -45,6 +45,7 @@ import slimeknights.mantle.util.typed.TypedMapBuilder;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.json.JsonRedirect;
 import slimeknights.tconstruct.library.modifiers.impl.ComposableModifier;
+import slimeknights.tconstruct.library.modifiers.util.ModifierTooltip;
 import slimeknights.tconstruct.library.utils.GenericTagUtil;
 import slimeknights.tconstruct.library.utils.JsonUtils;
 
@@ -226,7 +227,9 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
             Modifier modifier = get(modifierId);
             if (modifier == defaultValue) {
               if (optional) {
-                TConstruct.LOG.debug("Skipping unknown optional modifier " + modifierId + " for enchantment " + key);
+                if (JsonUtils.debugLogResourceValues()) {
+                  TConstruct.LOG.debug("Skipping unknown optional modifier {} for enchantment {}", modifierId, key);
+                }
                 continue;
               }
               throw new JsonSyntaxException("Unknown modifier " + modifierId + " for enchantment " + key);
@@ -514,8 +517,15 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
 
   /** Class for the empty modifier instance, mods should not need to extend this class */
   private static class EmptyModifier extends Modifier {
+    @SuppressWarnings("removal")
+    @Deprecated(forRemoval = true)
     @Override
     public boolean shouldDisplay(boolean advanced) {
+      return false;
+    }
+
+    @Override
+    public boolean shouldDisplay(ModifierTooltip context) {
       return false;
     }
   }

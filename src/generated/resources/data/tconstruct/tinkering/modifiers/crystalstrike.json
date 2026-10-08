@@ -37,6 +37,5 @@
       "held_tag": "tconstruct:modifiable/armor/held",
       "key": "tconstruct:crystalstrike_knockback"
     }
-  ],
-  "tooltip_display": "always"
+  ]
 }

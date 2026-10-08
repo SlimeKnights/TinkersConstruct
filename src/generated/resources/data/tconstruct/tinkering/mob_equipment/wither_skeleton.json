@@ -1,5 +1,5 @@
 {
-  "entity": "minecraft:wither_skeleton",
+  "entity": "#tconstruct:spawns_with/swasher/wither_skeleton",
   "equip": {
     "chance": 0.05,
     "fluid": "tconstruct:swasher/wither_skeleton",

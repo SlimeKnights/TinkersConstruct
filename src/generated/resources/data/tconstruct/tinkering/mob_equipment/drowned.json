@@ -1,5 +1,5 @@
 {
-  "entity": "minecraft:drowned",
+  "entity": "#tconstruct:spawns_with/swasher/drowned",
   "equip": {
     "chance": 0.05,
     "fluid": "tconstruct:swasher/drowned",

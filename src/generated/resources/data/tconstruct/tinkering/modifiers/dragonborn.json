@@ -13,9 +13,8 @@
     {
       "type": "tconstruct:protection",
       "damage_source": "mantle:can_protect",
-      "each_level": 2.5,
+      "each_level": 2.0,
       "wearing_entity": "tconstruct:airborne"
     }
-  ],
-  "tooltip_display": "always"
+  ]
 }

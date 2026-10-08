@@ -8,13 +8,11 @@ import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator.DuelSidedListener;
+import slimeknights.tconstruct.library.utils.SimpleCache;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
 
 /**
  * Class handling a recipe cache for fuel recipes, since any given entity type has one recipe
@@ -29,16 +27,14 @@ public class MeltingFuelLookup {
   /** List of all recipes */
   private static final List<MeltingFuel> RECIPES = new ArrayList<>();
   /** Mapping from fluid to fuel */
-  private static final Map<Fluid,MeltingFuel> CACHE = new HashMap<>();
-  /** Logic to fill the cache */
-  private static final Function<Fluid,MeltingFuel> LOOKUP = fluid -> {
+  private static final SimpleCache<Fluid,MeltingFuel> CACHE = new SimpleCache<>(fluid -> {
     for (MeltingFuel recipe : RECIPES) {
       if (recipe.matches(fluid)) {
         return recipe;
       }
     }
     return EMPTY;
-  };
+  });
   /** Listener to check when recipes reload */
   private static final DuelSidedListener LISTENER = RecipeCacheInvalidator.addDuelSidedListener(() -> {
     SOLID = EMPTY;
@@ -67,7 +63,7 @@ public class MeltingFuelLookup {
 
   /** Checks if the given fluid is a fuel */
   public static boolean isFuel(Fluid fluid) {
-    return CACHE.computeIfAbsent(fluid, LOOKUP) != EMPTY;
+    return CACHE.apply(fluid) != EMPTY;
   }
 
   /** Gets the properties for solid fuel */
@@ -82,7 +78,7 @@ public class MeltingFuelLookup {
    */
   @Nullable
   public static MeltingFuel findFuel(Fluid fluid) {
-    MeltingFuel recipe = CACHE.computeIfAbsent(fluid, LOOKUP);
+    MeltingFuel recipe = CACHE.apply(fluid);
     if (recipe == EMPTY) {
       return null;
     }

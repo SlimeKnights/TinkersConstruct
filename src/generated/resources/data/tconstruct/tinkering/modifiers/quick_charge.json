@@ -7,6 +7,5 @@
       "operation": "multiply_base",
       "stat": "tconstruct:draw_speed"
     }
-  ],
-  "tooltip_display": "always"
+  ]
 }

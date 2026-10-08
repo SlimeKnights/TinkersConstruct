@@ -39,7 +39,7 @@ public abstract class GenericNBTProvider implements DataProvider {
     return JsonHelper.localize(name, folder, ".nbt");
   }
 
-  /** Saves the given image to the given location */
+  /** Saves the given NBT to the given location */
   protected CompletableFuture<?> saveNBT(CachedOutput cache, ResourceLocation location, CompoundTag data) {
     return CompletableFuture.runAsync(() -> {
       try {

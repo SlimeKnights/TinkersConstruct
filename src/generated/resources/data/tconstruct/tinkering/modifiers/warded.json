@@ -22,6 +22,5 @@
       "tooltip_value": 100.0
     }
   ],
-  "priority": 50,
-  "tooltip_display": "always"
+  "priority": 50
 }

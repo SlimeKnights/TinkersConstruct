@@ -1,6 +1,8 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation.building;
 
+import lombok.Getter;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -11,24 +13,32 @@ import slimeknights.mantle.data.loadable.array.IntArrayLoadable;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
+import slimeknights.mantle.recipe.IMultiRecipe;
 import slimeknights.mantle.recipe.ingredient.SizedIngredient;
+import slimeknights.tconstruct.library.client.materials.MaterialTooltipCache;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.ModifierRecipe;
+import slimeknights.tconstruct.library.recipe.tinkerstation.IDisplayToolTinkering;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.tools.definition.module.material.ToolMaterialHook;
+import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
+import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tables.TinkerTables;
 
+import java.util.Arrays;
 import java.util.BitSet;
 import java.util.List;
 
 /** Recipe for swapping a single material on a tool given a specific input ingredient. */
-public class FixedMaterialSwappingRecipe extends MaterialSwappingRecipe {
+public class FixedMaterialSwappingRecipe extends MaterialSwappingRecipe implements IMultiRecipe<IDisplayToolTinkering> {
   public static final RecordLoadable<FixedMaterialSwappingRecipe> LOADER = RecordLoadable.create(
     ContextKey.ID.requiredField(), TOOLS_FIELD, STACK_SIZE_FIELD,
     SizedIngredient.LOADABLE.requiredField("ingredient", r -> r.ingredient),
@@ -130,5 +140,97 @@ public class FixedMaterialSwappingRecipe extends MaterialSwappingRecipe {
   @Override
   public RecipeSerializer<?> getSerializer() {
     return TinkerTables.fixedMaterialSwapping.get();
+  }
+
+
+  /* JEI */
+
+  private List<IDisplayToolTinkering> multiRecipes;
+
+  @Override
+  public List<IDisplayToolTinkering> getRecipes(RegistryAccess access) {
+    if (multiRecipes == null) {
+      ItemStack[] tools = this.tools.getItems();
+      MaterialVariant material = MaterialVariant.of(this.material);
+      List<ItemStack> inputs = ingredient.getMatchingStacks();
+      Component variantText = MaterialTooltipCache.getDisplayName(this.material);
+      // need 1 recipe per index we can swap into
+      multiRecipes = Arrays.stream(indices).filter(VALID_SLOT).<IDisplayToolTinkering>mapToObj(i -> {
+        // for each index, use first as the material on input, desired material on output
+        List<ItemStack> withoutMaterial = Arrays.stream(tools).map(stack -> withMaterial(stack.copy(), i, MaterialVariant.of(ToolBuildHandler.getRenderMaterial(i)))).toList();
+        List<ItemStack> withMaterial = Arrays.stream(tools).map(stack -> withMaterial(stack.copy(), i, material)).toList();
+        return new DisplayRecipe(variantText, i, inputs, withoutMaterial, withMaterial);
+      }).toList();
+    }
+    return multiRecipes;
+  }
+
+  /** Overrides the title and variant for the display recipe */
+  protected class DisplayRecipe extends MaterialSwappingRecipe.DisplayRecipe {
+    @Getter
+    private final Component variant;
+    public DisplayRecipe(Component variant, int index, List<ItemStack> input, List<ItemStack> toolWithoutModifier, List<ItemStack> toolWithModifier) {
+      super(index, input, toolWithoutModifier, toolWithModifier);
+      this.variant = variant;
+    }
+
+    @Override
+    public Component getTitle() {
+      return MATERIAL_TITLE;
+    }
+
+    @Override
+    public Component getTooltip() {
+      return MATERIAL_TOOLTIP;
+    }
+
+    @Override
+    public List<ItemStack> getToolWithoutModifier(ItemStack focus, boolean focusOutput) {
+      if (!focus.isEmpty() && (focusOutput || isTool(focus))) {
+        // if focusing on an input tool, it becomes our tool without modifier provided we can change it
+        MaterialIdNBT materials = MaterialIdNBT.from(focus);
+        if (!focusOutput && !materials.getMaterial(index).sameVariant(material)) {
+          return focusInput(focus);
+        }
+        // otherwise, copy all materials to the input except the one we plan to swap
+        return createDisplayStack(materials, focus);
+      }
+      return toolWithoutModifier;
+    }
+
+    @Override
+    public List<ItemStack> getToolWithModifier(ItemStack focus, boolean focusOutput) {
+      if (!focus.isEmpty() && (focusOutput || isTool(focus))) {
+        if (focusOutput) {
+          // for output focus, want to make the simplest output with the material
+          MaterialIdNBT materials = MaterialIdNBT.from(focus);
+          // skip duplicating if the material is already there
+          if (!materials.getMaterial(index).sameVariant(material)) {
+            materials = materials.replaceMaterial(index, material);
+          }
+          return List.of(copyMaterials(materials, focus.getItem()));
+        } else {
+          // add the material to the input focus if its lacking
+          ToolStack tool = ToolStack.from(focus);
+          if (!tool.getMaterial(index).sameVariant(material)) {
+            return List.of(replaceMaterial(tool.copy(), MaterialVariant.of(material), focus));
+          } else {
+            // if it already has the material, strip unique properties
+            return List.of(copyMaterials(tool, tool.getMaterials()));
+          }
+        }
+      }
+      return toolWithModifier;
+    }
+
+    @Override
+    public boolean isFiltered() {
+      return true;
+    }
+
+    @Override
+    public boolean isVisibleFromItem(ItemStack focus, boolean output) {
+      return output == MaterialIdNBT.getMaterial(focus, index).sameId(material);
+    }
   }
 }

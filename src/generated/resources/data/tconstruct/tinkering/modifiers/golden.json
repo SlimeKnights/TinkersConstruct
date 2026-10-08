@@ -5,6 +5,5 @@
       "type": "tconstruct:volatile_flag",
       "flag": "tconstruct:piglin_neutral"
     }
-  ],
-  "tooltip_display": "always"
+  ]
 }

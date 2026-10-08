@@ -11,6 +11,8 @@ import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
+import slimeknights.tconstruct.library.tools.part.IMaterialItem;
+import slimeknights.tconstruct.library.utils.SimpleCache;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -21,19 +23,40 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 /** Cache of details related to materials */
 public class MaterialRecipeCache {
   /** Full list of recipes in the cache */
   private static final List<MaterialRecipe> RECIPES = new ArrayList<>();
+  /** Predicate for sorted recipe lists, ensuring they are visible */
+  private static final Predicate<MaterialRecipe> RECIPE_FILTER = MaterialRecipe::isVisible;
+  /** Full list of recipes in the cache */
+  private static List<MaterialRecipe> SORTED_RECIPES = null;
+  /** Comparator used to create {@link #SORTED_RECIPES} */
+  private static final Comparator<MaterialRecipe> RECIPE_COMPARATOR = Comparator
+    .comparing(MaterialRecipe::getMaterial)
+    .thenComparing(MaterialRecipe::getValue)
+    .thenComparing(MaterialRecipe::getNeeded);
   /** Lookup from item ID to recipe */
   private static final Map<Item, MaterialRecipe> RECIPE_BY_ITEM = new ConcurrentHashMap<>();
   /** Lookup from material variant ID to recipe */
   private static final Multimap<MaterialVariantId, MaterialRecipe> RECIPES_BY_MATERIAL = HashMultimap.create();
+  /** Gets the list of recipes per material in sorted order */
+  private static final SimpleCache<MaterialVariantId, List<MaterialRecipe>> SORTED_RECIPES_BY_MATERIAL = new SimpleCache<>(id ->
+    RECIPES_BY_MATERIAL.get(id).stream().filter(RECIPE_FILTER).sorted(RECIPE_COMPARATOR).toList());
   /** Map from material variant ID to item stack list for display */
-  private static final Map<MaterialVariantId, List<ItemStack>> ITEMS_BY_MATERIAL = new ConcurrentHashMap<>();
+  private static final SimpleCache<MaterialVariantId, List<ItemStack>> ITEMS_BY_MATERIAL = new SimpleCache<>(variant ->
+    getRecipes(variant).stream().flatMap(r -> {
+      Stream<ItemStack> stacks = Arrays.stream(r.getIngredient().getItems());
+      // if we need multiple, increase the stack size of the display stacks
+      if (r.needed > r.value) {
+        int size = (r.needed + r.value - 1) / r.value;
+        stacks = stacks.map(stack -> stack.copyWithCount(size));
+      }
+      return stacks;
+    }).toList());
 
   /** Mapping from material ID to all variants for the material */
   private static final Multimap<MaterialId, MaterialVariantId> KNOWN_VARIANTS = HashMultimap.create();
@@ -47,8 +70,10 @@ public class MaterialRecipeCache {
   /** Listener for clearing the cache */
   private static final DuelSidedListener LISTENER = RecipeCacheInvalidator.addDuelSidedListener(() -> {
     RECIPES.clear();
+    SORTED_RECIPES = null;
     RECIPE_BY_ITEM.clear();
     RECIPES_BY_MATERIAL.clear();
+    SORTED_RECIPES_BY_MATERIAL.clear();
     ITEMS_BY_MATERIAL.clear();
     KNOWN_VARIANTS.clear();
     SORTED_VARIANTS = null;
@@ -62,11 +87,13 @@ public class MaterialRecipeCache {
       LISTENER.checkClear();
       // add recipe for item lookup; too early to resolve ingredient
       RECIPES.add(recipe);
+      SORTED_RECIPES = null;
       // mark the variant as known
       MaterialVariantId variant = recipe.getMaterial().getVariant();
       addKnownVariant(variant);
       // add lookup for the variant
       RECIPES_BY_MATERIAL.put(variant, recipe);
+      SORTED_RECIPES_BY_MATERIAL.remove(variant);
     }
   }
 
@@ -88,32 +115,60 @@ public class MaterialRecipeCache {
       return MaterialRecipe.EMPTY;
     });
   }
+  
+  /** Gets the material from the given stack, using {@link IMaterialItem} if present, otherwise falling back to {@link #findRecipe(ItemStack)} */
+  public static MaterialVariantId getMaterial(ItemStack stack) {
+    if (stack.isEmpty()) {
+      return MaterialId.UNKNOWN;
+    }
+    if (stack.getItem() instanceof IMaterialItem materialItem) {
+      return materialItem.getMaterial(stack);
+    }
+    return findRecipe(stack).getMaterial().getVariant();
+  }
 
-  /** Gets a list of all material recipes */
+  /** Gets a list of all material recipes, including hidden */
   public static Collection<MaterialRecipe> getAllRecipes() {
     return RECIPES;
   }
 
-  /** Gets all recipes for the given material variant */
-  public static Collection<MaterialRecipe> getRecipes(MaterialVariantId variant) {
+  /** Gets a list of all non-hidden material recipes, sorted by tier, sort key, and value. */
+  public static Collection<MaterialRecipe> getSortedRecipes() {
+    if (SORTED_RECIPES == null) {
+      SORTED_RECIPES = RECIPES.stream().filter(RECIPE_FILTER).sorted(RECIPE_COMPARATOR).toList();
+    }
+    return SORTED_RECIPES;
+  }
+
+  /** Gets all unsorted recipes for the given material variant */
+  public static Collection<MaterialRecipe> getAllRecipes(MaterialVariantId variant) {
     return RECIPES_BY_MATERIAL.get(variant);
   }
 
-  /** Cache lookup function for items by materials */
-  private static final Function<MaterialVariantId,List<ItemStack>> GET_ITEMS_BY_MATERIAL = variant ->
-    getRecipes(variant).stream().flatMap(r -> {
-      Stream<ItemStack> stacks = Arrays.stream(r.getIngredient().getItems());
-      // if we need multiple, increase the stack size of the display stacks
-      if (r.needed > r.value) {
-        int size = (r.needed + r.value - 1) / r.value;
-        stacks = stacks.map(stack -> stack.copyWithCount(size));
-      }
-      return stacks;
-    }).toList();
+  /** Gets sorted recipes for the given material variant */
+  public static Collection<MaterialRecipe> getRecipes(MaterialVariantId variant) {
+    return SORTED_RECIPES_BY_MATERIAL.apply(variant);
+  }
 
   /** Gets all recipes for the given material variant */
   public static List<ItemStack> getItems(MaterialVariantId variant) {
-    return ITEMS_BY_MATERIAL.computeIfAbsent(variant, GET_ITEMS_BY_MATERIAL);
+    return ITEMS_BY_MATERIAL.apply(variant);
+  }
+
+  /** Adds all items for the given material variant and cost to the given list. */
+  public static void addItems(MaterialVariantId variant, int cost, List<ItemStack> items) {
+    for (MaterialRecipe recipe : getRecipes(variant)) {
+      int count = recipe.getItemsUsed(cost);
+      ItemStack[] stacks = recipe.getIngredient().getItems();
+      if (count == 1) {
+        Collections.addAll(items, stacks);
+      } else {
+        for (ItemStack stack : stacks) {
+          stack = stack.copyWithCount(count);
+          items.add(stack);
+        }
+      }
+    }
   }
 
 

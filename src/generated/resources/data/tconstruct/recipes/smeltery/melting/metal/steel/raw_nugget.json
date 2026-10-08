@@ -1,5 +1,11 @@
 {
   "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "forge:raw_nuggets/steel"
+    }
+  ],
   "ingredient": {
     "tag": "forge:raw_nuggets/steel"
   },

@@ -1,0 +1,13 @@
+{
+  "title": "精致盔甲架",
+  "image": {
+    "file": "tconstruct:book/images/armor_stand.png",
+    "width": 140,
+    "height": 82
+  },
+  "text": [
+    {
+      "text": "在替换了多种其他类型的木材与骨头后，我发明了全新的盔甲架款式。"
+    }
+  ]
+}

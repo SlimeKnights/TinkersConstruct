@@ -48,7 +48,7 @@ public record EdibleConsumeDurabilityModule(LevelingInt durabilityUsage, IJsonPr
     if (condition.matches(tool, modifier) && holder.matches(player)) {
       int damage = this.durabilityUsage.compute(modifier.getEffectiveLevel());
       if (damage > 0 && ToolDamageUtil.directDamage(tool, damage, player, player.getItemBySlot(eatenSlot))) {
-        player.broadcastBreakEvent(player.getUsedItemHand());
+        player.broadcastBreakEvent(eatenSlot);
       }
     }
   }

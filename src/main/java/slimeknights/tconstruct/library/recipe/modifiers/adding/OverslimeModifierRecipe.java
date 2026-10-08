@@ -23,6 +23,7 @@ import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -51,6 +52,8 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
   private final Ingredient tools;
   private final Ingredient ingredient;
   private final int restoreAmount;
+  @Getter
+  private final Component variant;
 
   @Internal
   protected OverslimeModifierRecipe(ResourceLocation id, Ingredient tools, Ingredient ingredient, int restoreAmount) {
@@ -58,6 +61,7 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
     this.tools = tools;
     this.ingredient = ingredient;
     this.restoreAmount = restoreAmount;
+    this.variant = Component.translatable(KEY_AMOUNT, restoreAmount);
     ModifierRecipeLookup.addRecipeModifier(null, TinkerModifiers.overslime);
   }
 
@@ -118,9 +122,10 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
     return TinkerModifiers.overslimeSerializer.get();
   }
 
+
   /* JEI display */
   /** Cache of modifier result, same for all overslime */
-  private static final ModifierEntry RESULT = new ModifierEntry(TinkerModifiers.overslime, 1);
+  public static final ModifierEntry RESULT = new ModifierEntry(TinkerModifiers.overslime, 1);
   /** Cache of input and output tools for display */
   private List<ItemStack> toolWithoutModifier, toolWithModifier = null;
 
@@ -128,11 +133,6 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
   @Override
   public ResourceLocation getRecipeId() {
     return getId();
-  }
-
-  @Override
-  public Component getVariant() {
-    return Component.translatable(TConstruct.makeTranslationKey("recipe", "modifier.amount"), restoreAmount);
   }
 
   @Override
@@ -147,10 +147,25 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
     }
     return List.of();
   }
+
+  @Override
+  public boolean isTool(ItemStack check) {
+    return tools.test(check);
+  }
+
   @Override
   public List<ItemStack> getToolWithoutModifier() {
     if (toolWithoutModifier == null) {
-      toolWithoutModifier = Arrays.stream(this.tools.getItems()).map(MAP_TOOL_STACK_FOR_RENDERING).toList();
+      // ensure tools are the proper stack size for without
+      int maxSize = shrinkToolSlotBy();
+      toolWithoutModifier = Arrays.stream(this.tools.getItems()).map(MAP_TOOL_STACK_FOR_RENDERING).map(stack -> {
+        // only copy if something changes
+        int stackMax = stack.getMaxStackSize();
+        if (stackMax > 1) {
+          return stack.copyWithCount(Math.min(maxSize, stackMax));
+        }
+        return stack;
+      }).toList();
     }
     return toolWithoutModifier;
   }
@@ -160,8 +175,7 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
     if (toolWithModifier == null) {
       List<ModifierEntry> result = List.of(RESULT);
       int maxSize = shrinkToolSlotBy();
-      toolWithModifier = Arrays.stream(this.tools.getItems())
-        .map(MAP_TOOL_STACK_FOR_RENDERING)
+      toolWithModifier = getToolWithoutModifier().stream()
         .map(stack -> withModifiers(stack, maxSize, result, data -> OverslimeModule.INSTANCE.setAmountRaw(data, restoreAmount)))
         .toList();
     }
@@ -171,5 +185,26 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
   @Override
   public ModifierEntry getDisplayResult() {
     return RESULT;
+  }
+
+  @Nullable
+  @Override
+  public Component canApply(IToolStackView tool) {
+    // any tool can get overslime; not bothering to check overslime amount
+    return null;
+  }
+
+  @Override
+  public void applyModifier(ToolStack tool) {
+    ModifierId overslime = TinkerModifiers.overslime.getId();
+    if (tool.getUpgrades().getLevel(overslime) == 0) {
+      tool.addModifier(overslime, 1);
+    }
+    OverslimeModule.INSTANCE.addAmount(tool, restoreAmount);
+  }
+
+  @Override
+  public boolean shouldDisplayValidate() {
+    return false;
   }
 }

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.plugin.jei.modifiers;
 
+import mezz.jei.api.gui.builder.ITooltipBuilder;
 import mezz.jei.api.ingredients.IIngredientRenderer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -13,6 +14,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+/** Renders the modifier as a title. */
 public record ModifierIngredientRenderer(int width, int height) implements IIngredientRenderer<ModifierEntry> {
   @Override
   public int getWidth() {
@@ -25,22 +27,37 @@ public record ModifierIngredientRenderer(int width, int height) implements IIngr
   }
 
   @Override
-  public void render(GuiGraphics graphics, @Nullable ModifierEntry entry) {
+  public void render(GuiGraphics graphics, ModifierEntry ingredient) {
+    render(graphics, ingredient, 0, 0);
+  }
+
+  @Override
+  public void render(GuiGraphics graphics, @Nullable ModifierEntry entry, int posX, int posY) {
     if (entry != null) {
       Component name = entry.getDisplayName();
       Font fontRenderer = getFontRenderer(Minecraft.getInstance(), entry);
       int x = (width - fontRenderer.width(name)) / 2;
-      graphics.drawString(fontRenderer, name, x, 1, -1, true);
+      graphics.drawString(fontRenderer, name, posX + x, posY + 1, -1, true);
     }
   }
 
+  @SuppressWarnings("removal")
   @Override
   public List<Component> getTooltip(ModifierEntry entry, TooltipFlag flag) {
     List<Component> tooltip = entry.getModifier().getDescriptionList(entry.getLevel());
     if (flag.isAdvanced()) {
       tooltip = new ArrayList<>(tooltip);
-      tooltip.add((Component.literal(entry.getId().toString())).withStyle(ChatFormatting.DARK_GRAY));
+      tooltip.add(Component.literal(entry.getId().toString()).withStyle(ChatFormatting.DARK_GRAY));
     }
     return tooltip;
+  }
+
+  @SuppressWarnings("removal")
+  @Override
+  public void getTooltip(ITooltipBuilder tooltip, ModifierEntry entry, TooltipFlag flag) {
+    tooltip.addAll(entry.getModifier().getDescriptionList(entry.getLevel()));
+    if (flag.isAdvanced()) {
+      tooltip.add(Component.literal(entry.getId().toString()).withStyle(ChatFormatting.DARK_GRAY));
+    }
   }
 }

@@ -7,5 +7,5 @@
       "name": "abilities"
     }
   ],
-  "tooltip_display": "tinker_station"
+  "show_in_tooltips": "bonus_slot"
 }

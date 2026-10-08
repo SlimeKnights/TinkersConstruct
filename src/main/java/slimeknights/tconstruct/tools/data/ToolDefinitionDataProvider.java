@@ -507,7 +507,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
         .part(bowstring)
         .part(arrowHead).build())
       .module(new VolatileIntModule(FishingModule.HOOK_MATERIAL, 2)) // arrow head should be the bobber material
-      .module(defaultTwoParts)
+      .module(defaultThreeParts)
       // stats - high attack speed so melee modifying it is not useless with its base 1 attack damage
       .module(new SetStatsModule(StatsNBT.builder().set(ToolStats.ATTACK_SPEED, 2.0f).build()))
       // give a bit more durability to make up for modifier costs, plus non-fishing uses are really durability hungry
@@ -682,8 +682,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
         .stat(StatlessMaterialStats.SHIELD_CORE)
         .stat(StatlessMaterialStats.CUIRASS)
         .build())
-      .module(new PartsModule(List.of(TinkerToolParts.shieldCore.get())))
-      .module(DefaultMaterialsModule.builder().material(MaterialIds.wood).build())
+      .module(DefaultMaterialsModule.builder().material(MaterialIds.wood).material(MaterialIds.leather).build())
       .module(new SetStatsModule(StatsNBT.builder()
         .set(ToolStats.DURABILITY, 200)
         .set(ToolStats.BLOCK_AMOUNT, 10)
@@ -790,6 +789,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
           .slots(SlotType.UPGRADE, 4)
           .slots(SlotType.ABILITY, 1).build())
       .module(MaterialRepairModule.of(MaterialIds.phantom, ArmorItem.Type.CHESTPLATE, 42))
+      .module(MaterialRepairModule.of(MaterialIds.dragonScale, ArmorItem.Type.CHESTPLATE, 30))
       // traits
       .module(ToolTraitsModule.builder().trait(ModifierIds.wings).build())
       // armor trim/rebalanced

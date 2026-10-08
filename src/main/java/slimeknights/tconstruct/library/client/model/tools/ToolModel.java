@@ -515,11 +515,6 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
     if (!firstModifiers.isEmpty()) {
       TConstruct.LOG.warn("Using deprecated key 'first_modifiers' in tool model {}, use 'constant' in modifier model maps with 'tconstruct:crafted' and an early ID instead", modelLocation);
     }
-    for (FirstModifier modifier : firstModifiers) {
-      if (modifier.forced) {
-        break;
-      }
-    }
 
     // default is just a single part named tool, no material
     List<ToolPart> toolParts = this.toolParts;

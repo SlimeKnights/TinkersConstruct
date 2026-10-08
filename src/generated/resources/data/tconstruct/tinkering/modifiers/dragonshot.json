@@ -8,6 +8,5 @@
       "percent": false,
       "stat": "tconstruct:projectile_damage"
     }
-  ],
-  "tooltip_display": "always"
+  ]
 }

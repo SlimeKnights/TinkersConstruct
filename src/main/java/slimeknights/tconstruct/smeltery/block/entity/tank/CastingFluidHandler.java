@@ -11,7 +11,6 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.tconstruct.smeltery.block.entity.CastingBlockEntity;
 
 import javax.annotation.Nonnull;
@@ -178,10 +177,7 @@ public class CastingFluidHandler implements IFluidHandler {
       setFluid(FluidStack.loadFluidStackFromNBT(nbt.getCompound(TAG_FLUID)));
     }
     if (nbt.contains(TAG_FILTER, Tag.TAG_STRING)) {
-      Fluid fluid = ForgeRegistries.FLUIDS.getValue(new ResourceLocation(nbt.getString(TAG_FILTER)));
-      if (fluid != null) {
-        filter = fluid;
-      }
+      filter = BuiltInRegistries.FLUID.get(ResourceLocation.tryParse(nbt.getString(TAG_FILTER)));
     }
   }
 

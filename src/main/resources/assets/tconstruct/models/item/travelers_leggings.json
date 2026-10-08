@@ -5,7 +5,7 @@
     "cuirass": "tconstruct:item/tool/armor/travelers/pants/cuirass",
     "metal":   "tconstruct:item/tool/armor/travelers/pants/metal"
   },
-  "modifier_maps": ["tconstruct:travelers/pants"],
+  "modifier_maps": ["tconstruct:travelers/pants", "tconstruct:armor/leggings"],
   "parts": [
     { "name": "cuirass", "index": 1 },
     { "name": "metal", "index": 0 }

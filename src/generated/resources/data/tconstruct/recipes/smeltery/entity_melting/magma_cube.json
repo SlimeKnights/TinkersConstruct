@@ -2,7 +2,7 @@
   "type": "tconstruct:entity_melting",
   "damage": 2,
   "entity": {
-    "type": "minecraft:magma_cube"
+    "tag": "tconstruct:meltable/magma"
   },
   "result": {
     "amount": 25,

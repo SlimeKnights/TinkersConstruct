@@ -4,6 +4,5 @@
     {
       "type": "tconstruct:blocking"
     }
-  ],
-  "tooltip_display": "always"
+  ]
 }

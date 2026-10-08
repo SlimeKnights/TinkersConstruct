@@ -1878,7 +1878,7 @@
   "material.tconstruct.iron.flavor": "Иронично. Он мог спасти других от смерти, но не себя.",
   "material.tconstruct.iron.encyclopedia": "Заставляет добывать блоки и бить мобов, чтобы притягивать ближайшие предметы.",
   "material.tconstruct.iron.encyclopedia.ranged": "Заставляет стрелять стрелами, чтобы притягивать ближайшие предметы к пользователю.",
-  "material.tconstruct.iron.encyclopedia.armor": "Снижает урон от снарядов на 10% за уровень и даёт 5% сопротивления отбрасыванию, умноженное на максимальный уровень.",
+  "material.tconstruct.iron.encyclopedia.armor": "Снижает урон от снарядов на 8% за уровень и даёт 5% сопротивления отбрасыванию, умноженное на максимальный уровень.",
   "material.tconstruct.iron.skull": "Кадавр",
   "material.tconstruct.iron.flavor.skull": "Нарушение карантина",
   "material.tconstruct.iron.encyclopedia.skull": "Атаки ближнего боя копируют все негативные эффекты состояния с пользователя на цель.",
@@ -1886,7 +1886,7 @@
   "material.tconstruct.seared_stone": "Обожжённый камень",
   "material.tconstruct.seared_stone.flavor": "Горячий грут.",
   "material.tconstruct.seared_stone.encyclopedia": "Даёт +6 скорости добычи блоков, которые могут быть расплавлены в плавильне.",
-  "material.tconstruct.seared_stone.encyclopedia.armor": "Снижает урон от огня на 10% за уровень и сокращает время горения огня.",
+  "material.tconstruct.seared_stone.encyclopedia.armor": "Снижает урон от огня на 12% за уровень и сокращает время горения огня.",
 
   "material.tconstruct.scorched_stone": "Выжженный камень",
   "material.tconstruct.scorched_stone.flavor": "Бонус литейного издания.",
@@ -1905,7 +1905,7 @@
 
   "material.tconstruct.gold": "Золото",
   "material.tconstruct.gold.flavor": "Пиглины его обожают!",
-  "material.tconstruct.gold.encyclopedia.armor": "Даёт 10% защиты за уровень от магического урона и сокращает время действия негативных эффектов зелий. Также делает пиглинов дружелюбными.",
+  "material.tconstruct.gold.encyclopedia.armor": "Даёт 12% защиты за уровень от магического урона и сокращает время действия негативных эффектов зелий. Также делает пиглинов дружелюбными.",
   "material.tconstruct.gold.skull": "Пиглин",
   "material.tconstruct.gold.flavor.skull": "Такой блестящий!",
   "material.tconstruct.gold.encyclopedia.skull": "Приводит к тому, что из некоторых золотых руд выпадают дополнительные кусочки золота, и увеличивает шанс выпадения золотой брони на 4%. Шанс выпадения кусочков и брони доп. увеличивается с каждым надетым золотым предметом брони.",
@@ -1937,11 +1937,13 @@
   "material.tconstruct.rose_gold.encyclopedia.skull": "Увеличивает здоровье на 1 + доп. здоровье за каждый элемент золотой брони.",
   
   "material.tconstruct.skyslime_vine": "Слизневые лианы",
-  "material.tconstruct.skyslime_vine.slimeskin": "Слизневая кожа",
   "material.tconstruct.skyslime_vine.flavor": "Порхай как бабочка, жаль как пчела.",
   "material.tconstruct.skyslime_vine.encyclopedia.melee_harvest": "Отменяет снижение скорости добычи, когда вы не на земле.",
   "material.tconstruct.skyslime_vine.encyclopedia.ranged": "Даёт +0.5 точности, когда вы не на земле или не на лестнице.",
   "material.tconstruct.skyslime_vine.encyclopedia.armor": "Снижает гравитацию на 15% за каждую деталь.",
+
+  "material.tconstruct.skyslimeskin": "Слизневая кожа",
+  "material.tconstruct.skyslimeskin.flavor": "Порхай как бабочка, жаль как пчела.",
 
   "material.tconstruct.weeping_vine": "Плакучая лоза",
   "material.tconstruct.weeping_vine.flavor": "Направляет тепло.",
@@ -2057,7 +2059,7 @@
 
   "material.tconstruct.obsidian":   "Обсидиан",
   "material.tconstruct.obsidian.flavor": "Это обсидиановая деталь, если бы это было не так, не было бы написано «Обсидиан».",
-  "material.tconstruct.obsidian.encyclopedia.armor": "Даёт 10% защиты от взрывов за каждый уровень и уменьшает отбрасывание при взрыве.",
+  "material.tconstruct.obsidian.encyclopedia.armor": "Даёт 12% защиты от взрывов за каждый уровень и уменьшает отбрасывание при взрыве.",
 
   "material.tconstruct.amethyst_bronze": "Аметистовая бронза",
   "material.tconstruct.amethyst_bronze.flavor": "Не путать с бронзой.",
@@ -2095,7 +2097,7 @@
 
   "material.tconstruct.dragon_scale": "Чешуя дракона",
   "material.tconstruct.dragon_scale.flavor": "С этим даже драконы будут бояться меня!",
-  "material.tconstruct.dragon_scale.encyclopedia.armor": "Даёт +10% сопротивления в воздухе и увеличивает урон от атаки на 5% за уровень в зависимости от самой высокой детали.",
+  "material.tconstruct.dragon_scale.encyclopedia.armor": "Даёт +8% сопротивления в воздухе и увеличивает урон от атаки на 5% за уровень в зависимости от самой высокой детали.",
   "material.tconstruct.dragon_scale.encyclopedia.ammo": "Увеличивает урон от снаряда на 1 за уровень, если он запущен в воздухе.",
   "material.tconstruct.dragon_scale.skull": "Дракон",
   "material.tconstruct.dragon_scale.flavor.skull": "Никто не стреляет!",
@@ -2197,11 +2199,12 @@
   "material.tconstruct.knightslime.encyclopedia.armor": "Расходует до 2 сверхслизи за уровень, снижая урон на 2.5% за каждое потребление свехслизи (до 5% за уровень).",
 
   "material.tconstruct.enderslime_vine": "Эндер-слизневые лианы",
-  "material.tconstruct.enderslime_vine.slimeskin": "Эндер-слизневая кожа",
   "material.tconstruct.enderslime_vine.flavor": "Конец?",
   "material.tconstruct.enderslime_vine.encyclopedia.melee_harvest": "Телепортирует пользователя к месту расположения добытых блоков или меняет пользователя местами с атакованными монстрами.",
   "material.tconstruct.enderslime_vine.encyclopedia.ranged": "Телепортирует пользователя к месту расположения стрел, попавших в блоки, или меняет пользователя местами с монстрами, пораженными стрелами.",
-  "material.tconstruct.enderslime_vine.encyclopedia.armor": "Имеет 25% шанс за каждый предмет случайным образом телепортировать атакующих.",
+
+  "material.tconstruct.enderslimeskin": "Эндер-слизневая кожа",
+  "material.tconstruct.enderslimeskin.encyclopedia.armor": "Имеет 25% шанс за каждый предмет случайным образом телепортировать атакующих.",
 
   "material.tconstruct.enderslime": "Эндер-слизь",
   "material.tconstruct.enderslime.flavor": "Звууп!",

@@ -33,6 +33,7 @@ import slimeknights.tconstruct.library.tools.definition.module.build.ToolStatsHo
 import slimeknights.tconstruct.library.tools.definition.module.build.ToolTraitHook;
 import slimeknights.tconstruct.library.tools.definition.module.build.VolatileDataToolHook;
 import slimeknights.tconstruct.library.tools.helper.ModifierBuilder;
+import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -134,12 +135,24 @@ public class MaterialStatsModule implements ToolStatsHook, ToolTraitHook, ToolMa
 
   @Override
   public boolean isRepairMaterial(IToolStackView tool, MaterialId material) {
+    MaterialNBT toolMaterials = tool.getMaterials();
     for (int part : getRepairIndices()) {
-      if (tool.getMaterial(part).matches(material)) {
+      if (toolMaterials.get(part).matches(material)) {
         return true;
       }
     }
     return false;
+  }
+
+  @Override
+  public void addRepairMaterials(IToolStackView tool, Set<MaterialId> materials) {
+    MaterialNBT toolMaterials = tool.getMaterials();
+    for (int part : getRepairIndices()) {
+      MaterialVariant material = toolMaterials.get(part);
+      if (!material.isUnknown() && !material.matches(ToolBuildHandler.RENDER_MATERIAL)) {
+        materials.add(material.getId());
+      }
+    }
   }
 
   @Override

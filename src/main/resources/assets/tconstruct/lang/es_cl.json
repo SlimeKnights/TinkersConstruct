@@ -1853,7 +1853,7 @@
   "material.tconstruct.seared_stone": "Piedra Abrasada",
   "material.tconstruct.seared_stone.flavor": "Solo es Masilla más caliente.",
   "material.tconstruct.seared_stone.encyclopedia": "Otorga +6 de velocidad minera contra los bloques que se pueden fundir en un fundidor",
-  "material.tconstruct.seared_stone.encyclopedia.armor": "Reduce el daño ígneo en un 10% cada nivel, y reduce el tiempo en llamas",
+  "material.tconstruct.seared_stone.encyclopedia.armor": "Reduce el daño ígneo en un 12% cada nivel, y reduce el tiempo en llamas",
 
   "material.tconstruct.scorched_stone": "Piedra Chamuscada",
   "material.tconstruct.scorched_stone.flavor": "Edición del fundador.",
@@ -1871,7 +1871,7 @@
 
   "material.tconstruct.gold": "Oro",
   "material.tconstruct.gold.flavor": "Los piglins lo adoran.",
-  "material.tconstruct.gold.encyclopedia.armor": "Otorga 10% de protección contra la magia cada nivel, y reduce el tiempo de los efectos de poción negativos. También hace amigables a los Piglin.",
+  "material.tconstruct.gold.encyclopedia.armor": "Otorga 12% de protección contra la magia cada nivel, y reduce el tiempo de los efectos de poción negativos. También hace amigables a los Piglin.",
   "material.tconstruct.gold.flavor.skull": "¡Tan brillante!",
   "material.tconstruct.gold.encyclopedia.skull": "Causa que algunos minerales de oro suelten unas pepitas de oro extra, e incrementa las chances de conseguir armadura de oro en un 4%. Los drops de pepitas y armadura se ven incrementados por cada pieza de armadura de oro equipada.",
 
@@ -1901,11 +1901,13 @@
   "material.tconstruct.rose_gold.encyclopedia.skull": "Aumenta la vida en 1 corazón, y por 1 adicional por cada pieza de armadura de oro que lleves puesta.",
 
   "material.tconstruct.skyslime_vine": "Enredadera Slime Celesital",
-  "material.tconstruct.skyslime_vine.slimeskin": "Piel slime",
   "material.tconstruct.skyslime_vine.flavor": "Flota como mariposa, pica como una abeja.",
   "material.tconstruct.skyslime_vine.encyclopedia.melee_harvest": "Quita la reducción de velocidad minera mientras no estés en el piso",
   "material.tconstruct.skyslime_vine.encyclopedia.ranged": "Otorga +0.1 de velocidad cuando no estés en el piso o en una escalera",
   "material.tconstruct.skyslime_vine.encyclopedia.armor": "Reduce la gravedad en 20% por pieza",
+
+  "material.tconstruct.skyslimeskin": "Piel slime",
+  "material.tconstruct.skyslimeskin.flavor": "Flota como mariposa, pica como una abeja.",
 
   "material.tconstruct.weeping_vine": "Enredaderas lloronas",
   "material.tconstruct.weeping_vine.flavor": "Canaliza el calor.",
@@ -2010,7 +2012,7 @@
 
   "material.tconstruct.obsidian":   "Obsidiana",
   "material.tconstruct.obsidian.flavor": "Estas son partes de obsidiana, Si no lo fueran, no dirían \"Obsidiana.\"",
-  "material.tconstruct.obsidian.encyclopedia.armor": "Otorga un 10% de protección contra las explosiones, y reduce el empuje de estas",
+  "material.tconstruct.obsidian.encyclopedia.armor": "Otorga un 12% de protección contra las explosiones, y reduce el empuje de estas",
 
   "material.tconstruct.amethyst_bronze": "Bronce Amatista",
   "material.tconstruct.amethyst_bronze.flavor": "No ser confundido con el bronce.",
@@ -2046,7 +2048,7 @@
 
   "material.tconstruct.dragon_scale": "Escama de Dragón",
   "material.tconstruct.dragon_scale.flavor": "Con esto, ¡Hasta los dragones me temerán!",
-  "material.tconstruct.dragon_scale.encyclopedia.armor": "Otorga +10% de resistencia mientras estás en el aire, y aumenta el daño de ataque en 5% cada nivel, basado en la pieza máa alta.",
+  "material.tconstruct.dragon_scale.encyclopedia.armor": "Otorga +8% de resistencia mientras estás en el aire, y aumenta el daño de ataque en 5% cada nivel, basado en la pieza máa alta.",
   "material.tconstruct.dragon_scale.encyclopedia.ammo": "Incrementa el daño de proyectil en 1 cada nivel si es lanzado en el aire.",
 
   "material.tconstruct.shulker": "Caparazón de shulker",
@@ -2136,11 +2138,12 @@
   "material.tconstruct.knightslime.flavor": "Pegajoso aunque metálico, ¿Pero también piedroso? ¡Facinante!",
 
   "material.tconstruct.enderslime_vine": "Enredadera Slime Ender",
-  "material.tconstruct.enderslime_vine.slimeskin": "Piel de Slime Ender",
   "material.tconstruct.enderslime_vine.flavor": "¿El fin?",
   "material.tconstruct.enderslime_vine.encyclopedia.melee_harvest": "Teletransporta al portador a los bloques minados o intercambia de lugar al portador y al objetivo atacado",
   "material.tconstruct.enderslime_vine.encyclopedia.ranged": "Teletransporta al portador al lugar de los proyectiles que aterricen en bloques o  intercambia de lugar al portador y al objetivo golpeado con el proyectil",
-  "material.tconstruct.enderslime_vine.encyclopedia.armor": "Tiene una probabilidad del 25% de teletransportar aleatoriamente al atacante",
+
+  "material.tconstruct.enderslimeskin": "Piel de Slime Ender",
+  "material.tconstruct.enderslimeskin.encyclopedia.armor": "Tiene una probabilidad del 25% de teletransportar aleatoriamente al atacante",
 
   "material.tconstruct.enderslime": "Slime Ender",
   "material.tconstruct.enderslime.flavor": "Zooooom",

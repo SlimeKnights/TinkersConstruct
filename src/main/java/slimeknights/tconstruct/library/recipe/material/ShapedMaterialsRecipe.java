@@ -73,12 +73,7 @@ public class ShapedMaterialsRecipe extends ShapedRecipe implements MaterialsCraf
           MaterialVariantId current = materials[p];
           // if we have not found the material yet, or repeats are considered the same material, test the ingredient
           if ((current == null || checkRepeats) && parts.get(p).test(stack)) {
-            MaterialVariantId matched;
-            if (stack.getItem() instanceof IMaterialItem materialItem) {
-              matched = materialItem.getMaterial(stack);
-            } else {
-              matched = MaterialRecipeCache.findRecipe(stack).getMaterial().getVariant();
-            }
+            MaterialVariantId matched = MaterialRecipeCache.getMaterial(stack);
             // first occurrence? thats our material
             if (current == null) {
               materials[p] = matched;

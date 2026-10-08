@@ -13,6 +13,5 @@
       "operation": "multiply_base",
       "stat": "tconstruct:overslime"
     }
-  ],
-  "tooltip_display": "always"
+  ]
 }

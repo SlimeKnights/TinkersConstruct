@@ -5,7 +5,7 @@
     "plating": "tconstruct:item/tool/armor/plate/helmet/plating",
     "maille":  "tconstruct:item/tool/armor/plate/helmet/maille"
   },
-  "modifier_maps": ["tconstruct:plate/helmet"],
+  "modifier_maps": ["tconstruct:plate/helmet", "tconstruct:armor/helmet"],
   "parts": [
     { "name": "plating", "index": 0 },
     { "name": "maille",  "index": 1 }

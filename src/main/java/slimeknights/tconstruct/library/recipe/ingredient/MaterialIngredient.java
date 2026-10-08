@@ -213,9 +213,9 @@ public class MaterialIngredient extends NestedIngredient {
       }
       IJsonPredicate<MaterialVariantId> material = MATERIAL_FIELD.get(json);
       // deprecated tag field
-      if (json.has("tag")) {
+      if (json.has("material_tag")) {
         TConstruct.LOG.warn("Using deprecated tag field on material ingredient");
-        IJsonPredicate<MaterialVariantId> tagPredicate = MaterialPredicate.tag(TinkerLoadables.MATERIAL_TAGS.getIfPresent(json, "tag"));
+        IJsonPredicate<MaterialVariantId> tagPredicate = MaterialPredicate.tag(TinkerLoadables.MATERIAL_TAGS.getIfPresent(json, "material_tag"));
         if (material == MaterialPredicate.ANY) {
           material = tagPredicate;
         } else {

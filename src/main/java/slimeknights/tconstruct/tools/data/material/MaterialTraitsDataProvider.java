@@ -11,6 +11,7 @@ import slimeknights.tconstruct.tools.stats.PlatingMaterialStats;
 import slimeknights.tconstruct.tools.stats.RepairStats;
 import slimeknights.tconstruct.tools.stats.SkullStats;
 import slimeknights.tconstruct.tools.stats.SlimeStats;
+import slimeknights.tconstruct.tools.stats.StatlessMaterialStats;
 
 import static slimeknights.tconstruct.library.materials.MaterialRegistry.AMMO;
 import static slimeknights.tconstruct.library.materials.MaterialRegistry.ARMOR;
@@ -42,6 +43,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addTraits(MaterialIds.bamboo, AMMO, ModifierIds.woodwind);
     addDefaultTraits(MaterialIds.cactus, ModifierIds.spiny);
     addTraits(MaterialIds.cactus, ARMOR, ModifierIds.thorns);
+    addTraits(MaterialIds.wool, ARMOR, ModifierIds.knockbackResistance);
     addTraits(MaterialIds.wool, AMMO, ModifierIds.soft);
     noTraits(MaterialIds.feather);
     addTraits(MaterialIds.paper, AMMO, ModifierIds.weak);
@@ -58,7 +60,9 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
 
     // tier 2
     addDefaultTraits(MaterialIds.iron, ModifierIds.magnetic);
-    addTraits(MaterialIds.iron, ARMOR, ModifierIds.projectileProtection);
+    addTraits(MaterialIds.iron, ARMOR, ModifierIds.projectileProtection, ModifierIds.ironArmor);
+    // don't count iron maille for the iron armor achievement
+    addTraits(MaterialIds.iron, StatlessMaterialStats.MAILLE.getIdentifier(), ModifierIds.projectileProtection);
     addDefaultTraits(MaterialIds.copper, TinkerModifiers.dwarven);
     addTraits(MaterialIds.copper, ARMOR, ModifierIds.depthProtection);
     addDefaultTraits(MaterialIds.searedStone, ModifierIds.searing);
@@ -66,6 +70,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.slimewood, ModifierIds.overgrowth, TinkerModifiers.overslime.getId());
     addTraits(MaterialIds.slimewood, AMMO, new ModifierEntry(ModifierIds.bounce, 2));
     addDefaultTraits(MaterialIds.slimeskin, ModifierIds.overgrowth, TinkerModifiers.overslime.getId());
+    addDefaultTraits(MaterialIds.skyslimeskin, ModifierIds.airborn, ModifierIds.overslimeFriend);
     addDefaultTraits(MaterialIds.venombone, ModifierIds.antitoxin);
     addTraits(MaterialIds.venombone, AMMO, ModifierIds.venom);
     addTraits(MaterialIds.venombone, ARMOR, ModifierIds.venom);
@@ -83,7 +88,9 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addTraits(MaterialIds.skyslimeVine, ARMOR, ModifierIds.skyfall, ModifierIds.overslimeFriend);
     addDefaultTraits(MaterialIds.weepingVine, ModifierIds.flamestance);
     addDefaultTraits(MaterialIds.twistingVine, ModifierIds.entangled);
+    addTraits(MaterialIds.twistingVine, ARMOR, ModifierIds.entwined);
     addDefaultTraits(MaterialIds.turtle, ModifierIds.turtleShell);
+    addDefaultTraits(MaterialIds.phantom, ModifierIds.nightmareProtection);
     // tier 2 - ammo
     addTraits(MaterialIds.amethyst, AMMO, ModifierIds.crystalbound);
     addTraits(MaterialIds.prismarine, AMMO, ModifierIds.finsAmmo, ModifierIds.lureRod);
@@ -151,8 +158,9 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.knightslime, ModifierIds.overwield, TinkerModifiers.overslime.getId());
     addTraits(MaterialIds.knightslime, ARMOR, ModifierIds.overshield, TinkerModifiers.overslime.getId());
     addTraits(MaterialIds.knightly, AMMO, ModifierIds.valiant);
+    addDefaultTraits(MaterialIds.enderslimeskin, ModifierIds.enderclearance, ModifierIds.overslimeFriend);
     addDefaultTraits(MaterialIds.enderslimeVine, TinkerModifiers.enderporting.getId(), ModifierIds.overslimeFriend);
-    addTraits(MaterialIds.enderslimeVine, ARMOR, ModifierIds.enderclearance, ModifierIds.overslimeFriend);
+    addTraits(MaterialIds.enderslimeVine, ARMOR, ModifierIds.enderdodging, ModifierIds.overslimeFriend);
     addTraits(MaterialIds.endRod, AMMO, ModifierIds.hover);
 
     // tier 2 - mod compat
@@ -191,7 +199,8 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     // pseudoslime
     addTraits(MaterialIds.clay, SlimeStats.ID, ModifierIds.forming);
     addTraits(MaterialIds.honey, SlimeStats.ID, ModifierIds.scrumptious);
-    addTraits(MaterialIds.enderPearl, SlimeStats.ID, ModifierIds.magicProtection);
+    addTraits(MaterialIds.venom, SlimeStats.ID, ModifierIds.magicProtection);
+    addTraits(MaterialIds.enderPearl, SlimeStats.ID, ModifierIds.enderclearance);
 
     // slimeskull
     material(MaterialIds.gunpowder).addTraits(SkullStats.ID, TinkerModifiers.selfDestructive.getId(), ModifierIds.creeperDisguise);
@@ -230,7 +239,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     // shells
     addTraits(MaterialIds.turtle, shell, ModifierIds.turtlesGrace);
     addTraits(MaterialIds.nautilus, shell, ModifierIds.shellGut);
-    addTraits(MaterialIds.phantom, shell, ModifierIds.skyfall);
+    addTraits(MaterialIds.phantom, shell, ModifierIds.dreambound);
     addTraits(MaterialIds.prismarine, shell, ModifierIds.thornsShell);
     addTraits(MaterialIds.shulker, shell, ModifierIds.shulkerBox);
     addTraits(MaterialIds.dragonScale, shell, ModifierIds.dragonfall);
@@ -242,11 +251,11 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     // slimeboots
     MaterialStatsId laces = RepairStats.LACES.getId();
     addTraits(MaterialIds.string, laces, ModifierIds.stepUp);
-    addTraits(MaterialIds.leather, laces, ModifierIds.snowBoots);
+    addTraits(MaterialIds.leather, laces, ModifierIds.rugged);
     // vine uses default
     addTraits(MaterialIds.skyslimeVine, laces, ModifierIds.leaping);
     addTraits(MaterialIds.darkthread, laces, ModifierIds.looter);
-    addTraits(MaterialIds.twistingVine, laces, ModifierIds.entwined);
+    // twisting vine uses standard armor
     addTraits(MaterialIds.weepingVine, laces, ModifierIds.soulspeed);
     addTraits(MaterialIds.jeweledHide, laces, ModifierIds.fortunate);
     // enderslime vine uses standard armor

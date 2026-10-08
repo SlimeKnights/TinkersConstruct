@@ -8,6 +8,7 @@ import slimeknights.tconstruct.tables.block.entity.table.CraftingStationBlockEnt
 import slimeknights.tconstruct.tables.menu.CraftingStationContainerMenu;
 
 public class CraftingStationScreen extends BaseTabbedScreen<CraftingStationBlockEntity,CraftingStationContainerMenu> {
+  @SuppressWarnings("removal")
   private static final ResourceLocation CRAFTING_TABLE_GUI_TEXTURES = new ResourceLocation("textures/gui/container/crafting_table.png");
 
   public CraftingStationScreen(CraftingStationContainerMenu container, Inventory playerInventory, Component title) {

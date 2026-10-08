@@ -9,6 +9,7 @@ import net.minecraftforge.network.NetworkRegistry;
 import org.junit.jupiter.api.BeforeAll;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
+import slimeknights.tconstruct.library.utils.JsonUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -31,6 +32,8 @@ public class BaseMcTest {
       mockNetwork.when(() -> NetworkRegistry.newSimpleChannel(any(), any(), any(), any())).thenReturn(null);
       TierSortingRegistry.getSortedTiers();
     }
+    // cannot read config during tests, and no need to log these values
+    JsonUtils.forceDisableDebugLog();
   }
 
   /** No need to set it up multiple times */

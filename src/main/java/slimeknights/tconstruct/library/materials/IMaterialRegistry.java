@@ -15,7 +15,9 @@ import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public interface IMaterialRegistry {
   /* Materials */
@@ -51,18 +53,32 @@ public interface IMaterialRegistry {
 
   /* Tags */
 
+  /** Gets a stream of all tag ID to tag value mappings */
+  default Stream<Entry<TagKey<IMaterial>,List<IMaterial>>> getAllTags() {
+    return Stream.empty();
+  }
+
   /**
    * Checks if the given modifier is in the given tag
    * @return  True if the modifier is in the tag
    */
-  boolean isInTag(MaterialId id, TagKey<IMaterial> tag);
+  default boolean isInTag(MaterialId id, TagKey<IMaterial> tag) {
+    return false;
+  }
 
   /**
    * Gets all values contained in the given tag
    * @param tag  Tag instance
    * @return  Contained values
    */
-  List<IMaterial> getTagValues(TagKey<IMaterial> tag);
+  default List<IMaterial> getTagValues(TagKey<IMaterial> tag) {
+    return List.of();
+  }
+
+  /** Gets all tags for the given material */
+  default Stream<TagKey<IMaterial>> getTags(MaterialId id) {
+    return Stream.empty();
+  }
 
 
   /* Stats */

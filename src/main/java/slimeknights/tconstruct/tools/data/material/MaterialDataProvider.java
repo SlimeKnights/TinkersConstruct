@@ -44,12 +44,13 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     material(MaterialIds.paper  ).tier(1).sort(ORDER_BINDING).craftable();
 
     // tier 2
-    material(MaterialIds.iron       ).tier(2).sort(ORDER_GENERAL);
-    material(MaterialIds.searedStone).tier(2).sort(ORDER_HARVEST);
-    material(MaterialIds.venombone  ).tier(2).sort(ORDER_WEAPON ).craftable();
-    material(MaterialIds.slimewood  ).tier(2).sort(ORDER_SPECIAL).craftable();
-    material(MaterialIds.slimeskin  ).tier(2).sort(ORDER_BINDING);
-    material(MaterialIds.gold       ).tier(2).sort(ORDER_REPAIR );
+    material(MaterialIds.iron        ).tier(2).sort(ORDER_GENERAL);
+    material(MaterialIds.searedStone ).tier(2).sort(ORDER_HARVEST);
+    material(MaterialIds.venombone   ).tier(2).sort(ORDER_WEAPON ).craftable();
+    material(MaterialIds.slimewood   ).tier(2).sort(ORDER_SPECIAL).craftable();
+    material(MaterialIds.slimeskin   ).tier(2).sort(ORDER_BINDING);
+    material(MaterialIds.skyslimeskin).tier(2).sort(ORDER_BINDING);
+    material(MaterialIds.gold        ).tier(2).sort(ORDER_REPAIR );
     // tier 2 - nether
     material(MaterialIds.scorchedStone).tier(2).sort(ORDER_NETHER);
     material(MaterialIds.necroticBone ).tier(2).sort(ORDER_NETHER).craftable();
@@ -110,6 +111,7 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     material(MaterialIds.jeweledHide   ).tier(4).sort(ORDER_BINDING);
     material(MaterialIds.ancientHide   ).tier(4).sort(ORDER_BINDING).hidden();
     material(MaterialIds.blazewood     ).tier(4).sort(ORDER_BINDING).craftable();
+    material(MaterialIds.enderslimeskin).tier(4).sort(ORDER_BINDING);
     material(MaterialIds.enderslimeVine).tier(4).sort(ORDER_BINDING).craftable();
     // tier 4 - ammo
     material(MaterialIds.shulker    ).tier(4).sort(ORDER_REPAIR).craftable();
@@ -122,8 +124,9 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     material(MaterialIds.ancient    ).tier(5).sort(ORDER_NETHER ).hidden();
 
     // slimesuit
-    material(MaterialIds.clay ).tier(2).sort(ORDER_REPAIR + 5);
-    material(MaterialIds.honey).tier(2).sort(ORDER_REPAIR + 5);
+    material(MaterialIds.clay ).tier(2).sort(ORDER_REPAIR + 5).craftable();
+    material(MaterialIds.honey).tier(2).sort(ORDER_REPAIR + 5).craftable();
+    material(MaterialIds.venom).tier(2).sort(ORDER_REPAIR + 5);
     material(MaterialIds.blood).tier(2).sort(ORDER_REPAIR).hidden();
     // slimesuit parts
     material(MaterialIds.horn   ).tier(1).sort(ORDER_REPAIR).craftable();

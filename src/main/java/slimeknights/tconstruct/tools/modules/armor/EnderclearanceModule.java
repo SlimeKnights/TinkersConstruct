@@ -6,7 +6,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.phys.EntityHitResult;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
-import slimeknights.tconstruct.library.events.teleport.ModifierTeleportEvent;
+import slimeknights.tconstruct.library.events.teleport.EnderclearanceTeleportEvent;
 import slimeknights.tconstruct.library.json.LevelingInt;
 import slimeknights.tconstruct.library.json.LevelingValue;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -61,7 +61,7 @@ public record EnderclearanceModule(LevelingValue chance, LevelingInt diameter, L
   private void teleport(ModifierEntry modifier, @Nullable LivingEntity target) {
     if (target != null) {
       float level = modifier.getEffectiveLevel();
-      TeleportHelper.randomNearbyTeleport(target, (e, x, y, z) -> new ModifierTeleportEvent(e, x, y, z, modifier), diameter.compute(level), teleportChances.compute(level));
+      TeleportHelper.randomNearbyTeleport(target, (e, x, y, z) -> new EnderclearanceTeleportEvent(e, x, y, z, modifier), diameter.compute(level), teleportChances.compute(level));
     }
   }
 
@@ -74,8 +74,11 @@ public record EnderclearanceModule(LevelingValue chance, LevelingInt diameter, L
   public void onAttacked(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
     // this works like vanilla, damage is capped due to the hurt immunity mechanics, so if multiple pieces apply thorns between us and vanilla, damage is capped at 4
     if (isDirectDamage && source.getEntity() instanceof LivingEntity attacker) {
-      float level = CounterModule.getLevel(tool, modifier, slotType, context.getEntity());
-      if (attacker.getRandom().nextFloat() < chance.compute(level)) {
+      float chance = this.chance.compute(modifier.getEffectiveLevel());
+      if (CounterModule.isBlocking(tool, slotType, context.getEntity())) {
+        chance *= 2;
+      }
+      if (attacker.getRandom().nextFloat() < chance) {
         teleport(modifier, attacker);
       }
     }

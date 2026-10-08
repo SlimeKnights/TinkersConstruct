@@ -4,5 +4,6 @@
   "pattern_item": {
     "tag": "tconstruct:casts/sand"
   },
-  "result": "tconstruct:large_plate_sand_cast"
+  "result": "tconstruct:large_plate_sand_cast",
+  "title_key": "tconstruct:sand_cast"
 }

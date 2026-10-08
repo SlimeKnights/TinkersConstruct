@@ -2,29 +2,33 @@ package slimeknights.tconstruct.library.recipe.partbuilder;
 
 import lombok.Getter;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.data.loadable.common.IngredientLoadable;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
+import slimeknights.mantle.data.loadable.primitive.ResourceLocationLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.recipe.material.IMaterialValue;
-import slimeknights.tconstruct.library.recipe.material.MaterialRecipeCache;
 import slimeknights.tconstruct.tables.TinkerTables;
 
-import java.util.ArrayList;
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
 
 /**
- * Recipe to craft an ordinary item using the part builder
+ * Recipe to craft an ordinary item using the part builder.
+ * Can be used for crafting with a material, or leave the material blank to just require the pattern item.
+ * @see PartRecipe
  */
 public class ItemPartRecipe implements IDisplayPartBuilderRecipe {
   public static final RecordLoadable<ItemPartRecipe> LOADER = RecordLoadable.create(
@@ -34,6 +38,7 @@ public class ItemPartRecipe implements IDisplayPartBuilderRecipe {
     IngredientLoadable.DISALLOW_EMPTY.defaultField("pattern_item", DEFAULT_PATTERNS, r -> r.patternItem),
     IntLoadable.FROM_ZERO.defaultField("cost", 0, ItemPartRecipe::getCost),
     ItemOutput.Loadable.REQUIRED_STACK.requiredField("result", r -> r.result),
+    ResourceLocationLoadable.DEFAULT.nullableField("title_key", r -> r.titleKey),
     ItemPartRecipe::new).validate((recipe, error) -> {
       if (recipe.cost == 0 && !recipe.material.isEmpty()) {
         throw error.create("Cost must be greater than zero if material is defined");
@@ -51,14 +56,36 @@ public class ItemPartRecipe implements IDisplayPartBuilderRecipe {
   @Getter
   private final int cost;
   private final ItemOutput result;
+  private final ResourceLocation titleKey;
+  @Nullable @Getter
+  private final Component title;
+  @Getter
+  private final List<Component> information;
 
-  public ItemPartRecipe(ResourceLocation id, MaterialVariantId material, Pattern pattern, Ingredient patternItem, int cost, ItemOutput result) {
+  /** @apiNote use {@link ItemPartRecipeBuilder} */
+  @Internal
+  public ItemPartRecipe(ResourceLocation id, MaterialVariantId material, Pattern pattern, Ingredient patternItem, int cost, ItemOutput result, @Nullable ResourceLocation titleKey) {
     this.id = id;
     this.material = MaterialVariant.of(material);
     this.pattern = pattern;
     this.patternItem = patternItem;
     this.cost = cost;
     this.result = result;
+    this.titleKey = titleKey;
+    if (titleKey != null) {
+      String key = "recipe." + titleKey.toLanguageKey();
+      title = Component.translatable(key);
+      information = List.of(Component.translatable(key + ".info"));
+    } else {
+      title = null;
+      information = List.of();
+    }
+  }
+
+  /** @deprecated use {@link ItemPartRecipeBuilder} */
+  @Deprecated(forRemoval = true)
+  public ItemPartRecipe(ResourceLocation id, MaterialVariantId material, Pattern pattern, Ingredient patternItem, int cost, ItemOutput result) {
+    this(id, material, pattern, patternItem, cost, result, null);
   }
 
   @Override
@@ -129,6 +156,25 @@ public class ItemPartRecipe implements IDisplayPartBuilderRecipe {
   }
 
 
+  /* Title */
+
+  @Nullable
+  @Override
+  public Component getDisplayTitle() {
+    return title;
+  }
+
+  @Override
+  public List<Component> getText(IPartBuilderContainer inv) {
+    return information;
+  }
+
+  @Override
+  public List<Component> getTooltip() {
+    return information;
+  }
+
+
   /* JEI */
 
   private List<ItemStack> materialItems;
@@ -142,21 +188,10 @@ public class ItemPartRecipe implements IDisplayPartBuilderRecipe {
   public List<ItemStack> getMaterialItems() {
     if (materialItems == null) {
       // if unknown, nothing to display. Used for no material input
-      if (material.isUnknown()) {
+      if (material.isEmpty()) {
         materialItems = List.of();
       } else {
-        MaterialVariantId material = this.material.getVariant();
-        // if we have a variant, only need to fetch the one list
-        if (!material.getVariant().isEmpty()) {
-          materialItems = MaterialRecipeCache.getItems(material);
-        } else {
-          // fetch the root and all variants
-          List<ItemStack> items = new ArrayList<>(MaterialRecipeCache.getItems(material));
-          for (MaterialVariantId variant : MaterialRecipeCache.getVariants(material.getId())) {
-            items.addAll(MaterialRecipeCache.getItems(variant));
-          }
-          this.materialItems = List.copyOf(items);
-        }
+        materialItems = List.copyOf(PartRecipe.getItems(material.getVariant(), cost));
       }
     }
     return materialItems;

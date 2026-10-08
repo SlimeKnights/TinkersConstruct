@@ -21,12 +21,18 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import java.util.List;
 
 /** Deals damage in a circle around the primary target */
-public record CircleWeaponAttack(LevelingValue diameter) implements MeleeHitToolHook, ToolModule {
-  public static final RecordLoadable<CircleWeaponAttack> LOADER = RecordLoadable.create(LevelingValue.ADD_TO_LEVEL.defaultField("diameter", LevelingValue.LEVEL, true, CircleWeaponAttack::diameter), CircleWeaponAttack::new);
+public record CircleWeaponAttack(LevelingValue diameters) implements MeleeHitToolHook, ToolModule {
+  public static final RecordLoadable<CircleWeaponAttack> LOADER = RecordLoadable.create(LevelingValue.ADD_TO_LEVEL.defaultField("diameter", LevelingValue.LEVEL, true, CircleWeaponAttack::diameters), CircleWeaponAttack::new);
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<CircleWeaponAttack>defaultHooks(ToolHooks.MELEE_HIT);
 
   public CircleWeaponAttack(float diameter) {
     this(new LevelingValue(diameter, 1));
+  }
+
+  /** @deprecated use {@link #diameters()} */
+  @Deprecated(forRemoval = true)
+  public float diameter() {
+    return diameters.flat();
   }
 
   @Override
@@ -45,7 +51,7 @@ public record CircleWeaponAttack(LevelingValue diameter) implements MeleeHitTool
     // no need for fully charged for scythe sweep, easier than sword sweep
     // basically sword sweep logic, just deals full damage to all entities (and full effects)
     // but also takes more durability loss
-    double range = diameter.compute(tool.getVolatileData().getInt(IModifiable.EXPANDED));
+    double range = diameters.compute(tool.getVolatileData().getInt(IModifiable.EXPANDED));
     // allow having no range until modified with range
     if (range > 0) {
       double rangeSq = range * range;

@@ -1,0 +1,11 @@
+{
+  "level_display": "tconstruct:single_level",
+  "modules": [
+    {
+      "type": "tconstruct:protection",
+      "attacker": "tconstruct:airborne",
+      "damage_source": "mantle:can_protect",
+      "flat": 2.5
+    }
+  ]
+}

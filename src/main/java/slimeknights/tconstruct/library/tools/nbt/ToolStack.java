@@ -11,7 +11,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -60,7 +59,7 @@ public class ToolStack implements IToolStackView {
 
   // volatile NBT
   /** Tag for calculated stats */
-  protected static final String TAG_STATS = "tic_stats";
+  public static final String TAG_STATS = "tic_stats";
   /** Tag for tool stat global multipliers */
   protected static final String TAG_MULTIPLIERS = "tic_multipliers";
   /** Tag for arbitrary modifier data rebuilt on stat rebuild */
@@ -69,7 +68,7 @@ public class ToolStack implements IToolStackView {
   public static final String TAG_MODIFIERS = "tic_modifiers";
 
   // vanilla tags
-  protected static final String TAG_DAMAGE = "Damage";
+  public static final String TAG_DAMAGE = "Damage";
   private static final String TAG_UNBREAKABLE = "Unbreakable";
   private static final String TAG_HIDE_FLAGS = "HideFlags";
 
@@ -288,7 +287,6 @@ public class ToolStack implements IToolStackView {
       throw new IllegalArgumentException("Wrong item in stack");
     }
     // set the raw tag to avoid going through verifyTagAfterLoad and rebuilding stats again
-    // TODO: is there any reason we copy NBT here? might be worth never copying
     if (copyNBT) {
       stack.tag = nbt.copy();
     } else {
@@ -308,7 +306,7 @@ public class ToolStack implements IToolStackView {
 
   /** Creates a stack a copy of the given stack with size no greater than the passed amount */
   public ItemStack copyStack(ItemStack stack, int size) {
-    return updateStack(ItemHandlerHelper.copyStackWithSize(stack, size), false);
+    return updateStack(stack.copyWithCount(size), false);
   }
 
   /**

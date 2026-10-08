@@ -5,6 +5,5 @@
       "type": "tconstruct:mob_disguise",
       "entity": "minecraft:cave_spider"
     }
-  ],
-  "tooltip_display": "always"
+  ]
 }

@@ -17,6 +17,5 @@
       "type": "tconstruct:spilling",
       "each_level": 1.0
     }
-  ],
-  "tooltip_display": "always"
+  ]
 }

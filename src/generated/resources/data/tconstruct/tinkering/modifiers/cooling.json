@@ -7,6 +7,5 @@
       "percent": false,
       "target": "mantle:fire_immune"
     }
-  ],
-  "tooltip_display": "always"
+  ]
 }

@@ -21,6 +21,7 @@ import slimeknights.mantle.util.JsonHelper;
 import slimeknights.mantle.util.typed.TypedMap;
 import slimeknights.mantle.util.typed.TypedMapBuilder;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
+import slimeknights.tconstruct.library.utils.JsonUtils;
 import slimeknights.tconstruct.library.utils.Util;
 
 import java.util.Collection;
@@ -138,7 +139,9 @@ public class MaterialRenderInfoLoader implements IEarlySafeManagerReloadListener
 
     // store the list immediately, otherwise it is not in place in time for models to load
     this.renderInfos = Map.copyOf(map);
-    log.debug("Loaded material render infos: {}", Util.toIndentedStringList(map.keySet().stream().sorted(Comparator.comparing(MaterialVariantId::getId).thenComparing(MaterialVariantId::getVariant)).toList()));
+    if (log.isDebugEnabled() && JsonUtils.debugLogResourceValues()) {
+      log.debug("Loaded material render infos: {}", Util.toIndentedStringList(map.keySet().stream().sorted(Comparator.comparing(MaterialVariantId::getId).thenComparing(MaterialVariantId::getVariant)).toList()));
+    }
     log.info("{} material render infos loaded", map.size());
   }
 

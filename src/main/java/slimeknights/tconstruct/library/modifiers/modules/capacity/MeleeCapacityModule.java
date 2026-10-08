@@ -27,7 +27,7 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import javax.annotation.Nullable;
 import java.util.List;
 
-/** Module that adds capacity whenever the tool breaks any number of blocks. */
+/** Module that adds capacity whenever the tool deals melee damage. */
 public record MeleeCapacityModule(IJsonPredicate<LivingEntity> target, IJsonPredicate<LivingEntity> attacker, LevelingInt grant, boolean before, @Nullable ModifierId owner, ModifierCondition<IToolStackView> condition) implements ModifierModule, MeleeHitModifierHook, CapacitySourceModule, ConditionalModule<IToolStackView> {
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<MeleeCapacityModule>defaultHooks(ModifierHooks.MELEE_HIT);
   public static final RecordLoadable<MeleeCapacityModule> LOADER = RecordLoadable.create(

@@ -5,6 +5,5 @@
       "type": "tconstruct:mob_disguise",
       "entity": "minecraft:zombie"
     }
-  ],
-  "tooltip_display": "always"
+  ]
 }

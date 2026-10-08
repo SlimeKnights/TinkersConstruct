@@ -1,5 +1,5 @@
 {
-  "entity": "#forge:piglins",
+  "entity": "#tconstruct:spawns_with/battle_sign",
   "equip": {
     "chance": 0.05,
     "match": {

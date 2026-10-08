@@ -20,6 +20,5 @@
       "stat": "tconstruct:tank_capacity"
     }
   ],
-  "priority": 120,
-  "tooltip_display": "always"
+  "priority": 120
 }

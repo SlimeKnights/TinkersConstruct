@@ -5,16 +5,16 @@
       "texture_large": "tconstruct:item/tool/longbow/large/modifiers/tconstruct_diamond_1"
     },
     "tconstruct:experienced": {
-      "texture": "tconstruct:item/tool/longbow/modifiers/tconstruct_experienced_1",
-      "texture_large": "tconstruct:item/tool/longbow/large/modifiers/tconstruct_experienced_1"
+      "texture": "tconstruct:item/tool/longbow/modifiers/tconstruct_experienced_2",
+      "texture_large": "tconstruct:item/tool/longbow/large/modifiers/tconstruct_experienced"
     },
     "tconstruct:fiery": {
       "luminosity": 10,
       "texture": "tconstruct:item/tool/longbow/modifiers/tconstruct_fiery_1",
-      "texture_large": "tconstruct:item/tool/longbow/large/modifiers/tconstruct_fiery_1"
+      "texture_large": "tconstruct:item/tool/longbow/large/modifiers/tconstruct_fiery"
     },
     "tconstruct:freezing": {
-      "texture": "tconstruct:item/tool/longbow/modifiers/tconstruct_freezing_1",
+      "texture": "tconstruct:item/tool/longbow/modifiers/tconstruct_freezing",
       "texture_large": "tconstruct:item/tool/longbow/large/modifiers/tconstruct_freezing_1"
     },
     "tconstruct:netherite": {

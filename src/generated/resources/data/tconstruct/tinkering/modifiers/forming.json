@@ -13,6 +13,5 @@
       "operation": "add",
       "stat": "tconstruct:knockback_resistance"
     }
-  ],
-  "tooltip_display": "always"
+  ]
 }

@@ -47,7 +47,7 @@ public record FluidModifierModel(@Nullable Material small, @Nullable Material la
   private static final Vector3f ORIGIN = new Vector3f(-0.5f, -0.5f, -0.5f);
 
   /** Instance with default tank helper */
-  public FluidModifierModel(Material small, @Nullable Material large) {
+  public FluidModifierModel(@Nullable Material small, @Nullable Material large) {
     this(small, large, ToolTankHelper.TANK_HELPER);
   }
 

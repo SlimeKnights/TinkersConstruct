@@ -1,0 +1,12 @@
+{
+  "default": [
+    {
+      "level": 1,
+      "name": "tconstruct:airborn"
+    },
+    {
+      "level": 1,
+      "name": "tconstruct:overslime_friend"
+    }
+  ]
+}

@@ -26,6 +26,7 @@ import slimeknights.tconstruct.tools.modules.ArmorModuleBuilder;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Set;
 
 /** Module for repairing a tool using a non-tool part material */
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -70,6 +71,11 @@ public class MaterialRepairModule implements MaterialRepairToolHook, ToolModule,
   @Override
   public boolean isRepairMaterial(IToolStackView tool, MaterialId material) {
     return this.material.equals(material);
+  }
+
+  @Override
+  public void addRepairMaterials(IToolStackView tool, Set<MaterialId> materials) {
+    materials.add(material);
   }
 
   @Override

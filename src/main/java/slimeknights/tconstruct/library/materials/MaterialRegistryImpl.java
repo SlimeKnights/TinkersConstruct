@@ -16,7 +16,9 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * Holds all materials and the extra information registered for them (stat classes).
@@ -63,8 +65,18 @@ public class MaterialRegistryImpl implements IMaterialRegistry {
   /* Tags */
 
   @Override
+  public Stream<Entry<TagKey<IMaterial>, List<IMaterial>>> getAllTags() {
+    return materialManager.getAllTags();
+  }
+
+  @Override
   public boolean isInTag(MaterialId id, TagKey<IMaterial> tag) {
     return materialManager.isIn(id, tag);
+  }
+
+  @Override
+  public Stream<TagKey<IMaterial>> getTags(MaterialId id) {
+    return materialManager.getTagKeys(id);
   }
 
   @Override

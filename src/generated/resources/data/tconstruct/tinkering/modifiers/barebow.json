@@ -5,6 +5,5 @@
       "type": "tconstruct:volatile_flag",
       "flag": "tconstruct:skip_inventory_ammo"
     }
-  ],
-  "tooltip_display": "always"
+  ]
 }

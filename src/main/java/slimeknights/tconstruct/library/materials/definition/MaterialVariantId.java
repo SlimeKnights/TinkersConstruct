@@ -42,6 +42,19 @@ public sealed interface MaterialVariantId permits MaterialId, MaterialVariantIdI
   /** Returns true if this ID has a variant */
   boolean hasVariant();
 
+  /** Checks if this is the default variant */
+  default boolean isDefaultVariant() {
+    return DEFAULT_VARIANT.equals(getVariant());
+  }
+
+  /** Replaces the default variant with the ID by itself */
+  default MaterialVariantId normalizeVariant() {
+    if (isDefaultVariant()) {
+      return getId();
+    }
+    return this;
+  }
+
   /**
    * Gets the path for this material
    * @param separator  Variant separator
@@ -69,8 +82,13 @@ public sealed interface MaterialVariantId permits MaterialId, MaterialVariantIdI
   }
 
   /** Checks if two material variants match */
+  default boolean sameId(MaterialVariantId other) {
+    return this.getId().equals(other.getId());
+  }
+
+  /** Checks if two material variants match */
   default boolean sameVariant(MaterialVariantId other) {
-    return this.getId().equals(other.getId()) && this.getVariant().equals(other.getVariant());
+    return this.sameId(other) && this.getVariant().equals(other.getVariant());
   }
 
   /* Constructors */

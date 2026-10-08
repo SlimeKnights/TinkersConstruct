@@ -753,7 +753,7 @@
   "fluid.tconstruct.molten_hepatizon": "Molten Hepatizon",
   "fluid.tconstruct.flowing_molten_hepatizon": "Flowing Molten Hepatizon",
   "item.tconstruct.molten_hepatizon_bucket": "Molten Hepatizon Bucket",
-  "fluid.tconstruct.molten_hepatizon.fluid_effect": "Is molten hepatizon best for defense, or combat? Either is a risk reward setup.",
+  "fluid.tconstruct.molten_hepatizon.fluid_effect": "Cold is a rare damage source, but can be neutralized by warm clothes. The withering may help in that case.",
 
   "block.tconstruct.molten_knightmetal_fluid": "Molten Knightmetal",
   "fluid.tconstruct.molten_knightmetal": "Molten Knightmetal",
@@ -1188,6 +1188,7 @@
   "item.tconstruct.slime_helmet.material.tconstruct.magma": "Magmaskull",
   "item.tconstruct.slime_helmet.material.tconstruct.clay": "Clayskull",
   "item.tconstruct.slime_helmet.material.tconstruct.honey": "Honeyskull",
+  "item.tconstruct.slime_helmet.material.tconstruct.venom": "Venomskull",
   "item.tconstruct.slime_helmet.material.tconstruct.ender_pearl": "Enderskull",
 
   "__comment": "Name is like ribcage, meant to invoke bones",
@@ -1197,6 +1198,7 @@
   "item.tconstruct.slimy_chestplate.material.tconstruct.magma": "Magmacage",
   "item.tconstruct.slimy_chestplate.material.tconstruct.clay": "Claycage",
   "item.tconstruct.slimy_chestplate.material.tconstruct.honey": "Honeycage",
+  "item.tconstruct.slimy_chestplate.material.tconstruct.venom": "Venomcage",
   "item.tconstruct.slimy_chestplate.material.tconstruct.ender_pearl": "Endercage",
 
   "item.tconstruct.slime_leggings": "Slimeshell",
@@ -1204,6 +1206,7 @@
   "item.tconstruct.slime_leggings.material.tconstruct.magma": "Magmashell",
   "item.tconstruct.slime_leggings.material.tconstruct.clay": "Clayshell",
   "item.tconstruct.slime_leggings.material.tconstruct.honey": "Honeyshell",
+  "item.tconstruct.slime_leggings.material.tconstruct.venom": "Venomshell",
   "item.tconstruct.slime_leggings.material.tconstruct.ender_pearl": "Endershell",
 
   "item.tconstruct.slime_boots": "Slimeboots",
@@ -1211,6 +1214,7 @@
   "item.tconstruct.slime_boots.material.tconstruct.magma": "Magmaboots",
   "item.tconstruct.slime_boots.material.tconstruct.clay": "Clayboots",
   "item.tconstruct.slime_boots.material.tconstruct.honey": "Honeyboots",
+  "item.tconstruct.slime_boots.material.tconstruct.venom": "Venomboots",
   "item.tconstruct.slime_boots.material.tconstruct.ender_pearl": "Enderboots",
 
   "__comment": "We are really just mashing up the material name with elytra here, do whatever works for your language, if needed 'Material Elytra' works",
@@ -1220,6 +1224,7 @@
   "item.tconstruct.slime_wings.material.tconstruct.magma": "Magma Elytra",
   "item.tconstruct.slime_wings.material.tconstruct.clay": "Claytra",
   "item.tconstruct.slime_wings.material.tconstruct.honey": "Beelytra",
+  "item.tconstruct.slime_wings.material.tconstruct.venom": "Venolytra",
   "item.tconstruct.slime_wings.material.tconstruct.ender_pearl": "Ender Elytra",
 
   "item.tconstruct.crystalshot": "Crystalshot",
@@ -1555,7 +1560,7 @@
   "block.tconstruct.scorched_basin": "Scorched Casting Basin",
   "block.tconstruct.scorched_basin.tooltip": "Cast items using molten metals from a Foundry\nRequires a cast or gold platform to cast",
   "block.tconstruct.scorched_table": "Scorched Casting Table",
-  "block.tconstruct.scorched_table.tooltip": "Cast items using molten metals from a Foundry\nrequires a cast or gold bars to cast",
+  "block.tconstruct.scorched_table.tooltip": "Cast items using molten metals from a Foundry\nRequires a cast or gold bars to cast",
   "block.tconstruct.scorched_proxy_tank": "Scorched Tinker Tank",
   "block.tconstruct.scorched_proxy_tank.tooltip": "Tank block that fills or empties the item tank inside instead of an internal tank",
 
@@ -1890,7 +1895,7 @@
   "material.tconstruct.chorus.flavor": "Not just the endermen, but the enderwomen, and the enderchildren",
   "material.tconstruct.chorus.encyclopedia": "Prevents the target from teleporting for a 5 seconds per effect level.",
   "material.tconstruct.chorus.encyclopedia.ranged": "Prevents the target from teleporting for a 5 seconds per effect level and allows damaging endermen with arrows.",
-  "material.tconstruct.chorus.encyclopedia.armor": "Has a 25% chance randomly teleporting attackers away, or a 50% chance when blocking.",
+  "material.tconstruct.chorus.encyclopedia.armor": "Has a 25% chance of randomly teleporting attackers away, or a 50% chance when blocking.",
   "material.tconstruct.chorus.encyclopedia.ammo": "Prevents the target from teleporting for 5 seconds per level, and can be fired at endermen.",
 
   "material.tconstruct.string": "String",
@@ -1907,12 +1912,12 @@
   "material.tconstruct.leather.skull": "Zombie",
   "material.tconstruct.leather.flavor.skull": "How do you do, fellow zombies?",
   "material.tconstruct.leather.encyclopedia.skull": "Reduces damage from undead by 10%.",
-  "material.tconstruct.leather.encyclopedia.laces": "Allows walking on powder snow.",
-
+  "material.tconstruct.leather.encyclopedia.laces": "Allows walking on powder snow and prevents uncomfortable damage from many blocks. When trimmed, prevents damage from thorns.",
 
   "material.tconstruct.vine": "Vine",
   "material.tconstruct.vine.flavor": "Keeps living, unlike the social network.",
-  "material.tconstruct.vine.encyclopedia": "Tool has up to a 75% chance to resist damage in full sunlight.",
+  "material.tconstruct.vine.encyclopedia": "Tool has a 5% chance per sunlight level to resist damage, up to a 75% chance in full sunlight.",
+  "material.tconstruct.vine.encyclopedia.laces": "Tool has a 5% chance per sunlight level to resist damage, up to a 75% chance in full sunlight. Trim increases the chance to 6% per sunlight for a max of 90%.",
 
 
   "__comment": "Tier 2 Materials",
@@ -1930,7 +1935,7 @@
   "material.tconstruct.seared_stone": "Seared Stone",
   "material.tconstruct.seared_stone.flavor": "Hotter Grout.",
   "material.tconstruct.seared_stone.encyclopedia": "Gives +6 mining speed against blocks that can be melted in a melter.",
-  "material.tconstruct.seared_stone.encyclopedia.armor": "Reduces damage from fire by 10% per level, and reduces fire burn time.",
+  "material.tconstruct.seared_stone.encyclopedia.armor": "Reduces damage from fire by 12% per level, and reduces fire burn time.",
 
   "material.tconstruct.scorched_stone": "Scorched Stone",
   "material.tconstruct.scorched_stone.flavor": "Founders edition bonus.",
@@ -1949,7 +1954,7 @@
 
   "material.tconstruct.gold": "Gold",
   "material.tconstruct.gold.flavor": "Piglins love it.",
-  "material.tconstruct.gold.encyclopedia.armor": "Grants 10% protection per level against magic damage and reduces negative potion duration. Also makes piglins friendly.",
+  "material.tconstruct.gold.encyclopedia.armor": "Grants 12% protection per level against magic damage and reduces negative potion duration. Also makes piglins friendly.",
   "material.tconstruct.gold.skull": "Piglin",
   "material.tconstruct.gold.flavor.skull": "So shiny",
   "material.tconstruct.gold.encyclopedia.skull": "Causes some gold ores to drop extra gold nuggets, and increases drop chance of gold armor by 4%. Nuggets and armor drops are further boosted if trimmed and by each piece of golden armor worn.",
@@ -1982,12 +1987,15 @@
   "material.tconstruct.rose_gold.encyclopedia.skull": "Boosts health by 2 hearts, plus an additional 2 hearts when trimmed and per piece of golden armor.",
 
   "material.tconstruct.skyslime_vine": "Slimy Vine",
-  "material.tconstruct.skyslime_vine.slimeskin": "Slimeskin",
-  "material.tconstruct.skyslime_vine.flavor": "Float like a butterfly, sting like a bee.",
+  "material.tconstruct.skyslime_vine.flavor": "Float like a slime, sting like a bee.",
   "material.tconstruct.skyslime_vine.encyclopedia.melee_harvest": "Cancels out the mining speed reduction when not on the ground.",
   "material.tconstruct.skyslime_vine.encyclopedia.ranged": "Grants +0.1 velocity when not on the ground or a ladder.",
   "material.tconstruct.skyslime_vine.encyclopedia.armor": "Reduces gravity by 15% per piece.",
   "material.tconstruct.skyslime_vine.encyclopedia.laces": "Grants +0.5 blocks jump height at first level, and +1 at second level. Increases the safe fall distance by 1 block per level.",
+
+  "material.tconstruct.skyslimeskin": "Slimeskin",
+  "material.tconstruct.skyslimeskin.flavor": "Floating slimes stung by a bee.",
+  "material.tconstruct.skyslimeskin.encyclopedia.armor": "Reduces damage from airborne targets by 10%.",
 
   "material.tconstruct.weeping_vine": "Weeping Vine",
   "material.tconstruct.weeping_vine.flavor": "Channel the heat.",
@@ -2000,8 +2008,8 @@
   "material.tconstruct.twisting_vine.flavor": "Eat the spores!",
   "material.tconstruct.twisting_vine.encyclopedia.melee_harvest": "Grants +6 mining speed at the cost of losing 1 health when you put down the tool.",
   "material.tconstruct.twisting_vine.encyclopedia.ranged": "Grants +15% draw speed at the cost of losing 1 health when you put down the tool.",
-  "material.tconstruct.twisting_vine.encyclopedia.armor": "Grants +10% knockback resistance at the cost of losing 2 health when you remove the armor.",
-  "material.tconstruct.twisting_vine.encyclopedia.laces": "Increases movement speed by 15% per level, but deals 2 damage per level when unequipped.",
+  "material.tconstruct.twisting_vine.encyclopedia.armor": "Increases movement speed by 10%, but deals 2 damage per level when unequipped.",
+  "material.tconstruct.twisting_vine.encyclopedia.laces": "Increases movement speed by 10% per level, but deals 2 damage per level when unequipped.",
 
   "material.tconstruct.wool": "Wool",
   "material.tconstruct.wool.white": "White Wool",
@@ -2022,6 +2030,7 @@
   "material.tconstruct.wool.black": "Black Wool",
   "material.tconstruct.wool.flavor": "Woolooloo",
   "material.tconstruct.wool.encyclopedia.ammo": "Multiplies the projectile damage by 0. Note damage may still be increased by bow power, and it may still aggravate mobs.",
+  "material.tconstruct.wool.encyclopedia.armor": "Grants +10% knockback resistance",
 
   "material.tconstruct.feather": "Feather",
   "material.tconstruct.feather.flavor": "The traditional arrow fletching",
@@ -2091,8 +2100,8 @@
   "material.tconstruct.ender_pearl.skull": "Enderman",
   "material.tconstruct.ender_pearl.flavor.skull": "Endermen know how to stay away from harm, and scientists. They have been ignoring my interview requests for weeks!",
   "material.tconstruct.ender_pearl.encyclopedia.skull": "Allows teleporting a short distance in the direction you face by holding then releasing the helmet keybind.",
-  "material.tconstruct.ender_pearl.flavor.slime": "Counterspell!",
-  "material.tconstruct.ender_pearl.encyclopedia.slime": "Grants 10% protection per level against magic damage and reduces the time of negative potion effects.",
+  "material.tconstruct.ender_pearl.flavor.slime": "Just avoid your problems",
+  "material.tconstruct.ender_pearl.encyclopedia.slime": "Has a 25% chance per piece of randomly teleporting attackers away. Higher levels send them further!",
 
   "material.tconstruct.glass": "Glass",
   "material.tconstruct.glass.flavor": "Shatters on impact!",
@@ -2119,7 +2128,7 @@
 
   "material.tconstruct.obsidian":   "Obsidian",
   "material.tconstruct.obsidian.flavor": "This is an obsidian part, if it was not it would not say \"Obsidian.\"",
-  "material.tconstruct.obsidian.encyclopedia.armor": "Grants 10% protection per level against explosions, and reduces explosion knockback.",
+  "material.tconstruct.obsidian.encyclopedia.armor": "Grants 12% protection per level against explosions, and reduces explosion knockback.",
 
   "material.tconstruct.amethyst_bronze": "Amethyst Bronze",
   "material.tconstruct.amethyst_bronze.flavor": "Not to be confused with bronze.",
@@ -2173,7 +2182,7 @@
 
   "material.tconstruct.dragon_scale": "Dragon Scale",
   "material.tconstruct.dragon_scale.flavor": "With this, even dragons will fear me!",
-  "material.tconstruct.dragon_scale.encyclopedia.armor": "Grants +10% resistance while airborne, and boosts attack damage by 5% per level based on the highest piece.",
+  "material.tconstruct.dragon_scale.encyclopedia.armor": "Grants +8% resistance while airborne, and boosts attack damage by 5% per level based on the highest piece.",
   "material.tconstruct.dragon_scale.encyclopedia.ammo": "Increases projectile damage by 1 per level if launched while in mid air.",
   "material.tconstruct.dragon_scale.skull": "Dragon",
   "material.tconstruct.dragon_scale.flavor.skull": "No one shotting!",
@@ -2290,32 +2299,40 @@
   "material.tconstruct.knightslime.encyclopedia.armor": "Consumes up to 2 overslime per level to reduce damage by 2.5% per overslime consumed (up to 5% per level).",
 
   "material.tconstruct.enderslime_vine": "Slimy Vine",
-  "material.tconstruct.enderslime_vine.slimeskin": "Slimeskin",
   "material.tconstruct.enderslime_vine.flavor": "The End?",
   "material.tconstruct.enderslime_vine.encyclopedia.melee_harvest": "Teleports the holder to the location of mined blocks or swaps the holder with attacked monsters.",
   "material.tconstruct.enderslime_vine.encyclopedia.ranged": "Teleports the holder to the location of arrows that land in blocks or swaps the holder with monsters hit by arrows.",
-  "material.tconstruct.enderslime_vine.encyclopedia.armor": "Has a 25% chance per piece of randomly teleporting attackers away.",
-  "material.tconstruct.enderslime_vine.encyclopedia.laces": "Has a 25% chance per level of randomly teleporting attackers away.",
+  "material.tconstruct.enderslime_vine.encyclopedia.armor": "Grants a 7.5% chance to dodge incoming damage with a short cooldown. Chance is doubled for projectiles.",
+  "material.tconstruct.enderslime_vine.encyclopedia.laces": "Grants a 7.5% chance per level to dodge incoming damage with a short cooldown. Chance is doubled for projectiles.",
+
+  "material.tconstruct.enderslimeskin": "Slimeskin",
+  "material.tconstruct.enderslimeskin.flavor": "Bye bye!",
+  "material.tconstruct.enderslimeskin.encyclopedia.armor": "Has a 25% chance per piece of randomly teleporting attackers away.",
 
   "material.tconstruct.enderslime": "Enderslime",
   "material.tconstruct.enderslime.flavor": "Zwooop",
   "material.tconstruct.enderslime.encyclopedia.ammo": "Causes the target to be teleported randomly up to 16 blocks, or up to 24 blocks at level 2.",
-  "material.tconstruct.enderslime.encyclopedia.slime": "Grants a 5% chance plus 5% per level to dodge incoming damage with a short cooldown. Chance is doubled for projectiles.",
+  "material.tconstruct.enderslime.encyclopedia.slime": "Grants a 7.5% chance per level to dodge incoming damage with a short cooldown. Chance is doubled for projectiles.",
 
 
   "__comment": "Slimesuit materials",
 
   "material.tconstruct.clay": "Clay",
   "material.tconstruct.clay.flavor": "All natural!",
-  "material.tconstruct.clay.encyclopedia.slime": "Grants +1 armor per level.",
+  "material.tconstruct.clay.encyclopedia.slime": "Grants +1 armor and +5% knockback resistance per level.",
 
   "material.tconstruct.honey": "Honey",
   "material.tconstruct.honey.flavor": "Super Sweet!",
   "material.tconstruct.honey.encyclopedia.slime": "Grants a 15% chance per level of eating the armor (consuming some durability) for 1 hunger per level at 0.1 saturation that also cures poison.",
 
+  "material.tconstruct.venom": "Venom",
+  "material.tconstruct.venom.flavor.slime": "Counterspell!",
+  "material.tconstruct.venom.encyclopedia.slime": "Grants 10% protection per level against magic damage and reduces the time of negative potion effects.",
+
   "material.tconstruct.phantom": "Phantom Membrane",
-  "material.tconstruct.phantom.flavor.shell": "Float like a phantom",
-  "material.tconstruct.phantom.encyclopedia.shell": "Reduces gravity by 5% plus 10% per level per piece.",
+  "material.tconstruct.phantom.flavor.shell": "Fight like a phantom",
+  "material.tconstruct.phantom.encyclopedia": "Grants 0.5% protection per light level below 10, up to 5% in complete darkness.",
+  "material.tconstruct.phantom.encyclopedia.shell": "Allows jumping an extra time in the air, but increases gravity unless trimmed.",
 
   "material.tconstruct.horn": "Horn",
   "material.tconstruct.horn.minecraft.ponder_goat_horn": "Ponder Horn",
@@ -2326,8 +2343,8 @@
   "material.tconstruct.horn.minecraft.call_goat_horn":   "Call Horn",
   "material.tconstruct.horn.minecraft.yearn_goat_horn":  "Yearn Horn",
   "material.tconstruct.horn.minecraft.dream_goat_horn":  "Dream Horn",
-  "material.tconstruct.horn.flavor.shell": "Charge like a ram",
-  "material.tconstruct.horn.encyclopedia.shell": "Unarmed attacks deal +4 damage per level while sprinting.",
+  "material.tconstruct.horn.flavor.ribcage": "Charge like a ram",
+  "material.tconstruct.horn.encyclopedia.ribcage": "Unarmed attacks deal +4 damage per level while sprinting.",
 
   "material.tconstruct.cheese": "Cheese",
   "material.tconstruct.cheese.flavor": "Well Aged!",
@@ -2365,7 +2382,7 @@
   "material.tconstruct.aluminum": "Aluminum",
   "material.tconstruct.aluminum.flavor": "Found most commonly in ashmounds",
   "material.tconstruct.aluminum.encyclopedia.ranged": "Grants +0.05 drawspeed and accuracy.",
-  "material.tconstruct.aluminum.encyclopedia.armor": "Grants +5% use item speed at the cost of 5% loss of protection.",
+  "material.tconstruct.aluminum.encyclopedia.armor": "Grants +5% movement speed and +5% use item speed at the cost of 2.5% loss of protection.",
 
   "material.tconstruct.treated_wood": "Treated Wood",
   "material.tconstruct.treated_wood.flavor": "Slán go fóill",
@@ -2541,7 +2558,7 @@
   "modifier.tconstruct.fiery": "Fiery",
   "modifier.tconstruct.fiery.flavor": "Infused with the fires of hell!",
   "modifier.tconstruct.fiery.description": "Ignites targets of melee attacks, fired arrows, and counterattacks",
-  "modifier.tconstruct.necrotic": "Necrotic",
+  "modifier.tconstruct.necrotic": "Lifesteal",
   "modifier.tconstruct.necrotic.flavor": "Vampiric!",
   "modifier.tconstruct.necrotic.description": "Critical hits on enemies drains their life to heal you",
   "modifier.tconstruct.necrotic.lifesteal": "Life Steal",
@@ -2692,7 +2709,7 @@
   "_comment": "Armor",
   "modifier.tconstruct.knockback_resistance": "Knockback Resistance",
   "modifier.tconstruct.knockback_resistance.flavor": "A weighty subject",
-  "modifier.tconstruct.knockback_resistance.description": "Anvils are heavy, so it should keep you from being knocked back, right?",
+  "modifier.tconstruct.knockback_resistance.description": "This reduces knockback in others, so why not reducing knockback on myself?",
   "modifier.tconstruct.golden": "Golden",
   "modifier.tconstruct.golden.flavor": "Good as gold",
   "modifier.tconstruct.golden.description": "Gives your armor extra golden bling - piglins love it!",
@@ -3218,6 +3235,9 @@
   "modifier.tconstruct.tanned": "Tanned",
   "modifier.tconstruct.tanned.flavor": "Become a master leatherworker",
   "modifier.tconstruct.tanned.description": "Tool no longer takes double or more damage from certain actions",
+  "modifier.tconstruct.rugged": "Rugged",
+  "modifier.tconstruct.rugged.flavor": "All terrain boots!",
+  "modifier.tconstruct.rugged.description": "Allows walking on hazardous blocks such as powder snow, magma, and cactus.",
   "modifier.tconstruct.snow_boots": "Snow Step",
   "modifier.tconstruct.snow_boots.flavor": "Snowshoeing",
   "modifier.tconstruct.snow_boots.description": "Allows walking on top of powder snow",
@@ -3287,9 +3307,20 @@
   "modifier.tconstruct.airborne.flavor": "Take to the skies!",
   "modifier.tconstruct.airborne.description": "Tool no longer is penalized when mining in the air and gains a projectile velocity bonus",
   "modifier.tconstruct.airborne.velocity": "Airborne Velocity",
+  "modifier.tconstruct.airborn": "Airborn",
+  "modifier.tconstruct.airborn.flavor": "Look to the skies!",
+  "modifier.tconstruct.airborn.description": "Increases protection against airborne enemies",
+  "modifier.tconstruct.airborn.resistance": "Airborn Resistance",
   "modifier.tconstruct.skyfall": "Skyfall",
   "modifier.tconstruct.skyfall.flavor": "Falling with style!",
   "modifier.tconstruct.skyfall.description": "Reduces the effect of gravity",
+  "modifier.tconstruct.nightmare_protection": "Nightmare Protection",
+  "modifier.tconstruct.nightmare_protection.flavor": "Protects against monsters in the night!",
+  "modifier.tconstruct.nightmare_protection.description": "Increases protection in the dark",
+  "modifier.tconstruct.nightmare_protection.resistance": "Darkness Resistance",
+  "modifier.tconstruct.dreambound": "Dreambound",
+  "modifier.tconstruct.dreambound.flavor": "Jump like Phantom",
+  "modifier.tconstruct.dreambound.description": "Lets you jump again in mid air, but increases gravity.",
   "modifier.tconstruct.forming": "Self-Forming",
   "modifier.tconstruct.forming.flavor": "Absorbs attacks",
   "modifier.tconstruct.forming.description": "Increases armor and knockback resistance",
@@ -3631,6 +3662,9 @@
   "modifier.tconstruct.overslime_friend": "Overslime Friend",
   "modifier.tconstruct.overslime_friend.flavor": "Friend of the slime",
   "modifier.tconstruct.overslime_friend.description": "Counts as a slimy material, preventing overslime from debuffing the tool",
+  "modifier.tconstruct.iron_armor": "Iron Armor",
+  "modifier.tconstruct.iron_armor.flavor": "Its armor made of iron",
+  "modifier.tconstruct.iron_armor.description": "Counts towards the Suit Up advancement",
 
   "modifier.tconstruct.reverted": "Reverted",
   "modifier.tconstruct.reverted.flavor": "We need to go back!",
@@ -3921,9 +3955,13 @@
   "recipe.tconstruct.tool_build.no_count": "One of the traits prevented this tool from being crafted.",
   "recipe.tconstruct.damaging.broken": "Tool is already broken",
   "recipe.tconstruct.overslime.at_capacity": "Tool has no more space for overslime",
+  "recipe.tconstruct.overslime.tooltip": "Restores %s overslime to the tool, provided it already has the overslime modifier.",
   "recipe.tconstruct.modifier.amount": "Amount: %s",
 
   "recipe.tconstruct.swappable.already_present": "Tool already contains %s with variant %s",
+  "recipe.tconstruct.banner.solid": "Solid",
+  "recipe.tconstruct.banner.clear": "Clear",
+  "recipe.tconstruct.banner.clear.no_patterns": "Must have at least one pattern to make the banner clear",
 
   "gui.tconstruct.modifier_worktable": "Modifier Worktable",
   "gui.tconstruct.modifier_worktable.title": "Modifier Tuning",
@@ -3987,6 +4025,22 @@
   "recipe.tconstruct.recycling.info": "Select which item to salvage. Based on the durability, may be able to salvage unselected items.",
   "recipe.tconstruct.recycling.not_enough_durability": "Item does not have enough durability to salvage anything.",
   "recipe.tconstruct.recycling.no_enchantments": "A tool cannot be recycled if it is enchanted, use the grindstone to remove them first.",
+  "recipe.tconstruct.sand_cast": "Sand Casts",
+  "recipe.tconstruct.sand_cast.info": "Select a pattern to create a sand cast with that shape. Sand casts can be used a single time in the casting table to create a tool part from molten materials.",
+
+  "recipe.tconstruct.tool_repair": "Tool Repair",
+  "recipe.tconstruct.tool_repair.tooltip": "Restores durability based on the material and item used. Can use repair kits with valid materials, or any items associated with the valid material.",
+  "recipe.tconstruct.tool_repair.crafting_table": "Restores durability based on the material and item used. Can use repair kits with valid materials.",
+  "recipe.tconstruct.tool_repair.modifier": "Repairs tools with the %s modifier. Repair amount scales with modifier level.",
+  "recipe.tconstruct.tool_damaging": "Tool Damaging",
+  "recipe.tconstruct.tool_damaging.tooltip": "Reduces the tool's durability by the given amount. Useful for maximizing modifier effects.",
+
+  "recipe.tconstruct.part_swapping": "Part Swapping",
+  "recipe.tconstruct.part_swapping.tooltip": "Swaps a material on the tool for the material of the part.",
+  "recipe.tconstruct.material_swapping": "Material Swapping",
+  "recipe.tconstruct.material_swapping.tooltip": "Swaps a material on the tool for a different material.",
+  "recipe.tconstruct.tool_material_swapping": "Tool Material Swapping",
+  "recipe.tconstruct.tool_material_swapping.tooltip": "Swaps a material on the tool for a material on the other tool based on the slot.\nSacrificed tool must have no modifiers.",
 
 
   "_comment": "GUIs Messages",
@@ -4149,11 +4203,13 @@
   "jei.tconstruct.modifier_ingredient": "%s Modifier",
   "jei.tconstruct.modifier_slot.ingredient": "Modifier Slot: %s",
   "jei.tconstruct.modifier_slot.id": "Slot ID: %s",
+  "jei.tconstruct.material_ingredient": "%s Material",
 
   "jei.tconstruct.casting.basin": "Casting Basin",
   "jei.tconstruct.casting.table": "Casting Table",
   "jei.tconstruct.casting.cast_kept": "Cast item can be reused in later recipes",
   "jei.tconstruct.casting.cast_consumed": "Cast item is consumed on casting",
+  "jei.tconstruct.casting.time": "Cooling time: %s s",
 
   "jei.tconstruct.molding.title": "Molding",
   "jei.tconstruct.molding.pattern_consumed": "Pattern is consumed on crafting",
@@ -4165,6 +4221,12 @@
   "jei.tconstruct.melting.smeltery": "In smeltery:",
   "jei.tconstruct.melting.melter": "In melter:",
   "jei.tconstruct.foundry.title": "Foundry",
+
+  "jei.tconstruct.fuel.title": "Smeltery Fuel",
+  "jei.tconstruct.fuel.solid": "Solid Fuel",
+  "jei.tconstruct.fuel.duration.lasts": "Lasts:",
+  "jei.tconstruct.fuel.duration.liquid": "%s s / %s mb",
+  "jei.tconstruct.fuel.duration.solid": "%s s / item",
 
   "jei.tconstruct.entity_melting.title": "Entity Melting",
   "jei.tconstruct.entity_melting.per_hearts": "Per %s Hearts Damage",
@@ -4183,13 +4245,26 @@
   "jei.tconstruct.modifiers.level.range": "For levels: %s-%s",
   "jei.tconstruct.modifiers.level.exact": "For level: %s",
 
+  "jei.tconstruct.materials.title": "Materials",
+  "jei.tconstruct.materials.value": "Value: %s",
+  "jei.tconstruct.materials.value.tooltip": "Number of units in the part builder and multiplier on repair value",
+  "jei.tconstruct.materials.amount": "Per unit: %s mb",
+  "jei.tconstruct.materials.amount.tooltip": "Amount of fluid needed per unit of material when casting",
+  "jei.tconstruct.materials.craftable": "Material can be used in the part builder.",
+  "jei.tconstruct.materials.uncraftable": "Material requires alternative crafting methods such as the casting table.",
+  "jei.tconstruct.materials.leftover": "Leftover for extra value",
+  "jei.tconstruct.materials.composite": "Composite base",
   "jei.tconstruct.severing.title": "Severing",
 
   "jei.tconstruct.tinkering.tool_building": "Tool Building",
   "jei.tconstruct.tinkering.tool_building.anvil": "Broad tools require the Tinker's Anvil to be created or swap parts",
 
+  "jei.tconstruct.tool_tinkering.title": "Tool Tinkering",
+
   "jei.tconstruct.part_builder.title": "Part Builder",
   "jei.tconstruct.part_builder.cost": "Cost: %s",
+  "jei.tconstruct.part_builder.reusable": "Reusable",
+  "jei.tconstruct.part_builder.consumed": "Consumed",
 
   "jei.tconstruct.modifier_worktable.title": "Modifier Worktable",
   "jei.tconstruct.tinker_station.too_large": "Recipe is too large to craft in this station.",
@@ -4287,4 +4362,3 @@
   "advancements.tconstruct.world.ancient_tools.title": "Archeologists",
   "advancements.tconstruct.world.ancient_tools.description": "Discover all original types of ancient tool"
 }
-

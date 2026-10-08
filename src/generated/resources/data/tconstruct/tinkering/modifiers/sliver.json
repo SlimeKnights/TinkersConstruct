@@ -41,6 +41,5 @@
       "translation_key": "modifier.tconstruct.sliver.requirements"
     }
   ],
-  "priority": 70,
-  "tooltip_display": "always"
+  "priority": 70
 }

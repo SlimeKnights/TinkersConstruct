@@ -17,6 +17,5 @@
       "instrument_material": "tconstruct:horn",
       "instrument_tag": "minecraft:regular_goat_horns"
     }
-  ],
-  "tooltip_display": "always"
+  ]
 }

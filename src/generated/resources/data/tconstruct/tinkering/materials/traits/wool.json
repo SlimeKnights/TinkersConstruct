@@ -5,6 +5,12 @@
         "level": 1,
         "name": "tconstruct:soft"
       }
+    ],
+    "tconstruct:armor": [
+      {
+        "level": 1,
+        "name": "tconstruct:knockback_resistance"
+      }
     ]
   }
 }

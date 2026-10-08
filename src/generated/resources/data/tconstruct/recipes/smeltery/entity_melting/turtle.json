@@ -2,7 +2,7 @@
   "type": "tconstruct:entity_melting",
   "damage": 3,
   "entity": {
-    "type": "minecraft:turtle"
+    "tag": "forge:turtles"
   },
   "result": {
     "amount": 25,

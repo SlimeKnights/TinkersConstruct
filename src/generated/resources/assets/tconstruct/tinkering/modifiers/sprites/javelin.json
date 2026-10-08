@@ -8,10 +8,6 @@
       "texture": "tconstruct:item/tool/javelin/modifiers/tconstruct_bane_of_sssss",
       "texture_large": "tconstruct:item/tool/javelin/large/modifiers/tconstruct_bane_of_sssss"
     },
-    "tconstruct:blasting": {
-      "texture": "tconstruct:item/tool/javelin/modifiers/tconstruct_blasting",
-      "texture_large": "tconstruct:item/tool/javelin/large/modifiers/tconstruct_blasting"
-    },
     "tconstruct:bucketing": [
       {
         "type": "tconstruct:fluid",
@@ -75,11 +71,11 @@
       "texture_large": "tconstruct:item/tool/javelin/large/modifiers/tconstruct_netherite"
     },
     "tconstruct:overforced": {
-      "texture": "tconstruct:item/tool/javelin/modifiers/tconstruct_overforced",
+      "texture": "tconstruct:item/tool/sledge_hammer/modifiers/tconstruct_overforced",
       "texture_large": "tconstruct:item/tool/javelin/large/modifiers/tconstruct_overforced"
     },
     "tconstruct:reinforced": {
-      "texture": "tconstruct:item/tool/javelin/modifiers/tconstruct_reinforced",
+      "texture": "tconstruct:item/tool/sledge_hammer/modifiers/tconstruct_reinforced",
       "texture_large": "tconstruct:item/tool/javelin/large/modifiers/tconstruct_reinforced"
     },
     "tconstruct:sharpness": {
@@ -109,7 +105,7 @@
     ],
     "tconstruct:unbreakable": {
       "luminosity": 2,
-      "texture": "tconstruct:item/tool/javelin/modifiers/tconstruct_unbreakable",
+      "texture": "tconstruct:item/tool/sledge_hammer/modifiers/tconstruct_unbreakable",
       "texture_large": "tconstruct:item/tool/javelin/large/modifiers/tconstruct_unbreakable"
     }
   }

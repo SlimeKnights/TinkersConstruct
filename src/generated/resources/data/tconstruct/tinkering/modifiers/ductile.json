@@ -25,6 +25,5 @@
       "operation": "add",
       "stat": "tconstruct:armor_toughness"
     }
-  ],
-  "tooltip_display": "always"
+  ]
 }

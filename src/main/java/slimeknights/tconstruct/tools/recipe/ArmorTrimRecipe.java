@@ -28,6 +28,7 @@ import slimeknights.tconstruct.library.recipe.modifiers.adding.IDisplayModifierR
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -152,6 +153,8 @@ public class ArmorTrimRecipe implements ITinkerStationRecipe, IMultiRecipe<IDisp
                                                  .map(IModifiableDisplay::getDisplayStack).toList();
       if (!trims.isEmpty() && !toolInputs.isEmpty()) {
         ResourceLocation id = getId();
+        // one recipe per material
+        // TODO: worth using just a single material? focus link material to output tool?
         displayRecipes = access.registryOrThrow(Registries.TRIM_MATERIAL).holders()
           .map(material -> new DisplayRecipe(id, toolInputs, trims, material))
           .collect(Collectors.toList());
@@ -173,16 +176,18 @@ public class ArmorTrimRecipe implements ITinkerStationRecipe, IMultiRecipe<IDisp
     @Getter
     private final List<ItemStack> toolWithModifier;
     private final List<ItemStack> trim;
-    private final List<ItemStack> material;
+    private final Reference<TrimMaterial> material;
+    private final List<ItemStack> materialItem;
     @Getter
     private final Component variant;
 
     public DisplayRecipe(ResourceLocation id, List<ItemStack> tools, List<ItemStack> trim, Reference<TrimMaterial> holder) {
       this.recipeId = id;
-      TrimMaterial material = holder.get();
+      this.material = holder;
       toolWithoutModifier = tools;
       this.trim = trim;
-      this.material = List.of(new ItemStack(material.ingredient().get()));
+      TrimMaterial material = holder.get();
+      this.materialItem = List.of(new ItemStack(material.ingredient().get()));
       this.variant = material.description().plainCopy();
 
       String materialName = holder.key().location().toString();
@@ -201,7 +206,7 @@ public class ArmorTrimRecipe implements ITinkerStationRecipe, IMultiRecipe<IDisp
     public List<ItemStack> getDisplayItems(int slot) {
       return switch (slot) {
         case 0 -> trim;
-        case 1 -> material;
+        case 1 -> materialItem;
         default -> List.of();
       };
     }
@@ -214,6 +219,40 @@ public class ArmorTrimRecipe implements ITinkerStationRecipe, IMultiRecipe<IDisp
     @Override
     public IntRange getLevel() {
       return LEVELS;
+    }
+
+
+    /* Dynamic */
+
+    @Override
+    public boolean isTool(ItemStack check) {
+      return check.is(TinkerTags.Items.TRIM);
+    }
+
+    @Nullable
+    @Override
+    public Component canApply(IToolStackView tool) {
+      // just say we can always apply trim for simplicity
+      return null;
+    }
+
+    @Override
+    public void applyModifier(ToolStack tool) {
+      // store into tool NBT
+      ModDataNBT persistentData = tool.getPersistentData();
+      ModifierId modifier = TinkerModifiers.trim.getId();
+      persistentData.putString(TrimModule.materialKey(modifier), material.key().location().toString());
+      // skip pattern, it doesn't show on the item, and it saves us a lookup
+
+      // add the modifier if missing
+      if (tool.getModifierLevel(modifier) == 0) {
+        tool.addModifier(modifier, 1);
+      }
+    }
+
+    @Override
+    public boolean shouldDisplayValidate() {
+      return false;
     }
   }
 }

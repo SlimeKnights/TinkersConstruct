@@ -52,8 +52,8 @@ public interface ICastingRecipe extends ICommonRecipe<ICastingContainer> {
    * @return  Cooling time based on the given inputs
    */
   static int calcCoolingTime(int temperature, int amount) {
-    // the time in melting reipes assumes updating 5 times a second
-    // we update 20 times a second, so get roughly a quart of those values
+    // the time in melting recipes assumes updating 5 times a second
+    // we update 20 times a second, so get roughly a quarter of those values
     return IMeltingRecipe.calcTimeForAmount(temperature, amount);
   }
 

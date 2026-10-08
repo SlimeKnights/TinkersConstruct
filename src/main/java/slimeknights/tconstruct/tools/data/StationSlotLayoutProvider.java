@@ -36,11 +36,11 @@ public class StationSlotLayoutProvider extends AbstractStationSlotLayoutProvider
         .translationKey(TConstruct.makeTranslationKey("gui", "tinker_station.repair"))
         .icon(Patterns.REPAIR)
         .toolSlot(33, 41, modifiable)
+        .addInputSlot(Patterns.DUST,   11, 37)
+        .addInputSlot(Patterns.LAPIS,  33, 19)
+        .addInputSlot(Patterns.INGOT,  55, 37)
+        .addInputSlot(Patterns.GEM,    51, 62)
         .addInputSlot(Patterns.QUARTZ, 15, 62)
-        .addInputSlot(Patterns.DUST, 11, 37)
-        .addInputSlot(Patterns.LAPIS, 33, 19)
-        .addInputSlot(Patterns.INGOT, 55, 37)
-        .addInputSlot(Patterns.GEM, 51, 62)
         .build();
     addAnvil.accept(TinkerTables.tinkersAnvil);
     addAnvil.accept(TinkerTables.scorchedAnvil);

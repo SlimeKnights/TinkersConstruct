@@ -25,6 +25,5 @@
       "operation": "multiply_base",
       "stat": "tconstruct:durability"
     }
-  ],
-  "tooltip_display": "always"
+  ]
 }

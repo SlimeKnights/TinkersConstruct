@@ -8,10 +8,6 @@
       "texture": "tconstruct:item/tool/scythe/modifiers/tconstruct_bane_of_sssss",
       "texture_large": "tconstruct:item/tool/scythe/large/modifiers/tconstruct_bane_of_sssss"
     },
-    "tconstruct:blasting": {
-      "texture": "tconstruct:item/tool/scythe/modifiers/tconstruct_blasting",
-      "texture_large": "tconstruct:item/tool/scythe/large/modifiers/tconstruct_blasting"
-    },
     "tconstruct:bucketing": [
       {
         "type": "tconstruct:fluid",

@@ -25,7 +25,11 @@ import slimeknights.tconstruct.tables.TinkerTables;
 
 import javax.annotation.Nullable;
 
-/** Recipe using repair kits in the crafting table */
+/**
+ * Recipe using repair kits in the crafting table.
+ * @see TinkerStationRepairRecipe
+ * @see slimeknights.mantle.recipe.helper.SimpleFinishedRecipe
+ */
 public class CraftingTableRepairKitRecipe extends CustomRecipe {
   public CraftingTableRepairKitRecipe(ResourceLocation id) {
     super(id, CraftingBookCategory.EQUIPMENT);

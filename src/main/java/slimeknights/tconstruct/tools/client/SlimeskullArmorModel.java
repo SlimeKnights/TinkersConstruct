@@ -84,7 +84,7 @@ public class SlimeskullArmorModel extends MultilayerArmorModel {
           headColor = 0xFF000000 | ModifierUtil.getPersistentInt(stack, dyed, -1);
         } else {
           // if not dyed, color is the material, fallback to no tint if missing
-          MaterialVariantId material = MaterialIdNBT.from(stack).getMaterial(1);
+          MaterialVariantId material = MaterialIdNBT.getMaterial(stack, 1);
           if (MaterialId.UNKNOWN.equals(material)) {
             headColor = -1;
           } else {

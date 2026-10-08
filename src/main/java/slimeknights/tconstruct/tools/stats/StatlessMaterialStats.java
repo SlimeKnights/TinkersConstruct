@@ -22,7 +22,7 @@ public enum StatlessMaterialStats implements IMaterialStats {
   SHIELD_CORE("shield_core"),
   /** Internal stat type that forces a repair kit to appear. Repair kits will also show if any repairable stat type is present. */
   REPAIR_KIT("repair_kit"),
-  /** Leather part for travelers gear. Generally supports leather and leather composites. */
+  /** Leather part for travelers gear. Generally supports leather and leather composites. TODO 1.21: make this {@link RepairStats} */
   CUIRASS("cuirass"),
 
   // ammo

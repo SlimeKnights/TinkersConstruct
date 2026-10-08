@@ -5,6 +5,5 @@
       "type": "tconstruct:zoom",
       "style": "scope"
     }
-  ],
-  "tooltip_display": "always"
+  ]
 }

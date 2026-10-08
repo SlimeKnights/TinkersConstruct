@@ -52,6 +52,7 @@ import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.common.TinkerDamageTypes;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.TinkerTags.Modifiers;
+import slimeknights.tconstruct.common.data.advancement.AdvancementIds;
 import slimeknights.tconstruct.library.data.tinkering.AbstractModifierProvider;
 import slimeknights.tconstruct.library.json.LevelingInt;
 import slimeknights.tconstruct.library.json.LevelingValue;
@@ -92,7 +93,6 @@ import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.EntityInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.BowAmmoModifierHook;
-import slimeknights.tconstruct.library.modifiers.impl.BasicModifier.TooltipDisplay;
 import slimeknights.tconstruct.library.modifiers.modules.armor.AdjustDamageModule;
 import slimeknights.tconstruct.library.modifiers.modules.armor.BlockDamageSourceModule;
 import slimeknights.tconstruct.library.modifiers.modules.armor.CoverGroundWalkerModule;
@@ -160,6 +160,8 @@ import slimeknights.tconstruct.library.modifiers.modules.util.ModifierCondition;
 import slimeknights.tconstruct.library.modifiers.modules.util.ProjectilePredicate;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay.UniqueForLevels;
+import slimeknights.tconstruct.library.modifiers.util.ModifierTooltip;
+import slimeknights.tconstruct.library.modifiers.util.ModifierTooltip.ShowInTooltips;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.SwappableModifierRecipe.VariantFormatter;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
@@ -296,27 +298,27 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
 
     // extra modifier slots
     ModifierSlotModule UPGRADE = ModifierSlotModule.slot(SlotType.UPGRADE).eachLevel(1);
-    buildModifier(ModifierIds.writable   ).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(UPGRADE);
-    buildModifier(ModifierIds.recapitated).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(UPGRADE);
-    buildModifier(ModifierIds.harmonious ).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(UPGRADE);
-    buildModifier(ModifierIds.forecast   ).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(UPGRADE);
-    buildModifier(ModifierIds.gilded     ).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(ModifierSlotModule.slot(SlotType.UPGRADE).eachLevel(2));
-    buildModifier(ModifierIds.draconic   ).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(ModifierSlotModule.slot(SlotType.ABILITY).eachLevel(1));
-    buildModifier(ModifierIds.embossed, new TagFilledCondition<>(TinkerTags.Items.BOSS_TROPHIES)).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(UPGRADE);
+    buildModifier(ModifierIds.writable   ).showInTooltips(ShowInTooltips.BONUS_SLOT).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(UPGRADE);
+    buildModifier(ModifierIds.recapitated).showInTooltips(ShowInTooltips.BONUS_SLOT).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(UPGRADE);
+    buildModifier(ModifierIds.harmonious ).showInTooltips(ShowInTooltips.BONUS_SLOT).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(UPGRADE);
+    buildModifier(ModifierIds.forecast   ).showInTooltips(ShowInTooltips.BONUS_SLOT).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(UPGRADE);
+    buildModifier(ModifierIds.gilded     ).showInTooltips(ShowInTooltips.BONUS_SLOT).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(ModifierSlotModule.slot(SlotType.UPGRADE).eachLevel(2));
+    buildModifier(ModifierIds.draconic   ).showInTooltips(ShowInTooltips.BONUS_SLOT).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(ModifierSlotModule.slot(SlotType.ABILITY).eachLevel(1));
+    buildModifier(ModifierIds.embossed, new TagFilledCondition<>(TinkerTags.Items.BOSS_TROPHIES)).showInTooltips(ShowInTooltips.BONUS_SLOT).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(UPGRADE);
     IJsonPredicate<IToolContext> ancientTool = ToolContextPredicate.tag(TinkerTags.Items.ANCIENT_TOOLS);
     buildModifier(ModifierIds.rebalanced)
-      .tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.NO_LEVELS)
+      .showInTooltips(ModifierTooltip.TINKER_STATION).levelDisplay(ModifierLevelDisplay.NO_LEVELS)
       .addModule(new SwappableSlotModule(1))
       .addModule(new SwappableSlotModule(null, 1, ModifierCondition.ANY_CONTEXT.with(ancientTool)), ModifierHooks.VOLATILE_DATA)
       .addModule(new SwappableSlotModule.BonusSlot(null, SlotType.ABILITY, SlotType.UPGRADE, -1, ModifierCondition.ANY_CONTEXT.with(ancientTool.inverted())))
       .addModule(new SwappableSlotModule.BonusSlot(null, SlotType.ABILITY, SlotType.ABILITY, -1, ModifierCondition.ANY_CONTEXT.with(ancientTool)))
       .addModule(new SwappableToolTraitsModule(null, "traits", ToolHooks.REBALANCED_TRAIT));
     buildModifier(ModifierIds.redirected)
-      .tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.NO_LEVELS)
+      .showInTooltips(ShowInTooltips.BONUS_SLOT).levelDisplay(ModifierLevelDisplay.NO_LEVELS)
       .addModule(new SwappableToolTraitsModule(null, "", ToolHooks.REBALANCED_TRAIT));
     // resurrected replaced with forecast
     buildModifier(ModifierIds.resurrected)
-      .tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(UPGRADE)
+      .showInTooltips(ShowInTooltips.BONUS_SLOT).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(UPGRADE)
       // migration: disallow having both resurrected and forecast, as forecast is meant to replace resurrected. Not giving you a free upgrade slot for updating tinkers
       .addModule(ModifierRequirementsModule.builder().requirement(HasModifierPredicate.hasUpgrade(ModifierIds.forecast, 1).inverted()).modifierKey(ModifierIds.resurrected).build());
 
@@ -348,7 +350,9 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(StatBoostModule.add(ToolStats.MINING_SPEED).flat(2))
       .addModule(SetStatModule.set(ToolStats.HARVEST_TIER).value(Tiers.DIAMOND))
       // ranged
-      .addModule(StatBoostModule.add(ToolStats.PROJECTILE_DAMAGE).flat(0.5f));
+      .addModule(StatBoostModule.add(ToolStats.PROJECTILE_DAMAGE).flat(0.5f))
+      // achievement
+      .addModule(new VolatileFlagModule(AdvancementIds.DIAMOND_ARMOR, ModifierCondition.ANY_CONTEXT.with(ToolContextPredicate.tag(TinkerTags.Items.WORN_ARMOR))));
     // netherite
     buildModifier(ModifierIds.netherite)
       .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
@@ -363,7 +367,9 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(StatBoostModule.multiplyBase(ToolStats.MINING_SPEED).flat(0.25f))
       .addModule(SetStatModule.set(ToolStats.HARVEST_TIER).value(Tiers.NETHERITE))
       // ranged
-      .addModule(StatBoostModule.multiplyBase(ToolStats.VELOCITY).flat(0.1f));
+      .addModule(StatBoostModule.multiplyBase(ToolStats.VELOCITY).flat(0.1f))
+      // achievement
+      .addModule(new VolatileFlagModule(AdvancementIds.NETHERITE));
 
     // general
     buildModifier(ModifierIds.worldbound).addModule(new VolatileFlagModule(IndestructibleItemEntity.INDESTRUCTIBLE_ENTITY)).addModule(new RarityModule(Rarity.RARE)).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
@@ -689,19 +695,21 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(StatBoostModule.add(ToolTankHelper.CAPACITY_STAT).eachLevel(FluidType.BUCKET_VOLUME))
       .addModule(new SpillingModule(LevelingValue.eachLevel(1), ModifierCondition.ANY_TOOL));
     // on fishing rods, we want spilling, but no spilling on bows
-    buildModifier(ModifierIds.spillingRod).tooltipDisplay(TooltipDisplay.NEVER).addModule(ModifierTraitModule.tagCondition(ModifierIds.spilling, TinkerTags.Items.FISHING_RODS));
+    buildModifier(ModifierIds.spillingRod).showInTooltips(ShowInTooltips.PARTS_ONLY).addModule(ModifierTraitModule.tagCondition(ModifierIds.spilling, TinkerTags.Items.FISHING_RODS));
 
     // glass trait is implemented in two parts: a constantly added debuff, and a conditionally added smashing module
     buildModifier(ModifierIds.amorphous).addModule(StatBoostModule.add(ToolStats.PROJECTILE_DAMAGE).eachLevel(-0.75f));
     buildModifier(ModifierIds.smashing).addModule(SmashingModule.INSTANCE);
     // we use an internal modifier to ensure smashing doesn't go on fishng rods
-    buildModifier(ModifierIds.smashingAmmo).tooltipDisplay(TooltipDisplay.NEVER).addModule(ModifierTraitModule.tagCondition(ModifierIds.smashing, TinkerTags.Items.AMMO));
+    buildModifier(ModifierIds.smashingAmmo).showInTooltips(ShowInTooltips.PARTS_ONLY).addModule(ModifierTraitModule.tagCondition(ModifierIds.smashing, TinkerTags.Items.AMMO));
 
 
     // armor
     buildModifier(TinkerModifiers.golden).addModule(new VolatileFlagModule(ModifiableArmorItem.PIGLIN_NEUTRAL)).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
     buildModifier(ModifierIds.wings).addModule(new VolatileFlagModule(ModifiableArmorItem.ELYTRA)).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
-    buildModifier(ModifierIds.knockbackResistance).addModule(StatBoostModule.add(ToolStats.KNOCKBACK_RESISTANCE).eachLevel(0.1f));
+    buildModifier(ModifierIds.knockbackResistance).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
+      .addModule(StatBoostModule.add(ToolStats.KNOCKBACK_RESISTANCE).eachLevel(0.1f))
+      .addModule(new MaterialVariantColorModule(MaterialIds.wool));
     buildModifier(ModifierIds.ricochet).addModule(AttributeModule.builder(TinkerAttributes.KNOCKBACK_MULTIPLIER, Operation.MULTIPLY_BASE).eachLevel(0.2f));
 
     // defense
@@ -722,13 +730,13 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(ProtectionModule.builder().sources(DamageSourcePredicate.CAN_PROTECT, DamageSourcePredicate.tag(TinkerTags.DamageTypes.PROJECTILE_PROTECTION)).eachLevel(2f));
     buildModifier(ModifierIds.fireProtection)
       .addModule(EnchantmentModule.builder(Enchantments.FIRE_PROTECTION).protection())
-      .addModule(ProtectionModule.builder().sources(DamageSourcePredicate.CAN_PROTECT, DamageSourcePredicate.tag(TinkerTags.DamageTypes.FIRE_PROTECTION)).eachLevel(2.5f));
+      .addModule(ProtectionModule.builder().sources(DamageSourcePredicate.CAN_PROTECT, DamageSourcePredicate.tag(TinkerTags.DamageTypes.FIRE_PROTECTION)).eachLevel(3f));
     buildModifier(ModifierIds.blastProtection)
       .addModule(EnchantmentModule.builder(Enchantments.BLAST_PROTECTION).protection())
-      .addModule(ProtectionModule.builder().sources(DamageSourcePredicate.CAN_PROTECT, DamageSourcePredicate.tag(TinkerTags.DamageTypes.BLAST_PROTECTION)).eachLevel(2.5f));
+      .addModule(ProtectionModule.builder().sources(DamageSourcePredicate.CAN_PROTECT, DamageSourcePredicate.tag(TinkerTags.DamageTypes.BLAST_PROTECTION)).eachLevel(3f));
     buildModifier(ModifierIds.magicProtection)
       .addModule(MaxArmorAttributeModule.builder(TinkerAttributes.BAD_EFFECT_DURATION, Operation.MULTIPLY_BASE).heldTag(TinkerTags.Items.HELD).eachLevel(-0.05f))
-      .addModule(ProtectionModule.builder().sources(DamageSourcePredicate.CAN_PROTECT, DamageSourcePredicate.tag(TinkerTags.DamageTypes.MAGIC_PROTECTION)).eachLevel(2.5f));
+      .addModule(ProtectionModule.builder().sources(DamageSourcePredicate.CAN_PROTECT, DamageSourcePredicate.tag(TinkerTags.DamageTypes.MAGIC_PROTECTION)).eachLevel(3f));
     buildModifier(ModifierIds.turtleShell)
       .addModule(MaxArmorAttributeModule.builder(ForgeMod.SWIM_SPEED.get(), Operation.MULTIPLY_TOTAL).heldTag(TinkerTags.Items.HELD).eachLevel(0.1f))
       .addModule(ProtectionModule.builder()
@@ -737,12 +745,22 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(ProtectionModule.builder()
                                  .toolItem(ItemPredicate.or(ItemPredicate.tag(TinkerTags.Items.LEGGINGS), ItemPredicate.tag(TinkerTags.Items.BOOTS)))
                                  .entity(LivingEntityPredicate.FEET_IN_WATER).eachLevel(2.5f));
+    buildModifier(ModifierIds.nightmareProtection).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
+      .addModule(ProtectionModule.builder()
+        .formula()
+        .constant(10)
+        .customVariable("light", new EntityProtectionVariable(new EntityLightVariable(null), EntityProtectionVariable.WhichEntity.TARGET, 0))
+        .subtract().nonNegative() // light from 9 to 0 gives protection, with max at 0
+        .constant(0.125f).multiply() // grants 0.5% per light level
+        .variable(LEVEL).multiply()
+        .variable(VALUE).add()
+        .build());
     buildModifier(ModifierIds.shulking)
       .addModule(MaxArmorAttributeModule.builder(TinkerAttributes.CROUCH_DAMAGE_MULTIPLIER, Operation.MULTIPLY_BASE).heldTag(TinkerTags.Items.HELD).eachLevel(-0.1f))
       .addModule(ProtectionModule.builder().entity(LivingEntityPredicate.CROUCHING).eachLevel(2.5f));
     buildModifier(ModifierIds.dragonborn)
       .addModule(MaxArmorAttributeModule.builder(TinkerAttributes.CRITICAL_DAMAGE, Operation.ADDITION).heldTag(TinkerTags.Items.HELD).tooltipStyle(TooltipStyle.PERCENT).eachLevel(0.05f))
-      .addModule(ProtectionModule.builder().entity(TinkerPredicate.AIRBORNE).eachLevel(2.5f));
+      .addModule(ProtectionModule.builder().entity(TinkerPredicate.AIRBORNE).eachLevel(2f));
     // helmet
     buildModifier(ModifierIds.respiration).addModule(EnchantmentModule.builder(Enchantments.RESPIRATION).constant());
     buildModifier(ModifierIds.aquaAffinity).addModule(EnchantmentModule.builder(Enchantments.AQUA_AFFINITY).constant()).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
@@ -755,7 +773,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(InventoryModule.builder().flatLimit(16).filter(ItemPredicate.tag(TinkerTags.Items.THROWABLE)).pattern(new Pattern(TConstruct.MOD_ID, "shuriken")).slotsPerLevel(3));
     // leggings
     // pocket is an internal modifier to keep the NBT structure for inventory modifiers the smae
-    buildModifier(ModifierIds.pocket).tooltipDisplay(TooltipDisplay.NEVER)
+    buildModifier(ModifierIds.pocket).showInTooltips(ShowInTooltips.NEVER)
       .addModule(InventoryModule.builder().key(ModifierIds.pockets).slotsPerLevel(3))
       .addModule(InventoryMenuModule.ANY);
     // 18 slots per level
@@ -793,7 +811,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.depthStrider).addModule(EnchantmentModule.builder(Enchantments.DEPTH_STRIDER).constant());
     buildModifier(ModifierIds.soulspeed).addModule(new SoulSpeedModule(LevelingInt.flat(1), ModifierCondition.ANY_TOOL));
     buildModifier(ModifierIds.featherFalling)
-      .tooltipDisplay(TooltipDisplay.NEVER).levelDisplay(new ModifierLevelDisplay.MapLevel(LevelingInt.eachLevel(2)))
+      .showInTooltips(ShowInTooltips.PARTS_ONLY).levelDisplay(new ModifierLevelDisplay.MapLevel(LevelingInt.eachLevel(2)))
       .addModule(new ModifierTraitModule(ModifierIds.featherFall, 2, false));
     buildModifier(ModifierIds.featherFall).translationKey(ModifierIds.featherFalling)
       .addModule(ProtectionModule.builder().source(DamageSourcePredicate.tag(TinkerTags.DamageTypes.FALL_PROTECTION))
@@ -858,7 +876,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       // make explosive use EFLN style, it works underwater!
       .addModule(new VolatileFlagModule(ProjectileExplosionModule.EFLN), ModifierHooks.PROJECTILE_LAUNCH, ModifierHooks.PROJECTILE_SHOT);
     // fins on prismarine arrow heads should only apply to arrows
-    buildModifier(ModifierIds.finsAmmo).tooltipDisplay(TooltipDisplay.NEVER).addModule(ModifierTraitModule.tagCondition(ModifierIds.fins, TinkerTags.Items.AMMO));
+    buildModifier(ModifierIds.finsAmmo).showInTooltips(ShowInTooltips.PARTS_ONLY).addModule(ModifierTraitModule.tagCondition(ModifierIds.fins, TinkerTags.Items.AMMO));
     // shears
     buildModifier(ModifierIds.shears).priority(70).levelDisplay(ModifierLevelDisplay.PLUSES)
       .addModule(ShowOffhandModule.DISALLOW_BROKEN)
@@ -895,7 +913,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.fishing).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(FishingModule.INSTANCE).addModule(ShowInteractionSourceModule.INSTANCE);
     buildModifier(ModifierIds.lure).addModule(StatBoostModule.add(ToolStats.LURE).eachLevel(1));
     // lure on prismarine arrows should only apply to fishing rods
-    buildModifier(ModifierIds.lureRod).tooltipDisplay(TooltipDisplay.NEVER).addModule(ModifierTraitModule.tagCondition(ModifierIds.lure, TinkerTags.Items.FISHING_RODS));
+    buildModifier(ModifierIds.lureRod).showInTooltips(ShowInTooltips.PARTS_ONLY).addModule(ModifierTraitModule.tagCondition(ModifierIds.lure, TinkerTags.Items.FISHING_RODS));
     buildModifier(ModifierIds.grapple)
       .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
       .addModule(new ToolActionsModule(TinkerToolActions.GRAPPLE_HOOK))
@@ -917,14 +935,15 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(new SmeltingModule(RecipeType.SMELTING, 10, InventoryModule.builder().pattern(pattern("fire")).slotsPerLevel(1)));
 
     // internal
-    buildModifier(ModifierIds.overslimeFriend).tooltipDisplay(TooltipDisplay.NEVER);
+    buildModifier(ModifierIds.overslimeFriend).showInTooltips(ShowInTooltips.ADVANCED).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
     buildModifier(ModifierIds.snowBoots).addModule(new VolatileFlagModule(ModifiableArmorItem.SNOW_BOOTS)).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
-    buildModifier(TinkerModifiers.edible).priority(40).tooltipDisplay(TooltipDisplay.NEVER)
+    buildModifier(TinkerModifiers.edible).priority(40).showInTooltips(ShowInTooltips.NEVER)
       .addModule(EdibleModule.INSTANCE)
       .addModule(new ModifierTraitModule(ModifierIds.edibleTooltip, 1, true));
-    buildModifier(ModifierIds.edibleTooltip).tooltipDisplay(TooltipDisplay.NEVER)
+    buildModifier(ModifierIds.edibleTooltip).showInTooltips(ShowInTooltips.NEVER)
       .addModule(new StatTooltipModule<>(EdibleModule.HUNGER))
       .addModule(new StatTooltipModule<>(EdibleModule.SATURATION));
+    buildModifier(ModifierIds.ironArmor).showInTooltips(ShowInTooltips.NEVER).addModule(new VolatileFlagModule(AdvancementIds.IRON_ARMOR));
 
     // traits - tier 1
     buildModifier(ModifierIds.cultivated).addModule(RepairModule.builder().eachLevel(0.5f));
@@ -940,7 +959,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(StatBoostModule.add(ToolStats.VELOCITY).toolTag(TinkerTags.Items.THROWN_AMMO).eachLevel(0.25f));
     buildModifier(ModifierIds.unburdened)
       .addModule(StatBoostModule.add(ToolStats.USE_ITEM_SPEED).eachLevel(0.1f))
-      .addModule(AttributeModule.builder(TinkerAttributes.USE_ITEM_SPEED, Operation.ADDITION).slots(ARMOR_SLOTS).tooltipStyle(TooltipStyle.PERCENT).toolItem(ItemPredicate.tag(WORN_ARMOR)).eachLevel(0.05f));
+      .addModule(AttributeModule.builder(TinkerAttributes.USE_ITEM_SPEED, Operation.ADDITION).slots(ARMOR_SLOTS).tooltipStyle(TooltipStyle.PERCENT).toolItem(ItemPredicate.tag(WORN_ARMOR)).eachLevel(0.1f));
     buildModifier(ModifierIds.spiny)
       .addModule(StatBoostModule.add(ToolStats.VELOCITY).eachLevel(0.1f))
       .addModule(StatBoostModule.add(ToolStats.PROJECTILE_DAMAGE).toolTag(TinkerTags.Items.THROWN_AMMO).eachLevel(0.5f))
@@ -949,7 +968,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(StatBoostModule.add(ToolStats.VELOCITY).eachLevel(0.1f))
       .addModule(StatBoostModule.add(ToolStats.VELOCITY).toolTag(TinkerTags.Items.THROWN_AMMO).eachLevel(0.1f));
     buildModifier(ModifierIds.depthProtection).addModule(DepthProtectionModule.builder().baselineHeight(64).neutralRange(32).eachLevel(1.25f));
-    buildModifier(ModifierIds.enderclearance).addModule(new EnderclearanceModule(LevelingValue.eachLevel(0.25f), new LevelingInt(8, 8), LevelingInt.flat(16)));
+    buildModifier(ModifierIds.enderclearance).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(new EnderclearanceModule(LevelingValue.flat(0.25f), new LevelingInt(8, 8), LevelingInt.flat(16)));
     buildModifier(ModifierIds.frostshield)
       .levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
       .priority(175) // higher than overslime, to ensure this is removed first
@@ -1016,9 +1035,12 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
         // multiply into the final value
         .variable(VALUE).multiply().build());
     buildModifier(ModifierIds.solarPowered).priority(185) // after tanned, before stoneshield
+      .levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
       .addModule(ReduceToolDamageModule.builder().reinforcedTooltip().formula()
+        .constant(0.01f).variable(LEVEL).multiply() // 1% per level
+        .constant(0.04f).add() // 5% at level 1, 6% at level 2
         .customVariable("light", new EntityConditionalStatVariable(new EntityLightVariable(LightLayer.SKY), 15))
-        .constant(0.05f).multiply()
+        .multiply() // up to 75% at level 1, or 90% at level 2
         .build());
     buildModifier(ModifierIds.tipped).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(TippedModule.INSTANCE);
     buildModifier(ModifierIds.soft)
@@ -1045,11 +1067,12 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.overgrowth).addModule(new OvergrowthModule(LevelingValue.eachLevel(0.05f)));
     buildModifier(ModifierIds.searing).addModule(ConditionalMiningSpeedModule.builder().blocks(TinkerPredicate.CAN_MELT_BLOCK).eachLevel(6f));
     buildModifier(ModifierIds.scorching).addModule(ConditionalMeleeDamageModule.builder().target(LivingEntityPredicate.ON_FIRE).eachLevel(2f));
-    buildModifier(ModifierIds.airborne)
+    buildModifier(ModifierIds.airborne).levelDisplay(ModifierLevelDisplay.NO_LEVELS)
       // 400% boost means 5x mining speed
       .addModule(ConditionalMiningSpeedModule.builder().holder(LivingEntityPredicate.ON_GROUND.inverted()).percent().allowIneffective().flat(4), ModifierHooks.BREAK_SPEED)
       // velocity gets a 0.1 boost under the stricter version of in air (no boost just for being on a ladder)
       .addModule(ConditionalStatModule.stat(ToolStats.VELOCITY).holder(TinkerPredicate.AIRBORNE).flat(0.1f));
+    buildModifier(ModifierIds.airborn).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(ProtectionModule.builder().attacker(TinkerPredicate.AIRBORNE).flat(2.5f));
     buildModifier(ModifierIds.skyfall)
       .levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
       // goes from -15% to -25%
@@ -1057,19 +1080,19 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(AttributeModule.builder(TinkerAttributes.SAFE_FALL_DISTANCE.get(), Operation.ADDITION).eachLevel(1));
     buildModifier(ModifierIds.godspeed)
       .levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
-      // goes from +5% to +7.5%
-      .addModule(AttributeModule.builder(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL).tooltipStyle(TooltipStyle.PERCENT).amount(0.025f, 0.025f))
       // goes from +2.5% to +4%
       .addModule(AttributeModule.builder(Attributes.ATTACK_SPEED, Operation.MULTIPLY_TOTAL).tooltipStyle(TooltipStyle.PERCENT).amount(0.01f, 0.015f))
+      // goes from +5% to +7.5%
+      .addModule(AttributeModule.builder(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL).tooltipStyle(TooltipStyle.PERCENT).amount(0.025f, 0.025f))
       // goes from +7.5% to +12.5%
       .addModule(AttributeModule.builder(TinkerAttributes.MINING_SPEED_MULTIPLIER, Operation.MULTIPLY_TOTAL).tooltipStyle(TooltipStyle.PERCENT).amount(0.025f, 0.05f));
     IJsonPredicate<DamageSource> isProjectile = DamageSourcePredicate.tag(DamageTypeTags.IS_PROJECTILE);
     buildModifier(ModifierIds.enderdodging).priority(50) // after recurrent
       .levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
       // projectiles: 20% chance per piece, 30% when rebalanced. 10 second cooldown
-      .addModule(TeleportDodgeModule.builder().damageSource(isProjectile).chance(new LevelingValue(0.1f, 0.1f)).flat(10 * 20))
+      .addModule(TeleportDodgeModule.builder().damageSource(isProjectile).chance(LevelingValue.eachLevel(0.15f)).flat(10 * 20))
       // entity caused damage: 10% chance per piece, 15% when rebalanced. 10 second cooldown
-      .addModule(TeleportDodgeModule.builder().damageSource(DamageSourcePredicate.and(DamageSourcePredicate.HAS_ENTITY, isProjectile.inverted())).chance(new LevelingValue(0.05f, 0.05f)).flat(10 * 20));
+      .addModule(TeleportDodgeModule.builder().damageSource(DamageSourcePredicate.and(DamageSourcePredicate.HAS_ENTITY, isProjectile.inverted())).chance(LevelingValue.eachLevel(0.075f)).flat(10 * 20));
     buildModifier(ModifierIds.forming)
       .levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
       .addModule(StatBoostModule.add(ToolStats.ARMOR).eachLevel(1))
@@ -1104,13 +1127,10 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
       // harvest: +6 is a bit better than haste
       .addModule(StatBoostModule.add(ToolStats.MINING_SPEED).flat(6))
-      // armor: +15% knockback resistance, making it stronger than anvil
-      .addModule(StatBoostModule.add(ToolStats.KNOCKBACK_RESISTANCE).flat(0.10f))
       // ranged: +10% drawspeed is on par with netherite, hard to get elsewhere
       .addModule(StatBoostModule.add(ToolStats.DRAW_SPEED).flat(0.15f))
-      // downside: don't take it off, damage more for armor
-      .addModule(new DamageOnUnequipModule(1, ModifierCondition.ANY_TOOL.with(ToolStackPredicate.tag(TinkerTags.Items.WORN_ARMOR).inverted())))
-      .addModule(new DamageOnUnequipModule(2, ModifierCondition.ANY_TOOL.with(ToolStackPredicate.tag(TinkerTags.Items.WORN_ARMOR))));
+      // downside: don't take it off
+      .addModule(new DamageOnUnequipModule(1));
 
     MobEffectModule.Builder venomBuilder = MobEffectModule.builder(TinkerEffects.venom).time(RandomLevelingValue.random(5 * 20, 5 * 20));
     buildModifier(ModifierIds.venom).priority(150)
@@ -1192,8 +1212,9 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.featherweight)
       .addModule(StatBoostModule.add(ToolStats.DRAW_SPEED).eachLevel(0.05f))
       .addModule(StatBoostModule.add(ToolStats.ACCURACY).eachLevel(0.05f))
-      .addModule(ProtectionModule.builder().toolTag(TinkerTags.Items.ARMOR).eachLevel(-1.25f))
-      .addModule(AttributeModule.builder(TinkerAttributes.USE_ITEM_SPEED, Operation.ADDITION).tooltipStyle(TooltipStyle.PERCENT).toolItem(ItemPredicate.tag(ARMOR)).eachLevel(0.1f));
+      .addModule(ProtectionModule.builder().toolTag(TinkerTags.Items.ARMOR).eachLevel(-0.625f))
+      .addModule(AttributeModule.builder(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_BASE).toolItem(ItemPredicate.tag(ARMOR)).eachLevel(0.05f))
+      .addModule(AttributeModule.builder(TinkerAttributes.USE_ITEM_SPEED, Operation.ADDITION).tooltipStyle(TooltipStyle.PERCENT).toolItem(ItemPredicate.tag(ARMOR)).eachLevel(0.05f));
     buildModifier(ModifierIds.dense)
       // from 0 to 5, repair formula is FACTOR * (1 - 0.025 * LEVEL * (11 - LEVEL))
       .addModule(RepairModule.builder().maxLevel(5).formula()
@@ -1629,6 +1650,9 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.dragonfall).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
       .addModule(AttributeModule.builder(TinkerAttributes.CRITICAL_DAMAGE, Operation.ADDITION).tooltipStyle(TooltipStyle.PERCENT).eachLevel(0.1f))
       .addModule(AttributeModule.builder(TinkerAttributes.SAFE_FALL_DISTANCE, Operation.ADDITION).eachLevel(2));
+    buildModifier(ModifierIds.dreambound).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
+      .addModule(AttributeModule.builder(TinkerAttributes.JUMP_COUNT, Operation.ADDITION).flat(1))
+      .addModule(AttributeModule.builder(ForgeMod.ENTITY_GRAVITY, Operation.MULTIPLY_TOTAL).exactLevel(1).tooltipStyle(TooltipStyle.PERCENT).flat(0.15f));
     // shards
     buildModifier(ModifierIds.cobalamin).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
       .addModule(AttributeModule.builder(Attributes.ATTACK_SPEED, Operation.MULTIPLY_TOTAL).tooltipStyle(TooltipStyle.PERCENT).eachLevel(0.05f))
@@ -1660,9 +1684,14 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.entwined)
       .levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
       // boots: +15% movement speed
-      .addModule(AttributeModule.builder(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL).slots(armorMainHand).eachLevel(0.15f))
+      .addModule(AttributeModule.builder(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL).slots(armorMainHand).eachLevel(0.1f))
       // downside: don't take it off
-      .addModule(new DamageOnUnequipModule(2, ModifierCondition.ANY_TOOL));
+      .addModule(new DamageOnUnequipModule(2));
+    buildModifier(ModifierIds.rugged).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
+      .addModule(BlockDamageSourceModule.source(DamageSourcePredicate.tag(TinkerTags.DamageTypes.RUGGED_TERRAIN)).build(), ModifierHooks.DAMAGE_BLOCK)
+      .addModule(BlockDamageSourceModule.source(DamageSourcePredicate.tag(TinkerTags.DamageTypes.RUGGED_ATTACKS)).minLevel(2).build(), ModifierHooks.DAMAGE_BLOCK)
+      .addModule(new VolatileFlagModule(ModifiableArmorItem.SNOW_BOOTS)).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
+
 
     // internal modifier to restore older slots to slimesuit
     IJsonPredicate<IToolContext> notSlimelytra = ToolContextPredicate.set(TinkerTools.slimeWings.get()).inverted();
@@ -1697,12 +1726,13 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(new VolatileFlagModule(ModifiableArmorItem.ENDERMASK));
 
     // cosmetic
-    buildModifier(TinkerModifiers.dyed.getId()).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(DyeModule.INSTANCE);
-    buildModifier(TinkerModifiers.embellishment.getId()).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(EmbellishmentModule.INSTANCE);
-    buildModifier(TinkerModifiers.banner.getId()).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(BannerModule.INSTANCE).priority(25);
+    buildModifier(TinkerModifiers.dyed.getId()).showInTooltips(ModifierTooltip.TINKER_STATION).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(DyeModule.INSTANCE);
+    buildModifier(TinkerModifiers.embellishment.getId()).showInTooltips(ModifierTooltip.TINKER_STATION).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(EmbellishmentModule.INSTANCE);
+    // will never be used as a tool part trait, so stick to just tinker station
+    buildModifier(TinkerModifiers.banner.getId()).showInTooltips(ModifierTooltip.TINKER_STATION).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(BannerModule.INSTANCE).priority(25);
     // trim
     buildModifier(TinkerModifiers.trim.getId())
-      .tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.NO_LEVELS)
+      .showInTooltips(ModifierTooltip.TINKER_STATION).levelDisplay(ModifierLevelDisplay.NO_LEVELS)
       .addModule(new TrimModule())
       .addModule(ModifierSlotModule.slot(SlotType.DEFENSE).toolContext(new HasToolHookPredicate(ToolHooks.TRIM_TRAIT).inverted()).eachLevel(1))
       .addModule(new SwappableToolTraitsModule(null, "", ToolHooks.TRIM_TRAIT));
@@ -1720,7 +1750,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
 
   /** Creates a modifier that grants 2 levels of another modifier, plus a third on the next level. */
   private void traitTwoPlusOne(ModifierId modifier, ModifierId trait) {
-    buildModifier(modifier).tooltipDisplay(TooltipDisplay.NEVER)
+    buildModifier(modifier).showInTooltips(ShowInTooltips.PARTS_ONLY)
       // use the trait for name and description
       .levelDisplay(new ModifierLevelDisplay.MapLevel(1, 1)).translationKey(trait)
       // add the trait once fixed and once leveling

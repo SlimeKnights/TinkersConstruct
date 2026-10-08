@@ -5,7 +5,7 @@
     "slime": "tconstruct:item/tool/armor/slime/boots/slime",
     "laces": "tconstruct:item/tool/armor/slime/boots/laces"
   },
-  "modifier_maps": ["tconstruct:slime/boots"],
+  "modifier_maps": ["tconstruct:slime/boots", "tconstruct:armor/boots"],
   "parts": [
     { "name": "slime", "index": 1 },
     { "name": "laces", "index": 0 }

@@ -16,7 +16,6 @@ import slimeknights.tconstruct.library.recipe.casting.ICastingContainer;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Casting recipe that takes an arbitrary fluid of a given amount and set the material on the output based on that fluid
@@ -62,12 +61,18 @@ public abstract class AbstractMaterialCastingRecipe extends AbstractCastingRecip
     return getFluidRecipe(inv).getFluidAmount(inv.getFluid()) * itemCost;
   }
 
+  /** Resizes the fluid with respect to the item cost */
+  protected FluidStack resizeFluid(FluidStack fluid) {
+    if (itemCost == 1) {
+      return fluid;
+    }
+    return new FluidStack(fluid, itemCost * fluid.getAmount());
+  }
+
   /** Resizes the list of the fluids with respect to the item cost */
   protected List<FluidStack> resizeFluids(List<FluidStack> fluids) {
     if (itemCost != 1) {
-      return fluids.stream()
-                   .map(fluid -> new FluidStack(fluid, fluid.getAmount() * itemCost))
-                   .collect(Collectors.toList());
+      return fluids.stream().map(this::resizeFluid).toList();
     }
     return fluids;
   }

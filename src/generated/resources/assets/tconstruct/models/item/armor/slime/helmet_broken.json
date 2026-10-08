@@ -6,7 +6,8 @@
   },
   "modifier_maps": [
     "tconstruct:slime/helmet_broken",
-    "tconstruct:slime/helmet"
+    "tconstruct:slime/helmet",
+    "tconstruct:armor/helmet"
   ],
   "parts": [
     {

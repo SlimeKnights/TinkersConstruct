@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:item_part_builder",
+  "cost": 32,
+  "material": "tconstruct:dragon_scale",
+  "pattern": "tconstruct:maille",
+  "pattern_item": {
+    "item": "minecraft:elytra"
+  },
+  "result": "minecraft:elytra"
+}

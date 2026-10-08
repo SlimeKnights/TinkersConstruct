@@ -1,3 +1,6 @@
 {
-  "type": "tconstruct:banner_modifier"
+  "type": "tconstruct:banner_modifier",
+  "clear_input": {
+    "item": "tconstruct:sky_slime_bottle"
+  }
 }

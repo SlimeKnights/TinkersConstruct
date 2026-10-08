@@ -21,9 +21,12 @@ import slimeknights.tconstruct.library.json.TinkerLoadables;
 import slimeknights.tconstruct.library.json.field.MergingField;
 import slimeknights.tconstruct.library.json.field.MergingField.MissingMode;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
+import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.recipe.material.IMaterialValue;
+import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipeCache;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.tables.TinkerTables;
@@ -31,11 +34,10 @@ import slimeknights.tconstruct.tables.TinkerTables;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
- * Recipe to make a tool part from a material item in the part builder
+ * Dynamic to make a tool part from material items in the part builder.
+ * @see ItemPartRecipe
  */
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class PartRecipe implements IPartBuilderRecipe, IMultiRecipe<IDisplayPartBuilderRecipe> {
@@ -171,50 +173,180 @@ public class PartRecipe implements IPartBuilderRecipe, IMultiRecipe<IDisplayPart
   @Override
   public List<IDisplayPartBuilderRecipe> getRecipes(RegistryAccess access) {
     if (multiRecipes == null) {
-      multiRecipes = MaterialRegistry
-        .getMaterials().stream()
-        .filter(mat -> (allowUncraftable || mat.isCraftable()) && output.canUseMaterial(mat))
-        .flatMap(mat -> {
-          // start by finding all variants to display
-          // if no variant has a part builder recipe, skip this recipe
-          List<MaterialVariantId> variants = MaterialRecipeCache.getVariants(mat.getIdentifier()).stream()
-            .filter(variant -> !MaterialRecipeCache.getRecipes(variant).isEmpty()).toList();
-          if (variants.isEmpty()) {
-            return Stream.empty();
-          }
+      // start building the recipe
+      List<MaterialVariant> materials = new ArrayList<>();
+      List<ItemStack> materialItems = new ArrayList<>();
+      List<ItemStack> hiddenInputs = new ArrayList<>();
+      List<ItemStack> resultItems = new ArrayList<>();
 
-          // now we need to determine what material contents to show
-          MaterialVariant materialTitle;
-          List<ItemStack> materialItems;
-          List<ItemStack> resultItems;
-          // if we only have 1 variant, display that as our title and simplify the result listing
+      // iterate materials to generate recipes
+      for (IMaterial material : MaterialRegistry.getMaterials()) {
+        // require the material to be craftable and valid for this part
+        if ((allowUncraftable || material.isCraftable()) && output.canUseMaterial(material)) {
+          List<MaterialVariantId> variants = MaterialRecipeCache.getVariants(material.getIdentifier())
+            .stream().filter(id -> !MaterialRecipeCache.getRecipes(id).isEmpty()).toList();
+          if (variants.isEmpty()) continue;
+
+          // if the size is 1, add the variant itself as display variant
+          MaterialVariantId id;
+          MaterialVariant variant;
+          List<ItemStack> newItems = new ArrayList<>();
           if (variants.size() == 1) {
-            MaterialVariantId variant = variants.get(0);
-            materialTitle = MaterialVariant.of(variant);
-            materialItems = MaterialRecipeCache.getItems(variant);
-            resultItems = List.of(output.withMaterial(variant));
-          } else {
-            // if we have multiple variants, title will be the variantless material
-            materialTitle = MaterialVariant.of(mat);
+            id = variants.get(0);
+            variant = MaterialVariant.of(id);
 
-            // we have our material, now to build our item list; requires 1 copy of the result per input so the slots are same size
-            materialItems = new ArrayList<>();
-            resultItems = new ArrayList<>();
-            for (MaterialVariantId variant : variants) {
-              ItemStack result = output.withMaterial(variant);
-              List<ItemStack> variantItems = MaterialRecipeCache.getItems(variant);
-              materialItems.addAll(variantItems);
-              for (int i = 0; i < variantItems.size(); i++) {
-                resultItems.add(result);
-              }
+            // process items
+            MaterialRecipeCache.addItems(id, cost, newItems);
+          } else {
+            // if we have multiple variants, use the base as display variant
+            id = material.getIdentifier();
+            variant = MaterialVariant.of(material);
+
+            // process items
+            for (MaterialVariantId variantId : variants) {
+              MaterialRecipeCache.addItems(variantId, cost, newItems);
             }
-            materialItems = List.copyOf(materialItems);
-            resultItems = List.copyOf(resultItems);
           }
-          return Stream.of(new DisplayPartRecipe(id, materialTitle, pattern, List.of(patternItem.getItems()), getCost(), materialItems, resultItems));
-        })
-        .collect(Collectors.toUnmodifiableList());
+
+          // if no items, skip this material - shouldn't happen
+          if (newItems.isEmpty()) continue;
+
+          // first item becomes our display item
+          materialItems.add(newItems.get(0));
+          // all other items become focusable
+          hiddenInputs.addAll(newItems.subList(1, newItems.size()));
+
+          // add the material info
+          materials.add(variant);
+          resultItems.add(output.withMaterialForDisplay(id));
+        }
+      }
+
+      // safety: make sure we got results
+      if (materials.isEmpty()) {
+        multiRecipes = List.of();
+      } else {
+        multiRecipes = List.of(new DisplayRecipe(
+          List.copyOf(materialItems), List.copyOf(materials), List.copyOf(resultItems),
+          List.of(patternItem.getItems()), List.copyOf(hiddenInputs))
+        );
+      }
     }
     return multiRecipes;
+  }
+
+  /** Gets the display items for the given material */
+  public static List<ItemStack> getItems(MaterialVariantId id, int cost) {
+    List<ItemStack> stacks = new ArrayList<>();
+    if (id.hasVariant()) {
+      MaterialRecipeCache.addItems(id, cost, stacks);
+    } else {
+      for (MaterialVariantId variant : MaterialRecipeCache.getVariants(id.getId())) {
+        MaterialRecipeCache.addItems(variant, cost, stacks);
+      }
+    }
+    return stacks;
+  }
+
+  /** Display recipe handling dynamic focus */
+  @Getter
+  @RequiredArgsConstructor
+  private class DisplayRecipe implements IDisplayPartBuilderRecipe.DisplayOnly {
+    private final List<ItemStack> materialItems;
+    private final List<MaterialVariant> materials;
+    private final List<ItemStack> resultItems;
+    private final List<ItemStack> patternItems;
+    private final List<ItemStack> hiddenInputs;
+
+    @Override
+    public ResourceLocation getId() {
+      return id;
+    }
+
+    @Override
+    public int getCost() {
+      return cost;
+    }
+
+    @Override
+    public Pattern getPattern() {
+      return pattern;
+    }
+
+    @Override
+    public MaterialVariant getMaterial() {
+      return materials.get(0);
+    }
+
+    @Override
+    public List<MaterialVariant> getMaterials(MaterialVariant focusMaterial, ItemStack focusStack, boolean focusOutput) {
+      // if focusing on a material, just display that
+      if (!focusMaterial.isEmpty()) {
+        // if it's a base ID, animate its variant recipes
+        return List.of(focusMaterial);
+      }
+      // if focusing on an item, use it to determine our material
+      if (!focusStack.isEmpty()) {
+        if (focusOutput) {
+          // outputs are tool parts, so ask the material item
+          MaterialVariantId variant = output.getMaterial(focusStack);
+          if (!MaterialId.UNKNOWN.equals(variant)) {
+            // if it's a base ID, animate its variant recipes
+            return List.of(MaterialVariant.of(variant));
+          }
+        } else {
+          // if the item has a material, return that directly, no need to animate
+          MaterialRecipe recipe = MaterialRecipeCache.findRecipe(focusStack);
+          if (recipe != MaterialRecipe.EMPTY) {
+            return List.of(recipe.getMaterial());
+          }
+        }
+      }
+      return getMaterials();
+    }
+
+    @Override
+    public List<ItemStack> getMaterialItems(MaterialVariant focusMaterial, ItemStack focusStack, boolean focusOutput) {
+      if (!focusMaterial.isEmpty()) {
+        return PartRecipe.getItems(focusMaterial.getId(), cost);
+      }
+      if (!focusStack.isEmpty()) {
+        if (focusOutput) {
+          // outputs are tool parts, so ask the material item
+          MaterialVariantId variant = output.getMaterial(focusStack);
+          if (!MaterialId.UNKNOWN.equals(variant)) {
+            return PartRecipe.getItems(variant, cost);
+          }
+        } else {
+          // if the item has a material, return it directly, no need to animate
+          MaterialRecipe recipe = MaterialRecipeCache.findRecipe(focusStack);
+          if (recipe != MaterialRecipe.EMPTY) {
+            return List.of(focusStack.copyWithCount(recipe.getItemsUsed(cost)));
+          }
+        }
+      }
+      return materialItems;
+    }
+
+    @Override
+    public List<ItemStack> getResultItems(MaterialVariant focusMaterial, ItemStack focusStack, boolean focusOutput) {
+      if (!focusMaterial.isEmpty()) {
+        return List.of(output.withMaterial(focusMaterial.getVariant()));
+      }
+      if (!focusStack.isEmpty()) {
+        if (focusOutput) {
+          MaterialVariantId variant = output.getMaterial(focusStack);
+          if (!MaterialId.UNKNOWN.equals(variant)) {
+            return List.of(output.withMaterial(variant));
+          }
+        } else {
+          MaterialRecipe recipe = MaterialRecipeCache.findRecipe(focusStack);
+          if (recipe != MaterialRecipe.EMPTY) {
+            return List.of(output.withMaterial(recipe.getMaterial().getVariant()));
+          }
+        }
+      }
+      return resultItems;
+    }
   }
 }

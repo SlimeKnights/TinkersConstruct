@@ -7,6 +7,5 @@
     {
       "type": "tconstruct:show_interaction_source"
     }
-  ],
-  "tooltip_display": "always"
+  ]
 }

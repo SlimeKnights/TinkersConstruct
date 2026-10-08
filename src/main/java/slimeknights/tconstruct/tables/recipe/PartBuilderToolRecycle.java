@@ -3,11 +3,13 @@ package slimeknights.tconstruct.tables.recipe;
 import com.google.gson.JsonObject;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntList;
+import it.unimi.dsi.fastutil.objects.Object2IntArrayMap;
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import it.unimi.dsi.fastutil.objects.Object2IntMaps;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -15,8 +17,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
-import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.common.IngredientLoadable;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
@@ -25,9 +25,10 @@ import slimeknights.mantle.recipe.ingredient.SizedIngredient;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
-import slimeknights.tconstruct.library.recipe.partbuilder.DisplayPartRecipe;
+import slimeknights.tconstruct.library.recipe.partbuilder.IDisplayPartBuilderRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.IPartBuilderContainer;
 import slimeknights.tconstruct.library.recipe.partbuilder.IPartBuilderRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
@@ -39,17 +40,19 @@ import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
+import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
+import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
+import slimeknights.tconstruct.library.tools.part.MaterialItemCache;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tables.TinkerTables;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -57,9 +60,8 @@ import java.util.stream.Stream;
  * Recipe to break a tool into tool parts.
  * TODO 1.21: move to {@link slimeknights.tconstruct.library.recipe.partbuilder.recycle}.
  */
-@SuppressWarnings("deprecation")  // Forge is dumb
 @RequiredArgsConstructor
-public class PartBuilderToolRecycle implements IPartBuilderRecipe, IMultiRecipe<DisplayPartRecipe> {
+public class PartBuilderToolRecycle implements IPartBuilderRecipe, IMultiRecipe<IDisplayPartBuilderRecipe> {
   /** Title for the screen */
   private static final Component TOOL_RECYCLING = TConstruct.makeTranslation("recipe", "tool_recycling");
   /** General instructions for recycling */
@@ -74,7 +76,7 @@ public class PartBuilderToolRecycle implements IPartBuilderRecipe, IMultiRecipe<
     ContextKey.ID.requiredField(),
     SizedIngredient.LOADABLE.defaultField("tools", DEFAULT_TOOLS, true, r -> r.toolRequirement),
     IngredientLoadable.DISALLOW_EMPTY.requiredField("pattern", r -> r.pattern),
-    TinkerLoadables.MATERIAL_ITEM.list(0).defaultField("parts", List.of(), r -> r.parts),
+    TinkerLoadables.OPTIONAL_MATERIAL_ITEM.list(0).defaultField("parts", List.of(), r -> r.parts),
     PartBuilderToolRecycle::new);
 
   @Getter
@@ -94,17 +96,20 @@ public class PartBuilderToolRecycle implements IPartBuilderRecipe, IMultiRecipe<
     return MISSING;
   }
 
+  /** Gets the parts for the given recipe and tool */
+  private List<? extends IMaterialItem> getParts(ToolDefinition tool) {
+    return !this.parts.isEmpty() ? this.parts : ToolPartsHook.parts(tool);
+  }
+
   @Override
   public Stream<Pattern> getPatterns(IPartBuilderContainer inv) {
     // use the parts override if set
-    List<? extends IMaterialItem> parts = this.parts;
-    if (parts.isEmpty() && inv.getStack().getItem() instanceof IModifiable modifiable) {
-      parts = ToolPartsHook.parts(modifiable.getToolDefinition());
-    }
-    return parts.stream()
-      .map(part -> BuiltInRegistries.ITEM.getKey(part.asItem()))
-      .distinct()
-      .map(Pattern::new);
+    ItemStack tool = inv.getStack();
+    List<? extends IMaterialItem> parts = getParts(IModifiable.getToolDefinition(tool.getItem()));
+    MaterialIdNBT materials = MaterialIdNBT.from(tool);
+    return IntStream.range(0, parts.size()).filter(i -> parts.get(i).canUseMaterial(materials.getMaterial(i).getId()))
+      .mapToObj(i -> Pattern.fromItem(parts.get(i)))
+      .distinct();
   }
 
   @Override
@@ -132,18 +137,16 @@ public class PartBuilderToolRecycle implements IPartBuilderRecipe, IMultiRecipe<
     ToolStack tool = ToolStack.from(inv.getStack());
     // find our parts list, either set or override
     ToolDefinition definition = tool.getDefinition();
-    List<? extends IMaterialItem> parts = this.parts;
-    if (parts.isEmpty()) {
-      parts = ToolPartsHook.parts(definition);
-    }
+    List<? extends IMaterialItem> parts = getParts(definition);
     // ensure parts list is not greater than material count
-    int materials = Math.min(ToolMaterialHook.stats(definition).size(), parts.size());
+    int materialSize = Math.min(ToolMaterialHook.stats(definition).size(), parts.size());
+    MaterialNBT materials = tool.getMaterials();
     // find part matching pattern
     IMaterialItem match = null;
     int matchIndex = -1;
-    for (int i = 0; i < materials; i++) {
+    for (int i = 0; i < materialSize; i++) {
       IMaterialItem part = parts.get(i);
-      if (pattern.equals(BuiltInRegistries.ITEM.getKey(part.asItem()))) {
+      if (pattern.matches(part) && part.canUseMaterial(materials.get(i).getId())) {
         matchIndex = i;
         match = part;
         break;
@@ -176,10 +179,7 @@ public class PartBuilderToolRecycle implements IPartBuilderRecipe, IMultiRecipe<
 
     // find our parts list, either set or override
     ToolDefinition definition = tool.getDefinition();
-    List<? extends IMaterialItem> requirements = this.parts;
-    if (requirements.isEmpty()) {
-      requirements = ToolPartsHook.parts(definition);
-    }
+    List<? extends IMaterialItem> requirements = getParts(definition);
     // ensure parts list is not greater than material count
     int materials = Math.min(ToolMaterialHook.stats(definition).size(), requirements.size());
     // find all parts that did not match the pattern
@@ -188,9 +188,12 @@ public class PartBuilderToolRecycle implements IPartBuilderRecipe, IMultiRecipe<
     List<IMaterialItem> parts = new ArrayList<>();
     for (int i = 0; i < materials; i++) {
       IMaterialItem part = requirements.get(i);
-      if (found || !pattern.equals(BuiltInRegistries.ITEM.getKey(part.asItem()))) {
-        parts.add(part);
-        indices.add(i);
+      if (found || !pattern.matches(part)) {
+        // ensure the part is actually craftable with the material. Works around issues with using repair kits for some partless types
+        if (part.canUseMaterial(tool.getMaterial(i).getId())) {
+          parts.add(part);
+          indices.add(i);
+        }
       } else {
         found = true;
       }
@@ -227,39 +230,132 @@ public class PartBuilderToolRecycle implements IPartBuilderRecipe, IMultiRecipe<
 
 
   /* JEI */
-  private List<DisplayPartRecipe> displayRecipes;
+  private List<IDisplayPartBuilderRecipe> displayRecipes;
 
-  private record PartIndex(IMaterialItem part, int index) {};
-
-  /** Helper handling both cases of making recipes */
-  private Stream<DisplayPartRecipe> makeRecipes(List<? extends IMaterialItem> parts, List<ItemStack> patternItems, List<ItemStack> tool) {
-    Collection<PartIndex> displayParts = IntStream.range(0, parts.size()).mapToObj(i -> new PartIndex(parts.get(i), i)).collect(Collectors.toMap(PartIndex::part, Function.identity(), (a, b) -> a)).values();
-    return displayParts.stream().map(pi -> {
-      ItemStack part = pi.part.withMaterialForDisplay(ToolBuildHandler.getRenderMaterial(pi.index));
-      part.getOrCreateTag().putBoolean(TooltipUtil.KEY_DISPLAY, true);
-      return new DisplayPartRecipe(id, MaterialVariant.UNKNOWN, new Pattern(Loadables.ITEM.getKey(pi.part.asItem())), patternItems, 0, tool, List.of(part));
-    });
+  /** Gets the display parts for a given part list. */
+  private static Object2IntMap<IMaterialItem> getDisplayParts(List<? extends IMaterialItem> parts) {
+    Object2IntMap<IMaterialItem> map = new Object2IntArrayMap<>(parts.size());
+    for (int i = 0; i < parts.size(); i++) {
+      IMaterialItem part = parts.get(i);
+      if (part != IMaterialItem.EMPTY) {
+        map.putIfAbsent(parts.get(i), i);
+      }
+    }
+    return map;
   }
 
   @Override
-  public List<DisplayPartRecipe> getRecipes(RegistryAccess access) {
+  public List<IDisplayPartBuilderRecipe> getRecipes(RegistryAccess access) {
     if (displayRecipes == null) {
+      // if we have a parts override, might as well only compute this map once
+      Object2IntMap<IMaterialItem> partsOverride = parts.isEmpty() ? Object2IntMaps.emptyMap() : getDisplayParts(parts);
       List<ItemStack> patternItems = List.of(this.pattern.getItems());
-      // if we have parts, will be using the same list for all tools, so make just 1 recipe per part
-      if (!parts.isEmpty()) {
-        List<ItemStack> tools = toolRequirement.getMatchingStacks().stream().map(IModifiableDisplay::getDisplayStack).toList();
-        displayRecipes = makeRecipes(parts, patternItems, tools).toList();
-      } else {
-        // no parts? make a recipe per tool per part
-        displayRecipes = toolRequirement.getMatchingStacks().stream().flatMap(stack -> {
-          if (stack.getItem() instanceof IModifiable modifiable) {
-            return makeRecipes(ToolPartsHook.parts(modifiable.getToolDefinition()), patternItems, List.of(IModifiableDisplay.getDisplayStack(stack)));
+      displayRecipes = toolRequirement.getMatchingStacks().stream()
+        .<IDisplayPartBuilderRecipe>flatMap(stack -> {
+          // if we have a parts override, use that instead of the tool parts
+          Object2IntMap<IMaterialItem> parts = !partsOverride.isEmpty() ? partsOverride : getDisplayParts(ToolPartsHook.parts(IModifiable.getToolDefinition(stack.getItem())));
+          // may have no parts if no override and the tool lacks parts
+          if (parts.isEmpty()) {
+            return Stream.empty();
           }
-          return Stream.empty();
-        }).toList();
-      }
+          Collection<IMaterialItem> partItems = parts.keySet();
+          return Stream.of(new DisplayRecipe(parts,
+            partItems.stream().map(Pattern::fromItem).toList(),
+            patternItems,
+            List.of(IModifiableDisplay.getDisplayStack(stack)),
+            parts.object2IntEntrySet().stream().map(pi -> {
+              ItemStack part = pi.getKey().withMaterialForDisplay(ToolBuildHandler.getRenderMaterial(pi.getIntValue()));
+              part.getOrCreateTag().putBoolean(TooltipUtil.KEY_DISPLAY, true);
+              return part;
+            }).toList(),
+            partItems.stream().flatMap(part -> MaterialItemCache.getAllMaterials(part).stream()).toList()
+          ));
+        })
+        .toList();
     }
     return displayRecipes;
+  }
+
+  @Getter
+  @RequiredArgsConstructor
+  private class DisplayRecipe implements IDisplayPartBuilderRecipe.DisplayOnly {
+    private final Object2IntMap<IMaterialItem> parts;
+    private final List<Pattern> patterns;
+    private final List<ItemStack> patternItems;
+    private final List<ItemStack> materialItems;
+    private final List<ItemStack> resultItems;
+    private final List<ItemStack> hiddenOutputs;
+
+    @Override
+    public Component getDisplayTitle() {
+      return TOOL_RECYCLING;
+    }
+
+    @Override
+    public List<Component> getTooltip() {
+      return INSTRUCTIONS;
+    }
+
+    @Override
+    public Pattern getPattern() {
+      return patterns.get(0);
+    }
+
+    @Override
+    public ResourceLocation getId() {
+      return id;
+    }
+
+    @Override
+    public int getCost() {
+      return 0;
+    }
+
+
+    /* Dynamic focusing */
+
+    @Override
+    public List<ItemStack> getMaterialItems(MaterialVariant focusMaterial, ItemStack focusStack, boolean focusOutput) {
+      if (!focusStack.isEmpty()) {
+        ItemStack displayTool = materialItems.get(0);
+        if (focusOutput) {
+          // focusing on a specific tool material, show that on the input tool
+          int index = parts.getOrDefault(focusStack.getItem(), -1);
+          if (index != -1) {
+            MaterialVariantId material = IMaterialItem.getMaterialFromStack(focusStack);
+            if (!MaterialId.UNKNOWN.equals(material)) {
+              // create a copy of the tool with the material replaced
+              MaterialIdNBT materials = MaterialIdNBT.from(displayTool);
+              return List.of(materials.replaceMaterial(index, material).updateStack(new ItemStack(displayTool.getItem(), displayTool.getCount())));
+            }
+          }
+        } else if (focusStack.is(displayTool.getItem())) {
+          // if focusing on a tool, display the input as having the same tool materials. Don't copy other data as we need no modifiers to recycle
+          return List.of(MaterialIdNBT.from(focusStack).updateStack(new ItemStack(displayTool.getItem(), displayTool.getCount())));
+        }
+      }
+      return materialItems;
+    }
+
+    @Override
+    public List<ItemStack> getResultItems(MaterialVariant focusMaterial, ItemStack focusStack, boolean focusOutput) {
+      if (!focusStack.isEmpty()) {
+        if (focusOutput) {
+          // focusing on a specific tool material, make that our display provided its valid
+          if (parts.getOrDefault(focusStack.getItem(), -1) != -1 && !MaterialId.UNKNOWN.equals(IMaterialItem.getMaterialFromStack(focusStack))) {
+            // keep the other parts in the list so the focus link works, saves having to duplicate this logic for patterns
+            return resultItems.stream().map(stack -> stack.is(focusStack.getItem()) ? focusStack.copyWithCount(1) : stack).toList();
+          }
+        } else if (focusStack.is(materialItems.get(0).getItem())) {
+          // if focusing on a tool, display its actual parts as results
+          MaterialIdNBT materials = MaterialIdNBT.from(focusStack);
+          return parts.object2IntEntrySet().stream()
+            .map(pi -> pi.getKey().withMaterialForDisplay(materials.getMaterial(pi.getIntValue())))
+            .toList();
+        }
+      }
+      return resultItems;
+    }
   }
 
   /** @deprecated use {@link slimeknights.tconstruct.library.recipe.partbuilder.recycle.PartBuilderToolRecycleBuilder} */

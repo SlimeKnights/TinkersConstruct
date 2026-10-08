@@ -4,5 +4,6 @@
   "pattern_item": {
     "tag": "tconstruct:casts/red_sand"
   },
-  "result": "tconstruct:leggings_plating_red_sand_cast"
+  "result": "tconstruct:leggings_plating_red_sand_cast",
+  "title_key": "tconstruct:sand_cast"
 }

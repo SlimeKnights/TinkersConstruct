@@ -1389,14 +1389,14 @@
   "material.tconstruct.iron.flavor": "Irónico. Podría salvar a otros de la muerte, pero no a sí mismo.",
   "material.tconstruct.iron.encyclopedia": "Hace que minar bloques y golpear mobs atraigan objetos cercanos.",
   "material.tconstruct.iron.encyclopedia.ranged": "Hace que disparar flechas atraiga objetos cercanos al portador.",
-  "material.tconstruct.iron.encyclopedia.armor": "Reduce el daño de proyectiles en un 10% por nivel, y otorga un 5% de resistencia al retroceso por el nivel máximo.",
+  "material.tconstruct.iron.encyclopedia.armor": "Reduce el daño de proyectiles en un 8% por nivel, y otorga un 5% de resistencia al retroceso por el nivel máximo.",
   "material.tconstruct.iron.flavor.skull": "Violación de cuarentena",
   "material.tconstruct.iron.encyclopedia.skull": "Los ataques cuerpo a cuerpo copian todos los efectos negativos de estado del portador al objetivo",
 
   "material.tconstruct.seared_stone": "Roca Sellada",
   "material.tconstruct.seared_stone.flavor": "Grout más caliente.",
   "material.tconstruct.seared_stone.encyclopedia": "Otorga +6 de velocidad de minería contra bloques que se pueden derretir en un fundidor",
-  "material.tconstruct.seared_stone.encyclopedia.armor": "Reduce el daño por fuego en un 10% por nivel, y reduce el tiempo de quemado por fuego",
+  "material.tconstruct.seared_stone.encyclopedia.armor": "Reduce el daño por fuego en un 12% por nivel, y reduce el tiempo de quemado por fuego",
 
   "material.tconstruct.scorched_stone": "Roca Escaldada",
   "material.tconstruct.scorched_stone.flavor": "Edición de fundadores.",
@@ -1473,7 +1473,7 @@
   "material.tconstruct.cobalt.flavor": "Coblat. El material del Ejército Rojo.",
   "material.tconstruct.cobalt.encyclopedia.melee_harvest": "Aumenta la velocidad de minería y de ataque en un 7% por nivel",
   "material.tconstruct.cobalt.encyclopedia.ranged": "Aumenta la velocidad de tiro y la velocidad en un 5% por nivel",
-  "material.tconstruct.cobalt.encyclopedia.armor": "Reduce el daño de los ataques cuerpo a cuerpo en un 10% por nivel y aumenta la velocidad de movimiento al usar objetos en un 5% por nivel máximo",
+  "material.tconstruct.cobalt.encyclopedia.armor": "Reduce el daño de los ataques cuerpo a cuerpo en un 8% por nivel y aumenta la velocidad de movimiento al usar objetos en un 5% por nivel máximo",
 
   "material.tconstruct.manyullyn": "Manyullyn",
   "material.tconstruct.manyullyn.flavor": "El metal que la mayoría de los Tinkers nunca pronunciarán bien. También conocido como un material para cortar estrellas.",
@@ -1530,13 +1530,13 @@
 
   "material.tconstruct.gold": "Oro",
   "material.tconstruct.gold.flavor": "A los Piglins les encanta.",
-  "material.tconstruct.gold.encyclopedia.armor": "Otorga un 10% de protección por nivel contra daño mágico y reduce el tiempo de efectos negativos de pociones. También hace que los piglins sean amigables.",
+  "material.tconstruct.gold.encyclopedia.armor": "Otorga un 12% de protección por nivel contra daño mágico y reduce el tiempo de efectos negativos de pociones. También hace que los piglins sean amigables.",
   "material.tconstruct.gold.flavor.skull": "Tan brillante",
   "material.tconstruct.gold.encyclopedia.skull": "Hace que algunos minerales de oro suelten extra pepitas de oro, y aumenta la probabilidad de caída de armaduras de oro en un 4%. Las pepitas y caídas de armaduras se incrementan aún más por cada pieza de armadura dorada equipada.",
 
   "material.tconstruct.obsidian": "Obsidiana",
   "material.tconstruct.obsidian.flavor": "Esta es una parte de obsidiana, si no lo fuera, no diría \"Obsidiana.\"",
-  "material.tconstruct.obsidian.encyclopedia.armor": "Otorga un 10% de protección por nivel contra explosiones, y reduce el retroceso de explosiones",
+  "material.tconstruct.obsidian.encyclopedia.armor": "Otorga un 12% de protección por nivel contra explosiones, y reduce el retroceso de explosiones",
   "material.tconstruct.earthslime": "Tierra de Slime",
   "material.tconstruct.skyslime": "Cielo de Slime",
   "material.tconstruct.blood": "Sangre",

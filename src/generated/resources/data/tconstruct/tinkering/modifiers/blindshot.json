@@ -7,6 +7,5 @@
       "operation": "add",
       "stat": "tconstruct:accuracy"
     }
-  ],
-  "tooltip_display": "always"
+  ]
 }
