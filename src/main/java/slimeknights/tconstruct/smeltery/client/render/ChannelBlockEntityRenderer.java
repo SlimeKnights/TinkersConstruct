@@ -96,11 +96,11 @@ public class ChannelBlockEntityRenderer implements BlockEntityRenderer<ChannelBl
 
 		// render center
 		isRotated = false;
-		if (centerFlow != null && centerFlow.getAxis().isVertical()) {
+		if (centerFlow == null) {
 			cube = model.center(false);
 		} else {
 			cube = model.center(true);
-			isRotated = RenderingHelper.applyRotation(matrices, Direction.DOWN);
+			isRotated = RenderingHelper.applyRotation(matrices, centerFlow);
 		}
 		// render the cube and pop back
 		FluidRenderer.renderCuboid(matrices, builder, cube, 0, still, flowing, color, light, false);
