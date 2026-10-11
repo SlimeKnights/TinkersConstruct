@@ -122,5 +122,9 @@ public sealed interface ChannelConnection extends StringRepresentable {
     public OneWay getNext(boolean reverse) {
       return this == TRUE ? FALSE : TRUE;
     }
+
+    public static OneWay valueOf(boolean bool) {
+      return bool ? TRUE : FALSE;
+    }
   }
 }

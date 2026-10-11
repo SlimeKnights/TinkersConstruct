@@ -223,7 +223,7 @@ public abstract class AbstractChannelBlock
 
   @SuppressWarnings("deprecation")
   @Override
-  @Deprecated // TODO: this resets pipes when they point down into a channel - need to make NONE sides return IN from getCurrentFlowOnSide probably.
+  @Deprecated // TODO: this resets pipes when they point down into a channel - need to make NONE sides return IN from getCurrentFlowOnSide probably when UP.
   public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor world, BlockPos currentPos, BlockPos facingPos) {
     // ignore changes from directions we don't connect to
     if ((facing == Direction.UP && this.up == NONE) || (facing == Direction.DOWN && this.down == NONE))
@@ -231,14 +231,18 @@ public abstract class AbstractChannelBlock
 
     // vertical directions can only care about if they are connected or not
     if (facing == Direction.DOWN && this.down == ONE_WAY) {
-      if (state.getValue(DOWN_1WAY).canFlow() && facingState.isAir()) {
+      if (facingState.isAir()) {
         state = state.setValue(DOWN_1WAY, OneWay.FALSE);
+      } else if (facingState.is(CHANNELS) && facingState.getBlock() instanceof AbstractChannelBlock facingBlock) {
+        state = state.setValue(DOWN_1WAY, OneWay.valueOf(facingBlock.getCurrentFlowOnSide(Direction.UP, facingState) == TwoWay.IN));
       }
       return state;
     }
     if (facing == Direction.UP && this.up == ONE_WAY) {
-      if (state.getValue(UP_1WAY).canFlow() && facingState.isAir()) {
+      if (facingState.isAir()) {
         state = state.setValue(UP_1WAY, OneWay.FALSE);
+      } else if (facingState.is(CHANNELS) && facingState.getBlock() instanceof AbstractChannelBlock facingBlock) {
+        state = state.setValue(UP_1WAY, OneWay.valueOf(facingBlock.getCurrentFlowOnSide(Direction.DOWN, facingState) == TwoWay.IN));
       }
       return state;
     }
@@ -262,7 +266,7 @@ public abstract class AbstractChannelBlock
     return state;
   }
 
-  @Nullable // TODO: this does not change other channels when vertical (ie changing pipe to OUT on top and having a regular channel on top. that should change the regular channel to OUT but it does nothing.
+  @Nullable
   private BlockState interactWithSide(BlockState state, Level world, BlockPos pos, Player player, Direction side) {
     // if we cannot connect in this direction, we try the opposite if that is connectable.
     if (side == Direction.DOWN && this.down == NONE) {
@@ -346,7 +350,6 @@ public abstract class AbstractChannelBlock
       side = side.getOpposite();
     }
 
-    // TODO: this needs testing with channels that can flow up/down
     // try each of the sides, if clicked use that
     side = getHitSide(hit.getLocation().subtract(pos.getX(), pos.getY(), pos.getZ()), side);
 
