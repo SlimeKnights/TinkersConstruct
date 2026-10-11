@@ -1,46 +1,46 @@
 {
   "multipart": [
-
+    { "apply": { "model": "tconstruct:block/foundry/scorched/bricks" } },
 
     {   "when": { "up": "in" },
-      "apply": { "model": "tconstruct:block/foundry/channel/side_in" }
+      "apply": { "model": "tconstruct:block/foundry/channel/full_block_in" }
     },
     {   "when": { "up": "out" },
-      "apply": { "model": "tconstruct:block/foundry/channel/side_out" }
+      "apply": { "model": "tconstruct:block/foundry/channel/full_block_out" }
     },
     {   "when": { "down": "in" },
-      "apply": { "model": "tconstruct:block/foundry/channel/side_in", "x": 180, "uvlock": true }
+      "apply": { "model": "tconstruct:block/foundry/channel/full_block_in", "x": 180, "uvlock": true }
     },
     {   "when": { "down": "out" },
-      "apply": { "model": "tconstruct:block/foundry/channel/side_out", "x": 180, "uvlock": true }
+      "apply": { "model": "tconstruct:block/foundry/channel/full_block_out", "x": 180, "uvlock": true }
     },
 
     {   "when": { "north": "in" },
-      "apply": { "model": "tconstruct:block/foundry/channel/side_in", "x": 90, "uvlock": true }
+      "apply": { "model": "tconstruct:block/foundry/channel/full_block_in", "x": 90, "uvlock": true }
     },
     {   "when": { "north": "out" },
-      "apply": { "model": "tconstruct:block/foundry/channel/side_out", "x": 90, "uvlock": true }
+      "apply": { "model": "tconstruct:block/foundry/channel/full_block_out", "x": 90, "uvlock": true }
     },
 
     {   "when": { "east": "in" },
-      "apply": { "model": "tconstruct:block/foundry/channel/side_in", "y": 90, "x": 90, "uvlock": true }
+      "apply": { "model": "tconstruct:block/foundry/channel/full_block_in", "y": 90, "x": 90, "uvlock": true }
     },
     {   "when": { "east": "out" },
-      "apply": { "model": "tconstruct:block/foundry/channel/side_out", "y": 90, "x": 90, "uvlock": true }
+      "apply": { "model": "tconstruct:block/foundry/channel/full_block_out", "y": 90, "x": 90, "uvlock": true }
     },
 
     {   "when": { "south": "in" },
-      "apply": { "model": "tconstruct:block/foundry/channel/side_in", "y": 180, "x": 90, "uvlock": true }
+      "apply": { "model": "tconstruct:block/foundry/channel/full_block_in", "y": 180, "x": 90, "uvlock": true }
     },
     {   "when": { "south": "out" },
-      "apply": { "model": "tconstruct:block/foundry/channel/side_out", "y": 180, "x": 90, "uvlock": true }
+      "apply": { "model": "tconstruct:block/foundry/channel/full_block_out", "y": 180, "x": 90, "uvlock": true }
     },
 
     {   "when": { "west": "in" },
-      "apply": { "model": "tconstruct:block/foundry/channel/side_in", "y": 270, "x": 90, "uvlock": true }
+      "apply": { "model": "tconstruct:block/foundry/channel/full_block_in", "y": 270, "x": 90, "uvlock": true }
     },
     {   "when": { "west": "out" },
-      "apply": { "model": "tconstruct:block/foundry/channel/side_out", "y": 270, "x": 90, "uvlock": true }
+      "apply": { "model": "tconstruct:block/foundry/channel/full_block_out", "y": 270, "x": 90, "uvlock": true }
     }
   ]
 }

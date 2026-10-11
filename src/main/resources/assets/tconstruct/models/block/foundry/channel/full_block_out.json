@@ -1,0 +1,7 @@
+{
+  "parent": "tconstruct:block/foundry/channel/full_block_side",
+  "textures": {
+    "texture": "tconstruct:block/foundry/io/duct_front_inactive",
+    "top":     "tconstruct:block/foundry/channel_out"
+  }
+}
