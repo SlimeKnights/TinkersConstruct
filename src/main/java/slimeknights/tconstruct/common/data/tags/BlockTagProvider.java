@@ -401,14 +401,14 @@ public class BlockTagProvider extends BlockTagsProvider {
     // floor allows any basic seared blocks and all IO blocks
     this.tag(TinkerTags.Blocks.FOUNDRY_FLOOR)
         .addTag(TinkerTags.Blocks.SCORCHED_BLOCKS)
-        .add(TinkerSmeltery.scorchedLamp.get(), TinkerSmeltery.scorchedDrain.get(), TinkerSmeltery.scorchedChute.get(), TinkerSmeltery.scorchedDuct.get());
+        .add(TinkerSmeltery.scorchedLamp.get(), TinkerSmeltery.scorchedDrain.get(), TinkerSmeltery.scorchedChute.get(), TinkerSmeltery.scorchedDuct.get(), TinkerSmeltery.scorchedChannel.get());
     // wall allows seared blocks, tanks, glass, and IO
     this.tag(TinkerTags.Blocks.FOUNDRY_WALL)
         .addTag(TinkerTags.Blocks.SCORCHED_BLOCKS)
         .addTag(TinkerTags.Blocks.FOUNDRY_TANKS)
         .add(TinkerSmeltery.scorchedGlass.get(), TinkerSmeltery.scorchedSoulGlass.get(), TinkerSmeltery.scorchedTintedGlass.get(),
              TinkerSmeltery.scorchedLadder.get(), TinkerSmeltery.scorchedLamp.get(),
-             TinkerSmeltery.scorchedDrain.get(), TinkerSmeltery.scorchedChute.get(), TinkerSmeltery.scorchedDuct.get());
+             TinkerSmeltery.scorchedDrain.get(), TinkerSmeltery.scorchedChute.get(), TinkerSmeltery.scorchedDuct.get(), TinkerSmeltery.scorchedChannel.get());
     // foundry allows any of the three
     this.tag(TinkerTags.Blocks.FOUNDRY)
         .addTag(TinkerTags.Blocks.FOUNDRY_WALL)
