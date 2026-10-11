@@ -1,5 +1,9 @@
 package slimeknights.tconstruct.smeltery.block.channel;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
@@ -16,5 +20,10 @@ public class FullChannelBlock extends PipeChannelBlock {
   @Override
   protected VoxelShape[] createShapes() {
     return new VoxelShape[] { Shapes.block() };
+  }
+
+  @Override
+  public boolean isPathfindable(BlockState state, BlockGetter worldIn, BlockPos pos, PathComputationType type) {
+    return true;
   }
 }

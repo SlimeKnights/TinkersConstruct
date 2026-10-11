@@ -1,6 +1,10 @@
 package slimeknights.tconstruct.smeltery.block.channel;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -64,5 +68,10 @@ public class SlabChannelBlock extends AbstractChannelBlock {
       return westish ? Direction.WEST : Direction.EAST;
     else
       return northish ? Direction.NORTH : Direction.SOUTH;
+  }
+
+  @Override
+  public boolean isPathfindable(BlockState state, BlockGetter worldIn, BlockPos pos, PathComputationType type) {
+    return true;
   }
 }

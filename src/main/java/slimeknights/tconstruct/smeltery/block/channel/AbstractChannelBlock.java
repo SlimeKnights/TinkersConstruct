@@ -45,8 +45,7 @@ import static slimeknights.tconstruct.common.TinkerTags.Blocks.CHANNELS;
 import static slimeknights.tconstruct.smeltery.block.channel.AbstractChannelBlock.ConnectionType.NONE;
 import static slimeknights.tconstruct.smeltery.block.channel.AbstractChannelBlock.ConnectionType.ONE_WAY;
 
-public abstract class AbstractChannelBlock
-  extends Block implements EntityBlock {
+public abstract class AbstractChannelBlock extends Block implements EntityBlock {
 
   // TODO: up and down have bad wording for pipes so that needs fixing
   private static final Component SIDE_IN = TConstruct.makeTranslation("block", "channel.side.in");
@@ -401,9 +400,8 @@ public abstract class AbstractChannelBlock
     return BlockEntityHelper.serverTicker(pLevel, givenType, TinkerSmeltery.channel.get(), ChannelBlockEntity.SERVER_TICKER);
   }
 
-  @SuppressWarnings("deprecation")
   @Override
-  @Deprecated
+  @SuppressWarnings("deprecation")
   public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
     var up = getCurrentFlowOnSide(Direction.UP, state).canFlow();
     var down = getCurrentFlowOnSide(Direction.DOWN, state).canFlow();
