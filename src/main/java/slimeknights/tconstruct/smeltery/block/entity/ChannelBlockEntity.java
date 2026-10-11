@@ -73,7 +73,8 @@ public class ChannelBlockEntity extends MantleBlockEntity implements IFluidPacke
 		this(TinkerSmeltery.channel.get(), pos, state);
 	}
 
-	protected ChannelBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+  // This constructor is used by channel types that need a different renderer and so a different block entity type
+	public ChannelBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
 	}
 
@@ -98,10 +99,6 @@ public class ChannelBlockEntity extends MantleBlockEntity implements IFluidPacke
 			}
 		}
 	}
-
-  public boolean shouldRender() {
-    return true;
-  }
 
 	/* Fluid handlers */
 

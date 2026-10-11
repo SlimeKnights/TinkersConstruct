@@ -262,7 +262,7 @@ public abstract class AbstractChannelBlock
     return state;
   }
 
-  @Nullable
+  @Nullable // TODO: this does not change other channels when vertical (ie changing pipe to OUT on top and having a regular channel on top. that should change the regular channel to OUT but it does nothing.
   private BlockState interactWithSide(BlockState state, Level world, BlockPos pos, Player player, Direction side) {
     // if we cannot connect in this direction, we try the opposite if that is connectable.
     if (side == Direction.DOWN && this.down == NONE) {
@@ -388,8 +388,8 @@ public abstract class AbstractChannelBlock
 
   @Nullable
   @Override
-  public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-    return new ChannelBlockEntity(pPos, pState);
+  public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+    return new ChannelBlockEntity(pos, state);
   }
 
   @Nullable

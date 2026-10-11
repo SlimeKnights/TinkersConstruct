@@ -355,7 +355,8 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final RegistryObject<BlockEntityType<AlloyerBlockEntity>> alloyer = BLOCK_ENTITIES.register("alloyer", AlloyerBlockEntity::new, scorchedAlloyer);
   // fluid transfer
   public static final RegistryObject<BlockEntityType<FaucetBlockEntity>> faucet = BLOCK_ENTITIES.register("faucet", FaucetBlockEntity::new, set -> set.add(searedFaucet.get(), scorchedFaucet.get()));
-  public static final RegistryObject<BlockEntityType<ChannelBlockEntity>> channel = BLOCK_ENTITIES.register("channel", ChannelBlockEntity::new, set -> set.add(searedChannel.get(), slabChannel.get(), upsideDownChannel.get(), fullBlockChannel.get(), scorchedChannel.get()));
+  public static final RegistryObject<BlockEntityType<ChannelBlockEntity>> channel = BLOCK_ENTITIES.register("channel", ChannelBlockEntity::new, set -> set.add(searedChannel.get(), slabChannel.get(), upsideDownChannel.get()));
+  public static final RegistryObject<BlockEntityType<ChannelBlockEntity>> opaqueChannel = BLOCK_ENTITIES.register("opaque_channel", PipeChannelBlock::createBlockEntity, set -> set.add(fullBlockChannel.get(), scorchedChannel.get()));
   public static final RegistryObject<BlockEntityType<GaugeBlockEntity>> gauge = BLOCK_ENTITIES.register("gauge", GaugeBlockEntity::new, obsidianGauge);
   // casting
   public static final RegistryObject<BlockEntityType<CastingBlockEntity>> basin = BLOCK_ENTITIES.register("basin", CastingBlockEntity.Basin::new, set -> set.add(searedBasin.get(), scorchedBasin.get()));

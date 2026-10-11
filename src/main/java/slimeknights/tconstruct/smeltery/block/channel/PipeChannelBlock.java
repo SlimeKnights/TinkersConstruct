@@ -2,8 +2,11 @@ package slimeknights.tconstruct.smeltery.block.channel;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.Vec3;
@@ -11,6 +14,8 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+import slimeknights.mantle.util.BlockEntityHelper;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.entity.ChannelBlockEntity;
 
 import java.util.Arrays;
@@ -89,6 +94,22 @@ public class PipeChannelBlock extends AbstractChannelBlock {
       return downish ? Direction.DOWN : Direction.UP;
 
     return side;
+  }
+
+  @Override
+  public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+    return createBlockEntity(pos, state);
+  }
+
+  public static ChannelBlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+    return new ChannelBlockEntity(TinkerSmeltery.opaqueChannel.get(), pos, state);
+  }
+
+
+  @javax.annotation.Nullable
+  @Override
+  public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> givenType) {
+    return BlockEntityHelper.serverTicker(pLevel, givenType, TinkerSmeltery.opaqueChannel.get(), ChannelBlockEntity.SERVER_TICKER);
   }
 
   @Override
