@@ -76,6 +76,7 @@ public class PipeChannelBlock extends AbstractChannelBlock {
     boolean westish = hitVec.x < 0.5;
     boolean downish = hitVec.y < 0.5;
 
+    // distance from the centre in each axis
     var x = Math.abs(hitVec.x - 0.5);
     var y = Math.abs(hitVec.y - 0.5);
     var z = Math.abs(hitVec.z - 0.5);
@@ -95,10 +96,5 @@ public class PipeChannelBlock extends AbstractChannelBlock {
     builder.add(UP_2WAY);
     builder.add(DOWN_2WAY);
     super.createBlockStateDefinition(builder);
-  }
-
-  @Override
-  public @Nullable BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-    return new ChannelBlockEntity(pPos, pState);
   }
 }

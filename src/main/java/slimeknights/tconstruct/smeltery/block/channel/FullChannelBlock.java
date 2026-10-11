@@ -39,9 +39,4 @@ public class FullChannelBlock extends AbstractChannelBlock {
   protected VoxelShape[] createShapes() {
     return new VoxelShape[] { Shapes.block() };
   }
-
-  @Override
-  public @Nullable BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-    return new ChannelBlockEntity(pPos, pState);
-  }
 }
