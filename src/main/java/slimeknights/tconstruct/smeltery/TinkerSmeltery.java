@@ -84,6 +84,7 @@ import slimeknights.tconstruct.smeltery.block.KnightMetalFluidCannonBlock;
 import slimeknights.tconstruct.smeltery.block.ProxyTankBlock;
 import slimeknights.tconstruct.smeltery.block.RenderingGaugeBlock;
 import slimeknights.tconstruct.smeltery.block.SearedLanternBlock;
+import slimeknights.tconstruct.smeltery.block.UpsideDownFaucetBlock;
 import slimeknights.tconstruct.smeltery.block.channel.FullChannelBlock;
 import slimeknights.tconstruct.smeltery.block.channel.NormalChannelBlock;
 import slimeknights.tconstruct.smeltery.block.channel.PipeChannelBlock;
@@ -115,6 +116,7 @@ import slimeknights.tconstruct.smeltery.block.entity.GaugeBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.HeaterBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.LanternBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.ProxyTankBlockEntity;
+import slimeknights.tconstruct.smeltery.block.entity.UpsideDownFaucetBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.component.DrainBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.component.DuctBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.component.SmelteryComponentBlockEntity;
@@ -242,6 +244,7 @@ public final class TinkerSmeltery extends TinkerModule {
   // non-solid blocks
   public static final ItemObject<SearedLadderBlock> searedLadder, scorchedLadder;
   public static final ItemObject<FaucetBlock> searedFaucet, scorchedFaucet;
+  public static final ItemObject<UpsideDownFaucetBlock> upsideDownFaucet;
   public static final ItemObject<NormalChannelBlock> searedChannel;
   public static final ItemObject<SlabChannelBlock> slabChannel;
   public static final ItemObject<UpsideDownChannelBlock> upsideDownChannel;
@@ -257,6 +260,7 @@ public final class TinkerSmeltery extends TinkerModule {
     searedChannel = BLOCKS.register("seared_channel", () -> new NormalChannelBlock(seared), TOOLTIP_BLOCK_ITEM);
     searedBasin = BLOCKS.register("seared_basin", () -> new CastingBasinBlock(seared, false), TOOLTIP_BLOCK_ITEM);
     searedTable = BLOCKS.register("seared_table", () -> new CastingTableBlock(seared, false), TOOLTIP_BLOCK_ITEM);
+    upsideDownFaucet = BLOCKS.register("upside_down_faucet", () -> new UpsideDownFaucetBlock(seared), TOOLTIP_BLOCK_ITEM);
 
     slabChannel = BLOCKS.register("slab_channel", () -> new SlabChannelBlock(seared), TOOLTIP_BLOCK_ITEM);
     upsideDownChannel = BLOCKS.register("upside_down_channel", () -> new UpsideDownChannelBlock(seared), TOOLTIP_BLOCK_ITEM);
@@ -355,6 +359,7 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final RegistryObject<BlockEntityType<AlloyerBlockEntity>> alloyer = BLOCK_ENTITIES.register("alloyer", AlloyerBlockEntity::new, scorchedAlloyer);
   // fluid transfer
   public static final RegistryObject<BlockEntityType<FaucetBlockEntity>> faucet = BLOCK_ENTITIES.register("faucet", FaucetBlockEntity::new, set -> set.add(searedFaucet.get(), scorchedFaucet.get()));
+  public static final RegistryObject<BlockEntityType<UpsideDownFaucetBlockEntity>> upsideDownFaucetEntity = BLOCK_ENTITIES.register("upside_down_faucet", UpsideDownFaucetBlockEntity::new, set -> set.add(upsideDownFaucet.get()));
   public static final RegistryObject<BlockEntityType<ChannelBlockEntity>> channel = BLOCK_ENTITIES.register("channel", ChannelBlockEntity::new, set -> set.add(searedChannel.get(), slabChannel.get(), upsideDownChannel.get()));
   public static final RegistryObject<BlockEntityType<ChannelBlockEntity>> opaqueChannel = BLOCK_ENTITIES.register("opaque_channel", PipeChannelBlock::createBlockEntity, set -> set.add(fullBlockChannel.get(), scorchedChannel.get()));
   public static final RegistryObject<BlockEntityType<GaugeBlockEntity>> gauge = BLOCK_ENTITIES.register("gauge", GaugeBlockEntity::new, obsidianGauge);

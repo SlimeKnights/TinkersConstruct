@@ -107,6 +107,7 @@
     "tconstruct:slab_channel",
     "tconstruct:full_block_channel",
     "tconstruct:upside_down_channel",
+    "tconstruct:upside_down_faucet",
     "tconstruct:scorched_lantern",
     "tconstruct:scorched_faucet",
     "tconstruct:scorched_channel",

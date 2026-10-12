@@ -9,14 +9,11 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Plane;
-import net.minecraft.core.Vec3i;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.client.render.ChannelFluids;
-import slimeknights.mantle.client.render.FaucetFluid;
 import slimeknights.mantle.client.render.FluidCuboid;
 import slimeknights.mantle.client.render.FluidRenderer;
 import slimeknights.mantle.client.render.MantleRenderTypes;
@@ -74,14 +71,16 @@ public class ChannelBlockEntityRenderer implements BlockEntityRenderer<ChannelBl
 
   protected static void renderVerticalFlow(Direction dir, ChannelBlockEntity te, PoseStack matrices, AbstractChannelBlock block, BlockState state, ChannelFluids model, VertexConsumer builder, TextureAtlasSprite still, TextureAtlasSprite flowing, int color, int light, Level world, BlockPos pos) {
     if (block.getCurrentFlowOnSide(dir, state) == TwoWay.OUT && te.isFlowing(dir)) {
+      // render the part in the block
       FluidCuboid cube = dir == Direction.DOWN ? model.down() : model.up();
       if (cube != null) {
         FluidRenderer.renderCuboid(matrices, builder, cube, 0, still, flowing, color, light, false);
-
-        // render into the block(s) below
-        if (dir == Direction.DOWN)
-          RenderingHelper.renderFaucetFluids(world, pos, dir, matrices, builder, still, flowing, color, light);
       }
+      // render into the block(s) below or above
+      if (dir == Direction.DOWN)
+        RenderingHelper.renderFaucetFluids(world, pos, dir, matrices, builder, still, flowing, color, light);
+      else
+        ReverseFaucetFluidLoader.renderReverseFaucetFluids(world, pos, dir, matrices, builder, still, flowing, color, light);
     }
   }
 
