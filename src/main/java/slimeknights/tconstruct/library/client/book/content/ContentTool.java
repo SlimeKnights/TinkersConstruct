@@ -17,6 +17,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeI18n;
 import net.minecraftforge.common.crafting.IShapedRecipe;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -47,9 +48,8 @@ import slimeknights.tconstruct.library.tools.part.IToolPart;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class ContentTool extends PageContent {
@@ -155,43 +155,48 @@ public class ContentTool extends PageContent {
     // determine the recipe to display
     if (this.parts == null || slotPos == null) {
       IModifiableDisplay tool = getTool();
-      List<IToolPart> required = ToolPartsHook.parts(tool.getToolDefinition());
+      Level level = Minecraft.getInstance().level;
+      assert level != null;
+      RegistryAccess access = level.registryAccess();
 
       // get the stacks for the first crafting table recipe, prefer this option over parts as it may not be craftable with said parts
-      Recipe<CraftingContainer> recipe = Optional.ofNullable(Minecraft.getInstance().level)
-                                                 .flatMap(world -> {
-                                                   RegistryAccess access = world.registryAccess();
-                                                   return world.getRecipeManager().byType(RecipeType.CRAFTING).values().stream()
-                                                        .filter(r -> r.getResultItem(access).getItem() == tool.asItem())
-                                                        .findFirst();
-                                                 })
-                                                 .orElse(null);
-      if (recipe != null) {
+      Recipe<CraftingContainer> craftingRecipe = level.getRecipeManager().byType(RecipeType.CRAFTING).values().stream()
+        .filter(r -> r.getResultItem(access).getItem() == tool.asItem())
+        .findFirst().orElse(null);
+      if (craftingRecipe != null) {
         // parts is just the items in the recipe
-        this.parts = recipe.getIngredients().stream().map(ingredient -> ItemStackList.of(ingredient.getItems())).collect(Collectors.toList());
+        this.parts = craftingRecipe.getIngredients().stream().map(ingredient -> ItemStackList.of(ingredient.getItems())).collect(Collectors.toList());
 
         // if we have a shaped recipe, display slots in order
-        if (recipe instanceof IShapedRecipe<?> shaped) {
+        if (craftingRecipe instanceof IShapedRecipe<?> shaped) {
           int width = Mth.clamp(shaped.getRecipeWidth() - 1, 0, 2);
           this.imgSlots = IMG_SLOTS_SHAPED[Mth.clamp(shaped.getRecipeHeight() - 1, 0, 2)][width];
           this.slotPos = SLOTS_WIDTH[width];
         }
       } else {
-        ImmutableList.Builder<ItemStackList> partBuilder = ImmutableList.builder();
-        for (int i = 0; i < required.size(); i++) {
-          partBuilder.add(ItemStackList.of(ToolBuildHandler.getDisplayPart(required.get(i), i)));
-        }
         // fetch the tool building recipe for extra ingredients
-        List<Ingredient> extraRequirements = Optional.ofNullable(Minecraft.getInstance().level)
-                                                     .flatMap(world -> world.getRecipeManager().byType(TinkerRecipeTypes.TINKER_STATION.get()).values().stream()
-                                                                            .filter(r -> r instanceof ToolBuildingRecipe toolRecipe && toolRecipe.getOutput() == tool)
-                                                                            .map(r -> ((ToolBuildingRecipe)r).getExtraRequirements())
-                                                                            .findFirst()).orElse(List.of());
-        for (Ingredient ingredient : extraRequirements) {
-          partBuilder.add(ItemStackList.of(ingredient.getItems()));
+        ToolBuildingRecipe toolBuilding = level.getRecipeManager().byType(TinkerRecipeTypes.TINKER_STATION.get()).values().stream()
+          // only fetch recipes with the correct tool and that have the same number of parts - fixes issues with tools having multiple recipes
+          .filter(r -> r instanceof ToolBuildingRecipe toolRecipe && toolRecipe.getOutput() == tool)
+          .map(r -> ((ToolBuildingRecipe) r))
+          // if multiple recipes, prefer the one with the most parts - avoids things like the tipped arrow crafting showing as the preferred recipe
+          // TODO: can we have a button to swap recipes instead?
+          .max(Comparator.comparing(r -> r.getToolParts().size())).orElse(null);
+        ImmutableList.Builder<ItemStackList> partBuilder = ImmutableList.builder();
+        // add tool parts, using the recipe list if present - allows us to display tools with non-definition parts
+        List<IToolPart> toolParts = toolBuilding != null ? toolBuilding.getToolParts() : ToolPartsHook.parts(tool.getToolDefinition());
+        for (int i = 0; i < toolParts.size(); i++) {
+          partBuilder.add(ItemStackList.of(ToolBuildHandler.getDisplayPart(toolParts.get(i), i)));
+        }
+        // add extra requirements
+        if (toolBuilding != null) {
+          for (Ingredient ingredient : toolBuilding.getExtraRequirements()) {
+            partBuilder.add(ItemStackList.of(ingredient.getItems()));
+          }
         }
         this.parts = partBuilder.build();
       }
+      // TODO: can we show tool casting recipes?
 
       // for tool crafting and for shapeless recipes, select slots
       if (slotPos == null) {
