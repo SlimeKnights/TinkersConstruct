@@ -16,7 +16,9 @@ import slimeknights.mantle.client.render.ChannelFluids;
 import slimeknights.mantle.client.render.FluidCuboid;
 import slimeknights.mantle.client.render.FluidRenderer;
 import slimeknights.mantle.client.render.MantleRenderTypes;
+import slimeknights.mantle.client.render.RenderingHelper;
 import slimeknights.tconstruct.smeltery.block.channel.AbstractChannelBlock;
+import slimeknights.tconstruct.smeltery.block.channel.ChannelConnection;
 import slimeknights.tconstruct.smeltery.block.entity.ChannelBlockEntity;
 
 import java.util.function.Consumer;
@@ -46,18 +48,15 @@ public class OpaqueChannelBlockEntityRenderer implements BlockEntityRenderer<Cha
 
     // fluid attributes
     IClientFluidTypeExtensions attributes = IClientFluidTypeExtensions.of(fluid.getFluid());
-    final TextureAtlasSprite still = FluidRenderer.getBlockSprite(attributes.getStillTexture(fluid));
-    final TextureAtlasSprite flowing = FluidRenderer.getBlockSprite(attributes.getFlowingTexture(fluid));
-    final VertexConsumer builder = buffer.getBuffer(MantleRenderTypes.FLUID);
-    final int color = attributes.getTintColor(fluid);
-    final int light = FluidRenderer.withBlockLight(initialLight, fluid.getFluid().getFluidType().getLightLevel(fluid));
-    // capture all the variables into a lambda to pass around, to avoid parameter explosion
-    // parameter explosion does still happen somewhat due to using a mantle helper method
-    Consumer<FluidCuboid> cuboidRenderer = cuboid -> FluidRenderer.renderCuboid(matrices, builder, cuboid, 0, still, flowing, color, light, false);
+    TextureAtlasSprite still = FluidRenderer.getBlockSprite(attributes.getStillTexture(fluid));
+    TextureAtlasSprite flowing = FluidRenderer.getBlockSprite(attributes.getFlowingTexture(fluid));
+    VertexConsumer builder = buffer.getBuffer(MantleRenderTypes.FLUID);
+    int color = attributes.getTintColor(fluid);
+    int light = FluidRenderer.withBlockLight(initialLight, fluid.getFluid().getFluidType().getLightLevel(fluid));
 
     // render flow downwards
-    ChannelBlockEntityRenderer.renderVerticalFlow(Direction.DOWN, te, matrices, block, state, model, cuboidRenderer, world, pos);
+    ChannelBlockEntityRenderer.renderVerticalFlow(Direction.DOWN, te, matrices, block, state, model, builder, still, flowing, color, light, world, pos);
     // render flow upwards
-    ChannelBlockEntityRenderer.renderVerticalFlow(Direction.UP, te, matrices, block, state, model, cuboidRenderer, world, pos);
+    ChannelBlockEntityRenderer.renderVerticalFlow(Direction.UP, te, matrices, block, state, model, builder, still, flowing, color, light, world, pos);
   }
 }
