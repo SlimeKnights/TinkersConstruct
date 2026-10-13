@@ -79,10 +79,14 @@ public class ReverseFaucetFluidLoader extends FaucetFluid.Loader {
       // get the faucet data for the block
       i++;
       faucetFluid = ReverseFaucetFluidLoader.REGISTRY.get(world.getBlockState(pos.above(i)));
+      // if nothing to render, skip the matrix stack work, but allow the next iteration of the loop on the off chance they continue
+      List<FluidCuboid> cubes = faucetFluid.getFluids(direction);
+      if (cubes.isEmpty()) continue;
+
       // render all down cubes with the given offset
       matrices.pushPose();
       matrices.translate(0, i, 0);
-      for (FluidCuboid cube : faucetFluid.getFluids(direction)) {
+      for (FluidCuboid cube : cubes) {
         FluidRenderer.renderCuboid(matrices, buffer, cube, still, flowing, cube.getFromScaled(), cube.getToScaled(), color, light, true);
       }
       matrices.popPose();
