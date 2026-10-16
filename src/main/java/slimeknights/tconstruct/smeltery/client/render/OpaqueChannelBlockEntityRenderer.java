@@ -42,9 +42,6 @@ public class OpaqueChannelBlockEntityRenderer implements BlockEntityRenderer<Cha
     BlockState state = te.getBlockState();
     AbstractChannelBlock block = ((AbstractChannelBlock) state.getBlock());
     ChannelFluids model = ChannelFluids.REGISTRY.get(block);
-    if (model == null) {
-      return;
-    }
 
     // fluid attributes
     IClientFluidTypeExtensions attributes = IClientFluidTypeExtensions.of(fluid.getFluid());
