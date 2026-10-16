@@ -1,0 +1,8 @@
+{
+  "parent": "tconstruct:block/template/channel/slab_side_open",
+  "textures": {
+    "texture": "tconstruct:block/smeltery/seared/bricks",
+    "ridge": "tconstruct:block/smeltery/slab_channel_ridges",
+    "inner": "tconstruct:block/smeltery/channel_in"
+  }
+}

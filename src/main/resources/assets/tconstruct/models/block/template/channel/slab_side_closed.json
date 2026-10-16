@@ -1,16 +1,19 @@
 {
   "textures": {
     "texture": "tconstruct:block/smeltery/seared/bricks",
+    "ridge_texture": "tconstruct:block/smeltery/slab_channel_closed_ridge",
+    "inner_texture": "tconstruct:block/smeltery/seared/stone",
     "particle": "#texture"
   },
   "elements": [
     {
-      "from": [0, 6, 6],
+      "from": [0, 0, 6],
       "to": [6, 8, 10],
       "faces": {
         "west": { "texture":  "#texture" },
-        "east": { "texture":  "#texture" },
-        "up": { "texture":  "#texture" }
+        "east": { "texture":  "#inner_texture" },
+        "up": { "texture":  "#ridge_texture" },
+        "down": { "texture": "#texture"}
       }
     }
   ]
