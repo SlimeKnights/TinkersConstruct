@@ -807,10 +807,11 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                        .pattern(" # ")
                        .unlockedBy("has_item", has(TinkerSmeltery.scorchedBrick))
                        .save(consumer, location(folder + "faucet"));
-    ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, TinkerSmeltery.scorchedChannel.get(), 5)
+    ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, TinkerSmeltery.scorchedPipeChannel.get(), 5)
                        .define('#', TinkerSmeltery.scorchedBrick)
-                       .pattern("# #")
+                       .pattern(" # ")
                        .pattern("###")
+                       .pattern(" # ")
                        .unlockedBy("has_item", has(TinkerSmeltery.scorchedBrick))
                        .save(consumer, location(folder + "channel"));
 
@@ -991,7 +992,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                         .save(consumer, location(meltingFolder + "fence"));
 
     // melt down foundry components
-    MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.scorchedFaucet, TinkerSmeltery.scorchedChannel), TinkerFluids.scorchedStone, FluidValues.BRICK, 1.5f)
+    MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.scorchedFaucet, TinkerSmeltery.scorchedChannel, TinkerSmeltery.scorchedPipeChannel), TinkerFluids.scorchedStone, FluidValues.BRICK, 1.5f)
                         .save(consumer, location(meltingFolder + "faucet"));
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.scorchedBasin), TinkerFluids.scorchedStone, FluidValues.BRICK * 7, 2.5f)
       .addByproduct(TinkerFluids.moltenGold.result(FluidValues.NUGGET * 10))

@@ -1469,6 +1469,9 @@
   "block.tconstruct.seared_channel": "Seared Channel",
   "block.tconstruct.seared_channel.tooltip": "Distributes fluids poured from a faucet above.",
 
+  "block.tconstruct.slab_channel": "Seared Slab Channel",
+  "block.tconstruct.slab_channel.tooltip": "Distributes fluids poured from a faucet above.",
+
   "block.tconstruct.seared_basin": "Seared Casting Basin",
   "block.tconstruct.seared_basin.tooltip": "Cast items using molten metals from a Smeltery",
   "block.tconstruct.seared_table": "Seared Casting Table",
@@ -1570,6 +1573,10 @@
 
   "block.tconstruct.scorched_channel": "Scorched Channel",
   "block.tconstruct.scorched_channel.tooltip": "Distributes fluids poured from a faucet above.",
+  "block.tconstruct.scorched_pipe_channel": "Scorched Pipe Channel",
+  "block.tconstruct.scorched_pipe_channel.tooltip": "Distributes fluids poured from a faucet above or below. Can flow in any direction.",
+  "block.tconstruct.full_block_channel": "Scorched Block Channel",
+  "block.tconstruct.full_block_channel.tooltip": "Distributes fluids poured from a faucet above or below. Can flow in any direction.",
 
   "block.tconstruct.scorched_alloyer": "Scorched Alloyer",
   "block.tconstruct.scorched_alloyer.tooltip": "Simple alloying machine.\nPlace above a tank or heater to fuel.",

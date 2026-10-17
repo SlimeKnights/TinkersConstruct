@@ -5,6 +5,7 @@
     "tconstruct:scorched_drain",
     "tconstruct:scorched_chute",
     "tconstruct:scorched_duct",
-    "tconstruct:scorched_channel"
+    "tconstruct:scorched_channel",
+    "tconstruct:scorched_pipe_channel"
   ]
 }

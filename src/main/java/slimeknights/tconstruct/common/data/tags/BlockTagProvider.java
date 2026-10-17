@@ -401,14 +401,14 @@ public class BlockTagProvider extends BlockTagsProvider {
     // floor allows any basic seared blocks and all IO blocks
     this.tag(TinkerTags.Blocks.FOUNDRY_FLOOR)
         .addTag(TinkerTags.Blocks.SCORCHED_BLOCKS)
-        .add(TinkerSmeltery.scorchedLamp.get(), TinkerSmeltery.scorchedDrain.get(), TinkerSmeltery.scorchedChute.get(), TinkerSmeltery.scorchedDuct.get(), TinkerSmeltery.scorchedChannel.get());
+        .add(TinkerSmeltery.scorchedLamp.get(), TinkerSmeltery.scorchedDrain.get(), TinkerSmeltery.scorchedChute.get(), TinkerSmeltery.scorchedDuct.get(), TinkerSmeltery.scorchedChannel.get(), TinkerSmeltery.scorchedPipeChannel.get());
     // wall allows seared blocks, tanks, glass, and IO
     this.tag(TinkerTags.Blocks.FOUNDRY_WALL)
         .addTag(TinkerTags.Blocks.SCORCHED_BLOCKS)
         .addTag(TinkerTags.Blocks.FOUNDRY_TANKS)
         .add(TinkerSmeltery.scorchedGlass.get(), TinkerSmeltery.scorchedSoulGlass.get(), TinkerSmeltery.scorchedTintedGlass.get(),
              TinkerSmeltery.scorchedLadder.get(), TinkerSmeltery.scorchedLamp.get(),
-             TinkerSmeltery.scorchedDrain.get(), TinkerSmeltery.scorchedChute.get(), TinkerSmeltery.scorchedDuct.get(), TinkerSmeltery.scorchedChannel.get());
+             TinkerSmeltery.scorchedDrain.get(), TinkerSmeltery.scorchedChute.get(), TinkerSmeltery.scorchedDuct.get(), TinkerSmeltery.scorchedChannel.get(), TinkerSmeltery.scorchedPipeChannel.get());
     // foundry allows any of the three
     this.tag(TinkerTags.Blocks.FOUNDRY)
         .addTag(TinkerTags.Blocks.FOUNDRY_WALL)
@@ -419,6 +419,7 @@ public class BlockTagProvider extends BlockTagsProvider {
     this.tag(TinkerTags.Blocks.CHANNELS)
       .add(TinkerSmeltery.searedChannel.get())
       .add(TinkerSmeltery.scorchedChannel.get())
+      .add(TinkerSmeltery.scorchedPipeChannel.get())
       .add(TinkerSmeltery.slabChannel.get())
       .add(TinkerSmeltery.fullBlockChannel.get())
       .add(TinkerSmeltery.upsideDownChannel.get());
@@ -498,7 +499,7 @@ public class BlockTagProvider extends BlockTagsProvider {
     // fluids
     tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_GOLD_TOOL, TinkerSmeltery.searedTank, TinkerSmeltery.scorchedTank);
     tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_GOLD_TOOL, TinkerSmeltery.searedLantern,   TinkerSmeltery.searedFaucet,   TinkerSmeltery.searedChannel,   TinkerSmeltery.searedBasin,   TinkerSmeltery.searedTable,   TinkerSmeltery.searedCastingTank, TinkerSmeltery.slabChannel, TinkerSmeltery.fullBlockChannel, TinkerSmeltery.upsideDownChannel, TinkerSmeltery.upsideDownFaucet);
-    tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_GOLD_TOOL, TinkerSmeltery.scorchedLantern, TinkerSmeltery.scorchedFaucet, TinkerSmeltery.scorchedChannel, TinkerSmeltery.scorchedBasin, TinkerSmeltery.scorchedTable);
+    tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_GOLD_TOOL, TinkerSmeltery.scorchedLantern, TinkerSmeltery.scorchedFaucet, TinkerSmeltery.scorchedChannel, TinkerSmeltery.scorchedPipeChannel, TinkerSmeltery.scorchedBasin, TinkerSmeltery.scorchedTable);
     tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_GOLD_TOOL, TinkerSmeltery.searedHeater, TinkerSmeltery.searedMelter, TinkerSmeltery.scorchedAlloyer);
     // tough seared + scorched
     tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_STONE_TOOL, TinkerSmeltery.searedDrain, TinkerSmeltery.searedChute, TinkerSmeltery.smelteryController, TinkerSmeltery.searedFluidCannon, TinkerSmeltery.copperGauge);

@@ -4,7 +4,6 @@
   },
   "elements": [
     {
-      "name": "Core",
       "from": [ 4, 10, 4 ],
       "to": [ 12, 16, 12 ],
       "faces": {

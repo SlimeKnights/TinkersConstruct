@@ -318,6 +318,7 @@ public class BlockLootTableProvider extends BlockLootSubProvider {
     // fluid
     this.dropSelf(TinkerSmeltery.scorchedFaucet.get());
     this.dropSelf(TinkerSmeltery.scorchedChannel.get());
+    this.dropSelf(TinkerSmeltery.scorchedPipeChannel.get());
 
     // casting
     this.dropSelf(TinkerSmeltery.scorchedBasin.get());
