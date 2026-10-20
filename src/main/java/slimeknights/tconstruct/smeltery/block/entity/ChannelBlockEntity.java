@@ -113,14 +113,17 @@ public class ChannelBlockEntity extends MantleBlockEntity implements IFluidPacke
         return topHandler.cast();
       }
       // two-way tanks keep track of which side inserts
-      switch (block.getCurrentFlowOnSide(side, getBlockState())) {
-        case IN -> {
-          return sideHandlers.computeIfAbsent(side, s -> LazyOptional.of(() -> sideTanks.get(s))).cast();
-        }
-        case OUT -> {
-          // for out, return an empty fluid handler so the block we are pouring into knows we support fluids, even though we disallow any interaction
-          // this will get invalidated when the connection goes back to in later
-          return emptySideHandler.computeIfAbsent(side, s -> LazyOptional.of(() -> EmptyFluidHandler.INSTANCE)).cast();
+      TwoWay currentFlowOn = block.getCurrentFlowOnSide(side, getBlockState());
+      if (currentFlowOn != null) {
+        switch (currentFlowOn) {
+          case IN -> {
+            return sideHandlers.computeIfAbsent(side, s -> LazyOptional.of(() -> sideTanks.get(s))).cast();
+          }
+          case OUT -> {
+            // for out, return an empty fluid handler so the block we are pouring into knows we support fluids, even though we disallow any interaction
+            // this will get invalidated when the connection goes back to in later
+            return emptySideHandler.computeIfAbsent(side, s -> LazyOptional.of(() -> EmptyFluidHandler.INSTANCE)).cast();
+          }
         }
       }
     }

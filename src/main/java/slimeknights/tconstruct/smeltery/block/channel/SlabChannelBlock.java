@@ -10,9 +10,17 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import javax.annotation.Nullable;
+
 public class SlabChannelBlock extends AbstractChannelBlock {
   public SlabChannelBlock(Properties props) {
     super(props, ConnectionType.NONE, ConnectionType.NONE);
+  }
+
+  @Override
+  @Nullable
+  public ChannelConnection.TwoWay getCurrentFlowOnSide(Direction side, BlockState state) {
+    return side == Direction.UP ? null : super.getCurrentFlowOnSide(side, state);
   }
 
   @Override

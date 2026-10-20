@@ -92,8 +92,9 @@ public abstract class AbstractChannelBlock extends Block implements EntityBlock 
    * Helper method that essentially calls {@code state.getValue(block.getProperty(side))} but without the potential to have getProperty throw (instead returning TwoWay.NONE)
    * @param side The side to get the flow for
    * @param state The state to get the flow for
-   * @return The flow on the specified side for the given state
+   * @return The flow on the specified side for the given state. {@code null} indicates that it can be connected to, but active attempts to connect should not be made (the top of a channel)
    */
+  @Nullable
   public TwoWay getCurrentFlowOnSide(Direction side, BlockState state) {
     return switch (side) {
       case UP -> switch (this.up) {
@@ -233,7 +234,9 @@ public abstract class AbstractChannelBlock extends Block implements EntityBlock 
       if (facingState.isAir()) {
         state = state.setValue(DOWN_1WAY, OneWay.FALSE);
       } else if (facingState.is(CHANNELS) && facingState.getBlock() instanceof AbstractChannelBlock facingBlock) {
-        state = state.setValue(DOWN_1WAY, OneWay.valueOf(facingBlock.getCurrentFlowOnSide(Direction.UP, facingState) == TwoWay.IN));
+        TwoWay currentFlowOnSide = facingBlock.getCurrentFlowOnSide(Direction.UP, facingState);
+        if (currentFlowOnSide != null)
+          state = state.setValue(DOWN_1WAY, OneWay.valueOf(currentFlowOnSide == TwoWay.IN));
       }
       return state;
     }
@@ -241,7 +244,9 @@ public abstract class AbstractChannelBlock extends Block implements EntityBlock 
       if (facingState.isAir()) {
         state = state.setValue(UP_1WAY, OneWay.FALSE);
       } else if (facingState.is(CHANNELS) && facingState.getBlock() instanceof AbstractChannelBlock facingBlock) {
-        state = state.setValue(UP_1WAY, OneWay.valueOf(facingBlock.getCurrentFlowOnSide(Direction.DOWN, facingState) == TwoWay.IN));
+        TwoWay currentFlowOnSide = facingBlock.getCurrentFlowOnSide(Direction.DOWN, facingState);
+        if (currentFlowOnSide != null)
+          state = state.setValue(UP_1WAY, OneWay.valueOf(currentFlowOnSide == TwoWay.IN));
       }
       return state;
     }
@@ -252,7 +257,8 @@ public abstract class AbstractChannelBlock extends Block implements EntityBlock 
 
     // if the change was from another channel, copy, but invert its connection
     if (facingState.is(CHANNELS) && facingState.getBlock() instanceof AbstractChannelBlock facingBlock) {
-        TwoWay oppositeConnection = facingBlock.getCurrentFlowOnSide(facing.getOpposite(), facingState);
+      TwoWay oppositeConnection = facingBlock.getCurrentFlowOnSide(facing.getOpposite(), facingState);
+      if (oppositeConnection != null)
         state = state.setValue(prop, oppositeConnection.reverseFlow());
     } else {
       // out is only valid if facing a fluid handler
@@ -403,8 +409,12 @@ public abstract class AbstractChannelBlock extends Block implements EntityBlock 
   @Override
   @SuppressWarnings("deprecation")
   public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
-    var up = getCurrentFlowOnSide(Direction.UP, state).canFlow();
-    var down = getCurrentFlowOnSide(Direction.DOWN, state).canFlow();
+    TwoWay upFlow = getCurrentFlowOnSide(Direction.UP, state);
+    var up = upFlow != null && upFlow.canFlow();
+
+    TwoWay downFlow = getCurrentFlowOnSide(Direction.DOWN, state);
+    var down = downFlow != null && downFlow.canFlow();
+
     return shapes[makeShapeKey(up, down, state.getValue(NORTH).canFlow(), state.getValue(SOUTH).canFlow(), state.getValue(WEST).canFlow(), state.getValue(EAST).canFlow())];
   }
 

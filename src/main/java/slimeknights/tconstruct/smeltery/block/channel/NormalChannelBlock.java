@@ -14,6 +14,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.smeltery.block.channel.ChannelConnection.OneWay;
 
+import javax.annotation.Nullable;
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -34,6 +35,12 @@ public class NormalChannelBlock extends AbstractChannelBlock {
 
   public NormalChannelBlock(Properties props) {
     super(props, ConnectionType.NONE, ConnectionType.ONE_WAY);
+  }
+
+  @Override
+  @Nullable
+  public ChannelConnection.TwoWay getCurrentFlowOnSide(Direction side, BlockState state) {
+    return side == Direction.UP ? null : super.getCurrentFlowOnSide(side, state);
   }
 
   @Override

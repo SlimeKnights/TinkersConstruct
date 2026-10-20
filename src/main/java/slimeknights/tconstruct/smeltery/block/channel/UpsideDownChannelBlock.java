@@ -13,6 +13,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import slimeknights.tconstruct.library.utils.Util;
 
+import javax.annotation.Nullable;
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -33,6 +34,12 @@ public class UpsideDownChannelBlock extends AbstractChannelBlock {
 
   public UpsideDownChannelBlock(Properties props) {
     super(props, ConnectionType.ONE_WAY, ConnectionType.NONE);
+  }
+
+  @Override
+  @Nullable
+  public ChannelConnection.TwoWay getCurrentFlowOnSide(Direction side, BlockState state) {
+    return side == Direction.DOWN ? null : super.getCurrentFlowOnSide(side, state);
   }
 
   @Override

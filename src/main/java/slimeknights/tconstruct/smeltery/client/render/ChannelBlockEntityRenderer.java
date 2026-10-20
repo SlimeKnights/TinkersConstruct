@@ -105,7 +105,7 @@ public class ChannelBlockEntityRenderer implements BlockEntityRenderer<ChannelBl
     // render sides and calculate center flow
     // check if we have that side on the block
     TwoWay connection = block.getCurrentFlowOnSide(direction, state);
-    if (connection.canFlow()) {
+    if (connection != null && connection.canFlow()) {
       FluidCuboid cube;
       // apply rotation for the side
       boolean isRotated = RenderingHelper.applyRotation(matrices, direction);
