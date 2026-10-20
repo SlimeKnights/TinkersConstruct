@@ -826,7 +826,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                        .pattern("###")
                        .pattern(" # ")
                        .unlockedBy("has_item", has(TinkerSmeltery.scorchedBrick))
-                       .save(consumer, location(folder + "channel"));
+                       .save(consumer, location(folder + "full_block_channel"));
 
     // casting
     ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TinkerSmeltery.scorchedBasin.get())
