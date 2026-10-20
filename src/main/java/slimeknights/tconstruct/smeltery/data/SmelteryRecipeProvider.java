@@ -368,6 +368,12 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                        .pattern("###")
                        .unlockedBy("has_item", has(TinkerSmeltery.searedBrick))
                        .save(consumer, location(folder + "channel"));
+    ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, TinkerSmeltery.slabChannel.get(), 5)
+                       .define('#', TinkerSmeltery.searedBricks.getSlab())
+                       .pattern("# #")
+                       .pattern("###")
+                       .unlockedBy("has_item", has(TinkerSmeltery.searedBricks.getSlab()))
+                       .save(consumer, location(folder + "slab_channel"));
 
     // casting
     ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TinkerSmeltery.searedBasin.get())
@@ -550,7 +556,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                                                          TinkerSmeltery.searedCobble.getStairs(), TinkerSmeltery.searedStone.getStairs(), TinkerSmeltery.searedBricks.getStairs(), TinkerSmeltery.searedPaver.getStairs())),
 																 TinkerFluids.searedStone, FluidValues.BRICK_BLOCK, 2.0f)
                         .save(consumer, location(meltingFolder + "block"));
-    MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.searedCobble.getSlab(), TinkerSmeltery.searedStone.getSlab(), TinkerSmeltery.searedBricks.getSlab(), TinkerSmeltery.searedPaver.getSlab()),
+    MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.searedCobble.getSlab(), TinkerSmeltery.searedStone.getSlab(), TinkerSmeltery.searedBricks.getSlab(), TinkerSmeltery.slabChannel, TinkerSmeltery.searedPaver.getSlab()),
 																 TinkerFluids.searedStone, FluidValues.BRICK_BLOCK / 2, 1.5f)
                         .save(consumer, location(meltingFolder + "slab"));
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.searedBrick), TinkerFluids.searedStone, FluidValues.BRICK, 1.0f)
@@ -814,6 +820,13 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                        .pattern(" # ")
                        .unlockedBy("has_item", has(TinkerSmeltery.scorchedBrick))
                        .save(consumer, location(folder + "channel"));
+    ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, TinkerSmeltery.fullBlockChannel.get(), 5)
+                       .define('#', TinkerSmeltery.scorchedBricks)
+                       .pattern(" # ")
+                       .pattern("###")
+                       .pattern(" # ")
+                       .unlockedBy("has_item", has(TinkerSmeltery.scorchedBrick))
+                       .save(consumer, location(folder + "channel"));
 
     // casting
     ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TinkerSmeltery.scorchedBasin.get())
@@ -980,7 +993,8 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     // stairs are here since the cheapest stair recipe is stone cutter, 1 to 1
     MeltingRecipeBuilder.melting(CompoundIngredient.of(Ingredient.of(TinkerTags.Items.SCORCHED_BLOCKS),
                                                        Ingredient.of(TinkerSmeltery.scorchedLadder, TinkerSmeltery.scorchedLamp,
-                                                         TinkerSmeltery.scorchedBricks.getStairs(), TinkerSmeltery.scorchedRoad.getStairs())),
+                                                         TinkerSmeltery.scorchedBricks.getStairs(), TinkerSmeltery.scorchedRoad.getStairs(),
+                                                         TinkerSmeltery.fullBlockChannel)),
 																 TinkerFluids.scorchedStone, FluidValues.BRICK_BLOCK, 2.0f)
                         .save(consumer, location(meltingFolder + "block"));
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.scorchedBricks.getSlab(), TinkerSmeltery.scorchedBricks.getSlab(), TinkerSmeltery.scorchedRoad.getSlab()),
