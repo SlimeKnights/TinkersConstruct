@@ -47,7 +47,6 @@ import static slimeknights.tconstruct.smeltery.block.channel.AbstractChannelBloc
 
 public abstract class AbstractChannelBlock extends Block implements EntityBlock {
 
-  // TODO: up and down have bad wording for pipes so that needs fixing
   private static final Component SIDE_IN = TConstruct.makeTranslation("block", "channel.side.in");
   private static final Component SIDE_OUT = TConstruct.makeTranslation("block", "channel.side.out");
   private static final Component SIDE_NONE = TConstruct.makeTranslation("block", "channel.side.none");
@@ -223,7 +222,7 @@ public abstract class AbstractChannelBlock extends Block implements EntityBlock 
 
   @SuppressWarnings("deprecation")
   @Override
-  @Deprecated // TODO: this resets pipes when they point down into a channel - need to make NONE sides return IN from getCurrentFlowOnSide probably when UP.
+  @Deprecated
   public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor world, BlockPos currentPos, BlockPos facingPos) {
     // ignore changes from directions we don't connect to
     if ((facing == Direction.UP && this.up == NONE) || (facing == Direction.DOWN && this.down == NONE))

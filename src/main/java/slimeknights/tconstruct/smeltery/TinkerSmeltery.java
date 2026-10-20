@@ -250,7 +250,7 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final ItemObject<NormalChannelBlock> scorchedChannel;
   public static final ItemObject<SlabChannelBlock> slabChannel;
   public static final ItemObject<UpsideDownChannelBlock> upsideDownChannel;
-  public static final ItemObject<FullChannelBlock> fullBlockChannel; // TODO: make a foundry block?
+  public static final ItemObject<FullChannelBlock> fullBlockChannel;
   public static final ItemObject<PipeChannelBlock> scorchedPipeChannel;
   public static final ItemObject<CastingBasinBlock> searedBasin, scorchedBasin;
   public static final ItemObject<CastingTableBlock> searedTable, scorchedTable;
