@@ -1575,7 +1575,7 @@
   "block.tconstruct.scorched_channel.tooltip": "Distributes fluids poured from a faucet above.",
   "block.tconstruct.scorched_pipe_channel": "Scorched Pipe Channel",
   "block.tconstruct.scorched_pipe_channel.tooltip": "Distributes fluids. Can flow in any direction.",
-  "block.tconstruct.full_block_channel": "Scorched Block Channel",
+  "block.tconstruct.full_block_channel": "Encased Scorched Pipe Channel",
   "block.tconstruct.full_block_channel.tooltip": "Distributes fluids. Can flow in any direction.",
 
   "block.tconstruct.scorched_alloyer": "Scorched Alloyer",
