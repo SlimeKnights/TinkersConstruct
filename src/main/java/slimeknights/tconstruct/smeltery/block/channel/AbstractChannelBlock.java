@@ -348,14 +348,8 @@ public abstract class AbstractChannelBlock extends Block implements EntityBlock 
       }
     }
 
-    // default to using the clicked side, though null (is that valid?) and up act as down
-    Direction side = hitFace == Direction.UP ? Direction.DOWN : hitFace;
-    if (player.isShiftKeyDown()) {
-      side = side.getOpposite();
-    }
-
-    // try each of the sides, if clicked use that
-    side = getHitSide(hit.getLocation().subtract(pos.getX(), pos.getY(), pos.getZ()), side);
+    // get the clicked side
+    Direction side = getHitSide(hit.getLocation().subtract(pos.getX(), pos.getY(), pos.getZ()), hitFace);
 
     // toggle the side clicked
     BlockState newState = interactWithSide(state, world, pos, player, side);
