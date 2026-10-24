@@ -1,0 +1,6 @@
+{
+  "parent": "tconstruct:block/foundry/channel/core",
+  "textures": {
+    "texture": "tconstruct:block/foundry/scorched/stone_side"
+  }
+}

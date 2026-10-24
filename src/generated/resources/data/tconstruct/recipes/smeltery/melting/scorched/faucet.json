@@ -6,6 +6,9 @@
     },
     {
       "item": "tconstruct:scorched_channel"
+    },
+    {
+      "item": "tconstruct:scorched_pipe_channel"
     }
   ],
   "result": {

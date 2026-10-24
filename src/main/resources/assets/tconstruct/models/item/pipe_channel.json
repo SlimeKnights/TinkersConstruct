@@ -1,0 +1,7 @@
+{
+  "parent": "tconstruct:block/template/channel/inventory",
+  "textures": {
+    "particle": "tconstruct:block/foundry/scorched/stone",
+    "texture":  "tconstruct:block/foundry/scorched/stone"
+  }
+}

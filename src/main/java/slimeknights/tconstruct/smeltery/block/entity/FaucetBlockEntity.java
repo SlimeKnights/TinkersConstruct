@@ -54,13 +54,13 @@ public class FaucetBlockEntity extends MantleBlockEntity {
   private boolean lastRedstoneState = false;
 
   /** Fluid handler of the input to the faucet */
-  private LazyOptional<IFluidHandler> inputHandler;
+  protected LazyOptional<IFluidHandler> inputHandler;
   /** Fluid handler of the output from the faucet */
-  private LazyOptional<IFluidHandler> outputHandler;
+  protected LazyOptional<IFluidHandler> outputHandler;
   /** Listener for when the input handler is invalidated */
-  private final NonNullConsumer<LazyOptional<IFluidHandler>> inputListener = new WeakConsumerWrapper<>(this, (self, handler) -> self.inputHandler = null);
+  protected final NonNullConsumer<LazyOptional<IFluidHandler>> inputListener = new WeakConsumerWrapper<>(this, (self, handler) -> self.inputHandler = null);
   /** Listener for when the output handler is invalidated */
-  private final NonNullConsumer<LazyOptional<IFluidHandler>> outputListener = new WeakConsumerWrapper<>(this, (self, handler) -> self.outputHandler = null);
+  protected final NonNullConsumer<LazyOptional<IFluidHandler>> outputListener = new WeakConsumerWrapper<>(this, (self, handler) -> self.outputHandler = null);
 
   public FaucetBlockEntity(BlockPos pos, BlockState state) {
     this(TinkerSmeltery.faucet.get(), pos, state);
@@ -79,7 +79,7 @@ public class FaucetBlockEntity extends MantleBlockEntity {
    * @param side  Side to check
    * @return  Fluid handler
    */
-  private LazyOptional<IFluidHandler> findFluidHandler(Direction side) {
+  protected LazyOptional<IFluidHandler> findFluidHandler(Direction side) {
     assert level != null;
     BlockEntity te = level.getBlockEntity(worldPosition.relative(side));
     if (te != null) {
@@ -95,7 +95,7 @@ public class FaucetBlockEntity extends MantleBlockEntity {
    * Gets the input fluid handler
    * @return  Input fluid handler
    */
-  private LazyOptional<IFluidHandler> getInputHandler() {
+  protected LazyOptional<IFluidHandler> getInputHandler() {
     if (inputHandler == null) {
       inputHandler = findFluidHandler(getBlockState().getValue(FACING).getOpposite());
       if (inputHandler.isPresent()) {
@@ -109,7 +109,7 @@ public class FaucetBlockEntity extends MantleBlockEntity {
    * Gets the output fluid handler
    * @return  Output fluid handler
    */
-  private LazyOptional<IFluidHandler> getOutputHandler() {
+  protected LazyOptional<IFluidHandler> getOutputHandler() {
     if (outputHandler == null) {
       outputHandler = findFluidHandler(Direction.DOWN);
       if (outputHandler.isPresent()) {
@@ -193,7 +193,7 @@ public class FaucetBlockEntity extends MantleBlockEntity {
   /* Pouring */
 
   /** Handles server ticks */
-  private void tick() {
+  protected void tick() {
     // nothing to do if not pouring
     if (faucetState == FaucetState.OFF) {
       return;
@@ -220,7 +220,7 @@ public class FaucetBlockEntity extends MantleBlockEntity {
    */
   private boolean doTransfer(boolean execute) {
     // still got content left
-    LazyOptional<IFluidHandler> inputOptional = getInputHandler();
+     LazyOptional<IFluidHandler> inputOptional = getInputHandler();
     LazyOptional<IFluidHandler> outputOptional = getOutputHandler();
     if (inputOptional.isPresent() && outputOptional.isPresent()) {
       // can we drain?

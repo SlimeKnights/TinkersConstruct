@@ -68,11 +68,15 @@ public class FaucetBlock extends Block implements EntityBlock {
     return this.defaultBlockState().setValue(FACING, dir);
   }
 
+  protected EnumMap<Direction, VoxelShape> getPrecomputedShapes() {
+    return SHAPES;
+  }
+
   @SuppressWarnings("deprecation")
   @Deprecated
   @Override
   public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
-    return SHAPES.get(state.getValue(FACING));
+    return getPrecomputedShapes().get(state.getValue(FACING));
   }
 
   @SuppressWarnings("deprecation")

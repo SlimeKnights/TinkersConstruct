@@ -24,6 +24,16 @@
       "east":  { "flowing": true }
     }
   },
+  "up": {
+    "from": [  6, 10,  6 ],
+    "to":   [ 10, 16, 10 ],
+    "faces": {
+      "north": { "flowing": true },
+      "south": { "flowing": true },
+      "west":  { "flowing": true },
+      "east":  { "flowing": true }
+    }
+  },
   "side": {
     "still": {
       "from": [  6, 6, 10 ],

@@ -18,100 +18,125 @@ import slimeknights.mantle.client.render.FluidCuboid;
 import slimeknights.mantle.client.render.FluidRenderer;
 import slimeknights.mantle.client.render.MantleRenderTypes;
 import slimeknights.mantle.client.render.RenderingHelper;
-import slimeknights.tconstruct.smeltery.block.ChannelBlock;
-import slimeknights.tconstruct.smeltery.block.ChannelBlock.ChannelConnection;
+import slimeknights.tconstruct.smeltery.block.channel.AbstractChannelBlock;
+import slimeknights.tconstruct.smeltery.block.channel.ChannelConnection.TwoWay;
 import slimeknights.tconstruct.smeltery.block.entity.ChannelBlockEntity;
+
+import javax.annotation.Nullable;
 
 public class ChannelBlockEntityRenderer implements BlockEntityRenderer<ChannelBlockEntity> {
   public ChannelBlockEntityRenderer(Context context) {}
 
-	@Override
-	public void render(ChannelBlockEntity te, float partialTicks, PoseStack matrices, MultiBufferSource buffer, int light, int combinedOverlayIn)  {
-		FluidStack fluid = te.getFluid();
-		if (fluid.isEmpty()) {
-			return;
-		}
+  @Override
+  public void render(ChannelBlockEntity te, float partialTicks, PoseStack matrices, MultiBufferSource buffer, int initialLight, int combinedOverlayIn) {
+    FluidStack fluid = te.getFluid();
+    if (fluid.isEmpty()) {
+      return;
+    }
 
-		// fetch model properties
-		Level world = te.getLevel();
-		if (world == null) {
-			return;
-		}
-		BlockPos pos = te.getBlockPos();
-		BlockState state = te.getBlockState();
-		ChannelFluids model = ChannelFluids.REGISTRY.get(state.getBlock());
-		if (model == null) {
-			return;
-		}
+    // fetch model properties
+    Level world = te.getLevel();
+    if (world == null) {
+      return;
+    }
+    BlockPos pos = te.getBlockPos();
+    BlockState state = te.getBlockState();
+    AbstractChannelBlock block = ((AbstractChannelBlock) state.getBlock());
+    ChannelFluids model = ChannelFluids.REGISTRY.get(block);
+    if (model == null) {
+      return;
+    }
 
-		// fluid attributes
-		IClientFluidTypeExtensions attributes = IClientFluidTypeExtensions.of(fluid.getFluid());
-		TextureAtlasSprite still = FluidRenderer.getBlockSprite(attributes.getStillTexture(fluid));
-		TextureAtlasSprite flowing = FluidRenderer.getBlockSprite(attributes.getFlowingTexture(fluid));
-		VertexConsumer builder = buffer.getBuffer(MantleRenderTypes.FLUID);
-		int color = attributes.getTintColor(fluid);
-		light = FluidRenderer.withBlockLight(light, fluid.getFluid().getFluidType().getLightLevel(fluid));
+    // fluid attributes
+    IClientFluidTypeExtensions attributes = IClientFluidTypeExtensions.of(fluid.getFluid());
+    TextureAtlasSprite still = FluidRenderer.getBlockSprite(attributes.getStillTexture(fluid));
+    TextureAtlasSprite flowing = FluidRenderer.getBlockSprite(attributes.getFlowingTexture(fluid));
+    VertexConsumer builder = buffer.getBuffer(MantleRenderTypes.FLUID);
+    int color = attributes.getTintColor(fluid);
+    int light = FluidRenderer.withBlockLight(initialLight, fluid.getFluid().getFluidType().getLightLevel(fluid));
 
-		// render sides first, while doing so we will determine center "flow"
-		FluidCuboid cube;
-		boolean isRotated;
-		Direction centerFlow = Direction.UP;
-		for (Direction direction : Plane.HORIZONTAL) {
-			// check if we have that side on the block
-			ChannelConnection connection = state.getValue(ChannelBlock.DIRECTION_MAP.get(direction));
-			if (connection.canFlow()) {
-				// apply rotation for the side
-				isRotated = RenderingHelper.applyRotation(matrices, direction);
-				// get the relevant fluid model, render it
-				if (te.isFlowing(direction)) {
-					cube = model.side().flow(connection == ChannelConnection.OUT);
+    // render sides first, while doing so we will determine center "flow"
+    Direction centerFlow = null;
+    for (Direction direction : Plane.HORIZONTAL) {
+      centerFlow = renderSide(te, matrices, direction, centerFlow, block, state, model, builder, still, flowing, color, light);
+    }
 
-					// add to center direction
-					if (connection == ChannelConnection.OUT) {
-						// if unset (up), use this direction
-						if (centerFlow == Direction.UP) {
-							centerFlow = direction;
-							// if set and it disagrees, set the fail state (down)
-						} else if (centerFlow != direction) {
-							centerFlow = Direction.DOWN;
-						}
-					}
-					// render the extra edge against other blocks
-					if (!world.getBlockState(pos.relative(direction)).is(state.getBlock())) {
-						FluidRenderer.renderCuboid(matrices, builder, model.side().edge(), 0, still, flowing, color, light, false);
-					}
-				} else {
-					cube = model.side().still();
-				}
-				FluidRenderer.renderCuboid(matrices, builder, cube, 0, still, flowing, color, light, false);
-				// undo rotation
-				if (isRotated) {
-					matrices.popPose();
-				}
-			}
-		}
+    // render center
+    renderCenter(matrices, centerFlow, model, builder, still, flowing, color, light);
+    // render flow downwards
+    renderVerticalFlow(Direction.DOWN, te, matrices, block, state, model, builder, still, flowing, color, light, world, pos);
+    // render flow upwards
+    renderVerticalFlow(Direction.UP, te, matrices, block, state, model, builder, still, flowing, color, light, world, pos);
+  }
 
-		// render center
-		isRotated = false;
-		if (centerFlow.getAxis().isVertical()) {
-			cube = model.center(false);
-		} else {
-			cube = model.center(true);
-			isRotated = RenderingHelper.applyRotation(matrices, centerFlow);
-		}
-		// render the cube and pop back
-		FluidRenderer.renderCuboid(matrices, builder, cube, 0, still, flowing, color, light, false);
-		if (isRotated) {
-			matrices.popPose();
-		}
+  protected static void renderVerticalFlow(Direction dir, ChannelBlockEntity te, PoseStack matrices, AbstractChannelBlock block, BlockState state, @Nullable ChannelFluids model, VertexConsumer builder, TextureAtlasSprite still, TextureAtlasSprite flowing, int color, int light, Level world, BlockPos pos) {
+    if (block.getCurrentFlowOnSide(dir, state) == TwoWay.OUT && te.isFlowing(dir)) {
+      // render the part in the block
+      FluidCuboid cube = model == null ? null : dir == Direction.DOWN ? model.down() : model.up();
+      if (cube != null) {
+        FluidRenderer.renderCuboid(matrices, builder, cube, 0, still, flowing, color, light, false);
+      }
+      // render into the block(s) below or above
+      if (dir == Direction.DOWN)
+        RenderingHelper.renderFaucetFluids(world, pos, dir, matrices, builder, still, flowing, color, light);
+      else
+        ReverseFaucetFluidLoader.renderReverseFaucetFluids(world, pos, dir, matrices, builder, still, flowing, color, light);
+    }
+  }
 
-		// render flow downwards
-		if (state.getValue(ChannelBlock.DOWN) && te.isFlowing(Direction.DOWN)) {
-			cube = model.down();
-			FluidRenderer.renderCuboid(matrices, builder, cube, 0, still, flowing, color, light, false);
+  protected static void renderCenter(PoseStack matrices, @Nullable Direction centerFlow, ChannelFluids model, VertexConsumer builder, TextureAtlasSprite still, TextureAtlasSprite flowing, int color, int light) {
+    FluidCuboid cube;
+    boolean isRotated = false;
+    // if its flowing multiple incompatible directions, render still
+    if (centerFlow == Direction.UP) {
+      cube = model.center(false);
+    } else {
+      cube = model.center(true);
+      if (centerFlow != null) isRotated = RenderingHelper.applyRotation(matrices, centerFlow);
+    }
+    // render the cube and pop back
+    FluidRenderer.renderCuboid(matrices, builder, cube, 0, still, flowing, color, light, false);
+    if (isRotated) {
+      matrices.popPose();
+    }
+  }
 
-			// render into the block(s) below
-			RenderingHelper.renderFaucetFluids(world, pos, Direction.DOWN, matrices, builder, still, flowing, color, light);
-		}
-	}
+  protected static @Nullable Direction renderSide(ChannelBlockEntity te, PoseStack matrices, Direction direction, @Nullable Direction centerFlow, AbstractChannelBlock block, BlockState state, ChannelFluids model, VertexConsumer builder, TextureAtlasSprite still, TextureAtlasSprite flowing, int color, int light) {
+    // render sides and calculate center flow
+    // check if we have that side on the block
+    TwoWay connection = block.getCurrentFlowOnSide(direction, state);
+    if (connection != null && connection.canFlow()) {
+      FluidCuboid cube;
+      // apply rotation for the side
+      boolean isRotated = RenderingHelper.applyRotation(matrices, direction);
+      // get the relevant fluid model, render it
+      if (te.isFlowing(direction)) {
+        cube = model.side().flow(connection == TwoWay.OUT);
+
+        // add to center direction
+        if (connection == TwoWay.OUT) {
+          // if unset (null), use this direction
+          if (centerFlow == null) {
+            centerFlow = direction;
+            // if set and it disagrees, set the fail state (UP)
+          } else if (centerFlow != direction) {
+            centerFlow = Direction.UP;
+          }
+        }
+        // render the extra edge against other blocks
+        //noinspection DataFlowIssue // we check this in the parent method
+        if (!te.getLevel().getBlockState(te.getBlockPos().relative(direction)).is(state.getBlock())) {
+          FluidRenderer.renderCuboid(matrices, builder, model.side().edge(), 0, still, flowing, color, light, false);
+        }
+      } else {
+        cube = model.side().still();
+      }
+      FluidRenderer.renderCuboid(matrices, builder, cube, 0, still, flowing, color, light, false);
+      // undo rotation
+      if (isRotated) {
+        matrices.popPose();
+      }
+    }
+    return centerFlow;
+  }
 }
