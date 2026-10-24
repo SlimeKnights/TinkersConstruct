@@ -265,12 +265,15 @@ public class ChannelBlockEntity extends MantleBlockEntity implements IFluidPacke
 	}
 
 	/**
-	 * Syncs the given flowing state to the client side
+	 * Syncs the given flowing state to the client side and mark it as requiring changes.
 	 * @param side     Side to sync
 	 * @param flowing  Flowing state to sync
 	 */
 	private void syncFlowToClient(Direction side, boolean flowing) {
-		TinkerNetwork.getInstance().sendToClientsAround(new ChannelFlowPacket(worldPosition, side, flowing), level, worldPosition);
+    if (level != null && !level.isClientSide) {
+      setChangedFast();
+      TinkerNetwork.getInstance().sendToClientsAround(new ChannelFlowPacket(worldPosition, side, flowing), level, worldPosition);
+    }
 	}
 
 
