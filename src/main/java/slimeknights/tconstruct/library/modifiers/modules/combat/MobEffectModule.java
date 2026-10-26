@@ -242,7 +242,7 @@ public interface MobEffectModule extends ModifierModule, ConditionalModule<ITool
         if (curativeItems != null) {
           instance.setCurativeItems(curativeItems.stream().map(ItemStack::new).collect(Collectors.toList()));
         }
-        target.addEffect(new MobEffectInstance(effect, (int)duration, level), cause);
+        target.addEffect(instance, cause);
       }
     }
 
