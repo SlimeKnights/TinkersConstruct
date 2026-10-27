@@ -1,8 +1,6 @@
 package slimeknights.tconstruct.shared;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.font.FontManager;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ModelEvent.RegisterGeometryLoaders;
 import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
@@ -11,6 +9,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import slimeknights.mantle.client.screen.book.BookScreen;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.library.client.book.TinkerBook;
@@ -32,7 +31,7 @@ public class CommonsClientEvents extends ClientEventBase {
 
   @SubscribeEvent
   static void clientSetup(final FMLClientSetupEvent event) {
-    Font unicode = unicodeFontRender();
+    Font unicode = BookScreen.getUniformFont();
     TinkerBook.MATERIALS_AND_YOU.fontRenderer = unicode;
     TinkerBook.TINKERS_GADGETRY.fontRenderer = unicode;
     TinkerBook.PUNY_SMELTING.fontRenderer = unicode;
@@ -46,16 +45,9 @@ public class CommonsClientEvents extends ClientEventBase {
     event.registerSpecial(TinkerCommons.fluidParticle.get(), new FluidParticle.Factory());
   }
 
-  private static Font unicodeRenderer;
-
-  /** Gets the unicode font renderer */
+  /** @deprecated use {@link BookScreen#getUniformFont()} */
+  @Deprecated(forRemoval = true)
   public static Font unicodeFontRender() {
-    if (unicodeRenderer == null)
-      unicodeRenderer = new Font(rl -> {
-        FontManager resourceManager = Minecraft.getInstance().fontManager;
-        return resourceManager.fontSets.get(Minecraft.UNIFORM_FONT);
-      }, false);
-
-    return unicodeRenderer;
+    return BookScreen.getUniformFont();
   }
 }
