@@ -31,12 +31,6 @@ public abstract class AbstractMultilevelModifierRecipeBuilder<T extends Abstract
   protected int maxToolSize = ITinkerStationRecipe.DEFAULT_TOOL_STACK_SIZE;
   protected boolean checkTraitLevel = false;
 
-  /** Gets the casted builder */
-  @SuppressWarnings("unchecked")
-  private T self() {
-    return (T) this;
-  }
-
 
   /* Tool */
 

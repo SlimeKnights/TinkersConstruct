@@ -36,12 +36,12 @@ import java.util.regex.Pattern;
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public final class SlotType {
   /** Loadable for a slot type */
-  public static final StringLoadable<SlotType> LOADABLE = StringLoadable.DEFAULT.comapFlatMap((name, error) -> {
+  public static final StringLoadable<SlotType> LOADABLE = StringLoadable.DEFAULT.mapChecked((name, error) -> {
     if (!isValidName(name)) {
       throw error.create("Invalid slot type name '" + name + '\'');
     }
     return SlotType.getOrCreate(name);
-  }, SlotType::getName);
+  }, (slot, error) -> slot.getName());
 
   /** Key for uppercase slot name */
   private static final String KEY_SLOT = TConstruct.makeTranslationKey("stat", "slot.");

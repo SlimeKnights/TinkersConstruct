@@ -16,7 +16,7 @@ import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import java.util.Objects;
 
 public record SyncProjectileModifiersPacket(int entityId, ModifierNBT modifiers, CompoundTag persistentData) implements IThreadsafePacket {
-  private static final Streamable<ModifierNBT> MODIFIER_LIST = ModifierEntry.LOADABLE.list(0).flatXmap(ModifierNBT::new, ModifierNBT::getModifiers);
+  private static final Streamable<ModifierNBT> MODIFIER_LIST = ModifierEntry.LOADABLE.list(0).map(ModifierNBT::new, ModifierNBT::getModifiers);
 
   public SyncProjectileModifiersPacket(Entity entity) {
     this(entity.getId(), EntityModifierCapability.getOrEmpty(entity), PersistentDataCapability.getOrWarn(entity).getCopy());

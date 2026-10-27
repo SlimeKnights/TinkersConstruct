@@ -15,7 +15,7 @@ import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 
 /** Effect to drop an item at the target */
 public record DropItemFluidEffect(ItemOutput item) implements FluidEffect<FluidEffectContext> {
-  public static final RecordLoadable<DropItemFluidEffect> LOADER = ItemOutput.Loadable.REQUIRED_STACK.flatXmap(DropItemFluidEffect::new, DropItemFluidEffect::item);
+  public static final RecordLoadable<DropItemFluidEffect> LOADER = ItemOutput.Loadable.REQUIRED_STACK.map(DropItemFluidEffect::new, DropItemFluidEffect::item);
 
   public DropItemFluidEffect(ItemLike item) {
     this(ItemOutput.fromItem(item));

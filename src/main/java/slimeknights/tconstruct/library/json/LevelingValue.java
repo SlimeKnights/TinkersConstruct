@@ -26,7 +26,7 @@ public record LevelingValue(float flat, float eachLevel) {
     FloatLoadable.ANY.defaultField("each_level", 0f, LevelingValue::eachLevel),
     LevelingValue::new);
   /** Leveling value instance that maps a float value to a leveling value of that plus 1 per level */
-  public static final RecordLoadable<LevelingValue> ADD_TO_LEVEL = LevelingValue.LOADABLE.compact(FloatLoadable.ANY.flatXmap(flat -> new LevelingValue(flat, 1), LevelingValue::flat), value -> value.eachLevel() == 1);
+  public static final RecordLoadable<LevelingValue> ADD_TO_LEVEL = LevelingValue.LOADABLE.compact(FloatLoadable.ANY.map(flat -> new LevelingValue(flat, 1), LevelingValue::flat), value -> value.eachLevel() == 1);
 
 
   /** Computes the value for the given level */

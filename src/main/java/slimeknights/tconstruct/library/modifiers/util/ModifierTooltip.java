@@ -50,7 +50,7 @@ public enum ModifierTooltip {
     public static final ShowInTooltips ADVANCED = match(TINKER_STATION, PART_BUILDER, BOOK);
     
     /** Loader instance. See {@link TooltipsLoadable} for the proper field. */
-    private static final Loadable<ShowInTooltips> LOADABLE = ModifierTooltip.LOADABLE.set(0).flatXmap(ShowInTooltips::match, ShowInTooltips::tooltips);
+    private static final Loadable<ShowInTooltips> LOADABLE = ModifierTooltip.LOADABLE.set(0).map(ShowInTooltips::match, ShowInTooltips::tooltips);
 
     /** @apiNote use {@link #match(Set)} */
     @Internal

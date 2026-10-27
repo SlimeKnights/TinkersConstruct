@@ -49,7 +49,7 @@ public interface ModifierModel extends IBakedModifierModel, IHaveLoader {
    */
   GenericLoaderRegistry<ModifierModel> LOADER = new GenericLoaderRegistry<>("Modifier Model", EMPTY, false);
   /** Loadable for reading materials, a common feature of modifier models */
-  StringLoadable<Material> MATERIAL_LOADABLE = Loadables.RESOURCE_LOCATION.flatXmap(ModifierModel::blockAtlas, Material::texture);
+  StringLoadable<Material> MATERIAL_LOADABLE = Loadables.RESOURCE_LOCATION.map(ModifierModel::blockAtlas, Material::texture);
 
   @Override
   RecordLoadable<? extends ModifierModel> getLoader();

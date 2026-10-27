@@ -18,12 +18,12 @@ import java.util.List;
 public record ParticleWeaponAttack(SimpleParticleType particle) implements MeleeHitToolHook, ToolModule {
   @SuppressWarnings("deprecation")
   public static final RecordLoadable<ParticleWeaponAttack> LOADER = RecordLoadable.create(
-    Loadables.PARTICLE_TYPE.comapFlatMap((type, error) -> {
+    Loadables.PARTICLE_TYPE.mapChecked((type, error) -> {
       if (type instanceof SimpleParticleType simple) {
         return simple;
       }
       throw error.create("Expected particle " + BuiltInRegistries.PARTICLE_TYPE.getKey(type) + " be a simple particle, got " + type);
-    }, type -> type).requiredField("particle", ParticleWeaponAttack::particle), ParticleWeaponAttack::new);
+    }, (type, error) -> type).requiredField("particle", ParticleWeaponAttack::particle), ParticleWeaponAttack::new);
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<ParticleWeaponAttack>defaultHooks(ToolHooks.MELEE_HIT);
 
   @Override

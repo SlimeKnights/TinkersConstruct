@@ -20,13 +20,12 @@ import java.util.Set;
 /**
  * Generic container for tool stats, allows addons to select which stats they wish to use
  */
-@SuppressWarnings("ClassCanBeRecord")
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 @EqualsAndHashCode
 @ToString
 public class MultiplierNBT {
   /** Loadable instance to parse this from buffers and alike */
-  public static final Loadable<MultiplierNBT> LOADABLE = ToolStats.NUMERIC_LOADER.mapWithValues(FloatLoadable.ANY, 0).flatXmap(MultiplierNBT::new, m -> m.stats);
+  public static final Loadable<MultiplierNBT> LOADABLE = ToolStats.NUMERIC_LOADER.mapWithValues(FloatLoadable.ANY, 0).map(MultiplierNBT::new, m -> m.stats);
   /** Empty stats */
   public static final MultiplierNBT EMPTY = new MultiplierNBT(ImmutableMap.of());
 

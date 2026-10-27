@@ -343,7 +343,7 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
   private record FirstModifier(ModifierId id, boolean forced) {
     private static final Loadable<List<FirstModifier>> LOADABLE = CompactLoadable.of(
       RecordLoadable.create(ModifierId.PARSER.requiredField("name", FirstModifier::id), BooleanLoadable.INSTANCE.defaultField("forced", false, false, FirstModifier::forced), FirstModifier::new),
-      ModifierId.PARSER.flatXmap(id -> new FirstModifier(id, false), FirstModifier::id),
+      ModifierId.PARSER.map(id -> new FirstModifier(id, false), FirstModifier::id),
       f -> !f.forced).list(0);
 
     /** Gets the index of a modifier in the list */
