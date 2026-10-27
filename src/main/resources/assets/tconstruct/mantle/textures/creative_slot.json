@@ -1,0 +1,9 @@
+{
+  "textures": {
+    "slotless": "tconstruct:item/slot/slotless",
+    "upgrades": "tconstruct:item/slot/upgrade",
+    "abilities": "tconstruct:item/slot/ability",
+    "souls": "tconstruct:item/materials/hollow_gem",
+    "defense": "tconstruct:item/slot/defense"
+  }
+}
