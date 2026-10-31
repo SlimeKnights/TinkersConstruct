@@ -58,6 +58,7 @@ import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.Tin
 import slimeknights.tconstruct.library.tools.definition.ToolDefinitionLoader;
 import slimeknights.tconstruct.library.tools.layout.StationSlotLayoutLoader;
 import slimeknights.tconstruct.library.utils.Util;
+import slimeknights.tconstruct.plugin.BotaniaPlugin;
 import slimeknights.tconstruct.plugin.DietPlugin;
 import slimeknights.tconstruct.plugin.DummmmmmyPlugin;
 import slimeknights.tconstruct.plugin.ImmersiveEngineeringPlugin;
@@ -152,6 +153,9 @@ public class TConstruct {
     }
     if (modList.isLoaded("dummmmmmy")) {
       bus.register(new DummmmmmyPlugin());
+    }
+    if (modList.isLoaded("botania")) {
+      MinecraftForge.EVENT_BUS.register(new BotaniaPlugin());
     }
   }
 
