@@ -246,6 +246,9 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final ItemObject<FaucetBlock> searedFaucet, scorchedFaucet;
   public static final ItemObject<UpsideDownFaucetBlock> upsideDownFaucet;
   public static final ItemObject<NormalChannelBlock> searedChannel;
+  /**
+   * @deprecated Replaced by functionally different {@link TinkerSmeltery#scorchedPipeChannel}, kept around for 1.20.1 to not break existing casting setups.
+   */
   @Deprecated(forRemoval = true)
   public static final ItemObject<NormalChannelBlock> scorchedChannel;
   public static final ItemObject<SlabChannelBlock> slabChannel;

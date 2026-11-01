@@ -17,6 +17,7 @@ import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.entity.ChannelBlockEntity;
+import slimeknights.tconstruct.smeltery.block.entity.OpaqueChannelBlockEntity;
 
 import java.util.Arrays;
 
@@ -102,7 +103,7 @@ public class PipeChannelBlock extends AbstractChannelBlock {
   }
 
   public static ChannelBlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-    return new ChannelBlockEntity(TinkerSmeltery.opaqueChannel.get(), pos, state);
+    return new OpaqueChannelBlockEntity(pos, state);
   }
 
 

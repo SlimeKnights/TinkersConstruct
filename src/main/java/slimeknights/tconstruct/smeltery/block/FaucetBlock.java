@@ -37,6 +37,7 @@ import slimeknights.tconstruct.smeltery.block.entity.FaucetBlockEntity;
 import javax.annotation.Nullable;
 import java.util.EnumMap;
 
+/** Block that pours fluid from a tank behind it into a tank below it */
 public class FaucetBlock extends Block implements EntityBlock {
   public static final DirectionProperty FACING = BlockStateProperties.FACING_HOPPER;
   private static final EnumMap<Direction,VoxelShape> SHAPES = Maps.newEnumMap(ImmutableMap.of(
@@ -68,15 +69,11 @@ public class FaucetBlock extends Block implements EntityBlock {
     return this.defaultBlockState().setValue(FACING, dir);
   }
 
-  protected EnumMap<Direction, VoxelShape> getPrecomputedShapes() {
-    return SHAPES;
-  }
-
   @SuppressWarnings("deprecation")
   @Deprecated
   @Override
   public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
-    return getPrecomputedShapes().get(state.getValue(FACING));
+    return SHAPES.get(state.getValue(FACING));
   }
 
   @SuppressWarnings("deprecation")

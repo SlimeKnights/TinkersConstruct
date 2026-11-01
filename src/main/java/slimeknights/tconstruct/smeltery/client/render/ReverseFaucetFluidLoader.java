@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 /** Extension of {@link FaucetFluid.Loader} for rendering reverse gravity fluids traveling up the block instead of down. */
 public class ReverseFaucetFluidLoader extends FaucetFluid.Loader {
   public ReverseFaucetFluidLoader() {
-    super("Reverse Faucet Fluid", "tinkering/reverse_faucet_fluid", TConstruct.getResource("_default"));
+    super("Reverse Faucet Fluid", "tinkering/model/reverse_faucet_fluid", TConstruct.getResource("_default"));
   }
 
   public static ReverseFaucetFluidLoader REGISTRY = new ReverseFaucetFluidLoader();

@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
@@ -11,6 +12,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
 import net.minecraft.world.phys.shapes.BooleanOp;
+import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import slimeknights.mantle.util.BlockEntityHelper;
@@ -21,6 +23,7 @@ import slimeknights.tconstruct.smeltery.block.entity.UpsideDownFaucetBlockEntity
 import javax.annotation.Nullable;
 import java.util.EnumMap;
 
+/** Variant of {@link FaucetBlock} that pours up inside of down */
 public class UpsideDownFaucetBlock extends FaucetBlock {
 
   private static final EnumMap<Direction, VoxelShape> SHAPES = Maps.newEnumMap(ImmutableMap.of(
@@ -36,9 +39,11 @@ public class UpsideDownFaucetBlock extends FaucetBlock {
     super(properties);
   }
 
+  @SuppressWarnings("deprecation")
+  @Deprecated
   @Override
-  protected EnumMap<Direction, VoxelShape> getPrecomputedShapes() {
-    return SHAPES;
+  public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+    return SHAPES.get(state.getValue(FACING));
   }
 
   @Override
