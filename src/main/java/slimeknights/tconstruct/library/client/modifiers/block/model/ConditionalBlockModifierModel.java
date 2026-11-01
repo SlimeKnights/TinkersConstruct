@@ -32,13 +32,16 @@ public record ConditionalBlockModifierModel(ModifierCondition<IToolStackView> co
     nested.validate();
   }
 
+  private record CacheKey(int level, Object nested) {}
+
   @Nullable
   @Override
   public Object getCacheKey(IToolStackView tool, ModifierEntry modifier) {
-    if (condition.matches(tool, modifier)) {
-      return nested.getCacheKey(tool, modifier);
+    if (!condition.matches(tool, modifier)) {
+      return null;
     }
-    return null;
+    Object nestedKey = nested.getCacheKey(tool, modifier);
+    return nestedKey == null ? null : new CacheKey(modifier.getLevel(), nestedKey);
   }
 
   @Override
