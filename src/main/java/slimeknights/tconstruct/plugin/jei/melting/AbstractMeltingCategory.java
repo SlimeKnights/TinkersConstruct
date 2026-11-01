@@ -77,13 +77,13 @@ public abstract class AbstractMeltingCategory extends AbstractRecipeCategory<IDi
 
     // includes both the static arrow background and animated foreground
     int time = recipe.getTime();
-    IDrawableWidget arrow = builder.addAnimatedRecipeArrowWidget(time * 5).setPosition(56, 18);
+    IDrawableWidget arrow = builder.addAnimatedRecipeArrowWidget(time * 4).setPosition(56, 18);
     // add time as a tooltip on the arrow
     if (recipe.isTimeDynamic() && fluid != null) {
       arrow.setTooltip(new MeltingArrowTooltip(recipe, fluid));
     } else {
       // not dynamic or fail to find the slot? static tooltip is fine
-      arrow.setTooltip(Component.translatable(KEY_COOLING_TIME, time / 4));
+      arrow.setTooltip(Component.translatable(KEY_COOLING_TIME, time / 5));
     }
 
     if (recipe.getOreType() != null) {
