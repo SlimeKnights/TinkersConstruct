@@ -208,6 +208,6 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
       FluidIngredient.LOADABLE.tryDirectField("match", AlloyIngredient::fluid),
       BooleanLoadable.INSTANCE.defaultField("catalyst", false, false, AlloyIngredient::catalyst),
       AlloyIngredient::new
-    ).compact(FluidIngredient.LOADABLE.flatXmap(fluid -> new AlloyIngredient(fluid, false), AlloyIngredient::fluid), alloy -> !alloy.catalyst());
+    ).compact(FluidIngredient.LOADABLE.map(fluid -> new AlloyIngredient(fluid, false), AlloyIngredient::fluid), alloy -> !alloy.catalyst());
   }
 }

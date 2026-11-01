@@ -1930,7 +1930,7 @@
   "material.tconstruct.seared_stone": "焦黑石",
   "material.tconstruct.seared_stone.flavor": "……赴汤蹈火在所不辞！",
   "material.tconstruct.seared_stone.encyclopedia": "挖掘的方块可以熔化时，每级使挖掘速度+6。",
-  "material.tconstruct.seared_stone.encyclopedia.armor": "每级使受到的火焰伤害-10%；缩短自己的着火时间。",
+  "material.tconstruct.seared_stone.encyclopedia.armor": "每级使受到的火焰伤害-12%；缩短自己的着火时间。",
 
   "material.tconstruct.scorched_stone": "焦褐石",
   "material.tconstruct.scorched_stone.flavor": "焦黑石（创始人典藏版）",
@@ -1949,7 +1949,7 @@
 
   "material.tconstruct.gold": "金",
   "material.tconstruct.gold.flavor": "猪灵的最爱。",
-  "material.tconstruct.gold.encyclopedia.armor": "每级对魔法伤害保护+10%，减少负面效果时间。让猪灵变得友好。",
+  "material.tconstruct.gold.encyclopedia.armor": "每级对魔法伤害保护+12%，减少负面效果时间。让猪灵变得友好。",
   "material.tconstruct.gold.skull": "猪灵",
   "material.tconstruct.gold.flavor.skull": "金闪闪",
   "material.tconstruct.gold.encyclopedia.skull": "金矿石掉落额外金粒，金盔甲的掉落概率+4%。提升等级、穿戴更多金盔甲可以额外增加金粒和金盔甲的掉落概率。",
@@ -2119,7 +2119,7 @@
 
   "material.tconstruct.obsidian": "黑曜石",
   "material.tconstruct.obsidian.flavor": "这真的是黑曜石，如果不是的话，它的名字不应该是“黑曜石”。",
-  "material.tconstruct.obsidian.encyclopedia.armor": "每级对爆炸伤害保护+10%；同时减弱受到的爆炸击退效果。",
+  "material.tconstruct.obsidian.encyclopedia.armor": "每级对爆炸伤害保护+12%；同时减弱受到的爆炸击退效果。",
 
   "material.tconstruct.amethyst_bronze": "紫水晶青铜",
   "material.tconstruct.amethyst_bronze.flavor": "别和青铜搞混了。",

@@ -1906,7 +1906,7 @@
   "material.tconstruct.iron.flavor": "Залізне як Залізняк, але не як Залізниця…",
   "material.tconstruct.iron.encyclopedia": "Надає 10% додаткової міцності на деталь.",
   "material.tconstruct.iron.encyclopedia.ranged": "Змушує випущені стріли притягувати предмети поблизу до власника.",
-  "material.tconstruct.iron.encyclopedia.armor": "Зменшує отримувану шкоду від снарядів на 10% на рівень та надає 5% стійкості до відкидання на максимальному.",
+  "material.tconstruct.iron.encyclopedia.armor": "Зменшує отримувану шкоду від снарядів на 8% на рівень та надає 5% стійкості до відкидання на максимальному.",
   "material.tconstruct.iron.skull": "Висушень",
   "material.tconstruct.iron.flavor.skull": "Передозування плазмієм!",
   "material.tconstruct.iron.encyclopedia.skull": "При отриманні шкоди з часом відновлює 50% отриманої шкоди після броні",
@@ -1914,7 +1914,7 @@
   "material.tconstruct.seared_stone": "Обпалений камінь",
   "material.tconstruct.seared_stone.flavor": "Гарячіший мент",
   "material.tconstruct.seared_stone.encyclopedia": "Надає +6 швидкости добування для блоків, які можна розтопити в плавильнику.",
-  "material.tconstruct.seared_stone.encyclopedia.armor": "Зменшує отримувану шкоду від вогню на 10% на рівень та скорочує час горіння.",
+  "material.tconstruct.seared_stone.encyclopedia.armor": "Зменшує отримувану шкоду від вогню на 12% на рівень та скорочує час горіння.",
 
   "material.tconstruct.scorched_stone": "Випалений камінь",
   "material.tconstruct.scorched_stone.flavor": "Вилита ливарня.",
@@ -1933,7 +1933,7 @@
 
   "material.tconstruct.gold": "Золото",
   "material.tconstruct.gold.flavor": "Піґліни люблять його.",
-  "material.tconstruct.gold.encyclopedia.armor": "Надає 10% захисту від магічної шкоди за кожен рівень та зменшує час дії негативних зіллів. Також робить свиней дружніми.",
+  "material.tconstruct.gold.encyclopedia.armor": "Надає 12% захисту від магічної шкоди за кожен рівень та зменшує час дії негативних зіллів. Також робить свиней дружніми.",
   "material.tconstruct.gold.skull": "Піґлін",
   "material.tconstruct.gold.flavor.skull": "Яке блискуче",
   "material.tconstruct.gold.encyclopedia.skull": "Збільшує здобуток золотих самородків із деяких золотих руд, а також шанси випадіння золотої броні на 4%. Випадіння броні та самородків далі збільшується кожною надягнутою частиною золотої броні.",
@@ -2099,7 +2099,7 @@
 
   "material.tconstruct.obsidian": "Обсидіан",
   "material.tconstruct.obsidian.flavor": "Це деталь з обсидіану, і якби це було не так, вона б не називалась «Обсидіан»",
-  "material.tconstruct.obsidian.encyclopedia.armor": "Надає 10% захисту від вибухів за кожен рівень та зменшує відкидання від вибуху.",
+  "material.tconstruct.obsidian.encyclopedia.armor": "Надає 12% захисту від вибухів за кожен рівень та зменшує відкидання від вибуху.",
 
   "material.tconstruct.amethyst_bronze": "Аметистова бронза",
   "material.tconstruct.amethyst_bronze.flavor": "Не плутати з бронзою.",
@@ -2130,7 +2130,7 @@
   "material.tconstruct.cobalt.flavor": "Матеріал червоної армії.",
   "material.tconstruct.cobalt.encyclopedia.melee_harvest": "Прискорює добування й атакування на 7% на рівень.",
   "material.tconstruct.cobalt.encyclopedia.ranged": "Збільшує швидкість тяги та швидкість на 5% на рівень.",
-  "material.tconstruct.cobalt.encyclopedia.armor": "Зменшує шкоду від атак ближнього бою на 10% на рівень та збільшує швидкість руху при використанні предмета на 5% за максимальний рівень.",
+  "material.tconstruct.cobalt.encyclopedia.armor": "Зменшує шкоду від атак ближнього бою на 8% на рівень та збільшує швидкість руху при використанні предмета на 5% за максимальний рівень.",
 
   "material.tconstruct.quartz": "Кварц",
   "material.tconstruct.quartz.flavor": "Гострий!",

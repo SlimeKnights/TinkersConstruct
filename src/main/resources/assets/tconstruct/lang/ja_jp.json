@@ -1857,7 +1857,7 @@
   "material.tconstruct.seared_stone": "焼成石",
   "material.tconstruct.seared_stone.flavor": "熱くなったグラウト。",
   "material.tconstruct.seared_stone.encyclopedia": "溶融器で溶かすことができるブロックに対して採掘速度が+6される",
-  "material.tconstruct.seared_stone.encyclopedia.armor": "燃焼によるダメージを1レベルにつき10%軽減し、燃焼時間を短縮する",
+  "material.tconstruct.seared_stone.encyclopedia.armor": "燃焼によるダメージを1レベルにつき12%軽減し、燃焼時間を短縮する",
 
   "material.tconstruct.scorched_stone": "焦熱石",
   "material.tconstruct.scorched_stone.flavor": "焦熱バージョンのボーナス。",
@@ -1876,7 +1876,7 @@
 
   "material.tconstruct.gold": "金",
   "material.tconstruct.gold.flavor": "ピグリン大好き",
-  "material.tconstruct.gold.encyclopedia.armor": "魔法ダメージに対する防御力がレベル毎に+10%され、負のポーション効果の持続時間が短くなる。ピグリンが友好的になる",
+  "material.tconstruct.gold.encyclopedia.armor": "魔法ダメージに対する防御力がレベル毎に+12%され、負のポーション効果の持続時間が短くなる。ピグリンが友好的になる",
   "material.tconstruct.gold.skull": "ピグリン",
   "material.tconstruct.gold.flavor.skull": "何という輝き",
   "material.tconstruct.gold.encyclopedia.skull": "金鉱石を採掘すると追加の金塊がドロップされることがあり、また金の防具をドロップする確率が4%増加する。金塊や防具のドロップ確率は、金装備をしている部位の個数によって更に増加する。",
@@ -2029,7 +2029,7 @@
 
   "material.tconstruct.obsidian": "黒曜石",
   "material.tconstruct.obsidian.flavor": "これは黒曜石のパーツで、そうでなければ「黒曜石」とは書かれていない",
-  "material.tconstruct.obsidian.encyclopedia.armor": "レベルごとに爆発に対する耐性が10%増加し、爆発によるノックバック効果が減少する",
+  "material.tconstruct.obsidian.encyclopedia.armor": "レベルごとに爆発に対する耐性が12%増加し、爆発によるノックバック効果が減少する",
 
   "material.tconstruct.amethyst_bronze": "アメジスト青銅",
   "material.tconstruct.amethyst_bronze.flavor": "青銅と混同しないように。",

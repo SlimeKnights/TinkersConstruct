@@ -20,13 +20,13 @@ import javax.annotation.Nullable;
 
 /** Represents a material that possibly has a variant. Variants are simply a different texture with the same material properties */
 public sealed interface MaterialVariantId permits MaterialId, MaterialVariantIdImpl {
-  Loadable<MaterialVariantId> LOADABLE = StringLoadable.DEFAULT.comapFlatMap((text, error) -> {
+  Loadable<MaterialVariantId> LOADABLE = StringLoadable.DEFAULT.mapChecked((text, error) -> {
     MaterialVariantId location = tryParse(text);
     if (location == null) {
       throw error.create("Expected a material variant ID, was '" + text + "'");
     }
     return location;
-  }, MaterialVariantId::toString);
+  }, (id, error) -> id.toString());
   ContextKey<MaterialVariantId> CONTEXT_KEY = new ContextKey<>("material_variant");
   EntityDataSerializer<MaterialVariantId> DATA_ACCESSOR = EntityDataSerializer.simple((buffer, material) -> material.toNetwork(buffer), MaterialVariantId::fromNetwork);
 

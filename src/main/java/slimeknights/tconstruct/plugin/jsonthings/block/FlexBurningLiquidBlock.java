@@ -12,7 +12,7 @@ import net.minecraft.world.level.material.FlowingFluid;
 import java.util.Map;
 import java.util.function.Supplier;
 
-/** Json Things version of {@link slimeknights.tconstruct.fluids.block.BurningLiquidBlock} */
+/** Json Things version of {@link slimeknights.mantle.block.fluid.BurningLiquidBlock} */
 public class FlexBurningLiquidBlock extends FlexLiquidBlock {
   private final int burnTime;
   private final float damage;

@@ -84,7 +84,7 @@ public record SmeltingModule(RecipeType<? extends AbstractCookingRecipe> recipeT
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<SmeltingModule>defaultHooks(ModifierHooks.MELEE_HIT, ModifierHooks.MONSTER_MELEE_HIT, ModifierHooks.LAUNCHER_HIT, ModifierHooks.BLOCK_HARVEST, ModifierHooks.PROJECTILE_LAUNCH, ModifierHooks.ON_ATTACKED, ModifierHooks.PLANT_HARVEST, ModifierHooks.SHEAR_ENTITY, ModifierHooks.SLING_LAUNCH);
   @SuppressWarnings("unchecked")
   public static final RecordLoadable<SmeltingModule> LOADER = RecordLoadable.create(
-    TinkerLoadables.RECIPE_TYPE.<RecipeType<? extends AbstractCookingRecipe>>flatXmap(t -> (RecipeType<? extends AbstractCookingRecipe>) t, t -> t)
+    TinkerLoadables.RECIPE_TYPE.<RecipeType<? extends AbstractCookingRecipe>>map(t -> (RecipeType<? extends AbstractCookingRecipe>) t, t -> t)
                                .requiredField("recipe_type", SmeltingModule::recipeType),
     FloatLoadable.FROM_ZERO.requiredField("multiplier", SmeltingModule::multiplier),
     InventoryModule.LOADER.directField(SmeltingModule::input),

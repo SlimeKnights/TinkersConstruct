@@ -36,12 +36,12 @@ public class SwappableToolTraitsModule implements ModifierModule, ModifierTraitH
   public static final RecordLoadable<SwappableToolTraitsModule> LOADER = RecordLoadable.create(
     ModuleWithKey.FIELD,
     StringLoadable.DEFAULT.defaultField("match", "", false, m -> m.match),
-    ToolHooks.LOADER.comapFlatMap((hook, error) -> {
+    ToolHooks.LOADER.mapChecked((hook, error) -> {
       if (!hook.supportsHook(ToolTraitHook.class)) {
         throw error.create("Hook " + hook.getId() + " is not valid for ToolTraitHook");
       }
       return (ModuleHook<ToolTraitHook>) hook;
-    }, hook -> hook).requiredField("hook", m -> m.hook),
+    }, (hook, error) -> hook).requiredField("hook", m -> m.hook),
     SwappableToolTraitsModule::new);
 
   @Nullable

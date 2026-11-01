@@ -1696,14 +1696,14 @@
 "material.tconstruct.iron.flavor": "Se estiver faltando no seu armazém, você tá ferrado.",
 "material.tconstruct.iron.encyclopedia": "Faz com que minerar blocos e acertar mobs atraia itens próximos.",
 "material.tconstruct.iron.encyclopedia.ranged": "Faz com que disparar flechas atraia itens próximos para o portador.",
-"material.tconstruct.iron.encyclopedia.armor": "Reduz o dano de projéteis em 10% por nível e concede 5% de resistência à repulsão vezes o nível máximo.",
+"material.tconstruct.iron.encyclopedia.armor": "Reduz o dano de projéteis em 8% por nível e concede 5% de resistência à repulsão vezes o nível máximo.",
 "material.tconstruct.iron.flavor.skull": "Violação de quarentena",
 "material.tconstruct.iron.encyclopedia.skull": "Ataques corpo a corpo copiam todos os efeitos de estado negativos do usuário para o alvo",
 
 "material.tconstruct.seared_stone": "Pedra Carbonizada",
 "material.tconstruct.seared_stone.flavor": "Pensa numa pedra bem quente.",
 "material.tconstruct.seared_stone.encyclopedia": "Dá +6 de velocidade de mineração contra blocos que podem ser derretidos.",
-"material.tconstruct.seared_stone.encyclopedia.armor": "Reduz o dano de fogo em 10% por nível e reduz o tempo em chamas",
+"material.tconstruct.seared_stone.encyclopedia.armor": "Reduz o dano de fogo em 12% por nível e reduz o tempo em chamas",
 
 "material.tconstruct.scorched_stone": "Pedra Chamuscada",
 "material.tconstruct.scorched_stone.flavor": "Bônus da edição dos fundadores.",
@@ -1798,7 +1798,7 @@
 "material.tconstruct.cobalt.flavor": "Cobalto. O material do Exército Vermelho.",
 "material.tconstruct.cobalt.encyclopedia.melee_harvest": "Aumenta a velocidade de mineração e ataque em 7% por nível",
 "material.tconstruct.cobalt.encyclopedia.ranged": "Aumenta a velocidade de puxada e velocidade em 5% por nível",
-"material.tconstruct.cobalt.encyclopedia.armor": "Reduz o dano de ataques corpo a corpo em 10% por nível e aumenta a velocidade de movimento ao usar itens em 5% por nível máximo",
+"material.tconstruct.cobalt.encyclopedia.armor": "Reduz o dano de ataques corpo a corpo em 8% por nível e aumenta a velocidade de movimento ao usar itens em 5% por nível máximo",
 
 "material.tconstruct.manyullyn": "Manyullyn",
 "material.tconstruct.manyullyn.flavor": "O metal que a maioria dos Tinkereiros nunca pronunciará corretamente. Também conhecido como um material de corte estelar.",
@@ -1859,13 +1859,13 @@
 
 "material.tconstruct.gold": "Ouro",
 "material.tconstruct.gold.flavor": "Piglins adoram isso. Mulher também, mas deixa queito.",
-"material.tconstruct.gold.encyclopedia.armor": "Concede 10% de proteção por nível contra dano mágico e reduz o tempo de efeitos negativos de poções. Também torna os piglins amigáveis.",
+"material.tconstruct.gold.encyclopedia.armor": "Concede 12% de proteção por nível contra dano mágico e reduz o tempo de efeitos negativos de poções. Também torna os piglins amigáveis.",
 "material.tconstruct.gold.flavor.skull": "Meu Precioso!",
 "material.tconstruct.gold.encyclopedia.skull": "Faz com que alguns minérios de ouro dropem pepitas de ouro extras e aumenta a chance de drop de armadura de ouro em 4%. Drops de pepitas e armaduras são ainda mais aumentados por cada peça de armadura dourada usada.",
 
 "material.tconstruct.obsidian": "Obsidiana",
 "material.tconstruct.obsidian.flavor": "Esta é uma peça de obsidiana, se não fosse não diria \"Obsidiana.\"",
-"material.tconstruct.obsidian.encyclopedia.armor": "Concede 10% de proteção por nível contra explosões e reduz a repulsão de explosões",
+"material.tconstruct.obsidian.encyclopedia.armor": "Concede 12% de proteção por nível contra explosões e reduz a repulsão de explosões",
 "material.tconstruct.ancient": "Ancestral",
 "material.tconstruct.ancient.flavor": "Eles não fazem mais como antigamente.",
 "material.tconstruct.ancient.encyclopedia.melee_harvest": "Cada nível concede +1 slot de habilidade ao custo de -10% de velocidade de ataque, -10% de velocidade de mineração e +10% de gravidade.",

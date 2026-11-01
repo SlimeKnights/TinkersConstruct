@@ -1853,7 +1853,7 @@
   "material.tconstruct.seared_stone": "Piedra Abrasada",
   "material.tconstruct.seared_stone.flavor": "Solo es Masilla más caliente.",
   "material.tconstruct.seared_stone.encyclopedia": "Otorga +6 de velocidad minera contra los bloques que se pueden fundir en un fundidor",
-  "material.tconstruct.seared_stone.encyclopedia.armor": "Reduce el daño ígneo en un 10% cada nivel, y reduce el tiempo en llamas",
+  "material.tconstruct.seared_stone.encyclopedia.armor": "Reduce el daño ígneo en un 12% cada nivel, y reduce el tiempo en llamas",
 
   "material.tconstruct.scorched_stone": "Piedra Chamuscada",
   "material.tconstruct.scorched_stone.flavor": "Edición del fundador.",
@@ -1871,7 +1871,7 @@
 
   "material.tconstruct.gold": "Oro",
   "material.tconstruct.gold.flavor": "Los piglins lo adoran.",
-  "material.tconstruct.gold.encyclopedia.armor": "Otorga 10% de protección contra la magia cada nivel, y reduce el tiempo de los efectos de poción negativos. También hace amigables a los Piglin.",
+  "material.tconstruct.gold.encyclopedia.armor": "Otorga 12% de protección contra la magia cada nivel, y reduce el tiempo de los efectos de poción negativos. También hace amigables a los Piglin.",
   "material.tconstruct.gold.flavor.skull": "¡Tan brillante!",
   "material.tconstruct.gold.encyclopedia.skull": "Causa que algunos minerales de oro suelten unas pepitas de oro extra, e incrementa las chances de conseguir armadura de oro en un 4%. Los drops de pepitas y armadura se ven incrementados por cada pieza de armadura de oro equipada.",
 
@@ -2012,7 +2012,7 @@
 
   "material.tconstruct.obsidian":   "Obsidiana",
   "material.tconstruct.obsidian.flavor": "Estas son partes de obsidiana, Si no lo fueran, no dirían \"Obsidiana.\"",
-  "material.tconstruct.obsidian.encyclopedia.armor": "Otorga un 10% de protección contra las explosiones, y reduce el empuje de estas",
+  "material.tconstruct.obsidian.encyclopedia.armor": "Otorga un 12% de protección contra las explosiones, y reduce el empuje de estas",
 
   "material.tconstruct.amethyst_bronze": "Bronce Amatista",
   "material.tconstruct.amethyst_bronze.flavor": "No ser confundido con el bronce.",

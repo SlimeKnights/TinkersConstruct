@@ -15,7 +15,8 @@ import java.util.ArrayList;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-/** Liquid block setting the entity on fire */
+/** @deprecated use {@link slimeknights.mantle.block.fluid.MobEffectLiquidBlock} */
+@Deprecated(forRemoval = true)
 public class MobEffectLiquidBlock extends LiquidBlock {
   private final Supplier<MobEffectInstance> effect;
   public MobEffectLiquidBlock(Supplier<? extends FlowingFluid> supplier, Properties properties, Supplier<MobEffectInstance> effect) {

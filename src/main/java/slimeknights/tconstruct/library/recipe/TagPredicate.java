@@ -11,7 +11,7 @@ import java.util.function.Predicate;
 /** Extended implementation of {@link net.minecraft.advancements.critereon.NbtPredicate} that supports syncing over the network */
 public record TagPredicate(@Nullable CompoundTag tag) implements Predicate<CompoundTag> {
   /** Loadable instance */
-  public static final RecordLoadable<TagPredicate> LOADABLE = NBTLoadable.ALLOW_STRING.flatXmap(TagPredicate::new, p -> p.tag);
+  public static final RecordLoadable<TagPredicate> LOADABLE = NBTLoadable.ALLOW_STRING.map(TagPredicate::new, p -> p.tag);
   /** Instance that matches any NBT */
   public static final TagPredicate ANY = new TagPredicate(null);
 

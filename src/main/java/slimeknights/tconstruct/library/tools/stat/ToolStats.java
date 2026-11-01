@@ -28,20 +28,20 @@ import static slimeknights.mantle.data.predicate.item.ItemPredicate.tag;
  */
 public class ToolStats {
   /** Loader for general tool stats */
-  public static final StringLoadable<IToolStat<?>> LOADER = ToolStatId.PARSER.comapFlatMap((id, error) -> {
+  public static final StringLoadable<IToolStat<?>> LOADER = ToolStatId.PARSER.mapChecked((id, error) -> {
     IToolStat<?> stat = ToolStats.getToolStat(id);
     if (stat != null) {
       return stat;
     }
     throw error.create("Unknown stat type " + id);
-  }, IToolStat::getName);
+  }, (stat, error) -> stat.getName());
   /** Loader that filters to only numeric tool stats */
-  public static final StringLoadable<INumericToolStat<?>> NUMERIC_LOADER = LOADER.comapFlatMap((stat, error) -> {
+  public static final StringLoadable<INumericToolStat<?>> NUMERIC_LOADER = LOADER.mapChecked((stat, error) -> {
     if (stat instanceof INumericToolStat<?> numeric) {
       return numeric;
     }
     throw error.create("Invalid tool stat " + stat.getName() + ", must be a numeric stat");
-  }, stat -> stat);
+  }, (stat, error) -> stat);
 
 
   /** Map of ID to stat */
@@ -61,7 +61,7 @@ public class ToolStats {
   }
 
   /** Loader that filters to only numeric tool stats */
-  public static final StringLoadable<INumericToolStat<?>> CONDITIONAL_LOADER = LOADER.xmap((stat, error) -> {
+  public static final StringLoadable<INumericToolStat<?>> CONDITIONAL_LOADER = LOADER.mapChecked((stat, error) -> {
     if (stat instanceof INumericToolStat<?> numeric) {
       if (error == ErrorFactory.JSON_SYNTAX_ERROR && !CONDITIONAL.contains(numeric)) {
         logUnsupportedConditional(numeric);

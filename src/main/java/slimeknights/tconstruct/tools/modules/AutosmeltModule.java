@@ -36,7 +36,7 @@ public class AutosmeltModule implements ModifierModule, ProcessLootModifierHook 
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<AutosmeltModule>defaultHooks(ModifierHooks.PROCESS_LOOT);
   @SuppressWarnings("unchecked") // no way to check, its generics with no concrete value
   public static final RecordLoadable<AutosmeltModule> LOADER = RecordLoadable.create(
-    Loadables.RECIPE_TYPE.<RecipeType<? extends AbstractCookingRecipe>>flatXmap(type -> (RecipeType<? extends AbstractCookingRecipe>)type, type -> type)
+    Loadables.RECIPE_TYPE.<RecipeType<? extends AbstractCookingRecipe>>map(type -> (RecipeType<? extends AbstractCookingRecipe>)type, type -> type)
       .list(ArrayLoadable.COMPACT).requiredField("recipe_types", m -> m.recipeTypes),
     FloatLoadable.PERCENT.requiredField("extra_drop_chance", m -> m.extraDropChance),
     AutosmeltModule::new);
