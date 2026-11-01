@@ -114,6 +114,11 @@ public class MaterialCategory extends AbstractRecipeCategory<IDisplayMaterialRec
       .toList());
 
   @Override
+  public ResourceLocation getRegistryName(IDisplayMaterialRecipe recipe) {
+    return recipe.getRecipeId();
+  }
+
+  @Override
   public void draw(IDisplayMaterialRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics graphics, double mouseX, double mouseY) {
     if (!recipe.getFluids().isEmpty()) {
       fluidBar.draw(graphics, 3, 1);
