@@ -13,7 +13,8 @@ import slimeknights.mantle.registration.deferred.FluidDeferredRegister;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-/** Liquid block setting the entity on fire */
+/** @deprecated use {@link slimeknights.mantle.block.fluid.BurningLiquidBlock} */
+@Deprecated(forRemoval = true)
 public class BurningLiquidBlock extends LiquidBlock {
   /** Burn time in seconds. Lava uses 15 */
   private final int burnTime;
