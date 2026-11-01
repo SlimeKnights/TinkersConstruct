@@ -17,6 +17,7 @@ import javax.annotation.Nullable;
 import java.util.EnumMap;
 import java.util.Map;
 
+/** An upside down version of {@link NormalChannelBlock} that flows NESW and can output upwards (which is also toggleable with redstone) */
 public class UpsideDownChannelBlock extends AbstractChannelBlock {
 
   /** Voxel bounds for each of the four cardinal directions */

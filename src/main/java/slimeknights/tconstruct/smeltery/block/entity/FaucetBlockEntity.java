@@ -27,6 +27,7 @@ import slimeknights.tconstruct.smeltery.network.FaucetActivationPacket;
 
 import static slimeknights.tconstruct.smeltery.block.FaucetBlock.FACING;
 
+/** Fluid logic for faucets pouring fluid from a tank behind into a tank below */
 public class FaucetBlockEntity extends MantleBlockEntity {
   /** amount of MB to extract from the input at a time */
   public static final int PACKET_SIZE = FluidValues.INGOT;
@@ -220,7 +221,7 @@ public class FaucetBlockEntity extends MantleBlockEntity {
    */
   private boolean doTransfer(boolean execute) {
     // still got content left
-     LazyOptional<IFluidHandler> inputOptional = getInputHandler();
+    LazyOptional<IFluidHandler> inputOptional = getInputHandler();
     LazyOptional<IFluidHandler> outputOptional = getOutputHandler();
     if (inputOptional.isPresent() && outputOptional.isPresent()) {
       // can we drain?

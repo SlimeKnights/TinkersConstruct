@@ -45,6 +45,10 @@ import static slimeknights.tconstruct.common.TinkerTags.Blocks.CHANNELS;
 import static slimeknights.tconstruct.smeltery.block.channel.AbstractChannelBlock.ConnectionType.NONE;
 import static slimeknights.tconstruct.smeltery.block.channel.AbstractChannelBlock.ConnectionType.ONE_WAY;
 
+/**
+ * Base implementation for all channel and pipe blocks used to move fluids around.
+ * All channels can flow in and out from NESW, and each implementation can choose to {@link ConnectionType#NONE not flow}, {@link ConnectionType#ONE_WAY flow only out} or {@link ConnectionType#TWO_WAY flow in and out} for both {@link AbstractChannelBlock#up} and {@link AbstractChannelBlock#down}
+ */
 public abstract class AbstractChannelBlock extends Block implements EntityBlock {
 
   private static final Component SIDE_IN = TConstruct.makeTranslation("block", "channel.side.in");
@@ -366,6 +370,12 @@ public abstract class AbstractChannelBlock extends Block implements EntityBlock 
     return InteractionResult.PASS;
   }
 
+  /**
+   * Get the side of the block that should be changed based on where the specified vector hit.
+   * @param hitVec A vector specifying where on the block it was hit, from 0,0,0 (inclusive) to 1,1,1 (inclusive)
+   * @param side The side of the block that was hit
+   * @return The side that was intending to be targeted by the hit.
+   */
   protected abstract Direction getHitSide(Vec3 hitVec, Direction side);
 
   @SuppressWarnings("deprecation")
@@ -421,6 +431,7 @@ public abstract class AbstractChannelBlock extends Block implements EntityBlock 
 
   /* Helpers for sides */
 
+  /** Get the property for the specified side */
   public EnumProperty<? extends ChannelConnection> getProperty(Direction dir) {
     return switch (dir) {
       case DOWN -> switch (this.down) {
@@ -440,6 +451,7 @@ public abstract class AbstractChannelBlock extends Block implements EntityBlock 
     };
   }
 
+  /** Gets the connection toggle message for a side and resulting state */
   public Component getConnectionToggleMessage(Direction dir, TwoWay way) {
     return switch (dir) {
       case UP -> switch (way) {

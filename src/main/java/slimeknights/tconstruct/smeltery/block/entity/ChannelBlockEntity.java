@@ -421,7 +421,7 @@ public class ChannelBlockEntity extends MantleBlockEntity implements IFluidPacke
 		// isFlowing
 		if (nbt.contains(TAG_IS_FLOWING)) {
 			byte[] nbtFlowing = nbt.getByteArray(TAG_IS_FLOWING);
-			int max = Math.min(6, nbtFlowing.length);
+			int max = Math.min(isFlowing.length, nbtFlowing.length);
 			for (int i = 0; i < max; i++) {
 				byte b = nbtFlowing[i];
         isFlowing[i] = (byte) Mth.clamp(b, 0, 2);

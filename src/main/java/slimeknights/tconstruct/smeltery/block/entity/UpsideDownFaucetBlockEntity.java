@@ -10,6 +10,7 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import static slimeknights.tconstruct.smeltery.block.FaucetBlock.FACING;
 
+/** Variant of {@link FaucetBlockEntity} that pours up inside of down */
 public class UpsideDownFaucetBlockEntity extends FaucetBlockEntity {
 
   public UpsideDownFaucetBlockEntity(BlockPos pos, BlockState state) {

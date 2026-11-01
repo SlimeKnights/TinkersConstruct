@@ -24,7 +24,7 @@ public sealed interface ChannelConnection extends StringRepresentable {
   /**
    * Gets the next side in the cycle for interaction.
    * <br/>
-   * Should return <b>an object of same class as {@code this}</b>
+   * Returns <b>an object of same class as {@code this}</b>
    * @param reverse If true, reverse cycle order
    * @return Next side to cycle
    */
@@ -55,6 +55,7 @@ public sealed interface ChannelConnection extends StringRepresentable {
      */
     OUT;
 
+    @Override
     public boolean canFlow() {
       return this == IN || this == OUT;
     }
@@ -77,6 +78,7 @@ public sealed interface ChannelConnection extends StringRepresentable {
       };
     }
 
+    @Override
     public TwoWay getNext(boolean reverse) {
       if (reverse) {
         return switch (this) {

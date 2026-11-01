@@ -18,6 +18,7 @@ import javax.annotation.Nullable;
 import java.util.EnumMap;
 import java.util.Map;
 
+/** The classic channel block that flows NESW and can also output down (toggled by redstone) */
 public class NormalChannelBlock extends AbstractChannelBlock {
 
   /** Voxel bounds for each of the four cardinal directions */

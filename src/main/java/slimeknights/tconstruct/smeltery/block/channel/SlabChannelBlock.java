@@ -12,6 +12,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 
+/** A channel that only flows sideways and cannot flow down. */
 public class SlabChannelBlock extends AbstractChannelBlock {
   public SlabChannelBlock(Properties props) {
     super(props, ConnectionType.NONE, ConnectionType.NONE);

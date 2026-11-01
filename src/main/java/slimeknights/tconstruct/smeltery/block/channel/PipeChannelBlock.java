@@ -21,7 +21,7 @@ import slimeknights.tconstruct.smeltery.block.entity.OpaqueChannelBlockEntity;
 
 import java.util.Arrays;
 
-
+/** A channel type that can flow in any direction and renders no fluid */
 public class PipeChannelBlock extends AbstractChannelBlock {
 
   public PipeChannelBlock(Properties props) {

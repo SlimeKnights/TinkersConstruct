@@ -9,6 +9,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+/** A {@link PipeChannelBlock} that is the shape of a full block */
 public class FullChannelBlock extends PipeChannelBlock {
   public FullChannelBlock(Properties props) {
     super(props);
