@@ -152,7 +152,7 @@ public class FluidTagProvider extends FluidTagsProvider {
         // clay
         TinkerFluids.moltenClay.getLocalTag(), TinkerFluids.searedStone.getLocalTag(), TinkerFluids.scorchedStone.getLocalTag(),
         // food
-        TinkerFluids.honey.getLocalTag(),
+        TinkerFluids.honey.getLocalTag(), TinkerFluids.beetrootSoup.getLocalTag(),
         TinkerFluids.mushroomStew.getLocalTag(), TinkerFluids.rabbitStew.getLocalTag(), TinkerFluids.meatSoup.getLocalTag(),
         // tier 2
         TinkerFluids.moltenCopper.getLocalTag(), TinkerFluids.moltenIron.getLocalTag(), TinkerFluids.moltenGold.getLocalTag(),
