@@ -16,6 +16,7 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.jetbrains.annotations.Nullable;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.tools.capability.BlockItemProviderCapability;
 import vazkii.botania.api.BotaniaForgeCapabilities;
 import vazkii.botania.api.item.BlockProvider;
@@ -24,11 +25,16 @@ import vazkii.botania.api.item.BlockProvider;
 public class BotaniaPlugin {
   @SubscribeEvent
   public void attachCapability(AttachCapabilitiesEvent<ItemStack> event) {
-    // TODO: filter with tag
-    event.addCapability(BlockProviderTranslatorProvider.BlockProviderTranslator.ID, new BlockProviderTranslatorProvider(event.getObject()));
+    ItemStack item = event.getObject();
+    if (item.is(TinkerTags.Items.BOTANIA_BLOCK_PROVIDERS))
+      event.addCapability(BlockProviderTranslator.ID, new BlockProviderTranslatorProvider(item));
   }
 
 
+
+  /**
+   * Provider for a capability implementation that translates from {@link BlockProvider} to {@link BlockItemProviderCapability}.
+   */
   static final class BlockProviderTranslatorProvider implements ICapabilityProvider, NonNullConsumer<LazyOptional<BlockProvider>> {
     private final ItemStack stack;
     @Nullable
@@ -44,43 +50,52 @@ public class BotaniaPlugin {
       if (lazy != null) return lazy.cast();
 
       var baseCap = stack.getCapability(BotaniaForgeCapabilities.BLOCK_PROVIDER);
-      // add listener first cause if it is empty then listener is called immediately
+      var ourCap = baseCap.lazyMap(BlockProviderTranslator::new);
+      lazy = ourCap;
+      // if baseCap is already invalid this runs immediately, invalidating us now so we check again next time
       baseCap.addListener(this);
-      lazy = baseCap.lazyMap(BlockProviderTranslator::new);
-      return lazy.cast();
+      return ourCap.cast();
     }
 
     @Override // called when the base capability is invalidated
-    public void accept(LazyOptional<BlockProvider> blockProviderLazyOptional) {
+    public void accept(LazyOptional<BlockProvider> _ignored) {
       if (lazy != null) {
         lazy.invalidate();
         lazy = null;
       }
     }
+  }
 
-    record BlockProviderTranslator(BlockProvider baseCap) implements BlockItemProviderCapability {
-      final static ResourceLocation ID = TConstruct.getResource("botania_block_provider_translator");
+  /**
+   * Implementation of a capability that translates from {@link BlockProvider} to {@link BlockItemProviderCapability}
+   * @param baseCap The {@link BlockProvider} to translate into a {@link BlockItemProviderCapability}
+   */
+  record BlockProviderTranslator(BlockProvider baseCap) implements BlockItemProviderCapability {
+    final static ResourceLocation ID = TConstruct.getResource("botania_block_provider_translator");
 
-      @Override
-      public ItemStack getBlockItemStack(ItemStack stack, @Nullable LivingEntity entity) {
-        if (!(entity instanceof Player player)) return ItemStack.EMPTY;
+    @Override
+    public ItemStack getBlockItemStack(ItemStack stack, @Nullable LivingEntity entity) {
+      if (!(entity instanceof Player player)) return ItemStack.EMPTY;
 
-        Block block = baseCap.getProvidedBlock(player, stack);
-        if (block == null) return ItemStack.EMPTY;
+      Block block = baseCap.getProvidedBlock(player, stack);
+      if (block == null) return ItemStack.EMPTY;
 
-        Item item = block.asItem();
-        if (!(item instanceof BlockItem)) return ItemStack.EMPTY;
+      // simulate an extraction to ensure we can actually do this
+      if (!baseCap.provideBlock(player, stack, block, false)) return ItemStack.EMPTY;
 
-        return new ItemStack(block);
-      }
+      Item item = block.asItem();
+      if (!(item instanceof BlockItem)) return ItemStack.EMPTY;
 
-      @Override
-      public void consume(ItemStack stack, ItemStack backingStack, @Nullable LivingEntity entity) {
-        if (!(entity instanceof Player player)) return;
+      return new ItemStack(block);
+    }
 
-        BlockItem blockItem = (BlockItem) backingStack.getItem();
-        baseCap.provideBlock(player, backingStack, blockItem.getBlock(), true);
-      }
+    @Override
+    public void consume(ItemStack stack, ItemStack backingStack, @Nullable LivingEntity entity) {
+      if (!(entity instanceof Player player)) return;
+
+      BlockItem blockItem = (BlockItem) backingStack.getItem();
+      baseCap.provideBlock(player, stack, blockItem.getBlock(), true);
     }
   }
+
 }
