@@ -61,11 +61,9 @@ public class TinkerSpriteSourceProvider extends SpriteSourceProvider {
     List<ResourceLocation> customItemTrims = Stream.of("item/tool/armor/travelers/goggles/trim", "item/tool/armor/slime/wings/trim").map(TConstruct::getResource).toList();
 
     SourceList blocks = atlas(BLOCKS_ATLAS)
-      // We load our fluid textures from here
-      .addSource(directory("fluid"))
-      // patterns load from this directory
-      .addSource(directory("gui/modifiers"))
       // we typically use this directory for modifier icons that are not items nor blocks
+      .addSource(directory("gui/modifiers"))
+      // patterns load from this directory
       .addSource(directory("gui/tinker_pattern"))
       // trim armor icons
       .addSource(new PalettedPermutations(

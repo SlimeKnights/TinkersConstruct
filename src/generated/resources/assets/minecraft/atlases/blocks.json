@@ -2,11 +2,6 @@
   "sources": [
     {
       "type": "minecraft:directory",
-      "prefix": "fluid/",
-      "source": "fluid"
-    },
-    {
-      "type": "minecraft:directory",
       "prefix": "gui/modifiers/",
       "source": "gui/modifiers"
     },
