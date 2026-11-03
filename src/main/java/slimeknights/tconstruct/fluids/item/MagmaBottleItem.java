@@ -16,8 +16,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fluids.FluidStack;
+import slimeknights.mantle.item.ConstantFluidContainerWrapper;
 import slimeknights.tconstruct.fluids.TinkerFluids;
-import slimeknights.tconstruct.fluids.util.ConstantFluidContainerWrapper;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 
 import javax.annotation.Nullable;
