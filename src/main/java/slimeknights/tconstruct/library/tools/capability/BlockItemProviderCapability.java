@@ -91,11 +91,10 @@ public interface BlockItemProviderCapability {
   ItemStack getBlockItemStack(ItemStack stack, @Nullable LivingEntity entity);
 
   /**
-   * Consume one item from this provider.
+   * Consume a block item from this provider. For example may decrease a contained stacks size or remove fluid from the stack's tank.
    * @param stack The {@link ItemStack} that this capability was attached to.
    * @param backingStack The stack returned by {@link #getBlockItemStack} that was placed and is now being consumed. It is unmodified and the same instance so can use == for comparisons.
    * @param entity The {@link LivingEntity} (usually a {@link Player}) that has just consumed a block.
-   * Consume a block from this provider. For example may decrease a contained stacks size or remove fluid from the stack's tank.
    */
   void consume(ItemStack stack, ItemStack backingStack, @Nullable LivingEntity entity);
 
