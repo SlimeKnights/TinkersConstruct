@@ -18,8 +18,11 @@ import javax.annotation.Nullable;
 import java.util.EnumMap;
 import java.util.Map;
 
-/** The classic channel block that flows NESW and can also output down (toggled by redstone) */
-public class NormalChannelBlock extends AbstractChannelBlock {
+/**
+ * The classic channel block that flows NESW and can also output down (toggled by redstone).
+ * Those looking to add channels with custom flowing behaviour should investigate extending {@link AbstractChannelBlock} instead.
+ * */
+public class ChannelBlock extends AbstractChannelBlock {
 
   /** Voxel bounds for each of the four cardinal directions */
   private static final Map<Direction,VoxelShape> SIDE_BOUNDS = Util.make(new EnumMap<>(Direction.class), map -> {
@@ -34,7 +37,7 @@ public class NormalChannelBlock extends AbstractChannelBlock {
     return (down ? 0b00001 : 0) | (north ? 0b00010 : 0) | (south ? 0b00100 : 0) | (west ? 0b01000 : 0) | (east ? 0b10000 : 0);
   }
 
-  public NormalChannelBlock(Properties props) {
+  public ChannelBlock(Properties props) {
     super(props, ConnectionType.NONE, ConnectionType.ONE_WAY);
   }
 

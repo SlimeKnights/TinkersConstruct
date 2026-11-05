@@ -85,8 +85,8 @@ import slimeknights.tconstruct.smeltery.block.ProxyTankBlock;
 import slimeknights.tconstruct.smeltery.block.RenderingGaugeBlock;
 import slimeknights.tconstruct.smeltery.block.SearedLanternBlock;
 import slimeknights.tconstruct.smeltery.block.UpsideDownFaucetBlock;
+import slimeknights.tconstruct.smeltery.block.channel.ChannelBlock;
 import slimeknights.tconstruct.smeltery.block.channel.FullChannelBlock;
-import slimeknights.tconstruct.smeltery.block.channel.NormalChannelBlock;
 import slimeknights.tconstruct.smeltery.block.channel.PipeChannelBlock;
 import slimeknights.tconstruct.smeltery.block.channel.SlabChannelBlock;
 import slimeknights.tconstruct.smeltery.block.channel.UpsideDownChannelBlock;
@@ -245,10 +245,10 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final ItemObject<SearedLadderBlock> searedLadder, scorchedLadder;
   public static final ItemObject<FaucetBlock> searedFaucet, scorchedFaucet;
   public static final ItemObject<UpsideDownFaucetBlock> upsideDownFaucet;
-  public static final ItemObject<NormalChannelBlock> searedChannel;
+  public static final ItemObject<ChannelBlock> searedChannel;
   /** @deprecated Replaced by functionally different {@link TinkerSmeltery#scorchedPipeChannel}, kept around for 1.20.1 to not break existing casting setups. */
   @Deprecated(forRemoval = true)
-  public static final ItemObject<NormalChannelBlock> scorchedChannel;
+  public static final ItemObject<ChannelBlock> scorchedChannel;
   public static final ItemObject<SlabChannelBlock> slabChannel;
   public static final ItemObject<UpsideDownChannelBlock> upsideDownChannel;
   public static final ItemObject<FullChannelBlock> fullBlockChannel;
@@ -260,7 +260,7 @@ public final class TinkerSmeltery extends TinkerModule {
     Properties seared = searedNonSolidProps(SoundType.METAL);
     searedLadder = BLOCKS.register("seared_ladder", () -> new SearedLadderBlock(seared), TOOLTIP_BLOCK_ITEM);
     searedFaucet = BLOCKS.register("seared_faucet", () -> new FaucetBlock(seared), TOOLTIP_BLOCK_ITEM);
-    searedChannel = BLOCKS.register("seared_channel", () -> new NormalChannelBlock(seared), TOOLTIP_BLOCK_ITEM);
+    searedChannel = BLOCKS.register("seared_channel", () -> new ChannelBlock(seared), TOOLTIP_BLOCK_ITEM);
     searedBasin = BLOCKS.register("seared_basin", () -> new CastingBasinBlock(seared, false), TOOLTIP_BLOCK_ITEM);
     searedTable = BLOCKS.register("seared_table", () -> new CastingTableBlock(seared, false), TOOLTIP_BLOCK_ITEM);
     upsideDownFaucet = BLOCKS.register("upside_down_faucet", () -> new UpsideDownFaucetBlock(seared), TOOLTIP_BLOCK_ITEM);
@@ -272,7 +272,7 @@ public final class TinkerSmeltery extends TinkerModule {
     Properties scorched = scorchedNonSolidProps(SoundType.BASALT);
     scorchedLadder = BLOCKS.register("scorched_ladder", () -> new SearedLadderBlock(scorched), TOOLTIP_BLOCK_ITEM);
     scorchedFaucet = BLOCKS.register("scorched_faucet", () -> new FaucetBlock(scorched), TOOLTIP_BLOCK_ITEM);
-    scorchedChannel = BLOCKS.register("scorched_channel", () -> new NormalChannelBlock(scorched), TOOLTIP_BLOCK_ITEM);
+    scorchedChannel = BLOCKS.register("scorched_channel", () -> new ChannelBlock(scorched), TOOLTIP_BLOCK_ITEM);
     scorchedPipeChannel = BLOCKS.register("scorched_pipe_channel", () -> new PipeChannelBlock(scorched), TOOLTIP_BLOCK_ITEM);
     scorchedBasin = BLOCKS.register("scorched_basin", () -> new CastingBasinBlock(scorched, true), TOOLTIP_BLOCK_ITEM);
     scorchedTable = BLOCKS.register("scorched_table", () -> new CastingTableBlock(scorched, true), TOOLTIP_BLOCK_ITEM);
