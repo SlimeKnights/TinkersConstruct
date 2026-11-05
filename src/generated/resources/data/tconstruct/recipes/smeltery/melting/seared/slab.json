@@ -11,10 +11,10 @@
       "item": "tconstruct:seared_bricks_slab"
     },
     {
-      "item": "tconstruct:slab_channel"
+      "item": "tconstruct:seared_paver_slab"
     },
     {
-      "item": "tconstruct:seared_paver_slab"
+      "item": "tconstruct:slab_channel"
     }
   ],
   "result": {
