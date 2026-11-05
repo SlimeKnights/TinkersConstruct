@@ -20,7 +20,7 @@ import java.util.Map;
 
 /**
  * The classic channel block that flows NESW and can also output down (toggled by redstone).
- * Those looking to add channels with custom flowing behaviour should investigate extending {@link AbstractChannelBlock} instead.
+ * Those looking to add channels with custom flowing behaviour should generally extend {@link AbstractChannelBlock} instead.
  * */
 public class ChannelBlock extends AbstractChannelBlock {
 
