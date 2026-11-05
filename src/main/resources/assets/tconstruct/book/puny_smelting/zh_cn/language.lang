@@ -8,7 +8,7 @@ melee_harvest_materials.subtext=这些材料可以铸造成近程武器或采掘
 ranged_materials=二级远程材料
 ranged_materials.subtext=这些材料可以铸造成弓等远程武器的部件。
 armor_materials=二级盔甲材料
-armor_materials.subtext=这些材料可以锻造成盔甲和盾牌的部件。
+armor_materials.subtext=这些材料可以铸造成盔甲和盾牌的部件。
 
 further_reading=延伸阅读
 
@@ -33,3 +33,5 @@ slotless.subtext=不需要槽位就能加持，只要你想可以都加上。
 slotless.group_slotless=通用型
 slotless.group_bonus_upgrades=额外槽位型
 slotless.group_cosmetic=装饰型
+
+upgrades.boots.tconstruct.feather_fall=摔落缓冲

@@ -66,3 +66,5 @@ abilities.group_armor.shield=盾牌能力
 
 fluid_effects=流体效果
 fluid_effects.subtext=流体效果定义了流体通过喷洒、喷溅、飞溅 等强化击中物品或实体时触发的效果。
+
+materials_slime.subtext=本章节将介绍用于制作黏液套装的各种材料及对应的效果。
