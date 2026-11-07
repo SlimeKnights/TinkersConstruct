@@ -7,12 +7,13 @@
     }
   },
   "pattern": [
-    "# #",
-    "###"
+    " # ",
+    "###",
+    " # "
   ],
   "result": {
     "count": 5,
-    "item": "tconstruct:scorched_channel"
+    "item": "tconstruct:scorched_pipe_channel"
   },
   "show_notification": true
 }

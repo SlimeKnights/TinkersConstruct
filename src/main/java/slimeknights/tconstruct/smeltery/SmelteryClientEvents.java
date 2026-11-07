@@ -23,9 +23,12 @@ import slimeknights.tconstruct.smeltery.client.render.ChannelBlockEntityRenderer
 import slimeknights.tconstruct.smeltery.client.render.FaucetBlockEntityRenderer;
 import slimeknights.tconstruct.smeltery.client.render.GaugeBlockEntityRenderer;
 import slimeknights.tconstruct.smeltery.client.render.HeatingStructureBlockEntityRenderer;
+import slimeknights.tconstruct.smeltery.client.render.OpaqueChannelBlockEntityRenderer;
 import slimeknights.tconstruct.smeltery.client.render.ProxyTankBlockEntityRenderer;
+import slimeknights.tconstruct.smeltery.client.render.ReverseFaucetFluidLoader;
 import slimeknights.tconstruct.smeltery.client.render.TankBlockEntityRenderer;
 import slimeknights.tconstruct.smeltery.client.render.TankInventoryBlockEntityRenderer;
+import slimeknights.tconstruct.smeltery.client.render.UpsideDownFaucetBlockEntityRenderer;
 import slimeknights.tconstruct.smeltery.client.screen.AlloyerScreen;
 import slimeknights.tconstruct.smeltery.client.screen.HeatingStructureScreen;
 import slimeknights.tconstruct.smeltery.client.screen.MelterScreen;
@@ -38,6 +41,7 @@ public class SmelteryClientEvents extends ClientEventBase {
   static void addResourceListener(RegisterClientReloadListenersEvent event) {
     FaucetFluid.initialize(event);
     ChannelFluids.initialize(event);
+    ReverseFaucetFluidLoader.initialize(event);
   }
 
   @SubscribeEvent
@@ -45,7 +49,9 @@ public class SmelteryClientEvents extends ClientEventBase {
     event.registerBlockEntityRenderer(TinkerSmeltery.tank.get(), TankBlockEntityRenderer::new);
     event.registerBlockEntityRenderer(TinkerSmeltery.fluidCannon.get(), context -> new TankInventoryBlockEntityRenderer<>(BlockStateProperties.FACING));
     event.registerBlockEntityRenderer(TinkerSmeltery.faucet.get(), FaucetBlockEntityRenderer::new);
+    event.registerBlockEntityRenderer(TinkerSmeltery.upsideDownFaucetEntity.get(), UpsideDownFaucetBlockEntityRenderer::new);
     event.registerBlockEntityRenderer(TinkerSmeltery.channel.get(), ChannelBlockEntityRenderer::new);
+    event.registerBlockEntityRenderer(TinkerSmeltery.opaqueChannel.get(), OpaqueChannelBlockEntityRenderer::new);
     event.registerBlockEntityRenderer(TinkerSmeltery.gauge.get(), GaugeBlockEntityRenderer::new);
     event.registerBlockEntityRenderer(TinkerSmeltery.table.get(), CastingBlockEntityRenderer::new);
     event.registerBlockEntityRenderer(TinkerSmeltery.basin.get(), CastingBlockEntityRenderer::new);

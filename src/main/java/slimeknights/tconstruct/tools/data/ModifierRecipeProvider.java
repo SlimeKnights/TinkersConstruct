@@ -1361,7 +1361,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setTools(TinkerTags.Items.INTERACTABLE)
                          .saveSalvage(consumer, prefix(ModifierIds.bucketing, abilitySalvage))
                          .save(consumer, prefix(ModifierIds.bucketing, abilityFolder));
-    SizedIngredient channels = SizedIngredient.fromItems(TinkerSmeltery.searedChannel, TinkerSmeltery.scorchedChannel);
+    SizedIngredient channels = SizedIngredient.fromItems(TinkerSmeltery.searedChannel, TinkerSmeltery.scorchedPipeChannel);
     ModifierRecipeBuilder.modifier(ModifierIds.spilling)
                          .addInput(channels)
                          .addInput(tanks)

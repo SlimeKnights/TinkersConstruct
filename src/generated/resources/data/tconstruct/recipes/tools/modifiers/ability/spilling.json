@@ -8,7 +8,7 @@
           "item": "tconstruct:seared_channel"
         },
         {
-          "item": "tconstruct:scorched_channel"
+          "item": "tconstruct:scorched_pipe_channel"
         }
       ]
     },
@@ -22,7 +22,7 @@
           "item": "tconstruct:seared_channel"
         },
         {
-          "item": "tconstruct:scorched_channel"
+          "item": "tconstruct:scorched_pipe_channel"
         }
       ]
     },
