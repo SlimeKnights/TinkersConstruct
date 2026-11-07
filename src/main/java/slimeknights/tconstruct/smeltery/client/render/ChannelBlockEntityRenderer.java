@@ -72,9 +72,8 @@ public class ChannelBlockEntityRenderer implements BlockEntityRenderer<ChannelBl
   protected static void renderVerticalFlow(Direction dir, ChannelBlockEntity te, PoseStack matrices, AbstractChannelBlock block, BlockState state, @Nullable ChannelFluids model, VertexConsumer builder, TextureAtlasSprite still, TextureAtlasSprite flowing, int color, int light, Level world, BlockPos pos) {
     if (block.getCurrentFlowOnSide(dir, state) == TwoWay.OUT && te.isFlowing(dir)) {
       // render the part in the block
-      FluidCuboid cube = model == null ? null : dir == Direction.DOWN ? model.down() : model.up();
-      if (cube != null) {
-        FluidRenderer.renderCuboid(matrices, builder, cube, 0, still, flowing, color, light, false);
+      if (model != null) {
+        FluidRenderer.renderCuboid(matrices, builder, model.down(), 0, still, flowing, color, light, false);
       }
       // render into the block(s) below or above
       if (dir == Direction.DOWN)
