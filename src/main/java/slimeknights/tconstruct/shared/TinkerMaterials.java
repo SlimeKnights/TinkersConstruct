@@ -53,7 +53,7 @@ public final class TinkerMaterials extends TinkerModule {
   public static final MetalItemObject manyullyn   = BLOCKS.registerMetal("manyullyn", metalBuilder(MapColor.COLOR_PURPLE).sound(SoundType.NETHERITE_BLOCK), TOOLTIP_BLOCK_ITEM, ITEM_PROPS);
   public static final MetalItemObject hepatizon   = BLOCKS.registerMetal("hepatizon", metalBuilder(MapColor.TERRACOTTA_BLUE).sound(SoundType.NETHERITE_BLOCK), TOOLTIP_BLOCK_ITEM, ITEM_PROPS);
   public static final MetalItemObject knightmetal = BLOCKS.registerMetal("knightmetal", () -> new KnightMetalBlock(metalBuilder(MapColor.GRASS).sound(SoundType.NETHERITE_BLOCK).noOcclusion()), TOOLTIP_BLOCK_ITEM, ITEM_PROPS);
-  public static final MetalItemObject knightslime = BLOCKS.registerMetal("knightslime", () -> new SlimesteelBlock(metalBuilder(MapColor.COLOR_BLACK).noOcclusion()), BLOCK_ITEM, ITEM_PROPS);
+  public static final MetalItemObject knightslime = BLOCKS.registerMetal("knightslime", () -> new SlimesteelBlock(metalBuilder(MapColor.COLOR_BLACK).noOcclusion()), TOOLTIP_BLOCK_ITEM, ITEM_PROPS);
   // future
   public static final MetalItemObject soulsteel   = BLOCKS.registerMetal("soulsteel", metalBuilder(MapColor.COLOR_BROWN).noOcclusion(), BLOCK_ITEM, ITEM_PROPS);
 
