@@ -435,13 +435,13 @@ public class JEIPlugin implements IModPlugin {
     registry.addRecipeCatalyst(TinkerSmeltery.searedHeater, RecipeTypes.FUELING, TConstructJEIConstants.FUEL);
     addCastingCatalyst(registry, TinkerSmeltery.searedTable, TConstructJEIConstants.CASTING_TABLE, TinkerRecipeTypes.MOLDING_TABLE.get());
     addCastingCatalyst(registry, TinkerSmeltery.searedBasin, TConstructJEIConstants.CASTING_BASIN, TinkerRecipeTypes.MOLDING_BASIN.get());
-    addTableCatalyst(registry, TinkerSmeltery.smelteryController, TinkerTags.Items.SEARED_BLOCKS, false, TConstructJEIConstants.MELTING, TConstructJEIConstants.ALLOY, TConstructJEIConstants.ENTITY_MELTING, TConstructJEIConstants.FUEL);
+    addTableCatalyst(registry, TinkerSmeltery.smelteryController, TinkerTags.Items.SMELTERY_BRICKS, false, TConstructJEIConstants.MELTING, TConstructJEIConstants.ALLOY, TConstructJEIConstants.ENTITY_MELTING, TConstructJEIConstants.FUEL);
 
     // foundry
     registry.addRecipeCatalyst(TinkerSmeltery.scorchedAlloyer, TConstructJEIConstants.ALLOY, TConstructJEIConstants.FUEL);
     addCastingCatalyst(registry, TinkerSmeltery.scorchedTable, TConstructJEIConstants.CASTING_TABLE, TinkerRecipeTypes.MOLDING_TABLE.get());
     addCastingCatalyst(registry, TinkerSmeltery.scorchedBasin, TConstructJEIConstants.CASTING_BASIN, TinkerRecipeTypes.MOLDING_BASIN.get());
-    addTableCatalyst(registry, TinkerSmeltery.foundryController, TinkerTags.Items.SCORCHED_BLOCKS, false, TConstructJEIConstants.FOUNDRY, TConstructJEIConstants.FUEL);
+    addTableCatalyst(registry, TinkerSmeltery.foundryController, TinkerTags.Items.FOUNDRY_BRICKS, false, TConstructJEIConstants.FOUNDRY, TConstructJEIConstants.FUEL);
 
     // modifiers
     addModifierCatalyst(registry, TinkerTags.Modifiers.CRAFTING, RecipeTypes.CRAFTING);
@@ -633,14 +633,14 @@ public class JEIPlugin implements IModPlugin {
     }
     // smeltery
     if (Config.CLIENT.showAllSmelteryVariants.get()) {
-      addTagVariants(addVariants, TinkerSmeltery.smelteryController, TinkerTags.Items.SEARED_BLOCKS);
-      addTagVariants(addVariants, TinkerSmeltery.searedDrain, TinkerTags.Items.SEARED_BLOCKS);
-      addTagVariants(addVariants, TinkerSmeltery.searedDuct, TinkerTags.Items.SEARED_BLOCKS);
-      addTagVariants(addVariants, TinkerSmeltery.searedChute, TinkerTags.Items.SEARED_BLOCKS);
-      addTagVariants(addVariants, TinkerSmeltery.foundryController, TinkerTags.Items.SCORCHED_BLOCKS);
-      addTagVariants(addVariants, TinkerSmeltery.scorchedDrain, TinkerTags.Items.SCORCHED_BLOCKS);
-      addTagVariants(addVariants, TinkerSmeltery.scorchedDuct, TinkerTags.Items.SCORCHED_BLOCKS);
-      addTagVariants(addVariants, TinkerSmeltery.scorchedChute, TinkerTags.Items.SCORCHED_BLOCKS);
+      addTagVariants(addVariants, TinkerSmeltery.smelteryController, TinkerTags.Items.SMELTERY_BRICKS);
+      addTagVariants(addVariants, TinkerSmeltery.searedDrain, TinkerTags.Items.SMELTERY_BRICKS);
+      addTagVariants(addVariants, TinkerSmeltery.searedDuct, TinkerTags.Items.SMELTERY_BRICKS);
+      addTagVariants(addVariants, TinkerSmeltery.searedChute, TinkerTags.Items.SMELTERY_BRICKS);
+      addTagVariants(addVariants, TinkerSmeltery.foundryController, TinkerTags.Items.FOUNDRY_BRICKS);
+      addTagVariants(addVariants, TinkerSmeltery.scorchedDrain, TinkerTags.Items.FOUNDRY_BRICKS);
+      addTagVariants(addVariants, TinkerSmeltery.scorchedDuct, TinkerTags.Items.FOUNDRY_BRICKS);
+      addTagVariants(addVariants, TinkerSmeltery.scorchedChute, TinkerTags.Items.FOUNDRY_BRICKS);
     }
     // anvils are all variants
     if (Config.CLIENT.showAllAnvilVariants.get()) {
