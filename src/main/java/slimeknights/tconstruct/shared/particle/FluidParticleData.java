@@ -72,13 +72,14 @@ public class FluidParticleData implements ParticleOptions {
 
   /** Particle type for a fluid particle */
   public static class Type extends ParticleType<FluidParticleData> {
+    private final Codec<FluidParticleData> codec = FluidStack.CODEC.xmap(fluid -> new FluidParticleData(this, fluid), data -> data.fluid);
     public Type() {
       super(false, DESERIALIZER);
     }
 
     @Override
     public Codec<FluidParticleData> codec() {
-      return FluidStack.CODEC.xmap(fluid -> new FluidParticleData(this, fluid), data -> data.fluid);
+      return codec;
     }
   }
 }
