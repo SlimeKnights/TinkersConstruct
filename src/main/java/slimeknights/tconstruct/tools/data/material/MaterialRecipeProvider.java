@@ -380,10 +380,15 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     // slimesuit - slime
     materialMeltingCasting(consumer, MaterialIds.earthslime, TinkerFluids.earthSlime, FluidValues.SLIMEBALL, folder);
     materialMeltingCasting(consumer, MaterialIds.skyslime,   TinkerFluids.skySlime,   FluidValues.SLIMEBALL, folder);
-    materialMeltingCasting(consumer, MaterialIds.ichor,      TinkerFluids.ichor,      FluidValues.SLIMEBALL, folder);
     materialMeltingCasting(consumer, MaterialIds.enderslime, TinkerFluids.enderSlime, FluidValues.SLIMEBALL, folder);
     materialMeltingCasting(consumer, MaterialIds.magma,      TinkerFluids.magma,      FluidValues.SLIMEBALL, folder);
     materialComposite(consumer, MaterialIds.earthslime, MaterialIds.magma, TinkerFluids.blazingBlood, FluidType.BUCKET_VOLUME / 20, folder);
+    MaterialFluidRecipeBuilder.material(MaterialIds.ichor)
+      .setFluidAndTemp(TinkerFluids.ichor, FluidValues.SLIMEBALL)
+      .save(consumer, location(folder + "casting/ichor"));
+    MaterialMeltingRecipeBuilder.material(MaterialIds.ichor, TinkerFluids.blazingBlood, FluidValues.ICHOR_BLAZING_BLOOD)
+      .addByproduct(TinkerFluids.ichor.result(FluidValues.ICHOR_BYPRODUCT))
+      .save(consumer, location(folder + "melting/ichor"));
     // slimesuit - pseudoslime
     materialMeltingCasting(consumer, MaterialIds.clay,       TinkerFluids.moltenClay,  FluidValues.BRICK,     folder);
     materialMeltingCasting(consumer, MaterialIds.enderPearl, TinkerFluids.moltenEnder, FluidValues.SLIMEBALL, folder);
