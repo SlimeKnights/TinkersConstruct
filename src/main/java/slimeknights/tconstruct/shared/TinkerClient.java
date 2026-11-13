@@ -47,6 +47,14 @@ import slimeknights.tconstruct.library.client.modifiers.DyedModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.ModifierIconManager;
 import slimeknights.tconstruct.library.client.modifiers.NormalModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.PotionModifierModel;
+import slimeknights.tconstruct.library.client.modifiers.block.model.BlockModifierModel;
+import slimeknights.tconstruct.library.client.modifiers.block.model.ChildBlockModifierModel;
+import slimeknights.tconstruct.library.client.modifiers.block.model.CompoundBlockModifierModel;
+import slimeknights.tconstruct.library.client.modifiers.block.model.ConditionalBlockModifierModel;
+import slimeknights.tconstruct.library.client.modifiers.block.model.DyedBlockModifierModel;
+import slimeknights.tconstruct.library.client.modifiers.block.model.ElementBlockModifierModel;
+import slimeknights.tconstruct.library.client.modifiers.block.model.TankBlockModifierModel;
+import slimeknights.tconstruct.library.client.modifiers.block.model.TransformationBlockModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.BannerModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.CompoundModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.model.ConditionalModifierModel;
@@ -117,6 +125,16 @@ public class TinkerClient {
     ModifierModel.LOADER.register(getResource("material_has_fallback"), MaterialHasFallbackModifierModel.LOADER);
     // specialized
     ModifierModel.LOADER.register(getResource("slimeskull"), SlimeskullModifierModel.LOADER);
+
+    // block modifier models
+    BlockModifierModel.LOADER.register(getResource("empty"), BlockModifierModel.EMPTY.getLoader());
+    BlockModifierModel.LOADER.register(getResource("basic"), ElementBlockModifierModel.LOADER);
+    BlockModifierModel.LOADER.register(getResource("child"), ChildBlockModifierModel.LOADER);
+    BlockModifierModel.LOADER.register(getResource("compound"), CompoundBlockModifierModel.LOADER);
+    BlockModifierModel.LOADER.register(getResource("conditional"), ConditionalBlockModifierModel.LOADER);
+    BlockModifierModel.LOADER.register(getResource("dyed"), DyedBlockModifierModel.LOADER);
+    BlockModifierModel.LOADER.register(getResource("tank"), TankBlockModifierModel.LOADER);
+    BlockModifierModel.LOADER.register(getResource("transform"), TransformationBlockModifierModel.LOADER);
   }
 
   @SubscribeEvent
