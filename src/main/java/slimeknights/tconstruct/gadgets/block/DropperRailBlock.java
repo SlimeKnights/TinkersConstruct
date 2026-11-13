@@ -14,8 +14,9 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.mantle.inventory.EmptyItemHandler;
 
+/** @deprecated tinkers no longer does rails. If you need this reimplement it */
+@Deprecated(forRemoval = true)
 public class DropperRailBlock extends RailBlock {
-
   public DropperRailBlock(Properties properties) {
     super(properties);
   }
