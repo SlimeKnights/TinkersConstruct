@@ -13,18 +13,19 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.client.render.ChannelFluids;
-import slimeknights.mantle.client.render.FluidCuboid;
 import slimeknights.mantle.client.render.FluidRenderer;
 import slimeknights.mantle.client.render.MantleRenderTypes;
-import slimeknights.mantle.client.render.RenderingHelper;
 import slimeknights.tconstruct.smeltery.block.channel.AbstractChannelBlock;
-import slimeknights.tconstruct.smeltery.block.channel.ChannelConnection;
 import slimeknights.tconstruct.smeltery.block.entity.ChannelBlockEntity;
 
-import java.util.function.Consumer;
-
-public class OpaqueChannelBlockEntityRenderer implements BlockEntityRenderer<ChannelBlockEntity> {
-  public OpaqueChannelBlockEntityRenderer(BlockEntityRendererProvider.Context context) {}
+/**
+ * {@link BlockEntityRenderer} for full block channels and pipes that do not display fluids internally.
+ * Only renders flows outwards from this block, for example into a basin below.
+ */
+public class OpaqueChannelBlockEntityRenderer extends ChannelBlockEntityRenderer {
+  public OpaqueChannelBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
+    super(context);
+  }
 
   @Override
   public void render(ChannelBlockEntity te, float partialTicks, PoseStack matrices, MultiBufferSource buffer, int initialLight, int combinedOverlayIn) {

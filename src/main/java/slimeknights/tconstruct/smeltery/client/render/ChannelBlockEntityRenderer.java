@@ -24,6 +24,11 @@ import slimeknights.tconstruct.smeltery.block.entity.ChannelBlockEntity;
 
 import javax.annotation.Nullable;
 
+/**
+ * {@link BlockEntityRenderer} for channels that render fluid internally.
+ * Uses the channel fluid JSON files loaded by {@link ChannelFluids} to determine where to render fluids internally.
+ * Also handles rendering out flows, for example fluid flowing down into a casting basin.
+ */
 public class ChannelBlockEntityRenderer implements BlockEntityRenderer<ChannelBlockEntity> {
   public ChannelBlockEntityRenderer(Context context) {}
 
@@ -69,6 +74,7 @@ public class ChannelBlockEntityRenderer implements BlockEntityRenderer<ChannelBl
     renderVerticalFlow(Direction.UP, te, matrices, block, state, model, builder, still, flowing, color, light, world, pos);
   }
 
+  /** Renders the internal vertical in/out flow */
   protected static void renderVerticalFlow(Direction dir, ChannelBlockEntity te, PoseStack matrices, AbstractChannelBlock block, BlockState state, @Nullable ChannelFluids model, VertexConsumer builder, TextureAtlasSprite still, TextureAtlasSprite flowing, int color, int light, Level world, BlockPos pos) {
     if (block.getCurrentFlowOnSide(dir, state) == TwoWay.OUT && te.isFlowing(dir)) {
       // render the part in the block
@@ -83,6 +89,7 @@ public class ChannelBlockEntityRenderer implements BlockEntityRenderer<ChannelBl
     }
   }
 
+  /** Renders the cube in the very centre of the channel which may or may not be flowing */
   protected static void renderCenter(PoseStack matrices, @Nullable Direction centerFlow, ChannelFluids model, VertexConsumer builder, TextureAtlasSprite still, TextureAtlasSprite flowing, int color, int light) {
     FluidCuboid cube;
     boolean isRotated = false;
@@ -100,6 +107,10 @@ public class ChannelBlockEntityRenderer implements BlockEntityRenderer<ChannelBl
     }
   }
 
+  /**
+   * Render the four sides which flow in/out
+   * @return The direction that this side is flowing towards, for later calculating which way the centre should appear to flow.
+   */
   protected static @Nullable Direction renderSide(ChannelBlockEntity te, PoseStack matrices, Direction direction, @Nullable Direction centerFlow, AbstractChannelBlock block, BlockState state, ChannelFluids model, VertexConsumer builder, TextureAtlasSprite still, TextureAtlasSprite flowing, int color, int light) {
     // render sides and calculate center flow
     // check if we have that side on the block

@@ -34,14 +34,12 @@ public class UpsideDownFaucetBlock extends FaucetBlock {
     Direction.WEST,  Shapes.join(box(10, 6,  4, 16, 12, 12), box(10, 6,  6, 16, 10, 10), BooleanOp.ONLY_FIRST),
     Direction.EAST,  Shapes.join(box( 0, 6,  4,  6, 12, 12), box( 0, 6,  6,  6, 10, 10), BooleanOp.ONLY_FIRST)));
 
-
   public UpsideDownFaucetBlock(Properties properties) {
     super(properties);
   }
 
-  @SuppressWarnings("deprecation")
-  @Deprecated
   @Override
+  @SuppressWarnings("deprecation")
   public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
     return SHAPES.get(state.getValue(FACING));
   }
