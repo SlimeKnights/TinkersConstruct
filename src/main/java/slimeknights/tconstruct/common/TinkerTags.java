@@ -583,6 +583,9 @@ public class TinkerTags {
     /** Fluids in this tag won't show in JEI */
     public static final TagKey<Item> HIDDEN_IN_RECIPE_VIEWERS = hiddenFromRecipeViewers(Registries.ITEM);
 
+    /** Items to attach a {@link slimeknights.tconstruct.plugin.BotaniaPlugin.BlockProviderTranslatorProvider} to translate Botania's capability to our own */
+    public static final TagKey<Item> BOTANIA_BLOCK_PROVIDERS = local("botania_block_provider");
+
     /** Makes a tag in the tinkers domain */
     private static TagKey<Item> local(String name) {
       return TagKey.create(Registries.ITEM, getResource(name));

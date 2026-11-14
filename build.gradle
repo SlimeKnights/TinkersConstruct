@@ -28,13 +28,20 @@ repositories {
         name 'tterrag maven'
         url "https://maven.tterrag.com/"
     }
-    maven { // CraftTweaker, Immersive Engineering, JEI
+    maven { // CraftTweaker, Immersive Engineering, JEI, Botania
         name 'BlameJared Maven'
         url 'https://maven.blamejared.com'
     }
     maven { // JSON Things
         name 'Dogforce Games'
         url 'https://www.dogforce-games.com/maven/'
+    }
+    maven {
+        name 'IllusiveC4'
+        url "https://maven.theillusivec4.top/"
+        content {
+            includeGroup "top.theillusivec4.curios"
+        }
     }
     maven {
         url "https://www.cursemaven.com"
@@ -204,6 +211,12 @@ dependencies {
     compileOnly fg.deobf("curse.maven:balm-531761:5999476")
     compileOnly fg.deobf("curse.maven:crafting-tweaks-233071:5623639")
 
+    // botania and its dependencies
+    compileOnly fg.deobf("vazkii.botania:Botania:${minecraft_version}-${botania_version}-FORGE:api")
+    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${minecraft_version}-${patchouli_version}-FORGE")
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}+${minecraft_version}")
+    runtimeOnly fg.deobf("vazkii.botania:Botania:${minecraft_version}-${botania_version}-FORGE")
+
     deployerJars 'org.apache.maven.wagon:wagon-ssh:2.2'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
@@ -224,7 +237,8 @@ tasks.named('processResources', ProcessResources).configure {
         'forge_range': forge_range,
         'mantle_range': mantle_range,
         'jei_range': jei_range,
-        'json_things_range': json_things_range
+        'json_things_range': json_things_range,
+        'botania_range': botania_range,
     ]
     inputs.properties replaceProperties
 
