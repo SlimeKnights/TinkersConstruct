@@ -350,7 +350,7 @@ public class BlockTagProvider extends BlockTagsProvider {
 
     this.tag(TinkerTags.Blocks.CISTERN_CONNECTIONS)
         // cannot add channels as it requires a block state property to properly detect, look into a way to fix this later
-        .add(TinkerSmeltery.searedFaucet.get(), TinkerSmeltery.scorchedFaucet.get());
+        .add(TinkerSmeltery.searedFaucet.get(), TinkerSmeltery.scorchedFaucet.get(), TinkerSmeltery.upsideDownFaucet.get());
 
     // tanks
     IntrinsicTagAppender<Block> searedTankTagAppender = this.tag(TinkerTags.Blocks.SEARED_TANKS);
@@ -414,6 +414,15 @@ public class BlockTagProvider extends BlockTagsProvider {
         .addTag(TinkerTags.Blocks.FOUNDRY_WALL)
         .addTag(TinkerTags.Blocks.FOUNDRY_FLOOR)
         .addTag(TinkerTags.Blocks.FOUNDRY_TANKS);
+
+    // channels connect to other channels automatically
+    this.tag(TinkerTags.Blocks.CHANNELS)
+      .add(TinkerSmeltery.searedChannel.get())
+      .add(TinkerSmeltery.scorchedChannel.get())
+      .add(TinkerSmeltery.scorchedPipeChannel.get())
+      .add(TinkerSmeltery.slabChannel.get())
+      .add(TinkerSmeltery.fullBlockChannel.get())
+      .add(TinkerSmeltery.upsideDownChannel.get());
 
     // climb seared ladder
     this.tag(BlockTags.CLIMBABLE).add(TinkerSmeltery.searedLadder.get(), TinkerSmeltery.scorchedLadder.get());
@@ -489,8 +498,8 @@ public class BlockTagProvider extends BlockTagsProvider {
     tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_GOLD_TOOL, TinkerSmeltery.scorchedStone, TinkerSmeltery.polishedScorchedStone, TinkerSmeltery.chiseledScorchedBricks, TinkerSmeltery.scorchedLadder, TinkerSmeltery.scorchedLamp, TinkerSmeltery.scorchedGlass, TinkerSmeltery.scorchedSoulGlass, TinkerSmeltery.scorchedTintedGlass, TinkerSmeltery.scorchedGlassPane, TinkerSmeltery.scorchedSoulGlassPane);
     // fluids
     tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_GOLD_TOOL, TinkerSmeltery.searedTank, TinkerSmeltery.scorchedTank);
-    tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_GOLD_TOOL, TinkerSmeltery.searedLantern,   TinkerSmeltery.searedFaucet,   TinkerSmeltery.searedChannel,   TinkerSmeltery.searedBasin,   TinkerSmeltery.searedTable,   TinkerSmeltery.searedCastingTank);
-    tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_GOLD_TOOL, TinkerSmeltery.scorchedLantern, TinkerSmeltery.scorchedFaucet, TinkerSmeltery.scorchedChannel, TinkerSmeltery.scorchedBasin, TinkerSmeltery.scorchedTable);
+    tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_GOLD_TOOL, TinkerSmeltery.searedLantern,   TinkerSmeltery.searedFaucet,   TinkerSmeltery.searedChannel,   TinkerSmeltery.searedBasin,   TinkerSmeltery.searedTable,   TinkerSmeltery.searedCastingTank, TinkerSmeltery.slabChannel, TinkerSmeltery.upsideDownChannel, TinkerSmeltery.upsideDownFaucet);
+    tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_GOLD_TOOL, TinkerSmeltery.scorchedLantern, TinkerSmeltery.scorchedFaucet, TinkerSmeltery.scorchedChannel, TinkerSmeltery.scorchedPipeChannel, TinkerSmeltery.scorchedBasin, TinkerSmeltery.scorchedTable, TinkerSmeltery.fullBlockChannel);
     tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_GOLD_TOOL, TinkerSmeltery.searedHeater, TinkerSmeltery.searedMelter, TinkerSmeltery.scorchedAlloyer);
     // tough seared + scorched
     tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_STONE_TOOL, TinkerSmeltery.searedDrain, TinkerSmeltery.searedChute, TinkerSmeltery.smelteryController, TinkerSmeltery.searedFluidCannon, TinkerSmeltery.copperGauge);
