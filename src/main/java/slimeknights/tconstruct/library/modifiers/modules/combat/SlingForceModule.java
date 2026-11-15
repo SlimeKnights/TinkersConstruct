@@ -36,7 +36,7 @@ public record SlingForceModule(IJsonPredicate<LivingEntity> target, IJsonPredica
   /** Loader instance */
   public static final RecordLoadable<SlingForceModule> LOADER = RecordLoadable.create(
     LivingEntityPredicate.LOADER.defaultField("target", SlingForceModule::target),
-    LivingEntityPredicate.LOADER.defaultField("holder", SlingForceModule::target),
+    LivingEntityPredicate.LOADER.defaultField("holder", SlingForceModule::holder),
     ModifierPredicate.LOADER.defaultField("sling", SlingForceModule::sling),
     ConditionalStatFormula.LOADER.directField(SlingForceModule::formula),
     ModifierCondition.TOOL_FIELD,
