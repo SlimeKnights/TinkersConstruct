@@ -35,7 +35,7 @@ public class TinkerRenderTypes extends RenderType {
                   .setLightmapState(LIGHTMAP)
                   .setShaderState(MantleRenderTypes.FLUID_SHADER)
                   .setTextureState(BLOCK_SHEET_MIPPED)
-                  .setTransparencyState(NO_TRANSPARENCY)
+                  .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
                   .setCullState(NO_CULL)
                   .createCompositeState(false));
 }
