@@ -87,7 +87,7 @@ public class CompositeCastingRecipe extends MaterialCastingRecipe implements IMu
       List<ItemStack> displayInputs = new ArrayList<>(recipes.size());
       List<ItemStack> displayResults = new ArrayList<>(recipes.size());
       int maxTime = 0;
-      for (MaterialFluidRecipe recipe : MaterialCastingLookup.getAllCompositeFluids()) {
+      for (MaterialFluidRecipe recipe : recipes) {
         MaterialVariant output = recipe.getOutput();
         MaterialVariantId outputId = output.getVariant();
         MaterialVariant input = recipe.getInput();
