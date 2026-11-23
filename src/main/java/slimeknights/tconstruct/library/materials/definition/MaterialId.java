@@ -40,7 +40,7 @@ public final class MaterialId extends ResourceId implements MaterialVariantId {
 
   /** Checks if this ID matches the given stack */
   public boolean matches(ItemStack stack) {
-    return !stack.isEmpty() && this.equals(IMaterialItem.getMaterialFromStack(stack));
+    return !stack.isEmpty() && this.equals(IMaterialItem.getMaterialFromStack(stack).getId());
   }
 
   @Override
