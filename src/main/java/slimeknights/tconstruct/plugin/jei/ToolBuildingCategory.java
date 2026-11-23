@@ -23,7 +23,6 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildin
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 import slimeknights.tconstruct.library.tools.layout.LayoutSlot;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
-import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.library.tools.part.IToolPart;
 import slimeknights.tconstruct.plugin.jei.util.CategoryUtil;
@@ -146,13 +145,6 @@ public class ToolBuildingCategory extends AbstractRecipeCategory<ToolBuildingRec
         variants.add(parts.get(i).getMaterial(inputSlots.get(i).getDisplayedItemStack().orElse(ItemStack.EMPTY)));
       }
       variants.addAll(recipe.getExtraMaterials());
-      ItemStack stack = new MaterialIdNBT(variants).updateStack(new ItemStack(recipe.getOutput()));
-      if (stack.getMaxStackSize() > 1) {
-        ToolStack tool = ToolStack.from(stack);
-        tool.rebuildStats();
-        stack.setCount(CraftCountModifierHook.maxStackSize(tool, recipe.shrinkToolSlotBy()));
-      }
-
       resultSlot.createDisplayOverrides().addItemStack(CraftCountModifierHook.copyMaterials(new MaterialIdNBT(variants), recipe.getOutput(), recipe.getOutputCount()));
     }
   }
