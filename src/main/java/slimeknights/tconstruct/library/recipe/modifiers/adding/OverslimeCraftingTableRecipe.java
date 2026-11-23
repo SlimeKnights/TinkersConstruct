@@ -107,7 +107,7 @@ public class OverslimeCraftingTableRecipe extends CustomRecipe {
     }
     ToolStack tool = ToolStack.copyFrom(match.tool);
     OverslimeModule.INSTANCE.addAmount(tool, match.itemsFound * restoreAmount);
-    return tool.copyStack(match.tool);
+    return tool.copyStack(match.tool, 1);
   }
 
   /** Gets the remaining items after repairing the necessary number of times */

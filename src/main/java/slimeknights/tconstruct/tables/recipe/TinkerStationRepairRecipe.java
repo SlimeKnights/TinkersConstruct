@@ -429,7 +429,7 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe, IMultiRe
               // we made it, we are actually repairing
               tool = tool.copy();
               ToolDamageUtil.repair(tool, (int) amount);
-              outputSlot.set(tool.copyStack(toolStack));
+              outputSlot.set(tool.copyStack(toolStack, 1));
             }
           }
         }

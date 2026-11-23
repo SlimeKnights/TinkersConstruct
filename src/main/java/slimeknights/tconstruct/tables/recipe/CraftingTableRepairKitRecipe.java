@@ -138,7 +138,7 @@ public class CraftingTableRepairKitRecipe extends CustomRecipe {
     tool = tool.copy();
     ToolDamageUtil.repair(tool, (int)repairAmount);
     // return final stack
-    return tool.copyStack(inputs.tool);
+    return tool.copyStack(inputs.tool, 1);
   }
 
   @Override
