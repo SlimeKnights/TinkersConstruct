@@ -1,10 +1,12 @@
 package slimeknights.tconstruct.tools.modules;
 
+import net.minecraft.network.chat.Component;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
+import slimeknights.tconstruct.library.modifiers.hook.build.ModifierRemovalHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.RawDataModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.module.HookProvider;
@@ -12,11 +14,12 @@ import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.RestrictedCompoundTag;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 /** Module implementing headlight on helmets */
-public record HeadlightModule(int defaultLight) implements ModifierModule, RawDataModifierHook {
-  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<HeadlightModule>defaultHooks(ModifierHooks.RAW_DATA);
+public record HeadlightModule(int defaultLight) implements ModifierModule, RawDataModifierHook, ModifierRemovalHook {
+  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<HeadlightModule>defaultHooks(ModifierHooks.RAW_DATA, ModifierHooks.REMOVE);
   private static final String HEADLIGHT_LIGHT = "headlight_level";
   public static final RecordLoadable<HeadlightModule> LOADER = RecordLoadable.create(
     IntLoadable.range(1, 15).requiredField("default_light", HeadlightModule::defaultLight),
@@ -49,5 +52,12 @@ public record HeadlightModule(int defaultLight) implements ModifierModule, RawDa
   @Override
   public void removeRawData(IToolStackView tool, Modifier modifier, RestrictedCompoundTag tag) {
     tag.remove(HEADLIGHT_LIGHT);
+  }
+
+  @Nullable
+  @Override
+  public Component onRemoved(IToolStackView tool, Modifier modifier) {
+    tool.getPersistentData().remove(modifier.getId());
+    return null;
   }
 }
