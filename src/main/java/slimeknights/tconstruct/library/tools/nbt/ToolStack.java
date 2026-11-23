@@ -587,10 +587,7 @@ public class ToolStack implements IToolStackView {
     if (level <= 0) {
       throw new IllegalArgumentException("Invalid level, must be above 0");
     }
-    ModifierNBT newModifiers = getUpgrades().withoutModifier(modifier, level);
-    this.upgrades = newModifiers;
-    nbt.put(TAG_UPGRADES, newModifiers.serializeToNBT());
-    rebuildStats();
+    setUpgrades(getUpgrades().withoutModifier(modifier, level));
   }
 
   @Override
