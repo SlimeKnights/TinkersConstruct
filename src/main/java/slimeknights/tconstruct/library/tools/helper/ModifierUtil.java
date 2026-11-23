@@ -162,8 +162,8 @@ public final class ModifierUtil {
   /** Shortcut to get a persistent flag when the tool stack is not needed otherwise */
   public static boolean checkPersistentPresent(ItemStack stack, ResourceLocation key) {
     CompoundTag nbt = stack.getTag();
-    if (nbt != null && nbt.contains(ToolStack.TAG_VOLATILE_MOD_DATA, Tag.TAG_COMPOUND)) {
-      return nbt.getCompound(ToolStack.TAG_VOLATILE_MOD_DATA).contains(key.toString());
+    if (nbt != null && nbt.contains(ToolStack.TAG_PERSISTENT_MOD_DATA, Tag.TAG_COMPOUND)) {
+      return nbt.getCompound(ToolStack.TAG_PERSISTENT_MOD_DATA).contains(key.toString());
     }
     return false;
   }
