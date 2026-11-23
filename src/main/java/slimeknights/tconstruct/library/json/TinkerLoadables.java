@@ -88,7 +88,8 @@ public class TinkerLoadables {
   });
 
   /* Loot tables */
-  /** Loadable for a loot entry instance */
+  /** @deprecated use {@link Loadables#LOOT_ENTRY} */
+  @Deprecated(forRemoval = true)
   public static final Loadable<LootPoolEntryContainer> LOOT_ENTRY = new GsonLoadable<>(LootModifierManager.GSON_INSTANCE, LootPoolEntryContainer.class);
 
   /** Loadble requiring the argument to be an instance of the passed class */
