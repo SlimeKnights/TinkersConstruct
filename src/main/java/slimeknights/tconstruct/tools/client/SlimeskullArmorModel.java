@@ -71,7 +71,7 @@ public class SlimeskullArmorModel extends MultilayerArmorModel {
   /** Prepares the model */
   public Model setup(LivingEntity living, ItemStack stack, HumanoidModel<?> base, ArmorModel model) {
     super.setup(living, stack, EquipmentSlot.HEAD, base, model);
-    MaterialId materialId = MaterialIdNBT.from(stack).getMaterial(0).getId();
+    MaterialId materialId = MaterialIdNBT.getMaterial(stack, 0).getId();
     if (!materialId.equals(MaterialId.UNKNOWN)) {
       SkullModelBase skull = getHeadModel(materialId);
       ResourceLocation texture = HEAD_TEXTURES.get(materialId);
@@ -84,11 +84,11 @@ public class SlimeskullArmorModel extends MultilayerArmorModel {
           headColor = 0xFF000000 | ModifierUtil.getPersistentInt(stack, dyed, -1);
         } else {
           // if not dyed, color is the material, fallback to no tint if missing
-          MaterialVariantId material = MaterialIdNBT.getMaterial(stack, 1);
-          if (MaterialId.UNKNOWN.equals(material)) {
+          MaterialVariantId slime = MaterialIdNBT.getMaterial(stack, 1);
+          if (MaterialId.UNKNOWN.equals(slime)) {
             headColor = -1;
           } else {
-            headColor = MATERIAL_COLOR_CACHE.apply(material);
+            headColor = MATERIAL_COLOR_CACHE.apply(slime);
           }
         }
 

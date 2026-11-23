@@ -415,7 +415,7 @@ public abstract class MaterialSwappingRecipe implements ITinkerStationRecipe {
     @Override
     public List<ItemStack> getDisplayItems(int slot, ItemStack focus, boolean focusOutput) {
       if (slot == index && !focus.isEmpty() && (focusOutput || isTool(focus))) {
-        MaterialVariantId material = MaterialIdNBT.from(focus).getMaterial(index);
+        MaterialVariantId material = MaterialIdNBT.getMaterial(focus, index);
         // if focusing on the output, display just the part that makes that output, assuming its usable
         if (focusOutput) {
           if (part.canUseMaterial(material.getId())) {
