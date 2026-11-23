@@ -107,7 +107,7 @@ public class MaterialNBT implements Iterable<MaterialVariant> {
     // handles the case where a tool has broken material NBT without crashing
     if (index >= size) {
       for (int i = size; i < index; i++) {
-        list.add(MaterialVariant.of(IMaterial.UNKNOWN, ""));
+        list.add(MaterialVariant.UNKNOWN);
       }
       list.add(replacement);
     }
