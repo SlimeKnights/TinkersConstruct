@@ -99,6 +99,8 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
   public static final IGeometryLoader<ToolModel> LOADER = ToolModel::deserialize;
   /** Set of transform types that make tools render small */
   private static final BitSet SMALL_TOOL_TYPES = new BitSet();
+  /** Persistent data key for the set of invisible modifiers */
+  private static final ResourceLocation INVISIBLE_MODIFIERS = TConstruct.getResource("invisible_modifiers");
 
   /** Registers a new small tool transform type */
   public static synchronized void registerSmallTool(ItemDisplayContext type) {
@@ -298,7 +300,7 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
       ModifierEntry[] firsts = new ModifierEntry[firstModifiers.size()];
       if (!modifiers.isEmpty()) {
         // last, add all regular modifiers
-        Set<ModifierId> hidden = ModifierSetWorktableRecipe.getModifierSet(tool.getPersistentData(), TConstruct.getResource("invisible_modifiers"));
+        Set<ModifierId> hidden = ModifierSetWorktableRecipe.getModifierSet(tool.getPersistentData(), INVISIBLE_MODIFIERS);
         for (int i = modifiers.size() - 1; i >= 0; i--) {
           ModifierEntry entry = modifiers.get(i);
           ModifierId modifier = entry.getModifier().getId();
@@ -777,7 +779,7 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
       // build the cache key for the modifiers, based on what the modifier requests
       // for many, it is just the modifier entry, but they can have more complex keys if needed
       ImmutableList.Builder<Object> builder = ImmutableList.builder();
-      Set<ModifierId> hidden = ModifierSetWorktableRecipe.getModifierSet(tool.getPersistentData(), TConstruct.getResource("invisible_modifiers"));
+      Set<ModifierId> hidden = ModifierSetWorktableRecipe.getModifierSet(tool.getPersistentData(), INVISIBLE_MODIFIERS);
       ModifierEntry[] firstEntries = new ModifierEntry[firstModifiers.size()];
       for (ModifierEntry entry : modifiers) {
         ModifierId id = entry.getId();
