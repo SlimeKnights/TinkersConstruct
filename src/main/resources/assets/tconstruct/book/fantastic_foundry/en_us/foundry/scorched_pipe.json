@@ -1,0 +1,14 @@
+{
+  "title": "Scorched Pipe Channel",
+  "item": "tconstruct:scorched_pipe_channel",
+  "text": [
+    {
+      "text": "Moving fluids in the cramped spaces found in the nether can be difficult, so these scorched pipes can move fluids in any direction! Also comes in an encased version.",
+      "paragraph": true
+    },
+    {
+      "text": "Due to budget restrictions they still require faucets to input fluid and cannot pull fluid from drains on their own.",
+      "paragraph": true
+    }
+	]
+}

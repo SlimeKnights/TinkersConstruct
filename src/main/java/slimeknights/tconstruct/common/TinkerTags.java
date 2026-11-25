@@ -178,6 +178,9 @@ public class TinkerTags {
     /** Blocks valid in the foundry wall */
     public static final TagKey<Block> FOUNDRY_WALL = local("foundry/wall");
 
+    /** Blocks that channels auto-connect to */
+    public static final TagKey<Block> CHANNELS = local("channels");
+
     /** Blocks that the mattock is effective on */
     public static final TagKey<Block> MINABLE_WITH_MATTOCK = local("mineable/mattock");
     /** Blocks that the mattock is effective on */

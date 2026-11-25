@@ -85,6 +85,7 @@ public class RenderFluidProvider extends BlockStateDataMapProvider<List<FluidCub
 
     // faucets
     String faucet = "templates/faucet";
+    String reverseFaucet = "templates/reverse_faucet";
     String faucetUp = "templates/faucet_up";
     entry(faucet, List.of(
       FluidCuboid.builder()
@@ -96,6 +97,16 @@ public class RenderFluidProvider extends BlockStateDataMapProvider<List<FluidCub
                  .to(10, 9, 8)
                  .face(true, 0, Direction.UP, horizontal).build()
     ));
+    entry(reverseFaucet, List.of(
+      FluidCuboid.builder()
+                 .from(6, 8, 0)
+                 .to(10, 10, 6)
+                 .face(true, 0, Direction.DOWN).face(Direction.NORTH).build(),
+      FluidCuboid.builder()
+                 .from(6, 8, 6)
+                 .to(10, 16, 8)
+                 .face(true, 0, Direction.DOWN, horizontal).build()
+    ));
     entry(faucetUp, List.of(
       FluidCuboid.builder()
                  .from(6, 0, 6)
@@ -105,6 +116,9 @@ public class RenderFluidProvider extends BlockStateDataMapProvider<List<FluidCub
     ));
     block(TinkerSmeltery.searedFaucet)
       .variant(faucet).end()
+      .variant(faucetUp).when(FaucetBlock.FACING, Direction.DOWN);
+    block(TinkerSmeltery.upsideDownFaucet)
+      .variant(reverseFaucet).end()
       .variant(faucetUp).when(FaucetBlock.FACING, Direction.DOWN);
     block(TinkerSmeltery.scorchedFaucet)
       .variant(faucet).end()

@@ -1,0 +1,20 @@
+{
+  "render_type": "cutout",
+  "textures": {
+    "particle": "#texture"
+  },
+  "elements": [
+    {
+      "name": "Core",
+      "from": [ -0.001, 11, -0.001 ],
+      "to": [ 16.001, 16.001, 16.001 ],
+      "faces": {
+        "north": { "texture": "#top" },
+        "east":  { "texture": "#top" },
+        "south": { "texture": "#top" },
+        "west":  { "texture": "#top" },
+        "up":    { "texture": "#texture" }
+      }
+    }
+  ]
+}

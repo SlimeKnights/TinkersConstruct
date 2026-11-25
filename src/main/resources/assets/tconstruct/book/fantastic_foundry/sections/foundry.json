@@ -77,6 +77,11 @@
     "data": "foundry/scorched_drain.json"
   },
   {
+    "name": "scorched_pipe",
+    "type": "mantle:showcase",
+    "data": "foundry/scorched_pipe.json"
+  },
+  {
     "name": "scorched_duct",
     "type": "mantle:showcase",
     "data": "foundry/scorched_duct.json"

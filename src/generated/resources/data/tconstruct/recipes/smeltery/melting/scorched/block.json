@@ -15,6 +15,9 @@
     },
     {
       "item": "tconstruct:scorched_road_stairs"
+    },
+    {
+      "item": "tconstruct:full_block_channel"
     }
   ],
   "result": {

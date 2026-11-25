@@ -1,0 +1,62 @@
+{
+  "parent": "block/block",
+  "textures": {
+    "texture": "tconstruct:block/foundry/scorched/bricks",
+    "flow": "tconstruct:block/foundry/full_block_channel_in",
+    "open": "tconstruct:block/foundry/full_block_channel_side_in"
+  },
+  "elements": [
+    {
+      "from": [ 0, 0, 0 ],
+      "to": [ 16, 16, 16 ],
+      "faces": {
+        "north": { "texture": "#texture" },
+        "east":  { "texture": "#texture" },
+        "south": { "texture": "#texture" },
+        "west":  { "texture": "#texture" },
+        "up":    { "texture": "#texture" },
+        "down":  { "texture": "#texture" }
+      }
+    },
+    {
+      "from": [ 5, 10, -0.001 ],
+      "to": [ 11, 16, 16.001 ],
+      "faces": {
+        "north": { "texture": "#flow" },
+        "south": { "texture": "#flow" }
+      }
+    },
+    {
+      "from": [ -0.001,10, 5 ],
+      "to": [ 16.001, 16, 11 ],
+      "faces": {
+        "east":  { "texture": "#flow" },
+        "west":  { "texture": "#flow" }
+      }
+    },
+    {
+      "from": [ 5, 0, -0.001 ],
+      "to": [ 11, 6, 16.001 ],
+      "faces": {
+        "north": { "texture": "#flow" },
+        "south": { "texture": "#flow" }
+      }
+    },
+    {
+      "from": [ -0.001, 0, 5 ],
+      "to": [ 16.001, 6, 11 ],
+      "faces": {
+        "east":  { "texture": "#flow" },
+        "west":  { "texture": "#flow" }
+      }
+    },
+    {
+      "from": [ -0.001, -0.001, -0.001 ],
+      "to": [ 16.001, 16.001, 16.001 ],
+      "faces": {
+        "up": { "texture": "#open" },
+        "down": { "texture": "#open" }
+      }
+    }
+  ]
+}
