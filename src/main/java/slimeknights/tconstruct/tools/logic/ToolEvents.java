@@ -299,7 +299,7 @@ public class ToolEvents {
           ItemStack unarmed = living.getItemBySlot(EquipmentSlot.CHEST);
           if (!unarmed.isEmpty() && unarmed.is(TinkerTags.Items.UNARMED)) {
             // get the melee damage attribute
-            float damageAttr = (float) entity.getAttributeValue(Attributes.ATTACK_DAMAGE);
+            float damageAttr = (float) living.getAttributeValue(Attributes.ATTACK_DAMAGE);
             IToolStackView tool = ToolStack.from(unarmed);
             // already know the player is null
             ToolAttackContext meleeContext = ToolAttackContext.attacker(living, null).target(entity).toolAttributes(tool).addBaseDamage(originalDamage - damageAttr).slot(EquipmentSlot.CHEST, InteractionHand.MAIN_HAND).build();
