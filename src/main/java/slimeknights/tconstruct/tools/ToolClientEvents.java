@@ -49,6 +49,7 @@ import slimeknights.tconstruct.library.client.book.content.AbstractMaterialConte
 import slimeknights.tconstruct.library.client.materials.MaterialTooltipCache;
 import slimeknights.tconstruct.library.client.model.DynamicTextureLoader;
 import slimeknights.tconstruct.library.client.model.TinkerItemProperties;
+import slimeknights.tconstruct.library.client.model.tools.BlockToolModel;
 import slimeknights.tconstruct.library.client.model.tools.MaterialBlockModel;
 import slimeknights.tconstruct.library.client.model.tools.MaterialModel;
 import slimeknights.tconstruct.library.client.model.tools.ToolModel;
@@ -57,6 +58,7 @@ import slimeknights.tconstruct.library.client.modifiers.FluidModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.MaterialModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.ModifierModelManager;
 import slimeknights.tconstruct.library.client.modifiers.ModifierModelManager.ModifierModelRegistrationEvent;
+import slimeknights.tconstruct.library.client.modifiers.block.BlockModifierModelMapManager;
 import slimeknights.tconstruct.library.client.modifiers.ModifierModelMapManager;
 import slimeknights.tconstruct.library.client.modifiers.NormalModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.PotionModifierModel;
@@ -119,6 +121,8 @@ public class ToolClientEvents extends ClientEventBase {
     ArmorModelManager.init(manager);
     manager.registerReloadListener(TrimArmorTextureSupplier.CACHE_INVALIDATOR);
     ShieldBannerModifierSpriteSource.register();
+
+    manager.registerReloadListener(BlockModifierModelMapManager.INSTANCE);
   }
 
   @SubscribeEvent
@@ -126,6 +130,8 @@ public class ToolClientEvents extends ClientEventBase {
     event.register("material", MaterialModel.LOADER);
     event.register("tool", ToolModel.LOADER);
     event.register("material_block", MaterialBlockModel.LOADER);
+    
+    event.register("block_tool", BlockToolModel.LOADER);
   }
 
   @SubscribeEvent
