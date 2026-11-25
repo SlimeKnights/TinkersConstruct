@@ -252,6 +252,14 @@ public class ItemTagProvider extends ItemTagsProvider {
 
     this.tag(TinkerTags.Items.TREE_ATTACHMENTS).add(TinkerWorld.slimeSapling.get(FoliageType.ENDER).asItem());
 
+    this.tag(TinkerTags.Items.BOTANIA_BLOCK_PROVIDERS)
+      .addOptional(botania("dirt_rod"))
+      .addOptional(botania("black_hole_talisman"))
+      .addOptional(botania("ender_hand")) // technically the hand of ender does not implement BlockProvider in a way we can use, but in case it ever does we still include it
+      .addOptional(botania("cobble_rod"))
+      .addOptional(botania("skydirt_rod"))
+      .addOptional(botania("terraform_rod"));
+
     // items to fully hide from JEI
     IntrinsicTagAppender<Item> hidden = tag(HIDDEN_IN_RECIPE_VIEWERS);
     hidden.add(
@@ -802,6 +810,10 @@ public class ItemTagProvider extends ItemTagsProvider {
       this.tag(getArmorTag(type)).add(item);
       this.tag(getForgeArmorTag(type)).add(item);
     });
+  }
+
+  private ResourceLocation botania(String path) {
+    return new ResourceLocation("botania", path);
   }
 
   /** Creates a builder for a melting tag with a molten fluid */

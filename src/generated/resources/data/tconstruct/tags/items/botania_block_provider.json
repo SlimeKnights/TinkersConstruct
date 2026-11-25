@@ -1,0 +1,28 @@
+{
+  "values": [
+    {
+      "id": "botania:dirt_rod",
+      "required": false
+    },
+    {
+      "id": "botania:black_hole_talisman",
+      "required": false
+    },
+    {
+      "id": "botania:ender_hand",
+      "required": false
+    },
+    {
+      "id": "botania:cobble_rod",
+      "required": false
+    },
+    {
+      "id": "botania:skydirt_rod",
+      "required": false
+    },
+    {
+      "id": "botania:terraform_rod",
+      "required": false
+    }
+  ]
+}
