@@ -12,6 +12,7 @@ import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidType;
 import slimeknights.mantle.client.render.FluidCuboid;
+import slimeknights.mantle.client.render.FluidModel;
 import slimeknights.mantle.client.render.FluidRenderer;
 import slimeknights.mantle.client.render.MantleRenderTypes;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
@@ -67,7 +68,6 @@ public final class RenderUtils {
     TextureAtlasSprite still = FluidRenderer.getBlockSprite(attributes.getStillTexture(fluid));
     TextureAtlasSprite flowing = FluidRenderer.getBlockSprite(attributes.getFlowingTexture(fluid));
     FluidType fluidType = fluid.getFluid().getFluidType();
-    boolean isGas = fluidType.isLighterThanAir();
     light = FluidRenderer.withBlockLight(light, fluidType.getLightLevel(fluid));
 
     // add in fluid opacity if given
@@ -78,8 +78,9 @@ public final class RenderUtils {
       // clear bits in color and or in the new alpha
       color = (color & 0xFFFFFF) | (alpha << 24);
     }
-    FluidRenderer.renderCuboid(matrices, buffer.getBuffer(MantleRenderTypes.FLUID), cube, still, flowing, cube.getFromScaled(), cube.getToScaled(), color, light, isGas);
+    FluidRenderer.renderCuboid(matrices, buffer.getBuffer(MantleRenderTypes.FLUID), cube, still, flowing, cube.getFromScaled(), cube.getToScaled(), color, light);
   }
+
 
   /**
    * Add textured quads for a fluid tank
@@ -87,10 +88,34 @@ public final class RenderUtils {
    * @param buffer        Render type buffer instance
    * @param tank          Fluid tank animated to render=
    * @param light         Quad lighting
-   * @param cube          Fluid cuboid instance
+   * @param model         Fluid model instance
    * @param partialTicks  Partial ticks
    * @param flipGas       If true, flips gas cubes
    */
+  public static void renderFluidTank(PoseStack matrices, MultiBufferSource buffer, FluidModel model, FluidTankAnimated tank, int light, float partialTicks, boolean flipGas) {
+    // render liquid if present
+    FluidStack liquid = tank.getFluid();
+    int capacity = tank.getCapacity();
+    if (!liquid.isEmpty() && capacity > 0) {
+      // update render offset
+      float offset = tank.getRenderOffset();
+      if (offset > 1.2f || offset < -1.2f) {
+        offset = offset - ((offset / 12f + 0.1f) * partialTicks);
+        tank.setRenderOffset(offset);
+      } else {
+        tank.setRenderOffset(0);
+      }
+
+      // fetch fluid information from the model
+      FluidRenderer.renderScaledModel(matrices, buffer, model, liquid, offset, capacity, light, flipGas);
+    } else {
+      // clear render offet if no liquid
+      tank.setRenderOffset(0);
+    }
+  }
+
+  /** @deprecated use {@link #renderFluidTank(PoseStack, MultiBufferSource, FluidModel, FluidTankAnimated, int, float, boolean)} */
+  @Deprecated(forRemoval = true)
   public static void renderFluidTank(PoseStack matrices, MultiBufferSource buffer, FluidCuboid cube, FluidTankAnimated tank, int light, float partialTicks, boolean flipGas) {
     // render liquid if present
     FluidStack liquid = tank.getFluid();

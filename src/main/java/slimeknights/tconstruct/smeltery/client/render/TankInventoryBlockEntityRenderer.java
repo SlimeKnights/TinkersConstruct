@@ -7,12 +7,11 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
-import slimeknights.mantle.client.render.FluidCuboid;
+import slimeknights.mantle.client.render.FluidModel;
 import slimeknights.mantle.client.render.RenderItem;
 import slimeknights.mantle.client.render.RenderingHelper;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.RenderUtils;
-import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.smeltery.block.entity.ITankBlockEntity.ITankInventoryBlockEntity;
 
 import java.util.List;
@@ -26,17 +25,14 @@ public class TankInventoryBlockEntityRenderer<T extends BlockEntity & ITankInven
   @Override
   public void render(T melter, float partialTicks, PoseStack matrices, MultiBufferSource buffer, int light, int combinedOverlayIn) {
     BlockState state = melter.getBlockState();
-    List<FluidCuboid> fluids = Config.CLIENT.tankFluidModel.get() ? List.of() : FluidCuboid.REGISTRY.get(state, List.of());
+    FluidModel fluids = Config.CLIENT.tankFluidModel.get() ? FluidModel.EMPTY : FluidModel.getModel(state);
     List<RenderItem> renderItems = RenderItem.STATE_REGISTRY.get(state, List.of());
     if (!fluids.isEmpty() || !renderItems.isEmpty()) {
       // rotate the matrix
       boolean isRotated = RenderingHelper.applyRotation(matrices, state.getValue(directionProperty));
 
       // render fluids
-      FluidTankAnimated tank = melter.getTank();
-      for (FluidCuboid fluid : fluids) {
-        RenderUtils.renderFluidTank(matrices, buffer, fluid, tank, light, partialTicks, true);
-      }
+      RenderUtils.renderFluidTank(matrices, buffer, fluids, melter.getTank(), light, partialTicks, true);
 
       // render items
       // TODO: can we show count somehow?

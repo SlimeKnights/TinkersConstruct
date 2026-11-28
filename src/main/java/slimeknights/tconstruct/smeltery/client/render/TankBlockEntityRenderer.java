@@ -5,13 +5,10 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import slimeknights.mantle.client.render.FluidCuboid;
+import slimeknights.mantle.client.render.FluidModel;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.RenderUtils;
-import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.smeltery.block.entity.ITankBlockEntity;
-
-import java.util.List;
 
 public class TankBlockEntityRenderer<T extends BlockEntity & ITankBlockEntity> implements BlockEntityRenderer<T> {
   public TankBlockEntityRenderer(Context context) {}
@@ -22,12 +19,9 @@ public class TankBlockEntityRenderer<T extends BlockEntity & ITankBlockEntity> i
       return;
     }
     // render the fluid
-    List<FluidCuboid> fluids = FluidCuboid.REGISTRY.get(tile.getBlockState(), List.of());
+    FluidModel fluids = FluidModel.getModel(tile.getBlockState());
     if (!fluids.isEmpty()) {
-      FluidTankAnimated tank = tile.getTank();
-      for (FluidCuboid fluid : fluids) {
-        RenderUtils.renderFluidTank(matrixStack, buffer, fluid, tank, combinedLightIn, partialTicks, true);
-      }
+      RenderUtils.renderFluidTank(matrixStack, buffer, fluids, tile.getTank(), combinedLightIn, partialTicks, true);
     }
   }
 }
