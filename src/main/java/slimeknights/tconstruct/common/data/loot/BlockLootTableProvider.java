@@ -237,8 +237,8 @@ public class BlockLootTableProvider extends BlockLootSubProvider {
   private void addSmeltery() {
     this.dropSelf(TinkerSmeltery.grout.get());
     // controller
-    this.dropSelf(TinkerSmeltery.searedMelter.get());
-    this.dropSelf(TinkerSmeltery.searedHeater.get());
+    this.dropNameable(TinkerSmeltery.searedMelter.get());
+    this.dropNameable(TinkerSmeltery.searedHeater.get());
     this.dropTable(TinkerSmeltery.smelteryController.get());
 
     // smeltery component
@@ -256,18 +256,14 @@ public class BlockLootTableProvider extends BlockLootSubProvider {
     this.dropSelf(TinkerSmeltery.searedTintedGlass.get());
     this.dropSelf(TinkerSmeltery.searedGlassPane.get());
     this.dropSelf(TinkerSmeltery.searedSoulGlassPane.get());
-    this.dropTable(TinkerSmeltery.searedDrain.get());
-    this.dropTable(TinkerSmeltery.searedChute.get());
-    this.dropTable(TinkerSmeltery.searedDuct.get());
+    this.dropTextured(TinkerSmeltery.searedDrain.get());
+    this.dropTextured(TinkerSmeltery.searedChute.get());
+    this.dropTextured(TinkerSmeltery.searedDuct.get());
 
-    Function<Block, LootTable.Builder> dropTank = block -> droppingWithFunctions(block, builder ->
-      builder.apply(COPY_NAME).apply(CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY).copy(NBTTags.TANK, NBTTags.TANK)));
-    TinkerSmeltery.searedTank.forEach(block -> this.add(block, dropTank));
-    this.add(TinkerSmeltery.searedFluidCannon.get(), dropTank);
-    this.add(TinkerSmeltery.scorchedFluidCannon.get(), dropTank);
-    this.add(TinkerSmeltery.endFluidCannon.get(), dropTank);
-    this.add(TinkerSmeltery.searedLantern.get(), dropTank);
-    this.add(TinkerSmeltery.searedCastingTank.get(), dropTank);
+    TinkerSmeltery.searedTank.forEach(this::dropTank);
+    this.dropTank(TinkerSmeltery.searedFluidCannon.get());
+    this.dropTank(TinkerSmeltery.endFluidCannon.get());
+    this.dropTank(TinkerSmeltery.searedLantern.get());
 
     // fluid
     this.dropSelf(TinkerSmeltery.searedFaucet.get());
@@ -276,6 +272,7 @@ public class BlockLootTableProvider extends BlockLootSubProvider {
     // casting
     this.dropSelf(TinkerSmeltery.searedBasin.get());
     this.dropSelf(TinkerSmeltery.searedTable.get());
+    this.dropTank(TinkerSmeltery.searedCastingTank.get());
 
     // gauge
     this.dropSelf(TinkerSmeltery.copperGauge.get());
@@ -285,7 +282,7 @@ public class BlockLootTableProvider extends BlockLootSubProvider {
   private void addFoundry() {
     this.dropSelf(TinkerSmeltery.netherGrout.get());
     // controller
-    this.dropSelf(TinkerSmeltery.scorchedAlloyer.get());
+    this.dropNameable(TinkerSmeltery.scorchedAlloyer.get());
     this.dropTable(TinkerSmeltery.foundryController.get());
 
     // smeltery component
@@ -301,15 +298,13 @@ public class BlockLootTableProvider extends BlockLootSubProvider {
     this.dropSelf(TinkerSmeltery.scorchedTintedGlass.get());
     this.dropSelf(TinkerSmeltery.scorchedGlassPane.get());
     this.dropSelf(TinkerSmeltery.scorchedSoulGlassPane.get());
-    this.dropTable(TinkerSmeltery.scorchedDrain.get());
-    this.dropTable(TinkerSmeltery.scorchedChute.get());
-    this.dropTable(TinkerSmeltery.scorchedDuct.get());
+    this.dropTextured(TinkerSmeltery.scorchedDrain.get());
+    this.dropTextured(TinkerSmeltery.scorchedChute.get());
+    this.dropTextured(TinkerSmeltery.scorchedDuct.get());
 
-    Function<Block, LootTable.Builder> dropTank = block -> droppingWithFunctions(block, builder ->
-      builder.apply(COPY_NAME)
-             .apply(CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY).copy(NBTTags.TANK, NBTTags.TANK)));
-    TinkerSmeltery.scorchedTank.forEach(block -> this.add(block, dropTank));
-    this.add(TinkerSmeltery.scorchedLantern.get(), dropTank);
+    TinkerSmeltery.scorchedTank.forEach(this::dropTank);
+    this.dropTank(TinkerSmeltery.scorchedFluidCannon.get());
+    this.dropTank(TinkerSmeltery.scorchedLantern.get());
 
     // fluid
     this.dropSelf(TinkerSmeltery.scorchedFaucet.get());
@@ -415,20 +410,41 @@ public class BlockLootTableProvider extends BlockLootSubProvider {
   /** Copies a material block texture */
   private final LootItemFunction.Builder COPY_MATERIAL = CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY).copy(IMaterialItem.MATERIAL_TAG, IMaterialItem.MATERIAL_TAG);
   /** Properties for a standard table */
-  private final Function<Block, LootTable.Builder> ADD_TABLE = block -> droppingWithFunctions(block, (builder) ->
-    builder.apply(COPY_NAME).apply(RetexturedLootFunction::new));
+  private final Function<Block, LootTable.Builder> ADD_TABLE = block -> droppingWithFunctions(block, (builder) -> builder.apply(COPY_NAME).apply(RetexturedLootFunction::new));
+  /** Properties for a retextured block that is not nameable */
+  private final Function<Block, LootTable.Builder> DROP_TEXTURED = block -> droppingWithFunctions(block, (builder) -> builder.apply(COPY_NAME).apply(RetexturedLootFunction::new));
   /** Properties for a tinkers anvil table */
   private final Function<Block, LootTable.Builder> ADD_ANVIL = block -> droppingWithFunctions(block, (builder) ->
     builder.apply(COPY_NAME).apply(RetexturedLootFunction::new)).apply(COPY_MATERIAL);
+  /** Properties for a generic nameable */
+  private final Function<Block, LootTable.Builder> DROP_NAMEABLE = block -> droppingWithFunctions(block, builder -> builder.apply(COPY_NAME));
+  /** Properties for a tank dropping its fluid */
+  private final Function<Block, LootTable.Builder> DROP_TANK = block -> droppingWithFunctions(block, builder ->
+    builder.apply(CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY).copy(NBTTags.TANK, NBTTags.TANK)));
 
   /** Registers a block that drops with its own texture stored in NBT */
   private void dropTable(Block table) {
     this.add(table, ADD_TABLE);
   }
 
-  /** Registers a block that drops with its own texture stored in NBT */
+  /** Registers a block that drops with its own texture stored in NBT, possibly as a material */
   private void dropAnvil(Block table) {
     this.add(table, ADD_ANVIL);
+  }
+
+  /** Registers a block that drops with its own texture stored in NBT but no name */
+  private void dropTextured(Block table) {
+    this.add(table, DROP_TEXTURED);
+  }
+
+  /** Registers a block that drops with its name */
+  private void dropNameable(Block table) {
+    this.add(table, DROP_NAMEABLE);
+  }
+
+  /** Registers a block that drops with its fluid */
+  private void dropTank(Block table) {
+    this.add(table, DROP_TANK);
   }
 
   /** Registers drops for a cluster */
