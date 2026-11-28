@@ -2138,8 +2138,8 @@
 
   "material.tconstruct.pig_iron": "Pig Iron",
   "material.tconstruct.pig_iron.flavor": "The absolute best material, no debates.",
-  "material.tconstruct.pig_iron.encyclopedia": "Can be eaten to restore 1 hunger per level at 0.6 saturation at the cost of durability.",
-  "material.tconstruct.pig_iron.encyclopedia.armor": "Grants a 15% chance per level of eating the armor (consuming some durability) for 1 hunger per level at 0.6 saturation.",
+  "material.tconstruct.pig_iron.encyclopedia": "Can be eaten to restore 1 hunger per level with a 0.6 saturation modifier at the cost of durability.",
+  "material.tconstruct.pig_iron.encyclopedia.armor": "Grants a 15% chance per level of eating the armor (consuming some durability) for 1 hunger per level with a 0.6 saturation modifier.",
   "material.tconstruct.pig_iron.skull": "Zombified Piglin",
   "material.tconstruct.pig_iron.flavor.skull": "You won't like me when I'm angry!",
   "material.tconstruct.pig_iron.encyclopedia.skull": "Grants 2% protection per health lost below 11.",
@@ -2323,7 +2323,7 @@
 
   "material.tconstruct.honey": "Honey",
   "material.tconstruct.honey.flavor": "Super Sweet!",
-  "material.tconstruct.honey.encyclopedia.slime": "Grants a 15% chance per level of eating the armor (consuming some durability) for 1 hunger per level at 0.1 saturation that also cures poison.",
+  "material.tconstruct.honey.encyclopedia.slime": "Grants a 15% chance per level of eating the armor (consuming some durability) for 1 hunger per level with a 0.1 saturation modifier that also cures poison.",
 
   "material.tconstruct.venom": "Venom",
   "material.tconstruct.venom.flavor.slime": "Counterspell!",
@@ -2348,8 +2348,8 @@
 
   "material.tconstruct.cheese": "Cheese",
   "material.tconstruct.cheese.flavor": "Well Aged!",
-  "material.tconstruct.cheese.encyclopedia.ranged": "Can be eaten (consuming some durability) to restore 1 hunger at 0.4 saturation and to remove a random effect.",
-  "material.tconstruct.cheese.encyclopedia.laces": "Grants a 15% chance per level of eating the armor (consuming some durability) for 1 hunger per level at 0.4 saturation and to removes a random effect.",
+  "material.tconstruct.cheese.encyclopedia.ranged": "Can be eaten (consuming some durability) to restore 1 hunger with a 0.4 saturation modifier and to remove a random effect.",
+  "material.tconstruct.cheese.encyclopedia.laces": "Grants a 15% chance per level of eating the armor (consuming some durability) for 1 hunger per level with a 0.4 saturation modifier and to removes a random effect.",
 
   "material.tconstruct.blood": "Blood",
 
@@ -3840,8 +3840,8 @@
 
   "tool_stat.tconstruct.hunger": "Hunger: ",
   "tool_stat.tconstruct.hunger.description": "Hunger restored when eating this tool.",
-  "tool_stat.tconstruct.saturation": "Saturation: ",
-  "tool_stat.tconstruct.saturation.description": "Rate of saturation restored when eating this tool. Multiplied by hunger restored.",
+  "tool_stat.tconstruct.saturation": "Saturation Modifier: ",
+  "tool_stat.tconstruct.saturation.description": "Saturation restored is twice the hunger points supplied times this modifier, subject to the saturation cap.",
   "tool_stat.tconstruct.eat_duration": "Eating Duration: ",
   "tool_stat.tconstruct.eat_duration.description": "Time it takes to eat this tool.",
   "tool_stat.tconstruct.edible_counter_chance": "Hit Eat Chance: ",
